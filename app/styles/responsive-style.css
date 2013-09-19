@@ -1,0 +1,78 @@
+@media (max-width: 1024px) and (max-height: 768px) {
+
+	/*inputs custom*/
+	.input-width-emails {
+		width: 447px !important;
+	}
+	.input-width-tels {
+		width: 284px !important;
+	}
+	.input-cep, .input-address-number {
+		width: 130px
+	}
+	.select-width-01 {
+		width: 60px
+	}
+	.select-width-02 {
+		width: 145px
+	}
+
+	.bg-login-center {
+		background: url(../images/bg-center-mary.png);
+		width: 458px;
+		height: 418px;
+		position: absolute;
+		top: 20px;
+		left: 48%;
+		margin-left: -229px;
+	}
+	.col-left {
+		float: left;
+		width: 49%;
+	}
+	.col-right {
+		float: left;
+		width: 49%;
+	}
+	/*home scroll content*/
+	.home-scroll-content {
+		width: 825px;
+		overflow-y: auto;
+		-webkit-overflow-scrolling: touch;
+		position: fixed;
+		top: 80px;
+		bottom: 46px;
+	}
+
+	/*side bar*/
+
+	.bottom-side-bar img {
+		max-width: 186px;
+		box-shadow: -1px 1px 8px 1px #e0e0e0;
+		border-radius: 4px;
+		margin-top: 10px;
+	}
+
+	.nav-list > li > a {
+		padding: 3px 15px;
+		border-bottom: 1px dotted #d5d5d5;
+		color: #666666;
+		padding: 10px
+	}
+
+	.nav-list > .active > a, .nav-list > .active > a:hover, .nav-list > .active > a:focus {
+		color: white;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+		background-color: #5d9732;
+		border-bottom: 1px dotted #d5d5d5;
+	}
+
+	.navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
+		color: white;
+		background-color: transparent;
+	}
+	.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+		color: #ecbab9;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	}
+}

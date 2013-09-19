@@ -4,16 +4,24 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  		<meta charset="UTF-8" />
+		<meta id="viewport" name="viewport"
+		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style"
+		content="black-translucent">
+		<meta name="apple-touch-fullscreen" content="yes" />
 
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/bootstrap.css">
-        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/bootstrap-responsive-2.3.2.css">
+        <link rel="stylesheet" href="styles/responsive-style.css">
+		<link rel="stylesheet" href="styles/main.css">
+		<link rel="stylesheet" href="styles/cart.css">
+		<link rel="stylesheet" href="styles/payment.css">
+		<link rel="stylesheet" href="styles/grid-style.css">
+		<link rel="stylesheet" href="styles/new-customer.css">
+        
         <!-- endbuild -->
 </head>
   <body ng-app="glowingCatalogApp">
@@ -27,7 +35,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view=""></div>
+    <div  ng-view=""></div>
 
     <script src="bower_components/jquery/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>

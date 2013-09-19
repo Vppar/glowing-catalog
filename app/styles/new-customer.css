@@ -1,0 +1,52 @@
+/*forms*/
+.control-group {
+  margin-bottom: 0;
+}
+.form-container{
+    border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+    padding:10px 15px 0 15px
+}
+/*inputs custom*/
+.input-width-emails{
+    width: 445px;
+}
+.input-width-tels{
+    width: 280px;
+}
+.input-cep, .input-address-number{
+    width:130px
+}
+.select-width-01{
+    width:68px
+}
+.select-width-02{
+  width:145px   
+}
+   
+/*panel footer*/
+.panel-footer-new-customer{
+
+    height:40px;
+}
+
+.panel-footer-new-customer .btn{
+    background:#ecbab9;
+    text-shadow:none;
+    color:#fff;
+    border:none;
+    margin-top:7px;
+}
+.panel-footer-new-customer .btn:hover{
+    background:#dc9390;
+}
+.panel-footer-new-customer .btn:first-child{
+    float:left;
+    margin-bottom:15px
+}
+.panel-footer-new-customer .btn:last-child{
+    float:right;
+    margin-bottom:15px
+}

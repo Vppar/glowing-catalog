@@ -1,22 +1,334 @@
+/*main container*/
 body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+	background: #f7f7f7
+}
+.container {
+	width: 1024px;
+	position: absolute;
+	left: 50%;
+	margin-left: -512px;
+}
+/*btn forms*/
+.container .add-on{
+    background:#ecbab9;
+    text-shadow:none;
+    color:#fff;
+   
+}
+.container .add-on:hover{
+    background:#dc9390;
+    cursor:pointer
+}
+.panel-footer-new-customer .btn:hover{
+    background:#dc9390;
+}
+/*form login*/
+.remember-pass input[type="checkbox"] {
+	float: left;
+	margin: 4px 5px 0 0px;
+}
+.remember-pass {
+	padding: 10px;
+}
+.link-forgot-pass {
+	margin-top: 25px;
+}
+.link-forgot-pass a {
+	color: #333
+}
+.bg-login-right {
+	background: url(../images/bg-right-mary.png);
+	width: 603px;
+	height: 569px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+.bg-login-left {
+	background: url(../images/bg-left-mary.png);
+	width: 420px;
+	height: 623px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
+.bg-login-center {
+	background: url(../images/bg-center-mary.png);
+	width: 458px;
+	height: 418px;
+	position: absolute;
+	top: 20px;
+	left: 48%;
+	margin-left: -229px;
+}
+.btn-login:hover {
+	background: #e2a9a8
+}
+.btn-login {
+	background: #ecbab9;
+	border: none;
+	text-shadow: none;
+	color: #fff;
+	font-size: 14px;
+	width: 86px;
+	height: 35px;
+	padding: 5px;
+}
+.bg-login {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #faeae9
+}
+.lbl-top {
+	display: inline-block;
+	vertical-align: top;
+}
+.form-signin {
+	width: 290px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -180px
+}
+.form-signin .form-signin-heading, .form-signin .checkbox {
+	margin-bottom: 10px;
+}
+.form-signin-heading {
+	background: #000;
+	position: absolute;
+	top: -60px;
+	left: 0;
+	right: 0;
+	border-radius: 6px 6px 0 0;
+	color: #fff;
+	height: 66px
 }
 
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+.form-signin input[type="text"], .form-signin input[type="password"] {
+	font-size: 16px;
+	height: auto;
+	margin-bottom: 15px;
+	padding: 7px 9px;
+}
+/*end form login*/
+.margin-row {
+	margin-bottom: 10px
+}
+.nav {
+
+	font-size: 11px
+}
+.sidebar-menu .nav {
+	font-size: 12px
+}
+.bag {
+	background: url(../images/bag.png) no-repeat;
+	display: inline-block;
+	width: 100px;
+	width: 42px;
+	height: 36px;
+	margin: 5px 10px 0 0;
+	text-align: center;
+	padding-top: 15px
+}
+.container .navbar .nav {
+	float: none;
+	margin: 10px;
+}
+
+.text-product, .text-product2 {
+	padding: 10px;
+    
+}
+.title-products{
+padding: 10px 10px 0 10px;
+}
+.title-products{
+    font-weight:bold
+}
+.block-06 .text-product {
+	display: inline-block;
+	float: left;
+	width: 200px
+}
+
+.img-catalog-01 {
+	padding-top: 10px
+}
+/*line*/
+.line-gradient-01 {
+	text-align: center;
+}
+/* img-catalog-01 */
+.img-catalog-01 {
+	max-width: 223px;
+	margin: auto;
+    
+}
+/* img-catalog-02 */
+.img-catalog-02 {
+	text-align: center;
+    padding-top:10px
+}
+/*font colors*/
+.green {
+	color: #5d9732;
+}
+
+/*title*/
+.title-01 {
+	text-align: center;
+	padding-top: 10px;
+	font-size: 24px
+}
+.box-catalog {
+	border-radius: 6px;
+	box-shadow: -1px 1px 8px 1px #e0e0e0;
+	background: #fdfeff;
+}
+/*2 columns*/
+.col-left {
+	float: left;
+	width: 50%;
+}
+.col-right {
+	float: right;
+	width: 50%;
+}
+/*side bar*/
+.sidebar {
+	position: absolute;
+	top: 80px;
+	right: 10px;
+}
+.sidebar-menu {
+	float: right;
+	box-shadow: -1px 1px 8px 1px #e0e0e0;
+	border-radius: 4px;
+	width: 185px
+}
+.bottom-side-bar img {
+	max-width: 185px;
+	box-shadow: -1px 1px 8px 1px #e0e0e0;
+	border-radius: 4px;
+	margin-top: 10px
+}
+.nav-list > li > a {
+	padding: 3px 15px;
+	color: #666666;
+	padding: 10px;
+}
+.nav-list li a {
+	display: block;
+	border-bottom: 1px dotted #d5d5d5;
+}
+
+.nav-list  li:last-child a {
+	border-bottom: none;
+}
+
+.nav-list > .active > a, .nav-list > .active > a:hover, .nav-list > .active > a:focus {
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+	background-color: #5d9732;
+	border-bottom: 1px dotted #d5d5d5;
+}
+
+.navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
+	color: white;
+	background-color: transparent;
+}
+.navbar-inverse .brand, .navbar-inverse .nav > li > a {
+	color: #ecbab9;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.container .navbar-inner {
+	height: 66px;
+	padding-left: 0px;
+	padding-right: 10px;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	*zoom: 1;
+	background: url(../images/bg-header.png) no-repeat;
+}
+.container .navbar .brand {
+	float: left;
+	display: block;
+	padding: 0 0 0 20px;
+}
+.mary-content {
+
+}
+.home-scroll-content {
+	width: 825px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	top: 80px;
+	bottom: 46px;
+}
+
+/*footer*/
+.footer {
+	background: #000000;
+	width: 1024px;
+	position: absolute;
+	left: 50%;
+	margin-left: -512px;
+	bottom: 0;
+	border-top: 4px solid #fff;
+	box-shadow: 0px 0px 10px 0px #666;
+}
+/*footer  products*/
+.bottom-products {
+	padding: 10px 20px 10px 20px;
+	height: 30px
+}
+.bottom-products .price {
+	display: inline-block;
+	float: left;
+}
+.bottom-products .btn-plus {
+	display: inline-block;
+	float: right;
+}
+.bottom-products .btn-plus:hover {
+	cursor: pointer
+}
+/*nav-footer*/
+ul.nav-footer {
+	padding: 0;
+	margin: 0;
+	width: 650px;
+	margin: auto;
+}
+ul.nav-footer .active {
+	background: #d8c0c0;
+}
+ul.nav-footer .active a {
+	background: #d8c0c0;
+	color: #000000
+}
+ul.nav-footer li {
+	display: inline-block;
+	padding: 10px;
+	width: 192px;
+	border-right: 1px solid #fff;
+	text-align: center;
+}
+ul.nav-footer li:first-child {
+	border-left: 1px solid #fff;
+}
+ul.nav-footer li a {
+	color: #fff;
+	font-size: 14px;
 }
