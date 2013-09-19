@@ -21,6 +21,9 @@ angular.module('glowingCatalogApp', []).config(function($routeProvider) {
         controller : 'PaymentCtrl'
     }).when('/login', {
         templateUrl : 'views/login.html'
+    }).when('/edit-pass', {
+        templateUrl : 'views/edit-pass.html',
+        controller : 'EditPassCtrl'
     }).when('/delivery', {
         templateUrl : 'views/delivery.html',
         controller : 'DeliveryCtrl'
