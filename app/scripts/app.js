@@ -22,7 +22,7 @@ angular.module('glowingCatalogApp', []).config(function($routeProvider) {
     }).when('/login', {
         templateUrl : 'views/login.html'
     }).when('/edit-pass', {
-        templateUrl : 'views/edit-pass.html',
+        templateUrl : 'views/edit-pass-dialog.html',
         controller : 'EditPassCtrl'
     }).when('/delivery', {
         templateUrl : 'views/delivery.html',
