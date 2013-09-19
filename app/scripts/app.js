@@ -7,9 +7,9 @@ angular.module('glowingCatalogApp', []).config(function($routeProvider) {
     }).when('/dashboard', {
         templateUrl : 'views/dashboard.html',
         controller : 'DashboardCtrl'
-    }).when('/add-client', {
-        templateUrl : 'views/add-client.html',
-        controller : 'AddClientCtrl'
+    }).when('/add-customer', {
+        templateUrl : 'views/add-customer.html',
+        controller : 'AddCustomerCtrl'
     }).when('/catalog', {
         templateUrl : 'views/catalog.html',
         controller : 'CatalogCtrl'
