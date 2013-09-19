@@ -1,0 +1,23 @@
+.form-add-to-basket {
+	width: 360px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -180px
+}
+.form-add-to-basket .line-gradient-01 {
+	padding: 20px 0 20px 0;
+}
+.form-add-to-basket .img-catalog-02 img {
+	width: 150px;
+	float: left;
+	margin-bottom: 10px;
+}
+.form-add-to-basket .wrapper-qtde {
+	float: right;
+	margin: 30px;
+}
