@@ -1,3 +1,9 @@
+/*alpha dialog*/
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  opacity: 0.2;
+  filter: alpha(opacity=80);
+}
 /*main container*/
 body {
 	background: #f7f7f7
@@ -129,6 +135,9 @@ body {
 .sidebar-menu .nav {
 	font-size: 12px
 }
+.bag:hover{
+   cursor:pointer 
+}
 .bag {
 	background: url(../images/bag.png) no-repeat;
 	display: inline-block;
@@ -138,6 +147,38 @@ body {
 	margin: 5px 10px 0 0;
 	text-align: center;
 	padding-top: 15px
+}
+/*nav header*/
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus,
+.dropdown-submenu:hover > a,
+.dropdown-submenu:focus > a {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #d8c0c0, #d8c0c0);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d8c0c0), to(#d8c0c0));
+  background-image: -webkit-linear-gradient(top, #d8c0c0, #d8c0c0);
+  background-image: -o-linear-gradient(top, #d8c0c0, #d8c0c0);
+  background-image: linear-gradient(to bottom, #d8c0c0, #d8c0c0);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d8c0c0', endColorstr='#d8c0c0', GradientType=0);
+}
+.navbar .dropdown .dropdown-menu{
+  margin:0 0 0 -6px
+}
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.active > .dropdown-toggle,
+.navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+  color: #ffffff;
+  background-color: transparent;
+}
+.navbar .nav > li > a {
+  float: none;
+  padding: 10px 15px 10px 0;
+  color: #777777;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #ffffff;
 }
 .container .navbar .nav {
 	float: none;

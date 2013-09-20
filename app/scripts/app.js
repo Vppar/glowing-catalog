@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('glowingCatalogApp', []).config(function($routeProvider) {
+angular.module('glowingCatalogApp', ['ui.bootstrap']).config(function($routeProvider) {
     $routeProvider.when('/', {
         templateUrl : 'views/main.html',
         controller : 'MainCtrl'
@@ -22,7 +22,8 @@ angular.module('glowingCatalogApp', []).config(function($routeProvider) {
     }).when('/login', {
         templateUrl : 'views/login.html'
     }).when('/add-to-basket', {
-        templateUrl : 'views/add-to-basket-dialog.html'
+        templateUrl : 'views/add-to-basket-dialog.html',
+        controller : "AddToBasketDialogCtrl"
     }).when('/edit-pass', {
         templateUrl : 'views/edit-pass-dialog.html',
         controller : 'EditPassCtrl'
