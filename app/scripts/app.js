@@ -22,12 +22,6 @@ angular.module('glowingCatalogApp', ['ui.bootstrap']).config(function($routeProv
     }).when('/login', {
         templateUrl : 'views/login.html',
         controller : "LoginCtrl"
-    }).when('/add-to-basket', {
-        templateUrl : 'views/add-to-basket-dialog.html',
-        controller : "AddToBasketDialogCtrl"
-    }).when('/edit-pass', {
-        templateUrl : 'views/edit-pass-dialog.html',
-        controller : 'EditPassCtrl'
     }).when('/delivery', {
         templateUrl : 'views/delivery.html',
         controller : 'DeliveryCtrl'
