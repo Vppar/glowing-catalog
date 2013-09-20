@@ -20,7 +20,8 @@ angular.module('glowingCatalogApp', ['ui.bootstrap']).config(function($routeProv
         templateUrl : 'views/payment.html',
         controller : 'PaymentCtrl'
     }).when('/login', {
-        templateUrl : 'views/login.html'
+        templateUrl : 'views/login.html',
+        controller : "LoginCtrl"
     }).when('/add-to-basket', {
         templateUrl : 'views/add-to-basket-dialog.html',
         controller : "AddToBasketDialogCtrl"
