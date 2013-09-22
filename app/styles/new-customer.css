@@ -1,3 +1,21 @@
+/*dialogs*/
+.customer-tel-type{
+    width: 135px;
+}
+.row-data-dialog{
+    border-bottom:1px solid #ccc;
+    display:inline-block;
+    width:100%
+}
+.scroll-tels{
+    width:347px;
+    height:80px;
+    border:1px solid #ccc;
+    display:inline-block;
+    border-radius: 6px;
+    padding:10px;
+    overflow-y:auto;
+}
 /*forms*/
 .control-group {
   margin-bottom: 0;
