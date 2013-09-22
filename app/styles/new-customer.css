@@ -2,6 +2,9 @@
 .customer-tel-type{
     width: 135px;
 }
+.add-cusomer-input-emails{
+    width:342px
+}
 .row-data-dialog{
     border-bottom:1px solid #ccc;
     display:inline-block;
