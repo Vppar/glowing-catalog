@@ -2,6 +2,12 @@
 .customer-tel-type{
     width: 135px;
 }
+.ic-sort-triangle:hover{
+    cursor:pointer;
+}
+.add-cusomer-input-tels{
+    width:185px
+}
 .add-cusomer-input-emails{
     width:342px
 }
