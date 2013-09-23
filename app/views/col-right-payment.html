@@ -1,0 +1,75 @@
+<div class="title-right">
+					<div>
+						RECEBIMENTO
+					</div>
+				</div>
+				<div class="btns-right-payment">
+					<div class="row-right-payment">
+						<div ng-hide='moneyEdit' class="btn-payments-left"  >
+					<span >
+						<span class="lbl-money">DINHEIRO</span>
+					</span>
+					<span class="btn-price-payment" ng-click='moneyEdit = !moneyEdit'>0,00</span>
+				</div>
+				<div ng-show='moneyEdit' class="btn-payments-left">
+					<span class="container-money-payment">
+						<span class="label-money">DINHEIRO</span>
+					</span>
+					<span class="btn-price-payment-input-block input-block-level">
+ 					 	
+ 					 	<div class="input-append">
+							<input class="input-money-payment text-right" id="appendedInput" type="text">
+							<span ng-click='moneyEdit = !moneyEdit' class="add-on">OK</span>
+						</div>
+
+  					 	
+					</span>
+				</div>
+					</div>
+					<div ng-click='openDialogCheck()' class="row-right-payment">
+						<span class="lbl-money">CHEQUE ( 1 )</span><span class=""><span class="btn-price-payment">100,00</span></span>
+					</div>
+					<div ng-click='openDialogCard()' class="row-right-payment">
+						<span class="lbl-money">CART&Atilde;O ( VISA )</span><span class=""><span class="btn-price-payment">40,00</span></span>
+					</div>
+					<div class="row-right-payment">
+						<span class="lbl-money">TROCA  ( 1 produto )</span><span class=""><span class="btn-price-payment"></span></span>
+					</div>
+					<div class="row-right-payment">
+						<span class="lbl-money">ADIANTAMENTO ( 89,00 )</span><span class=""><span class="btn-price-payment">33,50</span></span>
+					</div>
+					<div class="row-right-payment">
+						<span class="lbl-money">CUPOM PROMOCIONAL ( 30,00 )</span><span class=""><span class="btn-price-payment">30,00</span></span>
+					</div>
+				</div>
+				<div class="payment-resume">
+					<div class="lbl-resume">
+						<div>
+							TOTAL RECEBIDO
+						</div>
+						<div>
+							TOTAL DO PEDIDO
+						</div>
+						<div class="red-color">
+							TROCO
+						</div>
+					</div>
+					<div class="values-resume">
+						<div>
+							253,50
+						</div>
+						<div>
+							53,50
+						</div>
+						<div class="red-color">
+							200,00
+						</div>
+					</div>
+				</div>
+				<span class="panel-payment-footer">
+					<div class="btn">
+
+						FINALIZAR
+
+					</div> 
+				</span>
