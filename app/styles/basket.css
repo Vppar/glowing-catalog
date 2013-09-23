@@ -108,6 +108,7 @@
 	height: 100%;
 	width: 1024px;
 	left: 50%;
+    top:80px;
 	margin-left: -512px;
 	-webkit-overflow-scrolling: touch;
 }
