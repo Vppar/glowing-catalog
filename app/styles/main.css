@@ -277,8 +277,8 @@ padding: 10px 10px 0 10px;
 	float: right;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
-	width: 185px
-}
+	width: 100%;
+    }
 .bottom-side-bar img {
 	max-width: 185px;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;

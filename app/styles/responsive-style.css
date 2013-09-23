@@ -36,11 +36,11 @@
 	}
 	.col-left {
 		float: left;
-		width: 49%;
+		width:405px !important;
 	}
 	.col-right {
-		float: left;
-		width: 49%;
+		float: right;
+		width:420px !important;
 	}
 	/*home scroll content*/
 	.home-scroll-content {
@@ -53,7 +53,12 @@
 	}
 
 	/*side bar*/
-
+	.sidebar-menu {
+		float: right;
+		box-shadow: -1px 1px 8px 1px #e0e0e0;
+		border-radius: 4px;
+		width: 100% !important
+	}
 	.bottom-side-bar img {
 		max-width: 186px;
 		box-shadow: -1px 1px 8px 1px #e0e0e0;

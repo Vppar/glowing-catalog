@@ -13,10 +13,11 @@
 	margin-bottom: 10px;
 }
 .block-03 {
-	width: 190px;
+	width: 192px;
 	display: inline-block;
 	margin-left: 10px;
 	margin-bottom: 10px;
+    float:right;
 }
 .block-04 {
 	width: 258px;
@@ -31,10 +32,10 @@
 	margin-bottom: 10px;
 }
 .block-06 {
-	width: 392px;
+	width: 394px;
 	display: inline-block;
-	margin-left: 10px;
-	margin-bottom: 10px;
+	margin:0 0 10px 10px;
+	
 }
 .block-07 {
 	width: 459px;
