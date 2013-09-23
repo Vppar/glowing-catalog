@@ -41,7 +41,7 @@ body {
 .container .add-on{
     background:#ecbab9;
     text-shadow:none;
-    color:#fff;
+    color:#333;
    
 }
 .container .add-on:hover{
@@ -98,7 +98,7 @@ body {
 	background: #ecbab9;
 	border: none;
 	text-shadow: none;
-	color: #fff;
+	color: #333;
 	font-size: 14px;
 	width: 86px;
 	height: 35px;
