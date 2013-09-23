@@ -18,6 +18,9 @@
 .input-cta{
     width:76px
 }
+.input-money-payment{
+    width:66px
+}
 .payment-check-block2 {
 	margin:10px auto;
 	width:222px;
@@ -88,7 +91,6 @@
     text-align:right
 }
 .btns-right-payment .btn-price-payment{
-    border:solid;
     float:right;
     width:100px;
     text-align:right;
@@ -98,6 +100,13 @@
     margin-top:-5px;
     height:20px
  
+}
+.btns-right-payment .btn-price-payment-input-block{
+    float:right;
+    text-align:right;
+    border-radius:6px;
+    margin-top:-25px;
+
 }
 .payment-resume{
    border-radius:6px;

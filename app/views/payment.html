@@ -60,7 +60,26 @@
 				</div>
 				<div class="btns-right-payment">
 					<div class="row-right-payment">
-						<span class="lbl-money">DINHEIRO</span><span class=""><span class="btn-price-payment">50,00</span></span>
+						<div ng-hide='moneyEdit' class="btn-payments-left"  >
+					<span >
+						<span class="lbl-money">DINHEIRO</span>
+					</span>
+					<span class="btn-price-payment" ng-click='moneyEdit = !moneyEdit'>0,00</span>
+				</div>
+				<div ng-show='moneyEdit' class="btn-payments-left">
+					<span class="container-money-payment">
+						<span class="label-money">DINHEIRO</span>
+					</span>
+					<span class="btn-price-payment-input-block input-block-level">
+ 					 	
+ 					 	<div class="input-append">
+							<input class="input-money-payment text-right" id="appendedInput" type="text">
+							<span ng-click='moneyEdit = !moneyEdit' class="add-on">OK</span>
+						</div>
+
+  					 	
+					</span>
+				</div>
 					</div>
 					<div ng-click='openDialogCheck()' class="row-right-payment">
 						<span class="lbl-money">CHEQUE ( 1 )</span><span class=""><span class="btn-price-payment">100,00</span></span>
