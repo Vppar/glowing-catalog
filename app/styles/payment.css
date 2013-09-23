@@ -1,7 +1,47 @@
+/*dialogs*/
+.payment-check-block1 {
+	width:330px;
+	margin:auto;
+	
+}
+.form-payment-credit-card {
+	width: 308px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -180px
+}
+.input-cta{
+    width:76px
+}
+.payment-check-block2 {
+	margin:10px auto;
+	width:222px;
+	
+}
+.payment-check-block2 .erro {
+	color: #c33a3a;
+	margin: 25px 0;
+	height: 10px
+}
+.combo-width-1{
+    width: 200px;
+}
+.combo-width {
+	width: 309px;
+}
+/*end dialogs*/
 .container-payment{
     margin:0 10px;
     position:relative;
     top:-10px
+}
+.row-right-payment:hover{
+    cursor:pointer;
 }
 .panel-payment-footer{
     position:absolute;
@@ -13,7 +53,7 @@
 .container-payment .btn{
     background:#ecbab9;
     text-shadow:none;
-    color:#fff;
+    color:#333;
     border:none;
     width:200px;
     margin:auto;

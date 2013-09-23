@@ -1,0 +1,68 @@
+<div class="container">
+
+	<form class="form-add-to-basket">
+		<span class="heading-gradient">PAGAMENTO EM CHEQUE</span>
+
+		
+		<div class="row-fluid">
+			<div class="payment-check-block1">
+
+						<div class="controls-row">
+						<div class="control-group lbl-top">
+							<label class="control-label" >Banco</label>
+							<div class="controls">
+								<input class="input-mini" type="text"  placeholder="">
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label" >Agência</label>
+							<div class="controls">
+								<input class="input-mini" type="text"  placeholder="">
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label" >Conta</label>
+							<div class="controls">
+								<input class="input-cta" type="text"  >
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label">Cheque</label>
+							<div class="controls">
+								<input class="input-mini" type="text">
+							</div>
+						</div>
+					</div>
+					</div>
+					<div class="payment-check-block2">
+						
+						<div class="controls-row">
+							<div class="control-group lbl-top" >
+							<label class="control-label">Valor</label>
+							<div class="controls">
+								<input class="input-small text-right" type="text" >
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label">Vencimento</label>
+							<div class="controls">
+								<input type="text" show-weeks="false" datepicker-popup="dd/MM/yyyy" ng-model="dt" class="date-field input-small" required>
+							</div>
+						</div>
+						</div>
+						
+					</div>
+		</div>
+		<div class="line-gradient-01">
+			<img src="images/line-gradient-01.png" alt="" />
+		</div>
+		<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
+			Voltar
+		</button>
+		<button ng-click='closeDialog()' class="btn btn-large btn-login pull-right" type="submit">
+			Confirmar
+		</button>
+
+	</form>
+
+</div>
