@@ -1,3 +1,11 @@
+.price-add-to-basket {
+	font-size: 24px;
+	text-align: center;
+	color: #b77a78;
+	padding-left: 12px;
+	margin-bottom: 10px;
+	width: 100px;
+}
 .form-add-to-basket {
 	/*width: 360px;*/
 	padding: 40px 30px 30px 30px;
