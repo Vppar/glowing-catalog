@@ -6,6 +6,12 @@
 	margin-bottom: 10px;
 	width: 100px;
 }
+.total-price-add-to-basket {
+	width: 125px;
+}
+.rose-color {
+	color: #b77a78;
+}
 .form-add-to-basket {
 	/*width: 360px;*/
 	padding: 40px 30px 30px 30px;
