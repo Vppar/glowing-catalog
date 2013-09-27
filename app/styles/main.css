@@ -31,6 +31,12 @@
 body {
 	background: #f7f7f7
 }
+.last-oportunitie{
+     background: #5d9732;
+     padding:5px;
+     text-align:center;
+     color:#fff
+}
 .container {
 	width: 1024px;
 	position: absolute;
@@ -241,6 +247,9 @@ padding: 10px 10px 0 10px;
 .img-catalog-02 {
 	text-align: center;
     padding-top:10px
+}
+.img-catalog-02 img{
+    max-width:180px
 }
 /*font colors*/
 .green {
