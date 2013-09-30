@@ -12,5 +12,11 @@ angular.module('glowingCatalogApp').controller('AddCustomerCtrl', function($scop
 			dialogClass: 'modal'
 		});
 		d.open('views/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl');
+	};
+	$scope.openDialogEditPass = function() {
+		var d = $dialog.dialog ({ backdropClick: true,
+			dialogClass: 'modal'
+		});
+		d.open('views/edit-pass-dialog.html', 'EditPassDialogCtrl');
 	}
 });

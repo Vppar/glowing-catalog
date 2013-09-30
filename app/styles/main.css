@@ -4,6 +4,20 @@
   opacity: 0.2;
   filter: alpha(opacity=80);
 }
+/*heading dialogs*/
+.heading-gradient{
+    position:absolute;
+    top:-45px;
+    left:0;
+    right:0;
+    border-radius:6px 6px 0 0;
+    padding:10px;
+    color:#fff;
+    font-size:18px;
+    padding:15px 0  15px 30px;
+    background:#000 url(../images/heading-gradient-bg.png) repeat-y;
+    
+}
 /*modal*/
 .modal {
   position: fixed;
