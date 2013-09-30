@@ -1,5 +1,8 @@
 @media (max-width: 1024px) and (max-height: 768px) {
-
+	/*add new customer*/
+	.panel-footer-new-customer{
+	    margin-right:6px;
+	}
 	/*nav header*/
 	.navbar .nav > li > a {
 		float: none;
