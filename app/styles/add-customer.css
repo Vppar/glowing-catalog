@@ -27,6 +27,17 @@
     -webkit-overflow-scrolling: touch;
 }
 /*forms*/
+.lbl-city, .lbl-complement{
+    margin-left:10px;
+}
+.lbl-tels{
+    margin-left:-15px
+}
+.input-city, .input-complement{
+    border:solid;
+    margin:0 10px 0 10px;
+    width:381px
+}
 .control-group {
   margin-bottom: 0;
 }
@@ -42,16 +53,17 @@
     width: 445px;
 }
 .input-width-tels{
-    width: 280px;
+    width: 295px;
+    margin-left: -15px;
 }
 .input-cep, .input-address-number{
-    width:130px
+    width:70px
 }
 .select-width-01{
     width:68px
 }
 .select-width-02{
-  width:145px   
+  width:84px   
 }
    
 /*panel footer*/

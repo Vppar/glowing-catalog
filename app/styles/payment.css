@@ -4,6 +4,18 @@
 	margin:auto;
 	
 }
+.modal .dropdown-menu .divider{
+    display: none;
+}
+
+.modal .dropdown-menu .btn-group{
+    display: none;
+}
+
+.modal .dropdown-menu .btn-success{
+    display: none;
+}
+
 .form-payment-credit-card {
 	width: 308px;
 	padding: 40px 30px 30px 30px;
