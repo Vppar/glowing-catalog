@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('glowingCatalogApp').controller('AddCustomerCtrl', function($scope,  $dialog) {
+angular.module('glowingCatalogApp').controller('AddCustomerCtrl', function($scope,  $dialog, $location) {
    $scope.openDialogAddCustomerTels = function() {
 		var d = $dialog.dialog ({ backdropClick: true,
 			dialogClass: 'modal'
@@ -18,5 +18,8 @@ angular.module('glowingCatalogApp').controller('AddCustomerCtrl', function($scop
 			dialogClass: 'modal'
 		});
 		d.open('views/edit-pass-dialog.html', 'EditPassDialogCtrl');
+	};
+	$scope.goToBasket = function() {
+		$location.path('basket');
 	}
 });
