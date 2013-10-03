@@ -368,7 +368,7 @@ body {
 }
 .home-scroll-content {
 	width: 825px;
-	height: 650px;
+	height: 670px;
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 	position: absolute;
