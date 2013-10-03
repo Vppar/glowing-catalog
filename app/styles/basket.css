@@ -16,7 +16,9 @@
     left:768px;
     top:10px;
 }
-
+.footer-cart .total-value span{
+	font-weight:bold
+}
 .footer-cart .btn{
     background:#ecbab9;
     text-shadow:none;
@@ -129,11 +131,16 @@
 }
 .ic-arrow-left {
 	float: left;
-	margin: 20px 0 0;
+	margin: 23px 0 0;
 }
 .ic-arrow-right {
 	float: right;
-	margin: 20px 0 0;
+	margin: 23px 0 0 ;
+	position:relative;
+	right:5px
+}
+.ic-arrow-left:hover, .ic-arrow-right:hover, .img-row-delete:hover {
+	cursor:pointer
 }
 .input-row-qtde-cart input {
 	width: 30px;
