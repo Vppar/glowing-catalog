@@ -1,9 +1,4 @@
 /*dialogs*/
-.payment-check-block1 {
-	width:330px;
-	margin:auto;
-	
-}
 .modal .dropdown-menu .divider{
     display: none;
 }
@@ -32,16 +27,6 @@
 }
 .input-money-payment{
     width:66px
-}
-.payment-check-block2 {
-	margin:10px auto;
-	width:222px;
-	
-}
-.payment-check-block2 .erro {
-	color: #c33a3a;
-	margin: 25px 0;
-	height: 10px
 }
 .combo-width-1{
     width: 200px;

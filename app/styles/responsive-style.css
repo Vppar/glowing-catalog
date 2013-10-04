@@ -1,7 +1,11 @@
 @media (max-width: 1024px) and (max-height: 768px) {
+
+	.grid-payment-check .header .col-7{
+		width: 15%;
+	}
 	/*add new customer*/
-	.panel-footer-new-customer{
-	    margin-right:6px;
+	.panel-footer-new-customer {
+		margin-right: 6px;
 	}
 	/*nav header*/
 	.navbar .nav > li > a {
@@ -39,11 +43,11 @@
 	}
 	.col-left {
 		float: left;
-		width:405px !important;
+		width: 405px !important;
 	}
 	.col-right {
 		float: right;
-		width:420px !important;
+		width: 420px !important;
 	}
 	/*home scroll content*/
 	.home-scroll-content {
