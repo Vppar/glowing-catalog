@@ -1,0 +1,139 @@
+.row-payment-check-grid{
+	margin-left:10px
+}
+.form-payment-check .btn-plus-payment-check{
+	margin-top:25px;
+}
+.row-payment-check-grid .btn{
+	background:#ecbab9;
+	text-shadow:none;
+	border:none;
+	height:30px
+}
+.row-payment-check-grid .btn:hover{
+	background:#e2a9a8;	
+	text-shadow:none;
+	border:none;
+	height:30px
+}
+.btn-plus-payment-check{
+	background:#ecbab9;
+	text-shadow:none;
+	border:none;
+	height:30px
+}
+.btn-plus-payment-check:hover{
+background:#e2a9a8;	
+}
+/*grid payment check*/
+.grid-payment-check {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-payment-grid {
+	height: 200px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-payment-check .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-payment-check .header span, .grid-payment-check .scroll-payment-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-check .scroll-payment-grid .row-payment-check-grid {
+	border-bottom: 1px solid #ccc
+}
+.grid-payment-check .header .col-1{
+	width: 67px;
+	text-align:center
+}
+.grid-payment-check .header .col-2{
+	width: 97px;
+	text-align:center
+}
+.grid-payment-check .header .col-3{
+	width: 97px;
+	text-align:center
+}
+.grid-payment-check .header .col-4{
+	width: 97px;
+	text-align:center
+}
+.grid-payment-check .header .col-5{
+	width: 90px;
+	text-align:center
+}
+.grid-payment-check .header .col-6{
+	width: 80px;
+	text-align:center
+}
+
+.row-payment-check-grid .col-1{
+	width: 67px;
+	text-align:center
+}
+.row-payment-check-grid .col-2{
+	width: 97px;
+	text-align:center
+}
+.row-payment-check-grid .col-3{
+	width: 97px;
+	text-align:center
+}
+.row-payment-check-grid .col-4{
+	width: 97px;
+	text-align:center
+}
+.row-payment-check-grid .col-5{
+	width: 90px;
+	text-align:center
+}
+.row-payment-check-grid .col-6{
+	width: 80px;
+	text-align:center
+}
+.row-payment-check-grid .col-6 div{
+	text-align:right
+}
+.grid-payment-check .header .col-7{
+	width: 15%;
+}
+ .row-payment-check-grid .col-7{
+	 float:right;
+	 margin-right:10px
+ }
+/*end grid payment check*/
+.rose-color {
+	color: #b77a78;
+}
+.form-payment-check {
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -298px;
+	width:596px
+}
+.form-add-email {
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -180px
+}
+.form-payment-check .line-gradient-01 {
+	padding: 20px 0 20px 0;
+}
+
+.form-payment-check .wrapper-qtde {
+	float: right;
+	margin: 30px;
+}
