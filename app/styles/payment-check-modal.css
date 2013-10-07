@@ -45,12 +45,53 @@ background:#e2a9a8;
 .grid-payment-check .scroll-payment-grid .row-payment-check-grid {
 	border-bottom: 1px solid #ccc
 }
-.grid-payment-check .header .col-1, .grid-payment-check .header .col-2, .grid-payment-check .header .col-3, .grid-payment-check .header .col-4, .grid-payment-check .header .col-5, .grid-payment-check .header .col-6 {
-	width: 14.6%;
+.grid-payment-check .header .col-1{
+	width: 67px;
 	text-align:center
 }
-.row-payment-check-grid .col-1, .row-payment-check-grid .col-2, .row-payment-check-grid .col-3, .row-payment-check-grid .col-4, .row-payment-check-grid .col-5, .row-payment-check-grid .col-6{
-	width: 15%;
+.grid-payment-check .header .col-2{
+	width: 97px;
+	text-align:center
+}
+.grid-payment-check .header .col-3{
+	width: 97px;
+	text-align:center
+}
+.grid-payment-check .header .col-4{
+	width: 97px;
+	text-align:center
+}
+.grid-payment-check .header .col-5{
+	width: 90px;
+	text-align:center
+}
+.grid-payment-check .header .col-6{
+	width: 80px;
+	text-align:center
+}
+
+.row-payment-check-grid .col-1{
+	width: 67px;
+	text-align:center
+}
+.row-payment-check-grid .col-2{
+	width: 97px;
+	text-align:center
+}
+.row-payment-check-grid .col-3{
+	width: 97px;
+	text-align:center
+}
+.row-payment-check-grid .col-4{
+	width: 97px;
+	text-align:center
+}
+.row-payment-check-grid .col-5{
+	width: 90px;
+	text-align:center
+}
+.row-payment-check-grid .col-6{
+	width: 80px;
 	text-align:center
 }
 .row-payment-check-grid .col-6 div{
@@ -61,7 +102,7 @@ background:#e2a9a8;
 }
  .row-payment-check-grid .col-7{
 	 float:right;
-	 margin-right:5px
+	 margin-right:10px
  }
 /*end grid payment check*/
 .rose-color {

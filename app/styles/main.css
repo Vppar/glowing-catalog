@@ -3,6 +3,12 @@
 	opacity: 0.2;
 	filter: alpha(opacity=80);
 }
+/*btns*/
+.btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+  color: #333333;
+  background-color: #ecbab9;
+  *background-color: #d9d9d9;
+}
 /*icons input calendar*/
 [class^="icon-"],
 [class*=" icon-"] {
