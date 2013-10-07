@@ -1,9 +1,7 @@
 'use strict';
 
 angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dialog, $location) {
-   $scope.awesomeThings = [
-        'HTML5 Boilerplate', 'AngularJS', 'Karma'
-    ];
+
     $scope.openDialogAddToBasket = function() {
 		var d = $dialog.dialog ({ backdropClick: true,
 			dialogClass: 'modal'
@@ -19,4 +17,11 @@ angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dia
 	$scope.goToBasket = function() {
 		$location.path('basket');
 	}
+	$scope.openDialogChooseCustomer = function() {
+		var d = $dialog.dialog ({ backdropClick: true,
+			dialogClass: 'modal'
+		});
+		d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
+	}
+
 });
