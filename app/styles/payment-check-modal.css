@@ -46,7 +46,7 @@ background:#e2a9a8;
 	border-bottom: 1px solid #ccc
 }
 .grid-payment-check .header .col-1{
-	width: 67px;
+	width: 60px;
 	text-align:center
 }
 .grid-payment-check .header .col-2{
@@ -71,7 +71,7 @@ background:#e2a9a8;
 }
 
 .row-payment-check-grid .col-1{
-	width: 67px;
+	width: 60px;
 	text-align:center
 }
 .row-payment-check-grid .col-2{
@@ -117,7 +117,7 @@ background:#e2a9a8;
 	left: 50%;
 	top: 111px;
 	margin-left: -298px;
-	width:596px
+	width:600px
 }
 .form-add-email {
 	padding: 40px 30px 30px 30px;
