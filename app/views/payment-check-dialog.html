@@ -1,0 +1,89 @@
+<div class="container">
+
+	<form class="form-payment-check">
+		<span class="heading-gradient">PAGAMENTO EM CHEQUE</span>
+
+		
+		<div class="row-fluid">
+			
+
+						<div>
+							<div class="controls-row">
+						<div class="control-group lbl-top">
+							<label class="control-label" >Banco</label>
+							<div class="controls">
+								<input class="input-mini" type="text"  placeholder="">
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label" >Agência</label>
+							<div class="controls">
+								<input class="input-mini" type="text"  placeholder="">
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label" >Conta</label>
+							<div class="controls">
+								<input class="input-cta" type="text"  >
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label">Cheque</label>
+							<div class="controls">
+								<input class="input-mini" type="text">
+							</div>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label">Vencimento</label>
+							<div class="controls">
+								<input type="text" show-weeks="false" datepicker-popup="dd/MM/yyyy" ng-model="dt" class="date-field input-small" required>
+							</div>
+						</div>
+						<div class="control-group lbl-top" >
+							<label class="control-label">Valor</label>
+							<div class="controls">
+								<input class="input-small text-right" type="text" >
+							</div>
+						</div>
+						<div class="control-group lbl-top" >
+							<div class="controls">
+								<button  class="btn btn-plus-payment-check" type="submit">+</button>
+							</div>
+						</div>
+					</div>
+						</div>
+						<div class="grid-payment-check">
+							<div class="header">
+								<div class="row-payment-check-grid">
+									<span class="col-1"><div>Banco</div></span><span class="col-2"><div>Agência</div></span><span class="col-3"><div>Conta</div></span><span class="col-4"><div>Cheque</div></span><span class="col-5"><div>Vencimento</div></span><span class="col-6"><div>Valor</div></span><span class="col-7"></span>
+								</div>
+							</div>
+							<div class="scroll-payment-grid">
+								<div class="row-payment-check-grid">
+									<span class="col-1"><div>123</div></span><span class="col-2"><div>1258-9</div></span><span class="col-3"><div>00123-45</div></span><span class="col-4"><div>2425-56</div></span><span class="col-5"><div>11/12/2013</div></span><span class="col-6"><div>2.356,22</div></span><span class="col-7"><div class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
+								</div>
+								<div class="row-payment-check-grid">
+									<span class="col-1"><div>123</div></span><span class="col-2"><div>1258-9</div></span><span class="col-3"><div>00123-45</div></span><span class="col-4"><div>2425-56</div></span><span class="col-5"><div>11/12/2013</div></span><span class="col-6"><div>2.356,22</div></span><span class="col-7"><div class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
+								</div>
+								<div class="row-payment-check-grid">
+									<span class="col-1"><div>123</div></span><span class="col-2"><div>1258-9</div></span><span class="col-3"><div>00123-45</div></span><span class="col-4"><div>2425-56</div></span><span class="col-5"><div>11/12/2013</div></span><span class="col-6"><div>2.356,22</div></span><span class="col-7"><div class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
+								</div>
+							
+							</div>
+						</div>
+				
+					
+						
+					
+		</div>
+		<div class="clearfix"></div><hr />
+		<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
+			Cancelar
+		</button>
+		<button ng-click='closeDialog()' class="btn btn-large btn-login pull-right" type="submit">
+			Confirmar
+		</button>
+
+	</form>
+
+</div>

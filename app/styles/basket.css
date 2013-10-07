@@ -1,0 +1,148 @@
+/*cart*/
+.footer-cart{
+    width:1024px;
+    position:absolute;
+    z-index: 999;
+    bottom:0;
+    left:50%;
+    margin-left:-512px;
+    background:#fff;
+    height:40px;
+    border-top: solid 1px #e0e0e0
+}
+.footer-cart .total-value{
+    position:absolute;
+    z-index: 9999;
+    left:768px;
+    top:10px;
+}
+.footer-cart .total-value span{
+	font-weight:bold
+}
+.footer-cart .btn{
+    background:#ecbab9;
+    text-shadow:none;
+    border:none;
+    margin-top:7px;
+}
+.footer-cart .btn:hover{
+    background:#dc9390;
+}
+.footer-cart .btn:first-child{
+    float:left;
+    margin-left:10px;
+}
+.footer-cart .btn:last-child{
+    float:right;
+    margin-right:10px;
+}
+.low-status{
+    color:#d34343
+}
+.wrapper-qtde {
+	display: inline-block;
+	width: 100px;
+  
+}
+.txt-row-price {
+	display: inline-block;
+	width: 200px
+}
+.txt-row-price div{
+	width: 70px;
+    margin:auto;
+    text-align:right;
+}
+.img-row-delete {
+	display: inline-block;
+	width: 20px;
+	margin-left: 10px;
+}
+.input-qtde {
+	display:block;
+	width: 125px;
+    margin:auto;
+}
+.txt-row-status {
+	width: 120px;
+	display: inline-block;
+}
+.txt-row-status div{
+    max-width:95px;
+    margin:auto;
+    text-align:center
+   
+    
+
+}
+.thumb-row-cart img {
+	min-width: 90px;
+	padding: 5px;
+}
+.txt-row-description {
+	display: inline-block;
+	width: 400px
+}
+.row-cart {
+	border-radius: 6px;
+	margin: 0 10px 10px 10px;
+	height: 100px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	vertical-align: middle;
+}
+
+.row-cart span {
+	siplay: inline-block;
+	vertical-align: middle;
+}
+.table th, .table td {
+	padding: 8px;
+	line-height: 20px;
+	text-align: left;
+	vertical-align: middle;
+	/* border-top: 1px solid #dddddd; */
+}
+
+.cart-scroll-content {
+	overflow-y: auto;
+	position: fixed;
+	height: 100%;
+	width: 1024px;
+	left: 50%;
+    top:80px;
+	margin-left: -512px;
+	-webkit-overflow-scrolling: touch;
+}
+
+.label-input div:first-child {
+	display: block;
+	text-align: center;
+}
+
+.label-input {
+	display: inline-block;
+	margin: 0 20px
+}
+.title-row-cart {
+	font-weight: bold;
+    display: inline-block;
+    width:310px;
+}
+.ic-arrow-left {
+	float: left;
+	margin: 23px 0 0;
+}
+.ic-arrow-right {
+	float: right;
+	margin: 23px 0 0 ;
+	position:relative;
+	right:5px
+}
+.ic-arrow-left:hover, .ic-arrow-right:hover, .img-row-delete:hover {
+	cursor:pointer
+}
+.input-row-qtde-cart input {
+	width: 30px;
+	text-align: center;
+}
