@@ -1,3 +1,10 @@
+.footer-product-right{
+	clear:both;
+	height:80px;
+}
+.footer-product-right .last-oportunitie{
+	margin-top:-10px
+}
 /*alpha dialog*/
 .modal-backdrop, .modal-backdrop.fade.in {
 	opacity: 0.2;
@@ -392,20 +399,36 @@ body {
 	border-top: 4px solid #fff;
 	box-shadow: 0px 0px 10px 0px #666;
 }
-/*footer  products*/
-.bottom-products {
+/*footer  products left*/
+.bottom-products-left {
 	padding: 10px 20px 10px 20px;
 	height: 30px
 }
-.bottom-products .price {
+.bottom-products-left .price {
 	display: inline-block;
 	float: left;
 }
-.bottom-products .btn-plus {
+.bottom-products-left .btn-plus {
 	display: inline-block;
 	float: right;
 }
-.bottom-products .btn-plus:hover {
+.bottom-products-left .btn-plus:hover {
+	cursor: pointer
+}
+/*footer  products right*/
+.bottom-products-right {
+	padding: 10px 20px 10px 20px;
+	height: 30px
+}
+.bottom-products-right .price {
+	display: inline-block;
+	float: left;
+}
+.bottom-products-right .btn-plus {
+	display: inline-block;
+	float: right;
+}
+.bottom-products-right .btn-plus:hover {
 	cursor: pointer
 }
 /*nav-footer*/
