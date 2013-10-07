@@ -1,9 +1,28 @@
+/*footer  products right*/
+.footer-product-right-01 .bottom-products-right {
+	padding: 10px 20px 10px 20px;
+}
+.footer-product-right-02 .bottom-products-right {
+	padding: 18px 20px 10px 20px;
+}
+.footer-product-right-03 .bottom-products-right {
+	padding: 25px 20px 10px 20px;
+}
+.footer-product-right-03 .divider{
+	margin: 10px 0 10px 0;
+	clear:both;
+	float:left
+}
 .footer-product-right{
 	clear:both;
-	height:80px;
+
 }
-.footer-product-right .last-oportunitie{
-	margin-top:-10px
+.footer-product-right-01 .divider{
+	margin-top:10px
+}
+.footer-product-right-02 .last-oportunitie{
+	margin-top:-8px;
+	clear:both
 }
 /*alpha dialog*/
 .modal-backdrop, .modal-backdrop.fade.in {
@@ -415,11 +434,7 @@ body {
 .bottom-products-left .btn-plus:hover {
 	cursor: pointer
 }
-/*footer  products right*/
-.bottom-products-right {
-	padding: 10px 20px 10px 20px;
-	height: 30px
-}
+
 .bottom-products-right .price {
 	display: inline-block;
 	float: left;
