@@ -1,4 +1,13 @@
 @media (max-width: 1024px) and (max-height: 768px) {
+	
+	
+	.panel-payment-footer-right {
+		position: absolute;
+		bottom: 0;
+		top: 532px;
+		width: 200px;
+		right:22px !important
+	}
 	.form-payment-check {
 		padding: 40px 30px 30px 30px;
 		border-radius: 0 0 6px 6px;
