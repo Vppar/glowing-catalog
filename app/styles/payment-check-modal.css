@@ -1,3 +1,7 @@
+.btn-plus-pink{
+	position:relative;
+	top:25px
+}
 .row-payment-check-grid{
 	margin-left:10px
 }
@@ -117,7 +121,6 @@ background:#e2a9a8;
 	left: 50%;
 	top: 111px;
 	margin-left: -298px;
-	width:600px
 }
 .form-add-email {
 	padding: 40px 30px 30px 30px;
