@@ -88,9 +88,10 @@
 	/*home scroll content*/
 	.home-scroll-content {
 		width: 825px;
+		height: 670px !important;
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
-		position: fixed;
+		position: absolute !important;
 		top: 80px;
 		bottom: 46px;
 	}

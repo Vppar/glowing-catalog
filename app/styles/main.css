@@ -423,12 +423,13 @@ body {
 
 }
 .home-scroll-content {
-	width: 825px;
-	height: 670px;
-	overflow-y: auto;
+	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: absolute;
+	width: 825px;
+	position: fixed;
 	top: 70px;
+	bottom:0;
+	
 }
 
 /*footer*/
