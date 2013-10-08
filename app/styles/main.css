@@ -1,3 +1,47 @@
+
+.block-product-01{
+	height:249px;
+	clear:both
+}
+.block-product-04{
+	clear:both;
+	height:238px
+	
+}
+.block-product-05{
+	clear:both;
+	height:28px
+	
+}
+.block-product-02{
+	height:60px;
+	clear:both
+}
+.footer-product-right-01 .bottom-products-right {
+	padding: 10px 20px 10px 20px;
+}
+.footer-product-right-02 .bottom-products-right {
+	padding: 18px 20px 10px 20px;
+}
+.footer-product-right-03 .bottom-products-right {
+	padding: 25px 20px 10px 20px;
+}
+.footer-product-right-03 .divider{
+	margin: 10px 0 10px 0;
+	clear:both;
+	float:left
+}
+.footer-product-right{
+	clear:both;
+
+}
+.footer-product-right-01 .divider{
+	margin-top:10px
+}
+.footer-product-right-02 .last-oportunitie{
+	margin-top:-8px;
+	clear:both
+}
 /*alpha dialog*/
 .modal-backdrop, .modal-backdrop.fade.in {
 	opacity: 0.2;
@@ -245,8 +289,15 @@ body {
 	margin: 10px;
 }
 
-.text-product, .text-product2 {
+.text-product{
 	padding: 10px;
+	max-height:70px;
+	overflow:hidden;
+}
+.text-product2 {
+	padding: 10px;
+	max-height:35px;
+	overflow:hidden;
 }
 .title-products {
 	padding: 10px 10px 0 10px;
@@ -392,20 +443,32 @@ body {
 	border-top: 4px solid #fff;
 	box-shadow: 0px 0px 10px 0px #666;
 }
-/*footer  products*/
-.bottom-products {
+/*footer  products left*/
+.bottom-products-left {
 	padding: 10px 20px 10px 20px;
 	height: 30px
 }
-.bottom-products .price {
+.bottom-products-left .price {
 	display: inline-block;
 	float: left;
 }
-.bottom-products .btn-plus {
+.bottom-products-left .btn-plus {
 	display: inline-block;
 	float: right;
 }
-.bottom-products .btn-plus:hover {
+.bottom-products-left .btn-plus:hover {
+	cursor: pointer
+}
+
+.bottom-products-right .price {
+	display: inline-block;
+	float: left;
+}
+.bottom-products-right .btn-plus {
+	display: inline-block;
+	float: right;
+}
+.bottom-products-right .btn-plus:hover {
 	cursor: pointer
 }
 /*nav-footer*/
