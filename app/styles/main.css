@@ -1,4 +1,22 @@
-/*footer  products right*/
+
+.block-product-01{
+	height:249px;
+	clear:both
+}
+.block-product-04{
+	clear:both;
+	height:238px
+	
+}
+.block-product-05{
+	clear:both;
+	height:28px
+	
+}
+.block-product-02{
+	height:60px;
+	clear:both
+}
 .footer-product-right-01 .bottom-products-right {
 	padding: 10px 20px 10px 20px;
 }
@@ -271,8 +289,15 @@ body {
 	margin: 10px;
 }
 
-.text-product, .text-product2 {
+.text-product{
 	padding: 10px;
+	max-height:70px;
+	overflow:hidden;
+}
+.text-product2 {
+	padding: 10px;
+	max-height:35px;
+	overflow:hidden;
 }
 .title-products {
 	padding: 10px 10px 0 10px;

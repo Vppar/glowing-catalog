@@ -1,14 +1,14 @@
 /*dialogs*/
-.modal .dropdown-menu .divider{
-    display: none;
+.modal .dropdown-menu .divider {
+	display: none;
 }
 
-.modal .dropdown-menu .btn-group{
-    display: none;
+.modal .dropdown-menu .btn-group {
+	display: none;
 }
 
-.modal .dropdown-menu .btn-success{
-    display: none;
+.modal .dropdown-menu .btn-success {
+	display: none;
 }
 
 .form-payment-credit-card {
@@ -22,172 +22,169 @@
 	top: 111px;
 	margin-left: -180px
 }
-.input-cta{
-    width:76px
+.input-cta {
+	width: 76px
 }
-.input-money-payment{
-    width:66px
+.input-money-payment {
+	width: 66px
 }
-.combo-width-1{
-    width: 200px;
+.combo-width-1 {
+	width: 200px;
 }
 .combo-width {
 	width: 309px;
 }
 /*end dialogs*/
-.container-payment{
-    margin:0 10px;
-    position:relative;
-    top:-10px
+.container-payment {
+	margin: 0 10px;
+	position: relative;
+	top: -10px
 }
-.row-right-payment:hover{
-    cursor:pointer;
+.row-right-payment:hover {
+	cursor: pointer;
 }
-.panel-payment-footer{
-    position:absolute;
-    bottom:0;
-    top:540px;
-    width:200px;
-   
+.panel-payment-footer {
+	position: absolute;
+	bottom: 0;
+	top: 532px;
+	width: 200px;
 }
-.container-payment .btn{
-    background:#ecbab9;
-    text-shadow:none;
-    color:#333;
-    border:none;
-    width:200px;
-    margin:auto;
-    position:absolute;
-    left:130px;
-    padding:10px;
-    
+.container-payment .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	color: #333;
+	border: none;
+	width: 200px;
+	margin: auto;
+	position: absolute;
+	left: 130px;
+	padding: 10px;
 }
-.container-payment .btn:hover{
-    background:#dc9390;
-    cursor:pointer;
+.container-payment .btn:hover {
+	background: #dc9390;
+	cursor: pointer;
 }
 
-.btns-right-payment .row-right-payment{
-   border-radius:6px;
-   border:1px solid #e0e0e0;
-   margin-top:10px;
-   padding:11px 5px 12px 20px;
+.btns-right-payment .row-right-payment {
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	margin-top: 10px;
+	padding: 11px 5px 12px 20px;
 }
-.payment-resume div{
-    line-height:30px
+.payment-resume div {
+	line-height: 30px
 }
-.red-color{
-	color:#ff2839
+.red-color {
+	color: #ff2839
 }
-.payment-resume .lbl-resume{
-    float:left;
-    margin-left:100px;
+.payment-resume .lbl-resume {
+	float: left;
+	margin-left: 10px;
 }
-.payment-resume .values-resume{
-    float:right;
-    text-align:right
+.payment-resume .values-resume {
+	float: right;
+	text-align: right;
+	margin-right:10px
 }
-.btns-right-payment .btn-price-payment{
-    float:right;
-    width:100px;
-    text-align:right;
-    border:1px solid #e0e0e0;
-    border-radius:6px;
-    padding:5px;
-    margin-top:-5px;
-    height:20px
- 
+.btns-right-payment .btn-price-payment {
+	float: right;
+	width: 100px;
+	text-align: right;
+	border: 1px solid #e0e0e0;
+	border-radius: 6px;
+	padding: 5px;
+	margin-top: -5px;
+	height: 20px
 }
-.btns-right-payment .btn-price-payment-input-block{
-    float:right;
-    text-align:right;
-    border-radius:6px;
-    margin-top:-25px;
-
+.btns-right-payment .btn-price-payment-input-block {
+	float: right;
+	text-align: right;
+	border-radius: 6px;
+	margin-top: -25px;
 }
-.payment-resume{
-   border-radius:6px;
-    background:#333;
-    color:#fff;
-    padding:10px;
-    width:470px;
-    position:absolute;
-    top:420px;  
+.payment-resume {
+	border-radius: 4px;
+	color: #333;
+	padding: 10px;
+	width: 470px;
+	position: absolute;
+	top: 400px;
+	background:#e6e6e6 
+	
 }
-.customer-info{
-    border-radius:6px;
-    background:#333;
-    color:#fff;
-    padding:10px;
-    width:470px;
-    position:absolute;
-    top:420px;
-    
+.customer-info {
+	border-radius: 4px;
+	color: #fff;
+	padding: 10px 10px 10px 10px;
+	width: 470px;
+	position: absolute;
+	top: 400px;
+	color:#333;
+	background:#e6e6e6 
+	
 }
 
 /*scroll left*/
-.left-payment .content-scroll{
-    height:260px;
-    overflow-y:auto;
-    /*position:absolute;*/
-    -webkit-overflow-scrolling: touch;
+.left-payment .content-scroll {
+	height: 260px;
+	overflow-y: auto;
+	/*position:absolute;*/
+	-webkit-overflow-scrolling: touch;
 }
-.left-payment .header, .left-payment .header2, .left-payment .content-scroll div{
-	border-bottom:1px solid #ccc;
-	line-height:40px;
-	
+.left-payment .header, .left-payment .header2, .left-payment .content-scroll div {
+	border-bottom: 1px solid #ccc;
+	line-height: 40px;
 }
-.left-payment .header .col-1, .left-payment .header2 .col-1{
-	width:290px;
-	display:inline-block;
-	font-weight:bold
+.left-payment .header .col-1, .left-payment .header2 .col-1 {
+	width: 290px;
+	display: inline-block;
+	font-weight: bold
 }
-.left-payment .header .col-2, .left-payment .header2 .col-2{
-	width:80px;
-	display:inline-block;
-	text-align:center;
-	font-weight:bold
+.left-payment .header .col-2, .left-payment .header2 .col-2 {
+	width: 80px;
+	display: inline-block;
+	text-align: center;
+	font-weight: bold
 }
-.left-payment .header .col-3, .left-payment .header2 .col-3{
-	width:100px;
-	display:inline-block;
-	text-align:right;
-	font-weight:bold
+.left-payment .header .col-3, .left-payment .header2 .col-3 {
+	width: 100px;
+	display: inline-block;
+	text-align: right;
+	font-weight: bold
 }
-.left-payment .content-scroll .col-1{
-	width:290px;
-	display:inline-block;
-	line-height:20px
+.left-payment .content-scroll .col-1 {
+	width: 290px;
+	display: inline-block;
+	line-height: 20px
 }
-.left-payment .content-scroll .col-2{
-	width:80px;
-	display:inline-block;
-	text-align:center
+.left-payment .content-scroll .col-2 {
+	width: 80px;
+	display: inline-block;
+	text-align: center
 }
-.left-payment .content-scroll .col-3{
-	width:100px;
-	display:inline-block;
-	text-align:right;
-	
+.left-payment .content-scroll .col-3 {
+	width: 100px;
+	display: inline-block;
+	text-align: right;
 }
 /* end scroll left*/
-.txt-info-customer{
-    line-height:30px;
-}  
+.txt-info-customer {
+	line-height: 30px;
+	margin-left:10px
+}
 .title-left {
-	border-radius: 6px;
+	border-radius: 4px;
 	background: #ecbab9;
-	box-shadow: 0px 4px 8px 0px #ccc;
 }
 .title-left div {
 	text-align: center;
 	vertical-align: middle;
 	padding: 12px 0 12px 0;
-}
+	color: #333;}
 .title-right {
-	border-radius: 6px;
+	border-radius: 4px;
 	background: #ecbab9;
-	box-shadow: 0px 4px 8px 0px #ccc;
+	color:#333
 }
 .title-right div {
 	text-align: center;
