@@ -43,11 +43,18 @@
 .row-right-payment:hover {
 	cursor: pointer;
 }
-.panel-payment-footer {
+.panel-payment-footer-left {
 	position: absolute;
 	bottom: 0;
-	top: 532px;
+	top: 523px;
 	width: 200px;
+}
+.panel-payment-footer-right {
+	position: absolute;
+	bottom: 0;
+	top: 523px;
+	width: 200px;
+	right:20px
 }
 .container-payment .btn {
 	background: #ecbab9;
@@ -57,7 +64,6 @@
 	width: 200px;
 	margin: auto;
 	position: absolute;
-	left: 130px;
 	padding: 10px;
 }
 .container-payment .btn:hover {
@@ -136,12 +142,12 @@
 	line-height: 40px;
 }
 .left-payment .header .col-1, .left-payment .header2 .col-1 {
-	width: 290px;
+	width: 310px;
 	display: inline-block;
 	font-weight: bold
 }
 .left-payment .header .col-2, .left-payment .header2 .col-2 {
-	width: 80px;
+	width: 60px;
 	display: inline-block;
 	text-align: center;
 	font-weight: bold
@@ -158,12 +164,12 @@
 	line-height: 20px
 }
 .left-payment .content-scroll .col-2 {
-	width: 80px;
+	width: 95px;
 	display: inline-block;
 	text-align: center
 }
 .left-payment .content-scroll .col-3 {
-	width: 100px;
+	width: 80px;
 	display: inline-block;
 	text-align: right;
 }
@@ -175,21 +181,22 @@
 .title-left {
 	border-radius: 4px;
 	background: #ecbab9;
+	padding: 10px 0 10px 0;
 }
 .title-left div {
 	text-align: center;
 	vertical-align: middle;
-	padding: 12px 0 12px 0;
 	color: #333;}
 .title-right {
 	border-radius: 4px;
 	background: #ecbab9;
-	color:#333
-}
+	color: #333;
+	padding: 10px 0 10px 0;
+	}
 .title-right div {
 	text-align: center;
 	vertical-align: middle;
-	padding: 12px 0 12px 0;
+	
 }
 .container-payment .table th, .table {
 	padding: 8px;
