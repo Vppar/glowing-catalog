@@ -123,12 +123,11 @@ body {
 .container .add-on {
 	background: #ecbab9;
 	text-shadow: none;
-	color: #333;
+	color: #fff;
 }
 .container .add-on:hover {
 	background: #dc9390;
-	cursor: pointer
-}
+	cursor: pointer}
 .panel-footer-new-customer .btn:hover {
 	background: #dc9390;
 }
