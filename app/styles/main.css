@@ -1,21 +1,164 @@
+/*LINES*/
 
-.block-product-01{
-	height:249px;
-	clear:both
+/*font colors*/
+.color-green{
+	color:#5d9732
 }
-.block-product-04{
-	clear:both;
-	height:238px
-	
+.color-lilas{
+	color:#baa3f1
 }
-.block-product-05{
-	clear:both;
-	height:28px
-	
+.color-bege{
+	color:#e6d6c0
 }
-.block-product-02{
-	height:60px;
-	clear:both
+.color-gray-01{
+	color:#dddddd
+}
+.color-gray-02{
+	color:#aeaeae
+}
+.color-orange-01{
+	color:#f8b661
+}
+.color-orange-02{
+	color:#e7890e
+}
+/*background colors*/
+.bg-green {
+	background-color: #5d9732
+}
+.bg-lilas {
+	background-color: #baa3f1
+}
+.bg-bege{
+	background-color: #e6d6c0
+}
+.bg-gray-01 {
+	background-color: #dddddd
+}
+.bg-gray-02 {
+	background-color: #aeaeae
+}
+.bg-orange-01 {
+	background-color: #f8b661
+}
+.bg-orange-02 {
+	background-color: #e7890e
+}
+/*menu states colors*/
+.nav-list > .active-green > a, .nav-list > .active-green > a:hover, .nav-list > .active-green > a:focus {
+	color: white;
+	text-shadow:none;
+	background-color: #5d9732;
+	border-bottom: 1px dotted #d5d5d5;
+}
+.nav-list > .active-orange-01 > a, .nav-list > .active-orange-01 > a:hover, .nav-list > .active-orange-01 > a:focus {
+	color: white;
+	text-shadow:none;
+	background-color: #5d9732;
+	border-bottom: 1px dotted #d5d5d5;
+}
+.nav-list > .active-orange-02 > a, .nav-list > .active-orange-02 > a:hover, .nav-list > .active-orange-02 > a:focus {
+	color: white;
+	text-shadow:none;
+	background-color: #e7890e;
+	border-bottom: 1px dotted #d5d5d5;
+}
+.nav-list > .active-bege > a, .nav-list > .active-bege > a:hover, .nav-list > .active-bege > a:focus {
+	color: white;
+	text-shadow:none;
+	background-color: #e6d6c0;
+	border-bottom: 1px dotted #d5d5d5;
+}
+.nav-list > .active-gray-01 > a, .nav-list > .active-gray-01 > a:hover, .nav-list > .active-gray-01 > a:focus {
+	color: #333;
+	text-shadow:none;
+	background-color: #dddddd;
+	border-bottom: 1px dotted #d5d5d5;
+}
+.nav-list > .active-gray-02 > a, .nav-list > .active-gray-02 > a:hover, .nav-list > .active-gray-02 > a:focus {
+	color: white;
+	text-shadow:none;
+	background-color: #aeaeae;
+	border-bottom: 1px dotted #d5d5d5;
+}
+.nav-list > .active-lilas > a, .nav-list > .active-lilas > a:hover, .nav-list > .active-lilas > a:focus {
+	color: white;
+	text-shadow:none;
+	background-color: #baa3f1 ;
+	border-bottom: 1px dotted #d5d5d5;
+}
+/*END LINES*/
+.modal {
+	position: fixed;
+	top: 10%;
+	left: 50%;
+	z-index: 1050;
+	width: 560px;
+	margin-left: -280px;
+	background-color: white;
+	border: none;
+	border: none;
+	*border: none;
+	/* IE6-7 */
+	-webkit-border-radius: none;
+	-moz-border-radius: none;
+	border-radius: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-background-clip: none;
+	-moz-background-clip: none;
+	background-clip: none;
+	outline: none;
+}
+.rose-color {
+	color: #b77a78;
+}
+.total-price-add-to-basket {
+	width: 125px;
+}
+.price-add-to-basket {
+	font-size: 24px;
+	text-align: center;
+	color: #b77a78;
+	padding-left: 12px;
+	margin-bottom: 10px;
+	width: 100px;
+}
+.form-add-to-basket .line-gradient-01 {
+	padding: 20px 0 20px 0;
+}
+
+.form-add-to-basket .wrapper-qtde {
+	float: right;
+	margin: 30px;
+}
+.form-add-to-basket {
+	width: 360px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -180px
+}
+.block-product-01 {
+	height: 249px;
+	clear: both
+}
+.block-product-04 {
+	clear: both;
+	height: 238px
+}
+.block-product-05 {
+	clear: both;
+	height: 28px
+}
+.block-product-02 {
+	height: 60px;
+	clear: both
 }
 .footer-product-right-01 .bottom-products-right {
 	padding: 10px 20px 10px 20px;
@@ -26,21 +169,20 @@
 .footer-product-right-03 .bottom-products-right {
 	padding: 25px 20px 10px 20px;
 }
-.footer-product-right-03 .divider{
+.footer-product-right-03 .divider {
 	margin: 10px 0 10px 0;
-	clear:both;
-	float:left
+	clear: both;
+	float: left
 }
-.footer-product-right{
-	clear:both;
-
+.footer-product-right {
+	clear: both;
 }
-.footer-product-right-01 .divider{
-	margin-top:10px
+.footer-product-right-01 .divider {
+	margin-top: 10px
 }
-.footer-product-right-02 .last-oportunitie{
-	margin-top:-8px;
-	clear:both
+.footer-product-right-02 .last-oportunitie {
+	margin-top: -8px;
+	clear: both
 }
 /*alpha dialog*/
 .modal-backdrop, .modal-backdrop.fade.in {
@@ -49,23 +191,22 @@
 }
 /*btns*/
 .btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
-  color: #333333;
-  background-color: #ecbab9;
-  *background-color: #d9d9d9;
+	color: #333333;
+	background-color: #ecbab9;
+	*background-color: #d9d9d9;
 }
 /*icons input calendar*/
-[class^="icon-"],
-[class*=" icon-"] {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  *margin-right: .3em;
-  line-height: 14px;
-  vertical-align: text-top;
-  background-image: url("../images/glyphicons-halflings.png");
-  /*background-position: 14px 14px;*/
-  background-repeat: no-repeat;
-  margin-top: 1px;
+[class^="icon-"], [class*=" icon-"] {
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	*margin-right: .3em;
+	line-height: 14px;
+	vertical-align: text-top;
+	background-image: url("../images/glyphicons-halflings.png");
+	/*background-position: 14px 14px;*/
+	background-repeat: no-repeat;
+	margin-top: 1px;
 }
 /*heading dialogs*/
 .heading-gradient {
@@ -73,7 +214,7 @@
 	top: -45px;
 	left: 0;
 	right: 0;
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 	padding: 10px;
 	color: #fff;
 	font-size: 18px;
@@ -86,11 +227,11 @@ body {
 	background: #f7f7f7
 }
 .last-oportunitie {
-	background: #5d9732;
 	padding: 5px;
 	text-align: center;
 	color: #fff
 }
+
 .container {
 	width: 1024px;
 	position: absolute;
@@ -101,11 +242,12 @@ body {
 .container .add-on {
 	background: #ecbab9;
 	text-shadow: none;
-	color: #fff;
+	color: #333;
 }
 .container .add-on:hover {
 	background: #dc9390;
-	cursor: pointer}
+	cursor: pointer
+}
 .panel-footer-new-customer .btn:hover {
 	background: #dc9390;
 }
@@ -152,15 +294,25 @@ body {
 .btn-login:hover {
 	background: #e2a9a8
 }
-.btn-login {
+
+.btn-large {
+	padding: 11px 19px;
+	font-size: 17.5px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+}
+.btn {
 	background: #ecbab9;
 	border: none;
 	text-shadow: none;
 	color: #333;
 	font-size: 14px;
-	width: 86px;
-	height: 35px;
+	min-width: 86px;
+	max-width: 300px;
 	padding: 5px;
+	white-space: nowrap;
+	overflow: hidden;
 }
 .bg-login {
 	position: absolute;
@@ -177,7 +329,7 @@ body {
 .form-signin {
 	width: 290px;
 	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 6px 6px;
+	border-radius: 0 0 4px 4px;
 	box-shadow: 0px 10px 50px 10px #999;
 	background: #fff;
 	position: absolute;
@@ -194,7 +346,7 @@ body {
 	top: -60px;
 	left: 0;
 	right: 0;
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 	color: #fff;
 	height: 66px
 }
@@ -266,15 +418,15 @@ body {
 	margin: 10px;
 }
 
-.text-product{
+.text-product {
 	padding: 10px;
-	max-height:70px;
-	overflow:hidden;
+	max-height: 70px;
+	overflow: hidden;
 }
 .text-product2 {
 	padding: 10px;
-	max-height:35px;
-	overflow:hidden;
+	max-height: 35px;
+	overflow: hidden;
 }
 .title-products {
 	padding: 10px 10px 0 10px;
@@ -328,12 +480,12 @@ body {
 .col-left {
 	float: left;
 	width: 50%;
-    margin-top:10px
+	margin-top: 10px
 }
 .col-right {
 	float: right;
 	width: 50%;
-    margin-top:10px
+	margin-top: 10px
 }
 /*side bar*/
 .sidebar {
@@ -365,13 +517,6 @@ body {
 
 .nav-list  li:last-child a {
 	border-bottom: none;
-}
-
-.nav-list > .active > a, .nav-list > .active > a:hover, .nav-list > .active > a:focus {
-	color: white;
-	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
-	background-color: #5d9732;
-	border-bottom: 1px dotted #d5d5d5;
 }
 
 .navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
@@ -406,8 +551,7 @@ body {
 	width: 825px;
 	position: fixed;
 	top: 70px;
-	bottom:0;
-	
+	bottom: 0;
 }
 
 /*footer*/
@@ -433,6 +577,11 @@ body {
 .bottom-products-left .btn-plus {
 	display: inline-block;
 	float: right;
+	width: 21px;
+	height: 21px;
+	background-image: url(../images/plus.png);
+	border-radius: 10px
+}
 }
 .bottom-products-left .btn-plus:hover {
 	cursor: pointer
@@ -445,6 +594,10 @@ body {
 .bottom-products-right .btn-plus {
 	display: inline-block;
 	float: right;
+	width: 21px;
+	height: 21px;
+	background-image: url(../images/plus.png);
+	border-radius: 10px
 }
 .bottom-products-right .btn-plus:hover {
 	cursor: pointer

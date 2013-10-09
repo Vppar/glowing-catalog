@@ -1,7 +1,22 @@
 @media (max-width: 1024px) and (max-height: 768px) {
-	
+
+	.panel-payment-footer-right {
+		position: absolute;
+		bottom: 0;
+		top: 523px;
+		width: 500px !important;
+		display:inline-block;
+		left:501px!important;
+	}	
 	.form-payment-credit-card {
 		margin-left: -268px !important;
+	}
+	.combo-width-1 {
+		width: 75px;
+	}
+	.input-width-tels input{
+	    width:298px !important;
+	  
 	}
 	.panel-payment-footer-right {
 		position: absolute;
