@@ -53,18 +53,11 @@
 	position: absolute;
 	bottom: 0;
 	top: 523px;
-	width: 200px;
-	right:20px
+	width: 490px;
+	display:inline-block;
 }
-.container-payment .btn {
-	background: #ecbab9;
-	text-shadow: none;
-	color: #333;
-	border: none;
-	width: 200px;
-	margin: auto;
-	position: absolute;
-	padding: 10px;
+.panel-payment-footer-right  .btn{
+	float:right
 }
 .container-payment .btn:hover {
 	background: #dc9390;
