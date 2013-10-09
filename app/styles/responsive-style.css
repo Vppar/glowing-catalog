@@ -6,7 +6,10 @@
 	.combo-width-1 {
 		width: 75px;
 	}
-
+	.input-width-tels input{
+	    width:298px !important;
+	  
+	}
 	.panel-payment-footer-right {
 		position: absolute;
 		bottom: 0;
