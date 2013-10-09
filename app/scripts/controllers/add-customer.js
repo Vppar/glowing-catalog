@@ -21,5 +21,11 @@ angular.module('glowingCatalogApp').controller('AddCustomerCtrl', function($scop
 	};
 	$scope.goToBasket = function() {
 		$location.path('basket');
+	};
+	$scope.openDialogChooseCustomer = function() {
+		var d = $dialog.dialog ({ backdropClick: true,
+			dialogClass: 'modal'
+		});
+		d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
 	}
 });
