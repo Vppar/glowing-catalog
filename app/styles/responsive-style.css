@@ -3,6 +3,10 @@
 	.form-payment-credit-card {
 		margin-left: -268px !important;
 	}
+	.combo-width-1 {
+		width: 75px;
+	}
+
 	.panel-payment-footer-right {
 		position: absolute;
 		bottom: 0;

@@ -9,6 +9,10 @@
 	top: 111px;
 	margin-left: -267px
 }
+.btn-plus-pink{
+	position:relative;
+	top:25px
+}
 .form-payment-credit-card .btn-plus-payment-credit-card{
 	margin-top:25px;
 }
