@@ -1,14 +1,14 @@
-<div class="container">
+<div class="container" scroll-spy>
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include src='"views/header.html"'></span> </span>
 
 	</div>
 	<div class="mary-content">
 
-		<div class="home-scroll-content">
+		<div class="home-scroll-content" id="scrollContainer">
 			
 				<span class="col-left">
-				<div class="block-06">
+				<div class="block-06" id="cat1">
 
 					<div class="box-catalog block-row-02">
 						<div class="title-01">
@@ -105,7 +105,7 @@
 					</div>
 
 				</div> 
-				<div class="block-06 block-row-02">
+				<div class="block-06 block-row-02" id="cat2">
 
 					<div class="box-catalog block-row-02">
 						<div class="title-01">
@@ -178,7 +178,7 @@ O Sistema Volu-Firm™ TimeWise Repair™ combate os sinais avançados de envelh
 				</div>
 				
 				
-				<div class="block-06 block-row-02">
+				<div class="block-06 block-row-02" id="cat3">
 
 					<div class="box-catalog block-row-02">
 						<div class="title-01">
@@ -302,7 +302,7 @@ O Sistema Volu-Firm™ TimeWise Repair™ combate os sinais avançados de envelh
 
 				</div> 
 				
-				<div class="block-06 block-row-02">
+				<div class="block-06 block-row-02" id="cat4">
 
 					<div class="box-catalog block-row-02">
 						<div class="title-01">
@@ -701,34 +701,18 @@ O Sistema de Cuidados da Pele com Tendência à Acne Mary Kay® inclui: Gel de L
 	<div class="sidebar">
 		<div class="sidebar-menu">
 			<ul class="nav nav-list">
-				<li >
-					<a href="#">TimeWise</a>
+				<li spy="cat1" class="active bege">
+					<a>TimeWise</a>
 				</li>
-				<li>
-					<a href="#">TimeWise Repair</a>
+				<li spy="cat2" class="pink">
+					<a>TimeWise Repair</a>
 				</li>
-				<li class="active-green">
-					<a href="#">Botanical Effects</a>
+				<li spy="cat3">
+					<a>Botanical Effects</a>
 				</li>
-				<li>
-					<a href="#">Acne</a>
+				<li spy="cat4">
+					<a>Acne</a>
 				</li>
-				<li>
-					<a href="#">Cl&aacute;ssica</a>
-				</li>
-				<li>
-					<a href="#">Velocity</a>
-				</li>
-				<li>
-					<a href="#">MKMen</a>
-				</li>
-				<li>
-					<a href="#">Cuidados Personalizados</a>
-				</li>
-				<li>
-					<a href="#">Solar</a>
-				</li>
-
 			</ul>
 
 		</div>
