@@ -76,7 +76,8 @@
 
 }
 .thumb-row-cart img {
-	min-width: 90px;
+	max-width: 90px;
+	max-height: 90px;
 	padding: 5px;
 }
 .txt-row-description {
