@@ -78,6 +78,8 @@
 .thumb-row-cart img {
 	max-width: 90px;
 	max-height: 90px;
+	min-width: 90px;
+	min-height: 90px;
 	padding: 5px;
 }
 .txt-row-description {
