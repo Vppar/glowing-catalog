@@ -4,6 +4,12 @@
 .color-green{
 	color:#5d9732
 }
+.color-white{
+	color:#fff
+}
+.color-black{
+	color:#333
+}
 .color-lilas{
 	color:#baa3f1
 }
@@ -22,7 +28,13 @@
 .color-orange-02{
 	color:#e7890e
 }
+.color-pink{
+color:#e2a9a8	
+}
 /*background colors*/
+.bg-pink{
+	background:#e2a9a8
+}
 .bg-green {
 	background-color: #5d9732
 }
@@ -148,6 +160,10 @@
 	height: 249px;
 	clear: both
 }
+.block-product-02 {
+	height: 60px;
+	clear: both
+}
 .block-product-04 {
 	clear: both;
 	height: 238px
@@ -156,10 +172,11 @@
 	clear: both;
 	height: 28px
 }
-.block-product-02 {
-	height: 60px;
-	clear: both
+.block-product-06 {
+	clear: both;
+	height: 128px
 }
+
 .footer-product-right-01 .bottom-products-right {
 	padding: 10px 20px 10px 20px;
 }
@@ -229,7 +246,6 @@ body {
 .last-oportunitie {
 	padding: 5px;
 	text-align: center;
-	color: #fff
 }
 
 .container {
@@ -420,12 +436,17 @@ body {
 
 .text-product {
 	padding: 10px;
-	max-height: 70px;
+	max-height: 30px;
 	overflow: hidden;
 }
 .text-product2 {
 	padding: 10px;
-	max-height: 35px;
+	max-height: 30px;
+	overflow: hidden;
+}
+.text-product3 {
+	margin-left:10px;
+	max-height: 20px;
 	overflow: hidden;
 }
 .title-products {
@@ -458,7 +479,13 @@ body {
 	padding-top: 10px
 }
 .img-catalog-02 img {
-	max-width: 180px
+	max-width: 180px;
+	max-height:90px;
+}
+.col-right .img-catalog-02 img {
+	max-width: 180px;
+	max-height:90px;
+	margin-right:50px
 }
 /*font colors*/
 .green {
@@ -480,12 +507,14 @@ body {
 .col-left {
 	float: left;
 	width: 50%;
-	margin-top: 10px
+	margin-top: 10px;
+	
 }
 .col-right {
 	float: right;
 	width: 50%;
-	margin-top: 10px
+	margin-top: 10px;
+	
 }
 /*side bar*/
 .sidebar {
@@ -551,14 +580,15 @@ body {
 	width: 825px;
 	position: fixed;
 	top: 70px;
-	bottom: 0;
+	bottom: 40px;
+	
 }
 
 /*footer*/
 .footer {
 	background: #000000;
 	width: 1024px;
-	position: absolute;
+	position: fixed;
 	left: 50%;
 	margin-left: -512px;
 	bottom: 0px;
@@ -618,7 +648,7 @@ ul.nav-footer .active a {
 }
 ul.nav-footer li {
 	display: inline-block;
-	padding: 10px;
+	padding: 5px;
 	width: 192px;
 	border-right: 1px solid #fff;
 	text-align: center;
