@@ -4,9 +4,8 @@
     angular.module('glowingCatalogApp').directive('inputQtd', function() {
         return {
             restrict : 'E',
-            // require : 'ngModel',`
             scope : {
-                ngModel : '='
+                value : '=ngModel'
             },
             templateUrl : 'views/input-qtd.html',
             link : function postLink(scope, element, attrs) {

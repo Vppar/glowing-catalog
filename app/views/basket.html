@@ -8,7 +8,7 @@
 	</div>
 
 	<div class="cart-scroll-content">
-		<div class="row-cart" ng-repeat="product in dataProvider.products">
+		<div class="row-cart" ng-repeat="product in dataProvider.products | obInject:'mul':'qtde':'price':'subtotal'">
 			<span class="thumb-row-cart"><img
 				ng-src="{{product.image}}" alt="" /></span> <span
 				class="txt-row-description"> 
@@ -17,13 +17,13 @@
 					{{product.description | truncate: 100}}
 				</span> 
 				<span class="txt-row-status"> 
-					<div>1</div>
+					<div>{{product.inventory}}</div>
 				</span>
 				<span class="wrapper-qtde" ng-mode="teste"> 
-					<input-qtd></input-qtd>
+					<input-qtd ng-model="product.qtde"></input-qtd>
 				</span> 
 				<span class="txt-row-price"> 
-					<div>300,00</div>
+					<div>{{product.subtotal | currency}}</div>
 				</span> 
 				<span class="img-row-delete" ng-click=remove($index)><img src="images/del-pink.png" alt="" /></span>
 		</div>
@@ -33,7 +33,7 @@
 	<span class="btn">Cat&aacute;logo</span>
 	<span class="total-value">
 		<span>Total:</span>
-		R$ 2.573,76
+		{{dataProvider.products | sum:'subtotal' | currency }}
 	</span>
 	<span class="btn">Pagamento</span>
 </div>
