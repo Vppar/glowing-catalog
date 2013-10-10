@@ -11,7 +11,7 @@
         $scope.phones = dialog.phones;
 
         $scope.addPhone = function addPhone(item) {
-            if (item && item.type && item.number && item.number.length >= 10) {
+            if ($scope.phoneForm.$valid) {
                 var phone = $filter('filter')($scope.phones, item.number);
                 if (phone.length === 0) {
                     $scope.phones.push(angular.copy(item));
