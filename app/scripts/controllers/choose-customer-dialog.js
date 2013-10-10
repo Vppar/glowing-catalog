@@ -6,12 +6,13 @@
         $scope.dataProvider = DataProvider;
         $scope.selectedCustomer = '';
 
-        $scope.closeDialog = function() {
+        $scope.cancel = function() {
             dialog.close();
         };
 
         $scope.goToAddCustomer = function() {
             if ($scope.selectedCustomer && $scope.selectedCustomer !== '') {
+                DataProvider.customer.id = 1;
                 $location.path('/');
             } else {
                 $location.path('add-customer');

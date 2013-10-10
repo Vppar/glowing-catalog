@@ -291,5 +291,6 @@
                         this.phone = {
                             types : [ 'Residencial', 'Comercial', 'Celular', 'Skype' ]
                         };
+                        this.customer = {};
                     });
 }(angular));

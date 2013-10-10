@@ -28,4 +28,6 @@ angular.module('glowingCatalogApp').controller('PaymentCtrl', function($scope, $
 		});
 		d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
 	}
+	
+	$scope.cash = 12.98;
 });
