@@ -8,7 +8,7 @@
 	</div>
 
 	<div class="cart-scroll-content">
-		<div class="row-cart" ng-repeat="product in dataProvider.products | obInject:'mul':'qtde':'price':'subtotal'">
+		<div class="row-cart" ng-repeat="product in dataProvider.products | filter:filterQtde | obInject:'mul':'qtde':'price':'subtotal'">
 			<span class="thumb-row-cart"><img
 				ng-src="{{product.image}}" alt="" /></span> <span
 				class="txt-row-description"> 
@@ -33,7 +33,7 @@
 	<span class="btn">Cat&aacute;logo</span>
 	<span class="total-value">
 		<span>Total:</span>
-		{{dataProvider.products | sum:'subtotal' | currency }}
+		{{dataProvider.products | filter:filterQtde | sum:'subtotal' | currency }}
 	</span>
-	<span class="btn">Pagamento</span>
+	<span class="btn" ng-click="pay()">Pagamento</span>
 </div>

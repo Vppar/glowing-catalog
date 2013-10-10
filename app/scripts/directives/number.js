@@ -3,7 +3,7 @@
 
     function removeNonDigit(value) {
         var number = value;
-        if (number) {
+        if (number && !angular.isNumber(number)) {
             number = number.replace(/[^0-9]/g, '');
         }
         return number;

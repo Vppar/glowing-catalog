@@ -1,12 +1,16 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, DataProvider) {
+    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DataProvider) {
 
         $scope.dataProvider = DataProvider;
 
         $scope.remove = function remove(index) {
             $scope.dataProvider.products.splice(index, 1);
+        };
+        
+        $scope.filterQtde = function(product){
+            return product.qtde;
         };
 
         $scope.openDialogEditPass = function() {
@@ -23,5 +27,10 @@
             });
             d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
         };
+        
+        $scope.pay = function(){
+            $location.path("/payment");
+        };
+        
     });
 }(angular));
