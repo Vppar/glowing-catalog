@@ -9,7 +9,9 @@
             },
             templateUrl : 'views/input-qtd.html',
             link : function postLink(scope, element, attrs) {
-                scope.value = 0;
+                if(!scope.value){
+                    scope.value = 0;
+                }
 
                 scope.increment = function() {
                     scope.value = String(Number(scope.value) + 1);

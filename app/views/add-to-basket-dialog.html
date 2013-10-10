@@ -1,28 +1,21 @@
 			<div class="container">
 
 				<form class="form-add-to-basket">
-					<span class="heading-gradient">CREME DE LIMPEZA BOTANICAL EFFECTS</span>
+					<span class="heading-gradient">{{product.title | truncate:40}}</span>
 					<span class="wrapper-qtde">
-								<div class="price-add-to-basket">R$ 58,00</div>
-						 <span class="input-qtde"> <span class="ic-arrow-left"><img src="images/arrow-left-pink.png" alt="" /></span> <span class="label-input">
-								
-								<div>
-									Qtde
-								</div>
-								<div class="input-row-qtde-cart">
-									<input type="text" name="some_name" value="" id="some_name"/>
-								</div> </span> <span class="ic-arrow-right"><img src="images/arrow-right-pink.png" alt="" /></span> </span> 
-					<div class="total-price-add-to-basket"><strong>Total:</strong> <span class="rose-color">R$ 1.449,00</span></div>
+								<div class="price-add-to-basket">{{product.price | currency}}</div>
+					<input-qtd ng-model="product.qtde"></input-qtd>	  
+					<div class="total-price-add-to-basket"><strong>Total:</strong> <span class="rose-color">{{product.price * product.qtde | currency}}</span></div>
 					</span>
 					<div class="img-catalog-02">
-									<img src="images/catalog/img-03.png" alt="" />
+									<img ng-src="{{product.image}}" alt="" />
 					</div>
 					<div class="clearfix"></div><hr />
 					
-					<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
+					<button ng-click='cancel()' class="btn btn-large btn-login" type="submit">
 						Cancelar
 					</button>
-					<button ng-click='closeDialog()' class="btn btn-large btn-login pull-right" type="submit">
+					<button ng-click='add()' class="btn btn-large btn-login pull-right" type="submit">
 						Adicionar
 					</button>
 
