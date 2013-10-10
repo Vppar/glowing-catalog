@@ -1,31 +1,55 @@
 /*LINES*/
 
 /*menu states*/
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #fff;
+}
+
 .nav li:first-child.active a{
-	border-radius:4px 4px 0 0
+	border-radius:4px 4px 0 0;
+	text-shadow:none;
+	color:#333;
+	
 }
+
 .nav li:last-child.active a{
-	border-radius: 0 0 4px 4px
+	border-radius: 0 0 4px 4px;
+	text-shadow:none;
+	color:#333;
 }
-.bege.active a{
+.nav .bege.active a{
 	background:#e6d6c0;
 	color:#333;
 	text-shadow:none;
 }
-.pink.active a{
+.nav .bege.active a:hover{
+	background:#e6d6c0;
+}
+.nav .pink.active a{
 	background:#e2a9a8;
 	color:#333;
 	text-shadow:none;
 }
-.green.active a{
+.nav .pink.active a:hover{
+	background:#e2a9a8;
+}
+.nav .green.active a{
 	background:#5d9732;
 	color:#fff;
 	text-shadow:none;
 }
-.gray.active a{
+.nav .green.active a:hover{
+	background:#5d9732;
+}
+.nav .gray.active a{
 	background:#dddddd;
 	color:#333;
 	text-shadow:none;
+}
+.nav .gray.active a:hover{
+	background:#dddddd;
 }
 /*font colors*/
 .color-green{
@@ -506,13 +530,12 @@ body {
 	padding-top: 10px
 }
 .img-catalog-02 img {
-	max-width: 180px;
+	max-width: 90px;
 	max-height:90px;
 }
 .col-right .img-catalog-02 img {
-	max-width: 180px;
+	max-width: 90px;
 	max-height:90px;
-	margin-right:50px
 }
 /*font colors*/
 .green {
@@ -554,6 +577,7 @@ body {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
 	width: 100%;
+	background:#fdfeff
 }
 .bottom-side-bar img {
 	max-width: 185px;
