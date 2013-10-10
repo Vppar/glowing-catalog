@@ -10,11 +10,11 @@
 	<div class="cart-scroll-content">
 		<div class="row-cart" ng-repeat="product in dataProvider.products">
 			<span class="thumb-row-cart"><img
-				src="images/catalog/img-02.png" alt="" /></span> <span
+				ng-src="{{product.image}}" alt="" /></span> <span
 				class="txt-row-description"> 
-				<span class="title-row-cart">CREME DE LIMPEZA BOTANICAL EFFECTS™</span> 
+				<span class="title-row-cart">{{product.title | truncate: 50}}</span> 
 					<br />
-					Combata os sinais avan&ccedil;ados da idade com a nova linha TimeWise Repair™
+					{{product.description | truncate: 150}}
 				</span> 
 				<span class="txt-row-status"> 
 					<div>1</div>
