@@ -1,5 +1,32 @@
 /*LINES*/
 
+/*menu states*/
+.nav li:first-child.active a{
+	border-radius:4px 4px 0 0
+}
+.nav li:last-child.active a{
+	border-radius: 0 0 4px 4px
+}
+.bege.active a{
+	background:#e6d6c0;
+	color:#333;
+	text-shadow:none;
+}
+.pink.active a{
+	background:#e2a9a8;
+	color:#333;
+	text-shadow:none;
+}
+.green.active a{
+	background:#5d9732;
+	color:#fff;
+	text-shadow:none;
+}
+.gray.active a{
+	background:#dddddd;
+	color:#333;
+	text-shadow:none;
+}
 /*font colors*/
 .color-green{
 	color:#5d9732
