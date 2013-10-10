@@ -5,31 +5,30 @@
 		bottom: 0;
 		top: 523px;
 		width: 500px !important;
-		display:inline-block;
-		left:501px!important;
-	}	
+		display: inline-block;
+		left: 501px !important;
+	}
 	.form-payment-credit-card {
 		margin-left: -268px !important;
 	}
 	.combo-width-1 {
 		width: 75px;
 	}
-	.input-width-tels input{
-	    width:298px !important;
-	  
+	.input-width-tels input {
+		width: 298px !important;
 	}
 	.panel-payment-footer-right {
 		position: absolute;
 		bottom: 0;
 		top: 532px;
 		width: 200px;
-		right:22px !important
+		right: 22px !important
 	}
 
-	.form-payment-check .btn-plus-payment-check{
-	margin-top:25px;
-	position:relative;
-	right:16px
+	.form-payment-check .btn-plus-payment-check {
+		margin-top: 25px;
+		position: relative;
+		right: 16px
 	}
 	/*payment check dialog*/
 	.grid-payment-check .header .col-6 {
@@ -87,10 +86,12 @@
 	.col-left {
 		float: left;
 		width: 405px !important;
+		padding-bottom:120px;
 	}
 	.col-right {
 		float: right;
 		width: 420px !important;
+		padding-bottom:120px;
 	}
 	/*home scroll content*/
 	.home-scroll-content {
@@ -100,7 +101,7 @@
 		-webkit-overflow-scrolling: touch;
 		position: absolute !important;
 		top: 80px;
-		bottom: 46px;
+		bottom:40px;
 	}
 
 	/*side bar*/

@@ -2,7 +2,6 @@
 .block-01 {
 	width: 57px;
 	display: inline-block;
-	border: solid;
 	margin-left: 10px;
 	margin-bottom: 10px;
 }
@@ -17,7 +16,7 @@
 	display: inline-block;
 	margin-left: 10px;
 	margin-bottom: 10px;
-    float:right;
+	float: left;
 }
 .block-04 {
 	width: 258px;
@@ -84,9 +83,7 @@
 .block-row-03 {
 	height: 320px;
 }
-.img-row-03 img {
-	max-height: 150px
-}
+
 .block-row-04 {
 	height: 430px;
 }
