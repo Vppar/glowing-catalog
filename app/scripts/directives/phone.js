@@ -18,12 +18,19 @@
                 ctrl.$parsers.unshift(function(value) {
 
                     var clearPhone = String(value.replace(/[^0-9]/g, ''));
+                    
                     var phone = $filter('phone')(clearPhone);
 
                     clearPhone = String(phone.replace(/[^0-9]/g, ''));
 
                     ctrl.$viewValue = phone;
                     ctrl.$render();
+                    
+                    if(clearPhone.length === 10 || clearPhone.length === 11){
+                        ctrl.$setValidity('phone', true);
+                    } else {
+                        ctrl.$setValidity('phone', false);
+                    }
 
                     return clearPhone;
                 });
