@@ -250,7 +250,7 @@ body {
 
 .container {
 	width: 1024px;
-	position: absolute;
+	position: fixed;
 	left: 50%;
 	margin-left: -512px;
 }
