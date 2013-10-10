@@ -1,17 +1,17 @@
 <div class="container">
-	<form class="form-add-tel">
+	<form class="form-add-tel" name="phoneForm">
 		<span class="heading-gradient">TELEFONES</span>
 		
 	<div class="row-fluid">
 		<span class="span5">
-			<select class='customer-tel-type' ng-model="phone.type">
+			<select class='customer-tel-type' ng-model="phone.type" required>
 				<option ng-repeat="type in dataProvider.phone.types"  value="{{type}}">{{type}}</option>
 			</select>
 			
 		</span><span class="span7">
 
 			<div class="input-append add-cusomer-input-tels">
-				<input class="input-block-level" ng-model="phone.number" id="appendedInput" type="text" phone>
+				<input class="input-block-level" ng-model="phone.number" id="appendedInput" type="text" phone required>
 				<span ng-click='addPhone(phone)' class="add-on">+</span>
 			</div>
 		</span>
