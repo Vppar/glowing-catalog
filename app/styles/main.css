@@ -84,8 +84,7 @@ color:#e2a9a8
 }
 /*background colors*/
 .bg-pink{
-	background:#e2a9a8
-}
+	background:#e2a9a8;}
 .bg-green {
 	background-color: #5d9732
 }
@@ -354,7 +353,7 @@ body {
 	width: 458px;
 	height: 418px;
 	position: absolute;
-	top: 20px;
+	top: 5px;
 	left: 48%;
 	margin-left: -229px;
 }
@@ -446,6 +445,20 @@ body {
 
 	font-size: 11px
 }
+.nav .dropdown{
+	font-size: 14px;
+	
+}
+.nav .dropdown ul li a{
+	width:166px;
+	padding:10px 10px 10px 18px;
+}
+.nav .dropdown ul li{
+	border-bottom:1px dotted #ccc
+}
+.nav .dropdown ul li:last-child{
+	border-bottom:1px solid transparent 
+}
 .sidebar-menu .nav {
 	font-size: 12px
 }
@@ -469,16 +482,12 @@ body {
 }
 
 .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-submenu:hover > a, .dropdown-submenu:focus > a {
-	color: #ffffff;
-	text-decoration: none;
-	background-color: #0081c2;
-	background-image: -moz-linear-gradient(top, #d8c0c0, #d8c0c0);
-	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#d8c0c0), to(#d8c0c0));
-	background-image: -webkit-linear-gradient(top, #d8c0c0, #d8c0c0);
-	background-image: -o-linear-gradient(top, #d8c0c0, #d8c0c0);
-	background-image: linear-gradient(to bottom, #d8c0c0, #d8c0c0);
-	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d8c0c0', endColorstr='#d8c0c0', GradientType=0);
+	color: #333;
+	text-decoration: none !important;
+	background-color: none !important;
+	background-image: none !important;
+	background: none !important;
+	filter: none !important;
 }
 .navbar .dropdown .dropdown-menu {
 	margin: 0 0 0 -6px
@@ -705,10 +714,10 @@ ul.nav-footer {
 	margin: auto;
 }
 ul.nav-footer .active {
-	background: #d8c0c0;
+	background: #e2a9a8;
 }
 ul.nav-footer .active a {
-	background: #d8c0c0;
+	background: #e2a9a8;
 	color: #000000
 }
 ul.nav-footer li {
