@@ -6,7 +6,6 @@ angular.module('glowingCatalogApp').controller('PaymentProductExchangeDialogCtrl
 	$scope.closeDialog = function(){
 		dialog.close();
 	};
-	$scope.selec2 = {};
 	
 
 });
