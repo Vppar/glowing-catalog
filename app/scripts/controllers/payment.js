@@ -13,6 +13,18 @@ angular.module('glowingCatalogApp').controller('PaymentCtrl', function($scope, $
 		});
 		d.open('views/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl');
 	};
+	$scope.openDialogProductExchange = function() {
+		var d = $dialog.dialog ({ backdropClick: true,
+			dialogClass: 'modal'
+		});
+		d.open('views/product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl');
+	};
+	$scope.openDialogAdvanceMoney = function() {
+		var d = $dialog.dialog ({ backdropClick: true,
+			dialogClass: 'modal'
+		});
+		d.open('views/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl');
+	};
 	 $scope.openDialogEditPass = function() {
 		var d = $dialog.dialog ({ backdropClick: true,
 			dialogClass: 'modal'
