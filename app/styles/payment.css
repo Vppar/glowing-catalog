@@ -26,7 +26,8 @@
 	width: 76px
 }
 .input-money-payment {
-	width: 98px
+	width: 98px;
+	border: 1px solid #e0e0e0 !important;
 }
 .combo-width-1 {
 	width: 75px;
@@ -54,10 +55,10 @@
 	bottom: 0;
 	top: 523px;
 	width: 490px;
-	display:inline-block;
+	display: inline-block;
 }
-.panel-payment-footer-right  .btn{
-	float:right
+.panel-payment-footer-right  .btn {
+	float: right
 }
 .container-payment .btn:hover {
 	background: #dc9390;
@@ -69,6 +70,7 @@
 	border: 1px solid #e0e0e0;
 	margin-top: 10px;
 	padding: 11px 5px 12px 20px;
+
 }
 .payment-resume div {
 	line-height: 30px
@@ -83,7 +85,7 @@
 .payment-resume .values-resume {
 	float: right;
 	text-align: right;
-	margin-right:10px
+	margin-right: 10px
 }
 .btns-right-payment .btn-price-payment {
 	float: right;
@@ -108,8 +110,7 @@
 	width: 470px;
 	position: absolute;
 	top: 400px;
-	background:#e6e6e6 
-	
+	background: #e6e6e6
 }
 .customer-info {
 	border-radius: 4px;
@@ -118,9 +119,8 @@
 	width: 470px;
 	position: absolute;
 	top: 400px;
-	color:#333;
-	background:#e6e6e6 
-	
+	color: #333;
+	background: #e6e6e6
 }
 
 /*scroll left*/
@@ -130,14 +130,13 @@
 	/*position:absolute;*/
 	-webkit-overflow-scrolling: touch;
 }
-.left-payment .header,  .left-payment .content-scroll div {
+.left-payment .header, .left-payment .content-scroll div {
 	border-bottom: 1px solid #ccc;
 	line-height: 40px;
 }
-.left-payment .header2{
+.left-payment .header2 {
 	line-height: 20px;
-	margin-top:13px
-	
+	margin-top: 13px
 }
 .left-payment .header .col-1, .left-payment .header2 .col-1 {
 	width: 310px;
@@ -174,7 +173,7 @@
 /* end scroll left*/
 .txt-info-customer {
 	line-height: 30px;
-	margin-left:10px
+	margin-left: 10px
 }
 .title-left {
 	border-radius: 4px;
@@ -184,17 +183,17 @@
 .title-left div {
 	text-align: center;
 	vertical-align: middle;
-	color: #333;}
+	color: #333;
+}
 .title-right {
 	border-radius: 4px;
 	background: #ecbab9;
 	color: #333;
 	padding: 10px 0 10px 0;
-	}
+}
 .title-right div {
 	text-align: center;
 	vertical-align: middle;
-	
 }
 .container-payment .table th, .table {
 	padding: 8px;
