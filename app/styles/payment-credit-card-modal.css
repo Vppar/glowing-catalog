@@ -95,4 +95,9 @@ width: 140px;
 	 float:right;
 	 margin-right:5px
  }
+ .total-value-payment-credit-card {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
 /*end grid payment credit card*/
