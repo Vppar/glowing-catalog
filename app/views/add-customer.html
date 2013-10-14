@@ -30,10 +30,15 @@
 		<div class="row-fluid">
 			<span class="span2"> <label for="">Data de
 					Anivers&aacute;rio</label> 
-			<select class='select-width-01' ng-model="customer.birthday.day">
-					<option value="day" ng-repeat="day in dataProvider.date.days">{{day}}</option>
-			</select> 
-			<select class='select-width-01' ng-model="customer.birthday.month">
+					
+					
+					<select ui-select2 class='select-width-01' ng-model="customer.birthday.day">
+								<option value="day" ng-repeat="day in dataProvider.date.days">{{day}}</option>
+
+							</select>
+					
+
+			<select ui-select2 class='select-width-01' ng-model="customer.birthday.month">
 					<option value="month.id" ng-repeat="month in dataProvider.date.months">{{month.id}}</option>
 			</select>
 			</span> <span class="span4"> 
@@ -76,7 +81,7 @@
 
 				</div>
 			</span> <span class="span1"> <label class="control-label">UF</label>
-				<select class='select-width-02'>
+				<select ui-select2 class='select-width-02'>
 					<option ng-model="customer.address.state" value="state" ng-repeat="state in dataProvider.country.states">{{state}}</option>
 			</select>
 			</span> <span class="span5"> <label class="control-label lbl-city">Cidade</label>
