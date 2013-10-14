@@ -292,5 +292,9 @@
                             types : [ 'Residencial', 'Comercial', 'Celular', 'Skype' ]
                         };
                         this.customer = {};
+                        this.cardData = {
+                                flags : ['American Express', 'Aura', 'BNDES', 'Diners Club', 'Elo', 'Hipercard', 'MasterCard', 'Sorocred', 'Visa'],
+                                installments : ['À vista', '2x', '3x', '4x', '5x', '6x', '7x', '8x', '9x', '10x', '11x', '12x']
+                        };
                     });
 }(angular));
