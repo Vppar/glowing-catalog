@@ -1,4 +1,5 @@
-'use strict';
+(function(angular){
+    'use strict';
 
 angular.module('glowingCatalogApp').controller('PaymentCtrl', function($scope, $dialog, $location) {
    $scope.openDialogCheck = function() {
@@ -43,3 +44,4 @@ angular.module('glowingCatalogApp').controller('PaymentCtrl', function($scope, $
 	
 	$scope.cash = 12.98;
 });
+}(angular));

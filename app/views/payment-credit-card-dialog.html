@@ -1,6 +1,6 @@
 <div class="container">
 
-	<form class="form-payment-credit-card">
+	<form class="form-payment-credit-card" name="creditCardForm">
 		<span class="heading-gradient">PAGAMENTO COM CART&Atilde;O</span>
 
 		
@@ -12,17 +12,17 @@
 						<div class="control-group lbl-top">
 							<label class="control-label">Parcelas</label>
 							<div class="controls">
-								<select class='combo-width-1'>
-									<option value="">5x</option>
-									
+								<select ng-model="card.installmentPlan" class='combo-width-1' required>
+									<option ng-repeat="installments in dataProvider.cardData.installments" value="{{installments}}">{{installments}}</option>
+								
 								</select>
 							</div>
 						</div>
 						<div class="control-group lbl-top">
 							<label class="control-label">Cartão</label>
 							<div class="controls">
-								<select class='combo-width'>
-									<option value="">Visa</option>
+								<select ng-model="card.flag" class='combo-width' required>
+									<option ng-repeat="flags in dataProvider.cardData.flags" value="{{flags}}">{{flags}}</option>
 									
 								</select>
 							</div>
@@ -31,13 +31,13 @@
 							<div class="control-group lbl-top">
 							<label class="control-label" >Valor</label>
 							<div class="controls">
-								<input class="input-small text-right" type="text"  placeholder="">
+								<input ng-model="card.value" class="input-small text-right" type="text"  placeholder="" currency required recall>
 							</div>
 							</div>
 						</div>
 						<div class="control-group lbl-top" >
 							<div class="controls">
-								<span class="btn-plus-pink hover-state-pointer"><img src="images/btn-plus-pink.png" alt="" /></span>
+								<span ng-click="addCreditCard(card)" class="btn-plus-pink hover-state-pointer"><img src="images/btn-plus-pink.png" alt="" /></span>
 							</div>
 						</div>
 			
@@ -51,20 +51,10 @@
 								</div>
 							</div>
 							<div class="scroll-payment-grid">
-								<div class="row-payment-credit-card-grid">
-									<span class="col-1"><div>5</div></span><span class="col-2"><div>Visa</div></span><span class="col-3"><div>123,45</div></span><span class="col-4"><div class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
+								<div class="row-payment-credit-card-grid" ng-repeat="card in creditCards">
+									<span class="col-1"><div>{{card.installmentPlan}}</div></span><span class="col-2"><div>{{card.flag}}</div></span><span class="col-3"><div>{{card.value | currency:''}}</div></span><span class="col-4"><div ng-click="remove($index)" class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
 								</div>
-								<div class="row-payment-credit-card-grid">
-									<span class="col-1"><div>5</div></span><span class="col-2"><div>Visa</div></span><span class="col-3"><div>123,45</div></span><span class="col-4"><div class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
-								</div>
-								<div class="row-payment-credit-card-grid">
-									<span class="col-1"><div>5</div></span><span class="col-2"><div>Visa</div></span><span class="col-3"><div>123,45</div></span><span class="col-4"><div class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
-								</div>
-								<div class="row-payment-credit-card-grid">
-									<span class="col-1"><div>5</div></span><span class="col-2"><div>Visa</div></span><span class="col-3"><div>123,45</div></span><span class="col-4"><div class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
-								</div>
-					
-								
+												
 							</div>
 							
 						</div>
@@ -76,7 +66,7 @@
 		<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
 			Cancelar
 		</button>
-		<button ng-click='closeDialog()' class="btn btn-large btn-login pull-right" type="submit">
+		<button ng-click='submitDialog()' class="btn btn-large btn-login pull-right" type="submit">
 			Confirmar
 		</button>
 
