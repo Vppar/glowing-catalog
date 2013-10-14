@@ -5,23 +5,32 @@
 			<div class="controls-row">
 				<div class="control-group lbl-top">
 					<div class="controls">
-						<select class='combo-width' ng-model="selectedCustomer">
-							<option value="" selected>Novo Cliente</option>
-							<option value="{{customer.name}}"
-								ng-repeat="customer in dataProvider.customers">{{customer.name}}</option>
-						</select>
+
+						<div class="control-group lbl-top">
+
+							<select class='combo-width' ui-select2 ng-model="select2" data-placeholder="Novo Cliente">
+								<option value="{{customer.name}}" ng-repeat="customer in dataProvider.customers">{{customer.name}}</option>
+
+							</select>
+						</div>
+
 					</div>
 				</div>
 			</div>
-			<div class="error" style="display: none">Erro ao inserir dados,
-				contate o suporte informando o código</div>
+			<div class="error" style="display: none">
+				Erro ao inserir dados,
+				contate o suporte informando o código
+			</div>
 		</div>
 		<div class="clearfix"></div>
 		<hr />
 		<button ng-click='cancel()' class="btn btn-large btn-login"
-			type="submit">Cancelar</button>
+		type="submit">
+			Cancelar
+		</button>
 		<button ng-click='goToAddCustomer()'
-			class="btn btn-large btn-login pull-right" type="submit">
-			Confirmar</button>
+		class="btn btn-large btn-login pull-right" type="submit">
+			Confirmar
+		</button>
 	</form>
 </div>

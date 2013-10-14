@@ -129,3 +129,9 @@ background:#e2a9a8;
 	float: right;
 	margin: 30px;
 }
+.total-value-payment-check {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+
+}

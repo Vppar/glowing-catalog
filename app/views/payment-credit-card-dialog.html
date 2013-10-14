@@ -12,7 +12,7 @@
 						<div class="control-group lbl-top">
 							<label class="control-label">Parcelas</label>
 							<div class="controls">
-								<select ng-model="card.installmentPlan" class='combo-width-1' required>
+								<select ui-select2 ng-model="card.installmentPlan" class='combo-width-1' required>
 									<option ng-repeat="installments in dataProvider.cardData.installments" value="{{installments}}">{{installments}}</option>
 								
 								</select>
@@ -21,7 +21,7 @@
 						<div class="control-group lbl-top">
 							<label class="control-label">Cartão</label>
 							<div class="controls">
-								<select ng-model="card.flag" class='combo-width' required>
+								<select ui-select2 ng-model="card.flag" class='combo-width' required>
 									<option ng-repeat="flags in dataProvider.cardData.flags" value="{{flags}}">{{flags}}</option>
 									
 								</select>
@@ -62,6 +62,19 @@
 						<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o código </div>
 		
 		</div>
+		<div class="row-fluid">
+				<div class="total-value-payment-credit-card">
+					<div>
+						<strong>Valor Total:</strong> 166,00
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="error" style="display:none">
+					Erro ao inserir dados, contate o suporte informando o código
+				</div>
+			</div>
+
 		<div class="clearfix"></div><hr />
 		<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
 			Cancelar
