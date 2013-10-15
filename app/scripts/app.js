@@ -22,6 +22,15 @@ angular.module('glowingCatalogApp', ['ui.bootstrap', 'ui.select2']).config(funct
     }).when('/login', {
         templateUrl : 'views/login.html',
         controller : "LoginCtrl"
+    }).when('/partial-delivery', {
+        templateUrl : 'views/partial-delivery.html',
+        controller : "PartialDeliveryCtrl"
+    }).when('/order-list', {
+        templateUrl : 'views/order-list.html',
+        controller : "OrderListCtrl"
+    }).when('/inventory', {
+        templateUrl : 'views/inventory.html',
+        controller : "InventoryCtrl"
     }).when('/delivery', {
         templateUrl : 'views/delivery.html',
         controller : 'DeliveryCtrl'
