@@ -1,5 +1,31 @@
 @media (max-width: 1024px) and (max-height: 768px) {
-	
+
+	/*PARTIAL DELIVERY*/
+	.form-container-partial-delivery {
+		bottom: 10px !important
+	}
+	.scroll-partial-delivery {
+		top: 137px !important;
+		bottom: 42px !important;
+	}
+	.grid-partial-delivery .header .col-4 {
+		width: 160px !important;
+		display: inline-block !important;
+		text-align: left !important;
+	}
+	.grid-partial-delivery .header .col-4 div {
+
+		margin-right: 65px !important
+	}
+	.grid-partial-delivery .col-4 {
+		width: 160px;
+		float: right;
+	}
+	.grid-partial-delivery .col-4 div {
+		float: right;
+		text-align: center !important;
+	}
+	/*END PARTIAL DELIVERY*/
 	.bottom-side-bar img {
 		margin-top: 11px !important;
 	}

@@ -1,0 +1,128 @@
+/*FORM PARTIAL DELIVERY*/
+.form-container-partial-delivery {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	top: 90px;
+	bottom: 20px
+}
+.scroll-partial-delivery {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	top: 138px;
+	bottom: 40px
+}
+.form-partial-delivery {
+	width: 472px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -267px
+}
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-partial-delivery .combo-width {
+	width: 250px;
+}
+.row-partial-delivery  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.total-value-partial-delivery {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+/*GRID PARTIAL DELIVERY*/
+.grid-partial-delivery {
+	border-radius: 6px 6px 0 0;
+}
+
+.grid-partial-delivery .header {
+	background: #ecbab9;
+	border-radius: 4px;
+	margin-top: 5px
+}
+.grid-partial-delivery .header span, .grid-partial-delivery .scroll-partial-delivery  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-partial-delivery .scroll-partial-delivery .row-partial-delivery {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-partial-delivery .header .col-1 {
+	width: 440px;
+}
+.grid-partial-delivery .header .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+.grid-partial-delivery .header .col-1 div {
+	margin-left: 20px
+}
+.grid-partial-delivery .header .col-2 {
+	width: 225px;
+	text-align: center
+}
+.grid-partial-delivery .header .col-3 {
+	width: 80px;
+}
+.grid-partial-delivery .header .col-3 div {
+	width: 80px;
+	text-align: center
+}
+.grid-partial-delivery .header .col-4 {
+	width: 160px;
+	display: inline-block;
+	text-align: center;
+}
+.grid-partial-delivery .header .col-4 div {
+	text-align: center
+}
+.row-partial-delivery .col-1 {
+	width: 440px;
+}
+.row-partial-delivery .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+.row-partial-delivery .col-1 div {
+	margin-left: 20px;
+}
+.grid-partial-delivery .col-2 {
+	width: 225px;
+	text-align: center
+}
+.grid-partial-delivery .col-3 {
+	width: 70px;
+}
+.grid-partial-delivery .col-3 div {
+	width: 70px;
+	text-align: center
+}
+.grid-partial-delivery .col-4 {
+	width: 160px;
+	float: right;
+	text-align: left;
+}
+.grid-partial-delivery .col-4 div {
+	float: right;
+	margin-right: 80px
+}
+
