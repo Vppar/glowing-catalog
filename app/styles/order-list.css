@@ -1,0 +1,119 @@
+/*FORM PARTIAL DELIVERY*/
+.form-order-list {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	top: 90px;
+	bottom: 20px
+}
+.scroll-order-list {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	top: 138px;
+	bottom: 40px
+}
+
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-order-list .combo-width {
+	width: 250px;
+}
+.row-order-list  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.total-value-order-list {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+/*GRID PARTIAL DELIVERY*/
+.grid-order-list {
+	border-radius: 6px 6px 0 0;
+}
+
+.grid-order-list .header {
+	background: #ecbab9;
+	border-radius: 4px;
+	margin-top: 5px
+}
+.grid-order-list .header span, .grid-order-list .scroll-order-list  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-order-list .scroll-order-list .row-order-list {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-order-list .header .col-1 {
+	width: 200px;
+}
+.grid-order-list .header .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+.grid-order-list .header .col-1 div {
+	margin-left: 20px
+}
+.grid-order-list .header .col-2 {
+	width: 150px;
+	text-align: left
+}
+.grid-order-list .header .col-3 {
+	width: 300px;
+}
+.grid-order-list .header .col-3 div {
+	text-align: left
+}
+.grid-order-list .header .col-4 {
+	width: 160px;
+	display: inline-block;	
+}
+.grid-order-list .header .col-4 div {
+	text-align: right;
+	float:right;
+	margin-right:40px
+}
+.row-order-list .col-1 {
+	width: 200px;
+}
+.row-order-list .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+.row-order-list .col-1 div {
+	margin-left: 20px;
+}
+.grid-order-list .col-2 {
+	width: 150px;
+	text-align: left
+}
+.grid-order-list .col-3 {
+	width: 300px;
+}
+.grid-order-list .col-3 div {
+	text-align: left
+}
+.grid-order-list .col-4 {
+	width: 160px;
+	float: right;
+	
+}
+.grid-order-list .col-4 div {
+	float: right;
+	text-align: right;
+	margin-right:24px
+	
+}
+
