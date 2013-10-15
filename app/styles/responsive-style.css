@@ -1,5 +1,12 @@
 @media (max-width: 1024px) and (max-height: 768px) {
 
+	/*ORDER LIST*/
+	.grid-order-list .header .col-4 div {
+		text-align: right;
+		float: right;
+		margin-right: 25px !important
+	}
+	/* END ORDER LIST*/
 	/*PARTIAL DELIVERY*/
 	.form-container-partial-delivery {
 		bottom: 10px !important
