@@ -1,0 +1,108 @@
+.form-delivery-details-modal {
+	width: 572px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -320px
+}
+.form-delivery-details-modal .combo-width-delivery-details {
+	width: 430px
+}
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+.form-delivery-details-modal .btn-plus-delivery-details {
+	margin-top: 25px;
+}
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+
+.btn-plus-delivery-details {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.row-grid-delivery-details  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+/*grid delivery-details*/
+.grid-delivery-details {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-delivery-details-grid {
+	height: 200px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-delivery-details .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-delivery-details .header span, .grid-delivery-details .scroll-delivery-details-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-delivery-details .scroll-delivery-details-grid .row-grid-delivery-details {
+	border-bottom: 1px solid #ccc
+}
+.grid-delivery-details .header .col-1 {
+	width: 280px;
+	text-align: left
+}
+.grid-delivery-details .header .col-1 div {
+	margin-left: 20px;
+}
+.grid-delivery-details .header .col-2 {
+	width: 150px;
+}
+.grid-delivery-details .header .col-3 {
+	width: 70px;
+	text-align: center;
+}
+.grid-delivery-details .header .col-3 div{
+	text-align: center;
+}
+.row-grid-delivery-details .col-1 {
+	width: 280px;
+	text-align: left;
+	white-space: nowrap;
+}
+.row-grid-delivery-details .col-1 div {
+	margin-left: 20px
+}
+
+.grid-delivery-details .col-2 {
+	width: 150px;
+
+}
+.grid-delivery-details .col-3 {
+	width: 70px;
+	text-align: center
+}
+.grid-delivery-details .col-3 div{
+	text-align: center
+}
+.grid-delivery-details .col-4 {
+	width: 22px;
+	float: right;
+	margin-right:20px
+}
+
+
+/*end grid delivery-details*/
+.total-value-delivery-details {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+
