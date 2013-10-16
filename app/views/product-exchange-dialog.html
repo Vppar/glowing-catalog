@@ -1,6 +1,6 @@
 <div class="container">
 
-	<form class="form-payment-exchange-modal">
+	<form class="form-payment-exchange-modal" name="exchangeForm">
 		<span class="heading-gradient">TROCA DE PRODUTO</span>
 
 		<div class="row-fluid">
@@ -9,31 +9,20 @@
 
 				<div class="control-group lbl-top">
 					<label class="control-label">Selecione um Produto</label>
-					<select class="combo-width-product-exchange" ui-select2 ng-model="select2" data-placeholder="Creme Diurno com FPS 30 Volu-Firm™ TimeWise">
-						<option value=""></option>
-						<option value="one">Gel de Limpeza Botanical Effects – Pele Oleosa</option>
-						<option value="two">Sérum Lifting</option>
-						<option value="three">Creme Diurno com FPS 30 Volu-Firm™ TimeWise</option>
+					<select class="combo-width-product-exchange" ui-select2 ng-model="product.id" data-placeholder="" required>
+						<option ng-repeat="products in dataProvider.products" value="{{products.id}}">{{products.title}}</option>
 					</select>
-				</div>
-				<div class="control-group lbl-top">
-					<div class="control-group lbl-top">
-						<label class="control-label" >Qtde</label>
-						<div class="controls">
-							<input class="input-small text-center" type="text"  placeholder="">
-						</div>
-					</div>
 				</div>
 				<div class="control-group lbl-top">
 					<div class="control-group lbl-top">
 						<label class="control-label" >Valor</label>
 						<div class="controls">
-							<input class="input-small text-right" type="text"  placeholder="">
+							<input class="input-small text-right" ng-model="product.price" type="text" currency required>
 						</div>
 					</div>
 				</div>
 				<div class="control-group lbl-top" >
-					<div class="controls">
+					<div ng-click="addExchangeProduct(product)" class="controls">
 						<span class="btn-plus-pink hover-state-pointer"><img src="images/btn-plus-pink.png" alt="" /></span>
 					</div>
 				</div>
@@ -47,31 +36,22 @@
 								Produto
 							</div></span><span class="col-2">
 							<div>
-								Qtde
-							</div></span>
-							<span class="col-3"><div>Valor</div></span>
-							<span class="col-4"><div></div></span>
+								Valor
+							</div></span><span class="col-4"><div></div></span>
 					</div>
 				</div>
 				<div class="scroll-payment-grid">
-					<div class="row-payment-grid-product-exchange">
+					<div ng-repeat="product in productList" class="row-payment-grid-product-exchange">
 						<span class="col-1">
 							<div>
-								Sabonete 3 em 1 de Limpeza...
+								{{product.title}}
 							</div></span><span class="col-2">
 							<div>
-								5
-							</div></span>
-								<span class="col-3">
-							<div>
-								32,00
-							</div></span>
-							<span class="col-4">
-							<div class="hover-state-pointer"><img src="images/del-pink.png" alt="" />
+								{{product.price | currency:""}}
+							</div></span><span class="col-4">
+							<div ng-click="remove(product)" class="hover-state-pointer"><img src="images/del-pink.png" alt="" />
 							</div></span>
 					</div>
-					
-
 				</div>
 
 			</div>
@@ -79,7 +59,7 @@
 			<div class="row-fluid">
 				<div class="total-value-product-exchange">
 					<div>
-						<strong>Valor Total:</strong> 166,00
+						<span><strong>Valor Total:</strong> {{productList | sum:'price' | currency:""}}</span>
 					</div>
 				</div>
 			</div>
@@ -95,7 +75,7 @@
 		<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
 			Cancelar
 		</button>
-		<button ng-click='closeDialog()' class="btn btn-large btn-login pull-right" type="submit">
+		<button ng-click='submitDialog()' class="btn btn-large btn-login pull-right" type="submit">
 			Confirmar
 		</button>
 
