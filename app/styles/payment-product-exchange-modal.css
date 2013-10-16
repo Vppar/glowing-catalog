@@ -10,7 +10,7 @@
 	margin-left: -267px
 }
 .form-payment-exchange-modal .combo-width-product-exchange{
-	width:330px
+	width:222px
 }
 .btn-plus-pink{
 	position:relative;
@@ -58,23 +58,23 @@ background:#e2a9a8 !important;
 	border-bottom: 1px solid #ccc
 }
 .grid-payment-product-exchange .header .col-1{
-	width: 310px;
+	width: 240px;
 	text-align:left
 }
 .grid-payment-product-exchange .header .col-1 div{
 	margin-left:20px;
 }
 .grid-payment-product-exchange .header .col-2{
-	width: 100px;
-	text-align:right
+	width: 80px;
+	text-align:center
 }
 .grid-payment-product-exchange .header .col-3{
-	width: 140px;
+	width: 80px;
 	text-align:center;
 	
 }
 .row-payment-grid-product-exchange .col-1{
-		width: 310px;
+	width: 240px;
 	text-align:left;
 	white-space:nowrap;
 }
@@ -83,11 +83,11 @@ background:#e2a9a8 !important;
 }
 
 .grid-payment-product-exchange .col-2{
-width:100px;
-	text-align:right
+width:80px;
+	text-align:center
 }
 .grid-payment-product-exchange .col-3{
-width: 140px;
+width: 80px;
 	text-align:center
 }
 .grid-payment-product-exchange .col-4{
