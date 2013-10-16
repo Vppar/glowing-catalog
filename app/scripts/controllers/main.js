@@ -24,5 +24,11 @@ angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dia
 		});
 		d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
 	};
+	$scope.openInputProducts = function() {
+		var d = $dialog.dialog ({ backdropClick: true,
+			dialogClass: 'modal'
+		});
+		d.open('views/input-products-dialog.html', 'InputProductsCtrl');
+	};
 
 });
