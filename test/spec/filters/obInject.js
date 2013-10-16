@@ -11,7 +11,7 @@ describe('Filter: obInject', function () {
     obInject = $filter('obInject');
   }));
 
-  it('should return the input prefixed with "obInject filter:"', function () {
+  xit('should return the input prefixed with "obInject filter:"', function () {
     var text = 'angularjs';
     expect(obInject(text)).toBe('obInject filter: ' + text);
   });

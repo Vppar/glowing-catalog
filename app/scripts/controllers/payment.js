@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-angular.module('glowingCatalogApp').controller('PaymentCtrl', function($scope, $dialog, $location) {
+angular.module('glowingCatalogApp').controller('PaymentCtrl', function($scope, $dialog, $location, DataProvider) {
    $scope.openDialogCheck = function() {
 		var d = $dialog.dialog ({ backdropClick: true,
 			dialogClass: 'modal'
@@ -43,5 +43,7 @@ angular.module('glowingCatalogApp').controller('PaymentCtrl', function($scope, $
 	}
 	
 	$scope.cash = 12.98;
+	
+	$scope.customer = DataProvider.customer;
 });
 }(angular));
