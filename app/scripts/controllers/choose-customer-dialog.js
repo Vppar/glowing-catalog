@@ -12,7 +12,7 @@
 
         $scope.goToAddCustomer = function() {
             if ($scope.selectedCustomer && $scope.selectedCustomer !== '') {
-                DataProvider.customer = $scope.selectedCustomer.id;
+                DataProvider.customer = $scope.selectedCustomer;
                 $location.path('/');
             } else {
                 $location.path('add-customer');
