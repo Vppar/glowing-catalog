@@ -10,7 +10,7 @@
             templateUrl : 'views/input-qtd.html',
             link : function postLink(scope, element, attrs) {
                 if(!scope.value){
-                    scope.value = 0;
+                    scope.value = 1;
                 }
 
                 scope.increment = function() {

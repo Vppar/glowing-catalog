@@ -1,18 +1,16 @@
-'use strict';
+describe('Service: DataProvider', function() {
 
-describe('Service: DataProvider', function () {
+    // load the service's module
+    beforeEach(module('glowingCatalogApp'));
 
-  // load the service's module
-  beforeEach(module('glowingCatalogApp'));
+    // instantiate service
+    var DataProvider = null;
+    beforeEach(inject(function(DataProvider) {
+        DataProvider = _DataProvider_;
+    }));
 
-  // instantiate service
-  var BasketService;
-  beforeEach(inject(function (_BasketService_) {
-    BasketService = _BasketService_;
-  }));
-
-  it('should do something', function () {
-    expect(!!BasketService).toBe(true);
-  });
+    xit('should do something', function() {
+        expect(!!DataProvider).toBe(true);
+    });
 
 });

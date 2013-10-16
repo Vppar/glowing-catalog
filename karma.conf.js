@@ -11,8 +11,26 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'app/bower_components/jquery/jquery.js',
       'app/bower_components/angular/angular.js',
+      'app/bower_components/angular-i18n/angular-locale_pt-br.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
+      'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-affix.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-alert.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-dropdown.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-tooltip.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-modal.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-transition.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-button.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-popover.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-typeahead.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-carousel.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-scrollspy.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-collapse.js',
+      'app/bower_components/bootstrap-sass/js/bootstrap-tab.js',
+      'app/bower_components/select2/select2.js',
+      'app/bower_components/angular-ui-select2/src/select2.js',
       'app/scripts/*.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
@@ -31,7 +49,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // Start these browsers, currently available:

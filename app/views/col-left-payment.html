@@ -30,11 +30,11 @@
 
 <div class="customer-info">
 	<div class="txt-info-customer">
-		MARIA APARECIDA SILVEIRA DA COSTA
+		{{customer.name}}
 		<br />
-		mariaapscosta@uol.com.br
+		{{customer.email}}
 		<br />
-		12 - 99872-5647 / 12 - 3954-2547
+		<span ng-repeat="phone in customer.phones">{{phone}}</span>
 	</div>
 </div>
 <span class="panel-payment-footer-left">
