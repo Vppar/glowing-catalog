@@ -27,6 +27,8 @@ angular.module('glowingCatalogApp', ['ui.bootstrap', 'ui.select2']).config(funct
         controller : "PartialDeliveryCtrl"
     }).when('/order-list', {
         templateUrl : 'views/order-list.html',
+    }).when('/previous-entries', {
+        templateUrl : 'views/previous-entries.html',
     }).when('/inventory', {
         templateUrl : 'views/inventory.html',
     }).when('/delivery', {

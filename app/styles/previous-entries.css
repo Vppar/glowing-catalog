@@ -1,0 +1,129 @@
+/*FORM PARTIAL DELIVERY*/
+.form-previous-entries {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	top: 90px;
+	bottom: 20px
+}
+.scroll-previous-entries {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	top: 138px;
+	bottom: 40px
+}
+
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-previous-entries .combo-width {
+	width: 250px;
+}
+.row-previous-entries  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.total-value-previous-entries {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+/*GRID PARTIAL DELIVERY*/
+.grid-previous-entries {
+	border-radius: 6px 6px 0 0;
+}
+
+.grid-previous-entries .header {
+	background: #ecbab9;
+	border-radius: 4px;
+	margin-top: 5px
+}
+.grid-previous-entries .header span, .grid-previous-entries .scroll-previous-entries  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-previous-entries .scroll-previous-entries .row-previous-entries {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-previous-entries .header .col-1 {
+	width: 120px;
+}
+.grid-previous-entries .header .col-1 div {
+	margin-left: 20px
+}
+.grid-previous-entries .header .col-2 {
+	width:520px;
+}
+.grid-previous-entries .header .col-3 {
+	width: 80px;
+}
+.grid-previous-entries .header .col-3 div {
+	text-align: center
+}
+.grid-previous-entries .header .col-4 {
+	width: 100px;
+	display: inline-block;	
+}
+.grid-previous-entries .header .col-4 div {
+	text-align: right;
+
+}
+.grid-previous-entries .header .col-5 {
+	width: 100px;
+	display: inline-block;	
+}
+.grid-previous-entries .header .col-5 {
+	text-align:right;
+	margin-right:16px
+}
+.row-previous-entries .col-1 {
+	width: 120px;
+}
+.row-previous-entries .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+.row-previous-entries .col-1 div {
+	margin-left: 20px;
+}
+.grid-previous-entries .col-2 {
+	width: 520px;
+	text-align: left
+}
+.grid-previous-entries .col-3 {
+	width: 80px;
+}
+.grid-previous-entries .col-3 div {
+	text-align: center
+}
+.grid-previous-entries .col-4 {
+	width: 100px;
+	
+}
+.grid-previous-entries .col-4 div {
+	text-align: right;
+	margin-right:24px
+	
+}
+.grid-previous-entries .col-5 {
+	width: 100px;
+	float:right
+	
+	
+}
+.grid-previous-entries .col-5 div{
+	text-align:right;
+	margin-right:40px
+}
