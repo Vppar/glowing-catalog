@@ -110,7 +110,8 @@
 	width: 470px;
 	position: absolute;
 	top: 400px;
-	background: #e6e6e6
+	background: #e6e6e6;
+	height:90px
 }
 .customer-info {
 	border-radius: 4px;
@@ -120,7 +121,8 @@
 	position: absolute;
 	top: 400px;
 	color: #333;
-	background: #e6e6e6
+	background: #e6e6e6;
+	height:90px
 }
 
 /*scroll left*/
