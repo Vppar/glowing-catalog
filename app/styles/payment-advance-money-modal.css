@@ -40,7 +40,7 @@
 }
 .scroll-payment-grid-advance-money {
 	height: 200px;
-	overflow-y: auto;
+	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 }
 .grid-payment-advance-money .header {
@@ -64,21 +64,17 @@
 	margin-left: 20px
 }
 .grid-payment-advance-money .header .col-2 {
-	width: 160px;
+	width: 100px;
 	text-align: left
 }
 .grid-payment-advance-money .header .col-3 {
 	width: 70px;
-	text-align: center;
 }
 .grid-payment-advance-money .header .col-4 {
-	width: 160px;
+	width: 220px;
 	display: inline-block;
-	text-align: left;
-	}
-	.grid-payment-advance-money .header .col-4 div{
-	margin-right: 20px;
 }
+
 .row-payment-advance-money .col-1 {
 	width: 40px;
 }
@@ -89,28 +85,25 @@
 	margin-left: 20px;
 }
 .grid-payment-advance-money .col-2 {
-	width: 160px;
+	width: 100px;
 	text-align: left
 }
 .grid-payment-advance-money .col-3 {
 	width: 70px;
-	text-align: center
+	text-align: right
 }
 .grid-payment-advance-money .col-4 {
-	width: 160px;
-	float: left;
+	width: 220px;
 	text-align: left;
 }
-.grid-payment-advance-money .col-4 div {
-	margin-right: 20px
-}
+
 .row-payment-advance-money .col-3 div {
 	text-align: right
 }
-.row-payment-advance-money .col-4 {
-	float: right;
-	margin-right: 5px
+.row-payment-advance-money .col-4 div {
+	margin-left: 20px
 }
+
 /*end grid payment credit card*/
 .total-value-advance-money {
 	float: right;
