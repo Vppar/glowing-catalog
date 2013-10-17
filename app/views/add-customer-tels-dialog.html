@@ -3,7 +3,7 @@
 		<span class="heading-gradient">TELEFONES</span>
 
 		<div class="row-fluid">
-			<span class="span5"> <select class='customer-tel-type'
+			<span class="span5"> <select class='customer-tel-type' ui-select2 ng-model="select2"
 				ng-model="phone.type" required>
 					<option ng-repeat="type in dataProvider.phone.types"
 						value="{{type}}">{{type}}</option>
