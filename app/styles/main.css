@@ -604,6 +604,7 @@ body {
 	position: absolute;
 	top: 80px;
 	right: 10px;
+	width:188px;
 }
 .sidebar-menu {
 	float: right;
@@ -612,11 +613,18 @@ body {
 	width: 100%;
 	background: #fdfeff
 }
-.bottom-side-bar img {
-	max-width: 185px;
+.bottom-side-bar{
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
-	margin-top: 10px
+	width: 180px;
+	padding:4px;
+	margin-top: 10px;
+	height:140px;
+	display:inline-block;
+	background:#fdfeff;
+}
+.bottom-side-bar img{
+	max-width:93%;
 }
 .nav-list > li > a {
 	padding: 3px 15px;
