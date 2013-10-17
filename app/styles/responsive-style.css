@@ -1,9 +1,14 @@
 @media (max-width: 1024px) and (max-height: 768px) {
 
-	
+	/*PREVIOUS ENTRIES*/
+	.grid-previous-entries .header .col-5 div {
+		text-align: right;
+		margin-right: 25px
+	}
+
 	/*CATALOG*/
-	.footer{
-		font-weight:bold;
+	.footer {
+		font-weight: bold;
 	}
 	/*ORDER LIST*/
 	.grid-order-list .header .col-4 div {

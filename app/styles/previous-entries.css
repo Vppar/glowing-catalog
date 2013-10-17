@@ -84,11 +84,10 @@
 .grid-previous-entries .header .col-5 {
 	width: 100px;
 	display: inline-block;	
-}
-.grid-previous-entries .header .col-5 {
 	text-align:right;
 	margin-right:16px
 }
+
 .row-previous-entries .col-1 {
 	width: 120px;
 }
