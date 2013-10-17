@@ -72,18 +72,7 @@
 		position: relative;
 		right: 16px
 	}
-	/*payment check dialog*/
-	.grid-payment-check .header .col-6 {
-		width: 16.8% !important;
-	}
-	.grid-payment-check .header .col-1, .grid-payment-check .header .col-2, .grid-payment-check .header .col-3, .grid-payment-check .header .col-4, .grid-payment-check .header .col-5, .grid-payment-check .header .col-6 {
-		width: 15% !important;
-		text-align: center !important;
-	}
-	.row-payment-check-grid .col-1, .row-payment-check-grid .col-2, .row-payment-check-grid .col-3, .row-payment-check-grid .col-4, .row-payment-check-grid .col-5, .row-payment-check-grid .col-6 {
-		width: 15% !important;
-		text-align: center !important;
-	}
+
 	.form-payment-check .btn-plus-payment-check {
 		margin-left: 15px !important;
 	}
