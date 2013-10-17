@@ -18,15 +18,13 @@
                  *      (DataProvider.js)
                  */
                 $scope.dataProvider = DataProvider;
-
-                $scope.product = {}; // card ={};
-                $scope.totalPrice = {};
+                $scope.product = {};  
 
                 /**
                  * @var productList - stores product list
                  */
                 $scope.productList = [];
-
+                
                 /**
                  * Function addExchangeProduct - Adds exchange product to the
                  * last position of $scope.productList array
@@ -47,9 +45,7 @@
                         };
 
                         $scope.productList.push(productListHolder);
-                        $scope.totalPrice += product.price;
-                        console.log(productList);
-                    }
+                     }
                 };
 
                 /** Removes selected product from $scope.productList array
@@ -58,7 +54,7 @@
                  */
                 $scope.remove = function remove(product) {
                     $scope.productList.splice($scope.productList.indexOf(product), 1);
-                    $scope.totalPrice -= product.price;
+                   
                 };
 
                 /**

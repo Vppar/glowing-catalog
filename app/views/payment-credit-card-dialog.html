@@ -30,7 +30,7 @@
 							<div class="control-group lbl-top">
 							<label class="control-label" >Valor</label>
 							<div class="controls">
-								<input ng-model="card.value" class="input-small text-right" type="text"  placeholder="" currency required recall>
+								<input ng-model="card.value" class="input-small text-right" type="text"  placeholder="" currency:"" required recall>
 							</div>
 							</div>
 						</div>
@@ -64,7 +64,7 @@
 		<div class="row-fluid">
 				<div class="total-value-payment-credit-card">
 					<div>
-						<strong>Valor Total:</strong> 166,00
+						<strong>Valor Total:</strong> {{creditCards | sum:'value' | currency:""}}
 					</div>
 				</div>
 			</div>
