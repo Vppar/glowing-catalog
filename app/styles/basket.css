@@ -7,7 +7,7 @@
     left:50%;
     margin-left:-512px;
     background:#fff;
-    height:45px;
+    height:50px;
     border-top: solid 1px #e0e0e0
 }
 .footer-cart .total-value{
@@ -23,7 +23,7 @@
     background:#ecbab9;
     text-shadow:none;
     border:none;
-    margin-top:7px;
+    margin-top:10px;
 }
 .footer-cart .btn:hover{
     background:#dc9390;
