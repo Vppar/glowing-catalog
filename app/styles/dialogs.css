@@ -1,4 +1,4 @@
-/*heading dialogs*/
+/*DIALOG PROPETIES*/
 .heading-gradient {
 	position: absolute;
 	top: -45px;
@@ -11,31 +11,24 @@
 	padding: 15px 0 15px 30px;
 	background: #000 url(../images/heading-gradient-bg.png) repeat-y;
 }
-/*form add email*/
-.form-add-email {
+.form-add-email, .form-add-tel, .form-add-to-basket, .form-choose-customer, .form-delivery-details-modal,
+.form-input-products, .form-payment-credit-card, .form-payment-advance-money, .form-payment-check,
+.form-payment-exchange-modal{
 	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 6px 6px;
+	border-radius: 0 0 4px 4px;
 	box-shadow: 0px 10px 50px 10px #999;
 	background: #fff;
 	position: absolute;
 	left: 50%;
 	top: 111px;
+}
+/*END DIALOG*/
+
+/*form add email*/
+.form-add-email, .form-add-tel {
 	margin-left: -215px;
 	width: 370px
 }
-/*add tels customer */
-.form-add-tel {
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 6px 6px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
-	margin-left: -215px !important;
-	width: 370px;
-}
-
 /*add to basket dialog*/
 .price-add-to-basket {
 	font-size: 24px;
@@ -54,7 +47,7 @@
 .form-add-to-basket {
 	width: 360px;
 	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 6px 6px;
+	border-radius: 0 0 4px 4px;
 	box-shadow: 0px 10px 50px 10px #999;
 	background: #fff;
 	position: absolute;
@@ -77,13 +70,6 @@
 /*choose customer*/
 .form-choose-customer {
 	width: 310px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 6px 6px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -185px
 }
 .form-payment-credit-card .btn-plus-payment-credit-card {
@@ -96,13 +82,6 @@
 /*delivery details*/
 .form-delivery-details-modal {
 	width: 572px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -316px;
 }
 .form-delivery-details-modal .combo-width-delivery-details {
@@ -131,9 +110,9 @@
 	border: none;
 	height: 30px
 }
-/*delivery-details*/
+/*grid delivery-details*/
 .grid-delivery-details {
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 }
 .scroll-delivery-details-grid {
 	height: 200px;
@@ -200,13 +179,6 @@
 /*input products*/
 .form-input-products {
 	width: 472px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -266px
 }
 .btn-plus-pink {
@@ -236,7 +208,7 @@
 }
 
 .grid-input-products {
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 }
 .scroll-payment-grid {
 	height: 200px;
@@ -322,6 +294,7 @@
 	white-space: nowrap;
 }
 /* credit card*/
+
 .modal .dropdown-menu .divider {
 	display: none;
 }
@@ -334,17 +307,7 @@
 	display: none;
 }
 
-.form-payment-credit-card {
-	width: 308px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 6px 6px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
-	margin-left: -180px
-}
+
 .input-cta {
 	width: 76px
 }
@@ -361,24 +324,17 @@
 
 .form-payment-credit-card {
 	width: 472px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -266px
 }
-.btn-plus-pink{
-	position:relative;
-	top:25px
+.btn-plus-pink {
+	position: relative;
+	top: 25px
 }
-.form-payment-credit-card .btn-plus-payment-credit-card{
-	margin-top:25px;
+.form-payment-credit-card .btn-plus-payment-credit-card {
+	margin-top: 25px;
 }
-.btn:hover{
-background:#e2a9a8 !important;	
+.btn:hover {
+	background: #e2a9a8 !important;
 }
 .form-payment-credit-card .combo-width-1 {
 	width: 96px;
@@ -386,21 +342,21 @@ background:#e2a9a8 !important;
 .form-payment-credit-card .combo-width {
 	width: 230px;
 }
-.btn-plus-payment-credit-card{
-	background:#ecbab9 ;
-	text-shadow:none;
-	border:none;
-	height:30px
+.btn-plus-payment-credit-card {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
 }
-.row-payment-credit-card-grid  .btn{
-	background:#ecbab9 ;
-	text-shadow:none;
-	border:none;
-	height:30px
-	}
+.row-payment-credit-card-grid  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
 
 .grid-payment-credit-card {
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 }
 .scroll-payment-grid {
 	height: 200px;
@@ -418,48 +374,46 @@ background:#e2a9a8 !important;
 .grid-payment-credit-card .scroll-payment-grid .row-payment-credit-card-grid {
 	border-bottom: 1px solid #e0e0e0
 }
-.grid-payment-credit-card .header .col-1{
+.grid-payment-credit-card .header .col-1 {
 	width: 100px;
-	text-align:center
+	text-align: center
 }
-.grid-payment-credit-card .header .col-2{
+.grid-payment-credit-card .header .col-2 {
 	width: 180px;
-	text-align:center
+	text-align: center
 }
-.grid-payment-credit-card .header .col-3{
+.grid-payment-credit-card .header .col-3 {
 	width: 120px;
-	text-align:center;
-	
+	text-align: center;
 }
-.row-payment-credit-card-grid .col-1{
-		width: 100px;
-	text-align:center
+.row-payment-credit-card-grid .col-1 {
+	width: 100px;
+	text-align: center
 }
-.grid-payment-credit-card .col-2{
-width: 180px;
-	text-align:center
+.grid-payment-credit-card .col-2 {
+	width: 180px;
+	text-align: center
 }
-.grid-payment-credit-card .col-3{
-width: 120px;
-	text-align:center
+.grid-payment-credit-card .col-3 {
+	width: 120px;
+	text-align: center
 }
-.grid-payment-credit-card .col-4{
+.grid-payment-credit-card .col-4 {
 	width: 22px;
-	float:right;
-	 margin-right:10px !important;
-
+	float: right;
+	margin-right: 10px !important;
 }
-.row-payment-credit-card-grid .col-3 div{
-	text-align:right
+.row-payment-credit-card-grid .col-3 div {
+	text-align: right
 }
-.grid-payment-credit-card .header .col-4{
+.grid-payment-credit-card .header .col-4 {
 	width: 15%;
 }
- .row-payment-credit-card-grid .col-4{
-	 float:right;
-	 margin-right:5px
- }
- .total-value-payment-credit-card {
+.row-payment-credit-card-grid .col-4 {
+	float: right;
+	margin-right: 5px
+}
+.total-value-payment-credit-card {
 	float: right;
 	margin-top: 20px;
 	text-align: right;
@@ -468,13 +422,6 @@ width: 120px;
 /*advance money*/
 .form-payment-advance-money {
 	width: 472px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -266px
 }
 .btn-plus-pink {
@@ -504,7 +451,7 @@ width: 120px;
 }
 /*grid payment credit card*/
 .grid-payment-advance-money {
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 }
 .scroll-payment-grid-advance-money {
 	height: 200px;
@@ -674,13 +621,6 @@ width: 120px;
 	color: #b77a78;
 }
 .form-payment-check {
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -317px;
 	width: 574px
 }
@@ -697,13 +637,6 @@ width: 120px;
 /*payment credit card*/
 .form-payment-credit-card {
 	width: 472px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -266px
 }
 .btn-plus-pink {
@@ -736,7 +669,7 @@ width: 120px;
 }
 /*grid payment credit card*/
 .grid-payment-credit-card {
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 }
 .scroll-payment-grid {
 	height: 200px;
@@ -801,13 +734,6 @@ width: 120px;
 /*product exchange*/
 .form-payment-exchange-modal {
 	width: 472px;
-	padding: 40px 30px 30px 30px;
-	border-radius: 0 0 4px 4px;
-	box-shadow: 0px 10px 50px 10px #999;
-	background: #fff;
-	position: absolute;
-	left: 50%;
-	top: 111px;
 	margin-left: -266px
 }
 .form-payment-exchange-modal .combo-width-product-exchange {
@@ -840,7 +766,7 @@ width: 120px;
 }
 /*grid payment credit card*/
 .grid-payment-product-exchange {
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 }
 .scroll-payment-grid {
 	height: 200px;
