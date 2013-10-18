@@ -1,0 +1,913 @@
+/*heading dialogs*/
+.heading-gradient {
+	position: absolute;
+	top: -45px;
+	left: 0;
+	right: 0;
+	border-radius: 4px 4px 0 0;
+	padding: 10px;
+	color: #fff;
+	font-size: 18px;
+	padding: 15px 0 15px 30px;
+	background: #000 url(../images/heading-gradient-bg.png) repeat-y;
+}
+/*form add email*/
+.form-add-email {
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -215px;
+	width: 370px
+}
+/*add tels customer */
+.form-add-tel {
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -215px !important;
+	width: 370px;
+}
+
+/*add to basket dialog*/
+.price-add-to-basket {
+	font-size: 24px;
+	text-align: center;
+	color: #b77a78;
+	padding-left: 12px;
+	margin-bottom: 10px;
+	width: 100px;
+}
+.total-price-add-to-basket {
+	width: 125px;
+}
+.rose-color {
+	color: #b77a78;
+}
+.form-add-to-basket {
+	width: 360px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -210px
+}
+.form-add-to-basket .line-gradient-01 {
+	padding: 20px 0 20px 0;
+}
+.form-add-to-basket .img-catalog-02 img {
+	width: 180px;
+	float: left;
+	margin-bottom: 10px;
+}
+.form-add-to-basket .wrapper-qtde {
+	float: right;
+	margin: 30px;
+}
+/*choose customer*/
+.form-choose-customer {
+	width: 310px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -185px
+}
+.form-payment-credit-card .btn-plus-payment-credit-card {
+	margin-top: 25px;
+}
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+
+/*delivery details*/
+.form-delivery-details-modal {
+	width: 572px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -316px;
+}
+.form-delivery-details-modal .combo-width-delivery-details {
+	width: 430px
+}
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+.form-delivery-details-modal .btn-plus-delivery-details {
+	margin-top: 25px;
+}
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+
+.btn-plus-delivery-details {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.row-grid-delivery-details  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+/*delivery-details*/
+.grid-delivery-details {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-delivery-details-grid {
+	height: 200px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-delivery-details .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-delivery-details .header span, .grid-delivery-details .scroll-delivery-details-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-delivery-details .scroll-delivery-details-grid .row-grid-delivery-details {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-delivery-details .header .col-1 {
+	width: 280px;
+	text-align: left
+}
+.grid-delivery-details .header .col-1 div {
+	margin-left: 20px;
+}
+.grid-delivery-details .header .col-2 {
+	width: 150px;
+}
+.grid-delivery-details .header .col-3 {
+	width: 70px;
+	text-align: center;
+}
+.grid-delivery-details .header .col-3 div {
+	text-align: center;
+}
+.row-grid-delivery-details .col-1 {
+	width: 280px;
+	text-align: left;
+	white-space: nowrap;
+}
+.row-grid-delivery-details .col-1 div {
+	margin-left: 20px
+}
+
+.grid-delivery-details .col-2 {
+	width: 150px;
+}
+.grid-delivery-details .col-3 {
+	width: 70px;
+	text-align: center
+}
+.grid-delivery-details .col-3 div {
+	text-align: center
+}
+.grid-delivery-details .col-4 {
+	width: 22px;
+	float: right;
+	margin-right: 20px
+}
+.total-value-delivery-details {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+/*input products*/
+.form-input-products {
+	width: 472px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -266px
+}
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+.form-input-products .btn-plus-input-products {
+	margin-top: 25px;
+}
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-input-products .combo-width {
+	width: 282px;
+}
+.btn-plus-input-products {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.row-input-products-grid  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+
+.grid-input-products {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-payment-grid {
+	height: 200px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-input-products .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-input-products .header span, .grid-input-products .scroll-payment-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-input-products .scroll-payment-grid .row-input-products-grid {
+	border-bottom: 1px solid #ccc
+}
+.grid-input-products .header .col-1 {
+	width: 250px;
+	white-space: nowrap;
+}
+.grid-input-products .header .col-1 div {
+	margin-left: 20px
+}
+.grid-input-products .header .col-2 {
+	width: 80px;
+	text-align: right
+}
+.grid-input-products .header .col-3 {
+	width: 90px;
+}
+.grid-input-products .header .col-3 div {
+	text-align: center;
+}
+.row-input-products-grid .col-1 {
+	width: 250px;
+	white-space: nowrap;
+}
+.row-input-products-grid .col-1 div {
+	margin-left: 20px
+}
+.grid-input-products .col-2 {
+	width: 80px;
+	text-align: right
+}
+.grid-input-products .col-3 {
+	width: 90px;
+	text-align: center
+}
+.grid-input-products .col-3 div {
+	text-align: center
+}
+.grid-input-products .col-4 {
+	width: 22px;
+	float: right;
+	margin-right: 10px !important;
+}
+
+.grid-input-products .header .col-4 {
+	width: 15%;
+}
+.row-input-products-grid .col-4 {
+	float: right;
+	margin-right: 5px
+}
+.total-value-total-count {
+	margin-top: 10px;
+	text-align: right;
+	white-space: nowrap;
+}
+.total-value-total-count strong {
+	margin-right: 40px;
+	white-space: nowrap;
+}
+.total-value-input-products strong {
+	margin-right: 21px;
+	white-space: nowrap;
+}
+.total-value-input-products {
+	float: right;
+	margin-top: 10px;
+	text-align: right;
+	white-space: nowrap;
+}
+/* credit card*/
+.modal .dropdown-menu .divider {
+	display: none;
+}
+
+.modal .dropdown-menu .btn-group {
+	display: none;
+}
+
+.modal .dropdown-menu .btn-success {
+	display: none;
+}
+
+.form-payment-credit-card {
+	width: 308px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 6px 6px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -180px
+}
+.input-cta {
+	width: 76px
+}
+.input-money-payment {
+	width: 98px;
+	border: 1px solid #e0e0e0 !important;
+}
+.combo-width-1 {
+	width: 75px;
+}
+.combo-width {
+	width: 309px;
+}
+
+.form-payment-credit-card {
+	width: 472px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -266px
+}
+.btn-plus-pink{
+	position:relative;
+	top:25px
+}
+.form-payment-credit-card .btn-plus-payment-credit-card{
+	margin-top:25px;
+}
+.btn:hover{
+background:#e2a9a8 !important;	
+}
+.form-payment-credit-card .combo-width-1 {
+	width: 96px;
+}
+.form-payment-credit-card .combo-width {
+	width: 230px;
+}
+.btn-plus-payment-credit-card{
+	background:#ecbab9 ;
+	text-shadow:none;
+	border:none;
+	height:30px
+}
+.row-payment-credit-card-grid  .btn{
+	background:#ecbab9 ;
+	text-shadow:none;
+	border:none;
+	height:30px
+	}
+
+.grid-payment-credit-card {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-payment-grid {
+	height: 200px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-payment-credit-card .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-payment-credit-card .header span, .grid-payment-credit-card .scroll-payment-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-credit-card .scroll-payment-grid .row-payment-credit-card-grid {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-payment-credit-card .header .col-1{
+	width: 100px;
+	text-align:center
+}
+.grid-payment-credit-card .header .col-2{
+	width: 180px;
+	text-align:center
+}
+.grid-payment-credit-card .header .col-3{
+	width: 120px;
+	text-align:center;
+	
+}
+.row-payment-credit-card-grid .col-1{
+		width: 100px;
+	text-align:center
+}
+.grid-payment-credit-card .col-2{
+width: 180px;
+	text-align:center
+}
+.grid-payment-credit-card .col-3{
+width: 120px;
+	text-align:center
+}
+.grid-payment-credit-card .col-4{
+	width: 22px;
+	float:right;
+	 margin-right:10px !important;
+
+}
+.row-payment-credit-card-grid .col-3 div{
+	text-align:right
+}
+.grid-payment-credit-card .header .col-4{
+	width: 15%;
+}
+ .row-payment-credit-card-grid .col-4{
+	 float:right;
+	 margin-right:5px
+ }
+ .total-value-payment-credit-card {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+
+/*advance money*/
+.form-payment-advance-money {
+	width: 472px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -266px
+}
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+.form-payment-advance-money .btn-plus-payment-credit-card {
+	margin-top: 25px;
+}
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-payment-advance-money .combo-width {
+	width: 250px;
+}
+.btn-plus-payment-credit-card {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.row-payment-advance-money  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+/*grid payment credit card*/
+.grid-payment-advance-money {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-payment-grid-advance-money {
+	height: 200px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-payment-advance-money .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-payment-advance-money .header span, .grid-payment-advance-money .scroll-payment-grid-advance-money  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-advance-money .scroll-payment-grid-advance-money .row-payment-advance-money {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-payment-advance-money .header .col-1 {
+	width: 40px;
+}
+.grid-payment-advance-money .header .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+.grid-payment-advance-money .header .col-1 div {
+	margin-left: 20px
+}
+.grid-payment-advance-money .header .col-2 {
+	width: 100px;
+	text-align: left
+}
+.grid-payment-advance-money .header .col-3 {
+	width: 70px;
+}
+.grid-payment-advance-money .header .col-4 {
+	width: 220px;
+	display: inline-block;
+}
+
+.row-payment-advance-money .col-1 {
+	width: 40px;
+}
+.row-payment-advance-money .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+.row-payment-advance-money .col-1 div {
+	margin-left: 20px;
+}
+.grid-payment-advance-money .col-2 {
+	width: 100px;
+	text-align: left
+}
+.grid-payment-advance-money .col-3 {
+	width: 70px;
+	text-align: right
+}
+.grid-payment-advance-money .col-4 {
+	width: 220px;
+	text-align: left;
+}
+
+.row-payment-advance-money .col-3 div {
+	text-align: right
+}
+.row-payment-advance-money .col-4 div {
+	margin-left: 20px
+}
+
+.total-value-advance-money {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+/*payment check*/
+.form-payment-check .btn-plus-payment-check {
+	margin-top: 25px;
+}
+.header .row-payment-check-grid {
+	margin-left: 20px
+}
+.row-payment-check-grid .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.row-payment-check-grid .btn:hover {
+	background: #e2a9a8;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.btn-plus-payment-check {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.btn-plus-payment-check:hover {
+	background: #e2a9a8;
+}
+/*grid payment check*/
+.scroll-payment-grid {
+	height: 200px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-payment-check .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-payment-check .header span, .grid-payment-check .scroll-payment-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-check .scroll-payment-grid .row-payment-check-grid {
+	border-bottom: 1px solid #e0e0e0
+}
+.scroll-payment-grid .row-payment-check-grid {
+	margin-left: 20px
+}
+.grid-payment-check .header .col-1 {
+	width: 70px;
+}
+.grid-payment-check .header .col-2 {
+	width: 70px;
+}
+.grid-payment-check .header .col-3 {
+	width: 70px
+}
+.grid-payment-check .header .col-4 {
+	width: 70px
+}
+.grid-payment-check .header .col-5 {
+	width: 100px
+}
+.grid-payment-check .header .col-6 {
+	width: 75px;
+	text-align: right
+}
+.scroll-payment-grid .col-1 {
+	width: 75px
+}
+.scroll-payment-grid .col-2 {
+	width: 75px
+}
+.scroll-payment-grid .col-3 {
+	width: 75px
+}
+.scroll-payment-grid .col-4 {
+	width: 75px
+}
+.scroll-payment-grid .col-5 {
+	width: 100px
+}
+.scroll-payment-grid .col-6 {
+	width: 90px;
+}
+.scroll-payment-grid .col-6 {
+	text-align: right;
+	width: 75px
+}
+.scroll-payment-grid .col-7 {
+	margin-left: 30px
+}
+
+.rose-color {
+	color: #b77a78;
+}
+.form-payment-check {
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -317px;
+	width: 574px
+}
+
+.form-payment-check .line-gradient-01 {
+	padding: 20px 0 20px 0;
+}
+
+.total-value-payment-check {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+/*payment credit card*/
+.form-payment-credit-card {
+	width: 472px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -266px
+}
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+.form-payment-credit-card .btn-plus-payment-credit-card {
+	margin-top: 25px;
+}
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-payment-credit-card .combo-width-1 {
+	width: 96px;
+}
+.form-payment-credit-card .combo-width {
+	width: 230px;
+}
+.btn-plus-payment-credit-card {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.row-payment-credit-card-grid  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+/*grid payment credit card*/
+.grid-payment-credit-card {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-payment-grid {
+	height: 200px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-payment-credit-card .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-payment-credit-card .header span, .grid-payment-credit-card .scroll-payment-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-credit-card .scroll-payment-grid .row-payment-credit-card-grid {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-payment-credit-card .header .col-1 {
+	width: 100px;
+	text-align: center
+}
+.grid-payment-credit-card .header .col-2 {
+	width: 180px;
+	text-align: center
+}
+.grid-payment-credit-card .header .col-3 {
+	width: 120px;
+	text-align: center;
+}
+.row-payment-credit-card-grid .col-1 {
+	width: 100px;
+	text-align: center
+}
+.grid-payment-credit-card .col-2 {
+	width: 180px;
+	text-align: center
+}
+.grid-payment-credit-card .col-3 {
+	width: 120px;
+	text-align: center
+}
+.grid-payment-credit-card .col-4 {
+	width: 22px;
+	float: right;
+	margin-right: 10px !important;
+}
+.row-payment-credit-card-grid .col-3 div {
+	text-align: right
+}
+.grid-payment-credit-card .header .col-4 {
+	width: 15%;
+}
+.row-payment-credit-card-grid .col-4 {
+	float: right;
+	margin-right: 5px
+}
+.total-value-payment-credit-card {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+/*product exchange*/
+.form-payment-exchange-modal {
+	width: 472px;
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	margin-left: -266px
+}
+.form-payment-exchange-modal .combo-width-product-exchange {
+	width: 222px
+}
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+.form-payment-exchange-modal .btn-plus-payment-product-exchange {
+	margin-top: 25px;
+}
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-payment-exchange-modal .combo-width {
+	width: 250px;
+}
+.btn-plus-payment-product-exchange {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.row-payment-grid-product-exchange  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+/*grid payment credit card*/
+.grid-payment-product-exchange {
+	border-radius: 6px 6px 0 0;
+}
+.scroll-payment-grid {
+	height: 200px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-payment-product-exchange .header {
+	background: #ecbab9;
+	border-radius: 4px
+}
+.grid-payment-product-exchange .header span, .grid-payment-product-exchange .scroll-payment-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-product-exchange .scroll-payment-grid .row-payment-grid-product-exchange {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-payment-product-exchange .header .col-1 {
+	width: 240px;
+	text-align: left
+}
+.grid-payment-product-exchange .header .col-1 div {
+	margin-left: 20px;
+}
+.grid-payment-product-exchange .header .col-2 {
+	width: 80px;
+	text-align: center
+}
+.grid-payment-product-exchange .header .col-3 {
+	width: 80px;
+	text-align: center;
+}
+.row-payment-grid-product-exchange .col-1 {
+	width: 240px;
+	text-align: left;
+	white-space: nowrap;
+}
+.row-payment-grid-product-exchange .col-1 div {
+	margin-left: 20px
+}
+
+.grid-payment-product-exchange .col-2 {
+	width: 80px;
+	text-align: center
+}
+.grid-payment-product-exchange .col-3 {
+	width: 80px;
+	text-align: center
+}
+.grid-payment-product-exchange .col-4 {
+	width: 22px;
+	float: right;
+	margin-right: 10px !important;
+}
+.row-payment-grid-product-exchange .col-3 div {
+	text-align: right
+}
+.grid-payment-product-exchange .header .col-4 {
+	width: 15%;
+}
+.row-payment-grid-product-exchange .col-4 {
+	float: right;
+	margin-right: 5px
+}
+.total-value-product-exchange {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+
