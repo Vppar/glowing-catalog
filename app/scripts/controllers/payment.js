@@ -5,39 +5,32 @@
 
         $scope.dataProvider = DataProvider; 
         
-        $scope.checks = new Array();
-        $scope.creditCards = new Array();
+        $scope.payments = {
+                total : 0,
+                checks : [],
+                checksTotal : 0,
+                creditCards : [],
+                creditCardsTotal : 0
+        };
         
-        $scope.checksSum = 0;
-        $scope.creditCardsSum = 0;
-        
-        function sumArrayByProperty(array, property) {
-            var total = 0;
-            for(var i=0; i<array.length; i++) {
-                total += Number(array[i][property]);
-            }
-            return total;
-        }
+        $scope.productsTotal = 0;
         
         $scope.filterQtde = function(product) {
             return product.qtde;
         };
         
-        $scope.productsCount = $filter('filter')($scope.dataProvider.products, $scope.filterQtde).length;
+        $scope.productsCount = 0;
         
-        function onCheckSuccessFunction(param) {
-            $scope.checks = param;
-            $scope.checksSum = sumArrayByProperty($scope.checks, "amount");
-            //alert($scope.checksSum);
-        }
+        $scope.$watch('dataProvider.products', watchProducts, true);
         
-        function onCreditCardSuccessFunction(param) {
-            $scope.creditCards = param;
-            $scope.creditCardsSum = sumArrayByProperty($scope.creditCards, "value");
-        }
-        
-        function defaultFailureFunction(param) {
-            //alert("onFailureFunction: " + param);
+        function watchProducts() {
+            $scope.productsTotal = 0;
+            var products = $filter('filter')($scope.dataProvider.products, $scope.filterQtde);
+            $scope.productsCount = products.length;
+            
+            for(var i=0; i<products.length; i++) {
+                $scope.productsTotal += Number(products[i]["price"] * products[i]["qtde"]);
+            }
         }
         
         $scope.openDialogCheck = function() {
@@ -45,16 +38,16 @@
                 backdropClick : true,
                 dialogClass : 'modal'
             });
-            d.checks = $scope.checks;
-            d.open('views/payment-check-dialog.html', 'PaymentCheckDialogCtrl').then(onCheckSuccessFunction, defaultFailureFunction);
+            d.payments = $scope.payments;
+            d.open('views/payment-check-dialog.html', 'PaymentCheckDialogCtrl');
         };
         $scope.openDialogCard = function() {
             var d = $dialog.dialog({
                 backdropClick : true,
                 dialogClass : 'modal'
             });
-            d.creditCards = $scope.creditCards;
-            d.open('views/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl').then(onCreditCardSuccessFunction, defaultFailureFunction);
+            d.payments = $scope.payments;
+            d.open('views/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl');
         };
         $scope.openDialogProductExchange = function() {
             var d = $dialog.dialog({
@@ -88,7 +81,7 @@
             d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
         }
 
-        $scope.cash = 12.98;
+        $scope.cash = 0;
 	
 	$scope.customer = DataProvider.customer;
 });

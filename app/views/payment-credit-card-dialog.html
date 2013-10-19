@@ -51,7 +51,7 @@
 								</div>
 							</div>
 							<div class="scroll-payment-grid">
-								<div class="row-payment-credit-card-grid" ng-repeat="card in creditCards">
+								<div class="row-payment-credit-card-grid" ng-repeat="card in payments.creditCards">
 									<span class="col-1"><div>{{card.installmentPlan}}</div></span><span class="col-2"><div>{{card.flag}}</div></span><span class="col-3"><div>{{card.value | currency:''}}</div></span><span class="col-4"><div ng-click="remove($index)" class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
 								</div>
 												

@@ -11,23 +11,15 @@
 						<span class="label-money">DINHEIRO</span>
 					</span>
 					<span class="btn-price-payment-input-block input-block-level">
- 					 	
- 				
-							
-							<input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
-						
-							
-					
-
-  					 	
+						<input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
 					</span>
 				</div>
 					</div>
 					<div ng-click='openDialogCheck()' class="row-right-payment">
-						<span class="lbl-money">CHEQUE ( {{checks.length}} )</span><span class=""><span class="btn-price-payment">{{checksSum | currency:''}}</span></span>
+						<span class="lbl-money">CHEQUE ( {{payments.checks.length}} )</span><span class=""><span class="btn-price-payment">{{payments.checksTotal | currency:''}}</span></span>
 					</div>
 					<div ng-click='openDialogCard()' class="row-right-payment">
-						<span class="lbl-money">CART&Atilde;O ( {{creditCards.length}} )</span><span class=""><span class="btn-price-payment">{{creditCardsSum | currency:''}}</span></span>
+						<span class="lbl-money">CART&Atilde;O ( {{payments.creditCards.length}} )</span><span class=""><span class="btn-price-payment">{{payments.creditCardsTotal | currency:''}}</span></span>
 					</div>
 					<div class="row-right-payment" ng-click='openDialogProductExchange()'>
 						<span class="lbl-money">TROCA  ( 0 produto )</span><span class=""><span class="btn-price-payment"></span></span>
@@ -53,13 +45,13 @@
 					</div>
 					<div class="values-resume">
 						<div>
-							{{(checksSum + creditCardsSum) | currency:''}}
+							{{payments.total | currency:''}}
 						</div>
 						<div>
-							53,50
+							{{productsTotal | currency }}
 						</div>
 						<div class="red-color">
-							200,00
+							{{(productsTotal - (payments.total - cash)) | currency:''}}
 						</div>
 					</div>
 				</div>
