@@ -7,13 +7,13 @@ angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dia
 			dialogClass: 'modal'
 		});
 		d.id = id;
-		d.open('views/add-to-basket-dialog.html', 'AddToBasketDialogCtrl');
+		d.open('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl');
 	};
 	$scope.openDialogEditPass = function() {
 		var d = $dialog.dialog ({ backdropClick: true,
 			dialogClass: 'modal'
 		});
-		d.open('views/edit-pass-dialog.html', 'EditPassDialogCtrl');
+		d.open('views/parts/global/edit-pass-dialog.html', 'EditPassDialogCtrl');
 	};
 	$scope.goToBasket = function() {
 		$location.path('basket');
@@ -22,13 +22,13 @@ angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dia
 		var d = $dialog.dialog ({ backdropClick: true,
 			dialogClass: 'modal'
 		});
-		d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
+		d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
 	};
 	$scope.openInputProducts = function() {
 		var d = $dialog.dialog ({ backdropClick: true,
 			dialogClass: 'modal'
 		});
-		d.open('views/input-products-dialog.html', 'InputProductsCtrl');
+		d.open('views/parts/global/input-products-dialog.html', 'InputProductsCtrl');
 	};
 
 });
