@@ -50,20 +50,20 @@
                         this.products =
                                 [
                                     {
+                                        id : 0,
+                                        title : '',
+                                        description : '',
+                                        image : '',
+                                        price : "",
+                                        inventory : ""
+                                    },
+                                    {
                                         id : 1,
                                         title : 'Solução Diurna com FPS 25 TimeWise®',
                                         description : 'Imagine uma película protetora. Com um fator de proteção solar de 25, este produto inovador ajuda a prevenir linhas finas e manchas na pele, bloqueando os raios UVA/UVB. Peptídeos calmantes ajudam a relaxar as linhas de expressão do rosto.',
                                         image : 'images/catalog/time-wise/002326.jpg',
                                         price : 85,
                                         inventory : 2
-                                    },
-                                    {
-                                        id : 2,
-                                        title : 'Sérum Facial Renovador TimeWise®',
-                                        description : 'Dê um up na aparência da pele do seu rosto. O Sérum Facial Renovador TimeWise® oferece uma ação lifting e deixa a pele com aparência mais firme e com tônus visivelmente melhor. Este sérum precioso, repleto de antioxidantes, é formulado com ingredientes que atuam na área específica da pele onde estão presentes o colágeno e a elastina, dois dos componentes mais importantes da derme, responsáveis por garantir a sustentação e a elasticidade da pele. O efeito final? Uma pele com aparência renovada. Sua embalagem prática e moderna entrega 6 semanas de uso e contém um medidor que permite controlar o uso diário e semanal.',
-                                        image : 'images/catalog/time-wise/serum-facial.jpg',
-                                        price : 110,
-                                        inventory : 3
                                     },
                                     {
                                         id : 3,
@@ -232,7 +232,15 @@
                                         image : 'images/catalog/acne/secativopele.jpg',
                                         price : 45,
                                         inventory : 1
-                                    } ];
+                                    },
+                                    {
+                                        id : 2,
+                                        title : 'Sérum Facial Renovador TimeWise®',
+                                        description : 'Dê um up na aparência da pele do seu rosto. O Sérum Facial Renovador TimeWise® oferece uma ação lifting e deixa a pele com aparência mais firme e com tônus visivelmente melhor. Este sérum precioso, repleto de antioxidantes, é formulado com ingredientes que atuam na área específica da pele onde estão presentes o colágeno e a elastina, dois dos componentes mais importantes da derme, responsáveis por garantir a sustentação e a elasticidade da pele. O efeito final? Uma pele com aparência renovada. Sua embalagem prática e moderna entrega 6 semanas de uso e contém um medidor que permite controlar o uso diário e semanal.',
+                                        image : 'images/catalog/time-wise/serum-facial.jpg',
+                                        price : 110,
+                                        inventory : 3
+                                    }];
                         this.customers = [ {
                             name : "Robert Downey Jr.",
                             character : "Tony Stark / Iron Man"
