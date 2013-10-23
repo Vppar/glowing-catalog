@@ -12,6 +12,8 @@
         $scope.$watch('products', function(products) {
             $scope.count = $filter('filter')(products, $scope.filterQtde).length;
         }, true);
+        
+       
 
     });
 }(angular));

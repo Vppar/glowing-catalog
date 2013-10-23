@@ -12,18 +12,13 @@
 	</div>
 	
 	<div class="content-scroll">
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">10,10</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">5,30</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">7,10</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">14,20</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">21,20</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">53,10</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">33,20</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">13,10</span></div>
-		<div><span class="col-1">CREME DE LIMPEZA BOTANICAL EFFECTS</span><span class="col-2">1</span><span class="col-3">3,21</span></div>
+		<div ng-repeat="product in dataProvider.products | filter:filterQtde | obInject:'mul':'qtde':'price':'subtotal'">
+			<span class="col-1">{{product.title | truncate: 50}}</span>
+			<span class="col-2">{{product.qtde}}</span><span class="col-3">{{product.subtotal | currency}}</span>
+		</div>
 	</div>
 	<div class="header2">
-		<span class="col-1">2 itens</span><span class="col-2">Total</span><span class="col-3">160,51</span>
+		<span class="col-1">{{productsCount}} itens</span><span class="col-2">Total</span><span class="col-3">{{productsTotal | currency }}</span>
 	</div>
 </div>
 

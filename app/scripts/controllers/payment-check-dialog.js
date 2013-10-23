@@ -14,7 +14,18 @@
         /**
          * @var checks - stores check list
          */
-        $scope.checks = [];
+        $scope.check = {};
+        $scope.payments = dialog.payments;
+        
+        $scope.$watch('payments', watchChecks, true);
+        
+        function watchChecks() {
+            $scope.payments.checksTotal = 0;
+            for(var i=0; i<$scope.payments.checks.length; i++) {
+                $scope.payments.checksTotal += Number($scope.payments.checks[i]["amount"]);
+            }
+            $scope.payments.total = $scope.payments.creditCardsTotal + $scope.payments.checksTotal;
+        }
 
         /**
          * Function addCheck - Verifies if entered check already exists in the
@@ -24,14 +35,14 @@
         $scope.addCheck = function(item) {
 
             if ($scope.checkForm.$valid) {
-                var check = $filter('filter')($scope.checks, {
+                var check = $filter('filter')($scope.payments.checks, {
                     bank : item.bank,
                     agency : item.agency,
                     account : item.account,
                     check : item.check
                 });
                 if (check.length === 0) {
-                    $scope.checks.push(angular.copy(item));
+                    $scope.payments.checks.push(angular.copy(item));
                     delete $scope.check;
                 }
             }
@@ -43,14 +54,14 @@
          * @param index - position of check to be removed
          */
         $scope.remove = function remove(index) {
-            $scope.checks.splice(index, 1);
+            $scope.payments.checks.splice(index, 1);
         };
 
         /**
          * Submits dialog
          */
         $scope.submitDialog = function() {
-            dialog.close($scope.checks);
+            dialog.close($scope.payments.checks);
         };
 
         /**

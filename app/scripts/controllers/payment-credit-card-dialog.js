@@ -15,13 +15,19 @@ angular.module('glowingCatalogApp').controller('PaymentCreditCardDialogCtrl', fu
      * @var dataProvider - receives data from DataProvider (DataProvider.js)
      */
     $scope.dataProvider = DataProvider;
-
-    $scope.card ={};
     
-    /**
-     * @var creditCards - stores credit card list
-     */
-    $scope.creditCards = [];
+    $scope.creditCard = {};
+    $scope.payments = dialog.payments;
+    
+    $scope.$watch('payments', watchChecks, true);
+    
+    function watchChecks() {
+        $scope.payments.creditCardsTotal = 0;
+        for(var i=0; i<$scope.payments.creditCards.length; i++) {
+            $scope.payments.creditCardsTotal += Number($scope.payments.creditCards[i]["value"]);
+        }
+        $scope.payments.total = $scope.payments.creditCardsTotal + $scope.payments.checksTotal;
+    }
 
     /**
      * Function addCreditCard - Adds credit card to the last position of $scope.creditCards array
@@ -29,7 +35,7 @@ angular.module('glowingCatalogApp').controller('PaymentCreditCardDialogCtrl', fu
     $scope.addCreditCard = function(item) {
         if ($scope.creditCardForm.$valid) {
             if ($scope.card.value>0){
-                    $scope.creditCards.push(angular.copy(item));                
+                    $scope.payments.creditCards.push(angular.copy(item));                
             }            
         }
     };
@@ -40,14 +46,14 @@ angular.module('glowingCatalogApp').controller('PaymentCreditCardDialogCtrl', fu
      * @param index - position of credit card to be removed
      */
     $scope.remove = function remove(index) {
-        $scope.creditCards.splice(index, 1);
+        $scope.payments.creditCards.splice(index, 1);
     };
 
     /**
      * Submits dialog
      */
     $scope.submitDialog = function() {
-        dialog.close($scope.creditCards);
+        dialog.close($scope.payments.creditCards);
     };
 
     /**

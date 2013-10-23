@@ -11,32 +11,24 @@
 						<span class="label-money">DINHEIRO</span>
 					</span>
 					<span class="btn-price-payment-input-block input-block-level">
- 					 	
- 				
-							
-							<input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
-						
-							
-					
-
-  					 	
+						<input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
 					</span>
 				</div>
 					</div>
 					<div ng-click='openDialogCheck()' class="row-right-payment">
-						<span class="lbl-money">CHEQUE ( 3 )</span><span class=""><span class="btn-price-payment">100,00</span></span>
+						<span class="lbl-money">CHEQUE ( {{payments.checks.length}} )</span><span class=""><span class="btn-price-payment">{{payments.checksTotal | currency:''}}</span></span>
 					</div>
 					<div ng-click='openDialogCard()' class="row-right-payment">
-						<span class="lbl-money">CART&Atilde;O ( 4 )</span><span class=""><span class="btn-price-payment">40,00</span></span>
+						<span class="lbl-money">CART&Atilde;O ( {{payments.creditCards.length}} )</span><span class=""><span class="btn-price-payment">{{payments.creditCardsTotal | currency:''}}</span></span>
 					</div>
 					<div class="row-right-payment" ng-click='openDialogProductExchange()'>
-						<span class="lbl-money">TROCA  ( 1 produto )</span><span class=""><span class="btn-price-payment"></span></span>
+						<span class="lbl-money">TROCA  ( 0 produto )</span><span class=""><span class="btn-price-payment"></span></span>
 					</div>
 					<div class="row-right-payment" ng-click='openDialogAdvanceMoney()'>
-						<span class="lbl-money">ADIANTAMENTO ( 89,00 )</span><span class=""><span class="btn-price-payment">33,50</span></span>
+						<span class="lbl-money">ADIANTAMENTO ( 00,00 )</span><span class=""><span class="btn-price-payment">0,00</span></span>
 					</div>
 					<div class="row-right-payment">
-						<span class="lbl-money">CUPOM PROMOCIONAL ( 30,00 )</span><span class=""><span class="btn-price-payment">30,00</span></span>
+						<span class="lbl-money">CUPOM PROMOCIONAL ( 00,00 )</span><span class=""><span class="btn-price-payment">0,00</span></span>
 					</div>
 				</div>
 				<div class="payment-resume">
@@ -53,13 +45,13 @@
 					</div>
 					<div class="values-resume">
 						<div>
-							253,50
+							{{payments.total | currency:''}}
 						</div>
 						<div>
-							53,50
+							{{productsTotal | currency }}
 						</div>
 						<div class="red-color">
-							200,00
+							{{(productsTotal - (payments.total - cash)) | currency:''}}
 						</div>
 					</div>
 				</div>
