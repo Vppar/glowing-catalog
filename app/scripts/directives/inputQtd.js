@@ -7,7 +7,7 @@
             scope : {
                 value : '=ngModel'
             },
-            templateUrl : 'views/input-qtd.html',
+            templateUrl : 'views/parts/catalog/input-qtd.html',
             link : function postLink(scope, element, attrs) {
                 if(!scope.value){
                     scope.value = 1;

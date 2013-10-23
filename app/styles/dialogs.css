@@ -1,4 +1,4 @@
-/*DIALOG PROPETIES*/
+/*HEADING*/
 .heading-gradient {
 	position: absolute;
 	top: -45px;
@@ -20,7 +20,6 @@
 	left: 50%;
 	top: 111px;
 }
-/*END DIALOG*/
 
 /*form add email*/
 .form-add-email, .form-add-tel {
@@ -101,72 +100,7 @@
 	border: none;
 	height: 30px
 }
-/*grid delivery-details*/
-.grid-delivery-details {
-	border-radius: 4px 4px 0 0;
-}
-.scroll-delivery-details-grid {
-	height: 200px;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-}
-.grid-delivery-details .header {
-	background: #ecbab9;
-	border-radius: 4px
-}
-.grid-delivery-details .header span, .grid-delivery-details .scroll-delivery-details-grid  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-delivery-details .scroll-delivery-details-grid .row-grid-delivery-details {
-	border-bottom: 1px solid #e0e0e0
-}
-.grid-delivery-details .header .col-1 {
-	width: 280px;
-	text-align: left
-}
-.grid-delivery-details .header .col-1 div {
-	margin-left: 20px;
-}
-.grid-delivery-details .header .col-2 {
-	width: 150px;
-}
-.grid-delivery-details .header .col-3 {
-	width: 70px;
-	text-align: center;
-}
-.grid-delivery-details .header .col-3 div {
-	text-align: center;
-}
-.row-grid-delivery-details .col-1 {
-	width: 280px;
-	text-align: left;
-	white-space: nowrap;
-}
-.row-grid-delivery-details .col-1 div {
-	margin-left: 20px
-}
 
-.grid-delivery-details .col-2 {
-	width: 150px;
-}
-.grid-delivery-details .col-3 {
-	width: 70px;
-	text-align: center
-}
-.grid-delivery-details .col-3 div {
-	text-align: center
-}
-.grid-delivery-details .col-4 {
-	width: 22px;
-	float: right;
-	margin-right: 20px
-}
-.total-value-delivery-details {
-	float: right;
-	margin-top: 20px;
-	text-align: right;
-}
 /*input products*/
 .form-input-products {
 	width: 472px;
@@ -198,75 +132,6 @@
 	height: 30px
 }
 
-.grid-input-products {
-	border-radius: 4px 4px 0 0;
-}
-.scroll-input-products-grid {
-	height: 200px;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-}
-.grid-input-products .header {
-	background: #ecbab9;
-	border-radius: 4px
-}
-.grid-input-products .header span, .grid-input-products .scroll-payment-grid  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-input-products .scroll-payment-grid .row-input-products-grid {
-	border-bottom: 1px solid #ccc
-}
-.grid-input-products .scroll-input-products-grid .row-input-products-grid {
-	border-bottom: 1px solid #e0e0e0;
-	line-height: 40px
-}
-.grid-input-products .header .col-1 {
-	width: 210px;
-}
-.grid-input-products .header .col-1 div {
-	margin-left: 20px
-}
-.grid-input-products .header .col-2 {
-	width: 100px
-}
-.grid-input-products .header .col-2 div {
-	text-align: right
-}
-.grid-input-products .header .col-3 {
-	width: 110px;
-}
-
-.grid-input-products .header .col-3 div {
-	text-align: center;
-}
-.scroll-input-products-grid .col-1 {
-	width: 230px;
-	display: inline-block;
-	white-space: nowrap;
-}
-.scroll-input-products-grid .col-1 div {
-	margin-left: 20px
-}
-.scroll-input-products-grid .col-2 {
-	width: 80px;
-	display: inline-block;
-}
-.scroll-input-products-grid .col-2 div {
-	text-align: right
-}
-.scroll-input-products-grid .col-3 {
-	width: 110px;
-	display: inline-block;
-}
-.scroll-input-products-grid .col-3 div {
-	text-align: center
-}
-.scroll-input-products-grid .col-4 {
-	display: inline-block;
-	width: 20px
-}
-
 .total-value-total-count {
 	margin-top: 10px;
 	text-align: right;
@@ -286,7 +151,7 @@
 	text-align: right;
 	white-space: nowrap;
 }
-/* credit card*/
+/* input money*/
 
 .modal .dropdown-menu .divider {
 	display: none;
@@ -347,64 +212,6 @@
 	height: 30px
 }
 
-.grid-payment-credit-card {
-	border-radius: 4px 4px 0 0;
-}
-.scroll-payment-grid {
-	height: 200px;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-}
-.grid-payment-credit-card .header {
-	background: #ecbab9;
-	border-radius: 4px
-}
-.grid-payment-credit-card .header span, .grid-payment-credit-card .scroll-payment-grid  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-payment-credit-card .scroll-payment-grid .row-payment-credit-card-grid {
-	border-bottom: 1px solid #e0e0e0
-}
-.grid-payment-credit-card .header .col-1 {
-	width: 100px;
-	text-align: center
-}
-.grid-payment-credit-card .header .col-2 {
-	width: 180px;
-	text-align: center
-}
-.grid-payment-credit-card .header .col-3 {
-	width: 120px;
-	text-align: center;
-}
-.row-payment-credit-card-grid .col-1 {
-	width: 100px;
-	text-align: center
-}
-.grid-payment-credit-card .col-2 {
-	width: 180px;
-	text-align: center
-}
-.grid-payment-credit-card .col-3 {
-	width: 120px;
-	text-align: center
-}
-.grid-payment-credit-card .col-4 {
-	width: 22px;
-	float: right;
-	margin-right: 10px !important;
-}
-.row-payment-credit-card-grid .col-3 div {
-	text-align: right
-}
-.grid-payment-credit-card .header .col-4 {
-	width: 15%;
-}
-.row-payment-credit-card-grid .col-4 {
-	float: right;
-	margin-right: 5px
-}
 .total-value-payment-credit-card {
 	float: right;
 	margin-top: 20px;
@@ -441,75 +248,6 @@
 	border: none;
 	height: 30px
 }
-/*grid payment credit card*/
-.grid-payment-advance-money {
-	border-radius: 4px 4px 0 0;
-}
-.scroll-payment-grid-advance-money {
-	height: 200px;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-}
-.grid-payment-advance-money .header {
-	background: #ecbab9;
-	border-radius: 4px
-}
-.grid-payment-advance-money .header span, .grid-payment-advance-money .scroll-payment-grid-advance-money  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-payment-advance-money .scroll-payment-grid-advance-money .row-payment-advance-money {
-	border-bottom: 1px solid #e0e0e0
-}
-.grid-payment-advance-money .header .col-1 {
-	width: 40px;
-}
-.grid-payment-advance-money .header .col-1 input[type="checkbox"] {
-	margin-top: -3px
-}
-.grid-payment-advance-money .header .col-1 div {
-	margin-left: 20px
-}
-.grid-payment-advance-money .header .col-2 {
-	width: 100px;
-	text-align: left
-}
-.grid-payment-advance-money .header .col-3 {
-	width: 70px;
-}
-.grid-payment-advance-money .header .col-4 {
-	width: 220px;
-	display: inline-block;
-}
-
-.row-payment-advance-money .col-1 {
-	width: 40px;
-}
-.row-payment-advance-money .col-1 input[type="checkbox"] {
-	margin-top: -3px
-}
-.row-payment-advance-money .col-1 div {
-	margin-left: 20px;
-}
-.grid-payment-advance-money .col-2 {
-	width: 100px;
-	text-align: left
-}
-.grid-payment-advance-money .col-3 {
-	width: 70px;
-	text-align: right
-}
-.grid-payment-advance-money .col-4 {
-	width: 220px;
-	text-align: left;
-}
-
-.row-payment-advance-money .col-3 div {
-	text-align: right
-}
-.row-payment-advance-money .col-4 div {
-	margin-left: 20px
-}
 
 .total-value-advance-money {
 	float: right;
@@ -520,9 +258,7 @@
 .form-payment-check .btn-plus-payment-check {
 	margin-top: 25px;
 }
-.header .row-payment-check-grid {
-	margin-left: 20px
-}
+
 .row-payment-check-grid .btn {
 	background: #ecbab9;
 	text-shadow: none;
@@ -543,70 +279,6 @@
 }
 .btn-plus-payment-check:hover {
 	background: #e2a9a8;
-}
-/*grid payment check*/
-.scroll-payment-grid {
-	height: 200px;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-}
-.grid-payment-check .header {
-	background: #ecbab9;
-	border-radius: 4px
-}
-.grid-payment-check .header span, .grid-payment-check .scroll-payment-grid  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-payment-check .scroll-payment-grid .row-payment-check-grid {
-	border-bottom: 1px solid #e0e0e0
-}
-.scroll-payment-grid .row-payment-check-grid {
-	margin-left: 20px
-}
-.grid-payment-check .header .col-1 {
-	width: 70px;
-}
-.grid-payment-check .header .col-2 {
-	width: 70px;
-}
-.grid-payment-check .header .col-3 {
-	width: 70px
-}
-.grid-payment-check .header .col-4 {
-	width: 70px
-}
-.grid-payment-check .header .col-5 {
-	width: 100px
-}
-.grid-payment-check .header .col-6 {
-	width: 75px;
-	text-align: right
-}
-.scroll-payment-grid .col-1 {
-	width: 75px
-}
-.scroll-payment-grid .col-2 {
-	width: 75px
-}
-.scroll-payment-grid .col-3 {
-	width: 75px
-}
-.scroll-payment-grid .col-4 {
-	width: 75px
-}
-.scroll-payment-grid .col-5 {
-	width: 100px
-}
-.scroll-payment-grid .col-6 {
-	width: 90px;
-}
-.scroll-payment-grid .col-6 {
-	text-align: right;
-	width: 75px
-}
-.scroll-payment-grid .col-7 {
-	margin-left: 30px
 }
 
 .rose-color {
@@ -659,65 +331,7 @@
 	border: none;
 	height: 30px
 }
-/*grid payment credit card*/
-.grid-payment-credit-card {
-	border-radius: 4px 4px 0 0;
-}
-.scroll-payment-grid {
-	height: 200px;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-}
-.grid-payment-credit-card .header {
-	background: #ecbab9;
-	border-radius: 4px
-}
-.grid-payment-credit-card .header span, .grid-payment-credit-card .scroll-payment-grid  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-payment-credit-card .scroll-payment-grid .row-payment-credit-card-grid {
-	border-bottom: 1px solid #e0e0e0
-}
-.grid-payment-credit-card .header .col-1 {
-	width: 100px;
-	text-align: center
-}
-.grid-payment-credit-card .header .col-2 {
-	width: 180px;
-	text-align: center
-}
-.grid-payment-credit-card .header .col-3 {
-	width: 120px;
-	text-align: center;
-}
-.row-payment-credit-card-grid .col-1 {
-	width: 100px;
-	text-align: center
-}
-.grid-payment-credit-card .col-2 {
-	width: 180px;
-	text-align: center
-}
-.grid-payment-credit-card .col-3 {
-	width: 120px;
-	text-align: center
-}
-.grid-payment-credit-card .col-4 {
-	width: 22px;
-	float: right;
-	margin-right: 10px !important;
-}
-.row-payment-credit-card-grid .col-3 div {
-	text-align: right
-}
-.grid-payment-credit-card .header .col-4 {
-	width: 15%;
-}
-.row-payment-credit-card-grid .col-4 {
-	float: right;
-	margin-right: 5px
-}
+
 .total-value-payment-credit-card {
 	float: right;
 	margin-top: 20px;
@@ -756,73 +370,7 @@
 	border: none;
 	height: 30px
 }
-/*grid payment credit card*/
-.grid-payment-product-exchange {
-	border-radius: 4px 4px 0 0;
-}
-.scroll-payment-grid {
-	height: 200px;
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-}
-.grid-payment-product-exchange .header {
-	background: #ecbab9;
-	border-radius: 4px
-}
-.grid-payment-product-exchange .header span, .grid-payment-product-exchange .scroll-payment-grid  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-payment-product-exchange .scroll-payment-grid .row-payment-grid-product-exchange {
-	border-bottom: 1px solid #e0e0e0
-}
-.grid-payment-product-exchange .header .col-1 {
-	width: 240px;
-	text-align: left
-}
-.grid-payment-product-exchange .header .col-1 div {
-	margin-left: 20px;
-}
-.grid-payment-product-exchange .header .col-2 {
-	width: 80px;
-	text-align: center
-}
-.grid-payment-product-exchange .header .col-3 {
-	width: 80px;
-	text-align: center;
-}
-.row-payment-grid-product-exchange .col-1 {
-	width: 240px;
-	text-align: left;
-	white-space: nowrap;
-}
-.row-payment-grid-product-exchange .col-1 div {
-	margin-left: 20px
-}
 
-.grid-payment-product-exchange .col-2 {
-	width: 80px;
-	text-align: center
-}
-.grid-payment-product-exchange .col-3 {
-	width: 80px;
-	text-align: center
-}
-.grid-payment-product-exchange .col-4 {
-	width: 22px;
-	float: right;
-	margin-right: 10px !important;
-}
-.row-payment-grid-product-exchange .col-3 div {
-	text-align: right
-}
-.grid-payment-product-exchange .header .col-4 {
-	width: 15%;
-}
-.row-payment-grid-product-exchange .col-4 {
-	float: right;
-	margin-right: 5px
-}
 .total-value-product-exchange {
 	float: right;
 	margin-top: 20px;
