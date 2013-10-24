@@ -4,15 +4,15 @@
     angular.module('glowingCatalogApp').controller('ChooseCustomerDialogCtrl', function($scope, dialog, $location, DataProvider) {
 
         $scope.dataProvider = DataProvider;
-        $scope.selectedCustomer = '';
+        $scope.selectedCustomerIdx = '';
 
         $scope.cancel = function() {
             dialog.close();
         };
-
+        
         $scope.goToAddCustomer = function() {
-            if ($scope.selectedCustomer && $scope.selectedCustomer !== '') {
-                DataProvider.customer = $scope.selectedCustomer;
+            if ($scope.selectedCustomerIdx && $scope.selectedCustomerIdx !== '') {
+                DataProvider.customer = DataProvider.customers[$scope.selectedCustomerIdx];
                 $location.path('/');
             } else {
                 $location.path('add-customer');

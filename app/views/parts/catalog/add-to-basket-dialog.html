@@ -1,29 +1,23 @@
-			<div class="container">
 
-				<form class="form-add-to-basket">
-					<span class="heading-gradient">{{product.title | truncate:40}}</span>
-					<span class="wrapper-qtde">
-								<div class="price-add-to-basket">{{product.price | currency}}</div>
-					<input-qtd ng-model="product.qtde"></input-qtd>	  
-					<div class="total-price-add-to-basket"><strong>Total:</strong> <span class="rose-color">{{product.price * product.qtde | currency}}</span></div>
-					</span>
-					<div class="img-catalog-02">
-									<img ng-src="{{product.image}}" alt="" />
-					</div>
-					<div class="clearfix"></div><hr />
-					
-					<button ng-click='cancel()' class="btn btn-large btn-login" type="submit">
-						Cancelar
-					</button>
-					<button ng-click='add()' class="btn btn-large btn-login pull-right" type="submit">
-						Adicionar
-					</button>
-
-					
-
-					
-
-				</form>
-
+<div class="container">
+	<form class="form-add-to-basket">
+		<span class="heading-gradient">{{product.title | truncate:40}}</span>
+		<span class="wrapper-qtde">
+			<div class="price-add-to-basket">{{product.price | currency}}</div> <input-qtd
+				ng-model="product.qtde"></input-qtd>
+			<div class="total-price-add-to-basket">
+				<strong>Total:</strong> <span class="rose-color">{{product.price
+					* product.qtde | currency}}</span>
 			</div>
-		
+		</span>
+		<div class="img-catalog-02">
+			<img ng-src="{{product.image}}" alt="" />
+		</div>
+		<div class="clearfix"></div>
+		<hr />
+		<button ng-click='cancel()' class="btn btn-large btn-login"
+			type="submit">Cancelar</button>
+		<button ng-click='add()' class="btn btn-large btn-login pull-right"
+			type="submit">Adicionar</button>
+	</form>
+</div>
