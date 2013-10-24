@@ -1,56 +1,53 @@
 <div class="container">
-
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include
 			src='"views/parts/global/header.html"'></span>
 		</span>
 
 	</div>
-
 	<div class="form-container">
 		<div class="row-fluid">
 			<span class="span6">
 				<div class="control-group ">
 					<label class="control-label">Nome</label> <input
-						class="input-block-level" type="text" placeholder="" ng-model="customer.name">
-
+						class="input-block-level" type="text" placeholder=""
+						ng-model="customer.name">
 				</div>
 			</span><span class="span6">
 				<div class="control-group ">
 					<label class="control-label">E-mails</label>
-
 					<div class="input-append input-width-emails">
-						<input class="input-block-level" id="appendedInput" type="email" ng-model="customer.email">
-						<span ng-click='openDialogAddCustomerEmails(customer.email)' class="add-on">+</span>
+						<input class="input-block-level" id="appendedInput" type="email"
+							ng-model="customer.email"> <span
+							ng-click='openDialogAddCustomerEmails(customer.email)'
+							class="add-on">+</span>
 					</div>
 
 				</div>
 			</span>
 		</div>
 		<div class="row-fluid">
-			<span class="span2"> <label for="">Data de
-					Anivers&aacute;rio</label> 
-					
-					
-					<select ui-select2 class='select-width-01' ng-model="customer.birthday.day">
-								<option value="day" ng-repeat="day in dataProvider.date.days">{{day}}</option>
-
-							</select>
-					
-
-			<select ui-select2 class='select-width-01' ng-model="customer.birthday.month">
-					<option value="month.id" ng-repeat="month in dataProvider.date.months">{{month.id}}</option>
-			</select>
-			</span> <span class="span4"> 
-			<label class="control-label lbl-tels">Telefones</label>
+			<span class="span2"><label for="">Data de
+					Anivers&aacute;rio</label> <select class='select-width-01' ui-select2
+				ng-model="customer.birthday.day" required>
+					<option value="" />
+					<option value="day" ng-repeat="day in dataProvider.date.days">{{day}}</option>
+			</select> <select class='select-width-01' ui-select2
+				ng-model="customer.birthday.month">
+					<option value="" />
+					<option value="month.id"
+						ng-repeat="month in dataProvider.date.months">{{month.id}}</option>
+			</select> </span> <span class="span4"> <label class="control-label lbl-tels">Telefones</label>
 				<div class="input-append input-width-tels">
-					<input class="input-block-level" id="appendedInput" type="text" ng-model="customer.phone" phone>
-					<span ng-click='openDialogAddCustomerTels(customer.phone)' class="add-on">+</span>
+					<input class="input-block-level" id="appendedInput" type="text"
+						ng-model="customer.phone" phone> <span
+						ng-click='openDialogAddCustomerTels(customer.phone)'
+						class="add-on">+</span>
 				</div>
 			</span> <span class="span6">
 				<div class="control-group ">
-					<label class="control-label">CEP</label> 
-					<input class="input-cep" type="text" ng-model="customer.address.cep" placeholder="" cep>
+					<label class="control-label">CEP</label> <input class="input-cep"
+						type="text" ng-model="customer.address.cep" placeholder="" cep>
 
 				</div>
 			</span>
@@ -60,7 +57,8 @@
 			<span class="span6">
 				<div class="control-group ">
 					<label class="control-label">Endere&ccedil;o</label> <input
-						class="input-block-level" type="text" placeholder="" ng-model="customer.address.street">
+						class="input-block-level" type="text" placeholder=""
+						ng-model="customer.address.street">
 
 				</div>
 			</span> <span class="span1"> <label class="control-label">Nº</label>
@@ -68,8 +66,8 @@
 				placeholder="" ng-model="customer.address.number" number>
 			</span> <span class="span5"> <label
 				class="control-label lbl-complement">Complemento</label> <input
-				class="input-block-level input-complement" type="text" ng-model="customer.address.complement"
-				placeholder="">
+				class="input-block-level input-complement" type="text"
+				ng-model="customer.address.complement" placeholder="">
 			</span>
 		</div>
 
@@ -77,12 +75,16 @@
 			<span class="span6">
 				<div class="control-group ">
 					<label class="control-label">Bairro</label> <input
-						class="input-block-level" type="text" placeholder="" ng-model="customer.address.neighborhood">
+						class="input-block-level" type="text" placeholder=""
+						ng-model="customer.address.neighborhood">
 
 				</div>
 			</span> <span class="span1"> <label class="control-label">UF</label>
-				<select ui-select2 class='select-width-02'>
-					<option ng-model="customer.address.state" value="state" ng-repeat="state in dataProvider.country.states">{{state}}</option>
+				<select ui-select2 class='select-width-02'
+				ng-model="customer.address.state">
+					<option value="" />
+					<option value="{{state}}"
+						ng-repeat="state in dataProvider.country.states">{{state}}</option>
 			</select>
 			</span> <span class="span5"> <label class="control-label lbl-city">Cidade</label>
 				<input class="input-block-level input-city" type="text"
@@ -93,7 +95,8 @@
 		<div class="row-fluid">
 			<div class="panel-footer-new-customer">
 
-				<a href="#" class="btn">Cancelar</a><a class="btn" ng-click="confirm()">Confirmar</a>
+				<a href="#" class="btn">Cancelar</a><a class="btn"
+					ng-click="confirm()">Confirmar</a>
 
 			</div>
 		</div>
