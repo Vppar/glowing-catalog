@@ -10,9 +10,6 @@ angular.module('glowingCatalogApp', ['ui.bootstrap', 'ui.select2']).config(funct
     }).when('/add-customer', {
         templateUrl : 'views/add-customer.html',
         controller : 'AddCustomerCtrl'
-    }).when('/catalog', {
-        templateUrl : 'views/catalog.html',
-        controller : 'CatalogCtrl'
     }).when('/basket', {
         templateUrl : 'views/basket.html',
         controller : 'BasketCtrl'
