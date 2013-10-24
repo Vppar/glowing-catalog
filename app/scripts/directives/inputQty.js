@@ -1,13 +1,13 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').directive('inputQtd', function() {
+    angular.module('glowingCatalogApp').directive('inputQty', function() {
         return {
             restrict : 'E',
             scope : {
                 value : '=ngModel'
             },
-            templateUrl : 'views/parts/catalog/input-qtd.html',
+            templateUrl : 'views/parts/catalog/input-qty.html',
             link : function postLink(scope, element, attrs) {
                 if(!scope.value){
                     scope.value = 1;

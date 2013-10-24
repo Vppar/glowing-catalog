@@ -3,11 +3,11 @@
 	<form class="form-add-to-basket">
 		<span class="heading-gradient">{{product.title | truncate:40}}</span>
 		<span class="wrapper-qtde">
-			<div class="price-add-to-basket">{{product.price | currency}}</div> <input-qtd
-				ng-model="product.qtde"></input-qtd>
+			<div class="price-add-to-basket">{{product.price | currency}}</div> <input-qty
+				ng-model="product.qty"></input-qty>
 			<div class="total-price-add-to-basket">
 				<strong>Total:</strong> <span class="rose-color">{{product.price
-					* product.qtde | currency}}</span>
+					* product.qty | currency}}</span>
 			</div>
 		</span>
 		<div class="img-catalog-02">

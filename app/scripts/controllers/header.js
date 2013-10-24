@@ -3,17 +3,15 @@
 
     angular.module('glowingCatalogApp').controller('HeaderCtrl', function($scope, $filter, DataProvider) {
 
-        $scope.filterQtde = function(product) {
-            return Boolean(product.qtde);
+        $scope.filterQty = function(product) {
+            return Boolean(product.qty);
         };
 
         $scope.products = DataProvider.products;
 
         $scope.$watch('products', function(products) {
-            $scope.count = $filter('filter')(products, $scope.filterQtde).length;
+            $scope.count = $filter('filter')(products, $scope.filterQty).length;
         }, true);
-        
-       
 
     });
 }(angular));

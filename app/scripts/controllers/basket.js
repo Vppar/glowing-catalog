@@ -9,8 +9,8 @@
             $scope.dataProvider.products.splice(index, 1);
         };
         
-        $scope.filterQtde = function(product){
-            return product.qtde;
+        $scope.filterQty = function(product){
+            return Boolean(product.qty);
         };
 
         $scope.openDialogEditPass = function() {
@@ -22,7 +22,7 @@
         };
         $scope.openDialogChooseCustomer = function() {
             var d = $dialog.dialog({
-                backdropClick : true,
+                backdropClick : true,   
                 dialogClass : 'modal'
             });
             d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');

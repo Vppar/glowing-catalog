@@ -8,7 +8,7 @@
         })[0];
 
         $scope.cancel = function() {
-            delete $scope.product.qtde;
+            delete $scope.product.qty;
             dialog.close();
         };
 

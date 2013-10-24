@@ -305,7 +305,6 @@
                             return ((x.name == y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
                         });
                         this.customer = {};
-
                         this.country =
                                 {
                                     states : [ 'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
@@ -320,5 +319,14 @@
                                         'Sorocred', 'Visa' ],
                                     installments : [ 'À vista', '2x', '3x', '4x', '5x', '6x', '7x', '8x', '9x', '10x', '11x', '12x' ]
                                 };
+                        this.orders = [];
+                        this.payments = [];
+                        this.currentPayments = {
+                            total : 0,
+                            checks : [],
+                            checksTotal : 0,
+                            creditCards : [],
+                            creditCardsTotal : 0
+                        };
                     });
 }(angular));
