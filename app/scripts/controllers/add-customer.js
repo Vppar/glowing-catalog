@@ -7,6 +7,7 @@
 
         $scope.customer = {
             address : {},
+            birthday: {},
             emails : [],
             phones : []
         };
