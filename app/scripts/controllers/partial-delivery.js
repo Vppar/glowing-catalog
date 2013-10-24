@@ -7,7 +7,7 @@ angular.module('glowingCatalogApp').controller('PartialDeliveryCtrl', function($
 			backdropClick : true,
 			dialogClass : 'modal'
 		});
-		d.open('views/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl');
+		d.open('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl');
 	};
 
 });

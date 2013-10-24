@@ -27,7 +27,7 @@
             d.phone = $scope.customer.phone;
             delete $scope.customer.phone;
             d.phones = $scope.customer.phones;
-            d.open('views/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl').then(function(value) {
+            d.open('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl').then(function(value) {
                 $scope.customer.phones = value;
             });
         };
@@ -39,7 +39,7 @@
             d.email = $scope.customer.email;
             delete  $scope.customer.email;
             d.emails = $scope.customer.emails;
-            d.open('views/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl').then(function(value) {
+            d.open('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl').then(function(value) {
                 $scope.customer.emails = value;
             });
         };
@@ -48,7 +48,7 @@
                 backdropClick : true,
                 dialogClass : 'modal'
             });
-            d.open('views/edit-pass-dialog.html', 'EditPassDialogCtrl');
+            d.open('views/parts/add-customer/edit-pass-dialog.html', 'EditPassDialogCtrl');
         };
         $scope.goToBasket = function() {
             $location.path('basket');
@@ -58,7 +58,7 @@
                 backdropClick : true,
                 dialogClass : 'modal'
             });
-            d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
+            d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
         };
     });
 }(angular));

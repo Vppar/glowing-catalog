@@ -15,7 +15,7 @@ angular.module('glowingCatalogApp').controller('AddToBasketDialogCtrl', function
             var d = $dialog.dialog ({ backdropClick: true,
                 dialogClass: 'modal'
             });
-            d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
+            d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
         }
         
         
