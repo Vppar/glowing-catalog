@@ -18,14 +18,14 @@
                 backdropClick : true,
                 dialogClass : 'modal'
             });
-            d.open('views/edit-pass-dialog.html', 'EditPassDialogCtrl');
+            d.open('views/parts/global/edit-pass-dialog.html', 'EditPassDialogCtrl');
         };
         $scope.openDialogChooseCustomer = function() {
             var d = $dialog.dialog({
                 backdropClick : true,
                 dialogClass : 'modal'
             });
-            d.open('views/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
+            d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
         };
         
         $scope.pay = function(){
