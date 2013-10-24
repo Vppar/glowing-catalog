@@ -240,55 +240,71 @@
                                         image : 'images/catalog/time-wise/serum-facial.jpg',
                                         price : 110,
                                         inventory : 3
-                                    }];
+                                    } ];
                         this.customers = [ {
+                            id : 1,
                             name : "Robert Downey Jr.",
                             character : "Tony Stark / Iron Man"
                         }, {
+                            id : 2,
                             name : "Chris Evans",
                             character : "Steve Rogers / Captain America}"
                         }, {
+                            id : 3,
                             name : "Mark Ruffalo",
                             character : "Bruce Banner / The Hulk"
                         }, {
+                            id : 4,
                             name : "Chris Hemsworth",
                             character : "Thor"
                         }, {
+                            id : 5,
                             name : "Scarlett Johansson",
                             character : "Natasha Romanoff / Black Widow"
                         }, {
+                            id : 6,
                             name : "Jeremy Renner",
                             character : "Clint Barton / Hawkeye"
                         }, {
+                            id : 7,
                             name : "Tom Hiddleston",
                             character : "Loki"
                         }, {
+                            id : 8,
                             name : "Clark Gregg",
                             character : "Agent Phil Coulson"
                         }, {
+                            id : 9,
                             name : "Cobie Smulders",
                             character : "Agent Maria Hill"
                         }, {
+                            id : 10,
                             name : "Stellan Skarsgard",
                             character : "Selvig"
                         }, {
+                            id : 11,
                             name : "Samuel L. Jackson",
                             character : "Nick Fury"
                         }, {
+                            id : 12,
                             name : "Gwyneth Paltrow",
                             character : "Pepper Potts"
                         }, {
+                            id : 13,
                             name : "Paul Bettany",
                             character : "Jarvis (voice)"
                         }, {
+                            id : 14,
                             name : "Alexis Denisof",
                             character : "The Other"
                         }, {
+                            id : 15,
                             name : "Tina Benko",
                             character : "NASA Scientist"
                         } ].sort(function(x, y) {
                             return ((x.name == y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
                         });
+                        this.customer = {};
 
                         this.country =
                                 {
@@ -298,7 +314,6 @@
                         this.phone = {
                             types : [ 'Residencial', 'Comercial', 'Celular', 'Skype' ]
                         };
-                        this.customer = {};
                         this.cardData =
                                 {
                                     flags : [ 'American Express', 'Aura', 'BNDES', 'Diners Club', 'Elo', 'Hipercard', 'MasterCard',
