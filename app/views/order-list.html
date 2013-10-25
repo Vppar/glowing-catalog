@@ -26,9 +26,9 @@
 					</div>
 				</div>
 				<div class="scroll-order-list">
-					<div class="row-order-list"
-						ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'"">
-						<span class="col-1"> <!-- <div>mary-0012-13</div> -->
+					<div class="row-order-list "
+						ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'" ng-click="openPartialDelivery(order)">
+						<span class="col-1">
 							<div>{{order.code}}</div>
 						</span> <span class="col-2">
 							<div>{{order.date | date:'dd/MM/yyyy'}}</div>
