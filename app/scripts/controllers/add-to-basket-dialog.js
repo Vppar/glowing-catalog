@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('AddToBasketDialogCtrl', function($scope, $filter, $dialog, dialog, DataProvider) {
+    angular.module('glowingCatalogApp').controller('AddToBasketDialogCtrl', function($scope, $filter, $dialog, dialog, DataProvider, OrderService) {
 
         $scope.product = $filter('filter')(DataProvider.products, {
             id : dialog.id
@@ -13,7 +13,7 @@
         };
 
         $scope.add = function() {
-            if (!DataProvider.customer.id) {
+            if (!OrderService.order.customerId) {
                 var d = $dialog.dialog({
                     backdropClick : true,
                     dialogClass : 'modal'

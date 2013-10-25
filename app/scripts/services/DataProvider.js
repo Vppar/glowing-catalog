@@ -304,7 +304,6 @@
                         } ].sort(function(x, y) {
                             return ((x.name == y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
                         });
-                        this.customer = {};
                         this.country =
                                 {
                                     states : [ 'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB',
