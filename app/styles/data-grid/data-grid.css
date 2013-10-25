@@ -566,19 +566,27 @@
 	text-align: left
 }
 .grid-order-list .col-3 {
-	width: 300px;
+	width: 400px;
 }
 .grid-order-list .col-3 div {
-	text-align: left
+	text-align: left;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
 }
 .grid-order-list .col-4 {
 	width: 160px;
 	float: right;
 }
 .grid-order-list .col-4 div {
-	float: right;
+	loat: right;
 	text-align: right;
-	margin-right: 24px
+	margin-right: 24px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
 
