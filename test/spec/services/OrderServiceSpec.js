@@ -70,8 +70,31 @@ describe('Service: OrderServiceSpec', function() {
     /**
      * It should save the current order and create a brand new one.ou
      */
-    xit('should place an order', function() {
-        // TODO - Plan and implements this test.
+    it('should place an order', function() {
+        var selectedCustomer = DataProvider.customers[0];
+        var item = DataProvider.products[0];
+        var ordersSize = DataProvider.orders.length;
+        var paymentsSize = DataProvider.payments.length;
+
+        // Select a customer, add a product and make a payment before place an
+        // order.
+        DataProvider.customer = selectedCustomer;
+        DataProvider.payments.push({
+            id : paymentsSize + 1,
+            orderId : ordersSize + 1
+        });
+        item.qty = 1;
+
+        OrderService.placeOrder();
+
+        // See if the and order was added.
+        expect(DataProvider.orders.length).toBe(ordersSize + 1);
+
+        var order = DataProvider.orders[ordersSize];
+        
+        expect(order.customerId).not.toBeUndefined();
+        expect(order.paymentId).not.toBeUndefined();
+        expect(order.items.length).toBeGreaterThan(0);
     });
 
     /**

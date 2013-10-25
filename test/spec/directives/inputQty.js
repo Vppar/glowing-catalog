@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: inputQtd', function () {
+describe('Directive: inputQty', function () {
 
   // load the directive's module
   beforeEach(module('glowingCatalogApp'));
