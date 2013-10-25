@@ -752,9 +752,13 @@
 }
 .grid-previous-entries .col-2 {
 	width: 520px;
-	text-align: left
 }
-
+.grid-previous-entries .col-2 div{
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
+}
 .row-previous-entries .col-1 {
 	width: 120px;
 }
