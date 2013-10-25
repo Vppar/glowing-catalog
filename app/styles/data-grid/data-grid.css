@@ -610,12 +610,13 @@
 .grid-partial-delivery .header .col-1 {
 	width: 440px;
 }
+.grid-partial-delivery .header .col-1 div {
+	margin-left: 20px;
+}
 .grid-partial-delivery .header .col-1 input[type="checkbox"] {
 	margin-top: -3px
 }
-.grid-partial-delivery .header .col-1 div {
-	margin-left: 20px
-}
+
 .grid-partial-delivery .header .col-2 {
 	width: 225px;
 	text-align: center
@@ -638,22 +639,34 @@
 .row-partial-delivery .col-1 {
 	width: 440px;
 }
+.row-partial-delivery .col-1 div {
+	margin-left: 20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
+}
 .row-partial-delivery .col-1 input[type="checkbox"] {
 	margin-top: -3px
 }
-.row-partial-delivery .col-1 div {
-	margin-left: 20px;
-}
+
 .grid-partial-delivery .col-2 {
 	width: 225px;
-	text-align: center
+	
+}
+.grid-partial-delivery .col-2 div{
+	text-align: center;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
 }
 .grid-partial-delivery .col-3 {
 	width: 70px;
 }
 .grid-partial-delivery .col-3 div {
 	width: 70px;
-	text-align: center
+	text-align: center;
 }
 .grid-partial-delivery .col-4 {
 	width: 160px;
