@@ -28,12 +28,16 @@
         };
 
         this.placeOrder = function placeOrder() {
-            order.customerId = DataProvider.customer.id;
-
             var payment = angular.copy(DataProvider.currentPayments);
             payment.id = DataProvider.payments.length + 1;
-            payment.customerId = DataProvider.customer.id;
+            payment.customerId = order.customerId;
             DataProvider.payments.push(payment);
+
+            // FIXME - Remove this piece of code, this must be done by the
+            // server. (Id, date and code)
+            order.id = DataProvider.orders.length + 1;
+            order.date = new Date();
+            order.code = 'mary-' + ('0000' + order.id).slice(-4) + '-' + String(order.date.getFullYear()).slice(-2);
 
             order.paymentId = payment.id;
             order.items = angular.copy(getBasket());
