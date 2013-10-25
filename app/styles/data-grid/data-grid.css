@@ -482,6 +482,10 @@
 }
 .row-inventory .col-1 div {
 	margin-left: 20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
 }
 .grid-inventory .col-2 {
 	width: 150px;
