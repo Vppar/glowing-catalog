@@ -310,16 +310,26 @@
 }
 .row-payment-grid-product-exchange .col-1 {
 	width: 335px;
-	text-align: left;
-	white-space: nowrap;
+	
 }
+
 .row-payment-grid-product-exchange .col-1 div {
-	margin-left: 20px
+	margin-left: 20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+
 }
 
 .grid-payment-product-exchange .col-2 {
 	width: 75px;
 	text-align: right
+}
+.grid-payment-product-exchange .col-2 div{
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	
 }
 .grid-payment-product-exchange .col-3 {
 	width: 80px;
