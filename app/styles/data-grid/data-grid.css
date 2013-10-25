@@ -294,32 +294,42 @@
 	border-bottom: 1px solid #e0e0e0
 }
 .grid-payment-product-exchange .header .col-1 {
-	width: 240px;
+	width: 340px;
 	text-align: left
 }
 .grid-payment-product-exchange .header .col-1 div {
 	margin-left: 20px;
 }
 .grid-payment-product-exchange .header .col-2 {
-	width: 80px;
-	text-align: center
+	width: 70px;
+	text-align: right
 }
 .grid-payment-product-exchange .header .col-3 {
 	width: 80px;
 	text-align: center;
 }
 .row-payment-grid-product-exchange .col-1 {
-	width: 240px;
-	text-align: left;
-	white-space: nowrap;
+	width: 335px;
+	
 }
+
 .row-payment-grid-product-exchange .col-1 div {
-	margin-left: 20px
+	margin-left: 20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+
 }
 
 .grid-payment-product-exchange .col-2 {
-	width: 80px;
-	text-align: center
+	width: 75px;
+	text-align: right
+}
+.grid-payment-product-exchange .col-2 div{
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	
 }
 .grid-payment-product-exchange .col-3 {
 	width: 80px;
@@ -472,6 +482,10 @@
 }
 .row-inventory .col-1 div {
 	margin-left: 20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
 }
 .grid-inventory .col-2 {
 	width: 150px;
@@ -556,19 +570,27 @@
 	text-align: left
 }
 .grid-order-list .col-3 {
-	width: 300px;
+	width: 400px;
 }
 .grid-order-list .col-3 div {
-	text-align: left
+	text-align: left;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
 }
 .grid-order-list .col-4 {
 	width: 160px;
 	float: right;
 }
 .grid-order-list .col-4 div {
-	float: right;
+	loat: right;
 	text-align: right;
-	margin-right: 24px
+	margin-right: 24px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
 
@@ -592,12 +614,13 @@
 .grid-partial-delivery .header .col-1 {
 	width: 440px;
 }
+.grid-partial-delivery .header .col-1 div {
+	margin-left: 20px;
+}
 .grid-partial-delivery .header .col-1 input[type="checkbox"] {
 	margin-top: -3px
 }
-.grid-partial-delivery .header .col-1 div {
-	margin-left: 20px
-}
+
 .grid-partial-delivery .header .col-2 {
 	width: 225px;
 	text-align: center
@@ -620,22 +643,34 @@
 .row-partial-delivery .col-1 {
 	width: 440px;
 }
+.row-partial-delivery .col-1 div {
+	margin-left: 20px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
+}
 .row-partial-delivery .col-1 input[type="checkbox"] {
 	margin-top: -3px
 }
-.row-partial-delivery .col-1 div {
-	margin-left: 20px;
-}
+
 .grid-partial-delivery .col-2 {
 	width: 225px;
-	text-align: center
+	
+}
+.grid-partial-delivery .col-2 div{
+	text-align: center;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
 }
 .grid-partial-delivery .col-3 {
 	width: 70px;
 }
 .grid-partial-delivery .col-3 div {
 	width: 70px;
-	text-align: center
+	text-align: center;
 }
 .grid-partial-delivery .col-4 {
 	width: 160px;
@@ -717,9 +752,13 @@
 }
 .grid-previous-entries .col-2 {
 	width: 520px;
-	text-align: left
 }
-
+.grid-previous-entries .col-2 div{
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	line-height:10px
+}
 .row-previous-entries .col-1 {
 	width: 120px;
 }
