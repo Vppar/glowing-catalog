@@ -327,5 +327,6 @@
                             creditCards : [],
                             creditCardsTotal : 0
                         };
+                        this.deliveries = [];
                     });
 }(angular));

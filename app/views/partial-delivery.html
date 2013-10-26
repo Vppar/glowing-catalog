@@ -1,103 +1,41 @@
 <div class="container">
-
 	<div class="row-fluid">
-		<span class="span12"> <span ng-include src='"views/parts/global/header.html"'></span> </span>
-
+		<span class="span12"> <span ng-include
+			src='"views/parts/global/header.html"'></span>
+		</span>
 	</div>
-
 	<div class="form-container-partial-delivery">
-
 		<div class="row-fluid">
-
 			<div class="grid-partial-delivery">
 				<div class="header">
 					<div class="row-partial-delivery">
 						<span class="col-1">
-							<div>
-								Produto
-							</div> </span>
-						<span class="col-2">
-							<div>
-								Total
-							</div> </span>
-						<span class="col-3">
-							<div>
-								Entregue
-
-							</div> </span>
-						<span class="col-4">
-							<div>
-								Restante
-							</div></span>
-
+							<div>Produto</div>
+						</span> <span class="col-2">
+							<div>Total</div>
+						</span> <span class="col-3">
+							<div>Entregue</div>
+						</span> <span class="col-4">
+							<div>Restante</div>
+						</span>
 					</div>
 				</div>
 				<div class="scroll-partial-delivery">
-					<div class="row-partial-delivery hover-state-pointer" ng-click='openDeliveryDetails()'>
+					<div class="row-partial-delivery hover-state-pointer"
+						ng-repeat="item in order.items | filter: itemDeliveredAugmenter"
+						ng-click='openDeliveryDetails($index)'>
 						<span class="col-1">
-							<div>
-								Sérum Facial Renovador TimeWise®
-							</div> </span>
-						<span class="col-2">
-							<div>
-								810
-							</div> </span>
-						<span class="col-3">
-							<div>
-								10
-							</div> </span>
-						<span class="col-4">
-							<div >
-								800
-							</div> </span>
-
+							<div>{{item.title | truncate: 64}}</div>
+						</span> <span class="col-2">
+							<div>{{item.qty}}</div>
+						</span> <span class="col-3">
+							<div>{{item.delivered}}</div>
+						</span> <span class="col-4">
+							<div>{{item.qty - item.delivered}}</div>
+						</span>
 					</div>
-					<div class="row-partial-delivery hover-state-pointer" ng-click='openDeliveryDetails()'>
-						<span class="col-1">
-							<div>
-								Sérum Facial Renovador TimeWise®
-							</div> </span>
-						<span class="col-2">
-							<div>
-								810
-							</div> </span>
-						<span class="col-3">
-							<div>
-								10
-							</div> </span>
-						<span class="col-4">
-							<div >
-								800
-							</div> </span>
-
-					</div>
-					<div class="row-partial-delivery hover-state-pointer" ng-click='openDeliveryDetails()'>
-						<span class="col-1">
-							<div>
-								Sérum Facial Renovador TimeWise®
-							</div> </span>
-						<span class="col-2">
-							<div>
-								810
-							</div> </span>
-						<span class="col-3">
-							<div>
-								10
-							</div> </span>
-						<span class="col-4">
-							<div >
-								800
-							</div> </span>
-
-					</div>
-				
-
 				</div>
-
 			</div>
-
 		</div>
-		
 	</div>
-
 </div>
