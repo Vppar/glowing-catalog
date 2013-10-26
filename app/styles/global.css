@@ -756,3 +756,11 @@ ul.nav-footer li a {
 ul.nav-footer li a:hover {
 	text-decoration:none
 }
+
+input.ng-invalid-required.ng-dirty, 
+.failed input.ng-invalid-required, 
+.failed textarea.ng-invalid-required, 
+.failed .ng-invalid-required .select2-choice {
+  color: #b94a48;
+  border-color: #ee5f5b !important;
+}
