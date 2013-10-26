@@ -5,10 +5,10 @@
 		<div class="row-fluid">
 			<div class="controls-row">
 				<div class="control-group lbl-top">
-					<label class="control-label">Produto</label><select
-						class="combo-width-delivery-details" ui-select2
-						ng-model="selectedItemIdx">
-						<option ng-repeat="item in order.items" value="{{$index}}">{{item.title}}</option>
+					<label class="control-label">Produto</label>
+					<select class="combo-width-delivery-details" ui-select2 disabled
+						ng-model="item">
+						<option value="{{item.id}}">{{item.title}}</option>
 					</select>
 				</div>
 				<div class="control-group lbl-top">
@@ -18,12 +18,6 @@
 							<input class="input-small text-center" type="text" placeholder=""
 								ng-model="delivery.qty" number recall>
 						</div>
-					</div>
-				</div>
-				<div class="control-group lbl-top">
-					<div class="controls">
-						<span class="btn-plus-pink hover-state-pointer" ng-click="addToDeliveries(selectedItemIdx)"><img
-							src="images/btn-plus-pink.png" alt="" /></span>
 					</div>
 				</div>
 			</div>
@@ -46,11 +40,7 @@
 							<div>{{deliver.datetime | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
 						</span> <span class="col-3">
 							<div class="hover-state-pointer">{{deliver.qty}}</div>
-						</span> <span class="col-4">
-							<div class="hover-state-pointer">
-								<img src="images/del-pink.png" alt="" />
-							</div>
-						</span>
+						</span> 
 					</div>
 				</div>
 			</div>
@@ -70,7 +60,7 @@
 		<hr />
 		<button ng-click='closeDialog()' class="btn btn-large btn-login"
 			type="submit">Cancelar</button>
-		<button ng-click='closeDialog()'
+		<button ng-click='confirm()'
 			class="btn btn-large btn-login pull-right" type="submit">
 			Confirmar</button>
 
