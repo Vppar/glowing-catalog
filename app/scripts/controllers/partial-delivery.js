@@ -3,16 +3,27 @@
 
     angular.module('glowingCatalogApp').controller('PartialDeliveryCtrl', function($scope, $location, $filter, $dialog, DataProvider) {
 
+        var dataProvider = DataProvider;
+
         // #############################################################################################################
         // Scope variables and fuctions
         // #############################################################################################################
         $scope.order = {};
-        $scope.openDeliveryDetails = function(item) {
+        $scope.dataProvider = dataProvider;
+        $scope.itemDeliveredAugmenter = function itemDeliveredAugmenter(item) {
+            var itemDeliveries = $filter('filter')(dataProvider.deliveries, function(delivery) {
+                return (delivery.orderId === $scope.order.id && delivery.item.id === item.id);
+            });
+            item.delivered = $filter('sum')(itemDeliveries, 'qty');
+            return true;
+        };
+        $scope.openDeliveryDetails = function(index) {
             var d = $dialog.dialog({
                 backdropClick : true,
                 dialogClass : 'modal'
             });
-            d.selectedItem = item;
+            d.order = $scope.order;
+            d.selectedItemIdx = index;
             d.open('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl');
         };
 
@@ -24,10 +35,9 @@
         // #############################################################################################################
         function main() {
             var search = $location.search();
-            var filteredOrders = $filter('filter')(DataProvider.orders, function(order) {
-                return order.id === search.id;
+            var filteredOrders = $filter('filter')(dataProvider.orders, function(item) {
+                return item.id === search.id;
             });
-
             // Like Connor MacLeod said once, "There can be only one!"
             $scope.order = filteredOrders[0];
         }

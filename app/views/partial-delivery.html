@@ -22,13 +22,14 @@
 				</div>
 				<div class="scroll-partial-delivery">
 					<div class="row-partial-delivery hover-state-pointer"
-						ng-repeat="item in order.items" ng-click='openDeliveryDetails(item)'>
+						ng-repeat="item in order.items | filter: itemDeliveredAugmenter"
+						ng-click='openDeliveryDetails($index)'>
 						<span class="col-1">
 							<div>{{item.title | truncate: 64}}</div>
 						</span> <span class="col-2">
 							<div>{{item.qty}}</div>
 						</span> <span class="col-3">
-							<div>{{item.delivered || 0}}</div>
+							<div>{{item.delivered}}</div>
 						</span> <span class="col-4">
 							<div>{{item.qty - item.delivered}}</div>
 						</span>

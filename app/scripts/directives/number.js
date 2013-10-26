@@ -6,7 +6,7 @@
         if (number && !angular.isNumber(number)) {
             number = number.replace(/[^0-9]/g, '');
         }
-        return number;
+        return Number(number);
     }
 
     angular.module('glowingCatalogApp').directive('number', function number() {
