@@ -54,6 +54,9 @@
 .grid-delivery-details .col-2 {
 	width: 150px;
 }
+.grid-delivery-details .col-2 div{
+	margin-left:10px
+}
 .grid-delivery-details .col-3 {
 	width: 70px;
 	text-align: center

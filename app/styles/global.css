@@ -394,6 +394,8 @@ body {
 	padding: 5px;
 	white-space: nowrap;
 	overflow: hidden;
+	padding-left:10px !important;
+	padding-right:10px !important;
 }
 .dropdown-menu .btn {
 	background: #fff;

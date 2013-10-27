@@ -17,6 +17,11 @@
 		margin-right: 25px !important
 	}
 	/*PARTIAL DELIVERY*/
+	
+	.scroll-delivery-details-grid {
+		height: 160px !important;
+	}
+	
 	.form-container-partial-delivery {
 		bottom: 10px !important
 	}

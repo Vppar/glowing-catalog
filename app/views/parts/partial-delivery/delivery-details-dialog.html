@@ -3,6 +3,35 @@
 	<form class="form-delivery-details-modal">
 		<span class="heading-gradient">DETALHES DA ENTREGA</span>
 		<div class="row-fluid">
+			
+			
+			<div class="controls-row">
+				<div class="control-group lbl-top">
+				<label class="control-label"> Data </label>
+				<div class="controls">
+					<input type="text" show-weeks="false" datepicker-popup="dd/MM/yyyy"
+						class="date-field input-small" required ng-model="check.date">
+				</div>
+			</div>
+			<div class="control-group lbl-top">
+				<span class="ic-calendar"><img src="images/icons/ic-calendar.png"></span>
+				</div>
+			
+				<div class="control-group lbl-top">
+					<div class="control-group lbl-top">
+						<label class="control-label">Hora</label>
+						<div class="controls">
+							<input class="input-mini" type="text" >
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+			
+			
+			
 			<div class="controls-row">
 				<div class="control-group lbl-top">
 					<label class="control-label">Produto</label>
@@ -20,26 +49,34 @@
 						</div>
 					</div>
 				</div>
+				<div class="control-group lbl-top">
+				<div class="controls">
+					<span class="btn-plus-pink hover-state-pointer"
+						ng-click=""> <img
+						src="images/btn-plus-pink.png" alt="" />
+					</span>
+				</div>
+			</div>
 			</div>
 			<div class="grid-delivery-details">
 				<div class="header">
 					<div class="row-grid-delivery-details">
 						<span class="col-1">
 							<div>Produto</div>
-						</span><span class="col-2">
-							<div>Data</div>
-						</span> <span class="col-3"><div>Qtde</div></span> <span class="col-5"><div></div></span>
+						</span><span class="col-3"><div >Qtde</div></span> <span class="col-5"><div></div></span>
 					</div>
 				</div>
 				<div class="scroll-delivery-details-grid">
 					<div class="row-grid-delivery-details"
-						ng-repeat="deliver in dataProvider.deliveries | filter: orderItemDeliveriesFilter | orderBy:'-datetime'">
+					ng-repeat="deliver in dataProvider.deliveries | filter: orderItemDeliveriesFilter | orderBy:'-datetime'">
 						<span class="col-1">
 							<div>{{deliver.item.title}}</div>
 						</span><span class="col-2">
-							<div>{{deliver.datetime | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
-						</span> <span class="col-3">
-							<div class="hover-state-pointer">{{deliver.qty}}</div>
+							<div>{{deliver.qty}}</div>
+						</span> <span class="col-4">
+							<div class="hover-state-pointer">
+								<img src="images/del-pink.png" alt="" ng-click="remove($index)" />
+							</div>
 						</span> 
 					</div>
 				</div>
@@ -58,11 +95,47 @@
 		</div>
 		<div class="clearfix"></div>
 		<hr />
-		<button ng-click='closeDialog()' class="btn btn-large btn-login"
-			type="submit">Cancelar</button>
-		<button ng-click='confirm()'
-			class="btn btn-large btn-login pull-right" type="submit">
-			Confirmar</button>
+		<div class="panel-dialog">
+			<div class="row-fluid">
+				<span class="span4">
+					<button 
+						ng-click='closeDialog()' 
+						class="btn btn-large"
+						type="submit">
+						Cancelar
+					</button>
+				</span>
+				<span class="span4">
+					<button 
+						ng-click=''
+						class="btn btn-large btn-login " 
+						type="submit">
+						Salvar como Agendamento
+					</button>
+				</span>
+				<span class="span4">
+					<button 
+						ng-click='confirm()'
+						class="btn btn-large btn-login pull-right" 
+						type="submit">
+						Registrar Entrega
+					</button>
+				</span>
+			</div>
+				
+				
+				
+				
+			
+				
+				
+			</div>
+		
+			
+			
+		
+			
+		
 
 	</form>
 
