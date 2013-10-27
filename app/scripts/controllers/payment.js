@@ -16,8 +16,8 @@
                     $location.path('/');
                 };
 
-                $scope.filterQtde = function(product) {
-                    return product.qtde;
+                $scope.filterQty = function(product) {
+                    return product.qty;
                 };
 
                 $scope.productsCount = 0;
@@ -26,11 +26,11 @@
 
                 function watchProducts() {
                     $scope.productsTotal = 0;
-                    var products = $filter('filter')($scope.dataProvider.products, $scope.filterQtde);
+                    var products = $filter('filter')($scope.dataProvider.products, $scope.filterQty);
                     $scope.productsCount = products.length;
 
                     for ( var i = 0; i < products.length; i++) {
-                        $scope.productsTotal += Number(products[i].price * products[i].qtde);
+                        $scope.productsTotal += Number(products[i].price * products[i].qty);
                     }
                 }
 

@@ -12,9 +12,9 @@
 	</div>
 	
 	<div class="content-scroll">
-		<div ng-repeat="product in dataProvider.products | filter:filterQtde | obInject:'mul':'qtde':'price':'subtotal'">
+		<div ng-repeat="product in dataProvider.products | filter: filterQty | obInject:'mul':'qty':'price':'subtotal'">
 			<span class="col-1">{{product.title | truncate: 50}}</span>
-			<span class="col-2">{{product.qtde}}</span><span class="col-3">{{product.subtotal | currency}}</span>
+			<span class="col-2">{{product.qty}}</span><span class="col-3">{{product.subtotal | currency}}</span>
 		</div>
 	</div>
 	<div class="header2">
