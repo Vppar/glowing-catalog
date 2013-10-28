@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('glowingCatalogApp').controller('PaymentAdvanceMoneyDialogCtrl', function($scope, dialog) {
+angular.module('glowingCatalogApp').controller('CustomerDialogCtrl', function($scope, dialog) {
 
 
 	$scope.closeDialog = function(){
