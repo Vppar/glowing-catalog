@@ -11,9 +11,16 @@
                 $scope.productsTotal = 0;
 
                 $scope.confirm = function() {
-                    OrderService.placeOrder();
-                    OrderService.createOrder();
-                    $location.path('/');
+                    return DialogService.confirmationDialog({
+                        title : 'Confirmar pagamento',
+                        message : 'Deseja confirmar o pagamento ?',
+                    }).then(function(result) {
+                        if (result) {
+                            OrderService.placeOrder();
+                            OrderService.createOrder();
+                            $location.path('/');
+                        }
+                    });
                 };
 
                 $scope.filterQty = function(product) {
@@ -39,7 +46,7 @@
                         payments : $scope.payments
                     });
                 };
-                $scope.openDialogCreditCard = function openDialogCreditCard() { 
+                $scope.openDialogCreditCard = function openDialogCreditCard() {
                     DialogService.openDialogCreditCard({
                         payments : $scope.payments
                     });
@@ -50,6 +57,5 @@
                 $scope.goToBasket = function() {
                     $location.path('basket');
                 };
-
             });
 }(angular));

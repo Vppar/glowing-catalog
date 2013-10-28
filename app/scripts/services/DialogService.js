@@ -21,19 +21,23 @@
         };
         this.openDialog = openDialog;
 
+        this.confirmationDialog = function(data) {
+            return openDialog('views/confirmation-dialog.html', 'ConfirmationDialogCtrl', data);
+        };
+        
         this.openDialogAddCustomerTels = function(data) {
             return openDialog('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl', data);
         };
 
-        this.openDialogAddCustomerEmails = function(data, callback) {
+        this.openDialogAddCustomerEmails = function(data) {
             return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data);
         };
 
-        this.openDialogAddToBasket = function(data, callback) {
+        this.openDialogAddToBasket = function(data) {
             return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data);
         };
 
-        this.openDialogEditPass = function(data, callback) {
+        this.openDialogEditPass = function(data) {
             return openDialog('views/parts/add-customer/edit-pass-dialog.html', 'EditPassDialogCtrl', data);
         };
 
