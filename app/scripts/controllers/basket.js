@@ -1,36 +1,24 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DataProvider) {
+    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DataProvider, DialogService) {
 
         $scope.dataProvider = DataProvider;
 
-        $scope.remove = function remove(index) {
-            $scope.dataProvider.products.splice(index, 1);
+        $scope.remove = function remove(product) {
+            delete product.qty;
         };
-        
-        $scope.filterQty = function(product){
+
+        $scope.filterQty = function(product) {
             return Boolean(product.qty);
         };
 
-        $scope.openDialogEditPass = function() {
-            var d = $dialog.dialog({
-                backdropClick : true,
-                dialogClass : 'modal'
-            });
-            d.open('views/parts/global/edit-pass-dialog.html', 'EditPassDialogCtrl');
-        };
-        $scope.openDialogChooseCustomer = function() {
-            var d = $dialog.dialog({
-                backdropClick : true,   
-                dialogClass : 'modal'
-            });
-            d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
-        };
-        
-        $scope.pay = function(){
+        $scope.openDialogEditPass = DialogService.openDialogEditPass;
+        $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
+
+        $scope.pay = function() {
             $location.path("/payment");
         };
-        
+
     });
 }(angular));

@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('glowingCatalogApp').controller(
-            'PaymentCtrl', function($filter, $scope, $dialog, $location, DataProvider, OrderService) {
+            'PaymentCtrl', function($filter, $scope, $dialog, $location, DataProvider, DialogService, OrderService) {
 
                 $scope.dataProvider = DataProvider;
                 $scope.customer = DataProvider.customer;
@@ -34,52 +34,21 @@
                     }
                 }
 
-                $scope.openDialogCheck = function() {
-                    var d = $dialog.dialog({
-                        backdropClick : true,
-                        dialogClass : 'modal'
+                $scope.openDialogCheck = function openDialogCheck() {
+                    DialogService.openDialogCheck({
+                        payments : $scope.payments
                     });
-                    d.payments = $scope.payments;
-                    d.open('views/parts/payment/payment-check-dialog.html', 'PaymentCheckDialogCtrl');
                 };
-                $scope.openDialogCard = function() {
-                    var d = $dialog.dialog({
-                        backdropClick : true,
-                        dialogClass : 'modal'
+                $scope.openDialogCreditCard = function openDialogCreditCard() {
+                    DialogService.openDialogCreditCard({
+                        payments : $scope.payments
                     });
-                    d.payments = $scope.payments;
-                    d.open('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl');
                 };
-                $scope.openDialogProductExchange = function() {
-                    var d = $dialog.dialog({
-                        backdropClick : true,
-                        dialogClass : 'modal'
-                    });
-                    d.open('views/parts/payment/payment-product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl');
-                };
-                $scope.openDialogAdvanceMoney = function() {
-                    var d = $dialog.dialog({
-                        backdropClick : true,
-                        dialogClass : 'modal'
-                    });
-                    d.open('views/parts/payment/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl');
-                };
-                $scope.openDialogEditPass = function() {
-                    var d = $dialog.dialog({
-                        backdropClick : true,
-                        dialogClass : 'modal'
-                    });
-                    d.open('views/parts/payment/edit-pass-dialog.html', 'EditPassDialogCtrl');
-                };
+                $scope.openDialogProductExchange = DialogService.openDialogProductExchange;
+                $scope.openDialogAdvanceMoney = DialogService.openDialogAdvanceMoney;
+
                 $scope.goToBasket = function() {
                     $location.path('basket');
-                };
-                $scope.openDialogChooseCustomer = function() {
-                    var d = $dialog.dialog({
-                        backdropClick : true,
-                        dialogClass : 'modal'
-                    });
-                    d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
                 };
 
             });

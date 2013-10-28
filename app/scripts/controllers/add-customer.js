@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('AddCustomerCtrl', function($scope, $dialog, $location, DataProvider, DialogService) {
+    angular.module('glowingCatalogApp').controller('AddCustomerCtrl', function($scope, $dialog, $location, DataProvider, DialogService, OrderService) {
 
         // ############################################################################################################
         // Scope binding variables
@@ -49,10 +49,12 @@
                 alert('Preencha os campos destacados.');
                 return;
             }
+            customer.id = DataProvider.customers.length + 1;
             DataProvider.customers.push(customer);
             DataProvider.customers.sort(function(x, y) {
                 return ((x.name == y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
             });
+            OrderService.order.customerId = customer.id;
             $location.path('/');
         };
 

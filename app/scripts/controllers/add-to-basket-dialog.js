@@ -5,7 +5,7 @@
             'AddToBasketDialogCtrl', function($scope, $filter, $dialog, dialog, DataProvider, OrderService, DialogService) {
 
                 $scope.product = $filter('filter')(DataProvider.products, {
-                    id : dialog.id
+                    id : dialog.data.id
                 })[0];
 
                 $scope.cancel = function() {
@@ -19,6 +19,5 @@
                     }
                     dialog.close();
                 };
-                console.log($scope.product);
             });
 }(angular));

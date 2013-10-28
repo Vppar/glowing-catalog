@@ -17,7 +17,7 @@ angular.module('glowingCatalogApp').controller('PaymentCreditCardDialogCtrl', fu
     $scope.dataProvider = DataProvider;
     
     $scope.creditCard = {};
-    $scope.payments = dialog.payments;
+    $scope.payments = dialog.data.payments;
     
     $scope.$watch('payments', watchChecks, true);
     
