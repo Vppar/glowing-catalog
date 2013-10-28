@@ -605,95 +605,184 @@
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
 
-/*============= DATA-GRID PARTIAL DELIVERY =====================*/
-.grid-partial-delivery {
+/*============= DATA-GRID PARTIAL DELIVERY LEFT =====================*/
+.grid-partial-delivery-1 {
 	border-radius: 6px 6px 0 0;
+	margin-top:15px
 }
 
-.grid-partial-delivery .header {
+.grid-partial-delivery-1 .header {
 	background: #ecbab9;
 	border-radius: 4px;
 	margin-top: 5px
 }
-.grid-partial-delivery .header span, .grid-partial-delivery .scroll-partial-delivery  span {
+.grid-partial-delivery-1 .header span, .grid-partial-delivery-1 .scroll-partial-delivery-1  span {
 	display: inline-block;
 	line-height: 40px;
 }
-.grid-partial-delivery .scroll-partial-delivery .row-partial-delivery {
+.grid-partial-delivery-1 .scroll-partial-delivery-1 .row-partial-delivery-1 {
 	border-bottom: 1px solid #e0e0e0
 }
-.grid-partial-delivery .header .col-1 {
-	width: 440px;
+.grid-partial-delivery-1 .header .col-1 {
+	width:220px
 }
-.grid-partial-delivery .header .col-1 div {
+.grid-partial-delivery-1 .header .col-1 div {
 	margin-left: 20px;
 }
-.grid-partial-delivery .header .col-1 input[type="checkbox"] {
+
+.grid-partial-delivery-1 .header .col-2 {
+	width: 70px;
+	
+}
+.grid-partial-delivery-1 .header .col-3 {
+	width: 70px;
+}
+.grid-partial-delivery-1 .header .col-3 div {
+	width: 70px;
+	text-align: center;
+	
+}
+.grid-partial-delivery-1 .header .col-4 {
+	width: 70px;
+	display: inline-block;
+	
+	
+
+}
+
+.grid-partial-delivery-1 .header .col-4 div {
+	text-align: center;
+	margin-right:20px;
+
+}
+.grid-partial-delivery-1 .header .col-5 {
+	width: 70px;
+}
+.grid-partial-delivery-1 .header .col-5 div{
+	text-align:center
+}
+.row-partial-delivery-1 .col-1 {
+	width:220px
+}
+.row-partial-delivery-1 .col-1 div {
+	margin-left: 20px;
+}
+
+.grid-partial-delivery-1 .col-2 {
+	width: 70px;
+	
+}
+.grid-partial-delivery-1 .col-2 div{
+	text-align: center;
+
+}
+.grid-partial-delivery-1 .col-3 {
+	width: 70px;
+}
+.grid-partial-delivery-1 .col-3 div {
+	width: 70px;
+	text-align: center;
+}
+.grid-partial-delivery-1 .col-4 {
+	width: 70px;
+	
+
+}
+.grid-partial-delivery-1 .col-4 div {
+
+	margin-left: 20px;
+	text-align:center
+}
+.grid-partial-delivery-1 .col-5 {
+	width: 70px;
+}
+.grid-partial-delivery-1 .col-5 div{
+	text-align:center;
+	margin-left:25px
+	
+}
+/*============= END DATA-GRID PARTIAL DELIVERY LEFT =================*/
+
+/*============= DATA-GRID PARTIAL DELIVERY RIGHT =====================*/
+.grid-partial-delivery-2 {
+	border-radius: 6px 6px 0 0;
+	margin-top:10px
+}
+
+.grid-partial-delivery-2 .header {
+	background: #ecbab9;
+	border-radius: 4px;
+	margin-top: 5px
+}
+.grid-partial-delivery-2 .header span, .grid-partial-delivery-2 .scroll-partial-delivery-2  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-partial-delivery-2 .scroll-partial-delivery-2 .row-partial-delivery-2 {
+	border-bottom: 1px solid #e0e0e0
+}
+.grid-partial-delivery-2 .header .col-1 {
+	width: 100px;
+}
+.grid-partial-delivery-2 .header .col-1 div {
+	margin-left: 20px;
+}
+.grid-partial-delivery-2 .header .col-1 input[type="checkbox"] {
 	margin-top: -3px
 }
 
-.grid-partial-delivery .header .col-2 {
-	width: 225px;
-	text-align: center
-}
-.grid-partial-delivery .header .col-3 {
+.grid-partial-delivery-2 .header .col-2 {
 	width: 80px;
 }
-.grid-partial-delivery .header .col-3 div {
+.grid-partial-delivery-2 .header .col-3 {
+	width: 80px;
+}
+.grid-partial-delivery-2 .header .col-3 div {
 	width: 80px;
 	text-align: center
 }
-.grid-partial-delivery .header .col-4 {
-	width: 160px;
+.grid-partial-delivery-2 .header .col-4 {
+	width: 80px;
 	display: inline-block;
 	text-align: center;
 }
-.grid-partial-delivery .header .col-4 div {
+.grid-partial-delivery-2 .header .col-4 div {
 	text-align: center
 }
-.row-partial-delivery .col-1 {
-	width: 440px;
+.row-partial-delivery-2 .col-1 {
+	width: 100px;
 }
-.row-partial-delivery .col-1 div {
+.row-partial-delivery-2 .col-1 div {
 	margin-left: 20px;
-	overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-	line-height:10px
 }
-.row-partial-delivery .col-1 input[type="checkbox"] {
+.row-partial-delivery-2 .col-1 input[type="checkbox"] {
 	margin-top: -3px
 }
 
-.grid-partial-delivery .col-2 {
-	width: 225px;
+.grid-partial-delivery-2 .col-2 {
+	width: 80px;
 	
 }
-.grid-partial-delivery .col-2 div{
-	text-align: center;
-	overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-	line-height:10px
-}
-.grid-partial-delivery .col-3 {
-	width: 70px;
-}
-.grid-partial-delivery .col-3 div {
-	width: 70px;
+.grid-partial-delivery-2 .col-2 div{
 	text-align: center;
 }
-.grid-partial-delivery .col-4 {
+.grid-partial-delivery-2 .col-3 {
+	width: 80px;
+}
+.grid-partial-delivery-2 .col-3 div {
+	text-align: center;
+}
+.grid-partial-delivery-2 .col-4 {
 	width: 160px;
 	float: right;
 	text-align: left;
 }
-.grid-partial-delivery .col-4 div {
+.grid-partial-delivery-2 .col-4 div {
 	float: right;
 	margin-right: 80px
 }
 
-/*============= END DATA-GRID PARTIAL DELIVERY =================*/
+/*============= END DATA-GRID PARTIAL DELIVERY RIGHT=================*/
 
 /*============= DATA-GRID PREVIOUS ENTRIES =================*/
 .grid-previous-entries {
