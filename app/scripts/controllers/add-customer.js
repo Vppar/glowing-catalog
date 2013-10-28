@@ -43,21 +43,6 @@
             });
         };
 
-        $scope.openDialogEditPass = function() {
-            var d = $dialog.dialog({
-                backdropClick : true,
-                dialogClass : 'modal'
-            });
-            d.open('views/parts/add-customer/edit-pass-dialog.html', 'EditPassDialogCtrl');
-        };
-        $scope.openDialogChooseCustomer = function() {
-            var d = $dialog.dialog({
-                backdropClick : true,
-                dialogClass : 'modal'
-            });
-            d.open('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl');
-        };
-
         $scope.confirm = function confirm() {
             $scope.failed = true;
             if (!$scope.customerForm.$valid) {

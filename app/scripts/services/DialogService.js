@@ -23,21 +23,19 @@
         // ############################################################################################################
         // add-customer
         // ############################################################################################################
+
         this.openDialogAddCustomerTels = function(data, callback) {
             this.openDialog('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl', data, callback);
         };
         this.openDialogAddCustomerEmails = function(data, callback) {
             this.openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, callback);
         };
-        // this.openDialogAddCustomerEmails();
-        // this.openDialogEditPass();
-        // this.openDialogChooseCustomer();
-        //
-        // this.openDialog();
-        // this.openDialog();
-        // this.openDialog();
-        // this.openDialog();
-        // this.openDialog();
+        this.openDialogEditPass = function(data, callback) {
+            this.openDialog('views/parts/add-customer/edit-pass-dialog.html', 'EditPassDialogCtrl', data, callback);
+        };
+        this.openDialogChooseCustomer = function(data, callback) {
+            this.openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, callback);
+        };
 
     });
 }(angular));
