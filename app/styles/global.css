@@ -546,6 +546,7 @@ body {
 	border-radius: 4px;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	text-shadow: #999 2px 1px;
+	width:789px
 }
 .title-products {
 	padding: 10px 10px 0 10px;
@@ -614,7 +615,7 @@ body {
 /*side bar*/
 .sidebar {
 	position: fixed;
-	top: 147px;
+	top: 80px;
 	margin-left: 709px
 }
 .sidebar-menu {
