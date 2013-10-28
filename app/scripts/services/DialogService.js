@@ -11,58 +11,58 @@
          *            closes.
          * 
          */
-        this.openDialog = function openDialog(template, controller, data, callback) {
+        var openDialog = function openDialog(template, controller, data) {
             var d = $dialog.dialog({
                 backdropClick : true,
                 dialogClass : 'modal'
             });
             d.data = data;
-            d.open(template, controller).then(callback);
+            return d.open(template, controller);
         };
-        var openDialog = this.openDialog;
+        this.openDialog = openDialog;
 
-        this.openDialogAddCustomerTels = function(data, callback) {
-            openDialog('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl', data, callback);
+        this.openDialogAddCustomerTels = function(data) {
+            return openDialog('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl', data);
         };
 
         this.openDialogAddCustomerEmails = function(data, callback) {
-            openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, callback);
+            return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data);
         };
 
         this.openDialogAddToBasket = function(data, callback) {
-            openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, callback);
+            return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data);
         };
 
         this.openDialogEditPass = function(data, callback) {
-            openDialog('views/parts/add-customer/edit-pass-dialog.html', 'EditPassDialogCtrl', data, callback);
+            return openDialog('views/parts/add-customer/edit-pass-dialog.html', 'EditPassDialogCtrl', data);
         };
 
-        this.openDialogChooseCustomer = function(data, callback) {
-            openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, callback);
+        this.openDialogChooseCustomer = function(data) {
+            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data);
         };
 
-        this.openDialogEditPass = function(data, callback) {
-            openDialog('views/parts/global/edit-pass-dialog.html', 'EditPassDialogCtrl', data, callback);
+        this.openDialogEditPass = function(data) {
+            return openDialog('views/parts/global/edit-pass-dialog.html', 'EditPassDialogCtrl', data);
         };
 
-        this.openDialogInputProducts = function(data, callback) {
-            openDialog('views/parts/global/input-products-dialog.html', 'InputProductsCtrl', data, callback);
+        this.openDialogInputProducts = function(data) {
+            return openDialog('views/parts/global/input-products-dialog.html', 'InputProductsCtrl', data);
         };
 
-        this.openDialogAdvanceMoney = function(data, callback) {
-            openDialog('views/parts/payment/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl', data, callback);
+        this.openDialogAdvanceMoney = function(data) {
+            return openDialog('views/parts/payment/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl', data);
         };
 
-        this.openDialogProductExchange = function(data, callback) {
-            openDialog('views/parts/payment/payment-product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl', data, callback);
+        this.openDialogProductExchange = function(data) {
+            return openDialog('views/parts/payment/payment-product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl', data);
         };
 
-        this.openDialogCheck = function(data, callback) {
-            openDialog('views/parts/payment/payment-check-dialog.html', 'PaymentCheckDialogCtrl', data, callback);
+        this.openDialogCheck = function(data) {
+            return openDialog('views/parts/payment/payment-check-dialog.html', 'PaymentCheckDialogCtrl', data);
         };
 
-        this.openDialogCreditCard = function(data, callback) {
-            openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data, callback);
+        this.openDialogCreditCard = function(data) {
+            return openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data);
         };
     });
 

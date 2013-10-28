@@ -39,7 +39,7 @@
                         payments : $scope.payments
                     });
                 };
-                $scope.openDialogCreditCard = function openDialogCreditCard() {
+                $scope.openDialogCreditCard = function openDialogCreditCard() { 
                     DialogService.openDialogCreditCard({
                         payments : $scope.payments
                     });
