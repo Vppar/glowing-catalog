@@ -1,9 +1,9 @@
 <div class="container">
-	<form class="form-add-email">
+	<form class="form-add-email" name="emailForm">
 		<span class="heading-gradient">E-MAILS</span>
 		<div class="input-append add-cusomer-input-emails">
 			<input class="input-block-level" ng-model="email.address"
-				id="appendedInput" type="email"> <span
+				id="appendedInput" type="email" required> <span
 				ng-click='addEmail(email)' class="add-on">+</span>
 		</div>
 		<div class="row-fluid">

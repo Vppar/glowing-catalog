@@ -3,17 +3,18 @@
 		<span class="heading-gradient">TELEFONES</span>
 
 		<div class="row-fluid">
-			<span class="span5"> <select class='customer-tel-type'
-				ui-select2 ng-model="select2" ng-model="phone.type" required>
+			<span class="span5"> 
+			<select class='customer-tel-type'
+				ui-select2 ng-model="phone.type">
 					<option ng-repeat="type in dataProvider.phone.types"
 						value="{{type}}">{{type}}</option>
 			</select>
 
-			</span><span class="span7">
-
+			</span>
+			<span class="span7">
 				<div class="input-append add-cusomer-input-tels">
 					<input class="input-block-level" ng-model="phone.number"
-						id="appendedInput" type="text" phone required> <span
+						id="appendedInput" type="text" autofocus phone required> <span
 						ng-click='addPhone(phone)' class="add-on">+</span>
 				</div>
 			</span>

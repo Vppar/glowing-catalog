@@ -15,13 +15,13 @@
          * @var checks - stores check list
          */
         $scope.check = {};
-        $scope.payments = dialog.payments;
-        
+        $scope.payments = dialog.data.payments;
+
         $scope.$watch('payments', watchChecks, true);
-        
+
         function watchChecks() {
             $scope.payments.checksTotal = 0;
-            for(var i=0; i<$scope.payments.checks.length; i++) {
+            for ( var i = 0; i < $scope.payments.checks.length; i++) {
                 $scope.payments.checksTotal += Number($scope.payments.checks[i]["amount"]);
             }
             $scope.payments.total = $scope.payments.creditCardsTotal + $scope.payments.checksTotal;
