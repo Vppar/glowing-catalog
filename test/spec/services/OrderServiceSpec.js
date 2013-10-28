@@ -78,7 +78,7 @@ describe('Service: OrderServiceSpec', function() {
 
         // Select a customer, add a product and make a payment before place an
         // order.
-        DataProvider.customer = selectedCustomer;
+        OrderService.order.customerId = selectedCustomer.id;
         DataProvider.payments.push({
             id : paymentsSize + 1,
             orderId : ordersSize + 1

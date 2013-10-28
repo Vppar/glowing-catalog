@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row-fluid">
-		<span class="span12"> <span ng-include
-			src='"views/parts/global/header.html"'></span>
+		<span class="span12"> 
+		<span ng-include src='"views/parts/global/header.html"'></span>
 		</span>
 	</div>
 	<form name="customerForm" ng-class="{failed: failed}">
@@ -42,9 +42,11 @@
 				<span class="span4">
 					<label class="control-label lbl-tels">Telefones</label>
 					<div class="input-append input-width-tels">
-						<input class="input-block-level" id="appendedInput" type="text"
-							ng-model="customer.phone" phone required> <span
-							ng-click='openDialogAddCustomerTels(customer.phone)'
+						<input class="input-block-level hover-state-pointer" id="appendedInput" type="text"
+							ng-model="customer.phones[0].number" 
+							ng-click='openDialogAddCustomerTels(customer.phones)' required phone> 
+						<span
+							ng-click='openDialogAddCustomerTels(customer.phones)'
 							class="add-on">+</span>
 					</div>
 				</span>
