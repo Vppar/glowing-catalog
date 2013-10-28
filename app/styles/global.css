@@ -394,8 +394,8 @@ body {
 	padding: 5px;
 	white-space: nowrap;
 	overflow: hidden;
-	padding-left:10px !important;
-	padding-right:10px !important;
+	padding-left: 10px !important;
+	padding-right: 10px !important;
 }
 .dropdown-menu .btn {
 	background: #fff;
@@ -536,17 +536,16 @@ body {
 	max-height: 20px;
 	overflow: hidden;
 }
-.title-catalog{
-	font-size:32px;
-	display:block;
-	line-height:45px;
-	padding-left:10px;
-	color:#fff;
-	margin:10px;
-	border-radius:4px;
+.title-catalog {
+	font-size: 32px;
+	display: block;
+	line-height: 45px;
+	padding-left: 10px;
+	color: #fff;
+	margin: 10px;
+	border-radius: 4px;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
-	text-shadow:#999 2px 1px ;
-	
+	text-shadow: #999 2px 1px;
 }
 .title-products {
 	padding: 10px 10px 0 10px;
@@ -604,7 +603,7 @@ body {
 /*2 columns*/
 .col-left {
 	float: left;
-	width:40%;
+	width: 40%;
 	margin-top: 10px;
 }
 .col-right {
@@ -614,10 +613,9 @@ body {
 }
 /*side bar*/
 .sidebar {
-	position:fixed;
-	top:147px;
-	margin-left:709px
-	
+	position: fixed;
+	top: 147px;
+	margin-left: 709px
 }
 .sidebar-menu {
 	float: right;
@@ -626,18 +624,18 @@ body {
 	width: 62.5%;
 	background: #fdfeff
 }
-.bottom-side-bar{
+.bottom-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
-	padding:5px;
+	padding: 5px;
 	margin-top: 12px;
-	height:140px;
-	display:inline-block;
-	background:#fdfeff;
-	float:right;
+	height: 140px;
+	display: inline-block;
+	background: #fdfeff;
+	float: right;
 }
-.bottom-side-bar img{
-	max-width:170px
+.bottom-side-bar img {
+	max-width: 170px
 }
 
 .nav-list > li > a {
@@ -700,8 +698,8 @@ body {
 	border-top: 4px solid #fff;
 	box-shadow: 0px 0px 10px 0px #666;
 }
-.footer a:active{
-	text-decoration:none
+.footer a:active {
+	text-decoration: none
 }
 /*footer  products left*/
 .bottom-products-left {
@@ -769,13 +767,10 @@ ul.nav-footer li a {
 	font-size: 14px;
 }
 ul.nav-footer li a:hover {
-	text-decoration:none
+	text-decoration: none
 }
 
-input.ng-invalid-required.ng-dirty, 
-.failed input.ng-invalid-required, 
-.failed textarea.ng-invalid-required, 
-.failed .ng-invalid-required .select2-choice {
-  color: #b94a48;
-  border-color: #ee5f5b !important;
+input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed textarea.ng-invalid-required, .failed .ng-invalid-required .select2-choice {
+	color: #b94a48;
+	border-color: #ee5f5b !important;
 }

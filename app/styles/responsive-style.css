@@ -19,11 +19,11 @@
 	/*PARTIAL DELIVERY*/
 	.grid-partial-delivery-1 .col-5 div {
 		margin-left: 30px !important;
-		text-align:center
+		text-align: center
 	}
-	.grid-partial-delivery-1 .header .col-5 div{
-	margin-left: 20px !important;
-}
+	.grid-partial-delivery-1 .header .col-5 div {
+		margin-left: 20px !important;
+	}
 	/*END PARTIAL DELIVERY*/
 
 	.navbar .nav {
@@ -105,12 +105,10 @@
 	.col-left {
 		float: left;
 		width: 405px !important;
-		
 	}
 	.col-right {
 		float: right;
 		width: 420px !important;
-		
 	}
 	/*home scroll content*/
 	.home-scroll-content {
@@ -124,16 +122,24 @@
 	}
 
 	/*side bar*/
-	.sidebar-menu {
-		width: 193px !important;
-		
+	.sidebar {
+		position: fixed;
+		top: 147px;
+		margin-left: 708px!important;
 	}
-	.bottom-side-bar{
-		width: 182px !important;
-		position:relative;
-		right:14px;
-		top:4px !important
-	
+	.sidebar-menu {
+		float: right;
+		box-shadow: -1px 1px 8px 1px #e0e0e0;
+		border-radius: 4px;
+		width: 64%!important;
+		background: #fdfeff
+	}
+	.bottom-side-bar {
+		width: 185px !important;
+		position: relative;
+		right: 0px;
+		top: 0px !important
+
 	}
 
 	.nav-list > li > a {
