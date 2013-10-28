@@ -37,5 +37,11 @@
             this.openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, callback);
         };
 
+        // ############################################################################################################
+        // add-to-basket-dialog
+        // ############################################################################################################
+        this.openDialogChooseCustomer = function(data, callback) {
+            this.openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, callback);
+        };
     });
 }(angular));
