@@ -2,16 +2,15 @@
 	<div class="modal-container">
 		<div class="modal-header">
 			<span class="dialog-title"><h3>{{title}}</h3></span>
-			<span ng-click="closeDialog(false)" class="ic-close"></span>
 		</div>
 		<div class="modal-body">
 			{{message}}
 			<div class="control-group">
 				<div class="controls">
-					<button class="btn btn-gren" ng-click="closeDialog(false)">Cancel</button>
+					<button class="btn btn-gren" ng-click="cancel()">Cancel</button>
 				</div>
 				<div class="controls">
-					<button class="btn btn-gren" ng-click="closeDialog(true)">OK</button>
+					<button class="btn btn-gren" ng-click="confirm()">OK</button>
 				</div>
 			</div>
 		</div>
