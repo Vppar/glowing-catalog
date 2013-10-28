@@ -381,3 +381,25 @@
 	text-align: right;
 }
 
+.modal-container {
+	border: 3px solid #fff;
+	border-radius: 4px;
+}
+.modal-header {
+	padding: 4px 10px;
+	border-bottom: 1px solid #eee;
+	border-radius: 4px 4px 0 0;
+	background: #ecbab9;
+}
+.modal-header .ic-close {
+	display: inline-block;
+	background: url(../images/ic-close.png) no-repeat;
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	right: 10px;
+	top: 12px;
+}
+.modal-header .ic-close:hover {
+	cursor: pointer
+}
