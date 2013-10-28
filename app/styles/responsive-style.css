@@ -120,24 +120,23 @@
 	}
 
 	/*side bar*/
-	.sidebar {
-		position: fixed;
-		top: 147px;
-		margin-left: 708px!important;
-	}
+
 	.sidebar-menu {
-		float: right;
+		width: 195px !important;
+		margin-right: 10px !important;
+	}
+
+	.bottom-side-bar {
 		box-shadow: -1px 1px 8px 1px #e0e0e0;
 		border-radius: 4px;
-		width: 64%!important;
-		background: #fdfeff
-	}
-	.bottom-side-bar {
-		width: 185px !important;
-		position: relative;
-		right: 0px;
-		top: 0px !important
-
+		padding: 18px !important;
+		margin-top: 10px;
+		height: 140px;
+		display: inline-block;
+		background: #fdfeff;
+		float: right;
+		clear: both;
+		margin-right: 10px!important;
 	}
 
 	.nav-list > li > a {

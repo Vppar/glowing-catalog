@@ -539,13 +539,14 @@ body {
 .title-catalog {
 	font-size: 32px;
 	display: block;
-	line-height: 45px;
+	line-height: 41px;
 	padding-left: 10px;
 	color: #fff;
 	margin: 10px;
 	border-radius: 4px;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	text-shadow: #999 2px 1px;
+	width:789px
 }
 .title-products {
 	padding: 10px 10px 0 10px;
@@ -612,30 +613,33 @@ body {
 	margin-top: 10px;
 }
 /*side bar*/
-.sidebar {
-	position: fixed;
-	top: 147px;
-	margin-left: 709px
-}
+
 .sidebar-menu {
 	float: right;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
-	width: 62.5%;
-	background: #fdfeff
+	width: 180px;
+	background: #fdfeff;
+	float:right;
+	margin-top:-8px;
+	margin-right:23px;
+	position:relative;
 }
 .bottom-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
-	padding: 5px;
-	margin-top: 12px;
+	padding: 10px;
+	margin-top: 11px;
 	height: 140px;
 	display: inline-block;
 	background: #fdfeff;
 	float: right;
+	clear:both;
+	margin-right:23px;
+	
 }
 .bottom-side-bar img {
-	max-width: 170px
+	max-width: 160px
 }
 
 .nav-list > li > a {
