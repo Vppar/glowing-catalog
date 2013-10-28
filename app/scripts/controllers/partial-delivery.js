@@ -6,7 +6,7 @@
         var dataProvider = DataProvider;
 
         // #############################################################################################################
-        // Scope variables and fuctions
+        // Scope variables and functions
         // #############################################################################################################
         $scope.order = {};
         $scope.dataProvider = dataProvider;
@@ -42,5 +42,14 @@
             $scope.order = filteredOrders[0];
         }
         main();
+        
+        /*DIALOG CUSTOMER INFO*/
+        $scope.openDialogCustomerInfo = function() {
+              var d = $dialog.dialog({
+                  backdropClick : true,
+                  dialogClass : 'modal'
+        });
+              d.open('views/parts/partial-delivery/customer-info-dialog.html', 'EditPassDialogCtrl');
+        };
     });
 }(angular));
