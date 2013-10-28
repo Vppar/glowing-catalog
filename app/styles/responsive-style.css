@@ -105,12 +105,12 @@
 	.col-left {
 		float: left;
 		width: 405px !important;
-		padding-bottom: 120px;
+		
 	}
 	.col-right {
 		float: right;
 		width: 420px !important;
-		padding-bottom: 120px;
+		
 	}
 	/*home scroll content*/
 	.home-scroll-content {
@@ -125,10 +125,15 @@
 
 	/*side bar*/
 	.sidebar-menu {
-		float: right;
-		box-shadow: -1px 1px 8px 1px #e0e0e0;
-		border-radius: 4px;
-		width: 100% !important
+		width: 193px !important;
+		
+	}
+	.bottom-side-bar{
+		width: 182px !important;
+		position:relative;
+		right:14px;
+		top:4px !important
+	
 	}
 
 	.nav-list > li > a {
