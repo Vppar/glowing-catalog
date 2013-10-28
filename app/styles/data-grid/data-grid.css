@@ -542,15 +542,11 @@
 .grid-order-list .header .col-1 {
 	width: 200px;
 }
-.grid-order-list .header .col-1 input[type="checkbox"] {
-	margin-top: -3px
-}
-.grid-order-list .header .col-1 div {
-	margin-left: 20px
+.grid-order-list .header .col-1 div{
+	margin-left:20px;
 }
 .grid-order-list .header .col-2 {
 	width: 150px;
-	text-align: left
 }
 .grid-order-list .header .col-3 {
 	width: 300px;
@@ -563,45 +559,52 @@
 	display: inline-block;
 }
 .grid-order-list .header .col-4 div {
-	text-align: right;
-	float: right;
-	margin-right: 40px
+	text-align: center;
+	
 }
-.row-order-list .col-1 {
+.grid-order-list .header .col-5 {
+	width: 80px;
+	display: inline-block;
+}
+.grid-order-list .header .col-5 {
+	text-align:right
+}
+.scroll-order-list .col-1 {
 	width: 200px;
 }
-.row-order-list .col-1 input[type="checkbox"] {
-	margin-top: -3px
-}
-.row-order-list .col-1 div {
+
+.scroll-order-list .col-1 div {
 	margin-left: 20px;
 }
-.grid-order-list .col-2 {
+.scroll-order-list .col-2 {
 	width: 150px;
 	text-align: left
 }
-.grid-order-list .col-3 {
-	width: 400px;
+.scroll-order-list .col-3 {
+	width: 300px;
+	
 }
-.grid-order-list .col-3 div {
+.scroll-order-list .col-3 div {
 	text-align: left;
 	overflow:hidden;
     text-overflow:ellipsis;
     white-space:nowrap;
-	line-height:10px
+	line-height:12px;
 }
-.grid-order-list .col-4 {
+.scroll-order-list .col-4 {
 	width: 160px;
-	float: right;
-}
-.grid-order-list .col-4 div {
-	loat: right;
-	text-align: right;
-	margin-right: 24px;
-	overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
 	
+}
+.scroll-order-list .col-4 div {
+	text-align:center;
+	
+}
+.scroll-order-list .col-5 {
+	width: 110px;
+	float:right
+}
+.scroll-order-list .col-5 div{
+	margin-right:20px
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
 

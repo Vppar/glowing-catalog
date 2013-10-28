@@ -20,7 +20,10 @@
 							<div>Data</div>
 						</span> <span class="col-3">
 							<div>Cliente</div>
-						</span> <span class="col-4">
+						</span>
+						<span class="col-4">
+							<div>Itens</div>
+						</span> <span class="col-5">
 							<div>Valor</div>
 						</span>
 					</div>
@@ -34,7 +37,10 @@
 							<div>{{order.date | date:'dd/MM/yyyy'}}</div>
 						</span> <span class="col-3">
 							<div>{{order.customerName}}</div>
-						</span> <span class="col-4">
+						</span> 
+						<span class="col-4">
+							<div>12</div>
+						</span><span class="col-5">
 							<div>{{order.items | obInject:
 								'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency:
 								'R$'}}</div>
