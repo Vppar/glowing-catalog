@@ -14,7 +14,9 @@
         $scope.customer = {
             address : {},
             birthday : {},
-            emails : [],
+            emails : [ {
+                address : ''
+            } ],
             phones : [ {
                 number : ''
             } ]
@@ -28,23 +30,19 @@
         $scope.openDialogAddCustomerTels = function openDialogAddCustomerTels(phones) {
             DialogService.openDialogAddCustomerTels({
                 phones : phones
-            }, function recoverPhones(phones) {
+            }, function resultPhones(phones) {
                 customer.phones = phones;
             });
         };
 
-        $scope.openDialogAddCustomerEmails = function() {
-            var d = $dialog.dialog({
-                backdropClick : true,
-                dialogClass : 'modal'
-            });
-            d.email = $scope.customer.email;
-            delete $scope.customer.email;
-            d.emails = $scope.customer.emails;
-            d.open('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl').then(function(value) {
-                $scope.customer.emails = value;
+        $scope.openDialogAddCustomerEmails = function openDialogAddCustomerEmails(emails) {
+            DialogService.openDialogAddCustomerEmails({
+                emails : emails
+            }, function resultPhones(emails) {
+                customer.emails = emails;
             });
         };
+
         $scope.openDialogEditPass = function() {
             var d = $dialog.dialog({
                 backdropClick : true,
@@ -62,14 +60,6 @@
 
         $scope.confirm = function confirm() {
             $scope.failed = true;
-            if ($scope.customer.emails.length) {
-                alert('É necessário cadastrar pelo menos 1 e-mail para criar o novo cliente.');
-                return;
-            }
-            if ($scope.customer.phones.length) {
-                alert('É necessário cadastrar pelo menos 1 telefone para criar o novo cliente.');
-                return;
-            }
             if (!$scope.customerForm.$valid) {
                 alert('Preencha os campos destacados.');
                 return;

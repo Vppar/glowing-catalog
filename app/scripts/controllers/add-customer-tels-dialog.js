@@ -12,10 +12,7 @@
     angular.module('glowingCatalogApp').controller('AddCustomerTelsDialogCtrl', function($scope, $filter, dialog, DataProvider) {
 
         $scope.dataProvider = DataProvider;
-        $scope.phone = {
-            type : '',
-            number : ''
-        };
+        $scope.phone = {};
 
         /**
          * @var phones - stores phone list
@@ -97,8 +94,6 @@
             if (dialog.data.phones[0] && dialog.data.phones[0].type) {
                 $scope.phone.number = '';
                 $scope.phones = angular.copy(dialog.data.phones);
-            } else {
-                $scope.phone = angular.copy(dialog.data.phones[0]);
             }
         }
         main();

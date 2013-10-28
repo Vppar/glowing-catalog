@@ -26,15 +26,18 @@
         this.openDialogAddCustomerTels = function(data, callback) {
             this.openDialog('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl', data, callback);
         };
-//        this.openDialogAddCustomerEmails();
-//        this.openDialogEditPass();
-//        this.openDialogChooseCustomer();
-//
-//        this.openDialog();
-//        this.openDialog();
-//        this.openDialog();
-//        this.openDialog();
-//        this.openDialog();
+        this.openDialogAddCustomerEmails = function(data, callback) {
+            this.openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, callback);
+        };
+        // this.openDialogAddCustomerEmails();
+        // this.openDialogEditPass();
+        // this.openDialogChooseCustomer();
+        //
+        // this.openDialog();
+        // this.openDialog();
+        // this.openDialog();
+        // this.openDialog();
+        // this.openDialog();
 
     });
 }(angular));
