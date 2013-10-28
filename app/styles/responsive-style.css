@@ -11,10 +11,8 @@
 		font-weight: bold;
 	}
 	/*ORDER LIST*/
-	.grid-order-list .header .col-4 div {
-		text-align: right;
-		float: right;
-		margin-right: 25px !important
+	.grid-order-list .header .col-5 div {
+		margin-right: -5px !important
 	}
 	/*PARTIAL DELIVERY*/
 	.grid-partial-delivery-1 .col-5 div {
