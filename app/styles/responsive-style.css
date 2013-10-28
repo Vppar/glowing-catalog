@@ -17,35 +17,13 @@
 		margin-right: 25px !important
 	}
 	/*PARTIAL DELIVERY*/
-	
-	.scroll-delivery-details-grid {
-		height: 160px !important;
+	.grid-partial-delivery-1 .col-5 div {
+		margin-left: 30px !important;
+		text-align:center
 	}
-	
-	.form-container-partial-delivery {
-		bottom: 10px !important
-	}
-	.scroll-partial-delivery {
-		top: 137px !important;
-		bottom: 42px !important;
-	}
-	.grid-partial-delivery .header .col-4 {
-		width: 160px !important;
-		display: inline-block !important;
-		text-align: left !important;
-	}
-	.grid-partial-delivery .header .col-4 div {
-
-		margin-right: 65px !important
-	}
-	.grid-partial-delivery .col-4 {
-		width: 160px;
-		float: right;
-	}
-	.grid-partial-delivery .col-4 div {
-		float: right;
-		text-align: center !important;
-	}
+	.grid-partial-delivery-1 .header .col-5 div{
+	margin-left: 20px !important;
+}
 	/*END PARTIAL DELIVERY*/
 
 	.navbar .nav {
