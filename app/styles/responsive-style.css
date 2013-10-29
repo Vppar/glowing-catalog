@@ -1,5 +1,18 @@
 @media (max-width: 1024px) and (max-height: 768px) {
 
+	/*PRODUCTS TO BUY*/
+	.grid-products-to-buy .header .col-1 {
+		white-space:nowrap;
+	}
+	.grid-products-to-buy .header .col-2 {
+		white-space:nowrap;
+	}
+	.grid-products-to-buy .header .col-3 {
+		white-space:nowrap;
+	}
+	.grid-products-to-buy .header .col-4 {
+		white-space:nowrap;
+	}
 	/*PREVIOUS ENTRIES*/
 	.grid-previous-entries .header .col-5 div {
 		text-align: right;

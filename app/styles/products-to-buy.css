@@ -1,0 +1,23 @@
+/*FORM PRODUCTS TO BUY*/
+.panel-top {
+	margin-top: 5px
+}
+.form-products-to-buy {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	top: 90px;
+	bottom: 20px
+}
+.scroll-products-to-buy {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	top: 183px;
+	bottom: 45px
+}
