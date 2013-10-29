@@ -68,6 +68,10 @@
         this.openDialogCreditCard = function(data) {
             return openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data);
         };
+        
+        this.openDialogDeliveryDetails = function(data) {
+            return openDialog('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl', data);
+        };
     });
 
 }(angular));

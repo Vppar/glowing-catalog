@@ -244,63 +244,79 @@
                         this.customers = [ {
                             id : 1,
                             name : "Robert Downey Jr.",
-                            character : "Tony Stark / Iron Man"
+                            character : "Tony Stark / Iron Man",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 2,
                             name : "Chris Evans",
-                            character : "Steve Rogers / Captain America}"
+                            character : "Steve Rogers / Captain America}",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 3,
                             name : "Mark Ruffalo",
-                            character : "Bruce Banner / The Hulk"
+                            character : "Bruce Banner / The Hulk",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 4,
                             name : "Chris Hemsworth",
-                            character : "Thor"
+                            character : "Thor",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 5,
                             name : "Scarlett Johansson",
-                            character : "Natasha Romanoff / Black Widow"
+                            character : "Natasha Romanoff / Black Widow",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 6,
                             name : "Jeremy Renner",
-                            character : "Clint Barton / Hawkeye"
+                            character : "Clint Barton / Hawkeye",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 7,
                             name : "Tom Hiddleston",
-                            character : "Loki"
+                            character : "Loki",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 8,
                             name : "Clark Gregg",
-                            character : "Agent Phil Coulson"
+                            character : "Agent Phil Coulson",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 9,
                             name : "Cobie Smulders",
-                            character : "Agent Maria Hill"
+                            character : "Agent Maria Hill",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 10,
                             name : "Stellan Skarsgard",
-                            character : "Selvig"
+                            character : "Selvig",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 11,
                             name : "Samuel L. Jackson",
-                            character : "Nick Fury"
+                            character : "Nick Fury",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 12,
                             name : "Gwyneth Paltrow",
-                            character : "Pepper Potts"
+                            character : "Pepper Potts",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 13,
                             name : "Paul Bettany",
-                            character : "Jarvis (voice)"
+                            character : "Jarvis (voice)",
+                            phones : [ '4130152983' ]
                         }, {
                             id : 14,
                             name : "Alexis Denisof",
-                            character : "The Other"
+                            character : "The Other",
+                            phones : [ '4130152983' ],
+                            emails : [ 'alexis.denisof@gmail.com' ]
                         }, {
                             id : 15,
                             name : "Tina Benko",
-                            character : "NASA Scientist"
+                            character : "NASA Scientist",
+                            phones : [ '4130152983' ]
                         } ].sort(function(x, y) {
                             return ((x.name == y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
                         });

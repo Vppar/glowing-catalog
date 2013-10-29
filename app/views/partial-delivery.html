@@ -5,220 +5,103 @@
 		</span>
 	</div>
 	<div class="row-fluid">
-	<div class="span6">
-	  <div class="form-container-partial-delivery-1">
-		<div class="row-fluid">
-			<div class="info-customer">
-				<p>
-					<strong>Pedido:</strong> mary-0007-13
-				</p>
-				<p class="hover-state-pointer" ng-click='openDialogCustomerInfo()'>
-				<strong>Cliente:</strong> Maria Joana <span><img src="images/icons/ic-info.png" /></span>				</p>
-				<p>
-					<strong>Telefone:</strong> (41) 3990-2020
-				</p>
-				<p>
-					<strong>E-mail:</strong> maria@marykay.com.br
-				</p>
-				
-			</div>
-			
-		
-			
+		<div class="span6">
+			<div class="form-container-partial-delivery-1">
+				<div class="row-fluid">
+					<div class="info-customer">
+						<p>
+							<strong>Pedido:&nbsp;</strong>{{order.code}}
+						</p>
+						<p class="hover-state-pointer" ng-click='openDialogCustomerInfo()'>
+							<strong>Cliente:&nbsp;</strong>{{order.customer.name}}<span>&nbsp;<img src="images/icons/ic-info.png" /></span>
+						</p>
+						<p>
+							<strong>Telefone:&nbsp;</strong>{{order.customer.phones[0] | phone}}
+						</p>
+						<p>
+							<strong>E-mail:&nbsp;</strong> {{order.customer.emails[0] }}
+						</p>
+					</div>
 				</div>
 				<hr />
 				<div class="row-fluid">
-				<div class="title-partial-delivery">
-					Produtos
+					<div class="title-partial-delivery">Produtos</div>
 				</div>
-				</div>
-			
-			<div class="grid-partial-delivery-1">
-				<div class="header">
-					<div class="row-partial-delivery-1">
-						<span class="col-1">
-							<div>Nome do produto</div>
-						</span> <span class="col-2">
-							<div>Total</div>
-						</span> <span class="col-3">
-							<div>Agendado</div>
-						</span> <span class="col-4">
-							<div>Entregue</div>
-						</span>
-						 <span class="col-5">
-							<div>Restante</div>
-						</span>
+				<div class="grid-partial-delivery-1">
+					<div class="header">
+						<div class="row-partial-delivery-1">
+							<span class="col-1">
+								<div>Nome do produto</div>
+							</span> 
+							<span class="col-2">
+								<div>Total</div>
+							</span> 
+							<span class="col-3">
+								<div>Agendado</div>
+							</span>
+							<span class="col-4">
+								<div>Entregue</div>
+							</span> <span class="col-5">
+								<div>Restante</div>
+							</span>
+						</div>
 					</div>
-				</div>
-				<div class="scroll-partial-delivery-1">
-					<div class="row-partial-delivery-1 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>Sabonete</div>
-						</span>
-						<span class="col-2">
-							<div>209</div>
-						</span>
-						 <span class="col-3">
-							<div>6</div>
-						</span> <span class="col-4">
-							<div>4</div>
-						</span> <span class="col-5">
-							<div>8</div>
-						</span>
-						
-					</div>
-					<div class="row-partial-delivery-1 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>Sabonete</div>
-						</span>
-						<span class="col-2">
-							<div>209</div>
-						</span>
-						 <span class="col-3">
-							<div>6</div>
-						</span> <span class="col-4">
-							<div>4</div>
-						</span> <span class="col-5">
-							<div>8</div>
-						</span>
-						
-					</div>
-					<div class="row-partial-delivery-1 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>Sabonete</div>
-						</span>
-						<span class="col-2">
-							<div>209</div>
-						</span>
-						 <span class="col-3">
-							<div>6</div>
-						</span> <span class="col-4">
-							<div>4</div>
-						</span> <span class="col-5">
-							<div>8</div>
-						</span>
-						
-					</div>
-					<div class="row-partial-delivery-1 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>Sabonete</div>
-						</span>
-						<span class="col-2">
-							<div>209</div>
-						</span>
-						 <span class="col-3">
-							<div>6</div>
-						</span> <span class="col-4">
-							<div>4</div>
-						</span> <span class="col-5">
-							<div>8</div>
-						</span>
-						
+					<div class="scroll-partial-delivery-1">
+						<div class="row-partial-delivery-1" ng-repeat="item in order.items | filter: partialDeliveryAugmenter">
+							<span class="col-1">
+								<div>{{item.title}}</div>
+							</span> <span class="col-2">
+								<div>{{item.qty}}</div>
+							</span> <span class="col-3">
+								<div>{{item.scheduled}}</div>
+							</span> <span class="col-4">
+								<div>{{item.delivered}}</div>
+							</span> <span class="col-5">
+								<div>{{item.remaining}}</div>
+							</span>
+						</div>						
 					</div>
 				</div>
 			</div>
-	
-	</div>
-	</div>
-	<div class="span6">
-		 <div class="form-container-partial-delivery-2">
-		 	<div class="row-fluid">
-				<div class="title-partial-delivery">
-					Entregas
-				</div>
-				</div>
-		<div class="row-fluid">
-			<div class="grid-partial-delivery-2">
-				<div class="header">
-					<div class="row-partial-delivery-2">
-						<span class="col-1">
-							<div>Data</div>
-						</span> <span class="col-2">
-							<div>Itens</div>
-						</span> <span class="col-3">
-							<div>Status</div>
-						</span> 
-					</div>
-				</div>
-				<div class="scroll-partial-delivery-2">
-					<div class="row-partial-delivery-2 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>15/11/2013</div>
-						</span> <span class="col-2">
-							<div>12</div>
-						</span> <span class="col-3">
-							<div>Agendado</div>
-						</span> 
-					</div>
-					<div class="row-partial-delivery-2 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>16/01/2013</div>
-						</span> <span class="col-2">
-							<div>9</div>
-						</span> <span class="col-3">
-							<div>Realizado</div>
-						</span> 
-					</div>
-					<div class="row-partial-delivery-2 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>15/11/2013</div>
-						</span> <span class="col-2">
-							<div>12</div>
-						</span> <span class="col-3">
-							<div>Agendado</div>
-						</span> 
-					</div>
-					<div class="row-partial-delivery-2 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>16/01/2013</div>
-						</span> <span class="col-2">
-							<div>9</div>
-						</span> <span class="col-3">
-							<div>Realizado</div>
-						</span> 
-					</div>
-					<div class="row-partial-delivery-2 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>15/11/2013</div>
-						</span> <span class="col-2">
-							<div>12</div>
-						</span> <span class="col-3">
-							<div>Agendado</div>
-						</span> 
-					</div>
-					<div class="row-partial-delivery-2 hover-state-pointer"
-						>
-						<span class="col-1">
-							<div>16/01/2013</div>
-						</span> <span class="col-2">
-							<div>9</div>
-						</span> <span class="col-3">
-							<div>Realizado</div>
-						</span> 
-					</div>
-				</div>
-			</div>
-			
-	</div>
-	<div class="form-panel">
-
-		
-			<button class="btn" type="submit">Registrar Nova Entrega</button>
-		</span>
-
-	
 		</div>
-		
+		<div class="span6">
+			<div class="form-container-partial-delivery-2">
+				<div class="row-fluid">
+					<div class="title-partial-delivery">Entregas</div>
+				</div>
+				<div class="row-fluid">
+					<div class="grid-partial-delivery-2">
+						<div class="header">
+							<div class="row-partial-delivery-2">
+								<span class="col-1">
+									<div>Data</div>
+								</span> 
+								<span class="col-2">
+									<div>Itens</div>
+								</span> 
+								<span class="col-3">
+									<div>Status</div>
+								</span>
+							</div>
+						</div>
+						<div class="scroll-partial-delivery-2">
+							<div class="row-partial-delivery-2 hover-state-pointer" ng-repeat="delivery in dataProvider.deliveries | filter: orderDeliveriesFilter" ng-click="openDeliveryDetails(delivery)" >
+								<span class="col-1">
+									<div>{{delivery.date}}</div>
+								</span> 
+								<span class="col-2">
+									<div>{{delivery.items.length}}</div>
+								</span> 
+								<span class="col-3">
+									<div>{{delivery.status}}</div>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-panel">
+					<button class="btn" type="submit" ng-click="openDeliveryDetails()">Registrar Nova Entrega</button>
+				</div>
+			</div>
+		</div>
 	</div>
-	</div>
-	
-</div>

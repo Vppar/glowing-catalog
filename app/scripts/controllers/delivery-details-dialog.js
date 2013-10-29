@@ -1,47 +1,70 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('DeliveryDetailsDialogCtrl', function($scope, dialog, DataProvider) {
+    angular.module('glowingCatalogApp').controller('DeliveryDetailsDialogCtrl', function($scope, $filter, dialog, DataProvider) {
 
         // #############################################################################################################
         // Local variables and functions
         // #############################################################################################################
         var delivery = {
-            qty : 0
+            items : []
         };
-        var order = dialog.order;
-        var selectedItemIdx = dialog.selectedItemIdx;
+        var order = dialog.data.order;
+
+        var orderItemDeliveriesFilter = function orderItemDeliveriesFilter(delivery) {
+            return delivery.orderId === $scope.order.id;
+        };
 
         // #############################################################################################################
         // Scope variables and functions
         // #############################################################################################################
 
-        $scope.delivery = delivery;
         $scope.order = order;
-        $scope.item = order.items[selectedItemIdx];
-        $scope.dataProvider = DataProvider;
-        $scope.orderItemDeliveriesFilter = function orderItemDeliveriesFilter(delivery) {
-            return delivery.orderId === $scope.order.id;
+        $scope.item = {
+            qty : 0
         };
-        $scope.confirm = function(index) {
-            if (delivery.qty <= 0) {
+        $scope.delivery = delivery;
+
+        $scope.addToDelivery = function(item) {
+            var filteredItems = $filter('filter')(delivery.items, function(product) {
+                return Boolean(product.id === Number(item.id));
+            });
+
+            if (filteredItems.length === 0) {
+                var filteredProducts = $filter('filter')(DataProvider.products, function(product) {
+                    return Boolean(product.id === Number(item.id));
+                });
+                var deliveryItem = filteredProducts[0];
+                deliveryItem.qty = item.qty;
+                delivery.items.push(angular.copy(deliveryItem));
+
+                delete item.qty;
+            }
+        };
+
+        $scope.removeFromDelivery = function(index) {
+            delivery.items.splice(index, 1);
+        };
+
+        $scope.cancel = function() {
+            dialog.close();
+        };
+        $scope.save = function() {
+            dialog.close();
+        };
+
+        $scope.deliver = function() {
+            if (delivery.items.length <= 0) {
                 // FIXME - Place a decent dialog here instead of this alert.
                 alert('Não é possível fazer uma entrega sem itens.');
                 return;
             }
-            var item = order.items[selectedItemIdx];
-            // Be careful this condition depends entirely on the premisse that
-            // this screen will only open after the partial delivery screen.
-            // There the order item is augmented with the delivered attribute.
-            if ((delivery.qty + item.delivered) > item.qty) {
-                // FIXME - Place a decent dialog here instead of this alert.
-                alert('Não é possível fazer uma entrega com mais produtos do que solicitado na ordem.');
-                return;
-            }
             
+            delivery.id = DataProvider.deliveries.length + 1;
             delivery.datetime = new Date();
             delivery.orderId = order.id;
-            delivery.item = angular.copy(order.items[selectedItemIdx]);
+            delivery.statys = 'delivered';
+            delivery.items = angular.copy(delivery.items);
 
             DataProvider.deliveries.push(angular.copy(delivery));
 
@@ -50,8 +73,17 @@
             dialog.close();
         };
 
-        $scope.closeDialog = function() {
-            dialog.close();
-        };
+        function updateTime() {
+            delivery.datetime = new Date();
+            delivery.time = $filter('date')(delivery.datetime, 'HH:mm:ss');
+        }
+
+        function main() {
+            var deliveries = $filter('filter')(DataProvider.deliveries, orderItemDeliveriesFilter);
+            delivery.items = deliveries;
+
+            updateTime();
+        }
+        main();
     });
 }(angular));

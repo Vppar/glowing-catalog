@@ -4,28 +4,40 @@
     angular.module('glowingCatalogApp').controller(
             'PartialDeliveryCtrl', function($scope, $location, $filter, $dialog, DataProvider, DialogService) {
 
-                var dataProvider = DataProvider;
-
                 // #############################################################################################################
                 // Scope variables and functions
                 // #############################################################################################################
                 $scope.order = {};
-                $scope.dataProvider = dataProvider;
-                $scope.itemDeliveredAugmenter = function itemDeliveredAugmenter(item) {
-                    var itemDeliveries = $filter('filter')(dataProvider.deliveries, function(delivery) {
-                        return (delivery.orderId === $scope.order.id && delivery.item.id === item.id);
+                $scope.dataProvider = DataProvider;
+                $scope.partialDeliveryAugmenter = function partialDeliveryAugmenter(item) {
+                    var scheduled = $filter('filter')(DataProvider.deliveries, function(delivery) {
+                        return (delivery.orderId === $scope.order.id && delivery.status === 'scheduled');
                     });
-                    item.delivered = $filter('sum')(itemDeliveries, 'qty');
+                    var delivered = $filter('filter')(DataProvider.deliveries, function(delivery) {
+                        return (delivery.orderId === $scope.order.id && delivery.status === 'delivered');
+                    });
+                    item.scheduled = $filter('sum')(itemScheduled, 'qty');
+                    item.delivered = $filter('sum')(itemDelivered, 'qty');
+                    item.remaining = item.qty - (item.scheduled + item.delivered);
                     return true;
                 };
-                $scope.openDeliveryDetails = function(index) {
-                    var d = $dialog.dialog({
-                        backdropClick : true,
-                        dialogClass : 'modal'
+                $scope.orderDeliveriesFilter = function orderDeliveriesFilter(item) {
+                    return Boolean(delivery.orderId === $scope.order.id);
+                };
+                $scope.openDeliveryDetails = function(delivery) {
+                    $scope.order.selectedDelivery = delivery;
+                    DialogService.openDialogDeliveryDetails({
+                        order: $scope.order
                     });
-                    d.order = $scope.order;
-                    d.selectedItemIdx = index;
-                    d.open('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl');
+                };
+                
+                 /*DIALOG CUSTOMER INFO*/
+                $scope.openDialogCustomerInfo = function() {
+                      var d = $dialog.dialog({
+                          backdropClick : true,
+                          dialogClass : 'modal'
+                });
+                      d.open('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl');
                 };
 
                 // #############################################################################################################
@@ -33,15 +45,19 @@
                 // #############################################################################################################
                 function main() {
                     var search = $location.search();
-                    var filteredOrders = $filter('filter')(dataProvider.orders, function(item) {
+                    var filteredOrders = $filter('filter')(DataProvider.orders, function(item) {
                         return item.id === search.id;
                     });
-                    // Like Connor MacLeod said once, "There can be only one!"
+                    // "There can be only one!" by Connor MacLeod
                     $scope.order = filteredOrders[0];
+
+                    var filteredCustomers = $filter('filter')(DataProvider.customers, function(item) {
+                        return item.id === $scope.order.customerId;
+                    });
+                    // "There can be only one!" by Connor MacLeod
+                    $scope.order.customer = filteredCustomers[0];
                 }
                 main();
 
-                /* DIALOG CUSTOMER INFO */
-                $scope.openDialogCustomerInfo = DialogService.openDialogEditPass;
             });
 }(angular));

@@ -2,8 +2,8 @@
 	<form class="form-add-to-basket">
 		<span class="heading-gradient">{{product.title | truncate:40}}</span>
 		<span class="wrapper-qtde">
-			<div class="price-add-to-basket">{{product.price | currency}}</div> <input-qty
-				ng-model="product.qty"></input-qty>
+			<div class="price-add-to-basket">{{product.price | currency}}</div> 
+			<input-qty ng-model="product.qty" min="1"></input-qty>
 			<div class="total-price-add-to-basket">
 				<strong>Total:</strong> <span class="rose-color">{{product.price
 					* product.qty | currency}}</span>

@@ -14,5 +14,6 @@
         }, true);
         $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
 
+        $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
     });
 }(angular));
