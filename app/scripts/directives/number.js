@@ -6,7 +6,11 @@
         if (number && !angular.isNumber(number)) {
             number = number.replace(/[^0-9]/g, '');
         }
-        return Number(number);
+        if (number == '') {
+            return undefined;
+        } else {
+            return Number(number);
+        }
     }
 
     angular.module('glowingCatalogApp').directive('number', function number() {
@@ -23,7 +27,16 @@
 
                     ctrl.$viewValue = number;
                     ctrl.$render();
-
+                    
+                    if (!number) {
+                        ctrl.$pristine = true;
+                        //do we recall?
+                        if(ctrl.storedValue){
+                            number = ctrl.storedValue;
+                        } else {
+                            number = 0;
+                        }
+                    }
                     return number;
                 });
 
