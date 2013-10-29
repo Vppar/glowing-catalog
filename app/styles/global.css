@@ -536,13 +536,25 @@ body {
 	max-height: 20px;
 	overflow: hidden;
 }
+.title-catalog-1 {
+	font-size: 32px;
+	display: block;
+	line-height: 41px;
+	padding-left: 10px;
+	color: #fff;
+	margin: 10px 0 0 10px;
+	border-radius: 4px;
+	box-shadow: -1px 1px 8px 1px #e0e0e0;
+	text-shadow: #999 2px 1px;
+	width:789px
+}
 .title-catalog {
 	font-size: 32px;
 	display: block;
 	line-height: 41px;
 	padding-left: 10px;
 	color: #fff;
-	margin: 10px;
+	margin: 0 0 0 10px;
 	border-radius: 4px;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	text-shadow: #999 2px 1px;
@@ -625,20 +637,21 @@ body {
 	margin-right:23px;
 	position:relative;
 }
-.bottom-side-bar {
+.banner-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
 	padding: 10px;
 	margin-top: 11px;
-	height: 140px;
+	height: 450px;
 	display: inline-block;
 	background: #fdfeff;
 	float: right;
 	clear:both;
 	margin-right:23px;
 	
+	
 }
-.bottom-side-bar img {
+.banner-side-bar img {
 	max-width: 160px
 }
 
