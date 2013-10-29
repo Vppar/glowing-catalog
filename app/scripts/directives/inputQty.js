@@ -20,19 +20,21 @@
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
 
-                scope.$watch('max', function() {
+                var min, max;
+
+                scope.$watch('min', function() {
                     if (!scope.min || scope.min === '') {
-                        scope.min = 0;
+                        min = 1;
                     } else {
-                        scope.min = Number(scope.min);
+                        min = Number(scope.min);
                     }
                 });
 
                 scope.$watch('max', function() {
                     if (!scope.max || scope.max === '') {
-                        scope.max = 999;
+                        max = 999;
                     } else {
-                        scope.max = Number(scope.max);
+                        max = Number(scope.max);
                     }
                 });
 
@@ -41,13 +43,13 @@
                 }
 
                 scope.increment = function() {
-                    if (scope.value < scope.max) {
+                    if (scope.value < max) {
                         scope.value = (Number(scope.value) + 1).toString();
                     }
                 };
 
                 scope.decrement = function() {
-                    if (scope.value > scope.min) {
+                    if (scope.value > min) {
                         scope.value = (Number(scope.value) - 1).toString();
                     }
                 };
