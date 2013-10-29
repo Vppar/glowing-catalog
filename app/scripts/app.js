@@ -23,6 +23,8 @@
         }).when('/partial-delivery', {
             templateUrl : 'views/partial-delivery.html',
             controller : "PartialDeliveryCtrl"
+        }).when('/pending-delivery', {
+            templateUrl : 'views/pending-delivery.html'
         }).when('/order-list', {
             templateUrl : 'views/order-list.html',
             controller : 'OrderListCtrl'

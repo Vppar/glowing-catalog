@@ -856,12 +856,7 @@
 .grid-previous-entries .col-2 {
 	width: 520px;
 }
-.grid-previous-entries .col-2 div{
-	overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-	line-height:10px
-}
+
 .row-previous-entries .col-1 {
 	width: 120px;
 }
@@ -872,3 +867,137 @@
 	margin-left: 20px;
 }
 /*============= END DATA-GRID PREVIOUS ENTRIES =================*/
+
+
+/*============= DATA-GRID PENDING DELIVERY =================*/
+.grid-pending-delivery {
+	border-radius: 6px 6px 0 0;
+}
+
+.grid-pending-delivery .header {
+	background: #ecbab9;
+	border-radius: 4px;
+	margin-top: 5px
+}
+.grid-pending-delivery .header span, .grid-pending-delivery .scroll-pending-delivery  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-pending-delivery .scroll-pending-delivery .row-pending-delivery {
+	border-bottom: 1px solid #e0e0e0
+}
+/*GRID 1*/
+.grid-1 .grid-pending-delivery .header .col-1 {
+	width: 160px;
+}
+.grid-1 .grid-pending-delivery .header .col-1 div {
+	margin-left: 20px
+}
+.grid-1 .grid-pending-delivery .header .col-2 {
+	width: 120px;
+}
+.grid-1 .grid-pending-delivery .header .col-3 {
+	width: 420px;
+}
+
+.grid-1 .grid-pending-delivery .header .col-4 {
+	width: 100px;
+	display: inline-block;
+}
+.grid-1 .grid-pending-delivery .header .col-4 div {
+	text-align: center;
+}
+.grid-1 .grid-pending-delivery .header .col-5 {
+	width: 100px;
+	display: inline-block;
+	text-align: right;
+	margin-right: 16px
+}
+.grid-1 .row-pending-delivery .col-1 {
+	width: 160px;
+}
+.grid-1 .row-pending-delivery .col-1 div {
+	margin-left: 20px;
+}
+.grid-1 .grid-pending-delivery .col-2 {
+	width: 120px;
+}
+.grid-1 .grid-pending-delivery .col-3 {
+	width: 420px;
+}
+
+.grid-1 .grid-pending-delivery .col-4 {
+	width: 100px;
+}
+.grid-1 .grid-pending-delivery .col-4 div {
+	text-align: center;
+	margin-right: 24px
+}
+.grid-1 .grid-pending-delivery .col-5 {
+	width: 100px;
+	float: right
+}
+.grid-1 .grid-pending-delivery .col-5 div {
+	text-align: right;
+	margin-right: 40px
+}
+/*GRID 2*/
+.grid-2 .grid-pending-delivery .header .col-1 {
+	width: 160px;
+}
+.grid-2 .grid-pending-delivery .header .col-1 div {
+	margin-left: 20px
+}
+.grid-2 .grid-pending-delivery .header .col-2 {
+	width: 420px;
+}
+.grid-2 .grid-pending-delivery .header .col-3 {
+	width: 120px;
+}
+
+.grid-2 .grid-pending-delivery .header .col-4 {
+	width: 100px;
+	display: inline-block;
+}
+.grid-2 .grid-pending-delivery .header .col-4 div {
+	text-align: center;
+	white-space:nowrap;
+}
+.grid-2 .grid-pending-delivery .header .col-5 {
+	width: 100px;
+	display: inline-block;
+	text-align: right;
+	margin-right: 16px
+}
+.grid-2 .row-pending-delivery .col-1 {
+	width: 160px;
+}
+.grid-2 .row-pending-delivery .col-1 div {
+	margin-left: 20px;
+}
+.grid-2 .grid-pending-delivery .col-2 {
+	width: 420px;
+}
+.grid-2 .grid-pending-delivery .col-3 {
+	width: 120px;
+}
+.grid-2 .grid-pending-delivery .col-3 div{
+	text-align:center;
+}
+.grid-2 .grid-pending-delivery .col-4 {
+	width: 100px;
+}
+.grid-2 .grid-pending-delivery .col-4 div {
+	text-align: center;
+	margin-right: 24px
+}
+.grid-2 .grid-pending-delivery .col-5 {
+	width: 100px;
+	float: right
+}
+.grid-2 .grid-pending-delivery .col-5 div {
+	text-align: right;
+	margin-right: 40px
+}
+
+/*============= END DATA-GRID PENDING DELIVERY =================*/
