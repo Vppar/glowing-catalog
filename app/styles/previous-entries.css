@@ -1,4 +1,11 @@
 /*FORM PARTIAL DELIVERY*/
+.form-previous-entries .panel-top {
+	margin-top: 5px;
+	
+}
+.form-previous-entries .panel-top .combo-width{
+	width:220px
+}
 .form-previous-entries {
 	border-radius: 6px;
 	margin: -9px 10px 0 10px;
@@ -15,7 +22,7 @@
 	-webkit-overflow-scrolling: touch;
 	position: fixed;
 	width: 970px;
-	top: 138px;
+	top: 183px;
 	bottom: 45px
 }
 
@@ -28,7 +35,7 @@
 	background: #e2a9a8 !important;
 }
 .form-previous-entries .combo-width {
-	width: 250px;
+	width: 277px !important;
 }
 .row-previous-entries  .btn {
 	background: #ecbab9;

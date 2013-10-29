@@ -70,9 +70,13 @@
 }
 
 /*delivery details*/
-.ic-calendar{
+.form-delivery-details-modal .ic-calendar{
 	position:relative;
 	top:28px
+}
+.form-previous-entries .ic-calendar{
+	position:relative;
+	top:3px
 }
 .form-delivery-details-modal {
 	width: 572px;
