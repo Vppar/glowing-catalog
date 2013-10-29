@@ -5,7 +5,10 @@
 		text-align: right;
 		margin-right: 25px
 	}
-
+	/*PENDIG DELIVERY*/
+	.grid-2 .grid-pending-delivery .header .col-5 {
+		margin-right: 0px !important
+	}
 	/*CATALOG*/
 	.footer {
 		font-weight: bold;
@@ -136,7 +139,7 @@
 		background: #fdfeff;
 		float: right;
 		clear: both;
-		margin-right: 10px!important;
+		margin-right: 10px !important;
 	}
 
 	.nav-list > li > a {
