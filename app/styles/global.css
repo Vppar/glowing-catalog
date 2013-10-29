@@ -625,7 +625,7 @@ body {
 	margin-right:23px;
 	position:relative;
 }
-.bottom-side-bar {
+.banner-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
 	padding: 10px;
@@ -638,7 +638,7 @@ body {
 	margin-right:23px;
 	
 }
-.bottom-side-bar img {
+.banner-side-bar img {
 	max-width: 160px
 }
 
