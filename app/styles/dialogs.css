@@ -141,12 +141,22 @@
 	text-align: right;
 	white-space: nowrap;
 }
-.total-value-total-count strong {
-	margin-right: 40px;
+.total-items {
+	margin-top: 10px;
+	text-align: right;
 	white-space: nowrap;
 }
+
+.total-products {
+	margin-top: 10px;
+	text-align: right;
+	white-space: nowrap;
+}
+.total-value-total-count strong {
+	white-space: nowrap;
+}
+
 .total-value-input-products strong {
-	margin-right: 21px;
 	white-space: nowrap;
 }
 .total-value-input-products {
