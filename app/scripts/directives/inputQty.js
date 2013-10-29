@@ -1,6 +1,14 @@
 (function(angular) {
     'use strict';
 
+    var templateUrl = 'views/parts/catalog/input-qty.html';
+
+    angular.module('glowingCatalogApp').run(function($http, $templateCache) {
+        $http.get(templateUrl, {
+            cache : $templateCache
+        });
+    });
+
     angular.module('glowingCatalogApp').directive('inputQty', function() {
         return {
             restrict : 'E',
@@ -9,26 +17,26 @@
                 min : '@',
                 max : '@'
             },
-            templateUrl : 'views/parts/catalog/input-qty.html',
+            templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
-                
-                scope.$watch('max', function(){
-                    if(!scope.min || scope.min === ''){
+
+                scope.$watch('max', function() {
+                    if (!scope.min || scope.min === '') {
                         scope.min = 0;
                     } else {
                         scope.min = Number(scope.min);
                     }
                 });
-                
-                scope.$watch('max', function(){
-                    if(!scope.max || scope.max === ''){
+
+                scope.$watch('max', function() {
+                    if (!scope.max || scope.max === '') {
                         scope.max = 999;
                     } else {
                         scope.max = Number(scope.max);
                     }
                 });
-                
-                if(!scope.value){
+
+                if (!scope.value) {
                     scope.value = 1;
                 }
 
