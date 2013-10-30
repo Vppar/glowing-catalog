@@ -19,14 +19,13 @@
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	width: 970px;
-	height:200px;
-	
+	height: 210px;
 }
 .grid-2 .scroll-pending-delivery {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	width: 970px;
-	position:fixed;
-	top:423px;
-	bottom:35px
+	position: fixed;
+	top: 433px;
+	bottom: 35px
 }
