@@ -155,9 +155,11 @@
 }
 
 .total-value-total-count {
-	margin-top: 10px;
 	text-align: right;
 	white-space: nowrap;
+}
+.total-value-total-count, .total-items, .total-products{
+	line-height:20px
 }
 .total-items {
 	margin-top: 10px;
@@ -166,7 +168,6 @@
 }
 
 .total-products {
-	margin-top: 10px;
 	text-align: right;
 	white-space: nowrap;
 }
@@ -179,7 +180,7 @@
 }
 .total-value-input-products {
 	float: right;
-	margin-top: 10px;
+
 	text-align: right;
 	white-space: nowrap;
 }
