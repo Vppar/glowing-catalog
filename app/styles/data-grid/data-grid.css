@@ -454,7 +454,7 @@
 	border-bottom: 1px solid #e0e0e0
 }
 .grid-inventory .header .col-1 {
-	width: 800px;
+	width: 750px;
 }
 .grid-inventory .header .col-1 input[type="checkbox"] {
 	margin-top: -3px
@@ -482,7 +482,7 @@
 	margin-right: 40px
 }
 .row-inventory .col-1 {
-	width: 800px;
+	width: 750px;
 }
 .row-inventory .col-1 input[type="checkbox"] {
 	margin-top: -3px
