@@ -47,7 +47,7 @@
                 $scope.confirm = function confirm() {
                     $scope.failed = true;
                     if (!$scope.customerForm.$valid) {
-                        alert('Preencha os campos destacados.');
+                        alert('Os campos destacados são de preenchimento obrigatório.');
                         return;
                     }
                     customer.id = DataProvider.customers.length + 1;
