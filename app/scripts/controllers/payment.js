@@ -125,13 +125,6 @@
                                                             '{{orderAmount}}', $filter('currency')(savedOrderAmount, '')).replace(
                                                             '{{representativeName}}', 'Valtanette');
                                             return MessageService.sendSMS('554196665488', msg);
-                                            // MessageService.sendSMS('554196665488','Ola
-                                            // Wesley, seu pedido no valor de
-                                            // 20,00
-                                            // reais foi confirmado. Valtanette
-                                            // seu
-                                            // consultor Mary Kay.');
-
                                         } else {
                                             return 'Não foi possível enviar o SMS, o cliente ' + recoverdCustomerFirstName +
                                                 ' não possui um número de celular em seu cadastro.';
