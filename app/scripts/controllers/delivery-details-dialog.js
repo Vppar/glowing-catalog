@@ -42,9 +42,9 @@
                         var filteredProducts = $filter('filter')(DataProvider.products, function(product) {
                             return Boolean(product.id === Number(item.id));
                         });
-                        var deliveryItem = filteredProducts[0];
+                        var deliveryItem = angular.copy(filteredProducts[0]);
                         deliveryItem.qty = item.qty;
-                        delivery.items.push(angular.copy(deliveryItem));
+                        delivery.items.push(deliveryItem);
 
                         var filteredOrderItems = $filter('filter')(delivery.orderItems, function(product) {
                             return Boolean(product.id === Number(item.id));
