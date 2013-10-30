@@ -8,7 +8,7 @@
         $scope.btnNo = dialog.data.btnNo;
 
         $scope.confirm = function() {
-            dialog.close();
+            dialog.close(true);
         };
         $scope.cancel = function() {
             dialog.close($q.reject());

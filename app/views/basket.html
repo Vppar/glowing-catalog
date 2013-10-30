@@ -35,5 +35,5 @@
 		<span>Total:</span>
 		{{dataProvider.products | filter:filterQty | sum:'subtotal' | currency }}
 	</span>
-	<a class="btn" ng-click="pay()">Pagamento</a>
+	<button class="btn"  ng-disabled="!order.customerId" ng-click="pay()">Pagamento</button>
 </div>

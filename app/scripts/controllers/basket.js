@@ -1,10 +1,11 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DataProvider, DialogService) {
+    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DataProvider, DialogService, OrderService) {
 
         $scope.dataProvider = DataProvider;
-
+        $scope.order = OrderService.order;
+        
         $scope.remove = function remove(product) {
             delete product.qty;
         };
