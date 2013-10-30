@@ -1,4 +1,4 @@
-describe('Service: OrderServiceSpec', function() {
+xdescribe('Service: OrderServiceSpec', function() {
 
     // load the service's module
     beforeEach(module('glowingCatalogApp'));
@@ -15,7 +15,7 @@ describe('Service: OrderServiceSpec', function() {
     /**
      * It should inject the dependencies.
      */
-    it('should inject dependencies', function() {
+    xit('should inject dependencies', function() {
         expect(!!OrderService).toBe(true);
     });
 
@@ -23,7 +23,7 @@ describe('Service: OrderServiceSpec', function() {
      * The function filterQty must return false when the qty value of the object
      * is 0 and true otherwise.
      */
-    it('should filter products by quantity', function() {
+    xit('should filter products by quantity', function() {
         var result = OrderService.filterQty({
             qty : 0
         });
@@ -39,7 +39,7 @@ describe('Service: OrderServiceSpec', function() {
      * The function getBasket must return a list of products than contains qty
      * property greater then 0.
      */
-    it('should list the basket items', function() {
+    xit('should list the basket items', function() {
         DataProvider.products[0].qty = 1;
         var productCount = OrderService.getBasket().length;
         expect(productCount).not.toBe(0);
@@ -48,7 +48,7 @@ describe('Service: OrderServiceSpec', function() {
     /**
      * It should discard the current order and create a brand new one.
      */
-    it('should create an order', function() {
+    xit('should create an order', function() {
         // We have to do somethings to be sure that the test are working
         // properly.
 
@@ -70,7 +70,7 @@ describe('Service: OrderServiceSpec', function() {
     /**
      * It should save the current order and create a brand new one.ou
      */
-    it('should place an order', function() {
+    xit('should place an order', function() {
         var selectedCustomer = DataProvider.customers[0];
         var item = DataProvider.products[0];
         var ordersSize = DataProvider.orders.length;
@@ -91,7 +91,7 @@ describe('Service: OrderServiceSpec', function() {
         expect(DataProvider.orders.length).toBe(ordersSize + 1);
 
         var order = DataProvider.orders[ordersSize];
-        
+
         expect(order.customerId).not.toBeUndefined();
         expect(order.paymentId).not.toBeUndefined();
         expect(order.items.length).toBeGreaterThan(0);
@@ -100,7 +100,7 @@ describe('Service: OrderServiceSpec', function() {
     /**
      * It should remove the item from the basket.
      */
-    it('should remove an item', function() {
+    xit('should remove an item', function() {
 
         // Let's ensure that a specific product has its quantity greater than 0,
         // which means that it is in the basket.
@@ -117,7 +117,7 @@ describe('Service: OrderServiceSpec', function() {
     /**
      * It should check if the current order has a customer.
      */
-    it('should have a customer', function() {
+    xit('should have a customer', function() {
         OrderService.order.customerId = 1;
         var result = OrderService.hasCustomer();
         expect(result).toBe(true);

@@ -1,4 +1,4 @@
-(function(angular, $) {
+(function(angular) {
 
     'use strict';
 
@@ -18,7 +18,7 @@
                             $scope.$apply();
                         };
                     },
-                    link : function(scope, elem, attrs) {
+                    link : function(scope, elem) {
                         var spyElems = [];
                         var container = elem.find('#scrollContainer');
                         scope.$watch('spies', function(spies) {
@@ -54,10 +54,10 @@
                                 }
                             }
                             if (highlightSpy !== null) {
-                                highlightSpy["in"]();
+                                highlightSpy['in']();
                             }
                         });
                     }
                 };
             });
-})(angular, jQuery);
+})(angular);

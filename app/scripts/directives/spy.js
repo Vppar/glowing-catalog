@@ -2,12 +2,12 @@
 
 angular.module('glowingCatalogApp').directive('spy', function() {
     return {
-        restrict : "A",
-        require : "^scrollSpy",
+        restrict : 'A',
+        require : '^scrollSpy',
         link : function(scope, elem, attrs, ctrl) {
             ctrl.addSpy({
                 id : attrs.spy,
-                "in" : function() {
+                'in' : function() {
                     return elem.addClass('active');
                 },
                 out : function() {

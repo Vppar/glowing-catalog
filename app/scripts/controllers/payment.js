@@ -31,7 +31,6 @@
 
                 $scope.productsCount = 0;
 
-                $scope.$watch('dataProvider.products', watchProducts, true);
 
                 function watchProducts() {
                     $scope.productsTotal = 0;
@@ -42,6 +41,8 @@
                         $scope.productsTotal += Number(products[i].price * products[i].qty);
                     }
                 }
+                
+                $scope.$watch('dataProvider.products', watchProducts, true);
 
                 $scope.openDialogCheck = function openDialogCheck() {
                     DialogService.openDialogCheck({

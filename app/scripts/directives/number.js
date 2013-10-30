@@ -6,7 +6,7 @@
         if (number && !angular.isNumber(number)) {
             number = number.replace(/[^0-9]/g, '');
         }
-        if (number == '') {
+        if (number === '') {
             return undefined;
         } else {
             return Number(number);

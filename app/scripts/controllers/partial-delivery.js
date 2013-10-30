@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, alert) {
     'use strict';
 
     angular.module('glowingCatalogApp').controller(
@@ -96,4 +96,4 @@
                 }
                 main();
             });
-}(angular));
+}(angular, window.alert));

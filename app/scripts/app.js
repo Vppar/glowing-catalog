@@ -19,10 +19,10 @@
             controller : 'PaymentCtrl'
         }).when('/login', {
             templateUrl : 'views/login.html',
-            controller : "LoginCtrl"
+            controller : 'LoginCtrl'
         }).when('/partial-delivery', {
             templateUrl : 'views/partial-delivery.html',
-            controller : "PartialDeliveryCtrl"
+            controller : 'PartialDeliveryCtrl'
         }).when('/pending-delivery', {
             templateUrl : 'views/pending-delivery.html'
         }).when('/products-to-buy', {

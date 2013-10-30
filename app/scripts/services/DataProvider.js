@@ -12,7 +12,7 @@
         this.date = {};
         this.products = [];
         this.customers = [].sort(function(x, y) {
-            return ((x.name == y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
+            return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
         });
         this.country = {};
         this.phone = {};

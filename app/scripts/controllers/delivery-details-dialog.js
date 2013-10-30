@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, alert) {
     'use strict';
 
     angular.module('glowingCatalogApp').controller(
@@ -50,7 +50,7 @@
                             return Boolean(product.id === Number(item.id));
                         });
                         filteredOrderItems[0].remaining = filteredOrderItems[0].remaining - item.qty;
-                        
+
                         var filteredOrderProducts = $filter('filter')(delivery.orderItems, $scope.itemsRemainingFilter);
                         angular.extend(item, filteredOrderProducts[0]);
                     }
@@ -67,7 +67,7 @@
 
                 $scope.hourChange =
                         function hourChange() {
-                            if (delivery.hour && delivery.hour.length == 4) {
+                            if (delivery.hour && delivery.hour.length === 4) {
                                 delivery.datetime =
                                         new Date(
                                                 delivery.datetime.getFullYear(), delivery.datetime.getMonth(), delivery.datetime.getDate(),
@@ -176,4 +176,4 @@
                 }
                 main();
             });
-}(angular));
+}(angular, window.alert));

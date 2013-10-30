@@ -1,6 +1,4 @@
-'use strict';
-
-describe('Service: InventoryServiceSpec', function() {
+xdescribe('Service: InventoryServiceSpec', function() {
 
     // load the service's module
     beforeEach(module('glowingCatalogApp'));
