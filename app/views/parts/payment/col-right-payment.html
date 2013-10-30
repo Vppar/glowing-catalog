@@ -16,10 +16,10 @@
 				</div>
 					</div>
 					<div ng-click='openDialogCheck()' class="row-right-payment">
-						<span class="lbl-money">CHEQUE ( {{payments.checks.length}} )</span><span class=""><span class="btn-price-payment">{{payments.checksTotal | currency:''}}</span></span>
+						<span class="lbl-money">CHEQUE ( {{dataProvider.currentPayments.checks.length}} )</span><span class=""><span class="btn-price-payment">{{dataProvider.currentPayments.checksTotal | currency:''}}</span></span>
 					</div>
 					<div ng-click='openDialogCreditCard()' class="row-right-payment">
-						<span class="lbl-money">CART&Atilde;O ( {{payments.creditCards.length}} )</span><span class=""><span class="btn-price-payment">{{payments.creditCardsTotal | currency:''}}</span></span>
+						<span class="lbl-money">CART&Atilde;O ( {{dataProvider.currentPayments.creditCards.length}} )</span><span class=""><span class="btn-price-payment">{{dataProvider.currentPayments.creditCardsTotal | currency:''}}</span></span>
 					</div>
 					<div class="row-right-payment" ng-click='openDialogProductExchange()'>
 						<span class="lbl-money">TROCA  ( 0 produto )</span><span class=""><span class="btn-price-payment"></span></span>
@@ -45,13 +45,13 @@
 					</div>
 					<div class="values-resume">
 						<div>
-							{{payments.total | currency:''}}
+							{{dataProvider.currentPayments.total | currency:''}}
 						</div>
 						<div>
 							{{productsTotal | currency }}
 						</div>
 						<div class="red-color">
-							{{(productsTotal - (payments.total - cash)) | currency:''}}
+							{{(productsTotal - (dataProvider.currentPayments.total - cash)) | currency:''}}
 						</div>
 					</div>
 				</div>

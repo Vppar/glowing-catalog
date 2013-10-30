@@ -11,11 +11,11 @@
 
 			<div class="clearfix"></div>
 			<hr />
-			<button ng-click="cancel()" class="btn btn-large btn-login" type="submit">
-				Cancelar
+			<button ng-click="cancel()" class="btn btn-large btn-login" ng-show="btnNo" type="submit">
+				{{btnNo}}
 			</button>
 			<button ng-click="confirm()" class="btn btn-large btn-login pull-right" type="submit">
-				Confirmar
+				{{btnYes}}
 			</button>
 
 		</div>
