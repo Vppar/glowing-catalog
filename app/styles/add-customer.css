@@ -1,91 +1,93 @@
 /*dialogs*/
-.customer-tel-type{
-    width: 150px;
+.customer-tel-type {
+	width: 150px;
 }
-.ic-sort-triangle:hover{
-    cursor:pointer;
+.ic-sort-triangle:hover {
+	cursor: pointer;
 }
-.add-cusomer-input-tels{
-    width:185px
+.add-cusomer-input-tels {
+	width: 185px
 }
-.add-cusomer-input-emails{
-    width:342px
+.add-cusomer-input-emails {
+	width: 342px
 }
-.row-data-dialog{
-    border-bottom:1px solid #ccc;
-    display:inline-block;
-    width:100%
+.row-data-dialog {
+	border-bottom: 1px solid #ccc;
+	display: inline-block;
+	width: 100%
 }
-.scroll-tels, .scroll-emails{
-    width:347px;
-    height:80px;
-    border:1px solid #ccc;
-    display:inline-block;
-    border-radius: 6px;
-    padding:10px;
-    overflow-y:auto;
-    -webkit-overflow-scrolling: touch;
+.scroll-tels, .scroll-emails {
+	width: 347px;
+	height: 80px;
+	border: 1px solid #ccc;
+	display: inline-block;
+	border-radius: 6px;
+	padding: 10px;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 /*forms*/
-.lbl-city, .lbl-complement{
-    margin-left:10px;
+.lbl-city, .lbl-complement {
+	margin-left: 10px;
 }
-.lbl-tels{
-    margin-left:-15px
+.lbl-tels {
+	margin-left: -15px
 }
-.input-city, .input-complement{
-    border:solid;
-    margin:0 10px 0 10px;
-    width:381px
+.input-city, .input-complement {
+	border: solid;
+	margin: 0 10px 0 10px;
+	width: 381px
 }
 .control-group {
-  margin-bottom: 0;
+	margin-bottom: 0;
 }
-.form-container{
-    border-radius: 6px;
+.form-container {
+	border-radius: 6px;
 	margin: -9px 10px 0 10px;
 	border: 1px solid #e0e0e0;
 	background: #fff;
-    padding:10px 15px 0 15px
+	padding: 10px 15px 0 15px
 }
 /*inputs custom*/
-.input-width-emails{
-    width: 445px;
+.input-width-emails {
+	width: 445px;
 }
-.input-width-tels{
-    width: 295px;
-    margin-left: -15px;
+.input-width-tels {
+	width: 295px;
+	margin-left: -15px;
 }
-.input-cep, .input-address-number{
-    width:70px
+.input-width-tels input, .input-width-emails input {
+	cursor: default !important;
 }
-.select-width-01{
-    width:68px
+.input-cep, .input-address-number {
+	width: 70px
 }
-.select-width-02{
-  width:84px   
+.select-width-01 {
+	width: 68px
 }
-   
+.select-width-02 {
+	width: 84px
+}
+
 /*panel footer*/
-.panel-footer-new-customer{
-
-    height:40px;
+.panel-footer-new-customer {
+	height: 40px;
 }
 
-.panel-footer-new-customer .btn{
-    background:#ecbab9;
-    text-shadow:none;
-    border:none;
-    margin-top:7px;
+.panel-footer-new-customer .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	margin-top: 7px;
 }
-.panel-footer-new-customer .btn:hover{
-    background:#dc9390;
+.panel-footer-new-customer .btn:hover {
+	background: #dc9390;
 }
-.panel-footer-new-customer .btn:first-child{
-    float:left;
-    margin-bottom:15px
+.panel-footer-new-customer .btn:first-child {
+	float: left;
+	margin-bottom: 15px
 }
-.panel-footer-new-customer .btn:last-child{
-    float:right;
-    margin-bottom:15px
+.panel-footer-new-customer .btn:last-child {
+	float: right;
+	margin-bottom: 15px
 }
