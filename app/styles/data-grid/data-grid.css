@@ -22,24 +22,24 @@
 	border-bottom: 1px solid #e0e0e0
 }
 .grid-delivery-details .header .col-1 {
-	width: 270px;
+	width: 400px;
 	text-align: left
 }
 .grid-delivery-details .header .col-1 div {
 	margin-left: 20px;
 }
 .grid-delivery-details .header .col-2 {
-	width: 150px;
+	width: 75px;
 }
 .grid-delivery-details .header .col-3 {
-	width: 70px;
+	width: 25px;
 	text-align: center;
 }
 .grid-delivery-details .header .col-3 div {
 	text-align: center;
 }
 .row-grid-delivery-details .col-1 {
-	width: 270px;
+	width: 400px;
 	text-align: left;
 	margin-right:10px
 }
@@ -52,13 +52,13 @@
 }
 
 .grid-delivery-details .col-2 {
-	width: 150px;
+	width: 100px;
 }
 .grid-delivery-details .col-2 div{
 	margin-left:10px
 }
 .grid-delivery-details .col-3 {
-	width: 70px;
+	width: 25px;
 	text-align: center
 }
 .grid-delivery-details .col-3 div {
@@ -669,6 +669,10 @@
 }
 .row-partial-delivery-1 .col-1 div {
 	margin-left: 20px;
+	overflow: hidden;     	
+	text-overflow: ellipsis;     
+	white-space: nowrap;
+	line-height: 10px;
 }
 
 .grid-partial-delivery-1 .col-2 {

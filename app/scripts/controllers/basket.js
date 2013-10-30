@@ -17,7 +17,7 @@
         $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
 
         $scope.pay = function() {
-            $location.path("/payment");
+            $location.path('/payment');
         };
 
     });

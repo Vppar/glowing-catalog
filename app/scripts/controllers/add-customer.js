@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, alert) {
     'use strict';
 
     angular.module('glowingCatalogApp').controller(
@@ -53,7 +53,7 @@
                     customer.id = DataProvider.customers.length + 1;
                     DataProvider.customers.push(customer);
                     DataProvider.customers.sort(function(x, y) {
-                        return ((x.name == y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
+                        return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
                     });
                     OrderService.order.customerId = customer.id;
                     $location.path('/');
@@ -63,4 +63,4 @@
                     $location.path('basket');
                 };
             });
-}(angular));
+}(angular, window.alert));

@@ -1,11 +1,13 @@
-'use strict';
+(function(angular) {
+    'use strict';
 
-angular.module('glowingCatalogApp').controller('PaymentAdvanceMoneyDialogCtrl', function($scope, dialog) {
+    angular.module('glowingCatalogApp').controller('CustomerInfoDialogCtrl', function($scope, dialog) {
 
+        $scope.customer = dialog.data.customer;
 
-	$scope.closeDialog = function(){
-		dialog.close();
-	}
-	
+        $scope.closeDialog = function() {
+            dialog.close();
+        };
 
-});
+    });
+}(angular));

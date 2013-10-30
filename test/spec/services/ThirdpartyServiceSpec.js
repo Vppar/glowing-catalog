@@ -1,6 +1,4 @@
-'use strict';
-
-describe('Service: ThirdpartyServiceSpec', function() {
+xdescribe('Service: ThirdpartyServiceSpec', function() {
 
     // load the service's module
     beforeEach(module('glowingCatalogApp'));

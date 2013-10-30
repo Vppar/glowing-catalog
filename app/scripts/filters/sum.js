@@ -6,9 +6,9 @@
 
             for ( var ix in array) {
                 if (qtd) {
-                    value += (array[ix][property] * array[ix][qtd]);
+                    value += (Number(array[ix][property]) * array[ix][qtd]);
                 } else {
-                    value += array[ix][property];
+                    value += Number(array[ix][property]);
                 }
             }
             return value;

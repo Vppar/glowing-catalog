@@ -18,7 +18,7 @@
                 max : '@'
             },
             templateUrl : templateUrl,
-            link : function postLink(scope, element, attrs) {
+            link : function postLink(scope) {
 
                 var min, max;
 

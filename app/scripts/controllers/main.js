@@ -11,9 +11,5 @@
         $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
         $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
 
-        $scope.goToBasket = function() {
-            $location.path('basket');
-        };
-
     });
 }(angular));
