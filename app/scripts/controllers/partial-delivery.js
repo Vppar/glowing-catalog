@@ -96,7 +96,7 @@
                                                                     '{{order.code}}', $scope.order.code).replace(
                                                                     '{{order.date}}', $filter('date')(result, 'dd/MM/yyyy HH:mm')).replace(
                                                                     '{{representativeName}}', 'Valtanette');
-                                                    return MessageService.sendSMS('554196665488', msg);
+                                                    return MessageService.sendSMS('55' + phone, msg);
                                                 } else {
                                                     return 'Não foi possível enviar o SMS, o cliente ' + recoverdCustomerFirstName +
                                                         ' não possui um número de celular em seu cadastro.';
