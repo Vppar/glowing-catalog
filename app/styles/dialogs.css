@@ -70,6 +70,9 @@
 }
 
 /*delivery details*/
+.form-delivery-details-modal .input-qty{
+	margin:5px 12px 0 17px
+}
 .form-delivery-details-modal .ic-calendar{
 	position:relative;
 	top:28px
@@ -83,7 +86,7 @@
 	margin-left: -316px;
 }
 .form-delivery-details-modal .combo-width-delivery-details {
-	width: 409px;
+	width: 380px;
 }
 .btn-plus-pink {
 	position: relative;
