@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('glowingCatalogApp').controller(
-            'PaymentCtrl', function($filter, $scope, $dialog, $location, $q, DataProvider, DialogService, OrderService) {
+            'PaymentCtrl', function($filter, $scope, $dialog, $location, $q, DataProvider, DialogService, OrderService, MessageService) {
 
                 $scope.dataProvider = DataProvider;
                 $scope.customer = DataProvider.customer;
@@ -22,6 +22,17 @@
                     return DialogService.confirmationDialog({
                         title : 'Confirmar pagamento',
                         message : 'Deseja confirmar o pagamento ?',
+                        btnYes : 'Confirmar',
+                        btnNo : 'Cancelar'
+                    });
+                }
+
+                function openSMSConfirmationAttempt() {
+                    return DialogService.confirmationDialog({
+                        title : 'Confirmar envio de SMS',
+                        message : 'Deseja enviar o SMS de alerta para o cliente ?',
+                        btnYes : 'Sim',
+                        btnNo : 'Não'
                     });
                 }
 
@@ -30,7 +41,6 @@
                 };
 
                 $scope.productsCount = 0;
-
 
                 function watchProducts() {
                     $scope.productsTotal = 0;
@@ -41,7 +51,7 @@
                         $scope.productsTotal += Number(products[i].price * products[i].qty);
                     }
                 }
-                
+
                 $scope.$watch('dataProvider.products', watchProducts, true);
 
                 $scope.openDialogCheck = function openDialogCheck() {
@@ -61,15 +71,22 @@
                     $location.path('basket');
                 };
 
+                function goHome() {
+                    $location.path('/');
+                }
+
                 function main() {
                     var confirmationDialogPromise = confirmDialogFactory();
                     confirmationDialogPromise.then(function() {
                         OrderService.placeOrder();
                         OrderService.createOrder();
-                        $location.path('/');
                     }, function() {
                         main();
                     });
+                    confirmationDialogPromise.then(openSMSConfirmationAttempt).then(function() {
+                        MessageService.sendSMS('554196665488','Ola Arnaldo,\r\n seu pedido no valor de R$20,00 foi confirmado.\r\nValtanette seu consultor Mary Kay.');
+                    }, goHome);
+
                 }
                 main();
             });

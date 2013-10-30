@@ -4,6 +4,8 @@
 
         $scope.title = dialog.data.title;
         $scope.message = dialog.data.message;
+        $scope.btnYes = dialog.data.btnYes;
+        $scope.btnNo = dialog.data.btnNo;
 
         $scope.confirm = function() {
             dialog.close();
