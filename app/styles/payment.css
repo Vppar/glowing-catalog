@@ -122,7 +122,8 @@
 .left-payment .content-scroll .col-1 {
 	width: 290px;
 	display: inline-block;
-	line-height: 20px
+	line-height: 20px;
+	white-space:nowrap
 }
 .left-payment .content-scroll .col-2 {
 	width: 95px;
