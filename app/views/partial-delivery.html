@@ -31,7 +31,7 @@
 					<div class="header">
 						<div class="row-partial-delivery-1">
 							<span class="col-1">
-								<div>Nome do produto</div>
+								<div>Produto</div>
 							</span> 
 							<span class="col-2">
 								<div>Total</div>
@@ -49,7 +49,7 @@
 					<div class="scroll-partial-delivery-1">
 						<div class="row-partial-delivery-1" ng-repeat="item in order.items | filter: partialDeliveryAugmenter">
 							<span class="col-1">
-								<div>{{item.title}}</div>
+								<div>{{item.title | truncate: 30}}</div>
 							</span> <span class="col-2">
 								<div>{{item.qty}}</div>
 							</span> <span class="col-3">

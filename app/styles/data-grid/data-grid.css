@@ -585,10 +585,8 @@
 }
 .scroll-order-list .col-3 div {
 	text-align: left;
-	overflow:hidden;
-    text-overflow:ellipsis;
     white-space:nowrap;
-	line-height:12px;
+
 }
 .scroll-order-list .col-4 {
 	width: 160px;
@@ -600,10 +598,12 @@
 }
 .scroll-order-list .col-5 {
 	width: 110px;
-	float:right
+	float:right;
+	
 }
 .scroll-order-list .col-5 div{
-	margin-right:20px
+	margin-right:48px;
+	text-align:right
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
 
@@ -667,11 +667,8 @@
 	width:220px
 }
 .row-partial-delivery-1 .col-1 div {
-	margin-left: 20px;
-	overflow: hidden;     	
-	text-overflow: ellipsis;     
+	margin-left: 20px;    
 	white-space: nowrap;
-	line-height: 10px;
 }
 
 .grid-partial-delivery-1 .col-2 {
