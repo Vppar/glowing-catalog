@@ -8,6 +8,7 @@
 	padding: 10px;
 	color: #fff;
 	font-size: 18px;
+	white-space: nowrap;
 	padding: 15px 0 15px 30px;
 	background: #000 url(../images/heading-gradient-bg.png) repeat-y;
 }
@@ -70,16 +71,16 @@
 }
 
 /*delivery details*/
-.form-delivery-details-modal .input-qty{
-	margin:5px 12px 0 17px
+.form-delivery-details-modal .input-qty {
+	margin: 5px 12px 0 17px
 }
-.form-delivery-details-modal .ic-calendar{
-	position:relative;
-	top:28px
+.form-delivery-details-modal .ic-calendar {
+	position: relative;
+	top: 28px
 }
-.form-previous-entries .ic-calendar{
-	position:relative;
-	top:3px
+.form-previous-entries .ic-calendar {
+	position: relative;
+	top: 3px
 }
 .form-delivery-details-modal {
 	width: 572px;
