@@ -45,17 +45,16 @@
 }
 .row-grid-delivery-details .col-1 div {
 	margin-left: 20px;
-	overflow:hidden;
-    text-overflow:ellipsis;
     white-space:nowrap;
-	line-height:10px
+
 }
 
 .grid-delivery-details .col-2 {
 	width: 100px;
 }
-.grid-delivery-details .col-2 div{
-	margin-left:10px
+.scroll-delivery-details-grid .col-2 div{
+	margin-right:70px;
+	text-align:center;
 }
 .grid-delivery-details .col-3 {
 	width: 25px;
