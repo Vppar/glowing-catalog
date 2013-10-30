@@ -19,8 +19,8 @@
 						<div class="input-append input-width-emails">
 							<input class="input-block-level hover-state-pointer"
 								id="appendedInput" type="email" ng-model="customer.emails[0].address"
-								ng-click='openDialogAddCustomerEmails(customer.emails)' disabled>
-							<span ng-click='openDialogAddCustomerEmails(customer.emails)'
+								ng-click="openDialogAddCustomerEmails(customer.emails)" disabled>
+							<span ng-click="openDialogAddCustomerEmails(customer.emails)"
 								class="add-on">+</span>
 						</div>
 					</div>
@@ -28,11 +28,11 @@
 			</div>
 			<div class="row-fluid">
 				<span class="span2"> <label for="">Data de
-						Anivers&aacute;rio</label> <select name="birthday" class='select-width-01'
+						Anivers&aacute;rio</label> <select name="birthday" class="select-width-01"
 					ui-select2 ng-model="customer.birthday.day" >
 						<option value="" />
 						<option value="day" ng-repeat="day in dataProvider.date.days">{{day}}</option>
-				</select> <select name="birthmonth" class='select-width-01' ui-select2
+				</select> <select name="birthmonth" class="select-width-01" ui-select2
 					ng-model="customer.birthday.month" >
 						<option value="" />
 						<option value="month.id"
@@ -43,9 +43,9 @@
 						<input class="input-block-level"
 							id="appendedInput" type="text"
 							ng-model="customer.phones[0].number"
-							ng-click='openDialogAddCustomerTels(customer.phones)' required disabled phone> 
+							ng-click="openDialogAddCustomerTels(customer.phones)" required disabled phone> 
 						<span
-							ng-click='openDialogAddCustomerTels(customer.phones)'
+							ng-click="openDialogAddCustomerTels(customer.phones)"
 							class="add-on">+</span>
 					</div>
 				</span> <span class="span6">
@@ -81,7 +81,7 @@
 							ng-model="customer.address.neighborhood" >
 					</div>
 				</span> <span class="span1"> <label class="control-label">UF</label>
-					<select name="state" ui-select2 class='select-width-02'
+					<select name="state" ui-select2 class="select-width-02"
 					ng-model="customer.address.state" >
 						<option value="" />
 						<option value="{{state}}"
