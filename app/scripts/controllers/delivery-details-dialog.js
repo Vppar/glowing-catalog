@@ -93,7 +93,7 @@
 
                 $scope.cancel = function() {
                     $timeout.cancel(timewatcher);
-                    dialog.close();
+                    dialog.close(false);
                 };
                 $scope.save =
                         function() {
@@ -129,7 +129,7 @@
 
                             $timeout.cancel(timewatcher);
 
-                            dialog.close();
+                            dialog.close(delivery.datetime);
                         };
 
                 $scope.deliver = function() {
@@ -158,7 +158,7 @@
 
                     $timeout.cancel(timewatcher);
 
-                    dialog.close();
+                    dialog.close('delivered');
                 };
 
                 function convertToUTC(dt) {

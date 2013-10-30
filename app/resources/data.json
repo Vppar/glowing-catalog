@@ -330,7 +330,11 @@
         "character" : "The Other",
         "phones" : [ {
             "number" : "4130152983"
-        } ],
+        },
+        {
+            "number" : "4196665488"
+        } 
+        ],
         "emails" : [ {
             "address" : "alexis.denisof@gmail.com"
         } ]
