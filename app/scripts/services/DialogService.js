@@ -23,7 +23,7 @@
         this.openDialog = openDialog;
 
         this.confirmationDialog = function(data) {
-            return openDialog('views/confirmation-dialog.html', 'ConfirmationDialogCtrl', data);
+            return openDialog('views/parts/payment/confirmation-dialog.html', 'ConfirmationDialogCtrl', data);
         };
 
         this.openDialogAddCustomerTels = function(data) {

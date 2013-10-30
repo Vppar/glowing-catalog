@@ -300,6 +300,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	padding: 10px;
 	color: #fff;
 	font-size: 18px;
+	text-transform:uppercase;
 	padding: 15px 0 15px 30px;
 	background: #000 url(../images/heading-gradient-bg.png) repeat-y;
 }
