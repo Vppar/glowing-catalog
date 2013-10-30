@@ -8,7 +8,7 @@
 				<label class="control-label"> Data </label>
 				<div class="controls">
 					<input type="text" show-weeks="false" datepicker-popup="dd/MM/yyyy"
-						class="date-field input-small" required ng-model="delivery.datetime">
+						class="date-field input-small" required ng-model="delivery.datetime" ng-disabled="delivery.status=='delivered'">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -19,32 +19,28 @@
 					<div class="control-group lbl-top">
 						<label class="control-label">Hora</label>
 						<div class="controls">
-							<input class="input-mini" type="text" ng-model="delivery.time">
+							<input class="input-mini" type="text" ng-model="delivery.hour" ng-disabled="delivery.status=='delivered'" ng-change="hourChange()" hour>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="controls-row">
+			<div class="controls-row" ng-hide="delivery.status=='delivered'||(delivery.orderItems | filter: itemsRemainingFilter).length==0">
 				<div class="control-group lbl-top">
 					<label class="control-label">Produto</label>
-					<select class="combo-width-delivery-details" ui-select2 ng-model="item.id">
-						<option ng-repeat="orderItem in order.items" value="{{orderItem.id}}" >{{orderItem.title}}</option>
+					<select class="combo-width-delivery-details" ui-select2 ng-model="item.id" ng-click="selectOrderItem(item.id)">
+						<option ng-repeat="orderItem in delivery.orderItems | filter: itemsRemainingFilter" value="{{orderItem.id}}">{{orderItem.title}}</option>
 					</select>
 				</div>
 				<div class="control-group lbl-top">
 					<div class="control-group lbl-top">
-						<label class="control-label">Qtde</label>
-						<div class="controls">
-							<input class="input-small text-center" type="text" placeholder=""
-								ng-model="item.qty" number recall>
-						</div>
+						<input-qty ng-model="item.qty" min="1" max="{{item.remaining}}"></input-qty>
 					</div>
 				</div>
 				<div class="control-group lbl-top">
 				<div class="controls">
 					<span class="btn-plus-pink hover-state-pointer"
-						ng-click="addToDelivery(item)"> <img
-						src="images/btn-plus-pink.png" alt="" />
+						ng-click="addToDelivery(item)"> 
+						<img src="images/btn-plus-pink.png" alt="" />
 					</span>
 				</div>
 			</div>
@@ -54,7 +50,13 @@
 					<div class="row-grid-delivery-details">
 						<span class="col-1">
 							<div>Produto</div>
-						</span><span class="col-3"><div >Qtde</div></span> <span class="col-5"><div></div></span>
+						</span>
+						<span class="col-2">
+							<div >Qtde</div>
+						</span> 
+						<span class="col-3">
+							<div></div>
+						</span>
 					</div>
 				</div>
 				<div class="scroll-delivery-details-grid">
@@ -62,10 +64,12 @@
 					ng-repeat="item in delivery.items | orderBy:'-datetime'">
 						<span class="col-1">
 							<div>{{item.title}}</div>
-						</span><span class="col-2">
+						</span>
+						<span class="col-2">
 							<div>{{item.qty}}</div>
-						</span> <span class="col-4">
-							<div class="hover-state-pointer">
+						</span> 
+						<span class="col-3">
+							<div class="hover-state-pointer" ng-hide="delivery.status=='delivered'">
 								<img src="images/del-pink.png" alt="" ng-click="removeFromDelivery($index)" />
 							</div>
 						</span> 
@@ -99,14 +103,18 @@
 				<span class="span4">
 					<button 
 						ng-click='save()'
+						ng-disabled="delivery.datetime<=now"
+						ng-hide="delivery.status=='delivered'"
 						class="btn btn-large btn-login " 
 						type="submit">
 						Salvar como Agendamento
 					</button>
 				</span>
-				<span class="span4">
+				<span class="span4" >
 					<button 
 						ng-click='deliver()'
+						ng-disabled="delivery.datetime>now"
+						ng-hide="delivery.status=='delivered'"
 						class="btn btn-large btn-login pull-right" 
 						type="submit">
 						Registrar Entrega

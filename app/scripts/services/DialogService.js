@@ -24,7 +24,7 @@
         this.confirmationDialog = function(data) {
             return openDialog('views/confirmation-dialog.html', 'ConfirmationDialogCtrl', data);
         };
-        
+
         this.openDialogAddCustomerTels = function(data) {
             return openDialog('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl', data);
         };
@@ -68,9 +68,13 @@
         this.openDialogCreditCard = function(data) {
             return openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data);
         };
-        
+
         this.openDialogDeliveryDetails = function(data) {
             return openDialog('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl', data);
+        };
+
+        this.openDialogCustomerInfo = function(data) {
+            return openDialog('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl', data);
         };
     });
 

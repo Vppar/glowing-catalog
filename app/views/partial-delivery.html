@@ -16,10 +16,10 @@
 							<strong>Cliente:&nbsp;</strong>{{order.customer.name}}<span>&nbsp;<img src="images/icons/ic-info.png" /></span>
 						</p>
 						<p>
-							<strong>Telefone:&nbsp;</strong>{{order.customer.phones[0] | phone}}
+							<strong>Telefone:&nbsp;</strong>{{order.customer.phones[0].number | phone}}
 						</p>
 						<p>
-							<strong>E-mail:&nbsp;</strong> {{order.customer.emails[0] }}
+							<strong>E-mail:&nbsp;</strong> {{order.customer.emails[0].address }}
 						</p>
 					</div>
 				</div>
@@ -85,15 +85,15 @@
 							</div>
 						</div>
 						<div class="scroll-partial-delivery-2">
-							<div class="row-partial-delivery-2 hover-state-pointer" ng-repeat="delivery in dataProvider.deliveries | filter: orderDeliveriesFilter" ng-click="openDeliveryDetails(delivery)" >
+							<div class="row-partial-delivery-2 hover-state-pointer" ng-repeat="delivery in dataProvider.deliveries | filter: orderDeliveriesFilter | filter: statusNameAugmenter" ng-click="openDeliveryDetails(delivery)" >
 								<span class="col-1">
-									<div>{{delivery.date}}</div>
+									<div>{{delivery.datetime | date: 'dd/MM/yyyy'}}</div>
 								</span> 
 								<span class="col-2">
 									<div>{{delivery.items.length}}</div>
 								</span> 
 								<span class="col-3">
-									<div>{{delivery.status}}</div>
+									<div>{{delivery.statusName}}</div>
 								</span>
 							</div>
 						</div>

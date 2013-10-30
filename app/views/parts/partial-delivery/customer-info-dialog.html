@@ -7,53 +7,50 @@
 
 		<span class="span6">
 			<p>
-				<strong>Cliente:</strong> Maria Joana
+				<strong>Cliente:</strong> {{customer.name}}
 			</p>
 			<p>
-				<strong>Data de Aniversário:</strong> 12/12/2015
+				<strong>Data de Aniversário:</strong> <span ng-show="customer.birthday">{{customer.birthday}}/{{customer.birthmonth}}</span>
 			</p>
 			<p>
-				<strong>Telefones:</strong><br /> (41) 3990-2020 <br /> (41) 3243-0987
+				<strong>Telefones:</strong><span ng-repeat="phone in customer.phones" ><br /> {{phone.number | phone}} </span>
 			</p>
 			
 			<p>
-				<strong>E-mails:</strong><br /> maria@marykay.com.br <br /> joaninha@marykay.com.br
+				<strong>E-mails:</strong><span ng-repeat="email in customer.emails" ><br /> {{email.address}}
 			</p>
 		</span>
 		<span class="span6">
 			
 			<p>
-				<strong>Endereço:</strong> Rua XV 123 
+				<strong>Endereço:</strong> {{customer.address.street}}
 			</p>
 			
 			<p>
-				<strong>Bairro:</strong> Alto da Rua XV
+				<strong>Bairro:</strong> {{customer.address.neighborhood}}
 			</p>
 			<p>
-				<strong>CEP:</strong> 32030-029
+				<strong>CEP:</strong> {{customer.address.cep}}
 			</p>
 			<p>
-				<strong>Nº:</strong> 123
+				<strong>Nº:</strong> {{customer.address.number}}
 			</p>
 			<p>
-				<strong>Complemento:</strong> Casa
+				<strong>Complemento:</strong> {{customer.address.complement}}
 			</p>
 			<p>
-				<strong>UF:</strong> PR
+				<strong>UF:</strong> {{customer.address.state}}
 			</p>
 			<p>
-				<strong>Cidade:</strong> Curitiba
+				<strong>Cidade:</strong> {{customer.address.city}}
 			</p>
 		</span>
 
 		</div>
 		<div class="clearfix"></div>
 		<hr />
-		<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
-			Cancelar
-		</button>
 		<button ng-click='closeDialog()' class="btn btn-large btn-login pull-right" type="submit">
-			Confirmar
+			Fechar
 		</button>
 
 	</form>
