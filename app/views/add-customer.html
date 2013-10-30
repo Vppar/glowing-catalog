@@ -19,7 +19,7 @@
 						<div class="input-append input-width-emails">
 							<input class="input-block-level hover-state-pointer"
 								id="appendedInput" type="email" ng-model="customer.emails[0].address"
-								ng-click='openDialogAddCustomerEmails(customer.emails)' required>
+								ng-click='openDialogAddCustomerEmails(customer.emails)' disabled>
 							<span ng-click='openDialogAddCustomerEmails(customer.emails)'
 								class="add-on">+</span>
 						</div>
@@ -29,22 +29,22 @@
 			<div class="row-fluid">
 				<span class="span2"> <label for="">Data de
 						Anivers&aacute;rio</label> <select name="birthday" class='select-width-01'
-					ui-select2 ng-model="customer.birthday.day" required>
+					ui-select2 ng-model="customer.birthday.day" >
 						<option value="" />
 						<option value="day" ng-repeat="day in dataProvider.date.days">{{day}}</option>
 				</select> <select name="birthmonth" class='select-width-01' ui-select2
-					ng-model="customer.birthday.month" required>
+					ng-model="customer.birthday.month" >
 						<option value="" />
 						<option value="month.id"
 							ng-repeat="month in dataProvider.date.months">{{month.id}}</option>
 				</select>
 				</span> <span class="span4"> <label class="control-label lbl-tels">Telefones</label>
 					<div class="input-append input-width-tels">
-						<input class="input-block-level hover-state-pointer"
+						<input class="input-block-level"
 							id="appendedInput" type="text"
 							ng-model="customer.phones[0].number"
-							ng-click='openDialogAddCustomerTels(customer.phones)' required
-							phone> <span
+							ng-click='openDialogAddCustomerTels(customer.phones)' required disabled phone> 
+						<span
 							ng-click='openDialogAddCustomerTels(customer.phones)'
 							class="add-on">+</span>
 					</div>
@@ -52,7 +52,7 @@
 					<div class="control-group ">
 						<label class="control-label">CEP</label> <input name="cep"
 							class="input-cep" type="text" ng-model="customer.address.cep"
-							ng-minlength="8" cep required>
+							ng-minlength="8" cep >
 					</div>
 				</span>
 			</div>
@@ -61,12 +61,12 @@
 					<div class="control-group ">
 						<label class="control-label">Endere&ccedil;o</label> <input
 							name="address" class="input-block-level" type="text"
-							placeholder="" ng-model="customer.address.street" required>
+							placeholder="" ng-model="customer.address.street" >
 					</div>
 				</span> <span class="span1"> <label class="control-label">Nº</label>
 					<input name="number" class="input-address-number" value=""
 					type="text" placeholder="" ng-model="customer.address.number"
-					number required>
+					number >
 				</span> <span class="span5"> <label
 					class="control-label lbl-complement">Complemento</label> <input
 					class="input-block-level input-complement" type="text"
@@ -78,18 +78,18 @@
 					<div class="control-group ">
 						<label class="control-label">Bairro</label> <input
 							name="neighborhood" class="input-block-level" type="text"
-							ng-model="customer.address.neighborhood" required>
+							ng-model="customer.address.neighborhood" >
 					</div>
 				</span> <span class="span1"> <label class="control-label">UF</label>
 					<select name="state" ui-select2 class='select-width-02'
-					ng-model="customer.address.state" required>
+					ng-model="customer.address.state" >
 						<option value="" />
 						<option value="{{state}}"
 							ng-repeat="state in dataProvider.country.states">{{state}}</option>
 				</select>
 				</span> <span class="span5"> <label class="control-label lbl-city">Cidade</label>
 					<input name="city" class="input-block-level input-city" type="text"
-					ng-model="customer.address.city" required>
+					ng-model="customer.address.city" >
 				</span>
 			</div>
 			<div class="row-fluid">
