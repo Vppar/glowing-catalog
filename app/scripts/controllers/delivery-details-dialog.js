@@ -18,7 +18,10 @@
                 // Scope variables and functions
                 // #############################################################################################################
 
-                $scope.item = {};
+                $scope.item = {
+                    qty : 0,
+                    remaining : 0
+                };
                 $scope.order = order;
                 $scope.delivery = delivery;
 
@@ -53,7 +56,15 @@
                         filteredOrderItems[0].qty = filteredOrderItems[0].remaining;
 
                         var filteredOrderProducts = $filter('filter')(delivery.orderItems, $scope.itemsRemainingFilter);
-                        angular.extend(item, filteredOrderProducts[0]);
+
+                        if (filteredOrderProducts.length > 0) {
+                            angular.extend(item, filteredOrderProducts[0]);
+                        } else {
+                            item.id = 0;
+                            item.qty = 0;
+                            item.remaining = 0;
+                            item.titte = 0;
+                        }
                     }
                 };
 
@@ -65,9 +76,7 @@
                     filteredOrderItems[0].remaining = filteredOrderItems[0].remaining + Number(item.qty);
                     filteredOrderItems[0].qty = filteredOrderItems[0].remaining;
 
-                    if ($scope.item.id == filteredOrderItems[0].id) {
-                        $scope.item.qty = filteredOrderItems[0].qty;
-                    }
+                    angular.extend($scope.item, filteredOrderItems[0]);
 
                     delivery.items.splice(index, 1);
                 };
@@ -174,17 +183,16 @@
                             break;
                         }
                     }
-                    delivery.orderItems = angular.copy($scope.order.items);
                     if ($scope.order.selectedDelivery) {
                         delivery.id = $scope.order.selectedDelivery.id;
                         delivery.datetime = $scope.order.selectedDelivery.datetime;
-                        delivery.hour = $filter('date')(delivery.datetime, 'HHmm');
                         delivery.status = $scope.order.selectedDelivery.status;
                         delivery.items = angular.copy($scope.order.selectedDelivery.items);
                     } else {
                         delivery.datetime = new Date();
-                        delivery.hour = $filter('date')(delivery.datetime, 'HHmm');
                     }
+                    delivery.hour = $filter('date')(delivery.datetime, 'HHmm');
+                    delivery.orderItems = angular.copy($scope.order.items);
 
                     timewatch();
                 }
