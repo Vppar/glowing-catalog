@@ -126,10 +126,7 @@
 }
 .scroll-input-products-grid .col-1 div {
 	margin-left: 20px;
-	overflow:hidden;
-    text-overflow:ellipsis;
     white-space:nowrap;
-	line-height:10px
 }
 .scroll-input-products-grid .col-2 {
 	width: 80px;
