@@ -49,7 +49,7 @@
                     var remainingItems = $filter('filter')($scope.order.items, function(item) {
                         return item.remaining > 0;
                     });
-                    if (remainingItems.length === 0 && delivery) {
+                    if (remainingItems.length === 0 && !delivery) {
                         alert('Não há mais items a serem entregues nesse pedido.');
                         return;
                     }

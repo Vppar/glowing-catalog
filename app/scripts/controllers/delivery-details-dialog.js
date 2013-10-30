@@ -50,6 +50,7 @@
                             return Boolean(product.id === Number(item.id));
                         });
                         filteredOrderItems[0].remaining = filteredOrderItems[0].remaining - item.qty;
+                        filteredOrderItems[0].qty = filteredOrderItems[0].remaining;
 
                         var filteredOrderProducts = $filter('filter')(delivery.orderItems, $scope.itemsRemainingFilter);
                         angular.extend(item, filteredOrderProducts[0]);
@@ -61,7 +62,13 @@
                     var filteredOrderItems = $filter('filter')(delivery.orderItems, function(product) {
                         return Boolean(product.id === Number(item.id));
                     });
-                    filteredOrderItems[0].qty = filteredOrderItems[0].qty + item.qty;
+                    filteredOrderItems[0].remaining = filteredOrderItems[0].remaining + Number(item.qty);
+                    filteredOrderItems[0].qty = filteredOrderItems[0].remaining;
+
+                    if ($scope.item.id == filteredOrderItems[0].id) {
+                        $scope.item.qty = filteredOrderItems[0].qty;
+                    }
+
                     delivery.items.splice(index, 1);
                 };
 
@@ -122,13 +129,20 @@
                         return;
                     }
 
-                    delivery.id = DataProvider.deliveries.length + 1;
                     delivery.datetime = convertToUTC(new Date());
                     delivery.orderId = order.id;
                     delivery.status = 'delivered';
                     delivery.items = angular.copy(delivery.items);
 
-                    DataProvider.deliveries.push(angular.copy(delivery));
+                    if (delivery.id) {
+                        var recoveredDelivery = $filter('filter')(DataProvider.deliveries, function(item) {
+                            return item.id === delivery.id;
+                        })[0];
+                        angular.extend(recoveredDelivery, delivery);
+                    } else {
+                        delivery.id = DataProvider.deliveries.length + 1;
+                        DataProvider.deliveries.push(angular.copy(delivery));
+                    }
 
                     delete delivery.qty;
                     delete delivery.items;

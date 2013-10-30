@@ -24,7 +24,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="controls-row" ng-hide="delivery.status=='delivered'||(order.items | filter: itemsRemainingFilter).length==0">
+			<div class="controls-row" ng-hide="delivery.status=='delivered'||(delivery.orderItems | filter: itemsRemainingFilter).length==0">
 				<div class="control-group lbl-top">
 					<label class="control-label">Produto</label>
 					<select class="combo-width-delivery-details" ui-select2 ng-model="item.id" ng-click="selectOrderItem(item.id)">
