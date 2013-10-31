@@ -22,8 +22,8 @@
         };
         this.openDialog = openDialog;
 
-        this.confirmationDialog = function(data) {
-            return openDialog('views/parts/payment/confirmation-dialog.html', 'ConfirmationDialogCtrl', data);
+        this.messageDialog = function(data) {
+            return openDialog('views/parts/payment/message-dialog.html', 'MessageDialogCtrl', data);
         };
 
         this.openDialogAddCustomerTels = function(data) {

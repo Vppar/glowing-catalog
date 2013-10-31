@@ -44,15 +44,15 @@
                         };
 
                         function confirmDialogFactory() {
-                            var openConfirmationDialogIntent = $q.defer();
-                            var openConfirmationDialogPromise = openConfirmationDialogIntent.promise.then(openConfirmationAttempt);
+                            var openMessageDialogIntent = $q.defer();
+                            var openMessageDialogPromise = openMessageDialogIntent.promise.then(openMessageAttempt);
 
-                            $scope.confirm = openConfirmationDialogIntent.resolve;
-                            return openConfirmationDialogPromise;
+                            $scope.confirm = openMessageDialogIntent.resolve;
+                            return openMessageDialogPromise;
                         }
 
-                        function openConfirmationAttempt() {
-                            return DialogService.confirmationDialog({
+                        function openMessageAttempt() {
+                            return DialogService.messageDialog({
                                 title : 'Confirmar pagamento',
                                 message : 'Deseja confirmar o pagamento?',
                                 btnYes : 'Confirmar',
@@ -60,8 +60,8 @@
                             });
                         }
 
-                        function openSMSConfirmationAttempt() {
-                            return DialogService.confirmationDialog({
+                        function openSMSMessageAttempt() {
+                            return DialogService.messageDialog({
                                 title : 'Confirmar envio de SMS',
                                 message : 'Deseja enviar o SMS de alerta para o cliente?',
                                 btnYes : 'Sim',
@@ -69,7 +69,7 @@
                             });
                         }
                         function openResultDialogAttempt(message) {
-                            return DialogService.confirmationDialog({
+                            return DialogService.messageDialog({
                                 title : 'Envio de SMS',
                                 message : message,
                                 btnYes : 'OK',
@@ -93,8 +93,8 @@
                             var savedCustomerId = 0;
                             var savedOrderAmount = 0;
 
-                            var confirmationDialogPromise = confirmDialogFactory();
-                            confirmationDialogPromise.then(function() {
+                            var messageDialogPromise = confirmDialogFactory();
+                            messageDialogPromise.then(function() {
                                 savedCustomerId = OrderService.order.customerId;
                                 savedOrderAmount = $scope.productsTotal;
                                 OrderService.placeOrder();
@@ -103,10 +103,10 @@
                             }, function() {
                                 main();
                             });
-                            var sendSMSConfirmationDialogPromise = confirmationDialogPromise.then(openSMSConfirmationAttempt);
+                            var sendSMSMessageDialogPromise = messageDialogPromise.then(openSMSMessageAttempt);
                             // FIXME - Get a real representative name.
                             var resultDialogPromise =
-                                    sendSMSConfirmationDialogPromise.then(function() {
+                                    sendSMSMessageDialogPromise.then(function() {
 
                                         var recoveredCustomer = $filter('filter')(DataProvider.customers, function(customer) {
                                             return customer.id === savedCustomerId;

@@ -1,4 +1,4 @@
-(function(angular, alert) {
+(function(angular) {
     'use strict';
 
     angular.module('glowingCatalogApp').controller(
@@ -98,7 +98,11 @@
                 $scope.save =
                         function() {
                             if (delivery.items.length === 0) {
-                                alert('Não é possivel agendar uma entrega sem itens.');
+                                DialogService.messageDialog({
+                                    tittle : 'Detalhes da entrega',
+                                    message : 'Não é possivel agendar uma entrega sem itens.',
+                                    btnYes : 'OK'
+                                });
                                 return;
                             }
 
@@ -134,7 +138,11 @@
 
                 $scope.deliver = function() {
                     if (delivery.items.length === 0) {
-                        alert('Não é possivel registrar uma entrega sem itens.');
+                        DialogService.messageDialog({
+                            tittle : 'Detalhes da entrega',
+                            message : 'Não é possivel registrar uma entrega sem itens.',
+                            btnYes : 'OK'
+                        });
                         return;
                     }
 
@@ -198,4 +206,4 @@
                 }
                 main();
             });
-}(angular, window.alert));
+}(angular));
