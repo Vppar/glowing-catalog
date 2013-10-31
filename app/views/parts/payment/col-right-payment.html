@@ -51,7 +51,7 @@
 							{{productsTotal | currency }}
 						</div>
 						<div class="red-color">
-							{{(productsTotal - (dataProvider.currentPayments.total - cash)) | currency:''}}
+							{{(productsTotal - dataProvider.currentPayments.total) | currency:''}}
 						</div>
 					</div>
 				</div>
