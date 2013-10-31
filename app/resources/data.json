@@ -330,7 +330,7 @@
         "character" : "The Other",
         "phones" : [ {
             "number" : "12997115500"
-        },
+        }],
         "emails" : [ {
             "address" : "valtanet@gmail.com"
         } ]
