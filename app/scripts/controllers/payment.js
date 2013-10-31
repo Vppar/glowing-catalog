@@ -11,7 +11,7 @@
                                 'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor Mary Kay.';
 
                         $scope.dataProvider = DataProvider;
-                        $scope.payments = DataProvider.payments.currentPayments;
+                        $scope.payments = DataProvider.currentPayments;
                         $scope.productsTotal = 0;
                         $scope.cash = 0;
 
@@ -28,6 +28,8 @@
                         $scope.openDialogCheck = function openDialogCheck() {
                             DialogService.openDialogCheck({
                                 payments : $scope.payments
+                            }).then(function(payments) {
+                                angular.extend($scope.payments, payments);
                             });
                         };
                         $scope.openDialogCreditCard = function openDialogCreditCard() {

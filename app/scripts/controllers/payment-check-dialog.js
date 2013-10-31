@@ -15,7 +15,7 @@
          * @var checks - stores check list
          */
         $scope.check = {};
-        $scope.payments = dialog.data.payments;
+        $scope.payments = angular.copy(dialog.data.payments);
 
         function watchChecks() {
             $scope.payments.checksTotal = 0;
@@ -34,11 +34,14 @@
         $scope.addCheck = function(item) {
 
             if ($scope.checkForm.$valid) {
-                var check = $filter('filter')($scope.payments.checks, {
-                    bank : item.bank,
-                    agency : item.agency,
-                    account : item.account,
-                    check : item.check
+                var check = $filter('filter')($scope.payments.checks, function(check) {
+                    // Done this way cause when everything is placed in one row
+                    // the code became damn ugly.
+                    var result = check.bank === item.bank;
+                    result = result && (check.agency === item.agency);
+                    result = result && (check.account === item.account);
+                    result = result && (check.check === item.check);
+                    return result;
                 });
                 if (check.length === 0) {
                     $scope.payments.checks.push(angular.copy(item));
@@ -60,7 +63,7 @@
          * Submits dialog
          */
         $scope.submitDialog = function() {
-            dialog.close($scope.payments.checks);
+            dialog.close($scope.payments);
         };
 
         /**
