@@ -16,7 +16,7 @@
 				<label class="control-label"> Agência </label>
 				<div class="controls">
 					<input class="input-mini" type="text" placeholder=""
-						ng-model="check.agency" required>
+						ng-model="check.agency" required recall>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -97,7 +97,7 @@
 <div class="row-fluid">
 				<div class="total-value-payment-check">
 					<div>
-						<strong>Valor Total:</strong> 166,00
+						<strong>Valor Total:</strong> {{payments.checks | sum: 'amount' | currency: ''}}
 					</div>
 				</div>
 			</div>

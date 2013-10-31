@@ -11,24 +11,25 @@
                                 'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor Mary Kay.';
 
                         $scope.dataProvider = DataProvider;
-                        $scope.payments = {
-                            checks : [],
-                            creditCards : []
-                        };
+                        $scope.payments = DataProvider.currentPayments;
                         $scope.productsTotal = 0;
                         $scope.cash = 0;
-
-                        $scope.filterQty = function(product) {
-                            return product.qty;
-                        };
 
                         $scope.productsCount = 0;
 
                         $scope.$watch('dataProvider.products', watchProducts, true);
 
+                        $scope.filterQty = function(product) {
+                            return product.qty;
+                        };
+
+                        $scope.openDialogAdvanceMoney = DialogService.openDialogAdvanceMoney;
+                        $scope.openDialogProductExchange = DialogService.openDialogProductExchange;
                         $scope.openDialogCheck = function openDialogCheck() {
                             DialogService.openDialogCheck({
                                 payments : $scope.payments
+                            }).then(function(payments) {
+                                angular.extend($scope.payments, payments);
                             });
                         };
                         $scope.openDialogCreditCard = function openDialogCreditCard() {
@@ -36,19 +37,16 @@
                                 payments : $scope.payments
                             });
                         };
-                        $scope.openDialogProductExchange = DialogService.openDialogProductExchange;
-                        $scope.openDialogAdvanceMoney = DialogService.openDialogAdvanceMoney;
-
                         $scope.goToBasket = function() {
                             $location.path('basket');
                         };
 
-                        function confirmDialogFactory() {
-                            var openMessageDialogIntent = $q.defer();
-                            var openMessageDialogPromise = openMessageDialogIntent.promise.then(openMessageAttempt);
+                        function confirmPaymentDialogFactory() {
+                            var openConfirmPaymentDialogIntent = $q.defer();
+                            var openConfirmPaymentDialogPromise = openConfirmPaymentDialogIntent.promise.then(openMessageAttempt);
 
-                            $scope.confirm = openMessageDialogIntent.resolve;
-                            return openMessageDialogPromise;
+                            $scope.confirm = openConfirmPaymentDialogIntent.resolve;
+                            return openConfirmPaymentDialogPromise;
                         }
 
                         function openMessageAttempt() {
@@ -59,7 +57,6 @@
                                 btnNo : 'Cancelar'
                             });
                         }
-
                         function openSMSMessageAttempt() {
                             return DialogService.messageDialog({
                                 title : 'Confirmar envio de SMS',
@@ -89,51 +86,53 @@
                             $location.path('/');
                         }
 
-                        function main() {
-                            var savedCustomerId = 0;
-                            var savedOrderAmount = 0;
+                        function sendSMSAttempt(data) {
+                            var recoveredCustomer = $filter('filter')(DataProvider.customers, function(customer) {
+                                return customer.id === customerId;
+                            })[0];
+                            var recoverdCustomerFirstName = recoveredCustomer.name.split(' ')[0];
 
-                            var messageDialogPromise = confirmDialogFactory();
-                            messageDialogPromise.then(function() {
-                                savedCustomerId = OrderService.order.customerId;
-                                savedOrderAmount = $scope.productsTotal;
+                            // find a cellphone
+                            var cellphone = null;
+                            var phone = null;
+                            for ( var idx in recoveredCustomer.phones) {
+                                phone = recoveredCustomer.phones[idx].number;
+                                if (Number(phone.charAt(2)) >= 7) {
+                                    cellphone = phone;
+                                    break;
+                                }
+                            }
+                            if (cellphone) {
+                                var msg =
+                                        defaultMsg.replace('{{customerName}}', recoverdCustomerFirstName).replace(
+                                                '{{orderAmount}}', $filter('currency')(orderAmount, '')).replace(
+                                                '{{representativeName}}', 'Valtanette');
+                                return MessageService.sendSMS('55' + phone, msg);
+                            } else {
+                                return 'Não foi possível enviar o SMS, o cliente ' + recoverdCustomerFirstName +
+                                    ' não possui um número de celular em seu cadastro.';
+                            }
+                        }
+
+                        function main() {
+                            var confirmPaymentDialogPromise = confirmPaymentDialogFactory();
+                            confirmPaymentDialogPromise.then(function() {
+                                var data = {
+                                    customerId : OrderService.order.customerId,
+                                    orderAmount : $scope.productsTotal
+                                };
+
                                 OrderService.placeOrder();
                                 OrderService.createOrder();
                                 goHome();
+
+                                return data;
                             }, function() {
                                 main();
                             });
-                            var sendSMSMessageDialogPromise = messageDialogPromise.then(openSMSMessageAttempt);
+                            var sendSMSMessageDialogPromise = confirmPaymentDialogPromise.then(openSMSMessageAttempt);
                             // FIXME - Get a real representative name.
-                            var resultDialogPromise =
-                                    sendSMSMessageDialogPromise.then(function() {
-
-                                        var recoveredCustomer = $filter('filter')(DataProvider.customers, function(customer) {
-                                            return customer.id === savedCustomerId;
-                                        })[0];
-                                        var recoverdCustomerFirstName = recoveredCustomer.name.split(' ')[0];
-
-                                        // find a cellphone
-                                        var cellphone = null;
-                                        var phone = null;
-                                        for ( var idx in recoveredCustomer.phones) {
-                                            phone = recoveredCustomer.phones[idx].number;
-                                            if (Number(phone.charAt(2)) >= 7) {
-                                                cellphone = phone;
-                                                break;
-                                            }
-                                        }
-                                        if (cellphone) {
-                                            var msg =
-                                                    defaultMsg.replace('{{customerName}}', recoverdCustomerFirstName).replace(
-                                                            '{{orderAmount}}', $filter('currency')(savedOrderAmount, '')).replace(
-                                                            '{{representativeName}}', 'Valtanette');
-                                            return MessageService.sendSMS('55' + phone, msg);
-                                        } else {
-                                            return 'Não foi possível enviar o SMS, o cliente ' + recoverdCustomerFirstName +
-                                                ' não possui um número de celular em seu cadastro.';
-                                        }
-                                    });
+                            var resultDialogPromise = sendSMSMessageDialogPromise.then(sendSMSAttempt);
                             resultDialogPromise.then(openResultDialogAttempt);
                         }
                         main();
