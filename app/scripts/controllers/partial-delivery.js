@@ -1,4 +1,4 @@
-(function(angular, alert) {
+(function(angular) {
     'use strict';
 
     angular
@@ -60,7 +60,11 @@
                                         return item.remaining > 0;
                                     });
                                     if (remainingItems.length === 0 && !delivery) {
-                                        alert('Não há mais items a serem entregues nesse pedido.');
+                                        DialogService.messageDialog({
+                                            tittle : 'Detalhes da entrega',
+                                            message : 'Não há mais items a serem entregues nesse pedido.',
+                                            btnYes : 'OK'
+                                        });
                                         return;
                                     }
                                     $scope.order.selectedDelivery = delivery;
@@ -105,7 +109,7 @@
                                 };
 
                         function openSMSConfirmationAttempt(result) {
-                            return DialogService.confirmationDialog({
+                            return DialogService.messageDialog({
                                 title : 'Confirmar envio de SMS',
                                 message : 'Deseja enviar o SMS de alerta para o cliente?',
                                 btnYes : 'Sim',
@@ -115,7 +119,7 @@
                             });
                         }
                         function openResultDialogAttempt(message) {
-                            return DialogService.confirmationDialog({
+                            return DialogService.messageDialog({
                                 title : 'Envio de SMS',
                                 message : message,
                                 btnYes : 'OK',
@@ -159,4 +163,4 @@
                         }
                         main();
                     });
-}(angular, window.alert));
+}(angular));

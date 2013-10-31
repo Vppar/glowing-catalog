@@ -9,7 +9,7 @@
      * @author Arnaldo
      * 
      */
-    angular.module('glowingCatalogApp').controller('AddCustomerEmailsDialogCtrl', function($scope, $filter, dialog) {
+    angular.module('glowingCatalogApp').controller('AddCustomerEmailsDialogCtrl', function($scope, $filter, dialog, DialogService) {
 
         $scope.email = {};
 
@@ -75,6 +75,11 @@
                 emails = {
                     address : ''
                 };
+                // DialogService.messageDialog({
+                // tittle : 'Novo usuário',
+                // message : 'Nenhum e-mail foi adicionado a lista.',
+                //                    btnYes : 'OK'
+                //                });
             }
             dialog.close(emails);
         };

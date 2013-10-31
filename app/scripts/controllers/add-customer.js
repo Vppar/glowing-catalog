@@ -1,4 +1,4 @@
-(function(angular, alert) {
+(function(angular) {
     'use strict';
 
     angular.module('glowingCatalogApp').controller(
@@ -15,12 +15,16 @@
                 $scope.customer = {
                     address : {},
                     birthday : {},
-                    emails : [ {
-                        address : ''
-                    } ],
-                    phones : [ {
-                        number : ''
-                    } ]
+                    emails : [
+                        {
+                            address : ''
+                        }
+                    ],
+                    phones : [
+                        {
+                            number : ''
+                        }
+                    ]
                 };
                 var customer = $scope.customer;
 
@@ -47,7 +51,11 @@
                 $scope.confirm = function confirm() {
                     $scope.failed = true;
                     if (!$scope.customerForm.$valid) {
-                        alert('Os campos destacados são de preenchimento obrigatório.');
+                        DialogService.messageDialog({
+                            title : 'Novo usuário',
+                            message : 'Os campos destacados são de preenchimento obrigatório.',
+                            btnYes : 'OK'
+                        });
                         return;
                     }
                     customer.id = DataProvider.customers.length + 1;
@@ -63,4 +71,4 @@
                     $location.path('basket');
                 };
             });
-}(angular, window.alert));
+}(angular));

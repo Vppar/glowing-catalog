@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').controller('ConfirmationDialogCtrl', function($scope, $q, dialog) {
+    angular.module('glowingCatalogApp').controller('MessageDialogCtrl', function($scope, $q, dialog) {
 
         $scope.title = dialog.data.title;
         $scope.message = dialog.data.message;
