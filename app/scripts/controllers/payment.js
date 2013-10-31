@@ -10,8 +10,12 @@
                         var defaultMsg =
                                 'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor Mary Kay.';
 
-                        $scope.productsTotal = 0;
                         $scope.dataProvider = DataProvider;
+                        $scope.payments = {
+                            checks : [],
+                            creditCards : []
+                        };
+                        $scope.productsTotal = 0;
                         $scope.cash = 0;
 
                         $scope.filterQty = function(product) {

@@ -13,6 +13,7 @@
             $scope.count = $filter('filter')(products, $scope.filterQty).length;
         }, true);
         
+        $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
         $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
 
         $scope.goToBasket = function() {
