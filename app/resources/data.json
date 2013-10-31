@@ -326,17 +326,13 @@
         } ]
     }, {
         "id" : 14,
-        "name" : "Alexis Denisof",
+        "name" : "Valtanette De Paula",
         "character" : "The Other",
         "phones" : [ {
-            "number" : "4130152983"
+            "number" : "12997115500"
         },
-        {
-            "number" : "4196665488"
-        } 
-        ],
         "emails" : [ {
-            "address" : "alexis.denisof@gmail.com"
+            "address" : "valtanet@gmail.com"
         } ]
     }, {
         "id" : 15,
