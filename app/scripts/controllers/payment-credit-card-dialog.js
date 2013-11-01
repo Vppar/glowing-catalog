@@ -17,7 +17,7 @@
         $scope.dataProvider = DataProvider;
 
         $scope.creditCard = {};
-        $scope.payments = dialog.data.payments;
+        $scope.payments = angular.copy(dialog.data.payments);
 
         function watchChecks() {
             $scope.payments.creditCardsTotal = 0;
@@ -53,7 +53,7 @@
          * Submits dialog
          */
         $scope.submitDialog = function() {
-            dialog.close($scope.payments.creditCards);
+            dialog.close($scope.payments);
         };
 
         /**
