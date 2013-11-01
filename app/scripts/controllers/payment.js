@@ -35,6 +35,8 @@
                         $scope.openDialogCreditCard = function openDialogCreditCard() {
                             DialogService.openDialogCreditCard({
                                 payments : $scope.payments
+                            }).then(function(payments) {
+                                angular.extend($scope.payments, payments);
                             });
                         };
                         $scope.goToBasket = function() {

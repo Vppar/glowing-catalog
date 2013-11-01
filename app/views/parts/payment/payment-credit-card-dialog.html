@@ -50,7 +50,7 @@
 		<div class="row-fluid">
 			<div class="total-value-payment-credit-card">
 				<div>
-					<strong>Valor Total:</strong> {{creditCards | sum:'value' | currency:""}}
+					<strong>Valor Total:</strong> {{payments.creditCards | sum:'value' | currency:''}}
 				</div>
 			</div>
 		</div>

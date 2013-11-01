@@ -45,13 +45,13 @@
 					</div>
 					<div class="values-resume">
 						<div>
-							{{dataProvider.currentPayments.total | currency:''}}
+							{{dataProvider.currentPayments.total + cash | currency:''}}
 						</div>
 						<div>
-							{{productsTotal | currency }}
+							{{productsTotal | currency: ''}}
 						</div>
 						<div class="red-color">
-							{{((dataProvider.currentPayments.total - productsTotal) > 0 && (dataProvider.currentPayments.total - productsTotal) || 0) | currency:''}}
+							{{(((dataProvider.currentPayments.total + cash) - productsTotal) > 0 && ((dataProvider.currentPayments.total + cash) - productsTotal) || 0) | currency:''}}
 						</div>
 					</div>
 				</div>
