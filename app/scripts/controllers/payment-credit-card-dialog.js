@@ -17,6 +17,9 @@
         $scope.dataProvider = DataProvider;
 
         $scope.creditCard = {};
+        $scope.card = {
+            value : 0
+        };
         $scope.payments = angular.copy(dialog.data.payments);
 
         function watchChecks() {
