@@ -549,7 +549,7 @@
 	text-align: left
 }
 .grid-order-list .header .col-4 {
-	width: 160px;
+	width: 100px;
 	display: inline-block;
 }
 .grid-order-list .header .col-4 div {
@@ -559,8 +559,9 @@
 .grid-order-list .header .col-5 {
 	width: 80px;
 	display: inline-block;
+	margin-left:60px;
 }
-.grid-order-list .header .col-5 {
+.grid-order-list .header .col-5 div{
 	text-align:right
 }
 .scroll-order-list .col-1 {
@@ -584,7 +585,7 @@
 
 }
 .scroll-order-list .col-4 {
-	width: 160px;
+	width: 100px;
 	
 }
 .scroll-order-list .col-4 div {
@@ -594,10 +595,10 @@
 .scroll-order-list .col-5 {
 	width: 110px;
 	float:right;
+	margin-right:48px;
 	
 }
 .scroll-order-list .col-5 div{
-	margin-right:48px;
 	text-align:right
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
