@@ -1,23 +1,41 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('HeaderCtrl', function($scope, $filter,$location, DataProvider, DialogService) {
+    angular.module('glowingCatalogApp').controller('HeaderCtrl', function($scope, $filter, $location, OrderService, DialogService) {
 
-        $scope.filterQty = function(product) {
-            return Boolean(product.qty);
-        };
+        // #############################################################################################################
+        // Scope variables from services
+        // #############################################################################################################
+        /**
+         * Expose basket in the scope.
+         */
+        $scope.basket = OrderService.getBasket();
 
-        $scope.dataProvider = DataProvider;
-
-        $scope.$watch('dataProvider.products', function(products) {
-            $scope.count = $filter('filter')(products, $scope.filterQty).length;
-        }, true);
-        
+        // #############################################################################################################
+        // Dialogs control
+        // #############################################################################################################
+        /**
+         * Opens the dialog to change the password.
+         */
+        $scope.openDialogChangePass = DialogService.openDialogChangePass;
+        /**
+         * Opens the dialog to choose a customer.
+         */
         $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
+        /**
+         * Opens the dialog to choose a customer.
+         */
         $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
 
+        // #############################################################################################################
+        // Flow control functions
+        // #############################################################################################################
+        /**
+         * Redirect to the basket.
+         */
         $scope.goToBasket = function() {
             $location.path('/basket');
         };
+
     });
 }(angular));

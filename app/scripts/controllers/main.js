@@ -1,15 +1,27 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dialog, $location, DialogService) {
+    angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dialog, $location, OrderService, DialogService) {
 
+        // #############################################################################################################
+        // Dialogs control
+        // #############################################################################################################
+        /**
+         * Opens the dialog to add a product to the basket and in the promise
+         * resolution add it to the basket ... or do nothing.
+         */
         $scope.openDialogAddToBasket = function(id) {
-            DialogService.openDialogAddToBasket({
+            var addToBasketPromise = DialogService.openDialogAddToBasket({
                 id : id
             });
+            addToBasketPromise.then(function(result) {
+                OrderService.addToBasket(result);
+            });
+            addToBasketPromise.then(function() {
+                if (!OrderService.hasCustomer()) {
+                    DialogService.openDialogChooseCustomer();
+                }
+            });
         };
-        $scope.openDialogEditPass = DialogService.openDialogEditPass;
-        $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
-        $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
 
     });
 }(angular));

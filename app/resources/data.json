@@ -34,12 +34,31 @@
             "name" : "Outubro"
         }, {
             "id" : "11",
-            "name" : "Novembro"
+            "name" : "Novembro"	
         }, {
             "id" : "12",
             "name" : "Dezembro"
         } ]
     },
+    "country" : {
+        "states" : [ "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI",
+            "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" ]
+    },
+    "phone" : {
+        "types" : [ "Residencial", "Comercial", "Celular", "Skype" ]
+    },
+    "cardData" : {
+        "flags" : [ "American Express", "Aura", "BNDES", "Diners Club", "Elo", "Hipercard", "MasterCard", "Sorocred", "Visa" ],
+        "installments" : [ "À vista", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x" ]
+    },
+    "deliveryStatus" : [{
+    	"id" : 1,
+    	"description" : "scheduled"
+    },
+    {
+    	"id" : 2,
+    	"description" : "delivered"
+    }],
     "products" : [
         {
             "id" : 0,
@@ -236,98 +255,84 @@
     "customers" : [ {
         "id" : 1,
         "name" : "Robert Downey Jr.",
-        "character" : "Tony Stark / Iron Man",
         "phones" : [ {
             "number" : "4196665488"
         } ]
     }, {
         "id" : 2,
         "name" : "Chris Evans",
-        "character" : "Steve Rogers / Captain America}",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 3,
         "name" : "Mark Ruffalo",
-        "character" : "Bruce Banner / The Hulk",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 4,
         "name" : "Chris Hemsworth",
-        "character" : "Thor",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 5,
         "name" : "Scarlett Johansson",
-        "character" : "Natasha Romanoff / Black Widow",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 6,
         "name" : "Jeremy Renner",
-        "character" : "Clint Barton / Hawkeye",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 7,
         "name" : "Tom Hiddleston",
-        "character" : "Loki",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 8,
         "name" : "Clark Gregg",
-        "character" : "Agent Phil Coulson",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 9,
         "name" : "Cobie Smulders",
-        "character" : "Agent Maria Hill",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 10,
         "name" : "Stellan Skarsgard",
-        "character" : "Selvig",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 11,
         "name" : "Samuel L. Jackson",
-        "character" : "Nick Fury",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 12,
         "name" : "Gwyneth Paltrow",
-        "character" : "Pepper Potts",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 13,
         "name" : "Paul Bettany",
-        "character" : "Jarvis (voice)",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     }, {
         "id" : 14,
         "name" : "Valtanette De Paula",
-        "character" : "The Other",
         "phones" : [ {
             "number" : "12997115500"
         }],
@@ -337,25 +342,13 @@
     }, {
         "id" : 15,
         "name" : "Tina Benko",
-        "character" : "NASA Scientist",
         "phones" : [ {
             "number" : "4130152983"
         } ]
     } ],
-    "country" : {
-        "states" : [ "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI",
-            "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" ]
-    },
-    "phone" : {
-        "types" : [ "Residencial", "Comercial", "Celular", "Skype" ]
-    },
-    "cardData" : {
-        "flags" : [ "American Express", "Aura", "BNDES", "Diners Club", "Elo", "Hipercard", "MasterCard", "Sorocred", "Visa" ],
-        "installments" : [ "À vista", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x" ]
-    },
     "orders" : [ {
-        "customerId" : 14,
-        "id" : 1,
+    	"id" : 1,
+        "customerId" : 14,        
         "date" : 1383066000000,
         "code" : "mary-0001-13",
         "paymentId" : 1,
@@ -366,7 +359,6 @@
                 "description" : "Imagine uma película protetora. Com um fator de proteção solar de 25, este produto inovador ajuda a prevenir linhas finas e manchas na pele, bloqueando os raios UVA/UVB. Peptídeos calmantes ajudam a relaxar as linhas de expressão do rosto.",
                 "image" : "images/catalog/time-wise/002326.jpg",
                 "price" : "85",
-                "inventory" : 2,
                 "qty" : 1,
                 "subtotal" : 85
             },
@@ -386,7 +378,6 @@
                 "description" : "Cuide da sua pele enquanto você dorme! Este avançado produto anti-idade trabalha com o ciclo natural da pele para recuperá-la dos danos do dia a dia além de ajudar a estimular a produção de colágeno* e agir na matriz da pele*, área específica em que estão presentes o colágeno e a elastina, responsáveis por garantir a sustentação e elasticidade da pele.",
                 "image" : "images/catalog/time-wise/complexo-facial-noturno-timewise.jpg",
                 "price" : 85,
-                "inventory" : 2,
                 "qty" : 4,
                 "subtotal" : 340
             },
@@ -396,9 +387,48 @@
                 "description" : "Essa maravilhosa máscara hidratante em gel oferece diversos benefícios em um só produto. Sua hidratação é imediata e ajuda a minimizar a aparência de linhas finas e rugas, deixar a pele firme e rejuvenescida, minimizar a aparência dos poros, e deixa a pele com uma aparência descansada.",
                 "image" : "images/catalog/time-wise/MoistRenewGel_selo.jpg",
                 "price" : 59,
-                "inventory" : 2,
                 "qty" : 4,
                 "subtotal" : 236
             } ]
-    } ]
+    } ],
+    "payments" : [{
+		"id" : 1,
+		"datetime" : 1383066000000,
+		"typeId" : 1,
+		"amount" : 941,
+		"data" : {}
+	}],
+	"deliveries" : [{
+		"id" : 1,
+		"datetime" : [
+			1383238800000
+		],
+		"statusId" : 2,
+		"orderId" : 1,
+		"products" : [
+			{
+				"productId" : 13,
+				"qty" : 3
+			}
+		]
+	},
+	{
+		"id" : 2,
+		"datetime" : [
+			1383238800000,
+			1383670800000
+		],
+		"statusId" : "1",
+		"orderId" : 1,
+		"products" : [
+			{
+				"productId" : 14,
+				"qty" : 2
+			},
+			{
+				"productId" : 15,
+				"qty" : 2
+			}
+		]
+	}]
 }

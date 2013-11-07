@@ -5,8 +5,8 @@
 			<div class="price-add-to-basket">{{product.price | currency}}</div> 
 			<input-qty ng-model="product.qty" min="1"></input-qty>
 			<div class="total-price-add-to-basket">
-				<strong>Total:</strong> <span class="rose-color">{{product.price
-					* product.qty | currency}}</span>
+				<strong>Total:</strong> 
+				<span class="rose-color">{{product.price * product.qty | currency}}</span>
 			</div>
 		</span>
 		<div class="img-catalog-02">
@@ -14,9 +14,13 @@
 		</div>
 		<div class="clearfix"></div>
 		<hr />
-		<button ng-click='cancel()' class="btn btn-large btn-login"
-			type="submit">Cancelar</button>
-		<button ng-click='add()' class="btn btn-large btn-login pull-right"
-			type="submit">Adicionar</button>
+		<button 
+			class="btn btn-large btn-login" 
+			type="submit"
+			ng-click="cancel()">Cancelar</button>
+		<button 
+			class="btn btn-large btn-login pull-right"
+			type="submit"
+			ng-click="addToBasket()">Adicionar</button>
 	</form>
 </div>

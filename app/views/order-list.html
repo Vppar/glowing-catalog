@@ -39,11 +39,9 @@
 							<div>{{order.customerName | truncate: 50}}</div>
 						</span> 
 						<span class="col-4">
-							<div>{{(order.items).length}}</div>
+							<div>{{order.items.length}}</div>
 						</span><span class="col-5">
-							<div>{{order.items | obInject:
-								'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency:
-								'R$'}}</div>
+							<div>{{order.items | obInject: 'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency: 'R$'}}</div>
 						</span>
 					</div>
 				</div>

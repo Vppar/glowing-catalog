@@ -1,7 +1,9 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp', [ 'ui.bootstrap', 'ui.select2' ]).config(function($routeProvider) {
+    angular.module('glowingCatalogApp', [
+        'ui.bootstrap', 'ui.select2'
+    ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
             controller : 'MainCtrl'

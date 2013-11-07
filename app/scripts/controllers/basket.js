@@ -1,21 +1,13 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DataProvider, DialogService, OrderService) {
+    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DialogService, OrderService) {
 
-        $scope.dataProvider = DataProvider;
-        $scope.order = OrderService.order;
-        
+        $scope.basket = OrderService.getBasket();
+
         $scope.remove = function remove(product) {
-            delete product.qty;
+            OrderService.removeFromBasket(product.id);
         };
-
-        $scope.filterQty = function(product) {
-            return Boolean(product.qty);
-        };
-
-        $scope.openDialogEditPass = DialogService.openDialogEditPass;
-        $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
 
         $scope.pay = function() {
             $location.path('/payment');

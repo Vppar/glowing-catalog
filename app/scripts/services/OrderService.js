@@ -2,32 +2,28 @@
     'use strict';
     angular.module('glowingCatalogApp').service('OrderService', function OrderService($filter, DataProvider) {
 
-        this.order = {};
-        var order = this.order;
-
-        this.filterQty = function filterQty(item) {
+        var order = {
+            basket : []
+        };
+        var filterQty = function filterQty(item) {
             return Boolean(item.qty);
         };
-        var filterQty = this.filterQty;
-
-        this.getBasket = function getBasket() {
-            var basketProducts = $filter('filter')(DataProvider.products, filterQty);
-            return basketProducts;
+        var getBasket = function getBasket() {
+            return order.basket;
         };
-        var getBasket = this.getBasket;
-
-        this.createOrder = function createOrder() {
+        var addToBasket = function addToBasket(product) {
+            order.basket.push(product);
+        };
+        var createOrder = function createOrder() {
             // Empty the basket.
             var basket = getBasket();
             for ( var idx in basket) {
                 delete basket[idx].qty;
             }
-
             // Remove the selected customer.
             delete order.customerId;
         };
-
-        this.placeOrder = function placeOrder() {
+        var placeOrder = function placeOrder() {
             var payment = angular.copy(DataProvider.currentPayments);
             payment.id = DataProvider.payments.length + 1;
             payment.customerId = order.customerId;
@@ -44,18 +40,25 @@
 
             DataProvider.orders.push(angular.copy(order));
         };
-
-        this.removeItem = function removeItem(item) {
-            var products = $filter('filter')(DataProvider.products, function(product) {
-                var result = (product.id === item.id);
-                return result;
-            });
-            delete products[0].qty;
+        var removeFromBasket = function removeFromBasket(productId) {
+            var product = $filter('findBy')(order.basket, 'id', productId);
+            var idx = order.basket.indexOf(product);
+            order.basket.splice(idx, 1);
         };
-
-        this.hasCustomer = function hasCustomer() {
+        var hasCustomer = function hasCustomer() {
             return Boolean(order.customerId);
         };
+        var setCustomerId = function setCustomerId(id) {
+            order.customerId = id;
+        };
 
+        this.filterQty = filterQty;
+        this.getBasket = getBasket;
+        this.addToBasket = addToBasket;
+        this.removeFromBasket = removeFromBasket;
+        this.setCustomerId = setCustomerId;
+        this.hasCustomer = hasCustomer;
+        this.placeOrder = placeOrder;
+        this.createOrder = createOrder;
     });
 }(angular));
