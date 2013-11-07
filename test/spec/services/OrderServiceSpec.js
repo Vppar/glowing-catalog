@@ -1,61 +1,66 @@
-xdescribe('Service: OrderServiceSpec', function() {
+describe('Service: OrderServiceSpec', function() {
+
+    var data = angular.copy(sampleData);
 
     // load the service's module
-    beforeEach(module('glowingCatalogApp'));
+    beforeEach(function() {
+        mock = {
+            ugauga: 'shalala'
+        };
+
+        module('tnt.catalog.order');
+        
+        module(function($provide) {
+            $provide.value('DataProvider', mock);
+        });
+
+    });
+
 
     // instantiate service
     var OrderService = null;
-    var DataProvider = null;
-    beforeEach(inject(function(_OrderService_, _DataProvider_, _$filter_) {
+    beforeEach(inject(function(_OrderService_) {
         OrderService = _OrderService_;
-        DataProvider = _DataProvider_;
-        $filter = _$filter_;
     }));
 
     /**
      * It should inject the dependencies.
      */
-    xit('should inject dependencies', function() {
+    it('should inject dependencies', function() {
         expect(!!OrderService).toBe(true);
     });
 
     /**
-     * The function filterQty must return false when the qty value of the object
-     * is 0 and true otherwise.
+     * Should return the item inside the order.
      */
-    xit('should filter products by quantity', function() {
-        var result = OrderService.filterQty({
-            qty : 0
-        });
-        expect(result).toBe(false);
-
-        result = OrderService.filterQty({
-            qty : 1
-        });
-        expect(result).toBe(true);
+    it('should return the basket items', function() {
+        var products = OrderService.getBasket();
+        expect(products).toBe(OrderService.order.items);
     });
 
     /**
-     * The function getBasket must return a list of products than contains qty
-     * property greater then 0.
+     * Should add a product to the basket
      */
-    xit('should list the basket items', function() {
-        DataProvider.products[0].qty = 1;
-        var productCount = OrderService.getBasket().length;
-        expect(productCount).not.toBe(0);
+    it('should add a product', function() {
+        var product = data.products[0];
+        var fakeProduct = angular.copy(product);
+
+        OrderService.addToBasket(product);
+
+        var basket = OrderService.getBasket();
+        var productFromBasket = basket[basket.length - 1];
+
+        expect(productFromBasket).toBe(product);
+        expect(productFromBasket).not.toBe(fakeProduct);
     });
 
     /**
      * It should discard the current order and create a brand new one.
      */
-    xit('should create an order', function() {
-        // We have to do somethings to be sure that the test are working
-        // properly.
+    it('should create an order', function() {
+        OrderService.order = data.emptyOrder;
 
-        // We have to add a product in the basket.
-        DataProvider.products[0].qty = 1;
-        // And choose a customer
-        OrderService.order.customerId = 1;
+        OrderService.addToBasket(data.products[0]);
 
         OrderService.createOrder();
 
@@ -64,7 +69,7 @@ xdescribe('Service: OrderServiceSpec', function() {
         expect(productCount).toBe(0);
 
         // no customer selected
-        expect(OrderService.order.customerId).toBeFalsy();
+        expect(OrderService.order.hasCustomer).toBeFalsy();
     });
 
     /**

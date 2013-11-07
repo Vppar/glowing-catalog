@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('glowingCatalogApp', [
-        'ui.bootstrap', 'ui.select2'
+        'ui.bootstrap', 'ui.select2', 'batatinha'
     ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

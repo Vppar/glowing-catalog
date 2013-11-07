@@ -1,5 +1,3 @@
-'use strict';
-
 describe('Directive: inputQty', function () {
 
   // load the directive's module

@@ -1,12 +1,11 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').service('DataProvider', function DataProvider($http) {
+    angular.module('tnt.catalog', []).service('DataProvider', function DataProvider($http) {
 
         var scope = this;
 
         $http.get('resources/data.json').then(function(response) {
             angular.extend(scope, response.data);
-
         });
 
         this.date = {};
