@@ -1,26 +1,29 @@
 describe('Service: OrderServiceSpec', function() {
 
-    var orderTemplate = angular.copy(sampleData.orderTemplate);
+    var orderTemplate = {};
 
     // load the service's module
     beforeEach(function() {
+        orderTemplate = angular.copy(sampleData.orderTemplate);
+        
+        mock = {
+                customers : angular.copy(sampleData.customers),
+                products : angular.copy(sampleData.products),
+                orders : angular.copy(sampleData.orders),
+                payments : [],
+                currentPayments : {
+                    total : 0,
+                    checks : [],
+                    checksTotal : 0,
+                    creditCards : [],
+                    creditCardsTotal : 0
+                }
+        };
+        
         module('tnt.catalog.order');
 
-        mock = {
-            customers : angular.copy(sampleData.customers),
-            products : angular.copy(sampleData.products),
-            orders : angular.copy(sampleData.orders),
-            payments : [],
-            currentPayments : {
-                total : 0,
-                checks : [],
-                checksTotal : 0,
-                creditCards : [],
-                creditCardsTotal : 0
-            }
-        };
-
         module(function($provide) {
+
             $provide.value('DataProvider', mock);
         });
 
@@ -48,11 +51,11 @@ describe('Service: OrderServiceSpec', function() {
      */
     it('should create a new order', function() {
 
-        OrderService.order.items[0].qty = 1;
-        OrderService.order.items[1].qty = 2;
-
         OrderService.createOrder();
-
+        
+        orderTemplate.items = angular.copy(DataProvider.products);
+        orderTemplate.paymentIds = [];
+        
         expect(OrderService.order).toEqual(orderTemplate);
     });
 
@@ -60,6 +63,8 @@ describe('Service: OrderServiceSpec', function() {
      * It should save the current order and create a brand new one.
      */
     it('should save the order', function() {
+        OrderService.createOrder();
+        
         var selectedCustomer = DataProvider.customers[0];
         var ordersSize = DataProvider.orders.length;
         var paymentsSize = DataProvider.payments.length;
