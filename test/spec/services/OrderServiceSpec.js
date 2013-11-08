@@ -1,7 +1,7 @@
 describe('Service: OrderServiceSpec', function() {
-    
+
     var orderTemplate = angular.copy(sampleData.orderTemplate);
-    
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.order');
@@ -53,11 +53,7 @@ describe('Service: OrderServiceSpec', function() {
 
         OrderService.createOrder();
 
-        var selectedItems = $filter('filter')(OrderService.order.items, function(item) {
-            return Boolean(item.qty);
-        });
-
-        expect(selectedItems.length).toBe(0);
+        expect(OrderService.order).toEqual(orderTemplate);
     });
 
     /**
@@ -73,15 +69,16 @@ describe('Service: OrderServiceSpec', function() {
         OrderService.order.items[0].qty = 1;
         OrderService.order.customerId = selectedCustomer.id;
         OrderService.order.paymentIds.push(paymentsSize + 1);
-        DataProvider.payments.push({
-            id : paymentsSize + 1,
-            orderId : ordersSize + 1
-        });
 
         OrderService.save();
 
-        // See if the and order was added.
-        expect(OrderService.order).toEqual(orderTemplate);
+        var order = DataProvider.orders[ordersSize];
+
+        expect(order.id).toBe(ordersSize + 1);
+        expect(order.code).toBe('mary-000' + (ordersSize + 1) + '-13');
+        expect(order.customerId).toBe(selectedCustomer.id);
+        expect(order.paymentIds[0]).toBe(paymentsSize + 1);
+        expect(order.items[0].qty).toBe(1);
 
     });
 

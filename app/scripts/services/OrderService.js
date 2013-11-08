@@ -33,17 +33,9 @@
          * Get the current order and add to the list of orders.
          */
         var save = function save() {
-            var payment = angular.copy(DataProvider.currentPayments);
-            payment.id = DataProvider.payments.length + 1;
-            payment.customerId = order.customerId;
-            DataProvider.payments.push(payment);
-
-            // FIXME - Remove this piece of code, this must be done by the
-            // server. (Id, date and code)
             order.id = DataProvider.orders.length + 1;
             order.date = new Date();
             order.code = 'mary-' + ('0000' + order.id).slice(-4) + '-' + String(order.date.getFullYear()).slice(-2);
-
             DataProvider.orders.push(angular.copy(order));
 
             createOrder();
