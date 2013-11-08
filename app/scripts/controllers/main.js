@@ -10,6 +10,11 @@
          * resolution add it to the basket ... or do nothing.
          */
         $scope.openDialogAddToBasket = function(id) {
+            
+            if (OrderService.order.id === undefined) {
+                OrderService.createOrder();
+            }
+            
             var addToBasketPromise = DialogService.openDialogAddToBasket({
                 id : id
             });

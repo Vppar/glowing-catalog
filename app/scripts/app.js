@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('glowingCatalogApp', [
-        'ui.bootstrap', 'ui.select2', 'tnt.catalog', 'tnt.catalog.order'
+        'ui.bootstrap', 'ui.select2', 'tnt.catalog', 'tnt.catalog.order', 'tnt.catalog.basket.add', 'tnt.catalog.filter.findBy'
     ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

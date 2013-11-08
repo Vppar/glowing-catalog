@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').filter('findBy', function() {
+    angular.module('tnt.catalog.filter.findBy', []).filter('findBy', function() {
         /**
          * Find the first item in the array that the property is an exact match
          * of the informed property. If not found return an empty object.
