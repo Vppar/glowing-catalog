@@ -1,25 +1,36 @@
 describe('Service: OrderServiceSpec', function() {
-
-    var data = angular.copy(sampleData);
-
+    
+    var orderTemplate = angular.copy(sampleData.orderTemplate);
+    
     // load the service's module
     beforeEach(function() {
+        module('tnt.catalog.order');
+
         mock = {
-            ugauga: 'shalala'
+            customers : angular.copy(sampleData.customers),
+            products : angular.copy(sampleData.products),
+            orders : angular.copy(sampleData.orders),
+            payments : [],
+            currentPayments : {
+                total : 0,
+                checks : [],
+                checksTotal : 0,
+                creditCards : [],
+                creditCardsTotal : 0
+            }
         };
 
-        module('tnt.catalog.order');
-        
         module(function($provide) {
             $provide.value('DataProvider', mock);
         });
 
     });
 
-
     // instantiate service
     var OrderService = null;
-    beforeEach(inject(function(_OrderService_) {
+    beforeEach(inject(function(_$filter_, _OrderService_, _DataProvider_) {
+        $filter = _$filter_;
+        DataProvider = _DataProvider_;
         OrderService = _OrderService_;
     }));
 
@@ -27,109 +38,51 @@ describe('Service: OrderServiceSpec', function() {
      * It should inject the dependencies.
      */
     it('should inject dependencies', function() {
+        expect(!!$filter).toBe(true);
+        expect(!!DataProvider).toBe(true);
         expect(!!OrderService).toBe(true);
-    });
-
-    /**
-     * Should return the item inside the order.
-     */
-    it('should return the basket items', function() {
-        var products = OrderService.getBasket();
-        expect(products).toBe(OrderService.order.items);
-    });
-
-    /**
-     * Should add a product to the basket
-     */
-    it('should add a product', function() {
-        var product = data.products[0];
-        var fakeProduct = angular.copy(product);
-
-        OrderService.addToBasket(product);
-
-        var basket = OrderService.getBasket();
-        var productFromBasket = basket[basket.length - 1];
-
-        expect(productFromBasket).toBe(product);
-        expect(productFromBasket).not.toBe(fakeProduct);
     });
 
     /**
      * It should discard the current order and create a brand new one.
      */
-    it('should create an order', function() {
-        OrderService.order = data.emptyOrder;
+    it('should create a new order', function() {
 
-        OrderService.addToBasket(data.products[0]);
+        OrderService.order.items[0].qty = 1;
+        OrderService.order.items[1].qty = 2;
 
         OrderService.createOrder();
 
-        // the basket must be empty
-        var productCount = OrderService.getBasket().length;
-        expect(productCount).toBe(0);
+        var selectedItems = $filter('filter')(OrderService.order.items, function(item) {
+            return Boolean(item.qty);
+        });
 
-        // no customer selected
-        expect(OrderService.order.hasCustomer).toBeFalsy();
+        expect(selectedItems.length).toBe(0);
     });
 
     /**
-     * It should save the current order and create a brand new one.ou
+     * It should save the current order and create a brand new one.
      */
-    xit('should place an order', function() {
+    it('should save the order', function() {
         var selectedCustomer = DataProvider.customers[0];
-        var item = DataProvider.products[0];
         var ordersSize = DataProvider.orders.length;
         var paymentsSize = DataProvider.payments.length;
 
         // Select a customer, add a product and make a payment before place an
         // order.
+        OrderService.order.items[0].qty = 1;
         OrderService.order.customerId = selectedCustomer.id;
+        OrderService.order.paymentIds.push(paymentsSize + 1);
         DataProvider.payments.push({
             id : paymentsSize + 1,
             orderId : ordersSize + 1
         });
-        item.qty = 1;
 
-        OrderService.placeOrder();
+        OrderService.save();
 
         // See if the and order was added.
-        expect(DataProvider.orders.length).toBe(ordersSize + 1);
+        expect(OrderService.order).toEqual(orderTemplate);
 
-        var order = DataProvider.orders[ordersSize];
-
-        expect(order.customerId).not.toBeUndefined();
-        expect(order.paymentId).not.toBeUndefined();
-        expect(order.items.length).toBeGreaterThan(0);
-    });
-
-    /**
-     * It should remove the item from the basket.
-     */
-    xit('should remove an item', function() {
-
-        // Let's ensure that a specific product has its quantity greater than 0,
-        // which means that it is in the basket.
-        var product = $filter('filter')(DataProvider.products, function(product) {
-            return product.id === 1;
-        })[0];
-        product.qty = 1;
-
-        // Remove the item.
-        OrderService.removeItem(product);
-        expect(product.qty).toBeUndefined();
-    });
-
-    /**
-     * It should check if the current order has a customer.
-     */
-    xit('should have a customer', function() {
-        OrderService.order.customerId = 1;
-        var result = OrderService.hasCustomer();
-        expect(result).toBe(true);
-
-        delete OrderService.order.customerId;
-        var result = OrderService.hasCustomer();
-        expect(result).toBe(false);
     });
 
 });

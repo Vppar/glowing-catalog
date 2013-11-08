@@ -9,7 +9,7 @@
         /**
          * Expose basket in the scope.
          */
-        $scope.basket = OrderService.getBasket();
+        $scope.basket = OrderService.order.items;
 
         // #############################################################################################################
         // Dialogs control

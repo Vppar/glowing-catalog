@@ -7,10 +7,10 @@
 					<div class="controls">
 						<div class="control-group lbl-top">
 							<select class='combo-width' ui-select2
-								data-placeholder="Novo Cliente" ng-model="selectedCustomerIdx">
+								data-placeholder="Novo Cliente" ng-model="customerId">
 								<option value="">Novo Cliente</option>
-								<option value="{{$index}}"
-									ng-repeat="customer in dataProvider.customers">{{customer.name}}</option>
+								<option value="{{customer.id}}"
+									ng-repeat="customer in customers">{{customer.name}}</option>
 							</select>
 						</div>
 

@@ -13,15 +13,11 @@
             var addToBasketPromise = DialogService.openDialogAddToBasket({
                 id : id
             });
-            addToBasketPromise.then(function(result) {
-                OrderService.addToBasket(result);
-            });
             addToBasketPromise.then(function() {
-                if (!OrderService.hasCustomer()) {
+                if (!OrderService.order.customerId) {
                     DialogService.openDialogChooseCustomer();
                 }
             });
         };
-
     });
 }(angular));
