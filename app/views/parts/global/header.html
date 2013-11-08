@@ -60,7 +60,7 @@
 				<!-- List -->
 			</li>
 		</ul>
-		<span ng-click='goToBasket()' class="bag pull-right">{{basket.length}}</span>
+		<span ng-click='goToBasket()' class="bag pull-right">{{order.items | count: 'qty'}}</span>
 
 	</div>
 

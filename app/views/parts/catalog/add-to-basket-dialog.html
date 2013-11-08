@@ -3,7 +3,7 @@
 		<span class="heading-gradient">{{product.title | truncate:34}}</span>
 		<span class="wrapper-qtde">
 			<div class="price-add-to-basket">{{product.price | currency}}</div> 
-			<input-qty ng-model="product.qty" min="1"></input-qty>
+			<input-qty ng-model="qty" min="1"></input-qty>
 			<div class="total-price-add-to-basket">
 				<strong>Total:</strong> 
 				<span class="rose-color">{{product.price * qty | currency}}</span>

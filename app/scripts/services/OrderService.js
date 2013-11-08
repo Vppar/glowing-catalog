@@ -1,5 +1,6 @@
 (function(angular) {
     'use strict';
+    
     angular.module('tnt.catalog.order', [
         'tnt.catalog'
     ]).service('OrderService', function OrderService(DataProvider) {
@@ -7,12 +8,12 @@
          * Template of an empty order.
          */
         var orderTemplate = {
-            id : undefined,
-            code : undefined,
-            date : undefined,
-            customerId : undefined,
-            paymentIds : undefined,
-            items : undefined
+            id : null,
+            code : null,
+            date : null,
+            customerId : null,
+            paymentIds : null,
+            items : null
         };
 
         /**
@@ -41,10 +42,6 @@
             createOrder();
         };
 
-        /**
-         * Starts the service with an empty order
-         */
-        createOrder();
 
         /**
          * Exposes the methods to outside world.

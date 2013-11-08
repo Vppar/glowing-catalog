@@ -3,11 +3,12 @@
 
     angular.module('glowingCatalogApp').controller('AddToBasketDialogCtrl', function($scope, $filter, $q, dialog, OrderService) {
 
-        /**
-         * Find the product and make a copy to the local scope.
-         */
-        var product = angular.copy($filter('findBy')(OrderService.items, 'id', dialog.data.id));
-        console.log(product);
+        if (OrderService.order.id === undefined) {
+            OrderService.createOrder();
+        }
+
+        // Find the product and make a copy to the local scope.
+        var product = $filter('findBy')(OrderService.order.items, 'id', dialog.data.id);
         $scope.product = product;
         $scope.qty = product.qty;
 
