@@ -3,15 +3,13 @@
 
     angular.module('tnt.catalog.customer.add', [
         'tnt.catalog'
-    ]).controller('AddCustomerCtrl', function($scope, $dialog, $location, DataProvider, DialogService, OrderService) {
+    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService) {
 
         // ############################################################################################################
         // Scope binding variables
         // ############################################################################################################
 
-        $scope.dataProvider = DataProvider;
-
-        $scope.failed = false;
+        $scope.birthdate = DataProvider.date;
 
         $scope.customer = {
             address : {},
@@ -51,7 +49,7 @@
 
         $scope.confirm = function confirm() {
             $scope.failed = true;
-            if (!$scope.customerForm.$valid) {
+            if (!$scope.newCustomerForm.$valid) {
                 DialogService.messageDialog({
                     title : 'Novo usuário',
                     message : 'Os campos destacados são de preenchimento obrigatório.',
@@ -67,9 +65,8 @@
             OrderService.order.customerId = customer.id;
             $location.path('/');
         };
-
-        $scope.goToBasket = function() {
-            $location.path('basket');
+        $scope.cancel = function cancel() {
+            $location.path('/');
         };
     });
 }(angular));

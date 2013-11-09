@@ -4,7 +4,7 @@
 			src="'views/parts/global/header.html'"></span>
 		</span>
 	</div>
-	<form name="customerForm" ng-class="{failed: failed}">
+	<form name="newCustomerForm" ng-class="{failed: failed}">
 		<div class="form-container">
 			<div class="row-fluid">
 				<span class="span6">
@@ -94,7 +94,7 @@
 			</div>
 			<div class="row-fluid">
 				<div class="panel-footer-new-customer">
-					<a href="#" class="btn">Cancelar</a> 
+					<a class="btn" ng-click="cancel()">Cancelar</a> 
 					<a class="btn" ng-click="confirm()">Confirmar</a>
 				</div>
 			</div>
