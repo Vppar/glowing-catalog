@@ -7,7 +7,7 @@ describe('Controller: BasketCtrl', function() {
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
-        os.order = sampleData.order;
+        os.order = angular.copy(sampleData.order);
         $filter = _$filter_;
         scope = $rootScope.$new();
         $controller('BasketCtrl', {

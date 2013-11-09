@@ -14,7 +14,7 @@ describe('Controller: AddToBasketDialogCtrl', function() {
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
-        os.order = sampleData.order;
+        os.order = angular.copy(sampleData.order);
         dialog.data = {
             id : 6
         };

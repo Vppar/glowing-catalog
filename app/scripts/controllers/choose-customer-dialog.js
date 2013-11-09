@@ -3,22 +3,30 @@
 
     angular.module('tnt.catalog.customer.choose', [
         'tnt.catalog'
-    ]).controller('ChooseCustomerDialogCtrl', function($scope, dialog, $location, DataProvider, OrderService) {
+    ]).controller('ChooseCustomerDialogCtrl', function($scope, $q, $location, dialog, DataProvider, OrderService) {
+
+        var order = OrderService.order;
 
         $scope.customers = DataProvider.customers;
-        $scope.customerId = undefined;
 
+        /**
+         * Closes the dialog without select a customer.
+         */
         $scope.cancel = function() {
-            dialog.close();
+            dialog.close($q.reject());
         };
 
-        $scope.goToAddCustomer = function() {
-            if ($scope.selectedCustomerIdx && $scope.selectedCustomerIdx !== '') {
-                OrderService.order.customerId = $scope.customerId;
+        /**
+         * Closes the dialog with a customer selected or redirect to the add new
+         * customer screen.
+         */
+        $scope.confirm = function() {
+            if ($scope.customerId && $scope.customerId !== '') {
+                order.customerId = $scope.customerId;
             } else {
-                $location.path('add-customer');
+                $location.path('add-customer');     
             }
-            dialog.close();
+            dialog.close(true);
         };
 
     });
