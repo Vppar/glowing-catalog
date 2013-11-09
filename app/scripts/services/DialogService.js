@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').service('DialogService', function($dialog) {
+    angular.module('tnt.catalog.dialog',[]).service('DialogService', function($dialog) {
 
         /**
          * Generic function to open a dialog.
@@ -38,16 +38,12 @@
             return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data);
         };
 
-        this.openDialogEditPass = function(data) {
-            return openDialog('views/parts/add-customer/edit-pass-dialog.html', 'EditPassDialogCtrl', data);
+        this.openDialogChangePass = function(data) {
+            return openDialog('views/parts/add-customer/edit-pass-dialog.html', 'ChangePassDialogCtrl', data);
         };
 
         this.openDialogChooseCustomer = function(data) {
             return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data);
-        };
-
-        this.openDialogEditPass = function(data) {
-            return openDialog('views/parts/global/edit-pass-dialog.html', 'EditPassDialogCtrl', data);
         };
 
         this.openDialogInputProducts = function(data) {

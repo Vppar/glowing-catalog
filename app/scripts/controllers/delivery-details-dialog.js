@@ -139,7 +139,7 @@
                 $scope.deliver = function() {
                     if (delivery.items.length === 0) {
                         DialogService.messageDialog({
-                            tittle : 'Detalhes da entrega',
+                            title : 'Detalhes da entrega',
                             message : 'Não é possivel registrar uma entrega sem itens.',
                             btnYes : 'OK'
                         });

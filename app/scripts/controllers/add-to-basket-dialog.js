@@ -1,23 +1,30 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller(
-            'AddToBasketDialogCtrl', function($scope, $filter, $dialog, dialog, DataProvider, OrderService, DialogService) {
+    angular.module('tnt.catalog.basket.add', [
+        'tnt.catalog'
+    ]).controller('AddToBasketDialogCtrl', function($scope, $filter, $q, dialog, OrderService) {
 
-                $scope.product = $filter('filter')(DataProvider.products, {
-                    id : dialog.data.id
-                })[0];
+        // Find the product and make a copy to the local scope.
+        var product = $filter('findBy')(OrderService.order.items, 'id', dialog.data.id);
+        $scope.product = product;
+        $scope.qty = product.qty;
 
-                $scope.cancel = function() {
-                    delete $scope.product.qty;
-                    dialog.close();
-                };
+        /**
+         * Closes the dialog telling the caller to add the product to the
+         * basket.
+         */
+        $scope.addToBasket = function addToBasket() {
+            product.qty = $scope.qty;
+            dialog.close(true);
+        };
 
-                $scope.add = function() {
-                    if (!OrderService.order.customerId) {
-                        DialogService.openDialogChooseCustomer();
-                    }
-                    dialog.close();
-                };
-            });
+        /**
+         * Closes the dialog telling the caller not to add the product to the
+         * basket.
+         */
+        $scope.cancel = function cancel() {
+            dialog.close($q.reject());
+        };
+    });
 }(angular));

@@ -1,130 +1,102 @@
-xdescribe('Service: OrderServiceSpec', function() {
+describe('Service: OrderServiceSpec', function() {
+
+    var orderTemplate = {};
 
     // load the service's module
-    beforeEach(module('glowingCatalogApp'));
+    beforeEach(function() {
+        orderTemplate = angular.copy(sampleData.orderTemplate);
+        
+        mock = {
+                customers : angular.copy(sampleData.customers),
+                products : angular.copy(sampleData.products),
+                orders : angular.copy(sampleData.orders),
+                payments : [],
+                currentPayments : {
+                    total : 0,
+                    checks : [],
+                    checksTotal : 0,
+                    creditCards : [],
+                    creditCardsTotal : 0
+                }
+        };
+        
+        module('tnt.catalog.order');
+
+        module(function($provide) {
+            $provide.value('DataProvider', mock);
+        });
+
+    });
 
     // instantiate service
     var OrderService = null;
-    var DataProvider = null;
-    beforeEach(inject(function(_OrderService_, _DataProvider_, _$filter_) {
-        OrderService = _OrderService_;
-        DataProvider = _DataProvider_;
+    beforeEach(inject(function(_$filter_, _OrderService_, _DataProvider_) {
         $filter = _$filter_;
+        DataProvider = _DataProvider_;
+        OrderService = _OrderService_;
     }));
 
     /**
      * It should inject the dependencies.
      */
-    xit('should inject dependencies', function() {
+    it('should inject dependencies', function() {
+        expect(!!$filter).toBe(true);
+        expect(!!DataProvider).toBe(true);
         expect(!!OrderService).toBe(true);
-    });
-
-    /**
-     * The function filterQty must return false when the qty value of the object
-     * is 0 and true otherwise.
-     */
-    xit('should filter products by quantity', function() {
-        var result = OrderService.filterQty({
-            qty : 0
-        });
-        expect(result).toBe(false);
-
-        result = OrderService.filterQty({
-            qty : 1
-        });
-        expect(result).toBe(true);
-    });
-
-    /**
-     * The function getBasket must return a list of products than contains qty
-     * property greater then 0.
-     */
-    xit('should list the basket items', function() {
-        DataProvider.products[0].qty = 1;
-        var productCount = OrderService.getBasket().length;
-        expect(productCount).not.toBe(0);
     });
 
     /**
      * It should discard the current order and create a brand new one.
      */
-    xit('should create an order', function() {
-        // We have to do somethings to be sure that the test are working
-        // properly.
-
-        // We have to add a product in the basket.
-        DataProvider.products[0].qty = 1;
-        // And choose a customer
-        OrderService.order.customerId = 1;
+    it('should create a new order', function() {
 
         OrderService.createOrder();
-
-        // the basket must be empty
-        var productCount = OrderService.getBasket().length;
-        expect(productCount).toBe(0);
-
-        // no customer selected
-        expect(OrderService.order.customerId).toBeFalsy();
+        
+        orderTemplate.items = angular.copy(DataProvider.products);
+        orderTemplate.paymentIds = [];
+        
+        expect(OrderService.order).toEqual(orderTemplate);
     });
 
     /**
-     * It should save the current order and create a brand new one.ou
+     * It should save the current order and create a brand new one.
      */
-    xit('should place an order', function() {
+    it('should save the order', function() {
+        OrderService.createOrder();
+        
         var selectedCustomer = DataProvider.customers[0];
-        var item = DataProvider.products[0];
         var ordersSize = DataProvider.orders.length;
         var paymentsSize = DataProvider.payments.length;
 
         // Select a customer, add a product and make a payment before place an
         // order.
+        OrderService.order.items[0].qty = 1;
         OrderService.order.customerId = selectedCustomer.id;
-        DataProvider.payments.push({
-            id : paymentsSize + 1,
-            orderId : ordersSize + 1
-        });
-        item.qty = 1;
+        OrderService.order.paymentIds.push(paymentsSize + 1);
 
-        OrderService.placeOrder();
-
-        // See if the and order was added.
-        expect(DataProvider.orders.length).toBe(ordersSize + 1);
+        OrderService.save();
 
         var order = DataProvider.orders[ordersSize];
 
-        expect(order.customerId).not.toBeUndefined();
-        expect(order.paymentId).not.toBeUndefined();
-        expect(order.items.length).toBeGreaterThan(0);
+        expect(order.id).toBe(ordersSize + 1);
+        expect(order.code).toBe('mary-000' + (ordersSize + 1) + '-13');
+        expect(order.customerId).toBe(selectedCustomer.id);
+        expect(order.paymentIds[0]).toBe(paymentsSize + 1);
+        expect(order.items[0].qty).toBe(1);
+
     });
-
+    
     /**
-     * It should remove the item from the basket.
+     * It should filter the items without qty.
      */
-    xit('should remove an item', function() {
-
-        // Let's ensure that a specific product has its quantity greater than 0,
-        // which means that it is in the basket.
-        var product = $filter('filter')(DataProvider.products, function(product) {
-            return product.id === 1;
-        })[0];
-        product.qty = 1;
-
-        // Remove the item.
-        OrderService.removeItem(product);
-        expect(product.qty).toBeUndefined();
-    });
-
-    /**
-     * It should check if the current order has a customer.
-     */
-    xit('should have a customer', function() {
-        OrderService.order.customerId = 1;
-        var result = OrderService.hasCustomer();
-        expect(result).toBe(true);
-
-        delete OrderService.order.customerId;
-        var result = OrderService.hasCustomer();
-        expect(result).toBe(false);
+    it('should filter items',function(){
+        OrderService.createOrder();
+        var products = OrderService.order.items;
+        var inBasket = OrderService.inBasketFilter;
+        var basket = $filter('filter')(products, inBasket);
+        
+        expect(basket.length).toBe(0);
+        
     });
 
 });

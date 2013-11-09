@@ -1,17 +1,15 @@
 <div class="container">
-
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include
 			src="'views/parts/global/header.html'"></span>
 		</span>
-
 	</div>
-
 	<div class="cart-scroll-content">
-		<div class="row-cart" ng-repeat="product in dataProvider.products | filter:filterQty | obInject:'mul':'qty':'price':'subtotal'">
-			<span class="thumb-row-cart"><img
-				ng-src="{{product.image}}" alt="" /></span> <span
-				class="txt-row-description"> 
+		<div class="row-cart" ng-repeat="product in order.items | filter: inBasketFilter | obInject:'mul':'qty':'price':'subtotal'">
+			<span class="thumb-row-cart">
+				<img ng-src="{{product.image}}" alt="" />
+			</span> 
+			<span class="txt-row-description"> 
 				<span class="title-row-cart">{{product.title | truncate: 50}}</span> 
 					<br />
 					{{product.description | truncate: 100}}

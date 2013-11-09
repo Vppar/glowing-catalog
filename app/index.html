@@ -2,128 +2,135 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
-  		<meta charset="UTF-8" />
-		<meta id="viewport" name="viewport"
-		content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style"
-		content="black-translucent">
-		<meta name="apple-touch-fullscreen" content="yes" />
-        <link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-2.3.2.css">
-        <link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css">
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta id="viewport" name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style"
+	content="black-translucent">
+<meta name="apple-touch-fullscreen" content="yes" />
+<link rel="stylesheet"
+	href="bower_components/bootstrap-sass/bootstrap-2.3.2.css">
+<link rel="stylesheet"
+	href="bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css">
 
-        <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="styles/com/select2/select2.css">
-        <link rel="stylesheet" href="styles/responsive-style.css">
-        <link rel="stylesheet" href="styles/grid-catalog.css">
-        <link rel="stylesheet" href="styles/data-grid/data-grid.css">
-		<link rel="stylesheet" href="styles/global.css">
-		<link rel="stylesheet" href="styles/dialogs.css">
-		<link rel="stylesheet" href="styles/basket.css">
-		<link rel="stylesheet" href="styles/payment.css">
-		<link rel="stylesheet" href="styles/add-customer.css">
-		<link rel="stylesheet" href="styles/partial-delivery.css">
-		<link rel="stylesheet" href="styles/order-list.css">
-		<link rel="stylesheet" href="styles/inventory.css">
-		<link rel="stylesheet" href="styles/previous-entries.css">
-		<link rel="stylesheet" href="styles/pending-delivery.css">
-		<link rel="stylesheet" href="styles/products-to-buy.css">
-		
-		
-		
-		
-        
-        <!-- endbuild -->
+<!-- build:css(.tmp) styles/main.css -->
+<link rel="stylesheet" href="styles/com/select2/select2.css">
+<link rel="stylesheet" href="styles/responsive-style.css">
+<link rel="stylesheet" href="styles/grid-catalog.css">
+<link rel="stylesheet" href="styles/data-grid/data-grid.css">
+<link rel="stylesheet" href="styles/global.css">
+<link rel="stylesheet" href="styles/dialogs.css">
+<link rel="stylesheet" href="styles/basket.css">
+<link rel="stylesheet" href="styles/payment.css">
+<link rel="stylesheet" href="styles/add-customer.css">
+<link rel="stylesheet" href="styles/partial-delivery.css">
+<link rel="stylesheet" href="styles/order-list.css">
+<link rel="stylesheet" href="styles/inventory.css">
+<link rel="stylesheet" href="styles/previous-entries.css">
+<link rel="stylesheet" href="styles/pending-delivery.css">
+<link rel="stylesheet" href="styles/products-to-buy.css">
+
+
+
+
+
+<!-- endbuild -->
 </head>
-  <body ng-app="glowingCatalogApp">
-    <!--[if lt IE 7]>
+<body ng-app="glowingCatalogApp">
+	<!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!--[if lt IE 9]>
+	<!--[if lt IE 9]>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div  ng-view=""></div>
+	<!-- Add your site or application content here -->
+	<div ng-view=""></div>
 
-    <script src="bower_components/jquery/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
+	<script src="bower_components/jquery/jquery.js"></script>
+	<script src="bower_components/angular/angular.js"></script>
 
-        <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
-        <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
-        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
-        <script src="bower_components/select2/select2.js"></script>
-        <script src="bower_components/angular-ui-select2/src/select2.js"></script>
-        <!-- endbuild -->
+	<!-- build:js scripts/plugins.js -->
+	<script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
+	<script
+		src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
+	<script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
+	<script src="bower_components/select2/select2.js"></script>
+	<script src="bower_components/angular-ui-select2/src/select2.js"></script>
+	<!-- endbuild -->
 
-        <!-- build:js scripts/modules.js -->
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <!-- endbuild -->
+	<!-- build:js scripts/modules.js -->
+	<script src="bower_components/angular-resource/angular-resource.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+	<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+	<!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/add-customer.js"></script>
-        <script src="scripts/controllers/basket.js"></script>
-        <script src="scripts/controllers/message-dialog.js"></script>
-        <script src="scripts/controllers/payment.js"></script>
-        <script src="scripts/controllers/delivery.js"></script>
-        <script src="scripts/controllers/edit-pass-dialog.js"></script>
-        <script src="scripts/controllers/add-to-basket-dialog.js"></script>
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/controllers/add-customer-tels-dialog.js"></script>
-        <script src="scripts/controllers/add-customer-emails-dialog.js"></script>
-        <script src="scripts/controllers/payment-credit-card-dialog.js"></script>
-        <script src="scripts/controllers/payment-check-dialog.js"></script>
-        <script src="scripts/controllers/payment-product-exchange-dialog.js"></script>
-        <script src="scripts/controllers/payment-advance-money-dialog.js"></script>
-        <script src="scripts/controllers/partial-delivery.js"></script>
-        <script src="scripts/controllers/input-products-dialog.js"></script>
-        <script src="scripts/controllers/header.js"></script>
-        <script src="scripts/controllers/choose-customer-dialog.js"></script>
-        <script src="scripts/controllers/delivery-details-dialog.js"></script>
-        <script src="scripts/controllers/order-list.js"></script>
-        <script src="scripts/controllers/customer-info-dialog.js"></script>
-        <script src="scripts/directives/inputQty.js"></script>
-        <script src="scripts/directives/phone.js"></script>
-        <script src="scripts/directives/cep.js"></script>
-        <script src="scripts/directives/number.js"></script>
-        <script src="scripts/directives/recall.js"></script>
-        <script src="scripts/directives/spy.js"></script>
-        <script src="scripts/directives/scrollSpy.js"></script>
-        <script src="scripts/directives/currency.js"></script>
-        <script src="scripts/directives/hour.js"></script>
-        <script src="scripts/filters/hour.js"></script>
-        <script src="scripts/filters/phone.js"></script>
-        <script src="scripts/filters/obInject.js"></script>
-        <script src="scripts/filters/sum.js"></script>
-        <script src="scripts/filters/truncate.js"></script>
-        <script src="scripts/services/DataProvider.js"></script>
-        <script src="scripts/services/DialogService.js"></script>
-        <script src="scripts/services/MessageService.js"></script>
-        <script src="scripts/services/InventoryService.js"></script>
-        <script src="scripts/services/OrderService.js"></script>
-        <script src="scripts/services/ThirdpartyService.js"></script>
+	<!-- build:js({.tmp,app}) scripts/scripts.js -->
+	<script src="scripts/app.js"></script>
+	<script src="scripts/controllers/main.js"></script>
+	<script src="scripts/controllers/add-customer.js"></script>
+	<script src="scripts/controllers/basket.js"></script>
+	<script src="scripts/controllers/message-dialog.js"></script>
+	<script src="scripts/controllers/payment.js"></script>
+	<script src="scripts/controllers/delivery.js"></script>
+	<script src="scripts/controllers/change-pass-dialog.js"></script>
+	<script src="scripts/controllers/add-to-basket-dialog.js"></script>
+	<script src="scripts/controllers/login.js"></script>
+	<script src="scripts/controllers/add-customer-tels-dialog.js"></script>
+	<script src="scripts/controllers/add-customer-emails-dialog.js"></script>
+	<script src="scripts/controllers/payment-credit-card-dialog.js"></script>
+	<script src="scripts/controllers/payment-check-dialog.js"></script>
+	<script src="scripts/controllers/payment-product-exchange-dialog.js"></script>
+	<script src="scripts/controllers/payment-advance-money-dialog.js"></script>
+	<script src="scripts/controllers/partial-delivery.js"></script>
+	<script src="scripts/controllers/input-products-dialog.js"></script>
+	<script src="scripts/controllers/header.js"></script>
+	<script src="scripts/controllers/choose-customer-dialog.js"></script>
+	<script src="scripts/controllers/delivery-details-dialog.js"></script>
+	<script src="scripts/controllers/order-list.js"></script>
+	<script src="scripts/controllers/customer-info-dialog.js"></script>
+	<script src="scripts/directives/cep.js"></script>
+	<script src="scripts/directives/currency.js"></script>
+	<script src="scripts/directives/hour.js"></script>
+	<script src="scripts/directives/inputQty.js"></script>
+	<script src="scripts/directives/number.js"></script>
+	<script src="scripts/directives/phone.js"></script>
+	<script src="scripts/directives/recall.js"></script>
+	<script src="scripts/directives/spy.js"></script>
+	<script src="scripts/directives/scrollSpy.js"></script>
+	<script src="scripts/filters/count.js"></script>
+	<script src="scripts/filters/findBy.js"></script>
+	<script src="scripts/filters/hour.js"></script>
+	<script src="scripts/filters/obInject.js"></script>
+	<script src="scripts/filters/phone.js"></script>
+	<script src="scripts/filters/sum.js"></script>
+	<script src="scripts/filters/truncate.js"></script>
+	<script src="scripts/services/DataProvider.js"></script>
+	<script src="scripts/services/DialogService.js"></script>
+	<script src="scripts/services/MessageService.js"></script>
+	<script src="scripts/services/InventoryService.js"></script>
+	<script src="scripts/services/OrderService.js"></script>
+	<script src="scripts/services/ThirdpartyService.js"></script>
 
-        <!-- endbuild -->
+	<!-- endbuild -->
 </body>
 </html>

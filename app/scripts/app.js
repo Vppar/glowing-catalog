@@ -1,7 +1,12 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp', [ 'ui.bootstrap', 'ui.select2' ]).config(function($routeProvider) {
+    angular.module(
+            'glowingCatalogApp',
+            [
+                'ui.bootstrap', 'ui.select2', 'tnt.catalog', 'tnt.catalog.dialog', 'tnt.catalog.order', 'tnt.catalog.basket',
+                'tnt.catalog.basket.add',  'tnt.catalog.customer.add', 'tnt.catalog.customer.choose', 'tnt.catalog.filter.findBy'
+            ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
             controller : 'MainCtrl'

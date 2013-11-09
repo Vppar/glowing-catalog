@@ -1,21 +1,16 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DataProvider, DialogService, OrderService) {
+    angular.module('tnt.catalog.basket', [
+        'tnt.catalog'
+    ]).controller('BasketCtrl', function($scope, $location, OrderService) {
 
-        $scope.dataProvider = DataProvider;
         $scope.order = OrderService.order;
-        
+        $scope.inBasketFilter = OrderService.inBasketFilter;
+
         $scope.remove = function remove(product) {
             delete product.qty;
         };
-
-        $scope.filterQty = function(product) {
-            return Boolean(product.qty);
-        };
-
-        $scope.openDialogEditPass = DialogService.openDialogEditPass;
-        $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
 
         $scope.pay = function() {
             $location.path('/payment');
