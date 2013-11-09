@@ -13,17 +13,7 @@ describe('Controller: AddToBasketDialogCtrl', function() {
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
-        os.order = {};
-        os.order.items = [
-            {
-                id : 3
-            }, {
-                id : 6,
-                qty : 456
-            }, {
-                id : 9
-            }
-        ];
+        os.order = sampleData.order;
         dialog.data = {
             id : 6
         };

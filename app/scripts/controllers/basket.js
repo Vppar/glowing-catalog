@@ -1,16 +1,15 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('BasketCtrl', function($scope, $dialog, $location, DialogService, OrderService) {
+    angular.module('tnt.catalog.basket', [
+        'tnt.catalog'
+    ]).controller('BasketCtrl', function($scope, $location, OrderService) {
 
         $scope.order = OrderService.order;
-
-        $scope.filterQty = function(item) {
-            return Boolean(item.qty);
-        };
+        $scope.inBasketFilter = OrderService.inBasketFilter;
 
         $scope.remove = function remove(product) {
-            // OrderService.removeFromBasket(product.id);
+            delete product.qty;
         };
 
         $scope.pay = function() {

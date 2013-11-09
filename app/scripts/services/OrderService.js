@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    
+
     angular.module('tnt.catalog.order', [
         'tnt.catalog'
     ]).service('OrderService', function OrderService(DataProvider) {
@@ -42,6 +42,9 @@
             createOrder();
         };
 
+        var inBasketFilter = function productsInBasketFilter(item) {
+            return Boolean(item.qty);
+        };
 
         /**
          * Exposes the methods to outside world.
@@ -49,6 +52,7 @@
         this.order = order;
         this.save = save;
         this.createOrder = createOrder;
+        this.inBasketFilter = inBasketFilter;
 
     });
 }(angular));

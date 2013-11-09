@@ -56,8 +56,18 @@
         paymentIds : null,
         items : null
     };
-    
-    
+    data.order = {
+        items : [
+            {
+                id : 3
+            }, {
+                id : 6,
+                qty : 456
+            }, {
+                id : 9
+            }
+        ]
+    };
 
     window.sampleData = data;
 }(window.sampleData || {}));

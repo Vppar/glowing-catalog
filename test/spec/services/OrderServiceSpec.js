@@ -23,7 +23,6 @@ describe('Service: OrderServiceSpec', function() {
         module('tnt.catalog.order');
 
         module(function($provide) {
-
             $provide.value('DataProvider', mock);
         });
 
@@ -85,6 +84,19 @@ describe('Service: OrderServiceSpec', function() {
         expect(order.paymentIds[0]).toBe(paymentsSize + 1);
         expect(order.items[0].qty).toBe(1);
 
+    });
+    
+    /**
+     * It should filter the items without qty.
+     */
+    it('should filter items',function(){
+        OrderService.createOrder();
+        var products = OrderService.order.items;
+        var inBasket = OrderService.inBasketFilter;
+        var basket = $filter('filter')(products, inBasket);
+        
+        expect(basket.length).toBe(0);
+        
     });
 
 });

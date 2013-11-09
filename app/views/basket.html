@@ -5,7 +5,7 @@
 		</span>
 	</div>
 	<div class="cart-scroll-content">
-		<div class="row-cart" ng-repeat="product in order.items | filter: filterQty | obInject:'mul':'qty':'price':'subtotal'">
+		<div class="row-cart" ng-repeat="product in order.items | filter: inBasketFilter | obInject:'mul':'qty':'price':'subtotal'">
 			<span class="thumb-row-cart">
 				<img ng-src="{{product.image}}" alt="" />
 			</span> 
