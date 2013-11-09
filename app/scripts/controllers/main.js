@@ -18,8 +18,9 @@
             var addToBasketPromise = DialogService.openDialogAddToBasket({
                 id : id
             });
-            addToBasketPromise.then(function() {
-                if (!OrderService.order.customerId) {
+            
+            addToBasketPromise.then(function(result) {
+                if (result && !OrderService.order.customerId) {
                     DialogService.openDialogChooseCustomer();
                 }
             });
