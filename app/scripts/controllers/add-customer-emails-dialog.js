@@ -9,27 +9,37 @@
      * @author Arnaldo
      * 
      */
-    angular.module('glowingCatalogApp').controller('AddCustomerEmailsDialogCtrl', function($scope, $filter, dialog, DialogService) {
+    angular.module('tnt.catalog.customer.add.emails', [
+        'tnt.catalog'
+    ]).controller('AddCustomerEmailsDialogCtrl', function($scope, $q, $filter, dialog, DialogService) {
 
         $scope.email = {};
+        $scope.emails = angular.copy(dialog.data.emails);
 
         /**
-         * @var emails - stores email list
-         */
-        $scope.emails = [];
-
-        /**
-         * Function addEmail - Verifies if entered email already exists in the
+         * Function add - Verifies if entered email already exists in the
          * $scope.emails array and if not, adds email to the last position of
          * $scope.emails array
          */
-        $scope.addEmail = function addEmail(item) {
-            if ($scope.emailForm.$valid) {
+        $scope.add = function add(item) {
+            if ($scope.newEmailForm.$valid) {
                 var emails = $filter('filter')($scope.emails, item.address);
                 if (emails.length === 0) {
                     $scope.emails.push(angular.copy(item));
-                    delete $scope.email;
+                    delete $scope.email.address;
+                } else {
+                    DialogService.messageDialog({
+                        title : 'Novo usuário',
+                        message : 'O e-mail informado já pertence a lista.',
+                        btnYes : 'OK'
+                    });
                 }
+            } else {
+                DialogService.messageDialog({
+                    title : 'Novo usuário',
+                    message : 'O e-mail informado é inválido.',
+                    btnYes : 'OK'
+                });
             }
         };
 
@@ -67,7 +77,7 @@
         /**
          * Submits dialog
          */
-        $scope.submitDialog = function() {
+        $scope.confirm = function() {
             var emails = {};
             if ($scope.emails.length >= 1) {
                 emails = $scope.emails;
@@ -75,11 +85,6 @@
                 emails = {
                     address : ''
                 };
-                // DialogService.messageDialog({
-                // tittle : 'Novo usuário',
-                // message : 'Nenhum e-mail foi adicionado a lista.',
-                //                    btnYes : 'OK'
-                //                });
             }
             dialog.close(emails);
         };
@@ -87,19 +92,9 @@
         /**
          * Closes dialog
          */
-        $scope.closeDialog = function() {
-            dialog.close(dialog.data.emails);
+        $scope.cancel = function() {
+            dialog.close($q.reject());
         };
 
-        /**
-         * Main function that starts up the scope.
-         */
-        function main() {
-            if (dialog.data.emails[0] && dialog.data.emails[0].address && dialog.data.emails[0].address !== '') {
-                $scope.email.address = '';
-                $scope.emails = angular.copy(dialog.data.emails);
-            }
-        }
-        main();
     });
 }(angular));

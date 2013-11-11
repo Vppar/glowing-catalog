@@ -21,11 +21,11 @@
         $scope.phoneTypes = DataProvider.phoneTypes;
 
         /**
-         * Function addPhone - Verifies if entered phone already exists in the
+         * Function add - Verifies if entered phone already exists in the
          * $scope.phones array and if not, adds phone to the last position of
          * $scope.phones array
          */
-        $scope.add = function addPhone(item) {
+        $scope.add = function add(item) {
             if ($scope.newPhoneForm.$valid) {
                 var phone = $filter('filter')($scope.phones, item.number);
                 if (phone.length === 0) {
