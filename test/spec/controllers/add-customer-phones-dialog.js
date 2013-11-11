@@ -17,7 +17,7 @@ describe('Controller: AddCustomerPhonesDialogCtrl', function() {
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         ds.messageDialog = jasmine.createSpy();
         dp.phoneTypes = [
-            'Residencial', 'Comercial', 'Celular', 'Skype'
+            'Residencial', 'Comercial', 'Celular'
         ];
         dialog.data = {
             phones : [

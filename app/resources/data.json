@@ -44,7 +44,7 @@
     "states": ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI",
         "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
     ],
-    "phoneTypes": ["Residencial", "Comercial", "Celular", "Skype"],
+    "phoneTypes": ["Residencial", "Comercial", "Celular"],
     "cardData": {
         "flags": ["American Express", "Aura", "BNDES", "Diners Club", "Elo", "Hipercard", "MasterCard", "Sorocred", "Visa"],
         "installments": ["À vista", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x"]
