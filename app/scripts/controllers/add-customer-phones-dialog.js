@@ -11,28 +11,40 @@
      */
     angular.module('tnt.catalog.customer.add.phones', [
         'tnt.catalog'
-    ]).controller('AddCustomerPhonesDialogCtrl', function($scope, $filter, dialog, DataProvider, DialogService) {
+    ]).controller('AddCustomerPhonesDialogCtrl', function($scope, $q, $filter, dialog, DataProvider, DialogService) {
 
-        $scope.dataProvider = DataProvider;
-        $scope.phone = {};
-
-        /**
-         * @var phones - stores phone list
-         */
-        $scope.phones = [];
+        $scope.phone = {
+            number : undefined,
+            type : undefined
+        };
+        $scope.phones = angular.copy(dialog.data.phones);
+        $scope.phoneTypes = DataProvider.phoneTypes;
 
         /**
          * Function addPhone - Verifies if entered phone already exists in the
          * $scope.phones array and if not, adds phone to the last position of
          * $scope.phones array
          */
-        $scope.addPhone = function addPhone(item) {
-            if ($scope.phoneForm.$valid) {
+        $scope.add = function addPhone(item) {
+            if ($scope.newPhoneForm.$valid) {
                 var phone = $filter('filter')($scope.phones, item.number);
                 if (phone.length === 0) {
                     $scope.phones.push(angular.copy(item));
-                    delete $scope.phone;
+                    delete $scope.phone.number;
+                    delete $scope.phone.type;
+                } else {
+                    DialogService.messageDialog({
+                        title : 'Novo usuário',
+                        message : 'O telefone informado já pertence a lista.',
+                        btnYes : 'OK'
+                    });
                 }
+            } else {
+                DialogService.messageDialog({
+                    title : 'Novo usuário',
+                    message : 'O telefone informado é inválido.',
+                    btnYes : 'OK'
+                });
             }
         };
 
@@ -70,7 +82,7 @@
         /**
          * Submits dialog
          */
-        $scope.submitDialog = function() {
+        $scope.confirm = function() {
             var phones = {};
             if ($scope.phones.length >= 1) {
                 phones = $scope.phones;
@@ -78,11 +90,6 @@
                 phones = {
                     number : ''
                 };
-                // DialogService.messageDialog({
-                // tittle : 'Novo usuário',
-                // message : 'Nenhum telefone foi adicionado a lista.',
-                // btnYes : 'OK'
-                // });
             }
             dialog.close(phones);
         };
@@ -90,20 +97,9 @@
         /**
          * Closes dialog
          */
-        $scope.closeDialog = function() {
-            dialog.close(dialog.data.phones);
+        $scope.cancel = function() {
+            dialog.close($q.reject());
         };
-
-        /**
-         * Main function that starts up the scope.
-         */
-        function main() {
-            if (dialog.data.phones[0] && dialog.data.phones[0].type) {
-                $scope.phone.number = '';
-                $scope.phones = angular.copy(dialog.data.phones);
-            }
-        }
-        main();
 
     });
 }(angular));
