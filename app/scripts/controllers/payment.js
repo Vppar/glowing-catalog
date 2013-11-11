@@ -2,7 +2,9 @@
     'use strict';
 
     angular
-            .module('glowingCatalogApp')
+            .module('tnt.catalog.payment', [
+                'tnt.catalog'
+            ])
             .controller(
                     'PaymentCtrl',
                     function($filter, $scope, $dialog, $location, $q, DataProvider, DialogService, OrderService, MessageService) {

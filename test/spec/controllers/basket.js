@@ -16,6 +16,9 @@ describe('Controller: BasketCtrl', function() {
         });
     }));
 
+    /**
+     * Should remove items from the order by deleting its qty.
+     */
     it('should remove items', function() {
         scope.remove(scope.order.items[1]);
         expect(scope.order.items[1].qty).toBeUndefined();
