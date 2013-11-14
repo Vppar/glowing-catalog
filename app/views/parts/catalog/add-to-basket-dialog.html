@@ -1,26 +1,24 @@
 <div class="container">
 	<form class="form-add-to-basket">
-		<span class="heading-gradient">{{product.title | truncate:34}}</span>
+		<span class="heading-gradient">{{product.title}}</span>
 		<span class="wrapper-qtde">
-			<div class="price-add-to-basket">{{product.price | currency}}</div> 
+			<div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div> 
 			<input-qty ng-model="qty" min="1"></input-qty>
 			<div class="total-price-add-to-basket">
-				<strong>Total:</strong> 
-				<span class="rose-color">{{product.price * qty | currency}}</span>
+				Total R$ <span class="price-popup-sub">{{product.price
+					* qty | currency:''}}</span>
 			</div>
+            <div class="line-gradient">&nbsp;</div>
+            <div class="quantity-products-basket">em estoque <span>42</span></div>
 		</span>
-		<div class="img-catalog-02">
+		<div class="img-catalog-basket">
 			<img ng-src="{{product.image}}" alt="" />
 		</div>
 		<div class="clearfix"></div>
 		<hr />
-		<button 
-			class="btn btn-large btn-login" 
-			type="submit"
-			ng-click="cancel()">Cancelar</button>
-		<button 
-			class="btn btn-large btn-login pull-right"
-			type="submit"
-			ng-click="addToBasket()">Adicionar</button>
+		<button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"
+			type="submit">Cancelar</button>
+		<button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right"
+			type="submit">Adicionar</button>
 	</form>
 </div>
