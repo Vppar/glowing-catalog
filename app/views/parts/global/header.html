@@ -4,63 +4,55 @@
 	<div class="navbar-inner">
 
 		<a class="brand" href="#"><img src="images/logo-home.png" /></a>
-		<ul class="nav">
-			<li >
-				<a href="#">LAN&Ccedil;AMENTOS</a>
-			</li>
-			<li>
-				<a href="#">MAIS VENDIDOS</a>
-			</li>
-			<li>
-				<a href="#">EDI&Ccedil;&Atilde;O LIMITADA</a>
-			</li>
-			<li>
-				<a href="#/inventory">ESTOQUE</a>
-			</li>
-			<li>
-				<a href="#/order-list">PEDIDOS</a>
-			</li>
-			<li>
-				<a href="#">FINANCEIRO</a>
-			</li>
-			<li>
-				<a href="#">AGENDA</a>
-			</li>
-			<li class="dropdown">
-
-			</li>
-			<li class="dropdown" >
-				<!-- Trigger -->
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="ic-nav-top"> <span class="ipad-none-v"><img src="images/ic-gear-header.png" alt="" /></span> </span> </a>
-				<!-- !Trigger -->
-				<!-- List -->
-				<ul class="dropdown-menu">
-					<li>
-						<a class="hover-state-pointer" ng-click='openDialogEditPass()' class="gren-item-menu">Trocar Senha</a>
-					</li>
-					<li>
-						<a href="#/login">login</a>
-					</li>
-					<li>
-						<a class="hover-state-pointer" ng-click='openDialogChooseCustomer()'>choose-customer</a>
-					</li>
-					<li>
-						<a class="hover-state-pointer" ng-click='openDialogInputProducts()'>input-products</a>
-					</li>
-					<li>
-						<a href="#/pending-delivery">pending-delivery</a>
-					</li>
-					<li>
-						<a href="#/previous-entries">previous-entries</a>
-					</li>
-					<li>
-						<a href="#/products-to-buy">products-to-buy</a>
-					</li>
-				</ul>
+		<nav id="topMenuHome">
+            <ul class="nav">
+                <li>
+                    <a href="#">LAN&Ccedil;AMENTOS</a>
+                </li>
+                <li>
+                    <a href="#">MAIS VENDIDOS</a>
+                </li>
+                <li>
+                    <a href="#">EDI&Ccedil;&Atilde;O LIMITADA</a>
+                </li>
+             </ul>
+             <ul class="nav">
+             	<li><span ng-click='goToBasket()' class="bag pull-right">{{order.items | count: 'qty'}}</span></li>
+                <li class="header-hour"><div>22:24</div><br /><div class="header-date">05 Nov 2013</div></li>
+ 
+                <li class="dropdown" >
+                    <!-- Trigger -->
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="ic-nav-top"> <span class="ipad-none-v"><img src="images/icon-drop-menu.png" alt="" /></span> </span> </a>
+                    <!-- !Trigger -->
+                    <!-- List -->
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="hover-state-pointer" ng-click='openDialogEditPass()' class="gren-item-menu">Trocar Senha</a>
+                        </li>
+                        <li>
+                            <a href="#/login">login</a>
+                        </li>
+                        <li>
+                            <a class="hover-state-pointer" ng-click='openDialogChooseCustomer()'>choose-customer</a>
+                        </li>
+                        <li>
+                            <a class="hover-state-pointer" ng-click='openDialogInputProducts()'>input-products</a>
+                        </li>
+                        <li>
+                            <a href="#/pending-delivery">pending-delivery</a>
+                        </li>
+                        <li>
+                            <a href="#/previous-entries">previous-entries</a>
+                        </li>
+                        <li>
+                            <a href="#/products-to-buy">products-to-buy</a>
+                        </li>
+                    </ul>
+                </nav>
 				<!-- List -->
 			</li>
 		</ul>
-		<span ng-click='goToBasket()' class="bag pull-right">{{order.items | count: 'qty'}}</span>
+		
 
 	</div>
 
