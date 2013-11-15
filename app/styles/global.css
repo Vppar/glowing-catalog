@@ -779,8 +779,16 @@ nav ul li {
 	background-image: url(../images/plus.png);
 	border-radius: 50%
 }
+.bottom-products-left .btn-plus2 {
+	display: inline-block;
+	float: right;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/plus-w.png);
+	border-radius: 50%
 }
-.bottom-products-left .btn-plus:hover {
+}
+.bottom-products-left .btn-plus:hover, .bottom-products-left .btn-plus2:hover {
 	cursor: pointer
 }
 
@@ -799,7 +807,7 @@ nav ul li {
 	display: inline-block;
 	float: left;
 	margin-left:6px;
-	font-size:20px;
+	font-size:18px;
 }
 .img-catalog-basket img {
 	text-align:center;
@@ -816,7 +824,15 @@ nav ul li {
 	background-image: url(../images/plus.png);
 	border-radius: 50%
 }
-.bottom-products-right .btn-plus:hover {
+.bottom-products-right .btn-plus2 {
+	display: inline-block;
+	float: right;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/plus-w.png);
+	border-radius: 50%
+}
+.bottom-products-right .btn-plus:hover, .bottom-products-right .btn-plus2:hover {
 	cursor: pointer
 }
 /*nav-footer*/
