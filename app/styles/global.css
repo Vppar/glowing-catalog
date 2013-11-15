@@ -462,7 +462,9 @@ body {
 	color: #fff;
 	height: 66px
 }
-
+.form-signin-heading img {
+	margin:18px 14px 14px 14px;
+}
 .form-signin input[type="text"], .form-signin input[type="password"] {
 	font-size: 16px;
 	height: auto;
@@ -801,7 +803,7 @@ nav ul li {
 	display: inline-block;
 	float: left;
 	margin-left:6px;
-	font-size:20px;
+	font-size:18px;
 }
 .bottom-products-left .price-number {
 	display: inline-block;
