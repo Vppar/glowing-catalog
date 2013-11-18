@@ -12,7 +12,7 @@
         $scope.openDialogAddToBasket = function(id) {
             
             if (OrderService.order.id === undefined) {
-                OrderService.createOrder();
+                OrderService.createNew();
             }
             
             var addToBasketPromise = DialogService.openDialogAddToBasket({
