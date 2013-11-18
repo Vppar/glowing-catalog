@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.basket', [
-        'tnt.catalog'
+        'tnt.catalog.service.data'
     ]).controller('BasketCtrl', function($scope, $location, OrderService) {
 
         $scope.order = OrderService.order;
