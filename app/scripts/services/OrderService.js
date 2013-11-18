@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.order', [
-        'tnt.catalog'
+    angular.module('tnt.catalog.service.order', [
+        'tnt.catalog.service.data'
     ]).service('OrderService', function OrderService(DataProvider) {
         /**
          * Template of an empty order.
@@ -24,7 +24,7 @@
         /**
          * Creates a brand new order.
          */
-        var createOrder = function createOrder() {
+        var createNew = function createNew() {
             angular.extend(order, orderTemplate);
             order.paymentIds = [];
             order.items = angular.copy(DataProvider.products);
@@ -37,9 +37,18 @@
             order.id = DataProvider.orders.length + 1;
             order.date = new Date();
             order.code = 'mary-' + ('0000' + order.id).slice(-4) + '-' + String(order.date.getFullYear()).slice(-2);
-            DataProvider.orders.push(angular.copy(order));
 
-            createOrder();
+            var savedOrder = angular.copy(order);
+            DataProvider.orders.push(savedOrder);
+
+            return savedOrder;
+        };
+
+        /**
+         * Reset the current order.
+         */
+        var clear = function clear() {
+            order = {};
         };
 
         var inBasketFilter = function productsInBasketFilter(item) {
@@ -50,8 +59,9 @@
          * Exposes the methods to outside world.
          */
         this.order = order;
+        this.createNew = createNew;
         this.save = save;
-        this.createOrder = createOrder;
+        this.clear = clear;
         this.inBasketFilter = inBasketFilter;
 
     });

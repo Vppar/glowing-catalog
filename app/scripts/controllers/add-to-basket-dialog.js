@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.basket.add', [
-        'tnt.catalog'
+        'tnt.catalog.service.data'
     ]).controller('AddToBasketDialogCtrl', function($scope, $filter, $q, dialog, OrderService) {
 
         // Find the product and make a copy to the local scope.
