@@ -8,7 +8,7 @@
 
 <div class="left-payment">
 	<div class="header">
-		<span class="col-1">Produto</span><span class="col-2">Qtde</span><span class="col-3">Valor</span>
+		<span class="col-1">Item</span><span class="col-2">Produto/Código</span><span class="col-3">Vr Unitário</span><span class="col-4">Qtde</span><span class="col-5">Vr Total</span>
 	</div>
 	
 	<div class="content-scroll">
@@ -17,9 +17,9 @@
 			<span class="col-2">{{product.qty}}</span><span class="col-3">{{product.subtotal | currency:''}}</span>
 		</div>
 	</div>
-	<div class="header2">
-		<span class="col-1">{{productsCount}} itens</span><span class="col-2">Total</span><span class="col-3">{{productsTotal | currency:''}}</span>
-	</div>
+	<!--<div class="header2">
+		<span class="col-1">{{productsCount}} itens</span><span class="col-2">Total</span><span class="col-3">{{productsTotal | currency:''}}</span><span class="col-4">Qtde</span><span class="col-5">Vr Total</span>
+	</div>-->
 </div>
 
 
@@ -32,6 +32,3 @@
 		<span ng-repeat="phone in customer.phones">{{phone}}</span>
 	</div>
 </div>
-<span class="panel-payment-footer-left">
-		<button ng-click='closeDialog()' class="btn" type="submit">Cancelar</button>
-</span>

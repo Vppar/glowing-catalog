@@ -4,16 +4,36 @@
 					</div>
 					
 				</div>
-				<div class="btns-right-payment">
-					<div class="row-right-payment">
-				<div class="btn-payments-left">
-					<span class="container-money-payment">
-						<span class="label-money">DINHEIRO</span>
-					</span>
-					<span class="btn-price-payment-input-block input-block-level">
-						<input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
-					</span>
-				</div>
+				<div class="btns-right-payment right-column-payment">
+                <div class="row-right-payment">
+                        <div class="btn-payments-left">
+                            <span class="container-money-payment">
+                                <span class="label-form-client">Cliente</span>
+                            </span>
+                            <span class="btn-price-payment-input-block input-block-level">
+                                <input class="input-name-payment text-right" id="appendedInput" type="text" ng-model="name" recall>
+                            </span>
+                        </div>
+					</div>
+					<div class="row-right-payment2">
+                        <div class="btn-payments-left">
+                            <span class="container-money-payment">
+                                <span class="label-money">Subtotal</span>
+                            </span>
+                            <span class="btn-price-payment-input-block input-block-level">
+                                <input class="sub-total-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
+                            </span>
+                        </div>
+					</div>
+                    <div class="row-right-payment">
+                        <div class="btn-payments-left">
+                            <span class="container-money-payment">
+                                <span class="label-money">DINHEIRO</span>
+                            </span>
+                            <span class="btn-price-payment-input-block input-block-level">
+                                <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
+                            </span>
+                        </div>
 					</div>
 					<div ng-click='openDialogCheck()' class="row-right-payment">
 						<span class="lbl-money">CHEQUE ( {{dataProvider.currentPayments.checks.length}} )</span><span class=""><span class="btn-price-payment">{{dataProvider.currentPayments.checksTotal | currency:''}}</span></span>
@@ -25,36 +45,27 @@
 						<span class="lbl-money">TROCA  ( 0 produto )</span><span class=""><span class="btn-price-payment"></span></span>
 					</div>
 					<div class="row-right-payment" ng-click='openDialogAdvanceMoney()'>
-						<span class="lbl-money">ADIANTAMENTO ( 0,00 )</span><span class=""><span class="btn-price-payment">0,00</span></span>
+						<span class="lbl-money">Vale/Cupom ( 0,00 )</span><span class=""><span class="btn-price-paymen btn-price-payment2">0,00</span></span>
 					</div>
+                    <div class="payment-resume">
+                        <div class="lbl-resume">
+                            <div class="red-color">
+                                TROCO
+                            </div>
+                        </div>
+                        <div class="values-resume">
+                            <div class="red-color">
+                                {{(((dataProvider.currentPayments.total + cash) - productsTotal) > 0 && ((dataProvider.currentPayments.total + cash) - productsTotal) || 0) | currency:''}}
+                            </div>
+                        </div>
+				</div><br />
 					<div class="row-right-payment">
-						<span class="lbl-money">CUPOM PROMOCIONAL ( 0,00 )</span><span class=""><span class="btn-price-payment">0,00</span></span>
+						<span class="lbl-money">EMITIR VALE/CUPOM ( 0,00 )</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
 					</div>
 				</div>
-				<div class="payment-resume">
-					<div class="lbl-resume">
-						<div>
-							TOTAL RECEBIDO
-						</div>
-						<div>
-							TOTAL DO PEDIDO
-						</div>
-						<div class="red-color">
-							TROCO
-						</div>
-					</div>
-					<div class="values-resume">
-						<div>
-							{{dataProvider.currentPayments.total + cash | currency:''}}
-						</div>
-						<div>
-							{{productsTotal | currency: ''}}
-						</div>
-						<div class="red-color">
-							{{(((dataProvider.currentPayments.total + cash) - productsTotal) > 0 && ((dataProvider.currentPayments.total + cash) - productsTotal) || 0) | currency:''}}
-						</div>
-					</div>
-				</div>
+				<span class="panel-payment-footer-left">
+					<button ng-click='closeDialog()' class="btn btn-cancel" type="submit">Cancelar</button>
+				</span>
 				<span class="panel-payment-footer-right">
-					<button ng-click='confirm()' class="btn " type="submit">Confirmar</button>
+					<button ng-click='confirm()' class="btn btn-ok" type="submit">Confirmar</button>
 				</span>

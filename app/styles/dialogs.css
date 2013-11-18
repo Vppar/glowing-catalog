@@ -240,7 +240,19 @@
 }
 .input-money-payment {
 	width: 98px;
-	border: 1px solid #e0e0e0 !important;
+	margin:0px 0 0 0;
+	border: 1px solid #FCFCFC !important;
+}
+input.sub-total-payment {
+	background-color:#fff;
+	border:0;
+	font-size:18px;
+}
+.input-name-payment {
+	width: 200px;
+	border: 1px solid #FCFCFC !important;
+	margin: 10px 0 0 0;
+	text-align:left;
 }
 .combo-width-1 {
 	width: 75px;
@@ -327,7 +339,7 @@
 /*confirmation dialog*/
 .form-confirmation-dialog {
 	margin-left: -205px;
-	width: 350px
+	width: 360px
 }
 /*payment check*/
 .form-payment-check .btn-plus-payment-check {
