@@ -10,7 +10,7 @@
      * 
      */
     angular.module('tnt.catalog.customer.add.phones', [
-        'tnt.catalog'
+        'tnt.catalog.service.data'
     ]).controller('AddCustomerPhonesDialogCtrl', function($scope, $q, $filter, dialog, DataProvider, DialogService) {
 
         $scope.phone = {

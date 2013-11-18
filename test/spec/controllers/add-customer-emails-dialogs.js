@@ -20,11 +20,9 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
             emails : [
                 {
                     address : 'email1@emailprovider.com',
-                },
-                {
+                }, {
                     address : 'email2@emailprovider.com',
-                },
-                {
+                }, {
                     address : 'email3@emailprovider.com',
                 }
             ]
@@ -81,7 +79,7 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
         // Add one email
         scope.add(scope.email);
 
-        var emailsSize = scope.emails.length;
+        var lastItem = scope.emails.length;
 
         // Try to add the same email again
         scope.email = angular.copy(email);
@@ -92,7 +90,7 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
         });
 
         // Test if the emails list size increased.
-        expect(scope.emails.length).toBe(emailsSize);
+        expect(scope.emails.length).toBe(lastItem);
         // There can be only one.
         expect(matchedEmails.length).toBe(1);
         // Warn the user that this number is already in the list

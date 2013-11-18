@@ -2,7 +2,7 @@ describe('Controller: AddCustomerCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
-        module('tnt.catalog.customer.add');
+        module('tnt.catalog.customer');
         module('tnt.catalog.filter.findBy');
     });
 
@@ -66,7 +66,7 @@ describe('Controller: AddCustomerCtrl', function() {
 
         scope.confirm();
 
-        var newCustomer = $filter('findBy')(dp.customers, 'id', customersSize+1);
+        var newCustomer = $filter('findBy')(dp.customers, 'id', customersSize + 1);
 
         expect(dp.customers.length).toBe(customersSize + 1);
         expect(scope.customer).toEqual(newCustomer);

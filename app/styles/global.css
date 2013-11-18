@@ -6,7 +6,7 @@
 /*input focus*/
 textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
 	background-color: white;
-	border: 1px solid #cccccc !important;
+	border: 1px solid #cccccc;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0) !important;
 	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0) !important;
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0) !important;
@@ -99,6 +99,9 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 /*background colors*/
 .bg-pink {
 	background: #e2a9a8;
+}
+.bg-pink2 {
+	background: #ee72ba;
 }
 .bg-green {
 	background-color: #5d9732
@@ -264,6 +267,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 }
 .footer-product-right-02 .last-oportunitie {
 	margin-top: -8px;
+	font-size:120%;
 	clear: both
 }
 /*alpha dialog*/
@@ -307,7 +311,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 /*main container*/
 body {
-	background: #f7f7f7
+	background: #fafafa
 }
 .last-oportunitie {
 	padding: 5px;
@@ -322,7 +326,7 @@ body {
 }
 /*btn forms*/
 .container .add-on {
-	background: #ecbab9;
+	/*background: #ecbab9;*/
 	text-shadow: none;
 	color: #333;
 }
@@ -385,18 +389,29 @@ body {
 	border-radius: 4px;
 }
 .btn {
-	background: #ecbab9;
 	border: none;
 	text-shadow: none;
-	color: #333;
-	font-size: 14px;
+	color: #fff;
+	font-size: 16px;
 	min-width: 86px;
 	max-width: 300px;
-	padding: 5px;
+	padding: 8px;
 	white-space: nowrap;
 	overflow: hidden;
 	padding-left: 10px !important;
 	padding-right: 10px !important;
+}
+.btn-ok{
+	background: #5d9732;
+}
+.btn-cancel {
+	background: #333;
+}
+.btn-ok:hover{
+	background: #48841c !important;
+}
+.btn-cancel:hover {
+	background: #000 !important;
 }
 .dropdown-menu .btn {
 	background: #fff;
@@ -424,7 +439,7 @@ body {
 	vertical-align: top;
 }
 .form-signin {
-	width: 290px;
+	width: 360px;
 	padding: 40px 30px 30px 30px;
 	border-radius: 0 0 4px 4px;
 	box-shadow: 0px 10px 50px 10px #999;
@@ -447,7 +462,9 @@ body {
 	color: #fff;
 	height: 66px
 }
-
+.form-signin-heading img {
+	margin:18px 14px 14px 14px;
+}
 .form-signin input[type="text"], .form-signin input[type="password"] {
 	font-size: 16px;
 	height: auto;
@@ -459,10 +476,12 @@ body {
 	margin-bottom: 10px
 }
 .nav {
-	font-size: 11px;
+	font-size: 14px;
 }
 .nav .dropdown {
+	float:right !important;
 	font-size: 14px;
+	margin:-5px 0 0 2px;
 }
 .nav .dropdown ul li a {
 	padding: 10px 10px 10px 10px;
@@ -474,7 +493,19 @@ body {
 	border-bottom: 1px solid transparent
 }
 .sidebar-menu .nav {
-	font-size: 12px
+	font-size: 100%;
+}
+.header-hour div{
+	font-size:18px;
+	color:#CCC;
+	height:20px;
+	margin-left:5px;
+	text-align:center;
+}
+div.header-date {
+	font-size:14px;
+	color:#CCC;
+	margin-top:-20px;
 }
 .bag:hover {
 	cursor: pointer
@@ -485,10 +516,11 @@ body {
 	width: 100px;
 	width: 42px;
 	height: 36px;
-	margin: 5px 10px 0 0;
+	margin: 0px 10px 0 0;
 	text-align: center;
 	padding-top: 15px;
 	-webkit-tap-highlight-color: transparent;
+	font-size:15px;
 }
 /*nav header*/
 
@@ -505,7 +537,8 @@ body {
 	filter: none !important;
 }
 .navbar .dropdown .dropdown-menu {
-	margin: 0 0 0 -6px
+	margin: 0 0 0 -154px;
+	width:200px;
 }
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
 	color: #ffffff;
@@ -518,9 +551,16 @@ body {
 	text-decoration: none;
 	text-shadow: 0 1px 0 #ffffff;
 }
+#topMenuHome {
+	margin: 18px auto 0 290px;
+}
+nav ul li {
+	margin-right:25px;
+	/*border-bottom:1px solid #F99;*/
+}
 .container .navbar .nav {
 	float: none;
-	margin: 10px;
+	margin: 18px auto 0 auto;
 }
 
 .text-product {
@@ -575,7 +615,7 @@ body {
 }
 
 .img-catalog-01 {
-	padding-top: 10px
+	padding-top: 6px
 }
 /*line*/
 .line-gradient-01 {
@@ -595,6 +635,10 @@ body {
 	max-width: 90px;
 	max-height: 90px;
 }
+.img-catalog-basket img {
+	max-width: 190px;
+	/*max-height: 90px;*/
+}
 .col-right .img-catalog-02 img {
 	max-width: 90px;
 	max-height: 90px;
@@ -607,8 +651,8 @@ body {
 /*title*/
 .title-01 {
 	text-align: center;
-	padding-top: 10px;
-	font-size: 24px
+	padding-top: 14px;
+	font-size: 26px
 }
 .box-catalog {
 	border-radius: 6px;
@@ -687,12 +731,12 @@ body {
 	-moz-border-radius: 0;
 	border-radius: 0;
 	*zoom: 1;
-	background: url(../images/bg-header.png) no-repeat;
+	background: #000;
 }
 .container .navbar .brand {
 	float: left;
 	display: block;
-	padding: 0 0 0 20px;
+	padding: 20px 0 0 40px;
 }
 .mary-content {
 
@@ -713,8 +757,8 @@ body {
 	position: fixed;
 	left: 50%;
 	margin-left: -512px;
-	bottom: 0px;
-	border-top: 4px solid #fff;
+	bottom: -2px;
+	border-top: 0px solid #fff;
 	box-shadow: 0px 0px 10px 0px #666;
 }
 .footer a:active {
@@ -732,29 +776,65 @@ body {
 .bottom-products-left .btn-plus {
 	display: inline-block;
 	float: right;
-	width: 21px;
-	height: 21px;
+	width: 24px;
+	height: 24px;
 	background-image: url(../images/plus.png);
-	border-radius: 10px
+	border-radius: 50%
+}
+.bottom-products-left .btn-plus2 {
+	display: inline-block;
+	float: right;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/plus-w.png);
+	border-radius: 50%
 }
 }
-.bottom-products-left .btn-plus:hover {
+.bottom-products-left .btn-plus:hover, .bottom-products-left .btn-plus2:hover {
 	cursor: pointer
 }
 
 .bottom-products-right .price {
 	display: inline-block;
 	float: left;
+	vertical-align:bottom;
 }
+.bottom-products-right .price-number {
+	display: inline-block;
+	float: left;
+	margin-left:6px;
+	font-size:18px;
+}
+.bottom-products-left .price-number {
+	display: inline-block;
+	float: left;
+	margin-left:6px;
+	font-size:18px;
+}
+.img-catalog-basket img {
+	text-align:center;
+	vertical-align:center;
+	display:block;
+	margin:auto auto;
+}
+
 .bottom-products-right .btn-plus {
 	display: inline-block;
 	float: right;
-	width: 21px;
-	height: 21px;
+	width: 24px;
+	height: 24px;
 	background-image: url(../images/plus.png);
-	border-radius: 10px
+	border-radius: 50%
 }
-.bottom-products-right .btn-plus:hover {
+.bottom-products-right .btn-plus2 {
+	display: inline-block;
+	float: right;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/plus-w.png);
+	border-radius: 50%
+}
+.bottom-products-right .btn-plus:hover, .bottom-products-right .btn-plus2:hover {
 	cursor: pointer
 }
 /*nav-footer*/
