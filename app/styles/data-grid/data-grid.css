@@ -369,8 +369,9 @@
 	-webkit-overflow-scrolling: touch;
 }
 .grid-payment-advance-money .header {
-	background: #ecbab9;
-	border-radius: 4px
+	background: #333;
+	border-radius: 4px;
+	color:#fff;
 }
 .grid-payment-advance-money .header span, .grid-payment-advance-money .scroll-payment-grid-advance-money  span {
 	display: inline-block;

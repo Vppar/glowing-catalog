@@ -32,7 +32,8 @@
 }
 
 .btn:hover {
-	background: #e2a9a8 !important;
+	background: #111 !important;
+	color:white
 }
 .form-previous-entries .combo-width {
 	width: 277px !important;
