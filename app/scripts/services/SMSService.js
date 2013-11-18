@@ -1,6 +1,6 @@
 (function(angular) {
     angular
-            .module('tnt.catalog.sms', [
+            .module('tnt.catalog.service.sms', [
                 'tnt.catalog.service.data'
             ])
             .service(

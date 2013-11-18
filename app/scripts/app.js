@@ -4,8 +4,8 @@
     angular.module(
             'glowingCatalogApp',
             [
-                'ui.bootstrap', 'ui.select2', 'tnt.catalog.filter.findBy', 'tnt.catalog.service.data', 'tnt.catalog.service.dialog',
-                'tnt.catalog.service.order', 'tnt.catalog.service.payment', 'tnt.catalog.basket', 'tnt.catalog.basket.add',
+                'ui.bootstrap', 'ui.select2', 'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum', 'tnt.catalog.service.data', 'tnt.catalog.service.dialog',
+                'tnt.catalog.service.order', 'tnt.catalog.service.payment', 'tnt.catalog.service.sms', 'tnt.catalog.basket', 'tnt.catalog.basket.add',
                 'tnt.catalog.customer', 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails',
                 'tnt.catalog.customer.choose', 'tnt.catalog.payment'
             ]).config(function($routeProvider) {
