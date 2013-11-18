@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog', []).service('DataProvider', function DataProvider($http) {
+    angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http) {
 
         var scope = this;
 

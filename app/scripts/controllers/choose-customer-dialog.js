@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.customer.choose', [
-        'tnt.catalog'
+        'tnt.catalog.service.data'
     ]).controller('ChooseCustomerDialogCtrl', function($scope, $q, $location, dialog, DataProvider, OrderService) {
 
         var order = OrderService.order;
@@ -24,7 +24,7 @@
             if ($scope.customerId && $scope.customerId !== '') {
                 order.customerId = $scope.customerId;
             } else {
-                $location.path('add-customer');     
+                $location.path('add-customer');
             }
             dialog.close(true);
         };

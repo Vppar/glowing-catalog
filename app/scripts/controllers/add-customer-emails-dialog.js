@@ -10,7 +10,7 @@
      * 
      */
     angular.module('tnt.catalog.customer.add.emails', [
-        'tnt.catalog'
+        'tnt.catalog.service.data'
     ]).controller('AddCustomerEmailsDialogCtrl', function($scope, $q, $filter, dialog, DialogService) {
 
         $scope.email = {};
