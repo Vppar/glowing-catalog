@@ -31,28 +31,24 @@ describe('Controller: PaymentCtrl', function() {
         // OrdeService mock
         os.order = angular.copy(sampleData.order);
         os.order.customerId = 1;
-        os.save = jasmine.createSpy('OrderService.save').andCallFake(function() {
-            return {
-                id : 1,
-                customerId : 1,
-                paymentIds : []
-            };
+        os.save = jasmine.createSpy('OrderService.save').andReturn({
+            id : 1,
+            customerId : 1,
+            paymentIds : []
         });
         os.clear = jasmine.createSpy('OrderService.clear');
 
         // PaymentService mock
         ps.payments = angular.copy(sampleData.payments);
-        ps.save = jasmine.createSpy('PaymentService.save').andCallFake(function() {
-            return [
-                {
-                    id : 1
-                }, {
-                    id : 2
-                }, {
-                    id : 3
-                }
-            ];
-        });
+        ps.save = jasmine.createSpy('PaymentService.save').andReturn([
+            {
+                id : 1
+            }, {
+                id : 2
+            }, {
+                id : 3
+            }
+        ]);
         ps.clear = jasmine.createSpy('PaymentService.clear');
 
         // Scope mock
@@ -61,7 +57,11 @@ describe('Controller: PaymentCtrl', function() {
         scope.payments = angular.copy(sampleData.payments);
 
         // SMSService mock
-        sms.sendPaymentConfirmation = jasmine.createSpy('SMSService.sendPaymentConfirmation');
+        sms.sendPaymentConfirmation = jasmine.createSpy('SMSService.sendPaymentConfirmation').andReturn({
+            then : function(method) {
+                return method();
+            }
+        });
 
         // Injecting into the controller
         $controller('PaymentCtrl', {

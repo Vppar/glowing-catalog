@@ -3,29 +3,14 @@
     angular.module('tnt.catalog.payment', []).controller(
             'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
 
+                var order = OrderService.order;
+                var orderAmount = $filter('sum')(order.items, 'price', 'qty');
+                var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+
+                $scope.customer = customer;
+                $scope.items = order.items;
                 $scope.payments = PaymentService.payments;
-                $scope.items = OrderService.order.items;
-
-                // #############################################################################################
-                // Payment related dialogs
-                // #############################################################################################
-
-                $scope.openDialogCheck = function openDialogCheck() {
-                    DialogService.openDialogCheck({
-                        payments : $scope.payments
-                    }).then(function(payment) {
-                        angular.extend($scope.payments, payments);
-                    });
-                };
-                $scope.openDialogCreditCard = function openDialogCreditCard() {
-                    DialogService.openDialogCreditCard({
-                        payments : $scope.payments
-                    }).then(function(payments) {
-                        angular.extend($scope.payments, payments);
-                    });
-                };
-                $scope.openDialogAdvanceMoney = DialogService.openDialogAdvanceMoney;
-                $scope.openDialogProductExchange = DialogService.openDialogProductExchange;
+                $scope.inBasketFilter = OrderService.inBasketFilter;
 
                 // #############################################################################################
                 // Screen actions functions
@@ -46,7 +31,7 @@
                 };
 
                 // #############################################################################################
-                // Alert dialogs functions
+                // Main function
                 // #############################################################################################
 
                 function showPaymentConfirmationDialog() {
@@ -58,37 +43,24 @@
                     });
                 }
 
-                function showPaymentDoneDialog() {
-                    $location.path('/');
-                    return DialogService.messageDialog({
-                        title : 'Pagamento',
-                        message : 'Pagamento efetuado!',
-                        btnYes : 'OK',
-                    });
-                }
-
-                // #############################################################################################
-                // Main function
-                // #############################################################################################
-
                 function validatePayment() {
-                    var orderAmount = $filter('sum')(OrderService.order.items, 'price', 'qty');
                     var paymentAmount = $filter('sum')($scope.payments, 'amount');
-                    
-                    if (paymentAmount === orderAmount) {
+
+                    if (paymentAmount > 0 && paymentAmount === orderAmount) {
                         return true;
                     }
-                    
+
                     var message = null;
-                    
-                    if (paymentAmount > orderAmount) {
+                    if (paymentAmount === 0) {
+                        message = 'Nenhum pagamento foi registrado para o pedido.';
+                    } else if (paymentAmount > orderAmount) {
                         message = 'Valor registrado para pagamento é maior do que o valor total do pedido.';
                     } else if (paymentAmount < orderAmount) {
                         message = 'Valor registrado para pagamento é menor do que o valor total do pedido.';
                     }
                     return $q.reject(message);
                 }
-                
+
                 function makePayment() {
                     var savedOrder = OrderService.save();
                     OrderService.clear();
@@ -99,38 +71,53 @@
                         var savedPayment = savedPayments[idx];
                         savedOrder.paymentIds.push(savedPayment.id);
                     }
-                    return savedOrder;
+                    return true;
                 }
-                
-                function abortPayment(message){
+
+                function abortPayment(message) {
                     // rebuild main promise chain.
                     main();
                     // show the dialog.
                     DialogService.messageDialog({
-                        title : 'Pagamento',
+                        title : 'Pagamento inválido',
                         message : message,
                         btnYes : 'OK',
                     });
                     return $q.reject();
                 }
 
-                function sendAlertSMSAttempt(order) {
-                    var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
-                    var orderAmount = $filter('sum')(OrderService.order.items, 'price', 'qty');
-                    return SMSService.sendPaymentConfirmation(customer, orderAmount);
+                function paymentDone() {
+                    $location.path('/');
+                    return DialogService.messageDialog({
+                        title : 'Pagamento',
+                        message : 'Pagamento efetuado!',
+                        btnYes : 'OK',
+                    });
+                }
+
+                function sendAlertSMSAttempt() {
+                    return SMSService.sendPaymentConfirmation(customer, orderAmount).then(smsAlert, smsAlert);
+                }
+
+                function smsAlert(message) {
+                    return DialogService.messageDialog({
+                        title : 'Pagamento',
+                        message : message,
+                        btnYes : 'OK',
+                    });
                 }
 
                 function main() {
                     // Execute when payment is confirmed.
                     var confirmedPaymentPromise = paymentFactory();
-                    var validadedPaymentPromise = confirmedPaymentPromise.then(validatePayment, main);
-                    var paidPromise = validadedPaymentPromise.then(makePayment, abortPayment);
+                    var validatedPaymentPromise = confirmedPaymentPromise.then(validatePayment, main);
+                    var paidPromise = validatedPaymentPromise.then(makePayment, abortPayment);
+
+                    // Inform the user that the payment is done.
+                    paidPromise.then(paymentDone);
 
                     // Send the alert SMS to the customer.
-                    var smsSentPromise = paidPromise.then(sendAlertSMSAttempt);
-
-                    // Open the payment confirmation alert.
-                    smsSentPromise.then(showPaymentDoneDialog);
+                    paidPromise.then(sendAlertSMSAttempt);
                 }
 
                 main();
