@@ -28,10 +28,10 @@
 	</div>
 </div>
 <div class="footer-cart">
-	<a href="#" class="btn">Cat&aacute;logo</a>
+	<a href="#" class="btn-cancel btn">Cat&aacute;logo</a>
 	<span class="total-value">
 		<span>Total:</span>
 		{{dataProvider.products | filter:filterQty | sum:'subtotal' | currency }}
 	</span>
-	<button class="btn"  ng-disabled="!order.customerId" ng-click="pay()">Pagamento</button>
+	<button class="btn-ok btn"  ng-disabled="!order.customerId" ng-click="pay()">Pagamento</button>
 </div>

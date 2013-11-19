@@ -158,7 +158,8 @@
 	-webkit-overflow-scrolling: touch;
 }
 .grid-payment-check .header {
-	background: #ecbab9;
+	background: #333;
+	color:#fff;
 	border-radius: 4px
 }
 .grid-payment-check .header span, .grid-payment-check .scroll-payment-grid  span {
@@ -228,7 +229,8 @@
 	-webkit-overflow-scrolling: touch;
 }
 .grid-payment-credit-card .header {
-	background: #ecbab9;
+	background: #333;
+	color:#fff;
 	border-radius: 4px
 }
 .grid-payment-credit-card .header span, .grid-payment-credit-card .scroll-payment-grid  span {
@@ -290,7 +292,8 @@
 	-webkit-overflow-scrolling: touch;
 }
 .grid-payment-product-exchange .header {
-	background: #ecbab9;
+	background: #333;
+	color:#fff;
 	border-radius: 4px
 }
 .grid-payment-product-exchange .header span, .grid-payment-product-exchange .scroll-payment-grid  span {

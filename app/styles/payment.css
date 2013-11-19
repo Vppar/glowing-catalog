@@ -35,16 +35,15 @@
 	width:91%;
 }
 .row-right-payment2 {
-	font-size:133%;
-	margin: 10px 0 18px 0;
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
-	padding: 0px 5px 12px 20px;
+	margin: 15px 0 18px 5px;
+	padding: 8px 5px 8px 12px;
 	background-color:#FFF;
-	min-height:16px;
+	min-height:20px;
+	width:91%;
 }
 .row-right-payment2 span {
-	display:block;
 	margin:16px 0 0 0;
 }
 .payment-resume div {
@@ -60,7 +59,8 @@
 .payment-resume .values-resume {
 	float: right;
 	text-align: right;
-	margin-right: 10px
+	margin-right: 10px;
+	font-size:18px
 }
 .btns-right-payment .btn-price-payment {
 	float: right;
@@ -73,11 +73,31 @@
 	margin-top: -4px;
 	height: 18px
 }
+.btn-sub-payment {
+	float: right;
+	width: 120px;
+	text-align: right;
+	border: 1px solid #fafafa;
+	background-color:#fff;
+	border-radius: 4px;
+	padding: 4px;
+	margin-top: -4px !important;
+	height: 18px;
+	font-size:18px;
+}
 .btns-right-payment .btn-price-payment-input-block {
 	float: right;
 	text-align: right;
 	border-radius: 6px;
-	margin-top: -25px;
+	margin-top: -5px;
+	width:226px;
+}
+.btn-price-payment-input-block2 {
+	float: right;
+	text-align: right;
+	border-radius: 6px;
+	margin-top: -5px;
+	width:186px;
 }
 .btn-price-payment2 {
 	width:44px !important;
@@ -113,6 +133,9 @@
 .right-column-payment {
 	padding:8px;
 }
+.lbl-money2 {
+	font-size:16px;
+}
 /*scroll left*/
 .left-payment .content-scroll {
 	height: 260px;
@@ -145,33 +168,43 @@
 .left-payment .header .col-3, .left-payment .header2 .col-3 {
 	width: 100px;
 	display: inline-block;
-	text-align: right;
+	text-align: center;
 	font-weight: bold
 }
 .left-payment .header .col-4, .left-payment .header2 .col-4 {
 	width: 60px;
 	display: inline-block;
-	text-align: right;
+	text-align: center;
 	font-weight: bold
 }
 .left-payment .header .col-5, .left-payment .header2 .col-5 {
-	width: 80px;
+	width: 88px;
 	display: inline-block;
 	text-align: right;
 	font-weight: bold
 }
 .left-payment .content-scroll .col-1 {
-	width: 290px;
+	width: 40px;
 	display: inline-block;
 	line-height: 20px;
 	white-space:nowrap
 }
 .left-payment .content-scroll .col-2 {
-	width: 95px;
+	width: 360px;
 	display: inline-block;
-	text-align: center
+	text-align: left;
 }
 .left-payment .content-scroll .col-3 {
+	width: 100px;
+	display: inline-block;
+	text-align: center;
+}
+.left-payment .content-scroll .col-4 {
+	width: 60px;
+	display: inline-block;
+	text-align: center;
+}
+.left-payment .content-scroll .col-5 {
 	width: 80px;
 	display: inline-block;
 	text-align: right;
@@ -216,4 +249,10 @@
 	text-align: left;
 	vertical-align: middle;
 	border-top: 1px solid #e0e0e0;
-}                                           
+}
+.input-name-payment {
+	width:210px;
+}
+.sub-total-payment {
+	width:170px;
+}
