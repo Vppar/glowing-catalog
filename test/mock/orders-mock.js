@@ -14,7 +14,7 @@
             }, {
                 id : 6,
                 qty : 456,
-                price: 1
+                price : 1
             }, {
                 id : 9
             }
@@ -69,5 +69,10 @@
                     ]
                 }
             ];
+    data.orderSaveReturn = {
+        id : 1,
+        customerId : 1,
+        paymentIds : []
+    };
     window.sampleData = data;
 }(window.sampleData || {}));

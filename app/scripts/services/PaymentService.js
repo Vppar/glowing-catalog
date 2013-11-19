@@ -26,7 +26,7 @@
          * Find a payment type id based in the description
          */
         var findPaymentTypeByDescription = function findPaymentTypeByDescription(type) {
-            return $filter('findBy')(DataProvider.paymentType, 'description', type);
+            return $filter('findBy')(DataProvider.paymentTypes, 'description', type);
         };
 
         /**
@@ -37,6 +37,7 @@
             var newPayment = angular.copy(paymentTemplate);
             newPayment.id = payments.length + 1;
             newPayment.typeId = paymentType.id;
+            
             payments.push(newPayment);
 
             return newPayment;
