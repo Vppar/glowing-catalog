@@ -31,28 +31,12 @@ describe('Controller: PaymentCtrl', function() {
         // OrdeService mock
         os.order = angular.copy(sampleData.order);
         os.order.customerId = 1;
-        os.save = jasmine.createSpy('OrderService.save').andCallFake(function() {
-            return {
-                id : 1,
-                customerId : 1,
-                paymentIds : []
-            };
-        });
+        os.save = jasmine.createSpy('OrderService.save').andReturn(angular.copy(sampleData.orderSaveReturn));
         os.clear = jasmine.createSpy('OrderService.clear');
 
         // PaymentService mock
         ps.payments = angular.copy(sampleData.payments);
-        ps.save = jasmine.createSpy('PaymentService.save').andCallFake(function() {
-            return [
-                {
-                    id : 1
-                }, {
-                    id : 2
-                }, {
-                    id : 3
-                }
-            ];
-        });
+        ps.save = jasmine.createSpy('PaymentService.save').andReturn(angular.copy(sampleData.paymentSaveReturn));
         ps.clear = jasmine.createSpy('PaymentService.clear');
 
         // Scope mock
@@ -61,7 +45,9 @@ describe('Controller: PaymentCtrl', function() {
         scope.payments = angular.copy(sampleData.payments);
 
         // SMSService mock
-        sms.sendPaymentConfirmation = jasmine.createSpy('SMSService.sendPaymentConfirmation');
+        sms.sendPaymentConfirmation =
+                jasmine.createSpy('SMSService.sendPaymentConfirmation')
+                        .andReturn(angular.copy(sampleData.smsSendPaymentConfirmationReturn));
 
         // Injecting into the controller
         $controller('PaymentCtrl', {
@@ -90,10 +76,19 @@ describe('Controller: PaymentCtrl', function() {
     it('should cancel payment', function() {
         var payments = angular.copy(dp.payments);
         scope.cancel();
-        // leave the payments list untouched.
+        rootScope.$apply();
+        // should leave the payments list untouched.
         expect(dp.payments).toEqual(payments);
-        // go home.
+        // should warn the user about data loss.
+        expect(ds.messageDialog).toHaveBeenCalledWith({
+            title : 'Cancelar Pagamento',
+            message : 'Cancelar o pagamento irá descartar os dados desse pagamento permanentemente. Você tem certeza que deseja cancelar?',
+            btnYes : 'Cancelar',
+            btnNo : 'Retornar'
+        });
+        // should clear the payments
         expect(ps.clear).toHaveBeenCalled();
+        // should go home.
         expect(location.path).toHaveBeenCalledWith('/');
     });
 
@@ -151,7 +146,7 @@ describe('Controller: PaymentCtrl', function() {
         expect(payments).toEqual(scope.payments);
         // show the warning dialog.
         expect(ds.messageDialog).toHaveBeenCalledWith({
-            title : 'Pagamento',
+            title : 'Pagamento inválido',
             message : 'Valor registrado para pagamento é maior do que o valor total do pedido.',
             btnYes : 'OK',
         });
@@ -172,7 +167,7 @@ describe('Controller: PaymentCtrl', function() {
         expect(payments).toEqual(scope.payments);
         // show the warning dialog.
         expect(ds.messageDialog).toHaveBeenCalledWith({
-            title : 'Pagamento',
+            title : 'Pagamento inválido',
             message : 'Valor registrado para pagamento é menor do que o valor total do pedido.',
             btnYes : 'OK'
         });
