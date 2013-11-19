@@ -20,6 +20,15 @@
             data : {}
         }
     ];
+    data.paymentTypes = [
+        {
+            id : 1,
+            description : 'cash'
+        }, {
+            id : 2,
+            description : 'check'
+        }
+    ];
     data.paymentTemplate = {
         id : null,
         datetime : null,
@@ -29,5 +38,14 @@
         amount : null,
         data : null
     };
+    data.paymentSaveReturn = [
+        {
+            id : 1
+        }, {
+            id : 2
+        }, {
+            id : 3
+        }
+    ];
     window.sampleData = data;
 }(window.sampleData || {}));
