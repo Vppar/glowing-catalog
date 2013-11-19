@@ -70,7 +70,7 @@
          * Reset the current payments.
          */
         var clear = function clear() {
-            payments = [];
+            payments.length = 0;
         };
 
         /**

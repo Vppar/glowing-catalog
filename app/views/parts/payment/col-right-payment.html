@@ -35,16 +35,16 @@
                             </span>
                         </div>
 					</div>
-					<div ng-click='openDialogCheck()' class="row-right-payment">
+					<div ng-click="openDialogCheck()" class="row-right-payment">
 						<span class="lbl-money">CHEQUE ( {{dataProvider.currentPayments.checks.length}} )</span><span class=""><span class="btn-price-payment">{{dataProvider.currentPayments.checksTotal | currency:''}}</span></span>
 					</div>
-					<div ng-click='openDialogCreditCard()' class="row-right-payment">
+					<div ng-click="openDialogCreditCard()" class="row-right-payment">
 						<span class="lbl-money">CART&Atilde;O ( {{dataProvider.currentPayments.creditCards.length}} )</span><span class=""><span class="btn-price-payment">{{dataProvider.currentPayments.creditCardsTotal | currency:''}}</span></span>
 					</div>
-					<div class="row-right-payment" ng-click='openDialogProductExchange()'>
+					<div class="row-right-payment" ng-click="openDialogProductExchange()">
 						<span class="lbl-money">TROCA  ( 0 produto )</span><span class=""><span class="btn-price-payment"></span></span>
 					</div>
-					<div class="row-right-payment" ng-click='openDialogAdvanceMoney()'>
+					<div class="row-right-payment" ng-click="openDialogAdvanceMoney()">
 						<span class="lbl-money">Vale/Cupom ( 0,00 )</span><span class=""><span class="btn-price-paymen btn-price-payment2">0,00</span></span>
 					</div>
                     <div class="payment-resume">
@@ -67,8 +67,8 @@
 					</div>
 				</div>
 				<span class="panel-payment-footer-left">
-					<button ng-click='closeDialog()' class="btn btn-cancel" type="submit">Cancelar</button>
+					<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
 				</span>
 				<span class="panel-payment-footer-right">
-					<button ng-click='confirm()' class="btn btn-ok" type="submit">Confirmar</button>
+					<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
 				</span>
