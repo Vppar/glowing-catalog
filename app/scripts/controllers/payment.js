@@ -4,13 +4,25 @@
             'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
 
                 var order = OrderService.order;
-                var orderAmount = $filter('sum')(order.items, 'price', 'qty');
+                var inBasketFilter = OrderService.inBasketFilter;
+                var basket = $filter('filter')(order.items, inBasketFilter);
+                var orderAmount = $filter('sum')(basket, 'price', 'qty');
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
 
                 $scope.customer = customer;
+                $scope.orderAmount = orderAmount;
+                $scope.inBasketFilter = inBasketFilter;
                 $scope.items = order.items;
                 $scope.payments = PaymentService.payments;
-                $scope.inBasketFilter = OrderService.inBasketFilter;
+                $scope.paymentTypeFilter = PaymentService.paymentTypeFilter;
+
+                // There can be only one cash payment, so we have to find one if exists if not create a new one.
+                var cashPayment = $filter('filter')(PaymentService.payments, PaymentService.paymentTypeFilter, 'cash');
+                if (cashPayment.length > 0) {
+                    $scope.cash = cashPayment[0];
+                } else {
+                    $scope.cash = PaymentService.createNew('cash');
+                }
 
                 // #############################################################################################
                 // Screen actions functions

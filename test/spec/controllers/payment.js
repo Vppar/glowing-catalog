@@ -151,7 +151,7 @@ describe('Controller: PaymentCtrl', function() {
         expect(payments).toEqual(scope.payments);
         // show the warning dialog.
         expect(ds.messageDialog).toHaveBeenCalledWith({
-            title : 'Pagamento',
+            title : 'Pagamento inválido',
             message : 'Valor registrado para pagamento é maior do que o valor total do pedido.',
             btnYes : 'OK',
         });
@@ -172,7 +172,7 @@ describe('Controller: PaymentCtrl', function() {
         expect(payments).toEqual(scope.payments);
         // show the warning dialog.
         expect(ds.messageDialog).toHaveBeenCalledWith({
-            title : 'Pagamento',
+            title : 'Pagamento inválido',
             message : 'Valor registrado para pagamento é menor do que o valor total do pedido.',
             btnYes : 'OK'
         });

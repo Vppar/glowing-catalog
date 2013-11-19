@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.service.payment', [
-        'tnt.catalog.service.data'
-    ]).service('PaymentService', function PaymentService(DataProvider) {
+        'tnt.catalog.filter.findBy', 'tnt.catalog.service.data'
+    ]).service('PaymentService', function PaymentService($filter, DataProvider) {
         /**
          * Template of an empty payment.
          */
@@ -23,12 +23,20 @@
         var payments = [];
 
         /**
+         * Find a payment type id based in the description
+         */
+        var findPaymentTypeByDescription = function findPaymentTypeByDescription(type) {
+            return $filter('findBy')(DataProvider.paymentType, 'description', type);
+        };
+
+        /**
          * Creates a brand new payment.
          */
-        var createNew = function createNew() {
-
+        var createNew = function createNew(type) {
+            var paymentType = findPaymentTypeByDescription(type);
             var newPayment = angular.copy(paymentTemplate);
             newPayment.id = payments.length + 1;
+            newPayment.typeId = paymentType.id;
             payments.push(newPayment);
 
             return newPayment;
@@ -66,11 +74,21 @@
         };
 
         /**
+         * Filter the payments by type.
+         */
+        var paymentTypeFilter = function paymentTypeFilter(payment, type) {
+            var paymentType = findPaymentTypeByDescription(type);
+            return payment.typeId === paymentType.id;
+        };
+
+        /**
          * Exposes the methods to outside world.
          */
         this.payments = payments;
         this.createNew = createNew;
         this.save = save;
         this.clear = clear;
+        this.findPaymentTypeByDescription = findPaymentTypeByDescription;
+        this.paymentTypeFilter = paymentTypeFilter;
     });
 }(angular));

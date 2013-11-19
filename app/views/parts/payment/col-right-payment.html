@@ -11,7 +11,7 @@
                                 <span class="label-form-client">Cliente</span>
                             </span>
                             <span class="btn-price-payment-input-block input-block-level">
-                                <input class="input-name-payment text-right" id="appendedInput" type="text" ng-model="customer.name" recall>
+                                <input class="input-name-payment text-right" id="appendedInput" type="text" value="{{customer.name}}">
                             </span>
                         </div>
 					</div>
@@ -21,7 +21,7 @@
                                 <span class="label-money">Subtotal</span>
                             </span>
                             <span class="btn-price-payment-input-block input-block-level">
-                                <input class="sub-total-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
+                                <input class="sub-total-payment text-right" id="appendedInput" type="text" value="{{items | filter: inBasketFilter | sum: 'price' : 'qty' | currency: '' }}" disabled>
                             </span>
                         </div>
 					</div>
@@ -31,7 +31,7 @@
                                 <span class="label-money">DINHEIRO</span>
                             </span>
                             <span class="btn-price-payment-input-block input-block-level">
-                                <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
+                                <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash.amount" currency recall>
                             </span>
                         </div>
 					</div>
@@ -54,8 +54,11 @@
                             </div>
                         </div>
                         <div class="values-resume">
-                            <div class="red-color">
-                                {{(((dataProvider.currentPayments.total + cash) - productsTotal) > 0 && ((dataProvider.currentPayments.total + cash) - productsTotal) || 0) | currency:''}}
+                            <div class="red-color" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                                {{ 0 | currency: '' }}
+                            </div>
+                            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                                {{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
                             </div>
                         </div>
 				</div><br />

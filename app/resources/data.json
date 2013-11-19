@@ -368,6 +368,22 @@
         "amount": 941,
         "data": {}
     }],
+    "paymentTypes": [{
+        "id": 1,
+        "description": "cash"
+    },{
+        "id": 2,
+        "description": "check"
+    },{
+        "id": 3,
+        "description": "card"
+    },{
+        "id": 4,
+        "description": "exchange"
+    },{
+        "id": 5,
+        "description": "cupon"
+    }],
     "deliveryStatus": [{
         "id": 1,
         "description": "scheduled"
