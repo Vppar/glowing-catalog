@@ -48,9 +48,9 @@
         };
 
         /**
-         * Removes selected check from $scope.checks array
+         * Removes selected check from $scope.payments array
          * 
-         * @param index - position of check to be removed
+         * @param paymentId - payment id of the check to be removed.
          */
         $scope.removeCheck = function removeCheck(paymentId) {
             var payment = $filter('findBy')($scope.payments, 'id', paymentId);
