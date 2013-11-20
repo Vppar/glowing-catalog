@@ -13,8 +13,16 @@
 	
 	<div class="content-scroll">
 		<div ng-repeat="product in dataProvider.products | filter: filterQty | obInject:'mul':'qty':'price':'subtotal'">
-			<span class="col-1">{{product.title | truncate: 40}}</span>
-			<span class="col-2">{{product.qty}}</span><span class="col-3">{{product.subtotal | currency:''}}</span>
+			<span class="col-1">01</span><span class="col-2">{{product.title | truncate: 40}}</span><span class="col-3">R$ 14,44</span>
+			<span class="col-4">{{product.qty}}</span><span class="col-5">{{product.subtotal | currency:''}}</span>
+		</div>
+        <div ng-repeat="product in dataProvider.products | filter: filterQty | obInject:'mul':'qty':'price':'subtotal'">
+			<span class="col-1">02</span><span class="col-2">{{product.title | truncate: 40}}</span><span class="col-3">R$ 14,44</span>
+			<span class="col-4">{{product.qty}}</span><span class="col-5">{{product.subtotal | currency:''}}</span>
+		</div>
+        <div ng-repeat="product in dataProvider.products | filter: filterQty | obInject:'mul':'qty':'price':'subtotal'">
+			<span class="col-1">03</span><span class="col-2">{{product.title | truncate: 40}}</span><span class="col-3">R$ 14,44</span>
+			<span class="col-4">{{product.qty}}</span><span class="col-5">{{product.subtotal | currency:''}}</span>
 		</div>
 	</div>
 	<!--<div class="header2">

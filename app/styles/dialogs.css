@@ -239,9 +239,9 @@
 	width: 76px
 }
 .input-money-payment {
-	width: 98px;
+	width: 118px;
 	margin:0px 0 0 0;
-	border: 1px solid #FCFCFC !important;
+	border: 1px solid #eee !important;
 }
 input.sub-total-payment {
 	background-color:#fff;
@@ -250,8 +250,8 @@ input.sub-total-payment {
 }
 .input-name-payment {
 	width: 200px;
-	border: 1px solid #FCFCFC !important;
-	margin: 10px 0 0 0;
+	border: 1px solid #eee !important;
+	margin: 0px 0 0 0;
 	text-align:left;
 }
 .combo-width-1 {

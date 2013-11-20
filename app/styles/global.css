@@ -278,8 +278,8 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 /*btns*/
 .btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
 	color: #333333;
-	background-color: #ecbab9;
-	*background-color: #d9d9d9;
+	background-color: #000;
+	*background-color: #000;
 }
 /*icons input calendar*/
 [class^="icon-"], [class*=" icon-"] {
@@ -311,7 +311,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 /*main container*/
 body {
-	background: #fafafa
+	background: #fdfdfd;
 }
 .last-oportunitie {
 	padding: 5px;
