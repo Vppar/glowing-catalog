@@ -9,7 +9,8 @@ describe('Controller: PaymentCheckCtrl', function() {
         module('tnt.catalog.payment.check');
         module('tnt.catalog.filter.findBy');
     });
-    beforeEach(inject(function($controller, _$filter_) {
+    beforeEach(inject(function($controller, $rootScope, _$filter_) {
+        scope = $rootScope.$new();
         scope.checkForm = {
             $valid : true
         };
@@ -47,7 +48,7 @@ describe('Controller: PaymentCheckCtrl', function() {
      * And   - copy the check data to this instance
      * And   - clear the current check payment  
      */
-    it('should add to payments', function() {
+    it('should add a check payment', function() {
         scope.check = angular.copy(sampleData.payment.check.data);
         var check = angular.copy(scope.check);
         var paymentsSize = scope.payments.length;
@@ -71,7 +72,7 @@ describe('Controller: PaymentCheckCtrl', function() {
      * Then  - do not add to payments in PaymentService
      * And   - keep the current check payment  
      */
-    it('shouldn\'t add to payments with invalid form', function() {
+    it('shouldn\'t add a check payment with invalid form', function() {
         scope.check = angular.copy(sampleData.payment.check.data);
         var check = angular.copy(scope.check);
         var paymentsSize = scope.payments.length;
@@ -92,7 +93,7 @@ describe('Controller: PaymentCheckCtrl', function() {
      * And   - keep the current check payment
      * And   - warn the user.
      */
-    it('shouldn\'t add a repeated check to payments', function() {
+    it('shouldn\'t add a repeated check payment', function() {
         scope.check = angular.copy(sampleData.payment.check.data);
         scope.payments.push(sampleData.payment.check);
 
@@ -115,7 +116,7 @@ describe('Controller: PaymentCheckCtrl', function() {
      * When  - the paymentId is passed to the remove function is 2
      * Then  - remove payment in the position 2 from the list
      */
-    it('should remove from payments', function() {
+    it('should remove a check payment', function() {
         var payment = angular.copy(scope.payments[1]);
         var paymentsSize = scope.payments.length;
 
