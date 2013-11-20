@@ -2,68 +2,82 @@ describe('Controller: PaymentCheckCtrl', function() {
 
     var scope = {};
     var dp = {};
+    var ds = {};
     var ps = {};
 
     beforeEach(function() {
         module('tnt.catalog.payment.check');
+        module('tnt.catalog.filter.findBy');
     });
-    beforeEach(inject(function($controller) {
-        scope.check = angular.copy(sampleData.payment.check);
+    beforeEach(inject(function($controller, _$filter_) {
+        scope.checkForm = {
+            $valid : true
+        };
+        scope.findPaymentTypeByDescription = function(value) {
+            return 2;
+        };
+        scope.payments = angular.copy(sampleData.payments);
+
         dp.payments = angular.copy(sampleData.payments);
-        ps.payments = angular.copy(sampleData.payments);
+
+        ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
+
+        ps.payments = scope.payments;
+        ps.createNew = jasmine.createSpy('PaymentService.createNew').andCallFake(function(type) {
+            var payment = {};
+            ps.payments.push(payment);
+            return payment;
+        });
+
         $controller('PaymentCheckCtrl', {
             $scope : scope,
-            DataProvider : dp,
+            $filter : _$filter_,
+            DialogService : ds,
             PaymentService : ps
         });
     }));
     
     
     /**
-     * Given - the screen opening
-     * When  - load is done 
-     * Then  - the payments of PaymentService are available in the scope
-     * And   - the paymentTypeFilter is available in the scope
-     */
-    it('should filter payments', function() {
-        expect(scope.payments).toBe(ps.payments);
-        expect(scope.paymentTypeFilter).toBe(ps.payments);
-    });
-    
-    /**
      * Given - a add payment button click
+     * And   - addCheck function receive the check object as parameter
+     * And   - checkForm is valid
      * When  - bank, agency, account, number, due date and amount are filled
-     * Then  - add to payments in PaymentService
+     * Then  - call the createNew to have an instance of payment
+     * And   - copy the check data to this instance
      * And   - clear the current check payment  
      */
     it('should add to payments', function() {
+        scope.check = angular.copy(sampleData.payment.check.data);
         var check = angular.copy(scope.check);
         var paymentsSize = scope.payments.length;
 
-        scope.add();
-
+        scope.addCheck(scope.check);
+        
+        expect(ps.createNew).toHaveBeenCalledWith('check');
         expect(scope.payments.length).toBe(paymentsSize + 1);
-        expect(scope.payments[paymentsSize]).toEqual(check);
-        expect(scope.check.bank).toBeUndefined();
-        expect(scope.check.agency).toBeUndefined();
-        expect(scope.check.account).toBeUndefined();
-        expect(scope.check.number).toBeUndefined();
-        expect(scope.check.duedate).toBeUndefined();
-        expect(scope.check.amount).toBeUndefined();
+        expect(scope.payments[paymentsSize].data).toEqual(check);
+        expect(scope.check.bank).toBeNull();
+        expect(scope.check.agency).toBeNull();
+        expect(scope.check.account).toBeNull();
+        expect(scope.check.number).toBeNull();
+        expect(scope.check.duedate).toBeNull();
+        expect(scope.check.amount).toBeNull();
     });
     
     /**
      * Given - an add payment button click
-     * When  - bank not filled.
+     * When  - checkForm is invalid
      * Then  - do not add to payments in PaymentService
      * And   - keep the current check payment  
      */
-    it('shouldn\'t add to payments - bank', function() {
-        delete scope.check.bank; 
-        var paymentsSize = scope.payments;
+    it('shouldn\'t add to payments with invalid form', function() {
+        scope.check = angular.copy(sampleData.payment.check.data);
         var check = angular.copy(scope.check);
-
-        scope.add();
+        var paymentsSize = scope.payments.length;
+        scope.checkForm.$valid = false;
+        
+        scope.addCheck(scope.check);
         
         expect(scope.payments.length).toBe(paymentsSize);
         expect(scope.check).toEqual(check);
@@ -72,99 +86,40 @@ describe('Controller: PaymentCheckCtrl', function() {
     
     /**
      * Given - an add payment button click
-     * When  - agency not filled.
+     * And   - checkForm is valid
+     * When  - the payments list already have a payment with the same bank, agency, account and number.
      * Then  - do not add to payments in PaymentService
-     * And   - keep the current check payment  
+     * And   - keep the current check payment
+     * And   - warn the user.
      */
-    it('shouldn\'t add to payments - agency', function() {
-        delete scope.check.agency; 
-        var paymentsSize = scope.payments;
-        var agency = angular.copy(scope.agency);
+    it('shouldn\'t add a repeated check to payments', function() {
+        scope.check = angular.copy(sampleData.payment.check.data);
+        scope.payments.push(sampleData.payment.check);
 
-        scope.add();
-        
-        expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.agency).toEqual(agency);
-    });
-    
-    /**
-     * Given - an add payment button click
-     * When  - account not filled.
-     * Then  - do not add to payments in PaymentService
-     * And   - keep the current check payment  
-     */
-    it('shouldn\'t add to payments - account', function() {
-        delete scope.check.account; 
-        var paymentsSize = scope.payments;
-        var account = angular.copy(scope.account);
+        var check = angular.copy(scope.check);
+        var paymentsSize = scope.payments.length;
 
-        scope.add();
-        
-        expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.account).toEqual(account);
-    });
-    
-    /**
-     * Given - an add payment button click
-     * When  - number not filled.
-     * Then  - do not add to payments in PaymentService
-     * And   - keep the current check payment  
-     */
-    it('shouldn\'t add to payments - number', function() {
-        delete scope.check.number; 
-        var paymentsSize = scope.payments;
-        var number = angular.copy(scope.number);
+        scope.addCheck(scope.check);
 
-        scope.add();
-        
         expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.number).toEqual(number);
-    });
-    
-    /**
-     * Given - an add payment button click
-     * When  - due date not filled.
-     * Then  - do not add to payments in PaymentService
-     * And   - keep the current check payment  
-     */
-    it('shouldn\'t add to payments - due date', function() {
-        delete scope.check.duedate; 
-        var paymentsSize = scope.payments;
-        var duedate = angular.copy(scope.duedate);
-
-        scope.add();
-        
-        expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.duedate).toEqual(duedate);
-    });
-    
-    /**
-     * Given - an add payment button click
-     * When  - amount not filled.
-     * Then  - do not add to payments in PaymentService
-     * And   - keep the current check payment  
-     */
-    it('shouldn\'t add to payments - amount', function() {
-        delete scope.check.amount; 
-        var paymentsSize = scope.payments;
-        var amount = angular.copy(scope.amount);
-
-        scope.add();
-        
-        expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.amount).toEqual(amount);
+        expect(scope.check).toEqual(check);
+        expect(ds.messageDialog).toHaveBeenCalledWith({
+            title : 'Pagamento com Cheque',
+            message : 'Não é possível inserir um cheque que já existe na lista.',
+            btnYes : 'OK'
+        });
     });
     
     /**
      * Given - an remove payment button click
-     * When  - the index is passed to the remove function is 1
-     * Then  - remove payment in the position 1 from the list
+     * When  - the paymentId is passed to the remove function is 2
+     * Then  - remove payment in the position 2 from the list
      */
     it('should remove from payments', function() {
         var payment = angular.copy(scope.payments[1]);
         var paymentsSize = scope.payments.length;
 
-        scope.remove(1);
+        scope.removeCheck(2);
 
         expect(scope.payments[1]).not.toEqual(payment);
         expect(scope.payments.length).toBe(paymentsSize - 1);

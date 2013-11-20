@@ -49,12 +49,15 @@
     ];
     data.payment = {
         check : {
-            bank : '123',
-            agency : '456',
-            account : '7890-1',
-            number : '234567',
-            duedate : 1383066000000,
-            amount : '8901.23'
+            typeId : 2,
+            data : {
+                bank : '123',
+                agency : '456',
+                account : '7890-1',
+                number : '234567',
+                duedate : 1383066000000,
+                amount : '8901.23'
+            }
         }
     };
     window.sampleData = data;
