@@ -57,7 +57,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         var creditcard = angular.copy(scope.creditcard);
         var paymentsSize = scope.payments.length;
 
-        scope.addCheck(scope.creditcard);
+        scope.addCreditCard(scope.creditcard);
         
         expect(ps.createNew).toHaveBeenCalledWith('creditcard');
         expect(scope.payments.length).toBe(paymentsSize + 1);
@@ -77,14 +77,28 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         scope.creditcard = angular.copy(sampleData.payment.creditcard.data);
         var creditcard = angular.copy(scope.creditcard);
         var paymentsSize = scope.payments.length;
-        scope.checkForm.$valid = false;
+        scope.creditCardForm.$valid = false;
         
-        scope.addCheck(scope.creditcard);
+        scope.addCreditCard(scope.creditcard);
         
         expect(scope.payments.length).toBe(paymentsSize);
         expect(scope.creditcard).toEqual(creditcard);
 
     });
     
+    /**
+     * Given - an remove payment button click
+     * When  - the paymentId is passed to the remove function is 2
+     * Then  - remove payment in the position 2 from the list
+     */
+    it('should remove a credit card payment', function() {
+        var payment = angular.copy(scope.payments[1]);
+        var paymentsSize = scope.payments.length;
+
+        scope.removeCreditCard(2);
+
+        expect(scope.payments[1]).not.toEqual(payment);
+        expect(scope.payments.length).toBe(paymentsSize - 1);
+    });
     
 });
