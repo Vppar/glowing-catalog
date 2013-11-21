@@ -11,7 +11,7 @@
                                 <span class="label-form-client">Cliente</span>
                             </span>
                             <span class="btn-price-payment-input-block input-block-level">
-                                <input class="input-name-payment text-right" readonly id="appendedInput" type="text" ng-model="name" />
+                                <input class="input-name-payment text-right" readonly id="appendedInput" type="text" value="{{customer.name}}" />
                             </span>
                         </div>
 					</div>
@@ -25,7 +25,7 @@
                             </span>
                         </div>-->
                         
-						<span class="lbl-money2"><strong>Subtotal</strong></span><span class=""><span class="btn-sub-payment">1.222,00</span></span>
+						<span class="lbl-money2"><strong>Subtotal</strong></span><span class=""><span class="btn-sub-payment">{{items | filter: inBasketFilter | sum: 'price' : 'qty' | currency: '' }}</span></span>
 					</div>
                     <div class="row-right-payment">
                         <div class="btn-payments-left">
@@ -33,7 +33,7 @@
                                 <span class="label-money">DINHEIRO</span>
                             </span>
                             <span class="btn-price-payment-input-block2 input-block-level">
-                                <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash" currency recall>
+                                <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash.amount" currency recall>
                             </span>
                         </div>
 					</div>

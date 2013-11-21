@@ -376,7 +376,7 @@
         "description": "check"
     },{
         "id": 3,
-        "description": "card"
+        "description": "creditcard"
     },{
         "id": 4,
         "description": "exchange"
