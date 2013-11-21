@@ -7,13 +7,21 @@
 	cursor: pointer;
 }
 .panel-payment-footer-left {
+	position:absolute;
+	bottom:0;
+	top:523px;
 	display:inline-block;
-	width: 120px;
-	margin:28px 0 14px 14px;
+	width: 100px;
+	margin:28px 0 14px 0px;
+	float:left;
 }
 .panel-payment-footer-right {
-	margin:28px 14px 14px 0;
-	width: 120px;
+	position:absolute;
+	bottom:0;
+	top:523px;
+	right:0;
+	margin:28px 0px 14px 0;
+	width: 100px;
 	float:right;
 	display:inline-block;
 }
@@ -124,7 +132,7 @@
 	position: absolute;
 	top: 400px;
 	color: #333;
-	height:60px
+	height:90px
 }
 .payment-right-column {
 	background-color:#eee;
@@ -144,14 +152,15 @@
 	-webkit-overflow-scrolling: touch;
 }
 .left-payment .header, .left-payment .content-scroll div {
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px dotted #ccc;
 	line-height: 40px;
 }
 .left-payment .header2 {
 	line-height: 20px;
 	margin-top: 13px;
-	font-weight:200;
 	font-size:12px;
+	font-weight:bold;
+	border-bottom: 1px solid #e0e0e0
 }
 .left-payment .header .col-1, .left-payment .header2 .col-1 {
 	width: 40px;
@@ -208,6 +217,30 @@
 	width: 80px;
 	display: inline-block;
 	text-align: right;
+}
+
+.left-payment .col-s1 {
+	width: 40px;
+	display: inline-block;
+}
+.left-payment .col-s2 {
+	width: 70px;
+	display: inline-block;
+}
+.left-payment .col-s3 {
+	width: 110px;
+	display: inline-block;
+}
+.left-payment .col-s4 {
+	width: 220px;
+	display: inline-block;
+}
+.left-payment .col-s5 {
+	width: 300px;
+	display: inline-block;
+}
+.payment-check-fields {
+	margin:0 0 0 28px;
 }
 /* end scroll left*/
 .txt-info-customer {
