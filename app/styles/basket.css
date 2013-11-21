@@ -133,11 +133,11 @@
 }
 .ic-arrow-left {
 	float: left;
-	margin: 23px 0 0;
+	margin: 34px 0 0 0;
 }
 .ic-arrow-right {
 	float: right;
-	margin: 23px 0 0 ;
+	margin: 34px 0 0 0;
 	position:relative;
 	right:5px
 }
@@ -147,4 +147,5 @@
 .input-row-qtde-cart input {
 	width: 30px;
 	text-align: center;
+	font-size:20px;
 }

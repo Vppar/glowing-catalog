@@ -162,12 +162,18 @@
 	color:#fff;
 	border-radius: 4px
 }
+.grid-payment-check .header2 {
+	background:none;
+	color:#333;
+	border-bottom:1px solid #333;
+	font-weight:bold;
+}
 .grid-payment-check .header span, .grid-payment-check .scroll-payment-grid  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-payment-check .scroll-payment-grid .row-payment-check-grid {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .scroll-payment-grid .row-payment-check-grid {
 	margin-left: 20px
@@ -381,7 +387,7 @@
 	line-height: 40px;
 }
 .grid-payment-advance-money .scroll-payment-grid-advance-money .row-payment-advance-money {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-payment-advance-money .header .col-1 {
 	width: 40px;
