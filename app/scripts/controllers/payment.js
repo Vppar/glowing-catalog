@@ -6,12 +6,17 @@
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
 
+                        // #############################################################################################
+                        // Controller warm up
+                        // #############################################################################################
+
                         var order = OrderService.order;
                         var inBasketFilter = OrderService.inBasketFilter;
                         var basket = $filter('filter')(order.items, inBasketFilter);
                         var orderAmount = $filter('sum')(basket, 'price', 'qty');
                         var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
 
+                        $scope.selectedPaymentMethod = 'none';
                         $scope.customer = customer;
                         $scope.orderAmount = orderAmount;
                         $scope.inBasketFilter = inBasketFilter;
@@ -20,8 +25,7 @@
                         $scope.paymentTypeFilter = PaymentService.paymentTypeFilter;
 
                         // There can be only one cash payment, so we have to
-                        // find one if
-                        // exists if not create a new one.
+                        // find one if exists if not create a new one.
                         var cashPayment = $filter('filter')(PaymentService.payments, PaymentService.paymentTypeFilter, 'cash');
                         if (cashPayment.length > 0) {
                             $scope.cash = cashPayment[0];
@@ -32,6 +36,10 @@
                         // #############################################################################################
                         // Screen actions functions
                         // #############################################################################################
+
+                        $scope.selectPaymentMethod = function(method) {
+                            $scope.selectedPaymentMethod = method;
+                        };
 
                         function paymentFactory() {
                             var paymentIntent = $q.defer();

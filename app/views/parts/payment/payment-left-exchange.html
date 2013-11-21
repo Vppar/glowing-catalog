@@ -1,0 +1,82 @@
+<div class="title-left">
+    <div>
+        TROCA DE PRODUTO
+    </div>
+    
+</div>
+<div class="left-payment">
+   <br />
+	<div class="row-fluid">
+
+		<div class="controls-row">
+
+			<div class="control-group lbl-top">
+				<label class="control-label">Selecione um Produto</label>
+				<select class="combo-width-product-exchange" ui-select2 ng-model="product.id" data-placeholder="" required>
+					<option ng-repeat="products in dataProvider.products" value="{{products.id}}">{{products.title}}</option>
+				</select>
+			</div>
+			<div class="control-group lbl-top">
+				<div class="control-group lbl-top">
+					<label class="control-label" >Valor</label>
+					<div class="controls">
+						<input class="input-small text-right" ng-model="product.price" type="text" currency required>
+					</div>
+				</div>
+			</div>
+			<div class="control-group lbl-top" >
+				<div class="btn-clear-form">
+                           <span ng-click="addCreditCard(card)" class="btn-plus2 bg-green hover-state-pointer"></span>
+                       </div>
+			</div>
+
+		</div>
+		<div class="grid-payment-check">
+			<div class="header header2">
+				<div class="row-payment-check-grid">
+					<span class="col-s4">
+						<div>Produto</div></span>
+                       <span class="col-s3">
+						<div>Valor</div>
+                       </span>
+				</div>
+			</div>
+			<div class="scroll-payment-grid">
+				<div ng-repeat="product in productList" class="row-payment-grid-product-exchange">
+					<span class="col-1">
+						<div>
+							{{product.title}}
+						</div></span><span class="col-2">
+						<div>
+							{{product.price | currency:""}}
+						</div></span><span class="col-4">
+						<div ng-click="remove(product)" class="hover-state-pointer"><img src="images/del-pink.png" alt="" />
+						</div></span>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row-fluid">
+			<div class="total-value-product-exchange">
+				<div>
+					<span><strong>Valor Total:</strong> {{productList | sum:'price' | currency:""}}</span>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="error" style="display:none">
+				Erro ao inserir dados, contate o suporte informando o código
+			</div>
+		</div>
+
+	</div>
+	<div class="clearfix"></div>
+	<hr />
+	<button ng-click='closeDialog()' class="btn btn-cancel btn-large btn-login" type="submit">
+		Cancelar
+	</button>
+	<button ng-click='submitDialog()' class="btn btn-ok btn-large btn-login pull-right" type="submit">
+		Confirmar
+	</button>
+</div>

@@ -1,0 +1,77 @@
+<div class="title-left">
+    <div>
+        PAGAMENTO COM CARTÃO
+    </div>
+</div>
+<div class="left-payment">
+	<br />
+	<div class="row-fluid">
+		<div class="controls-row">
+			<div class="control-group lbl-top">
+				<label class="control-label">Parcelas</label>
+				<div class="controls">
+					<select ui-select2 ng-model="card.installmentPlan" class="combo-width-1" required>
+						<option ng-repeat="installments in dataProvider.cardData.installments" value="{{installments}}">{{installments}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group lbl-top">
+				<label class="control-label">Cartão</label>
+				<div class="controls">
+					<select ui-select2 ng-model="card.flag" class='combo-width' required>
+						<option ng-repeat="flags in dataProvider.cardData.flags" value="{{flags}}">{{flags}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group lbl-top">
+				<div class="control-group lbl-top">
+					<label class="control-label" >Valor</label>
+					<div class="controls">
+						<input ng-model="card.value" class="input-small text-right" type="text"  placeholder="" currency required recall>
+					</div>
+				</div>
+			</div>
+			<div class="control-group lbl-top" >
+				<div class="controls">
+                       <div class="btn-clear-form">
+                           <span ng-click="addCreditCard(card)" class="btn-plus2 bg-green hover-state-pointer"></span>
+                       </div>
+				</div>
+			</div>
+		</div>
+		<div class="grid-payment-check">
+			<div class="header header2">
+				<div class="row-payment-check-grid">
+					<span class="col-s3 t-center"><div>Parcelas</div></span>
+                       <span class="col-s5"><div>Cart&atilde;o</div></span>
+                       <span class="col-s4"><div>Valor</div></span>
+				</div>
+			</div>
+			<div class="scroll-payment-grid">
+				<div class="row-payment-credit-card-grid" ng-repeat="card in payments.creditCards">
+					<span class="col-s3"><div>{{card.installmentPlan}}</div></span><span class="col-2"><div>{{card.flag}}</div></span><span class="col-3"><div>{{card.value | currency:''}}</div></span><span class="col-4"><div ng-click="remove($index)" class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
+				</div>
+			</div>
+		</div>
+		<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o código </div>
+	</div>
+	<div class="row-fluid">
+		<div class="total-value-payment-credit-card">
+			<div>
+				<strong>Valor Total:</strong> {{payments.creditCards | sum:'value' | currency:''}}
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="error" style="display:none">
+			Erro ao inserir dados, contate o suporte informando o código
+		</div>
+	</div>
+	<div class="clearfix"></div><hr />
+	<button ng-click="closeDialog()" class="btn btn-cancel btn-large btn-login" type="submit">
+		Cancelar
+	</button>
+	<button ng-click="submitDialog()" class="btn btn-ok btn-large btn-login pull-right" type="submit">
+		Confirmar
+	</button>
+</div>

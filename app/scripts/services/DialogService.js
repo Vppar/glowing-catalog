@@ -23,7 +23,7 @@
         this.openDialog = openDialog;
 
         this.messageDialog = function(data) {
-            return openDialog('views/parts/payment/message-dialog.html', 'MessageDialogCtrl', data);
+            return openDialog('views/parts/global/message-dialog.html', 'MessageDialogCtrl', data);
         };
 
         this.openDialogAddCustomerTels = function(data) {
