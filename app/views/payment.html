@@ -12,7 +12,7 @@
 				<span ng-switch-when="creditcard" ng-include src="'views/parts/payment/payment-left-credit-card.html'"></span>
 				<span ng-switch-when="exchange" ng-include src="'views/parts/payment/payment-left-exchange.html'"></span>
 				<span class="panel-payment-footer-left">
-					<button ng-click='back()' class="btn btn-cancel" type="submit">Voltar</button>
+					<button class="btn btn-cancel" ng-click="selectPaymentMethod('none')">Voltar</button>
 				</span>
 			</div>
 			<div class="span4">

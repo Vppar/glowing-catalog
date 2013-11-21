@@ -23,6 +23,7 @@
                         $scope.items = order.items;
                         $scope.payments = PaymentService.payments;
                         $scope.paymentTypeFilter = PaymentService.paymentTypeFilter;
+                        $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
 
                         // There can be only one cash payment, so we have to
                         // find one if exists if not create a new one.
@@ -40,7 +41,7 @@
                         $scope.selectPaymentMethod = function(method) {
                             $scope.selectedPaymentMethod = method;
                         };
-
+                        
                         function paymentFactory() {
                             var paymentIntent = $q.defer();
                             var confirmedPaymentPromise = paymentIntent.promise.then(showPaymentConfirmationDialog);

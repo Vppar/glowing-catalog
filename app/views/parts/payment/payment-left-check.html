@@ -3,10 +3,10 @@
         PAGAMENTO EM CHEQUE
 	</div>
 </div>
-<div class="left-payment">
+<div class="left-payment" ng-controller="PaymentCheckCtrl">
 	<br />
 	<div class="row-fluid payment-check-fields">
-		<div class="control-group lbl-top">
+		<div class="control-group lbl-top" ng-click="clearCheck()">
         	<div class="btn-clear-form">
 				<span class="btn-clear bg-gray-02 hover-state-pointer"></span>
 			</div>
@@ -32,14 +32,14 @@
 		<div class="control-group lbl-top t-center">
 			<label class="control-label"> Cheque </label>
 			<div class="controls">
-				<input class="input-mini" type="text" ng-model="check.check" required recall>
+				<input class="input-mini" type="text" ng-model="check.number" required recall>
 			</div>
 		</div>
 		<div class="control-group lbl-top t-center">
 			<label class="control-label"> Vencimento </label>
 			<div class="controls">
 				<input type="text" class="date-field input-small" datepicker-popup="dd/MM/yyyy" show-weeks="false" 
-					ng-model="check.date" required>
+					ng-model="check.duedate" required>
 			</div>
 		</div>
 		<div class="control-group lbl-top t-center">

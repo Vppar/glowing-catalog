@@ -54,12 +54,15 @@ describe('Controller: PaymentCheckCtrl', function() {
      * And   - clear the current check payment  
      */
     it('should add a check payment', function() {
-        scope.check = angular.copy(sampleData.payment.check.data);
+        // given
+        angular.extend(scope.check, sampleData.payment.check.data);
         var check = angular.copy(scope.check);
         var paymentsSize = scope.payments.length;
 
+        // when
         scope.addCheck(scope.check);
         
+        // then
         expect(ps.createNew).toHaveBeenCalledWith('check');
         expect(scope.payments.length).toBe(paymentsSize + 1);
         expect(scope.payments[paymentsSize].data).toEqual(check);
@@ -78,13 +81,17 @@ describe('Controller: PaymentCheckCtrl', function() {
      * And   - keep the current check payment  
      */
     it('shouldn\'t add a check payment with invalid form', function() {
-        scope.check = angular.copy(sampleData.payment.check.data);
-        var check = angular.copy(scope.check);
-        var paymentsSize = scope.payments.length;
+        // given
+        angular.extend(scope.check, sampleData.payment.check.data);
         scope.checkForm.$valid = false;
         
+        var check = angular.copy(scope.check);
+        var paymentsSize = scope.payments.length;
+        
+        // when
         scope.addCheck(scope.check);
         
+        // then
         expect(scope.payments.length).toBe(paymentsSize);
         expect(scope.check).toEqual(check);
 
@@ -99,14 +106,17 @@ describe('Controller: PaymentCheckCtrl', function() {
      * And   - warn the user.
      */
     it('shouldn\'t add a repeated check payment', function() {
-        scope.check = angular.copy(sampleData.payment.check.data);
+        // given
+        angular.extend(scope.check, sampleData.payment.check.data);
         scope.payments.push(sampleData.payment.check);
 
         var check = angular.copy(scope.check);
         var paymentsSize = scope.payments.length;
 
+        // when
         scope.addCheck(scope.check);
-
+        
+        // then
         expect(scope.payments.length).toBe(paymentsSize);
         expect(scope.check).toEqual(check);
         expect(ds.messageDialog).toHaveBeenCalledWith({
@@ -117,16 +127,46 @@ describe('Controller: PaymentCheckCtrl', function() {
     });
     
     /**
+     * Given - that the check payment is filled with bank
+     * And   - agency
+     * And   - account
+     * And   - number
+     * And   - check
+     * And   - duedate
+     * And   - amount
+     * When  - the clear button is clicked
+     * Then  - Clear all fields
+    */
+    it('should clear the check payment',function(){
+        // given
+        angular.extend(scope.check, sampleData.payment.check.data);
+        
+        // when
+        scope.clearCheck(scope.check);
+        
+        // then
+        expect(scope.check.bank).toBeNull();
+        expect(scope.check.agency).toBeNull();
+        expect(scope.check.account).toBeNull();
+        expect(scope.check.number).toBeNull();
+        expect(scope.check.duedate).toBeNull();
+        expect(scope.check.amount).toBeNull();
+    });
+    
+    /**
      * Given - that the paymentId passed to the remove function
      * When  - the remove payment button is clicked
      * Then  - remove payment in the second position from the list
      */
     it('should remove a check payment', function() {
+        // given
         var payment = angular.copy(scope.payments[1]);
         var paymentsSize = scope.payments.length;
-
+        
+        // then
         scope.removeCheck(2);
-
+        
+        // when
         expect(scope.payments[1]).not.toEqual(payment);
         expect(scope.payments.length).toBe(paymentsSize - 1);
     });

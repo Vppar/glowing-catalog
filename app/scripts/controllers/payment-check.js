@@ -4,11 +4,11 @@
     angular.module('tnt.catalog.payment.check', [
         'tnt.catalog.filter.findBy'
     ]).controller('PaymentCheckCtrl', function($scope, $filter, DialogService, PaymentService) {
-        
+
         // #####################################################################################################
         // Warm up the controller
         // #####################################################################################################
-        
+
         var check = {};
         var emptyCheckTemplate = {
             bank : null,
@@ -20,14 +20,16 @@
         };
         angular.extend(check, emptyCheckTemplate);
         var checkTypeId = $scope.findPaymentTypeByDescription('check');
+        
+        $scope.check = check;
 
         // #####################################################################################################
         // Scope functions
         // #####################################################################################################
 
         /**
-         * Verifies if entered check already exists in the
-         * $scope.payments array and if not, adds check to the last position.
+         * Verifies if entered check already exists in the $scope.payments array
+         * and if not, adds check to the last position.
          * 
          * @param newCheck - the object containing the newCheck data.
          */
@@ -47,6 +49,14 @@
                     });
                 }
             }
+        };
+
+        /**
+         * Clear all check fields
+         */
+        $scope.clearCheck = function clearCheck() {
+            console.log('bla');
+            angular.extend(check, emptyCheckTemplate);
         };
 
         /**
