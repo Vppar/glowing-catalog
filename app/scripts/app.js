@@ -4,10 +4,10 @@
     angular.module(
             'glowingCatalogApp',
             [
-                'ui.bootstrap', 'ui.select2', 'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum', 'tnt.catalog.service.data', 'tnt.catalog.service.dialog',
-                'tnt.catalog.service.order', 'tnt.catalog.service.payment', 'tnt.catalog.service.sms', 'tnt.catalog.basket', 'tnt.catalog.basket.add',
-                'tnt.catalog.customer', 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails',
-                'tnt.catalog.customer.choose', 'tnt.catalog.payment'
+                'ui.bootstrap', 'ui.select2', 'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum', 'tnt.catalog.service.data',
+                'tnt.catalog.service.dialog', 'tnt.catalog.service.order', 'tnt.catalog.service.payment', 'tnt.catalog.service.sms',
+                'tnt.catalog.basket', 'tnt.catalog.basket.add', 'tnt.catalog.customer', 'tnt.catalog.customer.add.phones',
+                'tnt.catalog.customer.add.emails', 'tnt.catalog.customer.choose', 'tnt.catalog.payment'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -38,12 +38,15 @@
             templateUrl : 'views/order-list.html',
             controller : 'OrderListCtrl'
         }).when('/previous-entries', {
-            templateUrl : 'views/previous-entries.html',
+            templateUrl : 'views/previous-entries.html'
         }).when('/inventory', {
-            templateUrl : 'views/inventory.html',
+            templateUrl : 'views/inventory.html'
         }).when('/delivery', {
             templateUrl : 'views/delivery.html',
             controller : 'DeliveryCtrl'
+        }).when('/financial', {
+            templateUrl : 'views/financial.html',
+            controller : 'FinancialCtrl'
         }).otherwise({
             redirectTo : '/'
         });
