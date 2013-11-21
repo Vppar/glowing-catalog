@@ -64,8 +64,6 @@
             data : {
                 installments : '4x',
                 flag : 'Visa',
-                number : '4012123612351235',
-                duedate : 1383066000000,
                 amount : '8901.23'
             }
         }
