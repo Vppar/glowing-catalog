@@ -124,6 +124,15 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 .bg-orange-02 {
 	background-color: #e7890e
 }
+.t-center {
+	text-align:center;
+}
+.t-right {
+	text-align:right;
+}
+.t-left {
+	text-align:left;
+}
 /*menu states colors*/
 .nav-list > .active-green > a, .nav-list > .active-green > a:hover, .nav-list > .active-green > a:focus {
 	color: white;
@@ -278,8 +287,8 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 /*btns*/
 .btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
 	color: #333333;
-	background-color: #ecbab9;
-	*background-color: #d9d9d9;
+	background-color: #000;
+	*background-color: #000;
 }
 /*icons input calendar*/
 [class^="icon-"], [class*=" icon-"] {
@@ -311,7 +320,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 
 /*main container*/
 body {
-	background: #fafafa
+	background: #fdfdfd;
 }
 .last-oportunitie {
 	padding: 5px;
@@ -748,6 +757,27 @@ nav ul li {
 	position: fixed;
 	top: 70px;
 	bottom: 40px;
+}
+.btn-clear-form {
+	padding: 28px 6px 1px 2px;
+	height: 30px
+}
+
+.btn-clear-form .btn-clear {
+	display: inline-block;
+	float: right;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/x-char-w.png);
+	border-radius: 50%
+}
+.btn-clear-form .btn-plus2 {
+	display: inline-block;
+	float: right;
+	width: 24px;
+	height: 24px;
+	background-image: url(../images/plus-w.png);
+	border-radius: 50%
 }
 
 /*footer*/

@@ -1,138 +1,162 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.payment', []).controller(
-            'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
+    angular
+            .module('tnt.catalog.payment', [])
+            .controller(
+                    'PaymentCtrl',
+                    function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
 
-                $scope.payments = PaymentService.payments;
-                $scope.items = OrderService.order.items;
+                        var order = OrderService.order;
+                        var inBasketFilter = OrderService.inBasketFilter;
+                        var basket = $filter('filter')(order.items, inBasketFilter);
+                        var orderAmount = $filter('sum')(basket, 'price', 'qty');
+                        var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
 
-                // #############################################################################################
-                // Payment related dialogs
-                // #############################################################################################
+                        $scope.customer = customer;
+                        $scope.orderAmount = orderAmount;
+                        $scope.inBasketFilter = inBasketFilter;
+                        $scope.items = order.items;
+                        $scope.payments = PaymentService.payments;
+                        $scope.paymentTypeFilter = PaymentService.paymentTypeFilter;
 
-                $scope.openDialogCheck = function openDialogCheck() {
-                    DialogService.openDialogCheck({
-                        payments : $scope.payments
-                    }).then(function(payment) {
-                        angular.extend($scope.payments, payments);
+                        // There can be only one cash payment, so we have to
+                        // find one if
+                        // exists if not create a new one.
+                        var cashPayment = $filter('filter')(PaymentService.payments, PaymentService.paymentTypeFilter, 'cash');
+                        if (cashPayment.length > 0) {
+                            $scope.cash = cashPayment[0];
+                        } else {
+                            $scope.cash = PaymentService.createNew('cash');
+                        }
+
+                        // #############################################################################################
+                        // Screen actions functions
+                        // #############################################################################################
+
+                        function paymentFactory() {
+                            var paymentIntent = $q.defer();
+                            var confirmedPaymentPromise = paymentIntent.promise.then(showPaymentConfirmationDialog);
+
+                            $scope.confirm = paymentIntent.resolve;
+
+                            return confirmedPaymentPromise;
+                        }
+                        function showPaymentConfirmationDialog() {
+                            return DialogService.messageDialog({
+                                title : 'Pagamento',
+                                message : 'Deseja confirmar o pagamento?',
+                                btnYes : 'Confirmar',
+                                btnNo : 'Cancelar'
+                            });
+                        }
+
+                        function cancelPaymentFactory() {
+                            var cancelPaymentIntent = $q.defer();
+                            var canceledPaymentPromise = cancelPaymentIntent.promise.then(showCancelPaymentDialog);
+
+                            $scope.cancel = cancelPaymentIntent.resolve;
+
+                            return canceledPaymentPromise;
+                        }
+                        function showCancelPaymentDialog() {
+                            return DialogService
+                                    .messageDialog({
+                                        title : 'Cancelar Pagamento',
+                                        message : 'Cancelar o pagamento irá descartar os dados desse pagamento permanentemente. Você tem certeza que deseja cancelar?',
+                                        btnYes : 'Cancelar',
+                                        btnNo : 'Retornar'
+                                    });
+                        }
+                        function cancelPayment() {
+                            PaymentService.clear();
+                            $location.path('/');
+                        }
+
+                        // #############################################################################################
+                        // Main function
+                        // #############################################################################################
+
+                        function validatePayment() {
+                            var paymentAmount = $filter('sum')($scope.payments, 'amount');
+
+                            if (paymentAmount > 0 && paymentAmount === orderAmount) {
+                                return true;
+                            }
+
+                            var message = null;
+                            if (paymentAmount === 0) {
+                                message = 'Nenhum pagamento foi registrado para o pedido.';
+                            } else if (paymentAmount > orderAmount) {
+                                message = 'Valor registrado para pagamento é maior do que o valor total do pedido.';
+                            } else if (paymentAmount < orderAmount) {
+                                message = 'Valor registrado para pagamento é menor do que o valor total do pedido.';
+                            }
+                            return $q.reject(message);
+                        }
+
+                        function makePayment() {
+                            var savedOrder = OrderService.save();
+                            OrderService.clear();
+                            var savedPayments = PaymentService.save(savedOrder.id, savedOrder.customerId);
+                            PaymentService.clear();
+
+                            for ( var idx in savedPayments) {
+                                var savedPayment = savedPayments[idx];
+                                savedOrder.paymentIds.push(savedPayment.id);
+                            }
+                            return true;
+                        }
+
+                        function abortPayment(message) {
+                            // rebuild main promise chain.
+                            main();
+                            // show the dialog.
+                            DialogService.messageDialog({
+                                title : 'Pagamento inválido',
+                                message : message,
+                                btnYes : 'OK',
+                            });
+                            return $q.reject();
+                        }
+
+                        function paymentDone() {
+                            $location.path('/');
+                            return DialogService.messageDialog({
+                                title : 'Pagamento',
+                                message : 'Pagamento efetuado!',
+                                btnYes : 'OK',
+                            });
+                        }
+
+                        function sendAlertSMSAttempt() {
+                            return SMSService.sendPaymentConfirmation(customer, orderAmount).then(smsAlert, smsAlert);
+                        }
+
+                        function smsAlert(message) {
+                            return DialogService.messageDialog({
+                                title : 'Pagamento',
+                                message : message,
+                                btnYes : 'OK',
+                            });
+                        }
+
+                        function main() {
+                            // Execute when payment is confirmed.
+                            var confirmedPaymentPromise = paymentFactory();
+                            var validatedPaymentPromise = confirmedPaymentPromise.then(validatePayment, main);
+                            var paidPromise = validatedPaymentPromise.then(makePayment, abortPayment);
+
+                            // Inform the user that the payment is done.
+                            paidPromise.then(paymentDone);
+
+                            // Send the alert SMS to the customer.
+                            paidPromise.then(sendAlertSMSAttempt);
+
+                            // Cancel payment
+                            var canceledPaymentPromise = cancelPaymentFactory();
+                            canceledPaymentPromise.then(cancelPayment, main);
+                        }
+
+                        main();
                     });
-                };
-                $scope.openDialogCreditCard = function openDialogCreditCard() {
-                    DialogService.openDialogCreditCard({
-                        payments : $scope.payments
-                    }).then(function(payments) {
-                        angular.extend($scope.payments, payments);
-                    });
-                };
-                $scope.openDialogAdvanceMoney = DialogService.openDialogAdvanceMoney;
-                $scope.openDialogProductExchange = DialogService.openDialogProductExchange;
-
-                // #############################################################################################
-                // Screen actions functions
-                // #############################################################################################
-
-                function paymentFactory() {
-                    var paymentIntent = $q.defer();
-                    var confirmedPaymentPromise = paymentIntent.promise.then(showPaymentConfirmationDialog);
-
-                    $scope.confirm = paymentIntent.resolve;
-
-                    return confirmedPaymentPromise;
-                }
-
-                $scope.cancel = function cancel() {
-                    PaymentService.clear();
-                    $location.path('/');
-                };
-
-                // #############################################################################################
-                // Alert dialogs functions
-                // #############################################################################################
-
-                function showPaymentConfirmationDialog() {
-                    return DialogService.messageDialog({
-                        title : 'Pagamento',
-                        message : 'Deseja confirmar o pagamento?',
-                        btnYes : 'Confirmar',
-                        btnNo : 'Cancelar'
-                    });
-                }
-
-                function showPaymentDoneDialog() {
-                    $location.path('/');
-                    return DialogService.messageDialog({
-                        title : 'Pagamento',
-                        message : 'Pagamento efetuado!',
-                        btnYes : 'OK',
-                    });
-                }
-
-                // #############################################################################################
-                // Main function
-                // #############################################################################################
-
-                function validatePayment() {
-                    var orderAmount = $filter('sum')(OrderService.order.items, 'price', 'qty');
-                    var paymentAmount = $filter('sum')($scope.payments, 'amount');
-                    
-                    if (paymentAmount === orderAmount) {
-                        return true;
-                    }
-                    
-                    var message = null;
-                    
-                    if (paymentAmount > orderAmount) {
-                        message = 'Valor registrado para pagamento é maior do que o valor total do pedido.';
-                    } else if (paymentAmount < orderAmount) {
-                        message = 'Valor registrado para pagamento é menor do que o valor total do pedido.';
-                    }
-                    return $q.reject(message);
-                }
-                
-                function makePayment() {
-                    var savedOrder = OrderService.save();
-                    OrderService.clear();
-                    var savedPayments = PaymentService.save(savedOrder.id, savedOrder.customerId);
-                    PaymentService.clear();
-
-                    for ( var idx in savedPayments) {
-                        var savedPayment = savedPayments[idx];
-                        savedOrder.paymentIds.push(savedPayment.id);
-                    }
-                    return savedOrder;
-                }
-                
-                function abortPayment(message){
-                    // rebuild main promise chain.
-                    main();
-                    // show the dialog.
-                    DialogService.messageDialog({
-                        title : 'Pagamento',
-                        message : message,
-                        btnYes : 'OK',
-                    });
-                    return $q.reject();
-                }
-
-                function sendAlertSMSAttempt(order) {
-                    var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
-                    var orderAmount = $filter('sum')(OrderService.order.items, 'price', 'qty');
-                    return SMSService.sendPaymentConfirmation(customer, orderAmount);
-                }
-
-                function main() {
-                    // Execute when payment is confirmed.
-                    var confirmedPaymentPromise = paymentFactory();
-                    var validadedPaymentPromise = confirmedPaymentPromise.then(validatePayment, main);
-                    var paidPromise = validadedPaymentPromise.then(makePayment, abortPayment);
-
-                    // Send the alert SMS to the customer.
-                    var smsSentPromise = paidPromise.then(sendAlertSMSAttempt);
-
-                    // Open the payment confirmation alert.
-                    smsSentPromise.then(showPaymentDoneDialog);
-                }
-
-                main();
-            });
 }(angular));

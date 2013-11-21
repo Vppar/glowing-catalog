@@ -25,7 +25,9 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
      -moz-box-sizing: border-box; /* firefox */
           box-sizing: border-box; /* css3 */
 }
-
+.select2-container {
+	min-width:200px;
+}
 .select2-container .select2-choice {
     display: block;
     height: 28px;

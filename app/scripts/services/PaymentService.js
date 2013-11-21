@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.service.payment', [
-        'tnt.catalog.service.data'
-    ]).service('PaymentService', function PaymentService(DataProvider) {
+        'tnt.catalog.filter.findBy', 'tnt.catalog.service.data'
+    ]).service('PaymentService', function PaymentService($filter, DataProvider) {
         /**
          * Template of an empty payment.
          */
@@ -23,12 +23,21 @@
         var payments = [];
 
         /**
+         * Find a payment type id based in the description
+         */
+        var findPaymentTypeByDescription = function findPaymentTypeByDescription(type) {
+            return $filter('findBy')(DataProvider.paymentTypes, 'description', type);
+        };
+
+        /**
          * Creates a brand new payment.
          */
-        var createNew = function createNew() {
-
+        var createNew = function createNew(type) {
+            var paymentType = findPaymentTypeByDescription(type);
             var newPayment = angular.copy(paymentTemplate);
             newPayment.id = payments.length + 1;
+            newPayment.typeId = paymentType.id;
+            
             payments.push(newPayment);
 
             return newPayment;
@@ -41,10 +50,10 @@
             var savedPayment = {};
             var savedPayments = [];
             var baseId = DataProvider.payments.length;
-
+            
             for ( var idx in payments) {
                 var payment = payments[idx];
-
+                
                 payment.id += Number(idx) + baseId;
                 payment.datetime = new Date();
                 payment.orderId = orderId;
@@ -62,7 +71,15 @@
          * Reset the current payments.
          */
         var clear = function clear() {
-            payments = [];
+            payments.length = 0;
+        };
+
+        /**
+         * Filter the payments by type.
+         */
+        var paymentTypeFilter = function paymentTypeFilter(payment, type) {
+            var paymentType = findPaymentTypeByDescription(type);
+            return payment.typeId === paymentType.id;
         };
 
         /**
@@ -72,5 +89,7 @@
         this.createNew = createNew;
         this.save = save;
         this.clear = clear;
+        this.findPaymentTypeByDescription = findPaymentTypeByDescription;
+        this.paymentTypeFilter = paymentTypeFilter;
     });
 }(angular));

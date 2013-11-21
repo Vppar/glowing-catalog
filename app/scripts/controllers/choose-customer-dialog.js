@@ -22,7 +22,7 @@
          */
         $scope.confirm = function() {
             if ($scope.customerId && $scope.customerId !== '') {
-                order.customerId = $scope.customerId;
+                order.customerId = Number($scope.customerId);
             } else {
                 $location.path('add-customer');
             }
