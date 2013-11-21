@@ -3,41 +3,40 @@
 	<div>
 		RESUMO DA VENDA
 	</div>
-	
 </div>
 <div class="left-payment">
 	<div class="header">
-		<span class="col-1">Item</span><span class="col-2">Produto/Código</span><span class="col-3">Vr Unitário</span><span class="col-4">Qtde</span><span class="col-5">Vr Total</span>
+		<span class="col-1">Item</span>
+		<span class="col-2">Produto/Código</span>
+		<span class="col-3">Vr Unitário</span>
+		<span class="col-4">Qtde</span>
+		<span class="col-5">Vr Total</span>
 	</div>
-	
 	<div class="content-scroll">
-		<div >
-			<span class="col-1">01</span><span class="col-2">Sabonete 3 em 1 de Limpeza Facial TimeWise®</span><span class="col-3">R$ 14,44</span>
-			<span class="col-4">10</span><span class="col-5">144,40</span>
-		</div>
-        <div >
-			<span class="col-1">02</span><span class="col-2">Complexo Facial Noturno TimeWise®</span><span class="col-3">R$ 10,80</span>
-			<span class="col-4">22</span><span class="col-5">237,60</span>
-		</div>
-        <div ng-repeat="product in dataProvider.products | filter: filterQty | obInject:'mul':'qty':'price':'subtotal'">
-			<span class="col-1">03</span><span class="col-2">{{product.title | truncate: 40}}</span><span class="col-3">R$ 14,44</span>
-			<span class="col-4">{{product.qty}}</span><span class="col-5">{{product.subtotal | currency:''}}</span>
+		<div ng-repeat="item in items | filter: inBasketFilter">
+			<span class="col-1" ng-show="$index < 9">{{ '0' + ($index + 1)}}</span>
+			<span class="col-1" ng-show="$index >= 9">{{$index + 1}}</span>
+			<span class="col-2">{{item.title}}</span>
+			<span class="col-3">{{item.price | currency: 'R$ '}}</span>
+			<span class="col-4">{{item.qty}}</span>
+			<span class="col-5">{{item.qty*item.price}}</span>
 		</div>
 	</div>
 	<div class="header2">
-		<span class="col-1">{{productsCount}} itens</span><span class="col-2">Total</span><span class="col-3">{{productsTotal | currency:''}}</span><span class="col-4">Qtde</span><span class="col-5">Vr Total</span>
+		<span class="col-1">Itens</span>
+		<span class="col-2">Total</span>
+		<span class="col-3"></span>
+		<span class="col-4">Qtde</span>
+		<span class="col-5">Vr Total</span>
 	</div>
 </div>
 <!-- END Products Details Payment Page -->
-
-
 <!-- Check Payment Page START -->
 <div style="display:none">
     <div class="title-left">
         <div>
             PAGAMENTO EM CHEQUE
         </div>
-        
     </div>
     <div class="left-payment">
     <br />
@@ -409,7 +408,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="row-fluid">
 				<div class="total-value-advance-money">
 					<div>
@@ -422,7 +420,6 @@
 					Erro ao inserir dados, contate o suporte informando o código
 				</div>
 			</div>
-
 		</div>
 		<div class="clearfix"></div>
 		<hr />
@@ -435,16 +432,15 @@
 
 	</div>
 </div>
-
-<div class="customer-info">
-	<div class="txt-info-customer">
-		{{customer.name}}
-		<br />
-		{{customer.email}}
-		<br />
-		<span ng-repeat="phone in customer.phones">{{phone}}</span>
-	</div>
-</div>
+<!-- <div class="customer-info"> -->
+<!-- 	<div class="txt-info-customer"> -->
+<!-- 		{{customer.name}} -->
+<!-- 		<br /> -->
+<!-- 		{{customer.email}} -->
+<!-- 		<br /> -->
+<!-- 		<span ng-repeat="phone in customer.phones">{{phone}}</span> -->
+<!-- 	</div> -->
+<!-- </div> -->
 <span class="panel-payment-footer-left">
-		<button ng-click='back()' class="btn btn-cancel" type="submit">Voltar</button>
+	<button ng-click='back()' class="btn btn-cancel" type="submit">Voltar</button>
 </span>
