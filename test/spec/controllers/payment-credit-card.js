@@ -44,10 +44,12 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     
     
     /**
-     * Given - a add payment button click
+     * Given - that the installments field is filled
+     * And   - the flag is filled
+     * And   - the amount is filled
      * And   - addCard function receive the credit card object as parameter
      * And   - creditCardForm is valid
-     * When  - installments, flag, and amount are filled
+     * When  - the add payment button is clicked
      * Then  - call the createNew to have an instance of payment
      * And   - copy the credit card data to this instance
      * And   - clear the current credit card payment  
@@ -68,8 +70,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     });
     
     /**
-     * Given - an add payment button click
-     * When  - checkForm is invalid
+     * Given - that the checkForm is invalid
+     * When  - the add payment button is clicked
      * Then  - do not add to payments in PaymentService
      * And   - keep the current check payment  
      */
@@ -87,9 +89,9 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     });
     
     /**
-     * Given - an remove payment button click
-     * When  - the paymentId is passed to the remove function is 2
-     * Then  - remove payment in the position 2 from the list
+     * Given - that the paymentId is passed to the remove function
+     * When  - the remove payment button is clicked
+     * Then  - remove payment in the second position from the list
      */
     it('should remove a credit card payment', function() {
         var payment = angular.copy(scope.payments[1]);
