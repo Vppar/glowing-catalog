@@ -40,10 +40,15 @@ describe('Controller: PaymentCheckCtrl', function() {
     
     
     /**
-     * Given - a add payment button click
+     * Given - that the bank is filled
+     * And   - agency is filled
+     * And   - account is filled
+     * And   - number is filled
+     * And   - due date is filled
+     * And   - amount is filled
      * And   - addCheck function receive the check object as parameter
      * And   - checkForm is valid
-     * When  - bank, agency, account, number, due date and amount are filled
+     * When  - the add payment button is clicked
      * Then  - call the createNew to have an instance of payment
      * And   - copy the check data to this instance
      * And   - clear the current check payment  
@@ -67,8 +72,8 @@ describe('Controller: PaymentCheckCtrl', function() {
     });
     
     /**
-     * Given - an add payment button click
-     * When  - checkForm is invalid
+     * Given - that the checkForm is invalid
+     * When  - the add payment button is clicked
      * Then  - do not add to payments in PaymentService
      * And   - keep the current check payment  
      */
@@ -86,9 +91,9 @@ describe('Controller: PaymentCheckCtrl', function() {
     });
     
     /**
-     * Given - an add payment button click
-     * And   - checkForm is valid
-     * When  - the payments list already have a payment with the same bank, agency, account and number.
+     * Given - that the checkForm is valid
+     * And   - the payments list already have a payment with a check with the same bank, agency, account and number
+     * When  - the add payment button is clicked
      * Then  - do not add to payments in PaymentService
      * And   - keep the current check payment
      * And   - warn the user.
@@ -112,9 +117,9 @@ describe('Controller: PaymentCheckCtrl', function() {
     });
     
     /**
-     * Given - an remove payment button click
-     * When  - the paymentId is passed to the remove function is 2
-     * Then  - remove payment in the position 2 from the list
+     * Given - that the paymentId passed to the remove function
+     * When  - the remove payment button is clicked
+     * Then  - remove payment in the second position from the list
      */
     it('should remove a check payment', function() {
         var payment = angular.copy(scope.payments[1]);
