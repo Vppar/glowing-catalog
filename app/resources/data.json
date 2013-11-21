@@ -382,7 +382,7 @@
         "description": "exchange"
     },{
         "id": 5,
-        "description": "cupon"
+        "description": "advance"
     }],
     "deliveryStatus": [{
         "id": 1,

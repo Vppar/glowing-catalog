@@ -15,7 +15,7 @@ describe('Controller: PaymentCheckCtrl', function() {
             $valid : true
         };
         scope.findPaymentTypeByDescription = function(value) {
-            return 2;
+            return {id: 2};
         };
         scope.payments = angular.copy(sampleData.payments);
 

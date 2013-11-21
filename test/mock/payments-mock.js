@@ -13,7 +13,7 @@
         }, {
             id : 2,
             datetime : 1383066000000,
-            typeId : 1,
+            typeId : 2,
             customerId : 1,
             orderId : 1,
             amount : '200',

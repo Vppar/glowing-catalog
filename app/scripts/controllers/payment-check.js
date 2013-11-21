@@ -19,13 +19,17 @@
             amount : null
         };
         angular.extend(check, emptyCheckTemplate);
-        var checkTypeId = $scope.findPaymentTypeByDescription('check');
-        
+        var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
+
         $scope.check = check;
 
         // #####################################################################################################
         // Scope functions
         // #####################################################################################################
+
+        $scope.paymentCheckFilter = function paymentCheckFilter(payment) {
+            return PaymentService.paymentTypeFilter(payment, 'check');
+        };
 
         /**
          * Verifies if entered check already exists in the $scope.payments array
@@ -38,15 +42,15 @@
             if ($scope.checkForm.$valid) {
                 // check if is duplicated.
                 if (isDuplicated(newCheck)) {
-                    var payment = PaymentService.createNew('check');
-                    payment.data = angular.copy(newCheck);
-                    angular.extend(newCheck, emptyCheckTemplate);
-                } else {
                     DialogService.messageDialog({
                         title : 'Pagamento com Cheque',
                         message : 'Não é possível inserir um cheque que já existe na lista.',
                         btnYes : 'OK'
                     });
+                } else {
+                    var payment = PaymentService.createNew('check');
+                    payment.data = angular.copy(newCheck);
+                    angular.extend(newCheck, emptyCheckTemplate);
                 }
             }
         };
@@ -55,7 +59,6 @@
          * Clear all check fields
          */
         $scope.clearCheck = function clearCheck() {
-            console.log('bla');
             angular.extend(check, emptyCheckTemplate);
         };
 
@@ -93,7 +96,7 @@
                 }
                 return result;
             });
-            return checks.length === 0;
+            return checks.length > 0;
         }
     });
 }(angular));

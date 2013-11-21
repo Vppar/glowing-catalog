@@ -22,9 +22,9 @@
                         $scope.inBasketFilter = inBasketFilter;
                         $scope.items = order.items;
                         $scope.payments = PaymentService.payments;
-                        $scope.paymentTypeFilter = PaymentService.paymentTypeFilter;
                         $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
 
+                        
                         // There can be only one cash payment, so we have to
                         // find one if exists if not create a new one.
                         var cashPayment = $filter('filter')(PaymentService.payments, PaymentService.paymentTypeFilter, 'cash');

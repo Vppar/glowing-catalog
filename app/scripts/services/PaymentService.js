@@ -37,7 +37,7 @@
             var newPayment = angular.copy(paymentTemplate);
             newPayment.id = payments.length + 1;
             newPayment.typeId = paymentType.id;
-            
+
             payments.push(newPayment);
 
             return newPayment;
@@ -50,10 +50,10 @@
             var savedPayment = {};
             var savedPayments = [];
             var baseId = DataProvider.payments.length;
-            
+
             for ( var idx in payments) {
                 var payment = payments[idx];
-                
+
                 payment.id += Number(idx) + baseId;
                 payment.datetime = new Date();
                 payment.orderId = orderId;
