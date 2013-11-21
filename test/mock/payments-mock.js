@@ -58,6 +58,14 @@
                 duedate : 1383066000000,
                 amount : '8901.23'
             }
+        },
+        creditcard : {
+            typeId : 3,
+            data : {
+                installments : '4x',
+                flag : 'Visa',
+                amount : '8901.23'
+            }
         }
     };
     window.sampleData = data;

@@ -74,7 +74,7 @@ describe('Service: PaymentServiceSpec', function() {
         payment1.data = {};
         payment1.typeId = 1;
 
-        var payment2 = PaymentService.createNew('card');
+        var payment2 = PaymentService.createNew('creditcard');
 
         payment2.amount = 300;
         payment2.data = {};
