@@ -22,7 +22,6 @@
         };
         angular.extend(check, emptyCheckTemplate);
         $scope.check = check;
-        var payments = angular.copy($scope.payments);
 
         // Find the id of check payment type
         var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
@@ -38,6 +37,9 @@
          * @param newCheck - the object containing the newCheck data.
          */
         $scope.addCheck = function(newCheck) {
+            if (!newCheck.amount || newCheck.amount === 0) {
+                return;
+            }
             // check if the all mandatory fields are filed.
             if ($scope.checkForm.$valid) {
                 // check if is duplicated.
@@ -49,13 +51,13 @@
                     });
                 } else {
                     var payment = PaymentService.createNew('check');
-                    
+
                     var amount = newCheck.amount;
                     delete newCheck.amount;
-                    
+
                     payment.amount = amount;
                     payment.data = angular.copy(newCheck);
-                    
+
                     angular.extend(newCheck, emptyCheckTemplate);
                     $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
                 }
@@ -78,16 +80,6 @@
         $scope.removeCheck = function removeCheck(payment) {
             var index = $scope.payments.indexOf(payment);
             $scope.payments.splice(index, 1);
-        };
-
-        $scope.confirmChecksPayments = function confirmChecksPayments() {
-            $scope.selectPaymentMethod('none');
-        };
-
-        $scope.cancelChecksPayments = function cancelChecksPayments() {
-            $scope.payments.length = payments.length;
-            angular.extend($scope.payments, payments);
-            $scope.selectPaymentMethod('none');
         };
 
         // #####################################################################################################

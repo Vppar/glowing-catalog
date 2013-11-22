@@ -51,7 +51,6 @@ describe('Controller: PaymentCheckCtrl', function() {
         // reproduce the scope inheritance
         ps.payments = angular.copy(sampleData.payments);
         scope.payments = ps.payments;
-        scope.selectPaymentMethod = jasmine.createSpy('scope.selectPaymentMethod');
 
         $controller('PaymentCheckCtrl', {
             $scope : scope,
@@ -79,7 +78,8 @@ describe('Controller: PaymentCheckCtrl', function() {
     it('should add a check payment', function() {
         // given
         angular.extend(scope.check, sampleData.payment.check.data);
-
+        scope.check.amount = sampleData.payment.check.amount;
+        
         var check = angular.copy(scope.check);
         delete check.amount;
         
@@ -87,6 +87,7 @@ describe('Controller: PaymentCheckCtrl', function() {
 
         // when
         scope.addCheck(scope.check);
+
 
         // then
         expect(ps.createNew).toHaveBeenCalledWith('check');
@@ -136,6 +137,7 @@ describe('Controller: PaymentCheckCtrl', function() {
         // given
         // list of payment in the before each
         angular.extend(scope.check, sampleData.payment.check.data);
+        scope.check.amount = sampleData.payment.check.amount;
         scope.payments.push(sampleData.payment.check);
 
         var check = angular.copy(scope.check);
@@ -201,61 +203,4 @@ describe('Controller: PaymentCheckCtrl', function() {
         expect(scope.payments.length).toBe(paymentsSize - 1);
     });
 
-    /**
-     * Given - a list of payments
-     * When  - confirm button is clicked
-     * Then  - redirect to order items
-     */
-    it('should confirm the checks payments', function() {
-        // given
-        // list of payment in the before each
-        
-        // when
-        scope.confirmChecksPayments();
-        
-        // then
-        expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
-    });
-    
-    /**
-     * Given - a list of payments
-     * And   - a payment is removed
-     * When  - cancel button is clicked
-     * Then  - restore the original list
-     * And   - redirect to order items
-     */
-    it('shouldn\'t confirm remove a check payment', function() {
-        // given
-        // list of payment in the before each
-        scope.check = sampleData.payment.check.data;
-        scope.removeCheck(scope.payments[0]);
-        
-        // when
-        scope.cancelChecksPayments();
-        
-        // then
-        expect(scope.payments).toEqual(sampleData.payments);
-        expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
-    });
-    
-    /**
-     * Given - a list of payments
-     * And   - a payment is added
-     * When  - cancel button is clicked
-     * Then  - restore the original list
-     * And   - redirect to order items
-     */
-    it('shouldn\'t confirm add a check payment', function() {
-        // given
-        // list of payment in the before each
-        scope.check = sampleData.payment.check.data;
-        scope.addCheck(scope.check);
-        
-        // when
-        scope.cancelChecksPayments();
-        
-        // then
-        expect(scope.payments).toEqual(sampleData.payments);
-        expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
-    });
 });

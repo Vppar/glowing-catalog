@@ -3,8 +3,8 @@
 describe('Controller: PaymentCreditCardCtrl', function() {
 
     var scope = {};
+    var element = {};
     var dp = {};
-    var ds = {};
     var ps = {};
     
     // load the controller's module
@@ -14,6 +14,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     });
     
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
+        // scope mock
         scope = $rootScope.$new();
         scope.creditCardForm = {
             $valid : true
@@ -22,22 +23,40 @@ describe('Controller: PaymentCreditCardCtrl', function() {
             return 3;
         };
         scope.payments = angular.copy(sampleData.payments);
+        
+        // element mock
+        element.find = function(name) {
+            var element = {
+                removeClass : function(name) {
+                    return this;
+                },
+                addClass : function(name) {
+                    return this;
+                }
+            };
+            return element;
+        };
 
+        // data provider  mock
         dp.payments = angular.copy(sampleData.payments);
+        dp.cardData = angular.copy(sampleData.cardData);
 
-        ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
-
-        ps.payments = scope.payments;
+        // payment service mock
         ps.createNew = jasmine.createSpy('PaymentService.createNew').andCallFake(function(type) {
             var payment = {};
             ps.payments.push(payment);
             return payment;
         });
+        
+        // reproduce the scope inheritance
+        ps.payments = angular.copy(sampleData.payments);
+        scope.payments = ps.payments;
 
         $controller('PaymentCreditCardCtrl', {
             $scope : scope,
             $filter : _$filter_,
-            DialogService : ds,
+            $element : element,
+            DataProvider : dp,
             PaymentService : ps
         });
     }));
@@ -55,17 +74,18 @@ describe('Controller: PaymentCreditCardCtrl', function() {
      * And   - clear the current credit card payment  
      */
     it('should add a credit card payment', function() {
+        // given
         scope.creditcard = angular.copy(sampleData.payment.creditcard.data);
         var creditcard = angular.copy(scope.creditcard);
         var paymentsSize = scope.payments.length;
 
+        // when
         scope.addCreditCard(scope.creditcard);
         
+        // then
         expect(ps.createNew).toHaveBeenCalledWith('creditcard');
         expect(scope.payments.length).toBe(paymentsSize + 1);
         expect(scope.payments[paymentsSize].data).toEqual(creditcard);
-        expect(scope.creditcard.installments).toBeNull();
-        expect(scope.creditcard.flag).toBeNull();
         expect(scope.creditcard.amount).toBeNull();
     });
     
@@ -94,10 +114,10 @@ describe('Controller: PaymentCreditCardCtrl', function() {
      * Then  - remove payment in the second position from the list
      */
     it('should remove a credit card payment', function() {
-        var payment = angular.copy(scope.payments[1]);
+        var payment = scope.payments[1];
         var paymentsSize = scope.payments.length;
 
-        scope.removeCreditCard(2);
+        scope.removeCreditCard(payment);
 
         expect(scope.payments[1]).not.toEqual(payment);
         expect(scope.payments.length).toBe(paymentsSize - 1);
