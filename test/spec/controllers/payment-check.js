@@ -73,7 +73,7 @@ describe('Controller: PaymentCheckCtrl', function() {
      * And   - checkForm is valid 
      * When  - the add payment button is clicked
      * Then  - call the createNew to have an instance of payment
-     * And   - copy the check data to this instance 
+     * And   - copy the check data to this instance
      * And   - clear the current check payment
      */
     it('should add a check payment', function() {
@@ -81,6 +81,8 @@ describe('Controller: PaymentCheckCtrl', function() {
         angular.extend(scope.check, sampleData.payment.check.data);
 
         var check = angular.copy(scope.check);
+        delete check.amount;
+        
         var paymentsSize = scope.payments.length;
 
         // when

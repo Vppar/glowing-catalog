@@ -49,7 +49,13 @@
                     });
                 } else {
                     var payment = PaymentService.createNew('check');
+                    
+                    var amount = newCheck.amount;
+                    delete newCheck.amount;
+                    
+                    payment.amount = amount;
                     payment.data = angular.copy(newCheck);
+                    
                     angular.extend(newCheck, emptyCheckTemplate);
                     $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
                 }
