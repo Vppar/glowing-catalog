@@ -15,12 +15,14 @@
                         var basket = $filter('filter')(order.items, inBasketFilter);
                         var orderAmount = $filter('sum')(basket, 'price', 'qty');
                         var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                        var payments = {};
 
                         $scope.selectedPaymentMethod = 'none';
                         $scope.customer = customer;
                         $scope.orderAmount = orderAmount;
                         $scope.inBasketFilter = inBasketFilter;
                         $scope.items = order.items;
+                        $scope.payment = {};
                         $scope.payments = PaymentService.payments;
                         $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
 
@@ -28,14 +30,38 @@
                         // find one if exists if not create a new one.
                         var cashPayment = $filter('filter')(PaymentService.payments, PaymentService.paymentTypeFilter, 'cash');
                         if (cashPayment.length > 0) {
-                            $scope.cash = cashPayment[0];
+                            $scope.payment.cash = cashPayment[0];
                         } else {
-                            $scope.cash = PaymentService.createNew('cash');
+                            $scope.payment.cash = PaymentService.createNew('cash');
                         }
 
                         // #############################################################################################
                         // Screen action functions
                         // #############################################################################################
+
+                        /**
+                         * Confirms the check payments and redirect to the order
+                         * items. This will be used by the left fragments that
+                         * inherits this scope
+                         */
+                        $scope.confirmPayments = function confirmPayments() {
+                            payments.length = $scope.payments.length;
+                            angular.extend(payments, $scope.payments);
+                            $scope.selectPaymentMethod('none');
+                        };
+
+                        /**
+                         * Cancels the check payments keeping the old ones and
+                         * redirect to the order items. This will be used by the
+                         * left fragments that inherits this scope, they only
+                         */
+                        $scope.cancelPayments = function cancelPayments() {
+                            $scope.payments.length = payments.length;
+                            payments[0] = $scope.payments[0];
+                            angular.extend($scope.payments, payments);
+                            $scope.payment.cash = $scope.payments[0];
+                            $scope.selectPaymentMethod('none');
+                        };
 
                         /**
                          * Select the payment method changing the left fragment
@@ -44,6 +70,12 @@
                          * @param method - payment method.
                          */
                         $scope.selectPaymentMethod = function selectPaymentMethod(method) {
+                            if ($scope.selectedPaymentMethod === 'none') {
+                                payments = angular.copy(PaymentService.payments);
+                            } else {
+                                $scope.payments.length = payments.length;
+                                angular.extend($scope.payments, payments);
+                            }
                             $scope.selectedPaymentMethod = method;
                         };
 

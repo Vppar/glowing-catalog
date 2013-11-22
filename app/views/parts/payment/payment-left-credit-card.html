@@ -3,53 +3,73 @@
         PAGAMENTO COM CARTÃO
     </div>
 </div>
-<div class="left-payment">
+<div class="left-payment" ng-controller="PaymentCreditCardCtrl">
 	<br />
 	<div class="row-fluid">
-		<div class="controls-row">
-			<div class="control-group lbl-top">
-				<label class="control-label">Parcelas</label>
-				<div class="controls">
-					<select ui-select2 ng-model="card.installmentPlan" class="combo-width-1" required>
-						<option ng-repeat="installments in dataProvider.cardData.installments" value="{{installments}}">{{installments}}</option>
-					</select>
-				</div>
-			</div>
-			<div class="control-group lbl-top">
-				<label class="control-label">Cartão</label>
-				<div class="controls">
-					<select ui-select2 class="combo-width" ng-model="card.flag" required>
-						<option ng-repeat="flags in dataProvider.cardData.flags" value="{{flags}}">{{flags}}</option>
-					</select>
-				</div>
-			</div>
-			<div class="control-group lbl-top">
+		<form name="creditCardForm">
+			<div class="controls-row">
 				<div class="control-group lbl-top">
-					<label class="control-label" >Valor</label>
+					<label class="control-label">Parcelas</label>
 					<div class="controls">
-						<input class="input-small text-right" type="text"  placeholder="" ng-model="card.value"  currency required recall>
+						<select name="installment" ui-select2 ng-model="creditCard.installment" class="combo-width-1" required>
+							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group lbl-top">
+					<label class="control-label">Cartão</label>
+					<div class="controls">
+						<select name="flag" ui-select2 class="combo-width" ng-model="creditCard.flag" required>
+							<option ng-repeat="flag in cardFlags" value="{{flag}}">{{flag}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group lbl-top">
+					<div class="control-group lbl-top">
+						<label class="control-label" >Valor</label>
+						<div class="controls">
+							<input name="amount" class="input-small text-right" type="text"  placeholder="" ng-model="creditCard.amount"  currency required recall>
+						</div>
+					</div>
+				</div>
+				<div class="control-group lbl-top" >
+					<div class="controls">
+	                       <div class="btn-clear-form">
+	                           <span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCreditCard(creditCard)"></span>
+	                       </div>
 					</div>
 				</div>
 			</div>
-			<div class="control-group lbl-top" >
-				<div class="controls">
-                       <div class="btn-clear-form">
-                           <span ng-click="addCreditCard(card)" class="btn-plus2 bg-green hover-state-pointer"></span>
-                       </div>
-				</div>
-			</div>
-		</div>
+		</form>
 		<div class="grid-payment-check">
 			<div class="header header2">
 				<div class="row-payment-check-grid">
-					<span class="col-s3 t-center"><div>Parcelas</div></span>
-                       <span class="col-s5"><div>Cart&atilde;o</div></span>
-                       <span class="col-s4"><div>Valor</div></span>
+					<span class="col-s3 t-center">
+						<div>Parcelas</div>
+					</span>
+                    <span class="col-s5">
+                    	<div>Cart&atilde;o</div>
+                    </span>
+                    <span class="col-s4">
+                    	<div>Valor</div>
+                    </span>
 				</div>
 			</div>
 			<div class="scroll-payment-grid">
-				<div class="row-payment-credit-card-grid" ng-repeat="card in payments.creditCards">
-					<span class="col-s3"><div>{{card.installmentPlan}}</div></span><span class="col-2"><div>{{card.flag}}</div></span><span class="col-3"><div>{{card.value | currency:''}}</div></span><span class="col-4"><div ng-click="remove($index)" class="hover-state-pointer"><img src="images/del-pink.png" alt="" /></div></span>
+				<div class="row-payment-credit-card-grid" ng-repeat="payment in payments | paymentType:'creditcard'">
+					<span class="col-s3">
+						<div>{{payment.data.installment}}</div>
+					</span>
+					<span class="col-2">
+						<div>{{payment.data.flag}}</div>
+					</span><span class="col-3">
+						<div>{{payment.amount | currency:''}}</div>
+					</span>
+					<span class="col-4">
+						<div ng-click="removeCreditCard(payment)" class="hover-state-pointer">
+							<img src="images/del-pink.png" alt="" />
+						</div>
+					</span>
 				</div>
 			</div>
 		</div>
@@ -58,7 +78,7 @@
 	<div class="row-fluid">
 		<div class="total-value-payment-credit-card">
 			<div>
-				<strong>Valor Total:</strong> {{payments.creditCards | sum:'value' | currency:''}}
+				<strong>Valor Total:</strong> {{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}
 			</div>
 		</div>
 	</div>
@@ -68,10 +88,10 @@
 		</div>
 	</div>
 	<div class="clearfix"></div><hr />
-	<button ng-click="closeDialog()" class="btn btn-cancel btn-large btn-login" type="submit">
+	<button class="btn btn-cancel btn-large btn-login" type="submit" ng-click="cancelPayments()">
 		Cancelar
 	</button>
-	<button ng-click="submitDialog()" class="btn btn-ok btn-large btn-login pull-right" type="submit">
+	<button class="btn btn-ok btn-large btn-login pull-right" type="submit" ng-click="confirmPayments()" >
 		Confirmar
 	</button>
 </div>

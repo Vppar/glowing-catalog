@@ -111,7 +111,7 @@
 							<div>{{payment.data.duedate | date:'dd/MM/yyyy'}}</div>
 						</span>
 		                <span class="col-s3 t-right">
-		                	<div>{{payment.data.amount | currency:''}}</div>
+		                	<div>{{payment.amount | currency:''}}</div>
 		                </span>
 		                <span class="col-s1 t-right">
 		                	<div class="hover-state-pointer">
@@ -137,10 +137,10 @@
 	</div>
 	<div class="clearfix"></div>
 	<hr />
-	<button class="btn btn-cancel btn-large btn-login" ng-click="cancelChecksPayments()">
+	<button class="btn btn-cancel btn-large btn-login" ng-click="cancelPayments()">
 		Cancelar
 	</button>
-	<button class="btn btn-ok btn-large btn-login pull-right" ng-click="confirmChecksPayments()">
+	<button class="btn btn-ok btn-large btn-login pull-right" ng-click="confirmPayments()">
 		Confirmar
 	</button>
 </div>
