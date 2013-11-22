@@ -50,13 +50,6 @@
         "installments": ["À vista", "2x", "3x", "4x", "5x", "6x", "7x", "8x", "9x", "10x", "11x", "12x"]
     },
     "products": [{
-        "id": 0,
-        "title": "",
-        "description": "",
-        "image": "",
-        "price": 0,
-        "inventory": 0
-    }, {
         "id": 1,
         "title": "Solução Diurna com FPS 25 TimeWise®",
         "description": "Imagine uma película protetora. Com um fator de proteção solar de 25, este produto inovador ajuda a prevenir linhas finas e manchas na pele, bloqueando os raios UVA/UVB. Peptídeos calmantes ajudam a relaxar as linhas de expressão do rosto.",

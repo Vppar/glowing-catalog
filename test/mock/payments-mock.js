@@ -85,12 +85,20 @@
         },
         creditcard : {
             typeId : 3,
+            amount : '8901.23',
             data : {
                 installment : '4x',
                 flag : 'Visa',
-                amount : '8901.23'
+            }
+        },
+        exchange : {
+            typeId : 4,
+            amount : '8901.23',
+            data : {
+                productId : 1
             }
         }
+
     };
     data.cardData = {
         flags : [
