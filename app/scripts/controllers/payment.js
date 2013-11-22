@@ -22,7 +22,7 @@
                         $scope.inBasketFilter = inBasketFilter;
                         $scope.items = order.items;
                         $scope.payments = PaymentService.payments;
-                        $scope.paymentTypeFilter = PaymentService.paymentTypeFilter;
+                        $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
 
                         // There can be only one cash payment, so we have to
                         // find one if exists if not create a new one.
@@ -34,13 +34,23 @@
                         }
 
                         // #############################################################################################
-                        // Screen actions functions
+                        // Screen action functions
                         // #############################################################################################
 
-                        $scope.selectPaymentMethod = function(method) {
+                        /**
+                         * Select the payment method changing the left fragment
+                         * that will be shown.
+                         * 
+                         * @param method - payment method.
+                         */
+                        $scope.selectPaymentMethod = function selectPaymentMethod(method) {
                             $scope.selectedPaymentMethod = method;
                         };
 
+                        /**
+                         * Triggers the payment confirmation process by showing
+                         * the confirmation dialog.
+                         */
                         function paymentFactory() {
                             var paymentIntent = $q.defer();
                             var confirmedPaymentPromise = paymentIntent.promise.then(showPaymentConfirmationDialog);
@@ -49,6 +59,9 @@
 
                             return confirmedPaymentPromise;
                         }
+                        /**
+                         * Shows the payment confirmation dialog.
+                         */
                         function showPaymentConfirmationDialog() {
                             return DialogService.messageDialog({
                                 title : 'Pagamento',
@@ -58,6 +71,10 @@
                             });
                         }
 
+                        /**
+                         * Triggers the payment canceling process by showing the
+                         * confirmation dialog.
+                         */
                         function cancelPaymentFactory() {
                             var cancelPaymentIntent = $q.defer();
                             var canceledPaymentPromise = cancelPaymentIntent.promise.then(showCancelPaymentDialog);
@@ -66,6 +83,9 @@
 
                             return canceledPaymentPromise;
                         }
+                        /**
+                         * Shows the payment canceling dialog.
+                         */
                         function showCancelPaymentDialog() {
                             return DialogService
                                     .messageDialog({
@@ -75,15 +95,22 @@
                                         btnNo : 'Retornar'
                                     });
                         }
+
+                        /**
+                         * Cancel the payment and redirect to the main screen.
+                         */
                         function cancelPayment() {
                             PaymentService.clear();
                             $location.path('/');
                         }
 
                         // #############################################################################################
-                        // Main function
+                        // Main related functions
                         // #############################################################################################
 
+                        /**
+                         * Checks out if the payment is valid.
+                         */
                         function validatePayment() {
                             var paymentAmount = $filter('sum')($scope.payments, 'amount');
 
@@ -102,6 +129,9 @@
                             return $q.reject(message);
                         }
 
+                        /**
+                         * Saves the payments and closes the order.
+                         */
                         function makePayment() {
                             var savedOrder = OrderService.save();
                             OrderService.clear();
@@ -115,6 +145,11 @@
                             return true;
                         }
 
+                        /**
+                         * Cancels the payments with an alert message.
+                         * 
+                         * @param message - Alert message to the user.
+                         */
                         function abortPayment(message) {
                             // rebuild main promise chain.
                             main();
@@ -127,6 +162,10 @@
                             return $q.reject();
                         }
 
+                        /**
+                         * Ends of the payment process, return the main screen
+                         * and alert the user.s
+                         */
                         function paymentDone() {
                             $location.path('/');
                             return DialogService.messageDialog({
@@ -136,10 +175,16 @@
                             });
                         }
 
+                        /**
+                         * Sends the SMS to the customer about his order.
+                         */
                         function sendAlertSMSAttempt() {
                             return SMSService.sendPaymentConfirmation(customer, orderAmount).then(smsAlert, smsAlert);
                         }
 
+                        /**
+                         * Confirmation SMS alert.
+                         */
                         function smsAlert(message) {
                             return DialogService.messageDialog({
                                 title : 'Pagamento',
@@ -148,6 +193,10 @@
                             });
                         }
 
+                        /**
+                         * Main function responsible for chaining the
+                         * confirmation and cancel processes.
+                         */
                         function main() {
                             // Execute when payment is confirmed.
                             var confirmedPaymentPromise = paymentFactory();
