@@ -18,7 +18,7 @@
 			<div class="control-group lbl-top">
 				<label class="control-label">Cartão</label>
 				<div class="controls">
-					<select ui-select2 ng-model="card.flag" class='combo-width' required>
+					<select ui-select2 class="combo-width" ng-model="card.flag" required>
 						<option ng-repeat="flags in dataProvider.cardData.flags" value="{{flags}}">{{flags}}</option>
 					</select>
 				</div>
@@ -27,7 +27,7 @@
 				<div class="control-group lbl-top">
 					<label class="control-label" >Valor</label>
 					<div class="controls">
-						<input ng-model="card.value" class="input-small text-right" type="text"  placeholder="" currency required recall>
+						<input class="input-small text-right" type="text"  placeholder="" ng-model="card.value"  currency required recall>
 					</div>
 				</div>
 			</div>

@@ -3,12 +3,14 @@
 
     angular.module('tnt.catalog.payment.check', [
         'tnt.catalog.filter.findBy'
-    ]).controller('PaymentCheckCtrl', function($scope, $filter, DialogService, PaymentService) {
+    ]).controller('PaymentCheckCtrl', function($scope, $element, $filter, DialogService, PaymentService) {
 
         // #####################################################################################################
         // Warm up the controller
         // #####################################################################################################
 
+        // Initialize the check field with a empty check and bind it to the
+        // scope
         var check = {};
         var emptyCheckTemplate = {
             bank : null,
@@ -19,17 +21,15 @@
             amount : null
         };
         angular.extend(check, emptyCheckTemplate);
+        $scope.check = check;
+        var payments = angular.copy($scope.payments);
+
+        // Find the id of check payment type
         var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
 
-        $scope.check = check;
-
         // #####################################################################################################
-        // Scope functions
+        // Scope action functions
         // #####################################################################################################
-
-        $scope.paymentCheckFilter = function paymentCheckFilter(payment) {
-            return PaymentService.paymentTypeFilter(payment, 'check');
-        };
 
         /**
          * Verifies if entered check already exists in the $scope.payments array
@@ -51,6 +51,7 @@
                     var payment = PaymentService.createNew('check');
                     payment.data = angular.copy(newCheck);
                     angular.extend(newCheck, emptyCheckTemplate);
+                    $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
                 }
             }
         };
@@ -60,6 +61,7 @@
          */
         $scope.clearCheck = function clearCheck() {
             angular.extend(check, emptyCheckTemplate);
+            $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
         };
 
         /**
@@ -67,10 +69,19 @@
          * 
          * @param paymentId - payment id of the check to be removed.
          */
-        $scope.removeCheck = function removeCheck(paymentId) {
-            var payment = $filter('findBy')($scope.payments, 'id', paymentId);
+        $scope.removeCheck = function removeCheck(payment) {
             var index = $scope.payments.indexOf(payment);
             $scope.payments.splice(index, 1);
+        };
+
+        $scope.confirmChecksPayments = function confirmChecksPayments() {
+            $scope.selectPaymentMethod('none');
+        };
+
+        $scope.cancelChecksPayments = function cancelChecksPayments() {
+            $scope.payments.length = payments.length;
+            angular.extend($scope.payments, payments);
+            $scope.selectPaymentMethod('none');
         };
 
         // #####################################################################################################
@@ -86,8 +97,7 @@
             var checks = $filter('filter')($scope.payments, function(item) {
                 var result = false;
                 if (item.typeId === checkTypeId) {
-                    // Done this way cause when everything is placed
-                    // in one row
+                    // Done this way cause when everything is placed in one row
                     // the code became damn ugly.
                     result = item.data.bank === newCheck.bank;
                     result = result && (item.data.agency === newCheck.agency);

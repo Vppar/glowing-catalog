@@ -1,62 +1,64 @@
-<div class="title-left">
-	<div>
-        PAGAMENTO EM CHEQUE
+<div ng-controller="PaymentCheckCtrl">
+	<div class="title-left">
+		<div>
+	        PAGAMENTO EM CHEQUE
+		</div>
 	</div>
-</div>
-<form name="checkForm">
-	<div class="left-payment" ng-controller="PaymentCheckCtrl">
-		<br />
-		<div class="row-fluid payment-check-fields">
-			<div class="control-group lbl-top" ng-click="clearCheck()">
-	        	<div class="btn-clear-form">
-					<span class="btn-clear bg-gray-02 hover-state-pointer"></span>
+	<form name="checkForm">
+		<div class="left-payment">
+			<br />
+			<div class="row-fluid payment-check-fields">
+				<div class="control-group lbl-top" ng-click="clearCheck()">
+		        	<div class="btn-clear-form">
+						<span class="btn-clear bg-gray-02 hover-state-pointer"></span>
+					</div>
 				</div>
-			</div>
-			<div class="control-group lbl-top t-center">
-				<label class="control-label"> Banco </label>
-				<div class="controls">
-					<input class="input-mini" type="text" placeholder="" ng-model="check.bank" required recall>
+				<div class="control-group lbl-top t-center">
+					<label class="control-label"> Banco </label>
+					<div class="controls">
+						<input name="bank" class="input-mini" type="text" placeholder="" ng-model="check.bank" required recall>
+					</div>
 				</div>
-			</div>
-			<div class="control-group lbl-top t-center">
-				<label class="control-label"> Agência </label>
-				<div class="controls">
-					<input class="input-mini" type="text" placeholder="" ng-model="check.agency" required recall>
+				<div class="control-group lbl-top t-center">
+					<label class="control-label"> Agência </label>
+					<div class="controls">
+						<input name="agency" class="input-mini" type="text" placeholder="" ng-model="check.agency" required recall>
+					</div>
 				</div>
-			</div>
-			<div class="control-group lbl-top t-center">
-				<label class="control-label"> Conta </label>
-				<div class="controls">
-					<input class="input-cta" type="text" ng-model="check.account" required recall>
+				<div class="control-group lbl-top t-center">
+					<label class="control-label"> Conta </label>
+					<div class="controls">
+						<input name="account" class="input-cta" type="text" ng-model="check.account" required recall>
+					</div>
 				</div>
-			</div>
-			<div class="control-group lbl-top t-center">
-				<label class="control-label"> Cheque </label>
-				<div class="controls">
-					<input class="input-mini" type="text" ng-model="check.number" required recall>
+				<div class="control-group lbl-top t-center">
+					<label class="control-label"> Cheque </label>
+					<div class="controls">
+						<input name="number" class="input-mini" type="text" ng-model="check.number" required recall>
+					</div>
 				</div>
-			</div>
-			<div class="control-group lbl-top t-center">
-				<label class="control-label"> Vencimento </label>
-				<div class="controls">
-					<input type="text" class="date-field input-small" datepicker-popup="dd/MM/yyyy" show-weeks="false" 
-						ng-model="check.duedate" required>
+				<div class="control-group lbl-top t-center">
+					<label class="control-label"> Vencimento </label>
+					<div class="controls">
+						<input type="text" class="date-field input-small" datepicker-popup="dd/MM/yyyy" show-weeks="false" 
+							ng-model="check.duedate" required>
+					</div>
 				</div>
-			</div>
-			<div class="control-group lbl-top t-center">
-				<label class="control-label"> Valor </label>
-				<div class="controls">
-					<input class="input-small text-right" type="text" ng-model="check.amount" currency recall required>
+				<div class="control-group lbl-top t-center">
+					<label class="control-label"> Valor </label>
+					<div class="controls">
+						<input name="amount" class="input-small text-right" type="text" ng-model="check.amount" currency recall required>
+					</div>
 				</div>
-			</div>
-			<div class="control-group lbl-top">
-				<div class="controls">
-					<div class="btn-clear-form">
-						<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCheck(check)"></span>
+				<div class="control-group lbl-top">
+					<div class="controls">
+						<div class="btn-clear-form">
+							<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCheck(check)"></span>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 		<div class="row-fluid">
 			<div class="grid-payment-check">
 				<div class="header header2">
@@ -89,9 +91,9 @@
 				</div>
 		        <!-- ROW 1 Example -->
 				<div class="scroll-payment-grid">
-					<div class="row-payment-check-grid" ng-repeat="payment in payments | filter: paymentCheckFilter | orderBy:'id':true" >
+					<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'id':true" >
 						<span class="col-s1">
-							<div>{{(payments | filter: paymentCheckFilter).length - $index}}</div>
+							<div>{{(payments | paymentType:'check').length - $index}}</div>
 						</span>
 		               	<span class="col-s2 t-center">
 		               		<div>{{payment.data.bank}}</div>
@@ -109,7 +111,7 @@
 							<div>{{payment.data.duedate | date:'dd/MM/yyyy'}}</div>
 						</span>
 		                <span class="col-s3 t-right">
-		                	<div>{{payment.data.amount | currency}}</div>
+		                	<div>{{payment.data.amount | currency:''}}</div>
 		                </span>
 		                <span class="col-s1 t-right">
 		                	<div class="hover-state-pointer">
@@ -135,10 +137,10 @@
 	</div>
 	<div class="clearfix"></div>
 	<hr />
-	<button ng-click='closeDialog()' class="btn btn-cancel btn-large btn-login" type="submit">
+	<button class="btn btn-cancel btn-large btn-login" ng-click="cancelChecksPayments()">
 		Cancelar
 	</button>
-	<button ng-click='submitDialog()' class="btn btn-ok btn-large btn-login pull-right" type="submit">
+	<button class="btn btn-ok btn-large btn-login pull-right" ng-click="confirmChecksPayments()">
 		Confirmar
 	</button>
-</form>
+</div>

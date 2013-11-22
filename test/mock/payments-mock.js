@@ -8,7 +8,7 @@
             typeId : 1,
             customerId : 1,
             orderId : 1,
-            amount : '256',
+            amount : '100',
             data : {}
         }, {
             id : 2,
@@ -16,7 +16,31 @@
             typeId : 2,
             customerId : 1,
             orderId : 1,
-            amount : '200',
+            amount : '100',
+            data : {}
+        }, {
+            id : 3,
+            datetime : 1383066000000,
+            typeId : 3,
+            customerId : 1,
+            orderId : 1,
+            amount : '100',
+            data : {}
+        }, {
+            id : 4,
+            datetime : 1383066000000,
+            typeId : 4,
+            customerId : 1,
+            orderId : 1,
+            amount : '100',
+            data : {}
+        }, {
+            id : 5,
+            datetime : 1383066000000,
+            typeId : 5,
+            customerId : 1,
+            orderId : 1,
+            amount : '56',
             data : {}
         }
     ];
