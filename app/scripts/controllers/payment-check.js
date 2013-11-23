@@ -36,7 +36,7 @@
          * 
          * @param newCheck - the object containing the newCheck data.
          */
-        $scope.addCheck = function(newCheck) {
+        $scope.addCheck = function addCheck(newCheck) {
             if (!newCheck.amount || newCheck.amount === 0) {
                 return;
             }
@@ -75,7 +75,7 @@
         /**
          * Removes selected check from $scope.payments array
          * 
-         * @param paymentId - payment id of the check to be removed.
+         * @param payment - check payment to be removed.
          */
         $scope.removeCheck = function removeCheck(payment) {
             var index = $scope.payments.indexOf(payment);

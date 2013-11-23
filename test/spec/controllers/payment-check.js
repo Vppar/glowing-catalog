@@ -62,12 +62,12 @@ describe('Controller: PaymentCheckCtrl', function() {
     }));
 
     /**
-     * Given - that the bank is filled 
-     * And   - agency is filled 
-     * And   - account is filled 
-     * And   - number is filled 
-     * And   - due date is filled 
-     * And   - amount is filled 
+     * Given - a bank
+     * And   - an agency 
+     * And   - an account 
+     * And   - a number 
+     * And   - a due date 
+     * And   - an amount 
      * And   - addCheck function receive the check object as parameter 
      * And   - checkForm is valid 
      * When  - the add payment button is clicked
@@ -102,7 +102,7 @@ describe('Controller: PaymentCheckCtrl', function() {
     });
 
     /**
-     * Given - that the checkForm is invalid
+     * Given - a invalid checkForm 
      * When  - the add payment button is clicked
      * Then  - do not add to payments in PaymentService
      * And   - keep the current check payment
@@ -157,13 +157,13 @@ describe('Controller: PaymentCheckCtrl', function() {
     });
 
     /**
-     * Given - that the check payment is filled with bank
-     * And   - agency
-     * And   - account
-     * And   - number
-     * And   - check
-     * And   - duedate
-     * And   - amount
+     * Given - a bank
+     * And   - an agency
+     * And   - an account
+     * And   - a number
+     * And   - a check
+     * And   - a duedate
+     * And   - an amount
      * When  - the clear button is clicked
      * Then  - Clear all fields
      */

@@ -11,12 +11,13 @@
 
         // Initializing credit card data with a empty credit card
         var creditCard = {};
-        var emptyCheckTemplate = {
+        var emptyCreditCardTemplate = {
             installment : null,
             flag : null,
             amount : null
         };
-        angular.extend(creditCard, emptyCheckTemplate);
+        angular.extend(creditCard, emptyCreditCardTemplate);
+        $scope.creditCard = creditCard;
 
         // Credit card informations to fill the screen combos.
         $scope.cardFlags = DataProvider.cardData.flags;
@@ -31,7 +32,7 @@
          * 
          * @param newCreditCard - the object containing the newCreditCard data.
          */
-        $scope.addCreditCard = function(newCreditCard) {
+        $scope.addCreditCard = function addCreditCard(newCreditCard) {
             if (!newCreditCard.amount || newCreditCard.amount === 0) {
                 return;
             }
@@ -51,9 +52,9 @@
         /**
          * Removes selected check from $scope.payments array
          * 
-         * @param paymentId - payment id of the check to be removed.
+         * @param payment - credit card payment to be removed.
          */
-        $scope.removeCreditCard = function removeCheck(payment) {
+        $scope.removeCreditCard = function removeCreditCard(payment) {
             var index = $scope.payments.indexOf(payment);
             $scope.payments.splice(index, 1);
         };

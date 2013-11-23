@@ -1,29 +1,29 @@
 'use strict';
 
-describe('Controller: PaymentCreditCardCtrl', function() {
+describe('Controller: PaymentExchangeCtrl', function() {
 
     var scope = {};
     var element = {};
     var dp = {};
     var ps = {};
-    
+
     // load the controller's module
     beforeEach(function() {
-        module('tnt.catalog.payment.creditcard');
+        module('tnt.catalog.payment.exchange');
         module('tnt.catalog.filter.findBy');
     });
-    
+
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
         scope = $rootScope.$new();
-        scope.creditCardForm = {
+        scope.exchangeForm = {
             $valid : true
         };
         scope.findPaymentTypeByDescription = function(value) {
             return 3;
         };
         scope.payments = angular.copy(sampleData.payments);
-        
+
         // element mock
         element.find = function(name) {
             var element = {
@@ -37,7 +37,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
             return element;
         };
 
-        // data provider  mock
+        // data provider mock
         dp.payments = angular.copy(sampleData.payments);
         dp.cardData = angular.copy(sampleData.cardData);
 
@@ -47,12 +47,12 @@ describe('Controller: PaymentCreditCardCtrl', function() {
             ps.payments.push(payment);
             return payment;
         });
-        
+
         // reproduce the scope inheritance
         ps.payments = angular.copy(sampleData.payments);
         scope.payments = ps.payments;
 
-        $controller('PaymentCreditCardCtrl', {
+        $controller('PaymentExchangeCtrl', {
             $scope : scope,
             $filter : _$filter_,
             $element : element,
@@ -60,69 +60,63 @@ describe('Controller: PaymentCreditCardCtrl', function() {
             PaymentService : ps
         });
     }));
-    
-    
+
     /**
-     * Given - a installment
-     * And   - a flag
-     * And   - an amount
-     * And   - addCreditCard function receive the credit card object as parameter
-     * And   - creditCardForm is valid
-     * When  - the add payment button is clicked
-     * Then  - call the createNew to have an instance of payment
-     * And   - copy the credit card data to this instance
-     * And   - clear the current credit card payment  
+     * Given - a exchange.product And - an exchange.amount And - addExchange
+     * function receive scope.exchange as parameter And - scope.exchangeForm is
+     * valid When - the add payment button is clicked Then - call the createNew
+     * to have an instance of payment And - copy the exchange data to this
+     * instance And - clear the current exchange payment
      */
-    it('should add a credit card payment', function() {
+    it('should add an exchange payment', function() {
         // given
-        scope.creditcard = angular.copy(sampleData.payment.creditcard.data);
-        scope.creditcard.amount = sampleData.payment.creditcard.amount;
-        var creditcard = angular.copy(scope.creditcard);
-        delete creditcard.amount;
+        scope.exchange = angular.copy(sampleData.payment.exchange.data);
+        scope.exchange.amount = sampleData.payment.exchange.amount;
+        var exchange = angular.copy(scope.exchange);
+        delete exchange.amount;
         var paymentsSize = scope.payments.length;
 
         // when
-        scope.addCreditCard(scope.creditcard);
-        
+        scope.addExchange(scope.exchange);
+
         // then
-        expect(ps.createNew).toHaveBeenCalledWith('creditcard');
+        expect(ps.createNew).toHaveBeenCalledWith('exchange');
         expect(scope.payments.length).toBe(paymentsSize + 1);
-        expect(scope.payments[paymentsSize].data).toEqual(creditcard);
-        expect(scope.creditcard.amount).toBeUndefined();
+        expect(scope.payments[paymentsSize].data).toEqual(exchange);
+        expect(scope.exchange.amount).toBeUndefined();
     });
-    
+
     /**
-     * Given - a invalid creditCardForm
-     * When  - the add payment button is clicked
-     * Then  - do not add to payments in PaymentService
-     * And   - keep the current check payment  
+     * Given - a invalid exchangeForm When - the add payment button is clicked
+     * Then - do not add to payments in PaymentService And - keep the current
+     * exchange payment
      */
-    it('shouldn\'t add a credit card payment with invalid form', function() {
-        scope.creditcard = angular.copy(sampleData.payment.creditcard.data);
-        var creditcard = angular.copy(scope.creditcard);
+    it('shouldn\'t add an exchange payment with invalid form', function() {
+        scope.exchange = angular.copy(sampleData.payment.exchange.data);
+        var exchange = angular.copy(scope.exchange);
         var paymentsSize = scope.payments.length;
-        scope.creditCardForm.$valid = false;
-        
-        scope.addCreditCard(scope.creditcard);
-        
+        scope.exchangeForm.$valid = false;
+
+        scope.addExchange(scope.exchange);
+
         expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.creditcard).toEqual(creditcard);
+        expect(scope.exchange).toEqual(exchange);
 
     });
-    
+
     /**
-     * Given - that a payment is passed to the remove function
-     * When  - the remove payment button is clicked
-     * Then  - remove payment in the second position from the list
+     * Given - that the payment is passed to the remove function When - the
+     * remove payment button is clicked Then - remove payment in the second
+     * position from the list
      */
-    it('should remove a credit card payment', function() {
+    it('should remove an exchange payment', function() {
         var payment = scope.payments[1];
         var paymentsSize = scope.payments.length;
 
-        scope.removeCreditCard(payment);
+        scope.removeExchange(payment);
 
         expect(scope.payments[1]).not.toEqual(payment);
         expect(scope.payments.length).toBe(paymentsSize - 1);
     });
-    
+
 });

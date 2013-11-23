@@ -4,63 +4,68 @@
     </div>
     
 </div>
-<div class="left-payment">
+<div class="left-payment" ng-controller="PaymentExchangeCtrl">
    <br />
 	<div class="row-fluid">
-
-		<div class="controls-row">
-
-			<div class="control-group lbl-top">
-				<label class="control-label">Selecione um Produto</label>
-				<select class="combo-width-product-exchange" ui-select2 ng-model="product.id" data-placeholder="" required>
-					<option ng-repeat="products in dataProvider.products" value="{{products.id}}">{{products.title}}</option>
-				</select>
-			</div>
-			<div class="control-group lbl-top">
+		<form name="exchangeForm">
+			<div class="controls-row">
 				<div class="control-group lbl-top">
-					<label class="control-label" >Valor</label>
-					<div class="controls">
-						<input class="input-small text-right" ng-model="product.price" type="text" currency required>
+					<label class="control-label">Selecione um Produto</label>
+					<select ui-select2 name="product" class="combo-width-product-exchange" ng-model="exchange.productId" data-placeholder="" ng-click="setAmount(exchange.productId)">
+						<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+					</select>
+				</div>
+				<div class="control-group lbl-top">
+					<div class="control-group lbl-top">
+						<label class="control-label" >Valor</label>
+						<div class="controls">
+							<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="text" currency recall>
+						</div>
 					</div>
 				</div>
+				<div class="control-group lbl-top" >
+					<div class="btn-clear-form">
+	                	<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addExchange(exchange)"></span>
+	                </div>
+				</div>
 			</div>
-			<div class="control-group lbl-top" >
-				<div class="btn-clear-form">
-                           <span ng-click="addCreditCard(card)" class="btn-plus2 bg-green hover-state-pointer"></span>
-                       </div>
-			</div>
-
-		</div>
+		</form>
 		<div class="grid-payment-check">
 			<div class="header header2">
 				<div class="row-payment-check-grid">
 					<span class="col-s4">
-						<div>Produto</div></span>
-                       <span class="col-s3">
+						<div>Produto</div>
+					</span>
+                    <span class="col-s3">
 						<div>Valor</div>
-                       </span>
+                	</span>
 				</div>
 			</div>
 			<div class="scroll-payment-grid">
-				<div ng-repeat="product in productList" class="row-payment-grid-product-exchange">
+				<div ng-repeat="payment in payments | paymentType:'exchange'" class="row-payment-grid-product-exchange">
 					<span class="col-1">
 						<div>
-							{{product.title}}
-						</div></span><span class="col-2">
+							{{(products | findBy:'id':payment.data.productId).title}}
+						</div>
+					</span>
+					<span class="col-2">
 						<div>
-							{{product.price | currency:""}}
-						</div></span><span class="col-4">
-						<div ng-click="remove(product)" class="hover-state-pointer"><img src="images/del-pink.png" alt="" />
-						</div></span>
+							{{payment.amount | currency:""}}
+						</div>
+					</span>
+					<span class="col-4">
+						<div class="hover-state-pointer" ng-click="removeExchange(payment)">
+							<img src="images/del-pink.png" alt="" />
+						</div>
+					</span>
 				</div>
 			</div>
-
 		</div>
 
 		<div class="row-fluid">
 			<div class="total-value-product-exchange">
 				<div>
-					<span><strong>Valor Total:</strong> {{productList | sum:'price' | currency:""}}</span>
+					<span><strong>Valor Total:</strong> {{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
 				</div>
 			</div>
 		</div>
@@ -73,10 +78,10 @@
 	</div>
 	<div class="clearfix"></div>
 	<hr />
-	<button ng-click='closeDialog()' class="btn btn-cancel btn-large btn-login" type="submit">
+	<button class="btn btn-cancel btn-large btn-login" type="submit" ng-click="cancelPayments()" >
 		Cancelar
 	</button>
-	<button ng-click='submitDialog()' class="btn btn-ok btn-large btn-login pull-right" type="submit">
+	<button class="btn btn-ok btn-large btn-login pull-right" type="submit" ng-click="confirmPayments()"  >
 		Confirmar
 	</button>
 </div>
