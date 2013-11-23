@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller('HeaderCtrl', function($scope, $filter, $location, OrderService, DialogService) {
+    angular.module('tnt.catalog.header',[]).controller('HeaderCtrl', function($scope, $filter, $location, OrderService, DialogService) {
 
         // #############################################################################################################
         // Scope variables from services
@@ -23,7 +23,7 @@
          */
         $scope.openDialogChooseCustomer = DialogService.openDialogChooseCustomer;
         /**
-         * Opens the dialog to choose a customer.
+         * Opens the dialog to input a product.
          */
         $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
 
