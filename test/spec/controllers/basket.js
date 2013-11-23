@@ -1,4 +1,4 @@
-describe('Controller: BasketCtrl', function() {
+xdescribe('Controller: BasketCtrl', function() {
 
     // load the controller's module
     beforeEach(module('tnt.catalog.basket'));

@@ -14,12 +14,20 @@ describe('Controller: AddToBasketDialogCtrl', function() {
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
-        os.order = angular.copy(sampleData.order);
+        // $dialog mock
         dialog.data = {
-            id : 6
+                id : 2
         };
         dialog.close = jasmine.createSpy();
+
+        // OrderService mock
+        os.order = angular.copy(sampleData.orderTemplate);
+        os.order.items = angular.copy(sampleData.products);
+        os.order.items[1].qty = 456;
+        
+        // $scope mock
         scope = $rootScope.$new();
+
         $controller('AddToBasketDialogCtrl', {
             $scope : scope,
             OrderService : os,

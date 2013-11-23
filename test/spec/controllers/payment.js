@@ -12,6 +12,7 @@ describe('Controller: PaymentCtrl', function() {
     beforeEach(function() {
         module('tnt.catalog.payment');
         module('tnt.catalog.filter.findBy');
+        module('tnt.catalog.filter.paymentType');
         module('tnt.catalog.filter.sum');
     });
 
@@ -24,25 +25,30 @@ describe('Controller: PaymentCtrl', function() {
         dp.payments = [];
         dp.customers = angular.copy(sampleData.customers);
         dp.representative = angular.copy(sampleData.representative);
+        dp.orders = [];
 
         // DialogService mock
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
 
         // OrdeService mock
-        os.order = angular.copy(sampleData.order);
-        os.order.customerId = 1;
-        os.save = jasmine.createSpy('OrderService.save').andReturn(angular.copy(sampleData.orderSaveReturn));
+        os.order = angular.copy(sampleData.orders[0]);
+        os.save = jasmine.createSpy('OrderService.save').andCallFake(function() {
+            var orderSaveReturn = angular.copy(sampleData.orderSaveReturn);
+            dp.orders.push(orderSaveReturn);
+            return orderSaveReturn;
+        });
         os.clear = jasmine.createSpy('OrderService.clear');
 
         // PaymentService mock
-        ps.payments = angular.copy(sampleData.payments);
-        ps.save = jasmine.createSpy('PaymentService.save').andReturn(angular.copy(sampleData.paymentSaveReturn));
+        ps.save = jasmine.createSpy('PaymentService.save').andReturn(angular.copy(sampleData.payments));
         ps.clear = jasmine.createSpy('PaymentService.clear');
+        ps.createNew = function() {
+        };
+        ps.payments = [];
 
         // Scope mock
         rootScope = $rootScope;
         scope = $rootScope.$new();
-        scope.payments = angular.copy(sampleData.payments);
 
         // SMSService mock
         sms.sendPaymentConfirmation =
@@ -64,69 +70,108 @@ describe('Controller: PaymentCtrl', function() {
     }));
 
     /**
-     * Should have the order items available in the scope.
+     * Given - a order (OrderService.order) 
+     * And   - the order has products (order.items)
+     * And   - a customer is selected (order.customerId)
+     * And   - payment screen was requested to open
+     * When  - payment screen load is done.
+     * Then  - the selected scope should be 'none' (scope.selectedPaymentMethod)
+     * And   - OrderService.order.items should be binded in the scope.items
+     * And   - the customer of the order should be binded in the scope.customer
+     * And   - OrderService.order.items should be binded in the scope.items
      */
-    it('should have the order items', function() {
+    it('should have order informations', function() {
+        // given
+        // provided by beforeEach 
+        
+        // when
+        // done by beforeEach
+        
+        // then
+        expect(scope.selectedPaymentMethod).toBe('none');
+        expect(scope.items).toBe(os.order.items);
+        // In the sample order I made sure that the selected customer is first of the customers list.  
+        expect(scope.customer).toBe(dp.customers[0]);
         expect(scope.items).toBe(os.order.items);
     });
 
     /**
-     * Should cancel the payment and leave everything else untouched.
+     * Given - a payments list (scope.payments)
+     * When  - cancel payments is request
+     * Then  - warn the user about canceling the payment
+     * And   - clear the current payment (PaymentService.clear)
+     * And   - redirect to the home screen
+     * And   - the payment data store should be left untouched (DataProvider.payments)
      */
     it('should cancel payment', function() {
+        // given
+        angular.extend(scope.payments, sampleData.payments);
         var payments = angular.copy(dp.payments);
+        
+        // when
         scope.cancel();
         rootScope.$apply();
-        // should leave the payments list untouched.
-        expect(dp.payments).toEqual(payments);
-        // should warn the user about data loss.
+        
+        // then
         expect(ds.messageDialog).toHaveBeenCalledWith({
             title : 'Cancelar Pagamento',
             message : 'Cancelar o pagamento irá descartar os dados desse pagamento permanentemente. Você tem certeza que deseja cancelar?',
             btnYes : 'Cancelar',
             btnNo : 'Retornar'
         });
-        // should clear the payments
+        expect(dp.payments).toEqual(payments);
         expect(ps.clear).toHaveBeenCalled();
-        // should go home.
         expect(location.path).toHaveBeenCalledWith('/');
     });
 
     /**
-     * Should confirm the payment.
+     * Given - a payments list (scope.payments)
+     * When  - confirm the payments is request
+     * Then  - save the order (OrderService.save)
+     * And   - clear the current order (OrderService.clear)
+     * And   - save the payments with orderId and customerId (PaymentService.save)
+     * And   - clear the current payments (OrderService.clear)
+     * And   - link the payments to the order
+     * And   - send a SMS to warn the customer about his order (SMSService.sendPaymentConfirmation)
+     * And   - go to the home screen
      */
     it('should confirm payment', function($rootScope) {
+        // given
+        angular.extend(scope.payments, sampleData.payments);
         var customer = $filter('findBy')(dp.customers, 'id', os.order.customerId);
         var orderAmount = $filter('sum')(os.order.items, 'price', 'qty');
 
+        // when
         scope.confirm();
         rootScope.$apply();
 
-        // The order should be saved.
-        expect(os.save).toHaveBeenCalled();
-        expect(os.clear).toHaveBeenCalled();
-        // The payment should be saved.
-        expect(ps.save).toHaveBeenCalledWith(1, 1);
-        expect(ps.clear).toHaveBeenCalled();
-        // The confirmation dialog should be displayed.
+        // then
         expect(ds.messageDialog).toHaveBeenCalledWith({
             title : 'Pagamento',
             message : 'Deseja confirmar o pagamento?',
             btnYes : 'Confirmar',
             btnNo : 'Cancelar'
         });
-        // The SMS should be sent.
+        expect(os.save).toHaveBeenCalled();
+        expect(os.clear).toHaveBeenCalled();
+        expect(ps.save).toHaveBeenCalledWith(1, 1);
+        expect(ps.clear).toHaveBeenCalled();
+        expect(dp.orders[dp.orders.length - 1].paymentIds).toEqual([
+            1, 2, 3, 4, 5
+        ]);
         expect(sms.sendPaymentConfirmation).toHaveBeenCalledWith(customer, orderAmount);
-        // And finally go home soldier you deserve it.
         expect(location.path).toHaveBeenCalledWith('/');
     });
 
     /**
-     * Shouldn't confirm the payment if the total is greater than then the order
-     * amount.
+     * Given - a payment with amount greater then the order amount
+     * When  - to confirm payments is requested
+     * Then  - the current payments should be left untouched (scope.payments)
+     * And   - the user should be warned with a dialog (DialogService.messageDialog)
      */
     it('shouldn\'t confirm an over payment', function() {
-
+        // given
+        angular.extend(scope.payments, sampleData.payments);
         scope.payments.push({
             id : scope.payments.length + 1,
             datetime : 1383066000000,
@@ -153,13 +198,19 @@ describe('Controller: PaymentCtrl', function() {
     });
 
     /**
-     * Shouldn't confirm the payment if the total is less than the order amount.
+     * Given - a payment with amount less then the order amount
+     * When  - to confirm payments is requested
+     * Then  - the current payments should be left untouched (scope.payments)
+     * And   - the user should be warned with a dialog (DialogService.messageDialog)
      */
     it('shouldn\'t confirm a under payment', function() {
+        // given
+        angular.extend(scope.payments, sampleData.payments);
         scope.payments.pop();
 
         var payments = angular.copy(scope.payments);
 
+        // when
         scope.confirm();
         rootScope.$apply();
 
@@ -181,7 +232,7 @@ describe('Controller: PaymentCtrl', function() {
      */
     it('should confirm all payments', function() {
         // given
-        // list of payment in the before each
+        angular.extend(scope.payments, sampleData.payments);
         var payments = angular.copy(scope.payments);
         
         // when
@@ -202,7 +253,7 @@ describe('Controller: PaymentCtrl', function() {
      */
     it('should undo payments after a payment be removed', function() {
         // given
-        // list of payment in the before each
+        angular.extend(scope.payments, sampleData.payments);
         scope.confirmPayments();
         scope.payments.pop();
         
@@ -224,7 +275,7 @@ describe('Controller: PaymentCtrl', function() {
      */
     it('should undo payments after a payment be removed', function() {
         // given
-        // list of payment in the before each
+        angular.extend(scope.payments, sampleData.payments);
         scope.confirmPayments();
         var newPayment = angular.copy(scope.payments[0]);
         newPayment.id = scope.payments.length + 1;
