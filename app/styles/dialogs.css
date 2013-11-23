@@ -81,7 +81,7 @@
 .quantity-products-basket {
 	width:125px;
 	color:#999 !important;
-	font-size:88%;
+	font-size:14px;
 	text-align:center;
 }
 .quantity-products-basket span{
@@ -260,7 +260,7 @@ input.sub-total-payment {
 	width: 75px;
 }
 .combo-width {
-	width: 309px;
+	width: 360px;
 }
 
 .form-payment-credit-card {

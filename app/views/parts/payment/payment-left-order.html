@@ -1,0 +1,31 @@
+<div class="title-left">
+	<div>
+		RESUMO DA VENDA
+	</div>
+</div>
+<div class="left-payment">
+	<div class="header">
+		<span class="col-1">Item</span>
+		<span class="col-2">Produto/Código</span>
+		<span class="col-3">Vr Unitário</span>
+		<span class="col-4">Qtde</span>
+		<span class="col-5">Vr Total</span>
+	</div>
+	<div class="content-scroll">
+		<div ng-repeat="item in items | filter: inBasketFilter">
+			<span class="col-1" ng-show="$index < 9">{{ '0' + ($index + 1)}}</span>
+			<span class="col-1" ng-show="$index >= 9">{{$index + 1}}</span>
+			<span class="col-2">{{item.title}}</span>
+			<span class="col-3">{{item.price | currency: 'R$ '}}</span>
+			<span class="col-4">{{item.qty}}</span>
+			<span class="col-5">{{item.qty*item.price}}</span>
+		</div>
+	</div>
+	<div class="header2">
+		<span class="col-1">Itens</span>
+		<span class="col-2">Total</span>
+		<span class="col-3"></span>
+		<span class="col-4">Qtde</span>
+		<span class="col-5">Vr Total</span>
+	</div>
+</div>

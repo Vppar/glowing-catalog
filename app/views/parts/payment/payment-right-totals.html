@@ -29,7 +29,7 @@
 			<strong>Subtotal</strong>
 		</span>
 		<span class="">
-			<span class="btn-sub-payment">{{items | filter: inBasketFilter | sum: 'price' : 'qty' | currency: '' }}</span>
+			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
 		</span>
 	</div>
 	<div class="row-right-payment">
@@ -38,20 +38,29 @@
 	            <span class="label-money">DINHEIRO</span>
 	        </span>
 	        <span class="btn-price-payment-input-block2 input-block-level">
-	            <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="cash.amount" currency recall>
+	            <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="payment.cash.amount" currency recall>
 	        </span>
 	    </div>
 	</div>
-	<div ng-click="openDialogCheck()" class="row-right-payment">
-		<span class="lbl-money">CHEQUE ( {{dataProvider.currentPayments.checks.length}} )</span><span class=""><span class="btn-price-payment">{{dataProvider.currentPayments.checksTotal | currency:''}}</span></span>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
+		<span class="lbl-money">CHEQUE ( {{payments | paymentType:'check' | count:'id'}} )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+		</span>
 	</div>
-	<div ng-click="openDialogCreditCard()" class="row-right-payment">
-		<span class="lbl-money">CART&Atilde;O ( {{dataProvider.currentPayments.creditCards.length}} )</span><span class=""><span class="btn-price-payment">{{dataProvider.currentPayments.creditCardsTotal | currency:''}}</span></span>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
+		<span class="lbl-money">CART&Atilde;O ( {{payments | paymentType:'creditcard' | count:'id'}} )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
+		</span>
 	</div>
-	<div class="row-right-payment" ng-click="openDialogProductExchange()">
-		<span class="lbl-money">TROCA  ( 0 produto )</span><span class=""><span class="btn-price-payment"></span></span>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
+		<span class="lbl-money">TROCA  ( {{payments | paymentType:'exchange' | count:'id'}} produto )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
+		</span>
 	</div>
-	<div class="row-right-payment" ng-click='openDialogAdvanceMoney()'>
+	<div class="row-right-payment">
 		<span class="lbl-money">Vale/Cupom ( 0,00 )</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
 	</div>
     <div class="payment-resume">
