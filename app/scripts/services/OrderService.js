@@ -51,7 +51,7 @@
             order = {};
         };
 
-        var inBasketFilter = function productsInBasketFilter(item) {
+        var inBasketFilter = function inBasketFilter(item) {
             return Boolean(item.qty);
         };
 

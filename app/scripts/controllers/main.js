@@ -14,15 +14,8 @@
             if (OrderService.order.id === undefined) {
                 OrderService.createNew();
             }
-            
-            var addToBasketPromise = DialogService.openDialogAddToBasket({
+            DialogService.openDialogAddToBasket({
                 id : id
-            });
-            
-            addToBasketPromise.then(function(result) {
-                if (result && !OrderService.order.customerId) {
-                    DialogService.openDialogChooseCustomer();
-                }
             });
         };
         
