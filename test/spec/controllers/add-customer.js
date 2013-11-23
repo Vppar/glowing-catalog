@@ -20,15 +20,24 @@ describe('Controller: AddCustomerCtrl', function() {
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
+        // $dialog mock 
         dialog.close = jasmine.createSpy();
+
+        // $location mock
         location.path = jasmine.createSpy();
+        
+        // DialogService mock
         ds.messageDialog = jasmine.createSpy();
+        
+        // DataProvider mock
         dp.date = angular.copy(sampleData.date);
         dp.customers = angular.copy(sampleData.customers);
-        os.order = angular.copy(sampleData.order);
+        dp.products = angular.copy(sampleData.products);
+        
+        // scope mock;
         scope = $rootScope.$new();
         scope.newCustomerForm = {};
-        scope.newCustomerForm.$valid = false;
+        
         $controller('AddCustomerCtrl', {
             $scope : scope,
             $location : location,
@@ -63,6 +72,7 @@ describe('Controller: AddCustomerCtrl', function() {
         scope.customer.name = 'Earl Hickey';
         scope.customer.phones.push('99123456789');
         scope.newCustomerForm.$valid = true;
+        os.order = {};
 
         scope.confirm();
 
