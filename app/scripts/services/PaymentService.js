@@ -35,9 +35,13 @@
         var createNew = function createNew(type) {
             var paymentType = findPaymentTypeByDescription(type);
             var newPayment = angular.copy(paymentTemplate);
-            newPayment.id = payments.length + 1;
+            if (payments.length > 0) {
+                newPayment.id = payments[payments.length - 1].id + 1;
+            } else {
+                newPayment.id = 1;
+            }
             newPayment.typeId = paymentType.id;
-            
+
             payments.push(newPayment);
 
             return newPayment;
@@ -75,14 +79,6 @@
         };
 
         /**
-         * Filter the payments by type.
-         */
-        var paymentTypeFilter = function paymentTypeFilter(payment, type) {
-            var paymentType = findPaymentTypeByDescription(type);
-            return payment.typeId === paymentType.id;
-        };
-
-        /**
          * Exposes the methods to outside world.
          */
         this.payments = payments;
@@ -90,6 +86,5 @@
         this.save = save;
         this.clear = clear;
         this.findPaymentTypeByDescription = findPaymentTypeByDescription;
-        this.paymentTypeFilter = paymentTypeFilter;
     });
 }(angular));

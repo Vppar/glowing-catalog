@@ -172,5 +172,70 @@ describe('Controller: PaymentCtrl', function() {
             btnYes : 'OK'
         });
     });
+    
+    /**
+     * Given - a list of payments
+     * When  - confirm button is clicked
+     * Then  - Make a backup of the list
+     * And   - redirect to order items
+     */
+    it('should confirm all payments', function() {
+        // given
+        // list of payment in the before each
+        var payments = angular.copy(scope.payments);
+        
+        // when
+        scope.confirmPayments();
+        
+        // then
+        expect(scope.payments).toEqual(payments);
+        expect(scope.selectedPaymentMethod).toBe('none');
+    });
+    
+    /**
+     * Given - a list of payments
+     * And   - the confirm button is clicked
+     * And   - a payment is removed
+     * When  - cancel button is clicked
+     * Then  - restore the original list
+     * And   - redirect to order items
+     */
+    it('should undo payments after a payment be removed', function() {
+        // given
+        // list of payment in the before each
+        scope.confirmPayments();
+        scope.payments.pop();
+        
+        // when
+        scope.cancelPayments();
+        
+        // then
+        expect(scope.payments).toEqual(sampleData.payments);
+        expect(scope.selectedPaymentMethod).toBe('none');
+    });
+    
+    /** 
+     * Given - a list of payments
+     * And   - the confirm button is clicked
+     * And   - a payment is added
+     * When  - cancel button is clicked
+     * Then  - restore the original list
+     * And   - redirect to order items
+     */
+    it('should undo payments after a payment be removed', function() {
+        // given
+        // list of payment in the before each
+        scope.confirmPayments();
+        var newPayment = angular.copy(scope.payments[0]);
+        newPayment.id = scope.payments.length + 1;
+        scope.payments.push(newPayment);
+        
+        // when
+        scope.cancelPayments();
+        
+        // then
+        expect(scope.payments).toEqual(sampleData.payments);
+        expect(scope.selectedPaymentMethod).toBe('none');
+    });
 
 });

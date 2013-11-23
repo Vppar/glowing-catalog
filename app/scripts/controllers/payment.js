@@ -6,33 +6,93 @@
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
 
+                        // #############################################################################################
+                        // Controller warm up
+                        // #############################################################################################
+
                         var order = OrderService.order;
                         var inBasketFilter = OrderService.inBasketFilter;
                         var basket = $filter('filter')(order.items, inBasketFilter);
                         var orderAmount = $filter('sum')(basket, 'price', 'qty');
                         var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                        var payments = {};
 
+                        $scope.selectedPaymentMethod = 'none';
                         $scope.customer = customer;
                         $scope.orderAmount = orderAmount;
                         $scope.inBasketFilter = inBasketFilter;
                         $scope.items = order.items;
+                        $scope.payment = {};
                         $scope.payments = PaymentService.payments;
-                        $scope.paymentTypeFilter = PaymentService.paymentTypeFilter;
+                        $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
 
                         // There can be only one cash payment, so we have to
-                        // find one if
-                        // exists if not create a new one.
+                        // find one if exists if not create a new one.
                         var cashPayment = $filter('filter')(PaymentService.payments, PaymentService.paymentTypeFilter, 'cash');
                         if (cashPayment.length > 0) {
-                            $scope.cash = cashPayment[0];
+                            $scope.payment.cash = cashPayment[0];
                         } else {
-                            $scope.cash = PaymentService.createNew('cash');
+                            $scope.payment.cash = PaymentService.createNew('cash');
                         }
 
                         // #############################################################################################
-                        // Screen actions functions
+                        // Screen action functions
                         // #############################################################################################
 
+                        /**
+                         * Confirms the check payments and redirect to the order
+                         * items. This will be used by the left fragments that
+                         * inherits this scope
+                         */
+                        $scope.confirmPayments = function confirmPayments() {
+                            payments.length = $scope.payments.length;
+                            angular.extend(payments, $scope.payments);
+                            $scope.selectPaymentMethod('none');
+                        };
+
+                        /**
+                         * Cancels the check payments keeping the old ones and
+                         * redirect to the order items. This will be used by the
+                         * left fragments that inherits this scope, they only
+                         */
+                        $scope.cancelPayments = function cancelPayments() {
+                            $scope.payments.length = payments.length;
+                            // don't lose the cash amount, cash amount is
+                            // persistence everywhere
+                            payments[0] = $scope.payments[0];
+
+                            angular.extend($scope.payments, payments);
+
+                            // recreate the binding to the cash value
+                            $scope.payment.cash = $scope.payments[0];
+
+                            $scope.selectPaymentMethod('none');
+                        };
+
+                        /**
+                         * Select the payment method changing the left fragment
+                         * that will be shown.
+                         * 
+                         * @param method - payment method.
+                         */
+                        $scope.selectPaymentMethod = function selectPaymentMethod(method) {
+                            if ($scope.selectedPaymentMethod === 'none') {
+                                // backup up the payments in case you decide to
+                                // click in cancel when in a payment fragment
+                                payments = angular.copy(PaymentService.payments);
+                            } else {
+                                // recover the payments in case you
+                                // decide to click in another fragment
+                                $scope.payments.length = payments.length;
+                                angular.extend($scope.payments, payments);
+                            }
+                            $scope.selectedPaymentMethod = method;
+                        };
+
+                        /**
+                         * Triggers the payment confirmation process by showing
+                         * the confirmation dialog.
+                         */
                         function paymentFactory() {
                             var paymentIntent = $q.defer();
                             var confirmedPaymentPromise = paymentIntent.promise.then(showPaymentConfirmationDialog);
@@ -41,6 +101,9 @@
 
                             return confirmedPaymentPromise;
                         }
+                        /**
+                         * Shows the payment confirmation dialog.
+                         */
                         function showPaymentConfirmationDialog() {
                             return DialogService.messageDialog({
                                 title : 'Pagamento',
@@ -50,6 +113,10 @@
                             });
                         }
 
+                        /**
+                         * Triggers the payment canceling process by showing the
+                         * confirmation dialog.
+                         */
                         function cancelPaymentFactory() {
                             var cancelPaymentIntent = $q.defer();
                             var canceledPaymentPromise = cancelPaymentIntent.promise.then(showCancelPaymentDialog);
@@ -58,6 +125,9 @@
 
                             return canceledPaymentPromise;
                         }
+                        /**
+                         * Shows the payment canceling dialog.
+                         */
                         function showCancelPaymentDialog() {
                             return DialogService
                                     .messageDialog({
@@ -67,15 +137,22 @@
                                         btnNo : 'Retornar'
                                     });
                         }
+
+                        /**
+                         * Cancel the payment and redirect to the main screen.
+                         */
                         function cancelPayment() {
                             PaymentService.clear();
                             $location.path('/');
                         }
 
                         // #############################################################################################
-                        // Main function
+                        // Main related functions
                         // #############################################################################################
 
+                        /**
+                         * Checks out if the payment is valid.
+                         */
                         function validatePayment() {
                             var paymentAmount = $filter('sum')($scope.payments, 'amount');
 
@@ -94,6 +171,9 @@
                             return $q.reject(message);
                         }
 
+                        /**
+                         * Saves the payments and closes the order.
+                         */
                         function makePayment() {
                             var savedOrder = OrderService.save();
                             OrderService.clear();
@@ -107,6 +187,11 @@
                             return true;
                         }
 
+                        /**
+                         * Cancels the payments with an alert message.
+                         * 
+                         * @param message - Alert message to the user.
+                         */
                         function abortPayment(message) {
                             // rebuild main promise chain.
                             main();
@@ -119,6 +204,10 @@
                             return $q.reject();
                         }
 
+                        /**
+                         * Ends of the payment process, return the main screen
+                         * and alert the user.s
+                         */
                         function paymentDone() {
                             $location.path('/');
                             return DialogService.messageDialog({
@@ -128,10 +217,16 @@
                             });
                         }
 
+                        /**
+                         * Sends the SMS to the customer about his order.
+                         */
                         function sendAlertSMSAttempt() {
                             return SMSService.sendPaymentConfirmation(customer, orderAmount).then(smsAlert, smsAlert);
                         }
 
+                        /**
+                         * Confirmation SMS alert.
+                         */
                         function smsAlert(message) {
                             return DialogService.messageDialog({
                                 title : 'Pagamento',
@@ -140,6 +235,10 @@
                             });
                         }
 
+                        /**
+                         * Main function responsible for chaining the
+                         * confirmation and cancel processes.
+                         */
                         function main() {
                             // Execute when payment is confirmed.
                             var confirmedPaymentPromise = paymentFactory();

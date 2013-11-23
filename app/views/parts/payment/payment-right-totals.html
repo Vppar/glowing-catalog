@@ -1,0 +1,91 @@
+<div class="title-right">
+	<div>
+		RECEBIMENTO
+	</div>
+</div>
+<div class="btns-right-payment right-column-payment">
+	<div class="row-right-payment">
+		<div class="btn-payments-left">
+		    <span class="container-money-payment">
+		        <span class="label-form-client">Cliente</span>
+		    </span>
+		    <span class="btn-price-payment-input-block input-block-level">
+		        <input class="input-name-payment text-right" readonly id="appendedInput" type="text" value="{{customer.name}}" />
+		    </span>
+		</div>
+	</div>
+	<div class="row-right-payment2">
+		<!--
+		<div class="btn-payments-left">
+		    <span class="container-money-payment">
+		        <span class="label-money">Subtotal</span>
+		    </span>
+		    <span class="btn-price-payment-input-block2 input-block-level">
+		    <span class=""><span id="appendedInput"  class="sub-total-payment btn-price-payment">{{dataProvider.currentPayments.checksTotal | currency:''}}</span></span>
+		    </span>
+		</div>
+		 -->
+		<span class="lbl-money2">
+			<strong>Subtotal</strong>
+		</span>
+		<span class="">
+			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
+		</span>
+	</div>
+	<div class="row-right-payment">
+	    <div class="btn-payments-left">
+	        <span class="container-money-payment">
+	            <span class="label-money">DINHEIRO</span>
+	        </span>
+	        <span class="btn-price-payment-input-block2 input-block-level">
+	            <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="payment.cash.amount" currency recall>
+	        </span>
+	    </div>
+	</div>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
+		<span class="lbl-money">CHEQUE ( {{payments | paymentType:'check' | count:'id'}} )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
+		<span class="lbl-money">CART&Atilde;O ( {{payments | paymentType:'creditcard' | count:'id'}} )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
+		<span class="lbl-money">TROCA  ( {{payments | paymentType:'exchange' | count:'id'}} produto )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+	<div class="row-right-payment">
+		<span class="lbl-money">Vale/Cupom ( 0,00 )</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
+	</div>
+    <div class="payment-resume">
+        <div class="lbl-resume">
+            <div class="red-color">
+                TROCO
+            </div>
+        </div>
+        <div class="values-resume">
+            <div class="red-color" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                {{ 0 | currency: '' }}
+            </div>
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                {{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
+            </div>
+        </div>
+	</div>
+	<br />
+	<div class="row-right-payment">
+		<span class="lbl-money">EMITIR VALE/CUPOM ( 0,00 )</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
+	</div>
+</div>
+<span class="panel-payment-footer-left">
+	<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
+</span>
+<span class="panel-payment-footer-right">
+	<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
+</span>
