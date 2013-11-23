@@ -13,12 +13,12 @@ describe('Controller: HeaderCtrl', function() {
         // $location mock
         location.path = jasmine.createSpy('$location.path');
         
-        // DialogService mock
-        ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer');
-
         // OrderService mock
         os.order = angular.copy(sampleData.orderTemplate);
         
+        // DialogService mock
+        ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer');
+
         // $scope mock
         scope = $rootScope.$new();
         
@@ -32,11 +32,31 @@ describe('Controller: HeaderCtrl', function() {
     }));
     
     /**
+     * Given - that products were selected (OrderService.order.items)
+     * When  - the user click in the basket icon (scope.checkout())
+     * Then  - opens the choose customer dialog (DialogService.openDialogChooseCustomer)
+     */
+    it('should redirect to payment', function() {
+        // given
+        os.order.items = angular.copy(sampleData.products);
+        os.order.items[0].qty = 1;
+        os.order.items[1].qty = 2;
+        os.order.items[1].qty = 3;
+        
+        // when
+        scope.checkout();
+        
+        // then
+        expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
+    });
+
+    
+    /**
      * Given - that no products were selected (OrderService.order.items)
      * When  - the user click in the basket icon (scope.checkout())
      * Then  - warn the user that no products were selected (DialogService.messageDialog)
      */
-    xit('shouldn\'t redirect to payment', function() {
+    it('shouldn\'t redirect to payment', function() {
         // given
         os.order.items = angular.copy(sampleData.products);
         
@@ -46,7 +66,7 @@ describe('Controller: HeaderCtrl', function() {
         // then
         expect(ds.messageDialog).toHaveBeenCalledWith({
             title : 'Pagamento',
-            message : 'Nenhum produto foi selecionado.',
+            message : 'Nenhum produto selecionado.',
             btnYes : 'OK'
         });
     });
@@ -57,9 +77,9 @@ describe('Controller: HeaderCtrl', function() {
      * And   - the user will choose a customer when asked
      * When  - the user click in the basket icon (scope.checkout())
      * Then  - opens the choose customer dialog (DialogService.openDialogChooseCustomer)
-     * And   - redirect user to where the choose customers dialog tells you to in its promise
+     * And   - redirect user to wherever the choose customers dialog tells you to in its promise
      */
-    xit('should choose a customer an redirect to payment', function() {
+    it('should choose a customer an redirect to payment', function() {
         // given
         os.order.items = angular.copy(sampleData.products);
         os.order.items[0].qty = 1;
@@ -76,28 +96,7 @@ describe('Controller: HeaderCtrl', function() {
         
         // then
         expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
-    });
-    
-    
-    /**
-     * Given - that products were selected (OrderService.order.items)
-     * And   - a customer was selected (OrderService.order.customerId)
-     * When  - the user click in the basket icon (scope.checkout())
-     * Then  - redirect user to payment screen ('payment')
-     */
-    xit('should redirect to payment', function() {
-        os.order.items = angular.copy(sampleData.products);
-        os.order.items[0].qty = 1;
-        os.order.items[1].qty = 2;
-        os.order.items[1].qty = 3;
-        os.order.customerId = 1;
-        
-        // when
-        scope.checkout();
-        
-        // then
         expect(location.path).toHaveBeenCalled('payment');
     });
-    
     
 });

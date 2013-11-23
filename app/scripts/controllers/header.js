@@ -36,6 +36,12 @@
         $scope.goToBasket = function() {
             $location.path('/basket');
         };
+        
+        /**
+         * Redirect to payment if products and customer were selected. 
+         */
+        $scope.checkout = function() {
+        };
 
     });
 }(angular));
