@@ -10,25 +10,36 @@
                         // Controller warm up
                         // #############################################################################################
 
+                        // Payment variables
+                        var payments = {};
+                        $scope.payment = {};
+
+                        // Easy the access in the controller to external
+                        // resources
                         var order = OrderService.order;
+                        var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                         var inBasketFilter = OrderService.inBasketFilter;
+
+                        // Controls which left fragment will be shown
+                        $scope.selectedPaymentMethod = 'none';
+
+                        // Calculate the order amount
                         var basket = $filter('filter')(order.items, inBasketFilter);
                         var orderAmount = $filter('sum')(basket, 'price', 'qty');
-                        var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
-                        var payments = {};
-
-                        $scope.selectedPaymentMethod = 'none';
-                        $scope.customer = customer;
                         $scope.orderAmount = orderAmount;
-                        $scope.inBasketFilter = inBasketFilter;
+
+                        // Scope binding to needed external resources
+                        $scope.customer = customer;
                         $scope.items = order.items;
-                        $scope.payment = {};
                         $scope.payments = PaymentService.payments;
+
+                        // Filters
+                        $scope.inBasketFilter = inBasketFilter;
                         $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
 
                         // There can be only one cash payment, so we have to
                         // find one if exists if not create a new one.
-                        var cashPayment = $filter('filter')(PaymentService.payments, PaymentService.paymentTypeFilter, 'cash');
+                        var cashPayment = $filter('paymentType')(PaymentService.payments, 'cash');
                         if (cashPayment.length > 0) {
                             $scope.payment.cash = cashPayment[0];
                         } else {
@@ -101,6 +112,7 @@
 
                             return confirmedPaymentPromise;
                         }
+                        
                         /**
                          * Shows the payment confirmation dialog.
                          */
@@ -125,6 +137,7 @@
 
                             return canceledPaymentPromise;
                         }
+                        
                         /**
                          * Shows the payment canceling dialog.
                          */
@@ -155,11 +168,11 @@
                          */
                         function validatePayment() {
                             var paymentAmount = $filter('sum')($scope.payments, 'amount');
-
+                            
                             if (paymentAmount > 0 && paymentAmount === orderAmount) {
                                 return true;
                             }
-
+                            
                             var message = null;
                             if (paymentAmount === 0) {
                                 message = 'Nenhum pagamento foi registrado para o pedido.';
