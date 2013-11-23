@@ -23,8 +23,9 @@
         $scope.confirm = function() {
             if ($scope.customerId && $scope.customerId !== '') {
                 order.customerId = Number($scope.customerId);
+                $location.path('/payment');
             } else {
-                $location.path('add-customer');
+                $location.path('/add-customer');
             }
             dialog.close(true);
         };
