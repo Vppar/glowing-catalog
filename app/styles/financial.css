@@ -1,0 +1,72 @@
+/*FORM PARTIAL DELIVERY*/
+.form-financial .panel-top {
+	margin-top: 5px;
+	
+}
+.form-financial .panel-top .combo-width{
+	width:220px
+}
+.form-financial {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	top: 90px;
+	bottom: 20px
+}
+.scroll-financial {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	top: 270px;
+	bottom: 45px
+}
+
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+
+.filter-bar {
+	padding: 10px;
+	padding-bottom: 0px;
+	margin-bottom: 5px;
+	width: 950px;	
+}
+
+.txtpad {
+	padding-top: 5px;
+}
+
+.btn:hover {
+	background: #111 !important;
+	color:white
+}
+
+.row-financial  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.total-value-financial {
+	float: right;
+	margin-top: 20px;
+	text-align: right;
+}
+
+.bread-crumbs {
+	margin-bottom: 12px;	
+}
+
+.bread-crumbs .principal {
+	font-size: 18px;
+}
+
+.bread-crumbs .crumbs {
+	font-size: 14px;
+}
