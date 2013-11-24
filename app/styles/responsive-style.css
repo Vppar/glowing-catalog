@@ -18,6 +18,11 @@
 		text-align: right;
 		margin-right: 25px
 	}
+	/*FINANCIAL*/
+	.grid-financial .header .col-5 div {
+		text-align: right;
+		margin-right: 25px
+	}
 	.input-search {
 		position: relative;
 		left: 3px
