@@ -18,7 +18,6 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
         dp.customers = angular.copy(sampleData.customers);
-        os.order = angular.copy(sampleData.order);
         dialog.close = jasmine.createSpy();
         location.path = jasmine.createSpy();
         scope = $rootScope.$new();
@@ -44,6 +43,7 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
      * with a promise rejection and left the customerId in the order untouched.
      */
     it('should close the dialog without select a customer', function() {
+        os.order = {};
         scope.cancel();
         expect(dialog.close).toHaveBeenCalledWith('rejected');
         expect(os.order.customerId).toBeUndefined();

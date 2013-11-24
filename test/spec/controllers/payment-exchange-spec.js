@@ -83,7 +83,6 @@ describe('Controller: PaymentExchangeCtrl', function() {
         expect(ps.createNew).toHaveBeenCalledWith('exchange');
         expect(scope.payments.length).toBe(paymentsSize + 1);
         expect(scope.payments[paymentsSize].data).toEqual(exchange);
-        expect(scope.exchange.amount).toBeUndefined();
     });
 
     /**
