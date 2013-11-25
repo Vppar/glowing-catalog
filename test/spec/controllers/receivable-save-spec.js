@@ -32,8 +32,7 @@ describe('Controller: ReceivableCtrl', function() {
     /**
      * Given a valid receivable
      * when the user tries to save a receivable
-     * then received property must be set false
-     * and a receivable must be created
+     * then a receivable must be created
      * and the id must be returned
      */
     it('should save a receivable', function() {
@@ -46,7 +45,6 @@ describe('Controller: ReceivableCtrl', function() {
         // then
         expect(rs.save).toHaveBeenCalledWith(scope);
         expect(id).toBe(receivableId);
-        expect(scope.received).toBe(false);
     });
     
     /**
