@@ -18,8 +18,8 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
         dp.customers = angular.copy(sampleData.customers);
-        dialog.close = jasmine.createSpy();
-        location.path = jasmine.createSpy();
+        dialog.close = jasmine.createSpy('dialog.close');
+        location.path = jasmine.createSpy('$location.path');
         scope = $rootScope.$new();
         $controller('ChooseCustomerDialogCtrl', {
             $scope : scope,
@@ -59,7 +59,7 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
         scope.confirm();
         expect(dialog.close).toHaveBeenCalledWith(true);
         expect(os.order.customerId).not.toBeUndefined();
-        expect(location.path).not.toHaveBeenCalled();
+        expect(location.path).toHaveBeenCalledWith('/payment');
     });
 
     /**
@@ -69,7 +69,7 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
     it('should close the dialog and redirect to new customer', function() {
         scope.confirm();
         expect(dialog.close).toHaveBeenCalledWith(true);
-        expect(location.path).toHaveBeenCalledWith('add-customer');
+        expect(location.path).toHaveBeenCalledWith('/add-customer');
     });
 
 });
