@@ -45,6 +45,7 @@ describe('Controller: ReceivableCtrl', function() {
         
         // then
         expect(rs.update).toHaveBeenCalledWith(scope);
+        expect(scope.received).toBe(true);
         expect(result).toBe(true);
     });
     
@@ -65,8 +66,9 @@ describe('Controller: ReceivableCtrl', function() {
         
         // then
         expect(rs.update).toHaveBeenCalledWith(scope);
-        expect(result).toBe(false);
+        expect(scope.received).toBe(false);
         expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Unable to cancel an already fulfilled receivable');
+        expect(result).toBe(false);
     });
     
 });
