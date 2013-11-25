@@ -6,27 +6,27 @@ describe('Controller: ReceivableCtrl', function() {
         module('tnt.catalog.filter.findBy');
     });
 
+    var receivableId = 1;
     var scope = {};
     var log = {};
-    var dp = {};
+    var rs = {};
     
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
+        // $scope mock
+        scope = $rootScope.$new();
+
         // $log mock
         log.error = jasmine.createSpy('$log.error');
         
-        // DataProvider mock
-        dp.entities = [{ id: 1, name: 'O Lujinha'}];
-        dp.receivables = angular.copy(sampleData.receivables);
-        
-        // $scope mock
-        scope = $rootScope.$new();
+        // ReceivableService mock
+        rs.save = jasmine.createSpy('ReceivableService.save').andReturn(receivableId);
         
         $controller('ReceivableCtrl', {
             $scope : scope,
-            $log : log,
-            DataProvider : dp
+            $log : log, 
+            ReceivableService : rs
         });
     }));
 
@@ -38,17 +38,14 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should save a receivable', function() {
         // given
-        var receivable = sampleData.validReceivable;
-        angular.extend(scope.receivable, receivable);
+        scope.isValid = function(){return true;};
         
         // when
         var id = scope.save();
         
         // then
-        expect(id).toBeGreaterThan(0);
-        
-        var savedReceivable = $filter('findBy')(dp.receivables, 'id', id);
-        expect(receivable).toEqual(savedReceivable);
+        expect(rs.save).toHaveBeenCalledWith(scope);
+        expect(id).toBe(receivableId);
     });
     
     /**
@@ -58,8 +55,7 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('shouldn\'t save report a invalid receivable', function() {
         // given
-        var receivable = sampleData.invalidReceivable;
-        angular.extend(scope.receivable, receivable);
+        scope.isValid = function(){return false;};
         
         // when
         var id = scope.save();
