@@ -59,13 +59,12 @@ describe('Controller: ReceivableCtrl', function() {
         // given
         scope.id = receivableId;
         scope.received = true;
-        rs.update = rs.update.andReturn(false);
         
         // when
         var result = scope.cancel();
         
         // then
-        expect(rs.update).toHaveBeenCalledWith(scope);
+        expect(rs.update).not.toHaveBeenCalled();
         expect(scope.canceled).toBe(false);
         expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Unable to cancel an already fulfilled receivable');
         expect(result).toBe(false);
