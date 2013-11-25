@@ -3,7 +3,6 @@ describe('Controller: ReceivableCtrl', function() {
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.financial.receivable');
-        module('tnt.catalog.filter.findBy');
     });
 
     var receivableId = 1;
