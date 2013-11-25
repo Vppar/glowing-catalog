@@ -1,12 +1,9 @@
-'use strict';
-
 xdescribe('Controller: FinancialCtrl', function () {
 
   // load the controller's module
   beforeEach(module('glowingCatalogApp'));
 
-  var FinancialCtrl,
-    scope;
+  var scope = {};
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
