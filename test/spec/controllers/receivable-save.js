@@ -1,7 +1,10 @@
 describe('Controller: ReceivableCtrl', function() {
 
     // load the controller's module
-    beforeEach(module('tnt.catalog.financial.receivable'));
+    beforeEach(function() {
+        module('tnt.catalog.financial.receivable');
+        module('tnt.catalog.filter.findBy');
+    });
 
     var scope = {};
     var log = {};
@@ -15,6 +18,7 @@ describe('Controller: ReceivableCtrl', function() {
         
         // DataProvider mock
         dp.entities = [{ id: 1, name: 'O Lujinha'}];
+        dp.receivables = angular.copy(sampleData.receivables);
         
         // $scope mock
         scope = $rootScope.$new();
@@ -28,33 +32,41 @@ describe('Controller: ReceivableCtrl', function() {
 
     /**
      * Given a valid receivable
-     * when the user tries to create a receivable
+     * when the user tries to save a receivable
      * then a receivable must be created
      * and the id must be returned
      */
     it('should save a receivable', function() {
         // given
-        scope.createdate = new Date();
-        scope.duedate = scope.createdate + monthTime;
-        scope.amount = '100.00';
-        scope.entity = dp.entities[0].id;
+        var receivable = sampleData.validReceivable;
+        angular.extend(scope.receivable, receivable);
         
         // when
+        var id = scope.save();
         
         // then
+        expect(id).toBeGreaterThan(0);
+        
+        var savedReceivable = $filter('findBy')(dp.receivables, 'id', id);
+        expect(receivable).toEqual(savedReceivable);
     });
     
     /**
      * Given an invalid receivable
-     * when the user tries to create a receivable
+     * when the user tries to save a receivable
      * then we must log: invalid receivable: {}
      */
     it('shouldn\'t save report a invalid receivable', function() {
         // given
+        var receivable = sampleData.invalidReceivable;
+        angular.extend(scope.receivable, receivable);
         
         // when
+        var id = scope.save();
         
         // then
+        expect(id).toBeUndefined();
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(scope.receivable));
     });
     
 });
