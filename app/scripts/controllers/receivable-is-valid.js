@@ -79,7 +79,7 @@ describe('Controller: ReceivableCtrl', function() {
         scope.createdate = new Date();
         scope.duedate = scope.createdate + monthTime;
         scope.amount = '0.00';
-        scope.entity = dp.entities[0].id;
+        scope.entity = dp.entities[0];
         
         // when
         var result = scope.isValid();
@@ -100,7 +100,7 @@ describe('Controller: ReceivableCtrl', function() {
         scope.createdate = new Date();
         scope.duedate = scope.createdate + monthTime;
         scope.amount = '-66.12';
-        scope.entity = dp.entities[0].id;
+        scope.entity = dp.entities[0];
         
         // when
         var result = scope.isValid();
