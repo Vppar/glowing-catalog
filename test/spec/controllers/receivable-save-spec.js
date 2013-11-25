@@ -39,7 +39,9 @@ describe('Controller: ReceivableCtrl', function() {
         // given
         scope.isValid = function(){return true;};
         
-        var receivable = angular.copy(scope);
+        var receivable = {};
+        angular.extend(receivable, scope);
+        
         // when
         var id = scope.save();
         
