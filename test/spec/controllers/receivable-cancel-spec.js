@@ -38,13 +38,17 @@ describe('Controller: ReceivableCtrl', function() {
         // given
         scope.id = receivableId;
         scope.received = false;
+        scope.canceld = false;
         rs.update = rs.update.andReturn(true);
+        
+        var receivable = {};
+        angular.extend(receivable, scope);
         
         // when
         var result = scope.cancel();
         
         // then
-        expect(rs.update).toHaveBeenCalledWith(scope);
+        expect(rs.update).toHaveBeenCalledWith(receivable);
         expect(scope.canceled).toBe(true);
         expect(result).toBe(true);
     });
