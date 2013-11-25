@@ -36,7 +36,7 @@ describe('Controller: ReceivableCtrl', function() {
     it('should report a valid receivable', function() {
         // given
         scope.createdate = new Date();
-        scope.duedate = scope.createdate monthTime;
+        scope.duedate = scope.createdate + monthTime;
         scope.amount = '100.00';
         scope.entity = dp.entities[0];
         
@@ -76,7 +76,7 @@ describe('Controller: ReceivableCtrl', function() {
     it('should report a 0 amount of a receivable', function() {
         // given
         scope.createdate = new Date();
-        scope.duedate = scope.createdate monthTime;
+        scope.duedate = scope.createdate + monthTime;
         scope.amount = '0.00';
         scope.entity = dp.entities[0];
         
@@ -97,7 +97,7 @@ describe('Controller: ReceivableCtrl', function() {
     it('should report a negative amount of a receivable', function() {
         // given
         scope.createdate = new Date();
-        scope.duedate = scope.createdate monthTime;
+        scope.duedate = scope.createdate + monthTime;
         scope.amount = '-66.12';
         scope.entity = dp.entities[0];
         
@@ -120,7 +120,7 @@ describe('Controller: ReceivableCtrl', function() {
     it('should report a invalid entity of a receivable', function() {
         // given
         scope.createdate = new Date();
-        scope.duedate = scope.createdate monthTime;
+        scope.duedate = scope.createdate + monthTime;
         scope.amount = '100.00';
         scope.entity = {id: 2, name: 'Não é o Lujinha'};
         
