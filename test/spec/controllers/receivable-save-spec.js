@@ -39,11 +39,12 @@ describe('Controller: ReceivableCtrl', function() {
         // given
         scope.isValid = function(){return true;};
         
+        var receivable = angular.copy(scope);
         // when
         var id = scope.save();
         
         // then
-        expect(rs.save).toHaveBeenCalledWith(scope);
+        expect(rs.save).toHaveBeenCalledWith(receivable);
         expect(id).toBe(receivableId);
     });
     
@@ -61,7 +62,7 @@ describe('Controller: ReceivableCtrl', function() {
         
         // then
         expect(id).toBeUndefined();
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(scope.receivable));
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(scope));
     });
     
 });
