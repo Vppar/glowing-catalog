@@ -37,7 +37,7 @@ describe('Controller: ReceivableCtrl', function() {
      * when a cancel is triggered
      * then the the receivable must be cancelled
      */ 
-    it('should save a receivable', function() {
+    it('should cancel a receivable', function() {
         // given
         scope.receivable.id = receivableId;
         scope.receivable.canceled = false;
@@ -59,7 +59,7 @@ describe('Controller: ReceivableCtrl', function() {
     * then the the receivable must not be cancelled
     * and a message should be logged: "unable to cancel an already fulfilled receivable"
     */
-    it('shouldn\'t save report a invalid receivable', function() {
+    it('shouldn\'t cancel a fulfilled receivable', function() {
         // given
         scope.receivable.id = receivableId;
         scope.receivable.received = {date: 1385380800000, amount: '100.0'};
