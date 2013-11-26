@@ -122,7 +122,7 @@ describe('Controller: ReceivableCtrl', function() {
      * then false must be returned
      * and we must log: invalid entity: {{entity}}
      */
-    it('should report a invalid entity of a receivable', function() {
+    it('should report an invalid entity of a receivable', function() {
         // given
         scope.receivable.createdate = new Date();
         scope.receivable.duedate = scope.receivable.createdate + monthTime;
