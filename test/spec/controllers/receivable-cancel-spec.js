@@ -38,7 +38,7 @@ describe('Controller: ReceivableCtrl', function() {
         // given
         scope.id = receivableId;
         scope.received = false;
-        scope.canceld = false;
+        scope.canceled = false;
         rs.update = rs.update.andReturn(true);
         
         var receivable = {};
