@@ -75,7 +75,7 @@ describe('Controller: ReceivableCtrl', function() {
     it('shouldn\'t fulfill a already fulfilled receivable', function() {
         // given
         scope.receivable.canceled = false;
-        scope.receivable.received = {receivedDate: 1385380800000, amount: '100.00'};
+        scope.receivable.received = {date: 1385380800000, amount: '100.00'};
         
         // when
         scope.receive(1385380800000, '100.00');
