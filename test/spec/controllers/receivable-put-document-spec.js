@@ -63,7 +63,6 @@ describe('Controller: ReceivableCtrl', function() {
         
         // when
         scope.attach(document);
-        receivable.received = document;
         
         // then
         expect(rs.update).not.toHaveBeenCalled();
