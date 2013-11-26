@@ -40,8 +40,7 @@
 }
 .wrapper-qtde {
 	display: inline-block;
-	width: 100px;
-  
+	width: 120px;
 }
 .txt-row-price {
 	display: inline-block;
@@ -121,10 +120,12 @@
 	display: block;
 	text-align: center;
 }
-
+.input-qty2 {
+	margin:0 0 0 12px;
+}
 .label-input {
 	display: inline-block;
-	margin: 0 20px
+	margin: 0 0 0 20px
 }
 .title-row-cart {
 	font-weight: bold;
@@ -139,13 +140,12 @@
 	float: right;
 	margin: 34px 0 0 0;
 	position:relative;
-	right:5px
 }
 .ic-arrow-left:hover, .ic-arrow-right:hover, .img-row-delete:hover {
 	cursor:pointer
 }
 .input-row-qtde-cart input {
-	width: 30px;
+	width: 33px;
 	text-align: center;
 	font-size:20px;
 }

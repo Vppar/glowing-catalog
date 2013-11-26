@@ -4,11 +4,10 @@
 	</div>
 </div>
 <div class="btns-right-payment right-column-payment">
-	<div class="row-right-payment">
+	<div class="row-right-payment row-right-payment-client">
 		<div class="btn-payments-left">
-		    <span class="container-money-payment">
-		        <span class="label-form-client">Cliente</span>
-		    </span>
+		    <span class="label-form-client">Cliente</span>
+		    <span class="lbl-phone-client"> (11)98877-2244</span><br/>
 		    <span class="btn-price-payment-input-block input-block-level">
 		        <input class="input-name-payment text-right" readonly id="appendedInput" type="text" value="{{customer.name}}" />
 		    </span>
@@ -17,7 +16,7 @@
 	<div class="row-right-payment2">
 
 		<span class="lbl-money2">
-			<strong>Subtotal</strong>
+			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> (0)</span>
 		</span>
 		<span class="">
 			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
@@ -34,25 +33,25 @@
 	    </div>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
-		<span class="lbl-money">Cheque ( {{payments | paymentType:'check' | count:'id'}} )</span>
+		<span class="lbl-money">Cheque </span><span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
-		<span class="lbl-money">Cart&atilde;o ( {{payments | paymentType:'creditcard' | count:'id'}} )</span>
+		<span class="lbl-money">Cart&atilde;o </span><span class="lbl-money3">( {{payments | paymentType:'creditcard' | count:'id'}} )</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money">Troca  ( {{payments | paymentType:'exchange' | count:'id'}} )</span>
+		<span class="lbl-money">Troca</span><span class="lbl-money3">( {{payments | paymentType:'exchange' | count:'id'}} )</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment">
-		<span class="lbl-money">Vale/Cupom ( 0 )</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
+		<span class="lbl-money">Vale/Cupom</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
@@ -71,7 +70,7 @@
 	</div>
 	<br />
 	<div class="row-right-payment">
-		<span class="lbl-money">Emitir vale/cupom ( 0 )</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
+		<span class="lbl-money2">Emitir vale/cupom </span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
 	</div>
 
 <span class="panel-payment-footer-left">
