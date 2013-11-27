@@ -46,6 +46,7 @@ describe('Controller: ReceivableCtrl', function() {
         receivable.received = document;
         
         // then
+        expect(document.isValid).toHaveBeenCalled();
         expect(rs.update).toHaveBeenCalledWith(receivable);
     });
     
@@ -65,6 +66,7 @@ describe('Controller: ReceivableCtrl', function() {
         scope.attach(document);
         
         // then
+        expect(document.isValid).toHaveBeenCalled();
         expect(rs.update).not.toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid document '+JSON.stringify(document));
         expect(DialogService.messageDialog).toHaveBeenCalledWith({title: 'Contas à Pagar', message: 'Documento Inválido', btnYes: 'OK'});
