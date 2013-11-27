@@ -1,4 +1,4 @@
-describe('Service: PaymentServiceSpec', function() {
+describe('Service: ReceivableServiceSpec', function() {
 
     // load the service's module
     beforeEach(function() {
