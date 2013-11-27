@@ -1,6 +1,7 @@
 describe('Service: PaymentServiceSpec', function() {
 
     var receivable = {};
+    var receivableId = 1;
 
     // load the service's module
     beforeEach(function() {
@@ -8,6 +9,7 @@ describe('Service: PaymentServiceSpec', function() {
             receivables : []
         };
         receivable = {mock: 'I\'m a mock'};
+        receivable.getNextId = jasmine.createSpy('ReceivableCtrl.getNextId').andReturn(receivableId);
         module('tnt.catalog.service.receivable');
         module(function($provide) {
             $provide.value('DataProvider', mock);
@@ -38,8 +40,10 @@ describe('Service: PaymentServiceSpec', function() {
         var lastReceivable = DataProvider.receivables.pop();
         
         // then
-       expect(lastReceivable).toBe(receivable);
-       expect(id).toBe(receivablesSize - 1);
+        expect(receivable.isValid).toHaveBeenCalled();
+        expect(receivable.getNextId).toHaveBeenCalled();
+        expect(lastReceivable).toBe(receivable);
+        expect(id).toBe(receivablesSize - 1);
     });
     
     /**
@@ -57,6 +61,8 @@ describe('Service: PaymentServiceSpec', function() {
         var id = ReceivableService.save(receivable);
         
         // then
+        expect(receivable.isValid).toHaveBeenCalled();
+        expect(receivable.getNextId).not.toHaveBeenCalled();
         expect(DataProvider.receivables).toEqual(receivables);
         expect(id).toBeUndefined();
     });
