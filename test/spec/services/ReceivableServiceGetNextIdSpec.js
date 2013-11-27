@@ -44,6 +44,6 @@ describe('Service: ReceivableServiceSpec', function() {
         var nextId = ReceivableService.getNextId();
         
         // then
-        expect(nextId.isValid).toBe(2);
+        expect(nextId).toBe(2);
     });
 });
