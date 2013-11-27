@@ -1,7 +1,5 @@
 describe('Service: PaymentServiceSpec', function() {
 
-    var receivable = {};
-
     // load the service's module
     beforeEach(function() {
         var mock = {
@@ -15,8 +13,8 @@ describe('Service: PaymentServiceSpec', function() {
     beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
         DataProvider = _DataProvider_;
         ReceivableService = _ReceivableService_;
-        receivable = {mock: 'I\'m a mock'};
     }));
+    
     
     /**
      * Given a valid receivable
@@ -28,15 +26,17 @@ describe('Service: PaymentServiceSpec', function() {
      */
     it('should save a receivable', function() {
         // given
+        var receivable = {mock: 'I\'m a mock'};
         receivable.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
         
         // when
         var id = ReceivableService.save(receivable);
         
+        var receivablesSize = DataProvider.receivables.length;
+        var lastReceivable = DataProvider.receivables.pop();
         // then
-       expect(receivable.isValid).toHaveBeenCalled();
-       expect(DataProvider.receivables[DataProvider.receivables.length - 1]).toBe(receivable);
-       expect(id).toBe(DataProvider.receivables.length - 1);
+       expect(lastReceivable).toBe(receivable);
+       expect(id).toBe(receivablesSize - 1);
     });
     
     /**
@@ -46,6 +46,7 @@ describe('Service: PaymentServiceSpec', function() {
      */
     it('shouldn\'t save a receivable instance', function() {
         // given
+        var receivable = {};
         receivable.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
         
         var receivables = DataProvider.receivables;
@@ -54,7 +55,6 @@ describe('Service: PaymentServiceSpec', function() {
         var id = ReceivableService.save(receivable);
         
         // then
-        expect(scope.isValid).toHaveBeenCalled();
         expect(DataProvider.receivables).toEqual(receivables);
         expect(id).toBeUndefined();
         
