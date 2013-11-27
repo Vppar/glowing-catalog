@@ -15,6 +15,7 @@ describe('Controller: ReceivableCtrl', function() {
     beforeEach(inject(function($controller, $rootScope) {
         // $scope mock
         scope = $rootScope.$new();
+        scope.receivable = {mock: 'I\'m a mock'};
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
@@ -36,13 +37,13 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should attach a document', function() {
         // given
-        document = jasmine.createSpy('document.isValid').andReturn(true);
+        document = jasmine.createSpy('ReceivableDocument.isValid').andReturn(true);
         
-        var receivable = {};
-        angular.extend(receivable, scope);
+        var receivable = angular.copy(scope.receivable);
         
         // when
         scope.attach(document);
+        
         receivable.received = document;
         
         // then
@@ -56,11 +57,8 @@ describe('Controller: ReceivableCtrl', function() {
      * then the user must be warned: invalid document
      */
     it('shouldn\'t fulfill a canceled receivable', function() {
-     // given
-        document = jasmine.createSpy('document.isValid').andReturn(true);
-        
-        var receivable = {};
-        angular.extend(receivable, scope);
+        // given
+        document = jasmine.createSpy('ReceivableDocument.isValid').andReturn(true);
         
         // when
         scope.attach(document);
