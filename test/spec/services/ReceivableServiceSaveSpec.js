@@ -1,4 +1,4 @@
-describe('Service: PaymentServiceSpec', function() {
+describe('Service: ReceivableServiceSpec', function() {
 
     var receivable = {};
     var receivableId = 1;
