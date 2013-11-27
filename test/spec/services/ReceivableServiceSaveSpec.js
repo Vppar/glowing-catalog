@@ -36,14 +36,13 @@ describe('Service: PaymentServiceSpec', function() {
         // when
         var id = ReceivableService.save(receivable);
         
-        var receivablesSize = DataProvider.receivables.length;
         var lastReceivable = DataProvider.receivables.pop();
         
         // then
         expect(receivable.isValid).toHaveBeenCalled();
         expect(receivable.getNextId).toHaveBeenCalled();
         expect(lastReceivable).toBe(receivable);
-        expect(id).toBe(receivablesSize - 1);
+        expect(id).toBe(receivableId);
     });
     
     /**
