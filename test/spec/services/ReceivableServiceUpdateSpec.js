@@ -1,9 +1,11 @@
 describe('Service: PaymentServiceSpec', function() {
 
+    var receivable = {id: 1};
+
     // load the service's module
     beforeEach(function() {
         var mock = {
-            receivables : []
+            receivables : [angular.copy(receivable)]
         };
         module('tnt.catalog.service.receivable');
         module(function($provide) {
@@ -18,16 +20,18 @@ describe('Service: PaymentServiceSpec', function() {
     
     /**
      * Given a valid receivable
-     * present on the database
+     * And present on the database
      * when an update is triggered
      * then a receivable must be update in the database
      */
     it('should update a receivable', function() {
+        receivable.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
+        
     });
     
     /**
      * Given a valid receivable
-     * not present on the database
+     * And not present on the database
      * when an update is triggered
      * then we must log: Could not find receivable to update
      */
