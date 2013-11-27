@@ -48,6 +48,9 @@
 	min-height:20px;
 	width:91%;
 }
+.row-right-payment-client {
+	min-height:40px !important;
+}
 .row-right-payment2 {
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
@@ -101,10 +104,10 @@
 }
 .btns-right-payment .btn-price-payment-input-block {
 	float: right;
-	text-align: right;
 	border-radius: 6px;
-	margin-top: -5px;
-	width:226px;
+	margin: -5px 5px 0 0;
+	width:284px;
+	color:777;
 }
 .btn-price-payment-input-block2 {
 	float: right;
@@ -139,8 +142,20 @@
 	height:90px
 }
 .payment-right-column {
-	background-color:#eee;
-	display:block;
+	background-color:#f8f8f8;
+	display:inline-block;
+}
+.lbl-money {
+	display:inline-block;
+	width:80px;
+}
+.lbl-money4 {
+	color:rgba(0, 0, 0, 0.2);
+}
+.lbl-phone-client {
+	color:rgba(0, 0, 0, 0.2);
+	margin:-6px 0 0 10px;
+	float:right;
 }
 .right-column-payment {
 	padding:8px;
@@ -288,7 +303,7 @@
 	border-top: 1px solid #e0e0e0;
 }
 .input-name-payment {
-	width:210px;
+	width:264px;
 }
 .sub-total-payment {
 	width:170px;
