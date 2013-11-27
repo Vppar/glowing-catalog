@@ -15,6 +15,7 @@ describe('Controller: ReceivableCtrl', function() {
     beforeEach(inject(function($controller, $rootScope) {
         // $scope mock
         scope = $rootScope.$new();
+        scope.receivable = {};
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
@@ -38,9 +39,9 @@ describe('Controller: ReceivableCtrl', function() {
     it('should save a receivable', function() {
         // given
         scope.isValid = function(){return true;};
+        scope.receivable.mock = 'mocked value';
         
-        var receivable = {};
-        angular.extend(receivable, scope);
+        var receivable = angular.copy(scope.receivable);
         
         // when
         var id = scope.save();
@@ -58,13 +59,14 @@ describe('Controller: ReceivableCtrl', function() {
     it('shouldn\'t save report a invalid receivable', function() {
         // given
         scope.isValid = function(){return false;};
+        scope.receivable.mock = 'mocked value';
         
         // when
         var id = scope.save();
         
         // then
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(scope.receivable));
         expect(id).toBeUndefined();
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(scope));
     });
     
 });

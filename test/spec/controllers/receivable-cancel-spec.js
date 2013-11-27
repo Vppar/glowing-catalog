@@ -8,6 +8,7 @@ describe('Controller: ReceivableCtrl', function() {
     var receivableId = 1;
     var scope = {};
     var log = {};
+    var dp = {};
     var rs = {};
     
 
@@ -15,6 +16,7 @@ describe('Controller: ReceivableCtrl', function() {
     beforeEach(inject(function($controller, $rootScope) {
         // $scope mock
         scope = $rootScope.$new();
+        scope.receivable = {};
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
@@ -25,6 +27,7 @@ describe('Controller: ReceivableCtrl', function() {
         $controller('ReceivableCtrl', {
             $scope : scope,
             $log : log, 
+            DataProvider : dp,
             ReceivableService : rs
         });
     }));
@@ -34,22 +37,19 @@ describe('Controller: ReceivableCtrl', function() {
      * when a cancel is triggered
      * then the the receivable must be cancelled
      */ 
-    it('should save a receivable', function() {
+    it('should cancel a receivable', function() {
         // given
-        scope.id = receivableId;
-        scope.received = false;
-        scope.canceled = false;
-        rs.update = rs.update.andReturn(true);
+        scope.receivable.id = receivableId;
+        scope.receivable.canceled = false;
         
-        var receivable = {};
-        angular.extend(receivable, scope);
+        var receivable = angular.copy(scope.receivable);
         
         // when
         var result = scope.cancel();
+        receivable.canceled = true;
         
         // then
         expect(rs.update).toHaveBeenCalledWith(receivable);
-        expect(scope.canceled).toBe(true);
         expect(result).toBe(true);
     });
     
@@ -59,18 +59,19 @@ describe('Controller: ReceivableCtrl', function() {
     * then the the receivable must not be cancelled
     * and a message should be logged: "unable to cancel an already fulfilled receivable"
     */
-    it('shouldn\'t save report a invalid receivable', function() {
+    it('shouldn\'t cancel a fulfilled receivable', function() {
         // given
-        scope.id = receivableId;
-        scope.received = true;
+        scope.receivable.id = receivableId;
+        scope.receivable.received = {date: 1385380800000, amount: '100.0'};
+        scope.receivable.canceled = false;
         
         // when
         var result = scope.cancel();
         
         // then
         expect(rs.update).not.toHaveBeenCalled();
-        expect(scope.canceled).toBe(false);
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Unable to cancel an already fulfilled receivable');
+        expect(scope.receivable.canceled).toBe(false);
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Unable to cancel an already fulfilled receivable.');
         expect(result).toBe(false);
     });
     

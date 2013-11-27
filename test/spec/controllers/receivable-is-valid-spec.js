@@ -5,6 +5,7 @@ describe('Controller: ReceivableCtrl', function() {
     var scope = {};
     var log = {};
     var dp = {};
+    var rs = {};
     var monthTime = 2592000;
 
     // Initialize the controller and a mock scope
@@ -17,11 +18,13 @@ describe('Controller: ReceivableCtrl', function() {
         
         // $scope mock
         scope = $rootScope.$new();
+        scope.receivable = {};
         
         $controller('ReceivableCtrl', {
             $scope : scope,
             $log : log,
-            DataProvider : dp
+            DataProvider : dp,
+            ReceivableService : rs
         });
     }));
 
@@ -35,10 +38,10 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should report a valid receivable', function() {
         // given
-        scope.createdate = new Date();
-        scope.duedate = scope.createdate + monthTime;
-        scope.amount = '100.00';
-        scope.entity = dp.entities[0];
+        scope.receivable.createdate = new Date();
+        scope.receivable.duedate = scope.receivable.createdate + monthTime;
+        scope.receivable.amount = '100.00';
+        scope.receivable.entity = dp.entities[0];
         
         // when
         var result = scope.isValid();
@@ -55,17 +58,19 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should report a invalid due date of a receivable', function() {
         // given
-        scope.createdate = new Date();
-        scope.duedate = scope.createdate - monthTime;
-        scope.amount = '100.00';
-        scope.entity = dp.entities[0];
+        scope.receivable.createdate = new Date();
+        scope.receivable.duedate = scope.receivable.createdate - monthTime;
+        scope.receivable.amount = '100.00';
+        scope.receivable.entity = dp.entities[0];
         
         // when
         var result = scope.isValid();
         
         // then
         expect(result).toBe(false);
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid due date: '+scope.createdate+', '+scope.duedate );
+        expect(log.error).toHaveBeenCalledWith(
+                'ReceivableCtrl: -Invalid due date: {createDate:' + scope.receivable.createdate + ', dueDate:' + scope.receivable.duedate +
+                    '}.');
     });
 
     /**
@@ -75,17 +80,17 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should report a 0 amount of a receivable', function() {
         // given
-        scope.createdate = new Date();
-        scope.duedate = scope.createdate + monthTime;
-        scope.amount = '0.00';
-        scope.entity = dp.entities[0];
+        scope.receivable.createdate = new Date();
+        scope.receivable.duedate = scope.receivable.createdate + monthTime;
+        scope.receivable.amount = '0.00';
+        scope.receivable.entity = dp.entities[0];
         
         // when
         var result = scope.isValid();
         
         // then
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid amount: ' + scope.receivable.amount + '.');
         expect(result).toBe(false);
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid amount: ' + scope.amount);
     });
     
     /**
@@ -96,17 +101,17 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should report a negative amount of a receivable', function() {
         // given
-        scope.createdate = new Date();
-        scope.duedate = scope.createdate + monthTime;
-        scope.amount = '-66.12';
-        scope.entity = dp.entities[0];
+        scope.receivable.createdate = new Date();
+        scope.receivable.duedate = scope.createdate + monthTime;
+        scope.receivable.amount = '-66.12';
+        scope.receivable.entity = dp.entities[0];
         
         // when
         var result = scope.isValid();
         
         // then
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid amount: ' + scope.receivable.amount + '.');
         expect(result).toBe(false);
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid amount: ' + scope.amount);
     });
 
     /**
@@ -117,18 +122,18 @@ describe('Controller: ReceivableCtrl', function() {
      * then false must be returned
      * and we must log: invalid entity: {{entity}}
      */
-    it('should report a invalid entity of a receivable', function() {
+    it('should report an invalid entity of a receivable', function() {
         // given
-        scope.createdate = new Date();
-        scope.duedate = scope.createdate + monthTime;
-        scope.amount = '100.00';
-        scope.entity = {id: 2, name: 'Não é o Lujinha'};
+        scope.receivable.createdate = new Date();
+        scope.receivable.duedate = scope.receivable.createdate + monthTime;
+        scope.receivable.amount = '100.00';
+        scope.receivable.entity = {id: 2, name: 'Não é o Lujinha'};
         
         // when
         var result = scope.isValid();
         
         // then
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid entity: ' + JSON.stringify(scope.receivable.entity) + '.');
         expect(result).toBe(false);
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid entity: '+ scope.entity.name);
     });
 });
