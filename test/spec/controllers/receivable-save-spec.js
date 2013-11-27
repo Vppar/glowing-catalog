@@ -38,7 +38,7 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should save a receivable', function() {
         // given
-        scope.isValid = function(){return true;};
+        scope.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
         scope.receivable.mock = 'mocked value';
         
         var receivable = angular.copy(scope.receivable);
@@ -47,6 +47,7 @@ describe('Controller: ReceivableCtrl', function() {
         var id = scope.save();
         
         // then
+        expect(scope.isValid).toHaveBeenCalled();
         expect(rs.save).toHaveBeenCalledWith(receivable);
         expect(id).toBe(receivableId);
     });
@@ -58,13 +59,14 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('shouldn\'t save report a invalid receivable', function() {
         // given
-        scope.isValid = function(){return false;};
+        jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
         scope.receivable.mock = 'mocked value';
         
         // when
         var id = scope.save();
         
         // then
+        expect(scope.isValid).toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(scope.receivable));
         expect(id).toBeUndefined();
     });

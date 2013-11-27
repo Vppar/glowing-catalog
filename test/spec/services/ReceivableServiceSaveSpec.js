@@ -34,6 +34,7 @@ describe('Service: PaymentServiceSpec', function() {
         var id = ReceivableService.save(receivable);
         
         // then
+       expect(receivable.isValid).toHaveBeenCalled();
        expect(DataProvider.receivables[DataProvider.receivables.length - 1]).toBe(receivable);
        expect(id).toBe(DataProvider.receivables.length - 1);
     });
@@ -54,6 +55,7 @@ describe('Service: PaymentServiceSpec', function() {
         var id = ReceivableService.save(receivable);
         
         // then
+        expect(scope.isValid).toHaveBeenCalled();
         expect(DataProvider.receivables).toEqual(receivables);
         expect(id).toBeUndefined();
         
