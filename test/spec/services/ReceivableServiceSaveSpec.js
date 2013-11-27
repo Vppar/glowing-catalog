@@ -47,7 +47,7 @@ describe('Service: PaymentServiceSpec', function() {
      * when a save is triggered
      * then we must log: invalid receivable: {}
      */
-    it('shouldn\'t save a invalid receivable instance', function() {
+    it('shouldn\'t save an invalid receivable instance', function() {
         // given
         receivable.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
         
