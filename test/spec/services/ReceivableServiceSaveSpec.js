@@ -1,10 +1,13 @@
 describe('Service: PaymentServiceSpec', function() {
 
+    var receivable = {};
+
     // load the service's module
     beforeEach(function() {
         var mock = {
             receivables : []
         };
+        receivable = {mock: 'I\'m a mock'};
         module('tnt.catalog.service.receivable');
         module(function($provide) {
             $provide.value('DataProvider', mock);
@@ -26,7 +29,6 @@ describe('Service: PaymentServiceSpec', function() {
      */
     it('should save a receivable', function() {
         // given
-        var receivable = {mock: 'I\'m a mock'};
         receivable.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
         
         // when
@@ -34,6 +36,7 @@ describe('Service: PaymentServiceSpec', function() {
         
         var receivablesSize = DataProvider.receivables.length;
         var lastReceivable = DataProvider.receivables.pop();
+        
         // then
        expect(lastReceivable).toBe(receivable);
        expect(id).toBe(receivablesSize - 1);
@@ -44,12 +47,11 @@ describe('Service: PaymentServiceSpec', function() {
      * when a save is triggered
      * then we must log: invalid receivable: {}
      */
-    it('shouldn\'t save a receivable instance', function() {
+    it('shouldn\'t save a invalid receivable instance', function() {
         // given
-        var receivable = {};
         receivable.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
         
-        var receivables = DataProvider.receivables;
+        var receivables = angular.copy(DataProvider.receivables);
         
         // when
         var id = ReceivableService.save(receivable);
@@ -57,7 +59,6 @@ describe('Service: PaymentServiceSpec', function() {
         // then
         expect(DataProvider.receivables).toEqual(receivables);
         expect(id).toBeUndefined();
-        
     });
     
 });
