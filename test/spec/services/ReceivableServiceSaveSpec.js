@@ -2,6 +2,7 @@ describe('Service: ReceivableServiceSpec', function() {
 
     var receivable = {};
     var receivableId = 1;
+    var log = {};
 
     // load the service's module
     beforeEach(function() {

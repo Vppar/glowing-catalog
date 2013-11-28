@@ -2,6 +2,7 @@ describe('Service: ExpenseServiceSpec', function() {
 
     var expense = {};
     var expenseId = 1;
+    var log = {};
 
     // load the service's module
     beforeEach(function() {
