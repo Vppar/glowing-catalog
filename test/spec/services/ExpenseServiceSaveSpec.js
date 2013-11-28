@@ -1,4 +1,4 @@
-describe('Service: ExpenseServiceSpec', function() {
+describe('Service: ExpenseServiceSaveSpec', function() {
 
     var expense = {};
     var expenseId = 1;

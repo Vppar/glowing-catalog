@@ -1,4 +1,4 @@
-describe('Service: ReceivableServiceSpec', function() {
+describe('Service: ReceivableServiceCreateSpec', function() {
 
     // load the service's module
     beforeEach(function() {
