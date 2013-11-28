@@ -1,12 +1,15 @@
-describe('Service: PaymentServiceSpec', function() {
+describe('Service: ReceivableServiceSpec', function() {
 
     var receivable = {};
+    var receivableId = 1;
 
     // load the service's module
     beforeEach(function() {
         var mock = {
             receivables : []
         };
+        receivable = {mock: 'I\'m a mock'};
+        receivable.getNextId = jasmine.createSpy('ReceivableCtrl.getNextId').andReturn(receivableId);
         module('tnt.catalog.service.receivable');
         module(function($provide) {
             $provide.value('DataProvider', mock);
@@ -15,8 +18,8 @@ describe('Service: PaymentServiceSpec', function() {
     beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
         DataProvider = _DataProvider_;
         ReceivableService = _ReceivableService_;
-        receivable = {mock: 'I\'m a mock'};
     }));
+    
     
     /**
      * Given a valid receivable
@@ -33,10 +36,13 @@ describe('Service: PaymentServiceSpec', function() {
         // when
         var id = ReceivableService.save(receivable);
         
+        var lastReceivable = DataProvider.receivables.pop();
+        
         // then
-       expect(receivable.isValid).toHaveBeenCalled();
-       expect(DataProvider.receivables[DataProvider.receivables.length - 1]).toBe(receivable);
-       expect(id).toBe(DataProvider.receivables.length - 1);
+        expect(receivable.isValid).toHaveBeenCalled();
+        expect(receivable.getNextId).toHaveBeenCalled();
+        expect(lastReceivable).toBe(receivable);
+        expect(id).toBe(receivableId);
     });
     
     /**
@@ -44,20 +50,20 @@ describe('Service: PaymentServiceSpec', function() {
      * when a save is triggered
      * then we must log: invalid receivable: {}
      */
-    it('shouldn\'t save a receivable instance', function() {
+    it('shouldn\'t save an invalid receivable instance', function() {
         // given
         receivable.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
         
-        var receivables = DataProvider.receivables;
+        var receivables = angular.copy(DataProvider.receivables);
         
         // when
         var id = ReceivableService.save(receivable);
         
         // then
-        expect(scope.isValid).toHaveBeenCalled();
+        expect(receivable.isValid).toHaveBeenCalled();
+        expect(receivable.getNextId).not.toHaveBeenCalled();
         expect(DataProvider.receivables).toEqual(receivables);
         expect(id).toBeUndefined();
-        
     });
     
 });
