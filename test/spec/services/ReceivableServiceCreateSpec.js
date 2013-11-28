@@ -1,11 +1,10 @@
-describe('Service: PaymentServiceSpec', function() {
+describe('Service: ReceivableServiceSpec', function() {
 
     // load the service's module
     beforeEach(function() {
         var mock = {
             receivables : []
         };
-        mock.receivables.push = jasmine.createSpy('DataProvider.receivables.push');
         module('tnt.catalog.service.receivable');
         module(function($provide) {
             $provide.value('DataProvider', mock);
@@ -26,12 +25,15 @@ describe('Service: PaymentServiceSpec', function() {
         // given
         
         // when
-        var receivable = ReceivableService.create();
+        var receivableCtrl = ReceivableService.create();
+
+        var now = new Date();
+        var receivable = receivableCtrl.getReceivable();
         
         // then
-        expect(receivable.createdate).not.toBeUndefined();
+        expect(receivable.createdate).toBeGreaterThan(now);
+        expect(receivable.createdate).toBeLessThan(now + 1000);
         expect(receivable.canceled).toBe(false);
-        expect(DataProvider.receivables.push).toHaveBeenCalled();
     });
     
 });
