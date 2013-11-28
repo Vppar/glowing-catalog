@@ -20,7 +20,7 @@
 	line-height: 40px;
 }
 .grid-delivery-details .scroll-delivery-details-grid .row-grid-delivery-details {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-delivery-details .header .col-1 {
 	width: 400px;
@@ -99,7 +99,7 @@
 	border-bottom: 1px solid #ccc
 }
 .grid-input-products .scroll-input-products-grid .row-input-products-grid {
-	border-bottom: 1px solid #e0e0e0;
+	border-bottom: 1px dotted #e0e0e0;
 	line-height: 40px
 }
 .grid-input-products .header .col-1 {
@@ -246,7 +246,7 @@
 	line-height: 40px;
 }
 .grid-payment-credit-card .scroll-payment-grid .row-payment-credit-card-grid {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-payment-credit-card .header .col-1 {
 	width: 100px;
@@ -309,7 +309,7 @@
 	line-height: 40px;
 }
 .grid-payment-product-exchange .scroll-payment-grid .row-payment-grid-product-exchange {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-payment-product-exchange .header .col-1 {
 	width: 340px;
@@ -464,7 +464,7 @@
 	line-height: 40px;
 }
 .grid-inventory .scroll-inventory .row-inventory {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-inventory .header .col-1 {
 	width: 750px;
@@ -545,7 +545,7 @@
 	line-height: 40px;
 }
 .grid-order-list .scroll-order-list .row-order-list {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-order-list .header .col-1 {
 	width: 200px;
@@ -634,7 +634,7 @@
 	line-height: 40px;
 }
 .grid-partial-delivery-1 .scroll-partial-delivery-1 .row-partial-delivery-1 {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-partial-delivery-1 .header .col-1 {
 	width:220px
@@ -734,7 +734,7 @@
 	line-height: 40px;
 }
 .grid-partial-delivery-2 .scroll-partial-delivery-2 .row-partial-delivery-2 {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-partial-delivery-2 .header .col-1 {
 	width: 100px;
@@ -806,16 +806,16 @@
 
 .grid-previous-entries .header {
 	background: #333333;
+	color:#fff;
 	border-radius: 4px;
 	margin-top: 5px;
-	color:#fff;
 }
 .grid-previous-entries .header span, .grid-previous-entries .scroll-previous-entries  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-previous-entries .scroll-previous-entries .row-previous-entries {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-previous-entries .header .col-1 {
 	width: 120px;
@@ -887,7 +887,8 @@
 }
 
 .grid-financial .header {
-        background: #ecbab9;
+		background: #333333;
+		color:#fff;
         border-radius: 4px;
         margin-top: 5px
 }
@@ -896,7 +897,7 @@
         line-height: 40px;
 }
 .grid-financial .scroll-financial .row-financial {
-        border-bottom: 1px solid #e0e0e0
+        border-bottom: 1px dotted #e0e0e0
 }
 .grid-financial .header .col-0 div {
         margin-left: 20px
@@ -975,7 +976,7 @@
 	line-height: 40px;
 }
 .grid-pending-delivery .scroll-pending-delivery .row-pending-delivery {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 /*GRID 1*/
 .grid-1 .grid-pending-delivery .header .col-1 {
@@ -1109,7 +1110,7 @@
 	line-height: 40px;
 }
 .grid-products-to-buy .scroll-products-to-buy .row-products-to-buy {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-products-to-buy .header .col-1 {
 	width: 400px;

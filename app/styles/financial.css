@@ -22,7 +22,7 @@
 	-webkit-overflow-scrolling: touch;
 	position: fixed;
 	width: 970px;
-	top: 270px;
+	top: 275px;
 	bottom: 45px
 }
 
@@ -40,6 +40,11 @@
 
 .txtpad {
 	padding-top: 5px;
+}
+
+.calendar-financial{
+	display: block;
+	margin-top: 4px;
 }
 
 .btn:hover {
@@ -60,7 +65,7 @@
 }
 
 .bread-crumbs {
-	margin-bottom: 12px;	
+	/*margin-bottom: 12px;*/
 }
 
 .bread-crumbs .principal {
