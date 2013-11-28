@@ -1,6 +1,5 @@
 'use strict';
 
-angular.module('glowingCatalogApp')
-  .service('ReceivableService', function ExpenseService() {
+angular.module('tnt.catalog.service.receivable').service('ReceivableService', function ReceivableService() {
     // AngularJS will instantiate a singleton by calling "new" on this function
-  });
+});
