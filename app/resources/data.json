@@ -410,5 +410,8 @@
             "productId": 15,
             "qty": 2
         }]
-    }]
+    }],
+    representative: {
+    	name: 'Valtanette de Paula'
+    }
 }

@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.customer', [
+    angular.module('tnt.catalog.customer.add', [
         'tnt.catalog.service.data'
     ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService) {
 

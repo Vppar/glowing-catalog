@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.basket', [
+    angular.module('tnt.catalog.basket.old', [
         'tnt.catalog.service.data'
     ]).controller('BasketCtrl', function($scope, $location, OrderService) {
 
