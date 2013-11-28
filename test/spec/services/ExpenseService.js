@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Expenseservice', function () {
+describe('Service: ExpenseService', function () {
 
   // load the service's module
   beforeEach(module('glowingCatalogApp'));
 
   // instantiate service
-  var Expenseservice;
-  beforeEach(inject(function (_Expenseservice_) {
-    Expenseservice = _Expenseservice_;
+  var ExpenseService;
+  beforeEach(inject(function (_ExpenseService_) {
+      ExpenseService = _ExpenseService_;
   }));
 
   it('should do something', function () {
-    expect(!!Expenseservice).toBe(true);
+    expect(!!ExpenseService).toBe(true);
   });
 
 });
