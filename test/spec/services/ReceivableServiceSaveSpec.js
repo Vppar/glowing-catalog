@@ -8,7 +8,7 @@ describe('Service: ReceivableServiceSpec', function() {
         var mock = {
             receivables : []
         };
-        receivable = {mock: 'I\'m a mock'};
+        receivable = {stub: 'I\'m a stub'};
         receivable.getNextId = jasmine.createSpy('ReceivableCtrl.getNextId').andReturn(receivableId);
         module('tnt.catalog.service.receivable');
         module(function($provide) {

@@ -13,6 +13,7 @@
         this.orders = [];
         this.payments = [];
         this.deliveries = [];
+        this.representative = {};
 
         $http.get('resources/data.json').then(function(response) {
             angular.extend(scope, response.data);

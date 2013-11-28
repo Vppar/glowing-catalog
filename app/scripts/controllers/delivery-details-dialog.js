@@ -1,9 +1,11 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller(
+    angular.module('glowingCatalogApp', [
+        'tnt.catalog.service.data', 'tnt.catalog.service.dialog'
+    ]).controller(
             'DeliveryDetailsDialogCtrl',
-            function($scope, $filter, $timeout, dialog, DataProvider) {
+            function($scope, $filter, $timeout, dialog, DataProvider, DialogService) {
 
                 // #############################################################################################################
                 // Local variables and functions

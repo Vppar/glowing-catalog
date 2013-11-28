@@ -1,8 +1,8 @@
 (function(angular) {
+    'use strict';
+    
     angular
-            .module('tnt.catalog.service.sms', [
-                'tnt.catalog.service.data'
-            ])
+            .module('tnt.catalog.service.sms', ['tnt.catalog.service.data'])
             .service(
                     'SMSService',
                     function($http, $q, DataProvider) {
@@ -46,6 +46,7 @@
                                 'Ola {{customerFirstName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor Mary Kay.';
                         var cellMissingAlert =
                                 'Não foi possível enviar o SMS, o cliente {{customerFirstName}} não possui um número de celular em seu cadastro.';
+                        var representative = DataProvider.representative;
 
                         var sendPaymentConfirmation =
                                 function sendPaymentConfirmation(customer, orderAmount) {
@@ -70,7 +71,7 @@
                                                 paymentConfirmationSMS.replace('{{customerFirstName}}', customerFirstName).replace(
                                                         '{{representativeName}}', representative.name).replace(
                                                         '{{orderAmount}}', orderAmount);
-                                        smsSent = SMSService.send('55' + to, smsMessage);
+                                        smsSent = this.send('55' + to, smsMessage);
                                     } else {
                                         smsSent = $q.reject(cellMissingAlert.replace('{{customerFirstName}}', customerFirstName));
                                     }

@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular
-            .module('tnt.catalog.payment', [])
+            .module('tnt.catalog.payment.add', [])
             .controller(
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
@@ -112,7 +112,7 @@
 
                             return confirmedPaymentPromise;
                         }
-                        
+
                         /**
                          * Shows the payment confirmation dialog.
                          */
@@ -137,14 +137,13 @@
 
                             return canceledPaymentPromise;
                         }
-                        
+
                         /**
                          * Shows the payment canceling dialog.
                          */
                         function showCancelPaymentDialog() {
                             return DialogService
-                                    .messageDialog({
-                                        title : 'Cancelar Pagamento',
+                                    .messageDialog({title : 'Cancelar Pagamento',
                                         message : 'Cancelar o pagamento irá descartar os dados desse pagamento permanentemente. Você tem certeza que deseja cancelar?',
                                         btnYes : 'Cancelar',
                                         btnNo : 'Retornar'
@@ -168,11 +167,11 @@
                          */
                         function validatePayment() {
                             var paymentAmount = $filter('sum')($scope.payments, 'amount');
-                            
+
                             if (paymentAmount > 0 && paymentAmount === orderAmount) {
                                 return true;
                             }
-                            
+
                             var message = null;
                             if (paymentAmount === 0) {
                                 message = 'Nenhum pagamento foi registrado para o pedido.';
