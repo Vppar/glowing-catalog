@@ -15,7 +15,7 @@ describe('Controller: ReceivableCtrl', function() {
     beforeEach(inject(function($controller, $rootScope) {
         // $scope mock
         scope = $rootScope.$new();
-        scope.receivable = {mock: 'I\'m a mock'};
+        scope.receivable = {stub: 'I\'m a stub'};
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');

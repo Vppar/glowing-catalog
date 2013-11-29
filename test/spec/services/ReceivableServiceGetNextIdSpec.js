@@ -2,12 +2,12 @@ describe('Service: ReceivableServiceGetNextIdSpec', function() {
 
     // load the service's module
     beforeEach(function() {
-        var mock = {
+        var dpStub = {
             receivables : []
         };
         module('tnt.catalog.service.receivable');
         module(function($provide) {
-            $provide.value('DataProvider', mock);
+            $provide.value('DataProvider', dpStub);
         });
     });
     beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
@@ -38,7 +38,7 @@ describe('Service: ReceivableServiceGetNextIdSpec', function() {
      */
     it('should get an id', function() {
         // given
-        DataProvider.receivables.push({mock: 'I\'m mock', receivable:{id: 1}});
+        DataProvider.receivables.push({stub: 'I\'m stub', receivable:{id: 1}});
         
         // when
         var nextId = ReceivableService.getNextId();

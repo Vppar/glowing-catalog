@@ -5,9 +5,9 @@ describe('Service: ExpenseServiceUpdateSpec', function() {
 
     // load the service's module
     beforeEach(function() {
-        expenseCtrl = {stub: 'I\'m mock 2', expense:{id: 2}};
+        expenseCtrl = {stub: 'I\'m stub 2', expense:{id: 2}};
         var dpStub = {
-            expenses : [{stub: 'I\'m mock', expense:{id: 1}}]
+            expenses : [{stub: 'I\'m stub', expense:{id: 1}}]
         };
         
         log.error = jasmine.createSpy('$log.error');
@@ -36,7 +36,7 @@ describe('Service: ExpenseServiceUpdateSpec', function() {
         DataProvider.expenses.push(angular.copy(expenseCtrl));
         
         // when
-        expenseCtrl.stub = 'I\'m a new mock 2';
+        expenseCtrl.stub = 'I\'m a new stub 2';
         ExpenseService.update(expenseCtrl);
         
         var lastExpense = DataProvider.expenses.pop();
@@ -57,7 +57,7 @@ describe('Service: ExpenseServiceUpdateSpec', function() {
         expenseCtrl.isValid = jasmine.createSpy('ExpenseCtrl.isValid').andReturn(true);
         
         // when
-        expenseCtrl.stub = 'I\'m a new mock 2';
+        expenseCtrl.stub = 'I\'m a new stub 2';
         ExpenseService.update(expenseCtrl);
         
         var lastExpense = DataProvider.expenses.pop();
@@ -78,7 +78,7 @@ describe('Service: ExpenseServiceUpdateSpec', function() {
         expenseCtrl.isValid = jasmine.createSpy('ExpenseCtrl.isValid').andReturn(false);
         
         // when
-        expenseCtrl.stub = 'I\'m a new mock 2';
+        expenseCtrl.stub = 'I\'m a new stub 2';
         ExpenseService.update(expenseCtrl);
         
         var lastExpense = DataProvider.expenses.pop();
