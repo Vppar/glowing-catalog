@@ -416,11 +416,17 @@ body {
 .btn-cancel {
 	background: #333;
 }
+.btn-open{
+	background: #AEAEAE;
+}
 .btn-ok:hover{
 	background: #48841c !important;
 }
 .btn-cancel:hover {
 	background: #000 !important;
+}
+.btn-open:hover{
+	background: #48841c !important;
 }
 .dropdown-menu .btn {
 	background: #fff;
