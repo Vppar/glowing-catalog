@@ -5,7 +5,7 @@
             .module('glowingCatalogApp')
             .controller(
                     'PartialDeliveryCtrl',
-                    function($scope, $location, $filter, $dialog, $q, DataProvider, DialogService, MessageService) {
+                    function($scope, $location, $filter, $dialog, $q, DataProvider, DialogService, SMSService) {
 
                         var scheduledDefaultMsg =
                                 'Ola {{customerName}}, uma entrega referente ao pedido {{order.code}} foi agendada para {{order.date}}. {{representativeName}} seu consultor Mary Kay.';
@@ -100,7 +100,7 @@
                                                                     '{{order.code}}', $scope.order.code).replace(
                                                                     '{{order.date}}', $filter('date')(result, 'dd/MM/yyyy HH:mm')).replace(
                                                                     '{{representativeName}}', 'Valtanette');
-                                                    return MessageService.sendSMS('55' + phone, msg);
+                                                    return SMSService.sendSMS('55' + phone, msg);
                                                 } else {
                                                     return 'Não foi possível enviar o SMS, o cliente ' + recoverdCustomerFirstName +
                                                         ' não possui um número de celular em seu cadastro.';
@@ -155,11 +155,13 @@
                             // "There can be only one!" by Connor MacLeod
                             $scope.order = filteredOrders[0];
 
-                            var filteredCustomers = $filter('filter')(DataProvider.customers, function(item) {
-                                return item.id === $scope.order.customerId;
-                            });
-                            // "There can be only one!" by Connor MacLeod
-                            $scope.order.customer = filteredCustomers[0];
+                            if($scope.order)  {
+                                var filteredCustomers = $filter('filter')(DataProvider.customers, function(item) {
+                                    return item.id === $scope.order.customerId;
+                                });
+                                // "There can be only one!" by Connor MacLeod
+                                $scope.order.customer = filteredCustomers[0];
+                            }
                         }
                         main();
                     });
