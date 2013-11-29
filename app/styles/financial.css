@@ -22,8 +22,11 @@
 	-webkit-overflow-scrolling: touch;
 	position: fixed;
 	width: 970px;
-	top: 275px;
-	bottom: 45px
+	top: 2px;
+	bottom: 45px;
+	display: block;
+	position: relative;
+
 }
 
 .btn-plus-pink {
@@ -65,13 +68,35 @@
 }
 
 .bread-crumbs {
-	/*margin-bottom: 12px;*/
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+	font-size: 16px;
+	color:#e5b1b0;
+	font-weight:bold;
 }
 
 .bread-crumbs .principal {
-	font-size: 18px;
+	color:#ccc;
 }
 
 .bread-crumbs .crumbs {
-	font-size: 14px;
+	color:#ccc;
+	font-weight: normal;
+}
+
+.bread-crumbs .icons{
+	padding: 0px 5px 0px 5px;
+}
+
+/*cadastrar contas a pagar*/
+
+/*inputs custom*/
+.input-width-bills{
+	width: 96%;
+}
+.expense .row-fluid .btn-open{
+	margin-top: 22px;
+	width:120px;
+	float: right;
 }

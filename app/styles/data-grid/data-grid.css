@@ -890,7 +890,9 @@
 		background: #333333;
 		color:#fff;
         border-radius: 4px;
-        margin-top: 5px
+        /*margin-top: 5px*/
+		display: block;
+		position: relative;
 }
 .grid-financial .header span, .grid-financial .scroll-financial  span {
         display: inline-block;
@@ -1093,6 +1095,62 @@
 }
 
 /*============= END DATA-GRID PENDING DELIVERY =================*/
+
+/*============= DATA-GRID EXPENSE =================*/
+.grid-expense {
+	border-radius: 6px 6px 0 0;
+}
+
+.grid-expense .header {
+	background: #333333;
+	border-radius: 4px;
+	margin-top: 5px;
+	color:#fff;
+}
+.grid-expense .header span, .grid-expense .scroll-expense  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-expense .scroll-expense .row-expense {
+	border-bottom: 1px dotted #e0e0e0
+}
+
+.grid-expense .header .col-1, .row-expense .col-1 {
+	width:10%; /*60px*/
+}
+.grid-expense .header .col-1 div , .row-expense .col-1 div{
+	margin-left: 20px;
+}
+.grid-expense .header .col-2, .grid-expense .col-2 {
+	width:10%; /*60px*/
+}
+.grid-expense .header .col-3, .grid-expense .col-3 {
+	width:20%; /*190px*/
+}
+
+.grid-expense .header .col-4, .grid-expense .col-4 {
+	width:30%; /*300px*/
+	display: inline-block;
+}
+.grid-expense .header .col-4 div, .grid-expense .col-4 div  {
+	text-align: center;
+}
+.grid-expense .col-4 div {
+	margin-right: 24px
+}
+.grid-expense .header .col-5, .grid-expense .col-5 {
+	width:10%; /*155px*/
+	display: inline-block;
+	text-align: right;
+	margin-right: 16px
+}
+.grid-expense .header .col-6, .grid-expense .col-6 {
+	width:10%; /*155px*/
+	display: inline-block;
+	text-align: right;
+	margin-right: 16px
+}
+/*============= END DATA-GRID EXPENSE =================*/
 
 /*============= DATA-GRID PRODUCTS TO BUY =================*/
 .grid-products-to-buy {
