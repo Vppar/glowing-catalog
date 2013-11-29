@@ -1,18 +1,18 @@
-describe('Service: ReceivableServiceGetNextIdSpec', function() {
+describe('Service: ExpenseServiceGetNextIdSpec', function() {
 
     // load the service's module
     beforeEach(function() {
-        var dpStub = {
-            receivables : []
+        var stub = {
+            expenses : []
         };
-        module('tnt.catalog.service.receivable');
+        module('tnt.catalog.service.expense');
         module(function($provide) {
-            $provide.value('DataProvider', dpStub);
+            $provide.value('DataProvider', stub);
         });
     });
-    beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
+    beforeEach(inject(function(_DataProvider_, _ExpenseService_) {
         DataProvider = _DataProvider_;
-        ReceivableService = _ReceivableService_;
+        ExpenseService = _ExpenseService_;
     }));
     
     
@@ -23,10 +23,10 @@ describe('Service: ReceivableServiceGetNextIdSpec', function() {
      */
     it('should get an id=1', function() {
         // given
-        
+
         // when
-        var nextId = ReceivableService.getNextId();
-        
+        var nextId = ExpenseService.getNextId();
+
         // then
         expect(nextId).toBe(1);
     });
@@ -38,7 +38,7 @@ describe('Service: ReceivableServiceGetNextIdSpec', function() {
      */
     it('should get an id', function() {
         // given
-        DataProvider.receivables.push({stub: 'I\'m stub', receivable:{id: 1}});
+        DataProvider.expenses.push({stub: 'I\'m stub', expense:{id: 1}});
         
         // when
         var nextId = ReceivableService.getNextId();
