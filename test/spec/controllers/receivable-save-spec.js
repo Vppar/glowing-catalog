@@ -39,7 +39,7 @@ describe('Controller: ReceivableCtrl', function() {
     it('should save a receivable', function() {
         // given
         scope.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
-        scope.receivable.mock = 'mocked value';
+        scope.receivable.stub = 'stubed value';
         
         var receivable = angular.copy(scope.receivable);
         
@@ -60,7 +60,7 @@ describe('Controller: ReceivableCtrl', function() {
     it('shouldn\'t save report a invalid receivable', function() {
         // given
         jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
-        scope.receivable.mock = 'mocked value';
+        scope.receivable.stub = 'stubed value';
         
         // when
         var id = scope.save();

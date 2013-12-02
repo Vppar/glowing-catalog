@@ -1,8 +1,8 @@
-describe('Controller: ReceivableCtrl', function() {
+describe('Controller: ExpenseCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
-        module('tnt.catalog.financial.receivable');
+        module('tnt.catalog.financial.expense');
     });
 
     var scope = {};
@@ -15,18 +15,18 @@ describe('Controller: ReceivableCtrl', function() {
     beforeEach(inject(function($controller, $rootScope) {
         // $scope mock
         scope = $rootScope.$new();
-        scope.receivable = {stub: 'I\'m a stub'};
+        scope.expense = {stub: 'I\'m a stub'};
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
         
-        // ReceivableService mock
-        rs.update = jasmine.createSpy('ReceivableService.update');
+        // ExpenseService mock
+        rs.update = jasmine.createSpy('ExpenseService.update');
         
-        $controller('ReceivableCtrl', {
+        $controller('ExpenseCtrl', {
             $scope : scope,
             $log : log, 
-            ReceivableService : rs
+            ExpenseService : rs
         });
     }));
     
@@ -37,18 +37,18 @@ describe('Controller: ReceivableCtrl', function() {
      */
     it('should attach a document', function() {
         // given
-        document = jasmine.createSpy('ReceivableDocument.isValid').andReturn(true);
+        document = jasmine.createSpy('ExpenseDocument.isValid').andReturn(true);
         
-        var receivable = angular.copy(scope.receivable);
+        var expense = angular.copy(scope.expense);
         
         // when
         scope.attach(document);
         
-        receivable.received = document;
+        expense.payed = document;
         
         // then
         expect(document.isValid).toHaveBeenCalled();
-        expect(rs.update).toHaveBeenCalledWith(receivable);
+        expect(rs.update).toHaveBeenCalledWith(expense);
     });
     
     /**
@@ -56,9 +56,9 @@ describe('Controller: ReceivableCtrl', function() {
      * when an attach is triggered
      * then the user must be warned: invalid document
      */
-    it('shouldn\'t fulfill a canceled receivable', function() {
+    it('shouldn\'t fulfill a canceled expense', function() {
         // given
-        document = jasmine.createSpy('ReceivableDocument.isValid').andReturn(true);
+        document = jasmine.createSpy('ExpenseDocument.isValid').andReturn(true);
         
         // when
         scope.attach(document);
@@ -66,7 +66,7 @@ describe('Controller: ReceivableCtrl', function() {
         // then
         expect(document.isValid).toHaveBeenCalled();
         expect(rs.update).not.toHaveBeenCalled();
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid document '+JSON.stringify(document));
+        expect(log.error).toHaveBeenCalledWith('ExpenseCtrl: -Invalid document '+JSON.stringify(document));
         expect(DialogService.messageDialog).toHaveBeenCalledWith({title: 'Contas à Pagar', message: 'Documento Inválido', btnYes: 'OK'});
     });
     

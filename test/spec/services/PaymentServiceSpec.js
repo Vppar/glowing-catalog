@@ -6,7 +6,7 @@ describe('Service: PaymentServiceSpec', function() {
     beforeEach(function() {
         paymentTemplate = angular.copy(sampleData.paymentTemplate);
 
-        var mock = {
+        var dpStub = {
             customers : angular.copy(sampleData.customers),
             products : angular.copy(sampleData.products),
             orders : angular.copy(sampleData.orders),
@@ -23,7 +23,7 @@ describe('Service: PaymentServiceSpec', function() {
         module('tnt.catalog.filter.findBy');
         module('tnt.catalog.service.payment');
         module(function($provide) {
-            $provide.value('DataProvider', mock);
+            $provide.value('DataProvider', dpStub);
         });
 
     });

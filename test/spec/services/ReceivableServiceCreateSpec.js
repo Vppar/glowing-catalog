@@ -1,13 +1,13 @@
-describe('Service: ReceivableServiceSpec', function() {
+describe('Service: ReceivableServiceCreateSpec', function() {
 
     // load the service's module
     beforeEach(function() {
-        var mock = {
+        var dpStub = {
             receivables : []
         };
         module('tnt.catalog.service.receivable');
         module(function($provide) {
-            $provide.value('DataProvider', mock);
+            $provide.value('DataProvider', dpStub);
         });
     });
     beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
