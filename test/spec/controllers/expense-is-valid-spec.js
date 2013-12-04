@@ -51,7 +51,7 @@ describe('Controller: ExpenseCtrl', function() {
      */
     it('should report a valid expense', function() {
         // given
-        scope.expense.duedate = scope.expense.createdate + monthTime;
+        scope.expense.duedate = fakeNow + monthTime;
         scope.expense.amount = '100.00';
         scope.expense.entity = dp.entities[0];
 
@@ -96,8 +96,7 @@ describe('Controller: ExpenseCtrl', function() {
      */
     it('should report a 0 amount of a expense', function() {
         // given
-        scope.expense.createdate = fakeNow;
-        scope.expense.duedate = scope.expense.createdate + monthTime;
+        scope.expense.duedate = fakeNow + monthTime;
         scope.expense.amount = '0.00';
         scope.expense.entity = dp.entities[0];
 
@@ -120,8 +119,7 @@ describe('Controller: ExpenseCtrl', function() {
      */
     it('should report a negative amount of a expense', function() {
         // given
-        scope.expense.createdate = fakeNow;
-        scope.expense.duedate = scope.createdate + monthTime;
+        scope.expense.duedate = fakeNow + monthTime;
         scope.expense.amount = '-66.12';
         scope.expense.entity = dp.entities[0];
 
@@ -145,8 +143,7 @@ describe('Controller: ExpenseCtrl', function() {
      */
     it('should report an invalid entity of a expense', function() {
         // given
-        scope.expense.createdate = fakeNow;
-        scope.expense.duedate = scope.expense.createdate + monthTime;
+        scope.expense.duedate = fakeNow + monthTime;
         scope.expense.amount = '100.00';
         scope.expense.entity = {
             id : 2,
