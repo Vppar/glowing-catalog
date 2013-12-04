@@ -31,9 +31,11 @@ describe('Controller: ReceivableCtrl', function() {
     }));
     
     /**
+     * <pre>
      * Given a valid document
      * when an attach is triggered
      * then the document must be attached
+     * </pre>
      */
     it('should attach a document', function() {
         // given
@@ -52,9 +54,11 @@ describe('Controller: ReceivableCtrl', function() {
     });
     
     /**
+     * <pre>
      * Given an invalid document
      * when an attach is triggered
      * then the user must be warned: invalid document
+     * </pre>
      */
     it('shouldn\'t fulfill a canceled receivable', function() {
         // given
