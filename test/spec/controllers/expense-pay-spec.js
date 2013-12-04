@@ -33,7 +33,7 @@ describe('Controller: ExpenseCtrl', function() {
     /**
      * <pre>
      * Given a pending expense
-     * and it is not cancelled
+     * and it is not canceled
      * when a pay is triggered
      * then we must pay the expense
      * </pre>
@@ -58,7 +58,7 @@ describe('Controller: ExpenseCtrl', function() {
      * Given a pending expense
      * and it is canceled
      * when a pay is triggered
-     * then a message should be logged: 'Unable to fulfill a cancelled expense'
+     * then a message should be logged: 'Unable to pay a canceled expense'
      * </pre>
      */
     it('shouldn\'t pay a canceled expense', function() {
@@ -70,7 +70,7 @@ describe('Controller: ExpenseCtrl', function() {
 
         // then
         expect(rs.update).not.toHaveBeenCalled();
-        expect(log.error).toHaveBeenCalledWith('ExpenseCtrl: -Unable to pay a cancelled expense.');
+        expect(log.error).toHaveBeenCalledWith('ExpenseCtrl: -Unable to pay a canceled expense.');
     });
 
     /**
