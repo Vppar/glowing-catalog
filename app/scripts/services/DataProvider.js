@@ -4,15 +4,16 @@
 
         var scope = this;
 
-        this.date = {};
-        this.products = [];
-        this.customers = [];
-        this.states = {};
-        this.phone = {};
         this.cardData = {};
-        this.orders = [];
-        this.payments = [];
+        this.date = {};
         this.deliveries = [];
+        this.customers = [];
+        this.orders = [];
+        this.phone = {};
+        this.products = [];
+        this.payments = [];
+        this.representative = {name: 'Valtanette de Paula'};
+        this.states = {};
 
         $http.get('resources/data.json').then(function(response) {
             angular.extend(scope, response.data);
