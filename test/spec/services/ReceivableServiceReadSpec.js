@@ -68,7 +68,7 @@ describe('Service: ReceivableServiceReadSpec', function() {
 
         // then
         expect(receivable).toBeUndefined();
-        expect(log.error).toHaveBeenCalledWith('Receivable.read: -Receivable not found: id=' + id);
+        expect(log.error).toHaveBeenCalledWith('ReceivableService.read: -Receivable not found: id=' + id);
     });
 
 });

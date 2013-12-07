@@ -60,21 +60,20 @@ describe('Service: ReceivableServiceUpdateSpec', function() {
      * and false must be returned
      * </pre>
      */
-    it(
-            'shouldn\'t update a receivable that is not present', function() {
-                // given
-                var receivable = {
-                    id : 2,
-                    duedate : baseTime + oneDay
-                };
+    it('shouldn\'t update a receivable that is not present', function() {
+        // given
+        var receivable = {
+            id : 2,
+            duedate : baseTime + oneDay
+        };
 
-                // when
-                var result = ReceivableService.update(receivable);
+        // when
+        var result = ReceivableService.update(receivable);
 
-                // then
-                expect(receivable).not.toEqual(DataProvider.receivables[0]);
-                expect(log.error).toHaveBeenCalledWith(
-                        'ReceivableService.update: -Could not find a receivable to update with id=' + receivable.id);
-                expect(result).toBe(false);
-            });
+        // then
+        expect(receivable).not.toEqual(DataProvider.receivables[0]);
+        expect(log.error).toHaveBeenCalledWith(
+                'ReceivableService.update: -Could not find a receivable to update with id=' + receivable.id);
+        expect(result).toBe(false);
+    });
 });

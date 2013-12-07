@@ -62,7 +62,7 @@ describe('Service: ReceivableServiceListSpec', function() {
      * and it must be a copy
      * </pre>
      */
-    it('should return a window list copy', function() {
+    it('should return a timeframe copy list ', function() {
         // given
         var startDate = baseTime;
         var endDate = baseTime + 2 * oneDay;
@@ -89,7 +89,7 @@ describe('Service: ReceivableServiceListSpec', function() {
      * and it must be a copy
      * </pre>
      */
-    it('should return a partial list til the end', function() {
+    it('should return a partial list from startDate until the end of the list', function() {
         var startDate = baseTime;
 
         // when
@@ -113,7 +113,7 @@ describe('Service: ReceivableServiceListSpec', function() {
      * and a end date after the start date
      * when list is triggered
      * then undefined must be returned
-     * and must be logged : 'No receivable found for the window: {{startDate}} - {{endDate}}'
+     * and must be logged : 'No receivable found for the timeframe: {{startDate}} - {{endDate}}'
      * </pre>
      */
     it('shouldn\'t find a receivable', function() {
@@ -130,7 +130,7 @@ describe('Service: ReceivableServiceListSpec', function() {
         // then
         expect(filteredReceivables).toBeUndefined();
         expect(log.error)
-                .toHaveBeenCalledWith('ReceivableService.list: No receivable found for the window: ' + startDate + ' - ' + endDate);
+                .toHaveBeenCalledWith('ReceivableService.list: -No receivable found for the timeframe: ' + startDate + ' - ' + endDate);
     });
 
     /**
@@ -140,7 +140,7 @@ describe('Service: ReceivableServiceListSpec', function() {
      * and a end date before the start date
      * when list is triggered
      * then undefined must be returned
-     * and must be logged : 'Invalid window parameters: {{startDate}} - {{endDate}}'
+     * and must be logged : 'Invalid timeframe parameters: {{startDate}} - {{endDate}}'
      * </pre>
      */
     it('should log error', function() {
@@ -156,6 +156,6 @@ describe('Service: ReceivableServiceListSpec', function() {
 
         // then
         expect(filteredReceivables).toBeUndefined();
-        expect(log.error).toHaveBeenCalledWith('ReceivableService.list: Invalid window parameters: ' + startDate + ' - ' + endDate);
+        expect(log.error).toHaveBeenCalledWith('ReceivableService.list: Invalid timeframe parameters: ' + startDate + ' - ' + endDate);
     });
 });
