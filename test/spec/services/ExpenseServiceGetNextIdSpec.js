@@ -1,4 +1,4 @@
-describe('Service: ExpenseServiceGetNextIdSpec', function() {
+xdescribe('Service: ExpenseServiceGetNextIdSpec', function() {
 
     // load the service's module
     beforeEach(function() {

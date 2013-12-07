@@ -1,4 +1,4 @@
-describe('Service: ExpenseServiceCreateSpec', function() {
+xdescribe('Service: ExpenseServiceCreateSpec', function() {
 
     // load the service's module
     beforeEach(function() {
