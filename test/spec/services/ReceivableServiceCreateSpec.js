@@ -1,39 +1,54 @@
 describe('Service: ReceivableServiceCreateSpec', function() {
 
+    var log = {};
+
     // load the service's module
     beforeEach(function() {
         var dpStub = {
             receivables : []
         };
+        log.error = jasmine.createSpy('$log.error');
+
         module('tnt.catalog.service.receivable');
         module(function($provide) {
             $provide.value('DataProvider', dpStub);
+            $provide.value('$log', log);
         });
     });
     beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
         DataProvider = _DataProvider_;
         ReceivableService = _ReceivableService_;
     }));
-    
-    
+
     /**
-     * Given no parameters
+     * <pre>
+     * Given a validated receivable
      * when a create is triggered
-     * then an instance of ReceivableCtrl must be returned
+     * then a unique id must be set
+     * and a creation date must be set
+     * and canceled flag must be set to false
+     * and received attribute must be undefined
+     * and a receivable must be created in the database
+     * and the id must be returned
+     * </pre>
      */
     it('should create a receivable instance', function() {
         // given
-        
-        // when
-        var receivableCtrl = ReceivableService.create();
+        var receivable = {
+            stub : 'I\'m a stub'
+        };
 
-        var now = new Date();
-        var receivable = receivableCtrl.getReceivable();
-        
+        var fakeTime = 1386444467895;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
+
+        // when
+        var id = ReceivableService.create(receivable);
+
         // then
-        expect(receivable.createdate).toBeGreaterThan(now);
-        expect(receivable.createdate).toBeLessThan(now + 1000);
+        expect(log.error).not.toHaveBeenCalled();
+        expect(id).not.toBeUndefined();
+        expect(receivable.createdate).toEqual(fakeTime);
         expect(receivable.canceled).toBe(false);
     });
-    
+
 });

@@ -1,13 +1,18 @@
 describe('Service: ReceivableServiceUpdateSpec', function() {
 
-    var receivableCtrl = {};
     var log = {};
+    var baseTime = 1386417600000;
+    var oneDay = 24 * 60 * 60 * 1000;
 
     // load the service's module
     beforeEach(function() {
-        receivableCtrl = {mock: 'I\'m mock 2', receivable:{id: 2}};
         var mock = {
-            receivables : [{mock: 'I\'m mock', receivable:{id: 1}}]
+            receivables : [
+                {
+                    id : 1,
+                    duedate : baseTime
+                }
+            ]
         };
         log.error = jasmine.createSpy('$log.error');
         module('tnt.catalog.service.receivable');
@@ -20,70 +25,56 @@ describe('Service: ReceivableServiceUpdateSpec', function() {
         DataProvider = _DataProvider_;
         ReceivableService = _ReceivableService_;
     }));
-    
-    
+
     /**
-     * Given a valid receivable
+     * <pre>
+     * Given a validated receivable
      * And present on the database
      * when an update is triggered
      * then a receivable must be update in the database
+     * and true must be returned
+     * </pre>
      */
     it('should update a receivable', function() {
         // given
-        receivableCtrl.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
-        DataProvider.receivables.push(angular.copy(receivableCtrl));
-        
+        var receivable = {
+            id : 1,
+            duedate : baseTime + oneDay
+        };
+
         // when
-        receivableCtrl.mock = 'I\'m a new mock 2';
-        ReceivableService.update(receivableCtrl);
-        
-        var lastReceivable = DataProvider.receivables.pop();
-        
+        var result = ReceivableService.update(receivable);
+
         // then
-        expect(receivableCtrl.isValid).toHaveBeenCalled();
-        expect(lastReceivable).toEqual(receivableCtrl);
+        expect(receivable).toEqual(DataProvider.receivables[0]);
+        expect(receivable).not.toBe(DataProvider.receivables[0]);
+        expect(result).toBe(true);
     });
-    
+
     /**
-     * Given a valid receivable
+     * <pre>
+     * Given a validated receivable
      * And not present on the database
      * when an update is triggered
-     * then we must log: Could not find receivable to update
+     * then we must log: Could not find a receivable to update
+     * and false must be returned
+     * </pre>
      */
-    it('shouldn\'t update a receivable that is not present', function() {
-        // given
-        receivableCtrl.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
-        
-        // when
-        receivableCtrl.mock = 'I\'m a new mock 2';
-        ReceivableService.update(receivableCtrl);
-        
-        var lastReceivable = DataProvider.receivables.pop();
+    it(
+            'shouldn\'t update a receivable that is not present', function() {
+                // given
+                var receivable = {
+                    id : 2,
+                    duedate : baseTime + oneDay
+                };
 
-        // then
-        expect(receivableCtrl.isValid).toHaveBeenCalled();
-        expect(lastReceivable).not.toEqual(receivableCtrl);
-        expect(log.error).toHaveBeenCalledWith('Could not find receivable to update');
-    });
-    
-    /**
-     * Given an invalid receivable
-     * when an update is triggered
-     * then we must log: invalid receivable: {}
-     */
-    it('shouldn\'t update an invalid receivable', function() {
-     // given
-        receivableCtrl.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
-        
-        // when
-        receivableCtrl.mock = 'I\'m a new mock 2';
-        ReceivableService.update(receivableCtrl);
-        
-        var lastReceivable = DataProvider.receivables.pop();
+                // when
+                var result = ReceivableService.update(receivable);
 
-        // then
-        expect(receivableCtrl.isValid).toHaveBeenCalled();
-        expect(lastReceivable).not.toEqual(receivableCtrl);
-        expect(log.error).toHaveBeenCalledWith('ReceivableService: -Invalid receivable:' + JSON.stringify(receivableCtrl));
-    });
+                // then
+                expect(receivable).not.toEqual(DataProvider.receivables[0]);
+                expect(log.error).toHaveBeenCalledWith(
+                        'ReceivableService.update: -Could not find a receivable to update with id=' + receivable.id);
+                expect(result).toBe(false);
+            });
 });
