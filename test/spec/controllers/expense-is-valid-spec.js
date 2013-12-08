@@ -1,4 +1,4 @@
-describe('Controller: ExpenseCtrl', function() {
+xdescribe('Controller: ExpenseCtrl', function() {
     // load the controller's module
     beforeEach(module('tnt.catalog.financial.expense'));
 

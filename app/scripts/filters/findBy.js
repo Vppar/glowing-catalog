@@ -12,7 +12,7 @@
                     return item;
                 }
             }
-            return {};
+            return undefined;
         };
     });
 })(angular);
