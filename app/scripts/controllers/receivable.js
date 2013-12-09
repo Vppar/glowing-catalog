@@ -101,6 +101,9 @@
                     if (receivable.canceled) {
                         result = false;
                         $log.error('ReceivableCtrl: -Unable to fulfill a canceled receivable.');
+                    } else if (receivable.received) {
+                        result = false;
+                        $log.error('ReceivableCtrl: -The receivable is already fulfilled');
                     } else if (receiptDate > now) {
                         result = false;
                         $log.error('ReceivableCtrl: -Invalid receipt date.');
