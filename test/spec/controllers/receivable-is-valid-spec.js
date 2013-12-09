@@ -1,4 +1,4 @@
-xdescribe('Controller: ReceivableCtrl', function() {
+describe('Controller: ReceivableCtrl', function() {
     // load the controller's module
     beforeEach(module('tnt.catalog.financial.receivable'));
 
@@ -27,10 +27,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
         scope.receivable = {};
 
         fakeNow = 1386179100000;
-        var dateFunc = function() {
-            return fakeNow;
-        };
-        spyOn(MyApp.util, 'now').andCallFake(dateFunc);
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         $controller('ReceivableCtrl', {
             $scope : scope,
@@ -42,7 +39,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
 
     /**
      * <pre>
-     * Given a valid due date
+     * Givena valid due date
      * and a valid amount
      * and a valid entity
      * when asked for validation
@@ -59,6 +56,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
         var result = scope.isValid();
 
         // then
+        expect(log.error).not.toHaveBeenCalled();
         expect(result).toBe(true);
     });
 
@@ -82,7 +80,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
         // then
         expect(result).toBe(false);
         expect(log.error).toHaveBeenCalledWith(
-                'ReceivableCtrl: -Invalid due date: ' + fakeNow + ', dueDate:' + scope.expense.duedate + '}.');
+                'ReceivableCtrl: -Invalid due date=\'' + scope.receivable.duedate + '\', now=\'' + fakeNow + '\'.');
     });
 
     /**
@@ -157,6 +155,30 @@ xdescribe('Controller: ReceivableCtrl', function() {
 
         // then
         expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid entity: ' + JSON.stringify(scope.receivable.entity) + '.');
+        expect(result).toBe(false);
+    });
+
+    /**
+     * <pre>
+     * Given a valid due date
+     * and a valid amount
+     * and an empty entity
+     * when asked for validation
+     * then false must be returned
+     * and we must log: Empty entity
+     * </pre>
+     */
+    it('should report an empty entity of a receivable', function() {
+        // given
+        scope.receivable.createdate = new Date();
+        scope.receivable.duedate = scope.receivable.createdate + monthTime;
+        scope.receivable.amount = '100.00';
+
+        // when
+        var result = scope.isValid();
+
+        // then
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Empty entity.');
         expect(result).toBe(false);
     });
 });
