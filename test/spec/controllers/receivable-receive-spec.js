@@ -8,6 +8,7 @@ describe('Controller: ReceivableCtrl', function() {
     var scope = {};
     var log = {};
     var dp = {};
+    var ds = {};
     var rs = {};
     var fakeNow = 0;
     var oneHour = 60 * 60 * 1000;
@@ -29,6 +30,7 @@ describe('Controller: ReceivableCtrl', function() {
             $scope : scope,
             $log : log,
             DataProvider : dp,
+            DialogService : ds,
             ReceivableService : rs
         });
     }));

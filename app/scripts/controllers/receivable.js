@@ -7,7 +7,7 @@
      * @author Arnaldo S. Rodrigues Jr.
      */
     angular.module('tnt.catalog.financial.receivable', []).controller(
-            'ReceivableCtrl', function($scope, $log, ReceivableService, DataProvider) {
+            'ReceivableCtrl', function($scope, $log, DataProvider, DialogService, ReceivableService) {
 
                 // #####################################################################################################
                 // Local variables
@@ -120,6 +120,28 @@
                     return result;
                 };
 
+                /**
+                 * Attach a document to the receivable
+                 * 
+                 * @param document - The document to be attached.
+                 */
+                var putDocument = function putDocument(document) {
+                    var result = false;
+                    if (document.isValid()) {
+                        receivable.document = document;
+                        service.update(receivable);
+                        result = true;
+                    } else {
+                        DialogService.messageDialog({
+                            title : 'Contas à Pagar',
+                            message : 'Documento Inválido',
+                            btnYes : 'OK'
+                        });
+                        $log.error('ReceivableCtrl: -Invalid document ' + JSON.stringify(document));
+                    }
+                    return result;
+                };
+
                 // #####################################################################################################
                 // Auxiliary functions
                 // #####################################################################################################
@@ -190,6 +212,7 @@
                 $scope.isValid = isValid;
                 $scope.save = save;
                 $scope.receive = receive;
+                $scope.putDocument = putDocument;
             });
 
 }(angular));

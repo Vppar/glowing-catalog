@@ -10,6 +10,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
     var log = {};
     var dp = {};
     var rs = {};
+    var ds = {};
     
 
     // Initialize the controller and a mock scope
@@ -28,6 +29,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
             $scope : scope,
             $log : log, 
             DataProvider : dp,
+            DialogService : ds,
             ReceivableService : rs
         });
     }));
