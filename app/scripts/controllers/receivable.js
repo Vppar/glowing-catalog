@@ -9,9 +9,9 @@
     angular.module('tnt.catalog.financial.receivable', []).controller(
             'ReceivableCtrl', function($scope, $log, ReceivableService, DataProvider) {
 
-                // #############################################################################################################
+                // #####################################################################################################
                 // Local variables
-                // #############################################################################################################
+                // #####################################################################################################
                 /**
                  * Target receivable to all controller operations.
                  */
@@ -23,12 +23,14 @@
                 var service = ReceivableService;
                 var data = DataProvider;
 
-                // #############################################################################################################
+                // #####################################################################################################
                 // Receivable functions
-                // #############################################################################################################
+                // #####################################################################################################
 
                 /**
                  * Cancel a receivable.
+                 * 
+                 * @returns boolean - If the receivable was canceled.
                  */
                 var cancel = function cancel() {
                     var result = false;
@@ -47,6 +49,8 @@
 
                 /**
                  * Verifies if a receivable is valid.
+                 * 
+                 * @returns boolean - If the receivable is valid
                  */
                 var isValid = function isValid() {
                     var result = true;
@@ -64,7 +68,9 @@
                 };
 
                 /**
-                 * Saves the receivable in the data storage
+                 * Saves the receivable in the data storage.
+                 * 
+                 * @returns boolean - If the receivable was saved.
                  */
                 var save = function save() {
                     var result = false;
@@ -82,9 +88,41 @@
                     return result;
                 };
 
-                // #############################################################################################################
+                /**
+                 * Register that the receivable was received.
+                 * 
+                 * @param receiptDate - Date of receipt.
+                 * @param amount - Amount received.
+                 * @returns boolean - Result of the receipt.
+                 */
+                var receive = function receive(receiptDate, amount) {
+                    var result = true;
+                    var now = new Date().getTime();
+                    if (receivable.canceled) {
+                        result = false;
+                        $log.error('ReceivableCtrl: -Unable to fulfill a canceled receivable.');
+                    } else if (receivable.received) {
+                        result = false;
+                        $log.error('ReceivableCtrl: -The receivable is already fulfilled');
+                    } else if (receiptDate > now) {
+                        result = false;
+                        $log.error('ReceivableCtrl: -Invalid receipt date.');
+                    } else if (amount <= 0) {
+                        result = false;
+                        $log.error('ReceivableCtrl: -Invalid amount.');
+                    } else {
+                        receivable.received = {
+                            receiptDate : receiptDate,
+                            amount : amount
+                        };
+                        result = service.update(receivable);
+                    }
+                    return result;
+                };
+
+                // #####################################################################################################
                 // Auxiliary functions
-                // #############################################################################################################
+                // #####################################################################################################
 
                 /**
                  * Compares the due date against the current date. Returns true
@@ -92,6 +130,7 @@
                  * false and log error otherwise.
                  * 
                  * @param duedate - Due date to be evaluated.
+                 * @returns boolean - Result if the due date is valid.
                  */
                 function isDueDateValid(duedate) {
                     var result = true;
@@ -107,6 +146,7 @@
                  * false and log error otherwise.
                  * 
                  * @param amount - Amount to be evaluated.
+                 * @returns boolean - Result if the amount is valid.
                  */
                 function isAmountValid(amount) {
                     var result = true;
@@ -121,13 +161,13 @@
                  * returns false and log error otherwise.
                  * 
                  * @param entity - Entity to be evaluated.
+                 * @returns boolean - Result if the entity is valid.
                  */
                 function isEntityValid(entity) {
                     var result = true;
                     if (entity) {
                         var foundEntity = $filter('findBy')(data.entities, 'id', entity.id);
                         var isValidEntity = angular.equals(entity, foundEntity);
-
                         if (!isValidEntity) {
                             result = false;
                             $log.error('ReceivableCtrl: -Invalid entity: ' + JSON.stringify(entity) + '.');
@@ -139,9 +179,9 @@
                     return result;
                 }
 
-                // #############################################################################################################
+                // #####################################################################################################
                 // Scope variables
-                // #############################################################################################################
+                // #####################################################################################################
                 /**
                  * Exposes the methods in the scope.
                  */
@@ -149,6 +189,7 @@
                 $scope.cancel = cancel;
                 $scope.isValid = isValid;
                 $scope.save = save;
+                $scope.receive = receive;
             });
 
 }(angular));
