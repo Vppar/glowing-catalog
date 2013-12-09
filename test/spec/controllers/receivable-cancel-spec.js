@@ -1,4 +1,4 @@
-xdescribe('Controller: ReceivableCtrl', function() {
+describe('Controller: ReceivableCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
@@ -22,7 +22,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
         log.error = jasmine.createSpy('$log.error');
         
         // ReceivableService mock
-        rs.update = jasmine.createSpy('ReceivableService.update');
+        rs.update = jasmine.createSpy('ReceivableService.update').andReturn(true);
         
         $controller('ReceivableCtrl', {
             $scope : scope,
@@ -53,6 +53,28 @@ xdescribe('Controller: ReceivableCtrl', function() {
         // then
         expect(rs.update).toHaveBeenCalledWith(receivable);
         expect(result).toBe(true);
+    });
+    
+    /**
+     * <pre>
+     * Given a pending receivable
+     * and doesn't have an id
+     * when a cancel is triggered
+     * then the receivable must not be canceled
+     * and a message should be logged: 'Unable to cancel a receivable that was not saved'
+     * </pre>
+     */
+    it('shouldn\'t cancel a receivable without id', function() {
+        // given
+        
+        // when
+        var result = scope.cancel();
+        
+        // then
+        expect(rs.update).not.toHaveBeenCalled();
+        expect(scope.receivable.canceled).toBeUndefined();
+        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Unable to cancel a receivable that was not saved.');
+        expect(result).toBe(false);
     });
     
     /**

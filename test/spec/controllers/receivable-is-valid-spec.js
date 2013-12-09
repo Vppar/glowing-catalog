@@ -6,7 +6,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
     var log = {};
     var dp = {};
     var rs = {};
-    var fakeNow = 0;
+    var fakeTime = 0;
     var monthTime = 2592000;
 
     // Initialize the controller and a mock scope
@@ -26,11 +26,8 @@ xdescribe('Controller: ReceivableCtrl', function() {
         scope = $rootScope.$new();
         scope.receivable = {};
 
-        fakeNow = 1386179100000;
-        var dateFunc = function() {
-            return fakeNow;
-        };
-        spyOn(MyApp.util, 'now').andCallFake(dateFunc);
+        fakeTime = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
 
         $controller('ReceivableCtrl', {
             $scope : scope,

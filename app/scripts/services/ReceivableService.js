@@ -146,7 +146,6 @@
                     var result = false;
                     if (isFilled('update', 'receivable', receivable)) {
                         var foundReceivable = $filter('findBy')(receivables, 'id', receivable.id);
-                        console.log(foundReceivable);
                         if (foundReceivable) {
                             angular.extend(foundReceivable, receivable);
                             result = true;
