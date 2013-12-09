@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, _undefined) {
     'use strict';
 
     /**
@@ -59,6 +59,25 @@
                     } else if (!isEntityValid(receivable.entity)) {
                         // Entity must be in the entities list
                         result = false;
+                    }
+                    return result;
+                };
+
+                /**
+                 * Saves the receivable in the data storage
+                 */
+                var save = function save() {
+                    var result = false;
+                    if ($scope.isValid()) {
+                        if (receivable.id) {
+                            result = service.update(receivable);
+                        } else {
+                            var id = service.create(receivable);
+                            receivable.id = id;
+                            result = Boolean(id);
+                        }
+                    } else {
+                        $log.error('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(receivable));
                     }
                     return result;
                 };
@@ -129,6 +148,7 @@
                 $scope.receivable = receivable;
                 $scope.cancel = cancel;
                 $scope.isValid = isValid;
+                $scope.save = save;
             });
 
 }(angular));

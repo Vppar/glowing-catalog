@@ -1,4 +1,4 @@
-xdescribe('Controller: ReceivableCtrl', function() {
+describe('Controller: ReceivableCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
@@ -9,7 +9,7 @@ xdescribe('Controller: ReceivableCtrl', function() {
     var scope = {};
     var log = {};
     var rs = {};
-    
+    var dp = {};
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
@@ -19,22 +19,22 @@ xdescribe('Controller: ReceivableCtrl', function() {
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
-        
+
         // ReceivableService mock
-        rs.save = jasmine.createSpy('ReceivableService.save').andReturn(receivableId);
-        rs.update = jasmine.createSpy('ReceivableService.update');
-        
+        rs.create = jasmine.createSpy('ReceivableService.create').andReturn(receivableId);
+        rs.update = jasmine.createSpy('ReceivableService.update').andReturn(true);
+
         $controller('ReceivableCtrl', {
             $scope : scope,
-            $log : log, 
+            $log : log,
+            DataProvider : dp,
             ReceivableService : rs
         });
     }));
 
     /**
      * <pre>
-     * Given a valid receivable
-     * and it hasn't an id
+     * Givenavalid receivable and it hasn't an id
      * when the user tries to save a receivable
      * then a receivable must be created
      * and the id must be filled
@@ -44,18 +44,16 @@ xdescribe('Controller: ReceivableCtrl', function() {
         // given
         scope.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
         scope.receivable.stub = 'stubed value';
-        
-        var receivable = angular.copy(scope.receivable);
-        
+
         // when
         var id = scope.save();
-        
+
         // then
         expect(scope.isValid).toHaveBeenCalled();
-        expect(rs.save).toHaveBeenCalledWith(receivable);
-        expect(id).toBe(receivableId);
+        expect(rs.create).toHaveBeenCalledWith(scope.receivable);
+        expect(id).toBe(true);
     });
-    
+
     /**
      * <pre>
      * Given a valid receivable
@@ -68,18 +66,18 @@ xdescribe('Controller: ReceivableCtrl', function() {
         // given
         scope.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(true);
         scope.receivable.id = 15;
-        
+
         var receivable = angular.copy(scope.receivable);
-        
+
         // when
-        var id = scope.save();
-        
+        var result = scope.save();
+
         // then
         expect(scope.isValid).toHaveBeenCalled();
         expect(rs.update).toHaveBeenCalledWith(receivable);
-        expect(id).toBe(receivableId);
+        expect(result).toBe(true);
     });
-    
+
     /**
      * <pre>
      * Given an invalid receivable
@@ -89,16 +87,16 @@ xdescribe('Controller: ReceivableCtrl', function() {
      */
     it('shouldn\'t save report a invalid receivable', function() {
         // given
-        jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
+        scope.isValid = jasmine.createSpy('ReceivableCtrl.isValid').andReturn(false);
         scope.receivable.stub = 'stubed value';
-        
+
         // when
-        var id = scope.save();
-        
+        var result = scope.save();
+
         // then
         expect(scope.isValid).toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receivable: ' + JSON.stringify(scope.receivable));
-        expect(id).toBeUndefined();
+        expect(result).toBe(false);
     });
-    
+
 });
