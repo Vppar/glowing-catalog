@@ -6,14 +6,16 @@
 
         this.cardData = {};
         this.date = {};
-        this.deliveries = [];
+
         this.customers = [];
+        this.deliveries = [];
+        this.entities = [];
         this.orders = [];
-        this.phone = {};
-        this.products = [];
         this.payments = [];
+        this.phoneTypes = [];
+        this.products = [];
         this.representative = {name: 'Valtanette de Paula'};
-        this.states = {};
+        this.states = [];
 
         $http.get('resources/data.json').then(function(response) {
             angular.extend(scope, response.data);
