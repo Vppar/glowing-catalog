@@ -40,6 +40,7 @@ describe('Controller: PaymentExchangeCtrl', function() {
         // data provider mock
         dp.payments = angular.copy(sampleData.payments);
         dp.cardData = angular.copy(sampleData.cardData);
+        dp.products = angular.copy(sampleData.products);
 
         // payment service mock
         ps.createNew = jasmine.createSpy('PaymentService.createNew').andCallFake(function(type) {

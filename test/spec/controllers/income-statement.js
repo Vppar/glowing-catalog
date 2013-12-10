@@ -1,9 +1,7 @@
-'use strict';
-
-describe('Controller: IncomeStatementCtrl', function () {
+xdescribe('Controller: IncomeStatementCtrl', function () {
 
   // load the controller's module
-  beforeEach(module('glowingCatalogApp'));
+  beforeEach(module('tnt.catalog.financial.incomeStatement'));
 
   var IncomeStatementCtrl,
     scope;

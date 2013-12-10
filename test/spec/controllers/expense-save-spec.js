@@ -1,4 +1,4 @@
-describe('Controller: ExpenseCtrl', function() {
+xdescribe('Controller: ExpenseCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
@@ -21,20 +21,24 @@ describe('Controller: ExpenseCtrl', function() {
         log.error = jasmine.createSpy('$log.error');
         
         // ExpenseService mock
-        rs.save = jasmine.createSpy('ExpenseService.save').andReturn(expenseId);
+        rs.create = jasmine.createSpy('ExpenseService.create').andReturn(expenseId);
+        rs.update = jasmine.createSpy('ExpenseService.update');
         
         $controller('ExpenseCtrl', {
-            $scope : scope,
+            $scope : scope, 
             $log : log, 
             ExpenseService : rs
         });
     }));
 
     /**
+     * <pre>
      * Given a valid expense
-     * when the user tries to save a expense
+     * and it hasn't an id
+     * when the user tries to save an expense
      * then a expense must be created
-     * and the id must be returned
+     * and the id must be filled
+     * </pre>
      */
     it('should save a expense', function() {
         // given
@@ -48,14 +52,40 @@ describe('Controller: ExpenseCtrl', function() {
         
         // then
         expect(scope.isValid).toHaveBeenCalled();
-        expect(rs.save).toHaveBeenCalledWith(expense);
+        expect(rs.create).toHaveBeenCalledWith(expense);
         expect(id).toBe(expenseId);
     });
     
     /**
+     * <pre>
+     * Given a valid expense
+     * and it has an id
+     * when the user tries to save a expense
+     * then a expense must be updated
+     * </pre>
+     */
+    it('should save a expense', function() {
+        // given
+        scope.isValid = jasmine.createSpy('ExpenseCtrl.isValid').andReturn(true);
+        scope.expense.id = 15;
+        
+        var expense = angular.copy(scope.expense);
+        
+        // when
+        var id = scope.save();
+        
+        // then
+        expect(scope.isValid).toHaveBeenCalled();
+        expect(rs.update).toHaveBeenCalledWith(expense);
+        expect(id).toBe(expenseId);
+    });
+    
+    /**
+     * <pre>
      * Given an invalid expense
      * when the user tries to save a expense
      * then we must log: invalid expense: {}
+     * </pre>
      */
     it('shouldn\'t save report a invalid expense', function() {
         // given
