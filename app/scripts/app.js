@@ -8,7 +8,8 @@
                 'tnt.catalog.service.data', 'tnt.catalog.service.dialog', 'tnt.catalog.service.order', 'tnt.catalog.service.payment',
                 'tnt.catalog.service.sms', 'tnt.catalog.header', 'tnt.catalog.basket', 'tnt.catalog.basket.add', 'tnt.catalog.customer',
                 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails', 'tnt.catalog.customer.choose', 'tnt.catalog.payment',
-                'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange'
+                'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange',
+                'tnt.catalog.financial.receivable', 'tnt.catalog.financial.expense', 'tnt.catalog.financial.incomeStatement'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -48,6 +49,15 @@
         }).when('/financial', {
             templateUrl : 'views/financial.html',
             controller : 'FinancialCtrl'
+        }).when('/expense', {
+            templateUrl : 'views/expense.html',
+            controller : 'ExpenseCtrl'
+        }).when('/receivable', {
+            templateUrl : 'views/receivable.html',
+            controller : 'ReceivableCtrl'
+        }).when('/income-statement', {
+            templateUrl : 'views/income-statement.html',
+            controller : 'IncomeStatementCtrl'
         }).otherwise({
             redirectTo : '/'
         });

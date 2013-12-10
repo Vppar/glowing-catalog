@@ -1,4 +1,4 @@
-describe('Controller: ReceivableCtrl', function() {
+xdescribe('Controller: ReceivableCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
@@ -10,6 +10,7 @@ describe('Controller: ReceivableCtrl', function() {
     var log = {};
     var dp = {};
     var rs = {};
+    var ds = {};
     
 
     // Initialize the controller and a mock scope
@@ -28,15 +29,18 @@ describe('Controller: ReceivableCtrl', function() {
             $scope : scope,
             $log : log, 
             DataProvider : dp,
+            DialogService : ds,
             ReceivableService : rs
         });
     }));
 
     /**
+     * <pre>
      * Given a pending receivable
      * when a cancel is triggered
-     * then the the receivable must be cancelled
-     */ 
+     * then the the receivable must be canceled
+     * </pre>
+     */
     it('should cancel a receivable', function() {
         // given
         scope.receivable.id = receivableId;
@@ -53,12 +57,14 @@ describe('Controller: ReceivableCtrl', function() {
         expect(result).toBe(true);
     });
     
-   /** 
-    * Given a fulfilled receivable
-    * when a cancel is triggered
-    * then the the receivable must not be cancelled
-    * and a message should be logged: "unable to cancel an already fulfilled receivable"
-    */
+    /**
+     * <pre>
+     * Given a fulfilled receivable
+     * when a cancel is triggered
+     * then the receivable must not be canceled
+     * and a message should be logged: 'Unable to cancel an already fulfilled receivable'
+     * </pre>
+     */
     it('shouldn\'t cancel a fulfilled receivable', function() {
         // given
         scope.receivable.id = receivableId;

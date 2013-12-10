@@ -68,9 +68,9 @@
 
                                         var smsMessage =
                                                 paymentConfirmationSMS.replace('{{customerFirstName}}', customerFirstName).replace(
-                                                        '{{representativeName}}', representative.name).replace(
+                                                        '{{representativeName}}', DataProvider.representative.name).replace(
                                                         '{{orderAmount}}', orderAmount);
-                                        smsSent = SMSService.send('55' + to, smsMessage);
+                                        smsSent = send('55' + to, smsMessage);
                                     } else {
                                         smsSent = $q.reject(cellMissingAlert.replace('{{customerFirstName}}', customerFirstName));
                                     }

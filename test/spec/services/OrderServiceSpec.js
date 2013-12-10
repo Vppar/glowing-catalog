@@ -6,7 +6,7 @@ describe('Service: OrderServiceSpec', function() {
     beforeEach(function() {
         orderTemplate = angular.copy(sampleData.orderTemplate);
         
-        var mock = {
+        var dpStub = {
                 customers : angular.copy(sampleData.customers),
                 products : angular.copy(sampleData.products),
                 orders : angular.copy(sampleData.orders),
@@ -21,7 +21,7 @@ describe('Service: OrderServiceSpec', function() {
         };
         module('tnt.catalog.service.order');
         module(function($provide) {
-            $provide.value('DataProvider', mock);
+            $provide.value('DataProvider', dpStub);
         });
 
     });

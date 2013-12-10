@@ -11,15 +11,16 @@
 	-webkit-overflow-scrolling: touch;
 }
 .grid-delivery-details .header {
-	background: #ecbab9;
-	border-radius: 4px
+	background: #333333;
+	border-radius: 4px;
+	color:#fff;
 }
 .grid-delivery-details .header span, .grid-delivery-details .scroll-delivery-details-grid  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-delivery-details .scroll-delivery-details-grid .row-grid-delivery-details {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-delivery-details .header .col-1 {
 	width: 400px;
@@ -86,8 +87,9 @@
 	-webkit-overflow-scrolling: touch;
 }
 .grid-input-products .header {
-	background: #ecbab9;
-	border-radius: 4px
+	background: #333333;
+	border-radius: 4px;
+	color:#fff;
 }
 .grid-input-products .header span, .grid-input-products .scroll-payment-grid  span {
 	display: inline-block;
@@ -97,7 +99,7 @@
 	border-bottom: 1px solid #ccc
 }
 .grid-input-products .scroll-input-products-grid .row-input-products-grid {
-	border-bottom: 1px solid #e0e0e0;
+	border-bottom: 1px dotted #e0e0e0;
 	line-height: 40px
 }
 .grid-input-products .header .col-1 {
@@ -244,7 +246,7 @@
 	line-height: 40px;
 }
 .grid-payment-credit-card .scroll-payment-grid .row-payment-credit-card-grid {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-payment-credit-card .header .col-1 {
 	width: 100px;
@@ -307,7 +309,7 @@
 	line-height: 40px;
 }
 .grid-payment-product-exchange .scroll-payment-grid .row-payment-grid-product-exchange {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-payment-product-exchange .header .col-1 {
 	width: 340px;
@@ -452,16 +454,17 @@
 }
 
 .grid-inventory .header {
-	background: #ecbab9;
+	background: #333333;
 	border-radius: 4px;
-	margin-top: 5px
+	margin-top: 5px;
+	color:#fff;
 }
 .grid-inventory .header span, .grid-inventory .scroll-inventory  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-inventory .scroll-inventory .row-inventory {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-inventory .header .col-1 {
 	width: 750px;
@@ -532,16 +535,17 @@
 }
 
 .grid-order-list .header {
-	background: #ecbab9;
+	background: #333333;
 	border-radius: 4px;
-	margin-top: 5px
+	margin-top: 5px;
+	color:#fff;
 }
 .grid-order-list .header span, .grid-order-list .scroll-order-list  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-order-list .scroll-order-list .row-order-list {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-order-list .header .col-1 {
 	width: 200px;
@@ -620,16 +624,17 @@
 }
 
 .grid-partial-delivery-1 .header {
-	background: #ecbab9;
+	background: #333333;
 	border-radius: 4px;
-	margin-top: 5px
+	margin-top: 5px;
+	color:#fff;
 }
 .grid-partial-delivery-1 .header span, .grid-partial-delivery-1 .scroll-partial-delivery-1  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-partial-delivery-1 .scroll-partial-delivery-1 .row-partial-delivery-1 {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-partial-delivery-1 .header .col-1 {
 	width:220px
@@ -719,16 +724,17 @@
 }
 
 .grid-partial-delivery-2 .header {
-	background: #ecbab9;
+	background: #333333;
 	border-radius: 4px;
-	margin-top: 5px
+	margin-top: 5px;
+	color:#fff;
 }
 .grid-partial-delivery-2 .header span, .grid-partial-delivery-2 .scroll-partial-delivery-2  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-partial-delivery-2 .scroll-partial-delivery-2 .row-partial-delivery-2 {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-partial-delivery-2 .header .col-1 {
 	width: 100px;
@@ -799,16 +805,17 @@
 }
 
 .grid-previous-entries .header {
-	background: #ecbab9;
+	background: #333333;
+	color:#fff;
 	border-radius: 4px;
-	margin-top: 5px
+	margin-top: 5px;
 }
 .grid-previous-entries .header span, .grid-previous-entries .scroll-previous-entries  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-previous-entries .scroll-previous-entries .row-previous-entries {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-previous-entries .header .col-1 {
 	width: 120px;
@@ -876,79 +883,82 @@
 
 /*============= DATA-GRID FINANCIAL =================*/
 .grid-financial {
-	border-radius: 6px 6px 0 0;
+        border-radius: 6px 6px 0 0;
 }
 
 .grid-financial .header {
-	background: #ecbab9;
-	border-radius: 4px;
-	margin-top: 5px
+		background: #333333;
+		color:#fff;
+        border-radius: 4px;
+        /*margin-top: 5px*/
+		display: block;
+		position: relative;
 }
 .grid-financial .header span, .grid-financial .scroll-financial  span {
-	display: inline-block;
-	line-height: 40px;
+        display: inline-block;
+        line-height: 40px;
 }
 .grid-financial .scroll-financial .row-financial {
-	border-bottom: 1px solid #e0e0e0
+        border-bottom: 1px dotted #e0e0e0
 }
 .grid-financial .header .col-0 div {
-	margin-left: 20px
+        margin-left: 20px
 }
 .grid-financial .header .col-0 {
-	width: 60px;
+        width: 60px;
 }
 .grid-financial .header .col-1 {
-	width: 120px;
+        width: 120px;
 }
 .grid-financial .header .col-2 {
-	width: 120px;
+        width: 120px;
 }
 .grid-financial .header .col-3 {
-	width: 410px;
+        width: 410px;
 }
 .grid-financial .header .col-4 {
-	width: 100px;
-	display: inline-block;
+        width: 100px;
+        display: inline-block;
 }
 .grid-financial .header .col-5 {
-	width: 100px;
-	display: inline-block;
-	text-align: right;
-	margin-right: 16px
+        width: 100px;
+        display: inline-block;
+        text-align: right;
+        margin-right: 16px
 }
 .row-financial .col-0 {
-	width: 60px;
+        width: 60px;
 }
 .row-financial .col-1 {
-	width: 120px;
+        width: 120px;
 }
 .grid-financial .col-2 {
-	width: 120px;
+        width: 120px;
 }
 .grid-financial .col-3 {
-	width: 410px;
+        width: 410px;
 }
 .grid-financial .col-4 {
-	width: 100px;
+        width: 100px;
 }
 .grid-financial .col-4 div {
-	text-align: right;
-	margin-right: 24px
+        text-align: right;
+        margin-right: 24px
 }
 .grid-financial .col-5 {
-	width: 100px;
-	float: right
+        width: 100px;
+        float: right
 }
 .grid-financial .col-5 div {
-	text-align: right;
-	margin-right: 40px
+        text-align: right;
+        margin-right: 40px
 }
 
 .row-financial .col-1 input[type="checkbox"] {
-	margin-top: -3px
+        margin-top: -3px
 }
 .row-financial .col-0 div {
-	margin-left: 20px;
+        margin-left: 20px;
 }
 /*============= END DATA-GRID FINANCIAL =================*/
 
@@ -958,16 +968,17 @@
 }
 
 .grid-pending-delivery .header {
-	background: #ecbab9;
+	background: #333333;
 	border-radius: 4px;
-	margin-top: 5px
+	margin-top: 5px;
+	color:#fff;
 }
 .grid-pending-delivery .header span, .grid-pending-delivery .scroll-pending-delivery  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-pending-delivery .scroll-pending-delivery .row-pending-delivery {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 /*GRID 1*/
 .grid-1 .grid-pending-delivery .header .col-1 {
@@ -1085,22 +1096,79 @@
 
 /*============= END DATA-GRID PENDING DELIVERY =================*/
 
+/*============= DATA-GRID EXPENSE =================*/
+.grid-expense {
+	border-radius: 6px 6px 0 0;
+}
+
+.grid-expense .header {
+	background: #333333;
+	border-radius: 4px;
+	margin-top: 5px;
+	color:#fff;
+}
+.grid-expense .header span, .grid-expense .scroll-expense  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-expense .scroll-expense .row-expense {
+	border-bottom: 1px dotted #e0e0e0
+}
+
+.grid-expense .header .col-1, .row-expense .col-1 {
+	width:10%; /*60px*/
+}
+.grid-expense .header .col-1 div , .row-expense .col-1 div{
+	margin-left: 20px;
+}
+.grid-expense .header .col-2, .grid-expense .col-2 {
+	width:10%; /*60px*/
+}
+.grid-expense .header .col-3, .grid-expense .col-3 {
+	width:20%; /*190px*/
+}
+
+.grid-expense .header .col-4, .grid-expense .col-4 {
+	width:30%; /*300px*/
+	display: inline-block;
+}
+.grid-expense .header .col-4 div, .grid-expense .col-4 div  {
+	text-align: center;
+}
+.grid-expense .col-4 div {
+	margin-right: 24px
+}
+.grid-expense .header .col-5, .grid-expense .col-5 {
+	width:10%; /*155px*/
+	display: inline-block;
+	text-align: right;
+	margin-right: 16px
+}
+.grid-expense .header .col-6, .grid-expense .col-6 {
+	width:10%; /*155px*/
+	display: inline-block;
+	text-align: right;
+	margin-right: 16px
+}
+/*============= END DATA-GRID EXPENSE =================*/
+
 /*============= DATA-GRID PRODUCTS TO BUY =================*/
 .grid-products-to-buy {
 	border-radius: 6px 6px 0 0;
 }
 
 .grid-products-to-buy .header {
-	background: #ecbab9;
+	background: #333333;
 	border-radius: 4px;
-	margin-top: 5px
+	margin-top: 5px;
+	color:#fff;
 }
 .grid-products-to-buy .header span, .grid-products-to-buy .scroll-products-to-buy  span {
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-products-to-buy .scroll-products-to-buy .row-products-to-buy {
-	border-bottom: 1px solid #e0e0e0
+	border-bottom: 1px dotted #e0e0e0
 }
 .grid-products-to-buy .header .col-1 {
 	width: 400px;

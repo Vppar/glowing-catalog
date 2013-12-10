@@ -1,37 +1,54 @@
-describe('Service: PaymentServiceSpec', function() {
+describe('Service: ReceivableServiceCreateSpec', function() {
+
+    var log = {};
 
     // load the service's module
     beforeEach(function() {
-        var mock = {
+        var dpStub = {
             receivables : []
         };
-        mock.receivables.push = jasmine.createSpy('DataProvider.receivables.push');
+        log.error = jasmine.createSpy('$log.error');
+
         module('tnt.catalog.service.receivable');
         module(function($provide) {
-            $provide.value('DataProvider', mock);
+            $provide.value('DataProvider', dpStub);
+            $provide.value('$log', log);
         });
     });
     beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
         DataProvider = _DataProvider_;
         ReceivableService = _ReceivableService_;
     }));
-    
-    
+
     /**
-     * Given no parameters
+     * <pre>
+     * Given a validated receivable
      * when a create is triggered
-     * then an instance of ReceivableCtrl must be returned
+     * then a unique id must be set
+     * and a creation date must be set
+     * and canceled flag must be set to false
+     * and received attribute must be undefined
+     * and a receivable must be created in the database
+     * and the id must be returned
+     * </pre>
      */
     it('should create a receivable instance', function() {
         // given
-        
+        var receivable = {
+            stub : 'I\'m a stub'
+        };
+
+        var fakeTime = 1386444467895;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
+
         // when
-        var receivable = ReceivableService.create();
-        
+        var id = ReceivableService.create(receivable);
+
         // then
-        expect(receivable.createdate).not.toBeUndefined();
+        expect(log.error).not.toHaveBeenCalled();
+        expect(id).not.toBeUndefined();
+        expect(receivable.createdate).toEqual(fakeTime);
         expect(receivable.canceled).toBe(false);
-        expect(DataProvider.receivables.push).toHaveBeenCalled();
     });
-    
+
 });

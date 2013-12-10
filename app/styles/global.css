@@ -297,7 +297,7 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	height: 14px;
 	*margin-right: .3em;
 	line-height: 14px;
-	vertical-align: text-top;
+	/*vertical-align: text-top;*/
 	background-image: url("../images/glyphicons-halflings.png");
 	/*background-position: 14px 14px;*/
 	background-repeat: no-repeat;
@@ -416,11 +416,17 @@ body {
 .btn-cancel {
 	background: #333;
 }
+.btn-open{
+	background: #AEAEAE;
+}
 .btn-ok:hover{
 	background: #48841c !important;
 }
 .btn-cancel:hover {
 	background: #000 !important;
+}
+.btn-open:hover{
+	background: #48841c !important;
 }
 .dropdown-menu .btn {
 	background: #fff;
@@ -445,7 +451,7 @@ body {
 }
 .lbl-top {
 	display: inline-block;
-	vertical-align: top;
+	vertical-align: top
 }
 .form-signin {
 	width: 360px;

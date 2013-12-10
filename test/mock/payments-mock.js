@@ -17,6 +17,10 @@
         }, {
             id : 2,
             description : 'check'
+        },
+        {
+            id : 3,
+            description : 'creditcard'
         }
     ];
     data.payments = [
