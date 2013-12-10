@@ -10,6 +10,7 @@ describe('Controller: ReceivableCtrl', function() {
     var log = {};
     var rs = {};
     var dp = {};
+    var ds = {};
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
@@ -28,6 +29,7 @@ describe('Controller: ReceivableCtrl', function() {
             $scope : scope,
             $log : log,
             DataProvider : dp,
+            DialogService : ds,
             ReceivableService : rs
         });
     }));

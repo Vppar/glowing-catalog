@@ -5,6 +5,7 @@ describe('Controller: ReceivableCtrl', function() {
     var scope = {};
     var log = {};
     var dp = {};
+    var ds = {};
     var rs = {};
     var fakeNow = 0;
     var monthTime = 2592000;
@@ -33,6 +34,7 @@ describe('Controller: ReceivableCtrl', function() {
             $scope : scope,
             $log : log,
             DataProvider : dp,
+            DialogService : ds,
             ReceivableService : rs
         });
     }));
