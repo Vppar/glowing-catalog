@@ -89,16 +89,16 @@
                          * @param method - payment method.
                          */
                         $scope.selectPaymentMethod = function selectPaymentMethod(method) {
-                            if ($scope.selectedPaymentMethod === 'none') {
-                                // backup up the payments in case you decide to
-                                // click in cancel when in a payment fragment
-                                payments = angular.copy(PaymentService.payments);
-                            } else {
-                                // recover the payments in case you
-                                // decide to click in another fragment
-                                $scope.payments.length = payments.length;
-                                angular.extend($scope.payments, payments);
-                            }
+                            // if ($scope.selectedPaymentMethod === 'none') {
+                            // // backup up the payments in case you decide to
+                            // // click in cancel when in a payment fragment
+                            // payments = angular.copy(PaymentService.payments);
+                            // } else {
+                            // // recover the payments in case you
+                            // // decide to click in another fragment
+                            // $scope.payments.length = payments.length;
+                            // angular.extend($scope.payments, payments);
+                            // }
                             $scope.selectedPaymentMethod = method;
                         };
 
