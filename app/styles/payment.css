@@ -67,7 +67,14 @@
 	line-height: 30px
 }
 .red-color {
-	color: #ff2839
+	color: #ff2839;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	margin: 5px;
+	padding: 5px;
+	float: right;
+	display: inline-block;
 }
 .payment-resume .lbl-resume {
 	float: left;
