@@ -12,6 +12,7 @@
         this.entities = [];
         this.orders = [];
         this.payments = [];
+        this.paymentTypes = [{id: 1, description: 'cash'}];
         this.phoneTypes = [];
         this.products = [];
         this.representative = {name: 'Valtanette de Paula'};

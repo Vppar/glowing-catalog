@@ -27,7 +27,7 @@
         };
 
         this.openDialogAddCustomerTels = function(data) {
-            return openDialog('views/parts/add-customer/add-customer-tels-dialog.html', 'AddCustomerTelsDialogCtrl', data);
+            return openDialog('views/parts/add-customer/add-customer-phones-dialog.html', 'AddCustomerPhonesDialogCtrl', data);
         };
 
         this.openDialogAddCustomerEmails = function(data) {
@@ -39,7 +39,7 @@
         };
 
         this.openDialogChangePass = function(data) {
-            return openDialog('views/parts/add-customer/edit-pass-dialog.html', 'ChangePassDialogCtrl', data);
+            return openDialog('views/parts/global/change-pass-dialog.html', 'ChangePassDialogCtrl', data);
         };
 
         this.openDialogChooseCustomer = function(data) {

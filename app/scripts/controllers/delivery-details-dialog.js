@@ -3,7 +3,7 @@
 
     angular.module('glowingCatalogApp').controller(
             'DeliveryDetailsDialogCtrl',
-            function($scope, $filter, $timeout, dialog, DataProvider) {
+            function($scope, $filter, $timeout, dialog, DataProvider, DialogService) {
 
                 // #############################################################################################################
                 // Local variables and functions

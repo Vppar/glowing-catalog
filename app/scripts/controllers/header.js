@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.header', []).controller('HeaderCtrl', function($scope, $filter, $location, OrderService, DialogService) {
+    angular.module('tnt.catalog.header', []).controller('HeaderCtrl', function($scope, $filter, $location, $timeout, OrderService, DialogService) {
 
         // #############################################################################################################
         // Scope variables from services
@@ -30,10 +30,11 @@
          */
         $scope.openDialogInputProducts = DialogService.openDialogInputProducts;
 
+        $scope.now = {};
+
         // #############################################################################################################
         // Flow control functions
         // #############################################################################################################
-
         /**
          * Redirect to payment if products and customer were selected.
          */
@@ -52,8 +53,13 @@
                     btnYes : 'OK'
                 });
             }
-
         };
 
+        function refreshDate() {
+            $scope.now.date = $filter('date')(new Date(), 'dd MMM yyyy');
+            $scope.now.time = $filter('date')(new Date(), 'HH:mm');
+            $timeout(refreshDate, 10000);
+        }
+        refreshDate();
     });
 }(angular));

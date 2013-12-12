@@ -1,4 +1,4 @@
-(function(angular, _undefined) {
+(function(angular) {
     'use strict';
 
     /**
@@ -7,7 +7,7 @@
      * @author Arnaldo S. Rodrigues Jr.
      */
     angular.module('tnt.catalog.financial.receivable', []).controller(
-            'ReceivableCtrl', function($scope, $log, DataProvider, DialogService, ReceivableService) {
+            'ReceivableCtrl', function($scope, $log, $filter, DataProvider, DialogService, ReceivableService) {
 
                 // #####################################################################################################
                 // Local variables

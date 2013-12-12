@@ -18,7 +18,7 @@
              </ul>
              <ul class="nav">
              	<li><span ng-click='checkout()' class="bag pull-right">{{order.items | count: 'qty'}}</span></li>
-                <li class="header-hour"><div>22:24</div><br /><div class="header-date">05 Nov 2013</div></li>
+                <li class="header-hour"><div>{{now.time}}</div><br /><div class="header-date">{{now.date}}</div></li>
  
                 <li class="dropdown" >
                     <!-- Trigger -->
@@ -27,7 +27,7 @@
                     <!-- List -->
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="hover-state-pointer" ng-click='openDialogEditPass()' class="gren-item-menu">Trocar Senha</a>
+                            <a class="hover-state-pointer" ng-click='openDialogChangePass()' class="gren-item-menu">Trocar Senha</a>
                         </li>
                         <li>
                             <a href="#/login">login</a>
