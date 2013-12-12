@@ -55,10 +55,7 @@
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
-            <div class="red-color" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
-                Falta
-            </div>
-            <div class="green-color" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) == 0">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) <= 0">
                 Falta
             </div>
             <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
@@ -66,8 +63,11 @@
             </div>
         </div>
         <div class="values-resume">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) <= 0">
+                {{((items | filter: inBasketFilter | sum: 'price': 'qty') - (payments | sum: 'amount')) | currency: '' }}
+            </div>
             <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
-                {{Math.abs((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
+                {{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
             </div>
         </div>
 	</div>
@@ -80,7 +80,7 @@
 		<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
 	</span>
 	<span class="panel-payment-footer-right">
-		<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
+		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
 	</span>
 	<div class="right-column-height">&nbsp;</div>
 </div>
