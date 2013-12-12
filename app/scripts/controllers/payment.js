@@ -23,8 +23,9 @@
                         // Controls which left fragment will be shown
                         $scope.selectedPaymentMethod = 'none';
 
-                        // Calculate the order amount
+                        // Calculate the order amount and item qty
                         var basket = $filter('filter')(order.items, inBasketFilter);
+                        $scope.orderQty = basket.length;
                         var orderAmount = $filter('sum')(basket, 'price', 'qty');
                         $scope.orderAmount = orderAmount;
 
@@ -87,16 +88,16 @@
                          * @param method - payment method.
                          */
                         $scope.selectPaymentMethod = function selectPaymentMethod(method) {
-                            if ($scope.selectedPaymentMethod === 'none') {
-                                // backup up the payments in case you decide to
-                                // click in cancel when in a payment fragment
-                                payments = angular.copy(PaymentService.payments);
-                            } else {
-                                // recover the payments in case you
-                                // decide to click in another fragment
-                                $scope.payments.length = payments.length;
-                                angular.extend($scope.payments, payments);
-                            }
+                            // if ($scope.selectedPaymentMethod === 'none') {
+                            // // backup up the payments in case you decide to
+                            // // click in cancel when in a payment fragment
+                            // payments = angular.copy(PaymentService.payments);
+                            // } else {
+                            // // recover the payments in case you
+                            // // decide to click in another fragment
+                            // $scope.payments.length = payments.length;
+                            // angular.extend($scope.payments, payments);
+                            // }
                             $scope.selectedPaymentMethod = method;
                         };
 
@@ -234,19 +235,19 @@
                          * Sends the SMS to the customer about his order.
                          */
                         function sendAlertSMSAttempt() {
-                            return SMSService.sendPaymentConfirmation(customer, orderAmount).then(smsAlert, smsAlert);
+                            return SMSService.sendPaymentConfirmation(customer, orderAmount);
                         }
 
                         /**
                          * Confirmation SMS alert.
                          */
-                        function smsAlert(message) {
-                            return DialogService.messageDialog({
-                                title : 'Pagamento',
-                                message : message,
-                                btnYes : 'OK',
-                            });
-                        }
+                        // function smsAlert(message) {
+                        // return DialogService.messageDialog({
+                        // title : 'Pagamento',
+                        // message : message,
+                        // btnYes : 'OK',
+                        // });
+                        // }
 
                         /**
                          * Main function responsible for chaining the

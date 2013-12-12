@@ -16,7 +16,7 @@
 	<div class="row-right-payment2">
 
 		<span class="lbl-money2">
-			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> (0)</span>
+			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> ({{orderQty}})</span>
 		</span>
 		<span class="">
 			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
@@ -55,16 +55,19 @@
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
-            <div class="red-color">
+            <div class="red-color" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                Falta
+            </div>
+            <div class="green-color" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) == 0">
+                Falta
+            </div>
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
                 Troco
             </div>
         </div>
         <div class="values-resume">
-            <div class="red-color" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
-                {{ 0 | currency: '' }}
-            </div>
             <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
-                {{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
+                {{Math.abs((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
             </div>
         </div>
 	</div>
@@ -73,11 +76,11 @@
 		<span class="lbl-money2">Emitir vale/cupom </span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
 	</div>
 
-<span class="panel-payment-footer-left">
-	<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
-</span>
-<span class="panel-payment-footer-right">
-	<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
-</span>
-<div class="right-column-height">&nbsp;</div>
+	<span class="panel-payment-footer-left">
+		<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
+	</span>
+	<span class="panel-payment-footer-right">
+		<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
+	</span>
+	<div class="right-column-height">&nbsp;</div>
 </div>

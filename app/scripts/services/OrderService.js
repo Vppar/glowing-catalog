@@ -37,7 +37,16 @@
             order.id = DataProvider.orders.length + 1;
             order.date = new Date();
             order.code = 'mary-' + ('0000' + order.id).slice(-4) + '-' + String(order.date.getFullYear()).slice(-2);
-
+            
+            var selectedItems = [];
+            for (var idx in order.items){
+                var item = order.items[idx];
+                if(item.qty){
+                    selectedItems.push(item);
+                }
+            }
+            order.items = selectedItems;
+            
             var savedOrder = angular.copy(order);
             DataProvider.orders.push(savedOrder);
 
@@ -48,7 +57,8 @@
          * Reset the current order.
          */
         var clear = function clear() {
-            order = {};
+            angular.extend(order, orderTemplate);
+            delete order.id;
         };
 
         var inBasketFilter = function inBasketFilter(item) {
