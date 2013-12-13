@@ -22,12 +22,29 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	background-color: #fff;
 }
 
+.nav-list-black > li > a:hover, .menu-black > li > a:focus {
+	text-decoration: none;
+	background-color: #555;
+}
+
 .nav li:first-child.active a {
 	border-radius: 4px 4px 0 0;
 	text-shadow: none;
 	color: #333;
 }
-
+.nav-list-black li.selected  {
+	list-style-image:url(../images/cat-li-menu.png);
+	list-style-position:inside;
+}
+.nav-list-black li.selected  a {
+	background-color:#555;
+}
+.nav-list-black > li > a:hover, .menu-black > li > a:focus {
+	background-color:#555;
+}
+li.menu-black:last-child a:hover {
+	background-color:#555;
+}
 .nav li:last-child.active a {
 	border-radius: 0 0 4px 4px;
 	text-shadow: none;
@@ -510,6 +527,30 @@ body {
 .sidebar-menu .nav {
 	font-size: 100%;
 }
+.sidebar-menu1 .nav {
+	font-size: 100%;
+}
+.menu-black a{
+	background-color:#000;
+	color: #fff;
+}
+li.menu-black {
+	text-indent:10px;
+}
+.nav-list-black li.selected {
+	text-indent:-6px;
+}
+li.menu-black:last-child a {
+	border-radius: 0 0 4px 4px;
+	text-shadow: none;
+	background-color:#000;
+	color: #fff;
+}
+.nav .bege.active a {
+	background: #e6d6c0;
+	color: #333;
+	text-shadow: none;
+}
 .header-hour div{
 	font-size:18px;
 	color:#CCC;
@@ -686,8 +727,7 @@ nav ul li {
 	margin-top: 10px;
 }
 /*side bar*/
-
-.sidebar-menu {
+.sidebar-menu1 {
 	float: right;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
@@ -697,6 +737,18 @@ nav ul li {
 	margin-top: -8px;
 	margin-right: 23px;
 	position: relative;
+}
+.sidebar-menu {
+	float: right;
+	box-shadow: -1px 1px 8px 1px #e0e0e0;
+	border-radius: 4px;
+	width: 180px;
+	background: #fdfeff;
+	float: right;
+	margin-top: 10px;
+	margin-right: 23px;
+	position: relative;
+	clear:both;
 }
 .banner-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
@@ -718,6 +770,12 @@ nav ul li {
 	padding: 3px 15px;
 	color: #666666;
 	padding: 10px;
+}
+.nav-list > li.menu-black > a {
+	padding: 3px 15px;
+	color: #fff;
+	padding: 10px;
+	text-shadow:none;
 }
 .nav-list li a {
 	display: block;
@@ -762,7 +820,7 @@ nav ul li {
 	width: 1025px;
 	position: fixed;
 	top: 70px;
-	bottom: 40px;
+	bottom: 10px;
 }
 .btn-clear-form {
 	padding: 28px 6px 1px 2px;
