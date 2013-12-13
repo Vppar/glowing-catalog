@@ -11,6 +11,23 @@
 						// Easy the access to DataProvider service.
 						var data = DataProvider;
 
+						var list = function list(name) {
+
+							var result = undefined;
+
+							if (isValid(name)) {
+
+								var storage = data[name];
+
+								var copylist = angular.copy(storage);
+
+								result = copylist;
+
+							}
+
+							return result;
+						};
+
 						/**
 						 * Function that returns if the name is a valid storage.
 						 * 
@@ -26,22 +43,27 @@
 							if (storage) {
 								// if the attribute is an array
 								if (storage instanceof Array) {
-									_return =  true;
+									_return = true;
 									// if is the name of an attribute, but is
 									// not an array
 								} else {
-									$log.error('StorateService.isValid: -Invalid storage, name='+ name);
-									_return =  false;
+									$log
+											.error('StorateService.isValid: -Invalid storage, name='
+													+ name);
+									_return = false;
 								}
 								// if the name doesn't exists in the
 								// dataProvider
 							} else {
 								// if storage exists, but is null
 								if (storage === null) {
-									$log.error('StorateService.isValid: -Empty storage');
+									$log
+											.error('StorateService.isValid: -Empty storage');
 									_return = false;
 								} else {
-									$log.error('StorateService.isValid: -Invalid storage name, name='+ name);
+									$log
+											.error('StorateService.isValid: -Invalid storage name, name='
+													+ name);
 									_return = false;
 								}
 							}
@@ -118,5 +140,6 @@
 						this.getNextId = getNextId;
 						this.insert = insert;
 						this.isValid = isValid;
+						this.list = list;
 					});
 }(angular));
