@@ -1,7 +1,7 @@
 (function(data) {
     data.smsSendPaymentConfirmationReturn = {
         then : function(method) {
-            return method();
+            return true;
         }
     };
     window.sampleData = data;
