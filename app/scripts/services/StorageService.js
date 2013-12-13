@@ -23,8 +23,6 @@
 
 								result = copylist;
 
-							} else {
-								result = undefined;
 							}
 
 							return result;
