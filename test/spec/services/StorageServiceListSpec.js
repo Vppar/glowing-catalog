@@ -29,6 +29,7 @@ describe('Service: StorageService', function() {
      */
     it('should return a entity list copy', function() {
         // given
+    	var name = 'storage';
         StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(true);
 
         // when
@@ -36,7 +37,7 @@ describe('Service: StorageService', function() {
 
         // then
         expect(entities).not.toBe(dpStub.entities);
-        expect(entities).toEqual(dpStub.entities);
+        expect(entities).toEqual(dpStub.storage);
     });
 
     /**
@@ -48,7 +49,8 @@ describe('Service: StorageService', function() {
      */
     it('shouldn\'t return a entity list copy', function() {
         // given
-        StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(true);
+    	var name = 'storages';
+        StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(false);
 
         // when
         var entities = StorageService.list(name);
