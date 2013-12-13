@@ -1,6 +1,7 @@
 describe('Service: StorageService', function() {
 
     var log = {};
+    var dpStub = {};
     var fakeTime = 1386444467895;
 
     // load the service's module
@@ -8,16 +9,17 @@ describe('Service: StorageService', function() {
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
+        dpStub.storage = [];
 
         spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
 
         module('tnt.catalog.service.storage');
         module(function($provide) {
             $provide.value('$log', log);
+            $provide.value('DataProvider', dpStub);
         });
     });
-    beforeEach(inject(function(_DataProvider_, _StorageService_) {
-        DataProvider = _DataProvider_;
+    beforeEach(inject(function(_StorageService_) {
         StorageService = _StorageService_;
     }));
 
@@ -46,8 +48,8 @@ describe('Service: StorageService', function() {
         // then
         expect(StorageService.isValid).toHaveBeenCalledWith(name);
         expect(entity.id).toBeGreaterThan(0);
-        expect(entity.createdate).toBeGreaterThan(fakeTime);
-        expect(entity.updatedate).toBeGreaterThan(fakeTime);
+        expect(entity.createdate).toBe(fakeTime);
+        expect(entity.updatedate).toBe(fakeTime);
         // TODO - Journal entry
         expect(id).toBe(entity.id);
     });
@@ -61,6 +63,8 @@ describe('Service: StorageService', function() {
      */
     it('shouldn\'t insert an entity', function() {
         // given
+    	 var name = 'storage';
+         var entity = {};
         StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(false);
 
         // when
