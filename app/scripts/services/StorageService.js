@@ -1,145 +1,119 @@
 (function(angular, _undefined) {
-	'use strict';
+    'use strict';
 
-	angular
-			.module('tnt.catalog.service.storage',
-					[ 'tnt.catalog.service.data' ])
-			.service(
-					'StorageService',
-					function StorageService($log, DataProvider) {
+    angular.module('tnt.catalog.service.storage', [
+        'tnt.catalog.service.data'
+    ]).service('StorageService', function StorageService($log, DataProvider) {
 
-						// Easy the access to DataProvider service.
-						var data = DataProvider;
+        // Easy the access to DataProvider service.
+        var data = DataProvider;
 
-						var list = function list(name) {
+        /**
+         * Function that returns a storage by name.
+         * 
+         * @param name - Storage name.
+         * @return Array - The storage asked for.
+         */
+        var list = function list(name) {
+            var result = _undefined;
+            if (isValid(name)) {
+                var storage = data[name];
+                var copylist = angular.copy(storage);
+                result = copylist;
+            }
+            return result;
+        };
 
-							var result = undefined;
+        /**
+         * Function that returns if the name is a valid storage.
+         * 
+         * @param name - Storage name.
+         * @return boolean - If the storage exists or not.
+         */
+        var isValid = function isValid(name) {
+            var storage = data[name];
+            var result = false;
+            // if the name exists in the dataProvider
+            // if the attribute is an array
+            if (storage instanceof Array) {
+                result = true;
+            } else {
+                if (storage === _undefined) {
+                    $log.error('StorateService.isValid: -Invalid storage name, name=' + name);
+                } else {
+                    $log.error('StorateService.isValid: -Invalid storage, name=' + name);
+                }
+                result = false;
+            }
+            return result;
+        };
 
-							if (isValid(name)) {
+        /**
+         * Function to return the next unique id.
+         * 
+         * @param name - Storage name
+         * @return Number - Next id
+         */
+        var getNextId = function getNextId(name) {
+            var storage = data[name];
+            var nextId = _undefined;
+            if (storage) {
+                nextId = 0;
+                for ( var idx in storage) {
+                    var entity = storage[idx];
+                    if (entity.id > nextId) {
+                        nextId = entity.id;
+                    }
+                }
+                nextId++;
+            } else {
+                $log.error('StorageService.getNextId: -Invalid storage, name=' + name);
+            }
+            return nextId;
+        };
 
-								var storage = data[name];
+        /**
+         * Function to insert an entity on a specific storage
+         * 
+         * @param name - Storage name
+         * @param entity - Entity to be inserted
+         */
 
-								var copylist = angular.copy(storage);
+        var insert = function insert(name, entity) {
+            var id = _undefined;
+            var date = new Date().getTime();
 
-								result = copylist;
+            // if the name and the entity are both valid
+            if (this.isValid(name)) {
 
-							}
+                var storage = data[name];
 
-							return result;
-						};
+                // a unique id must be set
+                id = getNextId(name);
+                entity.id = id;
 
-						/**
-						 * Function that returns if the name is a valid storage.
-						 * 
-						 * @param name -
-						 *            Storage name
-						 */
-						var isValid = function isValid(name) {
+                // a create date must be set
+                entity.createdate = date;
 
-							var storage = data[name];
-							var _return = false;
+                // an update date must be set
+                entity.updatedate = date;
 
-							// if the name exists in the dataProvider
-							if (storage) {
-								// if the attribute is an array
-								if (storage instanceof Array) {
-									_return = true;
-									// if is the name of an attribute, but is
-									// not an array
-								} else {
-									$log
-											.error('StorateService.isValid: -Invalid storage, name='
-													+ name);
-									_return = false;
-								}
-								// if the name doesn't exists in the
-								// dataProvider
-							} else {
-								// if storage exists, but is null
-								if (storage === null) {
-									$log
-											.error('StorateService.isValid: -Empty storage');
-									_return = false;
-								} else {
-									$log
-											.error('StorateService.isValid: -Invalid storage name, name='
-													+ name);
-									_return = false;
-								}
-							}
-							return _return;
-						};
-						/**
-						 * Function to return the next unique id.
-						 * 
-						 * @param name -
-						 *            Storage name
-						 * @return Id - Next id
-						 */
-						var getNextId = function getNextId(name) {
-							var storage = data[name];
-							var nextId = _undefined;
-							if (storage) {
-								nextId = 0;
-								for ( var idx in storage) {
-									var entity = storage[idx];
-									if (entity.id > nextId) {
-										nextId = entity.id;
-									}
-								}
-								nextId++;
-							} else {
-								$log
-										.error('StorageService.getNextId: -Invalid storage, name='
-												+ name);
-							}
-							return nextId;
-						};
+                // a journal entry must be added - TO BE DONE
 
-						/**
-						 * Function to insert an entity on a especific storage
-						 * 
-						 * @param name -
-						 *            Storage name
-						 * @param entity -
-						 *            Entity to be inserted
-						 */
+                // an entity must be inserted in the storage
+                storage.push(entity);
 
-						var insert = function insert(name, entity) {
-							var id = _undefined;
-							var date = new Date().getTime();
+            }
+            // if the name is not valid, just return the default
+            // id value (_undefiend)
 
-							// if the name and the entity are both valid
-							if (this.isValid(name)) {
+            // the id must be returned
+            return id;
+        };
 
-								var storage = data[name];
-
-								// a unique id must be set
-								id = getNextId(name);
-								entity.id = id;
-
-								// a create date must be set
-								entity.createdate = date;
-
-								// an update date must be set
-								entity.updatedate = date;
-
-								// a journal entry must be added - TO BE DONE
-
-								// an entity must be inserted in the storage
-								storage.push(entity);
-
-							}
-							// if the name is not valid, just return the default
-							// id value (_undefiend)
-
-							// the id must be returned
-							return id;
-						};
-
-						this.getNextId = getNextId;
-						this.insert = insert;
-						this.isValid = isValid;
-						this.list = list;
-					});
+        this.getNextId = getNextId;
+        this.insert = insert;
+        this.isValid = isValid;
+        this.list = list;
+    });
 }(angular));
