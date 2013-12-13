@@ -36,6 +36,7 @@ describe('Service: StorageService', function() {
         // then
         expect(result).toBe(true);
     });
+    
     /**
      * <pre>
      * Given an absent storage name
@@ -44,7 +45,7 @@ describe('Service: StorageService', function() {
      * and false must be returned
      * </pre>
      */
-    it('should report a invalid storage name', function() {
+    it('should report an invalid storage name', function() {
         // given
         var name = 'storages';
 
@@ -60,11 +61,10 @@ describe('Service: StorageService', function() {
      * Given an existing storage name
      * and a null storage
      * when a isValid is triggered
-     * then must be logged 'StorateService.isValid: -Empty storage'
      * and false must be returned
      * </pre>
      */
-    it('should report a empty storage name', function() {
+    it('should report an empty storage name', function() {
         // given
         var name = 'storage';
         dpStub.storage = null;
@@ -73,7 +73,7 @@ describe('Service: StorageService', function() {
         var result = StorageService.isValid(name);
 
         // then
-        expect(log.error).toHaveBeenCalledWith('StorateService.isValid: -Empty storage');
+        expect(log.error).toHaveBeenCalledWith('StorateService.isValid: -Invalid storage, name=' + name);
         expect(result).toBe(false);
     });
 
