@@ -11,7 +11,38 @@
 						// Easy the access to DataProvider service.
 						var data = DataProvider;
 
-						var isValid = function() {
+						/**
+						 * Function that returns if the name is a valid storage.
+						 * 
+						 * @param name -
+						 *            Storage name
+						 */
+						var isValid = function(name) {
+							
+							var storage = data[name];
+							
+							//if the name exists in the dataProvider
+							if(storage){
+								//if the attribute is an array
+								if(storage instanceof Array){
+										return true;
+								//if is the name of an attribute, but is not an array
+								}else{
+									$log.error('StorateService.isValid: -Invalid storage name, name='+ name);
+									return false;
+								}
+							//if the name doesn't exists in the dataProvider
+							}
+							else{
+								//if storage exists, but is null
+								if(storage === null){
+									$log.error('StorateService.isValid: -Empty storage');
+									return false;
+								}else{
+									$log.error('StorateService.isValid: -Invalid storage name, name='+ name);
+									return false;
+								}
+							}
 						};
 						/**
 						 * Function to return the next unique id.
