@@ -1,4 +1,4 @@
-describe('Service: StorageService', function() {
+describe('Service: StorageService.insert', function() {
 
     var log = {};
     var dpStub = {};

@@ -1,4 +1,4 @@
-describe('Service: StorageService', function() {
+describe('Service: StorageService.getNextId', function() {
 
     var log = {};
     var dpStub = {};
