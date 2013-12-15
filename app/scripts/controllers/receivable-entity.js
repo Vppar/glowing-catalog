@@ -6,7 +6,7 @@
      * 
      * @author Arnaldo S. Rodrigues Jr.
      */
-    angular.module('tnt.catalog.financial.receivable', []).controller(
+    angular.module('tnt.catalog.financial.receivable.entity', []).controller(
             'ReceivableCtrl', function($scope, $log, $filter, DataProvider, DialogService, ReceivableService) {
 
                 // #####################################################################################################
