@@ -1,8 +1,8 @@
 (function(angular) {
+    'use strict';
+
     angular
-            .module('tnt.catalog.service.sms', [
-                'tnt.catalog.service.data'
-            ])
+            .module('tnt.catalog.service.sms', ['tnt.catalog.service.data'])
             .service(
                     'SMSService',
                     function($http, $q, DataProvider) {

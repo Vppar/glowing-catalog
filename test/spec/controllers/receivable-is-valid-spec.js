@@ -1,6 +1,9 @@
 describe('Controller: ReceivableCtrl', function() {
     // load the controller's module
-    beforeEach(module('tnt.catalog.financial.receivable'));
+    beforeEach(function() {
+        module('tnt.catalog.financial.receivable');
+        module('tnt.catalog.filter.findBy');
+    });
 
     var scope = {};
     var log = {};
@@ -41,8 +44,7 @@ describe('Controller: ReceivableCtrl', function() {
 
     /**
      * <pre>
-     * Givena valid due date
-     * and a valid amount
+     * Givenavalid due date and a valid amount
      * and a valid entity
      * when asked for validation
      * then true must be returned

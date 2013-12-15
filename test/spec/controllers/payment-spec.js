@@ -42,8 +42,7 @@ describe('Controller: PaymentCtrl', function() {
         // PaymentService mock
         ps.save = jasmine.createSpy('PaymentService.save').andReturn(angular.copy(sampleData.payments));
         ps.clear = jasmine.createSpy('PaymentService.clear');
-        ps.createNew = function() {
-        };
+        ps.createNew = function() {};
         ps.payments = [];
 
         // Scope mock
@@ -167,7 +166,6 @@ describe('Controller: PaymentCtrl', function() {
      * Given - a payment with amount greater then the order amount
      * When  - to confirm payments is requested
      * Then  - the current payments should be left untouched (scope.payments)
-     * And   - the user should be warned with a dialog (DialogService.messageDialog)
      */
     it('shouldn\'t confirm an over payment', function() {
         // given
@@ -189,12 +187,6 @@ describe('Controller: PaymentCtrl', function() {
 
         // leave the payment untouched.
         expect(payments).toEqual(scope.payments);
-        // show the warning dialog.
-        expect(ds.messageDialog).toHaveBeenCalledWith({
-            title : 'Pagamento inválido',
-            message : 'Valor registrado para pagamento é maior do que o valor total do pedido.',
-            btnYes : 'OK',
-        });
     });
 
     /**
@@ -216,12 +208,6 @@ describe('Controller: PaymentCtrl', function() {
 
         // leave the payment untouched.
         expect(payments).toEqual(scope.payments);
-        // show the warning dialog.
-        expect(ds.messageDialog).toHaveBeenCalledWith({
-            title : 'Pagamento inválido',
-            message : 'Valor registrado para pagamento é menor do que o valor total do pedido.',
-            btnYes : 'OK'
-        });
     });
     
     /**

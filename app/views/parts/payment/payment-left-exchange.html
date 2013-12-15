@@ -2,7 +2,6 @@
     <div>
         TROCA DE PRODUTO
     </div>
-    
 </div>
 <div class="left-payment" ng-controller="PaymentExchangeCtrl">
    <br />
@@ -11,7 +10,7 @@
 			<div class="controls-row">
 				<div class="control-group lbl-top">
 					<label class="control-label">Selecione um Produto</label>
-					<select ui-select2 name="product" class="combo-width-product-exchange" ng-model="exchange.productId" data-placeholder="" ng-click="setAmount(exchange.productId)">
+					<select ui-select2 name="product" class="combo-width-product-exchange" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">
 						<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
 					</select>
 				</div>
@@ -61,7 +60,6 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="row-fluid">
 			<div class="total-value-product-exchange">
 				<div>
@@ -69,19 +67,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="error" style="display:none">
-				Erro ao inserir dados, contate o suporte informando o código
-			</div>
-		</div>
-
 	</div>
-	<div class="clearfix"></div>
 	<hr />
-	<button class="btn btn-cancel btn-large btn-login" type="submit" ng-click="cancelPayments()" >
-		Cancelar
-	</button>
-	<button class="btn btn-ok btn-large btn-login pull-right" type="submit" ng-click="confirmPayments()"  >
-		Confirmar
-	</button>
 </div>

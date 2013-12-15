@@ -312,6 +312,12 @@
         },{
             "number": "4196665488"
         }]
+    },{
+    	"id": 17,
+    	"name": "MAV COMERCIO DE ACESSORIOS LTDA",
+    	"phones": [{
+            "number": "4130152983"
+        }]
     }],
     "orders": [{
         "id": 1,
@@ -410,5 +416,33 @@
             "productId": 15,
             "qty": 2
         }]
-    }]
+    }],
+    "expenses" : [
+    	{
+    		"id": 1,
+    		"createdate": 1357948800000,
+    		"duedate": 1388534400000,
+    		"document": {
+    			"number": 979,
+    			"type": "NOTA FISCAL"
+    		},
+    		"type": "BRINDE",
+    		"entityId": 17,
+			"remarks": "COMPRA DE BRINDE PARA OS CLIENTES",
+			"amount": "250.00"     		
+    	},
+    	{
+    		"id": 2,
+    		"createdate": 1386201600000,
+    		"duedate": 1398534400000,
+    		"document": {
+    			"number": 989,
+    			"type": "NOTA FISCAL"
+    		},
+    		"type": "BRINDE",
+    		"entityId": 17,
+			"remarks": "COMPRA DE BRINDE PARA OS CLIENTES",
+			"amount": "500.00"     		
+    	}
+    ]
 }
