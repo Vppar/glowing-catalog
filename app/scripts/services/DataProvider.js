@@ -10,6 +10,7 @@
         this.customers = [];
         this.deliveries = [];
         this.entities = [];
+        this.expenses = [];
         this.orders = [];
         this.payments = [];
         this.paymentTypes = [{id: 1, description: 'cash'}];

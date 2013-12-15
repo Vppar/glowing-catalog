@@ -40,17 +40,16 @@
 								<label class="control-label">Data</label>
 								<input name="date"
 									class="input-block-level" type="text" placeholder=""
-									ng-model="" required>
+									ng-model="expense.createdate" required>
 							</div>
 						</span>
 						
 						<span class="span9">
 							<div class="control-group">
-								<label class="control-label">Contas a pagar</label>
+								<label class="control-label">Conta a pagar</label>
 								<div class="input-append input-width-bills">
 									<input class="input-block-level hover-state-pointer"
-										id="appendedInput" type="text" ng-model=""
-										ng-click="" disabled>
+										id="appendedInput" type="text" ng-model="expense.entity" disabled>
 									<span ng-click="" class="add-on">+</span>
 								</div>
 							</div>
@@ -63,7 +62,7 @@
 								<label class="control-label">Documento</label>
 								<input name="doc"
 									class="input-block-level" type="text" placeholder=""
-									ng-model="" required>
+									ng-model="document.label" required>
 							</div>
 						</span>
 						
@@ -71,7 +70,7 @@
 							<div class="control-group">
 								<label class="control-label">Nro Docto</label>
 									<input class="input-block-level hover-state-pointer"
-										id="numberdoc" type="text" ng-model=""
+										id="numberdoc" type="text" ng-model="document.number"
 										ng-click="" disabled>
 							</div>
 						</span>
@@ -80,7 +79,7 @@
 							<div class="control-group ">
 								<label class="control-label">Classifica&ccedil;&atilde;o</label>
 									<input class="input-block-level hover-state-pointer"
-										id="rating" type="text" ng-model=""
+										id="rating" type="text" ng-model="expense.type"
 										ng-click="" disabled>
 							</div>
 						</span>
@@ -92,7 +91,7 @@
 								<label class="control-label">Valor</label>
 								<input name="amount"
 									class="input-block-level" type="text" placeholder=""
-									ng-model="" required>
+									ng-model="expense.amount" required>
 							</div>
 						</span>
 						
@@ -100,7 +99,7 @@
 							<div class="control-group ">
 								<label class="control-label">Nro Parc.</label>
 									<input class="input-block-level hover-state-pointer"
-										id="installments" type="text" ng-model=""
+										id="installments" type="text" ng-model="expense.installments"
 										ng-click="" disabled>
 							</div>
 						</span>
@@ -108,8 +107,7 @@
 						<span class="span5">
 							<div class="control-group ">
 								<label class="control-label">Vencto 1a. parc.</label>
-									<input class="input-block-level hover-state-pointer"
-										id="due" type="text" ng-model=""
+									<input class="input-block-level hover-state-pointer" ng-model="expense.duedate"
 										ng-click="" disabled>
 							</div>
 						</span>
@@ -134,23 +132,23 @@
 									<span class="col-1"><div>ID</div></span>
 									<span class="col-2"><div>Data</div></span>
 									<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
-									<span class="col-4"><div>Contas a pagar / Observa&ccedil;&atilde;o</div></span>
+									<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
 									<span class="col-5"><div>Vencto</div></span>
 									<span class="col-6"><div>Valor</div></span>
 								</div>						
 							</div>
 							<div class="scroll-expense">
-								<div class="row-expense">
-									<span class="col-1"><div>ID</div></span>
-									<span class="col-2"><div>Data</div></span>
-									<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
-									<span class="col-4"><div>Contas a pagar / Observa&ccedil;&atilde;o</div></span>
-									<span class="col-5"><div>Vencto</div></span>
-									<span class="col-6"><div>Valor</div></span>
+								<div class="row-expense" ng-repeat="expense in expenses">
+									<span class="col-1"><div>{{expense.id}}</div></span>
+									<span class="col-2"><div>{{expense.createdate | date: 'dd/MM/yyyy'}}</div></span>
+									<span class="col-3"><div>{{expense.type}}</div></span>
+									<span class="col-4" ng-show="expense.entityId"><div>{{(entities | findBy:'id':expense.entityId).name}}</div></span>
+									<span class="col-4" ng-hide="expense.entityId"><div>{{expense.remarks}}</div></span>
+									<span class="col-5"><div>{{expense.duedate | date: 'dd/MM/yyyy'}}</div></span>
+									<span class="col-6"><div>{{expense.amount | currency: ''}}</div></span>
 								</div>
 							</div>
 						</div>
-				
 				</div>
 			</form>
 		</div>
