@@ -1,4 +1,4 @@
-describe('Service: StorageService', function() {
+describe('Service: StorageService.getNextId', function() {
 
     var log = {};
     var dpStub = {};
@@ -68,7 +68,6 @@ describe('Service: StorageService', function() {
      * <pre>
      * Given a invalid storage name
      * when a getNextId is triggered
-     * then must be logged: 'StorageService.getNextId: -Invalid storage, name={{name}}'
      * and undefined must be returned
      * </pre>
      */
@@ -80,7 +79,6 @@ describe('Service: StorageService', function() {
         var id = StorageService.getNextId(name);
 
         // then
-        expect(log.error).toHaveBeenCalledWith('StorageService.getNextId: -Invalid storage, name=' + name);
         expect(id).toBeUndefined();
     });
 
