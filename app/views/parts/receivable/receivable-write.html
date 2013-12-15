@@ -4,16 +4,16 @@
 			<label class="control-label">Data</label>
 			<input name="date"
 				class="input-block-level" type="text" placeholder=""
-				ng-model="expense.createdate" required>
+				ng-model="receivable.createdate" required>
 		</div>
 	</span>
 	
 	<span class="span9">
 		<div class="control-group">
-			<label class="control-label">Conta a pagar</label>
+			<label class="control-label">Conta a receber</label>
 			<div class="input-append input-width-bills">
 				<input class="input-block-level hover-state-pointer"
-					id="appendedInput" type="text" ng-model="expense.entity" disabled>
+					id="appendedInput" type="text" ng-model="receivable.entity" disabled>
 				<span ng-click="" class="add-on">+</span>
 			</div>
 		</div>
@@ -42,7 +42,7 @@
 		<div class="control-group ">
 			<label class="control-label">Classifica&ccedil;&atilde;o</label>
 				<input class="input-block-level hover-state-pointer"
-					id="rating" type="text" ng-model="expense.type"
+					id="rating" type="text" ng-model="receivable.type"
 					ng-click="" disabled>
 		</div>
 	</span>
@@ -53,21 +53,21 @@
 			<label class="control-label">Valor</label>
 			<input name="amount"
 				class="input-block-level" type="text" placeholder=""
-				ng-model="expense.amount" required>
+				ng-model="receivable.amount" required>
 		</div>
 	</span>	
 	<span class="span2">
 		<div class="control-group ">
 			<label class="control-label">Nro Parc.</label>
 				<input class="input-block-level hover-state-pointer"
-					id="installments" type="text" ng-model="expense.installments"
+					id="installments" type="text" ng-model="receivable.installments"
 					ng-click="" disabled>
 		</div>
 	</span>	
 	<span class="span5">
 		<div class="control-group ">
 			<label class="control-label">Vencto 1a. parc.</label>
-				<input class="input-block-level hover-state-pointer" ng-model="expense.duedate"
+				<input class="input-block-level hover-state-pointer" ng-model="receivable.duedate"
 					ng-click="" disabled>
 		</div>
 	</span>	
