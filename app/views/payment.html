@@ -1,23 +1,51 @@
 <div class="container ">
+
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include
 			src="'views/parts/global/header.html'"></span>
 		</span>
 	</div>
+	
 	<div class="container-payment">
-		<div class="row-fluid">
+		<div class="row-fluid">			
 			<div class="span8" ng-switch on="selectedPaymentMethod">
 				<span ng-switch-when="none" ng-include src="'views/parts/payment/payment-left-order.html'"></span>
 				<span ng-switch-when="check" ng-include src="'views/parts/payment/payment-left-check.html'"></span>
 				<span ng-switch-when="creditcard" ng-include src="'views/parts/payment/payment-left-credit-card.html'"></span>
 				<span ng-switch-when="exchange" ng-include src="'views/parts/payment/payment-left-exchange.html'"></span>
-				<span class="panel-payment-footer-left">
-					<button class="btn btn-cancel" ng-click="selectPaymentMethod('none')">Voltar</button>
-				</span>
 			</div>
+			
 			<div class="span4 col-payment-right">
 				<span class="payment-right-column" ng-include src="'views/parts/payment/payment-right-totals.html'"></span>
-			</div>
+			</div>					
+		</div>	
+	</div>
+	<div class="payment-left-btns-area">
+		<div class="payment-left-btns">
+			<button class="btn btn-cancel" onclick="javascript:window.location='#'">Voltar</button>
+			<button class="btn btn-cancel btn-large btn-login btn-payment-check display-none" ng-click="cancelPayments()">
+				Cancelar
+			</button>
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-check display-none" ng-click="confirmPayments()">
+				Confirmar
+			</button>
+			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard display-none" type="submit" ng-click="cancelPayments()">
+				Cancelar
+			</button>
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard display-none" type="submit" ng-click="confirmPayments()" >
+				Confirmar
+			</button>
+			<button class="btn btn-cancel btn-large btn-login btn-payment-exchange display-none" type="submit" ng-click="cancelPayments()" >
+				Cancelar
+			</button>
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-exchange display-none" type="submit" ng-click="confirmPayments()"  >
+				Confirmar
+			</button>
 		</div>
 	</div>
+	<!--<div class="footer-cart">
+		<span class="panel-payment-footer-left">
+			<button class="btn btn-cancel" ng-click="selectPaymentMethod('none')">Voltar</button>
+		</span>
+	</div>-->
 </div>
