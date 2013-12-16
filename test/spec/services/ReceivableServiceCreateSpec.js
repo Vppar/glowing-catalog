@@ -1,4 +1,4 @@
-describe('Service: ReceivableServiceCreateSpec', function() {
+xdescribe('Service: ReceivableServiceCreateSpec', function() {
 
     var log = {};
 

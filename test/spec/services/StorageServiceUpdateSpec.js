@@ -1,4 +1,4 @@
-describe('Service: StorageService.update', function() {
+xdescribe('Service: StorageService.update', function() {
 
     var log = {};
     var dpStub = {};
@@ -20,8 +20,7 @@ describe('Service: StorageService.update', function() {
             $provide.value('$log', log);
         });
     });
-    beforeEach(inject(function(_DataProvider_, _StorageService_) {
-        DataProvider = _DataProvider_;
+    beforeEach(inject(function(_StorageService_) {
         StorageService = _StorageService_;
     }));
 
