@@ -121,11 +121,11 @@
 							} else {
 								if (storage === _undefined) {
 									$log
-											.error('StorateService.isValid: -Invalid storage name, name='
+											.error('StorageService.isValid: -Invalid storage name, name='
 													+ name);
 								} else {
 									$log
-											.error('StorateService.isValid: -Invalid storage, name='
+											.error('StorageService.isValid: -Invalid storage, name='
 													+ name);
 								}
 								result = false;

@@ -52,7 +52,7 @@ describe('Service: StorageService.isValid', function() {
         var result = StorageService.isValid(name);
 
         // then
-        expect(log.error).toHaveBeenCalledWith('StorateService.isValid: -Invalid storage name, name=' + name);
+        expect(log.error).toHaveBeenCalledWith('StorageService.isValid: -Invalid storage name, name=' + name);
         expect(result).toBe(false);
     });
     /**
@@ -72,7 +72,7 @@ describe('Service: StorageService.isValid', function() {
         var result = StorageService.isValid(name);
 
         // then
-        expect(log.error).toHaveBeenCalledWith('StorateService.isValid: -Invalid storage, name=' + name);
+        expect(log.error).toHaveBeenCalledWith('StorageService.isValid: -Invalid storage, name=' + name);
         expect(result).toBe(false);
     });
 
