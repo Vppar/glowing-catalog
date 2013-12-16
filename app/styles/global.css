@@ -15,6 +15,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	-o-transition: border linear 0.2s, box-shadow linear 0.2s !important;
 	transition: border linear 0.2s, box-shadow linear 0.2s !important;
 }
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 
 /*menu states*/
 .nav > li > a:hover, .nav > li > a:focus {
@@ -449,9 +454,9 @@ body {
 	background: #fff;
 	color: #333;
 	font-size: 14px;
-	min-width: 36px;
-	max-width: 300px;
-	padding: 5px;
+	min-width: 50px;/*36px;
+	max-width: 300px;*/
+	padding: 10px;/*5px;*/
 	white-space: nowrap;
 	border: 1px solid #ccc
 }
@@ -833,7 +838,8 @@ nav ul li {
 	width: 24px;
 	height: 24px;
 	background-image: url(../images/x-char-w.png);
-	border-radius: 50%
+	border-radius: 50%;
+	margin:0 5px 0 5px;
 }
 .btn-clear-form .btn-plus2 {
 	display: inline-block;
@@ -841,7 +847,8 @@ nav ul li {
 	width: 24px;
 	height: 24px;
 	background-image: url(../images/plus-w.png);
-	border-radius: 50%
+	border-radius: 50%;
+	margin:0 5px 0 5px;
 }
 
 /*footer*/
@@ -978,4 +985,25 @@ ul.nav-footer li:first-child {
 input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed textarea.ng-invalid-required, .failed .ng-invalid-required .select2-choice {
 	color: #b94a48;
 	border-color: #ee5f5b !important;
+}
+
+/* SCROLL */
+::-webkit-scrollbar {
+    width: 10px;
+} 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+} 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(85,85,85,0.8); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(85,85,85,0.4); 
 }

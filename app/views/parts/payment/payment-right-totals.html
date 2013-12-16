@@ -14,7 +14,6 @@
 		</div>
 	</div>
 	<div class="row-right-payment2">
-
 		<span class="lbl-money2">
 			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> ({{orderQty}})</span>
 		</span>
@@ -28,30 +27,30 @@
 	            <span class="label-money">Dinheiro</span>
 	        </span>
 	        <span class="btn-price-payment-input-block2 input-block-level">
-	            <input class="input-money-payment text-right" id="appendedInput" type="text" ng-model="payment.cash.amount" currency recall>
+	            <input class="input-money-payment text-right" id="appendedInput" type="number" ng-model="payment.cash.amount" currency recall>
 	        </span>
 	    </div>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
-		<span class="lbl-money">Cheque </span><span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+		<span class="lbl-money">Cheque</span><span class="lbl-money3">({{payments | paymentType:'check' | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
-		<span class="lbl-money">Cart&atilde;o </span><span class="lbl-money3">( {{payments | paymentType:'creditcard' | count:'id'}} )</span>
+		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3">({{payments | paymentType:'creditcard' | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money">Troca</span><span class="lbl-money3">( {{payments | paymentType:'exchange' | count:'id'}} )</span>
+		<span class="lbl-money red-color">Troca</span><span class="lbl-money3">({{payments | paymentType:'exchange' | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment">
-		<span class="lbl-money">Vale/Cupom</span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
+		<span class="lbl-money">Vale/Cupom</span><span class="green-color">*</span><span class="btn-price-payment btn-price-payment2">0,00</span>
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
@@ -76,11 +75,19 @@
 		<span class="lbl-money2">Emitir vale/cupom </span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
 	</div>
 
-	<span class="panel-payment-footer-left">
+	<div class="payment-btns">
+		<div class="payment-btn-area">
+			<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
+		</div>
+		<div class="payment-btn-area">
+			<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
+		</div>
+	</div>
+	<!--<span class="panel-payment-footer-left">
 		<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
 	</span>
 	<span class="panel-payment-footer-right">
 		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
 	</span>
-	<div class="right-column-height">&nbsp;</div>
+	<div class="right-column-height">&nbsp;</div>-->
 </div>
