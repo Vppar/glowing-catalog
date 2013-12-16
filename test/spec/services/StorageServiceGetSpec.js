@@ -64,7 +64,7 @@ describe('Service: StorageService.get', function() {
 
 		// then
 		expect(log.error).toHaveBeenCalledWith(
-				'ServiceStorage.get: -Receivable not found, id=' + id);
+				'StorageService.get: -Receivable not found, id=' + id);
 		expect(entity).toBeUndefined();
 	});
 

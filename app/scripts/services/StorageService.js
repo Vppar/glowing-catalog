@@ -81,7 +81,7 @@
 										break;
 									}
 								}
-								$log.error('ServiceStorage.get: -Receivable not found, id='+ id);
+								$log.error('StorageService.get: -Receivable not found, id='+ id);
 							
 							}
 							return result;
