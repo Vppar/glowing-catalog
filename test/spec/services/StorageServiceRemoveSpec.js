@@ -1,4 +1,4 @@
-xdescribe('Service: StorageService.delete', function() {
+describe('Service: StorageService.remove', function() {
 
     var log = {};
     var dpStub = {};
@@ -27,7 +27,11 @@ xdescribe('Service: StorageService.delete', function() {
         log.error = jasmine.createSpy('$log.error');
 
         // $filter mock
-        findBy = jasmine.createSpy('findBy');
+        findBy = jasmine.createSpy('findBy').andCallFake(function(list,property,value) {
+            if (value === 1) {
+                return stub;
+            }
+        });
         filter = jasmine.createSpy('$filter').andCallFake(function(filter) {
             if (filter === 'findBy') {
                 return findBy;
@@ -78,7 +82,7 @@ xdescribe('Service: StorageService.delete', function() {
      * Given a valid storage name
      * and an id not present in the storage
      * when an delete is triggered
-     * then must be logged: 'StorageService.delete: -Could not find a entity in '{{name}}' to delete, id={{id}}'
+     * then must be logged: 'StorageService.remove: -Could not find a entity in '{{name}}' to delete, id={{id}}'
      * and false must be returned
      * </pre>
      */
@@ -92,13 +96,13 @@ xdescribe('Service: StorageService.delete', function() {
         var result = StorageService.remove(name, id);
 
         // then
-        expect(log.error).toHaveBeenCalledWith('StorageService.delete: -Could not find a entity in ' + name + ' to delete, id=' + id);
-        expect(result).toBe(true);
+        expect(log.error).toHaveBeenCalledWith('StorageService.remove: -Could not find a entity in ' + name + ' to delete, id=' + id);
+        expect(result).toBe(false);
     });
 
     /**
      * <pre>
-     * Given an invalid storage name
+     * Givenan invalid storage name
      * when delete is triggered
      * and false must be returned
      * </pre>
@@ -111,7 +115,7 @@ xdescribe('Service: StorageService.delete', function() {
         var result = StorageService.remove(name);
 
         // then
-        expect(result).toBe(true);
+        expect(result).toBe(false);
     });
 
 });
