@@ -15,8 +15,7 @@ describe('Service: StorageService', function() {
         });
     });
 
-    beforeEach(inject(function(_DataProvider_, _StorageService_) {
-        DataProvider = _DataProvider_;
+    beforeEach(inject(function(_StorageService_) {
         StorageService = _StorageService_;
     }));
 

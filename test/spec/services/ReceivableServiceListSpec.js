@@ -1,4 +1,4 @@
-describe('Service: ReceivableServiceListSpec', function() {
+xdescribe('Service: ReceivableServiceListSpec', function() {
 
     var log = {};
     var baseTime = 1386417600000;

@@ -1,4 +1,4 @@
-describe('Service: StorageService.delete', function() {
+xdescribe('Service: StorageService.delete', function() {
 
     var log = {};
     var dpStub = {};
@@ -42,8 +42,7 @@ describe('Service: StorageService.delete', function() {
         });
     });
 
-    beforeEach(inject(function(_DataProvider_, _StorageService_) {
-        DataProvider = _DataProvider_;
+    beforeEach(inject(function(_StorageService_) {
         StorageService = _StorageService_;
     }));
 
