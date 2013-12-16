@@ -11,17 +11,59 @@
 						// Easy the access to DataProvider service.
 						var data = DataProvider;
 
+						
 						/**
+						 * Function that returns a storage by name and id.
 						 * 
-						 * and an existing id when get is triggered then a copy
-						 * of the entity must be returned
+						 * @param name -
+						 *            Storage name.
 						 * 
-						 * Given a non-existent id when get is triggered then
-						 * must be logged: 'ServiceStorage.get: -Receivable not
-						 * found, id={{id}}.' and undefined must be returned
+						 * @param entity -
+						 * 			 an entity
+						 * @return  - boolean that indicates if the operation was successful
+						 */
+						var update = function update(name,entity){
+							var result = false;
+							
+							var entityCopy = get(name,entity.id);
+							
+							if(isValid(name)){
+								if(entityCopy){									
+									if(!angular.equals(entity,entityCopy)){
+										//TODO Journal
+										
+										angular.extend(entityCopy,entity);
+									
+										var storage = data[name];
+										
+										for(var idx in storage){
+											if (storage[idx].id === entity.id) {
+												storage[idx] = entityCopy;
+												result = true;
+												break;
+											}
+										}
+									}
+								}else{
+									$log.error('StorageService.update : -Could not find a entity in '+name+' to update, id='+entity.id);
+								}
+								
+							}else{
+								$log.error('StorageService.update: -Invalid storage, name='+name);
+							}
+							return result;
+						};
+						 
+						
+						/**
+						 * Function that returns a storage by name and id.
 						 * 
-						 * Given an invalid storage name when get is triggered
-						 * and undefined must be returned
+						 * @param name -
+						 *            Storage name.
+						 * 
+						 * @param id -
+						 * 			 an id
+						 * @return  - The entity that have the id == id.
 						 */
 						var get = function get(name, id) {
 
@@ -39,7 +81,7 @@
 										break;
 									}
 								}
-								$log.error('ServiceStorage.get: -Receivable not found, id='+ id);
+								$log.error('StorageService.get: -Receivable not found, id='+ id);
 							
 							}
 							return result;
@@ -79,11 +121,11 @@
 							} else {
 								if (storage === _undefined) {
 									$log
-											.error('StorateService.isValid: -Invalid storage name, name='
+											.error('StorageService.isValid: -Invalid storage name, name='
 													+ name);
 								} else {
 									$log
-											.error('StorateService.isValid: -Invalid storage, name='
+											.error('StorageService.isValid: -Invalid storage, name='
 													+ name);
 								}
 								result = false;
@@ -164,5 +206,6 @@
 						this.insert = insert;
 						this.isValid = isValid;
 						this.list = list;
+						this.update = update;
 					});
 }(angular));
