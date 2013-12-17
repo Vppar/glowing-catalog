@@ -45,9 +45,9 @@ xdescribe('Service: Productservice', function() {
         var product = ProductService.get(id);
         
         // then
+        
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
         expect(product).toEqual(stub);
-        
     });
     
     /**
