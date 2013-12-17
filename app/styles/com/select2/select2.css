@@ -26,7 +26,7 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
           box-sizing: border-box; /* css3 */
 }
 .select2-container {
-	/*min-width:200px;*/
+	min-width:20px; /*200*/
 }
 .select2-container .select2-choice {
     display: block;
@@ -188,8 +188,6 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
     border-radius: 0 4px 4px 0;
 
     background-clip: padding-box;
-
-
 }
 
 .select2-container .select2-choice .select2-arrow b {

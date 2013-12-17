@@ -1,69 +1,74 @@
-<div class="title-left">
-    <div>
-        TROCA DE PRODUTO
-    </div>
-</div>
-<div class="left-payment" ng-controller="PaymentExchangeCtrl">
-   <br />
-	<div class="row-fluid">
-		<form name="exchangeForm">
-			<div class="controls-row">
-				<div class="control-group lbl-top">
-					<label class="control-label">Selecione um Produto</label>
-					<select ui-select2 name="product" class="combo-width-product-exchange" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">
-						<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
-					</select>
-				</div>
-				<div class="control-group lbl-top">
+<div class="payment-left-exchange">
+	<div class="title-left">
+		<div>
+			TROCA DE PRODUTO
+		</div>
+	</div>
+	<div class="left-payment" ng-controller="PaymentExchangeCtrl">
+	   <br />
+		<div class="row-fluid">
+			<form name="exchangeForm">
+				<div class="controls-row">
 					<div class="control-group lbl-top">
-						<label class="control-label" >Valor</label>
-						<div class="controls">
-							<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="number" currency recall>
+						<label class="control-label">Selecione um Produto</label>
+						<select ui-select2 name="product" class="combo-width-product-exchange" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">
+							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+						</select>
+					</div>
+					<div class="control-group lbl-top">
+						<div class="control-group lbl-top">
+							<label class="control-label" >Valor</label>
+							<div class="controls">
+								<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="number" currency recall>
+							</div>
+						</div>
+					</div>
+					<div class="control-group lbl-top" >
+						<div class="btn-clear-form">
+							<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addExchange(exchange)"></span>
 						</div>
 					</div>
 				</div>
-				<div class="control-group lbl-top" >
-					<div class="btn-clear-form">
-	                	<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addExchange(exchange)"></span>
-	                </div>
+			</form>
+			<div class="grid-payment-check">
+				<div class="header header2">
+					<div class="row-payment-check-grid">
+						<span class="col-s5">
+							<div>Produto</div>
+						</span>
+						<span class="col-s2">
+							<div>Valor</div>
+						</span>
+						<span class="col-s3">
+							<div>&nbsp;</div>
+						</span>
+					</div>
+				</div>
+				<div class="scroll-payment-grid">
+					<div ng-repeat="payment in payments | paymentType:'exchange'" class="row-payment-grid-product-exchange">
+						<span class="col-s5">
+							<div>
+								{{(products | findBy:'id':payment.data.productId).title}}
+							</div>
+						</span>
+						<span class="col-s2">
+							<div>
+								{{payment.amount | currency:""}}
+							</div>
+						</span>
+						<span class="col-s3">
+							<div class="hover-state-pointer marginl10" ng-click="removeExchange(payment)">
+								<img src="images/del-pink.png" alt="" />
+							</div>
+						</span>
+					</div>
 				</div>
 			</div>
-		</form>
-		<div class="grid-payment-check">
-			<div class="header header2">
-				<div class="row-payment-check-grid">
-					<span class="col-s4">
-						<div>Produto</div>
-					</span>
-                    <span class="col-s3">
-						<div>Valor</div>
-                	</span>
-				</div>
-			</div>
-			<div class="scroll-payment-grid">
-				<div ng-repeat="payment in payments | paymentType:'exchange'" class="row-payment-grid-product-exchange">
-					<span class="col-1">
-						<div>
-							{{(products | findBy:'id':payment.data.productId).title}}
-						</div>
-					</span>
-					<span class="col-2">
-						<div>
-							{{payment.amount | currency:""}}
-						</div>
-					</span>
-					<span class="col-4">
-						<div class="hover-state-pointer" ng-click="removeExchange(payment)">
-							<img src="images/del-pink.png" alt="" />
-						</div>
-					</span>
-				</div>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="total-value-product-exchange">
-				<div>
-					<span><strong>Valor Total:</strong> {{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
+			<div class="row-fluid">
+				<div class="total-value-product-exchange">
+					<div>
+						<span><strong>Valor Total:</strong> {{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
+					</div>
 				</div>
 			</div>
 		</div>

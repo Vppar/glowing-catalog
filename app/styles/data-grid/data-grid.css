@@ -151,7 +151,7 @@
 /*=============== END INPUT PRODUCTS =====================*/
 
 /*=============== PAYMENT CHECK =====================*/
-.header .row-payment-check-grid {
+.header .row-payment-check-grid, .header .row-payment-check-grid, .row-payment-grid-product-exchange, .row-payment-credit-card-grid{
 	margin-left: 20px
 }
 .scroll-payment-grid {
@@ -228,7 +228,7 @@
 /*=============== END PAYMENT CHECK =====================*/
 
 /*=============== PAYMENT CREDIT CARD =====================*/
-.grid-payment-credit-card {
+/*.grid-payment-credit-card {
 	border-radius: 4px 4px 0 0;
 }
 .scroll-payment-grid {
@@ -260,6 +260,10 @@
 	width: 120px;
 	text-align: center;
 }
+.grid-payment-credit-card .header .col-4{
+	width: 22px;
+	text-align: center;
+}
 .row-payment-credit-card-grid .col-1 {
 	width: 100px;
 	text-align: center
@@ -286,7 +290,7 @@
 .row-payment-credit-card-grid .col-4 {
 	float: right;
 	margin-right: 5px
-}
+}*/
 /*=============== END PAYMENT CREDIT CARD =====================*/
 
 /*=============== PAYMENT PRODUCT EXCHANGE =====================*/
