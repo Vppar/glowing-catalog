@@ -12,6 +12,9 @@
 .row-right-payment .lbl-money3 {
 	color:rgba(0, 0, 0, 0.5);
 }
+.row-right-payment .lbl-moneyt {
+	color:red;
+}
 .row-right-payment:hover {
 	cursor: pointer;
 }
@@ -112,7 +115,7 @@
 }
 .btn-sub-payment {
 	float: right;
-	width: 120px;
+	width: 110px;
 	text-align: right;
 	border: 1px solid #fff;
 	background-color:#fff;
@@ -282,10 +285,6 @@
 .payment-check-fields {
 	margin:0 0 0 60px;
 }
-
-.marginl10{
-	margin-left: 10px
-}
 /* end scroll left*/
 .txt-info-customer {
 	line-height: 30px;
@@ -335,9 +334,7 @@
 }
 
 /* ---- */
-.combo-width-product-exchange{
-	min-width:200px;
-}
+
 .payment-btns {
 	width: 90%;
 	height:50px;
@@ -408,10 +405,42 @@
 	left: 686px;
 	width: 329px;
 	height: 556px;
-	background-color: #fff;
-	opacity:0.5;
+	background-color: #eee;
+	opacity:0.96;
+	z-index:10;
 }
 
 /*.blur{
 	-webkit-filter: blur(2px);
 }*/
+/****** PAYMENT KEYBOARD *******/
+#keyNum {
+	width:290px;
+	height:auto;
+	background:#eee;
+	float:right;
+	position:absolute;
+	margin:0 0 0 11px;
+	top:218px;
+	z-index:11;
+}
+/*.keyboard-display {
+	display:block;
+	width:289px;
+	height:60px;
+	background:url(../images/keyboard/visor.png) no-repeat top left;
+	margin:0 0 10px 0;
+}*/
+#keyNum .l1 {display:block; margin:0 0 6px 2px;}
+#keyNum .l2 {display:block; margin:0 0 6px 2px;}
+#keyNum .l3 {display:block; margin:0 0 6px 2px; width:216px; float:left;}
+#keyNum .l4 {display:block; margin:0 0 6px 2px;}
+#keyNum .btn-ok { float:right; display:block; margin:0 5px 0 0;}
+#keyNum span img {cursor:pointer;}
+
+div.up-field-payment {
+	position:absolute !important;
+	width:284px !important;
+	height:22px !important;
+	z-index:15 !important;
+}
