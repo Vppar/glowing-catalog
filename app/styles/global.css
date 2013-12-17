@@ -556,6 +556,9 @@ li.menu-black:last-child a {
 	color: #333;
 	text-shadow: none;
 }
+.header-hour {
+	margin:0 10px 0 30px !important;
+}
 .header-hour div{
 	font-size:18px;
 	color:#CCC;
@@ -568,16 +571,18 @@ div.header-date {
 	color:#CCC;
 	margin-top:-20px;
 }
+.header-basket {
+	margin-left:18px;
+}
 .bag:hover {
 	cursor: pointer
 }
 .bag {
 	background: url(../images/bag.png) no-repeat;
 	display: inline-block;
-	width: 100px;
 	width: 42px;
 	height: 36px;
-	margin: 0px 10px 0 0;
+	margin: 0px 1px 0 0;
 	text-align: center;
 	padding-top: 15px;
 	-webkit-tap-highlight-color: transparent;
@@ -619,6 +624,7 @@ nav ul li {
 	margin-right:25px;
 	/*border-bottom:1px solid #F99;*/
 }
+
 .container .navbar .nav {
 	float: none;
 	margin: 18px auto 0 auto;
