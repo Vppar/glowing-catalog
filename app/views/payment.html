@@ -1,51 +1,100 @@
-<div class="container ">
-
-	<div class="row-fluid">
-		<span class="span12"> <span ng-include
-			src="'views/parts/global/header.html'"></span>
-		</span>
+<div class="title-right">
+	<div>
+		RECEBIMENTO
 	</div>
-	
-	<div class="container-payment">
-		<div class="row-fluid">			
-			<div class="span8" ng-switch on="selectedPaymentMethod">
-				<span ng-switch-when="none" ng-include src="'views/parts/payment/payment-left-order.html'"></span>
-				<span ng-switch-when="check" ng-include src="'views/parts/payment/payment-left-check.html'"></span>
-				<span ng-switch-when="creditcard" ng-include src="'views/parts/payment/payment-left-credit-card.html'"></span>
-				<span ng-switch-when="exchange" ng-include src="'views/parts/payment/payment-left-exchange.html'"></span>
-			</div>
-			
-			<div class="span4 col-payment-right">
-				<span class="payment-right-column" ng-include src="'views/parts/payment/payment-right-totals.html'"></span>
-			</div>					
-		</div>	
-	</div>
-	<div class="payment-left-btns-area">
-		<div class="payment-left-btns">
-			<button class="btn btn-cancel" onclick="javascript:window.location='#'">Voltar</button>
-			<button class="btn btn-cancel btn-large btn-login btn-payment-check display-none" ng-click="cancelPayments()">
-				Cancelar
-			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-check display-none" ng-click="confirmPayments()">
-				Confirmar
-			</button>
-			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard display-none" type="submit" ng-click="cancelPayments()">
-				Cancelar
-			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard display-none" type="submit" ng-click="confirmPayments()" >
-				Confirmar
-			</button>
-			<button class="btn btn-cancel btn-large btn-login btn-payment-exchange display-none" type="submit" ng-click="cancelPayments()" >
-				Cancelar
-			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-exchange display-none" type="submit" ng-click="confirmPayments()"  >
-				Confirmar
-			</button>
+</div>
+<div class="btns-right-payment right-column-payment">
+  <div class="row-right-payment row-right-payment-client">
+		<div class="btn-payments-left">
+		    <span class="label-form-client">Cliente</span>
+		    <span class="lbl-phone-client" ng-show="customer.phones"> {{customer.phones[0].number | phone}}</span><br/>
+		    <span class="btn-price-payment-input-block input-block-level">
+		        <input class="input-name-payment text-right" readonly id="appendedInput" type="text" value="{{customer.name}}" />
+		    </span>
 		</div>
 	</div>
-	<!--<div class="footer-cart">
-		<span class="panel-payment-footer-left">
-			<button class="btn btn-cancel" ng-click="selectPaymentMethod('none')">Voltar</button>
+	<div class="row-right-payment2">
+		<span class="lbl-money2">
+			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> ( {{orderQty}} ) itens</span>
 		</span>
-	</div>-->
+		<span class="">
+			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
+		</span>
+	</div>
+	<div class="row-right-payment">
+	    <div class="btn-payments-left /*up-field-payment*/">
+	        <span class="container-money-payment">
+	            <span class="label-money">Dinheiro</span>
+	        </span>
+	        <span class="btn-price-payment-input-block2 input-block-level">
+	            <input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>
+	        </span>
+	    </div>
+	</div>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
+		<span class="lbl-money">Cheque</span><span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
+		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3">( {{payments | paymentType:'creditcard' | count:'id'}} )</span>
+		<span class="">
+			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
+		<span class="lbl-money red-color">Troca</span><span class="lbl-moneyt">( {{payments | paymentType:'exchange' | count:'id'}} )</span>
+		<span class="red-color">
+			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+	<div class="row-right-payment">
+		<span class="lbl-money">Vale/Cupom</span><span class="green-color">*</span><span class="btn-price-payment btn-price-payment2">0,00</span>
+	</div>
+    <div class="payment-resume">
+        <div class="lbl-resume">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) <= 0">
+                Faltam
+            </div>
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                Troco
+            </div>
+        </div>
+        <div class="values-resume">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) <= 0">
+                {{((items | filter: inBasketFilter | sum: 'price': 'qty') - (payments | sum: 'amount')) | currency: '' }}
+            </div>
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                {{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
+            </div>
+        </div>
+	</div>
+	<br />
+	<div class="row-right-payment">
+		<span class="lbl-money2">Emitir vale/cupom </span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
+	</div>
+
+	<div class="payment-btns">
+		<div class="payment-btn-area">
+			<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
+		</div>
+		<div class="payment-btn-area">
+			<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
+		</div>
+	</div>
+	<!--<span class="panel-payment-footer-left">
+		<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
+	</span>
+	<span class="panel-payment-footer-right">
+		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
+	</span>
+	<div class="right-column-height">&nbsp;</div>-->
+    <div id="keyNum" class="numeric-keyboard" style="display:none;" >
+        <span class="l1"><img src="images/keyboard/n7.png" width="68" height="68" alt="7" /> <img src="images/keyboard/n8.png" width="68" height="68" alt="8" /> <img src="images/keyboard/n9.png" width="68" height="68" alt="9" /> <img src="images/keyboard/btn-back.png" width="67" height="68" alt="backspace" /></span>
+        <span class="l2"><img src="images/keyboard/n4.png" width="68" height="68" alt="4" /> <img src="images/keyboard/n5.png" width="68" height="68" alt="5" /> <img src="images/keyboard/n6.png" width="68" height="68" alt="6" /> <img src="images/keyboard/btn-clear.png" width="67" height="68" alt="clear" /></span>
+        <span class="l3"><img src="images/keyboard/n1.png" width="68" height="68" alt="1" /> <img src="images/keyboard/n2.png" width="68" height="68" alt="2" /> <img src="images/keyboard/n3.png" width="68" height="68" alt="3" /></span> <span class="btn-ok"><img src="images/keyboard/btn-ok.png" width="67" height="142" alt="ok" /></span><br />
+        <span class="l4"><img src="images/keyboard/n0.png" width="68" height="68" alt="0" /> <img src="images/keyboard/n00.png" width="68" height="68" alt="00" /> <img src="images/keyboard/comma.png" width="68" height="68" alt="comma" /> </span>
+    </div>
 </div>
+<div id="div-overlay" style="display:none;"></div>
