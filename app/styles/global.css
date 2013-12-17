@@ -790,7 +790,7 @@ nav ul li {
 }
 .nav-list li a {
 	display: block;
-	border-bottom: 1px dotted #d5d5d5;
+	border-bottom: 1px solid #d5d5d5;
 	-webkit-tap-highlight-color: transparent;
 }
 
