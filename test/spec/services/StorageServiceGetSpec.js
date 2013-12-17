@@ -1,89 +1,89 @@
 describe('Service: StorageService.get', function() {
 
-    var log = {};
+	var log = {};
+	var stub = {};
+	var dpStub = {};
 
-    // load the service's module
-    beforeEach(function() {
-        var stub = {
-            id : 1,
-            stub : 'I\'m a stub'
-        };
-        var dpStub = {
-            storage : [
-                stub
-            ]
-        };
-        log.error = jasmine.createSpy('$log.error');
+	// load the service's module
+	beforeEach(function() {
+		stub = {
+			id : 1,
+			stub : 'I\'m a stub'
+		};
+		dpStub.storage = [ stub ];
+		log.error = jasmine.createSpy('$log.error');
 
-        module('tnt.catalog.service.receivable');
-        module(function($provide) {
-            $provide.value('DataProvider', dpStub);
-            $provide.value('$log', log);
-        });
-    });
-    beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
-        DataProvider = _DataProvider_;
-        ReceivableService = _ReceivableService_;
-    }));
+		module('tnt.catalog.service.receivable');
+		module(function($provide) {
+			$provide.value('DataProvider', dpStub);
+			$provide.value('$log', log);
+		});
+	});
+	beforeEach(inject(function(_StorageService_) {
+		StorageService = _StorageService_;
+	}));
 
-    /**
-     * <pre>
-     * Givenavalid storage name
-     * and an existing id
-     * when get is triggered
-     * then a copy of the entity must be returned
-     * </pre>
-     */
-    it('should return a entity', function() {
-        // given
-        var id = stub.id;
-        StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(true);
+	/**
+	 * <pre>
+	 * Given a valid storage name
+	 * and an existing id
+	 * when get is triggered
+	 * then a copy of the entity must be returned
+	 * </pre>
+	 */
+	it('should return a entity', function() {
+		// given
+		var id = stub.id;
+		StorageService.isValid = jasmine.createSpy('StorageService.isValid')
+				.andReturn(true);
 
-        // when
-        var entity = StorageService.get(id);
+		// when
+		var entity = StorageService.get('storage', id);
 
-        // then
-        expect(entity.id).toBe(id);
-        expect(entity).not.toBe(stub);
-        expect(entity).toEqual(stub);
+		// then
+		expect(entity.id).toBe(id);
+		expect(entity).not.toBe(stub);
+		expect(entity).toEqual(stub);
 
-    });
+	});
 
-    /**
-     * <pre>
-     * Given a non-existent id
-     * when get is triggered
-     * then must be logged: 'ServiceStorage.get: -Receivable not found, id={{id}}.'
-     * and undefined must be returned
-     * </pre>
-     */
-    it('shouldn\'t return a entity, missing id', function() {
-        // given
-        var id = 2;
+	/**
+	 * <pre>
+	 * Given a non-existent id
+	 * when get is triggered
+	 * then must be logged: 'ServiceStorage.get: -Receivable not found, id={{id}}.'
+	 * and undefined must be returned
+	 * </pre>
+	 */
+	it('shouldn\'t return a entity, missing id', function() {
+		// given
+		var id = 2;
 
-        // when
-        var entity = StorageService.get(id);
+		// when
+		var entity = StorageService.get('storage', id);
 
-        // then
-        expect(log.error).toHaveBeenCalledWith('ServiceStorage.get: -Receivable not found, id=' + id);
-        expect(entity).toBeUndefined();
-    });
+		// then
+		expect(log.error).toHaveBeenCalledWith(
+				'StorageService.get: -Receivable not found, id=' + id);
+		expect(entity).toBeUndefined();
+	});
 
-    /**
-     * <pre>
-     * Given an invalid storage name
-     * when get is triggered
-     * and undefined must be returned
-     * </pre>
-     */
-    it('shouldn\'t return a entity, missing storage', function() {
-        // given
-        StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(false);
+	/**
+	 * <pre>
+	 * Givenan invalid storage name
+	 * when get is triggered
+	 * and undefined must be returned
+	 * </pre>
+	 */
+	it('shouldn\'t return a entity, missing storage', function() {
+		// given
+		StorageService.isValid = jasmine.createSpy('StorageService.isValid')
+				.andReturn(false);
+		var id = 10;
+		// when
+		var entity = StorageService.get('storage', id);
 
-        // when
-        var entity = StorageService.get(id);
-
-        // then
-        expect(entity).toBeUndefined();
-    });
+		// then
+		expect(entity).toBeUndefined();
+	});
 });

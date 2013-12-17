@@ -1,37 +1,55 @@
 /*cart*/
 .footer-cart{
-    width:1024px;
+    width:17%;
     position: fixed;
     z-index: 999;
     bottom:0;
-    left:50%;
-    margin-left:-512px;
     background:#fff;
     height:50px;
-    border-top: solid 1px #e0e0e0
+	border-top: 1px dotted #ccc;
+	display: inline-block;
 }
-.footer-cart .total-value{
+.footer-cart-pages{
+    width:17%;
+    position: fixed;
+    z-index: 999;
+    bottom:0;
+    background:#fff;
+    height:50px;
+	border-top: 1px dotted #ccc;
+	display: inline-block;
+	left:800px;
+}
+/*.footer-cart {
+	position: fixed;
+	z-index: 999;
+	bottom: 0;
+	background: #fff;
+	height: 50px;
+	border-top: 1px dotted #ccc;
+}*/
+.footer-cart .total-value , .footer-cart-pages .total-value{
     position:absolute;
     z-index: 9999;
     left:768px;
     top:10px;
 }
-.footer-cart .total-value span{
+.footer-cart .total-value span , .footer-cart-pages .total-value span{
 	font-weight:bold
 }
-.footer-cart .btn{
+.footer-cart .btn , .footer-cart-pages .btn{
     text-shadow:none;
     border:none;
     margin-top:10px;
 }
-.footer-cart .btn:hover{
+.footer-cart .btn:hover , .footer-cart-pages .btn:hover{
     background:#dc9390;
 }
-.footer-cart .btn:first-child{
+.footer-cart .btn:first-child , .footer-cart-pages .btn:first-child{
     float:left;
     margin-left:10px;
 }
-.footer-cart .btn:last-child{
+.footer-cart .btn:last-child , .footer-cart-pages .btn:last-child{
     float:right;
     margin-right:10px;
 }
@@ -69,9 +87,6 @@
     max-width:95px;
     margin:auto;
     text-align:center
-   
-    
-
 }
 .thumb-row-cart img {
 	max-width: 90px;

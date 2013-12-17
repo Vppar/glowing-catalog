@@ -2,11 +2,100 @@
     'use strict';
 
     angular.module('tnt.catalog.service.storage', [
-        'tnt.catalog.service.data'
-    ]).service('StorageService', function StorageService($log, DataProvider) {
+        'tnt.catalog.filter.findBy', 'tnt.catalog.service.data'
+    ]).service('StorageService', function StorageService($log, $filter, DataProvider) {
 
         // Easy the access to DataProvider service.
         var data = DataProvider;
+
+        /**
+         * Function that returns a storage by name and id.
+         * 
+         * @param name - Storage name.
+         * 
+         * @param entity - an entity
+         * @return - boolean that indicates if the operation was successful
+         */
+        var update = function update(name, entity) {
+            var result = false;
+
+            var entityCopy = get(name, entity.id);
+
+            if (isValid(name)) {
+                if (entityCopy) {
+                    if (!angular.equals(entity, entityCopy)) {
+                        // TODO Journal
+
+                        angular.extend(entityCopy, entity);
+
+                        var storage = data[name];
+
+                        for ( var idx in storage) {
+                            if (storage[idx].id === entity.id) {
+                                storage[idx] = entityCopy;
+                                result = true;
+                                break;
+                            }
+                        }
+                    }
+                } else {
+                    $log.error('StorageService.update : -Could not find a entity in ' + name + ' to update, id=' + entity.id);
+                }
+
+            } else {
+                $log.error('StorageService.update: -Invalid storage, name=' + name);
+            }
+            return result;
+        };
+
+        var remove = function remove(name, id) {
+
+            var result = false;
+
+            if (isValid(name)) {
+                
+                var storage = data[name];
+                var foundItem = $filter('findBy')(storage, 'id', id);
+
+                if (foundItem) {
+                    
+                   var index = storage.indexOf(foundItem);
+                   storage.splice(index, 1);
+                    
+                    result = true;
+
+                } else {
+                    $log.error('StorageService.remove: -Could not find a entity in ' + name + ' to delete, id=' + id);
+                }
+            }
+            return result;
+        };
+
+
+        /**
+         * Function that returns a storage by name and id.
+         * 
+         * @param name - Storage name.
+         * 
+         * @param id - an id
+         * @return - The entity that have the id == id.
+         */
+        var get = function get(name, id) {
+
+            var result = _undefined;
+
+            // Given a valid storage name
+            if (isValid(name)) {
+                var storage = data[name];
+                var foundItem = $filter('findBy')(storage, 'id', id);
+                if (foundItem) {
+                    result = angular.copy(foundItem);
+                } else {
+                    $log.error('StorageService.get: -Receivable not found, id=' + id);
+                }
+            }
+            return result;
+        };
 
         /**
          * Function that returns a storage by name.
@@ -39,9 +128,9 @@
                 result = true;
             } else {
                 if (storage === _undefined) {
-                    $log.error('StorateService.isValid: -Invalid storage name, name=' + name);
+                    $log.error('StorageService.isValid: -Invalid storage name, name=' + name);
                 } else {
-                    $log.error('StorateService.isValid: -Invalid storage, name=' + name);
+                    $log.error('StorageService.isValid: -Invalid storage, name=' + name);
                 }
                 result = false;
             }
@@ -112,8 +201,11 @@
         };
 
         this.getNextId = getNextId;
+        this.get = get;
         this.insert = insert;
         this.isValid = isValid;
         this.list = list;
+        this.update = update;
+        this.remove = remove;
     });
 }(angular));

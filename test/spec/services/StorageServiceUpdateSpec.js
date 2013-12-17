@@ -20,8 +20,7 @@ describe('Service: StorageService.update', function() {
             $provide.value('$log', log);
         });
     });
-    beforeEach(inject(function(_DataProvider_, _StorageService_) {
-        DataProvider = _DataProvider_;
+    beforeEach(inject(function(_StorageService_) {
         StorageService = _StorageService_;
     }));
 
@@ -93,7 +92,7 @@ describe('Service: StorageService.update', function() {
     it('should report invalid storate', function() {
         // given
         var name = 'storage';
-        StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(true);
+        StorageService.isValid = jasmine.createSpy('StorageService.isValid').andReturn(false);
 
         // when
         var result = StorageService.isValid(name);

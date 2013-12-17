@@ -1,4 +1,4 @@
-describe('Service: ReceivableServiceReadSpec', function() {
+xdescribe('Service: ReceivableServiceReadSpec', function() {
 
     var receivable = {};
     var receivableId = 1;
