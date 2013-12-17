@@ -1,4 +1,4 @@
-xdescribe('Service: Productservice', function() {
+describe('Service: ProductService', function() {
 
     var log = {};
     var storageStub = {};
@@ -13,7 +13,12 @@ xdescribe('Service: Productservice', function() {
         };
         
         // storageService mock
-        storageStub.list = jasmine.createSpy('StorageService.get').andReturn(pStub);
+        storageStub.get = jasmine.createSpy('StorageService.get').andCallFake(function(name,id) {
+            if (id === 1) {
+                return pStub;
+            }
+        });
+            
         
         log.error = jasmine.createSpy('$log.error');
         
@@ -37,7 +42,7 @@ xdescribe('Service: Productservice', function() {
      * then the product with that id must be returned
      * </pre>
      */
-    it('should do something', function() {
+    it('should return the product whith the specified id', function() {
         // given
         var id = 1;
         
@@ -47,7 +52,7 @@ xdescribe('Service: Productservice', function() {
         // then
         
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
-        expect(product).toEqual(stub);
+        expect(product).toEqual(pStub);
     });
     
     /**
@@ -58,7 +63,7 @@ xdescribe('Service: Productservice', function() {
      * and undefined must be returned
      * </pre>
      */
-    it('should do something', function() {
+    it('shouldn\'t return the product whith the specified id', function() {
         // given
         var id = 5;
      
@@ -66,7 +71,6 @@ xdescribe('Service: Productservice', function() {
         var product = ProductService.get(id);
         
         // then
-        expect(storageStub.get).not.toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('ProductService.get: -Product not found, id=' + id);
         expect(product).toBeUndefined();
     });
