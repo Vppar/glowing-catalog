@@ -488,3 +488,44 @@ input.sub-total-payment {
 .modal-header .ic-close:hover {
 	cursor: pointer
 }
+
+/*change pass dialog*/
+
+.change-pass-dialog-btns {
+	width: 100%;
+	height:50px;
+	margin: auto;
+	margin-top: 15px;
+	border-top: 1px dotted #ccc;
+	padding-top: 20px;
+}
+
+.change-pass-dialog-btn-area {
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.change-pass-dialog-left-btns  button {
+	margin-left: 50px;
+}
+/*
+.change-pass-dialog-left-btns {
+	width: 500px;
+	float:right;
+	text-align: right;
+	height:50px;
+	/border-top: 1px dotted #ccc;/
+	padding-top: 10px;
+	
+}
+
+.change-pass-dialog-left-btns-area {
+	width: 671px;
+	height: 60px;
+	float: left;
+	margin-top: -79px;
+	position: relative;
+	border-top: 1px dotted #ccc;
+}*/
+

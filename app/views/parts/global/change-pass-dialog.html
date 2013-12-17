@@ -16,13 +16,17 @@
 			<label>Confirmar Senha</label>
 			<input type="password" class="input-xlarge" placeholder="">
 		</div>
-		<div class="clearfix"></div><hr />
-		<button ng-click='closeDialog()' class="btn btn-large btn-login" type="submit">
-			Cancelar
-		</button>
-		<button ng-click='closeDialog()' class="btn btn-large btn-login pull-right" type="submit">
-			Confirmar
-		</button>
+		<div class="clearfix"></div>		
+		
+	<div class="change-pass-dialog-btns">
+		<div class="change-pass-dialog-btn-area">
+			<button ng-click='closeDialog()' class="btn btn-large btn-ok" type="submit">Cancelar</button>
+		</div>
+		<div class="change-pass-dialog-btn-area">
+			<button ng-click='closeDialog()' class="btn btn-large btn-ok" type="submit">Confirmar</button>
+		</div>
+	</div>
+		
 	</form>
 </div>
 		
