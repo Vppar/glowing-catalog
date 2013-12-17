@@ -34,14 +34,13 @@
 			<div class="control-group lbl-top">
 				<label class="control-label"> Vencimento </label>
 				<div class="controls">
-					<input type="text" id="vencto" class="date-field input-small" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" 
-						ng-model="check.duedate" required onkeyup="checkInputKeyUp(this)">
+					<input type="text" id="vencto" class="date-field input-small" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label"> Valor </label>
 				<div class="controls">
-					<input name="amount" class="input-small text-right" id="valor" type="number" ng-model="check.amount" currency recall required onkeyup="checkInputKeyUp(this)">
+					<input name="amount" class="input-small text-right" id="valor" type="tel" ng-model="check.amount" currency recall required onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">

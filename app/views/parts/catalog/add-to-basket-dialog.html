@@ -4,7 +4,7 @@
 		<span class="wrapper-qtde">
 			<div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div> 
 			<input-qty ng-model="qty" min="1"></input-qty>
-			<div class="price-add-to-basket"><span class="price-popup-small">Total</span><br /><span class="price-popup-small">R$</span> {{product.price * qty | currency:''}}</div>
+			<div class="price-add-to-basket margint10"><span class="price-popup-small">Total</span><br /><span class="price-popup-small">R$</span> {{product.price * qty | currency:''}}</div>
             <div class="line-gradient">&nbsp;</div>
             <div class="quantity-products-basket">em estoque <span>{{product.inventory}}</span></div>
 		</span>

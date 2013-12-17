@@ -11,7 +11,7 @@
 				<div class="controls-row">
 					<div class="control-group lbl-top">
 						<label class="control-label">Selecione um Produto</label>
-						<select ui-select2 name="product" class="combo-width-product-exchange" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">
+						<select ui-select2 name="product" class="combo-width-product-exchange marginr10" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">
 							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
 						</select>
 					</div>
@@ -19,7 +19,7 @@
 						<div class="control-group lbl-top">
 							<label class="control-label" >Valor</label>
 							<div class="controls">
-								<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="number" currency recall>
+								<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="tel" currency recall>
 							</div>
 						</div>
 					</div>

@@ -20,14 +20,18 @@
 		<span class="">
 			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
 		</span>
+		<span class="lbl-money2">
+			<strong class="lbl-money">&nbsp;</strong> <span class="lbl-money4"> ( {{orderQty}} ) pe&ccedil;as</span>
+		</span>
 	</div>
 	<div class="row-right-payment">
 	    <div class="btn-payments-left /*up-field-payment*/">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
 	        </span>
-	        <span class="btn-price-payment-input-block2 input-block-level">
-	            <input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>
+	        <span class=""> <!--btn-price-payment-input-block2 input-block-level-->
+	            <!--<input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>-->
+				<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 	        </span>
 	    </div>
 	</div>

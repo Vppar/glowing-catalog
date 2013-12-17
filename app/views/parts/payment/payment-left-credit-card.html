@@ -21,7 +21,7 @@
 				<div class="control-group lbl-top">
 					<label class="control-label">Cartão</label>
 					<div class="controls">
-						<select name="flag" ui-select2 class="combo-width" ng-model="creditCard.flag" required>
+						<select name="flag" ui-select2 class="combo-width marginr10" ng-model="creditCard.flag" required>
 							<option ng-repeat="flag in cardFlags" value="{{flag}}">{{flag}}</option>
 						</select>
 					</div>
@@ -30,7 +30,7 @@
 					<div class="control-group lbl-top">
 						<label class="control-label" >Valor</label>
 						<div class="controls">
-							<input name="amount" class="input-small text-right" type="number" placeholder="" ng-model="creditCard.amount"  currency required recall>
+							<input name="amount" class="input-small text-right" type="tel" placeholder="" ng-model="creditCard.amount"  currency required recall>
 						</div>
 					</div>
 				</div>
