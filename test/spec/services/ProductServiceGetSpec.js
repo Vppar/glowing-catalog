@@ -1,18 +1,35 @@
 xdescribe('Service: Productservice', function() {
 
+    var log = {};
+    var storageStub = {};
+    var pStub = {};
+    
     // load the service's module
-    beforeEach(module('glowingCatalogApp'));
+    beforeEach(function() {
 
-    // instantiate service
-    var Productservice;
-    beforeEach(inject(function(_Productservice_) {
-        Productservice = _Productservice_;
-    }));
+        pStub = {
+            id : 1,
+            stub : 'I\'m a stub'
+        };
+        
+        // storageService mock
+        storageStub.list = jasmine.createSpy('StorageService.get').andReturn(pStub);
+        
+        log.error = jasmine.createSpy('$log.error');
+        
 
-    it('should do something', function() {
-        expect(!!Productservice).toBe(true);
+        module('tnt.catalog.service.product');
+        module(function($provide) {
+            $provide.value('StorageService', storageStub);
+            $provide.value('$log', log);
+        });
     });
-
+    
+    beforeEach(inject(function(_ProductService_) {
+        ProductService = _ProductService_;
+    }));
+    
+    
     /**
      * <pre>
      * Given an existing id into the product storage
@@ -22,8 +39,15 @@ xdescribe('Service: Productservice', function() {
      */
     it('should do something', function() {
         // given
+        var id = 1;
+        
         // when
+        var product = ProductService.get(id);
+        
         // then
+        expect(storageStub.get).toHaveBeenCalledWith('products',id);
+        expect(product).toEqual(stub);
+        
     });
     
     /**
@@ -36,8 +60,15 @@ xdescribe('Service: Productservice', function() {
      */
     it('should do something', function() {
         // given
+        var id = 5;
+     
         // when
+        var product = ProductService.get(id);
+        
         // then
+        expect(storageStub.get).not.toHaveBeenCalled();
+        expect(log.error).toHaveBeenCalledWith('ProductService.get: -Product not found, id=' + id);
+        expect(product).toBeUndefined();
     });
 
 });
