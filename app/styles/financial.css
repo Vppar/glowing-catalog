@@ -22,6 +22,7 @@
 	-webkit-overflow-scrolling: touch;
 	position: fixed;
 	width: 970px;
+	height:400px;
 	top: 2px;
 	bottom: 45px;
 	display: block;

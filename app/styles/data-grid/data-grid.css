@@ -1125,11 +1125,11 @@
 	width:10%; /*60px*/
 }
 .grid-expense .header .col-3, .grid-expense .col-3 {
-	width:20%; /*190px*/
+	width:15%; /*190px*/
 }
 
 .grid-expense .header .col-4, .grid-expense .col-4 {
-	width:30%; /*300px*/
+	width:35%; /*300px*/
 	display: inline-block;
 }
 .grid-expense .header .col-4 div, .grid-expense .col-4 div  {
