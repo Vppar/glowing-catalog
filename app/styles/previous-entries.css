@@ -12,18 +12,26 @@
 	border: 1px solid #e0e0e0;
 	background: #fff;
 	padding: 10px 15px 0 15px;
-	position: fixed;
-	width: 970px;
+	/*position: fixed;
 	top: 90px;
-	bottom: 20px
+	bottom: 20px;*/
+	width: 970px;
+	display: block;
+	position: relative;
 }
 .scroll-previous-entries {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: fixed;
+	/*position: fixed;
 	width: 970px;
 	top: 183px;
+	bottom: 45px*/
+	position: relative;
+	width: 970px;
+	max-height:370px;
+	top: 0px;
 	bottom: 45px
+	
 }
 
 .btn-plus-pink {
