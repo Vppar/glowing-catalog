@@ -812,7 +812,7 @@
 	background: #333333;
 	color:#fff;
 	border-radius: 4px;
-	margin-top: 5px;
+	margin-top: 45px;
 }
 .grid-previous-entries .header span, .grid-previous-entries .scroll-previous-entries  span {
 	display: inline-block;
@@ -1164,7 +1164,7 @@
 .grid-products-to-buy .header {
 	background: #333333;
 	border-radius: 4px;
-	margin-top: 5px;
+	margin-top: 45px;
 	color:#fff;
 }
 .grid-products-to-buy .header span, .grid-products-to-buy .scroll-products-to-buy  span {
