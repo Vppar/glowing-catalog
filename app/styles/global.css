@@ -557,7 +557,7 @@ li.menu-black:last-child a {
 	text-shadow: none;
 }
 .header-hour {
-	margin:0 10px 0 30px !important;
+	margin:0 0 0 30px !important;
 }
 .header-hour div{
 	font-size:18px;
@@ -572,7 +572,7 @@ div.header-date {
 	margin-top:-20px;
 }
 .header-basket {
-	margin-left:18px;
+	margin-left:37px;
 }
 .bag:hover {
 	cursor: pointer
@@ -1012,4 +1012,8 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: rgba(85,85,85,0.4); 
+}
+
+.left-payment{
+	padding-left: 8px;
 }
