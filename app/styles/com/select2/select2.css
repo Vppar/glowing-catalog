@@ -2,6 +2,9 @@
 Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
 */
 .select2-container {
+	min-width:50px; /*200*/
+	/*min-width:200px;*/
+	
     margin: 0;
     position: relative;
     display: inline-block;
