@@ -24,7 +24,9 @@ xdescribe('Service: Productservice', function() {
      * </pre>
      */
     it('should do something', function() {
-
+        // given
+        // when
+        // then
     });
     /**
      * <pre>
@@ -34,7 +36,9 @@ xdescribe('Service: Productservice', function() {
      * </pre>
      */
     it('should do something', function() {
-
+        // given
+        // when
+        // then
     });
     /**
      * <pre>
@@ -46,7 +50,9 @@ xdescribe('Service: Productservice', function() {
      * </pre>
      */
     it('should do something', function() {
-
+        // given
+        // when
+        // then
     });
 
 });

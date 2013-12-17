@@ -1,5 +1,8 @@
+(function(angular) {
 'use strict';
 
-angular.module('glowingCatalogApp').service('Productservice', function Productservice() {
+angular.module('tnt.catalog.service.product',[]).service('ProductService', function ProductService() {
     // AngularJS will instantiate a singleton by calling "new" on this function
 });
+
+}(angular));

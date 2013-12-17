@@ -1,28 +1,50 @@
-xdescribe('Service: Productservice', function() {
+xdescribe('Service: ProductService', function() {
+
+    var log = {};
+    var storageStub = {};
+    var products = [];
 
     // load the service's module
-    beforeEach(module('glowingCatalogApp'));
+    beforeEach(function() {
 
-    // instantiate service
-    var Productservice;
-    beforeEach(inject(function(_Productservice_) {
-        Productservice = _Productservice_;
-    }));
+        products.push({
+            stub : 'I\'m a stub'
+        });
+        
+        // storageService mock
+        storageStub.list = jasmine.createSpy('StorageService.list').andReturn(products);
+        
+        log.error = jasmine.createSpy('$log.error');
+        
 
-    it('should do something', function() {
-        expect(!!Productservice).toBe(true);
+        module('tnt.catalog.service.product');
+        module(function($provide) {
+            $provide.value('StorageService', storageStub);
+            $provide.value('$log', log);
+        });
     });
+    
+    beforeEach(inject(function(_ProductService_) {
+        ProductService = _ProductService_;
+    }));
     
     
     /**
      * <pre>
      * Given ?
      * when list is triggered
-     * then a copy of the product list must be returned
+     * then the product list must be returned
      * </pre>
      */
-    it('should do something', function(){
+    it('should return the product list', function(){
+        // given
         
+        // when
+        var list = ProductService.list();
+        
+        // then
+        expect(storageStub.list).toHaveBeenCalledWith('products');
+        expect(list).toBe(products);
     });
 
 });

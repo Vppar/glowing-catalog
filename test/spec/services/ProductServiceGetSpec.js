@@ -20,9 +20,10 @@ xdescribe('Service: Productservice', function() {
      * then the product with that id must be returned
      * </pre>
      */
-
     it('should do something', function() {
-
+        // given
+        // when
+        // then
     });
     
     /**
@@ -34,7 +35,9 @@ xdescribe('Service: Productservice', function() {
      * </pre>
      */
     it('should do something', function() {
-
+        // given
+        // when
+        // then
     });
 
 });
