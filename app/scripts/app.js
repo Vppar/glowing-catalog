@@ -10,8 +10,8 @@
                 'tnt.catalog.header', 'tnt.catalog.basket', 'tnt.catalog.basket.add', 'tnt.catalog.customer',
                 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails', 'tnt.catalog.customer.choose', 'tnt.catalog.payment',
                 'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange',
-                'tnt.catalog.financial.receivable', 'tnt.catalog.financial.receivable.entity', 'tnt.catalog.financial.expense',
-                'tnt.catalog.financial.incomeStatement'
+                'tnt.catalog.product.input.dialog', 'tnt.catalog.financial.receivable', 'tnt.catalog.financial.receivable.entity',
+                'tnt.catalog.financial.expense', 'tnt.catalog.financial.incomeStatement'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
