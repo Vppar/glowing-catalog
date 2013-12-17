@@ -282,6 +282,10 @@
 .payment-check-fields {
 	margin:0 0 0 60px;
 }
+
+.marginl10{
+	margin-left: 10px
+}
 /* end scroll left*/
 .txt-info-customer {
 	line-height: 30px;
@@ -331,7 +335,9 @@
 }
 
 /* ---- */
-
+.combo-width-product-exchange{
+	min-width:200px;
+}
 .payment-btns {
 	width: 90%;
 	height:50px;

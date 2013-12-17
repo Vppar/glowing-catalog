@@ -1,0 +1,174 @@
+/*FORM INCOME STATEMENT*/
+.form-income-statement {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	bottom: 12px;
+	top: 90px;
+}
+
+/*.form-income-statement  {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	top: 90px;
+	bottom: 20px
+}*/
+
+.form-income-statement .data{
+	/*margin: 15px 0 15px 0;*/
+}
+
+.scroll-income-statement {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	top: 225px;
+	bottom: 45px;
+}
+
+/*.scroll-income-statement {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	/*height: 400px;/
+	display: block;
+	position: relative;
+	margin-bottom: 20px;
+	border: 1px solid #e0e0e0;
+}
+
+.scroll-income-statement{
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	bottom: 45px;
+	display: block;
+	position: relative;
+	top: 2px;
+}*/
+
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+
+.btn:hover {
+	background: #e2a9a8 !important;
+}
+.form-income-statement .combo-width {
+	width: 250px;
+}
+.row-income-statement  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.total-value-income-statement {
+	float: right;
+	text-align: right;
+}
+
+.details-income-statement{
+	/*border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	margin: auto;*/
+	/*margin-top: 30px;
+	margin-bottom: 20px;*/
+	background-color: #FFF
+}
+.details-income-statement-title{	
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	min-height: 20px;
+	padding: 8px 5px 8px 12px;
+	margin: auto;
+	/*margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	padding: 15px;
+	font-size: 16px;
+	color: #e5b1b0;
+	font-weight: bold;
+	min-height: 20px;*/
+}
+.details-income-statement-item-total{
+	/*color:#ff2839;*/
+	font-size: 16px;
+	font-weight: bolder;
+	/*padding: 15px 0 15px 0;*/
+	display: block;
+}
+
+.title-col-1{
+	text-align: left;
+	padding-right: 8px;
+	display:inline-block;
+	width: 60%;
+}
+.title-col-2{
+	text-align: right;
+	padding-right: 8px;
+	display:inline-block;
+	width: 20%;
+	margin: 0 20px 0 20px;
+}
+.title-col-3{
+	text-align: right;
+	padding-right: 8px;
+	display:inline-block;
+	width: 10%;
+}
+
+.details-income-statement-item{
+	padding: 5px;
+	display: block;
+	min-height:20px;
+}
+
+.details-income-statement-item .border{
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	display:block;
+	font-weight:bold;
+}
+
+
+.details-income-statement-item .bold{
+	font-weight:bold;
+}
+
+.details-income-statement-item .border .lbl-money , .details-income-statement-item .lbl-money {
+	display:inline-block;
+	width: 62%;
+	margin: 5px;
+}
+
+.details-income-statement-item .border .lbl-money3, .details-income-statement-item .lbl-money3 {
+	display:inline-block;
+	width: 20%;
+	margin: 5px 15px 5px 15px;
+	text-align: right;
+}
+
+.details-income-statement-item .border .btn-price-payment , .details-income-statement-item .btn-price-payment {
+	width: 10%;
+	text-align: right;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	margin: 5px 5px 5px 15px;
+	display:inline-block;
+}

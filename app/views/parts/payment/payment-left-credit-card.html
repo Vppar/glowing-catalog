@@ -44,14 +44,17 @@
 		<div class="grid-payment-check">
 			<div class="header header2">
 				<div class="row-payment-check-grid">
-					<span class="col-s3 t-center">
+					<span class="col-s3">
 						<div>Parcelas</div>
 					</span>
                     <span class="col-s5">
                     	<div>Cart&atilde;o</div>
                     </span>
-                    <span class="col-s4">
+                    <span class="col-s3">
                     	<div>Valor</div>
+                    </span>
+                    <span class="col-s1">
+                    	<div>&nbsp;</div>
                     </span>
 				</div>
 			</div>
@@ -60,13 +63,14 @@
 					<span class="col-s3">
 						<div>{{payment.data.installment}}</div>
 					</span>
-					<span class="col-2">
+					<span class="col-s5">
 						<div>{{payment.data.flag}}</div>
-					</span><span class="col-3">
+					</span>
+					<span class="col-s3">
 						<div>{{payment.amount | currency:''}}</div>
 					</span>
-					<span class="col-4">
-						<div ng-click="removeCreditCard(payment)" class="hover-state-pointer">
+					<span class="col-s1">
+						<div ng-click="removeCreditCard(payment)" class="hover-state-pointer marginl10">
 							<img src="images/del-pink.png" alt="" />
 						</div>
 					</span>
