@@ -12,21 +12,22 @@
 	border: 1px solid #e0e0e0;
 	background: #fff;
 	padding: 10px 15px 0 15px;
-	position: fixed;
 	width: 970px;
+	/*position: fixed;
 	top: 90px;
-	bottom: 20px
+	bottom: 20px*/
+	display: block;
+	position: relative;
 }
 .scroll-financial {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: fixed;
+	position: relative;
 	width: 970px;
-	height:400px;
+	height:300px;
 	top: 2px;
 	bottom: 45px;
 	display: block;
-	position: relative;
 }
 
 .btn-plus-pink {

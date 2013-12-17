@@ -20,10 +20,16 @@
 .scroll-previous-entries {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: fixed;
+	/*position: fixed;
 	width: 970px;
 	top: 183px;
+	bottom: 45px*/
+	position: relative;
+	width: 970px;
+	max-height:400px;
+	top: 0px;
 	bottom: 45px
+	
 }
 
 .btn-plus-pink {

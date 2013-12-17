@@ -15,11 +15,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
 	-o-transition: border linear 0.2s, box-shadow linear 0.2s !important;
 	transition: border linear 0.2s, box-shadow linear 0.2s !important;
 }
-input[type=number]::-webkit-inner-spin-button, 
+/*input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
-}
+}*/
 
 /*menu states*/
 .nav > li > a:hover, .nav > li > a:focus {
