@@ -1,7 +1,7 @@
 <div class="payment-left-exchange">
 	<div class="title-left">
 		<div>
-			TROCA DE PRODUTO
+			Troca de produto
 		</div>
 	</div>
 	<div class="left-payment" ng-controller="PaymentExchangeCtrl">
@@ -10,8 +10,8 @@
 			<form name="exchangeForm">
 				<div class="controls-row">
 					<div class="control-group lbl-top">
-						<label class="control-label">Selecione um Produto</label>
-						<select ui-select2 name="product" class="combo-width-product-exchange" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">
+						<label class="control-label w200">Selecione um Produto</label>
+						<select ui-select2 name="product" class="combo-width-product-exchange marginr10 w200" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">
 							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
 						</select>
 					</div>
@@ -19,7 +19,7 @@
 						<div class="control-group lbl-top">
 							<label class="control-label" >Valor</label>
 							<div class="controls">
-								<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="number" currency recall>
+								<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="tel" currency recall>
 							</div>
 						</div>
 					</div>
