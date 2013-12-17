@@ -1,13 +1,14 @@
-<div class="container">
+<div class="container ng-scope">
+
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include src="'views/parts/global/header.html'"></span>
 		</span>
 	</div>
 	
     
-    <div class="form-financial">
+    <div class="form-expense">
     
-		<div class="row-fluid pull-right panel-top">
+		<div class="row-fluid panel-top">
     
             <!-- BREAD CRUMBS -->
             <div class="row-fluid bread-crumbs">
@@ -30,37 +31,152 @@
 				</span>
             </div>
 		
-			<form name="" ng-class="">
-				<div class="row-fluid filter-bar expense">
-					<div ng-switch on="selectedExpenseMode">
-						<span ng-switch-when="read" ng-include src="'views/parts/expense/expense-read.html'"></span>
-						<span ng-switch-when="write" ng-include src="'views/parts/expense/expense-write.html'"></span>
+			<div class="row-fluid">
+				<div ng-switch on="selectedExpenseMode">
+					<span ng-switch-when="read" ng-include src="'views/parts/expense/expense-read.html'"></span>
+					<span ng-switch-when="write" ng-include src="'views/parts/expense/expense-write.html'"></span>
+				</div>
+				<div class="grid-expense">
+					<div class="header">
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>						
 					</div>
-					<div class="grid-expense">
-						<div class="header">
-							<div class="row-expense">
-								<span class="col-1"><div>ID</div></span>
-								<span class="col-2"><div>Data</div></span>
-								<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
-								<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
-								<span class="col-5"><div>Vencto</div></span>
-								<span class="col-6"><div>Valor</div></span>
-							</div>						
-						</div>
-						<div class="scroll-expense">
-							<div class="row-expense" ng-repeat="expense in expenses">
-								<span class="col-1"><div>{{expense.id}}</div></span>
-								<span class="col-2"><div>{{expense.createdate | date: 'dd/MM/yyyy'}}</div></span>
-								<span class="col-3"><div>{{expense.type}}</div></span>
-								<span class="col-4" ng-show="expense.entityId"><div>{{(entities | findBy:'id':expense.entityId).name}}</div></span>
-								<span class="col-4" ng-hide="expense.entityId"><div>{{expense.remarks}}</div></span>
-								<span class="col-5"><div>{{expense.duedate | date: 'dd/MM/yyyy'}}</div></span>
-								<span class="col-6"><div>{{expense.amount | currency: ''}}</div></span>
-							</div>
-						</div>
+					<div class="scroll-expense">
+						<!--<div class="row-expense" ng-repeat="expense in expenses">
+							<span class="col-1"><div>{{expense.id}}</div></span>
+							<span class="col-2"><div>{{expense.createdate | date: 'dd/MM/yyyy'}}</div></span>
+							<span class="col-3"><div>{{expense.type}}</div></span>
+							<span class="col-4" ng-show="expense.entityId"><div>{{(entities | findBy:'id':expense.entityId).name}}</div></span>
+							<span class="col-4" ng-hide="expense.entityId"><div>{{expense.remarks}}</div></span>
+							<span class="col-5"><div>{{expense.duedate | date: 'dd/MM/yyyy'}}</div></span>
+							<span class="col-6"><div>{{expense.amount | currency: ''}}</div></span>
+						</div>-->
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
+						<div class="row-expense">
+							<span class="col-1"><div>ID</div></span>
+							<span class="col-2"><div>Data</div></span>
+							<span class="col-3"><div>Classifica&ccedil;&atilde;o</div></span>
+							<span class="col-4"><div>Conta a pagar / Observa&ccedil;&atilde;o</div></span>
+							<span class="col-5"><div>Vencto</div></span>
+							<span class="col-6"><div>Valor</div></span>
+						</div>			
 					</div>
 				</div>
-			</form>
+			</div>
+			
 		</div>
+		
+		<br/>
+		
 	</div>
+	
 </div>

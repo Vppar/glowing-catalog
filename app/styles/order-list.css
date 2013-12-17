@@ -99,11 +99,11 @@
 
 .form-order-list .lbl-money {
 	display:inline-block;
-	width: 80px;
+	width: 85px;
 	margin: 5px;
 }
 .form-order-list .btn-price-payment {
-	width: 90px;
+	width: 85px;
 	text-align: right;
 	border: 1px solid #eee;
 	background-color: #f2f2f2;
