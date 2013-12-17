@@ -286,6 +286,11 @@
 	margin:0 0 0 60px;
 }
 /* end scroll left*/
+#combo-parcelas{
+	width:80px;
+	position: relative;
+	display: block;
+}
 .txt-info-customer {
 	line-height: 30px;
 	margin-left: 10px
@@ -339,7 +344,7 @@
 	width: 90%;
 	height:50px;
 	margin: auto;
-	margin-top: 15px;
+	margin-top: 45px;
 	border-top: 1px dotted #ccc;
 	padding-top: 10px;
 }
@@ -352,8 +357,8 @@
 
 .payment-left-btns {
 	width: 500px;
-	float:right;
-	text-align: right;
+	/*float:right;
+	text-align: right;*/
 	height:50px;
 	/*border-top: 1px dotted #ccc;*/
 	padding-top: 10px;

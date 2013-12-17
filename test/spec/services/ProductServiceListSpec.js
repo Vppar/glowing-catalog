@@ -1,4 +1,4 @@
-xdescribe('Service: ProductService', function() {
+describe('Service: ProductService', function() {
 
     var log = {};
     var storageStub = {};
