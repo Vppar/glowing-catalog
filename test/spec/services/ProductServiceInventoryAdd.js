@@ -72,7 +72,7 @@ xdescribe('Service: Productservice', function() {
      * Then false must be returned
      * </pre>
      */
-    it('should do something', function() {
+    it('shouldn\'t add quantity or update the price of a product', function() {
         // given
         var id = 5;
         
@@ -95,7 +95,7 @@ xdescribe('Service: Productservice', function() {
      * and false must be returned
      * </pre>
      */
-    it('should do something', function() {
+    it('shouldn\'t add quantity or update the price of a product', function() {
         // given
         var id = 1;
         var price = -5.40;
@@ -121,7 +121,7 @@ xdescribe('Service: Productservice', function() {
      * and false must be returned
      * </pre>
      */
-    it('should do something', function() {
+    it('shouldn\'t add quantity or update the price of a product', function() {
         // given
         var id = 1;
         var price = 5.40;
