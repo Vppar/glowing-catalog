@@ -22,7 +22,7 @@ describe('Service: InventoryService', function() {
             }
         });
         
-        storageStub.update = jasmine.createSpy('StorageService.update').andReturn(pStub);
+        storageStub.update = jasmine.createSpy('StorageService.update').andReturn(true);
             
         
         log.error = jasmine.createSpy('$log.error');
@@ -58,12 +58,12 @@ describe('Service: InventoryService', function() {
         var updatedQty = pStub.quantity-qty;
         
         // when
-        var updatedItem = InventoryService.remove(id,qty);
+        var isUpdated = InventoryService.remove(id,qty);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
         expect(storageStub.update).not.toHaveBeenCalled();
-        expect(updatedItem.quantity).toEqual(updatedQty);
+        expect(isUpdated).toEqual(true);
     });
     /**
      * <pre>
@@ -77,11 +77,11 @@ describe('Service: InventoryService', function() {
         var id = 5;
         
         // when
-        var updatedItem = InventoryService.remove(id);
+        var isUpdated = InventoryService.remove(id);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
-        expect(updatedItem).toEqual(false);
+        expect(isUpdated).toEqual(false);
     });
     /**
      * <pre>
@@ -98,11 +98,11 @@ describe('Service: InventoryService', function() {
         var qty = -10.5;
        
         // when
-        var updatedItem = InventoryService.remove(id,qty);
+        var isUpdated = InventoryService.remove(id,qty);
         
         // then
         expect(log.error).toHaveBeenCalledWith('InvetoryService.remove: -Invalid quantity, quantity=' + qty);
-        expect(updatedItem).toEqual(false);
+        expect(isUpdated).toEqual(false);
     });
 
 });

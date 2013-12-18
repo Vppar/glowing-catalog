@@ -21,7 +21,7 @@ describe('Service: InventoryService', function() {
             }
         });
         
-        storageStub.update = jasmine.createSpy('StorageService.update').andReturn(pStub);
+        storageStub.update = jasmine.createSpy('StorageService.update').andReturn(true);
         
         log.error = jasmine.createSpy('$log.error');
         
