@@ -10,6 +10,23 @@
         // an easy access to products
         var name = 'products';
 
+        var remove = function remove(id, qty) {
+
+            var product = storage.get(name, id);
+            var result = false;
+            if (product) {
+                if(qty>0){
+                    var updatedQty = product.quantity - qty;
+                    product.quantity = updatedQty;
+                    result = storage.update(name, product);
+                }else{
+                    $log.error('InvetoryService.remove: -Invalid quantity, quantity=' + qty);
+                }
+            }               
+            return result;
+
+        };
+
         var add = function add(id, price, qty) {
 
             var result = false;
@@ -27,12 +44,11 @@
 
                     result = product;
                 }
-                
+
             } else {
                 if (price <= 0) {
                     $log.error('InventoryService.add:  -Invalid price, price=' + price);
-                }else
-                if(qty <= 0){
+                } else if (qty <= 0) {
                     $log.error('InventoryService.add:  -Invalid quantity, quantity=' + qty);
                 }
 
@@ -69,6 +85,7 @@
         this.get = get;
         this.list = list;
         this.add = add;
+        this.remove = remove;
     });
 
 }(angular));

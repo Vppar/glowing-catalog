@@ -55,14 +55,12 @@ describe('Service: InventoryService', function() {
         var id = 1;
         var qty = 10;
         
-        var updatedQty = pStub.quantity-qty;
-        
         // when
         var isUpdated = InventoryService.remove(id,qty);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
-        expect(storageStub.update).not.toHaveBeenCalled();
+        expect(storageStub.update).toHaveBeenCalled();
         expect(isUpdated).toEqual(true);
     });
     /**
@@ -81,6 +79,7 @@ describe('Service: InventoryService', function() {
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
+        expect(storageStub.update).not.toHaveBeenCalled();
         expect(isUpdated).toEqual(false);
     });
     /**
@@ -101,6 +100,8 @@ describe('Service: InventoryService', function() {
         var isUpdated = InventoryService.remove(id,qty);
         
         // then
+        expect(storageStub.get).toHaveBeenCalledWith('products',id);
+        expect(storageStub.update).not.toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('InvetoryService.remove: -Invalid quantity, quantity=' + qty);
         expect(isUpdated).toEqual(false);
     });
