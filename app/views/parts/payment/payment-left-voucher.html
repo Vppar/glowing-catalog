@@ -1,0 +1,102 @@
+<div class="title-left">
+	<div>
+        Emissão de vale cupom
+	</div>
+</div>
+<div class="left-payment" ng-controller="PaymentCheckCtrl">
+	<br/>
+	<div class="row-fluid payment-check-fields">
+		<form name="checkForm">
+			<div class="control-group lbl-top">
+				<label class="control-label"> Maria Aparecida da Silva </label>
+				<div class="controls">
+					<input name="bank" id="banco" class="input-mini" type="text" maxlength="3" placeholder="" ng-model="check.bank" required recall onkeyup="checkInputKeyUp(this)">
+				</div>
+			</div>
+			
+			
+			<div class="control-group lbl-top">
+				<div class="controls">
+					<div class="btn-clear-form">
+						<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCheck(check)"></span>
+					</div>
+				</div>
+			</div>
+			<!--<div class="control-group lbl-top" ng-click="clearCheck()">
+	        	<div class="btn-clear-form">
+					<span class="btn-clear bg-gray-02 hover-state-pointer"></span>
+				</div>
+			</div>-->
+		</form>
+	</div>
+	<div class="row-fluid">
+		<div class="grid-payment-check">
+			<div class="header header2">
+				<div class="row-payment-check-grid">
+					<span class="col-check-s1">
+						<div>Item</div>
+					</span> 
+					<span class="col-check-s2">
+						<div>Banco</div>
+					</span> 
+					<span class="col-check-s3">
+						<div>Agência</div>
+					</span>
+					<span class="col-check-s4">
+						<div>Conta</div>
+					</span> 
+					<span class="col-check-s5">
+						<div>Cheque</div>
+					</span>
+					<span class="col-check-s6">
+						<div>Vencimento</div>
+					</span>
+					<span class="col-check-s7">
+						<div>Valor</div>
+					</span>
+					<span class="col-7">
+						<div></div>
+					</span>
+				</div>
+			</div>
+	        <!-- ROW 1 Example -->
+			<div class="scroll-payment-grid">
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'id':true" >
+					<span class="col-check-s1">
+						<div>{{(payments | paymentType:'check').length - $index}}</div>
+					</span>
+	               	<span class="col-check-s2">
+	               		<div>{{payment.data.bank}}</div>
+	               	</span>
+	             	<span class="col-check-s3">
+	             		<div>{{payment.data.agency}}</div>
+	             	</span>
+	                <span class="col-check-s4">
+	                	<div>{{payment.data.account}}</div>
+	                </span>
+	                <span class="col-check-s5">
+	                	<div>{{payment.data.number}}</div>
+	                </span>
+					<span class="col-check-s6">
+						<div>{{payment.data.duedate | date:'dd/MM/yy'}}</div>
+					</span>
+	                <span class="col-check-s7">
+	                	<div>{{payment.amount | currency:''}}</div>
+	                </span>
+	                <span class="col-check-s1 t-right">
+	                	<div class="hover-state-pointer">
+							<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
+						</div>
+	                </span>
+				</div>
+			</div>
+    	</div>
+	</div>
+	<!--<div class="row-fluid">
+		<div class="total-value-payment-check">
+			<div>
+				<strong>Valor Total:</strong>{{payments | paymentType:'check' | sum: 'amount' | currency: ''}}
+			</div>
+		</div>
+	</div>-->
+</div>
