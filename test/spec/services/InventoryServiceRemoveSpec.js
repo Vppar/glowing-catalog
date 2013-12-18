@@ -9,7 +9,7 @@ describe('Service: InventoryService', function() {
 
         pStub = {
             id : 1,
-            quantity : 20,
+            inventory : 20,
             price : 10,
             stub : 'I\'m a stub'
                 
@@ -44,7 +44,7 @@ describe('Service: InventoryService', function() {
      * <pre>
      * Given an existing product id
      * and a valid quantity
-     * When inventoryRemove is triggered
+     * When remove is triggered
      * Then the quantity must be subtracted from the existing one
      * and the product entity must be updated
      * and return the update result
@@ -55,20 +55,18 @@ describe('Service: InventoryService', function() {
         var id = 1;
         var qty = 10;
         
-        var updatedQty = pStub.quantity-qty;
-        
         // when
         var isUpdated = InventoryService.remove(id,qty);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
-        expect(storageStub.update).not.toHaveBeenCalled();
+        expect(storageStub.update).toHaveBeenCalled();
         expect(isUpdated).toEqual(true);
     });
     /**
      * <pre>
      * Given a non-existing product id
-     * When inventoryRemove is triggered
+     * When remove is triggered
      * Then false must be returned
      * </pre>
      */
@@ -81,14 +79,15 @@ describe('Service: InventoryService', function() {
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
+        expect(storageStub.update).not.toHaveBeenCalled();
         expect(isUpdated).toEqual(false);
     });
     /**
      * <pre>
      * Given an existing product id
      * and a invalid quantity
-     * When inventoryRemove is triggered
-     * Then must be logged: 'InvetoryService.remove: -Invalid quantity, quantity={{quantity}}' 
+     * When remove is triggered
+     * Then must be logged: 'InvetoryService.remove: -Invalid inventory, inventory={{inventory}}' 
      * and false must be returned
      * </pre>
      */
@@ -101,7 +100,9 @@ describe('Service: InventoryService', function() {
         var isUpdated = InventoryService.remove(id,qty);
         
         // then
-        expect(log.error).toHaveBeenCalledWith('InvetoryService.remove: -Invalid quantity, quantity=' + qty);
+        expect(storageStub.get).toHaveBeenCalledWith('products',id);
+        expect(storageStub.update).not.toHaveBeenCalled();
+        expect(log.error).toHaveBeenCalledWith('InvetoryService.remove: -Invalid inventory, inventory=' + qty);
         expect(isUpdated).toEqual(false);
     });
 

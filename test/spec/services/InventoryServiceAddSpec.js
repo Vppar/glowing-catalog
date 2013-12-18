@@ -11,7 +11,7 @@ describe('Service: InventoryService', function() {
             id : 1,
             stub : 'I\'m a stub',
             price : 12.50,
-            quantity : 5
+            inventory : 5
         };
         
         // storageService mock
@@ -41,23 +41,23 @@ describe('Service: InventoryService', function() {
      * <pre>
      * Given an existing product id
      * and a valid price
-     * and a valid quantity
-     * When inventoryAdd is triggered
-     * Then the quantity must be added to the existing one
+     * and a valid inventory
+     * When add is triggered
+     * Then the inventory must be added to the existing one
      * and a new average price must be calculated
      * and the product entity must be updated
      * and return the update result
      * </pre>
      */
-    it('should add and update the price and quantity of am product', function() {
+    it('should add and update the price and inventory of am product', function() {
         
         // given
         var id = 1;
         var price = 10.50;
         var qty = 3;
         
-        var updatedQty = qty+pStub.quantity;
-        var average = (qty*price)+(pStub.quantity*pStub.price)/updatedQty;
+        var updatedQty = qty+pStub.inventory;
+        var average = (qty*price)+(pStub.inventory*pStub.price)/updatedQty;
 
         // when
         var updatedItem = InventoryService.add(id,price,qty);
@@ -66,18 +66,18 @@ describe('Service: InventoryService', function() {
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
         expect(storageStub.update).toHaveBeenCalledWith('products',pStub);
         
-        expect(updatedItem.quantity).toEqual(updatedQty);
+        expect(updatedItem.inventory).toEqual(updatedQty);
         expect(updatedItem.price).toEqual(average);
         
     });
     /**
      * <pre>
      * Given a non-existing product id
-     * When inventoryAdd is triggered
+     * When add is triggered
      * Then false must be returned
      * </pre>
      */
-    it('shouldn\'t add quantity or update the price of a product', function() {
+    it('shouldn\'t add inventory or update the price of a product', function() {
         // given
         var id = 5;
         var price = 10;
@@ -97,12 +97,12 @@ describe('Service: InventoryService', function() {
      * <pre>
      * Given an existing product id
      * and a invalid price
-     * When inventoryAdd is triggered
-     * Then must be logged: 'InventoryService.inventoryAdd: -Invalid price, price={{price}}'
+     * When add is triggered
+     * Then must be logged: 'InventoryService.add: -Invalid price, price={{price}}'
      * and false must be returned
      * </pre>
      */
-    it('shouldn\'t add quantity or update the price of a product', function() {
+    it('shouldn\'t add inventory or update the price of a product', function() {
         // given
         var id = 1;
         var price = -5.40;
@@ -122,26 +122,26 @@ describe('Service: InventoryService', function() {
      * <pre>
      * Given an existing product id
      * and a valid price
-     * and a invalid quantity (negative one)
-     * When inventoryAdd is triggered
-     * Then must be logged: 'InventoryService.inventoryAdd: -Invalid quantity, quantity={{quantity}}' 
+     * and a invalid inventory (negative one)
+     * When add is triggered
+     * Then must be logged: 'InventoryService.add: -Invalid inventory, inventory={{inventory}}' 
      * and false must be returned
      * </pre>
      */
-    it('shouldn\'t add quantity or update the price of a product', function() {
+    it('shouldn\'t add inventory or update the price of a product', function() {
         // given
         var id = 1;
         var price = 5.40;
-        var quantity = -3;
+        var inventory = -3;
         
         // when
-        var updatedItem = InventoryService.add(id,price,quantity);
+        var updatedItem = InventoryService.add(id,price,inventory);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
         expect(storageStub.update).not.toHaveBeenCalled();
         
-        expect(log.error).toHaveBeenCalledWith('InventoryService.add:  -Invalid quantity, quantity=' + quantity);
+        expect(log.error).toHaveBeenCalledWith('InventoryService.add:  -Invalid inventory, inventory=' + inventory);
         
         expect(updatedItem).toEqual(false);
     });
