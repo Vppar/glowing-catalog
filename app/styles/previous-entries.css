@@ -39,10 +39,11 @@
 	top: 25px
 }
 
-.btn-ok:hover {
+/*.btn-ok:hover {
 	background: #5d9732 !important;
 	color:white
-}
+}*/
+
 .form-previous-entries .combo-width {
 	width: 277px !important;
 }

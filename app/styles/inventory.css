@@ -24,9 +24,9 @@
 	top: 25px
 }
 
-.btn:hover {
+.form-inventory  .btn:hover {
 	background: #111 !important;
-	color:#fff;
+	color:#fff !important;
 }
 .form-inventory .combo-width {
 	width: 250px;

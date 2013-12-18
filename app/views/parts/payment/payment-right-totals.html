@@ -15,17 +15,17 @@
 	</div>
 	<div class="row-right-payment2">
 		<span class="lbl-money2">
-			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> ( {{orderQty}} ) itens</span>
+			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> ({{orderQty}}) itens</span>
 		</span>
 		<span class="">
 			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
 		</span>
 		<span class="lbl-money2">
-			<strong class="lbl-money">&nbsp;</strong> <span class="lbl-money4"> ( {{orderQty}} ) pe&ccedil;as</span>
+			<strong class="lbl-money">&nbsp;</strong> <span class="lbl-money4"> ({{orderQty}}) unid.</span>
 		</span>
 	</div>
-	<div class="row-right-payment">
-	    <div class="btn-payments-left /*up-field-payment*/">
+	<div class="row-right-payment /*up-field-payment*/">
+	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
 	        </span>
