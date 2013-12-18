@@ -202,7 +202,7 @@
 .left-payment .header2 {
 	line-height: 20px;
 	margin-top: 13px;
-	font-size:12px;
+	font-size:14px;
 	font-weight:bold;
 	border-bottom: 1px solid #e0e0e0
 }
@@ -231,7 +231,7 @@
 	font-weight: bold;
 }
 .left-payment .header .col-5, .left-payment .header2 .col-5 {
-	width: 73px;
+	width:;
 	display: inline-block;
 	text-align: right;
 	font-weight: bold;
