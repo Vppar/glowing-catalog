@@ -89,9 +89,8 @@
 	float: right;
 	display: inline-block;*/
 }
-.green-color {
-	color: #5D9732;
-}
+.green-color {color: #5D9732;}
+.big-font {font-size:26px;}
 .payment-resume .lbl-resume {
 	float: left;
 	margin-left: 5px;
