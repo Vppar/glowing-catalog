@@ -7,18 +7,17 @@
 
         var storage = StorageService;
 
-        // an easy acess to products
+        // an easy access to products
         var name = 'products';
 
         var add = function add(id, price, qty) {
 
-            var result = undefined;
+            var result = false;
+            var product = storage.get(name, id);
 
             if (price > 0 && qty > 0) {
-
-                var product = storage.get(name, id);
-
                 if (product) {
+
                     var updatedQty = qty + product.quantity;
                     var average = (qty * price) + (product.quantity * product.price) / updatedQty;
                     product.price = average;
@@ -28,7 +27,14 @@
 
                     result = product;
                 }
+                
             } else {
+                if (price <= 0) {
+                    $log.error('InventoryService.add:  -Invalid price, price=' + price);
+                }else
+                if(qty <= 0){
+                    $log.error('InventoryService.add:  -Invalid quantity, quantity=' + qty);
+                }
 
             }
 
@@ -55,7 +61,7 @@
         var get = function get(id) {
             var product = storage.get(name, id);
             if (!product) {
-                $log.error('ProductService.get: -Product not found, id=' + id);
+                $log.error('InventoryService.get: -Product not found, id=' + id);
             }
             return product;
         };
