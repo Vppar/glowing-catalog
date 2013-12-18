@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.payment.check', [
         'tnt.catalog.filter.findBy'
-    ]).controller('PaymentCheckCtrl', function($scope, $element, $filter, DialogService, PaymentService) {
+    ]).controller('PaymentCheckCtrl', function($scope, $element, $filter, PaymentService) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -25,6 +25,9 @@
 
         // Find the id of check payment type
         var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
+        
+        // Recovering dialogService from parent scope.
+        var dialogService = $scope.dialogService;
 
         // #####################################################################################################
         // Scope action functions
@@ -44,7 +47,7 @@
             if ($scope.checkForm.$valid) {
                 // check if is duplicated.
                 if (isDuplicated(newCheck)) {
-                    DialogService.messageDialog({
+                    dialogService.messageDialog({
                         title : 'Pagamento com Cheque',
                         message : 'Não é possível inserir um cheque que já existe na lista.',
                         btnYes : 'OK'
@@ -68,6 +71,7 @@
          * Clear all check fields
          */
         $scope.clearCheck = function clearCheck() {
+            
             angular.extend(check, emptyCheckTemplate);
             $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
         };
