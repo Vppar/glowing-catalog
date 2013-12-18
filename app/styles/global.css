@@ -87,6 +87,7 @@ li.menu-black:last-child a:hover {
 .nav .gray.active a:hover {
 	background: #dddddd;
 }
+.last-first-menu { margin-right:50px; }
 /*font colors*/
 .color-green {
 	color: #5d9732
@@ -556,9 +557,7 @@ li.menu-black:last-child a {
 	color: #333;
 	text-shadow: none;
 }
-.header-hour {
-	margin:0 0 0 30px !important;
-}
+.header-hour {	margin:0 0 0 16px !important; }
 .header-hour div{
 	font-size:18px;
 	color:#CCC;
