@@ -115,9 +115,9 @@
 .form-payment-credit-card .btn-plus-payment-credit-card {
 	margin-top: 25px;
 }
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
 
 /*delivery details*/
 .form-delivery-details-modal .input-qty {
@@ -145,9 +145,9 @@
 .form-delivery-details-modal .btn-plus-delivery-details {
 	margin-top: 25px;
 }
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
 
 .btn-plus-delivery-details {
 	background: #ecbab9;
@@ -174,9 +174,9 @@
 .form-input-products .btn-plus-input-products {
 	margin-top: 25px;
 }
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
 .form-input-products .combo-width {
 	width: 282px;
 }
@@ -274,9 +274,9 @@ input.sub-total-payment {
 .form-payment-credit-card .btn-plus-payment-credit-card {
 	margin-top: 25px;
 }
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
 .form-payment-credit-card .combo-width-1 {
 	width: 96px;
 }
@@ -314,9 +314,9 @@ input.sub-total-payment {
 .form-payment-advance-money .btn-plus-payment-credit-card {
 	margin-top: 25px;
 }
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
 .form-payment-advance-money .combo-width {
 	width: 250px;
 }
@@ -399,9 +399,9 @@ input.sub-total-payment {
 .form-payment-credit-card .btn-plus-payment-credit-card {
 	margin-top: 25px;
 }
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
 .form-payment-credit-card .combo-width-1 {
 	width: 96px;
 }
@@ -441,9 +441,9 @@ input.sub-total-payment {
 .form-payment-exchange-modal .btn-plus-payment-product-exchange {
 	margin-top: 25px;
 }
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
 .form-payment-exchange-modal .combo-width {
 	width: 250px;
 }
