@@ -1,16 +1,16 @@
-xdescribe('Service: Productservice', function() {
+xdescribe('Service: InvetoryService', function() {
 
     // load the service's module
     beforeEach(module('glowingCatalogApp'));
 
     // instantiate service
-    var Productservice;
-    beforeEach(inject(function(_Productservice_) {
-        Productservice = _Productservice_;
+    var InvetoryService;
+    beforeEach(inject(function(_InvetoryService_) {
+        InvetoryService = _InvetoryService_;
     }));
 
     it('should do something', function() {
-        expect(!!Productservice).toBe(true);
+        expect(!!InvetoryService).toBe(true);
     });
 
     /**
@@ -45,7 +45,7 @@ xdescribe('Service: Productservice', function() {
      * Given an existing product id
      * and a invalid quantity
      * When inventoryRemove is triggered
-     * Then must be logged: 'ProductService.inventoryRemove: -Invalid quantity, quantity={{quantity}}' 
+     * Then must be logged: 'InvetoryService.inventoryRemove: -Invalid quantity, quantity={{quantity}}' 
      * and false must be returned
      * </pre>
      */
