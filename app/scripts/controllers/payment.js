@@ -48,6 +48,11 @@
                             $scope.payment.cash = PaymentService.createNew('cash');
                         }
 
+                        // Publishing dialog service
+                        var dialogService = DialogService;
+                        $scope.dialogService = dialogService;
+                        $scope.openDialogChooseCustomer = dialogService.openDialogChooseCustomer;
+
                         // #############################################################################################
                         // Screen action functions
                         // #############################################################################################
@@ -119,7 +124,7 @@
                          * Shows the payment confirmation dialog.
                          */
                         function showPaymentConfirmationDialog() {
-                            var result = DialogService.messageDialog({
+                            var result = dialogService.messageDialog({
                                 title : 'Pagamento',
                                 message : 'Deseja confirmar o pagamento?',
                                 btnYes : 'Confirmar',
@@ -145,8 +150,9 @@
                          * Shows the payment canceling dialog.
                          */
                         function showCancelPaymentDialog() {
-                            return DialogService
-                                    .messageDialog({title : 'Cancelar Pagamento',
+                            return dialogService
+                                    .messageDialog({
+                                        title : 'Cancelar Pagamento',
                                         message : 'Cancelar o pagamento irá descartar os dados desse pagamento permanentemente. Você tem certeza que deseja cancelar?',
                                         btnYes : 'Cancelar',
                                         btnNo : 'Retornar'
@@ -200,7 +206,7 @@
                          */
                         function paymentDone() {
                             $location.path('/');
-                            return DialogService.messageDialog({
+                            return dialogService.messageDialog({
                                 title : 'Pagamento',
                                 message : 'Pagamento efetuado!',
                                 btnYes : 'OK',
@@ -218,7 +224,7 @@
                          * Confirmation SMS alert.
                          */
                         function smsAlert(message) {
-                            return DialogService.messageDialog({
+                            return dialogService.messageDialog({
                                 title : 'Pagamento',
                                 message : message,
                                 btnYes : 'OK',
