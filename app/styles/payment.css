@@ -146,6 +146,12 @@
 	font-size:12px;
 	margin:-6px 0 -2px -2px;
 }
+.label-form-client2 {
+	display:block;
+	float:left;
+	font-size:14px;
+	margin:-6px 0 -2px -2px;
+}
 .payment-resume {
 	border-radius: 4px;
 	color: #333;
@@ -286,6 +292,9 @@
 }
 .payment-check-fields {
 	margin:0 0 0 60px;
+}
+.payment-voucher-fields {
+	margin:0 0 0 28px;
 }
 /* end scroll left*/
 #combo-parcelas{
@@ -465,4 +474,7 @@ div.controls input  {
 }
 .w200 {
 	width:200px !important;
+}
+.btn-payments-right {
+	width:80%;
 }
