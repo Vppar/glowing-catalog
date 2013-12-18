@@ -29,9 +29,10 @@
 	top: 25px
 }
 
-.btn:hover {
+/*.btn:hover {
 	background: #e2a9a8 !important;
-}
+}*/
+
 .form-order-list .combo-width {
 	width: 250px;
 }
@@ -42,7 +43,7 @@
 	height: 30px
 }
 .total-value-order-list {
-	float: right;
+	/*float: right;*/
 	text-align: right;
 }
 
@@ -54,7 +55,7 @@
 	margin-bottom: 20px;*/
 	background-color: #FFF
 }
-.details-order-list-title{	
+/*.details-order-list-title{	
 	border-radius: 4px;
 	background: #333;
 	color: #fff;
@@ -67,47 +68,126 @@
 	font-size: 16px;
 	color: #e5b1b0;
 	font-weight: bold;
-	min-height: 20px;*/
-}
+	min-height: 20px;/
+}*/
+
 .details-order-list-item-total{
 	/*color:#ff2839;*/
 	font-size: 16px;
 	font-weight: bolder;
 	/*padding: 15px 0 15px 0;*/
 	display: block;
+	width: 300px;
 }
 
 .details-order-number{
-	float:right;
+	/*float:right;*/
 	text-align: right;
 	padding-right: 8px;
 }
 
 .details-order-list-item{
-	padding: 8px 5px 8px 12px;
+	/*padding: 8px 5px 8px 12px;*/
 	display: block;
 	min-height:20px;
 }
 
 .details-order-list-item .border{
-	float: left;
+	/*float: left;*/
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
-	display: inline-block;		
-	margin-left: 4px;
+	display: block;		
+	margin: 0 0 10px 0;
+	width: 300px;
 }
 
 .form-order-list .lbl-money {
 	display:inline-block;
-	width: 90px;
+	width: 95px;
 	margin: 5px;
 }
+.form-order-list .lbl-money3 {
+	width: 30px;
+	margin: 0 2px 0 2px;
+}
 .form-order-list .btn-price-payment {
-	width: 85px;
+	width: 110px;
 	text-align: right;
 	border: 1px solid #eee;
 	background-color: #f2f2f2;
 	border-radius: 4px;
 	margin: 5px;
-	display:inline-block;
+	display: inline-block;
+	float: right;
 }
+
+.w165{
+	width:165px !important;
+}
+
+.form-order-list .controls input {
+	margin: 0 5px 0 5px;
+}
+
+.col-details-order-list-item{
+	display:inline-block;
+	margin: 10px 0 10px 10px;
+}
+
+.btns-details-order-list-item{
+	display:inline-block;
+	margin: 0 0 0 10px;
+}
+
+.marginl7 {
+	margin-left: 7px !important;
+}
+
+.marginr20{
+	margin-right:20px !important;
+}
+
+.marginl93{
+	margin-left: 93px !important;
+}
+
+.menu-level{	
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-left: 50px !important;
+}
+
+.btns-details-order-list-item .btn{	
+	margin-top:-100px;
+}
+
+.btn-option {
+	color: #333 !important;
+	background: none !important;
+	background-color: #fff !important;
+	border-color: #adadad;
+	text-shadow: none;
+	outline: 0;
+	border: 1px solid #cccccc;
+}
+
+.btn-option:hover, .btn-option:active, .active {
+	color: #333 !important;
+	background: none !important;
+	background-color: #ebebeb !important;
+	border-color: #adadad !important;
+	-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
+	box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
+}
+
+/*.order-list-btns {
+	width: 354px;
+	margin: auto;
+	/*margin: 20px 0 20px 1px;/
+}
+
+.order-list-btn-area {
+	margin-left: 17%;
+	float: left;
+	text-align: center;
+}*/

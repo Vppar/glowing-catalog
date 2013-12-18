@@ -34,38 +34,30 @@
 			<!-- DATE INTERVAL -->
 			<div class="row-fluid filter-bar">
 				
-				<span class="span2">
-			
-				<div class="controls">
-					<div class="control-group lbl-top">
-						<div class="controls">
-							<input type="text" placeholder="De" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtInitial">
+				<span class="span2 w165">			
+					<div class="controls">
+						<div class="control-group lbl-top">
+							<div class="controls">
+								De <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtInitial">
+							</div>
 						</div>
-					</div>
-					<div class="control-group lbl-top">
-						<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
-					</div>	
-				</div>
-				
+						<div class="control-group lbl-top">
+							<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
+						</div>	
+					</div>				
 				</span>
 				
-				<span class="span2">
-				
-				<div class="controls">
-					<div class="control-group lbl-top">
-						<div class="controls">
-							<input type="text" placeholder="Até" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtFinal">
+				<span class="span2 w165 marginl7">				
+					<div class="controls">
+						<div class="control-group lbl-top">
+							<div class="controls">
+								 a <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtFinal">
+							</div>
 						</div>
-					</div>
-					<div class="control-group lbl-top">
-						<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
-					</div>	
-				</div>
-				
-				</span>
-			
-				<span class="span8">
-					<input type="checkbox" value="todos"> <span class="txtpad">todos os valores em aberto até {{dtInitial}}</span>
+						<div class="control-group lbl-top">
+							<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
+						</div>	
+					</div>				
 				</span>
 			
 			</div>
@@ -73,63 +65,82 @@
 		</div>		
 	
 		
-		<div class="row-fluid">
-			<div class="details-order-list-title">
-				<span class="span12">
-					<span>Detalhes da venda</span> &nbsp; <span class="details-order-number">(Nº/Pedido: 0000000000)</span>
-				</span>
-			</div>
-			<div class="details-order-list">
+		<div class="row-fluid">		
 				<div class="details-order-list-item">
-					<span class="details-order-list-item-total"><span class="lbl-money">Total</span>
-					<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-					<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span></span>
+					
+					<div class="col-details-order-list-item">
+						<span class="border">
+							<span class="lbl-money">Dinheiro</span>
+							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						</span>
+						<span class="border">
+							<span class="lbl-money">Cheque</span>
+							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						</span>
+						<span class="border">
+							<span class="lbl-money">Cart&atilde;o</span>
+							<span class="lbl-money3">(100000)</span>
+							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						</span>
+					</div>
+					
+					<div class="col-details-order-list-item">
+						<span class="border">
+							<span class="lbl-money">Troca</span>
+							<span class="lbl-money3">(100000)</span>
+							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						</span>
+						<span class="border">
+							<span class="lbl-money">Vale/Cumpom</span>
+							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						</span>
+						<span class="border">
+							<span class="details-order-list-item-total"><span class="lbl-money">Total</span>
+							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span></span>					
+						</span>
+					</div>
+					
+					<div class="btns-details-order-list-item">
+						<span class="menu-level">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-option active">Clientes</a> 
+								<a class="btn btn-option">Produtos</a>
+							</div>
+						</span>
+					</div>
+					<!--<div class="col-details-order-list-item">
+						<div class="order-list-btns">
+							<div class="order-list-btn-area">
+								<button class="btn btn-option" type="submit">Clientes</button>
+							</div>
+							<div class="order-list-btn-area">
+								<button class="btn btn-option" type="submit">Produtos</button>
+							</div>
+						</div>
+					</div>-->
+						
 				</div>
-				
-				<div class="details-order-list-item">
-					<span class="border">
-						<span class="lbl-money">Dinheiro</span>
-						<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-					</span>
-					<span class="border">
-						<span class="lbl-money">Cheque</span>
-						<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-					</span>
-					<span class="border">
-						<span class="lbl-money">Cart&atilde;o</span>
-						<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-					</span>
-					<span class="border">
-						<span class="lbl-money">Vale/Cumpom</span>
-						<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-					</span>
-				</div>
-				
-				<br/>
-				
-			</div>
 		</div>
 	
 		
 		<div class="row-fluid">
-
 			<div class="grid-order-list">
 				<div class="header">
 					<div class="row-order-list">
 						<span class="col-1">
-							<div>Nº/Pedido</div>
-						</span> <span class="col-2">
 							<div>Data</div>
+						</span> <span class="col-2">
+							<div>Pedido</div>
 						</span> <span class="col-3">
-							<div>Cliente</div>
+							<div>Cliente</div><!--<div>Produto</div>-->
 						</span>
 						<span class="col-4">
-							<div>Itens</div>
-						</span> <span class="col-5">
+							<div>Qtde. itens</div>
+						</span> <span class="col-5 marginl93">
 							<div>Valor</div>
 						</span>
 					</div>
@@ -138,23 +149,22 @@
 					<div class="row-order-list hover-state-pointer"
 						ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'" ng-click="openPartialDelivery(order)">
 						<span class="col-1">
-							<div>{{order.code}}</div>
-						</span> <span class="col-2">
 							<div>{{order.date | date:'dd/MM/yyyy'}}</div>
+						</span> <span class="col-2">
+							<div>{{order.code}}</div>
 						</span> <span class="col-3">
 							<div>{{order.customerName | truncate: 50}}</div>
 						</span> 
 						<span class="col-4">
 							<div>{{order.items.length}}</div>
-						</span><span class="col-5">
+						</span><span class="col-5 marginr20">
 							<div>{{order.items | obInject: 'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency: 'R$'}}</div>
 						</span>
 					</div>
 				</div>
 			</div>
 				
-			<br/>
-			
+			<br/>			
 		</div>
 
 	</div>
