@@ -1,4 +1,4 @@
-describe('Service: InvetoryService', function() {
+describe('Service: InventoryService', function() {
 
     var log = {};
     var storageStub = {};
@@ -24,8 +24,8 @@ describe('Service: InvetoryService', function() {
         });
     });
     
-    beforeEach(inject(function(_InvetoryService_) {
-        InvetoryService = _InvetoryService_;
+    beforeEach(inject(function(_InventoryService_) {
+        InventoryService = _InventoryService_;
     }));
     
     
@@ -40,7 +40,7 @@ describe('Service: InvetoryService', function() {
         // given
         
         // when
-        var list = InvetoryService.list();
+        var list = InventoryService.list();
         
         // then
         expect(storageStub.list).toHaveBeenCalledWith('products');
