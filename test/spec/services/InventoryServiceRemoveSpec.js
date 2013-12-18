@@ -9,7 +9,7 @@ describe('Service: InventoryService', function() {
 
         pStub = {
             id : 1,
-            quantity : 20,
+            inventory : 20,
             price : 10,
             stub : 'I\'m a stub'
                 
@@ -87,7 +87,7 @@ describe('Service: InventoryService', function() {
      * Given an existing product id
      * and a invalid quantity
      * When inventoryRemove is triggered
-     * Then must be logged: 'InvetoryService.remove: -Invalid quantity, quantity={{quantity}}' 
+     * Then must be logged: 'InvetoryService.remove: -Invalid inventory, inventory={{inventory}}' 
      * and false must be returned
      * </pre>
      */
@@ -102,7 +102,7 @@ describe('Service: InventoryService', function() {
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
         expect(storageStub.update).not.toHaveBeenCalled();
-        expect(log.error).toHaveBeenCalledWith('InvetoryService.remove: -Invalid quantity, quantity=' + qty);
+        expect(log.error).toHaveBeenCalledWith('InvetoryService.remove: -Invalid inventory, inventory=' + qty);
         expect(isUpdated).toEqual(false);
     });
 
