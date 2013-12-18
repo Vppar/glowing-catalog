@@ -1,4 +1,4 @@
-describe('Service: ProductService', function() {
+describe('Service: InvetoryService', function() {
 
     var log = {};
     var storageStub = {};
@@ -17,15 +17,15 @@ describe('Service: ProductService', function() {
         log.error = jasmine.createSpy('$log.error');
         
 
-        module('tnt.catalog.service.product');
+        module('tnt.catalog.service.inventory');
         module(function($provide) {
             $provide.value('StorageService', storageStub);
             $provide.value('$log', log);
         });
     });
     
-    beforeEach(inject(function(_ProductService_) {
-        ProductService = _ProductService_;
+    beforeEach(inject(function(_InvetoryService_) {
+        InvetoryService = _InvetoryService_;
     }));
     
     
@@ -40,7 +40,7 @@ describe('Service: ProductService', function() {
         // given
         
         // when
-        var list = ProductService.list();
+        var list = InvetoryService.list();
         
         // then
         expect(storageStub.list).toHaveBeenCalledWith('products');

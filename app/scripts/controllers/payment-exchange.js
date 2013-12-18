@@ -21,6 +21,9 @@
         // Products informations to fill the screen combo.
         $scope.products = DataProvider.products;
 
+        // Recovering dialogService from parent scope.
+        var dialogService = $scope.dialogService;
+        
         // #####################################################################################################
         // Scope action functions
         // #####################################################################################################

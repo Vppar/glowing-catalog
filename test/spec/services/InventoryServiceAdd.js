@@ -1,4 +1,4 @@
-xdescribe('Service: Productservice', function() {
+xdescribe('Service: InventoryService', function() {
 
     var log = {};
     var storageStub = {};
@@ -21,15 +21,15 @@ xdescribe('Service: Productservice', function() {
         log.error = jasmine.createSpy('$log.error');
         
 
-        module('tnt.catalog.service.product');
+        module('tnt.catalog.service.inventory');
         module(function($provide) {
             $provide.value('StorageService', storageStub);
             $provide.value('$log', log);
         });
     });
     
-    beforeEach(inject(function(_ProductService_) {
-        ProductService = _ProductService_;
+    beforeEach(inject(function(_InventoryService_) {
+        InventoryService = _InventoryService_;
     }));
     
     /**
@@ -55,7 +55,7 @@ xdescribe('Service: Productservice', function() {
         var average = (qty*price)+(pStub.quantity*pStub.price)/updatedQty;
 
         // when
-        var updatedItem = ProductService.inventoryAdd(id,price,qty);
+        var updatedItem = InventoryService.inventoryAdd(id,price,qty);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
@@ -77,7 +77,7 @@ xdescribe('Service: Productservice', function() {
         var id = 5;
         
         // when
-        var updatedItem = ProductService.inventoryAdd(id);
+        var updatedItem = InventoryService.inventoryAdd(id);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
@@ -91,7 +91,7 @@ xdescribe('Service: Productservice', function() {
      * Given an existing product id
      * and a invalid price
      * When inventoryAdd is triggered
-     * Then must be logged: 'ProductService.inventoryAdd: -Invalid price, price={{price}}'
+     * Then must be logged: 'InventoryService.inventoryAdd: -Invalid price, price={{price}}'
      * and false must be returned
      * </pre>
      */
@@ -101,13 +101,13 @@ xdescribe('Service: Productservice', function() {
         var price = -5.40;
         
         // when
-        var updatedItem = ProductService.inventoryAdd(id,price);
+        var updatedItem = InventoryService.inventoryAdd(id,price);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
         expect(storageStub.update).not.toHaveBeenCalled();
         
-        expect(log.error).toHaveBeenCalledWith('ProductService.inventoryAdd:  -Invalid price, price=' + price);
+        expect(log.error).toHaveBeenCalledWith('InventoryService.inventoryAdd:  -Invalid price, price=' + price);
         
         expect(updatedItem).toEqual(false);
     });
@@ -117,7 +117,7 @@ xdescribe('Service: Productservice', function() {
      * and a valid price
      * and a invalid quantity
      * When inventoryAdd is triggered
-     * Then must be logged: 'ProductService.inventoryAdd: -Invalid quantity, quantity={{quantity}}' 
+     * Then must be logged: 'InventoryService.inventoryAdd: -Invalid quantity, quantity={{quantity}}' 
      * and false must be returned
      * </pre>
      */
@@ -128,13 +128,13 @@ xdescribe('Service: Productservice', function() {
         var quantity = -3;
         
         // when
-        var updatedItem = ProductService.inventoryAdd(id,price,quantity);
+        var updatedItem = InventoryService.inventoryAdd(id,price,quantity);
         
         // then
         expect(storageStub.get).toHaveBeenCalledWith('products',id);
         expect(storageStub.update).not.toHaveBeenCalled();
         
-        expect(log.error).toHaveBeenCalledWith('ProductService.inventoryAdd:  -Invalid quantity, quantity=' + quantity);
+        expect(log.error).toHaveBeenCalledWith('InventoryService.inventoryAdd:  -Invalid quantity, quantity=' + quantity);
         
         expect(updatedItem).toEqual(false);
     });

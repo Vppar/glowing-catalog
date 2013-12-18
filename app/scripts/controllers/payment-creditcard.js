@@ -23,6 +23,9 @@
         $scope.cardFlags = DataProvider.cardData.flags;
         $scope.installments = DataProvider.cardData.installments;
 
+        // Recovering dialogService from parent scope.
+        var dialogService = $scope.dialogService;
+
         // #####################################################################################################
         // Scope action functions
         // #####################################################################################################

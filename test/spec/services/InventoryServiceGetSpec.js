@@ -1,4 +1,4 @@
-describe('Service: ProductService', function() {
+describe('Service: InventoryService', function() {
 
     var log = {};
     var storageStub = {};
@@ -23,15 +23,15 @@ describe('Service: ProductService', function() {
         log.error = jasmine.createSpy('$log.error');
         
 
-        module('tnt.catalog.service.product');
+        module('tnt.catalog.service.inventory');
         module(function($provide) {
             $provide.value('StorageService', storageStub);
             $provide.value('$log', log);
         });
     });
     
-    beforeEach(inject(function(_ProductService_) {
-        ProductService = _ProductService_;
+    beforeEach(inject(function(_InventoryService_) {
+        InventoryService = _InventoryService_;
     }));
     
     
@@ -47,7 +47,7 @@ describe('Service: ProductService', function() {
         var id = 1;
         
         // when
-        var product = ProductService.get(id);
+        var product = InventoryService.get(id);
         
         // then
         
@@ -59,7 +59,7 @@ describe('Service: ProductService', function() {
      * <pre>
      * Given a non-existent id into the product storage
      * when read is triggered
-     * then must be logged: 'ProductService.get: -Product not found, id={{id}}'
+     * then must be logged: 'InventoryService.get: -Product not found, id={{id}}'
      * and undefined must be returned
      * </pre>
      */
@@ -68,10 +68,10 @@ describe('Service: ProductService', function() {
         var id = 5;
      
         // when
-        var product = ProductService.get(id);
+        var product = InventoryService.get(id);
         
         // then
-        expect(log.error).toHaveBeenCalledWith('ProductService.get: -Product not found, id=' + id);
+        expect(log.error).toHaveBeenCalledWith('InventoryService.get: -Product not found, id=' + id);
         expect(product).toBeUndefined();
     });
 
