@@ -4,12 +4,12 @@
 	</div>
 </div>
 <div class="btns-right-payment right-column-payment">
-  <div class="row-right-payment row-right-payment-client">
+  	<div class="row-right-payment row-right-payment-client" ng-click="openDialogChooseCustomer()">
 		<div class="btn-payments-left">
 		    <span class="label-form-client">Cliente</span>
 		    <span class="lbl-phone-client" ng-show="customer.phones"> {{customer.phones[0].number | phone}}</span><br/>
 		    <span class="btn-price-payment-input-block input-block-level">
-		        <input class="input-name-payment text-right" readonly id="appendedInput" type="text" value="{{customer.name}}" />
+		        <input class="input-name-payment text-right" id="appendedInput" type="text" value="{{customer.name}}" readonly/>
 		    </span>
 		</div>
 	</div>
