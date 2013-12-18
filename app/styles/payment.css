@@ -190,7 +190,7 @@
 }
 /*scroll left*/
 .left-payment .content-scroll {
-	height: 260px;
+	height: 430px;
 	overflow-y: auto;
 	/*position:absolute;*/
 	-webkit-overflow-scrolling: touch;
@@ -225,13 +225,13 @@
 	font-weight: bold
 }
 .left-payment .header .col-4, .left-payment .header2 .col-4 {
-	width: 50px;
+	width: 40px;
 	display: inline-block;
 	text-align: right;
 	font-weight: bold;
 }
 .left-payment .header .col-5, .left-payment .header2 .col-5 {
-	width:;
+	width: 73px;
 	display: inline-block;
 	text-align: right;
 	font-weight: bold;
@@ -254,7 +254,7 @@
 	text-align: center;
 }
 .left-payment .content-scroll .col-4 {
-	width: 60px;
+	width: 50px;
 	display: inline-block;
 	text-align: center;
 }
@@ -346,7 +346,7 @@
 	width: 90%;
 	height:50px;
 	margin: auto;
-	margin-top: 65px;
+	margin-top: 50px;
 	border-top: 1px dotted #ccc;
 	padding-top: 10px;
 }
@@ -453,12 +453,17 @@ div.up-field-payment {
 	width:284px !important;
 	height:22px !important;
 	z-index:15 !important;
+	margin-top: -20px !important;
 }
+
 div.controls input  {
 	margin:0 5px 0 -5px;
 	}
 .marginr10{
 	margin-right:10px;
+}
+.marginl8{
+	margin-left:8px !important;
 }
 .w120 {
 	width:120px !important;

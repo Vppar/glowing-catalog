@@ -51,9 +51,9 @@
 	margin-top: 4px;
 }
 
-.btn:hover {
+.form-financial .btn:hover {
 	background: #111 !important;
-	color:white
+	color:#fff !important;
 }
 
 .row-financial  .btn {

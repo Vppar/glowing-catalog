@@ -308,7 +308,7 @@ li.menu-black:last-child a:hover {
 }
 /*btns*/
 .btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
-	color: #333333;
+	color: #ffffff;
 	background-color: #000;
 	*background-color: #000;
 }
