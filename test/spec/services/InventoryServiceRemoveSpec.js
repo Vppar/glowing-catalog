@@ -1,17 +1,44 @@
-xdescribe('Service: InvetoryService', function() {
+describe('Service: InventoryService', function() {
 
+    var log = {};
+    var storageStub = {};
+    var pStub = {};
+    
     // load the service's module
-    beforeEach(module('glowingCatalogApp'));
+    beforeEach(function() {
 
-    // instantiate service
-    var InvetoryService;
-    beforeEach(inject(function(_InvetoryService_) {
-        InvetoryService = _InvetoryService_;
-    }));
+        pStub = {
+            id : 1,
+            quantity : 20,
+            price : 10,
+            stub : 'I\'m a stub'
+                
+        };
+        
+        // storageService mock
+        storageStub.get = jasmine.createSpy('StorageService.get').andCallFake(function(name,id) {
+            if (id === 1) {
+                return pStub;
+            }
+        });
+        
+        storageStub.update = jasmine.createSpy('StorageService.update').andReturn(pStub);
+            
+        
+        log.error = jasmine.createSpy('$log.error');
+        
 
-    it('should do something', function() {
-        expect(!!InvetoryService).toBe(true);
+        module('tnt.catalog.service.inventory');
+        module(function($provide) {
+            $provide.value('StorageService', storageStub);
+            $provide.value('$log', log);
+        });
     });
+    
+    beforeEach(inject(function(_InventoryService_) {
+        InventoryService = _InventoryService_;
+    }));
+    
 
     /**
      * <pre>
@@ -23,10 +50,20 @@ xdescribe('Service: InvetoryService', function() {
      * and return the update result
      * </pre>
      */
-    it('should do something', function() {
+    it('should remove a certain quantity from an inventory item', function() {
         // given
+        var id = 1;
+        var qty = 10;
+        
+        var updatedQty = pStub.quantity-qty;
+        
         // when
+        var updatedItem = InventoryService.remove(id,qty);
+        
         // then
+        expect(storageStub.get).toHaveBeenCalledWith('products',id);
+        expect(storageStub.update).not.toHaveBeenCalled();
+        expect(updatedItem.quantity).toEqual(updatedQty);
     });
     /**
      * <pre>
@@ -35,24 +72,37 @@ xdescribe('Service: InvetoryService', function() {
      * Then false must be returned
      * </pre>
      */
-    it('should do something', function() {
+    it('shouldn\'t remove a certain quantity from an inventory item', function() {
         // given
+        var id = 5;
+        
         // when
+        var updatedItem = InventoryService.remove(id);
+        
         // then
+        expect(storageStub.get).toHaveBeenCalledWith('products',id);
+        expect(updatedItem).toEqual(false);
     });
     /**
      * <pre>
      * Given an existing product id
      * and a invalid quantity
      * When inventoryRemove is triggered
-     * Then must be logged: 'InvetoryService.inventoryRemove: -Invalid quantity, quantity={{quantity}}' 
+     * Then must be logged: 'InvetoryService.remove: -Invalid quantity, quantity={{quantity}}' 
      * and false must be returned
      * </pre>
      */
-    it('should do something', function() {
+    it('shouldn\'t remove a certain quantity from an inventory item', function() {
         // given
+        var id = 1;
+        var qty = -10.5;
+       
         // when
+        var updatedItem = InventoryService.remove(id,qty);
+        
         // then
+        expect(log.error).toHaveBeenCalledWith('InvetoryService.remove: -Invalid quantity, quantity=' + qty);
+        expect(updatedItem).toEqual(false);
     });
 
 });
