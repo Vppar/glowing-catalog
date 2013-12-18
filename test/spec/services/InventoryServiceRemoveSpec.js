@@ -44,7 +44,7 @@ describe('Service: InventoryService', function() {
      * <pre>
      * Given an existing product id
      * and a valid quantity
-     * When inventoryRemove is triggered
+     * When remove is triggered
      * Then the quantity must be subtracted from the existing one
      * and the product entity must be updated
      * and return the update result
@@ -66,7 +66,7 @@ describe('Service: InventoryService', function() {
     /**
      * <pre>
      * Given a non-existing product id
-     * When inventoryRemove is triggered
+     * When remove is triggered
      * Then false must be returned
      * </pre>
      */
@@ -86,7 +86,7 @@ describe('Service: InventoryService', function() {
      * <pre>
      * Given an existing product id
      * and a invalid quantity
-     * When inventoryRemove is triggered
+     * When remove is triggered
      * Then must be logged: 'InvetoryService.remove: -Invalid inventory, inventory={{inventory}}' 
      * and false must be returned
      * </pre>

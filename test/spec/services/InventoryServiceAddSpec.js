@@ -42,7 +42,7 @@ describe('Service: InventoryService', function() {
      * Given an existing product id
      * and a valid price
      * and a valid inventory
-     * When inventoryAdd is triggered
+     * When add is triggered
      * Then the inventory must be added to the existing one
      * and a new average price must be calculated
      * and the product entity must be updated
@@ -98,7 +98,7 @@ describe('Service: InventoryService', function() {
      * Given an existing product id
      * and a invalid price
      * When add is triggered
-     * Then must be logged: 'InventoryService.inventoryAdd: -Invalid price, price={{price}}'
+     * Then must be logged: 'InventoryService.add: -Invalid price, price={{price}}'
      * and false must be returned
      * </pre>
      */
