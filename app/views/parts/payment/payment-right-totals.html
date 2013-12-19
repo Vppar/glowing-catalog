@@ -24,12 +24,13 @@
 			<span class="lbl-money4 qntty"> ({{orderUnitsQty}}) unid.</span>
 		</span>
 	</div>
-	<div class="row-right-payment /*up-field-payment*/">
+	<div class="row-right-payment" ng-class="{'up-field-payment': selectedPaymentMethod=='money'}" ng-click="selectPaymentMethod('money')">
 	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
 	        </span>
-	        <span class=""> <!--btn-price-payment-input-block2 input-block-level-->
+	        <span class=""> 
+	        	<!--btn-price-payment-input-block2 input-block-level-->
 	            <!--<input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>-->
 				<span class="btn-price-payment">{{payments | paymentType:'cash' | sum:'amount' | currency:''}}</span>
 	        </span>
@@ -95,11 +96,11 @@
 		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
 	</span>
 	<div class="right-column-height">&nbsp;</div>-->
-    <div id="keyNum" class="numeric-keyboard" style="display:none;" > 
-        <span class="l1"><img src="images/keyboard/n7.png" width="68" height="68" alt="7" /> <img src="images/keyboard/n8.png" width="68" height="68" alt="8" /> <img src="images/keyboard/n9.png" width="68" height="68" alt="9" /> <img src="images/keyboard/btn-back.png" width="67" height="68" alt="backspace" /></span>
-        <span class="l2"><img src="images/keyboard/n4.png" width="68" height="68" alt="4" /> <img src="images/keyboard/n5.png" width="68" height="68" alt="5" /> <img src="images/keyboard/n6.png" width="68" height="68" alt="6" /> <img src="images/keyboard/btn-clear.png" width="67" height="68" alt="clear" /></span>
-        <span class="l3"><img src="images/keyboard/n1.png" width="68" height="68" alt="1" /> <img src="images/keyboard/n2.png" width="68" height="68" alt="2" /> <img src="images/keyboard/n3.png" width="68" height="68" alt="3" /></span> <span class="btn-ok"><img src="images/keyboard/btn-ok.png" width="67" height="142" alt="ok" /></span><br />
-        <span class="l4"><img src="images/keyboard/n0.png" width="68" height="68" alt="0" /> <img src="images/keyboard/n00.png" width="68" height="68" alt="00" /> <img src="images/keyboard/comma.png" width="68" height="68" alt="comma" /> </span>
-    </div>
+	<div id="keyNum" class="numeric-keyboard" ng-show="selectedPaymentMethod=='money'" > 
+	    <span class="l1"><img src="images/keyboard/n7.png" width="68" height="68" alt="7" /> <img src="images/keyboard/n8.png" width="68" height="68" alt="8" /> <img src="images/keyboard/n9.png" width="68" height="68" alt="9" /> <img src="images/keyboard/btn-back.png" width="67" height="68" alt="backspace" /></span>
+	    <span class="l2"><img src="images/keyboard/n4.png" width="68" height="68" alt="4" /> <img src="images/keyboard/n5.png" width="68" height="68" alt="5" /> <img src="images/keyboard/n6.png" width="68" height="68" alt="6" /> <img src="images/keyboard/btn-clear.png" width="67" height="68" alt="clear" /></span>
+	    <span class="l3"><img src="images/keyboard/n1.png" width="68" height="68" alt="1" /> <img src="images/keyboard/n2.png" width="68" height="68" alt="2" /> <img src="images/keyboard/n3.png" width="68" height="68" alt="3" /></span> <span class="btn-ok"><img src="images/keyboard/btn-ok.png" width="67" height="142" alt="ok" /></span><br />
+	    <span class="l4"><img src="images/keyboard/n0.png" width="68" height="68" alt="0" /> <img src="images/keyboard/n00.png" width="68" height="68" alt="00" /> <img src="images/keyboard/comma.png" width="68" height="68" alt="comma" /> </span>
+	</div>
 </div>
-<div id="div-overlay" style="display:none;"></div>
+<div id="div-overlay" ng-show="selectedPaymentMethod=='money'"></div>

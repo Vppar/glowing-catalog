@@ -163,7 +163,7 @@
                             return dialogService
                                     .messageDialog({
                                         title : 'Cancelar Pagamento',
-                                        message : 'Cancelar o pagamento irá descartar os dados desse pagamento permanentemente. Você tem certeza que deseja cancelar?',
+                                        message : 'Confirmar o cancelamento do pedido?',
                                         btnYes : 'Cancelar',
                                         btnNo : 'Retornar'
                                     });
