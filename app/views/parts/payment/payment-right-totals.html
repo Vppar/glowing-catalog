@@ -14,14 +14,14 @@
 		</div>
 	</div>
 	<div class="row-right-payment2">
-		<span class="lbl-money2">
-			<strong class="lbl-money">Subtotal</strong> <span class="lbl-money4"> ({{orderQty}}) itens</span>
-		</span>
-		<span class="">
+		<span class="lbl-money2 display-block">
+			<strong class="lbl-money">Subtotal</strong>
+			<span class="lbl-money4">&nbsp;</span>
 			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
-		</span>
-		<span class="lbl-money2">
-			<strong class="lbl-money">&nbsp;</strong> <span class="lbl-money4"> ({{orderQty}}) unid.</span>
+		</span>				
+		<span class="lbl-money2 display-block">
+			<span class="lbl-money4 qntty"> ({{orderQty}}) itens</span>
+			<span class="lbl-money4 qntty"> ({{orderQty}}) unid.</span>
 		</span>
 	</div>
 	<div class="row-right-payment /*up-field-payment*/">
@@ -36,25 +36,25 @@
 	    </div>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
-		<span class="lbl-money">Cheque</span><span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+		<span class="lbl-money">Cheque</span><span class="lbl-money3">({{payments | paymentType:'check' | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
-		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3">( {{payments | paymentType:'creditcard' | count:'id'}} )</span>
+		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3">({{payments | paymentType:'creditcard' | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money red-color">Troca</span><span class="lbl-moneyt">( {{payments | paymentType:'exchange' | count:'id'}} )</span>
+		<span class="lbl-money red-color">Troca</span><span class="lbl-moneyt">({{payments | paymentType:'exchange' | count:'id'}})</span>
 		<span class="red-color">
 			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment">
-		<span class="lbl-money">Vale/Cupom</span> &nbsp;<span class="green-color big-font">*</span> 
+		<span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img src="images/alert-sign-small-v3.png" alt="Ver cupons"></span> 
         <span class="btn-price-payment btn-price-payment2">0,00</span>
 	</div>
     <div class="payment-resume">

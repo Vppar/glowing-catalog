@@ -33,10 +33,10 @@
 			<div class="grid-payment-check">
 				<div class="header header2">
 					<div class="row-payment-check-grid">
-						<span class="col-s5">
+						<span class="col-s5 w450">
 							<div>Produto</div>
 						</span>
-						<span class="col-s2">
+						<span class="col-s2 text-center">
 							<div>Valor</div>
 						</span>
 						<span class="col-s3">
@@ -46,12 +46,12 @@
 				</div>
 				<div class="scroll-payment-grid">
 					<div ng-repeat="payment in payments | paymentType:'exchange'" class="row-payment-grid-product-exchange">
-						<span class="col-s5">
+						<span class="col-s5 w450">
 							<div>
 								{{(products | findBy:'id':payment.data.productId).title}}
 							</div>
 						</span>
-						<span class="col-s2">
+						<span class="col-s2 text-center">
 							<div>
 								{{payment.amount | currency:""}}
 							</div>
@@ -72,5 +72,17 @@
 				</div>
 			</div>
 		</div>
+	
+		<div class="payment-left-btns-area">
+			<div class="payment-left-btns">
+				<button class="btn btn-cancel btn-large btn-login btn-payment-exchange" type="submit" ng-click="cancelPayments()" >
+				Cancelar
+			</button>
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-exchange" type="submit" ng-click="confirmPayments()"  >
+				Confirmar
+			</button>
+			</div>
+		</div>
+	
 	</div>
 </div>
