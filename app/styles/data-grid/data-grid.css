@@ -91,7 +91,7 @@
 	border-radius: 4px;
 	color:#fff;
 }
-.grid-input-products .header span, .grid-input-products .scroll-payment-grid  span {
+.grid-input-products .header span, .grid-input-products .header2 span, .grid-input-products .scroll-payment-grid  span {
 	display: inline-block;
 	line-height: 40px;
 }
@@ -117,7 +117,6 @@
 .grid-input-products .header .col-3 {
 	width: 110px;
 }
-
 .grid-input-products .header .col-3 div {
 	text-align: center;
 }
@@ -148,6 +147,64 @@
 	display: inline-block;
 	width: 20px
 }
+/*=============== GRID Complex PRODUCTS BASKET ===================*/
+.grid-input-products .header2 {
+	background: #333333;
+	border-radius: 4px;
+	color:#fff;
+}
+.row-input-products-grid span {line-height:44px;}
+.grid-input-products .header2 .col-1 {
+	width: 270px;
+}
+.grid-input-products .header2 .col-1 div {
+	margin-left: 40px
+}
+.grid-input-products .header2 .col-2 {
+	width: 80px
+}
+.grid-input-products .header2 .col-2 div {
+	text-align: center
+}
+.grid-input-products .header2 .col-3 {
+	width: 90px;
+}
+.grid-input-products .header2 .col-3 div {
+	text-align: center;
+}
+div.scroll-input-products-grid2 { height:230px; overflow-y:scroll;}
+
+.scroll-input-products-grid2 .col-1 {
+	width: 260px;
+	display: inline-block;
+	white-space: nowrap;
+}
+.scroll-input-products-grid2 .col-1 div {
+	margin-left: 20px;
+    white-space:nowrap;
+}
+.scroll-input-products-grid2 .col-2 {
+	width: 60px;
+	display: inline-block;
+}
+.scroll-input-products-grid2 .col-2 div {
+	text-align: center
+}
+.scroll-input-products-grid2 .col-3 {
+	width: 77px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-left:10px;
+}
+.scroll-input-products-grid2 .col-3 div {
+	text-align: center
+}
+.scroll-input-products-grid2 .col-4 {
+	display: inline-block;
+	width: 20px
+}
+div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px solid #EFEFEF; }
+.scroll-input-products-grid2 .row-input-products-grid span.col-3 div {width:40px; float:left;}
 /*=============== END INPUT PRODUCTS =====================*/
 
 /*=============== PAYMENT CHECK =====================*/
