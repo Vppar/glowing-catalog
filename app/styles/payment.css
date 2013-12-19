@@ -569,3 +569,10 @@ div.up-field-payment {
 .w450{
 	width:450px !important;
 }
+
+.code-product{
+	color: rgba(0, 0, 0, 0.5);
+	display: inline-block;
+	width:150px;
+	padding-left:10px;
+}
