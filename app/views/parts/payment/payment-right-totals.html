@@ -60,8 +60,11 @@
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) <= 0">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) < 0">
                 Faltam
+            </div>
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) == 0">
+                Diferen&ccedil;a
             </div>
             <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
                 Troco
@@ -83,10 +86,10 @@
 
 	<div class="payment-btns">
 		<div class="payment-btn-area">
-			<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
+			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="selectedPaymentMethod=='none'">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button ng-click="confirm()" class="btn btn-ok" type="submit">Confirmar</button>
+			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="selectedPaymentMethod=='none'">Confirmar</button>
 		</div>
 	</div>
 	<!--<span class="panel-payment-footer-left">
