@@ -1,0 +1,73 @@
+<div class="container">
+<script>
+var initMagnifier = function () {
+ $('#magnifier').zoom({magnify: 2});
+};
+</script>
+	<form class="form-add-to-basket">	
+		<span class="heading-gradient">{{product.title}}</span>
+		<span class="wrapper-qtde">
+			<!--<input-qty ng-model="qty" min="1"></input-qty>-->
+            		<div class="grid-input-products">
+							<div class="header2">
+								<div class="row-input-products-grid">
+									<span class="col-1"><div>Op&ccedil;&otilde;es</div></span><span class="col-2"><div>Pre&ccedil;o</div></span><span class="col-3"><div>Qtde</div></span>
+								</div>
+							</div>
+							<div class="scroll-input-products-grid2">
+								<div class="row-input-products-grid" >
+									<img src="images/del-pink.png" alt="" /><span class="col-1"><div>Lipstick Berries 054</div></span>
+                                    <span class="col-2"><div>150,00</div></span>
+                                    <span class="col-3"><span class="ic-arrow-left2" ng-click="decrement()"><img src="images/arrow-left-pink.png" alt="" /></span><div>5</div><span class="ic-arrow-right2" ng-click="increment()"><img src="images/arrow-right-pink.png" alt="" /></span>
+								</div>
+								<div class="row-input-products-grid" >
+									<img src="images/del-pink.png" alt="" /><span class="col-1"><div>Complexo Facial Noturno Time</div></span>
+                                    <span class="col-2"><div>150,00</div></span>
+                                    <span class="col-3"><span class="ic-arrow-left2" ng-click="decrement()"><img src="images/arrow-left-pink.png" alt="" /></span><div>5</div><span class="ic-arrow-right2" ng-click="increment()"><img src="images/arrow-right-pink.png" alt="" /></span> </span>
+								</div>
+							</div>
+						</div>
+                        <div class="total-basket-popup-big">
+                            <div class="price-add-to-basket margint10"><span class="price-popup-small">Total</span><br /><span class="price-popup-small">R$</span> {{product.price * qty | currency:''}}</div>
+                            <div class="line-gradient">&nbsp;</div>
+                            <div class="quantity-products-basket">em estoque <span>{{product.inventory}}</span></div>
+                        </div>
+		</span>
+		<div class="img-catalog-basket">
+        	 <select multiple="multiple">
+                <optgroup label="Group 1">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </optgroup>
+                <optgroup label="Group 2">
+                    <option value="7">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </optgroup>
+                <optgroup label="Group 3">
+                    <option value="15">15</option>
+                    <option value="15">16</option>
+                    <option value="15">17</option>
+                </optgroup>
+            </select>
+            <script>
+                $("select").multipleSelect({
+                    multiple: true,
+                    multipleWidth: 85,
+					placeholder: "Selecione as op&ccedil;&otilde;es"
+                });
+            </script>
+			<span class='zoom' id='magnifier'>
+            	<img ng-src="{{product.image}}" onload="javascript:initMagnifier();" alt="" />
+           </span>
+		</div>
+        <div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div>
+		<div class="clearfix"></div>
+		<hr />
+		<button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"
+			type="submit">Cancelar</button>
+		<button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right"
+			type="submit">Adicionar</button>
+	</form>
+</div>
