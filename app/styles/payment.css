@@ -74,7 +74,7 @@
 	width:91%;
 }
 .row-right-payment2 span {
-	margin: 16px 0 0 -3px;
+	/*margin: 16px 0 0 -3px;*/
 }
 .payment-resume div {
 	/*line-height: 30px*/
@@ -195,7 +195,8 @@
 }
 /*scroll left*/
 .left-payment .content-scroll {
-	height: 430px;
+	min-height: 180px;
+	max-height: 458px;
 	overflow-y: auto;
 	/*position:absolute;*/
 	-webkit-overflow-scrolling: touch;
@@ -226,7 +227,7 @@
 .left-payment .header .col-3, .left-payment .header2 .col-3 {
 	width: 100px;
 	display: inline-block;
-	text-align: center;
+	text-align: right;
 	font-weight: bold
 }
 .left-payment .header .col-4, .left-payment .header2 .col-4 {
@@ -246,30 +247,35 @@
 	width: 40px;
 	display: inline-block;
 	line-height: 20px;
-	white-space:nowrap
+	vertical-align: top;
 }
 .left-payment .content-scroll .col-2 {
 	width: 360px;
+	/*padding: 5px 0 5px 0;*/
 	display: inline-block;
-	text-align: left;
-	line-height: 22px;
+	line-height: 20px;
 	vertical-align: top;
-	padding: 5px 0 5px 0;
 }
 .left-payment .content-scroll .col-3 {
 	width: 100px;
+	text-align: right;
 	display: inline-block;
-	text-align: center;
+	line-height: 20px;
+	vertical-align: top;
 }
 .left-payment .content-scroll .col-4 {
 	width: 50px;
 	display: inline-block;
+	line-height: 20px;
+	vertical-align: top;
 	text-align: center;
 }
 .left-payment .content-scroll .col-5 {
 	width: 70px;
-	display: inline-block;
 	text-align: right;
+	display: inline-block;
+	line-height: 20px;
+	vertical-align: top;
 }
 
 .left-payment .col-s1 {
@@ -352,6 +358,9 @@
 }
 
 /* ---- */
+.payment-left{
+	display:block;
+}
 
 .payment-btns {
 	width: 90%;
@@ -369,12 +378,11 @@
 }
 
 .payment-left-btns {
-	width: 100%;/*500px*/
-	float:right;
-	text-align: right;/**/
+	float: right;
+	width: 671px;
+	text-align: right;	
 	height:50px;
-	/*border-top: 1px dotted #ccc;*/
-	padding-top: 10px;	
+	padding-top: 10px;
 }
 
 .payment-left-btns  button {
@@ -384,46 +392,52 @@
 #marginl0{
 	margin-left: 10px;
 }
-.payment-left-btns-area {
-	width: 671px;
+.payment-left-btns-area {	
+	/*float: left;
+	margin-top: -79px;*/
+	display: block;
 	height: 60px;
-	float: left;
-	margin-top: -79px;
-	position: relative;
 	border-top: 1px dotted #ccc;
 }
 
 .display-none {
 	display: none;
 }
-
 .col-check-s1 {
-	width: 35px;
+	width: 40px; /*35px*/
 	text-align:center;
 }
 .col-check-s2 {
-	width: 76px;
+	width: 60px;/*76px*/
 	text-align:center;
 }
 .col-check-s3 {
-	width: 75px;
+	width: 67px;/*75px*/
 	text-align:center;
 }
 .col-check-s4 {
-	width: 95px;
+	width: 121px; /*95px*/
 	text-align:center;
 }
 .col-check-s5 {
-	width: 75px;
+	width: 88px; /*75px*/
 	text-align:center;
 }
 .col-check-s6 {
-	width: 105px;
+	width: 81px; /*105px*/
 	text-align:center;
 }
 .col-check-s7 {
-	width: 95px;
+	width: 93px; /*95px*/
 	text-align:center;
+}
+.w101{
+	width: 101px !important;
+}
+.col-check-s8 {
+	width: 30px; /*35px*/
+	text-align:right;
+	margin-left:10px;
 }
 
 .payment-check-fields .control-label{
@@ -498,10 +512,60 @@ div.up-field-payment {
 .float-left{
 	float:left;
 }
+.float-right{
+	float:right;
+}
+.paddingr10{
+	padding-right:10px;
+}
 
 .check-total{
 	background-color: #f2f2f2;
 	height: 18px;
 	margin-top: -20px;
 	width: 580px;
+	padding: 5px 0 5px 0;
+}
+
+.check-total span{
+	padding-left:5px;
+	font-weight:bold;
+}
+
+.banco, .agencia {width:50px !important;}
+.conta {width:110px !important;}
+.cheque, .vencto {width:70px !important;}
+
+.qntty{
+	display: inline-block;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 74px;
+}
+.display-block{
+	display:block;
+}
+
+.credit-card-parcelas{
+	width:120px;
+	text-align:center;
+}
+.credit-card-valor{
+	text-align:center;
+}
+
+.w126{
+	width:126px !important;
+}
+
+.w365{
+	width:365px !important;
+}
+
+.text-center{
+	text-align:center;
+}
+
+.w450{
+	width:450px !important;
 }

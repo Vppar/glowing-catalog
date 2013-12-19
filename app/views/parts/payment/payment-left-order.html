@@ -7,27 +7,25 @@
 	<div class="header">
 		<span class="col-1">Item</span>
 		<span class="col-2">Produto/Código</span>
-		<span class="col-3">Vr Unitário</span>
+		<span class="col-3">Vr Unit.</span>
 		<span class="col-4">Qtde</span>
 		<span class="col-5 marginl8">Vr Total</span>
 	</div>
 	<div class="content-scroll">
-		<!--<div ng-repeat="item in items | filter: inBasketFilter">
+		<div ng-repeat="item in items | filter: inBasketFilter">
 			<span class="col-1" ng-show="$index < 9">{{ '0' + ($index + 1)}}</span>
 			<span class="col-1" ng-show="$index >= 9">{{$index + 1}}</span>
 			<span class="col-2">{{item.title}}</span>
 			<span class="col-3">{{item.price | currency: ''}}</span>
 			<span class="col-4">{{item.qty}}</span>
 			<span class="col-5">{{item.qty*item.price | currency:''}}</span>
-		</div>-->
-		<div>
-			<span class="col-1">xxx</span>
-			<span class="col-1">xxx</span>
-			<span class="col-2">xxx</span>
-			<span class="col-3">xxx</span>
-			<span class="col-4">xxx</span>
-			<span class="col-5">xxx</span>
 		</div>
 	</div>
-
 </div>
+	
+<div class="payment-left-btns-area">
+	<div class="payment-left-btns">
+		<button id="marginl0" class="btn btn-cancel" onclick="javascript:window.location='#'">Voltar</button>
+	</div>
+</div>
+	

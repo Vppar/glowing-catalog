@@ -10,31 +10,31 @@
 			<div class="control-group lbl-top">
 				<label class="control-label">Banco</label>
 				<div class="controls">
-					<input name="bank" id="banco" class="input-mini" type="text" maxlength="3" placeholder="" ng-model="check.bank" required recall onkeyup="checkInputKeyUp(this)">
+					<input name="bank" id="banco" class="input-mini banco" type="text" maxlength="3" placeholder="" ng-model="check.bank" required recall onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label">Agência</label>
 				<div class="controls">
-					<input name="agency" id="agencia" class="input-mini" type="text" maxlength="4" placeholder="" ng-model="check.agency" required recall onkeyup="checkInputKeyUp(this)">
+					<input name="agency" id="agencia" class="input-mini agencia" type="text" maxlength="4" placeholder="" ng-model="check.agency" required recall onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label">Conta</label>
 				<div class="controls">
-					<input name="account" id="conta" class="input-cta" type="text" maxlength="10" ng-model="check.account" required recall onkeyup="checkInputKeyUp(this)">
+					<input name="account" id="conta" class="input-cta conta" type="text" maxlength="10" ng-model="check.account" required recall onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label">Cheque</label>
 				<div class="controls">
-					<input name="number" id="cheque" class="input-mini" type="text" maxlength="6" ng-model="check.number" required recall onkeyup="checkInputKeyUp(this)">
+					<input name="number" id="cheque" class="input-mini cheque" type="text" maxlength="6" ng-model="check.number" required recall onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
-				<label class="control-label">Vencimento</label>
+				<label class="control-label">Vencto.</label>
 				<div class="controls">
-					<input type="text" id="vencto" class="date-field input-small" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required onkeyup="checkInputKeyUp(this)">
+					<input type="text" id="vencto" class="date-field input-small vencto" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -60,7 +60,7 @@
 	
 	
 	<div class="row-fluid check-total">
-		<span>Total</span><span></span>
+		<span>Total</span><span class="float-right marginr10">100,00</span>
 	</div>
 	
 	<div class="row-fluid">
@@ -83,9 +83,9 @@
 						<div>Cheque</div>
 					</span>
 					<span class="col-check-s6">
-						<div>Vencimento</div>
+						<div>Vencto.</div>
 					</span>
-					<span class="col-check-s7">
+					<span class="col-check-s7 w101">
 						<div>Valor</div>
 					</span>
 					<span class="col-7">
@@ -95,7 +95,7 @@
 			</div>
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
-				<!--<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'id':true" >
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'id':true" >
 					<span class="col-check-s1">
 						<div>{{(payments | paymentType:'check').length - $index}}</div>
 					</span>
@@ -117,36 +117,7 @@
 	                <span class="col-check-s7 t-right">
 	                	<div>{{payment.amount | currency:''}}</div>
 	                </span>
-	                <span class="col-check-s1 t-right">
-	                	<div class="hover-state-pointer">
-							<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
-						</div>
-	                </span>
-				</div>-->
-				
-				<div class="row-payment-check-grid">
-					<span class="col-check-s1">
-						<div>xxx</div>
-					</span>
-	               	<span class="col-check-s2">
-	               		<div>xxx</div>
-	               	</span>
-	             	<span class="col-check-s3">
-	             		<div>xxx</div>
-	             	</span>
-	                <span class="col-check-s4">
-	                	<div>xxx</div>
-	                </span>
-	                <span class="col-check-s5">
-	                	<div>xxx</div>
-	                </span>
-					<span class="col-check-s6">
-						<div>xxx</div>
-					</span>
-	                <span class="col-check-s7 t-right">
-	                	<div>xxx</div>
-	                </span>
-	                <span class="col-check-s1 t-right">
+	                <span class="col-check-s8">
 	                	<div class="hover-state-pointer">
 							<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
 						</div>
@@ -162,4 +133,15 @@
 			</div>
 		</div>
 	</div>-->
+	
+	<div class="payment-left-btns-area">
+		<div class="payment-left-btns">
+			<button class="btn btn-cancel btn-large btn-login btn-payment-check" ng-click="cancelPayments()">
+				Cancelar
+			</button>
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-check" ng-click="confirmPayments()">
+				Confirmar
+			</button>
+		</div>
+	</div>
 </div>
