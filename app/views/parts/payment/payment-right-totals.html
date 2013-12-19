@@ -86,10 +86,10 @@
 
 	<div class="payment-btns">
 		<div class="payment-btn-area">
-			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="selectedPaymentMethod=='none'">Cancelar</button>
+			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) != 0">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="selectedPaymentMethod=='none'">Confirmar</button>
+			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) != 0">Confirmar</button>
 		</div>
 	</div>
 	<!--<span class="panel-payment-footer-left">

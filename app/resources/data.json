@@ -346,6 +346,7 @@
         "customerId": 14,
         "date": 1383066000000,
         "code": "mary-0001-13",
+        "canceled": false,
         "paymentId": 1,
         "items": [{
             "id": 1,
