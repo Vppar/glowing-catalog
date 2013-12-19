@@ -17,21 +17,25 @@
                         // Easy the access in the controller to external
                         // resources
                         var order = OrderService.order;
-                        var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                         var inBasketFilter = OrderService.inBasketFilter;
 
                         // Controls which left fragment will be shown
                         $scope.selectedPaymentMethod = 'none';
 
-                        // Calculate the order amount
+                        // Define the customer
+                        var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                        $scope.customer = customer;
+
+                        // Calculate the Subtotal
                         var basket = $filter('filter')(order.items, inBasketFilter);
-                        var orderQty = basket ? basket.length : 0;
+                        var orderItemsQty = basket ? basket.length : 0;
+                        var orderUnitsQty = $filter('sum')(basket, 'qty');
                         var orderAmount = $filter('sum')(basket, 'price', 'qty');
                         $scope.orderAmount = orderAmount;
-                        $scope.orderQty = orderQty;
+                        $scope.orderItemsQty = orderItemsQty;
+                        $scope.orderUnitsQty = orderUnitsQty;
 
-                        // Scope binding to needed external resources
-                        $scope.customer = customer;
+                        // Order list
                         $scope.items = order.items;
                         $scope.payments = PaymentService.payments;
 
@@ -51,7 +55,13 @@
                         // Publishing dialog service
                         var dialogService = DialogService;
                         $scope.dialogService = dialogService;
-                        $scope.openDialogChooseCustomer = dialogService.openDialogChooseCustomer;
+
+                        $scope.openDialogChooseCustomer = function() {
+                            dialogService.openDialogChooseCustomer().then(function() {
+                                customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                                $scope.customer = customer;
+                            });
+                        };
 
                         // #############################################################################################
                         // Screen action functions
