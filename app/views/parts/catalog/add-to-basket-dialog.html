@@ -1,14 +1,14 @@
 <div class="container">	
-	<form class="form-add-to-basket">	
+	<form class="form-add-to-basket2">	
 		<span class="heading-gradient">{{product.title}}</span>
-		<span class="wrapper-qtde">
+		<span class="wrapper-qtde2">
 			<div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div> 
 			<input-qty ng-model="qty" min="1"></input-qty>
 			<div class="price-add-to-basket margint10"><span class="price-popup-small">Total</span><br /><span class="price-popup-small">R$</span> {{product.price * qty | currency:''}}</div>
             <div class="line-gradient">&nbsp;</div>
             <div class="quantity-products-basket">em estoque <span>{{product.inventory}}</span></div>
 		</span>
-		<div class="img-catalog-basket">
+		<div class="img-catalog-basket2">
 			<img ng-src="{{product.image}}" alt="" />
 		</div>
 		<div class="clearfix"></div>

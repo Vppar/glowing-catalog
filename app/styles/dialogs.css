@@ -19,6 +19,7 @@
 .form-add-email,
 .form-add-tel,
 .form-add-to-basket,
+.form-add-to-basket2,
 .form-choose-customer,
 .form-delivery-details-modal,
 .form-input-products,
@@ -26,7 +27,7 @@
 .form-payment-advance-money,
 .form-payment-check,
 .form-payment-exchange-modal {
-	padding: 40px 30px 30px 30px;
+	padding: 20px 30px 30px 30px;
 	border-radius: 0 0 4px 4px;
 	box-shadow: 0px 10px 50px 10px #999;
 	background: #fff;
@@ -92,18 +93,26 @@
 	color: #b77a78;
 }
 .form-add-to-basket {
+	width: 780px;
+	margin-left: -440px
+}
+.form-add-to-basket2 {
 	width: 360px;
 	margin-left: -210px
 }
-.form-add-to-basket .line-gradient-01 {
+.form-add-to-basket .line-gradient-01, .form-add-to-basket2 .line-gradient-01  {
 	padding: 20px 0 20px 0;
 }
-.form-add-to-basket .img-catalog-02 img {
+.form-add-to-basket .img-catalog-02 img, .form-add-to-basket2 .img-catalog-02 img {
 	width: 180px;
 	float: left;
 	margin-bottom: 10px;
 }
 .form-add-to-basket .wrapper-qtde {
+	float: right;
+	margin: 0px 2px 2px 20px;
+}
+.form-add-to-basket2 .wrapper-qtde {
 	float: right;
 	margin: 5px 20px 2px 20px;
 }

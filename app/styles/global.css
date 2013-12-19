@@ -702,8 +702,11 @@ nav ul li {
 	max-height: 90px;
 }
 .img-catalog-basket img {
-	max-width: 190px;
+	max-width: 200px;
 	/*max-height: 90px;*/
+}
+.img-catalog-basket2 img {
+	max-width: 200px;
 }
 .col-right .img-catalog-02 img {
 	max-width: 90px;
@@ -918,6 +921,12 @@ nav ul li {
 	font-size:18px;
 }
 .img-catalog-basket img {
+	text-align:center;
+	vertical-align:center;
+	display:block;
+	margin:20px;
+}
+.img-catalog-basket2 img {
 	text-align:center;
 	vertical-align:center;
 	display:block;
