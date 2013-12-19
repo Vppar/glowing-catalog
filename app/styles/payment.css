@@ -369,17 +369,16 @@
 }
 
 .payment-left-btns {
-	width: 500px;
-	/*float:right;
-	text-align: right;*/
+	width: 100%;/*500px*/
+	float:right;
+	text-align: right;/**/
 	height:50px;
 	/*border-top: 1px dotted #ccc;*/
-	padding-top: 10px;
-	
+	padding-top: 10px;	
 }
 
 .payment-left-btns  button {
-	margin-left: 50px;
+	margin: 0 25px 0 25px;
 }
 
 #marginl0{
@@ -495,6 +494,9 @@ div.up-field-payment {
 }
 .btn-payments-right {
 	width:80%;
+}
+.float-left{
+	float:left;
 }
 
 .check-total{

@@ -1000,7 +1000,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 
 /* SCROLL */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 } 
 /* Track */
 ::-webkit-scrollbar-track {
