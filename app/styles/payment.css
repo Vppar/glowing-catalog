@@ -252,6 +252,9 @@
 	width: 360px;
 	display: inline-block;
 	text-align: left;
+	line-height: 22px;
+	vertical-align: top;
+	padding: 5px 0 5px 0;
 }
 .left-payment .content-scroll .col-3 {
 	width: 100px;
