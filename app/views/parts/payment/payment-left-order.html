@@ -15,7 +15,7 @@
 		<div ng-repeat="item in items | filter: inBasketFilter">
 			<span class="col-1" ng-show="$index < 9">{{ '0' + ($index + 1)}}</span>
 			<span class="col-1" ng-show="$index >= 9">{{$index + 1}}</span>
-			<span class="col-2">{{item.title}}</span>
+			<span class="col-2">{{item.title}}<span class="code-product">10-122013</span></span>
 			<span class="col-3">{{item.price | currency: ''}}</span>
 			<span class="col-4">{{item.qty}}</span>
 			<span class="col-5">{{item.qty*item.price | currency:''}}</span>
