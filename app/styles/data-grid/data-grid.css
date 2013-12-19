@@ -152,7 +152,7 @@
 
 /*=============== PAYMENT CHECK =====================*/
 .header .row-payment-check-grid, .header .row-payment-check-grid, .row-payment-grid-product-exchange, .row-payment-credit-card-grid{
-	margin-left: 20px
+	/*margin-left: 20px*/
 }
 .scroll-payment-grid {
 	height: 200px;
@@ -178,7 +178,7 @@
 	border-bottom: 1px dotted #e0e0e0
 }
 .scroll-payment-grid .row-payment-check-grid {
-	margin-left: 20px
+	/*margin-left: 20px*/
 }
 .grid-payment-check .header .col-1 {
 	width: 70px;
