@@ -293,7 +293,7 @@
 	display: inline-block;
 }
 .payment-check-fields {
-	margin:0 0 0 60px;
+	margin:0 0 0 40px;
 }
 .payment-voucher-fields {
 	margin:0 0 0 28px;
@@ -369,17 +369,16 @@
 }
 
 .payment-left-btns {
-	width: 500px;
-	/*float:right;
-	text-align: right;*/
+	width: 100%;/*500px*/
+	float:right;
+	text-align: right;/**/
 	height:50px;
 	/*border-top: 1px dotted #ccc;*/
-	padding-top: 10px;
-	
+	padding-top: 10px;	
 }
 
 .payment-left-btns  button {
-	margin-left: 50px;
+	margin: 0 25px 0 25px;
 }
 
 #marginl0{
@@ -400,24 +399,35 @@
 
 .col-check-s1 {
 	width: 35px;
+	text-align:center;
 }
 .col-check-s2 {
 	width: 76px;
+	text-align:center;
 }
 .col-check-s3 {
 	width: 75px;
+	text-align:center;
 }
 .col-check-s4 {
 	width: 95px;
+	text-align:center;
 }
 .col-check-s5 {
 	width: 75px;
+	text-align:center;
 }
 .col-check-s6 {
 	width: 105px;
+	text-align:center;
 }
 .col-check-s7 {
 	width: 95px;
+	text-align:center;
+}
+
+.payment-check-fields .control-label{
+	text-align:center !important;
 }
 
 #div-overlay {
@@ -467,9 +477,9 @@ div.up-field-payment {
 	margin-top: -20px !important;
 }
 
-div.controls input  {
+/*div.controls input  {
 	margin:0 5px 0 -5px;
-	}
+}*/
 .marginr10{
 	margin-right:10px;
 }
@@ -484,4 +494,14 @@ div.controls input  {
 }
 .btn-payments-right {
 	width:80%;
+}
+.float-left{
+	float:left;
+}
+
+.check-total{
+	background-color: #f2f2f2;
+	height: 18px;
+	margin-top: -20px;
+	width: 580px;
 }

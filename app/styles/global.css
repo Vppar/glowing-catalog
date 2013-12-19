@@ -151,7 +151,7 @@ li.menu-black:last-child a:hover {
 	text-align:center;
 }
 .t-right {
-	text-align:right;
+	text-align:right !important;
 }
 .t-left {
 	text-align:left;
@@ -336,7 +336,7 @@ li.menu-black:last-child a:hover {
 	padding: 10px;
 	color: #fff;
 	font-size: 18px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	padding: 15px 0 15px 30px;
 	background: #000 url(../images/heading-gradient-bg.png) repeat-y;
 }
@@ -344,7 +344,13 @@ li.menu-black:last-child a:hover {
 /*main container*/
 body {
 	background: #fdfdfd;
+  margin: 0;
+  font-family: Helvetica, Arial,"Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
 }
+
 .last-oportunitie {
 	padding: 5px;
 	text-align: center;
@@ -994,7 +1000,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 
 /* SCROLL */
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 5px;
 } 
 /* Track */
 ::-webkit-scrollbar-track {
@@ -1014,5 +1020,5 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 }
 
 .left-payment{
-	padding-left: 8px;
+	/*padding-left: 8px;*/
 }
