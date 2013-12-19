@@ -9,7 +9,7 @@
 		<form name="creditCardForm">
 			<div class="controls-row">
 				<div class="control-group lbl-top">
-					<label class="control-label">Parcelas</label>
+					<label class="control-label credit-card-parcelas">Parcelas</label>
 					<div id="combo-parcelas w120">
 					<div class="controls w120">
 						<select name="installment" ui-select2 ng-model="creditCard.installment" class="combo-width-4 w120" required>
@@ -28,7 +28,7 @@
 				</div>
 				<div class="control-group lbl-top">
 					<div class="control-group lbl-top">
-						<label class="control-label" >Valor</label>
+						<label class="control-label credit-card-valor">Valor</label>
 						<div class="controls">
 							<input name="amount" class="input-small text-right" type="tel" placeholder="" ng-model="creditCard.amount"  currency required recall>
 						</div>
@@ -46,13 +46,13 @@
 		<div class="grid-payment-check">
 			<div class="header header2">
 				<div class="row-payment-check-grid">
-					<span class="col-s3">
+					<span class="col-s3 w126 text-center">
 						<div>Parcelas</div>
 					</span>
-                    <span class="col-s5">
+                    <span class="col-s5 w365">
                     	<div>Cart&atilde;o</div>
                     </span>
-                    <span class="col-s3">
+                    <span class="col-s3 text-center">
                     	<div>Valor</div>
                     </span>
                     <span class="col-s1">
@@ -62,13 +62,13 @@
 			</div>
 			<div class="scroll-payment-grid">
 				<div class="row-payment-credit-card-grid" ng-repeat="payment in payments | paymentType:'creditcard'">
-					<span class="col-s3">
+					<span class="col-s3 w126 text-center">
 						<div>{{payment.data.installment}}</div>
 					</span>
-					<span class="col-s5">
+					<span class="col-s5 w365">
 						<div>{{payment.data.flag}}</div>
 					</span>
-					<span class="col-s3">
+					<span class="col-s3 text-center">
 						<div>{{payment.amount | currency:''}}</div>
 					</span>
 					<span class="col-s1">
@@ -88,6 +88,18 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="payment-left-btns-area">
+		<div class="payment-left-btns">
+			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
+				Cancelar
+			</button>
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmPayments()" >
+				Confirmar
+			</button>
+		</div>
+	</div>
+	
 </div>
 
 
