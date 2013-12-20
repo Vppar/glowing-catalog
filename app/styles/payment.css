@@ -459,15 +459,30 @@
 	-webkit-filter: blur(2px);
 }*/
 /****** PAYMENT KEYBOARD *******/
+#keyNum .dinheiro {
+width: 290px;
+height: 400px;
+background: #fff;
+float: right;
+position: absolute;
+padding: 10px;
+margin: 24px 0 40px -5px;
+top: 218px;
+z-index: 11;
+border-radius: 4px;
+}
+
 #keyNum {
-	width:290px;
-	height:auto;
-	background:#eee;
-	float:right;
-	position:absolute;
-	margin:0 0 0 11px;
-	top:218px;
-	z-index:11;
+width: 290px;
+height: 500px;
+background: #fff;
+float: right;
+position: absolute;
+padding: 10px;
+margin: -20px 0 40px -5px;
+top: 218px;
+z-index: 11;
+border-radius: 4px;
 }
 /*.keyboard-display {
 	display:block;
@@ -524,7 +539,9 @@ div.up-field-payment {
 .paddingr10{
 	padding-right:10px;
 }
-
+.text-right{
+	text-align:right;
+}
 .payment-total, .check-total{
 	background-color: #f2f2f2;
 	height: 18px;
@@ -541,6 +558,19 @@ div.up-field-payment {
 }
 
 .check-total span{
+	padding-left:12px; /*5*/
+	font-weight:bold;
+	margin-right: 12px;
+}
+
+.title-gopay{
+	background-color: #f2f2f2;
+	height: 20px;
+	width: 492px;
+	padding: 5px 0 5px 0;
+	border-radius: 4px;
+}
+.title-gopay span{
 	padding-left:12px; /*5*/
 	font-weight:bold;
 	margin-right: 12px;
@@ -600,7 +630,12 @@ div.up-field-payment {
 .paddingl20{
 	padding-left:20px !important;
 }
-
+.no-padding{
+	padding: 0 !important;
+}
+.paddingt3{
+	padding-top:3px !important;
+}
 .code-product{
 	color: rgba(0, 0, 0, 0.5);
 	display: inline-block;
@@ -611,4 +646,120 @@ div.up-field-payment {
 .credit-card-value{	
 	padding-left: 15px !important;
 	width: 114px !important;
+}
+
+/*-------------exchange------------*/
+
+.grid-payment-exchange .col-s1 {
+	width: 60px; /*35px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-exchange .col-s2 {
+	width: 400px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-exchange .col-s3 {
+	width: 90px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-exchange .col-s4{
+	width: 90px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.control-label-exchange{
+	width:400px;
+}
+
+.exchange-initial .header-exchange{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+}
+.exchange-initial .header-exchange, .exchange-edit .header-exchange{
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.subtitle-header-exchange{
+	margin: 0 !important;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+
+.grid-payment-exchange-edit .col-s1 {
+	width: 315px; /*35px*/
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left:5px;
+}
+.grid-payment-exchange-edit .col-s2 {
+	width: 87px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-exchange-edit .col-s3 {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-exchange-edit .col-s4{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-exchange-edit .col-s1-list {
+	width: 305px;
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left: 15px;
+}
+.grid-payment-exchange-edit .col-s2-list {
+	width: 87px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-exchange-edit .col-s3-list {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-exchange-edit .col-s4-list{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.col-s3-list input ,
+.col-s4-list input {
+	margin: 0 !important;
+	width:90px;
+}
+
+.grid-payment-exchange-edit .scroll-payment-grid {
+	min-height: 205px !important;
+	max-height: 432px !important;
+}
+.grid-payment-exchange .scroll-payment-grid {
+	min-height: 125px !important;
+	max-height: 432px !important;
 }

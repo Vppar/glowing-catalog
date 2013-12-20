@@ -357,7 +357,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 }*/
 .scroll-payment-grid {
 	min-height: 123px;
-	max-height: 320px;
+	max-height: 335px; /*320*/
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 }
