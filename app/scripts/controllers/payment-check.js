@@ -16,7 +16,7 @@
                 // scope
                 var check = {};
                 var emptyCheckTemplate = {
-                    installments : null,
+                    installments : 1,
                     bank : null,
                     agency : null,
                     account : null,
@@ -26,6 +26,9 @@
                 };
                 angular.extend(check, emptyCheckTemplate);
                 $scope.check = check;
+
+                // Used to mark
+                var index = $filter('count')($filter('paymentType')($scope.payments, 'check'), 'id');
 
                 // Find the id of check payment type
                 var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
@@ -63,7 +66,10 @@
                             if (newCheck.installments > 1) {
                                 newChecks = buildInstallments(newCheck);
                             } else {
-                                newChecks = [];
+                                newCheck.installmentId = ++index;
+                                newChecks = [
+                                    newCheck
+                                ];
                             }
                             createPayments(newChecks);
                             angular.extend(newCheck, emptyCheckTemplate);
@@ -88,12 +94,11 @@
                 $scope.removeCheck = function removeCheck(payment) {
                     var paymentIdx = $scope.payments.indexOf(payment);
                     $scope.payments.splice(paymentIdx, 1);
-                    // var checks =
-                    // $filter('paymentType')($scope.payments, 'check');
-                    // for ( var idx in checks) {
-                    // checks[idx].idx = Number(idx);
-                    // }
-                    // index--;
+                    var checkPayments = $filter('orderBy')($filter('paymentType')($scope.payments, 'check'), 'data.duedate');
+                    for ( var idx in checkPayments) {
+                        checkPayments[idx].data.installmentId = Number(idx) + 1;
+                    }
+                    index--;
                 };
 
                 // #####################################################################################################
@@ -105,7 +110,7 @@
                     // Well the payment will be by installments, so
                     // store
                     // calc the installments amount.
-                    var installmentsAmount = Math.round(newCheck.amount * 100 / 3) / 100;
+                    var installmentsAmount = Math.round(newCheck.amount * 100 / newCheck.installments) / 100;
                     // save the installments number so we can delete it
                     var installmentsNumber = newCheck.installments;
                     delete newCheck.installments;
@@ -115,24 +120,25 @@
                         // make a copy
                         var checkInstallment = angular.copy(newCheck);
 
-                        checkInstallment.installmentId = i + 1;
-                        checkInstallment.number = newCheck + i;
+                        checkInstallment.installmentId = i + index + 1;
+                        checkInstallment.number = Number(newCheck.number) + i;
                         checkInstallment.duedate.setMonth(checkInstallment.duedate.getMonth() + i);
 
-                        if (installments === i + 1) {
+                        if (Number(installmentsNumber) === i + 1) {
                             var finalAmount = newCheck.amount - installmentsSum;
                             finalAmount = Math.round(finalAmount * 100) / 100;
                             checkInstallment.amount = finalAmount;
                         } else {
                             checkInstallment.amount = installmentsAmount;
                         }
-                        installmentsSum += installmentsAmount;
+                        installmentsSum =  Math.round((installmentsSum + checkInstallment.amount)*100)/100;
                         newChecks.push(checkInstallment);
                     }
                     if (installmentsSum !== newCheck.amount) {
                         $log.info('PaymentCheckCtrl.buildInstallments: -The sum of the installments and the amount are' +
-                            ' different, installmentsSum=' + installmentsSum + ' originalAmount=' + amount);
+                            ' different, installmentsSum=' + installmentsSum + ' originalAmount=' + newCheck.amount);
                     }
+                    index += installmentsNumber;
                     return newChecks;
                 }
 
