@@ -566,13 +566,21 @@ div.up-field-payment {
 	text-align:center;
 }
 
-.w450{
-	width:450px !important;
+.w490{
+	width:490px !important;
 }
+
+.marginl10{
+	margin-left:10px;
+}
+.paddingl5{
+	padding-left:5px;
+}
+
 
 .code-product{
 	color: rgba(0, 0, 0, 0.5);
 	display: inline-block;
 	width:150px;
-	padding-left:10px;
+	/*padding-left:10px;*/
 }
