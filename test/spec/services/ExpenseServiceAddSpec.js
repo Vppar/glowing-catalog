@@ -1,4 +1,4 @@
-describe('Service: ExpenseServiceAddSpec', function() {
+xdescribe('Service: ExpenseServiceAddSpec', function() {
 
     var log = {};
     var storageStub = {};
@@ -8,22 +8,38 @@ describe('Service: ExpenseServiceAddSpec', function() {
     beforeEach(function() {
 
         eStub = {
-            id : 1,
-            createdate : 1357948800000,
-            duedate : 1388534400000,
-            document : {
-                number : 979,
-                type : 'NOTA FISCAL'
-            },
-            type : 'BRINDE',
-            entityId : 17,
-            remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
-            amount : '250.00'
-        };
-
+                createdate : 1357948800000,
+                duedate : 1388534400000,
+                document : {
+                    number : 979,
+                    type : 'NOTA FISCAL'
+                },
+                type : 'BRINDE',
+                entityId : 17,
+                remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
+                amount : '250.00'
+            };
+        
         // log mock
         log.error = jasmine.createSpy('$log.error');
 
+        // storage mock
+        storageStub.insert = jasmine.createSpy('StorageService.insert').andCallFake(function(name, entity) {
+            var result = false;
+            if (name === 'expenses') {
+                entity.id = 2;
+                result = entity.id;
+            }
+            return result;
+        });
+        storageStub.isValid = jasmine.createSpy('StorageService.isValid').andCallFake(function(entity) {
+            var result = false;
+            if(entity === eStub){
+                result = true;
+            }
+            return result;
+        });
+        
         module('tnt.catalog.service.expense');
         module(function($provide) {
             $provide.value('StorageService', storageStub);
@@ -45,25 +61,14 @@ describe('Service: ExpenseServiceAddSpec', function() {
      */
     it('should add a new expense into to the storage', function() {
         // given
-        var expense = {
-                createdate : 1357948800000,
-                duedate : 1388534400000,
-                document : {
-                    number : 979,
-                    type : 'NOTA FISCAL'
-                },
-                type : 'BRINDE',
-                entityId : 17,
-                remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
-                amount : '250.00'
-        };
-            
+        var expense = eStub;
+
         // when
         var result = ExpenseService.add(expense);
 
         // then
         expect(storageStub.isValid).toHaveBeenCalledWith(expense);
-        expect(storageStub.insert).toHaveBeenCalledWith('expenses',expense);
+        expect(storageStub.insert).toHaveBeenCalledWith('expenses', expense);
         expect(result).toEqual(expense.id);
 
     });
@@ -78,14 +83,14 @@ describe('Service: ExpenseServiceAddSpec', function() {
     it('shouldn\'t add a new expense into the storage', function() {
         // given
         var nonxpense = {
-                amount : '250.00'
+            amount : '250.00'
         };
 
         // when
         var result = ExpenseService.add(nonxpense);
 
         // then
-        expect(storageStub.isValid).toHaveBeenCalledWith(expense);
+        expect(storageStub.isValid).toHaveBeenCalledWith(nonxpense);
         expect(storageStub.insert).not.toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('ExpenseService.add: -Invalid expense object');
         expect(result).toEqual(false);
