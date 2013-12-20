@@ -1,4 +1,4 @@
-describe('Controller: PaymentCtrl', function() {
+xdescribe('Controller: PaymentCtrl', function() {
     var rootScope = {};
     var scope = {};
     var dp = {};

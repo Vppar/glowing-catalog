@@ -23,9 +23,12 @@
         angular.extend(check, emptyCheckTemplate);
         $scope.check = check;
 
+        // Used to mark
+        var index = $filter('count')($filter('paymentType')($scope.payments, 'check'), 'id') - 1;
+
         // Find the id of check payment type
         var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
-        
+
         // Recovering dialogService from parent scope.
         var dialogService = $scope.dialogService;
 
@@ -58,8 +61,11 @@
                     var amount = newCheck.amount;
                     delete newCheck.amount;
 
+                    index++;
+
                     payment.amount = amount;
                     payment.data = angular.copy(newCheck);
+                    payment.idx = index;
 
                     angular.extend(newCheck, emptyCheckTemplate);
                     $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
@@ -71,7 +77,7 @@
          * Clear all check fields
          */
         $scope.clearCheck = function clearCheck() {
-            
+
             angular.extend(check, emptyCheckTemplate);
             $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
         };
@@ -82,8 +88,13 @@
          * @param payment - check payment to be removed.
          */
         $scope.removeCheck = function removeCheck(payment) {
-            var index = $scope.payments.indexOf(payment);
-            $scope.payments.splice(index, 1);
+            var paymentIdx = $scope.payments.indexOf(payment);
+            $scope.payments.splice(paymentIdx, 1);
+            var checks = $filter('paymentType')($scope.payments, 'check');
+            for ( var idx in checks) {
+                checks[idx].idx = Number(idx);
+            }
+            index--;
         };
 
         // #####################################################################################################
