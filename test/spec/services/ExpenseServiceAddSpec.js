@@ -1,28 +1,23 @@
-describe('Service: ExpenseServiceAddSpec', function() {
+xdescribe('Service: ExpenseServiceAddSpec', function() {
 
     var log = {};
     var storageStub = {};
-    var eStub = {};
 
     // load the service's module
     beforeEach(function() {
 
-        eStub = {
-            id : 1,
-            createdate : 1357948800000,
-            duedate : 1388534400000,
-            document : {
-                number : 979,
-                type : 'NOTA FISCAL'
-            },
-            type : 'BRINDE',
-            entityId : 17,
-            remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
-            amount : '250.00'
-        };
-
         // log mock
         log.error = jasmine.createSpy('$log.error');
+
+        // storage mock
+        storageStub.insert = jasmine.createSpy('SotorageService.insert').andCallFake(function(name, entity) {
+            var result = false;
+            if (name === 'expenses') {
+                entity.id = 2;
+                result = entity.id;
+            }
+            return result;
+        });
 
         module('tnt.catalog.service.expense');
         module(function($provide) {
@@ -46,24 +41,24 @@ describe('Service: ExpenseServiceAddSpec', function() {
     it('should add a new expense into to the storage', function() {
         // given
         var expense = {
-                createdate : 1357948800000,
-                duedate : 1388534400000,
-                document : {
-                    number : 979,
-                    type : 'NOTA FISCAL'
-                },
-                type : 'BRINDE',
-                entityId : 17,
-                remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
-                amount : '250.00'
+            createdate : 1357948800000,
+            duedate : 1388534400000,
+            document : {
+                number : 979,
+                type : 'NOTA FISCAL'
+            },
+            type : 'BRINDE',
+            entityId : 17,
+            remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
+            amount : '250.00'
         };
-            
+
         // when
         var result = ExpenseService.add(expense);
 
         // then
         expect(storageStub.isValid).toHaveBeenCalledWith(expense);
-        expect(storageStub.insert).toHaveBeenCalledWith('expenses',expense);
+        expect(storageStub.insert).toHaveBeenCalledWith('expenses', expense);
         expect(result).toEqual(expense.id);
 
     });
@@ -78,7 +73,7 @@ describe('Service: ExpenseServiceAddSpec', function() {
     it('shouldn\'t add a new expense into the storage', function() {
         // given
         var nonxpense = {
-                amount : '250.00'
+            amount : '250.00'
         };
 
         // when
