@@ -15,7 +15,7 @@
 		<div ng-repeat="item in items | filter: inBasketFilter | orderBy:'idx':true">
 			<span class="col-1" ng-show="item.idx <= 8">{{ '0' + (item.idx + 1)}}</span>
 			<span class="col-1" ng-show="item.idx > 8">{{item.idx + 1}}</span>
-			<span class="col-2">{{item.title}}<span class="code-product">{{item.code}}</span></span>
+			<span class="col-2">{{item.title}} &nbsp;<span class="code-product">{{item.code}}</span></span>
 			<span class="col-3">{{item.price | currency: ''}}</span>
 			<span class="col-4">{{item.qty}}</span>
 			<span class="col-5">{{item.qty*item.price | currency:''}}</span>

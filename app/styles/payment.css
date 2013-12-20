@@ -302,7 +302,7 @@
 	margin:0 0 0 40px;
 }
 .payment-voucher-fields {
-	margin:0 0 0 28px;
+	margin:0 0 0 44px;
 }
 /* end scroll left*/
 #combo-parcelas{
@@ -500,6 +500,12 @@ div.up-field-payment {
 .marginl8{
 	margin-left:8px !important;
 }
+.margint5{
+	margin-top: 5px;
+}
+.margintn69{
+	margin-top: -69px;
+}
 .w120 {
 	width:120px !important;
 }
@@ -517,6 +523,9 @@ div.up-field-payment {
 }
 .paddingr10{
 	padding-right:10px;
+}
+.paddingl10{
+	padding-left:10px !important;
 }
 
 .check-total{
@@ -540,7 +549,7 @@ div.up-field-payment {
 	display: inline-block;
 	margin: 0 !important;
 	padding: 0 !important;
-	width: 74px;
+	width: 85px;
 }
 .display-block{
 	display:block;
@@ -558,8 +567,8 @@ div.up-field-payment {
 	width:126px !important;
 }
 
-.w365{
-	width:365px !important;
+.w326{
+	width:326px !important;
 }
 
 .text-center{
@@ -575,6 +584,9 @@ div.up-field-payment {
 }
 .paddingl5{
 	padding-left:5px;
+}
+.padding28{
+	padding-left:28px;
 }
 
 
