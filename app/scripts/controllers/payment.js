@@ -259,7 +259,7 @@
                  * Sends the SMS to the customer about his order.
                  */
                 function sendAlertSMSAttempt() {
-                    return SMSService.sendPaymentConfirmation(customer, orderAmount).then(null, smsAlert);
+                    return SMSService.sendPaymentConfirmation(customer, orderAmount);
                 }
 
                 /**

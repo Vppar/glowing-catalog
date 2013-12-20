@@ -61,11 +61,9 @@
 
                                     // Send the sms.
                                     var smsSent = null;
-                                    var customerFirstName = null;
+                                    var customerFirstName = customer.name.split(' ')[0];
                                     if (to) {
-                                        // Get the customer first name.s
-                                        customerFirstName = customer.name.split(' ')[0];
-
+                                        // Get the customer first name
                                         var smsMessage =
                                                 paymentConfirmationSMS.replace('{{customerFirstName}}', customerFirstName).replace(
                                                         '{{representativeName}}', DataProvider.representative.name).replace(
