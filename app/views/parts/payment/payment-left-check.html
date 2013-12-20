@@ -10,7 +10,7 @@
 			<div class="control-group lbl-top">
 				<label class="control-label">Parc</label>
 				<div class="controls">
-					<input name="parc" id="parc" class="input-mini parc text-center" type="text" maxlength="3">
+					<input name="parc" id="parc" class="input-mini parc text-center" type="text" maxlength="3" ng-model="check.installments" required recall>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -101,10 +101,9 @@
 			</div>
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
-				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'id':true" >
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'installmentId':true" >
 					<span class="col-check-s1">
-						<div ng-show="payment.idx <= 8">{{'0' + (payment.idx + 1)}}</div>
-						<div ng-show="payment.idx > 8">{{payment.idx + 1}}</div>
+						<div>{{payment.installmentId}}</div>
 					</span>
 	               	<span class="col-check-s2">
 	               		<div>{{payment.data.bank}}</div>
