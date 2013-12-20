@@ -7,6 +7,7 @@
 
         // Find the product and make a copy to the local scope.
         var product = $filter('findBy')(OrderService.order.items, 'id', dialog.data.id);
+        var index = $filter('count')(OrderService.order.items, 'qty') - 1;
         $scope.product = product;
         $scope.qty = product.qty;
 
@@ -16,6 +17,7 @@
          */
         $scope.addToBasket = function addToBasket() {
             product.qty = $scope.qty;
+            product.idx = product.idx ? product.idx : (index + 1);
             dialog.close(true);
         };
 

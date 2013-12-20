@@ -60,7 +60,7 @@
 	
 	
 	<div class="row-fluid check-total">
-		<span>Total</span><span class="float-right marginr10">100,00</span>
+		<span>Total</span><span class="float-right marginr10">{{payments | paymentType:'check' | sum: 'amount' | currency: ''}}</span>
 	</div>
 	
 	<div class="row-fluid">
@@ -97,7 +97,8 @@
 			<div class="scroll-payment-grid">
 				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'id':true" >
 					<span class="col-check-s1">
-						<div>{{(payments | paymentType:'check').length - $index}}</div>
+						<div ng-show="payment.idx <= 8">{{'0' + (payment.idx + 1)}}</div>
+						<div ng-show="payment.idx > 8">{{payment.idx + 1}}</div>
 					</span>
 	               	<span class="col-check-s2">
 	               		<div>{{payment.data.bank}}</div>

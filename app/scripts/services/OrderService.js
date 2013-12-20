@@ -11,6 +11,7 @@
             id : null,
             code : null,
             date : null,
+            canceled: false,
             customerId : null,
             paymentIds : null,
             items : null

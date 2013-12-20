@@ -21,9 +21,6 @@
         // Products informations to fill the screen combo.
         $scope.products = DataProvider.products;
 
-        // Recovering dialogService from parent scope.
-        var dialogService = $scope.dialogService;
-        
         // #####################################################################################################
         // Scope action functions
         // #####################################################################################################
@@ -63,9 +60,13 @@
         };
 
         $scope.setAmount = function setAmount(productId) {
-            exchange.amount = $filter('findBy')(DataProvider.products, 'id', Number(productId)).price;
+            if (productId) {
+                exchange.amount = $filter('findBy')(DataProvider.products, 'id', Number(productId)).price;
+            } else {
+                exchange.amount = 0;    
+            }
         };
-        $scope.setAmount(1);
+        $scope.setAmount();
 
     });
 }(angular));

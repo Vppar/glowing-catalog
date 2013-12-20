@@ -4,14 +4,14 @@
     angular.module(
             'glowingCatalogApp',
             [
-                'ui.bootstrap', 'ui.select2', 'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum', 'tnt.catalog.filter.paymentType',
-                'tnt.catalog.service.data', 'tnt.catalog.service.dialog', 'tnt.catalog.service.order', 'tnt.catalog.service.expense',
-                'tnt.catalog.service.payment', 'tnt.catalog.service.sms', 'tnt.catalog.service.receivable', 'tnt.catalog.service.storage',
-                'tnt.catalog.header', 'tnt.catalog.basket', 'tnt.catalog.basket.add', 'tnt.catalog.customer',
-                'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails', 'tnt.catalog.customer.choose', 'tnt.catalog.payment',
-                'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange',
-                'tnt.catalog.product.input.dialog', 'tnt.catalog.financial.receivable', 'tnt.catalog.financial.receivable.entity',
-                'tnt.catalog.financial.expense', 'tnt.catalog.financial.incomeStatement'
+                'ui.bootstrap', 'ui.select2', 'tnt.catalog.filter.count', 'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum',
+                'tnt.catalog.filter.paymentType', 'tnt.catalog.service.data', 'tnt.catalog.service.dialog', 'tnt.catalog.service.order',
+                'tnt.catalog.service.expense', 'tnt.catalog.service.payment', 'tnt.catalog.service.sms', 'tnt.catalog.service.receivable',
+                'tnt.catalog.service.storage', 'tnt.catalog.header', 'tnt.catalog.basket', 'tnt.catalog.basket.add',
+                'tnt.catalog.customer', 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails',
+                'tnt.catalog.customer.choose', 'tnt.catalog.payment', 'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard',
+                'tnt.catalog.payment.exchange', 'tnt.catalog.product.input.dialog', 'tnt.catalog.financial.receivable',
+                'tnt.catalog.financial.receivable.entity', 'tnt.catalog.financial.expense', 'tnt.catalog.financial.incomeStatement'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
