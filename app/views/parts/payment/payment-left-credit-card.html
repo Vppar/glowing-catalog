@@ -8,7 +8,7 @@
 	<div class="row-fluid">
 		<form name="creditCardForm">
 			<div class="controls-row">
-				<div class="control-group lbl-top">
+				<!--<div class="control-group lbl-top">
 					<label class="control-label credit-card-parcelas">Parcelas</label>
 					<div id="combo-parcelas w120">
 					<div class="controls w120">
@@ -25,18 +25,23 @@
 							<option ng-repeat="flag in cardFlags" value="{{flag}}">{{flag}}</option>
 						</select>
 					</div>
+				</div>-->
+				<div class="control-group lbl-top">
+					<div class="controls">
+						<div class="title-gopay">
+							<span class="float-left">Pagamento por cart&atilde;o via Go Pay</span>
+							<span class="float-right">Valor:</span>
+						</div>
+					</div>
 				</div>
 				<div class="control-group lbl-top">
-					<div class="control-group lbl-top">
-						<label class="control-label credit-card-valor">Valor</label>
-						<div class="controls">
-							<input name="amount" class="input-small text-right" type="tel" placeholder="" ng-model="creditCard.amount"  currency required recall>
-						</div>
+					<div class="controls">
+						<input name="amount" class="input-small text-right" type="tel" placeholder="" ng-model="creditCard.amount"  currency required recall>
 					</div>
 				</div>
 				<div class="control-group lbl-top" >
 					<div class="controls">
-	                       <div class="btn-clear-form">
+	                       <div class="btn-clear-form paddingt3">
 	                           <span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCreditCard(creditCard)"></span>
 	                       </div>
 					</div>
@@ -76,11 +81,11 @@
 					<span class="col-s3 text-right credit-card-value">
 						<div>{{payment.amount | currency:''}}</div>
 					</span>
-					<span class="col-s1 paddingl10">
+					<!--<span class="col-s1 paddingl10">
 						<div ng-click="removeCreditCard(payment)" class="hover-state-pointer marginl10">
 							<img src="images/del-pink.png" alt="" />
 						</div>
-					</span>
+					</span>-->
 				</div>
 			</div>
 		</div>
