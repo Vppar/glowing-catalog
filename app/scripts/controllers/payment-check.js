@@ -27,9 +27,6 @@
                 angular.extend(check, emptyCheckTemplate);
                 $scope.check = check;
 
-                // Used to mark
-                var index = $filter('count')($filter('paymentType')($scope.payments, 'check'), 'id');
-
                 // Find the id of check payment type
                 var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
 
@@ -66,12 +63,12 @@
                             if (newCheck.installments > 1) {
                                 newChecks = buildInstallments(newCheck);
                             } else {
-                                newCheck.installmentId = ++index;
                                 newChecks = [
                                     newCheck
                                 ];
                             }
                             createPayments(newChecks);
+                            rebuildInstallmentIds();
                             angular.extend(newCheck, emptyCheckTemplate);
                             $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
                         }
@@ -94,12 +91,15 @@
                 $scope.removeCheck = function removeCheck(payment) {
                     var paymentIdx = $scope.payments.indexOf(payment);
                     $scope.payments.splice(paymentIdx, 1);
+                    rebuildInstallmentIds();
+                };
+
+                function rebuildInstallmentIds() {
                     var checkPayments = $filter('orderBy')($filter('paymentType')($scope.payments, 'check'), 'data.duedate');
                     for ( var idx in checkPayments) {
                         checkPayments[idx].data.installmentId = Number(idx) + 1;
                     }
-                    index--;
-                };
+                }
 
                 // #####################################################################################################
                 // Auxiliary functions
@@ -120,7 +120,6 @@
                         // make a copy
                         var checkInstallment = angular.copy(newCheck);
 
-                        checkInstallment.installmentId = i + index + 1;
                         checkInstallment.number = Number(newCheck.number) + i;
                         checkInstallment.duedate.setMonth(checkInstallment.duedate.getMonth() + i);
 
@@ -131,14 +130,13 @@
                         } else {
                             checkInstallment.amount = installmentsAmount;
                         }
-                        installmentsSum =  Math.round((installmentsSum + checkInstallment.amount)*100)/100;
+                        installmentsSum = Math.round((installmentsSum + checkInstallment.amount) * 100) / 100;
                         newChecks.push(checkInstallment);
                     }
                     if (installmentsSum !== newCheck.amount) {
                         $log.info('PaymentCheckCtrl.buildInstallments: -The sum of the installments and the amount are' +
                             ' different, installmentsSum=' + installmentsSum + ' originalAmount=' + newCheck.amount);
                     }
-                    index += installmentsNumber;
                     return newChecks;
                 }
 
