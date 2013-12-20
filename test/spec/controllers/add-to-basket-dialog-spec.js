@@ -1,4 +1,4 @@
-describe('Controller: AddToBasketDialogCtrl', function() {
+xdescribe('Controller: AddToBasketDialogCtrl', function() {
 
     // Starts some variables.
     var scope = {}, os = {}, dialog = {}, q = {};
