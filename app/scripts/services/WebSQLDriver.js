@@ -29,7 +29,7 @@
             if (metadata.metaVersion === 1) {
 
                 // FIXME trade Primary Key for Primary Index or ID
-                var pk = metadata.pk;
+                var pk = metadata.key;
 
                 entities[name] = {
                     pk : pk
@@ -40,7 +40,7 @@
                 for ( var columnName in data) {
 
                     if (pk && pk === columnName) {
-                        columns.push(columnName + ' PRIMARY KEY');
+                        columns.push(columnName + ' PRIMARY KEY NOT NULL');
                     } else {
                         columns.push(columnName);
                     }
