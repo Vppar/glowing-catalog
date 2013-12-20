@@ -2,15 +2,29 @@ xdescribe('Service: ExpenseServiceAddSpec', function() {
 
     var log = {};
     var storageStub = {};
+    var eStub = {};
 
     // load the service's module
     beforeEach(function() {
 
+        eStub = {
+                createdate : 1357948800000,
+                duedate : 1388534400000,
+                document : {
+                    number : 979,
+                    type : 'NOTA FISCAL'
+                },
+                type : 'BRINDE',
+                entityId : 17,
+                remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
+                amount : '250.00'
+            };
+        
         // log mock
         log.error = jasmine.createSpy('$log.error');
 
         // storage mock
-        storageStub.insert = jasmine.createSpy('SotorageService.insert').andCallFake(function(name, entity) {
+        storageStub.insert = jasmine.createSpy('StorageService.insert').andCallFake(function(name, entity) {
             var result = false;
             if (name === 'expenses') {
                 entity.id = 2;
@@ -18,7 +32,14 @@ xdescribe('Service: ExpenseServiceAddSpec', function() {
             }
             return result;
         });
-
+        storageStub.isValid = jasmine.createSpy('StorageService.isValid').andCallFake(function(entity) {
+            var result = false;
+            if(entity === eStub){
+                result = true;
+            }
+            return result;
+        });
+        
         module('tnt.catalog.service.expense');
         module(function($provide) {
             $provide.value('StorageService', storageStub);
@@ -40,18 +61,7 @@ xdescribe('Service: ExpenseServiceAddSpec', function() {
      */
     it('should add a new expense into to the storage', function() {
         // given
-        var expense = {
-            createdate : 1357948800000,
-            duedate : 1388534400000,
-            document : {
-                number : 979,
-                type : 'NOTA FISCAL'
-            },
-            type : 'BRINDE',
-            entityId : 17,
-            remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
-            amount : '250.00'
-        };
+        var expense = eStub;
 
         // when
         var result = ExpenseService.add(expense);
@@ -80,7 +90,7 @@ xdescribe('Service: ExpenseServiceAddSpec', function() {
         var result = ExpenseService.add(nonxpense);
 
         // then
-        expect(storageStub.isValid).toHaveBeenCalledWith(expense);
+        expect(storageStub.isValid).toHaveBeenCalledWith(nonxpense);
         expect(storageStub.insert).not.toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('ExpenseService.add: -Invalid expense object');
         expect(result).toEqual(false);

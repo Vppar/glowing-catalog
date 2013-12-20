@@ -14,20 +14,33 @@
         /**
          * List all expenses.
          */
-        var expenses = function() {
+        var list = function() {
             return StorageService.list(name);
         };
-        /**
-         * List all entities.
-         */
-        var entities = function() {
-            return StorageService.list('customers');
+        
+        var isValid = function isValid(object){
+            
         };
+        
+        
+        var add = function add(expense){
+            var result = false;
+            if(isValid(expense)){
+                
+            }else{
+                
+            }
+            
+            return result;
+        };
+        
 
         /**
          * Publishing the methods and variables
          */
-        this.expenses = expenses;
-        this.entities = entities;
+        this.list = list;
+        this.add = add;
+        this.isValid = isValid;
+
     });
 }(angular));
