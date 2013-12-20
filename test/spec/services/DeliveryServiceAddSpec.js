@@ -8,7 +8,16 @@ xdescribe('Service: DeliveryServiceAddSpec', function() {
 
         // log mock
         log.error = jasmine.createSpy('$log.error');
-
+        
+        storageStub.insert = jasmine.createSpy().andCallFake(function(name,entity){
+            var result = undefined;
+            if(entity === dStub){
+                entity.id = 1;
+                result = dStub.id;
+            }
+            return result;
+        });
+        
         module('tnt.catalog.service.delivery');
         module(function($provide) {
             $provide.value('StorageService', storageStub);
@@ -22,7 +31,7 @@ xdescribe('Service: DeliveryServiceAddSpec', function() {
 
     /**
      * <pre>
-     * Givena valid delivery object
+     * Given a valid delivery object
      * When add is triggered
      * Then a new delivery must be added to the storage
      * and the id of the delivery added must be returned
@@ -30,10 +39,25 @@ xdescribe('Service: DeliveryServiceAddSpec', function() {
      */
     it('should add a delivery to the storage', function() {
         // given
+        var delivery = {
+                datetime: [
+                    1383238800000
+                ],
+                statusId: 2,
+                orderId: 1,
+                products: [{
+                    productId: 13,
+                    qty: 3
+                }]
+        };
 
         // when
+        var result = DeliveryService.add(delivery);
 
         // then
+        expect(DeliveryService.isValid).toHaveBeenCallWith(delivery);
+        expect(storageStub.insert).toHaveBeenCallWith('deliveries',delivery);
+        expect(result).toEqual(1); //1 defined on the mock add
 
     });
 
@@ -46,11 +70,20 @@ xdescribe('Service: DeliveryServiceAddSpec', function() {
      */
     it('shouldn\'t add a delivery to the storage', function() {
         // given
-
+        var delivery = {
+                datetime: [
+                    1383238800000
+                ]
+        };
+        
         // when
+        var result = DeliveryService.add(delivery);
 
         // then
-
+        expect(DeliveryService.isValid).toHaveBeenCallWith(delivery);
+        expect(storageStub.insert).not.toHaveBeenCall();
+        expect(log.error).toHAveBeenCallWith('DeliveryService.add: -Invalid delivery object');
+        expect(result).toBeUndefined();
     });
 
 });
