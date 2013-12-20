@@ -8,6 +8,12 @@
 	<div class="row-fluid payment-check-fields">
 		<form name="checkForm">
 			<div class="control-group lbl-top">
+				<label class="control-label">Parc</label>
+				<div class="controls">
+					<input name="parc" id="parc" class="input-mini parc" type="text" maxlength="3">
+				</div>
+			</div>
+			<div class="control-group lbl-top">
 				<label class="control-label">Banco</label>
 				<div class="controls">
 					<input name="bank" id="banco" class="input-mini banco" type="text" maxlength="3" placeholder="" ng-model="check.bank" required recall onkeyup="checkInputKeyUp(this)">
@@ -68,7 +74,7 @@
 			<div class="header header2">
 				<div class="row-payment-check-grid">
 					<span class="col-check-s1">
-						<div>Item</div>
+						<div>Parc</div>
 					</span> 
 					<span class="col-check-s2">
 						<div>Banco</div>
@@ -85,7 +91,7 @@
 					<span class="col-check-s6">
 						<div>Vencto.</div>
 					</span>
-					<span class="col-check-s7 w101">
+					<span class="col-check-s7 w110">
 						<div>Valor</div>
 					</span>
 					<span class="col-7">

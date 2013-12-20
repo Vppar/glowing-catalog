@@ -211,12 +211,6 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 .header .row-payment-check-grid, .header .row-payment-check-grid, .row-payment-grid-product-exchange, .row-payment-credit-card-grid{
 	/*margin-left: 20px*/
 }
-.scroll-payment-grid {
-	min-height: 180px;
-	max-height: 320px;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
-}
 .grid-payment-check .header {
 	background: #333;
 	color:#fff;
@@ -356,9 +350,15 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 .grid-payment-product-exchange {
 	border-radius: 4px 4px 0 0;
 }
-.scroll-payment-grid {
+/*.scroll-payment-grid {
 	height: 200px;
 	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}*/
+.scroll-payment-grid {
+	min-height: 123px;
+	max-height: 320px;
+	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 }
 .grid-payment-product-exchange .header {
