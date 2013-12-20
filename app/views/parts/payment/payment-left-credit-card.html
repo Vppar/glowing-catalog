@@ -44,7 +44,7 @@
 			</div>
 		</form>
 			
-		<div class="row-fluid check-total">
+		<div class="row-fluid payment-total">
 			<span>Total</span><span class="float-right marginr10">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
 		</div>
 		
@@ -73,10 +73,10 @@
 					<span class="col-s5 w326">
 						<div>{{payment.data.flag}}</div>
 					</span>
-					<span class="col-s3 text-right">
+					<span class="col-s3 text-right credit-card-value">
 						<div>{{payment.amount | currency:''}}</div>
 					</span>
-					<span class="col-s1 padding28">
+					<span class="col-s1 paddingl10">
 						<div ng-click="removeCreditCard(payment)" class="hover-state-pointer marginl10">
 							<img src="images/del-pink.png" alt="" />
 						</div>
