@@ -28,6 +28,7 @@
         this.createBucket = function(tx, name, data, metadata) {
             if (metadata.metaVersion === 1) {
 
+                // FIXME trade Primary Key for Primary Index or ID
                 var pk = metadata.pk;
 
                 entities[name] = {
@@ -95,58 +96,81 @@
             tx.executeSql(SQL);
         };
 
-        this.find = function(tx, name, params, cb) {
+        this.find = function(tx, name, id, cb) {
+
+            if (angular.isUndefined(entities[name].pk)) {
+                throw "Entity " + name + " has no primary index!";
+            }
 
             var SQL = [];
 
             SQL.push('SELECT * FROM');
             SQL.push(name);
             SQL.push('WHERE');
-            SQL.push(where(name, params));
+            SQL.push(entities[name].pk);
+            SQL.push('=');
+            SQL.push(quote(id));
 
             SQL = SQL.join(' ');
 
-            var deferred = $q.defer();
+            var deferred = {};
 
+            if (!angular.isFunction(cb)) {
+                deferred = $q.defer();
+                
+                cb = function(tx, results) {
+                    if (results.rows.length === 1) {
+                        deferred.resolve(results.rows.item(0));
+                    } else {
+                        deferred.reject(null);
+                    }
+                };
+            } else {
+                $log.debug("Callback given, no promise for you");
+            }
+            
             // FIXME use binded arguments
-            tx.executeSql(SQL, [], function(tx, results) {
-                if (results.rows.length > 1) {
-                    throw "Multiple results!";
-                } else if (results.rows.length === 1) {
-                    deferred.resolve(results.rows.item(0));
-                } else {
-                    deferred.resolve(null);
-                }
-                if (angular.isFunction(cb)) {
-                    cb(tx, results);
-                }
-            });
+            tx.executeSql(SQL, [], cb);
 
             return deferred.promise;
         };
 
-        this.list = function(tx, name) {
+        this.list = function(tx, name, params, cb) {
 
             var SQL = [];
 
             SQL.push('SELECT * FROM');
             SQL.push(name);
 
+            if (angular.isDefined(params)) {
+                SQL.push('WHERE');
+                SQL.push(where(name, params));
+            }
+
             SQL = SQL.join(' ');
 
-            var deferred = $q.defer();
+            var deferred = {};
+
+            if (!angular.isFunction(cb)) {
+
+                deferred = $q.defer();
+
+                cb = function(tx, results) {
+                    var result = [];
+
+                    var len = results.rows.length, i;
+                    for (i = 0; i < len; i++) {
+                        result.push(results.rows.item(i));
+                    }
+
+                    deferred.resolve(result);
+                };
+            } else {
+                $log.debug("Callback given, no promise for you");
+            }
 
             // FIXME use binded arguments
-            tx.executeSql(SQL, [], function(tx, results) {
-                var result = [];
-
-                var len = results.rows.length, i;
-                for (i = 0; i < len; i++) {
-                    result.push(results.rows.item(i));
-                }
-
-                deferred.resolve(result);
-            });
+            tx.executeSql(SQL, [], cb);
 
             return deferred.promise;
         };
@@ -180,12 +204,10 @@
         };
 
         var where = function(name, params) {
-            var pks = entities[name].pk;
-
             var where = [];
 
-            for ( var ix in pks) {
-                where.push(pks[ix] + ' = ' + quote(params[pks[ix]]));
+            for ( var ix in params) {
+                where.push(ix + ' = ' + quote(params[ix]));
             }
 
             return where.join(' AND ');
