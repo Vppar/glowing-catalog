@@ -52,6 +52,12 @@
                 args = Array.prototype.slice.call(arguments, 1);
                 return instance.constructor.parent.apply(instance, args);
             }
+        },
+        ro : function(obj, property, value) {
+            Object.defineProperty(obj, property, {value : value,
+                writable : false,
+                enumerable : true,
+                configurable : false});
         }
     };
 }(window));
