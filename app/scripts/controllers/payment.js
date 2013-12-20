@@ -47,6 +47,7 @@
                     $scope.payment.cash = cashPayment[0];
                 } else {
                     $scope.payment.cash = PaymentService.createNew('cash');
+                    $scope.payment.cash.amount = '0';
                 }
 
                 // Publishing dialog service
@@ -113,6 +114,40 @@
                     // }
                     $scope.selectedPaymentMethod = method;
                 };
+
+                $scope.pushMoneyDigit = function pushMoneyDigit(digit) {
+                    var amount = $scope.payment.cash.amount;
+                    amount += digit;
+                    amount = shiftPoint(amount);
+                    $scope.payment.cash.amount = amount;
+                };
+                $scope.removeMoneyDigit = function removeMoneyDigit() {
+                    var amount = $scope.payment.cash.amount;
+                    amount = amount.slice(0, -1);
+                    if (amount.length > 0) {
+                        amount = shiftPoint(amount);
+                        $scope.payment.cash.amount = amount;
+                    } else {
+                        $scope.payment.cash.amount = '0';
+                    }
+                };
+                $scope.clearMoney = function clearMoney() {
+                    if ($scope.payment.cash && $scope.payment.cash.amount) {
+                        $scope.payment.cash.amount = '0';
+                    }
+                };
+
+                function shiftPoint(amount) {
+                    amount = amount.replace('.', '');
+                    if (amount.length == 1) {
+                        amount = '0.0' + amount;
+                    } else if (amount.length == 2) {
+                        amount = '0.' + amount;
+                    } else {
+                        amount = amount.substring(0, amount.length - 2) + '.' + amount.substring(amount.length - 2);
+                    }
+                    return amount;
+                }
 
                 /**
                  * Triggers the payment confirmation process by showing the

@@ -147,7 +147,7 @@
 				</div>
 				<div class="scroll-order-list">
 					<div class="row-order-list hover-state-pointer"
-						ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | filter: {canceled: false}| orderBy: '-date'" ng-click="openPartialDelivery(order)">
+						ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'" ng-click="openPartialDelivery(order)">
 						<span class="col-1">
 							<div>{{order.date | date:'dd/MM/yyyy'}}</div>
 						</span> <span class="col-2">
