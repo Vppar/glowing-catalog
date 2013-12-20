@@ -159,6 +159,9 @@ xdescribe('Service: ExpenseServiceListSpec', function() {
         expect(filter).not.toHaveBeenCalled();
         expect(filterImpl).not.toHaveBeenCalled();
         expect(timeFrameImpl).not.toHaveBeenCalled();
+        
+        expect(log.error).toHaveBeenCalledWith('ExepenseService.list: -Invalid filter parameter, filter='+filterValue);
+        
         expect(list).toBeUndefined();
     });
 });
