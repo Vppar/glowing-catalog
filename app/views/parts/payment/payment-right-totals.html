@@ -19,7 +19,7 @@
 			<span class="lbl-money4">&nbsp;</span>
 			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
 		</span>				
-		<span class="lbl-money2 display-block">
+		<span class="lbl-money2 display-block margint5">
 			<span class="lbl-money4 qntty"> ({{orderItemsQty}}) itens</span>
 			<span class="lbl-money4 qntty"> ({{orderUnitsQty}}) unid.</span>
 		</span>
@@ -37,25 +37,25 @@
 	    </div>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
-		<span class="lbl-money">Cheque</span><span class="lbl-money3">({{payments | paymentType:'check' | count:'id'}})</span>
+		<span class="lbl-money">Cheque</span><span class="lbl-money3 paddingl10">({{payments | paymentType:'check' | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
-		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3">({{payments | paymentType:'creditcard' | count:'id'}})</span>
+		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10">({{payments | paymentType:'creditcard' | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money red-color">Troca</span><span class="lbl-moneyt">({{payments | paymentType:'exchange' | count:'id'}})</span>
+		<span class="lbl-money red-color">Troca</span><span class="lbl-moneyt paddingl10">({{payments | paymentType:'exchange' | count:'id'}})</span>
 		<span class="red-color">
 			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment">
-		<span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img src="images/alert-sign-small-v3.png" alt="Ver cupons" style="display: none"></span> 
+		<span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img src="images/alert-sign-small-v3.png" alt="Ver cupons" class="display-none"></span> 
         <span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency:''}}</span>
         <span class="btn-price-payment btn-price-payment2" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">0,00</span>
 	</div>
