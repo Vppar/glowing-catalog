@@ -19,10 +19,11 @@ xdescribe('Service: ExpenseServiceCancelSpec', function() {
             type : 'BRINDE',
             entityId : 17,
             remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
-            amount : '250.00'
+            amount : '250.00',
+            active : true
         };
         eStub2 = {
-                id : 1,
+                id : 2,
                 createdate : 1357948800000,
                 duedate : 1388534400000,
                 document : {
@@ -32,7 +33,8 @@ xdescribe('Service: ExpenseServiceCancelSpec', function() {
                 type : 'BRINDE',
                 entityId : 17,
                 remarks : 'COMPRA DE BRINDE PARA OS CLIENTES',
-                amount : '250.00'
+                amount : '250.00',
+                active : false
             };
 
         // log mock
@@ -85,6 +87,7 @@ xdescribe('Service: ExpenseServiceCancelSpec', function() {
         expect(log.error).toHaveBeenCalledWith('ExepenseService.cancel: -Expense cancelled, id=' + id);
         expect(storageStub.get).toHaveBeenCalledWith('expenses',id);
         expect(storageStub.update).toHaveBeenCalledWith('expenses',id);
+        expect(eStub1.active).toEqual(false);
         expect(result).toEqual(true);
         
     });
@@ -106,6 +109,8 @@ xdescribe('Service: ExpenseServiceCancelSpec', function() {
         //then
         expect(storageStub.get).toHaveBeenCalledWith('expenses',id);
         expect(storageStub.update).not.toHaveBeenCalled();
+        expect(eStub1.active).toEqual(true);
+        expect(eStub2.active).toEqual(false);
         expect(result).toEqual(false);
     });
 
@@ -120,13 +125,17 @@ xdescribe('Service: ExpenseServiceCancelSpec', function() {
      */
     it('shouldn\'t cancel an existent expense', function() {
         //given
-        var id = 1;
+        var id = 2;
         
         //when
         var result = ExpenseService.cancel(id);
         
         //then
+        expect(storageStub.get).toHaveBeenCalledWith('expenses',id);
+        expect(storageStub.update).not.toHaveBeenCalled();
         expect(log.error).toHaveBeenCalledWith('ExepenseService.cancel: -Expense was already cancelled, id=' + id);
+        expect(eStub1.active).toEqual(true);
+        expect(eStub2.active).toEqual(false);
         expect(result).toEqual(false);
     });
 

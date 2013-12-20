@@ -121,8 +121,8 @@ xdescribe('Service: ExpenseServiceListSpec', function() {
     it('should return a filtered list of expenses', function() {
         // given
         var filterValue = 'a';
-        var firstDateValue = '1348534400000';
-        var secondDateValue = '1368534400000';
+        var startDateeValue = '1348534400000';
+        var endDateValue = '1368534400000';
         
         // when
         var list = ExpenseService.list(filter);
@@ -134,7 +134,7 @@ xdescribe('Service: ExpenseServiceListSpec', function() {
         expect(filter).toHaveBeenCalledWith('timeFrame');
         
         expect(filterImpl).toHaveBeenCalledWith(storageStub.expenses, filterValue);
-        expect(timeFrameImpl).toHaveBeenCalledWith(storageStub.expenses, 'duedate', firstDateValue,secondDateValue);
+        expect(timeFrameImpl).toHaveBeenCalledWith(storageStub.expenses, 'duedate', startDateeValue,endDateValue);
         
         expect(list).toBe(filteredExpenses);
     });
@@ -159,6 +159,9 @@ xdescribe('Service: ExpenseServiceListSpec', function() {
         expect(filter).not.toHaveBeenCalled();
         expect(filterImpl).not.toHaveBeenCalled();
         expect(timeFrameImpl).not.toHaveBeenCalled();
+        
+        expect(log.error).toHaveBeenCalledWith('ExepenseService.list: -Invalid filter parameter, filter='+filterValue);
+        
         expect(list).toBeUndefined();
     });
 });
