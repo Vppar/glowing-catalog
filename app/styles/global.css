@@ -1,3 +1,7 @@
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);  
+}
+
 .error {
 	color: #ff2839;
 	margin-top: 20px

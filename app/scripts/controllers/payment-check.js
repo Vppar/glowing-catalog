@@ -45,18 +45,31 @@
                  * @param newCheck - the object containing the newCheck data.
                  */
                 $scope.addCheck = function addCheck(newCheck) {
-                    if (!newCheck.amount || newCheck.amount === 0) {
-                        return;
-                    }
                     // check if the all mandatory fields are filed.
                     if ($scope.checkForm.$valid) {
-                        // check if is duplicated.
+                        if (!newCheck.amount || newCheck.amount === 0) {
+                            return;
+                        }
                         if (isDuplicated(newCheck)) {
+                            // check if is duplicated.
                             dialogService.messageDialog({
                                 title : 'Pagamento com Cheque',
                                 message : 'Não é possível inserir um cheque que já existe na lista.',
                                 btnYes : 'OK'
                             });
+                            return;
+                        }
+                        if (newCheck.id) {
+                            // if is an update
+                            var id = newCheck.id;
+                            var amount = newCheck.amount;
+
+                            delete newCheck.id;
+                            delete newCheck.amount;
+
+                            var payment = $filter('findBy')($scope.payments, 'id', id);
+                            payment.data = angular.copy(newCheck);
+                            payment.amount = amount;
                         } else {
                             var newChecks = null;
                             // Will be payed by installments ?
@@ -69,10 +82,16 @@
                             }
                             createPayments(newChecks);
                             rebuildInstallmentIds();
-                            angular.extend(newCheck, emptyCheckTemplate);
-                            $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
                         }
+                        angular.extend(newCheck, emptyCheckTemplate);
+                        $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
                     }
+                };
+
+                $scope.edit = function edit(payment) {
+                    angular.extend(check, payment.data);
+                    check.id = payment.id;
+                    check.amount = payment.amount;
                 };
 
                 /**
@@ -158,20 +177,27 @@
                  * @param newCheck - the object containing the newCheck data.
                  */
                 function isDuplicated(newCheck) {
-                    var checks = $filter('filter')($scope.payments, function(item) {
-                        var result = false;
-                        if (item.typeId === checkTypeId) {
-                            // Done this way cause when everything is
-                            // placed in one row
-                            // the code became damn ugly.
-                            result = item.data.bank === newCheck.bank;
-                            result = result && (item.data.agency === newCheck.agency);
-                            result = result && (item.data.account === newCheck.account);
-                            result = result && (item.data.number === newCheck.number);
-                        }
-                        return result;
-                    });
-                    return checks.length > 0;
+                    var result = true;
+                    if (newCheck.id) {
+                        // isn't duplicated, is an update
+                        return false;
+                    } else {
+                        var checks = $filter('filter')($scope.payments, function(item) {
+                            var result = false;
+                            if (item.typeId === checkTypeId) {
+                                // Done this way cause when everything is
+                                // placed in one row
+                                // the code became damn ugly.
+                                result = item.data.bank === newCheck.bank;
+                                result = result && (item.data.agency === newCheck.agency);
+                                result = result && (item.data.account === newCheck.account);
+                                result = result && (item.data.number === newCheck.number);
+                            }
+                            return result;
+                        });
+                        result = checks.length > 0;
+                    }
+                    return result;
                 }
             });
 }(angular));
