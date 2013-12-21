@@ -10,7 +10,7 @@
 			<div class="control-group lbl-top">
 				<label class="control-label">Parc</label>
 				<div class="controls">
-					<input name="parc" id="parc" class="input-mini parc text-center" type="text" maxlength="3">
+					<input name="parc" id="parc" class="input-mini parc text-center" type="text" maxlength="3" ng-model="check.installments" required recall>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -40,13 +40,13 @@
 			<div class="control-group lbl-top">
 				<label class="control-label">Vencto.</label>
 				<div class="controls">
-					<input type="text" id="vencto" class="date-field input-small vencto text-center" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required onkeyup="checkInputKeyUp(this)">
+					<input type="text" id="vencto" class="date-field input-small vencto text-center" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required readonly onkeyup="checkInputKeyUp(this)">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label">Valor</label>
-				<div class="controls">
-					<input name="amount" class="input-small text-right" id="valor" type="tel" ng-model="check.amount" currency recall required onkeyup="checkInputKeyUp(this)">
+				<div class="controls btns-right-payment">
+					<span name="amount" class="btn-price-payment" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -101,10 +101,11 @@
 			</div>
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
-				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'id':true" >
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'data.duedate':true" ng-click="edit(payment)">
 					<span class="col-check-s1">
-						<div ng-show="payment.idx <= 8">{{'0' + (payment.idx + 1)}}</div>
-						<div ng-show="payment.idx > 8">{{payment.idx + 1}}</div>
+						<div ng-show="payment.data.installmentId<=9">{{'00'+payment.data.installmentId}}</div>
+						<div ng-show="payment.data.installmentId>9 && payment.data.installmentId<=99" >{{'0'+payment.data.installmentId}}</div>
+						<div ng-show="payment.data.installmentId>99">{{payment.data.installmentId}}</div>
 					</span>
 	               	<span class="col-check-s2">
 	               		<div>{{payment.data.bank}}</div>

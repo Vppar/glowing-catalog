@@ -15,9 +15,13 @@
                 // resources
                 var order = OrderService.order;
                 var inBasketFilter = OrderService.inBasketFilter;
+                var isNumPadVisible = false;
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
+
+                // Controls the num pad.
+                $scope.isNumPadVisible = isNumPadVisible;
 
                 // Define the customer
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
@@ -102,52 +106,9 @@
                  * @param method - payment method.
                  */
                 $scope.selectPaymentMethod = function selectPaymentMethod(method) {
-                    // if ($scope.selectedPaymentMethod === 'none') {
-                    // backup up the payments in case you decide to
-                    // click in cancel when in a payment fragment
                     payments = angular.copy(PaymentService.payments);
-                    // } else {
-                    // // recover the payments in case you
-                    // // decide to click in another fragment
-                    // $scope.payments.length = payments.length;
-                    // angular.extend($scope.payments, payments);
-                    // }
                     $scope.selectedPaymentMethod = method;
                 };
-
-                $scope.pushMoneyDigit = function pushMoneyDigit(digit) {
-                    var amount = $scope.payment.cash.amount;
-                    amount += digit;
-                    amount = shiftPoint(amount);
-                    $scope.payment.cash.amount = amount;
-                };
-                $scope.removeMoneyDigit = function removeMoneyDigit() {
-                    var amount = $scope.payment.cash.amount;
-                    amount = amount.slice(0, -1);
-                    if (amount.length > 0) {
-                        amount = shiftPoint(amount);
-                        $scope.payment.cash.amount = amount;
-                    } else {
-                        $scope.payment.cash.amount = '0';
-                    }
-                };
-                $scope.clearMoney = function clearMoney() {
-                    if ($scope.payment.cash && $scope.payment.cash.amount) {
-                        $scope.payment.cash.amount = '0';
-                    }
-                };
-
-                function shiftPoint(amount) {
-                    amount = amount.replace('.', '');
-                    if (amount.length == 1) {
-                        amount = '0.0' + amount;
-                    } else if (amount.length == 2) {
-                        amount = '0.' + amount;
-                    } else {
-                        amount = amount.substring(0, amount.length - 2) + '.' + amount.substring(amount.length - 2);
-                    }
-                    return amount;
-                }
 
                 /**
                  * Triggers the payment confirmation process by showing the
