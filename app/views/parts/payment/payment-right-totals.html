@@ -101,10 +101,10 @@
 		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
 	</span>
 	<div class="right-column-height">&nbsp;</div>-->
-	<div id="keyNum" class="numeric-keyboard dinheiro" ng-show="selectedPaymentMethod=='money'">
+	<div id="keyNum" class="dinheiro" ng-show="selectedPaymentMethod=='money'">
 		<num-pad ng-model="payment.cash.amount" btn-ok="selectPaymentMethod('none')"></num-pad>
 	</div>
-	<div id="keyNum" class="numeric-keyboard" ng-show="selectedPaymentMethod=='check'">
+	<div id="keyNum" ng-show="selectedPaymentMethod=='check'">
 		<num-pad ng-model="check.amount" btn-ok="addCheck(check)"></num-pad>
 	</div>
 </div>
