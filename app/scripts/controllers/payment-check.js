@@ -139,7 +139,7 @@
                         // make a copy
                         var checkInstallment = angular.copy(newCheck);
 
-                        checkInstallment.number = Number(newCheck.number) + i;
+                        checkInstallment.number = '' + (Number(newCheck.number) + i);
                         checkInstallment.duedate.setMonth(checkInstallment.duedate.getMonth() + i);
 
                         if (Number(installmentsNumber) === i + 1) {
@@ -177,27 +177,25 @@
                  * @param newCheck - the object containing the newCheck data.
                  */
                 function isDuplicated(newCheck) {
-                    var result = true;
-                    if (newCheck.id) {
-                        // isn't duplicated, is an update
-                        return false;
-                    } else {
-                        var checks = $filter('filter')($scope.payments, function(item) {
-                            var result = false;
-                            if (item.typeId === checkTypeId) {
-                                // Done this way cause when everything is
-                                // placed in one row
-                                // the code became damn ugly.
-                                result = item.data.bank === newCheck.bank;
-                                result = result && (item.data.agency === newCheck.agency);
-                                result = result && (item.data.account === newCheck.account);
-                                result = result && (item.data.number === newCheck.number);
+                    var checks = $filter('filter')($scope.payments, function(item) {
+                        var result = false;
+                        if (item.typeId === checkTypeId) {
+                            // Done this way cause when everything is
+                            // placed in one row
+                            // the code became damn ugly.
+                            result = item.data.bank === newCheck.bank;
+                            result = result && (item.data.agency === newCheck.agency);
+                            result = result && (item.data.account === newCheck.account);
+                            result = result && (Number(item.data.number) >= Number(newCheck.number));
+                            result = result && (Number(item.data.number) <= ((Number(newCheck.number) + Number(newCheck.installments)) -1));
+                            if (newCheck.id) {
+                                // isn't duplicated, is an update
+                                result = result && (item.id !== newCheck.id);
                             }
-                            return result;
-                        });
-                        result = checks.length > 0;
-                    }
-                    return result;
+                        }
+                        return result;
+                    });
+                    return checks.length > 0;
                 }
             });
 }(angular));
