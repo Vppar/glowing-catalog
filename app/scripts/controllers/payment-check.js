@@ -49,7 +49,7 @@
                  * 
                  * @param newCheck - the object containing the newCheck data.
                  */
-                parent.addCheck = function addCheck(newCheck) {
+                        parent.addCheck = function addCheck(newCheck) {
                     // check if the all mandatory fields are filed.
                     if ($scope.checkForm.$valid) {
                         if (!newCheck.amount || newCheck.amount === 0) {
