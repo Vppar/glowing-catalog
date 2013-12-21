@@ -45,8 +45,8 @@
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label">Valor</label>
-				<div class="controls">
-					<input name="amount" class="input-small text-right" id="valor" type="tel" ng-model="check.amount" currency recall required onkeyup="checkInputKeyUp(this)">
+				<div class="controls btns-right-payment">
+					<span name="amount" class="btn-price-payment" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
