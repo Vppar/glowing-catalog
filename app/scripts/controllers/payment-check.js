@@ -14,7 +14,13 @@
                 // Initialize the check field with a empty check and
                 // bind it to the
                 // scope
-                var check = {};
+                var parent = $scope.$parent;
+                while(parent && !parent.hasOwnProperty('payment')){
+                    parent = parent.$parent;
+                }
+                parent.check = {};
+                
+                var check = $scope.check;
                 var emptyCheckTemplate = {
                     installments : 1,
                     bank : null,
@@ -22,10 +28,9 @@
                     account : null,
                     number : null,
                     duedate : null,
-                    amount : null
+                    amount : 0
                 };
                 angular.extend(check, emptyCheckTemplate);
-                $scope.check = check;
 
                 // Find the id of check payment type
                 var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
@@ -44,7 +49,7 @@
                  * 
                  * @param newCheck - the object containing the newCheck data.
                  */
-                $scope.addCheck = function addCheck(newCheck) {
+                        parent.addCheck = function addCheck(newCheck) {
                     // check if the all mandatory fields are filed.
                     if ($scope.checkForm.$valid) {
                         if (!newCheck.amount || newCheck.amount === 0) {
