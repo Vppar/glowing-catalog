@@ -37,6 +37,10 @@
         this.openDialogAddToBasket = function(data) {
             return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data);
         };
+        
+        this.openDialogAddToBasketDetails = function(data) {
+            return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data);
+        };
 
         this.openDialogChangePass = function(data) {
             return openDialog('views/parts/global/change-pass-dialog.html', 'ChangePassDialogCtrl', data);

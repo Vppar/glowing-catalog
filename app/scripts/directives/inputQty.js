@@ -18,9 +18,10 @@
                 max : '@'
             },
             templateUrl : templateUrl,
-            link : function postLink(scope) {
+            link : function postLink(scope, element, attr) {
 
-                var min, max;
+                var min, max, value = 1;
+                var input = element.find('input');
 
                 scope.$watch('min', function() {
                     if (!scope.min || scope.min === '') {
@@ -38,21 +39,33 @@
                     }
                 });
 
-                if (!scope.value) {
-                    scope.value = 1;
+                if (scope.value) {
+                    value = scope.value;
                 }
 
-                scope.increment = function() {
-                    if (scope.value < max) {
-                        scope.value = (Number(scope.value) + 1).toString();
+                var dec = element.find('.ic-arrow-left');
+                dec.bind('tap', function() {
+                    if (value > min) {
+                        value--;
+                        propagate();
                     }
+                });
+
+                var inc = element.find('.ic-arrow-right');
+                inc.bind('tap', function() {
+                    if (value < max) {
+                        value++;
+                        propagate();
+                    }
+                });
+
+                var propagate = function() {
+                    input.val(value);
+                    scope.value = value;
+                    scope.$apply();
                 };
 
-                scope.decrement = function() {
-                    if (scope.value > min) {
-                        scope.value = (Number(scope.value) - 1).toString();
-                    }
-                };
+                propagate();
             }
         };
     });

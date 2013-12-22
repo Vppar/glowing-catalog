@@ -31,8 +31,8 @@ module.exports = function(config) {
       'app/bower_components/bootstrap-sass/js/bootstrap-tab.js',
       'app/bower_components/select2/select2.js',
       'app/bower_components/angular-ui-select2/src/select2.js',
-      'app/scripts/*.js',
       'app/scripts/**/*.js',
+      'app/components/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],

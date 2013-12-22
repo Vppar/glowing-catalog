@@ -5,6 +5,8 @@
 
         var service = function() {
 
+            var that = this;
+            
             var keyNames = arguments;
 
             var filter = function(array, property, value) {
@@ -19,7 +21,7 @@
                 }
                 return response;
             };
-
+            
             this.find = function() {
 
                 var response = this;
@@ -31,6 +33,17 @@
                 }
 
                 return response;
+            };
+            
+            this.mPush = function(data) {
+
+                if(!angular.isArray(data)){
+                    throw "Only arrays are allowed";
+                }
+                
+                for(var ix in data){
+                    that.push(data[ix]);
+                }
             };
         };
 
