@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http) {
+    angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http, FilteredArray) {
 
         var scope = this;
 
@@ -19,12 +19,17 @@
         this.products = [];
         this.representative = {name: 'Valtanette de Paula'};
         this.states = [];
+        this.products2 = new FilteredArray('id');
 
         $http.get('resources/data.json').then(function(response) {
             angular.extend(scope, response.data);
             scope.customers.sort(function(x, y) {
                 return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
             });
+        });
+        
+        $http.get('resources/products.json').then(function(response) {
+            angular.extend(scope.products2, response.data);
         });
     });
 }(angular));
