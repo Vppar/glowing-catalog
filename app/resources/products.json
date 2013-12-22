@@ -1,0 +1,2745 @@
+﻿[
+    {
+    	"id": 1,
+        "title": "Black Diamonds Desodorante Colônia - 60 ml",
+        "description": "Uma fragrância floral, perfeita para mulheres intensas e marcantes.",
+        "price": 84,
+        "points": 50,
+        "image": "10-051954.jpg",
+        "gridList": [
+            {
+                "SKU": "10-051954"
+            }
+        ]
+    },
+    {
+    	"id": 2,
+        "title": "Upscale Eau de Parfum - 75 ml",
+        "description": "Perfeita para o homem sofisticado, seguro e de personalidade forte.",
+        "price": 99,
+        "points": 57,
+        "image": "10-060686.jpg",
+        "gridList": [
+            {
+                "SKU": "10-060686"
+            }
+        ]
+    },
+    {
+    	"id": 3,
+        "title": "Primer Facial Fixador de Maquiagem com FPS 15 - 29 ml",
+        "description": "Melhora o aspecto da pele, realçando os benefícios da base e amenizando imperfeições.",
+        "price": 56,
+        "points": 29,
+        "image": "10-058473.jpg",
+        "gridList": [
+            {
+                "SKU": "10-058473"
+            }
+        ]
+    },
+    {
+    	"id": 4,
+        "title": "Máscara Alongadora para Cílios Lash Love à Prova D'Água - 8 g",
+        "description": "Todos os benefícios da Máscara Alongadora Lash Love com a resistência à água.",
+        "price": 51,
+        "points": 25,
+        "image": "10-058264.jpg",
+        "gridList": [
+            {
+                "SKU": "10-058264",
+                "option": "Preta"
+            }
+        ]
+    },
+    {
+    	"id": 5,
+        "title": "Base Líquida TimeWise - Acabamento Matte - 29 ml ",
+        "description": "Fórmula leve, que ajuda a controlar o excesso de oleosidade e o brilho durante todo o dia. Diminui a aparência de rugas e linhas finas.",
+        "price": 54,
+        "points": 27,
+        "image": "10-10-059517.jpg",
+        "gridList": [
+            {
+                "SKU": "10-059517",
+                "option": "Beige 7"
+            },
+            {
+                "SKU": "10-059518",
+                "option": "Beige 8"
+            },
+            {
+                "SKU": "10-059505",
+                "option": "Ivory 3"
+            }
+        ]
+    },
+    {
+    	"id": 6,
+        "title": "Base Líquida TimeWise - Acabamento Luminoso - 29 ml",
+        "description": "Proporciona uma pele com luminosidade e visual radiante com a melhora do aspecto da textura da pele.",
+        "price": 54,
+        "points": 27,
+        "image": "10-059976.jpg",
+        "gridList": [
+            {
+                "SKU": "10-059533",
+                "option": "Beige 7"
+            },
+            {
+                "SKU": "10-059534",
+                "option": "Beige 8"
+            },
+            {
+                "SKU": "10-059976",
+                "option": "Ivory 3"
+            }
+        ]
+    },
+    {
+    	"id": 7,
+        "title": "Trio de Sombras - 10 g",
+        "description": "Tons pastel com ótima pigmentação. Com sistema refil, fica perfeito no Mini Estojo Compacto da Mary Kay. ",
+        "price": 48,
+        "points": 24,
+        "image": "10-060636.jpg",
+        "gridList": [
+            {
+                "SKU": "10-060636",
+                "option": "Garden Sky"
+            }
+        ]
+    },
+    {
+    	"id": 8,
+        "title": "Esmalte para as Unhas - 4 g",
+        "description": "Acabamento brilhante com coloração intensa. Fórmula especial, que permite cor uniforme e longa duração. Os tons foram inspirados nos jardins orientais.",
+        "price": 22,
+        "points": 11,
+        "image": "10-060585.png",
+        "gridList": [
+            {
+                "SKU": "10-060584",
+                "option": "Blue Lotus"
+            },
+            {
+                "SKU": "10-060583",
+                "option": "Pink Bamboo"
+            },
+            {
+                "SKU": "10-060585",
+                "option": "Ginseng Blossom"
+            }
+        ]
+    },
+    {
+    	"id": 9,
+        "title": "Brilho Labial - 4 g",
+        "description": "Cores intensas com fórmula hidratante e suave.",
+        "price": 45,
+        "points": 23,
+        "image": "10-061345.jpg",
+        "gridList": [
+            {
+                "SKU": "10-061344",
+                "option": "Pink Pagoda"
+            },
+            {
+                "SKU": "10-061345",
+                "option": "Chai Latte"
+            }
+        ]
+    },
+    {
+    	"id": 10,
+        "title": "Sombra em Creme - 4,3 g",
+        "description": "De fácil aplicação, você pode usá-las sozinhas ou como primer antes das sombras minerais.",
+        "price": 35,
+        "points": 20,
+        "image": "10-025874.jpg",
+        "gridList": [
+            {
+                "SKU": "10-025868",
+                "option": "Beach Blonde"
+            },
+            {
+                "SKU": "10-025876",
+                "option": "Glacier Gray"
+            },
+            {
+                "SKU": "10-025875",
+                "option": "Pale Blush"
+            },
+            {
+                "SKU": "10-025874",
+                "option": "Apricot Twist"
+            }
+        ]
+    },
+    {
+    	"id": 11,
+        "title": "Batom Líquido Ultra Brilho - 3g",
+        "description": "Cobertura intensa e acabamento com brilho.",
+        "price": 38,
+        "points": 21,
+        "image": "10-056218.jpg",
+        "gridList": [
+            {
+                "SKU": "10-056219",
+                "option": "Bold Fuchsia"
+            },
+            {
+                "SKU": "10-056220",
+                "option": "Poised Pink"
+            },
+            {
+                "SKU": "10-056218",
+                "option": "Radiant Red"
+            }
+        ]
+    },
+    {
+    	"id": 12,
+        "title": "Delineador em Gel - 4,5 g",
+        "price": 47,
+        "points": 26,
+        "image": "10-056222.jpg",
+        "gridList": [
+            {
+                "SKU": "10-056222",
+                "option": "Tempting Teal"
+            }
+        ]
+    },
+    {
+    	"id": 13,
+        "title": "Mini Coleção de Pincéis Glam",
+        "description": "São quatro mini pincéis em uma linda nècessaire. Ideal para levar na bolsa e reaplicar a maquiagem a qualquer hora.",
+        "price": 65,
+        "points": 33,
+        "image": "10-067480.jpg",
+        "gridList": [
+            {
+                "SKU": "10-067480"
+            }
+        ]
+    },
+    {
+    	"id": 14,
+        "title": "Mini Estojo Compacto - Edição Especial de Aniversário (vazio)",
+        "description": "Ele vem com um cristal Swarovski dourado, simbolizando o quanto as ações de uma pessoa podem transformar o mundo.",
+        "price": 52,
+        "points": 33,
+        "image": "10-054125.jpg",
+        "gridList": [
+            {
+                "SKU": "10-054125"
+            }
+        ]
+    },
+    {
+    	"id": 15,
+        "title": "Dance To Life Eau de Parfum - 50 ml",
+        "description": "Uma fragrância floral desenvolvida especialmente para comemorar os 50 anos da Mary Kay.",
+        "price": 149,
+        "points": 75,
+        "image": "10-055778.jpg",
+        "gridList": [
+            {
+                "SKU": "10-055778"
+            }
+        ]
+    },
+    {
+    	"id": 16,
+        "title": "Creme de Limpeza 3 em 1 - 127 g",
+        "description": "Limpa, esfolia e tonifica em apenas um passo. Escolha entre as opções mista a oleosa ou normal a seca.",
+        "price": 58,
+        "points": 37,
+        "image": "10-042751.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042761",
+                "option": "Pele Mista/Oleosa"
+            },
+            {
+                "SKU": "10-042751",
+                "option": "Pele Normal/Seca"
+            }
+        ]
+    },
+    {
+    	"id": 17,
+        "title": "Sabonete 3 em 1 de Limpeza Facial - 141 g",
+        "description": "Sabonete em barra que limpa, esfolia e tonifica. Para pele normal a oleosa.",
+        "price": 56,
+        "points": 37,
+        "image": "10-027914.jpg",
+        "gridList": [
+            {
+                "SKU": "10-027914",
+                "option": "x"
+            }
+        ]
+    },
+    {
+    	"id": 18,
+        "title": "Hidratante Redutor de Linhas de Expressão - 88 ml",
+        "description": "Hidrata por até dez horas e acelera o processo natural de renovação da pele. Escolha entre as opções mista a oleosa ou normal a seca.",
+        "price": 62,
+        "points": 39,
+        "image": "10-042747.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042743",
+                "option": "Pele Mista/Oleosa"
+            },
+            {
+                "SKU": "10-042747",
+                "option": "Pele Normal/Seca"
+            }
+        ]
+    },
+    {
+    	"id": 19,
+        "title": "Hidratante Redutor de Linhas de Expressão com FPS 15 - 88 ml",
+        "description": "Os benefícios do Hidratante Redutor de Linhas de Expressão TimeWise aliados ao fator de proteção solar. Para todos os tipos de pele.",
+        "price": 65,
+        "points": 39,
+        "image": "10-042814.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042814"
+            }
+        ]
+    },
+    {
+    	"id": 20,
+        "title": "Kit Solução Diurna e Noturna",
+        "price": 153,
+        "points": 94,
+        "image": "10-563500.jpg",
+        "gridList": [
+            {
+                "SKU": "10-563500"
+            }
+        ]
+    },
+    {
+    	"id": 21,
+        "title": "Solução Diurna com FPS 25 - 29 ml",
+        "description": "Bloqueia os raios UVA e UVB enquanto os peptídeos calmantes ajudam a relaxar as linhas de expressão.",
+        "price": 85,
+        "points": 47,
+        "image": "10-042754.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042754"
+            }
+        ]
+    },
+    {
+    	"id": 22,
+        "title": "Solução Noturna - 29 ml",
+        "description": "Vitaminas, antioxidantes e peptídeos intensificadores de colágeno nutrem, suavizam e firmam a pele.",
+        "price": 85,
+        "points": 47,
+        "image": "10-042760.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042760"
+            }
+        ]
+    },
+    {
+    	"id": 23,
+        "title": "Sistema Anti-idade de Cuidados com a Pele",
+        "price": 273,
+        "points": 170,
+        "image": "10-026901.jpg",
+        "gridList": [
+            {
+                "SKU": "10-026902",
+                "option": "Pele Mista/Oleosa"
+            },
+            {
+                "SKU": "10-026901",
+                "option": "Pele Normal/Seca"
+            }
+        ]
+    },
+    {
+    	"id": 24,
+        "title": "Sérum Facial Renovador - 44 ml",
+        "description": "Atua na área específica da pele em que está presente o colágeno e a elastina, oferece ação lifting e deixa a pele do rosto com aparência mais firme.",
+        "price": 110,
+        "points": 64,
+        "image": "10-054641.jpg",
+        "gridList": [
+            {
+                "SKU": "10-054641"
+            }
+        ]
+    },
+    {
+    	"id": 25,
+        "title": "Complexo Facial Noturno - 50 g",
+        "description": "Ajuda a restaurar a pele e ativa a produção de colágeno. Escolha entre as opções mista a oleosa ou normal a seca.",
+        "price": 85,
+        "points": 47,
+        "image": "10-046752.jpg",
+        "gridList": [
+            {
+                "SKU": "10-046753",
+                "option": "Pele Mista/Oleosa"
+            },
+            {
+                "SKU": "10-046752",
+                "option": "Pele Normal/Seca"
+            }
+        ]
+    },
+    {
+    	"id": 26,
+        "title": "Kit Microdermoabrasão",
+        "description": "Em apenas dois passos, uma pele lisa e suave, além de reduzir a aparência de linhas finas e poros.",
+        "price": 162,
+        "points": 98,
+        "image": "10-004300.jpg",
+        "gridList": [
+            {
+                "SKU": "10-004300"
+            }
+        ]
+    },
+    {
+    	"id": 27,
+        "title": "Microdermoabrasão - Passo 1: Refinar - 70 g",
+        "price": 92,
+        "points": 51,
+        "image": "10-029733.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029733"
+            }
+        ]
+    },
+    {
+    	"id": 28,
+        "title": "Microdermoabrasão - Passo 2: Restaurar - 29 ml",
+        "price": 88,
+        "points": 47,
+        "image": "10-029735.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029735"
+            }
+        ]
+    },
+    {
+    	"id": 29,
+        "title": "Máscara Hidratante Renovadora em Gel - 85 g",
+        "description": "Dez minutos para uma pele incrivelmente hidratada e fresca.",
+        "price": 59,
+        "points": 35,
+        "image": "10-039964.jpg",
+        "gridList": [
+            {
+                "SKU": "10-039964"
+            }
+        ]
+    },
+    {
+    	"id": 30,
+        "title": "Máscara Even Complexion - 85 g",
+        "description": "Deixa a pele mais radiante, hidratada e com sensação de maciez.",
+        "price": 67,
+        "points": 37,
+        "image": "10-031174.jpg",
+        "gridList": [
+            {
+                "SKU": "10-031174"
+            }
+        ]
+    },
+    {
+    	"id": 31,
+        "title": "Loção Even Complexion - 29 ml",
+        "description": "Ajuda a pele a ficar com um tom mais uniforme.",
+        "price": 96,
+        "points": 55,
+        "image": "10-029730.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029730"
+            }
+        ]
+    },
+    {
+    	"id": 32,
+        "title": "Creme Redutor de Linhas de Expressão Targeted-Action - 6 ml",
+        "description": "Firma e preenche linhas e rugas. Perceba resultados em minutos.",
+        "price": 79,
+        "points": 52,
+        "image": "10-031340.jpg",
+        "gridList": [
+            {
+                "SKU": "10-031340"
+            }
+        ]
+    },
+    {
+    	"id": 33,
+        "title": "Loção Corporal Firmadora Targeted-Action - 236 ml",
+        "description": "Combina vários benefícios em uma só fórmula. Ajuda a deixar a pele firme, tonificada e hidratada por até vinte e quatro horas.",
+        "price": 97,
+        "points": 65,
+        "image": "10-035083.jpg",
+        "gridList": [
+            {
+                "SKU": "10-035083"
+            }
+        ]
+    },
+    {
+    	"id": 34,
+        "title": "Creme para Mãos e Colo com FPS 15 - 85 g",
+        "description": "Hidrata, minimiza os efeitos nocivos do sol e a aparência de manchas escuras da pele.",
+        "price": 65,
+        "points": 35,
+        "image": "10-032946.jpg",
+        "gridList": [
+            {
+                "SKU": "10-032946"
+            }
+        ]
+    },
+    {
+    	"id": 35,
+        "title": "Complexo Anti-idade para os Lábios - 1,6 g",
+        "description": "Combate linhas finas e rugas e ainda prolonga a duração do batom.",
+        "price": 66,
+        "points": 39,
+        "image": "10-029743.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029743"
+            }
+        ]
+    },
+    {
+    	"id": 36,
+        "title": "Creme Firmador para a Área dos Olhos - 14 g",
+        "description": "Firma, ilumina, promove hidratação intensa e minimiza as linhas finas e rugas.",
+        "price": 72,
+        "points": 52,
+        "image": "10-042799.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042799"
+            }
+        ]
+    },
+    {
+    	"id": 37,
+        "title": "Creme Anti-idade para Contorno dos Olhos - 18 g",
+        "description": "Minimiza a aparência de linhas finas e rugas.",
+        "price": 70,
+        "points": 52,
+        "image": "10-029728.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029728"
+            }
+        ]
+    },
+    {
+    	"id": 38,
+        "title": "Revitalizante para a Área dos Olhos Targeted-Action - 10 ml",
+        "description": "Reduz olheiras e acaba com o inchaço na região abaixo dos olhos.",
+        "price": 79,
+        "points": 52,
+        "image": "10-029737.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029737"
+            }
+        ]
+    },
+    {
+    	"id": 39,
+        "title": "Sistema Volu-Firm",
+        "price": 489,
+        "points": 299,
+        "image": "10-073276.jpg",
+        "gridList": [
+            {
+                "SKU": "10-073276"
+            }
+        ]
+    },
+    {
+    	"id": 40,
+        "title": "Kit Creme Diurno e Noturno Volu-Firm",
+        "price": 189,
+        "points": 114,
+        "image": "10-072912.jpg",
+        "gridList": [
+            {
+                "SKU": "10-072912"
+            }
+        ]
+    },
+    {
+    	"id": 41,
+        "title": "Espuma de Limpeza Volu-Firm - 127 g",
+        "description": "Limpa e renova a textura da pele, minimizando a aparência dos poros.",
+        "price": 69,
+        "points": 42,
+        "image": "10-053074.jpg",
+        "gridList": [
+            {
+                "SKU": "10-053074"
+            }
+        ]
+    },
+    {
+    	"id": 42,
+        "title": "Sérum Lifting Volu-Firm - 29 ml",
+        "description": "Ajuda a dar firmeza e sustentar a pele. Restaura o volume e firmeza, deixando a sua pele com aparência mais jovem e firme.",
+        "price": 132,
+        "points": 74,
+        "image": "10-048848.jpg",
+        "gridList": [
+            {
+                "SKU": "10-048848"
+            }
+        ]
+    },
+    {
+    	"id": 43,
+        "title": "Creme Diurno com FPS 30 Volu-Firm - 48 g",
+        "description": "Protege a pele contra futuros danos, hidratando-a e reduzindo a aparência de rugas e linhas de expressão.",
+        "price": 105,
+        "points": 57,
+        "image": "10-058796.jpg",
+        "gridList": [
+            {
+                "SKU": "10-058796"
+            }
+        ]
+    },
+    {
+    	"id": 44,
+        "title": "Creme Noturno Volu-Firm - 48 g",
+        "description": "Ajuda a recuperar a suavidade da pele, combatendo os sinais avançados da idade. Ajuda a delinear o contorno do rosto, deixando-o mais definido e com menos linhas aparentes.",
+        "price": 105,
+        "points": 57,
+        "image": "10-057096.jpg",
+        "gridList": [
+            {
+                "SKU": "10-057096"
+            }
+        ]
+    },
+    {
+    	"id": 45,
+        "title": "Creme para a Área dos Olhos Volu-Firm - 14 g",
+        "description": "Muitos benefícios em um produto. Combate linhas profundas, manchas escuras, flacidez, inchaço e pálpebras caídas. A embalagem conta com um exclusivo massageador.",
+        "price": 99,
+        "points": 69,
+        "image": "10-047376.jpg",
+        "gridList": [
+            {
+                "SKU": "10-047376"
+            }
+        ]
+    },
+    {
+    	"id": 46,
+        "title": "Creme de Limpeza - 113 g",
+        "description": "Remove a maquiagem e impurezas, deixando a pele saudável e renovada.",
+        "price": 29,
+        "points": 17,
+        "image": "10-049513.jpg",
+        "gridList": [
+            {
+                "SKU": "10-049516",
+                "option": "Pele Oleosa"
+            },
+            {
+                "SKU": "10-049513",
+                "option": "Pele Normal"
+            }
+        ]
+    },
+    {
+    	"id": 47,
+        "title": "Máscara Facial - 113 g",
+        "description": "Hidrata e limpa os poros, deixando a pele fresca e renovada. Use duas a três vezes por semana.",
+        "price": 49,
+        "points": 28,
+        "image": "10-050141.jpg",
+        "gridList": [
+            {
+                "SKU": "10-050144",
+                "option": "Pele Oleosa"
+            },
+            {
+                "SKU": "10-050141",
+                "option": "Pele Normal"
+            }
+        ]
+    },
+    {
+    	"id": 48,
+        "title": "Tônico Refrescante - 147 ml",
+        "description": "Remove suavemente os resíduos e proporciona sensação suave e refrescante.",
+        "price": 29,
+        "points": 17,
+        "image": "10-049807.jpg",
+        "gridList": [
+            {
+                "SKU": "10-049810",
+                "option": "Pele Oleosa"
+            },
+            {
+                "SKU": "10-049807",
+                "option": "Pele Normal"
+            }
+        ]
+    },
+    {
+    	"id": 49,
+        "title": "Hidratante - 88 ml",
+        "description": "Tem absorção rápida e deixa a pele com aparência saudável e equilibrada.",
+        "price": 29,
+        "points": 17,
+        "image": "10-049591.jpg",
+        "gridList": [
+            {
+                "SKU": "10-049594",
+                "option": "Pele Oleosa"
+            },
+            {
+                "SKU": "10-049591",
+                "option": "Pele Normal"
+            }
+        ]
+    },
+    {
+    	"id": 50,
+        "title": "Gel de Limpeza para Pele com Tendência à Acne - 127 g",
+        "description": "Ajuda a remover o excesso de oleosidade e as células mortas, não deixa resíduos na pele. Contém 2% de ácido salicílico.",
+        "price": 50,
+        "points": 34,
+        "image": "10-020374.jpg",
+        "gridList": [
+            {
+                "SKU": "10-020374"
+            }
+        ]
+    },
+    {
+    	"id": 51,
+        "title": "Loção para Pele com Tendência à Acne - 50 g",
+        "description": "Formulada com ingredientes botânicos e 2% de ácido salicílico para ajudar a controlar a oleosidade.",
+        "price": 68,
+        "points": 46,
+        "image": "10-020377.jpg",
+        "gridList": [
+            {
+                "SKU": "10-020377"
+            }
+        ]
+    },
+    {
+    	"id": 52,
+        "title": "Creme Secativo para Pele com Tendência à Acne - 29 g",
+        "description": "Atua diretamente sobre a acne, ajudando a eliminá-la e prevenindo o surgimento de novos pontos de acne. Contém ingredientes botânicos e 2% de ácido salicílico.",
+        "price": 45,
+        "points": 31,
+        "image": "10-020379.jpg",
+        "gridList": [
+            {
+                "SKU": "10-020379"
+            }
+        ]
+    },
+    {
+    	"id": 53,
+        "title": "Sistema de Cuidados da Pele com Tendência à Acne",
+        "description": "Inclui o Gel de Limpeza, a Loção e o Creme Secativo.",
+        "price": 163,
+        "points": 111,
+        "image": "10-029381.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029381"
+            }
+        ]
+    },
+    {
+    	"id": 54,
+        "title": "Kit Introdutório ao Sistema de Cuidados da Pele com Tendência à Acne",
+        "description": "Contém os três produtos da linha em tamanho ideal para ser utilizado por um mês.",
+        "price": 95,
+        "points": 65,
+        "image": "10-021628.jpg",
+        "gridList": [
+            {
+                "SKU": "10-021628"
+            }
+        ]
+    },
+    {
+    	"id": 55,
+        "title": "Spray Corporal para Pele com Tendência à Acne - 118 ml",
+        "description": "Especialmente desenvolvido com ingredientes botânicos e 2% de ácido salicílico. Para ajudar a combater a acne na pele do corpo. Pode ser aplicado nos ombros, costas e pernas.",
+        "price": 55,
+        "points": 28,
+        "image": "10-023376.jpg",
+        "gridList": [
+            {
+                "SKU": "10-023376"
+            }
+        ]
+    },
+    {
+    	"id": 56,
+        "title": "Espuma de Limpeza 3 - 192 ml",
+        "price": 47,
+        "points": 19,
+        "image": "10-105900.jpg",
+        "gridList": [
+            {
+                "SKU": "10-105900"
+            }
+        ]
+    },
+    {
+    	"id": 57,
+        "title": "Creme Hidratante Enriquecido 1 - 118 ml",
+        "price": 56,
+        "points": 26,
+        "image": "10-106600.jpg",
+        "gridList": [
+            {
+                "SKU": "10-106600"
+            }
+        ]
+    },
+    {
+    	"id": 58,
+        "title": "Fluido Hidratante para Controle da Oleosidade 3 - 118 ml",
+        "price": 56,
+        "points": 26,
+        "image": "10-106800.jpg",
+        "gridList": [
+            {
+                "SKU": "10-106800"
+            }
+        ]
+    },
+    {
+    	"id": 59,
+        "title": "Gel de Limpeza para o Rosto - 147 ml",
+        "price": 43,
+        "points": 24,
+        "image": "10-001600.jpg",
+        "gridList": [
+            {
+                "SKU": "10-001600"
+            }
+        ]
+    },
+    {
+    	"id": 60,
+        "title": "Creme Intensivo para a Área dos Olhos - 18 g",
+        "description": "Ajuda a reduzir olheiras, bolsas e rugas na região dos olhos, uma área mais fina e delicada, que precisa de cuidados especiais.",
+        "price": 45,
+        "points": 25,
+        "image": "10-060198.jpg",
+        "gridList": [
+            {
+                "SKU": "10-060198"
+            }
+        ]
+    },
+    {
+    	"id": 61,
+        "title": "Fragrância Corporal em Spray - 113 g",
+        "description": "Leve e refrescante, é ideal para ser usada diariamente.",
+        "price": 41,
+        "points": 18,
+        "image": "10-020104.jpg",
+        "gridList": [
+            {
+                "SKU": "10-020104"
+            }
+        ]
+    },
+    {
+    	"id": 62,
+        "title": "Sabonete Facial - 113 g",
+        "description": "Limpa a pele, iniciando o processo de redução dos sinais visíveis do envelhecimento.",
+        "price": 38,
+        "points": 21,
+        "image": "10-055844.jpg",
+        "gridList": [
+            {
+                "SKU": "10-055844"
+            }
+        ]
+    },
+    {
+    	"id": 63,
+        "title": "Espuma para Barbear - 184 g",
+        "description": "Amacia a pele e ajuda a reduzir a irritação causada pela lâmina de barbear.",
+        "price": 37,
+        "points": 19,
+        "image": "10-010336.jpg",
+        "gridList": [
+            {
+                "SKU": "10-010336"
+            }
+        ]
+    },
+    {
+    	"id": 64,
+        "title": "Gel Refrescante Pós Barba - 73 ml",
+        "description": "Acalma a pele e ameniza a irritação causada pela lâmina.",
+        "price": 33,
+        "points": 18,
+        "image": "10-010338.jpg",
+        "gridList": [
+            {
+                "SKU": "10-010338"
+            }
+        ]
+    },
+    {
+    	"id": 65,
+        "title": "Loção Hidratante com FPS 25 - 88 ml",
+        "description": "Hidrata e protege contra os raios UVA/UVB, que podem causar o envelhecimento prococe da pele.",
+        "price": 55,
+        "points": 30,
+        "image": "10-010332.jpg",
+        "gridList": [
+            {
+                "SKU": "10-010332"
+            }
+        ]
+    },
+    {
+    	"id": 66,
+        "title": "Gel Suavizante para a Área dos Olhos - 11 g",
+        "description": "Contém extratos botânicos que ajudam a reduzir a aparência de inchaço na região dos olhos.",
+        "price": 53,
+        "points": 29,
+        "image": "10-029739.jpg",
+        "gridList": [
+            {
+                "SKU": "10-029739"
+            }
+        ]
+    },
+    {
+    	"id": 67,
+        "title": "Kit Lábios de Seda Satin Lips",
+        "description": "Esfolia e hidrata os lábios, deixando-os macios e suaves.",
+        "price": 69,
+        "points": 50,
+        "image": "10-998000.jpg",
+        "gridList": [
+            {
+                "SKU": "10-998000"
+            }
+        ]
+    },
+    {
+    	"id": 68,
+        "title": "Bálsamo para os Lábios Satin Lips - 8 g",
+        "price": 39,
+        "points": 25,
+        "image": "10-042792.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042796"
+            },
+            {
+                "SKU": "10-042792"
+            }
+        ]
+    },
+    {
+    	"id": 69,
+        "title": "Loção Antibrilho e Oleosidade - 17 ml",
+        "description": "Absorve a oleosidade e ajuda a controlar o brilho por até oito horas.",
+        "price": 45,
+        "points": 29,
+        "image": "10-031573.jpg",
+        "gridList": [
+            {
+                "SKU": "10-031573"
+            }
+        ]
+    },
+    {
+    	"id": 70,
+        "title": "Lenços de Papel Antibrilho da Pele - 75 unidades",
+        "description": "Remove o brilho e ajuda a manter a maquiagem impecável.",
+        "price": 28,
+        "points": 17,
+        "image": "10-041758.jpg",
+        "gridList": [
+            {
+                "SKU": "10-041758"
+            }
+        ]
+    },
+    {
+    	"id": 71,
+        "title": "Hidratante Noturno Extra Emoliente - 60 g",
+        "description": "Ajuda a manter a hidratação natural da pele e repõe a umidade em áreas ressecadas como mãos, cotovelos, joelhos e pés.",
+        "price": 47,
+        "points": 30,
+        "image": "10-045655.jpg",
+        "gridList": [
+            {
+                "SKU": "10-045655"
+            }
+        ]
+    },
+    {
+    	"id": 72,
+        "title": "Gel Hidratante sem Óleo - 51 g",
+        "description": "É absorvido rapidamente, mantém a hidratação e a umidade da pele por até dez horas.",
+        "price": 77,
+        "points": 51,
+        "image": "10-031551.jpg",
+        "gridList": [
+            {
+                "SKU": "10-031551"
+            }
+        ]
+    },
+    {
+    	"id": 73,
+        "title": "Creme Esfoliante Satin Body - 185 g",
+        "description": "Esfolia a pele do corpo e elimina a textura ressecada.",
+        "price": 35,
+        "points": 20,
+        "image": "10-039418.jpg",
+        "gridList": [
+            {
+                "SKU": "10-039418"
+            }
+        ]
+    },
+    {
+    	"id": 74,
+        "title": "Gel para o Corpo 2 em 1 Satin Body - 192 ml",
+        "description": "Limpa a pele e facilita a depilação.",
+        "price": 35,
+        "points": 20,
+        "image": "10-039409.jpg",
+        "gridList": [
+            {
+                "SKU": "10-039409"
+            }
+        ]
+    },
+    {
+    	"id": 75,
+        "title": "Loção Hidratante Satin Body - 192 ml",
+        "description": "Proporciona hidratação por até vinte e quatro horas.",
+        "price": 35,
+        "points": 20,
+        "image": "10-039413.jpg",
+        "gridList": [
+            {
+                "SKU": "10-039413"
+            }
+        ]
+    },
+    {
+    	"id": 76,
+        "title": "Creme para as Mãos Satin Hands - 85 g",
+        "description": "Fórmula que deixa a pele instantaneamente macia e hidratada por até vinte e quatro horas.",
+        "price": 32,
+        "points": 19,
+        "image": "10-031832.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042836",
+                "option": "Pêssego"
+            },
+            {
+                "SKU": "10-031832",
+                "option": "Livre de Fragrância"
+            }
+        ]
+    },
+    {
+    	"id": 77,
+        "title": "Kit Mãos de Seda",
+        "description": "O Kit inclui o Esfoliante para as Mãos Satin Smoothie, o Creme Extra Emoliente e o Creme para as Mãos em uma prática sacola.",
+        "price": 132,
+        "points": 67,
+        "image": "10-032362.jpg",
+        "gridList": [
+            {
+                "SKU": "10-033897",
+                "option": "Pêssego"
+            },
+            {
+                "SKU": "10-032362",
+                "option": "Livre de Fragrância"
+            }
+        ]
+    },
+    {
+    	"id": 78,
+        "title": "Loção Energizante para os Pés e Pernas Mint Bliss - 88 ml",
+        "description": "Uma fórmula de menta refrescante que ajuda a aliviar o cansaço dos pés e pernas.",
+        "price": 42,
+        "points": 19,
+        "image": "10-014096.jpg",
+        "gridList": [
+            {
+                "SKU": "10-014096"
+            }
+        ]
+    },
+    {
+    	"id": 79,
+        "title": "Loção Corporal Autobronzeadora - 118 ml",
+        "description": "Hidrata a pele e proporciona um bronzeado sutil, que se desenvolve gradualmente para um visual totalmente natural. Não possui fator de proteção solar.",
+        "price": 44,
+        "points": 24,
+        "image": "10-049423.jpg",
+        "gridList": [
+            {
+                "SKU": "10-049423"
+            }
+        ]
+    },
+    {
+    	"id": 80,
+        "title": "Protetor Solar com FPS 30 - 118 ml",
+        "description": "Fórmula leve e livre de óleo, para o rosto e para o corpo, que proporciona proteção contra os raios UVA/UVB. À prova d'água e resistente ao suor por até oitenta minutos.",
+        "price": 54,
+        "points": 28,
+        "image": "10-042829.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042829"
+            }
+        ]
+    },
+    {
+    	"id": 81,
+        "title": "Gel Restaurador Pós Sol - 192 ml",
+        "description": "Formulado com extratos botânicos ricos em antioxidantes, este gel é absorvido rapidamente, repondo a hidratação.",
+        "price": 39,
+        "points": 20,
+        "image": "10-050165.jpg",
+        "gridList": [
+            {
+                "SKU": "10-050165"
+            }
+        ]
+    },
+    {
+    	"id": 82,
+        "title": "Protetor Solar para os Lábios com FPS 15 - 4,5 g",
+        "description": "Ajuda a proteger os lábios dos efeitos nocivos da radiação solar.",
+        "price": 23,
+        "points": 13,
+        "image": "10-049430.jpg",
+        "gridList": [
+            {
+                "SKU": "10-049430"
+            }
+        ]
+    },
+    {
+    	"id": 83,
+        "title": "Base Líquida TimeWise - Acabamento Matte - 29 ml",
+        "description": "Fórmula leve, que ajuda a controlar o excesso de oleosidade e o brilho durante todo o dia. Diminui a aparência de rugas e linhas finas.",
+        "price": 54,
+        "points": 27,
+        "image": "10-059507.jpg",
+        "gridList": [
+            {
+                "SKU": "10-059508",
+                "option": "Ivory 6"
+            },
+            {
+                "SKU": "10-059509",
+                "option": "Ivory 7"
+            },
+            {
+                "SKU": "10-059510",
+                "option": "Beige 1"
+            },
+            {
+                "SKU": "10-059511",
+                "option": "Beige 2"
+            },
+            {
+                "SKU": "10-059512",
+                "option": "Beige 3"
+            },
+            {
+                "SKU": "10-059513",
+                "option": "Beige 4"
+            },
+            {
+                "SKU": "10-059514",
+                "option": "Beige 5"
+            },
+            {
+                "SKU": "10-059515",
+                "option": "Beige 6"
+            },
+            {
+                "SKU": "10-059519",
+                "option": "Bronze 1"
+            },
+            {
+                "SKU": "10-059520",
+                "option": "Bronze 2"
+            },
+            {
+                "SKU": "10-059522",
+                "option": "Bronze 4"
+            },
+            {
+                "SKU": "10-059523",
+                "option": "Bronze 5"
+            },
+            {
+                "SKU": "10-059525",
+                "option": "Bronze 7"
+            },
+            {
+                "SKU": "10-059978",
+                "option": "Ivory 5"
+            },
+            {
+                "SKU": "10-059979",
+                "option": "Ivory 6"
+            },
+            {
+                "SKU": "10-059980",
+                "option": "Ivory 7"
+            },
+            {
+                "SKU": "10-059527",
+                "option": "Beige 1"
+            },
+            {
+                "SKU": "10-059528",
+                "option": "Beige 2"
+            },
+            {
+                "SKU": "10-059529",
+                "option": "Beige 3"
+            },
+            {
+                "SKU": "10-059530",
+                "option": "Beige 4"
+            },
+            {
+                "SKU": "10-059531",
+                "option": "Beige 5"
+            },
+            {
+                "SKU": "10-059532",
+                "option": "Beige 6"
+            },
+            {
+                "SKU": "10-059535",
+                "option": "Bronze 1"
+            },
+            {
+                "SKU": "10-059536",
+                "option": "Bronze 2"
+            },
+            {
+                "SKU": "10-059538",
+                "option": "Bronze 4"
+            },
+            {
+                "SKU": "10-059539",
+                "option": "Bronze 5"
+            },
+            {
+                "SKU": "10-059541",
+                "option": "Bronze 7"
+            },
+            {
+                "SKU": "10-059507",
+                "option": "Ivory 5"
+            }
+        ]
+    },
+    {
+    	"id": 84,
+        "title": "Base de Cobertura Média - 29 ml",
+        "description": "Proporciona uma cor verdadeira e duradoura, além de ajudar a controlar o excesso de oleosidade por até oito horas.",
+        "price": 46,
+        "points": 20,
+        "image": "10-041998.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042001",
+                "option": "Ivory 204"
+            },
+            {
+                "SKU": "10-042002",
+                "option": "Beige 300"
+            },
+            {
+                "SKU": "10-042003",
+                "option": "Beige 302"
+            },
+            {
+                "SKU": "10-042004",
+                "option": "Beige 304"
+            },
+            {
+                "SKU": "10-042006",
+                "option": "Beige 400"
+            },
+            {
+                "SKU": "10-042007",
+                "option": "Beige 402"
+            },
+            {
+                "SKU": "10-042009",
+                "option": "Bronze 500"
+            },
+            {
+                "SKU": "10-041998",
+                "option": "Ivory 200"
+            }
+        ]
+    },
+    {
+    	"id": 85,
+        "title": "Base em Pó Mineral - 8 g",
+        "description": "Um pó leve que se espalha facilmente para um visual impecável.",
+        "price": 54,
+        "points": 23,
+        "image": "10-040984.jpg",
+        "gridList": [
+            {
+                "SKU": "10-040985",
+                "option": "Ivory 2"
+            },
+            {
+                "SKU": "10-040987",
+                "option": "Beige 1"
+            },
+            {
+                "SKU": "10-040989",
+                "option": "Beige 2"
+            },
+            {
+                "SKU": "10-040990",
+                "option": "Bronze 1"
+            },
+            {
+                "SKU": "10-040991",
+                "option": "Bronze 2"
+            },
+            {
+                "SKU": "10-040984",
+                "option": "Ivory 1"
+            }
+        ]
+    },
+    {
+    	"id": 86,
+        "title": "Hidratante Tonalizante com FPS 20 - 43 ml",
+        "description": "Três benefícios em um - cobertura translúcida, hidratação livre de óleo e proteção contra os raios UVA e UVB.",
+        "price": 47,
+        "points": 23,
+        "image": "10-031512.jpg",
+        "gridList": [
+            {
+                "SKU": "10-031513",
+                "option": "Beige 1"
+            },
+            {
+                "SKU": "10-031514",
+                "option": "Beige 2"
+            },
+            {
+                "SKU": "10-031515",
+                "option": "Bronze 1"
+            },
+            {
+                "SKU": "10-031512",
+                "option": "Ivory 2"
+            }
+        ]
+    },
+    {
+    	"id": 87,
+        "title": "Trio de Sombras Efeito Brilho - 2 g",
+        "description": "Muito brilho e ótima pigmentação. Três sombras em apenas um produto.",
+        "price": 29,
+        "points": 15,
+        "image": "10-062144.jpg",
+        "gridList": [
+            {
+                "SKU": "10-062145",
+                "option": "Ocean View"
+            },
+            {
+                "SKU": "10-062143",
+                "option": "On the Horizon"
+            },
+            {
+                "SKU": "10-062146",
+                "option": "Tuxedo"
+            },
+            {
+                "SKU": "10-062144",
+                "option": "Earth Bound"
+            }
+        ]
+    },
+    {
+    	"id": 88,
+        "title": "Lápis Sombra - 2,5 g",
+        "description": "Sua fórmula ultra cremosa não acumula nas pálpebras. Cores divertidas e com acabamento metalizado.",
+        "price": 20,
+        "points": 11,
+        "image": "10-067803.jpg",
+        "gridList": [
+            {
+                "SKU": "10-067805",
+                "option": "Gold Mine"
+            },
+            {
+                "SKU": "10-067801",
+                "option": "In the Navy"
+            },
+            {
+                "SKU": "10-067804",
+                "option": "Purple Smoke"
+            },
+            {
+                "SKU": "10-067803",
+                "option": "Green Tea"
+            }
+        ]
+    },
+    {
+    	"id": 89,
+        "title": "Gloss Labial Jelly - 9,5 ml",
+        "description": "Lábios macios e glamorosos com cores intensas e brilhantes.",
+        "price": 18,
+        "points": 9,
+        "image": "10-062089.jpg",
+        "gridList": [
+            {
+                "SKU": "10-062088",
+                "option": "Crushed Plum"
+            },
+            {
+                "SKU": "10-062087",
+                "option": "Hot Tamale"
+            },
+            {
+                "SKU": "10-062086",
+                "option": "Teddy Bare"
+            },
+            {
+                "SKU": "10-062089",
+                "option": "Berry Me"
+            }
+        ]
+    },
+    {
+    	"id": 90,
+        "title": "Lápis Batom - 2,5 g",
+        "description": "Cores marcantes com acabamento luminoso. Sua fórmula desliza facilmente e não borra durante o dia.",
+        "price": 20,
+        "points": 11,
+        "image": "10-067790.jpg",
+        "gridList": [
+            {
+                "SKU": "10-067788",
+                "option": "Perfect Pink"
+            },
+            {
+                "SKU": "10-067783",
+                "option": "Toasted"
+            },
+            {
+                "SKU": "10-067789",
+                "option": "Violet Love"
+            },
+            {
+                "SKU": "10-067790",
+                "option": "Candied Apple"
+            }
+        ]
+    },
+    {
+    	"id": 91,
+        "title": "Corretivo - 8,5 g",
+        "description": "Fórmula cremosa de longa duração que disfarça pequenas imperfeições.",
+        "price": 32,
+        "points": 20,
+        "image": "10-023467.jpg",
+        "gridList": [
+            {
+                "SKU": "10-023468",
+                "option": "Ivory 2"
+            },
+            {
+                "SKU": "10-023469",
+                "option": "Beige 1"
+            },
+            {
+                "SKU": "10-023470",
+                "option": "Beige 2"
+            },
+            {
+                "SKU": "10-023471",
+                "option": "Bronze 1"
+            },
+            {
+                "SKU": "10-023472",
+                "option": "Bronze 2"
+            },
+            {
+                "SKU": "10-027243",
+                "option": "Yellow"
+            },
+            {
+                "SKU": "10-023467",
+                "option": "Ivory 1"
+            }
+        ]
+    },
+    {
+    	"id": 92,
+        "title": "Pó Mineral Compacto (Refil) - 9 g",
+        "description": "Um pó leve que proporciona uma camada translúcida de cobertura para controlar a oleosidade.",
+        "price": 39,
+        "points": 21,
+        "image": "10-015136.jpg",
+        "gridList": [
+            {
+                "SKU": "10-015137",
+                "option": "Beige 1"
+            },
+            {
+                "SKU": "10-015138",
+                "option": "Beige 2"
+            },
+            {
+                "SKU": "10-015139",
+                "option": "Bronze 1"
+            },
+            {
+                "SKU": "10-015140",
+                "option": "Bronze 2"
+            },
+            {
+                "SKU": "10-015136",
+                "option": "Ivory 2"
+            }
+        ]
+    },
+    {
+    	"id": 93,
+        "title": "Iluminador Facial - 1,3 ml",
+        "description": "Sua fórmula contém partículas esféricas que refletem a luz em várias direções, iluminando as áreas sombreadas.",
+        "price": 42,
+        "points": 18,
+        "image": "10-019029.jpg",
+        "gridList": [
+            {
+                "SKU": "10-019031",
+                "option": "Tom 3"
+            },
+            {
+                "SKU": "10-019029",
+                "option": "Tom 2"
+            }
+        ]
+    },
+    {
+    	"id": 94,
+        "title": "Sombra Mineral (Refil) - 1,4 g",
+        "description": "São tonalidades vibrantes e de longa duração em fórmula mineral. Proporcionam cores intensas, que não acumulam nas pálpebras, e são ideais para qualquer tom de pele.",
+        "price": 21,
+        "points": 12,
+        "image": "10-013008.jpg",
+        "gridList": [
+            {
+                "SKU": "10-030111",
+                "option": "Azure"
+            },
+            {
+                "SKU": "10-028589",
+                "option": "Black Pearl"
+            },
+            {
+                "SKU": "10-013050",
+                "option": "Blue Metal"
+            },
+            {
+                "SKU": "10-013035",
+                "option": "Chocolate Kiss"
+            },
+            {
+                "SKU": "10-013038",
+                "option": "Cinnabar"
+            },
+            {
+                "SKU": "10-046687",
+                "option": "Classic Navy"
+            },
+            {
+                "SKU": "10-013026",
+                "option": "Coal"
+            },
+            {
+                "SKU": "10-013044",
+                "option": "Crystalline"
+            },
+            {
+                "SKU": "10-013056",
+                "option": "Denim Frost"
+            },
+            {
+                "SKU": "10-030110",
+                "option": "Emerald"
+            },
+            {
+                "SKU": "10-013047",
+                "option": "Espresso"
+            },
+            {
+                "SKU": "10-046684",
+                "option": "Gold Coast"
+            },
+            {
+                "SKU": "10-013080",
+                "option": "Granite"
+            },
+            {
+                "SKU": "10-013032",
+                "option": "Honey Spice"
+            },
+            {
+                "SKU": "10-013095",
+                "option": "Iris"
+            },
+            {
+                "SKU": "10-013062",
+                "option": "Ivy Garden"
+            },
+            {
+                "SKU": "10-046680",
+                "option": "Jade"
+            },
+            {
+                "SKU": "10-030107",
+                "option": "Lavender Fog"
+            },
+            {
+                "SKU": "10-013005",
+                "option": "Lemongrass"
+            },
+            {
+                "SKU": "10-028588",
+                "option": "Midnight Star"
+            },
+            {
+                "SKU": "10-030106",
+                "option": "Peacock Blue"
+            },
+            {
+                "SKU": "10-013074",
+                "option": "Precious Pink"
+            },
+            {
+                "SKU": "10-026297",
+                "option": "Silver Satin"
+            },
+            {
+                "SKU": "10-046683",
+                "option": "Sterling"
+            },
+            {
+                "SKU": "10-013101",
+                "option": "Sweet Plum"
+            },
+            {
+                "SKU": "10-046681",
+                "option": "Truffle"
+            },
+            {
+                "SKU": "10-026292",
+                "option": "White Lily"
+            },
+            {
+                "SKU": "10-013008",
+                "option": "Amber Blaze"
+            }
+        ]
+    },
+    {
+    	"id": 95,
+        "title": "Delineador Líquido para os Olhos - Preto - 3 ml",
+        "description": "Cor intensa e duradoura. O aplicador especial torna a aplicação super fácil.",
+        "price": 35,
+        "points": 23,
+        "image": "10-017587.jpg",
+        "gridList": [
+            {
+                "SKU": "10-017587"
+            }
+        ]
+    },
+    {
+    	"id": 96,
+        "title": "Lápis Retrátil para os Olhos - 0,28 g",
+        "description": "Lápis de mecanismo retrátil com fórmula suave e a prova d'água. Vem com um exclusivo apontador na tampa.",
+        "price": 33,
+        "points": 18,
+        "image": "10-051607.jpg",
+        "gridList": [
+            {
+                "SKU": "10-051611",
+                "option": "Violet Ink"
+            },
+            {
+                "SKU": "10-051608",
+                "option": "Deep Brown"
+            },
+            {
+                "SKU": "10-051610",
+                "option": "Dark Denim"
+            },
+            {
+                "SKU": "10-051609",
+                "option": "Steely"
+            },
+            {
+                "SKU": "10-051613",
+                "option": "Rich Jade"
+            },
+            {
+                "SKU": "10-051607",
+                "option": "Black"
+            }
+        ]
+    },
+    {
+    	"id": 97,
+        "title": "Gel para Sobrancelhas",
+        "description": "Ele fixa a sobrancelha no lugar certo e dá um aspecto mais encorpado aos fios.",
+        "price": 27,
+        "points": 14,
+        "image": "10-027859.jpg",
+        "gridList": [
+            {
+                "SKU": "10-027859"
+            }
+        ]
+    },
+    {
+    	"id": 98,
+        "title": "Kit para Sobrancelhas",
+        "description": "Inclui: Mini pinça, mini pincel e mini escova.",
+        "price": 15,
+        "points": 8,
+        "image": "10-027861.jpg",
+        "gridList": [
+            {
+                "SKU": "10-027861"
+            }
+        ]
+    },
+    {
+    	"id": 99,
+        "title": "Lápis Delineador para Sobrancelhas - 1,13 g",
+        "description": "Fórmula cremosa, de longa duração e à prova d'água, para um visual bem definido.",
+        "price": 30,
+        "points": 18,
+        "image": "10-034730.jpg",
+        "gridList": [
+            {
+                "SKU": "10-034731",
+                "option": "Brunette"
+            },
+            {
+                "SKU": "10-034730",
+                "option": "Classic Blonde"
+            }
+        ]
+    },
+    {
+    	"id": 100,
+        "title": "Ultimate Máscara para Cílios - 8 g",
+        "description": "Fórmula exclusiva, para cílios marcantes com até cinco vezes mais volume.",
+        "price": 51,
+        "points": 25,
+        "image": "10-035651.jpg",
+        "gridList": [
+            {
+                "SKU": "10-035651",
+                "option": "Preta"
+            }
+        ]
+    },
+    {
+    	"id": 101,
+        "title": "Máscara para Cílios Lash Love - 9 g",
+        "description": "Define, protege e proporciona volume ideal aos cílios.",
+        "price": 51,
+        "points": 25,
+        "image": "10-049293.jpg",
+        "gridList": [
+            {
+                "SKU": "10-049293",
+                "option": "Preta"
+            }
+        ]
+    },
+    {
+    	"id": 102,
+        "title": "Máscara Alongadora para Cílios Lash Love - 8 g",
+        "description": "Cílios longos, fortes e definidos.",
+        "price": 51,
+        "points": 25,
+        "image": "10-054563.png",
+        "gridList": [
+            {
+                "SKU": "10-054563",
+                "option": "Preta"
+            }
+        ]
+    },
+    {
+    	"id": 103,
+        "title": "Máscara para Cílios Lash Love à Prova D'água - 9 g",
+        "description": "Define, protege e proporciona volume ideal aos cílios em fórmula resistente à água.",
+        "price": 51,
+        "points": 25,
+        "image": "10-049289.jpg",
+        "gridList": [
+            {
+                "SKU": "10-049289",
+                "option": "Preta"
+            }
+        ]
+    },
+    {
+    	"id": 104,
+        "title": "Máscara Incolor Primer para Cílios - 8 g",
+        "description": "Dois produtos em um: Máscara Incolor + Primer para Cílios.",
+        "price": 37,
+        "points": 19,
+        "image": "10-046176.jpg",
+        "gridList": [
+            {
+                "SKU": "10-046176"
+            }
+        ]
+    },
+    {
+    	"id": 105,
+        "title": "Sérum Fortalecedor de Cílios e Sobrancelhas - 4,5 g",
+        "description": "Antes de dormir, aplique nos cílios superiores e nas sobrancelhas.",
+        "price": 89,
+        "points": 48,
+        "image": "10-046188.jpg",
+        "gridList": [
+            {
+                "SKU": "10-046188"
+            }
+        ]
+    },
+    {
+    	"id": 106,
+        "title": "Demaquilante para a Área dos Olhos - 110 ml",
+        "description": "Remove delicadamente a maquiagem dos olhos.",
+        "price": 51,
+        "points": 26,
+        "image": "10-042768.jpg",
+        "gridList": [
+            {
+                "SKU": "10-042768"
+            }
+        ]
+    },
+    {
+    	"id": 107,
+        "title": "Eye Primer Fixador de Sombra - 8,5 g",
+        "description": "Fórmula à prova d'água que cria uma base transparente que prolonga e intensifica a cor da sombra.",
+        "price": 42,
+        "points": 28,
+        "image": "10-016960.jpg",
+        "gridList": [
+            {
+                "SKU": "10-016960"
+            }
+        ]
+    },
+    {
+    	"id": 108,
+        "title": "Pó Solto Translúcido - 11 g",
+        "description": "Proporciona um acabamento natural e controla a oleosidade e o brilho durante todo o dia sem obstruir os poros ou acumular nas linhas finas.",
+        "price": 49,
+        "points": 21,
+        "image": "10-060182.jpg",
+        "gridList": [
+            {
+                "SKU": "10-060182"
+            }
+        ]
+    },
+    {
+    	"id": 109,
+        "title": "Blush Mineral (Refil) - 5 g",
+        "description": "Fórmula mineral e cores versáteis e resistentes, que ficam bem em qualquer tom de pele.",
+        "price": 32,
+        "points": 18,
+        "image": "10-012983.jpg",
+        "gridList": [
+            {
+                "SKU": "10-012977",
+                "option": "Cinnamon Stick"
+            },
+            {
+                "SKU": "10-026286",
+                "option": "Citrus Bloom"
+            },
+            {
+                "SKU": "10-012965",
+                "option": "Golden Copper"
+            },
+            {
+                "SKU": "10-012974",
+                "option": "Shy Blush"
+            },
+            {
+                "SKU": "10-012950",
+                "option": "Sparkling Cider"
+            },
+            {
+                "SKU": "10-012980",
+                "option": "Strawberry Cream"
+            },
+            {
+                "SKU": "10-016243",
+                "option": "Sunny Spice"
+            },
+            {
+                "SKU": "10-012983",
+                "option": "Cherry Blossom"
+            }
+        ]
+    },
+    {
+    	"id": 110,
+        "title": "Blush em Creme - 2,1 g",
+        "description": "Fórmula cremosa que desliza facilmente na pele e proporciona um acabamento aveludado.",
+        "price": 35,
+        "points": 19,
+        "image": "10-031780.jpg",
+        "gridList": [
+            {
+                "SKU": "10-031782",
+                "option": "Sheer Bliss"
+            },
+            {
+                "SKU": "10-031780",
+                "option": "Cranberry"
+            }
+        ]
+    },
+    {
+    	"id": 111,
+        "title": "Pó Mineral Bronzeador Matte (Refil) - 4,5 g",
+        "description": "As tonalidades com brilho trazem uma luminosidade natural ao rosto e as tonalidades matte aquecem o visual.",
+        "price": 35,
+        "points": 19,
+        "image": "10-016165.jpg",
+        "gridList": [
+            {
+                "SKU": "10-016167",
+                "option": "Bronze Diva"
+            },
+            {
+                "SKU": "10-016165",
+                "option": "Sandstone"
+            }
+        ]
+    },
+    {
+    	"id": 112,
+        "title": "Pó Mineral Bronzeador com Brilho (Refil) - 4,5 g",
+        "price": 35,
+        "points": 19,
+        "image": "10-016610.jpg",
+        "gridList": [
+            {
+                "SKU": "10-016611",
+                "option": "Canyon Gold"
+            },
+            {
+                "SKU": "10-016610",
+                "option": "Desert Sun"
+            }
+        ]
+    },
+    {
+    	"id": 113,
+        "title": "Pó Mineral Iluminador (Refil) - 4,5 g",
+        "description": "Deixe a sua pele ainda mais iluminada e radiante.",
+        "price": 35,
+        "points": 19,
+        "image": "10-016615.jpg",
+        "gridList": [
+            {
+                "SKU": "10-016615",
+                "option": "Pink Stardust"
+            }
+        ]
+    },
+    {
+    	"id": 114,
+        "title": "Lápis Retrátil para os Lábios - 0,28 g",
+        "description": "Uma fórmula leve e à prova d'água, em uma prática embalagem retrátil. Desliza suavemente para uma aplicação uniforme, vem com um exclusivo apontador na tampa.",
+        "price": 31,
+        "points": 18,
+        "image": "10-051595.jpg",
+        "gridList": [
+            {
+                "SKU": "10-051589",
+                "option": "Cappuccino"
+            },
+            {
+                "SKU": "10-051587",
+                "option": "Neutral"
+            },
+            {
+                "SKU": "10-051592",
+                "option": "Soft Blush"
+            },
+            {
+                "SKU": "10-051595",
+                "option": "Clear"
+            }
+        ]
+    },
+    {
+    	"id": 115,
+        "title": "Batom True Dimensions - 3,3 g",
+        "description": "Proporcione uma nova dimensão aos seus lábios com uma fórmula avançada em uma sofisticada embalagem metálica.",
+        "price": 47,
+        "points": 26,
+        "image": "10-054822.png",
+        "gridList": [
+            {
+                "SKU": "10-054828",
+                "option": "Firecracker"
+            },
+            {
+                "SKU": "10-054823",
+                "option": "First Blush"
+            },
+            {
+                "SKU": "10-054825",
+                "option": "Natural Beauté"
+            },
+            {
+                "SKU": "10-054820",
+                "option": "Pink Chérie"
+            },
+            {
+                "SKU": "10-054830",
+                "option": "Rosette"
+            },
+            {
+                "SKU": "10-054829",
+                "option": "Sizzling Red"
+            },
+            {
+                "SKU": "10-054821",
+                "option": "Wild About Pink"
+            },
+            {
+                "SKU": "10-054822",
+                "option": "Color Me Coral"
+            }
+        ]
+    },
+    {
+    	"id": 116,
+        "title": "Batom Cremoso - 3 g",
+        "description": "Sua fórmula de longa duração desliza pelos lábios com uma textura leve e cremosa, para um resultado impactante e duradouro. Enriquecido com Vitamina E que ajuda a proteger contra a ação dos radicais lives.",
+        "price": 35,
+        "points": 19,
+        "image": "10-022936.jpg",
+        "gridList": [
+            {
+                "SKU": "10-022942",
+                "option": "Apple Berry"
+            },
+            {
+                "SKU": "10-022944",
+                "option": "Berry Kiss"
+            },
+            {
+                "SKU": "10-022958",
+                "option": "Dusty Rose"
+            },
+            {
+                "SKU": "10-022952",
+                "option": "Frosted Rose"
+            },
+            {
+                "SKU": "10-040717",
+                "option": "Fuchsia"
+            },
+            {
+                "SKU": "10-022937",
+                "option": "Gingerbread"
+            },
+            {
+                "SKU": "10-022961",
+                "option": "Hibiscus"
+            },
+            {
+                "SKU": "10-029478",
+                "option": "Icy Peach"
+            },
+            {
+                "SKU": "10-040707",
+                "option": "Midnight Red"
+            },
+            {
+                "SKU": "10-022957",
+                "option": "Pink Melon"
+            },
+            {
+                "SKU": "10-029472",
+                "option": "Pink Passion"
+            },
+            {
+                "SKU": "10-022960",
+                "option": "Pink Satin"
+            },
+            {
+                "SKU": "10-060356",
+                "option": "Really Red"
+            },
+            {
+                "SKU": "10-022965",
+                "option": "Red"
+            },
+            {
+                "SKU": "10-022945",
+                "option": "Sheer Blush"
+            },
+            {
+                "SKU": "10-022954",
+                "option": "Shell"
+            },
+            {
+                "SKU": "10-040712",
+                "option": "Sunny Citrus"
+            },
+            {
+                "SKU": "10-022963",
+                "option": "Sweet Nectar"
+            },
+            {
+                "SKU": "10-022955",
+                "option": "Tanned"
+            },
+            {
+                "SKU": "10-022953",
+                "option": "Toffee"
+            },
+            {
+                "SKU": "10-040710",
+                "option": "Whisper"
+            },
+            {
+                "SKU": "10-022936",
+                "option": "Amber Suede"
+            }
+        ]
+    },
+    {
+    	"id": 117,
+        "title": "Batom Líquido - 7,6 g",
+        "description": "Combina cobertura impecável com a facilidade de aplicação de um brilho para os lábios.",
+        "price": 35,
+        "points": 10,
+        "image": "10-051645.jpg",
+        "gridList": [
+            {
+                "SKU": "10-051647",
+                "option": "Guava Punch"
+            },
+            {
+                "SKU": "10-030424",
+                "option": "Raspberry Ice"
+            },
+            {
+                "SKU": "10-030425",
+                "option": "Sherbet"
+            },
+            {
+                "SKU": "10-030422",
+                "option": "Malted"
+            },
+            {
+                "SKU": "10-051645",
+				"option": "Grapefruit"
+            }
+        ]
+    },
+    {
+    	"id": 118,
+        "title": "Brilho para os Lábios NouriShine Plus - 4,5 ml",
+        "description": "Protege, suaviza e hidrata os lábios. O produto proporciona ainda um brilho radiante em cores que estão sempre na moda.",
+        "price": 33,
+        "points": 19,
+        "image": "10-052397.jpg",
+        "gridList": [
+            {
+                "SKU": "10-052405",
+                "option": "Beach Bronze"
+            },
+            {
+                "SKU": "10-052394",
+                "option": "Berry Tart"
+            },
+            {
+                "SKU": "10-052393",
+                "option": "Icicle"
+            },
+            {
+                "SKU": "10-052398",
+                "option": "Mango Tango"
+            },
+            {
+                "SKU": "10-057773",
+                "option": "Pink Diamonds"
+            },
+            {
+                "SKU": "10-052401",
+                "option": "Pink Luster"
+            },
+            {
+                "SKU": "10-053128",
+                "option": "Rock'n'Red"
+            },
+            {
+                "SKU": "10-053129",
+                "option": "Shock Tart"
+            },
+            {
+                "SKU": "10-053132",
+                "option": "Sun Blossoms"
+            },
+            {
+                "SKU": "10-052397",
+                "option": "Au Naturel"
+            }
+        ]
+    },
+    {
+    	"id": 119,
+        "title": "Mini Estojo Compacto (Vazio)",
+        "description": "Prático, cabe em qualquer lugar. O sistema de refil magnético possibilita diversas combinações, desde pó compacto, sombras, blush mineral ou pó bronzeador.",
+        "price": 52,
+        "points": 33,
+        "image": "10-040752.jpg",
+        "gridList": [
+            {
+                "SKU": "10-040752"
+            }
+        ]
+    },
+    {
+    	"id": 120,
+        "title": "Estojo Compacto (Vazio)",
+        "description": "O sistema de refil magnético permite que você customize infinitas combinações, com sombras, blushes, pós compactos ou pós bronzeadores. ",
+        "price": 61,
+        "points": 41,
+        "image": "10-017362.jpg",
+        "gridList": [
+            {
+                "SKU": "10-017362"
+            }
+        ]
+    },
+    {
+    	"id": 121,
+        "title": "Estojo Compacto Pro (Vazio)",
+        "description": "Tudo o que você precisa em um único estojo. Ele mantém todas as suas maquiagens e aplicadores organizados para que você crie uma maquiagem completa e customizável do início ao fim.",
+        "price": 110,
+        "points": 71,
+        "image": "10-018587.jpg",
+        "gridList": [
+            {
+                "SKU": "10-018587"
+            }
+        ]
+    },
+    {
+    	"id": 122,
+        "title": "Coleção de Pincéis",
+        "description": "Agora com o estojo em formato de maletinha. Seu novo design é moderno e traz uma nécessaire removível super prática para você levar seus produtos onde quiser.",
+        "price": 122,
+        "points": 63,
+        "image": "10-054132.jpg",
+        "gridList": [
+            {
+                "SKU": "10-054132"
+            }
+        ]
+    },
+    {
+    	"id": 123,
+        "title": "Pincel para Sombra",
+        "description": "Suas cerdas naturais aplicam a sombra com perfeição.",
+        "price": 18,
+        "points": 9,
+        "image": "10-053681.jpg",
+        "gridList": [
+            {
+                "SKU": "10-053681"
+            }
+        ]
+    },
+    {
+    	"id": 124,
+        "title": "Pincel para Base Líquida",
+        "description": "Perfeito para uma aplicação precisa de produtos com fórmulas cremosas e deposita a quantidade ideal de Base Líquida.",
+        "price": 36,
+        "points": 19,
+        "image": "10-054040.jpg",
+        "gridList": [
+            {
+                "SKU": "10-054040"
+            }
+        ]
+    },
+    {
+    	"id": 125,
+        "title": "Pincel para Pó Facial",
+        "description": "Suas cerdas macias e porosas permitem que a quantidade ideal do produto seja aplicada sobre a pele.",
+        "price": 36,
+        "points": 19,
+        "image": "10-053678.jpg",
+        "gridList": [
+            {
+                "SKU": "10-053678"
+            }
+        ]
+    },
+    {
+    	"id": 126,
+        "title": "Pincel para o Côncavo dos Olhos",
+        "description": "Perfeito para definir a linha do côncavo e dar mais profundidade ao olhar.",
+        "price": 18,
+        "points": 9,
+        "image": "10-053680.jpg",
+        "gridList": [
+            {
+                "SKU": "10-053680"
+            }
+        ]
+    },
+    {
+    	"id": 127,
+        "title": "Pincel para Esfumar",
+        "description": "Desenvolvido para um acabamento preciso, criando um look esfumado e dramático.",
+        "price": 18,
+        "points": 9,
+        "image": "10-053675.jpg",
+        "gridList": [
+            {
+                "SKU": "10-053675"
+            }
+        ]
+    },
+    {
+    	"id": 128,
+        "title": "Pincel para Corretivo e Sombra em Creme",
+        "description": "Cobertura impecável na aplicação de produtos de fórmulas cremosas.",
+        "price": 18,
+        "points": 9,
+        "image": "10-054041.jpg",
+        "gridList": [
+            {
+                "SKU": "10-054041"
+            }
+        ]
+    },
+    {
+    	"id": 129,
+        "title": "Pincel Duo Sobrancelha e Delineador",
+        "description": "Dois em um, com um lado você penteia e com o outro você delineia seus cílios e sobrancelhas.",
+        "price": 18,
+        "points": 9,
+        "image": "10-053682.jpg",
+        "gridList": [
+            {
+                "SKU": "10-053682"
+            }
+        ]
+    },
+    {
+    	"id": 130,
+        "title": "Pincel para Base em Pó Mineral",
+        "description": "Possui cerdas naturais de alta qualidade e ideais para aplicar fórmulas em pó.",
+        "price": 29,
+        "points": 15,
+        "image": "10-054039.jpg",
+        "gridList": [
+            {
+                "SKU": "10-054039"
+            }
+        ]
+    },
+    {
+    	"id": 131,
+        "title": "Pincel para Blush",
+        "description": "Cerdas macias, longas e de formato ideal para a aplicação do Blush Mineral.",
+        "price": 32,
+        "points": 17,
+        "image": "10-053679.jpg",
+        "gridList": [
+            {
+                "SKU": "10-053679"
+            }
+        ]
+    },
+    {
+    	"id": 132,
+        "title": "Pincel Compacto para Blush",
+        "price": 9,
+        "points": 7,
+        "image": "10-015263.jpg",
+        "gridList": [
+            {
+                "SKU": "10-015263"
+            }
+        ]
+    },
+    {
+    	"id": 133,
+        "title": "Aplicadores para Sombra - 2 unidades",
+        "price": 9,
+        "points": 7,
+        "image": "10-015264.jpg",
+        "gridList": [
+            {
+                "SKU": "10-015264"
+            }
+        ]
+    },
+    {
+    	"id": 134,
+        "title": "Esponjas Cosméticas - 2 unidades",
+        "price": 11,
+        "points": 4,
+        "image": "10-015261.jpg",
+        "gridList": [
+            {
+                "SKU": "10-015261"
+            }
+        ]
+    },
+    {
+    	"id": 135,
+        "title": "Pincel para Pó Compacto",
+        "price": 13,
+        "points": 5,
+        "image": "10-015262.jpg",
+        "gridList": [
+            {
+                "SKU": "10-015262"
+            }
+        ]
+    },
+    {
+    	"id": 136,
+        "title": "Pincel para Lábios (Retrátil)",
+        "price": 10,
+        "points": 3,
+        "image": "10-015265.jpg",
+        "gridList": [
+            {
+                "SKU": "10-015265"
+            }
+        ]
+    },
+    {
+    	"id": 137,
+        "title": "Apontador Duplo",
+        "description": "Super versátil, esse apontador possui duas entradas.",
+        "price": 15,
+        "points": 7,
+        "image": "10-014209.jpg",
+        "gridList": [
+            {
+                "SKU": "10-014209"
+            }
+        ]
+    },
+    {
+    	"id": 138,
+        "title": "Belara Eau de Parfum - 50 ml",
+        "description": "Uma revigorante combinação floral com notas de almíscar.",
+        "price": 88,
+        "points": 41,
+        "image": "10-192900.jpg",
+        "gridList": [
+            {
+                "SKU": "10-192900"
+            }
+        ]
+    },
+    {
+    	"id": 139,
+        "title": "Bella Belara Eau de Parfum - 50 ml",
+        "description": "Uma exuberante fragrância floral frutal, com notas florais, frutas frescas e doces.",
+        "price": 88,
+        "points": 44,
+        "image": "10-012512.jpg",
+        "gridList": [
+            {
+                "SKU": "10-012512"
+            }
+        ]
+    },
+    {
+    	"id": 140,
+        "title": "Elige Eau de Parfum - 50 ml",
+        "description": "Uma leve combinação de notas orientais, com exóticas essências de madeira.",
+        "price": 110,
+        "points": 59,
+        "image": "10-397300.jpg",
+        "gridList": [
+            {
+                "SKU": "10-397300"
+            }
+        ]
+    },
+    {
+    	"id": 141,
+        "title": "Journey Eau de Parfum - 50 ml",
+        "description": "Uma fragrância floral suave, que combina aromas de menta e lírios.",
+        "price": 99,
+        "points": 48,
+        "image": "10-166700.jpg",
+        "gridList": [
+            {
+                "SKU": "10-166700"
+            }
+        ]
+    },
+    {
+    	"id": 142,
+        "title": "Pink Diamonds Eau de Parfum - 60 ml",
+        "description": "Encante-se com essa fragrância floral, elaborada para mulheres elegantes e encantadoras.",
+        "price": 99,
+        "points": 59,
+        "image": "10-051949.jpg",
+        "gridList": [
+            {
+                "SKU": "10-051949"
+            }
+        ]
+    },
+    {
+    	"id": 143,
+        "title": "Thinking of You Eau de Parfum - 29 ml",
+        "description": "Fragrância com notas frutais e florientais em uma embalagem especial, que permite escrever uma mensagem personalizada em seu interior.",
+        "price": 89,
+        "points": 52,
+        "image": "10-037726.jpg",
+        "gridList": [
+            {
+                "SKU": "10-037726"
+            }
+        ]
+    },
+    {
+    	"id": 144,
+        "title": "Velocity Eau de Parfum - 50 ml",
+        "description": "Uma combinação de notas de flores e frutas exóticas.",
+        "price": 95,
+        "points": 52,
+        "image": "10-168700.jpg",
+        "gridList": [
+            {
+                "SKU": "10-168700"
+            }
+        ]
+    },
+    {
+    	"id": 145,
+        "title": "Exotic Passionfruit Água de Colônia - 50 ml",
+        "description": "Doce e marcante.",
+        "price": 63,
+        "points": 32,
+        "image": "10-020031.jpg",
+        "gridList": [
+            {
+                "SKU": "10-020031"
+            }
+        ]
+    },
+    {
+    	"id": 146,
+        "title": "Forever Orchid Água de Colônia - 50 ml",
+        "description": "Simples e ao mesmo tempo sofisticada.",
+        "price": 63,
+        "points": 32,
+        "image": "10-033691.jpg",
+        "gridList": [
+            {
+                "SKU": "10-033691"
+            }
+        ]
+    },
+    {
+    	"id": 147,
+        "title": "Simply Cotton Água de Colônia - 50 ml",
+        "description": "Pura e refrescante.",
+        "price": 63,
+        "points": 32,
+        "image": "10-020029.jpg",
+        "gridList": [
+            {
+                "SKU": "10-020029"
+            }
+        ]
+    },
+    {
+    	"id": 148,
+        "title": "Simply Cotton Água de Colônia - 50 ml",
+        "description": "Rica e acolhedora.",
+        "price": 63,
+        "points": 32,
+        "image": "10-020028.jpg",
+        "gridList": [
+            {
+                "SKU": "10-020028"
+            }
+        ]
+    },
+    {
+    	"id": 149,
+        "title": "True Original Cologne Spray - 59 ml",
+        "description": "Fragrância fougère aromática. Fresca, contemporânea e espontânea para o verdadeiro homem original.",
+        "price": 115,
+        "points": 60,
+        "image": "10-048515.jpg",
+        "gridList": [
+            {
+                "SKU": "10-048515"
+            }
+        ]
+    },
+    {
+    	"id": 150,
+        "title": "MK High Intensity Cologne Spray - 73 ml",
+        "description": "Fragrância oriental âmbar com notas de topo de erva-doce negra e sálvia prata.",
+        "price": 115,
+        "points": 60,
+        "image": "10-012494.jpg",
+        "gridList": [
+            {
+                "SKU": "10-012494"
+            }
+        ]
+    },
+    {
+    	"id": 151,
+        "title": "Domain Cologne - 73 ml",
+        "description": "Uma refrescante combinação de lavanda, musgo de carvalho e almíscar.",
+        "price": 85,
+        "points": 45,
+        "image": "10-028783.jpg",
+        "gridList": [
+            {
+                "SKU": "10-028783"
+            }
+        ]
+    },
+    {
+    	"id": 152,
+        "title": "Velocity For Him - 59 ml",
+        "description": "Esta leve fragrância captura o frescor dos ares das montanhas e a essência de madeiras.",
+        "price": 95,
+        "points": 52,
+        "image": "10-501700.jpg",
+        "gridList": [
+            {
+                "SKU": "10-501700"
+            }
+        ]
+    },
+    {
+    	"id": 153,
+        "title": "Brilho Labial Duo Mix",
+        "price": 28,
+        "points": 16,
+        "image": "02-237051.jpg",
+        "gridList": [
+            {
+                "SKU": "02-236951",
+                "option": "Warm Coral"
+            },
+            {
+                "SKU": "02-237251",
+                "option": "Pink Pearl"
+            },
+            {
+                "SKU": "02-237051",
+                "option": "Redwood"
+            }
+        ]
+    },
+    {
+    	"id": 154,
+        "title": "Esmalte para as Unhas",
+        "price": 16,
+        "points": 9,
+        "image": "02-237451.jpg",
+        "gridList": [
+            {
+                "SKU": "02-237451",
+                "option": "Lava"
+            },
+            {
+                "SKU": "02-237451",
+                "option": "Crushed Pearl"
+            }
+        ]
+    }
+]

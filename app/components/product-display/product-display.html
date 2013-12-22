@@ -1,0 +1,23 @@
+<div class="block-06 block-row-03">
+    <div class="box-catalog block-row-03">
+        <div class="block-product-04">
+            <div class="img-catalog-02">
+                <img src="images/catalog/time-wise/002326.jpg" alt="" />
+            </div>
+            <div class="title-products">
+                {{product.title}}
+            </div>
+            <div class="text-product2">
+                {{product.description}}
+            </div>
+        </div>
+        <div class="block-product-05 footer-product-right-01">
+            <div class="divider">
+                <img src="images/line-gradient-products-394-bege.png" alt="" />
+            </div>
+            <div class="bottom-products-right">
+                <span class="price">R$</span><span class="price-number"> {{product.price | currency:''}}</span><span  ng-click='openDialogAddToBasket(product)' class="btn-plus bg-bege" ></span>
+            </div>
+        </div>
+    </div>
+</div>
