@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dialog, $location, OrderService, DialogService) {
+    angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, $dialog, $location, OrderService, DialogService, DataProvider) {
 
         // #############################################################################################################
         // Dialogs control
@@ -19,5 +19,12 @@
             });
         };
         
+        $scope.products = DataProvider.products2;
+        
+        $scope.$watch('products', function(){
+            $scope.lines = $scope.products.distinct('line');
+            
+            console.log($scope.lines);
+        }, true);
     });
 }(angular));

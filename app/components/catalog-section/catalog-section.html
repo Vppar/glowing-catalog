@@ -1,0 +1,20 @@
+<div class="line-01">
+    <span class="title-catalog-1" ng-class="style">{{line}}</span>
+    <span class="col-left">
+        <div class="catalog-block h02 w06" ng-class="blockStyle">
+            <div class="box">
+                <div class="catalog-title">
+                    <span class="color-text">Ame</span> Sua Pele
+                </div>
+                <div class="product-divider"></div>
+                <div class="catalog-image">
+                    <img src="images/catalog/img-01.png" alt="" />
+                </div>
+            </div>
+        </div>
+        <product-display ng-repeat="product in left"></product-display>
+    </span>
+    <span class="col-right">
+        <product-display ng-repeat="product in right"></product-display>
+    </span>
+</div>

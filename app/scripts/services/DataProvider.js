@@ -19,10 +19,16 @@
         this.products = [];
         this.representative = {name: 'Valtanette de Paula'};
         this.states = [];
-        this.products2 = new FilteredArray('id');
+        this.products2 = new FilteredArray('id', 'line');
+        this.lines = new FilteredArray('line');
 
         $http.get('resources/data.json').then(function(response) {
+
+            scope.lines.mPush(response.data.lines);
+            delete response.data.lines;
+            
             angular.extend(scope, response.data);
+            
             scope.customers.sort(function(x, y) {
                 return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
             });

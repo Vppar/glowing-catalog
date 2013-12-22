@@ -1,22 +1,17 @@
-<div class="block-06 block-row-03">
-    <div class="box-catalog block-row-03">
-        <div class="block-product-04">
-            <div class="img-catalog-02">
-                <img src="images/catalog/time-wise/002326.jpg" alt="" />
+<div class="catalog-block" ng-class="blockStyle">
+    <div class="box">
+        <div class="product-content">
+            <div class="product-image">
+                <img ng-src="images/catalog/products/{{product.image}}" alt="" />
             </div>
-            <div class="title-products">
-                {{product.title}}
-            </div>
-            <div class="text-product2">
-                {{product.description}}
-            </div>
+            <div class="product-title">{{product.title}}</div>
+            <div class="product-text">{{product.description}}</div>
         </div>
-        <div class="block-product-05 footer-product-right-01">
-            <div class="divider">
-                <img src="images/line-gradient-products-394-bege.png" alt="" />
-            </div>
-            <div class="bottom-products-right">
-                <span class="price">R$</span><span class="price-number"> {{product.price | currency:''}}</span><span  ng-click='openDialogAddToBasket(product)' class="btn-plus bg-bege" ></span>
+        <div class="product-footer">
+            <div class="product-divider">{{product.extra}}</div>
+            <div class="product-bottom">
+                <span class="product-currency">R$</span><span class="product-price"> {{product.price | currency:''}}</span><span ng-click='add(product.id)'
+                    class="product-addbtn"></span>
             </div>
         </div>
     </div>

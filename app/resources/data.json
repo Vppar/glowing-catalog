@@ -467,5 +467,39 @@
 			"remarks": "COMPRA DE BRINDE PARA OS CLIENTES",
 			"amount": "500.00"     		
     	}
+    ],
+    "lines": [
+    	{
+    		"line": "TimeWise",
+    		"color": "bege",
+    		"products": {
+    			"l" : [
+	    			{
+	    				"id" : 1,
+	    				"w": 6,
+	    				"h": 3
+	    			}
+	    		],
+	    		"r": [
+	    		    {
+	    				"id" : 1,
+	    				"w": 6,
+	    				"h": 3
+	    			}
+	    		]
+	    	}
+    	},
+    	{
+    		"line": "TimeWise Repair",
+    		"color": "pink"
+    	},
+		{
+	    	"line":"Botanical Effects",
+    		"color": "green"
+    	},
+		{
+    		"line":"Acne",
+    		"color": "gray"
+    	}
     ]
 }
