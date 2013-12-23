@@ -20,8 +20,7 @@
             templateUrl : templateUrl,
             link : function postLink(scope, element, attr) {
 
-                var min, max, value = 1;
-                var input = element.find('input');
+                var min, max, value, input = element.find('input');
 
                 scope.$watch('min', function() {
                     if (!scope.min || scope.min === '') {
@@ -39,9 +38,24 @@
                     }
                 });
 
-                if (scope.value) {
-                    value = scope.value;
+                if (!scope.value) {
+                    scope.value = 1;
                 }
+
+                value = scope.value;
+
+                var timeout;
+                
+                function propagate() {
+                    input.val(value);
+
+                    clearTimeout(timeout);
+                    
+                    timeout = setTimeout(function(){
+                        scope.$apply('value = ' + value);
+                    }, 300);
+                }
+                setTimeout(propagate, 0);
 
                 var dec = element.find('.ic-arrow-left');
                 dec.bind('tap', function() {
@@ -58,14 +72,6 @@
                         propagate();
                     }
                 });
-
-                var propagate = function() {
-                    input.val(value);
-                    scope.value = value;
-                    scope.$apply();
-                };
-
-                propagate();
             }
         };
     });
