@@ -78,7 +78,7 @@
 }
 
 .bread-crumbs .principal {
-	color:#ccc;
+	color: #000/*#ccc*/;
 }
 
 .bread-crumbs .crumbs {
