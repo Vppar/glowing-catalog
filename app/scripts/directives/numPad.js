@@ -3,7 +3,7 @@
 
     var templateUrl = 'views/parts/catalog/num-pad.html';
 
-    angular.module('tnt.catalog.directive.numpad', []).run(function($http, $templateCache) {
+    angular.module('tnt.catalog.directive.numpad.template', []).run(function($http, $templateCache) {
         $http.get(templateUrl, {
             cache : $templateCache
         });
@@ -63,6 +63,7 @@
                 });
 
                 scope.pushMoneyDigit = function pushMoneyDigit(digit) {
+                    digit = digit + '';
                     scope.amount += digit;
                     scope.amount = shiftPoint(scope.amount);
                 };

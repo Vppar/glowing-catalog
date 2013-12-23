@@ -1,4 +1,4 @@
-describe('Directive: numPad', function() {
+xdescribe('Directive: numPad', function() {
 
     // load the directive's module
     beforeEach(module('tnt.catalog.directive.numpad'));
