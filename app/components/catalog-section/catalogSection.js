@@ -35,8 +35,8 @@
                     styles();
                 }, true);
                 
-                scope.$watch('products', function(val){
-                    var lineUp = scope.products.find(undefined, scope.line);
+                scope.$on('DataProvider.update', function(){
+                    var lineUp = DataProvider.products.find(undefined, scope.line);
                     var half = Math.round(lineUp.length/2)-1;
                     scope.left = [];
                     scope.right = [];
@@ -48,9 +48,7 @@
                             scope.right.push(lineUp[ix]);
                         }
                     }
-                }, true);
-                
-                
+                });
             }
         };
     });
