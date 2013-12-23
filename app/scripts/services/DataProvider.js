@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http, FilteredArray) {
+    angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http, $rootScope, FilteredArray) {
 
         var scope = this;
 
@@ -31,10 +31,14 @@
             scope.customers.sort(function(x, y) {
                 return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
             });
+            
+            $rootScope.$broadcast('DataProvider.update');
         });
         
         $http.get('resources/products.json').then(function(response) {
             angular.extend(scope.products, response.data);
+            
+            $rootScope.$broadcast('DataProvider.update');
         });
     });
 }(angular));

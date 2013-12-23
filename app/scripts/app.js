@@ -82,10 +82,12 @@
                     }
                 });
             });
-
-            $self.on('click', function(startEvent) {
-                $.event.simulate('tap', self, startEvent);
-            });
+            
+            if(!('ontouchstart' in window || 'onmsgesturechange' in window)){
+                $self.on('click', function(startEvent) {
+                    $.event.simulate('tap', self, startEvent);
+                });
+            }
         }
     };
 })(jQuery);

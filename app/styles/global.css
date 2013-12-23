@@ -206,7 +206,7 @@ li.menu-black:last-child a:hover {
 /*END LINES*/
 .modal {
 	position: fixed;
-	top: 20px;
+	top: 0px;
 	left: 50%;
 	z-index: 1050;
 	width: 560px;

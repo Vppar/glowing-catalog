@@ -35,23 +35,19 @@
                     }
                 });
 
-                //scope.$watch('product', function() {
+                var color = '';
 
+                if (angular.isDefined(DataProvider.lines.find(scope.product.line)[0])) {
+                    color = DataProvider.lines.find(scope.product.line)[0].color;
+                }
 
-                    var color = '';
+                scope.blockStyle[2] = 'product-bg-' + color;
 
-                    if (angular.isDefined(DataProvider.lines.find(scope.product.line)[0])) {
-                        color = DataProvider.lines.find(scope.product.line)[0].color;
-                    }
-
-                    scope.blockStyle[2] = 'product-bg-' + color;
-
-                    if (angular.isDefined(scope.product.extra)) {
-                        scope.blockStyle[3] = 'last-opportunity';
-                    } else {
-                        scope.blockStyle[3] = '';
-                    }
-                //});
+                if (angular.isDefined(scope.product.extra)) {
+                    scope.blockStyle[3] = 'last-opportunity';
+                } else {
+                    scope.blockStyle[3] = '';
+                }
             }
         };
     });
