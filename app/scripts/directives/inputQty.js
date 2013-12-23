@@ -44,16 +44,9 @@
 
                 value = scope.value;
 
-                //var timeout;
-                
                 function propagate() {
                     input.val(value);
-
-                    //clearTimeout(timeout);
-                    
-                    //timeout = setTimeout(function(){
-                        scope.$apply('value = ' + value);
-                    //}, 300);
+                    scope.$apply('value = ' + value);
                 }
                 setTimeout(propagate, 0);
 
