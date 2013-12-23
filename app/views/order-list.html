@@ -131,35 +131,44 @@
 			<div class="grid-order-list">
 				<div class="header">
 					<div class="row-order-list">
-						<span class="col-1">
-							<div>Data</div>
-						</span> <span class="col-2">
-							<div>Pedido</div>
-						</span> <span class="col-3">
-							<div>Cliente</div><!--<div>Produto</div>-->
-						</span>
-						<span class="col-4">
-							<div>Total unid.</div>
-						</span> <span class="col-5 marginl93">
-							<div>Valor total</div>
-						</span>
+						<div class="col-1">
+							<span>Data</span>
+						</div>
+						<div class="col-2">
+							<span>Pedido</span>
+						</div>
+						<div class="col-3">
+							<span>Cliente</span><!--<span>Produto</span>-->
+						</div>
+						<div class="col-4">
+							<span>Qtde.</span>
+						</div>
+						<div class="col-5">
+							<span>Valor total</span>
+						</div>
+						<div class="col-6">
+							<span>Condi&ccedil;&atilde;o pagto.</span>
+						</div>
 					</div>
 				</div>
 				<div class="scroll-order-list">
 					<div class="row-order-list hover-state-pointer"
 						ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'" ng-click="openPartialDelivery(order)">
-						<span class="col-1">
-							<div>{{order.date | date:'dd/MM/yyyy'}}</div>
-						</span> <span class="col-2">
-							<div>{{order.code}}</div>
-						</span> <span class="col-3">
-							<div>{{order.customerName | truncate: 50}}</div>
-						</span> 
-						<span class="col-4">
-							<div>{{order.items.length}}</div>
-						</span><span class="col-5 marginr20">
-							<div>{{order.items | obInject: 'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency: 'R$'}}</div>
-						</span>
+						<div class="col-1">
+							<span>{{order.date | date:'dd/MM/yyyy'}}</span>
+						</div>
+						<div class="col-2">
+							<span>{{order.code}}</span>
+						</div>
+						<div class="col-3">
+							<span>{{order.customerName | truncate: 50}}</span><!--<span>Produto</span>-->
+						</div> 
+						<div class="col-4">
+							<span>{{order.items.length}}</span>
+						</div>
+						<div class="col-5 marginr20">
+							<span>{{order.items | obInject: 'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency: 'R$'}}</span>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -59,7 +59,7 @@ var initMagnifier = function () {
                 });
             </script>
 			<span class='zoom' id='magnifier'>
-            	<img ng-src="{{product.image}}" onload="javascript:initMagnifier();" alt="" />
+            	<img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
            </span>
 		</div>
         <div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div>

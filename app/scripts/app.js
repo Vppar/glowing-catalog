@@ -12,7 +12,7 @@
                 'tnt.catalog.customer.choose', 'tnt.catalog.payment', 'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard',
                 'tnt.catalog.payment.exchange', 'tnt.catalog.product.input.dialog', 'tnt.catalog.financial.receivable',
                 'tnt.catalog.financial.receivable.entity', 'tnt.catalog.financial.expense', 'tnt.catalog.financial.incomeStatement',
-                'tnt.utils.array'
+                'tnt.utils.array', 'tnt.catalog.components.product-display', 'tnt.catalog.components.catalog-section'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -82,10 +82,12 @@
                     }
                 });
             });
-
-            $self.on('click', function(startEvent) {
-                $.event.simulate('tap', self, startEvent);
-            });
+            
+            if(!('ontouchstart' in window || 'onmsgesturechange' in window)){
+                $self.on('click', function(startEvent) {
+                    $.event.simulate('tap', self, startEvent);
+                });
+            }
         }
     };
 })(jQuery);
