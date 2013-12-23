@@ -16,10 +16,9 @@
         this.payments = [];
         this.paymentTypes = [{id: 1, description: 'cash'}];
         this.phoneTypes = [];
-        this.products = [];
         this.representative = {name: 'Valtanette de Paula'};
         this.states = [];
-        this.products2 = new FilteredArray('id', 'line');
+        this.products = new FilteredArray('id', 'line');
         this.lines = new FilteredArray('line');
 
         $http.get('resources/data.json').then(function(response) {
@@ -35,7 +34,7 @@
         });
         
         $http.get('resources/products.json').then(function(response) {
-            angular.extend(scope.products2, response.data);
+            angular.extend(scope.products, response.data);
         });
     });
 }(angular));

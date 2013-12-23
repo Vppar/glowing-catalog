@@ -9,17 +9,26 @@
          * Opens the dialog to add a product to the basket and in the promise
          * resolution add it to the basket ... or do nothing.
          */
-        $scope.openDialogAddToBasket = function(id) {
+        $scope.add = function(id) {
             
             if (OrderService.order.id === undefined) {
                 OrderService.createNew();
             }
-            DialogService.openDialogAddToBasket({
-                id : id
-            });
+            
+            if($scope.products.find(id)[0].gridList.length > 1){
+                DialogService.openDialogAddToBasketDetails({
+                    id : id
+                });    
+            } else {
+                DialogService.openDialogAddToBasket({
+                    id : id
+                });
+            }
+            
+            
         };
         
-        $scope.products = DataProvider.products2;
+        $scope.products = DataProvider.products;
         
         $scope.$watch('products', function(){
             $scope.lines = $scope.products.distinct('line');
