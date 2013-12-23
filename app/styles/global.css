@@ -1040,9 +1040,9 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 
 
 
-/* -- CATÁLOGO -- */
+/* -- CATï¿½LOGO -- */
 
-/* div de catálogo comum */
+/* div de catï¿½logo comum */
 .catalog-block {
 	display: inline-block;
 	margin: 0 0 10px 10px;
@@ -1054,7 +1054,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		height: 320px;
 	}
 	
-		/* altura do conteúdo do bloco h03 */
+		/* altura do conteï¿½do do bloco h03 */
 		.catalog-block.h03 .product-content {
 			height: 249px;
 		}
@@ -1064,7 +1064,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		height: 210px;
 	}
 	
-		/* altura do conteúdo do bloco h02 */
+		/* altura do conteï¿½do do bloco h02 */
 		.catalog-block.h02 .product-content {
 			height: 139px;
 		}
@@ -1085,22 +1085,22 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		width: 394px;
 	}
 	
-		/* linha divisória do bloco w06 bege */
-		.catalog-block.w06.product-bg-beige .product-divider {
+		/* linha divisï¿½ria do bloco w06 bege */
+		.catalog-block.w06.product-bg-bege .product-divider {
 			background-image: url('../images/line-gradient-products-394-bege.png');
 		}
 		
-		/* linha divisória do bloco w06 pink */
+		/* linha divisï¿½ria do bloco w06 pink */
 		.catalog-block.w06.product-bg-pink .product-divider {
 			background-image: url('../images/line-gradient-products-394-pink.png');
 		}
 		
-		/* linha divisória do bloco w06 verde */
+		/* linha divisï¿½ria do bloco w06 verde */
 		.catalog-block.w06.product-bg-green .product-divider {
 			background-image: url('../images/line-gradient-products-394-green.png');
 		}
 		
-		/* linha divisória do bloco w06 cinza */
+		/* linha divisï¿½ria do bloco w06 cinza */
 		.catalog-block.w06.product-bg-gray .product-divider {
 			background-image: url('../images/line-gradient-products-394-gray.png');
 		}
@@ -1111,79 +1111,79 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		float: left;
 	}
 		
-		/* linha divisória do bloco w03 bege */
-		.catalog-block.w03.product-bg-beige .product-divider {
+		/* linha divisï¿½ria do bloco w03 bege */
+		.catalog-block.w03.product-bg-bege .product-divider {
 			background-image: url('../images/line-gradient-01-bege.png');
 		}
 		
-		/* linha divisória do bloco w03 pink */
+		/* linha divisï¿½ria do bloco w03 pink */
 		.catalog-block.w03.product-bg-pink .product-divider {
 			background-image: url('../images/line-gradient-01-pink.png');
 		}
 		
-		/* linha divisória do bloco w03 verde */
+		/* linha divisï¿½ria do bloco w03 verde */
 		.catalog-block.w03.product-bg-green .product-divider {
 			background-image: url('../images/line-gradient-01-green.png');
 		}
 		
-		/* linha divisória do bloco w03 cinza */
+		/* linha divisï¿½ria do bloco w03 cinza */
 		.catalog-block.w03.product-bg-gray .product-divider {
 			background-image: url('../images/line-gradient-01-gray.png');
 		}
 		
-		/* barra última oport. do bloco bege */
-		.catalog-block.product-bg-beige.last-opportunity .product-divider{
+		/* barra ï¿½ltima oport. do bloco bege */
+		.catalog-block.product-bg-bege.last-opportunity .product-divider{
 			background-image: none;
 			background-color: #ee72ba;
 			color: #fff;
 		}
 		
-		/* barra última oport. do bloco pink */
+		/* barra ï¿½ltima oport. do bloco pink */
 		.catalog-block.product-bg-pink.last-opportunity .product-divider{
 			background-image: none;
 			background-color: #ee72ba;
 			color: #fff;
 		}
 		
-		/* barra última oport. do bloco verde */
+		/* barra ï¿½ltima oport. do bloco verde */
 		.catalog-block.product-bg-green.last-opportunity .product-divider{
 			background-image: none;
 			background-color: #5d9732;
 			color: #fff;
 		}
 		
-		/* barra última oport. do bloco cinza */
+		/* barra ï¿½ltima oport. do bloco cinza */
 		.catalog-block.product-bg-gray.last-opportunity .product-divider{
 			background-image: none;
 			background-color: #ddd;
 			color: #333;
 		}
 		
-		/* botão add do bloco bege */
-		.catalog-block.product-bg-beige .product-addbtn {
+		/* botï¿½o add do bloco bege */
+		.catalog-block.product-bg-bege .product-addbtn {
 			background-color: #e6d6c0;
 		}
 		
-		/* botão add do bloco pink */
+		/* botï¿½o add do bloco pink */
 		.catalog-block.product-bg-pink .product-addbtn {
 			background-color: #e2a9a8;
 			background-image: url('../images/plus-w.png');
 		}
 		
-		/* botão add do bloco verde */
+		/* botï¿½o add do bloco verde */
 		.catalog-block.product-bg-green .product-addbtn {
 			background-color: #5d9732;
 			background-image: url('../images/plus-w.png');
 		}
 		
-		/* botão add do bloco cinza */
+		/* botï¿½o add do bloco cinza */
 		.catalog-block.product-bg-gray .product-addbtn {
 			background-color: #ddd;
 			background-image: url('../images/plus.png');
 		}
 		
 		/* texto colorido do bloco bege */
-		.catalog-block.product-bg-beige .color-text {
+		.catalog-block.product-bg-bege .color-text {
 			color: #e6d6c0;
 		}
 		
@@ -1212,7 +1212,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		height: 100%;
 	}
 	
-	/* conteúdo comum */
+	/* conteï¿½do comum */
 	.catalog-block .product-content{
 		clear: both;
 		width: 100%;
@@ -1237,7 +1237,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		max-height: 90px;
 	}
 	
-	/* título comum */
+	/* tï¿½tulo comum */
 	.catalog-block .product-title{
 		font-weight: bold;
 		padding: 10px 10px 0 10px;
@@ -1250,7 +1250,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		overflow: hidden;
 	}
 	
-	/* linha divisória comum */
+	/* linha divisï¿½ria comum */
 	.catalog-block .product-divider{
 		width: 100%;
 		height: 1px;
@@ -1279,7 +1279,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		vertical-align: bottom;
 	}
 	
-	/* preço comum */
+	/* preï¿½o comum */
 	.catalog-block .product-price{
 		display: inline-block;
 		float: left;
@@ -1287,7 +1287,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		font-size: 18px;
 	}
 	
-	/* botão add comum */
+	/* botï¿½o add comum */
 	.catalog-block .product-addbtn{
 		display: inline-block;
 		float: right;
@@ -1298,7 +1298,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		cursor: pointer;
 	}
 	
-	/* título do catálogo comum */
+	/* tï¿½tulo do catï¿½logo comum */
 	.catalog-block .catalog-title{
 		text-align: center;
 		padding-top: 14px;
@@ -1306,7 +1306,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		height: 21px;
 	}
 	
-	/* imagem do catálogo comum */
+	/* imagem do catï¿½logo comum */
 	.catalog-block .catalog-image {
 		max-width: 223px;
 		margin: auto;
