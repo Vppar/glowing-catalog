@@ -594,6 +594,19 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 /*============= DATA-GRID ORDER LIST =====================*/
 .grid-order-list {
 	border-radius: 6px 6px 0 0;
+	margin: 0 10px 0 10px;
+}
+.scroll-order-list {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	/*margin: 0 10px 0 10px;
+	width: 970px;*/
+	height: 210px;
+	display: block;
+	position: relative;
+	/*bottom: 45px;
+	top: 138px;*/
 }
 
 .grid-order-list .header {
@@ -602,81 +615,122 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	margin-top: 5px;
 	color:#fff;
 }
-.grid-order-list .header span, .grid-order-list .scroll-order-list  span {
-	display: inline-block;
-	line-height: 40px;
-}
-.grid-order-list .scroll-order-list .row-order-list {
-	border-bottom: 1px dotted #e0e0e0
-}
+	.grid-order-list .header span, .grid-order-list .scroll-order-list  span {
+		display: inline-block;
+		line-height: 40px;
+	}
+	.grid-order-list .scroll-order-list .row-order-list {
+		border-bottom: 1px dotted #e0e0e0
+	}
+	
 .grid-order-list .header .col-1 {
-	width: 200px;
+	width: 85px;
+	display: inline-block;
 }
-.grid-order-list .header .col-1 div{
-	margin-left:20px;
-}
+	.grid-order-list .header .col-1 span{
+		margin-left: 5px;
+		width:100%;
+	}
 .grid-order-list .header .col-2 {
-	width: 150px;
+	width: 85px;
+	display: inline-block;
 }
 .grid-order-list .header .col-3 {
-	width: 300px;
+	width: 355px;
+	display: inline-block;
 }
-.grid-order-list .header .col-3 div {
-	text-align: left
-}
+	.grid-order-list .header .col-3 span {
+		text-align: left;
+		margin-left: 5px;
+	}
 .grid-order-list .header .col-4 {
-	width: 100px;
+	width: 70px;
 	display: inline-block;
 }
-.grid-order-list .header .col-4 div {
-	text-align: center;
-	
-}
+	.grid-order-list .header .col-4 span {
+		text-align: center;	
+		width:100%;
+	}
 .grid-order-list .header .col-5 {
-	width: 80px;
+	width: 115px;
 	display: inline-block;
-	margin-left:60px;
 }
-.grid-order-list .header .col-5 div{
-	text-align:right
+	.grid-order-list .header .col-5 span{
+		text-align:right;
+		margin-right: 5px;
+		width:100%;
+	}
+.grid-order-list .header .col-6 {
+	width: 210px;
+	display: inline-block;
 }
+	.grid-order-list .header .col-6 span {
+		text-align: center;	
+		width:100%;
+	}
+
 .scroll-order-list .col-1 {
-	width: 200px;
+	width: 85px;
+	display: inline-block;
 }
-
-.scroll-order-list .col-1 div {
-	margin-left: 20px;
-}
+	.scroll-order-list .col-1 span {
+		margin-left: 5px;
+		vertical-align: top;
+		line-height: 20px;
+		width:100%;
+	}
 .scroll-order-list .col-2 {
-	width: 150px;
-	text-align: left
+	width: 85px;
+	display: inline-block;
 }
+	.scroll-order-list .col-2 span {
+		text-align: left;
+		vertical-align: top;
+		line-height: 20px;
+		width:100%;
+	}
 .scroll-order-list .col-3 {
-	width: 300px;
-	
+	width: 355px;
+	display: inline-block;
 }
-.scroll-order-list .col-3 div {
-	text-align: left;
-    white-space:nowrap;
-
-}
+	.scroll-order-list .col-3 span {
+		text-align: left;
+		margin-left: 5px;
+		vertical-align: top;
+		line-height: 20px;
+		width:100%;
+	}
 .scroll-order-list .col-4 {
-	width: 100px;
-	
+	width: 70px;	
+	display: inline-block;
 }
-.scroll-order-list .col-4 div {
-	text-align:center;
-	
-}
+	.scroll-order-list .col-4 span {
+		text-align:center;	
+		vertical-align: top;
+		line-height: 20px;
+		width:100%;
+	}
 .scroll-order-list .col-5 {
-	width: 110px;
-	float:right;
-	margin-right:48px;
-	
+	width: 115px;
+	display: inline-block;
 }
-.scroll-order-list .col-5 div{
-	text-align:right
+	.scroll-order-list .col-5 span{
+		text-align:right;
+		margin-right: 5px;
+		vertical-align: top;
+		line-height: 20px;
+		width:100%;
+	}
+.scroll-order-list .col-6 {
+	width: 210px;	
+	display: inline-block;
 }
+	.scroll-order-list .col-6 span {
+		text-align: center;	
+		vertical-align: top;
+		line-height: 20px;
+		width:100%;
+	}
 /*============= END DATA-GRID ORDER LIST =====================*/
 
 /*============= DATA-GRID PARTIAL DELIVERY LEFT =====================*/
