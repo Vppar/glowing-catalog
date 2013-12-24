@@ -69,6 +69,16 @@
                     that.push(data[ix]);
                 }
             };
+            
+            this.getArray = function getArray(){
+                var response = [];
+                for ( var ix in this) {
+                    if(!isNaN(new Number(ix))){
+                        response.push(this[ix]);
+                    }
+                }
+                return response;
+            };
         };
 
         ObjectUtils.inherit(service, Array);
