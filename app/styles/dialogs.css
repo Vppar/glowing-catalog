@@ -109,13 +109,15 @@ span.zoom {margin:20px 0;}
 	margin-bottom: 10px;
 }
 .form-add-to-basket .wrapper-qtde {
-	float: right;
-	margin: 0px 2px 2px 20px;
+	float: left;
+	margin: 0px 15px 2px 2px;
 }
+.form-add-to-basket .wrapper-size { width:530px !important}
 .form-add-to-basket2 .wrapper-qtde {
 	float: right;
 	margin: 5px 20px 2px 20px;
 }
+.img-catalog-basket {float:right;}
 /*choose customer*/
 .form-choose-customer {
 	width: 360px;
