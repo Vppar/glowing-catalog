@@ -17,7 +17,7 @@
 		<span class="lbl-money2 display-block">
 			<strong class="lbl-money">Subtotal</strong>
 			<span class="lbl-money4">&nbsp;</span>
-			<span class="btn-sub-payment">{{items | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
+			<span class="btn-sub-payment">{{items.getArray() | filter:inBasketFilter | sum:'price':'qty' | currency: '' }}</span>
 		</span>				
 		<span class="lbl-money2 display-block margint5">
 			<span class="lbl-money4 qntty" ng-show="orderItemsQty<=1"> ({{orderItemsQty}}) item</span>
@@ -57,33 +57,36 @@
 	</div>
 	<div class="row-right-payment">
 		<span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img src="images/alert-sign-small-v3.png" alt="Ver cupons" class="display-none"></span> 
-        <span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency:''}}</span>
-        <span class="btn-price-payment btn-price-payment2" ng-hide="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">0,00</span>
+        <span class="btn-price-payment btn-price-payment2">0,00</span>
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) < 0">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) < 0">
                 Faltam
             </div>
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) == 0">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) == 0">
                 Diferen&ccedil;a
             </div>
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
                 Troco
             </div>
         </div>
         <div class="values-resume">
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) <= 0">
-                {{((items | filter: inBasketFilter | sum: 'price': 'qty') - (payments | sum: 'amount')) | currency: '' }}
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) <= 0">
+                {{((items.getArray() | filter: inBasketFilter | sum: 'price': 'qty') - (payments | sum: 'amount')) | currency: '' }}
             </div>
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
-                {{((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
+            <div class="red-color" ng-show="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) > 0">
+                {{((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) | currency: '' }}
             </div>
         </div>
 	</div>
 	<br />
 	<div class="row-right-payment" ng-click="selectPaymentMethod('voucher')">
-		<span class="lbl-money2">Emitir vale/cupom </span><span class=""><span class="btn-price-payment btn-price-payment2">0,00</span></span>
+		<span class="lbl-money2">Emitir vale/cupom </span>
+		<span class="">
+			<span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) | currency:''}}</span>
+	        <span class="btn-price-payment btn-price-payment2" ng-hide="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) > 0">0,00</span>
+		</span>
 	</div>
 
 	<div class="payment-btns">
@@ -91,7 +94,7 @@
 			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="selectedPaymentMethod=='none'">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | filter: inBasketFilter | sum: 'price': 'qty')) != 0">Confirmar</button>
+			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items.getArray() | filter: inBasketFilter | sum: 'price': 'qty')) != 0">Confirmar</button>
 		</div>
 	</div>
 	<!--<span class="panel-payment-footer-left">

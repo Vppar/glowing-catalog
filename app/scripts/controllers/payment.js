@@ -28,13 +28,15 @@
                 $scope.customer = customer;
 
                 // Calculate the Subtotal
-                var basket = $filter('filter')(order.items, inBasketFilter);
-                var orderItemsQty = basket ? basket.length : 0;
-                var orderUnitsQty = $filter('sum')(basket, 'qty');
-                var orderAmount = $filter('sum')(basket, 'price', 'qty');
-                $scope.orderAmount = orderAmount;
-                $scope.orderItemsQty = orderItemsQty;
-                $scope.orderUnitsQty = orderUnitsQty;
+                if (order.items) {
+                    var basket = $filter('filter')(order.items.getArray(), inBasketFilter);
+                    var orderItemsQty = basket ? basket.length : 0;
+                    var orderUnitsQty = $filter('sum')(basket, 'qty');
+                    var orderAmount = $filter('sum')(basket, 'price', 'qty');
+                    $scope.orderAmount = orderAmount;
+                    $scope.orderItemsQty = orderItemsQty;
+                    $scope.orderUnitsQty = orderUnitsQty;
+                }
 
                 // Order list
                 $scope.items = order.items;
