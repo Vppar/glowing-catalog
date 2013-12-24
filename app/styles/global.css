@@ -108,6 +108,9 @@ li.menu-black:last-child a:hover {
 .color-bege {
 	color: #e6d6c0
 }
+.color-gray {
+	color: #dddddd
+}
 .color-gray-01 {
 	color: #dddddd
 }
@@ -139,11 +142,17 @@ li.menu-black:last-child a:hover {
 .bg-bege {
 	background-color: #e6d6c0
 }
+.bg-gray {
+	background-color: #dddddd
+}
 .bg-gray-01 {
 	background-color: #dddddd
 }
 .bg-gray-02 {
 	background-color: #aeaeae
+}
+.bg-orange {
+	background-color: #e7890e
 }
 .bg-orange-01 {
 	background-color: #f8b661
@@ -151,6 +160,20 @@ li.menu-black:last-child a:hover {
 .bg-orange-02 {
 	background-color: #e7890e
 }
+
+
+.bg-light-blue {
+	background-color: #47d9bf
+}
+.bg-bege {
+	background-color: #e6d6c0
+}
+.bg-gray {
+	background-color: #dddddd
+}
+
+
+
 .t-center {
 	text-align:center;
 }
@@ -1105,6 +1128,16 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 			background-image: url('../images/line-gradient-products-394-gray.png');
 		}
 		
+		/* linha divis�ria do bloco w06 azul claro */
+		.catalog-block.w06.product-bg-light-blue .product-divider {
+			background-image: url('../images/line-gradient-products-394-light-blue.png');
+		}
+		
+		/* linha divis�ria do bloco w06 laranja */
+		.catalog-block.w06.product-bg-orange .product-divider {
+			background-image: url('../images/line-gradient-products-394-orange.png');
+		}
+		
 	/* largura do bloco w03 */
 	.catalog-block.w03 {
 		width: 192px;
@@ -1131,6 +1164,16 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 			background-image: url('../images/line-gradient-01-gray.png');
 		}
 		
+		/* linha divis�ria do bloco w03 cinza */
+		.catalog-block.w03.product-bg-light-blue .product-divider {
+			background-image: url('../images/line-gradient-01-light-blue.png');
+		}
+		
+		/* linha divis�ria do bloco w03 laranja */
+		.catalog-block.w03.product-bg-orange .product-divider {
+			background-image: url('../images/line-gradient-01-orange.png');
+		}
+		
 		/* barra �ltima oport. do bloco bege */
 		.catalog-block.product-bg-bege.last-opportunity .product-divider{
 			background-image: none;
@@ -1149,6 +1192,13 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		.catalog-block.product-bg-green.last-opportunity .product-divider{
 			background-image: none;
 			background-color: #5d9732;
+			color: #fff;
+		}
+		
+		/* barra �ltima oport. do bloco azul claro */
+		.catalog-block.product-bg-light-blue.last-opportunity .product-divider{
+			background-image: none;
+			background-color: #47d9bf;
 			color: #fff;
 		}
 		
@@ -1190,6 +1240,11 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		/* texto colorido do bloco pink */
 		.catalog-block.product-bg-pink .color-text {
 			color: #e2a9a8;
+		}
+		
+		/* texto colorido do bloco pink */
+		.catalog-block.product-bg-light-blue .color-text {
+			color: #47d9bf;
 		}
 		
 		/* texto colorido do bloco verde */
