@@ -7,7 +7,7 @@
 	<div class="mary-content">
 
 		<div class="home-scroll-content" id="scrollContainer">
-            <div class="row-fluid" ng-repeat="line in lines">
+            <div class="row-fluid" id="{{'cat' + $index}}" ng-repeat="line in lines">
 			     <catalog-section line="line"></catalog-section>
             </div>
 		</div>
