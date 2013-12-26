@@ -16,6 +16,7 @@
         return {
             restrict : 'E',
             templateUrl : templateUrl,
+            replace: true,
             scope : {
                 product : '=',
                 line : '='
