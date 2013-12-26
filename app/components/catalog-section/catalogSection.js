@@ -10,45 +10,61 @@
         });
     });
 
-    angular.module('tnt.catalog.components.catalog-section', []).directive('catalogSection', function(DataProvider) {
+    angular.module('tnt.catalog.components.catalog-section', []).directive('catalogSection', function(DataProvider, ArrayUtils) {
         return {
             templateUrl : templateUrl,
             restrict : 'E',
-            scope : true,
+            scope : {
+                line : '='
+            },
             link : function postLink(scope, element, attrs) {
-                
+
                 scope.lines = DataProvider.lines;
-                
-                var styles = function(){
-                    
-                    var color = '';
-                    
-                    if(angular.isDefined(scope.lines.find(scope.line)[0])){
-                        color = scope.lines.find(scope.line)[0].color;
+
+                var color = scope.line.color;
+
+                scope.style = 'bg-' + color;
+                scope.blockStyle = 'product-bg-' + color;
+
+                var lineUp = ArrayUtils.find(DataProvider.products, 'line', scope.line.name);
+
+                for ( var ix in lineUp) {
+                    var product = lineUp[ix];
+
+                    // if (product.description.length < 110) {
+                    // product.w = 3;
+                    // product.h = 3;
+                    // } else
+                    if (angular.isDefined(product.description) && product.description.length > 130) {
+                        product.w = 6;
+                        product.h = 3;
+                    } else {
+                        product.w = 6;
+                        product.h = 2;
                     }
-                    
-                    scope.style = 'bg-' + color;
-                    scope.blockStyle = 'product-bg-' + color;
-                };
-                
-                scope.$watch('lines', function(val){
-                    styles();
-                }, true);
-                
-                scope.$on('DataProvider.update', function(){
-                    var lineUp = DataProvider.products.find(undefined, scope.line);
-                    var half = Math.round(lineUp.length/2)-1;
-                    scope.left = [];
-                    scope.right = [];
-                    
-                    for(var ix in lineUp){
-                        if(ix < half){
-                            scope.left.push(lineUp[ix]);
-                        } else {
-                            scope.right.push(lineUp[ix]);
-                        }
+                }
+
+                scope.left = [];
+                scope.right = [];
+
+                var total = 2;
+
+                for ( var ix in lineUp) {
+                    total += lineUp[ix].h;
+                }
+
+                var left = 2;
+                var right = 0;
+
+                for ( var ix in lineUp) {
+                    if (left < total / 2) {
+                        scope.left.push(lineUp[ix]);
+                        left += lineUp[ix].h;
+                    } else {
+                        scope.right.push(lineUp[ix]);
+                        right += lineUp[ix].h;
                     }
-                });
+                }
             }
         };
     });

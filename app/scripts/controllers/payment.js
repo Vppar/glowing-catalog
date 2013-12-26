@@ -29,7 +29,7 @@
 
                 // Calculate the Subtotal
                 if (order.items) {
-                    var basket = $filter('filter')(order.items.getArray(), inBasketFilter);
+                    var basket = $filter('filter')(order.items, inBasketFilter);
                     var orderItemsQty = basket ? basket.length : 0;
                     var orderUnitsQty = $filter('sum')(basket, 'qty');
                     var orderAmount = $filter('sum')(basket, 'price', 'qty');

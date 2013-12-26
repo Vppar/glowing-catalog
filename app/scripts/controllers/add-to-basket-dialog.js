@@ -6,8 +6,8 @@
     ]).controller('AddToBasketDialogCtrl', function($scope, $filter, $q, dialog, OrderService) {
 
         // Find the product and make a copy to the local scope.
-        var product = $filter('findBy')(OrderService.order.items.getArray(), 'id', dialog.data.id);
-        var index = $filter('count')(OrderService.order.items.getArray(), 'qty') - 1;
+        var product = $filter('findBy')(OrderService.order.items, 'id', dialog.data.id);
+        var index = $filter('count')(OrderService.order.items, 'qty') - 1;
         $scope.product = product;
         $scope.qty = product.qty;
 

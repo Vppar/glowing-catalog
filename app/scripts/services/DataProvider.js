@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http, $rootScope, FilteredArray) {
+    angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http, $rootScope) {
 
         var scope = this;
 
@@ -14,31 +14,40 @@
         this.receivables = [];
         this.orders = [];
         this.payments = [];
-        this.paymentTypes = [{id: 1, description: 'cash'}];
+        this.paymentTypes = [
+            {
+                id : 1,
+                description : 'cash'
+            }
+        ];
         this.phoneTypes = [];
-        this.representative = {name: 'Valtanette de Paula'};
+        this.representative = {
+            name : 'Valtanette de Paula'
+        };
         this.states = [];
-        this.products = new FilteredArray('id', 'line');
-        this.lines = new FilteredArray('line');
+        this.products = [];
+        this.lines = [];
 
         $http.get('resources/data.json').then(function(response) {
 
-            scope.lines.mPush(response.data.lines);
-            delete response.data.lines;
-            
             angular.extend(scope, response.data);
-            
+
             scope.customers.sort(function(x, y) {
                 return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
             });
-            
-            $rootScope.$broadcast('DataProvider.update');
+
+            if (scope.products.length) {
+                $rootScope.$broadcast('DataProvider.update');
+            }
+
         });
-        
+
         $http.get('resources/products.json').then(function(response) {
             angular.extend(scope.products, response.data);
-            
-            $rootScope.$broadcast('DataProvider.update');
+
+            if (scope.lines.length) {
+                $rootScope.$broadcast('DataProvider.update');
+            }
         });
     });
 }(angular));

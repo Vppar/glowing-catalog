@@ -1,5 +1,5 @@
 <div class="line-01">
-    <span class="title-catalog-1" ng-class="style">{{line}}</span>
+    <span class="title-catalog-1" ng-class="style">{{line.name}}</span>
     <span class="col-left">
         <div class="catalog-block h02 w06" ng-class="blockStyle">
             <div class="box">
@@ -12,9 +12,9 @@
                 </div>
             </div>
         </div>
-        <product-display ng-repeat="product in left"></product-display>
+        <product-display product="product" line="line" ng-repeat="product in left"></product-display>
     </span>
     <span class="col-right">
-        <product-display ng-repeat="product in right"></product-display>
+        <product-display product="product" line="line" ng-repeat="product in right"></product-display>
     </span>
 </div>
