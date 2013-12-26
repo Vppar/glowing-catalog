@@ -5,15 +5,19 @@ angular.module('glowingCatalogApp').directive('spy', function() {
         restrict : 'A',
         require : '^scrollSpy',
         link : function(scope, elem, attrs, ctrl) {
-            ctrl.addSpy({
-                id : attrs.spy,
-                'in' : function() {
-                    return elem.addClass('active');
-                },
-                out : function() {
-                    return elem.removeClass('active');
-                }
+            
+            attrs.$observe('spy', function(val){
+                ctrl.addSpy({
+                    id : val,
+                    'in' : function() {
+                        return elem.addClass('active');
+                    },
+                    out : function() {
+                        return elem.removeClass('active');
+                    }
+                });
             });
+            
             
             elem.bind('click', function(){
                 ctrl.batata(attrs.spy);

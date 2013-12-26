@@ -39,7 +39,7 @@
          * Redirect to payment if products and customer were selected.
          */
         $scope.checkout = function() {
-            var basket = $filter('filter')(order.items.getArray(), inBasketFilter);
+            var basket = $filter('filter')(order.items, inBasketFilter);
             if (basket && basket.length > 0) {
                 if (order.customerId) {
                     $location.path('/payment');
