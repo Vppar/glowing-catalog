@@ -68,28 +68,6 @@
 	text-align: right;
 }
 
-.bread-crumbs {
-	margin-bottom: 20px;
-	border-bottom: 1px solid #ccc;
-	padding: 5px;
-	font-size: 16px;
-	color:#e5b1b0;
-	font-weight:bold;
-}
-
-.bread-crumbs .principal {
-	color: #000/*#ccc*/;
-}
-
-.bread-crumbs .crumbs {
-	color:#ccc;
-	font-weight: normal;
-}
-
-.bread-crumbs .icons{
-	padding: 0px 5px 0px 5px;
-}
-
 /*cadastrar contas a pagar*/
 
 /*inputs custom*/
