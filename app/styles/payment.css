@@ -112,16 +112,6 @@
 	margin-top: -4px;
 	height: 18px
 }
-.check-value {
-	float: right;
-	width: 87px;
-	text-align: right;
-	border: 1px solid #eee;
-	background-color: #f2f2f2;
-	border-radius: 4px;
-	padding: 4px 10px 4px 4px;
-	height: 18px;
-}
 
 .btn-sub-payment {
 	float: right;
@@ -416,7 +406,7 @@
 	display: none;
 }
 .col-check-s1 {
-	width: 57px; /*35px*/
+	width: 57px; /*35px*/ background-color:#ccc;
 	text-align:center;
 }
 .col-check-s2 {
@@ -424,7 +414,7 @@
 	text-align:center;
 }
 .col-check-s3 {
-	width: 67px;/*75px*/
+	width: 67px;/*75px*/ background-color:#ccc;
 	text-align:center;
 }
 .col-check-s4 {
@@ -432,7 +422,7 @@
 	text-align:center;
 }
 .col-check-s5 {
-	width: 88px; /*75px*/
+	width: 88px; /*75px*/ background-color:#ccc;
 	text-align:center;
 }
 .col-check-s6 {
@@ -440,7 +430,7 @@
 	text-align:center;
 }
 .col-check-s7 {
-	width: 93px; /*95px*/
+	width: 93px; /*95px*/ background-color:#ccc;
 	text-align:center;
 }
 .w110{
@@ -591,11 +581,31 @@ div.up-field-payment {
 	margin-right: 12px;
 }
 
-.parc {width:40px !important;}
-.banco, .agencia {width:50px !important;}
-.conta {width:110px !important;}
-.cheque, .vencto {width:70px !important;}
-
+.parc {
+	width:40px !important;
+}
+.banco, .agencia {
+	width:50px !important;
+}
+.conta {
+	width:110px !important;
+}
+.cheque, .vencto {
+	width:70px !important;
+}
+.parc, .banco, .agencia, .conta, .cheque, .vencto, .check-value{
+	float: right;
+	text-align: center;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	padding: 4px 7px 4px 5px; /*padding: 4px 10px 4px 4px;*/
+	height: 18px;
+}
+.check-value {
+	width: 87px;
+	text-align: right !important;
+}
 .qntty{
 	display: inline-block;
 	margin: 0 !important;
