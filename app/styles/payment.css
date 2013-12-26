@@ -406,7 +406,7 @@
 	display: none;
 }
 .col-check-s1 {
-	width: 57px; /*35px*/
+	width: 57px; /*35px*/ background-color:#ccc;
 	text-align:center;
 }
 .col-check-s2 {
@@ -414,7 +414,7 @@
 	text-align:center;
 }
 .col-check-s3 {
-	width: 67px;/*75px*/
+	width: 67px;/*75px*/ background-color:#ccc;
 	text-align:center;
 }
 .col-check-s4 {
@@ -422,7 +422,7 @@
 	text-align:center;
 }
 .col-check-s5 {
-	width: 88px; /*75px*/
+	width: 88px; /*75px*/ background-color:#ccc;
 	text-align:center;
 }
 .col-check-s6 {
@@ -430,7 +430,7 @@
 	text-align:center;
 }
 .col-check-s7 {
-	width: 93px; /*95px*/
+	width: 93px; /*95px*/ background-color:#ccc;
 	text-align:center;
 }
 .w110{
