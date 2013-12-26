@@ -1,5 +1,5 @@
 /*FORM PRODUCTS TO BUY*/
-.form-products-to-buy .panel-top {
+/*.form-products-to-buy .panel-top {
 	margin-top: 5px;
 }
 .form-products-to-buy {
@@ -9,22 +9,365 @@
 	background: #fff;
 	padding: 10px 15px 0 15px;
 	width: 970px;
-	/*position: fixed;
+	/position: fixed;
 	top: 90px;
-	bottom: 12px;*/
+	bottom: 12px;/
 	display: block;
 	position: relative;
 }
 .scroll-products-to-buy {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	/*position: fixed;
+	/position: fixed;
 	width: 970px;
 	top: 183px;
-	bottom: 45px*/
+	bottom: 45px/
 	position: relative;
 	width: 970px;
 	max-height:400px;
 	top: 0px;
 	bottom: 45px
+}*/
+
+/*PEDIDO DE COMPRA*/
+.form-products-to-buy {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	display: block;
+	position: relative;
+	min-height: 655px;
+}
+
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+
+/*.btn:hover {
+	background: #e2a9a8 !important;
+}*/
+
+.form-products-to-buy .combo-width {
+	width: 250px;
+}
+
+.products-to-buy-left{
+	display: block;
+	float:left;
+	width:68%;
+}
+.products-to-buy-right{
+	display: block;
+	float:left;
+	width:30%;
+}
+.row-products-to-buy  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 25px
+}
+.total-value-products-to-buy {
+	/*float: right;*/
+	text-align: right;
+}
+
+.details-products-to-buy{
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	margin: auto;
+	/*margin-top: 30px;
+	margin-bottom: 20px;*/
+	background-color: #FFF
+}
+/*.details-products-to-buy-title{	
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	min-height: 20px;
+	padding: 8px 5px 8px 12px;
+	margin: auto;
+	/*margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	padding: 15px;
+	font-size: 16px;
+	color: #e5b1b0;
+	font-weight: bold;
+	min-height: 20px;/
+}*/
+
+.details-products-to-buy-item-total{
+	/*color:#ff2839;*/
+	font-size: 16px;
+	font-weight: bolder;
+	/*padding: 15px 0 15px 0;*/
+	display: block;
+	width: 300px;
+}
+
+.details-order-number{
+	/*float:right;*/
+	text-align: right;
+	padding-right: 8px;
+}
+
+.details-products-to-buy-item{
+	/*padding: 8px 5px 8px 12px;*/
+	display: block;
+	min-height:20px;
+}
+.details-products-to-buy-item .title, .grid-payment-products-to-buy-edit .title{
+	display: block;			
+	margin: 5px 0 5px 4px;
+	font-weight:bold;
+	height:22px;
+	line-height:22px
+}
+.details-products-to-buy-item .item{
+	display: inline-block;		
+	margin: 5px 0 5px 0;
+	width:  100%; /*290px;*/
+}
+
+.display-inlineblock{
+	display: inline-block !important;
+}
+
+.w595{
+	width: 595px;
+}
+.w350{
+	width: 350px;
+}
+
+.form-products-to-buy .lbl-money {
+	display:inline-block;
+	width: 165px;
+	margin-left: 5px;
+	height:22px;
+	line-height:22px
+}
+.form-products-to-buy .btn-price-payment {
+	width: 110px;
+	text-align: right;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	margin-right: 5px;
+	display: inline-block;
+	height:20px;
+	line-height:20px;
+}
+
+/*.w165{
+	width:165px !important;
+}*/
+
+.form-products-to-buy .controls input {
+	margin: 0 5px 0 5px;
+}
+
+.col-details-products-to-buy-item{
+	/*display:inline-block;*/
+	margin: 0 0 10px 10px;
+	width: 295px; /*150px;*/
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+}
+
+.row-details-products-to-buy-item{
+	display:inline-block;
+}
+
+.btns-details-products-to-buy-item{ 
+	display:block;
+	height: 60px;
+}
+
+.btns-details-products-to-buy-item .btn{ 
+	margin: 10px 5px 0 5px !important;
+}
+
+.border-none{
+	border: none;
+}
+
+.marginl7 {
+	margin-left: 7px !important;
+}
+
+.marginr20{
+	margin-right:20px !important;
+}
+
+.marginl93{
+	margin-left: 93px !important;
+}
+
+.menu-level{	
+	margin: 0 !important;
+	padding: 0 !important;
+	margin-left: 50px !important;
+}
+
+.btns-details-products-to-buy-item .btn{	
+	margin-top:-5px;
+}
+
+.btn-option {
+	color: #333 !important;
+	background: none !important;
+	background-color: #fff !important;
+	border-color: #adadad;
+	text-shadow: none;
+	outline: 0;
+	border: 1px solid #cccccc;
+}
+
+.btn-option:hover, .btn-option:active, .active {
+	color: #333 !important;
+	background: none !important;
+	background-color: #ebebeb !important;
+	border-color: #adadad !important;
+	-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
+	box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
+}
+
+/*.products-to-buy-btns {
+	width: 354px;
+	margin: auto;
+	/*margin: 20px 0 20px 1px;/
+}
+
+.products-to-buy-btn-area {
+	margin-left: 17%;
+	float: left;
+	text-align: center;
+}*/
+
+#products-to-buyForm{
+	margin-bottom:0;
+}
+
+.font-bold{font-weight:bold;}
+
+/*-------------grid------------*/
+
+.grid-payment-products-to-buy .col-s1 {
+	width: 60px; /*35px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-products-to-buy .col-s2 {
+	width: 400px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-products-to-buy .col-s3 {
+	width: 90px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-products-to-buy .col-s4{
+	width: 90px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.control-label-products-to-buy{
+	width:400px;
+}
+
+.products-to-buy-initial .header-products-to-buy{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+}
+.products-to-buy-initial .header-products-to-buy, .products-to-buy-edit .header-products-to-buy{
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.subtitle-header-products-to-buy{
+	margin: 0 !important;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+
+.grid-payment-products-to-buy-edit .col-s1 {
+	width: 345px; /*35px*/
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left:5px;
+}
+.grid-payment-products-to-buy-edit .col-s2 {
+	width: 70px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-products-to-buy-edit .col-s3 {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-products-to-buy-edit .col-s4{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-products-to-buy-edit .col-s1-list {
+	width: 345px;
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left: 5px;
+}
+.grid-payment-products-to-buy-edit .col-s2-list {
+	width: 70px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-products-to-buy-edit .col-s3-list {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-products-to-buy-edit .col-s4-list{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.col-s3-list input ,
+.col-s4-list input {
+	margin: 0 !important;
+	width:90px;
+}
+
+.grid-payment-products-to-buy-edit .scroll-payment-grid {
+	min-height: 195px !important;
+	max-height: 525px !important;
+}
+.grid-payment-products-to-buy .scroll-payment-grid {
+	min-height: 125px !important;
+	max-height: 432px !important;
 }
