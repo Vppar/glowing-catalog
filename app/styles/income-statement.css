@@ -87,7 +87,7 @@
 	margin: auto;*/
 	/*margin-top: 30px;
 	margin-bottom: 20px;*/
-	background-color: #FFF
+	background-color: #FFF;
 }
 .details-income-statement-title{	
 	border-radius: 4px;
@@ -96,6 +96,7 @@
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
 	margin: auto;
+	margin-top:30px;
 	/*margin-bottom: 20px;
 	border-bottom: 1px solid #ccc;
 	padding: 15px;
@@ -103,6 +104,9 @@
 	color: #e5b1b0;
 	font-weight: bold;
 	min-height: 20px;*/
+}
+.margint0{
+	margin-top: 0 !important;
 }
 .details-income-statement-item-total{
 	/*color:#ff2839;*/
