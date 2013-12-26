@@ -7,7 +7,7 @@
 	<div class="mary-content">
 
 		<div class="home-scroll-content" id="scrollContainer">
-            <div class="row-fluid" ng-repeat="line in lines">
+            <div class="row-fluid" id="{{'cat' + $index}}" ng-repeat="line in lines">
 			     <catalog-section line="line"></catalog-section>
             </div>
 		</div>
@@ -32,17 +32,8 @@
 		
 		<div class="sidebar-menu">
 			<ul class="nav nav-list">
-				<li spy="cat1" class="active bege">
-					<a class="hover-state-pointer">TimeWise</a>
-				</li>
-				<li spy="cat2" class="pink">
-					<a class="hover-state-pointer">TimeWise Repair</a>
-				</li>
-				<li spy="cat3" class="green">
-					<a class="hover-state-pointer">Botanical Effects</a>
-				</li>
-				<li spy="cat4" class="gray">
-					<a class="hover-state-pointer">Acne</a>
+				<li spy="{{'cat' + $index}}" class="active" ng-class="line.color" ng-repeat="line in lines">
+					<a class="hover-state-pointer">{{line.name}}</a>
 				</li>
 			</ul>
 		</div>

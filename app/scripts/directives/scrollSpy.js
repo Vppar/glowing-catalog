@@ -28,7 +28,7 @@
                                     spyElems[spy.id] = elem.find('#' + spy.id);
                                 }
                             }
-                        });
+                        }, true);
 
                         scope.$watch('scrollTo', function(id) {
                             if (id) {

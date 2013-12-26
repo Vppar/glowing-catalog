@@ -285,37 +285,77 @@
     	}
     ],
     "lines": [
-    	{
-    		"line": "TimeWise",
-    		"color": "bege",
-    		"products": {
-    			"l" : [
-	    			{
-	    				"id" : 1,
-	    				"w": 6,
-	    				"h": 3
-	    			}
-	    		],
-	    		"r": [
-	    		    {
-	    				"id" : 1,
-	    				"w": 6,
-	    				"h": 3
-	    			}
-	    		]
-	    	}
-    	},
-    	{
-    		"line": "TimeWise Repair",
-    		"color": "pink"
-    	},
-		{
-	    	"line":"Botanical Effects",
-    		"color": "green"
-    	},
-		{
-    		"line":"Acne",
-    		"color": "gray"
-    	}
-    ]
+	    {
+	        "name": "Perfumes",
+	        "color": "light-blue"
+	    },
+	    {
+	        "name": "Maquiagem",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Zen in Bloom",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Hollywood Mystique",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Acessórios",
+	        "color": "green"
+	    },
+	    {
+	        "name": "TimeWise",
+	        "color": "bege"
+	    },
+	    {
+	        "name": "TimeWise Repair",
+	        "color": "pink"
+	    },
+	    {
+	        "name": "Botanical Effects",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Acne",
+	        "color": "gray"
+	    },
+	    {
+	        "name": "Clássica",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Velocity",
+	        "color": "green"
+	    },
+	    {
+	        "name": "MKMen",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Cuidados Personalizados",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Cuidados com o Corpo",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Solar",
+	        "color": "green"
+	    },
+	    {
+	        "name": "MK at Play",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Sobrancelhas",
+	        "color": "green"
+	    },
+	    {
+	        "name": "Esmalte",
+			"color": "green"
+	    }
+	]
 }
