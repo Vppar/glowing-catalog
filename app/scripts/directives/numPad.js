@@ -23,7 +23,7 @@
                     scope.$apply('pushMoneyDigit(0)');
                 });
                 element.find("img[alt='00']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(00)');
+                    scope.$apply('pushMoneyDigit("00")');
                 });
                 element.find("img[alt='1']").bind('tap', function() {
                     scope.$apply('pushMoneyDigit(1)');
