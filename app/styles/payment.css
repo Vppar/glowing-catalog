@@ -112,16 +112,6 @@
 	margin-top: -4px;
 	height: 18px
 }
-.check-value {
-	float: right;
-	width: 87px;
-	text-align: right;
-	border: 1px solid #eee;
-	background-color: #f2f2f2;
-	border-radius: 4px;
-	padding: 4px 10px 4px 4px;
-	height: 18px;
-}
 
 .btn-sub-payment {
 	float: right;
@@ -138,7 +128,7 @@
 .btns-right-payment .btn-price-payment-input-block {
 	float: right;
 	border-radius: 6px;
-	margin: -5px 5px 0 5px;
+	margin: -5px -4px 0 5px; /*margin: -5px 5px 0 5px;*/
 	width: 278px;
 	color: #777;
 }
@@ -591,11 +581,31 @@ div.up-field-payment {
 	margin-right: 12px;
 }
 
-.parc {width:40px !important;}
-.banco, .agencia {width:50px !important;}
-.conta {width:110px !important;}
-.cheque, .vencto {width:70px !important;}
-
+.parc {
+	width:40px !important;
+}
+.banco, .agencia {
+	width:50px !important;
+}
+.conta {
+	width:110px !important;
+}
+.cheque, .vencto {
+	width:70px !important;
+}
+.parc, .banco, .agencia, .conta, .cheque, .vencto, .check-value{
+	float: right;
+	text-align: center;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	padding: 4px 7px 4px 5px; /*padding: 4px 10px 4px 4px;*/
+	height: 18px;
+}
+.check-value {
+	width: 87px;
+	text-align: right !important;
+}
 .qntty{
 	display: inline-block;
 	margin: 0 !important;
