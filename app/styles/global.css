@@ -160,8 +160,6 @@ li.menu-black:last-child a:hover {
 .bg-orange-02 {
 	background-color: #e7890e
 }
-
-
 .bg-light-blue {
 	background-color: #47d9bf
 }
@@ -1373,11 +1371,12 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 
 .bread-crumbs {
 	margin-bottom: 20px;
-	/**/border-bottom: 1px solid #ccc;
-	padding: 5px;
+	border-bottom: 1px solid #ccc;
+	padding: 5px 0 5px 5px !important;
 	font-size: 16px;
 	color:#e5b1b0;
 	font-weight:bold;
+	height: 35px !important;
 }
 
 	.bread-crumbs .principal {
@@ -1392,3 +1391,42 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	.bread-crumbs .icons{
 		padding: 0px 5px 0px 5px;
 	}
+
+/*menu do breadcrumbs*/
+
+.menu-level{	
+	margin: 0 !important;
+	padding: 0 !important;
+	/*margin-left: 50px !important;*/
+}
+
+.menu-level .btn{	
+	font-weight: normal !important;
+	margin-top:-9px;
+}
+
+.btn-option {
+	color: #333 !important;
+	background: none !important;
+	background-color: #fff !important;
+	border-color: #adadad;
+	text-shadow: none;
+	outline: 0;
+	border: 1px solid #cccccc;
+}
+
+.btn-option:hover, .btn-option:active, .active {
+	color: #333 !important;
+	background: none !important;
+	background-color: #ebebeb !important;
+	border-color: #adadad !important;
+	-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
+	box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
+}
+
+.filter-bar-check{
+	line-height: 30px !important;
+}
+#filter-bar-checkbox{
+	margin: 0 !important;
+}

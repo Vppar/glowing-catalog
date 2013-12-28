@@ -648,11 +648,11 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		width:100%;
 	}
 .grid-order-list .header .col-2 {
-	width: 85px;
+	width: 95px;
 	display: inline-block;
 }
 .grid-order-list .header .col-3 {
-	width: 355px;
+	width: 345px;
 	display: inline-block;
 }
 	.grid-order-list .header .col-3 span {
@@ -696,7 +696,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		width:100%;
 	}
 .scroll-order-list .col-2 {
-	width: 85px;
+	width: 95px;
 	display: inline-block;
 }
 	.scroll-order-list .col-2 span {
@@ -706,7 +706,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		width:100%;
 	}
 .scroll-order-list .col-3 {
-	width: 355px;
+	width: 345px;
 	display: inline-block;
 }
 	.scroll-order-list .col-3 span {
@@ -1093,6 +1093,267 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
         margin-left: 20px;
 }
 /*============= END DATA-GRID FINANCIAL =================*/
+
+/*============= DATA-GRID RECEIVABLE =================*/
+.grid-receivable {
+	border-radius: 6px 6px 0 0;
+}
+
+.grid-receivable .header {
+	background: #333333;
+	color:#fff;
+	border-radius: 4px;
+	/*margin-top: 5px*/
+	display: block;
+	position: relative;
+	line-height:40px;
+}
+.grid-receivable .header span, .grid-receivable .scroll-receivable  span {
+	display: inline-block;
+}
+.grid-receivable .scroll-receivable .row-receivable {
+	border-bottom: 1px dotted #e0e0e0
+}
+.grid-receivable .header .col-0 {
+	width: 60px;
+	display: inline-block;
+}
+	.grid-receivable .header .col-0 div {
+		text-align:center;
+	}
+.grid-receivable .header .col-1 {
+	width: 60px;
+	display: inline-block;
+}
+	.grid-receivable .header .col-1 div {
+		text-align:center;
+	}
+.grid-receivable .header .col-2 {
+	width: 100px;
+	display: inline-block;
+}
+	.grid-receivable .header .col-2 div {
+		text-align:center;
+	}
+.grid-receivable .header .col-3 {
+	width: 200px;
+	display: inline-block;
+}
+.grid-receivable .header .col-4 {
+	width: 300px;
+	display: inline-block;
+}
+.grid-receivable .header .col-5 {
+	width: 100px;
+	display: inline-block;
+}
+	.grid-receivable .header .col-5 div {
+		text-align:center;
+	}
+.grid-receivable .header .col-6 {
+	width: 80px;
+	display: inline-block;
+	text-align: right;
+}
+.grid-receivable .header .col-7 {
+	width: 35px;
+	display: inline-block;
+	text-align: right;
+}
+
+
+.grid-receivable .subtitle{
+	background-color:#F2F2F2;
+	line-height:40px;
+	font-weight:bold;
+}
+.grid-receivable .subtitle span, .grid-receivable .scroll-receivable  span {
+	display: inline-block;
+}
+
+.grid-receivable .subtitle .col-0 {
+	width: 60px;
+	display: inline-block;
+}
+	.grid-receivable .subtitle .col-0 div {
+		text-align:center;
+	}
+.grid-receivable .subtitle .col-1 {
+	width: 60px;
+	display: inline-block;
+}
+	.grid-receivable .subtitle .col-1 div {
+		text-align:center;
+	}
+.grid-receivable .subtitle .col-2 {
+	width: 100px;
+	display: inline-block;
+}
+	.grid-receivable .subtitle .col-2 div {
+		text-align:center;
+	}
+.grid-receivable .subtitle .col-3 {
+	width: 200px;
+	display: inline-block;
+}
+.grid-receivable .subtitle .col-4 {
+	width: 300px;
+	display: inline-block;
+}
+.grid-receivable .subtitle .col-5 {
+	width: 100px;
+	display: inline-block;
+}
+	.grid-receivable .subtitle .col-5 div {
+		text-align:center;
+	}
+.grid-receivable .subtitle .col-6 {
+	width: 80px;
+	display: inline-block;
+	text-align: right;
+}
+.grid-receivable .subtitle .col-7 {
+	width: 35px;
+	display: inline-block;
+	text-align: right;
+}
+
+
+
+.row-receivable .col-0 {
+	width: 60px;
+	vertical-align:top;
+	display: inline-block;
+}
+	.grid-receivable .col-0 div {
+		text-align: center;
+	}
+.row-receivable .col-1 {
+	width: 60px;
+	display: inline-block;
+}
+	.grid-receivable .col-1 div {
+		text-align: center;
+	}
+.row-receivable .col-2 {
+	width: 100px;
+	vertical-align:top;
+	display: inline-block;
+}
+	.row-receivable .col-2 div {
+		text-align: center;
+	}
+.row-receivable .col-3 {
+	width: 200px;
+	vertical-align:top;
+	display: inline-block;
+}
+.row-receivable .col-4 {
+	width: 300px;
+	vertical-align:top;
+	display: inline-block;
+}
+	.row-receivable .col-4 div {
+		line-height: normal !important;
+	}
+.row-receivable .col-5 {
+	width: 100px;
+	vertical-align:top;
+	display: inline-block;
+}
+	.row-receivable .col-5 div {
+		text-align: center;
+	}
+.row-receivable .col-6 {
+	width: 80px;
+	vertical-align:top;
+	display: inline-block;
+}
+	.row-receivable .col-6 div {
+		text-align: right;
+	}
+.row-receivable .col-7{
+	width: 35px;
+	vertical-align:top;
+	text-align: center;
+	display: inline-block;
+}
+.row-receivable .col-1 input[type="checkbox"] {
+	margin-top: -3px
+}
+/*============= END RECEIVABLE =================*/
+
+/*================== RECEIVABLE - DIALOG ==================*/
+
+.grid-input-receivable-dialog {
+	border-radius: 4px 4px 0 0;
+}
+.scroll-input-receivable-dialog-grid {
+	min-height: 77px;
+	max-height: 136px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+.grid-input-receivable-dialog .header {
+	background: #333333;
+	border-radius: 4px;
+	color:#fff;
+}
+.grid-input-receivable-dialog .header span, .grid-input-receivable-dialog .header2 span, .grid-input-receivable-dialog .scroll-payment-grid  span {
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-input-receivable-dialog .scroll-payment-grid .row-input-receivable-dialog-grid {
+	border-bottom: 1px solid #ccc
+}
+.grid-input-receivable-dialog .scroll-input-receivable-dialog-grid .row-input-receivable-dialog-grid {
+	border-bottom: 1px dotted #e0e0e0;
+	line-height: 40px
+}
+.grid-input-receivable-dialog .header .col-1 {
+	width: 108px;
+}
+	.grid-input-receivable-dialog .header .col-1 div {
+		margin-left: 20px
+	}
+.grid-input-receivable-dialog .header .col-2 {
+	width: 108px;
+}
+	.grid-input-receivable-dialog .header .col-2 div {
+		text-align: center;
+	}
+.grid-input-receivable-dialog .header .col-3 {
+	width: 108px;
+}
+	.grid-input-receivable-dialog .header .col-3 div {
+		text-align: right;
+		margin-right: 20px;
+	}
+
+.scroll-input-receivable-dialog-grid .col-1 {
+	width: 108px;
+	display: inline-block;
+}
+	.scroll-input-receivable-dialog-grid .col-1 div {
+		margin-left: 20px
+	}
+.scroll-input-receivable-dialog-grid .col-2 {
+	width: 108px;
+	display: inline-block;
+}
+	.scroll-input-receivable-dialog-grid .col-2 div {
+		text-align: center;
+	}
+.scroll-input-receivable-dialog-grid .col-3 {
+	width: 108px;
+	display: inline-block;
+}
+	.scroll-input-receivable-dialog-grid .col-3 div {
+		text-align: right;
+		margin-right: 20px;
+	}
+
+/*================== END RECEIVABLE - DIALOG ==================*/
 
 /*============= DATA-GRID PENDING DELIVERY =================*/
 .grid-pending-delivery {

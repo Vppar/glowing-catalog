@@ -5,30 +5,40 @@
 		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
     
-    <div class="form-financial">
+    <div class="form-receivable">
     
 		<div class="row-fluid pull-right panel-top">
     
-            <!-- BREAD CRUMBS -->
-            <div class="row-fluid bread-crumbs">
-				<span class="span10">
-					<span class="principal">Financeiro</span> &gt; <span class="crumbs">Contas a receber</span>
+			<!-- BREAD CRUMBS -->
+			<div class="row-fluid bread-crumbs">
+				<span class="span6">
+					<span class="principal">Contas a receber</span> &gt; <span class="crumbs">pesquisar</span>
 				</span>
-				<span class="span2">
-					<div class="control-group lbl-top icons" ng-click="selectReceivableMode('write')">
-						<img title="cadastrar" src="images/icons/ic-add.png">
+				<span class="span6">
+					<!--<div class="control-group lbl-top icons">
+						<img src="images/icons/ic-add.png">
 					</div>	
 					<div class="control-group lbl-top icons">
 						<img src="images/icons/ic-edit.png">
 					</div>	
-					<div class="control-group lbl-top icons" ng-click="selectReceivableMode('read')">
+					<div class="control-group lbl-top icons">
 						<img src="images/icons/ic-open.png">
 					</div>	
 					<div class="control-group lbl-top icons">
 						<img src="images/icons/ic-search.png">
-					</div>	
+					</div>-->
+					<div class="float-right">
+						<span class="menu-level">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-option">Adicionar</a> 
+								<a class="btn btn-option">Editar</a>
+								<a class="btn btn-option">Baixa Pgto.</a>
+								<a class="btn btn-option active">Pesquisar</a>
+							</div>
+						</span>
+					</div>
 				</span>
-            </div>
+			</div>
 		
             <div ng-switch on="selectedReceivableMode">
 				<span ng-switch-when="read" ng-include src="'views/parts/receivable/receivable-read.html'"></span>
@@ -40,348 +50,99 @@
         
         <!-- DATAGRID -->
         <div class="row-fluid">
-            <div class="grid-financial">
+            <div class="grid-receivable">
                 <div class="header">
-                    <div class="row-financial">
+                    <div class="grid-receivable">
                     	<span class="col-0">
-                        <div> ID </div>
+                        <div> Item </div>
                         </span>
                     	<span class="col-1">
-                        <div> Data de emiss&atilde;o </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> Pedido </div>
+                        <div> ID </div>
+                        </span>
+                    	<span class="col-2">
+                        <div> Data</div>
                         </span> 
                         <span class="col-3">
-                        <div> Cliente </div>
+                        <div> Classifica&ccedil;&atilde;o </div>
                         </span> 
                         <span class="col-4">
-                        <div> Vencimento </div>
+                        <div> Contas a pagar / Observa&ccedil;&atilde;o </div>
                         </span> 
                         <span class="col-5">
-                        <div> Calor </div>
+                        <div> Vencto </div>
+                        </span> 
+                        <span class="col-6">
+                        <div> Valor </div>
+                        </span> 
+                        <span class="col-7">
+                        <div> &nbsp; </div>
+                        </span> 
+                	</div>
+                </div>
+                <div class="subtitle">
+                    <div class="grid-receivable">
+                    	<span class="col-0">
+                        <div> 1 </div>
+                        </span>
+                    	<span class="col-1">
+                        <div> &nbsp; </div>
+                        </span>
+                    	<span class="col-2">
+                        <div> &nbsp; </div>
+                        </span> 
+                        <span class="col-3">
+                        <div> &nbsp; </div>
+                        </span> 
+                        <span class="col-4">
+                        <div> &nbsp; </div>
+                        </span> 
+                        <span class="col-5">
+                        <div> Total </div>
+                        </span> 
+                        <span class="col-6">
+                        <div> 789,00 </div>
+                        </span> 
+                        <span class="col-7">
+                        <div> &nbsp; </div>
                         </span> 
                 	</div>
                 </div>
 				
-                <div class="scroll-financial">
-                    <div class="row-financial"> 
+                <div class="scroll-receivable">
+                    <div class="row-receivable"> 
                     	<span class="col-0">
-                        <div> 12 </div>
+                        <div> 1 </div>
                         </span>
                         <span class="col-1">
-                        <div> 15/05/2014 </div>
+                        <div> 034-13 </div>
                         </span> 
                         <span class="col-2">
-                        <div> BRINDES </div>
+                        <div> 06/11/13 </div>
                         </span> 
                         <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
                         <div> BRINDES </div>
                         </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
                         <span class="col-4">
-                        <div> 15/05/2014 </div>
+                        <div> M A V COMERCIO DE ACESSORIOS LTDA </div>
+                        <div class="comment"> COMPRA DE BRINDES PARA CLIENTES </div>
                         </span> 
                         <span class="col-5">
-                        <div> 250,00 </div>
+                        <div> 06/11/13 </div>
+                        </span> 
+                        <span class="col-6">
+                        <div> 789,00 </div>
+                        </span> 
+                        <span class="col-7">						
+							<!--somente para a tela de baixa-->
+							<!--<div><input type="checkbox" id="filter-bar-checkbox" value="todos"></div>-->
+							
+							<!--somente para a tela de adicionar/editar-->
+							<!--<div class="hover-state-pointer">
+								<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
+							</div>-->
                         </span> 
                 	</div>
-					
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-					
-                    <div class="row-financial"> 
-                    	<span class="col-0">
-                        <div> 12 </div>
-                        </span>
-                        <span class="col-1">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-2">
-                        <div> BRINDES </div>
-                        </span> 
-                        <span class="col-3">
-                        <div> MV Com&eacute;rcio e Servi&ccedil;os de Brindes LTDA </div>
-                        </span> 
-                        <span class="col-4">
-                        <div> 15/05/2014 </div>
-                        </span> 
-                        <span class="col-5">
-                        <div> 250,00 </div>
-                        </span> 
-                	</div>
-                </div>
-				
+				</div>
             </div>
         </div>
 		<br/>

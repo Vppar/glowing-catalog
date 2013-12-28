@@ -1,12 +1,10 @@
 <!-- DATE INTERVAL -->
 <div class="row-fluid filter-bar">
-	<span class="span2">
+	<span class="span3">
 		<div class="controls">
 			<div class="control-group lbl-top">
 				<div class="controls">
-					<input type="text" placeholder="De" show-weeks="false"
-						datepicker-popup="dd/MM/yyyy" class="date-field input-small"
-						required ng-model="dtInitial">
+					Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtInitial">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -20,9 +18,7 @@
 		<div class="controls">
 			<div class="control-group lbl-top">
 				<div class="controls">
-					<input type="text" placeholder="Até" show-weeks="false"
-						datepicker-popup="dd/MM/yyyy" class="date-field input-small"
-						required ng-model="dtFinal">
+					<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtFinal">
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -32,21 +28,20 @@
 			</div>
 		</div>
 	</span> 
-	<span class="span8"> 
-		<input type="checkbox" value="todos">
-		<span class="txtpad">todos os valores em aberto até {{dtInitial}}</span>
+	<span class="span7"> 
+		<input type="checkbox" id="filter-bar-checkbox" value="todos">
+		<span class="txtpad filter-bar-check">todos os valores em aberto até {{dtInitial}}</span>
 	</span>
 </div>
 
 <!-- FILTER -->
 <div class="row-fluid filter-bar">
-
-	<div class="input-append input-search span4">
-		<input class="input-xlarge" id="appendedInput" type="text" placeholder="Filtro"> 
+	<div class="txtpad filtro">Filtro</div>
+	<div class="input-append input-search span4 marginl0">
+		<input class="input-xlarge" id="appendedInput" type="text" placeholder=""> 
 		<span class="add-on">
 			<i class="icon-search"></i>
 		</span>
 	</div>
-	<div class="span8 txtpad">(4 itens)</div>
-	<span class="pull-right red-color">Total: R$ 1.000,00</span>
+	<div class="span6 txtpad">(4 itens)</div>
 </div>

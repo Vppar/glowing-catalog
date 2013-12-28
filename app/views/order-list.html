@@ -1,10 +1,9 @@
 <div class="container ng-scope">
 
+	<!-- HEADER -->
 	<div class="row-fluid">
-		<span class="span12"> <span ng-include src="'views/parts/global/header.html'"></span>
-		</span>
+		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
-
 	
 	<div class="form-order-list">
     
@@ -12,10 +11,10 @@
 
 			<!-- BREAD CRUMBS -->
 			<div class="row-fluid bread-crumbs">
-				<span class="span10">
+				<span class="span6">
 					<span class="principal">Resumo de vendas</span> &nbsp; <span class="crumbs">&nbsp;</span>
 				</span>
-				<span class="span2">
+				<span class="span6">
 					<!--<div class="control-group lbl-top icons">
 						<img src="images/icons/ic-add.png">
 					</div>	
@@ -28,6 +27,14 @@
 					<div class="control-group lbl-top icons">
 						<img src="images/icons/ic-search.png">
 					</div>-->
+					<div class="float-right">
+						<span class="menu-level">
+							<div class="btn-group btn-group-sm">
+								<a class="btn btn-option active">Clientes</a> 
+								<a class="btn btn-option">Produtos</a>
+							</div>
+						</span>
+					</div>
 				</span>
 			</div>
 							
@@ -38,7 +45,7 @@
 					<div class="controls">
 						<div class="control-group lbl-top">
 							<div class="controls">
-								Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtInitial">
+								Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtInitial">
 							</div>
 						</div>
 						<div class="control-group lbl-top">
@@ -51,7 +58,7 @@
 					<div class="controls">
 						<div class="control-group lbl-top">
 							<div class="controls">
-								<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtFinal">
+								<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtFinal">
 							</div>
 						</div>
 						<div class="control-group lbl-top">
@@ -102,16 +109,8 @@
 							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
 							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span></span>					
 						</span>
-					</div>
+					</div>					
 					
-					<div class="btns-details-order-list-item">
-						<span class="menu-level">
-							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option active">Clientes</a> 
-								<a class="btn btn-option">Produtos</a>
-							</div>
-						</span>
-					</div>
 					<!--<div class="col-details-order-list-item">
 						<div class="order-list-btns">
 							<div class="order-list-btn-area">
