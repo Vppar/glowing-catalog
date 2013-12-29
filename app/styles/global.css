@@ -128,22 +128,25 @@ li.menu-black:last-child a:hover {
 }
 /*background colors*/
 .bg-pink {
-	background: #e2a9a8;
+	background: #ff11a0;
 }
 .bg-pink2 {
 	background: #ee72ba;
 }
 .bg-green {
-	background-color: #5d9732
+	background-color: #7ba752
+}
+.bg-light-green {
+	background-color: #abbb5e
 }
 .bg-lilas {
 	background-color: #baa3f1
 }
 .bg-bege {
-	background-color: #e6d6c0
+	background-color: #eecfbd
 }
 .bg-gray {
-	background-color: #dddddd
+	background-color: #9e9e9e
 }
 .bg-gray-01 {
 	background-color: #dddddd
@@ -152,7 +155,7 @@ li.menu-black:last-child a:hover {
 	background-color: #aeaeae
 }
 .bg-orange {
-	background-color: #e7890e
+	background-color: #e98a6c
 }
 .bg-orange-01 {
 	background-color: #f8b661
@@ -161,13 +164,16 @@ li.menu-black:last-child a:hover {
 	background-color: #e7890e
 }
 .bg-light-blue {
-	background-color: #47d9bf
+	background-color: #7b84ad
 }
 .bg-bege {
 	background-color: #e6d6c0
 }
-.bg-gray {
-	background-color: #dddddd
+.bg-dark-gray {
+	background-color: #717578
+}
+.bg-blue-gray {
+	background-color: #676d79
 }
 
 
@@ -792,6 +798,8 @@ nav ul li {
 	margin-top: 10px;
 	margin-right: 23px;
 	position: relative;
+	overflow-y: auto;
+	max-height: 409px;
 	clear:both;
 }
 .banner-side-bar {
@@ -1098,7 +1106,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 
 		/* texto do bloco h02 + w06 */
 		.catalog-block.h02.w06 .product-text {
-			width: 200px;
+			width: 275px;
 		}
 		
 	/* largura do bloco w06 */
@@ -1121,8 +1129,23 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 			background-image: url('../images/line-gradient-products-394-green.png');
 		}
 		
+		/* linha divis�ria do bloco w06 verde claro */
+		.catalog-block.w06.product-bg-light-green .product-divider {
+			background-image: url('../images/line-gradient-products-394-green.png');
+		}
+		
 		/* linha divis�ria do bloco w06 cinza */
 		.catalog-block.w06.product-bg-gray .product-divider {
+			background-image: url('../images/line-gradient-products-394-gray.png');
+		}
+		
+		/* linha divis�ria do bloco w06 cinza escuro */
+		.catalog-block.w06.product-bg-dark-gray .product-divider {
+			background-image: url('../images/line-gradient-products-394-gray.png');
+		}
+		
+		/* linha divis�ria do bloco w06 azul/cinza */
+		.catalog-block.w06.product-bg-blue-gray .product-divider {
 			background-image: url('../images/line-gradient-products-394-gray.png');
 		}
 		
@@ -1157,12 +1180,27 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 			background-image: url('../images/line-gradient-01-green.png');
 		}
 		
+		/* linha divis�ria do bloco w03 verde claro */
+		.catalog-block.w03.product-bg-light-green .product-divider {
+			background-image: url('../images/line-gradient-01-green.png');
+		}
+		
 		/* linha divis�ria do bloco w03 cinza */
 		.catalog-block.w03.product-bg-gray .product-divider {
 			background-image: url('../images/line-gradient-01-gray.png');
 		}
 		
-		/* linha divis�ria do bloco w03 cinza */
+		/* linha divis�ria do bloco w03 cinza escuro */
+		.catalog-block.w03.product-bg-dark-gray .product-divider {
+			background-image: url('../images/line-gradient-01-gray.png');
+		}
+		
+		/* linha divis�ria do bloco w03 azul/cinza */
+		.catalog-block.w03.product-bg-blue-gray .product-divider {
+			background-image: url('../images/line-gradient-01-gray.png');
+		}
+		
+		/* linha divis�ria do bloco w03 azul claro */
 		.catalog-block.w03.product-bg-light-blue .product-divider {
 			background-image: url('../images/line-gradient-01-light-blue.png');
 		}
@@ -1175,84 +1213,162 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		/* barra �ltima oport. do bloco bege */
 		.catalog-block.product-bg-bege.last-opportunity .product-divider{
 			background-image: none;
-			background-color: #ee72ba;
+			background-color: #e26666;
 			color: #fff;
 		}
 		
 		/* barra �ltima oport. do bloco pink */
 		.catalog-block.product-bg-pink.last-opportunity .product-divider{
 			background-image: none;
-			background-color: #ee72ba;
+			background-color: #e26666;
 			color: #fff;
 		}
 		
 		/* barra �ltima oport. do bloco verde */
 		.catalog-block.product-bg-green.last-opportunity .product-divider{
 			background-image: none;
-			background-color: #5d9732;
+			background-color: #e26666;
+			color: #fff;
+		}
+		
+		/* barra �ltima oport. do bloco verde claro */
+		.catalog-block.product-bg-light-green.last-opportunity .product-divider{
+			background-image: none;
+			background-color: #e26666;
 			color: #fff;
 		}
 		
 		/* barra �ltima oport. do bloco azul claro */
 		.catalog-block.product-bg-light-blue.last-opportunity .product-divider{
 			background-image: none;
-			background-color: #47d9bf;
+			background-color: #e26666;
 			color: #fff;
 		}
 		
 		/* barra �ltima oport. do bloco cinza */
 		.catalog-block.product-bg-gray.last-opportunity .product-divider{
 			background-image: none;
-			background-color: #ddd;
+			background-color: #e26666;
+			color: #333;
+		}
+		
+		/* barra �ltima oport. do bloco cinza escuro */
+		.catalog-block.product-bg-dark-gray.last-opportunity .product-divider{
+			background-image: none;
+			background-color: #e26666;
+			color: #333;
+		}
+		
+		/* barra �ltima oport. do bloco azul/cinza */
+		.catalog-block.product-bg-blue-gray.last-opportunity .product-divider{
+			background-image: none;
+			background-color: #e26666;
+			color: #333;
+		}
+		
+		/* barra �ltima oport. do bloco laranja */
+		.catalog-block.product-bg-orange.last-opportunity .product-divider{
+			background-image: none;
+			background-color: #e26666;
 			color: #333;
 		}
 		
 		/* bot�o add do bloco bege */
 		.catalog-block.product-bg-bege .product-addbtn {
-			background-color: #e6d6c0;
+			background-color: #eecfbd;
 		}
 		
 		/* bot�o add do bloco pink */
 		.catalog-block.product-bg-pink .product-addbtn {
-			background-color: #e2a9a8;
+			background-color: #ff11a0;
+			background-image: url('../images/plus-w.png');
+		}
+		
+		/* bot�o add do bloco azul claro */
+		.catalog-block.product-bg-light-blue .product-addbtn {
+			background-color: #7b84ad;
 			background-image: url('../images/plus-w.png');
 		}
 		
 		/* bot�o add do bloco verde */
 		.catalog-block.product-bg-green .product-addbtn {
-			background-color: #5d9732;
+			background-color: #7ba752;
+			background-image: url('../images/plus-w.png');
+		}
+		
+		/* bot�o add do bloco verde claro */
+		.catalog-block.product-bg-light-green .product-addbtn {
+			background-color: #abbb5e;
 			background-image: url('../images/plus-w.png');
 		}
 		
 		/* bot�o add do bloco cinza */
 		.catalog-block.product-bg-gray .product-addbtn {
-			background-color: #ddd;
+			background-color: #9e9e9e;
 			background-image: url('../images/plus.png');
+		}
+		
+		/* bot�o add do bloco cinza escuro */
+		.catalog-block.product-bg-dark-gray .product-addbtn {
+			background-color: #717578;
+			background-image: url('../images/plus-w.png');
+		}
+		
+		/* bot�o add do bloco azul/cinza */
+		.catalog-block.product-bg-blue-gray .product-addbtn {
+			background-color: #676d79;
+			background-image: url('../images/plus-w.png');
+		}
+		
+		/* bot�o add do bloco laranja */
+		.catalog-block.product-bg-orange .product-addbtn {
+			background-color: #e98a6c;
+			background-image: url('../images/plus-w.png');
 		}
 		
 		/* texto colorido do bloco bege */
 		.catalog-block.product-bg-bege .color-text {
-			color: #e6d6c0;
+			color: #eecfbd;
 		}
 		
 		/* texto colorido do bloco pink */
 		.catalog-block.product-bg-pink .color-text {
-			color: #e2a9a8;
+			color: #ff11a0;
 		}
 		
-		/* texto colorido do bloco pink */
+		/* texto colorido do bloco azul claro */
 		.catalog-block.product-bg-light-blue .color-text {
-			color: #47d9bf;
+			color: #7b84ad;
 		}
 		
 		/* texto colorido do bloco verde */
 		.catalog-block.product-bg-green .color-text {
-			color: #5d9732;
+			color: #7ba752;
+		}
+		
+		/* texto colorido do bloco verde claro */
+		.catalog-block.product-bg-light-green .color-text {
+			color: #abbb5e;
 		}
 		
 		/* texto colorido do bloco cinza */
 		.catalog-block.product-bg-gray .color-text {
-			color: #aeaeae;
+			color: #9e9e9e;
+		}
+		
+		/* texto colorido do bloco cinza escuro */
+		.catalog-block.product-bg-dark-gray .color-text {
+			color: #717578;
+		}
+		
+		/* texto colorido do bloco azul/cinza */
+		.catalog-block.product-bg-blue-gray .color-text {
+			color: #676d79;
+		}
+		
+		/* texto colorido do bloco laranja */
+		.catalog-block.product-bg-orange .color-text {
+			color: #e98a6c;
 		}
 		
 	
@@ -1269,6 +1385,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	.catalog-block .product-content{
 		clear: both;
 		width: 100%;
+		overflow-y: hidden;
 	}
 	
 	/* footer comum */
@@ -1299,7 +1416,6 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	/* texto comum */
 	.catalog-block .product-text{
 		padding: 10px;
-		max-height: 30px;
 		overflow: hidden;
 	}
 	
@@ -1314,7 +1430,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		.catalog-block.last-opportunity .product-divider{
 			padding: 5px 0px 5px 0px;
 			text-align: center;
-			margin-top: -19px;
+			margin-top: -18px;
 			font-size: 120%;
 			height: auto;
 			clear: both;
@@ -1429,4 +1545,8 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 }
 #filter-bar-checkbox{
 	margin: 0 !important;
+}
+
+.home-scroll-content>div{
+	margin-bottom:-10px;
 }
