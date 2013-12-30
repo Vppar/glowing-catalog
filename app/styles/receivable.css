@@ -1,29 +1,7 @@
-/*EXPENSE*/
-.scroll-expense {
-overflow-y: scroll;
--webkit-overflow-scrolling: touch;
-position: relative;
-width: 970px;
-max-height: 290px;
-top: 0px;
-bottom: 45px;
-}
-.form-expense{
-border-radius: 6px;
-margin: -9px 10px 0 10px;
-border: 1px solid #e0e0e0;
-background: #fff;
-padding: 10px 15px 0 15px;
-width: 970px;
-display: block;
-position: relative;
-}
-
-
-.form-expense .panel-top .combo-width{
+.form-receivable .panel-top .combo-width{
 	width:220px
 }
-.form-expense {
+.form-receivable {
 	border-radius: 6px;
 	margin: -9px 10px 0 10px;
 	border: 1px solid #e0e0e0;
@@ -36,7 +14,7 @@ position: relative;
 	display: block;
 	position: relative;
 }
-.scroll-expense {
+.scroll-receivable {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	position: relative;
@@ -65,13 +43,13 @@ position: relative;
 
 .comment{color: rgba(0, 0, 0, 0.5);}
 
-.expense-write-left{
+.receivable-write-left{
 	display: inline-block;
 	width: 60% !important;
 	float:left;
 }
 
-.expense-write-right{
+.receivable-write-right{
 	display: inline-block;
 	width: 340px !important;
 	float:left;
@@ -91,12 +69,12 @@ position: relative;
 	display: none !important;
 }
 
-.scroll-input-expense-dialog-grid input{
+.scroll-input-receivable-dialog-grid input{
 	padding: 10px 0 10px 0 !important;
 	margin: 0 !important;
 	border: none !important;
 }
 
-.scroll-input-expense-dialog-grid .value{text-align:right; width:88px;}
+.scroll-input-receivable-dialog-grid .value{text-align:right; width:88px;}
 
 .text-center{text-align:center;}

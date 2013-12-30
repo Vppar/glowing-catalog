@@ -1,0 +1,52 @@
+<div class="container">
+
+	<form class="form-input-expense-dialog" >
+		<span class="heading-gradient">Parcelas</span>
+
+		
+
+		<div class="row-fluid">
+		
+			<div class="grid-input-expense-dialog margint10">
+					<div class="header">
+						<div class="row-input-expense-dialog-grid">
+							<span class="col-1"><div>Parcela</div></span>
+							<span class="col-2"><div>Vencto.</div></span>
+							<span class="col-3"><div>Valor</div></span>
+						</div>
+					</div>
+					<div class="scroll-input-expense-dialog-grid">
+						<div class="row-input-expense-dialog-grid" >
+							<span class="col-1"><div>1 de 3</div></span>
+							<span class="col-2 display-none"><div>20/01/13</div></span><input type="text" class="col-2 text-center date-field"  input-block-level" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required readonly onkeyup="checkInputKeyUp(this)"/>
+							<span class="col-3 display-none"><div>120,00</div></span><input type="text" class="col-3 value"/>
+						</div>
+						<div class="row-input-expense-dialog-grid" >
+							<span class="col-1"><div>2 de 3</div></span>
+							<span class="col-2"><div>20/02/13</div></span>
+							<span class="col-3"><div>120,00</div></span>
+						</div>	
+						<div class="row-input-expense-dialog-grid" >
+							<span class="col-1"><div>3 de 3</div></span>
+							<span class="col-2"><div>20/03/13</div></span>
+							<span class="col-3"><div>120,00</div></span>
+						</div>		
+					</div>
+					
+			</div>
+					
+			<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o código </div>
+		
+		</div>
+	
+		<div class="clearfix"></div><hr />
+		<button ng-click='closeDialog()' class="btn btn-cancel btn-large btn-login" type="submit">
+			Cancelar
+		</button>
+		<button ng-click='closeDialog()' class="btn-large btn btn-ok btn-login pull-right" type="submit">
+			Confirmar
+		</button>
+
+	</form>
+
+</div>

@@ -13,7 +13,7 @@
 	font-family: "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
 	letter-spacing:-1px;
 	text-align:center;
-	min-width:404px;
+	/*min-width:404px;*/
 }
 .form-confirmation-dialog, 
 .form-add-email,
@@ -23,6 +23,7 @@
 .form-choose-customer,
 .form-delivery-details-modal,
 .form-input-products,
+.form-input-receivable-dialog,
 .form-payment-credit-card,
 .form-payment-advance-money,
 .form-payment-check,
@@ -171,6 +172,11 @@ span.zoom {margin:20px 0;}
 	text-shadow: none;
 	border: none;
 	height: 30px
+}
+
+.form-input-receivable-dialog {
+	width: 340px;
+	margin-left: -266px
 }
 
 /*input products*/

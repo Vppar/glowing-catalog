@@ -1,14 +1,14 @@
 /*FORM PARTIAL DELIVERY*/
-.title-partial-delivery {
+.partial-delivery .title-partial-delivery {
 	font-size: 16px;
 	font-weight: bold;
 }
-.form-panel button {
+.partial-delivery .form-panel button {
 	position: absolute;
 	bottom: 15px;
 	min-width: 365px !important;
 }
-.form-container-partial-delivery-1 {
+.partial-delivery .form-container-partial-delivery-1 {
 	border-radius: 6px;
 	margin: -9px 10px 0 10px;
 	border: 1px solid #e0e0e0;
@@ -19,7 +19,7 @@
 	top: 90px;
 	bottom: 20px
 }
-.form-container-partial-delivery-2 {
+.partial-delivery .form-container-partial-delivery-2 {
 	border-radius: 6px;
 	margin: -9px 10px 0 10px;
 	border: 1px solid #e0e0e0;
@@ -31,41 +31,43 @@
 	bottom: 20px;
 	margin-left: 90px
 }
-.scroll-partial-delivery-1 {
+.partial-delivery .scroll-partial-delivery-1 {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: fixed;
 	width: 560px;
+	heigth: 250px;
+	/*position: fixed;
 	top: 330px;
-	bottom: 37px
+	bottom: 37px*/
 }
-.scroll-partial-delivery-2 {
+.partial-delivery .scroll-partial-delivery-2 {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: fixed;
 	width: 365px;
+	heigth: 400px;
+	/*position: fixed;
 	top: 163px;
-	bottom: 85px
+	bottom: 85px*/
 }
 
-.btn-plus-pink {
+.partial-delivery .btn-plus-pink {
 	position: relative;
 	top: 25px
 }
 
-.btn:hover {
-	/*background: #e2a9a8 !important;*/
+.partial-delivery .btn:hover {
+	background: #e2a9a8 !important;
 }
-.form-partial-delivery .combo-width {
+.partial-delivery .form-partial-delivery .combo-width {
 	width: 250px;
 }
-.row-partial-delivery-1  .btn {
+.partial-delivery .row-partial-delivery-1  .btn {
 	background: #ecbab9;
 	text-shadow: none;
 	border: none;
 	height: 30px
 }
-.total-value-partial-delivery {
+.partial-delivery .total-value-partial-delivery {
 	float: right;
 	margin-top: 20px;
 	text-align: right;
