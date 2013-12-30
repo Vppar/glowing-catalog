@@ -17,7 +17,7 @@
 							<span class="principal">Demonstra&ccedil;&atilde;o de resultado</span> &nbsp; <span class="crumbs">&nbsp;</span>
 						</span>
 						<span class="span2">
-							<div class="control-group lbl-top icons">
+							<!--<div class="control-group lbl-top icons">
 								<img src="images/icons/ic-add.png">
 							</div>	
 							<div class="control-group lbl-top icons">
@@ -28,19 +28,19 @@
 							</div>	
 							<div class="control-group lbl-top icons">
 								<img src="images/icons/ic-search.png">
-							</div>
+							</div>-->
 						</span>
 					</div>
 									
 					<!-- DATE INTERVAL -->
 					<div class="row-fluid filter-bar">
 						
-						<span class="span2">
+						<span class="span3">
 					
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input type="text" placeholder="De" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtInitial">
+									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtInitial">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -50,12 +50,12 @@
 						
 						</span>
 						
-						<span class="span2">
+						<span class="span2 marginl7">
 						
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input type="text" placeholder="At&eacute;" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" required ng-model="dtFinal">
+									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtFinal">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -65,8 +65,9 @@
 						
 						</span>
 					
-						<span class="span8">
-							<input type="checkbox" value="todos"> <span class="txtpad">todos os valores em aberto at&eacute; {{dtInitial}}</span>
+							<span class="span7">
+							<input type="checkbox" id="filter-bar-checkbox" value="todos">
+							<span class="txtpad filter-bar-check">todos os valores em aberto at&eacute; {{dtInitial}}</span>
 						</span>
 					
 					</div>
@@ -239,6 +240,7 @@
 				<br/>
 				
 			</div>
+			<br/>
 	</div>
 	
 </div>

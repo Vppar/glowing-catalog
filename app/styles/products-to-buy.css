@@ -213,16 +213,6 @@
 	margin-top:-5px;
 }
 
-.btn-option {
-	color: #333 !important;
-	background: none !important;
-	background-color: #fff !important;
-	border-color: #adadad;
-	text-shadow: none;
-	outline: 0;
-	border: 1px solid #cccccc;
-}
-
 .btn-option:hover, .btn-option:active, .active {
 	color: #333 !important;
 	background: none !important;

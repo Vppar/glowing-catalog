@@ -5,7 +5,7 @@
 		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
     
-    <div class="form-receivable">
+    <div class="form-expense">
     
 		<div class="row-fluid pull-right panel-top">
     
@@ -40,19 +40,20 @@
 				</span>
 			</div>
 		
-            <div ng-switch on="selectedReceivableMode">
+            <div ng-switch on="selectedexpenseMode">
 				<span ng-switch-when="read" ng-include src="'views/parts/expense/expense-read.html'"></span>
 				<span ng-switch-when="write" ng-include src="'views/parts/expense/expense-write.html'"></span>
 			</div>
+			
 		</div>
             
 		<div class="clearfix"></div>
         
         <!-- DATAGRID -->
         <div class="row-fluid">
-            <div class="grid-receivable">
+            <div class="grid-expense">
                 <div class="header">
-                    <div class="grid-receivable">
+                    <div class="grid-expense">
                     	<span class="col-0">
                         <div> Item </div>
                         </span>
@@ -80,7 +81,7 @@
                 	</div>
                 </div>
                 <div class="subtitle">
-                    <div class="grid-receivable">
+                    <div class="grid-expense">
                     	<span class="col-0">
                         <div> 1 </div>
                         </span>
@@ -108,8 +109,8 @@
                 	</div>
                 </div>
 				
-                <div class="scroll-receivable">
-                    <div class="row-receivable"> 
+                <div class="scroll-expense">
+                    <div class="row-expense"> 
                     	<span class="col-0">
                         <div> 1 </div>
                         </span>

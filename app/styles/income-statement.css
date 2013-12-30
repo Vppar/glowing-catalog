@@ -5,10 +5,12 @@
 	border: 1px solid #e0e0e0;
 	background: #fff;
 	padding: 10px 15px 0 15px;
-	position: fixed;
 	width: 970px;
-	bottom: 12px;
+	/*position: fixed;
 	top: 90px;
+	bottom: 20px*/
+	display: block;
+	position: relative;
 }
 
 /*.form-income-statement  {
@@ -30,10 +32,15 @@
 .scroll-income-statement {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	position: fixed;
-	width: 970px;
+	/*position: fixed;
 	top: 225px;
-	bottom: 45px;
+	bottom: 45px;*/
+	width: 970px;
+	
+	position: relative;
+	max-height:370px;
+	top: 0px;
+	bottom: 45px;	
 }
 
 /*.scroll-income-statement {

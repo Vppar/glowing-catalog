@@ -10,10 +10,10 @@
 	border: 1px solid #e0e0e0;
 	background: #fff;
 	padding: 10px 15px 0 15px;
-	position: fixed;
 	width: 970px;
+	/*position: fixed;
 	top: 90px;
-	bottom: 12px
+	bottom: 12px*/
 }
 .grid-1 .scroll-pending-delivery {
 	overflow-y: scroll;
@@ -25,7 +25,8 @@
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	width: 970px;
-	position: fixed;
+	/*position: fixed;
 	top: 433px;
-	bottom: 35px
+	bottom:35px;*/
+	max-height: 210px;
 }
