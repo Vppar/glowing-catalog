@@ -14,6 +14,7 @@
         return {
             templateUrl : templateUrl,
             restrict : 'E',
+            replace: true,
             scope : {
                 line : '='
             },
