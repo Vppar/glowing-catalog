@@ -213,14 +213,14 @@
 	margin-top:-5px;
 }
 
-.btn-option:hover, .btn-option:active, .active {
+/*.btn-option:hover, .btn-option:active, .active {
 	color: #333 !important;
 	background: none !important;
 	background-color: #ebebeb !important;
 	border-color: #adadad !important;
 	-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
 	box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
-}
+}*/
 
 /*.products-to-buy-btns {
 	width: 354px;
