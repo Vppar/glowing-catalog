@@ -167,14 +167,14 @@
 }
 .ic-arrow-left {
 	float: left;
-	margin: 34px 0 0 0;
+	margin: 3px 0 0 0;
 }
 .ic-arrow-left2 {
 	float: left;
 }
 .ic-arrow-right {
 	float: right;
-	margin: 34px 0 0 0;
+	margin: 3px 0 0 0;
 	position:relative;
 }
 .ic-arrow-right2 {
@@ -184,10 +184,19 @@
 .ic-arrow-left:hover, .ic-arrow-right:hover, .img-row-delete:hover {
 	cursor:pointer
 }
-.input-row-qtde-cart input {
+.qty{/*.input-row-qtde-cart input {*/
 	width: 33px;
+	height: 20px;
 	text-align: center;
 	font-size:20px;
+	display: inline-block;
+	padding: 6px;
+	margin-bottom: 10px;
+	line-height: 20px;
+	color: #555555;
+	vertical-align: middle;
+	letter-spacing: normal;
+	word-spacing: normal;
 }
 
 .margint10{
