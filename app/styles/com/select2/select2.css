@@ -345,7 +345,7 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
 }
 
 .select2-results .select2-highlighted {
-    background: #ecbab9;
+    background: #F2F2F2 !important; /*#ecbab9 !important;*/
     color: #333;
 }
 

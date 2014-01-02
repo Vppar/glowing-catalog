@@ -73,8 +73,8 @@ li.menu-black:last-child a:hover {
 }
 
 .modal {
-	position: fixed;
-	top: 0px;
+	position: absolute;
+	top: 40px;
 	left: 50%;
 	z-index: 1050;
 	width: 560px;
@@ -230,7 +230,7 @@ body {
 
 .container {
 	width: 1024px;
-	position: fixed;
+	position: relative;
 	left: 50%;
 	margin-left: -512px;
 }
@@ -340,7 +340,7 @@ body {
 	border: 1px solid #ccc
 }
 .dropdown-menu .btn:hover {
-	background: #ecbab9 !important;
+	background: #F2F2F2 !important; /*#ecbab9 !important;*/
 }
 .bg-login {
 	position: absolute;
@@ -426,9 +426,9 @@ li.menu-black {
 }
 li.menu-black:last-child a {
 	border-radius: 0 0 4px 4px;
-	text-shadow: none;
+	/*text-shadow: none;
 	background-color:#000;
-	color: #fff;
+	color: #fff;*/
 }
 .nav .bege.active a {
 	background: #e6d6c0;
@@ -618,7 +618,20 @@ nav ul li {
 	margin-top: 10px;
 }
 /*side bar*/
-.sidebar-menu1 {
+.sidebar-menu, .sidebar-menu1 {
+	box-shadow: -1px 1px 8px 1px #e0e0e0;
+	border-radius: 4px;
+	width: 180px;
+	background: #fdfeff;
+	float: right;
+	margin: 0 23px 10px 0;
+	position: relative;
+	/*overflow-y: auto;
+	max-height: 409px;*/
+	clear:both;
+}
+.sidebar-menu1 {margin-top:-7px !important;}
+/*.sidebar-menu1 {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
 	width: 180px;
@@ -628,20 +641,7 @@ nav ul li {
 	margin-right: 23px;
 	position: relative;
 	clear:both;
-}
-.sidebar-menu {
-	box-shadow: -1px 1px 8px 1px #e0e0e0;
-	border-radius: 4px;
-	width: 180px;
-	background: #fdfeff;
-	float: right;
-	margin-top: 10px;
-	margin-right: 23px;
-	position: relative;
-	/*overflow-y: auto;
-	max-height: 409px;*/
-	clear:both;
-}
+}*/
 .banner-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
@@ -664,9 +664,9 @@ nav ul li {
 	padding: 10px;
 }
 .nav-list > li.menu-black > a {
-	padding: 3px 15px;
+	/*padding: 3px 15px;
+	padding: 10px;*/
 	color: #fff;
-	padding: 10px;
 	text-shadow:none;
 }
 .nav-list li a {
@@ -689,7 +689,7 @@ nav ul li {
 	-webkit-tap-highlight-color: transparent;
 }
 .container .navbar-inner {
-	height: 66px;
+	height: 68px;
 	padding-left: 0px;
 	padding-right: 10px;
 	-webkit-border-radius: 0;
@@ -707,7 +707,7 @@ nav ul li {
 .home-scroll-content {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
-	width: 1025px;
+	width: 1024px;
 	position: fixed;
 	top: 70px;
 	bottom: 10px;
@@ -902,472 +902,6 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	/*padding-left: 8px;*/
 }
 
-
-
-
-
-/* -- CAT�LOGO -- */
-
-/*navegação no menu de linhas*/
-.nav .bege.active a {
-	background: #e6d6c0;
-	color: #333;
-	text-shadow: none;
-}
-	.nav .bege.active a:hover {
-		background: #e6d6c0;
-	}
-.nav .pink.active a {
-	background: #e2a9a8;
-	color: #333;
-	text-shadow: none;
-}
-	.nav .pink.active a:hover {
-		background: #e2a9a8;
-	}
-.nav .green.active a {
-	background: #5d9732;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .green.active a:hover {
-		background: #5d9732;
-	}
-.nav .gray.active a {
-	background: #dddddd;
-	color: #333;
-	text-shadow: none;
-}
-	.nav .gray.active a:hover {
-		background: #dddddd;
-	}
-
-/*font colors
-.color-green {
-	color: #5d9732
-}
-.color-white {
-	color: #fff
-}
-.color-black {
-	color: #333
-}
-.color-lilas {
-	color: #baa3f1
-}
-.color-bege {
-	color: #e6d6c0
-}
-.color-gray {
-	color: #dddddd
-}
-.color-gray-01 {
-	color: #dddddd
-}
-.color-gray-02 {
-	color: #aeaeae
-}
-.color-orange-01 {
-	color: #f8b661
-}
-.color-orange-02 {
-	color: #e7890e
-}
-.color-pink {
-	color: #e2a9a8
-}*/
-
-/*fundo dos títulos*/
-.bg-bege {
-	background-color: #eecfbd;
-}
-.bg-pink {
-	background: #ff11a0;
-}
-.bg-green {
-	background-color: #7ba752
-}
-.bg-light-green {
-	background-color: #abbb5e
-}
-.bg-gray {
-	background-color: #9e9e9e
-}
-.bg-dark-gray {
-	background-color: #717578
-}
-.bg-blue-gray {
-	background-color: #676d79
-}
-.bg-light-blue {
-	background-color: #7b84ad
-}
-.bg-orange {
-	background-color: #e98a6c
-}
-
-/*menu states colors
-.nav-list > .active-bege > a, .nav-list > .active-bege > a:hover, .nav-list > .active-bege > a:focus {
-	color: white;
-	text-shadow: none;
-	background-color: #e6d6c0;
-	border-bottom: 1px dotted #d5d5d5;
-}
-.nav-list > .active-green > a, .nav-list > .active-green > a:hover, .nav-list > .active-green > a:focus {
-	color: white;
-	text-shadow: none;
-	background-color: #5d9732;
-	border-bottom: 1px dotted #d5d5d5;
-}
-.nav-list > .active-orange-01 > a, .nav-list > .active-orange-01 > a:hover, .nav-list > .active-orange-01 > a:focus {
-	color: white;
-	text-shadow: none;
-	background-color: #5d9732;
-	border-bottom: 1px dotted #d5d5d5;
-}
-.nav-list > .active-orange-02 > a, .nav-list > .active-orange-02 > a:hover, .nav-list > .active-orange-02 > a:focus {
-	color: white;
-	text-shadow: none;
-	background-color: #e7890e;
-	border-bottom: 1px dotted #d5d5d5;
-}
-.nav-list > .active-gray-01 > a, .nav-list > .active-gray-01 > a:hover, .nav-list > .active-gray-01 > a:focus {
-	color: #333;
-	text-shadow: none;
-	background-color: #dddddd;
-	border-bottom: 1px dotted #d5d5d5;
-}
-.nav-list > .active-gray-02 > a, .nav-list > .active-gray-02 > a:hover, .nav-list > .active-gray-02 > a:focus {
-	color: white;
-	text-shadow: none;
-	background-color: #aeaeae;
-	border-bottom: 1px dotted #d5d5d5;
-}
-.nav-list > .active-lilas > a, .nav-list > .active-lilas > a:hover, .nav-list > .active-lilas > a:focus {
-	color: white;
-	text-shadow: none;
-	background-color: #baa3f1;
-	border-bottom: 1px dotted #d5d5d5;
-}*/
-
-/* div de cat�logo comum */
-.catalog-block {
-	display: inline-block;
-	margin: 0 0 10px 10px;
-	float: left;
-}
-	/* altura do bloco h03 */
-	.catalog-block.h03 {
-		height: 320px;
-	}	
-		/* altura do conte�do do bloco h03 */
-		.catalog-block.h03 .product-content {
-			height: 249px;
-		}		
-	/* altura do bloco h02 */
-	.catalog-block.h02 {
-		height: 210px;
-	}	
-		/* altura do conte�do do bloco h02 */
-		.catalog-block.h02 .product-content {
-			height: 139px;
-		}		
-		/* imagem do bloco h02 */
-		.catalog-block.h02 .product-image {
-			float: right;
-			padding-top: 40px;
-		}
-		/* texto do bloco h02 + w06 */
-		.catalog-block.h02.w06 .product-text {
-			width: 275px;
-		}		
-	/* largura do bloco w06 */
-	.catalog-block.w06 {
-		width: 394px;
-	}	
-		/* linha divis�ria do bloco w06 bege */
-		.catalog-block.w06.product-bg-bege .product-divider {
-			background-image: url('../images/line-gradient-products-394-bege.png');
-		}		
-		/* linha divis�ria do bloco w06 pink */
-		.catalog-block.w06.product-bg-pink .product-divider {
-			background-image: url('../images/line-gradient-products-394-pink.png');
-		}		
-		/* linha divis�ria do bloco w06 verde */
-		.catalog-block.w06.product-bg-green .product-divider {
-			background-image: url('../images/line-gradient-products-394-green.png');
-		}		
-		/* linha divis�ria do bloco w06 verde claro */
-		.catalog-block.w06.product-bg-light-green .product-divider {
-			background-image: url('../images/line-gradient-products-394-green.png');
-		}		
-		/* linha divis�ria do bloco w06 cinza */
-		.catalog-block.w06.product-bg-gray .product-divider {
-			background-image: url('../images/line-gradient-products-394-gray.png');
-		}		
-		/* linha divis�ria do bloco w06 cinza escuro */
-		.catalog-block.w06.product-bg-dark-gray .product-divider {
-			background-image: url('../images/line-gradient-products-394-gray.png');
-		}		
-		/* linha divis�ria do bloco w06 azul/cinza
-		.catalog-block.w06.product-bg-blue-gray .product-divider {
-			background-image: url('../images/line-gradient-products-394-gray.png');
-		}*/	
-		/* linha divis�ria do bloco w06 magenta escuro*/
-		.catalog-block.w06.product-bg-dark-magenta .product-divider {
-			background-image: url('../images/line-gradient-products-394-pink.png');
-		}
-		/* linha divis�ria do bloco w06 azul claro */
-		.catalog-block.w06.product-bg-light-blue .product-divider {
-			background-image: url('../images/line-gradient-products-394-lilas.png');
-		}		
-		/* linha divis�ria do bloco w06 laranja */
-		.catalog-block.w06.product-bg-orange .product-divider {
-			background-image: url('../images/line-gradient-products-394-orange.png');
-		}		
-		
-	/* largura do bloco w03 */
-	.catalog-block.w03 {
-		width: 192px;
-		float: left;
-	}		
-		/* linha divis�ria do bloco w03 bege */
-		.catalog-block.w03.product-bg-bege .product-divider {
-			background-image: url('../images/line-gradient-01-bege.png');
-		}		
-		/* linha divis�ria do bloco w03 pink */
-		.catalog-block.w03.product-bg-pink .product-divider {
-			background-image: url('../images/line-gradient-01-pink.png');
-		}		
-		/* linha divis�ria do bloco w03 verde */
-		.catalog-block.w03.product-bg-green .product-divider {
-			background-image: url('../images/line-gradient-01-green.png');
-		}		
-		/* linha divis�ria do bloco w03 verde claro */
-		.catalog-block.w03.product-bg-light-green .product-divider {
-			background-image: url('../images/line-gradient-01-green.png');
-		}		
-		/* linha divis�ria do bloco w03 cinza */
-		.catalog-block.w03.product-bg-gray .product-divider {
-			background-image: url('../images/line-gradient-01-gray.png');
-		}		
-		/* linha divis�ria do bloco w03 cinza escuro */
-		.catalog-block.w03.product-bg-dark-gray .product-divider {
-			background-image: url('../images/line-gradient-01-gray.png');
-		}		
-		/* linha divis�ria do bloco w03 azul/cinza 
-		.catalog-block.w03.product-bg-blue-gray .product-divider {
-			background-image: url('../images/line-gradient-01-gray.png');
-		}*/
-		/* linha divis�ria do bloco w03 magenta escuro */
-		.catalog-block.w03.product-bg-dark-magenta .product-divider {
-			background-image: url('../images/line-gradient-01-pink.png');
-		}		
-		/* linha divis�ria do bloco w03 azul claro */
-		.catalog-block.w03.product-bg-light-blue .product-divider {
-			background-image: url('../images/line-gradient-01-lilas.png');
-		}		
-		/* linha divis�ria do bloco w03 laranja */
-		.catalog-block.w03.product-bg-orange .product-divider {
-			background-image: url('../images/line-gradient-01-orange.png');
-		}	
-		
-		/* barra ultima oportunidade*/
-		.last-opportunity .product-divider{
-			background-image: none !important;
-			background-color: #e26666 !important;
-			color: #333 !important;
-		}		
-		
-		/* add do bloco bege */
-		.catalog-block.product-bg-bege .product-addbtn {
-			background-color: #eecfbd;
-		}		
-		/* add do bloco pink */
-		.catalog-block.product-bg-pink .product-addbtn {
-			background-color: #ff11a0;
-			background-image: url('../images/plus-w.png');
-		}		
-		/* add do bloco verde */
-		.catalog-block.product-bg-green .product-addbtn {
-			background-color: #7ba752;
-			background-image: url('../images/plus-w.png');
-		}		
-		/* add do bloco verde claro */
-		.catalog-block.product-bg-light-green .product-addbtn {
-			background-color: #abbb5e;
-			background-image: url('../images/plus-w.png');
-		}		
-		/*add do bloco cinza */
-		.catalog-block.product-bg-gray .product-addbtn {
-			background-color: #9e9e9e;
-			background-image: url('../images/plus.png');
-		}		
-		/*add do bloco cinza escuro */
-		.catalog-block.product-bg-dark-gray .product-addbtn {
-			background-color: #717578;
-			background-image: url('../images/plus-w.png');
-		}		
-		/*add do bloco azul/cinza 
-		.catalog-block.product-bg-blue-gray .product-addbtn {
-			background-color: #676d79;
-			background-image: url('../images/plus-w.png');
-		}*/
-		/*add do bloco magenta escuro*/
-		.catalog-block.product-bg-dark-magenta .product-addbtn {
-			background-color: #c93a7c;
-			background-image: url('../images/plus-w.png');
-		}
-		/*add do bloco azul claro */
-		.catalog-block.product-bg-light-blue .product-addbtn {
-			background-color: #7b84ad;
-			background-image: url('../images/plus-w.png');
-		}		
-		/*add do bloco laranja */
-		.catalog-block.product-bg-orange .product-addbtn {
-			background-color: #e98a6c;
-			background-image: url('../images/plus-w.png');
-		}		
-		
-		/* texto colorido do bloco bege */
-		.catalog-block.product-bg-bege .color-text {
-			color: #eecfbd;
-		}		
-		/* texto colorido do bloco pink */
-		.catalog-block.product-bg-pink .color-text {
-			color: #ff11a0;
-		}		
-		/* texto colorido do bloco verde */
-		.catalog-block.product-bg-green .color-text {
-			color: #7ba752;
-		}		
-		/* texto colorido do bloco verde claro */
-		.catalog-block.product-bg-light-green .color-text {
-			color: #abbb5e;
-		}		
-		/* texto colorido do bloco cinza */
-		.catalog-block.product-bg-gray .color-text {
-			color: #9e9e9e;
-		}		
-		/* texto colorido do bloco cinza escuro */
-		.catalog-block.product-bg-dark-gray .color-text {
-			color: #717578;
-		}		
-		/* texto colorido do bloco azul/cinza
-		.catalog-block.product-bg-blue-gray .color-text {
-			color: #676d79;
-		}*/	
-		/* texto colorido do bloco magenta escuro*/
-		.catalog-block.product-bg-dark-magenta .color-text {
-			color: #c93a7c;
-		}
-		/* texto colorido do bloco azul claro */
-		.catalog-block.product-bg-light-blue .color-text {
-			color: #7b84ad;
-		}		
-		/* texto colorido do bloco laranja */
-		.catalog-block.product-bg-orange .color-text {
-			color: #e98a6c;
-		}			
-		
-	/* box comum (borda, sombra, fundo) */
-	.catalog-block .box {
-		border-radius: 6px;
-		box-shadow: -1px 1px 8px 1px #e0e0e0;
-		background: #fdfeff;
-		width: 100%;
-		height: 100%;
-	}	
-	/* conte�do comum */
-	.catalog-block .product-content{
-		clear: both;
-		width: 100%;
-		overflow-y: hidden;
-	}	
-	/* footer comum */
-	.catalog-block .product-footer{
-		clear: both;
-		width: 100%;
-		height: 60px;
-	}	
-	/* imagem comum */
-	.catalog-block .product-image{
-		text-align: center;
-		padding-top: 10px;
-	}	
-	/* imagem comum */
-	.catalog-block .product-image img{
-		max-width: 90px;
-		max-height: 90px;
-	}	
-	/* t�tulo comum */
-	.catalog-block .product-title{
-		font-weight: bold;
-		padding: 10px 10px 0 10px;
-	}	
-	/* texto comum */
-	.catalog-block .product-text{
-		padding: 10px;
-		overflow: hidden;
-	}	
-	/* linha divis�ria comum */
-	.catalog-block .product-divider{
-		width: 100%;
-		height: 1px;
-		margin-top: 10px;
-	}	
-		/* last opportunity comum */
-		.catalog-block.last-opportunity .product-divider{
-			padding: 5px 0px 5px 0px;
-			text-align: center;
-			margin-top: -18px;
-			font-size: 120%;
-			height: auto;
-			clear: both;
-		}
-	/* inferior comum */
-	.catalog-block .product-bottom{
-		padding: 18px 20px 10px 20px;
-	}	
-	/* moeda comum */
-	.catalog-block .product-currency{
-		display: inline-block;
-		float: left;
-		vertical-align: bottom;
-	}	
-	/* pre�o comum */
-	.catalog-block .product-price{
-		display: inline-block;
-		float: left;
-		margin-left: 6px;
-		font-size: 18px;
-	}	
-	/* bot�o add comum */
-	.catalog-block .product-addbtn{
-		display: inline-block;
-		float: right;
-		width: 24px;
-		height: 24px;
-		background-image: url('../images/plus.png');
-		border-radius: 50%;
-		cursor: pointer;
-	}	
-	/* t�tulo do cat�logo comum */
-	.catalog-block .catalog-title{
-		text-align: center;
-		padding-top: 14px;
-		font-size: 26px;
-		height: 21px;
-	}	
-	/* imagem do cat�logo comum */
-	.catalog-block .catalog-image {
-		max-width: 223px;
-		margin: auto;
-		padding-top: 14px;
-	}
-	
-	
-	
 
 /*breadcrumbs*/
 
