@@ -24,7 +24,6 @@
                 var color = scope.line.color;
 
                 scope.style = 'bg-' + color;
-                scope.blockStyle = 'product-bg-' + color;
                 
                 var filter = {
                         line: scope.line.name,

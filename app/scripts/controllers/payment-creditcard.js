@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.payment.creditcard', [
         'tnt.catalog.service.data', 'tnt.catalog.service.payment'
-    ]).controller('PaymentCreditCardCtrl', function($scope, $element, $filter, DataProvider, PaymentService) {
+    ]).controller('PaymentCreditCardCtrl', function($scope, $element, $filter, DataProvider, PaymentService, GoPayService) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -39,13 +39,15 @@
             if (!newCreditCard.amount || newCreditCard.amount === 0) {
                 return;
             }
+            
             // check if the all mandatory fields are filed.
             if ($scope.creditCardForm.$valid) {
                 // check if is duplicated.
-                var payment = PaymentService.createNew('creditcard');
-                payment.amount = newCreditCard.amount;
+                GoPayService.pay(newCreditCard.amount, 'MaryKay pedido 123');
+//                var payment = PaymentService.createNew('creditcard');
+//                payment.amount = newCreditCard.amount;
                 delete newCreditCard.amount;
-                payment.data = angular.copy(newCreditCard);
+//                payment.data = angular.copy(newCreditCard);
                 $scope.creditCardForm.$pristine = true;
                 $scope.creditCardForm.$dirty = false;
                 $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
