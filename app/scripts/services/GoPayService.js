@@ -3,13 +3,6 @@
 
     angular.module('tnt.catalog.gopay.integration', ['tnt.catalog.service.data']).service('GoPayService', function GoPayService($log, $q, DataProvider) {
 
-        document.addEventListener('deviceready', function(){
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>oh');
-        }, false);
-        
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>ouch');
-        
-        
         if (!angular.isDefined(window.webintent)) {
             $log.warn('WebIntent is not loaded!');
 
