@@ -8,14 +8,14 @@
 
 		<div class="home-scroll-content" id="scrollContainer">
             <div class="row-fluid" id="{{'cat' + $index}}" ng-repeat="line in lines">
-			     <catalog-section line="line" section="selectedSession"></catalog-section>
+			     <catalog-section line="line" section="selectedSection"></catalog-section>
             </div>
 		</div>
 		
 		<div class="sidebar-menu1">
 			<ul class="nav nav-list nav-list-black">
-				<li class="menu-black" ng-repeat="session in sessions" ng-class="{selected: selectedSession == session}" ng-click="selectSession(session)">
-					<a class="hover-state-pointer">{{session}}</a>
+				<li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+					<a class="hover-state-pointer">{{section}}</a>
 				</li>
 			</ul>
 

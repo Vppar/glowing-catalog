@@ -21,8 +21,6 @@
             },
             link : function postLink(scope, element, attrs) {
 
-                scope.lines = DataProvider.lines;
-
                 var color = scope.line.color;
 
                 scope.style = 'bg-' + color;
