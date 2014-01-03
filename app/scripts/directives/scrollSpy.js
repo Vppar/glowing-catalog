@@ -12,6 +12,12 @@
                         this.addSpy = function(spyObj) {
                             $scope.spies.unshift(spyObj);
                         };
+                        
+                        this.delSpy = function(spyObj) {
+                            var ix = $scope.spies.indexOf(spyObj);
+                            
+                            $scope.spies.splice(ix, 1);
+                        };
 
                         this.batata = function(id) {
                             $scope.scrollTo = id;
@@ -21,14 +27,13 @@
                     link : function(scope, elem) {
                         var spyElems = [];
                         var container = elem.find('#scrollContainer');
-                        scope.$watch('spies', function(spies) {
+                        scope.$watch('spies.length', function(spies) {
                             for ( var ix in spies) {
                                 var spy = spies[ix];
-                                if (!spyElems[spy.id]) {
-                                    spyElems[spy.id] = elem.find('#' + spy.id);
-                                }
+                                spyElems[spy.id] = elem.find('#' + spy.id);
                             }
-                        }, true);
+                            console.log(scope.spies.length);
+                        });
 
                         scope.$watch('scrollTo', function(id) {
                             if (id) {
