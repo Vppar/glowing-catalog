@@ -9,11 +9,29 @@
                     restrict : 'A',
                     controller : function($scope) {
                         $scope.spies = [];
+                        $scope.anchors = [];
+                        
                         this.addSpy = function(spyObj) {
                             $scope.spies.unshift(spyObj);
                         };
 
-                        this.batata = function(id) {
+                        this.delSpy = function(spyObj) {
+                            var ix = $scope.spies.indexOf(spyObj);
+
+                            $scope.spies.splice(ix, 1);
+                        };
+                        
+                        this.addAnchor = function(anchorObj) {
+                            $scope.anchors.unshift(anchorObj);
+                        };
+
+                        this.delAnchor = function(anchorObj) {
+                            var ix = $scope.anchors.indexOf(anchorObj);
+
+                            $scope.anchors.splice(ix, 1);
+                        };
+
+                        this.scroll = function(id) {
                             $scope.scrollTo = id;
                             $scope.$apply();
                         };
@@ -21,12 +39,13 @@
                     link : function(scope, elem) {
                         var spyElems = [];
                         var container = elem.find('#scrollContainer');
-                        scope.$watch('spies', function(spies) {
-                            for ( var ix in spies) {
-                                var spy = spies[ix];
-                                if (!spyElems[spy.id]) {
-                                    spyElems[spy.id] = elem.find('#' + spy.id);
-                                }
+                        scope.$watch('anchors', function(anchors) {
+                            
+                            spyElems.splice(0, spyElems.length);
+                            
+                            for ( var ix in anchors) {
+                                var anchor = anchors[ix];
+                                spyElems[anchor.id] = elem.find('#' + anchor.id);
                             }
                         }, true);
 

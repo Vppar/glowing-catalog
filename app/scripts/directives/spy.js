@@ -5,9 +5,12 @@ angular.module('glowingCatalogApp').directive('spy', function() {
         restrict : 'A',
         require : '^scrollSpy',
         link : function(scope, elem, attrs, ctrl) {
-            
-            attrs.$observe('spy', function(val){
-                ctrl.addSpy({
+
+            var spyObj = {};
+
+            attrs.$observe('spy', function(val) {
+
+                spyObj = {
                     id : val,
                     'in' : function() {
                         return elem.addClass('active');
@@ -15,15 +18,21 @@ angular.module('glowingCatalogApp').directive('spy', function() {
                     out : function() {
                         return elem.removeClass('active');
                     }
-                });
-                
-                if(val == 'cat0'){
+                };
+
+                ctrl.addSpy(spyObj);
+
+                if (val == 'cat0') {
                     elem.addClass('active');
                 }
             });
-            
-            elem.bind('click', function(){
-                ctrl.batata(attrs.spy);
+
+            scope.$on('$destroy', function() {
+                ctrl.delSpy(spyObj);
+            });
+
+            elem.bind('click', function() {
+                ctrl.scroll(attrs.spy);
             });
         }
     };

@@ -1,9 +1,9 @@
-(function(angular, webintent) {
+(function(angular, window) {
     'use strict';
 
     angular.module('tnt.catalog.gopay.integration', ['tnt.catalog.service.data']).service('GoPayService', function GoPayService($log, $q, DataProvider) {
 
-        if (!angular.isDefined(webintent)) {
+        if (!angular.isDefined(window.webintent)) {
             $log.warn('WebIntent is not loaded!');
 
             this.pay = function() {
@@ -22,6 +22,8 @@
             };
 
             return;
+        } else {
+            var webintent = window.webintent;
         }
 
         this.pay = function(amount, description) {
@@ -99,4 +101,4 @@
         GoPayService.listen();
     });
 
-})(angular, window.webintent);
+})(angular, window);
