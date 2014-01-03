@@ -14,20 +14,25 @@
         return {
             templateUrl : templateUrl,
             restrict : 'E',
+            replace: true,
             scope : {
-                line : '='
+                line : '=',
+                section: '='
             },
             link : function postLink(scope, element, attrs) {
-
-                scope.lines = DataProvider.lines;
 
                 var color = scope.line.color;
 
                 scope.style = 'bg-' + color;
                 scope.blockStyle = 'product-bg-' + color;
+                
+                var filter = {
+                        line: scope.line.name,
+                        session: scope.section
+                };
 
-                var lineUp = ArrayUtils.find(DataProvider.products, 'line', scope.line.name);
-
+                var lineUp = ArrayUtils.filter(DataProvider.products, filter);
+                
                 for ( var ix in lineUp) {
                     var product = lineUp[ix];
 

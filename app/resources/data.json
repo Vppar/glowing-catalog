@@ -287,27 +287,27 @@
     "lines": [
 	    {
 	        "name": "Perfumes",
-	        "color": "light-blue"
+	        "color": "orange"
 	    },
 	    {
 	        "name": "Maquiagem",
-	        "color": "green"
+	        "color": "dark-magenta"
 	    },
 	    {
 	        "name": "Zen in Bloom",
-	        "color": "green"
+	        "color": "dark-magenta"
 	    },
 	    {
 	        "name": "Hollywood Mystique",
-	        "color": "green"
+	        "color": "dark-magenta"
 	    },
 	    {
 	        "name": "Acessórios",
-	        "color": "green"
+	        "color": "dark-magenta"
 	    },
 	    {
 	        "name": "TimeWise",
-	        "color": "bege"
+	        "color": "pink"
 	    },
 	    {
 	        "name": "TimeWise Repair",
@@ -335,15 +335,15 @@
 	    },
 	    {
 	        "name": "Cuidados Personalizados",
-	        "color": "green"
+	        "color": "pink"
 	    },
 	    {
 	        "name": "Cuidados com o Corpo",
-	        "color": "green"
+	        "color": "light-green"
 	    },
 	    {
 	        "name": "Solar",
-	        "color": "green"
+	        "color": "pink"
 	    },
 	    {
 	        "name": "MK at Play",

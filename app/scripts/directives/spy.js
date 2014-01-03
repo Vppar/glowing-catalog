@@ -16,8 +16,11 @@ angular.module('glowingCatalogApp').directive('spy', function() {
                         return elem.removeClass('active');
                     }
                 });
+                
+                if(val == 'cat0'){
+                    elem.addClass('active');
+                }
             });
-            
             
             elem.bind('click', function(){
                 ctrl.batata(attrs.spy);

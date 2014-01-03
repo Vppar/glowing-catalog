@@ -32,7 +32,7 @@
 
                         scope.$watch('scrollTo', function(id) {
                             if (id) {
-                                var pos = elem.find('#' + id).offset().top - 80 + container.scrollTop();
+                                var pos = elem.find('#' + id).offset().top - 70 + container.scrollTop();
                                 container.scrollTop(pos);
                             }
                         });
