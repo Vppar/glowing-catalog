@@ -32,7 +32,7 @@ angular.module('glowingCatalogApp').directive('spy', function() {
             });
 
             elem.bind('click', function() {
-                ctrl.batata(attrs.spy);
+                ctrl.scroll(attrs.spy);
             });
         }
     };
