@@ -20,7 +20,7 @@
             templateUrl : templateUrl,
             link : function postLink(scope, element, attr) {
 
-                var min, max, value, input = element.find('input');
+                var min, max, value, qty = element.find('.qty');
 
                 scope.$watch('min', function() {
                     if (!scope.min || scope.min === '') {
@@ -45,7 +45,7 @@
                 value = scope.value;
 
                 function propagate() {
-                    input.val(value);
+                    qty.html(value);
                     scope.$apply('value = ' + value);
                 }
                 setTimeout(propagate, 0);
