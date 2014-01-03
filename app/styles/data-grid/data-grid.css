@@ -158,13 +158,13 @@
 	width: 270px;
 }
 .grid-input-products .header2 .col-1 div {
-	margin-left: 40px
+	margin-left: 40px;
 }
 .grid-input-products .header2 .col-2 {
-	width: 80px
+	width: 80px;
 }
 .grid-input-products .header2 .col-2 div {
-	text-align: center
+	text-align: center;
 }
 .grid-input-products .header2 .col-3 {
 	width: 77px;
@@ -192,35 +192,39 @@ div.scroll-input-products-grid2 { height:230px; overflow-y:scroll;}
 	vertical-align: middle;
 	padding: 10px 15px;
 }
-.scroll-input-products-grid2 .col-1 img { max-height:48px; display:inline-block;}
+.scroll-input-products-grid2 .col-1 img { 
+	max-height:48px; 
+	display:inline-block;
+}
 .scroll-input-products-grid2 .col-2 {
-	width: 60px;
+	width: 62px;
 	display: inline-block;
 }
 .scroll-input-products-grid2 .col-2 div {
-	text-align: center
+	text-align: center;
+	vertical-align: middle;
 }
-.scroll-input-products-grid2 .col-3 {
+.scroll-input-products-grid2 .col-3 { 
 	width: 77px;
 	display: inline-block;
 	vertical-align: middle;
 	margin-left:10px;
 }
 .scroll-input-products-grid2 .col-3 div {
-	text-align: center
+	text-align: center;
+	vertical-align: middle;
 }
 .scroll-input-products-grid2 .col-4 {
-	width: 77px;
+	width: 94px;
 	display: inline-block;
 	vertical-align: middle;
-	margin-left:10px;
+	/*margin-left:10px;*/
 }
 .scroll-input-products-grid2 .col-4 div {
 	text-align: center
 }
 div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px solid #EFEFEF; }
 
-.scroll-input-products-grid2 .row-input-products-grid span.col-4 div {width:40px; float:left;}
 /*=============== END INPUT PRODUCTS =====================*/
 
 /*=============== PAYMENT CHECK =====================*/

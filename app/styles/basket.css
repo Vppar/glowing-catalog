@@ -93,12 +93,12 @@
 	padding: 20px 0 20px 0;
 }
 
-.form-add-to-basket .wrapper-qtde {
+/*.form-add-to-basket .wrapper-qtde {
 	float: right;
 	margin: 30px;
-}
+}*******************************************************************************************/
 .form-add-to-basket {
-	width: 360px;
+	/*width: 360px;*************************************************************************/
 	padding: 40px 30px 30px 30px;
 	border-radius: 0 0 4px 4px;
 	box-shadow: 0px 10px 50px 10px #999;
@@ -106,7 +106,7 @@
 	position: absolute;
 	left: 50%;
 	top: 111px;
-	margin-left: -180px
+	/*margin-left: -180px*******************************************************************/
 }
 .total-basket-popup-big { width:160px; margin:0 auto;}
 .txt-row-price {
@@ -201,6 +201,14 @@
 	line-height:35px;
 	text-align: center;
     display: inline-block;
+}
+.row-input-products-grid .ic-arrow-left, .row-input-products-grid .ic-arrow-right{
+	width:18px;
+	height:44px;
+}
+.row-input-products-grid .qty{
+	width:40px;
+	height:44px;
 }
 .ic-arrow-left2 {
 	float: left;
