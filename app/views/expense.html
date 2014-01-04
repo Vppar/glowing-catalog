@@ -41,8 +41,8 @@
 			</div>
 		
             <div ng-switch on="selectedexpenseMode">
-				<span ng-switch-when="read" ng-include src="'views/parts/expense/expense-read.html'"></span>
-				<span ng-switch-when="write" ng-include src="'views/parts/expense/expense-write.html'"></span>
+				<span ng-switch-when="read"><span ng-include src="'views/parts/expense/expense-read.html'"></span></span>
+				<span ng-switch-when="write"><span ng-include src="'views/parts/expense/expense-write.html'"></span></span>
 			</div>
 			
 		</div>
