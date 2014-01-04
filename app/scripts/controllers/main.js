@@ -9,7 +9,7 @@
         });
         
         $scope.$watch('selectedSection', function(val){
-            var products = ArrayUtils.find(DataProvider.products, 'session', val);
+            var products = ArrayUtils.filter(DataProvider.products, {session: val});
             var lines = ArrayUtils.distinct(products, 'line');
             $scope.lines = ArrayUtils.isIn(DataProvider.lines, 'name', lines);
         });
