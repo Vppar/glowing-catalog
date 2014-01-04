@@ -1,4 +1,8 @@
 /* -- CAT�LOGO -- */
+/*font colors
+.green {
+	color: #5d9732;
+}*/
 
 /*navegação no menu de linhas*/
 .nav .bege.active a {
@@ -6,33 +10,63 @@
 	color: #333;
 	text-shadow: none;
 }
-	.nav .bege.active a:hover {
-		background: #e6d6c0;
-	}
+	.nav .bege.active a:hover {background: #e6d6c0;}
+	
 .nav .pink.active a {
-	background: #e2a9a8;
-	color: #333;
+	background: #ff11a0;
+	color: #fff;
 	text-shadow: none;
 }
-	.nav .pink.active a:hover {
-		background: #e2a9a8;
-	}
+	.nav .pink.active a:hover {background: #ff11a0;}
+	
 .nav .green.active a {
 	background: #5d9732;
 	color: #fff;
 	text-shadow: none;
 }
-	.nav .green.active a:hover {
-		background: #5d9732;
-	}
-.nav .gray.active a {
-	background: #dddddd;
-	color: #333;
+	.nav .green.active a:hover {background: #5d9732;}
+	
+.nav .light-green.active a {
+	background: #abbb5e;
+	color: #fff;
 	text-shadow: none;
 }
-	.nav .gray.active a:hover {
-		background: #dddddd;
-	}
+	.nav .green.active a:hover {background: #abbb5e;}
+	
+.nav .gray.active a {
+	background: #9e9e9e;
+	color: #fff;
+	text-shadow: none;
+}
+	.nav .gray.active a:hover {background: #9e9e9e;}
+	
+.nav .dark-gray.active a {
+	background: #717578;
+	color: #fff;
+	text-shadow: none;
+}
+	.nav .dark-gray.active a:hover {background: #717578;}
+
+.nav .dark-magenta.active a {
+	background: #c93a7c;
+	color: #fff;
+	text-shadow: none;
+}
+	.nav .dark-magenta.active a:hover {background: #c93a7c;}
+
+.nav .light-blue.active a {
+	background: #7b84ad;
+	color: #fff;
+	text-shadow: none;
+}
+	.nav .light-blue.active a:hover {background: #7b84ad;}
+
+.nav .orange.active a {
+	background: #e98a6c;
+	color: #fff;
+	text-shadow: none;
+}
+	.nav .orange.active a:hover {background: #e98a6c;}
 
 /*font colors*/
 .color-white {
@@ -74,7 +108,7 @@
 	background-color: #eecfbd;
 }
 .bg-pink {
-	background: #ff11a0;
+	background-color: #ff11a0;
 }
 .bg-green {
 	background-color: #7ba752

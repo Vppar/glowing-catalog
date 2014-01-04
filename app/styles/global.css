@@ -39,7 +39,6 @@ input[type=number]::-webkit-outer-spin-button {
 .nav li:first-child.active a {
 	border-radius: 4px 4px 0 0;
 	text-shadow: none;
-	color: #333;
 }
 .nav-list-black li.selected  {
 	list-style-image:url(../images/cat-li-menu.png);
@@ -57,7 +56,6 @@ li.menu-black:last-child a:hover {
 .nav li:last-child.active a {
 	border-radius: 0 0 4px 4px;
 	text-shadow: none;
-	color: #333;
 }
 	
 .last-first-menu { margin-right:50px; }
@@ -406,11 +404,7 @@ li.menu-black:first-child a {
 	background-color:#000;
 	color: #fff;*/
 }
-.nav .bege.active a {
-	background: #e6d6c0;
-	color: #333;
-	text-shadow: none;
-}
+
 .header-hour {	margin:0 0 0 16px !important; }
 .header-hour div{
 	font-size:18px;
@@ -565,10 +559,6 @@ nav ul li {
 .col-right .img-catalog-02 img {
 	max-width: 90px;
 	max-height: 90px;
-}
-/*font colors*/
-.green {
-	color: #5d9732;
 }
 
 /*title*/
@@ -935,7 +925,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 }
 
 .btn-option:hover, .btn-option:active, .active {
-	color: #333 !important;
+	color: #333;
 	background: none !important;
 	background-color: #ebebeb !important;
 	border-color: #adadad !important;
