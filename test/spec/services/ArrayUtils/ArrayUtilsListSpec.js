@@ -12,7 +12,7 @@ describe('Service: ArrayUtils', function() {
     }));
 
     // FIXME do some more tests
-    it('should find', function() {
+    it('should list', function() {
         var sample = [];
 
         sample.push({
@@ -29,10 +29,10 @@ describe('Service: ArrayUtils', function() {
             lala : 'e'
         });
         
-        expect(ArrayUtils.find(sample, 'lala', 'd').length).toBe(1);
+        expect(ArrayUtils.list(sample, 'lala', 'd').length).toBe(1);
     });
     
-    it('should find 2', function() {
+    it('should list 2', function() {
         var sample = [];
 
         sample.push({
@@ -49,10 +49,10 @@ describe('Service: ArrayUtils', function() {
             lala : 'e'
         });
         
-        expect(ArrayUtils.find(sample, 'lala', 'e').length).toBe(2);
+        expect(ArrayUtils.list(sample, 'lala', 'e').length).toBe(2);
     });
     
-    it('should find 2', function() {
+    it('should list 3', function() {
         var sample = [];
 
         sample.push({
@@ -69,7 +69,7 @@ describe('Service: ArrayUtils', function() {
             lala : 'e'
         });
         
-        expect(ArrayUtils.find(sample, 'bazinga', 'e').length).toBe(0);
+        expect(ArrayUtils.list(sample, 'bazinga', 'e').length).toBe(0);
     });
 
 });

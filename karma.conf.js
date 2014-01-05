@@ -14,6 +14,7 @@ module.exports = function(config) {
       'app/bower_components/jquery/jquery.js',
       'app/bower_components/angular/angular.js',
       'app/bower_components/angular-i18n/angular-locale_pt-br.js',
+      'app/bower_components/angular-route/angular-route.js',
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'app/bower_components/bootstrap-sass/js/bootstrap-affix.js',

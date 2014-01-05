@@ -1,10 +1,5 @@
 <!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
     <head>
         <meta charset="UTF-8" />
         <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -42,13 +37,8 @@
         
     </head>
     <body ng-app="glowingCatalogApp">
-        <!--[if lt IE 7]>
-    	      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    	    <![endif]-->
-    
         <!--[if lt IE 9]>
-    	      <script src="bower_components/es5-shim/es5-shim.js"></script>
-    	      <script src="bower_components/json3/lib/json3.min.js"></script>
+    	      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     	    <![endif]-->
     
         <!-- Add your site or application content here -->
@@ -153,7 +143,9 @@
         <script src="components/catalog-section/catalogSection.js"></script>
         <script src="components/highlight-display/highlightDisplay.js"></script>
         <script src="scripts/directives/anchor.js"></script>
+        <script src="scripts/services/RandomData.js"></script>
+        <script src="scripts/services/InventoryKeeper.js"></script>
+        <script src="scripts/services/Replayer.js"></script>
         <!-- endbuild -->
-    
     </body>
 </html>

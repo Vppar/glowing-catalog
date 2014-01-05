@@ -34,6 +34,21 @@
             }
             return response;
         };
+        
+        this.find = function(array, property, value) {
+
+            var response = this.list(array, property, value);
+
+            if(response.length === 1){
+                response = response[0];
+            } else if(response.length === 0){
+                response = null;
+            } else {
+                throw 'find returned '+response.length+' results, a maximum of one expected';
+            }
+            
+            return response;
+        };
 
         /**
          * <pre>
@@ -128,7 +143,7 @@
             var response = array;
 
             for ( var keyName in filter) {
-                response = this.find(response, keyName, filter[keyName]);
+                response = this.list(response, keyName, filter[keyName]);
             }
 
             return response;

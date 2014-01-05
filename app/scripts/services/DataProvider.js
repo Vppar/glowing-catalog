@@ -1,5 +1,9 @@
 (function(angular) {
     'use strict';
+    
+    /**
+     * Providing data since... ever.
+     */
     angular.module('tnt.catalog.service.data', []).service('DataProvider', function DataProvider($http, $rootScope) {
 
         var scope = this;
