@@ -19,7 +19,7 @@ var initMagnifier = function () {
 									<span class="col-1"><img src="images/catalog/samples/color-1.png" alt="sample" /><div>{{item.option}}</div></span>
                                     <span class="col-2"><div>{{item.inventory}}</div></span>
                                     <span class="col-3"><div>{{product.price | currency:''}}</div></span>
-                                    <span class="col-4"><input-qty ng-model="qty" min="0"></input-qty></span>
+                                    <span class="col-4"><input-qty ng-model="item.qty" min="0"></input-qty></span>
 								</div>
 							</div>
 						</div>
