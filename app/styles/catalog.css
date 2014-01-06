@@ -502,12 +502,14 @@
 }
 .best-sellers-title{
 	display: block;
-	width: 798px;
+	width: 565px;
 	margin:13px 0 13px 0;
 	font-size: 25px;
 	line-height:40px;
 	z-index:99;
 	letter-spacing: 5px;
+	background: transparent url(../images/catalog/best-sellers/best-sellers.png) no-repeat top right;
+	background-size:85px 84px;
 }
 .big{font-size: 40px; line-height:40px;}
 .bold{font-weight: bold;}
