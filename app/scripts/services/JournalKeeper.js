@@ -18,10 +18,10 @@
             ix : [],
         };
 
-        var service = function svc(sequence, stamp, type, version, entry) {
+        var service = function svc(sequence, stamp, type, version, event) {
 
             if (arguments.length != svc.length) {
-                throw 'JournalEntry must be initialized with sequence, stamp, type, version and entry';
+                throw 'JournalEntry must be initialized with sequence, stamp, type, version and event';
             }
 
             ObjectUtils.ro(this, 'sequence', sequence);
