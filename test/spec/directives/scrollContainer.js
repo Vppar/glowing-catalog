@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: anchor', function () {
+xdescribe('Directive: scrollContainer', function () {
 
   // load the directive's module
   beforeEach(module('glowingCatalogApp'));
@@ -13,8 +13,8 @@ describe('Directive: anchor', function () {
   }));
 
   it('should make hidden element visible', inject(function ($compile) {
-    element = angular.element('<anchor></anchor>');
+    element = angular.element('<scroll-container></scroll-container>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the anchor directive');
+    expect(element.text()).toBe('this is the scrollContainer directive');
   }));
 });

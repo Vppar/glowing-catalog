@@ -12,6 +12,10 @@
         
         var grid = product.gridList;
         
+        for(var ix in grid){
+            grid[ix].qty = 0;
+        }
+        
         var index = $filter('count')(OrderService.order.items, 'qty') - 1;
         $scope.product = product;
         $scope.qty = product.qty;
