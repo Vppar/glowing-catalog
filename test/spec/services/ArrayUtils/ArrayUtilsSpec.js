@@ -13,9 +13,7 @@ describe('Service: ArrayUtils', function() {
 
     // FIXME do some more tests
     it('should filter', function() {
-        var sample = ['id', 'name', 'lala'];
-
-        sample.push({
+        var sample = [{
             id : 5,
             name : 'a',
             lala : 'd'
@@ -27,15 +25,16 @@ describe('Service: ArrayUtils', function() {
             id : 5,
             name : 'c',
             lala : 'e'
-        });
-        
-        expect(ArrayUtils.filter(sample, {id: 5, lala: 'd'}).length).toBe(1);
+        }];
+
+        expect(ArrayUtils.filter(sample, {
+            id : 5,
+            lala : 'd'
+        }).length).toBe(1);
     });
-    
+
     it('should filter 2', function() {
-        var sample = ['id', 'name', 'lala'];
-
-        sample.push({
+        var sample = [{
             id : 5,
             name : 'a',
             lala : 'd'
@@ -47,9 +46,11 @@ describe('Service: ArrayUtils', function() {
             id : 5,
             name : 'c',
             lala : 'e'
-        });
-        
-        expect(ArrayUtils.filter(sample, {id: 5, lala: 'e'}).length).toBe(2);
-    });
+        }];
 
+        expect(ArrayUtils.filter(sample, {
+            id : 5,
+            lala : 'e'
+        }).length).toBe(2);
+    });
 });
