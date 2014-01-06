@@ -71,5 +71,32 @@ describe('Service: ArrayUtils', function() {
         
         expect(ArrayUtils.list(sample, 'bazinga', 'e').length).toBe(0);
     });
+    
+    it('should list 4', function() {
+        // given
+        var expected = [
+            {
+                property : 'valor',
+                property1 : 'etc1',
+                property2 : 'etc22'
+            }
+        ];
+        var array = [
+           {
+            property : 'valor',
+            property1 : 'etc1',
+            property2 : 'etc22'
+        }, {
+            property : 'valor0',
+            property1 : 'valor1',
+            property2 : 'valor2'
+        }];
+        var property = 'property';
+        var value = 'valor';
+        // when
+        var response = ArrayUtils.list(array, property, value);
+        // then
+        expect(expected).toEqual(response);
+    });
 
 });
