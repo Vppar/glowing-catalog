@@ -28,7 +28,7 @@
         this.registerHandlers = function(handlers) {
             
             for(var name in handlers){
-                handler = handlers[name];
+                var handler = handlers[name];
                 if (angular.isFunction(handler)) {
                     eventHandlers[name] = handler;
                 } else {
