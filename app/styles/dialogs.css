@@ -13,7 +13,7 @@
 	font-family: "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
 	letter-spacing:-1px;
 	text-align:center;
-	min-width:404px;
+	/*min-width:404px;*/
 }
 .form-confirmation-dialog, 
 .form-add-email,
@@ -23,6 +23,7 @@
 .form-choose-customer,
 .form-delivery-details-modal,
 .form-input-products,
+.form-input-receivable-dialog,
 .form-payment-credit-card,
 .form-payment-advance-money,
 .form-payment-check,
@@ -46,11 +47,14 @@
 	font-size: 19px;
 	text-align: center;
 	color: #333;
-	padding-left: 12px;
 	margin-bottom: 20px;
-	width: 120px;
+	/*padding-left: 12px;
+	width: 120px;*/
 }
 .label-input-qtde {
+	width:auto;
+	text-align: center;
+	display: block;
 	margin:2px 0 10px 0;
 }
 .price-popup-sub {
@@ -66,7 +70,7 @@
 	font-size:14px;
 }
 .line-gradient {
-	width:150px;
+	/*width:150px;*/
 	height:1px;
 	display:block;
 	background: #eee;
@@ -80,7 +84,7 @@
 	margin:33px auto 5px auto;
 }
 .quantity-products-basket {
-	width:150px;
+	width:auto;
 	color:#999 !important;
 	font-size:16px;
 	text-align:center;
@@ -171,6 +175,11 @@ span.zoom {margin:20px 0;}
 	text-shadow: none;
 	border: none;
 	height: 30px
+}
+
+.form-input-receivable-dialog {
+	width: 340px;
+	margin-left: -266px
 }
 
 /*input products*/

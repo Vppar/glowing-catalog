@@ -9,12 +9,12 @@
 	<div class="container-payment">
 		<div class="row-fluid">			
 			<div class="span8" ng-switch on="selectedPaymentMethod">
-				<span ng-switch-when="none" ng-include src="'views/parts/payment/payment-left-order.html'"></span>
-				<span ng-switch-when="money" ng-include src="'views/parts/payment/payment-left-order.html'"></span>
-				<span ng-switch-when="check" ng-include src="'views/parts/payment/payment-left-check.html'"></span>
-				<span ng-switch-when="creditcard" ng-include src="'views/parts/payment/payment-left-credit-card.html'"></span>
-				<span ng-switch-when="exchange" ng-include src="'views/parts/payment/payment-left-exchange.html'"></span>
-				<span ng-switch-when="voucher" ng-include src="'views/parts/payment/payment-left-voucher.html'"></span>
+				<span ng-switch-when="none"><span ng-include src="'views/parts/payment/payment-left-order.html'"></span></span>
+				<span ng-switch-when="money"><span ng-include src="'views/parts/payment/payment-left-order.html'"></span></span>
+				<span ng-switch-when="check"><span ng-include src="'views/parts/payment/payment-left-check.html'"></span></span>
+				<span ng-switch-when="creditcard"><span ng-include src="'views/parts/payment/payment-left-credit-card.html'"></span></span>
+				<span ng-switch-when="exchange"><span ng-include src="'views/parts/payment/payment-left-exchange.html'"></span></span>
+				<span ng-switch-when="voucher"><span ng-include src="'views/parts/payment/payment-left-voucher.html'"></span></span>
 			</div>
 			
 			<div class="span4 col-payment-right">

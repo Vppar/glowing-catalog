@@ -3,14 +3,24 @@
 
     angular.module('tnt.catalog.basket.add', [
         'tnt.catalog.service.data'
-    ]).controller('AddToBasketDialogCtrl', function($scope, $filter, $q, dialog, OrderService) {
+    ]).controller('AddToBasketDialogCtrl', function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils) {
 
         // Find the product and make a copy to the local scope.
         var product = $filter('findBy')(OrderService.order.items, 'id', dialog.data.id);
+        
+        //var grid = ArrayUtils.innerJoin(product.gridList, DataProvider.inventory, 'SKU');
+        
+        var grid = product.gridList;
+        
+        for(var ix in grid){
+            grid[ix].qty = 0;
+        }
+        
         var index = $filter('count')(OrderService.order.items, 'qty') - 1;
         $scope.product = product;
         $scope.qty = product.qty;
-
+        $scope.grid = grid;
+        
         /**
          * Closes the dialog telling the caller to add the product to the
          * basket.

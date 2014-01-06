@@ -5,7 +5,6 @@
 	border: 1px solid #e0e0e0;
 	background: #fff;
 	padding: 10px 15px 0 15px;
-	position: fixed;
 	width: 970px;
 	display: block;
 	position: relative;
@@ -125,7 +124,7 @@
 
 .btns-details-order-list-item{ 
 	display:inline-block;
-	margin: 0 0 0 63px;
+	/*margin: 0 0 0 63px;*/
 }
 
 .marginl7 {
@@ -138,35 +137,6 @@
 
 .marginl93{
 	margin-left: 93px !important;
-}
-
-.menu-level{	
-	margin: 0 !important;
-	padding: 0 !important;
-	margin-left: 50px !important;
-}
-
-.btns-details-order-list-item .btn{	
-	margin-top:-10px;
-}
-
-.btn-option {
-	color: #333 !important;
-	background: none !important;
-	background-color: #fff !important;
-	border-color: #adadad;
-	text-shadow: none;
-	outline: 0;
-	border: 1px solid #cccccc;
-}
-
-.btn-option:hover, .btn-option:active, .active {
-	color: #333 !important;
-	background: none !important;
-	background-color: #ebebeb !important;
-	border-color: #adadad !important;
-	-webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
-	box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
 }
 
 /*.order-list-btns {

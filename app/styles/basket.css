@@ -75,7 +75,38 @@
 	display: inline-block;
 	width: 120px;
 	float:right;
-	margin-right:20px;
+	/*margin-right:20px;*/
+}
+
+.total-price-add-to-basket {
+	width: 125px;
+}
+/*.price-add-to-basket {
+	font-size: 24px;
+	text-align: center;
+	color: #b77a78;
+	padding-left: 12px;
+	margin-bottom: 10px;
+	width: 100px;
+}*/
+.form-add-to-basket .line-gradient-01 {
+	padding: 20px 0 20px 0;
+}
+
+/*.form-add-to-basket .wrapper-qtde {
+	float: right;
+	margin: 30px;
+}*/
+.form-add-to-basket {
+	/*width: 360px;*/
+	padding: 40px 30px 30px 30px;
+	border-radius: 0 0 4px 4px;
+	box-shadow: 0px 10px 50px 10px #999;
+	background: #fff;
+	position: absolute;
+	left: 50%;
+	top: 111px;
+	/*margin-left: -180px*/
 }
 .total-basket-popup-big { width:160px; margin:0 auto;}
 .txt-row-price {
@@ -94,8 +125,7 @@
 }
 .input-qty {
 	display:block;
-	width: 125px;
-    margin:auto;
+	width: auto;
 }
 .txt-row-status {
 	width: 120px;
@@ -149,16 +179,16 @@
 	-webkit-overflow-scrolling: touch;
 }
 
-.label-input div:first-child {
+/*.label-input div:first-child {
 	display: block;
 	text-align: center;
 }
 .input-qty2 {
 	margin:0 0 0 12px;
-}
+}*/
 .label-input {
 	display: inline-block;
-	margin: 0 0 0 20px
+	/*margin: 0 0 0 20px*/
 }
 .title-row-cart {
 	font-weight: bold;
@@ -166,16 +196,29 @@
     width:400px;
 }
 .ic-arrow-left {
-	float: left;
-	margin: 34px 0 0 0;
+	width:37.5px;
+	height:35px;
+	line-height:35px;
+	text-align: center;
+    display: inline-block;
+}
+.row-input-products-grid .ic-arrow-left, .row-input-products-grid .ic-arrow-right{
+	width:18px;
+	height:44px;
+}
+.row-input-products-grid .qty{
+	width:40px;
+	height:44px;
 }
 .ic-arrow-left2 {
 	float: left;
 }
 .ic-arrow-right {
-	float: right;
-	margin: 34px 0 0 0;
-	position:relative;
+	width:37.5px;
+	height:35px;
+	line-height:35px;
+	text-align: center;
+    display: inline-block;
 }
 .ic-arrow-right2 {
 	float: right;
@@ -184,10 +227,15 @@
 .ic-arrow-left:hover, .ic-arrow-right:hover, .img-row-delete:hover {
 	cursor:pointer
 }
-.input-row-qtde-cart input {
-	width: 33px;
+.qty{/*.input-row-qtde-cart input {*/
+	width: 35px;
+	height: 35px;
 	text-align: center;
 	font-size:20px;
+	display: inline-block;
+	line-height: 35px;
+	color: #555555;
+	vertical-align: middle;
 }
 
 .margint10{

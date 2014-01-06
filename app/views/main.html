@@ -2,58 +2,34 @@
 	
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include src="'views/parts/global/header.html'"></span></span>
-
 	</div>
-	<div class="mary-content">
-
-		<div class="home-scroll-content" id="scrollContainer">
-            <div class="row-fluid" id="{{'cat' + $index}}" ng-repeat="line in lines">
-			     <catalog-section line="line"></catalog-section>
+    
+	<div class="mary-content" ng-switch="selectedSection">
+		<div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-default>
+            <div class="row-fluid" anchor id="{{'cat' + $index}}" ng-repeat="line in lines">
+			     <catalog-section line="line" section="selectedSection"></catalog-section>
             </div>
 		</div>
-		
-		<div class="sidebar-menu1">
-			<ul class="nav nav-list nav-list-black">
-				<li class="white">
-					<input type="search" value="Pesquisar" style="width:110px; margin:4px 0 4px 0; color:#777; border-color:#fff;">
-				<img src="images/search-icon.png" width="21" height="21" alt="search" />				</li>
-				<li class="menu-black selected">
-					<a href="#" class="hover-state-pointer">Cuidados com a Pele</a>
-				</li>
-				<li class="menu-black">
-					<a href="#" class="hover-state-pointer">Maquiagem</a>
-				</li>
-				<li class="menu-black">
-					<a href="#" class="hover-state-pointer">Spa e Fragr&acirc;ncias</a>
-				</li>
-			</ul>
-
-		</div>
-		
-		<div class="sidebar-menu">
-			<ul class="nav nav-list">
-				<li spy="{{'cat' + $index}}" class="active" ng-class="line.color" ng-repeat="line in lines">
-					<a class="hover-state-pointer">{{line.name}}</a>
-				</li>
-			</ul>
-		</div>
-		
-		<div class="banner-side-bar" style="display:">
-			<img src="images/catalog/banner/banner-timewise.png" alt="" />
-		</div>
-		
-		<div class="banner-side-bar" style="display: none">
-			<img src="images/catalog/banner/banner-timewise-repair.png" alt="" />
-		</div>
-		
-		<div class="banner-side-bar" style="display: none">
-			<img src="images/catalog/banner/banner-acne.png" alt="" />
-		</div>
-		
-		<div class="banner-side-bar" style="display: none">
-			<img src="images/catalog/banner/banner-botanical-effects.png" alt="" />
-		</div>
-
+        
+        <div class="home-scroll-content" id="scrollContainer" ng-switch-when="Mais Vendidos">
+            <span ng-include="'views/catalog/best-sellers.html'"></span>
+        </div>
+	</div>
+	
+	<div class="sidebar-menu1">
+		<ul class="nav nav-list nav-list-black">
+			<li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+				<a class="hover-state-pointer">{{section}}</a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="sidebar-menu">
+		<ul class="nav nav-list">
+			<li spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">
+				<a class="hover-state-pointer">{{line.name}}</a>
+			</li>
+		</ul>
 	</div>
 	
 </div>
