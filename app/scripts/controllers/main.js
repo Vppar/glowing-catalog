@@ -2,20 +2,33 @@
     'use strict';
     angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, DataProvider, ArrayUtils) {
 
-        $scope.sections = ArrayUtils.distinct(DataProvider.products, 'session');
+        function dataProviderUpdate() {
+            var sections = ArrayUtils.distinct(DataProvider.products, 'session');
 
-        $scope.$on('DataProvider.update', function() {
-            $scope.sections = ArrayUtils.distinct(DataProvider.products, 'session');
-        });
-        
-        $scope.$watch('selectedSection', function(val){
-            var products = ArrayUtils.filter(DataProvider.products, {session: val});
+            sections.sort(function(x, y) {
+                return ((x === y) ? 0 : ((x > y) ? 1 : -1));
+            });
+
+            sections.unshift('Mais Vendidos');
+
+            $scope.sections = sections;
+        }
+
+        $scope.$on('DataProvider.update', dataProviderUpdate);
+        dataProviderUpdate();
+
+        $scope.$watch('selectedSection', function(val) {
+            var products = ArrayUtils.filter(DataProvider.products, {
+                session : val
+            });
             var lines = ArrayUtils.distinct(products, 'line');
             $scope.lines = ArrayUtils.isIn(DataProvider.lines, 'name', lines);
         });
-        
-        $scope.selectSection = function(section){
+
+        $scope.selectSection = function(section) {
             $scope.selectedSection = section;
         };
+        
+        $scope.selectedSection = 'Mais Vendidos';
     });
 }(angular));

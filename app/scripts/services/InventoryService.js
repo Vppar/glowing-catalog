@@ -15,14 +15,14 @@
             var product = storage.get(name, id);
             var result = false;
             if (product) {
-                if(inv>0){
+                if (inv > 0) {
                     var updatedInv = product.inventory - inv;
                     product.inventory = updatedInv;
                     result = storage.update(name, product);
-                }else{
+                } else {
                     $log.error('InvetoryService.remove: -Invalid inventory, inventory=' + inv);
                 }
-            }               
+            }
             return result;
 
         };

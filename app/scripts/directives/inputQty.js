@@ -38,7 +38,7 @@
                     }
                 });
 
-                if (!scope.value) {
+                if (scope.value === undefined) {
                     scope.value = 1;
                 }
 
