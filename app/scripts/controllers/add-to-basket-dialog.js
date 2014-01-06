@@ -7,20 +7,32 @@
 
         // Find the product and make a copy to the local scope.
         var product = $filter('findBy')(OrderService.order.items, 'id', dialog.data.id);
-        
-        //var grid = ArrayUtils.innerJoin(product.gridList, DataProvider.inventory, 'SKU');
-        
-        var grid = product.gridList;
-        
-        for(var ix in grid){
-            grid[ix].qty = 0;
-        }
-        
+
+        // var grid = ArrayUtils.innerJoin(product.gridList,
+        // DataProvider.inventory, 'SKU');
+
+        var grid = product.grid;
+
         var index = $filter('count')(OrderService.order.items, 'qty') - 1;
         $scope.product = product;
         $scope.qty = product.qty;
         $scope.grid = grid;
-        
+        $scope.total = 0;
+
+        function updateTotal() {
+            var total = 0;
+            for ( var ix in $scope.grid) {
+                total += $scope.grid[ix].qty * product.price;
+            }
+
+            $scope.total = total;
+        }
+
+        for ( var ix in $scope.grid) {
+            $scope.grid[ix].qty = 0;
+            $scope.$watch('grid[' + ix + '].qty', updateTotal);
+        }
+
         /**
          * Closes the dialog telling the caller to add the product to the
          * basket.
