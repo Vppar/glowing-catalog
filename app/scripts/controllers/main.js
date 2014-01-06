@@ -3,13 +3,19 @@
     angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, DataProvider, ArrayUtils) {
 
         function dataProviderUpdate() {
-            var sections = ArrayUtils.distinct(DataProvider.products, 'session');
+            
+            var sections = [];
+            // var sections = ArrayUtils.distinct(DataProvider.products,
+            // 'session');
+            //
+            sections.push('Mais Vendidos');
+            sections.push('Cuidados com a Pele');
+            sections.push('Maquiagem');
+            sections.push('SPA e Fragrâncias');
 
-            sections.sort(function(x, y) {
-                return ((x === y) ? 0 : ((x > y) ? 1 : -1));
-            });
-
-            sections.unshift('Mais Vendidos');
+            // Ed. Limitada
+            // Lançamentos
+            // Promoções
 
             $scope.sections = sections;
         }
@@ -22,13 +28,14 @@
                 session : val
             });
             var lines = ArrayUtils.distinct(products, 'line');
+            
             $scope.lines = ArrayUtils.isIn(DataProvider.lines, 'name', lines);
         });
 
         $scope.selectSection = function(section) {
             $scope.selectedSection = section;
         };
-        
+
         $scope.selectedSection = 'Mais Vendidos';
     });
 }(angular));
