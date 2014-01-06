@@ -28,5 +28,7 @@
         $scope.selectSection = function(section) {
             $scope.selectedSection = section;
         };
+        
+        $scope.selectedSection = 'Mais Vendidos';
     });
 }(angular));
