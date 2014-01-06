@@ -10,7 +10,7 @@
                     controller : function($scope) {
                         $scope.spies = [];
                         $scope.anchors = [];
-                        
+
                         this.addSpy = function(spyObj) {
                             $scope.spies.unshift(spyObj);
                         };
@@ -20,7 +20,7 @@
 
                             $scope.spies.splice(ix, 1);
                         };
-                        
+
                         this.addAnchor = function(anchorObj) {
                             $scope.anchors.unshift(anchorObj);
                         };
@@ -31,32 +31,38 @@
                             $scope.anchors.splice(ix, 1);
                         };
 
+                        this.registerContainer = function(id) {
+                            $scope.scrollContainer = id;
+                            $scope.registerCallback(id);
+                        };
+
                         this.scroll = function(id) {
                             $scope.scrollTo = id;
-                            $scope.$apply();
                         };
                     },
-                    link : function(scope, elem) {
+                    link : function(scope, elem, attrs) {
                         var spyElems = [];
-                        var container = elem.find('#scrollContainer');
-                        scope.$watch('anchors', function(anchors) {
-                            
+                        scope.$watchCollection('anchors', function(anchors) {
+
                             spyElems.splice(0, spyElems.length);
-                            
+
                             for ( var ix in anchors) {
                                 var anchor = anchors[ix];
                                 spyElems[anchor.id] = elem.find('#' + anchor.id);
                             }
-                        }, true);
+                        });
 
                         scope.$watch('scrollTo', function(id) {
+                            var container = elem.find('#' + scope.scrollContainer);
+
                             if (id) {
-                                var pos = elem.find('#' + id).offset().top - 70 + container.scrollTop();
+                                var pos = spyElems[id].offset().top - 70 + container.scrollTop();
                                 container.scrollTop(pos);
                             }
                         });
 
-                        container.scroll(function() {
+                        function scrollCallback() {
+
                             var highlightSpy, pos, spy, spies;
                             highlightSpy = null;
                             spies = scope.spies;
@@ -75,7 +81,11 @@
                             if (highlightSpy !== null) {
                                 highlightSpy['in']();
                             }
-                        });
+                        }
+
+                        scope.registerCallback = function(id) {
+                            elem.find('#' + id).scroll(scrollCallback);
+                        };
                     }
                 };
             });

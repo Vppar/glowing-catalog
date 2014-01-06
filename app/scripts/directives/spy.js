@@ -33,6 +33,7 @@ angular.module('glowingCatalogApp').directive('spy', function() {
 
             elem.bind('click', function() {
                 ctrl.scroll(attrs.spy);
+                scope.$apply();
             });
         }
     };
