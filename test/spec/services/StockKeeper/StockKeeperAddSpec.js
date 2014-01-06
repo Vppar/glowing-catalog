@@ -7,8 +7,11 @@ describe('Service: StockKeeper', function() {
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.stock');
-        module('tnt.catalog.journal.replayer');
+        module('tnt.catalog.stock.keeper');
+        module('tnt.catalog.stock.entity');
         module('tnt.catalog.journal');
+        module('tnt.catalog.journal.entity');
+        module('tnt.catalog.journal.replayer');
     });
 
     beforeEach(function() {
@@ -21,8 +24,12 @@ describe('Service: StockKeeper', function() {
 
     // instantiate service
     var StockKeeper = undefined;
-    beforeEach(inject(function(_StockKeeper_) {
+    var Stock = undefined;
+    var JournalEntry = undefined;
+    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_) {
         StockKeeper = _StockKeeper_;
+        Stock = _Stock_;
+        JournalEntry =_JournalEntry_;
     }));
     
     /**
@@ -38,23 +45,19 @@ describe('Service: StockKeeper', function() {
      */
     it('should add', function() {
 
+        var fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
         var pId = 23;
         var qty = 1;
         var ct = 0;
-//        var ev = {productId: pId, quantity: qty, cost: ct};
-//        var stp = (new Date()).getTime() / 1000;
-//        var entry = {
-//                sequence: null,
-//                stamp: stp,
-//                type: 'stockAdd', 
-//                version: 1,
-//                event: ev
-//                };
+        var ev = new Stock(pId, qty, ct);
+        var stp = fakeNow / 1000;
+        var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev); 
 
         expect(function() {
             StockKeeper.add(pId, qty, ct);}).not.toThrow();
-//        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
-        expect(jKeeper.compose).toHaveBeenCalled();
+        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
     
     /**
