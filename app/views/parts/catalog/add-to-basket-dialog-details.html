@@ -29,7 +29,7 @@ var initMagnifier = function () {
 			<span class='zoom' id='magnifier'>
             	<img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
            </span>
-           <div class="price-add-to-basket margint10"><span class="price-popup-small">Total  {{product.price * qty | currency:''}}</span></div>
+           <div class="price-add-to-basket margint10"><span class="price-popup-small">Total  {{total | currency:''}}</span></div>
 		</div>
         
 		<div class="clearfix"></div>

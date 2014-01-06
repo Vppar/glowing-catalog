@@ -285,77 +285,30 @@
     	}
     ],
     "lines": [
-	    {
-	        "name": "Perfumes",
-	        "color": "orange"
-	    },
-	    {
-	        "name": "Maquiagem",
-	        "color": "dark-magenta"
-	    },
-	    {
-	        "name": "Zen in Bloom",
-	        "color": "dark-magenta"
-	    },
-	    {
-	        "name": "Hollywood Mystique",
-	        "color": "dark-magenta"
-	    },
-	    {
-	        "name": "Acessórios",
-	        "color": "dark-magenta"
-	    },
-	    {
-	        "name": "TimeWise",
-	        "color": "pink"
-	    },
-	    {
-	        "name": "TimeWise Repair",
-	        "color": "pink"
-	    },
-	    {
-	        "name": "Botanical Effects",
-	        "color": "green"
-	    },
-	    {
-	        "name": "Acne",
-	        "color": "gray"
-	    },
-	    {
-	        "name": "Clássica",
-	        "color": "green"
-	    },
-	    {
-	        "name": "Velocity",
-	        "color": "green"
-	    },
-	    {
-	        "name": "MKMen",
-	        "color": "green"
-	    },
-	    {
-	        "name": "Cuidados Personalizados",
-	        "color": "pink"
-	    },
-	    {
-	        "name": "Cuidados com o Corpo",
-	        "color": "light-green"
-	    },
-	    {
-	        "name": "Solar",
-	        "color": "pink"
-	    },
-	    {
-	        "name": "MK at Play",
-	        "color": "green"
-	    },
-	    {
-	        "name": "Sobrancelhas",
-	        "color": "green"
-	    },
-	    {
-	        "name": "Esmalte",
-			"color": "green"
-	    }
+    	{"name": "Olhos","color": "yellow-gray"},
+		{"name": "TimeWise","color": "light-pink"},
+		{"name": "Zen in Bloom","color": "dark-magenta"},
+		{"name": "Hollywood Mystique","color": "dark-magenta"},
+		{"name": "Acessórios","color": "dark-magenta"},
+		{"name": "Fragrâncias Femininas","color": "light-magenta"},
+		{"name": "TimeWise Repair","color": "black"},
+		{"name": "Botanical Effects","color": "green"},
+		{"name": "Sistema de Cuidados da Pele com Tendência à Acne","color": "light-gray"},
+		{"name": "Linha Clássica de Cuidados com a Pele","color": "dark-magenta"},
+		{"name": "Velocity","color": "dark-magenta"},
+		{"name": "MKMen","color": "black"},
+		{"name": "Cuidados Personalizados","color": "light-lila"},
+		{"name": "Cuidados com o Corpo","color": "light-green"},
+		{"name": "Solar","color": "orange"},
+		{"name": "Bases","color": "light-orange"},
+		{"name": "Mary Kay at Play","color": "dark-magenta"},
+		{"name": "Corretivo","color": "black"},
+		{"name": "Pó Mineral Compacto","color": "dark-magenta"},
+		{"name": "Iluminador","color": "light-orange"},
+		{"name": "Sobrancelhas","color": "dark-magenta"},
+		{"name": "Rosto","color": "dark-magenta"},
+		{"name": "Lábios","color": "pink"},
+		{"name": "Fragrâncias Masculinas","color": "light-blue"},
+		{"name": "Art Of Nature","color": "dark-magenta"}
 	]
 }
