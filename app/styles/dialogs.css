@@ -92,7 +92,10 @@
 .quantity-products-basket span{
 	font-size:15px;
 }
-span.zoom {margin:20px 0;}
+span.zoom {
+	margin:20px 0;
+	width: 100%;
+}
 .rose-color {
 	color: #b77a78;
 }
@@ -121,7 +124,11 @@ span.zoom {margin:20px 0;}
 	float: right;
 	margin: 5px 20px 2px 20px;
 }
-.img-catalog-basket {float:right;}
+.img-catalog-basket {
+	float:right;
+	width: 230px;
+}
+
 /*choose customer*/
 .form-choose-customer {
 	width: 360px;

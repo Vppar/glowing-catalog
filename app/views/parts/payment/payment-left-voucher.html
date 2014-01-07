@@ -9,6 +9,15 @@
         <form name="exchangeForm">
 				<div class="controls-row">
 					<div class="control-group lbl-top">
+						<select ui-select2 name="product" class="combo-width-product-exchange mw220" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">								
+							<option value="">Selecione o tipo</option>
+							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+						</select>
+					</div>
+				</div>
+				<br/>
+				<div class="controls-row">
+					<div class="control-group lbl-top">
 						<label class="control-label w200">Cliente</label>
 						<span class="btn-price-payment-input-block input-block-level">
                             <input class="input" readonly id="appendedInput" type="text" value="{{customer.name}}" />
