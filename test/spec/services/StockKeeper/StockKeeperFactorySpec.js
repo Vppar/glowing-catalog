@@ -33,7 +33,7 @@ describe('Service: StockKeeper', function() {
      
     });
     
-    it('should creat a new Stock entity', function() {
+    it('should throw error', function() {
         //given
         var pId = 23;
         var qty = -1;
