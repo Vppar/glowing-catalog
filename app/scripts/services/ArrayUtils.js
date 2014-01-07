@@ -24,21 +24,39 @@
          * -> value of the property
          * <- empty array
          *  
-         *  @unit ArrayUtils.list#2
+         *  @unit ArrayUtils.list#3
          * -> array of objects
          * -> property 
          * -> value of the property
          * <- empty array
          * 
-         *  @unit ArrayUtils.list#3
+         *  @unit ArrayUtils.list#4
          * -> array of objects
          * -> property containing an invalid property
          * -> value of the property
          * <- empty array
          * 
+         *  @unit ArrayUtils.list#5
+         * -> array of objects containing numbers
+         * -> valid property
+         * -> value of the property
+         * <- array with the occurrences
+         *  
+         *  @unit ArrayUtils.list#6
+         * -> array of objects containing arrays
+         * -> valid property
+         * -> value of the property
+         * <- array with the occurrences
+         *  
+         *  @unit ArrayUtils.list#7
+         * -> array of objects containing objects
+         * -> valid property
+         * -> value of the property
+         * <- array with the occurrences
+         * 
          * </pre>
          * 
-         * desc
+         * TODO - description
          * 
          * @param array - the array to be searched(must be an array of objects)
          * @param property - the property we are looking for
@@ -183,11 +201,6 @@
          * -> array of objects
          * -> non matching filter
          * <- empty array
-         * 
-         * * @unit ArrayUtils.filter#3
-         * -> array of objects
-         * -> a filter with array of objects
-         * <- array with the matching elements
          * 
          * @unit ArrayUtils.filter#4
          * -> invalid array
