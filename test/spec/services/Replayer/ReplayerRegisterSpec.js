@@ -11,6 +11,15 @@ describe('Service: Replayer', function() {
         Replayer = _Replayer_;
     }));
 
+    
+    /**
+     * <pre>
+     * @spec Replayer.registerHandlers#1
+     * Given a list of valid handlers
+     * when a register is triggered
+     * then the handlers must be added to the local hash
+     * </pre>
+     */
     it('should register', function() {
 
         var func = function() {
@@ -30,6 +39,14 @@ describe('Service: Replayer', function() {
         }).not.toThrow();
     });
 
+    /**
+     * <pre>
+     * @spec Replayer.registerHandlers#2
+     * Given a list of non function handlers
+     * when a register is triggered
+     * then an error must be raised
+     * </pre>
+     */
     it('should throw', function() {
 
         var func = function() {
