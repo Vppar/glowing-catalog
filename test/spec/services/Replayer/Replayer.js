@@ -6,7 +6,7 @@ describe('Service: Replayer', function () {
   beforeEach(module('tnt.catalog.journal.replayer'));
 
   // instantiate service
-  var Replayer;
+  var Replayer = undefined;
   beforeEach(inject(function (_Replayer_) {
     Replayer = _Replayer_;
   }));
