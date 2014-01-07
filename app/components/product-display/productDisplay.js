@@ -47,7 +47,7 @@
                         OrderService.createNew();
                     }
 
-                    if (product.gridList.length > 1) {
+                    if (product.grid.length > 1) {
                         DialogService.openDialogAddToBasketDetails({
                             id : product.id
                         });

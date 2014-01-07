@@ -2,17 +2,26 @@
     'use strict';
 
     /**
-     * The Stock entity
+     * The amount in stock for a given Inventory item
+     * 
+     * <pre>
+     * @test Stock.constructor#1
+     * Validate the data on the returned object
+     * 
+     * @test Stock.constructor#1
+     * Validate the read only fields
+     * 
+     * </pre>
      */
     angular.module('tnt.catalog.stock.entity', []).factory('Stock', function Stock() {
 
-        var service = function svc(productId, quantity, cost) {
+        var service = function svc(inventoryId, quantity, cost) {
 
             if (arguments.length != svc.length) {
-                throw 'Stock must be initialized with productId, quantity and cost';
+                throw 'Stock must be initialized with inventoryId, quantity and cost';
             }
 
-            this.productId = productId;
+            ObjectUtils.ro(this, 'inventoryId', inventoryId);
             this.quantity = quantity;
             this.cost = cost;
         };
