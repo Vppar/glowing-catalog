@@ -7,13 +7,13 @@
 		<nav id="topMenuHome">
             <ul class="nav">
                 <li ng-click="selectSection('Lançamentos')">
-                    <a class="selected">LAN&Ccedil;AMENTOS</a>
+                    <a ng-class="{selected: selectedSection == 'Lançamentos'}">LAN&Ccedil;AMENTOS</a>
                 </li>
                 <li ng-click="selectSection('Ed. Limitada')">
-                    <a>EDI&Ccedil;&Atilde;O LIMITADA</a>
+                    <a ng-class="{selected: selectedSection == 'Ed. Limitada'}">EDI&Ccedil;&Atilde;O LIMITADA</a>
                 </li>
                 <li class="last-first-menu" ng-click="selectSection('Promoções')">
-                    <a>PROMO&Ccedil;&Otilde;ES</a>
+                    <a ng-class="{selected: selectedSection == 'Promoções'}">PROMO&Ccedil;&Otilde;ES</a>
                 </li>
              </ul>
              <ul class="nav">
