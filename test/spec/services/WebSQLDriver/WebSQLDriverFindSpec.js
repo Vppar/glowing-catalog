@@ -132,61 +132,38 @@ describe('Service: WebSQLDriver.find', function() {
 
 			});
 
-//IT CAN\'T HAPPEN?!
-/*
 	it('shouldn\'t return a object', function() {
 
-				var id = 'a';
-				var listed = false;
+				var id = 'alo';
+				var notlisted = false;
 				var cb = null;
 				
 				var returnedObject = null;
 
 				createBucket();
 				persistData(data1);
-				persistData(data2);
+				
 				
 				// pass a valid name
 				runs(function() {
 					
-					var promise = WebSQLDriver.find(tx, bucketName, id);
-					
-					promise.then(
-							function(result) {
-								returnedObject = result;
-								console.log(returnedObject);
-							},function(error){
-								returnedObject = error;
-								console.log(returnedObject);
-							});
-					
-					
-					
 					// tx to list
 					var txBody = function(tx) {
 						WebSQLDriver.find(tx, bucketName, id).then(
-								function(result) {
-									returnedObject = result;
-									console.log(returnedObject);
-								},function(error){
+								null,function(error){
 									returnedObject = error;
-									console.log(returnedObject);
+									console.log('erro '+returnedObject);
+									notlisted = true;
 								});
 					};
 
 					// promise from the create
 					var promise = WebSQLDriver.transaction(txBody);
-
-					// sucess of create
-					promise.then(null,function(result) {
-						listed = true;
-					});
-					
 				});
 
 				waitsFor(function(d) {
 					scope.$apply();
-					return listed;
+					return notlisted;
 				});
 
 				runs(function() {
@@ -194,7 +171,7 @@ describe('Service: WebSQLDriver.find', function() {
 				});
 
 			});
-*/
+
 	
 	it('should throw an error', function() {
 		var name = 'noname';
@@ -203,10 +180,6 @@ describe('Service: WebSQLDriver.find', function() {
 		var tx = null;
 
 		expect(function(){ WebSQLDriver.find(tx, name, id); }).toThrow();
-	});
-
-	it('shouldn`t return a promisse', function() {
-		expect(!!WebSQLDriver).toBe(true);
 	});
 	
 	var persistData = function(d){
