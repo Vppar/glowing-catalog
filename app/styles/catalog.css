@@ -70,14 +70,14 @@
 
 .nav .light-lila.active a {
 	background: #dec7cb;
-	color: #000;
+	color: #fff;
 	text-shadow: none;
 }
 	.nav .light-lila.active a:hover {background: #dec7cb;}
 
 .nav .light-pink.active a {
 	background: #dfc3b7;
-	color: #000;
+	color: #fff;
 	text-shadow: none;
 }
 	.nav .light-pink.active a:hover {background: #dfc3b7;}
@@ -273,7 +273,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#c93a7c 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w06.product-bg-yellow-gray.product-divider {
+		.catalog-block.w06.product-bg-yellow-gray .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #d8d5b4 50%, #ffffff 100%); /* FF3.6+ */
@@ -284,7 +284,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#d8d5b4 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}		
-		.catalog-block.w06.product-bg-light-orange.product-divider {
+		.catalog-block.w06.product-bg-light-orange .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-light-orange.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #dbb79d 50%, #ffffff 100%); /* FF3.6+ */
@@ -295,7 +295,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#dbb79d 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w06.product-bg-light-magenta.product-divider {
+		.catalog-block.w06.product-bg-light-magenta .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-light-magenta.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #deb4b8 50%, #ffffff 100%); /* FF3.6+ */
@@ -306,7 +306,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#deb4b8 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w06.product-bg-light-lila.product-divider {
+		.catalog-block.w06.product-bg-light-lila .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-lilas.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #dec7cb 50%, #ffffff 100%); /* FF3.6+ */
@@ -317,7 +317,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#dec7cb 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w06.product-bg-light-pink.product-divider {
+		.catalog-block.w06.product-bg-light-pink .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-light-pink.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #dfc3b7 50%, #ffffff 100%); /* FF3.6+ */
@@ -328,7 +328,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#dfc3b7 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w06.product-bg-orange.product-divider {
+		.catalog-block.w06.product-bg-orange .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-orange.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #fa974e 50%, #ffffff 100%); /* FF3.6+ */
@@ -339,7 +339,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#fa974e 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w06.product-bg-pink.product-divider {
+		.catalog-block.w06.product-bg-pink .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-pink.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #ff0066 50%, #ffffff 100%); /* FF3.6+ */
@@ -423,7 +423,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#c93a7c 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w03.product-bg-yellow-gray.product-divider {
+		.catalog-block.w03.product-bg-yellow-gray .product-divider {
 			/*background-image: url('../images/line-gradient-01-yellow-gray.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #d8d5b4 50%, #ffffff 100%); /* FF3.6+ */
@@ -434,7 +434,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#d8d5b4 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w03.product-bg-light-orange.product-divider {
+		.catalog-block.w03.product-bg-light-orange .product-divider {
 			/*background-image: url('../images/line-gradient-01-light-orange.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #dbb79d 50%, #ffffff 100%); /* FF3.6+ */
@@ -445,7 +445,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#dbb79d 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w03.product-bg-light-magenta.product-divider {
+		.catalog-block.w03.product-bg-light-magenta .product-divider {
 			/*background-image: url('../images/line-gradient-01-light-magenta.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #deb4b8 50%, #ffffff 100%); /* FF3.6+ */
@@ -456,7 +456,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#deb4b8 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w03.product-bg-light-lila.product-divider {
+		.catalog-block.w03.product-bg-light-lila .product-divider {
 			/*background-image: url('../images/line-gradient-01-lilas.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #dec7cb 50%, #ffffff 100%); /* FF3.6+ */
@@ -467,7 +467,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#dec7cb 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w03.product-bg-light-pink.product-divider {
+		.catalog-block.w03.product-bg-light-pink .product-divider {
 			/*background-image: url('../images/line-gradient-01-light-pink.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #dfc3b7 50%, #ffffff 100%); /* FF3.6+ */
@@ -478,7 +478,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#dfc3b7 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w03.product-bg-orange.product-divider {
+		.catalog-block.w03.product-bg-orange .product-divider {
 			/*background-image: url('../images/line-gradient-01-orange.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #fa974e 50%, #ffffff 100%); /* FF3.6+ */
@@ -489,7 +489,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#fa974e 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w03.product-bg-pink.product-divider {
+		.catalog-block.w03.product-bg-pink .product-divider {
 			/*background-image: url('../images/line-gradient-01-pink.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #ff0066 50%, #ffffff 100%); /* FF3.6+ */
@@ -509,7 +509,7 @@
 		}		
 		
 		/*adds*/
-		.catalog-block.product-bg-black.product-addbtn {
+		.catalog-block.product-bg-black .product-addbtn {
 			background-color: #000;
 			background-image: url('../images/plus-w.png');
 		}		

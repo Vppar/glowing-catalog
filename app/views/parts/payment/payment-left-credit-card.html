@@ -36,7 +36,8 @@
 				</div>
 				<div class="control-group lbl-top">
 					<div class="controls">
-						<input name="amount" class="input-small text-right" type="tel" placeholder="" ng-model="creditCard.amount"  currency required recall>
+						<!--<input name="amount" class="input-small text-right" type="tel" placeholder="" ng-model="creditCard.amount"  currency required recall>-->
+						<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 					</div>
 				</div>
 				<div class="control-group lbl-top" >
