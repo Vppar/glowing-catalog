@@ -23,7 +23,7 @@ describe('Service: StockKeeper', function() {
         var pId = 23;
         var qty = 1;
         var ct = 0;
-        var expectedArray = {productId: pId, quantity: qty, cost: ct};
+        var expectedArray = {inventoryId: pId, quantity: qty, cost: ct};
         
         //when
         var actual = new Stock(pId, qty, ct);
