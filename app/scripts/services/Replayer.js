@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.journal.replayer', []).service('Replayer', function Replayer() {
+    angular.module('tnt.catalog.journal.replayer', ['tnt.catalog.journal.entity']).service('Replayer', function Replayer(JournalEntry) {
 
         var eventHandlers = {};
 
@@ -41,7 +41,7 @@
         /**
          * <pre>
          * @spec Replayer.replay#1
-         * Given a JournalEntry
+         * Given a JournalEntry 
          * with a valid event
          * when a replay is triggered
          * then the proper handler must be called
