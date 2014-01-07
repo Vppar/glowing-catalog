@@ -600,7 +600,7 @@ nav ul li {
 }
 .sidebar-menu{
 	overflow-y: auto;
-	max-height: 370px;
+	/*max-height: 370px;*/
 }
 .sidebar-menu1 {margin-top:-7px !important;}
 /*.sidebar-menu1 {
@@ -659,6 +659,11 @@ nav ul li {
 	color: #ecbab9;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	-webkit-tap-highlight-color: transparent;
+}
+
+#topMenuHome .selected {
+	color: #fff;
+	font-weight: bold;
 }
 .container .navbar-inner {
 	height: 68px;
@@ -944,4 +949,9 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 
 .home-scroll-content>div{
 	margin-bottom:-10px;
+}
+
+.editing{	
+	outline: 2px solid #D7F0BF;
+	outline-offset: -3px;
 }

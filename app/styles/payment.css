@@ -57,6 +57,7 @@
 	border: 1px solid #e0e0e0;
 	margin: 5px 0 0 4px;
 	padding: 8px 5px 8px 12px;
+	/*padding: 8px;*/
 	background-color:#FFF;
 	min-height:20px;
 	width:91%;
@@ -67,17 +68,21 @@
 .row-right-payment2 {
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
-	margin: 5px 0 18px 5px;
-	padding: 8px 5px 8px 12px;
-	background-color:#FFF;
-	min-height:20px;
-	width:91%;
+	margin: 5px 1px 18px 5px;
+	padding: 8px 8px 8px 9px;
+	background-color: #FFF;
+	min-height: 20px;
+	width: 91%;
 }
 .row-right-payment2 span {
 	/*margin: 16px 0 0 -3px;*/
 }
 .payment-resume div {
 	/*line-height: 30px*/
+}
+.qty-values{
+	padding-left: 3px;
+margin-top: 5px;
 }
 .red-color {
 	color: #ff2839;
@@ -98,7 +103,7 @@
 .payment-resume .values-resume {
 	float: right;
 	text-align: right;
-	margin-right: 10px;
+	margin-right: 12px;
 	font-size:18px
 }
 .btns-right-payment .btn-price-payment {
@@ -120,8 +125,9 @@
 	border: 1px solid #fff;
 	background-color:#fff;
 	border-radius: 4px;
-	padding: 4px;
-	margin-top: -4px !important;
+	/*padding: 4px;
+	margin-top: -4px !important;*/
+	padding: 0 -1px 4px 4px;
 	height: 18px;
 	font-size:18px;
 }
@@ -144,7 +150,7 @@
 	display:block;
 	float:left;
 	font-size:12px;
-	margin:-6px 0 -2px -2px;
+	margin:-6px 0 -2px 0;
 }
 .label-form-client2 {
 	display:block;
@@ -354,6 +360,7 @@
 }
 .input-name-payment {
 	width:264px;
+	margin-left:-5px;
 }
 .sub-total-payment {
 	width:170px;
@@ -469,19 +476,27 @@ float: right;
 position: absolute;
 padding: 10px;
 margin: 24px 0 40px -5px;
-top: 218px;
+/*top: 218px;*/	
 z-index: 11;
 border-radius: 4px;
 }
-
-#keyNum {
+#keyNum_quad{
+width: 300px;
+height: 55px; /*500px*/
+background: #F8F8F8;
+position: absolute;
+top: -58px;
+left: 6px;
+z-index: 10;
+}
+#keyNum{
 width: 290px;
 height: 290px; /*500px*/
 background: #fff;
 float: right;
 position: absolute;
 padding: 10px;
-margin: -20px 0 40px -5px;
+margin: 23px 0 40px -5px;
 top: 218px;
 z-index: 11;
 border-radius: 4px;
@@ -500,16 +515,16 @@ border-radius: 4px;
 #keyNum .btn-ok { float:right; display:block; margin:0 5px 0 0;}
 #keyNum span img {cursor:pointer;}
 
-div.up-field-payment {
+/*div.up-field-payment {
 	position:absolute !important;
 	height:22px !important;
 	z-index:15 !important;
 	/*width:284px !important;
-	margin-top: -20px !important;*/
-	/**/width: 273px !important;
+	margin-top: -20px !important;/
+	width: 273px !important;
 	margin: -45px 0 0 5px !important;
 	border-radius: 0 0 4px 4px !important;
-}
+}*/
 
 /*div.controls input  {
 	margin:0 5px 0 -5px;
@@ -570,8 +585,8 @@ div.up-field-payment {
 
 .title-gopay{
 	background-color: #f2f2f2;
-	height: 20px;
-	width: 492px;
+	height: 18px;
+	width: 496px;
 	padding: 5px 0 5px 0;
 	border-radius: 4px;
 }
