@@ -12,19 +12,19 @@
          * <pre>
          * @unit ArrayUtils.list#1
          * -> array of objects
-         * -> property containing a property name
+         * -> property containing a property
          * -> value of the property
          * <- array with the occurrences
          * 
          *  @unit ArrayUtils.list#2
          * -> an invalid array
-         * -> property containing a property name
+         * -> property containing a property
          * -> value of the property
          * <- empty array
          * 
          *  @unit ArrayUtils.list#3
          * -> array of objects
-         * -> property containing an invalid property name
+         * -> property containing an invalid property
          * -> value of the property
          * <- empty array
          * </pre>
@@ -57,25 +57,25 @@
          * <pre>
          * @unit ArrayUtils.find#1
          * -> array of objects without duplicated entries
-         * -> property containing a property name
+         * -> property containing a valid property
          * -> value of the property
          * <- object ocurrence
          * 
          * @unit ArrayUtils.find#2
          * -> an invalid array
-         * -> property containing a property name
+         * -> property containing a valid property
          * -> value of the property
          * <- null
          * 
          * @unit ArrayUtils.find#3
          * -> array of objects
-         * -> property containing an invalid property name
+         * -> property containing an invalid property
          * -> value of the property
          * <- null
          * 
          * @unit ArrayUtils.find#4
          * -> array with duplicate entries
-         * -> property containing a property name
+         * -> property containing a valid property
          * -> value of the property
          * <- throw error
          * </pre>
@@ -103,7 +103,7 @@
          * <- array with the occurrences
          * TODO 
          * make it work with a array of properties.
-         *TODO 
+         * TODO 
          * STRANGE STORY (WESLEY) 
          * @unit ArrayUtils.distinct#2
          * -> array of objects
