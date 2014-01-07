@@ -39,7 +39,6 @@ describe('Service: ArrayUtils', function() {
         
         //when
         var response = ArrayUtils.distinct(array, property);
-        
         //then
         expect(expected).toEqual(response);
 
