@@ -2,30 +2,240 @@
 
 describe('Service: WebSQLDriver.find', function() {
 
-    // load the service's module
-    beforeEach(function() {
+	var bucketName = 'MyBucket';
+	var dataCreate = {
+		a : 'a',
+		b : 'b',
+		c : 'c'
+	};
+	var data1 = {
+            b : 'beta1',
+            c : 'comma1',
+            a : 'alpha1'
+        };
+	var data2 = {
+            b : 'beta2',
+            c : 'comma2',
+            a : 'alpha1'
+        };
+	
+	var metadata = {
+		key : 'a',
+		metaVersion : 1
+	};
 
-        var log = {};
-        log.debug = console.log
-        log.error = console.log
+	// load the service's module
+	beforeEach(function() {
 
-        module('tnt.storage.websql');
-        module(function($provide) {
-            $provide.value('$log', log);
-        });
-    });
+		var log = {};
+		log.debug = console.log;
+		log.error = console.log;
 
-    // instantiate service
-    var WebSQLDriver = undefined;
-    var scope = undefined;
+		module('tnt.storage.websql');
+		module(function($provide) {
+			$provide.value('$log', log);
+		});
+	});
 
-    beforeEach(inject(function(_WebSQLDriver_, $rootScope) {
-        WebSQLDriver = _WebSQLDriver_;
-        scope = $rootScope;
-    }));
+	// instantiate service
+	var WebSQLDriver = undefined;
+	var scope = undefined;
 
-    it('should be there', function() {
-        expect(!!WebSQLDriver).toBe(true);
-    });
-    
+	beforeEach(inject(function(_WebSQLDriver_, $rootScope) {
+		WebSQLDriver = _WebSQLDriver_;
+		scope = $rootScope;
+	}));
+
+	it('should be there', function() {
+		expect(!!WebSQLDriver).toBe(true);
+	});
+
+	it('should return a object', function() {
+
+				var id = 'a';
+				var listed = false;
+				var cb = null;
+
+				var createdBucket = false;
+				var persisted = false;
+
+				var returnedObject = null;
+
+				// create a bucket
+				runs(function() {
+					// tx to create a bucket
+					var txBody = function(tx) {
+						WebSQLDriver.createBucket(tx, bucketName, dataCreate,
+								metadata);
+					};
+					// promise from the create
+					var promise = WebSQLDriver.transaction(txBody);
+
+					// sucess of create
+					promise.then(function() {
+						createdBucket = true;
+					});
+				});
+
+				waitsFor(function() {
+					scope.$apply();
+					return createdBucket;
+				});
+
+				// persist
+				runs(function() {
+					var txBody = function(tx) {
+						WebSQLDriver.persist(tx, bucketName, dataCreate);
+					};
+
+					var promise = WebSQLDriver.transaction(txBody);
+
+					promise.then(function() {
+						persisted = true;
+					});
+
+				});
+
+				waitsFor(function() {
+					scope.$apply();
+					return persisted;
+				});
+
+				// pass a valid name
+				runs(function() {
+					// tx to list
+					var txBody = function(tx) {
+						WebSQLDriver.find(tx, bucketName, id).then(
+								function(result) {
+									returnedObject = result;
+								});
+					};
+
+					// promise from the create
+					var promise = WebSQLDriver.transaction(txBody);
+
+					// sucess of create
+					promise.then(function(result) {
+						listed = true;
+					});
+
+				});
+
+				waitsFor(function(d) {
+					scope.$apply();
+					return listed;
+				});
+
+				runs(function() {
+					expect(returnedObject).toEqual(dataCreate);
+				});
+
+			});
+
+	it('shouldn\'t return a object', function() {
+
+				var id = 'alo';
+				var notlisted = false;
+				var cb = null;
+				
+				var returnedObject = null;
+
+				createBucket();
+				persistData(data1);
+				
+				
+				// pass a valid name
+				runs(function() {
+					
+					// tx to list
+					var txBody = function(tx) {
+						WebSQLDriver.find(tx, bucketName, id).then(
+								null,function(error){
+									returnedObject = error;
+									console.log('erro '+returnedObject);
+									notlisted = true;
+								});
+					};
+
+					// promise from the create
+					var promise = WebSQLDriver.transaction(txBody);
+				});
+
+				waitsFor(function(d) {
+					scope.$apply();
+					return notlisted;
+				});
+
+				runs(function() {
+					expect(returnedObject).toEqual(null);
+				});
+
+			});
+
+	
+	it('should throw an error', function() {
+		var name = 'noname';
+		var id = 1;
+		var cb = null;
+		var tx = null;
+
+		expect(function(){ WebSQLDriver.find(tx, name, id); }).toThrow();
+	});
+	
+	var persistData = function(d){
+		
+		var p = false;
+		
+		// persist
+		runs(function() {
+			var txBody = function(tx) {
+				WebSQLDriver.persist(tx, bucketName, d);
+			};
+
+			var promise = WebSQLDriver.transaction(txBody);
+
+			promise.then(function() {
+				p = true;
+			});
+			
+			
+			
+		});
+
+		waitsFor(function() {
+			scope.$apply();
+			return p;
+		});
+		
+		return p;
+	};
+	
+	//auxiliar function to create a bucket
+	var createBucket = function(){
+		
+		var crBucket = false;
+		
+		// create a bucket
+		runs(function() {
+			// tx to create a bucket
+			var txBody = function(tx) {
+				WebSQLDriver.createBucket(tx, bucketName, dataCreate,metadata);
+			};
+			// promise from the create
+			var promise = WebSQLDriver.transaction(txBody);
+
+			// sucess of create
+			promise.then(function() {
+				crBucket = true;
+			});
+		});
+
+		waitsFor(function() {
+			scope.$apply();
+			return crBucket;
+		});
+		
+		return crBucket;
+	};
+
 });
