@@ -9,7 +9,9 @@
     angular.module('tnt.utils.array', []).service('ArrayUtils', function ArrayUtils() {
 
         /**
+         * 
          * <pre>
+         * 
          * @unit ArrayUtils.list#1
          * -> array of objects
          * -> property containing a property
@@ -21,13 +23,23 @@
          * -> property containing a property
          * -> value of the property
          * <- empty array
+         *  
+         *  @unit ArrayUtils.list#2
+         * -> array of objects
+         * -> property 
+         * -> value of the property
+         * <- empty array
          * 
          *  @unit ArrayUtils.list#3
          * -> array of objects
          * -> property containing an invalid property
          * -> value of the property
          * <- empty array
+         * 
          * </pre>
+         * 
+         * desc
+         * 
          * @param array - the array to be searched(must be an array of objects)
          * @param property - the property we are looking for
          * @param value - the value the property must have to be included in the
@@ -101,10 +113,7 @@
          * -> array of objects 
          * -> property containing an array
          * <- array with the occurrences
-         * TODO 
-         * make it work with a array of properties.
-         * TODO 
-         * STRANGE STORY (WESLEY) 
+         *
          * @unit ArrayUtils.distinct#2
          * -> array of objects
          * -> property containing an objects
@@ -126,6 +135,11 @@
          * <- array with a single undefined element
          * 
          * @unit ArrayUtils.distinct#6
+         * -> array of objects
+         * -> property which the value is an array
+         * <- the array of the given property
+         * 
+         * @unit ArrayUtils.distinct#7
          * -> invalid array
          * -> ?
          * <- empty array
@@ -170,7 +184,12 @@
          * -> non matching filter
          * <- empty array
          * 
-         * @unit ArrayUtils.filter#3
+         * * @unit ArrayUtils.filter#3
+         * -> array of objects
+         * -> a filter with array of objects
+         * <- array with the matching elements
+         * 
+         * @unit ArrayUtils.filter#4
          * -> invalid array
          * -> ?
          * <- empty array

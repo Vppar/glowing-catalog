@@ -49,7 +49,7 @@ describe('Service: ArrayUtils', function() {
 			property2 : 'teste'
 		} ];
 
-		var ids = [ array, expected ];
+		var ids = [ 'yolo'];
 
 		var response = ArrayUtils.isIn(array, property, ids);
 		expect(response).toEqual(expected);
