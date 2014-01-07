@@ -53,4 +53,25 @@ describe('Service: ArrayUtils', function() {
             lala : 'e'
         }).length).toBe(2);
     });
+    
+    it('should filter 3', function() {
+        var sample = [{
+            id : 5,
+            name : 'a',
+            lala : 'd'
+        }, {
+            id : 5,
+            name : 'b',
+            lala : 'e'
+        }, {
+            id : 5,
+            name : 'c',
+            lala : 'e'
+        }];
+
+        expect(ArrayUtils.filter(sample, {
+            id : 7,
+            lala : 'f'
+        }).length).toBe(0);
+    });
 });

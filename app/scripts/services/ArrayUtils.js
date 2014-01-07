@@ -9,7 +9,25 @@
     angular.module('tnt.utils.array', []).service('ArrayUtils', function ArrayUtils() {
 
         /**
+         * <pre>
+         * @unit ArrayUtils.list#1
+         * -> array of objects
+         * -> property containing a property
+         * -> value of the property
+         * <- array with the occurrences
          * 
+         *  @unit ArrayUtils.list#2
+         * -> an invalid array
+         * -> property containing a property
+         * -> value of the property
+         * <- empty array
+         * 
+         *  @unit ArrayUtils.list#3
+         * -> array of objects
+         * -> property containing an invalid property
+         * -> value of the property
+         * <- empty array
+         * </pre>
          * @param array - the array to be searched(must be an array of objects)
          * @param property - the property we are looking for
          * @param value - the value the property must have to be included in the
@@ -35,6 +53,33 @@
             return response;
         };
         
+        /**
+         * <pre>
+         * @unit ArrayUtils.find#1
+         * -> array of objects without duplicated entries
+         * -> property containing a valid property
+         * -> value of the property
+         * <- object ocurrence
+         * 
+         * @unit ArrayUtils.find#2
+         * -> an invalid array
+         * -> property containing a valid property
+         * -> value of the property
+         * <- null
+         * 
+         * @unit ArrayUtils.find#3
+         * -> array of objects
+         * -> property containing an invalid property
+         * -> value of the property
+         * <- null
+         * 
+         * @unit ArrayUtils.find#4
+         * -> array with duplicate entries
+         * -> property containing a valid property
+         * -> value of the property
+         * <- throw error
+         * </pre>
+         */
         this.find = function(array, property, value) {
 
             var response = this.list(array, property, value);
@@ -53,10 +98,13 @@
         /**
          * <pre>
          * @unit ArrayUtils.distinct#1
-         * -> array of objects
+         * -> array of objects 
          * -> property containing an array
          * <- array with the occurrences
-         *
+         * TODO 
+         * make it work with a array of properties.
+         * TODO 
+         * STRANGE STORY (WESLEY) 
          * @unit ArrayUtils.distinct#2
          * -> array of objects
          * -> property containing an objects
@@ -163,12 +211,14 @@
          * -> list of numbers
          * <- an array with the matching elements
          * 
+         * TODO
          * @unit ArrayUtils.isIn#3
          * -> array of objects
          * -> existing property
          * -> list of arrays
          * <- an array with the matching elements
          * 
+         * TODO
          * @unit ArrayUtils.isIn#4
          * -> array of objects
          * -> existing property
@@ -236,12 +286,14 @@
          * -> property containing number
          * <- an array of joined objects
          * 
+         * TODO
          * @unit ArrayUtils.innerJoin#3
          * -> array of objects
          * -> array of objects
          * -> property containing object
          * <- an array of joined objects
          * 
+         * TODO
          * @unit ArrayUtils.innerJoin#4
          * -> array of objects
          * -> array of objects

@@ -30,8 +30,8 @@ describe('Service: WebSQLDriver.list', function() {
     beforeEach(function() {
 
         var log = {};
-        log.debug = console.log;
-        log.error = console.log;
+        log.debug = function(){};//console.log;
+        log.error = function(){};//console.log;
 
         module('tnt.storage.websql');
         module(function($provide) {
