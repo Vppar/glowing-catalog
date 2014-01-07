@@ -167,14 +167,15 @@
          *
          * @unit ArrayUtils.distinct#5
          * -> array of objects
-         * -> non existing property
-         * <- array with a single undefined element
-         * 
-         * @unit ArrayUtils.distinct#6
-         * -> array of objects
          * -> property which the value is an array
          * <- the array of the given property
          * 
+         * @unit ArrayUtils.distinct#6
+         * -> array of objects
+         * -> non existing property
+         * <- array with a single undefined element
+         * 
+         * TODO - not sure what it should be o.O
          * @unit ArrayUtils.distinct#7
          * -> invalid array
          * -> ?
@@ -261,14 +262,12 @@
          * -> list of numbers
          * <- an array with the matching elements
          * 
-         * TODO
          * @unit ArrayUtils.isIn#3
          * -> array of objects
          * -> existing property
          * -> list of arrays
          * <- an array with the matching elements
          * 
-         * TODO
          * @unit ArrayUtils.isIn#4
          * -> array of objects
          * -> existing property
