@@ -3,7 +3,6 @@
 .green {
 	color: #5d9732;
 }*/
-
 /*navegação no menu de linhas*/
 .nav .black.active a {
 	background: #000000;
@@ -666,8 +665,12 @@
 	
 /*best sellers*/
 .best-sellers{
-	width:798px;
-	margin: 10px 13px 0 10px;
+	width: 785px;
+	margin: 10px 0 0 5px;
+	padding: 0 13px 0 5px;
+	border-radius: 6px;
+	background: #fff;
+	min-height: 969px;
 }
 .best-sellers-title{
 	display: block;
@@ -679,6 +682,7 @@
 	letter-spacing: 5px;
 	background: transparent url(../images/catalog/best-sellers/best-sellers.png) no-repeat top right;
 	background-size:85px 84px;
+	z-index:99;
 }
 .big{font-size: 40px; line-height:40px;}
 .bold{font-weight: bold;}
@@ -727,7 +731,6 @@
 .best-sellers-col-right-item{
 	display: block;
 	margin-bottom: 10px;
-	min-height: 43px;
 }
 /*PARA IMAGENS COM NUMERACAO SEPARADA
 .best-sellers-col-right-item .number{
@@ -750,7 +753,6 @@ margin-left: -25px;
 }*/
 .best-sellers-col-right-item  .descript{
 	position: absolute;
-	z-index:-1;
 }
 .img1{
 	top: 108px;
