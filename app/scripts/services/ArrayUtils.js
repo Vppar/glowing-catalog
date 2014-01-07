@@ -92,18 +92,36 @@
          * <- object ocurrence
          * 
          * @unit ArrayUtils.find#2
+         * -> array of objects with array
+         * -> property containing a valid property
+         * -> value of the property
+         * <- object ocurrence
+         * 
+         * @unit ArrayUtils.find#3
+         * -> array of objects with numbers
+         * -> property containing a valid property
+         * -> value of the property
+         * <- object ocurrence
+         * 
+         * @unit ArrayUtils.find#4
+         * -> array of objects with objects
+         * -> property containing a valid property
+         * -> value of the property
+         * <- object ocurrence
+         * 
+         * @unit ArrayUtils.find#5
          * -> an invalid array
          * -> property containing a valid property
          * -> value of the property
          * <- null
          * 
-         * @unit ArrayUtils.find#3
+         * @unit ArrayUtils.find#6
          * -> array of objects
          * -> property containing an invalid property
          * -> value of the property
          * <- null
          * 
-         * @unit ArrayUtils.find#4
+         * @unit ArrayUtils.find#7
          * -> array with duplicate entries
          * -> property containing a valid property
          * -> value of the property
