@@ -103,7 +103,7 @@
          * <- array with the occurrences
          * TODO 
          * make it work with a array of properties.
-         *
+         *TODO 
          * STRANGE STORY (WESLEY) 
          * @unit ArrayUtils.distinct#2
          * -> array of objects
@@ -211,12 +211,14 @@
          * -> list of numbers
          * <- an array with the matching elements
          * 
+         * TODO
          * @unit ArrayUtils.isIn#3
          * -> array of objects
          * -> existing property
          * -> list of arrays
          * <- an array with the matching elements
          * 
+         * TODO
          * @unit ArrayUtils.isIn#4
          * -> array of objects
          * -> existing property
@@ -284,12 +286,14 @@
          * -> property containing number
          * <- an array of joined objects
          * 
+         * TODO
          * @unit ArrayUtils.innerJoin#3
          * -> array of objects
          * -> array of objects
          * -> property containing object
          * <- an array of joined objects
          * 
+         * TODO
          * @unit ArrayUtils.innerJoin#4
          * -> array of objects
          * -> array of objects
