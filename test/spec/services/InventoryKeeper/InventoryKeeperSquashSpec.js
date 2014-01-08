@@ -1,7 +1,6 @@
 'use strict';
 
-//FIXME it's necessary import ArrayUtils, set var <product> and delete property <id> of product before use angular.extend with read only id object at InventoryKeeper
-xdescribe('Service: InventoryKeeper', function() {
+describe('Service: InventoryKeeper', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.inventory'));

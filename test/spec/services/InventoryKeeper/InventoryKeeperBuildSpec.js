@@ -1,7 +1,6 @@
 'use strict';
 
-//FIXME - it's necessery change the <InventoryKeeper.inventory> to something that read the inventory
-xdescribe('Service: InventoryKeeper', function() {
+describe('Service: InventoryKeeper', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.inventory'));
@@ -114,7 +113,7 @@ xdescribe('Service: InventoryKeeper', function() {
     	InventoryKeeper.build(list);
     	
     	//Then
-    	expect(InventoryKeeper.inventory).toEqual(expected);
+    	expect(InventoryKeeper.read()).toEqual(expected);
     	
     });
     
@@ -149,7 +148,7 @@ xdescribe('Service: InventoryKeeper', function() {
     	InventoryKeeper.build(list);
     	
     	//Then
-    	expect(InventoryKeeper.inventory).toEqual(expected);
+    	expect(InventoryKeeper.read()).toEqual(expected);
     	
     });
 
