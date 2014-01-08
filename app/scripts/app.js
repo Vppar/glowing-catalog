@@ -4,16 +4,17 @@
     angular.module(
             'glowingCatalogApp',
             [
-                'ngRoute', 'ui.bootstrap', 'ui.select2', 'tnt.catalog.directive.numpad', 'tnt.catalog.filter.count', 'tnt.catalog.filter.findBy',
-                'tnt.catalog.filter.sum', 'tnt.catalog.filter.paymentType', 'tnt.catalog.service.data', 'tnt.catalog.service.dialog',
-                'tnt.catalog.service.order', 'tnt.catalog.service.expense', 'tnt.catalog.service.payment', 'tnt.catalog.service.sms',
-                'tnt.catalog.service.receivable', 'tnt.catalog.service.storage', 'tnt.catalog.header', 'tnt.catalog.basket',
-                'tnt.catalog.basket.add', 'tnt.catalog.customer', 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails',
-                'tnt.catalog.customer.choose', 'tnt.catalog.payment', 'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard',
-                'tnt.catalog.payment.exchange', 'tnt.catalog.product.input.dialog', 'tnt.catalog.financial.receivable',
-                'tnt.catalog.financial.receivable.entity', 'tnt.catalog.financial.expense', 'tnt.catalog.financial.incomeStatement',
-                'tnt.utils.array', 'tnt.catalog.components.product-display', 'tnt.catalog.components.catalog-section',
-                'tnt.catalog.components.highlight-display', 'tnt.catalog.gopay.integration'
+                'ngRoute', 'ui.bootstrap', 'ui.select2', 'tnt.catalog.directive.numpad', 'tnt.catalog.filter.count',
+                'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum', 'tnt.catalog.filter.paymentType', 'tnt.catalog.service.data',
+                'tnt.catalog.service.dialog', 'tnt.catalog.service.order', 'tnt.catalog.service.expense', 'tnt.catalog.service.payment',
+                'tnt.catalog.service.sms', 'tnt.catalog.service.receivable', 'tnt.catalog.service.storage', 'tnt.catalog.header',
+                'tnt.catalog.basket', 'tnt.catalog.basket.add', 'tnt.catalog.customer', 'tnt.catalog.customer.add.phones',
+                'tnt.catalog.customer.add.emails', 'tnt.catalog.customer.choose', 'tnt.catalog.payment', 'tnt.catalog.payment.check',
+                'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange', 'tnt.catalog.product.input.dialog',
+                'tnt.catalog.financial.receivable', 'tnt.catalog.financial.receivable.entity', 'tnt.catalog.financial.expense',
+                'tnt.catalog.financial.incomeStatement', 'tnt.utils.array', 'tnt.catalog.components.product-display',
+                'tnt.catalog.components.catalog-section', 'tnt.catalog.components.highlight-display', 'tnt.catalog.gopay.integration',
+                'tnt.catalog.components.catalog-highlights'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -83,8 +84,8 @@
                     }
                 });
             });
-            
-            if(!('ontouchstart' in window || 'onmsgesturechange' in window)){
+
+            if (!('ontouchstart' in window || 'onmsgesturechange' in window)) {
                 $self.on('click', function(startEvent) {
                     $.event.simulate('tap', self, startEvent);
                 });

@@ -203,7 +203,7 @@
     display: inline-block;
 }
 .row-input-products-grid .ic-arrow-left, .row-input-products-grid .ic-arrow-right{
-	width:18px;
+	width:33px;
 	height:44px;
 }
 .row-input-products-grid .qty{
@@ -238,6 +238,6 @@
 	vertical-align: middle;
 }
 
-.margint10{
-	margin-top:18px;
+.margint14{
+	margin-top:14px;
 }

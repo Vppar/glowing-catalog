@@ -103,8 +103,8 @@ margin-top: 5px;
 .payment-resume .values-resume {
 	float: right;
 	text-align: right;
-	margin-right: 12px;
-	font-size:18px
+	margin-right: 5px;
+	font-size:18px;
 }
 .btns-right-payment .btn-price-payment {
 	float: right;
@@ -181,7 +181,11 @@ margin-top: 5px;
 	display:block;
 	margin-right:2px;
 	min-height:601px;
-	height:100%;
+	/*para alinhar a base*/
+		height:100%;	
+		position: fixed;
+		bottom: 25px;
+		top: 80px;
 }
 .lbl-money {
 	display:inline-block;
@@ -310,7 +314,10 @@ margin-top: 5px;
 	/*margin:0 0 0 40px;*/
 }
 .payment-voucher-fields {
-	margin:0 0 0 44px;
+	margin:0 0 0 10px;
+}
+.mw220{
+	min-width: 220px;
 }
 /* end scroll left*/
 #combo-parcelas{
@@ -358,10 +365,6 @@ margin-top: 5px;
 	vertical-align: middle;
 	border-top: 1px solid #e0e0e0;
 }
-.input-name-payment {
-	width:264px;
-	margin-left:-5px;
-}
 .sub-total-payment {
 	width:170px;
 }
@@ -372,12 +375,15 @@ margin-top: 5px;
 }
 
 .payment-btns {
-	width: 90%;
-	height:50px;
+	height: 50px;
 	margin: auto;
 	margin-top: 50px;
 	border-top: 1px dotted #ccc;
 	padding-top: 10px;
+	/*para alinhar a base*/
+		width: 307px; /*width: 90%;*/
+		position: fixed;
+		bottom: 25px;
 }
 
 .payment-btn-area {
@@ -407,11 +413,11 @@ margin-top: 5px;
 	display: block;
 	height: 60px;
 	border-top: 1px dotted #ccc;
+	/*para alinhar a base*/
+		position: fixed;
+		bottom: 25px;
 }
 
-.display-none {
-	display: none;
-}
 .col-check-s1 {
 	width: 57px; /*35px*/
 	text-align:center;
@@ -448,6 +454,9 @@ margin-top: 5px;
 	text-align:right;
 	margin-left:13px;
 }
+.w130{
+	width: 130px;
+}
 
 .payment-check-fields .control-label{
 	text-align:center !important;
@@ -481,12 +490,12 @@ z-index: 11;
 border-radius: 4px;
 }
 #keyNum_quad{
-width: 300px;
+width: 310px;
 height: 55px; /*500px*/
 background: #F8F8F8;
 position: absolute;
 top: -58px;
-left: 6px;
+left: 0px;
 z-index: 10;
 }
 #keyNum{
@@ -496,7 +505,7 @@ background: #fff;
 float: right;
 position: absolute;
 padding: 10px;
-margin: 23px 0 40px -5px;
+margin: 23px 0 40px 0;
 top: 218px;
 z-index: 11;
 border-radius: 4px;
@@ -622,10 +631,10 @@ border-radius: 4px;
 	text-align: right !important;
 }
 .qntty{
-	display: inline-block;
-	margin: 0 !important;
+	display: inline-block !important;
+	margin: -1px !important;
 	padding: 0 !important;
-	width: 85px;
+	width: 87px;
 }
 .display-block{
 	display:block;
