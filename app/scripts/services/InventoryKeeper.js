@@ -29,7 +29,7 @@
     /**
      * The Inventory item, same as SKU or a product with an applied grid
      */
-    angular.module('tnt.catalog.inventory.keeper', []).service('InventoryKeeper', function InventoryKeeper(Inventory) {
+    angular.module('tnt.catalog.inventory.keeper', ['tnt.utils.array']).service('InventoryKeeper', function InventoryKeeper(Inventory,ArrayUtils) {
         var inventory = [];
         
         /**
@@ -52,13 +52,15 @@
          * @param The product list
          */
         this.build = function(products){
+        	var product = null;
             for(var ix in products){
                 product = products[ix];
-                
                 if(product.active){
                     product = this.squash(product, products);
                     
                     var item = new Inventory(product.id);
+                    
+                    delete product.id;
                     
                     angular.extend(item, product);
                     
@@ -112,6 +114,11 @@
             }
             return product;
         };
+        
+        this.read = function(){
+        	return angular.copy(inventory);
+        };
+        
     });
     
     angular.module('tnt.catalog.inventory', ['tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper']);
