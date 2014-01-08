@@ -50,8 +50,8 @@
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money red-color">Troca</span><span class="lbl-moneyt paddingl10">({{payments | paymentType:'exchange' | count:'id'}})</span>
-		<span class="red-color">
+		<span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10">({{payments | paymentType:'exchange' | count:'id'}})</span>
+		<span>
 			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
