@@ -71,7 +71,7 @@
 }
 .form-add-to-basket .price-popup-small {
 	font-size:14px;
-	display: block;
+	/*display: block;*/
 }
 .form-add-to-basket .qty-value{/*.input-row-qtde-cart input {*/
 	width: 100% !important;

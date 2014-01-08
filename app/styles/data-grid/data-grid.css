@@ -153,7 +153,7 @@
 	border-radius: 4px;
 	color:#fff;
 }
-.row-input-products-grid span {line-height:44px;}
+/*.row-input-products-grid {line-height:44px;}*/
 .grid-input-products .header2 .col-1 {
 	width: 250px;
 }
@@ -178,12 +178,19 @@
 .grid-input-products .header2 .col-4 div {
 	text-align: center;
 }
-div.scroll-input-products-grid2 { height:223px; overflow-y:scroll;}
+div.scroll-input-products-grid2 { height:273px; overflow-y:scroll;}
 
 .scroll-input-products-grid2 .col-1 {
 	width: 250px;
 	display: inline-block;
 	white-space: nowrap;
+}
+.scroll-input-products-grid2 .col-1 .options{
+	width: 30px;
+	height: 30px;
+	border-radius:50%;
+	display: inline-block;
+	background-color:#D1202E;
 }
 .scroll-input-products-grid2 .col-1 div {
 	display:inline-block;
