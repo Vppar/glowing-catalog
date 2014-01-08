@@ -598,10 +598,18 @@ nav ul li {
 	max-height: 409px;*/
 	clear:both;
 }
+.mary-content, .sidebar-menu-scroll{
+	position: absolute;
+}
+.sidebar-menu-scroll{
+	right:0;
+}
 .sidebar-menu{
+	/*position: fixed;
+	position: inherit;
+	top: 254px;*/
+	right:0;
 	bottom: 0px;
-	position: fixed;
-	top: 254px;
 	overflow-y: auto;
 }
 
@@ -951,4 +959,8 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 .editing{	
 	outline: 2px solid #D7F0BF;
 	outline-offset: -3px;
+}
+
+.display-none {
+	display: none;
 }
