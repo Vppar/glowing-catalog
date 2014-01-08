@@ -5,22 +5,35 @@
             'ProductLineUp',
             function ProductLineUp(ArrayUtils) {
 
+                function p3x3(product) {
+                    product.w = 3;
+                    product.h = 3;
+                }
+
+                function p6x3(product) {
+                    product.w = 6;
+                    product.h = 3;
+                }
+
+                function p6x2(product) {
+                    product.w = 6;
+                    product.h = 2;
+                }
+
                 this.minSize =
                         function(lineUp) {
                             for ( var ix in lineUp) {
                                 var product = lineUp[ix];
 
                                 if (angular.isUndefined(product.h)) {
-                                    if ((angular.isUndefined(product.description) || product.description.length < 110) &&
-                                        angular.isUndefined(product.expires) && lineUp.length > 4) {
-                                        product.w = 3;
-                                        product.h = 3;
+                                    if (angular.isUndefined(product.description)){
+                                        p3x3(product);
+                                    } else if (product.description.length < 110 && angular.isUndefined(product.expires)) {
+                                        p3x3(product);
                                     } else if (angular.isDefined(product.description) && product.description.length > 175) {
-                                        product.w = 6;
-                                        product.h = 3;
+                                        p6x3(product);
                                     } else {
-                                        product.w = 6;
-                                        product.h = 2;
+                                        p6x2(product);
                                     }
                                 }
                             }
@@ -81,13 +94,21 @@
                     if (rightH - leftH === -1) {
                         fix1(right, left);
                     }
-                    
+
                     if (leftH - rightH === -2) {
                         fix2(left, right);
                     }
 
                     if (rightH - leftH === -2) {
                         fix2(right, left);
+                    }
+                    
+                    if (leftH - rightH === -3) {
+                        fix3(left, right);
+                    }
+
+                    if (rightH - leftH === -3) {
+                        fix3(right, left);
                     }
 
                 };
@@ -103,7 +124,7 @@
                         w : 3,
                         h : 3
                     });
-                    
+
                     if (items.length > 1) {
                         items[0].w = 6;
                         items[0].h = 2;
@@ -113,13 +134,13 @@
                     }
 
                 }
-                
+
                 function fix2(short, big) {
                     var items = ArrayUtils.filter(short, {
                         w : 3,
                         h : 3
                     });
-                    
+
                     if (items.length > 3) {
                         items[0].w = 6;
                         items[0].h = 2;
@@ -131,7 +152,7 @@
                         items[3].h = 2;
                         return;
                     }
-                    
+
                     if (items.length > 1) {
                         items[0].w = 6;
                         items[0].h = 2;
@@ -139,7 +160,26 @@
                         items[1].h = 3;
                         return;
                     }
+                }
+                
+                function fix3(short, big) {
+                    var items = ArrayUtils.filter(big, {
+                        w : 3,
+                        h : 3
+                    });
 
+                    if (items.length > 1) {
+                        items[0].w = 6;
+                        items[0].h = 2;
+                        items[1].w = 6;
+                        items[1].h = 2;
+                        
+                        var ix = big.indexOf(items[1]);
+                        
+                        short.push(big.splice(ix, 1)[0]);
+                        
+                        return;
+                    }
                 }
 
             });
