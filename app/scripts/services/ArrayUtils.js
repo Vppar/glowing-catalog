@@ -335,14 +335,12 @@
          * -> property containing number
          * <- an array of joined objects
          * 
-         * TODO
          * @unit ArrayUtils.innerJoin#3
          * -> array of objects
          * -> array of objects
          * -> property containing object
          * <- an array of joined objects
          * 
-         * TODO
          * @unit ArrayUtils.innerJoin#4
          * -> array of objects
          * -> array of objects
