@@ -41,7 +41,7 @@
          * and the product's property <id> must be read only
          * 
          * @spec InventoryKeeper.build#2
-         * Given an invalid of products
+         * Given an invalid list of products
          * When a build is triggered
          * Then the inventory must be empty
          * 
@@ -73,7 +73,7 @@
          * Given a valid product
          * and a valid list of products
          * When a squash is triggered
-         * Then the product must be returned containing parent's data 
+         * Then the product must be returned containing extra parent's data 
          * 
          * @spec InventoryKeeper.squash#2
          * Given a valid product
