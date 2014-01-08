@@ -11,6 +11,18 @@
             </div>
 		</div>
         
+        <div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-when="Promoções">
+            <catalog-highlights section="selectedSection"></catalog-highlights>
+        </div>
+        
+        <div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-when="Ed. Limitada">
+            <catalog-highlights section="selectedSection"></catalog-highlights>
+        </div>
+        
+        <div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-when="Lançamentos">
+            <catalog-highlights section="selectedSection"></catalog-highlights>
+        </div>
+        
         <div class="home-scroll-content" id="scrollContainer" ng-switch-when="Mais Vendidos">
             <span ng-include="'views/catalog/best-sellers.html'"></span>
         </div>
