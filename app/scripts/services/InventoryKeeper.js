@@ -33,8 +33,21 @@
         var inventory = [];
         
         /**
+         * <pre>
+         * @spec InventoryKeeper.build#1
+         * Given a valid list of products
+         * When a build is triggered
+         * Then the inventory must be populated with squashed products
+         * and the product's property <id> must be read only
          * 
+         * @spec InventoryKeeper.build#2
+         * Given an invalid list of products
+         * When a build is triggered
+         * Then the inventory must be empty
          * 
+         * </pre>
+         * 
+         * This function populate the inventory with squashed products
          * 
          * @param The product list
          */
@@ -55,6 +68,31 @@
         };
         
         /**
+         * <pre>
+         * @spec InventoryKeeper.squash#1
+         * Given a valid product
+         * and a valid list of products
+         * When a squash is triggered
+         * Then the product must be returned containing extra parent's data 
+         * 
+         * @spec InventoryKeeper.squash#2
+         * Given a valid product
+         * and a non-parent products list
+         * When a squash is triggered
+         * Then null must be returned
+         * 
+         * @spec InventoryKeeper.squash#3
+         * Given an invalid product
+         * When a squash is triggered
+         * Then null must be returned
+         * 
+         * @spec InventoryKeeper.squash#4
+         * Given an invalid list of products
+         * When a squash is triggered
+         * Then null must be returned
+         * 
+         * </pre>
+         * 
          * Squashes the whole product definition hierarchy into an inventory item. 
          * 
          * @param product - the product we want to be augumented
