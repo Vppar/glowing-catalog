@@ -39,6 +39,16 @@ describe('Service: WebSQLDriver.persist', function() {
         expect(!!WebSQLDriver).toBe(true);
     });
 
+    /**
+     * <pre>
+     * @spec WebSQLDriver.persist#1
+     * Given a valid transaction
+     * and a valid bucket name
+     * and a valid data with anyorder of attributes
+     * When a persist is triggered
+     * Then the data must be inserted into proper table
+     * </pre>
+     */
     it('should persist right at bucket with anyorder of attributes', function() {
 
         var createdBucket = false;
@@ -93,6 +103,14 @@ describe('Service: WebSQLDriver.persist', function() {
         });
     });
 
+    /**
+     * <pre>
+     * @spec WebSQLDriver.persist#2
+     * Given valid data with a primary key that already set
+     * When a persist is triggered
+     * Then the data must not be inserted into the table
+     * </pre>
+     */
     it('shouldn\'t persist if the key already exists at the bucket', function() {
         var createdBucket = false;
         var persistedFirst = false;
@@ -176,6 +194,14 @@ describe('Service: WebSQLDriver.persist', function() {
 
     });
 
+    /**
+     * <pre>
+     * @spec WebSQLDriver.persist#3
+     * Given valid data without a primary key
+     * When a persist is triggered
+     * Then the data must not be inserted into the table
+     * </pre>
+     */
     it('shouldn\'t persist at bucket without a key', function() {
 
         var createdBucket = false;
@@ -234,6 +260,16 @@ describe('Service: WebSQLDriver.persist', function() {
         });
     });
 
+    /**
+     * <pre>
+     * @spec WebSQLDriver.persist#1
+     * Given a valid transaction
+     * and a valid bucket name
+     * and a valid data with anyorder of attributes
+     * When a persist is triggered
+     * Then the data must be inserted into proper table
+     * </pre>
+     */
     it('should persist at bucket with a key', function() {
 
         var createdBucket = false;
@@ -289,7 +325,17 @@ describe('Service: WebSQLDriver.persist', function() {
         });
 
     });
-
+    
+    /**
+     * <pre>
+     * @spec WebSQLDriver.persist#2
+     * Given a valid transaction
+     * and a valid bucket name
+     * and a valid data with without some property except primary key
+     * When a persist is triggered
+     * Then the data must be inserted into proper table
+     * </pre>
+     */
     it('should persist if the number of columns does not fits the bucket attributes', function() {
         var createdBucket = false;
         var persisted = false;
@@ -346,6 +392,13 @@ describe('Service: WebSQLDriver.persist', function() {
         });
     });
 
+    /**
+     * <pre>
+     * Given an invalid data with different properties
+     * When a persist is triggered
+     * Then the data must not be inserted into the table
+     * </pre>
+     */
     it('shouldn\'t persist if the columns\'s labels are different from the bucket\'s', function() {
         var createdBucket = false;
         var notpersisted = false;

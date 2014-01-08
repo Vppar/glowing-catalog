@@ -28,6 +28,18 @@ describe('Service: WebSQLDriver.transaction', function() {
         expect(!!WebSQLDriver).toBe(true);
     });
 
+    
+    /**
+     * <pre>
+     * @spec WebSQLDriver.createBucket#1
+     * Given a valid transaction
+     * and a valid bucket name
+     * and a valid data
+     * and a valid metadata
+     * When a createBucket is triggered
+     * Then the table must be created with proper column data 
+     * </pre>
+     */
     it('should create bucket', function() {
 
         var resolved = false;
@@ -64,7 +76,15 @@ describe('Service: WebSQLDriver.transaction', function() {
         });
     });
 
-    it('should fail with whrong metaVersion', function() {
+    /**
+     * <pre>
+     * @spec WebSQLDriver.createBucket#2
+     * Given an invalid metadata
+     * When a createBucket is triggered
+     * Then a error must be thrown
+     * </pre>
+     */
+    it('should fail with wrong metaVersion', function() {
 
         var data = {
             a : 'a',

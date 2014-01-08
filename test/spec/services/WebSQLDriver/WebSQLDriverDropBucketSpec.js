@@ -28,6 +28,15 @@ describe('Service: WebSQLDriver.dropBucket', function() {
         expect(!!WebSQLDriver).toBe(true);
     });
 
+    /**
+     * <pre>
+     * @spec WebSQLDriver.dropBucket#1
+     * Given a valid transaction
+     * and a valid bucket name
+     * When a dropBucket is triggered
+     * Then the table with the bucket name must be dropped 
+     * </pre>
+     */
     it('should drop bucket', function() {
 
         var createdBucket = false;
