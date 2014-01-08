@@ -28,6 +28,14 @@ describe('Service: WebSQLDriver.transaction', function() {
         expect(!!WebSQLDriver).toBe(true);
     });
 
+    /**
+     * <pre>
+     * @spec WebSQLDriver.transaction#1
+     * Given a valid transaction body
+     * When a transaction is triggered
+     * Then the transaction must be resolved with success
+     * </pre>
+     */
     it('should resolve transaction', function() {
 
         var resolved = false;
@@ -54,6 +62,14 @@ describe('Service: WebSQLDriver.transaction', function() {
         });
     });
 
+    /**
+     * <pre>
+     * @spec WebSQLDriver.transaction#2
+     * Given an invalid transaction body
+     * When a transaction is triggered
+     * Then the transaction must be resolved with failure
+     * </pre>
+     */
     it('should resolve transaction with failure', function() {
 
         var resolved = false;

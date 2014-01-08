@@ -50,6 +50,16 @@ describe('Service: WebSQLDriver.find', function() {
 		expect(!!WebSQLDriver).toBe(true);
 	});
 
+	/**
+     * <pre>
+     * @spec WebSQLDriver.find#1
+     * Given a valid transaction
+     * and a valid bucket name
+     * and a valid primary key value
+     * When a find is triggered
+     * Then the data object must be returned
+     * </pre>
+     */
 	it('should return a object', function() {
 
 				var id = 'a';
@@ -132,6 +142,14 @@ describe('Service: WebSQLDriver.find', function() {
 
 			});
 
+	/**
+     * <pre>
+     * @spec WebSQLDriver.find#2
+     * Given a primary key value that was not set in database
+     * When a persist is triggered
+     * Then null must be returned
+     * </pre>
+     */
 	it('shouldn\'t return a object', function() {
 
 				var id = 'alo';
@@ -172,7 +190,14 @@ describe('Service: WebSQLDriver.find', function() {
 
 			});
 
-	
+	/**
+     * <pre>
+     * @spec WebSQLDriver.find#3
+     * Given an invalid name
+     * When a persist is triggered
+     * Then a error must be thrown
+     * </pre>
+     */
 	it('should throw an error', function() {
 		var name = 'noname';
 		var id = 1;

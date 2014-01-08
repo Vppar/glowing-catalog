@@ -5,7 +5,26 @@
 
         var db = openDatabase('PersistentStorage', '1.0', 'Persistent Storage', 5 * 1024 * 1024);
         var entities = {};
-
+        
+        /**
+         * <pre>
+         * @spec WebSQLDriver.transaction#1
+         * Given a valid transaction body
+         * When a transaction is triggered
+         * Then the transaction must be resolved with success
+         * 
+         * @spec WebSQLDriver.transaction#2
+         * Given an invalid transaction body
+         * When a transaction is triggered
+         * Then the transaction must be resolved with failure
+         * 
+         * </pre>
+         * 
+         * This function resolves a database transaction an return a promise for results
+         * 
+         * @param transaction body
+         * @returns deferred
+         */
         this.transaction = function(txBody) {
 
             $log.debug("starting transaction");
@@ -25,6 +44,40 @@
             return deferred.promise;
         };
 
+        /**
+         * <pre>
+         * @spec WebSQLDriver.createBucket#1
+         * Given a valid transaction
+         * and a valid bucket name
+         * and a valid data
+         * and a valid metadata
+         * When a createBucket is triggered
+         * Then the table must be created with proper column data 
+         * 
+         * @spec WebSQLDriver.createBucket#2
+         * Given an invalid metadata
+         * When a createBucket is triggered
+         * Then a error must be thrown
+         * 
+         * @spec WebSQLDriver.createBucket#3
+         * Given an invalid name
+         * When a createBucket is triggered
+         * Then a error must be thrown
+         * 
+         * @spec WebSQLDriver.createBucket#4
+         * Given an invalid data
+         * When a createBucket is triggered
+         * Then a error must be thrown
+         * 
+         * </pre>
+         * 
+         * This function creates a new table in database
+         * 
+         * @param transaction
+         * @param bucket name
+         * @param data
+         * @param metadata
+         */
         this.createBucket = function(tx, name, data, metadata) {
             if (metadata.metaVersion === 1) {
 
@@ -62,6 +115,21 @@
             }
         };
 
+        /**
+         * <pre>
+         * @spec WebSQLDriver.dropBucket#1
+         * Given a valid transaction
+         * and a valid bucket name
+         * When a dropBucket is triggered
+         * Then the table with the bucket name must be dropped 
+         * 
+         * </pre>
+         * 
+         * This function drops a table in database
+         * 
+         * @param transaction
+         * @param bucket name
+         */
         this.dropBucket = function(tx, name) {
             var SQL = [];
             SQL.push('DROP TABLE IF EXISTS');
@@ -72,6 +140,45 @@
             tx.executeSql(SQL);
         };
 
+        /**
+         * <pre>
+         * @spec WebSQLDriver.persist#1
+         * Given a valid transaction
+         * and a valid bucket name
+         * and a valid data with anyorder of attributes
+         * When a persist is triggered
+         * Then the data must be inserted into proper table
+         * 
+         * @spec WebSQLDriver.persist#2
+         * Given a valid transaction
+         * and a valid bucket name
+         * and a valid data with without some property except primary key
+         * When a persist is triggered
+         * Then the data must be inserted into proper table
+         * 
+         * @spec WebSQLDriver.persist#3
+         * Given valid data with a primary key that already set
+         * When a persist is triggered
+         * Then the data must not be inserted into the table
+         * 
+         * @spec WebSQLDriver.persist#4
+         * Given an invalid data without a primary key
+         * When a persist is triggered
+         * Then the data must not be inserted into the table
+         * 
+         * @spec WebSQLDriver.persist#5
+         * Given an invalid data with different properties
+         * When a persist is triggered
+         * Then the data must not be inserted into the table
+         * 
+         * </pre>
+         * 
+         * This function inserts data into a table
+         * 
+         * @param transaction
+         * @param bucket name
+         * @param data
+         */
         this.persist = function(tx, name, data) {
             var columns = [], values = [];
 
@@ -96,6 +203,34 @@
             tx.executeSql(SQL);
         };
 
+        /**
+         * <pre>
+         * @spec WebSQLDriver.find#1
+         * Given a valid transaction
+         * and a valid bucket name
+         * and a valid primary key value
+         * When a find is triggered
+         * Then the data object must be returned
+         * 
+         * @spec WebSQLDriver.find#2
+         * Given a primary key value that was not set in database
+         * When a persist is triggered
+         * Then null must be returned
+         * 
+         * @spec WebSQLDriver.find#3
+         * Given an invalid name
+         * When a persist is triggered
+         * Then a error must be thrown
+         * 
+         * </pre>
+         * 
+         * This function find and returns a data in a table row
+         * 
+         * @param transaction
+         * @param bucket name
+         * @param value of primery key
+         * @param optional callback function
+         */
         this.find = function(tx, name, id, cb) {
 
             if (angular.isUndefined(entities[name].pk)) {
@@ -135,6 +270,35 @@
             return deferred.promise;
         };
 
+        /**
+         * <pre>
+         * @spec WebSQLDriver.list#1
+         * Given a valid transaction
+         * and a valid bucket name
+         * When a list is triggered
+         * Then a array of all data objects must be returned
+         * 
+         * @spec WebSQLDriver.list#2
+         * Given a valid transaction
+         * and a valid bucket name
+         * and a valid object with parameters and values
+         * When a list is triggered
+         * Then a array of data objects filtered by the parameters must be returned
+         * 
+         * @spec WebSQLDriver.list#3
+         * Given an invalid name
+         * When a list is triggered
+         * Then a error must be thrown
+         * 
+         * </pre>
+         * 
+         * This function lists and returns a data array of a table
+         * 
+         * @param transaction
+         * @param bucket name
+         * @param optional object with parameters and values
+         * @param optional callback function
+         */
         this.list = function(tx, name, params, cb) {
 
             var SQL = [];
@@ -179,6 +343,28 @@
             // not implemented for lack of use
         };
 
+        /**
+         * <pre>
+         * @spec WebSQLDriver.remove#1
+         * Given a valid transaction
+         * and a valid bucket name
+         * and a valid object with parameters and values
+         * When a remove is triggered
+         * Then the objects filtered by the parameters must be deleted of database
+         * 
+         * @spec WebSQLDriver.remove#2
+         * Given an invalid name
+         * When a remove is triggered
+         * Then a error must be thrown
+         * 
+         * </pre>
+         * 
+         * This function removes data of a table
+         * 
+         * @param transaction
+         * @param bucket name
+         * @param object with parameters and values
+         */
         this.remove = function(tx, name, params) {
 
             var SQL = [];

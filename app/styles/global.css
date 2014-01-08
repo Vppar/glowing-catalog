@@ -325,7 +325,7 @@ body {
 	vertical-align: top
 }
 .form-signin {
-	width: 360px;
+	width: 290px;
 	padding: 40px 30px 30px 30px;
 	border-radius: 0 0 4px 4px;
 	box-shadow: 0px 10px 50px 10px #999;
@@ -585,38 +585,40 @@ nav ul li {
 	width: 404px;
 	margin-top: 10px;
 }
-/*side bar*/
+/*side bar
 .sidebar-menu, .sidebar-menu1 {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
 	width: 180px;
 	background: #fdfeff;
-	/*float: right;*/
 	margin: 0 23px 10px 0;
 	position: relative;
-	/*overflow-y: auto;
-	max-height: 409px;*/
 	clear:both;
 }
-.mary-content, .sidebar-menu-scroll{
-	position: absolute;
-}
-.sidebar-menu-scroll{
-	right:0;
-}
 .sidebar-menu{
-	/*position: fixed;
-	position: inherit;
-	top: 254px;*/
-	right:0;
-	bottom: 0px;
 	overflow-y: auto;
 }
 
-.sidebar-menu-scroll{ 
+.sidebar-menu1 {
+	margin-top:-10px !important;
+}*/
+
+/*side bar*/
+.sidebar-menu, .sidebar-menu1 {
 	float: right;
+	box-shadow: -1px 1px 8px 1px #e0e0e0;
+	border-radius: 4px;
+	width: 180px;
+	background: #fdfeff;
+	float: right;
+	margin-top: 7px;
+	margin-right: 23px;
+	position: relative;
+	clear:both;
+	overflow-y: auto;
 }
-.sidebar-menu1 {margin-top:-10px !important;
+.sidebar-menu1 {
+	margin-top: -10px;
 }
 
 .banner-side-bar {
@@ -726,11 +728,11 @@ nav ul li {
 	background: #000000;
 	width: 1024px;
 	position: fixed;
+	bottom: -2px;
+	box-shadow: 0px 0px 10px 0px #666;
 	left: 50%;
 	margin-left: -512px;
-	bottom: -2px;
 	border-top: 0px solid #fff;
-	box-shadow: 0px 0px 10px 0px #666;
 }
 .footer a:active {
 	text-decoration: none
@@ -953,7 +955,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 }
 
 .home-scroll-content>div{
-	margin-bottom:-10px;
+	/*margin-bottom:-10px;*/
 }
 
 .editing{	
@@ -961,6 +963,4 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	outline-offset: -3px;
 }
 
-.display-none {
-	display: none;
-}
+.display-none{display: none;}

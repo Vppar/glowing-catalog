@@ -13,7 +13,7 @@
 	color:rgba(0, 0, 0, 0.5);
 }
 .row-right-payment .lbl-moneyt {
-	color:red;
+	color: rgba(0, 0, 0, 0.5);
 }
 .row-right-payment:hover {
 	cursor: pointer;
@@ -103,7 +103,7 @@ margin-top: 5px;
 .payment-resume .values-resume {
 	float: right;
 	text-align: right;
-	margin-right: 5px;
+	margin-right: 13px;
 	font-size:18px;
 }
 .btns-right-payment .btn-price-payment {
@@ -135,6 +135,7 @@ margin-top: 5px;
 	float: right;
 	border-radius: 6px;
 	margin: -5px -4px 0 5px; /*margin: -5px 5px 0 5px;*/
+	padding-left: 5px;
 	width: 278px;
 	color: #777;
 }
@@ -180,12 +181,12 @@ margin-top: 5px;
 	background-color:#f8f8f8;
 	display:block;
 	margin-right:2px;
-	min-height:601px;
-	/*para alinhar a base*/
+	min-height:548px;
+	/*para alinhar a base
 		height:100%;	
 		position: fixed;
 		bottom: 25px;
-		top: 80px;
+		top: 80px;*/
 }
 .lbl-money {
 	display:inline-block;
@@ -377,13 +378,13 @@ margin-top: 5px;
 .payment-btns {
 	height: 50px;
 	margin: auto;
-	margin-top: 50px;
+	margin-top: 10px;
 	border-top: 1px dotted #ccc;
 	padding-top: 10px;
-	/*para alinhar a base*/
-		width: 307px; /*width: 90%;*/
+	/*para alinhar a base
+		width: 307px; /*width: 90%;/
 		position: fixed;
-		bottom: 25px;
+		bottom: 25px;*/
 }
 
 .payment-btn-area {
@@ -413,9 +414,9 @@ margin-top: 5px;
 	display: block;
 	height: 60px;
 	border-top: 1px dotted #ccc;
-	/*para alinhar a base*/
+	/*para alinhar a base
 		position: fixed;
-		bottom: 25px;
+		bottom: 25px;*/
 }
 
 .col-check-s1 {

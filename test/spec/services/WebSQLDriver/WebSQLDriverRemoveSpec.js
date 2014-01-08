@@ -61,7 +61,16 @@ describe('Service: WebSQLDriver.remove', function() {
         expect(!!WebSQLDriver).toBe(true);
     });
 
-    
+    /**
+     * <pre>
+     * @spec WebSQLDriver.remove#1
+     * Given a valid transaction
+     * and a valid bucket name
+     * and a valid object with parameters and values
+     * When a remove is triggered
+     * Then the objects filtered by the parameters must be deleted of database
+     * </pre>
+     */
     it('should remove an object', function() {
     	var resolved = false;
     	var persisted = false;

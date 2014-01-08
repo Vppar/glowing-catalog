@@ -71,7 +71,7 @@
 }
 .form-add-to-basket .price-popup-small {
 	font-size:14px;
-	display: block;
+	/*display: block;*/
 }
 .form-add-to-basket .qty-value{/*.input-row-qtde-cart input {*/
 	width: 100% !important;
@@ -322,7 +322,7 @@ input.sub-total-payment {
 .input-name-payment {
 	width: 270px;
 	border: 1px solid #fff !important;
-	margin: 0px 0 0 -13px;
+	margin: 0px 0 0 -10px;
 	text-align:left;
 }
 .combo-width-1 {

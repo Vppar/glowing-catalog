@@ -52,6 +52,15 @@ describe('Service: WebSQLDriver.list', function() {
         expect(!!WebSQLDriver).toBe(true);
     });
     
+    /**
+     * <pre>
+     * @spec WebSQLDriver.list#1
+     * Given a valid transaction
+     * and a valid bucket name
+     * When a list is triggered
+     * Then a array of all data objects must be returned
+     * </pre>
+     */
     it('should return a list with objects without parameters', function() {
     	var createdBucket = false;
         var persisted = false;
@@ -134,6 +143,15 @@ describe('Service: WebSQLDriver.list', function() {
         });
     });
         
+    /**
+     * @spec WebSQLDriver.list#2
+     * Given a valid transaction
+     * and a valid bucket name
+     * and a valid object with parameters and values
+     * When a list is triggered
+     * Then a array of data objects filtered by the parameters must be returned
+     * </pre>
+     */
     it('should return a list with objects with parameters', function() {
     	var createdBucket = false;
         var persisted = false;
