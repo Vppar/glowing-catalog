@@ -8,7 +8,7 @@
      * @test Stock.constructor#1
      * Validate the data on the returned object
      * 
-     * @test Stock.constructor#1
+     * @test Stock.constructor#2
      * Validate the read only fields
      * 
      * </pre>
