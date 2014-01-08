@@ -12,53 +12,57 @@
         });
     });
 
-    angular.module('tnt.catalog.components.product-display', []).directive('productDisplay', function(DataProvider, OrderService, DialogService) {
-        return {
-            restrict : 'E',
-            templateUrl : templateUrl,
-            replace: true,
-            scope : {
-                product : '=',
-                line : '='
-            },
-            link : function postLink(scope, element, attrs) {
+    angular.module('tnt.catalog.components.product-display', []).directive(
+            'productDisplay', function(DataProvider, OrderService, DialogService) {
+                return {
+                    restrict : 'E',
+                    templateUrl : templateUrl,
+                    replace : true,
+                    scope : {
+                        product : '=',
+                        color : '='
+                    },
+                    link : function postLink(scope, element, attrs) {
 
-                scope.blockStyle = [];
-                scope.blockStyle[0] = 'w0' + scope.product.w;
-                scope.blockStyle[1] = 'h0' + scope.product.h;
-                scope.blockStyle[2] = 'product-bg-' + scope.line.color;
+                        scope.blockStyle = [];
+                        scope.blockStyle[0] = 'w0' + scope.product.w;
+                        scope.blockStyle[1] = 'h0' + scope.product.h;
+                        scope.blockStyle[2] = 'product-bg-' + scope.color;
 
-                if (angular.isDefined(scope.product.extra)) {
-                    scope.blockStyle[3] = 'last-opportunity';
-                } else {
-                    scope.blockStyle[3] = '';
-                }
-                
-             // #############################################################################################################
-                // Dialogs control
-                // #############################################################################################################
-                /**
-                 * Opens the dialog to add a product to the basket and in the
-                 * promise resolution add it to the basket ... or do nothing.
-                 */
-                scope.add = function(product) {
+                        if (angular.isDefined(scope.product.expires)) {
+                            scope.blockStyle[3] = 'last-opportunity';
+                            scope.message = 'Última oportunidade';
+                            scope.expires = scope.product.expires * 1000;
+                        } else {
+                            scope.blockStyle[3] = '';
+                        }
 
-                    if (OrderService.order.id === undefined) {
-                        OrderService.createNew();
+                        // #############################################################################################################
+                        // Dialogs control
+                        // #############################################################################################################
+                        /**
+                         * Opens the dialog to add a product to the basket and
+                         * in the promise resolution add it to the basket ... or
+                         * do nothing.
+                         */
+                        scope.add = function(product) {
+
+                            if (OrderService.order.id === undefined) {
+                                OrderService.createNew();
+                            }
+
+                            if (product.grid.length > 1) {
+                                DialogService.openDialogAddToBasketDetails({
+                                    id : product.id
+                                });
+                            } else {
+                                DialogService.openDialogAddToBasket({
+                                    id : product.id
+                                });
+                            }
+
+                        };
                     }
-
-                    if (product.grid.length > 1) {
-                        DialogService.openDialogAddToBasketDetails({
-                            id : product.id
-                        });
-                    } else {
-                        DialogService.openDialogAddToBasket({
-                            id : product.id
-                        });
-                    }
-
                 };
-            }
-        };
-    });
+            });
 }(angular));
