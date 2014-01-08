@@ -189,6 +189,7 @@
 .label-input {
 	display: inline-block;
 	/*margin: 0 0 0 20px*/
+vertical-align: middle;
 }
 .title-row-cart {
 	font-weight: bold;
@@ -205,6 +206,7 @@
 .row-input-products-grid .ic-arrow-left, .row-input-products-grid .ic-arrow-right{
 	width:33px;
 	height:44px;
+vertical-align: middle;
 }
 .row-input-products-grid .qty{
 	width:40px;
