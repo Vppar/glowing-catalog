@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.payment', []).controller(
-            'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, DialogService, PaymentService, OrderService, SMSService) {
+            'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, ArrayUtils, DialogService, PaymentService, OrderService, SMSService) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -111,6 +111,22 @@
                     payments = angular.copy(PaymentService.payments);
                     $scope.selectedPaymentMethod = method;
                 };
+                
+                $scope.addToBasket = function addToBasket(productId){
+                	var product = ArrayUtils.filter(DataProvider.products, {
+                        id : productId
+                    })[0];
+
+                	if (product.grid.length > 1) {
+				        DialogService.openDialogAddToBasketDetails({
+				            id : product.id
+				        });
+				    } else {
+				        DialogService.openDialogAddToBasket({
+				            id : product.id
+				        });
+				    }
+                };
 
                 /**
                  * Triggers the payment confirmation process by showing the
@@ -171,7 +187,7 @@
                     makePayment();
                     $location.path('/');
                 }
-
+                
                 // #############################################################################################
                 // Main related functions
                 // #############################################################################################

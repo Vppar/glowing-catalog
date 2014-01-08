@@ -24,21 +24,39 @@
          * -> value of the property
          * <- empty array
          *  
-         *  @unit ArrayUtils.list#2
+         *  @unit ArrayUtils.list#3
          * -> array of objects
          * -> property 
          * -> value of the property
          * <- empty array
          * 
-         *  @unit ArrayUtils.list#3
+         *  @unit ArrayUtils.list#4
          * -> array of objects
          * -> property containing an invalid property
          * -> value of the property
          * <- empty array
          * 
+         *  @unit ArrayUtils.list#5
+         * -> array of objects containing numbers
+         * -> valid property
+         * -> value of the property
+         * <- array with the occurrences
+         *  
+         *  @unit ArrayUtils.list#6
+         * -> array of objects containing arrays
+         * -> valid property
+         * -> value of the property
+         * <- array with the occurrences
+         *  
+         *  @unit ArrayUtils.list#7
+         * -> array of objects containing objects
+         * -> valid property
+         * -> value of the property
+         * <- array with the occurrences
+         * 
          * </pre>
          * 
-         * desc
+         * TODO - description
          * 
          * @param array - the array to be searched(must be an array of objects)
          * @param property - the property we are looking for
@@ -74,18 +92,36 @@
          * <- object ocurrence
          * 
          * @unit ArrayUtils.find#2
+         * -> array of objects with array
+         * -> property containing a valid property
+         * -> value of the property
+         * <- object ocurrence
+         * 
+         * @unit ArrayUtils.find#3
+         * -> array of objects with numbers
+         * -> property containing a valid property
+         * -> value of the property
+         * <- object ocurrence
+         * 
+         * @unit ArrayUtils.find#4
+         * -> array of objects with objects
+         * -> property containing a valid property
+         * -> value of the property
+         * <- object ocurrence
+         * 
+         * @unit ArrayUtils.find#5
          * -> an invalid array
          * -> property containing a valid property
          * -> value of the property
          * <- null
          * 
-         * @unit ArrayUtils.find#3
+         * @unit ArrayUtils.find#6
          * -> array of objects
          * -> property containing an invalid property
          * -> value of the property
          * <- null
          * 
-         * @unit ArrayUtils.find#4
+         * @unit ArrayUtils.find#7
          * -> array with duplicate entries
          * -> property containing a valid property
          * -> value of the property
@@ -131,14 +167,15 @@
          *
          * @unit ArrayUtils.distinct#5
          * -> array of objects
-         * -> non existing property
-         * <- array with a single undefined element
-         * 
-         * @unit ArrayUtils.distinct#6
-         * -> array of objects
          * -> property which the value is an array
          * <- the array of the given property
          * 
+         * @unit ArrayUtils.distinct#6
+         * -> array of objects
+         * -> non existing property
+         * <- array with a single undefined element
+         * 
+         * TODO - not sure what it should be o.O
          * @unit ArrayUtils.distinct#7
          * -> invalid array
          * -> ?
@@ -184,11 +221,6 @@
          * -> non matching filter
          * <- empty array
          * 
-         * * @unit ArrayUtils.filter#3
-         * -> array of objects
-         * -> a filter with array of objects
-         * <- array with the matching elements
-         * 
          * @unit ArrayUtils.filter#4
          * -> invalid array
          * -> ?
@@ -230,14 +262,12 @@
          * -> list of numbers
          * <- an array with the matching elements
          * 
-         * TODO
          * @unit ArrayUtils.isIn#3
          * -> array of objects
          * -> existing property
          * -> list of arrays
          * <- an array with the matching elements
          * 
-         * TODO
          * @unit ArrayUtils.isIn#4
          * -> array of objects
          * -> existing property
@@ -305,14 +335,12 @@
          * -> property containing number
          * <- an array of joined objects
          * 
-         * TODO
          * @unit ArrayUtils.innerJoin#3
          * -> array of objects
          * -> array of objects
          * -> property containing object
          * <- an array of joined objects
          * 
-         * TODO
          * @unit ArrayUtils.innerJoin#4
          * -> array of objects
          * -> array of objects
