@@ -379,7 +379,7 @@ body {
 	border-bottom: 1px solid transparent
 }
 .sidebar-menu .nav {
-	font-size: 100%;
+	font-size: 12px; /*100%*/
 }
 .sidebar-menu1 .nav {
 	font-size: 100%;
@@ -495,7 +495,7 @@ nav ul li {
 	overflow: hidden;
 }
 .title-catalog-1 {
-	font-size: 32px;
+	font-size: 24px/*32px*/;
 	display: block;
 	line-height: 41px;
 	padding-left: 10px;
@@ -503,7 +503,7 @@ nav ul li {
 	margin: 10px 0 0 10px;
 	border-radius: 4px;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
-	text-shadow: #999 2px 1px;
+	/*text-shadow: #999 2px 1px;*/
 	width: 789px
 }
 .title-catalog {
@@ -591,7 +591,7 @@ nav ul li {
 	border-radius: 4px;
 	width: 180px;
 	background: #fdfeff;
-	float: right;
+	/*float: right;*/
 	margin: 0 23px 10px 0;
 	position: relative;
 	/*overflow-y: auto;
@@ -599,21 +599,18 @@ nav ul li {
 	clear:both;
 }
 .sidebar-menu{
+	bottom: 0px;
+	position: fixed;
+	top: 254px;
 	overflow-y: auto;
-	/*max-height: 370px;*/
 }
-.sidebar-menu1 {margin-top:-7px !important;}
-/*.sidebar-menu1 {
-	box-shadow: -1px 1px 8px 1px #e0e0e0;
-	border-radius: 4px;
-	width: 180px;
-	background: #fdfeff;
+
+.sidebar-menu-scroll{ 
 	float: right;
-	margin-top: -8px;
-	margin-right: 23px;
-	position: relative;
-	clear:both;
-}*/
+}
+.sidebar-menu1 {margin-top:-10px !important;
+}
+
 .banner-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
@@ -646,10 +643,10 @@ nav ul li {
 	border-bottom: 1px solid #d5d5d5;
 	-webkit-tap-highlight-color: transparent;
 }
-
+/*
 .nav-list  li:last-child a {
 	border-bottom: none;
-}
+}*/
 
 .navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
 	color: white;

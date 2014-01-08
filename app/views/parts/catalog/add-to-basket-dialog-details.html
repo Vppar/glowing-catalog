@@ -1,9 +1,10 @@
-	<div class="container">
-<script>
-var initMagnifier = function () {
- $('#magnifier').zoom({magnify: 2});
-};
-</script>
+<div class="container">
+	<script>
+	var initMagnifier = function () {
+	 $('#magnifier').zoom({magnify: 2});
+	};
+	</script>
+	
 	<form class="form-add-to-basket">	
 		<span class="heading-gradient">{{product.title}}</span>
 		<span class="wrapper-qtde wrapper-size">
@@ -25,11 +26,20 @@ var initMagnifier = function () {
 						</div>
 		</span>
 		<div class="img-catalog-basket">
-
 			<span class='zoom' id='magnifier'>
             	<img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
            </span>
-           <div class="price-add-to-basket margint10"><span class="price-popup-small">Total  {{total | currency:''}}</span></div>
+           
+		    <div class="price-add-to-basket margint10">
+				<div class="quantidade">
+					<span class="label-input-qtde">Qtde</span>
+					<span class="qty-value">1</span>
+				</div>
+				<div class="preco">
+					<span class="label-input-qtde">Total</span>
+					<span class="qty-value">R$ {{total | currency:''}}</span>
+				</div>
+			</div>
 		</div>
         
 		<div class="clearfix"></div>

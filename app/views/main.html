@@ -16,20 +16,22 @@
         </div>
 	</div>
 	
-	<div class="sidebar-menu1">
-		<ul class="nav nav-list nav-list-black">
-			<li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
-				<a class="hover-state-pointer">{{section}}</a>
-			</li>
-		</ul>
-	</div>
+	<div class="sidebar-menu-scroll">
+		<div class="sidebar-menu1">
+			<ul class="nav nav-list nav-list-black">
+				<li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+					<a class="hover-state-pointer">{{section}}</a>
+				</li>
+			</ul>
+		</div>
 	
-	<div class="sidebar-menu">
-		<ul class="nav nav-list">
-			<li spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">
-				<a class="hover-state-pointer">{{line.name}}</a>
-			</li>
-		</ul>
+		<div class="sidebar-menu">
+			<ul class="nav nav-list">
+				<li spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">
+					<a class="hover-state-pointer">{{line.name}}</a>
+				</li>
+			</ul>
+		</div>
 	</div>
 	
 </div>

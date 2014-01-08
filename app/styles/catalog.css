@@ -4,7 +4,13 @@
 	color: #5d9732;
 }*/
 /*navegação no menu de linhas*/
-.nav .black.active a {
+.nav .active a, .nav .active a:hover{
+	background: #9e9e9e;
+	color: #000;
+	text-shadow: none;
+}
+
+/*.nav .black.active a {
 	background: #000000;
 	color: #fff;
 	text-shadow: none;
@@ -93,7 +99,7 @@
 	color: #fff;
 	text-shadow: none;
 }
-	.nav .pink.active a:hover {background: #ff0066;}
+	.nav .pink.active a:hover {background: #ff0066;}*/
 
 /*font colors*/
 .color-white {color: #fff;}
