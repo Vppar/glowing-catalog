@@ -151,11 +151,11 @@
 		float: right;
 		box-shadow: -1px 1px 8px 1px #e0e0e0;
 		border-radius: 4px;
-		width: 195px !important;
+		/*width: 195px !important;
+		margin-right: 10px !important;*/
 		background: #fdfeff;
 		float: right;
 		margin-top: -8px;
-		margin-right: 10px !important;
 		position: relative;
 	}
 	.banner-side-bar {
