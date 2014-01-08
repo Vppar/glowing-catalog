@@ -3,7 +3,7 @@
     angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, DataProvider, ArrayUtils) {
 
         function dataProviderUpdate() {
-            
+
             var sections = [];
             // var sections = ArrayUtils.distinct(DataProvider.products,
             // 'session');
@@ -24,12 +24,17 @@
         dataProviderUpdate();
 
         $scope.$watch('selectedSection', function(val) {
-            var products = ArrayUtils.filter(DataProvider.products, {
-                session : val
-            });
-            var lines = ArrayUtils.distinct(products, 'line');
-            
-            $scope.lines = ArrayUtils.isIn(DataProvider.lines, 'name', lines);
+
+            if ($scope.sections.indexOf(val) === -1) {
+                $scope.lines = [];
+            } else {
+                var products = ArrayUtils.filter(DataProvider.products, {
+                    session : val
+                });
+                var lines = ArrayUtils.distinct(products, 'line');
+
+                $scope.lines = ArrayUtils.isIn(DataProvider.lines, 'name', lines);
+            }
         });
 
         $scope.selectSection = function(section) {
