@@ -22,7 +22,9 @@
                 throw 'Grid must be initialized with an id and a grid(array of ids)';
             }
 
-            // TODO check if grid is an array
+            if (!grid instanceof Array) {
+            	throw 'Grid must be an array';
+            }
 
             ObjectUtils.ro(this, 'id', id);
             ObjectUtils.ro(this, 'grid', grid);
@@ -55,12 +57,17 @@
         this.build = function(products) {
             for ( var ix in products) {
                 var product = products[ix];
+                
+                if(!angular.isDefined(product.id)) {
+                	grid = [];
+                	break;
+                }
 
                 var gridItem = new Grid(product.id, []);
 
                 // TODO add section and line
 
-                if (product.parent) {
+                if (angular.isDefined(product.parent)) {
                     var parent = ArrayUtils.find(grid, 'id', product.parent);
 
                     parent.grid.push(gridItem);

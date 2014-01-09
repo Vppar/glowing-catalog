@@ -22,7 +22,7 @@ describe('Service: GridKeeper', function() {
      *  then the grid should be populated with the products and their parents 
      * </pre>
      */
-    xit('should build a grid', function() {
+    it('should build a grid', function() {
         //Given
         var list = 
             [{ 
@@ -99,7 +99,7 @@ describe('Service: GridKeeper', function() {
      *  nothing should be added to the grid
      * </pre>
      */
-    xit('should build an empty inventory', function() {
+    it('should build an empty inventory', function() {
         //Given
         var list = 
             [{ 
