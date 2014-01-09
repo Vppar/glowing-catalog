@@ -93,14 +93,14 @@
 }
 .grid-input-products .header span, .grid-input-products .header2 span, .grid-input-products .scroll-payment-grid  span {
 	display: inline-block;
-	line-height: 40px;
+	line-height: 30px; /*40px -> era seguindo o padrao*/
 }
 .grid-input-products .scroll-payment-grid .row-input-products-grid {
 	border-bottom: 1px solid #ccc
 }
 .grid-input-products .scroll-input-products-grid .row-input-products-grid {
 	border-bottom: 1px dotted #e0e0e0;
-	line-height: 40px
+	line-height: 40px;
 }
 .grid-input-products .header .col-1 {
 	width: 210px;
@@ -178,7 +178,7 @@
 .grid-input-products .header2 .col-4 div {
 	text-align: center;
 }
-div.scroll-input-products-grid2 { height:273px; overflow-y:scroll;}
+div.scroll-input-products-grid2 { height:380px; overflow-y:scroll;}
 
 .scroll-input-products-grid2 .col-1 {
 	width: 250px;

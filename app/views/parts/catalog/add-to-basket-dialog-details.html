@@ -17,9 +17,10 @@
 							</div>
 							<div class="scroll-input-products-grid2">
 								<div class="row-input-products-grid" ng-repeat="item in grid">
-									<span class="col-1"><div class="options"></div>
+									<!--<span class="col-1"><div class="options"></div>
 										<div>{{item.option}}<br/><span class="code-product">codigo</span></div>
-									</span>
+									</span>-->
+									<span class="col-1"><img src="images/catalog/samples/color-1.png" alt="sample" /><div>{{item.option}}<br/><span class="code-product">codigo</span></div></span>
                                     <span class="col-2"><div>{{item.inventory}}</div></span>
                                     <span class="col-3"><div>{{product.price | currency:''}}</div></span>
                                     <span class="col-4"><input-qty ng-model="item.qty" min="0"></input-qty></span>
