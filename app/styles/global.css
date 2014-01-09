@@ -694,7 +694,7 @@ nav ul li {
 	width: 1024px;
 	position: fixed;
 	top: 70px;
-	/*bottom: 10px;*/
+	bottom: 0px;
 }
 /*.home-scroll-content::-webkit-scrollbar{ 
     display: none !important; 
