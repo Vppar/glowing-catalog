@@ -694,7 +694,7 @@ nav ul li {
 	width: 1024px;
 	position: fixed;
 	top: 70px;
-	bottom: 10px;
+	/*bottom: 10px;*/
 }
 /*.home-scroll-content::-webkit-scrollbar{ 
     display: none !important; 
@@ -915,6 +915,9 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 		padding: 0px 5px 0px 5px;
 	}
 
+.marginl7 {
+	margin-left: 7px !important;
+}
 /*menu do breadcrumbs*/
 
 .menu-level{	
