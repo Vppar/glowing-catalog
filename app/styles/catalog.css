@@ -746,19 +746,19 @@
 			background-color: #bebc83;
 			background-image: url('../images/plus-w.png');
 		}		
-		.catalog-block.product-bg-soft-pink.product-addbtn {
+		.catalog-block.product-bg-soft-pink .product-addbtn {
 			background-color: #e194b6;
 			background-image: url('../images/plus-w.png');
 		}		
-		.catalog-block.product-bg-soft-lila.product-addbtn {
+		.catalog-block.product-bg-soft-lila .product-addbtn {
 			background-color: #caa5ac;
 			background-image: url('../images/plus-w.png');
 		}		
-		.catalog-block.product-bg-soft-orange.product-addbtn {
+		.catalog-block.product-bg-soft-orange .product-addbtn {
 			background-color: #d8b194;
 			background-image: url('../images/plus-w.png');
 		}		
-		.catalog-block.product-bg-soft-black.product-addbtn {
+		.catalog-block.product-bg-soft-black .product-addbtn {
 			background-color: #3a3a3a;
 			background-image: url('../images/plus-w.png');
 		}	
@@ -907,7 +907,8 @@
 	display: block;
 	margin: 10px 0 30px 0;
 	min-height: 55px;
-	font-weight: bold
+	font-weight: bold;
+	cursor: pointer;
 }
 .best-sellers-col-left-item .weight{
 	font-weight: normal !important;
@@ -934,6 +935,7 @@
 .best-sellers-col-right-item{
 	display: block;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
 /*PARA IMAGENS COM NUMERACAO SEPARADA
 .best-sellers-col-right-item .number{
