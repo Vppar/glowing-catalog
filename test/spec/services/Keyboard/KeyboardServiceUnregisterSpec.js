@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: KeyboardService', function() {
+xdescribe('Service: KeyboardService', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.keyboard.service'));
@@ -23,6 +23,24 @@ describe('Service: KeyboardService', function() {
     	
     	KeyboardService.register(input);
     	
+    });
+    
+    it('shouldn\'t remove a registred input with an inexistent id', function() {
+
+    	var input = {
+    			id:0
+    	};
+    	
+    	KeyboardService.register(input);
+    });
+    
+    it('shouldn\'t remove a registred input with an inexistent id', function() {
+
+    	var input = {
+    			id:0
+    	};
+    	
+    	KeyboardService.register(input);
     });
 
 });

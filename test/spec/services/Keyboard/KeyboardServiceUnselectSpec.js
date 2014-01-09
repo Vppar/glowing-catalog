@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: KeyboardService', function() {
+xdescribe('Service: KeyboardService', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.keyboard.service'));
@@ -12,6 +12,14 @@ describe('Service: KeyboardService', function() {
     }));
 
     it('should do something', function() {
+        expect(!!KeyboardService).toBe(true);
+    });
+    
+    it('should set null as the currentField', function() {
+        expect(!!KeyboardService).toBe(true);
+    });
+    
+    it('should set the selected field of the currentField as false', function() {
         expect(!!KeyboardService).toBe(true);
     });
 

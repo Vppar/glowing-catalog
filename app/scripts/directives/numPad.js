@@ -9,7 +9,7 @@
         });
     });
 
-    angular.module('tnt.catalog.directive.numpad', []).directive('numPad', function() {
+    angular.module('tnt.catalog.directive.numpad', ['tnt.catalog.keyboard.service']).directive('numPad', function(KeyboardService) {
         return {
             restrict : 'E',
             scope : {
@@ -19,42 +19,47 @@
             },
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
+            	
+            	scope.keyboard = {isActive:false};
+            	
+            	KeyboardService.setKeyboard(scope.keyboard);
+            	scope.keypress = KeyboardService.keypress;
 
                 element.find("img[alt='0']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(0)');
+                	scope.$apply('keypress(0)');
                 });
                 element.find("img[alt='00']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit("00")');
+                    scope.$apply('keypress("00")');
                 });
                 element.find("img[alt='1']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(1)');
+                    scope.$apply('keypress(1)');
                 });
                 element.find("img[alt='2']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(2)');
+                    scope.$apply('keypress(2)');
                 });
                 element.find("img[alt='3']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(3)');
+                    scope.$apply('keypress(3)');
                 });
                 element.find("img[alt='4']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(4)');
+                    scope.$apply('keypress(4)');
                 });
                 element.find("img[alt='5']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(5)');
+                    scope.$apply('keypress(5)');
                 });
                 element.find("img[alt='6']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(6)');
+                    scope.$apply('keypress(6)');
                 });
                 element.find("img[alt='7']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(7)');
+                    scope.$apply('keypress(7)');
                 });
                 element.find("img[alt='8']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(8)');
+                    scope.$apply('keypress(8)');
                 });
                 element.find("img[alt='9']").bind('tap', function() {
-                    scope.$apply('pushMoneyDigit(9)');
+                    scope.$apply('keypress(9)');
                 });
                 element.find("img[alt='backspace']").bind('tap', function() {
-                    scope.$apply('removeMoneyDigit()');
+                    scope.$apply('keypress()');
                 });
                 element.find("img[alt='clear']").bind('tap', function() {
                     scope.$apply('clearMoney()');

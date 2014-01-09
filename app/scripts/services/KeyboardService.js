@@ -8,6 +8,7 @@
 
 						var fields = [];
 						var currentField = null;
+						var keyboard = {};
 
 						/**
 						 * register an input field
@@ -38,13 +39,25 @@
 							}
 
 						};
+						
+						this.setKeyboard = function setKeyboard(value){
+							keyboard = value;
+						};
+						
+						this.closeKeyboard = function(){
+							keyboard.isActive = false;
+						};
+						
+						this.openKeyboard = function(){
+							keyboard.isActive = true;
+						};
 
 						/**
 						 * Receives the key press from the virtual keyboard and
 						 * propagates accordingly
 						 */
 						this.keypress = function(key) {
-							input.keypress(key);
+							currentField.keypress(key);
 						};
 
 						this.next = function() {

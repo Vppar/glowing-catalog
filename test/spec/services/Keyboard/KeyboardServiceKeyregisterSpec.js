@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: KeyboardService', function() {
+xdescribe('Service: KeyboardService', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.keyboard.service'));
@@ -14,5 +14,20 @@ describe('Service: KeyboardService', function() {
     it('should do something', function() {
         expect(!!KeyboardService).toBe(true);
     });
+    
+    it('should\'t register an input without id', function() {
+        expect(!!KeyboardService).toBe(true);
+    });
+    
+    it('should register a valid input', function() {
+        expect(!!KeyboardService).toBe(true);
+    });
+    
+    it('should register the openKeyboard function in the input', function() {
+        expect(!!KeyboardService).toBe(true);
+    });
+    
+    
+    
 
 });
