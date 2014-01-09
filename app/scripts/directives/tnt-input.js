@@ -5,29 +5,30 @@
         return {
             restrict : 'A',
             scope : {
-                value : '?=ngModel'
+                value : '=?ngModel'
             },
             link : function postLink(scope, element, attrs) {
 
-                if (value === undefined) {
-                    value = '';
+                if (scope.value === undefined) {
+                    scope.value = '';
                 }
 
                 var input = {};
                 input.keypress = function(key) {
                     if (key === 'backspace') {
-                        // TODO remove char(s) from value. if empty call NumpadService.prev();
+                    	if(scope.value === '') {
+                    		NumpadService.prev();
+                    	}
+                    	scope.value = scope.value.substring(0,(scope.value.length - 1));
                     } else if (key === 'clear') {
-                        value = '';
+                        scope.value = '';
                     } else if (key === 'ok') {
                         NumpadService.next();
                     } else {
-                        value += key;
+                        scope.value += key;
                     }
                     
-                    // TODO (leave this for the grown ups) do some formating here, or make it compliant with ngModel maybe?
-                    
-                    element.text(value);
+                    element.text(scope.value);
                 };
 
                 NumpadService.register(input);
