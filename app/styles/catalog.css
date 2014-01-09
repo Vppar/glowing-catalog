@@ -7,6 +7,8 @@
 .nav .active a, .nav .active a:hover{
 	background: #ebebeb;
 	color: #000;
+	/*background: #000;
+	color: #fff;*/
 	text-shadow: none;
 }
 /*.nav .black.active a {
@@ -121,17 +123,22 @@
 .color-green{color:#7ba752;}
 .color-light-gray{color:#9e9e9e;}
 .color-light-green{color:#abbb5e;}
-.color-dark-magenta{color:#c93a7c;}
 .color-light-orange{color:#dbb79d;}
 .color-light-magenta{color:#deb4b8;}
 .color-light-lila{color:#dec7cb;}
 .color-light-pink{color:#dfc3b7;}
 .color-orange{color:#fa974e;}
 .color-pink{color:#ff0066;}
-
 .color-dark-yellow-gray{color:#b0b78d;}
 .color-yellow-gray{color:#d8d5b4;}
 .color-soft-green{color:#b7e171;}
+.color-medium-yellow-gray{color:#c9c797;} /*olhos, sombrancelhas*/
+.color-medium2-yellow-gray{color:#bebc83;} /*pó mineral*/
+.color-soft-pink{color:#e194b6;} /*acessórios*/
+.color-soft-lila{color:#caa5ac;} /*cuidados personalizados*/
+.color-soft-orange{color:#d8b194;} /*bases, rosto*/
+.color-dark-magenta{color:#c93a7c;} /*MK at play, lábios*/
+.color-soft-black{color:#3a3a3a;} /*iluminador*/
 
 /*fundo dos títulos*/
 .bg-black {background-color: #000;}
@@ -147,10 +154,15 @@
 .bg-light-pink{background-color:#dfc3b7;}
 .bg-orange{background-color:#fa974e;}
 .bg-pink{background-color:#ff0066;}
-
 .bg-dark-yellow-gray{background-color:#b0b78d;}
 .bg-yellow-gray{background-color:#d8d5b4;}
 .bg-soft-green{background-color:#b7e171;}
+.bg-medium-yellow-gray{background-color:#c9c797;}
+.bg-medium2-yellow-gray{background-color:#bebc83;}
+.bg-soft-pink{background-color:#e194b6;}
+.bg-soft-lila{background-color:#caa5ac;}
+.bg-soft-orange{background-color:#d8b194;}
+.bg-soft-black{background-color:#3a3a3a;}
 
 /* div de catalogo comum */
 .catalog-block {
@@ -352,7 +364,73 @@
 			background: -ms-linear-gradient(left,  #ffffff 0%,#b7e171 50%,#ffffff 100%); /* IE10+ */
 			background: linear-gradient(to right,  #ffffff 0%,#b7e171 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
-		}		
+		}			
+		.catalog-block.w06.product-bg-medium-yellow-gray .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #c9c797 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#c9c797), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w06.product-bg-medium2-yellow-gray .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #bebc83 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#bebc83), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w06.product-bg-soft-pink .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #e194b6 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#e194b6), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w06.product-bg-soft-lila .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #caa5ac 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#caa5ac), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}				
+		.catalog-block.w06.product-bg-soft-orange .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #d8b194 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8b194), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}				
+		.catalog-block.w06.product-bg-soft-black .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #3a3a3a 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#3a3a3a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}	
 		
 	/* largura do bloco w03 */
 	.catalog-block.w03 {
@@ -525,6 +603,72 @@
 			background: linear-gradient(to right,  #ffffff 0%,#b7e171 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}		
+		.catalog-block.w03.product-bg-medium-yellow-gray .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #c9c797 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#c9c797), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#c9c797 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w03.product-bg-medium2-yellow-gray .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #bebc83 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#bebc83), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#bebc83 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w03.product-bg-soft-pink .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #e194b6 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#e194b6), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#e194b6 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w03.product-bg-soft-lila .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #caa5ac 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#caa5ac), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}				
+		.catalog-block.w03.product-bg-soft-orange .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #d8b194 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8b194), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#d8b194 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}				
+		.catalog-block.w03.product-bg-soft-black .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #3a3a3a 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#3a3a3a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#3a3a3a 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}	
 		
 		/* barra ultima oportunidade*/
 		.last-opportunity .product-divider{
@@ -592,6 +736,30 @@
 		}	
 		.catalog-block.product-bg-soft-green .product-addbtn {
 			background-color: #b7e171;
+			background-image: url('../images/plus-w.png');
+		}	
+		.catalog-block.product-bg-medium-yellow-gray .product-addbtn {
+			background-color: #c9c797;
+			background-image: url('../images/plus-w.png');
+		}	
+		.catalog-block.product-bg-medium2-yellow-gray .product-addbtn {
+			background-color: #bebc83;
+			background-image: url('../images/plus-w.png');
+		}		
+		.catalog-block.product-bg-soft-pink.product-addbtn {
+			background-color: #e194b6;
+			background-image: url('../images/plus-w.png');
+		}		
+		.catalog-block.product-bg-soft-lila.product-addbtn {
+			background-color: #caa5ac;
+			background-image: url('../images/plus-w.png');
+		}		
+		.catalog-block.product-bg-soft-orange.product-addbtn {
+			background-color: #d8b194;
+			background-image: url('../images/plus-w.png');
+		}		
+		.catalog-block.product-bg-soft-black.product-addbtn {
+			background-color: #3a3a3a;
 			background-image: url('../images/plus-w.png');
 		}	
 		
