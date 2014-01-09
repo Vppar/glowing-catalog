@@ -1,6 +1,8 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.payment', ['tnt.catalog.keyboard.service', 'tnt.catalog.numpad.input']).controller(
+    angular.module('tnt.catalog.payment', [
+        'tnt.catalog.keyboard.service', 'tnt.catalog.numpad.input'
+    ]).controller(
             'PaymentCtrl',
             function($scope, $filter, $location, $q, DataProvider, ArrayUtils, KeyboardService, DialogService, PaymentService,
                     OrderService, SMSService) {
@@ -12,7 +14,7 @@
                 // Payment variables
                 var payments = {};
                 $scope.payment = {};
-                
+
                 // Easy the access in the controller to external
                 // resources
                 var order = OrderService.order;

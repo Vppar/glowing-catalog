@@ -1,7 +1,9 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.keyboard.service', ['tnt.utils.array']).service('KeyboardService', function KeyboardService(ArrayUtils) {
+    angular.module('tnt.catalog.keyboard.service', [
+        'tnt.utils.array'
+    ]).service('KeyboardService', function KeyboardService(ArrayUtils) {
 
         var fields = [];
         var currentField = undefined;
@@ -17,10 +19,11 @@
 
             // TODO do some checks here(must have a few
             // callbacks and some data)
-            input.openKeyboard = function () {
-                openKeyboard(input);
+            input.setFocus = function() {
+                select(input);
+                openKeyboard();
             };
-            
+
             fields.push(input);
         };
 
@@ -52,7 +55,6 @@
                 select(next);
             } else {
                 unselect();
-
                 // TODO close the keyboard
             }
         };
@@ -68,12 +70,12 @@
                 // TODO close the keyboard
             }
         };
-        
-        this.readFields = function(){
+
+        this.readFields = function() {
             return angular.copy(fields);
         };
-        
-        this.readCurrentField = function(){
+
+        this.readCurrentField = function() {
             return angular.copy(currentField);
         };
 
@@ -90,23 +92,21 @@
             currentField.selected = false;
             currentField = null;
         }
-        
-        this.readFields = function(){
+
+        this.readFields = function() {
             return angular.copy(fields);
         };
-        
-        this.readCurrentField = function(){
+
+        this.readCurrentField = function() {
             return angular.copy(currentField);
         };
-        
-        function openKeyboard(input) {
-            select(input);
-            console.log(keyboard);
+
+        function openKeyboard() {
             keyboard.isActive = true;
-        };
+        }
 
         function closeKeyboard() {
             keyboard.isActive = false;
-        };
+        }
     });
 })(angular);

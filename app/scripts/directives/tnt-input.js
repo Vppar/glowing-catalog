@@ -37,7 +37,7 @@
                 KeyboardService.register(input);
 
                 element.bind('click', function() {
-                    scope.$apply(input.openKeyboard());
+                    scope.$apply(input.setFocus());
                 });
 
                 scope.$on('$destroy', function() {

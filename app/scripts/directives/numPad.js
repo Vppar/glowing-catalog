@@ -19,7 +19,7 @@
             },
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
-                scope.isActive = false;
+
                 var keyboard = {
                     isActive : scope.isActive
                 };
