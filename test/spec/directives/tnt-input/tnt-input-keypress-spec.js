@@ -8,18 +8,18 @@ xdescribe('Directive: tntInput', function() {
 		module('tnt.catalog.numpad.service');
 	});
 
-	var element, scope, NumpadService;
+	var element, scope, KeyboardService;
 
-	beforeEach(inject(function($rootScope, _NumpadService_) {
+	beforeEach(inject(function($rootScope, _KeyboardService_) {
 		scope = $rootScope.$new();
-		NumpadService = _NumpadService_;
+		KeyboardService = _KeyboardService_;
 	}));
 
 	it('should add key pressed value', inject(function($compile) {
 		element = angular.element('<div tnt-input ng-model="value"></div>');
 		scope.value = '0';
 		element = $compile(element)(scope);
-		NumpadService.keypress('0');
+		KeyboardService.keypress('0');
 		expect(element.text()).toBe('00');
 	}));
 
@@ -27,7 +27,7 @@ xdescribe('Directive: tntInput', function() {
 		element = angular.element('<div tnt-input ng-model="value"></div>');
 		scope.value = '1234';
 		element = $compile(element)(scope);
-		NumpadService.keypress('backspace');
+		KeyboardService.keypress('backspace');
 		expect(element.text()).toBe('123');
 	}));
 
@@ -35,7 +35,7 @@ xdescribe('Directive: tntInput', function() {
 		element = angular.element('<div tnt-input ng-model="value"></div>');
 		scope.value = '1234';
 		element = $compile(element)(scope);
-		NumpadService.keypress('clear');
+		KeyboardService.keypress('clear');
 		expect(element.text()).toBe('');
 	}));
 

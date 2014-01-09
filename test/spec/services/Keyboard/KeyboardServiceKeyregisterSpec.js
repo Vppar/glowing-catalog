@@ -1,6 +1,5 @@
 'use strict';
-
-xdescribe('Service: KeyboardService', function() {
+describe('Service: KeyboardService', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.keyboard.service'));
@@ -27,7 +26,15 @@ xdescribe('Service: KeyboardService', function() {
         expect(!!KeyboardService).toBe(true);
     });
     
-    
-    
+    it('should register an input', function() {
 
+        var input = {
+                id:1
+        };
+        
+        KeyboardService.register(input);
+        
+        var response = KeyboardService.readFields();
+        expect(response.length).toBe(1);
+    });
 });

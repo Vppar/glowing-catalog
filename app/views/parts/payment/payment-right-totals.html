@@ -25,7 +25,7 @@
 			<span class="lbl-money4 qntty"> ({{orderUnitsQty}}) unid.</span>
 		</span>
 	</div>
-	<div class="row-right-payment" ng-class="{'up-field-payment': selectedPaymentMethod=='money'}" ng-click="selectPaymentMethod('money')">
+	<div class="row-right-payment" ng-class="{'up-field-payment': selectedPaymentMethod=='money'}">
 	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
@@ -33,7 +33,7 @@
 	        <span class=""> 
 	        	<!--btn-price-payment-input-block2 input-block-level-->
 	            <!--<input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>-->
-				<span class="btn-price-payment">{{payments | paymentType:'cash' | sum:'amount' | currency:''}}</span>
+				<span id="money" class="btn-price-payment" ng-model="payment.cash.amount" tnt-input>{{payment.cash.amount | currency:''}}</span>
 	        </span>
 	    </div>
 	</div>
@@ -112,9 +112,7 @@
 	</span>
 	<div class="right-column-height">&nbsp;</div>-->
 	<!--original <div id="keyNum" class="dinheiro" ng-show="selectedPaymentMethod=='money'">-->
-	<div id="keyNum" class="dinheiro">
-		<num-pad ng-model="payment.cash.amount" btn-ok="selectPaymentMethod('none')" ng-show="true"></num-pad>
-	</div>
+	<num-pad id="keyNum" class="dinheiro" ng-model="isActive" ng-show="isActive"></num-pad>
 	<div id="keyNum" ng-show="selectedPaymentMethod=='check'">	
 		<div id="keyNum_quad"></div>
 		<num-pad ng-model="check.amount" btn-ok="addCheck(check)"></num-pad>

@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.numpad.input', []).directive('tntInput', function(NumpadService) {
+    angular.module('tnt.catalog.numpad.input', []).directive('tntInput', function(KeyboardService) {
         return {
             restrict : 'A',
             scope : {
@@ -13,32 +13,35 @@
                     scope.value = '';
                 }
 
-                var input = {};
+                var input = {
+                    id : element.contents().context.id
+                };
+
                 input.keypress = function(key) {
                     if (key === 'backspace') {
-                    	if(scope.value === '') {
-                    		NumpadService.prev();
-                    	}
-                    	scope.value = scope.value.substring(0,(scope.value.length - 1));
+                        if (scope.value === '') {
+                            KeyboardService.prev();
+                        }
+                        scope.value = scope.value.substring(0, (scope.value.length - 1));
                     } else if (key === 'clear') {
                         scope.value = '';
                     } else if (key === 'ok') {
-                        NumpadService.next();
+                        KeyboardService.next();
                     } else {
                         scope.value += key;
                     }
-                    
+
                     element.text(scope.value);
                 };
 
-                NumpadService.register(input);
+                KeyboardService.register(input);
 
                 element.bind('click', function() {
                     scope.$apply(input.openKeyboard());
                 });
-                
+
                 scope.$on('$destroy', function() {
-                    NumpadService.unregister(input);
+                    KeyboardService.unregister(input);
                 });
             }
         };

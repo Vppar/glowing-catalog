@@ -1,7 +1,9 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.payment', []).controller(
-            'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, ArrayUtils, DialogService, PaymentService, OrderService, SMSService) {
+    angular.module('tnt.catalog.payment', ['tnt.catalog.keyboard.service', 'tnt.catalog.numpad.input']).controller(
+            'PaymentCtrl',
+            function($scope, $filter, $location, $q, DataProvider, ArrayUtils, KeyboardService, DialogService, PaymentService,
+                    OrderService, SMSService) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -10,7 +12,7 @@
                 // Payment variables
                 var payments = {};
                 $scope.payment = {};
-
+                
                 // Easy the access in the controller to external
                 // resources
                 var order = OrderService.order;
@@ -111,21 +113,21 @@
                     payments = angular.copy(PaymentService.payments);
                     $scope.selectedPaymentMethod = method;
                 };
-                
-                $scope.addToBasket = function addToBasket(productId){
-                	var product = ArrayUtils.filter(DataProvider.products, {
+
+                $scope.addToBasket = function addToBasket(productId) {
+                    var product = ArrayUtils.filter(DataProvider.products, {
                         id : productId
                     })[0];
 
-                	if (product.grid.length > 1) {
-				        DialogService.openDialogAddToBasketDetails({
-				            id : product.id
-				        });
-				    } else {
-				        DialogService.openDialogAddToBasket({
-				            id : product.id
-				        });
-				    }
+                    if (product.grid.length > 1) {
+                        DialogService.openDialogAddToBasketDetails({
+                            id : product.id
+                        });
+                    } else {
+                        DialogService.openDialogAddToBasket({
+                            id : product.id
+                        });
+                    }
                 };
 
                 /**
@@ -187,7 +189,7 @@
                     makePayment();
                     $location.path('/');
                 }
-                
+
                 // #############################################################################################
                 // Main related functions
                 // #############################################################################################

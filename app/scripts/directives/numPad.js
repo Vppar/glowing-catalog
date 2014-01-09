@@ -9,24 +9,26 @@
         });
     });
 
-    angular.module('tnt.catalog.directive.numpad', ['tnt.catalog.keyboard.service']).directive('numPad', function(KeyboardService) {
+    angular.module('tnt.catalog.directive.numpad', [
+        'tnt.catalog.keyboard.service'
+    ]).directive('numPad', function(KeyboardService) {
         return {
             restrict : 'E',
             scope : {
-                amount : '=ngModel',
-                btnOk : '&',
-                active : '=ngShow'
+                isActive : '=ngModel'
             },
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
-            	
-            	scope.keyboard = {isActive:false};
-            	
-            	KeyboardService.setKeyboard(scope.keyboard);
-            	scope.keypress = KeyboardService.keypress;
+                scope.isActive = false;
+                var keyboard = {
+                    isActive : scope.isActive
+                };
+
+                KeyboardService.setKeyboard(keyboard);
+                scope.keypress = KeyboardService.keypress;
 
                 element.find("img[alt='0']").bind('tap', function() {
-                	scope.$apply('keypress(0)');
+                    scope.$apply('keypress(0)');
                 });
                 element.find("img[alt='00']").bind('tap', function() {
                     scope.$apply('keypress("00")');

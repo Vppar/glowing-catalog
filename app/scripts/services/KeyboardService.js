@@ -1,103 +1,112 @@
 (function(angular) {
-	'use strict';
+    'use strict';
 
-	angular.module('tnt.catalog.keyboard.service', [])
-			.service(
-					'KeyboardService',
-					function KeyboardService() {
+    angular.module('tnt.catalog.keyboard.service', ['tnt.utils.array']).service('KeyboardService', function KeyboardService(ArrayUtils) {
 
-						var fields = [];
-						var currentField = null;
-						var keyboard = {};
+        var fields = [];
+        var currentField = undefined;
+        var keyboard = {};
 
-						/**
-						 * register an input field
-						 */
-						this.register = function(input) {
+        /**
+         * register an input field
+         */
+        this.register = function(input) {
+            if (!angular.isDefined(input.id)) {
+                return;
+            }
 
-							if (!angular.isDefined(input.id)) {
-								return;
-							}
-							
+            // TODO do some checks here(must have a few
+            // callbacks and some data)
+            input.openKeyboard = function () {
+                openKeyboard(input);
+            };
+            
+            fields.push(input);
+        };
 
-							// TODO do some checks here(must have a few
-							// callbacks and some data)
+        this.unregister = function(input) {
+            var foundItem = ArrayUtils.find(fields, 'id', input.id);
+            if (foundItem) {
+                var index = fields.indexOf(foundItem);
+                fields.splice(index, 1);
+            }
 
-							input.openKeyboard = function() {
-								select(currentField);
-							};
+        };
 
-							fields.push(input);
-						};
+        this.setKeyboard = function setKeyboard(value) {
+            keyboard = value;
+        };
 
-						this.unregister = function(input) {
-							var foundItem = ArrayUtils.find(fields, 'id',
-									input.id);
-							if (foundItem) {
-								var index = storage.indexOf(foundItem);
-								fields.splice(index, 1);
-							}
+        /**
+         * Receives the key press from the virtual keyboard and propagates
+         * accordingly
+         */
+        this.keypress = function(key) {
+            currentField.keypress(key);
+        };
 
-						};
-						
-						this.setKeyboard = function setKeyboard(value){
-							keyboard = value;
-						};
-						
-						this.closeKeyboard = function(){
-							keyboard.isActive = false;
-						};
-						
-						this.openKeyboard = function(){
-							keyboard.isActive = true;
-						};
+        this.next = function() {
+            var next = ArrayUtils.find(fields, 'id', currentField.next);
 
-						/**
-						 * Receives the key press from the virtual keyboard and
-						 * propagates accordingly
-						 */
-						this.keypress = function(key) {
-							currentField.keypress(key);
-						};
+            if (next) {
+                select(next);
+            } else {
+                unselect();
 
-						this.next = function() {
-							var next = ArrayUtils.find(fields, 'id',
-									currentField.next);
+                // TODO close the keyboard
+            }
+        };
 
-							if (next) {
-								select(next);
-							} else {
-								unselect();
-								
-								// TODO close the keyboard
-							}
-						};
+        this.prev = function() {
+            // TODO implement previous just as next
+            var previous = ArrayUtils.find(fields, 'id', currentField.prev);
 
-						this.prev = function() {
-							// TODO implement previous just as next
-							var previous = ArrayUtils.find(fields, 'id',
-									currentField.prev);
+            if (previous) {
+                select(previous);
+            } else {
+                unselect();
+                // TODO close the keyboard
+            }
+        };
+        
+        this.readFields = function(){
+            return angular.copy(fields);
+        };
+        
+        this.readCurrentField = function(){
+            return angular.copy(currentField);
+        };
 
-							if (previous) {
-								select(previous);
-							} else {
-								unselect();
-								// TODO close the keyboard
-							}
-						};
+        function select(input) {
+            if (currentField) {
+                unselect();
+            }
 
-						function select(input) {
-							if (currentField) {
-								unselect();
-							}
+            currentField = input;
+            currentField.selected = true;
+        }
 
-							currentField = input;
-							currentField.selected = true;
-						}
+        function unselect() {
+            currentField.selected = false;
+            currentField = null;
+        }
+        
+        this.readFields = function(){
+            return angular.copy(fields);
+        };
+        
+        this.readCurrentField = function(){
+            return angular.copy(currentField);
+        };
+        
+        function openKeyboard(input) {
+            select(input);
+            console.log(keyboard);
+            keyboard.isActive = true;
+        };
 
-						function unselect() {
-							currentField.selected = false;
-							currentField = null;
-						}
-					});
+        function closeKeyboard() {
+            keyboard.isActive = false;
+        };
+    });
 })(angular);
