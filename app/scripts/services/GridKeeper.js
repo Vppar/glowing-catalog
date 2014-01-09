@@ -65,13 +65,13 @@
 
                 var gridItem = new Grid(product.id, []);
 
-                // TODO add section and line
-
                 if (angular.isDefined(product.parent)) {
                     var parent = ArrayUtils.find(grid, 'id', product.parent);
 
                     parent.grid.push(gridItem);
                 } else {
+                	gridItem['section'] = product.section;
+                	gridItem['line'] = product.line;
                     grid.push(gridItem);
                 }
             }

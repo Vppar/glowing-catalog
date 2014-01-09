@@ -32,7 +32,7 @@ describe('Service: GridKeeper', function() {
                 line : 'Olhos',
                 points : 18,
                 price : 37,
-                session : 'Lançamentos',
+                section : 'Lançamentos',
                 title : 'Máscara para Cílios Lash Love - 8 g'
             },
             { 
@@ -58,7 +58,7 @@ describe('Service: GridKeeper', function() {
                 line : 'Olhos',
                 points : 12,
                 price : 21,
-                session : 'Lançamentos',
+                section : 'Lançamentos',
                 title : 'Sombra Mineral (Refil) - 1,4 g'
             },
             { 
@@ -78,8 +78,8 @@ describe('Service: GridKeeper', function() {
                 parent : 3
             }];
         
-        var expected = [ { id : 0, grid : [{ id : 1, grid : [  ] }, { id : 2, grid : [  ] } ] }, 
-                         { id : 3, grid : [{ id : 4, grid : [  ] }, { id : 5, grid : [  ] } ] }];
+        var expected = [ { id : 0, line: 'Olhos', section: 'Lançamentos', grid : [{ id : 1, grid : [  ] }, { id : 2, grid : [  ] } ] }, 
+                         { id : 3, line: 'Olhos', section: 'Lançamentos', grid : [{ id : 4, grid : [  ] }, { id : 5, grid : [  ] } ] }];
         
         //When
          GridKeeper.build(list);
