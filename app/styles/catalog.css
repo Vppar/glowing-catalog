@@ -189,7 +189,7 @@
 		/* imagem do bloco h02 */
 		.catalog-block.h02 .product-image {
 			float: right;
-			padding-top: 40px;
+			padding-top: 4px;
 		}
 		/* texto do bloco h02 + w06 */
 		.catalog-block.h02.w06 .product-text {
@@ -198,7 +198,17 @@
 	/* largura do bloco w06 */
 	.catalog-block.w06 {
 		width: 394px;
-	}	
+	}
+	.catalog-block.w06 .product-title {
+		width:320px;
+		display:block;
+		float:left;
+	}
+	.line-info {
+		width: 24px;
+		float: right;
+		padding: 8px 0 0 0;
+	}
 		/* linhas divisorias do bloco w06*/
 		.catalog-block.w06.product-bg-black .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-black.png');*/
@@ -436,7 +446,12 @@
 	.catalog-block.w03 {
 		width: 192px;
 		float: left;
-	}		
+	}
+	.catalog-block.w03 .product-title {
+		width:150px;
+		display:block;
+		float:left;
+	}
 		/* linhas divisorias do bloco w03*/
 		.catalog-block.w03.product-bg-black .product-divider {
 			/*background-image: url('../images/line-gradient-01-black.png');*/
@@ -672,8 +687,11 @@
 		
 		/* barra ultima oportunidade*/
 		.last-opportunity .product-divider{
-			background-image: none !important;
-			background-color: #DA5149 !important;
+			background: url('../images/last-opportunity-banner-v2.png') no-repeat top left  !important;
+			font-size:12px;
+			padding:12px 0 0 10px;
+			width:191px !important;
+			height:51px !important;
 			color: #fff !important;
 		}		
 		
@@ -801,13 +819,14 @@
 	/* titulo comum */
 	.catalog-block .product-title{
 		font-weight: bold;
-		padding: 10px 10px 0 10px;
+		padding: 10px 2px 0 10px;
 	}	
 	/* texto comum */
 	.catalog-block .product-text{
 		padding: 10px;
 		overflow: hidden;
 		font-size: 12px;
+		float:left;
 	}	
 	/* linha divisoria comum */
 	.catalog-block .product-divider{
@@ -817,10 +836,9 @@
 	}	
 		/* last opportunity comum */
 		.catalog-block.last-opportunity .product-divider{
-			padding: 5px 0px 5px 0px;
-			text-align: center;
-			margin-top: -18px;
-			font-size: 120%;
+			padding: 12px 0px 0px 18px;
+			text-align: left;
+			margin-top: -48px;
 			height: auto;
 			clear: both;
 		}
