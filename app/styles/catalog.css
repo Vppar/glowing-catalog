@@ -190,10 +190,11 @@
 		.catalog-block.h02 .product-image {
 			float: right;
 			padding-top: 4px;
+			padding-right: 10px;
 		}
 		/* texto do bloco h02 + w06 */
 		.catalog-block.h02.w06 .product-text {
-			width: 275px;
+			width: 265px;
 		}		
 	/* largura do bloco w06 */
 	.catalog-block.w06 {
