@@ -111,8 +111,9 @@
 		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
 	</span>
 	<div class="right-column-height">&nbsp;</div>-->
-	<div id="keyNum" class="dinheiro" ng-show="selectedPaymentMethod=='money'">
-		<num-pad ng-model="payment.cash.amount" btn-ok="selectPaymentMethod('none')"></num-pad>
+	<!--original <div id="keyNum" class="dinheiro" ng-show="selectedPaymentMethod=='money'">-->
+	<div id="keyNum" class="dinheiro">
+		<num-pad ng-model="payment.cash.amount" btn-ok="selectPaymentMethod('none')" ng-show="true"></num-pad>
 	</div>
 	<div id="keyNum" ng-show="selectedPaymentMethod=='check'">	
 		<div id="keyNum_quad"></div>

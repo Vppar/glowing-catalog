@@ -14,7 +14,8 @@
             restrict : 'E',
             scope : {
                 amount : '=ngModel',
-                btnOk : '&'
+                btnOk : '&',
+                active : '=ngShow'
             },
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {

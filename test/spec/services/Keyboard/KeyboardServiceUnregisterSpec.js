@@ -14,5 +14,15 @@ describe('Service: KeyboardService', function() {
     it('should do something', function() {
         expect(!!KeyboardService).toBe(true);
     });
+    
+    it('should remove a registred input', function() {
+
+    	var input = {
+    			id:1
+    	};
+    	
+    	KeyboardService.register(input);
+    	
+    });
 
 });

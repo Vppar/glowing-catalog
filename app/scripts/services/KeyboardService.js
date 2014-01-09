@@ -14,6 +14,11 @@
 						 */
 						this.register = function(input) {
 
+							if (!angular.isDefined(input.id)) {
+								return;
+							}
+							
+
 							// TODO do some checks here(must have a few
 							// callbacks and some data)
 
@@ -25,13 +30,11 @@
 						};
 
 						this.unregister = function(input) {
-							if (Angular.isDefined(input.id)) {
-								var foundItem = ArrayUtils.find(fields, 'id',
-										input.id);
-								if (foundItem) {
-									var index = storage.indexOf(foundItem);
-									fields.splice(index, 1);
-								}
+							var foundItem = ArrayUtils.find(fields, 'id',
+									input.id);
+							if (foundItem) {
+								var index = storage.indexOf(foundItem);
+								fields.splice(index, 1);
 							}
 
 						};
@@ -52,6 +55,7 @@
 								select(next);
 							} else {
 								unselect();
+								
 								// TODO close the keyboard
 							}
 						};
