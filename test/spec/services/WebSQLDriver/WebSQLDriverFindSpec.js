@@ -170,7 +170,6 @@ describe('Service: WebSQLDriver.find', function() {
 						WebSQLDriver.find(tx, bucketName, id).then(
 								null,function(error){
 									returnedObject = error;
-									console.log('erro '+returnedObject);
 									notlisted = true;
 								});
 					};
