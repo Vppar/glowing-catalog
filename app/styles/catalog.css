@@ -832,7 +832,7 @@
 	.catalog-block .product-text{
 		padding: 10px;
 		overflow: hidden;
-		font-size: 12px;
+		font-size: 13px;
 		float:left;
 	}	
 	/* linha divisoria comum */
@@ -846,7 +846,7 @@
 			height: 1px !important;
 			z-index: 6;
 			position: relative;
-			top: -24px;
+			top: -22px;
 		}
 	/* inferior comum */
 	.catalog-block .product-bottom{
