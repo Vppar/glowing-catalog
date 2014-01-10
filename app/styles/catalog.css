@@ -189,20 +189,20 @@
 		/* imagem do bloco h02 */
 		.catalog-block.h02 .product-image {
 			float: right;
-			padding-top: 4px;
+			padding-top: 15px;
 			padding-right: 10px;
 		}
 		/* texto do bloco h02 + w06 */
 		.catalog-block.h02.w06 .product-text {
-			width: 265px;
+			width: 265px; /*275px*/
 		}		
 	/* largura do bloco w06 */
 	.catalog-block.w06 {
 		width: 394px;
 	}
 	.catalog-block.w06 .product-title {
-		width:320px;
-/*		display:block;
+		width:370px; /*320px*/
+		/*display:block;
 		float:left;*/
 	}
 	.line-info {
@@ -449,7 +449,7 @@
 		float: left;
 	}
 	.catalog-block.w03 .product-title {
-		width:150px;
+		width:170px; /*150px*/
 		display:block;
 		float:left;
 	}
