@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, DataProvider, ArrayUtils, OrderService, DialogService) {
+    angular.module('glowingCatalogApp').controller('MainCtrl', function($scope, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper) {
 
         function dataProviderUpdate() {
 
@@ -42,25 +42,25 @@
         };
 
         $scope.selectedSection = 'Mais Vendidos';
-        
-        $scope.addBestSellerToBasket = function addBestSellerToBasket(number){
-        	 if (OrderService.order.id === undefined) {
-                 OrderService.createNew();
-             }
-        	
-        	 var product = ArrayUtils.filter(DataProvider.products, {
-                 bestSeller : number
-             })[0];
 
-        	 if (product.grid.length > 1) {
-                 DialogService.openDialogAddToBasketDetails({
-                     id : product.id
-                 });
-             } else {
-                 DialogService.openDialogAddToBasket({
-                     id : product.id
-                 });
-             }
+        $scope.addBestSellerToBasket = function addBestSellerToBasket(number) {
+            if (OrderService.order.id === undefined) {
+                OrderService.createNew();
+            }
+
+            var product = ArrayUtils.find(DataProvider.products, 'bestSeller', number);
+
+            var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.id);
+
+            if (grid.length > 1) {
+                DialogService.openDialogAddToBasketDetails({
+                    id : product.id
+                });
+            } else {
+                DialogService.openDialogAddToBasket({
+                    id : product.id
+                });
+            }
         };
     });
 }(angular));
