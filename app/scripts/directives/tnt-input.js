@@ -5,7 +5,8 @@
         return {
             restrict : 'A',
             scope : {
-                value : '=?ngModel'
+                value : '=?ngModel',
+                btnOk : '&' 
             },
             link : function postLink(scope, element, attrs) {
 

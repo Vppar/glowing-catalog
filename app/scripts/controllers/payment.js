@@ -19,13 +19,16 @@
                 // resources
                 var order = OrderService.order;
                 var inBasketFilter = OrderService.inBasketFilter;
-                var isNumPadVisible = false;
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
 
                 // Controls the num pad.
-                $scope.isNumPadVisible = isNumPadVisible;
+                $scope.isNumPadVisible = false;
+                $scope.toogleNumPad = function toogleNumPad() {
+                    console.log($scope.isNumPadVisible);
+                    $scope.isNumPadVisible = !$scope.isNumPadVisible;
+                };
 
                 // Define the customer
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
