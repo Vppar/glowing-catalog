@@ -70,5 +70,13 @@ describe('Directive: tntInput', function() {
 		KeyboardService.keypress('clear');
 		expect(element.text()).toBe('');
 	}));
+	
+	it('element text length should not be over than eleven', inject(function($compile) {
+		element = angular.element('<div tnt-input ng-model="value"></div>');
+		scope.value = '12345678901';
+		element = $compile(element)(scope);
+		KeyboardService.keypress('1');
+		expect(element.text()).toBe('12345678901');
+	}));
 
 });
