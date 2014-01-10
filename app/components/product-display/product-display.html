@@ -1,13 +1,15 @@
 <div class="catalog-block" ng-class="blockStyle" id="prd{{product.id}}">
     <div class="box">
         <div class="product-content">
-            <div class="product-title">{{product.title}}</div><!--<div class="line-info"><img ng-src="images/line-info.png" alt="info" /></div>-->
-            <div class="product-text">{{product.description}}</div>
-            <div class="product-image">
+        	<div class="product-image">
                 <img ng-src="images/catalog/products/{{product.image}}" alt="" />
             </div>
+            <div class="product-title">{{product.title}}</div>
+            <div class="product-text">{{product.description}}</div>
+            
         </div>
         <div class="product-footer">
+            <!--<div class="line-type-info">Timewise</div>-->
             <div class="product-divider">{{message}} {{expires | date:'dd/MM'}}</div>
             <div class="product-bottom">
                 <span class="product-currency">R$</span><span class="product-price"> {{product.price | currency:''}}</span><span ng-click='add(product)'
