@@ -15,13 +15,14 @@
         return {
             restrict : 'E',
             scope : {
-                isActive : '=ngModel'
             },
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
 
                 var keyboard = {
-                    isActive : scope.isActive
+                    setActive : function(active){
+                        scope.isActive = active;
+                    }
                 };
 
                 KeyboardService.setKeyboard(keyboard);

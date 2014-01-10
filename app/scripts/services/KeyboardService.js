@@ -6,13 +6,14 @@
     ]).service('KeyboardService', function KeyboardService(ArrayUtils) {
 
         var fields = [];
-        var currentField = undefined;
+        var currentField = null;
         var keyboard = {};
 
         /**
          * register an input field
          */
         this.register = function(input) {
+
             if (!angular.isDefined(input.id)) {
                 return;
             }
@@ -21,13 +22,12 @@
             // callbacks and some data)
             input.setFocus = function() {
                 select(input);
-                openKeyboard();
+                keyboard.setActive(true);
             };
-            
-            //just to set the first value
-            if(!currentField)select(input);
-            
+
             fields.push(input);
+            
+            reorder();
         };
 
         this.unregister = function(input) {
@@ -36,11 +36,10 @@
                 var index = fields.indexOf(foundItem);
                 fields.splice(index, 1);
             }
-
         };
 
         this.setKeyboard = function setKeyboard(value) {
-            keyboard = value;
+            keyboard.setActive = value.setActive;
         };
 
         /**
@@ -58,28 +57,16 @@
                 select(next);
             } else {
                 unselect();
-                // TODO close the keyboard
+                keyboard.setActive(false);
             }
         };
 
         this.prev = function() {
-            // TODO implement previous just as next
             var previous = ArrayUtils.find(fields, 'id', currentField.prev);
 
             if (previous) {
                 select(previous);
-            } else {
-                unselect();
-                // TODO close the keyboard
             }
-        };
-
-        this.readFields = function() {
-            return angular.copy(fields);
-        };
-
-        this.readCurrentField = function() {
-            return angular.copy(currentField);
         };
 
         function select(input) {
@@ -88,28 +75,31 @@
             }
 
             currentField = input;
-            currentField.selected = true;
+            currentField.setActive(true);
         }
 
         function unselect() {
-            currentField.selected = false;
+            currentField.setActive(false);
             currentField = null;
         }
-
-        this.readFields = function() {
-            return angular.copy(fields);
-        };
-
-        this.readCurrentField = function() {
-            return angular.copy(currentField);
-        };
-
-        function openKeyboard() {
-            keyboard.isActive = true;
-        }
-
-        function closeKeyboard() {
-            keyboard.isActive = false;
+        
+        function reorder(){
+            var prev, current;
+            
+            for(var ix in fields){
+                prev = current;
+                current = fields[ix];
+                
+                if(prev){
+                    if(!current.prev){
+                        current.prev = prev.id;
+                    }
+                    
+                    if(!prev.next){
+                        prev.next = current.id;
+                    }
+                }
+            }
         }
     });
 })(angular);

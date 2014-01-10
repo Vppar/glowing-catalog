@@ -17,7 +17,7 @@
         $scope.product = product;
         $scope.grid = grid;
         $scope.total = 0;
-
+        
         function updateTotal() {
             var total = 0, count = 0;
             for ( var ix in $scope.grid) {
