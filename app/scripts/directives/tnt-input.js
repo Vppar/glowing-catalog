@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.numpad.input', []).directive('tntInput', function(KeyboardService) {
+    angular.module('tnt.catalog.keyboard.input', []).directive('tntInput', function(KeyboardService) {
         return {
             restrict : 'A',
             scope : {

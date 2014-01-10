@@ -1,11 +1,11 @@
 'use strict';
 //FIXME it's necessary fix the numpad service or change to keyboard service to it works properly
-xdescribe('Directive: tntInput', function() {
+describe('Directive: tntInput', function() {
 
 	// load the directive's module
 	beforeEach(function() {
-		module('tnt.catalog.numpad.input');
-		module('tnt.catalog.numpad.service');
+		module('tnt.catalog.keyboard.input');
+		module('tnt.catalog.keyboard.service');
 	});
 
 	var element, scope, KeyboardService;

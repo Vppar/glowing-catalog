@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.payment', [
-        'tnt.catalog.keyboard.service', 'tnt.catalog.numpad.input'
+        'tnt.catalog.keyboard.service', 'tnt.catalog.keyboard.input'
     ]).controller(
             'PaymentCtrl',
             function($scope, $filter, $location, $q, DataProvider, ArrayUtils, KeyboardService, DialogService, PaymentService,
