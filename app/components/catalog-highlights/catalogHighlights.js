@@ -25,7 +25,7 @@
                             case 'Promoções':
                                 scope.color = 'soft-green';
                                 break;
-                            case 'Ed. Limitada':
+                            case 'Edição Limitada':
                                 scope.color = 'dark-yellow-gray';
                                 break;
                             case 'Lançamentos':

@@ -13,7 +13,7 @@
     });
 
     angular.module('tnt.catalog.components.product-display', []).directive(
-            'productDisplay', function(DataProvider, OrderService, DialogService) {
+            'productDisplay', function(DataProvider, OrderService, DialogService, InventoryKeeper, ArrayUtils) {
                 return {
                     restrict : 'E',
                     templateUrl : templateUrl,
@@ -50,8 +50,10 @@
                             if (OrderService.order.id === undefined) {
                                 OrderService.createNew();
                             }
+                            
+                            var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.id);
 
-                            if (product.grid.length > 1) {
+                            if (grid.length > 1) {
                                 DialogService.openDialogAddToBasketDetails({
                                     id : product.id
                                 });
