@@ -32,7 +32,7 @@
 
         for ( var ix in $scope.grid) {
             var orderProduct = ArrayUtils.find(orderItems, 'id', $scope.grid[ix].id);
-            var qty = 0;
+            var qty = $scope.grid.length > 1 ? 0 : 1;
             if (orderProduct) {
                 qty = orderProduct.qty;
             }
