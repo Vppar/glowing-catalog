@@ -77,5 +77,13 @@ describe('Directive: tntInput', function() {
 		KeyboardService.keypress('1');
 		expect(element.text()).toBe('12345678901');
 	}));
+	
+	it('element text length should not be under than the min', inject(function($compile) {
+		element = angular.element('<div tnt-input ng-model="value" min-digits="3" ></div>');
+		scope.value = '123';
+		element = $compile(element)(scope);
+		KeyboardService.keypress('backspace');
+		expect(element.text()).toBe('123');
+	}));
 
 });

@@ -18,12 +18,12 @@
 								if (scope.value === undefined) {
 									scope.value = '';
 								}
-								console.log(attrs);
 								var minDigits = attrs.minDigits;
 								var maxDigits = attrs.maxDigits;
 
-								if (!attrs.minDigits)
+								if (!attrs.minDigits){
 									minDigits = 0;
+								}
 
 								var input = {
 									id : element.contents().context.id
@@ -43,10 +43,20 @@
 											scope.value = '0';
 											KeyboardService.prev();
 										} else {
-											scope.value = scope.value
+											if(minDigits){
+												if(scope.value.length > minDigits){
+													scope.value = scope.value
 													.substring(
 															0,
 															(scope.value.length - 1));
+												}
+											}else{
+												scope.value = scope.value
+												.substring(
+														0,
+														(scope.value.length - 1));
+											}
+											
 										}
 									} else if (key === 'clear') {
 										scope.value = defaultValue;
@@ -59,29 +69,11 @@
 										scope.value = key;
 									} else {
 										if (maxDigits) {
-											if (minDigits) {
-												// if min and max are defined
-												if (scope.value.length < maxDigits
-														&& scope.value.length > minDigits) {
+											if (scope.value.length < maxDigits) {
 													scope.value += key;
-												}
-											} else {
-												// if max is defined and min is
-												// not
-												if (scope.value.length < maxDigits) {
-													scope.value += key;
-												}
 											}
-										} else {
-											// if min is defined and max is not
-											if (minDigits) {
-												if (scope.value.length > minDigits) {
-													scope.value += key;
-												}
-											} else {
-												// if both is no defined
-												scope.value += key;
-											}
+										}else{
+											scope.value += key;
 										}
 									}
 
