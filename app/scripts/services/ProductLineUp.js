@@ -25,7 +25,7 @@
                             for ( var ix in lineUp) {
                                 var product = lineUp[ix];
 
-                                if (angular.isUndefined(product.h)) {
+                                //if (angular.isUndefined(product.h)) {
                                     if (angular.isUndefined(product.description)){
                                         p3x3(product);
                                     } else if (product.description.length < 110 && angular.isUndefined(product.expires)) {
@@ -35,7 +35,7 @@
                                     } else {
                                         p6x2(product);
                                     }
-                                }
+                                //}
                             }
                         };
 

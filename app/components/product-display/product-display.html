@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="product-footer">
-            <div class="product-divider">{{message}} {{expires | date}}</div>
+            <div class="product-divider">{{message}} {{expires | date:'dd/MM'}}</div>
             <div class="product-bottom">
                 <span class="product-currency">R$</span><span class="product-price"> {{product.price | currency:''}}</span><span ng-click='add(product)'
                     class="product-addbtn"></span>
