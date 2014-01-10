@@ -26,6 +26,8 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }*/
 
+.navbar .nav > li > .dropdown-menu:after {left: 158px;}
+
 /*menu states*/
 .nav > li > a:hover, .nav > li > a:focus {
 	text-decoration: none;
@@ -792,7 +794,7 @@ div.sidebar-menu ul li a {
 	text-align:center;
 	vertical-align:center;
 	display:block;
-	margin:20px;
+	margin: auto;/*margin:20px;*/
 }
 .img-catalog-basket2 img {
 	text-align:center;
