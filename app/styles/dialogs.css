@@ -73,7 +73,10 @@ margin-top: 25px;
 }
 .form-add-to-basket .price-popup-small {
 	font-size:14px;
-	/*display: block;*/
+	display: block;
+	margin: 1px 2px 0 14px;
+	width: 5px;
+	float: left;
 }
 .form-add-to-basket .qty-value{/*.input-row-qtde-cart input {*/
 	width: 100% !important;
@@ -112,6 +115,16 @@ margin-top: 25px;
 }
 .form-add-to-basket2 .price-popup-small {
 	font-size:14px;
+	display: block;
+	margin: 1px -8px 0 22px;
+	width: 8px;
+	float: left;
+}
+.form-add-to-basket2 .price-popup-total {
+	font-size:14px;
+	margin: 50px 0 -30px 0;
+height: 20px;
+display: block;
 }
 .line-gradient {
 	/*width:150px;*/

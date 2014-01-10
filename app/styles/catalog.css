@@ -815,6 +815,7 @@
 	.catalog-block .product-image img{
 		max-width: 90px;
 		max-height: 90px;
+		margin-right: 8px;
 	}	
 	/* titulo comum */
 	.catalog-block .product-title{
