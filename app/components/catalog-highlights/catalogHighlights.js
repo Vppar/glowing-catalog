@@ -38,6 +38,10 @@
                         scope.style = 'bg-' + scope.color;
 
                         var lineUp = ArrayUtils.list(DataProvider.products, 'session', scope.section);
+                        
+                        for(var ix in lineUp){
+                            lineUp[ix].displayLine = lineUp[ix].line;
+                        }
 
                         scope.left = [];
                         scope.right = [];
