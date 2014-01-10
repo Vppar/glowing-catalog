@@ -28,7 +28,7 @@
         var createNew = function createNew() {
             angular.extend(order, orderTemplate);
             order.paymentIds = [];
-            order.items = angular.copy(DataProvider.products);
+            order.items = [];
         };
 
         /**

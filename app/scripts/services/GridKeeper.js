@@ -14,7 +14,7 @@
      * </pre>
      * 
      */
-    
+
     angular.module('tnt.catalog.grid.entity', []).factory('Grid', function Grid() {
         var service = function svc(id, grid) {
 
@@ -23,7 +23,7 @@
             }
 
             if (!grid instanceof Array) {
-            	throw 'Grid must be an array';
+                throw 'Grid must be an array';
             }
 
             ObjectUtils.ro(this, 'id', id);
@@ -33,7 +33,9 @@
         return service;
     });
 
-    angular.module('tnt.catalog.grid.keeper',['tnt.utils.array']).service('GridKeeper', function GridKeeper(Grid,ArrayUtils) {
+    angular.module('tnt.catalog.grid.keeper', [
+        'tnt.utils.array'
+    ]).service('GridKeeper', function GridKeeper(Grid, ArrayUtils) {
         var grid = [];
         /**
          * <pre>
@@ -57,30 +59,29 @@
         this.build = function(products) {
             for ( var ix in products) {
                 var product = products[ix];
-                
-                if(!angular.isDefined(product.id)) {
-                	grid = [];
-                	break;
+
+                if (!angular.isDefined(product.id)) {
+                    grid = [];
+                    break;
                 }
 
                 var gridItem = new Grid(product.id, []);
 
                 if (angular.isDefined(product.parent)) {
                     var parent = ArrayUtils.find(grid, 'id', product.parent);
-
                     parent.grid.push(gridItem);
                 } else {
-                	gridItem['section'] = product.section;
-                	gridItem['line'] = product.line;
+                    gridItem.section = product.section;
+                    gridItem.line = product.line;
                     grid.push(gridItem);
                 }
             }
         };
-        
-        this.read = function(){
+
+        this.read = function() {
             return angular.copy(grid);
         };
-        
+
     });
 
     angular.module('tnt.catalog.grid', [
