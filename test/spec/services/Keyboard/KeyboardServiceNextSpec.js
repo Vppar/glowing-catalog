@@ -3,7 +3,11 @@
 describe('Service: KeyboardService', function() {
 
     // load the service's module
-    beforeEach(module('tnt.catalog.keyboard.service'));
+    beforeEach(function(){
+    	module('tnt.catalog.keyboard.service');
+    	module('tnt.catalog.keyboard.input');
+    });
+    
 
     // instantiate service
     var KeyboardService = undefined;
@@ -31,13 +35,8 @@ describe('Service: KeyboardService', function() {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '0';
         element = $compile(element)(scope);
+        
         KeyboardService.keypress('0');
-
-        var input = {
-            id : 1
-        };
-
-        KeyboardService.register(input);
 
         var actual = KeyboardService.readCurrentField();
         KeyboardService.next();

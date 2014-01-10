@@ -26,7 +26,6 @@
                 // Controls the num pad.
                 $scope.isNumPadVisible = false;
                 $scope.toogleNumPad = function toogleNumPad() {
-                    console.log($scope.isNumPadVisible);
                     $scope.isNumPadVisible = !$scope.isNumPadVisible;
                 };
 

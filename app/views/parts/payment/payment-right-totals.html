@@ -33,7 +33,7 @@
 	        <span class=""> 
 	        	<!--btn-price-payment-input-block2 input-block-level-->
 	            <!--<input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>-->
-				<span id="money" class="btn-price-payment" ng-model="payment.cash.amount" tnt-input>{{payment.cash.amount | currency:''}}</span>
+				<span id="money" class="btn-price-payment" ng-model="payment.cash.amount" tnt-input maxdigits='10' >{{payment.cash.amount | currency:''}}</span>
 	        </span>
 	    </div>
 	</div>

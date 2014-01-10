@@ -23,7 +23,10 @@
                 select(input);
                 openKeyboard();
             };
-
+            
+            //just to set the first value
+            if(!currentField)select(input);
+            
             fields.push(input);
         };
 

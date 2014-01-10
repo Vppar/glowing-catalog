@@ -68,7 +68,7 @@ describe('Directive: tntInput', function() {
 		scope.value = '1234';
 		element = $compile(element)(scope);
 		KeyboardService.keypress('clear');
-		expect(element.text()).toBe('');
+		expect(element.text()).toBe('0');
 	}));
 	
 	it('element text length should not be over than eleven', inject(function($compile) {

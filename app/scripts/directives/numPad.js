@@ -28,43 +28,43 @@
                 scope.keypress = KeyboardService.keypress;
 
                 element.find("img[alt='0']").bind('tap', function() {
-                    scope.$apply('keypress(0)');
+                    scope.$apply('keypress(\'0\')');
                 });
                 element.find("img[alt='00']").bind('tap', function() {
-                    scope.$apply('keypress("00")');
+                    scope.$apply('keypress(\'00\')');
                 });
                 element.find("img[alt='1']").bind('tap', function() {
-                    scope.$apply('keypress(1)');
+                    scope.$apply('keypress(\'1\')');
                 });
                 element.find("img[alt='2']").bind('tap', function() {
-                    scope.$apply('keypress(2)');
+                    scope.$apply('keypress(\'2\')');
                 });
                 element.find("img[alt='3']").bind('tap', function() {
-                    scope.$apply('keypress(3)');
+                    scope.$apply('keypress(\'3\')');
                 });
                 element.find("img[alt='4']").bind('tap', function() {
-                    scope.$apply('keypress(4)');
+                    scope.$apply('keypress(\'4\')');
                 });
                 element.find("img[alt='5']").bind('tap', function() {
-                    scope.$apply('keypress(5)');
+                    scope.$apply('keypress(\'5\')');
                 });
                 element.find("img[alt='6']").bind('tap', function() {
-                    scope.$apply('keypress(6)');
+                    scope.$apply('keypress(\'6\')');
                 });
                 element.find("img[alt='7']").bind('tap', function() {
-                    scope.$apply('keypress(7)');
+                    scope.$apply('keypress(\'7\')');
                 });
                 element.find("img[alt='8']").bind('tap', function() {
-                    scope.$apply('keypress(8)');
+                    scope.$apply('keypress(\'8\')');
                 });
                 element.find("img[alt='9']").bind('tap', function() {
-                    scope.$apply('keypress(9)');
+                    scope.$apply('keypress(\'9\')');
                 });
                 element.find("img[alt='backspace']").bind('tap', function() {
                     scope.$apply('keypress(\'backspace\')');
                 });
                 element.find("img[alt='clear']").bind('tap', function() {
-                    scope.$apply('keypress(\'keypress\')');
+                    scope.$apply('keypress(\'clear\')');
                 });
                 element.find("img[alt='ok']").bind('tap', function() {
                     scope.$apply('keypress(\'ok\')');
@@ -87,6 +87,7 @@
                     scope.amount = '0';
                 };
 
+                //copied to tnt-input
                 function shiftPoint(value) {
                     value = value.replace('.', '');
                     if (value.length == 1) {
