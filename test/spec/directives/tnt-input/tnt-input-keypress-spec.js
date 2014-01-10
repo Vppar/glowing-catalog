@@ -1,5 +1,5 @@
 'use strict';
-//FIXME it's necessary fix the numpad service or change to keyboard service to works property
+//FIXME it's necessary fix the numpad service or change to keyboard service to it works properly
 xdescribe('Directive: tntInput', function() {
 
 	// load the directive's module
