@@ -794,7 +794,7 @@ div.sidebar-menu ul li a {
 	text-align:center;
 	vertical-align:center;
 	display:block;
-	margin:20px;
+	margin: auto;/*margin:20px;*/
 }
 .img-catalog-basket2 img {
 	text-align:center;
