@@ -5,7 +5,6 @@ describe('Directive: tntInput', function() {
 	// load the directive's module
 	beforeEach(function() {
 		module('tnt.catalog.keyboard.input');
-		module('tnt.catalog.keyboard.service');
 	});
 
 	var element, scope, KeyboardService;
@@ -71,8 +70,8 @@ describe('Directive: tntInput', function() {
 		expect(element.text()).toBe('0');
 	}));
 	
-	it('element text length should not be over than eleven', inject(function($compile) {
-		element = angular.element('<div tnt-input ng-model="value"></div>');
+	it('element text length should not be over than the max', inject(function($compile) {
+		element = angular.element('<div tnt-input ng-model="value" max-digits="11" ></div>');
 		scope.value = '12345678901';
 		element = $compile(element)(scope);
 		KeyboardService.keypress('1');
