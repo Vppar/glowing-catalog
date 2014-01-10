@@ -12,7 +12,7 @@
 						<div class="control-group lbl-top">
 							<label class="control-label">Produto</label>
 							<div class="controls">
-								<select ui-select2 ng-model="selectedProduct" class="combo-width" ng-change="selectChange()" ng-click="selectClick()">
+								<select ui-select2 ng-model="selectedProduct" class="combo-width" ng-change="selectChange()" >
 									<option ng-repeat="product in products" value="{{product}}">{{product.title}}</option>
 								</select>
 							</div>
@@ -21,7 +21,7 @@
 							<div class="control-group lbl-top">
 							<label class="control-label" >Pre&ccedil;o</label>
 							<div class="controls">
-								<input  class="input-mini text-right" type="text" ng-change="changePrice()" ng-model="price" required > </input>
+								<input  class="input-mini text-right" type="text" ng-model="price" currency required> </input>
 							</div>
 							</div>
 						</div>
@@ -29,7 +29,7 @@
 							<div class="control-group lbl-top">
 							<label class="control-label" >Qtde</label>
 							<div class="controls">
-								<input  class="input-mini text-center" type="text" ng-change="changeQuantity()" ng-model="quantity" required>
+								<input  class="input-mini text-center" type="text" ng-model="quantity" number required>
 							</div>
 							</div>
 						</div>
