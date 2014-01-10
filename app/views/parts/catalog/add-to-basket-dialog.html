@@ -9,12 +9,12 @@ var initMagnifier = function () {
 		<span class="wrapper-qtde2">
 			<div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div> 
 			<span class="label-input-qtde">Qtde</span>
-			<input-qty ng-model="qty" min="1"></input-qty>
+			<input-qty ng-model="grid[0].qty" min="0"></input-qty>
 			<div class="price-add-to-basket margint14">
 				<span class="price-popup-total">Total</span>
 				<br />
 				<br />
-				<span class="price-popup-small">R$</span> {{product.price * qty | currency:''}}
+				<span class="price-popup-small">R$</span> {{product.price * grid[0].qty | currency:''}}
 			</div>
             <div class="line-gradient">&nbsp;</div>
             <div class="quantity-products-basket">em estoque <span>{{product.inventory}}</span></div>
