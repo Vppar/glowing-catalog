@@ -61,13 +61,13 @@
                     scope.$apply('keypress(9)');
                 });
                 element.find("img[alt='backspace']").bind('tap', function() {
-                    scope.$apply('keypress()');
+                    scope.$apply('keypress(\'backspace\')');
                 });
                 element.find("img[alt='clear']").bind('tap', function() {
-                    scope.$apply('clearMoney()');
+                    scope.$apply('keypress(\'keypress\')');
                 });
                 element.find("img[alt='ok']").bind('tap', function() {
-                    scope.$apply('btnOk()');
+                    scope.$apply('keypress(\'ok\')');
                 });
 
                 scope.pushMoneyDigit = function pushMoneyDigit(digit) {
