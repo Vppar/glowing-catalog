@@ -20,7 +20,7 @@
 									<!--<span class="col-1"><div class="options"></div>
 										<div>{{item.option}}<br/><span class="code-product">codigo</span></div>
 									</span>-->
-									<span class="col-1"><img src="images/catalog/samples/color-1.png" alt="sample" /><div>{{item.option}}<br/><span class="code-product">codigo</span></div></span>
+									<span class="col-1"><img src="images/catalog/products/{{item.SKU}}b.jpg" alt="sample" /><div>{{item.option}}<br/><span class="code-product">{{item.SKU}}</span></div></span>
                                     <span class="col-2"><div>{{item.inventory}}</div></span>
                                     <span class="col-3"><div>{{product.price | currency:''}}</div></span>
                                     <span class="col-4"><input-qty ng-model="item.qty" min="0"></input-qty></span>
@@ -36,7 +36,7 @@
 		    <div class="price-add-to-basket margint10">
 				<div class="quantidade">
 					<span class="label-input-qtde">Qtde</span>
-					<span class="qty-value">1</span>
+					<span class="qty-value">{{count}}</span>
 				</div>
 				<div class="preco">
 					<span class="label-input-qtde">Total</span>
