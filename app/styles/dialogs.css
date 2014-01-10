@@ -114,10 +114,10 @@ margin-top: 25px;
 }
 .form-add-to-basket2 .price-popup-small {
 	font-size:14px;
-	display: block;
-	margin: 1px -8px 0 6px;
+	/*display: block;
+	float: left;*/
+	margin: 1px 2px 0 6px;
 	width: 18px;
-	float: left;
 }
 .form-add-to-basket2 .price-popup-total {
 	font-size:14px;
