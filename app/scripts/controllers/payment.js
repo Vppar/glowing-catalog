@@ -14,7 +14,6 @@
                 // Easy the access in the controller to external
                 // resources
                 var order = OrderService.order;
-                var inBasketFilter = OrderService.inBasketFilter;
                 var isNumPadVisible = false;
 
                 // Controls which left fragment will be shown
@@ -29,7 +28,7 @@
 
                 // Calculate the Subtotal
                 if (order.items) {
-                    var basket = $filter('filter')(order.items, inBasketFilter);
+                    var basket = order.items;
                     var orderItemsQty = basket ? basket.length : 0;
                     var orderUnitsQty = $filter('sum')(basket, 'qty');
                     var orderAmount = $filter('sum')(basket, 'price', 'qty');

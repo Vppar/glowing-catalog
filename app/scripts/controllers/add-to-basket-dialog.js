@@ -54,11 +54,12 @@
                         orderProduct.qty = $scope.grid[ix].qty;
                     }
                 } else {
-                    $scope.grid[ix].idx = ++index;
-                    orderItems.push($scope.grid[ix]);
+                    if ($scope.grid[ix].qty > 0) {
+                        $scope.grid[ix].idx = ++index;
+                        orderItems.push($scope.grid[ix]);
+                    }
                 }
             }
-
             dialog.close(true);
         };
 
