@@ -693,7 +693,7 @@
 			width:191px !important;
 			height:51px !important;
 			color: #fff !important;
-			z-index:4;
+			z-index:44;
 		}		
 		.last-opportunity .line-back {
 			height: 54px;
@@ -844,9 +844,9 @@
 		/* last opportunity comum */
 		.catalog-block.last-opportunity .product-divider{
 			height: 1px !important;
-			z-index: 44;
+			z-index: 6;
 			position: relative;
-			top: -71px;
+			top: -24px;
 		}
 	/* inferior comum */
 	.catalog-block .product-bottom{
