@@ -469,6 +469,9 @@ div.header-date {
 #topMenuHome {
 	margin: 18px auto 0 290px;
 }
+.topMenuHome ul li a {
+	font-size:14px !important;
+}
 nav ul li {
 	margin-right:25px;
 	/*border-bottom:1px solid #F99;*/
