@@ -1,55 +1,371 @@
-<div class="title-left">
+<!-- BREAD CRUMBS -->
+<div class="row-fluid bread-crumbs">
+	<span class="span6">
+		<span class="principal">Cupom Promocional</span> &nbsp; <span class="crumbs">&nbsp;</span>
+	</span>
+	<span class="span6">
+		<!--<div class="control-group lbl-top icons">
+			<img src="images/icons/ic-add.png">
+		</div>	
+		<div class="control-group lbl-top icons">
+			<img src="images/icons/ic-edit.png">
+		</div>	
+		<div class="control-group lbl-top icons">
+			<img src="images/icons/ic-open.png">
+		</div>	
+		<div class="control-group lbl-top icons">
+			<img src="images/icons/ic-search.png">
+		</div>-->
+		<div class="float-right">
+			<span class="menu-level">
+				<div class="btn-group btn-group-sm">
+					<a class="btn btn-option active">Emitir</a> 
+					<a class="btn btn-option">Hist&oacute;rico</a>
+				</div>
+			</span>
+		</div>
+	</span>
+</div>
+							
+<!--<div class="title-left">
 	<div>
         Emissão de vale cupom
 	</div>
-</div>
-<div class="left-payment" ng-controller="PaymentCheckCtrl">
-	<br/>
+</div>-->
+<div class="left-payment">	
+	
+	<!---EMITIR-->
 	<div class="row-fluid payment-voucher-fields">
-        <form name="exchangeForm">
-				<div class="controls-row">
+	
+		<!-- DATE INTERVAL -->
+		<div class="row-fluid filter-bar">
+		
+			<div class="controls-row">
+				<div class="control-group lbl-top">
+					<select ui-select2 name="product" class="combo-width-product-voucher voucher-fields1" ng-model="voucher.productId" ng-click="setAmount(voucher.productId)">								
+						<option value="">Cliente</option>
+						<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+					</select>
+				</div>
+				<div class="control-group lbl-top">
+					<select ui-select2 name="product" class="combo-width-product-voucher voucher-fields2" ng-model="voucher.productId" ng-click="setAmount(voucher.productId)">								
+						<option value="">Status</option>
+						<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+					</select>
+				</div>
+			</div>
+			<br/>
+			
+			<div class="controls-row">
+				<div class="control-group lbl-top">
+						<label class="control-label">&nbsp;</label>
+					<select ui-select2 name="product" class="combo-width-product-voucher voucher-fields1" ng-model="voucher.productId" ng-click="setAmount(voucher.productId)">								
+						<option value="">E-mail</option>
+						<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+					</select>
+				</div>
+				<div class="control-group lbl-top">
 					<div class="control-group lbl-top">
-						<select ui-select2 name="product" class="combo-width-product-exchange mw220" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">								
-							<option value="">Selecione o tipo</option>
-							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
-						</select>
+						<label class="control-label">Total</label>
+						<div class="controls2">
+							<!--<input name="amount" class="input-small text-right" ng-model="voucher.amount" type="tel" currency recall>-->
+							<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+						</div>
 					</div>
 				</div>
-				<br/>
-				<div class="controls-row">
-					<div class="control-group lbl-top">
-						<label class="control-label w200">Cliente</label>
-						<span class="btn-price-payment-input-block input-block-level">
-                            <input class="input" readonly id="appendedInput" type="text" value="{{customer.name}}" />
-                        </span>
-					</div>
-                    <div class="control-group lbl-top">
-						<label class="control-label">Telefone</label>
-                            <!--<span class="input-block-level" ng-show="customer.phones"> {{customer.phones[0].number | phone}}</span>-->
-                            <input class="input marginr" id="appendedInput" type="text" value="{{customer.phones[0].number | phone}}" />
-					</div>
-					<div class="control-group lbl-top">
-						<div class="control-group lbl-top">
-							<label class="control-label">Valor</label>
-							<div class="controls2">
-								<input name="amount" class="input-small text-right" ng-model="exchange.amount" type="tel" currency recall>
+			</div>
+			
+		</div>
+		<br/>
+		
+        <form>
+		
+			<div class="controls-row">
+				<div class="control-group lbl-top">				   
+					<div class="grid-payment-voucher">
+						<!--<div class="header header2 header-voucher">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>Cupom</div>
+								</span>
+								<span class="col-s2">
+									<div>Valor</div>
+								</span>
+								<span class="col-s3">
+									<div>Qtde.</div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">Subtotal</div>
+								</span>
 							</div>
+						</div>
+						<div class="header header2 subtitle-header-exchange">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>0</div>
+								</span>
+								<span class="col-s2">
+									<div>xxx</div>
+								</span>
+								<span class="col-s3">
+									<div>0</div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">0,00</div>
+								</span>
+							</div>
+						</div>-->
+						<div class="header header2 subtitle2-header-exchange">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>&nbsp;</div>
+								</span>
+								<span class="col-s2">
+									<div>
+										&nbsp;
+									</div>
+								</span>
+								<span class="col-s3">
+									<div>Qtde.</div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">
+										Subtotal
+									</div>
+								</span>
+							</div>
+						</div>
+						<div class="scroll-payment-grid">
+							<div class="row-payment-grid-product-voucher">
+								<span class="col-s1">
+									<div>Cupom</div>
+								</span>
+								<span class="col-s2">
+									<div>
+										R$5,00
+									</div>
+								</span>
+								<span class="col-s3">
+									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+									</div>
+								</span>
+							</div>
+							
+							<div class="row-payment-grid-product-voucher">
+								<span class="col-s1">
+									<div>Cupom</div>
+								</span>
+								<span class="col-s2">
+									<div>
+										R$10,00
+									</div>
+								</span>
+								<span class="col-s3">
+									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+									</div>
+								</span>
+							</div>
+							
+							<div class="row-payment-grid-product-voucher">
+								<span class="col-s1">
+									<div>Cupom</div>
+								</span>
+								<span class="col-s2">
+									<div>
+										R$15,00
+									</div>
+								</span>
+								<span class="col-s3">
+									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+									</div>
+								</span>
+							</div>
+							
+							<div class="row-payment-grid-product-voucher">
+								<span class="col-s1">
+									<div>Cupom</div>
+								</span>
+								<span class="col-s2">
+									<div>
+										R$50,00
+									</div>
+								</span>
+								<span class="col-s3">
+									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+									</div>
+								</span>
+							</div>
+						</div>
+					</div>				
+				</div>
+				
+			</div>
+		</form>
+	
+		<div class="payment-left-btns-area">
+			<div class="payment-left-btns">
+				<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
+					Cancelar
+				</button>
+				<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmPayments()" >
+					Confirmar
+				</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	
+	<!--HISTORICO-->
+	<div class="row-fluid payment-voucher-fields display-none">
+	
+		<!-- DATE INTERVAL -->
+		<div class="row-fluid filter-bar">
+			
+			<span class="span3">			
+				<div class="controls">
+					<div class="control-group lbl-top">
+						<div class="controls">
+							Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtInitial">
 						</div>
 					</div>
 					<div class="control-group lbl-top">
+						<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
+					</div>	
+				</div>				
+			</span>
+			
+			<span class="span3 marginl7">				
+				<div class="controls">
+					<div class="control-group lbl-top">
+						<div class="controls">
+							<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtFinal">
+						</div>
 					</div>
-				</div>
-			</form>
-	</div>
+					<div class="control-group lbl-top">
+						<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
+					</div>	
+				</div>				
+			</span>
+		
+		</div>
+			
+		<div class="controls-row">
+			<div class="control-group lbl-top">
+				<select ui-select2 name="product" class="combo-width-product-voucher voucher-fields1" ng-model="voucher.productId" ng-click="setAmount(voucher.productId)">								
+					<option value="">Cliente</option>
+					<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+				</select>
+			</div>
+			<div class="control-group lbl-top">
+				<select ui-select2 name="product" class="combo-width-product-voucher voucher-fields2" ng-model="voucher.productId" ng-click="setAmount(voucher.productId)">								
+					<option value="">Celular</option>
+					<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
+				</select>
+			</div>
+		</div>
+		<br/>
 	
-	<div class="payment-left-btns-area">
-		<div class="payment-left-btns">
-			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
-				Cancelar
-			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmPayments()" >
-				Confirmar
-			</button>
+		<form>
+			<div class="controls-row">
+				<div class="control-group lbl-top">				   
+					<div class="grid-payment-voucher-history">
+						<div class="header header2 header-voucher">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>Data</div>
+								</span>
+								<span class="col-s2">
+									<div>Cupom</div>
+								</span>
+								<span class="col-s3">
+									<div>Cliente</div>
+								</span>
+								<span class="col-s4">
+									Valor
+								</span>
+								<span class="col-s5">
+									Status
+								</span>
+							</div>
+						</div>
+						<div class="scroll-payment-grid">
+							<div class="row-payment-grid-product-voucher">
+								<span class="col-s1">
+									<div>10/01/14</div>
+								</span>
+								<span class="col-s2">
+									<div>
+										12345
+									</div>
+								</span>
+								<span class="col-s3">
+									Nome do Cliente
+								</span>
+								<span class="col-s4">
+									R$50,00
+								</span>
+								<span class="col-s5">
+									Utilizado
+								</span>
+							</div>
+							<div class="row-payment-grid-product-voucher">
+								<span class="col-s1">
+									<div>10/01/14</div>
+								</span>
+								<span class="col-s2">
+									<div>
+										12345
+									</div>
+								</span>
+								<span class="col-s3">
+									Nome do Cliente
+								</span>
+								<span class="col-s4">
+									R$50,00
+								</span>
+								<span class="col-s5">
+									Em aberto
+								</span>
+							</div>
+						</div>
+					</div>				
+				</div>
+				
+			</div>
+			
+		</form>
+	
+		<div class="payment-left-btns-area">
+			<div class="payment-left-btns">
+				<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
+					Cancelar
+				</button>
+				<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmPayments()" >
+					Confirmar
+				</button>
+			</div>
 		</div>
 	</div>
+	
+	
+	
+	
 </div>
