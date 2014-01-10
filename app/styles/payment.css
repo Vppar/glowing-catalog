@@ -690,6 +690,9 @@ border-radius: 4px;
 	color: rgba(0, 0, 0, 0.5);
 	display: inline-block;
 	width:150px;
+	font-size: 12px;
+	position:relative;
+	top:-3px;
 	/*padding-left:10px;*/
 }
 

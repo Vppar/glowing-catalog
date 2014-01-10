@@ -379,7 +379,7 @@ body {
 	border-bottom: 1px solid transparent
 }
 .sidebar-menu .nav {
-	font-size: 12px; /*100%*/
+	font-size: 13px; /*100%*/
 }
 .sidebar-menu1 .nav {
 	font-size: 100%;
@@ -469,6 +469,7 @@ div.header-date {
 #topMenuHome {
 	margin: 18px auto 0 290px;
 }
+
 nav ul li {
 	margin-right:25px;
 	/*border-bottom:1px solid #F99;*/
@@ -608,11 +609,11 @@ nav ul li {
 	float: right;
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
-	width: 180px;
+	width: 192px;
 	background: #fdfeff;
 	float: right;
 	margin-top: 7px;
-	margin-right: 23px;
+	margin-right: 12px;
 	position: relative;
 	clear:both;
 	overflow-y: auto;
@@ -620,7 +621,9 @@ nav ul li {
 .sidebar-menu1 {
 	margin-top: -10px;
 }
-
+div.sidebar-menu ul li a {
+	padding:10px 0 10px 18px
+}
 .banner-side-bar {
 	box-shadow: -1px 1px 8px 1px #e0e0e0;
 	border-radius: 4px;
@@ -666,6 +669,7 @@ nav ul li {
 	color: #ecbab9;
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	-webkit-tap-highlight-color: transparent;
+	font-size:14px !important;
 }
 
 #topMenuHome .selected {

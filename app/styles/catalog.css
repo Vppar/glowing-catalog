@@ -176,7 +176,7 @@
 	}	
 		/* altura do conteudo do bloco h03 */
 		.catalog-block.h03 .product-content {
-			height: 249px;
+			height: 234px;
 		}		
 	/* altura do bloco h02 */
 	.catalog-block.h02 {
@@ -184,7 +184,7 @@
 	}	
 		/* altura do conteudo do bloco h02 */
 		.catalog-block.h02 .product-content {
-			height: 139px;
+			height: 124px;
 		}		
 		/* imagem do bloco h02 */
 		.catalog-block.h02 .product-image {
@@ -201,8 +201,8 @@
 	}
 	.catalog-block.w06 .product-title {
 		width:320px;
-		display:block;
-		float:left;
+/*		display:block;
+		float:left;*/
 	}
 	.line-info {
 		width: 24px;
@@ -686,14 +686,20 @@
 		}	
 		
 		/* barra ultima oportunidade*/
-		.last-opportunity .product-divider{
+		.last-opportunity .product-opportunity{
 			background: url('../images/last-opportunity-banner-v2.png') no-repeat top left  !important;
 			font-size:12px;
 			padding:12px 0 0 10px;
 			width:191px !important;
 			height:51px !important;
 			color: #fff !important;
+			z-index:44;
 		}		
+		.last-opportunity .line-back {
+			height: 54px;
+			display: block;
+			margin-top: -42px;
+		}
 		
 		/*adds*/
 		.catalog-block.product-bg-black .product-addbtn {
@@ -815,6 +821,7 @@
 	.catalog-block .product-image img{
 		max-width: 90px;
 		max-height: 90px;
+		margin-right: 8px;
 	}	
 	/* titulo comum */
 	.catalog-block .product-title{
@@ -825,7 +832,7 @@
 	.catalog-block .product-text{
 		padding: 10px;
 		overflow: hidden;
-		font-size: 12px;
+		font-size: 13px;
 		float:left;
 	}	
 	/* linha divisoria comum */
@@ -836,11 +843,10 @@
 	}	
 		/* last opportunity comum */
 		.catalog-block.last-opportunity .product-divider{
-			padding: 12px 0px 0px 18px;
-			text-align: left;
-			margin-top: -48px;
-			height: auto;
-			clear: both;
+			height: 1px !important;
+			z-index: 6;
+			position: relative;
+			top: -22px;
 		}
 	/* inferior comum */
 	.catalog-block .product-bottom{

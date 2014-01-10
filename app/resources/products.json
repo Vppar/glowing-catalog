@@ -340,6 +340,7 @@
       "points":39,
       "title":"Hidratante Redutor de Linhas de Expressão - 88ml",
       "price":62,
+      "bestSeller":3,
       "description":"Hidrata por até dez horas e acelera o processo natural de renovação da pele. Escolha entre as opções mista a oleosa ou normal a seca."
    },
    {
@@ -1513,6 +1514,7 @@
       "points":27,
       "title":"Base Líquida TimeWise - Acabamento Matte - 29ml",
       "price":54,
+      "bestSeller":9,
       "description":"Fórmula leve, que ajuda a controlar o excesso de oleosidade e o brilho durante todo o dia. Diminui a aparência de rugas e linhas finas."
    },
    {
@@ -1879,6 +1881,7 @@
       "points":23,
       "title":"Base em Pó Mineral - 8g",
       "price":54,
+      "bestSeller":10,
       "description":"Um pó leve que se espalha facilmente para um visual impecável."
    },
    {
@@ -2147,6 +2150,7 @@
       "points":20,
       "title":"Corretivo - 8,5g",
       "price":32,
+      "bestSeller":5,
       "description":"Fórmula cremosa de longa duração que disfarça pequenas imperfeições."
    },
    {
