@@ -1,5 +1,5 @@
 'use strict';
-//FIXME it's necessary fix the numpad service or change to keyboard service to it works properly
+
 describe('Directive: tntInput', function() {
 
 	// load the directive's module
@@ -15,15 +15,47 @@ describe('Directive: tntInput', function() {
 		KeyboardService = _KeyboardService_;
 	}));
 
-	it('should add key pressed value', inject(function($compile) {
+	it('should add key pressed when initial value is not zero', inject(function($compile) {
+		element = angular.element('<div tnt-input ng-model="value"></div>');
+		scope.value = '1';
+		element = $compile(element)(scope);
+		KeyboardService.keypress('0');
+		expect(element.text()).toBe('10');
+	}));
+	
+	it('should change to key pressed when initial value is zero', inject(function($compile) {
+		element = angular.element('<div tnt-input ng-model="value"></div>');
+		scope.value = '0';
+		element = $compile(element)(scope);
+		KeyboardService.keypress('1');
+		expect(element.text()).toBe('1');
+	}));
+	
+	it('should not add key pressed when initial value is zero', inject(function($compile) {
 		element = angular.element('<div tnt-input ng-model="value"></div>');
 		scope.value = '0';
 		element = $compile(element)(scope);
 		KeyboardService.keypress('0');
-		expect(element.text()).toBe('00');
+		expect(element.text()).toBe('0');
+	}));
+	
+	it('should add key pressed when initial value is not zero', inject(function($compile) {
+		element = angular.element('<div tnt-input ng-model="value"></div>');
+		scope.value = '10';
+		element = $compile(element)(scope);
+		KeyboardService.keypress('0');
+		expect(element.text()).toBe('100');
+	}));
+	
+	it('should add key pressed when initial value is not zero zero', inject(function($compile) {
+		element = angular.element('<div tnt-input ng-model="value"></div>');
+		scope.value = '10';
+		element = $compile(element)(scope);
+		KeyboardService.keypress('00');
+		expect(element.text()).toBe('1000');
 	}));
 
-	it('should backspace element text', inject(function($compile) {
+	it('should backspace element text when value is not zero', inject(function($compile) {
 		element = angular.element('<div tnt-input ng-model="value"></div>');
 		scope.value = '1234';
 		element = $compile(element)(scope);
