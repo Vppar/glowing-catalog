@@ -12,7 +12,7 @@
 		<span class="col-5 marginl8">Vr Total</span>
 	</div>
 	<div class="content-scroll">
-		<div ng-repeat="item in items | filter: inBasketFilter | orderBy:'idx':true" ng-click="addToBasket(item.id)">
+		<div ng-repeat="item in items | orderBy:'idx':true" ng-click="addToBasket(item.id)">
 			<span class="col-1" ng-show="item.idx <= 8">{{ '0' + (item.idx + 1)}}</span>
 			<span class="col-1" ng-show="item.idx > 8">{{item.idx + 1}}</span>
 			<span class="col-2">{{item.title}} &nbsp;<span class="code-product">{{item.code}}</span></span>
