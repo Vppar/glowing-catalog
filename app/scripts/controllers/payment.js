@@ -42,7 +42,6 @@
                 $scope.payments = PaymentService.payments;
 
                 // Filters
-                $scope.inBasketFilter = inBasketFilter;
                 $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
 
                 // There can be only one cash payment, so we have to
