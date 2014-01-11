@@ -104,7 +104,7 @@
          */
         this.squash = function(product, products){
             product = angular.copy(product);
-            
+            var parent = product;
             if(angular.isDefined(product.parent)){
                 parent = ArrayUtils.find(products, 'id', product.parent);
                 
@@ -112,7 +112,7 @@
                 
                 angular.extend(parent, product);
             }
-            return product;
+            return parent;
         };
         
         this.read = function(){
