@@ -9,24 +9,24 @@
 		<span class="heading-gradient">{{product.title}}</span>
 		<span class="wrapper-qtde wrapper-size">
 			<!--<input-qty ng-model="qty" min="1"></input-qty>-->
-            		<div class="grid-input-products">
-							<div class="header2">
-								<div class="row-input-products-grid">
-									<span class="col-1"><div>Op&ccedil;&otilde;es</div></span><span class="col-2"><div>Estoque</div></span><span class="col-3"><div>Pre&ccedil;o</div></span><span class="col-4"><div>Qtde</div></span>
-								</div>
-							</div>
-							<div class="scroll-input-products-grid2">
-								<div class="row-input-products-grid" ng-repeat="item in grid">
-									<!--<span class="col-1"><div class="options"></div>
-										<div>{{item.option}}<br/><span class="code-product">codigo</span></div>
-									</span>-->
-									<span class="col-1"><img src="images/catalog/products/{{item.SKU}}b.jpg" alt="sample" /><div>{{item.option}}<br/><span class="code-product">{{item.SKU}}</span></div></span>
-                                    <span class="col-2"><div>{{item.inventory}}</div></span>
-                                    <span class="col-3"><div>{{product.price | currency:''}}</div></span>
-                                    <span class="col-4"><input-qty ng-model="item.qty" min="0"></input-qty></span>
-								</div>
-							</div>
+				<div class="grid-input-products">
+					<div class="header2">
+						<div class="row-input-products-grid">
+							<span class="col-1"><div>Op&ccedil;&otilde;es</div></span><span class="col-2"><div>Estoque</div></span><span class="col-3"><div>Pre&ccedil;o</div></span><span class="col-4"><div>Qtde</div></span>
 						</div>
+					</div>
+					<div class="scroll-input-products-grid2">
+						<div class="row-input-products-grid" ng-repeat="item in grid">
+							<!--<span class="col-1"><div class="options"></div>
+								<div>{{item.option}}<br/><span class="code-product">codigo</span></div>
+							</span>-->
+							<span class="col-1"><img src="images/catalog/products/{{item.SKU}}b.jpg" alt="sample" /><div>{{item.option}}<br/><span class="code-product">{{item.SKU}}</span></div></span>
+							<span class="col-2"><div>{{item.inventory}}</div></span>
+							<span class="col-3"><div>{{product.price | currency:''}}</div></span>
+							<span class="col-4"><input-qty ng-model="item.qty" min="0"></input-qty></span>
+						</div>
+					</div>
+				</div>
 		</span>
 		<div class="img-catalog-basket">
 			<span class='zoom' id='magnifier'>

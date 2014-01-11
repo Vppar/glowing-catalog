@@ -5,6 +5,7 @@
         'tnt.catalog.service.data'
     ]).controller('AddToBasketDialogCtrl', function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper) {
 
+        var orderItems = OrderService.order.items;
         var inventory = InventoryKeeper.read();
 
         // Find the product and make a copy to the local scope.
@@ -13,7 +14,7 @@
         // find the grid
         var grid = angular.copy(ArrayUtils.list(inventory, 'parent', dialog.data.id));
 
-        var index = OrderService.order.items.length - 1;
+        var index = orderItems.length - 1;
         $scope.product = product;
         $scope.grid = grid;
         $scope.total = 0;
@@ -30,7 +31,12 @@
         }
 
         for ( var ix in $scope.grid) {
-            $scope.grid[ix].qty = 0;
+            var orderProduct = ArrayUtils.find(orderItems, 'id', $scope.grid[ix].id);
+            var qty = $scope.grid.length > 1 ? 0 : 1;
+            if (orderProduct) {
+                qty = orderProduct.qty;
+            }
+            $scope.grid[ix].qty = qty;
             $scope.$watch('grid[' + ix + '].qty', updateTotal);
         }
 
@@ -39,12 +45,21 @@
          * basket.
          */
         $scope.addToBasket = function addToBasket() {
-            
-            var product = ArrayUtils.find(OrderService.order.items, 'id', dialog.data.id);
-            
-            product.qty = $scope.qty;
-            product.idx = product.idx ? product.idx : (index + 1);
-            
+            for ( var ix in $scope.grid) {
+                var orderProduct = ArrayUtils.find(orderItems, 'id', $scope.grid[ix].id);
+                if (orderProduct) {
+                    if ($scope.grid[ix].qty === 0) {
+                        orderItems.splice(orderItems.indexOf(orderProduct), 1);
+                    } else {
+                        orderProduct.qty = $scope.grid[ix].qty;
+                    }
+                } else {
+                    if ($scope.grid[ix].qty > 0) {
+                        $scope.grid[ix].idx = ++index;
+                        orderItems.push($scope.grid[ix]);
+                    }
+                }
+            }
             dialog.close(true);
         };
 
