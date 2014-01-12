@@ -18,9 +18,9 @@
 		</div>-->
 		<div class="float-right">
 			<span class="menu-level">
-				<div class="btn-group btn-group-sm">
-					<a class="btn btn-option active">Emitir</a> 
-					<a class="btn btn-option">Hist&oacute;rico</a>
+				<div class="btn-group btn-group-sm"  ng-init="voucherSelected='new'">
+					<a class="btn btn-option" ng-click="voucherSelected='new'" ng-class="{active: voucherSelected === 'new'}">Emitir</a> 
+					<a class="btn btn-option" ng-click="voucherSelected='hist'" ng-class="{active: voucherSelected === 'hist'}">Hist&oacute;rico</a>
 				</div>
 			</span>
 		</div>
@@ -32,15 +32,15 @@
         Emissão de vale cupom
 	</div>
 </div>-->
-<div class="left-payment">	
+<div class="left-payment" ng-switch="voucherSelected">	
 	
 	<!---EMITIR-->
-	<div class="row-fluid payment-voucher-fields">
+	<div class="row-fluid payment-voucher-fields" ng-switch-when="new">
 	
 		<!-- DATE INTERVAL -->
 		<div class="row-fluid filter-bar">
 		
-			<div class="controls-row">
+			<div class="controls-row" >
 				<div class="control-group lbl-top">
 					<select ui-select2 name="product" class="combo-width-product-voucher voucher-fields1" ng-model="voucher.productId" ng-click="setAmount(voucher.productId)">								
 						<option value="">Cliente</option>
@@ -234,7 +234,7 @@
 	
 	
 	<!--HISTORICO-->
-	<div class="row-fluid payment-voucher-fields display-none">
+	<div class="row-fluid payment-voucher-fields" ng-switch-when="hist">
 	
 		<!-- DATE INTERVAL -->
 		<div class="row-fluid filter-bar">
