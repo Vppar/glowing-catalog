@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Receivableservice', function () {
+describe('Service: ReceivableService', function() {
 
-  // load the service's module
-  beforeEach(module('glowingCatalogApp'));
+    // load the service's module
+    beforeEach(module('glowingCatalogApp'));
 
-  // instantiate service
-  var Receivableservice;
-  beforeEach(inject(function (_Receivableservice_) {
-    Receivableservice = _Receivableservice_;
-  }));
+    // instantiate service
+    var ReceivableService;
+    beforeEach(inject(function(_ReceivableService_) {
+        ReceivableService = _ReceivableService_;
+    }));
 
-  it('should do something', function () {
-    expect(!!Receivableservice).toBe(true);
-  });
+    it('should do something', function() {
+        expect(!!ReceivableService).toBe(true);
+    });
 
 });

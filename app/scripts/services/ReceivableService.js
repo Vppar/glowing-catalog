@@ -6,7 +6,7 @@
      * 
      * @author Arnaldo S. Rodrigues Jr.
      */
-    angular.module('tnt.catalog.service.receivable', []).service('ReceivableService', function Receivableservice() {
+    angular.module('tnt.catalog.receivable.service', []).service('ReceivableService', function ReceivableService() {
 
         /**
          * Verify if a receivable is valid and register in the datastore.
