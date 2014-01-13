@@ -863,7 +863,7 @@ border-radius: 4px;
 	display: inline-block;
 	vertical-align: middle;
 }
-.header-voucher .col-s1 div, .grid-payment-voucher .col-s1 div{
+.grid-payment-voucher .header-voucher .col-s1 div, .grid-payment-voucher .grid-payment-voucher .col-s1 div{
 	margin-left:60px;
 }
 .grid-payment-voucher-history .header-voucher .col-s1 div, .grid-payment-voucher-history  .grid-payment-voucher .col-s1 div{
@@ -899,7 +899,7 @@ border-radius: 4px;
 	border-bottom:0 !important;
 }
 
-.header-voucher .col-s4 div, .subtitle-header-voucher .col-s4 div{
+.grid-payment-voucher .header-voucher .col-s4 div, .grid-payment-voucher .subtitle-header-voucher .col-s4 div{
 	width: 142px;
 }
 /*Grid Historico

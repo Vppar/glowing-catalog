@@ -81,7 +81,7 @@
         </div>
 	</div>
 	<br />
-	<div class="row-right-payment" ng-click="selectPaymentMethod('voucher')">
+	<div class="row-right-payment">
 		<span class="lbl-money">Emitir vale</span>
 		<span class="">
 			<span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency:''}}</span>
