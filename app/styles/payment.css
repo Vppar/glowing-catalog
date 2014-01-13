@@ -115,7 +115,8 @@ margin-top: 5px;
 	border-radius: 4px;
 	padding: 4px;
 	margin-top: -4px;
-	height: 18px
+	height: 18px;
+	overflow:hidden;
 }
 
 .btn-sub-payment {
@@ -623,10 +624,12 @@ border-radius: 4px;
 	border-radius: 4px;
 	padding: 4px 7px 4px 5px; /*padding: 4px 10px 4px 4px;*/
 	height: 20px; /*height: 18px;*/
+	overflow:hidden;
 }
 .check-value {
 	width: 87px;
 	text-align: right !important;
+	overflow:hidden;
 }
 .qntty{
 	display: inline-block;
@@ -862,6 +865,9 @@ border-radius: 4px;
 }
 .header-voucher .col-s1 div, .grid-payment-voucher .col-s1 div{
 	margin-left:60px;
+}
+.grid-payment-voucher-history .header-voucher .col-s1 div, .grid-payment-voucher-history  .grid-payment-voucher .col-s1 div{
+	margin-left:0;
 }
 
 .grid-payment-voucher .col-s2 {
