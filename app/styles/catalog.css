@@ -861,7 +861,7 @@
 	.catalog-block .product-content{
 		clear: both;
 		width: 100%;
-		overflow-y: hidden;
+		overflow: hidden;
 	}	
 	/* footer comum */
 	.catalog-block .product-footer{

@@ -5,20 +5,17 @@
         /**
          * Receivables list.
          */
-        $scope.receivables = ReceivableService.receivables();
-
+        $scope.receivables = ReceivableService.list();
         /**
          * Entities list to augment expenses.
          */
-        $scope.entities = ReceivableService.entities();
-
+        // $scope.entities = ReceivableService.entities();
         /**
          * Controls which fragment will be shown.
          */
-        $scope.selectedReceivableMode = 'read';
-        
-        
-        $scope.selectReceivableMode = function selectReceivableMode(selectedMode){
+        $scope.selectedReceivableMode = 'write';
+
+        $scope.selectReceivableMode = function selectReceivableMode(selectedMode) {
             $scope.selectedReceivableMode = selectedMode;
         };
     });
