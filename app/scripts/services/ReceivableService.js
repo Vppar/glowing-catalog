@@ -1,33 +1,77 @@
 (function(angular) {
     'use strict';
-
-    angular.module('tnt.catalog.service.receivable', [
-        'tnt.catalog.service.storage'
-    ]).service('ReceivableService', function ReceivableService(StorageService) {
-
-        /**
-         * Storage name of this service.
-         */
-        var name = 'receivables';
-        
+    
+    /**
+     * Service to manage operations over Receivables.
+     * 
+     * @author Arnaldo S. Rodrigues Jr.
+     */
+    angular.module('tnt.catalog.receivable.service', []).service('ReceivableService', function ReceivableService() {
 
         /**
-         * List all receivables.
+         * Verify if a receivable is valid and register in the datastore.
+         * 
+         * @param receivable - Receivable object to be registered.
+         * @return boolean - Result if the receivable was accepted or declined.
          */
-        var receivables = function() {
-            return StorageService.list(name);
-        };
-        /**
-         * List all entities.
-         */
-        var entities = function() {
-            return StorageService.list('customers');
+        var register = function register(receivable) {
+            return true;
         };
 
         /**
-         * Publishing the methods and variables
+         * Verifies if a receivable is valid or not.
+         * 
+         * @param receivable - Receivable object to be validated.
+         * @return boolean - Result if the receivable is valid or not.
          */
-        this.receivables = receivables;
-        this.entities = entities;
+        var isValid = function isValid(receivable) {
+            return true;
+        };
+
+        /**
+         * Returns a single receivable by its id.
+         * 
+         * @param id - Receivable id.
+         * @return Receivable - The desired receivable.
+         */
+        var get = function get(id) {
+            return {};
+        };
+
+        /**
+         * Returns the full receivables list.
+         * 
+         * @return Array - Receivables list.
+         */
+        var list = function list() {
+            return [];
+        };
+
+        /**
+         * Updates a receivable instance.
+         * 
+         * @param receivable - Receivable to be updated. 
+         * @return boolean - Result if the receivable is updated.
+         */
+        var update = function update(receivable) {
+            return true;
+        };
+
+        /**
+         * Cancel a receivable.
+         * 
+         * @param id - Receivable id.
+         * @return boolean - Result if the receivable is canceled.
+         */
+        var cancel = function cancel(id) {
+            return true;
+        };
+
+        this.isValid = isValid;
+        this.register = register;
+        this.get = get;
+        this.list = list;
+        this.update = update;
+        this.cancel = cancel;
     });
 }(angular));
