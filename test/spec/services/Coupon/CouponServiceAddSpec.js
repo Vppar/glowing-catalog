@@ -1,7 +1,7 @@
 'use strict';
 
 xdescribe('Service: Coupon', function() {
-	
+
 	// load the service's module
     beforeEach(function() {
         module('tnt.catalog.service.coupon');
@@ -11,6 +11,7 @@ xdescribe('Service: Coupon', function() {
     // instantiate service
     var VoucherService = undefined;
     var CouponService = undefined;
+
     
     //inject the dependencies
     beforeEach(inject(function(_VoucherService_,_CouponService_) {
@@ -18,29 +19,26 @@ xdescribe('Service: Coupon', function() {
     	CouponService = _CouponService_;
     }));
     
-	it('should create a valid full coupom', function() {
+    beforeEach(function() {
+    	
+        voucherStub.create = jasmine.createSpy('VoucherKeeper.create').andCallFake(function() {
+        });
+	    
+    });
+    
+    it('should add a valid coupon to the keeper', function() {
+    
+    	
+    	
     	expect(true).toBe(false);
     });
     
-    it('should not create a coupom with negative value', function() {
+    it('should not add to the keeper an voucher that is not a coupon', function() {
     	expect(true).toBe(false);
     });
     
-    it('should not create a coupom with other type', function() {
+    it('should not add to the keeper a coupon without an id', function() {
     	expect(true).toBe(false);
     });
-    
-    it('should create a coupom without a remark', function() {
-    	expect(true).toBe(false);
-    });
-    
-    it('should create a coupom without a document', function() {
-    	expect(true).toBe(false);
-    });
-    
-    it('should not create a coupom without entity', function() {
-    	expect(true).toBe(false);
-    });
-    
     
 });
