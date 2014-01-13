@@ -1,5 +1,5 @@
 'use strict';
-describe('Service: KeyboardService', function() {
+xdescribe('Service: KeyboardService', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.keyboard.service'));

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Directive: tntInput', function() {
+xdescribe('Directive: tntInput', function() {
 
 	// load the directive's module
 	beforeEach(function() {
