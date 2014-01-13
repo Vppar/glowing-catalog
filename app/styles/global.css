@@ -436,15 +436,19 @@ div.header-date {
 	cursor: pointer
 }
 .bag {
-	background: url(../images/bag.png) no-repeat;
+	background: url(../images/bag-mk.png) no-repeat;
 	display: inline-block;
-	width: 42px;
-	height: 36px;
-	margin: 0px 1px 0 0;
+	width: 92px;
+	height: 58px;
+	margin: 0px -18px 0 0;
 	text-align: center;
-	padding-top: 15px;
+	padding: 38px 0px 0 0px;
 	-webkit-tap-highlight-color: transparent;
-	font-size:15px;
+	font-size: 15px;
+	position: relative;
+	top: -12px;
+	vertical-align: text-bottom;
+	text-indent: 64px;
 }
 /*nav header*/
 
@@ -480,7 +484,7 @@ div.header-date {
 }
 
 nav ul li {
-	margin-right:25px;
+	margin-right:22px;
 	/*border-bottom:1px solid #F99;*/
 }
 
