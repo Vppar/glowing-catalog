@@ -25,12 +25,6 @@
 	display: block;
 }
 
-.w29{ width: 29px !important;}
-
-.w80porc{ width: 80% !important;}
-
-.w98porc{ width: 98% !important;}
-
 .filtro{
 	text-align: right !important;
 	padding-right: 4px;
@@ -56,16 +50,6 @@
 	padding: 0 0 10px 48px;
 }
 
-.margint19{
-	margin-top: 19px;
-}
-.margintn10{
-	margin-top: -10px;
-}
-.marginr30{
-	margin-right: 30px;
-}
-
 .scroll-input-receivable-dialog-grid input{
 	padding: 10px 0 10px 0 !important;
 	margin: 0 !important;
@@ -73,5 +57,3 @@
 }
 
 .scroll-input-receivable-dialog-grid .value{text-align:right; width:88px;}
-
-.text-center{text-align:center;}

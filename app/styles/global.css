@@ -974,3 +974,25 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 }
 
 .display-none{display: none;}
+
+/*receivable e expense*/
+.text-center{text-align:center;}
+
+.marginl0{margin-left: 0 !important;}
+
+.w29{ width: 29px !important;}
+
+.w80porc{ width: 80% !important;}
+
+.w98porc{ width: 98% !important;}
+
+.margint19{
+	margin-top: 19px;
+}
+.margintn10{
+	margin-top: -10px;
+}
+.marginr30{
+	margin-right: 30px;
+}
+/*fim - receivable e expense*/

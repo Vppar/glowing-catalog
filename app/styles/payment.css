@@ -115,7 +115,8 @@ margin-top: 5px;
 	border-radius: 4px;
 	padding: 4px;
 	margin-top: -4px;
-	height: 18px
+	height: 18px;
+	overflow:hidden;
 }
 
 .btn-sub-payment {
@@ -623,10 +624,12 @@ border-radius: 4px;
 	border-radius: 4px;
 	padding: 4px 7px 4px 5px; /*padding: 4px 10px 4px 4px;*/
 	height: 20px; /*height: 18px;*/
+	overflow:hidden;
 }
 .check-value {
 	width: 87px;
 	text-align: right !important;
+	overflow:hidden;
 }
 .qntty{
 	display: inline-block;
@@ -856,18 +859,25 @@ border-radius: 4px;
 }
 
 .grid-payment-voucher .col-s1 {
-	width: 150px; /*35px*/
+	width: 175px; /*35px*/
 	display: inline-block;
 	vertical-align: middle;
+}
+.grid-payment-voucher .header-voucher .col-s1 div, .grid-payment-voucher .grid-payment-voucher .col-s1 div{
+	margin-left:60px;
+}
+.grid-payment-voucher-history .header-voucher .col-s1 div, .grid-payment-voucher-history  .grid-payment-voucher .col-s1 div{
+	margin-left:0;
 }
 
 .grid-payment-voucher .col-s2 {
-	width: 150px;/*76px*/
+	width: 200px;/*76px*/
 	display: inline-block;
 	vertical-align: middle;
+	text-align:center;
 }
 .grid-payment-voucher .col-s3 {
-	width: 150px;/*75px*/
+	width: 100px;/*75px*/
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
@@ -877,13 +887,22 @@ border-radius: 4px;
 	width: 150px;/*75px*/
 	display: inline-block;
 	vertical-align: middle;
+	text-align:right;
+}
+.grid-payment-voucher .col-s4 .check-value{width: 115px;}
+.subtitle2-header-voucher {border:none !important;}
+
+.subtitle-header-voucher{
+	margin: 0 !important;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	border-bottom:0 !important;
 }
 
-.grid-payment-voucher .subtitle2-header-exchange .col-s4{
+.grid-payment-voucher .header-voucher .col-s4 div, .grid-payment-voucher .subtitle-header-voucher .col-s4 div{
 	width: 142px;
 }
-
-/*Grid Historico*/
+/*Grid Historico
 
 .grid-payment-voucher-history .header-voucher{
 	border-radius: 4px;
@@ -896,32 +915,32 @@ border-radius: 4px;
 }
 
 .grid-payment-voucher-history .col-s1 {
-	width: 80px; /*35px*/
+	width: 80px; /*35px/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
 }
 
 .grid-payment-voucher-history .col-s2 {
-	width: 85px;/*76px*/
+	width: 85px;/*76px/
 	display: inline-block;
 	vertical-align: middle;
 }
 .grid-payment-voucher-history .col-s3 {
-	width: 230px;/*75px*/
+	width: 230px;/*75px/
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 }
 .grid-payment-voucher-history .col-s4{
-	width: 100px;/*75px*/
+	width: 100px;/*75px/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
 }
 .grid-payment-voucher-history .col-s5{
-	width: 100px;/*75px*/
+	width: 100px;/*75px/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
-}
+}*/

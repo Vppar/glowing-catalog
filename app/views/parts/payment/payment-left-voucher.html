@@ -1,7 +1,7 @@
 <!-- BREAD CRUMBS -->
 <div class="row-fluid bread-crumbs">
 	<span class="span6">
-		<span class="principal">Cupom Promocional</span> &nbsp; <span class="crumbs">&nbsp;</span>
+		<span class="principal">Emissão de Cupom Promocional</span> &nbsp; <span class="crumbs">&nbsp;</span>
 	</span>
 	<span class="span6">
 		<!--<div class="control-group lbl-top icons">
@@ -15,7 +15,7 @@
 		</div>	
 		<div class="control-group lbl-top icons">
 			<img src="images/icons/ic-search.png">
-		</div>-->
+		</div>
 		<div class="float-right">
 			<span class="menu-level">
 				<div class="btn-group btn-group-sm"  ng-init="voucherSelected='new'">
@@ -23,7 +23,7 @@
 					<a class="btn btn-option" ng-click="voucherSelected='hist'" ng-class="{active: voucherSelected === 'hist'}">Hist&oacute;rico</a>
 				</div>
 			</span>
-		</div>
+		</div>-->
 	</span>
 </div>
 							
@@ -34,10 +34,11 @@
 </div>-->
 <div class="left-payment" ng-switch="voucherSelected">	
 	
-	<!---EMITIR-->
-	<div class="row-fluid payment-voucher-fields" ng-switch-when="new">
+	<!---EMITIR
+	<div class="row-fluid payment-voucher-fields" ng-switch-when="new">-->
+	<div class="row-fluid payment-voucher-fields">
 	
-		<!-- DATE INTERVAL -->
+		<!-- DATE INTERVAL
 		<div class="row-fluid filter-bar">
 		
 			<div class="controls-row" >
@@ -68,7 +69,6 @@
 					<div class="control-group lbl-top">
 						<label class="control-label">Total</label>
 						<div class="controls2">
-							<!--<input name="amount" class="input-small text-right" ng-model="voucher.amount" type="tel" currency recall>-->
 							<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 						</div>
 					</div>
@@ -76,96 +76,77 @@
 			</div>
 			
 		</div>
-		<br/>
+		<br/> -->
 		
         <form>
 		
 			<div class="controls-row">
 				<div class="control-group lbl-top">				   
 					<div class="grid-payment-voucher">
-						<!--<div class="header header2 header-voucher">
+						<div class="header header2 header-voucher">
 							<div class="row-payment-grid">
 								<span class="col-s1">
-									<div>Cupom</div>
+									<div>R$ Cupom</div>
 								</span>
 								<span class="col-s2">
-									<div>Valor</div>
-								</span>
-								<span class="col-s3">
 									<div>Qtde.</div>
 								</span>
+								<span class="col-s3">
+									<div>&nbsp;</div>
+								</span>
 								<span class="col-s4">
-									<div class="text-right">Subtotal</div>
+									<div class="text-right">Valor</div>
 								</span>
 							</div>
 						</div>
-						<div class="header header2 subtitle-header-exchange">
-							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>0</div>
-								</span>
-								<span class="col-s2">
-									<div>xxx</div>
-								</span>
-								<span class="col-s3">
-									<div>0</div>
-								</span>
-								<span class="col-s4">
-									<div class="text-right">0,00</div>
-								</span>
-							</div>
-						</div>-->
-						<div class="header header2 subtitle2-header-exchange">
+						<div class="header header2 subtitle-header-voucher">
 							<div class="row-payment-grid">
 								<span class="col-s1">
 									<div>&nbsp;</div>
 								</span>
 								<span class="col-s2">
-									<div>
-										&nbsp;
-									</div>
+									<div>&nbsp;</div>
 								</span>
 								<span class="col-s3">
-									<div>Qtde.</div>
+									<div class="text-right">
+										Total
+									</div>
 								</span>
 								<span class="col-s4">
-									<div class="text-right">
-										Subtotal
-									</div>
+									<div>0,00</div>
 								</span>
 							</div>
 						</div>
 						<div class="scroll-payment-grid">
 							<div class="row-payment-grid-product-voucher">
 								<span class="col-s1">
-									<div>Cupom</div>
-								</span>
-								<span class="col-s2">
 									<div>
 										R$5,00
 									</div>
 								</span>
-								<span class="col-s3">
+								<span class="col-s2">
 									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s3">
+									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
 										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 									</div>
 								</span>
-							</div>
-							
+							</div>	
 							<div class="row-payment-grid-product-voucher">
 								<span class="col-s1">
-									<div>Cupom</div>
-								</span>
-								<span class="col-s2">
 									<div>
 										R$10,00
 									</div>
 								</span>
-								<span class="col-s3">
+								<span class="col-s2">
 									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s3">
+									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
@@ -173,18 +154,17 @@
 									</div>
 								</span>
 							</div>
-							
 							<div class="row-payment-grid-product-voucher">
 								<span class="col-s1">
-									<div>Cupom</div>
-								</span>
-								<span class="col-s2">
 									<div>
-										R$15,00
+										R$20,00
 									</div>
 								</span>
-								<span class="col-s3">
+								<span class="col-s2">
 									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s3">
+									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
@@ -192,18 +172,17 @@
 									</div>
 								</span>
 							</div>
-							
 							<div class="row-payment-grid-product-voucher">
 								<span class="col-s1">
-									<div>Cupom</div>
-								</span>
-								<span class="col-s2">
 									<div>
-										R$50,00
+										R$30,00
 									</div>
 								</span>
-								<span class="col-s3">
+								<span class="col-s2">
 									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s3">
+									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
@@ -233,10 +212,10 @@
 	
 	
 	
-	<!--HISTORICO-->
+	<!--HISTORICO
 	<div class="row-fluid payment-voucher-fields" ng-switch-when="hist">
 	
-		<!-- DATE INTERVAL -->
+		<!-- DATE INTERVAL ->
 		<div class="row-fluid filter-bar">
 			
 			<span class="span3">			
@@ -363,7 +342,7 @@
 				</button>
 			</div>
 		</div>
-	</div>
+	</div>-->
 	
 	
 	

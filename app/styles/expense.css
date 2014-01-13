@@ -46,13 +46,6 @@ position: relative;
 	bottom: 45px;
 	display: block;
 }
-
-.w29{ width: 29px !important;}
-
-.w80porc{ width: 80% !important;}
-
-.w98porc{ width: 98% !important;}
-
 .filtro{
 	text-align: right !important;
 	padding-right: 4px;
@@ -60,9 +53,6 @@ position: relative;
 	display: inline-block;
 	float: left;
 }
-
-.marginl0{margin-left: 0 !important;}
-
 .comment{color: rgba(0, 0, 0, 0.5);}
 
 .expense-write-left{
@@ -78,15 +68,6 @@ position: relative;
 	padding: 0 0 10px 48px;
 }
 
-.margint19{
-	margin-top: 19px;
-}
-.margintn10{
-	margin-top: -10px;
-}
-.marginr30{
-	margin-right: 30px;
-}
 
 .scroll-input-expense-dialog-grid input{
 	padding: 10px 0 10px 0 !important;
@@ -95,5 +76,3 @@ position: relative;
 }
 
 .scroll-input-expense-dialog-grid .value{text-align:right; width:88px;}
-
-.text-center{text-align:center;}
