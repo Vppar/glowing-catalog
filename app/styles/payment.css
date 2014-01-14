@@ -403,9 +403,15 @@ margin-top: 5px;
 	margin: 0 25px 0 25px;
 }
 
-#marginl0{
-	margin-left: 10px;
+#btn-payment-voltar{
+	margin-left: 10px; /*25px -> padrao*/
+	float: left;
 }
+#btn-payment-pendente{
+	margin-right: 0px; /*25px -> padrao*/
+	float: right;
+}
+
 .payment-left-btns-area {	
 	/*float: left;
 	margin-top: -79px;*/
