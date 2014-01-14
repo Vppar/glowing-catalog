@@ -994,6 +994,8 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 
 .display-none{display: none;}
 
+.display-inlineblock{display: inline-block !important;}
+
 /*receivable e expense*/
 .text-center{text-align:center;}
 
