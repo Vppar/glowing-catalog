@@ -15,7 +15,7 @@
         this.register = function(input) {
 
             if (!angular.isDefined(input.id)) {
-                return;
+                throw 'Input has no id attribute';
             }
 
             // TODO do some checks here(must have a few
@@ -47,7 +47,11 @@
          * accordingly
          */
         this.keypress = function(key) {
-            currentField.keypress(key);
+        	if(currentField){
+        		currentField.keypress(key);
+        	}else{
+        		throw "currentField is not defined"; 
+        	}
         };
 
         this.next = function() {
