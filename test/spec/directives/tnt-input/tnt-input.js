@@ -4,7 +4,7 @@ describe('Directive: tntInput', function () {
 
   // load the directive's module
   beforeEach(function(){
-	  module('tnt.catalog.numpad.input');
+	  module('tnt.catalog.keyboard.input');
   });
 
   var element, scope;
