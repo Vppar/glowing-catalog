@@ -312,7 +312,7 @@ body {
 	background: #000 !important;
 }
 .btn-open:hover{
-	background: #48841c !important;
+	background: #575757 !important; /*48841c*/
 }}
 .btn-confirm:hover{
 	background: #333 !important;
@@ -993,6 +993,8 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 }
 
 .display-none{display: none;}
+
+.display-inlineblock{display: inline-block !important;}
 
 /*receivable e expense*/
 .text-center{text-align:center;}
