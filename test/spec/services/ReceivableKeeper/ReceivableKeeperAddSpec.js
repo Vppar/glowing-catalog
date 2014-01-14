@@ -69,7 +69,7 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
     /**
      * <pre>
      * Given a receivable
-     * When receivableAddV1 handler is is triggered
+     * When receivableAddV1 handler is triggered
      * Then the receivable should be added
      * </pre>
      */

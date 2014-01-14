@@ -69,7 +69,7 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
     /**
      * <pre>
      * Given a receivable
-     * When receivableUpdateV1 handler is is triggered
+     * When receivableUpdateV1 handler is triggered
      * Then the receivable should be updated
      * </pre>
      */
@@ -98,7 +98,7 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
     /**
      * <pre>
      * Given a receivable
-     * When receivableUpdateV1 handler is is triggered
+     * When receivableUpdateV1 handler is triggered
      * Then the receivable should be updated
      * </pre>
      */
@@ -127,7 +127,7 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
     /**
      * <pre>
      * Given a missing receivable
-     * When receivableUpdateV1 handler is is triggered
+     * When receivableUpdateV1 handler is triggered
      * Then a exception must be thrown
      * </pre>
      */
