@@ -822,33 +822,33 @@ border-radius: 4px;
 	max-height: 432px !important;
 }
 
-/*-------------voucher------------*/
-.payment-voucher-fields .filter-bar {padding:0 !important;}
+/*-------------coupon------------*/
+.payment-coupon-fields .filter-bar {padding:0 !important;}
 
-.voucher-fields1{
+.coupon-fields1{
 	min-width: 400px; /*322px;*/
 }
-.voucher-fields2{
+.coupon-fields2{
 	min-width: 208px; /*100px;*/
 }
 
-.grid-payment-voucher .control-label-voucher{
+.grid-payment-coupon .control-label-coupon{
 	width:400px;
 }
-.grid-payment-voucher .row-input-products-grid .ic-arrow-left, .grid-payment-voucher .row-input-products-grid .ic-arrow-right{
+.grid-payment-coupon .row-input-products-grid .ic-arrow-left, .grid-payment-coupon .row-input-products-grid .ic-arrow-right{
 	width:33px;
 	/*height:44px;*/
 	vertical-align: middle;
 }
-.grid-payment-voucher .row-input-products-grid .qty{
+.grid-payment-coupon .row-input-products-grid .qty{
 	width:40px;
 	/*height:44px;*/
 }
 
 /*Grid Emitir*/
-.grid-payment-voucher{ margin-top:25px;}
+.grid-payment-coupon{ margin-top:25px;}
 
-.grid-payment-voucher .header-voucher{
+.grid-payment-coupon .header-coupon{
 	border-radius: 4px;
 	background: #333;
 	color: #fff;
@@ -858,53 +858,53 @@ border-radius: 4px;
 	margin-top: 0;
 }
 
-.grid-payment-voucher .col-s1 {
+.grid-payment-coupon .col-s1 {
 	width: 175px; /*35px*/
 	display: inline-block;
 	vertical-align: middle;
 }
-.grid-payment-voucher .header-voucher .col-s1 div, .grid-payment-voucher .grid-payment-voucher .col-s1 div{
+.grid-payment-coupon .header-coupon .col-s1 div, .grid-payment-coupon .grid-payment-coupon .col-s1 div, .row-payment-grid-product-coupon .col-s1 div{
 	margin-left:60px;
 }
-.grid-payment-voucher-history .header-voucher .col-s1 div, .grid-payment-voucher-history  .grid-payment-voucher .col-s1 div{
+.grid-payment-coupon-history .header-coupon .col-s1 div, .grid-payment-coupon-history  .grid-payment-coupon .col-s1 div{
 	margin-left:0;
 }
 
-.grid-payment-voucher .col-s2 {
+.grid-payment-coupon .col-s2 {
 	width: 200px;/*76px*/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
 }
-.grid-payment-voucher .col-s3 {
+.grid-payment-coupon .col-s3 {
 	width: 100px;/*75px*/
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 	text-align:center;
 }
-.grid-payment-voucher .col-s4{
+.grid-payment-coupon .col-s4{
 	width: 150px;/*75px*/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:right;
 }
-.grid-payment-voucher .col-s4 .check-value{width: 115px;}
-.subtitle2-header-voucher {border:none !important;}
+.grid-payment-coupon .col-s4 .check-value{width: 115px;}
+.subtitle2-header-coupon {border:none !important;}
 
-.subtitle-header-voucher{
+.subtitle-header-coupon{
 	margin: 0 !important;
 	background-color: #f2f2f2;
 	border-radius: 4px;
 	border-bottom:0 !important;
 }
 
-.grid-payment-voucher .header-voucher .col-s4 div, .grid-payment-voucher .subtitle-header-voucher .col-s4 div{
+.grid-payment-coupon .header-coupon .col-s4 div, .grid-payment-coupon .subtitle-header-coupon .col-s4 div{
 	width: 142px;
 }
 /*Grid Historico
 
-.grid-payment-voucher-history .header-voucher{
+.grid-payment-coupon-history .header-coupon{
 	border-radius: 4px;
 	background: #333;
 	color: #fff;
@@ -914,31 +914,31 @@ border-radius: 4px;
 	margin-top: 0;
 }
 
-.grid-payment-voucher-history .col-s1 {
+.grid-payment-coupon-history .col-s1 {
 	width: 80px; /*35px/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
 }
 
-.grid-payment-voucher-history .col-s2 {
+.grid-payment-coupon-history .col-s2 {
 	width: 85px;/*76px/
 	display: inline-block;
 	vertical-align: middle;
 }
-.grid-payment-voucher-history .col-s3 {
+.grid-payment-coupon-history .col-s3 {
 	width: 230px;/*75px/
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 }
-.grid-payment-voucher-history .col-s4{
+.grid-payment-coupon-history .col-s4{
 	width: 100px;/*75px/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
 }
-.grid-payment-voucher-history .col-s5{
+.grid-payment-coupon-history .col-s5{
 	width: 100px;/*75px/
 	display: inline-block;
 	vertical-align: middle;
