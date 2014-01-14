@@ -93,7 +93,6 @@
             } else {
                 entry.productId = event.productId;
                 entry.price = event.price;
-                ;
                 entry.quantity = event.quantity;
 
             }
