@@ -23,13 +23,14 @@ describe('Service: StockKeeper', function() {
         var pId = 23;
         var qty = 1;
         var ct = 0;
-        var expectedArray = {inventoryId: pId, quantity: qty, cost: ct};
-        
+
         //when
         var actual = new Stock(pId, qty, ct);
         
         //then
-        expect(expectedArray).toEqual(actual);
+        expect(pId).toEqual(actual.inventoryId);
+        expect(qty).toEqual(actual.quantity);
+        expect(ct).toEqual(actual.cost);
      
     });
     
