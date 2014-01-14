@@ -251,13 +251,19 @@
 	display: inline-block;
 	line-height: 40px;
 }
-.grid-payment-products-to-buy .col-s3 {
+.grid-payment-products-to-buy .col-s3{
+	width: 400px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-products-to-buy .col-s4 {
 	width: 90px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
 }
-.grid-payment-products-to-buy .col-s4{
+.grid-payment-products-to-buy .col-s5{
 	width: 90px;/*75px*/
 	text-align:center;
 	display: inline-block;
@@ -286,59 +292,77 @@
 	border-bottom:0 !important;
 }
 
+.row-payment-grid-product-products-to-buy{margin: 7px 0 7px 0;}
+
 .grid-payment-products-to-buy-edit .col-s1 {
-	width: 345px; /*35px*/
+	width: 265px; /*35px*/
 	text-align: left;
 	display: inline-block;
 	line-height: 40px;
 	padding-left:5px;
 }
 .grid-payment-products-to-buy-edit .col-s2 {
-	width: 70px;/*76px*/
-	text-align:left;
+	width: 70px;
+	text-align:right;
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-payment-products-to-buy-edit .col-s3 {
-	width: 110px;/*75px*/
+	width: 70px;
+	text-align:right;
+	display: inline-block;
+	line-height: 40px;
+	margin-right:10px;
+}
+.grid-payment-products-to-buy-edit .col-s4 {
+	width: 120px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
+	margin-left:25px;
 }
-.grid-payment-products-to-buy-edit .col-s4{
-	width: 110px;/*75px*/
-	text-align:center;
+.grid-payment-products-to-buy-edit .col-s5{
+	width: 70px;
+	text-align:right;
 	display: inline-block;
 	line-height: 40px;
 }
 
 .grid-payment-products-to-buy-edit .col-s1-list {
-	width: 345px;
+	width: 265px;
 	text-align: left;
 	display: inline-block;
 	line-height: 40px;
 	padding-left: 5px;
 }
 .grid-payment-products-to-buy-edit .col-s2-list {
-	width: 70px;/*76px*/
-	text-align:left;
+	width: 70px;
+	text-align:right;
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-payment-products-to-buy-edit .col-s3-list {
-	width: 110px;/*75px*/
+	width: 70px;
+	text-align:right;
+	display: inline-block;
+	line-height: 40px;
+	margin-right:10px;
+}
+.grid-payment-products-to-buy-edit .col-s4-list {
+	width: 120px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
+	margin-left:25px;
 }
-.grid-payment-products-to-buy-edit .col-s4-list{
-	width: 110px;/*75px*/
-	text-align:center;
+.grid-payment-products-to-buy-edit .col-s5-list{
+	width: 70px;
+	text-align:right;
 	display: inline-block;
 	line-height: 40px;
 }
-.col-s3-list input ,
-.col-s4-list input {
+.col-s4-list input ,
+.col-s5-list input {
 	margin: 0 !important;
 	width:90px;
 }
