@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('tnt.catalog.service.coupon',
-			[ 'tnt.catalog.voucher.entity' ]).service(
+			[]).service(
 			'CouponService',
 			function CouponService(VoucherKeeper) {
 
@@ -30,8 +30,12 @@
 				};
 
 				var create = function createCoupon(entity, amount, type,
-						redeemed, remarks, docment) {
+						redeemed, remarks, document) {
 					return coupon;
+				};
+				
+				var isValid = function isValid(coupon){
+					return false;
 				};
 
 				var cancel = function cancel(id) {
@@ -40,6 +44,7 @@
 
 				this.add = add;
 				this.list = list;
+				this.isValid = isValid;
 				this.redeem = redeem;
 				this.cancel = cancel;
 				this.create = create;

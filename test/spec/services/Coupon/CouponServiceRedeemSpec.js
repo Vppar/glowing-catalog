@@ -4,64 +4,55 @@ xdescribe('Service: Coupon', function() {
 
 	var voucherStub = {};
 
-	var coupon = {
-		id : 1,
-		entity : 123,
-		amount : 123.45,
-		type : "coupon",
-		redeemed : true,
-		remarks : "lalala",
-		document : {
-			type : "pedido",
-			id : 123
-		}
-	};
-
-	var voucher = {
-		id : 2,
-		entity : 4,
-		amount : 10.45,
-		type : "voucher",
-		redeemed : true,
-	};
-
 	// load the service's module
 	beforeEach(function() {
 		module('tnt.catalog.service.coupon');
-		module('tnt.catalog.voucher.entity');
+	});
+
+	// define the mocks
+	beforeEach(function() {
+		voucherStub.list = jasmine.createSpy('VoucherKeeper.list');
+		module(function($provide) {
+			$provide.value('VoucherKeeper', voucherStub);
+		});
 	});
 
 	// instantiate service
-	var VoucherService = undefined;
 	var CouponService = undefined;
 
 	// inject the dependencies
-	beforeEach(inject(function(_VoucherService_, _CouponService_) {
-		VoucherService = _VoucherService_;
+	beforeEach(inject(function(_CouponService_) {
 		CouponService = _CouponService_;
 	}));
 
-	beforeEach(function() {
-
-		voucherStub.redeem = jasmine.createSpy('VoucherKeeper.redeem')
-				.andCallFake(function(id) {
-				});
-
-	});
-
 	it('should redeem the coupon with the passed id', function() {
-		expect(true).toBe(false);
+		var id = 1;
+		CouponService.redeem(id);
+		expect(voucherStub.redeem).toHabeenCallWith(id,'coupon');
+	});
+	
+	it('should not redeem any coupon with a negative id', function() {
+		var id = -1;
+		CouponService.redeem(id);
+		expect(voucherStub.redeem).not.toHabeenCallWith();
+	});
+	
+	it('should not redeem any coupon with an id equals zero', function() {
+		var id = 0;
+		CouponService.redeem(id);
+		expect(voucherStub.redeem).not.toHabeenCallWith();
+	});
+	
+	it('should not redeem any coupon with a undefined id', function() {
+		var id = undefined;
+		CouponService.redeem(id);
+		expect(voucherStub.redeem).not.toHabeenCallWith();
 	});
 
 	it('should not redeem a voucher with other than the correct type',
 			function() {
-				expect(true).toBe(false);
+				CouponService.redeem(id);
+				expect(voucherStub.redeem).toHabeenCallWith(id,'coupon');
 			});
-
-	/*
-	 * { id: 1234(auto), entity: 123, amount: 123.45, type: "voucher", redeemed:
-	 * false, remarks: "lalala"(optional), document: { type: "pedido", id: 123 }
-	 * (optional) }
-	 */
 
 });

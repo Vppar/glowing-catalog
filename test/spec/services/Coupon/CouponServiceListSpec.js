@@ -4,67 +4,69 @@ xdescribe('Service: Coupon', function() {
 
 	var voucherStub = {};
 	
-	var coupon1 = { id: 1, 
-		entity: 123, 
-		amount: 123.45, 
-		type: "coupon", 
-		redeemed: false, 
-		remarks: "lalala", 
-		document: { type: "pedido", id: 123 }
-	};
+	var c1 = {
+			id: 1,
+			entity: 1,
+			amount: 1.23,
+			type: "coupon",
+			redeemed: false,
+			remarks: "lalala",
+			document:{ type: "pedido", id: 123 }
+			};
 	
-	var coupon2 = { id: 2, 
-			entity: 123, 
-			amount: 10.45, 
-			type: "coupon", 
-			redeemed: false, 
-			remarks: "coupon2", 
-			document: { type: "pedido", id: 123 }
-	};
+	var c2 = {
+			id: 2,
+			entity: 2,
+			amount: 2.34,
+			type: "coupon",
+			redeemed: false,
+			remarks: "lalala",
+			document:{ type: "pedido", id: 123 }
+			};
 	
-	var voucher1 = { id: 3, 
-			entity: 12, 
-			amount: 11.45, 
-			type: "voucher", 
-			redeemed: false
-	};
+	var c3 = {
+			id: 1,
+			entity: 2,
+			amount: 2.34,
+			type: "voucher",
+			redeemed: false,
+			remarks: "lalala",
+			document:{ type: "pedido", id: 123 }
+			};
 	
-	
-    // load the service's module
-    beforeEach(function() {
-        module('tnt.catalog.service.coupon');
-        module('tnt.catalog.voucher.entity');
-    });
-    
-    // instantiate service
-    var VoucherService = undefined;
-    var CouponService = undefined;
 
-    
-    //inject the dependencies
-    beforeEach(inject(function(_VoucherService_,_CouponService_) {
-    	VoucherService = _VoucherService_;
-    	CouponService = _CouponService_;
-    }));
-    
-    beforeEach(function() {
-    	
-	    voucherStub.list = jasmine.createSpy('VoucherKeeper.list').andCallFake(function() {
-	    });
-	    
-    });
-    
-    it('should list all the coupon', function() {
-    	
-    	
-    	
-    	var list = CouponService.list();
-    	
-    	expect(true).toBe(false);
-    });
-    
-    it('should not list the the different types', function() {
-    	expect(true).toBe(false);
-    });
-    
+	// load the service's module
+	beforeEach(function() {
+		module('tnt.catalog.service.coupon');
+	});
+
+	//define the mocks
+	beforeEach(function() {
+		voucherStub.list = jasmine.createSpy('VoucherKeeper.list');
+		module(function($provide) {
+			$provide.value('VoucherKeeper', voucherStub);
+		});
+	});
+
+	// instantiate service
+	var CouponService = undefined;
+	
+	// inject the dependencies
+	beforeEach(inject(function(_CouponService_) {
+		CouponService = _CouponService_;
+	}));
+
+	it('should list all the coupon', function() {
+
+		var list = CouponService.list();
+		expect(voucherStub.list).toHaveBeenCallWith('coupon');
+		
+	});
+
+	it('should not list the the different types', function() {
+
+		var list = CouponService.list();
+		expect(voucherStub.list).not.toHaveBeenCall('voucher');		
+	});
+
 });
