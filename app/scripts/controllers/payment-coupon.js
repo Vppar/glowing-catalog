@@ -32,7 +32,7 @@
         $scope.twenty = twenty;
         twenty.amount = 20;
         $scope.thirty = thirty;
-        thirty = 30;
+        thirty.amount = 30;
 
     });
 }(angular));
