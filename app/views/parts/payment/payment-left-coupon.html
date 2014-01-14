@@ -32,7 +32,7 @@
 </div>
 
 
-<div class="left-payment" ng-switch="couponSelected">	
+<div class="left-payment" ng-switch="couponSelected" ng-controller="PaymentCouponCtrl">	
 	
 	<!---EMITIR
 	<div class="row-fluid payment-coupon-fields" ng-switch-when="new">-->
@@ -125,14 +125,14 @@
 									</div>
 								</span>
 								<span class="col-s2">
-									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+									<div><input-qty ng-model="five.qty" min="0"></input-qty></div>
 								</span>
 								<span class="col-s3">
 									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
-										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{five.qty * five.amount | currency: ''}}</span>
 									</div>
 								</span>
 							</div>	
@@ -143,14 +143,14 @@
 									</div>
 								</span>
 								<span class="col-s2">
-									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+									<div><input-qty ng-model="ten.qty" min="0"></input-qty></div>
 								</span>
 								<span class="col-s3">
 									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
-										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{ten.qty * ten.amount | currency: ''}}</span>
 									</div>
 								</span>
 							</div>
@@ -161,14 +161,14 @@
 									</div>
 								</span>
 								<span class="col-s2">
-									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+									<div><input-qty ng-model="twenty.qty" min="0"></input-qty></div>
 								</span>
 								<span class="col-s3">
 									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
-										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{twenty.qty * twenty.amount | currency: ''}}</span>
 									</div>
 								</span>
 							</div>
@@ -179,14 +179,14 @@
 									</div>
 								</span>
 								<span class="col-s2">
-									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+									<div><input-qty ng-model="thirty.qty" min="0"></input-qty></div>
 								</span>
 								<span class="col-s3">
 									<div>&nbsp;</div>
 								</span>
 								<span class="col-s4">
 									<div class="text-right">
-										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+										<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{thirty.qty * thirty.amount | currency: ''}}</span>
 									</div>
 								</span>
 							</div>
