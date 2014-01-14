@@ -27,11 +27,11 @@
     });
     angular.module('tnt.catalog.receivable.keeper', [
         'tnt.utils.array'
-    ]).service('ReceivableKeeper', function ReceivableKeeper(Receivable, JournalKeeper, JournalEntry) {
+    ]).service('ReceivableKeeper', function ReceivableKeeper(ArrayUtils, Receivable, JournalKeeper, JournalEntry) {
 
         var currentEventVersion = 1;
         var receivables = [];
-        
+
         this.handlers = {};
 
         /**
@@ -39,9 +39,9 @@
          */
         ObjectUtils.ro(this.handlers, 'receivableAddV1', function(event) {
             var id = receivables.length + 1;
-            
+
             var receivable = new Receivable(id, event.title, event.document);
-            
+
             receivable.type = event.type;
             receivable.installmentId = event.installmentId;
             receivable.duedate = event.duedate;
@@ -76,9 +76,14 @@
             JournalKeeper.compose(entry);
         };
 
+        var get = function get(id) {
+            return angular.copy(ArrayUtils.find(receivables, 'id', id));
+        };
+
         // Publishing
         this.list = list;
         this.add = add;
+        this.get = get;
 
     });
 }(angular));
