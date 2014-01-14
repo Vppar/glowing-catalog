@@ -204,19 +204,14 @@
                  * @param quantity - the number of units we are pulling out
                  */
                 this.remove = function(productId, quantity) {
-                    if (quantity > 0) {
+                    var event = new Stock(productId, quantity, null);
 
-                        var event = new Stock(productId, quantity, null);
+                    var stamp = (new Date()).getTime() / 1000;
+                    // create a new journal entry
+                    var entry = new JournalEntry(null, stamp, 'stockRemove', currentEventVersion, event);
 
-                        var stamp = (new Date()).getTime() / 1000;
-                        // create a new journal entry
-                        var entry = new JournalEntry(null, stamp, 'stockRemove', currentEventVersion, event);
-
-                        // save the journal entry
-                        JournalKeeper.compose(entry);
-                    } else {
-                        throw 'error';
-                    }
+                    // save the journal entry
+                    JournalKeeper.compose(entry);
                 };
             });
 

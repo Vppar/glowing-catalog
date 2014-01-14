@@ -19,29 +19,27 @@ xdescribe('Service: ReceivableEntity', function() {
 
     /**
      * <pre>
-     * Given a receivable id
-     * and a due date
-     * and a amount
+     * Given a receivable description
+     * and a document
      * When new is triggered
      * Then a Receivable instance should be created
-     * and the id should be read only
      * </pre>
      */
     it('should create a new Receivable instance', function() {
         // given
-        var duedate = 1391101200000;
-        var amount = 1345.93;
-        var expected = {
-            createdate : fakeNow,
-            duedate : duedate,
-            amount : amount,
+        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var document = {
+            label : 'Document label',
+            number : '231231231-231'
         };
 
         // when
-        var receivable = new Receivable(duedate, amount);
-        receivable.id = 3;
+        var receivable = new Receivable(description, document);
 
         // then
-        expect(receivable).toEqual(expected);
+        expect(receivable.description).toBe(description);
+        expect(receivable.document.label).toBe(document.label);
+        expect(receivable.document.number).toBe(document.number);
+        expect(receivable.canceled).toBe(false);
     });
 });
