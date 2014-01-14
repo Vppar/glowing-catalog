@@ -3,16 +3,6 @@
 describe('Service: Coupon', function() {
 
 	var voucherStub = {};
-
-	var coupon = {
-			id: 1234,
-			entity: 123,
-			amount: 123.45,
-			type: "coupon",
-			redeemed: false,
-			remarks: "lalala",
-			document:{ type: "pedido", id: 123 }
-			};
 	
 	// load the service's module
 	beforeEach(function() {
@@ -38,79 +28,52 @@ describe('Service: Coupon', function() {
 	}));
 
 	it('should create a coupom', function() {
-		var id = 1234;
 		var entity = 123;
 		var amount = 123.45;
-		var type = "coupon";
+
 		var remarks = "lalala";
 		var document = { type: "pedido", id: 123 };
 		
-		var c = CouponService.create(id,entity,amount,type,remarks,document);
-		expect(voucherStub.create).toHaveBeenCalled();
-		expect(c).toBeEqual(coupon);
-		
+		CouponService.create(entity,amount,remarks,document);
+		expect(voucherStub.create).toHaveBeenCalled();		
 	});
 	
 	it('should not create a coupom with negative value', function() {
-		var id = 1234;
 		var entity = 123;
 		var amount = -123.45;
-		var type = "coupon";
 		var remarks = "lalala";
 		var document = { type: "pedido", id: 123 };
 		
-		var c = CouponService.create(id,entity,amount,type,remarks,document);
-		expect(voucherStub.create).toHaveBeenCalled();
-		expect(c).toBeEqual(null);
-	});
-
-	it('should not create a coupom with other type', function() {
-		var id = 1234;
-		var entity = 123;
-		var amount = 123.45;
-		var type = "type";
-		var remarks = "lalala";
-		var document = { type: "pedido", id: 123 };
-		
-		var c = CouponService.create(id,entity,amount,type,remarks,document);
+		CouponService.create(entity,amount,remarks,document);
 		expect(voucherStub.create).not.toHaveBeenCalled();
-		expect(c).toBeEqual(null);
 	});
-
+	
 	it('should create a coupom without a remark', function() {
-		var id = 1234;
 		var entity = 123;
 		var amount = 123.45;
-		var type = "coupon";
 		var document = { type: "pedido", id: 123 };
 		
-		var c = CouponService.create(id,entity,amount,type,undefined,document);
+		CouponService.create(entity,amount,undefined,document);
 		expect(voucherStub.create).toHaveBeenCalled();
-		expect(c).toBeEqual(coupon);
 	});
 
 	it('should create a coupom without a document', function() {
-		var id = 1234;
 		var entity = 123;
 		var amount = 123.45;
-		var type = "coupon";
 		var remarks = "lalala";
 		
-		var c = CouponService.create(id,entity,amount,type,remarks);
+		CouponService.create(entity,amount,remarks);
 		expect(voucherStub.create).toHaveBeenCalled();
-		expect(c).toBeEqual(coupon);
 	});
 
 	it('should not create a coupom without entity', function() {
-		var id = 1234;
+
 		var amount = 123.45;
-		var type = "type";
 		var remarks = "lalala";
 		var document = { type: "pedido", id: 123 };
 		
-		var c = CouponService.create(id,undefined,amount,type,remarks,document);
+		CouponService.create(undefined,amount,remarks,document);
 		expect(voucherStub.create).not.toHaveBeenCalled();
-		expect(c).toEqual(null);
 	});
 	
 	

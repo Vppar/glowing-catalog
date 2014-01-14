@@ -1,10 +1,11 @@
 (function(angular) {
 	'use strict';
 
-	angular.module('tnt.catalog.service.coupon', [ 'tnt.utils.array' ])
+	angular.module('tnt.catalog.service.coupon',
+			[ 'tnt.utils.array', 'tnt.catalog.inventory.entity' ])
 			.service(
 					'CouponService',
-					function CouponService(ArrayUtils) {
+					function CouponService(ArrayUtils, VoucherKeeper) {
 
 						/**
 						 * List all coupons.
