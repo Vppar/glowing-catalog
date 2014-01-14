@@ -56,7 +56,7 @@ describe('Service: StockKeeper', function() {
 
 
         expect(function() {
-            StockKeeper.add(pId, qty, ct);}).not.toThrow();
+            StockKeeper.add(ev);}).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
     

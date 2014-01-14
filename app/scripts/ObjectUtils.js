@@ -58,6 +58,18 @@
                 writable : false,
                 enumerable : true,
                 configurable : false});
+        },
+        /**
+         * same as angular extend but does not copy functions
+         * @param o1
+         * @param o2
+         */
+        dataCopy: function(o1, o2){
+            for(var ix in o2){
+                if(!angular.isFunction(o2[ix])){
+                    o1[ix] = o2[ix];
+                }
+            }
         }
     };
 }(window));
