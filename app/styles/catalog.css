@@ -1,4 +1,4 @@
-/* -- CAT�LOGO -- */
+/* -- CATALOGO -- */
 /*font colors
 .green {
 	color: #5d9732;
@@ -141,6 +141,8 @@
 .color-medium2-yellow-gray{color:#bebc83;} /*sombrancelhas*/
 .color-soft2-orange{color:#e1b392;} /*pó mineral*/
 .color-soft2-pink{color:#f9c7ae;} /*velocity*/
+.color-dark-yellow{color:#979250;} /*lancamentos*/
+.color-medium-yellow{color:#d8bc3e;} /*promocoes*/
 
 /*fundo dos títulos*/
 .bg-black {background-color: #000;}
@@ -167,6 +169,8 @@
 .bg-soft-black{background-color:#3a3a3a;}
 .bg-soft2-orange{background-color:#e1b392;}
 .bg-soft2-pink{background-color:#f9c7ae;}
+.bg-dark-yellow{background-color:#979250;}
+.bg-medium-yellow{background-color:#d8bc3e;}
 
 /* div de catalogo comum */
 .catalog-block {
@@ -467,6 +471,28 @@
 			background: -ms-linear-gradient(left,  #ffffff 0%,#f9c7ae 50%,#ffffff 100%); /* IE10+ */
 			background: linear-gradient(to right,  #ffffff 0%,#f9c7ae 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}				
+		.catalog-block.w06.product-bg-dark-yellow .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #979250 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#979250), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#979250 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#979250 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#979250 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#979250 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w06.product-bg-medium-yellow .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #d8bc3e 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8bc3e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}	
 		
 	/* largura do bloco w03 */
@@ -732,6 +758,28 @@
 			background: -ms-linear-gradient(left,  #ffffff 0%,#f9c7ae 50%,#ffffff 100%); /* IE10+ */
 			background: linear-gradient(to right,  #ffffff 0%,#f9c7ae 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w03.product-bg-dark-yellow .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #979250 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#979250), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#979250 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#979250 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#979250 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#979250 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}			
+		.catalog-block.w03.product-bg-medium-yellow .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #d8bc3e 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8bc3e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}	
 		
 		/* barra ultima oportunidade*/
@@ -841,6 +889,14 @@
 		}		
 		.catalog-block.product-bg-soft2-pink .product-addbtn {
 			background-color: #f9c7ae;
+			background-image: url('../images/plus-w.png');
+		}	
+		.catalog-block.product-bg-dark-yellow .product-addbtn {
+			background-color: #979250;
+			background-image: url('../images/plus-w.png');
+		}	
+		.catalog-block.product-bg-medium-yellow .product-addbtn {
+			background-color: #d8bc3e;
 			background-image: url('../images/plus-w.png');
 		}	
 		
@@ -1018,7 +1074,7 @@
 	margin-bottom: 10px;
 	cursor: pointer;
 }
-/*PARA IMAGENS COM NUMERACAO SEPARADA
+/*PARA ITENS COM NUMERACAO SEPARADA DA IMAGEM DO PRODUTO
 .best-sellers-col-right-item .number{
 	width:150px;
 	height:150px;
@@ -1029,7 +1085,7 @@
 	position: absolute;
 	font-weight: 100 !important;
 	color: rgba(236, 186, 185, 0.5);
-margin-left: -25px;
+	margin-left: -25px;
 }
 .best-sellers-col-right-item  .descript{
 	position: absolute;
