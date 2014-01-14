@@ -89,6 +89,10 @@
                 $self.on('click', function(startEvent) {
                     $.event.simulate('tap', self, startEvent);
                 });
+            } else {
+                $self.on('click', function(startEvent) {
+                    // discard
+                });
             }
         }
     };
