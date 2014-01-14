@@ -5,7 +5,7 @@ xdescribe('Service: ReceivableServiceGetNextIdSpec', function() {
         var dpStub = {
             receivables : []
         };
-        module('tnt.catalog.service.receivable');
+        module('tnt.catalog.receivable.service');
         module(function($provide) {
             $provide.value('DataProvider', dpStub);
         });
