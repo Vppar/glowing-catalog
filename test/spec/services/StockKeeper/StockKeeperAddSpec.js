@@ -55,8 +55,10 @@ describe('Service: StockKeeper', function() {
         var stp = fakeNow / 1000;
         var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev); 
 
+        
+        
         expect(function() {
-            StockKeeper.add(pId, qty, ct);}).not.toThrow();
+            StockKeeper.add(ev);}).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
     

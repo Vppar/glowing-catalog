@@ -16,14 +16,34 @@
     angular.module('tnt.catalog.stock.entity', []).factory('Stock', function Stock() {
 
         var service = function svc(inventoryId, quantity, cost) {
+            
+            var validProperties = ['inventoryId', 'quantity', 'cost'];
 
+            ObjectUtils.method(svc, 'isValid', function(){
+                for(var ix in this){
+                    var prop = this[ix];
+                    
+                    if(!angular.isFunction(prop)){
+                        if(validProperties.indexOf(ix) === -1){
+                            throw "Unexpected property " + ix; 
+                        }
+                    }
+                }
+            });
+            
             if (arguments.length != svc.length) {
-                throw 'Stock must be initialized with inventoryId, quantity and cost';
+                if(arguments.length === 1 && angular.isObject(arguments[0])){
+                    svc.prototype.isValid.apply(arguments[0]);
+                    ObjectUtils.dataCopy(this, arguments[0]);
+                } else {
+                    throw 'Stock must be initialized with inventoryId, quantity and cost';
+                }
+            } else {
+                this.inventoryId = inventoryId;
+                this.quantity = quantity;
+                this.cost = cost;
             }
-
-            ObjectUtils.ro(this, 'inventoryId', inventoryId);
-            this.quantity = quantity;
-            this.cost = cost;
+            ObjectUtils.ro(this, 'inventoryId', this.inventoryId);
         };
 
         return service;
@@ -73,7 +93,7 @@
                     var entry = ArrayUtils.find(stock, 'productId', event.productId);
 
                     if (entry === null) {
-                        event = new Stock(event.productId, event.quantity, event.price);
+                        event = new Stock(event);
                         stock.push(event);
                     } else {
                         var updatedInv = entry.quantity + event.quantity;
@@ -142,20 +162,22 @@
                  * @param quantity - the number of units we are pulling in
                  * @param cost - unary cost for the product we are pulling in 
                  */
-                this.add = function(productId, quantity, cost) {
-                    if (quantity > 0) {
-
-                        var event = new Stock(productId, quantity, cost);
-
-                        var stamp = (new Date()).getTime() / 1000;
-                        // create a new journal entry
-                        var entry = new JournalEntry(null, stamp, 'stockAdd', currentEventVersion, event);
-
-                        // save the journal entry
-                        JournalKeeper.compose(entry);
+                
+                
+                this.add = function(stock) {
+                    
+                    if(stock instanceof Stock){
+                        stock.isValid();
                     } else {
-                        throw 'error';
+                        throw "Wrong instance bitch";
                     }
+                    
+                    var stamp = (new Date()).getTime() / 1000;
+                    // create a new journal entry
+                    var entry = new JournalEntry(null, stamp, 'stockAdd', currentEventVersion, stock);
+
+                    // save the journal entry
+                    JournalKeeper.compose(entry);
 
                 };
 
