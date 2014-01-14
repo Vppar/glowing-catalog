@@ -448,7 +448,7 @@ div.header-date {
 	background: url(../images/bag-mk.png) no-repeat;
 	display: inline-block;
 	width: 92px;
-	height: 58px;
+	/*height: 58px;*/
 	margin: 0px -18px 0 0;
 	text-align: center;
 	padding: 38px 0px 0 0px;
@@ -459,7 +459,6 @@ div.header-date {
 	vertical-align: text-bottom;
 	text-indent: 64px;
 }
-/*nav header*/
 
 .hover-state-pointer:hover {
 	cursor: pointer
