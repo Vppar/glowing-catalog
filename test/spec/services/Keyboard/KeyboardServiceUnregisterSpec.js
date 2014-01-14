@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Service: KeyboardService', function() {
+describe('Service: KeyboardService', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.keyboard.service'));
@@ -23,11 +23,9 @@ xdescribe('Service: KeyboardService', function() {
 
         KeyboardService.register(input);
 
-        KeyboardService.unregister(input);
-
-        var response = KeyboardService.readFields();
-
-        expect(response.length).toBe(0);
+        expect(function() {
+            KeyboardService.unregister(input);
+        }).not.toThrow();
 
     });
 
@@ -37,16 +35,18 @@ xdescribe('Service: KeyboardService', function() {
             id : 0
         };
 
-        KeyboardService.register(input);
+        expect(function() {
+            KeyboardService.unregister(input);
+        }).toThrow();
     });
 
-    it('shouldn\'t remove a registred input with an inexistent id', function() {
+    it('shouldn\'t remove nothing case the input has no id', function() {
 
-        var input = {
-            id : 0
-        };
+        var input = {};
 
-        KeyboardService.register(input);
+        expect(function() {
+            KeyboardService.unregister(input);
+        }).toThrow();
     });
 
 });

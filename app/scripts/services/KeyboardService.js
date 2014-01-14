@@ -26,7 +26,7 @@
             };
 
             fields.push(input);
-            
+
             reorder();
         };
 
@@ -35,6 +35,8 @@
             if (foundItem) {
                 var index = fields.indexOf(foundItem);
                 fields.splice(index, 1);
+            } else {
+                throw "input not found in fields";
             }
         };
 
@@ -47,11 +49,11 @@
          * accordingly
          */
         this.keypress = function(key) {
-        	if(currentField){
-        		currentField.keypress(key);
-        	}else{
-        		throw "currentField is not defined"; 
-        	}
+            if (currentField) {
+                currentField.keypress(key);
+            } else {
+                throw "currentField is not defined";
+            }
         };
 
         this.next = function() {
@@ -86,20 +88,20 @@
             currentField.setActive(false);
             currentField = null;
         }
-        
-        function reorder(){
+
+        function reorder() {
             var prev, current;
-            
-            for(var ix in fields){
+
+            for ( var ix in fields) {
                 prev = current;
                 current = fields[ix];
-                
-                if(prev){
-                    if(!current.prev){
+
+                if (prev) {
+                    if (!current.prev) {
                         current.prev = prev.id;
                     }
-                    
-                    if(!prev.next){
+
+                    if (!prev.next) {
                         prev.next = current.id;
                     }
                 }
