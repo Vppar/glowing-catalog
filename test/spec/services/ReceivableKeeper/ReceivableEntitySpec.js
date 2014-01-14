@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Service: ReceivableEntity', function() {
+describe('Service: ReceivableEntity', function() {
 
     var Receivable = null;
     var fakeNow = null;
@@ -27,17 +27,17 @@ xdescribe('Service: ReceivableEntity', function() {
      */
     it('should create a new Receivable instance', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231'
         };
 
         // when
-        var receivable = new Receivable(description, document);
+        var receivable = new Receivable(title, document);
 
         // then
-        expect(receivable.description).toBe(description);
+        expect(receivable.title).toBe(title);
         expect(receivable.document.label).toBe(document.label);
         expect(receivable.document.number).toBe(document.number);
         expect(receivable.canceled).toBe(false);
