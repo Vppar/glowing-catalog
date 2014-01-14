@@ -56,12 +56,16 @@
 
         /**
          * Returns a copy of all receivables
+         * 
+         * @return Array - List of receivables.
          */
         var list = function list() {
             return angular.copy(receivables);
         };
         /**
-         * Adds a receivable
+         * Adds a receivable to the list
+         * 
+         * @param receivable - Receivable to be added.
          */
         var add = function add(receivable) {
             var stamp = (new Date()).getTime() / 1000;
