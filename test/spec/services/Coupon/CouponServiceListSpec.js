@@ -59,14 +59,14 @@ xdescribe('Service: Coupon', function() {
 	it('should list all the coupon', function() {
 
 		var list = CouponService.list();
-		expect(voucherStub.list).toHaveBeenCallWith('coupon');
+		expect(voucherStub.list).toHaveBeenCalledWith('coupon');
 		
 	});
 
 	it('should not list the the different types', function() {
 
 		var list = CouponService.list();
-		expect(voucherStub.list).not.toHaveBeenCall('voucher');		
+		expect(voucherStub.list).not.toHaveBeenCalled('voucher');		
 	});
 
 });

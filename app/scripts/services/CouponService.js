@@ -1,52 +1,55 @@
 (function(angular) {
 	'use strict';
 
-	angular.module('tnt.catalog.service.coupon',
-			[]).service(
-			'CouponService',
-			function CouponService(VoucherKeeper) {
+	angular.module('tnt.catalog.service.coupon', [ 'tnt.utils.array' ])
+			.service(
+					'CouponService',
+					function CouponService(ArrayUtils) {
 
-				/**
-				 * VoucherKeeper assignature VoucherKeeper.create(obj);
-				 * VoucherKeeper.redeem(id); VoucherKeeper.cancel(id);
-				 * 
-				 * 
-				 * 
-				 */
+						/**
+						 * List all coupons.
+						 */
+						var list = function list() {
+							var vouchers = VoucherKeeper.list();
+							var coupons = ArrayUtils.list(vouchers, 'type',
+									'coupon');
+							return coupons;
+						};
 
-				/**
-				 * List all coupons.
-				 */
-				var add = function add(coupon) {
-					VoucherKeeper.add();
-				};
+						var redeem = function redeem(id) {
+							if (id > 0) {
+								VoucherKeeper.redeem(id, 'coupon');
+							}
+						};
 
-				var list = function list() {
-					return VoucherKeeper.list();
-				};
+						/**
+						 * Create and return a coupon.
+						 */
+						var create = function create(entity, amount, remarks,
+								document) {
 
-				var redeem = function redeem(id) {
-					return VoucherKeeper.redeem(id);
-				};
+							var coupon = null;
 
-				var create = function createCoupon(entity, amount, type,
-						redeemed, remarks, document) {
-					return coupon;
-				};
-				
-				var isValid = function isValid(coupon){
-					return false;
-				};
+							if (amount > 0 && angular.isDefined(entity)) {
+								coupon = VoucherKeeper.create(entity, amount,
+										'coupon', remarks, document);
+							}
 
-				var cancel = function cancel(id) {
-					return VoucherKeeper.cancel(id);
-				};
+							return coupon;
+						};
 
-				this.add = add;
-				this.list = list;
-				this.isValid = isValid;
-				this.redeem = redeem;
-				this.cancel = cancel;
-				this.create = create;
-			});
+						/**
+						 * Cancel a coupon
+						 */
+						var cancel = function cancel(id) {
+							if (id > 0) {
+								return VoucherKeeper.cancel(id, 'coupon');
+							}
+						};
+
+						this.list = list;
+						this.redeem = redeem;
+						this.cancel = cancel;
+						this.create = create;
+					});
 }(angular));

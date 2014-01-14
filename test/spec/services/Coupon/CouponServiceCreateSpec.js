@@ -2,6 +2,8 @@
 
 describe('Service: Coupon', function() {
 
+	var voucherStub = {};
+
 	var coupon = {
 			id: 1234,
 			entity: 123,
@@ -15,6 +17,16 @@ describe('Service: Coupon', function() {
 	// load the service's module
 	beforeEach(function() {
 		module('tnt.catalog.service.coupon');
+	});
+	
+	// define the mocks
+	beforeEach(function() {
+		
+		voucherStub.create = jasmine.createSpy('VoucherKeeper.create');
+		
+		module(function($provide) {
+			$provide.value('VoucherKeeper', voucherStub);
+		});
 	});
 
 	// instantiate service
@@ -34,11 +46,11 @@ describe('Service: Coupon', function() {
 		var document = { type: "pedido", id: 123 };
 		
 		var c = CouponService.create(id,entity,amount,type,remarks,document);
-		expect(CouponService.isValid).toHaveBeenCall();
+		expect(voucherStub.create).toHaveBeenCalled();
 		expect(c).toBeEqual(coupon);
 		
 	});
-
+	
 	it('should not create a coupom with negative value', function() {
 		var id = 1234;
 		var entity = 123;
@@ -48,7 +60,7 @@ describe('Service: Coupon', function() {
 		var document = { type: "pedido", id: 123 };
 		
 		var c = CouponService.create(id,entity,amount,type,remarks,document);
-		expect(CouponService.isValid).toHaveBeenCall();
+		expect(voucherStub.create).toHaveBeenCalled();
 		expect(c).toBeEqual(null);
 	});
 
@@ -61,7 +73,7 @@ describe('Service: Coupon', function() {
 		var document = { type: "pedido", id: 123 };
 		
 		var c = CouponService.create(id,entity,amount,type,remarks,document);
-		expect(CouponService.isValid).toHaveBeenCall();
+		expect(voucherStub.create).not.toHaveBeenCalled();
 		expect(c).toBeEqual(null);
 	});
 
@@ -73,7 +85,7 @@ describe('Service: Coupon', function() {
 		var document = { type: "pedido", id: 123 };
 		
 		var c = CouponService.create(id,entity,amount,type,undefined,document);
-		expect(CouponService.isValid).toHaveBeenCall();
+		expect(voucherStub.create).toHaveBeenCalled();
 		expect(c).toBeEqual(coupon);
 	});
 
@@ -85,7 +97,7 @@ describe('Service: Coupon', function() {
 		var remarks = "lalala";
 		
 		var c = CouponService.create(id,entity,amount,type,remarks);
-		expect(CouponService.isValid).toHaveBeenCall();
+		expect(voucherStub.create).toHaveBeenCalled();
 		expect(c).toBeEqual(coupon);
 	});
 
@@ -97,8 +109,10 @@ describe('Service: Coupon', function() {
 		var document = { type: "pedido", id: 123 };
 		
 		var c = CouponService.create(id,undefined,amount,type,remarks,document);
-		expect(CouponService.isValid).toHaveBeenCall();
-		expect(c).toBeEqual(null);
+		expect(voucherStub.create).not.toHaveBeenCalled();
+		expect(c).toEqual(null);
 	});
+	
+	
 
 });

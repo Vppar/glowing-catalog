@@ -1,49 +1,51 @@
 'use strict';
 
-describe(
-		'Service: Coupon',
-		function() {
+describe('Service: Coupon', function() {
 
-			var voucherStub = {};
+	var voucherStub = {};
 
-			// load the service's module
-			beforeEach(function() {
-				module('tnt.catalog.service.coupon');
-			});
+	// load the service's module
+	beforeEach(function() {
+		module('tnt.catalog.service.coupon');
+	});
 
-			// define the mocks
-			beforeEach(function() {
-				voucherStub.cancel = jasmine.createSpy('VoucherKeeper.cancel');
-				module(function($provide) {
-					$provide.value('VoucherKeeper', voucherStub);
-				});
-			});
-
-			// instantiate service
-			var CouponService = undefined;
-
-			// inject the dependencies
-			beforeEach(inject(function(_CouponService_) {
-				CouponService = _CouponService_;
-			}));
-
-			it('should cancel the coupon with the passed id', function() {
-
-				CouponService.cancel(1);
-				expect(voucherStub.cancel).toHaveBeenCallWith(1, "coupon");
-				expect(function() {
-					voucherStub.cancel(1, "coupon");
-				}).not.toThrow();
-
-			});
-
-			it(
-					'should not cancel a voucher with same id and with other than the correct type',
-					function() {
-
-						CouponService.cancel(1);
-						expect(voucherStub.cancel).toHaveBeenCalled();
-						expect(voucherStub.cancel).toThrow();
-
-					});
+	// define the mocks
+	beforeEach(function() {
+		voucherStub.cancel = jasmine.createSpy('VoucherKeeper.cancel');
+		module(function($provide) {
+			$provide.value('VoucherKeeper', voucherStub);
 		});
+	});
+
+	// instantiate service
+	var CouponService = undefined;
+
+	// inject the dependencies
+	beforeEach(inject(function(_CouponService_) {
+		CouponService = _CouponService_;
+	}));
+
+	it('should cancel the coupon with the passed id', function() {
+		var id = 1;
+		CouponService.cancel(id);
+		expect(voucherStub.cancel).toHaveBeenCalledWith(id, 'coupon');
+	});
+
+	it('should not cancel any coupon with a negative id', function() {
+		var id = -1;
+		CouponService.cancel(id);
+		expect(voucherStub.cancel).not.toHaveBeenCalled();
+	});
+
+	it('should not cancel any coupon with an id equals zero', function() {
+		var id = 0;
+		CouponService.cancel(id);
+		expect(voucherStub.cancel).not.toHaveBeenCalled();
+	});
+
+	it('should not cancel any coupon with a undefined id', function() {
+		var id = undefined;
+		CouponService.cancel(id);
+		expect(voucherStub.cancel).not.toHaveBeenCalled();
+	});
+});
