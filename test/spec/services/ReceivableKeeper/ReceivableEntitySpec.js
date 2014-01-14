@@ -34,9 +34,10 @@ describe('Service: ReceivableEntity', function() {
         };
 
         // when
-        var receivable = new Receivable(title, document);
+        var receivable = new Receivable(1, title, document);
 
         // then
+        expect(receivable.id).toBe(1);
         expect(receivable.title).toBe(title);
         expect(receivable.document.label).toBe(document.label);
         expect(receivable.document.number).toBe(document.number);
