@@ -106,7 +106,6 @@ describe('Service: ReceivableKeeperAdd', function() {
         expect(receivables[0].document).toEqual(receivable.document);
         expect(receivables[0].id).toEqual(1);
         expect(receivables[0].createdate).toEqual(fakeNow);
-        
     });
 
 });
