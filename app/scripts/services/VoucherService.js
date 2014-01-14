@@ -9,27 +9,27 @@
 
         this.create = function(entity, amount, remarks, document) {
             // is it a valid entity?
-            if(EntityService.find(entity)===null){
-                throw 'invalid entity.'; 
+            if (EntityService.find(entity) === undefined) {
+                throw 'invalid entity.';
             }
             // is the amount sane?
-            /**
-             * non negative
-             * 
-             */
-            if(amount<0){
-                throw 'we can not give negative amounts';
+            if (amount < 0 || amount > 200) {
+                throw 'invalid amount. The value shoud be between 0 and 200.';
             }
-            
+
             // is it a valid document?
-            
+            /**
+             * TODO - waiting until the document have some implementation.
+             */
             var voucher = new Voucher(null, entity, voucherType, amount);
+            voucher.remarks = remarks;
+            voucher.document = document;
 
             VoucherKeeper.create(voucher);
         };
 
         this.redeem = function(id) {
-            var voucher = ArrayUtils(VoucherKeeper.list(voucherType), 'id', id);
+            var voucher = ArrayUtils.find(VoucherKeeper.list(voucherType), 'id', id);
             if (voucher === undefined) {
                 throw 'voucher not found.';
             }
@@ -51,7 +51,7 @@
         };
 
         this.cancel = function(id) {
-            var voucher = ArrayUtils(VoucherKeeper.list(voucherType), 'id', id);
+            var voucher = ArrayUtils.find(VoucherKeeper.list(voucherType), 'id', id);
             if (voucher === undefined) {
                 throw 'voucher not found.';
             }
