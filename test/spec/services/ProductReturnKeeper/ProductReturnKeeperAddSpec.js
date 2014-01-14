@@ -60,7 +60,7 @@ describe('Service: ProductReturnKeeper', function() {
         expect(function() {
             ProductReturnKeeper.add(ev);
         }).not.toThrow();
-        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+        expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
     });
 
     /**
