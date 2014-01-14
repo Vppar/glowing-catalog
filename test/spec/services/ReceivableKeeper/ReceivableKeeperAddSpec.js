@@ -14,8 +14,7 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
-        
-        
+
         fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     });
@@ -29,14 +28,14 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
 
     /**
      * <pre>
-     * Given a receivable description
+     * Given a receivable description 
      * and a document
      * and a receivable type
      * and a installment id
      * and a duedate
      * and a amount
      * When an add is triggered
-     * Then the receivable should be added
+     * Then the JournalKeeper should be called
      * </pre>
      */
     it('should add a receivable', function() {
@@ -59,12 +58,37 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
         receivable.amount = amount;
 
         var tstamp = fakeNow / 1000;
-        var entry = new JournalEntry(null, tstamp, 'receivableAdd', 1, receivable);
+        var entry = new JournalEntry(null, tstamp, 'receivableAddV1', 1, receivable);
 
         expect(function() {
             ReceivableKeeper.add(description, document, type, installmentId, duedate, amount);
         }).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+    });
+
+    /**
+     * <pre>
+     * Given a receivable
+     * When receivableAddV1 handler is is triggered
+     * Then the receivable should be added
+     * </pre>
+     */
+    it('should handle an add receivable event', function() {
+        // given
+        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var document = {
+            label : 'Document label',
+            number : '231231231-231'
+        };
+        var receivable = new Receivable(description, document);
+
+        // when
+        ReceivableKeeper.handlers['receivableAddV1'](receivable);
+
+        var receivables = ReceivableKeeper.list();
+
+        // then
+        expect(receivables[0]).toEqual(receivable);
     });
 
 });
