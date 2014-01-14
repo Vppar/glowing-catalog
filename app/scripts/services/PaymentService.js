@@ -1,6 +1,38 @@
 (function(angular) {
     'use strict';
 
+    var entities = angular.module('tnt.catalog.payment.entity', []);
+
+    entities.factory('Payment', function Payment() {
+
+        var service = function svc(amount) {
+
+            if (arguments.length != svc.length) {
+                throw 'Payment must be initialized with amount';
+            }
+
+            this.amount = amount;
+        };
+
+        return service;
+    });
+
+    entities.factory('CheckPayment', function CheckPayment(Payment) {
+
+        var service = function svc(amount) {
+
+            if (arguments.length != svc.length) {
+                throw 'CheckPayment must be initialized with amount';
+            }
+
+            ObjectUtils.superInvoke(this, amount);
+        };
+        
+        ObjectUtils.inherits(svc, Payment);
+
+        return service;
+    });
+
     angular.module('tnt.catalog.service.payment', [
         'tnt.catalog.filter.findBy', 'tnt.catalog.service.data'
     ]).service('PaymentService', function PaymentService($filter, DataProvider) {
