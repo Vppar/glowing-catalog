@@ -15,7 +15,7 @@ xdescribe('Service: ReceivableServiceUpdateSpec', function() {
             ]
         };
         log.error = jasmine.createSpy('$log.error');
-        module('tnt.catalog.service.receivable');
+        module('tnt.catalog.receivable.service');
         module(function($provide) {
             $provide.value('DataProvider', mock);
             $provide.value('$log', log);

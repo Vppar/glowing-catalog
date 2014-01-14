@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableKeeperEntity', function() {
+xdescribe('Service: ReceivableEntity', function() {
 
     var Receivable = null;
     var fakeNow = null;
@@ -19,30 +19,29 @@ describe('Service: ReceivableKeeperEntity', function() {
 
     /**
      * <pre>
-     * Given a valid receivable id
+     * Given a receivable id
      * and a due date
      * and a amount
      * When new is triggered
      * Then a Receivable instance should be created
+     * and the id should be read only
      * </pre>
      */
     it('should create a new Receivable instance', function() {
         // given
-        var id = 27;
         var duedate = 1391101200000;
         var amount = 1345.93;
         var expected = {
-            id : id,
             createdate : fakeNow,
             duedate : duedate,
             amount : amount,
         };
 
         // when
-        var receivable = new Receivable(id, duedate, amount);
+        var receivable = new Receivable(duedate, amount);
+        receivable.id = 3;
 
         // then
         expect(receivable).toEqual(expected);
     });
-
 });
