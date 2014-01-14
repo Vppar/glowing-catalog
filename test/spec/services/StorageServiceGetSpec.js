@@ -13,7 +13,7 @@ describe('Service: StorageService.get', function() {
 		dpStub.storage = [ stub ];
 		log.error = jasmine.createSpy('$log.error');
 
-		module('tnt.catalog.service.receivable');
+		module('tnt.catalog.service.storage');
 		module(function($provide) {
 			$provide.value('DataProvider', dpStub);
 			$provide.value('$log', log);
@@ -32,7 +32,7 @@ describe('Service: StorageService.get', function() {
 	 * </pre>
 	 */
 	it('should return a entity', function() {
-		// given
+		// given  
 		var id = stub.id;
 		StorageService.isValid = jasmine.createSpy('StorageService.isValid')
 				.andReturn(true);
