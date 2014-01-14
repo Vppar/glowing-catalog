@@ -3,7 +3,7 @@
 describe('Service: ProductReturnKeeper', function() {
 
     var jKeeper = {};
-    
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.productReturn');
@@ -16,7 +16,7 @@ describe('Service: ProductReturnKeeper', function() {
 
     beforeEach(function() {
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
-        
+
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
         });
@@ -29,9 +29,9 @@ describe('Service: ProductReturnKeeper', function() {
     beforeEach(inject(function(_ProductReturnKeeper_, _ProductReturn_, _JournalEntry_) {
         ProductReturnKeeper = _ProductReturnKeeper_;
         ProductReturn = _ProductReturn_;
-        JournalEntry =_JournalEntry_;
+        JournalEntry = _JournalEntry_;
     }));
-    
+
     /**
      * <pre>
      * @spec ProductReturnKeeper.add#1
@@ -48,20 +48,21 @@ describe('Service: ProductReturnKeeper', function() {
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        
+
         var devId = 1;
         var pId = 23;
         var qty = 20;
         var ct = 1;
         var ev = new ProductReturn(devId, pId, qty, ct);
         var stp = fakeNow / 1000;
-        var entry = new JournalEntry(null, stp, 'productReturnAdd', 1, ev); 
+        var entry = new JournalEntry(null, stp, 'productReturnAdd', 1, ev);
 
         expect(function() {
-            ProductReturnKeeper.add(devId, pId, qty, ct);}).not.toThrow();
+            ProductReturnKeeper.add(ev);
+        }).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
-    
+
     /**
      * <pre>
      * @spec ProductReturnKeeper.add#2
@@ -71,14 +72,15 @@ describe('Service: ProductReturnKeeper', function() {
      * </pre> 
      */
     it('should throw error', function() {
-        
+
         var devId = 1;
         var pId = 23;
         var qty = -1;
         var ct = 0;
 
         expect(function() {
-            ProductReturnKeeper.add(devId, pId, qty, ct);}).toThrow();
+            ProductReturnKeeper.add(devId, pId, qty, ct);
+        }).toThrow();
     });
 
 });

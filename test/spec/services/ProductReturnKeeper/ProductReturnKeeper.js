@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Service: ReturnProductKeeper', function() {
-    
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.productReturn');
@@ -13,11 +13,10 @@ describe('Service: ReturnProductKeeper', function() {
     var ProductReturnKeeper = undefined;
     beforeEach(inject(function(_ProductReturnKeeper_) {
         ProductReturnKeeper = _ProductReturnKeeper_;
-    })); 
-    
+    }));
 
     it('should do something', function() {
-        expect(!!ProductReturnKeeper).toBe(true);  
+        expect(!!ProductReturnKeeper).toBe(true);
     });
 
 });
