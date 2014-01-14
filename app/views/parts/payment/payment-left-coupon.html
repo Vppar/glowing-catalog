@@ -1,5 +1,4 @@
-<!-- BREAD CRUMBS -->
-<div class="row-fluid bread-crumbs">
+<!--<div class="row-fluid bread-crumbs">
 	<span class="span6">
 		<span class="principal">Emiss&atilde;o de Cupom Promocional</span> &nbsp; <span class="crumbs">&nbsp;</span>
 	</span>
@@ -23,15 +22,16 @@
 					<a class="btn btn-option" ng-click="couponSelected='hist'" ng-class="{active: couponSelected === 'hist'}">Hist&oacute;rico</a>
 				</div>
 			</span>
-		</div>-->
+		</div>->
 	</span>
-</div>
-							
-<!--<div class="title-left">
-	<div>
-        Emissão de vale cupom
-	</div>
 </div>-->
+<div class="title-left">
+	<div>
+        Emiss&atilde;o de cupom promocional
+	</div>
+</div>
+
+
 <div class="left-payment" ng-switch="couponSelected">	
 	
 	<!---EMITIR
@@ -83,7 +83,7 @@
 			<div class="controls-row">
 				<div class="control-group lbl-top">				   
 					<div class="grid-payment-coupon">
-						<div class="header header2 header-coupon">
+						<div class="header header2 subtitle2-header-coupon">
 							<div class="row-payment-grid">
 								<span class="col-s1">
 									<div>R$ Cupom</div>
@@ -121,7 +121,7 @@
 							<div class="row-payment-grid-product-coupon">
 								<span class="col-s1">
 									<div>
-										R$&nbsp;&nbsp;5,00
+										R$<span class="coupon-value">5,00</span>
 									</div>
 								</span>
 								<span class="col-s2">
@@ -139,7 +139,7 @@
 							<div class="row-payment-grid-product-coupon">
 								<span class="col-s1">
 									<div>
-										R$<span class="marginl10">10,00</span>
+										R$<span class="coupon-value">10,00</span>
 									</div>
 								</span>
 								<span class="col-s2">
@@ -157,7 +157,7 @@
 							<div class="row-payment-grid-product-coupon">
 								<span class="col-s1">
 									<div>
-										R$<span class="marginl10">20,00</span>
+										R$<span class="coupon-value">20,00</span>
 									</div>
 								</span>
 								<span class="col-s2">
@@ -175,7 +175,7 @@
 							<div class="row-payment-grid-product-coupon">
 								<span class="col-s1">
 									<div>
-										R$<span class="marginl10">30,00</span>
+										R$<span class="coupon-value">30,00</span>
 									</div>
 								</span>
 								<span class="col-s2">

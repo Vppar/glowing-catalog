@@ -869,7 +869,7 @@ border-radius: 4px;
 	display: inline-block;
 	vertical-align: middle;
 }
-.grid-payment-coupon .header-coupon .col-s1 div, .grid-payment-coupon .grid-payment-coupon .col-s1 div, .row-payment-grid-product-coupon .col-s1 div{
+.grid-payment-coupon .subtitle2-header-coupon .col-s1 div, .grid-payment-coupon .header-coupon .col-s1 div, .grid-payment-coupon .grid-payment-coupon .col-s1 div, .row-payment-grid-product-coupon .col-s1 div{
 	margin-left:60px;
 }
 .grid-payment-coupon-history .header-coupon .col-s1 div, .grid-payment-coupon-history  .grid-payment-coupon .col-s1 div{
@@ -905,8 +905,15 @@ border-radius: 4px;
 	border-bottom:0 !important;
 }
 
-.grid-payment-coupon .header-coupon .col-s4 div, .grid-payment-coupon .subtitle-header-coupon .col-s4 div{
+.grid-payment-coupon .subtitle2-header-coupon .col-s4 	div,.grid-payment-coupon .header-coupon .col-s4 div, .grid-payment-coupon .subtitle-header-coupon .col-s4 div{
 	width: 142px;
+}
+
+.coupon-value{
+	margin-left: 10px !important;
+	text-align:right;
+	width: 35px;
+	display: inline-block;
 }
 /*Grid Historico
 
