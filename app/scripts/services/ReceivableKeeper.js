@@ -27,9 +27,11 @@
     });
     angular.module('tnt.catalog.receivable.keeper', [
         'tnt.utils.array'
-    ]).service('ReceivableKeeper', function ReceivableKeeper(Receivable) {
+    ]).service('ReceivableKeeper', function ReceivableKeeper(Receivable, JournalKeeper, JournalEntry) {
 
+        var currentEventVersion = 1;
         var receivables = [];
+        
         this.handlers = {};
 
         /**
@@ -37,7 +39,9 @@
          */
         ObjectUtils.ro(this.handlers, 'receivableAddV1', function(event) {
             var id = receivables.length + 1;
+            
             var receivable = new Receivable(id, event.title, event.document);
+            
             receivable.type = event.type;
             receivable.installmentId = event.installmentId;
             receivable.duedate = event.duedate;
@@ -47,6 +51,7 @@
         });
 
         ObjectUtils.ro(this.handlers, 'updateAddV1', function(event) {
+
         });
 
         /**
@@ -55,9 +60,21 @@
         var list = function list() {
             return angular.copy(receivables);
         };
+        /**
+         * Adds a receivable
+         */
+        var add = function add(receivable) {
+            var stamp = (new Date()).getTime() / 1000;
+            // create a new journal entry
+            var entry = new JournalEntry(null, stamp, 'receivableAddV1', currentEventVersion, receivable);
+
+            // save the journal entry
+            JournalKeeper.compose(entry);
+        };
 
         // Publishing
         this.list = list;
+        this.add = add;
 
     });
 }(angular));
