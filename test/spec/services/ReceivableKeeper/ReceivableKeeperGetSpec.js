@@ -58,7 +58,7 @@ xdescribe('Service: ReceivableKeeperGet', function() {
      * Then undefined should be returned
      * </pre>
      */
-    it('should return a receivable', function() {
+    it('shouldn\'t return a receivable', function() {
         // given
         var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {

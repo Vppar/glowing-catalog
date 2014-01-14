@@ -27,7 +27,7 @@ xdescribe('Service: ReceivableKeeperGet', function() {
      * Then the target receivable should be returned
      * </pre>
      */
-    it('should return a receivable', function() {
+    it('should return a list of receivable', function() {
         // given
         var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
@@ -55,7 +55,7 @@ xdescribe('Service: ReceivableKeeperGet', function() {
      * Then an empty array must be returned
      * </pre>
      */
-    it('should return a receivable', function() {
+    it('shouldn\'t return a receivable', function() {
         // given
 
         // when
