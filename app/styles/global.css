@@ -312,7 +312,7 @@ body {
 	background: #000 !important;
 }
 .btn-open:hover{
-	background: #48841c !important;
+	background: #575757 !important; /*48841c*/
 }}
 .btn-confirm:hover{
 	background: #333 !important;
