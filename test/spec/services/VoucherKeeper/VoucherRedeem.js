@@ -51,10 +51,9 @@ describe('Service: VoucherKeeper', function() {
         ev.canceled = false;
         var entry = new JournalEntry(null, stp, 'voucherCreate', 1, ev);
         VoucherKeeper.create(voucherObject);
-        
-        
+
         expect(function() {
-            VoucherKeeper.redeem((VoucherKeeper.list.length-1),type);
+            VoucherKeeper.redeem((VoucherKeeper.list.length - 1), type);
         }).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
