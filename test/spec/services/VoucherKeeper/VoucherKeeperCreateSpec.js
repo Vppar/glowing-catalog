@@ -55,4 +55,19 @@ describe('Service: VoucherKeeper', function() {
         }).not.toThrow();
         expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
     });
+    
+    it('should not create a voucher with a impostor voucher', function() {
+
+        var voucherFake = {
+                id : 1,
+                entity : 1,
+                type : 'voucher',
+                amount : 10
+        };
+        
+        expect(function() {
+            VoucherKeeper.create(voucherFake);
+        }).toThrow();
+    });
+    
 });
