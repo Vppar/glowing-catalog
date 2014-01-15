@@ -33,7 +33,7 @@
 	        <span class=""> 
 	        	<!--btn-price-payment-input-block2 input-block-level-->
 	            <!--<input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>-->
-				<span class="btn-price-payment">{{payments | paymentType:'cash' | sum:'amount' | currency:''}}</span>
+				<input id="cash" class="btn-price-payment" ng-model="payment.cash.amount" tnt-input currency/>
 	        </span>
 	    </div>
 	</div>
@@ -111,11 +111,5 @@
 		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
 	</span>
 	<div class="right-column-height">&nbsp;</div>-->
-	<div id="keyNum" class="dinheiro" ng-show="selectedPaymentMethod=='money'">
-		<num-pad ng-model="payment.cash.amount" btn-ok="selectPaymentMethod('none')"></num-pad>
-	</div>
-	<div id="keyNum" ng-show="selectedPaymentMethod=='check'">	
-		<div id="keyNum_quad"></div>
-		<num-pad ng-model="check.amount" btn-ok="addCheck(check)"></num-pad>
-	</div>
+    <num-pad></num-pad>
 </div>

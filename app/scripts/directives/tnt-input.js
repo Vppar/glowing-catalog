@@ -6,16 +6,12 @@
     ]).directive('tntInput', function(KeyboardService, $log) {
         return {
             restrict : 'A',
-            scope : {
-                value : '=?ngModel',
-                btnOk : '&'
-            },
-            link : function postLink(scope, element, attrs) {
+            require : 'ngModel',
+            scope : {},
+            link : function postLink(scope, element, attrs, ctrl) {
 
-                if (scope.value === undefined) {
-                    scope.value = '';
-                }
-                var maxDigits = attrs.maxDigits;
+                element.prop('readonly', true);
+                element.css('cursor', 'pointer');
 
                 var input = {
                     id : attrs.id,
@@ -25,27 +21,25 @@
 
                 input.keypress = function(key) {
 
+                    var current = ctrl.$viewValue;
+
                     if (key === 'backspace') {
                         if (scope.value === '') {
                             KeyboardService.prev();
                         } else {
-                            scope.value = scope.value.substring(0, (scope.value.length - 1));
+                            current = current.substring(0, (current.length - 1));
                         }
                     } else if (key === 'clear') {
-                        scope.value = '';
+                        current = '';
                     } else if (key === 'ok') {
                         KeyboardService.next();
                     } else {
-                        if (maxDigits) {
-                            if (scope.value.length < maxDigits) {
-                                scope.value += key;
-                            }
-                        } else {
-                            scope.value += key;
-                        }
+                        current += key;
                     }
 
-                    element.text(scope.value);
+                    element.val(current);
+                    ctrl.$setViewValue(current);
+
                 };
 
                 input.setActive = function(active) {
@@ -55,8 +49,6 @@
                         element.removeClass('editing');
                     }
                 };
-
-                // TODO use proper formatter
 
                 KeyboardService.register(input);
 
