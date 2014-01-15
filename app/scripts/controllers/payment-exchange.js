@@ -2,8 +2,9 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.exchange', [
-        'tnt.catalog.service.data', 'tnt.catalog.service.payment'
-    ]).controller('PaymentExchangeCtrl', function($scope, $element, $filter, DataProvider, PaymentService) {
+        'tnt.catalog.service.data', 'tnt.catalog.service.payment','tnt.catalog.inventory.keeper', 
+        'tnt.utils.array'
+    ]).controller('PaymentExchangeCtrl', function($scope, $element, $filter, DataProvider, PaymentService, InventoryKeeper, ArrayUtils) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -15,11 +16,18 @@
             productId : null,
             amount : null
         };
+        
+        
+        
+        var products = InventoryKeeper.read();
+        
         angular.extend(exchange, emptyExchangeTemplate);
         $scope.exchange = exchange;
 
         // Products informations to fill the screen combo.
-        $scope.products = DataProvider.products;
+        //$scope.products = DataProvider.products;
+        $scope.products = products;
+        $scope.check = exchange;
 
         // #####################################################################################################
         // Scope action functions
@@ -61,9 +69,10 @@
 
         $scope.setAmount = function setAmount(productId) {
             if (productId) {
-                exchange.amount = $filter('findBy')(DataProvider.products, 'id', Number(productId)).price;
+                var product = ArrayUtils.find(products, 'id', Number(productId));
+                exchange.amount = product.price;
             } else {
-                exchange.amount = 0;    
+                exchange.amount = 0;
             }
         };
         $scope.setAmount();
