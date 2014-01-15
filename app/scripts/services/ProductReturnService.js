@@ -10,14 +10,26 @@
             'ProductReturnService',
             function ProductReturnService(ProductReturn, ProductReturnKeeper, EntityService, VoucherService, InventoryService) {
 
-                this.add = function(productId, quantity, price, entity) {
+                this.add = function(inventoryId, quantity, price, entityId) {
+                    
+                    // does the product exist?
+                    // is the quantity sane?
+                    // does the entity exist?
+                    
+                    // <- create ProductReturn
+                    
+                    // <- top up Stock(use the current cost)
+                    
+                    // <- create voucher(linked to the return)
+                    
+                    
                     // is it a valid entity?
                     if (EntityService.find(entity) === undefined) {
                         throw 'invalid entity.';
                     }
 
-                    // productId
-                    if (angular.isUndefined(InventoryService.get(productId))) {
+                    // inventoryId
+                    if (angular.isUndefined(InventoryService.get(inventoryId))) {
                         throw 'invalid productId.';
                     }
 
@@ -31,10 +43,9 @@
                         throw 'invalid price. The valaue can not be negative.';
                     }
 
-                    var productReturn = new ProductReturn(ProductReturnKeeper.read.length, productId, quantity, price);
+                    var productReturn = new ProductReturn(null, productId, quantity, price);
                     ProductReturnKeeper.add(productReturn);
 
-                    VoucherService.create(entity, amount, remarks, document);
                 };
 
             });
