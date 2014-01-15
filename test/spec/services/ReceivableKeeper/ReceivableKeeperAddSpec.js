@@ -1,11 +1,11 @@
 'use strict';
 
-xdescribe('Service: ReceivableKeeperAdd', function() {
+describe('Service: ReceivableKeeperAdd', function() {
 
-    var Receivable = null;
     var ReceivableKeeper = null;
     var JournalEntry = null;
     var fakeNow = null;
+    var jKeeper = {};
 
     // load the service's module
     beforeEach(function() {
@@ -17,11 +17,16 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
 
         fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
+        jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
+
+        module(function($provide) {
+            $provide.value('JournalKeeper', jKeeper);
+        });
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_, _JournalEntry_) {
-        Receivable = _Receivable_;
+    beforeEach(inject(function(_ReceivableKeeper_, _JournalEntry_) {
         ReceivableKeeper = _ReceivableKeeper_;
         JournalEntry = _JournalEntry_;
     }));
@@ -40,7 +45,7 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
      */
     it('should add a receivable', function() {
 
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231'
@@ -50,8 +55,15 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
         var duedate = 1391083200000;
         var amount = 1234.56;
 
-        var receivable = new Receivable(description, document);
-        receivable.createdate = fakeNow;
+        var receivable = {
+            title : title,
+            document : document,
+            type : type,
+            installmentId : installmentId,
+            duedate : duedate,
+            amount : amount
+        };
+
         receivable.type = type;
         receivable.installmentId = installmentId;
         receivable.duedate = duedate;
@@ -61,7 +73,7 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
         var entry = new JournalEntry(null, tstamp, 'receivableAddV1', 1, receivable);
 
         expect(function() {
-            ReceivableKeeper.add(description, document, type, installmentId, duedate, amount);
+            ReceivableKeeper.add(receivable);
         }).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
@@ -75,20 +87,26 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
      */
     it('should handle an add receivable event', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231'
         };
-        var receivable = new Receivable(description, document);
+        var receivable = {
+            title : title,
+            document : document,
+        };
 
         // when
         ReceivableKeeper.handlers['receivableAddV1'](receivable);
-
         var receivables = ReceivableKeeper.list();
 
         // then
-        expect(receivables[0]).toEqual(receivable);
+        expect(receivable[0]).not.toBe(receivable);
+        expect(receivables[0].title).toEqual(receivable.title);
+        expect(receivables[0].document).toEqual(receivable.document);
+        expect(receivables[0].id).toEqual(1);
+        expect(receivables[0].createdate).toEqual(fakeNow);
     });
 
 });

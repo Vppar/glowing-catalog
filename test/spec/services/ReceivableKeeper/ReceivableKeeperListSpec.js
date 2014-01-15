@@ -1,8 +1,7 @@
 'use strict';
 
-xdescribe('Service: ReceivableKeeperGet', function() {
+describe('Service: ReceivableKeeperList', function() {
 
-    var Receivable = null;
     var ReceivableKeeper = null;
 
     // load the service's module
@@ -15,37 +14,44 @@ xdescribe('Service: ReceivableKeeperGet', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_) {
-        Receivable = _Receivable_;
+    beforeEach(inject(function(_ReceivableKeeper_) {
         ReceivableKeeper = _ReceivableKeeper_;
     }));
 
     /**
      * <pre>
-     * Givena filled ReceivableKeeper     
+     * Given a filled ReceivableKeeper     
      * When list is triggered
      * Then the target receivable should be returned
      * </pre>
      */
     it('should return a list of receivable', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231',
         };
-        var myReceivable = new Receivable(description, document);
-        var yourReceivable = new Receivable(description, document);
+        var myReceivableEv = {
+            title : title,
+            document : document
+        };
+        var yourReceivableEv = {
+            title : title,
+            document : document
+        };
 
-        ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
-        ReceivableKeeper.handlers['receivableAddV1'](yourReceivable);
+        ReceivableKeeper.handlers['receivableAddV1'](myReceivableEv);
+        ReceivableKeeper.handlers['receivableAddV1'](yourReceivableEv);
 
         // when
         var receivables = ReceivableKeeper.list();
 
         // then
-        expect(myReceivable).toEqual(receivables[0]);
-        expect(yourReceivable).toEqual(receivables[1]);
+        expect(myReceivableEv.title).toEqual(receivables[0].title);
+        expect(myReceivableEv.document).toEqual(receivables[0].document);
+        expect(yourReceivableEv.title).toEqual(receivables[1].title);
+        expect(yourReceivableEv.document).toEqual(receivables[1].document);
     });
 
     /**
