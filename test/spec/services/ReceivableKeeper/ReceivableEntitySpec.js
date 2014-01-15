@@ -1,14 +1,17 @@
 'use strict';
 
-xdescribe('Service: ReceivableEntity', function() {
+describe('Service: ReceivableEntity', function() {
 
     var Receivable = null;
     var fakeNow = null;
+    var monthTime = null;
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.receivable.entity');
         fakeNow = 1386179100000;
+        monthTime = 2592000;
+
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     });
 
@@ -27,19 +30,22 @@ xdescribe('Service: ReceivableEntity', function() {
      */
     it('should create a new Receivable instance', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
-        };
+        var id = 1;
+        var creationdate = fakeNow;
+        var entityId = 1;
+        var type = 'BRINDE';
+        var amount = 12345.67;
+        var duedate = fakeNow + monthTime;
 
         // when
-        var receivable = new Receivable(description, document);
+        var receivable = new Receivable(id, creationdate, entityId, type, amount, duedate);
 
         // then
-        expect(receivable.description).toBe(description);
-        expect(receivable.document.label).toBe(document.label);
-        expect(receivable.document.number).toBe(document.number);
-        expect(receivable.canceled).toBe(false);
+        expect(receivable.id).toBe(id);
+        expect(receivable.creationdate).toBe(creationdate);
+        expect(receivable.entityId).toBe(entityId);
+        expect(receivable.type).toBe(type);
+        expect(receivable.amount).toBe(amount);
+        expect(receivable.duedate).toBe(fakeNow + monthTime);
     });
 });

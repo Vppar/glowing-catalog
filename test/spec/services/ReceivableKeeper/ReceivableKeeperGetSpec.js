@@ -1,9 +1,8 @@
 'use strict';
+describe('Service: ReceivableKeeperGet', function() {
 
-xdescribe('Service: ReceivableKeeperGet', function() {
-
-    var Receivable = null;
     var ReceivableKeeper = null;
+    var fakeNow = null;
 
     // load the service's module
     beforeEach(function() {
@@ -12,11 +11,13 @@ xdescribe('Service: ReceivableKeeperGet', function() {
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
+
+        fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_) {
-        Receivable = _Receivable_;
+    beforeEach(inject(function(_ReceivableKeeper_) {
         ReceivableKeeper = _ReceivableKeeper_;
     }));
 
@@ -29,17 +30,16 @@ xdescribe('Service: ReceivableKeeperGet', function() {
      */
     it('should return a receivable', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231',
+        var myReceivable = {
+            id : 1,
+            entityId : 2
         };
-        var myReceivable = new Receivable(description, document);
-        var yourReceivable = new Receivable(description, document);
-
+        var yourReceivable = {
+            id : 2,
+            entityId : 1
+        };
         ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
         ReceivableKeeper.handlers['receivableAddV1'](yourReceivable);
-
         var receivables = ReceivableKeeper.list();
 
         // when
@@ -47,8 +47,11 @@ xdescribe('Service: ReceivableKeeperGet', function() {
         var yourResult = ReceivableKeeper.get(receivables[1].id);
 
         // then
-        expect(myReceivable).toEqual(myResult);
-        expect(yourReceivable).toEqual(yourResult);
+        expect(myReceivable).not.toBe(myResult);
+        expect(yourReceivable).not.toBe(yourResult);
+        expect(myReceivable.entityId).toBe(myReceivable.entityId);
+        expect(yourReceivable.entityId).toBe(yourResult.entityId);
+
     });
 
     /**
@@ -60,22 +63,17 @@ xdescribe('Service: ReceivableKeeperGet', function() {
      */
     it('shouldn\'t return a receivable', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231',
+        var myReceivable = {
+            id : 1,
+            entityId : 2
         };
-        var myReceivable = new Receivable(description, document);
-        var yourReceivable = new Receivable(description, document);
-
         ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
-        ReceivableKeeper.handlers['receivableAddV1'](yourReceivable);
 
         // when
         var myResult = ReceivableKeeper.get(123);
 
         // then
-        expect(myResult).toBeUndefined();
+        expect(myResult).toBe(null);
     });
 
 });
