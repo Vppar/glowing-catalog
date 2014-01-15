@@ -33,6 +33,8 @@
         twenty.amount = 20;
         $scope.thirty = thirty;
         thirty.amount = 30;
-
+           
+        
+        //TODO integrate with copun service.
     });
 }(angular));
