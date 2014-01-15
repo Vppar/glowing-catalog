@@ -4,11 +4,14 @@ describe('Service: ReceivableEntity', function() {
 
     var Receivable = null;
     var fakeNow = null;
+    var monthTime = null;
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.receivable.entity');
         fakeNow = 1386179100000;
+        monthTime = 2592000;
+
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     });
 
@@ -27,20 +30,22 @@ describe('Service: ReceivableEntity', function() {
      */
     it('should create a new Receivable instance', function() {
         // given
-        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
-        };
+        var id = 1;
+        var creationdate = fakeNow;
+        var entity = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var type = 'BRINDE';
+        var amount = 12345.67;
+        var duedate = fakeNow + monthTime;
 
         // when
-        var receivable = new Receivable(1, title, document);
+        var receivable = new Receivable(id, creationdate, entity, type, amount, duedate);
 
         // then
-        expect(receivable.id).toBe(1);
-        expect(receivable.title).toBe(title);
-        expect(receivable.document.label).toBe(document.label);
-        expect(receivable.document.number).toBe(document.number);
-        expect(receivable.canceled).toBe(false);
+        expect(receivable.id).toBe(id);
+        expect(receivable.creationdate).toBe(creationdate);
+        expect(receivable.entity).toBe(entity);
+        expect(receivable.type).toBe(type);
+        expect(receivable.amount).toBe(amount);
+        expect(receivable.duedate).toBe(fakeNow + monthTime);
     });
 });

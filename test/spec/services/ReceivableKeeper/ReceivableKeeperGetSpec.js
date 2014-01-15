@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableKeeperGet', function() {
+xdescribe('Service: ReceivableKeeperGet', function() {
 
     var ReceivableKeeper = null;
     var fakeNow = null;

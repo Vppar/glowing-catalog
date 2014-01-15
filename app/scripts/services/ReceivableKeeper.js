@@ -3,16 +3,15 @@
 
     angular.module('tnt.catalog.receivable.entity', []).factory('Receivable', function Receivable() {
 
-        var service = function svc(id, title, document) {
+        var service = function svc(id, creationdate, entity, type, amount, duedate) {
 
             var validProperties = [
-                'id', 'createdate', 'title', 'document', 'canceled', 'type', 'installmentId', 'duedate', 'amount'
+                'id', 'creationdate', 'entity', 'document', 'type', 'amount', 'duedate', 'canceled', 'received'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
                     var prop = this[ix];
-
                     if (!angular.isFunction(prop)) {
                         if (validProperties.indexOf(ix) === -1) {
                             throw "Unexpected property " + ix;
@@ -26,19 +25,23 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Receivable must be initialized with id, title and document';
+                    throw 'Receivable must be initialized with id, creationdate, entity, document, type, amount, duedate';
                 }
             } else {
                 this.id = id;
-                this.createdate = new Date().getTime();
-                this.title = title;
-                this.document = document;
+                this.creationdate = creationdate;
+                this.entity = entity;
+                this.document = id;
+                this.type = type;
+                this.amount = amount;
+                this.duedate = duedate;
             }
-
-            this.createdate = new Date().getTime();
-            this.canceled = false;
-
             ObjectUtils.ro(this, 'id', this.id);
+            ObjectUtils.ro(this, 'creationdate', this.creationdate);
+            ObjectUtils.ro(this, 'title', this.title);
+            ObjectUtils.ro(this, 'document', this.document);
+            ObjectUtils.ro(this, 'amount', this.amount);
+            ObjectUtils.ro(this, 'duedate', this.duedate);
         };
 
         return service;
@@ -57,28 +60,20 @@
          */
         ObjectUtils.ro(this.handlers, 'receivableAddV1', function(event) {
             var localEv = angular.copy(event);
-            
+
             // FIXME - Use a UUID
             localEv.id = receivables.length + 1;
             var receivable = new Receivable(localEv);
 
             receivables.push(receivable);
         });
-        ObjectUtils.ro(this.handlers, 'receivableUpdateV1', function(event) {
+        ObjectUtils.ro(this.handlers, 'receivableCancelV1', function(event) {
             var receivable = ArrayUtils.find(receivables, 'id', event.id);
-            if (receivable ) {
-                Receivable.prototype.isValid.apply(event);
-                for ( var ix in event) {
-                    var metadata = Object.getOwnPropertyDescriptor(receivable, ix);
-                    if (metadata && metadata.writable) {
-                        receivable[ix] = event[ix];
-                    } else if (ix !== 'id' && ix !== 'isValid' ) {
-                        throw 'Trying to update read-only property \'' + ix + '\'';
-                    }
-                }
-            } else {
-                throw 'Unable to find receivable id=' + event.id;
-            }
+            receivable.canceled = event.canceled;
+        });
+        ObjectUtils.ro(this.handlers, 'receivableReceiveV1', function(event) {
+            var receivable = ArrayUtils.find(receivables, 'id', event.id);
+            receivable.received = event.received;
         });
 
         /**
@@ -98,7 +93,6 @@
         var get = function get(id) {
             return angular.copy(ArrayUtils.find(receivables, 'id', id));
         };
-
         /**
          * Adds a receivable to the list
          * 
@@ -112,16 +106,37 @@
             // save the journal entry
             JournalKeeper.compose(entry);
         };
-
         /**
-         * Update a receivable.
-         * 
-         * @param receivable - Receivable to be updated.
+         * Receive a payment to a receivable.
          */
-        var update = function update(receivable) {
+        var reiceive = function reiceive() {
+            var stamp = (new Date()).getTime() / 1000;
+            var receivedEv = {
+                id : id,
+                received : stamp
+            };
+
             var stamp = (new Date()).getTime() / 1000;
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'receivableUpdateV1', currentEventVersion, receivable);
+            var entry = new JournalEntry(null, stamp, 'receivableReceiveV1', currentEventVersion, receivedEv);
+
+            // save the journal entry
+            JournalKeeper.compose(entry);
+        };
+        /**
+         * Cancels a receivable.
+         * 
+         * @param id - Id of the receivable to be canceled.
+         */
+        var cancel = function cancel(id) {
+            var stamp = (new Date()).getTime() / 1000;
+            var cancelEv = {
+                id : id,
+                canceled : stamp
+            };
+
+            // create a new journal entry
+            var entry = new JournalEntry(null, stamp, 'receivableCancelV1', currentEventVersion, cancelEv);
 
             // save the journal entry
             JournalKeeper.compose(entry);
@@ -131,7 +146,8 @@
         this.list = list;
         this.add = add;
         this.get = get;
-        this.update = update;
+        this.reiceive = reiceive;
+        this.cancel = cancel;
 
     });
 }(angular));

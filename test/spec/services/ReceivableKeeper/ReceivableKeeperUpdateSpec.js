@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableKeeperUpdate', function() {
+xdescribe('Service: ReceivableKeeperUpdate', function() {
 
     var ReceivableKeeper = null;
     var JournalEntry = null;
