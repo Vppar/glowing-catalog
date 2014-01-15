@@ -20,7 +20,7 @@ describe('Service: ReceivableKeeperList', function() {
 
     /**
      * <pre>
-     * Givena filled ReceivableKeeper     
+     * Given a filled ReceivableKeeper     
      * When list is triggered
      * Then the target receivable should be returned
      * </pre>
