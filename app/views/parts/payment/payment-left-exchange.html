@@ -10,11 +10,26 @@
 				<form name="exchangeForm">
 					<div class="controls-row">
 						<div class="control-group lbl-top">
-							<!--<label class="control-label control-label-exchange">Selecione um Produto</label>-->
+							<label class="control-label">&nbsp;</label>
 							<select ui-select2 name="product" class="combo-width-product-exchange marginr10 control-label-exchange" ng-model="exchange.productId" ng-click="setAmount(exchange.productId)">								
 								<option value="">Selecione um Produto</option>
 								<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}</option>
-							</select>
+							</select>	
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label text-center marginb0">Qtde.</label>
+							<input-qty ng-model="item.qty" min="0"></input-qty>
+						</div>
+						<div class="control-group lbl-top">
+							<label class="control-label">Valor</label>
+							<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
+						</div>
+						<div class="control-group lbl-top">
+							<div class="controls">
+								<div class="btn-clear-form">
+									<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCheck(check)"></span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</form>

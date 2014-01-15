@@ -302,6 +302,7 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
+	/*min-height:30px;*/
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
@@ -322,6 +323,10 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
     list-style: none;
     display: list-item;
     background-image: none;
+    padding: 5px; /*aumentando area de click do item do select*/
+}
+.select2-no-results li{
+    padding: 5px; /*aumentando area de click do item do select*/
 }
 
 .select2-results li.select2-result-with-children > .select2-result-label {
@@ -345,6 +350,7 @@ Version: 3.4.3 Timestamp: Tue Sep 17 06:47:14 PDT 2013
 .select2-results .select2-highlighted {
     background: #F2F2F2 !important; /*#ecbab9 !important;*/
     color: #333;
+    padding: 5px; /*aumentando area de click do item do select*/
 }
 
 .select2-results li em {
