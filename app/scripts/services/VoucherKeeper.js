@@ -34,17 +34,11 @@
                 this.type = type;
                 this.amount = amount;
             }
-            /* verify if all this fields are really read only! */
+
             ObjectUtils.ro(this, 'id', this.id);
             ObjectUtils.ro(this, 'entity', this.entity);
             ObjectUtils.ro(this, 'type', this.type);
-
-            /*
-             * old code if (arguments.length != svc.length) { throw 'Voucher
-             * must be initialized with an id, entity, type and amount'; }
-             * ObjectUtils.ro(this, 'id', id); this.entity = entity; this.type =
-             * type; this.amount = amount;
-             */
+            ObjectUtils.ro(this, 'amount', this.amount);
         };
 
         return service;

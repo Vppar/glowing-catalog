@@ -2,72 +2,175 @@
 
 describe('Service: VoucherKeeper', function() {
 
-    var jKeeper = {};
 
     // load the service's module
     beforeEach(function() {
-        module('tnt.catalog.voucher');
-        module('tnt.catalog.voucher.keeper');
         module('tnt.catalog.voucher.entity');
-        module('tnt.catalog.journal');
-        module('tnt.catalog.journal.entity');
-        module('tnt.catalog.journal.replayer');
-    });
-
-    beforeEach(function() {
-        jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
-
-        module(function($provide) {
-            $provide.value('JournalKeeper', jKeeper);
-        });
     });
 
     // instantiate service
-    var VoucherKeeper = undefined;
     var Voucher = undefined;
-    var JournalEntry = undefined;
-    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _JournalEntry_) {
-        VoucherKeeper = _VoucherKeeper_;
+    beforeEach(inject(function(_Voucher_) {
         Voucher = _Voucher_;
-        JournalEntry = _JournalEntry_;
     }));
 
-    it('should do something', function() {
-        expect(!!VoucherKeeper).toBe(true);
+    it('should exist', function() {
+        expect(!!Voucher).toBe(true);
     });
 
-    it('should create', function() {
+    it('should not instanciate a voucher without amount', function() {
 
-        var fakeNow = 1386179100000;
-        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        var id = 0;
+        var entity = 1;
+        var type = 'voucher';
+
+        expect(function() {
+            var v = new Voucher(id, entity, type);
+        }).toThrow();
+    });
+
+    it('should not instanciate a voucher with more than the needed params', function() {
+
+        var id = 0;
+        var entity = 1;
+        var type = 'voucher';
+        var amount = 10.5;
+        var redeemed = false;
+
+        expect(function() {
+            var v = new Voucher(id, entity, type, amount, redeemed);
+        }).toThrow();
+    });
+
+    it('should instanciate a voucher', function() {
+
+        var id = 0;
+        var entity = 1;
+        var type = 'voucher';
+        var amount = 10.5;
+
+        expect(function() {
+            var v = new Voucher(id, entity, type, amount);
+        }).not.toThrow();
+    });
+
+    it('should not instanciate a voucher without an id', function() {
 
         var entity = 1;
         var type = 'voucher';
-        var amount = 1;
-        var stp = fakeNow / 1000;
-        var voucherObject = new Voucher(0, entity, type, amount);
-        var ev = new Voucher(0, entity, type, amount);
-        ev.redeemed = false;
-        ev.canceled = false;
-        var entry = new JournalEntry(null, stp, 'voucherCreate', 1, ev);
-        expect(function() {
-            VoucherKeeper.create(voucherObject);
-        }).not.toThrow();
-        expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
-    });
-    
-    it('should not create a voucher with a impostor voucher', function() {
+        var amount = 10.5;
 
-        var voucherFake = {
-                id : 1,
-                entity : 1,
-                type : 'voucher',
-                amount : 10
-        };
-        
         expect(function() {
-            VoucherKeeper.create(voucherFake);
+            var v = new Voucher(id, entity, type, amount);
+        }).toThrow();
+    });
+
+    it('should instanciate a voucher with a generic object without all mandatory attributes', function() {
+
+        var id = 0;
+        var entity = 1;
+        var type = 'voucher';
+        var amount = 10.5;
+
+        var obj = {
+            id : id,
+            entity : entity,
+            type : type,
+            amount : amount
+        };
+
+        expect(function() {
+            var v = new Voucher(obj);
+        }).not.toThrow();
+    });
+
+    it('should instanciate a voucher with a generic object with all mandatory attributes', function() {
+
+        var id = 0;
+        var entity = 1;
+        var type = 'voucher';
+        var amount = 10.5;
+
+        var obj = {
+            id : id,
+            entity : entity,
+            type : type,
+            amount : amount,
+            redeemed : false,
+            canceled : true,
+            remarks : "lalala",
+            document : {
+                type : "pedido",
+                id : 123
+            }
+        };
+
+        expect(function() {
+            var v = new Voucher(obj);
+        }).not.toThrow();
+    });
+
+    it('should not instanciate a voucher with a generic object with all mandatory attributes and more', function() {
+
+        var id = 0;
+        var entity = 1;
+        var type = 'voucher';
+        var amount = 10.5;
+
+        var obj = {
+            id : id,
+            entity : entity,
+            type : type,
+            amount : amount,
+            redeemed : false,
+            canceled : true,
+            remarks : "lalala",
+            document : {
+                type : "pedido",
+                id : 123
+            },
+            extra : 'extra attribute'
+        };
+
+        expect(function() {
+            var v = new Voucher(obj);
+        }).toThrow();
+    });
+
+    it('should not instanciate a voucher with a generic object with some mandatory attributes and more', function() {
+
+        var id = 0;
+        var entity = 1;
+        var type = 'voucher';
+        var amount = 10.5;
+
+        var obj = {
+            id : id,
+            entity : entity,
+            type : type,
+            amount : amount,
+            extra : 'extra attribute'
+        };
+
+        expect(function() {
+            var v = new Voucher(obj);
+        }).toThrow();
+    });
+
+    xit('should not instanciate a voucher with a empty generic object', function() {
+        var obj = {};
+
+        expect(function() {
+            var v = new Voucher(obj);
         }).toThrow();
     });
     
+    xit('should not instanciate a voucher with a non object', function() {
+        var obj = [];
+
+        expect(function() {
+            var v = new Voucher(obj);
+        }).toThrow();
+    });
+
 });
