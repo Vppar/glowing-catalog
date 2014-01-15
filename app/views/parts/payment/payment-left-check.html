@@ -56,7 +56,7 @@
 			<div class="control-group lbl-top">
 				<div class="controls">
 					<div class="btn-clear-form">
-						<input class="btn-plus2 bg-green hover-state-pointer" ng-click="addCheck(check)"/>
+						<span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCheck(check)"/></span>
 					</div>
 				</div>
 			</div>
@@ -105,7 +105,7 @@
 			</div>-->
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
-				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'data.duedate':true" ng-click="edit(payment)">
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'data.installmentId':true" ng-click="edit(payment)">
 					<span class="col-check-s1">
 						<div ng-show="payment.data.installmentId<=9">{{'00'+payment.data.installmentId}}</div>
 						<div ng-show="payment.data.installmentId>9 && payment.data.installmentId<=99" >{{'0'+payment.data.installmentId}}</div>
