@@ -77,6 +77,21 @@ describe('Service: ReceivableKeeperReceive', function() {
         expect(receiveCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
     });
+    
+    it('shouldn\'t cancel a receivable', function() {
+
+        var addEv = new Receivable(validReceivable);
+
+        ReceivableKeeper.handlers['receivableAddV1'](addEv);
+
+        // when
+        var receiveCall = function() {
+            ReceivableKeeper.receive(5, fakeNow);
+        };
+
+        expect(receiveCall).toThrow();
+        expect(jKeeper.compose).not.toHaveBeenCalled();
+    });
 
     it('should handle a cancel event', function() {
         var receivable = new Receivable(validReceivable);
