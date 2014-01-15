@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.payment', []).controller(
-            'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, ArrayUtils, DialogService, PaymentService, OrderService, SMSService) {
+            'PaymentCtrl', function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -10,7 +10,10 @@
                 // Payment variables
                 var payments = {};
                 $scope.payment = {};
-
+                $scope.couponTotal = 0;
+                
+                
+                
                 // Easy the access in the controller to external
                 // resources
                 var order = OrderService.order;
@@ -77,6 +80,14 @@
                 $scope.confirmPayments = function confirmPayments() {
                     payments.length = $scope.payments.length;
                     angular.extend(payments, $scope.payments);
+                    $scope.selectPaymentMethod('none');
+                };
+                
+                
+                $scope.confirmCoupons = function confirmCoupons(total) {
+                    $scope.couponTotal = total;
+                    console.log(total);
+                    //couponService.
                     $scope.selectPaymentMethod('none');
                 };
 
