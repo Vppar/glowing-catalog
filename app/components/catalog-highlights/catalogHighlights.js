@@ -23,13 +23,13 @@
 
                         switch (scope.section) {
                             case 'Promoções':
-                                scope.color = 'soft-green';
+                                scope.color = 'medium-yellow';
                                 break;
                             case 'Edição Limitada':
                                 scope.color = 'dark-yellow-gray';
                                 break;
                             case 'Lançamentos':
-                                scope.color = 'yellow-gray';
+                                scope.color = 'dark-yellow';
                                 break;
                             default:
                                 scope.color = 'black';
