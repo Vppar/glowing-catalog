@@ -1,0 +1,313 @@
+/*FORM INCOME STATEMENT*/
+.form-stock {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	width: 970px;
+	/*position: fixed;
+	top: 90px;
+	bottom: 20px*/
+	display: block;
+	position: relative;
+}
+
+/*.form-stock  {
+	border-radius: 6px;
+	margin: -9px 10px 0 10px;
+	border: 1px solid #e0e0e0;
+	background: #fff;
+	padding: 10px 15px 0 15px;
+	position: fixed;
+	width: 970px;
+	top: 90px;
+	bottom: 20px
+}*/
+
+.form-stock .data{
+	/*margin: 15px 0 15px 0;*/
+}
+
+.col-details-stock-item {
+	display: inline-block;
+	margin: 0 0 10px 10px;
+	width: 925px; /*830px*/
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+}
+.details-stock-item{
+	/*padding: 8px 5px 8px 12px;*/
+	display: block;
+	min-height:20px;
+}
+.details-stock-item .title, .grid-payment-stock-edit .title{
+	display: block;			
+	margin: 5px 0 5px 4px;
+	font-weight:bold;
+	height:22px;
+	line-height:22px
+}
+.details-stock-item .item{
+	display: inline-block;		
+	margin: 5px 0 5px 0;
+	width:  100%; /*290px;*/
+}
+
+.scroll-stock {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	/*position: fixed;
+	top: 225px;
+	bottom: 45px;*/
+	width: 970px;
+	
+	position: relative;
+	max-height:370px;
+	top: 0px;
+	bottom: 45px;	
+}
+
+/*.scroll-stock {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	/*height: 400px;/
+	display: block;
+	position: relative;
+	margin-bottom: 20px;
+	border: 1px solid #e0e0e0;
+}
+
+.scroll-stock{
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: fixed;
+	width: 970px;
+	bottom: 45px;
+	display: block;
+	position: relative;
+	top: 2px;
+}*/
+
+.btn-plus-pink {
+	position: relative;
+	top: 25px
+}
+
+/*.btn:hover {
+	background: #e2a9a8 !important;
+}*/
+.form-stock .combo-width {
+	width: 250px;
+}
+.row-stock  .btn {
+	background: #ecbab9;
+	text-shadow: none;
+	border: none;
+	height: 30px
+}
+.total-value-stock {
+	float: right;
+	text-align: right;
+}
+
+.details-stock{
+	/*border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	margin: auto;*/
+	/*margin-top: 30px;
+	margin-bottom: 20px;*/
+	background-color: #FFF;
+}
+.details-stock-title{	
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	min-height: 20px;
+	padding: 8px 5px 8px 12px;
+	margin: auto;
+	margin-top:30px;
+	/*margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	padding: 15px;
+	font-size: 16px;
+	color: #e5b1b0;
+	font-weight: bold;
+	min-height: 20px;*/
+}
+.details-stock-total{	
+	border-radius: 4px;
+	background: #7f7f7f;
+	color: #000;
+	min-height: 20px;
+	padding: 8px 5px 8px 12px;
+	margin: auto;
+	margin-top:30px;
+	font-weight: bold;
+	/*margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	padding: 15px;
+	font-size: 16px;
+	color: #e5b1b0;
+	min-height: 20px;*/
+}
+.details-stock-subtitle{	
+	border-radius: 4px;
+	background: #F2F2F2;
+	color: #333;
+	min-height: 20px;
+	padding: 8px 5px 8px 12px;
+	/*margin: 5px 0 5px 0;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+	padding: 15px;
+	font-size: 16px;
+	color: #e5b1b0;
+	font-weight: bold;
+	min-height: 20px;*/
+}
+.margint0{
+	margin-top: 0 !important;
+}
+.details-stock-item-total{
+	/*color:#ff2839;*/
+	font-size: 16px;
+	font-weight: bolder;
+	/*padding: 15px 0 15px 0;*/
+	display: block;
+}
+
+.title-col-1{
+	text-align: center;
+	padding-right: 8px;
+	display:inline-block;
+	width: 10%;
+}
+.title-col-2{
+	text-align: left;
+	padding-right: 8px;
+	display:inline-block;
+	width: 50%;
+}
+.title-col-3{
+	text-align: center;
+	padding-right: 8px;
+	display:inline-block;
+	width: 10%;
+}
+.title-col-4{
+	text-align: right;
+	padding-right: 8px;
+	display:inline-block;
+	width: 10%;
+}
+.title-col-5{
+	text-align: right;
+	padding-right: 8px;
+	display:inline-block;
+	width: 10%;
+}
+
+.scroll-stock .title-col-1{
+	padding-right: 4px;
+}
+
+.scroll-stock .title-col-2{
+	padding-right: 15px;
+}
+
+.scroll-stock .title-col-3{
+	padding-right: 10px;
+}
+
+.scroll-stock .title-col-4{
+	padding-right: 10px;
+}
+
+.scroll-stock .title-col-5{
+	padding-right: 0px;
+}
+
+.details-stock-category{
+	padding: 5px;
+	display: block;
+	min-height:20px;
+	font-weight:bold;
+	padding: 8px 5px 8px 12px;
+}
+
+.details-stock-item{
+	padding: 5px;
+	display: block;
+	min-height:20px;
+	font-weight:normal;
+	padding: 8px 5px 8px 12px;
+}
+	.details-stock-item .title-col-1{
+		text-align: right;
+	}
+
+.form-stock .border{
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	display:block;
+	font-weight:bold;
+	margin:5px;
+}
+
+
+.details-stock-item .bold{
+	font-weight:bold;
+}
+
+.row-details-stock-item .item-total{
+	display: inline-block;	
+	width:  100%; /*290px;*/
+}
+.row-details-stock-item .item-total .type{
+	padding-left: 15px;
+	text-align: left;
+	display: inline-block;
+	width: 50%;
+	color:#333;
+	background-color:#F2F2F2;	
+	padding: 3px 0 3px 3px;	
+	margin: 2px 0 2px 2px;
+	border-radius: 4px;
+}
+
+.row-details-stock-item .item-total .date{
+	text-align: center;
+	display: inline-block;
+	width: 16%;
+}
+
+.row-details-stock-item .item-total .title1{font-weight:bold; background:none;}
+
+.row-details-stock-item .item-total .title2{color: rgba(0, 0, 0, 0.5); background:none;}
+
+
+/*.details-stock-item .border .lbl-money , .details-stock-item .lbl-money {
+	display:inline-block;
+	width: 62%;
+	margin: 5px;
+}
+
+.details-stock-item .border .lbl-money3, .details-stock-item .lbl-money3 {
+	display:inline-block;
+	width: 20%;
+	margin: 5px 15px 5px 15px;
+	text-align: right;
+}*/
+
+.details-stock-item .border .btn-price-payment , .details-stock-item .btn-price-payment,
+.details-stock-category .btn-price-payment  {
+	width: 10%;
+	text-align: right;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	display:inline-block;
+}
