@@ -3,38 +3,44 @@
 
     angular.module('tnt.catalog.payment.coupon', [
         'tnt.catalog.filter.findBy'
-    ]).controller('PaymentCouponCtrl', function($scope, $element, $filter, $log, PaymentService) {
+    ]).controller('PaymentCouponCtrl', function($scope) {
 
         // #####################################################################################################
         // Warm up the controller
         // #####################################################################################################
 
-        var couponValueTemplate = {
-            amount : null,
-            qty : 0,
-            total : null
-        };
-
-        var five = {};
-        var ten = {};
-        var twenty = {};
-        var thirty = {};
-
-        angular.extend(five, couponValueTemplate);
-        angular.extend(ten, couponValueTemplate);
-        angular.extend(twenty, couponValueTemplate);
-        angular.extend(thirty, couponValueTemplate);
-
-        $scope.five = five;
-        five.amount = 5;
-        $scope.ten = ten;
-        ten.amount = 10;
-        $scope.twenty = twenty;
-        twenty.amount = 20;
-        $scope.thirty = thirty;
-        thirty.amount = 30;
-           
+        $scope.total = 0;
         
-        //TODO integrate with copun service.
+        $scope.list = [
+            {
+                qty : 0,
+                amount : 5
+            }, {
+                qty : 0,
+                amount : 10
+            }, {
+                qty : 0,
+                amount : 20
+            }, {
+                qty : 0,
+                amount : 30
+            },
+        ];
+
+        function updateTotal() {
+            $scope.total = 0;
+
+            for ( var ix in $scope.list) {
+                
+                $scope.list[ix].total = $scope.list[ix].qty * $scope.list[ix].amount;
+                $scope.total += $scope.list[ix].total;
+            }
+        }
+
+        for ( var ix in $scope.list) {
+            $scope.$watch('list[' + ix + '].qty', updateTotal);
+        }
+
+        // TODO integrate with coupon service.
     });
 }(angular));
