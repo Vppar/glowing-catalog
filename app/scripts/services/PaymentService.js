@@ -19,25 +19,23 @@
 
     entities.factory('CheckPayment', function CheckPayment(Payment) {
 
-        var service = function svc(installment, bank, agency, account, check, expiration, amount) {
+        var service = function svc(amount, bank, agency, account, check, expiration) {
 
             if (arguments.length != svc.length) {
                 throw 'CheckPayment must be initialized with all params';
             }
             
-            svc.installment = installment
-            svc.bank = bank;
-            svc.agency = agency;
-            svc.account = account;
-            svc.check = check;
-            svc.expiration = expiration;
+            this.bank = bank;
+            this.agency = agency;
+            this.account = account;
+            this.check = check;
+            this.expiration = expiration;
 
             ObjectUtils.superInvoke(this, amount);
             
-            ObjectUtils.ro(this, 'installment', this.installment);
         };
         
-        ObjectUtils.inherits(svc, Payment);
+        ObjectUtils.inherit(service, Payment);
 
         return service;
     });
