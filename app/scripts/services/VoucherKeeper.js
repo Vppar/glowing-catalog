@@ -3,6 +3,7 @@
 
     angular.module('tnt.catalog.voucher.entity', []).factory('Voucher', function Voucher() {
 
+        //BE AWARE! For giftcards,  the entity here is the person that will use it (not the buyer)!
         var service = function svc(id, entity, type, amount) {
 
             var validProperties = [
