@@ -21,13 +21,13 @@
 
                 input.keypress = function(key) {
 
-                    var current = ctrl.$viewValue;
+                    var current = element.val();
 
                     if (key === 'backspace') {
-                        if (scope.value === '') {
+                        if (current === '') {
                             KeyboardService.prev();
                         } else {
-                            current = current.substring(0, (current.length - 1));
+                            current = String(current).substring(0, (current.length - 1));
                         }
                     } else if (key === 'clear') {
                         current = '';
