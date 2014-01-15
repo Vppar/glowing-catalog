@@ -22,12 +22,23 @@
             });
 
             if (arguments.length != svc.length) {
-                throw 'Voucher must be initialized with an id, entity, type and amount';
+                if (arguments.length === 1 && angular.isObject(arguments[0])) {
+                    svc.prototype.isValid.apply(arguments[0]);
+                    ObjectUtils.dataCopy(this, arguments[0]);
+                } else {
+                    throw 'Voucher must be initialized with id, entity, type and amount';
+                }
+            } else {
+                this.id = id;
+                this.entity = entity;
+                this.type = type;
+                this.amount = amount;
             }
-            ObjectUtils.ro(this, 'id', id);
-            this.entity = entity;
-            this.type = type;
-            this.amount = amount;
+
+            ObjectUtils.ro(this, 'id', this.id);
+            ObjectUtils.ro(this, 'entity', this.entity);
+            ObjectUtils.ro(this, 'type', this.type);
+            ObjectUtils.ro(this, 'amount', this.amount);
         };
 
         return service;
