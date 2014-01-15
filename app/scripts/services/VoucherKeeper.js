@@ -24,7 +24,7 @@
             if (arguments.length != svc.length) {
                 throw 'Voucher must be initialized with an id, entity, type and amount';
             }
-            ObjectUtils.ro(this, 'id', id);
+            ObjectUtils.ro(this, 'id', this.id);
             this.entity = entity;
             this.type = type;
             this.amount = amount;

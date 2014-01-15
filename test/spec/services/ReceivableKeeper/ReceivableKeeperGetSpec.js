@@ -24,7 +24,7 @@ describe('Service: ReceivableKeeperGet', function() {
 
     /**
      * <pre>
-     * Givenaexisting receivable id     
+     * Given a existing receivable id     
      * When an get is triggered
      * Then the target receivable should be returned
      * </pre>
@@ -62,7 +62,7 @@ describe('Service: ReceivableKeeperGet', function() {
 
     /**
      * <pre>
-     * Givenamissing receivable id     
+     * Given a missing receivable id     
      * When an get is triggered
      * Then undefined should be returned
      * </pre>

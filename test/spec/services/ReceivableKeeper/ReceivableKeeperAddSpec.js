@@ -33,7 +33,7 @@ describe('Service: ReceivableKeeperAdd', function() {
 
     /**
      * <pre>
-     * Givena receivable description 
+     * Given a receivable description 
      * and a document
      * and a receivable type
      * and a installment id
@@ -102,6 +102,7 @@ describe('Service: ReceivableKeeperAdd', function() {
         var receivables = ReceivableKeeper.list();
 
         // then
+        expect(receivable[0]).not.toBe(receivable);
         expect(receivables[0].title).toEqual(receivable.title);
         expect(receivables[0].document).toEqual(receivable.document);
         expect(receivables[0].id).toEqual(1);

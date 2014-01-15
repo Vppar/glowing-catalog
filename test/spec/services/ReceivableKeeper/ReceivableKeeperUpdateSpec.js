@@ -1,11 +1,11 @@
 'use strict';
 
-xdescribe('Service: ReceivableKeeperUpdate', function() {
+describe('Service: ReceivableKeeperUpdate', function() {
 
-    var Receivable = null;
     var ReceivableKeeper = null;
     var JournalEntry = null;
     var fakeNow = null;
+    var jKeeper = {};
 
     // load the service's module
     beforeEach(function() {
@@ -17,11 +17,16 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
 
         fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
+        jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
+
+        module(function($provide) {
+            $provide.value('JournalKeeper', jKeeper);
+        });
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_, _JournalEntry_) {
-        Receivable = _Receivable_;
+    beforeEach(inject(function(_ReceivableKeeper_, _JournalEntry_) {
         ReceivableKeeper = _ReceivableKeeper_;
         JournalEntry = _JournalEntry_;
     }));
@@ -40,7 +45,7 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
      */
     it('should update a receivable', function() {
 
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231'
@@ -50,8 +55,16 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
         var duedate = 1391083200000;
         var amount = 1234.56;
 
-        var receivable = new Receivable(description, document);
-        receivable.createdate = fakeNow;
+        var receivable = {
+            title : title,
+            document : document,
+            type : type,
+            installmentId : installmentId,
+            duedate : duedate,
+            amount : amount,
+            canceled : true
+        };
+
         receivable.type = type;
         receivable.installmentId = installmentId;
         receivable.duedate = duedate;
@@ -75,55 +88,34 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
      */
     it('should handle an update receivable event', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231'
         };
-
-        var receivable = new Receivable(description, document);
-
-        ReceivableKeeper.handlers['receivableAddV1'](receivable);
-        receivable.canceled = true;
-
-        // when
-        ReceivableKeeper.handlers['receivableUpdateV1'](receivable);
-
-        var receivables = ReceivableKeeper.list();
-
-        // then
-        expect(receivables[0]).toEqual(receivable);
-    });
-    
-    /**
-     * <pre>
-     * Given a receivable
-     * When receivableUpdateV1 handler is triggered
-     * Then the receivable should be updated
-     * </pre>
-     */
-    it('should handle an update receivable event', function() {
-        // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
+        var receivable = {
+            title : title,
+            document : document,
         };
 
-        var receivable = new Receivable(description, document);
-
         ReceivableKeeper.handlers['receivableAddV1'](receivable);
+        var receivables = ReceivableKeeper.list();
+        receivable = receivables[0];
         receivable.canceled = true;
-
+        
         // when
         ReceivableKeeper.handlers['receivableUpdateV1'](receivable);
-
-        var receivables = ReceivableKeeper.list();
+        
+        receivables = ReceivableKeeper.list();
 
         // then
-        expect(receivables[0]).toEqual(receivable);
+        expect(receivables[0].title).toEqual(receivable.title);
+        expect(receivables[0].document).toEqual(receivable.document);
+        expect(receivables[0].id).toEqual(1);
+        expect(receivables[0].createdate).toEqual(fakeNow);
+        expect(receivables[0].canceled).toBe(true);
     });
-    
+
     /**
      * <pre>
      * Given a missing receivable
@@ -131,22 +123,24 @@ xdescribe('Service: ReceivableKeeperUpdate', function() {
      * Then a exception must be thrown
      * </pre>
      */
-    it('should handle an update receivable event', function() {
+    it('shouldn\'t handle an update receivable event', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231'
         };
+        var receivable = {
+            title : title,
+            document : document,
+        };
 
-        var myReceivable = new Receivable(description, document);
-        var yourReceivable = new Receivable(description, document);
-
-        ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
+        ReceivableKeeper.handlers['receivableAddV1'](receivable);
+        receivable.canceled = true;
 
         // when
         var update = function updateClousure() {
-            ReceivableKeeper.handlers['receivableUpdateV1'](yourReceivable);
+            ReceivableKeeper.handlers['receivableUpdateV1'](receivable);
         };
 
         // then
