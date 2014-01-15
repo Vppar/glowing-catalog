@@ -5,17 +5,17 @@
             'tnt.catalog.productReturn.service',
             [
                 'tnt.catalog.productReturn.entity', 'tnt.catalog.productReturn.keeper', 'tnt.catalog.entity.service',
-                'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.stock.keeper'
+                'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.stock.keeper', 'tnt.catalog.stock.entity'
             ]).service(
             'ProductReturnService',
             function ProductReturnService(ProductReturn, ProductReturnKeeper, EntityService, VoucherService, InventoryKeeper, ArrayUtils,
-                    StockKeeper) {
+                    StockKeeper, Stock) {
 
-                this.add = function(inventoryId, quantity, price, entityId) {
+                this.returnProduct = function(inventoryId, quantity, price, entityId, remarks, document) {
 
                     // is it a valid entity?
                     var entity = EntityService.find(entityId);
-                    if (entity === undefined) {
+                    if (entity === null) {
                         throw 'invalid entity.';
                     }
 
@@ -37,7 +37,7 @@
                     }
 
                     // <- create ProductReturn
-                    var productReturn = new ProductReturn(null, productId, quantity, price);
+                    var productReturn = new ProductReturn(null, inventoryId, quantity, price);
                     ProductReturnKeeper.add(productReturn);
 
                     // <- top up Stock(use the current cost)
@@ -50,7 +50,6 @@
                      * TODO - link the voucher to the return operation.
                      */
                     var amount = price * quantity;
-                    var remarks = {};
                     VoucherService.create(entity, amount, remarks, document);
 
                 };
