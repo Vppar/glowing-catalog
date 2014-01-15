@@ -11,22 +11,75 @@
 
     angular.module('tnt.catalog.directive.numpad', [
         'tnt.catalog.keyboard.service'
-    ]).directive('numPad', function(KeyboardService) {
+    ]).directive('numPad', function(KeyboardService, $document) {
         return {
             restrict : 'E',
-            scope : {
-            },
+            scope : {},
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
 
                 var keyboard = {
-                    setActive : function(active){
+                    setActive : function(active) {
                         scope.isActive = active;
                     }
                 };
 
                 KeyboardService.setKeyboard(keyboard);
                 scope.keypress = KeyboardService.keypress;
+
+                $document.bind('keydown', function(evt) {
+                    if (scope.isActive) {
+                        switch (evt.keyCode) {
+                        case 8:
+                            scope.$apply('keypress(\'backspace\')');
+                            break;
+                        case 13:
+                            scope.$apply('keypress(\'ok\')');
+                            break;
+                        case 48:
+                        case 96:
+                            scope.$apply('keypress(\'0\')');
+                            break;
+                        case 49:
+                        case 97:
+                            scope.$apply('keypress(\'1\')');
+                            break;
+                        case 50:
+                        case 98:
+                            scope.$apply('keypress(\'2\')');
+                            break;
+                        case 51:
+                        case 99:
+                            scope.$apply('keypress(\'3\')');
+                            break;
+                        case 52:
+                        case 100:
+                            scope.$apply('keypress(\'4\')');
+                            break;
+                        case 53:
+                        case 101:
+                            scope.$apply('keypress(\'5\')');
+                            break;
+                        case 54:
+                        case 102:
+                            scope.$apply('keypress(\'6\')');
+                            break;
+                        case 55:
+                        case 103:
+                            scope.$apply('keypress(\'7\')');
+                            break;
+                        case 56:
+                        case 104:
+                            scope.$apply('keypress(\'8\')');
+                            break;
+                        case 57:
+                        case 105:
+                            scope.$apply('keypress(\'9\')');
+                            break;
+                        }
+                        evt.preventDefault();
+                    }
+                });
 
                 element.find("img[alt='0']").bind('tap', function() {
                     scope.$apply('keypress(\'0\')');
@@ -70,36 +123,6 @@
                 element.find("img[alt='ok']").bind('tap', function() {
                     scope.$apply('keypress(\'ok\')');
                 });
-
-                scope.pushMoneyDigit = function pushMoneyDigit(digit) {
-                    digit = digit + '';
-                    scope.amount += digit;
-                    scope.amount = shiftPoint(scope.amount);
-                };
-                scope.removeMoneyDigit = function removeMoneyDigit() {
-                    scope.amount = scope.amount.slice(0, -1);
-                    if (scope.amount.length > 0) {
-                        scope.amount = shiftPoint(scope.amount);
-                    } else {
-                        scope.amount = '0';
-                    }
-                };
-                scope.clearMoney = function clearMoney() {
-                    scope.amount = '0';
-                };
-
-                //copied to tnt-input
-                function shiftPoint(value) {
-                    value = value.replace('.', '');
-                    if (value.length == 1) {
-                        value = '0.0' + value;
-                    } else if (value.length == 2) {
-                        value = '0.' + value;
-                    } else {
-                        value = value.substring(0, value.length - 2) + '.' + value.substring(value.length - 2);
-                    }
-                    return value;
-                }
             }
         };
     });
