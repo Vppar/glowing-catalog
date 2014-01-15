@@ -1,6 +1,5 @@
 'use strict';
-
-xdescribe('Service: ReceivableKeeperGet', function() {
+describe('Service: ReceivableKeeperGet', function() {
 
     var ReceivableKeeper = null;
     var fakeNow = null;
@@ -31,17 +30,16 @@ xdescribe('Service: ReceivableKeeperGet', function() {
      */
     it('should return a receivable', function() {
         // given
-        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
+        var myReceivable = {
+            id : 1,
+            stub : 'i\'m a stub 1'
         };
-        var receivable = {
-            title : title,
-            document : document,
+        var yourReceivable = {
+            id : 2,
+            stub : 'i\'m a stub 2'
         };
-        ReceivableKeeper.handlers['receivableAddV1'](receivable);
-        ReceivableKeeper.handlers['receivableAddV1'](receivable);
+        ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
+        ReceivableKeeper.handlers['receivableAddV1'](yourReceivable);
         var receivables = ReceivableKeeper.list();
 
         // when
@@ -49,15 +47,11 @@ xdescribe('Service: ReceivableKeeperGet', function() {
         var yourResult = ReceivableKeeper.get(receivables[1].id);
 
         // then
-        expect(receivables[0].title).toEqual(myResult.title);
-        expect(receivables[0].document).toEqual(myResult.document);
-        expect(receivables[0].id).toEqual(1);
-        expect(receivables[0].createdate).toEqual(fakeNow);
+        expect(myReceivable).not.toBe(myResult);
+        expect(yourReceivable).not.toBe(yourResult);
+        expect(myReceivable.stub).toBe(myReceivable.stub);
+        expect(yourReceivable.stub).toBe(yourResult.stub);
 
-        expect(receivables[1].title).toEqual(yourResult.title);
-        expect(receivables[1].document).toEqual(yourResult.document);
-        expect(receivables[1].id).toEqual(2);
-        expect(receivables[1].createdate).toEqual(fakeNow);
     });
 
     /**
@@ -69,16 +63,10 @@ xdescribe('Service: ReceivableKeeperGet', function() {
      */
     it('shouldn\'t return a receivable', function() {
         // given
-        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
+        var myReceivable = {
+            stub : 'i\'m a stub 1'
         };
-        var receivable = {
-            title : title,
-            document : document,
-        };
-        ReceivableKeeper.handlers['receivableAddV1'](receivable);
+        ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
 
         // when
         var myResult = ReceivableKeeper.get(123);

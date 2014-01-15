@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Service: ReceivableKeeperList', function() {
+describe('Service: ReceivableKeeperList', function() {
 
     var ReceivableKeeper = null;
 
@@ -27,17 +27,17 @@ xdescribe('Service: ReceivableKeeperList', function() {
      */
     it('should return a list of receivable', function() {
         // given
-        var title = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var entity = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var document = {
             label : 'Document label',
             number : '231231231-231',
         };
         var myReceivableEv = {
-            title : title,
+            entity : entity,
             document : document
         };
         var yourReceivableEv = {
-            title : title,
+            entity : entity,
             document : document
         };
 
@@ -48,9 +48,9 @@ xdescribe('Service: ReceivableKeeperList', function() {
         var receivables = ReceivableKeeper.list();
 
         // then
-        expect(myReceivableEv.title).toEqual(receivables[0].title);
+        expect(myReceivableEv.entity).toEqual(receivables[0].entity);
         expect(myReceivableEv.document).toEqual(receivables[0].document);
-        expect(yourReceivableEv.title).toEqual(receivables[1].title);
+        expect(yourReceivableEv.entity).toEqual(receivables[1].entity);
         expect(yourReceivableEv.document).toEqual(receivables[1].document);
     });
 

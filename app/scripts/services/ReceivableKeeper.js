@@ -63,11 +63,20 @@
         });
         ObjectUtils.ro(this.handlers, 'receivableCancelV1', function(event) {
             var receivable = ArrayUtils.find(receivables, 'id', event.id);
-            receivable.canceled = event.canceled;
+
+            if (receivable) {
+                receivable.canceled = event.canceled;
+            } else {
+                throw 'Unable to find a receivable with id=\'' + event.id + '\'';
+            }
         });
         ObjectUtils.ro(this.handlers, 'receivableReceiveV1', function(event) {
             var receivable = ArrayUtils.find(receivables, 'id', event.id);
-            receivable.received = event.received;
+            if (receivable) {
+                receivable.received = event.received;
+            } else {
+                throw 'Unable to find a receivable with id=\'' + event.id + '\'';
+            }
         });
 
         /**
@@ -93,9 +102,9 @@
          * @param receivable - Receivable to be added.
          */
         var add = function add(receivable) {
+            // FIXME - use UUID
+            receivable.id = receivables.length + 1;
             var addEv = new Receivable(receivable);
-           
-            addEv.isValid();
 
             var stamp = (new Date()).getTime() / 1000;
             // create a new journal entry
@@ -107,7 +116,11 @@
         /**
          * Receive a payment to a receivable.
          */
-        var reiceive = function reiceive(received) {
+        var receive = function receive(id, received) {
+            var receivable = ArrayUtils.find(receivables, 'id', id);
+            if (!receivable) {
+                throw 'Unable to find a receivable with id=\'' + id + '\'';
+            }
             var receivedEv = {
                 id : id,
                 received : received
@@ -126,10 +139,16 @@
          * @param id - Id of the receivable to be canceled.
          */
         var cancel = function cancel(id) {
-            var stamp = (new Date()).getTime() / 1000;
+
+            var receivable = ArrayUtils.find(receivables, 'id', id);
+            if (!receivable) {
+                throw 'Unable to find a receivable with id=\'' + id + '\'';
+            }
+            var time = (new Date()).getTime();
+            var stamp = time / 1000;
             var cancelEv = {
                 id : id,
-                canceled : stamp
+                canceled : time
             };
 
             // create a new journal entry
@@ -143,7 +162,7 @@
         this.list = list;
         this.add = add;
         this.get = get;
-        this.reiceive = reiceive;
+        this.receive = receive;
         this.cancel = cancel;
 
     });

@@ -6,6 +6,7 @@ describe('Service: ReceivableKeeperAdd', function() {
     var Receivable = null;
     var JournalEntry = null;
     var fakeNow = null;
+    var monthTime = 2592000;
     var validReceivable = null;
     var jKeeper = {};
 
@@ -28,10 +29,12 @@ describe('Service: ReceivableKeeperAdd', function() {
             number : '231231231-231'
         };
         var type = 'my type';
-        var duedate = 1391083200000;
+        var creationdate = fakeNow;
+        var duedate = fakeNow + monthTime;
         var amount = 1234.56;
 
         validReceivable = {
+            creationdate : creationdate,
             entity : entity,
             document : document,
             type : type,
@@ -54,6 +57,7 @@ describe('Service: ReceivableKeeperAdd', function() {
     it('should add a receivable', function() {
         // given
         var receivable = validReceivable;
+        receivable.id = 1;
         var addEv = new Receivable(receivable);
 
         var tstamp = fakeNow / 1000;
@@ -68,11 +72,11 @@ describe('Service: ReceivableKeeperAdd', function() {
         expect(addCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
-    
+
     it('shouldn\'t add a receivable', function() {
         // given
         var receivable = validReceivable;
-        delete receivable.creationdate;
+        receivable.newProperty = 'myInvalidProperty';
 
         // when
         var addCall = function() {
