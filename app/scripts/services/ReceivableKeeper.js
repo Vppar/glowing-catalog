@@ -25,7 +25,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Receivable must be initialized with id, creationdate, entity, document, type, amount, duedate';
+                    throw 'Receivable must be initialized with id, creationdate, entity, type, amount, duedate';
                 }
             } else {
                 this.id = id;
@@ -38,8 +38,8 @@
             }
             ObjectUtils.ro(this, 'id', this.id);
             ObjectUtils.ro(this, 'creationdate', this.creationdate);
-            ObjectUtils.ro(this, 'title', this.title);
-            ObjectUtils.ro(this, 'document', this.document);
+            ObjectUtils.ro(this, 'entity', this.entity);
+            ObjectUtils.ro(this, 'type', this.type);
             ObjectUtils.ro(this, 'amount', this.amount);
             ObjectUtils.ro(this, 'duedate', this.duedate);
         };
@@ -59,13 +59,7 @@
          * Registering handlers
          */
         ObjectUtils.ro(this.handlers, 'receivableAddV1', function(event) {
-            var localEv = angular.copy(event);
-
-            // FIXME - Use a UUID
-            localEv.id = receivables.length + 1;
-            var receivable = new Receivable(localEv);
-
-            receivables.push(receivable);
+            receivables.push(angular.copy(event));
         });
         ObjectUtils.ro(this.handlers, 'receivableCancelV1', function(event) {
             var receivable = ArrayUtils.find(receivables, 'id', event.id);
@@ -99,9 +93,13 @@
          * @param receivable - Receivable to be added.
          */
         var add = function add(receivable) {
+            var addEv = new Receivable(receivable);
+           
+            addEv.isValid();
+
             var stamp = (new Date()).getTime() / 1000;
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'receivableAddV1', currentEventVersion, receivable);
+            var entry = new JournalEntry(null, stamp, 'receivableAddV1', currentEventVersion, addEv);
 
             // save the journal entry
             JournalKeeper.compose(entry);
@@ -109,11 +107,10 @@
         /**
          * Receive a payment to a receivable.
          */
-        var reiceive = function reiceive() {
-            var stamp = (new Date()).getTime() / 1000;
+        var reiceive = function reiceive(received) {
             var receivedEv = {
                 id : id,
-                received : stamp
+                received : received
             };
 
             var stamp = (new Date()).getTime() / 1000;
