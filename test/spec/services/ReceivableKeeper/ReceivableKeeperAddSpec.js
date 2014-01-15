@@ -23,11 +23,8 @@ describe('Service: ReceivableKeeperAdd', function() {
 
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
 
-        var entity = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
-        };
+        var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var documentId = 2;
         var type = 'my type';
         var creationdate = fakeNow;
         var duedate = fakeNow + monthTime;
@@ -35,8 +32,8 @@ describe('Service: ReceivableKeeperAdd', function() {
 
         validReceivable = {
             creationdate : creationdate,
-            entity : entity,
-            document : document,
+            entityId : entityId,
+            documentId : documentId,
             type : type,
             duedate : duedate,
             amount : amount

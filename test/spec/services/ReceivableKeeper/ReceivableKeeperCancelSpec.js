@@ -20,11 +20,8 @@ describe('Service: ReceivableKeeperCancel', function() {
 
         fakeNow = 1386179100000;
 
-        var entity = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
-        };
+        var entityId = 1;
+        var documentId = 2;
         var type = 'my type';
         var creationdate = fakeNow;
         var duedate = fakeNow + monthTime;
@@ -33,8 +30,8 @@ describe('Service: ReceivableKeeperCancel', function() {
         validReceivable = {
             id : 1,
             creationdate : creationdate,
-            entity : entity,
-            document : document,
+            entityId : entityId,
+            documentId : documentId,
             type : type,
             duedate : duedate,
             amount : amount
@@ -77,7 +74,7 @@ describe('Service: ReceivableKeeperCancel', function() {
         expect(receiveCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
     });
-    
+
     it('shouldn\'t cancel a receivable', function() {
 
         var addEv = new Receivable(validReceivable);

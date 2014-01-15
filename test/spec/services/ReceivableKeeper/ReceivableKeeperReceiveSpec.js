@@ -20,11 +20,6 @@ describe('Service: ReceivableKeeperReceive', function() {
 
         fakeNow = 1386179100000;
 
-        var entity = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
-        };
         var type = 'my type';
         var creationdate = fakeNow;
         var duedate = fakeNow + monthTime;
@@ -33,8 +28,8 @@ describe('Service: ReceivableKeeperReceive', function() {
         validReceivable = {
             id : 1,
             creationdate : creationdate,
-            entity : entity,
-            document : document,
+            entityId : 1,
+            documentId : 2,
             type : type,
             duedate : duedate,
             amount : amount
@@ -56,7 +51,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         JournalEntry = _JournalEntry_;
     }));
 
-    it('should cancel a receivable', function() {
+    it('should receive a payment to a receivable', function() {
 
         var addEv = new Receivable(validReceivable);
         var recEv = {
@@ -78,7 +73,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
     });
     
-    it('shouldn\'t cancel a receivable', function() {
+    it('shouldn\'t receive a payment to a receivable', function() {
 
         var addEv = new Receivable(validReceivable);
 
@@ -93,7 +88,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
-    it('should handle a cancel event', function() {
+    it('should handle a receive payment event', function() {
         var receivable = new Receivable(validReceivable);
         var recEv = {
             id : 1,
@@ -110,7 +105,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         expect(result.received).toBe(fakeNow);
     });
 
-    it('shouldn\'t handle a cancel event', function() {
+    it('shouldn\'t handle a receive payment event', function() {
 
         var receivable = new Receivable(validReceivable);
         var recEv = {

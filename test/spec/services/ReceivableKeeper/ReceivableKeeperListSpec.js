@@ -27,18 +27,13 @@ describe('Service: ReceivableKeeperList', function() {
      */
     it('should return a list of receivable', function() {
         // given
-        var entity = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231',
-        };
         var myReceivableEv = {
-            entity : entity,
-            document : document
+            entityId : 1,
+            documentId : 2
         };
         var yourReceivableEv = {
-            entity : entity,
-            document : document
+            entityId : 2,
+            documentId : 1
         };
 
         ReceivableKeeper.handlers['receivableAddV1'](myReceivableEv);
@@ -48,15 +43,15 @@ describe('Service: ReceivableKeeperList', function() {
         var receivables = ReceivableKeeper.list();
 
         // then
-        expect(myReceivableEv.entity).toEqual(receivables[0].entity);
-        expect(myReceivableEv.document).toEqual(receivables[0].document);
-        expect(yourReceivableEv.entity).toEqual(receivables[1].entity);
-        expect(yourReceivableEv.document).toEqual(receivables[1].document);
+        expect(myReceivableEv.entityId).toEqual(receivables[0].entityId);
+        expect(myReceivableEv.documentId).toEqual(receivables[0].documentId);
+        expect(yourReceivableEv.entityId).toEqual(receivables[1].entityId);
+        expect(yourReceivableEv.documentId).toEqual(receivables[1].documentId);
     });
 
     /**
      * <pre>
-     * Given an empty ReceivableKeeper    
+     * Givenan empty ReceivableKeeper    
      * When an get is triggered
      * Then an empty array must be returned
      * </pre>

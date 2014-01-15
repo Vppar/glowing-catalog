@@ -32,11 +32,11 @@ describe('Service: ReceivableKeeperGet', function() {
         // given
         var myReceivable = {
             id : 1,
-            stub : 'i\'m a stub 1'
+            entityId : 2
         };
         var yourReceivable = {
             id : 2,
-            stub : 'i\'m a stub 2'
+            entityId : 1
         };
         ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
         ReceivableKeeper.handlers['receivableAddV1'](yourReceivable);
@@ -49,8 +49,8 @@ describe('Service: ReceivableKeeperGet', function() {
         // then
         expect(myReceivable).not.toBe(myResult);
         expect(yourReceivable).not.toBe(yourResult);
-        expect(myReceivable.stub).toBe(myReceivable.stub);
-        expect(yourReceivable.stub).toBe(yourResult.stub);
+        expect(myReceivable.entityId).toBe(myReceivable.entityId);
+        expect(yourReceivable.entityId).toBe(yourResult.entityId);
 
     });
 
@@ -64,7 +64,8 @@ describe('Service: ReceivableKeeperGet', function() {
     it('shouldn\'t return a receivable', function() {
         // given
         var myReceivable = {
-            stub : 'i\'m a stub 1'
+            id : 1,
+            entityId : 2
         };
         ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
 

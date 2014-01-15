@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.receivable.entity', []).factory('Receivable', function Receivable() {
 
-        var service = function svc(id, creationdate, entity, type, amount, duedate) {
+        var service = function svc(id, creationdate, entityId, type, amount, duedate) {
 
             var validProperties = [
-                'id', 'creationdate', 'entity', 'document', 'type', 'amount', 'duedate', 'canceled', 'received'
+                'id', 'creationdate', 'entityId', 'documentId', 'type', 'amount', 'duedate', 'canceled', 'received'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -25,20 +25,19 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Receivable must be initialized with id, creationdate, entity, type, amount, duedate';
+                    throw 'Receivable must be initialized with id, creationdate, entityId, type, amount, duedate';
                 }
             } else {
                 this.id = id;
                 this.creationdate = creationdate;
-                this.entity = entity;
-                this.document = id;
+                this.entityId = entityId;
                 this.type = type;
                 this.amount = amount;
                 this.duedate = duedate;
             }
             ObjectUtils.ro(this, 'id', this.id);
             ObjectUtils.ro(this, 'creationdate', this.creationdate);
-            ObjectUtils.ro(this, 'entity', this.entity);
+            ObjectUtils.ro(this, 'entityId', this.entityId);
             ObjectUtils.ro(this, 'type', this.type);
             ObjectUtils.ro(this, 'amount', this.amount);
             ObjectUtils.ro(this, 'duedate', this.duedate);
@@ -59,7 +58,7 @@
          * Registering handlers
          */
         ObjectUtils.ro(this.handlers, 'receivableAddV1', function(event) {
-            receivables.push(angular.copy(event));
+            receivables.push(new Receivable(event));
         });
         ObjectUtils.ro(this.handlers, 'receivableCancelV1', function(event) {
             var receivable = ArrayUtils.find(receivables, 'id', event.id);
