@@ -4,32 +4,25 @@
     angular.module(
             'tnt.catalog.productReturn.service',
             [
-                'tnt.catalog.productReturn.entity', 'tnt.catalog.productReturn.keeper', 'tnt.catalog.entity.service', 'tnt.utils.array',
-                'tnt.catalog.service.inventory'
+                'tnt.catalog.productReturn.entity', 'tnt.catalog.productReturn.keeper', 'tnt.catalog.entity.service',
+                'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.stock.keeper'
             ]).service(
             'ProductReturnService',
-            function ProductReturnService(ProductReturn, ProductReturnKeeper, EntityService, VoucherService, InventoryService) {
+            function ProductReturnService(ProductReturn, ProductReturnKeeper, EntityService, VoucherService, InventoryKeeper, ArrayUtils,
+                    StockKeeper) {
 
                 this.add = function(inventoryId, quantity, price, entityId) {
-                    
-                    // does the product exist?
-                    // is the quantity sane?
-                    // does the entity exist?
-                    
-                    // <- create ProductReturn
-                    
-                    // <- top up Stock(use the current cost)
-                    
-                    // <- create voucher(linked to the return)
-                    
-                    
+
                     // is it a valid entity?
-                    if (EntityService.find(entity) === undefined) {
+                    var entity = EntityService.find(entityId);
+                    if (entity === undefined) {
                         throw 'invalid entity.';
                     }
 
                     // inventoryId
-                    if (angular.isUndefined(InventoryService.get(inventoryId))) {
+                    var product = ArrayUtils.find(InventoryKeeper.read(), 'id', inventoryId);
+
+                    if (product === null) {
                         throw 'invalid productId.';
                     }
 
@@ -43,8 +36,22 @@
                         throw 'invalid price. The valaue can not be negative.';
                     }
 
+                    // <- create ProductReturn
                     var productReturn = new ProductReturn(null, productId, quantity, price);
                     ProductReturnKeeper.add(productReturn);
+
+                    // <- top up Stock(use the current cost)
+
+                    var stock = new Stock(inventoryId, quantity, product.price);
+                    StockKeeper.add(stock);
+
+                    // <- create voucher(linked to the return)
+                    /**
+                     * TODO - link the voucher to the return operation.
+                     */
+                    var amount = price * quantity;
+                    var remarks = {};
+                    VoucherService.create(entity, amount, remarks, document);
 
                 };
 
