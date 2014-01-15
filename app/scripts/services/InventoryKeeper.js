@@ -110,6 +110,8 @@
                 
                 parent = this.squash(parent, products);
                 
+                delete parent.image;
+                
                 angular.extend(parent, product);
             }
             return parent;

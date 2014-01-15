@@ -457,7 +457,7 @@ margin-top: 5px;
 .col-check-s8 {
 	width: 30px; /*35px*/
 	text-align:right;
-	margin-left:13px;
+	margin-left:10px;
 }
 .w130{
 	width: 130px;
@@ -509,7 +509,7 @@ height: 290px; /*500px*/
 background: #fff;
 float: right;
 position: absolute;
-padding: 10px;
+padding: 5px;
 margin: 23px 0 40px 0;
 top: 218px;
 z-index: 11;
@@ -735,7 +735,7 @@ border-radius: 4px;
 	line-height: 40px;
 }
 .control-label-exchange{
-	width:400px;
+	width:375px; /*400px*/
 }
 
 .exchange-initial .header-exchange{

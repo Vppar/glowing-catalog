@@ -253,7 +253,8 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	line-height: 40px;
 }
 .grid-payment-check .scroll-payment-grid .row-payment-check-grid {
-	border-bottom: 1px dotted #e0e0e0
+	/*border-bottom: 1px dotted #e0e0e0;*/
+	margin-bottom:5px;
 }
 .scroll-payment-grid .row-payment-check-grid {
 	/*margin-left: 20px*/

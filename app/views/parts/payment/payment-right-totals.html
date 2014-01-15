@@ -20,8 +20,8 @@
 			<span class="btn-sub-payment">{{items | sum:'price':'qty' | currency: '' }}</span>
 		</span>				
 		<span class="lbl-money2 display-block qty-values">
-			<span class="lbl-money4 qntty" ng-show="orderItemsQty !== 1"> ({{orderItemsQty}}) item</span>
-			<span class="lbl-money4 qntty" ng-hide="orderItemsQty !== 1"> ({{orderItemsQty}}) itens</span>
+			<span class="lbl-money4 qntty" ng-show="orderItemsQty !== 1"> ({{orderItemsQty}}) itens</span>
+			<span class="lbl-money4 qntty" ng-hide="orderItemsQty !== 1"> ({{orderItemsQty}}) item</span>
 			<span class="lbl-money4 qntty"> ({{orderUnitsQty}}) unid.</span>
 		</span>
 	</div>
@@ -101,7 +101,7 @@
 			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="selectedPaymentMethod=='none'">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button ng-click="confirm()" class="btn btn-confirm" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) != 0">Confirmar</button>
+			<button ng-click="confirm()" class="btn btn-open" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) != 0">Confirmar</button>
 		</div>
 	</div>
 	<!--<span class="panel-payment-footer-left">

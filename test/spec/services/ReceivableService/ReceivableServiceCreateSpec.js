@@ -9,7 +9,7 @@ xdescribe('Service: ReceivableServiceCreateSpec', function() {
         };
         log.error = jasmine.createSpy('$log.error');
 
-        module('tnt.catalog.service.receivable');
+        module('tnt.catalog.receivable.service');
         module(function($provide) {
             $provide.value('DataProvider', dpStub);
             $provide.value('$log', log);

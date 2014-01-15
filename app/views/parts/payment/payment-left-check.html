@@ -8,49 +8,49 @@
 	<div class="row-fluid payment-check-fields">
 		<form name="checkForm">
 			<div class="control-group lbl-top">
-				<label class="control-label">Parc</label>
+				<label class="control-label bold">Parc</label>
 				<!--<div class="controls">
 					<input name="parc" id="parc" class="input-mini parc text-center" type="text" maxlength="3" ng-model="check.installments" required recall>
 				</div>-->
 				<span name="" class="parc" id="parc" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 			</div>
 			<div class="control-group lbl-top">
-				<label class="control-label">Banco</label>
+				<label class="control-label bold">Banco</label>
 				<!--<div class="controls">
 					<input name="bank" id="banco" class="input-mini banco text-center" type="text" maxlength="3" placeholder="" ng-model="check.bank" required recall onkeyup="checkInputKeyUp(this)">
 				</div>-->
 				<span name="" class="banco editing" id="banco" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 			</div>
 			<div class="control-group lbl-top">
-				<label class="control-label">Agência</label>
+				<label class="control-label bold">Ag&ecirc;ncia</label>
 				<!--<div class="controls">
 					<input name="agency" id="agencia" class="input-mini agencia text-center" type="text" maxlength="4" placeholder="" ng-model="check.agency" required recall onkeyup="checkInputKeyUp(this)">
 				</div>-->
 				<span name="" class="agencia" id="agencia" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 			</div>
 			<div class="control-group lbl-top">
-				<label class="control-label">Conta</label>
+				<label class="control-label bold">Conta</label>
 				<!--<div class="controls">
 					<input name="account" id="conta" class="input-cta conta text-center" type="text" maxlength="10" ng-model="check.account" required recall onkeyup="checkInputKeyUp(this)">
 				</div>-->
 				<span name="" class="conta" id="conta" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 			</div>
 			<div class="control-group lbl-top">
-				<label class="control-label">Cheque</label>
+				<label class="control-label bold">Cheque</label>
 				<!--<div class="controls">
 					<input name="number" id="cheque" class="input-mini cheque text-center" type="text" maxlength="6" ng-model="check.number" required recall onkeyup="checkInputKeyUp(this)">
 				</div>-->
 				<span name="" class="cheque" id="cheque" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 			</div>
 			<div class="control-group lbl-top">
-				<label class="control-label">Vencto.</label>
+				<label class="control-label bold">Vencto.</label>
 				<!--<div class="controls">
 					<input type="text" id="vencto" class="date-field input-small vencto text-center" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required readonly onkeyup="checkInputKeyUp(this)">
 				</div>-->
 				<span name="" class="vencto" id="vencto" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 			</div>
 			<div class="control-group lbl-top">
-				<label class="control-label">Valor</label>
+				<label class="control-label bold">Valor</label>
 				<span name="amount" class="check-value" id="valor" ng-click="showNumPad()">{{check.amount | currency: ''}}</span>
 			</div>
 			<div class="control-group lbl-top">
@@ -75,7 +75,7 @@
 	
 	<div class="row-fluid">
 		<div class="grid-payment-check">
-			<div class="header header2">
+			<!--<div class="header header2">
 				<div class="row-payment-check-grid">
 					<span class="col-check-s1">
 						<div>Parc</div>
@@ -102,7 +102,7 @@
 						<div></div>
 					</span>
 				</div>
-			</div>
+			</div>-->
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
 				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'data.duedate':true" ng-click="edit(payment)">
