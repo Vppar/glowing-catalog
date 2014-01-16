@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.type.entity', []).factory('Type', function Stock() {
 
-        var service = function svc(typeId, name) {
+        var service = function svc(id, name, classification) {
 
             var validProperties = [
-                'typeId', 'name'
+                'id', 'name', 'classification'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -15,7 +15,7 @@
 
                     if (!angular.isFunction(prop)) {
                         if (validProperties.indexOf(ix) === -1) {
-                            throw "Unexpected property " + ix;
+                            throw 'Unexpected property ' + ix;
                         }
                     }
                 }
@@ -26,14 +26,16 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Type must be initialized with typeId and name';
+                    throw 'Type must be initialized with typeId, name and classification';
                 }
             } else {
-                this.typeId = typeId;
+                this.id = id;
                 this.name = name;
+                this.classification = classification;
             }
-            ObjectUtils.ro(this, 'typeId', this.typeId);
+            ObjectUtils.ro(this, 'id', this.id);
             ObjectUtils.ro(this, 'name', this.name);
+            ObjectUtils.ro(this, 'classification', this.classification);
         };
 
         return service;
@@ -47,25 +49,38 @@
     ]).service('TypeKeeper', function StockKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
 
         var currentEventVersion = 1;
-        var types = [];
+        var types = {};
         this.handlers = {};
 
         ObjectUtils.ro(this.handlers, 'typeAddV1', function(event) {
-            var entry = ArrayUtils.find(types, 'typeId', event.typeId);
+
+            var classList = types[event.classification];
+
+            // if classification list not exists, create one!
+            if (!classList) {
+                types[event.classification] = [];
+            }
+
+            var entry = ArrayUtils.find(types[event.classification], 'id', event.id);
 
             if (entry === null) {
-                event = new Type(event);
-                types.push(event);
+                
+                var type = new Type(types[event.classification].length, event.name, event.classification);
+                types[event.classification].push(type);
+            
+                
+            } else {
+                throw 'Somehow, we got a repeated type!?!?';
             }
+
         });
 
-        
         this.add = function(type) {
 
             if (type instanceof Type) {
                 type.isValid();
             } else {
-                throw "Wrong instance";
+                throw 'Wrong instance';
             }
 
             var stamp = (new Date()).getTime() / 1000;
@@ -75,12 +90,10 @@
             // save the journal entry
             JournalKeeper.compose(entry);
         };
-        
-        this.list = function() {
-            return angular.copy(types);
+
+        this.list = function(classification) {
+            return angular.copy(types[classification]);
         };
-        
-        
 
     });
 

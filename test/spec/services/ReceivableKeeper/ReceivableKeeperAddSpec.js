@@ -81,7 +81,7 @@ describe('Service: ReceivableKeeperAdd', function() {
         };
 
         // then
-        expect(addCall).toThrow();
+        expect(addCall).toThrow('Unexpected property newProperty');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
