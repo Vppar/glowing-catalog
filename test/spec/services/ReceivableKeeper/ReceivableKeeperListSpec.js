@@ -1,8 +1,7 @@
 'use strict';
 
-xdescribe('Service: ReceivableKeeperGet', function() {
+describe('Service: ReceivableKeeperList', function() {
 
-    var Receivable = null;
     var ReceivableKeeper = null;
 
     // load the service's module
@@ -15,42 +14,44 @@ xdescribe('Service: ReceivableKeeperGet', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_) {
-        Receivable = _Receivable_;
+    beforeEach(inject(function(_ReceivableKeeper_) {
         ReceivableKeeper = _ReceivableKeeper_;
     }));
 
     /**
      * <pre>
-     * Givena filled ReceivableKeeper     
+     * Given a filled ReceivableKeeper     
      * When list is triggered
      * Then the target receivable should be returned
      * </pre>
      */
     it('should return a list of receivable', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231',
+        var myReceivableEv = {
+            entityId : 1,
+            documentId : 2
         };
-        var myReceivable = new Receivable(description, document);
-        var yourReceivable = new Receivable(description, document);
+        var yourReceivableEv = {
+            entityId : 2,
+            documentId : 1
+        };
 
-        ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
-        ReceivableKeeper.handlers['receivableAddV1'](yourReceivable);
+        ReceivableKeeper.handlers['receivableAddV1'](myReceivableEv);
+        ReceivableKeeper.handlers['receivableAddV1'](yourReceivableEv);
 
         // when
         var receivables = ReceivableKeeper.list();
 
         // then
-        expect(myReceivable).toEqual(receivables[0]);
-        expect(yourReceivable).toEqual(receivables[1]);
+        expect(myReceivableEv.entityId).toEqual(receivables[0].entityId);
+        expect(myReceivableEv.documentId).toEqual(receivables[0].documentId);
+        expect(yourReceivableEv.entityId).toEqual(receivables[1].entityId);
+        expect(yourReceivableEv.documentId).toEqual(receivables[1].documentId);
     });
 
     /**
      * <pre>
-     * Given an empty ReceivableKeeper    
+     * Givenan empty ReceivableKeeper    
      * When an get is triggered
      * Then an empty array must be returned
      * </pre>

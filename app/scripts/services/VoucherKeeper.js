@@ -3,10 +3,11 @@
 
     angular.module('tnt.catalog.voucher.entity', []).factory('Voucher', function Voucher() {
 
+        //BE AWARE! For giftcards,  the entity here is the person that will use it (not the buyer)!
         var service = function svc(id, entity, type, amount) {
 
             var validProperties = [
-                'id', 'entity', 'type', 'amount', 'redeemed', 'canceled', 'remarks', 'document'
+                'id', 'entity', 'type', 'amount', 'redeemed', 'canceled', 'created', 'remarks', 'document'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -49,131 +50,132 @@
      */
     angular.module('tnt.catalog.voucher.keeper', [
         'tnt.utils.array'
-    ]).service(
-            'VoucherKeeper',
-            function VoucherKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher) {
+    ]).service('VoucherKeeper', function VoucherKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher) {
 
-                var currentEventVersion = 1;
-                var voucher = {
-                    voucher : [],
-                    coupon : [],
-                    gift : []
-                };
-                this.handlers = {};
+        var currentEventVersion = 1;
+        var voucher = {
+            voucher : [],
+            coupon : [],
+            gift : []
+        };
+        this.handlers = {};
 
-                /**
-                 * EventHandler of Create.
-                 */
-                ObjectUtils.ro(this.handlers, 'voucherCreateV1', function(event) {
-                    var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
-                    if (entry === null) {
-                        event =
-                                new Voucher(
-                                        voucher[event.type].length, event.entity, event.type, event.amount, event.redeemed, event.canceled,
-                                        event.remarks, event.document);
-                        voucher[event.type].push(event);
+        /**
+         * EventHandler of Create.
+         */
+        ObjectUtils.ro(this.handlers, 'voucherCreateV1', function(event) {
+            var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
+            if (entry === null) {
+                event.id = voucher[event.type].length;
+                var v = new Voucher(event);
 
-                    } else {
-                        throw 'Somehow, we got a repeated voucher!?!?';
-                    }
-                });
+                voucher[event.type].push(v);
 
-                /**
-                 * EventHandler of cancel.
-                 */
-                ObjectUtils.ro(this.handlers, 'voucherCancelV1', function(event) {
+            } else {
+                throw 'Somehow, we got a repeated voucher!?!?';
+            }
+        });
 
-                    var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
-                    if (entry === null) {
-                        throw 'Entity not found, cosistency must be broken! Replay?';
-                    } else {
-                        entry.canceled = true;
-                    }
+        /**
+         * EventHandler of cancel.
+         */
+        ObjectUtils.ro(this.handlers, 'voucherCancelV1', function(event) {
 
-                });
+            var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
+            if (entry === null) {
+                throw 'Entity not found, cosistency must be broken! Replay?';
+            } else {
+                entry.canceled = event.canceled;
+            }
 
-                /**
-                 * EventHandler of redeem.
-                 */
-                ObjectUtils.ro(this.handlers, 'voucherRedeemV1', function(event) {
+        });
 
-                    var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
+        /**
+         * EventHandler of redeem.
+         */
+        ObjectUtils.ro(this.handlers, 'voucherRedeemV1', function(event) {
 
-                    if (entry === null) {
-                        throw 'Entity not found, cosistency must be broken! Replay?';
-                    } else {
-                        entry.redeemed = true;
-                    }
-                });
+            var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
 
-                /**
-                 * Registering the handlers with the Replayer
-                 */
-                Replayer.registerHandlers(this.handlers);
+            if (entry === null) {
+                throw 'Entity not found, cosistency must be broken! Replay?';
+            } else {
+                entry.redeemed = event.redeemed;
+            }
+        });
 
-                /**
-                 * create (voucherObject) - The id of the voucher should be
-                 * null, even if you pass an object with an id, your id will be
-                 * ignored and replaced
-                 * 
-                 */
-                this.create = function(voucherObject) {
+        /**
+         * Registering the handlers with the Replayer
+         */
+        Replayer.registerHandlers(this.handlers);
 
-                    if (voucherObject instanceof Voucher) {
-                        voucherObject.isValid();
-                    } else {
-                        throw "Wrong instance.";
-                    }
+        /**
+         * create (voucherObject) - The id of the voucher should be null, even
+         * if you pass an object with an id, your id will be ignored and
+         * replaced
+         * 
+         */
+        this.create = function(voucherObject) {
 
-                    var event = voucherObject;
-                    event.redeemed = false;
-                    event.canceled = false;
-                    var stamp = (new Date()).getTime() / 1000;
-                    // create a new journal entry
-                    var entry = new JournalEntry(null, stamp, 'voucherCreate', currentEventVersion, event);
+            if (voucherObject instanceof Voucher) {
+                voucherObject.isValid();
+            } else {
+                throw "Wrong instance.";
+            }
 
-                    // save the journal entry
-                    JournalKeeper.compose(entry);
-                };
+            var event = voucherObject;
+            var stamp = (new Date()).getTime() / 1000;
+            
+            event.created = stamp;
+            // create a new journal entry
+            var entry = new JournalEntry(null, stamp, 'voucherCreate', currentEventVersion, event);
+            
+            // save the journal entry
+            JournalKeeper.compose(entry);
+        };
 
-                /**
-                 * cancel(type, id)
-                 */
-                this.cancel = function(type, id) {
+        /**
+         * cancel(type, id)
+         */
+        this.cancel = function(type, id) {
 
-                    var event = new Voucher(id, null, type, null);
+            var stamp = (new Date()).getTime() / 1000;
+            
+            var event = new Voucher(id, null, type, null);
+            event.canceled = stamp;
+            
+            // create a new journal entry
+            var entry = new JournalEntry(null, stamp, 'voucherCancel', currentEventVersion, event);
 
-                    var stamp = (new Date()).getTime() / 1000;
-                    // create a new journal entry
-                    var entry = new JournalEntry(null, stamp, 'voucherCancel', currentEventVersion, event);
+            // save the journal entry
+            JournalKeeper.compose(entry);
+        };
 
-                    // save the journal entry
-                    JournalKeeper.compose(entry);
-                };
+        /**
+         * redeem (type, id)
+         */
+        this.redeem = function(type, id) {
 
-                /**
-                 * redeem (type, id)
-                 */
-                this.redeem = function(type, id) {
+            var stamp = (new Date()).getTime() / 1000;
 
-                    var event = new Voucher(id, null, type, null);
+            var event = new Voucher(id, null, type, null);
+            event.redeemed = stamp;
 
-                    var stamp = (new Date()).getTime() / 1000;
-                    // create a new journal entry
-                    var entry = new JournalEntry(null, stamp, 'voucherRedeem', currentEventVersion, event);
+            // create a new journal entry
+            var entry = new JournalEntry(null, stamp, 'voucherRedeem', currentEventVersion, event);
 
-                    // save the journal entry
-                    JournalKeeper.compose(entry);
-                };
+            // save the journal entry
+            JournalKeeper.compose(entry);
+        };
 
-                /**
-                 * list(type)
-                 */
-                this.list = function(type) {
-                    return angular.copy(voucher[type]);
-                };
+        /**
+         * list(type)
+         */
+        this.list = function(type) {
+            return angular.copy(voucher[type]);
+        };
 
-            });
+    });
 
     angular.module('tnt.catalog.voucher', [
         'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper'

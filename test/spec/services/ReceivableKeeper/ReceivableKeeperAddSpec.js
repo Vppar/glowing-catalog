@@ -1,11 +1,14 @@
 'use strict';
 
-xdescribe('Service: ReceivableKeeperAdd', function() {
+describe('Service: ReceivableKeeperAdd', function() {
 
-    var Receivable = null;
     var ReceivableKeeper = null;
+    var Receivable = null;
     var JournalEntry = null;
     var fakeNow = null;
+    var monthTime = 2592000;
+    var validReceivable = null;
+    var jKeeper = {};
 
     // load the service's module
     beforeEach(function() {
@@ -17,6 +20,28 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
 
         fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
+        jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
+
+        var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var documentId = 2;
+        var type = 'my type';
+        var creationdate = fakeNow;
+        var duedate = fakeNow + monthTime;
+        var amount = 1234.56;
+
+        validReceivable = {
+            creationdate : creationdate,
+            entityId : entityId,
+            documentId : documentId,
+            type : type,
+            duedate : duedate,
+            amount : amount
+        };
+
+        module(function($provide) {
+            $provide.value('JournalKeeper', jKeeper);
+        });
     });
 
     // instantiate service
@@ -26,68 +51,50 @@ xdescribe('Service: ReceivableKeeperAdd', function() {
         JournalEntry = _JournalEntry_;
     }));
 
-    /**
-     * <pre>
-     * Given a receivable description 
-     * and a document
-     * and a receivable type
-     * and a installment id
-     * and a duedate
-     * and a amount
-     * When an add is triggered
-     * Then the JournalKeeper should be called
-     * </pre>
-     */
     it('should add a receivable', function() {
-
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
-        };
-        var type = 'my type';
-        var installmentId = 1;
-        var duedate = 1391083200000;
-        var amount = 1234.56;
-
-        var receivable = new Receivable(description, document);
-        receivable.createdate = fakeNow;
-        receivable.type = type;
-        receivable.installmentId = installmentId;
-        receivable.duedate = duedate;
-        receivable.amount = amount;
+        // given
+        var receivable = validReceivable;
+        receivable.id = 1;
+        var addEv = new Receivable(receivable);
 
         var tstamp = fakeNow / 1000;
-        var entry = new JournalEntry(null, tstamp, 'receivableAddV1', 1, receivable);
+        var entry = new JournalEntry(null, tstamp, 'receivableAddV1', 1, addEv);
 
-        expect(function() {
-            ReceivableKeeper.add(description, document, type, installmentId, duedate, amount);
-        }).not.toThrow();
+        // when
+        var addCall = function() {
+            ReceivableKeeper.add(receivable);
+        };
+
+        // then
+        expect(addCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
 
-    /**
-     * <pre>
-     * Given a receivable
-     * When receivableAddV1 handler is triggered
-     * Then the receivable should be added
-     * </pre>
-     */
+    it('shouldn\'t add a receivable', function() {
+        // given
+        var receivable = validReceivable;
+        receivable.newProperty = 'myInvalidProperty';
+
+        // when
+        var addCall = function() {
+            ReceivableKeeper.add(receivable);
+        };
+
+        // then
+        expect(addCall).toThrow();
+        expect(jKeeper.compose).not.toHaveBeenCalled();
+    });
+
     it('should handle an add receivable event', function() {
         // given
-        var description = 'M A V COMERCIO DE ACESSORIOS LTDA';
-        var document = {
-            label : 'Document label',
-            number : '231231231-231'
-        };
-        var receivable = new Receivable(description, document);
+        var receivable = new Receivable(validReceivable);
 
         // when
         ReceivableKeeper.handlers['receivableAddV1'](receivable);
-
         var receivables = ReceivableKeeper.list();
 
         // then
+        expect(receivables[0]).not.toBe(receivable);
         expect(receivables[0]).toEqual(receivable);
     });
 

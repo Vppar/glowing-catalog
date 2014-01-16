@@ -873,12 +873,13 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 
 
 .grid-cash-flow .subtitle, .grid-cash-flow .grid-footer {
-	background: #f2f2f2;
 	font-weight: bold;
 	line-height: 40px;
+	color: #fff;
+	background: #7F7F7F; /*#f2f2f2;*/
 }
 
-.grid-inner-footer{border-radius: 4px 4px 0 0; font-weight:normal !important;}
+.grid-inner-footer{border-radius: 4px 4px 0 0; background-color:#f2f2f2 !important; color: #333 !important;/*font-weight:normal !important;*/}
 .grid-outer-footer{border-radius: 0 0 4px 4px;}
 
 .grid-cash-flow .subtitle .col-1 , .grid-cash-flow .grid-footer .col-1 {
