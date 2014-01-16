@@ -81,6 +81,31 @@ describe('Service: TypeKeeper', function() {
         expect(typelength).toBe(1);
     });
     
+    it('should add with the handler at separated places', function() {
+
+        var fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
+        var typeId1 = 1;
+        var name1 = 'I\'m the type\`s name!';
+        var classification1 = 'a class';
+        var ev1 = new Type(typeId1, name1,classification1);
+        
+        var typeId2 = 1;
+        var name2 = 'I\'m the other type\`s name!';
+        var classification2 = 'another class';
+        var ev2 = new Type(typeId2, name2,classification2);
+        
+        TypeKeeper.handlers['typeAddV1'](ev1);
+        TypeKeeper.handlers['typeAddV1'](ev2);
+        
+        var typelength1 = TypeKeeper.list(classification1).length;
+        var typelength2 = TypeKeeper.list(classification2).length;
+        
+        expect(typelength1).toBe(1);
+        expect(typelength2).toBe(1);
+    });
+    
     it('should throw error if the obj passed is not an Type', function() {
 
         var notType = {

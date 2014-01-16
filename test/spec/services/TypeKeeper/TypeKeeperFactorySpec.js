@@ -47,7 +47,7 @@ describe('Service: TypeKeeper', function() {
 
     it('should creat a new Type entity using a generic object', function() {
         var obj = {
-                id : 23,
+            id : 23,
             name : 'best type ever',
             classification : 'a class'
         };
@@ -62,7 +62,7 @@ describe('Service: TypeKeeper', function() {
 
     it('should not creat a new Type entity using a generic object with less than the mandatory attributes', function() {
         var obj = {
-                id : 23
+            id : 23
         };
 
         var actual = new Type(obj);
@@ -75,7 +75,7 @@ describe('Service: TypeKeeper', function() {
     it('should not creat a new Type entity using a generic object if it has more than the mandatory attributes', function() {
         // given
         var obj = {
-                id : 23,
+            id : 23,
             name : 'best type ever',
             classification : 'a class',
             extra : 'I\'m not mandatory!'
