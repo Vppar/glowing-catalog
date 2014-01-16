@@ -37,6 +37,10 @@
                         max = Number(scope.max);
                     }
                 });
+                
+                scope.$watch('value', function(value) {
+                    qty.html(value);
+                });
 
                 if (scope.value === undefined) {
                     scope.value = 1;
@@ -45,7 +49,6 @@
                 value = scope.value;
 
                 function propagate() {
-                    qty.html(value);
                     scope.$apply('value = ' + value);
                 }
                 setTimeout(propagate, 0);
