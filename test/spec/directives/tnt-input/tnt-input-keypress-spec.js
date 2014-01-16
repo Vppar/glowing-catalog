@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('Directive: tntInput', function() {
+describe('Directive: tntInput', function() {
 
     // load the directive's module
     beforeEach(function() {
@@ -13,8 +13,25 @@ xdescribe('Directive: tntInput', function() {
         scope = $rootScope.$new();
         KeyboardService = _KeyboardService_;
     }));
+    
+    it('teste', inject(function($compile) {
+        
+        element = angular.element('<div tnt-input id="1" ng-model="value"></div>');
+        
+        scope.value = '1';
+        
+        element = $compile(element)(scope);
+        
+        //console.log(element);
+        
+        /*
+        KeyboardService.keypress('0');
+        
+        expect(element.text()).toBe('10');
+        */
+    }));
 
-    it('should add key pressed when initial value is not zero', inject(function($compile) {
+    xit('should add key pressed when initial value is not zero', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '1';
         element = $compile(element)(scope);
@@ -22,7 +39,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('10');
     }));
 
-    it('should change to key pressed when initial value is zero', inject(function($compile) {
+    xit('should change to key pressed when initial value is zero', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '0';
         element = $compile(element)(scope);
@@ -30,7 +47,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('1');
     }));
 
-    it('should not add key pressed when initial value is zero', inject(function($compile) {
+    xit('should not add key pressed when initial value is zero', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '0';
         element = $compile(element)(scope);
@@ -38,7 +55,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('0');
     }));
 
-    it('should add key pressed when initial value is not zero', inject(function($compile) {
+    xit('should add key pressed when initial value is not zero', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '10';
         element = $compile(element)(scope);
@@ -46,7 +63,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('100');
     }));
 
-    it('should add key pressed when initial value is not zero zero', inject(function($compile) {
+    xit('should add key pressed when initial value is not zero zero', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '10';
         element = $compile(element)(scope);
@@ -54,7 +71,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('1000');
     }));
 
-    it('should backspace element text when value is not zero', inject(function($compile) {
+    xit('should backspace element text when value is not zero', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '1234';
         element = $compile(element)(scope);
@@ -62,7 +79,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('123');
     }));
 
-    it('should clear element text', inject(function($compile) {
+    xit('should clear element text', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value"></div>');
         scope.value = '1234';
         element = $compile(element)(scope);
@@ -70,7 +87,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('0');
     }));
 
-    it('element text length should not be over than the max', inject(function($compile) {
+    xit('element text length should not be over than the max', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value" max-digits="11" ></div>');
         scope.value = '12345678901';
         element = $compile(element)(scope);
@@ -78,7 +95,7 @@ xdescribe('Directive: tntInput', function() {
         expect(element.text()).toBe('12345678901');
     }));
 
-    it('element text length should not be under than the min', inject(function($compile) {
+    xit('element text length should not be under than the min', inject(function($compile) {
         element = angular.element('<div tnt-input ng-model="value" min-digits="3" ></div>');
         scope.value = '123';
         element = $compile(element)(scope);
