@@ -15,84 +15,100 @@ describe('Service: TypeKeeper', function() {
         Type = _Type_;
     }));
 
-    it('should creat a new Type entity', function() {
+    it('should create a new Type entity', function() {
         // given
         var tId = 23;
         var name = 'best type ever';
+        var classification = 'a class';
 
         // when
-        var actual = new Type(tId, name);
+        var actual = new Type(tId, name, classification);
 
         // then
-        expect(tId).toEqual(actual.typeId);
+        expect(tId).toEqual(actual.id);
         expect(name).toEqual(actual.name);
+        expect(classification).toEqual(actual.classification);
     });
 
-    it('should creat a new Type entity even if null is passed at it\'s constructor', function() {
+    it('should create a new Type entity even if null is passed at it\'s constructor', function() {
         // given
         var tId = 23;
         var name = null;
+        var classification = 'a class';
 
         // when
-        var actual = new Type(tId, name);
+        var actual = new Type(tId, name, classification);
 
         // then
-        expect(tId).toEqual(actual.typeId);
+        expect(tId).toEqual(actual.id);
         expect(name).toEqual(actual.name);
+        expect(classification).toEqual(actual.classification);
     });
 
     it('should creat a new Type entity using a generic object', function() {
         var obj = {
-            typeId : 23,
-            name : 'best type ever'
+                id : 23,
+            name : 'best type ever',
+            classification : 'a class'
         };
 
         var actual = new Type(obj);
 
         // then
-        expect(obj.typeId).toEqual(actual.typeId);
+        expect(obj.id).toEqual(actual.id);
         expect(obj.name).toEqual(actual.name);
+        expect(obj.classification).toEqual(actual.classification);
     });
 
     it('should not creat a new Type entity using a generic object with less than the mandatory attributes', function() {
         var obj = {
-            typeId : 23
+                id : 23
         };
 
         var actual = new Type(obj);
 
         // then
-        expect(obj.typeId).toEqual(actual.typeId);
+        expect(obj.id).toEqual(actual.id);
         expect(obj.name).toEqual(actual.name);
     });
 
     it('should not creat a new Type entity using a generic object if it has more than the mandatory attributes', function() {
         // given
         var obj = {
-            typeId : 23,
+                id : 23,
             name : 'best type ever',
+            classification : 'a class',
             extra : 'I\'m not mandatory!'
         };
 
-        expect(function() {
-            var actual = new Type(obj);
-        }).toThrow('Unexpected property extra');
+        var expectResult = function() {
+            new Type(obj);
+        };
+
+        expect(expectResult).toThrow('Unexpected property extra');
 
     });
 
     it('should throw error without name', function() {
         var tId = 23;
-        expect(function() {
+
+        var expectResult = function() {
             new Type(tId);
-        }).toThrow('Type must be initialized with typeId and name');
+        };
+
+        expect(expectResult).toThrow('Type must be initialized with typeId, name and classification');
     });
 
     it('should throw an error if the constructor recieves more than the mandatory parameters', function() {
         var tId = 23;
         var name = 'best type ever';
+        var classification = 'classification';
         var extra = 1;
-        expect(function() {
-            new Type(tId, name, extra);
-        }).toThrow('Type must be initialized with typeId and name');
+
+        var expectResult = function() {
+            new Type(tId, name, extra, classification);
+        };
+
+        expect(expectResult).toThrow('Type must be initialized with typeId, name and classification');
     });
 });

@@ -49,14 +49,36 @@ describe('Service: TypeKeeper', function() {
         
         var typeId = 23;
         var name = 'I\'m the type\`s name!';
+        var classification = 'a class';
         
-        var ev = new Type(typeId, name);
+        var ev = new Type(typeId, name,classification);
         var stp = fakeNow / 1000;
         var entry = new JournalEntry(null, stp, 'typeAdd', 1, ev); 
 
-        expect(function() {
-            TypeKeeper.add(ev);}).not.toThrow();
+        var expectResult = function(){
+            TypeKeeper.add(ev);
+        };
+        
+        expect(expectResult).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+    });
+    
+    it('should add with the handler', function() {
+
+        var fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
+        var typeId = 23;
+        var name = 'I\'m the type\`s name!';
+        var classification = 'a class';
+        
+        var ev = new Type(typeId, name,classification);
+        
+        TypeKeeper.handlers['typeAddV1'](ev);
+        
+        var typelength = TypeKeeper.list(classification).length;
+        
+        expect(typelength).toBe(1);
     });
     
     it('should throw error if the obj passed is not an Type', function() {
@@ -65,24 +87,30 @@ describe('Service: TypeKeeper', function() {
                 typeId : 1,
                 name: 'fake type'
         };
-
-        expect(function() {
+        
+        var expectedReturn = function(){
             TypeKeeper.add(notType);
-            ;}).toThrow('Wrong instance');
+        };
+
+        expect(expectedReturn).toThrow('Wrong instance');
     });
     
     it('should throw error if the argument is null', function() {
 
-        expect(function() {
+        var expectedReturn = function(){
             TypeKeeper.add(null);
-            ;}).toThrow('Wrong instance');
+        };
+        
+        expect(expectedReturn).toThrow('Wrong instance');
     });
     
     it('should throw error if the argument is undefined', function() {
 
-        expect(function() {
+        var expectedReturn = function(){
             TypeKeeper.add(undefined);
-            ;}).toThrow('Wrong instance');
+        };
+        
+        expect(expectedReturn).toThrow('Wrong instance');
     });
 
 });
