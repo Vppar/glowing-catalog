@@ -72,7 +72,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         expect(receiveCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
     });
-    
+
     it('shouldn\'t receive a payment to a receivable', function() {
 
         var addEv = new Receivable(validReceivable);
@@ -84,7 +84,7 @@ describe('Service: ReceivableKeeperReceive', function() {
             ReceivableKeeper.receive(5, fakeNow);
         };
 
-        expect(receiveCall).toThrow();
+        expect(receiveCall).toThrow('Unable to find a receivable with id=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
@@ -99,7 +99,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         // when
         ReceivableKeeper.handlers['receivableReceiveV1'](recEv);
 
-        var result = ReceivableKeeper.get(receivable.id);
+        var result = ReceivableKeeper.read(receivable.id);
 
         // then
         expect(result.received).toBe(fakeNow);
@@ -120,7 +120,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         };
 
         // then
-        expect(receiveCall).toThrow();
+        expect(receiveCall).toThrow('Unable to find a receivable with id=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 

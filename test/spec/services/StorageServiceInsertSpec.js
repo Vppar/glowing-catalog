@@ -2,7 +2,7 @@ describe('Service: StorageService.insert', function() {
 
     var log = {};
     var dpStub = {};
-    var fakeTime = 1386444467895;
+    var fakeNow = 1386444467895;
 
     // load the service's module
     beforeEach(function() {
@@ -11,7 +11,7 @@ describe('Service: StorageService.insert', function() {
         log.error = jasmine.createSpy('$log.error');
         dpStub.storage = [];
 
-        spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         module('tnt.catalog.service.storage');
         module(function($provide) {
@@ -48,8 +48,8 @@ describe('Service: StorageService.insert', function() {
         // then
         expect(StorageService.isValid).toHaveBeenCalledWith(name);
         expect(entity.id).toBeGreaterThan(0);
-        expect(entity.createdate).toBe(fakeTime);
-        expect(entity.updatedate).toBe(fakeTime);
+        expect(entity.createdate).toBe(fakeNow);
+        expect(entity.updatedate).toBe(fakeNow);
         // TODO - Journal entry
         expect(id).toBe(entity.id);
     });

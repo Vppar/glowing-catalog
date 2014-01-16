@@ -1,74 +1,42 @@
-xdescribe('Service: ReceivableServiceReadSpec', function() {
+describe('Service: ReceivableServiceRead', function() {
 
-    var receivable = {};
-    var receivableId = 1;
-    var log = {};
+    var ReceivableKeeper = {};
 
     // load the service's module
     beforeEach(function() {
-        var dpStub = {
-            receivables : [
-                {
-                    id : 1
-                }
-            ]
-        };
-
-        receivable = {
-            stub : 'I\'m a stub'
-        };
-        receivable.getNextId = jasmine.createSpy('ReceivableCtrl.getNextId').andReturn(receivableId);
-
-        log.error = jasmine.createSpy('$log.error');
-
         module('tnt.catalog.receivable.service');
         module(function($provide) {
-            $provide.value('DataProvider', dpStub);
-            $provide.value('$log', log);
+            $provide.value('ReceivableKeeper', ReceivableKeeper);
         });
     });
-    beforeEach(inject(function(_DataProvider_, _ReceivableService_) {
-        DataProvider = _DataProvider_;
+    beforeEach(inject(function(_ReceivableService_) {
         ReceivableService = _ReceivableService_;
     }));
 
-    /**
-     * <pre>
-     * Given an existing id
-     * when read is triggered
-     * then a copy of the receivable with that id must be returned
-     * </pre>
-     */
-    it('should read a receivable', function() {
+    it('should return a copy of a receivable', function() {
         // given
-        var id = 1;
+        var dummyReceivables = {
+            bla : 'bla'
+        };
+        ReceivableKeeper.read = jasmine.createSpy('ReceivableKeeper.read').andReturn(dummyReceivables);
 
         // when
-        var receivable = ReceivableService.read(id);
+        var receivables = ReceivableService.read(1);
 
         // then
-        expect(receivable).toEqual(DataProvider.receivables[0]);
-        expect(receivable).not.toBe(DataProvider.receivables[0]);
+        expect(ReceivableKeeper.read).toHaveBeenCalledWith(1);
+        expect(receivables).toEqual(dummyReceivables);
     });
-
-    /**
-     * <pre>
-     * Given a non-existent id
-     * when read is triggered
-     * then undefined must be returned
-     * and must be logged: Receivable not found
-     * </pre>
-     */
-    it('shouldn\'t return receivable instance', function() {
+    
+    it('shouldn\'t return a copy of a receivable', function() {
         // given
-        var id = 2;
+        ReceivableKeeper.read = jasmine.createSpy('ReceivableKeeper.read').andReturn(null);
 
         // when
-        var receivable = ReceivableService.read(id);
+        var receivables = ReceivableService.read(1);
 
         // then
-        expect(receivable).toBeUndefined();
-        expect(log.error).toHaveBeenCalledWith('ReceivableService.read: -Receivable not found: id=' + id);
+        expect(ReceivableKeeper.read).toHaveBeenCalledWith(1);
+        expect(receivables).toBeNull();
     });
-
 });

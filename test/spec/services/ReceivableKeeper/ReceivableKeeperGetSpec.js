@@ -1,5 +1,5 @@
 'use strict';
-describe('Service: ReceivableKeeperGet', function() {
+describe('Service: ReceivableKeeperRead', function() {
 
     var ReceivableKeeper = null;
     var fakeNow = null;
@@ -43,8 +43,8 @@ describe('Service: ReceivableKeeperGet', function() {
         var receivables = ReceivableKeeper.list();
 
         // when
-        var myResult = ReceivableKeeper.get(receivables[0].id);
-        var yourResult = ReceivableKeeper.get(receivables[1].id);
+        var myResult = ReceivableKeeper.read(receivables[0].id);
+        var yourResult = ReceivableKeeper.read(receivables[1].id);
 
         // then
         expect(myReceivable).not.toBe(myResult);
@@ -70,7 +70,7 @@ describe('Service: ReceivableKeeperGet', function() {
         ReceivableKeeper.handlers['receivableAddV1'](myReceivable);
 
         // when
-        var myResult = ReceivableKeeper.get(123);
+        var myResult = ReceivableKeeper.read(123);
 
         // then
         expect(myResult).toBe(null);

@@ -1,8 +1,9 @@
-describe('Service: ReceivableServiceisValidSpec', function() {
+describe('Service: ReceivableServiceisValid', function() {
 
     var log = {};
-    var fakeTime = 1386444467895;
+    var fakeNow = 1386444467895;
     var monthTime = 2592000;
+    var DialogService = {};
 
     // load the service's module
     beforeEach(function() {
@@ -13,20 +14,23 @@ describe('Service: ReceivableServiceisValidSpec', function() {
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.keeper');
 
-        spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         log.debug = jasmine.createSpy('$log.debug');
+
+        DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
 
         module(function($provide) {
             $provide.value('$log', log);
+            $provide.value('DialogService', DialogService);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {
-        ReceivableService = _ReceivableService_;
+        ReceivableService = _ReceivableService_;        
     }));
 
     /**
      * <pre>
-     * Givena valid receivable
+     * Given a valid receivable
      * When isValid is triggered
      * Then true should be returned
      * </pre>
@@ -34,24 +38,23 @@ describe('Service: ReceivableServiceisValidSpec', function() {
     it('should validate a receivable instance', function() {
         // given
         var receivable = {
-            creationdate : fakeTime,
+            creationdate : fakeNow,
             entityId : 1,
             type : 'BRINDE',
             amount : 1234.56,
             installmentSeq : 1,
-            duedate : fakeTime + monthTime
+            duedate : fakeNow + monthTime
         };
         // when
         var result = ReceivableService.isValid(receivable);
 
         // then
-        expect(result).toBe(true);
-        expect(log.debug).not.toHaveBeenCalled();
+        expect(result.length).toBe(0);
     });
 
     /**
      * <pre>
-     * Givena invalid receivable
+     * Given a invalid receivable
      * When isValid is triggered
      * Then true should be returned
      * </pre>
@@ -60,17 +63,16 @@ describe('Service: ReceivableServiceisValidSpec', function() {
         // given
 
         var receivable = {
-            creationdate : fakeTime + monthTime,
+            creationdate : fakeNow + monthTime,
             amount : -1234.56,
-            duedate : fakeTime - monthTime
+            duedate : fakeNow - monthTime
         };
 
         // when
         var result = ReceivableService.isValid(receivable);
 
         // then
-        expect(result).toBe(false);
-        expect(log.debug).toHaveBeenCalled();
+        expect(result.length).toBeGreaterThan(0);
     });
 
 });

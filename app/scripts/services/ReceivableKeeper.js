@@ -14,7 +14,7 @@
                     var prop = this[ix];
                     if (!angular.isFunction(prop)) {
                         if (validProperties.indexOf(ix) === -1) {
-                            throw "Unexpected property " + ix;
+                            throw 'Unexpected property ' + ix;
                         }
                     }
                 }
@@ -88,11 +88,11 @@
         };
 
         /**
-         * Return a single receivable by its id
+         * Return a copy of a receivable by its id
          * 
          * @param id - Id of the target receivable.
          */
-        var get = function get(id) {
+        var read = function read(id) {
             return angular.copy(ArrayUtils.find(receivables, 'id', id));
         };
         /**
@@ -159,8 +159,8 @@
 
         // Publishing
         this.list = list;
+        this.read = read;
         this.add = add;
-        this.get = get;
         this.receive = receive;
         this.cancel = cancel;
 
