@@ -38,8 +38,9 @@
                     }
                 });
                 
-                scope.$watch('value', function(value) {
-                    qty.html(value);
+                scope.$watch('value', function() {
+                    qty.html(scope.value);
+                    value = scope.value;
                 });
 
                 if (scope.value === undefined) {
