@@ -1,7 +1,8 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.payment', []).controller(
-            'PaymentCtrl', function($scope, $filter, $location, $q, DataProvider, ArrayUtils, DialogService, PaymentService, OrderService, SMSService) {
+            'PaymentCtrl',
+            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -10,6 +11,9 @@
                 // Payment variables
                 var payments = {};
                 $scope.payment = {};
+                $scope.coupon = {
+                    total : 0
+                };
 
                 // Easy the access in the controller to external
                 // resources
@@ -109,21 +113,21 @@
                     payments = angular.copy(PaymentService.payments);
                     $scope.selectedPaymentMethod = method;
                 };
-                
-                $scope.addToBasket = function addToBasket(productId){
-                	var product = ArrayUtils.filter(DataProvider.products, {
+
+                $scope.addToBasket = function addToBasket(productId) {
+                    var product = ArrayUtils.filter(DataProvider.products, {
                         id : productId
                     })[0];
 
-                	if (product.grid.length > 1) {
-				        DialogService.openDialogAddToBasketDetails({
-				            id : product.id
-				        });
-				    } else {
-				        DialogService.openDialogAddToBasket({
-				            id : product.id
-				        });
-				    }
+                    if (product.grid.length > 1) {
+                        DialogService.openDialogAddToBasketDetails({
+                            id : product.id
+                        });
+                    } else {
+                        DialogService.openDialogAddToBasket({
+                            id : product.id
+                        });
+                    }
                 };
 
                 /**
@@ -185,7 +189,7 @@
                     makePayment();
                     $location.path('/');
                 }
-                
+
                 // #############################################################################################
                 // Main related functions
                 // #############################################################################################
