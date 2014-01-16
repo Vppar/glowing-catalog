@@ -16,7 +16,7 @@ describe('Service: Payment', function() {
     /**
      * It should create a CreditCardPayment
      */
-    it('should clear the payment', function() {
+    it('hould create a CreditCardPayment', function() {
         var amount = 23;
         var flag = 'Visa';
         var ccNumber = 1234567;
@@ -28,22 +28,23 @@ describe('Service: Payment', function() {
 
         var ccTest = new CreditCardPayment(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments);
         expect(ccTest).not.toBe(null);
+        expect(ccTest).not.toBe(undefined);
+        
     });
 
     /**
      * It should fail to create a CreditCardPayment
      */
-    it('should clear the payment', function() {
+    it('should fail to create a CreditCardPayment', function() {
         var amount = 23;
         var flag = 'Visa';
         var ccNumber = 1234567;
         var owner = 'Jesus';
         var ccDueDate = 12345;
-
+        
         expect(function() {
             new CreditCardPayment(amount, flag, ccNumber, owner, ccDueDate);
-        }).toThrow();
-
+        }).toThrow('CreditCardPayment must be initialized with all params');
     });
 
 });
