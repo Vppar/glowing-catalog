@@ -14,7 +14,7 @@
 							ng-model="productId">
 							<option value="">Selecione um Produto</option>
 
-							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}}
+							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}} - 
 								{{product.option}}</option>
 
 						</select>
@@ -24,7 +24,7 @@
 						<input-qty ng-model="qty" min="1"></input-qty>
 					</div>
 					<div class="control-group lbl-top">
-						<label class="control-label">Valor</label> <input name="amount"
+						<label class="control-label">Valor Unit.</label> <input name="amount"
 							class="check-value" id="valor" currency ng-model="amount"/>
 					</div>
 					<div class="control-group lbl-top">
@@ -52,7 +52,15 @@
 								<div>Produtos</div>
 							</span> <span class="col-s3">
 								<div>Qtde.</div>
-							</span> <span class="col-s4">
+							</span> 
+							
+							<!-- fix -->
+							<span class="col-s3">
+								<div>Valor Unit.</div>
+							</span> 
+							
+							
+							<span class="col-s4">
 								<div class="text-right">Vlr. total</div>
 							</span>
 						</div>
@@ -63,9 +71,20 @@
 								<div>{{index}}</div>
 							</span> <span class="col-s2">
 								<div></div>
-							</span> <span class="col-s3">
+							</span> 
+							
+							<span class="col-s3">
 								<div>{{qtytotal}}</div>
-							</span> <span class="col-s4">
+							</span> 
+							
+							<!-- fix -->
+							<span class="col-s3">
+								<div></div>
+							</span> 
+							
+							
+							
+							<span class="col-s4">
 								<div class="text-right">{{amounttotal | currency: ''}}</div>
 							</span>
 						</div>
@@ -82,7 +101,15 @@
 									<div>{{exch.title}} {{exch.option}}</div>
 								</span> <span class="col-s3">
 									<div>{{exch.qty}}</div>
-								</span> <span class="col-s4">
+								</span> 
+								
+								<!-- fix -->
+							<span class="col-s3">
+								<div>{{exch.amountunit | currency:""}}</div>
+							</span> 
+								
+								
+								<span class="col-s4">
 									<div class="text-right">{{exch.amount | currency:""}}</div>
 								</span>
 							</div>

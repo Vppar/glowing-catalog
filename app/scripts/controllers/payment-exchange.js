@@ -47,6 +47,7 @@
                     var exc = {};
                     exc.amount = $scope.amount * $scope.qty;
                     exc.qty = $scope.qty;
+                    exc.amountunit = $scope.amount;
                     exc.title = product.title;
                     exc.option = product.option;
                     $scope.index++;
