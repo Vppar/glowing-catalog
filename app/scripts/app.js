@@ -15,7 +15,7 @@
                 'tnt.catalog.financial.incomeStatement', 'tnt.utils.array', 'tnt.catalog.components.product-display',
                 'tnt.catalog.components.catalog-section', 'tnt.catalog.components.highlight-display', 'tnt.catalog.gopay.integration',
                 'tnt.catalog.components.catalog-highlights', 'tnt.catalog.inventory', 'tnt.catalog.payment.coupon',
-                'tnt.catalog.keyboard.input'
+                'tnt.catalog.keyboard.input', 'tnt.catalog.voucher.ctrl', 'tnt.catalog.voucher.entity', 'tnt.catalog.journal.entity'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -68,6 +68,7 @@
             templateUrl : 'views/stock.html',
         }).when('/voucher', {
             templateUrl : 'views/voucher.html',
+            controller : 'VoucherCtrl'
         }).when('/cash-flow', {
             templateUrl : 'views/cash-flow.html',
         }).otherwise({
