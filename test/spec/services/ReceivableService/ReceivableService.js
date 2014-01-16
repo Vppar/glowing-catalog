@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableService', function() {
+xdescribe('Service: ReceivableService', function() {
 
     // load the service's module
     beforeEach(module('glowingCatalogApp'));

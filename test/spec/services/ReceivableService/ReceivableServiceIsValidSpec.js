@@ -1,19 +1,31 @@
-describe('Service: ReceivableServiceisValidSpec', function() {
+describe('Service: ReceivableServiceisValid', function() {
 
     var log = {};
-    var fakeTime = 1386444467895;
+    var fakeNow = 1386444467895;
+    var monthTime = 2592000;
+    var DialogService = {};
 
     // load the service's module
     beforeEach(function() {
-        log.debug = jasmine.createSpy('$log.debug');
 
         module('tnt.catalog.receivable.service');
+        module('tnt.catalog.receivable.entity');
+        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.journal.entity');
+        module('tnt.catalog.journal.keeper');
+
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        log.debug = jasmine.createSpy('$log.debug');
+
+        DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
+
         module(function($provide) {
             $provide.value('$log', log);
+            $provide.value('DialogService', DialogService);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {
-        ReceivableService = _ReceivableService_;
+        ReceivableService = _ReceivableService_;        
     }));
 
     /**
@@ -25,30 +37,21 @@ describe('Service: ReceivableServiceisValidSpec', function() {
      */
     it('should validate a receivable instance', function() {
         // given
-
         var receivable = {
-            title : 'M A V COMERCIO DE ACESSORIOS LTDA',
-            document : {
-                label : 'Document label',
-                number : '231231231-231',
-                isValid : function() {
-                    return true;
-                }
-            },
-            type : 'my type',
-            installmentId : 1,
-            duedate : 1391083200000,
-            amount : 1234.56
+            creationdate : fakeNow,
+            entityId : 1,
+            type : 'BRINDE',
+            amount : 1234.56,
+            installmentSeq : 1,
+            duedate : fakeNow + monthTime
         };
-        spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
-
         // when
         var result = ReceivableService.isValid(receivable);
 
         // then
-        expect(result).toBe(true);
+        expect(result.length).toBe(0);
     });
-    
+
     /**
      * <pre>
      * Given a invalid receivable
@@ -60,20 +63,16 @@ describe('Service: ReceivableServiceisValidSpec', function() {
         // given
 
         var receivable = {
-            title : 'M A V COMERCIO DE ACESSORIOS LTDA',
-            document : {
-                label : 'Document label',
-                number : '231231231-231',
-            },
-            amount : -1234.56
+            creationdate : fakeNow + monthTime,
+            amount : -1234.56,
+            duedate : fakeNow - monthTime
         };
-        spyOn(Date.prototype, 'getTime').andReturn(fakeTime);
 
         // when
         var result = ReceivableService.isValid(receivable);
 
         // then
-        expect(result).toBe(true);
+        expect(result.length).toBeGreaterThan(0);
     });
 
 });
