@@ -24,7 +24,7 @@
             if (arguments.length != svc.length) {
                 throw 'CheckPayment must be initialized with all params';
             }
-            
+
             this.bank = bank;
             this.agency = agency;
             this.account = account;
@@ -32,9 +32,42 @@
             this.expiration = expiration;
 
             ObjectUtils.superInvoke(this, amount);
-            
+
         };
-        
+
+        ObjectUtils.inherit(service, Payment);
+
+        return service;
+    });
+
+    entities.factory('CreditCardPayment', function CreditCardPayment(Payment) {
+
+        var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments) {
+
+            if (arguments.length != svc.length) {
+                throw 'CreditCardPayment must be initialized with all params';
+            }
+
+            this.flag = flag;
+            this.ccNumber = ccNumber;
+            this.owner = owner;
+            this.ccDueDate = ccDueDate;
+            this.cvv = cvv;
+            this.cpf = cpf;
+            this.installments = installments;
+
+            ObjectUtils.ro(this, 'flag', this.flag);
+            ObjectUtils.ro(this, 'ccNumber', this.ccNumber);
+            ObjectUtils.ro(this, 'owner', this.owner);
+            ObjectUtils.ro(this, 'ccDueDate', this.ccDueDate);
+            ObjectUtils.ro(this, 'cvv', this.cvv);
+            ObjectUtils.ro(this, 'cpf', this.cpf);
+            ObjectUtils.ro(this, 'installments', this.installments);
+
+            ObjectUtils.superInvoke(this, amount);
+
+        };
+
         ObjectUtils.inherit(service, Payment);
 
         return service;
