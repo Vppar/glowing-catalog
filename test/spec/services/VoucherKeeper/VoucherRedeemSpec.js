@@ -26,6 +26,7 @@ describe('Service: VoucherKeeper', function() {
     var VoucherKeeper = undefined;
     var Voucher = undefined;
     var JournalEntry = undefined;
+    
     beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _JournalEntry_) {
         VoucherKeeper = _VoucherKeeper_;
         Voucher = _Voucher_;

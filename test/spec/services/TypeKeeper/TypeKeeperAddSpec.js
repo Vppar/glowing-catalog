@@ -49,14 +49,61 @@ describe('Service: TypeKeeper', function() {
         
         var typeId = 23;
         var name = 'I\'m the type\`s name!';
+        var classification = 'a class';
         
-        var ev = new Type(typeId, name);
+        var ev = new Type(typeId, name,classification);
         var stp = fakeNow / 1000;
         var entry = new JournalEntry(null, stp, 'typeAdd', 1, ev); 
 
-        expect(function() {
-            TypeKeeper.add(ev);}).not.toThrow();
+        var expectResult = function(){
+            TypeKeeper.add(ev);
+        };
+        
+        expect(expectResult).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+    });
+    
+    it('should add with the handler', function() {
+
+        var fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
+        var typeId = 23;
+        var name = 'I\'m the type\`s name!';
+        var classification = 'a class';
+        
+        var ev = new Type(typeId, name,classification);
+        
+        TypeKeeper.handlers['typeAddV1'](ev);
+        
+        var typelength = TypeKeeper.list(classification).length;
+        
+        expect(typelength).toBe(1);
+    });
+    
+    it('should add with the handler at separated places', function() {
+
+        var fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
+        var typeId1 = 1;
+        var name1 = 'I\'m the type\`s name!';
+        var classification1 = 'a class';
+        var ev1 = new Type(typeId1, name1,classification1);
+        
+        var typeId2 = 1;
+        var name2 = 'I\'m the other type\`s name!';
+        var classification2 = 'another class';
+        var ev2 = new Type(typeId2, name2,classification2);
+        
+        TypeKeeper.handlers['typeAddV1'](ev1);
+        TypeKeeper.handlers['typeAddV1'](ev2);
+        
+        var typelength1 = TypeKeeper.list(classification1).length;
+        var typelength2 = TypeKeeper.list(classification2).length;
+        
+        expect(typelength1).toBe(1);
+        expect(typelength2).toBe(1);
     });
     
     it('should throw error if the obj passed is not an Type', function() {
@@ -65,24 +112,30 @@ describe('Service: TypeKeeper', function() {
                 typeId : 1,
                 name: 'fake type'
         };
-
-        expect(function() {
+        
+        var expectedReturn = function(){
             TypeKeeper.add(notType);
-            ;}).toThrow('Wrong instance');
+        };
+
+        expect(expectedReturn).toThrow('Wrong instance');
     });
     
     it('should throw error if the argument is null', function() {
 
-        expect(function() {
+        var expectedReturn = function(){
             TypeKeeper.add(null);
-            ;}).toThrow('Wrong instance');
+        };
+        
+        expect(expectedReturn).toThrow('Wrong instance');
     });
     
     it('should throw error if the argument is undefined', function() {
 
-        expect(function() {
+        var expectedReturn = function(){
             TypeKeeper.add(undefined);
-            ;}).toThrow('Wrong instance');
+        };
+        
+        expect(expectedReturn).toThrow('Wrong instance');
     });
 
 });
