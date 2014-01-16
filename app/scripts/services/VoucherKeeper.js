@@ -3,7 +3,8 @@
 
     angular.module('tnt.catalog.voucher.entity', []).factory('Voucher', function Voucher() {
 
-        //BE AWARE! For giftcards,  the entity here is the person that will use it (not the buyer)!
+        // BE AWARE! For giftcards, the entity here is the person that will use
+        // it (not the buyer)!
         var service = function svc(id, entity, type, amount) {
 
             var validProperties = [
@@ -48,9 +49,12 @@
     /**
      * The keeper for the current voucher
      */
-    angular.module('tnt.catalog.voucher.keeper', [
-        'tnt.utils.array'
-    ]).service('VoucherKeeper', function VoucherKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher) {
+    angular.module(
+            'tnt.catalog.voucher.keeper',
+            [
+                'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.voucher.entity',
+                'tnt.catalog.journal.keeper'
+            ]).service('VoucherKeeper', function VoucherKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher) {
 
         var currentEventVersion = 1;
         var voucher = {
@@ -125,11 +129,11 @@
 
             var event = voucherObject;
             var stamp = (new Date()).getTime() / 1000;
-            
+
             event.created = stamp;
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'voucherCreate', currentEventVersion, event);
-            
+
             // save the journal entry
             JournalKeeper.compose(entry);
         };
@@ -140,10 +144,10 @@
         this.cancel = function(type, id) {
 
             var stamp = (new Date()).getTime() / 1000;
-            
+
             var event = new Voucher(id, null, type, null);
             event.canceled = stamp;
-            
+
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'voucherCancel', currentEventVersion, event);
 

@@ -1,4 +1,4 @@
-<div class="container ng-scope">
+<div class="container ng-scope" >
 
 	<!-- HEADER -->
 	<div class="row-fluid">
@@ -70,44 +70,44 @@
 					<div class="header header2 subtitle-header-voucher">
 						<div class="row-grid">
 							<span class="col-s1">
-								<div>1</div>
+								<div>{{filteredVouchers.length}}</div>
 							</span>
 							<span class="col-s2">
 								<div>&nbsp;</div>
 							</span>
 							<span class="col-s3">
-								<div><input type="text" placeholder="Filtro cupom" class="date-field input-small"></div>
+								<div><input type="text" placeholder="Filtro cupom" class="date-field input-small" ng-model="filter.amount"></div>
 							</span>
 							<span class="col-s4">
-								<div>1</div>
+								<div>{{qtyTotal}}</div>
 							</span>
 							<span class="col-s5">
-								<div>30,00</div>
+								<div>{{priceTotal | currency: ''}}</div>
 							</span>
 							<span class="col-s6">
-								<div><input type="text" placeholder="Filtro cliente" class="date-field input-small"></div>
+								<div><input type="text" placeholder="Filtro cliente" class="date-field input-small" ng-model="filter.entity"></div>
 							</span>
 						</div>
 					</div>
 					<div class="scroll-grid">
-						<div class="row-grid-product-voucher">
+						<div class="row-grid-product-voucher" ng-repeat="voucher in filteredVouchers">
 							<span class="col-s1">
-								<div>1</div>
+								<div>{{voucher.id}}</div>
 							</span>
 							<span class="col-s2">
-								<div>10/01/14</div>
+								<div>{{voucher.created | date:'dd/MM/yy'}}</div>
 							</span>
 							<span class="col-s3">
-								<div>30,00</div>
+								<div>{{voucher.amount | currency: ''}}</div>
 							</span>
 							<span class="col-s4">
-								<div>1</div>
+								<div>{{voucher.qty}}</div>
 							</span>
 							<span class="col-s5">
-								<div>30,00</div>
+								<div>{{voucher.priceTotal | currency: ''}}</div>
 							</span>
 							<span class="col-s6">
-								<div>Jos&eacute; Felipe Marins Oliveira</div>
+								<div>{{voucher.entity}}</div>
 							</span>
 						</div>	
 					</div>
@@ -118,7 +118,7 @@
 			
 			<!--HISTORICO-->
 			
-			<div class="row-fluid" ng-switch-when="hist">
+			<div class="row-fluid" ng-switch-when="hist" >
 			
 				<!-- DATE INTERVAL -->
 				<div class="row-fluid filter-bar">
@@ -127,7 +127,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtInitial">
+									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="dates.dtInitial">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -140,7 +140,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtFinal">
+									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="dates.dtFinal">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -200,42 +200,23 @@
 									</div>
 								</div>
 								<div class="scroll-grid">
-									<div class="row-grid-product-voucher">
+									<div class="row-grid-product-voucher" ng-repeat="voucher in vouchers | filter: filterVoucherByDate">
 										<span class="col-s1">
-											<div>10/01/14</div>
+											<div>{{voucher.created | date:'dd/MM/yy'}}</div>
 										</span>
 										<span class="col-s2">
 											<div>
-												12345
+												{{voucher.id}}
 											</div>
 										</span>
 										<span class="col-s3">
-											Nome do Cliente
+											{{voucher.entity}}
 										</span>
 										<span class="col-s4">
-											R$50,00
+											{{voucher.amount | currency:''}}
 										</span>
 										<span class="col-s5">
-											Utilizado
-										</span>
-									</div>
-									<div class="row-grid-product-voucher">
-										<span class="col-s1">
-											<div>10/01/14</div>
-										</span>
-										<span class="col-s2">
-											<div>
-												12345
-											</div>
-										</span>
-										<span class="col-s3">
-											Nome do Cliente
-										</span>
-										<span class="col-s4">
-											R$50,00
-										</span>
-										<span class="col-s5">
-											Em aberto
+											{{voucher.status | date:'dd/MM/yy'}}
 										</span>
 									</div>
 								</div>
