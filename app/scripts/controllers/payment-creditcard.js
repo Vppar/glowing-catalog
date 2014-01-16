@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.creditcard', [
-        'tnt.catalog.service.data', 'tnt.catalog.service.payment'
+        'tnt.catalog.service.data', 'tnt.catalog.payment.service'
     ]).controller('PaymentCreditCardCtrl', function($scope, $element, $filter, DataProvider, PaymentService, GoPayService) {
 
         // #####################################################################################################

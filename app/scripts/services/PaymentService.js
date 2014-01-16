@@ -17,6 +17,17 @@
         return service;
     });
 
+    entities.factory('CashPayment', function CashPayment(Payment) {
+
+        var service = function svc(amount) {
+            ObjectUtils.superInvoke(this, amount);
+        };
+
+        ObjectUtils.inherit(service, Payment);
+
+        return service;
+    });
+
     entities.factory('CheckPayment', function CheckPayment(Payment) {
 
         var service = function svc(amount, bank, agency, account, check, expiration) {
@@ -73,90 +84,86 @@
         return service;
     });
 
-    angular.module('tnt.catalog.service.payment', [
-        'tnt.catalog.filter.findBy', 'tnt.catalog.service.data'
-    ]).service('PaymentService', function PaymentService($filter, DataProvider) {
-        /**
-         * Template of an empty payment.
-         */
-        var paymentTemplate = {
-            id : null,
-            datetime : null,
-            typeId : null,
-            customerId : null,
-            orderId : null,
-            amount : null,
-            data : null
+    entities.factory('ExchangePayment', function ExchangePayment(Payment) {
+
+        var service = function svc(amount) {
+            ObjectUtils.superInvoke(this, amount);
         };
 
-        /**
-         * The current payment.
-         */
-        var payments = [];
+        ObjectUtils.inherit(service, Payment);
 
-        /**
-         * Find a payment type id based in the description
-         */
-        var findPaymentTypeByDescription = function findPaymentTypeByDescription(type) {
-            return $filter('findBy')(DataProvider.paymentTypes, 'description', type);
-        };
-
-        /**
-         * Creates a brand new payment.
-         */
-        var createNew = function createNew(type) {
-            var paymentType = findPaymentTypeByDescription(type);
-            var newPayment = angular.copy(paymentTemplate);
-            if (payments.length > 0) {
-                newPayment.id = payments[payments.length - 1].id + 1;
-            } else {
-                newPayment.id = 1;
-            }
-            newPayment.typeId = paymentType.id;
-
-            payments.push(newPayment);
-
-            return newPayment;
-        };
-
-        /**
-         * Get the current payments and add to the list of orders.
-         */
-        var save = function save(orderId, customerId) {
-            var savedPayment = {};
-            var savedPayments = [];
-            var baseId = DataProvider.payments.length;
-
-            for ( var idx in payments) {
-                var payment = payments[idx];
-
-                payment.id += Number(idx) + baseId;
-                payment.datetime = new Date();
-                payment.orderId = orderId;
-                payment.customerId = customerId;
-
-                savedPayment = angular.copy(payment);
-                savedPayments.push(savedPayment);
-                DataProvider.payments.push(savedPayment);
-            }
-
-            return savedPayments;
-        };
-
-        /**
-         * Reset the current payments.
-         */
-        var clear = function clear() {
-            payments.length = 0;
-        };
-
-        /**
-         * Exposes the methods to outside world.
-         */
-        this.payments = payments;
-        this.createNew = createNew;
-        this.save = save;
-        this.clear = clear;
-        this.findPaymentTypeByDescription = findPaymentTypeByDescription;
+        return service;
     });
+
+    entities.factory('CouponPayment', function CouponPayment(Payment) {
+
+        var service = function svc(amount) {
+            ObjectUtils.superInvoke(this, amount);
+        };
+
+        ObjectUtils.inherit(service, Payment);
+
+        return service;
+    });
+
+    angular.module('tnt.catalog.payment.service', [
+        'tnt.utils.array', 'tnt.catalog.payment.entity'
+    ]).service(
+            'PaymentService',
+            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment) {
+
+                /**
+                 * The current payments.
+                 */
+                var payments = {
+                    cash : [],
+                    check : [],
+                    creditCard : [],
+                    exchange : [],
+                    coupon : []
+                };
+                /**
+                 * Payment types association.
+                 */
+                var types = {
+                    cash : CashPayment,
+                    check : CheckPayment,
+                    creditCard : CreditCardPayment,
+                    exchange : ExchangePayment,
+                    coupon : CouponPayment
+                };
+
+                /**
+                 * Returns the name of the instance of the given payment.
+                 * 
+                 * @param payment - Payment to find the name.
+                 */
+                var getTypeName = function getTypeName(payment) {
+                    var result = null;
+                    for ( var ix in types) {
+                        if (payment instanceof types[ix]) {
+                            result = ix;
+                        }
+                    }
+                    return result;
+                };
+                
+                /**
+                 * Adds a payment to temporary list of payments.
+                 * 
+                 * @param payment - The new payment to be added.
+                 * @throws Exception - Throws an exception when the given
+                 *             payment isn't of any known type.
+                 */
+                var add = function add(payment) {
+                    var typeName = getTypeName(payment);
+                    if (typeName === null) {
+                        throw 'The object is not an instance of any known type of payment. Object=' + JSON.stringify(payment);
+                    }
+                    payments[typeName].push(payment);
+                };
+
+                this.add = add;
+
+            });
 }(angular));
