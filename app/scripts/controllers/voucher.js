@@ -6,7 +6,9 @@
     ]).controller(
             'VoucherCtrl',
             function($scope, $filter, VoucherKeeper) {
-
+                /**
+                 * The real deal
+                 */
                 // var vouchers = VoucherKeeper.list('voucher');
                 // $scope.vouchers = vouchers;
                 
@@ -19,7 +21,8 @@
                     entity : '',
                     amount : ''
                 };
-
+                
+                // "Mocked" voucher
                 $scope.vouchers = [
                     {
 
