@@ -91,8 +91,7 @@
 	<div class="row-right-payment" ng-click="selectPaymentMethod('coupon')">
 		<span class="lbl-money w130">Cupom Promocional</span>
 		<span class="">
-			<span class="btn-price-payment btn-price-payment2" ng-show="couponTotal > 0">{{couponTotal | currency:''}}</span>
-	        <span class="btn-price-payment btn-price-payment2" ng-hide="couponTotal > 0">0,00</span>  
+			<span class="btn-price-payment btn-price-payment2">{{coupon.total | currency:''}}</span>
 		</span>
 	</div>
 

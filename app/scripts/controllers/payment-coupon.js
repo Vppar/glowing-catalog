@@ -40,6 +40,11 @@
         for ( var ix in $scope.list) {
             $scope.$watch('list[' + ix + '].qty', updateTotal);
         }
+        
+        $scope.confirmCoupons = function confirmCoupons(total) {
+            $scope.coupon.total = total;
+            $scope.selectPaymentMethod('none');
+        };
 
         // TODO integrate with coupon service.
     });
