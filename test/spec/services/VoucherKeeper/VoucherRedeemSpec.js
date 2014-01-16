@@ -36,8 +36,11 @@ describe('Service: VoucherKeeper', function() {
         expect(!!VoucherKeeper).toBe(true);
     });
 
-    it('should create', function() {
+    it('should redeem', function() {
 
+        var fakeCreatedDate = 1386179000000;
+        var stpCreated = fakeCreatedDate / 1000;
+        
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
@@ -45,14 +48,25 @@ describe('Service: VoucherKeeper', function() {
         var type = 'voucher';
         var amount = 1;
         var stp = fakeNow / 1000;
+        
         var voucherObject = new Voucher(0, entity, type, amount);
+        VoucherKeeper.create(voucherObject);
+        
         var ev = new Voucher(0, entity, type, amount);
-        ev.redeemed = false;
-        ev.canceled = false;
+        ev.redeemed = stp;
+        ev.created = stpCreated;
+        
         var entry = new JournalEntry(null, stp, 'voucherCreate', 1, ev);
+        
+        var ev2 = new Voucher((VoucherKeeper.list.length - 1), null, type, null);
+        ev2.redeemed = stp;
+        
+        var entry2 = new JournalEntry(null, stp, 'voucherRedeem', 1, ev2);
+        
         expect(function() {
-            VoucherKeeper.create(voucherObject);
+            VoucherKeeper.redeem(type,(VoucherKeeper.list.length - 1));
+            
         }).not.toThrow();
-        expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
+        expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry2);
     });
 });

@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.check', [
-        'tnt.catalog.filter.findBy'
+        'tnt.catalog.filter.findBy','tnt.catalog.payment.entity'
     ]).controller(
             'PaymentCheckCtrl',
             function($scope, $element, $filter, $log, PaymentService) {
@@ -64,6 +64,7 @@
                             });
                             return;
                         }
+                        
                         if (newCheck.id) {
                             // if is an update
                             var id = newCheck.id;
@@ -119,7 +120,7 @@
                 };
 
                 function rebuildInstallmentIds() {
-                    var checkPayments = $filter('orderBy')($filter('paymentType')($scope.payments, 'check'), 'data.duedate');
+                    var checkPayments = $filter('paymentType')($scope.payments, 'check');
                     for ( var idx in checkPayments) {
                         checkPayments[idx].data.installmentId = Number(idx) + 1;
                     }

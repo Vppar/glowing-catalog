@@ -36,7 +36,7 @@ describe('Service: VoucherKeeper', function() {
         expect(!!VoucherKeeper).toBe(true);
     });
 
-    it('should redeem', function() {
+    it('should create', function() {
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
@@ -47,14 +47,28 @@ describe('Service: VoucherKeeper', function() {
         var stp = fakeNow / 1000;
         var voucherObject = new Voucher(0, entity, type, amount);
         var ev = new Voucher(0, entity, type, amount);
-        ev.redeemed = false;
-        ev.canceled = false;
+        ev.redeemed = undefined;
+        ev.canceled = undefined;
+        ev.created = stp;
         var entry = new JournalEntry(null, stp, 'voucherCreate', 1, ev);
-        VoucherKeeper.create(voucherObject);
+        expect(function() {
+            VoucherKeeper.create(voucherObject);
+        }).not.toThrow();
+        expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
+    });
+
+    it('should not create a voucher with a impostor voucher', function() {
+
+        var voucherFake = {
+            id : 1,
+            entity : 1,
+            type : 'voucher',
+            amount : 10
+        };
 
         expect(function() {
-            VoucherKeeper.redeem((VoucherKeeper.list.length - 1), type);
-        }).not.toThrow();
-        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+            VoucherKeeper.create(voucherFake);
+        }).toThrow();
     });
+
 });
