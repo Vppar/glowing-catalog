@@ -695,6 +695,7 @@ border-radius: 4px;
 .code-product{
 	color: rgba(0, 0, 0, 0.5);
 	display: inline-block;
+	width:300px;
 	font-size: 12px;
 	position:relative;
 	top:-3px;
