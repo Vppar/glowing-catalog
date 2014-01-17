@@ -10,9 +10,9 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.receivable.keeper'
     ]).service(
             'ReceivableService',
-            function ReceivableService($log, XKeeper) {
+            function ReceivableService($log, CoinKeeper) {
                 
-                var ReceivableKeeper = XKeeper('receivable');
+                var ReceivableKeeper = CoinKeeper('receivable');
 
                 /**
                  * Verifies if a receivable is valid or not.

@@ -1,7 +1,7 @@
 describe('Service: ReceivableServiceRead', function() {
 
     var ReceivableKeeper = {};
-    var XKeeper = function() {
+    var CoinKeeper = function() {
         return ReceivableKeeper;
     };
 
@@ -9,7 +9,7 @@ describe('Service: ReceivableServiceRead', function() {
     beforeEach(function() {
         module('tnt.catalog.receivable.service');
         module(function($provide) {
-            $provide.value('XKeeper', XKeeper);
+            $provide.value('CoinKeeper', CoinKeeper);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {
