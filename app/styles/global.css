@@ -988,7 +988,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	/*margin-bottom:-10px;*/
 }
 
-input:focus{	
+input:focus, .focus{	
 	outline: 2px solid #D7F0BF;
 	outline-offset: -3px;
 }

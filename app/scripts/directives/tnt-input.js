@@ -108,6 +108,7 @@
                     };
 
                     if (active) {
+                        element.addClass('editing');
                         element.unbind('focus', bindFocus);
                         setTimeout(function() {
                             element.focus();
@@ -118,6 +119,7 @@
                     } else {
                         watcher();
                         element.bind('focus', bindFocus);
+                        element.removeClass('editing');
                     }
                 };
 
