@@ -27,7 +27,7 @@
                     {
 
                         id : 1,
-                        entity : 'Cliente 1',
+                        entity : 'Carlos',
                         amount : 50,
                         created : new Date(),
                         redeemed : new Date(),
@@ -36,7 +36,7 @@
                     }, {
 
                         id : 2,
-                        entity : 'Xunda',
+                        entity : 'Xuxa',
                         amount : 66,
                         created : 1389916800000,
                         qty : 1
@@ -44,7 +44,7 @@
                     }, {
 
                         id : 3,
-                        entity : 'Xunda',
+                        entity : 'Joelma',
                         amount : 33,
                         created : 1389916800000,
                         canceled : true,
