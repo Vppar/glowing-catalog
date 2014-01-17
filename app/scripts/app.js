@@ -74,6 +74,11 @@
         }).otherwise({
             redirectTo : '/'
         });
+    }).config(function($provide) {
+        $provide.decorator('$log', function($delegate) {
+            $delegate.fatal = $delegate.log;
+            return $delegate;
+        });
     });
 }(angular));
 
@@ -98,8 +103,9 @@
                     $.event.simulate('tap', self, startEvent);
                 });
             } else {
-                $self.on('click', function(startEvent) {
-                    // discard
+                $self.on('click', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                 });
             }
         }

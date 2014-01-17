@@ -135,9 +135,10 @@ margin-top: 5px;
 .btns-right-payment .btn-price-payment-input-block {
 	float: right;
 	border-radius: 6px;
-	margin: -5px -4px 0 5px; /*margin: -5px 5px 0 5px;*/
+	/*margin: -5px -4px 0 5px; /*margin: -5px 5px 0 5px;/
 	padding-left: 5px;
-	width: 278px;
+	width: 278px;*/	
+	padding: 0 6px 4px 6px !important;
 	color: #777;
 }
 .btn-price-payment-input-block2 {
@@ -152,7 +153,7 @@ margin-top: 5px;
 	display:block;
 	float:left;
 	font-size:12px;
-	margin:-6px 0 -2px 0;
+	margin:-6px 0 -2px 0;/**/
 }
 .label-form-client2 {
 	display:block;
@@ -198,8 +199,15 @@ margin-top: 5px;
 }
 .lbl-phone-client {
 	color:rgba(0, 0, 0, 0.5);
-	margin:-6px 3px 0 10px;
+	margin:-6px 3px 0 10px;/**/
 	float:right;
+}
+.lbl-name-client{
+	width: 270px;
+	border: 1px solid #fff !important;
+	margin: 10px 0 0 -7px;
+	text-align: left;
+	height: 14px !important;
 }
 .right-column-payment {
 	padding:8px;
@@ -645,6 +653,8 @@ border-radius: 4px;
 	font-size: 14px;
 }
 
+/*.payment-right-totals-border{border-bottom: 1px solid #e0e0e0; height: 16px;}*/
+
 .menu-level-payment{
 	margin-bottom:35px;
 	display: block;
@@ -671,6 +681,26 @@ border-radius: 4px;
 	text-align:center;
 }
 
+.input-large{
+	height: 40px !important;
+	line-height: 40px;
+}
+.input-large-add{
+	width: 3px !important;
+	height: 38px !important;
+	line-height: 38px !important;
+	padding: 0px !important;
+}
+.input-large-value{
+	height: 30px !important;
+	line-height: 30px;
+}
+.payment-coupon-fields .control-label, .payment-check-fields .control-label{
+	margin-left:5px;
+}
+.w424{
+width: 424px;
+}
 .w126{
 	width:126px !important;
 }
@@ -680,6 +710,9 @@ border-radius: 4px;
 
 .w423{
 width: 423px !important;
+}
+.w428{
+width: 428px !important;
 }
 
 .w441{
@@ -694,6 +727,13 @@ width: 213px !important;
 	width:326px !important;
 }
 
+.w160{
+	width:160px !important;
+}
+.w85{
+	width:85px !important;
+}
+
 .text-center{
 	text-align:center !important;
 }
@@ -701,7 +741,9 @@ width: 213px !important;
 .w490{
 	width:490px !important;
 }
-
+.margint2{
+	margin-top: 2px;
+}
 .marginl10{
 	margin-left:10px !important;
 }
@@ -723,10 +765,13 @@ width: 213px !important;
 .paddingt3{
 	padding-top:3px !important;
 }
+.marginb25{
+	margin-bottom:25px;
+}
 .code-product{
 	color: rgba(0, 0, 0, 0.5);
 	display: inline-block;
-	width:150px;
+	width:300px;
 	font-size: 12px;
 	position:relative;
 	top:-3px;

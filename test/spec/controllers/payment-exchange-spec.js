@@ -5,7 +5,7 @@ describe('Controller: PaymentExchangeCtrl', function() {
     var scope = {};
     var ps = {};
     var arMock = {};
-
+    var DialogService = {};
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.exchange');
@@ -22,17 +22,21 @@ describe('Controller: PaymentExchangeCtrl', function() {
         arMock.find = jasmine.createSpy('find').andReturn(
                 { price:30.0, title:'A product', option:'yellow'}
         );
-
+        
+        DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
+        
         $controller('PaymentExchangeCtrl', {
             $scope : scope,
             PaymentService : ps,
             InventoryKeeper : _InventoryKeeper_,
-            ArrayUtils : arMock
+            ArrayUtils : arMock,
+            DialogService : DialogService
         });
+        scope.computeTotals = jasmine.createSpy('scope.computeTotals');
     }));
 
     it('should add an exchange to the list', function() {
-
+        
         scope.productId = 1;
         scope.qty = 5;
         scope.amount = 22.3;
@@ -42,6 +46,7 @@ describe('Controller: PaymentExchangeCtrl', function() {
 
         scope.$apply();
         expect(scope.exchanges.length).toEqual(1);
+        expect(scope.computeTotals).toHaveBeenCalled();
 
     });
     
@@ -60,6 +65,7 @@ describe('Controller: PaymentExchangeCtrl', function() {
         scope.$apply();
         
         expect(scope.index).toEqual(11);
+        expect(scope.computeTotals).toHaveBeenCalled();
 
     });
     
@@ -80,6 +86,7 @@ describe('Controller: PaymentExchangeCtrl', function() {
         expect(scope.exchanges[0].title).toEqual('A product');
         expect(scope.exchanges[0].option).toEqual('yellow');
         expect(scope.exchanges[0].amount).toEqual(result);
+        expect(scope.computeTotals).toHaveBeenCalled();
 
     });
     

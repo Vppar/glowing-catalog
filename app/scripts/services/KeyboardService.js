@@ -35,6 +35,11 @@
             if (foundItem) {
                 var index = fields.indexOf(foundItem);
                 fields.splice(index, 1);
+                
+                if(currentField == foundItem){
+                    unselect();
+                    keyboard.setActive(false);
+                }
             } else {
                 throw "input not found in fields";
             }
