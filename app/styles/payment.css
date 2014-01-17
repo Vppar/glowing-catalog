@@ -653,7 +653,7 @@ border-radius: 4px;
 	font-size: 14px;
 }
 
-.payment-right-totals-border{border-bottom: 1px solid #e0e0e0; /*height: 16px;*/}
+/*.payment-right-totals-border{border-bottom: 1px solid #e0e0e0; height: 16px;}*/
 
 .menu-level-payment{
 	margin-bottom:35px;
@@ -681,6 +681,26 @@ border-radius: 4px;
 	text-align:center;
 }
 
+.input-large{
+	height: 40px !important;
+	line-height: 40px;
+}
+.input-large-add{
+	width: 3px !important;
+	height: 38px !important;
+	line-height: 38px !important;
+	padding: 0px !important;
+}
+.input-large-value{
+	height: 30px !important;
+	line-height: 30px;
+}
+.payment-coupon-fields .control-label, .payment-check-fields .control-label{
+	margin-left:5px;
+}
+.w424{
+width: 424px;
+}
 .w126{
 	width:126px !important;
 }
@@ -690,6 +710,9 @@ border-radius: 4px;
 
 .w423{
 width: 423px !important;
+}
+.w428{
+width: 428px !important;
 }
 
 .w441{
@@ -704,6 +727,13 @@ width: 213px !important;
 	width:326px !important;
 }
 
+.w160{
+	width:160px !important;
+}
+.w85{
+	width:85px !important;
+}
+
 .text-center{
 	text-align:center !important;
 }
@@ -711,7 +741,9 @@ width: 213px !important;
 .w490{
 	width:490px !important;
 }
-
+.margint2{
+	margin-top: 2px;
+}
 .marginl10{
 	margin-left:10px !important;
 }
@@ -732,6 +764,9 @@ width: 213px !important;
 }
 .paddingt3{
 	padding-top:3px !important;
+}
+.marginb25{
+	margin-bottom:25px;
 }
 .code-product{
 	color: rgba(0, 0, 0, 0.5);
