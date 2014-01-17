@@ -9,23 +9,23 @@
 		<form name="checkForm">
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Parc</label>
-				<input name="" class="parc" id="parc"  ng-model= "check.installments" required tnt-input number recall>
+				<input name="" class="parc" id="parc" ng-model= "check.installments" required tnt-input number recall maxlength="2">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Banco</label>
-				<input name="" class="banco" id="banco"  ng-model= "check.bank" required tnt-input focus number>
+				<input name="" class="banco" id="banco" ng-model= "check.bank" required tnt-input focus number maxlength="3">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Ag&ecirc;ncia</label>
-				<input name="" class="agencia" id="agencia"  ng-model= "check.agency"  required tnt-input number>
+				<input name="" class="agencia" id="agencia" ng-model= "check.agency"  required tnt-input number maxlength="4">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Conta</label>
-				<input name="" class="conta" id="conta"  ng-model= "check.account" required tnt-input number>
+				<input name="" class="conta" id="conta" ng-model= "check.account" required tnt-input number maxlength="13">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Cheque</label>
-				<input name="" class="cheque" id="cheque"  ng-model= "check.number" required tnt-input number>
+				<input name="" class="cheque" id="cheque" ng-model= "check.number" required tnt-input number maxlength="8">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Vencto.</label>
@@ -35,7 +35,7 @@
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Valor</label>
-				<input name="amount" class="check-value" id="valor"  ng-model= "check.amount" required tnt-input currency>
+				<input name="amount" class="check-value" id="valor"  ng-model= "check.amount" required tnt-input currency maxlength="11">
 			</div>
 			<div class="control-group lbl-top">
 				<div class="controls">

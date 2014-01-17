@@ -55,7 +55,7 @@
                     next : attrs.next,
                     prev : attrs.prev
                 };
-
+                
                 input.keypress = function(key) {
 
                     var current = element.val();
@@ -72,7 +72,12 @@
                         KeyboardService.next();
                         return;
                     } else {
-                        current += key;
+                        if(!attrs.maxlength || current.length < attrs.maxlength){
+                            current += key;
+                        } else {
+                            KeyboardService.next();
+                            return;
+                        }
                     }
 
                     element.val(current);
