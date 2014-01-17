@@ -66,6 +66,6 @@ describe('Service: PaymentServiceRemove', function() {
         };
 
         // then
-        expect(removeCall).toThrow('PaymentService.remove: Unknown payment instance, id=' + payment.id);
+        expect(removeCall).toThrow('PaymentService.remove: Unknown payment instance, id=' + payment20.id);
     });
 });

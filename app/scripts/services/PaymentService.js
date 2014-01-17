@@ -214,7 +214,7 @@
                                     JSON.stringify(payment);
                             }
                             payment.id = payments[typeName].length + 1;
-                            payments[typeName].push(payment);
+                            payments[typeName].push(angular.copy(payment));
                         };
 
                 /**
