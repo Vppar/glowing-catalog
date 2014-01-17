@@ -47,122 +47,133 @@
     });
     angular.module('tnt.catalog.receivable.keeper', [
         'tnt.utils.array'
-    ]).service('ReceivableKeeper', function ReceivableKeeper(ArrayUtils, Receivable, JournalKeeper, JournalEntry) {
+    ]).factory('XKeeper', function XKeeper(ArrayUtils, Receivable, JournalKeeper, JournalEntry) {
 
-        var currentEventVersion = 1;
-        var receivables = [];
+        var keepers = {};
 
-        this.handlers = {};
+        function instance(name) {
 
-        /**
-         * Registering handlers
-         */
-        ObjectUtils.ro(this.handlers, 'receivableAddV1', function(event) {
-            receivables.push(new Receivable(event));
-        });
-        ObjectUtils.ro(this.handlers, 'receivableCancelV1', function(event) {
-            var receivable = ArrayUtils.find(receivables, 'id', event.id);
+            var currentEventVersion = 1;
+            var receivables = [];
 
-            if (receivable) {
-                receivable.canceled = event.canceled;
-            } else {
-                throw 'Unable to find a receivable with id=\'' + event.id + '\'';
-            }
-        });
-        ObjectUtils.ro(this.handlers, 'receivableReceiveV1', function(event) {
-            var receivable = ArrayUtils.find(receivables, 'id', event.id);
-            if (receivable) {
-                receivable.received = event.received;
-            } else {
-                throw 'Unable to find a receivable with id=\'' + event.id + '\'';
-            }
-        });
+            this.handlers = {};
 
-        /**
-         * Returns a copy of all receivables
-         * 
-         * @return Array - List of receivables.
-         */
-        var list = function list() {
-            return angular.copy(receivables);
-        };
+            /**
+             * Registering handlers
+             */
+            ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
+                receivables.push(new Receivable(event));
+            });
+            ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
+                var receivable = ArrayUtils.find(receivables, 'id', event.id);
 
-        /**
-         * Return a copy of a receivable by its id
-         * 
-         * @param id - Id of the target receivable.
-         */
-        var read = function read(id) {
-            return angular.copy(ArrayUtils.find(receivables, 'id', id));
-        };
-        /**
-         * Adds a receivable to the list
-         * 
-         * @param receivable - Receivable to be added.
-         */
-        var add = function add(receivable) {
-            // FIXME - use UUID
-            receivable.id = receivables.length + 1;
-            var addEv = new Receivable(receivable);
+                if (receivable) {
+                    receivable.canceled = event.canceled;
+                } else {
+                    throw 'Unable to find a receivable with id=\'' + event.id + '\'';
+                }
+            });
+            ObjectUtils.ro(this.handlers, name + 'LiquidateV1', function(event) {
+                var receivable = ArrayUtils.find(receivables, 'id', event.id);
+                if (receivable) {
+                    receivable.received = event.received;
+                } else {
+                    throw 'Unable to find a receivable with id=\'' + event.id + '\'';
+                }
+            });
 
-            var stamp = (new Date()).getTime() / 1000;
-            // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'receivableAddV1', currentEventVersion, addEv);
-
-            // save the journal entry
-            JournalKeeper.compose(entry);
-        };
-        /**
-         * Receive a payment to a receivable.
-         */
-        var receive = function receive(id, received) {
-            var receivable = ArrayUtils.find(receivables, 'id', id);
-            if (!receivable) {
-                throw 'Unable to find a receivable with id=\'' + id + '\'';
-            }
-            var receivedEv = {
-                id : id,
-                received : received
+            /**
+             * Returns a copy of all receivables
+             * 
+             * @return Array - List of receivables.
+             */
+            var list = function list() {
+                return angular.copy(receivables);
             };
 
-            var stamp = (new Date()).getTime() / 1000;
-            // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'receivableReceiveV1', currentEventVersion, receivedEv);
+            /**
+             * Return a copy of a receivable by its id
+             * 
+             * @param id - Id of the target receivable.
+             */
+            var read = function read(id) {
+                return angular.copy(ArrayUtils.find(receivables, 'id', id));
+            };
+            /**
+             * Adds a receivable to the list
+             * 
+             * @param receivable - Receivable to be added.
+             */
+            var add = function add(receivable) {
+                // FIXME - use UUID
+                receivable.id = receivables.length + 1;
+                var addEv = new Receivable(receivable);
 
-            // save the journal entry
-            JournalKeeper.compose(entry);
-        };
-        /**
-         * Cancels a receivable.
-         * 
-         * @param id - Id of the receivable to be canceled.
-         */
-        var cancel = function cancel(id) {
+                var stamp = (new Date()).getTime() / 1000;
+                // create a new journal entry
+                var entry = new JournalEntry(null, stamp, name + 'AddV1', currentEventVersion, addEv);
 
-            var receivable = ArrayUtils.find(receivables, 'id', id);
-            if (!receivable) {
-                throw 'Unable to find a receivable with id=\'' + id + '\'';
-            }
-            var time = (new Date()).getTime();
-            var stamp = time / 1000;
-            var cancelEv = {
-                id : id,
-                canceled : time
+                // save the journal entry
+                JournalKeeper.compose(entry);
+            };
+            /**
+             * Receive a payment to a receivable.
+             */
+            var receive = function receive(id, received) {
+                var receivable = ArrayUtils.find(receivables, 'id', id);
+                if (!receivable) {
+                    throw 'Unable to find a receivable with id=\'' + id + '\'';
+                }
+                var receivedEv = {
+                    id : id,
+                    received : received
+                };
+
+                var stamp = (new Date()).getTime() / 1000;
+                // create a new journal entry
+                var entry = new JournalEntry(null, stamp, name + 'LiquidateV1', currentEventVersion, receivedEv);
+
+                // save the journal entry
+                JournalKeeper.compose(entry);
+            };
+            /**
+             * Cancels a receivable.
+             * 
+             * @param id - Id of the receivable to be canceled.
+             */
+            var cancel = function cancel(id) {
+
+                var receivable = ArrayUtils.find(receivables, 'id', id);
+                if (!receivable) {
+                    throw 'Unable to find a receivable with id=\'' + id + '\'';
+                }
+                var time = (new Date()).getTime();
+                var stamp = time / 1000;
+                var cancelEv = {
+                    id : id,
+                    canceled : time
+                };
+
+                // create a new journal entry
+                var entry = new JournalEntry(null, stamp, name + 'CancelV1', currentEventVersion, cancelEv);
+
+                // save the journal entry
+                JournalKeeper.compose(entry);
             };
 
-            // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'receivableCancelV1', currentEventVersion, cancelEv);
+            // Publishing
+            this.list = list;
+            this.read = read;
+            this.add = add;
+            this.receive = receive;
+            this.cancel = cancel;
+        }
 
-            // save the journal entry
-            JournalKeeper.compose(entry);
+        return function(name) {
+            if (!keepers[name]) {
+                keepers[name] = new instance(name);
+            }
+            return keepers[name];
         };
-
-        // Publishing
-        this.list = list;
-        this.read = read;
-        this.add = add;
-        this.receive = receive;
-        this.cancel = cancel;
-
     });
 }(angular));

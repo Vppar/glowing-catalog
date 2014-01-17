@@ -1,12 +1,15 @@
 describe('Service: ReceivableServiceRead', function() {
 
     var ReceivableKeeper = {};
+    var XKeeper = function() {
+        return ReceivableKeeper;
+    };
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.receivable.service');
         module(function($provide) {
-            $provide.value('ReceivableKeeper', ReceivableKeeper);
+            $provide.value('XKeeper', XKeeper);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {

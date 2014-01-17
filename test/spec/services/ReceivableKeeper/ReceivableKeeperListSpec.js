@@ -14,8 +14,8 @@ describe('Service: ReceivableKeeperList', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_ReceivableKeeper_) {
-        ReceivableKeeper = _ReceivableKeeper_;
+    beforeEach(inject(function(XKeeper) {
+        ReceivableKeeper = XKeeper('receivable');
     }));
 
     /**

@@ -47,9 +47,9 @@ describe('Service: ReceivableKeeperCancel', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_, _JournalEntry_) {
+    beforeEach(inject(function(_Receivable_, XKeeper, _JournalEntry_) {
         Receivable = _Receivable_;
-        ReceivableKeeper = _ReceivableKeeper_;
+        ReceivableKeeper = XKeeper('receivable');
         JournalEntry = _JournalEntry_;
     }));
 
