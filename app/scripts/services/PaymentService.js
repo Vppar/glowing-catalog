@@ -248,7 +248,7 @@
                     // find the payment in the list
                     var paymentInstance = ArrayUtils.find(paymentList, 'id', payment.id);
                     if (!paymentInstance) {
-                        throw 'PaymentService.remove: Unknown payment instance, id=' + id;
+                        throw 'PaymentService.remove: Unknown payment instance, id=' + payment.id;
                     }
                     // remove
                     paymentList.splice(paymentList.indexOf(paymentInstance), 1);
