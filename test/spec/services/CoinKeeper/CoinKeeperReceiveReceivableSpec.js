@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableKeeperReceive', function() {
+describe('Service: CoinKeeperReceiveReceivable', function() {
 
     var Receivable = null;
     var ReceivableKeeper = null;
@@ -45,9 +45,9 @@ describe('Service: ReceivableKeeperReceive', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_, _JournalEntry_) {
+    beforeEach(inject(function(_Receivable_, CoinKeeper, _JournalEntry_) {
         Receivable = _Receivable_;
-        ReceivableKeeper = _ReceivableKeeper_;
+        ReceivableKeeper = CoinKeeper('receivable');
         JournalEntry = _JournalEntry_;
     }));
 
@@ -60,7 +60,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         };
 
         var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, 'receivableReceiveV1', 1, recEv);
+        var receiveEntry = new JournalEntry(null, tstamp, 'receivableLiquidateV1', 1, recEv);
 
         ReceivableKeeper.handlers['receivableAddV1'](addEv);
 
@@ -97,7 +97,7 @@ describe('Service: ReceivableKeeperReceive', function() {
         ReceivableKeeper.handlers['receivableAddV1'](receivable);
 
         // when
-        ReceivableKeeper.handlers['receivableReceiveV1'](recEv);
+        ReceivableKeeper.handlers['receivableLiquidateV1'](recEv);
 
         var result = ReceivableKeeper.read(receivable.id);
 
@@ -116,7 +116,7 @@ describe('Service: ReceivableKeeperReceive', function() {
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.handlers['receivableReceiveV1'](recEv);
+            ReceivableKeeper.handlers['receivableLiquidateV1'](recEv);
         };
 
         // then

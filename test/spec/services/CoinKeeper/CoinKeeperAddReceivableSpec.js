@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableKeeperAdd', function() {
+describe('Service: CoinKeeperAddReceivable', function() {
 
     var ReceivableKeeper = null;
     var Receivable = null;
@@ -9,6 +9,7 @@ describe('Service: ReceivableKeeperAdd', function() {
     var monthTime = 2592000;
     var validReceivable = null;
     var jKeeper = {};
+    var CoinKeeper = null;
 
     // load the service's module
     beforeEach(function() {
@@ -45,11 +46,16 @@ describe('Service: ReceivableKeeperAdd', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_, _JournalEntry_) {
+    beforeEach(inject(function(_Receivable_, _CoinKeeper_, _JournalEntry_) {
         Receivable = _Receivable_;
-        ReceivableKeeper = _ReceivableKeeper_;
+        ReceivableKeeper = _CoinKeeper_('receivable');
+        CoinKeeper = _CoinKeeper_;
         JournalEntry = _JournalEntry_;
     }));
+
+    it('should return the same entity', function() {
+        expect(CoinKeeper('test')).toBe(CoinKeeper('test'));
+    });
 
     it('should add a receivable', function() {
         // given

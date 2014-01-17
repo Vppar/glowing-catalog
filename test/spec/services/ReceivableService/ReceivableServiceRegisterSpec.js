@@ -3,7 +3,10 @@ describe('Service: ReceivableServiceRegisterSpec', function() {
     var log = {};
     var fakeNow = 1386444467895;
     var ReceivableKeeper = {};
-
+    var CoinKeeper = function() {
+        return ReceivableKeeper;
+    };
+    
     // load the service's module
     beforeEach(function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
@@ -13,7 +16,7 @@ describe('Service: ReceivableServiceRegisterSpec', function() {
         module('tnt.catalog.receivable.service');
         module(function($provide) {
             $provide.value('$log', log);
-            $provide.value('ReceivableKeeper', ReceivableKeeper);
+            $provide.value('CoinKeeper', CoinKeeper);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {
