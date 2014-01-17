@@ -119,7 +119,7 @@
                         $scope.removeCheck = function removeCheck(payment) {
                             // Show dialog to confirm exclusion
                             dialogService.messageDialog({
-                                title : 'Atenção.',
+                                title : 'Pagamento Com Cheque',
                                 message : 'Confirmar exclusão da parcela?',
                                 btnYes : 'Sim',
                                 btnNo : 'Não'
