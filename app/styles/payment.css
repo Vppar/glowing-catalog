@@ -642,7 +642,23 @@ border-radius: 4px;
 	margin: -1px;
 	padding: 0;
 	width: 87px;
+	font-size: 14px;
 }
+
+.menu-level-payment{
+	margin-bottom:35px;
+	display: block;
+}
+
+.menu-level-payment .btn{	
+	font-weight: normal !important;
+	margin-top:10px;
+}
+
+.menu-level-payment .btn-option {
+	width: 199px;
+}
+
 .display-block{
 	display:block;
 }
@@ -657,6 +673,21 @@ border-radius: 4px;
 
 .w126{
 	width:126px !important;
+}
+.w200{
+	width:200px !important;
+}
+
+.w423{
+width: 423px !important;
+}
+
+.w441{
+width: 441px !important;
+}
+
+.w213{
+width: 213px !important;
 }
 
 .w326{
@@ -717,7 +748,7 @@ border-radius: 4px;
 }
 
 .grid-payment-exchange .col-s2 {
-	width: 400px;/*76px*/
+	width: 297px;/*400px*/
 	text-align:left;
 	display: inline-block;
 	line-height: 40px;
@@ -852,7 +883,7 @@ border-radius: 4px;
 }
 
 /*Grid Emitir*/
-.grid-payment-coupon{ margin-top:25px;}
+/*.grid-payment-coupon{ margin-top:25px;}*/
 
 .grid-payment-coupon .header-coupon{
 	border-radius: 4px;
