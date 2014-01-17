@@ -1,4 +1,4 @@
-describe('Service: PaymentServiceAdd', function() {
+xdescribe('Service: PaymentServiceUpdate', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -18,7 +18,15 @@ describe('Service: PaymentServiceAdd', function() {
         PaymentService = _PaymentService_;
     }));
 
-    it('should add a cash payment', function() {
+    /**
+     * It should inject the dependencies.
+     */
+    it('should inject dependencies', function() {
+        expect(!!$filter).toBe(true);
+        expect(!!PaymentService).toBe(true);
+    });
+
+    it('should add a new cash payment', function() {
         // given
         var payment = new CashPayment(15);
         var payments = [];
@@ -31,28 +39,6 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
-    });
-    
-    it('should add a cash payment with sequential ids', function() {
-        // given
-        var payment15 = new CashPayment(15);
-        var payment20 = new CashPayment(20);
-        var payments = [];
-
-        // when
-        var addCall = function() {
-            PaymentService.add(payment15);
-            PaymentService.add(payment20);
-            payments = PaymentService.list('cash');
-        };
-        // then
-        expect(addCall).not.toThrow();
-        expect(payments[0].id).toBe(1);
-        expect(payments[0]).toEqual(payment15);
-        expect(payments[0]).not.toBe(payment15);
-        expect(payments[1].id).toBe(2);
-        expect(payments[1]).toEqual(payment20);
-        expect(payments[1]).not.toBe(payment20);
     });
 
     it('should add a check payment', function() {
@@ -75,7 +61,6 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
-        expect(payments[0].id).not.toBeUndefined(payment);
     });
 
     it('should add a credit card payment', function() {
@@ -99,7 +84,6 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
-        expect(payments[0].id).not.toBeUndefined(payment);
     });
 
     it('should add an exchange payment', function() {
@@ -115,7 +99,6 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
-        expect(payments[0].id).not.toBeUndefined(payment);
     });
 
     it('should add a coupon payment', function() {
@@ -131,9 +114,8 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
-        expect(payments[0].id).not.toBeUndefined(payment);
     });
-    
+
     it('shouldn\'t add a unknown payment', function() {
         // given
         var payment = new Payment(15);
@@ -144,8 +126,7 @@ describe('Service: PaymentServiceAdd', function() {
         };
 
         // then
-        expect(addCall).toThrow(
-                'PaymentService.add: The object is not an instance of any known type of payment, Object=' + JSON.stringify(payment));
+        expect(addCall).toThrow('The object is not an instance of any known type of payment. Object=' + JSON.stringify(payment));
     });
 
 });

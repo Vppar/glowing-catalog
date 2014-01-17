@@ -175,7 +175,7 @@
                 var list = function list(typeName) {
                     var paymentList = payments[typeName];
                     if (!paymentList) {
-                        throw 'Unknow type of payment: typeName=' + typeName;
+                        throw 'PaymentService.list: Unknown type of payment, typeName=' + typeName;
                     }
                     return angular.copy(paymentList);
                 };
@@ -192,6 +192,9 @@
                     var paymentList = list(typeName);
                     // find the payment in the list
                     var payment = ArrayUtils.find(paymentList, 'id', id);
+                    if (!payment) {
+                        throw 'PaymentService.read: Unknown payment instance, id=' + id;
+                    }
 
                     return angular.copy(payment);
                 };
@@ -203,13 +206,16 @@
                  * @throws Exception - Throws an exception when the given
                  *             payment isn't of any known type.
                  */
-                var add = function add(payment) {
-                    var typeName = getTypeName(payment);
-                    if (typeName === null) {
-                        throw 'The object is not an instance of any known type of payment. Object=' + JSON.stringify(payment);
-                    }
-                    payments[typeName].push(payment);
-                };
+                var add =
+                        function add(payment) {
+                            var typeName = getTypeName(payment);
+                            if (typeName === null) {
+                                throw 'PaymentService.add: The object is not an instance of any known type of payment, Object=' +
+                                    JSON.stringify(payment);
+                            }
+                            payment.id = payments[typeName].length + 1;
+                            payments[typeName].push(payment);
+                        };
 
                 /**
                  * Updates the instance of a payment
@@ -222,6 +228,9 @@
                     // find the list
                     var paymentList = payments[getTypeName(payment)];
                     var paymentInstance = ArrayUtils.find(paymentList, 'id', payment.id);
+                    if (!paymentInstance) {
+                        throw 'PaymentService.update: Unknown payment instance, id=' + id;
+                    }
 
                     angular.extend(paymentInstance, payment);
                 };
@@ -238,6 +247,9 @@
                     var paymentList = payments[getTypeName(payment)];
                     // find the payment in the list
                     var paymentInstance = ArrayUtils.find(paymentList, 'id', payment.id);
+                    if (!paymentInstance) {
+                        throw 'PaymentService.remove: Unknown payment instance, id=' + id;
+                    }
                     // remove
                     paymentList.splice(paymentList.indexOf(paymentInstance), 1);
                 };
