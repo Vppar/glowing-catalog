@@ -10,7 +10,7 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.receivable.keeper'
     ]).service(
             'ReceivableService',
-            function ReceivableService($log, CoinKeeper) {
+            function ReceivableService($log, Receivable, CoinKeeper) {
 
                 var ReceivableKeeper = CoinKeeper('receivable');
 
@@ -87,6 +87,9 @@
                         function register(receivable) {
                             var result = true;
                             try {
+                                if (receivable instanceof Receivable) {
+                                    ReceivableKeeper.cancel(receivable.id);
+                                }
                                 ReceivableKeeper.add(receivable);
                             } catch (err) {
                                 result = false;

@@ -6,7 +6,7 @@ describe('Service: ExpenseServiceRegisterSpec', function() {
     var CoinKeeper = function() {
         return ExpenseKeeper;
     };
-    
+
     // load the service's module
     beforeEach(function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
@@ -21,13 +21,15 @@ describe('Service: ExpenseServiceRegisterSpec', function() {
             $provide.value('CoinKeeper', CoinKeeper);
         });
     });
-    beforeEach(inject(function(_ExpenseService_) {
+    beforeEach(inject(function(_Expense_, _ExpenseService_) {
+        Expense = _Expense_;
         ExpenseService = _ExpenseService_;
     }));
 
     it('should create a expense instance', function() {
         // given
         ExpenseKeeper.add = jasmine.createSpy('ExpenseKeeper.add');
+        ExpenseKeeper.cancel = jasmine.createSpy('ExpenseKeeper.cancel');
         ExpenseService.isValid = jasmine.createSpy('ExpenseService.isValid').andReturn(true);
         var expense = {
             stub : 'I\'m a stub'
@@ -41,13 +43,58 @@ describe('Service: ExpenseServiceRegisterSpec', function() {
         expect(result).toBe(true);
     });
 
+    it('should create a expense instance from a existing expense', function() {
+        // given
+        ExpenseKeeper.add = jasmine.createSpy('ExpenseKeeper.add');
+        ExpenseKeeper.cancel = jasmine.createSpy('ExpenseKeeper.cancel');
+        ExpenseService.isValid = jasmine.createSpy('ExpenseService.isValid').andReturn(true);
+
+        var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var documentId = 2;
+        var type = 'my type';
+        var creationdate = 123456789;
+        var duedate = 987654321;
+        var amount = 1234.56;
+
+        var instance = {
+            id : 1,
+            creationdate : creationdate,
+            entityId : entityId,
+            documentId : documentId,
+            type : type,
+            duedate : duedate,
+            amount : amount
+        };
+        var expense = new Expense(instance);
+
+        // when
+        var result = ExpenseService.register(expense);
+
+        // then
+        expect(ExpenseKeeper.cancel).toHaveBeenCalledWith(expense.id);
+        expect(ExpenseKeeper.add).toHaveBeenCalledWith(expense);
+        expect(result).toBe(true);
+    });
+
     it('shouldn\'t create a expense instance', function() {
         // given
         ExpenseKeeper.add = jasmine.createSpy('ExpenseKeeper.add').andCallFake(function() {
             throw 'my exception';
         });
+        var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
+        var documentId = 2;
+        var type = 'my type';
+        var creationdate = 123456789;
+        var duedate = 987654321;
+        var amount = 1234.56;
+
         var expense = {
-            stub : 'I\'m a stub'
+            creationdate : creationdate,
+            entityId : entityId,
+            documentId : documentId,
+            type : type,
+            duedate : duedate,
+            amount : amount
         };
 
         // when

@@ -157,15 +157,15 @@
              * @param coin - Receivable to be added.
              */
             var add = function add(coinOperation) {
-
+                var addEv = null;
+                // FIXME - use UUID
+                if (!coinOperation.id) {
+                    coinOperation.id = coins.length + 1;
+                }
                 if (name === 'receivable') {
-                    // FIXME - use UUID
-                    coinOperation.id = coins.length + 1;
-                    var addEv = new Receivable(coinOperation);
+                    addEv = new Receivable(coinOperation);
                 } else if (name === 'expense') {
-                    // FIXME - use UUID
-                    coinOperation.id = coins.length + 1;
-                    var addEv = new Expense(coinOperation);
+                    addEv = new Expense(coinOperation);
                 }
                 var stamp = (new Date()).getTime() / 1000;
                 // create a new journal entry
@@ -183,14 +183,14 @@
                 if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
-
+                var liqEv = null;
                 if (name === 'receivable') {
-                    var receivedEv = {
+                    liqEv = {
                         id : id,
                         received : received
                     };
                 } else if (name === 'expense') {
-                    var receivedEv = {
+                    liqEv = {
                         id : id,
                         payed : received
                     };
@@ -198,7 +198,7 @@
 
                 var stamp = (new Date()).getTime() / 1000;
                 // create a new journal entry
-                var entry = new JournalEntry(null, stamp, name + 'LiquidateV1', currentEventVersion, receivedEv);
+                var entry = new JournalEntry(null, stamp, name + 'LiquidateV1', currentEventVersion, liqEv);
 
                 // save the journal entry
                 JournalKeeper.compose(entry);
