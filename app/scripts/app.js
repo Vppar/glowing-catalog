@@ -98,7 +98,7 @@
                     $.event.simulate('tap', self, startEvent);
                 });
             } else {
-                $self.on('click', function(startEvent) {
+                $self.on('click', function(event) {
                     event.stopPropagation();
                     event.preventDefault();
                 });
