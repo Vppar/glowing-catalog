@@ -100,7 +100,7 @@
         function instance(name) {
 
             var currentEventVersion = 1;
-            var receivables = [];
+            var coins = [];
 
             this.handlers = {};
 
@@ -109,62 +109,62 @@
              */
             ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
                 if (name === 'receivable') {
-                    receivables.push(new Receivable(event));
+                    coins.push(new Receivable(event));
                 } else {
-                    receivables.push(new Expense(event));
+                    coins.push(new Expense(event));
                 }
             });
             ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
-                var receivable = ArrayUtils.find(receivables, 'id', event.id);
+                var coin = ArrayUtils.find(coins, 'id', event.id);
 
-                if (receivable) {
-                    receivable.canceled = event.canceled;
+                if (coin) {
+                    coin.canceled = event.canceled;
                 } else {
                     throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
                 }
             });
             ObjectUtils.ro(this.handlers, name + 'LiquidateV1', function(event) {
-                var receivable = ArrayUtils.find(receivables, 'id', event.id);
-                if (receivable && name === 'receivable') {
-                    receivable.received = event.received;
-                } else if (receivable && name === 'expense') {
-                    receivable.payed = event.payed;
+                var coin = ArrayUtils.find(coins, 'id', event.id);
+                if (coin && name === 'receivable') {
+                    coin.received = event.received;
+                } else if (coin && name === 'expense') {
+                    coin.payed = event.payed;
                 } else {
                     throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
                 }
             });
 
             /**
-             * Returns a copy of all receivables
+             * Returns a copy of all coins
              * 
-             * @return Array - List of receivables.
+             * @return Array - List of coins.
              */
             var list = function list() {
-                return angular.copy(receivables);
+                return angular.copy(coins);
             };
 
             /**
-             * Return a copy of a receivable by its id
+             * Return a copy of a coin by its id
              * 
-             * @param id - Id of the target receivable.
+             * @param id - Id of the target coin.
              */
             var read = function read(id) {
-                return angular.copy(ArrayUtils.find(receivables, 'id', id));
+                return angular.copy(ArrayUtils.find(coins, 'id', id));
             };
             /**
-             * Adds a receivable to the list
+             * Adds a coin to the list
              * 
-             * @param receivable - Receivable to be added.
+             * @param coin - Receivable to be added.
              */
             var add = function add(coinOperation) {
 
                 if (name === 'receivable') {
                     // FIXME - use UUID
-                    coinOperation.id = receivables.length + 1;
+                    coinOperation.id = coins.length + 1;
                     var addEv = new Receivable(coinOperation);
                 } else if (name === 'expense') {
                     // FIXME - use UUID
-                    coinOperation.id = receivables.length + 1;
+                    coinOperation.id = coins.length + 1;
                     var addEv = new Expense(coinOperation);
                 }
                 var stamp = (new Date()).getTime() / 1000;
@@ -176,11 +176,11 @@
 
             };
             /**
-             * Receive a payment to a receivable.
+             * Receive a payment to a coin.
              */
             var receive = function receive(id, received) {
-                var receivable = ArrayUtils.find(receivables, 'id', id);
-                if (!receivable) {
+                var coin = ArrayUtils.find(coins, 'id', id);
+                if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
 
@@ -204,14 +204,14 @@
                 JournalKeeper.compose(entry);
             };
             /**
-             * Cancels a receivable.
+             * Cancels a coin.
              * 
-             * @param id - Id of the receivable to be canceled.
+             * @param id - Id of the coin to be canceled.
              */
             var cancel = function cancel(id) {
 
-                var receivable = ArrayUtils.find(receivables, 'id', id);
-                if (!receivable) {
+                var coin = ArrayUtils.find(coins, 'id', id);
+                if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
                 var time = (new Date()).getTime();
