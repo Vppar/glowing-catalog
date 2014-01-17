@@ -2,13 +2,8 @@ describe('Service: PaymentServiceAdd', function() {
 
     // load the service's module
     beforeEach(function() {
-        paymentTemplate = angular.copy(sampleData.paymentTemplate);
-
         module('tnt.catalog.payment.entity');
         module('tnt.catalog.payment.service');
-        module(function($provide) {
-        });
-
     });
 
     // instantiate service
@@ -58,6 +53,7 @@ describe('Service: PaymentServiceAdd', function() {
         var addCall = function() {
             PaymentService.add(payment);
         };
+        
         // then
         expect(addCall).not.toThrow();
         // var payments = PaymentService.list();
@@ -75,10 +71,12 @@ describe('Service: PaymentServiceAdd', function() {
         var cpf = 1234567890;
         var installments = 1;
         var payment = new CreditCardPayment(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments);
+        
         // when
         var addCall = function() {
             PaymentService.add(payment);
         };
+        
         // then
         expect(addCall).not.toThrow();
         // var payments = PaymentService.list();
@@ -88,10 +86,12 @@ describe('Service: PaymentServiceAdd', function() {
     it('should add an exchange payment', function() {
         // given
         var payment = new ExchangePayment(15);
+        
         // when
         var addCall = function() {
             PaymentService.add(payment);
         };
+        
         // then
         expect(addCall).not.toThrow();
         // var payments = PaymentService.list();
@@ -101,10 +101,12 @@ describe('Service: PaymentServiceAdd', function() {
     it('should add a coupon payment', function() {
         // given
         var payment = new CouponPayment(15);
+       
         // when
         var addCall = function() {
             PaymentService.add(payment);
         };
+        
         // then
         expect(addCall).not.toThrow();
         // var payments = PaymentService.list();
@@ -114,10 +116,12 @@ describe('Service: PaymentServiceAdd', function() {
     it('shouldn\'t add a coupon payment', function() {
         // given
         var payment = new Payment(15);
+        
         // when
         var addCall = function() {
             PaymentService.add(payment);
         };
+        
         // then
         expect(addCall).toThrow('The object is not an instance of any known type of payment. Object=' + JSON.stringify(payment));
     });

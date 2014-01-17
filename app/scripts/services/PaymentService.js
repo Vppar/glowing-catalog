@@ -147,7 +147,13 @@
                     }
                     return result;
                 };
-                
+
+                var list = function list() {
+                };
+
+                var read = function read() {
+                };
+
                 /**
                  * Adds a payment to temporary list of payments.
                  * 
@@ -163,7 +169,20 @@
                     payments[typeName].push(payment);
                 };
 
-                this.add = add;
+                var update = function update() {
+                };
 
+                var remove = function remove() {
+                };
+
+                var clear = function clear() {
+                };
+
+                this.add = add;
+                this.list = list;
+                this.read = read;
+                this.update = update;
+                this.remove = remove;
+                this.clear = clear;
             });
 }(angular));
