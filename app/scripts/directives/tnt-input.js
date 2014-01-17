@@ -55,7 +55,7 @@
                     next : attrs.next,
                     prev : attrs.prev
                 };
-                
+
                 input.keypress = function(key) {
 
                     var current = element.val();
@@ -72,7 +72,7 @@
                         KeyboardService.next();
                         return;
                     } else {
-                        if(!attrs.maxlength || current.length < attrs.maxlength){
+                        if (!attrs.maxlength || current.length < attrs.maxlength) {
                             current += key;
                         } else {
                             KeyboardService.next();
@@ -99,8 +99,8 @@
 
                     if (attrs.datepickerPopup !== undefined) {
                         cb = scope.$watch('ngModel', function(val, old) {
-                            if(val && val !== old && element.val().length === attrs.datepickerPopup.length){
-                                KeyboardService.next();
+                            if (val && val !== old && element.val().length === attrs.datepickerPopup.length) {
+                                // KeyboardService.next();
                             }
                         });
                     }
