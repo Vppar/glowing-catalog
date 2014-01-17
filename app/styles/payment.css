@@ -135,9 +135,10 @@ margin-top: 5px;
 .btns-right-payment .btn-price-payment-input-block {
 	float: right;
 	border-radius: 6px;
-	margin: -5px -4px 0 5px; /*margin: -5px 5px 0 5px;*/
+	/*margin: -5px -4px 0 5px; /*margin: -5px 5px 0 5px;/
 	padding-left: 5px;
-	width: 278px;
+	width: 278px;*/	
+	padding: 0 6px 4px 6px !important;
 	color: #777;
 }
 .btn-price-payment-input-block2 {
@@ -152,7 +153,7 @@ margin-top: 5px;
 	display:block;
 	float:left;
 	font-size:12px;
-	margin:-6px 0 -2px 0;
+	margin:-6px 0 -2px 0;/**/
 }
 .label-form-client2 {
 	display:block;
@@ -198,8 +199,15 @@ margin-top: 5px;
 }
 .lbl-phone-client {
 	color:rgba(0, 0, 0, 0.5);
-	margin:-6px 3px 0 10px;
+	margin:-6px 3px 0 10px;/**/
 	float:right;
+}
+.lbl-name-client{
+	width: 270px;
+	border: 1px solid #fff !important;
+	margin: 10px 0 0 -7px;
+	text-align: left;
+	height: 14px !important;
 }
 .right-column-payment {
 	padding:8px;
@@ -644,6 +652,8 @@ border-radius: 4px;
 	width: 87px;
 	font-size: 14px;
 }
+
+.payment-right-totals-border{border-bottom: 1px solid #e0e0e0; /*height: 16px;*/}
 
 .menu-level-payment{
 	margin-bottom:35px;
