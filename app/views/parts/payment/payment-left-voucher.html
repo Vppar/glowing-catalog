@@ -4,18 +4,17 @@
 	</div>
 </div>
 <span class="menu-level-payment">
-	<div class="btn-group btn-group-sm">
-		<a class="btn btn-option active">Vale cr&eacute;dito</a> 
-		<a class="btn btn-option">Vale presente</a>
-		<a class="btn btn-option">Cupom promocional</a>
+	<div class="btn-group btn-group-sm" ng-init="couponSelected='option01'">
+		<a class="btn btn-option active" ng-click="couponSelected='option01'" ng-class="{active: couponSelected === 'option01'}">Vale cr&eacute;dito</a> 
+		<a class="btn btn-option" ng-click="couponSelected='option02'" ng-class="{active: couponSelected === 'option02'}">Vale presente</a>
+		<a class="btn btn-option" ng-click="couponSelected='option03'" ng-class="{active: couponSelected === 'option03'}">Cupom promocional</a>
 	</div>
 </span>
 
 <div class="left-payment" ng-switch="couponSelected" ng-controller="PaymentCouponCtrl">	
 	
-	<!-- CUPOM PROMOCIONAL
-	<div class="row-fluid payment-coupon-fields" ng-switch-when="new">-->
-	<div class="row-fluid payment-coupon-fields display-none">
+	<!-- CUPOM PROMOCIONAL -->
+	<div class="row-fluid payment-coupon-fields" ng-switch-when="option01">
         <form>
 			<div class="controls-row">
 				<div class="control-group lbl-top">				   
@@ -80,11 +79,74 @@
 		</form>		
 	</div>
 	
+	<!-- CUPOM PROMOCIONAL -->
+	<div class="row-fluid payment-coupon-fields" ng-switch-when="option02">
+        <form>
+			<div class="controls-row">
+				<div class="control-group lbl-top">				   
+					<div class="grid-payment-coupon">
+						<div class="header header2 subtitle2-header-coupon">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>R$ Cupom</div>
+								</span>
+								<span class="col-s2">
+									<div>Qtde.</div>
+								</span>
+								<span class="col-s3">
+									<div>&nbsp;</div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">Valor</div>
+								</span>
+							</div>
+						</div>
+						<div class="header header2 subtitle-header-coupon">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>&nbsp;</div>
+								</span>
+								<span class="col-s2">
+									<div>&nbsp;</div>
+								</span>
+								<span class="col-s3">
+									<div class="text-right">
+										Total
+									</div>
+								</span>
+								<span class="col-s4">
+									<div>{{ total | currency: '' }}</div>
+								</span>
+							</div>
+						</div>
+						<div class="scroll-payment-grid">
+							<div class="row-payment-grid-product-coupon" ng-repeat="item in list">
+								<span class="col-s1">
+									<div>
+										R$<span class="coupon-value">{{item.amount | currency: ''}}</span>
+									</div>
+								</span>
+								<span class="col-s2">
+									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s3">
+									<div>&nbsp;</div>
+								</span>
+								<span class="col-s4">
+									<div class="text-right">
+										<span name="amount" class="check-value" id="valor">{{item.total | currency: ''}}</span>
+									</div>
+								</span>
+							</div>
+						</div>
+					</div>				
+				</div>				
+			</div>
+		</form>		
+	</div>
 	
-	
-	<!-- VALE PRESENTE
-	<div class="row-fluid payment-coupon-fields" ng-switch-when="new">-->
-	<div class="row-fluid payment-coupon-fields">
+	<!-- VALE CREDITO-->
+	<div class="row-fluid payment-coupon-fields"  ng-switch-when="option03">
         <form>
 			<div class="row-fluid">
 				<span class="span8 w423">
@@ -127,11 +189,6 @@
 	</div>
 	
 	
-	
-	<!-- VALE CREDITO-->
-	
-	
-
 	<div class="payment-left-btns-area">
 		<div class="payment-left-btns">
 			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
