@@ -1,13 +1,50 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.keyboard.input', [
+    var kinput = angular.module('tnt.catalog.keyboard.input', [
         'tnt.catalog.keyboard.service'
-    ]).directive('tntInput', function(KeyboardService, $log) {
+    ]);
+
+    kinput.directive('tntKbutton', function(KeyboardService, $log) {
+        return {
+            restrict : 'A',
+            scope : {},
+            link : function postLink(scope, element, attrs) {
+
+                var input = {
+                    id : attrs.id,
+                    next : attrs.next,
+                    prev : attrs.prev,
+                };
+
+                input.keypress = function(key) {
+                };
+
+                input.setActive = function(active) {
+                    if (active) {
+                        setTimeout(function() {
+                            element.click();
+                        }, 0);
+                        KeyboardService.next();
+                    }
+                };
+
+                KeyboardService.register(input);
+
+                scope.$on('$destroy', function() {
+                    KeyboardService.unregister(input);
+                });
+            }
+        };
+    });
+
+    kinput.directive('tntInput', function(KeyboardService, $log) {
         return {
             restrict : 'A',
             require : 'ngModel',
-            scope : {},
+            scope : {
+                ngModel : '='
+            },
             link : function postLink(scope, element, attrs, ctrl) {
 
                 element.prop('readonly', true);
@@ -33,6 +70,7 @@
                         current = '';
                     } else if (key === 'ok') {
                         KeyboardService.next();
+                        return;
                     } else {
                         current += key;
                     }
@@ -42,24 +80,58 @@
 
                 };
 
+                function bindFocus() {
+                    setTimeout(function() {
+                        $log.debug('tnt-input selected');
+                        input.setFocus();
+                        scope.$apply();
+                    }, 0);
+                }
+
+                function changeWatcher() {
+                    var cb = function() {
+                    };
+
+                    if (attrs.datepickerPopup !== undefined) {
+                        cb = scope.$watch('ngModel', function(val, old) {
+                            if(val && val !== old && element.val().length === attrs.datepickerPopup.length){
+                                KeyboardService.next();
+                            }
+                        });
+                    }
+                    return cb;
+                }
+
                 input.setActive = function(active) {
+
+                    var watcher = function() {
+                    };
+
                     if (active) {
-                        element.addClass('editing');
+                        element.unbind('focus', bindFocus);
+                        setTimeout(function() {
+                            element.focus();
+                        }, 0);
+
+                        watcher = changeWatcher();
+
                     } else {
-                        element.removeClass('editing');
+                        watcher();
+                        element.bind('focus', bindFocus);
                     }
                 };
 
                 KeyboardService.register(input);
 
-                element.bind('click', function() {
-                    $log.debug('tnt-input selected');
-                    scope.$apply(input.setFocus());
-                });
+                element.bind('focus', bindFocus);
 
                 scope.$on('$destroy', function() {
                     KeyboardService.unregister(input);
                 });
+
+                if (attrs.focus !== undefined) {
+                    input.setFocus();
+                }
             }
         };
     });

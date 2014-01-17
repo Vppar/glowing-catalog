@@ -99,7 +99,8 @@
                 });
             } else {
                 $self.on('click', function(startEvent) {
-                    // discard
+                    event.stopPropagation();
+                    event.preventDefault();
                 });
             }
         }
