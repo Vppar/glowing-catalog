@@ -86,7 +86,7 @@ describe('Service: ReceivableKeeperCancel', function() {
             ReceivableKeeper.cancel(2);
         };
 
-        expect(receiveCall).toThrow();
+        expect(receiveCall).toThrow('Unable to find a receivable with id=\'2\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
@@ -101,7 +101,7 @@ describe('Service: ReceivableKeeperCancel', function() {
         // when
         ReceivableKeeper.handlers['receivableCancelV1'](recEv);
 
-        var result = ReceivableKeeper.get(receivable.id);
+        var result = ReceivableKeeper.read(receivable.id);
 
         // then
         expect(result.canceled).toBe(fakeNow);
@@ -122,7 +122,7 @@ describe('Service: ReceivableKeeperCancel', function() {
         };
 
         // then
-        expect(receiveCall).toThrow();
+        expect(receiveCall).toThrow('Unable to find a receivable with id=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
