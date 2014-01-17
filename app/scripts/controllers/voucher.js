@@ -9,8 +9,8 @@
                 /**
                  * The real deal
                  */
-                // var vouchers = VoucherKeeper.list('voucher');
-                // $scope.vouchers = vouchers;
+                 var vouchers = VoucherKeeper.list('voucher');
+                 $scope.vouchers = vouchers;
                 
                 $scope.dates = {
                     dtInitial : '',
@@ -21,38 +21,7 @@
                     entity : '',
                     amount : ''
                 };
-                
-                // "Mocked" voucher
-                $scope.vouchers = [
-                    {
-
-                        id : 1,
-                        entity : 'Carlos',
-                        amount : 50,
-                        created : new Date(),
-                        redeemed : new Date(),
-                        qty : 5
-
-                    }, {
-
-                        id : 2,
-                        entity : 'Xuxa',
-                        amount : 66,
-                        created : 1389916800000,
-                        qty : 1
-
-                    }, {
-
-                        id : 3,
-                        entity : 'Joelma',
-                        amount : 33,
-                        created : 1389916800000,
-                        canceled : true,
-                        qty : 1
-
-                    }
-                ];
-
+               
                 $scope.$watchCollection('filter', function() {
                     var gridFilter = {
                         entity : $scope.filter.entity,
