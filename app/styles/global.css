@@ -2,7 +2,7 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-.unselectable:not(input){/*.unselectable {*/
+:not(input){
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -988,7 +988,7 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	/*margin-bottom:-10px;*/
 }
 
-.editing{	
+input:focus, .focus{	
 	outline: 2px solid #D7F0BF;
 	outline-offset: -3px;
 }
