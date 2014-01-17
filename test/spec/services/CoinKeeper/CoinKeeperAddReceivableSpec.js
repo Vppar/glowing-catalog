@@ -56,8 +56,7 @@ describe('Service: CoinKeeperAddReceivable', function() {
     it('should return the same entity', function() {
         expect(CoinKeeper('test')).toBe(CoinKeeper('test'));
     });
-    
-    
+
     it('should add a receivable', function() {
         // given
         var receivable = validReceivable;

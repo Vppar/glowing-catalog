@@ -51,7 +51,7 @@ describe('Service: CoinKeeperListReceivable', function() {
 
     /**
      * <pre>
-     * Givenan empty CoinKeeperReceivable    
+     * Given an empty CoinKeeperReceivable    
      * When an get is triggered
      * Then an empty array must be returned
      * </pre>

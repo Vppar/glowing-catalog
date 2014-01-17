@@ -120,7 +120,7 @@
                 if (receivable) {
                     receivable.canceled = event.canceled;
                 } else {
-                    throw 'Unable to find a '+name+' with id=\'' + event.id + '\'';
+                    throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
                 }
             });
             ObjectUtils.ro(this.handlers, name + 'LiquidateV1', function(event) {
@@ -130,7 +130,7 @@
                 } else if (receivable && name === 'expense') {
                     receivable.payed = event.payed;
                 } else {
-                    throw 'Unable to find a '+name+' with id=\'' + event.id + '\'';
+                    throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
                 }
             });
 
@@ -181,19 +181,19 @@
             var receive = function receive(id, received) {
                 var receivable = ArrayUtils.find(receivables, 'id', id);
                 if (!receivable) {
-                    throw 'Unable to find a '+name+' with id=\'' + id + '\'';
+                    throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
-                
+
                 if (name === 'receivable') {
-                var receivedEv = {
-                    id : id,
-                    received : received
-                };
-                }else if (name === 'expense') {
                     var receivedEv = {
-                            id : id,
-                            payed : received
-                        };
+                        id : id,
+                        received : received
+                    };
+                } else if (name === 'expense') {
+                    var receivedEv = {
+                        id : id,
+                        payed : received
+                    };
                 }
 
                 var stamp = (new Date()).getTime() / 1000;
@@ -212,7 +212,7 @@
 
                 var receivable = ArrayUtils.find(receivables, 'id', id);
                 if (!receivable) {
-                    throw 'Unable to find a '+name+' with id=\'' + id + '\'';
+                    throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
                 var time = (new Date()).getTime();
                 var stamp = time / 1000;

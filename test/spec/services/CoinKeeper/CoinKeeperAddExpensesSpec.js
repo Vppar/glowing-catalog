@@ -57,8 +57,7 @@ describe('Service: CoinKeeperAddExpense', function() {
     it('should return the same entity', function() {
         expect(CoinKeeper('test')).toBe(CoinKeeper('test'));
     });
-    
-    
+
     it('should add a expense', function() {
         // given
         var expense = validExpense;
@@ -104,7 +103,7 @@ describe('Service: CoinKeeperAddExpense', function() {
         // then
         expect(expenses[0]).not.toBe(expense);
         expect(expenses[0]).toEqual(expense);
-        
+
     });
 
 });
