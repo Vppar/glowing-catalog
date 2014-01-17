@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.service.coupon', [
-        'tnt.utils.array', 'tnt.catalog.voucher.entity'
+        'tnt.utils.array', 'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper'
     ]).service('CouponService', function CouponService(ArrayUtils, VoucherKeeper, Voucher) {
 
         /**
@@ -18,7 +18,7 @@
             if (id > 0) {
                 VoucherKeeper.redeem('coupon', id);
             } else {
-                throw "Coupon not redeem";
+                throw 'Coupon not redeem';
             }
         };
 
@@ -35,7 +35,7 @@
 
                 VoucherKeeper.create(coupon);
             } else {
-                throw "Coupon not created";
+                throw 'Coupon not created';
             }
         };
 
@@ -46,7 +46,7 @@
             if (id > 0) {
                 return VoucherKeeper.cancel('coupon', id);
             } else {
-                throw "Coupon not canceled";
+                throw 'Coupon not canceled';
             }
         };
 
