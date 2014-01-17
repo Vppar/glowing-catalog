@@ -57,30 +57,32 @@
 		<div class="grid-payment-check">
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
-				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'data.installmentId':true" ng-click="edit(payment)">
-					<span class="col-check-s1">
-						<div ng-show="payment.data.installmentId<=9">{{'00'+payment.data.installmentId}}</div>
-						<div ng-show="payment.data.installmentId>9 && payment.data.installmentId<=99" >{{'0'+payment.data.installmentId}}</div>
-						<div ng-show="payment.data.installmentId>99">{{payment.data.installmentId}}</div>
-					</span>
-	               	<span class="col-check-s2">
-	               		<div>{{payment.data.bank}}</div>
-	               	</span>
-	             	<span class="col-check-s3">
-	             		<div>{{payment.data.agency}}</div>
-	             	</span>
-	                <span class="col-check-s4">
-	                	<div>{{payment.data.account}}</div>
-	                </span>
-	                <span class="col-check-s5">
-	                	<div>{{payment.data.number}}</div>
-	                </span>
-					<span class="col-check-s6">
-						<div>{{payment.data.duedate | date:'dd/MM/yy'}}</div>
-					</span>
-	                <span class="col-check-s7 t-right">
-	                	<div>{{payment.amount | currency:''}}</div>
-	                </span>
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'data.installmentId':true" >
+					<span ng-click="edit(payment)">
+						<span class="col-check-s1">
+							<div ng-show="payment.data.installmentId<=9">{{'00'+payment.data.installmentId}}</div>
+							<div ng-show="payment.data.installmentId>9 && payment.data.installmentId<=99" >{{'0'+payment.data.installmentId}}</div>
+							<div ng-show="payment.data.installmentId>99">{{payment.data.installmentId}}</div>
+						</span>
+		               	<span class="col-check-s2">
+		               		<div>{{payment.data.bank}}</div>
+		               	</span>
+		             	<span class="col-check-s3">
+		             		<div>{{payment.data.agency}}</div>
+		             	</span>
+		                <span class="col-check-s4">
+		                	<div>{{payment.data.account}}</div>
+		                </span>
+		                <span class="col-check-s5">
+		                	<div>{{payment.data.number}}</div>
+		                </span>
+						<span class="col-check-s6">
+							<div>{{payment.data.duedate | date:'dd/MM/yy'}}</div>
+						</span>
+		                <span class="col-check-s7 t-right">
+		                	<div>{{payment.amount | currency:''}}</div>
+		                </span>
+               		</span>
 	                <span class="col-check-s8">
 	                	<div class="hover-state-pointer">
 							<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
