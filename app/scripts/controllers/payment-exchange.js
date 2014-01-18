@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.exchange', [
-        'tnt.catalog.service.payment', 'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.service.dialog'
-    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService, $filter) {
+        'tnt.catalog.payment.service', 'tnt.catalog.inventory.keeper', 'tnt.utils.array'
+    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -36,7 +36,6 @@
                 $scope.qty = 1;
             }
         });
-        
 
         $scope.add = function add() {
 
@@ -64,8 +63,8 @@
             }
 
         };
-        
-        $scope.remove= function(exch){
+
+        $scope.remove = function(exch) {
             DialogService.messageDialog({
                 title : 'Atenção.',
                 message : 'Confirmar exclusão do item de troca?',
@@ -75,12 +74,13 @@
                 var exchangeIdx = $scope.products.indexOf(exch);
                 $scope.exchanges.splice(exchangeIdx, 1);
                 $scope.computeTotals();
-            });;
+            });
+            ;
         };
-        
-        //TODO - maybe change to compute totals on add/remove action.
+
+        // TODO - maybe change to compute totals on add/remove action.
         // compute grid header
-        $scope.computeTotals = function(){
+        $scope.computeTotals = function() {
             $scope.amounttotal = 0;
             $scope.qtytotal = 0;
             $scope.id = $scope.exchanges.length;
@@ -89,8 +89,6 @@
                 $scope.qtytotal += $scope.exchanges[idx].qty;
             }
         };
-        
-        
-        
+
     });
 }(angular));
