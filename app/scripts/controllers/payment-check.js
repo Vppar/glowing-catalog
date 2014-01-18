@@ -34,6 +34,8 @@
                         };
                         angular.extend(check, emptyCheckTemplate);
 
+                        $scope.check.duedate = new Date();
+
                         // Find the id of check payment type
                         var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
 
@@ -161,7 +163,8 @@
                                 var checkInstallment = angular.copy(newCheck);
 
                                 checkInstallment.number = '' + (Number(newCheck.number) + i);
-                                checkInstallment.duedate.setMonth(checkInstallment.duedate.getMonth() + i);
+
+                                checkInstallment.duedate = properDate(checkInstallment.duedate, i);
 
                                 if (Number(installmentsNumber) === i + 1) {
                                     var finalAmount = newCheck.amount - installmentsSum;
@@ -178,6 +181,16 @@
                                     ' different, installmentsSum=' + installmentsSum + ' originalAmount=' + newCheck.amount);
                             }
                             return newChecks;
+                        }
+
+                        function properDate(baseDate, increase) {
+                            var date = new Date(baseDate.getYear(), baseDate.getMonth() + 1 + increase, 0);
+
+                            if (baseDate.getDate() > date.getDate()) {
+                                return date;
+                            } else {
+                                return baseDate.setMonth(baseDate.getMonth() + increase);
+                            }
                         }
 
                         function createPayments(newChecks) {
