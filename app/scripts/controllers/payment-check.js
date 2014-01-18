@@ -34,8 +34,11 @@
                         };
                         angular.extend(check, emptyCheckTemplate);
 
+                        $scope.check.duedate = new Date();
+
                         // Find the id of check payment type
-                        var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
+                        // var checkTypeId =
+                        // $scope.findPaymentTypeByDescription('check').id;
 
                         // Recovering dialogService from parent scope.
                         var dialogService = $scope.dialogService;
@@ -161,7 +164,8 @@
                                 var checkInstallment = angular.copy(newCheck);
 
                                 checkInstallment.number = '' + (Number(newCheck.number) + i);
-                                checkInstallment.duedate.setMonth(checkInstallment.duedate.getMonth() + i);
+
+                                checkInstallment.duedate = properDate(checkInstallment.duedate, i);
 
                                 if (Number(installmentsNumber) === i + 1) {
                                     var finalAmount = newCheck.amount - installmentsSum;
@@ -180,16 +184,27 @@
                             return newChecks;
                         }
 
+                        function properDate(baseDate, increase) {
+                            var date = new Date(baseDate.getYear(), baseDate.getMonth() + 1 + increase, 0);
+
+                            if (baseDate.getDate() > date.getDate()) {
+                                return date;
+                            } else {
+                                return baseDate.setMonth(baseDate.getMonth() + increase);
+                            }
+                        }
+
                         function createPayments(newChecks) {
                             for ( var idx in newChecks) {
-                                var newCheck = newChecks[idx];
-                                var payment = PaymentService.createNew('check');
-
-                                var amount = newCheck.amount;
-                                delete newCheck.amount;
-
-                                payment.amount = amount;
-                                payment.data = angular.copy(newCheck);
+                                // var newCheck = newChecks[idx];
+                                // var payment =
+                                // PaymentService.createNew('check');
+                                //
+                                // var amount = newCheck.amount;
+                                // delete newCheck.amount;
+                                //
+                                // payment.amount = amount;
+                                // payment.data = angular.copy(newCheck);
                             }
                         }
                         /**
