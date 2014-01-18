@@ -502,7 +502,7 @@ margin: 24px 0 40px -5px;
 z-index: 11;
 border-radius: 4px;
 }
-#keyNum_quad{
+#keyNum_quad{ /*para esconder o campo "dinheiro"*/
 width: 310px;
 height: 55px; /*500px*/
 background: #F8F8F8;
@@ -698,9 +698,6 @@ border-radius: 4px;
 .payment-coupon-fields .control-label, .payment-check-fields .control-label{
 	margin-left:5px;
 }
-.w424{
-width: 424px;
-}
 .w126{
 	width:126px !important;
 }
@@ -708,19 +705,11 @@ width: 424px;
 	width:200px !important;
 }
 
-.w423{
-width: 423px !important;
+.w420{
+width: 420px !important;
 }
 .w428{
 width: 428px !important;
-}
-
-.w441{
-width: 441px !important;
-}
-
-.w213{
-width: 213px !important;
 }
 
 .w326{
@@ -941,7 +930,7 @@ width: 213px !important;
 }
 
 .grid-payment-coupon .col-s1 {
-	width: 175px; /*35px*/
+	width: 200px; /*35px*/
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -958,15 +947,19 @@ width: 213px !important;
 	vertical-align: middle;
 	text-align:center;
 }
-.grid-payment-coupon .col-s3 {
-	width: 100px;/*75px*/
+.coupon-subtotal{
+	text-align:right;
+	width: 160px;
+}
+/*.grid-payment-coupon .col-s3 {
+	width: 100px;
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 	text-align:center;
-}
-.grid-payment-coupon .col-s4{
-	width: 150px;/*75px*/
+}*/
+.grid-payment-coupon .col-s3{ /*s4*/
+	width: 167px;/*75px*/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:right;
