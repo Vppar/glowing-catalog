@@ -57,7 +57,7 @@
 		<div class="grid-payment-check">
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
-				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy: -'data.installmentId':true" >
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'-data.installmentId'" >
 					<span ng-click="edit(payment)">
 						<span class="col-check-s1">
 							<div ng-show="payment.data.installmentId<=9">{{'00'+payment.data.installmentId}}</div>
