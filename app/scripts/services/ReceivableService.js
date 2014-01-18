@@ -107,7 +107,7 @@
 
                 /**
                  * Pseudo update a receivable in the datastore. What it really
-                 * does is
+                 * does is cancel the receivable and create a new one.
                  * 
                  * @param receivable - Receivable object to be registered.
                  * @return boolean - Result if the receivable was accepted or
@@ -116,7 +116,7 @@
                  *             keeper
                  */
                 var update =
-                        function udpate(receivable) {
+                        function update(receivable) {
                             var result = isValid(receivable);
                             if (result.length === 0) {
                                 try {
