@@ -49,7 +49,7 @@ describe('Service: ReceivableServiceisValid', function() {
         var result = ReceivableService.isValid(receivable);
 
         // then
-        expect(result.length).toBe(0);
+        expect(result.length).toEqual(0);
     });
 
     /**
@@ -63,16 +63,16 @@ describe('Service: ReceivableServiceisValid', function() {
         // given
 
         var receivable = {
-            creationdate : fakeNow + monthTime,
-            amount : -1234.56,
-            duedate : fakeNow - monthTime
+            creationdate : fakeNow - monthTime,
+            amount : 1234.56,
+            duedate : fakeNow + monthTime
         };
 
         // when
         var result = ReceivableService.isValid(receivable);
-
+        
         // then
-        expect(result.length).toBeGreaterThan(0);
+        expect(result.length).toEqual(3);
     });
 
 });

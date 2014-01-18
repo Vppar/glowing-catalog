@@ -100,7 +100,7 @@
         var pay = function pay(id, dueDate) {
             var result = true;
             try {
-                ExpenseKeeper.receive(id, dueDate);
+                ExpenseKeeper.liquidate(id, dueDate);
             } catch (err) {
                 result = false;
                 $log.debug('ExpenseService.register: Unable to make the payment of expense=' + JSON.stringify(expense) + ', ' + err);

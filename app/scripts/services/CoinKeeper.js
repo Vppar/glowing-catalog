@@ -100,7 +100,7 @@
         function instance(name) {
 
             var currentEventVersion = 1;
-            var coins = [];
+            var vault = [];
 
             this.handlers = {};
 
@@ -109,13 +109,13 @@
              */
             ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
                 if (name === 'receivable') {
-                    coins.push(new Receivable(event));
-                } else {
-                    coins.push(new Expense(event));
+                    vault.push(new Receivable(event));
+                } else if (name === 'expense') {
+                    vault.push(new Expense(event));
                 }
             });
             ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
-                var coin = ArrayUtils.find(coins, 'id', event.id);
+                var coin = ArrayUtils.find(vault, 'id', event.id);
 
                 if (coin) {
                     coin.canceled = event.canceled;
@@ -124,7 +124,7 @@
                 }
             });
             ObjectUtils.ro(this.handlers, name + 'LiquidateV1', function(event) {
-                var coin = ArrayUtils.find(coins, 'id', event.id);
+                var coin = ArrayUtils.find(vault, 'id', event.id);
                 if (coin && name === 'receivable') {
                     coin.received = event.received;
                 } else if (coin && name === 'expense') {
@@ -135,12 +135,12 @@
             });
 
             /**
-             * Returns a copy of all coins
+             * Returns a copy of all coins in the vault
              * 
-             * @return Array - List of coins.
+             * @return Array - Coins in the vault.
              */
             var list = function list() {
-                return angular.copy(coins);
+                return angular.copy(vault);
             };
 
             /**
@@ -149,8 +149,9 @@
              * @param id - Id of the target coin.
              */
             var read = function read(id) {
-                return angular.copy(ArrayUtils.find(coins, 'id', id));
+                return angular.copy(ArrayUtils.find(vault, 'id', id));
             };
+
             /**
              * Adds a coin to the list
              * 
@@ -159,9 +160,7 @@
             var add = function add(coinOperation) {
                 var addEv = null;
                 // FIXME - use UUID
-                if (!coinOperation.id) {
-                    coinOperation.id = coins.length + 1;
-                }
+                coinOperation.id = vault.length + 1;
                 if (name === 'receivable') {
                     addEv = new Receivable(coinOperation);
                 } else if (name === 'expense') {
@@ -175,11 +174,16 @@
                 JournalKeeper.compose(entry);
 
             };
+
             /**
-             * Receive a payment to a coin.
+             * Liquidate a coin.
+             * 
+             * @param id - Identifier to the coin.
+             * @param executionDate - Date that the coin was executed(payed or
+             *            received).
              */
-            var receive = function receive(id, received) {
-                var coin = ArrayUtils.find(coins, 'id', id);
+            var liquidate = function liquidate(id, executionDate) {
+                var coin = ArrayUtils.find(vault, 'id', id);
                 if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
@@ -187,12 +191,12 @@
                 if (name === 'receivable') {
                     liqEv = {
                         id : id,
-                        received : received
+                        received : executionDate
                     };
                 } else if (name === 'expense') {
                     liqEv = {
                         id : id,
-                        payed : received
+                        payed : executionDate
                     };
                 }
 
@@ -203,6 +207,7 @@
                 // save the journal entry
                 JournalKeeper.compose(entry);
             };
+
             /**
              * Cancels a coin.
              * 
@@ -210,7 +215,7 @@
              */
             var cancel = function cancel(id) {
 
-                var coin = ArrayUtils.find(coins, 'id', id);
+                var coin = ArrayUtils.find(vault, 'id', id);
                 if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
@@ -232,7 +237,7 @@
             this.list = list;
             this.read = read;
             this.add = add;
-            this.receive = receive;
+            this.liquidate = liquidate;
             this.cancel = cancel;
         }
 
