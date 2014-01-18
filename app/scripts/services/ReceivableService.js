@@ -18,7 +18,8 @@
                  * Verifies if a receivable is valid or not.
                  * 
                  * @param receivable - Receivable object to be validated.
-                 * @return boolean - Result if the receivable is valid or not.
+                 * @return Array - Array of objects containing the invalid
+                 *         properties
                  */
                 var isValid =
                         function isValid(receivable) {
@@ -81,15 +82,13 @@
                 };
 
                 /**
-                 * Register a receivable in the datastore. The receivable must
-                 * be validated before call this method so in case of a invalid
-                 * property the controller can known which one is invalid.
+                 * Register a receivable in the datastore.
                  * 
                  * @param receivable - Receivable object to be registered.
-                 * @return boolean - Result if the receivable was accepted or
-                 *         declined.
+                 * @return Array - Array of objects containing the invalid
+                 *         properties.
                  * @throws Exception in case of a fatal error comming from the
-                 *             keeper
+                 *             keeper.
                  */
                 var register =
                         function register(receivable) {
@@ -109,11 +108,11 @@
                  * Pseudo update a receivable in the datastore. What it really
                  * does is cancel the receivable and create a new one.
                  * 
-                 * @param receivable - Receivable object to be registered.
-                 * @return boolean - Result if the receivable was accepted or
-                 *         declined.
+                 * @param receivable - Receivable to be registered.
+                 * @return Array - Array of objects containing the invalid
+                 *         properties.
                  * @throws Exception in case of a fatal error comming from the
-                 *             keeper
+                 *             keeper.
                  */
                 var update =
                         function update(receivable) {

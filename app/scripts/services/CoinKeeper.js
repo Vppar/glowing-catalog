@@ -101,6 +101,16 @@
 
             var currentEventVersion = 1;
             var vault = [];
+            var types = {
+                receivable : {
+                    entity : Receivable,
+                    liquidate : 'received'
+                },
+                expense : {
+                    entity : Expense,
+                    liquidate : 'payed'
+                }
+            };
 
             this.handlers = {};
 
@@ -108,13 +118,12 @@
              * Registering handlers
              */
             ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
-                if (name === 'receivable') {
-                    vault.push(new Receivable(event));
-                } else if (name === 'expense') {
-                    vault.push(new Expense(event));
-                }
+                // Get the coin info from type map, get the respective entity
+                // and instantiate
+                vault.push(new types[name]['entity'](event));
             });
             ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
+
                 var coin = ArrayUtils.find(vault, 'id', event.id);
 
                 if (coin) {
@@ -125,10 +134,10 @@
             });
             ObjectUtils.ro(this.handlers, name + 'LiquidateV1', function(event) {
                 var coin = ArrayUtils.find(vault, 'id', event.id);
-                if (coin && name === 'receivable') {
-                    coin.received = event.received;
-                } else if (coin && name === 'expense') {
-                    coin.payed = event.payed;
+                if (coin) {
+                    // Get the coin info from type map and get the respective
+                    // liquidate variable name
+                    coin[types[name]['liquidate']] = event[types[name]['liquidate']];
                 } else {
                     throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
                 }
