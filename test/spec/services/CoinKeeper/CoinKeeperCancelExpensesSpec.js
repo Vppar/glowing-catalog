@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: ReceivableKeeperCancel', function() {
+describe('Service: CoinKeeperCancelExpense', function() {
 
-    var Receivable = null;
-    var ReceivableKeeper = null;
+    var Expense = null;
+    var ExpenseKeeper = null;
     var JournalEntry = null;
     var fakeNow = null;
-    var validReceivable = null;
+    var validExpense = null;
     var monthTime = 2592000;
     var jKeeper = {};
 
     // load the service's module
     beforeEach(function() {
-        module('tnt.catalog.receivable.entity');
+        module('tnt.catalog.expense.entity');
         module('tnt.catalog.receivable.keeper');
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
@@ -27,7 +27,7 @@ describe('Service: ReceivableKeeperCancel', function() {
         var duedate = fakeNow + monthTime;
         var amount = 1234.56;
 
-        validReceivable = {
+        validExpense = {
             id : 1,
             creationdate : creationdate,
             entityId : entityId,
@@ -47,61 +47,60 @@ describe('Service: ReceivableKeeperCancel', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_, _JournalEntry_) {
-        Receivable = _Receivable_;
-        ReceivableKeeper = _ReceivableKeeper_;
+    beforeEach(inject(function(_Expense_, CoinKeeper, _JournalEntry_) {
+        Expense = _Expense_;
+        ExpenseKeeper = CoinKeeper('expense');
         JournalEntry = _JournalEntry_;
     }));
 
-    it('should cancel a receivable', function() {
+    it('should cancel a expense', function() {
 
-        var addEv = new Receivable(validReceivable);
+        var addEv = new Expense(validExpense);
         var recEv = {
             id : 1,
             canceled : fakeNow
         };
 
         var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, 'receivableCancelV1', 1, recEv);
+        var receiveEntry = new JournalEntry(null, tstamp, 'expenseCancelV1', 1, recEv);
 
-        ReceivableKeeper.handlers['receivableAddV1'](addEv);
+        ExpenseKeeper.handlers['expenseAddV1'](addEv);
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.cancel(addEv.id);
+            ExpenseKeeper.cancel(addEv.id);
         };
 
         expect(receiveCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
     });
 
-    it('shouldn\'t cancel a receivable', function() {
+    it('shouldn\'t cancel a expense', function() {
 
-        var addEv = new Receivable(validReceivable);
+        var addEv = new Expense(validExpense);
 
-        ReceivableKeeper.handlers['receivableAddV1'](addEv);
+        ExpenseKeeper.handlers['expenseAddV1'](addEv);
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.cancel(2);
+            ExpenseKeeper.cancel(2);
         };
-
-        expect(receiveCall).toThrow('Unable to find a receivable with id=\'2\'');
+        expect(receiveCall).toThrow('Unable to find a expense with id=\'2\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
     it('should handle a cancel event', function() {
-        var receivable = new Receivable(validReceivable);
+        var expense = new Expense(validExpense);
         var recEv = {
             id : 1,
             canceled : fakeNow
         };
-        ReceivableKeeper.handlers['receivableAddV1'](receivable);
+        ExpenseKeeper.handlers['expenseAddV1'](expense);
 
         // when
-        ReceivableKeeper.handlers['receivableCancelV1'](recEv);
+        ExpenseKeeper.handlers['expenseCancelV1'](recEv);
 
-        var result = ReceivableKeeper.read(receivable.id);
+        var result = ExpenseKeeper.read(expense.id);
 
         // then
         expect(result.canceled).toBe(fakeNow);
@@ -109,20 +108,20 @@ describe('Service: ReceivableKeeperCancel', function() {
 
     it('shouldn\'t handle a cancel event', function() {
 
-        var receivable = new Receivable(validReceivable);
+        var expense = new Expense(validExpense);
         var recEv = {
             id : 5,
             canceled : fakeNow
         };
-        ReceivableKeeper.handlers['receivableAddV1'](receivable);
+        ExpenseKeeper.handlers['expenseAddV1'](expense);
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.handlers['receivableCancelV1'](recEv);
+            ExpenseKeeper.handlers['expenseCancelV1'](recEv);
         };
 
         // then
-        expect(receiveCall).toThrow('Unable to find a receivable with id=\'5\'');
+        expect(receiveCall).toThrow('Unable to find a expense with id=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 

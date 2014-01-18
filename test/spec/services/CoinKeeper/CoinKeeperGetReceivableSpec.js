@@ -1,5 +1,5 @@
 'use strict';
-describe('Service: ReceivableKeeperRead', function() {
+describe('Service: CoinKeeperReadReceivable', function() {
 
     var ReceivableKeeper = null;
     var fakeNow = null;
@@ -17,8 +17,8 @@ describe('Service: ReceivableKeeperRead', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_ReceivableKeeper_) {
-        ReceivableKeeper = _ReceivableKeeper_;
+    beforeEach(inject(function(CoinKeeper) {
+        ReceivableKeeper = CoinKeeper('receivable');
     }));
 
     /**

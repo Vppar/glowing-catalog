@@ -10,7 +10,9 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.receivable.keeper'
     ]).service(
             'ReceivableService',
-            function ReceivableService($log, ReceivableKeeper) {
+            function ReceivableService($log, CoinKeeper) {
+
+                var ReceivableKeeper = CoinKeeper('receivable');
 
                 /**
                  * Verifies if a receivable is valid or not.
@@ -52,7 +54,7 @@
                     try {
                         result = ReceivableKeeper.list();
                     } catch (err) {
-                        $log.debug ('ReceivableService.list: Unable to recover the list of receivables. Err=' + err);
+                        $log.debug('ReceivableService.list: Unable to recover the list of receivables. Err=' + err);
                     }
                     return result;
                 };
@@ -68,7 +70,7 @@
                     try {
                         result = ReceivableKeeper.read(id);
                     } catch (err) {
-                        $log.debug ('ReceivableService.read: Unable to find a receivable with id=\'' + id + '. Err=' + err);
+                        $log.debug('ReceivableService.read: Unable to find a receivable with id=\'' + id + '. Err=' + err);
                     }
                     return result;
                 };

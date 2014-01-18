@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableKeeperList', function() {
+describe('Service: CoinKeeperListReceivable', function() {
 
     var ReceivableKeeper = null;
 
@@ -14,13 +14,13 @@ describe('Service: ReceivableKeeperList', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_ReceivableKeeper_) {
-        ReceivableKeeper = _ReceivableKeeper_;
+    beforeEach(inject(function(CoinKeeper) {
+        ReceivableKeeper = CoinKeeper('receivable');
     }));
 
     /**
      * <pre>
-     * Given a filled ReceivableKeeper     
+     * Given a filled CoinKeeperReceivable     
      * When list is triggered
      * Then the target receivable should be returned
      * </pre>
@@ -51,7 +51,7 @@ describe('Service: ReceivableKeeperList', function() {
 
     /**
      * <pre>
-     * Givenan empty ReceivableKeeper    
+     * Given an empty CoinKeeperReceivable    
      * When an get is triggered
      * Then an empty array must be returned
      * </pre>
