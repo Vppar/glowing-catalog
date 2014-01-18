@@ -678,14 +678,19 @@ border-radius: 4px;
 	display:block;
 }
 
-.credit-card-parcelas{
+/*.credit-card-parcelas{
 	width:120px;
 	text-align:center;
 }
 .credit-card-valor{
 	text-align:center;
+}*/
+.bandeira-cartao{
+width: 267px;
 }
-
+.parcelas-cartao {
+width: 153px;
+}
 .input-large{
 	height: 40px !important;
 	line-height: 40px;
@@ -997,6 +1002,22 @@ width: 428px !important;
 	text-align:right;
 	width: 35px;
 	display: inline-block;
+}
+
+.select-h38 .select2-choice {
+	height: 38px;
+}
+
+.select-h38 .select2-arrow {
+	padding-top: 5px;
+}
+
+.select-h38 .select2-chosen{
+	padding-top: 5px;
+}
+
+.marginl112{
+margin-left: 112px;
 }
 /*Grid Historico
 
