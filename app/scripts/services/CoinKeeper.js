@@ -120,7 +120,8 @@
             ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
                 // Get the coin info from type map, get the respective entity
                 // and instantiate
-                vault.push(new types[name]['entity'](event));
+                var Coin = types[name]['entity'];
+                vault.push(new Coin(event));
             });
             ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
 
@@ -137,7 +138,8 @@
                 if (coin) {
                     // Get the coin info from type map and get the respective
                     // liquidate variable name
-                    coin[types[name]['liquidate']] = event[types[name]['liquidate']];
+                    var action = types[name]['liquidate'];
+                    coin[action] = event[action];
                 } else {
                     throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
                 }
@@ -167,14 +169,12 @@
              * @param coin - Receivable to be added.
              */
             var add = function add(coinOperation) {
-                var addEv = null;
                 // FIXME - use UUID
                 coinOperation.id = vault.length + 1;
-                if (name === 'receivable') {
-                    addEv = new Receivable(coinOperation);
-                } else if (name === 'expense') {
-                    addEv = new Expense(coinOperation);
-                }
+
+                var Coin = types[name]['entity'];
+                var addEv = new Coin(coinOperation);
+
                 var stamp = (new Date()).getTime() / 1000;
                 // create a new journal entry
                 var entry = new JournalEntry(null, stamp, name + 'AddV1', currentEventVersion, addEv);
@@ -196,18 +196,12 @@
                 if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
-                var liqEv = null;
-                if (name === 'receivable') {
-                    liqEv = {
-                        id : id,
-                        received : executionDate
-                    };
-                } else if (name === 'expense') {
-                    liqEv = {
-                        id : id,
-                        payed : executionDate
-                    };
-                }
+                var action = types[name]['liquidate'];
+
+                var liqEv = {
+                    id : id,
+                };
+                liqEv[action] = executionDate;
 
                 var stamp = (new Date()).getTime() / 1000;
                 // create a new journal entry

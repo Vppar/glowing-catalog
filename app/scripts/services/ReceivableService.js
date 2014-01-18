@@ -141,9 +141,8 @@
                             try {
                                 ReceivableKeeper.liquidate(id, receiveDate);
                             } catch (err) {
-                                result = false;
-                                $log.debug('ReceivableService.register: Unable to receive a payment to a receivable=' +
-                                    JSON.stringify(receivable) + '. Err=' + err);
+                                throw 'ReceivableService.register: Unable to receive a payment to a receivable=' +
+                                    JSON.stringify(receivable) + '. Err=' + err;
                             }
                             return result;
                         };
@@ -154,18 +153,15 @@
                  * @param id - Receivable id.
                  * @return boolean - Result if the receivable is canceled.
                  */
-                var cancel =
-                        function cancel(id) {
-                            var result = true;
-                            try {
-                                ReceivableKeeper.cancel(id);
-                            } catch (err) {
-                                result = false;
-                                $log.debug('ReceivableService.register: Unable to cancel a receivable=' + JSON.stringify(receivable) +
-                                    '. Err=' + err);
-                            }
-                            return result;
-                        };
+                var cancel = function cancel(id) {
+                    var result = true;
+                    try {
+                        ReceivableKeeper.cancel(id);
+                    } catch (err) {
+                        throw 'ReceivableService.register: Unable to cancel a receivable=' + JSON.stringify(receivable) + '. Err=' + err;
+                    }
+                    return result;
+                };
 
                 this.isValid = isValid;
                 this.register = register;
