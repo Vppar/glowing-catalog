@@ -1,4 +1,4 @@
-xdescribe('Service: PaymentServiceUpdate', function() {
+describe('Service: PaymentServiceUpdate', function() {
 
     // load the service's module
     beforeEach(function() {
