@@ -43,7 +43,7 @@
 
                 // Order list
                 $scope.items = order.items;
-                $scope.payments = PaymentService.payments;
+                $scope.payments = [];
 
                 // Filters
                 $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
@@ -54,7 +54,8 @@
                 if (cashPayment.length > 0) {
                     $scope.payment.cash = cashPayment[0];
                 } else {
-                    $scope.payment.cash = PaymentService.createNew('cash');
+//                    $scope.payment.cash = PaymentService.createNew('cash');
+                    $scope.payment.cash = {};
                     $scope.payment.cash.amount = '0';
                 }
 

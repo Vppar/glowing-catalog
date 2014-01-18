@@ -35,7 +35,8 @@
                         angular.extend(check, emptyCheckTemplate);
 
                         // Find the id of check payment type
-                        var checkTypeId = $scope.findPaymentTypeByDescription('check').id;
+                        // var checkTypeId =
+                        // $scope.findPaymentTypeByDescription('check').id;
 
                         // Recovering dialogService from parent scope.
                         var dialogService = $scope.dialogService;
@@ -182,14 +183,15 @@
 
                         function createPayments(newChecks) {
                             for ( var idx in newChecks) {
-                                var newCheck = newChecks[idx];
-                                var payment = PaymentService.createNew('check');
-
-                                var amount = newCheck.amount;
-                                delete newCheck.amount;
-
-                                payment.amount = amount;
-                                payment.data = angular.copy(newCheck);
+                                // var newCheck = newChecks[idx];
+                                // var payment =
+                                // PaymentService.createNew('check');
+                                //
+                                // var amount = newCheck.amount;
+                                // delete newCheck.amount;
+                                //
+                                // payment.amount = amount;
+                                // payment.data = angular.copy(newCheck);
                             }
                         }
                         /**
