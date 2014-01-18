@@ -13,179 +13,175 @@
 
 <div class="left-payment" ng-switch="couponSelected" ng-controller="PaymentCouponCtrl">	
 	
-	<!-- CUPOM PROMOCIONAL -->
+	<!-- VALE CREDITO-->
 	<div class="row-fluid payment-coupon-fields" ng-switch-when="option01">
         <form>
-			<div class="controls-row">
-				<div class="control-group lbl-top">				   
-					<div class="grid-payment-coupon">
-						<div class="header header2 subtitle2-header-coupon">
-							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>R$ Cupom</div>
-								</span>
-								<span class="col-s2">
-									<div>Qtde.</div>
-								</span>
-								<span class="col-s3">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s4">
-									<div class="text-right">Valor</div>
-								</span>
-							</div>
-						</div>
-						<div class="header header2 subtitle-header-coupon">
-							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s2">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s3">
-									<div class="text-right">
-										Total
-									</div>
-								</span>
-								<span class="col-s4">
-									<div>{{ total | currency: '' }}</div>
-								</span>
-							</div>
-						</div>
-						<div class="scroll-payment-grid">
-							<div class="row-payment-grid-product-coupon" ng-repeat="item in list">
-								<span class="col-s1">
-									<div>
-										R$<span class="coupon-value">{{item.amount | currency: ''}}</span>
-									</div>
-								</span>
-								<span class="col-s2">
-									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
-								</span>
-								<span class="col-s3">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s4">
-									<div class="text-right">
-										<span name="amount" class="check-value" id="valor">{{item.total | currency: ''}}</span>
-									</div>
-								</span>
-							</div>
-						</div>
-					</div>				
-				</div>				
-			</div>
-		</form>		
-	</div>
-	
-	<!-- CUPOM PROMOCIONAL -->
-	<div class="row-fluid payment-coupon-fields" ng-switch-when="option02">
-        <form>
-			<div class="controls-row">
-				<div class="control-group lbl-top">				   
-					<div class="grid-payment-coupon">
-						<div class="header header2 subtitle2-header-coupon">
-							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>R$ Cupom</div>
-								</span>
-								<span class="col-s2">
-									<div>Qtde.</div>
-								</span>
-								<span class="col-s3">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s4">
-									<div class="text-right">Valor</div>
-								</span>
-							</div>
-						</div>
-						<div class="header header2 subtitle-header-coupon">
-							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s2">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s3">
-									<div class="text-right">
-										Total
-									</div>
-								</span>
-								<span class="col-s4">
-									<div>{{ total | currency: '' }}</div>
-								</span>
-							</div>
-						</div>
-						<div class="scroll-payment-grid">
-							<div class="row-payment-grid-product-coupon" ng-repeat="item in list">
-								<span class="col-s1">
-									<div>
-										R$<span class="coupon-value">{{item.amount | currency: ''}}</span>
-									</div>
-								</span>
-								<span class="col-s2">
-									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
-								</span>
-								<span class="col-s3">
-									<div>&nbsp;</div>
-								</span>
-								<span class="col-s4">
-									<div class="text-right">
-										<span name="amount" class="check-value" id="valor">{{item.total | currency: ''}}</span>
-									</div>
-								</span>
-							</div>
-						</div>
-					</div>				
-				</div>				
-			</div>
-		</form>		
-	</div>
-	
-	<!-- VALE CREDITO-->
-	<div class="row-fluid payment-coupon-fields" ng-switch-when="option03">
-        <form>
 			<div class="row-fluid">
-				<span class="span8 w423">
+				<span class="span8">
 					<div class="control-group">
-						<label class="control-label">Nome do benefici&aacute;rio</label>
-						<div class="input-append w424">
-							<input class="input-block-level hover-state-pointer input-large"
-								id="appendedInput" type="text" ng-model="receivable.entity" disabled>
-							<span ng-click="" class="add-on input-large-add">+</span>
-						</div>
+						<label class="control-label">Cliente</label>
+						<input class="input-block-level input-large"
+							id="appendedInput" type="text" ng-model="receivable.entity">
+					</div>
+				</span>
+				<span class="span4">
+					<div class="control-group">
+						<label class="control-label">Celular</label>
+						<input name="amount"
+						class="input-block-level input-large text-right" type="text" placeholder=""
+						ng-model="receivable.amount" required>
 					</div>
 				</span>
 			</div>
 			<div class="row-fluid">
-				<span class="span8 w441">
+				<span class="span8">
 					<div class="control-group">
 						<label class="control-label">E-mail</label>
 						<input name="date" class="input-block-level input-large" type="text" placeholder=""
 							ng-model="receivable.createdate" required>
 					</div>
 				</span>
-			</div>
-			<div class="row-fluid">
-				<span class="span4 w213">
+				<span class="span4">
 					<div class="control-group">
-						<label class="control-label">Celular</label>
-						<input name="amount"
-						class="input-block-level input-large" type="text" placeholder=""
-						ng-model="receivable.amount" required>
-					</div>
-				</span>
-				<span class="span4 w213">
-					<div class="control-group">
-						<label class="control-label">Valor</label>
+						<label class="control-label">Valor total</label>
 						<span name="amount" class="check-value w200 input-large-value" id="valor">{{item.total | currency: ''}}</span>
 					</div>
 				</span>
 			</div>
 		</form>
+	</div>
+	
+	<!-- VALE PRESENTE-->
+	<div class="row-fluid payment-coupon-fields" ng-switch-when="option02">
+        <form>
+			<div class="row-fluid">
+				<span class="span8">
+					<div class="control-group">
+						<label class="control-label">Favorecido do Vale Presente</label>
+						<div class="input-append">
+							<input class="input-block-level hover-state-pointer input-large w420"
+								id="appendedInput" type="text" ng-model="receivable.entity" disabled>
+							<span ng-click="" class="add-on input-large-add">+</span>
+						</div>
+					</div>
+				</span>
+				<span class="span4">
+					<div class="control-group">
+						<label class="control-label">Celular</label>
+						<input name="amount"
+						class="input-block-level input-large text-right" type="text" placeholder=""
+						ng-model="receivable.amount" required>
+					</div>
+				</span>
+			</div>
+			<div class="row-fluid">
+				<span class="span8">
+					<div class="control-group">
+						<label class="control-label">E-mail</label>
+						<input name="date" class="input-block-level input-large" type="text" placeholder=""
+							ng-model="receivable.createdate" required>
+					</div>
+				</span>
+				<span class="span4">
+					<div class="control-group">
+						<label class="control-label">Valor total</label>
+						<span name="amount" class="check-value w200 input-large-value" id="valor">{{item.total | currency: ''}}</span>
+					</div>
+				</span>
+			</div>
+		</form>
+	</div>
+	
+	<!-- CUPOM PROMOCIONAL -->
+	<div class="row-fluid payment-coupon-fields" ng-switch-when="option03">
+        <form>
+			<div class="row-fluid">
+				<span class="span8">
+					<div class="control-group">
+						<label class="control-label">Cliente</label>
+						<input class="input-block-level input-large"
+							id="appendedInput" type="text" ng-model="receivable.entity">
+					</div>
+				</span>
+				<span class="span4">
+					<div class="control-group">
+						<label class="control-label">Celular</label>
+						<input name="amount"
+						class="input-block-level input-large text-right" type="text" placeholder=""
+						ng-model="receivable.amount" required>
+					</div>
+				</span>
+			</div>
+			<div class="row-fluid">
+				<span class="span8">
+					<div class="control-group">
+						<label class="control-label">E-mail</label>
+						<input name="date" class="input-block-level input-large" type="text" placeholder=""
+							ng-model="receivable.createdate" required>
+					</div>
+				</span>
+				<span class="span4">
+					<div class="control-group">
+						<label class="control-label">Valor total</label>
+						<span name="amount" class="check-value w200 input-large-value" id="valor">{{item.total | currency: ''}}</span>
+					</div>
+				</span>
+			</div>
+			<div class="controls-row">
+				<div class="control-group lbl-top float-right">				   
+					<div class="grid-payment-coupon">
+						<div class="header header2 subtitle2-header-coupon">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>R$ Cupom</div>
+								</span>
+								<span class="col-s2">
+									<div>Qtde.</div>
+								</span>
+								<span class="col-s3">
+									<div class="coupon-subtotal">Subtotal</div>
+								</span>
+							</div>
+						</div>
+						<!--<div class="header header2 subtitle-header-coupon">
+							<div class="row-payment-grid">
+								<span class="col-s1">
+									<div>&nbsp;</div>
+								</span>
+								<span class="col-s2">
+									<div>&nbsp;</div>
+								</span>
+								<span class="col-s3">
+									<div class="text-right">
+										Total
+									</div>
+								</span>
+								<span class="col-s4">
+									<div>{{ total | currency: '' }}</div>
+								</span>
+							</div>
+						</div>-->
+						<div class="scroll-payment-grid">
+							<div class="row-payment-grid-product-coupon" ng-repeat="item in list">
+								<span class="col-s1">
+									<div>
+										R$<span class="coupon-value">{{item.amount | currency: ''}}</span>
+									</div>
+								</span>
+								<span class="col-s2">
+									<div><input-qty ng-model="item.qty" min="0"></input-qty></div>
+								</span>
+								<span class="col-s3">
+									<div class="text-right">
+										<span name="amount" class="check-value" id="valor">{{item.total | currency: ''}}</span>
+									</div>
+								</span>
+							</div>
+						</div>
+					</div>				
+				</div>				
+			</div>
+		</form>		
 	</div>
 	
 	<div class="payment-left-btns-area">
