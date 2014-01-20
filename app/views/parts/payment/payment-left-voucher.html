@@ -4,14 +4,14 @@
 	</div>
 </div>
 <span class="menu-level-payment">
-	<div class="btn-group btn-group-sm" ng-init="couponSelected='option01'">
-		<a class="btn btn-option active" ng-click="couponSelected='option01'" ng-class="{active: couponSelected === 'option01'}">Vale cr&eacute;dito</a> 
-		<a class="btn btn-option" ng-click="couponSelected='option02'" ng-class="{active: couponSelected === 'option02'}">Vale presente</a>
-		<a class="btn btn-option" ng-click="couponSelected='option03'" ng-class="{active: couponSelected === 'option03'}">Cupom promocional</a>
+	<div class="btn-group btn-group-sm" ng-init="option='option01'">
+		<a class="btn btn-option active" ng-click="option='option01'" ng-class="{active: option === 'option01'}">Vale cr&eacute;dito</a> 
+		<a class="btn btn-option" ng-click="option='option02'" ng-class="{active: option === 'option02'}">Vale presente</a>
+		<a class="btn btn-option" ng-click="option='option03'" ng-class="{active: option === 'option03'}">Cupom promocional</a>
 	</div>
 </span>
 
-<div class="left-payment" ng-switch="couponSelected" ng-controller="PaymentCouponCtrl">	
+<div class="left-payment" ng-switch="option" ng-controller="PaymentCouponCtrl">	
 	
 	<!-- VALE CREDITO-->
 	<div class="row-fluid payment-coupon-fields" ng-switch-when="option01">
@@ -20,16 +20,16 @@
 				<span class="span8">
 					<div class="control-group">
 						<label class="control-label">Cliente</label>
-						<input class="input-block-level input-large"
-							id="appendedInput" type="text" ng-model="receivable.entity">
+						<input class="input-block-level input-large" readonly="readonly"
+							id="customerName" type="text" ng-model="customer.name">
 					</div>
 				</span>
 				<span class="span4">
 					<div class="control-group">
 						<label class="control-label">Celular</label>
-						<input name="amount"
+						<input id="customerPhone" readonly="readonly"
 						class="input-block-level input-large text-right" type="text" placeholder=""
-						ng-model="receivable.amount" required>
+						ng-model="customer.phones[0].number" phone required>
 					</div>
 				</span>
 			</div>
@@ -37,14 +37,15 @@
 				<span class="span8">
 					<div class="control-group">
 						<label class="control-label">E-mail</label>
-						<input name="date" class="input-block-level input-large" type="text" placeholder=""
-							ng-model="receivable.createdate" required>
+						<input id="customerEmail" class="input-block-level input-large" type="text" placeholder=""
+							ng-model="customer.emails[0].address" readonly="readonly">
 					</div>
 				</span>
 				<span class="span4">
 					<div class="control-group">
 						<label class="control-label">Valor total</label>
-						<span name="amount" class="check-value w200 input-large-value" id="valor">{{item.total | currency: ''}}</span>
+							<input id="amount" required ng-model="voucher.total" currency tnt-input
+								class="input-block-level input-large text-right" type="text">
 					</div>
 				</span>
 			</div>
@@ -60,17 +61,16 @@
 						<label class="control-label">Favorecido do Vale Presente</label>
 						<div class="input-append">
 							<input class="input-block-level hover-state-pointer input-large w420"
-								id="appendedInput" type="text" ng-model="receivable.entity" disabled>
-							<span ng-click="" class="add-on input-large-add">+</span>
+								id="appendedInput" type="text" ng-model="gift.customer.name" readonly="readonly">
+							<span ng-click="openDialogChooseCustomerGift()" class="add-on input-large-add">+</span>
 						</div>
 					</div>
 				</span>
 				<span class="span4">
 					<div class="control-group">
 						<label class="control-label">Celular</label>
-						<input name="amount"
-						class="input-block-level input-large text-right" type="text" placeholder=""
-						ng-model="receivable.amount" required>
+						<input name="" class="input-block-level input-large text-right" type="text" placeholder=""
+						ng-model="gift.customer.phones[0].number" phone required readonly="readonly">
 					</div>
 				</span>
 			</div>
@@ -79,13 +79,14 @@
 					<div class="control-group">
 						<label class="control-label">E-mail</label>
 						<input name="date" class="input-block-level input-large" type="text" placeholder=""
-							ng-model="receivable.createdate" required>
+							ng-model="gift.customer.emails[0].address" readonly="readonly">
 					</div>
 				</span>
 				<span class="span4">
 					<div class="control-group">
 						<label class="control-label">Valor total</label>
-						<span name="amount" class="check-value w200 input-large-value" id="valor">{{item.total | currency: ''}}</span>
+						<input name="totalVoucher"  id="totalVoucher" tnt-input class="input-block-level input-large text-right" currency
+							type="text" placeholder="" ng-model="gift.total"  required>
 					</div>
 				</span>
 			</div>
@@ -99,8 +100,8 @@
 				<span class="span8">
 					<div class="control-group">
 						<label class="control-label">Cliente</label>
-						<input class="input-block-level input-large"
-							id="appendedInput" type="text" ng-model="receivable.entity">
+						<input class="input-block-level input-large" readonly="readonly"
+							id="appendedInput" type="text" ng-model="customer.name">
 					</div>
 				</span>
 				<span class="span4">
@@ -108,7 +109,7 @@
 						<label class="control-label">Celular</label>
 						<input name="amount"
 						class="input-block-level input-large text-right" type="text" placeholder=""
-						ng-model="receivable.amount" required>
+						ng-model="customer.phones[0].number" phone readonly="readonly" required>
 					</div>
 				</span>
 			</div>
@@ -117,13 +118,13 @@
 					<div class="control-group">
 						<label class="control-label">E-mail</label>
 						<input name="date" class="input-block-level input-large" type="text" placeholder=""
-							ng-model="receivable.createdate" required>
+							ng-model="customer.emails[0].address" readonly="readonly" >
 					</div>
 				</span>
 				<span class="span4">
 					<div class="control-group">
 						<label class="control-label">Valor total</label>
-						<span name="amount" class="check-value w200 input-large-value" id="valor">{{item.total | currency: ''}}</span>
+						<span name="amount" class="check-value w200 input-large-value" id="valor">{{total | currency: ''}}</span>
 					</div>
 				</span>
 			</div>
@@ -189,7 +190,7 @@
 			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
 				Cancelar
 			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmCoupons(total)" >
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="selectConfirm()" >
 				Confirmar
 			</button>
 		</div>

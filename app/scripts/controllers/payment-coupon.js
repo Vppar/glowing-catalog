@@ -5,15 +5,23 @@
         'tnt.catalog.filter.findBy', 'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog', 'tnt.utils.array'
     ]).controller(
             'PaymentCouponCtrl',
-            function($scope, $log, CouponService, DialogService, ArrayUtils) {
+            function($filter, $scope, $log, CouponService, DialogService, ArrayUtils, DataProvider, OrderService) {
 
                 // #####################################################################################################
                 // Warm up the controller
                 // #####################################################################################################
                 var errorMessage =
                         'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
+                var order = OrderService.order;
 
                 $scope.total = 0;
+                $scope.voucher = {
+                    total : 0
+                };
+                $scope.gift = {
+                    total : 0,
+                    customer : ''
+                };
 
                 $scope.list = [
                     {
@@ -42,6 +50,36 @@
                         $scope.total += $scope.list[ix].total;
                     }
                 }
+
+                $scope.selectConfirm = function selectConfirm() {
+                    if ($scope.option == 'option01') {
+                        $scope.confirmVoucher();
+                    } else if ($scope.option == 'option02') {
+                        $scope.confirmGift();
+                    } else if ($scope.option == 'option03') {
+                        $scope.confirmCoupons();
+                    }
+                };
+
+                $scope.calcCoupons = function calcCoupons() {
+                    updateTotal();
+                };
+
+                $scope.confirmVoucher = function confirmVoucher() {
+                    $scope.coupon.total = $scope.voucher.total;
+                    $scope.selectPaymentMethod('none');
+                };
+
+                $scope.confirmGift = function confirmGift() {
+                    $scope.selectPaymentMethod('none');
+                };
+
+                $scope.openDialogChooseCustomerGift = function() {
+                    DialogService.openDialogChooseCustomer().then(function() {
+                        $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                        ;
+                    });
+                };
 
                 $scope.confirmCoupons =
                         function confirmCoupons() {
