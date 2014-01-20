@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.payment.exchange', [
         'tnt.catalog.payment.service', 'tnt.catalog.inventory.keeper', 'tnt.utils.array'
-    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils) {
+    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -11,6 +11,16 @@
 
         // Initializing exchange data with a empty exchange
         var products = InventoryKeeper.read();
+
+        //Show SKU or SKU + Option(when possible).
+        for ( var idx in products) {
+            var item = products[idx];
+            if (item.option) {
+                item.uniqueName = item.title + ' - ' + item.option;
+            } else {
+                item.uniqueName = item.title;
+            }
+        };
 
         // Products informations to fill the screen combo.
         // $scope.products = DataProvider.products;
@@ -71,9 +81,10 @@
                 btnYes : 'Sim',
                 btnNo : 'Não'
             }).then(function() {
-                var exchangeIdx = $scope.products.indexOf(exch);
-                $scope.exchanges.splice(exchangeIdx, 1);
+                var index = $scope.exchanges.indexOf(exch);
+                $scope.exchanges.splice(index, 1);
                 $scope.computeTotals();
+                $scope.index--;
             });
             ;
         };
