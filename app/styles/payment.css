@@ -644,6 +644,11 @@ border-radius: 4px;
 	width: 87px;
 	text-align: right !important;
 	overflow:hidden;
+	
+border: 1px solid #eee;
+background-color: #f2f2f2;
+border-radius: 4px;
+padding: 4px 7px 4px 5px;
 }
 .qntty{
 	display: inline-block;
@@ -705,8 +710,9 @@ width: 153px;
 	height: 30px !important;
 	line-height: 30px;
 }
-.payment-coupon-fields .control-label, .payment-check-fields .control-label{
+.payment-coupon-fields .control-label, .payment-check-fields .control-label, .payment-receivable-fields .control-label{
 	margin-left:5px;
+margin-right: 8px;
 }
 .w126{
 	width:126px !important;
@@ -1061,3 +1067,52 @@ margin-left: 112px;
 	vertical-align: middle;
 	text-align:center;
 }*/
+
+/*-------------receivable------------*/
+
+.grid-payment-receivable .header-receivable{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.grid-payment-receivable .item{
+	display: block;
+	overflow: hidden;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	padding: 4px 7px 4px 5px;
+}
+.grid-payment-receivable .col-s1 {
+	width: 86px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align:center;
+}
+.grid-payment-receivable .col-s2 {
+	width: 154px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align:center;
+	margin-left:9px;
+}
+.grid-payment-receivable .col-s3{
+	width: 159px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align:right;
+	margin-left:11px;
+}
+.subtitle2-header-receivable {border:none !important;}
+
+.subtitle-header-receivable{
+	margin: 0 !important;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
