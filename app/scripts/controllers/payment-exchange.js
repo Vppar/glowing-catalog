@@ -84,7 +84,6 @@
                 var index = $scope.exchanges.indexOf(exch);
                 $scope.exchanges.splice(index, 1);
                 $scope.computeTotals();
-                $scope.index--;
             });
             ;
         };
