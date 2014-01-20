@@ -17,7 +17,7 @@
                         var oneCoupomMessage =
                                 'Foi  gerado 1 cupom promocional no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
                         var moreThanOneCoupomMessage =
-                                'Foram  gerados {{coupomNumber}} cupons promocionais no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
+                                'Foram &nbsp; gerados {{coupomNumber}} cupons promocionais no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
 
                         var order = OrderService.order;
 

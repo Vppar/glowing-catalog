@@ -22,9 +22,9 @@
 			<span class="btn-sub-payment">{{items | sum:'price':'qty' | currency: '' }}</span>
 		</span>				
 		<span class="lbl-money2 display-block qty-values">
-			<span class="lbl-money4 qntty" ng-show="orderItemsQty !== 1"> ({{orderItemsQty}}) itens</span>
-			<span class="lbl-money4 qntty" ng-hide="orderItemsQty !== 1"> ({{orderItemsQty}}) item</span>
-			<span class="lbl-money4 qntty"> ({{orderUnitsQty}}) unid.</span>
+			<span class="lbl-money4 qntty" ng-show="total.order.qty !== 1"> ({{total.order.qty}}) itens</span>
+			<span class="lbl-money4 qntty" ng-hide="total.order.qty !== 1"> ({{total.order.qty}}) item</span>
+			<span class="lbl-money4 qntty"> ({{total.order.unit}}) unid.</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-class="{'up-field-payment': selectedPaymentMethod=='money'}" ng-click="selectPaymentMethod('money')">
@@ -35,7 +35,7 @@
 	        <span class=""> 
 	        	<!--btn-price-payment-input-block2 input-block-level-->
 	            <!--<input class="input-money-payment text-right" id="appendedInput" type="tel" ng-model="payment.cash.amount" currency recall>-->
-				<input id="cash" class="btn-price-payment" ng-model="payment.cash.amount" tnt-input currency/>
+				<input id="cash" class="btn-price-payment" ng-model="total.payments.cash" tnt-input currency/>
 	        </span>
 	    </div>
 	</div>
@@ -63,22 +63,22 @@
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) < 0">
+            <div class="red-color" ng-show="total.change < 0">
                 Faltam
             </div>
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) == 0">
+            <div class="red-color" ng-show="total.change == 0">
                 Diferen&ccedil;a
             </div>
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">
+            <div class="red-color" ng-show="total.change > 0">
                 Troco
             </div>
         </div>
         <div class="values-resume">
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) <= 0">
-                {{((items | sum: 'price': 'qty') - (payments | sum: 'amount')) | currency: '' }}
+            <div class="red-color" ng-show="total.change <= 0">
+                {{(total.change*(-1)) | currency: '' }}
             </div>
-            <div class="red-color" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">
-                {{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency: '' }}
+            <div class="red-color" ng-show="total.change > 0">
+                {{(total.change) | currency: '' }}
             </div>
         </div>
 	</div>
