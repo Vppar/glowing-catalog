@@ -93,6 +93,11 @@
             currentField.setActive(false);
             currentField = null;
         }
+        
+        this.quit = function(){
+            unselect();
+            keyboard.setActive(false);
+        };
 
         function reorder() {
             var prev, current;
