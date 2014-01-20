@@ -159,6 +159,7 @@
 	color: #333;
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
+	font-weight: bold;
 	/*margin: 5px 0 5px 0;
 	margin-bottom: 20px;
 	border-bottom: 1px solid #ccc;
@@ -189,13 +190,13 @@
 	text-align: left;
 	padding-right: 8px;
 	display:inline-block;
-	width:46%;
+	width:50%;
 }
 .form-stock .title-col-3{
 	text-align: center;
 	padding-right: 8px;
 	display:inline-block;
-	width: 10%;
+	width: 6%;
 }
 .form-stock .title-col-4{
 	text-align: right;
