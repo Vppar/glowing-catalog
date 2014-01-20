@@ -921,6 +921,130 @@ width: 428px !important;
 	max-height: 432px !important;
 }
 
+/*-------------discount------------*/
+
+.grid-payment-discount .col-s1 {
+	width: 100px; /*35px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-discount .col-s2 {
+	width: 300px;/*400px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount .col-s3 {
+	width: 120px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount .col-s4{
+	width: 120px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.control-label-discount{
+	width:375px; /*400px*/
+}
+
+.discount-initial .header-discount{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+}
+.discount-initial .header-discount, .discount-edit .header-discount{
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.subtitle-header-discount{
+	margin: 0 0 5px 0 !important;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+.subtitle2-header-discount{
+	margin: 0 !important;
+	font-weight:bold;
+}
+
+.grid-payment-discount-edit .col-s1 {
+	width: 315px; /*35px*/
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left:5px;
+}
+.grid-payment-discount-edit .col-s2 {
+	width: 87px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s3 {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s4{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-discount-edit .col-s1-list {
+	width: 305px;
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left: 15px;
+}
+.grid-payment-discount-edit .col-s2-list {
+	width: 87px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s3-list {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s4-list{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.row-payment-grid-product-discount input[type="checkbox"]{margin-top: -10px;}
+
+.col-s3-list input ,
+.col-s4-list input {
+	margin: 0 !important;
+	width:90px;
+}
+
+.grid-payment-discount-edit .scroll-payment-grid {
+	min-height: 205px !important;
+	max-height: 432px !important;
+}
+.grid-payment-discount .scroll-payment-grid {
+	/*min-height: 125px !important;
+	max-height: 432px !important;*/
+	height: 135px;
+}
+
 /*-------------coupon------------*/
 .payment-coupon-fields .filter-bar {padding:0 !important;}
 
