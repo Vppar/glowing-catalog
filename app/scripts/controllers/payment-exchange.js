@@ -12,7 +12,7 @@
         // Initializing exchange data with a empty exchange
         var products = InventoryKeeper.read();
 
-        //Show SKU or SKU + Option(when possible).
+        //Show Title or Title + Option(when possible).
         for ( var idx in products) {
             var item = products[idx];
             if (item.option) {
