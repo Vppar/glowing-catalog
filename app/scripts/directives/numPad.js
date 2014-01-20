@@ -18,21 +18,21 @@
             templateUrl : templateUrl,
             link : function postLink(scope, element, attrs) {
 
-//                var mask = angular.element('<div class="unselectable" style="background-color:rgba(255, 128, 64, 0.3); position: absolute; top: 0; left: 0; bottom: 0; right: 0"></div>');
-//                mask.bind('click', function(event){
-//                    console.log('gotcha');
-//                    event.stopPropagation();
-//                    event.preventDefault();
-//                });
+                var mask = angular.element('<div class="unselectable" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0"></div>');
                 
                 var keyboard = {
                     setActive : function(active) {
                         scope.isActive = active;
-//                        if(active){
-//                            $document.find('body').append(mask);
-//                        } else {
-//                            mask.remove();
-//                        }
+                        if(active){
+                            $document.find('body').append(mask);
+                            mask.bind('click', function(event){
+                                event.stopPropagation();
+                                event.preventDefault();
+                                if (!scope.isActive) {
+                                    mask.remove();
+                                } 
+                            });
+                        } 
                     }
                 };
 
