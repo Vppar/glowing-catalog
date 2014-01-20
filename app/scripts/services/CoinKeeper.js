@@ -100,7 +100,17 @@
         function instance(name) {
 
             var currentEventVersion = 1;
-            var coins = [];
+            var vault = [];
+            var types = {
+                receivable : {
+                    entity : Receivable,
+                    liquidate : 'received'
+                },
+                expense : {
+                    entity : Expense,
+                    liquidate : 'payed'
+                }
+            };
 
             this.handlers = {};
 
@@ -108,14 +118,14 @@
              * Registering handlers
              */
             ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
-                if (name === 'receivable') {
-                    coins.push(new Receivable(event));
-                } else {
-                    coins.push(new Expense(event));
-                }
+                // Get the coin info from type map, get the respective entity
+                // and instantiate
+                var Coin = types[name]['entity'];
+                vault.push(new Coin(event));
             });
             ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
-                var coin = ArrayUtils.find(coins, 'id', event.id);
+
+                var coin = ArrayUtils.find(vault, 'id', event.id);
 
                 if (coin) {
                     coin.canceled = event.canceled;
@@ -124,23 +134,24 @@
                 }
             });
             ObjectUtils.ro(this.handlers, name + 'LiquidateV1', function(event) {
-                var coin = ArrayUtils.find(coins, 'id', event.id);
-                if (coin && name === 'receivable') {
-                    coin.received = event.received;
-                } else if (coin && name === 'expense') {
-                    coin.payed = event.payed;
+                var coin = ArrayUtils.find(vault, 'id', event.id);
+                if (coin) {
+                    // Get the coin info from type map and get the respective
+                    // liquidate variable name
+                    var action = types[name]['liquidate'];
+                    coin[action] = event[action];
                 } else {
                     throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
                 }
             });
 
             /**
-             * Returns a copy of all coins
+             * Returns a copy of all coins in the vault
              * 
-             * @return Array - List of coins.
+             * @return Array - Coins in the vault.
              */
             var list = function list() {
-                return angular.copy(coins);
+                return angular.copy(vault);
             };
 
             /**
@@ -149,24 +160,21 @@
              * @param id - Id of the target coin.
              */
             var read = function read(id) {
-                return angular.copy(ArrayUtils.find(coins, 'id', id));
+                return angular.copy(ArrayUtils.find(vault, 'id', id));
             };
+
             /**
              * Adds a coin to the list
              * 
              * @param coin - Receivable to be added.
              */
             var add = function add(coinOperation) {
+                // FIXME - use UUID
+                coinOperation.id = vault.length + 1;
 
-                if (name === 'receivable') {
-                    // FIXME - use UUID
-                    coinOperation.id = coins.length + 1;
-                    var addEv = new Receivable(coinOperation);
-                } else if (name === 'expense') {
-                    // FIXME - use UUID
-                    coinOperation.id = coins.length + 1;
-                    var addEv = new Expense(coinOperation);
-                }
+                var Coin = types[name]['entity'];
+                var addEv = new Coin(coinOperation);
+
                 var stamp = (new Date()).getTime() / 1000;
                 // create a new journal entry
                 var entry = new JournalEntry(null, stamp, name + 'AddV1', currentEventVersion, addEv);
@@ -175,34 +183,34 @@
                 JournalKeeper.compose(entry);
 
             };
+
             /**
-             * Receive a payment to a coin.
+             * Liquidate a coin.
+             * 
+             * @param id - Identifier to the coin.
+             * @param executionDate - Date that the coin was executed(payed or
+             *            received).
              */
-            var receive = function receive(id, received) {
-                var coin = ArrayUtils.find(coins, 'id', id);
+            var liquidate = function liquidate(id, executionDate) {
+                var coin = ArrayUtils.find(vault, 'id', id);
                 if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
+                var action = types[name]['liquidate'];
 
-                if (name === 'receivable') {
-                    var receivedEv = {
-                        id : id,
-                        received : received
-                    };
-                } else if (name === 'expense') {
-                    var receivedEv = {
-                        id : id,
-                        payed : received
-                    };
-                }
+                var liqEv = {
+                    id : id,
+                };
+                liqEv[action] = executionDate;
 
                 var stamp = (new Date()).getTime() / 1000;
                 // create a new journal entry
-                var entry = new JournalEntry(null, stamp, name + 'LiquidateV1', currentEventVersion, receivedEv);
+                var entry = new JournalEntry(null, stamp, name + 'LiquidateV1', currentEventVersion, liqEv);
 
                 // save the journal entry
                 JournalKeeper.compose(entry);
             };
+
             /**
              * Cancels a coin.
              * 
@@ -210,7 +218,7 @@
              */
             var cancel = function cancel(id) {
 
-                var coin = ArrayUtils.find(coins, 'id', id);
+                var coin = ArrayUtils.find(vault, 'id', id);
                 if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
@@ -232,7 +240,7 @@
             this.list = list;
             this.read = read;
             this.add = add;
-            this.receive = receive;
+            this.liquidate = liquidate;
             this.cancel = cancel;
         }
 

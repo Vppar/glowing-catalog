@@ -6,7 +6,7 @@
      */
     angular.module('tnt.catalog.service.expense', [
         'tnt.catalog.expense.entity', 'tnt.catalog.receivable.keeper'
-    ]).service('ExpenseService', function ExpenseService($log, CoinKeeper) {
+    ]).service('ExpenseService', function ExpenseService($log, Expense, CoinKeeper) {
 
         var ExpenseKeeper = CoinKeeper('expense');
 
@@ -80,6 +80,9 @@
         var register = function register(expense) {
             var result = true;
             try {
+                if (expense instanceof Expense) {
+                    ExpenseKeeper.cancel(expense.id);
+                }
                 ExpenseKeeper.add(expense);
             } catch (err) {
                 result = false;
@@ -97,7 +100,7 @@
         var pay = function pay(id, dueDate) {
             var result = true;
             try {
-                ExpenseKeeper.receive(id, dueDate);
+                ExpenseKeeper.liquidate(id, dueDate);
             } catch (err) {
                 result = false;
                 $log.debug('ExpenseService.register: Unable to make the payment of expense=' + JSON.stringify(expense) + ', ' + err);

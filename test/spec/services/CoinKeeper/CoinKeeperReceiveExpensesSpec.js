@@ -53,7 +53,7 @@ describe('Service: CoinKeeperReceiveExpense', function() {
 
     it('should receive a payment to a expense', function() {
 
-        var addEv = new Expense(validExpense);
+        var liqEv = new Expense(validExpense);
         var recEv = {
             id : 1,
             payed : fakeNow
@@ -62,11 +62,11 @@ describe('Service: CoinKeeperReceiveExpense', function() {
         var tstamp = fakeNow / 1000;
         var receiveEntry = new JournalEntry(null, tstamp, 'expenseLiquidateV1', 1, recEv);
 
-        ExpenseKeeper.handlers['expenseAddV1'](addEv);
+        ExpenseKeeper.handlers['expenseAddV1'](liqEv);
 
         // when
         var receiveCall = function() {
-            ExpenseKeeper.receive(addEv.id, fakeNow);
+            ExpenseKeeper.liquidate(liqEv.id, fakeNow);
         };
 
         expect(receiveCall).not.toThrow();
@@ -81,7 +81,7 @@ describe('Service: CoinKeeperReceiveExpense', function() {
 
         // when
         var receiveCall = function() {
-            ExpenseKeeper.receive(5, fakeNow);
+            ExpenseKeeper.liquidate(5, fakeNow);
         };
 
         expect(receiveCall).toThrow('Unable to find a expense with id=\'5\'');
