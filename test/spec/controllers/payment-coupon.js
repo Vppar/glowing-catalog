@@ -3,6 +3,9 @@ describe('Controller: PaymentCouponCtrl', function() {
     var couponServiceMock = {};
     var DialogService = {};
     var log = {};
+    var OrderService = {};
+    var DataProvider = {};
+
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.coupon');
@@ -27,7 +30,9 @@ describe('Controller: PaymentCouponCtrl', function() {
         $controller('PaymentCouponCtrl', {
             $scope : scope,
             CouponService : couponServiceMock,
-            DialogService : DialogService
+            DialogService : DialogService,
+            DataProvider : DataProvider,
+            OrderService : OrderService
         });
 
         log.error = jasmine.createSpy('$log.error');
@@ -116,7 +121,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         };
 
         var dialog = {
-            title : 'Oops, erro interno.',
+            title : 'Cupom Promocional',
             message : errorMessage,
             btnYes : 'OK'
         };
