@@ -42,7 +42,7 @@
 	float: right
 }
 .container-payment .btn:hover {
-	background: #dc9390;
+	background: #ACDF7B;
 	cursor: pointer;
 }
 .col-payment-right {
@@ -62,6 +62,9 @@
 	min-height:20px;
 	width:91%;
 }
+
+.row-right-payment *{border:none !important;}
+
 .row-right-payment-client {
 	min-height:40px !important;
 }
@@ -114,7 +117,7 @@ margin-top: 5px;
 	background-color:#f2f2f2;
 	border-radius: 4px;
 	padding: 4px;
-	margin-top: -4px;
+	margin-top: -3px;
 	height: 18px;
 	overflow:hidden;
 }
@@ -819,7 +822,7 @@ width: 428px !important;
 	line-height: 40px;
 }
 .grid-payment-exchange .col-s5{
-	width: 55px;/*75px*/
+	width: 53px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
@@ -958,6 +961,14 @@ width: 428px !important;
 	width: 200px; /*35px*/
 	display: inline-block;
 	vertical-align: middle;
+}
+
+/*.grid-payment-coupon .col-s1 div{
+	font-size: 20px;
+}*/
+
+.grid-payment-coupon .col-s2 .qty{
+	font-size: 14px;
 }
 .grid-payment-coupon .subtitle2-header-coupon .col-s1 div, .grid-payment-coupon .header-coupon .col-s1 div, .grid-payment-coupon .grid-payment-coupon .col-s1 div, .row-payment-grid-product-coupon .col-s1 div{
 	margin-left:60px;

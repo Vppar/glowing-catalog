@@ -162,7 +162,7 @@ li.menu-black:last-child a:hover {
 	filter: alpha(opacity=80);
 }
 /*btns*/
-.btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+.btn:hover, .btn:focus, .btn:active, .btn.active, .btn.disabled{/*, .btn[disabled] {*/
 	color: #ffffff;
 	background-color: #000;
 	*background-color: #000;
@@ -330,7 +330,7 @@ body {
 	border: 1px solid #ccc
 }
 .dropdown-menu .btn:hover {
-	background: #F2F2F2 !important; /*#ecbab9 !important;*/
+	background: #F2F2F2; /*#ecbab9 !important;*/
 }
 .bg-login {
 	position: absolute;
@@ -989,8 +989,12 @@ input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed t
 	/*margin-bottom:-10px;*/
 }
 
+.edit-item{	
+	background-color: #D7F0BF;
+}
+
 input:focus, .focus{	
-	outline: 2px solid #D7F0BF;
+	outline: 2px solid #ACDF7B;
 	outline-offset: -3px;
 }
 
@@ -1010,6 +1014,8 @@ input:focus, .focus{
 .w80porc{ width: 80% !important;}
 
 .w98porc{ width: 98% !important;}
+
+.w550{width: 550px !important;}
 
 .margint19{
 	margin-top: 19px;
