@@ -3,42 +3,38 @@
 
     angular
             .module('tnt.catalog.payment.check', [
-                'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity'
+                'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array'
             ])
             .controller(
                     'PaymentCheckCtrl',
-                    function($scope, $element, $filter, $log, PaymentService) {
+                    function($scope, $element, $filter, $log, CheckPayment, OrderService, ArrayUtils) {
 
                         // #####################################################################################################
                         // Warm up the controller
                         // #####################################################################################################
 
-                        // Initialize the check field with a empty check and
-                        // bind it to the
-                        // scope
-                        var parent = $scope.$parent;
-                        while (parent && !parent.hasOwnProperty('payment')) {
-                            parent = parent.$parent;
-                        }
-                        parent.check = {};
-
-                        var check = $scope.check;
+                        $scope.subtotals = $filter('sum')(OrderService.order.items, 'price', 'qty');
+                        $scope.dateMin = new Date();
+                        
+                        var check = $scope.check = {};
+                        $scope.payments = [];
+//                        amount, bank, agency, account, check, dueDate
+//                        var emptyCheckTemplate = new CheckPayment (0, null, null, null, null, null);
+//                        emptyCheckTemplate.installments = 1;
+                        
                         var emptyCheckTemplate = {
                             installments : 1,
                             bank : null,
                             agency : null,
                             account : null,
                             number : null,
-                            duedate : null,
+                            duedate :  new Date(),
                             amount : 0
                         };
                         angular.extend(check, emptyCheckTemplate);
-
-                        $scope.check.duedate = new Date();
-
+                        
                         // Find the id of check payment type
-                        // var checkTypeId =
-                        // $scope.findPaymentTypeByDescription('check').id;
+                         var checkTypeId = $scope.check.id;
 
                         // Recovering dialogService from parent scope.
                         var dialogService = $scope.dialogService;
@@ -55,9 +51,19 @@
                          * @param newCheck - the object containing the newCheck
                          *            data.
                          */
-                        parent.addCheck = function addCheck(newCheck) {
+                        
+                        $scope.addCheck = function addCheck(newCheck) {
                             // check if the all mandatory fields are filed.
                             if ($scope.checkForm.$valid) {
+                                if($scope.subtotals === 0){
+                                    dialogService.messageDialog({
+                                        title : 'Pagamento com Cheque',
+                                        message : 'Não é possível criar um pagamento enquanto o subtotal for R$ 0,00.',
+                                        btnYes : 'OK'
+                                    });
+                                    return;
+                                }
+                                
                                 if (!newCheck.amount || newCheck.amount === 0) {
                                     return;
                                 }
@@ -70,26 +76,26 @@
                                     });
                                     return;
                                 }
-
                                 if (newCheck.id) {
                                     // if is an update
                                     var id = newCheck.id;
-                                    var amount = newCheck.amount;
 
                                     delete newCheck.id;
-                                    delete newCheck.amount;
-
-                                    var payment = $filter('findBy')($scope.payments, 'id', id);
-                                    payment.data = angular.copy(newCheck);
-                                    payment.amount = amount;
+                                    var editCheck = $filter('findBy')($scope.payments, 'id', id);
+                                    editCheck.bank = check.bank;
+                                    editCheck.agency = check.agency;
+                                    editCheck.account = check.account;
+                                    editCheck.duedate = check.duedate;
+                                    editCheck.amount = check.amount;
                                 } else {
                                     var newChecks = null;
                                     // Will be payed by installments ?
                                     if (newCheck.installments > 1) {
                                         newChecks = buildInstallments(newCheck);
                                     } else {
+                                        var newCheckCopy = angular.copy(newCheck);
                                         newChecks = [
-                                            newCheck
+                                            newCheckCopy
                                         ];
                                     }
                                     createPayments(newChecks);
@@ -101,9 +107,13 @@
                         };
 
                         $scope.edit = function edit(payment) {
-                            angular.extend(check, payment.data);
                             check.id = payment.id;
                             check.amount = payment.amount;
+                            check.duedate = payment.duedate;
+                            check.number = payment.number;
+                            check.bank = payment.bank;
+                            check.agency = payment.agency;
+                            check.account = payment.account;
                         };
 
                         /**
@@ -133,14 +143,12 @@
                                 $scope.clearCheck();
                                 delete check.id;
                             });
-                            ;
-
                         };
 
                         function rebuildInstallmentIds() {
                             var checkPayments = $filter('paymentType')($scope.payments, 'check');
                             for ( var idx in checkPayments) {
-                                checkPayments[idx].data.installmentId = Number(idx) + 1;
+                                checkPayments[idx].id = Number(idx) + 1;
                             }
                         }
 
@@ -153,7 +161,8 @@
                             // Well the payment will be by installments, so
                             // store
                             // calc the installments amount.
-                            var installmentsAmount = Math.round(newCheck.amount * 100 / newCheck.installments) / 100;
+                            
+                            var installmentsAmount = installmentCalculation(newCheck.amount, newCheck.installments, $scope.subtotals);   
                             // save the installments number so we can delete it
                             var installmentsNumber = newCheck.installments;
                             delete newCheck.installments;
@@ -167,21 +176,43 @@
 
                                 checkInstallment.duedate = properDate(checkInstallment.duedate, i);
 
-                                if (Number(installmentsNumber) === i + 1) {
-                                    var finalAmount = newCheck.amount - installmentsSum;
-                                    finalAmount = Math.round(finalAmount * 100) / 100;
-                                    checkInstallment.amount = finalAmount;
-                                } else {
-                                    checkInstallment.amount = installmentsAmount;
-                                }
+//                                if (Number(installmentsNumber) === i + 1) {
+//                                    var finalAmount = newCheck.amount - installmentsSum;
+//                                    finalAmount = Math.round(finalAmount * 100) / 100;
+//                                    checkInstallment.amount = finalAmount;
+//                                } else {
+                                    checkInstallment.amount = installmentsAmount[i];
+                                
+//                                }
                                 installmentsSum = Math.round((installmentsSum + checkInstallment.amount) * 100) / 100;
                                 newChecks.push(checkInstallment);
                             }
-                            if (installmentsSum !== newCheck.amount) {
+                            if (installmentsSum !== $scope.subtotals) {
                                 $log.info('PaymentCheckCtrl.buildInstallments: -The sum of the installments and the amount are' +
-                                    ' different, installmentsSum=' + installmentsSum + ' originalAmount=' + newCheck.amount);
+                                    ' different, installmentsSum=' + installmentsSum + ' originalAmount=' + $scope.subtotals);
                             }
                             return newChecks;
+                        }
+                        
+                        function installmentCalculation(amount, installments, totalAmount){
+                            
+                            var amounts = [];
+                            var total = 0;
+                            var remaining = totalAmount - amount;
+                            var remainingInstallments = Math.round ((remaining *100) / (installments-1))/100;
+                            amounts.push(amount);
+                            for(var i=0;i<installments;i++){
+                                if(amounts.length === installments-1){
+                                    for(var x in amounts){
+                                        total += amounts[x];
+                                    }
+                                    amounts.push(Math.round((totalAmount*100 - total*100))/100);
+                                }else{
+                                    amounts.push(remainingInstallments);
+                                    console.log(amounts);
+                                }
+                            }
+                            return amounts;
                         }
 
                         function properDate(baseDate, increase) {
@@ -195,17 +226,11 @@
                         }
 
                         function createPayments(newChecks) {
-                            for ( var idx in newChecks) {
-                                // var newCheck = newChecks[idx];
-                                // var payment =
-                                // PaymentService.createNew('check');
-                                //
-                                // var amount = newCheck.amount;
-                                // delete newCheck.amount;
-                                //
-                                // payment.amount = amount;
-                                // payment.data = angular.copy(newCheck);
-                            }
+                            for(var ix in newChecks){
+                                newChecks[ix].id = $scope.payments.length+1;
+                                $scope.payments.push(newChecks[ix]);
+                            };
+//                            $scope.payments = newChecks;
                         }
                         /**
                          * Check if the new check is already added into another
@@ -221,27 +246,25 @@
                                                     $scope.payments,
                                                     function(item) {
                                                         var result = false;
-                                                        if (item.typeId === checkTypeId) {
                                                             // Done this way
                                                             // cause when
                                                             // everything is
                                                             // placed in one row
                                                             // the code became
                                                             // damn ugly.
-                                                            result = item.data.bank === newCheck.bank;
-                                                            result = result && (item.data.agency === newCheck.agency);
-                                                            result = result && (item.data.account === newCheck.account);
-                                                            result = result && (Number(item.data.number) >= Number(newCheck.number));
+                                                            result = item.bank === newCheck.bank;
+                                                            result = result && (item.agency === newCheck.agency);
+                                                            result = result && (item.account === newCheck.account);
+                                                            result = result && (Number(item.number) >= Number(newCheck.number));
                                                             result =
                                                                     result &&
-                                                                        (Number(item.data.number) <= ((Number(newCheck.number) + Number(newCheck.installments)) - 1));
+                                                                        (Number(item.number) <= ((Number(newCheck.number) + Number(newCheck.installments)) - 1));
                                                             if (newCheck.id) {
                                                                 // isn't
                                                                 // duplicated,
                                                                 // is an update
                                                                 result = result && (item.id !== newCheck.id);
                                                             }
-                                                        }
                                                         return result;
                                                     });
                             return checks.length > 0;
