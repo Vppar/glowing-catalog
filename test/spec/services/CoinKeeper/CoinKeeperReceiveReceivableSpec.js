@@ -66,7 +66,7 @@ describe('Service: CoinKeeperReceiveReceivable', function() {
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.receive(addEv.id, fakeNow);
+            ReceivableKeeper.liquidate(addEv.id, fakeNow);
         };
 
         expect(receiveCall).not.toThrow();
@@ -81,7 +81,7 @@ describe('Service: CoinKeeperReceiveReceivable', function() {
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.receive(5, fakeNow);
+            ReceivableKeeper.liquidate(5, fakeNow);
         };
 
         expect(receiveCall).toThrow('Unable to find a receivable with id=\'5\'');
