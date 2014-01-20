@@ -8,17 +8,22 @@
                 // Controller warm up
                 // #############################################################################################
 
+                // First of all block undesired accesses.
+                // Easy the access in the controller to external
+                // resources
+                var order = OrderService.order;
+                if (!order.customerId) {
+                    $location.path('/');
+                }
+
+                var isNumPadVisible = false;
+
                 // Payment variables
                 var payments = {};
                 $scope.payment = {};
                 $scope.coupon = {
                     total : 0
                 };
-
-                // Easy the access in the controller to external
-                // resources
-                var order = OrderService.order;
-                var isNumPadVisible = false;
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
@@ -30,7 +35,7 @@
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                 $scope.customer = customer;
 
-                //Show SKU or SKU + Option(when possible).
+                // Show SKU or SKU + Option(when possible).
                 for ( var idx in order.items) {
                     var item = order.items[idx];
                     if (order.items[idx].option) {
@@ -42,11 +47,12 @@
                 ;
 
                 // Calculate the Subtotal
+                var orderAmount = 0;
                 if (order.items) {
                     var basket = order.items;
                     var orderItemsQty = basket ? basket.length : 0;
                     var orderUnitsQty = $filter('sum')(basket, 'qty');
-                    var orderAmount = $filter('sum')(basket, 'price', 'qty');
+                    orderAmount = $filter('sum')(basket, 'price', 'qty');
                     $scope.orderAmount = orderAmount;
                     $scope.orderItemsQty = orderItemsQty;
                     $scope.orderUnitsQty = orderUnitsQty;
@@ -65,7 +71,7 @@
                 if (cashPayment.length > 0) {
                     $scope.payment.cash = cashPayment[0];
                 } else {
-                    //                    $scope.payment.cash = PaymentService.createNew('cash');
+                    // $scope.payment.cash = PaymentService.createNew('cash');
                     $scope.payment.cash = {};
                     $scope.payment.cash.amount = '0';
                 }
