@@ -30,6 +30,17 @@
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                 $scope.customer = customer;
 
+                //Show SKU or SKU + Option(when possible).
+                for ( var idx in order.items) {
+                    var item = order.items[idx];
+                    if (order.items[idx].option) {
+                        item.uniqueName = item.SKU + ' - ' + item.option;
+                    } else {
+                        item.uniqueName = item.SKU;
+                    }
+                }
+                ;
+
                 // Calculate the Subtotal
                 if (order.items) {
                     var basket = order.items;
@@ -54,7 +65,7 @@
                 if (cashPayment.length > 0) {
                     $scope.payment.cash = cashPayment[0];
                 } else {
-//                    $scope.payment.cash = PaymentService.createNew('cash');
+                    //                    $scope.payment.cash = PaymentService.createNew('cash');
                     $scope.payment.cash = {};
                     $scope.payment.cash.amount = '0';
                 }
