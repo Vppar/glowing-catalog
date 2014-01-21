@@ -136,7 +136,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         expect(scope.check).toEqual(check);
         expect(dialogService.messageDialog).toHaveBeenCalledWith({
             title : 'Pagamento com Cheque',
-            message : 'Não é possível inserir um cheque que já existe na lista.',
+            message : 'O cheque número ' + check.number + ' já foi adicionado',
             btnYes : 'OK'
         });
     });
