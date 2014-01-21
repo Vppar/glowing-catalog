@@ -40,9 +40,9 @@
 	    </div>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('check')">
-		<span class="lbl-money">Cheque</span><span class="lbl-money3 paddingl10">({{payments | paymentType:'check' | count:'id'}})</span>
+		<span class="lbl-money">Cheque</span><span class="lbl-money3 paddingl10">({{total.payments.check | count:'id'}})</span>
 		<span class="">
-			<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+			<span class="btn-price-payment">{{total.payments.check | sum:'amount'| currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">

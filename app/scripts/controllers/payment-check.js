@@ -1,11 +1,14 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.payment.check', [
-        'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array', 'tnt.catalog.misplaced.service'
-    ]).controller(
+    angular.module(
+            'tnt.catalog.payment.check',
+            [
+                'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array', 'tnt.catalog.misplaced.service',
+                'tnt.catalog.payment.service'
+            ]).controller(
             'PaymentCheckCtrl',
-            function($scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice) {
+            function($scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
 
                 // #####################################################################################################
                 // Warm up the controller
@@ -16,7 +19,7 @@
 
                 var check = $scope.check = {};
                 var copyPayments = [];
-                $scope.payments = [];
+                $scope.payments = PaymentService.list('check');
 
                 var emptyCheckTemplate = {
                     installments : 1,
@@ -50,7 +53,7 @@
                         // TODO Log!
                         return;
                     }
-                    
+
                     if ($scope.subtotals === 0 && $scope.check.installments > 1) {
                         dialogService.messageDialog({
                             title : 'Pagamento com Cheque',
@@ -72,7 +75,7 @@
                         });
                         return;
                     }
-                    
+
                     if (newCheck.id) {
                         // if is an update
                         var id = newCheck.id;
@@ -138,8 +141,19 @@
                         rebuildInstallmentIds();
                         $scope.clearCheck();
                         delete check.id;
-                        Misplacedservice.recalc($scope.subtotals, paymentIdx-1, $scope.payments, 'amount');
+                        Misplacedservice.recalc($scope.subtotals, paymentIdx - 1, $scope.payments, 'amount');
                     });
+                };
+
+                $scope.confirmCheckPayments = function confirmCheckPayments() {
+                    PaymentService.clear('check');
+                    for (var ix in $scope.payments){
+                        var data = $scope.payments[ix];
+                        var payment = new CheckPayment(data.amount, data.bank, data.agency, data.account, data.number, data.duedate);
+                        payment.amount = data.amount;
+                        PaymentService.add(payment);
+                    }
+                    $scope.selectPaymentMethod('none');
                 };
 
                 function rebuildInstallmentIds() {
