@@ -18,8 +18,12 @@
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                 $scope.customer = customer;
 
-                //TODO change the value 500 to %scope.total.change
-                $scope.amount = 500;
+                if($scope.total.change<0){
+                    $scope.amount = $scope.total.change*-1;
+                }else{
+                    $scope.amount = 0;
+                }
+                 
                 $scope.installmentQty = 1;
                 $scope.dueDate = new Date();
 
