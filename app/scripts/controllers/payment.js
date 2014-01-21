@@ -190,6 +190,7 @@
                     if (order.items) {
                         // Payment total
                         $scope.total.payments.check = PaymentService.list('check');
+                        
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
                         $scope.total.payments.exchange = PaymentService.list('exchange');
                         $scope.total.payments.coupon = PaymentService.list('coupon');
@@ -199,7 +200,7 @@
                         for ( var ix in $scope.total.payments) {
                             totalPayments += $filter('sum')($scope.total.payments[ix],'amount');
                         }
-
+                       
                         // Order total
                         var basket = order.items;
                         
