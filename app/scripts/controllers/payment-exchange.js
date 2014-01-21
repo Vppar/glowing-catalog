@@ -93,9 +93,11 @@
             $scope.amounttotal = 0;
             $scope.qtytotal = 0;
             $scope.id = $scope.exchanges.length;
+            var i = 0;
             for ( var idx in $scope.exchanges) {
                 $scope.amounttotal += $scope.exchanges[idx].amountunit * $scope.exchanges[idx].qty;
                 $scope.qtytotal += $scope.exchanges[idx].qty;
+                $scope.qtytotal += $scope.exchanges[idx].index = ++i;
             }
         };
 
