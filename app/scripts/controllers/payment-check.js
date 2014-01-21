@@ -49,38 +49,30 @@
                  * @param newCheck - the object containing the newCheck data.
                  */
 
-                $scope.addCheck = function addCheck(newCheck) {
+                $scope.addCheck = function addCheck() {
                     // check if the all mandatory fields are filed.
                     if (!$scope.checkForm.$valid) {
                         // TODO Log!
                         return;
                     }
 
-                    if (checkSum === 0 && $scope.check.installments > 1) {
-                        dialogService.messageDialog({
-                            title : 'Pagamento com Cheque',
-                            message : 'Não é possível criar um pagamento parcelado sem produtos no carrinho.',
-                            btnYes : 'OK'
-                        });
+                    if (!check.amount || check.amount === 0) {
                         return;
                     }
 
-                    if (!newCheck.amount || newCheck.amount === 0) {
-                        return;
-                    }
-                    if (isDuplicated(newCheck)) {
+                    if (isDuplicated(check)) {
                         // check if is duplicated.
                         dialogService.messageDialog({
                             title : 'Pagamento com Cheque',
-                            message : 'Não é possível inserir um cheque que já existe na lista.',
+                            message : 'O cheque número ' + check.number + ' já foi adicionado',
                             btnYes : 'OK'
                         });
                         return;
                     }
 
-                    if (newCheck.id) {
+                    if (check.id) {
                         // if is an update
-                        var id = newCheck.id;
+                        var id = check.id;
 
                         var editCheck = $filter('findBy')($scope.payments, 'id', id);
                         editCheck.bank = check.bank;
@@ -93,17 +85,17 @@
                     } else {
                         var newChecks = null;
                         // Will be payed by installments ?
-                        if (newCheck.installments > 1 && checkSum > 0) {
-                            newChecks = buildInstallments(newCheck);
+                        if (check.installments > 1) {
+                            newChecks = buildInstallments(check);
                         } else {
-                            var newCheckCopy = angular.copy(newCheck);
+                            var newCheckCopy = angular.copy(check);
                             newChecks = [
                                 newCheckCopy
                             ];
                         }
                         createPayments(newChecks);
                     }
-                    angular.extend(newCheck, emptyCheckTemplate);
+                    angular.extend(check, emptyCheckTemplate);
                     $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
                 };
 
@@ -175,9 +167,7 @@
                     var newChecks = [];
                     // Well the payment will be by installments, so
                     // store
-                    // calc the installments amount.
 
-                    var installmentsAmount = installmentCalculation(newCheck.amount, newCheck.installments, checkSum);
                     // save the installments number so we can delete it
                     var installmentsNumber = newCheck.installments;
                     delete newCheck.installments;
@@ -191,11 +181,16 @@
 
                         checkInstallment.duedate = properDate(checkInstallment.duedate, i);
 
-                        checkInstallment.amount = installmentsAmount[i];
+                        checkInstallment.amount = 0;
 
                         installmentsSum = Math.round((installmentsSum + checkInstallment.amount) * 100) / 100;
                         newChecks.push(checkInstallment);
                     }
+
+                    var total = checkSum - $filter('sum')($scope.payments, 'amount');
+                    newChecks[0].amount = check.amount;
+                    Misplacedservice.recalc(total, 0, newChecks, 'amount');
+
                     if ((installmentsSum + sumChecks()) !== checkSum) {
                         $log.info('PaymentCheckCtrl.buildInstallments: -The sum of the installments and the amount are' +
                             ' different, installmentsSum=' + (installmentsSum + sumChecks()) + ' originalAmount=' + checkSum);
@@ -213,38 +208,6 @@
                 // }
                 //                    
                 // }
-
-                function installmentCalculation(amount, installments, totalAmount) {
-
-                    var amounts = [];
-                    var total = 0;
-
-                    var otherChecks = sumChecks();
-
-                    var remaining = 0;
-                    if (otherChecks > 0) {
-
-                        remaining = totalAmount - (amount + otherChecks);
-
-                    } else {
-                        remaining = totalAmount - amount;
-                    }
-                    var remainingInstallments = Math.round((remaining * 100) / (installments - 1)) / 100;
-
-                    amounts.push(amount);
-                    for ( var i = 0; i < installments; i++) {
-                        if (amounts.length === installments - 1) {
-                            for ( var x in amounts) {
-                                total += amounts[x];
-                            }
-                            total += otherChecks;
-                            amounts.push(Math.round((totalAmount * 100 - total * 100)) / 100);
-                        } else {
-                            amounts.push(remainingInstallments);
-                        }
-                    }
-                    return amounts;
-                }
 
                 function sumChecks() {
                     copyPayments = angular.copy($scope.payments);

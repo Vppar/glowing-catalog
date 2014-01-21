@@ -20,7 +20,9 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         // scope mock
         scope = $rootScope.$new();
         scope.computeTotals = jasmine.createSpy('scope.computeTotals');
-
+        scope.total = jasmine.createSpy('scope.total');
+        scope.total.change = 284;
+        
         // reproduce the scope inheritance
         $controller('PaymentOnCuffCtrl', {
             $scope : scope,
@@ -32,51 +34,32 @@ describe('Controller: PaymentOnCuffCtrl', function() {
     /**
      * Given - 1 as installment
      * And   - an amount 
-     * And   - dueData 
-     * When  - installments has changed.
-     * Then  - should create many installment as inputed.
+     * And   - dueDate 
+     * When  - computeInstallments is called.
+     * Then  - should create 1 installment.
      */
     it('should create 1 installment', function() {
         // given
         scope.amount = 500;
-        scope.dueData = new Date();
+        scope.dueDate = new Date();
         scope.installmentQty = 1;
         scope.payments = [];
         scope.computeInstallments();
+        
+        var expectedDate = scope.dueDate;
 
         expect(scope.payments.length).toEqual(1);
         expect(scope.payments[0].amount).toEqual(scope.amount);
-
+        expect(scope.payments[0].dueDate).toEqual(expectedDate);
     });
 
-    /**
-     * Given - 5 as installment
-     * And   - an amount 
-     * And   - dueData 
-     * When  - installments has changed.
-     * Then  - should create many installment as inputed.
-     */
-    it('should create 5 installment', function() {
-        // given
-        scope.amount = 500;
-        scope.dueDate = new Date();
-        scope.installmentQty = 5;
-
-        var expectedAmount = 100;
-
-        scope.payments = [];
-        scope.computeInstallments();
-        expect(scope.payments.length).toEqual(5);
-        expect(scope.payments[0].amount).toEqual(expectedAmount);
-
-    });
 
     /**
      * Given - 6 as installment
-     * And   - an amount 
+     * And   - an a valid amount 
      * And   - dueData 
-     * When  - installments has changed.
-     * Then  - should create many installment as inputed.
+     * When  - computeInstallments is called.
+     * Then  - should create 6 installment.
      */
     it('should create 6 installment', function() {
         // given
@@ -88,8 +71,8 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         var expectedInstallment2 = 83.33;
         var expectedInstallment3 = 83.33;
         var expectedInstallment4 = 83.33;
-        var expectedInstallment5 = 83.33;
-        var expectedInstallment6 = 83.35;
+        var expectedInstallment5 = 83.34;
+        var expectedInstallment6 = 83.34;
 
         var oneMonthAhead = new Date(new Date(scope.dueDate).setMonth(scope.dueDate.getMonth() + 1));
         var twoeMonthAhead = new Date(new Date(oneMonthAhead).setMonth(oneMonthAhead.getMonth() + 1));
@@ -122,5 +105,15 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         expect(scope.payments[5].dueDate).toEqual(fiveMonthAhead.getTime());
 
     });
-
+    
+    /**
+     * Given - a invalid amount for change 284
+     * When  - the controller is open.
+     * Then  - the scope.amount should be 0 .
+     */
+   it('should amount equal 0', function() {
+        // the value was settled on beforeInject(creation of controller.)
+        expect(scope.amount).toEqual(0);
+    });
+    
 });

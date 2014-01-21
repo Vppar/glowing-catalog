@@ -21,7 +21,7 @@
 				<span class="span2 w85">
 					<div class="control-group">
 						<label class="control-label text-center">Nro Parc.</label>
-							<input class="input-block-level input-large text-center" type="text" ng-model="installmentQty" number recall ng-change="computeInstallments()" />
+							<input class="input-block-level input-large text-center" id="installment" type="text" ng-model="installmentQty" maxlength="2" tnt-input ng-change="computeInstallments()" />
 					</div>
 				</span>	
 				<span class="span3">
@@ -55,20 +55,20 @@
 							</div>
 						</div>
 						<div class="scroll-payment-grid">
-							<div class="row-payment-grid-product-receivable" ng-repeat="payment in payments">
+							<div class="row-payment-grid-product-receivable" ng-repeat="payment in payments" ng-click="selectInstallment(payment.installment)">
 								<span class="col-s1">
 									<div>
-										<span name="amount" class="item">{{payment.installment}}</span>
+										<span name="installment" class="item">{{payment.installment}}</span>
 									</div>
 								</span>
 								<span class="col-s2">
 									<div>
-										<span name="amount" class="item">{{payment.dueDate | date:'dd/MM/yy'}}</span>
+										<input id="{{'dueDate' + $index}}" name="" class="item w126" ng-model="payment.dueDate"  maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false"></input>
 									</div>
 								</span>
 								<span class="col-s3">
 									<div>
-										<span name="amount" class="item">{{payment.amount | currency}}</span>
+										<input id="{{'amount' + $index}}" name="" class="item w126" ng-model="payment.amount" ng-change="valueCheck($index)" tnt-input currency></input>
 									</div>
 								</span>
 							</div>
