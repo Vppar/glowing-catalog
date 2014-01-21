@@ -9,7 +9,7 @@
 	<div class="row-fluid payment-check-fields">
 		<form name="checkForm">
 			<div class="control-group lbl-top">
-				<label class="control-label bold">Parc</label>
+				<label class="control-label bold">Qtde Ch</label>
 				<input name="" class="parc" id="parc" ng-model= "check.installments" required tnt-input number recall maxlength="2">
 			</div>
 			<div class="control-group lbl-top">
@@ -31,7 +31,7 @@
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Vencto.</label>
 				<div class="controls">
-					<input type="text" id="vencto" class="date-field input-small vencto text-center" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" ng-model="check.duedate" required tnt-input>
+					<input type="text" id="vencto" class="date-field input-small vencto text-center" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -50,34 +50,34 @@
 	
 	
 	<div class="row-fluid check-total">
-		<span>Total</span><span class="float-right marginr10">{{payments | paymentType:'check' | sum: 'amount' | currency: ''}}</span>
+		<span>Total</span><span class="float-right marginr10">{{payments | sum: 'amount' | currency: ''}}</span>
 	</div>
 	
 	<div class="row-fluid">
 		<div class="grid-payment-check">
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
-				<div class="row-payment-check-grid" ng-repeat="payment in payments | paymentType:'check' | orderBy:'data.installmentId'" >
+				<div class="row-payment-check-grid" ng-repeat="payment in payments | orderBy: -'duedate'" >
 					<span ng-click="edit(payment)">
 						<span class="col-check-s1">
-							<div ng-show="payment.data.installmentId<=9">{{'00'+payment.data.installmentId}}</div>
-							<div ng-show="payment.data.installmentId>9 && payment.data.installmentId<=99" >{{'0'+payment.data.installmentId}}</div>
-							<div ng-show="payment.data.installmentId>99">{{payment.data.installmentId}}</div>
+							<div ng-show="$index + 1<=9">{{'00'+($index+1)}}</div>
+							<div ng-show="$index + 1>9 && $index + 1<=99" >{{'0'+ ($index + 1)}}</div>
+							<div ng-show="$index + 1>99">{{($index + 1)}}</div>
 						</span>
 		               	<span class="col-check-s2">
-		               		<div>{{payment.data.bank}}</div>
+		               		<div>{{payment.bank}}</div>
 		               	</span>
 		             	<span class="col-check-s3">
-		             		<div>{{payment.data.agency}}</div>
+		             		<div>{{payment.agency}}</div>
 		             	</span>
 		                <span class="col-check-s4">
-		                	<div>{{payment.data.account}}</div>
+		                	<div>{{payment.account}}</div>
 		                </span>
 		                <span class="col-check-s5">
-		                	<div>{{payment.data.number}}</div>
+		                	<div>{{payment.number}}</div>
 		                </span>
 						<span class="col-check-s6">
-							<div>{{payment.data.duedate | date:'dd/MM/yy'}}</div>
+							<div>{{payment.duedate | date:'dd/MM/yy'}}</div>
 						</span>
 		                <span class="col-check-s7 t-right">
 		                	<div>{{payment.amount | currency:''}}</div>

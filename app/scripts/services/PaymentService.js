@@ -39,7 +39,7 @@
      */
     entities.factory('CheckPayment', function CheckPayment(Payment) {
 
-        var service = function svc(amount, bank, agency, account, check, expiration) {
+        var service = function svc(amount, bank, agency, account, check, dueDate) {
 
             if (arguments.length != svc.length) {
                 throw 'CheckPayment must be initialized with all params';
@@ -49,7 +49,7 @@
             this.agency = agency;
             this.account = account;
             this.check = check;
-            this.expiration = expiration;
+            this.dueDate = dueDate;
 
             ObjectUtils.superInvoke(this, amount);
 
