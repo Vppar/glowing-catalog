@@ -10,6 +10,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.coupon');
+
         module(function($provide) {
             $provide.value('$log', log);
         });
@@ -173,20 +174,21 @@ describe('Controller: PaymentCouponCtrl', function() {
         //add a voucher to the order list 
         var idx = orderServiceMock.order.items.length;
         
-        scope.coupon.total = 45.00;
+        var value = 45.00;
+        scope.voucher.total = value;
         
         var voucher = {
                 idx: idx,
-                title: 'An title!',
-                uniqueName:'an unique name!',
-                price: scope.coupon.total,
+                title: 'Vale Crédito',
+                uniqueName:'',
+                price: value,
                 qty:1
         };
 
         scope.confirmVoucher();
         
         expect(orderServiceMock.order.items.push).toHaveBeenCalled();
-        expect(orderServiceMock.mostRecentCall.args[0]).toEqual(voucher);
+        expect(orderServiceMock.order.items.push.mostRecentCall.args[0]).toEqual(voucher);
         
     });
     
