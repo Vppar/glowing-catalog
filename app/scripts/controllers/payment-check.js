@@ -8,7 +8,7 @@
                 'tnt.catalog.payment.service'
             ]).controller(
             'PaymentCheckCtrl',
-            function($scope, $filter, $log, $element, $timeout, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
+            function($scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
 
                 // #####################################################################################################
                 // Warm up the controller
@@ -144,9 +144,7 @@
                         $scope.clearCheck();
                         delete check.id;
                         if (checkSum > 0) {
-                            $timeout(function() {
-                                Misplacedservice.recalc(checkSum, paymentIdx - 1, $scope.payments, 'amount');
-                            }, 0);
+                            Misplacedservice.recalc(checkSum, paymentIdx - 1, $scope.payments, 'amount');
                         }
                     });
                 };
