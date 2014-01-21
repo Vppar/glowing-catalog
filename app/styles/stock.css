@@ -155,7 +155,7 @@
 }
 .form-stock .details-stock-subtitle{	
 	border-radius: 4px;
-	background: #F2F2F2;
+	background: #DADADA; /*#F2F2F2*/
 	color: #333;
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
@@ -169,6 +169,19 @@
 	font-weight: bold;
 	min-height: 20px;*/
 }
+
+.stock-filter{
+	margin: -5px 0 0 0 !important;
+}
+
+.stock-date{
+	margin: 0 !important;
+}
+
+.calendar-stock {
+	display: inline-block;
+}
+
 .margint0{
 	margin-top: 0 !important;
 }

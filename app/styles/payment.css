@@ -468,7 +468,7 @@ margin-top: 5px;
 .col-check-s8 {
 	width: 30px; /*35px*/
 	text-align:right;
-	margin-left:10px;
+	margin-left: 13px;
 }
 .w130{
 	width: 130px;
@@ -713,10 +713,10 @@ width: 153px;
 	height: 30px !important;
 	line-height: 30px;
 }
-.payment-coupon-fields .control-label, .payment-check-fields .control-label, .payment-receivable-fields .control-label{
+/*.payment-coupon-fields .control-label, .payment-check-fields .control-label, .payment-receivable-fields .control-label{
 	margin-left:5px;
-margin-right: 8px;
-}
+	margin-right: 8px;
+}*/
 .w126{
 	width:126px !important;
 }
@@ -1255,3 +1255,5 @@ margin-top: 10px;
 	border-radius: 4px;
 	border-bottom:0 !important;
 }
+
+.font-gde{font-size:20px;}
