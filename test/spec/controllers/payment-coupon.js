@@ -26,6 +26,8 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.coupon = {
             total : 0
         };
+        log.error = jasmine.createSpy('$log.error');
+
         // Injecting into the controller
         $controller('PaymentCouponCtrl', {
             $scope : scope,
@@ -34,8 +36,6 @@ describe('Controller: PaymentCouponCtrl', function() {
             DataProvider : DataProvider,
             OrderService : OrderService
         });
-
-        log.error = jasmine.createSpy('$log.error');
 
     }));
 

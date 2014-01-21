@@ -9,7 +9,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         module('tnt.catalog.filter.findBy');
         module('tnt.catalog.service.dialog');
         module('tnt.catalog.service.data');
-        module('tnt.catalog.payment.coupon');
+        module('tnt.catalog.payment.oncuff');
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.inventory.entity');
         module('tnt.catalog.service.order');

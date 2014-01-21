@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.payment.coupon', [
+    angular.module('tnt.catalog.payment.oncuff', [
         'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog'
     ]).controller(
             'PaymentOnCuffCtrl',
