@@ -20,7 +20,14 @@ angular.module('tnt.catalog.misplaced.service',[]).service('Misplacedservice', f
         for ( var ix in installments) {
 
             if (ix > current) {
-                installments[ix][propertyName] = round((total - gone) / (installments.length - ix));
+                var val = round((total - gone) / (installments.length - ix));
+                
+                if(val > 0){
+                    installments[ix][propertyName] = val;
+                } else {
+                    installments[ix][propertyName] = 0;
+                }
+                
             }
             gone = round(gone + installments[ix][propertyName]);
         }

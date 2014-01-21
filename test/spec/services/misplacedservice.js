@@ -30,6 +30,16 @@ describe('Service: Misplacedservice', function() {
         expect(actual[2].test).toEqual(33.33);
         expect(actual[3].test).toEqual(33.34);
     });
+    
+    it('should calc neg', function() {
+
+        var actual = Misplacedservice.recalc(90, 0, seed, 'test');
+
+        expect(actual[0].test).toEqual(100);
+        expect(actual[1].test).toEqual(0);
+        expect(actual[2].test).toEqual(0);
+        expect(actual[3].test).toEqual(0);
+    });
 
     it('should recalc', function() {
         var ins = Misplacedservice.recalc(200, 0, seed, 'test');
