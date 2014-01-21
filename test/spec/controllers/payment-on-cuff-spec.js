@@ -71,8 +71,8 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         var expectedInstallment2 = 83.33;
         var expectedInstallment3 = 83.33;
         var expectedInstallment4 = 83.33;
-        var expectedInstallment5 = 83.33;
-        var expectedInstallment6 = 83.35;
+        var expectedInstallment5 = 83.34;
+        var expectedInstallment6 = 83.34;
 
         var oneMonthAhead = new Date(new Date(scope.dueDate).setMonth(scope.dueDate.getMonth() + 1));
         var twoeMonthAhead = new Date(new Date(oneMonthAhead).setMonth(oneMonthAhead.getMonth() + 1));
