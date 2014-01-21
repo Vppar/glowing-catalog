@@ -13,7 +13,7 @@
         $scope.order = order;
 
         var inBasketFilter = OrderService.inBasketFilter;
-
+        
         // #############################################################################################################
         // Dialogs control
         // #############################################################################################################
@@ -57,6 +57,8 @@
                 });
             }
         };
+        
+        
 
         function refreshDate() {
             $scope.now.date = $filter('date')(new Date(), 'dd MMM yyyy');
