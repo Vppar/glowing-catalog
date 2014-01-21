@@ -716,7 +716,7 @@ div.sidebar-menu ul li a {
 .container .navbar .brand {
 	float: left;
 	display: block;
-	padding: 4px 0 0 40px; /*padding: 20px 0 0 40px;*/
+	padding: 4px 0 0 75px; /*padding: 20px 0 0 40px;*/
 }
 
 .home-scroll-content {
