@@ -192,10 +192,10 @@
                     if (order.items) {
                         // Payment total
                         $scope.total.payments.check = PaymentService.list('check');
-                        
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
                         $scope.total.payments.exchange = PaymentService.list('exchange');
                         $scope.total.payments.coupon = PaymentService.list('coupon');
+                        $scope.total.payments.onCuff = PaymentService.list('onCuff');
 
                         var totalPayments = $scope.total.payments.cash;
                         
