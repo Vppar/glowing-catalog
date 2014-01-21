@@ -53,11 +53,18 @@
                         $scope.$watch('voucher.total', canConfirmVoucher);
                         $scope.$watch('gift.total', canConfirmGift);
                         $scope.$watch('gift.customer.name', canConfirmGift);
+                        $scope.$watch('total', canConfirmCoupon);
                         
                         $scope.$watch('option',watchOptions);
                         
                         function canConfirmVoucher(){
                             if($scope.voucher.total > 0){
+                                $scope.isDisabled = false;
+                            }
+                        }
+                        
+                        function canConfirmCoupon(){
+                            if($scope.total > 0){
                                 $scope.isDisabled = false;
                             }
                         }

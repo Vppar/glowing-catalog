@@ -27,25 +27,25 @@
                     <ul class="dropdown-menu">
                         
                         <li>
-                            <a href="#">Agenda</a>
+                            <a href="#">*Agenda</a>
                         </li>
                         <li>
-                            <a href="#">Cat&aacute;logo</a>
+                            <a href="#/">Cat&aacute;logo</a>
                         </li>
                         <li>
                             <a class="hover-state-pointer gren-item-menu" ng-click="checkout(true)">Pagamento</a>
                         </li>
                         <li>
-                            <a href="#/order-list">Pedido de Vendas</a>
+                            <a href="#">*Pedido de Vendas</a>
                         </li>
-                         <li>
-                            <a href="#">Demonstr de Vendas</a>
+                        <li>
+                            <a href="#/order-list">Resumo de Vendas</a>
                         </li>
-                       	 <li>
+                        <li>
                             <a href="#/stock">Estoque</a>
                         </li>
-                         <li>
-                            <a href="#">Compras MK</a>
+                        <li>
+                            <a href="#/products-to-buy">Compras MK</a>
                         </li>
                         <li>
                             <a href="#/receivable">Contas a Receber</a>
@@ -57,42 +57,18 @@
                             <a href="#/cash-flow">Fluxo de Caixa</a>
                         </li>
                         <li>
-                            <a href="#">Demonstr Resultado</a>
+                            <a href="#/income-statement">Demonstração Resultado</a>
                         </li>
                         <li>
                             <a href="#/voucher">Vale / Cupom</a>
                         </li>
                         <li>
-                            <a href="#">Cadastro Geral</a>
+                            <a href="#">*Cadastro Geral</a>
                         </li>
                         <li>
-                            <a href="#">Meu Cadastro</a>
+                            <a href="#">*Meu Cadastro</a>
                         </li>
                         <li>
-                            <a class="hover-state-pointer" ng-click="openDialogChooseCustomer()">choose-customer</a>
-                        </li>
-                        <li>
-                            <a class="hover-state-pointer" ng-click="openDialogInputProducts()">input-products</a>
-                        </li>
-                        <li>
-                            <a href="#/partial-delivery">partial-delivery</a>
-                        </li>
-                        <li>
-                            <a href="#/pending-delivery">pending-delivery</a>
-                        </li>
-                        <li>
-                            <a href="#/previous-entries">previous-entries</a>
-                        </li>
-                        <li>
-                            <a href="#/products-to-buy">products-to-buy</a>
-                        </li>
-                        <li>
-                            <a href="#/income-statement">income-statement</a>
-                        </li>
-                         <li>
-                            <a href="#/login">login</a>
-                        </li>
-                         <li>
                             <a class="hover-state-pointer gren-item-menu" ng-click="openDialogChangePass()">Trocar Senha</a>
                         </li>
                     </ul>
@@ -104,4 +80,45 @@
 
 	</div>
 
+  <!-- remove from production -->
+  <div class="dev-menu" ng-controller="DevelopmentHeaderCtrl" style="font-size:10px; position:absolute; top:0; right:-50px;">
+    <!-- Trigger -->
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:gray;">dev</a>
+
+    <!-- List -->
+    <ul class="dropdown-menu">
+      <li>
+          <a class="hover-state-pointer" ng-click="openDialogChooseCustomer()">choose-customer</a>
+      </li>
+      <li>
+          <a class="hover-state-pointer" ng-click="openDialogInputProducts()">input-products</a>
+      </li>
+      <li>
+          <a href="#/partial-delivery">partial-delivery</a>
+      </li>
+      <li>
+          <a href="#/pending-delivery">pending-delivery</a>
+      </li>
+      <li>
+          <a href="#/previous-entries">previous-entries</a>
+      </li>
+      <li>
+          <a href="#/products-to-buy">products-to-buy</a>
+      </li>
+      <li>
+          <a href="#/income-statement">income-statement</a>
+      </li>
+      <li>
+        <a class="hover-state-pointer" ng-click="toggleMerchant()">toggle-merchant : {{gopay.merchant}}</a>
+      </li>
+      <li>
+        <a class="hover-state-pointer" ng-click="toggleInternetConnectivity()">toggle-internet : {{envFlags.internet}}</a>
+      </li>
+       <li>
+          <a href="#/login">login</a>
+      </li>
+    </ul>
+  </div>
+
 </div>
+

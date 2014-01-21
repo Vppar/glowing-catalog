@@ -32,9 +32,9 @@
         $scope.cardFlags = DataProvider.cardData.flags;
         $scope.installments = DataProvider.cardData.installments;
 
-        $scope.internet = DataProvider.internet;
-        $scope.merchant = DataProvider.gopay.merchant;
-
+        $scope.gopay = DataProvider.gopay;
+        $scope.envFlags = DataProvider.envFlags;
+        
         $scope.months = DataProvider.date.months;
 
         // Creates an array containing year options for credit card expiration

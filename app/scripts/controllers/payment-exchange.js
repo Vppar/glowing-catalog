@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.exchange', [
-        'tnt.catalog.payment.service', 'tnt.catalog.inventory.keeper', 'tnt.utils.array'
-    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService) {
+        'tnt.catalog.payment.service', 'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.payment.entity'
+    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService, ExchangePayment) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -12,7 +12,7 @@
         // Initializing exchange data with a empty exchange
         var products = InventoryKeeper.read();
 
-        //Show Title or Title + Option(when possible).
+        // Show Title or Title + Option(when possible).
         for ( var idx in products) {
             var item = products[idx];
             if (item.option) {
@@ -87,7 +87,8 @@
             });
         };
 
-        // TODO - maybe change to compute totals on add/remove action.
+        // TODO - maybe change to compute totals on add/remove
+        // action.
         // compute grid header
         $scope.computeTotals = function() {
             $scope.amounttotal = 0;
@@ -97,9 +98,32 @@
             for ( var idx in $scope.exchanges) {
                 $scope.amounttotal += $scope.exchanges[idx].amountunit * $scope.exchanges[idx].qty;
                 $scope.qtytotal += $scope.exchanges[idx].qty;
-                $scope.qtytotal += $scope.exchanges[idx].index = ++i;
+                $scope.exchanges[idx].index = ++i;
             }
         };
+
+        $scope.confirmExchangePayments = function confirmExchangePayments() {
+            PaymentService.clear('exchange');
+            for ( var ix in $scope.exchanges) {
+                var data = $scope.exchanges[ix];
+                var payment = new ExchangePayment(data.id, data.qty, data.amount);
+                payment.amount = data.amount;
+                PaymentService.add(payment);
+            }
+            $scope.selectPaymentMethod('none');
+        };
+
+        // Set already included exchange payments
+        var exchanges = PaymentService.list('exchange');
+        for ( var idx in exchanges) {
+            var item = exchanges[idx];
+            var product = ArrayUtils.find(products, 'id', Number(item.productId));
+            product.amount = item.amount;
+            product.qty = item.qty;
+            product.amountunit = (item.amount / item.qty);
+            $scope.exchanges.push(product);
+        }
+        $scope.computeTotals();
 
     });
 }(angular));
