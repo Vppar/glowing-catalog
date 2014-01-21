@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.oncuff', [
-        'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog'
+        'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog','tnt.catalog.misplaced.service'
     ]).controller(
             'PaymentOnCuffCtrl',
-            function($filter, $scope, $log, CouponService, DialogService, DataProvider, OrderService) {
+            function($filter, $scope, $log, CouponService, DialogService, DataProvider, OrderService, Misplacedservice) {
 
                 // #####################################################################################################
                 // Warm up the controller
@@ -14,16 +14,16 @@
 
                 var order = OrderService.order;
 
-                //find customer
+                // find customer
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                 $scope.customer = customer;
 
-                if($scope.total.change<0){
-                    $scope.amount = $scope.total.change*-1;
-                }else{
+                if ($scope.total.change < 0) {
+                    $scope.amount = $scope.total.change * -1;
+                } else {
                     $scope.amount = 0;
                 }
-                 
+
                 $scope.installmentQty = 1;
                 $scope.dueDate = new Date();
 
@@ -37,8 +37,11 @@
                     $scope.computeInstallments();
                 });
 
-                //Compute amount and installments ang compute.
+                // Compute amount and installments ang compute.
                 $scope.computeInstallments = function computeInstallments() {
+                    if($scope.installmentQty > 99){
+                        $scope.installmentQty =1;
+                    }
                     $scope.payments = [];
                     var payment = {};
                     if ($scope.installmentQty > 1) {
@@ -56,7 +59,8 @@
                     }
                 };
 
-                //We need to call the first time to compute within initial values.
+                // We need to call the first time to compute within initial
+                // values.
                 $scope.computeInstallments();
 
                 function buildInstallments(payment) {

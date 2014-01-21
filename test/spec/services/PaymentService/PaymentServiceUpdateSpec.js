@@ -8,7 +8,7 @@ describe('Service: PaymentServiceUpdate', function() {
 
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
-            _PaymentService_) {
+            _PaymentService_, _OnCuffPayment_) {
         Payment = _Payment_;
         CashPayment = _CashPayment_;
         CheckPayment = _CheckPayment_;
@@ -16,6 +16,7 @@ describe('Service: PaymentServiceUpdate', function() {
         ExchangePayment = _ExchangePayment_;
         CouponPayment = _CouponPayment_;
         PaymentService = _PaymentService_;
+        OnCuffPayment = _OnCuffPayment_;
     }));
 
     /**
