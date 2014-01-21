@@ -38,7 +38,7 @@
         };
     });
 
-    kinput.directive('tntInput', function(KeyboardService, $log) {
+    kinput.directive('tntInput', function(KeyboardService, $log, $document) {
         return {
             restrict : 'A',
             require : 'ngModel',
@@ -69,6 +69,12 @@
                     } else if (key === 'clear') {
                         current = '';
                     } else if (key === 'ok') {
+                        if (attrs.datepickerPopup !== undefined) {
+                            // close datepicker
+                            setTimeout(function() {
+                                $document.trigger('click');
+                            }, 0);
+                        }
                         KeyboardService.next();
                         return;
                     } else {
