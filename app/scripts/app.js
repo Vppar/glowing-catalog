@@ -13,7 +13,7 @@
                 'tnt.catalog.financial.receivable', 'tnt.catalog.financial.receivable.entity', 'tnt.catalog.financial.expense',
                 'tnt.catalog.financial.incomeStatement', 'tnt.utils.array', 'tnt.catalog.components.product-display',
                 'tnt.catalog.components.catalog-section', 'tnt.catalog.components.highlight-display', 'tnt.catalog.gopay.integration',
-                'tnt.catalog.components.catalog-highlights', 'tnt.catalog.inventory', 'tnt.catalog.payment.coupon',
+                'tnt.catalog.components.catalog-highlights', 'tnt.catalog.inventory', 'tnt.catalog.payment.oncuff', 'tnt.catalog.payment.coupon',
                 'tnt.catalog.keyboard.input', 'tnt.catalog.voucher.ctrl', 'tnt.catalog.voucher.entity', 'tnt.catalog.journal.entity',
                 'tnt.catalog.payment', 'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange',
                 'tnt.catalog.payment.service', 'tnt.catalog.payment.entity'
