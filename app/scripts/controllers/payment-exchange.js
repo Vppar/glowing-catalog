@@ -134,9 +134,7 @@
 						var exchanges = PaymentService.list('exchange');
 						for ( var idx in exchanges) {
 							var item = exchanges[idx];
-							console.log(item);
 							var product = ArrayUtils.find(products, 'id', Number(item.productId));
-							console.log(product);
 							product.amount = item.amount;
 							product.qty = item.qty;
 							product.amountunit = (item.amount / item.qty);
