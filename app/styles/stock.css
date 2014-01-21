@@ -171,7 +171,15 @@
 }
 
 .stock-filter{
-	margin: -5px 0 0 0 !important;
+	margin: -3px 0 0 0 !important;
+	width: 75%;
+	height: 15px !important;
+}
+
+.space-stock-date{
+	display: inline-block;
+	width:110px;
+	margin: 0 0 0 5px;
 }
 
 .stock-date{
