@@ -86,19 +86,22 @@
 							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
 							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 						</span>
+					</div>
+					
+					<div class="col-details-order-list-item">
 						<span class="border">
 							<span class="lbl-money">Cart&atilde;o</span>
 							<span class="lbl-money3">(100000)</span>
 							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 						</span>
-					</div>
-					
-					<div class="col-details-order-list-item">
 						<span class="border">
 							<span class="lbl-money">Troca</span>
 							<span class="lbl-money3">(100000)</span>
 							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
 						</span>
+					</div>		
+					
+					<div class="col-details-order-list-item">
 						<span class="border">
 							<span class="lbl-money">Vale/Cumpom</span>
 							<span class="lbl-money3">&nbsp;</span>

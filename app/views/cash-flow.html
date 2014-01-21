@@ -41,18 +41,28 @@
 			<!-- DATE INTERVAL -->
 			<div class="row-fluid filter-bar">
 				<span class="span4">				
-					<select ui-select2  class='combo-width w100' >
+					<select ui-select2
+							name=""
+							id=""
+							class="combo-width w100"
+							ng-model="creditCard.flag"
+							required>
 						<option  value="Loja">Loja</option>
 					</select>
 				</span>
 				<span class="span4">				
-					<select ui-select2  class='combo-width w100' >
+					<select ui-select2
+							name=""
+							id=""
+							class="combo-width w100"
+							ng-model="creditCard.flag"
+							required>
 						<option  value="Intervalo diário">Intervalo di&aacute;rio</option>
 					</select>
 				</span>
 				<span class="span2">
 					<div class="control-group">
-						<a class="btn btn-open" ng-click="">Filtro avan&ccedil;ado</a>
+						<a class="btn btn-open margintn2" ng-click="">Filtro avan&ccedil;ado</a>
 					</div>
 				</span>							
 			</div>

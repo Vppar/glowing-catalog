@@ -644,7 +644,8 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		line-height: 40px;
 	}
 	.grid-order-list .scroll-order-list .row-order-list {
-		border-bottom: 1px dotted #e0e0e0
+		border-bottom: 1px dotted #e0e0e0;
+		line-height: 40px;
 	}
 	
 .grid-order-list .header .col-1 {
@@ -879,7 +880,11 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	background: #7F7F7F; /*#f2f2f2;*/
 }
 
-.grid-inner-footer{border-radius: 4px 4px 0 0; background-color:#f2f2f2 !important; color: #333 !important;/*font-weight:normal !important;*/}
+.grid-inner-footer{
+	border-radius: 4px 4px 0 0; 
+	background-color:#dadada !important; /*#f2f2f2*/
+	color: #333 !important;/*font-weight:normal !important;*/
+}
 .grid-outer-footer{border-radius: 0 0 4px 4px;}
 
 .grid-cash-flow .subtitle .col-1 , .grid-cash-flow .grid-footer .col-1 {
@@ -1286,7 +1291,8 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	display: inline-block;
 }
 .grid-receivable .scroll-receivable .row-receivable {
-	border-bottom: 1px dotted #e0e0e0
+	border-bottom: 1px dotted #e0e0e0;
+	min-height: 40px;
 }
 .grid-receivable .header .col-0 {
 	width: 60px;
@@ -1337,7 +1343,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 
 
 .grid-receivable .subtitle{
-	background-color:#F2F2F2;
+	background-color:#dadada; /*#F2F2F2*/
 	line-height:40px;
 	font-weight:bold;
 }
@@ -1599,7 +1605,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 
 
 .grid-expense .subtitle{
-	background-color:#F2F2F2;
+	background-color:#dadada; /*#F2F2F2*/
 	line-height:40px;
 	font-weight:bold;
 }
@@ -1654,6 +1660,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	text-align: right;
 }
 
+.margin0{margin: 0 !important;}
 
 
 .row-expense .col-0 {
