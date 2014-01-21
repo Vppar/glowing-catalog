@@ -3,18 +3,26 @@
 
     angular.module('tnt.catalog.payment.creditcard', [
         'tnt.catalog.service.data', 'tnt.catalog.payment.service'
-    ]).controller('PaymentCreditCardCtrl', function($scope, $element, $filter, DataProvider, PaymentService, GoPayService) {
+    ]).controller('PaymentCreditCardCtrl', function($scope, $element, $filter, DataProvider, OrderService) {
 
         // #####################################################################################################
         // Warm up the controller
         // #####################################################################################################
 
+    	$scope.orderNumber = OrderService.order.code;
+    	
         // Initializing credit card data with a empty credit card
         var creditCard = {};
         var emptyCreditCardTemplate = {
             installment : null,
             flag : null,
-            amount : null
+            amount : null,
+            expirationMonth : null,
+            expirationyear : null,
+            number : null,
+            cvv : null,
+            cardholderName : null,
+            cardholderDocument : null // CPF
         };
         angular.extend(creditCard, emptyCreditCardTemplate);
         $scope.creditCard = creditCard;
@@ -22,6 +30,21 @@
         // Credit card informations to fill the screen combos.
         $scope.cardFlags = DataProvider.cardData.flags;
         $scope.installments = DataProvider.cardData.installments;
+        
+        $scope.internet = DataProvider.internet;
+        $scope.merchant = DataProvider.gopay.merchant;
+        
+        $scope.months = DataProvider.date.months;
+        
+        // Creates an array containing year options for credit card expiration dates
+        var currYear = new Date().getFullYear();
+        var cardMaxExpirationYear = currYear + 10;
+        var cardExpirationYears = [];
+        while (currYear < cardMaxExpirationYear) {
+        	cardExpirationYears.push(currYear++);
+        }
+        
+        $scope.cardExpirationYears = cardExpirationYears;
 
         // Recovering dialogService from parent scope.
         var dialogService = $scope.dialogService;

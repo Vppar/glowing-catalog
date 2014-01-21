@@ -20,20 +20,29 @@
 
                 var mask = angular.element('<div class="unselectable" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0"></div>');
                 
+                var status = {};
+                
                 var keyboard = {
                     setActive : function(active) {
+                        status.active = active;
                         scope.isActive = active;
                         if(active){
                             $document.find('body').append(mask);
                             mask.bind('click', function(event){
-                                event.stopPropagation();
-                                event.preventDefault();
                                 if (!scope.isActive) {
                                     mask.remove();
-                                } 
+                                } else {
+                                    KeyboardService.quit();
+                                    scope.$apply();
+                                    mask.remove();
+                                    var el = $(document.elementFromPoint(event.clientX, event.clientY));
+                                    el.trigger('click');
+                                    el.trigger('focus');
+                                }
                             });
                         } 
-                    }
+                    },
+                    status: status
                 };
 
                 KeyboardService.setKeyboard(keyboard);
@@ -95,46 +104,74 @@
                     }
                 });
 
-                element.find("img[alt='0']").bind('tap', function() {
+                element.find("img[alt='0']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'0\')');
                 });
-                element.find("img[alt='00']").bind('tap', function() {
+                element.find("img[alt='00']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'00\')');
                 });
-                element.find("img[alt='1']").bind('tap', function() {
+                element.find("img[alt='1']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'1\')');
                 });
-                element.find("img[alt='2']").bind('tap', function() {
+                element.find("img[alt='2']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'2\')');
                 });
-                element.find("img[alt='3']").bind('tap', function() {
+                element.find("img[alt='3']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'3\')');
                 });
-                element.find("img[alt='4']").bind('tap', function() {
+                element.find("img[alt='4']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'4\')');
                 });
-                element.find("img[alt='5']").bind('tap', function() {
+                element.find("img[alt='5']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'5\')');
                 });
-                element.find("img[alt='6']").bind('tap', function() {
+                element.find("img[alt='6']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'6\')');
                 });
-                element.find("img[alt='7']").bind('tap', function() {
+                element.find("img[alt='7']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'7\')');
                 });
-                element.find("img[alt='8']").bind('tap', function() {
+                element.find("img[alt='8']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'8\')');
                 });
-                element.find("img[alt='9']").bind('tap', function() {
+                element.find("img[alt='9']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'9\')');
                 });
-                element.find("img[alt='backspace']").bind('tap', function() {
+                element.find("img[alt='backspace']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'backspace\')');
                 });
-                element.find("img[alt='clear']").bind('tap', function() {
+                element.find("img[alt='clear']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'clear\')');
                 });
-                element.find("img[alt='ok']").bind('tap', function() {
+                element.find("img[alt='ok']").bind('tap', function(event) {
+                    event.stopPropagation();
+                    event.preventDefault();
                     scope.$apply('keypress(\'ok\')');
                 });
             }
