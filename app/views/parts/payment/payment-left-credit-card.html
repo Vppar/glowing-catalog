@@ -8,12 +8,13 @@
 	<div class="row-fluid marginl112">
 	
 		<!-- Full form (with merchant & internet connection) -->
-		<form name="creditCardForm" ng-if="merchant && internet">
+	<form name="creditCardForm" >
+		<div ng-if="merchant && internet">
 			<div class="row-fluid">
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
-						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly required>
+						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
 					</div>
 				</span> 
 				<span class="span5">
@@ -112,15 +113,15 @@
 					</div>
 				</span>	
 			</div>
-		</form>
+		</div>	
 			
 		<!-- Partial form (without merchant) -->
-		<form name="creditCardForm" ng-if="!merchant">
+		<div ng-if="!merchant">
 			<div class="row-fluid">
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
-						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly required>
+						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
 					</div>
 				</span> 
 				<span class="span5">
@@ -160,16 +161,16 @@
 					</div>
 				</span>	
 			</div>
-		</form>
+		</div>
 		
 			
 		<!-- Minimal form (without internet connection) -->
-		<form name="creditCardForm" ng-if="merchant && !internet">
+		<div ng-if="merchant && !internet">
 			<div class="row-fluid">
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
-						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly required>
+						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
 					</div>
 				</span> 
 				
@@ -180,44 +181,8 @@
 					</div>
 				</span>	
 			</div>
-		</form>
-		
-		<!--<div class="grid-payment-check">
-			<div class="header header2">
-				<div class="row-payment-check-grid">
-					<span class="col-s3 w126 text-center">
-						<div>Parcelas</div>
-					</span>
-                    <span class="col-s5 w326">
-                    	<div>Cart&atilde;o</div>
-                    </span>
-                    <span class="col-s3 text-right">
-                    	<div>Valor</div>
-                    </span>
-                    <span class="col-s1">
-                    	<div>&nbsp;</div>
-                    </span>
-				</div>
-			</div>
-			<div class="scroll-payment-grid">
-				<div class="row-payment-credit-card-grid" ng-repeat="payment in payments | paymentType:'creditcard'">
-					<span class="col-s3 w126 text-center">
-						<div>{{payment.data.installment}}</div>
-					</span>
-					<span class="col-s5 w326">
-						<div>{{payment.data.flag}}</div>
-					</span>
-					<span class="col-s3 text-right credit-card-value">
-						<div>{{payment.amount | currency:''}}</div>
-					</span>
-					<!--<span class="col-s1 paddingl10">
-						<div ng-click="removeCreditCard(payment)" class="hover-state-pointer marginl10">
-							<img src="images/del-pink.png" alt="" />
-						</div>
-					</span>->
-				</div>
-			</div>
-		</div>-->
+		</div>
+
 		<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o código </div>
 	</div>
 	
@@ -226,12 +191,12 @@
 			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
 				Cancelar
 			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmPayments()" >
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmCreditCardPayment()" >
 				Confirmar
 			</button>
 		</div>
 	</div>
-	
+	</form>
 </div>
 
 
