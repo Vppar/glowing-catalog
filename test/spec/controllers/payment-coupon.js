@@ -301,5 +301,31 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.isDisabled).toEqual(true);
 
     });
+    
+    it('should not allow to confirm if the total value of coupons is equals or less than zero', function() {
+
+        scope.option = 'option03';
+        
+        scope.$apply();
+        
+        var value = 0;
+        scope.total = value;
+
+        scope.$apply();
+        expect(scope.isDisabled).toEqual(true);
+    });
+    
+    it('should allow to confirm if the total value of coupons is greater than zero', function() {
+
+        scope.option = 'option03';
+        
+        scope.$apply();
+        
+        var value = 80;
+        scope.total = value;
+
+        scope.$apply();
+        expect(scope.isDisabled).toEqual(false);
+    });
 
 });
