@@ -68,7 +68,7 @@
 								</span>
 								<span class="col-s3">
 									<div>
-										<input id="{{'amount' + $index}}" name="" class="item w126" ng-model="payment.amount" tnt-input currency></input>
+										<input id="{{'amount' + $index}}" name="" class="item w126" ng-model="payment.amount" ng-change="valueCheck($index)" tnt-input currency></input>
 									</div>
 								</span>
 							</div>

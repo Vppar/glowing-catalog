@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.oncuff', [
-        'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog','tnt.catalog.misplaced.service'
+        'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog', 'tnt.catalog.misplaced.service', 'tnt.catalog.misplaced.service'
     ]).controller(
             'PaymentOnCuffCtrl',
             function($filter, $scope, $log, CouponService, DialogService, DataProvider, OrderService, Misplacedservice) {
@@ -11,7 +11,7 @@
                 // Warm up the controller
                 // #####################################################################################################
                 $scope.payments = [];
-
+                
                 var order = OrderService.order;
 
                 // find customer
@@ -23,6 +23,10 @@
                 } else {
                     $scope.amount = 0;
                 }
+                
+                $scope.$watch('dueDate', function() {
+                    $scope.computeInstallments();
+                });
 
                 $scope.installmentQty = 1;
                 $scope.dueDate = new Date();
@@ -33,14 +37,10 @@
                     amount : 0
                 };
 
-                $scope.$watch('dueDate', function() {
-                    $scope.computeInstallments();
-                });
-
                 // Compute amount and installments ang compute.
                 $scope.computeInstallments = function computeInstallments() {
-                    if($scope.installmentQty > 99){
-                        $scope.installmentQty =1;
+                    if ($scope.installmentQty > 99) {
+                        $scope.installmentQty = 1;
                     }
                     $scope.payments = [];
                     var payment = {};
@@ -49,7 +49,8 @@
                         payment.dueDate = $scope.dueDate;
                         payment.amount = $scope.amount;
                         payment.installment = $scope.installmentQty;
-                        $scope.payments = buildInstallments(payment);
+                        createInstallment(payment, $scope.dueDate);
+                        $scope.payments = Misplacedservice.recalc($scope.amount, -1, $scope.payments, 'amount');
                     } else {
                         angular.extend(payment, emptyInstallmentTemplate);
                         payment.dueDate = $scope.dueDate;
@@ -58,38 +59,26 @@
                         $scope.payments.push(payment);
                     }
                 };
+                
+                $scope.valueCheck = function valueCheck(index){
+                    $scope.payments = Misplacedservice.recalc($scope.amount, index, $scope.payments, 'amount');
+                };
 
                 // We need to call the first time to compute within initial
                 // values.
                 $scope.computeInstallments();
 
-                function buildInstallments(payment) {
-                    var installments = [];
-                    var index = 1;
-                    var installmentsAmount = Math.round(payment.amount * 100 / $scope.installmentQty) / 100;
-                    var installmentsNumber = $scope.installmentQty;
-
-                    var installmentsSum = 0;
-                    for ( var i = 0; i < installmentsNumber; i++) {
-                        var checkInstallment = angular.copy(payment);
-                        checkInstallment.dueDate = properDate(checkInstallment.dueDate, i);
-                        if (Number(installmentsNumber) === i + 1) {
-                            var finalAmount = payment.amount - installmentsSum;
-                            finalAmount = Math.round(finalAmount * 100) / 100;
-                            checkInstallment.amount = finalAmount;
-                        } else {
-                            checkInstallment.amount = installmentsAmount;
-                        }
-                        installmentsSum = Math.round((installmentsSum + checkInstallment.amount) * 100) / 100;
-                        checkInstallment.installment = index++;
-                        installments.push(checkInstallment);
+                function createInstallment(payment, baseDate) {
+                    for ( var ix = 0; ix < payment.installment; ix++) {
+                        var copyDate = angular.copy(baseDate);
+                        var pay = {};
+                        angular.extend(pay, emptyInstallmentTemplate);
+                        pay.dueDate = properDate(copyDate, ix);
+                        pay.installment = ix + 1;
+                        $scope.payments.push(pay);
                     }
-                    if (installmentsSum !== payment.amount) {
-                        $log.info('PaymentCheckCtrl.buildInstallments: -The sum of the installments and the amount are' +
-                            ' different, installmentsSum=' + installmentsSum + ' originalAmount=' + payment.amount);
-                    }
-                    return installments;
                 }
+
 
                 function properDate(baseDate, increase) {
                     var date = new Date(baseDate.getYear(), baseDate.getMonth() + 1 + increase, 0);
