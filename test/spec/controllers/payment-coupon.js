@@ -294,11 +294,10 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     it('should not allow to confirm if the gift customer name is not defined', function() {
 
-        var value = 40;
+        var value = 25;
         scope.gift.total = value;
 
         scope.$apply();
-
         expect(scope.isDisabled).toEqual(true);
 
     });
