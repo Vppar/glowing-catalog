@@ -18,13 +18,15 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
     });
     beforeEach(inject(function($controller, $rootScope, _$filter_, $q, Misplacedservice) {
         // scope mock
-        spyOn(Date.prototype,'getTime').andReturn(fakeNow);
-        
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
         scope = $rootScope.$new();
         scope.checkForm = {
             $valid : true
         };
-        
+        scope.total = {
+            change : 0
+        };
         // element mock
         element.find = function(name) {
             var element = {
@@ -39,11 +41,10 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
         };
 
         // dialog service mock
-        var defered = $q.defer(); 
+        var defered = $q.defer();
         defered.resolve();
         dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(defered.promise);
         scope.dialogService = dialogService;
-
 
         $controller('PaymentCheckCtrl', {
             $scope : scope,
@@ -51,7 +52,7 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
             $filter : _$filter_,
         });
     }));
-    
+
     it('should remove a check payment', function() {
         // given
         // list of payment in the before each

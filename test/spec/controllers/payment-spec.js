@@ -6,6 +6,7 @@ describe('Controller: PaymentCtrl', function() {
     var os = {};
     var ps = {};
     var sms = {};
+    var ks = {};
     var location = {};
 
     // load the controller's module
@@ -30,6 +31,7 @@ describe('Controller: PaymentCtrl', function() {
 
         // DialogService mock
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
+        ks.getKeyboard = jasmine.createSpy('KeyboardService.getKeyboard');
 
         // OrdeService mock
         os.order = angular.copy(sampleData.orders[0]);
@@ -94,6 +96,7 @@ describe('Controller: PaymentCtrl', function() {
             DataProvider : dp,
             DialogService : ds,
             OrderService : os,
+            KeyboardService : ks,
             PaymentService : ps,
             SMSService : sms
         });
