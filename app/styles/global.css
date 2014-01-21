@@ -1029,4 +1029,8 @@ input:focus, .focus{
 .marginb0{
 	margin-bottom:0;
 }
+
+.invisible {
+	visibility: hidden;
+}
 /*fim - receivable e expense*/

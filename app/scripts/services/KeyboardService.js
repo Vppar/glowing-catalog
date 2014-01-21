@@ -47,6 +47,11 @@
 
         this.setKeyboard = function setKeyboard(value) {
             keyboard.setActive = value.setActive;
+            keyboard.status = value.status;
+        };
+        
+        this.getKeyboard = function() {
+            return keyboard;
         };
 
         /**

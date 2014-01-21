@@ -20,8 +20,11 @@
 
                 var mask = angular.element('<div class="unselectable" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0"></div>');
                 
+                var status = {};
+                
                 var keyboard = {
                     setActive : function(active) {
+                        status.active = active;
                         scope.isActive = active;
                         if(active){
                             $document.find('body').append(mask);
@@ -32,13 +35,14 @@
                                     KeyboardService.quit();
                                     scope.$apply();
                                     mask.remove();
-                                    var el = $(document.elementFromPoint(event.clientX, event.clientY))
+                                    var el = $(document.elementFromPoint(event.clientX, event.clientY));
                                     el.trigger('click');
                                     el.trigger('focus');
                                 }
                             });
                         } 
-                    }
+                    },
+                    status: status
                 };
 
                 KeyboardService.setKeyboard(keyboard);
