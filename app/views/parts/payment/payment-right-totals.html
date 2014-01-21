@@ -45,9 +45,9 @@
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
-		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10">({{payments | paymentType:'creditcard' | count:'id'}})</span>
+		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10">({{total.payments.creditCard | count:'id'}})</span>
 		<span class="">
-			<span class="btn-price-payment">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
+			<span class="btn-price-payment">{{total.payments.creditCard | sum:'amount'| currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">

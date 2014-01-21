@@ -22,8 +22,7 @@
             number : null,
             cvv : null,
             cardholderName : null,
-            cardholderDocument : null
-        // CPF
+            cardholderDocument : null // cardholder's CPF
         };
         angular.extend(creditCard, emptyCreditCardTemplate);
         $scope.creditCard = creditCard;
@@ -89,12 +88,32 @@
             $scope.payments.splice(index, 1);
         };
 
-        $scope.confirmCreditCardPayment = function confirmCreditCardPayment(payment) {
-            if ($scope.creditCardForm.$valid) {
-                console.log('valid');
-            } else {
-                console.log('invalid');
+        /**
+         * Confirms a credit card payment.
+         */
+        $scope.confirmCreditCardPayment = function confirmCreditCardPayment() {
+            if (!$scope.creditCardForm.$valid) {
+                // XXX: should be loged?
+                return;
             }
+            
+            var
+                // TODO: check dueDate format
+                dueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear,
+                payment = new CreditCardPayment(
+                    creditCard.amount,
+                    creditCard.flag,
+                    creditCard.number,
+                    creditCard.cardholderName,
+                    dueDate,
+                    creditCard.cvv,
+                    creditCard.cardholderDocument,
+                    creditCard.installments
+                );
+
+            payment.orderNumber = $scope.orderNumber;
+            PaymentService.add(payment);
+            $scope.selectPaymentMethod('none');
         };
 
     });
