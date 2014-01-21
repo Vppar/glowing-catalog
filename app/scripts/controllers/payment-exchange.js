@@ -20,7 +20,7 @@
             } else {
                 item.uniqueName = item.title;
             }
-        };
+        }
 
         // Products informations to fill the screen combo.
         // $scope.products = DataProvider.products;
@@ -85,7 +85,6 @@
                 $scope.exchanges.splice(index, 1);
                 $scope.computeTotals();
             });
-            ;
         };
 
         // TODO - maybe change to compute totals on add/remove action.

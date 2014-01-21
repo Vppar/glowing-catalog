@@ -15,7 +15,7 @@
 							ng-model="productId">
 							<option value="">Selecione um Produto</option>
 
-							<option ng-repeat="product in products" value="{{product.id}}">{{product.uniqueName}}</option>
+							<option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
 						</select>
 					</div>
 					<div class="control-group lbl-top">
@@ -29,8 +29,8 @@
 					<div class="control-group lbl-top">
 						<div class="controls">
 							<div class="btn-clear-form">
-								<span class="btn-plus2 bg-green hover-state-pointer"
-									ng-click="add()"></span>
+								<span id="exchangeAdd" class="btn-plus2 bg-green hover-state-pointer"
+									ng-click="add()" tnt-kbutton></span>
 							</div>
 						</div>
 					</div>
@@ -133,7 +133,7 @@
 
 
 
-		<!--edição de produtos-->
+		<!--ediï¿½ï¿½o de produtos-->
 		<div class="exchange-edit  display-none">
 			<div class="row-fluid">
 				<div class="grid-payment-exchange-edit">
