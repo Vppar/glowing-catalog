@@ -37,6 +37,10 @@
         
         $scope.months = DataProvider.date.months;
 
+        $scope.select2Options = {
+            minimumResultsForSearch : -1
+        };
+
         // Creates an array containing year options for credit card expiration
         // dates
         var currYear = new Date().getFullYear();
