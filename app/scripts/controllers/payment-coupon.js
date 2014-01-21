@@ -46,6 +46,33 @@
                                 amount : 30
                             },
                         ];
+                        
+                        $scope.isDisabled = true;
+                        
+                        //wachers
+                        $scope.$watch('voucher.total', canConfirmVoucher);
+                        $scope.$watch('gift.total', canConfirmGift);
+                        $scope.$watch('gift.customer.name', canConfirmGift);
+                        
+                        $scope.$watch('option',watchOptions);
+                        
+                        function canConfirmVoucher(){
+                            if($scope.voucher.total > 0){
+                                $scope.isDisabled = false;
+                            }
+                        }
+                        
+                        function canConfirmGift(){
+                            if($scope.gift.total > 0 && angular.isDefined($scope.gift.customer.name)){
+                                $scope.isDisabled = false;
+                            }
+                        }
+                        
+                        function watchOptions(){
+                            $scope.isDisabled = true;
+                        }
+                        
+                        
 
                         for ( var ix in $scope.list) {
                             $scope.$watch('list[' + ix + '].qty', updateTotal);
@@ -77,25 +104,40 @@
 
                         $scope.confirmVoucher = function confirmVoucher() {
                             $scope.coupon.total = $scope.voucher.total;
-
                             
-                            //add a voucher to the order list 
+                            // add a voucher to the order list
                             var idx = order.items.length;
-                            
+
                             var voucher = {
-                                    idx: idx,
-                                    title: 'Vale Crédito',
-                                    uniqueName:'',
-                                    price: $scope.coupon.total,
-                                    qty:1
+                                idx : idx,
+                                title : 'Vale Crédito',
+                                uniqueName : '',
+                                price : $scope.coupon.total,
+                                qty : 1
                             };
-                            
+
                             order.items.push(voucher);
-                            
+
                             $scope.selectPaymentMethod('none');
                         };
 
                         $scope.confirmGift = function confirmGift() {
+
+                            $scope.coupon.total = $scope.gift.total;
+
+                            // add a gift to the order list
+                            var idx = order.items.length;
+
+                            var gift = {
+                                idx : idx,
+                                title : 'Vale Presente',
+                                uniqueName : 'para ' + $scope.gift.customer.name,
+                                price : $scope.coupon.total,
+                                qty : 1
+                            };
+
+                            order.items.push(gift);
+
                             $scope.selectPaymentMethod('none');
                         };
 
@@ -131,6 +173,7 @@
                                                     // TODO keep track in
                                                     // journal?
                                                 } finally {
+                                                    
                                                     generatedCupons.clear;
                                                     $scope.selectPaymentMethod('none');
                                                 }

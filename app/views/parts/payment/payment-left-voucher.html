@@ -190,7 +190,7 @@
 			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
 				Cancelar
 			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="selectConfirm()" >
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" ng-disabled="isDisabled" type="submit" ng-click="selectConfirm()" >
 				Confirmar
 			</button>
 		</div>

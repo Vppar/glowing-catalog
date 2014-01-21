@@ -46,6 +46,9 @@
                 } else {
                     DialogService.openDialogChooseCustomer();
                 }
+                if (OrderService.order.id === undefined) {
+                    OrderService.createNew();
+                }
             } else {
                 DialogService.messageDialog({
                     title : 'Pagamento',
