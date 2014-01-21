@@ -18,13 +18,13 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
     });
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
-        spyOn(Date.prototype,'getTime').andReturn(fakeNow);
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         scope = $rootScope.$new();
         scope.checkForm = {
             $valid : true
         };
-        
+
         // element mock
         element.find = function(name) {
             var element = {
@@ -41,7 +41,9 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         // dialog service mock
         dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         scope.dialogService = dialogService;
-
+        scope.total = {
+            change : 0
+        };
 
         $controller('PaymentCheckCtrl', {
             $scope : scope,
@@ -50,18 +52,17 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         });
     }));
 
-    
     it('should add a check payment', function() {
         // given
         angular.extend(scope.check, sampleData.payment.check);
-        
+
         var check = angular.copy(scope.check);
-        
+
         var paymentsSize = scope.payments.length;
 
         // when
         scope.addCheck(scope.check);
-        
+
         check.id = 1;
 
         // then
@@ -74,20 +75,20 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         expect(scope.check.duedate.getTime()).toBe(fakeNow);
         expect(scope.check.amount).toBe(0);
     });
-    
+
     xit('should add a check payment with installments', function() {
         // given
         angular.extend(scope.check, sampleData.payment.check);
-        
+
         var check = angular.copy(scope.check);
-        
+
         var paymentsSize = scope.payments.length;
 
         // when
         scope.check.installments = 2;
 
         scope.addCheck(scope.check);
-        
+
         check.id = 1;
 
         // then
@@ -101,7 +102,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         expect(scope.check.amount).toBe(0);
     });
 
-   it('shouldn\'t add a check payment with invalid form', function() {
+    it('shouldn\'t add a check payment with invalid form', function() {
         // given
         angular.extend(scope.check, sampleData.payment.check);
         scope.checkForm.$valid = false;
@@ -117,7 +118,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         expect(scope.check).toEqual(check);
 
     });
-    
+
     it('shouldn\'t add a repeated check payment', function() {
         // given
         // list of payment in the before each

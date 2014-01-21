@@ -16,16 +16,18 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
         module('tnt.catalog.filter.paymentType');
         module('tnt.catalog.misplaced.service');
     });
-    
+
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
-        spyOn(Date.prototype,'getTime').andReturn(fakeNow);
-        
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
         scope = $rootScope.$new();
         scope.checkForm = {
             $valid : true
         };
-        
+        scope.total = {
+            change : 0
+        };
         // element mock
         element.find = function(name) {
             var element = {
@@ -43,7 +45,6 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
         dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         scope.dialogService = dialogService;
 
-
         $controller('PaymentCheckCtrl', {
             $scope : scope,
             $element : element,
@@ -51,12 +52,11 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
         });
     }));
 
-    
     it('should edit a check payment', function() {
         // given
         angular.extend(scope.check, sampleData.payment.check);
         var check = angular.copy(sampleData.payment.check);
-        
+
         // when
         scope.edit(check);
 
@@ -67,6 +67,6 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
         expect(scope.check.bank).toBe(check.bank);
         expect(scope.check.agency).toBe(check.agency);
         expect(scope.check.account).toBe(check.account);
-        
+
     });
 });
