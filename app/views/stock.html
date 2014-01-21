@@ -12,7 +12,9 @@
 			<!-- BREAD CRUMBS -->
 			<div class="row-fluid bread-crumbs">
 				<span class="span6">
-					<span class="principal">Estoque</span> &nbsp; <span class="crumbs">&nbsp;</span>
+					<span class="principal">Estoque</span> &gt; <span class="crumbs">situa&ccedil;&atilde;o em 
+					<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small stock-date" required ng-model="dates.dtInitial">
+					<img class="ic-calendar hover-state-pointer calendar-stock" src="images/icons/ic-calendar.png"></span>
 				</span>
 				<span class="span6">
 					<!--<div class="control-group lbl-top icons">
@@ -26,21 +28,22 @@
 					</div>	
 					<div class="control-group lbl-top icons">
 						<img src="images/icons/ic-search.png">
-					</div>
+					</div>-->
 					<div class="float-right">
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option active">Clientes</a> 
-								<a class="btn btn-option">Produtos</a>
+								<a class="btn btn-option">N&iacute;vel 1</a> 
+								<a class="btn btn-option active">N&iacute;vel 2</a> 
+								<a class="btn btn-option">N&iacute;vel 3</a> 
 							</div>
 						</span>
-					</div>-->
+					</div>
 				</span>
 			</div>
 				
 		</div>	
 		
-		<div class="row-fluid">
+		<!--<div class="row-fluid">
 			<div class="details-stock-item">						
 				<div class="col-details-stock-item">
 					<div class="row-details-stock-item">
@@ -77,7 +80,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>-->
 		
 		<div class="row-fluid data">
 			<div class="details-stock-title margint0">
@@ -85,20 +88,24 @@
 					<span class="title-col-1">C&oacute;digo</span> &nbsp; <span class="title-col-2">Produto</span> &nbsp; <span class="title-col-3">Qtde.</span> &nbsp; <span class="title-col-4">Custo unit.</span> &nbsp; <span class="title-col-5">Custo total</span>
 				</span>
 			</div>
-		</div>
-		<div class="row-fluid data">
 			<div class="details-stock-total margint0">
 				<span class="span12">
-					<span class="title-col-1">TOTAL</span> &nbsp; <span class="title-col-2"></span> &nbsp; <span class="title-col-3">16</span> &nbsp; <span class="title-col-4">45,63</span> &nbsp; <span class="title-col-5">730,00</span>
+					<span class="title-col-1">&nbsp;</span> &nbsp; 
+					<span class="title-col-2">
+						<input type="text" placeholder="Filtro cupom" class="date-field input-small stock-filter" ng-model="filter.amount">
+						<span class="float-right">Total Geral</span>
+					</span> &nbsp; 
+					<span class="title-col-3">16</span> &nbsp; 
+					<span class="title-col-4">45,63</span> &nbsp; 
+					<span class="title-col-5">730,00</span>
 				</span>
 			</div>
 		</div>
-		<br/>
 		<div class="scroll-stock">
 			<div class="row-fluid data">
 				<div class="details-stock-total margint0">
 					<span class="span12">
-						<span class="title-col-1">SUBTOTAL</span> &nbsp; <span class="title-col-2">PRODUTOS DISPON&Iacute;VEIS PARA VENDA</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+						<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
 					</span>
 				</div>
 			</div>
@@ -106,7 +113,7 @@
 				<div class="details-stock border">
 					<div class="details-stock-subtitle">
 						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Cuidados com a Pele</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Cuidados com a Pele<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
 						</span>
 					</div>
 					<div class="details-stock-category">
@@ -135,7 +142,7 @@
 				<div class="details-stock border">
 					<div class="details-stock-subtitle">
 						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Maquiagem</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Maquiagem<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
 						</span>
 					</div>
 					<div class="details-stock-category">
@@ -159,7 +166,7 @@
 				<div class="details-stock border">
 					<div class="details-stock-subtitle">
 						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Spa e Frag&acirc;ncias</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Spa e Frag&acirc;ncias<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
 						</span>
 					</div>
 					<div class="details-stock-category">
@@ -179,20 +186,23 @@
 					</div>
 				</div>
 			</div>
-		
 		<br/>
+		
+		
+		
+		
 			<div class="row-fluid data">
 				<div class="row-fluid data">
 					<div class="details-stock-total margint0">
 						<span class="span12">
-							<span class="title-col-1">SUBTOTAL</span> &nbsp; <span class="title-col-2">PRODUTOS RESERVADOS PARA VENDA</span> &nbsp; <span class="title-col-3">7</span> &nbsp; <span class="title-col-4">45,71</span> &nbsp; <span class="title-col-5">320,00</span>
+							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS RESERVADOS PARA VENDA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">7</span> &nbsp; <span class="title-col-4">45,71</span> &nbsp; <span class="title-col-5">320,00</span>
 						</span>
 					</div>
 				</div>
 				<div class="details-stock border">
 					<div class="details-stock-subtitle">
 						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Cuidados com a Pele</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Cuidados com a Pele<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
 						</span>
 					</div>
 					<div class="details-stock-category">
@@ -221,7 +231,7 @@
 				<div class="details-stock border">
 					<div class="details-stock-subtitle">
 						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Maquiagem</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Maquiagem<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
 						</span>
 					</div>
 					<div class="details-stock-category">
@@ -245,7 +255,7 @@
 				<div class="details-stock border">
 					<div class="details-stock-subtitle">
 						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Spa e Frag&acirc;ncias</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Spa e Frag&acirc;ncias<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
 						</span>
 					</div>
 					<div class="details-stock-category">

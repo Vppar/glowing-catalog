@@ -2,23 +2,46 @@
     'use strict';
     angular.module('tnt.catalog.payment', []).controller(
             'PaymentCtrl',
-            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService) {
+            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService, KeyboardService) {
 
                 // #############################################################################################
                 // Controller warm up
                 // #############################################################################################
 
-                // Payment variables
-                var payments = {};
-                $scope.payment = {};
-                $scope.coupon = {
-                    total : 0
-                };
-
+                // First of all block undesired accesses.
                 // Easy the access in the controller to external
                 // resources
                 var order = OrderService.order;
+                if (!order.customerId) {
+                    $location.path('/');
+                }
+                $scope.items = order.items;
+                
+                $scope.keyboard = KeyboardService.getKeyboard();
+
                 var isNumPadVisible = false;
+
+                // Payment variables
+                $scope.total = {
+                    payments : {
+                        cash : 0,
+                        check : [],
+                        creditCard : [],
+                        exchange : [],
+                        coupon : []
+                    },
+                    order : {
+                        amount : 0,
+                        qty : 0,
+                        unit : 0
+                    },
+                    change : 0
+                };
+                $scope.$watch('total.payments.cash', updateOrderAndPaymentTotal);
+
+                $scope.coupon = {
+                    total : 0
+                };
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
@@ -30,32 +53,14 @@
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                 $scope.customer = customer;
 
-                // Calculate the Subtotal
-                if (order.items) {
-                    var basket = order.items;
-                    var orderItemsQty = basket ? basket.length : 0;
-                    var orderUnitsQty = $filter('sum')(basket, 'qty');
-                    var orderAmount = $filter('sum')(basket, 'price', 'qty');
-                    $scope.orderAmount = orderAmount;
-                    $scope.orderItemsQty = orderItemsQty;
-                    $scope.orderUnitsQty = orderUnitsQty;
-                }
-
-                // Order list
-                $scope.items = order.items;
-                $scope.payments = PaymentService.payments;
-
-                // Filters
-                $scope.findPaymentTypeByDescription = PaymentService.findPaymentTypeByDescription;
-
-                // There can be only one cash payment, so we have to
-                // find one if exists if not create a new one.
-                var cashPayment = $filter('paymentType')(PaymentService.payments, 'cash');
-                if (cashPayment.length > 0) {
-                    $scope.payment.cash = cashPayment[0];
-                } else {
-                    $scope.payment.cash = PaymentService.createNew('cash');
-                    $scope.payment.cash.amount = '0';
+                // Show SKU or SKU + Option(when possible).
+                for ( var idx in order.items) {
+                    var item = order.items[idx];
+                    if (order.items[idx].option) {
+                        item.uniqueName = item.SKU + ' - ' + item.option;
+                    } else {
+                        item.uniqueName = item.SKU;
+                    }
                 }
 
                 // Publishing dialog service
@@ -74,32 +79,24 @@
                 // #############################################################################################
 
                 /**
+                 * DEPRECATED
+                 * 
                  * Confirms the check payments and redirect to the order items.
                  * This will be used by the left fragments that inherits this
                  * scope
                  */
                 $scope.confirmPayments = function confirmPayments() {
-                    payments.length = $scope.payments.length;
-                    angular.extend(payments, $scope.payments);
                     $scope.selectPaymentMethod('none');
                 };
 
                 /**
+                 * DEPRECATED
+                 * 
                  * Cancels the check payments keeping the old ones and redirect
                  * to the order items. This will be used by the left fragments
                  * that inherits this scope, they only
                  */
                 $scope.cancelPayments = function cancelPayments() {
-                    $scope.payments.length = payments.length;
-                    // don't lose the cash amount, cash amount is
-                    // persistence everywhere
-                    payments[0] = $scope.payments[0];
-
-                    angular.extend($scope.payments, payments);
-
-                    // recreate the binding to the cash value
-                    $scope.payment.cash = $scope.payments[0];
-
                     $scope.selectPaymentMethod('none');
                 };
 
@@ -110,7 +107,7 @@
                  * @param method - payment method.
                  */
                 $scope.selectPaymentMethod = function selectPaymentMethod(method) {
-                    payments = angular.copy(PaymentService.payments);
+                    updateOrderAndPaymentTotal();
                     $scope.selectedPaymentMethod = method;
                 };
 
@@ -188,6 +185,34 @@
                     OrderService.order.canceled = true;
                     makePayment();
                     $location.path('/');
+                }
+
+                function updateOrderAndPaymentTotal() {
+                    // Calculate the Subtotal
+                    if (order.items) {
+                        // Payment total
+                        $scope.total.payments.check = PaymentService.list('check');
+                        
+                        $scope.total.payments.creditCard = PaymentService.list('creditCard');
+                        $scope.total.payments.exchange = PaymentService.list('exchange');
+                        $scope.total.payments.coupon = PaymentService.list('coupon');
+
+                        var totalPayments = $scope.total.payments.cash;
+                        
+                        for ( var ix in $scope.total.payments) {
+                            totalPayments += $filter('sum')($scope.total.payments[ix],'amount');
+                        }
+                       
+                        // Order total
+                        var basket = order.items;
+                        
+                        $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
+                        $scope.total.order.unit = $filter('sum')(basket, 'qty');
+                        $scope.total.order.qty = basket ? basket.length : 0;
+                        
+                        // Change
+                        $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
+                    }
                 }
 
                 // #############################################################################################
@@ -275,6 +300,8 @@
                     // Cancel payment
                     var canceledPaymentPromise = cancelPaymentFactory();
                     canceledPaymentPromise.then(cancelPayment, main);
+
+                    $scope.selectPaymentMethod('none');
                 }
 
                 main();

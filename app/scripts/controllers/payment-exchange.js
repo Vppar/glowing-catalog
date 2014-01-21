@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.exchange', [
-        'tnt.catalog.service.payment', 'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.service.dialog'
-    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService, $filter) {
+        'tnt.catalog.payment.service', 'tnt.catalog.inventory.keeper', 'tnt.utils.array'
+    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -11,6 +11,16 @@
 
         // Initializing exchange data with a empty exchange
         var products = InventoryKeeper.read();
+
+        //Show Title or Title + Option(when possible).
+        for ( var idx in products) {
+            var item = products[idx];
+            if (item.option) {
+                item.uniqueName = item.title + ' - ' + item.option;
+            } else {
+                item.uniqueName = item.title;
+            }
+        }
 
         // Products informations to fill the screen combo.
         // $scope.products = DataProvider.products;
@@ -36,7 +46,6 @@
                 $scope.qty = 1;
             }
         });
-        
 
         $scope.add = function add() {
 
@@ -64,33 +73,33 @@
             }
 
         };
-        
-        $scope.remove= function(exch){
+
+        $scope.remove = function(exch) {
             DialogService.messageDialog({
                 title : 'Atenção.',
                 message : 'Confirmar exclusão do item de troca?',
                 btnYes : 'Sim',
                 btnNo : 'Não'
             }).then(function() {
-                var exchangeIdx = $scope.products.indexOf(exch);
-                $scope.exchanges.splice(exchangeIdx, 1);
+                var index = $scope.exchanges.indexOf(exch);
+                $scope.exchanges.splice(index, 1);
                 $scope.computeTotals();
-            });;
+            });
         };
-        
-        //TODO - maybe change to compute totals on add/remove action.
+
+        // TODO - maybe change to compute totals on add/remove action.
         // compute grid header
-        $scope.computeTotals = function(){
+        $scope.computeTotals = function() {
             $scope.amounttotal = 0;
             $scope.qtytotal = 0;
             $scope.id = $scope.exchanges.length;
+            var i = 0;
             for ( var idx in $scope.exchanges) {
                 $scope.amounttotal += $scope.exchanges[idx].amountunit * $scope.exchanges[idx].qty;
                 $scope.qtytotal += $scope.exchanges[idx].qty;
+                $scope.qtytotal += $scope.exchanges[idx].index = ++i;
             }
         };
-        
-        
-        
+
     });
 }(angular));

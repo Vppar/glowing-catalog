@@ -1,11 +1,23 @@
 'use strict';
 
-xdescribe('Controller: PaymentCreditCardCtrl', function() {
+describe('Controller: PaymentCreditCardCtrl', function() {
 
-    var scope = {};
+    var scope;
     var element = {};
-    var dp = {};
     var ps = {};
+    var dp = {};
+    var os = {};
+
+    os.order = {
+      code : '123456789'
+    };
+    
+    dp.cardData = {};
+
+    dp.internet = true;
+    dp.gopay = {};
+    dp.gopay.merchant = '4';
+    dp.date = {};
     
     // load the controller's module
     beforeEach(function() {
@@ -16,13 +28,7 @@ xdescribe('Controller: PaymentCreditCardCtrl', function() {
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
         scope = $rootScope.$new();
-        scope.creditCardForm = {
-            $valid : true
-        };
-        scope.findPaymentTypeByDescription = function(value) {
-            return 3;
-        };
-        scope.payments = angular.copy(sampleData.payments);
+        scope.creditCardForm = {};
         
         // element mock
         element.find = function(name) {
@@ -37,92 +43,44 @@ xdescribe('Controller: PaymentCreditCardCtrl', function() {
             return element;
         };
 
-        // data provider  mock
-        dp.payments = angular.copy(sampleData.payments);
-        dp.cardData = angular.copy(sampleData.cardData);
-
-        // payment service mock
-        ps.createNew = jasmine.createSpy('PaymentService.createNew').andCallFake(function(type) {
-            var payment = {};
-            ps.payments.push(payment);
-            return payment;
-        });
-        
-        // reproduce the scope inheritance
-        ps.payments = angular.copy(sampleData.payments);
-        scope.payments = ps.payments;
+        ps.add = jasmine.createSpy('PaymentService.add');
+        scope.selectPaymentMethod = jasmine.createSpy('$scope.selectPaymentMethod');
 
         $controller('PaymentCreditCardCtrl', {
             $scope : scope,
             $filter : _$filter_,
             $element : element,
             DataProvider : dp,
+            OrderService : os,
             PaymentService : ps
         });
     }));
     
     
-    /**
-     * Given - a installment
-     * And   - a flag
-     * And   - an amount
-     * And   - addCreditCard function receive the credit card object as parameter
-     * And   - creditCardForm is valid
-     * When  - the add payment button is clicked
-     * Then  - call the createNew to have an instance of payment
-     * And   - copy the credit card data to this instance
-     * And   - clear the current credit card payment  
-     */
     it('should add a credit card payment', function() {
-        // given
-        scope.creditcard = angular.copy(sampleData.payment.creditcard.data);
-        scope.creditcard.amount = sampleData.payment.creditcard.amount;
-        var creditcard = angular.copy(scope.creditcard);
-        delete creditcard.amount;
-        var paymentsSize = scope.payments.length;
+      scope.creditCardForm.$valid = true;
 
-        // when
-        scope.addCreditCard(scope.creditcard);
-        
-        // then
-        expect(ps.createNew).toHaveBeenCalledWith('creditcard');
-        expect(scope.payments.length).toBe(paymentsSize + 1);
-        expect(scope.payments[paymentsSize].data).toEqual(creditcard);
-        expect(scope.creditcard.amount).toBeUndefined();
+      scope.creditCard = {
+        installment : '2x',
+        flag : 'Visa',
+        amount : '120,00',
+        expirationMonth : '03',
+        expirationYear : '2014',
+        number : '1111111111111111',
+        cvv : '123',
+        cardholderName : 'Foo Bar',
+        cardholderDocument : '11111111111'
+      };
+
+      scope.confirmCreditCardPayment();
+      expect(ps.add).toHaveBeenCalled();
+      expect(ps.add.calls.length).toEqual(1);
     });
+
     
-    /**
-     * Given - a invalid creditCardForm
-     * When  - the add payment button is clicked
-     * Then  - do not add to payments in PaymentService
-     * And   - keep the current check payment  
-     */
     it('shouldn\'t add a credit card payment with invalid form', function() {
-        scope.creditcard = angular.copy(sampleData.payment.creditcard.data);
-        var creditcard = angular.copy(scope.creditcard);
-        var paymentsSize = scope.payments.length;
-        scope.creditCardForm.$valid = false;
-        
-        scope.addCreditCard(scope.creditcard);
-        
-        expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.creditcard).toEqual(creditcard);
-
+      scope.creditCardForm.$valid = false;
+      scope.confirmCreditCardPayment();
+      expect(ps.add).not.toHaveBeenCalled();
     });
-    
-    /**
-     * Given - that a payment is passed to the remove function
-     * When  - the remove payment button is clicked
-     * Then  - remove payment in the second position from the list
-     */
-    it('should remove a credit card payment', function() {
-        var payment = scope.payments[1];
-        var paymentsSize = scope.payments.length;
-
-        scope.removeCreditCard(payment);
-
-        expect(scope.payments[1]).not.toEqual(payment);
-        expect(scope.payments.length).toBe(paymentsSize - 1);
-    });
-    
 });

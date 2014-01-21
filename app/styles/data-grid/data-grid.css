@@ -1463,8 +1463,9 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	border-radius: 4px 4px 0 0;
 }
 .scroll-input-receivable-dialog-grid {
-	min-height: 77px;
-	max-height: 136px;
+	/*min-height: 77px;
+	max-height: 136px;*/
+	height: 142px;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 }
@@ -1724,8 +1725,9 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	border-radius: 4px 4px 0 0;
 }
 .scroll-input-expense-dialog-grid {
-	min-height: 77px;
-	max-height: 136px;
+	/*min-height: 77px;
+	max-height: 136px;*/
+	height: 142px;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 }

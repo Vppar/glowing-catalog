@@ -16,7 +16,7 @@
                 </li>
              </ul>
              <ul class="nav">
-             	<li class="bag pull-right" ng-click='checkout()'><span>{{order.items | count: 'qty'}}</span></li>
+             	<li class="bag pull-right" ng-click='checkout(false)'><span>{{order.items | count: 'qty'}}</span></li>
                 <li class="header-hour"><div>{{now.time}}</div><br /><div class="header-date">{{now.date}}</div></li>
  
                 <li class="dropdown" >
@@ -33,7 +33,7 @@
                             <a href="#">Cat&aacute;logo</a>
                         </li>
                         <li>
-                            <a href="#/payment">Pagamento</a>
+                            <a class="hover-state-pointer gren-item-menu" ng-click="checkout(true)">Pagamento</a>
                         </li>
                         <li>
                             <a href="#/order-list">Pedido de Vendas</a>

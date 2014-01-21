@@ -3,9 +3,14 @@ describe('Controller: PaymentCouponCtrl', function() {
     var couponServiceMock = {};
     var DialogService = {};
     var log = {};
+
+    var orderServiceMock = {};
+    var DataProvider = {};
+
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.coupon');
+
         module(function($provide) {
             $provide.value('$log', log);
         });
@@ -20,17 +25,25 @@ describe('Controller: PaymentCouponCtrl', function() {
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         scope.selectPaymentMethod = jasmine.createSpy('selectPaymentMethod');
 
+        // fake a new order
+        orderServiceMock.order = {};
+        orderServiceMock.order.paymentIds = [];
+        orderServiceMock.order.items = [];
+        orderServiceMock.order.items.push = jasmine.createSpy('push');
+
         scope.coupon = {
             total : 0
         };
+        log.error = jasmine.createSpy('$log.error');
+
         // Injecting into the controller
         $controller('PaymentCouponCtrl', {
             $scope : scope,
             CouponService : couponServiceMock,
-            DialogService : DialogService
+            DialogService : DialogService,
+            DataProvider : DataProvider,
+            OrderService : orderServiceMock
         });
-
-        log.error = jasmine.createSpy('$log.error');
 
     }));
 
@@ -101,7 +114,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
     });
 
-    it('should shit hapen ', function() {
+    it('should log a fatal error', function() {
         couponServiceMock.create = jasmine.createSpy('create').andCallFake(function() {
             throw 'Coupon not created';
         });
@@ -116,7 +129,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         };
 
         var dialog = {
-            title : 'Oops, erro interno.',
+            title : 'Cupom Promocional',
             message : errorMessage,
             btnYes : 'OK'
         };
@@ -154,6 +167,139 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.confirmCoupons();
         expect(couponServiceMock.create).not.toHaveBeenCalledWith();
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
+    });
+
+    it('should populate the item list of the order service with a voucher', function() {
+
+        // add a voucher to the order list
+        var idx = orderServiceMock.order.items.length;
+
+        var value = 45.00;
+        scope.option == 'option01';
+        scope.voucher.total = value;
+
+        var voucher = {
+            idx : idx,
+            title : 'Vale Crédito',
+            uniqueName : '',
+            price : value,
+            qty : 1
+        };
+
+        scope.confirmVoucher();
+
+        expect(orderServiceMock.order.items.push).toHaveBeenCalled();
+        expect(orderServiceMock.order.items.push.mostRecentCall.args[0]).toEqual(voucher);
+
+    });
+
+    it('should populate the item list of the order service with a giftcard', function() {
+
+        // add a voucher to the order list
+        var idx = orderServiceMock.order.items.length;
+
+        var value = 10.00;
+        var customerNameFake = 'Some Name';
+
+        scope.gift.total = value;
+        scope.gift.customer = {
+            name : customerNameFake
+        };
+
+        var gift = {
+            idx : idx,
+            title : 'Vale Presente',
+            uniqueName : 'para ' + customerNameFake,
+            price : value,
+            qty : 1
+        };
+
+        scope.confirmGift();
+
+        expect(orderServiceMock.order.items.push).toHaveBeenCalled();
+        expect(orderServiceMock.order.items.push.mostRecentCall.args[0]).toEqual(gift);
+
+    });
+
+    it('should not allow to confirm if the voucher value is zero', function() {
+
+        var value = 0;
+        scope.voucher.total = value;
+        scope.option = 'option01';
+
+        scope.$apply();
+
+        expect(scope.isDisabled).toEqual(true);
+
+    });
+
+    it('should allow to confirm if the voucher value is different than zero', function() {
+
+        scope.option = 'option01';
+
+        scope.$apply();
+
+        var value = 40.25;
+        scope.voucher.total = value;
+
+        scope.$apply();
+
+        expect(scope.isDisabled).toEqual(false);
+
+    });
+
+    it('should allow to confirm if the voucher value is almost zero', function() {
+
+        scope.option = 'option01';
+        scope.$apply();
+
+        var value = 0.01;
+        scope.voucher.total = value;
+
+        scope.$apply();
+
+        expect(scope.isDisabled).toEqual(false);
+
+    });
+
+    it('should allow to confirm if the gift value is different than zero and customer is defined', function() {
+
+        scope.option = 'option02';
+
+        scope.$apply();
+
+        var value = 40.25;
+        scope.gift.total = value;
+
+        scope.gift.customer = {
+            name : 'A name'
+        };
+        
+        scope.$apply();
+
+        expect(scope.isDisabled).toEqual(false);
+
+    });
+
+    it('should not allow to confirm if the gift value is zero', function() {
+
+        var value = 0;
+        scope.gift.total = value;
+
+        scope.$apply();
+
+        expect(scope.isDisabled).toEqual(true);
+
+    });
+
+    it('should not allow to confirm if the gift customer name is not defined', function() {
+
+        var value = 30;
+        scope.gift.total = value;
+
+        scope.$apply();
+        expect(scope.isDisabled).toEqual(true);
+
     });
 
 });

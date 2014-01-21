@@ -95,8 +95,10 @@
 	margin: 5px;
 }
 .form-order-list .lbl-money3 {
-	width: 30px;
-	margin: 0 2px 0 2px;
+	width: 65px;
+	/*margin: 0 2px 0 2px;*/
+	text-align: center;
+	display: inline-block;
 }
 .form-order-list .btn-price-payment {
 	width: 110px;

@@ -42,7 +42,7 @@
 	float: right
 }
 .container-payment .btn:hover {
-	background: #dc9390;
+	background: #ACDF7B;
 	cursor: pointer;
 }
 .col-payment-right {
@@ -62,6 +62,9 @@
 	min-height:20px;
 	width:91%;
 }
+
+.row-right-payment *{border:none !important;}
+
 .row-right-payment-client {
 	min-height:40px !important;
 }
@@ -114,7 +117,7 @@ margin-top: 5px;
 	background-color:#f2f2f2;
 	border-radius: 4px;
 	padding: 4px;
-	margin-top: -4px;
+	margin-top: -3px;
 	height: 18px;
 	overflow:hidden;
 }
@@ -465,7 +468,7 @@ margin-top: 5px;
 .col-check-s8 {
 	width: 30px; /*35px*/
 	text-align:right;
-	margin-left:10px;
+	margin-left: 13px;
 }
 .w130{
 	width: 130px;
@@ -502,7 +505,7 @@ margin: 24px 0 40px -5px;
 z-index: 11;
 border-radius: 4px;
 }
-#keyNum_quad{
+#keyNum_quad{ /*para esconder o campo "dinheiro"*/
 width: 310px;
 height: 55px; /*500px*/
 background: #F8F8F8;
@@ -644,6 +647,11 @@ border-radius: 4px;
 	width: 87px;
 	text-align: right !important;
 	overflow:hidden;
+	
+border: 1px solid #eee;
+background-color: #f2f2f2;
+border-radius: 4px;
+padding: 4px 7px 4px 5px;
 }
 .qntty{
 	display: inline-block;
@@ -669,18 +677,28 @@ border-radius: 4px;
 	width: 199px;
 }
 
+.payment-warning{
+	margin-left:5px;
+	height: 17px;
+}
+
 .display-block{
 	display:block;
 }
 
-.credit-card-parcelas{
+/*.credit-card-parcelas{
 	width:120px;
 	text-align:center;
 }
 .credit-card-valor{
 	text-align:center;
+}*/
+.bandeira-cartao{
+width: 267px;
 }
-
+.parcelas-cartao {
+width: 153px;
+}
 .input-large{
 	height: 40px !important;
 	line-height: 40px;
@@ -695,12 +713,10 @@ border-radius: 4px;
 	height: 30px !important;
 	line-height: 30px;
 }
-.payment-coupon-fields .control-label, .payment-check-fields .control-label{
+/*.payment-coupon-fields .control-label, .payment-check-fields .control-label, .payment-receivable-fields .control-label{
 	margin-left:5px;
-}
-.w424{
-width: 424px;
-}
+	margin-right: 8px;
+}*/
 .w126{
 	width:126px !important;
 }
@@ -708,19 +724,11 @@ width: 424px;
 	width:200px !important;
 }
 
-.w423{
-width: 423px !important;
+.w420{
+width: 420px !important;
 }
 .w428{
 width: 428px !important;
-}
-
-.w441{
-width: 441px !important;
-}
-
-.w213{
-width: 213px !important;
 }
 
 .w326{
@@ -740,6 +748,9 @@ width: 213px !important;
 
 .w490{
 	width:490px !important;
+}
+.marginr7{
+	margin-right: 7px;
 }
 .margint2{
 	margin-top: 2px;
@@ -799,13 +810,19 @@ width: 213px !important;
 	line-height: 40px;
 }
 .grid-payment-exchange .col-s3 {
-	width: 90px;/*75px*/
+	width: 70px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
 }
 .grid-payment-exchange .col-s4{
 	width: 90px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-exchange .col-s5{
+	width: 53px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
@@ -904,6 +921,130 @@ width: 213px !important;
 	max-height: 432px !important;
 }
 
+/*-------------discount------------*/
+
+.grid-payment-discount .col-s1 {
+	width: 100px; /*35px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-discount .col-s2 {
+	width: 300px;/*400px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount .col-s3 {
+	width: 120px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount .col-s4{
+	width: 120px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.control-label-discount{
+	width:375px; /*400px*/
+}
+
+.discount-initial .header-discount{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+}
+.discount-initial .header-discount, .discount-edit .header-discount{
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.subtitle-header-discount{
+	margin: 0 0 5px 0 !important;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+.subtitle2-header-discount{
+	margin: 0 !important;
+	font-weight:bold;
+}
+
+.grid-payment-discount-edit .col-s1 {
+	width: 315px; /*35px*/
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left:5px;
+}
+.grid-payment-discount-edit .col-s2 {
+	width: 87px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s3 {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s4{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.grid-payment-discount-edit .col-s1-list {
+	width: 305px;
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left: 15px;
+}
+.grid-payment-discount-edit .col-s2-list {
+	width: 87px;/*76px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s3-list {
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount-edit .col-s4-list{
+	width: 110px;/*75px*/
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+}
+
+.row-payment-grid-product-discount input[type="checkbox"]{margin-top: -10px;}
+
+.col-s3-list input ,
+.col-s4-list input {
+	margin: 0 !important;
+	width:90px;
+}
+
+.grid-payment-discount-edit .scroll-payment-grid {
+	min-height: 205px !important;
+	max-height: 432px !important;
+}
+.grid-payment-discount .scroll-payment-grid {
+	/*min-height: 125px !important;
+	max-height: 432px !important;*/
+	height: 135px;
+}
+
 /*-------------coupon------------*/
 .payment-coupon-fields .filter-bar {padding:0 !important;}
 
@@ -941,9 +1082,17 @@ width: 213px !important;
 }
 
 .grid-payment-coupon .col-s1 {
-	width: 175px; /*35px*/
+	width: 200px; /*35px*/
 	display: inline-block;
 	vertical-align: middle;
+}
+
+/*.grid-payment-coupon .col-s1 div{
+	font-size: 20px;
+}*/
+
+.grid-payment-coupon .col-s2 .qty{
+	font-size: 14px;
 }
 .grid-payment-coupon .subtitle2-header-coupon .col-s1 div, .grid-payment-coupon .header-coupon .col-s1 div, .grid-payment-coupon .grid-payment-coupon .col-s1 div, .row-payment-grid-product-coupon .col-s1 div{
 	margin-left:60px;
@@ -958,15 +1107,19 @@ width: 213px !important;
 	vertical-align: middle;
 	text-align:center;
 }
-.grid-payment-coupon .col-s3 {
-	width: 100px;/*75px*/
+.coupon-subtotal{
+	text-align:right;
+	width: 160px;
+}
+/*.grid-payment-coupon .col-s3 {
+	width: 100px;
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 	text-align:center;
-}
-.grid-payment-coupon .col-s4{
-	width: 150px;/*75px*/
+}*/
+.grid-payment-coupon .col-s3{ /*s4*/
+	width: 167px;/*75px*/
 	display: inline-block;
 	vertical-align: middle;
 	text-align:right;
@@ -990,6 +1143,26 @@ width: 213px !important;
 	text-align:right;
 	width: 35px;
 	display: inline-block;
+}
+
+.select-h38 .select2-choice {
+	height: 38px;
+}
+
+.select-h38 .select2-arrow {
+	padding-top: 5px;
+}
+
+.select-h38 .select2-chosen{
+	padding-top: 5px;
+}
+
+.marginl112{
+margin-left: 112px;
+}
+
+.margint10{
+margin-top: 10px;
 }
 /*Grid Historico
 
@@ -1033,3 +1206,54 @@ width: 213px !important;
 	vertical-align: middle;
 	text-align:center;
 }*/
+
+/*-------------receivable------------*/
+
+.grid-payment-receivable .header-receivable{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.grid-payment-receivable .item{
+	display: block;
+	overflow: hidden;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	padding: 4px 7px 4px 5px;
+}
+.grid-payment-receivable .col-s1 {
+	width: 86px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align:center;
+}
+.grid-payment-receivable .col-s2 {
+	width: 154px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align:center;
+	margin-left:9px;
+}
+.grid-payment-receivable .col-s3{
+	width: 159px;
+	display: inline-block;
+	vertical-align: middle;
+	text-align:right;
+	margin-left:11px;
+}
+.subtitle2-header-receivable {border:none !important;}
+
+.subtitle-header-receivable{
+	margin: 0 !important;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+
+.font-gde{font-size:20px;}

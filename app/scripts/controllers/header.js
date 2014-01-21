@@ -38,13 +38,16 @@
         /**
          * Redirect to payment if products and customer were selected.
          */
-        $scope.checkout = function() {
+        $scope.checkout = function(bypassBasket) {
             var basket = $filter('filter')(order.items, inBasketFilter);
-            if (basket && basket.length > 0) {
+            if ((basket && basket.length > 0) || bypassBasket) {
                 if (order.customerId) {
                     $location.path('/payment');
                 } else {
                     DialogService.openDialogChooseCustomer();
+                }
+                if (OrderService.order.id === undefined) {
+                    OrderService.createNew();
                 }
             } else {
                 DialogService.messageDialog({

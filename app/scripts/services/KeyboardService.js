@@ -47,6 +47,11 @@
 
         this.setKeyboard = function setKeyboard(value) {
             keyboard.setActive = value.setActive;
+            keyboard.status = value.status;
+        };
+        
+        this.getKeyboard = function() {
+            return keyboard;
         };
 
         /**
@@ -93,6 +98,11 @@
             currentField.setActive(false);
             currentField = null;
         }
+        
+        this.quit = function(){
+            unselect();
+            keyboard.setActive(false);
+        };
 
         function reorder() {
             var prev, current;

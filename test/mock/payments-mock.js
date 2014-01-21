@@ -17,8 +17,7 @@
         }, {
             id : 2,
             description : 'check'
-        },
-        {
+        }, {
             id : 3,
             description : 'creditcard'
         }
@@ -33,18 +32,24 @@
             id : 2,
             typeId : 2,
             amount : '200.0',
-            data : {bank: 123}
+            data : {
+                bank : 123
+            }
         }, {
             id : 3,
             typeId : 3,
             amount : '200.0',
-            data : {installment: '2x'}
+            data : {
+                installment : '2x'
+            }
         }, {
             id : 4,
             typeId : 4,
             orderId : 1,
             amount : '200.0',
-            data : {productId: 1}
+            data : {
+                productId : 1
+            }
         }, {
             id : 5,
             typeId : 5,
@@ -54,16 +59,12 @@
     ];
     data.payment = {
         check : {
-            id : 1,
-            typeId : 2,
+            bank : '123',
+            agency : '456',
+            account : '7890-1',
+            number : '234567',
+            duedate : 1383066000000,
             amount : '8901.23',
-            data : {
-                bank : '123',
-                agency : '456',
-                account : '7890-1',
-                number : '234567',
-                duedate : 1383066000000
-            }
         },
         creditcard : {
             typeId : 3,

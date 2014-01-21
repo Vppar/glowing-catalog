@@ -1,17 +1,20 @@
 describe('Service: ReceivableServiceListSpec', function() {
 
     var ReceivableKeeper = {};
+    var CoinKeeper = function() {
+        return ReceivableKeeper;
+    };
     var log = {};
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.receivable.service');
-        
+
         log.debug = jasmine.createSpy('log.debug');
-        
+
         module(function($provide) {
             $provide.value('$log', log);
-            $provide.value('ReceivableKeeper', ReceivableKeeper);
+            $provide.value('CoinKeeper', CoinKeeper);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {
@@ -49,8 +52,7 @@ describe('Service: ReceivableServiceListSpec', function() {
 
         // then
         expect(receivableCall).not.toThrow();
-        expect(log.debug)
-                .toHaveBeenCalledWith('ReceivableService.list: Unable to recover the list of receivables. Err=my exception');
+        expect(log.debug).toHaveBeenCalledWith('ReceivableService.list: Unable to recover the list of receivables. Err=my exception');
         expect(result).toEqual(null);
     });
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReceivableKeeperReceive', function() {
+describe('Service: CoinKeeperCancelReceivable', function() {
 
     var Receivable = null;
     var ReceivableKeeper = null;
@@ -20,6 +20,8 @@ describe('Service: ReceivableKeeperReceive', function() {
 
         fakeNow = 1386179100000;
 
+        var entityId = 1;
+        var documentId = 2;
         var type = 'my type';
         var creationdate = fakeNow;
         var duedate = fakeNow + monthTime;
@@ -28,8 +30,8 @@ describe('Service: ReceivableKeeperReceive', function() {
         validReceivable = {
             id : 1,
             creationdate : creationdate,
-            entityId : 1,
-            documentId : 2,
+            entityId : entityId,
+            documentId : documentId,
             type : type,
             duedate : duedate,
             amount : amount
@@ -45,35 +47,35 @@ describe('Service: ReceivableKeeperReceive', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Receivable_, _ReceivableKeeper_, _JournalEntry_) {
+    beforeEach(inject(function(_Receivable_, CoinKeeper, _JournalEntry_) {
         Receivable = _Receivable_;
-        ReceivableKeeper = _ReceivableKeeper_;
+        ReceivableKeeper = CoinKeeper('receivable');
         JournalEntry = _JournalEntry_;
     }));
 
-    it('should receive a payment to a receivable', function() {
+    it('should cancel a receivable', function() {
 
         var addEv = new Receivable(validReceivable);
         var recEv = {
             id : 1,
-            received : fakeNow
+            canceled : fakeNow
         };
 
         var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, 'receivableReceiveV1', 1, recEv);
+        var receiveEntry = new JournalEntry(null, tstamp, 'receivableCancelV1', 1, recEv);
 
         ReceivableKeeper.handlers['receivableAddV1'](addEv);
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.receive(addEv.id, fakeNow);
+            ReceivableKeeper.cancel(addEv.id);
         };
 
         expect(receiveCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
     });
 
-    it('shouldn\'t receive a payment to a receivable', function() {
+    it('shouldn\'t cancel a receivable', function() {
 
         var addEv = new Receivable(validReceivable);
 
@@ -81,42 +83,42 @@ describe('Service: ReceivableKeeperReceive', function() {
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.receive(5, fakeNow);
+            ReceivableKeeper.cancel(2);
         };
 
-        expect(receiveCall).toThrow('Unable to find a receivable with id=\'5\'');
+        expect(receiveCall).toThrow('Unable to find a receivable with id=\'2\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
-    it('should handle a receive payment event', function() {
+    it('should handle a cancel event', function() {
         var receivable = new Receivable(validReceivable);
         var recEv = {
             id : 1,
-            received : fakeNow
+            canceled : fakeNow
         };
         ReceivableKeeper.handlers['receivableAddV1'](receivable);
 
         // when
-        ReceivableKeeper.handlers['receivableReceiveV1'](recEv);
+        ReceivableKeeper.handlers['receivableCancelV1'](recEv);
 
         var result = ReceivableKeeper.read(receivable.id);
 
         // then
-        expect(result.received).toBe(fakeNow);
+        expect(result.canceled).toBe(fakeNow);
     });
 
-    it('shouldn\'t handle a receive payment event', function() {
+    it('shouldn\'t handle a cancel event', function() {
 
         var receivable = new Receivable(validReceivable);
         var recEv = {
             id : 5,
-            received : fakeNow
+            canceled : fakeNow
         };
         ReceivableKeeper.handlers['receivableAddV1'](receivable);
 
         // when
         var receiveCall = function() {
-            ReceivableKeeper.handlers['receivableReceiveV1'](recEv);
+            ReceivableKeeper.handlers['receivableCancelV1'](recEv);
         };
 
         // then

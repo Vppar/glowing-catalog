@@ -1,95 +1,188 @@
 <div class="title-left">
     <div>
-        Pagamento com cartão
+        Pagamento com cart&atilde;o de cr&eacute;dito
     </div>
 </div>
 <div class="left-payment" ng-controller="PaymentCreditCardCtrl">
 	<br />
-	<div class="row-fluid">
-		<form name="creditCardForm">
-			<div class="controls-row">
-				<!--<div class="control-group lbl-top">
-					<label class="control-label credit-card-parcelas">Parcelas</label>
-					<div id="combo-parcelas w120">
-					<div class="controls w120">
-						<select name="installment" ui-select2 ng-model="creditCard.installment" class="combo-width-4 w120" required>
+	<div class="row-fluid marginl112">
+	
+		<!-- Full form (with merchant & internet connection) -->
+	<form name="creditCardForm" >
+		<div ng-if="merchant && internet">
+			<div class="row-fluid">
+				<span class="span3">
+					<div class="control-group ">
+						<label class="control-label">N&uacute;mero do pedido</label>
+						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
+					</div>
+				</span> 
+				<span class="span5">
+					<div class="control-group ">
+						<label class="control-label">Bandeira do cart&atilde;o</label>						
+						<select ui-select2
+							name="cardFlag"
+							id="creditCardFlag"
+							class="bandeira-cartao select-h38"
+							ng-model="creditCard.flag"
+							required>
+							<option value="">Selecione a bandeira do cart&atilde;o</option>
+							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
+						</select>
+					</div>
+				</span>	
+			</div>
+			<div class="row-fluid">
+				<span class="span5">
+					<div class="control-group ">
+						<label class="control-label">N&uacute;mero do cart&atilde;o</label>
+						<input class="input-block-level input-large" id="creditCardNumber" type="text" ng-model="creditCard.number" number tnt-input required maxlength="16">
+					</div>
+				</span>	
+				<span class="span3">
+					<div class="control-group ">
+						<label class="control-label">CVV</label>
+						<input class="input-block-level input-large" type="text" id="cardVerificationValue" ng-model="creditCard.cvv" number tnt-input required maxlength="3">
+					</div>
+				</span>	
+			</div>
+			
+			<div class="row-fluid">
+				<span class="span4">
+					<div class="control-group ">
+						<label class="control-label">Validade do cart&atilde;o (m&ecirc;s)</label>					
+						<select ui-select2
+							name="cardExpirationMonth"
+							class="input-large select-h38"
+							ng-model="creditCard.expirationMonth"
+							required>
+							<option value="">Selecione o m&ecirc;s</option>
+							<option ng-repeat="month in months" value="{{month.id}}">{{month.name}}</option>
+						</select>
+					</div>
+				</span>	
+				
+				<span class="span4">
+					<div class="control-group ">
+						<label class="control-label">Validade do cart&atilde;o (ano)</label>					
+						<select ui-select2
+							name="cardExpirationYear"
+							class="input-large select-h38"
+							ng-model="creditCard.expirationYear"
+							required>
+							<option value="">Selecione o ano</option>
+							<option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
+						</select>
+					</div>
+				</span>	
+			</div>
+			
+			<div class="row-fluid">
+				<span class="span8">
+					<div class="control-group margint10">
+						<label class="control-label">Nome do titular do cart&atilde;o</label>
+						<input class="input-block-level input-large" type="text" id="cardholderName" ng-model="creditCard.cardholderName" required>
+					</div>
+				</span>
+			</div>
+			
+			<div class="row-fluid">
+				<span class="span3">
+					<div class="control-group ">
+						<label class="control-label">CPF titular do cart&atilde;o</label>
+						<input class="input-block-level input-large" id="cardholderDocument" type="text" ng-model="creditCard.cardholderDocument" required tnt-input number maxlength="11">
+					</div>
+				</span>	
+				<span class="span3">
+					<div class="control-group ">
+						<label class="control-label">Nro parcelas</label>					
+						<select ui-select2
+							name="installment"
+							class="parcelas-cartao select-h38"
+							ng-model="creditCard.installment"
+							required>
+							<option value="">nro parcelas</option>
 							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
 						</select>
 					</div>
+				</span>	
+				<span class="span2">
+					<div class="control-group ">
+						<label class="control-label">Valor R$</label>
+						<input class="input-block-level input-large" type="text" id="cardAmount" ng-model="creditCard.amount" currency tnt-input required max-length="11">
 					</div>
-				</div>
-				<div class="control-group lbl-top">
-					<label class="control-label paddingl5">Cartão</label>
-					<div class="controls">
-						<select name="flag" ui-select2 class="combo-width marginr10" ng-model="creditCard.flag" required>
-							<option ng-repeat="flag in cardFlags" value="{{flag}}">{{flag}}</option>
+				</span>	
+			</div>
+		</div>	
+			
+		<!-- Partial form (without merchant) -->
+		<div ng-if="!merchant">
+			<div class="row-fluid">
+				<span class="span3">
+					<div class="control-group ">
+						<label class="control-label">N&uacute;mero do pedido</label>
+						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
+					</div>
+				</span> 
+				<span class="span5">
+					<div class="control-group ">
+						<label class="control-label">Bandeira do cart&atilde;o</label>						
+						<select ui-select2
+							name="cardFlag"
+							id="creditCardFlag"
+							class="bandeira-cartao select-h38"
+							ng-model="creditCard.flag"
+							required>
+							<option value="">Selecione a bandeira do cart&atilde;o</option>
+							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
 					</div>
-				</div>-->
-				<div class="control-group lbl-top">
-					<div class="controls">
-						<div class="title-gopay">
-							<span class="float-left">Pagamento por cart&atilde;o via Go Pay</span>
-							<span class="float-right">Valor:</span>
-						</div>
-					</div>
-				</div>
-				<div class="control-group lbl-top">
-					<div class="controls">
-						<!--<input name="amount" class="input-small text-right" type="tel" placeholder="" ng-model="creditCard.amount"  currency required recall>-->
-						<span name="amount" class="check-value" id="valor" >{{check.amount | currency: ''}}</span>
-					</div>
-				</div>
-				<div class="control-group lbl-top" >
-					<div class="controls">
-	                       <div class="btn-clear-form paddingt3">
-	                           <span class="btn-plus2 bg-green hover-state-pointer" ng-click="addCreditCard(creditCard)"></span>
-	                       </div>
-					</div>
-				</div>
+				</span>	
 			</div>
-		</form>
-			
-		<div class="row-fluid payment-total">
-			<span>Total</span><span class="float-right marginr10">{{payments | paymentType:'creditcard' | sum:'amount' | currency:''}}</span>
+
+			<div class="row-fluid">
+				<span class="span3">
+					<div class="control-group ">
+						<label class="control-label">Nro parcelas</label>					
+						<select ui-select2
+							name="installment"
+							class="parcelas-cartao select-h38"
+							ng-model="creditCard.installment"
+							required>
+							<option value="">nro parcelas</option>
+							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
+						</select>
+					</div>
+				</span>	
+				<span class="span2">
+					<div class="control-group ">
+						<label class="control-label">Valor R$</label>
+						<input class="input-block-level input-large" type="text" id="cardAmount" ng-model="creditCard.amount" currency tnt-input required max-length="11">
+					</div>
+				</span>	
+			</div>
 		</div>
 		
-		<div class="grid-payment-check">
-			<div class="header header2">
-				<div class="row-payment-check-grid">
-					<span class="col-s3 w126 text-center">
-						<div>Parcelas</div>
-					</span>
-                    <span class="col-s5 w326">
-                    	<div>Cart&atilde;o</div>
-                    </span>
-                    <span class="col-s3 text-right">
-                    	<div>Valor</div>
-                    </span>
-                    <span class="col-s1">
-                    	<div>&nbsp;</div>
-                    </span>
-				</div>
-			</div>
-			<div class="scroll-payment-grid">
-				<div class="row-payment-credit-card-grid" ng-repeat="payment in payments | paymentType:'creditcard'">
-					<span class="col-s3 w126 text-center">
-						<div>{{payment.data.installment}}</div>
-					</span>
-					<span class="col-s5 w326">
-						<div>{{payment.data.flag}}</div>
-					</span>
-					<span class="col-s3 text-right credit-card-value">
-						<div>{{payment.amount | currency:''}}</div>
-					</span>
-					<!--<span class="col-s1 paddingl10">
-						<div ng-click="removeCreditCard(payment)" class="hover-state-pointer marginl10">
-							<img src="images/del-pink.png" alt="" />
-						</div>
-					</span>-->
-				</div>
+			
+		<!-- Minimal form (without internet connection) -->
+		<div ng-if="merchant && !internet">
+			<div class="row-fluid">
+				<span class="span3">
+					<div class="control-group ">
+						<label class="control-label">N&uacute;mero do pedido</label>
+						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
+					</div>
+				</span> 
+				
+				<span class="span2">
+					<div class="control-group ">
+						<label class="control-label">Valor R$</label>
+						<input class="input-block-level input-large" type="text" id="cardAmount" ng-model="creditCard.amount" currency tnt-input required max-length="11">
+					</div>
+				</span>	
 			</div>
 		</div>
+
 		<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o código </div>
 	</div>
 	
@@ -98,12 +191,12 @@
 			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
 				Cancelar
 			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmPayments()" >
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmCreditCardPayment()" >
 				Confirmar
 			</button>
 		</div>
 	</div>
-	
+	</form>
 </div>
 
 
