@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.payment.exchange', [
         'tnt.catalog.payment.service', 'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.payment.entity'
-    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService) {
+    ]).controller('PaymentExchangeCtrl', function($scope, PaymentService, InventoryKeeper, ArrayUtils, DialogService, ExchangePayment) {
 
         // #####################################################################################################
         // Warm up the controller
