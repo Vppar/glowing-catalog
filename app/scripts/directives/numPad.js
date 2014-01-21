@@ -42,10 +42,11 @@
                                                     scope.$apply();
                                                     mask.remove();
                                                     var el = $(document.elementFromPoint(event.clientX, event.clientY));
-                                                    if (!el.is(":disabled")) {
-                                                        el.trigger('click');
-                                                        el.trigger('focus');
-                                                    }
+
+    if (!el.is(":disabled")) {
+        el.trigger('click');
+        el.trigger('focus');
+    }
                                                 }
                                             });
                                         } else if (!('ontouchstart' in window || 'onmsgesturechange' in window)) {
