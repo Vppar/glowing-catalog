@@ -39,9 +39,6 @@
 
                 // Compute amount and installments ang compute.
                 $scope.computeInstallments = function computeInstallments() {
-                    if ($scope.installmentQty > 99) {
-                        $scope.installmentQty = 1;
-                    }
                     $scope.payments = [];
                     var payment = {};
                     if ($scope.installmentQty > 1) {
