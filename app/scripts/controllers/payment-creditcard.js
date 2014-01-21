@@ -23,6 +23,7 @@
             cvv : null,
             cardholderName : null,
             cardholderDocument : null // cardholder's CPF
+
         };
         angular.extend(creditCard, emptyCreditCardTemplate);
         $scope.creditCard = creditCard;
