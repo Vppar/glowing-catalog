@@ -30,7 +30,7 @@ describe('Service: Misplacedservice', function() {
         expect(actual[2].test).toEqual(33.33);
         expect(actual[3].test).toEqual(33.34);
     });
-    
+
     it('should calc neg', function() {
 
         var actual = Misplacedservice.recalc(90, 0, seed, 'test');
@@ -50,6 +50,21 @@ describe('Service: Misplacedservice', function() {
         expect(actual[1].test).toEqual(50);
         expect(actual[2].test).toEqual(25);
         expect(actual[3].test).toEqual(25);
+    });
+
+    it('should not crash', function() {
+        var seed = [
+            {}, {}, {}, {}, {}, {}
+        ];
+
+        var actual = Misplacedservice.recalc(232, -1, seed, 'test');
+
+        expect(actual[0].test).toEqual(38.66);
+        expect(actual[1].test).toEqual(38.66);
+        expect(actual[2].test).toEqual(38.67);
+        expect(actual[3].test).toEqual(38.67);
+        expect(actual[3].test).toEqual(38.67);
+        expect(actual[3].test).toEqual(38.67);
     });
 
 });
