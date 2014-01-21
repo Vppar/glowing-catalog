@@ -122,7 +122,7 @@
 							PaymentService.clear('exchange');
 							for ( var ix in $scope.exchanges) {
 								var data = $scope.exchanges[ix];
-								var payment = new ExchangePayment(data.qty,
+								var payment = new ExchangePayment(data.id, data.qty,
 										data.amount);
 								payment.amount = data.amount;
 								PaymentService.add(payment);
@@ -134,13 +134,15 @@
 						var exchanges = PaymentService.list('exchange');
 						for ( var idx in exchanges) {
 							var item = exchanges[idx];
-							var product = ArrayUtils.find(products, 'id',
-									Number(item.id));
+							console.log(item);
+							var product = ArrayUtils.find(products, 'id', Number(item.productId));
+							console.log(product);
 							product.amount = item.amount;
 							product.qty = item.qty;
+							product.amountunit = (item.amount / item.qty);
 							$scope.exchanges.push(product);
-							$scope.computeTotals();
 						}
+						$scope.computeTotals();
 
 					});
 }(angular));

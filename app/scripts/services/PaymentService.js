@@ -103,9 +103,11 @@
 	 */
 	entities.factory('ExchangePayment', function ExchangePayment(Payment) {
 
-		var service = function svc(qty, amount) {
+		var service = function svc(productId, qty, amount) {
 			this.qty = qty;
+			this.productId = productId;
 			ObjectUtils.ro(this, 'qty', this.qty);
+			ObjectUtils.ro(this, 'productId', this.productId);
 			ObjectUtils.superInvoke(this, amount);
 		};
 
