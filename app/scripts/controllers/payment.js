@@ -194,18 +194,19 @@
                         $scope.total.payments.exchange = PaymentService.list('exchange');
                         $scope.total.payments.coupon = PaymentService.list('coupon');
 
-                        var totalPayments = 0;
+                        var totalPayments = $scope.total.payments.cash;
+                        
                         for ( var ix in $scope.total.payments) {
-                            totalPayments += $scope.total.payments[ix];
+                            totalPayments += $filter('sum')($scope.total.payments[ix],'amount');
                         }
 
                         // Order total
                         var basket = order.items;
-
+                        
                         $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
                         $scope.total.order.unit = $filter('sum')(basket, 'qty');
                         $scope.total.order.qty = basket ? basket.length : 0;
-
+                        
                         // Change
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }
