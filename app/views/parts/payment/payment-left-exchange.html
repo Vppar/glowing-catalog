@@ -15,8 +15,7 @@
 							ng-model="productId">
 							<option value="">Selecione um Produto</option>
 
-							<option ng-repeat="product in products" value="{{product.id}}">{{product.title}} - 
-								{{product.option}}</option>
+							<option ng-repeat="product in products" value="{{product.id}}">{{product.uniqueName}}</option>
 						</select>
 					</div>
 					<div class="control-group lbl-top">
