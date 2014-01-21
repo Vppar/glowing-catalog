@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.check', [
-        'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array'
+        'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array', 'tnt.catalog.misplaced.service'
     ]).controller(
             'PaymentCheckCtrl',
             function($scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice) {

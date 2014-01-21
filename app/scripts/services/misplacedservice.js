@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('glowingCatalogApp').service('Misplacedservice', function Misplacedservice() {
+angular.module('tnt.catalog.misplaced.service',[]).service('Misplacedservice', function Misplacedservice() {
 
     function round(number, places) {
         places = places ? places : 2;

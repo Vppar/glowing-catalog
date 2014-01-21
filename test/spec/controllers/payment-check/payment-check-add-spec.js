@@ -14,7 +14,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         module('tnt.catalog.inventory.entity');
         module('tnt.catalog.filter.sum');
         module('tnt.catalog.filter.paymentType');
-        
+        module('tnt.catalog.misplaced.service');
     });
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
