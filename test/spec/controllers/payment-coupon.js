@@ -294,7 +294,7 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     it('should not allow to confirm if the gift customer name is not defined', function() {
 
-        var value = 25;
+        var value = 30;
         scope.gift.total = value;
 
         scope.$apply();
