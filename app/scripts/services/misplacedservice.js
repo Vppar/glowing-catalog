@@ -10,42 +10,19 @@ angular.module('glowingCatalogApp').service('Misplacedservice', function Misplac
 
     /**
      * @param Number - The total amount
-     * @param Number - The amount for the first installment
-     * @param Number - The total installment count
-     */
-    this.calc = function(total, first, count) {
-
-        if (first > total) {
-            throw 'r u mad?';
-        }
-
-        var installments = [
-            first
-        ];
-        var gone = first;
-
-        for ( var i = 1; i < count; i++) {
-            installments[i] = round((total - gone) / (count - i));
-            gone = round(gone + installments[i]);
-        }
-        return installments;
-    };
-
-    /**
-     * @param Number - The total amount
      * @param Number - The installment being edited
      * @param Array - The installments
      */
-    this.recalc = function(total, current, installments) {
+    this.recalc = function(total, current, installments, propertyName) {
 
         var gone = 0;
 
         for ( var ix in installments) {
 
             if (ix > current) {
-                installments[ix] = round((total - gone) / (installments.length - ix));
+                installments[ix][propertyName] = round((total - gone) / (installments.length - ix));
             }
-            gone = round(gone + installments[ix]);
+            gone = round(gone + installments[ix][propertyName]);
         }
 
         return installments;

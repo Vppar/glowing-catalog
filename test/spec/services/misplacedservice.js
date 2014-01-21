@@ -2,6 +2,12 @@
 
 describe('Service: Misplacedservice', function() {
 
+    var seed = [
+        {
+            test : 100
+        }, {}, {}, {}
+    ];
+
     // load the service's module
     beforeEach(module('glowingCatalogApp'));
 
@@ -16,23 +22,24 @@ describe('Service: Misplacedservice', function() {
     });
 
     it('should calc', function() {
-        var actual = Misplacedservice.calc(200, 100, 4);
-        
-        expect(actual[0]).toEqual(100);
-        expect(actual[1]).toEqual(33.33);
-        expect(actual[2]).toEqual(33.33);
-        expect(actual[3]).toEqual(33.34);
+
+        var actual = Misplacedservice.recalc(200, 0, seed, 'test');
+
+        expect(actual[0].test).toEqual(100);
+        expect(actual[1].test).toEqual(33.33);
+        expect(actual[2].test).toEqual(33.33);
+        expect(actual[3].test).toEqual(33.34);
     });
-    
+
     it('should recalc', function() {
-        var ins = Misplacedservice.calc(200, 100, 4);
-        ins[1] = 50.00;
-        var actual = Misplacedservice.recalc(200, 1, ins);
-        
-        expect(actual[0]).toEqual(100);
-        expect(actual[1]).toEqual(50);
-        expect(actual[2]).toEqual(25);
-        expect(actual[3]).toEqual(25);
+        var ins = Misplacedservice.recalc(200, 0, seed, 'test');
+        ins[1].test = 50.00;
+        var actual = Misplacedservice.recalc(200, 1, ins, 'test');
+
+        expect(actual[0].test).toEqual(100);
+        expect(actual[1].test).toEqual(50);
+        expect(actual[2].test).toEqual(25);
+        expect(actual[3].test).toEqual(25);
     });
 
 });
