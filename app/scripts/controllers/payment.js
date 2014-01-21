@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.payment', []).controller(
             'PaymentCtrl',
-            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService) {
+            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService, KeyboardService) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -16,6 +16,8 @@
                     $location.path('/');
                 }
                 $scope.items = order.items;
+                
+                $scope.keyboard = KeyboardService.getKeyboard();
 
                 var isNumPadVisible = false;
 
