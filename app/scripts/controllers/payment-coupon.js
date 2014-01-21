@@ -77,6 +77,21 @@
 
                         $scope.confirmVoucher = function confirmVoucher() {
                             $scope.coupon.total = $scope.voucher.total;
+
+                            
+                            //add a voucher to the order list 
+                            var idx = order.items.length;
+                            
+                            var voucher = {
+                                    idx: idx,
+                                    title: 'Vale Crédito',
+                                    uniqueName:'',
+                                    price: $scope.coupon.total,
+                                    qty:1
+                            };
+                            
+                            order.items.push(voucher);
+                            
                             $scope.selectPaymentMethod('none');
                         };
 

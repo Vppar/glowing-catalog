@@ -3,7 +3,8 @@ describe('Controller: PaymentCouponCtrl', function() {
     var couponServiceMock = {};
     var DialogService = {};
     var log = {};
-    var OrderService = {};
+    
+    var orderServiceMock = {};
     var DataProvider = {};
 
     // load the controller's module
@@ -22,7 +23,13 @@ describe('Controller: PaymentCouponCtrl', function() {
         couponServiceMock.create = jasmine.createSpy('create');
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         scope.selectPaymentMethod = jasmine.createSpy('selectPaymentMethod');
-
+        
+      //fake a new order
+        orderServiceMock.order = {};
+        orderServiceMock.order.paymentIds = [];
+        orderServiceMock.order.items = [];
+        orderServiceMock.order.items.push =  jasmine.createSpy('push');
+        
         scope.coupon = {
             total : 0
         };
@@ -34,7 +41,7 @@ describe('Controller: PaymentCouponCtrl', function() {
             CouponService : couponServiceMock,
             DialogService : DialogService,
             DataProvider : DataProvider,
-            OrderService : OrderService
+            OrderService : orderServiceMock
         });
 
     }));
@@ -106,7 +113,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
     });
 
-    it('should shit hapen ', function() {
+    it('should log a fatal error', function() {
         couponServiceMock.create = jasmine.createSpy('create').andCallFake(function() {
             throw 'Coupon not created';
         });
@@ -160,5 +167,28 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(couponServiceMock.create).not.toHaveBeenCalledWith();
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
     });
+    
+    it('should populate the item list of the order service with a voucher', function() {
+        
+        //add a voucher to the order list 
+        var idx = orderServiceMock.order.items.length;
+        
+        scope.coupon.total = 45.00;
+        
+        var voucher = {
+                idx: idx,
+                title: 'An title!',
+                uniqueName:'an unique name!',
+                price: scope.coupon.total,
+                qty:1
+        };
+
+        scope.confirmVoucher();
+        
+        expect(orderServiceMock.order.items.push).toHaveBeenCalled();
+        expect(orderServiceMock.mostRecentCall.args[0]).toEqual(voucher);
+        
+    });
+    
 
 });
