@@ -1,9 +1,11 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.payment', []).controller(
+    angular.module('tnt.catalog.payment', [
+        'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper'
+    ]).controller(
             'PaymentCtrl',
             function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService,
-                    KeyboardService) {
+                    KeyboardService, InventoryKeeper) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -59,17 +61,19 @@
                 var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
                 $scope.customer = customer;
 
-                // Show SKU or SKU + Option(when possible).
-                for ( var idx in order.items) {
-                    var item = order.items[idx];
-                    if (item.type !== 'giftCard' && item.type !== 'voucher') {
-                      if (item.option) {
-                          item.uniqueName = item.SKU + ' - ' + item.option;
-                      } else {
-                          item.uniqueName = item.SKU;
-                      }
+                // When a product is added on items list, we need to rebuild the
+                // uniqueName.
+                $scope.$watchCollection('items', function() {
+                    // Show SKU or SKU + Option(when possible).
+                    for ( var idx in order.items) {
+                        var item = order.items[idx];
+                        if (item.option) {
+                            item.uniqueName = item.SKU + ' - ' + item.option;
+                        } else {
+                            item.uniqueName = item.SKU;
+                        }
                     }
-                }
+                });
 
                 // Publishing dialog service
                 var dialogService = DialogService;
@@ -80,17 +84,13 @@
                         customer = $filter('findBy')(DataProvider.customers, 'id', id);
                         $scope.customer = customer;
 
-                        var
-                          items = order.items,
-                          item,
-                          len,
-                          i;
+                        var items = order.items, item, len, i;
 
                         for (i = 0, len = items.length; i < len; i += 1) {
-                          item = items[i];
-                          if (item.type === 'voucher') {
-                            item.uniqueName = customer.name;
-                          }
+                            item = items[i];
+                            if (item.type === 'voucher') {
+                                item.uniqueName = customer.name;
+                            }
                         }
                     });
                 };
@@ -137,15 +137,19 @@
                         id : productId
                     })[0];
 
-                    if (product.grid.length > 1) {
-                        DialogService.openDialogAddToBasketDetails({
-                            id : product.id
+                    var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.parent);
+                    var dialogPromise = null;
+
+                    if (grid.length > 1) {
+                        dialogPromise = DialogService.openDialogAddToBasketDetails({
+                            id : product.parent
                         });
                     } else {
-                        DialogService.openDialogAddToBasket({
-                            id : product.id
+                        dialogPromise = DialogService.openDialogAddToBasket({
+                            id : product.parent
                         });
                     }
+                    dialogPromise.then(updateOrderAndPaymentTotal);
                 };
 
                 /**
@@ -219,7 +223,6 @@
                         $scope.total.payments.onCuff = PaymentService.list('onCuff');
 
                         var totalPayments = $scope.total.payments.cash;
-
                         for ( var ix in $scope.total.payments) {
                             totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
                         }
