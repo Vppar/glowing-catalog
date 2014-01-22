@@ -32,6 +32,10 @@ textarea, input[type="text"], input[type="textarea"], input[type="password"], in
 	transition: border linear 0.2s, box-shadow linear 0.2s !important;
 }
 
+input[disabled] {
+	background-color: #cccccc;
+}
+
  input[type="textarea"]{min-height:60px;}
 
 /*input[type=number]::-webkit-inner-spin-button, 
