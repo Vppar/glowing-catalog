@@ -7,7 +7,6 @@ describe('Controller: HeaderCtrl', function() {
     var ds = {};
     var os = {};
     var location = {};
-    var q;
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {

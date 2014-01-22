@@ -64,20 +64,6 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
       expect(location.path).toHaveBeenCalledWith('/payment');
     });
 
-
-    /**
-     * When a customer is selected from the list, the customerId must be
-     * propagated to the order and the dialog must be closed with true. No need
-     * to redirect to anywhere.
-     */
-    xit('should close the dialog with a customer selected', function() {
-        scope.customerId = 1;
-        scope.confirm();
-        expect(dialog.close).toHaveBeenCalledWith(true);
-        expect(os.order.customerId).not.toBeUndefined();
-        expect(location.path).toHaveBeenCalledWith('/payment');
-    });
-
     /**
      * When is necessary add a new customer then close the dialog and redirect
      * to the add new customer screen.
