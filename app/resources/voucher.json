@@ -1,0 +1,35 @@
+[
+	{
+		"type": "voucherCreate",
+		"version": 1,
+		"event": {
+			"id": 1,
+			"entity": 1,
+			"type": "voucher",
+			"amount": 10.77,
+			"created": 0
+		}
+	},
+	{
+		"type": "voucherCreate",
+		"version": 1,
+		"event": {
+			"id": 2,
+			"entity": 1,
+			"type": "giftCard",
+			"amount": 50,
+			"created": 0
+		}
+	},
+	{
+		"type": "voucherCreate",
+		"version": 1,
+		"event": {
+			"id": 3,
+			"entity": 1,
+			"type": "coupon",
+			"amount": 20,
+			"created": 0
+		}
+	}
+]

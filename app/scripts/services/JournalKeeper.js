@@ -43,9 +43,11 @@
      * 
      * The CRUD for journal keeping operations
      */
-    angular.module('tnt.catalog.journal.keeper', []).service('JournalKeeper', function JournalKeeper() {
-        this.compose = function() {
-
+    angular.module('tnt.catalog.journal.keeper', []).service('JournalKeeper', function JournalKeeper($timeout, Replayer) {
+        this.compose = function(journalEntry) {
+            $timeout(function(){
+                Replayer.replay(journalEntry);
+            }, 10);
         };
 
         this.read = function(filters) {

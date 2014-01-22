@@ -60,7 +60,7 @@
         var voucher = {
             voucher : [],
             coupon : [],
-            gift : []
+            giftCard : []
         };
         this.handlers = {};
 
@@ -70,7 +70,10 @@
         ObjectUtils.ro(this.handlers, 'voucherCreateV1', function(event) {
             var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
             if (entry === null) {
+                
+                event= angular.copy(event);
                 event.id = voucher[event.type].length;
+                
                 var v = new Voucher(event);
 
                 voucher[event.type].push(v);
@@ -183,6 +186,8 @@
 
     angular.module('tnt.catalog.voucher', [
         'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper'
-    ]);
+    ]).run(function(VoucherKeeper) {
+        //Warming up VoucherKeeper
+    });
 
 }(angular));
