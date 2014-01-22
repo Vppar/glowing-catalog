@@ -67,7 +67,7 @@
             resetCardNumberAndCvv();
           }
 
-          // Changeing from an non-Amex flag to another, do nothing
+          // Changing from a non-Amex flag to another, do nothing
         };
 
         // Creates an array containing year options for credit card expiration
