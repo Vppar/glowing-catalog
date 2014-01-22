@@ -2,7 +2,8 @@
     'use strict';
     angular.module('tnt.catalog.payment', []).controller(
             'PaymentCtrl',
-            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService, KeyboardService) {
+            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService,
+                    KeyboardService) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -15,8 +16,17 @@
                 if (!order.customerId) {
                     $location.path('/');
                 }
+
+                $scope.voucherFilter = function(item) {
+                    if (item.type === 'voucher' || item.type === 'giftCard') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+
                 $scope.items = order.items;
-                
+
                 $scope.keyboard = KeyboardService.getKeyboard();
 
                 var isNumPadVisible = false;
@@ -198,18 +208,18 @@
                         $scope.total.payments.onCuff = PaymentService.list('onCuff');
 
                         var totalPayments = $scope.total.payments.cash;
-                        
+
                         for ( var ix in $scope.total.payments) {
-                            totalPayments += $filter('sum')($scope.total.payments[ix],'amount');
+                            totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
                         }
-                       
+
                         // Order total
                         var basket = order.items;
-                        
+
                         $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
                         $scope.total.order.unit = $filter('sum')(basket, 'qty');
                         $scope.total.order.qty = basket ? basket.length : 0;
-                        
+
                         // Change
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }

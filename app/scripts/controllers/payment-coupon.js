@@ -21,15 +21,23 @@
 
                         var order = OrderService.order;
 
-                        $scope.total = 0;
+                        $scope.localTotal = 0;
                         $scope.qty = 0;
                         $scope.voucher = {
                             total : 0
                         };
+                        
                         $scope.gift = {
                             total : 0,
                             customer : ''
                         };
+                        
+                        if ($scope.total.change > 0) {
+                            $scope.voucher.total = $scope.total.change;
+                            $scope.gift.total = $scope.total.change;
+                        } else {
+                            $scope.voucher.total = 0;
+                        }
 
                         $scope.list = [
                             {
@@ -54,7 +62,7 @@
                         $scope.$watch('voucher.total', canConfirmVoucher);
                         $scope.$watch('gift.total', canConfirmGift);
                         $scope.$watch('gift.customer.name', canConfirmGift);
-                        $scope.$watch('total', canConfirmCoupon);
+                        $scope.$watch('localTotal', canConfirmCoupon);
                         $scope.$watch('option', watchOptions);
                         
                         function canConfirmVoucher(){
@@ -64,7 +72,7 @@
                         }
                         
                         function canConfirmCoupon(){
-                            if($scope.total > 0){
+                            if($scope.localTotal > 0){
                                 $scope.isDisabled = false;
                             }
                         }
@@ -97,12 +105,12 @@
                         }
 
                         function updateTotal() {
-                            $scope.total = 0;
+                            $scope.localTotal = 0;
                             $scope.qty = 0;
                             for ( var ix in $scope.list) {
                                 $scope.list[ix].total = $scope.list[ix].qty * $scope.list[ix].amount;
                                 $scope.qty += $scope.list[ix].qty;
-                                $scope.total += $scope.list[ix].total;
+                                $scope.localTotal += $scope.list[ix].total;
                             }
                         }
 
@@ -131,7 +139,8 @@
                                 title : 'Vale Crédito',
                                 uniqueName : '',
                                 price : $scope.coupon.total,
-                                qty : 1
+                                qty : 1,
+                                type : 'voucher' 
                             };
 
                             order.items.push(voucher);
@@ -151,7 +160,8 @@
                                 title : 'Vale Presente',
                                 uniqueName : 'para ' + $scope.gift.customer.name,
                                 price : $scope.coupon.total,
-                                qty : 1
+                                qty : 1,
+                                type : 'giftCard'
                             };
 
                             order.items.push(gift);
@@ -167,7 +177,7 @@
 
                         $scope.confirmCoupons =
                                 function confirmCoupons() {
-                                    $scope.coupon.total = $scope.total;
+                                    $scope.coupon.total = $scope.localTotal;
                                     var entityId = $scope.customer.id;
                                     var generatedCupons = [];
                                     for ( var idx in $scope.list) {
@@ -200,7 +210,7 @@
                                     }
                                     if ($scope.qty > 0) {
                                         var sucessMsg = '';
-                                        var total = $filter('currency')($scope.total, '');
+                                        var total = $filter('currency')($scope.localTotal, '');
                                         if ($scope.qty === 1) {
                                             sucessMsg =
                                                     oneCoupomMessage.replace('{{coupomsValue}}', total).replace(
