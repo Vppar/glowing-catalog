@@ -14,22 +14,36 @@
                         // #####################################################################################################
                         var errorMessage =
                                 'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
-                        var oneCoupomMessage =
-                                'Foi  gerado 1 cupom promocional no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
-                        var moreThanOneCoupomMessage =
-                                'Foram gerados {{coupomNumber}} cupons promocionais no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
+                        var oneCouponMessage =
+                                'Foi gerado 1 cupom promocional no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
+                        var moreThanOneCouponMessage =
+                                'Foram gerados {{couponNumber}} cupons promocionais no total de R$ {{couponsValue}} para o cliente {{customerFirstName}}.';
 
                         var order = OrderService.order;
 
-                        $scope.total = 0;
+                        var voucherSet = null;
+
                         $scope.qty = 0;
                         $scope.voucher = {
                             total : 0
                         };
+
+                        $scope.coupon = {
+                            total : 0
+                        };
+
                         $scope.gift = {
                             total : 0,
                             customer : ''
                         };
+
+                        if ($scope.total.change > 0) {
+                            $scope.voucher.total = $scope.total.change;
+                            $scope.gift.total = $scope.total.change;
+                        } else {
+                            $scope.voucher.total = 0;
+                            $scope.gift.total = 0;
+                        }
 
                         $scope.list = [
                             {
@@ -46,45 +60,71 @@
                                 amount : 30
                             },
                         ];
-                        
+
                         $scope.isDisabled = true;
-                        
-                        //wachers
+
+                        // Get already set voucher
+                        for ( var ix in order.items) {
+                            if (!angular.isUndefined(order.items[ix].type) && order.items[ix].type == 'voucher') {
+                                voucherSet = order.items[ix];
+                                break;
+                            }
+                        }
+
+                        if (voucherSet) {
+                            $scope.voucher.total = voucherSet.price;
+                        }
+
+                        // wachers
+
                         $scope.$watch('voucher.total', canConfirmVoucher);
                         $scope.$watch('gift.total', canConfirmGift);
                         $scope.$watch('gift.customer.name', canConfirmGift);
-                        
-                        $scope.$watch('option',watchOptions);
-                        
-                        function canConfirmVoucher(){
-                            if($scope.voucher.total > 0){
+                        $scope.$watch('coupon.total', canConfirmCoupon);
+                        $scope.$watch('option', watchOptions);
+
+                        function canConfirmVoucher() {
+                            if ($scope.voucher.total > 0) {
                                 $scope.isDisabled = false;
                             }
                         }
-                        
-                        function canConfirmGift(){
-                            if($scope.gift.total > 0 && angular.isDefined($scope.gift.customer.name)){
+
+                        function canConfirmCoupon() {
+                            if ($scope.coupon.total > 0) {
                                 $scope.isDisabled = false;
                             }
                         }
-                        
-                        function watchOptions(){
+
+                        function canConfirmGift() {
+                            if ($scope.gift.total > 0 && angular.isDefined($scope.gift.customer.name)) {
+                                $scope.isDisabled = false;
+                            }
+                        }
+
+                        function watchOptions() {
                             $scope.isDisabled = true;
+
+                            if ($scope.option === 'option01') {
+                                canConfirmVoucher();
+                            } else if ($scope.option === 'option02') {
+                                canConfirmGift();
+                            } else if ($scope.option === 'option03') {
+                                canConfirmCoupon();
+                            }
+
                         }
-                        
-                        
 
                         for ( var ix in $scope.list) {
                             $scope.$watch('list[' + ix + '].qty', updateTotal);
                         }
 
                         function updateTotal() {
-                            $scope.total = 0;
+                            $scope.coupon.total = 0;
                             $scope.qty = 0;
                             for ( var ix in $scope.list) {
                                 $scope.list[ix].total = $scope.list[ix].qty * $scope.list[ix].amount;
                                 $scope.qty += $scope.list[ix].qty;
-                                $scope.total += $scope.list[ix].total;
+                                $scope.coupon.total += $scope.list[ix].total;
                             }
                         }
 
@@ -103,27 +143,32 @@
                         };
 
                         $scope.confirmVoucher = function confirmVoucher() {
-                            $scope.coupon.total = $scope.voucher.total;
-                            
-                            // add a voucher to the order list
-                            var idx = order.items.length;
 
-                            var voucher = {
-                                idx : idx,
-                                title : 'Vale Crédito',
-                                uniqueName : '',
-                                price : $scope.coupon.total,
-                                qty : 1
-                            };
+                            if (voucherSet) {
+                                if ($scope.voucher.total == 0) {
+                                    order.items.splice(voucherSet.idx, 1);
+                                } else {
+                                    voucherSet.price = $scope.voucher.total;
+                                }
+                            } else {
+                                // add a voucher to the order list
+                                var idx = order.items.length;
 
-                            order.items.push(voucher);
+                                var voucher = {
+                                    idx : idx,
+                                    title : 'Vale Crédito',
+                                    uniqueName : $scope.customer.name,
+                                    price : $scope.voucher.total,
+                                    qty : 1,
+                                    type : 'voucher'
+                                };
+                                order.items.push(voucher);
+                            }
 
                             $scope.selectPaymentMethod('none');
                         };
 
                         $scope.confirmGift = function confirmGift() {
-
-                            $scope.coupon.total = $scope.gift.total;
 
                             // add a gift to the order list
                             var idx = order.items.length;
@@ -132,8 +177,9 @@
                                 idx : idx,
                                 title : 'Vale Presente',
                                 uniqueName : 'para ' + $scope.gift.customer.name,
-                                price : $scope.coupon.total,
-                                qty : 1
+                                price : $scope.gift.total,
+                                qty : 1,
+                                type : 'giftCard'
                             };
 
                             order.items.push(gift);
@@ -142,14 +188,13 @@
                         };
 
                         $scope.openDialogChooseCustomerGift = function() {
-                            DialogService.openDialogChooseCustomer().then(function() {
-                                $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                            DialogService.openDialogChooseCustomer().then(function(id) {
+                                $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', id);
                             });
                         };
 
                         $scope.confirmCoupons =
                                 function confirmCoupons() {
-                                    $scope.coupon.total = $scope.total;
                                     var entityId = $scope.customer.id;
                                     var generatedCupons = [];
                                     for ( var idx in $scope.list) {
@@ -173,7 +218,7 @@
                                                     // TODO keep track in
                                                     // journal?
                                                 } finally {
-                                                    
+
                                                     generatedCupons.clear;
                                                     $scope.selectPaymentMethod('none');
                                                 }
@@ -182,15 +227,15 @@
                                     }
                                     if ($scope.qty > 0) {
                                         var sucessMsg = '';
-                                        var total = $filter('currency')($scope.total, '');
+                                        var total = $filter('currency')($scope.coupon.total, '');
                                         if ($scope.qty === 1) {
                                             sucessMsg =
-                                                    oneCoupomMessage.replace('{{coupomsValue}}', total).replace(
+                                                    oneCouponMessage.replace('{{couponsValue}}', total).replace(
                                                             '{{customerFirstName}}', $scope.customer.name);
                                         } else {
                                             sucessMsg =
-                                                    moreThanOneCoupomMessage.replace('{{coupomNumber}}', $scope.qty).replace(
-                                                            '{{coupomsValue}}', total).replace(
+                                                    moreThanOneCouponMessage.replace('{{couponNumber}}', $scope.qty).replace(
+                                                            '{{couponsValue}}', total).replace(
                                                             '{{customerFirstName}}', $scope.customer.name);
 
                                         }

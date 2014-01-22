@@ -11,7 +11,8 @@
 			<br/>
 			
 		    <span class="label-form-client">
-		        <input class="lbl-name-client text-left" id="appendedInput" type="text" value="{{customer.name}}" readonly/>
+		        <!--<input class="lbl-name-client text-left" id="appendedInput" type="text" value="{{customer.name}}" readonly/>-->
+		        <span class="lbl-name-client text-left" id="appendedInput" type="text" readonly>{{customer.name}}</span>
 		    </span>
 		</div>
 	</div>
@@ -51,9 +52,9 @@
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10">({{payments | paymentType:'exchange' | count:'id'}})</span>
+		<span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10">({{total.payments.exchange | count:'id'}})</span>
 		<span>
-			<span class="btn-price-payment">{{payments | paymentType:'exchange' | sum:'amount' | currency:''}}</span>
+			<span class="btn-price-payment">{{total.payments.exchange | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('discount')">
@@ -85,14 +86,14 @@
 	<div class="row-right-payment" ng-click="selectPaymentMethod('voucher')">
 		<span class="lbl-money w112">Emitir vale/cupom</span>
 		<span class="">
-			<span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency:''}}</span>
-	        <span class="btn-price-payment btn-price-payment2" ng-hide="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">0,00</span>
+			<!-- <span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency:''}}</span> -->
+	        <span class="btn-price-payment btn-price-payment2" >{{items | filter: voucherFilter | sum : 'price' | currency:'' }}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('coupon')">
 		<span class="lbl-money w130">Contas a receber</span>
 		<span class="">
-			<span class="btn-price-payment btn-price-payment2">{{coupon.total | currency:''}}</span>
+			<span class="btn-price-payment btn-price-payment2">{{total.payments.onCuff | sum:'amount'| currency:''}}</span>
 		</span>
 	</div>
 
@@ -104,12 +105,5 @@
 			<button ng-click="confirm()" class="btn btn-open" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) != 0">Confirmar</button>
 		</div>
 	</div>
-	<!--<span class="panel-payment-footer-left">
-		<button ng-click="cancel()" class="btn btn-cancel" type="submit">Cancelar</button>
-	</span>
-	<span class="panel-payment-footer-right">
-		<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-disabled="!isPaymentValid()">Confirmar</button>
-	</span>
-	<div class="right-column-height">&nbsp;</div>-->
     <num-pad></num-pad>
 </div>

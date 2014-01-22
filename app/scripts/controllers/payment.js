@@ -2,7 +2,8 @@
     'use strict';
     angular.module('tnt.catalog.payment', []).controller(
             'PaymentCtrl',
-            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService, KeyboardService) {
+            function($scope, $filter, $location, $q, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService,
+                    KeyboardService) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -15,8 +16,17 @@
                 if (!order.customerId) {
                     $location.path('/');
                 }
+
+                $scope.voucherFilter = function(item) {
+                    if (item.type === 'voucher' || item.type === 'giftCard') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                };
+
                 $scope.items = order.items;
-                
+
                 $scope.keyboard = KeyboardService.getKeyboard();
 
                 var isNumPadVisible = false;
@@ -39,10 +49,6 @@
                 };
                 $scope.$watch('total.payments.cash', updateOrderAndPaymentTotal);
 
-                $scope.coupon = {
-                    total : 0
-                };
-
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
 
@@ -56,10 +62,12 @@
                 // Show SKU or SKU + Option(when possible).
                 for ( var idx in order.items) {
                     var item = order.items[idx];
-                    if (order.items[idx].option) {
-                        item.uniqueName = item.SKU + ' - ' + item.option;
-                    } else {
-                        item.uniqueName = item.SKU;
+                    if (item.type !== 'giftCard' && item.type !== 'voucher') {
+                      if (item.option) {
+                          item.uniqueName = item.SKU + ' - ' + item.option;
+                      } else {
+                          item.uniqueName = item.SKU;
+                      }
                     }
                 }
 
@@ -68,9 +76,22 @@
                 $scope.dialogService = dialogService;
 
                 $scope.openDialogChooseCustomer = function() {
-                    dialogService.openDialogChooseCustomer().then(function() {
-                        customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                    dialogService.openDialogChooseCustomer().then(function(id) {
+                        customer = $filter('findBy')(DataProvider.customers, 'id', id);
                         $scope.customer = customer;
+
+                        var
+                          items = order.items,
+                          item,
+                          len,
+                          i;
+
+                        for (i = 0, len = items.length; i < len; i += 1) {
+                          item = items[i];
+                          if (item.type === 'voucher') {
+                            item.uniqueName = customer.name;
+                          }
+                        }
                     });
                 };
 
@@ -192,24 +213,24 @@
                     if (order.items) {
                         // Payment total
                         $scope.total.payments.check = PaymentService.list('check');
-                        
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
                         $scope.total.payments.exchange = PaymentService.list('exchange');
                         $scope.total.payments.coupon = PaymentService.list('coupon');
+                        $scope.total.payments.onCuff = PaymentService.list('onCuff');
 
                         var totalPayments = $scope.total.payments.cash;
-                        
+
                         for ( var ix in $scope.total.payments) {
-                            totalPayments += $filter('sum')($scope.total.payments[ix],'amount');
+                            totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
                         }
-                       
+
                         // Order total
                         var basket = order.items;
-                        
+
                         $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
                         $scope.total.order.unit = $filter('sum')(basket, 'qty');
                         $scope.total.order.qty = basket ? basket.length : 0;
-                        
+
                         // Change
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }

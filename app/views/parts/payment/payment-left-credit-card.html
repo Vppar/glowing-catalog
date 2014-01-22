@@ -9,24 +9,30 @@
 	
 		<!-- Full form (with merchant & internet connection) -->
 	<form name="creditCardForm" >
-		<div ng-if="merchant && internet">
+		<div ng-if="gopay.merchant && envFlags.internet">
 			<div class="row-fluid">
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
-						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
+						<input
+              class="input-block-level input-large"
+              id="creditCardOrder1"
+              type="text"
+              ng-model="orderNumber"
+              placeholder="nro do pedido"
+              disabled="disabled">
 					</div>
 				</span> 
 				<span class="span5">
 					<div class="control-group ">
 						<label class="control-label">Bandeira do cart&atilde;o</label>						
-						<select ui-select2
+						<select ui-select2="select2Options"
 							name="cardFlag"
-							id="creditCardFlag"
+							id="creditCardFlag1"
 							class="bandeira-cartao select-h38"
 							ng-model="creditCard.flag"
 							required>
-							<option value="">Selecione a bandeira do cart&atilde;o</option>
+							<option value="">selecione a bandeira do cart&atilde;o</option>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
 					</div>
@@ -36,13 +42,31 @@
 				<span class="span5">
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do cart&atilde;o</label>
-						<input class="input-block-level input-large" id="creditCardNumber" type="text" ng-model="creditCard.number" number tnt-input required maxlength="16">
+						<input
+              class="input-block-level input-large"
+              id="creditCardNumber1"
+              type="text"
+              ng-model="creditCard.number"
+              placeholder="número do cartão de crédito"
+              credit-card
+              tnt-input
+              required
+              maxlength="19">
 					</div>
 				</span>	
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">CVV</label>
-						<input class="input-block-level input-large" type="text" id="cardVerificationValue" ng-model="creditCard.cvv" number tnt-input required maxlength="3">
+						<input
+              class="input-block-level input-large"
+              type="text"
+              id="cardVerificationValue1"
+              ng-model="creditCard.cvv"
+              placeholder="3 dígitos"
+              number
+              tnt-input
+              required
+              maxlength="3">
 					</div>
 				</span>	
 			</div>
@@ -51,12 +75,12 @@
 				<span class="span4">
 					<div class="control-group ">
 						<label class="control-label">Validade do cart&atilde;o (m&ecirc;s)</label>					
-						<select ui-select2
+						<select ui-select2="select2Options"
 							name="cardExpirationMonth"
 							class="input-large select-h38"
 							ng-model="creditCard.expirationMonth"
 							required>
-							<option value="">Selecione o m&ecirc;s</option>
+							<option value="">selecione o m&ecirc;s</option>
 							<option ng-repeat="month in months" value="{{month.id}}">{{month.name}}</option>
 						</select>
 					</div>
@@ -65,12 +89,12 @@
 				<span class="span4">
 					<div class="control-group ">
 						<label class="control-label">Validade do cart&atilde;o (ano)</label>					
-						<select ui-select2
+						<select ui-select2="select2Options"
 							name="cardExpirationYear"
 							class="input-large select-h38"
 							ng-model="creditCard.expirationYear"
 							required>
-							<option value="">Selecione o ano</option>
+							<option value="">selecione o ano</option>
 							<option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
 						</select>
 					</div>
@@ -81,7 +105,13 @@
 				<span class="span8">
 					<div class="control-group margint10">
 						<label class="control-label">Nome do titular do cart&atilde;o</label>
-						<input class="input-block-level input-large" type="text" id="cardholderName" ng-model="creditCard.cardholderName" required>
+						<input
+              class="input-block-level input-large"
+              type="text"
+              id="cardholderName1"
+              ng-model="creditCard.cardholderName"
+              placeholder="digite o nome exatamente como está no cartão"
+              required upper-case>
 					</div>
 				</span>
 			</div>
@@ -90,18 +120,26 @@
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">CPF titular do cart&atilde;o</label>
-						<input class="input-block-level input-large" id="cardholderDocument" type="text" ng-model="creditCard.cardholderDocument" required tnt-input number maxlength="11">
+						<input
+              class="input-block-level input-large"
+              id="cardholderDocument1"
+              type="text"
+              ng-model="creditCard.cardholderDocument"
+              placeholder="digite o cpf do titular"
+              required
+              tnt-input
+              cpf
+              maxlength="14">
 					</div>
 				</span>	
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">Nro parcelas</label>					
-						<select ui-select2
+						<select ui-select2="select2Options"
 							name="installment"
 							class="parcelas-cartao select-h38"
 							ng-model="creditCard.installment"
 							required>
-							<option value="">nro parcelas</option>
 							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
 						</select>
 					</div>
@@ -109,31 +147,46 @@
 				<span class="span2">
 					<div class="control-group ">
 						<label class="control-label">Valor R$</label>
-						<input class="input-block-level input-large" type="text" id="cardAmount" ng-model="creditCard.amount" currency tnt-input required max-length="11">
+						<input
+              class="input-block-level input-large"
+              type="text"
+              id="cardAmount1"
+              ng-model="creditCard.amount"
+              currency
+              tnt-input
+              required
+              max-length="11">
 					</div>
 				</span>	
 			</div>
 		</div>	
 			
 		<!-- Partial form (without merchant) -->
-		<div ng-if="!merchant">
+		<div ng-if="!gopay.merchant">
 			<div class="row-fluid">
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
-						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
+						<input
+              class="input-block-level input-large"
+              id="creditCardOrder2"
+              type="text"
+              ng-model="orderNumber"
+              placeholder="nro do pedido"
+              disabled="disabled"
+              required>
 					</div>
 				</span> 
 				<span class="span5">
 					<div class="control-group ">
 						<label class="control-label">Bandeira do cart&atilde;o</label>						
-						<select ui-select2
+						<select ui-select2="select2Options"
 							name="cardFlag"
 							id="creditCardFlag"
 							class="bandeira-cartao select-h38"
 							ng-model="creditCard.flag"
 							required>
-							<option value="">Selecione a bandeira do cart&atilde;o</option>
+							<option value="">selecione a bandeira do cart&atilde;o</option>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
 					</div>
@@ -144,7 +197,7 @@
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">Nro parcelas</label>					
-						<select ui-select2
+						<select ui-select2="select2Options"
 							name="installment"
 							class="parcelas-cartao select-h38"
 							ng-model="creditCard.installment"
@@ -157,7 +210,15 @@
 				<span class="span2">
 					<div class="control-group ">
 						<label class="control-label">Valor R$</label>
-						<input class="input-block-level input-large" type="text" id="cardAmount" ng-model="creditCard.amount" currency tnt-input required max-length="11">
+						<input
+              class="input-block-level input-large"
+              type="text"
+              id="cardAmount2"
+              ng-model="creditCard.amount"
+              currency
+              tnt-input
+              required
+              max-length="11">
 					</div>
 				</span>	
 			</div>
@@ -165,19 +226,34 @@
 		
 			
 		<!-- Minimal form (without internet connection) -->
-		<div ng-if="merchant && !internet">
+		<div ng-if="gopay.merchant && !envFlags.internet">
 			<div class="row-fluid">
 				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
-						<input class="input-block-level input-large" id="creditCardOrder" type="text" ng-model="orderNumber" readonly>
+						<input
+              class="input-block-level input-large"
+              id="creditCardOrder3"
+              type="text"
+              ng-model="orderNumber"
+              placeholder="nro do pedido"
+              disabled="disabled"
+              required>
 					</div>
 				</span> 
 				
 				<span class="span2">
 					<div class="control-group ">
 						<label class="control-label">Valor R$</label>
-						<input class="input-block-level input-large" type="text" id="cardAmount" ng-model="creditCard.amount" currency tnt-input required max-length="11">
+						<input
+              class="input-block-level input-large"
+              type="text"
+              id="cardAmount3"
+              ng-model="creditCard.amount"
+              currency
+              tnt-input
+              required
+              max-length="11">
 					</div>
 				</span>	
 			</div>

@@ -9,13 +9,14 @@ describe('Controller: PaymentExchangeCtrl', function() {
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.exchange');
+        module('tnt.catalog.payment.service');
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.inventory.entity');
         module('tnt.utils.array');
 
     });
 
-    beforeEach(inject(function($controller, $rootScope, _InventoryKeeper_) {
+    beforeEach(inject(function($controller, $rootScope, _InventoryKeeper_, _PaymentService_) {
         // scope mock
         scope = $rootScope.$new();
 
@@ -27,7 +28,7 @@ describe('Controller: PaymentExchangeCtrl', function() {
         
         $controller('PaymentExchangeCtrl', {
             $scope : scope,
-            PaymentService : ps,
+            PaymentService : _PaymentService_,
             InventoryKeeper : _InventoryKeeper_,
             ArrayUtils : arMock,
             DialogService : DialogService

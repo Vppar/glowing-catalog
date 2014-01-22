@@ -13,7 +13,7 @@
         $scope.order = order;
 
         var inBasketFilter = OrderService.inBasketFilter;
-
+        
         // #############################################################################################################
         // Dialogs control
         // #############################################################################################################
@@ -41,13 +41,16 @@
         $scope.checkout = function(bypassBasket) {
             var basket = $filter('filter')(order.items, inBasketFilter);
             if ((basket && basket.length > 0) || bypassBasket) {
+                if (OrderService.order.id === undefined) {
+                    OrderService.createNew();
+                }
+
                 if (order.customerId) {
                     $location.path('/payment');
                 } else {
-                    DialogService.openDialogChooseCustomer();
-                }
-                if (OrderService.order.id === undefined) {
-                    OrderService.createNew();
+                    DialogService.openDialogChooseCustomer().then(function (id) {
+                      order.customerId = id;
+                    });
                 }
             } else {
                 DialogService.messageDialog({
@@ -57,6 +60,8 @@
                 });
             }
         };
+        
+        
 
         function refreshDate() {
             $scope.now.date = $filter('date')(new Date(), 'dd MMM yyyy');

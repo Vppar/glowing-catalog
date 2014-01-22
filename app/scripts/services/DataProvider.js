@@ -12,7 +12,10 @@
         this.gopay.merchant = '4';
         this.gopay.token = 'bd653333319902a290102188713791401d5832356ff3875ee9b2b173cae2b4c3610d24d04ee7c4169bd99c4f93';
 
-        this.internet = true;
+        this.envFlags = {
+            internet : true
+        };
+
         this.cardData = {}; // See app/resources/data.json
         this.date = {}; // See app/resources/data.json
 

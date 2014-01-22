@@ -101,7 +101,11 @@
      */
     entities.factory('ExchangePayment', function ExchangePayment(Payment) {
 
-        var service = function svc(amount) {
+        var service = function svc(productId, qty, amount) {
+            this.qty = qty;
+            this.productId = productId;
+            ObjectUtils.ro(this, 'qty', this.qty);
+            ObjectUtils.ro(this, 'productId', this.productId);
             ObjectUtils.superInvoke(this, amount);
         };
 
@@ -123,12 +127,31 @@
 
         return service;
     });
+    
+    /**
+     * Coupon payment entity.
+     */
+    entities.factory('OnCuffPayment', function OnCuffPayment(Payment) {
+
+        var service = function svc(amount, dueDate) {
+            if (arguments.length != svc.length) {
+                throw 'OnCuffPayment must be initialized with all params';
+            }
+            this.dueDate = dueDate;
+            ObjectUtils.ro(this, 'dueDate', this.dueDate);
+            ObjectUtils.superInvoke(this, amount);
+        };
+
+        ObjectUtils.inherit(service, Payment);
+
+        return service;
+    });
 
     angular.module('tnt.catalog.payment.service', [
         'tnt.utils.array', 'tnt.catalog.payment.entity'
     ]).service(
             'PaymentService',
-            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment) {
+            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment, OnCuffPayment) {
 
                 /**
                  * The current payments.
@@ -138,7 +161,8 @@
                     check : [],
                     creditCard : [],
                     exchange : [],
-                    coupon : []
+                    coupon : [],
+                    onCuff : []
                 };
                 /**
                  * Payment types association.
@@ -148,7 +172,8 @@
                     check : CheckPayment,
                     creditCard : CreditCardPayment,
                     exchange : ExchangePayment,
-                    coupon : CouponPayment
+                    coupon : CouponPayment,
+                    onCuff : OnCuffPayment
                 };
 
                 /**
@@ -238,8 +263,10 @@
                 /**
                  * Given a payment instance remove it.
                  * 
-                 * @param payment - The payment to be removed.
-                 * @throws Exception - In case of an unknown payment type or
+                 * @param payment -
+                 *            The payment to be removed.
+                 * @throws Exception -
+                 *             In case of an unknown payment type or
                  *             unknown payment instance.
                  */
                 var remove = function remove(payment) {

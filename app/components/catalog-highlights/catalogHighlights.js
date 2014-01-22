@@ -21,7 +21,8 @@
                     },
                     link : function postLink(scope, element, attrs) {
 
-                        switch (scope.section) {
+                        function reload() {
+                            switch (scope.section) {
                             case 'Promoções':
                                 scope.color = 'medium-yellow';
                                 break;
@@ -33,21 +34,24 @@
                                 break;
                             default:
                                 scope.color = 'black';
+                            }
+
+                            scope.style = 'bg-' + scope.color;
+
+                            var lineUp = ArrayUtils.list(DataProvider.products, 'session', scope.section);
+
+                            for ( var ix in lineUp) {
+                                lineUp[ix].displayLine = lineUp[ix].line;
+                            }
+
+                            scope.left = [];
+                            scope.right = [];
+
+                            ProductLineUp.lineUp(lineUp, scope.left, scope.right);
                         }
-
-                        scope.style = 'bg-' + scope.color;
-
-                        var lineUp = ArrayUtils.list(DataProvider.products, 'session', scope.section);
                         
-                        for(var ix in lineUp){
-                            lineUp[ix].displayLine = lineUp[ix].line;
-                        }
-
-                        scope.left = [];
-                        scope.right = [];
-
-                        ProductLineUp.lineUp(lineUp, scope.left, scope.right);
-
+                        scope.$watch('section', reload);
+                        scope.$on('DataProvider.update', reload);
                     }
                 };
             });

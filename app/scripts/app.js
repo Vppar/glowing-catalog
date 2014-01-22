@@ -7,7 +7,7 @@
                 'ngRoute', 'ui.bootstrap', 'ui.select2', 'tnt.catalog.directive.numpad', 'tnt.catalog.filter.count',
                 'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum', 'tnt.catalog.filter.paymentType', 'tnt.catalog.service.data',
                 'tnt.catalog.service.dialog', 'tnt.catalog.service.order', 'tnt.catalog.service.expense', 'tnt.catalog.service.sms',
-                'tnt.catalog.service.storage', 'tnt.catalog.header', 'tnt.catalog.basket', 'tnt.catalog.basket.add',
+                'tnt.catalog.service.storage', 'tnt.catalog.header', 'tnt.catalog.headerDev', 'tnt.catalog.basket', 'tnt.catalog.basket.add',
                 'tnt.catalog.customer', 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails',
                 'tnt.catalog.customer.choose', 'tnt.catalog.product.input.dialog', 'tnt.catalog.receivable.service',
                 'tnt.catalog.financial.receivable', 'tnt.catalog.financial.receivable.entity', 'tnt.catalog.financial.expense',
@@ -16,7 +16,7 @@
                 'tnt.catalog.components.catalog-highlights', 'tnt.catalog.inventory', 'tnt.catalog.payment.oncuff', 'tnt.catalog.payment.coupon',
                 'tnt.catalog.keyboard.input', 'tnt.catalog.voucher.ctrl', 'tnt.catalog.voucher.entity', 'tnt.catalog.journal.entity',
                 'tnt.catalog.payment', 'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange','tnt.catalog.misplaced.service',
-                'tnt.catalog.payment.service', 'tnt.catalog.payment.entity'
+                'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.attrs.upperCase'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

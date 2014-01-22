@@ -207,10 +207,16 @@ margin-top: 5px;
 }
 .lbl-name-client{
 	width: 270px;
-	border: 1px solid #fff !important;
-	margin: 10px 0 0 -7px;
-	text-align: left;
-	height: 14px !important;
+	margin: 8px 0 0 -7px;
+	padding: 4px 6px;
+	font-size: 14px;
+	color: #555555;
+	display:block;
+}
+
+.right-column-payment .disabled{ /*para desabilitar o click no link da coluna direita (payment)*/
+	color: rgba(0, 0, 0, 0.5);
+	cursor: not-allowed;
 }
 .right-column-payment {
 	padding:8px;
@@ -459,7 +465,7 @@ margin-top: 5px;
 	text-align:center;
 }
 .col-check-s7 {
-	width: 93px; /*95px*/
+	width: 98px; /*95px*/
 	text-align:center;
 }
 .w110{
@@ -468,7 +474,7 @@ margin-top: 5px;
 .col-check-s8 {
 	width: 30px; /*35px*/
 	text-align:right;
-	margin-left: 13px;
+	margin-left: 8px;
 }
 .w130{
 	width: 130px;
@@ -605,7 +611,7 @@ border-radius: 4px;
 .check-total span{
 	padding-left:12px; /*5*/
 	font-weight:bold;
-	margin-right: 12px;
+	margin-right: 6px;
 }
 
 .title-gopay{
@@ -639,19 +645,18 @@ border-radius: 4px;
 	border: 1px solid #eee;
 	background-color: #f2f2f2;
 	border-radius: 4px;
-	padding: 4px 7px 4px 5px; /*padding: 4px 10px 4px 4px;*/
+	/*padding: 4px 7px 4px 5px; padding: 4px 10px 4px 4px;*/
 	height: 20px; /*height: 18px;*/
 	overflow:hidden;
 }
 .check-value {
 	width: 87px;
 	text-align: right !important;
-	overflow:hidden;
-	
-border: 1px solid #eee;
-background-color: #f2f2f2;
-border-radius: 4px;
-padding: 4px 7px 4px 5px;
+	overflow:hidden;	
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	/*padding: 4px 7px 4px 5px; padding: 4px 10px 4px 4px;*/
 }
 .qntty{
 	display: inline-block;
@@ -701,7 +706,8 @@ width: 153px;
 }
 .input-large{
 	height: 40px !important;
-	line-height: 40px;
+	line-height: 40px !important;
+	padding: 0 6px 0 6px !important;
 }
 .input-large-add{
 	width: 3px !important;
@@ -717,8 +723,11 @@ width: 153px;
 	margin-left:5px;
 	margin-right: 8px;
 }*/
-.w126{
-	width:126px !important;
+.w138{
+	width:138px !important;
+}
+.w146{
+	width:146px !important;
 }
 .w200{
 	width:200px !important;
@@ -845,7 +854,7 @@ width: 428px !important;
 
 .subtitle-header-exchange{
 	margin: 0 !important;
-	background-color: #f2f2f2;
+	background-color: #dadada; /*#f2f2f2*/
 	border-radius: 4px;
 	border-bottom:0 !important;
 }
@@ -1220,12 +1229,13 @@ margin-top: 10px;
 }
 
 .grid-payment-receivable .item{
-	display: block;
+	display:block;
 	overflow: hidden;
 	border: 1px solid #eee;
 	background-color: #f2f2f2;
 	border-radius: 4px;
 	padding: 4px 7px 4px 5px;
+	margin-bottom:5px;
 }
 .grid-payment-receivable .col-s1 {
 	width: 86px;
@@ -1238,7 +1248,7 @@ margin-top: 10px;
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
-	margin-left:9px;
+	margin-left:12px;
 }
 .grid-payment-receivable .col-s3{
 	width: 159px;
