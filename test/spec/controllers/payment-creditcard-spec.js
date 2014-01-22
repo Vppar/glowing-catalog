@@ -29,6 +29,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         // scope mock
         scope = $rootScope.$new();
         scope.creditCardForm = {};
+
+        scope.total = {};
         
         // element mock
         element.find = function(name) {
@@ -45,6 +47,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
 
         ps.add = jasmine.createSpy('PaymentService.add');
         scope.selectPaymentMethod = jasmine.createSpy('$scope.selectPaymentMethod');
+        scope.getAmount = jasmine.createSpy('$scope.getAmount');
 
         $controller('PaymentCreditCardCtrl', {
             $scope : scope,
@@ -82,5 +85,53 @@ describe('Controller: PaymentCreditCardCtrl', function() {
       scope.creditCardForm.$valid = false;
       scope.confirmCreditCardPayment();
       expect(ps.add).not.toHaveBeenCalled();
+    });
+
+
+    describe('initial amount value', function () {
+      it('is 0 if change is positive', inject(function ($controller, $rootScope, _$filter_) {
+        scope.total.change = 170;
+
+        $controller('PaymentCreditCardCtrl', {
+            $scope : scope,
+            $filter : _$filter_,
+            $element : element,
+            DataProvider : dp,
+            OrderService : os,
+            PaymentService : ps
+        });
+
+        expect(scope.creditCard.amount).toBe(0);
+      }));
+
+      it('is the absolute value of change if change is negative', inject(function ($controller, $rootScope, _$filter_) {
+        scope.total.change = -170;
+
+        $controller('PaymentCreditCardCtrl', {
+            $scope : scope,
+            $filter : _$filter_,
+            $element : element,
+            DataProvider : dp,
+            OrderService : os,
+            PaymentService : ps
+        });
+
+        expect(scope.creditCard.amount).toBe(170);
+      }));
+
+      it('is 0 if change is falsy', inject(function ($controller, $rootScope, _$filter_) {
+        scope.total.change = null;
+
+        $controller('PaymentCreditCardCtrl', {
+            $scope : scope,
+            $filter : _$filter_,
+            $element : element,
+            DataProvider : dp,
+            OrderService : os,
+            PaymentService : ps
+        });
+
+        expect(scope.creditCard.amount).toBe(0);
+      }));
     });
 });
