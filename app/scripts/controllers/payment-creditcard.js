@@ -48,8 +48,6 @@
         $scope.creditCardMask = '';
         $scope.creditCardCvvLength = 3;
 
-        var amexFlag = 'American Express';
-
         function resetCardNumberAndCvv() {
           $scope.creditCard.number = null;
           $scope.creditCard.cvv = null;
