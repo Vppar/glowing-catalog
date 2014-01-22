@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Controller: PaymentCreditCardCtrl', function() {
+describe('Controller: PaymentCreditCardCtrl', function() {
 
     var scope;
     var element = {};
@@ -30,9 +30,7 @@ ddescribe('Controller: PaymentCreditCardCtrl', function() {
         scope = $rootScope.$new();
         scope.creditCardForm = {};
 
-        scope.total = {
-          change : 0
-        };
+        scope.total = {};
         
         // element mock
         element.find = function(name) {
@@ -92,7 +90,7 @@ ddescribe('Controller: PaymentCreditCardCtrl', function() {
 
     describe('initial amount value', function () {
       it('is 0 if change is positive', inject(function ($controller, $rootScope, _$filter_) {
-        scope.total.change = 0;
+        scope.total.change = 170;
 
         $controller('PaymentCreditCardCtrl', {
             $scope : scope,
