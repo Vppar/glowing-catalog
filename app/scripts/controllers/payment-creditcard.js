@@ -14,7 +14,7 @@
         // Initializing credit card data with a empty credit card
         var creditCard = {};
         var emptyCreditCardTemplate = {
-            installment : null,
+            installment : '1 x',
             flag : null,
             amount : null,
             expirationMonth : null,
@@ -101,7 +101,6 @@
                 // XXX: should be loged?
                 return;
             }
-            
             var
                 // TODO: check dueDate format
                 dueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear,
@@ -115,7 +114,6 @@
                     creditCard.cardholderDocument,
                     creditCard.installments
                 );
-
             payment.orderNumber = $scope.orderNumber;
             PaymentService.add(payment);
             $scope.selectPaymentMethod('none');
