@@ -124,6 +124,32 @@ describe('Controller: PaymentCtrl', function() {
         expect(scope.total.change).toBe(282.13);
     });
 
+    it('should update vouchers\' uniqueName when customer is changed', inject(function ($q) {
+        var deferred = $q.defer();
+        deferred.resolve(1);
+        ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer').andReturn(deferred.promise);
+
+        // given
+        os.order.items = [
+          {
+            idx : 1,
+            title : 'Vale Crédito',
+            uniqueName : 'Foo',
+            type : 'voucher',
+            qty : 1,
+            price : 500
+          }
+        ];
+
+        scope.openDialogChooseCustomer();
+
+        // Propagate promise resolution to 'then' functions using $apply()
+        scope.$apply();
+
+        expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
+        expect(os.order.items[0].uniqueName).toBe('Robert Downey Jr.');
+    }));
+
     /**
      * Given - a payments list (scope.payments) When - cancel payments is
      * request Then - warn the user about canceling the payment And - clear the
