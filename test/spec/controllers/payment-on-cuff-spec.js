@@ -14,7 +14,6 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.inventory.entity');
         module('tnt.catalog.service.order');
-        
     });
 
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
@@ -27,7 +26,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         
         
         PaymentService.add = jasmine.createSpy('PaymentService.add');
-        PaymentService.list = jasmine.createSpy('PaymentService.list');
+        PaymentService.list = jasmine.createSpy('PaymentService.list').andReturn(payments);
         PaymentService.clear = jasmine.createSpy('PaymentService.clear');
         
         // reproduce the scope inheritance
@@ -46,7 +45,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
      * When  - computeInstallments is called.
      * Then  - should create 1 installment.
      */
-    xit('should create 1 installment', function() {
+    it('should create 1 installment', function() {
         // given
         scope.amount = 500;
         scope.dueDate = new Date();
@@ -58,7 +57,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
 
         expect(scope.payments.length).toEqual(1);
         expect(scope.payments[0].amount).toEqual(scope.amount);
-        expect(scope.payments[0].dueDate).toEqual(expectedDate);
+        expect(new Date(scope.payments[0].dueDate)).toEqual(expectedDate);
     });
 
 
@@ -69,12 +68,12 @@ describe('Controller: PaymentOnCuffCtrl', function() {
      * When  - computeInstallments is called.
      * Then  - should create 6 installment.
      */
-    xit('should create 6 installment', function() {
+    it('should create 6 installment', function() {
         // given
         scope.amount = 500;
         scope.dueDate = new Date();
         scope.installmentQty = 6;
-
+        
         var expectedInstallment1 = 83.33;
         var expectedInstallment2 = 83.33;
         var expectedInstallment3 = 83.33;
@@ -121,14 +120,13 @@ describe('Controller: PaymentOnCuffCtrl', function() {
      * When  - computeInstallments is called.
      * Then  - should create 6 installment.
      */
-   xit('should call PaymentService', function() {
+   it('should call PaymentService', function() {
         // given
         scope.amount = 500;
         scope.dueDate = new Date();
         scope.installmentQty = 6;
         scope.payments = [{amount : 500, dueDate : 13132132}];
         scope.payments[0].dueDate = scope.dueDate;
-        //var test = new OnCuffPayment(scope.amount, scope.dueDate);
         scope.confirmOnCuffPayment(); 
  
         expect(PaymentService.add).toHaveBeenCalled(); 
@@ -143,7 +141,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
      * When  - the controller is open.
      * Then  - the scope.amount should be 0 .
      */
-   xit('should amount equal 0', function() {
+   it('should amount equal 0', function() {
         // the value was settled on beforeInject(creation of controller.)
         expect(scope.amount).toEqual(0);
     });
