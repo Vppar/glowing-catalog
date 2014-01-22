@@ -9,9 +9,8 @@
                 /**
                  * The real deal
                  */
-                 var vouchers = VoucherKeeper.list('voucher');
-                 $scope.vouchers = vouchers;
-                
+                var vouchers = VoucherKeeper.list('voucher');
+                $scope.vouchers = vouchers;
                 $scope.dates = {
                     dtInitial : '',
                     dtFinal : ''
@@ -21,7 +20,7 @@
                     entity : '',
                     amount : ''
                 };
-               
+
                 $scope.$watchCollection('filter', function() {
                     var gridFilter = {
                         entity : $scope.filter.entity,

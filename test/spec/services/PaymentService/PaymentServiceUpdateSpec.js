@@ -8,13 +8,14 @@ describe('Service: PaymentServiceUpdate', function() {
 
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
-            _PaymentService_) {
+            _OnCuffPayment_, _PaymentService_) {
         Payment = _Payment_;
         CashPayment = _CashPayment_;
         CheckPayment = _CheckPayment_;
         CreditCardPayment = _CreditCardPayment_;
         ExchangePayment = _ExchangePayment_;
         CouponPayment = _CouponPayment_;
+        OnCuffPayment = _OnCuffPayment_;
         PaymentService = _PaymentService_;
     }));
 
@@ -33,11 +34,29 @@ describe('Service: PaymentServiceUpdate', function() {
 
         PaymentService.add(payment);
         payment.amount = 20;
-        
+
         // when
         var updateCall = function() {
             PaymentService.update(payment);
             payments = PaymentService.list('cash');
+        };
+        // then
+        expect(updateCall).not.toThrow();
+        expect(payments[0]).toEqual(payment);
+    });
+
+    it('should update a onCuff payment', function() {
+        // given
+        var payment = new OnCuffPayment(15,new Date());
+        var payments = [];
+
+        PaymentService.add(payment);
+        payment.amount = 20;
+
+        // when
+        var updateCall = function() {
+            PaymentService.update(payment);
+            payments = PaymentService.list('onCuff');
         };
         // then
         expect(updateCall).not.toThrow();
@@ -51,12 +70,12 @@ describe('Service: PaymentServiceUpdate', function() {
         PaymentService.add(payment);
         payment.id = 5;
         payment.amount = 20;
-        
+
         // when
         var updateCall = function() {
             payments = PaymentService.update(payment);
         };
-        
+
         // then
         expect(updateCall).toThrow();
     });

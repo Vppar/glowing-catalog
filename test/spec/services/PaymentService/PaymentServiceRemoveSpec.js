@@ -8,13 +8,14 @@ describe('Service: PaymentServiceRemove', function() {
 
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
-            _PaymentService_) {
+            _OnCuffPayment_, _PaymentService_) {
         Payment = _Payment_;
         CashPayment = _CashPayment_;
         CheckPayment = _CheckPayment_;
         CreditCardPayment = _CreditCardPayment_;
         ExchangePayment = _ExchangePayment_;
         CouponPayment = _CouponPayment_;
+        OnCuffPayment = _OnCuffPayment_;
         PaymentService = _PaymentService_;
     }));
 
@@ -42,6 +43,31 @@ describe('Service: PaymentServiceRemove', function() {
         var removeCall = function() {
             PaymentService.remove(payment20);
             payments = PaymentService.list('cash');
+        };
+
+        // then
+        expect(removeCall).not.toThrow();
+        expect(payments.length).toBe(2);
+        expect(payments[0]).toEqual(payment15);
+        expect(payments[1]).toEqual(payment30);
+    });
+
+    it('should remove a onCuff payment', function() {
+        // given
+        var payment15 = new OnCuffPayment(15,new Date());
+        var payment20 = new OnCuffPayment(20,new Date());
+        var payment30 = new OnCuffPayment(30,new Date());
+
+        var payments = [];
+
+        PaymentService.add(payment15);
+        PaymentService.add(payment20);
+        PaymentService.add(payment30);
+
+        // when
+        var removeCall = function() {
+            PaymentService.remove(payment20);
+            payments = PaymentService.list('onCuff');
         };
 
         // then

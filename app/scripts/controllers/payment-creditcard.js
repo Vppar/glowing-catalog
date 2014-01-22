@@ -11,19 +11,22 @@
 
         $scope.orderNumber = OrderService.order.code;
 
+        function getAmount(change) {
+          return !change || change > 0 ? 0 : -change;
+        };
+
         // Initializing credit card data with a empty credit card
         var creditCard = {};
         var emptyCreditCardTemplate = {
-            installment : null,
+            installment : '1 x',
             flag : null,
-            amount : null,
+            amount : getAmount($scope.total.change),
             expirationMonth : null,
             expirationyear : null,
             number : null,
             cvv : null,
             cardholderName : null,
             cardholderDocument : null // cardholder's CPF
-
         };
         angular.extend(creditCard, emptyCreditCardTemplate);
         $scope.creditCard = creditCard;
@@ -36,6 +39,10 @@
         $scope.envFlags = DataProvider.envFlags;
         
         $scope.months = DataProvider.date.months;
+
+        $scope.select2Options = {
+            minimumResultsForSearch : -1
+        };
 
         // Creates an array containing year options for credit card expiration
         // dates
@@ -50,6 +57,7 @@
 
         // Recovering dialogService from parent scope.
         var dialogService = $scope.dialogService;
+
 
         // #####################################################################################################
         // Scope action functions
@@ -97,7 +105,6 @@
                 // XXX: should be loged?
                 return;
             }
-            
             var
                 // TODO: check dueDate format
                 dueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear,
@@ -111,7 +118,6 @@
                     creditCard.cardholderDocument,
                     creditCard.installments
                 );
-
             payment.orderNumber = $scope.orderNumber;
             PaymentService.add(payment);
             $scope.selectPaymentMethod('none');
