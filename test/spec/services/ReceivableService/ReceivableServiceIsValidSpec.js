@@ -4,6 +4,7 @@ describe('Service: ReceivableServiceisValid', function() {
     var fakeNow = 1386444467895;
     var monthTime = 2592000;
     var DialogService = {};
+    var CoinKeeper = function(){};
 
     // load the service's module
     beforeEach(function() {
@@ -22,15 +23,16 @@ describe('Service: ReceivableServiceisValid', function() {
         module(function($provide) {
             $provide.value('$log', log);
             $provide.value('DialogService', DialogService);
+            $provide.value('CoinKeeper', CoinKeeper);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {
-        ReceivableService = _ReceivableService_;        
+        ReceivableService = _ReceivableService_;
     }));
 
     /**
      * <pre>
-     * Given a valid receivable
+     * Givena valid receivable
      * When isValid is triggered
      * Then true should be returned
      * </pre>
@@ -54,7 +56,7 @@ describe('Service: ReceivableServiceisValid', function() {
 
     /**
      * <pre>
-     * Given a invalid receivable
+     * Givena invalid receivable
      * When isValid is triggered
      * Then true should be returned
      * </pre>
@@ -70,7 +72,7 @@ describe('Service: ReceivableServiceisValid', function() {
 
         // when
         var result = ReceivableService.isValid(receivable);
-        
+
         // then
         expect(result.length).toEqual(3);
     });
