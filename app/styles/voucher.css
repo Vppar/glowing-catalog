@@ -8,6 +8,13 @@
 	min-width: 208px; /*100px;*/
 }
 
+.filter-voucher{
+	width: 313px;
+}
+.marginln{
+margin-left: -38px !important;
+}
+
 .grid-voucher .control-label-voucher{
 	width:400px;
 }
@@ -33,7 +40,6 @@
 	border: none !important;
 	margin-top: 0;
 }
-
 .grid-voucher .col-s1 {
 	width: 80px;
 	display: inline-block;
@@ -53,28 +59,28 @@
 	text-align:center;
 }
 .grid-voucher .col-s3 {
-	width: 180px;
+	width: 150px;
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 	text-align:center;
 }
 .grid-voucher .col-s4{
-	width: 80px;
+	width: 150px;
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 	text-align:center;
 }
-.grid-voucher .col-s5 {
+/*.grid-voucher .col-s5 {
 	width: 120px;
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
 	text-align:center;
-}
-.grid-voucher .col-s6{
-	width:350px;
+}*/
+.grid-voucher .col-s5{ /*s6*/
+	width:450px;
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
@@ -112,26 +118,26 @@
 }
 
 .grid-voucher-history .col-s2 {
-	width: 120px;
+	width: 150px;
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
 }
 .grid-voucher-history .col-s3 {
-	width: 350px;
+	width: 150px;
 	display: inline-block;
 	line-height: 40px;
 	vertical-align: middle;
+	text-align:center;
 }
 .grid-voucher-history .col-s4{
-	width: 180px;
+	width: 150px;
 	display: inline-block;
 	vertical-align: middle;
 	text-align:center;
 }
 .grid-voucher-history .col-s5{
-	width: 180px;
+	width: 384px;
 	display: inline-block;
 	vertical-align: middle;
-	text-align:center;
 }

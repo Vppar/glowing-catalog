@@ -12,7 +12,7 @@
 			<!-- BREAD CRUMBS -->
 			<div class="row-fluid bread-crumbs">
 				<span class="span6">
-					<span class="principal">Cupom promocional</span> &gt; <span class="crumbs">Em aberto</span> <span class="crumbs display-none">Hist&oacute;rico</span>
+					<span class="principal">Cupom promocional</span> &gt; <span class="crumbs">em aberto</span> <span class="crumbs display-none">Hist&oacute;rico</span>
 				</span>
 				<span class="span6">
 					<!--<div class="control-group lbl-top icons">
@@ -44,6 +44,32 @@
 		
 			<!--EM ABERTO-->
 			<div class="row-fluid" ng-switch-when="new">
+			
+				<!-- DATE INTERVAL -->
+				<div class="row-fluid filter-bar">
+				
+					<span class="span4">			
+						<div class="controls">
+							<div class="control-group lbl-top">
+								<div class="controls">
+									Saldo em aberto <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="dates.dtInitial">
+								</div>
+							</div>
+							<div class="control-group lbl-top">
+								<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
+							</div>	
+						</div>				
+					</span>
+					
+					<span class="span8 marginl7">				
+						<div class="controls">
+							<div class="control-group lbl-top">
+								<input type="text" placeholder="Filtro" class="date-field input-small filter-voucher" ng-model="filter.amount">
+							</div>	
+						</div>				
+					</span>	
+				</div>
+				
 				<div class="grid-voucher">
 					<div class="header header2 header-voucher">
 						<div class="row-grid">
@@ -54,15 +80,12 @@
 								<div>Data</div>
 							</span>
 							<span class="col-s3">
-								<div>R$ Cupom</div>
+								<div>Vale / Cupom</div>
 							</span>
 							<span class="col-s4">
-								<div>Qtde</div>
+								<div>Vlr. Total</div>
 							</span>
 							<span class="col-s5">
-								<div>Total R$</div>
-							</span>
-							<span class="col-s6">
 								<div>Cliente</div>
 							</span>
 						</div>
@@ -76,16 +99,13 @@
 								<div>&nbsp;</div>
 							</span>
 							<span class="col-s3">
-								<div><input type="text" placeholder="Filtro cupom" class="date-field input-small" ng-model="filter.amount"></div>
+								<div><!--<input type="text" placeholder="Filtro cupom" class="date-field input-small" ng-model="filter.amount">--></div>
 							</span>
 							<span class="col-s4">
 								<div>{{qtyTotal}}</div>
 							</span>
 							<span class="col-s5">
-								<div>{{priceTotal | currency: ''}}</div>
-							</span>
-							<span class="col-s6">
-								<div><input type="text" placeholder="Filtro cliente" class="date-field input-small" ng-model="filter.entity"></div>
+								<div><!--<input type="text" placeholder="Filtro cliente" class="date-field input-small" ng-model="filter.entity">--></div>
 							</span>
 						</div>
 					</div>
@@ -104,12 +124,9 @@
 								<div>{{voucher.qty}}</div>
 							</span>
 							<span class="col-s5">
-								<div>{{voucher.priceTotal | currency: ''}}</div>
-							</span>
-							<span class="col-s6">
 								<div>{{voucher.entity}}</div>
 							</span>
-						</div>	
+						</div>
 					</div>
 				</div>	
 					
@@ -147,15 +164,15 @@
 								<span class="ic-calendar hover-state-pointer calendar-financial"><img src="images/icons/ic-calendar.png"></span>
 							</div>	
 						</div>				
-					</span>
+					</span>					
 					
-					<span class="span3 marginl7">				
+					<span class="span6 marginln">				
 						<div class="controls">
 							<div class="control-group lbl-top">
-								<a class="btn btn-open" ng-click="">Pesquisa avan&ccedil;ada</a>
-							</div>
+								<input type="text" placeholder="Filtro" class="date-field input-small filter-voucher" ng-model="filter.amount">
+							</div>	
 						</div>				
-					</span>
+					</span>	
 				
 				</div>
 				<br/>
@@ -186,16 +203,16 @@
 											<div>Data</div>
 										</span>
 										<span class="col-s2">
-											<div>Cupom</div>
+											<div>Vale/Cupom</div>
 										</span>
 										<span class="col-s3">
-											<div>Cliente</div>
+											<div>Cr&eacute;dito/D&eacute;bito</div>
 										</span>
 										<span class="col-s4">
-											Valor
+											Vlr. Total
 										</span>
 										<span class="col-s5">
-											Status
+											Cliente
 										</span>
 									</div>
 								</div>
