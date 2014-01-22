@@ -176,7 +176,6 @@
                             var gift = {
                                 idx : idx,
                                 title : 'Vale Presente',
-                                price : $scope.coupon.total,
                                 uniqueName : 'para ' + $scope.gift.customer.name,
                                 price : $scope.gift.total,
                                 qty : 1,

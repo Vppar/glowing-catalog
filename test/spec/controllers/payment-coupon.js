@@ -26,12 +26,14 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.selectPaymentMethod = jasmine.createSpy('selectPaymentMethod');
 
         // fake a new order
-        
+
         orderServiceMock.order = {};
         orderServiceMock.order.paymentIds = [];
         orderServiceMock.order.items = [];
         orderServiceMock.order.items.push = jasmine.createSpy('push');
-
+        scope.customer = {
+            name : 'Mario'
+        };
         scope.total = {
             change : 50
         };
@@ -185,7 +187,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         var voucher = {
             idx : idx,
             title : 'Vale Crédito',
-            uniqueName : '',
+            uniqueName : scope.customer.name,
             price : value,
             qty : 1,
             type : 'voucher'
@@ -346,10 +348,10 @@ describe('Controller: PaymentCouponCtrl', function() {
                 type : 'voucher'
             }
         ];
-        
+
         var value = 45.00;
         scope.voucher.total = value;
-        
+
         scope.confirmVoucher();
 
         expect(orderServiceMock.order.items.push).not.toHaveBeenCalled();
