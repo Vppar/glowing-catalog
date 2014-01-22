@@ -6,7 +6,7 @@
             link : function(scope, element, attrs, ctrl) {
 
                 ctrl.$parsers.unshift(function(value) {
-                    value= $filter('uppercase')(value);
+                    value = $filter('uppercase')(value);
                     ctrl.$viewValue = value;
                     ctrl.$render();
                     return value;
@@ -14,5 +14,5 @@
             }
         };
     }
-    angular.module('glowingCatalogApp').directive('upperCase', upperCase);
+    angular.module('tnt.catalog.attrs.upperCase', []).directive('upperCase', upperCase);
 }(angular));
