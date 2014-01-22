@@ -62,9 +62,10 @@
                         ];
 
                         $scope.isDisabled = true;
-
+                        
                         // Get already set voucher
                         for ( var ix in order.items) {
+                            
                             if (!angular.isUndefined(order.items[ix].type) && order.items[ix].type == 'voucher') {
                                 voucherSet = order.items[ix];
                                 break;
