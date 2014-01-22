@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: PaymentCreditCardCtrl', function() {
+ddescribe('Controller: PaymentCreditCardCtrl', function() {
 
     var scope;
     var element = {};
