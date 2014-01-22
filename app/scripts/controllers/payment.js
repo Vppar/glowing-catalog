@@ -49,10 +49,6 @@
                 };
                 $scope.$watch('total.payments.cash', updateOrderAndPaymentTotal);
 
-                $scope.coupon = {
-                    total : 0
-                };
-
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
 
