@@ -20,14 +20,14 @@
 				<span class="span8">
 					<div class="control-group">
 						<label class="control-label">Cliente</label>
-						<input class="input-block-level input-large" readonly="readonly"
+						<input class="input-block-level input-large" disabled="disabled"
 							id="customerName" type="text" ng-model="customer.name">
 					</div>
 				</span>
 				<span class="span4">
 					<div class="control-group">
 						<label class="control-label">Celular</label>
-						<input id="customerPhone" readonly="readonly"
+						<input id="customerPhone" disabled="disabled"
 						class="input-block-level input-large text-right" type="text" placeholder=""
 						ng-model="customer.phones[0].number" phone required>
 					</div>
@@ -38,7 +38,7 @@
 					<div class="control-group">
 						<label class="control-label">E-mail</label>
 						<input id="customerEmail" class="input-block-level input-large" type="text" placeholder=""
-							ng-model="customer.emails[0].address" readonly="readonly">
+							ng-model="customer.emails[0].address" disabled="disabled">
 					</div>
 				</span>
 				<span class="span4">
@@ -70,7 +70,7 @@
 					<div class="control-group">
 						<label class="control-label">Celular</label>
 						<input name="" class="input-block-level input-large text-right" type="text" placeholder=""
-						ng-model="gift.customer.phones[0].number" phone required readonly="readonly">
+						ng-model="gift.customer.phones[0].number" phone required disabled="disabled">
 					</div>
 				</span>
 			</div>
@@ -79,7 +79,7 @@
 					<div class="control-group">
 						<label class="control-label">E-mail</label>
 						<input name="date" class="input-block-level input-large" type="text" placeholder=""
-							ng-model="gift.customer.emails[0].address" readonly="readonly">
+							ng-model="gift.customer.emails[0].address" disabled="disabled">
 					</div>
 				</span>
 				<span class="span4">
@@ -100,7 +100,7 @@
 				<span class="span8">
 					<div class="control-group">
 						<label class="control-label">Cliente</label>
-						<input class="input-block-level input-large" readonly="readonly"
+						<input class="input-block-level input-large" disabled="disabled"
 							id="appendedInput" type="text" ng-model="customer.name">
 					</div>
 				</span>
@@ -109,7 +109,7 @@
 						<label class="control-label">Celular</label>
 						<input name="amount"
 						class="input-block-level input-large text-right" type="text" placeholder=""
-						ng-model="customer.phones[0].number" phone readonly="readonly" required>
+						ng-model="customer.phones[0].number" phone disabled="disabled" required>
 					</div>
 				</span>
 			</div>
@@ -118,7 +118,7 @@
 					<div class="control-group">
 						<label class="control-label">E-mail</label>
 						<input name="date" class="input-block-level input-large" type="text" placeholder=""
-							ng-model="customer.emails[0].address" readonly="readonly" >
+							ng-model="customer.emails[0].address" disabled="disabled" >
 					</div>
 				</span>
 				<span class="span4">
