@@ -212,6 +212,7 @@
                                                         message : errorMessage,
                                                         btnYes : 'OK'
                                                     });
+                                                    $log.error(err);
                                                     $log.fatal(new Date() + ' - There were problems in creating coupons. \n client ID:' +
                                                         entityId + '\n' + 'Cupons to insert:' + JSON.stringify($scope.list) + '\n' +
                                                         'Cupons inserted:' + JSON.stringify(generatedCupons));
