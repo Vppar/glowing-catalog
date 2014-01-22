@@ -48,7 +48,7 @@ describe('Service: Coupon', function() {
 
     });
 
-    it('should not create a coupom with negative value', function() {
+    it('should not create a coupon with negative value', function() {
         var entity = 123;
         var amount = -123.45;
         var remarks = "lalala";
@@ -64,7 +64,7 @@ describe('Service: Coupon', function() {
 
     });
 
-    it('should create a coupom without a remark', function() {
+    it('should create a coupon without a remark', function() {
         var entity = 123;
         var amount = 123.45;
         var document = {
@@ -76,7 +76,7 @@ describe('Service: Coupon', function() {
         expect(voucherStub.create).toHaveBeenCalled();
     });
 
-    it('should create a coupom without a document', function() {
+    it('should create a coupon without a document', function() {
         var entity = 123;
         var amount = 123.45;
         var remarks = "lalala";
@@ -85,7 +85,7 @@ describe('Service: Coupon', function() {
         expect(voucherStub.create).toHaveBeenCalled();
     });
 
-    it('should not create a coupom without entity', function() {
+    it('should not create a coupon without entity', function() {
 
         var amount = 123.45;
         var remarks = "lalala";
