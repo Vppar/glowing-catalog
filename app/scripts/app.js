@@ -16,7 +16,7 @@
                 'tnt.catalog.components.catalog-highlights', 'tnt.catalog.inventory', 'tnt.catalog.payment.oncuff', 'tnt.catalog.payment.coupon',
                 'tnt.catalog.keyboard.input', 'tnt.catalog.voucher.ctrl', 'tnt.catalog.voucher.entity', 'tnt.catalog.journal.entity',
                 'tnt.catalog.payment', 'tnt.catalog.payment.check', 'tnt.catalog.payment.creditcard', 'tnt.catalog.payment.exchange','tnt.catalog.misplaced.service',
-                'tnt.catalog.payment.service', 'tnt.catalog.payment.entity'
+                'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.attrs.upperCase'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

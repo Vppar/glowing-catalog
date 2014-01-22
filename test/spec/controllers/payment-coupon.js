@@ -26,11 +26,17 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.selectPaymentMethod = jasmine.createSpy('selectPaymentMethod');
 
         // fake a new order
+
         orderServiceMock.order = {};
         orderServiceMock.order.paymentIds = [];
         orderServiceMock.order.items = [];
         orderServiceMock.order.items.push = jasmine.createSpy('push');
-
+        scope.customer = {
+            name : 'Mario'
+        };
+        scope.total = {
+            change : 50
+        };
         scope.coupon = {
             total : 0
         };
@@ -49,7 +55,7 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     it('Should calculate totals - qty=5 ', function() {
 
-        expect(scope.total).toEqual(0);
+        expect(scope.coupon.total).toEqual(0);
 
         for ( var ix in scope.list) {
             item = scope.list[ix];
@@ -62,13 +68,13 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.list[1].total).toEqual(50);
         expect(scope.list[2].total).toEqual(100);
         expect(scope.list[3].total).toEqual(150);
-        expect(scope.total).toEqual(325);
+        expect(scope.coupon.total).toEqual(325);
 
     });
 
     it('Should calculate totals - qty=23. ', function() {
 
-        expect(scope.total).toEqual(0);
+        expect(scope.coupon.total).toEqual(0);
 
         for ( var ix in scope.list) {
             item = scope.list[ix];
@@ -81,7 +87,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.list[1].total).toEqual(230);
         expect(scope.list[2].total).toEqual(460);
         expect(scope.list[3].total).toEqual(690);
-        expect(scope.total).toEqual(1495);
+        expect(scope.coupon.total).toEqual(1495);
 
     });
 
@@ -181,9 +187,10 @@ describe('Controller: PaymentCouponCtrl', function() {
         var voucher = {
             idx : idx,
             title : 'Vale Crédito',
-            uniqueName : '',
+            uniqueName : scope.customer.name,
             price : value,
-            qty : 1
+            qty : 1,
+            type : 'voucher'
         };
 
         scope.confirmVoucher();
@@ -211,7 +218,8 @@ describe('Controller: PaymentCouponCtrl', function() {
             title : 'Vale Presente',
             uniqueName : 'para ' + customerNameFake,
             price : value,
-            qty : 1
+            qty : 1,
+            type : 'giftCard'
         };
 
         scope.confirmGift();
@@ -274,7 +282,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.gift.customer = {
             name : 'A name'
         };
-        
+
         scope.$apply();
 
         expect(scope.isDisabled).toEqual(false);
@@ -301,31 +309,52 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.isDisabled).toEqual(true);
 
     });
-    
+
     it('should not allow to confirm if the total value of coupons is equals or less than zero', function() {
 
         scope.option = 'option03';
-        
+
         scope.$apply();
-        
+
         var value = 0;
         scope.total = value;
 
         scope.$apply();
         expect(scope.isDisabled).toEqual(true);
     });
-    
+
     it('should allow to confirm if the total value of coupons is greater than zero', function() {
 
         scope.option = 'option03';
-        
+
         scope.$apply();
-        
+
         var value = 80;
-        scope.total = value;
+        scope.coupon.total = value;
 
         scope.$apply();
         expect(scope.isDisabled).toEqual(false);
+    });
+
+    xit('should populate the item list of the order service with a voucher', function() {
+
+        orderServiceMock.order.items = [
+            {
+                idx : 0,
+                title : 'Vale Crédito',
+                uniqueName : '',
+                price : 55.00,
+                qty : 1,
+                type : 'voucher'
+            }
+        ];
+
+        var value = 45.00;
+        scope.voucher.total = value;
+
+        scope.confirmVoucher();
+
+        expect(orderServiceMock.order.items.push).not.toHaveBeenCalled();
     });
 
 });

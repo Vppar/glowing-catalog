@@ -2,18 +2,19 @@
 
 describe('Directive: upperCase', function() {
     // load the directive's module
-    beforeEach(module('glowingCatalogApp'));
+    beforeEach(module('tnt.catalog.attrs.upperCase'));
 
-    var element, scope;
+    var element, scope = {};
 
     beforeEach(inject(function($rootScope) {
         scope = $rootScope.$new();
     }));
 
-   xit('should make upperCase text', inject(function($compile) {
-        element = angular.element('<upper-case></upper-case>');
-        element = $compile(element)(scope);
-        expect(element.text()).toBe('this is the upperCase directive');
+    it('should make upperCase text', inject(function($compile) {
+        var template = angular.element('<input ng-model="text" upper-case/>');
+        element = $compile(template)(scope);
+        element.val('This text must be upperCase!').trigger('input');
+        expect(element.val()).toBe('THIS TEXT MUST BE UPPERCASE!');
     }));
 
 });
