@@ -66,10 +66,12 @@
                 // Show SKU or SKU + Option(when possible).
                 for ( var idx in order.items) {
                     var item = order.items[idx];
-                    if (order.items[idx].option) {
-                        item.uniqueName = item.SKU + ' - ' + item.option;
-                    } else {
-                        item.uniqueName = item.SKU;
+                    if (item.type !== 'giftCard' && item.type !== 'voucher') {
+                      if (item.option) {
+                          item.uniqueName = item.SKU + ' - ' + item.option;
+                      } else {
+                          item.uniqueName = item.SKU;
+                      }
                     }
                 }
 
@@ -78,9 +80,22 @@
                 $scope.dialogService = dialogService;
 
                 $scope.openDialogChooseCustomer = function() {
-                    dialogService.openDialogChooseCustomer().then(function() {
-                        customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                    dialogService.openDialogChooseCustomer().then(function(id) {
+                        customer = $filter('findBy')(DataProvider.customers, 'id', id);
                         $scope.customer = customer;
+
+                        var
+                          items = order.items,
+                          item,
+                          len,
+                          i;
+
+                        for (i = 0, len = items.length; i < len; i += 1) {
+                          item = items[i];
+                          if (item.type === 'voucher') {
+                            item.uniqueName = customer.name;
+                          }
+                        }
                     });
                 };
 

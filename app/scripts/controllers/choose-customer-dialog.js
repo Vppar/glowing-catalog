@@ -21,13 +21,15 @@
          * customer screen.
          */
         $scope.confirm = function() {
+            var id = 0;
             if ($scope.customerId && $scope.customerId !== '') {
-                order.customerId = Number($scope.customerId);
+                //order.customerId = Number($scope.customerId);
+                id = Number($scope.customerId);
                 $location.path('/payment');
             } else {
                 $location.path('/add-customer');
             }
-            dialog.close(true);
+            dialog.close(id);
         };
 
     });

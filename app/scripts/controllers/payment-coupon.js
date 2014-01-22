@@ -155,7 +155,7 @@
                                 var voucher = {
                                     idx : idx,
                                     title : 'Vale Crédito',
-                                    uniqueName : '',
+                                    uniqueName : $scope.customer.name,
                                     price : $scope.coupon.total,
                                     qty : 1,
                                     type : 'voucher'
@@ -177,7 +177,7 @@
                             var gift = {
                                 idx : idx,
                                 title : 'Vale Presente',
-                                uniqueName : 'para ' + $scope.gift.customer.name,
+                                uniqueName : $scope.gift.customer.name,
                                 price : $scope.coupon.total,
                                 qty : 1,
                                 type : 'giftCard'
@@ -189,8 +189,8 @@
                         };
 
                         $scope.openDialogChooseCustomerGift = function() {
-                            DialogService.openDialogChooseCustomer().then(function() {
-                                $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                            DialogService.openDialogChooseCustomer().then(function(id) {
+                                $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', id);
                             });
                         };
 

@@ -7,6 +7,7 @@ describe('Controller: HeaderCtrl', function() {
     var ds = {};
     var os = {};
     var location = {};
+    var q;
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
@@ -34,6 +35,7 @@ describe('Controller: HeaderCtrl', function() {
             DialogService : ds
         });
     }));
+
     
     /**
      * Given - that products were selected (OrderService.order.items)
@@ -64,7 +66,11 @@ describe('Controller: HeaderCtrl', function() {
      * When  - the user click in the basket icon (scope.checkout())
      * Then  - opens the choose customer dialog (DialogService.openDialogChooseCustomer)
      */
-    it('should open choose customer dialog', function() {
+    it('should open choose customer dialog', inject(function($q) {
+        var deferred = $q.defer();
+        deferred.resolve(1);
+        ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer').andReturn(deferred.promise);
+
         // given
         os.order.items = angular.copy(sampleData.products);
         os.order.items[0].qty = 1;
@@ -73,10 +79,38 @@ describe('Controller: HeaderCtrl', function() {
         
         // when
         scope.checkout();
-        
+
         // then
         expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
-    });
+    }));
+
+    /**
+     * Given - that products were selected (OrderService.order.items)
+     * And   - a customer wasn't selected
+     * When  - the user click in the basket icon (scope.checkout())
+     * Then  - opens the choose customer dialog (DialogService.openDialogChooseCustomer)
+     * And   - the customerId is set in the order
+     */
+    it('sets the customerID from choose customer dialog', inject(function ($q) {
+        var deferred = $q.defer();
+        deferred.resolve(1);
+        ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer').andReturn(deferred.promise);
+
+        // given
+        os.order.items = angular.copy(sampleData.products);
+        os.order.items[0].qty = 1;
+        os.order.items[1].qty = 2;
+        os.order.items[1].qty = 3;
+
+        scope.checkout();
+
+        // Propagate promise resolution to 'then' functions using $apply()
+        scope.$apply();
+
+        expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
+
+        expect(os.order.customerId).toBe(1);
+    }));
     
     /**
      * Given - that no products were selected (OrderService.order.items)

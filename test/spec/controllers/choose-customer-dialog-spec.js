@@ -50,11 +50,27 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
     });
 
     /**
+     * When a customer is selected from the list, the customerId MUST NOT be
+     * propagated to the order and the dialog must be closed with 0. No need
+     * to redirect to anywhere.
+     */
+    // XXX: behavior has changed. Before the customerId was set by the
+    // dialog itself.
+    it('should pass the customer id to dialog.close()', function () {
+      scope.customerId = 1;
+      scope.confirm();
+      expect(dialog.close).toHaveBeenCalledWith(1);
+      expect(os.order.customerId).toBeUndefined();
+      expect(location.path).toHaveBeenCalledWith('/payment');
+    });
+
+
+    /**
      * When a customer is selected from the list, the customerId must be
      * propagated to the order and the dialog must be closed with true. No need
      * to redirect to anywhere.
      */
-    it('should close the dialog with a customer selected', function() {
+    xit('should close the dialog with a customer selected', function() {
         scope.customerId = 1;
         scope.confirm();
         expect(dialog.close).toHaveBeenCalledWith(true);
@@ -68,7 +84,7 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
      */
     it('should close the dialog and redirect to new customer', function() {
         scope.confirm();
-        expect(dialog.close).toHaveBeenCalledWith(true);
+        expect(dialog.close).toHaveBeenCalledWith(0);
         expect(location.path).toHaveBeenCalledWith('/add-customer');
     });
 
