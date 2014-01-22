@@ -4,6 +4,7 @@ describe('Service: ExpenseServiceisValid', function() {
     var fakeNow = 1386444467895;
     var monthTime = 2592000;
     var DialogService = {};
+    var CoinKeeper = function(){};
 
     // load the service's module
     beforeEach(function() {
@@ -22,6 +23,7 @@ describe('Service: ExpenseServiceisValid', function() {
         module(function($provide) {
             $provide.value('$log', log);
             $provide.value('DialogService', DialogService);
+            $provide.value('CoinKeeper', CoinKeeper);
         });
     });
     beforeEach(inject(function(_ExpenseService_) {
