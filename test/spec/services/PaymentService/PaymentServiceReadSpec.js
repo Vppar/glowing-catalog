@@ -8,13 +8,14 @@ describe('Service: PaymentServiceRead', function() {
 
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
-            _PaymentService_) {
+            _OnCuffPayment_, _PaymentService_) {
         Payment = _Payment_;
         CashPayment = _CashPayment_;
         CheckPayment = _CheckPayment_;
         CreditCardPayment = _CreditCardPayment_;
         ExchangePayment = _ExchangePayment_;
         CouponPayment = _CouponPayment_;
+        OnCuffPayment = _OnCuffPayment_;
         PaymentService = _PaymentService_;
     }));
 
@@ -110,6 +111,23 @@ describe('Service: PaymentServiceRead', function() {
         // when
         var readCall = function() {
             result = PaymentService.read('coupon', payment.id);
+        };
+
+        // then
+        expect(readCall).not.toThrow();
+        expect(result).toEqual(payment);
+    });
+
+    it('should read a onCuff payment', function() {
+        // given
+        var result = null;
+        var payment = new OnCuffPayment(15,new Date());
+
+        PaymentService.add(payment);
+
+        // when
+        var readCall = function() {
+            result = PaymentService.read('onCuff', payment.id);
         };
 
         // then

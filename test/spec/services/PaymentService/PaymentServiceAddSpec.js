@@ -8,14 +8,16 @@ describe('Service: PaymentServiceAdd', function() {
 
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
-            _PaymentService_) {
+            _PaymentService_, _OnCuffPayment_) {
         Payment = _Payment_;
         CashPayment = _CashPayment_;
         CheckPayment = _CheckPayment_;
         CreditCardPayment = _CreditCardPayment_;
         ExchangePayment = _ExchangePayment_;
         CouponPayment = _CouponPayment_;
+        OnCuffPayment = _OnCuffPayment_;
         PaymentService = _PaymentService_;
+
     }));
 
     it('should add a cash payment', function() {
@@ -32,7 +34,7 @@ describe('Service: PaymentServiceAdd', function() {
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
     });
-    
+
     it('should add a cash payment with sequential ids', function() {
         // given
         var payment15 = new CashPayment(15);
@@ -133,7 +135,23 @@ describe('Service: PaymentServiceAdd', function() {
         expect(payments[0]).toEqual(payment);
         expect(payments[0].id).not.toBeUndefined(payment);
     });
-    
+
+    it('should add a onCuff payment', function() {
+        // given
+        var payment = new OnCuffPayment(15,new Date());
+
+        // when
+        var addCall = function() {
+            PaymentService.add(payment);
+            payments = PaymentService.list('onCuff');
+        };
+
+        // then
+        expect(addCall).not.toThrow();
+        expect(payments[0]).toEqual(payment);
+        expect(payments[0].id).not.toBeUndefined(payment);
+    });
+
     it('shouldn\'t add a unknown payment', function() {
         // given
         var payment = new Payment(15);

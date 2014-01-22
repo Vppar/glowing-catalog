@@ -8,13 +8,14 @@ describe('Service: PaymentServiceList', function() {
 
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
-            _PaymentService_) {
+            _OnCuffPayment_, _PaymentService_) {
         Payment = _Payment_;
         CashPayment = _CashPayment_;
         CheckPayment = _CheckPayment_;
         CreditCardPayment = _CreditCardPayment_;
         ExchangePayment = _ExchangePayment_;
         CouponPayment = _CouponPayment_;
+        OnCuffPayment = _OnCuffPayment_;
         PaymentService = _PaymentService_;
     }));
 
@@ -110,6 +111,23 @@ describe('Service: PaymentServiceList', function() {
         // when
         var listCall = function() {
             payments = PaymentService.list('coupon');
+        };
+
+        // then
+        expect(listCall).not.toThrow();
+        expect(payments[0]).toEqual(payment);
+    });
+
+    it('should list the onCuff payments', function() {
+        // given
+        var payments = [];
+        var payment = new OnCuffPayment(15,new Date());
+
+        PaymentService.add(payment);
+
+        // when
+        var listCall = function() {
+            payments = PaymentService.list('onCuff');
         };
 
         // then
