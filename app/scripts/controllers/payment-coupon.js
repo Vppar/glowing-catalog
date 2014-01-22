@@ -139,9 +139,13 @@
                         };
 
                         $scope.confirmVoucher = function confirmVoucher() {
-                            
+
                             if (voucherSet) {
-                                voucherSet.price = $scope.voucher.total;
+                                if ($scope.voucher.total == 0) {
+                                    order.items.splice(voucherSet.idx, 1);
+                                } else {
+                                    voucherSet.price = $scope.voucher.total;
+                                }
                             } else {
                                 $scope.coupon.total = $scope.voucher.total;
 
