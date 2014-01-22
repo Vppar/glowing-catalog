@@ -32,6 +32,7 @@
                 var coupon = new Voucher(null, entity, 'coupon', amount);
                 coupon.remarks = remarks;
                 coupon.document = document;
+                coupon.created = (new Date()).getTime() / 1000;
 
                 VoucherKeeper.create(coupon);
             } else {

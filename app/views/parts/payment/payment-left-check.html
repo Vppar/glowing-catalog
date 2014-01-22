@@ -60,9 +60,7 @@
 				<div class="row-payment-check-grid" ng-repeat="payment in payments | orderBy: -'duedate'" >
 					<span ng-click="edit(payment)">
 						<span class="col-check-s1">
-							<div ng-show="$index + 1<=9">{{'00'+($index+1)}}</div>
-							<div ng-show="$index + 1>9 && $index + 1<=99" >{{'0'+ ($index + 1)}}</div>
-							<div ng-show="$index + 1>99">{{($index + 1)}}</div>
+							<div>{{($index + 1)}}</div>
 						</span>
 		               	<span class="col-check-s2">
 		               		<div>{{payment.bank}}</div>

@@ -9,7 +9,7 @@
                 /**
                  * The real deal
                  */
-                var vouchers = VoucherKeeper.list('voucher');
+                var vouchers = VoucherKeeper.list('coupon');
                 $scope.vouchers = vouchers;
                 $scope.dates = {
                     dtInitial : '',
