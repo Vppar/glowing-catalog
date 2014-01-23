@@ -86,8 +86,11 @@
                         customer = $filter('findBy')(DataProvider.customers, 'id', id);
                         $scope.customer = customer;
 
-                        var items = order.items, item, len, i;
+                        // Propagate customer to order
+                        order.customerId = customer.id;
 
+                        // Update vouchers with new customer
+                        var items = order.items, item, len, i;
                         for (i = 0, len = items.length; i < len; i += 1) {
                             item = items[i];
                             if (item.type === 'voucher') {

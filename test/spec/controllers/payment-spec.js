@@ -156,6 +156,24 @@ describe('Controller: PaymentCtrl', function() {
     }));
 
     /**
+     * When I change the customer in the payment screen, this change should
+     * be propagated to the order, making the change final.
+     */
+    it('should update order\'s customer when the customer changes', inject(function($q) {
+        var deferred = $q.defer();
+        deferred.resolve(1);
+        ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer').andReturn(deferred.promise);
+
+        scope.openDialogChooseCustomer();
+
+        // Propagate promise resolution to 'then' functions using $apply()
+        scope.$apply();
+
+        expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
+        expect(os.order.customerId).toBe(1);
+    }));
+
+    /**
      * Given - a payments list (scope.payments) When - cancel payments is
      * request Then - warn the user about canceling the payment And - clear the
      * current payment (PaymentService.clear) And - redirect to the home screen
