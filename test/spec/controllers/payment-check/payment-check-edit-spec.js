@@ -9,7 +9,7 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
     beforeEach(function() {
         module('tnt.catalog.payment.check');
         module('tnt.catalog.filter.findBy');
-        module('tnt.catalog.service.order');
+        module('tnt.catalog.order.service');
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.service.data');
         module('tnt.catalog.inventory.entity');
