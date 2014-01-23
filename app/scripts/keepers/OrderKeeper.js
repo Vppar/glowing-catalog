@@ -65,7 +65,7 @@
             if (orderEntry) {
                 orderEntry.canceled = event.canceled;
             } else {
-                throw 'Unable to find a order with id=\'' + event.id + '\'';
+                throw 'Unable to find an order with id=\'' + event.id + '\'';
             }
         });
 
@@ -106,7 +106,7 @@
         var cancel = function cancel(id) {
             var orderEntry = ArrayUtils.find(orders, 'id', id);
             if (!orderEntry) {
-                throw 'Unable to find a order with id=\'' + id + '\'';
+                throw 'Unable to find an order with id=\'' + id + '\'';
             }
             var time = (new Date()).getTime();
             var stamp = time / 1000;
