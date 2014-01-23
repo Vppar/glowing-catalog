@@ -46,11 +46,6 @@
                          * do nothing.
                          */
                         scope.add = function(product) {
-
-                            if (OrderService.order.id === undefined) {
-                                OrderService.createNew();
-                            }
-                            
                             var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.id);
 
                             if (grid.length > 1) {

@@ -19,7 +19,7 @@ xdescribe('Service: OrderServiceSpec', function() {
                     creditCardsTotal : 0
                 }
         };
-        module('tnt.catalog.service.order');
+        module('tnt.catalog.order.service');
         module(function($provide) {
             $provide.value('DataProvider', dpStub);
         });

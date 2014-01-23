@@ -6,7 +6,7 @@
             [
                 'ngRoute', 'ui.bootstrap', 'ui.select2', 'tnt.catalog.directive.numpad', 'tnt.catalog.filter.count',
                 'tnt.catalog.filter.findBy', 'tnt.catalog.filter.sum', 'tnt.catalog.filter.paymentType', 'tnt.catalog.service.data',
-                'tnt.catalog.service.dialog', 'tnt.catalog.service.order', 'tnt.catalog.service.expense', 'tnt.catalog.service.sms',
+                'tnt.catalog.service.dialog', 'tnt.catalog.order.service', 'tnt.catalog.order.entity', 'tnt.catalog.order.keeper', 'tnt.catalog.service.expense', 'tnt.catalog.service.sms',
                 'tnt.catalog.service.storage', 'tnt.catalog.header', 'tnt.catalog.headerDev', 'tnt.catalog.basket', 'tnt.catalog.basket.add',
                 'tnt.catalog.customer', 'tnt.catalog.customer.add.phones', 'tnt.catalog.customer.add.emails',
                 'tnt.catalog.customer.choose', 'tnt.catalog.product.input.dialog', 'tnt.catalog.receivable.service',

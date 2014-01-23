@@ -41,10 +41,6 @@
         $scope.checkout = function(bypassBasket) {
             var basket = $filter('filter')(order.items, inBasketFilter);
             if ((basket && basket.length > 0) || bypassBasket) {
-                if (OrderService.order.id === undefined) {
-                    OrderService.createNew();
-                }
-
                 if (order.customerId) {
                     $location.path('/payment');
                 } else {

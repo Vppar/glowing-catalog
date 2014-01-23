@@ -13,7 +13,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         module('tnt.catalog.payment.oncuff');
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.inventory.entity');
-        module('tnt.catalog.service.order');
+        module('tnt.catalog.order.service');
     });
 
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
