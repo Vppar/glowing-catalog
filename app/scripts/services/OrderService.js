@@ -9,7 +9,7 @@
          */
         var orderTemplate = {
             id : null,
-            code : null,
+            code : 'mk-0001-14',
             date : null,
             canceled: false,
             customerId : null,
