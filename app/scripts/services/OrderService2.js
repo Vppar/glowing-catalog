@@ -178,11 +178,11 @@
 
         /**
          * Initializes a new order object based on the template.
+         *
          * NOTE: it's not garanteed that the order will be reset after
          * calling this function. Use clear() if that's what you need.
          */
         function initOrder() {
-          // Creates a new empty order object
           angular.extend(order, orderTemplate);
           order.items = [];
         }
