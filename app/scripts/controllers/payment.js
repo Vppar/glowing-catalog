@@ -67,10 +67,12 @@
                     // Show SKU or SKU + Option(when possible).
                     for ( var idx in order.items) {
                         var item = order.items[idx];
-                        if (item.option) {
-                            item.uniqueName = item.SKU + ' - ' + item.option;
-                        } else {
-                            item.uniqueName = item.SKU;
+                        if (item.type !== 'giftCard' && item.type !== 'voucher') {
+                            if (item.option) {
+                                item.uniqueName = item.SKU + ' - ' + item.option;
+                            } else {
+                                item.uniqueName = item.SKU;
+                            }
                         }
                     }
                 });
