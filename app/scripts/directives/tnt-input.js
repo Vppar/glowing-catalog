@@ -80,6 +80,9 @@
                     } else {
                         if (!attrs.maxlength || current.length < attrs.maxlength) {
                             current += key;
+                            if(current.length == attrs.maxlength){
+                                KeyboardService.next();
+                            }
                         } else {
                             KeyboardService.next();
                             return;
