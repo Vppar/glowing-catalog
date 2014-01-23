@@ -22,17 +22,19 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
     this.recalc = function(total, current, installments, propertyName) {
 
         var gone = 0;
+        var fixed = 0;
 
         for ( var ix in installments) {
 
             if (ix > current) {
 
+                fixed = fixed ? fixed : floor((total - gone) / (installments.length - ix));
                 var val = 0;
-                
-                if (ix == (installments.length - 1)){
+
+                if (ix == (installments.length - 1)) {
                     val = round(total - gone);
                 } else {
-                    val = floor((total - gone) / (installments.length - ix));
+                    val = fixed;
                 }
 
                 if (val > 0) {
