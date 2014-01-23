@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.order.entity', []).factory('Order', function Order() {
 
-        var service = function svc() {
+        var service = function svc(id, code, date, canceled, customerId, paymentIds, items) {
             
             var validProperties = ['id', 'code', 'date', 'canceled', 'customerId', 'paymentIds', 'items'];
             
@@ -23,7 +23,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Receivable must be initialized with id, code, date, canceled, customerId, paymentIds, items';
+                    throw 'Order must be initialized with id, code, date, canceled, customerId, paymentIds, items';
                 }
             } else {
                 this.id = id;
@@ -46,7 +46,7 @@
 
     angular.module('tnt.catalog.order.keeper', [
         'tnt.utils.array', 'tnt.catalog.order.entity'
-    ]).factory('OrderKeeper', function OrderKeeper(ArrayUtils, Order, JournalKeeper, JournalEntry) {
+    ]).service('OrderKeeper', function OrderKeeper(ArrayUtils, Order, JournalKeeper, JournalEntry) {
 
         var currentEventVersion = 1;
         var orders = [];
@@ -72,18 +72,15 @@
         /**
          * Adds an order
          */
-        var add = function add(order) {
-            if(order instanceof Order){
-                order.isValid();
-            } else {
-                throw "Wrong instance";
-            }
+        
+        var add = function add(order) {            
+            order.id = orders.length + 1;
             
-            order.id = order.length + 1;
+            var orderx = new Order(order);
             
             var stamp = (new Date()).getTime() / 1000;
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'orderAdd', currentEventVersion, order);
+            var entry = new JournalEntry(null, stamp, 'orderAdd', currentEventVersion, orderx);
 
             // save the journal entry
             JournalKeeper.compose(entry);
