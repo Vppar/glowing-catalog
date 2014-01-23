@@ -11,7 +11,6 @@ describe('Service: OrderKeeperAdd', function() {
     var id = 1;
     var code = 12;
     var date = new Date().getTime();
-    var canceled = false;
     var customerId = 1;
     var paymentIds = [];
     var items = [];
