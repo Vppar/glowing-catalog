@@ -4,9 +4,11 @@
     angular.module('tnt.catalog.order.entity', []).factory('Order', function Order() {
 
         var service = function svc(id, code, date, canceled, customerId, paymentIds, items) {
-            
-            var validProperties = ['id', 'code', 'date', 'canceled', 'customerId', 'paymentIds', 'items'];
-            
+
+            var validProperties = [
+                'id', 'code', 'date', 'canceled', 'customerId', 'paymentIds', 'items'
+            ];
+
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
                     var prop = this[ix];
@@ -29,6 +31,7 @@
                 this.id = id;
                 this.code = code;
                 this.date = date;
+                this.canceled = canceled;
                 this.customerId = customerId;
                 this.paymentIds = paymentIds;
                 this.items = items;
@@ -72,12 +75,12 @@
         /**
          * Adds an order
          */
-        
-        var add = function add(order) {            
+
+        var add = function add(order) {
             order.id = orders.length + 1;
-            
+
             var orderx = new Order(order);
-            
+
             var stamp = (new Date()).getTime() / 1000;
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'orderAdd', currentEventVersion, orderx);
