@@ -7,12 +7,16 @@ describe('Controller: PaymentCouponCtrl', function() {
     var orderServiceMock = {};
     var DataProvider = {};
 
+    var itemsMock = [];
+
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.coupon');
+        module('tnt.catalog.service.order');
 
         module(function($provide) {
             $provide.value('$log', log);
+            $provide.value('OrderService', orderServiceMock);
         });
     });
 
@@ -26,11 +30,22 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.selectPaymentMethod = jasmine.createSpy('selectPaymentMethod');
 
         // fake a new order
-
         orderServiceMock.order = {};
         orderServiceMock.order.paymentIds = [];
-        orderServiceMock.order.items = [];
-        orderServiceMock.order.items.push = jasmine.createSpy('push');
+
+        itemsMock = [
+            {
+                idx : 0,
+                title : 'Vale Crédito',
+                uniqueName : '',
+                price : 55.00,
+                qty : 1,
+                type : 'voucher'
+            }
+        ];
+        orderServiceMock.order.items = itemsMock;
+
+        // orderServiceMock.order.items.push = jasmine.createSpy('push');
         scope.customer = {
             name : 'Mario'
         };
@@ -175,29 +190,27 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
     });
 
-    it('should populate the item list of the order service with a voucher', function() {
-
-        // add a voucher to the order list
-        var idx = orderServiceMock.order.items.length;
+    it('should not populate the item list of the order service with a voucher if the list does contains a voucher', function() {
 
         var value = 45.00;
         scope.option == 'option01';
         scope.voucher.total = value;
 
-        var voucher = {
-            idx : idx,
-            title : 'Vale Crédito',
-            uniqueName : scope.customer.name,
-            price : value,
-            qty : 1,
-            type : 'voucher'
-        };
-
         scope.confirmVoucher();
 
-        expect(orderServiceMock.order.items.push).toHaveBeenCalled();
-        expect(orderServiceMock.order.items.push.mostRecentCall.args[0]).toEqual(voucher);
+        expect(orderServiceMock.order.items.length).toBe(1);
+    });
 
+    it('should  populate the item list of the order service with a voucher if the list does not contains a voucher', function() {
+
+        items = [];
+        
+        var value = 100.00;
+        scope.option == 'option01';
+        scope.voucher.total = value;
+
+        scope.confirmVoucher();
+        expect(orderServiceMock.order.items.length).toBe(1);
     });
 
     it('should populate the item list of the order service with a giftcard', function() {
@@ -207,6 +220,8 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         var value = 10.00;
         var customerNameFake = 'Some Name';
+
+        orderServiceMock.order.items.push = jasmine.createSpy('push');
 
         scope.gift.total = value;
         scope.gift.customer = {
@@ -336,25 +351,15 @@ describe('Controller: PaymentCouponCtrl', function() {
         expect(scope.isDisabled).toEqual(false);
     });
 
-    xit('should populate the item list of the order service with a voucher', function() {
-
-        orderServiceMock.order.items = [
-            {
-                idx : 0,
-                title : 'Vale Crédito',
-                uniqueName : '',
-                price : 55.00,
-                qty : 1,
-                type : 'voucher'
-            }
-        ];
+    it('should populate the item list of the order service with a voucher', function() {
 
         var value = 45.00;
         scope.voucher.total = value;
 
         scope.confirmVoucher();
 
-        expect(orderServiceMock.order.items.push).not.toHaveBeenCalled();
+        expect(orderServiceMock.order.items.length).toBe(1);
+        expect(orderServiceMock.order.items[0].price).toBe(value);
     });
 
 });
