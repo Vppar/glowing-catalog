@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.entity.entity', []).factory('Entity', function Voucher() {
+    angular.module('tnt.catalog.entity.entity', []).factory('Entity', function Entity() {
 
         var service = function svc(id, name, emails, birthDate, phones, cep, document, addresses,  remarks) {
 
@@ -107,9 +107,7 @@
          */
         this.create = function(entityObject) {
             
-            if (entityObject instanceof Entity) {
-                entityObject.isValid();
-            } else {
+            if (!entityObject instanceof Entity) {
                 throw "Wrong instance.";
             }
 
