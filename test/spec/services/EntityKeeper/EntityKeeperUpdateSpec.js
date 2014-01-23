@@ -32,6 +32,29 @@ describe('Service: EntityKeeper', function() {
         JournalEntry =_JournalEntry_;
     }));
     
+    
+    it('should handle an update entity event', function() {
+        // given
+        var validEntity = {
+                id : 1,
+                name : 'cassiano',
+                emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
+                birthDate : '16/09/1981',
+                phones : [{ddd: 41, phone: 96491686},{ddd: 41, phone: 30875341}],
+                cep : '8157170',
+                document : '1234567890',
+                addresses : [{street: 'rua', number: 555}, {street: 'rua', number: 556}],
+                remarks : 'bad client'
+        };
+        var entity = new Entity(validEntity);
+
+        // when
+        expect(function() {
+            EntityKeeper.handlers['entityUpdateV1'](entity);}).toThrow('User not found.');
+
+    });
+    
+    
     /**
      * <pre>
      * @spec EntityKeeper.update#1
@@ -41,8 +64,6 @@ describe('Service: EntityKeeper', function() {
      * an the entry must be registered
      * </pre>
      */
-    
-
     
     it('should update', function() {
 

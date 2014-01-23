@@ -17,11 +17,13 @@ describe('Service: EntityKeeper', function() {
     var Entity = undefined;
     var JournalEntry = undefined;
     var scope = null;
-    beforeEach(inject(function(_EntityKeeper_, _Entity_, _JournalEntry_, $rootScope) {
+    var timeout = null;
+    beforeEach(inject(function(_EntityKeeper_, _Entity_, _JournalEntry_, $rootScope, $timeout) {
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
         JournalEntry =_JournalEntry_;
         scope = $rootScope;
+        timeout = $timeout;
     }));
     
     /**
@@ -34,9 +36,7 @@ describe('Service: EntityKeeper', function() {
      * </pre>
      */
     it('should add', function() {
-
       
-        //runs(function() {
             var id = 1;
             var name = 'cassiano';
             var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
@@ -48,16 +48,8 @@ describe('Service: EntityKeeper', function() {
             var remarks = 'bad client';
             var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
             EntityKeeper.create(ev);
-            
-        //});
-      
-        //waitsFor(function() {
-            scope.$apply();
-        //    return EntityKeeper.list().length;
-        //}, "Create failed", 3000);
-      
-        //runs(function() {
-             expect(EntityKeeper.list().length).toBe(1);
-        // });
+
+            timeout.flush();
+            expect(EntityKeeper.list().length).toBe(1);
     });
 });
