@@ -61,10 +61,10 @@ describe('Service: Misplacedservice', function() {
 
         expect(actual[0].test).toEqual(38.66);
         expect(actual[1].test).toEqual(38.66);
-        expect(actual[2].test).toEqual(38.67);
-        expect(actual[3].test).toEqual(38.67);
-        expect(actual[3].test).toEqual(38.67);
-        expect(actual[3].test).toEqual(38.67);
+        expect(actual[2].test).toEqual(38.66);
+        expect(actual[3].test).toEqual(38.66);
+        expect(actual[4].test).toEqual(38.66);
+        expect(actual[5].test).toEqual(38.70);
     });
 
 });
