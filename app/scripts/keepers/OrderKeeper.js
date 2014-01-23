@@ -107,7 +107,6 @@
          * Cancel an order
          */
         var cancel = function cancel(id) {
-            // TODO - do all stuff related to the Journal
             var orderEntry = ArrayUtils.find(orders, 'id', id);
             if (!orderEntry) {
                 throw 'Unable to find a order with id=\'' + id + '\'';
