@@ -31,6 +31,7 @@
 							id="creditCardFlag1"
 							class="bandeira-cartao select-h38"
 							ng-model="creditCard.flag"
+              ng-change="checkCreditCardFlagChange(creditCard.flag)"
 							required>
 							<option value="">selecione a bandeira do cart&atilde;o</option>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
@@ -48,7 +49,7 @@
               type="text"
               ng-model="creditCard.number"
               placeholder="número do cartão de crédito"
-              credit-card
+              credit-card="{{creditCardMask}}"
               tnt-input
               required
               maxlength="19">
@@ -62,22 +63,22 @@
               type="text"
               id="cardVerificationValue1"
               ng-model="creditCard.cvv"
-              placeholder="3 dígitos"
+              placeholder="{{creditCardCvvLength}} dígitos"
               number
               tnt-input
               required
-              maxlength="3">
+              maxlength="{{creditCardCvvLength}}">
 					</div>
 				</span>	
 			</div>
-			
+
 			<div class="row-fluid">
 				<span class="span4">
 					<div class="control-group ">
 						<label class="control-label">Validade do cart&atilde;o (m&ecirc;s)</label>					
 						<select ui-select2="select2Options"
 							name="cardExpirationMonth"
-							class="input-large select-h38"
+							class="input-large select-h38 padding0"
 							ng-model="creditCard.expirationMonth"
 							required>
 							<option value="">selecione o m&ecirc;s</option>
@@ -91,7 +92,7 @@
 						<label class="control-label">Validade do cart&atilde;o (ano)</label>					
 						<select ui-select2="select2Options"
 							name="cardExpirationYear"
-							class="input-large select-h38"
+							class="input-large select-h38 padding0"
 							ng-model="creditCard.expirationYear"
 							required>
 							<option value="">selecione o ano</option>
@@ -132,7 +133,7 @@
               maxlength="14">
 					</div>
 				</span>	
-				<span class="span3">
+				<span class="span2">
 					<div class="control-group ">
 						<label class="control-label">Nro parcelas</label>					
 						<select ui-select2="select2Options"
@@ -144,11 +145,11 @@
 						</select>
 					</div>
 				</span>	
-				<span class="span2">
+				<span class="span3">
 					<div class="control-group ">
 						<label class="control-label">Valor R$</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level input-large text-right"
               type="text"
               id="cardAmount1"
               ng-model="creditCard.amount"

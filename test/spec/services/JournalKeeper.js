@@ -1,9 +1,16 @@
 'use strict';
 
 describe('Service: Journalservice', function() {
-
+    var Replayer = {};
+    
     // load the service's module
-    beforeEach(module('tnt.catalog.journal'));
+    beforeEach(function () {
+        module('tnt.catalog.journal');
+        
+        module(function($provide) {
+            $provide.value('Replayer', Replayer);
+        });
+    });
 
     // instantiate service
     var JournalKeeper = undefined;

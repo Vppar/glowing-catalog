@@ -673,6 +673,17 @@ border-radius: 4px;
 	display: block;
 }
 
+.menu-level-payment .disabled{
+	background: none !important;
+	background-color: #fff !important;
+	border-color: #adadad;
+	text-shadow: none;
+	outline: 0;
+	border: 1px solid #cccccc;
+	color: rgba(0, 0, 0, 0.5);
+	cursor: not-allowed;
+}
+
 .menu-level-payment .btn{	
 	font-weight: normal !important;
 	margin-top:10px;
@@ -702,7 +713,7 @@ border-radius: 4px;
 width: 267px;
 }
 .parcelas-cartao {
-width: 153px;
+width: 96px;
 }
 .input-large{
 	height: 40px !important;
@@ -788,6 +799,9 @@ width: 428px !important;
 .marginb25{
 	margin-bottom:25px;
 }
+
+.padding0{padding:0 !important;}
+
 .code-product{
 	color: rgba(0, 0, 0, 0.5);
 	display: inline-block;
