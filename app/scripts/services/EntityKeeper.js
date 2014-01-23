@@ -75,7 +75,6 @@
                 entry.addresses = event.addresses;
                 entry.remarks = event.remarks;
             }
-            console.log(entity.length);
         });
         
         
