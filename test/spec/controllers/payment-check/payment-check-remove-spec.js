@@ -4,6 +4,7 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
     var element = {};
     var dialogService = {};
     var fakeNow = 1412421495;
+    var os = {};
 
     beforeEach(function() {
         module('tnt.catalog.payment.check');
@@ -50,6 +51,7 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
             $scope : scope,
             $element : element,
             $filter : _$filter_,
+            OrderService : os
         });
     }));
 

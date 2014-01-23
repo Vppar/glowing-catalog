@@ -7,6 +7,8 @@ describe('Controller: PaymentCtrl', function() {
     var ps = {};
     var sms = {};
     var ks = {};
+    var $q = {};
+    var $timeout = {};
     var location = {};
 
     // load the controller's module
@@ -19,7 +21,7 @@ describe('Controller: PaymentCtrl', function() {
     });
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function($controller, $rootScope, $q, _$filter_) {
+    beforeEach(inject(function($controller, $rootScope, _$q_, _$filter_, _$timeout_) {
         // $location mock
         location.path = jasmine.createSpy('location.path');
 
@@ -82,17 +84,20 @@ describe('Controller: PaymentCtrl', function() {
         // Scope mock
         rootScope = $rootScope;
         scope = $rootScope.$new();
-
+        
+        
+        
         // SMSService mock
         sms.sendPaymentConfirmation =
                 jasmine.createSpy('SMSService.sendPaymentConfirmation')
                         .andReturn(angular.copy(sampleData.smsSendPaymentConfirmationReturn));
-
+        $q = _$q_;
+        $timeout=_$timeout_;
         // Injecting into the controller
         $controller('PaymentCtrl', {
             $scope : scope,
             $location : location,
-            $q : $q,
+            $q : _$q_,
             DataProvider : dp,
             DialogService : ds,
             OrderService : os,
@@ -107,16 +112,16 @@ describe('Controller: PaymentCtrl', function() {
         // given
         // when
         scope.total.payments.cash = 15.32;
-        
+
         scope.$apply();
 
         // then
         expect(scope.total.change).toBe(297.45);
     });
-    
+
     it('should consolidate payment and order total when selected screen change', function() {
         // given
-        
+
         // when
         scope.selectPaymentMethod('none');
 
@@ -124,21 +129,21 @@ describe('Controller: PaymentCtrl', function() {
         expect(scope.total.change).toBe(282.13);
     });
 
-    it('should update vouchers\' uniqueName when customer is changed', inject(function ($q) {
+    it('should update vouchers\' uniqueName when customer is changed', inject(function($q) {
         var deferred = $q.defer();
         deferred.resolve(1);
         ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer').andReturn(deferred.promise);
 
         // given
         os.order.items = [
-          {
-            idx : 1,
-            title : 'Vale Crédito',
-            uniqueName : 'Foo',
-            type : 'voucher',
-            qty : 1,
-            price : 500
-          }
+            {
+                idx : 1,
+                title : 'Vale Crédito',
+                uniqueName : 'Foo',
+                type : 'voucher',
+                qty : 1,
+                price : 500
+            }
         ];
 
         scope.openDialogChooseCustomer();
@@ -304,20 +309,32 @@ describe('Controller: PaymentCtrl', function() {
      * payment is added When - cancel button is clicked Then - restore the
      * original list And - redirect to order items
      */
-    xit('should undo payments after a payment be removed', function() {
+    //TODO FIX TEST!
+    xit('XXXXXXXXXXXXXXXXXXXXXXX', function() {
         // given
-        angular.extend(scope.payments, sampleData.payments);
-        scope.confirmPayments();
-        var newPayment = angular.copy(scope.payments[0]);
-        newPayment.id = scope.payments.length + 1;
-        scope.payments.push(newPayment);
-
+        dp.products = [
+            {
+                id : 13,
+                parent : 14
+            }, {
+                id : 14
+            }
+        ];
+        scope.order= os.order;
+        ds.openDialogAddToBasket = jasmine.createSpy('DialogService.openDialogAddToBasket').andCallFake(function(input) {
+            os.order.items[2].qty = 2;
+            var defer = $q.defer();
+            defer.resolve();
+            return defer.promise;
+        });
+        
         // when
-        scope.cancelPayments();
-
+        scope.addToBasket(13);
+        
         // then
-        expect(scope.payments).toEqual(sampleData.payments);
-        expect(scope.selectedPaymentMethod).toBe('none');
+        expect(ds.openDialogAddToBasket).toHaveBeenCalled();
+        console.log(scope.total.change);
+        
     });
 
 });
