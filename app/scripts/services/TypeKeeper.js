@@ -46,7 +46,7 @@
      */
     angular.module('tnt.catalog.type.keeper', [
         'tnt.utils.array'
-    ]).service('TypeKeeper', function StockKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
+    ]).service('TypeKeeper', function TypeKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
 
         var currentEventVersion = 1;
         var types = {};
