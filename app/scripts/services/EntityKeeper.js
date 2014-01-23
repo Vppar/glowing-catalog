@@ -110,7 +110,6 @@
             if (!entityObject instanceof Entity) {
                 throw "Wrong instance.";
             }
-
             var event = entityObject;
             var stamp = (new Date()).getTime() / 1000;
 
@@ -127,12 +126,9 @@
          */
         this.update = function(entityObject) {
 
-            if (entityObject instanceof Entity) {
-                entityObject.isValid();
-            } else {
+            if (!entityObject instanceof Entity) {
                 throw "Wrong instance.";
             }
-
             var event = entityObject;
             var stamp = (new Date()).getTime() / 1000;
 
