@@ -656,6 +656,7 @@ border-radius: 4px;
 	border: 1px solid #eee;
 	background-color: #f2f2f2;
 	border-radius: 4px;
+	padding-right: 5px;
 	/*padding: 4px 7px 4px 5px; padding: 4px 10px 4px 4px;*/
 }
 .qntty{
@@ -827,7 +828,7 @@ width: 428px !important;
 }
 
 .grid-payment-exchange .col-s2 {
-	width: 297px;/*400px*/
+	width: 286px;/*400px*/
 	text-align:left;
 	display: inline-block;
 	line-height: 40px;
@@ -1067,6 +1068,8 @@ width: 428px !important;
 	max-height: 432px !important;*/
 	height: 135px;
 }
+
+.payment-left-discount .scroll-payment-grid{max-height: 485px !important;}
 
 /*-------------coupon------------*/
 .payment-coupon-fields .filter-bar {padding:0 !important;}
