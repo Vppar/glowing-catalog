@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.discount', []).controller('PaymentDiscountCtrl', function($scope) {
-
+        
         $scope.checkBox = {
             cred : [],
             gift : [],
@@ -10,8 +10,6 @@
         };
 
         $scope.checkBoxCtrl = function checkBoxCtrl(index, type) {
-            console.log(index);
-            console.log(type);
             if ($scope.checkBox[type][index] === true) {
                     $scope.discounts[type][index].myInput = $scope.discounts[type][index].amount;
             } else {
@@ -25,7 +23,12 @@
             }
         };
 
-        $scope.confirmPayments = function confirmPayments() {
+        $scope.confirmDiscounts = function confirmDiscounts() {
+            $scope.selectPaymentMethod('none');
+        };
+        
+        $scope.cancelDiscounts = function cancelDiscounts() {
+            $scope.selectPaymentMethod('none');
         };
 
     });
