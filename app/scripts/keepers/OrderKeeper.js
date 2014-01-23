@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.order.entity', []).factory('Order', function Order() {
 
-        var service = function svc(id, code, date, canceled, customerId, paymentIds, items) {
+        var service = function svc(id, code, date, canceled, customerId, items) {
 
             var validProperties = [
-                'id', 'code', 'date', 'canceled', 'customerId', 'paymentIds', 'items'
+                'id', 'code', 'date', 'canceled', 'customerId', 'items'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -25,7 +25,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Order must be initialized with id, code, date, canceled, customerId, paymentIds, items';
+                    throw 'Order must be initialized with id, code, date, canceled, customerId, items';
                 }
             } else {
                 this.id = id;
@@ -33,14 +33,12 @@
                 this.date = date;
                 this.canceled = canceled;
                 this.customerId = customerId;
-                this.paymentIds = paymentIds;
                 this.items = items;
             }
             ObjectUtils.ro(this, 'id', this.id);
             ObjectUtils.ro(this, 'code', this.code);
             ObjectUtils.ro(this, 'date', this.date);
             ObjectUtils.ro(this, 'customerId', this.customerId);
-            ObjectUtils.ro(this, 'paymentIds', this.paymentIds);
             ObjectUtils.ro(this, 'items', this.items);
         };
 

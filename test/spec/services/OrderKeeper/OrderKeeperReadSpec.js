@@ -35,7 +35,6 @@ describe('Service: CoinKeeperReadExpense', function() {
             code : 12,
             date : new Date(),
             customerId : 1,
-            paymentIds : [],
             items : []
         };
 
@@ -44,7 +43,6 @@ describe('Service: CoinKeeperReadExpense', function() {
             code : 13,
             date : new Date(),
             customerId : 2,
-            paymentIds : [],
             items : []
         };
 
@@ -82,7 +80,6 @@ describe('Service: CoinKeeperReadExpense', function() {
             code : 12,
             date : new Date(),
             customerId : 1,
-            paymentIds : [],
             items : []
         };
         OrderKeeper.handlers['orderAddV1'](myOrder);

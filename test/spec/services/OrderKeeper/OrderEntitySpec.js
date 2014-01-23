@@ -29,11 +29,10 @@ describe('Service: OrderEntity', function() {
         var date = new Date();
         var canceled = false;
         var customerId = 1;
-        var paymentIds = [];
         var items = [];
 
         // when
-        var order = new Order(id, code, date, canceled, customerId, paymentIds, items);
+        var order = new Order(id, code, date, canceled, customerId, items);
 
         // then
         expect(order.id).toBe(id);
@@ -41,7 +40,6 @@ describe('Service: OrderEntity', function() {
         expect(order.date).toBe(date);
         expect(order.canceled).toBe(canceled);
         expect(order.customerId).toBe(customerId);
-        expect(order.paymentIds).toBe(paymentIds);
         expect(order.items).toBe(items);
 
     });

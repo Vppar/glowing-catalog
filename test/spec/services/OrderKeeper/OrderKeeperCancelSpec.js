@@ -12,7 +12,6 @@ describe('Service: OrderKeeperAdd', function() {
     var code = 12;
     var date = new Date().getTime();
     var customerId = 1;
-    var paymentIds = [];
     var items = [];
 
     var order = {
@@ -20,7 +19,6 @@ describe('Service: OrderKeeperAdd', function() {
         code : code,
         date : date,
         customerId : customerId,
-        paymentIds : paymentIds,
         items : items
     };
 

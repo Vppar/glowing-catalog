@@ -12,7 +12,6 @@ describe('Service: OrderKeeperAdd', function() {
     var code = 12;
     var date = new Date().getTime();
     var customerId = 1;
-    var paymentIds = [];
     var items = [];
 
     var order = {
@@ -20,7 +19,6 @@ describe('Service: OrderKeeperAdd', function() {
         code : code,
         date : date,
         customerId : customerId,
-        paymentIds : paymentIds,
         items : items
     };
 
@@ -52,7 +50,7 @@ describe('Service: OrderKeeperAdd', function() {
     it('should add an order', function() {
         // given
 
-        var orderx = new Order(order.id, order.code, order.date, order.canceled, order.customerId, order.paymentIds, order.items);
+        var orderx = new Order(order.id, order.code, order.date, order.canceled, order.customerId, order.items);
 
         var tstamp = fakeNow / 1000;
         var entry = new JournalEntry(null, tstamp, 'orderAdd', 1, orderx);
