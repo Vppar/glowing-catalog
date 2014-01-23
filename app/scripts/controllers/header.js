@@ -12,7 +12,10 @@
         var order = OrderService.order;
         $scope.order = order;
 
-        var inBasketFilter = OrderService.inBasketFilter;
+        // FIXME: Should this be converted to a filter?
+        var inBasketFilter = function inBasketFilter(item) {
+          return Boolean(item.qty);
+        }
         
         // #############################################################################################################
         // Dialogs control
