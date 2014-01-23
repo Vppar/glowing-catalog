@@ -203,19 +203,6 @@
 
 
         /**
-         * Checks if the given code is a valid order code.
-         * @param {*} code The order's code to be validated.
-         */
-        // FIXME: check if this validation is enough.
-        function isValidOrderCode(code) {
-          // Considering:
-          // - codes are strings
-          // - codes cannot be empty
-          return angular.isString(code) && code.length > 0;
-        }
-
-
-        /**
          * Checks if the given id is a valid customer id.
          * @param {*} id The customer id to be validated.
          */
@@ -233,14 +220,6 @@
           return false;
         }
 
-        /**
-         * Checks if the given array contains only valid paymentIds.
-         * @param {*} ids Array of payment ids
-         */
-        // FIXME: implement proper paymentIds validation
-        function areValidPaymentIds(ids) {
-          return angular.isArray(ids) && ids.length > 0;
-        }
 
         /**
          * Checks if the given array contains only valid items.
