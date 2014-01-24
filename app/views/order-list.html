@@ -15,24 +15,12 @@
 					<span class="principal">Resumo de vendas</span> &nbsp; <span class="crumbs">&nbsp;</span>
 				</span>
 				<span class="span6">
-					<!--<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-add.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-edit.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-open.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-search.png">
-					</div>-->
 					<div class="float-right">
 						<span class="menu-level">
-							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option active">Pedidos</a> 
-								<a class="btn btn-option">Clientes</a> 
-								<a class="btn btn-option">Produtos</a>
+							<div class="btn-group btn-group-sm" ng-init="ol='orders'">
+								<a class="btn btn-option" ng-class="{active: ol=='orders'}" ng-click="ol='orders'">Pedidos</a> 
+								<a class="btn btn-option" ng-class="{active: ol=='customers'}" ng-click="ol='customers'">Clientes</a> 
+								<a class="btn btn-option" ng-class="{active: ol=='products'}" ng-click="ol='products'">Produtos</a>
 							</div>
 						</span>
 					</div>
@@ -115,186 +103,188 @@
 				</div>
 		</div>
 	
-		<!--Pedidos-->
-		<div class="order-list-grid-pedidos">
-			<div class="row-fluid">
-				<div class="grid-order-list">
-					<div class="header">
-						<div class="row-order-list">
-							<div class="col-1">
-								<span>Data</span>
-							</div>
-							<div class="col-3">
-								<span>Pedido</span>
-							</div>
-							<div class="col-2">
-								<span>Clientes</span>
-							</div>
-							<div class="col-4">
-								<span>Qtde.</span>
-							</div>
-							<div class="col-5">
-								<span>P. M&eacute;dio</span>
-							</div>
-							<div class="col-6">
-								<span>Valor total</span>
-							</div>
-						</div>
-					</div>
-					<!--<div class="scroll-order-list">
-						<div class="row-order-list hover-state-pointer"
-							ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'" ng-click="openPartialDelivery(order)">
-							<div class="col-1">
-								<span>{{order.date | date:'dd/MM/yyyy'}}</span>
-							</div>
-							<div class="col-2">
-								<span>{{order.code}}</span>
-							</div>
-							<div class="col-3">
-								<span>{{order.customerName | truncate: 50}}</span><!--<span>Produto</span>->
-							</div> 
-							<div class="col-4">
-								<span>{{order.items.length}}</span>
-							</div>
-							<div class="col-5 marginr20">
-								<span>{{order.items | obInject: 'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency: 'R$'}}</span>
-							</div>
-						</div>
-					</div>-->
-					<div class="scroll-order-list">
-						<div class="row-order-list hover-state-pointer">
-							<div class="col-1">
-								<span>29/10/13</span>
-							</div>
-							<div class="col-3">
-								<span>0001-13</span>
-							</div>
-							<div class="col-2">
-								<span>Valtanette De Paula</span>
-							</div> 
-							<div class="col-4">
-								<span>4</span>
-							</div>
-							<div class="col-5">
-								<span>235,25</span>
-							</div>
-							<div class="col-6">
-								<span>941,00</span>
-							</div>
-						</div>
-					</div>
-				</div>
-					
-				<br/>			
-			</div>
-		</div>
-	
-		<!--Clientes-->
-		<div class="order-list-grid-clientes display-none">
-			<div class="row-fluid">
-				<div class="grid-order-list">
-					<div class="header">
-						<div class="row-order-list">
-							<div class="col-1">
-								<span>Rank</span>
-							</div>
-							<div class="col-2">
-								<span>Clientes</span>
-							</div>
-							<div class="col-3">
-								<span>&Uacute;ltimo pedido</span>
-							</div>
-							<div class="col-4">
-								<span>Qtde.</span>
-							</div>
-							<div class="col-5">
-								<span>P. M&eacute;dio</span>
-							</div>
-							<div class="col-6">
-								<span>Valor total</span>
-							</div>
-						</div>
-					</div>
-					<div class="scroll-order-list">
-						<div class="row-order-list hover-state-pointer">
-							<div class="col-1">
-								<span>1</span>
-							</div>
-							<div class="col-2">
-								<span>Valtanette De Paula</span>
-							</div>
-							<div class="col-3">
-								<span>12/01/14</span>
-							</div> 
-							<div class="col-4">
-								<span>4</span>
-							</div>
-							<div class="col-5">
-								<span>235,25</span>
-							</div>
-							<div class="col-6">
-								<span>941,00</span>
-							</div>
-						</div>
-					</div>
-				</div>				
-				<br/>			
-			</div>			
-		</div>
-	
-		<!--Produtos-->
-		<div class="order-list-grid-produtos display-none">
-			<div class="row-fluid">
-				<div class="grid-order-list">
-					<div class="header">
-						<div class="row-order-list">
-							<div class="col-1">
-								<span>Rank</span>
-							</div>
-							<div class="col-2">
-								<span>Produtos</span>
-							</div>
-							<div class="col-3">
-								<span>Estoque atual</span>
-							</div>
-							<div class="col-4">
-								<span>Qtde. Vendida</span>
-							</div>
-							<div class="col-5">
-								<span>Vlr. unit.</span>
-							</div>
-							<div class="col-6">
-								<span>Valor total</span>
-							</div>
-						</div>
-					</div>
-					<div class="scroll-order-list">
-						<div class="row-order-list hover-state-pointer">
-							<div class="col-1">
-								<span></span>
-							</div>
-							<div class="col-2">
-							<div>Creme de Limpeza 3 em 1 - 127g</div>
-							<div class="comment">10-042751 - Pele Normal/Seca</div>
-							</div>
-							<div class="col-3">
-								<span></span>
-							</div> 
-							<div class="col-4">
-								<span>4</span>
-							</div>
-							<div class="col-5">
-								<span>235,25</span>
-							</div>
-							<div class="col-6">
-								<span>941,00</span>
-							</div>
-						</div>
-					</div>
-				</div>				
-				<br/>			
-			</div>
-		</div>
+        <div ng-switch="ol">
+    		<!--Pedidos-->
+    		<div class="order-list-grid-pedidos" ng-switch-when="orders">
+    			<div class="row-fluid">
+    				<div class="grid-order-list">
+    					<div class="header">
+    						<div class="row-order-list">
+    							<div class="col-1">
+    								<span>Data</span>
+    							</div>
+    							<div class="col-3">
+    								<span>Pedido</span>
+    							</div>
+    							<div class="col-2">
+    								<span>Clientes</span>
+    							</div>
+    							<div class="col-4">
+    								<span>Qtde.</span>
+    							</div>
+    							<div class="col-5">
+    								<span>P. M&eacute;dio</span>
+    							</div>
+    							<div class="col-6">
+    								<span>Valor total</span>
+    							</div>
+    						</div>
+    					</div>
+    					<!--<div class="scroll-order-list">
+    						<div class="row-order-list hover-state-pointer"
+    							ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'" ng-click="openPartialDelivery(order)">
+    							<div class="col-1">
+    								<span>{{order.date | date:'dd/MM/yyyy'}}</span>
+    							</div>
+    							<div class="col-2">
+    								<span>{{order.code}}</span>
+    							</div>
+    							<div class="col-3">
+    								<span>{{order.customerName | truncate: 50}}</span><!--<span>Produto</span>->
+    							</div> 
+    							<div class="col-4">
+    								<span>{{order.items.length}}</span>
+    							</div>
+    							<div class="col-5 marginr20">
+    								<span>{{order.items | obInject: 'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency: 'R$'}}</span>
+    							</div>
+    						</div>
+    					</div>-->
+    					<div class="scroll-order-list">
+    						<div class="row-order-list hover-state-pointer">
+    							<div class="col-1">
+    								<span>29/10/13</span>
+    							</div>
+    							<div class="col-3">
+    								<span>0001-13</span>
+    							</div>
+    							<div class="col-2">
+    								<span>Valtanette De Paula</span>
+    							</div> 
+    							<div class="col-4">
+    								<span>4</span>
+    							</div>
+    							<div class="col-5">
+    								<span>235,25</span>
+    							</div>
+    							<div class="col-6">
+    								<span>941,00</span>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    					
+    				<br/>			
+    			</div>
+    		</div>
+    	
+    		<!--Clientes-->
+    		<div class="order-list-grid-clientes" ng-switch-when="customers">
+    			<div class="row-fluid">
+    				<div class="grid-order-list">
+    					<div class="header">
+    						<div class="row-order-list">
+    							<div class="col-1">
+    								<span>Rank</span>
+    							</div>
+    							<div class="col-2">
+    								<span>Clientes</span>
+    							</div>
+    							<div class="col-3">
+    								<span>&Uacute;ltimo pedido</span>
+    							</div>
+    							<div class="col-4">
+    								<span>Qtde.</span>
+    							</div>
+    							<div class="col-5">
+    								<span>P. M&eacute;dio</span>
+    							</div>
+    							<div class="col-6">
+    								<span>Valor total</span>
+    							</div>
+    						</div>
+    					</div>
+    					<div class="scroll-order-list">
+    						<div class="row-order-list hover-state-pointer">
+    							<div class="col-1">
+    								<span>1</span>
+    							</div>
+    							<div class="col-2">
+    								<span>Valtanette De Paula</span>
+    							</div>
+    							<div class="col-3">
+    								<span>12/01/14</span>
+    							</div> 
+    							<div class="col-4">
+    								<span>4</span>
+    							</div>
+    							<div class="col-5">
+    								<span>235,25</span>
+    							</div>
+    							<div class="col-6">
+    								<span>941,00</span>
+    							</div>
+    						</div>
+    					</div>
+    				</div>				
+    				<br/>			
+    			</div>			
+    		</div>
+    	
+    		<!--Produtos-->
+    		<div class="order-list-grid-produtos" ng-switch-when="products">
+    			<div class="row-fluid">
+    				<div class="grid-order-list">
+    					<div class="header">
+    						<div class="row-order-list">
+    							<div class="col-1">
+    								<span>Rank</span>
+    							</div>
+    							<div class="col-2">
+    								<span>Produtos</span>
+    							</div>
+    							<div class="col-3">
+    								<span>Estoque atual</span>
+    							</div>
+    							<div class="col-4">
+    								<span>Qtde. Vendida</span>
+    							</div>
+    							<div class="col-5">
+    								<span>Vlr. unit.</span>
+    							</div>
+    							<div class="col-6">
+    								<span>Valor total</span>
+    							</div>
+    						</div>
+    					</div>
+    					<div class="scroll-order-list">
+    						<div class="row-order-list hover-state-pointer">
+    							<div class="col-1">
+    								<span></span>
+    							</div>
+    							<div class="col-2">
+    							<div>Creme de Limpeza 3 em 1 - 127g</div>
+    							<div class="comment">10-042751 - Pele Normal/Seca</div>
+    							</div>
+    							<div class="col-3">
+    								<span></span>
+    							</div> 
+    							<div class="col-4">
+    								<span>4</span>
+    							</div>
+    							<div class="col-5">
+    								<span>235,25</span>
+    							</div>
+    							<div class="col-6">
+    								<span>941,00</span>
+    							</div>
+    						</div>
+    					</div>
+    				</div>				
+    				<br/>			
+    			</div>
+    		</div>
+        </div>
 
 	</div>
 	
