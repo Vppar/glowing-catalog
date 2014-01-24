@@ -4,8 +4,7 @@
 	</div>
 	<div class="left-payment" ng-controller="PaymentDiscountCtrl">
 		<br />
-		
-		<div class="scroll-payment-grid">
+
 		<!--Vale credito-->
 		<div class="discount-initial">
 			<div class="row-fluid">
@@ -24,23 +23,24 @@
 						</div>
 					</div>
 					
-					<div class="row-payment-grid-product-discount">
-						<div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.cred">
-							<span class="col-s1">
-								<div>{{discount.created | date:'dd/MM/yy'}}</div>
-							</span>
-							<span class="col-s2">
-								<div>{{discount.amount | currency: ''}}</div>
-							</span> 					
-							<span class="col-s4">
-								<div>
-									<input type="checkbox" ng-model="checkBox.cred[$index]" ng-change="checkBoxCtrl($index, 'cred')">
-									<input id="{{'amountCred'+$index}}" type="text" name="" ng-change="updateAmount($index, 'cred')" ng-model="discount.myInput" class="check-value" tnt-input currency/>
-								</div>
-							</span>
+					<div class="scroll-payment-grid">						
+						<div class="row-payment-grid-product-discount">
+							<div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.voucher">
+								<span class="col-s1">
+									<div>{{discount.created | date:'dd/MM/yy'}}</div>
+								</span>
+								<span class="col-s2">
+									<div>{{discount.amount | currency: ''}}</div>
+								</span> 					
+								<span class="col-s4">
+									<div>
+										<input type="checkbox" ng-model="checkBox.voucher[$index]" ng-change="checkBoxCtrl($index, 'voucher')">
+										<input id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" class="check-value" tnt-input currency/>
+									</div>
+								</span>
+							</div>
 						</div>
 					</div>
-						
 				</div>
 			</div>
 		</div>
@@ -65,24 +65,24 @@
 						</div>
 					</div>
 					
-					
-					<div class="row-payment-grid-product-discount">
-						<div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.gift">
-							<span class="col-s1">
-								<div>{{discount.created | date:'dd/MM/yy'}}</div>
-							</span>
-							<span class="col-s2">
-								<div>{{discount.amount | currency: ''}}</div>
-							</span> 					
-							<span class="col-s4">
-								<div>
-									<input type="checkbox" ng-model="checkBox.gift[$index]" ng-change="checkBoxCtrl($index, 'gift')">
-									<input id="{{'amountGift'+$index}}" type="text" name="" ng-change="updateAmount($index, 'gift')" ng-model="discount.myInput"class="check-value" tnt-input currency/>
-								</div>
-							</span>
+					<div class="scroll-payment-grid">						
+						<div class="row-payment-grid-product-discount">
+							<div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.giftCard">
+								<span class="col-s1">
+									<div>{{discount.created | date:'dd/MM/yy'}}</div>
+								</span>
+								<span class="col-s2">
+									<div>{{discount.amount | currency: ''}}</div>
+								</span> 					
+								<span class="col-s4">
+									<div>
+										<input type="checkbox" ng-model="checkBox.giftCard[$index]" ng-change="checkBoxCtrl($index, 'giftCard')">
+										<input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput"class="check-value" tnt-input currency/>
+									</div>
+								</span>
+							</div>
 						</div>
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -107,28 +107,28 @@
 						</div>
 					</div>
 					
-					
-					<div class="row-payment-grid-product-discount">
-						<div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.coupon">
-							<span class="col-s1">
-								<div>{{discount.created | date:'dd/MM/yy'}}</div>
-							</span>
-							<span class="col-s2">
-								<div>{{discount.amount | currency: ''}}</div>
-							</span> 					
-							<span class="col-s4">
-								<div>
-									<input type="checkbox" ng-model="checkBox.coupon[$index]" ng-change="checkBoxCtrl($index, 'coupon')">
-									<input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-model="discount.myInput" class="check-value" tnt-input currency/>
-								</div>
-							</span>
+					<div class="scroll-payment-grid">						
+						<div class="row-payment-grid-product-discount">
+							<div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.coupon">
+								<span class="col-s1">
+									<div>{{discount.created | date:'dd/MM/yy'}}</div>
+								</span>
+								<span class="col-s2">
+									<div>{{discount.amount | currency: ''}}</div>
+								</span> 					
+								<span class="col-s4">
+									<div>
+										<input type="checkbox" ng-model="checkBox.coupon[$index]" ng-change="checkBoxCtrl($index, 'coupon')">
+										<input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="!checkBox.coupon[$index]"  ng-model="discount.myInput" class="check-value" tnt-input currency/>
+									</div>
+								</span>
+							</div>
 						</div>
 					</div>
-						
 				</div>
 			</div>			
 		</div>	
-		</div>	
+			
 			
 
 			<div class="payment-left-btns-area">
