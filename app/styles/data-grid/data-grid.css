@@ -645,117 +645,45 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	}
 	.grid-order-list .scroll-order-list .row-order-list {
 		border-bottom: 1px dotted #e0e0e0;
-		line-height: 40px;
+		min-height: 40px;
+		vertical-align:top;
 	}
 	
-.grid-order-list .header .col-1 {
-	width: 85px;
+.grid-order-list .header .col-1, .scroll-order-list .col-1{
+	width: 120px;
 	display: inline-block;
+	text-align:center;
+	vertical-align:top;
 }
-	.grid-order-list .header .col-1 span{
-		margin-left: 5px;
-		width:100%;
-	}
-.grid-order-list .header .col-2 {
-	width: 95px;
+.grid-order-list .header .col-2, .scroll-order-list .col-2{
+	width:320px;
 	display: inline-block;
+	vertical-align:top;
 }
-.grid-order-list .header .col-3 {
-	width: 345px;
+.grid-order-list .header .col-3, .scroll-order-list .col-3 {
+	width: 120px;
 	display: inline-block;
+	text-align:center;
+	vertical-align:top;
 }
-	.grid-order-list .header .col-3 span {
-		text-align: left;
-		margin-left: 5px;
-	}
-.grid-order-list .header .col-4 {
-	width: 70px;
+.grid-order-list .header .col-4, .scroll-order-list .col-4 {
+	width: 120px;
 	display: inline-block;
+	text-align:center;
+	vertical-align:top;
 }
-	.grid-order-list .header .col-4 span {
-		text-align: center;	
-		width:100%;
-	}
-.grid-order-list .header .col-5 {
-	width: 115px;
+.grid-order-list .header .col-5 ,.scroll-order-list .col-5 {
+	width: 120px;
 	display: inline-block;
+	text-align:center;
+	vertical-align:top;
 }
-	.grid-order-list .header .col-5 span{
-		text-align:right;
-		margin-right: 5px;
-		width:100%;
-	}
-.grid-order-list .header .col-6 {
-	width: 210px;
+.grid-order-list .header .col-6,.scroll-order-list .col-6 {
+	width: 120px;
 	display: inline-block;
+	text-align:center;
+	vertical-align:top;
 }
-	.grid-order-list .header .col-6 span {
-		text-align: center;	
-		width:100%;
-	}
-
-.scroll-order-list .col-1 {
-	width: 85px;
-	display: inline-block;
-}
-	.scroll-order-list .col-1 span {
-		margin-left: 5px;
-		vertical-align: top;
-		line-height: 20px;
-		width:100%;
-	}
-.scroll-order-list .col-2 {
-	width: 95px;
-	display: inline-block;
-}
-	.scroll-order-list .col-2 span {
-		text-align: left;
-		vertical-align: top;
-		line-height: 20px;
-		width:100%;
-	}
-.scroll-order-list .col-3 {
-	width: 345px;
-	display: inline-block;
-}
-	.scroll-order-list .col-3 span {
-		text-align: left;
-		margin-left: 5px;
-		vertical-align: top;
-		line-height: 20px;
-		width:100%;
-	}
-.scroll-order-list .col-4 {
-	width: 70px;	
-	display: inline-block;
-}
-	.scroll-order-list .col-4 span {
-		text-align:center;	
-		vertical-align: top;
-		line-height: 20px;
-		width:100%;
-	}
-.scroll-order-list .col-5 {
-	width: 115px;
-	display: inline-block;
-}
-	.scroll-order-list .col-5 span{
-		text-align:right;
-		margin-right: 5px;
-		vertical-align: top;
-		line-height: 20px;
-		width:100%;
-	}
-.scroll-order-list .col-6 {
-	width: 210px;	
-	display: inline-block;
-}
-	.scroll-order-list .col-6 span {
-		text-align: center;	
-		vertical-align: top;
-		line-height: 20px;
-		width:100%;
-	}
 /*============= END DATA-GRID ORDER LIST =====================*/
 
 /*============= DATA-GRID CASH FLOW =====================*/
