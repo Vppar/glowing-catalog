@@ -169,10 +169,13 @@
              * @param coin - Receivable to be added.
              */
             var add = function add(coinOperation) {
+                var Coin = types[name]['entity'];
+
+                if(coinOperation instanceof Coin)
+                
                 // FIXME - use UUID
                 coinOperation.id = vault.length + 1;
 
-                var Coin = types[name]['entity'];
                 var addEv = new Coin(coinOperation);
 
                 var stamp = (new Date()).getTime() / 1000;
