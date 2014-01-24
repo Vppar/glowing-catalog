@@ -15,7 +15,7 @@ describe('Service: OrderServiceRead', function () {
     spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     logMock.debug = jasmine.createSpy('$log.debug');
 
-    OrderKeeperMock.read = jasmine.createSpy('OrderKeeper.read');
+    OrderKeeperMock.read = jasmine.createSpy('OrderKeeper.read').andReturn('ok');
 
     module(function ($provide) {
       $provide.value('$log', logMock);
@@ -38,6 +38,6 @@ describe('Service: OrderServiceRead', function () {
   it('gets order from OrderKeeper.read()', function () {
     var order = OrderService.read(1);
     expect(OrderKeeperMock.read).toHaveBeenCalledWith(1);
-    expect(order).toEqual(OrderKeeperMock.read(1));
+    expect(order).toEqual('ok');
   });
 });

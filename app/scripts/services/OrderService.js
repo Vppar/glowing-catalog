@@ -116,11 +116,12 @@
         var cancel = function cancel(id){
           var result = true;
           try {
-            OrderKeeper.cancel(id);
+            result = OrderKeeper.cancel(id);
           } catch (err) {
             throw 'OrderService.cancel: Unable to cancel the order with id=' + id + '. ' +
               'Err=' + err;
           }
+          return result;
         };
 
 
