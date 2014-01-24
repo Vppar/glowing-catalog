@@ -8,11 +8,11 @@
                 'tnt.utils.array'
             ]).controller('PaymentDiscountCtrl', function($scope, Voucher, VoucherKeeper, PaymentService, CouponPayment, ArrayUtils) {
 
-        // $scope.discounts = {
-        // voucher : VoucherKeeper.list('voucher'),
-        // coupon : VoucherKeeper.list('coupon'),
-        // giftCard : VoucherKeeper.list('giftCard')
-        // };
+         $scope.discounts = {
+         voucher : VoucherKeeper.list('voucher'),
+         coupon : VoucherKeeper.list('coupon'),
+         giftCard : VoucherKeeper.list('giftCard')
+         };
 
         // #############################################################################################
         // Scope variables
@@ -31,71 +31,71 @@
             coupon : []
         };
         
-        $scope.discounts = {
-            voucher : [
-                {
-                    id : 1,
-                    entity : 0,
-                    created : new Date(),
-                    type : 'voucher',
-                    amount : 56,
-                }, {
-                    id : 2,
-                    entity : 0,
-                    created : new Date(),
-                    type : 'voucher',
-                    amount : 70,
-                }, {
-                    id : 3,
-                    entity : 0,
-                    created : new Date(),
-                    type : 'voucher',
-                    amount : 24,
-                }
-            ],
-            giftCard : [
-                {
-                    id : 1,
-                    entity : 0,
-                    type : 'giftCard',
-                    created : new Date(),
-                    amount : 11,
-                }, {
-                    id : 2,
-                    entity : 0,
-                    type : 'giftCard',
-                    created : new Date(),
-                    amount : 22,
-                }, {
-                    id : 3,
-                    entity : 0,
-                    type : 'giftCard',
-                    created : new Date(),
-                    amount : 33,
-                }
-            ],
-            coupon : [
-                {
-                    id : 1,
-                    entity : 0,
-                    type : 'coupon',
-                    created : new Date(),
-                    amount : 77,
-                }, {
-                    id : 2,
-                    entity : 0,
-                    type : 'coupon',
-                    created : new Date(),
-                    amount : 999,
-                }, {
-                    id : 3,
-                    entity : 0,
-                    type : 'coupon',
-                    created : new Date(),
-                    amount : 34,
-                }
-            ]
-        };
+//        $scope.discounts = {
+//            voucher : [
+//                {
+//                    id : 1,
+//                    entity : 0,
+//                    created : new Date(),
+//                    type : 'voucher',
+//                    amount : 56,
+//                }, {
+//                    id : 2,
+//                    entity : 0,
+//                    created : new Date(),
+//                    type : 'voucher',
+//                    amount : 70,
+//                }, {
+//                    id : 3,
+//                    entity : 0,
+//                    created : new Date(),
+//                    type : 'voucher',
+//                    amount : 24,
+//                }
+//            ],
+//            giftCard : [
+//                {
+//                    id : 1,
+//                    entity : 0,
+//                    type : 'giftCard',
+//                    created : new Date(),
+//                    amount : 11,
+//                }, {
+//                    id : 2,
+//                    entity : 0,
+//                    type : 'giftCard',
+//                    created : new Date(),
+//                    amount : 22,
+//                }, {
+//                    id : 3,
+//                    entity : 0,
+//                    type : 'giftCard',
+//                    created : new Date(),
+//                    amount : 33,
+//                }
+//            ],
+//            coupon : [
+//                {
+//                    id : 1,
+//                    entity : 0,
+//                    type : 'coupon',
+//                    created : new Date(),
+//                    amount : 77,
+//                }, {
+//                    id : 2,
+//                    entity : 0,
+//                    type : 'coupon',
+//                    created : new Date(),
+//                    amount : 999,
+//                }, {
+//                    id : 3,
+//                    entity : 0,
+//                    type : 'coupon',
+//                    created : new Date(),
+//                    amount : 34,
+//                }
+//            ]
+//        };
         // #############################################################################################
         // Scope functions
         // #############################################################################################
