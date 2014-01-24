@@ -33,7 +33,8 @@
 
         // Credit card informations to fill the screen combos.
         $scope.cardFlags = DataProvider.cardData.flags;
-        $scope.creditCard.flag = DataProvider.cardData.flags[6]; //select MasterCard
+        // select MasterCard
+        $scope.creditCard.flag = DataProvider.cardData.flags[6]; 
         $scope.installments = DataProvider.cardData.installments;
 
         $scope.gopay = DataProvider.gopay;
@@ -81,9 +82,6 @@
         }
 
         $scope.cardExpirationYears = cardExpirationYears;
-
-        // Recovering dialogService from parent scope.
-        var dialogService = $scope.dialogService;
 
 
         // #####################################################################################################
