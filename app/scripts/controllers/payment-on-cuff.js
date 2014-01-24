@@ -14,7 +14,7 @@
                     dueDate : null,
                     amount : 0
                 };
-
+                $scope.dateMin = new Date();
                 // Compute amount and installments and compute.
                 $scope.computeInstallments = function computeInstallments() {
                     $scope.payments = [];
@@ -38,13 +38,14 @@
                     PaymentService.clear('onCuff');
                     for ( var ix in $scope.payments) {
                         var data = $scope.payments[ix];
-                        var payment = new OnCuffPayment(data.amount, data.dueDate);
-                        payment.installment = data.installment;
-                        PaymentService.add(payment);
+                        if (data.amount > 0) {
+                            var payment = new OnCuffPayment(data.amount, data.dueDate);
+                            payment.installment = data.installment;
+                            PaymentService.add(payment);
+                        }
                     }
                     $scope.selectPaymentMethod('none');
                 };
-
 
                 function createInstallment(payment, baseDate) {
                     for ( var ix = 0; ix < payment.installment; ix++) {
@@ -75,14 +76,23 @@
 
                 // find customer
                 $scope.customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
-
+                
+                $scope.amount=0;
                 if ($scope.payments.length === 0) {
                     $scope.installmentQty = 1;
                     $scope.dueDate = new Date();
                     if ($scope.total.change < 0) {
                         $scope.amount = $scope.total.change * -1;
                     } else {
-                        $scope.amount = 0;
+                        //show dialog
+                        DialogService.messageDialog({
+                            title : 'Contas a receber',
+                            message : 'Não existem valores para serem lançados.',
+                            btnYes : 'OK'
+                        }).then(function() {
+                            $scope.selectPaymentMethod('none');
+                        });
+
                     }
                     $scope.computeInstallments();
                 } else {
@@ -91,11 +101,17 @@
                     $scope.dueDate = new Date($scope.payments[0].dueDate);
                 }
 
-                $scope.$watch('dueDate', function(val, old) {
+                $scope.$watch('dueDate',  function(val, old) {
+                    var test = val+'';
+                    if (val !== old && val && val.lenght == 8 ) {
+                        $scope.computeInstallments();
+                    }
+                });
+                $scope.$watch('amount', function(val, old) {
                     if (val !== old) {
                         $scope.computeInstallments();
                     }
                 });
-
+                
             });
 }(angular));
