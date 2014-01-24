@@ -5,7 +5,7 @@
   <span class="menu-level-payment">
     <div class="btn-group btn-group-sm" ng-init="option='option01'">
       <a class="btn btn-option active" ng-click="selectOption('option01')"
-        ng-class="{disabled: total.change <= 0, active: option === 'option01'}">Vale cr&eacute;dito</a>
+        ng-class="{disabled: !voucherIsEnabled(), active: option === 'option01'}">Vale cr&eacute;dito</a>
       <a class="btn btn-option" ng-click="selectOption('option02')"
         ng-class="{active: option === 'option02'}">Vale presente</a>
       <a class="btn btn-option" ng-click="selectOption('option03')"
@@ -47,7 +47,7 @@
             <div class="control-group">
               <label class="control-label">Valor total</label> <input
                 id="amount" required ng-model="voucher.total" currency tnt-input
-                class="input-block-level input-large text-right" disabled="disabled" type="text">
+                class="input-block-level input-large text-right" type="text">
             </div>
           </span>
         </div>

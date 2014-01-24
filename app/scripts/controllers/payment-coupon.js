@@ -76,6 +76,22 @@
                             $scope.voucher.total = voucherSet.price;
                         }
 
+
+                        function voucherIsEnabled() {
+                          var hasVoucherInOrder = false, len, i;
+
+                          for (i = 0, len = order.items.length; i < len; i += 1) {
+                            if (order.items[i].type === 'voucher') {
+                              hasVoucherInOrder = true;
+                              break;
+                            }
+                          }
+
+                          return hasVoucherInOrder || $scope.total.change > 0;
+                        }
+
+                        $scope.voucherIsEnabled = voucherIsEnabled;
+
                         // wachers
 
                         $scope.$watch('selectedPaymentMethod', setCouponOption);
@@ -86,7 +102,7 @@
                         $scope.$watch('option', watchOptions);
 
                         function setCouponOption() {
-                          if ($scope.total.change <= 0) {
+                          if (!voucherIsEnabled()) {
                             if (!$scope.option || $scope.option === 'option01') {
                               $scope.option = 'option02';
                             }
@@ -205,7 +221,7 @@
 
 
                         $scope.selectOption = function (option) {
-                          if (option === 'option01' && $scope.total.change <= 0) {
+                          if (option === 'option01' && !voucherIsEnabled()) {
                             DialogService.messageDialog({
                                 title : 'Vale Crédito',
                                 message : 'Não há troco para gerar um vale crédito.',
