@@ -77,6 +77,10 @@
                         }
 
 
+                        /**
+                         * Returns wether the voucher screen should be enabled or not.
+                         * @return {Boolean}
+                         */
                         function voucherIsEnabled() {
                           var hasVoucherInOrder = false, len, i;
 
@@ -87,6 +91,8 @@
                             }
                           }
 
+                          // The voucher screen is enabled either if there's a
+                          // voucher in the order or if there's change.
                           return hasVoucherInOrder || $scope.total.change > 0;
                         }
 
