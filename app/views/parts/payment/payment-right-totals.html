@@ -102,7 +102,7 @@
 			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="selectedPaymentMethod=='none'">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button ng-click="confirm()" class="btn btn-open" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) != 0">Confirmar</button>
+			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="total.change!=0">Confirmar</button>
 		</div>
 	</div>
     <num-pad></num-pad>

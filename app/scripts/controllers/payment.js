@@ -138,24 +138,39 @@
                     $scope.selectedPaymentMethod = method;
                 };
 
-                $scope.addToBasket = function addToBasket(productId) {
-                    var product = ArrayUtils.filter(DataProvider.products, {
-                        id : productId
-                    })[0];
-
-                    var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.parent);
-                    var dialogPromise = null;
-
-                    if (grid.length > 1) {
-                        dialogPromise = DialogService.openDialogAddToBasketDetails({
-                            id : product.parent
+                $scope.addToBasket = function addToBasket(item) {
+                    if (item.type === 'giftCard') {
+                        DialogService.messageDialog({
+                            title : 'Pagamento',
+                            message : 'Confirmar a exclusão do Vale Presente?',
+                            btnYes : 'Confirmar',
+                            btnNo : 'Cancelar'
+                        }).then(function(result) {
+                            if (result) {
+                                var idx = OrderService.order.items.indexOf(item);
+                                OrderService.order.items.splice(idx,1);
+                            }
+                            updateOrderAndPaymentTotal();
                         });
-                    } else {
-                        dialogPromise = DialogService.openDialogAddToBasket({
-                            id : product.parent
-                        });
+                    } else if(!item.type){
+                        var product = ArrayUtils.filter(DataProvider.products, {
+                            id : item.id
+                        })[0];
+
+                        var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.parent);
+                        var dialogPromise = null;
+
+                        if (grid.length > 1) {
+                            dialogPromise = DialogService.openDialogAddToBasketDetails({
+                                id : product.parent
+                            });
+                        } else {
+                            dialogPromise = DialogService.openDialogAddToBasket({
+                                id : product.parent
+                            });
+                        }
+                        dialogPromise.then(updateOrderAndPaymentTotal);
                     }
-                    dialogPromise.then(updateOrderAndPaymentTotal);
                 };
 
                 /**
@@ -221,7 +236,7 @@
                 function updateOrderAndPaymentTotal() {
                     // Calculate the Subtotal
                     if (order.items) {
-                        
+
                         // Payment total
                         $scope.total.payments.check = PaymentService.list('check');
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
@@ -240,7 +255,7 @@
                         $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
                         $scope.total.order.unit = $filter('sum')(basket, 'qty');
                         $scope.total.order.qty = basket ? basket.length : 0;
-                        
+
                         // Change
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }
@@ -267,15 +282,18 @@
                  * Saves the payments and closes the order.
                  */
                 function makePayment() {
-                    var savedOrder = OrderService.save();
+                    // var savedOrder = OrderService.save();
+                    OrderService.save();
                     OrderService.clear();
-                    var savedPayments = PaymentService.save(savedOrder.id, savedOrder.customerId);
+                    // var savedPayments = PaymentService.save(savedOrder.id,
+                    // savedOrder.customerId);
+
                     PaymentService.clear();
 
-                    for ( var idx in savedPayments) {
-                        var savedPayment = savedPayments[idx];
-                        savedOrder.paymentIds.push(savedPayment.id);
-                    }
+                    // for ( var idx in savedPayments) {
+                    // var savedPayment = savedPayments[idx];
+                    // savedOrder.paymentIds.push(savedPayment.id);
+                    // }
                     return true;
                 }
 

@@ -191,7 +191,7 @@ describe('Controller: PaymentCtrl', function() {
         });
 
         // when
-        scope.addToBasket(13);
+        scope.addToBasket(dp.products[0]);
 
         scope.$apply();
 
