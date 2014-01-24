@@ -78,11 +78,20 @@
 
                         // wachers
 
+                        $scope.$watch('selectedPaymentMethod', setCouponOption);
                         $scope.$watch('voucher.total', canConfirmVoucher);
                         $scope.$watch('gift.total', canConfirmGift);
                         $scope.$watch('gift.customer.name', canConfirmGift);
                         $scope.$watch('coupon.total', canConfirmCoupon);
                         $scope.$watch('option', watchOptions);
+
+                        function setCouponOption() {
+                          if ($scope.total.change <= 0) {
+                            if (!$scope.option || $scope.option === 'option01') {
+                              $scope.option = 'option02';
+                            }
+                          }
+                        }
 
                         function canConfirmVoucher() {
                             if ($scope.voucher.total > 0) {
@@ -192,6 +201,21 @@
                             DialogService.openDialogChooseCustomer().then(function(id) {
                                 $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', id);
                             });
+                        };
+
+
+                        $scope.selectOption = function (option) {
+                          if (option === 'option01' && $scope.total.change <= 0) {
+                            DialogService.messageDialog({
+                                title : 'Vale Crédito',
+                                message : 'Não há troco para gerar um vale crédito.',
+                                btnYes : 'OK'
+                            });
+                          
+                            return;
+                          }
+
+                          $scope.option = option;
                         };
 
                         $scope.confirmCoupons =
