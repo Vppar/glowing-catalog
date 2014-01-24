@@ -7,7 +7,7 @@
 			"entity": 1,
 			"type": "voucher",
 			"amount": 10.77,
-			"created": 0
+			"created": 1388534400000
 		}
 	},
 	{
@@ -18,7 +18,7 @@
 			"entity": 1,
 			"type": "giftCard",
 			"amount": 50,
-			"created": 0
+			"created": 1388544400000
 		}
 	},
 	{
@@ -29,7 +29,7 @@
 			"entity": 1,
 			"type": "coupon",
 			"amount": 20,
-			"created": 0
+			"created": 1388684400000
 		}
 	}
 ]
