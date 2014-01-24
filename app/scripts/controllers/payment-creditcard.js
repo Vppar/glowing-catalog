@@ -33,6 +33,7 @@
 
         // Credit card informations to fill the screen combos.
         $scope.cardFlags = DataProvider.cardData.flags;
+        $scope.creditCard.flag = DataProvider.cardData.flags[6]; //select MasterCard
         $scope.installments = DataProvider.cardData.installments;
 
         $scope.gopay = DataProvider.gopay;
