@@ -126,10 +126,6 @@
                 $scope.cancelPayments = function cancelPayments() {
                     $scope.selectPaymentMethod('none');
                 };
-                
-                $scope.test = function(){
-                    console.log('test');
-                };
 
                 /**
                  * Select the payment method changing the left fragment that

@@ -78,7 +78,7 @@
                         }
                         KeyboardService.next();
                         if (scope.okClick) {
-                            console.log(scope.okClick);
+                            scope.okClick();
                         }
                         return;
                     } else {
