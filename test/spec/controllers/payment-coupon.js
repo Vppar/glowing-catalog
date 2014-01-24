@@ -35,7 +35,7 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         itemsMock = [
             {
-                idx : 0,
+                id : 0,
                 title : 'Vale Crédito',
                 uniqueName : '',
                 price : 55.00,
@@ -229,7 +229,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         };
 
         var gift = {
-            idx : idx,
+            id : idx,
             title : 'Vale Presente',
             uniqueName : 'para ' + customerNameFake,
             price : value,

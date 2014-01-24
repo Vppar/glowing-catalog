@@ -280,6 +280,7 @@
                     // remove
                     paymentList.splice(paymentList.indexOf(paymentInstance), 1);
                 };
+                
 
                 /**
                  * Erase all registered payments.

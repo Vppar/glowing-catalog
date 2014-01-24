@@ -156,7 +156,7 @@
                                 var idx = order.items.length;
 
                                 var voucher = {
-                                    idx : idx,
+                                    id : idx,
                                     title : 'Vale Crédito',
                                     uniqueName : $scope.customer.name,
                                     price : $scope.voucher.total,
@@ -175,7 +175,7 @@
                             var idx = order.items.length;
 
                             var gift = {
-                                idx : idx,
+                                id : idx,
                                 title : 'Vale Presente',
                                 uniqueName : 'para ' + $scope.gift.customer.name,
                                 price : $scope.gift.total,
