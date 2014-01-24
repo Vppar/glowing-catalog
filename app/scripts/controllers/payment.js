@@ -147,8 +147,7 @@
                             btnNo : 'Cancelar'
                         }).then(function(result) {
                             if (result) {
-                                var orderItem = ArrayUtils.find(OrderService.order.items,'id',item.id);
-                                var idx = OrderService.order.items.indexOf(orderItem);
+                                var idx = OrderService.order.items.indexOf(item);
                                 OrderService.order.items.splice(idx,1);
                             }
                             updateOrderAndPaymentTotal();
