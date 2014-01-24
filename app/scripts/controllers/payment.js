@@ -67,6 +67,7 @@
                     // Show SKU or SKU + Option(when possible).
                     for ( var idx in order.items) {
                         var item = order.items[idx];
+                        item.idx = Number(idx);
                         if (item.type !== 'giftCard' && item.type !== 'voucher') {
                             if (item.option) {
                                 item.uniqueName = item.SKU + ' - ' + item.option;
