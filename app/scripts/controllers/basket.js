@@ -6,7 +6,11 @@
     ]).controller('BasketCtrl', function($scope, $location, OrderService) {
 
         $scope.order = OrderService.order;
-        $scope.inBasketFilter = OrderService.inBasketFilter;
+
+        // FIXME: Should this be converted to a filter?
+        $scope.inBasketFilter = function inBasketFilter(item) {
+          return Boolean(item.qty);
+        }
 
         $scope.remove = function remove(product) {
             delete product.qty;

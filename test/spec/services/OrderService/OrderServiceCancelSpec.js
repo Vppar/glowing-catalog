@@ -15,7 +15,7 @@ describe('Service: OrderServiceCancel', function () {
     spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     logMock.debug = jasmine.createSpy('$log.debug');
 
-    OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel');
+    OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andReturn('ok');
 
     module(function ($provide) {
       $provide.value('$log', logMock);
@@ -25,8 +25,8 @@ describe('Service: OrderServiceCancel', function () {
     });
   });
 
-  beforeEach(inject(function(_OrderService2_) {
-    OrderService = _OrderService2_;
+  beforeEach(inject(function(_OrderService_) {
+    OrderService = _OrderService_;
   }));
 
 
@@ -38,6 +38,6 @@ describe('Service: OrderServiceCancel', function () {
   it('gets order from OrderKeeper.cancel()', function () {
     var order = OrderService.cancel(1);
     expect(OrderKeeperMock.cancel).toHaveBeenCalledWith(1);
-    expect(order).toEqual(OrderKeeperMock.cancel(1));
+    expect(order).toEqual('ok');
   });
 });
