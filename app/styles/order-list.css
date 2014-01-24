@@ -59,6 +59,14 @@
 	min-height: 20px;/
 }*/
 
+.w160{
+	width: 160px;
+}
+.w60{
+	width: 60px;
+}
+.margintn5{margin-top: -5px;}
+
 .details-order-list-item-total{
 	/*color:#ff2839;*/
 	font-size: 16px;
@@ -86,27 +94,43 @@
 	border: 1px solid #e0e0e0;
 	display: block;		
 	margin: 0 0 10px 0;
-	width: 300px;
+	width: 305px;
 }
+
+.details-order-list-item .border-total{
+	/*float: left;*/
+	border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	display: block;		
+	margin: 0 0 10px 63px;
+	padding: 25px 0 25px 0;
+	width: 242px;
+}
+
+.details-order-list-item .border-total .details-order-list-item-total{width:243px;}
+.details-order-list-item .border-total .lbl-money{width:98px;}
+.order-list-periodo2{width:106px !important; float: right;}
+
+.col-details-order-list-item .control-group{margin: 0 !important;}
 
 .form-order-list .lbl-money {
 	display:inline-block;
-	width: 95px;
-	margin: 5px;
+	width: 115px;
+	margin: 5px 0 5px 5px;
 }
 .form-order-list .lbl-money3 {
-	width: 65px;
+	width: 45px;
 	/*margin: 0 2px 0 2px;*/
 	text-align: center;
 	display: inline-block;
 }
 .form-order-list .btn-price-payment {
-	width: 110px;
+	width: 80px;
 	text-align: right;
 	border: 1px solid #eee;
 	background-color: #f2f2f2;
 	border-radius: 4px;
-	margin: 5px;
+	margin: 5px 5px 5px 0;
 	display: inline-block;
 	float: right;
 }
@@ -122,6 +146,7 @@
 .col-details-order-list-item{
 	display:inline-block;
 	margin: 10px 0 0 10px;
+	vertical-align: top;
 }
 
 .btns-details-order-list-item{ 
