@@ -67,6 +67,7 @@
                     // Show SKU or SKU + Option(when possible).
                     for ( var idx in order.items) {
                         var item = order.items[idx];
+                        item.idx = Number(idx);
                         if (item.type !== 'giftCard' && item.type !== 'voucher') {
                             if (item.option) {
                                 item.uniqueName = item.SKU + ' - ' + item.option;
@@ -220,6 +221,7 @@
                 function updateOrderAndPaymentTotal() {
                     // Calculate the Subtotal
                     if (order.items) {
+                        
                         // Payment total
                         $scope.total.payments.check = PaymentService.list('check');
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
@@ -238,7 +240,7 @@
                         $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
                         $scope.total.order.unit = $filter('sum')(basket, 'qty');
                         $scope.total.order.qty = basket ? basket.length : 0;
-
+                        
                         // Change
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }
