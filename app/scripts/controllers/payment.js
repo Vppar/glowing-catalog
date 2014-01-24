@@ -143,8 +143,8 @@
                         DialogService.messageDialog({
                             title : 'Pagamento',
                             message : 'Confirmar a exclusão do Vale Presente?',
-                            btnYes : 'Confirmar',
-                            btnNo : 'Cancelar'
+                            btnYes : 'Sim',
+                            btnNo : 'Não'
                         }).then(function(result) {
                             if (result) {
                                 var idx = OrderService.order.items.indexOf(item);
@@ -192,9 +192,9 @@
                 function showPaymentConfirmationDialog() {
                     var result = dialogService.messageDialog({
                         title : 'Pagamento',
-                        message : 'Deseja confirmar o pagamento?',
-                        btnYes : 'Confirmar',
-                        btnNo : 'Cancelar'
+                        message : 'Confirmar o pagamento?',
+                        btnYes : 'Sim',
+                        btnNo : 'Não'
                     });
                     return result;
                 }
@@ -217,10 +217,10 @@
                  */
                 function showCancelPaymentDialog() {
                     return dialogService.messageDialog({
-                        title : 'Cancelar Pagamento',
-                        message : 'Confirmar o cancelamento do pedido?',
-                        btnYes : 'Cancelar',
-                        btnNo : 'Retornar'
+                        title : 'Cancelar Pedido?',
+                        message : 'Deseja cancelar este pedido?',
+                        btnYes : 'Sim',
+                        btnNo : 'Não'
                     });
                 }
 
@@ -303,11 +303,11 @@
                  */
                 function paymentDone() {
                     $location.path('/');
-                    return dialogService.messageDialog({
-                        title : 'Pagamento',
-                        message : 'Pagamento efetuado!',
-                        btnYes : 'OK',
-                    });
+//                    return dialogService.messageDialog({
+//                        title : 'Pagamento',
+//                        message : 'Pagamento efetuado!',
+//                        btnYes : 'OK',
+//                    });
                 }
 
                 /**
