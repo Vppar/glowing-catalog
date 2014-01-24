@@ -76,13 +76,44 @@
                             $scope.voucher.total = voucherSet.price;
                         }
 
+
+                        /**
+                         * Returns wether the voucher screen should be enabled or not.
+                         * @return {Boolean}
+                         */
+                        function voucherIsEnabled() {
+                          var hasVoucherInOrder = false, len, i;
+
+                          for (i = 0, len = order.items.length; i < len; i += 1) {
+                            if (order.items[i].type === 'voucher') {
+                              hasVoucherInOrder = true;
+                              break;
+                            }
+                          }
+
+                          // The voucher screen is enabled either if there's a
+                          // voucher in the order or if there's change.
+                          return hasVoucherInOrder || $scope.total.change > 0;
+                        }
+
+                        $scope.voucherIsEnabled = voucherIsEnabled;
+
                         // wachers
 
+                        $scope.$watch('selectedPaymentMethod', setCouponOption);
                         $scope.$watch('voucher.total', canConfirmVoucher);
                         $scope.$watch('gift.total', canConfirmGift);
                         $scope.$watch('gift.customer.name', canConfirmGift);
                         $scope.$watch('coupon.total', canConfirmCoupon);
                         $scope.$watch('option', watchOptions);
+
+                        function setCouponOption() {
+                          if (!voucherIsEnabled()) {
+                            if (!$scope.option || $scope.option === 'option01') {
+                              $scope.option = 'option02';
+                            }
+                          }
+                        }
 
                         function canConfirmVoucher() {
                             if ($scope.voucher.total > 0) {
@@ -192,6 +223,21 @@
                             DialogService.openDialogChooseCustomer().then(function(id) {
                                 $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', id);
                             });
+                        };
+
+
+                        $scope.selectOption = function (option) {
+                          if (option === 'option01' && !voucherIsEnabled()) {
+                            DialogService.messageDialog({
+                                title : 'Vale Crédito',
+                                message : 'Não há troco para gerar um vale crédito.',
+                                btnYes : 'OK'
+                            });
+                          
+                            return;
+                          }
+
+                          $scope.option = option;
                         };
 
                         $scope.confirmCoupons =
