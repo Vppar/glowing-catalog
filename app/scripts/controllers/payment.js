@@ -138,24 +138,40 @@
                     $scope.selectedPaymentMethod = method;
                 };
 
-                $scope.addToBasket = function addToBasket(productId) {
-                    var product = ArrayUtils.filter(DataProvider.products, {
-                        id : productId
-                    })[0];
-
-                    var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.parent);
-                    var dialogPromise = null;
-
-                    if (grid.length > 1) {
-                        dialogPromise = DialogService.openDialogAddToBasketDetails({
-                            id : product.parent
+                $scope.addToBasket = function addToBasket(item) {
+                    if (item.type === 'giftCard') {
+                        DialogService.messageDialog({
+                            title : 'Pagamento',
+                            message : 'Confirmar a exclusão do Vale Presente?',
+                            btnYes : 'Confirmar',
+                            btnNo : 'Cancelar'
+                        }).then(function(result) {
+                            if (result) {
+                                var orderItem = ArrayUtils.find(OrderService.order.items,'id',item.id);
+                                var idx = OrderService.order.items.indexOf(orderItem);
+                                OrderService.order.items.splice(idx,1);
+                            }
+                            updateOrderAndPaymentTotal();
                         });
-                    } else {
-                        dialogPromise = DialogService.openDialogAddToBasket({
-                            id : product.parent
-                        });
+                    } else if(!item.type){
+                        var product = ArrayUtils.filter(DataProvider.products, {
+                            id : item.id
+                        })[0];
+
+                        var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.parent);
+                        var dialogPromise = null;
+
+                        if (grid.length > 1) {
+                            dialogPromise = DialogService.openDialogAddToBasketDetails({
+                                id : product.parent
+                            });
+                        } else {
+                            dialogPromise = DialogService.openDialogAddToBasket({
+                                id : product.parent
+                            });
+                        }
+                        dialogPromise.then(updateOrderAndPaymentTotal);
                     }
-                    dialogPromise.then(updateOrderAndPaymentTotal);
                 };
 
                 /**
