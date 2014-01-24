@@ -35,7 +35,7 @@
 	        </span>
 	        <span class=""> 
 	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment">{{total.payments.cash | currency:''}}</span>
-				<input ng-if="selectedPaymentMethod=='money'" id="cash" class="btn-price-payment" ng-model="total.payments.cash" tnt-input currency focus/>
+				<input ng-if="selectedPaymentMethod=='money'" id="cash" class="btn-price-payment" ng-model="total.payments.cash" tnt-input currency focus ok-click="selectPaymentMethod('none')" />
 	        </span>
 	    </div>
 	</div>
@@ -90,7 +90,7 @@
 	        <span class="btn-price-payment btn-price-payment2" >{{items | filter: voucherFilter | sum : 'price' | currency:'' }}</span>
 		</span>
 	</div>
-	<div class="row-right-payment" ng-click="selectPaymentMethod('coupon')">
+	<div class="row-right-payment" ng-click="selectPaymentMethod('oncuff')">
 		<span class="lbl-money w130">Contas a receber</span>
 		<span class="">
 			<span class="btn-price-payment btn-price-payment2">{{total.payments.onCuff | sum:'amount'| currency:''}}</span>

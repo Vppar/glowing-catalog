@@ -43,7 +43,8 @@
             restrict : 'A',
             require : 'ngModel',
             scope : {
-                ngModel : '='
+                ngModel : '=',
+                okClick : '&'
             },
             link : function postLink(scope, element, attrs, ctrl) {
 
@@ -76,11 +77,14 @@
                             }, 0);
                         }
                         KeyboardService.next();
+                        if (scope.okClick) {
+                            scope.okClick();
+                        }
                         return;
                     } else {
                         if (!attrs.maxlength || current.length < attrs.maxlength) {
                             current += key;
-                            if(current.length == attrs.maxlength){
+                            if (current.length == attrs.maxlength) {
                                 KeyboardService.next();
                             }
                         } else {
