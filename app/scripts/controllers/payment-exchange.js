@@ -76,7 +76,7 @@
 
         $scope.remove = function(exch) {
             DialogService.messageDialog({
-                title : 'Atenção.',
+                title : 'Pagamento',
                 message : 'Confirmar exclusão do item de troca?',
                 btnYes : 'Sim',
                 btnNo : 'Não'
