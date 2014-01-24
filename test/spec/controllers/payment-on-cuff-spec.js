@@ -30,7 +30,8 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         PaymentService.clear = jasmine.createSpy('PaymentService.clear');
         scope.selectPaymentMethod = jasmine.createSpy(scope.selectPaymentMethod);
         
-        //mock the DialogSevice.messageDialog beahavior. TODO not sure about scope.selectPaymentMethod('none'); call 
+        //mock the DialogSevice.messageDialog beahavior. 
+        //TODO not sure about scope.selectPaymentMethod('none'); call 
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function(input) {
             var defer = $q.defer();
             defer.resolve();

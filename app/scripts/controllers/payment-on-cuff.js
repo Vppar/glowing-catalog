@@ -102,7 +102,6 @@
                 }
 
                 $scope.$watch('dueDate',  function(val, old) {
-                    var test = val+'';
                     if (val !== old && val && val.lenght == 8 ) {
                         $scope.computeInstallments();
                     }
