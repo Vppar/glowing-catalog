@@ -22,9 +22,6 @@ describe('Service: OrderServiceSave', function () {
       }
     ];
 
-    OrderKeeperMock.register = jasmine.createSpy('OrderKeeper.register');
-    OrderKeeperMock.save = jasmine.createSpy('OrderKeeper.save');
-
     module(function ($provide) {
       $provide.value('$log', logMock);
       $provide.value('Order', OrderMock);
