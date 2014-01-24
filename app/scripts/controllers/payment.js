@@ -220,6 +220,7 @@
                 function updateOrderAndPaymentTotal() {
                     // Calculate the Subtotal
                     if (order.items) {
+                        
                         // Payment total
                         $scope.total.payments.check = PaymentService.list('check');
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
@@ -238,7 +239,7 @@
                         $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
                         $scope.total.order.unit = $filter('sum')(basket, 'qty');
                         $scope.total.order.qty = basket ? basket.length : 0;
-
+                        
                         // Change
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }
