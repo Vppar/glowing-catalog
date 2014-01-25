@@ -49,6 +49,8 @@
                     },
                     change : 0
                 };
+                
+                $scope.total.payments.cash = PaymentService.list('cash');
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
@@ -76,6 +78,8 @@
                         }
                     }
                 });
+                
+                $scope.$watch('total.payments.cash.amount',updateOrderAndPaymentTotal);
 
                 // Publishing dialog service
                 var dialogService = DialogService;
@@ -134,7 +138,8 @@
                  */
                 $scope.selectPaymentMethod = function selectPaymentMethod(method) {
                     if ($scope.selectedPaymentMethod === 'money') {
-                        cashPayment();
+                        var payment = new CashPayment($scope.total.payments.cash.amount);
+                        PaymentService.add(payment);
                     }
                     updateOrderAndPaymentTotal();
                     $scope.selectedPaymentMethod = method;
@@ -245,17 +250,10 @@
                     $location.path('/');
                 }
 
-                function cashPayment() {
-                    var payment = new CashPayment($scope.total.payments.cash.amount);
-                    PaymentService.add(payment);
-                }
-
                 function updateOrderAndPaymentTotal() {
                     // Calculate the Subtotal
                     if (order.items) {
-
                         // Payment total
-                        $scope.total.payments.cash = PaymentService.list('cash');
                         $scope.total.payments.check = PaymentService.list('check');
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
                         $scope.total.payments.exchange = PaymentService.list('exchange');
@@ -273,7 +271,7 @@
                         $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
                         $scope.total.order.unit = $filter('sum')(basket, 'qty');
                         $scope.total.order.qty = basket ? basket.length : 0;
-
+                        
                         // Change
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }
