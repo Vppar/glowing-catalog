@@ -77,10 +77,8 @@
 
         this.add = function(type) {
 
-            if (type instanceof Type) {
-                type.isValid();
-            } else {
-                throw 'Wrong instance';
+            if (!(type instanceof Type)) {
+                throw 'Wrong instance to TypeKeeper';
             }
 
             var stamp = (new Date()).getTime() / 1000;

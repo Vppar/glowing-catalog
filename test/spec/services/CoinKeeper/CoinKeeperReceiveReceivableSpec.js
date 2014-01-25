@@ -21,13 +21,13 @@ describe('Service: CoinKeeperReceiveReceivable', function() {
         fakeNow = 1386179100000;
 
         var type = 'my type';
-        var creationdate = fakeNow;
+        var created = fakeNow;
         var duedate = fakeNow + monthTime;
         var amount = 1234.56;
 
         validReceivable = {
             id : 1,
-            creationdate : creationdate,
+            created : created,
             entityId : 1,
             documentId : 2,
             type : type,

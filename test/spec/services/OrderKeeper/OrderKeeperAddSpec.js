@@ -50,14 +50,14 @@ describe('Service: OrderKeeperAdd', function() {
     it('should add an order', function() {
         // given
 
-        var orderx = new Order(order.id, order.code, order.date, order.canceled, order.customerId, order.items);
+        var orderx = new Order(order);
 
         var tstamp = fakeNow / 1000;
         var entry = new JournalEntry(null, tstamp, 'orderAdd', 1, orderx);
 
         // when
         var addCall = function() {
-            OrderKeeper.add(order);
+            OrderKeeper.add(orderx);
         };
 
         // then
@@ -67,7 +67,7 @@ describe('Service: OrderKeeperAdd', function() {
 
     it('shouldn\'t add an order', function() {
         // given
-        var orderTest = angular.copy(order);
+        var orderTest = new Order(order);
         orderTest.onemore = 'onemore';
 
         // when

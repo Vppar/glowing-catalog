@@ -109,15 +109,15 @@ describe('Service: TypeKeeper', function() {
     it('should throw error if the obj passed is not an Type', function() {
 
         var notType = {
-                typeId : 1,
-                name: 'fake type'
+            typeId : 1,
+            name: 'fake type'
         };
         
         var expectedReturn = function(){
             TypeKeeper.add(notType);
         };
 
-        expect(expectedReturn).toThrow('Wrong instance');
+        expect(expectedReturn).toThrow('Wrong instance to TypeKeeper');
     });
     
     it('should throw error if the argument is null', function() {
@@ -126,7 +126,7 @@ describe('Service: TypeKeeper', function() {
             TypeKeeper.add(null);
         };
         
-        expect(expectedReturn).toThrow('Wrong instance');
+        expect(expectedReturn).toThrow('Wrong instance to TypeKeeper');
     });
     
     it('should throw error if the argument is undefined', function() {
@@ -135,7 +135,7 @@ describe('Service: TypeKeeper', function() {
             TypeKeeper.add(undefined);
         };
         
-        expect(expectedReturn).toThrow('Wrong instance');
+        expect(expectedReturn).toThrow('Wrong instance to TypeKeeper');
     });
 
 });

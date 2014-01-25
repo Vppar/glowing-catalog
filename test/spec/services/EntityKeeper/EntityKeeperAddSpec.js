@@ -80,8 +80,11 @@ describe('Service: EntityKeeper', function() {
         var addresses = [{street: 'rua', number: 555}, {street: 'rua', number: 556}];
         var remarks = 'bad client';
         
-        var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
         var stp = fakeNow / 1000;
+
+        var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
+        ev.created = stp;
+        
         var entry = new JournalEntry(null, stp, 'entityCreate', 1, ev); 
         
         expect(function() {
