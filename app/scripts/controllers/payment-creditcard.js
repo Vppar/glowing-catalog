@@ -81,13 +81,15 @@
             cardExpirationYears.push(currYear++);
         }
 
+        creditCard.expirationMonth = 1;
+        creditCard.expirationYear = new Date().getFullYear();
         $scope.cardExpirationYears = cardExpirationYears;
 
 
         // #####################################################################################################
         // Scope action functions
         // #####################################################################################################
-
+        
         /**
          * Adds a credit card payment to the last position of $scope.payments.
          * 
@@ -130,8 +132,10 @@
                 // XXX: should be loged?
                 return;
             }
+            
             var
                 // TODO: check dueDate format
+            
                 dueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear,
                 payment = new CreditCardPayment(
                     creditCard.amount,
