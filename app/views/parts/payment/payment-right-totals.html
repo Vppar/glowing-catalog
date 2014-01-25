@@ -28,14 +28,14 @@
 			<span class="lbl-money4 qntty"> ({{total.order.unit}}) unid.</span>
 		</span>
 	</div>
-	<div class="row-right-payment" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectPaymentMethod('money')">
+	<div class="row-right-payment" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectMoneyPayment()">
 	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
 	        </span>
 	        <span class=""> 
 	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment">{{total.payments.cash.amount | currency:''}}</span>
-				<input ng-if="selectedPaymentMethod=='money'" id="cash" class="btn-price-payment" ng-model="total.payments.cash.amount" tnt-input currency focus ok-click="selectPaymentMethod('none')" />
+				<input id="cash" class="btn-price-payment" ng-model="total.payments.cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input currency focus ok-click="selectPaymentMethod('none')" />
 	        </span>
 	    </div>
 	</div>

@@ -117,13 +117,12 @@ describe('Controller: PaymentCtrl', function() {
 
     it('should consolidate payment and order total when payment on cash change', function() {
         // given
-        // when
         scope.total.payments.cash = {amount : 15.32};
-
+        // when
         scope.$apply();
 
         // then
-        expect(scope.total.change).toBe(405.36);
+        expect(scope.total.change).toBe(297.45);
     });
 
     it('should consolidate payment and order total when selected screen change', function() {
