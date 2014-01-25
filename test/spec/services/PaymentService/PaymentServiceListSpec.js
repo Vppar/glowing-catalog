@@ -35,7 +35,7 @@ describe('Service: PaymentServiceList', function() {
 
         // then
         expect(listCall).not.toThrow();
-        expect(payments[0]).toEqual(payment);
+        expect(payments).toEqual(payment);
     });
 
     it('should list the check payments', function() {

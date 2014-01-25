@@ -127,7 +127,7 @@
 
         return service;
     });
-    
+
     /**
      * Coupon payment entity.
      */
@@ -157,7 +157,9 @@
                  * The current payments.
                  */
                 var payments = {
-                    cash : [],
+                    cash : {
+                        amount : 0
+                    },
                     check : [],
                     creditCard : [],
                     exchange : [],
@@ -238,8 +240,12 @@
                                 throw 'PaymentService.add: The object is not an instance of any known type of payment, Object=' +
                                     JSON.stringify(payment);
                             }
-                            payment.id = payments[typeName].length + 1;
-                            payments[typeName].push(angular.copy(payment));
+                            if (typeName === 'cash') {
+                                payments.cash = angular.copy(payment);
+                            } else {
+                                payment.id = payments[typeName].length + 1;
+                                payments[typeName].push(angular.copy(payment));
+                            }
                         };
 
                 /**
@@ -263,24 +269,29 @@
                 /**
                  * Given a payment instance remove it.
                  * 
-                 * @param payment -
-                 *            The payment to be removed.
-                 * @throws Exception -
-                 *             In case of an unknown payment type or
+                 * @param payment - The payment to be removed.
+                 * @throws Exception - In case of an unknown payment type or
                  *             unknown payment instance.
                  */
                 var remove = function remove(payment) {
                     // find the list
                     var paymentList = payments[getTypeName(payment)];
-                    // find the payment in the list
-                    var paymentInstance = ArrayUtils.find(paymentList, 'id', payment.id);
-                    if (!paymentInstance) {
-                        throw 'PaymentService.remove: Unknown payment instance, id=' + payment.id;
+
+                    if (getTypeName(payment) === 'cash') {
+                        payments['cash'] = {
+                            amount : 0
+                        };
+                    } else {
+
+                        // find the payment in the list
+                        var paymentInstance = ArrayUtils.find(paymentList, 'id', payment.id);
+                        if (!paymentInstance) {
+                            throw 'PaymentService.remove: Unknown payment instance, id=' + payment.id;
+                        }
+                        // remove
+                        paymentList.splice(paymentList.indexOf(paymentInstance), 1);
                     }
-                    // remove
-                    paymentList.splice(paymentList.indexOf(paymentInstance), 1);
                 };
-                
 
                 /**
                  * Erase all registered payments.

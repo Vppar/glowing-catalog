@@ -46,7 +46,10 @@ describe('Controller: PaymentCtrl', function() {
 
         // PaymentService mock
         ps.list = jasmine.createSpy('PaymentService.list').andCallFake(function(value) {
-            if (value == 'check') {
+            if (value == 'cash') {
+                return { amount : 123.23 };
+            
+            }else if (value == 'check') {
                 return [
                     {
                         amount : 123.23
@@ -115,12 +118,12 @@ describe('Controller: PaymentCtrl', function() {
     it('should consolidate payment and order total when payment on cash change', function() {
         // given
         // when
-        scope.total.payments.cash = 15.32;
+        scope.total.payments.cash = {amount : 15.32};
 
         scope.$apply();
 
         // then
-        expect(scope.total.change).toBe(297.45);
+        expect(scope.total.change).toBe(405.36);
     });
 
     it('should consolidate payment and order total when selected screen change', function() {
@@ -130,7 +133,7 @@ describe('Controller: PaymentCtrl', function() {
         scope.selectPaymentMethod('none');
 
         // then
-        expect(scope.total.change).toBe(282.13);
+        expect(scope.total.change).toBe(405.36);
     });
 
     it('should update vouchers uniqueName when customer is changed', inject(function($q) {
@@ -203,7 +206,7 @@ describe('Controller: PaymentCtrl', function() {
 
         // then
         expect(ds.openDialogAddToBasket).toHaveBeenCalled();
-        expect(scope.total.change).toBe(452.13);
+        expect(scope.total.change).toBe(575.36);
     });
 
     /**
