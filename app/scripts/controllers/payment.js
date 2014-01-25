@@ -101,6 +101,7 @@
                             item = items[i];
                             if (item.type === 'voucher') {
                                 item.uniqueName = customer.name;
+                                item.uniqueName = customer.name;
                             }
                         }
                     });
