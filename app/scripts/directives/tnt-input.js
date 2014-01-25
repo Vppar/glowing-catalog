@@ -126,18 +126,20 @@
                     };
 
                     if (active) {
-                        element.addClass('focus');
                         element.unbind('focus', bindFocus);
-                        setTimeout(function() {
-                            element.focus();
-                        }, 0);
-
+                        if(!element.is(":focus")){
+                            setTimeout(function() {
+                                element.focus();
+                            }, 0);
+                        }
                         watcher = changeWatcher();
 
                     } else {
                         watcher();
+                        if(element.is(":focus")){
+                            element.trigger('blur');
+                        }
                         element.bind('focus', bindFocus);
-                        element.removeClass('focus');
                     }
                 };
 
