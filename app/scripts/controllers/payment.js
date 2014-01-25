@@ -134,6 +134,9 @@
                  * @param method - payment method.
                  */
                 $scope.selectPaymentMethod = function selectPaymentMethod(method) {
+                    if($scope.selectedPaymentMethod !== 'none' && method === 'money'){
+                        return;
+                    }
                     updateOrderAndPaymentTotal();
                     $scope.selectedPaymentMethod = method;
                 };
