@@ -21,9 +21,9 @@
                     coupon : []
                 };
                 $scope.paymentDiscounts = {
-                    voucher : [],
-                    giftCard : [],
-                    coupon : []
+                    voucher : ArrayUtils.list(payments, 'type', 'voucher'),
+                    giftCard : ArrayUtils.list(payments, 'type', 'giftCard'),
+                    coupon : ArrayUtils.list(payments, 'type', 'coupon')
                 };
                 $scope.checkBox = {
                     voucher : [],
@@ -97,10 +97,6 @@
                     $scope.discounts.voucher = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', $scope.order.customerId);
                     $scope.discounts.giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', $scope.order.customerId);
                     $scope.discounts.coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', $scope.order.customerId);
-                    
-                    $scope.paymentDiscounts.voucher = ArrayUtils.list(payments, 'type', 'voucher');
-                    $scope.paymentDiscounts.giftCard = ArrayUtils.list(payments, 'type', 'giftCard');
-                    $scope.paymentDiscounts.coupon = ArrayUtils.list(payments, 'type', 'coupon');
                 }
 
                 // #############################################################################################
