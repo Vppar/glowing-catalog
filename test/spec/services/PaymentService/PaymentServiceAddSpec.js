@@ -4,17 +4,19 @@ describe('Service: PaymentServiceAdd', function() {
     beforeEach(function() {
         module('tnt.catalog.payment.entity');
         module('tnt.catalog.payment.service');
+        module('tnt.catalog.service.coupon');
     });
 
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
-            _PaymentService_, _OnCuffPayment_) {
+            _CouponService_, _PaymentService_, _OnCuffPayment_) {
         Payment = _Payment_;
         CashPayment = _CashPayment_;
         CheckPayment = _CheckPayment_;
         CreditCardPayment = _CreditCardPayment_;
         ExchangePayment = _ExchangePayment_;
         CouponPayment = _CouponPayment_;
+        CouponService = _CouponService_;
         OnCuffPayment = _OnCuffPayment_;
         PaymentService = _PaymentService_;
 

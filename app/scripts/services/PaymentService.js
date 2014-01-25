@@ -148,10 +148,10 @@
     });
 
     angular.module('tnt.catalog.payment.service', [
-        'tnt.utils.array', 'tnt.catalog.payment.entity'
+        'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment, OnCuffPayment) {
+            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment) {
 
                 /**
                  * The current payments.
@@ -301,5 +301,82 @@
                 this.update = update;
                 this.remove = remove;
                 this.clear = clear;
+
+
+
+                // Coupons //////////////////////////
+                
+                // This sections handles coupon persistence inside an order,
+                // without creating the coupons themselves until the order
+                // is finished and the payment processed.
+
+                var persistedCoupons = {};
+
+                var persistCouponQuantity = function persistCouponQuantity(amount, qty) {
+                  if (qty < 0) { qty = 0; }
+                  if (!qty) { delete persistedCoupons[amount]; }
+                  persistedCoupons[amount] = qty;
+                };
+
+                var clearPersistedCoupons = function clearPersistedCoupons() {
+                  for (var idx in persistedCoupons) {
+                    if (persistedCoupons.hasOwnProperty(idx)) {
+                      persistedCoupons[idx] = 0;
+                    }
+                  }
+                };
+
+
+                var createCoupons = function createCoupons(entityId) {
+                  var
+                    amount,
+                    coupon,
+                    processedCoupons = [],
+                    qty;
+
+                  // The total amount of all successfully processed coupons
+                  processedCoupons.successAmount = 0;
+
+                  // The total quantity of successfully processed coupons
+                  processedCoupons.successQty = 0;
+
+                  for (amount in persistedCoupons) {
+
+                    if (persistedCoupons.hasOwnProperty(amount)) {
+                      qty = persistedCoupons[amount];
+
+                      // Keeping this check for safety, but there should not
+                      // be coupons with qty 0 in persistedCoupons.
+                      if (qty > 0) {
+                        for (var i = 0; i < qty; i += 1) {
+
+                          coupon = {
+                            amount : amount
+                          };
+
+                          processedCoupons.push(coupon);
+
+                          try {
+                            CouponService.create(entityId, amount);
+                            processedCoupons.successAmount += parseInt(amount);
+                            processedCoupons.successQty += 1;
+                          } catch (err) {
+                            coupon.err = err;
+                            // TODO: should we keep trying to generate the other coupons
+                            // ou should we stop on the first err?
+                          }
+                        }
+                      } // if qty > 0
+                    } // if hasOwnProperty
+                  } // for amount in persistedCoupons
+
+                  this.clearPersistedCoupons();
+                  return processedCoupons;
+                };
+
+                this.persistedCoupons = persistedCoupons;
+                this.persistCouponQuantity = persistCouponQuantity;
+                this.clearPersistedCoupons = clearPersistedCoupons;
+                this.createCoupons = createCoupons;
             });
 }(angular));
