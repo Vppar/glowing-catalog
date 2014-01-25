@@ -36,7 +36,7 @@
                 // Payment variables
                 $scope.total = {
                     payments : {
-                        cash : 0,
+                        cash : {amount : 0},
                         check : [],
                         creditCard : [],
                         exchange : [],
@@ -49,7 +49,6 @@
                     },
                     change : 0
                 };
-                // $scope.$watch('total.payments.cash', cashPayment);
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
@@ -238,9 +237,8 @@
                 }
 
                 function cashPayment() {
-                    var payment = new CashPayment($scope.total.payments.cash);
+                    var payment = new CashPayment($scope.total.payments.cash.amount);
                     PaymentService.add(payment);
-                    updateOrderAndPaymentTotal();
                 }
 
                 function updateOrderAndPaymentTotal() {
