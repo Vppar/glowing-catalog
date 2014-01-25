@@ -84,10 +84,6 @@
                 select(previous);
             }
         };
-        
-        this.getCurrentField = function(){
-            return angular.copy(currentField);
-        };
 
         function select(input) {
             if (currentField) {
