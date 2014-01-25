@@ -233,6 +233,7 @@
                 function cancelPayment() {
                     OrderService.order.canceled = true;
                     makePayment();
+                    PaymentService.remove(new CashPayment(0));
                     $location.path('/');
                 }
 
@@ -360,6 +361,7 @@
 
                     // Cancel payment
                     var canceledPaymentPromise = cancelPaymentFactory();
+
                     canceledPaymentPromise.then(cancelPayment, main);
 
                     $scope.selectPaymentMethod('none');

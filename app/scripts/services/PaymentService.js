@@ -278,7 +278,7 @@
                     var paymentList = payments[getTypeName(payment)];
 
                     if (getTypeName(payment) === 'cash') {
-                        paymentList = {
+                        payments['cash'] = {
                             amount : 0
                         };
                     } else {
