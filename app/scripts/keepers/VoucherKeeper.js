@@ -70,10 +70,10 @@
         ObjectUtils.ro(this.handlers, 'voucherCreateV1', function(event) {
             var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
             if (entry === null) {
-                
-                event= angular.copy(event);
+
+                event = angular.copy(event);
                 event.id = voucher[event.type].length;
-                
+
                 var v = new Voucher(event);
 
                 voucher[event.type].push(v);
@@ -122,15 +122,15 @@
          * replaced
          * 
          */
-        this.create = function(voucherObject) {
-
-            if (voucherObject instanceof Voucher) {
-                voucherObject.isValid();
-            } else {
-                throw "Wrong instance.";
+        this.create = function(newVoucher) {
+            if (!(newVoucher instanceof Voucher)) {
+                throw 'Wrong instance to VoucherKeeper';
             }
-
-            var event = voucherObject;
+            
+            var voucherObj = angular.copy(newVoucher);
+            voucherObj.id = voucher[newVoucher.type].length;
+            
+            var event = new Voucher(voucherObj);
             var stamp = (new Date()).getTime() / 1000;
 
             event.created = stamp;
@@ -187,7 +187,7 @@
     angular.module('tnt.catalog.voucher', [
         'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper'
     ]).run(function(VoucherKeeper) {
-        //Warming up VoucherKeeper
+        // Warming up VoucherKeeper
     });
 
 }(angular));

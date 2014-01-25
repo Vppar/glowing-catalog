@@ -23,13 +23,13 @@ describe('Service: CoinKeeperCancelReceivable', function() {
         var entityId = 1;
         var documentId = 2;
         var type = 'my type';
-        var creationdate = fakeNow;
+        var created = fakeNow;
         var duedate = fakeNow + monthTime;
         var amount = 1234.56;
 
         validReceivable = {
             id : 1,
-            creationdate : creationdate,
+            created : created,
             entityId : entityId,
             documentId : documentId,
             type : type,

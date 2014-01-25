@@ -29,6 +29,7 @@
                     throw 'Entity must be initialized with id, name, emails, birthDate, phones, cep, document, addresses,  remarks';
                 }
             } else {
+                this.id = id;
                 this.name = name;
                 this.emails = emails;
                 this.birthDate = birthDate;
@@ -39,6 +40,7 @@
                 this.remarks = remarks;
                 
             }
+            ObjectUtils.ro(this, 'id', this.id);
         };
 
         return service;
@@ -55,15 +57,15 @@
             ]).service('EntityKeeper', function EntityKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity) {
 
         var currentEventVersion = 1;
-        var entity = [];
+        var entities = [];
         this.handlers = {};
 
         ObjectUtils.ro(this.handlers, 'entityCreateV1', function(event) {
-            var entry = ArrayUtils.find(entity, 'document', event.document);
+            var entry = ArrayUtils.find(entities, 'document', event.document);
 
             if (entry === null) {
                 event = new Entity(event);
-                entity.push(event);
+                entities.push(event);
             } else {
                 entry.id = event.id;
                 entry.name = event.name;
@@ -80,7 +82,7 @@
         
 
         ObjectUtils.ro(this.handlers, 'entityUpdateV1', function(event) {
-            var entry = ArrayUtils.find(entity, 'document', event.document);
+            var entry = ArrayUtils.find(entities, 'document', event.document);
 
             if (entry !== null) {
                 entry.name = event.name;
@@ -103,14 +105,19 @@
 
         /**
          * create (Entity)
-         * 
          */
-        this.create = function(entityObject) {
+        this.create = function(entity) {
             
-            if (!entityObject instanceof Entity) {
-                throw "Wrong instance.";
+            if (!(entity instanceof Entity)) {
+                throw 'Wrong instance to EntityKeeper';
             }
-            var event = entityObject;
+            
+            var entityObj = angular.copy(entity);
+
+            // FIXME - use UUID
+            entityObj.id = entities.length + 1;
+
+            var event = new Entity(entityObj);
             var stamp = (new Date()).getTime() / 1000;
 
             event.created = stamp;
@@ -119,20 +126,20 @@
 
             // save the journal entry
             JournalKeeper.compose(entry);
-        };
+        };                
 
         /**
          * update (Entity)
          */
-        this.update = function(entityObject) {
+        this.update = function(entity) {
 
-            if (!entityObject instanceof Entity) {
-                throw "Wrong instance.";
+            if (!(entity instanceof Entity)) {
+                throw 'Wrong instance to EntityKeeper';
             }
-            var event = entityObject;
+            
+            var event = entity;
             var stamp = (new Date()).getTime() / 1000;
 
-            event.created = stamp;
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'entityUpdate', currentEventVersion, event);
 
@@ -144,7 +151,7 @@
          * list(type)
          */
         this.list = function() {
-            return angular.copy(entity);
+            return angular.copy(entities);
         };
 
     });

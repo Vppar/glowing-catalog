@@ -31,18 +31,18 @@ describe('Service: ReceivableEntity', function() {
     it('should create a new Receivable instance', function() {
         // given
         var id = 1;
-        var creationdate = fakeNow;
+        var created = fakeNow;
         var entityId = 1;
         var type = 'BRINDE';
         var amount = 12345.67;
         var duedate = fakeNow + monthTime;
 
         // when
-        var receivable = new Receivable(id, creationdate, entityId, type, amount, duedate);
+        var receivable = new Receivable(id, created, entityId, type, amount, duedate);
 
         // then
         expect(receivable.id).toBe(id);
-        expect(receivable.creationdate).toBe(creationdate);
+        expect(receivable.created).toBe(created);
         expect(receivable.entityId).toBe(entityId);
         expect(receivable.type).toBe(type);
         expect(receivable.amount).toBe(amount);

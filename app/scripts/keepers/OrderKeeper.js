@@ -75,13 +75,19 @@
          */
 
         var add = function add(order) {
-            order.id = orders.length + 1;
-
-            var orderx = new Order(order);
+            if (!(order instanceof Order)) {
+                throw 'Wrong instance to OrderKeeper';
+            }
+            
+            var orderObj = angular.copy(order); 
+            // FIXME - use UUID
+            orderObj.id = orders.length + 1;
+            
+            var newOrder = new Order(orderObj);
 
             var stamp = (new Date()).getTime() / 1000;
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'orderAdd', currentEventVersion, orderx);
+            var entry = new JournalEntry(null, stamp, 'orderAdd', currentEventVersion, newOrder);
 
             // save the journal entry
             JournalKeeper.compose(entry);
