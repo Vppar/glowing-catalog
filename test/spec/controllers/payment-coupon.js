@@ -9,7 +9,6 @@ describe('Controller: PaymentCouponCtrl', function() {
     var orderServiceMock = {};
     var DataProvider = {};
 
-
     var itemsMock = [];
 
     // load the controller's module
@@ -36,10 +35,9 @@ describe('Controller: PaymentCouponCtrl', function() {
         orderServiceMock.order = {};
         orderServiceMock.order.paymentIds = [];
 
-
         paymentServiceMock.persistedCoupons = {
-          // amount : qty
-          10 : 2
+            // amount : qty
+            10 : 2
         };
 
         itemsMock = [
@@ -116,42 +114,42 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     });
 
-
-    it('should load coupons quantities from PaymentService.persistedCoupons', function () {
-      // Should populate list based on paymentServiceMock.persistedCoupons.
-      expect(scope.list[1].qty).toBe(2);
+    it('should load coupons quantities from PaymentService.persistedCoupons', function() {
+        // Should populate list based on paymentServiceMock.persistedCoupons.
+        expect(scope.list[1].qty).toBe(2);
     });
 
-    describe('confirmCoupons()', function () {
-      // confirmCoupons should NOT create coupons anymore, just persist them in PaymentService
-      it('persists coupons in PaymentService', function () {
-        paymentServiceMock.persistCouponQuantity = jasmine.createSpy('PaymentService.persistCouponQuantity');
+    describe('confirmCoupons()', function() {
+        // confirmCoupons should NOT create coupons anymore, just persist them
+        // in PaymentService
+        it('persists coupons in PaymentService', function() {
+            paymentServiceMock.persistCouponQuantity = jasmine.createSpy('PaymentService.persistCouponQuantity');
 
-        scope.list = [
-            {
-                qty : 0,
-                amount : 5
-            }, {
-                qty : 1,
-                amount : 10
-            }, {
-                qty : 0,
-                amount : 20
-            }, {
-                qty : 2,
-                amount : 30
-            },
-        ];
+            scope.list = [
+                {
+                    qty : 0,
+                    amount : 5
+                }, {
+                    qty : 1,
+                    amount : 10
+                }, {
+                    qty : 0,
+                    amount : 20
+                }, {
+                    qty : 2,
+                    amount : 30
+                },
+            ];
 
-        scope.confirmCoupons();
+            scope.confirmCoupons();
 
-        expect(paymentServiceMock.persistCouponQuantity).toHaveBeenCalled();
-        expect(paymentServiceMock.persistCouponQuantity.calls.length).toBe(scope.list.length);
-        expect(paymentServiceMock.persistCouponQuantity.calls[0].args).toEqual([5, 0]);
-        expect(paymentServiceMock.persistCouponQuantity.calls[1].args).toEqual([10, 1]);
-        expect(paymentServiceMock.persistCouponQuantity.calls[2].args).toEqual([20, 0]);
-        expect(paymentServiceMock.persistCouponQuantity.calls[3].args).toEqual([30, 2]);
-      });
+            expect(paymentServiceMock.persistCouponQuantity).toHaveBeenCalled();
+            expect(paymentServiceMock.persistCouponQuantity.calls.length).toBe(scope.list.length);
+            expect(paymentServiceMock.persistCouponQuantity.calls[0].args).toEqual([5, 0]);
+            expect(paymentServiceMock.persistCouponQuantity.calls[1].args).toEqual([10, 1]);
+            expect(paymentServiceMock.persistCouponQuantity.calls[2].args).toEqual([20, 0]);
+            expect(paymentServiceMock.persistCouponQuantity.calls[3].args).toEqual([30, 2]);
+        });
     });
 
     it('should not create any coupon ', function() {
@@ -178,7 +176,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     it('should  populate the item list of the order service with a voucher if the list does not contains a voucher', function() {
 
         items = [];
-        
+
         var value = 100.00;
         scope.option == 'option01';
         scope.voucher.total = value;
@@ -219,13 +217,27 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should not allow to confirm if the voucher value is zero', function() {
+        // We need to change the scope.list
+        scope.list = [
+            {
+                qty : 0,
+                amount : 5
+            }, {
+                qty : 0,
+                amount : 10
+            }, {
+                qty : 0,
+                amount : 20
+            }, {
+                qty : 0,
+                amount : 30
+            },
+        ];
 
         var value = 0;
         scope.voucher.total = value;
         scope.option = 'option01';
-
         scope.$apply();
-
         expect(scope.isDisabled).toEqual(true);
 
     });
@@ -265,9 +277,6 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         scope.$apply();
 
-        var value = 40.25;
-        scope.gift.total = value;
-
         scope.gift.customer = {
             name : 'A name'
         };
@@ -279,9 +288,21 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should not allow to confirm if the gift value is zero', function() {
-
-        var value = 0;
-        scope.gift.total = value;
+        scope.list = [
+            {
+                qty : 0,
+                amount : 5
+            }, {
+                qty : 0,
+                amount : 10
+            }, {
+                qty : 0,
+                amount : 20
+            }, {
+                qty : 0,
+                amount : 30
+            },
+        ];
 
         scope.$apply();
 
@@ -290,9 +311,21 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should not allow to confirm if the gift customer name is not defined', function() {
-
-        var value = 30;
-        scope.gift.total = value;
+        scope.list = [
+            {
+                qty : 0,
+                amount : 5
+            }, {
+                qty : 0,
+                amount : 10
+            }, {
+                qty : 0,
+                amount : 20
+            }, {
+                qty : 0,
+                amount : 30
+            },
+        ];
 
         scope.$apply();
         expect(scope.isDisabled).toEqual(true);
@@ -300,13 +333,25 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should not allow to confirm if the total value of coupons is equals or less than zero', function() {
+        scope.list = [
+            {
+                qty : 0,
+                amount : 5
+            }, {
+                qty : 0,
+                amount : 10
+            }, {
+                qty : 0,
+                amount : 20
+            }, {
+                qty : 0,
+                amount : 30
+            },
+        ];
 
         scope.option = 'option03';
 
         scope.$apply();
-
-        var value = 0;
-        scope.total = value;
 
         scope.$apply();
         expect(scope.isDisabled).toEqual(true);
