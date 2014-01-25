@@ -32,33 +32,24 @@ describe('Service: PaymentServiceRemove', function() {
     it('should remove a cash payment', function() {
         // given
         var payment15 = new CashPayment(15);
-        var payment20 = new CashPayment(20);
-        var payment30 = new CashPayment(30);
-
-        var payments = [];
 
         PaymentService.add(payment15);
-        PaymentService.add(payment20);
-        PaymentService.add(payment30);
 
         // when
         var removeCall = function() {
-            PaymentService.remove(payment20);
+            PaymentService.remove(payment15);
             payments = PaymentService.list('cash');
         };
 
         // then
         expect(removeCall).not.toThrow();
-        expect(payments.length).toBe(2);
-        expect(payments[0]).toEqual(payment15);
-        expect(payments[1]).toEqual(payment30);
     });
 
     it('should remove a onCuff payment', function() {
         // given
-        var payment15 = new OnCuffPayment(15,new Date());
-        var payment20 = new OnCuffPayment(20,new Date());
-        var payment30 = new OnCuffPayment(30,new Date());
+        var payment15 = new OnCuffPayment(15, new Date());
+        var payment20 = new OnCuffPayment(20, new Date());
+        var payment30 = new OnCuffPayment(30, new Date());
 
         var payments = [];
 
@@ -81,19 +72,19 @@ describe('Service: PaymentServiceRemove', function() {
 
     it('shouldn\'t remove an unknown payment', function() {
         // given
-        var payment15 = new CashPayment(15);
+        var payment15 = new OnCuffPayment(15, new Date());
+        var payment30 = new OnCuffPayment(30, new Date());
+        payment30.id = 5;
 
         PaymentService.add(payment15);
 
-        var payment20 = new CashPayment(20);
-        payment20.id = 3;
-
         // when
         var removeCall = function() {
-            PaymentService.remove(payment20);
+            PaymentService.remove(payment30);
+            payments = PaymentService.list('onCuff');
         };
 
         // then
-        expect(removeCall).toThrow('PaymentService.remove: Unknown payment instance, id=' + payment20.id);
+        expect(removeCall).toThrow('PaymentService.remove: Unknown payment instance, id=' + payment30.id);
     });
 });

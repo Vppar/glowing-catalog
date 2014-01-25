@@ -34,7 +34,7 @@
 	            <span class="label-money">Dinheiro</span>
 	        </span>
 	        <span class=""> 
-	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment">{{total.payments.cash | currency:''}}</span>
+	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment">{{total.payments.cash.amount | currency:''}}</span>
 				<input ng-if="selectedPaymentMethod=='money'" id="cash" class="btn-price-payment" ng-model="total.payments.cash" tnt-input currency focus ok-click="selectPaymentMethod('none')" />
 	        </span>
 	    </div>

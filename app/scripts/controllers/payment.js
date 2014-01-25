@@ -1,11 +1,11 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.payment', [
-        'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper'
+        'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity'
     ]).controller(
             'PaymentCtrl',
             function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService,
-                    KeyboardService, InventoryKeeper) {
+                    KeyboardService, InventoryKeeper, CashPayment) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -49,7 +49,7 @@
                     },
                     change : 0
                 };
-                $scope.$watch('total.payments.cash', updateOrderAndPaymentTotal);
+                // $scope.$watch('total.payments.cash', cashPayment);
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
@@ -134,6 +134,9 @@
                  * @param method - payment method.
                  */
                 $scope.selectPaymentMethod = function selectPaymentMethod(method) {
+                    if ($scope.selectedPaymentMethod === 'money') {
+                        cashPayment();
+                    }
                     updateOrderAndPaymentTotal();
                     $scope.selectedPaymentMethod = method;
                 };
@@ -148,11 +151,11 @@
                         }).then(function(result) {
                             if (result) {
                                 var idx = OrderService.order.items.indexOf(item);
-                                OrderService.order.items.splice(idx,1);
+                                OrderService.order.items.splice(idx, 1);
                             }
                             updateOrderAndPaymentTotal();
                         });
-                    } else if(!item.type){
+                    } else if (!item.type) {
                         var product = ArrayUtils.filter(DataProvider.products, {
                             id : item.id
                         })[0];
@@ -233,18 +236,25 @@
                     $location.path('/');
                 }
 
+                function cashPayment() {
+                    var payment = new CashPayment($scope.total.payments.cash);
+                    PaymentService.add(payment);
+                    updateOrderAndPaymentTotal();
+                }
+
                 function updateOrderAndPaymentTotal() {
                     // Calculate the Subtotal
                     if (order.items) {
 
                         // Payment total
+                        $scope.total.payments.cash = PaymentService.list('cash');
                         $scope.total.payments.check = PaymentService.list('check');
                         $scope.total.payments.creditCard = PaymentService.list('creditCard');
                         $scope.total.payments.exchange = PaymentService.list('exchange');
                         $scope.total.payments.coupon = PaymentService.list('coupon');
                         $scope.total.payments.onCuff = PaymentService.list('onCuff');
 
-                        var totalPayments = $scope.total.payments.cash;
+                        var totalPayments = $scope.total.payments.cash.amount;
                         for ( var ix in $scope.total.payments) {
                             totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
                         }
@@ -305,11 +315,11 @@
                  */
                 function paymentDone() {
                     $location.path('/');
-//                    return dialogService.messageDialog({
-//                        title : 'Pagamento',
-//                        message : 'Pagamento efetuado!',
-//                        btnYes : 'OK',
-//                    });
+                    // return dialogService.messageDialog({
+                    // title : 'Pagamento',
+                    // message : 'Pagamento efetuado!',
+                    // btnYes : 'OK',
+                    // });
                 }
 
                 /**
