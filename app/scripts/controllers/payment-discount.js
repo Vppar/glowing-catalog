@@ -94,7 +94,6 @@
                 }
 
                 function updateEntityDiscounts() {
-                    console.log('its me mario');
                     $scope.discounts.voucher = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', $scope.order.customerId);
                     $scope.discounts.giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', $scope.order.customerId);
                     $scope.discounts.coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', $scope.order.customerId);
