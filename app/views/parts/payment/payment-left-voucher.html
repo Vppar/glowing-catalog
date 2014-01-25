@@ -129,9 +129,16 @@
               <label class="control-label">Valor total</label>
               <!--<span name="amount" class="check-value w200 input-large-value"
                 id="valor">{{coupon.total | currency: ''}}</span>-->
-              <input name="amount" id="valor" tnt-input
-                class="input-block-level input-large text-right" currency
-                type="text" placeholder="" ng-model="gift.total" required>
+              <input name="amount"
+                id="valor"
+                tnt-input
+                class="input-block-level input-large text-right"
+                currency
+                type="text"
+                placeholder=""
+                ng-model="coupon.total"
+                disabled
+                required>
             </div>
           </span>
         </div>

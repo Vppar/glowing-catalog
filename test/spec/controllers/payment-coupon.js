@@ -4,8 +4,11 @@ describe('Controller: PaymentCouponCtrl', function() {
     var DialogService = {};
     var log = {};
 
+    var paymentServiceMock = {};
+
     var orderServiceMock = {};
     var DataProvider = {};
+
 
     var itemsMock = [];
 
@@ -32,6 +35,12 @@ describe('Controller: PaymentCouponCtrl', function() {
         // fake a new order
         orderServiceMock.order = {};
         orderServiceMock.order.paymentIds = [];
+
+
+        paymentServiceMock.persistedCoupons = {
+          // amount : qty
+          10 : 2
+        };
 
         itemsMock = [
             {
@@ -63,7 +72,8 @@ describe('Controller: PaymentCouponCtrl', function() {
             CouponService : couponServiceMock,
             DialogService : DialogService,
             DataProvider : DataProvider,
-            OrderService : orderServiceMock
+            OrderService : orderServiceMock,
+            PaymentService : paymentServiceMock
         });
 
     }));
@@ -106,10 +116,17 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     });
 
-    it('should create 3 coupons ', function() {
-        scope.customer = {
-            id : 1
-        };
+
+    it('should load coupons quantities from PaymentService.persistedCoupons', function () {
+      // Should populate list based on paymentServiceMock.persistedCoupons.
+      expect(scope.list[1].qty).toBe(2);
+    });
+
+    describe('confirmCoupons()', function () {
+      // confirmCoupons should NOT create coupons anymore, just persist them in PaymentService
+      it('persists coupons in PaymentService', function () {
+        paymentServiceMock.persistCouponQuantity = jasmine.createSpy('PaymentService.persistCouponQuantity');
+
         scope.list = [
             {
                 qty : 0,
@@ -128,56 +145,13 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         scope.confirmCoupons();
 
-        expect(couponServiceMock.create).not.toHaveBeenCalledWith(scope.customer.id, scope.list[0].amount);
-        expect(couponServiceMock.create).toHaveBeenCalledWith(scope.customer.id, scope.list[1].amount);
-        expect(couponServiceMock.create).not.toHaveBeenCalledWith(scope.customer.id, scope.list[2].amount);
-        expect(couponServiceMock.create).toHaveBeenCalledWith(scope.customer.id, scope.list[3].amount);
-        expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
-    });
-
-    it('should log a fatal error', function() {
-        couponServiceMock.create = jasmine.createSpy('create').andCallFake(function() {
-            throw 'Coupon not created';
-        });
-
-        log.fatal = jasmine.createSpy('fatal').andCallFake(function() {
-        });
-
-        var errorMessage = 'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
-
-        scope.customer = {
-            id : 1
-        };
-
-        var dialog = {
-            title : 'Cupom Promocional',
-            message : errorMessage,
-            btnYes : 'OK'
-        };
-
-        scope.list = [
-            {
-                qty : 1,
-                amount : 5
-            }, {
-                qty : 1,
-                amount : -10
-            }, {
-                qty : 0,
-                amount : 20
-            }, {
-                qty : 0,
-                amount : 30
-            },
-        ];
-        var confirmCouponsCall = function() {
-            scope.confirmCoupons();
-        };
-        expect(confirmCouponsCall).not.toThrow();
-        expect(DialogService.messageDialog).toHaveBeenCalledWith(dialog);
-        expect(couponServiceMock.create).toHaveBeenCalledWith(scope.customer.id, scope.list[0].amount);
-        expect(couponServiceMock.create).toHaveBeenCalledWith(scope.customer.id, scope.list[1].amount);
-        expect(log.fatal).toHaveBeenCalled();
+        expect(paymentServiceMock.persistCouponQuantity).toHaveBeenCalled();
+        expect(paymentServiceMock.persistCouponQuantity.calls.length).toBe(scope.list.length);
+        expect(paymentServiceMock.persistCouponQuantity.calls[0].args).toEqual([5, 0]);
+        expect(paymentServiceMock.persistCouponQuantity.calls[1].args).toEqual([10, 1]);
+        expect(paymentServiceMock.persistCouponQuantity.calls[2].args).toEqual([20, 0]);
+        expect(paymentServiceMock.persistCouponQuantity.calls[3].args).toEqual([30, 2]);
+      });
     });
 
     it('should not create any coupon ', function() {

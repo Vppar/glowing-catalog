@@ -3,11 +3,15 @@
 
     angular
             .module('tnt.catalog.payment.coupon', [
-                'tnt.catalog.filter.findBy', 'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog', 'tnt.utils.array'
+                'tnt.catalog.filter.findBy',
+                'tnt.catalog.service.coupon',
+                'tnt.catalog.service.dialog',
+                'tnt.utils.array',
+                'tnt.catalog.payment.service'
             ])
             .controller(
                     'PaymentCouponCtrl',
-                    function($filter, $scope, $log, CouponService, DialogService, ArrayUtils, DataProvider, OrderService) {
+                    function($filter, $scope, $log, CouponService, DialogService, ArrayUtils, DataProvider, OrderService, PaymentService) {
 
                         // #####################################################################################################
                         // Warm up the controller
@@ -47,16 +51,16 @@
 
                         $scope.list = [
                             {
-                                qty : 0,
+                                qty : PaymentService.persistedCoupons[5] || 0,
                                 amount : 5
                             }, {
-                                qty : 0,
+                                qty : PaymentService.persistedCoupons[10] || 0,
                                 amount : 10
                             }, {
-                                qty : 0,
+                                qty : PaymentService.persistedCoupons[20] || 0,
                                 amount : 20
                             }, {
-                                qty : 0,
+                                qty : PaymentService.persistedCoupons[30] || 0,
                                 amount : 30
                             },
                         ];
@@ -240,7 +244,103 @@
                           $scope.option = option;
                         };
 
-                        $scope.confirmCoupons =
+
+                        $scope.confirmCoupons = function confirmCoupons() {
+                          // Persist coupons quantities in PaymentService
+                          var coupon, len, i;
+                          for (i = 0, len = $scope.list.length; i < len; i += 1) {
+                            coupon = $scope.list[i];
+                            PaymentService.persistCouponQuantity(coupon.amount, coupon.qty);
+                          }
+                          
+                          // Return to order overview
+                          $scope.selectPaymentMethod('none');
+                        };
+
+
+                        function getCouponsTotal(coupons) {
+                          var
+                            coupon,
+                            amount,
+                            qty,
+                            total = 0;
+
+                          for (amount in coupons) {
+                            if (coupons.hasOwnProperty(amount)) {
+                              qty = coupons[amount];
+                              total += (amount * qty);
+                            }
+                          }
+
+                          return total;
+                        }
+
+                        function getCouponsTotalQty(coupons) {
+                          var
+                            coupon,
+                            amount,
+                            qty,
+                            total = 0;
+
+                          for (amount in coupons) {
+                            if (coupons.hasOwnProperty(amount)) {
+                              qty = coupons[amount];
+                              total += qty;
+                            }
+                          }
+
+                          return total;
+                        }
+
+
+                        $scope.createCoupons = function createCoupons() {
+                          var createdCoupons;
+
+                          try {
+                            createdCoupons = PaymentService.createCoupons($scope.customer.id);
+                          } catch (err) {
+                            DialogService.messageDialog({
+                              title : 'Cupom promocional',
+                              message : errorMessage,
+                              btnYes : 'OK'
+                            });
+                            $log.error(err);
+                            $log.fatal(new Date() + ' - There were problems in creating coupons. \n client ID:' +
+                                entityId + '\n' + 'Cupons to insert:' + JSON.stringify($scope.list) + '\n' +
+                                'Cupons inserted:' + JSON.stringify(generatedCupons));
+                            // TODO: should we keep track in journal?
+                          }
+
+                          if (createdCoupons) {
+                            var totalQty = getCouponsTotalQty(createdCoupons);
+
+                            if (totalQty) {
+                              var successMsg = '';
+                              var totalAmount = $filter('currency')(getCouponsTotal(createdCoupons), '');
+
+                              if (totalQty === 1) {
+                                successMsg = oneCouponMessage
+                                  .replace('{{couponsValue}}', total)
+                                  .replace('{{customerFirstName}}', $scope.customer.name);
+                              } else {
+                                successMsg = moreThanOneCouponMessage
+                                  .replace('{{couponNumber}}', totalQty)
+                                  .replace('{{couponsValue}}', totalAmount)
+                                  .replace('{{customerFirstName}}', $scope.customer.name);
+
+                              }
+
+                              DialogService.messageDialog({
+                                title : 'Cupom Promocional',
+                                message : successMsg,
+                                btnYes : 'OK'
+                              });
+                            } // if (totalQty)
+                          } // if (createdCoupons)
+                        };
+
+                        /// OLD CODE
+                        $scope.confirmCouponsOLD =
                                 function confirmCoupons() {
                                     var entityId = $scope.customer.id;
                                     var generatedCupons = [];
