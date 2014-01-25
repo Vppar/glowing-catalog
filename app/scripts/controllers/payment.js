@@ -54,6 +54,8 @@
 
                 // Controls which left fragment will be shown
                 $scope.selectedPaymentMethod = 'none';
+                
+                $scope.showPaymentButtons = true;
 
                 // Controls the num pad.
                 $scope.isNumPadVisible = isNumPadVisible;
@@ -142,6 +144,7 @@
                         PaymentService.add(payment);
                     }
                     updateOrderAndPaymentTotal();
+                    $scope.showPaymentButtons = (method === 'none' || method ==='money');
                     $scope.selectedPaymentMethod = method;
                 };
 
