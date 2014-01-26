@@ -83,6 +83,7 @@ describe('Controller: PaymentCtrl', function() {
                 ];
             }
         });
+        ps.clear = jasmine.createSpy('PaymentService.clear');
 
         // Scope mock
         rootScope = $rootScope;

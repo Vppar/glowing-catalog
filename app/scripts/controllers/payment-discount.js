@@ -97,29 +97,26 @@
                     $scope.discounts.voucher = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', $scope.order.customerId);
                     $scope.discounts.giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', $scope.order.customerId);
                     $scope.discounts.coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', $scope.order.customerId);
-                }
 
-                // #############################################################################################
-                // Controller warm up
-                // #############################################################################################
+                    // Iterate through all discounts lists
+                    for ( var ix in $scope.discounts) {
+                        var discountList = $scope.discounts[ix];
+                        // Iterate through all discounts
+                        for ( var ix2 in discountList) {
+                            // Wow we have a single discount here
+                            var discount = discountList[ix2];
+                            // and here we have all used discounts
+                            var usedDiscounts = $scope.paymentDiscounts[ix];
+                            // Let's see if we can match it
+                            var usedDiscount = ArrayUtils.find(usedDiscounts, 'couponId', discount.id);
 
-                // Iterate through all discounts lists
-                for ( var ix in $scope.discounts) {
-                    var discountList = $scope.discounts[ix];
-                    // Iterate through all discounts
-                    for ( var ix2 in discountList) {
-                        // Wow we have a single discount here
-                        var discount = discountList[ix2];
-                        // and here we have all used discounts
-                        var usedDiscounts = $scope.paymentDiscounts[ix];
-                        // Let's see if we can match it
-                        var usedDiscount = ArrayUtils.find(usedDiscounts, 'couponId', discount.id);
-
-                        if (usedDiscount) {
-                            $scope.checkBox[ix][ix2] = true;
-                            discount.myInput = usedDiscount.amount;
+                            if (usedDiscount) {
+                                $scope.checkBox[ix][ix2] = true;
+                                discount.myInput = usedDiscount.amount;
+                            }
                         }
                     }
+
                 }
 
                 // #############################################################################################
