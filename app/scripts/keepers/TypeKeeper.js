@@ -46,7 +46,7 @@
      */
     angular.module('tnt.catalog.type.keeper', [
         'tnt.utils.array'
-    ]).service('TypeKeeper', function StockKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
+    ]).service('TypeKeeper', function TypeKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
 
         var currentEventVersion = 1;
         var types = {};
@@ -77,10 +77,8 @@
 
         this.add = function(type) {
 
-            if (type instanceof Type) {
-                type.isValid();
-            } else {
-                throw 'Wrong instance';
+            if (!(type instanceof Type)) {
+                throw 'Wrong instance to TypeKeeper';
             }
 
             var stamp = (new Date()).getTime() / 1000;

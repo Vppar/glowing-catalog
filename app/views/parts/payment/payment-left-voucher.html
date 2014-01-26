@@ -1,187 +1,198 @@
-<div class="title-left">
-	<div>Emiss&atilde;o de vale/cupom</div>
-</div>
-<span class="menu-level-payment">
-	<div class="btn-group btn-group-sm" ng-init="option='option01'">
-		<a class="btn btn-option active" ng-click="option='option01'"
-			ng-class="{active: option === 'option01'}">Vale cr&eacute;dito</a> <a
-			class="btn btn-option" ng-click="option='option02'"
-			ng-class="{active: option === 'option02'}">Vale presente</a> <a
-			class="btn btn-option" ng-click="option='option03'"
-			ng-class="{active: option === 'option03'}">Cupom promocional</a>
-	</div>
-</span>
+<div ng-controller="PaymentCouponCtrl">
+  <div class="title-left">
+    <div>Emiss&atilde;o de vale/cupom</div>
+  </div>
+  <span class="menu-level-payment">
+    <div class="btn-group btn-group-sm" ng-init="option='option01'">
+      <a class="btn btn-option active" ng-click="selectOption('option01')"
+        ng-class="{disabled: !voucherIsEnabled(), active: option === 'option01'}">Vale cr&eacute;dito</a>
+      <a class="btn btn-option" ng-click="selectOption('option02')"
+        ng-class="{active: option === 'option02'}">Vale presente</a>
+      <a class="btn btn-option" ng-click="selectOption('option03')"
+        ng-class="{active: option === 'option03'}">Cupom promocional</a>
+    </div>
+  </span>
 
-<div class="left-payment" ng-switch="option"
-	ng-controller="PaymentCouponCtrl">
+  <div class="left-payment" ng-switch="option">
 
-	<!-- VALE CREDITO-->
-	<div class="row-fluid payment-coupon-fields" ng-switch-when="option01">
-		<form>
-			<div class="row-fluid">
-				<span class="span8">
-					<div class="control-group">
-						<label class="control-label">Cliente</label> <input
-							class="input-block-level input-large" disabled="disabled"
-							id="customerName" type="text" ng-model="customer.name">
-					</div>
-				</span> <span class="span4">
-					<div class="control-group">
-						<label class="control-label">Celular</label> <input
-							id="customerPhone" disabled="disabled"
-							class="input-block-level input-large text-right" type="text"
-							placeholder="" ng-model="customer.phones[0].number" phone
-							required>
-					</div>
-				</span>
-			</div>
-			<div class="row-fluid">
-				<span class="span8">
-					<div class="control-group">
-						<label class="control-label">E-mail</label> <input
-							id="customerEmail" class="input-block-level input-large"
-							type="text" placeholder="" ng-model="customer.emails[0].address"
-							disabled="disabled">
-					</div>
-				</span> <span class="span4">
-					<div class="control-group">
-						<label class="control-label">Valor total</label> <input
-							id="amount" required ng-model="voucher.total" currency tnt-input
-							class="input-block-level input-large text-right" type="text">
-					</div>
-				</span>
-			</div>
-		</form>
-	</div>
+    <!-- VALE CREDITO-->
+    <div class="row-fluid payment-coupon-fields" ng-switch-when="option01">
+      <form>
+        <div class="row-fluid">
+          <span class="span8">
+            <div class="control-group">
+              <label class="control-label">Cliente</label> <input
+                class="input-block-level input-large" disabled="disabled"
+                id="customerName" type="text" ng-model="customer.name">
+            </div>
+          </span> <span class="span4">
+            <div class="control-group">
+              <label class="control-label">Celular</label> <input
+                id="customerPhone" disabled="disabled"
+                class="input-block-level input-large text-right" type="text"
+                placeholder="" ng-model="customer.phones[0].number" phone
+                required>
+            </div>
+          </span>
+        </div>
+        <div class="row-fluid">
+          <span class="span8">
+            <div class="control-group">
+              <label class="control-label">E-mail</label> <input
+                id="customerEmail" class="input-block-level input-large"
+                type="text" placeholder="" ng-model="customer.emails[0].address"
+                disabled="disabled">
+            </div>
+          </span> <span class="span4">
+            <div class="control-group">
+              <label class="control-label">Valor total</label> <input
+                id="amount" required ng-model="voucher.total" currency tnt-input
+                class="input-block-level input-large text-right" type="text">
+            </div>
+          </span>
+        </div>
+      </form>
+    </div>
 
-	<!-- VALE PRESENTE-->
-	<div class="row-fluid payment-coupon-fields" ng-switch-when="option02">
-		<form>
-			<div class="row-fluid">
-				<span class="span8">
-					<div class="control-group">
-						<label class="control-label">Favorecido do Vale Presente</label>
-						<div class="input-append">
-							<input
-								class="input-block-level hover-state-pointer input-large w420"
-								id="appendedInput" type="text" ng-model="gift.customer.name"
-								readonly="readonly"> <span
-								ng-click="openDialogChooseCustomerGift()"
-								class="add-on input-large-add">+</span>
-						</div>
-					</div>
-				</span> <span class="span4">
-					<div class="control-group">
-						<label class="control-label">Celular</label> <input name=""
-							class="input-block-level input-large text-right" type="text"
-							placeholder="" ng-model="gift.customer.phones[0].number" phone
-							required disabled="disabled">
-					</div>
-				</span>
-			</div>
-			<div class="row-fluid">
-				<span class="span8">
-					<div class="control-group">
-						<label class="control-label">E-mail</label> <input name="date"
-							class="input-block-level input-large" type="text" placeholder=""
-							ng-model="gift.customer.emails[0].address" disabled="disabled">
-					</div>
-				</span> <span class="span4">
-					<div class="control-group">
-						<label class="control-label">Valor total</label> <input
-							name="totalVoucher" id="totalVoucher" tnt-input
-							class="input-block-level input-large text-right" currency
-							type="text" placeholder="" ng-model="gift.total" required>
-					</div>
-				</span>
-			</div>
-		</form>
-	</div>
+    <!-- VALE PRESENTE-->
+    <div class="row-fluid payment-coupon-fields" ng-switch-when="option02">
+      <form>
+        <div class="row-fluid">
+          <span class="span8">
+            <div class="control-group">
+              <label class="control-label">Favorecido do Vale Presente</label>
+              <div class="input-append">
+                <input
+                  class="input-block-level hover-state-pointer input-large w420"
+                  id="appendedInput" type="text" ng-model="gift.customer.name"
+                  readonly="readonly"> <span
+                  ng-click="openDialogChooseCustomerGift()"
+                  class="add-on input-large-add">+</span>
+              </div>
+            </div>
+          </span> <span class="span4">
+            <div class="control-group">
+              <label class="control-label">Celular</label> <input name=""
+                class="input-block-level input-large text-right" type="text"
+                placeholder="" ng-model="gift.customer.phones[0].number" phone
+                required disabled="disabled">
+            </div>
+          </span>
+        </div>
+        <div class="row-fluid">
+          <span class="span8">
+            <div class="control-group">
+              <label class="control-label">E-mail</label> <input name="date"
+                class="input-block-level input-large" type="text" placeholder=""
+                ng-model="gift.customer.emails[0].address" disabled="disabled">
+            </div>
+          </span> <span class="span4">
+            <div class="control-group">
+              <label class="control-label">Valor total</label>
+              <input name="totalVoucher" id="totalVoucher" tnt-input
+                class="input-block-level input-large text-right" currency
+                type="text" placeholder="" ng-model="gift.total" required>
+            </div>
+          </span>
+        </div>
+      </form>
+    </div>
 
-	<!-- CUPOM PROMOCIONAL -->
-	<div class="row-fluid payment-coupon-fields" ng-switch-when="option03">
-		<form>
-			<div class="row-fluid">
-				<span class="span8">
-					<div class="control-group">
-						<label class="control-label">Cliente</label> <input
-							class="input-block-level input-large" disabled="disabled"
-							id="appendedInput" type="text" ng-model="customer.name">
-					</div>
-				</span> <span class="span4">
-					<div class="control-group">
-						<label class="control-label">Celular</label> <input name="amount"
-							class="input-block-level input-large text-right" type="text"
-							placeholder="" ng-model="customer.phones[0].number" phone
-							disabled="disabled" required>
-					</div>
-				</span>
-			</div>
-			<div class="row-fluid">
-				<span class="span8">
-					<div class="control-group">
-						<label class="control-label">E-mail</label> <input name="date"
-							class="input-block-level input-large" type="text" placeholder=""
-							ng-model="customer.emails[0].address" disabled="disabled">
-					</div>
-				</span> <span class="span4">
-					<div class="control-group">
-						<label class="control-label">Valor total</label> <span
-							name="amount" class="check-value w200 input-large-value"
-							id="valor">{{coupon.total | currency: ''}}</span>
-					</div>
-				</span>
-			</div>
-			<div class="controls-row">
-				<div class="control-group lbl-top float-right">
-					<div class="grid-payment-coupon">
-						<div class="header header2 subtitle2-header-coupon">
-							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>R$ Cupom</div>
-								</span> <span class="col-s2">
-									<div>Qtde.</div>
-								</span> <span class="col-s3">
-									<div class="coupon-subtotal">Subtotal</div>
-								</span>
-							</div>
-						</div>
-						<div class="scroll-payment-grid">
-							<div class="row-payment-grid-product-coupon"
-								ng-repeat="item in list">
-								<span class="col-s1">
-									<div>
-										R$<span class="coupon-value">{{item.amount | currency:
-											''}}</span>
-									</div>
-								</span> <span class="col-s2">
-									<div>
-										<input-qty ng-model="item.qty" min="0"></input-qty>
-									</div>
-								</span> <span class="col-s3">
-									<div class="text-right">
-										<span name="amount" class="check-value" id="valor">{{item.total
-											| currency: ''}}</span>
-									</div>
-								</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
-	</div>
+    <!-- CUPOM PROMOCIONAL -->
+    <div class="row-fluid payment-coupon-fields" ng-switch-when="option03">
+      <form>
+        <div class="row-fluid">
+          <span class="span8">
+            <div class="control-group">
+              <label class="control-label">Cliente</label> <input
+                class="input-block-level input-large" disabled="disabled"
+                id="appendedInput" type="text" ng-model="customer.name">
+            </div>
+          </span> <span class="span4">
+            <div class="control-group">
+              <label class="control-label">Celular</label> <input name="amount"
+                class="input-block-level input-large text-right" type="text"
+                placeholder="" ng-model="customer.phones[0].number" phone
+                disabled="disabled" required>
+            </div>
+          </span>
+        </div>
+        <div class="row-fluid">
+          <span class="span8">
+            <div class="control-group">
+              <label class="control-label">E-mail</label> <input name="date"
+                class="input-block-level input-large" type="text" placeholder=""
+                ng-model="customer.emails[0].address" disabled="disabled">
+            </div>
+          </span> <span class="span4">
+            <div class="control-group">
+              <label class="control-label">Valor total</label>
+              <!--<span name="amount" class="check-value w200 input-large-value"
+                id="valor">{{coupon.total | currency: ''}}</span>-->
+              <input name="amount"
+                id="valor"
+                tnt-input
+                class="input-block-level input-large text-right"
+                currency
+                type="text"
+                placeholder=""
+                ng-model="coupon.total"
+                disabled
+                required>
+            </div>
+          </span>
+        </div>
+        <div class="controls-row">
+          <div class="control-group lbl-top float-right">
+            <div class="grid-payment-coupon">
+              <div class="header header2 subtitle2-header-coupon">
+                <div class="row-payment-grid">
+                  <span class="col-s1">
+                    <div>R$ Cupom</div>
+                  </span> <span class="col-s2">
+                    <div>Qtde.</div>
+                  </span> <span class="col-s3">
+                    <div class="coupon-subtotal">Subtotal</div>
+                  </span>
+                </div>
+              </div>
+              <div class="scroll-payment-grid">
+                <div class="row-payment-grid-product-coupon"
+                  ng-repeat="item in list">
+                  <span class="col-s1">
+                    <div>
+                      R$<span class="coupon-value">{{item.amount | currency:
+                        ''}}</span>
+                    </div>
+                  </span> <span class="col-s2">
+                    <div>
+                      <input-qty ng-model="item.qty" min="0"></input-qty>
+                    </div>
+                  </span> <span class="col-s3">
+                    <div class="text-right">
+                      <span name="amount" class="check-value" id="valor">{{item.total
+                        | currency: ''}}</span>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
 
-	<div class="payment-left-btns-area">
-		<div class="payment-left-btns">
-			<button
-				class="btn btn-cancel btn-large btn-login btn-payment-creditcard"
-				type="submit" ng-click="cancelPayments()">Cancelar</button>
-			<button
-				class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard"
-				ng-disabled="isDisabled" type="submit" ng-click="selectConfirm()">
-				Confirmar</button>
-		</div>
-	</div>
+    <div class="payment-left-btns-area">
+      <div class="payment-left-btns">
+        <button
+          class="btn btn-cancel btn-large btn-login btn-payment-creditcard"
+          type="submit" ng-click="cancelPayments()">Cancelar</button>
+        <button
+          class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard"
+          ng-disabled="isDisabled" type="submit" ng-click="selectConfirm()">
+          Adicionar</button>
+      </div>
+    </div>
 
+  </div>
 </div>

@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.receivable.entity', []).factory('Receivable', function Receivable() {
 
-        var service = function svc(id, creationdate, entityId, type, amount, duedate) {
+        var service = function svc(id, created, entityId, type, amount, duedate) {
 
             var validProperties = [
-                'id', 'creationdate', 'entityId', 'documentId', 'type', 'amount', 'duedate', 'canceled', 'received'
+                'id', 'created', 'entityId', 'documentId', 'type', 'amount', 'duedate', 'canceled', 'received'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -25,18 +25,18 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Receivable must be initialized with id, creationdate, entityId, type, amount, duedate';
+                    throw 'Receivable must be initialized with id, created, entityId, type, amount, duedate';
                 }
             } else {
                 this.id = id;
-                this.creationdate = creationdate;
+                this.created = created;
                 this.entityId = entityId;
                 this.type = type;
                 this.amount = amount;
                 this.duedate = duedate;
             }
             ObjectUtils.ro(this, 'id', this.id);
-            ObjectUtils.ro(this, 'creationdate', this.creationdate);
+            ObjectUtils.ro(this, 'created', this.created);
             ObjectUtils.ro(this, 'entityId', this.entityId);
             ObjectUtils.ro(this, 'type', this.type);
             ObjectUtils.ro(this, 'amount', this.amount);
@@ -48,10 +48,10 @@
 
     angular.module('tnt.catalog.expense.entity', []).factory('Expense', function Expense() {
 
-        var service = function svc(id, creationdate, entityId, type, amount, duedate) {
+        var service = function svc(id, created, entityId, type, amount, duedate) {
 
             var validProperties = [
-                'id', 'creationdate', 'entityId', 'documentId', 'type', 'amount', 'duedate', 'canceled', 'payed'
+                'id', 'created', 'entityId', 'documentId', 'type', 'amount', 'duedate', 'canceled', 'payed'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -70,18 +70,18 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Expense must be initialized with id, creationdate, entityId, type, amount, duedate';
+                    throw 'Expense must be initialized with id, created, entityId, type, amount, duedate';
                 }
             } else {
                 this.id = id;
-                this.creationdate = creationdate;
+                this.created = created;
                 this.entityId = entityId;
                 this.type = type;
                 this.amount = amount;
                 this.duedate = duedate;
             }
             ObjectUtils.ro(this, 'id', this.id);
-            ObjectUtils.ro(this, 'creationdate', this.creationdate);
+            ObjectUtils.ro(this, 'created', this.created);
             ObjectUtils.ro(this, 'entityId', this.entityId);
             ObjectUtils.ro(this, 'type', this.type);
             ObjectUtils.ro(this, 'amount', this.amount);
@@ -111,6 +111,10 @@
                     liquidate : 'payed'
                 }
             };
+            // Instance of the Coin object
+            var Coin = types[name]['entity'];
+            // Name of the property used to mark as liquidated
+            var action = types[name]['liquidate'];
 
             this.handlers = {};
 
@@ -120,7 +124,6 @@
             ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
                 // Get the coin info from type map, get the respective entity
                 // and instantiate
-                var Coin = types[name]['entity'];
                 vault.push(new Coin(event));
             });
             ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
@@ -138,7 +141,6 @@
                 if (coin) {
                     // Get the coin info from type map and get the respective
                     // liquidate variable name
-                    var action = types[name]['liquidate'];
                     coin[action] = event[action];
                 } else {
                     throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
@@ -168,12 +170,16 @@
              * 
              * @param coin - Receivable to be added.
              */
-            var add = function add(coinOperation) {
+            var add = function add(coin) {
+                if (!(coin instanceof Coin)) {
+                    throw 'Wrong instance to CoinKeeper';
+                }
+                
+                var coinObj = angular.copy(coin);
                 // FIXME - use UUID
-                coinOperation.id = vault.length + 1;
+                coinObj.id = vault.length + 1;
 
-                var Coin = types[name]['entity'];
-                var addEv = new Coin(coinOperation);
+                var addEv = new Coin(coinObj);
 
                 var stamp = (new Date()).getTime() / 1000;
                 // create a new journal entry
@@ -196,8 +202,6 @@
                 if (!coin) {
                     throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
                 }
-                var action = types[name]['liquidate'];
-
                 var liqEv = {
                     id : id,
                 };

@@ -1,8 +1,4 @@
 /* -- CATALOGO -- */
-/*font colors
-.green {
-	color: #5d9732;
-}*/
 /*navegação no menu de linhas*/
 .nav .active a, .nav .active a:hover{
 	background: #ebebeb;
@@ -11,110 +7,6 @@
 	color: #fff;*/
 	text-shadow: none;
 }
-/*.nav .black.active a {
-	background: #000000;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .black.active a:hover {background: #000000;}
-
-.nav .light-blue.active a {
-	background: #7b84ad;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .light-blue.active a:hover {background: #7b84ad;}
-
-.nav .green.active a {
-	background: #7ba752;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .green.active a:hover {background: #7ba752;}
-
-.nav .light-gray.active a {
-	background: #9e9e9e;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .light-gray.active a:hover {background: #9e9e9e;}
-
-.nav .light-green.active a {
-	background: #abbb5e;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .light-green.active a:hover {background: #abbb5e;}
-
-.nav .dark-magenta.active a {
-	background: #c93a7c;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .dark-magenta.active a:hover {background: #c93a7c;}
-
-.nav .light-orange.active a {
-	background: #dbb79d;
-	color: #000;
-	text-shadow: none;
-}
-	.nav .light-orange.active a:hover {background: #dbb79d;}
-
-.nav .light-magenta.active a {
-	background: #deb4b8;
-	color: #000;
-	text-shadow: none;
-}
-	.nav .light-magenta.active a:hover {background: #deb4b8;}
-
-.nav .light-lila.active a {
-	background: #dec7cb;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .light-lila.active a:hover {background: #dec7cb;}
-
-.nav .light-pink.active a {
-	background: #dfc3b7;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .light-pink.active a:hover {background: #dfc3b7;}
-
-.nav .orange.active a {
-	background: #fa974e;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .orange.active a:hover {background: #fa974e;}
-
-.nav .pink.active a {
-	background: #ff0066;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .pink.active a:hover {background: #ff0066;}
-
-.nav .yellow-gray.active a {
-	background: #d8d5b4;
-	color: #000;
-	text-shadow: none;
-}
-	.nav .yellow-gray.active a:hover {background: #d8d5b4;}
-
-.nav .dark-yellow-gray.active a {
-	background: #b0b78d;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .dark-yellow-gray.active a:hover {background: #b0b78d;}
-	
-.nav .soft-green.active a {
-	background: #b7e171;
-	color: #fff;
-	text-shadow: none;
-}
-	.nav .soft-green.active a:hover {background: #b7e171;}*/
 
 /*font colors*/
 .color-white {color: #fff;}
@@ -142,7 +34,9 @@
 .color-soft2-orange{color:#e1b392;} /*pó mineral*/
 .color-soft2-pink{color:#f9c7ae;} /*velocity*/
 .color-dark-yellow{color:#979250;} /*lancamentos*/
-.color-medium-yellow{color:#d8bc3e;} /*promocoes*/
+.color-medium-yellow{color:#d8bc3e;} /*promocoes (antigo)*/
+.color-soft-red{color:#f58a7a;} /*lábios*/
+.color-dark-green{color:#839766;} /*promocoes*/
 
 /*fundo dos títulos*/
 .bg-black {background-color: #000;}
@@ -171,6 +65,8 @@
 .bg-soft2-pink{background-color:#f9c7ae;}
 .bg-dark-yellow{background-color:#979250;}
 .bg-medium-yellow{background-color:#d8bc3e;}
+.bg-color-soft-red{background-color:#f58a7a;}
+.bg-color-dark-green{background-color:#839766;}
 
 /* div de catalogo comum */
 .catalog-block {
@@ -493,6 +389,28 @@
 			background: -ms-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* IE10+ */
 			background: linear-gradient(to right,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}		
+		.catalog-block.w06.product-bg-soft-red .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #f58a7a 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#f58a7a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}		
+		.catalog-block.w06.product-bg-dark-green .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #839766 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#839766), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#839766 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#839766 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#839766 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#839766 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}	
 		
 	/* largura do bloco w03 */
@@ -780,6 +698,28 @@
 			background: -ms-linear-gradient(left,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* IE10+ */
 			background: linear-gradient(to right,  #ffffff 0%,#d8bc3e 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}		
+		.catalog-block.w03.product-bg-soft-red .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #f58a7a 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#f58a7a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#f58a7a 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}		
+		.catalog-block.w03.product-bg-dark-green .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #839766 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#839766), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#839766 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#839766 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#839766 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#839766 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}	
 		
 		/* barra ultima oportunidade*/
@@ -897,6 +837,14 @@
 		}	
 		.catalog-block.product-bg-medium-yellow .product-addbtn {
 			background-color: #d8bc3e;
+			background-image: url('../images/plus-w.png');
+		}	
+		.catalog-block.product-bg-soft-red .product-addbtn {
+			background-color: #f58a7a;
+			background-image: url('../images/plus-w.png');
+		}	
+		.catalog-block.product-bg-dark-green .product-addbtn {
+			background-color: #839766;
 			background-image: url('../images/plus-w.png');
 		}	
 		

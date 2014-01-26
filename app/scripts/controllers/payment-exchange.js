@@ -76,14 +76,16 @@
 
         $scope.remove = function(exch) {
             DialogService.messageDialog({
-                title : 'Atenção.',
+                title : 'Pagamento',
                 message : 'Confirmar exclusão do item de troca?',
                 btnYes : 'Sim',
                 btnNo : 'Não'
-            }).then(function() {
-                var index = $scope.exchanges.indexOf(exch);
-                $scope.exchanges.splice(index, 1);
-                $scope.computeTotals();
+            }).then(function(result) {
+                if(result){
+                    var index = $scope.exchanges.indexOf(exch);
+                    $scope.exchanges.splice(index, 1);
+                    $scope.computeTotals();
+                }
             });
         };
 

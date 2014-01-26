@@ -11,20 +11,20 @@
 						<label class="control-label">&nbsp;</label>
 						<select ui-select2
 							name="product"
-							class="combo-width-product-exchange marginr10 control-label-exchange"
+							class="combo-width-product-exchange marginr10 control-label-exchange select-h38"
 							ng-model="productId">
 							<option value="">Selecione um Produto</option>
-
 							<option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
 						</select>
 					</div>
 					<div class="control-group lbl-top">
-						<label class="control-label text-center marginb0">Qtde.</label>
+						<label class="control-label text-center">Qtde.</label>
 						<input-qty ng-model="qty" min="1"></input-qty>
 					</div>
 					<div class="control-group lbl-top">
-						<label class="control-label text-right marginr7">Valor Unit.</label> <input name="amount"
-							class="check-value" id="valor" currency ng-model="amount" tnt-input />
+						<label class="control-label text-right marginr7">Valor Unit.</label> 
+						<!--<input name="amount" class="check-value" id="valor" currency ng-model="amount" tnt-input />-->
+						<input name="amount" class="check-value input-block-level input-large" type="text" id="valor" currency ng-model="amount" tnt-input />
 					</div>
 					<div class="control-group lbl-top">
 						<div class="controls">
@@ -126,7 +126,7 @@
 						type="submit" ng-click="cancelPayments()">Cancelar</button>
 					<button
 						class="btn btn-ok btn-large btn-login pull-right btn-payment-exchange"
-						type="submit" ng-click="confirmExchangePayments()">Confirmar</button>
+						type="submit" ng-click="confirmExchangePayments()">Adicionar</button>
 				</div>
 			</div>
 		</div>

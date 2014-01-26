@@ -25,8 +25,8 @@
                         function isValid(receivable) {
                             var invalidProperty = {};
 
-                            invalidProperty.creationdate =
-                                    angular.isNumber(receivable.creationdate) && receivable.creationdate <= new Date().getTime();
+                            invalidProperty.created =
+                                    angular.isNumber(receivable.created) && receivable.created <= new Date().getTime();
                             // FIXME - Verify if is a valid entityId
                             invalidProperty.entityId = angular.isNumber(receivable.entityId);
                             // FIXME - Verify if is a valid receivable type

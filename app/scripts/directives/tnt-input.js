@@ -43,7 +43,8 @@
             restrict : 'A',
             require : 'ngModel',
             scope : {
-                ngModel : '='
+                ngModel : '=',
+                okClick : '&'
             },
             link : function postLink(scope, element, attrs, ctrl) {
 
@@ -76,10 +77,16 @@
                             }, 0);
                         }
                         KeyboardService.next();
+                        if (scope.okClick) {
+                            scope.okClick();
+                        }
                         return;
                     } else {
                         if (!attrs.maxlength || current.length < attrs.maxlength) {
                             current += key;
+                            if (current.length == attrs.maxlength) {
+                                KeyboardService.next();
+                            }
                         } else {
                             KeyboardService.next();
                             return;
@@ -119,18 +126,20 @@
                     };
 
                     if (active) {
-                        element.addClass('focus');
                         element.unbind('focus', bindFocus);
-                        setTimeout(function() {
-                            element.focus();
-                        }, 0);
-
+                        if(!element.is(":focus")){
+                            setTimeout(function() {
+                                element.focus();
+                            }, 0);
+                        }
                         watcher = changeWatcher();
 
                     } else {
                         watcher();
+                        if(element.is(":focus")){
+                            element.trigger('blur');
+                        }
                         element.bind('focus', bindFocus);
-                        element.removeClass('focus');
                     }
                 };
 

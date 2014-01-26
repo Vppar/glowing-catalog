@@ -28,12 +28,12 @@ describe('Service: CoinKeeperAddExpense', function() {
         var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var documentId = 2;
         var type = 'my type';
-        var creationdate = fakeNow;
+        var created = fakeNow;
         var duedate = fakeNow + monthTime;
         var amount = 1234.56;
 
         validExpense = {
-            creationdate : creationdate,
+            created : created,
             entityId : entityId,
             documentId : documentId,
             type : type,
@@ -55,17 +55,16 @@ describe('Service: CoinKeeperAddExpense', function() {
     }));
 
     it('should return the same entity', function() {
-        expect(CoinKeeper('test')).toBe(CoinKeeper('test'));
+        expect(CoinKeeper('expense')).toBe(CoinKeeper('expense'));
     });
 
     it('should add a expense', function() {
         // given
-        var expense = validExpense;
-        expense.id = 1;
-        var addEv = new Expense(expense);
-
+        validExpense.id = 1;
+        var expense = new Expense(validExpense);
+        
         var tstamp = fakeNow / 1000;
-        var entry = new JournalEntry(null, tstamp, 'expenseAddV1', 1, addEv);
+        var entry = new JournalEntry(null, tstamp, 'expenseAddV1', 1, expense);
 
         // when
         var addCall = function() {
@@ -79,7 +78,7 @@ describe('Service: CoinKeeperAddExpense', function() {
 
     it('shouldn\'t add a expense', function() {
         // given
-        var expense = validExpense;
+        var expense = new Expense(validExpense);
         expense.newProperty = 'myInvalidProperty';
 
         // when

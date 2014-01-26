@@ -27,12 +27,12 @@ describe('Service: CoinKeeperAddReceivable', function() {
         var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var documentId = 2;
         var type = 'my type';
-        var creationdate = fakeNow;
+        var created = fakeNow;
         var duedate = fakeNow + monthTime;
         var amount = 1234.56;
 
         validReceivable = {
-            creationdate : creationdate,
+            created : created,
             entityId : entityId,
             documentId : documentId,
             type : type,
@@ -54,13 +54,14 @@ describe('Service: CoinKeeperAddReceivable', function() {
     }));
 
     it('should return the same entity', function() {
-        expect(CoinKeeper('test')).toBe(CoinKeeper('test'));
+        expect(CoinKeeper('receivable')).toBe(CoinKeeper('receivable'));
     });
 
     it('should add a receivable', function() {
         // given
-        var receivable = validReceivable;
-        receivable.id = 1;
+        validReceivable.id = 1;
+        var receivable = new Receivable(validReceivable);
+
         var addEv = new Receivable(receivable);
 
         var tstamp = fakeNow / 1000;
@@ -78,7 +79,7 @@ describe('Service: CoinKeeperAddReceivable', function() {
 
     it('shouldn\'t add a receivable', function() {
         // given
-        var receivable = validReceivable;
+        var receivable = new Receivable(validReceivable);
         receivable.newProperty = 'myInvalidProperty';
 
         // when

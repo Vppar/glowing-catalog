@@ -46,7 +46,10 @@ describe('Controller: PaymentCtrl', function() {
 
         // PaymentService mock
         ps.list = jasmine.createSpy('PaymentService.list').andCallFake(function(value) {
-            if (value == 'check') {
+            if (value == 'cash') {
+                return { amount : 123.23 };
+            
+            }else if (value == 'check') {
                 return [
                     {
                         amount : 123.23
@@ -80,19 +83,18 @@ describe('Controller: PaymentCtrl', function() {
                 ];
             }
         });
+        ps.clear = jasmine.createSpy('PaymentService.clear');
 
         // Scope mock
         rootScope = $rootScope;
         scope = $rootScope.$new();
-        
-        
-        
+
         // SMSService mock
         sms.sendPaymentConfirmation =
                 jasmine.createSpy('SMSService.sendPaymentConfirmation')
                         .andReturn(angular.copy(sampleData.smsSendPaymentConfirmationReturn));
         $q = _$q_;
-        $timeout=_$timeout_;
+        $timeout = _$timeout_;
         // Injecting into the controller
         $controller('PaymentCtrl', {
             $scope : scope,
@@ -108,11 +110,16 @@ describe('Controller: PaymentCtrl', function() {
         $filter = _$filter_;
     }));
 
+
+    // TODO
+    // This test should check if PaymentService.createCoupons is being called
+    // when the order is confirmed.
+    it('should create coupons when payment is confirmed');
+
     it('should consolidate payment and order total when payment on cash change', function() {
         // given
+        scope.total.payments.cash = {amount : 15.32};
         // when
-        scope.total.payments.cash = 15.32;
-
         scope.$apply();
 
         // then
@@ -126,10 +133,10 @@ describe('Controller: PaymentCtrl', function() {
         scope.selectPaymentMethod('none');
 
         // then
-        expect(scope.total.change).toBe(282.13);
+        expect(scope.total.change).toBe(405.36);
     });
 
-    it('should update vouchers\' uniqueName when customer is changed', inject(function($q) {
+    it('should update vouchers uniqueName when customer is changed', inject(function($q) {
         var deferred = $q.defer();
         deferred.resolve(1);
         ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer').andReturn(deferred.promise);
@@ -154,6 +161,53 @@ describe('Controller: PaymentCtrl', function() {
         expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
         expect(os.order.items[0].uniqueName).toBe('Robert Downey Jr.');
     }));
+
+    /**
+     * When I change the customer in the payment screen, this change should be
+     * propagated to the order, making the change final.
+     */
+    it('should update order\'s customer when the customer changes', inject(function($q) {
+        var deferred = $q.defer();
+        deferred.resolve(1);
+        ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer').andReturn(deferred.promise);
+
+        scope.openDialogChooseCustomer();
+
+        // Propagate promise resolution to 'then' functions using $apply()
+        scope.$apply();
+
+        expect(ds.openDialogChooseCustomer).toHaveBeenCalled();
+        expect(os.order.customerId).toBe(1);
+    }));
+    
+    it('should recalculate the change amount', function() {
+        // given
+        dp.products = [
+            {
+                id : 13,
+                parent : 14
+            }, {
+                id : 14
+            }
+        ];
+        scope.order = os.order;
+        
+        ds.openDialogAddToBasket = jasmine.createSpy('DialogService.openDialogAddToBasket').andCallFake(function(input) {
+            os.order.items[2].qty = 2;
+            var defer = $q.defer();
+            defer.resolve();
+            return defer.promise;
+        });
+
+        // when
+        scope.addToBasket(dp.products[0]);
+
+        scope.$apply();
+
+        // then
+        expect(ds.openDialogAddToBasket).toHaveBeenCalled();
+        expect(scope.total.change).toBe(575.36);
+    });
 
     /**
      * Given - a payments list (scope.payments) When - cancel payments is
@@ -303,38 +357,4 @@ describe('Controller: PaymentCtrl', function() {
         expect(scope.payments).toEqual(sampleData.payments);
         expect(scope.selectedPaymentMethod).toBe('none');
     });
-
-    /**
-     * Given - a list of payments And - the confirm button is clicked And - a
-     * payment is added When - cancel button is clicked Then - restore the
-     * original list And - redirect to order items
-     */
-    //TODO FIX TEST!
-    xit('XXXXXXXXXXXXXXXXXXXXXXX', function() {
-        // given
-        dp.products = [
-            {
-                id : 13,
-                parent : 14
-            }, {
-                id : 14
-            }
-        ];
-        scope.order= os.order;
-        ds.openDialogAddToBasket = jasmine.createSpy('DialogService.openDialogAddToBasket').andCallFake(function(input) {
-            os.order.items[2].qty = 2;
-            var defer = $q.defer();
-            defer.resolve();
-            return defer.promise;
-        });
-        
-        // when
-        scope.addToBasket(13);
-        
-        // then
-        expect(ds.openDialogAddToBasket).toHaveBeenCalled();
-        console.log(scope.total.change);
-        
-    });
-
 });

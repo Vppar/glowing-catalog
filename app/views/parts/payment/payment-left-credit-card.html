@@ -19,7 +19,6 @@
               id="creditCardOrder1"
               type="text"
               ng-model="orderNumber"
-              placeholder="nro do pedido"
               disabled="disabled">
 					</div>
 				</span> 
@@ -33,7 +32,6 @@
 							ng-model="creditCard.flag"
               ng-change="checkCreditCardFlagChange(creditCard.flag)"
 							required>
-							<option value="">selecione a bandeira do cart&atilde;o</option>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
 					</div>
@@ -48,7 +46,6 @@
               id="creditCardNumber1"
               type="text"
               ng-model="creditCard.number"
-              placeholder="número do cartão de crédito"
               credit-card="{{creditCardMask}}"
               tnt-input
               required
@@ -63,7 +60,6 @@
               type="text"
               id="cardVerificationValue1"
               ng-model="creditCard.cvv"
-              placeholder="{{creditCardCvvLength}} dígitos"
               number
               tnt-input
               required
@@ -81,7 +77,6 @@
 							class="input-large select-h38 padding0"
 							ng-model="creditCard.expirationMonth"
 							required>
-							<option value="">selecione o m&ecirc;s</option>
 							<option ng-repeat="month in months" value="{{month.id}}">{{month.name}}</option>
 						</select>
 					</div>
@@ -95,7 +90,6 @@
 							class="input-large select-h38 padding0"
 							ng-model="creditCard.expirationYear"
 							required>
-							<option value="">selecione o ano</option>
 							<option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
 						</select>
 					</div>
@@ -105,13 +99,12 @@
 			<div class="row-fluid">
 				<span class="span8">
 					<div class="control-group margint10">
-						<label class="control-label">Nome do titular do cart&atilde;o</label>
+						<label class="control-label">Nome do titular do cart&atilde;o (exatamento como est&aacute; no cart&atilde;o)</label>
 						<input
               class="input-block-level input-large"
               type="text"
               id="cardholderName1"
               ng-model="creditCard.cardholderName"
-              placeholder="digite o nome exatamente como está no cartão"
               required upper-case>
 					</div>
 				</span>
@@ -126,7 +119,6 @@
               id="cardholderDocument1"
               type="text"
               ng-model="creditCard.cardholderDocument"
-              placeholder="digite o cpf do titular"
               required
               tnt-input
               cpf
@@ -173,7 +165,6 @@
               id="creditCardOrder2"
               type="text"
               ng-model="orderNumber"
-              placeholder="nro do pedido"
               disabled="disabled"
               required>
 					</div>
@@ -237,7 +228,6 @@
               id="creditCardOrder3"
               type="text"
               ng-model="orderNumber"
-              placeholder="nro do pedido"
               disabled="disabled"
               required>
 					</div>

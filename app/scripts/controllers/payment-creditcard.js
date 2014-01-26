@@ -33,6 +33,8 @@
 
         // Credit card informations to fill the screen combos.
         $scope.cardFlags = DataProvider.cardData.flags;
+        // select MasterCard
+        $scope.creditCard.flag = DataProvider.cardData.flags[6]; 
         $scope.installments = DataProvider.cardData.installments;
 
         $scope.gopay = DataProvider.gopay;
@@ -79,16 +81,15 @@
             cardExpirationYears.push(currYear++);
         }
 
+        creditCard.expirationMonth = 1;
+        creditCard.expirationYear = new Date().getFullYear();
         $scope.cardExpirationYears = cardExpirationYears;
-
-        // Recovering dialogService from parent scope.
-        var dialogService = $scope.dialogService;
 
 
         // #####################################################################################################
         // Scope action functions
         // #####################################################################################################
-
+        
         /**
          * Adds a credit card payment to the last position of $scope.payments.
          * 
@@ -131,8 +132,10 @@
                 // XXX: should be loged?
                 return;
             }
+            
             var
                 // TODO: check dueDate format
+            
                 dueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear,
                 payment = new CreditCardPayment(
                     creditCard.amount,

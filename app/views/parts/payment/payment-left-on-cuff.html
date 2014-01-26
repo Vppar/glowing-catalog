@@ -21,19 +21,19 @@
 				<span class="span2 w85">
 					<div class="control-group">
 						<label class="control-label text-center">Nro Parc.</label>
-							<input class="input-block-level input-large text-center" id="installment" type="text" ng-model="installmentQty" maxlength="2" tnt-input ng-change="computeInstallments()" />
+							<input class="input-block-level input-large text-center" id="installment" type="text" ng-model="installmentQty" maxlength="2" tnt-input ng-change="computeInstallments()" recall />
 					</div>
 				</span>	
 				<span class="span3">
 					<div class="control-group">
 						<label class="control-label text-center">1.Vencto</label>
-							<input id="vencto" class="date-field input-block-level input-large text-center" type="text" ng-model="dueDate" maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false" />
+							<input id="vencto" class="date-field input-block-level input-large text-center" type="text" ng-model="dueDate" min="dateMin" maxlength="8" datepicker-popup="dd/MM/yy" tnt-input show-weeks="false" />
 					</div>
 				</span>	
 				<span class="span3 w160">
 					<div class="control-group">
 						<label class="control-label text-right marginr7">Valor total</label>
-						<input id="amount" class="input-block-level input-large text-right" type="text" ng-model="amount" readonly currency required />
+						<input id="amount" class="input-block-level input-large text-right" type="text" ng-model="amount" readonly currency />
 					</div>
 				</span>	
 			</div>
@@ -63,12 +63,12 @@
 								</span>
 								<span class="col-s2">
 									<div>
-										<input id="{{'dueDate' + $index}}" name="" class="item w138 text-center" ng-model="payment.dueDate"  maxlength="10" datepicker-popup="dd/MM/yy" show-weeks="false"></input>
+										<input id="{{'dueDate' + $index}}" name="" class="item w138 text-center" ng-model="payment.dueDate"  maxlength="8" datepicker-popup="dd/MM/yy" tnt-input show-weeks="false"></input>
 									</div>
 								</span>
 								<span class="col-s3">
 									<div>
-										<input id="{{'amount' + $index}}" name="" class="item w146 text-right" ng-model="payment.amount" ng-change="valueCheck($index)" tnt-input currency></input>
+										<input id="{{'amount' + $index}}" name="" class="item w146 text-right" ng-model="payment.amount" ng-change="valueCheck($index)" recall tnt-input currency></input>
 									</div>
 								</span>
 							</div>
@@ -86,7 +86,7 @@
 					Cancelar
 				</button>
 				<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmOnCuffPayment()" >
-					Confirmar
+					Adicionar
 				</button>
 			</div>
 		</div>

@@ -52,13 +52,13 @@ describe('Service: ExpenseServiceRegisterSpec', function() {
         var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var documentId = 2;
         var type = 'my type';
-        var creationdate = 123456789;
+        var created = 123456789;
         var duedate = 987654321;
         var amount = 1234.56;
 
         var instance = {
             id : 1,
-            creationdate : creationdate,
+            created : created,
             entityId : entityId,
             documentId : documentId,
             type : type,
@@ -84,12 +84,12 @@ describe('Service: ExpenseServiceRegisterSpec', function() {
         var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var documentId = 2;
         var type = 'my type';
-        var creationdate = 123456789;
+        var created = 123456789;
         var duedate = 987654321;
         var amount = 1234.56;
 
         var expense = {
-            creationdate : creationdate,
+            created : created,
             entityId : entityId,
             documentId : documentId,
             type : type,

@@ -17,7 +17,7 @@
          * @return boolean - Result if the expense is valid or not.
          */
         var isValid = function isValid(expense) {
-            this.creationdate = angular.isNumber(expense.creationdate) && expense.creationdate <= new Date().getTime();
+            this.created = angular.isNumber(expense.created) && expense.created <= new Date().getTime();
             // FIXME - Verify if is a valid entityId
             this.entityId = angular.isNumber(expense.entityId);
             // FIXME - Verify if is a valid expense type

@@ -17,7 +17,57 @@
              </ul>
              <ul class="nav">
              	<li class="bag pull-right" ng-click='checkout(false)'><span>{{order.items | count: 'qty'}}</span></li>
-                <li class="header-hour"><div>{{now.time}}</div><br /><div class="header-date">{{now.date}}</div></li>
+                <li class="header-hour" ng-controller="DevelopmentHeaderCtrl" style="position: relative;">
+                  <div>{{now.time}}</div><br />
+
+                  <!-- Trigger -->
+                  <div class="header-date dropdown-toggle" data-toggle="dropdownmenu">{{now.date}}</div>
+
+                  <!-- dev-menu start -->
+                  <!--
+                    The following elements have changed to implement this dev-menu. They should PROBABLY be
+                    removed in production:
+
+                     * "style="position: relative;" from li.header-hour above;
+                     * "ng-controller="DevelopmentHeaderCtrl" above;
+                     * "ul.dropdown-menu" below;
+                     * "dropdown-toggle" class and data-toggle directive from the trigger above;
+                  -->
+                  <!-- List -->
+                  <ul class="dropdown-menu">
+                    <li>
+                        <a class="hover-state-pointer" ng-click="openDialogChooseCustomer()">choose-customer</a>
+                    </li>
+                    <li>
+                        <a class="hover-state-pointer" ng-click="openDialogInputProducts()">input-products</a>
+                    </li>
+                    <li>
+                        <a href="#/partial-delivery">partial-delivery</a>
+                    </li>
+                    <li>
+                        <a href="#/pending-delivery">pending-delivery</a>
+                    </li>
+                    <li>
+                        <a href="#/previous-entries">previous-entries</a>
+                    </li>
+                    <li>
+                        <a href="#/products-to-buy">products-to-buy</a>
+                    </li>
+                    <li>
+                        <a href="#/income-statement">income-statement</a>
+                    </li>
+                    <li>
+                      <a class="hover-state-pointer" ng-click="toggleMerchant()">toggle-merchant : {{gopay.merchant}}</a>
+                    </li>
+                    <li>
+                      <a class="hover-state-pointer" ng-click="toggleInternetConnectivity()">toggle-internet : {{envFlags.internet}}</a>
+                    </li>
+                     <li>
+                        <a href="#/login">login</a>
+                    </li>
+                  </ul>
+                  <!-- dev-menu end -->
+                </li>
  
                 <li class="dropdown" >
                     <!-- Trigger -->
@@ -79,46 +129,6 @@
 		
 
 	</div>
-
-  <!-- remove from production -->
-  <div class="dev-menu" ng-controller="DevelopmentHeaderCtrl" style="font-size:10px; position:absolute; top:0; right:-50px;">
-    <!-- Trigger -->
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:gray;">dev</a>
-
-    <!-- List -->
-    <ul class="dropdown-menu">
-      <li>
-          <a class="hover-state-pointer" ng-click="openDialogChooseCustomer()">choose-customer</a>
-      </li>
-      <li>
-          <a class="hover-state-pointer" ng-click="openDialogInputProducts()">input-products</a>
-      </li>
-      <li>
-          <a href="#/partial-delivery">partial-delivery</a>
-      </li>
-      <li>
-          <a href="#/pending-delivery">pending-delivery</a>
-      </li>
-      <li>
-          <a href="#/previous-entries">previous-entries</a>
-      </li>
-      <li>
-          <a href="#/products-to-buy">products-to-buy</a>
-      </li>
-      <li>
-          <a href="#/income-statement">income-statement</a>
-      </li>
-      <li>
-        <a class="hover-state-pointer" ng-click="toggleMerchant()">toggle-merchant : {{gopay.merchant}}</a>
-      </li>
-      <li>
-        <a class="hover-state-pointer" ng-click="toggleInternetConnectivity()">toggle-internet : {{envFlags.internet}}</a>
-      </li>
-       <li>
-          <a href="#/login">login</a>
-      </li>
-    </ul>
-  </div>
 
 </div>
 
