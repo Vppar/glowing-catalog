@@ -203,7 +203,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         var gift = {
             id : idx,
             title : 'Vale Presente',
-            uniqueName : 'para ' + customerNameFake,
+            uniqueName : customerNameFake,
             price : value,
             qty : 1,
             type : 'giftCard'
