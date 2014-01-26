@@ -28,14 +28,14 @@
 			<span class="lbl-money4 qntty"> ({{total.order.unit}}) unid.</span>
 		</span>
 	</div>
-	<div class="row-right-payment" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectPaymentMethod('money')">
+	<div class="row-right-payment" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectMoneyPayment()">
 	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
 	        </span>
 	        <span class=""> 
-	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment">{{total.payments.cash | currency:''}}</span>
-				<input ng-if="selectedPaymentMethod=='money'" id="cash" class="btn-price-payment" ng-model="total.payments.cash" tnt-input currency focus ok-click="selectPaymentMethod('none')" />
+	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment">{{total.payments.cash.amount | currency:''}}</span>
+				<input id="cash" class="btn-price-payment" ng-model="total.payments.cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input currency focus ok-click="selectPaymentMethod('none')" />
 	        </span>
 	    </div>
 	</div>
@@ -59,7 +59,7 @@
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('discount')">
 		<span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img src="images/alert-sign-small-v3.png" alt="Ver cupons" class="payment-warning display-none"></span> 
-        <span class="btn-price-payment btn-price-payment2">0,00</span>
+        <span class="btn-price-payment btn-price-payment2">{{total.payments.coupon | sum:'amount' | currency:''}}</span>
 	</div>
     <div class="payment-resume">
         <div class="lbl-resume">
@@ -99,10 +99,10 @@
 
 	<div class="payment-btns">
 		<div class="payment-btn-area">
-			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="selectedPaymentMethod=='none'">Cancelar</button>
+			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="showPaymentButtons">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button ng-click="confirm()" class="btn btn-open" type="submit" ng-show="selectedPaymentMethod=='none'" ng-disabled="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) != 0">Confirmar</button>
+			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="showPaymentButtons" ng-disabled="total.change<0">Confirmar</button>
 		</div>
 	</div>
     <num-pad></num-pad>

@@ -46,7 +46,10 @@ describe('Controller: PaymentCtrl', function() {
 
         // PaymentService mock
         ps.list = jasmine.createSpy('PaymentService.list').andCallFake(function(value) {
-            if (value == 'check') {
+            if (value == 'cash') {
+                return { amount : 123.23 };
+            
+            }else if (value == 'check') {
                 return [
                     {
                         amount : 123.23
@@ -80,6 +83,7 @@ describe('Controller: PaymentCtrl', function() {
                 ];
             }
         });
+        ps.clear = jasmine.createSpy('PaymentService.clear');
 
         // Scope mock
         rootScope = $rootScope;
@@ -106,11 +110,16 @@ describe('Controller: PaymentCtrl', function() {
         $filter = _$filter_;
     }));
 
+
+    // TODO
+    // This test should check if PaymentService.createCoupons is being called
+    // when the order is confirmed.
+    it('should create coupons when payment is confirmed');
+
     it('should consolidate payment and order total when payment on cash change', function() {
         // given
+        scope.total.payments.cash = {amount : 15.32};
         // when
-        scope.total.payments.cash = 15.32;
-
         scope.$apply();
 
         // then
@@ -124,7 +133,7 @@ describe('Controller: PaymentCtrl', function() {
         scope.selectPaymentMethod('none');
 
         // then
-        expect(scope.total.change).toBe(282.13);
+        expect(scope.total.change).toBe(405.36);
     });
 
     it('should update vouchers uniqueName when customer is changed', inject(function($q) {
@@ -191,13 +200,13 @@ describe('Controller: PaymentCtrl', function() {
         });
 
         // when
-        scope.addToBasket(13);
+        scope.addToBasket(dp.products[0]);
 
         scope.$apply();
 
         // then
         expect(ds.openDialogAddToBasket).toHaveBeenCalled();
-        expect(scope.total.change).toBe(452.13);
+        expect(scope.total.change).toBe(575.36);
     });
 
     /**

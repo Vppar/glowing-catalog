@@ -4,7 +4,8 @@ describe('Service: ExpenseServiceisValid', function() {
     var fakeNow = 1386444467895;
     var monthTime = 2592000;
     var DialogService = {};
-    var CoinKeeper = function(){};
+    var CoinKeeper = function() {
+    };
 
     // load the service's module
     beforeEach(function() {
@@ -27,12 +28,12 @@ describe('Service: ExpenseServiceisValid', function() {
         });
     });
     beforeEach(inject(function(_ExpenseService_) {
-        ExpenseService = _ExpenseService_;        
+        ExpenseService = _ExpenseService_;
     }));
 
     /**
      * <pre>
-     * Given a valid expense
+     * Givena valid expense
      * When isValid is triggered
      * Then true should be returned
      * </pre>
@@ -40,7 +41,7 @@ describe('Service: ExpenseServiceisValid', function() {
     it('should validate a expense instance', function() {
         // given
         var expense = {
-            creationdate : fakeNow,
+            created : fakeNow,
             entityId : 1,
             type : 'BRINDE',
             amount : 1234.56,
@@ -56,7 +57,7 @@ describe('Service: ExpenseServiceisValid', function() {
 
     /**
      * <pre>
-     * Given a invalid expense
+     * Givena invalid expense
      * When isValid is triggered
      * Then true should be returned
      * </pre>

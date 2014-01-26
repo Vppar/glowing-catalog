@@ -4,7 +4,8 @@ describe('Service: ReceivableServiceisValid', function() {
     var fakeNow = 1386444467895;
     var monthTime = 2592000;
     var DialogService = {};
-    var CoinKeeper = function(){};
+    var CoinKeeper = function() {
+    };
 
     // load the service's module
     beforeEach(function() {
@@ -32,7 +33,7 @@ describe('Service: ReceivableServiceisValid', function() {
 
     /**
      * <pre>
-     * Givena valid receivable
+     * Givenavalidreceivable
      * When isValid is triggered
      * Then true should be returned
      * </pre>
@@ -40,7 +41,7 @@ describe('Service: ReceivableServiceisValid', function() {
     it('should validate a receivable instance', function() {
         // given
         var receivable = {
-            creationdate : fakeNow,
+            created : fakeNow,
             entityId : 1,
             type : 'BRINDE',
             amount : 1234.56,
@@ -56,7 +57,7 @@ describe('Service: ReceivableServiceisValid', function() {
 
     /**
      * <pre>
-     * Givena invalid receivable
+     * Givenainvalidreceivable
      * When isValid is triggered
      * Then true should be returned
      * </pre>
@@ -65,7 +66,7 @@ describe('Service: ReceivableServiceisValid', function() {
         // given
 
         var receivable = {
-            creationdate : fakeNow - monthTime,
+            created : fakeNow - monthTime,
             amount : 1234.56,
             duedate : fakeNow + monthTime
         };

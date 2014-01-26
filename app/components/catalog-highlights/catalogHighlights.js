@@ -24,7 +24,7 @@
                         function reload() {
                             switch (scope.section) {
                             case 'Promoções':
-                                scope.color = 'medium-yellow';
+                                scope.color = 'color-dark-green';
                                 break;
                             case 'Edição Limitada':
                                 scope.color = 'dark-yellow-gray';

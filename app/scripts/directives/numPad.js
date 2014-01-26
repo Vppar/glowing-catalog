@@ -31,6 +31,8 @@
                                 var keyboard = {
                                     setActive : function(active) {
                                         status.active = active;
+                                        // FIXME - Used to temporally resolve VOPP-210.
+                                        status.changed = new Date().getTime();
                                         scope.isActive = active;
                                         if (active) {
                                             $document.find('body').append(mask);
