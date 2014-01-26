@@ -1,6 +1,7 @@
 describe('Controller: PaymentDiscountCtrlUpdateAmount', function() {
 
     var scope = {};
+    var os = {};
 
     beforeEach(function() {
         module('tnt.catalog.payment.discount');
@@ -10,7 +11,8 @@ describe('Controller: PaymentDiscountCtrlUpdateAmount', function() {
         // scope mock
         scope = $rootScope.$new();
         $controller('PaymentDiscountCtrl', {
-            $scope : scope
+            $scope : scope,
+            OrderService : os
         });
     }));
 

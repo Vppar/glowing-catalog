@@ -4,7 +4,7 @@
 		"version": 1,
 		"event": {
 			"id": 1,
-			"entity": 1,
+			"entity": 16,
 			"type": "voucher",
 			"amount": 10.77,
 			"created": 1388534400000
@@ -15,7 +15,7 @@
 		"version": 1,
 		"event": {
 			"id": 2,
-			"entity": 1,
+			"entity": 16,
 			"type": "giftCard",
 			"amount": 50,
 			"created": 1388544400000
@@ -26,7 +26,7 @@
 		"version": 1,
 		"event": {
 			"id": 3,
-			"entity": 1,
+			"entity": 16,
 			"type": "coupon",
 			"amount": 20,
 			"created": 1388684400000

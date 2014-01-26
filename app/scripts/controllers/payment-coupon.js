@@ -212,7 +212,7 @@
                             var gift = {
                                 id : idx,
                                 title : 'Vale Presente',
-                                uniqueName : 'para ' + $scope.gift.customer.name,
+                                uniqueName : $scope.gift.customer.name,
                                 price : $scope.gift.total,
                                 qty : 1,
                                 type : 'giftCard'
