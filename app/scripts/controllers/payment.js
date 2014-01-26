@@ -151,8 +151,8 @@
                 $scope.selectMoneyPayment = function selectMoneyPayment() {
                     // FIXME - Used to temporally resolve VOPP-210.
                     var delta = new Date().getTime() - $scope.keyboard.status.changed;
-                    delta = isNaN(delta) ? 1001 : delta;
-                    if (!$scope.keyboard.status.active && delta > 1000) {
+                    delta = isNaN(delta) ? 501 : delta;
+                    if (!$scope.keyboard.status.active && delta > 500) {
                         $scope.selectPaymentMethod('money');
                     }
                 };
@@ -246,7 +246,11 @@
                 /**
                  * Cancel the payment and redirect to the main screen.
                  */
-                function cancelPayment() {
+                function cancelPayment(result) {
+                    if(!result){
+                        main();
+                        return $q.reject();
+                    }
                     OrderService.order.canceled = true;
                     makePayment();
                     PaymentService.remove(new CashPayment(0));
@@ -290,7 +294,7 @@
                 function isPaymentValid() {
                     var isValid = false;
                     var paymentAmount = $filter('sum')($scope.payments, 'amount');
-                    if (paymentAmount > 0 && paymentAmount === orderAmount) {
+                    if (paymentAmount > 0 && paymentAmount >= $scope.total.order.amount) {
                         isValid = true;
                     }
                     return isValid;
@@ -300,13 +304,18 @@
                 /**
                  * Saves the payments and closes the order.
                  */
-                function makePayment() {
+                function makePayment(result) {
+                    if(!result){
+                        main();
+                        return $q.reject();
+                    }
                     // var savedOrder = OrderService.save();
                     OrderService.save();
                     OrderService.clear();
                     // var savedPayments = PaymentService.save(savedOrder.id,
                     // savedOrder.customerId);
-
+                    
+                    PaymentService.remove(new CashPayment(0));
                     PaymentService.clear();
 
                     createCoupons();
@@ -335,7 +344,7 @@
                  * Sends the SMS to the customer about his order.
                  */
                 function sendAlertSMSAttempt() {
-                    return SMSService.sendPaymentConfirmation(customer, orderAmount);
+                    return SMSService.sendPaymentConfirmation(customer, $scope.total.order.amount);
                 }
 
                 /**
