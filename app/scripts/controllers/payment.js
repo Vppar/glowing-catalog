@@ -110,7 +110,7 @@
                                     }
                                 }
                                 PaymentService.clear('coupon');
-                                $scope.total.payments.coupon.length = 0; 
+                                $scope.total.payments.coupon.length = 0;
                             });
                         };
 
@@ -398,12 +398,7 @@
                         // ///////////////////////////////////
                         // Coupon handling
                         var errorMessage =
-                                'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
-                        var oneCouponMessage =
-                                'Foi gerado 1 cupom promocional no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
-                        var moreThanOneCouponMessage =
-                                'Foram gerados {{couponNumber}} cupons promocionais no total de R$ {{couponsValue}} para o cliente {{customerFirstName}}.';
-
+                                'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';                       
                         /**
                          * Checks if all coupons in an array are ok (have no
                          * 'err' attribute).
@@ -463,32 +458,6 @@
                                     'Processed coupons:' + JSON.stringify(processedCoupons));
                                 // TODO: should we keep track in journal?
                             }
-
-                            // TODO: Remove this dialog messages (keeping them
-                            // just for debug)
-                            if (processedCoupons.successQty) {
-                                var successMsg = '';
-                                var totalAmount = $filter('currency')(processedCoupons.successAmount, '');
-
-                                if (processedCoupons.successQty === 1) {
-                                    successMsg =
-                                            oneCouponMessage.replace('{{couponsValue}}', totalAmount).replace(
-                                                    '{{customerFirstName}}', $scope.customer.name);
-                                } else {
-                                    successMsg =
-                                            moreThanOneCouponMessage.replace('{{couponNumber}}', processedCoupons.successQty).replace(
-                                                    '{{couponsValue}}', totalAmount).replace('{{customerFirstName}}', $scope.customer.name);
-
-                                }
-
-                                DialogService.messageDialog({
-                                    title : 'Cupom Promocional',
-                                    message : successMsg,
-                                    btnYes : 'OK'
-                                });
-                            }
                         }
-                        ;
-
                     });
 }(angular));
