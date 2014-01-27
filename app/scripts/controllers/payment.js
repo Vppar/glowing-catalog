@@ -276,6 +276,8 @@
                     }
                     OrderService.clear();
                     PaymentService.clearAllPayments();
+                    
+                    $location.path('/');
                 }
 
                 function updateOrderAndPaymentTotal() {
@@ -390,7 +392,6 @@
                     var canceledPaymentPromise = cancelPaymentFactory();
 
                     canceledPaymentPromise.then(cancelPayment, main);
-                    canceledPaymentPromise.then(paymentDone);
 
                     $scope.selectPaymentMethod('none');
                 }
