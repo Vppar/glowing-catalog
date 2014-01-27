@@ -65,6 +65,9 @@
                      <li>
                         <a href="#/login">login</a>
                     </li>
+                    <li>
+                        <a class="hover-state-pointer gren-item-menu" ng-click="openDialogChangePass()">Trocar Senha</a>
+                    </li>
                   </ul>
                   <!-- dev-menu end -->
                 </li>
@@ -83,7 +86,7 @@
                             <a href="#/">Cat&aacute;logo</a>
                         </li>
                         <li>
-                            <a class="hover-state-pointer gren-item-menu" ng-click="checkout(true)">Pagamento</a>
+                            <a class="hover-state-pointer gren-item-menu" ng-click="checkout(true)">Pagamento do Cliente</a>
                         </li>
                         <li>
                             <a href="#">*Pedido de Vendas</a>
@@ -95,31 +98,73 @@
                             <a href="#/stock">Estoque</a>
                         </li>
                         <li>
-                            <a href="#/products-to-buy">Compras MK</a>
+                            <a href="#">*Emprestimo de Produtos</a>
                         </li>
                         <li>
-                            <a href="#/receivable">Contas a Receber</a>
+                            <a href="#/products-to-buy">Pedido de Compra</a>
                         </li>
                         <li>
-                            <a href="#/expense">Contas a Pagar</a>
+                            <a href="#">*Controle de Bonifica&ccedil;&atilde;o</a>
                         </li>
-                        <li>
-                            <a href="#/cash-flow">Fluxo de Caixa</a>
+                        <li class="dropdown-submenu pull-left">
+                            <a tabindex="-1" href="#">Gestão Comercial</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">*Avalia&ccedil;&atilde;o de Desempenho</a>
+                                </li>
+                                <li>
+                                    <a href="#">*Controle de Metas</a>
+                                </li>
+                                <li>
+                                    <a href="#">*Cadastro de Consultor(as)</a>
+                                </li>
+                                <li>
+                                    <a href="#">*Relat&oacute;rios on Line</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="#/income-statement">Demonstração Resultado</a>
+                        <li class="dropdown-submenu pull-left">
+                            <a tabindex="-1" href="#">Financeiro</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">*Caixa</a>
+                                </li>
+                                <li>
+                                    <a href="#">*Cheques de clientes</a>
+                                </li>
+                                <li>
+                                    <a href="#">*Conta Banc&aacute;ria</a>
+                                </li>
+                                <li>
+                                    <a href="#/receivable">Contas a Receber</a>
+                                </li>
+                                <li>
+                                    <a href="#/expense">Contas a Pagar</a>
+                                </li>
+                                <li>
+                                    <a href="#/cash-flow">Fluxo de Caixa</a>
+                                </li>
+                                <li>
+                                    <a href="#/income-statement">Demonstr Resultado</a>
+                                </li>
+                                <li>
+                                    <a href="#/voucher">Vale / Cupom</a>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <a href="#/voucher">Vale / Cupom</a>
-                        </li>
-                        <li>
-                            <a href="#">*Cadastro Geral</a>
-                        </li>
-                        <li>
-                            <a href="#">*Meu Cadastro</a>
-                        </li>
-                        <li>
-                            <a class="hover-state-pointer gren-item-menu" ng-click="openDialogChangePass()">Trocar Senha</a>
+                        <li class="dropdown-submenu pull-left">
+                            <a tabindex="-1" href="#">Cadastro Geral</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="#">*Cadastro de Terceiros</a>
+                                </li>
+                                <li>
+                                    <a href="#">*Meu Cadastro</a>
+                                </li>
+                                <li>
+                                    <a href="#">*Saldo Inicial</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>
