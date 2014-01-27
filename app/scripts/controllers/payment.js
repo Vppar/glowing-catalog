@@ -38,9 +38,7 @@
                         // Payment variables
                         $scope.total = {
                             payments : {
-                                cash : {
-                                    amount : 0
-                                },
+                                cash : [],
                                 check : [],
                                 creditCard : [],
                                 exchange : [],
@@ -54,7 +52,25 @@
                             change : 0
                         };
 
-                        $scope.total.payments.cash = PaymentService.list('cash');
+
+                        /**
+                         * Gets the current cash amount from the cash payments array.
+                         */
+                        function getCashAmount() {
+                          var cash = PaymentService.list('cash')[0];
+                          return (cash && cash.amount) || 0;
+                        }
+
+                        /**
+                         * Stores the amount paid in cash.
+                         */
+                        // We need a model for storing the cash amount because we
+                        // are editing the cash amount directly from the payment
+                        // methods list, as oposed to all other methods.
+                        $scope.cash = {
+                          amount : getCashAmount()
+                        };
+                        //$scope.total.payments.cash = PaymentService.list('cash');
 
                         // Controls which left fragment will be shown
                         $scope.selectedPaymentMethod = 'none';
@@ -86,7 +102,15 @@
                             }
                         });
 
-                        $scope.$watch('total.payments.cash.amount', updateOrderAndPaymentTotal);
+                        $scope.$watch('cash.amount', function () {
+                          PaymentService.clear('cash');
+
+                          if ($scope.cash.amount != 0) {
+                            PaymentService.add(new CashPayment($scope.cash.amount));
+                          }
+                          updateOrderAndPaymentTotal();
+                        });
+                        //updateOrderAndPaymentTotal);
 
                         // Publishing dialog service
                         var dialogService = DialogService;
@@ -261,8 +285,8 @@
                             }
                             OrderService.order.canceled = true;
                             makePayment();
-                            // FIXME: shouldn't this be .clearALL()?
-                            PaymentService.clear('cash');
+                            PaymentService.clearAllPayments();
+                            //PaymentService.clear('cash');
                             $location.path('/');
                         }
 
@@ -270,16 +294,18 @@
                             // Calculate the Subtotal
                             if (order.items) {
                                 // Payment total
+                                $scope.total.payments.cash = PaymentService.list('cash');
                                 $scope.total.payments.check = PaymentService.list('check');
                                 $scope.total.payments.creditCard = PaymentService.list('creditCard');
                                 $scope.total.payments.exchange = PaymentService.list('exchange');
                                 $scope.total.payments.coupon = PaymentService.list('coupon');
                                 $scope.total.payments.onCuff = PaymentService.list('onCuff');
 
-                                var totalPayments = $scope.total.payments.cash.amount;
+                                var totalPayments = 0;
                                 for ( var ix in $scope.total.payments) {
                                     totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
                                 }
+
 
                                 // Order total
                                 var basket = order.items;
@@ -325,7 +351,7 @@
                             // PaymentService.save(savedOrder.id,
                             // savedOrder.customerId);
 
-                            PaymentService.clearAll();
+                            PaymentService.clearAllPayments();
 
                             createCoupons();
 
