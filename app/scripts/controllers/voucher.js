@@ -2,91 +2,88 @@
     'use strict';
 
     angular.module('tnt.catalog.voucher.ctrl', [
-        'tnt.catalog.voucher.keeper',
-    ]).controller(
-            'VoucherCtrl',
-            function($scope, $filter, VoucherKeeper) {
-                /**
-                 * The real deal
-                 */
-                var vouchers = VoucherKeeper.list('coupon');
-                $scope.vouchers = vouchers;
-                $scope.dates = {
-                    dtInitial : '',
-                    dtFinal : ''
-                };
+        'tnt.catalog.voucher.keeper', 'tnt.catalog.payment.service', 'tnt.utils.array'
+    ]).controller('VoucherCtrl', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService) {
+        /**
+         * The real deal
+         */
+        var mockVoucher = [
+            {
+                id : 1,
+                created : new Date(),
+                amount : 123,
+                type : 'Vale Crédito',
+                entity : 'Mario'
+            }, {
+                id : 2,
+                created : new Date(),
+                amount : 3213,
+                type : 'Vale Presente',
+                entity : 'Joelma'
+            }, {
+                id : 3,
+                created : new Date(),
+                amount : 543,
+                type : 'Coupon',
+                entity : 'Ximbinha'
+            }
+        ];
+        // $scope.vouchers = $filter('filter')(PaymentService.list('coupon'),
+        // function(voucher) {
+        // return voucher.canceled || voucher.redeemed;
+        // });
+        var vouchers = $filter('filter')(mockVoucher, function(voucher) {
+            return !(voucher.canceled || voucher.redeemed);
+        });
 
-                $scope.filter = {
-                    entity : '',
-                    amount : ''
-                };
+        $scope.voucherFilter = {
+            value : '',
+            date : ''
+        };
 
-                $scope.$watchCollection('filter', function() {
-                    var gridFilter = {
-                        entity : $scope.filter.entity,
-                        amount : $scope.filter.amount
-                    };
+        $scope.filteredVouchers = vouchers;
 
-                    $scope.filteredVouchers = $filter('filter')($scope.vouchers, gridFilter);
-                    var qtyTotal = 0;
-                    var priceTotal = 0;
-                    for ( var voucher in $scope.filteredVouchers) {
-                        qtyTotal += $scope.filteredVouchers[voucher].qty;
-                        $scope.filteredVouchers[voucher].priceTotal =
-                                $scope.filteredVouchers[voucher].qty * $scope.filteredVouchers[voucher].amount;
-                        priceTotal += $scope.filteredVouchers[voucher].priceTotal;
-                        if ($scope.filteredVouchers[voucher].canceled) {
-                            $scope.filteredVouchers[voucher].status = 'Disponivel';
-                        } else if ($scope.filteredVouchers[voucher].redeemed === undefined) {
-                            $scope.filteredVouchers[voucher].status = 'Cancelado';
-                        } else {
-                            $scope.filteredVouchers[voucher].status = $scope.filteredVouchers[voucher].redeemed;
+        /**
+         * DateFilter
+         */
+        function filterVoucher(voucher) {
+            var initialFilter = null;
 
-                        }
-                    }
-                    $scope.qtyTotal = qtyTotal;
-                    $scope.priceTotal = priceTotal;
-                });
-
-                $scope.filterVoucherByDate = function filterVoucher(voucher) {
-                    var initialFilter = null;
-                    var finalFilter = null;
-
-                    if ($scope.dates.dtInitial !== '') {
-                        if ($scope.dates.dtInitial) {
-                            initialFilter = $scope.dates.dtInitial.getTime();
-                        }
-                    }
-                    if ($scope.dates.dtFinal !== '') {
-                        if ($scope.dates.dtFinal) {
-                            finalFilter = $scope.dates.dtFinal.getTime();
-                        }
-                    }
-
-                    if (initialFilter && finalFilter) {
-                        // filter by two dates
-                        if (voucher.created >= initialFilter && voucher.created <= finalFilter) {
-                            return true;
-                        }
-                        return false;
-                    } else if (initialFilter) {
-                        // filter by initial date
-                        if (voucher.created >= initialFilter) {
-                            return true;
-                        }
-                        return false;
-                    } else if (finalFilter) {
-                        // filter by final date
-                        console.log(finalFilter);
-                        if (voucher.created <= finalFilter) {
-                            return true;
-                        }
-                        return false;
-                    } else {
-                        // no filter
-                        return true;
-                    }
-                };
-
+            if ($scope.voucherFilter.date !== '') {
+                if ($scope.voucherFilter.date) {
+                    initialFilter = $scope.voucherFilter.date.getTime();
+                }
+            }
+            if (initialFilter) {
+                if (voucher.created >= initialFilter) {
+                    return true;
+                }
+                return false;
+            } else {
+                return true;
+            }
+        }
+        
+        $scope.$watchCollection('voucherFilter', function() {
+            var myFilter = $scope.voucherFilter.value;
+            $scope.filteredVouchers = $filter('filter')(vouchers, function(voucher) {
+                var result = true;
+                if ($scope.voucherFilter.value.length > 0) {
+                    result = false;
+                    
+                    var type = '' + voucher.type;
+                    var amount = '' + voucher.amount;
+                    var entity = '' + voucher.entity;
+                    
+                    result = result || (type.indexOf(myFilter) > -1);
+                    result = result || (amount.indexOf(myFilter) > -1);
+                    result = result || (entity.indexOf(myFilter) > -1);
+                }
+                return result;
             });
+            $scope.filteredVouchers = $filter('filter')($scope.filteredVouchers, filterVoucher);
+            $scope.qtyTotal = $scope.filteredVouchers.length;
+            $scope.priceTotal = $filter('sum')($scope.filteredVouchers, 'amount');
+        });
+    });
 }(angular));
