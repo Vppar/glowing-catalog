@@ -447,63 +447,65 @@
 }
 
 .step2 .grid-payment-products-to-buy-edit .col-s1 {
-	width: 285px; /*35px*/
+	width: 385px;
 	text-align: left;
 	display: inline-block;
 	line-height: 40px;
 	padding-left:5px;
 }
-.step2 .grid-payment-products-to-buy-edit .col-s3 {
+.step2 .grid-payment-products-to-buy-edit .col-s2{
 	width: 80px;
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
 }
-.step2 .grid-payment-products-to-buy-edit .col-s4{
+.step2 .grid-payment-products-to-buy-edit .col-s3{
 	width: 85px;
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
 }
-.step2 .grid-payment-products-to-buy-edit .col-s5 {
-	width: 120px;/*75px*/
+.step2 .grid-payment-products-to-buy-edit .col-s4{
+	width: 85px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	line-height: 40px;
 }
 
 .step2 .grid-payment-products-to-buy-edit .col-s1-list {
-	width: 345px;
+	width: 385px;
 	text-align: left;
 	display: inline-block;
 	padding-left: 5px;
 	min-height:40px;
 	vertical-align:top;
 }
-.step2 .grid-payment-products-to-buy-edit .col-s3-list {
+.step2 .grid-payment-products-to-buy-edit .col-s2-list {
 	width: 80px;
 	text-align:center;
 	display: inline-block;
 	min-height:40px;
 	vertical-align:top;
 }
-.step2 .grid-payment-products-to-buy-edit .col-s4-list{
+.step2 .grid-payment-products-to-buy-edit .col-s3-list{
 	width: 85px;
 	text-align:center;
 	display: inline-block;
 	min-height:40px;
 	vertical-align:top;
-	color: #b53c34;
 }
-.step2 .grid-payment-products-to-buy-edit .col-s5-list {
-	width: 120px;/*75px*/
+.step2 .grid-payment-products-to-buy-edit .col-s4-list {
+	width: 85px;/*75px*/
 	text-align:center;
 	display: inline-block;
 	min-height:40px;
 	vertical-align:top;
 }
-.step2 .col-s4-list input ,
-.step2 .col-s5-list input {
+
+/*.step2 .grid-payment-products-to-buy-edit .col-s4-list div{font-size: 20px;}*/
+
+.step2 .col-s3-list input ,
+.step2 .col-s4-list input {
 	margin: 0 !important;
 	width:90px;
 }
