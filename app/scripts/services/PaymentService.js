@@ -332,7 +332,7 @@
                 var clearPersistedCoupons = function clearPersistedCoupons() {
                   for (var idx in persistedCoupons) {
                     if (persistedCoupons.hasOwnProperty(idx)) {
-                      persistedCoupons[idx] = 0;
+                      delete persistedCoupons[idx];
                     }
                   }
                 };
