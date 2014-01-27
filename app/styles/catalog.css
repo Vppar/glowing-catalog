@@ -37,6 +37,7 @@
 .color-medium-yellow{color:#d8bc3e;} /*promocoes (antigo)*/
 .color-soft-red{color:#f58a7a;} /*lábios*/
 .color-dark-green{color:#839766;} /*promocoes*/
+.color-dark-lilac{color:#cebebe;} /*linha classica*/
 
 /*fundo dos títulos*/
 .bg-black {background-color: #000;}
@@ -67,6 +68,7 @@
 .bg-medium-yellow{background-color:#d8bc3e;}
 .bg-color-soft-red{background-color:#f58a7a;}
 .bg-color-dark-green{background-color:#839766;}
+.bg-color-dark-lilac{background-color:#cebebe;}
 
 /* div de catalogo comum */
 .catalog-block {
@@ -412,6 +414,17 @@
 			background: linear-gradient(to right,  #ffffff 0%,#839766 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}	
+		.catalog-block.w06.product-bg-dark-lilac .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #cebebe 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#cebebe), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}	
 		
 	/* largura do bloco w03 */
 	.catalog-block.w03 {
@@ -721,6 +734,17 @@
 			background: linear-gradient(to right,  #ffffff 0%,#839766 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}	
+		.catalog-block.w03.product-bg-dark-lilac .product-divider {
+			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
+			background: #ffffff; /* Old browsers */
+			background: -moz-linear-gradient(left,  #ffffff 0%, #cebebe 50%, #ffffff 100%); /* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#cebebe), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* Opera 11.10+ */
+			background: -ms-linear-gradient(left,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* IE10+ */
+			background: linear-gradient(to right,  #ffffff 0%,#cebebe 50%,#ffffff 100%); /* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+		}	
 		
 		/* barra ultima oportunidade*/
 		.last-opportunity .product-opportunity{
@@ -845,6 +869,10 @@
 		}	
 		.catalog-block.product-bg-dark-green .product-addbtn {
 			background-color: #839766;
+			background-image: url('../images/plus-w.png');
+		}	
+		.catalog-block.product-bg-dark-lilac .product-addbtn {
+			background-color: #cebebe;
 			background-image: url('../images/plus-w.png');
 		}	
 		
