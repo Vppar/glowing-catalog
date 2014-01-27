@@ -31,76 +31,92 @@
 	
 		
 		<div class="row-fluid">		
-				<div class="details-order-list-item">
-					
-					<div class="col-details-order-list-item">	
-						<div class="margintn5">
-						<!-- DATE INTERVAL -->					
-						<span class="lbl-money">			
-							<div class="controls">
-								<div class="control-group lbl-top">
-									<div class="controls w160">
-										Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w60" required ng-model="dtInitial"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
-									</div>
+			<div class="details-order-list-item">
+				
+				<div class="col-details-order-list-item">	
+					<div class="margintn5">
+					<!-- DATE INTERVAL -->					
+					<span class="lbl-money">			
+						<div class="controls">
+							<div class="control-group lbl-top">
+								<div class="controls w160">
+									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w60" required ng-model="dtInitial"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
 								</div>
-							</div>				
-						</span>							
-						<span class="lbl-money order-list-periodo2">				
-							<div class="controls">
-								<div class="control-group lbl-top">
-									<div class="controls">
-										<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w60" required ng-model="dtFinal"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
-									</div>
+							</div>
+						</div>				
+					</span>							
+					<span class="lbl-money order-list-periodo2">				
+						<div class="controls">
+							<div class="control-group lbl-top">
+								<div class="controls">
+									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w60" required ng-model="dtFinal"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
 								</div>
-							</div>				
-						</span>
-						</div>
-						<div>	
-							<span class="border-total">
-								<span class="details-order-list-item-total"><span class="lbl-money">Valor total</span>
-								<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-								<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span></span>					
-							</span>
-						</div>
+							</div>
+						</div>				
+					</span>
 					</div>
-					
-					<div class="col-details-order-list-item">
-					
-						<span class="border">
-							<span class="lbl-money">Dinheiro</span>
-							<span class="lbl-money3">&nbsp;</span>
-							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-						</span>
-						<span class="border">
-							<span class="lbl-money">Cheque</span>
-							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-						</span>
-						<span class="border">
-							<span class="lbl-money">Cart&atilde;o</span>
-							<span class="lbl-money3">(100000)</span>
-							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-						</span>
-					</div>
-					
-					<div class="col-details-order-list-item">
-						<span class="border">
-							<span class="lbl-money">Troca</span>
-							<span class="lbl-money3">(100000)</span>
-							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-						</span>
-						<span class="border">
-							<span class="lbl-money">Vale/Cumpom</span>
-							<span class="lbl-money3">&nbsp;</span>
-							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-						</span>
-						<span class="border">
-							<span class="lbl-money">Contas a Receber</span>
-							<span class="lbl-money3">&nbsp;</span>
-							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
-						</span>
-					</div>		
 				</div>
+				
+				<div class="col-details-order-list-item">	
+					<div>	
+						<span class="border">
+							<span class="details-order-list-item-total"><span class="lbl-money">Valor total</span>
+							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span></span>					
+						</span>
+					</div>
+				</div>
+				
+				<div class="col-details-order-list-item">	
+					<div class="show-details-icon">
+						<img src="images/ic-sort-triangle-up-pink.png"><!--<img src="images/ic-sort-triangle-down-pink.png">-->
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row-fluid show-details">		
+			<div class="details-order-list-item">
+				
+				<div class="col-details-order-list-item">					
+					<span class="border">
+						<span class="lbl-money">Dinheiro</span>
+						<span class="lbl-money3">&nbsp;</span>
+						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+					</span>
+					<span class="border">
+						<span class="lbl-money">Cheque</span>
+						<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+					</span>
+				</div>
+				
+				<div class="col-details-order-list-item">
+					<span class="border">
+						<span class="lbl-money">Cart&atilde;o</span>
+						<span class="lbl-money3">(100000)</span>
+						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+					</span>
+					<span class="border">
+						<span class="lbl-money">Troca</span>
+						<span class="lbl-money3">(100000)</span>
+						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+					</span>
+				</div>
+				
+				<div class="col-details-order-list-item">
+					<span class="border">
+						<span class="lbl-money">Vale/Cumpom</span>
+						<span class="lbl-money3">&nbsp;</span>
+						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+					</span>
+					<span class="border">
+						<span class="lbl-money">Contas a Receber</span>
+						<span class="lbl-money3">&nbsp;</span>
+						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+					</span>
+				</div>		
+			</div>
 		</div>
 	
         <div ng-switch="ol">

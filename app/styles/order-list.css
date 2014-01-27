@@ -97,8 +97,7 @@
 	width: 305px;
 }
 
-.details-order-list-item .border-total{
-	/*float: left;*/
+/*.details-order-list-item .border-total
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
 	display: block;		
@@ -108,8 +107,10 @@
 }
 
 .details-order-list-item .border-total .details-order-list-item-total{width:243px;}
-.details-order-list-item .border-total .lbl-money{width:98px;}
-.order-list-periodo2{width:106px !important; float: right;}
+.details-order-list-item .border-total .lbl-money{width:98px;}*/
+.order-list-periodo2{margin-left: 68px !important;/*width:106px !important; float: right*/}
+
+.show-details-icon {margin-top: 5px;}
 
 .col-details-order-list-item .control-group{margin: 0 !important;}
 
