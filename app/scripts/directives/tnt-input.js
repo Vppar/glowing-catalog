@@ -60,6 +60,8 @@
                 input.keypress = function(key) {
 
                     var current = element.val();
+                    
+                    $log.debug('field contains ' + current + '. Keypress is ' + key);
 
                     if (key === 'backspace') {
                         if (current === '') {
@@ -85,10 +87,14 @@
                         if (!attrs.maxlength || current.length < attrs.maxlength) {
                             current += key;
                             if (current.length == attrs.maxlength) {
-                                KeyboardService.next();
+                                setTimeout(function(){
+                                    KeyboardService.next();
+                                }, 0);
                             }
                         } else {
-                            KeyboardService.next();
+                            setTimeout(function(){
+                                KeyboardService.next();
+                            }, 0);
                             return;
                         }
                     }

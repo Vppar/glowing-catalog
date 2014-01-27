@@ -83,32 +83,52 @@
     });
 }(angular));
 
-(function($) {
+(function($, angular) {
     'use strict';
+  
+    var $log = {};
+    
+    var $injector = angular.injector(['ng']);
+    $injector.invoke(function(_$log_){
+        $log = _$log_;
+    });
+  
+    // FIXME this tap event has been altered to prevent default pointer behavior, what
+    // may or may not cause you hassle in the future. Find a better place to handle the mousedown event
     $.event.special.tap = {
         setup : function() {
             var self = this, $self = $(self);
+            
+            var field = $self.context;
+            var id = field.id ? field.id : field.name ? field.name : field.alt ? field.alt : '?';
 
             $self.on('touchstart', function(startEvent) {
                 var target = startEvent.target;
 
                 $self.one('touchend', function(endEvent) {
                     if (target == endEvent.target) {
+                      $log.debug('touch tap on ' + id);
                         $.event.simulate('tap', self, endEvent);
                     }
                 });
             });
 
             if (!('ontouchstart' in window || 'onmsgesturechange' in window)) {
-                $self.on('click', function(startEvent) {
-                    $.event.simulate('tap', self, startEvent);
+                $self.mousedown(function(){return false;});
+                $self.on('click', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $log.debug('click simulated tap on ' + id);
+                    $.event.simulate('tap', self, jQuery.Event( "tap" ));
                 });
             } else {
                 $self.on('click', function(event) {
+                    $self.mousedown(function(){return false;});
                     event.stopPropagation();
                     event.preventDefault();
+                    $log.debug('click intercepted on touch device, field: ' + id);
                 });
             }
         }
     };
-})(jQuery);
+})(jQuery, angular);
