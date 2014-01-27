@@ -1,5 +1,6 @@
 describe('Service: PaymentServiceClearPersistedCoupons', function() {
 
+    
 
     // load the service's module
     beforeEach(function() {
@@ -23,6 +24,35 @@ describe('Service: PaymentServiceClearPersistedCoupons', function() {
     }));
 
 
-    // TODO
-    it('clears all quantity data from PaymentService.persistedCoupons');
+    it('clears all quantity data from PaymentService.persistedCoupons',
+      function () {
+        PaymentService.persistedCoupons[5] = 3;
+        PaymentService.persistedCoupons[20] = 5;
+        PaymentService.clearPersistedCoupons();
+        expect(PaymentService.persistedCoupons).toEqual({});
+      });
+
+
+    it('removes custom attributes', function () {
+      PaymentService.persistedCoupons.foo = 'bar';
+      PaymentService.clearPersistedCoupons();
+      expect(PaymentService.persistedCoupons).toEqual({});
+    });
+
+
+    // Make sure that once the persistedCoupons object is reset, we are
+    // able to persist new coupons.
+    it('does not break persistCouponQuantity()', function () {
+      PaymentService.persistedCoupons[5] = 5;
+      PaymentService.clearPersistedCoupons();
+      expect(PaymentService.persistedCoupons).toEqual({});
+
+      expect(function () {
+        PaymentService.persistCouponQuantity(5, 3);
+      }).not.toThrow();
+
+      expect(PaymentService.persistedCoupons).toEqual({
+        5 : 3
+      });
+    });
 });

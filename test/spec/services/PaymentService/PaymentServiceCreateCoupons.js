@@ -23,6 +23,22 @@ describe('Service: PaymentServiceCreateCoupons', function() {
     }));
 
 
-    // TODO
-    it('calls CouponService.create() for each coupon');
+    it('calls CouponService.create() for each coupon', function () {
+      spyOn(CouponService, 'create');
+
+      PaymentService.persistCouponQuantity(5, 3);
+      PaymentService.persistCouponQuantity(10, 2);
+
+      PaymentService.createCoupons();
+
+      expect(CouponService.create).toHaveBeenCalled();
+      expect(CouponService.create.calls.length).toBe(5);
+
+      var calls = CouponService.create.calls;
+      expect(calls[0].args[1]).toBe('5');
+      expect(calls[1].args[1]).toBe('5');
+      expect(calls[2].args[1]).toBe('5');
+      expect(calls[3].args[1]).toBe('10');
+      expect(calls[4].args[1]).toBe('10');
+    });
 });
