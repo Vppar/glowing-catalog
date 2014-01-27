@@ -23,9 +23,11 @@
                         if (ctrl.$pristine) {
                             ctrl.$setViewValue(ctrl.storedValue);
                             ctrl.$render();
+                            $log.debug('recall ' + id + ' recalls: ' + ctrl.storedValue);
+                        } else {
+                            $log.debug('recall ' + id + ' just forgot a bunch of stuff');
                         }
                     });
-                    $log.debug('recall ' + id + ' recalls: ' + ctrl.storedValue);
                 });
 
             }
