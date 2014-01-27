@@ -157,15 +157,14 @@
                  * The current payments.
                  */
                 var payments = {
-                    cash : {
-                        amount : 0
-                    },
+                    cash : [],
                     check : [],
                     creditCard : [],
                     exchange : [],
                     coupon : [],
                     onCuff : []
                 };
+
                 /**
                  * Payment types association.
                  */
@@ -240,12 +239,10 @@
                                 throw 'PaymentService.add: The object is not an instance of any known type of payment, Object=' +
                                     JSON.stringify(payment);
                             }
-                            if (typeName === 'cash') {
-                                payments.cash = angular.copy(payment);
-                            } else {
-                                payment.id = payments[typeName].length + 1;
-                                payments[typeName].push(angular.copy(payment));
-                            }
+
+                            // FIXME: should we use a UUID?
+                            payment.id = payments[typeName].length + 1;
+                            payments[typeName].push(angular.copy(payment));
                         };
 
 
@@ -265,13 +262,10 @@
                  */
                 var clear = function clear(type) {
                     var paymentsForType = payments[type];
-                    // FIXME: remove this 'if' in VOPP-226
-                    if (type === 'cash') {
-                        paymentsForType.amount = 0;
-                    } else if (paymentsForType) {
+                    if (paymentsForType) {
                         paymentsForType.length = 0;
                     } else {
-                      throw 'PaymentService.clear: invalid payment type';
+                        throw 'PaymentService.clear: invalid payment type';
                     }
                 };
 
@@ -279,7 +273,7 @@
                 /**
                  * Removes all registered payments for all payment types.
                  */
-                var clearAll = function clearAll() {
+                var clearAllPayments = function clearAll() {
                     for ( var idx in payments) {
                         if (payments.hasOwnProperty(idx)) {
                             clear(idx);
@@ -287,12 +281,17 @@
                     }
                 };
 
+                // FIXME: shouldn't all methods be renamed to more
+                // specific names? E.g.:
+                // add -> addPayment, list -> listPayments,
+                // clear -> clearPayments?
+                //
                 this.add = add;
                 this.addAll = addAll;
                 this.list = list;
                 this.read = read;
                 this.clear = clear;
-                this.clearAll = clearAll;
+                this.clearAllPayments = clearAllPayments;
 
 
 

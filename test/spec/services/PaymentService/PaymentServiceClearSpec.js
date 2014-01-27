@@ -23,16 +23,35 @@ describe('Service: PaymentServiceClear', function() {
 
     it('removes payments for the given payment type', function () {
       PaymentService.add(new CouponPayment(100));
+      PaymentService.add(new CashPayment(100));
+      PaymentService.add(new CheckPayment(123, 123, 123, 123, 123, new Date()));
+      PaymentService.add(new CreditCardPayment(123, 'VISA', 123123123123, 'FOO', new Date(), 123, '1231231321', 2));
+      PaymentService.add(new ExchangePayment(1, 1, 62));
+      PaymentService.add(new OnCuffPayment(123, new Date()));
+
       expect(PaymentService.list('coupon').length).toBe(1);
       PaymentService.clear('coupon');
       expect(PaymentService.list('coupon').length).toBe(0);
-    });
 
-    it('sets cash amount to 0', function () {
-      PaymentService.add(new CashPayment(150));
-      expect(PaymentService.list('cash').amount).toBe(150);
+      expect(PaymentService.list('cash').length).toBe(1);
       PaymentService.clear('cash');
-      expect(PaymentService.list('cash').amount).toBe(0);
+      expect(PaymentService.list('cash').length).toBe(0);
+
+      expect(PaymentService.list('check').length).toBe(1);
+      PaymentService.clear('check');
+      expect(PaymentService.list('check').length).toBe(0);
+
+      expect(PaymentService.list('creditCard').length).toBe(1);
+      PaymentService.clear('creditCard');
+      expect(PaymentService.list('creditCard').length).toBe(0);
+
+      expect(PaymentService.list('exchange').length).toBe(1);
+      PaymentService.clear('exchange');
+      expect(PaymentService.list('exchange').length).toBe(0);
+
+      expect(PaymentService.list('onCuff').length).toBe(1);
+      PaymentService.clear('onCuff');
+      expect(PaymentService.list('onCuff').length).toBe(0);
     });
 
     it('throws an error for invalid payment types', function () {
