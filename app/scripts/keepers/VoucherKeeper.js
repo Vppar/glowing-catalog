@@ -128,7 +128,7 @@
             }
             
             var voucherObj = angular.copy(newVoucher);
-            voucherObj.id = voucher[newVoucher.type].length;
+            voucherObj.id = ArrayUtils.generateUUID();
             
             var event = new Voucher(voucherObj);
             var stamp = (new Date()).getTime() / 1000;

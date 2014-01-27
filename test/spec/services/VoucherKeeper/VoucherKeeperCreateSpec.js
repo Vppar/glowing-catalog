@@ -46,14 +46,17 @@ describe('Service: VoucherKeeper', function() {
         var amount = 1;
         var stp = fakeNow / 1000;
         var voucherObject = new Voucher(0, entity, type, amount);
-        var ev = new Voucher(0, entity, type, amount);
+
+        expect(function() {
+            VoucherKeeper.create(voucherObject);
+        }).not.toThrow();
+
+        var id = jKeeper.compose.mostRecentCall.args[0].event.id;
+        var ev = new Voucher(id, entity, type, amount);
         ev.redeemed = undefined;
         ev.canceled = undefined;
         ev.created = stp;
         var entry = new JournalEntry(null, stp, 'voucherCreate', 1, ev);
-        expect(function() {
-            VoucherKeeper.create(voucherObject);
-        }).not.toThrow();
         expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
     });
 
