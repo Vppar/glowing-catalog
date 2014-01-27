@@ -261,8 +261,7 @@
                             }
                             OrderService.order.canceled = true;
                             makePayment();
-                            // FIXME: see fixme in makePayment() about
-                            // PaymentService.remove();
+                            // FIXME: shouldn't this be .clearALL()?
                             PaymentService.clear('cash');
                             $location.path('/');
                         }
@@ -326,16 +325,6 @@
                             // PaymentService.save(savedOrder.id,
                             // savedOrder.customerId);
 
-                            // FIXME: PaymentService.remove() has been removed.
-                            // This should be removed once we normalize the
-                            // PaymentService.payments.cash object to work
-                            // as all other payment methods (should be
-                            // converted to an array).
-                            //
-                            // Should be fixed in VOPP-226.
-                            //
-                            // OLD CODE:
-                            // PaymentService.remove(new CashPayment(0));
                             PaymentService.clearAll();
 
                             createCoupons();
