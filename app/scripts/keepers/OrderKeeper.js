@@ -46,8 +46,9 @@
     });
 
     angular.module('tnt.catalog.order.keeper', [
-        'tnt.utils.array', 'tnt.catalog.order.entity'
-    ]).service('OrderKeeper', function OrderKeeper(ArrayUtils, Order, JournalKeeper, JournalEntry) {
+        'tnt.utils.array', 'tnt.catalog.order.entity', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 
+        'tnt.catalog.journal.keeper'
+    ]).service('OrderKeeper', function OrderKeeper(ArrayUtils, Order, JournalKeeper, JournalEntry, Replayer) {
 
         var currentEventVersion = 1;
         var orders = [];
@@ -60,16 +61,22 @@
             var orderEntry = new Order(event);
             orders.push(orderEntry);
         });
+       
         ObjectUtils.ro(this.handlers, 'orderCancelV1', function(event) {
             var orderEntry = ArrayUtils.find(orders, 'id', event.id);
-
             if (orderEntry) {
                 orderEntry.canceled = event.canceled;
             } else {
                 throw 'Unable to find an order with id=\'' + event.id + '\'';
             }
         });
-
+        
+        /**
+         * Registering the handlers with the Replayer
+         */
+        Replayer.registerHandlers(this.handlers);
+        
+        
         /**
          * Adds an order
          */
@@ -123,7 +130,7 @@
             };
 
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'orderCancelV1', currentEventVersion, cancelEv);
+            var entry = new JournalEntry(null, stamp, 'orderCancel', currentEventVersion, cancelEv);
 
             // save the journal entry
             JournalKeeper.compose(entry);
@@ -135,5 +142,8 @@
         this.cancel = cancel;
 
     });
+    angular.module('tnt.catalog.order', [
+        'tnt.catalog.order.entity', 'tnt.catalog.order.keeper'
+    ]);
 
 }(angular));
