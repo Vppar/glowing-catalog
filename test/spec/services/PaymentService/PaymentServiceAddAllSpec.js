@@ -1,5 +1,4 @@
-describe('Service: PaymentServiceCreateCoupons', function() {
-
+describe('Service: PaymentServiceAddAll', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -23,22 +22,21 @@ describe('Service: PaymentServiceCreateCoupons', function() {
     }));
 
 
-    it('calls CouponService.create() for each coupon', function () {
-      spyOn(CouponService, 'create');
+    it('adds all payments to the temporary payments list', function () {
+      expect(PaymentService.list('cash').amount).toBe(0);
+      expect(PaymentService.list('coupon').length).toBe(0);
 
-      PaymentService.persistCouponQuantity(5, 3);
-      PaymentService.persistCouponQuantity(10, 2);
+      PaymentService.addAll([new CashPayment(100), new CouponPayment(30)]);
 
-      PaymentService.createCoupons();
-
-      expect(CouponService.create).toHaveBeenCalled();
-      expect(CouponService.create.calls.length).toBe(5);
-
-      var calls = CouponService.create.calls;
-      expect(calls[0].args[1]).toBe('5');
-      expect(calls[1].args[1]).toBe('5');
-      expect(calls[2].args[1]).toBe('5');
-      expect(calls[3].args[1]).toBe('10');
-      expect(calls[4].args[1]).toBe('10');
+      expect(PaymentService.list('cash').amount).toBe(100);
+      expect(PaymentService.list('coupon').length).toBe(1);
     });
+
+
+    it('throws an error if an invalid payment is given', function () {
+      expect(function () {
+        PaymentService.addAll(['invalidPayment']);
+      }).toThrow('PaymentService.add: The object is not an instance of any known type of payment, Object="invalidPayment"');
+    });
+
 });

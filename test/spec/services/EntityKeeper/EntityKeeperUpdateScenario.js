@@ -19,14 +19,14 @@ describe('Service: EntityKeeper', function() {
     
     /**
      * <pre>
-     * @spec EntityKeeper.add#1
-     * Given a valid values
-     * when and create is triggered
-     * then a enitity must be created
+     * @spec EntityKeeper.update#1
+     * Given a already registered client
+     * when and update is triggered
+     * then a entity must be updated
      * an the entry must be registered
      * </pre>
      */
-    it('should add', function() {
+    it('should update', function() {
         runs(function(){
             var id = 1;
             var name = 'cassiano';
@@ -39,6 +39,10 @@ describe('Service: EntityKeeper', function() {
             var remarks = 'bad client';
             var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
             EntityKeeper.create(ev);
+            
+            ev.remarks = 'super bad client';
+            
+            EntityKeeper.update(ev);
         });
         
         waitsFor(function(){
@@ -47,6 +51,7 @@ describe('Service: EntityKeeper', function() {
         
         runs(function(){
             expect(EntityKeeper.list().length).toBe(1);
+            expect(EntityKeeper.list()[0].remarks).toBe('super bad client');
         });
 
     });

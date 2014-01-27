@@ -1,5 +1,4 @@
-describe('Service: PaymentServiceCreateCoupons', function() {
-
+describe('Service: PaymentServiceClear', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -22,23 +21,24 @@ describe('Service: PaymentServiceCreateCoupons', function() {
         PaymentService = _PaymentService_;
     }));
 
-
-    it('calls CouponService.create() for each coupon', function () {
-      spyOn(CouponService, 'create');
-
-      PaymentService.persistCouponQuantity(5, 3);
-      PaymentService.persistCouponQuantity(10, 2);
-
-      PaymentService.createCoupons();
-
-      expect(CouponService.create).toHaveBeenCalled();
-      expect(CouponService.create.calls.length).toBe(5);
-
-      var calls = CouponService.create.calls;
-      expect(calls[0].args[1]).toBe('5');
-      expect(calls[1].args[1]).toBe('5');
-      expect(calls[2].args[1]).toBe('5');
-      expect(calls[3].args[1]).toBe('10');
-      expect(calls[4].args[1]).toBe('10');
+    it('removes payments for the given payment type', function () {
+      PaymentService.add(new CouponPayment(100));
+      expect(PaymentService.list('coupon').length).toBe(1);
+      PaymentService.clear('coupon');
+      expect(PaymentService.list('coupon').length).toBe(0);
     });
+
+    it('sets cash amount to 0', function () {
+      PaymentService.add(new CashPayment(150));
+      expect(PaymentService.list('cash').amount).toBe(150);
+      PaymentService.clear('cash');
+      expect(PaymentService.list('cash').amount).toBe(0);
+    });
+
+    it('throws an error for invalid payment types', function () {
+      expect(function () {
+        PaymentService.clear('invalidPaymentType');
+      }).toThrow('PaymentService.clear: invalid payment type');
+    });
+
 });

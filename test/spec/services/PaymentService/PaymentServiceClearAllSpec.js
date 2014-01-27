@@ -1,5 +1,4 @@
-describe('Service: PaymentServiceCreateCoupons', function() {
-
+describe('Service: PaymentServiceClearAll', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -23,22 +22,19 @@ describe('Service: PaymentServiceCreateCoupons', function() {
     }));
 
 
-    it('calls CouponService.create() for each coupon', function () {
-      spyOn(CouponService, 'create');
+    it('should reset the payment array for all payment types', function () {
+      spyOn(PaymentService, 'clear');
 
-      PaymentService.persistCouponQuantity(5, 3);
-      PaymentService.persistCouponQuantity(10, 2);
+      PaymentService.add(new CouponPayment(100));
+      PaymentService.add(new CheckPayment(1000, 100, 123, 12345, 1232, new Date()));
 
-      PaymentService.createCoupons();
+      expect(PaymentService.list('coupon').length).toBe(1);
+      expect(PaymentService.list('check').length).toBe(1);
 
-      expect(CouponService.create).toHaveBeenCalled();
-      expect(CouponService.create.calls.length).toBe(5);
+      PaymentService.clearAll();
 
-      var calls = CouponService.create.calls;
-      expect(calls[0].args[1]).toBe('5');
-      expect(calls[1].args[1]).toBe('5');
-      expect(calls[2].args[1]).toBe('5');
-      expect(calls[3].args[1]).toBe('10');
-      expect(calls[4].args[1]).toBe('10');
+      expect(PaymentService.list('coupon').length).toBe(0);
+      expect(PaymentService.list('check').length).toBe(0);
     });
+
 });

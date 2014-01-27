@@ -261,7 +261,8 @@
                             }
                             OrderService.order.canceled = true;
                             makePayment();
-                            PaymentService.remove(new CashPayment(0));
+                            // FIXME: shouldn't this be .clearALL()?
+                            PaymentService.clear('cash');
                             $location.path('/');
                         }
 
@@ -324,8 +325,7 @@
                             // PaymentService.save(savedOrder.id,
                             // savedOrder.customerId);
 
-                            PaymentService.remove(new CashPayment(0));
-                            PaymentService.clear();
+                            PaymentService.clearAll();
 
                             createCoupons();
 

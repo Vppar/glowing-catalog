@@ -248,70 +248,51 @@
                             }
                         };
 
-                /**
-                 * Updates the instance of a payment
-                 * 
-                 * @param payment - The payment to be updated.
-                 * @throws Exception - In case of an unknown payment type or
-                 *             unknown payment instance.
-                 */
-                var update = function update(payment) {
-                    // find the list
-                    var paymentList = payments[getTypeName(payment)];
-                    var paymentInstance = ArrayUtils.find(paymentList, 'id', payment.id);
-                    if (!paymentInstance) {
-                        throw 'PaymentService.update: Unknown payment instance, id=' + id;
-                    }
-
-                    angular.extend(paymentInstance, payment);
-                };
 
                 /**
-                 * Given a payment instance remove it.
-                 * 
-                 * @param payment - The payment to be removed.
-                 * @throws Exception - In case of an unknown payment type or
-                 *             unknown payment instance.
+                 * Adds a list of payments to the temporary list of payments.
                  */
-                var remove = function remove(payment) {
-                    // find the list
-                    var paymentList = payments[getTypeName(payment)];
-
-                    if (getTypeName(payment) === 'cash') {
-                        payments['cash'] = {
-                            amount : 0
-                        };
-                    } else {
-
-                        // find the payment in the list
-                        var paymentInstance = ArrayUtils.find(paymentList, 'id', payment.id);
-                        if (!paymentInstance) {
-                            throw 'PaymentService.remove: Unknown payment instance, id=' + payment.id;
-                        }
-                        // remove
-                        paymentList.splice(paymentList.indexOf(paymentInstance), 1);
+                var addAll = function addAll(payments) {
+                    var len, i;
+                    for (i = 0, len = payments.length; i < len; i += 1) {
+                        add(payments[i]);
                     }
                 };
 
+
                 /**
-                 * Erase all registered payments.
+                 * Erase all registered payments for the given payment type.
                  */
                 var clear = function clear(type) {
-                    if (type) {
-                        payments[type].length = 0;
+                    var paymentsForType = payments[type];
+                    // FIXME: remove this 'if' in VOPP-226
+                    if (type === 'cash') {
+                        paymentsForType.amount = 0;
+                    } else if (paymentsForType) {
+                        paymentsForType.length = 0;
                     } else {
-                        for ( var ix in payments) {
-                            payments[ix].length = 0;
+                      throw 'PaymentService.clear: invalid payment type';
+                    }
+                };
+
+
+                /**
+                 * Removes all registered payments for all payment types.
+                 */
+                var clearAll = function clearAll() {
+                    for ( var idx in payments) {
+                        if (payments.hasOwnProperty(idx)) {
+                            clear(idx);
                         }
                     }
                 };
 
                 this.add = add;
+                this.addAll = addAll;
                 this.list = list;
                 this.read = read;
-                this.update = update;
-                this.remove = remove;
                 this.clear = clear;
+                this.clearAll = clearAll;
 
 
 
@@ -332,7 +313,7 @@
                 var clearPersistedCoupons = function clearPersistedCoupons() {
                   for (var idx in persistedCoupons) {
                     if (persistedCoupons.hasOwnProperty(idx)) {
-                      persistedCoupons[idx] = 0;
+                      delete persistedCoupons[idx];
                     }
                   }
                 };

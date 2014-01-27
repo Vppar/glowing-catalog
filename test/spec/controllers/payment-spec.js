@@ -111,10 +111,22 @@ describe('Controller: PaymentCtrl', function() {
     }));
 
 
-    // TODO
     // This test should check if PaymentService.createCoupons is being called
     // when the order is confirmed.
-    it('should create coupons when payment is confirmed');
+    it('should create coupons when payment is confirmed', inject(function ($q) {
+        var deferred = $q.defer();
+        ds.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(deferred.promise);
+        ps.createCoupons = jasmine.createSpy('PaymentService.createCoupons').andReturn([]);
+        ps.remove = function () {};
+        ps.clear = function () {};
+
+        // when
+        scope.confirm();
+        deferred.resolve(true);
+        scope.$apply();
+
+        expect(ps.createCoupons).toHaveBeenCalled();
+    }));
 
     it('should consolidate payment and order total when payment on cash change', function() {
         // given
