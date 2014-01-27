@@ -15,15 +15,9 @@ describe('Service: EntityKeeper', function() {
     // instantiate service
     var EntityKeeper = undefined;
     var Entity = undefined;
-    var JournalEntry = undefined;
-    var scope = null;
-    var timeout = null;
-    beforeEach(inject(function(_EntityKeeper_, _Entity_, _JournalEntry_, $rootScope, $timeout) {
+    beforeEach(inject(function(_EntityKeeper_, _Entity_) {
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
-        JournalEntry =_JournalEntry_;
-        scope = $rootScope;
-        timeout = $timeout;
     }));
     
     /**
@@ -36,7 +30,7 @@ describe('Service: EntityKeeper', function() {
      * </pre>
      */
     it('should add', function() {
-      
+        runs(function(){
             var id = 1;
             var name = 'cassiano';
             var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
@@ -48,8 +42,15 @@ describe('Service: EntityKeeper', function() {
             var remarks = 'bad client';
             var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
             EntityKeeper.create(ev);
-
-            timeout.flush();
+        });
+        
+        waitsFor(function(){
+            return EntityKeeper.list().length;
+        }, 'JournalKeeper is taking too long', 300);
+        
+        runs(function(){
             expect(EntityKeeper.list().length).toBe(1);
+        });
+
     });
 });

@@ -61,28 +61,14 @@
         this.handlers = {};
 
         ObjectUtils.ro(this.handlers, 'entityCreateV1', function(event) {
-            var entry = ArrayUtils.find(entities, 'document', event.document);
-
-            if (entry === null) {
-                event = new Entity(event);
-                entities.push(event);
-            } else {
-                entry.id = event.id;
-                entry.name = event.name;
-                entry.emails = event.emails;
-                entry.birthDate = event.birthDate;
-                entry.phones = event.phones;
-                entry.cep = event.cep;
-                entry.document = event.document;
-                entry.addresses = event.addresses;
-                entry.remarks = event.remarks;
-            }
+            event = new Entity(event);
+            entities.push(event);
         });
         
         
 
         ObjectUtils.ro(this.handlers, 'entityUpdateV1', function(event) {
-            var entry = ArrayUtils.find(entities, 'document', event.document);
+            var entry = ArrayUtils.find(entities, 'id', event.id);
 
             if (entry !== null) {
                 entry.name = event.name;
