@@ -101,7 +101,6 @@
                           // The voucher screen is enabled either if there's a
                           // voucher in the order or if there's change.
                           return orderHasVoucher() || $scope.total.change > 0;
-                          //return hasVoucherInOrder || $scope.total.change > 0;
                         }
 
                         $scope.voucherIsEnabled = voucherIsEnabled;
