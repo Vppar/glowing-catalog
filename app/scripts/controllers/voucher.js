@@ -42,7 +42,6 @@
             $scope.vouchers.push(giftList[ix]);
         }
 
-        // console.log($scope.vouchers);
         $scope.vouchers = $filter('filter')($scope.vouchers, function(voucher) {
             return !(voucher.canceled || voucher.redeemed);
         });
