@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeeper.cancel(id)', function() {
+describe('Service: OrderKeeper.cancel', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -23,15 +23,16 @@ describe('Service: OrderKeeper.cancel(id)', function() {
     
     /**
      * <pre>
-     * @spec OrderKeeper.add#1
-     * Given a valid values
-     * when and create is triggered
-     * then a order must be created
-     * an the entry must be registered
+     * @spec OrderKeeper.cancel#1
+     * Given a populated list of orders
+     * when and cancel is triggered
+     * then a order must be canceled - canceled means the field will have a canceling Date 
      * </pre>
      */
     it('should cancel', function() {
+
         runs(function(){
+            //then
             var code = '123';
             var date = new Date();
             var canceled = false;
@@ -42,7 +43,8 @@ describe('Service: OrderKeeper.cancel(id)', function() {
             OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
             OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
             OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
-            
+
+            //when
             OrderKeeper.cancel(2);
         });
         
@@ -51,46 +53,42 @@ describe('Service: OrderKeeper.cancel(id)', function() {
         }, 'JournalKeeper is taking too long', 300);
         
         runs(function(){
+            //then
             var order = ArrayUtils.find(OrderKeeper.list(), 'id', 2);
             expect(order.canceled instanceof Date).toBe(true);
         });
     });
     
     
-    //FIX broken test check this behavior.
     /**
      * <pre>
-     * @spec OrderKeeper.add#1
-     * Given a valid values
-     * when and create is triggered
-     * then a order must be created
-     * an the entry must be registered
+     * @spec OrderKeeper.cancel#1
+     * Given a invalid order
+     * given a populated list of orders
+     * when and cancel is triggered
+     * Then a exception must be throw
      * </pre>
      */
-    xit('should not cancel', function() {
-        runs(function(){
-            var code = '123';
-            var date = new Date();
-            var canceled = false;
-            var customerId = 2;
-            var items = [];
-            
-            OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
-            
-            expect(OrderKeeper.cancel(5)).toThrow();
-            
-        });
+    it('should throw an exception', function() {
+        //given
+        var code = '123';
+        var date = new Date();
+        var canceled = false;
+        var customerId = 2;
+        var items = [];
+
+        OrderKeeper.handlers.orderAddV1(new Order(1, code, canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(2, code, canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(3, code, canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(4, code, canceled, date, customerId, items));
         
-       /* waitsFor(function(){
-            return OrderKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+        //when
+        var createCall = function() {
+            OrderKeeper.cancel(5);
+        };
         
-        runs(function(){
-            expect(Order.cancel).toThrow();
-        });*/
+        //then
+        expect(createCall).toThrow('Unable to find an order with id=\'5\'');
     });
     
     

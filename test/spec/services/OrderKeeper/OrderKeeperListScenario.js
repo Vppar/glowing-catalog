@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeepe.list( )', function() {
+describe('Service: OrderKeepe.list', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -13,6 +13,7 @@ describe('Service: OrderKeepe.list( )', function() {
     var OrderKeeper = undefined;
     var Order = undefined;
     var myNewList = undefined;
+    
     beforeEach(inject(function(_OrderKeeper_, _Order_) {
         OrderKeeper = _OrderKeeper_;
         Order = _Order_;
@@ -27,19 +28,14 @@ describe('Service: OrderKeepe.list( )', function() {
      * then a list must be empty
      * </pre>
      */
-    it('should return populated list with 0 items', function() {
-        runs(function(){
-            //OrderKeeper.handlers.orderAddV1(new Order(4, 123,false, new Date(), 2, []));
-            myNewList = OrderKeeper.list();
-        });
+    it('should return list with 0 items', function() {
+        //given
         
-        waitsFor(function(){
-            return OrderKeeper.list();
-        }, 'JournalKeeper is taking too long', 300);
+        //when 
         
-        runs(function(){
-            expect(OrderKeeper.list().length).toBe(0);
-        });
+        //then
+        expect(OrderKeeper.list().length).toBe(0);
+        
     });
        
     /**
@@ -51,28 +47,23 @@ describe('Service: OrderKeepe.list( )', function() {
      * </pre>
      */
     it('should return populated list with 4 items', function() {
-        runs(function(){
-            var code = '123';
-            var date = new Date();
-            var canceled = false;
-            var customerId = 2;
-            var items = [];
-            
-            OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
-            myNewList = OrderKeeper.list();
-            
-        });
+        //given
+        var code = '123';
+        var date = new Date();
+        var canceled = false;
+        var customerId = 2;
+        var items = [];
         
-        waitsFor(function(){
-            return OrderKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
-        
-        runs(function(){
-            expect(myNewList.length).toBe(4);
-        });
+        OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
+
+        //when
+        myNewList = OrderKeeper.list();
+
+        //then
+        expect(myNewList.length).toBe(4);
     });
     
     /**
@@ -84,28 +75,24 @@ describe('Service: OrderKeepe.list( )', function() {
      * </pre>
      */
     it('should return populated list with 6 items', function() {
-        runs(function(){
-            var code = '123';
-            var date = new Date();
-            var canceled = false;
-            var customerId = 2;
-            var items = [];
-            
-            OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(5, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(6, code,canceled, date, customerId, items));
-        });
+        //given
+        var code = '123';
+        var date = new Date();
+        var canceled = false;
+        var customerId = 2;
+        var items = [];
         
-        waitsFor(function(){
-            return OrderKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
-        
-        runs(function(){
-            expect(OrderKeeper.list().length).toBe(6);
-        });
+        OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(5, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order(6, code,canceled, date, customerId, items));
+    
+        //when
+        myNewList = OrderKeeper.list();
+        //then
+        expect(myNewList.length).toBe(6);
     });
     
 });

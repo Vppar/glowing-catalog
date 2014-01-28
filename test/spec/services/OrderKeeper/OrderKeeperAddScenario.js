@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeeper.add(Order)', function() {
+describe('Service: OrderKeeper.add', function() {
 
     beforeEach(function() {
         module('tnt.catalog.order');
@@ -26,7 +26,9 @@ describe('Service: OrderKeeper.add(Order)', function() {
      * </pre>
      */
     it('should add a order', function() {
+
         runs(function() {
+            //givens
             var id = 1;
             var code = '123';
             var date = new Date();
@@ -35,6 +37,7 @@ describe('Service: OrderKeeper.add(Order)', function() {
             var items = [];
 
             var ev = new Order(id, code, canceled, date, customerId, items);
+            //when
             OrderKeeper.add(ev);
         });
 
@@ -43,41 +46,35 @@ describe('Service: OrderKeeper.add(Order)', function() {
         }, 'JournalKeeper is taking too long', 300);
 
         runs(function() {
+            //then
             expect(OrderKeeper.list().length).toBe(1);
             expect(OrderKeeper.list()[0].code).toBe('123');
 
         });
     });
-
+    
     /**
      * <pre>
      * @spec OrderKeeper.add#1
      * Given a invalid Order
      * when create is triggered
-     * then a order must not be created
-     * and the entry must not be registered
+     * then a exception must be throw
      * </pre>
      */
-    xit('should not add a order', function() {
-        runs(function() {
-            var od = {
-                id : 1,
-                code : '123',
-                customerId : 2
-            };
-            
-            expect(OrderKeeper.add(od)).toThrow();
-        });
-
-        /*waitsFor(function() {
-            return OrderKeeper.list();
-        }, 'JournalKeeper is taking too long', 300);
+    it('should not add a order', function() {
+        //given
+        var od = {
+            id : 1,
+            code : '123',
+            customerId : 2
+        };
+        //when
+        var createCall = function(){
+            OrderKeeper.add(od);
+        };
         
-        runs(function() {
-            
-             expect(OrderKeeper.list().length).toBe(1);
-             expect(OrderKeeper.list()[0].code).toBe('123');
-             
-        });*/
+        //then
+        expect(createCall).toThrow('Wrong instance to OrderKeeper');
+
     });
 });

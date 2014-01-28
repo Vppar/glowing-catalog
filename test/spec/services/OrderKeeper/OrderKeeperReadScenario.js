@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeepe.read()', function() {
+describe('Service: OrderKeepe.read', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -29,6 +29,7 @@ describe('Service: OrderKeepe.read()', function() {
      */
     it('should return a Order', function() {
         runs(function(){
+            //given
             var date = new Date();
             var canceled = false;
             var customerId = 2;
@@ -45,13 +46,13 @@ describe('Service: OrderKeepe.read()', function() {
         }, 'JournalKeeper is taking too long', 300);
         
         runs(function(){
+            //when | then
             expect(OrderKeeper.read(2).code).toBe('1234');
         });
     });
     
     
     
-    //FIXME check this behavior.
     /**
      * <pre>
      * @spec OrderKeeper.read#1
@@ -79,7 +80,6 @@ describe('Service: OrderKeepe.read()', function() {
         }, 'JournalKeeper is taking too long', 300);
         
         runs(function(){
-            //FIXME - Should throw exception or return null?
             expect(OrderKeeper.read(6)).toBe(null);
         });
     });
