@@ -1,7 +1,19 @@
 'use strict';
 
 describe('Service: Voucherservice', function() {
+    var vKeeper = {};
+    var EntityService = {};
 
+    var entity = 1;
+    var amount = 300;
+    var voucherType = 'voucher';
+    var remarks = 'some remarks.';
+    var document = {
+        type : "pedido",
+        id : 123
+    };
+
+    
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.voucher');
@@ -12,20 +24,20 @@ describe('Service: Voucherservice', function() {
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
     });
-    var vKeeper = {};
+
     // SPY
     beforeEach(function() {
         vKeeper.create = jasmine.createSpy('VoucherKeeper.create');
-
+        EntityService.find = jasmine.createSpy('EntityService.find').andReturn(entity);
         module(function($provide) {
             $provide.value('VoucherKeeper', vKeeper);
+            $provide.value('EntityService', EntityService);
         });
     });
 
     // instantiate service
     var VoucherService = undefined;
     var Voucher = undefined;
-    var EntityService = undefined;
     beforeEach(inject(function(_VoucherService_, _Voucher_, _EntityService_) {
         VoucherService = _VoucherService_;
         Voucher = _Voucher_;
@@ -33,39 +45,21 @@ describe('Service: Voucherservice', function() {
     }));
 
     it('should create', function() {
-
-        var entity = 1;
-        var amount = 1;
-        var voucherType = 'voucher';
-        var remarks = 'some remarks.';
-        var document = {
-            type : "pedido",
-            id : 123
-        };
-
-        var voucher = new Voucher(null, entity, voucherType, amount);
+        
+        var voucher = new Voucher(null, entity, voucherType, 100);
         voucher.remarks = 'some remarks.';
         voucher.document = {
             type : "pedido",
             id : 123
         };
 
-        spyOn(EntityService, 'find').andReturn(entity);
-
-        VoucherService.create(entity, amount, remarks, document);
-
+        VoucherService.create(entity, 100, remarks, document);
         expect(vKeeper.create.mostRecentCall.args[0]).toEqual(voucher);
 
     });
 
     it('should fail, invalid entity', function() {
 
-        var amount = 1;
-        var remarks = 'some remarks.';
-        var document = {
-            type : "pedido",
-            id : 123
-        };
         expect(function() {
             VoucherService.create(undefined, amount, remarks, document);
         }).toThrow();
@@ -73,23 +67,7 @@ describe('Service: Voucherservice', function() {
 
     it('should fail, invalid amount', function() {
 
-        var entity = 1;
-        var amount = 300;
-        var voucherType = 'voucher';
-        var remarks = 'some remarks.';
-        var document = {
-            type : "pedido",
-            id : 123
-        };
-
         var voucher = new Voucher(null, entity, voucherType, amount);
-        voucher.remarks = 'some remarks.';
-        voucher.document = {
-            type : "pedido",
-            id : 123
-        };
-
-        spyOn(EntityService, 'find').andReturn(entity);
 
         expect(function() {
             VoucherService.create(undefined, amount, remarks, document);
