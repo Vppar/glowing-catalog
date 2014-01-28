@@ -1,0 +1,50 @@
+describe('Service: PaymentServiceClearAll', function() {
+
+    // load the service's module
+    beforeEach(function() {
+        module('tnt.catalog.payment.entity');
+        module('tnt.catalog.payment.service');
+        module('tnt.catalog.service.coupon');
+    });
+
+    // instantiate service
+    beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
+            _CouponService_, _OnCuffPayment_, _PaymentService_) {
+        Payment = _Payment_;
+        CashPayment = _CashPayment_;
+        CheckPayment = _CheckPayment_;
+        CreditCardPayment = _CreditCardPayment_;
+        ExchangePayment = _ExchangePayment_;
+        CouponPayment = _CouponPayment_;
+        CouponService = _CouponService_;
+        OnCuffPayment = _OnCuffPayment_;
+        PaymentService = _PaymentService_;
+    }));
+
+
+    it('should reset the payment array for all payment types', function () {
+      PaymentService.add(new CouponPayment(100));
+      PaymentService.add(new CashPayment(100));
+      PaymentService.add(new CheckPayment(123, 123, 123, 123, 123, new Date()));
+      PaymentService.add(new CreditCardPayment(123, 'VISA', 123123123123, 'FOO', new Date(), 123, '1231231321', 2));
+      PaymentService.add(new ExchangePayment(1, 1, 62));
+      PaymentService.add(new OnCuffPayment(123, new Date()));
+
+      expect(PaymentService.list('cash').length).toBe(1);
+      expect(PaymentService.list('check').length).toBe(1);
+      expect(PaymentService.list('coupon').length).toBe(1);
+      expect(PaymentService.list('creditCard').length).toBe(1);
+      expect(PaymentService.list('exchange').length).toBe(1);
+      expect(PaymentService.list('onCuff').length).toBe(1);
+
+      PaymentService.clearAllPayments();
+
+      expect(PaymentService.list('cash').length).toBe(0);
+      expect(PaymentService.list('check').length).toBe(0);
+      expect(PaymentService.list('coupon').length).toBe(0);
+      expect(PaymentService.list('creditCard').length).toBe(0);
+      expect(PaymentService.list('exchange').length).toBe(0);
+      expect(PaymentService.list('onCuff').length).toBe(0);
+    });
+
+});

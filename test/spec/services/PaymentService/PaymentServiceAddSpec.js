@@ -34,7 +34,7 @@ describe('Service: PaymentServiceAdd', function() {
         };
         // then
         expect(addCall).not.toThrow();
-        expect(payments).toEqual(payment);
+        expect(payments).toEqual([payment]);
     });
 
     

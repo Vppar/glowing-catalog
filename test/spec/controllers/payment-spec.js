@@ -46,10 +46,7 @@ describe('Controller: PaymentCtrl', function() {
 
         // PaymentService mock
         ps.list = jasmine.createSpy('PaymentService.list').andCallFake(function(value) {
-            if (value == 'cash') {
-                return { amount : 123.23 };
-            
-            }else if (value == 'check') {
+            if (value == 'check' || value == 'cash') {
                 return [
                     {
                         amount : 123.23
@@ -84,6 +81,8 @@ describe('Controller: PaymentCtrl', function() {
             }
         });
         ps.clear = jasmine.createSpy('PaymentService.clear');
+        ps.clearAllPayments = jasmine.createSpy('PaymentService.clearAllPayments');
+        ps.add = jasmine.createSpy('PaymentService.add');
 
         // Scope mock
         rootScope = $rootScope;
@@ -111,19 +110,31 @@ describe('Controller: PaymentCtrl', function() {
     }));
 
 
-    // TODO
     // This test should check if PaymentService.createCoupons is being called
     // when the order is confirmed.
-    it('should create coupons when payment is confirmed');
+    it('should create coupons when payment is confirmed', inject(function ($q) {
+        var deferred = $q.defer();
+        ds.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(deferred.promise);
+        ps.createCoupons = jasmine.createSpy('PaymentService.createCoupons').andReturn([]);
+        ps.remove = function () {};
+        ps.clear = function () {};
+
+        // when
+        scope.confirm();
+        deferred.resolve(true);
+        scope.$apply();
+
+        expect(ps.createCoupons).toHaveBeenCalled();
+    }));
 
     it('should consolidate payment and order total when payment on cash change', function() {
         // given
-        scope.total.payments.cash = {amount : 15.32};
+        scope.cash.amount = 123.23;
         // when
         scope.$apply();
 
         // then
-        expect(scope.total.change).toBe(297.45);
+        expect(scope.total.change).toBe(405.36);
     });
 
     it('should consolidate payment and order total when selected screen change', function() {

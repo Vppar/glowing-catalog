@@ -456,7 +456,7 @@ div.header-date {
 .bag {
 	background: url(../images/bag-mk.png) no-repeat;
 	display: inline-block;
-	width: 92px;
+	width: 94px;
 	/*height: 58px;
 	margin: 0px -18px 0 0;*/
 	text-align: center;
@@ -492,7 +492,7 @@ div.header-date {
 .navbar .nav > li > a {
 	float: none;
 	padding: 10px 8px 10px 0; /*10px 15px 10px 0*/
-	color: #777777;
+	color: #bcbcbc;
 	text-decoration: none;
 	text-shadow: 0 1px 0 #ffffff;
 }
@@ -696,7 +696,7 @@ div.sidebar-menu ul li a {
 	background-color: transparent;
 }
 .navbar-inverse .brand, .navbar-inverse .nav > li > a {
-	color: #ecbab9;
+	/*color: #ecbab9;*/
 	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 	-webkit-tap-highlight-color: transparent;
 	font-size:12px !important;
