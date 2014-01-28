@@ -303,10 +303,27 @@
 
                 var persistedCoupons = {};
 
+
+                // If persistedCoupons is empty, we don't have coupons.
+                // persistCouponQuantity() should ensure that coupons with qty 0 are
+                // removed from the persistedCoupons object.
+                var hasPersistedCoupons = function () {
+                  for (var amount in persistedCoupons) {
+                    if (persistedCoupons.hasOwnProperty(amount)) {
+                      return true;
+                    }
+                  }
+
+                  return false;
+                };
+
                 var persistCouponQuantity = function persistCouponQuantity(amount, qty) {
                   if (qty < 0) { qty = 0; }
-                  if (!qty) { delete persistedCoupons[amount]; }
-                  persistedCoupons[amount] = qty;
+                  if (!qty) {
+                    delete persistedCoupons[amount];
+                  } else {
+                    persistedCoupons[amount] = qty;
+                  }
                 };
 
                 var clearPersistedCoupons = function clearPersistedCoupons() {
@@ -366,6 +383,7 @@
                 };
 
                 this.persistedCoupons = persistedCoupons;
+                this.hasPersistedCoupons = hasPersistedCoupons;
                 this.persistCouponQuantity = persistCouponQuantity;
                 this.clearPersistedCoupons = clearPersistedCoupons;
                 this.createCoupons = createCoupons;

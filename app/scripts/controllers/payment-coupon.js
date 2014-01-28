@@ -131,7 +131,7 @@
                         }
 
                         function canConfirmCoupon() {
-                            if ($scope.option === 'option03' && $scope.coupon.total > 0) {
+                            if ($scope.option === 'option03' && (PaymentService.hasPersistedCoupons() || $scope.coupon.total > 0)) {
                                 $scope.isDisabled = false;
                             } else {
                                 $scope.isDisabled = true;

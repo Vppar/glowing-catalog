@@ -346,7 +346,26 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     });
 
+    // If the user added coupons and, later, decides to remove them by
+    // setting their quantity to 0, we should allow them to be removed.
+    it('allows to confirm if total value of coupons is 0 and there are persisted coupons', function () {
+        paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(true);
+
+        scope.voucher.total = 0;
+        scope.gift.total = 0;
+        scope.$apply();
+
+        scope.coupon.total = 0;
+        scope.option = 'option03';
+        scope.$apply();
+
+        expect(scope.isDisabled).toEqual(false);
+    });
+
+
     it('should not allow to confirm if the total value of coupons is equals or less than zero', function() {
+        paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(false);
+
         scope.list = [
             {
                 qty : 0,
@@ -367,12 +386,10 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         scope.$apply();
 
-        scope.$apply();
         expect(scope.isDisabled).toEqual(true);
     });
 
     it('should allow to confirm if the total value of coupons is greater than zero', function() {
-
         scope.option = 'option03';
 
         scope.$apply();
