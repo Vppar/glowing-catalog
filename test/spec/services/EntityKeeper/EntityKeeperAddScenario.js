@@ -38,6 +38,7 @@ describe('Service: EntityKeeper', function() {
             var addresses = [{street: 'rua', number: 555}, {street: 'rua', number: 556}];
             var remarks = 'bad client';
             var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
+            
             EntityKeeper.create(ev);
         });
         
@@ -48,6 +49,55 @@ describe('Service: EntityKeeper', function() {
         runs(function(){
             expect(EntityKeeper.list().length).toBe(1);
         });
+
+    });
+    
+    /**
+     * <pre>
+     * @spec EntityKeeper.add#1
+     * Given a invalid values
+     * when and create is triggered
+     * then a enitity must not be created
+     * an the entry must be registered
+     * </pre>
+     */
+    it('should not add', function() {
+        var ev = {
+            id : 1,
+            name : 'cassiano',
+            emails : [
+                {
+                    address : 'cassiano.tesseroli@gvt.com.br'
+                }, {
+                    address : 'c4ssio@gmail.com'
+                }
+            ],
+            birthDate : '16/09/1981',
+            phones : [
+                {
+                    ddd : 41,
+                    phone : 96491686
+                }, {
+                    ddd : 41,
+                    phone : 30875341
+                }
+            ],
+            cep : '8157170',
+            document : '1234567890',
+            addresses : [
+                {
+                    street : 'rua',
+                    number : 555
+                }, {
+                    street : 'rua',
+                    number : 556
+                }
+            ],
+            remarks : 'bad client'
+        };
+        var createCall = function(){EntityKeeper.create(ev);}
+        
+        expect(createCall).toThrow('Wront instance to EntityKeeper');
 
     });
 });
