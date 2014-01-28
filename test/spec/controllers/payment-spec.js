@@ -116,6 +116,7 @@ describe('Controller: PaymentCtrl', function() {
         var deferred = $q.defer();
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(deferred.promise);
         ps.createCoupons = jasmine.createSpy('PaymentService.createCoupons').andReturn([]);
+        ps.clearPersistedCoupons = jasmine.createSpy('PaymentService.createCoupons');
         ps.remove = function () {};
         ps.clear = function () {};
 

@@ -277,6 +277,7 @@
                     }
                     OrderService.clear();
                     PaymentService.clearAllPayments();
+                    PaymentService.clearPersistedCoupons();
 
                     $location.path('/');
                 }
@@ -469,6 +470,8 @@
                             'Processed coupons:' + JSON.stringify(processedCoupons));
                         // TODO: should we keep track in journal?
                     }
+
+                    PaymentService.clearPersistedCoupons();
                 }
             });
 }(angular));
