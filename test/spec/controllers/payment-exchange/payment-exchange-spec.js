@@ -3,8 +3,11 @@
 describe('Controller: PaymentExchangeCtrl', function() {
 
     var scope = {};
-    var arMock = {};
     var DialogService = {};
+    var PaymentService = {};
+    var InventoryKeeper = {};
+    var exchanges = [];
+    
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.exchange');
@@ -13,33 +16,34 @@ describe('Controller: PaymentExchangeCtrl', function() {
         module('tnt.catalog.inventory.entity');
         module('tnt.utils.array');
 
-        arMock.find = jasmine.createSpy('find').andReturn({
-            price : 30.0,
-            title : 'A product',
-            option : 'yellow',
-            id : 1
-        });
+    });
+    
+    beforeEach(function() {
+        exchanges.length = 0;
+
+        InventoryKeeper.read = jasmine.createSpy('read').andReturn([{id: 1}]);
+        PaymentService.add = jasmine.createSpy('add');
+        PaymentService.clear = jasmine.createSpy('clear');
+        PaymentService.list = jasmine.createSpy('PaymentService.list').andReturn(exchanges);
     });
 
-    beforeEach(inject(function($controller, $rootScope, _InventoryKeeper_, _PaymentService_, _$q_) {
+    beforeEach(inject(function($controller, $rootScope) {
         // scope mock
         scope = $rootScope.$new();
 
         $controller('PaymentExchangeCtrl', {
             $scope : scope,
-            PaymentService : _PaymentService_,
-            InventoryKeeper : _InventoryKeeper_,
-            ArrayUtils : arMock,
+            PaymentService : PaymentService,
+            InventoryKeeper : InventoryKeeper,
             DialogService : DialogService
         });
-        scope.computeTotals = jasmine.createSpy('scope.computeTotals');
+        spyOn(scope , 'computeTotals').andCallThrough();
     }));
 
     it('should add an exchange to the list', function() {
         scope.productId = 1;
         scope.qty = 5;
         scope.amount = 22.3;
-        scope.exchanges = [];
 
         scope.add();
         
@@ -73,12 +77,8 @@ describe('Controller: PaymentExchangeCtrl', function() {
 
         var result = 5 * 22.3;
 
-        scope.exchanges = [];
-
         scope.add();
 
-        expect(scope.exchanges[0].title).toEqual('A product');
-        expect(scope.exchanges[0].option).toEqual('yellow');
         expect(scope.exchanges[0].amount).toEqual(result);
         expect(scope.computeTotals).toHaveBeenCalled();
     });

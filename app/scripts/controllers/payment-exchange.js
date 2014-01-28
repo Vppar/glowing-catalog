@@ -110,6 +110,7 @@
             for ( var ix in exchanges) {
                 var data = exchanges[ix];
                 var payment = new ExchangePayment(data.id, data.productId, data.qty, data.price, data.amount);
+                payment.title = data.title;
                 PaymentService.add(payment);
             }
             $scope.selectPaymentMethod('none');
