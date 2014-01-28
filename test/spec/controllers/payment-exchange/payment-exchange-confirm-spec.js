@@ -17,7 +17,7 @@ describe('Controller: PaymentExchangeCtrlConfirm', function() {
         InventoryKeeper.read = jasmine.createSpy('read');
         PaymentService.add = jasmine.createSpy('add');
         PaymentService.clear = jasmine.createSpy('clear');
-        PaymentService.list = jasmine.createSpy('list');
+        PaymentService.list = jasmine.createSpy('PaymentService.list').andReturn([]);
 
     });
 
@@ -62,13 +62,14 @@ describe('Controller: PaymentExchangeCtrlConfirm', function() {
 
     it('should clear old exchanges before add confirmed exchanges', function() {
         // given
-        scope.exchanges = [];
         var exc = {};
         exc.amount = 30;
         exc.qty = 2;
         exc.amountunit = 15;
         exc.title = 'test product';
+        exc.productId = 1;
         exc.id = 1;
+        
         scope.exchanges.push(exc);
 
         // when

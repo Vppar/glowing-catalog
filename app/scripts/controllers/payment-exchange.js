@@ -11,6 +11,7 @@
 
         // Initializing exchange data with a empty exchange
         var products = InventoryKeeper.read();
+        var exchanges = PaymentService.list('exchange');
 
         // Show Title or Title + Option(when possible).
         for ( var idx in products) {
@@ -26,8 +27,8 @@
         // $scope.products = DataProvider.products;
 
         $scope.products = products;
+        $scope.exchanges = exchanges;
         $scope.id = 0;
-        $scope.exchanges = [];
 
         $scope.amountTotal = 0;
         $scope.amount = 0;
@@ -42,8 +43,7 @@
         $scope.$watch('productId', function() {
             if ($scope.productId) {
                 var product = ArrayUtils.find(products, 'id', Number($scope.productId));
-                $scope.price = product.price;
-                $scope.amount = $scope.price;
+                $scope.amount = product.price;
                 $scope.qty = 1;
             }
         });
@@ -62,9 +62,8 @@
                     exc.qty = $scope.qty;
                     exc.amount = $scope.amount * $scope.qty;
 
-                    $scope.exchanges.push(exc);
-
-                    $scope.price = 0;
+                    exchanges.push(exc);
+                    
                     $scope.amount = 0;
                     $scope.qty = 0;
                     $scope.productId = 0;
@@ -82,8 +81,8 @@
                 btnNo : 'Não'
             }).then(function(result) {
                 if (result) {
-                    var index = $scope.exchanges.indexOf(exch);
-                    $scope.exchanges.splice(index, 1);
+                    var index = exchanges.indexOf(exch);
+                    exchanges.splice(index, 1);
                     $scope.computeTotals();
                 }
             });
@@ -94,11 +93,11 @@
         // compute grid header
         $scope.computeTotals = function() {
             $scope.amountTotal = 0;
-            $scope.qtyItem = $scope.exchanges.length;
+            $scope.qtyItem = exchanges.length;
             $scope.qtyTotal = 0;
             var index = 0;
-            for ( var idx in $scope.exchanges) {
-                var exchange = $scope.exchanges[idx];
+            for ( var idx in exchanges) {
+                var exchange = exchanges[idx];
                 // rebuild the fake id.
                 exchange.id = ++index;
                 $scope.amountTotal += exchange.amount;
@@ -108,8 +107,8 @@
 
         $scope.confirmExchangePayments = function confirmExchangePayments() {
             PaymentService.clear('exchange');
-            for ( var ix in $scope.exchanges) {
-                var data = $scope.exchanges[ix];
+            for ( var ix in exchanges) {
+                var data = exchanges[ix];
                 var payment = new ExchangePayment(data.id, data.productId, data.qty, data.price, data.amount);
                 PaymentService.add(payment);
             }
@@ -117,8 +116,6 @@
         };
 
         // Set already included exchange payments
-        $scope.exchanges = PaymentService.list('exchange');
         $scope.computeTotals();
-
     });
 }(angular));
