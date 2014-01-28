@@ -113,20 +113,25 @@ describe('Service: WebSQLDriver.find', function() {
 
 				// pass a valid name
 				runs(function() {
+				    
+				    var promises = {};
+				    
 					// tx to list
 					var txBody = function(tx) {
-						WebSQLDriver.find(tx, bucketName, id).then(
-								function(result) {
-									returnedObject = result;
-								});
+					    promises.find = WebSQLDriver.find(tx, bucketName, id);
 					};
+					
 
 					// promise from the create
-					var promise = WebSQLDriver.transaction(txBody);
+					promises.transaction = WebSQLDriver.transaction(txBody);
 
 					// sucess of create
-					promise.then(function(result) {
+					promises.transaction.then(function(result) {
 						listed = true;
+						
+						promises.find.then(function(result) {
+				            returnedObject = result;
+				        });
 					});
 
 				});

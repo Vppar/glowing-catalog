@@ -93,13 +93,20 @@
              * @returns {Promise} - If a callback is given, undefined will be returned.
              */
             this.find = function(name, id, tx, cb) {
+                
+                var deferred = $q.defer();
+                
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
-                        return dbDriver.find(tx, name, id, cb);
+                        deferred.resolve(dbDriver.find(tx, name, id, cb));
+                    })['catch'](function(error){
+                        deferred.reject(error);
                     });
                 } else {
-                    return dbDriver.find(tx, name, id, cb);
+                    deferred.resolve(dbDriver.find(tx, name, id, cb));
                 }
+                
+                return deferred.promise;
             };
 
             /**
@@ -117,7 +124,9 @@
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
                         deferred.resolve(dbDriver.list(tx, name, params, cb));
-                    }, this.errorCb);
+                    })['catch'](function(error){
+                        deferred.reject(error);
+                    });
                 } else {
                     deferred.resolve(dbDriver.list(tx, name, params, cb));
                 }
@@ -128,13 +137,12 @@
             /**
              * remove the entity
              * 
-             * @param Object - the name of the entity
+             * @param String - the name of the entity
              * @param Object - the parameters to include in the search
              * @param Object - [optional] the transaction handle
              */
-            this.remove = function(entity, params, tx) {
-                var name = getType(entity);
-
+            this.remove = function(name, params, tx) {
+                
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
                         return dbDriver.remove(tx, name, params);
