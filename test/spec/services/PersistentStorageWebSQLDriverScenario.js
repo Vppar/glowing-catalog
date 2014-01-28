@@ -16,8 +16,7 @@ describe('Service: PersistentStorageFactory', function() {
         module('tnt.catalog.journal.entity');
 
         log.warn = jasmine.createSpy('warn');
-        log.debug = function() {
-        };
+        log.debug = function() {};
         log.error = function() {
         };
 
