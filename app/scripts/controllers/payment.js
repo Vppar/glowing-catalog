@@ -131,6 +131,7 @@
                         }
                         PaymentService.clear('coupon');
                         $scope.total.payments.coupon.length = 0;
+                        updateOrderAndPaymentTotal();
                     });
                 };
 
