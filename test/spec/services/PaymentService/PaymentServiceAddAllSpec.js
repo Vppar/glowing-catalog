@@ -23,13 +23,15 @@ describe('Service: PaymentServiceAddAll', function() {
 
 
     it('adds all payments to the temporary payments list', function () {
-      expect(PaymentService.list('cash').amount).toBe(0);
+      expect(PaymentService.list('cash').length).toBe(0);
       expect(PaymentService.list('coupon').length).toBe(0);
 
       PaymentService.addAll([new CashPayment(100), new CouponPayment(30)]);
 
-      expect(PaymentService.list('cash').amount).toBe(100);
+      expect(PaymentService.list('cash').length).toBe(1);
+      expect(PaymentService.list('cash')[0].amount).toBe(100);
       expect(PaymentService.list('coupon').length).toBe(1);
+      expect(PaymentService.list('coupon')[0].amount).toBe(30);
     });
 
 

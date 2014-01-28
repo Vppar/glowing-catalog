@@ -2,6 +2,9 @@
     <div>
         Pagamento com cart&atilde;o de cr&eacute;dito
     </div>
+	<!--<div class="payment-send">
+		<img src="images/icons/payment-send.png">
+	</div>-->
 </div>
 <div class="left-payment" ng-controller="PaymentCreditCardCtrl">
 	<br />
@@ -15,7 +18,7 @@
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               id="creditCardOrder1"
               type="text"
               ng-model="orderNumber"
@@ -42,7 +45,7 @@
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do cart&atilde;o</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               id="creditCardNumber1"
               type="text"
               ng-model="creditCard.number"
@@ -56,7 +59,7 @@
 					<div class="control-group ">
 						<label class="control-label">CVV</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               type="text"
               id="cardVerificationValue1"
               ng-model="creditCard.cvv"
@@ -74,7 +77,7 @@
 						<label class="control-label">Validade do cart&atilde;o (m&ecirc;s)</label>					
 						<select ui-select2="select2Options"
 							name="cardExpirationMonth"
-							class="input-large select-h38 padding0"
+							class="payment-input-large select-h38 padding0"
 							ng-model="creditCard.expirationMonth"
 							required>
 							<option ng-repeat="month in months" value="{{month.id}}">{{month.name}}</option>
@@ -87,7 +90,7 @@
 						<label class="control-label">Validade do cart&atilde;o (ano)</label>					
 						<select ui-select2="select2Options"
 							name="cardExpirationYear"
-							class="input-large select-h38 padding0"
+							class="payment-input-large select-h38 padding0"
 							ng-model="creditCard.expirationYear"
 							required>
 							<option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
@@ -101,7 +104,7 @@
 					<div class="control-group margint10">
 						<label class="control-label">Nome do titular do cart&atilde;o (exatamento como est&aacute; no cart&atilde;o)</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               type="text"
               id="cardholderName1"
               ng-model="creditCard.cardholderName"
@@ -115,7 +118,7 @@
 					<div class="control-group ">
 						<label class="control-label">CPF titular do cart&atilde;o</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               id="cardholderDocument1"
               type="text"
               ng-model="creditCard.cardholderDocument"
@@ -141,7 +144,7 @@
 					<div class="control-group ">
 						<label class="control-label">Valor R$</label>
 						<input
-              class="input-block-level input-large text-right"
+              class="input-block-level payment-input-large text-right"
               type="text"
               id="cardAmount1"
               ng-model="creditCard.amount"
@@ -161,7 +164,7 @@
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               id="creditCardOrder2"
               type="text"
               ng-model="orderNumber"
@@ -203,7 +206,7 @@
 					<div class="control-group ">
 						<label class="control-label">Valor R$</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               type="text"
               id="cardAmount2"
               ng-model="creditCard.amount"
@@ -224,7 +227,7 @@
 					<div class="control-group ">
 						<label class="control-label">N&uacute;mero do pedido</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               id="creditCardOrder3"
               type="text"
               ng-model="orderNumber"
@@ -237,7 +240,7 @@
 					<div class="control-group ">
 						<label class="control-label">Valor R$</label>
 						<input
-              class="input-block-level input-large"
+              class="input-block-level payment-input-large"
               type="text"
               id="cardAmount3"
               ng-model="creditCard.amount"

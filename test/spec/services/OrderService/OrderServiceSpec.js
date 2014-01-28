@@ -23,8 +23,8 @@ describe('Service: OrderService', function () {
     });
   });
 
-  beforeEach(inject(function(_OrderService2_) {
-    OrderService = _OrderService2_;
+  beforeEach(inject(function(_OrderService_) {
+    OrderService = _OrderService_;
   }));
 
   it('initializes an order object', function () {

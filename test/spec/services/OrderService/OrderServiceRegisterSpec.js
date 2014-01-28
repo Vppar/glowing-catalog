@@ -22,7 +22,7 @@ describe('Service: OrderServiceRegister', function () {
       }
     ];
 
-    OrderKeeperMock.register = jasmine.createSpy('OrderKeeper.register');
+    OrderKeeperMock.add = jasmine.createSpy('OrderKeeper.add');
 
     module(function ($provide) {
       $provide.value('$log', logMock);
@@ -32,11 +32,11 @@ describe('Service: OrderServiceRegister', function () {
     });
   });
 
-  beforeEach(inject(function(_OrderService2_) {
-    OrderService = _OrderService2_;
+  beforeEach(inject(function(_OrderService_) {
+    OrderService = _OrderService_;
   }));
 
-  it('calls OrderKeeper.register() if order is valid', function () {
+  it('calls OrderKeeper.add() if order is valid', function () {
     var validOrder = {
       date : new Date(),
       canceled : false,
@@ -45,10 +45,10 @@ describe('Service: OrderServiceRegister', function () {
     };
 
     var result = OrderService.register(validOrder);
-    expect(OrderKeeperMock.register).toHaveBeenCalledWith(validOrder);
+    expect(OrderKeeperMock.add).toHaveBeenCalledWith(validOrder);
   });
 
-  it('does not call OrderKeeper.register() if order is invalid', function () {
+  it('does not call OrderKeeper.add() if order is invalid', function () {
     var invalidOrder = {
       date : new Date(),
       canceled : false,
@@ -57,7 +57,7 @@ describe('Service: OrderServiceRegister', function () {
     };
 
     var result = OrderService.register(invalidOrder);
-    expect(OrderKeeperMock.register).not.toHaveBeenCalled();
+    expect(OrderKeeperMock.add).not.toHaveBeenCalled();
   });
 
   it('returns the validation result', function () {

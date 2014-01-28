@@ -11,6 +11,7 @@
 
         // Initializing exchange data with a empty exchange
         var products = InventoryKeeper.read();
+        var exchanges = PaymentService.list('exchange');
 
         // Show Title or Title + Option(when possible).
         for ( var idx in products) {
@@ -26,12 +27,13 @@
         // $scope.products = DataProvider.products;
 
         $scope.products = products;
-        $scope.index = 0;
-        $scope.exchanges = [];
+        $scope.exchanges = exchanges;
+        $scope.id = 0;
 
-        $scope.amounttotal = 0;
-        $scope.qtytotal = 0;
+        $scope.amountTotal = 0;
         $scope.amount = 0;
+        $scope.qtyTotal = 0;
+        $scope.qtyItem = 0;
         $scope.qty = 1;
 
         // #####################################################################################################
@@ -41,8 +43,7 @@
         $scope.$watch('productId', function() {
             if ($scope.productId) {
                 var product = ArrayUtils.find(products, 'id', Number($scope.productId));
-                $scope.price = product.price;
-                $scope.amount = $scope.price;
+                $scope.amount = product.price;
                 $scope.qty = 1;
             }
         });
@@ -50,21 +51,19 @@
         $scope.add = function add() {
 
             if ($scope.amount !== 0 && $scope.qty > 0) {
-                var product = ArrayUtils.find(products, 'id', Number($scope.productId));
+                var product = angular.copy(ArrayUtils.find(products, 'id', Number($scope.productId)));
 
                 if (product) {
                     var exc = {};
-                    exc.amount = $scope.amount * $scope.qty;
-                    exc.qty = $scope.qty;
-                    exc.amountunit = $scope.amount;
+                    exc.productId = product.id;
                     exc.title = product.title;
                     exc.option = product.option;
-                    $scope.index++;
-                    exc.index = $scope.index;
-                    exc.id = $scope.productId;
-                    $scope.exchanges.push(exc);
+                    exc.price = $scope.amount;
+                    exc.qty = $scope.qty;
+                    exc.amount = $scope.amount * $scope.qty;
 
-                    $scope.price = 0;
+                    exchanges.push(exc);
+                    
                     $scope.amount = 0;
                     $scope.qty = 0;
                     $scope.productId = 0;
@@ -81,9 +80,9 @@
                 btnYes : 'Sim',
                 btnNo : 'Não'
             }).then(function(result) {
-                if(result){
-                    var index = $scope.exchanges.indexOf(exch);
-                    $scope.exchanges.splice(index, 1);
+                if (result) {
+                    var index = exchanges.indexOf(exch);
+                    exchanges.splice(index, 1);
                     $scope.computeTotals();
                 }
             });
@@ -93,39 +92,31 @@
         // action.
         // compute grid header
         $scope.computeTotals = function() {
-            $scope.amounttotal = 0;
-            $scope.qtytotal = 0;
-            $scope.id = $scope.exchanges.length;
-            var i = 0;
-            for ( var idx in $scope.exchanges) {
-                $scope.amounttotal += $scope.exchanges[idx].amountunit * $scope.exchanges[idx].qty;
-                $scope.qtytotal += $scope.exchanges[idx].qty;
-                $scope.exchanges[idx].index = ++i;
+            $scope.amountTotal = 0;
+            $scope.qtyItem = exchanges.length;
+            $scope.qtyTotal = 0;
+            var index = 0;
+            for ( var idx in exchanges) {
+                var exchange = exchanges[idx];
+                // rebuild the fake id.
+                exchange.id = ++index;
+                $scope.amountTotal += exchange.amount;
+                $scope.qtyTotal += exchange.qty;
             }
         };
 
         $scope.confirmExchangePayments = function confirmExchangePayments() {
             PaymentService.clear('exchange');
-            for ( var ix in $scope.exchanges) {
-                var data = $scope.exchanges[ix];
-                var payment = new ExchangePayment(data.id, data.qty, data.amount);
-                payment.amount = data.amount;
+            for ( var ix in exchanges) {
+                var data = exchanges[ix];
+                var payment = new ExchangePayment(data.id, data.productId, data.qty, data.price, data.amount);
+                payment.title = data.title;
                 PaymentService.add(payment);
             }
             $scope.selectPaymentMethod('none');
         };
 
         // Set already included exchange payments
-        var exchanges = PaymentService.list('exchange');
-        for ( var idx in exchanges) {
-            var item = exchanges[idx];
-            var product = ArrayUtils.find(products, 'id', Number(item.productId));
-            product.amount = item.amount;
-            product.qty = item.qty;
-            product.amountunit = (item.amount / item.qty);
-            $scope.exchanges.push(product);
-        }
         $scope.computeTotals();
-
     });
 }(angular));

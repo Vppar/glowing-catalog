@@ -11,9 +11,9 @@
 
         var metadata = {
             // metadata version
-            version : 1,
+            metaVersion : 1,
             // name of the pk column
-            pk : 'sequence',
+            key : 'sequence',
             // indexed columns
             ix : [],
         };

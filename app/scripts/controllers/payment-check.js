@@ -129,7 +129,10 @@
                         message : 'Confirmar exclusão da parcela?',
                         btnYes : 'Sim',
                         btnNo : 'Não'
-                    }).then(function() {
+                    }).then(function(result) {
+                        if (!result) {
+                            return $q.reject();
+                        }
                         var paymentIdx = $scope.payments.indexOf(payment);
                         $scope.payments.splice(paymentIdx, 1);
                         rebuildInstallmentIds();

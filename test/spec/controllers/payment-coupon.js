@@ -14,7 +14,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.coupon');
-        module('tnt.catalog.service.order');
+        module('tnt.catalog.order.service');
 
         module(function($provide) {
             $provide.value('$log', log);
@@ -234,12 +234,26 @@ describe('Controller: PaymentCouponCtrl', function() {
             },
         ];
 
+        orderServiceMock.order.items = [];
+
         var value = 0;
         scope.voucher.total = value;
         scope.option = 'option01';
         scope.$apply();
         expect(scope.isDisabled).toEqual(true);
+    });
 
+    // Allows to confirm with value 0 if there's an existing voucher
+    it('allows to remove an existing voucher by setting the value to 0', function () {
+        // If failing, make sure there's a voucher in OrderService.order.items
+        scope.coupon.total = 0;
+        scope.gift.total = 0;
+        scope.$apply();
+
+        scope.voucher.total = 0;
+        scope.option = 'option01';
+        scope.$apply();
+        expect(scope.isDisabled).toEqual(false);
     });
 
     it('should allow to confirm if the voucher value is different than zero', function() {

@@ -59,11 +59,11 @@
 	min-height: 20px;/
 }*/
 
-.w160{
-	width: 160px;
+.w175{
+	width: 175px;
 }
-.w60{
-	width: 60px;
+.w70{
+	width: 70px;
 }
 .margintn5{margin-top: -5px;}
 
@@ -108,15 +108,15 @@
 
 .details-order-list-item .border-total .details-order-list-item-total{width:243px;}
 .details-order-list-item .border-total .lbl-money{width:98px;}*/
-.order-list-periodo2{margin-left: 68px !important;/*width:106px !important; float: right*/}
+.order-list-periodo2{margin-left: 50px !important;/*width:106px !important; float: right*/}
 
-.show-details-icon {margin-top: 5px;}
+.show-details-icon {margin: 5px 0 0 10px;}
 
 .col-details-order-list-item .control-group{margin: 0 !important;}
 
 .form-order-list .lbl-money {
 	display:inline-block;
-	width: 115px;
+	width: 125px;
 	margin: 5px 0 5px 5px;
 }
 .form-order-list .lbl-money3 {

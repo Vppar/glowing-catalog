@@ -101,10 +101,12 @@
      */
     entities.factory('ExchangePayment', function ExchangePayment(Payment) {
 
-        var service = function svc(productId, qty, amount) {
-            this.qty = qty;
+        var service = function svc(id, productId, qty, price, amount) {
+            this.id = id;
             this.productId = productId;
-            ObjectUtils.ro(this, 'qty', this.qty);
+            this.qty = qty;
+            this.price = price;
+
             ObjectUtils.ro(this, 'productId', this.productId);
             ObjectUtils.superInvoke(this, amount);
         };
@@ -151,21 +153,21 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment) {
+            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment,
+                    CouponService, OnCuffPayment) {
 
                 /**
                  * The current payments.
                  */
                 var payments = {
-                    cash : {
-                        amount : 0
-                    },
+                    cash : [],
                     check : [],
                     creditCard : [],
                     exchange : [],
                     coupon : [],
                     onCuff : []
                 };
+
                 /**
                  * Payment types association.
                  */
@@ -240,14 +242,11 @@
                                 throw 'PaymentService.add: The object is not an instance of any known type of payment, Object=' +
                                     JSON.stringify(payment);
                             }
-                            if (typeName === 'cash') {
-                                payments.cash = angular.copy(payment);
-                            } else {
-                                payment.id = payments[typeName].length + 1;
-                                payments[typeName].push(angular.copy(payment));
-                            }
+                            
+                            // FIXME: should we use a UUID?
+                            payment.id = ArrayUtils.generateUUID();
+                            payments[typeName].push(angular.copy(payment));
                         };
-
 
                 /**
                  * Adds a list of payments to the temporary list of payments.
@@ -259,27 +258,22 @@
                     }
                 };
 
-
                 /**
                  * Erase all registered payments for the given payment type.
                  */
                 var clear = function clear(type) {
                     var paymentsForType = payments[type];
-                    // FIXME: remove this 'if' in VOPP-226
-                    if (type === 'cash') {
-                        paymentsForType.amount = 0;
-                    } else if (paymentsForType) {
+                    if (paymentsForType) {
                         paymentsForType.length = 0;
                     } else {
-                      throw 'PaymentService.clear: invalid payment type';
+                        throw 'PaymentService.clear: invalid payment type';
                     }
                 };
-
 
                 /**
                  * Removes all registered payments for all payment types.
                  */
-                var clearAll = function clearAll() {
+                var clearAllPayments = function clearAll() {
                     for ( var idx in payments) {
                         if (payments.hasOwnProperty(idx)) {
                             clear(idx);
@@ -287,17 +281,20 @@
                     }
                 };
 
+                // FIXME: shouldn't all methods be renamed to more
+                // specific names? E.g.:
+                // add -> addPayment, list -> listPayments,
+                // clear -> clearPayments?
+                //
                 this.add = add;
                 this.addAll = addAll;
                 this.list = list;
                 this.read = read;
                 this.clear = clear;
-                this.clearAll = clearAll;
-
-
+                this.clearAllPayments = clearAllPayments;
 
                 // Coupons //////////////////////////
-                
+
                 // This sections handles coupon persistence inside an order,
                 // without creating the coupons themselves until the order
                 // is finished and the payment processed.
@@ -305,65 +302,66 @@
                 var persistedCoupons = {};
 
                 var persistCouponQuantity = function persistCouponQuantity(amount, qty) {
-                  if (qty < 0) { qty = 0; }
-                  if (!qty) { delete persistedCoupons[amount]; }
-                  persistedCoupons[amount] = qty;
+                    if (qty < 0) {
+                        qty = 0;
+                    }
+                    if (!qty) {
+                        delete persistedCoupons[amount];
+                    }
+                    persistedCoupons[amount] = qty;
                 };
 
                 var clearPersistedCoupons = function clearPersistedCoupons() {
-                  for (var idx in persistedCoupons) {
-                    if (persistedCoupons.hasOwnProperty(idx)) {
-                      delete persistedCoupons[idx];
+                    for ( var idx in persistedCoupons) {
+                        if (persistedCoupons.hasOwnProperty(idx)) {
+                            delete persistedCoupons[idx];
+                        }
                     }
-                  }
                 };
 
-
                 var createCoupons = function createCoupons(entityId) {
-                  var
-                    amount,
-                    coupon,
-                    processedCoupons = [],
-                    qty;
+                    var amount, coupon, processedCoupons = [], qty;
 
-                  // The total amount of all successfully processed coupons
-                  processedCoupons.successAmount = 0;
+                    // The total amount of all successfully processed coupons
+                    processedCoupons.successAmount = 0;
 
-                  // The total quantity of successfully processed coupons
-                  processedCoupons.successQty = 0;
+                    // The total quantity of successfully processed coupons
+                    processedCoupons.successQty = 0;
 
-                  for (amount in persistedCoupons) {
+                    for (amount in persistedCoupons) {
 
-                    if (persistedCoupons.hasOwnProperty(amount)) {
-                      qty = persistedCoupons[amount];
+                        if (persistedCoupons.hasOwnProperty(amount)) {
+                            qty = persistedCoupons[amount];
 
-                      // Keeping this check for safety, but there should not
-                      // be coupons with qty 0 in persistedCoupons.
-                      if (qty > 0) {
-                        for (var i = 0; i < qty; i += 1) {
+                            // Keeping this check for safety, but there should
+                            // not
+                            // be coupons with qty 0 in persistedCoupons.
+                            if (qty > 0) {
+                                for ( var i = 0; i < qty; i += 1) {
 
-                          coupon = {
-                            amount : amount
-                          };
+                                    coupon = {
+                                        amount : amount
+                                    };
 
-                          processedCoupons.push(coupon);
+                                    processedCoupons.push(coupon);
 
-                          try {
-                            CouponService.create(entityId, amount);
-                            processedCoupons.successAmount += parseInt(amount);
-                            processedCoupons.successQty += 1;
-                          } catch (err) {
-                            coupon.err = err;
-                            // TODO: should we keep trying to generate the other coupons
-                            // ou should we stop on the first err?
-                          }
-                        }
-                      } // if qty > 0
-                    } // if hasOwnProperty
-                  } // for amount in persistedCoupons
+                                    try {
+                                        CouponService.create(entityId, amount);
+                                        processedCoupons.successAmount += parseInt(amount);
+                                        processedCoupons.successQty += 1;
+                                    } catch (err) {
+                                        coupon.err = err;
+                                        // TODO: should we keep trying to
+                                        // generate the other coupons
+                                        // ou should we stop on the first err?
+                                    }
+                                }
+                            } // if qty > 0
+                        } // if hasOwnProperty
+                    } // for amount in persistedCoupons
 
-                  this.clearPersistedCoupons();
-                  return processedCoupons;
+                    this.clearPersistedCoupons();
+                    return processedCoupons;
                 };
 
                 this.persistedCoupons = persistedCoupons;
