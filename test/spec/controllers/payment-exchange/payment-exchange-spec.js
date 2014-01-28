@@ -3,9 +3,11 @@
 describe('Controller: PaymentExchangeCtrl', function() {
 
     var scope = {};
-    var ps = {};
-    var arMock = {};
     var DialogService = {};
+    var PaymentService = {};
+    var InventoryKeeper = {};
+    var exchanges = [];
+    
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.exchange');
@@ -15,81 +17,69 @@ describe('Controller: PaymentExchangeCtrl', function() {
         module('tnt.utils.array');
 
     });
+    
+    beforeEach(function() {
+        exchanges.length = 0;
 
-    beforeEach(inject(function($controller, $rootScope, _InventoryKeeper_, _PaymentService_) {
+        InventoryKeeper.read = jasmine.createSpy('read').andReturn([{id: 1}]);
+        PaymentService.add = jasmine.createSpy('add');
+        PaymentService.clear = jasmine.createSpy('clear');
+        PaymentService.list = jasmine.createSpy('PaymentService.list').andReturn(exchanges);
+    });
+
+    beforeEach(inject(function($controller, $rootScope) {
         // scope mock
         scope = $rootScope.$new();
 
-        arMock.find = jasmine.createSpy('find').andReturn(
-                { price:30.0, title:'A product', option:'yellow'}
-        );
-        
-        DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
-        
         $controller('PaymentExchangeCtrl', {
             $scope : scope,
-            PaymentService : _PaymentService_,
-            InventoryKeeper : _InventoryKeeper_,
-            ArrayUtils : arMock,
+            PaymentService : PaymentService,
+            InventoryKeeper : InventoryKeeper,
             DialogService : DialogService
         });
-        scope.computeTotals = jasmine.createSpy('scope.computeTotals');
+        spyOn(scope , 'computeTotals').andCallThrough();
     }));
 
     it('should add an exchange to the list', function() {
-        
         scope.productId = 1;
         scope.qty = 5;
         scope.amount = 22.3;
-        scope.exchanges = [];
 
         scope.add();
-
-        scope.$apply();
-        expect(scope.exchanges.length).toEqual(1);
+        
+        expect(scope.exchanges.length).toBe(1);
+        expect(scope.exchanges[0].id).toBe(1);
         expect(scope.computeTotals).toHaveBeenCalled();
 
     });
-    
+
     it('should increment the index when add a value to the exchanges list', function() {
         // given
 
         scope.productId = 1;
-        scope.index = 10;
         scope.qty = 5;
         scope.amount = 22.3;
-        
+
         scope.exchanges = [];
-        
+
         scope.add();
-        
-        scope.$apply();
-        
-        expect(scope.index).toEqual(11);
+
         expect(scope.computeTotals).toHaveBeenCalled();
 
     });
-    
+
     it('should add a correct value to the exchanges list', function() {
         // given
 
         scope.productId = 1;
         scope.qty = 5;
         scope.amount = 22.3;
-        
-        var result = 5*22.3;
-        
-        scope.exchanges = [];
-        
+
+        var result = 5 * 22.3;
+
         scope.add();
-        scope.$apply();
-        
-        expect(scope.exchanges[0].title).toEqual('A product');
-        expect(scope.exchanges[0].option).toEqual('yellow');
+
         expect(scope.exchanges[0].amount).toEqual(result);
         expect(scope.computeTotals).toHaveBeenCalled();
-
     });
-    
-    
 });
