@@ -277,6 +277,7 @@
                     }
                     OrderService.clear();
                     PaymentService.clearAllPayments();
+                    PaymentService.clearPersistedCoupons();
 
                     $location.path('/');
                 }
@@ -346,8 +347,8 @@
                     OrderService.clear();
 
                     PaymentService.clearAllPayments();
-
                     createCoupons();
+                    PaymentService.clearPersistedCoupons();
 
                     return true;
                 }
