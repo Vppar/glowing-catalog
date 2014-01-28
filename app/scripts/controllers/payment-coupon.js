@@ -16,12 +16,6 @@
                         // #####################################################################################################
                         // Warm up the controller
                         // #####################################################################################################
-                        var errorMessage =
-                                'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
-                        var oneCouponMessage =
-                                'Foi gerado 1 cupom promocional no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
-                        var moreThanOneCouponMessage =
-                                'Foram gerados {{couponNumber}} cupons promocionais no total de R$ {{couponsValue}} para o cliente {{customerFirstName}}.';
 
                         var order = OrderService.order;
 
