@@ -47,6 +47,7 @@ describe('Service: OrderKeeperAdd', function() {
         JournalEntry = _JournalEntry_;
     }));
 
+    
     it('should cancel an order', function() {
 
         var addEv = new Order(order);
@@ -56,7 +57,7 @@ describe('Service: OrderKeeperAdd', function() {
         };
 
         var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, 'orderCancelV1', 1, recEv);
+        var receiveEntry = new JournalEntry(null, tstamp, 'orderCancel', 1, recEv);
 
         OrderKeeper.handlers['orderAddV1'](addEv);
 
