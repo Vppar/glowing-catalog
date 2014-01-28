@@ -13,7 +13,7 @@ describe('Service: CoinKeeperCancelExpense', function() {
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.expense.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
@@ -62,7 +62,7 @@ describe('Service: CoinKeeperCancelExpense', function() {
         };
 
         var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, 'expenseCancelV1', 1, recEv);
+        var receiveEntry = new JournalEntry(null, tstamp, 'expenseCancel', 1, recEv);
 
         ExpenseKeeper.handlers['expenseAddV1'](addEv);
 
