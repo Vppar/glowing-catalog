@@ -14,7 +14,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.payment.coupon');
-        module('tnt.catalog.service.order');
+        module('tnt.catalog.order.service');
 
         module(function($provide) {
             $provide.value('$log', log);
