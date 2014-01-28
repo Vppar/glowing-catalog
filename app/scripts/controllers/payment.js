@@ -347,8 +347,8 @@
                     OrderService.clear();
 
                     PaymentService.clearAllPayments();
-
                     createCoupons();
+                    PaymentService.clearPersistedCoupons();
 
                     return true;
                 }
@@ -470,8 +470,6 @@
                             'Processed coupons:' + JSON.stringify(processedCoupons));
                         // TODO: should we keep track in journal?
                     }
-
-                    PaymentService.clearPersistedCoupons();
                 }
             });
 }(angular));
