@@ -217,132 +217,66 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should not allow to confirm if the voucher value is zero', function() {
-        // We need to change the scope.list
-        scope.list = [
-            {
-                qty : 0,
-                amount : 5
-            }, {
-                qty : 0,
-                amount : 10
-            }, {
-                qty : 0,
-                amount : 20
-            }, {
-                qty : 0,
-                amount : 30
-            },
-        ];
-
+        // empty order items
         orderServiceMock.order.items = [];
 
-        var value = 0;
-        scope.voucher.total = value;
+        scope.voucher.total = 0;
         scope.option = 'option01';
         scope.$apply();
-        expect(scope.isDisabled).toEqual(true);
+        expect(scope.confirmEnabled).toEqual(false);
     });
 
     // Allows to confirm with value 0 if there's an existing voucher
     it('allows to remove an existing voucher by setting the value to 0', function () {
         // If failing, make sure there's a voucher in OrderService.order.items
-        scope.coupon.total = 0;
-        scope.gift.total = 0;
-        scope.$apply();
-
         scope.voucher.total = 0;
         scope.option = 'option01';
         scope.$apply();
-        expect(scope.isDisabled).toEqual(false);
+        expect(scope.confirmEnabled).toEqual(true);
     });
 
     it('should allow to confirm if the voucher value is different than zero', function() {
-
         scope.option = 'option01';
-
+        scope.voucher.total = 40.25;
         scope.$apply();
-
-        var value = 40.25;
-        scope.voucher.total = value;
-
-        scope.$apply();
-
-        expect(scope.isDisabled).toEqual(false);
+        expect(scope.confirmEnabled).toEqual(true);
 
     });
 
     it('should allow to confirm if the voucher value is almost zero', function() {
-
         scope.option = 'option01';
+        scope.voucher.total = 0.01;
         scope.$apply();
-
-        var value = 0.01;
-        scope.voucher.total = value;
-
-        scope.$apply();
-
-        expect(scope.isDisabled).toEqual(false);
+        expect(scope.confirmEnabled).toEqual(true);
 
     });
 
     it('should allow to confirm if the gift value is different than zero and customer is defined', function() {
-
         scope.option = 'option02';
-
-        scope.$apply();
-
+        scope.gift.total = 20;
         scope.gift.customer = {
             name : 'A name'
         };
-
         scope.$apply();
-
-        expect(scope.isDisabled).toEqual(false);
-
+        expect(scope.confirmEnabled).toEqual(true);
     });
 
     it('should not allow to confirm if the gift value is zero', function() {
-        scope.list = [
-            {
-                qty : 0,
-                amount : 5
-            }, {
-                qty : 0,
-                amount : 10
-            }, {
-                qty : 0,
-                amount : 20
-            }, {
-                qty : 0,
-                amount : 30
-            },
-        ];
-
+        scope.option = 'option02';
+        scope.gift.total = 0;
+        scope.gift.customer = {
+          name : 'Anyname'
+        };
         scope.$apply();
-
-        expect(scope.isDisabled).toEqual(true);
-
+        expect(scope.confirmEnabled).toEqual(false);
     });
 
     it('should not allow to confirm if the gift customer name is not defined', function() {
-        scope.list = [
-            {
-                qty : 0,
-                amount : 5
-            }, {
-                qty : 0,
-                amount : 10
-            }, {
-                qty : 0,
-                amount : 20
-            }, {
-                qty : 0,
-                amount : 30
-            },
-        ];
-
+        scope.option = 'option02';
+        scope.gift.total = 10;
+        scope.gift.customer = undefined;
         scope.$apply();
-        expect(scope.isDisabled).toEqual(true);
+        expect(scope.confirmEnabled).toEqual(false);
 
     });
 
@@ -350,55 +284,30 @@ describe('Controller: PaymentCouponCtrl', function() {
     // setting their quantity to 0, we should allow them to be removed.
     it('allows to confirm if total value of coupons is 0 and there are persisted coupons', function () {
         paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(true);
-
-        scope.voucher.total = 0;
-        scope.gift.total = 0;
-        scope.$apply();
-
-        scope.coupon.total = 0;
         scope.option = 'option03';
+        scope.coupon.total = 0;
         scope.$apply();
-
-        expect(scope.isDisabled).toEqual(false);
+        expect(scope.confirmEnabled).toEqual(true);
     });
 
 
     it('should not allow to confirm if the total value of coupons is equals or less than zero', function() {
-        paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(false);
-
-        scope.list = [
-            {
-                qty : 0,
-                amount : 5
-            }, {
-                qty : 0,
-                amount : 10
-            }, {
-                qty : 0,
-                amount : 20
-            }, {
-                qty : 0,
-                amount : 30
-            },
-        ];
-
-        scope.option = 'option03';
-
+        // I'm not sure why, but I had to make this call to $apply() to get
+        // rid of a previously defined value in scope.coupon.total that was
+        // overriding (!?!?!) my new value.
         scope.$apply();
-
-        expect(scope.isDisabled).toEqual(true);
+        paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(false);
+        scope.option = 'option03';
+        scope.coupon.total = 0;
+        scope.$apply();
+        expect(scope.confirmEnabled).toEqual(false);
     });
 
     it('should allow to confirm if the total value of coupons is greater than zero', function() {
         scope.option = 'option03';
-
+        scope.coupon.total = 80;
         scope.$apply();
-
-        var value = 80;
-        scope.coupon.total = value;
-
-        scope.$apply();
-        expect(scope.isDisabled).toEqual(false);
+        expect(scope.confirmEnabled).toEqual(true);
     });
 
     it('should populate the item list of the order service with a voucher', function() {
