@@ -12,7 +12,11 @@
         var order = OrderService.order;
         $scope.order = order;
 
-        var inBasketFilter = OrderService.inBasketFilter;
+        // FIXME: is it really safe to remove this? (see $scope.checkout())
+        function inBasketFilter(item) {
+          return Boolean(item.qty);
+        }
+
         
         // #############################################################################################################
         // Dialogs control
@@ -41,10 +45,6 @@
         $scope.checkout = function(bypassBasket) {
             var basket = $filter('filter')(order.items, inBasketFilter);
             if ((basket && basket.length > 0) || bypassBasket) {
-                if (OrderService.order.id === undefined) {
-                    OrderService.createNew();
-                }
-
                 if (order.customerId) {
                     $location.path('/payment');
                 } else {

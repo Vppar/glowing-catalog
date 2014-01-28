@@ -45,10 +45,6 @@
                 };
 
                 $scope.addBestSellerToBasket = function addBestSellerToBasket(number) {
-                    if (OrderService.order.id === undefined) {
-                        OrderService.createNew();
-                    }
-
                     var product = ArrayUtils.find(DataProvider.products, 'bestSeller', number);
 
                     var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.id);

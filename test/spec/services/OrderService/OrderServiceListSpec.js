@@ -22,7 +22,7 @@ describe('Service: OrderServiceList', function () {
       }
     ];
 
-    OrderKeeperMock.list = jasmine.createSpy('OrderKeeper.list');
+    OrderKeeperMock.list = jasmine.createSpy('OrderKeeper.list').andReturn('ok');
 
     module(function ($provide) {
       $provide.value('$log', logMock);
@@ -32,8 +32,8 @@ describe('Service: OrderServiceList', function () {
     });
   });
 
-  beforeEach(inject(function(_OrderService2_) {
-    OrderService = _OrderService2_;
+  beforeEach(inject(function(_OrderService_) {
+    OrderService = _OrderService_;
   }));
 
 
@@ -45,6 +45,7 @@ describe('Service: OrderServiceList', function () {
   it('gets orders from OrderKeeper.list()', function () {
     var orders = OrderService.list();
     expect(OrderKeeperMock.list).toHaveBeenCalled();
-    expect(orders).toEqual(OrderKeeperMock.list());
+    // Are we returning the value returned by 'OrderKeeper.list()'?
+    expect(orders).toEqual('ok');
   });
 });
