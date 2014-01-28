@@ -12,7 +12,7 @@ describe('Service: ReceivableServiceisValid', function() {
 
         module('tnt.catalog.receivable.service');
         module('tnt.catalog.receivable.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.keeper');
 

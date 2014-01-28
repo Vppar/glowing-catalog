@@ -15,7 +15,7 @@ describe('Service: CoinKeeperAddExpense', function() {
     beforeEach(function() {
         module('tnt.catalog.expense.entity');
         module('tnt.catalog.receivable.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
@@ -64,7 +64,7 @@ describe('Service: CoinKeeperAddExpense', function() {
         var expense = new Expense(validExpense);
         
         var tstamp = fakeNow / 1000;
-        var entry = new JournalEntry(null, tstamp, 'expenseAddV1', 1, expense);
+        var entry = new JournalEntry(null, tstamp, 'expenseAdd', 1, expense);
 
         // when
         var addCall = function() {

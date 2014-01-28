@@ -5,7 +5,7 @@
      * Service to manage operations over Expense.
      */
     angular.module('tnt.catalog.service.expense', [
-        'tnt.catalog.expense.entity', 'tnt.catalog.receivable.keeper'
+        'tnt.catalog.expense.entity', 'tnt.catalog.coin.keeper'
     ]).service('ExpenseService', function ExpenseService($log, Expense, CoinKeeper) {
 
         var ExpenseKeeper = CoinKeeper('expense');
