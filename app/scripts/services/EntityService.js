@@ -14,8 +14,6 @@
       this.isValid = function(entity) {
             var invalidProperty = {};
 
-            invalidProperty.created = angular.isNumber(entity.created) && entity.created <= new Date().getTime();
-
             invalidProperty.id = angular.isNumber(entity.id);
             invalidProperty.name = angular.isDefined(entity.name);
             invalidProperty.emails = angular.isDefined(entity.emails);
@@ -24,7 +22,6 @@
             invalidProperty.document = angular.isDefined(entity.document);
             invalidProperty.addresses = angular.isDefined(entity.addresses);
             invalidProperty.remarks = angular.isDefined(entity.remarks);
-            invalidProperty.created = angular.isNumber(entity.created) && entity.created > new Date().getTime();
 
             var result = [];
 
