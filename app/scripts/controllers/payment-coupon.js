@@ -120,19 +120,23 @@
                         }
 
                         function canConfirmVoucher() {
-                            if ($scope.voucher.total > 0) {
+                            if ($scope.option === 'option01' && $scope.voucher.total > 0) {
                                 $scope.isDisabled = false;
                             }
                         }
 
                         function canConfirmCoupon() {
-                            if ($scope.coupon.total > 0) {
+                            if ($scope.option === 'option03' && $scope.coupon.total > 0) {
                                 $scope.isDisabled = false;
                             }
                         }
 
                         function canConfirmGift() {
-                            if ($scope.gift.total > 0 && angular.isDefined($scope.gift.customer.name)) {
+                            if (
+                              $scope.option === 'option02' &&
+                              $scope.gift.total > 0 &&
+                              angular.isDefined($scope.gift.customer.name)
+                            ) {
                                 $scope.isDisabled = false;
                             }
                         }
@@ -147,7 +151,6 @@
                             } else if ($scope.option === 'option03') {
                                 canConfirmCoupon();
                             }
-
                         }
 
                         for ( var ix in $scope.list) {
@@ -252,7 +255,7 @@
                             coupon = $scope.list[i];
                             PaymentService.persistCouponQuantity(coupon.amount, coupon.qty);
                           }
-                          
+
                           // Return to order overview
                           $scope.selectPaymentMethod('none');
                         };
