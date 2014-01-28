@@ -650,39 +650,42 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	}
 	
 .grid-order-list .header .col-1, .scroll-order-list .col-1{
-	width: 120px;
+	width: 80px;
 	display: inline-block;
 	text-align:center;
 	vertical-align:top;
+	margin-left:5px;
 }
 .grid-order-list .header .col-2, .scroll-order-list .col-2{
-	width:320px;
+	width:438px;
 	display: inline-block;
 	vertical-align:top;
 }
 .grid-order-list .header .col-3, .scroll-order-list .col-3 {
-	width: 120px;
+	width: 100px;
 	display: inline-block;
 	text-align:center;
 	vertical-align:top;
 }
 .grid-order-list .header .col-4, .scroll-order-list .col-4 {
-	width: 120px;
+	width: 110px;
 	display: inline-block;
 	text-align:center;
 	vertical-align:top;
+	margin-left:10px;
 }
 .grid-order-list .header .col-5 ,.scroll-order-list .col-5 {
-	width: 120px;
+	width: 70px;
 	display: inline-block;
 	text-align:center;
 	vertical-align:top;
 }
 .grid-order-list .header .col-6,.scroll-order-list .col-6 {
-	width: 120px;
+	width: 87px;
 	display: inline-block;
 	text-align:center;
 	vertical-align:top;
+	margin-left:2px;
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
 

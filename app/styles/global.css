@@ -1020,6 +1020,8 @@ input:focus, .focus{
 	outline-offset: -3px;
 }
 
+.comment{color: rgba(0, 0, 0, 0.5); font-size:12px;}
+
 .display-none{display: none;}
 
 .display-inlineblock{display: inline-block !important;}

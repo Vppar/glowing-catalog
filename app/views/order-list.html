@@ -39,8 +39,8 @@
 					<span class="lbl-money">			
 						<div class="controls">
 							<div class="control-group lbl-top">
-								<div class="controls w160">
-									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w60" required ng-model="dtInitial"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
+								<div class="controls w175">
+									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w70" required ng-model="dtInitial"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
 								</div>
 							</div>
 						</div>				
@@ -49,7 +49,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w60" required ng-model="dtFinal"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
+									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w70" required ng-model="dtFinal"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
 								</div>
 							</div>
 						</div>				
@@ -61,7 +61,7 @@
 					<div>	
 						<span class="border">
 							<span class="details-order-list-item-total"><span class="lbl-money">Valor total</span>
-							<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
+							<span class="lbl-money3">&nbsp;</span>
 							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span></span>					
 						</span>
 					</div>
