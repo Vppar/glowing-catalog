@@ -22,7 +22,7 @@
             flag : null,
             amount : getAmount($scope.total.change),
             expirationMonth : null,
-            expirationyear : null,
+            expirationYear : null,
             number : null,
             cvv : null,
             cardholderName : null,
@@ -128,7 +128,16 @@
          * Confirms a credit card payment.
          */
         $scope.confirmCreditCardPayment = function confirmCreditCardPayment() {
-            if (!$scope.creditCardForm.$valid) {
+            $element.find('form').find('input').removeClass('ng-pristine').addClass('ng-dirty');
+            var validate = true;
+            for(var idx in $scope.creditCard){
+                if(!$scope.creditCard || $scope.creditCard[idx] === ''){
+                    validate = false;
+                    break;
+                }
+            }
+      
+            if (!$scope.creditCardForm.$valid || !validate) {
                 // XXX: should be loged?
                 return;
             }
