@@ -58,7 +58,8 @@
                 'tnt.catalog.attrs.upperCase',
                 'tnt.catalog.payment.discount',
                 'tnt.catalog.entity.service',
-                'tnt.catalog.entity.entity'
+                'tnt.catalog.entity.entity',
+                'tnt.catalog.orderList.ctrl'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

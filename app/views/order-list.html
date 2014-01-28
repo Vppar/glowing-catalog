@@ -5,7 +5,7 @@
 		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
 	
-	<div class="form-order-list">
+	<div class="form-order-list" ng-controller="OrderListCtrl">
     
 		<div class="row-fluid pull-right panel-top">
 
@@ -40,7 +40,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls w175">
-									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w70" required ng-model="dtInitial"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
+									Per&iacute;odo <input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w70" required ng-model="dateFilter.dtInitial"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
 								</div>
 							</div>
 						</div>				
@@ -49,7 +49,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w70" required ng-model="dtFinal"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
+									<input type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small w70" required ng-model="dateFilter.dtFinal"><span class="ic-calendar hover-state-pointer"><img src="images/icons/ic-calendar.png"></span>
 								</div>
 							</div>
 						</div>				
@@ -146,9 +146,9 @@
     							</div>
     						</div>
     					</div>
-    					<!--<div class="scroll-order-list">
+    					<div class="scroll-order-list">
     						<div class="row-order-list hover-state-pointer"
-    							ng-repeat="order in dataProvider.orders | filter: customerNameAugmenter | orderBy: '-date'" ng-click="openPartialDelivery(order)">
+    							ng-repeat="order in filteredOrders | orderBy: '-date'" ng-click="openPartialDelivery(order)">
     							<div class="col-1">
     								<span>{{order.date | date:'dd/MM/yyyy'}}</span>
     							</div>
@@ -156,44 +156,24 @@
     								<span>{{order.code}}</span>
     							</div>
     							<div class="col-3">
-    								<span>{{order.customerName | truncate: 50}}</span><!--<span>Produto</span>->
+    								<span>{{order.customerName | truncate: 50}}</span>
     							</div> 
     							<div class="col-4">
     								<span>{{order.items.length}}</span>
     							</div>
-    							<div class="col-5 marginr20">
-    								<span>{{order.items | obInject: 'mul':'qty':'price':'subtotal' | sum:'subtotal' | currency: 'R$'}}</span>
-    							</div>
-    						</div>
-    					</div>-->
-    					<div class="scroll-order-list">
-    						<div class="row-order-list hover-state-pointer">
-    							<div class="col-1">
-    								<span>29/10/13</span>
-    							</div>
-    							<div class="col-3">
-    								<span>0001-13</span>
-    							</div>
-    							<div class="col-2">
-    								<span>Valtanette De Paula</span>
-    							</div> 
-    							<div class="col-4">
-    								<span>4</span>
-    							</div>
-    							<div class="col-5">
-    								<span>235,25</span>
+    							<div class="col-5 ">
+    								<span>{{order.avgPrice | currency: 'R$'}}</span>
     							</div>
     							<div class="col-6">
-    								<span>941,00</span>
+    								<span>{{order.priceTotal | currency: 'R$'}}</span>
     							</div>
+    						</div>
     						</div>
     					</div>
     				</div>
     					
     				<br/>			
     			</div>
-    		</div>
-    	
     		<!--Clientes-->
     		<div class="order-list-grid-clientes" ng-switch-when="customers">
     			<div class="row-fluid">
