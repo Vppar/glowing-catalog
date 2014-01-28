@@ -81,35 +81,39 @@
                         }
 
 
+                        // Checks if there's a voucher in the order
+                        function orderHasVoucher() {
+                            var len, i;
+                            for (i = 0, len = order.items.length; i < len; i += 1) {
+                                if (order.items[i].type === 'voucher') {
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+
+
                         /**
                          * Returns wether the voucher screen should be enabled or not.
                          * @return {Boolean}
                          */
                         function voucherIsEnabled() {
-                          var hasVoucherInOrder = false, len, i;
-
-                          for (i = 0, len = order.items.length; i < len; i += 1) {
-                            if (order.items[i].type === 'voucher') {
-                              hasVoucherInOrder = true;
-                              break;
-                            }
-                          }
-
                           // The voucher screen is enabled either if there's a
                           // voucher in the order or if there's change.
-                          return hasVoucherInOrder || $scope.total.change > 0;
+                          return orderHasVoucher() || $scope.total.change > 0;
+                          //return hasVoucherInOrder || $scope.total.change > 0;
                         }
 
                         $scope.voucherIsEnabled = voucherIsEnabled;
 
                         // wachers
-
                         $scope.$watch('selectedPaymentMethod', setCouponOption);
                         $scope.$watch('voucher.total', canConfirmVoucher);
                         $scope.$watch('gift.total', canConfirmGift);
                         $scope.$watch('gift.customer.name', canConfirmGift);
                         $scope.$watch('coupon.total', canConfirmCoupon);
                         $scope.$watch('option', watchOptions);
+
 
                         function setCouponOption() {
                           if (!voucherIsEnabled()) {
@@ -120,14 +124,18 @@
                         }
 
                         function canConfirmVoucher() {
-                            if ($scope.option === 'option01' && $scope.voucher.total > 0) {
+                            if ($scope.option === 'option01' && (orderHasVoucher() || $scope.voucher.total > 0)) {
                                 $scope.isDisabled = false;
+                            } else {
+                                $scope.isDisabled = true;
                             }
                         }
 
                         function canConfirmCoupon() {
                             if ($scope.option === 'option03' && $scope.coupon.total > 0) {
                                 $scope.isDisabled = false;
+                            } else {
+                                $scope.isDisabled = true;
                             }
                         }
 
@@ -138,6 +146,8 @@
                               angular.isDefined($scope.gift.customer.name)
                             ) {
                                 $scope.isDisabled = false;
+                            } else {
+                                $scope.isDisabled = true;
                             }
                         }
 
