@@ -10,33 +10,33 @@
 		<form name="checkForm">
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Qtde Ch</label>
-				<input name="" class="parc input-large" id="parc" ng-model= "check.installments" required tnt-input number recall maxlength="2" type="text">
+				<input name="" class="parc payment-input-large" id="parc" ng-model= "check.installments" required tnt-input number recall maxlength="2" type="text">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Banco</label>
-				<input name="" class="banco input-large" id="banco" ng-model= "check.bank" required tnt-input focus maxlength="3" type="text">
+				<input name="" class="banco payment-input-large" id="banco" ng-model= "check.bank" required tnt-input focus maxlength="3" type="text">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Ag&ecirc;ncia</label>
-				<input name="" class="agencia input-large" id="agencia" ng-model= "check.agency"  required tnt-input maxlength="4" type="text">
+				<input name="" class="agencia payment-input-large" id="agencia" ng-model= "check.agency"  required tnt-input maxlength="4" type="text">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Conta</label>
-				<input name="" class="conta input-large" id="conta" ng-model= "check.account" required tnt-input maxlength="13" type="text">
+				<input name="" class="conta payment-input-large" id="conta" ng-model= "check.account" required tnt-input maxlength="13" type="text">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Cheque</label>
-				<input name="" class="cheque input-large" id="cheque" ng-model= "check.number" required tnt-input maxlength="6" type="text">
+				<input name="" class="cheque payment-input-large" id="cheque" ng-model= "check.number" required tnt-input maxlength="6" type="text">
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Vencto.</label>
 				<div class="controls">
-					<input type="text" id="vencto" class="date-field input-small vencto text-center input-large" maxlength="8" datepicker-popup="dd/MM/yy" show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
+					<input type="text" id="vencto" class="date-field input-small vencto text-center payment-input-large" maxlength="8" datepicker-popup="dd/MM/yy" show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Valor</label>
-				<input name="amount" class="check-value input-large" id="valor"  ng-model= "check.amount" required tnt-input currency maxlength="11"  type="text">
+				<input name="amount" class="check-value payment-input-large" id="valor"  ng-model= "check.amount" required tnt-input currency maxlength="11"  type="text">
 			</div>
 			<div class="control-group lbl-top">
 				<div class="controls">
@@ -49,8 +49,8 @@
 	</div>
 	
 	
-	<div class="row-fluid check-total">
-		<span>Total</span><span class="float-right marginr10">{{payments | sum: 'amount' | currency: ''}}</span>
+	<div class="row-fluid check-total payment-input-large">
+		<span>Total</span><span class="float-right">{{payments | sum: 'amount' | currency: ''}}</span>
 	</div>
 	
 	<div class="row-fluid">
