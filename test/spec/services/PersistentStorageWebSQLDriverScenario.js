@@ -16,9 +16,10 @@ describe('Service: PersistentStorageFactory', function() {
         module('tnt.catalog.journal.entity');
 
         log.warn = jasmine.createSpy('warn');
-        log.debug = function(){};
-        log.error = function(){};
-        
+        log.debug = function() {
+        };
+        log.error = function() {
+        };
 
         module(function($provide) {
             $provide.value('$log', log);
@@ -90,35 +91,35 @@ describe('Service: PersistentStorageFactory', function() {
     });
 
     // persist
-    //TODO maybe a generic test will be needed in the future
+    // TODO maybe a generic test will be needed in the future
     it('should persist a journal', function() {
-        
+
         var ok = false;
         var result = undefined;
         var storage = undefined;
         var promise = undefined;
-        
+
         var dropBucket = false;
-        
+
         runs(function() {
             // drop a bucket
             var txBody = function(tx) {
                 driver.dropBucket(tx, 'JournalEntry');
             };
-            
+
             var promise = driver.transaction(txBody);
-            
+
             promise.then(function() {
                 dropBucket = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return dropBucket;
         });
-        
-        //persist something
+
+        // persist something
         runs(function() {
 
             storage = new PersistentStorage(driver);
@@ -132,13 +133,13 @@ describe('Service: PersistentStorageFactory', function() {
                 ok = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return ok;
         });
 
-        //list something
+        // list something
         runs(function() {
 
             ok = false;
@@ -159,47 +160,45 @@ describe('Service: PersistentStorageFactory', function() {
         runs(function() {
             ok = false;
             var returned = result[0];
- 
+
             expect(returned.sequence).toEqual('i');
             expect(returned.stamp).toEqual('a');
             expect(returned.type).toEqual('b');
             expect(returned.version).toEqual('c');
-            expect(returned.event).toEqual('d'); 
+            expect(returned.event).toEqual('d');
         });
-        
-        
-        
+
     });
 
-    //FIXME
+    // FIXME
     // find
     it('should find the persisted entity', function() {
         var ok = false;
         var result = undefined;
         var storage = undefined;
         var promise = undefined;
-        
+
         var dropBucket = false;
-        
+
         runs(function() {
             // drop a bucket
             var txBody = function(tx) {
                 driver.dropBucket(tx, 'JournalEntry');
             };
-            
+
             var promise = driver.transaction(txBody);
-            
+
             promise.then(function() {
                 dropBucket = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return dropBucket;
         });
-        
-        //persist something
+
+        // persist something
         runs(function() {
 
             storage = new PersistentStorage(driver);
@@ -213,18 +212,18 @@ describe('Service: PersistentStorageFactory', function() {
                 ok = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return ok;
         });
 
-        //find something
+        // find something
         runs(function() {
 
             ok = false;
 
-            promise = storage.find('JournalEntry','i');
+            promise = storage.find('JournalEntry', 'i');
 
             promise.then(function(value) {
                 result = value;
@@ -250,28 +249,28 @@ describe('Service: PersistentStorageFactory', function() {
         var storage = undefined;
         var promise = undefined;
         var dropBucket = false;
-        
+
         runs(function() {
             // drop a bucket
             var txBody = function(tx) {
                 driver.dropBucket(tx, 'JournalEntry');
             };
-            
+
             var promise = driver.transaction(txBody);
-            
+
             promise.then(function() {
                 dropBucket = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return dropBucket;
         });
-        
-        //persist something
+
+        // persist something
         runs(function() {
-            
+
             storage = new PersistentStorage(driver);
             storage.register('JournalEntry', JournalEntry);
 
@@ -283,16 +282,16 @@ describe('Service: PersistentStorageFactory', function() {
                 ok = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return ok;
         });
-        
-        //persist something
+
+        // persist something
         runs(function() {
             ok = false;
-            
+
             var je = new JournalEntry('i2', 'a', 'b', 'c', 'd');
 
             promise = storage.persist(je);
@@ -301,16 +300,16 @@ describe('Service: PersistentStorageFactory', function() {
                 ok = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return ok;
         });
-        
-      //persist something
+
+        // persist something
         runs(function() {
             ok = false;
-            
+
             var je = new JournalEntry('i3', 'a', 'b', 'c', 'd');
 
             promise = storage.persist(je);
@@ -319,13 +318,13 @@ describe('Service: PersistentStorageFactory', function() {
                 ok = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return ok;
         });
 
-        //list something
+        // list something
         runs(function() {
 
             ok = false;
@@ -345,13 +344,12 @@ describe('Service: PersistentStorageFactory', function() {
 
         runs(function() {
             ok = false;
-            
+
             expect(result.length).toBe(3);
             expect(result[0].sequence).toEqual('i1');
             expect(result[1].sequence).toEqual('i2');
             expect(result[2].sequence).toEqual('i3');
-            
-            
+
         });
     });
 
@@ -361,28 +359,28 @@ describe('Service: PersistentStorageFactory', function() {
         var result = undefined;
         var storage = undefined;
         var promise = undefined;
-        
+
         var dropBucket = false;
-       
+
         runs(function() {
             // drop a bucket
             var txBody = function(tx) {
                 driver.dropBucket(tx, 'JournalEntry');
             };
-            
+
             var promise = driver.transaction(txBody);
-            
+
             promise.then(function() {
                 dropBucket = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return dropBucket;
         });
-        
-        //persist something
+
+        // persist something
         runs(function() {
 
             storage = new PersistentStorage(driver);
@@ -396,16 +394,18 @@ describe('Service: PersistentStorageFactory', function() {
                 ok = true;
             });
         });
-        
+
         waitsFor(function() {
             scope.$apply();
             return ok;
         });
 
-        //remove
+        // remove
         runs(function() {
-            promise = storage.remove('JournalEntry',{sequence : 'i'});
- 
+            promise = storage.remove('JournalEntry', {
+                sequence : 'i'
+            });
+
         });
 
         waitsFor(function() {
@@ -413,8 +413,7 @@ describe('Service: PersistentStorageFactory', function() {
             return true;
         });
 
-        
-        //list something
+        // list something
         runs(function() {
             ok = false;
 
@@ -433,74 +432,8 @@ describe('Service: PersistentStorageFactory', function() {
 
         runs(function() {
             ok = false;
-            
+
             expect(result.length).toBe(0);
         });
     });
-
-   
-
-    xit('should do something', function() {
-
-        var ok = false;
-
-        var result = undefined;
-        var store = undefined;
-        var promise = undefined;
-
-        runs(function() {
-
-            store = new PersistentStorage(driver);
-            store.register('JournalEntry', JournalEntry);
-
-            var je = new JournalEntry('i', 'a', 'a', 'a', 'a');
-
-            promise = store.persist(je);
-
-            promise.then(function() {
-                ok = true;
-            });
-
-        });
-
-        waitsFor(function() {
-            scope.$apply();
-            return ok;
-        });
-
-        runs(function() {
-
-            ok = false;
-
-            promise = store.list('JournalEntry');
-
-            promise.then(function(value) {
-                ok = true;
-                result = value;
-            });
-        });
-
-        waitsFor(function() {
-            scope.$apply();
-            return ok;
-        });
-
-        runs(function() {
-            ok = false;
-
-            promise.then(function(value) {
-                ok = true;
-                result = value;
-            });
-            //            
-            // expect(!!PersistentStorageFactory).toBe(true);
-        });
-
-        waitsFor(function() {
-            scope.$apply();
-            return ok;
-        });
-
-    });
-
 });
