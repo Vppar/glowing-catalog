@@ -9,6 +9,12 @@
 	position: relative;
 	display:block;*/
 }
+.payment-send{
+	float: right;
+	vertical-align: top;
+	display: inline-block;
+	margin: -20px 10px 0 0;
+}
 .row-right-payment .lbl-money3 {
 	color:rgba(0, 0, 0, 0.5);
 }
@@ -597,7 +603,7 @@ border-radius: 4px;
 	background-color: #f2f2f2;
 	height: 20px; /*height: 18px;*/
 	margin-top: -20px;
-	width: 601px;
+	width: 590px;
 	padding: 5px 0 5px 0;
 	border-radius: 4px;
 }
@@ -609,9 +615,9 @@ border-radius: 4px;
 }
 
 .check-total span{
-	padding-left:12px; /*5*/
+	padding-left:6px;
 	font-weight:bold;
-	margin-right: 6px;
+	margin-right: 1px;
 }
 
 .title-gopay{
@@ -716,18 +722,18 @@ width: 267px;
 .parcelas-cartao {
 width: 96px;
 }
-.input-large{
+.payment-input-large{
 	height: 40px !important;
 	line-height: 40px !important;
 	padding: 0 6px 0 6px !important;
 }
-.input-large-add{
+.payment-input-large-add{
 	width: 3px !important;
 	height: 38px !important;
 	line-height: 38px !important;
 	padding: 0px !important;
 }
-.input-large-value{
+.payment-input-large-value{
 	height: 30px !important;
 	line-height: 30px;
 }
@@ -968,9 +974,10 @@ width: 428px !important;
 }
 .grid-payment-discount .col-s4{
 	width: 120px;/*75px*/
-	text-align:center;
+	text-align:right;
 	display: inline-block;
 	line-height: 40px;
+	vertical-align: middle;
 }
 .control-label-discount{
 	width:375px; /*400px*/
@@ -1051,7 +1058,8 @@ width: 428px !important;
 	line-height: 40px;
 }
 
-.row-payment-grid-product-discount input[type="checkbox"]{margin-top: -10px;}
+.row-payment-grid-product-discount input[type="checkbox"]{margin-top: -2px;}
+.row-payment-grid-product-discount input[type="text"]{margin:0 !important;}	
 
 .col-s3-list input ,
 .col-s4-list input {
@@ -1122,6 +1130,9 @@ width: 428px !important;
 }
 .grid-payment-coupon .subtitle2-header-coupon .col-s1 div, .grid-payment-coupon .header-coupon .col-s1 div, .grid-payment-coupon .grid-payment-coupon .col-s1 div, .row-payment-grid-product-coupon .col-s1 div{
 	margin-left:60px;
+}
+.row-payment-grid-product-coupon{
+	margin-bottom:5px;
 }
 .grid-payment-coupon-history .header-coupon .col-s1 div, .grid-payment-coupon-history  .grid-payment-coupon .col-s1 div{
 	margin-left:0;

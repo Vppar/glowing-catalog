@@ -1,6 +1,9 @@
 <div ng-controller="PaymentCouponCtrl">
   <div class="title-left">
     <div>Emiss&atilde;o de vale/cupom</div>
+	<!--<div class="payment-send">
+		<img src="images/icons/payment-send.png">
+	</div>-->
   </div>
   <span class="menu-level-payment">
     <div class="btn-group btn-group-sm" ng-init="option='option01'">
@@ -22,14 +25,14 @@
           <span class="span8">
             <div class="control-group">
               <label class="control-label">Cliente</label> <input
-                class="input-block-level input-large" disabled="disabled"
+                class="input-block-level payment-input-large" disabled="disabled"
                 id="customerName" type="text" ng-model="customer.name">
             </div>
           </span> <span class="span4">
             <div class="control-group">
               <label class="control-label">Celular</label> <input
                 id="customerPhone" disabled="disabled"
-                class="input-block-level input-large text-right" type="text"
+                class="input-block-level payment-input-large" type="text"
                 placeholder="" ng-model="customer.phones[0].number" phone
                 required>
             </div>
@@ -39,7 +42,7 @@
           <span class="span8">
             <div class="control-group">
               <label class="control-label">E-mail</label> <input
-                id="customerEmail" class="input-block-level input-large"
+                id="customerEmail" class="input-block-level payment-input-large"
                 type="text" placeholder="" ng-model="customer.emails[0].address"
                 disabled="disabled">
             </div>
@@ -47,7 +50,7 @@
             <div class="control-group">
               <label class="control-label">Valor total</label> <input
                 id="amount" required ng-model="voucher.total" currency tnt-input
-                class="input-block-level input-large text-right" type="text">
+                class="input-block-level payment-input-large text-right" type="text">
             </div>
           </span>
         </div>
@@ -63,17 +66,17 @@
               <label class="control-label">Favorecido do Vale Presente</label>
               <div class="input-append">
                 <input
-                  class="input-block-level hover-state-pointer input-large w420"
+                  class="input-block-level hover-state-pointer payment-input-large w420"
                   id="appendedInput" type="text" ng-model="gift.customer.name"
                   readonly="readonly"> <span
                   ng-click="openDialogChooseCustomerGift()"
-                  class="add-on input-large-add">+</span>
+                  class="add-on payment-input-large-add">+</span>
               </div>
             </div>
           </span> <span class="span4">
             <div class="control-group">
               <label class="control-label">Celular</label> <input name=""
-                class="input-block-level input-large text-right" type="text"
+                class="input-block-level payment-input-large" type="text"
                 placeholder="" ng-model="gift.customer.phones[0].number" phone
                 required disabled="disabled">
             </div>
@@ -83,14 +86,14 @@
           <span class="span8">
             <div class="control-group">
               <label class="control-label">E-mail</label> <input name="date"
-                class="input-block-level input-large" type="text" placeholder=""
+                class="input-block-level payment-input-large" type="text" placeholder=""
                 ng-model="gift.customer.emails[0].address" disabled="disabled">
             </div>
           </span> <span class="span4">
             <div class="control-group">
               <label class="control-label">Valor total</label>
               <input name="totalVoucher" id="totalVoucher" tnt-input
-                class="input-block-level input-large text-right" currency
+                class="input-block-level payment-input-large text-right" currency
                 type="text" placeholder="" ng-model="gift.total" required>
             </div>
           </span>
@@ -105,13 +108,13 @@
           <span class="span8">
             <div class="control-group">
               <label class="control-label">Cliente</label> <input
-                class="input-block-level input-large" disabled="disabled"
+                class="input-block-level payment-input-large" disabled="disabled"
                 id="appendedInput" type="text" ng-model="customer.name">
             </div>
           </span> <span class="span4">
             <div class="control-group">
               <label class="control-label">Celular</label> <input name="amount"
-                class="input-block-level input-large text-right" type="text"
+                class="input-block-level payment-input-large" type="text"
                 placeholder="" ng-model="customer.phones[0].number" phone
                 disabled="disabled" required>
             </div>
@@ -121,18 +124,18 @@
           <span class="span8">
             <div class="control-group">
               <label class="control-label">E-mail</label> <input name="date"
-                class="input-block-level input-large" type="text" placeholder=""
+                class="input-block-level payment-input-large" type="text" placeholder=""
                 ng-model="customer.emails[0].address" disabled="disabled">
             </div>
           </span> <span class="span4">
             <div class="control-group">
               <label class="control-label">Valor total</label>
-              <!--<span name="amount" class="check-value w200 input-large-value"
+              <!--<span name="amount" class="check-value w200 payment-input-large-value"
                 id="valor">{{coupon.total | currency: ''}}</span>-->
               <input name="amount"
                 id="valor"
                 tnt-input
-                class="input-block-level input-large text-right"
+                class="input-block-level payment-input-large text-right"
                 currency
                 type="text"
                 placeholder=""
@@ -170,7 +173,7 @@
                     </div>
                   </span> <span class="col-s3">
                     <div class="text-right">
-                      <span name="amount" class="check-value" id="valor">{{item.total
+                      <span name="amount" class="check-value payment-input-large" id="valor">{{item.total
                         | currency: ''}}</span>
                     </div>
                   </span>

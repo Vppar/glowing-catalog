@@ -40,7 +40,8 @@
                         check : [],
                         creditCard : [],
                         exchange : [],
-                        coupon : []
+                        coupon : [],
+                        onCuff : []
                     },
                     order : {
                         amount : 0,
@@ -276,7 +277,7 @@
                     }
                     OrderService.clear();
                     PaymentService.clearAllPayments();
-                    
+
                     $location.path('/');
                 }
 
@@ -307,6 +308,13 @@
                         $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
                     }
                 }
+
+                $scope.$watch('total.change', function() {
+                    if ($scope.total.change != 0) {
+                        PaymentService.clear('onCuff');
+                        updateOrderAndPaymentTotal();
+                    }
+                });
 
                 // #############################################################################################
                 // Main related functions
