@@ -1,6 +1,13 @@
+var CatalogPage = require('./pages/CatalogPage.js');
+
 describe("Hello MK", function() {
-    it('should do something', function() {
-        browser.get('#');
-        expect($('.menu-black').findElements()).toBe(4);
-    });
+  page = new CatalogPage();
+
+  beforeEach(function() {
+    page.get();
+  });
+
+  it('The title should be correct', function() {
+    expect(page.getTitle()).toBe('VOPP Wishlist');
+  });
 });
