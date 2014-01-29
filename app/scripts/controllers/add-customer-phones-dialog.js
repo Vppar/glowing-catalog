@@ -17,7 +17,13 @@
             number : undefined,
             type : undefined
         };
-        $scope.phones = angular.copy(dialog.data.phones);
+        //TODO get phones already set
+        if(dialog.data.length > 0 && dialog.data[0].number !== '') {
+            $scope.phones = dialog.data;
+        } else {
+            $scope.phones = [];
+        }
+        console.log($scope.phones);
         $scope.phoneTypes = DataProvider.phoneTypes;
 
         /**
@@ -25,8 +31,8 @@
          * $scope.phones array and if not, adds phone to the last position of
          * $scope.phones array
          */
-        $scope.add = function add(item) {
-            if ($scope.newPhoneForm.$valid) {
+        $scope.addPhone = function addPhone(item) {
+            if ($scope.newPhoneForm.$valid && item.number) {
                 var phone = $filter('filter')($scope.phones, item.number);
                 if (phone.length === 0) {
                     $scope.phones.push(angular.copy(item));
@@ -86,11 +92,7 @@
             var phones = {};
             if ($scope.phones.length >= 1) {
                 phones = $scope.phones;
-            } else {
-                phones = {
-                    number : ''
-                };
-            }
+            } 
             dialog.close(phones);
         };
 

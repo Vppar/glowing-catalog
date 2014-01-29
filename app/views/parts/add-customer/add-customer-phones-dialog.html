@@ -6,7 +6,7 @@
 			<span class="span5"> 
 			<select class='customer-tel-type'
 				ui-select2 ng-model="phone.type">
-					<option ng-repeat="type in dataProvider.phone.types"
+					<option ng-repeat="type in phoneTypes"
 						value="{{type}}">{{type}}</option>
 			</select>
 
@@ -14,7 +14,7 @@
 			<span class="span7">
 				<div class="input-append add-cusomer-input-tels">
 					<input class="input-block-level" ng-model="phone.number"
-						id="appendedInput" type="text" autofocus phone required> <span
+						id="appendedInput" type="text" autofocus phone> <span
 						ng-click='addPhone(phone)' class="add-on">+</span>
 				</div>
 			</span>
@@ -43,8 +43,8 @@
 		<div class="clearfix"></div>
 		<hr />
 		<button class="btn btn-large btn-cancel" type="submit"
-			ng-click='closeDialog()'>Voltar</button>
+			ng-click='cancel()'>Voltar</button>
 		<button class="btn btn-large btn-ok pull-right" type="submit"
-			ng-click='submitDialog()'>Adicionar</button>
+			ng-click='confirm()'>Adicionar</button>
 	</form>
 </div>

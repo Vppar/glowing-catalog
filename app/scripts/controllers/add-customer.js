@@ -5,11 +5,15 @@
         'tnt.catalog.service.data'
     ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService) {
 
+        //ONLY FOR TESTS
+        if(!DataProvider.date.days){
+            $location.path('/');
+        }
         // ############################################################################################################
         // Scope binding variables
         // ############################################################################################################
-
         $scope.birthdate = DataProvider.date;
+        $scope.states = DataProvider.states;
 
         $scope.customer = {
             address : {},
@@ -36,6 +40,7 @@
                 phones : phones
             }).then(function resultPhones(phones) {
                 customer.phones = phones;
+                console.log(phones);
             });
         };
 
