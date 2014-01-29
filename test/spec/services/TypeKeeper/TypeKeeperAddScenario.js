@@ -34,7 +34,7 @@ describe('Service: TypeKeeper.add', function() {
 
         runs(function() {
             TypeKeeper.add(ev);
-        });
+        }); 
 
         waitsFor(function() {
             return TypeKeeper.list(classification);
