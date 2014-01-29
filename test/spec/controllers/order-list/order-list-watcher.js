@@ -10,6 +10,7 @@ describe('Controller: OrderListCtrlWatcherSpec', function() {
     beforeEach(inject(function($controller, $rootScope) {
         // scope mock
         scope = $rootScope.$new();
+        OrderService : OrderService;
         $controller('OrderListCtrl' , {
             $scope : scope,
             OrderService : OrderService
@@ -57,7 +58,8 @@ describe('Controller: OrderListCtrlWatcherSpec', function() {
     
 //    invalid - 1388541600000 
 //    valid - 1364958000000
-
+    
+    //FIXME- Still have to finish the integration to properly fix the test
     xit('should update the filteredOrders when given a valid date', function() {
         // given
         scope.dateFilter = {
