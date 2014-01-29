@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ReturnProductKeeper', function() {
+describe('Service: ProductReturnKeeper', function() {
 
     // load the service's module
     beforeEach(function() {

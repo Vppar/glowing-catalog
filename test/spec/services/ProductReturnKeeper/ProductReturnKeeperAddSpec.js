@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ProductReturnKeeper', function() {
+describe('Service: ProductReturnKeeperAddSpec', function() {
 
     var jKeeper = {};
 
@@ -54,12 +54,20 @@ describe('Service: ProductReturnKeeper', function() {
         var qty = 20;
         var ct = 1;
         var ev = new ProductReturn(devId, pId, qty, ct);
-        var stp = fakeNow / 1000;
-        var entry = new JournalEntry(null, stp, 'productReturnAdd', 1, ev);
+        var entry = null;
+        
 
-        expect(function() {
+        var productReturnAddCall =function() {
             ProductReturnKeeper.add(ev);
-        }).not.toThrow();
+            // created property should be injected by the keeper and we need 
+            // to reproduce this behavior to test.
+            ev.created = fakeNow;
+            // and only after that we can create a simulated journal entry.
+            entry = new JournalEntry(null, ev.created, 'productReturnAdd', 1, ev);
+        };
+        
+        
+        expect(productReturnAddCall).not.toThrow();
         expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
     });
 
