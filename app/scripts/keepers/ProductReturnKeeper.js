@@ -1,6 +1,5 @@
 (function(angular) {
     'use strict';
-
     /**
      * The ReturnedProduct with link between devolution, client and products
      * 
@@ -13,17 +12,18 @@
      * 
      * </pre>
      */
-    angular.module('tnt.catalog.productReturn.entity', []).factory('ProductReturn', function ProductReturn() {
+    angular.module('tnt.catalog.productReturn.entity', [
+        'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
+    ]).factory('ProductReturn', function ProductReturn() {
 
-        var service = function svc(devolutionId, productId, quantity, cost) {
+        var service = function svc(id, productId, quantity, cost) {
 
             var validProperties = [
-                'devolutionId', 'productId', 'quantity', 'cost'
+                'id', 'productId', 'quantity', 'cost', 'created'
             ];
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
                     var prop = this[ix];
-
                     if (!angular.isFunction(prop)) {
                         if (validProperties.indexOf(ix) === -1) {
                             throw "Unexpected property " + ix;
@@ -31,15 +31,21 @@
                     }
                 }
             });
-
             if (arguments.length != svc.length) {
-                throw 'returnProduct must be initialized with devolutionId, productId, quantity and cost';
+                if (arguments.length === 1 && angular.isObject(arguments[0])) {
+                    svc.prototype.isValid.apply(arguments[0]);
+                    ObjectUtils.dataCopy(this, arguments[0]);
+                } else {
+                    throw 'ProductReturn must be initialized with id, productId, quantity and cost';
+                }
+            } else {
+                this.id = id;
+                this.productId = productId;
+                this.quantity = quantity;
+                this.cost = cost;
             }
+            ObjectUtils.ro(this, 'id', this.id);
 
-            ObjectUtils.ro(this, 'devolutionId', devolutionId);
-            this.productId = productId;
-            this.quantity = quantity;
-            this.cost = cost;
         };
 
         return service;
@@ -85,17 +91,8 @@
          * @param event - ProductReturn
          */
         ObjectUtils.ro(this.handlers, 'productReturnAddV1', function(event) {
-            var entry = ArrayUtils.find(productReturn, 'devolutionId', event.devolutionId);
-
-            if (entry === null) {
-                event = new ProductReturn(event.devolutionId, event.productId, event.quantity, event.price);
-                productsReturned.push(event);
-            } else {
-                entry.productId = event.productId;
-                entry.price = event.price;
-                entry.quantity = event.quantity;
-
-            }
+            var productEntry = new ProductReturn(event);
+            productsReturned.push(productEntry);
         });
 
         // Registering the handlers with the Replayer
@@ -125,29 +122,23 @@
          * @param quantity - The number of units returned
          * @param cost - Cost for the product returned 
          */
-        this.add = function(prodcutReturn) {
-
-            if (prodcutReturn instanceof ProductReturn) {
-                prodcutReturn.isValid();
-            } else {
-                throw "Wrong instance.";
+        this.add = function(productReturn) {
+            if (!(productReturn instanceof ProductReturn)) {
+                throw "Wrong instance of ProductReturn.";
             }
 
-            var event = prodcutReturn;
+            var event = angular.copy(productReturn);
+            event.created = (new Date()).getTime();
 
-            if (prodcutReturn.quantity > 0) {
-                var stamp = (new Date()).getTime() / 1000;
-                // create a new journal entry
-                var entry = new JournalEntry(null, stamp, 'productReturnAdd', currentEventVersion, event);
+            event = new ProductReturn(event);
 
-                // save the journal entry
-                JournalKeeper.compose(entry);
-            } else {
-                throw 'error';
-            }
+            var entry = new JournalEntry(null, event.created, 'productReturnAdd', currentEventVersion, event);
+
+            // save the journal entry
+            JournalKeeper.compose(entry);
         };
 
-        this.read = function() {
+        this.list = function() {
             return angular.copy(productsReturned);
         };
 
