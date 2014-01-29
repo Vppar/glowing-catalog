@@ -14,7 +14,7 @@
       this.isValid = function(entity) {
             var invalidProperty = {};
 
-            invalidProperty.id = angular.isNumber(entity.id);
+            invalidProperty.uuid = angular.isNumber(entity.uuid);
             invalidProperty.name = angular.isDefined(entity.name);
             invalidProperty.emails = angular.isDefined(entity.emails);
             invalidProperty.phones = angular.isDefined(entity.phones);
@@ -56,15 +56,15 @@
         /**
          * Returns a single entity by its id.
          * 
-         * @param id - Entity id.
+         * @param uuid - Entity uuid.
          * @return Entity - The desired entity.
          */
-        this.read = function(id) {
+        this.read = function(uuid) {
             var result = null;
             try {
-                result = EntityKeeper.read(id);
+                result = EntityKeeper.read(uuid);
             } catch (err) {
-                $log.debug('EntityService.read: Unable to find a entity with id=\'' + id + '. Err=' + err);
+                $log.debug('EntityService.read: Unable to find a entity with id=\'' + uuid + '. Err=' + err);
             }
             return result;
         };

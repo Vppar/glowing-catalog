@@ -27,7 +27,7 @@ describe('Service: EntityServiceAddSpec', function() {
         EntityService.isValid = jasmine.createSpy('EntityService.isValid').andReturn([]);
         
         var entity = {
-                id : 1,
+                uuid : 1,
                 name : 'cassiano',
                 emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
                 birthDate : '16/09/1981',

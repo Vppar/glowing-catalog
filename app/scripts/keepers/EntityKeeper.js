@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.entity.entity', []).factory('Entity', function Entity() {
 
-        var service = function svc(id, name, emails, birthDate, phones, cep, document, addresses,  remarks) {
+        var service = function svc(uuid, name, emails, birthDate, phones, cep, document, addresses,  remarks) {
 
             var validProperties = [
-                'id', 'name', 'emails', 'birthDate', 'phones', 'cep', 'document', 'addresses', 'remarks','created'
+                'uuid', 'name', 'emails', 'birthDate', 'phones', 'cep', 'document', 'addresses', 'remarks','created'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -29,7 +29,7 @@
                     throw 'Entity must be initialized with id, name, emails, birthDate, phones, cep, document, addresses,  remarks';
                 }
             } else {
-                this.id = id;
+                this.uuid = uuid;
                 this.name = name;
                 this.emails = emails;
                 this.birthDate = birthDate;
@@ -40,7 +40,7 @@
                 this.remarks = remarks;
                 
             }
-            ObjectUtils.ro(this, 'id', this.id);
+            ObjectUtils.ro(this, 'uuid', this.uuid);
         };
 
         return service;
@@ -53,35 +53,58 @@
             'tnt.catalog.entity.keeper',
             [
                 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.entity.entity',
-                'tnt.catalog.journal.keeper'
-            ]).service('EntityKeeper', function EntityKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity) {
+                'tnt.catalog.journal.keeper', 'tnt.identity'
+            ]).config(function($provide) {
+                $provide.decorator('$q', function($delegate) {
+                    $delegate.reject = function(reason){
+                        var deferred = $delegate.defer();
+                        deferred.reject(reason);
+                        return deferred.promise;
+                    };
+                    return $delegate;
+                });
+        }).service('EntityKeeper', function EntityKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity, IdentityService) {
 
+        var type = 1;
         var currentEventVersion = 1;
+        var currentCounter = 0;
         var entities = [];
         this.handlers = {};
+        
+        function getNextId(){
+          return ++currentCounter;
+        }
 
         ObjectUtils.ro(this.handlers, 'entityCreateV1', function(event) {
+          
+            if(!(event instanceof Entity) && IdentityService.getDeviceFromUUID(event.uuid) == IdentityService.deviceId){
+                var remoteId = IdentityService.getIdFromUUID(event.uuid);
+                
+                currentCounter = currentCounter >= remoteId ? currentCounter : remoteId;
+            }
+            
             event = new Entity(event);
             entities.push(event);
+            
+            return event.uuid;
         });
         
         
 
         ObjectUtils.ro(this.handlers, 'entityUpdateV1', function(event) {
-            var entry = ArrayUtils.find(entities, 'id', event.id);
+            var entry = ArrayUtils.find(entities, 'uuid', event.uuid);
 
             if (entry !== null) {
-                entry.name = event.name;
-                entry.emails = event.emails;
-                entry.birthDate = event.birthDate;
-                entry.phones = event.phones;
-                entry.cep = event.cep;
-                entry.document = event.document;
-                entry.addresses = event.addresses;
-                entry.remarks = event.remarks;
+              
+                event = angular.copy(event);
+                delete event.uuid;
+                angular.extend(entry, event);
+                
             } else {
                 throw "User not found.";
             }
+            
+            return entry.uuid;
         });
         
         /**
@@ -95,23 +118,21 @@
         this.create = function(entity) {
             
             if (!(entity instanceof Entity)) {
-                throw 'Wrong instance to EntityKeeper';
+                return $q.reject('Wrong instance to EntityKeeper');
             }
             
             var entityObj = angular.copy(entity);
 
-            // FIXME - use UUID
-            entityObj.id = entities.length + 1;
-
+            entityObj.created = (new Date()).getTime();
+            entityObj.uuid = IdentityService.getUUID(type, getNextId());
+            
             var event = new Entity(entityObj);
-            var stamp = (new Date()).getTime() / 1000;
 
-            event.created = stamp;
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'entityCreate', currentEventVersion, event);
+            var entry = new JournalEntry(null, event.created, 'entityCreate', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };                
 
         /**
@@ -120,7 +141,7 @@
         this.update = function(entity) {
 
             if (!(entity instanceof Entity)) {
-                throw 'Wrong instance to EntityKeeper';
+                return $q.reject('Wrong instance to EntityKeeper');
             }
             
             var event = entity;
@@ -130,7 +151,7 @@
             var entry = new JournalEntry(null, stamp, 'entityUpdate', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         /**

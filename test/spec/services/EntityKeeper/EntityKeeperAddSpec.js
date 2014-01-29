@@ -23,19 +23,21 @@ describe('Service: EntityKeeper', function() {
     });
 
     // instantiate service
-    var EntityKeeper = undefined;
-    var Entity = undefined;
-    var JournalEntry = undefined;
-    beforeEach(inject(function(_EntityKeeper_, _Entity_, _JournalEntry_) {
+    var EntityKeeper = null;
+    var Entity = null;
+    var JournalEntry = null;
+    var IdentityService = null;
+    beforeEach(inject(function(_EntityKeeper_, _Entity_, _JournalEntry_, _IdentityService_) {
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
         JournalEntry =_JournalEntry_;
+        IdentityService = _IdentityService_;
     }));
     
     it('should handle an add entity event', function() {
         // given
         var validEntity = {
-                id : 1,
+                uuid : 1,
                 name : 'cassiano',
                 emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
                 birthDate : '16/09/1981',
@@ -70,7 +72,9 @@ describe('Service: EntityKeeper', function() {
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         
-        var id = 1;
+        spyOn(IdentityService, 'getUUID').andReturn('cc02b600-5d0b-11e3-96c3-010001000001');
+        
+        var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
         var name = 'cassiano';
         var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
         var birthDate = '16/09/1981';
@@ -80,9 +84,9 @@ describe('Service: EntityKeeper', function() {
         var addresses = [{street: 'rua', number: 555}, {street: 'rua', number: 556}];
         var remarks = 'bad client';
         
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
 
-        var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
+        var ev = new Entity(uuid, name, emails, birthDate, phones, cep, document, addresses,  remarks);
         ev.created = stp;
         
         var entry = new JournalEntry(null, stp, 'entityCreate', 1, ev); 

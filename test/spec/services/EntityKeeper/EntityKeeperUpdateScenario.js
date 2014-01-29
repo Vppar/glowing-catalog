@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: EntityKeeper', function() {
+describe('Service: EntityKeeperUpdateScenario', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -10,11 +10,13 @@ describe('Service: EntityKeeper', function() {
     });
 
     // instantiate service
-    var EntityKeeper = undefined;
-    var Entity = undefined;
-    beforeEach(inject(function(_EntityKeeper_, _Entity_) {
+    var EntityKeeper = null;
+    var Entity = null;
+    var $rootScope = null;
+    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_) {
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
+        $rootScope = _$rootScope_;
     }));
     
     /**
@@ -27,27 +29,51 @@ describe('Service: EntityKeeper', function() {
      * </pre>
      */
     it('should update', function() {
+
+        var name = 'cassiano';
+        var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
+        var birthDate = '16/09/1981';
+        var phones = [{ddd: 41, phone: 96491686},{ddd: 41, phone: 30875341}];
+        var cep = '8157170';
+        var document = '1234567890';
+        var addresses = [{street: 'rua', number: 555}, {street: 'rua', number: 556}];
+      
+        var uuid = null;
+      
         runs(function(){
-            var id = 1;
-            var name = 'cassiano';
-            var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
-            var birthDate = '16/09/1981';
-            var phones = [{ddd: 41, phone: 96491686},{ddd: 41, phone: 30875341}];
-            var cep = '8157170';
-            var document = '1234567890';
-            var addresses = [{street: 'rua', number: 555}, {street: 'rua', number: 556}];
             var remarks = 'bad client';
-            var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
-            EntityKeeper.create(ev);
             
-            ev.remarks = 'super bad client';
+            var ev = new Entity(uuid, name, emails, birthDate, phones, cep, document, addresses,  remarks);
             
-            EntityKeeper.update(ev);
+            var promise = EntityKeeper.create(ev);
+            
+            promise.then(function(_uuid_){
+                uuid = _uuid_;
+            });
         });
         
         waitsFor(function(){
-            return EntityKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+            $rootScope.$apply();
+            return !!uuid;
+        }, 'Create is taking too long', 300);
+        
+        runs(function(){
+            var remarks = 'super bad client';
+            var ev = new Entity(uuid, name, emails, birthDate, phones, cep, document, addresses,  remarks);
+            
+            var promise = EntityKeeper.update(ev);
+            
+            uuid = null;
+            
+            promise.then(function(_uuid_){
+                uuid = _uuid_;
+            });
+        });
+        
+        waitsFor(function(){
+            $rootScope.$apply();
+            return !!uuid;
+        }, 'Update is taking too long', 300);
         
         runs(function(){
             expect(EntityKeeper.list().length).toBe(1);
@@ -66,7 +92,7 @@ describe('Service: EntityKeeper', function() {
      */
     it('should throw exception', function() {
         var ev = {
-            id : 1,
+            uuid : 1,
             name : 'cassiano',
             emails : [
                 {
@@ -99,11 +125,24 @@ describe('Service: EntityKeeper', function() {
             remarks : 'bad client'
         };
         
-        var createCall = function(){
-            EntityKeeper.update(ev);
-        };
+        var resolution = null;
         
-        expect(createCall).toThrow('Wrong instance to EntityKeeper');
+        runs(function(){
+            var promise = EntityKeeper.update(ev);
+            
+            promise['catch'](function(_resolution_){
+                resolution = _resolution_;
+            });
+        });
+        
+        waitsFor(function(){
+            $rootScope.$apply();
+            return !!resolution;
+        }, 'Update is taking too long', 300);
+        
+        runs(function(){
+            expect(resolution).toBe('Wrong instance to EntityKeeper');
+        });
     });
     
     /**

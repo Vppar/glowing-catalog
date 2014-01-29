@@ -26,5 +26,21 @@
         node : seed
       });
     };
+    
+    this.getIdFromUUID = function(uuid){
+      return parseInt(uuid.substring(32, 36), 10);
+    };
+    
+    this.getDeviceFromUUID = function(uuid){
+      return parseInt(uuid.substring(24, 26), 10);
+    };
+    
+    this.getTypeFromUUID = function(uuid){
+      return parseInt(uuid.substring(28, 30), 10);
+    };
+    
+    this.getDeviceId = function(){
+      return angular.copy(deviceId);
+    };
   });
 })(angular, window.uuid);

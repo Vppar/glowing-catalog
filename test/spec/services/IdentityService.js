@@ -22,11 +22,9 @@ describe('Service: IdentityService', function() {
   });
 
   it('should fail to generate an UUID, op is too big', function() {
-
     expect(function() {
       IdentityService.getUUID(256, 1);
     }).toThrow();
-
   });
 
   it('should fail to generate an UUID, id is too big', function() {
@@ -34,5 +32,7 @@ describe('Service: IdentityService', function() {
       IdentityService.getUUID(1, 65536);
     }).toThrow();
   });
+  
+  // TODO Test the get methods
 
 });

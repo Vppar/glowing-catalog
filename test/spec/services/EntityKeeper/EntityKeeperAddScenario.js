@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: EntityKeeper', function() {
+describe('Service: EntityKeeperAddScenario', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -10,12 +10,14 @@ describe('Service: EntityKeeper', function() {
     });
 
     // instantiate service
-    var EntityKeeper = undefined;
-    var Entity = undefined;
+    var EntityKeeper = null;
+    var Entity = null;
+    var $rootScope = null;
     
-    beforeEach(inject(function(_EntityKeeper_, _Entity_) {
+    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_) {
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
+        $rootScope = _$rootScope_;
     }));
     
     /**
@@ -101,10 +103,25 @@ describe('Service: EntityKeeper', function() {
             ],
             remarks : 'bad client'
         };
-        //when
-        var createCall = function(){EntityKeeper.create(ev);};
-        //then
-        expect(createCall).toThrow('Wrong instance to EntityKeeper');
+        
+        var resolution = null;
+        
+        runs(function(){
+            var promise = EntityKeeper.create(ev);
+            
+            promise['catch'](function(_resolution_){
+                resolution = _resolution_;
+            });
+        });
+        
+        waitsFor(function(){
+            $rootScope.$apply();
+            return !!resolution;
+        }, 'Create is taking too long', 300);
+        
+        runs(function(){
+            expect(resolution).toBe('Wrong instance to EntityKeeper');
+        });
 
     });
 });
