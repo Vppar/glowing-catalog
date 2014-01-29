@@ -15,8 +15,7 @@
                 'tnt.catalog.service.data',
                 'tnt.catalog.service.dialog',
                 'tnt.catalog.order.service',
-                'tnt.catalog.order.entity',
-                'tnt.catalog.order.keeper',
+                'tnt.catalog.order',
                 'tnt.catalog.service.expense',
                 'tnt.catalog.service.sms',
                 'tnt.catalog.service.storage',
@@ -58,7 +57,8 @@
                 'tnt.catalog.attrs.upperCase',
                 'tnt.catalog.payment.discount',
                 'tnt.catalog.entity.service',
-                'tnt.catalog.entity.entity'
+                'tnt.catalog.entity.entity',
+                'tnt.catalog.orderList.ctrl'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
