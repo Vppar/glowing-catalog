@@ -9,7 +9,7 @@
     this.getUUID = function(op, id) {
 
       if (op > 0xff || id > 0xffff) {
-        throw "uuid seed data too big, op max is 255 and id max is 4095";
+        throw 'uuid seed data too big, op max is 255 and id max is 4095';
       }
 
       // split the counter bytes
@@ -26,20 +26,22 @@
         node : seed
       });
     };
-    
-    this.getIdFromUUID = function(uuid){
-      return parseInt(uuid.substring(32, 36), 10);
+
+    this.getUUIDData = function(uuid) {
+      
+      if(uuid.length !== 36){
+        throw 'This is not an uuid: ' + uuid;
+      }
+      
+      var data = {};
+      data.id = parseInt(uuid.substring(32, 36), 10);
+      data.deviceId = parseInt(uuid.substring(24, 26), 10);
+      data.typeId = parseInt(uuid.substring(28, 30), 10);
+
+      return data;
     };
-    
-    this.getDeviceFromUUID = function(uuid){
-      return parseInt(uuid.substring(24, 26), 10);
-    };
-    
-    this.getTypeFromUUID = function(uuid){
-      return parseInt(uuid.substring(28, 30), 10);
-    };
-    
-    this.getDeviceId = function(){
+
+    this.getDeviceId = function() {
       return angular.copy(deviceId);
     };
   });

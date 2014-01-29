@@ -77,10 +77,10 @@
 
         ObjectUtils.ro(this.handlers, 'entityCreateV1', function(event) {
           
-            if(!(event instanceof Entity) && IdentityService.getDeviceFromUUID(event.uuid) == IdentityService.deviceId){
-                var remoteId = IdentityService.getIdFromUUID(event.uuid);
-                
-                currentCounter = currentCounter >= remoteId ? currentCounter : remoteId;
+            var eventData = IdentityService.getUUIDData(event.uuid);
+          
+            if(eventData.deviceId === IdentityService.deviceId){
+                currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
             
             event = new Entity(event);

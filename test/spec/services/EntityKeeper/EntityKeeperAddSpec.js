@@ -37,7 +37,7 @@ describe('Service: EntityKeeper', function() {
     it('should handle an add entity event', function() {
         // given
         var validEntity = {
-                uuid : 1,
+                uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
                 name : 'cassiano',
                 emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
                 birthDate : '16/09/1981',
