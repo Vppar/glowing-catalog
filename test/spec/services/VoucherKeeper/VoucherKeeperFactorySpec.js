@@ -2,7 +2,6 @@
 
 describe('Service: VoucherKeeper', function() {
 
-
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.voucher.entity');
@@ -164,7 +163,7 @@ describe('Service: VoucherKeeper', function() {
             var v = new Voucher(obj);
         }).toThrow();
     });
-    
+
     xit('should not instanciate a voucher with a non object', function() {
         var obj = [];
 

@@ -12,15 +12,15 @@ describe('Service: VoucherKeeper', function() {
     // instantiate service
     var VoucherKeeper = undefined;
     var Voucher = undefined;
-    
+
     var version = 'V1';
-    var myAddFunction = 'voucherCreate'+version;
-    
+    var myAddFunction = 'voucherCreate' + version;
+
     beforeEach(inject(function(_VoucherKeeper_, _Voucher_) {
         VoucherKeeper = _VoucherKeeper_;
         Voucher = _Voucher_;
     }));
-    
+
     /**
      * <pre>
      * @spec VoucherKeeper.list#1
@@ -31,19 +31,19 @@ describe('Service: VoucherKeeper', function() {
      */
     it('return list with 0 items', function() {
         //given
-        
+
         //when 
-        
+
         //then
         expect(VoucherKeeper.list('voucher').length).toBe(0);
-        
+
     });
-       
+
     /**
      * <pre>
      * @spec VoucherKeeper.list#1
      * Given a populated list
-     * when and list is triggered
+     * when list is triggered
      * then a list must be returned
      * </pre>
      */
@@ -57,5 +57,5 @@ describe('Service: VoucherKeeper', function() {
         //then
         expect(myNewList.length).toBe(2);
     });
-    
+
 });

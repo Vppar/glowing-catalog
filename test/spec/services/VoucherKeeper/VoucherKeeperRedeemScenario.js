@@ -12,17 +12,17 @@ describe('Service: VoucherKeeper', function() {
     // instantiate service
     var VoucherKeeper = undefined;
     var Voucher = undefined;
-    
+
     var version = 'V1';
-    var myAddFunction = 'voucherCreate'+version;
+    var myAddFunction = 'voucherCreate' + version;
     var ArrayUtils = undefined;
-    
+
     beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _ArrayUtils_) {
         VoucherKeeper = _VoucherKeeper_;
         Voucher = _Voucher_;
         ArrayUtils = _ArrayUtils_;
     }));
-    
+
     /**
      * <pre>
      * @spec VoucherKeeper.Redeem#1
@@ -33,44 +33,25 @@ describe('Service: VoucherKeeper', function() {
      * </pre>
      */
     it('redeem a voucher', function() {
-        runs(function(){
+        runs(function() {
             VoucherKeeper.handlers[myAddFunction](new Voucher(0, 'Pedro de Lara', 'voucher', 30));
             VoucherKeeper.handlers[myAddFunction](new Voucher(1, 'Toninho do Diabo', 'voucher', 40));
             VoucherKeeper.handlers[myAddFunction](new Voucher(3, 'Jeremias O Sub-Zero brasileiro', 'voucher', 40));
-            
+
             VoucherKeeper.redeem('voucher', 1);
         });
-        
-        waitsFor(function(){
+
+        waitsFor(function() {
             return VoucherKeeper.list('voucher')[1].redeemed;
         }, 'JournalKeeper is taking too long', 300);
-        
-        runs(function(){
+
+        runs(function() {
             var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 1);
-            
+
             expect(VoucherKeeper.list('voucher').length).toBe(3);
             expect(voucher.redeemed).not.toBe(undefined);
             expect(voucher.entity).toBe('Toninho do Diabo');
         });
     });
-    
-    /**
-     * <pre>
-     * @spec VoucherKeeper.Redeem#1
-     * Given a invalid id 
-     * when redeem is triggered
-     * then a exception must be throw
-     * </pre>
-     */
-    it('throw exception', function() {
-        //given / when 
-        var id =5;
-        var createCall = function() {
-            VoucherKeeper.redeem('voucher', id);
-        };
 
-        //then
-        expect(createCall).toThrow('Unable to find a voucher with id=\'' + id + '\'');
-
-    });
 });
