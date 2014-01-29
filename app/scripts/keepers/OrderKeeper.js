@@ -144,6 +144,8 @@
     });
     angular.module('tnt.catalog.order', [
         'tnt.catalog.order.entity', 'tnt.catalog.order.keeper'
-    ]);
+    ]).run(function(OrderKeeper) {
+        // Warming up OrderKeeper
+    });
 
 }(angular));

@@ -1,37 +1,5 @@
 [
 	{
-		"type": "voucherCreate",
-		"version": 1,
-		"event": {
-			"id": 1,
-			"entity": 16,
-			"type": "voucher",
-			"amount": 10.77,
-			"created": 1388534400000
-		}
-	},
-	{
-		"type": "voucherCreate",
-		"version": 1,
-		"event": {
-			"id": 2,
-			"entity": 16,
-			"type": "giftCard",
-			"amount": 50,
-			"created": 1388544400000
-		}
-	},
-	{
-		"type": "voucherCreate",
-		"version": 1,
-		"event": {
-			"id": 3,
-			"entity": 16,
-			"type": "coupon",
-			"amount": 20,
-			"created": 1388684400000
-		}
-	},{
 		"type": "orderAdd",
 		"version": 1,
 		"event": {
@@ -40,6 +8,7 @@
 	        "date": 1383066000000,
 	        "code": "mary-0001-13",
 	        "canceled": false,
+	        "paymentId": 1,
 	        "items": [{
 				            "id": 1,
 				            "title": "Solução Diurna com FPS 25 TimeWise®",
@@ -76,5 +45,4 @@
 			       }]
 	    	}
 	}
-	
 ]

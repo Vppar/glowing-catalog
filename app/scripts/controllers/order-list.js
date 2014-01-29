@@ -6,33 +6,6 @@
 
         // FIXME - Mocks, created for test purposes while the
         // OrderService dosn't work.
-
-        $scope.orders = [
-            {
-                canceled : false,
-                code : "mary-0001-13",
-                customerId : 14,
-                date : 1383066000000,
-                id : 1,
-                items : [
-                    {
-                        price : "85",
-                        qty : 1
-                    }, {
-                        price : "32",
-                        qty : 1
-                    }, {
-                        price : "90",
-                        qty : 1
-                    }, {
-                        price : "23",
-                        qty : 2
-                    }
-
-                ],
-                paymentId : 1,
-            }
-        ];
         $scope.customers = [
             {
                 id : 14,
@@ -44,10 +17,10 @@
         // #############################################################################################################
 
         // FIXME - this should b the correct origin of the orders.
-        // $scope.orders = OrderService.list();
+         $scope.orders = OrderService.list();
 
         $scope.filteredOrders = {};
-
+        
         $scope.dateFilter = {
             dtInitial : '',
             dtFinal : ''
@@ -70,6 +43,7 @@
          * Watcher to filter the orders and populate the grid.
          */
         $scope.$watchCollection('dateFilter', function() {
+            console.log(OrderService.list());
             $scope.filteredOrders = $filter('filter')(angular.copy($scope.orders), filterByDate);
             for ( var ix in $scope.filteredOrders) {
                 customerNameAugmenter($scope.filteredOrders[ix]);
