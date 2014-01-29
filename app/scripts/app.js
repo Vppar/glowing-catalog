@@ -57,7 +57,8 @@
                 'tnt.catalog.voucher',
                 'tnt.catalog.attrs.upperCase',
                 'tnt.catalog.payment.discount',
-                'tnt.catalog.entity.service'               
+                'tnt.catalog.entity.service',
+                'tnt.catalog.entity.entity'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
