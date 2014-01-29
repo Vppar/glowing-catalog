@@ -12,12 +12,10 @@ describe('Service: EntityService', function() {
     // instantiate service
     var EntityService = undefined;
     var Entity = undefined;
-    var timeout = undefined;
     
-    beforeEach(inject(function(_EntityService_, _Entity_, $timeout) {
+    beforeEach(inject(function(_EntityService_, _Entity_) {
         EntityService = _EntityService_;
         Entity = _Entity_;
-        timeout = $timeout;
     }));
     
     /**
@@ -29,7 +27,7 @@ describe('Service: EntityService', function() {
      * an the entry must be registered
      * </pre>
      */
-  /*  it('should create', function() {
+    it('should create', function() {
         //given
         var id = 1;
         var name = 'cassiano';
@@ -49,7 +47,6 @@ describe('Service: EntityService', function() {
         });
         
         waitsFor(function(){
-            timeout.flush();
             return EntityService.list().length > 0;
         }, 'JournalKeeper is taking too long', 300);
         
@@ -59,7 +56,5 @@ describe('Service: EntityService', function() {
             expect(EntityService.list().length).toBe(1);
         });
 
-    });*/
-    
- 
+    });
 });
