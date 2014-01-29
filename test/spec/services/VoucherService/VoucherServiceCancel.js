@@ -1,12 +1,14 @@
 'use strict';
 
 describe('Service: Voucherservice', function() {
-
+    var vKeeper = {};
+    var EntityService;
+    
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.voucher.service');
     });
-    var vKeeper = {};
+    
     // SPY
     beforeEach(function() {
         vKeeper.cancel = jasmine.createSpy('VoucherKeeper.cancel');
@@ -14,6 +16,7 @@ describe('Service: Voucherservice', function() {
 
         module(function($provide) {
             $provide.value('VoucherKeeper', vKeeper);
+            $provide.value('EntityService', EntityService);
         });
     });
 
