@@ -51,12 +51,10 @@ describe('Service: VoucherKeeper', function() {
         
         var voucherObject = new Voucher(0, entity, type, amount);
         VoucherKeeper.create(voucherObject);
-        
+        VoucherKeeper.handlers.voucherCreateV1(voucherObject);
         var ev = new Voucher(0, entity, type, amount);
         ev.canceled = stp;
         ev.created = stpCreated;
-        
-        var entry = new JournalEntry(null, stp, 'voucherCreate', 1, ev);
         
         var ev2 = new Voucher((VoucherKeeper.list.length - 1), null, type, null);
         ev2.canceled = stp;

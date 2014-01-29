@@ -126,10 +126,10 @@
             if (!(newVoucher instanceof Voucher)) {
                 throw 'Wrong instance to VoucherKeeper';
             }
-            
+
             var voucherObj = angular.copy(newVoucher);
             voucherObj.id = ArrayUtils.generateUUID();
-            
+
             var event = new Voucher(voucherObj);
             var stamp = (new Date()).getTime() / 1000;
 
@@ -145,7 +145,11 @@
          * cancel(type, id)
          */
         this.cancel = function(type, id) {
+            var vouch = ArrayUtils.find(voucher[type], 'id', id);
 
+            if (!vouch) {
+                throw 'Unable to find a voucher with id=\'' + id + '\'';
+            }
             var stamp = (new Date()).getTime() / 1000;
 
             var event = new Voucher(id, null, type, null);
@@ -162,6 +166,11 @@
          * redeem (type, id)
          */
         this.redeem = function(type, id) {
+            var vouch = ArrayUtils.find(voucher[type], 'id', id);
+
+            if (!vouch) {
+                throw 'Unable to find a voucher with id=\'' + id + '\'';
+            }
 
             var stamp = (new Date()).getTime() / 1000;
 
