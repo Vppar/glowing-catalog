@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: VoucherKeeper.redeem', function() {
+describe('Service: VoucherKeeperRedeemSpec', function() {
 
     var jKeeper = {};
 

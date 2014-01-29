@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: VoucherKeeper.cancel', function() {
+describe('Service: VoucherKeeperCancelScenario', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -16,7 +16,7 @@ describe('Service: VoucherKeeper.cancel', function() {
 
     //name of add handler
     var version = 'V1';
-    var myAddFunction = 'voucherCreate' + version;
+    var myCreateFunction = 'voucherCreate' + version;
 
     beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _ArrayUtils_) {
         VoucherKeeper = _VoucherKeeper_;
@@ -35,9 +35,9 @@ describe('Service: VoucherKeeper.cancel', function() {
      */
     it('cancel a voucher', function() {
         runs(function() {
-            VoucherKeeper.handlers[myAddFunction](new Voucher(0, 'Pedro de Lara', 'voucher', 30));
-            VoucherKeeper.handlers[myAddFunction](new Voucher(1, 'Toninho do Diabo', 'voucher', 40));
-            VoucherKeeper.handlers[myAddFunction](new Voucher(3, 'Jeremias O Sub-Zero brasileiro', 'voucher', 40));
+            VoucherKeeper.handlers[myCreateFunction](new Voucher(0, 'Pedro de Lara', 'voucher', 30));
+            VoucherKeeper.handlers[myCreateFunction](new Voucher(1, 'Toninho do Diabo', 'voucher', 40));
+            VoucherKeeper.handlers[myCreateFunction](new Voucher(3, 'Jeremias O Sub-Zero brasileiro', 'voucher', 40));
 
             VoucherKeeper.cancel('voucher', 1);
         });

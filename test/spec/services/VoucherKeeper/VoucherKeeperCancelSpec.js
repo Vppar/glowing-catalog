@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: VoucherKeeper', function() {
+describe('Service: VoucherKeeperCancelSpec', function() {
 
     var jKeeper = {};
 
@@ -67,12 +67,12 @@ describe('Service: VoucherKeeper', function() {
         var entry = new JournalEntry(null, stp, 'voucherCancel', 1, v3);
 
         //When
-        var createCall = function() {
+        var cancelCall = function() {
             VoucherKeeper.cancel('voucher', 0);
         };
 
         //Then
-        expect(createCall).not.toThrow();
+        expect(cancelCall).not.toThrow();
         expect(VoucherKeeper.list('voucher').length).toBe(2);
         expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
 
@@ -100,12 +100,12 @@ describe('Service: VoucherKeeper', function() {
         v1.canceled = stp;
 
         //When
-        var createCall = function() {
+        var cancelCall = function() {
             VoucherKeeper.handlers.voucherCancelV1(v1);
         };
 
         //Then
-        expect(createCall).not.toThrow();
+        expect(cancelCall).not.toThrow();
         expect(VoucherKeeper.list('voucher').length).toBe(2);
         var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', v1.id);
         expect(voucher.canceled).toBe(stp);
@@ -122,12 +122,12 @@ describe('Service: VoucherKeeper', function() {
     it('throw exception on cancel', function() {
         //given / when 
         var id = 5;
-        var createCall = function() {
+        var cancelCall = function() {
             VoucherKeeper.cancel('voucher', id);
         };
 
         //then
-        expect(createCall).toThrow('Unable to find a voucher with id=\'' + id + '\'');
+        expect(cancelCall).toThrow('Unable to find a voucher with id=\'' + id + '\'');
 
     });
 
@@ -143,12 +143,12 @@ describe('Service: VoucherKeeper', function() {
         //given / when 
         var voucher = new Voucher(0, 1, 'voucher', 1);
 
-        var createCall = function() {
+        var cancelCall = function() {
             VoucherKeeper.handlers.voucherCancelV1(voucher);
         };
 
         //then
-        expect(createCall).toThrow('Entity not found, cosistency must be broken! Replay?');
+        expect(cancelCall).toThrow('Entity not found, cosistency must be broken! Replay?');
 
     });
 });
