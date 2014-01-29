@@ -65,7 +65,8 @@
                     promise.then(function(){
                         initialized.push(name);
                     }, function(message){
-                        console.log(message);
+                        //FIXME change the console.log to something
+                        //console.log(message);
                     });
                     
                 } else {
@@ -75,9 +76,11 @@
                 }
 
                 promise.then(function(ok) {
-                    console.log(ok);
+                    //FIXME change the console.log to something
+                    //console.log(ok);
                 }, function(error) {
-                    console.log(error);
+                    //FIXME change the console.log to something
+                    //console.log(error);
                 });
 
                 return promise;
