@@ -80,7 +80,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         scope.creditCard = {
             installment : '2x',
             flag : 'Visa',
-            amount : '120,00',
+            amount : 120.00,
             expirationMonth : '03',
             expirationYear : '2014',
             number : '1111111111111111',

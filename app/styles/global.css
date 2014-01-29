@@ -909,8 +909,7 @@ ul.nav-footer li:first-child {
 	border-left: 1px solid #fff;
 }
 
-input.ng-invalid-required.ng-dirty, .failed input.ng-invalid-required, .failed textarea.ng-invalid-required, .failed .ng-invalid-required .select2-choice {
-	color: #b94a48;
+input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid, .failed .ng-invalid .select2-choice {
 	border-color: #ee5f5b !important;
 }
 
