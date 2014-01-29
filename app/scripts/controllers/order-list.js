@@ -17,10 +17,10 @@
         // #############################################################################################################
 
         // FIXME - this should b the correct origin of the orders.
-         $scope.orders = OrderService.list();
+        $scope.orders = OrderService.list();
 
         $scope.filteredOrders = {};
-        
+
         $scope.dateFilter = {
             dtInitial : '',
             dtFinal : ''
@@ -31,8 +31,6 @@
          */
 
         $scope.openPartialDelivery = function openPartialDelivery(order) {
-
-            console.log('yarr');
 
             $location.path('/partial-delivery').search({
                 id : order.id
@@ -101,22 +99,5 @@
                 return true;
             }
         }
-
-        // //
-        // #############################################################################################################
-        // // Main method, controls the flow of this process
-        // //
-        // #############################################################################################################
-        // function main() {
-        // // Easing the access to the customers by creating a map with
-        // // _id.
-        //
-        // for ( var idx in $scope.orders.customers) {
-        // customers['_' + $scope.orders.customers[idx].id] =
-        // $scope.orders.customers[idx];
-        // }
-        // }
-        // main();
-
     });
 }(angular));
