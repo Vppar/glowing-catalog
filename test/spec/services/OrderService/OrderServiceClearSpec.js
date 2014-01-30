@@ -60,4 +60,20 @@ describe('Service: OrderServiceClear', function () {
     OrderService.clear();
     expect(OrderService.order).toBe(oldOrder);
   });
+
+
+  describe('OrderService.clear event', function () {
+    var rootScope;
+
+    beforeEach(inject(function ($rootScope) {
+      rootScope = $rootScope;
+    }));
+
+    it('is triggered when OrderService.clear is called', function () {
+      var listener = jasmine.createSpy('listener');
+      rootScope.$on('OrderService.clear', listener);
+      OrderService.clear();
+      expect(listener).toHaveBeenCalled();
+    });
+  });
 });

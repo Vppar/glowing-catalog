@@ -72,4 +72,57 @@ describe('Service: OrderServiceRegister', function () {
     expect(result.length).toBe(1);
     expect(result[0]).toEqual([]); // order.items cannot be empty
   });
+
+
+  describe('OrderService.clear event', function () {
+    var rootScope;
+
+    beforeEach(inject(function ($rootScope) {
+      rootScope = $rootScope;
+    }));
+
+    it('is triggered when register() is called with a valid order', function () {
+      var
+        listener = jasmine.createSpy('listener'),
+        validOrder = {
+          date : new Date(),
+          canceled : false,
+          customerId : 1,
+          items : [{id : 1, qty : 1}]
+        };
+
+      rootScope.$on('OrderService.register', listener);
+      OrderService.register(validOrder);
+      expect(listener).toHaveBeenCalled();
+    });
+
+
+    it('passes the registered order to the listeners', function () {
+      var
+        listener = jasmine.createSpy('listener'),
+        validOrder = {
+          date : new Date(),
+          canceled : false,
+          customerId : 1,
+          items : [{id : 1, qty : 1}]
+        };
+
+      rootScope.$on('OrderService.register', listener);
+      OrderService.register(validOrder);
+      expect(listener).toHaveBeenCalled();
+      expect(listener.calls[0].args[1]).toBe(validOrder);
+    });
+
+
+    it('is not triggered when register() is called with an invalid order',
+      function () {
+        var
+          listener = jasmine.createSpy('listener'),
+          invalidOrder = {};
+
+        rootScope.$on('OrderService.register', listener);
+        OrderService.register(invalidOrder);
+        expect(listener).not.toHaveBeenCalled();
+      });
+  });
 });

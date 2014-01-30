@@ -60,4 +60,68 @@ describe('Service: PaymentServiceClear', function() {
       }).toThrow('PaymentService.clear: invalid payment type');
     });
 
+
+    describe('PaymentService.clear event', function () {
+      var rootScope;
+
+      beforeEach(inject(function ($rootScope) {
+        rootScope = $rootScope;
+      }));
+
+      it('is triggered when clearing payments for a given type',
+        function () {
+          var listener = jasmine.createSpy('listener');
+
+          rootScope.$on('PaymentService.clear', listener);
+
+          PaymentService.add(new CashPayment(1));
+          PaymentService.clear('cash');
+
+          expect(listener).toHaveBeenCalled();
+        });
+
+      it('is not triggered when there are no payments to be removed',
+        function () {
+          var listener = jasmine.createSpy('listener');
+
+          rootScope.$on('PaymentService.clear', listener);
+
+          PaymentService.clear('cash');
+
+          expect(listener).not.toHaveBeenCalled();
+        });
+
+      it('is not triggered when clearing an invalid payment type',
+        function () {
+          var listener = jasmine.createSpy('listener');
+
+          rootScope.$on('PaymentService.clear', listener);
+
+          try {
+            PaymentService.clear('cash');
+          } catch (err) {
+            expect(err.message).toBe('PaymentService.clear: invalid payment type');
+          }
+
+          expect(listener).not.toHaveBeenCalled();
+        });
+
+      it('passes the cleared type and the array of removed payments to the listener',
+        function () {
+          var
+            listener = jasmine.createSpy('listener'),
+            payment = new CashPayment(1);
+
+          rootScope.$on('PaymentService.clear', listener);
+
+          PaymentService.add(payment);
+          PaymentService.clear('cash');
+
+          expect(listener).toHaveBeenCalled();
+
+          var call = listener.calls[0];
+          expect(call.args[1]).toBe('cash');
+          expect(call.args[2]).toEqual([payment]);
+        });
+    });
 });
