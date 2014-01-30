@@ -5,7 +5,7 @@
 		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
 	
-	<div class="form-order-list" ng-controller="OrderListCtrl">
+	<div class="form-order-list">
     
 		<div class="row-fluid pull-right panel-top">
 
@@ -156,7 +156,7 @@
     								<span>{{order.code}}</span>
     							</div>
     							<div class="col-3">
-    								<span>{{order.customerName | truncate: 50}}</span>
+    								<span>{{order.entityName | truncate: 50}}</span>
     							</div> 
     							<div class="col-4">
     								<span>{{order.items.length}}</span>
@@ -165,7 +165,7 @@
     								<span>{{order.avgPrice | currency: 'R$'}}</span>
     							</div>
     							<div class="col-6">
-    								<span>{{order.priceTotal | currency: 'R$'}}</span>
+    								<span>{{order.amountTotal | currency: 'R$'}}</span>
     							</div>
     						</div>
     						</div>

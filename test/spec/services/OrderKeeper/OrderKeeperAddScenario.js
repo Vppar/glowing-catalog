@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeeper.add', function() {
+describe('Service: OrderKeeperAddScenario', function() {
 
     beforeEach(function() {
         module('tnt.catalog.order');
@@ -8,12 +8,14 @@ describe('Service: OrderKeeper.add', function() {
         module('tnt.catalog.order.entity');
     });
 
-    var OrderKeeper = undefined;
-    var Order = undefined;
+    var OrderKeeper = null;
+    var Order = null;
+    var $rootScope = null;
 
-    beforeEach(inject(function(_OrderKeeper_, _Order_) {
+    beforeEach(inject(function(_OrderKeeper_, _Order_, _$rootScope_) {
         OrderKeeper = _OrderKeeper_;
         Order = _Order_;
+        $rootScope = _$rootScope_;
     }));
 
     /**
@@ -26,17 +28,17 @@ describe('Service: OrderKeeper.add', function() {
      * </pre>
      */
     it('should add a order', function() {
-
+        var ev = null
         runs(function() {
             //givens
-            var id = 1;
-            var code = '123';
+            var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
+            var code = '01-0001-14';
             var date = new Date();
             var canceled = false;
             var customerId = 2;
             var items = [];
 
-            var ev = new Order(id, code, canceled, date, customerId, items);
+            ev = new Order(uuid, code, canceled, date, customerId, items);
             //when
             OrderKeeper.add(ev);
         });
@@ -48,7 +50,7 @@ describe('Service: OrderKeeper.add', function() {
         runs(function() {
             //then
             expect(OrderKeeper.list().length).toBe(1);
-            expect(OrderKeeper.list()[0].code).toBe('123');
+            expect(OrderKeeper.list()[0].code).toBe(ev.code);
 
         });
     });
@@ -63,18 +65,32 @@ describe('Service: OrderKeeper.add', function() {
      */
     it('should not add a order', function() {
         //given
-        var od = {
-            id : 1,
+        var order = {
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
             code : '123',
             customerId : 2
         };
+        
+        var resolution = null;
+        
         //when
-        var createCall = function(){
-            OrderKeeper.add(od);
-        };
+        runs(function(){
+            var promise = OrderKeeper.add(order);
+            
+            promise['catch'](function(_resolution_){
+                resolution = _resolution_;
+            });
+        });
+        
+        waitsFor(function(){
+            $rootScope.$apply();
+            return !!resolution;
+        }, 'Create is taking too long', 300);
         
         //then
-        expect(createCall).toThrow('Wrong instance to OrderKeeper');
+        runs(function(){
+            expect(resolution).toBe('Wrong instance to OrderKeeper');
+        });
 
     });
 });

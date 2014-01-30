@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeepe.list', function() {
+describe('Service: OrderKeeperListScenario', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -54,10 +54,10 @@ describe('Service: OrderKeepe.list', function() {
         var customerId = 2;
         var items = [];
         
-        OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000001', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000002', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000003', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000004', code,canceled, date, customerId, items));
 
         //when
         myNewList = OrderKeeper.list();
@@ -82,12 +82,12 @@ describe('Service: OrderKeepe.list', function() {
         var customerId = 2;
         var items = [];
         
-        OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(5, code,canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(6, code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000001', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000002', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000003', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000004', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000005', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000006', code,canceled, date, customerId, items));
     
         //when
         myNewList = OrderKeeper.list();

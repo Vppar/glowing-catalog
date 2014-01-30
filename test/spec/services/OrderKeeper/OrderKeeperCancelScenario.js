@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeeper.cancel', function() {
+describe('Service: OrderKeeperCancelScenario', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -39,13 +39,13 @@ describe('Service: OrderKeeper.cancel', function() {
             var customerId = 2;
             var items = [];
             
-            OrderKeeper.handlers.orderAddV1(new Order(1, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(2, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(3, code,canceled, date, customerId, items));
-            OrderKeeper.handlers.orderAddV1(new Order(4, code,canceled, date, customerId, items));
+            OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000001', code,canceled, date, customerId, items));
+            OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000002', code,canceled, date, customerId, items));
+            OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000003', code,canceled, date, customerId, items));
+            OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000004', code,canceled, date, customerId, items));
 
             //when
-            OrderKeeper.cancel(2);
+            OrderKeeper.cancel('cc02b600-5d0b-11e3-96c3-010001000002');
         });
         
         waitsFor(function(){
@@ -54,7 +54,7 @@ describe('Service: OrderKeeper.cancel', function() {
         
         runs(function(){
             //then
-            var order = ArrayUtils.find(OrderKeeper.list(), 'id', 2);
+            var order = ArrayUtils.find(OrderKeeper.list(), 'uuid', 'cc02b600-5d0b-11e3-96c3-010001000002');
             expect(order.canceled instanceof Date).toBe(true);
         });
     });
@@ -77,18 +77,18 @@ describe('Service: OrderKeeper.cancel', function() {
         var customerId = 2;
         var items = [];
 
-        OrderKeeper.handlers.orderAddV1(new Order(1, code, canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(2, code, canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(3, code, canceled, date, customerId, items));
-        OrderKeeper.handlers.orderAddV1(new Order(4, code, canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000001', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000002', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000003', code,canceled, date, customerId, items));
+        OrderKeeper.handlers.orderAddV1(new Order('cc02b600-5d0b-11e3-96c3-010001000004', code,canceled, date, customerId, items));
         
         //when
         var createCall = function() {
-            OrderKeeper.cancel(5);
+            OrderKeeper.cancel('cc02b600-5d0b-11e3-96c3-010001000005');
         };
         
         //then
-        expect(createCall).toThrow('Unable to find an order with id=\'5\'');
+        expect(createCall).toThrow('Unable to find an order with uuid=\'cc02b600-5d0b-11e3-96c3-010001000005\'');
     });
     
     
