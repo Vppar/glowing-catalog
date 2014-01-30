@@ -5,8 +5,8 @@
         'tnt.catalog.service.data'
     ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService) {
 
-        //ONLY FOR TESTS
-        if(!DataProvider.date.days){
+        // ONLY FOR TESTS
+        if (!DataProvider.date.days) {
             $location.path('/');
         }
         // ############################################################################################################
@@ -39,8 +39,9 @@
             DialogService.openDialogAddCustomerTels({
                 phones : phones
             }).then(function resultPhones(phones) {
-                customer.phones = phones;
-                console.log(phones);
+                if (phones) {
+                    customer.phones = phones;
+                }
             });
         };
 
@@ -48,11 +49,15 @@
             DialogService.openDialogAddCustomerEmails({
                 emails : emails
             }).then(function resultEmails(emails) {
-                customer.emails = emails;
+                if (emails) {
+                    customer.emails = emails;
+                }
             });
         };
 
         $scope.confirm = function confirm() {
+            console.log(customer);
+            console.log('lala');
             $scope.failed = true;
             if (!$scope.newCustomerForm.$valid) {
                 DialogService.messageDialog({

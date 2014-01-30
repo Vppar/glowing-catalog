@@ -17,13 +17,15 @@
             number : undefined,
             type : undefined
         };
-        //TODO get phones already set
-        if(dialog.data.length > 0 && dialog.data[0].number !== '') {
-            $scope.phones = dialog.data;
+        
+        //get phones already set
+        if(dialog.data.phones && dialog.data.phones.length > 0 && dialog.data.phones[0].number !== '') {
+            $scope.phones = angular.copy(dialog.data.phones);
         } else {
             $scope.phones = [];
         }
-        console.log($scope.phones);
+        
+        //set phone types into dropdown menu
         $scope.phoneTypes = DataProvider.phoneTypes;
 
         /**
