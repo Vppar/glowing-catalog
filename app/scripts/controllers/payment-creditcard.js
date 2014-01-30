@@ -5,7 +5,7 @@
         'tnt.catalog.service.data', 'tnt.catalog.payment.service', 'tnt.catalog.payment.entity'
     ]).controller(
             'PaymentCreditCardCtrl',
-            function($scope, $element, $filter, DataProvider, OrderService, CreditCardPayment, PaymentService) {
+            function($scope, $element, $filter, DataProvider, OrderService, CreditCardPayment, PaymentService, Misplacedservice) {
 
                 // #####################################################################################################
                 // Warm up the controller
@@ -102,23 +102,28 @@
                             }
 
                             var creditCardInstallments = [];
-                            for ( var i = 0; i < $scope.creditCard.installments; i++) {
-                                creditCardInstallments.push(creditCardInstallments);
+                            var numInstallments = creditCard.installment.replace('x', '').replace(' ', '');
+                            console.log($scope.creditCard.installment);
+
+                            for ( var i = 0; i < numInstallments; i++) {
+                                var cc = angular.copy(creditCard);
+                                cc.installment = i + 1;
+                                creditCardInstallments.push(cc);
                             }
 
                             Misplacedservice.recalc($scope.creditCard.amount, 0, creditCardInstallments, 'amount');
 
                             var dueDate = new Date();
+                            var creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
+                            
                             for ( var ix in creditCardInstallments) {
                                 var creditCardInstallment = creditCardInstallments[ix];
                                 // FIXME - Fix duedate and installment
-                                var creditCardDueDate = creditCardInstallment.expirationMonth + '-' + creditCardInstallment.expirationYear;
-                                payment =
+                                var payment =
                                         new CreditCardPayment(
-                                                creditCard.amount, creditCard.flag, creditCard.number, creditCard.cardholderName,
-                                                creditCardDueDate, creditCard.cvv, creditCard.cardholderDocument, creditCard.installments,
-                                                dueDate.getTime());
-                                payment.orderNumber = $scope.orderNumber;
+                                                creditCardInstallment.amount, creditCardInstallment.flag, creditCardInstallment.number,
+                                                creditCardInstallment.cardholderName, creditCardDueDate, creditCard.cvv,
+                                                creditCard.cardholderDocument, creditCardInstallment.installment, dueDate.getTime());
                                 PaymentService.add(payment);
                             }
                             $scope.selectPaymentMethod('none');
