@@ -1,4 +1,4 @@
-describe('Service: ReceivableServiceRegisterSpec', function() {
+describe('Service: ReceivableServiceBulkRegisterSpec', function() {
 
     var log = {};
     var fakeNow = 1386444467895;
@@ -33,51 +33,11 @@ describe('Service: ReceivableServiceRegisterSpec', function() {
         };
 
         // when
-        var result = ReceivableService.register(receivable);
+        var result = ReceivableService.bulkRegister(receivable);
 
         // then
         expect(ReceivableKeeper.add).toHaveBeenCalledWith(receivable);
         expect(result.length).toBe(0);
-    });
-
-    it('shouldn\'t create a receivable instance', function() {
-        // given
-        ReceivableService.isValid = jasmine.createSpy('ReceivableKeeper.isValid').andReturn([{}]);
-        ReceivableKeeper.add = jasmine.createSpy('ReceivableKeeper.add').andCallFake(function() {
-            throw 'my exception';
-        });
-        var receivable = {
-            stub : 'I\'m a stub'
-        };
-
-        var result = [];
-        // when
-        var registerCall = function() {
-            result = ReceivableService.register(receivable);
-        };
-
-        // then
-        expect(registerCall).not.toThrow();
-        expect(result.length).toBe(1);
-    });
-    
-    it('shouldn\'t create a receivable instance', function() {
-        // given
-        ReceivableService.isValid = jasmine.createSpy('ReceivableKeeper.isValid').andReturn([]);
-        ReceivableKeeper.add = jasmine.createSpy('ReceivableKeeper.add').andCallFake(function() {
-            throw 'my exception';
-        });
-        var receivable = {
-            stub : 'I\'m a stub'
-        };
-
-        // when
-        var registerCall = function() {
-            ReceivableService.register(receivable);
-        };
-
-        // then
-        expect(registerCall).toThrow();
     });
 
 });

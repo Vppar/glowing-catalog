@@ -5,7 +5,7 @@
     ]).controller(
             'PaymentCtrl',
             function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                    SMSService, KeyboardService, InventoryKeeper, CashPayment) {
+                    ReceivableService, SMSService, KeyboardService, InventoryKeeper, CashPayment) {
 
                 // #############################################################################################
                 // Controller warm up
@@ -103,7 +103,9 @@
                     PaymentService.clear('cash');
 
                     if ($scope.cash.amount != 0) {
-                        PaymentService.add(new CashPayment($scope.cash.amount));
+                        var cash = new CashPayment($scope.cash.amount);
+                        cash.duedate = new Date().getTime();
+                        PaymentService.add(cash);
                     }
                     updateOrderAndPaymentTotal();
                 });
@@ -344,17 +346,36 @@
                         main();
                         return $q.reject();
                     }
-                    var promise = OrderService.save().then(function(orderUuid) {
+                    // Save the order
+                    var savedOrderPromise = OrderService.save();
+
+                    // Generate receivables
+                    var savedReceivablesPromise = savedOrderPromise.then(function(orderUuid) {
+                        var receivables = PaymentService.getReceivables();
+                        return ReceivableService.bulkRegister(receivables, customer, orderUuid);
+                    }, propagateRejectedPromise);
+                    // Generate coupons
+                    var savedCouponsPromise = savedOrderPromise.then(function(orderUuid) {
+                        return PaymentService.createCoupons(customer, orderUuid);
+                    }, propagateRejectedPromise);
+                    savedCouponsPromise.then(function(coupons) {
+                        evaluateCoupons(coupons);
+                    }, propagateRejectedPromise);
+
+                    // Sale saved
+                    var savedSale = $q.all([
+                        savedCouponsPromise, savedReceivablesPromise
+                    ]);
+
+                    // clear all
+                    var paymentDonePromise = savedSale.then(function() {
+                        console.log(ReceivableService.list());
                         OrderService.clear();
-
                         PaymentService.clearAllPayments();
-                        createCoupons();
                         PaymentService.clearPersistedCoupons();
+                    }, propagateRejectedPromise);
 
-                        return true;
-                    });
-
-                    return promise;
+                    return paymentDonePromise;
                 }
 
                 /**
@@ -383,6 +404,10 @@
                     });
                 }
 
+                function propagateRejectedPromise(err) {
+                    return $q.reject(err);
+                }
+
                 /**
                  * Main function responsible for chaining the confirmation and
                  * cancel processes.
@@ -396,7 +421,15 @@
                     });
 
                     // Inform the user that the payment is done.
-                    paidPromise.then(paymentDone);
+                    paidPromise.then(paymentDone, function(err) {
+                        $log.error(err);
+                        main();
+                        DialogService.messageDialog({
+                            title : 'Pagamento',
+                            message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
+                            btnYes : 'OK',
+                        });
+                    });
 
                     // Send the alert SMS to the customer.
                     paidPromise.then(sendAlertSMSAttempt);
@@ -421,7 +454,6 @@
                  */
                 function allCouponsOk(coupons) {
                     var len, i;
-
                     for (i = 0, len = coupons.length; i < len; i += 1) {
                         if (coupons[i].err) {
                             return false;
@@ -445,21 +477,7 @@
                 /**
                  * Creates all coupons persisted in the PaymentService.
                  */
-                function createCoupons() {
-                    var customerId = order.customerId,
-
-                    // An array of coupons. Coupons have the following
-                    // attributes:
-                    // - amount {Number} The value of the coupon;
-                    // - err {Error} An error thrown during the coupon
-                    // generation (present
-                    // only if an error occurred);
-                    //
-                    // NOTE: Coupons are generated INDIVIDUALLY, thats
-                    // why there is no
-                    // qty attribute in this coupon objects.
-                    processedCoupons = PaymentService.createCoupons(customerId);
-
+                function evaluateCoupons(processedCoupons) {
                     if (!allCouponsOk(processedCoupons)) {
                         DialogService.messageDialog({
                             title : 'Cupom promocional',

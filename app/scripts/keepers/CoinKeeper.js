@@ -1,13 +1,12 @@
 (function(angular) {
     'use strict';
 
-    
     angular.module('tnt.catalog.coin.entity', []).factory('Coin', function Coin() {
 
-        var service = function svc(id, created, entityId, type, amount, duedate) {
+        var service = function svc(uuid, created, entityId, type, amount, duedate) {
 
             var validProperties = [
-                'id', 'created', 'entityId', 'documentId', 'type', 'amount', 'duedate', 'canceled', 'liquidated'
+                'uuid', 'created', 'entityId', 'documentId', 'type', 'payment', 'amount', 'duedate', 'canceled', 'liquidated'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -26,17 +25,17 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Coin must be initialized with id, created, entityId, type, amount, duedate';
+                    throw 'Coin must be initialized with uuid, created, entityId, type, amount, duedate';
                 }
             } else {
-                this.id = id;
+                this.uuid = uuid;
                 this.created = created;
                 this.entityId = entityId;
                 this.type = type;
                 this.amount = amount;
                 this.duedate = duedate;
             }
-            ObjectUtils.ro(this, 'id', this.id);
+            ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'created', this.created);
             ObjectUtils.ro(this, 'entityId', this.entityId);
             ObjectUtils.ro(this, 'type', this.type);
@@ -46,26 +45,40 @@
 
         return service;
     });
-    
-    angular.module('tnt.catalog.receivable.entity', ['tnt.catalog.coin.entity']).factory('Receivable', function Receivable(Coin) {
+
+    angular.module('tnt.catalog.receivable.entity', [
+        'tnt.catalog.coin.entity'
+    ]).factory('Receivable', function Receivable(Coin) {
         return Coin;
     });
 
-    angular.module('tnt.catalog.expense.entity', ['tnt.catalog.coin.entity']).factory('Expense', function Expense(Coin) {
+    angular.module('tnt.catalog.expense.entity', [
+        'tnt.catalog.coin.entity'
+    ]).factory('Expense', function Expense(Coin) {
         return Coin;
     });
 
-    angular.module('tnt.catalog.coin.keeper', [
-        'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity', 'tnt.catalog.journal.replayer'
-    ]).factory('CoinKeeper', function CoinKeeper(ArrayUtils, Coin, JournalKeeper, JournalEntry, Replayer) {
+    angular.module(
+            'tnt.catalog.coin.keeper',
+            [
+                'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
+                'tnt.catalog.journal.replayer'
+            ]).factory('CoinKeeper', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer) {
 
         var keepers = {};
         function instance(name) {
 
+            // FIXME - Make it flexible
+            var type = (name === 'receivable' ? 3 : 4);
             var currentEventVersion = 1;
+            var currentCounter = 0;
             var vault = [];
-            
+
             this.handlers = {};
+
+            function getNextId() {
+                return ++currentCounter;
+            }
 
             /**
              * Registering handlers
@@ -73,37 +86,46 @@
             ObjectUtils.ro(this.handlers, name + 'AddV1', function(event) {
                 // Get the coin info from type map, get the respective entity
                 // and instantiate
-                vault.push(new Coin(event));
+                var eventData = IdentityService.getUUIDData(event.uuid);
+
+                if (eventData.deviceId === IdentityService.deviceId) {
+                    currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
+                }
+
+                event = new Coin(event);
+                vault.push(event);
+
+                return event.uuid;
             });
-            
-            
+
             ObjectUtils.ro(this.handlers, name + 'CancelV1', function(event) {
 
-                var coin = ArrayUtils.find(vault, 'id', event.id);
+                var coin = ArrayUtils.find(vault, 'uuid', event.uuid);
 
                 if (coin) {
                     coin.canceled = event.canceled;
                 } else {
-                    throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
+                    throw 'Unable to find a ' + name + ' with uuid=\'' + event.uuid + '\'';
                 }
             });
             ObjectUtils.ro(this.handlers, name + 'LiquidateV1', function(event) {
-                var coin = ArrayUtils.find(vault, 'id', event.id);
+                var coin = ArrayUtils.find(vault, 'uuid', event.uuid);
                 if (coin) {
                     // Get the coin info from type map and get the respective
                     // liquidate variable name
                     coin.liquidated = event.liquidated;
                 } else {
-                    throw 'Unable to find a ' + name + ' with id=\'' + event.id + '\'';
+                    throw 'Unable to find a ' + name + ' with uuid=\'' + event.uuid + '\'';
                 }
+
+                return event.uuid;
             });
 
             /**
              * Registering the handlers with the Replayer
              */
             Replayer.registerHandlers(this.handlers);
-            
-            
+
             /**
              * Returns a copy of all coins in the vault
              * 
@@ -114,12 +136,12 @@
             };
 
             /**
-             * Return a copy of a coin by its id
+             * Return a copy of a coin by its uuid
              * 
-             * @param id - Id of the target coin.
+             * @param uuid - uuid of the target coin.
              */
-            var read = function read(id) {
-                return angular.copy(ArrayUtils.find(vault, 'id', id));
+            var read = function read(uuid) {
+                return angular.copy(ArrayUtils.find(vault, 'uuid', uuid));
             };
 
             /**
@@ -128,42 +150,40 @@
              * @param coin - Receivable to be added.
              */
             var add = function add(coin) {
-                if (!(coin instanceof Coin)) {
-                    throw 'Wrong instance to CoinKeeper';
-                }
                 var coinObj = angular.copy(coin);
-                // FIXME - use UUID
-                coinObj.id = vault.length + 1;
 
-                var addEv = new Coin(coinObj);
+                coinObj.created = (new Date()).getTime();
+                coinObj.uuid = IdentityService.getUUID(type, getNextId());
 
-                var stamp = (new Date()).getTime() / 1000;
+                var event = new Coin(coinObj);
+
                 // create a new journal entry
-                var entry = new JournalEntry(null, stamp, name + 'Add', currentEventVersion, addEv);
+                var entry = new JournalEntry(null, event.created, name + 'Add', currentEventVersion, event);
+
                 // save the journal entry
-                JournalKeeper.compose(entry);
+                return JournalKeeper.compose(entry);
 
             };
 
             /**
              * Liquidate a coin.
              * 
-             * @param id - Identifier to the coin.
+             * @param uuid - Identifier to the coin.
              * @param executionDate - Date that the coin was executed(payed or
              *            received).
              */
-            var liquidate = function liquidate(id, executionDate) {
-                var coin = ArrayUtils.find(vault, 'id', id);
+            var liquidate = function liquidate(uuid, executionDate) {
+                var coin = ArrayUtils.find(vault, 'uuid', uuid);
                 if (!coin) {
-                    throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
+                    throw 'Unable to find a ' + name + ' with uuid=\'' + uuid + '\'';
                 }
                 var liqEv = {
-                    id : id,
+                    uuid : uuid,
                 };
                 liqEv.liquidated = executionDate;
-                var stamp = (new Date()).getTime() / 1000;
+                var stamp = (new Date()).getTime();
                 // create a new journal entry
-                
+
                 var entry = new JournalEntry(null, stamp, name + 'Liquidate', currentEventVersion, liqEv);
 
                 // save the journal entry
@@ -173,21 +193,21 @@
             /**
              * Cancels a coin.
              * 
-             * @param id - Id of the coin to be canceled.
+             * @param uuid - uuid of the coin to be canceled.
              */
-            var cancel = function cancel(id) {
+            var cancel = function cancel(uuid) {
 
-                var coin = ArrayUtils.find(vault, 'id', id);
+                var coin = ArrayUtils.find(vault, 'uuid', uuid);
                 if (!coin) {
-                    throw 'Unable to find a ' + name + ' with id=\'' + id + '\'';
+                    throw 'Unable to find a ' + name + ' with uuid=\'' + uuid + '\'';
                 }
                 var time = (new Date()).getTime();
                 var stamp = time / 1000;
                 var cancelEv = {
-                    id : id,
+                    uuid : uuid,
                     canceled : time
                 };
- 
+
                 // create a new journal entry
                 var entry = new JournalEntry(null, stamp, name + 'Cancel', currentEventVersion, cancelEv);
 
@@ -209,7 +229,9 @@
             }
             return keepers[name];
         };
-        
-        angular.module('tnt.catalog.coin.keeper', ['tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity']);
+
+        angular.module('tnt.catalog.coin.keeper', [
+            'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity'
+        ]);
     });
 }(angular));

@@ -101,13 +101,26 @@
                                 return;
                             }
 
-                            // TODO: check dueDate format
-                            var dueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear, payment =
-                                    new CreditCardPayment(
-                                            creditCard.amount, creditCard.flag, creditCard.number, creditCard.cardholderName, dueDate,
-                                            creditCard.cvv, creditCard.cardholderDocument, creditCard.installments);
-                            payment.orderNumber = $scope.orderNumber;
-                            PaymentService.add(payment);
+                            var creditCardInstallments = [];
+                            for ( var i = 0; i < $scope.creditCard.installments; i++) {
+                                creditCardInstallments.push(creditCardInstallments);
+                            }
+
+                            Misplacedservice.recalc($scope.creditCard.amount, 0, creditCardInstallments, 'amount');
+
+                            var dueDate = new Date();
+                            for ( var ix in creditCardInstallments) {
+                                var creditCardInstallment = creditCardInstallments[ix];
+                                // FIXME - Fix duedate and installment
+                                var creditCardDueDate = creditCardInstallment.expirationMonth + '-' + creditCardInstallment.expirationYear;
+                                payment =
+                                        new CreditCardPayment(
+                                                creditCard.amount, creditCard.flag, creditCard.number, creditCard.cardholderName,
+                                                creditCardDueDate, creditCard.cvv, creditCard.cardholderDocument, creditCard.installments,
+                                                dueDate.getTime());
+                                payment.orderNumber = $scope.orderNumber;
+                                PaymentService.add(payment);
+                            }
                             $scope.selectPaymentMethod('none');
                         };
 
