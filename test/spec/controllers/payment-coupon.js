@@ -31,6 +31,12 @@ describe('Controller: PaymentCouponCtrl', function() {
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         scope.selectPaymentMethod = jasmine.createSpy('selectPaymentMethod');
 
+        scope.totals = {
+          payments : {
+            remaining : 100
+          }
+        };
+
         // fake a new order
         orderServiceMock.order = {};
         orderServiceMock.order.paymentIds = [];
