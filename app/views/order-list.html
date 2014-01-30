@@ -200,25 +200,25 @@
     							</div>
     						</div>
     					</div>
-    					<div class="scroll-order-list">
+    					<div class="scroll-order-list" ng-repeat="consol in consolidateOrdersByClient | orderBy: '-totalAmount'">
     						<div class="row-order-list hover-state-pointer">
     							<div class="col-1">
-    								<span>1</span>
+    								<span>{{$index+1}}</span>
     							</div>
     							<div class="col-2">
-    								<span>Valtanette De Paula</span>
+    								<span>{{consol.name}}</span>
     							</div>
     							<div class="col-3">
-    								<span>12/01/14</span>
+    								<span>{{consol.lastOrder | date:'dd/MM/yyyy'}}</span>
     							</div> 
     							<div class="col-4">
-    								<span>4</span>
+    								<span>{{consol.totalQuantity}}</span>
     							</div>
     							<div class="col-5">
-    								<span>235,25</span>
+    								<span>{{consol.averagePrice | currency:''}}</span>
     							</div>
     							<div class="col-6">
-    								<span>941,00</span>
+    								<span>{{consol.totalAmount | currency:''}}</span>
     							</div>
     						</div>
     					</div>
