@@ -31,7 +31,7 @@ describe('Service: EntityKeeperAddScenario', function() {
      */
     it('should create', function() {
         //given
-        var id = 1;
+        var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
         var name = 'cassiano';
         var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
         var birthDate = '16/09/1981';
@@ -41,7 +41,7 @@ describe('Service: EntityKeeperAddScenario', function() {
         var addresses = [{street: 'rua', number: 555}, {street: 'rua', number: 556}];
         var remarks = 'bad client';
         
-        var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
+        var ev = new Entity(uuid, name, emails, birthDate, phones, cep, document, addresses,  remarks);
         
         //when
         runs(function(){
@@ -71,7 +71,7 @@ describe('Service: EntityKeeperAddScenario', function() {
     it('should not add', function() {
         //given
         var ev = {
-            id : 1,
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
             name : 'cassiano',
             emails : [
                 {

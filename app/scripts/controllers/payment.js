@@ -344,14 +344,17 @@
                         main();
                         return $q.reject();
                     }
-                    OrderService.save();
-                    OrderService.clear();
+                    var promise = OrderService.save().then(function(orderUuid) {
+                        OrderService.clear();
 
-                    PaymentService.clearAllPayments();
-                    createCoupons();
-                    PaymentService.clearPersistedCoupons();
+                        PaymentService.clearAllPayments();
+                        createCoupons();
+                        PaymentService.clearPersistedCoupons();
 
-                    return true;
+                        return true;
+                    });
+
+                    return promise;
                 }
 
                 /**

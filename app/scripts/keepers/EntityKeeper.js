@@ -15,7 +15,7 @@
 
                     if (!angular.isFunction(prop)) {
                         if (validProperties.indexOf(ix) === -1) {
-                            throw "Unexpected property " + ix;
+                            throw 'Unexpected property ' + ix;
                         }
                     }
                 }
@@ -101,7 +101,7 @@
                 angular.extend(entry, event);
                 
             } else {
-                throw "User not found.";
+                throw 'User not found.';
             }
             
             return entry.uuid;

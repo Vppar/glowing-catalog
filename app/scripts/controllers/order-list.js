@@ -2,16 +2,11 @@
     'use strict';
     angular.module('tnt.catalog.orderList.ctrl', [
         'tnt.catalog.order.service', 'tnt.utils.array'
-    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, ArrayUtils) {
+    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider) {
 
         // FIXME - Mocks, created for test purposes while the
         // OrderService dosn't work.
-        $scope.customers = [
-            {
-                id : 14,
-                name : 'Valtanette De Paula'
-            }
-        ];
+        $scope.customers = DataProvider.customers;
         // #############################################################################################################
         // Scope functions and variables
         // #############################################################################################################
@@ -41,7 +36,6 @@
          * Watcher to filter the orders and populate the grid.
          */
         $scope.$watchCollection('dateFilter', function() {
-            console.log(OrderService.list());
             $scope.filteredOrders = $filter('filter')(angular.copy($scope.orders), filterByDate);
             for ( var ix in $scope.filteredOrders) {
                 customerNameAugmenter($scope.filteredOrders[ix]);
