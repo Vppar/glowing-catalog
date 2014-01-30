@@ -75,8 +75,6 @@ describe('Controller: AddCustomerCtrl', function() {
 
         scope.confirm();
 
-        console.log(os.order.customerId);
-
         //expect(os.order.customerId).toEqual();
         expect(location.path).toHaveBeenCalledWith('/');
     });
