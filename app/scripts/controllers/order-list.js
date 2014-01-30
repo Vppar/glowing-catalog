@@ -6,16 +6,14 @@
 
         // FIXME - Mocks, created for test purposes while the
         // OrderService dosn't work.
-        $scope.customers = DataProvider.customers;
+        var entities = DataProvider.customers;
         // #############################################################################################################
-        // Scope functions and variables
+        // Warming up the controller
         // #############################################################################################################
 
-        // FIXME - this should b the correct origin of the orders.
-        $scope.orders = OrderService.list();
+        var orders = OrderService.list();
 
-        $scope.filteredOrders = {};
-
+        $scope.filteredOrders = angular.copy(orders);
         $scope.dateFilter = {
             dtInitial : '',
             dtFinal : ''
@@ -24,39 +22,37 @@
         /**
          * Opens partial delivery Screen
          */
-
         $scope.openPartialDelivery = function openPartialDelivery(order) {
-
             $location.path('/partial-delivery').search({
                 id : order.id
             });
         };
+        console.log(orders);
+        for ( var ix in orders) {
+            var order = orders[ix];
+            console.log(order);
+            // Find the entity name
+            order.entityName = ArrayUtils.find(entities, 'id', order.customerId).name;
+            // Calc the
+            var qtyTotal = $filter('sum')(order.items, 'qty');
+            order.amountTotal = $filter('sum')(order.items, 'price', 'qty');
+            order.avgPrice = (order.amountTotal) / (qtyTotal);
+        }
+
+        // #############################################################################################################
+        // Watchers
+        // #############################################################################################################
 
         /**
          * Watcher to filter the orders and populate the grid.
          */
         $scope.$watchCollection('dateFilter', function() {
-            $scope.filteredOrders = $filter('filter')(angular.copy($scope.orders), filterByDate);
-            for ( var ix in $scope.filteredOrders) {
-                customerNameAugmenter($scope.filteredOrders[ix]);
-                $scope.filteredOrders[ix].priceTotal = $filter('sum')($scope.filteredOrders[ix].items, 'price');
-                var sumOfItems = $filter('sum')($scope.filteredOrders[ix].items, 'qty');
-                $scope.filteredOrders[ix].avgPrice = ($scope.filteredOrders[ix].priceTotal) / (sumOfItems);
-            }
+            $scope.filteredOrders = angular.copy($filter('filter')(orders, filterByDate));
         });
 
         // #############################################################################################################
         // Local functions and variables
         // #############################################################################################################
-
-        /**
-         * Find the customer name based on the customerId
-         */
-        function customerNameAugmenter(order) {
-            order.customerName = ArrayUtils.find($scope.customers, 'id', order.customerId).name;
-            return order;
-        }
-
         /**
          * DateFilter
          */

@@ -28,17 +28,17 @@ describe('Service: OrderKeeperAddScenario', function() {
      * </pre>
      */
     it('should add a order', function() {
-
+        var ev = null
         runs(function() {
             //givens
             var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
-            var code = '123';
+            var code = '01-0001-14';
             var date = new Date();
             var canceled = false;
             var customerId = 2;
             var items = [];
 
-            var ev = new Order(uuid, code, canceled, date, customerId, items);
+            ev = new Order(uuid, code, canceled, date, customerId, items);
             //when
             OrderKeeper.add(ev);
         });
@@ -50,7 +50,7 @@ describe('Service: OrderKeeperAddScenario', function() {
         runs(function() {
             //then
             expect(OrderKeeper.list().length).toBe(1);
-            expect(OrderKeeper.list()[0].code).toBe('123');
+            expect(OrderKeeper.list()[0].code).toBe(ev.code);
 
         });
     });

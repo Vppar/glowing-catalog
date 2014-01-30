@@ -10,7 +10,7 @@ describe('Service: OrderKeeperAddSpec', function() {
     var jKeeper = {};
 
     var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
-    var code = 12;
+    var code = '01-0001-14';
     var date = new Date().getTime();
     var customerId = 1;
     var items = [];

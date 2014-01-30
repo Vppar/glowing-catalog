@@ -437,6 +437,5 @@
            });
            return uuid;
        };
-        
     });
 })(angular);
