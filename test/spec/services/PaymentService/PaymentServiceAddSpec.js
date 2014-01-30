@@ -37,6 +37,7 @@ describe('Service: PaymentServiceAdd', function() {
         expect(payments).toEqual([payment]);
     });
 
+
     
     /**
      * TODO - Check if the method is going to be updated or this test removed.
@@ -171,6 +172,42 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).toThrow(
                 'PaymentService.add: The object is not an instance of any known type of payment, Object=' + JSON.stringify(payment));
+    });
+
+
+    describe('PaymentService.add event', function () {
+      var rootScope;
+
+      beforeEach(inject(function ($rootScope) {
+        rootScope = $rootScope;
+      }));
+
+      it('is triggered when and item is added', function () {
+        var listener = jasmine.createSpy('listener');
+
+        rootScope.$on('PaymentService.add', listener);
+
+        PaymentService.add(new CashPayment(1));
+        expect(listener).toHaveBeenCalled();
+      });
+
+
+      it('passes the payment and payment type as arguments onto the listener',
+        function () {
+          var
+            listener = jasmine.createSpy('listener'),
+            payment = new CashPayment(1);
+
+
+          rootScope.$on('PaymentService.add', listener);
+
+          PaymentService.add(payment);
+
+          var call = listener.calls[0];
+          expect(listener).toHaveBeenCalled();
+          expect(call.args[1]).toBe(payment);
+          expect(call.args[2]).toBe('cash');
+        });
     });
 
 });
