@@ -12,26 +12,32 @@
     angular.module('tnt.catalog.customer.add.phones', [
         'tnt.catalog.service.data'
     ]).controller('AddCustomerPhonesDialogCtrl', function($scope, $q, $filter, dialog, DataProvider, DialogService) {
-
-        $scope.phone = {
-            number : undefined,
-            type : undefined
-        };
-        $scope.phones = angular.copy(dialog.data.phones);
+        // set phone types into dropdown menu
         $scope.phoneTypes = DataProvider.phoneTypes;
+        $scope.phone = {
+            number : null,
+            type : $scope.phoneTypes[0]
+        };
+
+        // get phones already set
+        if (dialog.data.phones && dialog.data.phones.length > 0 && dialog.data.phones[0].number !== '') {
+            $scope.phones = angular.copy(dialog.data.phones);
+        } else {
+            $scope.phones = [];
+        }
 
         /**
          * Function add - Verifies if entered phone already exists in the
          * $scope.phones array and if not, adds phone to the last position of
          * $scope.phones array
          */
-        $scope.add = function add(item) {
-            if ($scope.newPhoneForm.$valid) {
+        $scope.addPhone = function addPhone(item) {
+            if ($scope.newPhoneForm.$valid && item.number) {
                 var phone = $filter('filter')($scope.phones, item.number);
                 if (phone.length === 0) {
                     $scope.phones.push(angular.copy(item));
                     delete $scope.phone.number;
-                    delete $scope.phone.type;
+                    $scope.phone.type = $scope.phoneTypes[0];
                 } else {
                     DialogService.messageDialog({
                         title : 'Novo usuário',
@@ -86,10 +92,6 @@
             var phones = {};
             if ($scope.phones.length >= 1) {
                 phones = $scope.phones;
-            } else {
-                phones = {
-                    number : ''
-                };
             }
             dialog.close(phones);
         };

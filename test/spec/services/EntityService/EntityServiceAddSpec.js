@@ -27,22 +27,23 @@ describe('Service: EntityServiceAddSpec', function() {
         EntityService.isValid = jasmine.createSpy('EntityService.isValid').andReturn([]);
         
         var entity = {
-                uuid : 1,
                 name : 'cassiano',
                 emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
                 birthDate : '16/09/1981',
                 phones : [{ddd: 41, phone: 96491686},{ddd: 41, phone: 30875341}],
                 cep : '8157170',
                 document : '1234567890',
-                addresses : [{street: 'rua', number: 555}, {street: 'rua', number: 556}],
-                remarks : 'bad client'
+                addresses : [{street: 'rua', number: 555}, {street:'rua', number: 556}],
+                remarks : 'bad client',
+                uuid : undefined
         };
+        
 
         // when
         var result = EntityService.create(entity);
 
         // then
-        expect(EntityKeeper.create).toHaveBeenCalledWith(entity);
+        expect(EntityKeeper.create).toHaveBeenCalledWith(new Entity(entity));
         expect(result).toBe(undefined);
     });
   
