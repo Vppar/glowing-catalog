@@ -49,8 +49,8 @@
 
                 function createInstallment(payment, baseDate) {
                     for ( var ix = 0; ix < payment.installment; ix++) {
-                        var copyDate = angular.copy(baseDate);
                         var pay = {};
+                        var copyDate = angular.copy(baseDate);
                         angular.extend(pay, emptyInstallmentTemplate);
                         pay.dueDate = properDate(copyDate, ix);
                         pay.installment = ix + 1;
@@ -60,11 +60,10 @@
 
                 function properDate(baseDate, increase) {
                     var date = new Date(baseDate.getYear(), baseDate.getMonth() + 1 + increase, 0);
-                    if (baseDate.getDate() > date.getDate()) {
-                        return date;
-                    } else {
-                        return baseDate.setMonth(baseDate.getMonth() + increase);
+                    if (date.getDate() > baseDate.getDate()) {
+                        date = new Date(baseDate.setMonth(baseDate.getMonth() + increase));
                     }
+                    return date;
                 }
 
                 // #####################################################################################################
@@ -76,15 +75,15 @@
 
                 // find customer
                 $scope.customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
-                
-                $scope.amount=0;
+
+                $scope.amount = 0;
                 if ($scope.payments.length === 0) {
                     $scope.installmentQty = 1;
                     $scope.dueDate = new Date();
                     if ($scope.total.change < 0) {
                         $scope.amount = $scope.total.change * -1;
                     } else {
-                        //show dialog
+                        // show dialog
                         DialogService.messageDialog({
                             title : 'Contas a receber',
                             message : 'Não existem valores para serem lançados.',
@@ -101,8 +100,8 @@
                     $scope.dueDate = new Date($scope.payments[0].dueDate);
                 }
 
-                $scope.$watch('dueDate',  function(val, old) {
-                    if (val !== old && val && val.lenght == 8 ) {
+                $scope.$watch('dueDate', function(val, old) {
+                    if (val !== old && val && angular.isDate(val)) {
                         $scope.computeInstallments();
                     }
                 });
@@ -111,6 +110,6 @@
                         $scope.computeInstallments();
                     }
                 });
-                
+
             });
 }(angular));

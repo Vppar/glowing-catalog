@@ -40,7 +40,8 @@
                         check : [],
                         creditCard : [],
                         exchange : [],
-                        coupon : []
+                        coupon : [],
+                        onCuff : []
                     },
                     order : {
                         amount : 0,
@@ -130,6 +131,7 @@
                         }
                         PaymentService.clear('coupon');
                         $scope.total.payments.coupon.length = 0;
+                        updateOrderAndPaymentTotal();
                     });
                 };
 
@@ -276,7 +278,8 @@
                     }
                     OrderService.clear();
                     PaymentService.clearAllPayments();
-                    
+                    PaymentService.clearPersistedCoupons();
+
                     $location.path('/');
                 }
 
@@ -308,6 +311,13 @@
                     }
                 }
 
+                $scope.$watch('total.change', function() {
+                    if ($scope.total.change != 0) {
+                        PaymentService.clear('onCuff');
+                        updateOrderAndPaymentTotal();
+                    }
+                });
+
                 // #############################################################################################
                 // Main related functions
                 // #############################################################################################
@@ -334,14 +344,17 @@
                         main();
                         return $q.reject();
                     }
-                    OrderService.save();
-                    OrderService.clear();
+                    var promise = OrderService.save().then(function(orderUuid) {
+                        OrderService.clear();
 
-                    PaymentService.clearAllPayments();
+                        PaymentService.clearAllPayments();
+                        createCoupons();
+                        PaymentService.clearPersistedCoupons();
 
-                    createCoupons();
+                        return true;
+                    });
 
-                    return true;
+                    return promise;
                 }
 
                 /**

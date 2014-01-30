@@ -1,21 +1,22 @@
 'use strict';
 
-describe('Service: OrderKeeperAdd', function() {
+describe('Service: OrderKeeperAddSpec', function() {
 
-    var JournalEntry = null;
     var fakeNow = null;
-    var jKeeper = {};
+    var JournalEntry = null;
     var OrderKeeper = null;
     var Order = null;
+    var IdentityService = null;
+    var jKeeper = {};
 
-    var id = 1;
-    var code = 12;
+    var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
+    var code = '01-0001-14';
     var date = new Date().getTime();
     var customerId = 1;
     var items = [];
 
     var order = {
-        id : id,
+        uuid : uuid,
         code : code,
         date : date,
         customerId : customerId,
@@ -38,22 +39,25 @@ describe('Service: OrderKeeperAdd', function() {
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
         });
+
     });
 
     // instantiate service
-    beforeEach(inject(function(_Order_, _OrderKeeper_, _JournalEntry_) {
+    beforeEach(inject(function(_Order_, _OrderKeeper_, _JournalEntry_, _IdentityService_) {
         Order = _Order_;
         OrderKeeper = _OrderKeeper_;
         JournalEntry = _JournalEntry_;
+        IdentityService =_IdentityService_;
     }));
 
     it('should add an order', function() {
         // given
-
         var orderx = new Order(order);
+        orderx.created = fakeNow;
 
-        var tstamp = fakeNow / 1000;
-        var entry = new JournalEntry(null, tstamp, 'orderAdd', 1, orderx);
+        var entry = new JournalEntry(null, orderx.created, 'orderAdd', 1, orderx);
+        
+        spyOn(IdentityService, 'getUUID').andReturn(orderx.uuid);
 
         // when
         var addCall = function() {

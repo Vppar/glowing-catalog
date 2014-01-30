@@ -97,6 +97,36 @@
     });
 
     /**
+     * Credit card without merchant payment entity.
+     */
+    entities.factory('NoMerchantCreditCardPayment', function NoMerchantCreditCardPayment(Payment) {
+
+        var service = function svc(orderId, amount, flag, installments) {
+
+            if (arguments.length != svc.length) {
+                throw 'CreditCardPayment must be initialized with all params';
+            }
+
+            this.orderId = orderId;
+            this.amount = amount;
+            this.flag = flag;
+            this.installments = installments;
+
+            ObjectUtils.ro(this, 'orderId', this.flag);
+            ObjectUtils.ro(this, 'amount', this.flag);
+            ObjectUtils.ro(this, 'flag', this.flag);
+            ObjectUtils.ro(this, 'installments', this.installments);
+
+            ObjectUtils.superInvoke(this, amount);
+
+        };
+
+        ObjectUtils.inherit(service, Payment);
+
+        return service;
+    });
+
+    /**
      * Exchange payment entity.
      */
     entities.factory('ExchangePayment', function ExchangePayment(Payment) {
@@ -153,8 +183,8 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, ExchangePayment, CouponPayment,
-                    CouponService, OnCuffPayment) {
+            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardPayment,
+                    ExchangePayment, CouponPayment, CouponService, OnCuffPayment) {
 
                 /**
                  * The current payments.
@@ -163,6 +193,7 @@
                     cash : [],
                     check : [],
                     creditCard : [],
+                    noMerchantCc : [],
                     exchange : [],
                     coupon : [],
                     onCuff : []
@@ -175,6 +206,7 @@
                     cash : CashPayment,
                     check : CheckPayment,
                     creditCard : CreditCardPayment,
+                    noMerchantCc : NoMerchantCreditCardPayment,
                     exchange : ExchangePayment,
                     coupon : CouponPayment,
                     onCuff : OnCuffPayment
@@ -242,7 +274,7 @@
                                 throw 'PaymentService.add: The object is not an instance of any known type of payment, Object=' +
                                     JSON.stringify(payment);
                             }
-                            
+
                             // FIXME: should we use a UUID?
                             payment.id = ArrayUtils.generateUUID();
                             payments[typeName].push(angular.copy(payment));
@@ -301,14 +333,30 @@
 
                 var persistedCoupons = {};
 
+                // If persistedCoupons is empty, we don't have coupons.
+                // persistCouponQuantity() should ensure that coupons with qty 0
+                // are
+                // removed from the persistedCoupons object.
+                var hasPersistedCoupons = function() {
+                    for ( var amount in persistedCoupons) {
+                        if (persistedCoupons.hasOwnProperty(amount)) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                };
+
                 var persistCouponQuantity = function persistCouponQuantity(amount, qty) {
                     if (qty < 0) {
                         qty = 0;
                     }
+
                     if (!qty) {
                         delete persistedCoupons[amount];
+                    } else {
+                        persistedCoupons[amount] = qty;
                     }
-                    persistedCoupons[amount] = qty;
                 };
 
                 var clearPersistedCoupons = function clearPersistedCoupons() {
@@ -365,6 +413,7 @@
                 };
 
                 this.persistedCoupons = persistedCoupons;
+                this.hasPersistedCoupons = hasPersistedCoupons;
                 this.persistCouponQuantity = persistCouponQuantity;
                 this.clearPersistedCoupons = clearPersistedCoupons;
                 this.createCoupons = createCoupons;

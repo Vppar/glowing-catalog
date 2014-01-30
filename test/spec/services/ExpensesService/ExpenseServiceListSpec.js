@@ -10,7 +10,7 @@ describe('Service: ExpenseServiceListSpec', function() {
     beforeEach(function() {
         module('tnt.catalog.service.expense');
         module('tnt.catalog.expense.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
 
         log.debug = jasmine.createSpy('log.debug');
 

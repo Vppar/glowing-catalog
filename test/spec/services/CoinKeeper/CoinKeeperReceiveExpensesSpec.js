@@ -9,11 +9,13 @@ describe('Service: CoinKeeperReceiveExpense', function() {
     var validExpense = null;
     var monthTime = 2592000;
     var jKeeper = {};
+    
+    var keeperName = 'sarava';
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.expense.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
@@ -47,7 +49,7 @@ describe('Service: CoinKeeperReceiveExpense', function() {
     // instantiate service
     beforeEach(inject(function(_Expense_, CoinKeeper, _JournalEntry_) {
         Expense = _Expense_;
-        ExpenseKeeper = CoinKeeper('expense');
+        ExpenseKeeper = CoinKeeper(keeperName);
         JournalEntry = _JournalEntry_;
     }));
 
@@ -56,13 +58,13 @@ describe('Service: CoinKeeperReceiveExpense', function() {
         var liqEv = new Expense(validExpense);
         var recEv = {
             id : 1,
-            payed : fakeNow
+            liquidated : fakeNow
         };
 
         var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, 'expenseLiquidateV1', 1, recEv);
+        var receiveEntry = new JournalEntry(null, tstamp, keeperName +'Liquidate', 1, recEv);
 
-        ExpenseKeeper.handlers['expenseAddV1'](liqEv);
+        ExpenseKeeper.handlers[keeperName +'AddV1'](liqEv);
 
         // when
         var receiveCall = function() {
@@ -77,14 +79,14 @@ describe('Service: CoinKeeperReceiveExpense', function() {
 
         var addEv = new Expense(validExpense);
 
-        ExpenseKeeper.handlers['expenseAddV1'](addEv);
+        ExpenseKeeper.handlers[keeperName +'AddV1'](addEv);
 
         // when
         var receiveCall = function() {
             ExpenseKeeper.liquidate(5, fakeNow);
         };
 
-        expect(receiveCall).toThrow('Unable to find a expense with id=\'5\'');
+        expect(receiveCall).toThrow('Unable to find a ' + keeperName + ' with id=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
@@ -92,17 +94,17 @@ describe('Service: CoinKeeperReceiveExpense', function() {
         var expense = new Expense(validExpense);
         var recEv = {
             id : 1,
-            payed : fakeNow
+            liquidated : fakeNow
         };
-        ExpenseKeeper.handlers['expenseAddV1'](expense);
+        ExpenseKeeper.handlers[keeperName +'AddV1'](expense);
 
         // when
-        ExpenseKeeper.handlers['expenseLiquidateV1'](recEv);
+        ExpenseKeeper.handlers[keeperName +'LiquidateV1'](recEv);
 
         var result = ExpenseKeeper.read(expense.id);
 
         // then
-        expect(result.payed).toBe(fakeNow);
+        expect(result.liquidated).toBe(fakeNow);
     });
 
     it('shouldn\'t handle a receive payment event', function() {
@@ -112,15 +114,15 @@ describe('Service: CoinKeeperReceiveExpense', function() {
             id : 5,
             payed : fakeNow
         };
-        ExpenseKeeper.handlers['expenseAddV1'](expense);
+        ExpenseKeeper.handlers[keeperName +'AddV1'](expense);
 
         // when
         var receiveCall = function() {
-            ExpenseKeeper.handlers['expenseLiquidateV1'](recEv);
+            ExpenseKeeper.handlers[keeperName +'LiquidateV1'](recEv);
         };
 
         // then
-        expect(receiveCall).toThrow('Unable to find a expense with id=\'5\'');
+        expect(receiveCall).toThrow('Unable to find a ' + keeperName + ' with id=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 

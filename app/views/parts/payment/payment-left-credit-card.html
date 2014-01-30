@@ -47,6 +47,7 @@
 						<input
               class="input-block-level payment-input-large"
               id="creditCardNumber1"
+              name="number"
               type="text"
               ng-model="creditCard.number"
               credit-card="{{creditCardMask}}"
@@ -62,10 +63,12 @@
               class="input-block-level payment-input-large"
               type="text"
               id="cardVerificationValue1"
+              name="cvv"
               ng-model="creditCard.cvv"
-              number
               tnt-input
               required
+              number
+              minlength="{{creditCardCvvLength}}"
               maxlength="{{creditCardCvvLength}}">
 					</div>
 				</span>	
@@ -107,7 +110,9 @@
               class="input-block-level payment-input-large"
               type="text"
               id="cardholderName1"
+              name="cardholderName"
               ng-model="creditCard.cardholderName"
+              minlength="3"
               required upper-case>
 					</div>
 				</span>
@@ -120,11 +125,13 @@
 						<input
               class="input-block-level payment-input-large"
               id="cardholderDocument1"
+              name="cardholderDocument"
               type="text"
               ng-model="creditCard.cardholderDocument"
               required
               tnt-input
               cpf
+              minlength="11"
               maxlength="14">
 					</div>
 				</span>	
@@ -147,11 +154,13 @@
               class="input-block-level payment-input-large text-right"
               type="text"
               id="cardAmount1"
+              name="amount"
               ng-model="creditCard.amount"
               currency
               tnt-input
               required
-              max-length="11">
+              amount="0"
+              maxlength="11">
 					</div>
 				</span>	
 			</div>
@@ -213,7 +222,8 @@
               currency
               tnt-input
               required
-              max-length="11">
+              amount="0"
+              maxlength="11">
 					</div>
 				</span>	
 			</div>
@@ -247,7 +257,8 @@
               currency
               tnt-input
               required
-              max-length="11">
+              amount="0"
+              maxlength="11">
 					</div>
 				</span>	
 			</div>
@@ -258,10 +269,10 @@
 	
 	<div class="payment-left-btns-area">
 		<div class="payment-left-btns">
-			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="submit" ng-click="cancelPayments()">
+			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="button" ng-click="cancelPayments()">
 				Cancelar
 			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="submit" ng-click="confirmCreditCardPayment()" >
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="button" ng-click="confirmCreditCardPayment()" >
 				Confirmar
 			</button>
 		</div>

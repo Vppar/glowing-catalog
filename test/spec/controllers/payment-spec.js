@@ -8,7 +8,6 @@ describe('Controller: PaymentCtrl', function() {
     var sms = {};
     var ks = {};
     var $q = {};
-    var $timeout = {};
     var location = {};
 
     // load the controller's module
@@ -115,7 +114,9 @@ describe('Controller: PaymentCtrl', function() {
     it('should create coupons when payment is confirmed', inject(function ($q) {
         var deferred = $q.defer();
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(deferred.promise);
+        os.save = jasmine.createSpy('OrderService.save').andReturn(deferred.promise);
         ps.createCoupons = jasmine.createSpy('PaymentService.createCoupons').andReturn([]);
+        ps.clearPersistedCoupons = jasmine.createSpy('PaymentService.createCoupons');
         ps.remove = function () {};
         ps.clear = function () {};
 

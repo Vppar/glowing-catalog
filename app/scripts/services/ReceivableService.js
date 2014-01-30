@@ -7,7 +7,7 @@
      * @author Arnaldo S. Rodrigues Jr.
      */
     angular.module('tnt.catalog.receivable.service', [
-        'tnt.catalog.receivable.entity', 'tnt.catalog.receivable.keeper'
+        'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper'
     ]).service(
             'ReceivableService',
             function ReceivableService($log, Receivable, CoinKeeper) {

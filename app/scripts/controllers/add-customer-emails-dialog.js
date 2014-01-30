@@ -14,15 +14,21 @@
     ]).controller('AddCustomerEmailsDialogCtrl', function($scope, $q, $filter, dialog, DialogService) {
 
         $scope.email = {};
-        $scope.emails = angular.copy(dialog.data.emails);
+
+        // get emails already set
+        if (dialog.data.emails && dialog.data.emails.length > 0 && dialog.data.emails[0].address !== '') {
+            $scope.emails = angular.copy(dialog.data.emails);
+        } else {
+            $scope.emails = [];
+        }
 
         /**
          * Function add - Verifies if entered email already exists in the
          * $scope.emails array and if not, adds email to the last position of
          * $scope.emails array
          */
-        $scope.add = function add(item) {
-            if ($scope.newEmailForm.$valid) {
+        $scope.addEmail = function addEmail(item) {
+            if ($scope.newEmailForm.$valid && item.address) {
                 var emails = $filter('filter')($scope.emails, item.address);
                 if (emails.length === 0) {
                     $scope.emails.push(angular.copy(item));

@@ -1,5 +1,5 @@
 'use strict';
-describe('Service: CoinKeeperReadExpense', function() {
+describe('Service: OrderKeeperReadSpec', function() {
 
     var OrderKeeper = null;
     var fakeNow = null;
@@ -23,15 +23,15 @@ describe('Service: CoinKeeperReadExpense', function() {
 
     /**
      * <pre>
-     * Given a existing expense id     
+     * Givena existing expense id     
      * When an get is triggered
      * Then the target expense should be returned
      * </pre>
      */
-    it('should return a expense', function() {
+    it('should return a order', function() {
         // given
         var myOrder = {
-            id : 1,
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
             code : 12,
             date : new Date(),
             customerId : 1,
@@ -39,7 +39,7 @@ describe('Service: CoinKeeperReadExpense', function() {
         };
 
         var yourOrder = {
-            id : 3,
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000002',
             code : 13,
             date : new Date(),
             customerId : 2,
@@ -50,17 +50,17 @@ describe('Service: CoinKeeperReadExpense', function() {
         OrderKeeper.handlers['orderAddV1'](yourOrder);
 
         // when
-        var myResult = OrderKeeper.read(1);
-        var yourResult = OrderKeeper.read(3);
-        //Theres no order with id 2.
-        var someoneResult = OrderKeeper.read(2);
+        var myResult = OrderKeeper.read('cc02b600-5d0b-11e3-96c3-010001000001');
+        var yourResult = OrderKeeper.read('cc02b600-5d0b-11e3-96c3-010001000002');
+        // Theres no order with id 2.
+        var someoneResult = OrderKeeper.read('cc02b600-5d0b-11e3-96c3-010001000003');
 
         // then
         expect(myOrder).not.toBe(myResult);
         expect(yourOrder).not.toBe(yourResult);
 
-        expect(myOrder.id).toBe(myResult.id);
-        expect(yourOrder.id).toBe(yourResult.id);
+        expect(myOrder.uuid).toBe(myResult.uuid);
+        expect(yourOrder.uuid).toBe(yourResult.uuid);
 
         expect(someoneResult).toEqual(undefined);
 
@@ -68,15 +68,15 @@ describe('Service: CoinKeeperReadExpense', function() {
 
     /**
      * <pre>
-     * Given a missing order id     
+     * Givena missing order id     
      * When an read is triggered
      * Then undefined should be returned
      * </pre>
      */
-    it('shouldn\'t return a expense', function() {
+    it('shouldn\'t return a order', function() {
         // given
         var myOrder = {
-            id : 1,
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
             code : 12,
             date : new Date(),
             customerId : 1,

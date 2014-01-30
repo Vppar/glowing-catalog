@@ -59,7 +59,7 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
         scope.email = angular.copy(email);
         scope.newEmailForm.$valid = true;
 
-        scope.add(scope.email);
+        scope.addEmail(scope.email);
 
         // You should clear the current email.
         expect(scope.email.address).toBeUndefined();
@@ -77,13 +77,13 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
         scope.newEmailForm.$valid = true;
 
         // Add one email
-        scope.add(scope.email);
+        scope.addEmail(scope.email);
 
         var lastItem = scope.emails.length;
 
         // Try to add the same email again
         scope.email = angular.copy(email);
-        scope.add(scope.email);
+        scope.addEmail(scope.email);
 
         var matchedEmails = $filter('filter')(scope.emails, {
             address : email.address
@@ -110,7 +110,7 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
         };
         scope.email = angular.copy(email);
 
-        scope.add(scope.email.address);
+        scope.addEmail(scope.email.address);
 
         expect(ds.messageDialog).toHaveBeenCalledWith({
             title : 'Novo usuário',

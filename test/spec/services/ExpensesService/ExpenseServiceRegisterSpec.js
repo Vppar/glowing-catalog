@@ -15,7 +15,7 @@ describe('Service: ExpenseServiceRegisterSpec', function() {
 
         module('tnt.catalog.service.expense');
         module('tnt.catalog.expense.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
         module(function($provide) {
             $provide.value('$log', log);
             $provide.value('CoinKeeper', CoinKeeper);

@@ -230,6 +230,7 @@
          * @param bucket name
          * @param value of primery key
          * @param optional callback function
+         * @returns {Promise} - If a callback is given, undefined will be returned.
          */
         this.find = function(tx, name, id, cb) {
 

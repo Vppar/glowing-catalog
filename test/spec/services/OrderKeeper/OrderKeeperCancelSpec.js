@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeeperAdd', function() {
+describe('Service: OrderKeeperCancelSpec', function() {
 
     var JournalEntry = null;
     var fakeNow = null;
@@ -8,14 +8,14 @@ describe('Service: OrderKeeperAdd', function() {
     var OrderKeeper = null;
     var Order = null;
 
-    var id = 1;
+    var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
     var code = 12;
     var date = new Date().getTime();
     var customerId = 1;
     var items = [];
 
     var order = {
-        id : id,
+        uuid : uuid,
         code : code,
         date : date,
         customerId : customerId,
@@ -52,18 +52,17 @@ describe('Service: OrderKeeperAdd', function() {
 
         var addEv = new Order(order);
         var recEv = {
-            id : 1,
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
             canceled : fakeNow
         };
 
-        var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, 'orderCancel', 1, recEv);
+        var receiveEntry = new JournalEntry(null, recEv.canceled, 'orderCancel', 1, recEv);
 
         OrderKeeper.handlers['orderAddV1'](addEv);
 
         // when
         var receiveCall = function() {
-            OrderKeeper.cancel(addEv.id);
+            OrderKeeper.cancel(addEv.uuid);
         };
 
         expect(receiveCall).not.toThrow();
@@ -78,9 +77,9 @@ describe('Service: OrderKeeperAdd', function() {
 
         // when
         var receiveCall = function() {
-            OrderKeeper.cancel(2);
+            OrderKeeper.cancel('cc02b600-5d0b-11e3-96c3-010001000002');
         };
-        expect(receiveCall).toThrow('Unable to find an order with id=\'2\'');
+        expect(receiveCall).toThrow('Unable to find an order with uuid=\'cc02b600-5d0b-11e3-96c3-010001000002\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 

@@ -3,10 +3,14 @@
 describe('Service: OrderEntity', function() {
 
     var Order = null;
+    var IdentityService = {};
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.order.entity');
+        module(function($provide) {
+            $provide.value('IdentityService', IdentityService);
+        });
     });
 
     // instantiate service
@@ -16,7 +20,7 @@ describe('Service: OrderEntity', function() {
 
     /**
      * <pre>
-     * Givena order description
+     * Given a order description
      * and a document
      * When new is triggered
      * Then a Order instance should be created
@@ -24,7 +28,7 @@ describe('Service: OrderEntity', function() {
      */
     it('should create a new Order instance', function() {
         // given
-        var id = 1;
+        var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
         var code = 12;
         var date = new Date();
         var canceled = false;
@@ -32,10 +36,10 @@ describe('Service: OrderEntity', function() {
         var items = [];
 
         // when
-        var order = new Order(id, code, date, canceled, customerId, items);
+        var order = new Order(uuid, code, date, canceled, customerId, items);
 
         // then
-        expect(order.id).toBe(id);
+        expect(order.uuid).toBe(uuid);
         expect(order.code).toBe(code);
         expect(order.date).toBe(date);
         expect(order.canceled).toBe(canceled);

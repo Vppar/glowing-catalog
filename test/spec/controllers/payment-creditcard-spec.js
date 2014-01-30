@@ -55,6 +55,13 @@ describe('Controller: PaymentCreditCardCtrl', function() {
 
         scope.selectPaymentMethod = jasmine.createSpy('$scope.selectPaymentMethod');
         scope.getAmount = jasmine.createSpy('$scope.getAmount');
+        element.find = jasmine.createSpy('$element.find').andReturn({find:function(){
+            return {
+                removeClass : function(){
+                    return {addClass: function(){}};
+                }
+            };
+        }});
 
         $controller('PaymentCreditCardCtrl', {
             $scope : scope,
@@ -64,6 +71,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
             OrderService : os,
             PaymentService : ps
         });
+        
     }));
 
     it('should add a credit card payment', function() {
@@ -72,7 +80,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         scope.creditCard = {
             installment : '2x',
             flag : 'Visa',
-            amount : '120,00',
+            amount : 120.00,
             expirationMonth : '03',
             expirationYear : '2014',
             number : '1111111111111111',

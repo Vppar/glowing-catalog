@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js">
     <head>
+        <title>VOPP Wishlist</title>
         <meta charset="UTF-8" />
         <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -69,6 +70,7 @@
         <script src="bower_components/select2/select2_locale_pt-BR.js"></script>
         <script src="bower_components/angular-ui-select2/src/select2.js"></script>
         <script src="bower_components/jquery-zoom/jquery.zoom.js"></script>
+        <script src="bower_components/node-uuid/uuid.js"></script>
         <!-- endbuild -->
     
         <!-- build:js scripts/modules.js -->
@@ -115,6 +117,7 @@
         <script src="scripts/controllers/partial-delivery.js"></script>
         <script src="scripts/controllers/payment-on-cuff.js"></script>
         <script src="scripts/controllers/payment-discount.js"></script>
+        <script src="scripts/controllers/order-list.js"></script>
         <script src="scripts/controllers/receivable.js"></script>
         <script src="scripts/controllers/receivable-entity.js"></script>
         <script src="scripts/controllers/voucher.js"></script>
@@ -124,6 +127,7 @@
         <script src="scripts/directives/creditCard.js"></script>
         <script src="scripts/directives/currency.js"></script>
         <script src="scripts/directives/hour.js"></script>
+        <script src="scripts/directives/minlength.js"></script>
         <script src="scripts/directives/inputQty.js"></script>
         <script src="scripts/directives/number.js"></script>
         <script src="scripts/directives/numPad.js"></script>
@@ -147,6 +151,7 @@
         <script src="scripts/keepers/CoinKeeper.js"></script>
         <script src="scripts/keepers/InventoryKeeper.js"></script>
         <script src="scripts/keepers/GridKeeper.js"></script>
+        <script src="scripts/keepers/EntityKeeper.js"></script>
         <script src="scripts/keepers/JournalKeeper.js"></script>
         <script src="scripts/keepers/StockKeeper.js"></script>
         <script src="scripts/keepers/VoucherKeeper.js"></script>
@@ -157,19 +162,19 @@
         <script src="scripts/services/EntityService.js"></script>
         <script src="scripts/services/ExpenseService.js"></script>
         <script src="scripts/services/GoPayService.js"></script>
+        <script src="scripts/services/IdentityService.js"></script>
         <script src="scripts/services/InventoryService.js"></script>
         <script src="scripts/services/KeyboardService.js"></script>
         <script src="scripts/services/misplacedservice.js"></script>
-        <script src="scripts/services/numPadService.js"></script>
         <script src="scripts/services/OrderService.js"></script>
         <script src="scripts/services/PaymentService.js"></script>
         <script src="scripts/services/ProductLineUp.js"></script>
         <script src="scripts/services/ReceivableService.js"></script>
+        <script src="scripts/services/Replayer.js"></script>
         <script src="scripts/services/SMSService.js"></script>
         <script src="scripts/services/StorageService.js"></script>
         <script src="scripts/services/ThirdpartyService.js"></script>
         <script src="scripts/services/VoucherService.js"></script>
-        <script src="scripts/services/Replayer.js"></script>
 
         <script src="scripts/keepers/OrderKeeper.js"></script>
         

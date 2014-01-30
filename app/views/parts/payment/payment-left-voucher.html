@@ -192,7 +192,7 @@
           type="submit" ng-click="cancelPayments()">Cancelar</button>
         <button
           class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard"
-          ng-disabled="isDisabled" type="submit" ng-click="selectConfirm()">
+          ng-disabled="!confirmEnabled" type="submit" ng-click="selectConfirm()">
           Adicionar</button>
       </div>
     </div>

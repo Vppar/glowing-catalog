@@ -16,12 +16,6 @@
                         // #####################################################################################################
                         // Warm up the controller
                         // #####################################################################################################
-                        var errorMessage =
-                                'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
-                        var oneCouponMessage =
-                                'Foi gerado 1 cupom promocional no total de R$ {{coupomsValue}} para o cliente {{customerFirstName}}.';
-                        var moreThanOneCouponMessage =
-                                'Foram gerados {{couponNumber}} cupons promocionais no total de R$ {{couponsValue}} para o cliente {{customerFirstName}}.';
 
                         var order = OrderService.order;
 
@@ -65,7 +59,6 @@
                             },
                         ];
 
-                        $scope.isDisabled = true;
                         
                         // Get already set voucher
                         for ( var ix in order.items) {
@@ -103,16 +96,21 @@
                           return orderHasVoucher() || $scope.total.change > 0;
                         }
 
+                        // Make the function available in the scope
                         $scope.voucherIsEnabled = voucherIsEnabled;
+
+                        // Flag indicating if the confirm button is enabled or disabled
+                        // for the currently active option.
+                        $scope.confirmEnabled = false;
 
                         // wachers
                         $scope.$watch('selectedPaymentMethod', setCouponOption);
-                        $scope.$watch('voucher.total', canConfirmVoucher);
-                        $scope.$watch('gift.total', canConfirmGift);
-                        $scope.$watch('gift.customer.name', canConfirmGift);
-                        $scope.$watch('coupon.total', canConfirmCoupon);
-                        $scope.$watch('option', watchOptions);
 
+                        $scope.$watch('voucher.total', canConfirm);
+                        $scope.$watch('gift.total', canConfirm);
+                        $scope.$watch('gift.customer.name', canConfirm);
+                        $scope.$watch('coupon.total', canConfirm);
+                        $scope.$watch('option', canConfirm);
 
                         function setCouponOption() {
                           if (!voucherIsEnabled()) {
@@ -122,44 +120,37 @@
                           }
                         }
 
+
+                        function canConfirm() {
+                          switch($scope.option) {
+                            case 'option01':
+                              canConfirmVoucher();
+                              break;
+                            case 'option02':
+                              canConfirmGift();
+                              break;
+                            case 'option03':
+                              canConfirmCoupon();
+                              break;
+                            default:
+                              $scope.confirmEnabled = false;
+                          }
+                        }
+
                         function canConfirmVoucher() {
-                            if ($scope.option === 'option01' && (orderHasVoucher() || $scope.voucher.total > 0)) {
-                                $scope.isDisabled = false;
-                            } else {
-                                $scope.isDisabled = true;
-                            }
+                            $scope.confirmEnabled = orderHasVoucher() ||
+                              $scope.voucher.total > 0;
                         }
 
                         function canConfirmCoupon() {
-                            if ($scope.option === 'option03' && $scope.coupon.total > 0) {
-                                $scope.isDisabled = false;
-                            } else {
-                                $scope.isDisabled = true;
-                            }
+                            $scope.confirmEnabled = PaymentService.hasPersistedCoupons() ||
+                              $scope.coupon.total > 0;
                         }
 
                         function canConfirmGift() {
-                            if (
-                              $scope.option === 'option02' &&
-                              $scope.gift.total > 0 &&
-                              angular.isDefined($scope.gift.customer.name)
-                            ) {
-                                $scope.isDisabled = false;
-                            } else {
-                                $scope.isDisabled = true;
-                            }
-                        }
-
-                        function watchOptions() {
-                            $scope.isDisabled = true;
-
-                            if ($scope.option === 'option01') {
-                                canConfirmVoucher();
-                            } else if ($scope.option === 'option02') {
-                                canConfirmGift();
-                            } else if ($scope.option === 'option03') {
-                                canConfirmCoupon();
-                            }
+                            $scope.confirmEnabled = !!$scope.gift.customer &&
+                              !!$scope.gift.customer.name &&
+                              $scope.gift.total > 0;
                         }
 
                         for ( var ix in $scope.list) {

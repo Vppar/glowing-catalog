@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.header', []).controller('HeaderCtrl', function($scope, $filter, $location, $timeout, OrderService, DialogService) {
+    angular.module('tnt.catalog.header', []).controller('HeaderCtrl', function($scope, $filter, $location, $interval, OrderService, DialogService) {
 
         // #############################################################################################################
         // Scope variables from services
@@ -66,8 +66,8 @@
         function refreshDate() {
             $scope.now.date = $filter('date')(new Date(), 'dd MMM yyyy');
             $scope.now.time = $filter('date')(new Date(), 'HH:mm');
-            $timeout(refreshDate, 10000);
         }
+        $interval(refreshDate, 10000);
         refreshDate();
     });
 }(angular));
