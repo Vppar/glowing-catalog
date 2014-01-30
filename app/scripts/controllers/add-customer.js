@@ -2,13 +2,14 @@
     'use strict';
 
     angular.module('tnt.catalog.customer', [
-        'tnt.catalog.service.data'
-    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService) {
+        'tnt.catalog.service.data', 'tnt.catalog.entity.service'
+    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService) {
 
         // ONLY FOR TESTS
         if (!DataProvider.date.days) {
             $location.path('/');
         }
+        console.log(EntityService.list());
         // ############################################################################################################
         // Scope binding variables
         // ############################################################################################################
@@ -56,8 +57,6 @@
         };
 
         $scope.confirm = function confirm() {
-            console.log(customer);
-            console.log('lala');
             $scope.failed = true;
             if (!$scope.newCustomerForm.$valid) {
                 DialogService.messageDialog({
@@ -67,14 +66,12 @@
                 });
                 return;
             }
-            customer.id = DataProvider.customers.length + 1;
-            DataProvider.customers.push(customer);
-            DataProvider.customers.sort(function(x, y) {
-                return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
-            });
-            OrderService.order.customerId = customer.id;
-            $location.path('/');
+            EntityService.create(customer);
+            
+            //OrderService.order.customerId = customer.id;
+            //$location.path('/');
         };
+        
         $scope.cancel = function cancel() {
             $location.path('/');
         };
