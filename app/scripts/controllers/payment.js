@@ -369,7 +369,7 @@
 
                     // clear all
                     var paymentDonePromise = savedSale.then(function() {
-                        console.log(ReceivableService.list());
+                        $log.debug('Receivables created' + JSON.stringify(ReceivableService.list()));
                         OrderService.clear();
                         PaymentService.clearAllPayments();
                         PaymentService.clearPersistedCoupons();

@@ -69,7 +69,6 @@
 
         for ( var ix in orders) {
             var order = orders[ix];
-            console.log(order);
             // Find the entity name
             order.entityName = ArrayUtils.find(entities, 'id', order.customerId).name;
             // Calc the

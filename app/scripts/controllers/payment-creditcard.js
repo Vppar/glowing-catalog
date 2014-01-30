@@ -103,15 +103,15 @@
 
                             var creditCardInstallments = [];
                             var numInstallments = creditCard.installment.replace('x', '').replace(' ', '');
-                            console.log($scope.creditCard.installment);
 
                             for ( var i = 0; i < numInstallments; i++) {
                                 var cc = angular.copy(creditCard);
+                                cc.amount = 0;
                                 cc.installment = i + 1;
                                 creditCardInstallments.push(cc);
                             }
 
-                            Misplacedservice.recalc($scope.creditCard.amount, 0, creditCardInstallments, 'amount');
+                            Misplacedservice.recalc($scope.creditCard.amount, -1, creditCardInstallments, 'amount');
 
                             var dueDate = new Date();
                             var creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
