@@ -17,6 +17,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         module('tnt.catalog.filter.paymentType');
         module('tnt.catalog.misplaced.service');
     });
+
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
@@ -42,6 +43,11 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         // dialog service mock
         dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         scope.dialogService = dialogService;
+        scope.totals = {
+          payments : {
+          }
+        };
+
         scope.total = {
             change : 0
         };

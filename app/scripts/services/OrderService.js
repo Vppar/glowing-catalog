@@ -196,8 +196,6 @@
                   } else if (itemIsGiftCard(item)) {
                     handleGiftCard(item);
                   }
-
-                  console.log('items:', order.items);
                 };
 
 
