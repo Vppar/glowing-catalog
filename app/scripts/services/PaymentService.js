@@ -183,8 +183,29 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardPayment,
+            function PaymentService($rootScope, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardpayment,
                     ExchangePayment, CouponPayment, CouponService, OnCuffPayment) {
+
+
+
+
+
+                //////////////////////////////////////////////
+                // Events handling
+                var cachedPaymentTotals = {};
+
+                function clearCachedPaymentsTotal() {
+                  cachedPaymentTotals = {};
+                }
+
+                function triggerPaymentsChangeEvent() {
+                  $rootScope.$broadcast('PaymentService.paymentsChanged');
+                }
+
+                $rootScope.$on('PaymentService.add', triggerPaymentsChangeEvent);
+                $rootScope.$on('PaymentService.clear', triggerPaymentsChangeEvent);
+
+                $rootScope.$on('PaymentService.paymentsChanged', clearCachedPaymentsTotal);
 
                 /**
                  * The current payments.
@@ -275,9 +296,11 @@
                                     JSON.stringify(payment);
                             }
 
-                            // FIXME: should we use a UUID?
                             payment.id = ArrayUtils.generateUUID();
                             payments[typeName].push(angular.copy(payment));
+
+                            // Notify that a payment was added
+                            $rootScope.$broadcast('PaymentService.add', payment, typeName);
                         };
 
                 /**
@@ -296,7 +319,15 @@
                 var clear = function clear(type) {
                     var paymentsForType = payments[type];
                     if (paymentsForType) {
-                        paymentsForType.length = 0;
+                        // Do nothing if there are no payments for the given type
+                        if (paymentsForType.length) {
+                            var removedPayments = paymentsForType.slice(0);
+                            paymentsForType.length = 0;
+
+                            // Notify that payments for the given type were cleared
+                            $rootScope.$broadcast('PaymentService.clear',
+                                type, removedPayments);
+                        }
                     } else {
                         throw 'PaymentService.clear: invalid payment type';
                     }
@@ -313,6 +344,84 @@
                     }
                 };
 
+
+                /**
+                 * Calculates the current total for a given payment type or
+                 * for all payment types if no type is given.
+                 */
+                var getTotal = function getTotal(type) {
+                  var total;
+
+                  if (!type) {
+                    total = cachedPaymentTotals.total;
+
+                    // Payment total is not cached
+                    if (!angular.isDefined(total)) {
+                      total = 0;
+                      for (type in payments) {
+                        total += getTotal(type);
+                      }
+                      cachedPaymentTotals.total = total;
+                    }
+                    return total;
+                  }
+
+                  if (!payments[type]) {
+                    throw 'Invalid payment type.';
+                  }
+
+                  var total = cachedPaymentTotals[type];
+
+                  // Payment type's total is not cached
+                  if (!angular.isDefined(total)) {
+                    // BEWARE! Double assignments ahead!
+                    total = cachedPaymentTotals[type] = $filter('sum')(payments[type], 'amount');
+                  }
+
+                  return total;
+                };
+
+
+                /**
+                 * Calculates the change for a given amount.
+                 * @param {Number} targetAmount The amount we expect to be paid.
+                 */
+                var getChange = function getChange(targetAmount) {
+                  var diff = Math.round((getTotal() - targetAmount) * 100) / 100;
+                  return diff <= 0 ? 0 : diff;
+                };
+
+
+                /**
+                 * Calculates the remaining amount.
+                 * @param {Number} targetAmount The amount we expect to be paid.
+                 */
+                var getRemainingAmount = function getRemainingAmount(targetAmount) {
+                  var diff = Math.round((targetAmount - getTotal()) * 100) / 100;
+                  return diff <= 0 ? 0 : diff;
+                };
+
+
+                /**
+                 * Gets the total number of payments for the given type or the
+                 * total amount of payments for all types if no type is given.
+                 * @param {string?} type The type of payment.
+                 * @return {Number} The number of payments.
+                 */
+                var getPaymentCount = function getPaymentCount(type) {
+                  if (!type) {
+                    var total = 0;
+                    for (type in payments) {
+                      total += getPaymentCount(type);
+                    }
+                    return total;
+                  }
+
+                  var paymentsForType = payments[type];
+                  return paymentsForType && paymentsForType.length;
+                };
+
+
                 // FIXME: shouldn't all methods be renamed to more
                 // specific names? E.g.:
                 // add -> addPayment, list -> listPayments,
@@ -324,6 +433,11 @@
                 this.read = read;
                 this.clear = clear;
                 this.clearAllPayments = clearAllPayments;
+                this.getTotal = getTotal;
+                this.getChange = getChange;
+                this.getRemainingAmount = getRemainingAmount;
+                this.getPaymentCount = getPaymentCount;
+
 
                 // Coupons //////////////////////////
 
@@ -348,17 +462,61 @@
                 };
 
                 var persistCouponQuantity = function persistCouponQuantity(amount, qty) {
-                    if (qty < 0) {
-                        qty = 0;
+                  // Ensure non-negative quantities
+                  if (qty < 0) {
+                    qty = 0;
+                  }
+
+                  if (persistedCoupons[amount] != qty) {
+                    if (!qty) {
+                      this.removePersistedCoupons(amount);
+                    } else {
+                      persistedCoupons[amount] = qty;
                     }
 
-                    if (!qty) {
-                        delete persistedCoupons[amount];
-                    } else {
-                        persistedCoupons[amount] = qty;
-                    }
+                    // Broadcast that the quantity of a given coupon was updated
+                    $rootScope.$broadcast('PaymentService.persistCouponQuantity',
+                        amount, qty);
+                  }
                 };
 
+
+                var removePersistedCoupons = function removePersistedCoupons(amount) {
+                  if (!amount) {
+                    for (amount in persistedCoupons) {
+                      if (persistedCoupons.hasOwnProperty(amount)) {
+                        removePersistedCoupons(amount);
+                      }
+                    }
+                    return;
+                  }
+
+                  amount = parseInt(amount);
+
+                  if (!amount || amount < 0) {
+                    throw 'Invalid coupon amount.';
+                  }
+
+                  var removedQty = persistedCoupons[amount];
+                  delete persistedCoupons[amount];
+
+                  // Broadcast that the coupons of a given amount were removed.
+                  //
+                  // NOTE: this event tells only that the persisted coupons of
+                  // a given amount have been removed from the persistence
+                  // object.
+                  //
+                  // It DOES NOT mean that these coupons have been canceled.
+                  // This is important to know since all persisted coupons are
+                  // removed AFTER the coupons are created.
+                  $rootScope.$broadcast('PaymentService.removePersistedCoupons',
+                      amount, removedQty);
+                };
+
+
+
+                // FIXME: remove this in favour of removePersistedCoupons() without args.
+                // Keeping this here to avoid breaking stuff while I test.
                 var clearPersistedCoupons = function clearPersistedCoupons() {
                     for ( var idx in persistedCoupons) {
                         if (persistedCoupons.hasOwnProperty(idx)) {
@@ -366,6 +524,7 @@
                         }
                     }
                 };
+
 
                 var createCoupons = function createCoupons(entityId) {
                     var amount, coupon, processedCoupons = [], qty;
@@ -408,13 +567,21 @@
                         } // if hasOwnProperty
                     } // for amount in persistedCoupons
 
-                    this.clearPersistedCoupons();
+                    // Broadcast the call to createCoupons
+                    //
+                    // NOTE: this event will trigger even if no coupons have been created.
+                    // It's the listener responsibility to check the results of the
+                    // creation process.
+                    $rootScope.$broadcast('PaymentService.createCoupons', processedCoupons);
+
+                    this.removePersistedCoupons();
                     return processedCoupons;
                 };
 
                 this.persistedCoupons = persistedCoupons;
                 this.hasPersistedCoupons = hasPersistedCoupons;
                 this.persistCouponQuantity = persistCouponQuantity;
+                this.removePersistedCoupons = removePersistedCoupons;
                 this.clearPersistedCoupons = clearPersistedCoupons;
                 this.createCoupons = createCoupons;
             });

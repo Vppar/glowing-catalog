@@ -46,19 +46,7 @@
          */
         $scope.addToBasket = function addToBasket() {
             for ( var ix in $scope.grid) {
-                var orderProduct = ArrayUtils.find(orderItems, 'id', $scope.grid[ix].id);
-                if (orderProduct) {
-                    if ($scope.grid[ix].qty === 0) {
-                        orderItems.splice(orderItems.indexOf(orderProduct), 1);
-                    } else {
-                        orderProduct.qty = $scope.grid[ix].qty;
-                    }
-                } else {
-                    if ($scope.grid[ix].qty > 0) {
-                        $scope.grid[ix].idx = ++index;
-                        orderItems.push($scope.grid[ix]);
-                    }
-                }
+                OrderService.handleItem($scope.grid[ix]);
             }
             dialog.close(true);
         };
