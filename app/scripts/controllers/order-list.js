@@ -71,10 +71,13 @@
             var order = orders[ix];
             // Find the entity name
             order.entityName = ArrayUtils.find(entities, 'id', order.customerId).name;
-            // Calc the
+
             var qtyTotal = $filter('sum')(order.items, 'qty');
-            order.amountTotal = $filter('sum')(order.items, 'price', 'qty');
-            order.avgPrice = (order.amountTotal) / (qtyTotal);
+            var amountTotal = $filter('sum')(order.items, 'price', 'qty');
+            order.itemsQty = qtyTotal;
+            order.avgPrice = (amountTotal) / (qtyTotal);
+            order.amountTotal = amountTotal;
+
         }
 
         // #############################################################################################################
