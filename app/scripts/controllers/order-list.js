@@ -126,7 +126,7 @@
             } else {
                 filteredOrders = $scope.filteredOrders;
             }
-            angular.extend($scope.total, totalTemplate);
+            $scope.total = angular.copy(totalTemplate);
             for ( var ix in filteredOrders) {
                 var order = filteredOrders[ix];
                 var receivables = ReceivableService.listByDocument(order.uuid);
