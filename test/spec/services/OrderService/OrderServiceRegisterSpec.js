@@ -1,7 +1,6 @@
 describe('Service: OrderServiceRegisterSpec', function() {
     var fakeNow = 1386444467895;
     var logMock = {};
-    var OrderMock = {};
     var OrderKeeperMock = {};
     var DataProviderMock = {};
     var $rootScope = {};
@@ -9,8 +8,8 @@ describe('Service: OrderServiceRegisterSpec', function() {
 
     // load the service's module
     beforeEach(function() {
-
         module('tnt.catalog.order.service');
+        module('tnt.catalog.order.entity');
 
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         logMock.debug = jasmine.createSpy('$log.debug');
@@ -26,7 +25,6 @@ describe('Service: OrderServiceRegisterSpec', function() {
 
         module(function($provide) {
             $provide.value('$log', logMock);
-            $provide.value('Order', OrderMock);
             $provide.value('OrderKeeper', OrderKeeperMock);
             $provide.value('DataProvider', DataProviderMock);
         });

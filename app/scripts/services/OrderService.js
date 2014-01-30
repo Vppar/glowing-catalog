@@ -171,6 +171,9 @@
                     }
 
                     initOrder();
+
+                    // Broadcast order cancelation
+                    $rootScope.$broadcast('OrderService.clear');
                 };
 
 
@@ -413,7 +416,6 @@
                   if (giftCard && giftCard.price) {
                     addItem(giftCard);
                   }
-                  console.log(order.items);
                 }
 
 

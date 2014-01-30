@@ -183,7 +183,7 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService($rootScope, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardpayment,
+            function PaymentService($rootScope, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardPayment,
                     ExchangePayment, CouponPayment, CouponService, OnCuffPayment) {
 
 
