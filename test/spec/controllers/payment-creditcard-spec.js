@@ -51,7 +51,11 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         scope = $rootScope.$new();
         scope.creditCardForm = {};
 
-        scope.total = {};
+        scope.totals = {
+          payments : {
+            remaining : 100
+          }
+        };
 
         scope.selectPaymentMethod = jasmine.createSpy('$scope.selectPaymentMethod');
         scope.getAmount = jasmine.createSpy('$scope.getAmount');
@@ -93,23 +97,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     });
 
     describe('initial amount value', function() {
-        it('is 0 if change is positive', inject(function($controller, $rootScope, _$filter_) {
-            scope.total.change = 170;
-
-            $controller('PaymentCreditCardCtrl', {
-                $scope : scope,
-                $filter : _$filter_,
-                $element : element,
-                DataProvider : dp,
-                OrderService : os,
-                PaymentService : ps
-            });
-
-            expect(scope.creditCard.amount).toBe(0);
-        }));
-
-        it('is the absolute value of change if change is negative', inject(function($controller, $rootScope, _$filter_) {
-            scope.total.change = -170;
+        it('is the remaining value', inject(function($controller, $rootScope, _$filter_) {
+            scope.totals.payments.remaining = 170;
 
             $controller('PaymentCreditCardCtrl', {
                 $scope : scope,
@@ -123,8 +112,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
             expect(scope.creditCard.amount).toBe(170);
         }));
 
-        it('is 0 if change is falsy', inject(function($controller, $rootScope, _$filter_) {
-            scope.total.change = null;
+        it('is 0 if there\'s no remaining value', inject(function($controller, $rootScope, _$filter_) {
+            scope.totals.payments.remaining = 0;
 
             $controller('PaymentCreditCardCtrl', {
                 $scope : scope,

@@ -24,6 +24,15 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         scope = $rootScope.$new();
         scope.computeTotals = jasmine.createSpy('scope.computeTotals');
         scope.selectPaymentMethod = jasmine.createSpy('scope.selectPaymentMethod');
+        scope.totals = {
+          payments : {
+            remaining : 100
+          },
+
+          order : {
+          }
+        };
+
         scope.total = jasmine.createSpy('scope.total');
         scope.total.change = 284;
 
@@ -148,15 +157,25 @@ describe('Controller: PaymentOnCuffCtrl', function() {
      * Given - a invalid amount for change 284 When - the controller is open.
      * Then - the scope.amount should be 0 .
      */
-    it('should not open on-cuff screen', function() {
-        // the value was settled on beforeInject(creation of controller.)
+    it('should not open on-cuff screen', inject(function($controller, _$q_) {
+        scope.totals.payments.remaining = 0;
+        
+        $q = _$q_;
+        // reproduce the scope inheritance
+        $controller('PaymentOnCuffCtrl', {
+            $q : _$q_,
+            $scope : scope,
+            payments : payments,
+            DialogService : DialogService,
+            PaymentService : PaymentService
+        });
+
         expect(DialogService.messageDialog).toHaveBeenCalledWith({
             title : 'Contas a receber',
             message : 'Não existem valores para serem lançados.',
             btnYes : 'OK'
         });
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
-        
-    });
+    }));
 
 });

@@ -112,6 +112,7 @@
                 $scope.$on('PaymentCtrl.valuesChanged', clearOnCuffPayments);
 
 
+                // Initialize totals
                 updateTotals();
 
                 /**
