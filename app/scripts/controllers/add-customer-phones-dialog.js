@@ -12,21 +12,19 @@
     angular.module('tnt.catalog.customer.add.phones', [
         'tnt.catalog.service.data'
     ]).controller('AddCustomerPhonesDialogCtrl', function($scope, $q, $filter, dialog, DataProvider, DialogService) {
-
+        // set phone types into dropdown menu
+        $scope.phoneTypes = DataProvider.phoneTypes;
         $scope.phone = {
-            number : undefined,
-            type : undefined
+            number : null,
+            type : $scope.phoneTypes[0]
         };
-        
-        //get phones already set
-        if(dialog.data.phones && dialog.data.phones.length > 0 && dialog.data.phones[0].number !== '') {
+
+        // get phones already set
+        if (dialog.data.phones && dialog.data.phones.length > 0 && dialog.data.phones[0].number !== '') {
             $scope.phones = angular.copy(dialog.data.phones);
         } else {
             $scope.phones = [];
         }
-        
-        //set phone types into dropdown menu
-        $scope.phoneTypes = DataProvider.phoneTypes;
 
         /**
          * Function add - Verifies if entered phone already exists in the
@@ -39,7 +37,7 @@
                 if (phone.length === 0) {
                     $scope.phones.push(angular.copy(item));
                     delete $scope.phone.number;
-                    delete $scope.phone.type;
+                    $scope.phone.type = $scope.phoneTypes[0];
                 } else {
                     DialogService.messageDialog({
                         title : 'Novo usuário',
@@ -94,7 +92,7 @@
             var phones = {};
             if ($scope.phones.length >= 1) {
                 phones = $scope.phones;
-            } 
+            }
             dialog.close(phones);
         };
 

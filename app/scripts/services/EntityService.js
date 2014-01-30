@@ -9,19 +9,14 @@
 
     angular.module('tnt.catalog.entity.service', [
         'tnt.catalog.entity.entity', 'tnt.catalog.entity.keeper'
-    ]).service('EntityService', function EntityService($log, EntityKeeper) {
+    ]).service('EntityService', function EntityService($log, $q, EntityKeeper, Entity) {
 
       this.isValid = function(entity) {
             var invalidProperty = {};
 
-            invalidProperty.uuid = angular.isNumber(entity.uuid);
+            //just name and phone are mandatory
             invalidProperty.name = angular.isDefined(entity.name);
-            invalidProperty.emails = angular.isDefined(entity.emails);
             invalidProperty.phones = angular.isDefined(entity.phones);
-            invalidProperty.cep = angular.isDefined(entity.cep);
-            invalidProperty.document = angular.isDefined(entity.document);
-            invalidProperty.addresses = angular.isDefined(entity.addresses);
-            invalidProperty.remarks = angular.isDefined(entity.remarks);
 
             var result = [];
 
@@ -31,7 +26,9 @@
                     // with the name of the invalid property,
                     // fill it with the invalid value and add to
                     // the result
-                    result.push({}[ix] = entity[ix]);
+                    var error = {};
+                    error[ix] = entity[ix];
+                    result.push(error);
                 }
             }
 
@@ -77,14 +74,15 @@
          * @throws Exception in case of a fatal error comming from the keeper.
          */
         this.create = function(entity) {
-            var result = this.isValid(entity);
-            if (result.length === 0) {
-                try {
-                    EntityKeeper.create(entity);
-                } catch (err) {
-                    throw 'EntityService.create: Unable to create a entity =' + JSON.stringify(entity) + '. Err=' + err;
-                }
+            var result = null;
+            entity = new Entity(entity);
+            var hasErrors = this.isValid(entity);
+            if (hasErrors.length === 0) {
+                result = EntityKeeper.create(entity);
+            } else {
+                result = $q.reject(hasErrors);
             }
+            return result;
         };
 
         /**

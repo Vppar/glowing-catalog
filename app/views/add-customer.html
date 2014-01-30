@@ -39,10 +39,10 @@
 				<span class="span2"> 
                 	<label for="">Data de Anivers&aacute;rio</label>
                     	<div>
-						<select name="birthday" class="select-width-01"	ui-select2 ng-model="customer.birthday.day"  tabindex="5" >
+						<select name="birthday" class="select-width-01"	ui-select2 ng-model="customer.birthDate.day"  tabindex="5" >
                             <option value="day" ng-repeat="day in birthdate.days">{{day}}</option>
 						</select>
-                        <select name="birthmonth" class="select-width-01 marginl5" ui-select2 ng-model="customer.birthday.month"   tabindex="6">
+                        <select name="birthmonth" class="select-width-01 marginl5" ui-select2 ng-model="customer.birthDate.month"   tabindex="6">
                                 <option value="month.id" ng-repeat="month in birthdate.months">{{month.id}}</option>
                         </select>
                         </div>
@@ -61,13 +61,13 @@
 					<div class="control-group ">
 						<label class="control-label">CEP</label>
 						<input name="cep"  tabindex="3"
-							class="input-cep" type="text" ng-model="customer.address.cep"
+							class="input-cep" type="text" ng-model="customer.cep"
 							ng-minlength="8" cep >
 					</div>
 				</span>
 				<span class="span5"><label
 					class="control-label lbl-complement">CPF</label>
-					<input  tabindex="9" class="input-block-level input-complement" type="text" ng-model="customer.cpf" cpf>
+					<input  tabindex="9" class="input-block-level input-complement" type="text" ng-model="customer.document" cpf>
 				</span>
 			</div>
 			<div class="row-fluid">
@@ -76,18 +76,18 @@
 						<label class="control-label">Endere&ccedil;o</label>
 						<input  tabindex="7"
 							name="address" class="input-block-level" type="text"
-							placeholder="" ng-model="customer.address.street" >
+							placeholder="" ng-model="customer.addresses.street" >
 					</div>
 				</span> <span class="span1"> <label class="control-label">Nº</label>
 					<input name="number"  tabindex="8" class="input-address-number" value=""
-					type="text" placeholder="" ng-model="customer.address.number"
+					type="text" placeholder="" ng-model="customer.addresses.number"
 					number >
 				</span> 
 				<span class="span5"><label
 					class="control-label lbl-complement">Complemento</label>
 					<input  tabindex="9"
 					class="input-block-level input-complement" type="text"
-					ng-model="customer.address.complement">
+					ng-model="customer.addresses.complement">
 				</span>
 			</div>
 			<div class="row-fluid">
@@ -96,24 +96,24 @@
 						<label class="control-label">Bairro</label>
 						<input  tabindex="10"
 							name="neighborhood" class="input-block-level" type="text"
-							ng-model="customer.address.neighborhood" >
+							ng-model="customer.addresses.neighborhood" >
 					</div>
 				</span> <span class="span1"> <label class="control-label">UF</label>
 					<select name="state"  tabindex="11" ui-select2 class="select-width-02"
-					ng-model="customer.address.state" >
+					ng-model="customer.addresses.state" >
 						<option value="{{state}}"
 							ng-repeat="state in states">{{state}}</option>
 				</select>
 				</span> <span class="span5"> <label class="control-label lbl-city">Cidade</label>
 					<input name="city"  tabindex="12" class="input-block-level input-city" type="text"
-					ng-model="customer.address.city" >
+					ng-model="customer.addresses.city" >
 				</span>
 			</div>
 			<div class="row-fluid">
 				<span class="span12">
 					<div class="control-group ">
 						<label class="control-label">Observa&ccedil;&otilde;es</label>
-						<input  tabindex="10" name="" class="input-block-level" type="textarea" rows="4" cols="50" >
+						<input  tabindex="10" name="remarks" ng-model="customer.remarks" class="input-block-level" type="textarea" rows="4" cols="50" >
 					</div>
 				</span> 
 			</div>

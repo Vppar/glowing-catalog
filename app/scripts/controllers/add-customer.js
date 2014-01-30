@@ -5,11 +5,6 @@
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
     ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService) {
 
-        // ONLY FOR TESTS
-        if (!DataProvider.date.days) {
-            $location.path('/');
-        }
-        console.log(EntityService.list());
         // ############################################################################################################
         // Scope binding variables
         // ############################################################################################################
@@ -17,8 +12,8 @@
         $scope.states = DataProvider.states;
 
         $scope.customer = {
-            address : {},
-            birthday : {},
+            addresses : {},
+            birthDate : {},
             emails : [
                 {
                     address : ''
@@ -66,12 +61,16 @@
                 });
                 return;
             }
-            EntityService.create(customer);
-            
-            //OrderService.order.customerId = customer.id;
-            //$location.path('/');
+            EntityService.create(customer).then(function(uuid) {
+                OrderService.order.customerId = uuid;
+            }, function(err) {
+                // TODO something about it
+                //console.log(err);
+            });
+
+            $location.path('/');
         };
-        
+
         $scope.cancel = function cancel() {
             $location.path('/');
         };

@@ -73,11 +73,11 @@ describe('Controller: AddCustomerPhonesDialogCtrl', function() {
         scope.phone = angular.copy(phone);
         scope.newPhoneForm.$valid = true;
 
-        scope.add(scope.phone);
+        scope.addPhone(scope.phone);
 
         // You should clear the currenct phone.
         expect(scope.phone.number).toBeUndefined();
-        expect(scope.phone.type).toBeUndefined();
+        expect(scope.phone.type).toBe(dp.phoneTypes[0]);
         expect(phone).toEqual(scope.phones[scope.phones.length - 1]);
     });
 
@@ -93,13 +93,13 @@ describe('Controller: AddCustomerPhonesDialogCtrl', function() {
         scope.newPhoneForm.$valid = true;
 
         // Add one phone
-        scope.add(scope.phone);
+        scope.addPhone(scope.phone);
 
         var phonesSize = scope.phones.length;
 
         // Try to add the same phone again
         scope.phone = angular.copy(phone);
-        scope.add(scope.phone);
+        scope.addPhone(scope.phone);
 
         var matchedPhones = $filter('filter')(scope.phones, {
             number : phone.number
@@ -127,7 +127,7 @@ describe('Controller: AddCustomerPhonesDialogCtrl', function() {
         };
         scope.phone = angular.copy(phone);
 
-        scope.add(scope.phone.number);
+        scope.addPhone(scope.phone.number);
 
         expect(ds.messageDialog).toHaveBeenCalledWith({
             title : 'Novo usuário',
