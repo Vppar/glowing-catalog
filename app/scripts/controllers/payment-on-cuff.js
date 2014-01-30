@@ -81,8 +81,8 @@
                 if ($scope.payments.length === 0) {
                     $scope.installmentQty = 1;
                     $scope.dueDate = new Date();
-                    if ($scope.total.change < 0) {
-                        $scope.amount = $scope.total.change * -1;
+                    if ($scope.totals.payments.remaining) {
+                        $scope.amount = $scope.totals.payments.remaining;
                     } else {
                         //show dialog
                         DialogService.messageDialog({

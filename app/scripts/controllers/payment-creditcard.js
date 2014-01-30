@@ -11,16 +11,12 @@
 
         $scope.orderNumber = OrderService.order.code;
 
-        function getAmount(change) {
-          return !change || change > 0 ? 0 : -change;
-        };
-
         // Initializing credit card data with a empty credit card
         var creditCard = {};
         var emptyCreditCardTemplate = {
             installment : '1 x',
             flag : null,
-            amount : getAmount($scope.total.change),
+            amount : $scope.totals.payments.remaining,
             expirationMonth : null,
             expirationyear : null,
             number : null,
