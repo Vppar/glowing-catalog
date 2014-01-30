@@ -139,7 +139,7 @@
 }
 .form-stock .details-stock-total{	
 	border-radius: 4px;
-	background: #7f7f7f;
+	background: #aaa;
 	color: #000;
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
@@ -235,7 +235,9 @@
 .form-stock .scroll-stock .title-col-1{
 	padding-right: 4px;
 }
-
+.details-stock-category .title-col-2{
+	color:#c8c8c8;
+}
 .form-stock .scroll-stock .title-col-2{
 	padding-right: 15px;
 }
