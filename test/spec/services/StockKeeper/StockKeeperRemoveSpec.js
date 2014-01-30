@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Service: StockKeeper', function() {
+describe('Service: StockKeeperRemoveSpec', function() {
 
     var jKeeper = {};
-    
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.stock');
@@ -16,7 +16,7 @@ describe('Service: StockKeeper', function() {
 
     beforeEach(function() {
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
-        
+
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
         });
@@ -26,56 +26,112 @@ describe('Service: StockKeeper', function() {
     var StockKeeper = undefined;
     var Stock = undefined;
     var JournalEntry = undefined;
-    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_) {
+    var ArrayUtils = undefined;
+    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_, _ArrayUtils_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
-        JournalEntry =_JournalEntry_;
+        JournalEntry = _JournalEntry_;
+        ArrayUtils = _ArrayUtils_;
     }));
-    
+
     /**
      * <pre>
      * @spec StockKeeper.remove#1
-     * Given a valid productId
+     * Given a valid stock
      * and a positive quantity
-     * when and add is triggered
+     * when remove is triggered
      * then a journal entry must be created
      * an the entry must be registered
      * </pre>
      */
-    it('should remove', function() {
+    it('remove stock', function() {
+        //given
+        var ev = new Stock(23, 1, null);
+        var ev1 = new Stock(12, 1, 0);
+
+        StockKeeper.handlers.stockAddV1(ev);
+        StockKeeper.handlers.stockAddV1(ev1);
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        
-        var pId = 23;
-        var qty = 1;
-        var ct = 0;
-        var ev = new Stock(pId, qty, ct);
+
         var stp = fakeNow / 1000;
-        var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev); 
+        var entry = new JournalEntry(null, stp, 'stockRemove', 1, ev);
 
-
-        expect(function() {
-            StockKeeper.add(ev);}).not.toThrow();
+        var removeCall = function() {
+            StockKeeper.remove(ev.inventoryId, ev.quantity);
+        };
+        expect(removeCall).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
-    
+
+    /**
+     * <pre>
+     * @spec StockKeeper.remove#1
+     * Given a populated list of stockable
+     * And a valid inventoryId
+     * And a positive quantity
+     * when stockRemoveV1 is triggered
+     * Then the stock must be updated removing the quantity
+     * </pre>
+     */
+    it('handler remove stock', function() {
+        //given
+        var ev = new Stock(23, 30, null);
+        var ev1 = new Stock(12, 1, 0);
+
+        StockKeeper.handlers.stockAddV1(ev);
+        StockKeeper.handlers.stockAddV1(ev1);
+        //when
+        var removeCall = function() {
+            StockKeeper.handlers.stockRemoveV1(ev);
+        };
+        //then
+        expect(removeCall).not.toThrow();
+        expect(StockKeeper.list().length).toEqual(2);
+        var stock = ArrayUtils.find(StockKeeper.list(), 'inventoryId', ev.inventoryId);
+        expect(stock.quantity).toEqual(0);
+    });
+
     /**
      * <pre>
      * @spec StockKeeper.remove#2
-     * Given a negative quantity
-     * when and add is triggered
+     * Given a invalid stock
+     * when remove is triggered
      * then an error must be raised
      * </pre>
      */
-    it('should throw error', function() {
+    it('throw error', function() {
+        var id = 13;
+        var quantity = 5;
 
-        var pId = 23;
-        var qty = -1;
-        var ct = 0;
+        var removeCall = function() {
+            StockKeeper.remove(id, quantity);
+        };
 
-        expect(function() {
-            StockKeeper.add(pId, qty, ct);}).toThrow();
+        expect(removeCall).toThrow('No stockable found with this inventoryId: ' + id);
+    });
+
+    /**
+     * <pre>
+     * @spec StockKeeper.remove#2
+     * Given a invalid stock
+     * when stockRemoveV1 is triggered
+     * then an error must be raised
+     * </pre>
+     */
+    it('handler throw error', function() {
+        var fakeStock = {
+            pId : 23,
+            qty : -1,
+            ct : 0
+        };
+
+        var removeCall = function() {
+            StockKeeper.handlers.stockRemoveV1(fakeStock);
+        };
+
+        expect(removeCall).toThrow('Entity not found, cosistency must be broken! Replay?');
     });
 
 });

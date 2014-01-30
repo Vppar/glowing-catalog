@@ -1,7 +1,7 @@
 'use strict';
 
-describe('Service: StockKeeper', function() {
-	
+describe('Service: StockKeeperFactorySpec', function() {
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.stock');
@@ -17,7 +17,7 @@ describe('Service: StockKeeper', function() {
     beforeEach(inject(function(_Stock_) {
         Stock = _Stock_;
     }));
-    
+
     it('should creat a new Stock entity', function() {
         //given
         var pId = 23;
@@ -26,22 +26,24 @@ describe('Service: StockKeeper', function() {
 
         //when
         var actual = new Stock(pId, qty, ct);
-        
+
         //then
         expect(pId).toEqual(actual.inventoryId);
         expect(qty).toEqual(actual.quantity);
         expect(ct).toEqual(actual.cost);
-     
+
     });
-    
+
     it('should throw error', function() {
         //given
         var pId = 23;
         var qty = -1;
-        
+
         //then
-        expect(function(){new Stock(pId, qty);}).toThrow();
-     
+        expect(function() {
+            new Stock(pId, qty);
+        }).toThrow();
+
     });
-    
+
 });
