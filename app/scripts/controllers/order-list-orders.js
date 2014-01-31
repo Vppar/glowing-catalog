@@ -10,6 +10,8 @@
 
         // $scope.filteredOrders come from OrderListCtrl
         $scope.filteredOrders = angular.copy(orders);
+        
+        $scope.updateOrdersTotal = updateOrdersTotal;
 
         $scope.selectOrder = function selectOrder(order) {
             updateOrdersTotal(order);
