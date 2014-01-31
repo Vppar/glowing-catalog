@@ -1,6 +1,5 @@
-'use strict';
-
-describe('Service: CoinKeeper.cancel', function() {
+// FIXME - This whole test suit needs review
+xdescribe('Service: CoinKeeperCancelScenario', function() {
 
     beforeEach(function() {
         module('tnt.catalog.coin.keeper');
