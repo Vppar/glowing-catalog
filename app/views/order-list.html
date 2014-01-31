@@ -119,7 +119,7 @@
 	
         <div ng-switch="ol">
     		<!--Pedidos-->
-    		<div class="order-list-grid-pedidos" ng-switch-when="orders">
+    		<div class="order-list-grid-pedidos" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
     			<div class="row-fluid">
     				<div class="grid-order-list">
     					<div class="header">
@@ -173,7 +173,7 @@
     				<br/>			
     			</div>
     		<!--Clientes-->
-    		<div class="order-list-grid-clientes" ng-switch-when="customers">
+    		<div class="order-list-grid-clientes" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
     			<div class="row-fluid">
     				<div class="grid-order-list">
     					<div class="header">
@@ -200,12 +200,12 @@
     					</div>
     					<div class="scroll-order-list">
     						<div class="row-order-list hover-state-pointer" 
-    								ng-repeat="consol in consolidateOrdersByClient | orderBy: '-totalAmount'">
+    								ng-repeat="consol in ordersByCLientList | orderBy: '-totalAmount'">
     							<div class="col-1">
     								<span>{{$index+1}}</span>
     							</div>
     							<div class="col-2">
-    								<span>{{consol.name}}</span>
+    								<span>{{consol.name| truncate: 50}}</span>
     							</div>
     							<div class="col-3">
     								<span>{{consol.lastOrder | date:'dd/MM/yyyy'}}</span>
@@ -214,10 +214,10 @@
     								<span>{{consol.totalQuantity}}</span>
     							</div>
     							<div class="col-5">
-    								<span>{{consol.averagePrice | currency:''}}</span>
+    								<span>{{consol.averagePrice | currency:'R$'}}</span>
     							</div>
     							<div class="col-6">
-    								<span>{{consol.totalAmount | currency:''}}</span>
+    								<span>{{consol.totalAmount | currency:'R$'}}</span>
     							</div>
     						</div>
     					</div>
@@ -227,7 +227,7 @@
     		</div>
     	
     		<!--Produtos-->
-    		<div class="order-list-grid-produtos" ng-switch-when="products">
+    		<div class="order-list-grid-produtos" ng-switch-when="products" ng-controller="OrderListProductsCtrl">
     			<div class="row-fluid">
     				<div class="grid-order-list">
     					<div class="header">
