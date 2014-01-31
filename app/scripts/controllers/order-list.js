@@ -7,7 +7,6 @@
         // FIXME - Mocks, created for test purposes while the
         // OrderService dosn't work.
         var entities = DataProvider.customers;
-        console.log(entities);
         // #############################################################################################################
         // Warming up the controller
         // #############################################################################################################
