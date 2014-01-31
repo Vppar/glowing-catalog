@@ -7,7 +7,7 @@
             .controller(
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                            ReceivableService, SMSService, KeyboardService, InventoryKeeper, CashPayment) {
+                            ReceivableService,ProductReturnService, SMSService, KeyboardService, InventoryKeeper, CashPayment) {
 
                         // #############################################################################################
                         // Controller warm up
@@ -359,13 +359,11 @@
                             }, propagateRejectedPromise);
 
                             // // Register product exchange
-                            // var savedExchangesPromise =
-                            // savedOrderPromise.then(function(orderUuid) {
-                            // var exchanges = PaymentService.list('exchange');
-                            // return
-                            // ProductReturnService.bulkRegister(exchanges,
-                            // customer, orderUuid);
-                            // }, propagateRejectedPromise);
+                             var savedExchangesPromise = savedOrderPromise.then(function(orderUuid) {
+                                 var exchanges = PaymentService.list('exchange');
+                                 return ProductReturnService.bulkRegister(exchanges, customer, orderUuid);
+                             }, propagateRejectedPromise);
+                             
                             //
                             // // Register voucher/coupons use
                             // var savedVouchersPromise =
@@ -388,13 +386,15 @@
                             // savedVouchersPromise, savedCouponsPromise
                             //                            ]);
                             var savedSale = $q.all([
-                                savedReceivablesPromise, savedCouponsPromise
+                                savedReceivablesPromise, savedCouponsPromise, savedExchangesPromise
                             ]);
 
                             // clear all
                             var paymentDonePromise = savedSale.then(function() {
                                 $log.debug('Receivables created');
                                 $log.debug(ReceivableService.list());
+                                $log.debug('ProductReturns created ');
+                                $log.debug(ProductReturnService.list());
                                 OrderService.clear();
                                 PaymentService.clearAllPayments();
                                 PaymentService.clearPersistedCoupons();
