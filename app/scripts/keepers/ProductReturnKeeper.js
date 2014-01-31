@@ -34,7 +34,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'ProductReturn must be initialized with id, productId, quantity and cost';
+                    throw 'ProductReturn must be initialized with id, productId, documentId, quantity and cost';
                 }
             } else {
                 this.id = id;
