@@ -51,7 +51,6 @@
                 }
                 var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
                 for ( var ix in exchangedProducts) {
-                    console.log('Teste');
                     var exchanged = exchangedProducts[ix];
                     $scope.total['exchange'].amount += (exchanged.cost * exchanged.quantity);
                     $scope.total.all.amount += exchanged.cost;

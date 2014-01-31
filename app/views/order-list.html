@@ -253,27 +253,28 @@
     						</div>
     					</div>
     					<div class="scroll-order-list">
-    						<div class="row-order-list hover-state-pointer">
-    							<div class="col-1">
-    								<span></span>
-    							</div>
-    							<div class="col-2">
-    							<div>Creme de Limpeza 3 em 1 - 127g</div>
-    							<div class="comment">10-042751 - Pele Normal/Seca</div>
-    							</div>
-    							<div class="col-3">
-    								<span></span>
-    							</div> 
-    							<div class="col-4">
-    								<span>4</span>
-    							</div>
-    							<div class="col-5">
-    								<span>235,25</span>
-    							</div>
-    							<div class="col-6">
-    								<span>941,00</span>
-    							</div>
-    						</div>
+    						<div class="row-order-list hover-state-pointer" 
+    								ng-repeat="product in products | orderBy:'-priceTotal' ">
+    								<div class="col-1">
+   										<span>{{$index + 1}}</span>
+    								</div>
+								    <div class="col-2">
+								    	<div>{{product.title}}</div>
+								    	<div class="comment">{{product.uniqueName}}</div>
+								    </div>
+								    	<div class="col-3">
+								    <span></span>
+								    </div> 
+								    <div class="col-4">
+								    	<span>{{product.qty}}</span>
+								    </div>
+								    <div class="col-5">
+								    	<span>{{product.price | currency:'R$'}}</span>
+								    </div>
+								    <div class="col-6">
+								    	<span>{{product.priceTotal | currency:'R$'}}</span>
+								    </div>
+							</div>
     					</div>
     				</div>				
     				<br/>			

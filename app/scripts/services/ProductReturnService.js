@@ -29,7 +29,6 @@
                 };
                 
                 var bulkRegister = function(exchanges, entity, document) {
-                    console.log(document);
                     var exchangesPromises = [];
                     for ( var ix in exchanges) {
                         var exchange = exchanges[ix];
