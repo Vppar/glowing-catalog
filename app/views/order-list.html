@@ -29,10 +29,8 @@
 				
 		</div>		
 	
-		
 		<div class="row-fluid">		
 			<div class="details-order-list-item">
-				
 				<div class="col-details-order-list-item">	
 					<div class="margintn5">
 					<!-- DATE INTERVAL -->					
@@ -121,7 +119,7 @@
 	
         <div ng-switch="ol">
     		<!--Pedidos-->
-    		<div class="order-list-grid-pedidos" ng-switch-when="orders">
+    		<div class="order-list-grid-pedidos" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
     			<div class="row-fluid">
     				<div class="grid-order-list">
     					<div class="header">
@@ -175,7 +173,7 @@
     				<br/>			
     			</div>
     		<!--Clientes-->
-    		<div class="order-list-grid-clientes" ng-switch-when="customers">
+    		<div class="order-list-grid-clientes" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
     			<div class="row-fluid">
     				<div class="grid-order-list">
     					<div class="header">
@@ -201,24 +199,25 @@
     						</div>
     					</div>
     					<div class="scroll-order-list">
-    						<div class="row-order-list hover-state-pointer">
+    						<div class="row-order-list hover-state-pointer" 
+    								ng-repeat="consol in ordersByCLientList | orderBy: '-totalAmount'">
     							<div class="col-1">
-    								<span>1</span>
+    								<span>{{$index+1}}</span>
     							</div>
     							<div class="col-2">
-    								<span>Valtanette De Paula</span>
+    								<span>{{consol.name| truncate: 50}}</span>
     							</div>
     							<div class="col-3">
-    								<span>12/01/14</span>
+    								<span>{{consol.lastOrder | date:'dd/MM/yyyy'}}</span>
     							</div> 
     							<div class="col-4">
-    								<span>4</span>
+    								<span>{{consol.totalQuantity}}</span>
     							</div>
     							<div class="col-5">
-    								<span>235,25</span>
+    								<span>{{consol.averagePrice | currency:'R$'}}</span>
     							</div>
     							<div class="col-6">
-    								<span>941,00</span>
+    								<span>{{consol.totalAmount | currency:'R$'}}</span>
     							</div>
     						</div>
     					</div>
@@ -228,7 +227,7 @@
     		</div>
     	
     		<!--Produtos-->
-    		<div class="order-list-grid-produtos" ng-switch-when="products">
+    		<div class="order-list-grid-produtos" ng-switch-when="products" ng-controller="OrderListProductsCtrl">
     			<div class="row-fluid">
     				<div class="grid-order-list">
     					<div class="header">
