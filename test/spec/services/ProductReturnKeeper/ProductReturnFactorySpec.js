@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: ProductReturnKeeper', function() {
+describe('Service: ProductReturnFactorySpec', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -25,7 +25,7 @@ describe('Service: ProductReturnKeeper', function() {
         var qty = 1;
         var ct = 5;
         var expectedArray = {
-            devolutionId : devId,
+            id : devId,
             productId : pId,
             quantity : qty,
             cost : ct
