@@ -53,36 +53,39 @@
             'tnt.catalog.voucher.keeper',
             [
                 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.voucher.entity',
-                'tnt.catalog.journal.keeper'
-            ]).service('VoucherKeeper', function VoucherKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher) {
+                'tnt.catalog.journal.keeper', 'tnt.identity'
+            ]).service('VoucherKeeper', function VoucherKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher, IdentityService) {
 
+        var type = 6;
         var currentEventVersion = 1;
+        var currentCounter = 0;
         var voucher = {
             voucher : [],
             coupon : [],
             giftCard : []
         };
+
         this.handlers = {};
+
+        function getNextId(){
+            return ++currentCounter;
+        }
+
 
         /**
          * EventHandler of Create.
          */
         ObjectUtils.ro(this.handlers, 'voucherCreateV1', function(event) {
-            var entry = ArrayUtils.find(voucher[event.type], 'id', event.id);
-            if (entry === null) {
-
-                event = angular.copy(event);
-                event.id = voucher[event.type].length;
-
-                var v = new Voucher(event);
-
-                voucher[event.type].push(v);
-
-            } else {
-                throw 'Somehow, we got a repeated voucher!?!?';
+            var eventData = IdentityService.getUUIDData(event.id);
+          
+            if(eventData.deviceId === IdentityService.deviceId){
+                currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
-
-            return v.id;
+            
+            event = new Voucher(event);
+            voucher[event.type].push(event);
+            
+            return event.id;
         });
 
         /**
@@ -97,6 +100,7 @@
                 entry.canceled = event.canceled;
             }
 
+            return event.id;
         });
 
         /**
@@ -111,6 +115,8 @@
             } else {
                 entry.redeemed = event.redeemed;
             }
+
+            return event.id;
         });
 
         /**
@@ -130,7 +136,7 @@
             }
 
             var voucherObj = angular.copy(newVoucher);
-            voucherObj.id = ArrayUtils.generateUUID();
+            voucherObj.id = IdentityService.getUUID(type, getNextId());
             voucherObj.created = new Date().getTime();
 
             var event = new Voucher(voucherObj);
@@ -139,7 +145,7 @@
             var entry = new JournalEntry(null, voucherObj.created, 'voucherCreate', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         /**
@@ -159,7 +165,7 @@
             var entry = new JournalEntry(null, event.canceled, 'voucherCancel', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         /**
@@ -173,13 +179,13 @@
             }
 
             var event = new Voucher(id, null, type, null);
-            event.redeemed = (new Date()).getTime();
+            event.redeemed = vouch.redeemed = (new Date()).getTime();
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.redeemed, 'voucherRedeem', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         /**
@@ -188,6 +194,9 @@
         this.list = function(type) {
             return angular.copy(voucher[type]);
         };
+
+
+
 
     });
 

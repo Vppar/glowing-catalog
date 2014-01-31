@@ -7,7 +7,7 @@
                 'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper', 'tnt.catalog.payment.service', 'tnt.catalog.payment.entity',
                 'tnt.utils.array'
             ]).controller(
-            'PaymentDiscountCtrl', function($scope, Voucher, VoucherKeeper, PaymentService, CouponPayment, ArrayUtils, OrderService) {
+            'PaymentDiscountCtrl', function($scope, $filter, Voucher, VoucherKeeper, PaymentService, CouponPayment, ArrayUtils, OrderService) {
 
                 // #############################################################################################
                 // Scope variables
@@ -94,9 +94,13 @@
                 }
 
                 function updateEntityDiscounts() {
-                    $scope.discounts.voucher = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', $scope.order.customerId);
-                    $scope.discounts.giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', $scope.order.customerId);
-                    $scope.discounts.coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', $scope.order.customerId);
+                    var voucher = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', $scope.order.customerId);
+                    var giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', $scope.order.customerId);
+                    var coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', $scope.order.customerId);
+
+                    $scope.discounts.voucher = $filter('filter')(voucher, canceledOrRedeemedFilter);
+                    $scope.discounts.giftCard = $filter('filter')(giftCard, canceledOrRedeemedFilter);
+                    $scope.discounts.coupon = $filter('filter')(coupon, canceledOrRedeemedFilter);
 
                     // Iterate through all discounts lists
                     for ( var ix in $scope.discounts) {
@@ -117,6 +121,10 @@
                         }
                     }
 
+                }
+
+                function canceledOrRedeemedFilter(voucher) {
+                    return !voucher.canceled && !voucher.redeemed;
                 }
 
                 // #############################################################################################
