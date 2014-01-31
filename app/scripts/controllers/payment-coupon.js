@@ -7,11 +7,12 @@
                 'tnt.catalog.service.coupon',
                 'tnt.catalog.service.dialog',
                 'tnt.utils.array',
-                'tnt.catalog.payment.service'
+                'tnt.catalog.payment.service',
+                'tnt.catalog.entity.service'
             ])
             .controller(
                     'PaymentCouponCtrl',
-                    function($filter, $scope, $log, CouponService, DialogService, ArrayUtils, DataProvider, OrderService, PaymentService) {
+                    function($filter, $scope, $log, CouponService, DialogService, ArrayUtils, OrderService, PaymentService, EntityService) {
 
                         // #####################################################################################################
                         // Warm up the controller
@@ -228,7 +229,7 @@
 
                         $scope.openDialogChooseCustomerGift = function() {
                             DialogService.openDialogChooseCustomer().then(function(id) {
-                                $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', id);
+                                $scope.gift.customer = $filter('findBy')(EntityService.list(), 'uuid', id);
                             });
                         };
 
