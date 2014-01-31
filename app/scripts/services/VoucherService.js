@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.voucher.service', [
         'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper', 'tnt.catalog.entity.service', 'tnt.utils.array'
-    ]).service('VoucherService', function VoucherService($log, Voucher, VoucherKeeper, EntityService, ArrayUtils) {
+    ]).service('VoucherService', function VoucherService($q, $log, Voucher, VoucherKeeper, EntityService, ArrayUtils) {
 
         var voucherType = 'voucher';
 
@@ -174,6 +174,7 @@
         this.bulkRegister = bulkRegister;
         this.cancel = cancel;
         this.create = create;
+        this.redeem = redeem;
 
     });
 })(angular);
