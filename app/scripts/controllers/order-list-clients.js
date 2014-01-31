@@ -11,7 +11,9 @@
                 var orders = $scope.orders;
 
                 $scope.ordersByCLientList = [];
-
+                
+                $scope.updateOrdersTotal = updateOrdersTotal;
+                
                 $scope.selectOrder = function selectOrder(consol) {
                     updateOrdersTotal(consol);
                 };
