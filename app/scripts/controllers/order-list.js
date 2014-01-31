@@ -46,38 +46,31 @@
                 amount : 0
             }
         };
+        
+        $scope.dateFilter = {
+                dtInitial : '',
+                dtFinal : ''
+            };
+        
         $scope.total = {};
 
         $scope.filteredOrders = angular.copy(orders);
-        $scope.dateFilter = {
-            dtInitial : '',
-            dtFinal : ''
-        };
-
-        /**
-         * Opens partial delivery Screen
-         */
-        $scope.openPartialDelivery = function openPartialDelivery(order) {
-            $location.path('/partial-delivery').search({
-                id : order.id
-            });
-        };
 
         $scope.selectOrder = function selectOrder(order) {
             updateOrdersTotal(order);
         };
 
-        for ( var ix in orders) {
-            var order = orders[ix];
+        for ( var ix in $scope.filteredOrders) {
+            var order = $scope.filteredOrders[ix];
             // Find the entity name
             order.entityName = ArrayUtils.find(entities, 'id', order.customerId).name;
 
             var qtyTotal = $filter('sum')(order.items, 'qty');
             var amountTotal = $filter('sum')(order.items, 'price', 'qty');
+            
             order.itemsQty = qtyTotal;
             order.avgPrice = (amountTotal) / (qtyTotal);
             order.amountTotal = amountTotal;
-
         }
 
         // #############################################################################################################

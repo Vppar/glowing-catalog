@@ -344,7 +344,6 @@
                         /**
                          * Saves the payments and closes the order.
                          */
-                        // FIXME - This method do nothing right.
                         function makePayment(result) {
                             if (!result) {
                                 main();
@@ -358,6 +357,7 @@
                                 var receivables = PaymentService.getReceivables();
                                 return ReceivableService.bulkRegister(receivables, customer, orderUuid);
                             }, propagateRejectedPromise);
+                            
                             // Generate coupons
                             var savedCouponsPromise = savedOrderPromise.then(function(orderUuid) {
                                 return PaymentService.createCoupons(customer, orderUuid);
