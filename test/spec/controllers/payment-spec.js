@@ -109,11 +109,13 @@ describe('Controller: PaymentCtrl', function() {
         vs.bulkRegister = jasmine.createSpy('VoucherService.bulkRegister');
         vs.list = jasmine.createSpy('VoucherService.list');
 
+		// EntityService Mock
+        es.list = jasmine.createSpy('EntityService.list').andReturn([{uuid: 1, name: 'Robert Downey Jr.'}]);
+        
         // SMSService mock
         sms.sendPaymentConfirmation =
                 jasmine.createSpy('SMSService.sendPaymentConfirmation')
-                        .andReturn(angular.copy(sampleData.smsSendPaymentConfirmationReturn));
-        es.list = jasmine.createSpy('EntityService.list').andReturn([{uuid: 1, name: 'Robert Downey Jr.'}]);
+                        .andReturn(angular.copy(sampleData.smsSendPaymentConfirmationReturn));                
         $q = _$q_;
         $timeout = _$timeout_;
         // Injecting into the controller
@@ -199,7 +201,6 @@ describe('Controller: PaymentCtrl', function() {
         // Propagate promise resolution to 'then' functions using $apply()
         scope.$apply();
         
-        // console.log(es.list());
         expect(ds.openDialogChooseCustomer).toHaveBeenCalled(); 
         expect(os.order.items[0].uniqueName).toBe('Robert Downey Jr.');
     }));
