@@ -30,4 +30,12 @@ describe('Service: PaymentServicePersistCouponQuantity', function() {
       PaymentService.persistCouponQuantity(amount, qty);
       expect(PaymentService.persistedCoupons[10]).toBe(5);
     });
+
+    it('removes entry from persistedCoupons if qty is set to 0', function () {
+      PaymentService.persistCouponQuantity(10, 5);
+      expect(PaymentService.persistedCoupons).toEqual({10 : 5});
+      PaymentService.persistCouponQuantity(10, 0);
+      expect(PaymentService.persistedCoupons).toEqual({});
+      expect(PaymentService.persistedCoupons).not.toEqual({10 : 0});
+    });
 });

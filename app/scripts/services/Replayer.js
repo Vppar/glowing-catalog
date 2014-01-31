@@ -66,7 +66,7 @@
         this.replay = function(entry) {
             if (entry instanceof JournalEntry) {
                 if (angular.isFunction(eventHandlers[entry.type + 'V' + entry.version])) {
-                    eventHandlers[entry.type + 'V' + entry.version](entry.event);
+                    return eventHandlers[entry.type + 'V' + entry.version](entry.event);
                 } else {
                     throw 'We have no register of a proper handler for ' + entry.type + ' version ' + entry.version;
                 }

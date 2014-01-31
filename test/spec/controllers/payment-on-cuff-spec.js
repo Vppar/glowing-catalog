@@ -31,16 +31,16 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         PaymentService.list = jasmine.createSpy('PaymentService.list').andReturn(payments);
         PaymentService.clear = jasmine.createSpy('PaymentService.clear');
         scope.selectPaymentMethod = jasmine.createSpy(scope.selectPaymentMethod);
-        
-        //mock the DialogSevice.messageDialog beahavior. 
-        //TODO not sure about scope.selectPaymentMethod('none'); call 
+
+        // mock the DialogSevice.messageDialog beahavior.
+        // TODO not sure about scope.selectPaymentMethod('none'); call
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function(input) {
             var defer = $q.defer();
             defer.resolve();
             scope.selectPaymentMethod('none');
             return defer.promise;
         });
-        
+
         $q = _$q_;
         // reproduce the scope inheritance
         $controller('PaymentOnCuffCtrl', {
@@ -64,7 +64,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         scope.payments = [];
         scope.computeInstallments();
 
-        var expectedDate = scope.dueDate;
+        var expectedDate = new Date(scope.dueDate.getFullYear(), scope.dueDate.getMonth() + 1,0);
 
         expect(scope.payments.length).toEqual(1);
         expect(scope.payments[0].amount).toEqual(scope.amount);
@@ -81,6 +81,15 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         scope.dueDate = new Date();
         scope.installmentQty = 6;
 
+        function addMonths(refDate, increase) {
+            var baseDate = angular.copy(refDate);
+            var date = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1 + increase, 0);
+            if (date.getDate() > baseDate.getDate()) {
+                date = new Date(baseDate.setMonth(baseDate.getMonth() + increase));
+            }
+            return date;
+        }
+
         var expectedInstallment1 = 83.33;
         var expectedInstallment2 = 83.33;
         var expectedInstallment3 = 83.33;
@@ -88,35 +97,37 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         var expectedInstallment5 = 83.33;
         var expectedInstallment6 = 83.35;
 
-        var oneMonthAhead = new Date(new Date(scope.dueDate).setMonth(scope.dueDate.getMonth() + 1));
-        var twoeMonthAhead = new Date(new Date(oneMonthAhead).setMonth(oneMonthAhead.getMonth() + 1));
-        var threeMonthAhead = new Date(new Date(twoeMonthAhead).setMonth(twoeMonthAhead.getMonth() + 1));
-        var fourMonthAhead = new Date(new Date(threeMonthAhead).setMonth(threeMonthAhead.getMonth() + 1));
-        var fiveMonthAhead = new Date(new Date(fourMonthAhead).setMonth(fourMonthAhead.getMonth() + 1));
-
+        var currentMonth = new Date(scope.dueDate.getFullYear(), scope.dueDate.getMonth() + 1,0);
+        var oneMonthAhead = addMonths(scope.dueDate, 1);
+        var twoeMonthAhead = addMonths(scope.dueDate, 2);
+        var threeMonthAhead = addMonths(scope.dueDate, 3);
+        var fourMonthAhead = addMonths(scope.dueDate, 4);
+        var fiveMonthAhead = addMonths(scope.dueDate, 5);
+        
         scope.payments = [];
 
         scope.computeInstallments();
 
         expect(scope.payments.length).toEqual(6);
 
+
         expect(scope.payments[0].amount).toEqual(expectedInstallment1);
-        expect(scope.payments[0].dueDate).toEqual(scope.dueDate.getTime());
+        expect(scope.payments[0].dueDate.getTime()).toEqual(currentMonth.getTime());
 
         expect(scope.payments[1].amount).toEqual(expectedInstallment2);
-        expect(scope.payments[1].dueDate).toEqual(oneMonthAhead.getTime());
+        expect(scope.payments[1].dueDate.getTime()).toEqual(oneMonthAhead.getTime());
 
         expect(scope.payments[2].amount).toEqual(expectedInstallment3);
-        expect(scope.payments[2].dueDate).toEqual(twoeMonthAhead.getTime());
+        expect(scope.payments[2].dueDate.getTime()).toEqual(twoeMonthAhead.getTime());
 
         expect(scope.payments[3].amount).toEqual(expectedInstallment4);
-        expect(scope.payments[3].dueDate).toEqual(threeMonthAhead.getTime());
+        expect(scope.payments[3].dueDate.getTime()).toEqual(threeMonthAhead.getTime());
 
         expect(scope.payments[4].amount).toEqual(expectedInstallment5);
-        expect(scope.payments[4].dueDate).toEqual(fourMonthAhead.getTime());
+        expect(scope.payments[4].dueDate.getTime()).toEqual(fourMonthAhead.getTime());
 
         expect(scope.payments[5].amount).toEqual(expectedInstallment6);
-        expect(scope.payments[5].dueDate).toEqual(fiveMonthAhead.getTime());
+        expect(scope.payments[5].dueDate.getTime()).toEqual(fiveMonthAhead.getTime());
 
     });
 
@@ -156,7 +167,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
             btnYes : 'OK'
         });
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
-        
+
     });
 
 });

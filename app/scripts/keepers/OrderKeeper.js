@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.order.entity', []).factory('Order', function Order() {
 
-        var service = function svc(id, code, date, canceled, customerId, items) {
+        var service = function svc(uuid, code, date, canceled, customerId, items) {
 
             var validProperties = [
-                'id', 'code', 'date', 'canceled', 'customerId', 'items'
+                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'items'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -25,17 +25,17 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Order must be initialized with id, code, date, canceled, customerId, items';
+                    throw 'Order must be initialized with uuid, code, date, canceled, customerId, items';
                 }
             } else {
-                this.id = id;
+                this.uuid = uuid;
                 this.code = code;
                 this.date = date;
                 this.canceled = canceled;
                 this.customerId = customerId;
                 this.items = items;
             }
-            ObjectUtils.ro(this, 'id', this.id);
+            ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'code', this.code);
             ObjectUtils.ro(this, 'date', this.date);
             ObjectUtils.ro(this, 'customerId', this.customerId);
@@ -45,59 +45,90 @@
         return service;
     });
 
-    angular.module('tnt.catalog.order.keeper', [
-        'tnt.utils.array', 'tnt.catalog.order.entity', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 
-        'tnt.catalog.journal.keeper'
-    ]).service('OrderKeeper', function OrderKeeper(ArrayUtils, Order, JournalKeeper, JournalEntry, Replayer) {
+    angular.module(
+            'tnt.catalog.order.keeper',
+            [
+                'tnt.utils.array', 'tnt.catalog.order.entity', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer',
+                'tnt.catalog.journal.keeper', 'tnt.identity'
+            ]).config(function($provide) {
+        $provide.decorator('$q', function($delegate) {
+            $delegate.reject = function(reason) {
+                var deferred = $delegate.defer();
+                deferred.reject(reason);
+                return deferred.promise;
+            };
+            return $delegate;
+        });
+    }).service('OrderKeeper', function OrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, Order) {
 
+        var type = 2;
         var currentEventVersion = 1;
+        var currentCounter = 0;
         var orders = [];
         this.handlers = {};
+
+        function getNextId() {
+            return ++currentCounter;
+        }
 
         /**
          * Registering handlers
          */
         ObjectUtils.ro(this.handlers, 'orderAddV1', function(event) {
-            var orderEntry = new Order(event);
-            orders.push(orderEntry);
+            var eventData = IdentityService.getUUIDData(event.uuid);
+
+            if (eventData.deviceId === IdentityService.deviceId) {
+                currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
+            }
+
+            event = new Order(event);
+            orders.push(event);
+
+            return event.uuid;
         });
-       
+
         ObjectUtils.ro(this.handlers, 'orderCancelV1', function(event) {
-            var orderEntry = ArrayUtils.find(orders, 'id', event.id);
+            var orderEntry = ArrayUtils.find(orders, 'uuid', event.id);
             if (orderEntry) {
                 orderEntry.canceled = event.canceled;
             } else {
-                throw 'Unable to find an order with id=\'' + event.id + '\'';
+                throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
         });
-        
+
         /**
          * Registering the handlers with the Replayer
          */
         Replayer.registerHandlers(this.handlers);
-        
-        
+
         /**
          * Adds an order
          */
 
         var add = function add(order) {
             if (!(order instanceof Order)) {
-                throw 'Wrong instance to OrderKeeper';
+                return $q.reject('Wrong instance to OrderKeeper');
             }
-            
-            var orderObj = angular.copy(order); 
-            // FIXME - use UUID
-            orderObj.id = orders.length + 1;
-            
-            var newOrder = new Order(orderObj);
+            var orderObj = angular.copy(order);
 
-            var stamp = (new Date()).getTime() / 1000;
+            var now = new Date();
+
+            orderObj.created = now.getTime();
+            orderObj.uuid = IdentityService.getUUID(type, getNextId());
+            var uuidData = IdentityService.getUUIDData(orderObj.uuid);
+
+            // build order code base in its uuid
+            var strDeviceId = IdentityService.leftPad(uuidData.deviceId, 2);
+            var strId = IdentityService.leftPad(uuidData.id, 4);
+            orderObj.code = strDeviceId + '-' + strId + '-' + String(now.getFullYear()).substring(2);
+
+            var event = new Order(orderObj);
+
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'orderAdd', currentEventVersion, newOrder);
+            var entry = new JournalEntry(null, event.created, 'orderAdd', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         /**
@@ -110,30 +141,27 @@
         /**
          * Read an order
          */
-        var read = function read(id) {
-            return angular.copy(ArrayUtils.find(orders, 'id', id));
+        var read = function read(uuid) {
+            return angular.copy(ArrayUtils.find(orders, 'uuid', uuid));
         };
 
         /**
          * Cancel an order
          */
-        var cancel = function cancel(id) {
-            var orderEntry = ArrayUtils.find(orders, 'id', id);
-            if (!orderEntry) {
-                throw 'Unable to find an order with id=\'' + id + '\'';
+        var cancel = function cancel(uuid) {
+            var order = ArrayUtils.find(orders, 'uuid', uuid);
+            if (!order) {
+                throw 'Unable to find an order with uuid=\'' + uuid + '\'';
             }
-            var time = (new Date()).getTime();
-            var stamp = time / 1000;
             var cancelEv = {
-                id : id,
-                canceled : time
+                uuid : order.uuid,
+                canceled : new Date().getTime()
             };
-
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'orderCancel', currentEventVersion, cancelEv);
+            var entry = new JournalEntry(null, cancelEv.canceled, 'orderCancel', currentEventVersion, cancelEv);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         this.add = add;
@@ -144,6 +172,8 @@
     });
     angular.module('tnt.catalog.order', [
         'tnt.catalog.order.entity', 'tnt.catalog.order.keeper'
-    ]);
+    ]).run(function(OrderKeeper) {
+        // Warming up OrderKeeper
+    });
 
 }(angular));

@@ -1,3 +1,4 @@
+// FIXME - This whole test suit needs review
 describe('Service: PaymentServiceAdd', function() {
 
     // load the service's module
@@ -89,6 +90,7 @@ describe('Service: PaymentServiceAdd', function() {
 
     it('should add a credit card payment', function() {
         // given
+        var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
         var amount = 123;
         var flag = 'my own flag';
         var ccNumber = '4567890';
@@ -97,7 +99,7 @@ describe('Service: PaymentServiceAdd', function() {
         var cvv = 123;
         var cpf = 1234567890;
         var installments = 1;
-        var payment = new CreditCardPayment(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments);
+        var payment = new CreditCardPayment(uuid, amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments);
 
         // when
         var addCall = function() {

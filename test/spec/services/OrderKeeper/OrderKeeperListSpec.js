@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: OrderKeeperListExpense', function() {
+describe('Service: OrderKeeperListSpec', function() {
 
     var OrderKeeper = null;
 
@@ -20,15 +20,14 @@ describe('Service: OrderKeeperListExpense', function() {
 
     /**
      * <pre>
-     * Givena filled OrderKeeper     
-     * When list is triggered
+     * GivenafilledOrderKeeperWhenlistis triggered
      * Then the target order should be returned
      * </pre>
      */
     it('should return a list of orders', function() {
         // given
         var myOrder = {
-            id : 1,
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
             code : 12,
             date : new Date(),
             customerId : 1,
@@ -36,7 +35,7 @@ describe('Service: OrderKeeperListExpense', function() {
         };
 
         var yourOrder = {
-            id : 2,
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000002',
             code : 13,
             date : new Date(),
             customerId : 2,
@@ -50,16 +49,15 @@ describe('Service: OrderKeeperListExpense', function() {
         var orders = OrderKeeper.list();
 
         // then
-        expect(myOrder.id).toEqual(orders[0].id);
+        expect(myOrder.uuid).toEqual(orders[0].uuid);
         expect(myOrder.customerId).toEqual(orders[0].customerId);
-        expect(yourOrder.id).toEqual(orders[1].id);
+        expect(yourOrder.uuid).toEqual(orders[1].uuid);
         expect(yourOrder.customerId).toEqual(orders[1].customerId);
     });
 
     /**
      * <pre>
-     * Givenanempty OrderKeeper    
-     * When an list is triggered
+     * GivenanemptyOrderKeeperWhenanlistis triggered
      * Then an empty array must be returned
      * </pre>
      */

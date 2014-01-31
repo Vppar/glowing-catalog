@@ -1,0 +1,76 @@
+describe('Service: EntityServiceAddSpec', function() {
+
+    var log = {};
+    var fakeNow = 1386444467895;
+    var EntityKeeper = {};
+
+    // load the service's module
+    beforeEach(function() {
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
+        log.debug = jasmine.createSpy('log.debug');
+
+        module('tnt.catalog.entity.service');
+        module(function($provide) {
+            $provide.value('$log', log);
+            $provide.value('EntityKeeper', EntityKeeper);
+        });
+    });
+    beforeEach(inject(function(_Entity_, _EntityService_) {
+        Entity = _Entity_;
+        EntityService = _EntityService_;
+    }));
+
+    it('should create a entity instance', function() {
+        // given
+        EntityKeeper.create = jasmine.createSpy('EntityKeeper.create');
+        EntityService.isValid = jasmine.createSpy('EntityService.isValid').andReturn([]);
+        
+        var entity = {
+                name : 'cassiano',
+                emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
+                birthDate : '16/09/1981',
+                phones : [{ddd: 41, phone: 96491686},{ddd: 41, phone: 30875341}],
+                cep : '8157170',
+                document : '1234567890',
+                addresses : [{street: 'rua', number: 555}, {street:'rua', number: 556}],
+                remarks : 'bad client',
+                uuid : undefined
+        };
+        
+
+        // when
+        var result = EntityService.create(entity);
+
+        // then
+        expect(EntityKeeper.create).toHaveBeenCalledWith(new Entity(entity));
+        expect(result).toBe(undefined);
+    });
+  
+    it('shouldn\'t create a entity instance', function() {
+        // given
+        EntityService.isValid = jasmine.createSpy('EntityService.isValid').andReturn([]);
+        EntityKeeper.create = jasmine.createSpy('EntityKeeper.create').andCallFake(function() {
+            throw 'my exception';
+        });
+        var entity = {
+                id : 1,
+                name : 'cassiano',
+                emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
+                birthDate : '16/09/1981',
+                phones : [{ddd: 41, phone: 96491686},{ddd: 41, phone: 30875341}],
+                cep : '8157170',
+                document : '1234567890',
+                addresses : [{street: 'rua', number: 555}, {street: 'rua', number: 556}],
+                remarks : 'bad client'
+        };
+        // when
+        var createCall = function() {
+            EntityService.create(entity);
+        };
+
+        // then
+        expect(createCall).toThrow();
+    });
+
+});

@@ -12,7 +12,7 @@ describe('Service: ExpenseServiceisValid', function() {
 
         module('tnt.catalog.service.expense');
         module('tnt.catalog.expense.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.keeper');
 

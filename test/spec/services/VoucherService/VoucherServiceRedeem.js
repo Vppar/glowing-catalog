@@ -1,12 +1,17 @@
 'use strict';
 
 describe('Service: Voucherservice', function() {
-
+    var vKeeper = {};
+    var EntityService = {};
+    
     // load the service's module
     beforeEach(function() {
+        module('tnt.utils.array');
         module('tnt.catalog.voucher.service');
+        module(function($provide) {
+            $provide.value('EntityService', EntityService);
+        });
     });
-    var vKeeper = {};
     // SPY
     beforeEach(function() {
         vKeeper.redeem = jasmine.createSpy('VoucherKeeper.redeem');

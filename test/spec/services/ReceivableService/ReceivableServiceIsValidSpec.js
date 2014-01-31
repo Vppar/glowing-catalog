@@ -12,7 +12,7 @@ describe('Service: ReceivableServiceisValid', function() {
 
         module('tnt.catalog.receivable.service');
         module('tnt.catalog.receivable.entity');
-        module('tnt.catalog.receivable.keeper');
+        module('tnt.catalog.coin.keeper');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.keeper');
 
@@ -68,14 +68,13 @@ describe('Service: ReceivableServiceisValid', function() {
         var receivable = {
             created : fakeNow - monthTime,
             amount : 1234.56,
-            duedate : fakeNow + monthTime
         };
 
         // when
         var result = ReceivableService.isValid(receivable);
 
         // then
-        expect(result.length).toEqual(3);
+        expect(result.length).toEqual(2);
     });
 
 });

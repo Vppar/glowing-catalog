@@ -2,18 +2,18 @@
     'use strict';
 
     angular.module('tnt.catalog.customer', [
-        'tnt.catalog.service.data'
-    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService) {
+        'tnt.catalog.service.data', 'tnt.catalog.entity.service'
+    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService) {
 
         // ############################################################################################################
         // Scope binding variables
         // ############################################################################################################
-
         $scope.birthdate = DataProvider.date;
+        $scope.states = DataProvider.states;
 
         $scope.customer = {
-            address : {},
-            birthday : {},
+            addresses : {},
+            birthDate : {},
             emails : [
                 {
                     address : ''
@@ -35,7 +35,9 @@
             DialogService.openDialogAddCustomerTels({
                 phones : phones
             }).then(function resultPhones(phones) {
-                customer.phones = phones;
+                if (phones) {
+                    customer.phones = phones;
+                }
             });
         };
 
@@ -43,7 +45,9 @@
             DialogService.openDialogAddCustomerEmails({
                 emails : emails
             }).then(function resultEmails(emails) {
-                customer.emails = emails;
+                if (emails) {
+                    customer.emails = emails;
+                }
             });
         };
 
@@ -57,14 +61,16 @@
                 });
                 return;
             }
-            customer.id = DataProvider.customers.length + 1;
-            DataProvider.customers.push(customer);
-            DataProvider.customers.sort(function(x, y) {
-                return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
+            EntityService.create(customer).then(function(uuid) {
+                OrderService.order.customerId = uuid;
+            }, function(err) {
+                // TODO something about it
+                //console.log(err);
             });
-            OrderService.order.customerId = customer.id;
+
             $location.path('/');
         };
+
         $scope.cancel = function cancel() {
             $location.path('/');
         };

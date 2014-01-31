@@ -30,7 +30,7 @@ describe('Service: ReceivableServiceRead', function() {
         expect(ReceivableKeeper.read).toHaveBeenCalledWith(1);
         expect(receivables).toEqual(dummyReceivables);
     });
-    
+
     it('shouldn\'t return a copy of a receivable', function() {
         // given
         ReceivableKeeper.read = jasmine.createSpy('ReceivableKeeper.read').andReturn(null);

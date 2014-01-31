@@ -388,22 +388,24 @@
          * 
          * @return []
          */
-        this.innerJoin = function(a1, a2, on) {
+        this.innerJoin = function(a1, a2, on1, on2) {
 
             var a1f = [];
             var a2f = [];
+            
+            on2 = on2?on2:on1;
 
             // TODO no need to initialize, but jshint keeps complaining :/
             var idx1 = 0, idx2 = 0;
 
             for (idx1 in a1) {
-                if (angular.isObject(a1[idx1]) && a1[idx1][on] !== undefined) {
+                if (angular.isObject(a1[idx1]) && a1[idx1][on1] !== undefined) {
                     a1f.push(a1[idx1]);
                 }
             }
 
             for (idx2 in a2) {
-                if (angular.isObject(a2[idx2]) && a2[idx2][on] !== undefined) {
+                if (angular.isObject(a2[idx2]) && a2[idx2][on2] !== undefined) {
                     a2f.push(a2[idx2]);
                 }
             }
@@ -416,7 +418,7 @@
                 for (idx2 in a2f) {
                     var item2 = a2f[idx2];
 
-                    if (item1[on] === item2[on]) {
+                    if (item1[on1] === item2[on2]) {
                         var obj = {};
                         angular.extend(obj, item1, item2);
                         response.push(obj);
@@ -437,6 +439,5 @@
            });
            return uuid;
        };
-        
     });
 })(angular);

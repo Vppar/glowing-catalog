@@ -36,7 +36,7 @@ describe('Service: EntityKeeper', function() {
     it('should handle an update entity event', function() {
         // given
         var validEntity = {
-                id : 1,
+                uuid : 1,
                 name : 'cassiano',
                 emails : [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}],
                 birthDate : '16/09/1981',
@@ -70,7 +70,7 @@ describe('Service: EntityKeeper', function() {
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         
-        var id = 1;
+        var uuid = 1;
         var name = 'cassiano';
         var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
         var birthDate = '16/09/1981';
@@ -80,7 +80,7 @@ describe('Service: EntityKeeper', function() {
         var addresses = [{street: 'rua', number: 555}, {street: 'rua', number: 556}];
         var remarks = 'bad client';
         
-        var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
+        var ev = new Entity(uuid, name, emails, birthDate, phones, cep, document, addresses,  remarks);
         var stp = fakeNow / 1000;
         var entry = new JournalEntry(null, stp, 'entityUpdate', 1, ev); 
         
@@ -102,7 +102,7 @@ describe('Service: EntityKeeper', function() {
         EntityKeeper.update = jasmine.createSpy('EntityKeeper.update').andCallFake(function() {
             throw 'User not found.';
         });
-        var id = 1;
+        var uuid = 1;
         var name = 'cassiano';
         var emails = [{address: 'cassiano.tesseroli@gvt.com.br'},{address: 'c4ssio@gmail.com'}];
         var birthDate = '16/09/1981';
@@ -113,7 +113,7 @@ describe('Service: EntityKeeper', function() {
         var remarks = 'bad client';
 
         expect(function() {
-            EntityKeeper.update(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);}).toThrow('User not found.');
+            EntityKeeper.update(uuid, name, emails, birthDate, phones, cep, document, addresses, remarks);}).toThrow('User not found.');
     });
 
 });

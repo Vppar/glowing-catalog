@@ -5,10 +5,10 @@ describe('Controller: PaymentCtrl', function() {
     var ds = {};
     var os = {};
     var ps = {};
+    var rs = {};
     var sms = {};
     var ks = {};
     var $q = {};
-    var $timeout = {};
     var location = {};
 
     // load the controller's module
@@ -83,6 +83,12 @@ describe('Controller: PaymentCtrl', function() {
         ps.clear = jasmine.createSpy('PaymentService.clear');
         ps.clearAllPayments = jasmine.createSpy('PaymentService.clearAllPayments');
         ps.add = jasmine.createSpy('PaymentService.add');
+        ps.getReceivables = jasmine.createSpy('PaymentService.getReceivables');
+
+
+        // ReceivableService mock
+        rs.bulkRegister = jasmine.createSpy('ReceivableService.bulkRegister');
+        rs.list = jasmine.createSpy('ReceivableService.list');
 
         // Scope mock
         rootScope = $rootScope;
@@ -104,7 +110,8 @@ describe('Controller: PaymentCtrl', function() {
             OrderService : os,
             KeyboardService : ks,
             PaymentService : ps,
-            SMSService : sms
+            SMSService : sms,
+            ReceivableService : rs
         });
         $filter = _$filter_;
     }));
@@ -115,7 +122,9 @@ describe('Controller: PaymentCtrl', function() {
     it('should create coupons when payment is confirmed', inject(function ($q) {
         var deferred = $q.defer();
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(deferred.promise);
+        os.save = jasmine.createSpy('OrderService.save').andReturn(deferred.promise);
         ps.createCoupons = jasmine.createSpy('PaymentService.createCoupons').andReturn([]);
+        ps.clearPersistedCoupons = jasmine.createSpy('PaymentService.createCoupons');
         ps.remove = function () {};
         ps.clear = function () {};
 
