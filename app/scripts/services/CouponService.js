@@ -25,13 +25,12 @@
         /**
          * Create and return a coupon.
          */
-        var create = function create(entity, amount, remarks, document) {
+        var create = function create(entity, amount, remarks) {
 
             if (amount > 0 && angular.isDefined(entity)) {
 
                 var coupon = new Voucher(null, entity, 'coupon', amount);
                 coupon.remarks = remarks;
-                coupon.document = document;
 
                 return VoucherKeeper.create(coupon);
             } else {

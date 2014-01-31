@@ -438,7 +438,7 @@
                                     };
 
                                     try {
-                                        couponPromises[i] = CouponService.create(entity, amount, null, document).then(function() {
+                                        couponPromises[i] = CouponService.create(entity.id, amount, null, document).then(function() {
                                             return coupon;
                                         }, function(err) {
                                             coupons.err = err;
