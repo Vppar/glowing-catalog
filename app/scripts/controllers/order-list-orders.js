@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.orderList.orders.ctrl', [
         'tnt.catalog.order.service', 'tnt.utils.array'
-    ]).controller('OrderListOrdersCtrl', function($scope, $location, $filter, ArrayUtils, ReceivableService) {
+    ]).controller('OrderListOrdersCtrl', function($scope, $location, $filter, ArrayUtils, ReceivableService, ProductReturnService) {
 
         // $scope.entities come from OrderListCtrl
         var entities = $scope.entities;
@@ -48,6 +48,14 @@
 
                     $scope.total[receivable.type].qty++;
                     $scope.total.all.qty++;
+                }
+                var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
+                for ( var ix in exchangedProducts) {
+                    console.log('Teste');
+                    var exchanged = exchangedProducts[ix];
+                    $scope.total['exchange'].amount += (exchanged.cost * exchanged.quantity);
+                    $scope.total.all.amount += exchanged.cost;
+                    $scope.total['exchange'].qty += exchanged.quantity;
                 }
             }
         }
