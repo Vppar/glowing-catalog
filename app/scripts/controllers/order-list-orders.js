@@ -43,8 +43,10 @@
                 var receivables = ReceivableService.listByDocument(order.uuid);
                 for ( var ix in receivables) {
                     var receivable = receivables[ix];
-                    $scope.total[receivable.type].amount += receivable.amount;
-                    $scope.total.all.amount += receivable.amount;
+                    var amount = Number(receivable.amount);
+                    
+                    $scope.total[receivable.type].amount += amount;
+                    $scope.total.all.amount += amount;
 
                     $scope.total[receivable.type].qty++;
                     $scope.total.all.qty++;
@@ -61,9 +63,11 @@
                 var vouchers = VoucherService.listByDocument(order.uuid);
                 for ( var idx in vouchers) {
                     var voucher = vouchers[idx];
-                    console.log(voucher);
-                    $scope.total.voucher.amount += (voucher.amount * (voucher.qty || 1));
-                    $scope.total.all.amount += voucher.amount;
+
+                    var amount = Number(voucher.amount);
+                    
+                    $scope.total.voucher.amount += amount;
+                    $scope.total.all.amount += amount;
                     $scope.total.voucher.qty += voucher.qty;
                 }
             }
