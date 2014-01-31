@@ -43,7 +43,7 @@
         };
 
 
-        var redeem = function redeem(type, id) {
+        var redeem = function redeem(type, id, document) {
             if (!type || !id) {
                 $log.warn('No voucher/id passed to VoucherService.redeem()');
             }
@@ -63,7 +63,7 @@
                 throw 'VoucherService.canceled: voucher already canceled!';
             }
 
-            return VoucherKeeper.redeem(type, id);
+            return VoucherKeeper.redeem(type, id, document);
         };
 
 
@@ -99,6 +99,15 @@
         };
 
 
+        var listByDocument = function listByDocument(document) {
+            if (!document) {
+                throw 'VoucherService.listByDocument: missing document';
+            }
+
+            return VoucherKeeper.listByDocument(document);
+        };
+
+
         var getVoucher = function (type, id) {
             var voucherId = angular.isObject(type) ? type.id : id;
             var vouchers = list(type);
@@ -129,7 +138,7 @@
 
 
                     if (usedVoucher.amount === existingVoucher.amount) {
-                        voucherPromises.push(redeem(existingVoucher.type, existingVoucher.id));
+                        voucherPromises.push(redeem(existingVoucher.type, existingVoucher.id, document));
                     } else if (usedVoucher.amount < existingVoucher.amount) {
                         voucherPromises.push(cancel(existingVoucher.type, existingVoucher.id));
 
@@ -150,7 +159,7 @@
                             entity : usedVoucher.entity,
                             type : usedVoucher.type,
                             redeemed : (new Date()).getTime(),
-                            document : usedVoucher.document
+                            documentId : document
                         });
 
                         voucherPromises.push(create(changeVoucher));
@@ -172,6 +181,7 @@
         this.create = create;
         this.redeem = redeem;
         this.list = list;
+        this.listByDocument = listByDocument;
 
     });
 })(angular);

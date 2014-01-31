@@ -8,7 +8,7 @@
         var service = function svc(id, entity, type, amount) {
 
             var validProperties = [
-                'id', 'entity', 'type', 'amount', 'redeemed', 'canceled', 'created', 'remarks', 'document'
+                'id', 'entity', 'type', 'amount', 'redeemed', 'canceled', 'created', 'remarks', 'documentId'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -54,7 +54,7 @@
             [
                 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.voucher.entity',
                 'tnt.catalog.journal.keeper', 'tnt.identity'
-            ]).service('VoucherKeeper', function VoucherKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher, IdentityService) {
+            ]).service('VoucherKeeper', function VoucherKeeper($log, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher, IdentityService) {
 
         var type = 6;
         var currentEventVersion = 1;
@@ -114,6 +114,7 @@
                 throw 'Entity not found, cosistency must be broken! Replay?';
             } else {
                 entry.redeemed = event.redeemed;
+                entry.documentId = event.documentId;
             }
 
             return event.id;
@@ -171,7 +172,7 @@
         /**
          * redeem (type, id)
          */
-        this.redeem = function(type, id) {
+        this.redeem = function(type, id, document) {
             var vouch = ArrayUtils.find(voucher[type], 'id', id);
 
             if (!vouch) {
@@ -179,7 +180,8 @@
             }
 
             var event = new Voucher(id, null, type, null);
-            event.redeemed = vouch.redeemed = (new Date()).getTime();
+            event.redeemed = (new Date()).getTime();
+            event.documentId = document;
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.redeemed, 'voucherRedeem', currentEventVersion, event);
@@ -195,6 +197,21 @@
             return angular.copy(voucher[type]);
         };
 
+
+        this.listByDocument = function(document) {
+            var result = [];
+            for (var type in voucher) {
+                if (voucher.hasOwnProperty(type)) {
+                    try {
+                        var voucherList = ArrayUtils.list(this.list(type), 'documentId', document);
+                        result = result.concat(voucherList);
+                    } catch (err) {
+                        $log.debug('VoucherKeeper.listByDocument: Unable to recover the list of vouchers. Err=' + err);
+                    }
+                }
+            }
+            return result.length ? result : null;
+        };
 
 
 
