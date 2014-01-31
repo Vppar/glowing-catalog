@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.customer.choose', [
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
-    ]).controller('ChooseCustomerDialogCtrl', function($scope, $q, $location, dialog, DataProvider, OrderService, EntityService) {
+    ]).controller('ChooseCustomerDialogCtrl', function($scope, $q, $location, dialog, OrderService, EntityService) {
 
         var order = OrderService.order;
 
