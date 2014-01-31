@@ -1,4 +1,4 @@
-xdescribe('Controller: order-list-clients', function() {
+describe('Controller: order-list-clients', function() {
 
     var scope = {};
     var OrderService = {};
@@ -168,7 +168,7 @@ xdescribe('Controller: order-list-clients', function() {
     beforeEach(inject(function($controller, $rootScope) {
         // scope mock
         scope = $rootScope.$new();
-        scope.filteredOrders = orders;
+        scope.orders = orders;
         scope.entities = dp.customers; 
         OrderService: OrderService;
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
