@@ -65,7 +65,7 @@
                     }
                 });
 
-                $http.get('resources/voucher.json').then(function(response) {
+                $http.get('resources/replay.json').then(function(response) {
                     for ( var ix in response.data) {
 
                         var data = response.data[ix];
