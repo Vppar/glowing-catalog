@@ -7,6 +7,7 @@
         // FIXME - Mocks, created for test purposes while the
         // OrderService dosn't work.
         var entities = DataProvider.customers;
+        console.log(entities);
         // #############################################################################################################
         // Warming up the controller
         // #############################################################################################################
@@ -60,8 +61,8 @@
             updateOrdersTotal(order);
         };
 
-        for ( var ix in $scope.filteredOrders) {
-            var order = $scope.filteredOrders[ix];
+        for ( var ix in orders) {
+            var order = orders[ix];
             // Find the entity name
             order.entityName = ArrayUtils.find(entities, 'id', order.customerId).name;
 
