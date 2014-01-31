@@ -14,10 +14,10 @@
      */
     angular.module('tnt.catalog.productReturn.entity', []).factory('ProductReturn', function ProductReturn() {
 
-        var service = function svc(id, productId, quantity, cost) {
+        var service = function svc(id, productId, documentId, quantity, cost) {
 
             var validProperties = [
-                'id', 'productId', 'quantity', 'cost', 'created'
+                'id', 'productId', 'documentId', 'quantity', 'cost', 'created'
             ];
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
@@ -34,11 +34,12 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'ProductReturn must be initialized with id, productId, quantity and cost';
+                    throw 'ProductReturn must be initialized with id, productId, documentId, quantity and cost';
                 }
             } else {
                 this.id = id;
                 this.productId = productId;
+                this.documentId = documentId;
                 this.quantity = quantity;
                 this.cost = cost;
             }
@@ -153,7 +154,7 @@
 
             prodReturnObj.created = (new Date()).getTime();
             prodReturnObj.id = IdentityService.getUUID(type, getNextId());
-
+            
             var event = new ProductReturn(prodReturnObj);
 
             // create a new journal entry
