@@ -7,7 +7,7 @@
             .controller(
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                            ReceivableService,ProductReturnService, VoucherService, SMSService, KeyboardService, InventoryKeeper, CashPayment) {
+                            ReceivableService,ProductReturnService, VoucherService, SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService) {
 
                         // #############################################################################################
                         // Controller warm up
@@ -81,7 +81,7 @@
                         $scope.isNumPadVisible = isNumPadVisible;
 
                         // Define the customer
-                        var customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                        var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                         $scope.customer = customer;
 
                         // When a product is added on items list, we need to
@@ -119,11 +119,11 @@
 
                         $scope.openDialogChooseCustomer = function() {
                             dialogService.openDialogChooseCustomer().then(function(id) {
-                                customer = $filter('findBy')(DataProvider.customers, 'id', id);
+                                customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                                 $scope.customer = customer;
 
                                 // Propagate customer to order
-                                order.customerId = customer.id;
+                                order.customerId = customer.uuid;
 
                                 // Update vouchers with new customer
                                 var items = order.items, item, len, i;
@@ -131,7 +131,7 @@
                                     item = items[i];
                                     if (item.type === 'voucher') {
                                         item.uniqueName = customer.name;
-                                        item.entity = customer.id;
+                                        item.entity = customer.uuid;
                                     }
                                 }
                                 PaymentService.clear('coupon');
