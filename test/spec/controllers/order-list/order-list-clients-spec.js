@@ -3,6 +3,8 @@ describe('Controller: order-list-clients', function() {
     var scope = {};
     var OrderService = {};
     var dp = {};
+    var prs = {};
+    var rs = {};
 
     beforeEach(function() {
         module('tnt.catalog.orderList.clients.ctrl');
@@ -170,13 +172,17 @@ describe('Controller: order-list-clients', function() {
         scope = $rootScope.$new();
         scope.orders = orders;
         scope.entities = dp.customers; 
-        OrderService: OrderService;
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
+        scope.resetTotal = jasmine.createSpy('scope.resetTotal');
+        rs.listByDocument = jasmine.createSpy('ReceivableService.listByDocument');
+        prs.listByDocument = jasmine.createSpy('ProductReturnService.listByDocument');
 
         $controller('OrderListClientsCtrl', {
             $scope : scope,
             OrderService : OrderService,
-            DataProvider : dp
+            DataProvider : dp,
+            ProductReturnService : prs,
+            ReceivableService : rs
         });
     }));
     
