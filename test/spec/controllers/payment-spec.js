@@ -10,6 +10,8 @@ describe('Controller: PaymentCtrl', function() {
     var ks = {};
     var $q = {};
     var location = {};
+    
+    var productReturnServiceMock = {};
 
     // load the controller's module
     beforeEach(function() {
@@ -89,7 +91,10 @@ describe('Controller: PaymentCtrl', function() {
         // ReceivableService mock
         rs.bulkRegister = jasmine.createSpy('ReceivableService.bulkRegister');
         rs.list = jasmine.createSpy('ReceivableService.list');
-
+        
+        //ProductReturnService mock
+        productReturnServiceMock.bulkRegister = jasmine.createSpy('ProductReturnService.bulkRegister');
+        productReturnServiceMock.list = jasmine.createSpy('ProductReturnService.list');
         // Scope mock
         rootScope = $rootScope;
         scope = $rootScope.$new();
@@ -111,7 +116,8 @@ describe('Controller: PaymentCtrl', function() {
             KeyboardService : ks,
             PaymentService : ps,
             SMSService : sms,
-            ReceivableService : rs
+            ReceivableService : rs,
+            ProductReturnService: productReturnServiceMock
         });
         $filter = _$filter_;
     }));

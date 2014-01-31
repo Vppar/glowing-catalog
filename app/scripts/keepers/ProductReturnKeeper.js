@@ -147,24 +147,8 @@
          * @param quantity - The number of units returned
          * @param cost - Cost for the product returned 
          */
-//        this.add = function(productReturn) {
-//            if (!(productReturn instanceof ProductReturn)) {
-//                throw "Wrong instance of ProductReturn.";
-//            }
-//
-//            var event = angular.copy(productReturn);
-//            event.created = (new Date()).getTime();
-//
-//            event = new ProductReturn(event);
-//
-//            var entry = new JournalEntry(null, event.created, 'productReturnAdd', currentEventVersion, event);
-//
-//            // save the journal entry
-//            JournalKeeper.compose(entry);
-//        };
+        
         this.add = function(productReturn) {
-            console.log('inside add keeper');
-            
             var prodReturnObj = angular.copy(productReturn);
 
             prodReturnObj.created = (new Date()).getTime();
