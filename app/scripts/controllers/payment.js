@@ -358,6 +358,22 @@
                                 return ReceivableService.bulkRegister(receivables, customer, orderUuid);
                             }, propagateRejectedPromise);
 
+                            // // Register product exchange
+                            // var savedExchangesPromise =
+                            // savedOrderPromise.then(function(orderUuid) {
+                            // var exchanges = PaymentService.list('exchange');
+                            // return
+                            // ProductReturnService.bulkRegister(exchanges,
+                            // customer, orderUuid);
+                            // }, propagateRejectedPromise);
+                            //
+                            // // Register voucher/coupons use
+                            // var savedVouchersPromise =
+                            // savedOrderPromise.then(function(orderUuid) {
+                            //                                var vouchers = PaymentService.list('coupon');
+                            //                                return VoucherService.bulkRegister(vouchers, customer, orderUuid);
+                            //                            }, propagateRejectedPromise);
+
                             // Generate coupons
                             var savedCouponsPromise = savedOrderPromise.then(function(orderUuid) {
                                 return PaymentService.createCoupons(customer, orderUuid);
@@ -367,8 +383,12 @@
                             }, propagateRejectedPromise);
 
                             // Sale saved
+                            // var savedSale = $q.all([
+                            // savedReceivablesPromise, savedExchangesPromise,
+                            // savedVouchersPromise, savedCouponsPromise
+                            //                            ]);
                             var savedSale = $q.all([
-                                savedCouponsPromise, savedReceivablesPromise
+                                savedReceivablesPromise, savedCouponsPromise
                             ]);
 
                             // clear all

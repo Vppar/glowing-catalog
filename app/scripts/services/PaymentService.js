@@ -410,8 +410,8 @@
                 // qty attribute in this coupon objects.
                 var createCoupons = function createCoupons(entity, document) {
 
-                    var amount = {};
-                    var coupon;
+                    var amount = {}; 
+                    var coupon = {};
                     var qty;
                     var processedCoupons = [];
                     var couponPromises = [];
