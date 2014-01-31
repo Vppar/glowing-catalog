@@ -1,6 +1,5 @@
-'use strict';
-
-describe('Service: CoinKeeperCancelExpense', function() {
+// FIXME - This whole test suit needs review
+xdescribe('Service: CoinKeeperCancelExpenseSpec', function() {
 
     var Expense = null;
     var ExpenseKeeper = null;

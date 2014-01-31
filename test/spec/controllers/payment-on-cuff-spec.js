@@ -64,7 +64,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         scope.payments = [];
         scope.computeInstallments();
 
-        var expectedDate = scope.dueDate;
+        var expectedDate = new Date(scope.dueDate.getFullYear(), scope.dueDate.getMonth() + 1,0);
 
         expect(scope.payments.length).toEqual(1);
         expect(scope.payments[0].amount).toEqual(scope.amount);
@@ -83,7 +83,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
 
         function addMonths(refDate, increase) {
             var baseDate = angular.copy(refDate);
-            var date = new Date(baseDate.getYear(), baseDate.getMonth() + 1 + increase, 0);
+            var date = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1 + increase, 0);
             if (date.getDate() > baseDate.getDate()) {
                 date = new Date(baseDate.setMonth(baseDate.getMonth() + increase));
             }
@@ -97,6 +97,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         var expectedInstallment5 = 83.33;
         var expectedInstallment6 = 83.35;
 
+        var currentMonth = new Date(scope.dueDate.getFullYear(), scope.dueDate.getMonth() + 1,0);
         var oneMonthAhead = addMonths(scope.dueDate, 1);
         var twoeMonthAhead = addMonths(scope.dueDate, 2);
         var threeMonthAhead = addMonths(scope.dueDate, 3);
@@ -111,7 +112,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
 
 
         expect(scope.payments[0].amount).toEqual(expectedInstallment1);
-        expect(scope.payments[0].dueDate.getTime()).toEqual(scope.dueDate.getTime());
+        expect(scope.payments[0].dueDate.getTime()).toEqual(currentMonth.getTime());
 
         expect(scope.payments[1].amount).toEqual(expectedInstallment2);
         expect(scope.payments[1].dueDate.getTime()).toEqual(oneMonthAhead.getTime());

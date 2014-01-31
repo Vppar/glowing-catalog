@@ -1,32 +1,46 @@
 // FIXME - This test suit needs a full review
-xdescribe('Service: ReceivableServiceRegisterSpec', function() {
+xdescribe('Service: ReceivableServiceBulkRegisterSpec', function() {
 
     var log = {};
+    var $q = null;
+    var uuid = null;
     var fakeNow = 1386444467895;
     var ReceivableKeeper = {};
     var CoinKeeper = function() {
         return ReceivableKeeper;
     };
 
-    // load the service's module
+    // mock and stub
     beforeEach(function() {
+        // spy on datetime and mock
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
+        // spy on debug
         log.warn = jasmine.createSpy('log.warn');
 
+        // uuid stub
+        uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
+    });
+
+    // load the service's module
+    beforeEach(function() {
         module('tnt.catalog.receivable.service');
         module(function($provide) {
             $provide.value('$log', log);
             $provide.value('CoinKeeper', CoinKeeper);
         });
     });
-    beforeEach(inject(function(_Receivable_, _ReceivableService_, _$rootScope_) {
+
+    // injection time !
+    beforeEach(inject(function(_Receivable_, _ReceivableService_, _$q_, _$rootScope_) {
+        $rootScope = _$rootScope_;
+        $q = _$q_;
         Receivable = _Receivable_;
         ReceivableService = _ReceivableService_;
-        $rootScope = _$rootScope_;
     }));
 
-    it('should create a receivable instance', function() {
+    // FIXME - This test is right we should update the code to be testable
+    it('should register a receivable instance', function() {
         // given
         var result = null;
         var receivable = {
@@ -62,4 +76,7 @@ xdescribe('Service: ReceivableServiceRegisterSpec', function() {
         });
     });
 
+    // FIXME - Implement this test
+    it('shouldn\'t create a receivable instance', function() {
+    });
 });

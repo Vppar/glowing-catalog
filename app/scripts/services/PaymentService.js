@@ -65,7 +65,7 @@
      */
     entities.factory('CreditCardPayment', function CreditCardPayment(Payment) {
 
-        var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments) {
+        var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments, duedate) {
 
             if (arguments.length != svc.length) {
                 throw 'CreditCardPayment must be initialized with all params';
@@ -183,7 +183,7 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService(ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardPayment,
+            function PaymentService($q, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardPayment,
                     ExchangePayment, CouponPayment, CouponService, OnCuffPayment) {
 
                 /**
@@ -198,6 +198,10 @@
                     coupon : [],
                     onCuff : []
                 };
+
+                var receivables = [
+                    'cash', 'check', 'creditCard', 'noMerchantCc', 'onCuff'
+                ];
 
                 /**
                  * Payment types association.
@@ -239,6 +243,32 @@
                         throw 'PaymentService.list: Unknown type of payment, typeName=' + typeName;
                     }
                     return angular.copy(paymentList);
+                };
+
+                var getReceivables = function getReceivables() {
+                    var result = [];
+                    for ( var ix in receivables) {
+                        var typedPayments = payments[receivables[ix]];
+                        for ( var ix2 in typedPayments) {
+                            var payment = angular.copy(typedPayments[ix2]);
+                            payment.type = receivables[ix];
+
+                            // FIXME - Remove it, the date should come in the
+                            // correct format
+                            var duedate = new Date().getTime();
+                            if (payment.duedate) {
+                                if (angular.isDate(payment.duedate)) {
+                                    duedate = payment.duedate.getTime();
+                                } else {
+                                    duedate = payment.duedate;
+                                }
+                            }
+                            payment.duedate = duedate;
+                            
+                            result.push(payment);
+                        }
+                    }
+                    return result;
                 };
 
                 /**
@@ -324,6 +354,7 @@
                 this.read = read;
                 this.clear = clear;
                 this.clearAllPayments = clearAllPayments;
+                this.getReceivables = getReceivables;
 
                 // Coupons //////////////////////////
 
@@ -367,8 +398,23 @@
                     }
                 };
 
-                var createCoupons = function createCoupons(entityId) {
-                    var amount, coupon, processedCoupons = [], qty;
+                // An array of coupons. Coupons have the following
+                // attributes:
+                // - amount {Number} The value of the coupon;
+                // - err {Error} An error thrown during the coupon
+                // generation (present
+                // only if an error occurred);
+                //
+                // NOTE: Coupons are generated INDIVIDUALLY, thats
+                // why there is no
+                // qty attribute in this coupon objects.
+                var createCoupons = function createCoupons(entity, document) {
+
+                    var amount = {};
+                    var coupon;
+                    var qty;
+                    var processedCoupons = [];
+                    var couponPromises = [];
 
                     // The total amount of all successfully processed coupons
                     processedCoupons.successAmount = 0;
@@ -391,12 +437,13 @@
                                         amount : amount
                                     };
 
-                                    processedCoupons.push(coupon);
-
                                     try {
-                                        CouponService.create(entityId, amount);
-                                        processedCoupons.successAmount += parseInt(amount);
-                                        processedCoupons.successQty += 1;
+                                        couponPromises[i] = CouponService.create(entity, amount, null, document).then(function() {
+                                            return coupon;
+                                        }, function(err) {
+                                            coupons.err = err;
+                                            return $q.reject(coupons);
+                                        });
                                     } catch (err) {
                                         coupon.err = err;
                                         // TODO: should we keep trying to
@@ -409,7 +456,7 @@
                     } // for amount in persistedCoupons
 
                     this.clearPersistedCoupons();
-                    return processedCoupons;
+                    return $q.all(couponPromises);
                 };
 
                 this.persistedCoupons = persistedCoupons;

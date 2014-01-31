@@ -59,7 +59,7 @@
                 }
 
                 function properDate(baseDate, increase) {
-                    var date = new Date(baseDate.getYear(), baseDate.getMonth() + 1 + increase, 0);
+                    var date = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1 + increase, 0);
                     if (date.getDate() > baseDate.getDate()) {
                         date = new Date(baseDate.setMonth(baseDate.getMonth() + increase));
                     }

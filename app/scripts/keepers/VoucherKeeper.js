@@ -81,6 +81,8 @@
             } else {
                 throw 'Somehow, we got a repeated voucher!?!?';
             }
+
+            return v.id;
         });
 
         /**
@@ -126,16 +128,15 @@
             if (!(newVoucher instanceof Voucher)) {
                 throw 'Wrong instance to VoucherKeeper';
             }
-            
+
             var voucherObj = angular.copy(newVoucher);
             voucherObj.id = ArrayUtils.generateUUID();
-            
-            var event = new Voucher(voucherObj);
-            var stamp = (new Date()).getTime() / 1000;
+            voucherObj.created = new Date().getTime();
 
-            event.created = stamp;
+            var event = new Voucher(voucherObj);
+            
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'voucherCreate', currentEventVersion, event);
+            var entry = new JournalEntry(null, voucherObj.created, 'voucherCreate', currentEventVersion, event);
 
             // save the journal entry
             JournalKeeper.compose(entry);
@@ -145,14 +146,17 @@
          * cancel(type, id)
          */
         this.cancel = function(type, id) {
+            var vouch = ArrayUtils.find(voucher[type], 'id', id);
 
-            var stamp = (new Date()).getTime() / 1000;
+            if (!vouch) {
+                throw 'Unable to find a voucher with id=\'' + id + '\'';
+            }           
 
             var event = new Voucher(id, null, type, null);
-            event.canceled = stamp;
+            event.canceled = (new Date()).getTime();
 
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'voucherCancel', currentEventVersion, event);
+            var entry = new JournalEntry(null, event.canceled, 'voucherCancel', currentEventVersion, event);
 
             // save the journal entry
             JournalKeeper.compose(entry);
@@ -162,14 +166,17 @@
          * redeem (type, id)
          */
         this.redeem = function(type, id) {
+            var vouch = ArrayUtils.find(voucher[type], 'id', id);
 
-            var stamp = (new Date()).getTime() / 1000;
+            if (!vouch) {
+                throw 'Unable to find a voucher with id=\'' + id + '\'';
+            }
 
             var event = new Voucher(id, null, type, null);
-            event.redeemed = stamp;
+            event.redeemed = (new Date()).getTime();
 
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'voucherRedeem', currentEventVersion, event);
+            var entry = new JournalEntry(null, event.redeemed, 'voucherRedeem', currentEventVersion, event);
 
             // save the journal entry
             JournalKeeper.compose(entry);

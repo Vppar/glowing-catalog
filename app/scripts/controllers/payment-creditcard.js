@@ -5,7 +5,7 @@
         'tnt.catalog.service.data', 'tnt.catalog.payment.service', 'tnt.catalog.payment.entity'
     ]).controller(
             'PaymentCreditCardCtrl',
-            function($scope, $element, $filter, DataProvider, OrderService, CreditCardPayment, PaymentService) {
+            function($scope, $element, $filter, DataProvider, OrderService, CreditCardPayment, PaymentService, Misplacedservice) {
 
                 // #####################################################################################################
                 // Warm up the controller
@@ -101,13 +101,31 @@
                                 return;
                             }
 
-                            // TODO: check dueDate format
-                            var dueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear, payment =
-                                    new CreditCardPayment(
-                                            creditCard.amount, creditCard.flag, creditCard.number, creditCard.cardholderName, dueDate,
-                                            creditCard.cvv, creditCard.cardholderDocument, creditCard.installments);
-                            payment.orderNumber = $scope.orderNumber;
-                            PaymentService.add(payment);
+                            var creditCardInstallments = [];
+                            var numInstallments = creditCard.installment.replace('x', '').replace(' ', '');
+
+                            for ( var i = 0; i < numInstallments; i++) {
+                                var cc = angular.copy(creditCard);
+                                cc.amount = 0;
+                                cc.installment = i + 1;
+                                creditCardInstallments.push(cc);
+                            }
+
+                            Misplacedservice.recalc($scope.creditCard.amount, -1, creditCardInstallments, 'amount');
+
+                            var dueDate = new Date();
+                            var creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
+                            
+                            for ( var ix in creditCardInstallments) {
+                                var creditCardInstallment = creditCardInstallments[ix];
+                                // FIXME - Fix duedate and installment
+                                var payment =
+                                        new CreditCardPayment(
+                                                creditCardInstallment.amount, creditCardInstallment.flag, creditCardInstallment.number,
+                                                creditCardInstallment.cardholderName, creditCardDueDate, creditCard.cvv,
+                                                creditCard.cardholderDocument, creditCardInstallment.installment, dueDate.getTime());
+                                PaymentService.add(payment);
+                            }
                             $scope.selectPaymentMethod('none');
                         };
 

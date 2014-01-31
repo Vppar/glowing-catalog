@@ -62,7 +62,7 @@
 						<span class="border">
 							<span class="details-order-list-item-total"><span class="lbl-money">Valor total</span>
 							<span class="lbl-money3">&nbsp;</span>
-							<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span></span>					
+							<span class="btn-price-payment">{{total.all.amount | currency:''}}</span></span>					
 						</span>
 					</div>
 				</div>
@@ -82,38 +82,38 @@
 					<span class="border">
 						<span class="lbl-money">Dinheiro</span>
 						<span class="lbl-money3">&nbsp;</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						<span class="btn-price-payment">{{total.cash.amount | currency:''}}</span>
 					</span>
 					<span class="border">
 						<span class="lbl-money">Cheque</span>
-						<span class="lbl-money3">( {{payments | paymentType:'check' | count:'id'}} )</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						<span class="lbl-money3">( {{total.check.qty}} )</span>
+						<span class="btn-price-payment">{{total.check.amount | currency:''}}</span>
 					</span>
 				</div>
 				
 				<div class="col-details-order-list-item">
 					<span class="border">
 						<span class="lbl-money">Cart&atilde;o</span>
-						<span class="lbl-money3">(100000)</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						<span class="lbl-money3">( {{total.creditCard.qty + total.noMerchantCc.qty}} )</span>
+						<span class="btn-price-payment">{{(total.creditCard.amount + total.noMerchantCc.amount)| currency:''}}</span>
 					</span>
 					<span class="border">
 						<span class="lbl-money">Troca</span>
-						<span class="lbl-money3">(100000)</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						<span class="lbl-money3">( {{total.exchange.qty}} )</span>
+						<span class="btn-price-payment">{{total.exchange.amount | currency:''}}</span>
 					</span>
 				</div>
 				
 				<div class="col-details-order-list-item">
 					<span class="border">
-						<span class="lbl-money">Vale/Cumpom</span>
+						<span class="lbl-money">Vale/Cupom</span>
 						<span class="lbl-money3">&nbsp;</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						<span class="btn-price-payment">{{total.voucher.amount | currency:''}}</span>
 					</span>
 					<span class="border">
 						<span class="lbl-money">Contas a Receber</span>
 						<span class="lbl-money3">&nbsp;</span>
-						<span class="btn-price-payment">{{payments | paymentType:'check' | sum:'amount' | currency:''}}</span>
+						<span class="btn-price-payment">{{total.onCuff.amount | currency:''}}</span>
 					</span>
 				</div>		
 			</div>
@@ -148,7 +148,7 @@
     					</div>
     					<div class="scroll-order-list">
     						<div class="row-order-list hover-state-pointer"
-    							ng-repeat="order in filteredOrders | orderBy: '-date'" ng-click="openPartialDelivery(order)">
+    							ng-repeat="order in filteredOrders | orderBy: '-date'" ng-click="selectOrder(order)">
     							<div class="col-1">
     								<span>{{order.date | date:'dd/MM/yyyy'}}</span>
     							</div>
@@ -159,7 +159,7 @@
     								<span>{{order.entityName | truncate: 50}}</span>
     							</div> 
     							<div class="col-4">
-    								<span>{{order.items.length}}</span>
+    								<span>{{order.itemsQty}}</span>
     							</div>
     							<div class="col-5 ">
     								<span>{{order.avgPrice | currency: 'R$'}}</span>

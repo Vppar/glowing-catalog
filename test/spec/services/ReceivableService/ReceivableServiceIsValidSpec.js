@@ -68,14 +68,13 @@ describe('Service: ReceivableServiceisValid', function() {
         var receivable = {
             created : fakeNow - monthTime,
             amount : 1234.56,
-            duedate : fakeNow + monthTime
         };
 
         // when
         var result = ReceivableService.isValid(receivable);
 
         // then
-        expect(result.length).toEqual(3);
+        expect(result.length).toEqual(2);
     });
 
 });

@@ -44,7 +44,7 @@ describe('Service: VoucherKeeper', function() {
         var entity = 1;
         var type = 'voucher';
         var amount = 1;
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
         var voucherObject = new Voucher(0, entity, type, amount);
 
         expect(function() {

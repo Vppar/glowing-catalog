@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Service: StockKeeper', function() {
+describe('Service: StockKeeperAddSpec', function() {
 
     var jKeeper = {};
-    
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.stock');
@@ -16,7 +16,7 @@ describe('Service: StockKeeper', function() {
 
     beforeEach(function() {
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
-        
+
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
         });
@@ -29,13 +29,13 @@ describe('Service: StockKeeper', function() {
     beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
-        JournalEntry =_JournalEntry_;
+        JournalEntry = _JournalEntry_;
     }));
-    
+
     /**
      * <pre>
      * @spec StockKeeper.add#1
-     * Given a valid productId
+     * Given a valid inventoryId
      * and a positive quantity
      * and a valid cost
      * when and add is triggered
@@ -43,41 +43,96 @@ describe('Service: StockKeeper', function() {
      * an the entry must be registered
      * </pre>
      */
-    it('should add', function() {
+    it('add stock', function() {
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        
-        var pId = 23;
-        var qty = 1;
-        var ct = 0;
-        var ev = new Stock(pId, qty, ct);
-        var stp = fakeNow / 1000;
-        var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev); 
 
-        
-        
+        var ev = new Stock(23, 1, 0);
+        var stp = fakeNow / 1000;
+        var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev);
+
         expect(function() {
-            StockKeeper.add(ev);}).not.toThrow();
+            StockKeeper.add(ev);
+        }).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
-    
+
+    /**
+     * <pre>
+     * @spec StockKeeper.add#1
+     * Given a valid invenotryId
+     * and a positive quantity
+     * and a valid cost
+     * when stockAddV1 is triggered
+     * then stock must be registered
+     * </pre>
+     */
+    it('handler add', function() {
+
+        var ev = new Stock(23, 1, 0);
+        var ev1 = new Stock(12, 1, 0);
+
+        var addCall = function() {
+            StockKeeper.handlers.stockAddV1(ev);
+            StockKeeper.handlers.stockAddV1(ev1);
+        };
+
+        expect(addCall).not.toThrow();
+        expect(StockKeeper.list().length).toEqual(2);
+    });
+
+    /**
+     * <pre>
+     * @spec StockKeeper.add#1
+     * Given a valid inventoryId
+     * And invenotryId already exist
+     * And a positive quantity
+     * And a valid cost
+     * When stockAddV1 is triggered
+     * Then stock must be updated
+     * </pre>
+     */
+    it('handler add of existent stock', function() {
+
+        var ev = new Stock(23, 20, 15);
+        var ev2 = new Stock(23, 5, 15);
+        var finalQuantity = (ev.quantity + ev2.quantity);
+        var finalPrice = ((ev.quantity * ev.cost) + (ev2.quantity * ev2.cost)) / finalQuantity;
+
+        var addCall = function() {
+            StockKeeper.handlers.stockAddV1(ev);
+            StockKeeper.handlers.stockAddV1(ev2);
+        };
+
+        expect(addCall).not.toThrow();
+        expect(StockKeeper.list().length).toEqual(1);
+        expect(StockKeeper.list()[0].quantity).toEqual(finalQuantity);
+        expect(StockKeeper.list()[0].cost).toEqual(finalPrice);
+
+    });
+
     /**
      * <pre>
      * @spec StockKeeper.add#2
-     * Given a negative quantity
+     * Given a invalid stock
      * when and add is triggered
      * then an error must be raised
      * </pre> 
      */
-    it('should throw error', function() {
+    it('throw error', function() {
 
-        var pId = 23;
-        var qty = -1;
-        var ct = 0;
+        var fakeStock = {
+            pId : 23,
+            qty : -1,
+            ct : 0
+        };
 
-        expect(function() {
-            StockKeeper.add(pId, qty, ct);}).toThrow();
+        var addCall = function() {
+            StockKeeper.add(fakeStock);
+        };
+
+        expect(addCall).toThrow('Wrong instance of Stock');
     });
 
 });
