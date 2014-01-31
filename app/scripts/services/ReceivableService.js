@@ -10,7 +10,7 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper'
     ]).service(
             'ReceivableService',
-            function ReceivableService($log, Receivable, CoinKeeper) {
+            function ReceivableService($q, $log, ArrayUtils, Receivable, CoinKeeper) {
 
                 var ReceivableKeeper = CoinKeeper('receivable');
 
@@ -21,34 +21,30 @@
                  * @return Array - Array of objects containing the invalid
                  *         properties
                  */
-                var isValid =
-                        function isValid(receivable) {
-                            var invalidProperty = {};
+                var isValid = function isValid(receivable) {
+                    var invalidProperty = {};
+                    // FIXME - Verify if is a valid entityId
+                    invalidProperty.entityId = angular.isNumber(receivable.entityId);
+                    // FIXME - Verify if is a valid receivable type
+                    invalidProperty.type = angular.isDefined(receivable.type);
+                    invalidProperty.amount = Number(receivable.amount) > 0;
 
-                            invalidProperty.created =
-                                    angular.isNumber(receivable.created) && receivable.created <= new Date().getTime();
-                            // FIXME - Verify if is a valid entityId
-                            invalidProperty.entityId = angular.isNumber(receivable.entityId);
-                            // FIXME - Verify if is a valid receivable type
-                            invalidProperty.type = angular.isDefined(receivable.type);
-                            invalidProperty.amount = Number(receivable.amount) > 0;
-                            invalidProperty.installmentSeq = angular.isNumber(receivable.installmentSeq);
-                            invalidProperty.duedate = angular.isNumber(receivable.duedate) && receivable.duedate > new Date().getTime();
+                    var result = [];
 
-                            var result = [];
+                    for ( var ix in invalidProperty) {
+                        if (!invalidProperty[ix]) {
+                            // Create a new empty object, set a property
+                            // with the name of the invalid property,
+                            // fill it with the invalid value and add to
+                            // the result
+                            var error = {};
+                            error[ix] = receivable[ix];
+                            result.push(error);
+                        }
+                    }
 
-                            for ( var ix in invalidProperty) {
-                                if (!invalidProperty[ix]) {
-                                    // Create a new empty object, set a property
-                                    // with the name of the invalid property,
-                                    // fill it with the invalid value and add to
-                                    // the result
-                                    result.push({}[ix] = receivable[ix]);
-                                }
-                            }
-
-                            return result;
-                        };
+                    return result;
+                };
 
                 /**
                  * Returns the full receivables list.
@@ -59,6 +55,21 @@
                     var result = null;
                     try {
                         result = ReceivableKeeper.list();
+                    } catch (err) {
+                        $log.debug('ReceivableService.list: Unable to recover the list of receivables. Err=' + err);
+                    }
+                    return result;
+                };
+
+                /**
+                 * Returns the full receivables list.
+                 * 
+                 * @return Array - Receivables list.
+                 */
+                var listByDocument = function listByDocument(document) {
+                    var result = null;
+                    try {
+                        result = ArrayUtils.list(ReceivableKeeper.list(), 'documentId', document);
                     } catch (err) {
                         $log.debug('ReceivableService.list: Unable to recover the list of receivables. Err=' + err);
                     }
@@ -90,19 +101,37 @@
                  * @throws Exception in case of a fatal error comming from the
                  *             keeper.
                  */
-                var register =
-                        function register(receivable) {
-                            var result = this.isValid(receivable);
-                            if (result.length === 0) {
-                                try {
-                                    ReceivableKeeper.add(receivable);
-                                } catch (err) {
-                                    throw 'ReceivableService.register: Unable to register a receivable=' + JSON.stringify(receivable) +
-                                        '. Err=' + err;
-                                }
-                            }
-                            return result;
-                        };
+                var register = function register(receivable) {
+                    var result = null;
+                    var hasErrors = isValid(receivable);
+                    if (hasErrors.length === 0) {
+                        result = ReceivableKeeper.add(new Receivable(receivable));
+                    } else {
+                        result = $q.reject(hasErrors);
+                    }
+                    return result;
+                };
+
+                var bulkRegister = function(payments, entity, document) {
+                    var receivablesPromises = [];
+                    for ( var ix in payments) {
+                        var payment = payments[ix];
+                        if (payment.amount > 0) {
+                            var receivable = new Receivable({
+                                entityId : payment.entity ? payment.entity.id : entity.id,
+                                documentId : document,
+                                type : payment.type,
+                                amount : payment.amount,
+                                duedate : payment.duedate,
+                                payment : payment
+                            });
+                            receivablesPromises[ix] = register(receivable);
+                        } else {
+                            $log.warn('Payment will be ignored because its amount is 0: ' + JSON.stringify(payment));
+                        }
+                    }
+                    return $q.all(receivablesPromises);
+                };
 
                 /**
                  * Pseudo update a receivable in the datastore. What it really
@@ -165,6 +194,8 @@
 
                 this.isValid = isValid;
                 this.register = register;
+                this.bulkRegister = bulkRegister;
+                this.listByDocument = listByDocument;
                 this.update = update;
                 this.read = read;
                 this.list = list;

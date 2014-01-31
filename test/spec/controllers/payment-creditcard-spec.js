@@ -23,6 +23,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     beforeEach(function() {
         module('tnt.catalog.payment.creditcard');
         module('tnt.catalog.filter.findBy');
+        module('tnt.catalog.misplaced.service');
     });
 
     beforeEach(inject(function($controller, $rootScope, _$filter_) {

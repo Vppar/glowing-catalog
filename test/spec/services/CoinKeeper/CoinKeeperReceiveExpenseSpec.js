@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: CoinKeeperReceiveExpense', function() {
+describe('Service: CoinKeeperReceiveExpensesSpec', function() {
 
     var Expense = null;
     var ExpenseKeeper = null;
@@ -8,17 +8,13 @@ describe('Service: CoinKeeperReceiveExpense', function() {
     var fakeNow = null;
     var validExpense = null;
     var monthTime = 2592000;
+    var IdentityService = {};
     var jKeeper = {};
-    
+
     var keeperName = 'sarava';
 
-    // load the service's module
+    // mock and stubs
     beforeEach(function() {
-        module('tnt.catalog.expense.entity');
-        module('tnt.catalog.coin.keeper');
-        module('tnt.catalog.journal');
-        module('tnt.catalog.journal.entity');
-        module('tnt.catalog.journal.replayer');
 
         fakeNow = 1386179100000;
 
@@ -28,7 +24,7 @@ describe('Service: CoinKeeperReceiveExpense', function() {
         var amount = 1234.56;
 
         validExpense = {
-            id : 1,
+            uuid : 1,
             created : created,
             entityId : 1,
             documentId : 2,
@@ -40,9 +36,20 @@ describe('Service: CoinKeeperReceiveExpense', function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
+        IdentityService.getUUIDData = jasmine.createSpy('IdentityService.getUUIDData').andReturn({deviceId: 1});
+    });
+    
+    // load the service's module
+    beforeEach(function() {
+        module('tnt.catalog.expense.entity');
+        module('tnt.catalog.coin.keeper');
+        module('tnt.catalog.journal');
+        module('tnt.catalog.journal.entity');
+        module('tnt.catalog.journal.replayer');
 
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 
@@ -57,18 +64,18 @@ describe('Service: CoinKeeperReceiveExpense', function() {
 
         var liqEv = new Expense(validExpense);
         var recEv = {
-            id : 1,
+            uuid : 1,
             liquidated : fakeNow
         };
 
-        var tstamp = fakeNow / 1000;
-        var receiveEntry = new JournalEntry(null, tstamp, keeperName +'Liquidate', 1, recEv);
+        var tstamp = fakeNow;
+        var receiveEntry = new JournalEntry(null, tstamp, keeperName + 'Liquidate', 1, recEv);
 
-        ExpenseKeeper.handlers[keeperName +'AddV1'](liqEv);
+        ExpenseKeeper.handlers[keeperName + 'AddV1'](liqEv);
 
         // when
         var receiveCall = function() {
-            ExpenseKeeper.liquidate(liqEv.id, fakeNow);
+            ExpenseKeeper.liquidate(liqEv.uuid, fakeNow);
         };
 
         expect(receiveCall).not.toThrow();
@@ -79,29 +86,29 @@ describe('Service: CoinKeeperReceiveExpense', function() {
 
         var addEv = new Expense(validExpense);
 
-        ExpenseKeeper.handlers[keeperName +'AddV1'](addEv);
+        ExpenseKeeper.handlers[keeperName + 'AddV1'](addEv);
 
         // when
         var receiveCall = function() {
             ExpenseKeeper.liquidate(5, fakeNow);
         };
 
-        expect(receiveCall).toThrow('Unable to find a ' + keeperName + ' with id=\'5\'');
+        expect(receiveCall).toThrow('Unable to find a ' + keeperName + ' with uuid=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 
     it('should handle a receive payment event', function() {
         var expense = new Expense(validExpense);
         var recEv = {
-            id : 1,
+            uuid : 1,
             liquidated : fakeNow
         };
-        ExpenseKeeper.handlers[keeperName +'AddV1'](expense);
+        ExpenseKeeper.handlers[keeperName + 'AddV1'](expense);
 
         // when
-        ExpenseKeeper.handlers[keeperName +'LiquidateV1'](recEv);
+        ExpenseKeeper.handlers[keeperName + 'LiquidateV1'](recEv);
 
-        var result = ExpenseKeeper.read(expense.id);
+        var result = ExpenseKeeper.read(expense.uuid);
 
         // then
         expect(result.liquidated).toBe(fakeNow);
@@ -111,18 +118,18 @@ describe('Service: CoinKeeperReceiveExpense', function() {
 
         var expense = new Expense(validExpense);
         var recEv = {
-            id : 5,
+            uuid : 5,
             payed : fakeNow
         };
-        ExpenseKeeper.handlers[keeperName +'AddV1'](expense);
+        ExpenseKeeper.handlers[keeperName + 'AddV1'](expense);
 
         // when
         var receiveCall = function() {
-            ExpenseKeeper.handlers[keeperName +'LiquidateV1'](recEv);
+            ExpenseKeeper.handlers[keeperName + 'LiquidateV1'](recEv);
         };
 
         // then
-        expect(receiveCall).toThrow('Unable to find a ' + keeperName + ' with id=\'5\'');
+        expect(receiveCall).toThrow('Unable to find a ' + keeperName + ' with uuid=\'5\'');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 

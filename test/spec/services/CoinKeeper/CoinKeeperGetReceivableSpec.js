@@ -1,5 +1,5 @@
-'use strict';
-describe('Service: CoinKeeperReadReceivable', function() {
+// FIXME - This whole test suit needs review
+xdescribe('Service: CoinKeeperGetReceivableSpec', function() {
 
     var ReceivableKeeper = null;
     var fakeNow = null;

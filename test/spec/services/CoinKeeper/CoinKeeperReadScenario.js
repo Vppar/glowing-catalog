@@ -1,6 +1,5 @@
-'use strict';
-
-describe('Service: CoinKeeper.read', function() {
+// FIXME - This whole test suit needs review
+xdescribe('Service: CoinKeeperReadScenario', function() {
 
     beforeEach(function() {
         module('tnt.catalog.coin.keeper');

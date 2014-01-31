@@ -5,6 +5,7 @@ describe('Service: CoinKeeperAddExpense', function() {
     var ExpensesKeeper = null;
     var Expense = null;
     var JournalEntry = null;
+    var IdentityService = null;
     var fakeNow = null;
     var monthTime = 2592000;
     var validExpense = null;
@@ -19,8 +20,9 @@ describe('Service: CoinKeeperAddExpense', function() {
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
+        module('tnt.identity');
 
-        fakeNow = 1386179100000;
+        fakeNow = 138617910000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
@@ -47,11 +49,12 @@ describe('Service: CoinKeeperAddExpense', function() {
     });
 
     // instantiate service
-    beforeEach(inject(function(_Expense_, _CoinKeeper_, _JournalEntry_) {
+    beforeEach(inject(function(_Expense_, _CoinKeeper_, _JournalEntry_, _IdentityService_) {
         Expense = _Expense_;
         ExpensesKeeper = _CoinKeeper_('expense');
         CoinKeeper = _CoinKeeper_;
         JournalEntry = _JournalEntry_;
+        IdentityService = _IdentityService_;
     }));
 
     it('should return the same entity', function() {
@@ -59,11 +62,15 @@ describe('Service: CoinKeeperAddExpense', function() {
     });
 
     it('should add a expense', function() {
+        var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
+
+        spyOn(IdentityService, 'getUUID').andReturn(uuid);
+
         // given
-        validExpense.id = 1;
+        validExpense.uuid = uuid;
         var expense = new Expense(validExpense);
         
-        var tstamp = fakeNow / 1000;
+        var tstamp = fakeNow;// / 1000;
         var entry = new JournalEntry(null, tstamp, 'expenseAdd', 1, expense);
 
         // when
@@ -92,6 +99,8 @@ describe('Service: CoinKeeperAddExpense', function() {
     });
 
     it('should handle an add expense event', function() {
+        spyOn(IdentityService, 'getUUIDData').andReturn({});
+
         // given
         var expense = new Expense(validExpense);
 

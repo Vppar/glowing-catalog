@@ -52,7 +52,7 @@ describe('Service: VoucherKeeperCancelSpec', function() {
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
 
         //Given
         var v1 = new Voucher(0, null, 'voucher', null);
@@ -90,7 +90,7 @@ describe('Service: VoucherKeeperCancelSpec', function() {
         //Given
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
 
         var v1 = new Voucher(0, 1, 'voucher', 1);
         var v2 = new Voucher(1, 1, 'voucher', 1);

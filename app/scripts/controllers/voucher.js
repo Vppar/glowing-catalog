@@ -31,13 +31,13 @@
             vouchersList[ix].type = 'Vale Crédito';
             $scope.vouchers.push(vouchersList[ix]);
         }
-        for (ix in couponList) {
-            couponList[ix].entity = EntityService.read(vouchersList[ix].entity).name;
+        for ( var ix in couponList) {
+            couponList[ix].entity = EntityService.read(couponList[ix].entity).name;
             couponList[ix].type = 'Coupon';
             $scope.vouchers.push(couponList[ix]);
         }
-        for (ix in giftList) {
-            giftList[ix].entity = EntityService.read(vouchersList[ix].entity).name;
+        for ( var ix in giftList) {
+            giftList[ix].entity = EntityService.read(giftList[ix].entity).name;
             giftList[ix].type = 'Vale Presente';
             $scope.vouchers.push(giftList[ix]);
         }

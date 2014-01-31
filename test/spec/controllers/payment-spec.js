@@ -5,6 +5,7 @@ describe('Controller: PaymentCtrl', function() {
     var ds = {};
     var os = {};
     var ps = {};
+    var rs = {};
     var sms = {};
     var ks = {};
     var $q = {};
@@ -82,6 +83,12 @@ describe('Controller: PaymentCtrl', function() {
         ps.clear = jasmine.createSpy('PaymentService.clear');
         ps.clearAllPayments = jasmine.createSpy('PaymentService.clearAllPayments');
         ps.add = jasmine.createSpy('PaymentService.add');
+        ps.getReceivables = jasmine.createSpy('PaymentService.getReceivables');
+
+
+        // ReceivableService mock
+        rs.bulkRegister = jasmine.createSpy('ReceivableService.bulkRegister');
+        rs.list = jasmine.createSpy('ReceivableService.list');
 
         // Scope mock
         rootScope = $rootScope;
@@ -103,7 +110,8 @@ describe('Controller: PaymentCtrl', function() {
             OrderService : os,
             KeyboardService : ks,
             PaymentService : ps,
-            SMSService : sms
+            SMSService : sms,
+            ReceivableService : rs
         });
         $filter = _$filter_;
     }));

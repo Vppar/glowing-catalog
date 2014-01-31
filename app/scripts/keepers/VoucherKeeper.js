@@ -81,6 +81,8 @@
             } else {
                 throw 'Somehow, we got a repeated voucher!?!?';
             }
+
+            return v.id;
         });
 
         /**
@@ -129,13 +131,12 @@
 
             var voucherObj = angular.copy(newVoucher);
             voucherObj.id = ArrayUtils.generateUUID();
+            voucherObj.created = new Date().getTime();
 
             var event = new Voucher(voucherObj);
-            var stamp = (new Date()).getTime() / 1000;
-
-            event.created = stamp;
+            
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'voucherCreate', currentEventVersion, event);
+            var entry = new JournalEntry(null, voucherObj.created, 'voucherCreate', currentEventVersion, event);
 
             // save the journal entry
             JournalKeeper.compose(entry);
@@ -149,14 +150,13 @@
 
             if (!vouch) {
                 throw 'Unable to find a voucher with id=\'' + id + '\'';
-            }
-            var stamp = (new Date()).getTime() / 1000;
+            }           
 
             var event = new Voucher(id, null, type, null);
-            event.canceled = stamp;
+            event.canceled = (new Date()).getTime();
 
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'voucherCancel', currentEventVersion, event);
+            var entry = new JournalEntry(null, event.canceled, 'voucherCancel', currentEventVersion, event);
 
             // save the journal entry
             JournalKeeper.compose(entry);
@@ -172,13 +172,11 @@
                 throw 'Unable to find a voucher with id=\'' + id + '\'';
             }
 
-            var stamp = (new Date()).getTime() / 1000;
-
             var event = new Voucher(id, null, type, null);
-            event.redeemed = stamp;
+            event.redeemed = (new Date()).getTime();
 
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'voucherRedeem', currentEventVersion, event);
+            var entry = new JournalEntry(null, event.redeemed, 'voucherRedeem', currentEventVersion, event);
 
             // save the journal entry
             JournalKeeper.compose(entry);
