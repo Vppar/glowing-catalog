@@ -172,7 +172,6 @@ describe('Controller: order-list-clients', function() {
         scope = $rootScope.$new();
         scope.orders = orders;
         scope.entities = dp.customers; 
-        //OrderService: OrderService;
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         scope.resetTotal = jasmine.createSpy('scope.resetTotal');
         rs.listByDocument = jasmine.createSpy('ReceivableService.listByDocument');
