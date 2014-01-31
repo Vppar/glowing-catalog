@@ -55,8 +55,8 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
         var stp = fakeNow;
 
         //Given
-        var v1 = new Voucher(0, null, 'voucher', null);
-        var v2 = new Voucher(1, null, 'voucher', null);
+        var v1 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000001', null, 'voucher', null);
+        var v2 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000002', null, 'voucher', null);
         VoucherKeeper.handlers.voucherCreateV1(v1);
         VoucherKeeper.handlers.voucherCreateV1(v2);
 
@@ -68,7 +68,7 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
 
         //When
         var createCall = function() {
-            VoucherKeeper.redeem('voucher', 0);
+            VoucherKeeper.redeem('voucher', 'cc02b600-5d0b-11e3-96c3-010001000001');
         };
 
         //Then
@@ -92,8 +92,8 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         var stp = fakeNow / 1000;
 
-        var v1 = new Voucher(0, 1, 'voucher', 1);
-        var v2 = new Voucher(1, 1, 'voucher', 1);
+        var v1 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000001', 1, 'voucher', 1);
+        var v2 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000002', 1, 'voucher', 1);
         VoucherKeeper.handlers.voucherCreateV1(v1);
         VoucherKeeper.handlers.voucherCreateV1(v2);
 
@@ -107,7 +107,7 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
         //Then
         expect(createCall).not.toThrow();
         expect(VoucherKeeper.list('voucher').length).toBe(2);
-        var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 0);
+        var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 'cc02b600-5d0b-11e3-96c3-010001000001');
         expect(voucher.redeemed).toBe(stp);
     });
 

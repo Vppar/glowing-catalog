@@ -6,6 +6,7 @@ describe('Controller: PaymentCtrl', function() {
     var os = {};
     var ps = {};
     var rs = {};
+    var vs = {};
     var sms = {};
     var ks = {};
     var $q = {};
@@ -99,6 +100,10 @@ describe('Controller: PaymentCtrl', function() {
         rootScope = $rootScope;
         scope = $rootScope.$new();
 
+        // VoucherService mock
+        vs.bulkRegister = jasmine.createSpy('VoucherService.bulkRegister');
+        vs.list = jasmine.createSpy('VoucherService.list');
+
         // SMSService mock
         sms.sendPaymentConfirmation =
                 jasmine.createSpy('SMSService.sendPaymentConfirmation')
@@ -117,7 +122,8 @@ describe('Controller: PaymentCtrl', function() {
             PaymentService : ps,
             SMSService : sms,
             ReceivableService : rs,
-            ProductReturnService: productReturnServiceMock
+            ProductReturnService: productReturnServiceMock,
+            VoucherService : vs
         });
         $filter = _$filter_;
     }));

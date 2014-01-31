@@ -3,7 +3,7 @@
 		"type": "voucherCreate",
 		"version": 1,
 		"event": {
-			"id": 1,
+			"id": "cc02b600-5d0b-11e3-96c3-010001000001",
 			"entity": 16,
 			"type": "voucher",
 			"amount": 10.77,
@@ -14,7 +14,7 @@
 		"type": "voucherCreate",
 		"version": 1,
 		"event": {
-			"id": 2,
+			"id": "cc02b600-5d0b-11e3-96c3-010001000002",
 			"entity": 16,
 			"type": "giftCard",
 			"amount": 50,
@@ -25,7 +25,7 @@
 		"type": "voucherCreate",
 		"version": 1,
 		"event": {
-			"id": 3,
+			"id": "cc02b600-5d0b-11e3-96c3-010001000003",
 			"entity": 16,
 			"type": "coupon",
 			"amount": 20,

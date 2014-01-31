@@ -2,12 +2,12 @@
     'use strict';
     angular
             .module('tnt.catalog.payment', [
-                'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity'
+                'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity', 'tnt.catalog.voucher.service'
             ])
             .controller(
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                            ReceivableService,ProductReturnService, SMSService, KeyboardService, InventoryKeeper, CashPayment) {
+                            ReceivableService,ProductReturnService, VoucherService, SMSService, KeyboardService, InventoryKeeper, CashPayment) {
 
                         // #############################################################################################
                         // Controller warm up
@@ -358,19 +358,17 @@
                                 return ReceivableService.bulkRegister(receivables, customer, orderUuid);
                             }, propagateRejectedPromise);
 
-                            // // Register product exchange
+                            // Register product exchange
                              var savedExchangesPromise = savedOrderPromise.then(function(orderUuid) {
                                  var exchanges = PaymentService.list('exchange');
                                  return ProductReturnService.bulkRegister(exchanges, customer, orderUuid);
                              }, propagateRejectedPromise);
                              
-                            //
-                            // // Register voucher/coupons use
-                            // var savedVouchersPromise =
-                            // savedOrderPromise.then(function(orderUuid) {
-                            //                                var vouchers = PaymentService.list('coupon');
-                            //                                return VoucherService.bulkRegister(vouchers, customer, orderUuid);
-                            //                            }, propagateRejectedPromise);
+                            // Register voucher/coupons use
+                            var savedVouchersPromise = savedOrderPromise.then(function(orderUuid) {
+                                var vouchers = PaymentService.list('coupon');
+                                return VoucherService.bulkRegister(vouchers, customer, orderUuid);
+                            }, propagateRejectedPromise);
 
                             // Generate coupons
                             var savedCouponsPromise = savedOrderPromise.then(function(orderUuid) {
@@ -380,21 +378,12 @@
                                 evaluateCoupons(coupons);
                             }, propagateRejectedPromise);
 
-                            // Sale saved
-                            // var savedSale = $q.all([
-                            // savedReceivablesPromise, savedExchangesPromise,
-                            // savedVouchersPromise, savedCouponsPromise
-                            //                            ]);
                             var savedSale = $q.all([
-                                savedReceivablesPromise, savedCouponsPromise, savedExchangesPromise
+                                savedReceivablesPromise, savedExchangesPromise, savedVouchersPromise, savedCouponsPromise
                             ]);
 
                             // clear all
-                            var paymentDonePromise = savedSale.then(function() {
-                                $log.debug('Receivables created');
-                                $log.debug(ReceivableService.list());
-                                $log.debug('ProductReturns created ');
-                                $log.debug(ProductReturnService.list());
+                            var paymentDonePromise = savedSale.then(function() {                                   
                                 OrderService.clear();
                                 PaymentService.clearAllPayments();
                                 PaymentService.clearPersistedCoupons();

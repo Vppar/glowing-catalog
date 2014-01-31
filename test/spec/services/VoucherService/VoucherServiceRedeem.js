@@ -33,7 +33,7 @@ describe('Service: Voucherservice', function() {
     it('should redeem', function() {
 
         var voucherType = 'voucher';
-        var id = 0;
+        var id = 'cc02b600-5d0b-11e3-96c3-010001000001';
 
         var voucher = {
             redeemed : false,
@@ -41,7 +41,7 @@ describe('Service: Voucherservice', function() {
         };
         spyOn(ArrayUtils, 'find').andReturn(voucher);
 
-        VoucherService.redeem(id);
+        VoucherService.redeem(voucherType, id);
 
         expect(vKeeper.redeem.mostRecentCall.args[0]).toEqual(voucherType);
         expect(vKeeper.redeem.mostRecentCall.args[1]).toEqual(id);

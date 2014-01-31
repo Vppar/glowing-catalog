@@ -34,11 +34,11 @@ describe('Service: VoucherKeeperRedeemScenario', function() {
      */
     it('redeem a voucher', function() {
         runs(function() {
-            VoucherKeeper.handlers[myAddFunction](new Voucher(0, 'Pedro de Lara', 'voucher', 30));
-            VoucherKeeper.handlers[myAddFunction](new Voucher(1, 'Toninho do Diabo', 'voucher', 40));
-            VoucherKeeper.handlers[myAddFunction](new Voucher(3, 'Jeremias O Sub-Zero brasileiro', 'voucher', 40));
+            VoucherKeeper.handlers[myAddFunction](new Voucher('cc02b600-5d0b-11e3-96c3-010001000001', 'Pedro de Lara', 'voucher', 30));
+            VoucherKeeper.handlers[myAddFunction](new Voucher('cc02b600-5d0b-11e3-96c3-010001000002', 'Toninho do Diabo', 'voucher', 40));
+            VoucherKeeper.handlers[myAddFunction](new Voucher('cc02b600-5d0b-11e3-96c3-010001000003', 'Jeremias O Sub-Zero brasileiro', 'voucher', 40));
 
-            VoucherKeeper.redeem('voucher', 1);
+            VoucherKeeper.redeem('voucher', 'cc02b600-5d0b-11e3-96c3-010001000002');
         });
 
         waitsFor(function() {
@@ -46,7 +46,7 @@ describe('Service: VoucherKeeperRedeemScenario', function() {
         }, 'JournalKeeper is taking too long', 300);
 
         runs(function() {
-            var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 1);
+            var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 'cc02b600-5d0b-11e3-96c3-010001000002');
 
             expect(VoucherKeeper.list('voucher').length).toBe(3);
             expect(voucher.redeemed).not.toBe(undefined);
