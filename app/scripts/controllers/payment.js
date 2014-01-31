@@ -357,7 +357,7 @@
                                 var receivables = PaymentService.getReceivables();
                                 return ReceivableService.bulkRegister(receivables, customer, orderUuid);
                             }, propagateRejectedPromise);
-                            
+
                             // Generate coupons
                             var savedCouponsPromise = savedOrderPromise.then(function(orderUuid) {
                                 return PaymentService.createCoupons(customer, orderUuid);
@@ -422,7 +422,7 @@
                             var confirmedPaymentPromise = paymentFactory();
                             var paidPromise = confirmedPaymentPromise.then(makePayment, function() {
                                 main();
-                                return $q.reject();
+                                return $q.reject('canceledByUser');
                             });
 
                             // Inform the user that the payment is done.
@@ -430,14 +430,16 @@
                                     .then(
                                             paymentDone,
                                             function(err) {
-                                                $log.error(err);
+                                                if (err && err !== 'canceledByUser') {
+                                                    $log.error(err);
+                                                    DialogService
+                                                            .messageDialog({
+                                                                title : 'Pagamento',
+                                                                message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
+                                                                btnYes : 'OK',
+                                                            });
+                                                }
                                                 main();
-                                                DialogService
-                                                        .messageDialog({
-                                                            title : 'Pagamento',
-                                                            message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
-                                                            btnYes : 'OK',
-                                                        });
                                             });
 
                             // Send the alert SMS to the customer.
