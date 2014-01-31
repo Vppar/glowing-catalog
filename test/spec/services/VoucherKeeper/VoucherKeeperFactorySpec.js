@@ -98,7 +98,7 @@ describe('Service: VoucherKeeperFactorySpec', function() {
             redeemed : false,
             canceled : true,
             remarks : "lalala",
-            document : {
+            documentId : {
                 type : "pedido",
                 id : 123
             }
