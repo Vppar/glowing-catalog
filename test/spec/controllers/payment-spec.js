@@ -102,6 +102,7 @@ describe('Controller: PaymentCtrl', function() {
 
         // VoucherService mock
         vs.bulkRegister = jasmine.createSpy('VoucherService.bulkRegister');
+        vs.list = jasmine.createSpy('VoucherService.list');
 
         // SMSService mock
         sms.sendPaymentConfirmation =

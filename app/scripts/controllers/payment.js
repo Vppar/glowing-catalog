@@ -383,13 +383,7 @@
                             ]);
 
                             // clear all
-                            var paymentDonePromise = savedSale.then(function() {
-                                $log.debug('Receivables created');
-                                $log.debug(ReceivableService.list());
-                                $log.debug('ProductReturns created ');
-                                $log.debug(ProductReturnService.list());
-                                $log.debug('Vouchers created ');
-                                $log.debug(VoucherService.list());
+                            var paymentDonePromise = savedSale.then(function() {                                   
                                 OrderService.clear();
                                 PaymentService.clearAllPayments();
                                 PaymentService.clearPersistedCoupons();

@@ -5,10 +5,6 @@
         'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper', 'tnt.catalog.entity.service', 'tnt.utils.array'
     ]).service('VoucherService', function VoucherService($q, $log, Voucher, VoucherKeeper, EntityService, ArrayUtils) {
 
-        var voucherType = 'voucher';
-
-
-
         var isValid = function isValid(voucher) {
             var invalidProperty = {};
             // FIXME - Verify if is a valid entityId
@@ -175,6 +171,7 @@
         this.cancel = cancel;
         this.create = create;
         this.redeem = redeem;
+        this.list = list;
 
     });
 })(angular);
