@@ -22,6 +22,11 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         // scope mock
         scope = $rootScope.$new();
         scope.computeTotals = jasmine.createSpy('scope.computeTotals');
+        scope.totals = {
+          payments : {
+            remaining : 100
+          }
+        };
         scope.total = jasmine.createSpy('scope.total');
         scope.total.change = -284;
         
@@ -40,7 +45,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
      */
    it('should amount equal 0', function() {
         // the value scope.total.change was settled on beforeInject(creation of controller.)
-        expect(scope.amount).toEqual(284);
+        expect(scope.amount).toEqual(100);
     });
 
 });

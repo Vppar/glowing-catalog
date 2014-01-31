@@ -7,6 +7,8 @@
             function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
                     SMSService, KeyboardService, InventoryKeeper, CashPayment) {
 
+
+
                 // #############################################################################################
                 // Controller warm up
                 // #############################################################################################
@@ -33,40 +35,96 @@
 
                 var isNumPadVisible = false;
 
-                // Payment variables
-                $scope.total = {
-                    payments : {
-                        cash : [],
-                        check : [],
-                        creditCard : [],
-                        exchange : [],
-                        coupon : [],
-                        onCuff : []
-                    },
-                    order : {
-                        amount : 0,
-                        qty : 0,
-                        unit : 0
-                    },
-                    change : 0
+
+                // See updateTotals() to see how this objects are populated
+                $scope.totals = {};
+
+                $scope.totals.payments = {
+                  cash    : {total : 0, qty : 0},
+                  check   : {total : 0, qty : 0},
+                  coupon : {total : 0, qty : 0},
+                  creditCard : {total : 0, qty : 0},
+                  exchange : {total : 0, qty : 0},
+                  onCuff : {total : 0, qty : 0},
+                  total : 0,
+                  change : 0,
+                  remaining : 0
                 };
 
-                /**
-                 * Gets the current cash amount from the cash payments array.
-                 */
-                function getCashAmount() {
-                    var cash = PaymentService.list('cash')[0];
-                    return (cash && cash.amount) || 0;
+                $scope.totals.order = {
+                  // Total order value
+                  total : 0,
+
+                  // Sum of the quantities of all items in the order
+                  qty : 0,
+
+                  // Number of items in the order (item types, not quantities)
+                  items : 0
+                };
+
+
+                // #################################################
+                // Event handling
+                function triggerValuesChangedEvent() {
+                  $scope.$broadcast('PaymentCtrl.valuesChanged');
                 }
+
+                function updateTotals() {
+                  $scope.totals.order.total = OrderService.getOrderTotal();
+                  $scope.totals.order.qty = OrderService.getItemsQuantity();
+                  $scope.totals.order.itemsCount = OrderService.getItemsCount();
+
+                  $scope.totals.payments.cash.total = PaymentService.getTotal('cash');
+                  $scope.totals.payments.cash.qty = PaymentService.getPaymentCount('cash');
+
+                  $scope.totals.payments.check.total = PaymentService.getTotal('check');
+                  $scope.totals.payments.check.qty = PaymentService.getPaymentCount('check');
+
+                  $scope.totals.payments.creditCard.total = PaymentService.getTotal('creditCard');
+                  $scope.totals.payments.creditCard.qty = PaymentService.getPaymentCount('creditCard');
+
+                  $scope.totals.payments.exchange.total = PaymentService.getTotal('exchange');
+                  $scope.totals.payments.exchange.qty = PaymentService.getPaymentCount('exchange');
+
+                  $scope.totals.payments.coupon.total = PaymentService.getTotal('coupon');
+                  $scope.totals.payments.coupon.qty = PaymentService.getPaymentCount('coupon');
+
+                  $scope.totals.payments.onCuff.total = PaymentService.getTotal('onCuff');
+                  $scope.totals.payments.onCuff.qty = PaymentService.getPaymentCount('onCuff');
+
+                  $scope.totals.payments.total = PaymentService.getTotal();
+                  $scope.totals.payments.change = PaymentService.getChange($scope.totals.order.total);
+                  $scope.totals.payments.remaining = PaymentService.getRemainingAmount($scope.totals.order.total);
+                }
+
+                function clearOnCuffPayments() {
+                  if ($scope.totals.payments.change || $scope.totals.payments.remaining) {
+                    PaymentService.clear('onCuff');
+                  }
+                }
+
+
+                $scope.$on('OrderService.orderItemsChanged', triggerValuesChangedEvent);
+                $scope.$on('PaymentService.paymentsChanged', triggerValuesChangedEvent);
+
+                $scope.$on('PaymentCtrl.valuesChanged', updateTotals);
+
+                $scope.$on('PaymentCtrl.valuesChanged', clearOnCuffPayments);
+
+
+                // Initialize totals
+                updateTotals();
 
                 /**
                  * Stores the amount paid in cash.
                  */
-                // We need a model for storing the cash amount because we
+                // We need a separate model for storing the cash amount because we
                 // are editing the cash amount directly from the payment
-                // methods list, as oposed to all other methods.
+                // methods list, as oposed to all other methods. If we edit
+                // the $scope.totals.payments.cash.total model directly, we create a loop with the
+                // watcher where a new CashPayment is added and cleared immediately.
                 $scope.cash = {
-                    amount : getCashAmount()
+                    amount : $scope.totals.payments.cash.total
                 };
 
                 // Controls which left fragment will be shown
@@ -105,7 +163,6 @@
                     if ($scope.cash.amount != 0) {
                         PaymentService.add(new CashPayment($scope.cash.amount));
                     }
-                    updateOrderAndPaymentTotal();
                 });
 
                 // Publishing dialog service
@@ -130,8 +187,6 @@
                             }
                         }
                         PaymentService.clear('coupon');
-                        $scope.total.payments.coupon.length = 0;
-                        updateOrderAndPaymentTotal();
                     });
                 };
 
@@ -168,7 +223,6 @@
                  * @param method - payment method.
                  */
                 $scope.selectPaymentMethod = function selectPaymentMethod(method) {
-                    updateOrderAndPaymentTotal();
                     $scope.showPaymentButtons = (method === 'none' || method === 'money');
                     $scope.selectedPaymentMethod = method;
                 };
@@ -194,7 +248,6 @@
                                 var idx = OrderService.order.items.indexOf(item);
                                 OrderService.order.items.splice(idx, 1);
                             }
-                            updateOrderAndPaymentTotal();
                         });
                     } else if (!item.type) {
                         var product = ArrayUtils.filter(DataProvider.products, {
@@ -213,7 +266,6 @@
                                 id : product.parent
                             });
                         }
-                        dialogPromise.then(updateOrderAndPaymentTotal);
                     }
                 };
 
@@ -283,57 +335,10 @@
                     $location.path('/');
                 }
 
-                function updateOrderAndPaymentTotal() {
-                    // Calculate the Subtotal
-                    if (order.items) {
-                        // Payment total
-                        $scope.total.payments.cash = PaymentService.list('cash');
-                        $scope.total.payments.check = PaymentService.list('check');
-                        $scope.total.payments.creditCard = PaymentService.list('creditCard');
-                        $scope.total.payments.exchange = PaymentService.list('exchange');
-                        $scope.total.payments.coupon = PaymentService.list('coupon');
-                        $scope.total.payments.onCuff = PaymentService.list('onCuff');
-
-                        var totalPayments = 0;
-                        for ( var ix in $scope.total.payments) {
-                            totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
-                        }
-
-                        // Order total
-                        var basket = order.items;
-
-                        $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
-                        $scope.total.order.unit = $filter('sum')(basket, 'qty');
-                        $scope.total.order.qty = basket ? basket.length : 0;
-
-                        // Change
-                        $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
-                    }
-                }
-
-                $scope.$watch('total.change', function() {
-                    if ($scope.total.change != 0) {
-                        PaymentService.clear('onCuff');
-                        updateOrderAndPaymentTotal();
-                    }
-                });
 
                 // #############################################################################################
                 // Main related functions
                 // #############################################################################################
-
-                /**
-                 * Checks out if the payment is valid.
-                 */
-                function isPaymentValid() {
-                    var isValid = false;
-                    var paymentAmount = $filter('sum')($scope.payments, 'amount');
-                    if (paymentAmount > 0 && paymentAmount >= $scope.total.order.amount) {
-                        isValid = true;
-                    }
-                    return isValid;
-                }
-                $scope.isPaymentValid = isPaymentValid;
 
                 /**
                  * Saves the payments and closes the order.
@@ -369,7 +374,7 @@
                  * Sends the SMS to the customer about his order.
                  */
                 function sendAlertSMSAttempt() {
-                    return SMSService.sendPaymentConfirmation(customer, $scope.total.order.amount);
+                    return SMSService.sendPaymentConfirmation(customer, $scope.totals.order.total);
                 }
 
                 /**

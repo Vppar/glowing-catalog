@@ -25,6 +25,12 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
         scope.checkForm = {
             $valid : true
         };
+
+        scope.totals = {
+            payments : {
+            }
+        };
+
         scope.total = {
             change : 0
         };

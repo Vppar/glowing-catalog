@@ -31,6 +31,12 @@ describe('Controller: PaymentCouponCtrl', function() {
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         scope.selectPaymentMethod = jasmine.createSpy('selectPaymentMethod');
 
+        scope.totals = {
+          payments : {
+            remaining : 100
+          }
+        };
+
         // fake a new order
         orderServiceMock.order = {};
         orderServiceMock.order.paymentIds = [];
@@ -52,10 +58,14 @@ describe('Controller: PaymentCouponCtrl', function() {
         ];
         orderServiceMock.order.items = itemsMock;
 
+
+        orderServiceMock.handleItem = jasmine.createSpy('OrderService.handleItem');
+
         // orderServiceMock.order.items.push = jasmine.createSpy('push');
         scope.customer = {
             name : 'Mario'
         };
+
         scope.total = {
             change : 50
         };
@@ -211,8 +221,9 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         scope.confirmGift();
 
-        expect(orderServiceMock.order.items.push).toHaveBeenCalled();
-        expect(orderServiceMock.order.items.push.mostRecentCall.args[0]).toEqual(gift);
+        expect(orderServiceMock.handleItem).toHaveBeenCalled();
+        //expect(orderServiceMock.order.items.push).toHaveBeenCalled();
+        //expect(orderServiceMock.order.items.push.mostRecentCall.args[0]).toEqual(gift);
 
     });
 
@@ -317,8 +328,7 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         scope.confirmVoucher();
 
-        expect(orderServiceMock.order.items.length).toBe(1);
-        expect(orderServiceMock.order.items[0].price).toBe(value);
+        expect(orderServiceMock.handleItem).toHaveBeenCalled();
     });
 
 });

@@ -21,7 +21,7 @@
                 var checkSum = 0;
 
                 $scope.payments = PaymentService.list('check');
-                checkSum = (-1) * $scope.total.change + $filter('sum')(PaymentService.list('check'), 'amount');
+                checkSum = $scope.totals.payments.remaining + $filter('sum')(PaymentService.list('check'), 'amount');
 
                 var emptyCheckTemplate = {
                     installments : 1,

@@ -37,4 +37,13 @@ describe('Service: OrderService', function () {
     expect(OrderService.order.items).not.toBeUndefined();
     expect(OrderService.order.items).toEqual([]);
   });
+
+    // FIXME: implement this. Could not get handlers to get called within 
+    // the service.
+    xdescribe('OrderService.orderItemsChanged event', function () {
+        it('is triggered on OrderService.addItem event');
+        it('is triggered on OrderService.removeItem event');
+        it('is triggered on OrderService.updateItem event');
+        it('is triggered on OrderService.clear event');
+    });
 });

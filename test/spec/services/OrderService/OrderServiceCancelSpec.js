@@ -41,4 +41,49 @@ describe('Service: OrderServiceCancel', function () {
     // Are we returning the value returned by 'OrderKeeper.cancel()'?
     expect(order).toEqual('ok');
   });
+
+
+  describe('OrderService.cancel event', function () {
+    var rootScope;
+
+    beforeEach(inject(function ($rootScope) {
+      rootScope = $rootScope;
+    }));
+
+    it('is triggered when an order is successfully canceled', function () {
+      var listener = jasmine.createSpy('listener');
+      OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel');
+      rootScope.$on('OrderService.cancel', listener);
+      OrderService.cancel();
+      expect(listener).toHaveBeenCalled();
+    });
+
+
+    it('passes the result of the cancelation to the listeners', function () {
+      var listener = jasmine.createSpy('listener');
+      OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andReturn('foo');
+      rootScope.$on('OrderService.cancel', listener);
+      OrderService.cancel();
+      expect(listener).toHaveBeenCalled();
+      expect(listener.calls[0].args[1]).toBe('foo');
+    });
+
+    it('is not triggered when an order cancelation failed', function () {
+      var listener = jasmine.createSpy('listener');
+
+      OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andCallFake(function () {
+        throw 'Not canceled';
+      });
+
+      rootScope.$on('OrderService.cancel', listener);
+
+      try {
+        OrderService.cancel();
+      } catch(err) {
+        expect(err).toBe('OrderService.cancel: Unable to cancel the order with id=undefined. Err=Not canceled');
+      }
+
+      expect(listener).not.toHaveBeenCalled();
+    });
+  });
 });

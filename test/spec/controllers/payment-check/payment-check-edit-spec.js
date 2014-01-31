@@ -26,6 +26,12 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
         scope.checkForm = {
             $valid : true
         };
+
+        scope.totals = {
+          payments : {
+          }
+        };
+
         scope.total = {
             change : 0
         };

@@ -35,13 +35,8 @@
                             customer : ''
                         };
 
-                        if ($scope.total.change > 0) {
-                            $scope.voucher.total = $scope.total.change;
-                            $scope.gift.total = $scope.total.change;
-                        } else {
-                            $scope.voucher.total = 0;
-                            $scope.gift.total = 0;
-                        }
+                        $scope.voucher.total = $scope.totals.payments.change;
+                        $scope.gift.total = $scope.totals.payments.change;
 
                         $scope.list = [
                             {
@@ -93,7 +88,7 @@
                         function voucherIsEnabled() {
                           // The voucher screen is enabled either if there's a
                           // voucher in the order or if there's change.
-                          return orderHasVoucher() || $scope.total.change > 0;
+                          return orderHasVoucher() || $scope.totals.payments.change > 0;
                         }
 
                         // Make the function available in the scope
@@ -182,38 +177,23 @@
                         };
 
                         $scope.confirmVoucher = function confirmVoucher() {
+                            var voucher = {
+                              title : 'Vale Crédito',
+                              // FIXME: can't we set this uniqueName when the
+                              // order is confirmed?
+                              uniqueName : $scope.customer.name,
+                              price : $scope.voucher.total,
+                              qty : 1,
+                              type : 'voucher'
+                            };
 
-                            if (voucherSet) {
-                                if ($scope.voucher.total == 0) {
-                                    order.items.splice(voucherSet.idx, 1);
-                                } else {
-                                    voucherSet.price = $scope.voucher.total;
-                                }
-                            } else {
-                                // add a voucher to the order list
-                                var idx = order.items.length;
-
-                                var voucher = {
-                                    id : idx,
-                                    title : 'Vale Crédito',
-                                    uniqueName : $scope.customer.name,
-                                    price : $scope.voucher.total,
-                                    qty : 1,
-                                    type : 'voucher'
-                                };
-                                order.items.push(voucher);
-                            }
-
+                            OrderService.handleItem(voucher);
                             $scope.selectPaymentMethod('none');
                         };
 
                         $scope.confirmGift = function confirmGift() {
-
                             // add a gift to the order list
-                            var idx = order.items.length;
-
                             var gift = {
-                                id : idx,
                                 title : 'Vale Presente',
                                 uniqueName : $scope.gift.customer.name,
                                 price : $scope.gift.total,
@@ -221,7 +201,7 @@
                                 type : 'giftCard'
                             };
 
-                            order.items.push(gift);
+                            OrderService.handleItem(gift);
 
                             $scope.selectPaymentMethod('none');
                         };
