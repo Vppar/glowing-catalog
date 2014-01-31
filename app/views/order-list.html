@@ -173,7 +173,7 @@
     				<br/>			
     			</div>
     		<!--Clientes-->
-    		<div class="order-list-grid-clientes" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
+    		<div class="order-list-grid-clientes" ng-switch-when="customers" ng-controller="OrderListClientsCtrl" >
     			<div class="row-fluid">
     				<div class="grid-order-list">
     					<div class="header">
@@ -200,7 +200,7 @@
     					</div>
     					<div class="scroll-order-list">
     						<div class="row-order-list hover-state-pointer" 
-    								ng-repeat="consol in ordersByCLientList | orderBy: '-totalAmount'">
+    								ng-repeat="consol in ordersByCLientList | orderBy: '-totalAmount'" ng-click="selectOrder(consol)">
     							<div class="col-1">
     								<span>{{$index+1}}</span>
     							</div>
