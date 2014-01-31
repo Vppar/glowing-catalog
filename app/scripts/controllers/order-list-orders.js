@@ -59,7 +59,6 @@
                 }
 
                 var vouchers = VoucherService.listByDocument(order.uuid);
-                console.log('>>>', vouchers);
                 for ( var idx in vouchers) {
                     var voucher = vouchers[idx];
                     console.log(voucher);
