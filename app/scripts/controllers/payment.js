@@ -20,7 +20,6 @@
                         if (!order.customerId) {
                             $location.path('/');
                         }
-
                         $scope.voucherFilter = function(item) {
                             if (item.type === 'voucher' || item.type === 'giftCard') {
                                 return true;
@@ -299,6 +298,25 @@
                                 $scope.total.payments.exchange = PaymentService.list('exchange');
                                 $scope.total.payments.coupon = PaymentService.list('coupon');
                                 $scope.total.payments.onCuff = PaymentService.list('onCuff');
+                                
+                                if ($scope.total.payments.check == 0) {
+                                    $scope.hideCheckQtde = true;
+                                } else {
+                                    $scope.hideCheckQtde = false;
+                                }
+                                
+                                if ($scope.total.payments.creditCard == 0) {
+                                    $scope.hideCardQtde = true;
+                                } else {
+                                    $scope.hideCardQtde = false;
+                                }
+                                
+                                if ($scope.total.payments.exchange == 0) {
+                                    $scope.hideExchangeQtde = true;
+                                } else {
+                                    $scope.hideExchangeQtde = false;
+                                }
+                                
 
                                 var totalPayments = 0;
                                 for ( var ix in $scope.total.payments) {
