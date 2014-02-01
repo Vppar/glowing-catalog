@@ -842,7 +842,14 @@
 		.catalog-block.product-bg-soft-orange .product-addbtn {
 			background-color: #d8b194;
 			background-image: url('../images/plus-w.png');
-		}		
+		}
+		.catalog-block.product-bg-color-soft-red .product-addbtn {
+			background-color: #f58a7a;
+			background-image: url('../images/plus-w.png');
+		}
+		
+
+		
 		.catalog-block.product-bg-soft-black .product-addbtn {
 			background-color: #3a3a3a;
 			background-image: url('../images/plus-w.png');
@@ -871,7 +878,7 @@
 			background-color: #839766;
 			background-image: url('../images/plus-w.png');
 		}	
-		.catalog-block.product-bg-dark-lilac .product-addbtn {
+		.catalog-block.product-bg-color-dark-lilac .product-addbtn {
 			background-color: #cebebe;
 			background-image: url('../images/plus-w.png');
 		}	
