@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.orderList.ctrl', [
         'tnt.catalog.order.service', 'tnt.utils.array'
-    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, DataProvider, ReceivableService) {
+    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, EntityService, ReceivableService) {
 
         // #############################################################################################################
         // Warming up the controller
@@ -45,9 +45,9 @@
         var hideOptions = true;
 
         $scope.orders = OrderService.list();
-        $scope.entities = DataProvider.customers;
+        $scope.entities = EntityService.list();
 
-        //initialize dates
+        // initialize dates
         var dtIni = new Date();
         dtIni.setMonth(dtIni.getMonth() - 1);
         $scope.dateFilter = {
@@ -55,7 +55,7 @@
             dtFinal : new Date()
         };
 
-        //Set first and last instants of dates.
+        // Set first and last instants of dates.
         $scope.dateFilter.dtInitial.setHours(0);
         $scope.dateFilter.dtInitial.setMinutes(0);
         $scope.dateFilter.dtInitial.setSeconds(0);

@@ -1,12 +1,26 @@
 describe('Service: PaymentServiceHasPersistedCoupons', function() {
 
+    var orderService = {};
+    var entityService = {};
+    var voucherService = {};
+    var receivableService = {};
+    var productReturnService = {};
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.payment.entity');
         module('tnt.catalog.payment.service');
         module('tnt.catalog.service.coupon');
-    });
 
+        module(function($provide) {
+            $provide.value('OrderService', orderService);
+            $provide.value('EntityService', entityService);
+            $provide.value('VoucherService', voucherService);
+            $provide.value('ReceivableService', receivableService);
+            $provide.value('ProductReturnService', productReturnService);
+        });
+    });
+    
     // instantiate service
     beforeEach(inject(function(_Payment_, _CashPayment_, _CheckPayment_, _CreditCardPayment_, _ExchangePayment_, _CouponPayment_,
             _CouponService_, _OnCuffPayment_, _PaymentService_) {

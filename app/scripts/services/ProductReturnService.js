@@ -22,7 +22,11 @@
                     var hasErrors = isValid(productReturn);
                     if (hasErrors.length === 0) {
                         result = ProductReturnKeeper.add(new ProductReturn(productReturn));
+                        result['catch'](function(err) {
+                            $log.error('ProductReturnService.register: -Failed to create a productReturn. ', err);
+                        });
                     } else {
+                        $log.error('ProductReturnService.register: -Invalid productReturn. ', hasErrors);
                         result = $q.reject(hasErrors);
                     }
                     return result;

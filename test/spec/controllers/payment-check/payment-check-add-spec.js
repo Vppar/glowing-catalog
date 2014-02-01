@@ -5,6 +5,10 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
     var dialogService = {};
     var fakeNow = 1412421495;
     var os = {};
+    var es = {};
+    var rs = {};
+    var prs = {};
+    var vs = {};
 
     beforeEach(function() {
         module('tnt.catalog.payment.check');
@@ -16,7 +20,16 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         module('tnt.catalog.filter.sum');
         module('tnt.catalog.filter.paymentType');
         module('tnt.catalog.misplaced.service');
+        
+        module(function($provide){
+            $provide.value('OrderService', os);
+            $provide.value('EntityService', es);
+            $provide.value('ReceivableService', rs);
+            $provide.value('ProductReturnService', prs);
+            $provide.value('VoucherService', vs);
+        });
     });
+    
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
@@ -49,8 +62,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         $controller('PaymentCheckCtrl', {
             $scope : scope,
             $element : element,
-            $filter : _$filter_,
-            OrderService : os
+            $filter : _$filter_
         });
     }));
 
