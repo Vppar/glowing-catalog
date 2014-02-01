@@ -45,10 +45,6 @@
 
                     angular.extend(scope, response.data);
 
-                    scope.customers.sort(function(x, y) {
-                        return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
-                    });
-
                     if (scope.products.length) {
                         $rootScope.$broadcast('DataProvider.update');
                     }

@@ -3,8 +3,8 @@
 		"type": "voucherCreate",
 		"version": 1,
 		"event": {
-			"id": 1,
-			"entity": 16,
+			"id": "cc02b600-5d0b-11e3-96c3-020001000001",
+			"entity": "cc02b600-5d0b-11e3-96c3-010001000016",
 			"type": "voucher",
 			"amount": 10.77,
 			"created": 1388534400000
@@ -14,8 +14,8 @@
 		"type": "voucherCreate",
 		"version": 1,
 		"event": {
-			"id": 2,
-			"entity": 16,
+			"id": "cc02b600-5d0b-11e3-96c3-020001000004",
+			"entity": "cc02b600-5d0b-11e3-96c3-010001000016",
 			"type": "giftCard",
 			"amount": 50,
 			"created": 1388544400000
@@ -25,8 +25,8 @@
 		"type": "voucherCreate",
 		"version": 1,
 		"event": {
-			"id": 3,
-			"entity": 16,
+			"id": "cc02b600-5d0b-11e3-96c3-020001000003",
+			"entity": "cc02b600-5d0b-11e3-96c3-010001000016",
 			"type": "coupon",
 			"amount": 20,
 			"created": 1388684400000
@@ -194,7 +194,7 @@
 		"event": {
         	"uuid": "cc02b600-5d0b-11e3-96c3-010001000014",
         	"created": 1388684400000,
-        	"name": "Valtanette De Paula",
+        	"name": "Valtanette de Paula",
         	"phones": [{
             	"number": "12997115500"
         	}],
@@ -226,18 +226,6 @@
             	"number": "4130152983"
         	},{
             	"number": "4196665488"
-        	}]
-    	}
-	},
-	{
-		"type": "entityCreate",
-		"version": 1,
-		"event": {
-        	"uuid": "cc02b600-5d0b-11e3-96c3-010001000017",
-        	"created": 1388684400000,
-        	"name": "MAV COMERCIO DE ACESSORIOS LTDA",
-        	"phones": [{
-            	"number": "4130152983"
         	}]
     	}
 	}

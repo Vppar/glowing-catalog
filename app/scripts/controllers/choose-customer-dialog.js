@@ -5,9 +5,9 @@
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
     ]).controller('ChooseCustomerDialogCtrl', function($scope, $q, $location, dialog, OrderService, EntityService) {
 
-        var order = OrderService.order;
-
-        $scope.customers = EntityService.list();
+        $scope.customers = EntityService.list().sort(function(x, y) {
+            return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
+        });
 
         /**
          * Closes the dialog without select a customer.
