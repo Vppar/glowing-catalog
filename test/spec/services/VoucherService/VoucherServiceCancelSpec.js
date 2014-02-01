@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: Voucherservice', function() {
+describe('Service: VoucherServiceCancelSpec', function() {
     var vKeeper = {};
     var EntityService;
     

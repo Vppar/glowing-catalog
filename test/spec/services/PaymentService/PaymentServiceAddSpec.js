@@ -1,11 +1,25 @@
 // FIXME - This whole test suit needs review
 describe('Service: PaymentServiceAdd', function() {
 
+    var orderService = {};
+    var entityService = {};
+    var voucherService = {};
+    var receivableService = {};
+    var productReturnService = {};
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.payment.entity');
         module('tnt.catalog.payment.service');
         module('tnt.catalog.service.coupon');
+
+        module(function($provide) {
+            $provide.value('OrderService', orderService);
+            $provide.value('EntityService', entityService);
+            $provide.value('VoucherService', voucherService);
+            $provide.value('ReceivableService', receivableService);
+            $provide.value('ProductReturnService', productReturnService);
+        });
     });
 
     // instantiate service
@@ -20,7 +34,6 @@ describe('Service: PaymentServiceAdd', function() {
         CouponService = _CouponService_;
         OnCuffPayment = _OnCuffPayment_;
         PaymentService = _PaymentService_;
-
     }));
 
     it('should add a cash payment', function() {
@@ -35,10 +48,11 @@ describe('Service: PaymentServiceAdd', function() {
         };
         // then
         expect(addCall).not.toThrow();
-        expect(payments).toEqual([payment]);
+        expect(payments).toEqual([
+            payment
+        ]);
     });
 
-    
     /**
      * TODO - Check if the method is going to be updated or this test removed.
      * this test dosn't match the actual behavior of cash payments.
@@ -147,7 +161,7 @@ describe('Service: PaymentServiceAdd', function() {
 
     it('should add a onCuff payment', function() {
         // given
-        var payment = new OnCuffPayment(15,new Date());
+        var payment = new OnCuffPayment(15, new Date());
 
         // when
         var addCall = function() {

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: Voucherservice', function () {
+describe('Service: VoucherServiceSpec', function () {
 
   // load the service's module
   beforeEach(function(){
