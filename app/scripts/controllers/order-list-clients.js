@@ -20,7 +20,7 @@
 
                 // add a missing property for innerJoin
                 for ( var idx in entities) {
-                    entities[idx].customerId = entities[idx].id;
+                    entities[idx].customerId = entities[idx].uuid;
                 }
                 function consolideteOrdersByClient() {
                     $scope.ordersByCLientList = [];

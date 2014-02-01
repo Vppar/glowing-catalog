@@ -26,16 +26,14 @@
          * Create and return a coupon.
          */
         var create = function create(entity, amount, remarks) {
-
-            if (amount > 0 && angular.isDefined(entity)) {
-
-                var coupon = new Voucher(null, entity, 'coupon', amount);
-                coupon.remarks = remarks;
-
-                return VoucherKeeper.create(coupon);
-            } else {
-                throw 'Coupon not created';
-            }
+            var coupon = new Voucher(null, entity, 'coupon', amount);
+            coupon.remarks = remarks;
+            
+            var result = VoucherKeeper.create(coupon);
+            result['catch'](function(err) {
+                $log.error('CouponService.create: -Failed to create a voucher. ', err);
+            });
+            return result;
         };
 
         /**

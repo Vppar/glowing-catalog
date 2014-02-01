@@ -20,7 +20,7 @@
         for ( var ix in orders) {
             var order = orders[ix];
             // Find the entity name
-            order.entityName = ArrayUtils.find(entities, 'id', order.customerId).name;
+            order.entityName = ArrayUtils.find(entities, 'uuid', order.customerId).name;
 
             var qtyTotal = $filter('sum')(order.items, 'qty');
             var amountTotal = $filter('sum')(order.items, 'price', 'qty');

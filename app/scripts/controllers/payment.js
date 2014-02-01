@@ -7,7 +7,7 @@
             .controller(
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                            ReceivableService,ProductReturnService, VoucherService, SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService) {
+                            SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService) {
 
                         // #############################################################################################
                         // Controller warm up
@@ -273,21 +273,6 @@
                             });
                         }
 
-                        /**
-                         * Cancel the payment and redirect to the main screen.
-                         */
-                        function cancelPayment(result) {
-                            if (!result) {
-                                main();
-                                return $q.reject();
-                            }
-                            OrderService.clear();
-                            PaymentService.clearAllPayments();
-                            PaymentService.clearPersistedCoupons();
-
-                            $location.path('/');
-                        }
-
                         function updateOrderAndPaymentTotal() {
                             // Calculate the Subtotal
                             if (order.items) {
@@ -360,58 +345,6 @@
                         $scope.isPaymentValid = isPaymentValid;
 
                         /**
-                         * Saves the payments and closes the order.
-                         */
-                        function makePayment(result) {
-                            if (!result) {
-                                main();
-                                return $q.reject();
-                            }
-
-                            var promises = [];
-
-                            if (OrderService.hasItems()) {
-                                // Save the order
-                                var savedOrderPromise = OrderService.save();
-
-                                // Generate receivables
-                                promises.push(savedOrderPromise.then(function(orderUuid) {
-                                    var receivables = PaymentService.getReceivables();
-                                    return ReceivableService.bulkRegister(receivables, customer, orderUuid);
-                                }, propagateRejectedPromise));
-
-                                // Register product exchange
-                                promises.push(savedOrderPromise.then(function(orderUuid) {
-                                     var exchanges = PaymentService.list('exchange');
-                                     return ProductReturnService.bulkRegister(exchanges, customer, orderUuid);
-                                 }, propagateRejectedPromise));
-                                 
-                                // Register voucher/coupons use
-                                promises.push(savedOrderPromise.then(function(orderUuid) {
-                                    var vouchers = PaymentService.list('coupon');
-                                    return VoucherService.bulkRegister(vouchers, customer, orderUuid);
-                                }, propagateRejectedPromise));
-                            }
-
-                            if (PaymentService.hasPersistedCoupons()) {
-                                // Generate coupons
-                                var savedCouponsPromise = PaymentService.createCoupons(customer);
-                                savedCouponsPromise.then(evaluateCoupons, propagateRejectedPromise);
-                                promises.push(savedCouponsPromise);
-                            }
-
-
-                            var savedSalePromise = $q.all(promises);
-
-                            // clear all
-                            return savedSalePromise.then(function() {                                   
-                                OrderService.clear();
-                                PaymentService.clearAllPayments();
-                                PaymentService.clearPersistedCoupons();
-                            }, propagateRejectedPromise);
-                        }
-
-                        /**
                          * Ends of the payment process, return the main screen
                          * and alert the user.s
                          */
@@ -437,8 +370,16 @@
                             });
                         }
 
-                        function propagateRejectedPromise(err) {
-                            return $q.reject(err);
+                        function paymentErr(err) {
+                            if (err && err !== 'canceledByUser') {
+                                $log.error(err);
+                                DialogService
+                                        .messageDialog({
+                                            title : 'Pagamento',
+                                            message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
+                                            btnYes : 'OK',
+                                        });
+                            }
                         }
 
                         /**
@@ -448,89 +389,31 @@
                         function main() {
                             // Execute when payment is confirmed.
                             var confirmedPaymentPromise = paymentFactory();
-                            var paidPromise = confirmedPaymentPromise.then(makePayment, function() {
-                                main();
+
+                            // reconstruct the chain of promises in case of
+                            // error or success
+                            confirmedPaymentPromise.then(main, main);
+
+                            var paidPromise = confirmedPaymentPromise.then(PaymentService.checkout, function() {
                                 return $q.reject('canceledByUser');
                             });
 
                             // Inform the user that the payment is done.
-                            paidPromise
-                                    .then(
-                                            paymentDone,
-                                            function(err) {
-                                                if (err && err !== 'canceledByUser') {
-                                                    $log.error(err);
-                                                    DialogService
-                                                            .messageDialog({
-                                                                title : 'Pagamento',
-                                                                message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
-                                                                btnYes : 'OK',
-                                                            });
-                                                }
-                                                main();
-                                            });
+                            paidPromise.then(paymentDone, paymentErr);
 
                             // Send the alert SMS to the customer.
                             paidPromise.then(sendAlertSMSAttempt);
 
                             // Cancel payment
                             var canceledPaymentPromise = cancelPaymentFactory();
-
-                            canceledPaymentPromise.then(cancelPayment, main);
+                            // reconstruct the chain of promises in case of
+                            // error or success
+                            canceledPaymentPromise.then(main, main);
+                            canceledPaymentPromise.then(PaymentService.cancelPayment, main);
 
                             $scope.selectPaymentMethod('none');
                         }
 
                         main();
-
-                        // ///////////////////////////////////
-                        // Coupon handling
-                        var errorMessage =
-                                'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
-                        /**
-                         * Checks if all coupons in an array are ok (have no
-                         * 'err' attribute).
-                         */
-                        function allCouponsOk(coupons) {
-                            var len, i;
-                            for (i = 0, len = coupons.length; i < len; i += 1) {
-                                if (coupons[i].err) {
-                                    return false;
-                                }
-                            }
-
-                            return true;
-                        }
-
-                        /** Logs errors in failed coupons, if any. */
-                        function logCouponErrors(coupons) {
-                            var coupon, len, i;
-                            for (i = 0, len = coupons.length; i < len; i += 1) {
-                                coupon = coupons[i];
-                                if (coupon.err) {
-                                    $log.error(coupon.err);
-                                }
-                            }
-                        }
-
-                        /**
-                         * Creates all coupons persisted in the PaymentService.
-                         */
-                        function evaluateCoupons(processedCoupons) {
-                            if (!allCouponsOk(processedCoupons)) {
-                                DialogService.messageDialog({
-                                    title : 'Cupom promocional',
-                                    message : errorMessage,
-                                    btnYes : 'OK'
-                                });
-
-                                $log.error('One or more coupons failed!');
-                                logCouponErrors(processedCoupons);
-
-                                $log.fatal(new Date() + ' - There were problems in creating coupons. \n client ID:' + customerId + '\n' +
-                                    'Processed coupons:' + JSON.stringify(processedCoupons));
-                                // TODO: should we keep track in journal?
-                            }
-                        }
                     });
 }(angular));

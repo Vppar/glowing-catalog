@@ -8,7 +8,7 @@
         var isValid = function isValid(voucher) {
             var invalidProperty = {};
             // FIXME - Verify if is a valid entityId
-            invalidProperty.entityId = angular.isNumber(voucher.entity);
+            invalidProperty.entityId = true;
             // FIXME - Verify if is a valid voucher type
             invalidProperty.type = angular.isDefined(voucher.type);
             invalidProperty.amount = Number(voucher.amount) > 0;
@@ -36,7 +36,11 @@
             var hasErrors = isValid(voucher);
             if (hasErrors.length === 0) {
                 result = VoucherKeeper.create(voucher);
+                result['catch'](function(err) {
+                    $log.error('VoucherService.create: -Failed to create a voucher. ', err);
+                });
             } else {
+                $log.error('VoucherService.create: -Invalid voucher. ', hasErrors);
                 result = $q.reject(hasErrors);
             }
             return result;
