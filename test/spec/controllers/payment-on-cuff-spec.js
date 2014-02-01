@@ -163,7 +163,7 @@ describe('Controller: PaymentOnCuffCtrl', function() {
         // the value was settled on beforeInject(creation of controller.)
         expect(DialogService.messageDialog).toHaveBeenCalledWith({
             title : 'Contas a receber',
-            message : 'Não existem valores para serem lançados.',
+            message : 'Não há saldo a receber neste pedido de venda.',
             btnYes : 'OK'
         });
         expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
