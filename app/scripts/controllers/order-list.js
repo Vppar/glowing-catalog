@@ -7,7 +7,7 @@
         // #############################################################################################################
         // Warming up the controller
         // #############################################################################################################
-        
+
         var totalTemplate = {
             cash : {
                 qty : 0,
@@ -46,10 +46,21 @@
         $scope.orders = OrderService.list();
         $scope.entities = DataProvider.customers;
 
+        //initialize dates
+        var dtIni = new Date();
+        dtIni.setMonth(dtIni.getMonth() - 1);
         $scope.dateFilter = {
-            dtInitial : '',
-            dtFinal : ''
+            dtInitial : dtIni,
+            dtFinal : new Date()
         };
+
+        //Set first and last instants of dates.
+        $scope.dateFilter.dtInitial.setHours(0);
+        $scope.dateFilter.dtInitial.setMinutes(0);
+        $scope.dateFilter.dtInitial.setSeconds(0);
+        $scope.dateFilter.dtFinal.setHours(23);
+        $scope.dateFilter.dtFinal.setMinutes(59);
+        $scope.dateFilter.dtFinal.setSeconds(59);
 
         $scope.resetTotal = function() {
             $scope.total = angular.copy(totalTemplate);
