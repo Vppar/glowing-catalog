@@ -42,6 +42,7 @@
                 amount : 0
             }
         };
+        var hideOptions = true;
 
         $scope.orders = OrderService.list();
         $scope.entities = DataProvider.customers;
@@ -66,6 +67,15 @@
             $scope.total = angular.copy(totalTemplate);
         };
         $scope.resetTotal();
+
+        $scope.invertHideOption = function() {
+            $scope.hideOptions = !hideOptions;
+            hideOptions = !hideOptions;
+        };
+
+        $scope.startHideOption = function() {
+            $scope.hideOptions = hideOptions;
+        };
 
         // #############################################################################################################
         // Local functions and variables
