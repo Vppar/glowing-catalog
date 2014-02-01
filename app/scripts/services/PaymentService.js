@@ -408,10 +408,8 @@
                 // NOTE: Coupons are generated INDIVIDUALLY, thats
                 // why there is no
                 // qty attribute in this coupon objects.
-                var createCoupons = function createCoupons(entity, document) {
+                var createCoupons = function createCoupons(entity) {
 
-                    var amount = {}; 
-                    var coupon = {};
                     var qty;
                     var processedCoupons = [];
                     var couponPromises = [];
@@ -422,7 +420,7 @@
                     // The total quantity of successfully processed coupons
                     processedCoupons.successQty = 0;
 
-                    for (amount in persistedCoupons) {
+                    for (var amount in persistedCoupons) {
 
                         if (persistedCoupons.hasOwnProperty(amount)) {
                             qty = persistedCoupons[amount];
@@ -432,24 +430,14 @@
                             // be coupons with qty 0 in persistedCoupons.
                             if (qty > 0) {
                                 for ( var i = 0; i < qty; i += 1) {
-
-                                    coupon = {
-                                        amount : amount
-                                    };
-
-                                    try {
-                                        couponPromises[i] = CouponService.create(entity.id, amount, null, document).then(function() {
-                                            return coupon;
-                                        }, function(err) {
-                                            coupons.err = err;
-                                            return $q.reject(coupons);
-                                        });
-                                    } catch (err) {
-                                        coupon.err = err;
-                                        // TODO: should we keep trying to
-                                        // generate the other coupons
-                                        // ou should we stop on the first err?
-                                    }
+                                    couponPromises.push(CouponService.create(entity.id, amount, null).then(function(coupon) {
+                                        return coupon;
+                                    }, function(err) {
+                                        // FIXME: review this code. Not sure what should happen here.
+                                        // coupons is not defined
+                                        coupons.err = err;
+                                        return $q.reject(coupons);
+                                    }));
                                 }
                             } // if qty > 0
                         } // if hasOwnProperty

@@ -349,47 +349,48 @@
                                 main();
                                 return $q.reject();
                             }
-                            // Save the order
-                            var savedOrderPromise = OrderService.save();
 
-                            // Generate receivables
-                            var savedReceivablesPromise = savedOrderPromise.then(function(orderUuid) {
-                                var receivables = PaymentService.getReceivables();
-                                return ReceivableService.bulkRegister(receivables, customer, orderUuid);
-                            }, propagateRejectedPromise);
+                            var promises = [];
 
-                            // Register product exchange
-                             var savedExchangesPromise = savedOrderPromise.then(function(orderUuid) {
-                                 var exchanges = PaymentService.list('exchange');
-                                 return ProductReturnService.bulkRegister(exchanges, customer, orderUuid);
-                             }, propagateRejectedPromise);
-                             
-                            // Register voucher/coupons use
-                            var savedVouchersPromise = savedOrderPromise.then(function(orderUuid) {
-                                var vouchers = PaymentService.list('coupon');
-                                return VoucherService.bulkRegister(vouchers, customer, orderUuid);
-                            }, propagateRejectedPromise);
+                            if (OrderService.hasItems()) {
+                                // Save the order
+                                var savedOrderPromise = OrderService.save();
 
-                            // Generate coupons
-                            var savedCouponsPromise = savedOrderPromise.then(function(orderUuid) {
-                                return PaymentService.createCoupons(customer, orderUuid);
-                            }, propagateRejectedPromise);
-                            savedCouponsPromise.then(function(coupons) {
-                                evaluateCoupons(coupons);
-                            }, propagateRejectedPromise);
+                                // Generate receivables
+                                promises.push(savedOrderPromise.then(function(orderUuid) {
+                                    var receivables = PaymentService.getReceivables();
+                                    return ReceivableService.bulkRegister(receivables, customer, orderUuid);
+                                }, propagateRejectedPromise));
 
-                            var savedSale = $q.all([
-                                savedReceivablesPromise, savedExchangesPromise, savedVouchersPromise, savedCouponsPromise
-                            ]);
+                                // Register product exchange
+                                promises.push(savedOrderPromise.then(function(orderUuid) {
+                                     var exchanges = PaymentService.list('exchange');
+                                     return ProductReturnService.bulkRegister(exchanges, customer, orderUuid);
+                                 }, propagateRejectedPromise));
+                                 
+                                // Register voucher/coupons use
+                                promises.push(savedOrderPromise.then(function(orderUuid) {
+                                    var vouchers = PaymentService.list('coupon');
+                                    return VoucherService.bulkRegister(vouchers, customer, orderUuid);
+                                }, propagateRejectedPromise));
+                            }
+
+                            if (PaymentService.hasPersistedCoupons()) {
+                                // Generate coupons
+                                var savedCouponsPromise = PaymentService.createCoupons(customer);
+                                savedCouponsPromise.then(evaluateCoupons, propagateRejectedPromise);
+                                promises.push(savedCouponsPromise);
+                            }
+
+
+                            var savedSalePromise = $q.all(promises);
 
                             // clear all
-                            var paymentDonePromise = savedSale.then(function() {                                   
+                            return savedSalePromise.then(function() {                                   
                                 OrderService.clear();
                                 PaymentService.clearAllPayments();
                                 PaymentService.clearPersistedCoupons();
                             }, propagateRejectedPromise);
-
-                            return paymentDonePromise;
                         }
 
                         /**
