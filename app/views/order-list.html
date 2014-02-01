@@ -64,17 +64,16 @@
 						</span>
 					</div>
 				</div>
-				
 				<div class="col-details-order-list-item">	
 					<div class="show-details-icon">
-						<img src="images/ic-sort-triangle-up-pink.png"><!--<img src="images/ic-sort-triangle-down-pink.png">-->
+						<img src="images/ic-sort-triangle-up-pink.png" ng-click="invertHideOption()" ng-hide="hideOptions" >
+						<img src="images/ic-sort-triangle-down-pink.png" ng-click="invertHideOption()" ng-show="hideOptions" >
 					</div>
 				</div>
 			</div>
 		</div>
-		
 		<div class="row-fluid show-details">		
-			<div class="details-order-list-item">
+			<div class="details-order-list-item" ng-hide="hideOptions" ng-init="startHideOption()">
 				
 				<div class="col-details-order-list-item">					
 					<span class="border">
