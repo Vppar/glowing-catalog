@@ -64,17 +64,17 @@
 						</span>
 					</div>
 				</div>
-				
 				<div class="col-details-order-list-item">	
 					<div class="show-details-icon">
-						<img src="images/ic-sort-triangle-up-pink.png"><!--<img src="images/ic-sort-triangle-down-pink.png">-->
+						<img src="images/ic-sort-triangle-up-pink.png" ng-init="checked=true" ng-click="checked = !checked" ng-hide="!checked" >
+						<img src="images/ic-sort-triangle-down-pink.png" ng-click="checked = !checked" ng-hide="checked" >
 					</div>
 				</div>
 			</div>
 		</div>
 		
 		<div class="row-fluid show-details">		
-			<div class="details-order-list-item">
+			<div class="details-order-list-item" ng-hide="checked">
 				
 				<div class="col-details-order-list-item">					
 					<span class="border">
