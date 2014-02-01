@@ -85,7 +85,7 @@
             event = new Voucher(event);
             voucher[event.type].push(event);
             
-            return event.id;
+            return event;
         });
 
         /**

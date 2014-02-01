@@ -165,6 +165,14 @@
                     initOrder();
                 };
 
+                /**
+                 * Checks if the order has items or not.
+                 * @return {boolean}
+                 */
+                var hasItems = function hasItems() {
+                    return !!order.items.length;
+                };
+
                 this.order = order;
                 this.isValid = isValid;
                 this.register = register;
@@ -173,6 +181,7 @@
                 this.cancel = cancel;
                 this.save = save;
                 this.clear = clear;
+                this.hasItems = hasItems;
 
                 // ===========================================
                 // Helpers

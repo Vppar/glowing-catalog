@@ -46,6 +46,7 @@ describe('Controller: PaymentCtrl', function() {
             return orderSaveReturn;
         });
         os.clear = jasmine.createSpy('OrderService.clear');
+        os.hasItems = jasmine.createSpy('OrderService.hasItems');
 
         // PaymentService mock
         ps.list = jasmine.createSpy('PaymentService.list').andCallFake(function(value) {
@@ -87,6 +88,7 @@ describe('Controller: PaymentCtrl', function() {
         ps.clearAllPayments = jasmine.createSpy('PaymentService.clearAllPayments');
         ps.add = jasmine.createSpy('PaymentService.add');
         ps.getReceivables = jasmine.createSpy('PaymentService.getReceivables');
+        ps.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons');
 
 
         // ReceivableService mock
@@ -133,10 +135,13 @@ describe('Controller: PaymentCtrl', function() {
     // when the order is confirmed.
     it('should create coupons when payment is confirmed', inject(function ($q) {
         var deferred = $q.defer();
+        var savedCouponsPromise = $q.defer();
+        savedCouponsPromise.resolve([{amount : 10}]);
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(deferred.promise);
         os.save = jasmine.createSpy('OrderService.save').andReturn(deferred.promise);
-        ps.createCoupons = jasmine.createSpy('PaymentService.createCoupons').andReturn([]);
+        ps.createCoupons = jasmine.createSpy('PaymentService.createCoupons').andReturn(savedCouponsPromise.promise);
         ps.clearPersistedCoupons = jasmine.createSpy('PaymentService.createCoupons');
+        ps.hasPersistedCoupons.andReturn(true);
         ps.remove = function () {};
         ps.clear = function () {};
 
