@@ -38,12 +38,32 @@ describe('Service: OrderService', function () {
     expect(OrderService.order.items).toEqual([]);
   });
 
-    // FIXME: implement this. Could not get handlers to get called within 
-    // the service.
-    xdescribe('OrderService.orderItemsChanged event', function () {
-        it('is triggered on OrderService.addItem event');
-        it('is triggered on OrderService.removeItem event');
-        it('is triggered on OrderService.updateItem event');
-        it('is triggered on OrderService.clear event');
+    describe('OrderService.orderItemsChanged event', function () {
+        var rootScope;
+
+        beforeEach(inject(function($rootScope) {
+            rootScope = $rootScope;
+            spyOn(rootScope, '$broadcast').andCallThrough();
+        }));
+
+        it('is triggered on OrderService.addItem event', function () {
+            rootScope.$broadcast('OrderService.addItem');
+            expect(rootScope.$broadcast).toHaveBeenCalledWith('OrderService.orderItemsChanged');
+        });
+
+        it('is triggered on OrderService.removeItem event', function () {
+            rootScope.$broadcast('OrderService.removeItem');
+            expect(rootScope.$broadcast).toHaveBeenCalledWith('OrderService.orderItemsChanged');
+        });
+
+        it('is triggered on OrderService.updateItem event', function () {
+            rootScope.$broadcast('OrderService.updateItem');
+            expect(rootScope.$broadcast).toHaveBeenCalledWith('OrderService.orderItemsChanged');
+        });
+
+        it('is triggered on OrderService.clear event', function () {
+            rootScope.$broadcast('OrderService.clear');
+            expect(rootScope.$broadcast).toHaveBeenCalledWith('OrderService.orderItemsChanged');
+        });
     });
 });

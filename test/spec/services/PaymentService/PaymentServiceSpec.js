@@ -12,7 +12,7 @@ describe('Service: PaymentServiceClear', function() {
             _CouponService_, _OnCuffPayment_, _PaymentService_) {
 
         rootScope = $rootScope;
-        spyOn(rootScope, '$broadcast');
+        spyOn(rootScope, '$broadcast').andCallThrough();
 
         Payment = _Payment_;
         CashPayment = _CashPayment_;
@@ -26,10 +26,15 @@ describe('Service: PaymentServiceClear', function() {
     }));
 
 
-    // FIXME: implement this. Could not get handlers to get called within 
-    // the service.
-    xdescribe('PaymentService.paymentsChanged event', function () {
-        it('is triggered on PaymentService.add event');
-        it('is triggered on PaymentService.clear event');
+    describe('PaymentService.paymentsChanged event', function () {
+        it('is triggered on PaymentService.add event', function () {
+            rootScope.$broadcast('PaymentService.add');
+            expect(rootScope.$broadcast).toHaveBeenCalledWith('PaymentService.paymentsChanged');
+        });
+
+        it('is triggered on PaymentService.clear event', function () {
+            rootScope.$broadcast('PaymentService.clear');
+            expect(rootScope.$broadcast).toHaveBeenCalledWith('PaymentService.paymentsChanged');
+        });
     });
 });
