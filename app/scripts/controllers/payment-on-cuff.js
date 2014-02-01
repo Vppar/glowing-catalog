@@ -86,7 +86,7 @@
                         // show dialog
                         DialogService.messageDialog({
                             title : 'Contas a receber',
-                            message : 'Não existem valores para serem lançados.',
+                            message : 'Não há saldo a receber neste pedido de venda.',
                             btnYes : 'OK'
                         }).then(function() {
                             $scope.selectPaymentMethod('none');
