@@ -435,6 +435,9 @@ input.sub-total-payment {
 	margin-left: -205px;
 	width: 360px
 }
+.form-confirmation-dialog p {
+	text-align:center;
+}
 /*payment check*/
 .form-payment-check .btn-plus-payment-check {
 	margin-top: 25px;
