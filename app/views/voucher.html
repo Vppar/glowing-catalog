@@ -43,7 +43,7 @@
 		<div ng-switch="voucherSelected">	
 		
 			<!--EM ABERTO-->
-			<div class="row-fluid" ng-switch-when="new">
+			<div class="row-fluid" ng-switch-when="new" ng-controller="VoucherActiveCtrl">
 			
 				<!-- DATE INTERVAL -->
 				<div class="row-fluid filter-bar">
@@ -135,7 +135,7 @@
 			
 			<!--HISTORICO-->
 			
-			<div class="row-fluid" ng-switch-when="hist" >
+			<div class="row-fluid" ng-switch-when="hist" ng-controller="VoucherHistoricCtrl">
 			
 				<!-- DATE INTERVAL -->
 				<div class="row-fluid filter-bar">
@@ -144,7 +144,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="dates.dtInitial">
+									Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="historicVoucher.dtInitial">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -157,7 +157,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="dates.dtFinal">
+									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="historicVoucher.dtFinal">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -169,7 +169,7 @@
 					<span class="span6 marginln">				
 						<div class="controls">
 							<div class="control-group lbl-top">
-								<input type="text" placeholder="Filtro" class="date-field input-small filter-voucher" ng-model="filter.amount">
+								<input type="text" placeholder="Filtro" class="date-field input-small filter-voucher" ng-model="historicVoucher.value">
 							</div>	
 						</div>				
 					</span>	
@@ -217,7 +217,7 @@
 									</div>
 								</div>
 								<div class="scroll-grid">
-									<div class="row-grid-product-voucher" ng-repeat="voucher in vouchers | filter: filterVoucherByDate">
+									<div class="row-grid-product-voucher" ng-repeat="voucher in historicVouchers">
 										<span class="col-s1">
 											<div>{{voucher.created | date:'dd/MM/yy'}}</div>
 										</span>
