@@ -71,7 +71,11 @@
                     var hasErrors = this.isValid(order);
                     if (hasErrors.length === 0) {
                         result = OrderKeeper.add(new Order(order));
+                        result['catch'](function(err) {
+                            $log.error('OrderService.register: -Failed to create an order. ', err);
+                        });
                     } else {
+                        $log.error('OrderService.register: -Invalid order. ', hasErrors);
                         result = $q.reject(hasErrors);
                     }
                     return result;
@@ -165,6 +169,15 @@
                     initOrder();
                 };
 
+                /**
+                 * Checks if the order has items or not.
+                 * 
+                 * @return {boolean}
+                 */
+                var hasItems = function hasItems() {
+                    return !!order.items.length;
+                };
+
                 this.order = order;
                 this.isValid = isValid;
                 this.register = register;
@@ -173,6 +186,7 @@
                 this.cancel = cancel;
                 this.save = save;
                 this.clear = clear;
+                this.hasItems = hasItems;
 
                 // ===========================================
                 // Helpers
@@ -189,8 +203,6 @@
                     order.items = [];
                 }
 
-                var customers = DataProvider.customers;
-
                 /**
                  * Checks if a value is a boolean.
                  * 
@@ -206,19 +218,8 @@
                  * @param {*} id The customer id to be validated.
                  */
                 function isValidCustomerId(id) {
-                    // Customer Id should be a number and there should be a user
-                    // with such id
-                    var result = false;
-                    if (angular.isNumber(id)) {
-                        // FIXME - Validate if is a real entityId
-                        // for (var ix in customers) {
-                        // if (customers[ix].id === id) {
-                        // return true;
-                        // }
-                        // }
-                        result = true;
-                    }
-                    return result;
+                    // FIXME - Validate if is a real entityId
+                    return true;
                 }
 
                 /**

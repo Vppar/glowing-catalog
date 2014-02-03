@@ -8,6 +8,10 @@
                 'ui.bootstrap',
                 'ui.select2',
                 'tnt.catalog.directive.numpad',
+                'tnt.catalog.productReturn',
+                'tnt.catalog.productReturn.entity',
+                'tnt.catalog.productReturn.service',
+                'tnt.catalog.productReturn.keeper',
                 'tnt.catalog.filter.count',
                 'tnt.catalog.filter.findBy',
                 'tnt.catalog.filter.sum',
@@ -45,6 +49,9 @@
                 'tnt.catalog.keyboard.input',
                 'tnt.catalog.voucher.ctrl',
                 'tnt.catalog.voucher.entity',
+                'tnt.catalog.entity',
+                'tnt.catalog.entity.service',
+                'tnt.catalog.entity.entity',
                 'tnt.catalog.journal.entity',
                 'tnt.catalog.payment',
                 'tnt.catalog.payment.check',
@@ -58,7 +65,10 @@
                 'tnt.catalog.payment.discount',
                 'tnt.catalog.entity.service',
                 'tnt.catalog.entity.entity',
-                'tnt.catalog.orderList.ctrl'
+                'tnt.catalog.orderList.ctrl',
+                'tnt.catalog.orderList.orders.ctrl', 
+                'tnt.catalog.orderList.products.ctrl', 
+                'tnt.catalog.orderList.clients.ctrl'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

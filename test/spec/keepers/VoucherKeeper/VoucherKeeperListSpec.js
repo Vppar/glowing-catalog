@@ -49,8 +49,8 @@ describe('Service: VoucherKeeperListSpec', function() {
      */
     it('return list with 2 items', function() {
         //given
-        VoucherKeeper.handlers[myAddFunction](new Voucher(0, 'Pedro de Lara', 'voucher', 30));
-        VoucherKeeper.handlers[myAddFunction](new Voucher(1, 'Toninho do Diabo', 'voucher', 40));
+        VoucherKeeper.handlers[myAddFunction](new Voucher('cc02b600-5d0b-11e3-96c3-010001000001', 'Pedro de Lara', 'voucher', 30));
+        VoucherKeeper.handlers[myAddFunction](new Voucher('cc02b600-5d0b-11e3-96c3-010001000002', 'Toninho do Diabo', 'voucher', 40));
         //when
         var myNewList = VoucherKeeper.list('voucher');
 

@@ -27,12 +27,13 @@ describe('Service: ProductReturnFactorySpec', function() {
         var expectedArray = {
             id : devId,
             productId : pId,
+            documentId : 4,
             quantity : qty,
             cost : ct
         };
 
         // when
-        var actual = new ProductReturn(devId, pId, qty, ct);
+        var actual = new ProductReturn(devId, pId,4, qty, ct);
 
         // then
         expect(JSON.stringify(expectedArray)).toEqual(JSON.stringify(actual));

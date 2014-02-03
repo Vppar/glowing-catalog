@@ -8,7 +8,7 @@
                 'tnt.catalog.payment.entity'
             ]).controller(
             'PaymentOnCuffCtrl',
-            function($filter, $scope, $log, DialogService, DataProvider, OrderService, Misplacedservice, PaymentService, OnCuffPayment) {
+            function($filter, $scope, $log, DialogService, EntityService, OrderService, Misplacedservice, PaymentService, OnCuffPayment) {
                 var emptyInstallmentTemplate = {
                     installment : 1,
                     dueDate : null,
@@ -74,7 +74,7 @@
                 var order = OrderService.order;
 
                 // find customer
-                $scope.customer = $filter('findBy')(DataProvider.customers, 'id', order.customerId);
+                $scope.customer = $filter('findBy')(EntityService.list(), 'uuid', order.customerId);
 
                 $scope.amount = 0;
                 if ($scope.payments.length === 0) {
@@ -86,7 +86,7 @@
                         // show dialog
                         DialogService.messageDialog({
                             title : 'Contas a receber',
-                            message : 'Não existem valores para serem lançados.',
+                            message : 'Não há saldo a receber neste pedido de venda.',
                             btnYes : 'OK'
                         }).then(function() {
                             $scope.selectPaymentMethod('none');

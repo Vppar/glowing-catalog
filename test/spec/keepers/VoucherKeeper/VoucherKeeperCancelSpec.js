@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: VoucherKeeperRedeemSpec', function() {
+describe('Service: VoucherKeeperCancelSpec', function() {
 
     var jKeeper = {};
 
@@ -41,114 +41,114 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
 
     /**
      * <pre>
-     * @spec VoucherKeeper.redeem#1
+     * @spec VoucherKeeper.cancel#1
      * Given a valid voucher event
      * And a valid voucher
      * when cancel is triggered
-     * then a voucher must be redeem
+     * then a voucher must be canceled
      * </pre>
      */
-    it('redeem - public call', function() {
+    it('cancel a voucher', function() {
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         var stp = fakeNow;
 
         //Given
-        var v1 = new Voucher(0, null, 'voucher', null);
-        var v2 = new Voucher(1, null, 'voucher', null);
+        var v1 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000001', null, 'voucher', null);
+        var v2 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000002', null, 'voucher', null);
         VoucherKeeper.handlers.voucherCreateV1(v1);
         VoucherKeeper.handlers.voucherCreateV1(v2);
 
         //create voucher and cancel it
         var v3 = new Voucher(v1);
-        v3.redeemed = stp;
+        v3.canceled = stp;
 
-        var entry = new JournalEntry(null, stp, 'voucherRedeem', 1, v3);
+        var entry = new JournalEntry(null, stp, 'voucherCancel', 1, v3);
 
         //When
-        var createCall = function() {
-            VoucherKeeper.redeem('voucher', 0);
+        var cancelCall = function() {
+            VoucherKeeper.cancel('voucher', 'cc02b600-5d0b-11e3-96c3-010001000001');
         };
 
         //Then
-        expect(createCall).not.toThrow();
+        expect(cancelCall).not.toThrow();
         expect(VoucherKeeper.list('voucher').length).toBe(2);
         expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
 
     });
     /**
      * <pre>
-     * @spec VoucherKeeper.redeem#1
+     * @spec VoucherKeeper.cancel#1
      * Given a valid voucher event
      * And a valid voucher
      * when cancel is triggered
-     * then a voucher must be redeem
+     * then a voucher must be canceled
      * </pre>
      */
-    it('handle a redeem - private call', function() {
+    it('handle a cancel of a voucher', function() {
         //Given
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
 
-        var v1 = new Voucher(0, 1, 'voucher', 1);
-        var v2 = new Voucher(1, 1, 'voucher', 1);
+        var v1 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000001', 1, 'voucher', 1);
+        var v2 = new Voucher('cc02b600-5d0b-11e3-96c3-010001000002', 1, 'voucher', 1);
         VoucherKeeper.handlers.voucherCreateV1(v1);
         VoucherKeeper.handlers.voucherCreateV1(v2);
 
-        v1.redeemed = stp;
+        v1.canceled = stp;
 
         //When
-        var createCall = function() {
-            VoucherKeeper.handlers.voucherRedeemV1(v1);
+        var cancelCall = function() {
+            VoucherKeeper.handlers.voucherCancelV1(v1);
         };
 
         //Then
-        expect(createCall).not.toThrow();
+        expect(cancelCall).not.toThrow();
         expect(VoucherKeeper.list('voucher').length).toBe(2);
-        var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 0);
-        expect(voucher.redeemed).toBe(stp);
+        var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', v1.id);
+        expect(voucher.canceled).toBe(stp);
     });
 
     /**
      * <pre>
-     * @spec VoucherKeeper.redeem#1
+     * @spec VoucherKeeper.cancel#1
      * Given a invalid id
-     * when redeem is triggered
+     * when cancel is triggered
      * then a exception must be throw
      * </pre>
      */
-    it('throw exception - public call', function() {
+    it('throw exception on cancel', function() {
         //given / when 
         var id = 5;
-        var createCall = function() {
-            VoucherKeeper.redeem('voucher', id);
+        var cancelCall = function() {
+            VoucherKeeper.cancel('voucher', id);
         };
 
         //then
-        expect(createCall).toThrow('Unable to find a voucher with id=\'' + id + '\'');
+        expect(cancelCall).toThrow('Unable to find a voucher with id=\'' + id + '\'');
 
     });
 
     /**
      * <pre>
-     * @spec VoucherKeeper.redeem#1
+     * @spec VoucherKeeper.cancel#1
      * Given a invalid id
-     * when redeem is triggered
+     * when cancel is triggered
      * then a exception must be throw
      * </pre>
      */
-    it('throw exception - private call', function() {
+    it('throw exception on cancel handler', function() {
         //given / when 
         var voucher = new Voucher(0, 1, 'voucher', 1);
 
-        var createCall = function() {
-            VoucherKeeper.handlers.voucherRedeemV1(voucher);
+        var cancelCall = function() {
+            VoucherKeeper.handlers.voucherCancelV1(voucher);
         };
 
         //then
-        expect(createCall).toThrow('Entity not found, cosistency must be broken! Replay?');
+        expect(cancelCall).toThrow('Entity not found, cosistency must be broken! Replay?');
 
     });
 });

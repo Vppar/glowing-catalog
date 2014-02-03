@@ -1,24 +1,22 @@
 'use strict';
 
-describe('Service: Voucherservice', function() {
+describe('Service: VoucherServiceCancelSpec', function() {
     var vKeeper = {};
-    var EntityService = {};
+    var EntityService;
     
     // load the service's module
     beforeEach(function() {
-        module('tnt.utils.array');
         module('tnt.catalog.voucher.service');
-        module(function($provide) {
-            $provide.value('EntityService', EntityService);
-        });
     });
+    
     // SPY
     beforeEach(function() {
-        vKeeper.redeem = jasmine.createSpy('VoucherKeeper.redeem');
+        vKeeper.cancel = jasmine.createSpy('VoucherKeeper.cancel');
         vKeeper.list = jasmine.createSpy('VoucherKeeper.list');
 
         module(function($provide) {
             $provide.value('VoucherKeeper', vKeeper);
+            $provide.value('EntityService', EntityService);
         });
     });
 
@@ -30,10 +28,10 @@ describe('Service: Voucherservice', function() {
         ArrayUtils = _ArrayUtils_;
     }));
 
-    it('should redeem', function() {
+    it('should cancel', function() {
 
         var voucherType = 'voucher';
-        var id = 0;
+        var id = 'cc02b600-5d0b-11e3-96c3-010001000001';
 
         var voucher = {
             redeemed : false,
@@ -41,51 +39,35 @@ describe('Service: Voucherservice', function() {
         };
         spyOn(ArrayUtils, 'find').andReturn(voucher);
 
-        VoucherService.redeem(id);
+        VoucherService.cancel(voucherType, id);
 
-        expect(vKeeper.redeem.mostRecentCall.args[0]).toEqual(voucherType);
-        expect(vKeeper.redeem.mostRecentCall.args[1]).toEqual(id);
+        expect(vKeeper.cancel.mostRecentCall.args[0]).toEqual(voucherType);
+        expect(vKeeper.cancel.mostRecentCall.args[1]).toEqual(id);
 
     });
 
-    it('should fail to redeem, voucher not found', function() {
+    it('should fail, voucher not found', function() {
 
         var id = 0;
 
         spyOn(ArrayUtils, 'find').andReturn(undefined);
 
         expect(function() {
-            VoucherService.redeem(id);
+            VoucherService.cancel(id);
         }).toThrow;
     });
 
-    it('should fail to redeem, already canceled', function() {
+    it('should fail, already redeemed', function() {
 
         var id = 0;
-
-        var voucher = {
-            redeemed : false,
-            canceled : true
-        };
-        spyOn(ArrayUtils, 'find').andReturn(voucher);
-
-        expect(function() {
-            VoucherService.redeem(id);
-        }).not.toThrow;
-    });
-
-    it('should fail to redeem, already redeemed', function() {
-
-        var id = 0;
-
         var voucher = {
             redeemed : true,
-            canceled : true
+            canceled : false
         };
         spyOn(ArrayUtils, 'find').andReturn(voucher);
 
         expect(function() {
-            VoucherService.redeem(id);
+            VoucherService.cancel(id);
         }).toThrow;
     });
 

@@ -183,8 +183,9 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService($q, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment, NoMerchantCreditCardPayment,
-                    ExchangePayment, CouponPayment, CouponService, OnCuffPayment) {
+            function PaymentService($location, $q, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
+                    NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
+                    ReceivableService, ProductReturnService, VoucherService) {
 
                 /**
                  * The current payments.
@@ -264,7 +265,7 @@
                                 }
                             }
                             payment.duedate = duedate;
-                            
+
                             result.push(payment);
                         }
                     }
@@ -343,11 +344,78 @@
                     }
                 };
 
-                // FIXME: shouldn't all methods be renamed to more
-                // specific names? E.g.:
-                // add -> addPayment, list -> listPayments,
-                // clear -> clearPayments?
-                //
+                /**
+                 * Saves the payments and closes the order.
+                 */
+                function checkout(result) {
+                    if (!result) {
+                        return $q.reject();
+                    }
+
+                    var promises = [];
+                    var customer = ArrayUtils.find(EntityService.list(), 'uuid', OrderService.order.customerId);
+
+                    if (OrderService.hasItems()) {
+                        // Save the order
+                        var savedOrderPromise = OrderService.save();
+
+                        // Generate receivables
+                        var receivablesPromise = savedOrderPromise.then(function(orderUuid) {
+                            var receivables = getReceivables();
+                            return ReceivableService.bulkRegister(receivables, customer, orderUuid);
+                        }, propagateRejectedPromise);
+
+                        // Register product exchange
+                        var productsReturnPromise = savedOrderPromise.then(function(orderUuid) {
+                            var exchanges = list('exchange');
+                            return ProductReturnService.bulkRegister(exchanges, customer, orderUuid);
+                        }, propagateRejectedPromise);
+
+                        // Register voucher/coupons use
+                        var vouchersPromise = savedOrderPromise.then(function(orderUuid) {
+                            var vouchers = list('coupon');
+                            return VoucherService.bulkRegister(vouchers, customer, orderUuid);
+                        }, propagateRejectedPromise);
+
+                        promises.push(receivablesPromise);
+                        promises.push(productsReturnPromise);
+                        promises.push(vouchersPromise);
+                    }
+
+                    if (hasPersistedCoupons()) {
+                        // Generate coupons
+                        var savedCouponsPromise = createCoupons(customer).then(evaluateCoupons, propagateRejectedPromise);
+                        promises.push(savedCouponsPromise);
+                    }
+
+                    var savedSalePromise = $q.all(promises);
+
+                    // clear all
+                    return savedSalePromise.then(function() {
+                        OrderService.clear();
+                        clearAllPayments();
+                        clearPersistedCoupons();
+                    }, propagateRejectedPromise);
+                }
+
+                /**
+                 * Cancel the payment and redirect to the main screen.
+                 */
+                function cancelPayment(result) {
+                    if (!result) {
+                        return propagateRejectedPromise(result);
+                    }
+                    OrderService.clear();
+                    clearAllPayments();
+                    clearPersistedCoupons();
+
+                    $location.path('/');
+                }
+
+                function propagateRejectedPromise(err) {
+                    return $q.reject(err);
+                }
+
                 this.add = add;
                 this.addAll = addAll;
                 this.list = list;
@@ -355,6 +423,8 @@
                 this.clear = clear;
                 this.clearAllPayments = clearAllPayments;
                 this.getReceivables = getReceivables;
+                this.checkout = checkout;
+                this.cancelPayment = cancelPayment;
 
                 // Coupons //////////////////////////
 
@@ -408,10 +478,8 @@
                 // NOTE: Coupons are generated INDIVIDUALLY, thats
                 // why there is no
                 // qty attribute in this coupon objects.
-                var createCoupons = function createCoupons(entity, document) {
+                var createCoupons = function createCoupons(entity) {
 
-                    var amount = {};
-                    var coupon;
                     var qty;
                     var processedCoupons = [];
                     var couponPromises = [];
@@ -422,7 +490,7 @@
                     // The total quantity of successfully processed coupons
                     processedCoupons.successQty = 0;
 
-                    for (amount in persistedCoupons) {
+                    for ( var amount in persistedCoupons) {
 
                         if (persistedCoupons.hasOwnProperty(amount)) {
                             qty = persistedCoupons[amount];
@@ -432,32 +500,73 @@
                             // be coupons with qty 0 in persistedCoupons.
                             if (qty > 0) {
                                 for ( var i = 0; i < qty; i += 1) {
-
-                                    coupon = {
-                                        amount : amount
-                                    };
-
-                                    try {
-                                        couponPromises[i] = CouponService.create(entity, amount, null, document).then(function() {
-                                            return coupon;
-                                        }, function(err) {
-                                            coupons.err = err;
-                                            return $q.reject(coupons);
-                                        });
-                                    } catch (err) {
-                                        coupon.err = err;
-                                        // TODO: should we keep trying to
-                                        // generate the other coupons
-                                        // ou should we stop on the first err?
-                                    }
+                                    couponPromises.push(CouponService.create(entity.uuid, amount, null).then(function(coupon) {
+                                        return coupon;
+                                    }, function(err) {
+                                        // FIXME: review this code. Not sure
+                                        // what should happen here.
+                                        // coupons is not defined
+                                        coupons.err = err;
+                                        return $q.reject(coupons);
+                                    }));
                                 }
                             } // if qty > 0
                         } // if hasOwnProperty
                     } // for amount in persistedCoupons
 
-                    this.clearPersistedCoupons();
+                    clearPersistedCoupons();
                     return $q.all(couponPromises);
                 };
+
+                // ///////////////////////////////////
+                // Coupon handling
+                var errorMessage =
+                        'Ocorreram erros na geração dos cupons. Na próxima sincronização do sistema um administrador será acionado.';
+                /**
+                 * Checks if all coupons in an array are ok (have no 'err'
+                 * attribute).
+                 */
+                function allCouponsOk(coupons) {
+                    var len, i;
+                    for (i = 0, len = coupons.length; i < len; i += 1) {
+                        if (coupons[i].err) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                }
+
+                /** Logs errors in failed coupons, if any. */
+                function logCouponErrors(coupons) {
+                    var coupon, len, i;
+                    for (i = 0, len = coupons.length; i < len; i += 1) {
+                        coupon = coupons[i];
+                        if (coupon.err) {
+                            $log.error(coupon.err);
+                        }
+                    }
+                }
+
+                /**
+                 * Creates all coupons persisted in the PaymentService.
+                 */
+                function evaluateCoupons(processedCoupons) {
+                    if (!allCouponsOk(processedCoupons)) {
+                        DialogService.messageDialog({
+                            title : 'Cupom promocional',
+                            message : errorMessage,
+                            btnYes : 'OK'
+                        });
+
+                        $log.error('One or more coupons failed!');
+                        logCouponErrors(processedCoupons);
+
+                        $log.fatal(new Date() + ' - There were problems in creating coupons. \n client ID:' + customerId + '\n' +
+                            'Processed coupons:' + JSON.stringify(processedCoupons));
+                        // TODO: should we keep track in journal?
+                    }
+                }
 
                 this.persistedCoupons = persistedCoupons;
                 this.hasPersistedCoupons = hasPersistedCoupons;
