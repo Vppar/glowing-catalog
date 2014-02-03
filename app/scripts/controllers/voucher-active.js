@@ -9,15 +9,6 @@
             ]).controller(
             'VoucherActiveCtrl', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService) {
 
-                // FIXME - This mock must be removed when entity service is
-                // completed.
-                EntityService.read = function() {
-                    return {
-                        name : 'Albert Einstein',
-                        id : 16
-                    };
-                };
-
                 var vouchers = angular.copy($scope.vouchers);
 
                 /**

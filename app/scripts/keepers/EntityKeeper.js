@@ -153,7 +153,14 @@
             // save the journal entry
             return JournalKeeper.compose(entry);
         };
-
+        
+        /**
+         * read (Entity)
+         */
+        this.read = function(uuid) {
+            return ArrayUtils.find(this.list(), 'uuid', uuid);
+        };
+        
         /**
          * list(type)
          */
