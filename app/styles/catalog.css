@@ -139,7 +139,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#7b84ad 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 		}		
-		.catalog-block.w06.product-bg-green .product-divider {
+		.catalog-block.w06.product-bg-green .product-divider, .catalog-block.w06.product-bg-color-dark-green .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-green.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #7ba752 50%, #ffffff 100%); /* FF3.6+ */
@@ -326,7 +326,7 @@
 			background: linear-gradient(to right,  #ffffff 0%,#caa5ac 50%,#ffffff 100%); /* W3C */
 			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 		}				
-		.catalog-block.w06.product-bg-soft-orange .product-divider {
+		.catalog-block.w06.product-bg-soft-orange .product-divider, .catalog-block.w06.product-bg-color-soft-red .product-divider {
 			/*background-image: url('../images/line-gradient-products-394-yellow-gray.png');*/
 			background: #ffffff; /* Old browsers */
 			background: -moz-linear-gradient(left,  #ffffff 0%, #d8b194 50%, #ffffff 100%); /* FF3.6+ */
@@ -847,6 +847,10 @@
 			background-color: #f58a7a;
 			background-image: url('../images/plus-w.png');
 		}
+		.catalog-block.product-bg-color-dark-green .product-addbtn {
+			background-color: #839766;
+			background-image: url('../images/plus-w.png');
+		}	
 		
 
 		

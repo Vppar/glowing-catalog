@@ -807,8 +807,8 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 .grid-cash-flow .subtitle, .grid-cash-flow .grid-footer {
 	font-weight: bold;
 	line-height: 40px;
-	color: #fff;
-	background: #7F7F7F; /*#f2f2f2;*/
+	color: #111;
+	background: #c8c8c8; /*#f2f2f2;*/
 }
 
 .grid-inner-footer{

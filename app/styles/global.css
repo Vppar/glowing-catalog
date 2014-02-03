@@ -963,6 +963,9 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 	.bread-crumbs .icons{
 		padding: 0px 5px 0px 5px;
 	}
+.bread-crumbs label {
+	display:inline;
+}
 
 .marginl7 {
 	margin-left: -11px !important;

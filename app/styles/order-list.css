@@ -58,7 +58,9 @@
 	font-weight: bold;
 	min-height: 20px;/
 }*/
-
+.lbl-money label {
+	display:inline;
+}
 .w175{
 	width: 175px;
 }
