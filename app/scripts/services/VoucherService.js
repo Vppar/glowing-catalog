@@ -35,6 +35,15 @@
             var result = null;
             var hasErrors = isValid(voucher);
             if (hasErrors.length === 0) {
+                if (!(voucher instanceof Voucher)) {
+                    voucher = new Voucher(
+                        null,
+                        voucher.entity,
+                        voucher.type,
+                        voucher.amount
+                    );
+                }
+
                 result = VoucherKeeper.create(voucher);
                 result['catch'](function(err) {
                     $log.error('VoucherService.create: -Failed to create a voucher. ', err);
@@ -119,7 +128,20 @@
         };
 
 
-        var bulkRegister = function bulkRegister(vouchers, entity, document) {
+
+        var bulkCreate = function bulkCreate(vouchers) {
+            var creationPromises = [];
+
+            // Vouchers can be either vouchers or giftCards
+            for (var idx in vouchers) {
+                creationPromises.push(create(vouchers[idx]));
+            }
+
+            return $q.all(creationPromises);
+        };
+
+
+        var bulkProcess = function bulkProcess(vouchers, entity, document) {
             var voucherPromises = [];
 
             for (var ix in vouchers) {
@@ -180,7 +202,8 @@
 
         this.isValid = isValid;
         this.create = create;
-        this.bulkRegister = bulkRegister;
+        this.bulkCreate = bulkCreate;
+        this.bulkProcess = bulkProcess;
         this.cancel = cancel;
         this.create = create;
         this.redeem = redeem;

@@ -19,7 +19,7 @@
 		<span class="lbl-money2 display-block">
 			<strong class="lbl-money">Subtotal</strong>
 			<span class="lbl-money4">&nbsp;</span>
-			<span class="btn-sub-payment">{{items | sum:'price':'qty' | currency: '' }}</span>
+			<span class="btn-sub-payment">{{total.order.amount | currency: '' }}</span>
 		</span>				
 		<span class="lbl-money2 display-block qty-values">
 			<span class="lbl-money4 qntty" ng-show="total.order.qty !== 1"> ({{total.order.qty}}) itens</span>
@@ -86,7 +86,7 @@
 		<span class="lbl-money w112">Emitir vale/cupom</span>
 		<span class="">
 			<!-- <span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency:''}}</span> -->
-	        <span class="btn-price-payment btn-price-payment2" >{{items | filter: voucherFilter | sum : 'price' | currency:'' }}</span>
+	        <span class="btn-price-payment btn-price-payment2" >{{items | filter: voucherFilter | sum : 'amount' | currency:'' }}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('oncuff')">
