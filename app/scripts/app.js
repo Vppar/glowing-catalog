@@ -48,6 +48,8 @@
                 'tnt.catalog.payment.coupon',
                 'tnt.catalog.keyboard.input',
                 'tnt.catalog.voucher.ctrl',
+                'tnt.catalog.voucher.active.ctrl',
+                'tnt.catalog.voucher.historic.ctrl',
                 'tnt.catalog.voucher.entity',
                 'tnt.catalog.entity',
                 'tnt.catalog.entity.service',
