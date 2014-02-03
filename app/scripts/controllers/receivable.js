@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.expense', []).controller('ReceivableCtrl', function($scope, ReceivableService) {
+    angular.module('tnt.catalog.financial.receivable.ctrl', []).controller('ReceivableCtrl', function($scope, ReceivableService) {
 
         /**
          * Receivables list.

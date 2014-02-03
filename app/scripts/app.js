@@ -33,7 +33,7 @@
                 'tnt.catalog.customer.choose',
                 'tnt.catalog.product.input.dialog',
                 'tnt.catalog.receivable.service',
-                'tnt.catalog.financial.receivable',
+                'tnt.catalog.financial.receivable.ctrl',
                 'tnt.catalog.financial.receivable.entity',
                 'tnt.catalog.financial.expense',
                 'tnt.catalog.financial.incomeStatement',
