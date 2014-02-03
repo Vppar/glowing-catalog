@@ -30,7 +30,7 @@
 					<div class="float-right">
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option">Adicionar</a> 
+								<a class="btn btn-option" ng-click="selectedReceivableMode='add'">Adicionar</a>
 								<a class="btn btn-option">Editar</a>
 								<a class="btn btn-option">Baixa Pgto.</a>
 								<a class="btn btn-option active" ng-click="selectReceivableMode('search')">Pesquisar</a>
@@ -134,13 +134,13 @@
                             <div>{{receivable.amount | currency:''}}</div>
                         </span> 
                         <span class="col-7">						
-                            <!--somente para a tela de baixa-->
-                            <!--<div><input type="checkbox" id="filter-bar-checkbox" value="todos"></div>-->
-                            
-                            <!--somente para a tela de adicionar/editar-->
-                            <!--<div class="hover-state-pointer">
-                                <img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
-                            </div>-->
+							<!--somente para a tela de baixa-->
+							<div ng-show="selectedReceivableMode=='liquidate'"><input type="checkbox" id="filter-bar-checkbox" value="todos"></div>
+							
+							<!--somente para a tela de adicionar/editar-->
+							<div class="hover-state-pointer" ng-show="selectedReceivableMode=='edit'">
+ 								<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
+							</div>
                         </span> 
                     </div>
                 </div>
