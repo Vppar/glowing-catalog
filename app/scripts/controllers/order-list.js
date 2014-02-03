@@ -48,20 +48,21 @@
         $scope.entities = EntityService.list();
 
         // initialize dates
-        var dtIni = new Date();
-        dtIni.setMonth(dtIni.getMonth() - 1);
-        $scope.dateFilter = {
-            dtInitial : dtIni,
-            dtFinal : new Date()
-        };
-
         // Set first and last instants of dates.
-        $scope.dateFilter.dtInitial.setHours(0);
-        $scope.dateFilter.dtInitial.setMinutes(0);
-        $scope.dateFilter.dtInitial.setSeconds(0);
-        $scope.dateFilter.dtFinal.setHours(23);
-        $scope.dateFilter.dtFinal.setMinutes(59);
-        $scope.dateFilter.dtFinal.setSeconds(59);
+        var dtInitial = new Date();
+        dtInitial.setHours(0);
+        dtInitial.setMinutes(0);
+        dtInitial.setSeconds(0);
+        
+        var dtFinal = new Date();
+        dtFinal.setHours(23);
+        dtFinal.setMinutes(59);
+        dtFinal.setSeconds(59);
+        
+        $scope.dateFilter = {
+            dtInitial : dtInitial,
+            dtFinal : dtFinal
+        };
 
         $scope.resetTotal = function() {
             $scope.total = angular.copy(totalTemplate);

@@ -33,6 +33,30 @@
 		}
 	},
 	{
+		"type": "voucherCreate",
+		"version": 1,
+		"event": {
+			"id": "cc02b600-5d0b-11e3-96c3-020001000004",
+			"entity": "cc02b600-5d0b-11e3-96c3-010001000016",
+			"type": "coupon",
+			"amount": 20,
+			"created": 1388684400000,
+			"redeemed": 1388684400000
+		}
+	},
+	{
+		"type": "voucherCreate",
+		"version": 1,
+		"event": {
+			"id": "cc02b600-5d0b-11e3-96c3-020001000005",
+			"entity": "cc02b600-5d0b-11e3-96c3-010001000016",
+			"type": "coupon",
+			"amount": 20,
+			"created": 1388684400000,
+			"canceled": 1388684400000
+		}
+	},
+	{
 		"type": "entityCreate",
 		"version": 1,
 		"event": {
