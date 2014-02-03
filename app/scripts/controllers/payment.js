@@ -118,8 +118,8 @@
                         $scope.dialogService = dialogService;
 
                         $scope.openDialogChooseCustomer = function() {
-                            dialogService.openDialogChooseCustomer().then(function(id) {
-                                customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
+                            dialogService.openDialogChooseCustomer().then(function(uuid) {
+                                customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
                                 $scope.customer = customer;
 
                                 // Propagate customer to order
