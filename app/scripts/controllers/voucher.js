@@ -52,7 +52,7 @@
             dtFinal : new Date(),
             value : ''
         };
-        
+
         // Set first and last instants of dates.
         $scope.voucherFilter.date.setHours(0);
         $scope.voucherFilter.date.setMinutes(0);

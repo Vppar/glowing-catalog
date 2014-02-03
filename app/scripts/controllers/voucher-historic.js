@@ -33,7 +33,7 @@
                             finalFilter = $scope.historicVoucher.dtFinal.getTime();
                         }
                     }
-                    
+
                     if (initialFilter && finalFilter) {
                         if (voucher.created >= initialFilter && voucher.created <= finalFilter) {
                             return true;
