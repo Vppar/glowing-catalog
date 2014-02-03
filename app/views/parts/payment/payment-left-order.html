@@ -21,14 +21,8 @@
 			<span class="col-2">{{item.title}} &nbsp;<span class="code-product">{{item.uniqueName}}</span></span>
 			<span class="col-3">{{item.price | currency: ''}}</span>
 			<span class="col-4">{{item.qty}}</span>
-			<span class="col-5">{{item.qty*item.price | currency:''}}</span>
+			<span class="col-5">{{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
 		</div>
 	</div>
 </div>
-	
-<!--<div class="payment-left-btns-area">
-	<div class="payment-left-btns">
-		<button id="marginl0" class="btn btn-cancel float-left" onclick="javascript:window.location='#'">Voltar</button>
-	</div>
-</div>-->
 	

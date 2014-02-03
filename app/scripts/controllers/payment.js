@@ -312,6 +312,8 @@
                                 var basket = order.items;
 
                                 $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
+                                // Handle non-normalized price/amount field
+                                $scope.total.order.amount += $filter('sum')(basket, 'amount', 'qty');
                                 $scope.total.order.unit = $filter('sum')(basket, 'qty');
                                 $scope.total.order.qty = basket ? basket.length : 0;
 

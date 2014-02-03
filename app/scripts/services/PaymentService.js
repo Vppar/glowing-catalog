@@ -371,15 +371,24 @@
                             return ProductReturnService.bulkRegister(exchanges, customer, orderUuid);
                         }, propagateRejectedPromise);
 
-                        // Register voucher/coupons use
-                        var vouchersPromise = savedOrderPromise.then(function(orderUuid) {
+                        // Process used vouchers, coupons and gift cards
+                        var usedVouchersPromise = savedOrderPromise.then(function(orderUuid) {
                             var vouchers = list('coupon');
-                            return VoucherService.bulkRegister(vouchers, customer, orderUuid);
+                            return VoucherService.bulkProcess(vouchers, customer, orderUuid);
                         }, propagateRejectedPromise);
+
+                        // Create new vouchers and gift cards
+                        var vouchers = ArrayUtils.list(OrderService.order.items, 'type', 'voucher');
+                        var giftCards = ArrayUtils.list(OrderService.order.items, 'type', 'giftCard');
+
+                        var newVouchersPromise = vouchers.length && VoucherService.bulkCreate(vouchers).then(null, propagateRejectedPromise);
+                        var newGiftCardsPromise = giftCards.length && VoucherService.bulkCreate(giftCards).then(null, propagateRejectedPromise);
 
                         promises.push(receivablesPromise);
                         promises.push(productsReturnPromise);
-                        promises.push(vouchersPromise);
+                        promises.push(usedVouchersPromise);
+                        promises.push(newVouchersPromise);
+                        promises.push(newGiftCardsPromise);
                     }
 
                     if (hasPersistedCoupons()) {
@@ -567,6 +576,7 @@
                         // TODO: should we keep track in journal?
                     }
                 }
+
 
                 this.persistedCoupons = persistedCoupons;
                 this.hasPersistedCoupons = hasPersistedCoupons;

@@ -45,7 +45,7 @@ describe('Controller: PaymentCouponCtrl', function() {
                 id : 0,
                 title : 'Vale Crédito',
                 uniqueName : '',
-                price : 55.00,
+                amount : 55.00,
                 qty : 1,
                 type : 'voucher'
             }
@@ -197,14 +197,16 @@ describe('Controller: PaymentCouponCtrl', function() {
 
         scope.gift.total = value;
         scope.gift.customer = {
-            name : customerNameFake
+            name : customerNameFake,
+            uuid : 1
         };
 
         var gift = {
             id : idx,
             title : 'Vale Presente',
             uniqueName : customerNameFake,
-            price : value,
+            entity : 1,
+            amount : value,
             qty : 1,
             type : 'giftCard'
         };
@@ -318,7 +320,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.confirmVoucher();
 
         expect(orderServiceMock.order.items.length).toBe(1);
-        expect(orderServiceMock.order.items[0].price).toBe(value);
+        expect(orderServiceMock.order.items[0].amount).toBe(value);
     });
 
 });
