@@ -27,7 +27,6 @@
             $scope.selectedReceivableMode = selectedMode;
         };
 
-
         $scope.$watch('receivables.list', function () {
             $scope.receivables.total = getReceivablesTotal();
         });

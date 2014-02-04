@@ -1,9 +1,9 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.coin.entity', []).factory('Coin', function Coin() {
+    angular.module('tnt.catalog.coin.entity', ['tnt.identity', 'tnt.catalog.journal']).factory('Coin', function Coin() {
 
-        var service = function svc(uuid, created, entityId, type, amount, duedate) {
+        var service = function svc(uuid, created, entityId, amount, duedate) {
 
             var validProperties = [
                 'uuid', 'created', 'entityId', 'documentId', 'type', 'payment', 'amount', 'duedate', 'canceled', 'liquidated'
@@ -31,14 +31,12 @@
                 this.uuid = uuid;
                 this.created = created;
                 this.entityId = entityId;
-                this.type = type;
                 this.amount = amount;
                 this.duedate = duedate;
             }
             ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'created', this.created);
             ObjectUtils.ro(this, 'entityId', this.entityId);
-            ObjectUtils.ro(this, 'type', this.type);
             ObjectUtils.ro(this, 'amount', this.amount);
             ObjectUtils.ro(this, 'duedate', this.duedate);
         };

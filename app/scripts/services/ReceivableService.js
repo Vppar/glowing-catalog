@@ -26,7 +26,7 @@
                     // FIXME - Verify if is a valid entityId
                     invalidProperty.entityId = true;
                     // FIXME - Verify if is a valid receivable type
-                    invalidProperty.type = angular.isDefined(receivable.type);
+//                    invalidProperty.type = angular.isDefined(receivable.type);
                     invalidProperty.amount = Number(receivable.amount) !== 0;
 
                     var result = [];

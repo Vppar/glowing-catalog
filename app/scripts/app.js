@@ -76,7 +76,9 @@
                 'tnt.catalog.lineup',
                 'tnt.catalog.productsToBuy.ctrl',
                 'tnt.catalog.stock.service',
-                'tnt.catalog.stock.ctrl'
+                'tnt.catalog.stock.ctrl',
+                'tnt.catalog.receivable.add.ctrl',
+                'tnt.catalog.type'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

@@ -41,9 +41,10 @@
 			</div>
 		
             <div ng-switch on="selectedReceivableMode">
-				<span ng-switch-when="read"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
-				<span ng-switch-when="write"><span ng-include src="'views/parts/receivable/receivable-write.html'"></span></span>
-				<span ng-switch-when="search"><span ng-include src="'views/parts/receivable/receivable-search.html'"></span></span>
+				<span ng-switch-when="liquidate"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
+				<span ng-switch-when="search"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
+				<span ng-switch-when="edit"><span ng-include src="'views/parts/receivable/receivable-write.html'"></span></span>
+				<span ng-switch-when="add"><span ng-controller="ReceivableAddCtrl" ng-include src="'views/parts/receivable/receivable-add.html'"></span></span>
 			</div>
 		</div>
             
