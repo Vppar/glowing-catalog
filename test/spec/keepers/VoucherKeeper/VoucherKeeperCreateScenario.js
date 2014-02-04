@@ -13,7 +13,12 @@ describe('Service: VoucherKeeperCreateScenario', function() {
     var VoucherKeeper = undefined;
     var Voucher = undefined;
 
-    beforeEach(inject(function(_VoucherKeeper_, _Voucher_) {
+    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         VoucherKeeper = _VoucherKeeper_;
         Voucher = _Voucher_;
     }));

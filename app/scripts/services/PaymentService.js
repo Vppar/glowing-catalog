@@ -185,8 +185,13 @@
             'PaymentService',
             function PaymentService($location, $q, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
-                    ReceivableService, ProductReturnService, VoucherService) {
+                    ReceivableService, ProductReturnService, VoucherService, WebSQLDriver) {
 
+                // FIXME Remove this as soon as the Persistent replay is properly working
+                WebSQLDriver.transaction(function(tx){
+                    WebSQLDriver.dropBucket(tx, 'JournalEntry');
+                });
+              
                 /**
                  * The current payments.
                  */

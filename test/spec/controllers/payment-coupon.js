@@ -10,6 +10,8 @@ describe('Controller: PaymentCouponCtrl', function() {
     var DataProvider = {};
 
     var itemsMock = [];
+    
+    log.debug = angular.noop;
 
     // load the controller's module
     beforeEach(function() {

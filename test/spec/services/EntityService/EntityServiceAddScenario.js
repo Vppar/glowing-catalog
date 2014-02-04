@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: EntityService', function() {
+describe('Service: EntityServiceAddScenario', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -13,7 +13,12 @@ describe('Service: EntityService', function() {
     var EntityService = undefined;
     var Entity = undefined;
     
-    beforeEach(inject(function(_EntityService_, _Entity_) {
+    beforeEach(inject(function(_EntityService_, _Entity_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         EntityService = _EntityService_;
         Entity = _Entity_;
     }));

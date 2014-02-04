@@ -24,11 +24,12 @@
                 throw 'JournalEntry must be initialized with sequence, stamp, type, version and event';
             }
 
-            ObjectUtils.ro(this, 'sequence', sequence);
-            ObjectUtils.ro(this, 'stamp', stamp);
-            ObjectUtils.ro(this, 'type', type);
-            ObjectUtils.ro(this, 'version', version);
-            ObjectUtils.ro(this, 'event', event);
+            this.sequence = sequence;
+            this.stamp = stamp;
+            this.type = type;
+            this.version = version;
+            this.event = event;
+            this.remote = 0;
         };
 
         ObjectUtils.method(service, 'metadata', function() {
@@ -43,18 +44,32 @@
      * 
      * The CRUD for journal keeping operations
      */
-    angular.module('tnt.catalog.journal.keeper', []).service('JournalKeeper', function JournalKeeper($q, Replayer) {
+    angular.module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent']).service('JournalKeeper', function JournalKeeper($q, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
+
+        var sequence = 0;
+        
+        var storage = new PersistentStorage(WebSQLDriver);
+        storage.register('JournalEntry', JournalEntry);
+      
         this.compose = function(journalEntry) {
-          
             var deferred = $q.defer();
-          
-            setTimeout(function(){
-                try{
-                    deferred.resolve(Replayer.replay(journalEntry));
-                } catch (e){
-                    deferred.reject(e);
-                }
-            }, 10);
+            
+            if(!(journalEntry instanceof JournalEntry)){
+                deferred.reject('the given entry is not an instande of JournalEntry');
+            } else {
+              
+                journalEntry.sequence = ++sequence;
+              
+                storage.persist(journalEntry).then(function(){
+                    try{
+                        deferred.resolve(Replayer.replay(journalEntry));
+                    } catch (e){
+                        deferred.reject(e);
+                    }
+                }, function(error){
+                    deferred.reject(error);
+                });
+            }
             
             return deferred.promise;
         };

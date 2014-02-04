@@ -16,7 +16,12 @@ describe('Service: StockeeperRemoveScenario', function() {
     var ArrayUtils = undefined;
     var Scope = undefined;
 
-    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_) {
+    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         ArrayUtils = _ArrayUtils_;
