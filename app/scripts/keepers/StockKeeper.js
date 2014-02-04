@@ -66,7 +66,7 @@
             };
             return $delegate;
         });
-}).service('StockKeeper', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
+    }).service('StockKeeper', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
 
         var currentEventVersion = 1;
         var stock = [];
