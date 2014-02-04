@@ -142,16 +142,16 @@
     								<span>Total</span>
     							</div>
     							<div class="col-3">
-    								<span>3</span>
+    								<span>{{total.all.orderCount}}</span>
     							</div>
     							<div class="col-2">
-    								<span>2</span>
+    								<span>{{total.all.entityCount}}</span>
     							</div> 
     							<div class="col-4">
-    								<span>8</span>
+    								<span>{{total.all.qty}}</span>
     							</div>
     							<div class="col-5 ">
-    								<span>58,44</span>
+    								<span>{{total.all.avgPrice | currency:''}}</span>
     							</div>
     							<div class="col-6">
     								<span>{{total.all.amount | currency:''}}</span>

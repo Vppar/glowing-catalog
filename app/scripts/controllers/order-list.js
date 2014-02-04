@@ -38,7 +38,10 @@
                 amount : 0
             },
             all : {
+                orderCount : 0,
+                entityCount : 0,
                 qty : 0,
+                avgPrice : 0,
                 amount : 0
             }
         };
@@ -53,12 +56,12 @@
         dtInitial.setHours(0);
         dtInitial.setMinutes(0);
         dtInitial.setSeconds(0);
-        
+
         var dtFinal = new Date();
         dtFinal.setHours(23);
         dtFinal.setMinutes(59);
         dtFinal.setSeconds(59);
-        
+
         $scope.dateFilter = {
             dtInitial : dtInitial,
             dtFinal : dtFinal

@@ -187,11 +187,12 @@
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
                     ReceivableService, ProductReturnService, VoucherService, WebSQLDriver) {
 
-                // FIXME Remove this as soon as the Persistent replay is properly working
-                WebSQLDriver.transaction(function(tx){
+                // FIXME Remove this as soon as the Persistent replay is
+                // properly working
+                WebSQLDriver.transaction(function(tx) {
                     WebSQLDriver.dropBucket(tx, 'JournalEntry');
                 });
-              
+
                 /**
                  * The current payments.
                  */
@@ -421,17 +422,25 @@
 
                 function makeZeroChange(receivables, change) {
                     if (change > 0) {
+                        var done = false;
                         for ( var ix in receivables) {
                             var receivable = receivables[ix];
                             if (receivable.type === 'cash') {
                                 $log.debug('PaymentService.makeZeroChange: cash amount=' + receivable.amount);
                                 $log.debug('PaymentService.makeZeroChange: change=' + change);
 
-                                receivable.amount -= change;
+                                receivable.amount = Math.round(100 * (receivable.amount - change)) / 100;
 
                                 $log.debug('PaymentService.makeZeroChange: new cash amount=' + receivable.amount);
+                                done = true;
                                 break;
                             }
+                        }
+                        if (!done) {
+                            var cash = new CashPayment((-1) * change);
+                            cash.type = 'cash';
+                            $log.debug('PaymentService.makeZeroChange: creating a negative payment=' + change);
+                            receivables.push(cash);
                         }
                     } else if (change < 0) {
                         $log.error('PaymentService.checkout: Something went wrong its impossible to do a' + 'checkout missing amount');
