@@ -36,7 +36,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
     beforeEach(inject(function($controller, $rootScope, $filter, _ArrayUtils_) {
         // $scope mock
         scope = $rootScope.$new();
-        scope.receivable = {};
+        scope.receivables = {};
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
@@ -384,8 +384,8 @@ describe('Controller: ReceivableSearchCtrl', function() {
                 // Show only receivables with due dates in the next 30 days
                 scope.dtFinal.setDate(scope.dtFinal.getDate() + 30);
                 scope.$apply();
-                log.debug('Filtered Receivables', scope.receivables.filtered);
-                expect(scope.receivables.filtered.length).toBe(3);
+                log.debug('Filtered Receivables', scope.receivables.list);
+                expect(scope.receivables.list.length).toBe(3);
             });
 
             it('is updated when final date changes', function () {
@@ -394,7 +394,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
                 // Show only receivables with due dates in the last 30 days
                 scope.dtInitial.setDate(scope.dtInitial.getDate() - 30);
                 scope.$apply();
-                expect(scope.receivables.filtered.length).toBe(2);
+                expect(scope.receivables.list.length).toBe(2);
             });
 
 
@@ -411,7 +411,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
                 scope.query = '123';
                 scope.$apply();
-                expect(scope.receivables.filtered.length).toBe(1);
+                expect(scope.receivables.list.length).toBe(1);
             });
 
 
@@ -428,11 +428,11 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
                 scope.query = '123';
                 scope.$apply();
-                expect(scope.receivables.filtered.length).toBe(1);
+                expect(scope.receivables.list.length).toBe(1);
 
                 scope.query = '';
                 scope.$apply();
-                expect(scope.receivables.filtered.length).toBe(receivables.length);
+                expect(scope.receivables.list.length).toBe(receivables.length);
             });
 
 
@@ -445,14 +445,14 @@ describe('Controller: ReceivableSearchCtrl', function() {
                 scope.dtFinal.setMilliseconds(scope.dtFinal.getMilliseconds() - 1);
                 scope.$apply();
 
-                expect(scope.receivables.filtered.length).toBe(2);
+                expect(scope.receivables.list.length).toBe(2);
 
                 scope.dtFinal = new Date();
                 // Show receivables from the last 30 days AND until 1 week in the future
                 scope.dtFinal.setDate(scope.dtFinal.getDate() + 7);
                 scope.$apply();
 
-                expect(scope.receivables.filtered.length).toBe(3);
+                expect(scope.receivables.list.length).toBe(3);
             });
 
             it('gets the entityName attribute set for each receivable', function () {
@@ -464,9 +464,9 @@ describe('Controller: ReceivableSearchCtrl', function() {
                 scope.dtFinal.setDate(scope.dtFinal.getDate() + 90);
                 scope.$apply();
 
-                expect(scope.receivables.filtered.length).toBe(4);
-                for (var idx in scope.receivables.filtered) {
-                    expect(scope.receivables.filtered[idx].entityName).toBeDefined();
+                expect(scope.receivables.list.length).toBe(4);
+                for (var idx in scope.receivables.list) {
+                    expect(scope.receivables.list[idx].entityName).toBeDefined();
                 }
             });
         }); // receivables list

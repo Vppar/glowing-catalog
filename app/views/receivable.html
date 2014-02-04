@@ -49,6 +49,104 @@
             
 		<div class="clearfix"></div>
         
+        <!-- DATAGRID -->
+        <div class="row-fluid">
+            <div class="grid-receivable">
+                <div class="header">
+                    <div class="grid-receivable">
+                        <span class="col-0">
+                        <div> Item </div>
+                        </span>
+                        <span class="col-1">
+                        <div> ID </div>
+                        </span>
+                        <span class="col-2">
+                        <div> Data</div>
+                        </span> 
+                        <span class="col-3">
+                        <div> Classifica&ccedil;&atilde;o </div>
+                        </span> 
+                        <span class="col-4">
+                        <div> Contas a pagar / Observa&ccedil;&atilde;o </div>
+                        </span> 
+                        <span class="col-5">
+                        <div> Vencto </div>
+                        </span> 
+                        <span class="col-6">
+                        <div> Valor </div>
+                        </span> 
+                        <span class="col-7">
+                        <div> &nbsp; </div>
+                        </span> 
+                    </div>
+                </div>
+
+                <div class="subtitle">
+                    <div class="grid-receivable">
+                        <span class="col-0">
+                            <div>{{receivables.list.length}}</div>
+                        </span>
+                        <span class="col-1">
+                        <div> &nbsp; </div>
+                        </span>
+                        <span class="col-2">
+                        <div> &nbsp; </div>
+                        </span> 
+                        <span class="col-3">
+                        <div> &nbsp; </div>
+                        </span> 
+                        <span class="col-4">
+                        <div> &nbsp; </div>
+                        </span> 
+                        <span class="col-5">
+                        <div> Total </div>
+                        </span> 
+                        <span class="col-6">
+                            <div>{{receivables.total | currency:''}}</div>
+                        </span> 
+                        <span class="col-7">
+                        <div> &nbsp; </div>
+                        </span> 
+                    </div>
+                </div>
+                
+                <div class="scroll-receivable">
+                    <div class="row-receivable" ng-repeat="receivable in receivables.list"> 
+                        <span class="col-0">
+                            <div>{{$index + 1}}</div>
+                        </span>
+                        <span class="col-1">
+                            <div>{{receivable | uuidCode}}</div>
+                        </span> 
+                        <span class="col-2">
+                            <div>{{receivable.created | date:"dd/MM/yyyy"}}</div>
+                        </span> 
+                        <span class="col-3">
+                            <div>{{receivable.type}}</div>
+                        </span> 
+                        <span class="col-4">
+                            <div>{{receivable.entityName}}</div>
+                        </span> 
+                        <span class="col-5">
+                            <div>{{receivable.duedate | date:"dd/MM/yyyy"}}</div>
+                        </span> 
+                        <span class="col-6">
+                            <div>{{receivable.amount | currency:''}}</div>
+                        </span> 
+                        <span class="col-7">						
+                            <!--somente para a tela de baixa-->
+                            <!--<div><input type="checkbox" id="filter-bar-checkbox" value="todos"></div>-->
+                            
+                            <!--somente para a tela de adicionar/editar-->
+                            <!--<div class="hover-state-pointer">
+                                <img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
+                            </div>-->
+                        </span> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- DataGrid end -->
 		<br/>
     
 	</div>

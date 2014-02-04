@@ -20,9 +20,7 @@
             // @see setEntityName()
             var entities = EntityService.list();
 
-            $scope.receivables = {};
-
-            $scope.receivables.filtered = [];
+            $scope.receivables.list = [];
 
             $scope.query = '';
             $scope.dtInitial = new Date();
@@ -31,10 +29,6 @@
             var searchableFields = [
                 'uuid', 'amount', 'type', 'remarks', 'entityName'
             ];
-
-            function getReceivablesTotal() {
-                return $filter('sum')($scope.receivables.filtered, 'amount');
-            }
 
             function receivableQueryFilter(receivable) {
                 var terms = $scope.query.split(' ');
@@ -73,22 +67,22 @@
             }
 
             function filterReceivablesByQuery() {
-                $scope.receivables.filtered = $filter('filter')($scope.receivables.filtered, receivableQueryFilter);
+                $scope.receivables.list = $filter('filter')($scope.receivables.list, receivableQueryFilter);
             }
 
             function filterReceivablesByDate() {
                 setTime($scope.dtInitial, 0, 0, 0, 0);
                 setTime($scope.dtFinal, 23, 59, 59, 999);
-                $scope.receivables.filtered = $filter('filter')($scope.receivables.filtered, receivableDateFilter);
+                $scope.receivables.list = $filter('filter')($scope.receivables.list, receivableDateFilter);
             }
 
 
             function filterReceivables() {
-                $scope.receivables.filtered = ReceivableService.list();
+                $scope.receivables.list = ReceivableService.list();
 
-                for (var idx in $scope.receivables.filtered) {
-                    if (!$scope.receivables.filtered[idx].entityName) {
-                        setEntityName($scope.receivables.filtered[idx]);
+                for (var idx in $scope.receivables.list) {
+                    if (!$scope.receivables.list[idx].entityName) {
+                        setEntityName($scope.receivables.list[idx]);
                     }
                 }
 
@@ -118,10 +112,6 @@
                 }
             }
 
-
-            $scope.$watch('receivables.filtered', function () {
-                $scope.receivablesTotal = getReceivablesTotal();
-            });
 
             $scope.$watch('dtInitial', ensureDateOrder);
             $scope.$watch('dtFinal', ensureDateOrder);
