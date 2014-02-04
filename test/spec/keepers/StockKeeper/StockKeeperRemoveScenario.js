@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Service: StockeeperRemoveScenario', function() {
-
+    
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.stock');
@@ -120,35 +120,4 @@ describe('Service: StockeeperRemoveScenario', function() {
         });
     });
     
-    /**
-     * <pre>
-     * @spec StockKeeper.remove#3
-     * Given a invalid stock
-     * when remove is triggered
-     * then an error must be raised
-     * </pre>
-     */
-    it('should reject promise', function() {
-        var id = 1;
-        var quantity = -5;
-        var resolution = null;
-        
-        runs(function(){
-            var promise = StockKeeper.remove(id, quantity);
-            
-            promise['catch'](function(_resolution_){
-                resolution = _resolution_;
-            });
-        });
-        
-        waitsFor(function(){
-            Scope.$apply();
-            return !!resolution;
-        }, 'JournalKeeper is taking too long', 300);
-        
-        runs(function(){
-            expect(resolution).toBe('No stockable found with this inventoryId: ' + id);
-        });
-    });
-
 });
