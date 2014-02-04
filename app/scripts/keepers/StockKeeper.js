@@ -56,7 +56,16 @@
      */
     angular.module('tnt.catalog.stock.keeper', [
         'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
-    ]).service('StockKeeper', function StockKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
+    ]).config(function($provide) {
+        $provide.decorator('$q', function($delegate) {
+            $delegate.reject = function(reason){
+                var deferred = $delegate.defer();
+                deferred.reject(reason);
+                return deferred.promise;
+            };
+            return $delegate;
+        });
+}).service('StockKeeper', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
 
         var currentEventVersion = 1;
         var stock = [];
@@ -167,7 +176,7 @@
         this.add = function(stock) {
 
             if (!(stock instanceof Stock)) {
-                throw "Wrong instance of Stock";
+                return $q.reject( "Wrong instance of Stock" );
             }
 
             var stamp = (new Date()).getTime() / 1000;
@@ -175,7 +184,7 @@
             var entry = new JournalEntry(null, stamp, 'stockAdd', currentEventVersion, stock);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
 
         };
 
@@ -205,7 +214,7 @@
                
             var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
             if (entry === null) {
-                throw 'No stockable found with this inventoryId: '+ inventoryId;
+                return $q.reject( 'No stockable found with this inventoryId: '+ inventoryId );
             }
             
             var event = new Stock(inventoryId, quantity, null);
@@ -214,7 +223,7 @@
             var entry = new JournalEntry(null, stamp, 'stockRemove', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         /**

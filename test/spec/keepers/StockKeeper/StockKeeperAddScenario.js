@@ -10,12 +10,13 @@ describe('Service: StockKeeperAddScenario', function() {
 
     var StockKeeper = undefined;
     var Stock = undefined;
-
-    beforeEach(inject(function(_StockKeeper_, _Stock_) {
+    var Scope = undefined;
+    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
+        Scope = $rootScope;
     }));
-
+    
     /**
      * <pre>
      * @spec StockKeeper.add#1
@@ -78,6 +79,78 @@ describe('Service: StockKeeperAddScenario', function() {
             expect(StockKeeper.list()[0].cost).toBe(finalPrice);
         });
 
+    });
+    
+    /**
+     * <pre>
+     * @spec StockKeeper.add#2
+     * Given a invalid stock
+     * when and add is triggered
+     * then an error must be raised
+     * </pre> 
+     */
+    it('should reject promise', function() {
+
+        var fakeStock = {
+            pId : 23,
+            qty : -1,
+            ct : 0
+        };
+
+        var resolution = null;
+        
+        runs(function(){
+            var promise = StockKeeper.add(fakeStock);
+            
+            promise['catch'](function(_resolution_){
+                resolution = _resolution_;
+            });
+        });
+        
+        waitsFor(function(){
+            Scope.$apply();
+            return !!resolution;
+        }, 'JournalKeeper is taking too long', 300);
+        
+        runs(function(){
+            expect(resolution).toBe('Wrong instance of Stock');
+        });
+    });
+    
+    /**
+     * <pre>
+     * @spec StockKeeper.add#4
+     * Given a invalid stock
+     * when and add is triggered
+     * then an error must be raised
+     * </pre> 
+     */
+    it('should reject promise', function() {
+
+        var fakeStock = {
+            pId : 23,
+            qty : 1,
+            ct : -1
+        };
+
+        var resolution = null;
+        
+        runs(function(){
+            var promise = StockKeeper.add(fakeStock);
+            
+            promise['catch'](function(_resolution_){
+                resolution = _resolution_;
+            });
+        });
+        
+        waitsFor(function(){
+            Scope.$apply();
+            return !!resolution;
+        }, 'JournalKeeper is taking too long', 300);
+        
+        runs(function(){
+            expect(resolution).toBe('Wrong instance of Stock');
+        });
     });
 
 });
