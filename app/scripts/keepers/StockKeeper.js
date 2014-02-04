@@ -154,7 +154,8 @@
             if (entry === null) {
                 throw 'Entity not found, cosistency must be broken! Replay?';
             }
-            return entry.reserve += event.reserve;
+            entry.reserve += event.reserve;
+            return entry.reserve;
         });
         
         ObjectUtils.ro(this.handlers, 'stockUnreserveV1', function(event) {
@@ -164,7 +165,8 @@
             if (entry === null) {
                 throw 'Entity not found, cosistency must be broken! Replay?';
             }
-            return entry.reserve -= event.reserve;
+            entry.reserve -= event.reserve;
+            return entry.reserve;
         });
 
         // Registering the handlers with the Replayer
