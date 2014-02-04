@@ -126,10 +126,10 @@
     							<div class="col-1">
     								<span>Data</span>
     							</div>
-    							<div class="col-2">
+    							<div class="col-3">
     								<span>Pedido</span>
     							</div>
-    							<div class="col-3">
+    							<div class="col-2">
     								<span>Clientes</span>
     							</div>
     							<div class="col-4">
@@ -149,10 +149,10 @@
     							<div class="col-1">
     								<span>Total</span>
     							</div>
-    							<div class="col-2">
+    							<div class="col-3">
     								<span>3</span>
     							</div>
-    							<div class="col-3">
+    							<div class="col-2">
     								<span>2</span>
     							</div> 
     							<div class="col-4">
@@ -173,10 +173,10 @@
     							<div class="col-1">
     								<span>{{order.date | date:'dd/MM/yyyy'}}</span>
     							</div>
-    							<div class="col-2">
+    							<div class="col-3">
     								<span>{{order.code}}</span>
     							</div>
-    							<div class="col-3">
+    							<div class="col-2">
     								<span>{{order.entityName | truncate: 50}}</span>
     							</div> 
     							<div class="col-4">
@@ -218,6 +218,28 @@
     							</div>
     							<div class="col-6">
     								<span>Valor total</span>
+    							</div>
+    						</div>
+    					</div>
+                        <div class="scroll-order-list scroll-order-list2">
+    						<div class="row-order-list hover-state-pointer details-resumo-total" >
+    							<div class="col-1">
+    								<span>Total</span>
+    							</div>
+    							<div class="col-2">
+    								<span>3</span>
+    							</div>
+    							<div class="col-3">
+    								<span>2</span>
+    							</div> 
+    							<div class="col-4">
+    								<span>8</span>
+    							</div>
+    							<div class="col-5 ">
+    								<span>58,44</span>
+    							</div>
+    							<div class="col-6">
+    								<span>{{total.all.amount | currency:''}}</span>
     							</div>
     						</div>
     					</div>
@@ -272,6 +294,28 @@
     							</div>
     							<div class="col-6">
     								<span>Valor total</span>
+    							</div>
+    						</div>
+    					</div>
+                        <div class="scroll-order-list scroll-order-list2">
+    						<div class="row-order-list hover-state-pointer details-resumo-total" >
+    							<div class="col-1">
+    								<span>Total</span>
+    							</div>
+    							<div class="col-2">
+    								<span>3</span>
+    							</div>
+    							<div class="col-3">
+    								<span>2</span>
+    							</div> 
+    							<div class="col-4">
+    								<span>8</span>
+    							</div>
+    							<div class="col-5 ">
+    								<span>58,44</span>
+    							</div>
+    							<div class="col-6">
+    								<span>{{total.all.amount | currency:''}}</span>
     							</div>
     						</div>
     					</div>
