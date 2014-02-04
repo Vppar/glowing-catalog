@@ -1,0 +1,80 @@
+<div ng-controller="ReceivableSearchCtrl">
+    <!-- DATE INTERVAL -->
+    <div class="row-fluid filter-bar">
+        <span class="span3">
+            <div class="controls">
+                <div class="control-group lbl-top">
+                    <div class="controls">
+                        Per&iacute;odo 
+                        <input
+                            type="text"
+                            placeholder=""
+                            show-weeks="false"
+                            datepicker-popup="dd/MM/yy"
+                            class="date-field input-small"
+                            readonly
+                            required
+                            id="dtInitial"
+                            ng-model="dtInitial">
+                    </div>
+                </div>
+                <div class="control-group lbl-top">
+                    <label for="dtInitial" class="ic-calendar hover-state-pointer calendar-financial">
+                        <img src="images/icons/ic-calendar.png">
+                    </label>
+                </div>
+            </div>
+        </span> 
+        <span class="span2">
+            <div class="controls">
+                <div class="control-group lbl-top">
+                    <div class="controls">
+                        <input
+                            type="text"
+                            placeholder=""
+                            show-weeks="false"
+                            datepicker-popup="dd/MM/yy"
+                            class="date-field input-small"
+                            readonly
+                            required
+                            id="dtFinal"
+                            ng-model="dtFinal">
+                    </div>
+                </div>
+                <div class="control-group lbl-top">
+                    <label for="dtFinal" class="ic-calendar hover-state-pointer calendar-financial">
+                        <img src="images/icons/ic-calendar.png">
+                    </label>
+                </div>
+            </div>
+        </span> 
+        <span class="span7"> 
+            <input type="checkbox" id="filter-bar-checkbox" value="todos">
+            <span class="txtpad filter-bar-check">todos os valores em aberto at&eacute; {{dtInitial | date:"dd/MM/yyyy 'às' HH:mm:ss"}}</span>
+        </span>
+    </div>
+
+    <!-- FILTER -->
+    <div class="row-fluid filter-bar">
+        <div class="txtpad filtro">Filtro</div>
+        <div class="input-append input-search span4 marginl0">
+            <input
+                class="input-xlarge"
+                id="appendedInput"
+                type="text"
+                ng-model="query"
+                id="query"
+                placeholder=""> 
+            <span class="add-on">
+                <i class="icon-search"></i>
+            </span>
+        </div>
+
+        <div class="span6 txtpad">({{receivables.filtered.length || 0}} {{receivables.filtered.length === 1 ? 'item' : 'itens'}})</div>
+    </div>
+
+
+    <div class="clearfix"></div>
+
+
+</div>
