@@ -97,7 +97,6 @@ describe('Service: StockKeeperAddScenario', function() {
             ct : 0
         };
 
-
         var resolution = null;
         
         runs(function(){
