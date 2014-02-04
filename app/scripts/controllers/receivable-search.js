@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('tnt.catalog.financial.receivable.search.ctrl', [])
-        .controller('ReceivableSearchCtrl', function($log, $scope, $filter, ReceivableService) {
+        .controller('ReceivableSearchCtrl', function($log, $scope, $filter, ReceivableService, EntityService, ArrayUtils) {
 
             function setTime(date, hours, minutes, seconds, milliseconds) {
                 date.setHours(hours);
@@ -10,6 +10,15 @@
                 date.setSeconds(seconds);
                 date.setMilliseconds(milliseconds);
             }
+
+
+            // FIXME: I'm using the whole entities list because the method
+            // EntityKeeper.read() does not exist, thus, EntityService.read()
+            // does not work. Once it's implemented, this should be updated
+            // to use that method.
+            // @see getEntity()
+            // @see setEntityName()
+            var entities = EntityService.list();
 
             $scope.receivables = {};
 
@@ -20,7 +29,7 @@
             $scope.dtFinal = new Date();
 
             var searchableFields = [
-                'uuid', 'amount', 'type', 'remarks'
+                'uuid', 'amount', 'type', 'remarks', 'entityName'
             ];
 
             function getReceivablesTotal() {
@@ -32,7 +41,6 @@
                 var isTermInField;
 
                 var term, field;
-
 
                 // For each term in the query, check if it matches any of
                 // the searchable fields. If not, return false.
@@ -78,11 +86,25 @@
             function filterReceivables() {
                 $scope.receivables.filtered = ReceivableService.list();
 
+                for (var idx in $scope.receivables.filtered) {
+                    if (!$scope.receivables.filtered[idx].entityName) {
+                        setEntityName($scope.receivables.filtered[idx]);
+                    }
+                }
+
                 if ($scope.query) {
                     filterReceivablesByQuery();
                 }
 
                 filterReceivablesByDate();
+            }
+
+            function getEntity(uuid) {
+                return ArrayUtils.find(entities, 'uuid', uuid);
+            }
+
+            function setEntityName(receivable) {
+                receivable.entityName = getEntity(receivable.entityId).name;
             }
 
 
@@ -93,6 +115,7 @@
             $scope.$watch('dtInitial', filterReceivables);
             $scope.$watch('dtFinal', filterReceivables);
             $scope.$watch('query', filterReceivables);
+
 
             this.receivableDateFilter = receivableDateFilter;
             this.receivableQueryFilter = receivableQueryFilter;

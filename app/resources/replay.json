@@ -259,7 +259,7 @@
         "event" : {
             "uuid": "cc02b600-5d0b-11e3-96c3-010001000017",
             "created": 1388684400000,
-            "entityId": 1,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
             "type": "cash",
             "amount": 80,
             "duedate": 1388684400000
@@ -271,7 +271,7 @@
         "event" : {
             "uuid": "cc02b600-5d0b-11e3-96c3-010001000018",
             "created": 1388684400000,
-            "entityId": 1,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000010",
             "type": "cash",
             "amount": 120,
             "duedate": 1388684400000
@@ -283,7 +283,7 @@
         "event" : {
             "uuid": "cc02b600-5d0b-11e3-96c3-010001000019",
             "created": 1388684400000,
-            "entityId": 2,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
             "type": "cash",
             "amount": 200,
             "duedate": 1388684400000
@@ -295,7 +295,7 @@
         "event" : {
             "uuid": "cc02b600-5d0b-11e3-96c3-010001000020",
             "created": 1388184400000,
-            "entityId": 2,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000010",
             "type": "check",
             "amount": 370,
             "duedate": 1388384500000
@@ -307,7 +307,7 @@
         "event" : {
             "uuid": "cc02b600-5d0b-11e3-96c3-010001000021",
             "created": 1388284400000,
-            "entityId": 1,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
             "type": "creditCard",
             "amount": 475,
             "duedate": 1388484500000

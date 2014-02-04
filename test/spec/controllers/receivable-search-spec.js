@@ -3,13 +3,16 @@ describe('Controller: ReceivableSearchCtrl', function() {
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.financial.receivable.search.ctrl');
+        module('tnt.catalog.entity.service');
+        module('tnt.catalog.filter.sum');
     });
 
     var receivableId = 1;
     var scope = {};
     var log = {};
-    var rs = {};
+    var ReceivableServiceMock = {};
     var now = new Date();
+    var EntityServiceMock = {};
 
     var ReceivableSearchCtrl;
 
@@ -20,8 +23,17 @@ describe('Controller: ReceivableSearchCtrl', function() {
     }
 
 
+    var entities = [{
+        uuid : 1,
+        name : 'Albert Einstein'
+    }, {
+        uuid : 2,
+        name : 'Chris Hemsworth'
+    }];
+
+
     // Initialize the controller and a mock scope
-    beforeEach(inject(function($controller, $rootScope, $filter) {
+    beforeEach(inject(function($controller, $rootScope, $filter, _ArrayUtils_) {
         // $scope mock
         scope = $rootScope.$new();
         scope.receivable = {};
@@ -30,13 +42,19 @@ describe('Controller: ReceivableSearchCtrl', function() {
         log.error = jasmine.createSpy('$log.error');
 
         // ReceivableService mock
-        rs.list = jasmine.createSpy('ReceivableService.list').andReturn([]);
+        ReceivableServiceMock.list = jasmine.createSpy('ReceivableService.list').andReturn([]);
+
+
+        // EntityService mock
+        EntityServiceMock.list = jasmine.createSpy('EntityService.list').andReturn(entities);
 
         ReceivableSearchCtrl = $controller('ReceivableSearchCtrl', {
             $scope : scope,
             $filter : $filter,
-            ReceivableService : rs,
-            $log : log
+            ReceivableService : ReceivableServiceMock,
+            $log : log,
+            ArrayUtils : _ArrayUtils_,
+            EntityService : EntityServiceMock
         });
     }));
 
@@ -172,6 +190,23 @@ describe('Controller: ReceivableSearchCtrl', function() {
             expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
+        it('filters by entityName', function () {
+            scope.query = 'Albert';
+            scope.$apply();
+
+            // Exact matches
+            receivable.entityName = scope.query;
+            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+
+            // Partial matches
+            receivable.entityName = 'Albert Einstein';
+            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+
+            // No match
+            receivable.entityName = 'Chris Hemsworth';
+            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+        });
+
         it('is case insensitive', function () {
             scope.query = 'CASH';
             scope.$apply();
@@ -287,7 +322,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
                 receivables.push({
                     uuid : "cc02b600-5d0b-11e3-96c3-010001000020",
                     created : new Date().getTime() - daysToMilliseconds(7),
-                    entityId : 1,
+                    entityId : 2,
                     type : "check",
                     amount : 124,
                     duedate : new Date().getTime() + daysToMilliseconds(7)
@@ -307,14 +342,14 @@ describe('Controller: ReceivableSearchCtrl', function() {
                 receivables.push({
                     uuid : "cc02b600-5d0b-11e3-96c3-010001000022",
                     created : new Date().getTime(),
-                    entityId : 1,
+                    entityId : 2,
                     type : "check",
                     amount : 126,
                     duedate : new Date().getTime() + daysToMilliseconds(15)
                 });
 
-                rs.list.andReturn(receivables);
-            });
+                ReceivableServiceMock.list.andReturn(receivables);
+            }); // beforeEach
 
 
             it('is updated when initial date changes', function () {
@@ -393,6 +428,21 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
                 expect(scope.receivables.filtered.length).toBe(3);
             });
-        });
-    });
+
+            it('gets the entityName attribute set for each receivable', function () {
+                scope.dtInitial = new Date();
+                scope.dtFinal = new Date();
+
+                // Set a wide date range to get all receivables
+                scope.dtInitial.setDate(scope.dtInitial.getDate() - 90);
+                scope.dtFinal.setDate(scope.dtFinal.getDate() + 90);
+                scope.$apply();
+
+                expect(scope.receivables.filtered.length).toBe(4);
+                for (var idx in scope.receivables.filtered) {
+                    expect(scope.receivables.filtered[idx].entityName).toBeDefined();
+                }
+            });
+        }); // receivables list
+    }); // filtering
 });
