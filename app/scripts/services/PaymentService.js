@@ -183,15 +183,16 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
     ]).service(
             'PaymentService',
-            function PaymentService($location, $q, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
+            function PaymentService($location, $q, $log, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
                     ReceivableService, ProductReturnService, VoucherService, WebSQLDriver) {
 
-                // FIXME Remove this as soon as the Persistent replay is properly working
-                WebSQLDriver.transaction(function(tx){
+                // FIXME Remove this as soon as the Persistent replay is
+                // properly working
+                WebSQLDriver.transaction(function(tx) {
                     WebSQLDriver.dropBucket(tx, 'JournalEntry');
                 });
-              
+
                 /**
                  * The current payments.
                  */
@@ -352,7 +353,7 @@
                 /**
                  * Saves the payments and closes the order.
                  */
-                function checkout(result) {
+                function checkout(result, change) {
                     if (!result) {
                         return $q.reject();
                     }
@@ -367,6 +368,11 @@
                         // Generate receivables
                         var receivablesPromise = savedOrderPromise.then(function(orderUuid) {
                             var receivables = getReceivables();
+
+                            // FIXME - This is a workaround to temporally
+                            // resolve the problems with change
+                            makeZeroChange(receivables, change);
+
                             return ReceivableService.bulkRegister(receivables, customer, orderUuid);
                         }, propagateRejectedPromise);
 
@@ -386,8 +392,10 @@
                         var vouchers = ArrayUtils.list(OrderService.order.items, 'type', 'voucher');
                         var giftCards = ArrayUtils.list(OrderService.order.items, 'type', 'giftCard');
 
-                        var newVouchersPromise = vouchers.length && VoucherService.bulkCreate(vouchers).then(null, propagateRejectedPromise);
-                        var newGiftCardsPromise = giftCards.length && VoucherService.bulkCreate(giftCards).then(null, propagateRejectedPromise);
+                        var newVouchersPromise =
+                                vouchers.length && VoucherService.bulkCreate(vouchers).then(null, propagateRejectedPromise);
+                        var newGiftCardsPromise =
+                                giftCards.length && VoucherService.bulkCreate(giftCards).then(null, propagateRejectedPromise);
 
                         promises.push(receivablesPromise);
                         promises.push(productsReturnPromise);
@@ -410,6 +418,33 @@
                         clearAllPayments();
                         clearPersistedCoupons();
                     }, propagateRejectedPromise);
+                }
+
+                function makeZeroChange(receivables, change) {
+                    if (change > 0) {
+                        var done = false;
+                        for ( var ix in receivables) {
+                            var receivable = receivables[ix];
+                            if (receivable.type === 'cash') {
+                                $log.debug('PaymentService.makeZeroChange: cash amount=' + receivable.amount);
+                                $log.debug('PaymentService.makeZeroChange: change=' + change);
+
+                                receivable.amount = Math.round(100 * (receivable.amount - change)) / 100;
+
+                                $log.debug('PaymentService.makeZeroChange: new cash amount=' + receivable.amount);
+                                done = true;
+                                break;
+                            }
+                        }
+                        if (!done) {
+                            var cash = new CashPayment((-1) * change);
+                            cash.type = 'cash';
+                            $log.debug('PaymentService.makeZeroChange: creating a negative payment=' + change);
+                            receivables.push(cash);
+                        }
+                    } else if (change < 0) {
+                        $log.error('PaymentService.checkout: Something went wrong its impossible to do a' + 'checkout missing amount');
+                    }
                 }
 
                 /**
@@ -581,7 +616,6 @@
                         // TODO: should we keep track in journal?
                     }
                 }
-
 
                 this.persistedCoupons = persistedCoupons;
                 this.hasPersistedCoupons = hasPersistedCoupons;

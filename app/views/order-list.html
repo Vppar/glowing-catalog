@@ -54,16 +54,6 @@
 					</span>
 					</div>
 				</div>
-				
-<!--				<div class="col-details-order-list-item">	
-					<div>	
-						<span class="border">
-							<span class="details-order-list-item-total"><span class="lbl-money">Valor total</span>
-							<span class="lbl-money3">&nbsp;</span>
-							<span class="btn-price-payment">{{total.all.amount | currency:''}}</span></span>					
-						</span>
-					</div>
-				</div>-->
 				<div class="col-details-order-list-item">	
 					<div class="show-details-icon">
 						<img src="images/ic-sort-triangle-up-pink.png" ng-click="invertHideOption()" ng-hide="hideOptions" >
@@ -77,9 +67,11 @@
 				
 				<div class="col-details-order-list-item">					
 					<span class="border">
-						<span class="lbl-money">Dinheiro</span>
+						<span class="lbl-money" ng-show="total.cash.amount >= 0">Dinheiro</span>
+						<span class="lbl-money" ng-hide="total.cash.amount >= 0">Troco</span>
 						<span class="lbl-money3">&nbsp;</span>
-						<span class="btn-price-payment">{{total.cash.amount | currency:''}}</span>
+						<span class="btn-price-payment" ng-show="total.cash.amount >= 0">{{total.cash.amount | currency:''}}</span>
+						<span class="btn-price-payment" ng-hide="total.cash.amount >= 0">{{(-1)*total.cash.amount | currency:''}}</span>
 					</span>
 					<span class="border">
 						<span class="lbl-money">Cheque</span>
@@ -150,16 +142,16 @@
     								<span>Total</span>
     							</div>
     							<div class="col-3">
-    								<span>3</span>
+    								<span>{{total.all.orderCount}}</span>
     							</div>
     							<div class="col-2">
-    								<span>2</span>
+    								<span>{{total.all.entityCount}}</span>
     							</div> 
     							<div class="col-4">
-    								<span>8</span>
+    								<span>{{total.all.qty}}</span>
     							</div>
     							<div class="col-5 ">
-    								<span>58,44</span>
+    								<span>{{total.all.avgPrice | currency:''}}</span>
     							</div>
     							<div class="col-6">
     								<span>{{total.all.amount | currency:''}}</span>

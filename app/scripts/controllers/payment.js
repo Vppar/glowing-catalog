@@ -283,25 +283,24 @@
                                 $scope.total.payments.exchange = PaymentService.list('exchange');
                                 $scope.total.payments.coupon = PaymentService.list('coupon');
                                 $scope.total.payments.onCuff = PaymentService.list('onCuff');
-                                
+
                                 if ($scope.total.payments.check == 0) {
                                     $scope.hideCheckQtde = true;
                                 } else {
                                     $scope.hideCheckQtde = false;
                                 }
-                                
+
                                 if ($scope.total.payments.creditCard == 0) {
                                     $scope.hideCardQtde = true;
                                 } else {
                                     $scope.hideCardQtde = false;
                                 }
-                                
+
                                 if ($scope.total.payments.exchange == 0) {
                                     $scope.hideExchangeQtde = true;
                                 } else {
                                     $scope.hideExchangeQtde = false;
                                 }
-                                
 
                                 var totalPayments = 0;
                                 for ( var ix in $scope.total.payments) {
@@ -345,6 +344,10 @@
                             return isValid;
                         }
                         $scope.isPaymentValid = isPaymentValid;
+
+                        function checkout(result) {
+                            return PaymentService.checkout(result, $scope.total.change);
+                        }
 
                         /**
                          * Ends of the payment process, return the main screen
@@ -396,7 +399,7 @@
                             // error or success
                             confirmedPaymentPromise.then(main, main);
 
-                            var paidPromise = confirmedPaymentPromise.then(PaymentService.checkout, function() {
+                            var paidPromise = confirmedPaymentPromise.then(checkout, function() {
                                 return $q.reject('canceledByUser');
                             });
 
