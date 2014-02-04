@@ -229,7 +229,23 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
 
     describe('filtering', function () {
+        beforeEach(function () {
+            scope.dtInitial = new Date();
+            scope.dtFinal = new Date();
+        });
+
         describe('initial date', function () {
+
+            it('is always the earliest', function () {
+                var final = scope.dtFinal;
+
+                // Set the final date to a date before the initial
+                scope.dtFinal.setDate(scope.dtFinal.getDate() - 90);
+                scope.$apply();
+
+                expect(scope.dtInitial).toBe(final);
+            });
+
             it('is set to current date on initialization', function () {
                 scope.$apply();
                 expect(scope.dtInitial.getDate()).toBe(now.getDate());
@@ -261,6 +277,16 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
 
         describe('final date', function () {
+            it('is always the latest', function () {
+                var initial = scope.dtInitial;
+
+                // Set the initial date to a date after the final
+                scope.dtInitial.setDate(scope.dtInitial.getDate() + 90);
+                scope.$apply();
+
+                expect(scope.dtFinal).toBe(initial);
+            });
+
             it('is set to current date on initialization', function () {
                 scope.$apply();
                 expect(scope.dtFinal.getDate()).toBe(now.getDate());
@@ -445,4 +471,5 @@ describe('Controller: ReceivableSearchCtrl', function() {
             });
         }); // receivables list
     }); // filtering
+
 });

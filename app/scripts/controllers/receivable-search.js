@@ -107,10 +107,24 @@
                 receivable.entityName = getEntity(receivable.entityId).name;
             }
 
+            function ensureDateOrder() {
+                if ($scope.dtInitial > $scope.dtFinal) {
+                    var
+                        initial = $scope.dtInitial,
+                        final = $scope.dtFinal;
+
+                    $scope.dtInitial = final;
+                    $scope.dtFinal = initial;
+                }
+            }
+
 
             $scope.$watch('receivables.filtered', function () {
                 $scope.receivablesTotal = getReceivablesTotal();
             });
+
+            $scope.$watch('dtInitial', ensureDateOrder);
+            $scope.$watch('dtFinal', ensureDateOrder);
 
             $scope.$watch('dtInitial', filterReceivables);
             $scope.$watch('dtFinal', filterReceivables);
