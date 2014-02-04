@@ -25,11 +25,9 @@ ddescribe('Service: StockKeeperAddSpec', function() {
     // instantiate service
     var StockKeeper = undefined;
     var Stock = undefined;
-    var JournalEntry = undefined;
-    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_) {
+    beforeEach(inject(function(_StockKeeper_, _Stock_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
-        JournalEntry = _JournalEntry_;
     }));
 
     /**
