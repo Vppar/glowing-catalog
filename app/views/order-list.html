@@ -55,7 +55,7 @@
 					</div>
 				</div>
 				
-				<div class="col-details-order-list-item">	
+<!--				<div class="col-details-order-list-item">	
 					<div>	
 						<span class="border">
 							<span class="details-order-list-item-total"><span class="lbl-money">Valor total</span>
@@ -63,7 +63,7 @@
 							<span class="btn-price-payment">{{total.all.amount | currency:''}}</span></span>					
 						</span>
 					</div>
-				</div>
+				</div>-->
 				<div class="col-details-order-list-item">	
 					<div class="show-details-icon">
 						<img src="images/ic-sort-triangle-up-pink.png" ng-click="invertHideOption()" ng-hide="hideOptions" >
@@ -126,10 +126,10 @@
     							<div class="col-1">
     								<span>Data</span>
     							</div>
-    							<div class="col-3">
+    							<div class="col-2">
     								<span>Pedido</span>
     							</div>
-    							<div class="col-2">
+    							<div class="col-3">
     								<span>Clientes</span>
     							</div>
     							<div class="col-4">
@@ -143,6 +143,30 @@
     							</div>
     						</div>
     					</div>
+                        
+                        <div class="scroll-order-list scroll-order-list2">
+    						<div class="row-order-list hover-state-pointer details-resumo-total" >
+    							<div class="col-1">
+    								<span>Total</span>
+    							</div>
+    							<div class="col-2">
+    								<span>3</span>
+    							</div>
+    							<div class="col-3">
+    								<span>2</span>
+    							</div> 
+    							<div class="col-4">
+    								<span>8</span>
+    							</div>
+    							<div class="col-5 ">
+    								<span>58,44</span>
+    							</div>
+    							<div class="col-6">
+    								<span>{{total.all.amount | currency:''}}</span>
+    							</div>
+    						</div>
+    					</div>
+            
     					<div class="scroll-order-list">
     						<div class="row-order-list hover-state-pointer"
     							ng-repeat="order in filteredOrders | orderBy: '-date'" ng-click="selectOrder(order)">

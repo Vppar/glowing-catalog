@@ -113,6 +113,8 @@
 .order-list-periodo2{margin-left: 50px !important;/*width:106px !important; float: right*/}
 
 .show-details-icon {margin: 5px 0 0 10px;}
+.show-details-icon img { cursor:pointer;}
+.show-details-icon img:hover { opacity:0.5;}
 
 .col-details-order-list-item .control-group{margin: 0 !important;}
 

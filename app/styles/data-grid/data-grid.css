@@ -632,6 +632,9 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	/*bottom: 45px;
 	top: 138px;*/
 }
+.scroll-order-list2 {
+	height: 46px !important;
+}
 
 .grid-order-list .header {
 	background: #333333;
@@ -641,7 +644,8 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 }
 	.grid-order-list .header span, .grid-order-list .scroll-order-list  span {
 		display: inline-block;
-		line-height: 40px;
+		line-height: 22px;
+		margin: 10px 0 10px 0;
 	}
 	.grid-order-list .scroll-order-list .row-order-list {
 		border-bottom: 1px dotted #e0e0e0;
@@ -657,15 +661,17 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	margin-left:5px;
 }
 .grid-order-list .header .col-2, .scroll-order-list .col-2{
-	width:438px;
+	width: 80px;
+	text-align: left;
 	display: inline-block;
-	vertical-align:top;
+	vertical-align: top;
+	margin-left: 14px;
 }
 .grid-order-list .header .col-3, .scroll-order-list .col-3 {
-	width: 100px;
+	width: 430px;
 	display: inline-block;
-	text-align:center;
-	vertical-align:top;
+	vertical-align: top;
+	margin-left: 8px;
 }
 .grid-order-list .header .col-4, .scroll-order-list .col-4 {
 	width: 110px;
@@ -681,11 +687,19 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 	vertical-align:top;
 }
 .grid-order-list .header .col-6,.scroll-order-list .col-6 {
-	width: 87px;
+	width: 104px;
 	display: inline-block;
-	text-align:center;
+	text-align:right;
 	vertical-align:top;
-	margin-left:2px;
+	margin-left:8px;
+}
+.details-resumo-total{	
+	border-radius: 4px;
+	background: #c8c8c8;
+	color: #000;
+	margin: auto;
+	margin-top:3px;
+	font-weight: bold;
 }
 /*============= END DATA-GRID ORDER LIST =====================*/
 
