@@ -29,11 +29,13 @@ describe('Service: JournalServiceResync', function() {
   var JournalKeeper = null;
   var q = null;
   var $rootScope = null;
+  var $log = null;
 
-  beforeEach(inject(function(_JournalKeeper_, $q, _$rootScope_) {
+  beforeEach(inject(function(_$log_, _JournalKeeper_, $q, _$rootScope_) {
     JournalKeeper = _JournalKeeper_;
     q = $q;
     $rootScope = _$rootScope_;
+    $log = _$log_;
   }));
 
 
@@ -130,6 +132,10 @@ describe('Service: JournalServiceResync', function() {
       // Failed resync
       promise.then(null, function(msg) {
         failed = true;
+        var logDebugArgs = $log.debug.logs[0];
+        expect(logDebugArgs[0]).toBe('Failed to resync: list failed ');
+        expect(logDebugArgs[1]).toBe('Failed PersistentStorage.list');
+        // Probably not needed to test this, but better safe than sorry
         expect(msg).toBe('Failed PersistentStorage.list');
       });
     });
@@ -168,7 +174,9 @@ describe('Service: JournalServiceResync', function() {
       // Failed resync
       promise.then(null, function(msg) {
         failed = true;
+        // Probably not needed to test this, but better safe than sorry
         expect(msg).toBe('Failed Replayer.replay');
+        $log.debug.lo
       });
     });
 
