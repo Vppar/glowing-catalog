@@ -116,5 +116,40 @@ describe('Service: StockKeeperAddScenario', function() {
             expect(resolution).toBe('Wrong instance of Stock');
         });
     });
+    
+    /**
+     * <pre>
+     * @spec StockKeeper.add#3
+     * Given a invalid stock
+     * when and add is triggered
+     * then an error must be raised
+     * </pre> 
+     */
+    it('should reject promise', function() {
+
+        var fakeStock = {
+            pId : 23,
+            qty : 1
+        };
+
+        var resolution = null;
+        
+        runs(function(){
+            var promise = StockKeeper.add(fakeStock);
+            
+            promise['catch'](function(_resolution_){
+                resolution = _resolution_;
+            });
+        });
+        
+        waitsFor(function(){
+            Scope.$apply();
+            return !!resolution;
+        }, 'JournalKeeper is taking too long', 300);
+        
+        runs(function(){
+            expect(resolution).toBe('Wrong instance of Stock');
+        });
+    });
 
 });
