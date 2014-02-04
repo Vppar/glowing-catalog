@@ -22,6 +22,30 @@ describe('Service: EntityKeeperAddScenario', function() {
     
     /**
      * <pre>
+     * @spec StockKeeper.add#1
+     * Given a valid inventoryId
+     * and a positive quantity
+     * and a valid cost
+     * when and add is triggered
+     * then a journal entry must be created
+     * an the entry must be registered
+     * </pre>
+     */
+    it('add stock', function() {
+
+        var fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
+        var ev = new Stock(23, 1, 0);
+        var stp = fakeNow / 1000;
+        var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev);
+
+        StockKeeper.add(ev);
+        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+    });
+    
+    /**
+     * <pre>
      * @spec EntityKeeper.add#1
      * Given a valid values
      * when and create is triggered
@@ -123,5 +147,42 @@ describe('Service: EntityKeeperAddScenario', function() {
             expect(resolution).toBe('Wrong instance to EntityKeeper');
         });
 
+    });
+    
+    /**
+     * <pre>
+     * @spec StockKeeper.add#2
+     * Given a invalid stock
+     * when and add is triggered
+     * then an error must be raised
+     * </pre> 
+     */
+    it('throw error', function() {
+
+        var fakeStock = {
+            pId : 23,
+            qty : -1,
+            ct : 0
+        };
+
+
+        var resolution = null;
+        
+        runs(function(){
+            var promise = StockKeeper.add(fakeStock);
+            
+            promise['catch'](function(_resolution_){
+                resolution = _resolution_;
+            });
+        });
+        
+        waitsFor(function(){
+            $rootScope.$apply();
+            return !!resolution;
+        }, 'Add is taking too long', 300);
+        
+        runs(function(){
+            expect(resolution).toBe('Wrong instance to StockKeeper');
+        });
     });
 });

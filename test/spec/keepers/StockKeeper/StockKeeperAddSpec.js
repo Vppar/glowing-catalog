@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: StockKeeperAddSpec', function() {
+ddescribe('Service: StockKeeperAddSpec', function() {
 
     var jKeeper = {};
 
@@ -31,32 +31,6 @@ describe('Service: StockKeeperAddSpec', function() {
         Stock = _Stock_;
         JournalEntry = _JournalEntry_;
     }));
-
-    /**
-     * <pre>
-     * @spec StockKeeper.add#1
-     * Given a valid inventoryId
-     * and a positive quantity
-     * and a valid cost
-     * when and add is triggered
-     * then a journal entry must be created
-     * an the entry must be registered
-     * </pre>
-     */
-    it('add stock', function() {
-
-        var fakeNow = 1386179100000;
-        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-
-        var ev = new Stock(23, 1, 0);
-        var stp = fakeNow / 1000;
-        var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev);
-
-        expect(function() {
-            StockKeeper.add(ev);
-        }).not.toThrow();
-        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
-    });
 
     /**
      * <pre>
@@ -110,29 +84,6 @@ describe('Service: StockKeeperAddSpec', function() {
         expect(StockKeeper.list()[0].quantity).toEqual(finalQuantity);
         expect(StockKeeper.list()[0].cost).toEqual(finalPrice);
 
-    });
-
-    /**
-     * <pre>
-     * @spec StockKeeper.add#2
-     * Given a invalid stock
-     * when and add is triggered
-     * then an error must be raised
-     * </pre> 
-     */
-    it('throw error', function() {
-
-        var fakeStock = {
-            pId : 23,
-            qty : -1,
-            ct : 0
-        };
-
-        var addCall = function() {
-            StockKeeper.add(fakeStock);
-        };
-
-        expect(addCall).toThrow('Wrong instance of Stock');
     });
 
 });
