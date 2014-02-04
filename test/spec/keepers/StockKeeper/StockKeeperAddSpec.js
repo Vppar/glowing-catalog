@@ -71,12 +71,9 @@ describe('Service: StockKeeperAddSpec', function() {
         var ev = new Stock(23, 1, 0);
         var ev1 = new Stock(12, 1, 0);
 
-        var addCall = function() {
-            StockKeeper.handlers.stockAddV1(ev);
-            StockKeeper.handlers.stockAddV1(ev1);
-        };
+        StockKeeper.handlers.stockAddV1(ev);
+        StockKeeper.handlers.stockAddV1(ev1);
 
-        addCall();
         expect(StockKeeper.list().length).toEqual(2);
     });
 
@@ -98,12 +95,9 @@ describe('Service: StockKeeperAddSpec', function() {
         var finalQuantity = (ev.quantity + ev2.quantity);
         var finalPrice = ((ev.quantity * ev.cost) + (ev2.quantity * ev2.cost)) / finalQuantity;
 
-        var addCall = function() {
-            StockKeeper.handlers.stockAddV1(ev);
-            StockKeeper.handlers.stockAddV1(ev2);
-        };
+        StockKeeper.handlers.stockAddV1(ev);
+        StockKeeper.handlers.stockAddV1(ev2);
 
-        addCall();
         expect(StockKeeper.list().length).toEqual(1);
         expect(StockKeeper.list()[0].quantity).toEqual(finalQuantity);
         expect(StockKeeper.list()[0].cost).toEqual(finalPrice);
