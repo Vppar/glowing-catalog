@@ -205,5 +205,5 @@
                 this.list = list;
                 this.receive = receive;
                 this.cancel = cancel;
-            });
+            }).run(function (ReceivableService) {});
 }(angular));
