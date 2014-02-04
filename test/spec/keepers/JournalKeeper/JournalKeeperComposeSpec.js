@@ -1,9 +1,212 @@
 'use strict';
 
-describe('Service: Journalservice', function() {
-  it('should compose');
-  it('should fail to compose on a wrong instance type');
-  it('should fail to compose on storage.persist failure');
-  it('should fail to compose on replay failure');
-  it('should fail log a fatal on replay failure');
+describe('Service: JournalKeeperCompose', function() {
+  var replayer = {};
+  var storage = {};
+
+  beforeEach(function () {
+      replayer.replay = jasmine.createSpy('Replayer.replay');
+      storage.register = jasmine.createSpy('PersistentStorage.register');
+      storage.persist = jasmine.createSpy('PersistentStorage.persist');
+  });
+
+
+  // load the service's module
+  beforeEach(function() {
+    module('tnt.catalog.journal');
+
+    module(function($provide) {
+      $provide.value('Replayer', replayer);
+      $provide.value('PersistentStorage', function() {
+        return storage;
+      });
+      // $provide.value('$log', {debug: console.log});
+    });
+  });
+
+  // instantiate service
+  var JournalKeeper;
+  var JournalEntry;
+  var q;
+  var $rootScope;
+  var $log;
+  var entry;
+  var event;
+
+  beforeEach(inject(function(_$log_, _JournalKeeper_, $q, _$rootScope_, _JournalEntry_) {
+    JournalKeeper = _JournalKeeper_;
+    JournalEntry = _JournalEntry_;
+    q = $q;
+    $rootScope = _$rootScope_;
+    $log = _$log_;
+
+    event = {};
+
+    entry = new JournalEntry(1, new Date().getTime(), 'createFoo', 1, event);
+  }));
+
+  it('should compose', function () {
+    var ready = false;
+
+    runs(function() {
+      storage.persist.andCallFake(function(journalEntry) {
+        var deferred = q.defer();
+        expect(journalEntry).toBe(entry);
+        deferred.resolve();
+        return deferred.promise;
+      });
+
+      replayer.replay.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.resolve('yay');
+        return deferred.promise;
+      });
+
+      var promise = JournalKeeper.compose(entry);
+
+      promise.then(function() {
+        ready = true;
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return ready;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.persist).toHaveBeenCalled();
+      expect(replayer.replay.callCount).toBe(1);
+    });
+  });
+
+
+  it('should fail to compose on a wrong instance type', function () {
+    var failed = false;
+
+    runs(function() {
+      var promise = JournalKeeper.compose({});
+
+      // Failed resync
+      promise.then(null, function(msg) {
+        failed = true;
+        expect(msg).toBe('the given entry is not an instance of JournalEntry');
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return failed;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.persist).not.toHaveBeenCalled();
+      expect(replayer.replay).not.toHaveBeenCalled();
+    });
+  });
+
+
+  it('should fail to compose on storage.persist failure', function () {
+    var failed = false;
+
+    runs(function() {
+      storage.persist.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.reject('Failed PersistentStorage.persist');
+        return deferred.promise;
+      });
+
+      var promise = JournalKeeper.compose(entry);
+
+      // Failed resync
+      promise.then(null, function(msg) {
+        failed = true;
+        expect(msg).toBe('Failed PersistentStorage.persist');
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return failed;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.persist).toHaveBeenCalled();
+      expect(replayer.replay).not.toHaveBeenCalled();
+    });
+  });
+
+
+  it('should fail to compose on replay failure', function () {
+    var failed = false;
+
+    runs(function() {
+      storage.persist.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      });
+
+      replayer.replay.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.reject('Failed Replayer.replay');
+        return deferred.promise;
+      });
+
+      var promise = JournalKeeper.compose(entry);
+
+      // Failed resync
+      promise.then(null, function(msg) {
+        failed = true;
+        // Probably not needed to test this, but better safe than sorry
+        expect(msg).toBe('Failed Replayer.replay');
+        $log.debug.lo
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return failed;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.persist).toHaveBeenCalled();
+      expect(replayer.replay).toHaveBeenCalled();
+    });
+  });
+
+
+  it('should fail log a fatal on replay failure', function () {
+    var failed = false;
+
+    runs(function() {
+      storage.persist.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      });
+
+      replayer.replay.andCallFake(function () {
+          throw 'Failed Replayer.replay';
+      });
+
+      var promise = JournalKeeper.compose(entry);
+
+      // Failed resync
+      promise.then(null, function(msg) {
+        failed = true;
+        expect(msg).toBe('Failed Replayer.replay');
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return failed;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.persist).toHaveBeenCalled();
+      expect(replayer.replay).toHaveBeenCalled();
+    });
+  });
 });

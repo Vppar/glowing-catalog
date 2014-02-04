@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: JournalServiceResync', function() {
+describe('Service: JournalKeeperResync', function() {
   var replayer = {};
   var storage = {};
 
@@ -154,7 +154,9 @@ describe('Service: JournalServiceResync', function() {
 
   it('should fail to resync on replay failure', function () {
     var failed = false;
-    var events = ['a', 'b', 'c'];
+    var events = [
+      'a', 'b', 'z'
+    ];
 
     runs(function() {
       storage.list.andCallFake(function() {
@@ -163,10 +165,8 @@ describe('Service: JournalServiceResync', function() {
         return deferred.promise;
       });
 
-      replayer.replay.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.reject('Failed Replayer.replay');
-        return deferred.promise;
+      replayer.replay.andCallFake(function () {
+          throw 'Failed Replayer.replay';
       });
 
       var promise = JournalKeeper.resync();
@@ -174,9 +174,7 @@ describe('Service: JournalServiceResync', function() {
       // Failed resync
       promise.then(null, function(msg) {
         failed = true;
-        // Probably not needed to test this, but better safe than sorry
         expect(msg).toBe('Failed Replayer.replay');
-        $log.debug.lo
       });
     });
 
@@ -187,7 +185,7 @@ describe('Service: JournalServiceResync', function() {
 
     runs(function() {
       expect(storage.list).toHaveBeenCalled();
-      expect(replayer.replay.callCount).toBe(3);
+      expect(replayer.replay).toHaveBeenCalled();
     });
   });
 

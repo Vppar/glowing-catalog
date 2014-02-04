@@ -55,7 +55,7 @@
             var deferred = $q.defer();
             
             if(!(journalEntry instanceof JournalEntry)){
-                deferred.reject('the given entry is not an instande of JournalEntry');
+                deferred.reject('the given entry is not an instance of JournalEntry');
             } else {
               
                 journalEntry.sequence = ++sequence;
@@ -67,6 +67,7 @@
                         deferred.reject(e);
                     }
                 }, function(error){
+                    $log.error('Failed to compose: PersistentStorage.persist failed');
                     deferred.reject(error);
                 });
             }
@@ -94,9 +95,15 @@
           
             storage.list('JournalEntry').then(function(results){
                 $log.debug('Starting replay on ' + results.length + ' entries');
-                for(var ix in results){
-                    promises.push(Replayer.replay(results[ix]));
+
+                try {
+                    for(var ix in results){
+                        promises.push(Replayer.replay(results[ix]));
+                    }
+                } catch (err) {
+                    deferred.reject(err);
                 }
+
                 $log.debug('waiting for ' + promises.length + ' promises to resolve');
                 deferred.resolve($q.all(promises));
             },function(error){
