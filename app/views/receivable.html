@@ -41,10 +41,9 @@
 			</div>
 		
             <div ng-switch on="selectedReceivableMode">
-				<span ng-switch-when="liquidate"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
-				<span ng-switch-when="search"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
-				<span ng-switch-when="edit"><span ng-include src="'views/parts/receivable/receivable-write.html'"></span></span>
-				<span ng-switch-when="add"><span ng-controller="ReceivableAddCtrl" ng-include src="'views/parts/receivable/receivable-add.html'"></span></span>
+				<span ng-switch-when="read"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
+				<span ng-switch-when="write"><span ng-include src="'views/parts/receivable/receivable-write.html'"></span></span>
+				<span ng-switch-when="search"><span ng-include src="'views/parts/receivable/receivable-search.html'"></span></span>
 			</div>
 		</div>
             
@@ -135,13 +134,13 @@
                             <div>{{receivable.amount | currency:''}}</div>
                         </span> 
                         <span class="col-7">						
-							<!--somente para a tela de baixa-->
-							<div ng-show="selectedReceivableMode=='liquidate'"><input type="checkbox" id="filter-bar-checkbox" value="todos"></div>
-							
-							<!--somente para a tela de adicionar/editar-->
-							<div class="hover-state-pointer" ng-show="selectedReceivableMode=='edit'">
- 								<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
-							</div>
+                            <!--somente para a tela de baixa-->
+                            <!--<div><input type="checkbox" id="filter-bar-checkbox" value="todos"></div>-->
+                            
+                            <!--somente para a tela de adicionar/editar-->
+                            <!--<div class="hover-state-pointer">
+                                <img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
+                            </div>-->
                         </span> 
                     </div>
                 </div>
