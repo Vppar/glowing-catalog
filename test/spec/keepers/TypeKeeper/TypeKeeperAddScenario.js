@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: TypeKeeper.add', function() {
+describe('Service: TypeKeeperAddScenario', function() {
 
     // load the service's module
     beforeEach(function() {
@@ -13,7 +13,12 @@ describe('Service: TypeKeeper.add', function() {
     var TypeKeeper = undefined;
     var Type = undefined;
 
-    beforeEach(inject(function(_TypeKeeper_, _Type_) {
+    beforeEach(inject(function(_TypeKeeper_, _Type_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         TypeKeeper = _TypeKeeper_;
         Type = _Type_;
     }));

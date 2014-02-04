@@ -1,7 +1,14 @@
 (function(angular, openDatabase) {
     'use strict';
 
-    angular.module('tnt.storage.websql', []).service('WebSQLDriver', function WebSQLDriver($q, $log) {
+    /**
+     * This is the main driver for WebSQL
+     * 
+     * Premises:
+     * - All methods must require an existing transaction
+     * 
+     */
+    angular.module('tnt.storage.websql', []).service('WebSQLDriver', function WebSQLDriver($q, $log, $rootScope) {
 
         var db = openDatabase('PersistentStorage', '1.0', 'Persistent Storage', 5 * 1024 * 1024);
         var entities = {};
@@ -26,11 +33,17 @@
          * @returns deferred
          */
         this.transaction = function(txBody) {
-
+          
             $log.debug("starting transaction");
 
             var deferred = $q.defer();
-            db.transaction(txBody, deferred.reject, deferred.resolve);
+            db.transaction(txBody, function(data){
+                deferred.reject(data); 
+                $rootScope.$apply();
+            }, function(data){
+                deferred.resolve(data); 
+                $rootScope.$apply();
+            });
 
             $log.debug("transaction started");
 
@@ -40,7 +53,7 @@
                 $log.error("transaction failed");
                 $log.debug(failure);
             });
-
+            
             return deferred.promise;
         };
 
@@ -199,7 +212,6 @@
             SQL.push(values);
 
             SQL = SQL.join(' ');
-
             tx.executeSql(SQL);
         };
 
@@ -257,8 +269,10 @@
                 cb = function(tx, results) {
                     if (results.rows.length === 1) {
                         deferred.resolve(results.rows.item(0));
+                        $rootScope.$apply();
                     } else {
                         deferred.reject(null);
+                        $rootScope.$apply();
                     }
                 };
             } else {
@@ -299,6 +313,8 @@
          * @param bucket name
          * @param optional object with parameters and values
          * @param optional callback function
+         * 
+         * FIXME this method never rejects?
          */
         this.list = function(tx, name, params, cb) {
 
@@ -329,6 +345,7 @@
                     }
 
                     deferred.resolve(result);
+                    $rootScope.$apply();
                 };
             } else {
                 $log.debug("Callback given, no promise for you");

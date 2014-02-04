@@ -1,7 +1,7 @@
 (function(angular, ObjectUtils) {
     'use strict';
 
-    angular.module('tnt.catalog.storage.persistent', []).factory('PersistentStorage', function PersistentStorage($log, $q) {
+    angular.module('tnt.catalog.storage.persistent', ['tnt.storage.websql']).factory('PersistentStorage', function PersistentStorage($log, $q) {
 
         var service = function(driver) {
             var entities = {};
@@ -74,14 +74,6 @@
                         return dbDriver.persist(tx, name, data);
                     });
                 }
-
-                promise.then(function(ok) {
-                    //FIXME change the console.log to something
-                    //console.log(ok);
-                }, function(error) {
-                    //FIXME change the console.log to something
-                    //console.log(error);
-                });
 
                 return promise;
             };
