@@ -44,7 +44,7 @@
      * 
      * The CRUD for journal keeping operations
      */
-    angular.module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent']).service('JournalKeeper', function JournalKeeper($q, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
+    angular.module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent']).service('JournalKeeper', function JournalKeeper($q, $log, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
 
         var sequence = 0;
         
@@ -88,7 +88,24 @@
         };
 
         this.resync = function() {
-
+          
+            var deferred = $q.defer();
+            var promises = [];
+          
+            storage.list('JournalEntry').then(function(results){
+                $log.debug('Starting replay on ' + results.length + ' entries');
+                for(var ix in results){
+                    promises.push(Replayer.replay(results[ix]));
+                }
+                $log.debug('waiting for ' + promises.length + ' promises to resolve');
+                deferred.resolve($q.all(promises));
+            },function(error){
+                $log.error('Failed to resync: list failed');
+                $log.debug('Failed to resync: list failed ', error);
+                deferred.reject(error);
+            });
+            
+            return deferred.promise;
         };
     });
 
