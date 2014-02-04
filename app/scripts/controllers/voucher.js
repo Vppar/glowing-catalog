@@ -8,14 +8,6 @@
                 'tnt.catalog.entity.service'
             ]).controller('VoucherCtrl', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService) {
 
-        // FIXME - This mock must be removed when entity service is completed.
-        EntityService.read = function() {
-            return {
-                name : 'Albert Einstein',
-                id : 16
-            };
-        };
-
         /**
          * The real deal
          */
@@ -25,7 +17,6 @@
         var vouchersList = VoucherKeeper.list('voucher');
         var couponList = VoucherKeeper.list('coupon');
         var giftList = VoucherKeeper.list('giftCard');
-
         for ( var ix in vouchersList) {
             vouchersList[ix].entity = EntityService.read(vouchersList[ix].entity).name;
             vouchersList[ix].type = 'Vale Crédito';

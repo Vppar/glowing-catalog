@@ -110,7 +110,7 @@
 						</div>
 					</div>
 					<div class="scroll-grid">
-						<div class="row-grid-product-voucher" ng-repeat="voucher in filteredVouchers">
+						<div class="row-grid-product-voucher" ng-repeat="voucher in filteredVouchers | orderBy: '-created'">
 							<span class="col-s1">
 								<div>{{$index+1}}</div>
 							</span>
