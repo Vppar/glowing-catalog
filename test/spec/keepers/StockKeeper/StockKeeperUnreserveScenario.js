@@ -13,13 +13,11 @@ describe('StockeeperUnreserveScenario', function() {
     // instantiate service
     var StockKeeper = undefined;
     var Stock = undefined;
-    var ArrayUtils = undefined;
     var Scope = undefined;
 
     beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
-        ArrayUtils = _ArrayUtils_;
         Scope = $rootScope;
     }));
 
@@ -33,26 +31,24 @@ describe('StockeeperUnreserveScenario', function() {
      * </pre>
      */
     it('should unreserve', function() {
+        var result = null;
         var ev = new Stock(110, 34, 50);
         ev.reserve = 20;
         runs(function() {
             //then
             StockKeeper.handlers.stockAddV1(ev);
             //when
-            StockKeeper.unreserve(110, 12);
+            StockKeeper.unreserve(110, 12).then(function(_result_){
+                result = _result_;
+            });
 
         });
 
-        waitsFor(function() {
-            if (ArrayUtils.find(StockKeeper.list(), 'inventoryId', 110).reserve != ev.reserve) {
-                return ArrayUtils.find(StockKeeper.list(), 'inventoryId', 110).reserve;
-            }
-        }, 'JournalKeeper is taking too long', 300);
+        Scope.$apply();
+        return !!result;
 
         runs(function() {
             //then
-            var stock = ArrayUtils.find(StockKeeper.list(), 'inventoryId', 110);
-            expect(stock.inventoryId).toEqual(110);
             expect(stock.reserve).toEqual(8);
         });
     });
