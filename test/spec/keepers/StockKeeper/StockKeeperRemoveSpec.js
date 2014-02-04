@@ -97,25 +97,6 @@ describe('Service: StockKeeperRemoveSpec', function() {
      * <pre>
      * @spec StockKeeper.remove#2
      * Given a invalid stock
-     * when remove is triggered
-     * then an error must be raised
-     * </pre>
-     */
-    it('throw error', function() {
-        var id = 13;
-        var quantity = 5;
-
-        var removeCall = function() {
-            StockKeeper.remove(id, quantity);
-        };
-
-        expect(removeCall).toThrow('No stockable found with this inventoryId: ' + id);
-    });
-
-    /**
-     * <pre>
-     * @spec StockKeeper.remove#2
-     * Given a invalid stock
      * when stockRemoveV1 is triggered
      * then an error must be raised
      * </pre>

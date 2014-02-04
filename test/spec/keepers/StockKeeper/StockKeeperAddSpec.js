@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: StockKeeperAddSpec', function() {
+describe('Service: StockKeeperAddSpec', function() {
 
     var jKeeper = {};
 
@@ -25,10 +25,36 @@ ddescribe('Service: StockKeeperAddSpec', function() {
     // instantiate service
     var StockKeeper = undefined;
     var Stock = undefined;
-    beforeEach(inject(function(_StockKeeper_, _Stock_) {
+    var JournalEntry = undefined;
+    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
+        JournalEntry = _JournalEntry_;
     }));
+    
+    /**
+     * <pre>
+     * @spec StockKeeper.add#1
+     * Given a valid inventoryId
+     * and a positive quantity
+     * and a valid cost
+     * when and add is triggered
+     * then a journal entry must be created
+     * an the entry must be registered
+     * </pre>
+     */
+    it('add stock', function() {
+
+        var fakeNow = 1386179100000;
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
+        var ev = new Stock(23, 1, 0);
+        var stp = fakeNow / 1000;
+        var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev);
+
+        StockKeeper.add(ev);
+        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+    });
 
     /**
      * <pre>
@@ -50,7 +76,7 @@ ddescribe('Service: StockKeeperAddSpec', function() {
             StockKeeper.handlers.stockAddV1(ev1);
         };
 
-        expect(addCall).not.toThrow();
+        addCall();
         expect(StockKeeper.list().length).toEqual(2);
     });
 
@@ -77,7 +103,7 @@ ddescribe('Service: StockKeeperAddSpec', function() {
             StockKeeper.handlers.stockAddV1(ev2);
         };
 
-        expect(addCall).not.toThrow();
+        addCall();
         expect(StockKeeper.list().length).toEqual(1);
         expect(StockKeeper.list()[0].quantity).toEqual(finalQuantity);
         expect(StockKeeper.list()[0].cost).toEqual(finalPrice);
