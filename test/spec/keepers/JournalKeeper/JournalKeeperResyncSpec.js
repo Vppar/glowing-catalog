@@ -1,16 +1,16 @@
 'use strict';
 
-describe('Service: Journalservice', function() {
-  var replayer = {
-    replay : jasmine.createSpy('Replayer.replay')
-  };
+describe('Service: JournalServiceResync', function() {
+  var replayer = {};
+  var storage = {};
 
-  var storage = {
-    register : jasmine.createSpy('PersistentStorage.register'),
-    list : jasmine.createSpy('PersistentStorage.list')
-  };
+  beforeEach(function () {
+      replayer.replay = jasmine.createSpy('Replayer.replay');
 
-  replayer.replay = jasmine.createSpy('Replayer.replay');
+      storage.register = jasmine.createSpy('PersistentStorage.register');
+      storage.list = jasmine.createSpy('PersistentStorage.list');
+  });
+
 
   // load the service's module
   beforeEach(function() {
@@ -36,8 +36,8 @@ describe('Service: Journalservice', function() {
     $rootScope = _$rootScope_;
   }));
 
-  it('should resync', function() {
 
+  it('should resync', function() {
     var ready = false;
     var events = [
       'a', 'b', 'z'
@@ -77,8 +77,110 @@ describe('Service: Journalservice', function() {
     });
   });
   
-  it('should succeed on empty list');
-  it('should fail to resync on list failure');
-  it('should fail to resync on replay failure');
+
+  it('should succeed on empty list', function () {
+    var ready = false;
+    var events = [];
+
+    runs(function() {
+      storage.list.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.resolve(events);
+        return deferred.promise;
+      });
+
+      replayer.replay.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.resolve('yay');
+        return deferred.promise;
+      });
+
+      var promise = JournalKeeper.resync();
+
+      // Successfull resync
+      promise.then(function() {
+        ready = true;
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return ready;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.list).toHaveBeenCalled();
+      expect(replayer.replay).not.toHaveBeenCalled();
+    });
+  });
+
+
+  it('should fail to resync on storage.list failure', function () {
+    var failed = false;
+
+    runs(function() {
+      storage.list.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.reject('Failed PersistentStorage.list');
+        return deferred.promise;
+      });
+
+      var promise = JournalKeeper.resync();
+
+      // Failed resync
+      promise.then(null, function(msg) {
+        failed = true;
+        expect(msg).toBe('Failed PersistentStorage.list');
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return failed;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.list).toHaveBeenCalled();
+      expect(replayer.replay).not.toHaveBeenCalled();
+    });
+  });
+
+
+  it('should fail to resync on replay failure', function () {
+    var failed = false;
+    var events = ['a', 'b', 'c'];
+
+    runs(function() {
+      storage.list.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.resolve(events);
+        return deferred.promise;
+      });
+
+      replayer.replay.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.reject('Failed Replayer.replay');
+        return deferred.promise;
+      });
+
+      var promise = JournalKeeper.resync();
+
+      // Failed resync
+      promise.then(null, function(msg) {
+        failed = true;
+        expect(msg).toBe('Failed Replayer.replay');
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return failed;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect(storage.list).toHaveBeenCalled();
+      expect(replayer.replay.callCount).toBe(3);
+    });
+  });
 
 });
