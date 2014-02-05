@@ -19,13 +19,19 @@
                     var order = orders[ix];
                     // Find the entity name
                     order.entityName = ArrayUtils.find(entities, 'uuid', order.customerId).name;
-
-                    var qtyTotal = $filter('sum')(order.items, 'qty');
-                    var amountTotal = $filter('sum')(order.items, 'price', 'qty');
+                    var filteredItems = $filter('filter')(order.items, function(item) {
+                        var result = false;
+                        if (item.type !== 'giftCard' && item.type !== 'voucher') {
+                            result = true;
+                        }
+                        return result;
+                    });
+                    var qtyTotal = $filter('sum')(filteredItems, 'qty');
+                    var priceTotal = $filter('sum')(filteredItems, 'price', 'qty');
 
                     order.itemsQty = qtyTotal;
-                    order.avgPrice = (amountTotal) / (qtyTotal);
-                    order.amountTotal = amountTotal;
+                    order.avgPrice = Math.round(100 * (priceTotal / qtyTotal)) / 100;
+                    order.amountTotal = priceTotal;
                 }
 
                 function updateFilteredProducts() {
@@ -33,22 +39,27 @@
                     var productsMap = {};
                     for ( var ix in $scope.filteredOrders) {
                         for ( var idx in $scope.filteredOrders[ix].items) {
-                            if ($scope.filteredOrders[ix].items[idx].type !== 'giftCard' &&
-                                $scope.filteredOrders[ix].items[idx].type !== 'voucher') {
-                                var SKU = $scope.filteredOrders[ix].items[idx].SKU;
+                            var item = $scope.filteredOrders[ix].items[idx];
+                            if (item.type !== 'giftCard' && item.type !== 'voucher') {
+                                var SKU = item.SKU;
                                 var response = ArrayUtils.find(productsMap, 'SKU', SKU);
                                 if (response) {
-                                    productsMap[SKU].qty += $scope.filteredOrders[ix].items[idx].qty;
-                                    productsMap[SKU].priceTotal += (productsMap[SKU].qty * productsMap[SKU].price);
-                                    productsMap[SKU].priceAvg = (productsMap[SKU].priceTotal / productsMap[SKU].qty);
+                                    productsMap[SKU].qty += item.qty;
+                                    productsMap[SKU].priceTotal += Math.round(100 * (Number(item.qty) * Number(item.price))) / 100;
                                 } else {
-                                    productsMap[SKU] = ($scope.filteredOrders[ix].items[idx]);
-                                    productsMap[SKU].priceTotal = (productsMap[SKU].qty * productsMap[SKU].price);
-                                    productsMap[SKU].priceAvg = (productsMap[SKU].priceTotal / productsMap[SKU].qty);
+                                    productsMap[SKU] = angular.copy(item);
+                                    productsMap[SKU].priceTotal =
+                                            Math.round(100 * (Number(productsMap[SKU].qty) * Number(productsMap[SKU].price))) / 100;
+
+                                    productsMap[SKU].priceAvg =
+                                            Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
+
                                     $scope.filteredProducts.push(productsMap[SKU]);
                                 }
+                                productsMap[SKU].priceAvg =
+                                        Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
                                 productsMap[SKU].stock = 0;
-                                
+
                             }
                         }
                     }
