@@ -37,17 +37,18 @@
                                 $scope.filteredOrders[ix].items[idx].type !== 'voucher') {
                                 var SKU = $scope.filteredOrders[ix].items[idx].SKU;
                                 var response = ArrayUtils.find(productsMap, 'SKU', SKU);
-                                if (response != -1) {
-                                    productsMap[SKU] = ($scope.filteredOrders[ix].items[idx]);
-                                    productsMap[SKU].priceTotal = (productsMap[SKU].qty * productsMap[SKU].price);
-                                    productsMap[SKU].priceAvg = (productsMap[SKU].priceTotal / productsMap[SKU].qty);
-                                } else {
+                                if (response) {
                                     productsMap[SKU].qty += $scope.filteredOrders[ix].items[idx].qty;
                                     productsMap[SKU].priceTotal += (productsMap[SKU].qty * productsMap[SKU].price);
                                     productsMap[SKU].priceAvg = (productsMap[SKU].priceTotal / productsMap[SKU].qty);
+                                } else {
+                                    productsMap[SKU] = ($scope.filteredOrders[ix].items[idx]);
+                                    productsMap[SKU].priceTotal = (productsMap[SKU].qty * productsMap[SKU].price);
+                                    productsMap[SKU].priceAvg = (productsMap[SKU].priceTotal / productsMap[SKU].qty);
+                                    $scope.filteredProducts.push(productsMap[SKU]);
                                 }
                                 productsMap[SKU].stock = 0;
-                                $scope.filteredProducts.push(productsMap[SKU]);
+                                
                             }
                         }
                     }
