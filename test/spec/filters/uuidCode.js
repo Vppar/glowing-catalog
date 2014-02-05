@@ -2,7 +2,7 @@
 
 describe('Filter: uuidCode', function() {
 
-  beforeEach(module('glowingCatalogApp'));
+  beforeEach(module('tnt.catalog.filters.uuidCode'));
 
   var uuidCode = null;
   beforeEach(inject(function($filter) {

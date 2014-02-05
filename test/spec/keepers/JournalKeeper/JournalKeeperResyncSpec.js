@@ -30,19 +30,22 @@ describe('Service: JournalKeeperResync', function() {
   var q = null;
   var $rootScope = null;
   var $log = null;
+  var JournalEntry = null;
 
-  beforeEach(inject(function(_$log_, _JournalKeeper_, $q, _$rootScope_) {
+  beforeEach(inject(function(_$log_, _JournalKeeper_, $q, _$rootScope_, _JournalEntry_) {
     JournalKeeper = _JournalKeeper_;
     q = $q;
     $rootScope = _$rootScope_;
     $log = _$log_;
+    JournalEntry = _JournalEntry_;
+    
   }));
 
 
   it('should resync', function() {
     var ready = false;
     var events = [
-      'a', 'b', 'z'
+      {}, {}, {}
     ];
 
     runs(function() {
@@ -75,7 +78,7 @@ describe('Service: JournalKeeperResync', function() {
       expect(storage.list).toHaveBeenCalled();
       expect(replayer.replay.callCount).toBe(3);
       for(var ix in events){
-        expect(replayer.replay.calls[ix].args[0]).toBe(events[ix]);
+        expect(replayer.replay.calls[ix].args[0]).toEqual(events[ix]);
       }
     });
   });
@@ -133,7 +136,7 @@ describe('Service: JournalKeeperResync', function() {
       promise.then(null, function(msg) {
         failed = true;
         var logDebugArgs = $log.debug.logs[0];
-        expect(logDebugArgs[0]).toBe('Failed to resync: list failed ');
+        expect(logDebugArgs[0]).toBe('Failed to resync: list failed');
         expect(logDebugArgs[1]).toBe('Failed PersistentStorage.list');
         // Probably not needed to test this, but better safe than sorry
         expect(msg).toBe('Failed PersistentStorage.list');
@@ -155,7 +158,7 @@ describe('Service: JournalKeeperResync', function() {
   it('should fail to resync on replay failure', function () {
     var failed = false;
     var events = [
-      'a', 'b', 'z'
+      {},{},{}
     ];
 
     runs(function() {

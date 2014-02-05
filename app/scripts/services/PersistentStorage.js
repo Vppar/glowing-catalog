@@ -54,8 +54,9 @@
 
                 var promise;
 
+                var metadata = entity.metadata();
+                
                 if (initialized.indexOf(name) === -1) {
-                    var metadata = entity.metadata();
 
                     promise = dbDriver.transaction(function(tx) {
                         dbDriver.createBucket(tx, name, data, metadata);
@@ -126,7 +127,11 @@
                 
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
-                        deferred.resolve(dbDriver.find(tx, name, id, cb));
+                        dbDriver.find(tx, name, id, cb).then(function(entity){
+                            deferred.resolve(inject(entity, name));
+                        }, function(error){
+                            deferred.reject(error);
+                        });
                     })['catch'](function(error){
                         deferred.reject(error);
                     });
@@ -151,7 +156,17 @@
 
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
-                        deferred.resolve(dbDriver.list(tx, name, params, cb));
+                        dbDriver.list(tx, name, params, cb).then(function(entities){
+                            var list = [];
+                            
+                            for (var ix in entities ){
+                                list.push(inject(entities[ix], name));
+                            }
+                          
+                            deferred.resolve(list);
+                        }, function(error){
+                            deferred.reject(error);
+                        });
                     })['catch'](function(error){
                         deferred.reject(error);
                     });
@@ -221,14 +236,44 @@
             var extract = function(entity) {
 
                 var data = {};
+                
+                var serializable = entity.metadata().serializable;
 
                 for ( var propertyName in entity) {
-                    if (!angular.isFunction(entity[propertyName])) {
+                    if (angular.isFunction(entity[propertyName])) {
+                        continue;
+                    }
+                    
+                    if(serializable.indexOf(propertyName) !== -1){
+                        data[propertyName] = JSON.stringify(entity[propertyName]);
+                    } else {
                         data[propertyName] = entity[propertyName];
                     }
                 }
 
                 return data;
+            };
+            
+            var inject = function(data, name){
+              
+                if(angular.isUndefined(entities[name])){
+                    $log.debug('Unknown entity ', name);
+                    throw 'Unknown entity ' + name;
+                }
+              
+              
+                var entity = new entities[name](data);
+                var serializable = entity.metadata().serializable;
+                
+                
+                // TODO - handle read only properties
+                for ( var propertyName in entity) {
+                    if(serializable.indexOf(propertyName) !== -1){
+                        entity[propertyName] = JSON.parse(entity[propertyName]);
+                    }
+                }
+                
+                return entity;
             };
         };
 

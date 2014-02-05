@@ -187,12 +187,6 @@
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
                     ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper) {
 
-                // FIXME Remove this as soon as the Persistent replay is
-                // properly working
-                WebSQLDriver.transaction(function(tx) {
-                    WebSQLDriver.dropBucket(tx, 'JournalEntry');
-                });
-
                 /**
                  * The current payments.
                  */
