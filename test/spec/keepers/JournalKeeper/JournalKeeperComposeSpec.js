@@ -57,9 +57,8 @@ describe('Service: JournalKeeperCompose', function() {
       });
 
       replayer.replay.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.resolve('yay');
-        return deferred.promise;
+          // As long as it doesn't throw an exception, replay should ok.
+          return true;
       });
 
       var promise = JournalKeeper.compose(entry);
@@ -137,6 +136,8 @@ describe('Service: JournalKeeperCompose', function() {
   });
 
 
+  // FIXME: there's no garantee that an entry is not persisted
+  // when the replay fails. See JounralKeeper.compose().
   it('should fail to compose on replay failure', function () {
     var failed = false;
 
@@ -148,9 +149,7 @@ describe('Service: JournalKeeperCompose', function() {
       });
 
       replayer.replay.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.reject('Failed Replayer.replay');
-        return deferred.promise;
+        throw 'Failed Replayer.replay';
       });
 
       var promise = JournalKeeper.compose(entry);
@@ -158,7 +157,6 @@ describe('Service: JournalKeeperCompose', function() {
       // Failed resync
       promise.then(null, function(msg) {
         failed = true;
-        // Probably not needed to test this, but better safe than sorry
         expect(msg).toBe('Failed Replayer.replay');
         $log.debug.lo
       });
@@ -176,7 +174,38 @@ describe('Service: JournalKeeperCompose', function() {
   });
 
 
-  it('should fail log a fatal on replay failure', function () {
+  it('should log a fatal on persist failure', function () {
+    var failed = false;
+
+    runs(function() {
+      storage.persist.andCallFake(function() {
+        var deferred = q.defer();
+        deferred.reject('Failed PersistentStorage.persist');
+        return deferred.promise;
+      });
+
+      var promise = JournalKeeper.compose(entry);
+
+      // Failed resync
+      promise.then(null, function(msg) {
+        failed = true;
+        expect(msg).toBe('Failed PersistentStorage.persist');
+      });
+    });
+
+    waitsFor(function() {
+      $rootScope.$apply();
+      return failed;
+    }, 'Resync seems to have failed');
+
+    runs(function() {
+      expect($log.error.logs[0][0]).toBe('Failed to compose: PersistentStorage.persist failed');
+      expect(storage.persist).toHaveBeenCalled();
+    });
+  });
+
+
+  it('should log a fatal on replay failure', function () {
     var failed = false;
 
     runs(function() {
@@ -205,6 +234,7 @@ describe('Service: JournalKeeperCompose', function() {
     }, 'Resync seems to have failed');
 
     runs(function() {
+      expect($log.error.logs[0][0]).toBe('Failed to replay: Replayer.replay failed');
       expect(storage.persist).toHaveBeenCalled();
       expect(replayer.replay).toHaveBeenCalled();
     });

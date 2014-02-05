@@ -60,10 +60,13 @@
               
                 journalEntry.sequence = ++sequence;
               
+                // FIXME: what happens if we persisted the entry and the replay
+                // fails? Should we remove the entry?
                 storage.persist(journalEntry).then(function(){
-                    try{
+                    try {
                         deferred.resolve(Replayer.replay(journalEntry));
                     } catch (e){
+                        $log.error('Failed to replay: Replayer.replay failed');
                         deferred.reject(e);
                     }
                 }, function(error){
@@ -101,6 +104,7 @@
                         promises.push(Replayer.replay(results[ix]));
                     }
                 } catch (err) {
+                    $log.error('Failed to resync: replay failed');
                     deferred.reject(err);
                 }
 

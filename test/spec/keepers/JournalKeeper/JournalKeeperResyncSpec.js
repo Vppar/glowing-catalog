@@ -53,14 +53,15 @@ describe('Service: JournalKeeperResync', function() {
       });
 
       replayer.replay.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.resolve('yay');
-        return deferred.promise;
+          // Replay should have worked unless it throws an exception
+          return true;
       });
 
       var promise = JournalKeeper.resync();
 
       promise.then(function() {
+        // Once the promise is resolved, we assume the resync was
+        // successful.
         ready = true;
       });
     });
@@ -92,9 +93,8 @@ describe('Service: JournalKeeperResync', function() {
       });
 
       replayer.replay.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.resolve('yay');
-        return deferred.promise;
+          // Replay should be successfull unless it throws an exception
+          return true;
       });
 
       var promise = JournalKeeper.resync();
