@@ -372,7 +372,7 @@
             "created": 1388284400000,
             "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
             "documentId": "cc02b600-5d0b-11e3-96c3-010004000021",
-            "type": "onCuff",
+            "type": "check",
             "amount": "1700.00",
             "duedate": 1388484500000
         }
