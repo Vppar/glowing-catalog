@@ -185,7 +185,7 @@
             'PaymentService',
             function PaymentService($location, $q, $log, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
-                    ReceivableService, ProductReturnService, VoucherService, WebSQLDriver) {
+                    ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper) {
 
                 // FIXME Remove this as soon as the Persistent replay is
                 // properly working
@@ -354,6 +354,7 @@
                  * Saves the payments and closes the order.
                  */
                 function checkout(result, change) {
+                    console.log(OrderService.order);
                     if (!result) {
                         return $q.reject();
                     }
@@ -402,12 +403,22 @@
                         promises.push(usedVouchersPromise);
                         promises.push(newVouchersPromise);
                         promises.push(newGiftCardsPromise);
+
                     }
 
                     if (hasPersistedCoupons()) {
                         // Generate coupons
                         var savedCouponsPromise = createCoupons(customer).then(evaluateCoupons, propagateRejectedPromise);
                         promises.push(savedCouponsPromise);
+                    }
+
+                    // FIXME move this method to OrderService.save()
+                    // Reserve items in stock
+                    var items = OrderService.order.items;
+                    for ( var idx in items) {
+                        if (angular.isUndefined(items[idx].type)) {
+                            promises.push(StockKeeper.reserve(items[idx].id, items[idx].qty));
+                        }
                     }
 
                     var savedSalePromise = $q.all(promises);
