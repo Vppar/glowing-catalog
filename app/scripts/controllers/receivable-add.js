@@ -7,7 +7,7 @@
                 'tnt.catalog.type'
             ]).controller(
             'ReceivableAddCtrl',
-            function($scope, ReceivableService, Receivable, Misplacedservice, EntityService, TypeKeeper) {
+            function($scope, $q, ReceivableService, Receivable, Misplacedservice, EntityService, TypeKeeper) {
 
                 var mReceivable = '';
 
@@ -16,19 +16,28 @@
                 // #############################################################################################################
 
                 $scope.emptyReceivable = {
-                        created : new Date()
+                    created : new Date(),
+                    installments : 1,
+                    duedate : new Date(),
+                    amount : 0
                 };
-                
+                $scope.dateMin = new Date();
                 $scope.receivable = angular.copy($scope.emptyReceivable);
                 $scope.installments = [];
                 $scope.installmentsCopy = [];
                 $scope.customers = EntityService.list();
                 $scope.installmentsExist = false;
+                $scope.validForm = false;
+                $scope.receivables = {};
                 $scope.receivables.list = ReceivableService.list();
-                
+
                 $scope.documents = TypeKeeper.list('document');
                 $scope.classification = TypeKeeper.list('classification');
-                
+
+                // #############################################################################################################
+                // Scope functions
+                // #############################################################################################################
+
                 /**
                  * Check if there's any installment to control the Confirm
                  * button
@@ -42,13 +51,38 @@
                 });
 
                 /**
+                 * Check if the form was filled properly.
+                 */
+                $scope.$watchCollection('receivable', function() {
+
+                    if (($scope.receivable.installments === 0 || $scope.receivable.installments === '') ||
+                        ($scope.receivable.amount === 0 || $scope.receivable.amount === '') ||
+                        ($scope.receivable.customerId === undefined || $scope.receivable.customerId === '') ||
+                        ($scope.receivable.documentNumber === undefined || $scope.receivable.documentNumber === '') ||
+                        ($scope.receivable.documentId === undefined || $scope.receivable.documentId === '') ||
+                        ($scope.receivable.duedate === null || $scope.receivable.duedate === '') ||
+                        ($scope.receivable.created === null || $scope.receivable.created === '')) {
+                        $scope.validForm = false;
+                    } else {
+                        $scope.validForm = true;
+                    }
+                });
+
+                /**
                  * Confirm the Receivables
                  */
                 $scope.createReceivables = function createReceivables() {
+                    var promises = [];
                     for ( var i in $scope.installments) {
-                        ReceivableService.register($scope.installments[i]);
+                        var promise = ReceivableService.register($scope.installments[i]);
+                        promises.push(promise);
                     }
-                    
+                    $q.all(promises).then(function() {
+                        $scope.cancelReceivable();
+                    });
+                };
+
+                $scope.cancelReceivable = function() {
                     $scope.installmentsCopy.splice(0, $scope.installmentsCopy.length);
                     $scope.installments.splice(0, $scope.installments.length);
                     $scope.receivables.list = ReceivableService.list();
@@ -70,7 +104,7 @@
                                 });
                             }
                             Misplacedservice.recalc($scope.receivable.amount, -1, installments, 'amount');
-                            
+
                             for ( var idx in installments) {
                                 var copyDate = angular.copy($scope.receivable.duedate);
 
@@ -101,7 +135,7 @@
                     if (baseDate.getDate() > date.getDate()) {
                         return date;
                     } else {
-                        return baseDate.setMonth((parseInt(baseDate.getMonth(),10) + parseInt(increase,10)));
+                        return baseDate.setMonth((parseInt(baseDate.getMonth(), 10) + parseInt(increase, 10)));
                     }
                 }
             });

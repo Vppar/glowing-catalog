@@ -9,6 +9,7 @@ describe('Controller: ReceivableCtrlAdd', function() {
         module('tnt.catalog.receivable.entity');
         
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
     });
     
     beforeEach(inject(function($controller, $rootScope, _Receivable_) {
@@ -17,6 +18,7 @@ describe('Controller: ReceivableCtrlAdd', function() {
         Receivable = _Receivable_;
         
         rService.register = jasmine.createSpy('ReceivableService.register');
+        rService.list = jasmine.createSpy('ReceivableService.list');
         
         $controller('ReceivableAddCtrl', {
             $scope : scope,
