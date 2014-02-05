@@ -24,10 +24,10 @@
                 var isValid = function isValid(receivable) {
                     var invalidProperty = {};
                     // FIXME - Verify if is a valid entityId
-                    invalidProperty.entityId = angular.isNumber(receivable.entityId);
+                    invalidProperty.entityId = true;
                     // FIXME - Verify if is a valid receivable type
                     invalidProperty.type = angular.isDefined(receivable.type);
-                    invalidProperty.amount = Number(receivable.amount) > 0;
+                    invalidProperty.amount = Number(receivable.amount) !== 0;
 
                     var result = [];
 
@@ -106,7 +106,11 @@
                     var hasErrors = isValid(receivable);
                     if (hasErrors.length === 0) {
                         result = ReceivableKeeper.add(new Receivable(receivable));
+                        result['catch'](function(err) {
+                            $log.error('ReceivableService.register: -Failed to create a receivable. ', err);
+                        });
                     } else {
+                        $log.error('ReceivableService.register: -Invalid receivable. ', hasErrors);
                         result = $q.reject(hasErrors);
                     }
                     return result;
@@ -116,7 +120,7 @@
                     var receivablesPromises = [];
                     for ( var ix in payments) {
                         var payment = payments[ix];
-                        if (payment.amount > 0) {
+                        if (payment.amount !== 0) {
                             var receivable = new Receivable({
                                 entityId : payment.entity ? payment.entity.id : entity.id,
                                 documentId : document,
@@ -201,5 +205,5 @@
                 this.list = list;
                 this.receive = receive;
                 this.cancel = cancel;
-            });
+            }).run(function (ReceivableService) {});
 }(angular));

@@ -7,11 +7,12 @@
                 'tnt.catalog.service.coupon',
                 'tnt.catalog.service.dialog',
                 'tnt.utils.array',
-                'tnt.catalog.payment.service'
+                'tnt.catalog.payment.service',
+                'tnt.catalog.entity.service'
             ])
             .controller(
                     'PaymentCouponCtrl',
-                    function($filter, $scope, $log, CouponService, DialogService, ArrayUtils, DataProvider, OrderService, PaymentService) {
+                    function($filter, $scope, $log, CouponService, DialogService, ArrayUtils, OrderService, PaymentService, EntityService) {
 
                         // #####################################################################################################
                         // Warm up the controller
@@ -70,7 +71,7 @@
                         }
 
                         if (voucherSet) {
-                            $scope.voucher.total = voucherSet.price;
+                            $scope.voucher.total = voucherSet.amount;
                         }
 
 
@@ -187,7 +188,7 @@
                                 if ($scope.voucher.total == 0) {
                                     order.items.splice(voucherSet.idx, 1);
                                 } else {
-                                    voucherSet.price = $scope.voucher.total;
+                                    voucherSet.amount = $scope.voucher.total;
                                 }
                             } else {
                                 // add a voucher to the order list
@@ -196,8 +197,9 @@
                                 var voucher = {
                                     id : idx,
                                     title : 'Vale Crédito',
+                                    entity : $scope.customer.uuid,
                                     uniqueName : $scope.customer.name,
-                                    price : $scope.voucher.total,
+                                    amount : $scope.voucher.total,
                                     qty : 1,
                                     type : 'voucher'
                                 };
@@ -215,8 +217,9 @@
                             var gift = {
                                 id : idx,
                                 title : 'Vale Presente',
+                                entity : $scope.gift.customer.uuid,
                                 uniqueName : $scope.gift.customer.name,
-                                price : $scope.gift.total,
+                                amount : $scope.gift.total,
                                 qty : 1,
                                 type : 'giftCard'
                             };
@@ -228,7 +231,7 @@
 
                         $scope.openDialogChooseCustomerGift = function() {
                             DialogService.openDialogChooseCustomer().then(function(id) {
-                                $scope.gift.customer = $filter('findBy')(DataProvider.customers, 'id', id);
+                                $scope.gift.customer = $filter('findBy')(EntityService.list(), 'uuid', id);
                             });
                         };
 

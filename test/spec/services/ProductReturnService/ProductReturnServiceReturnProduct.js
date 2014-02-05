@@ -44,42 +44,7 @@ describe('Service: ProductReturnservice', function() {
         Stock = _Stock_;
     }));
 
-    it('should return a product', function() {
-
-        var inventoryId = 1;
-        var quantity = 2;
-        var price = 5;
-        var entityId = 1;
-
-        var entity = 1;
-        var product = {
-            price : 6
-        };
-        var remarks = {};
-        var document = {};
-
-        spyOn(EntityService, 'find').andReturn(entity);
-        spyOn(ArrayUtils, 'find').andReturn(product);
-
-        ProductReturnService.returnProduct(inventoryId, quantity, price, entityId, remarks, document);
-
-        // Spy on the ProductKeeper call inside the service.
-        var productReturn = new ProductReturn(null, inventoryId, quantity, price);
-        expect(prKeeper.add.mostRecentCall.args[0]).toEqual(productReturn);
-
-        // Spy on the StockKeeper call inside the service.
-        var stock = new Stock(inventoryId, quantity, product.price);
-        expect(stockKeeper.add.mostRecentCall.args[0]).toEqual(stock);
-
-        // Spy on the VoucherService call inside the service.
-        var amount = price * quantity;
-        expect(voucherService.create.mostRecentCall.args[0]).toEqual(entity);
-        expect(voucherService.create.mostRecentCall.args[1]).toEqual(amount);
-        expect(voucherService.create.mostRecentCall.args[2]).toEqual(remarks);
-        expect(voucherService.create.mostRecentCall.args[3]).toEqual(document);
-
-    });
-
+    
     it('should fail, invalid entity', function() {
 
         var inventoryId = 1;

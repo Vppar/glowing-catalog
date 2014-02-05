@@ -12,7 +12,12 @@ describe('Service: OrderKeeperAddScenario', function() {
     var Order = null;
     var $rootScope = null;
 
-    beforeEach(inject(function(_OrderKeeper_, _Order_, _$rootScope_) {
+    beforeEach(inject(function(_OrderKeeper_, _Order_, _$rootScope_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         OrderKeeper = _OrderKeeper_;
         Order = _Order_;
         $rootScope = _$rootScope_;

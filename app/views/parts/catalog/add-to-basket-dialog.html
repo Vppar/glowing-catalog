@@ -24,11 +24,10 @@ var initMagnifier = function () {
 				<img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
 			</span>
 		</div>
+        <span class="code-product .code-product-vs">{{item.SKU}}</span>
 		<div class="clearfix"></div>
 		<hr />
-		<button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"
-			type="submit">Cancelar</button>
-		<button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right"
-			type="submit">Adicionar</button>
+		<button ng-click='cancel()' class="btn btn-cancel btn-large btn-login" 	type="submit">Cancelar</button>
+		<button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
 	</form>
 </div>

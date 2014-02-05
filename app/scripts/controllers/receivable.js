@@ -1,11 +1,19 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.expense', []).controller('ReceivableCtrl', function($scope, ReceivableService) {
+    angular.module('tnt.catalog.financial.receivable.ctrl', []).controller('ReceivableCtrl', function($scope, $filter, ReceivableService) {
 
-        /**
-         * Receivables list.
-         */
-        $scope.receivables = ReceivableService.list();
+
+        // An object where lists of receivables can be stored without
+        // loosing reference in the child scopes. Don't override this
+        // object.
+        $scope.receivables = {};
+
+        // Stores the list of payments to be displayed
+        $scope.receivables.list = [];
+
+        // Stores the total of all listed payments
+        $scope.receivables.total = 0;
+
         /**
          * Entities list to augment expenses.
          */
@@ -18,5 +26,14 @@
         $scope.selectReceivableMode = function selectReceivableMode(selectedMode) {
             $scope.selectedReceivableMode = selectedMode;
         };
+
+
+        $scope.$watch('receivables.list', function () {
+            $scope.receivables.total = getReceivablesTotal();
+        });
+
+        function getReceivablesTotal() {
+            return $filter('sum')($scope.receivables.list, 'amount');
+        }
     });
 }(angular));

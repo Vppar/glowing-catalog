@@ -18,7 +18,7 @@
         var service = function svc(inventoryId, quantity, cost) {
 
             var validProperties = [
-                'inventoryId', 'quantity', 'cost'
+                'inventoryId', 'quantity', 'cost', 'reserve'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -44,6 +44,7 @@
                 this.inventoryId = inventoryId;
                 this.quantity = quantity;
                 this.cost = cost;
+                this.reserve = 0;
             }
             ObjectUtils.ro(this, 'inventoryId', this.inventoryId);
         };
@@ -56,7 +57,16 @@
      */
     angular.module('tnt.catalog.stock.keeper', [
         'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
-    ]).service('StockKeeper', function StockKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
+    ]).config(function($provide) {
+        $provide.decorator('$q', function($delegate) {
+            $delegate.reject = function(reason){
+                var deferred = $delegate.defer();
+                deferred.reject(reason);
+                return deferred.promise;
+            };
+            return $delegate;
+        });
+    }).service('StockKeeper', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
 
         var currentEventVersion = 1;
         var stock = [];
@@ -136,6 +146,28 @@
             }
             entry.quantity -= event.quantity;
         });
+        
+        ObjectUtils.ro(this.handlers, 'stockReserveV1', function(event) {
+            
+            var entry = ArrayUtils.find(stock, 'inventoryId', event.inventoryId);
+            
+            if (entry === null) {
+                throw 'Entity not found, cosistency must be broken! Replay?';
+            }
+            entry.reserve += event.reserve;
+            return entry.reserve;
+        });
+        
+        ObjectUtils.ro(this.handlers, 'stockUnreserveV1', function(event) {
+            
+            var entry = ArrayUtils.find(stock, 'inventoryId', event.inventoryId);
+            
+            if (entry === null) {
+                throw 'Entity not found, cosistency must be broken! Replay?';
+            }
+            entry.reserve -= event.reserve;
+            return entry.reserve;
+        });
 
         // Registering the handlers with the Replayer
         Replayer.registerHandlers(this.handlers);
@@ -167,7 +199,7 @@
         this.add = function(stock) {
 
             if (!(stock instanceof Stock)) {
-                throw "Wrong instance of Stock";
+                return $q.reject( "Wrong instance of Stock" );
             }
 
             var stamp = (new Date()).getTime() / 1000;
@@ -175,7 +207,7 @@
             var entry = new JournalEntry(null, stamp, 'stockAdd', currentEventVersion, stock);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
 
         };
 
@@ -205,7 +237,7 @@
                
             var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
             if (entry === null) {
-                throw 'No stockable found with this inventoryId: '+ inventoryId;
+                return $q.reject( 'No stockable found with this inventoryId: '+ inventoryId );
             }
             
             var event = new Stock(inventoryId, quantity, null);
@@ -214,7 +246,49 @@
             var entry = new JournalEntry(null, stamp, 'stockRemove', currentEventVersion, event);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
+        };
+        
+        /**
+         * Set a quantity of products as reserved
+         */
+        this.reserve = function(inventoryId, reserve) {
+            
+            var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
+            if (entry === null) {
+                return $q.reject( 'No stockable found with this inventoryId: '+ inventoryId );
+            }
+            
+            var event = new Stock(inventoryId, null, null);
+            event.reserve = reserve;
+            
+            var stamp = (new Date()).getTime() / 1000;
+            // create a new journal entry
+            var entry = new JournalEntry(null, stamp, 'stockReserve', currentEventVersion, event);
+
+            // save the journal entry
+            return JournalKeeper.compose(entry);
+        };
+        
+        /**
+         * Unset a quantity of products as reserved
+         */
+        this.unreserve = function(inventoryId, reserve) {
+            
+            var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
+            if (entry === null) {
+                return $q.reject( 'No stockable found with this inventoryId: '+ inventoryId );
+            }
+            
+            var event = new Stock(inventoryId, null, null);
+            event.reserve = reserve;
+            
+            var stamp = (new Date()).getTime() / 1000;
+            // create a new journal entry
+            var entry = new JournalEntry(null, stamp, 'stockUnreserve', currentEventVersion, event);
+
+            // save the journal entry
+            return JournalKeeper.compose(entry);
         };
 
         /**

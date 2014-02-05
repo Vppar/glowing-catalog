@@ -1,7 +1,14 @@
 (function(angular, openDatabase) {
     'use strict';
 
-    angular.module('tnt.storage.websql', []).service('WebSQLDriver', function WebSQLDriver($q, $log) {
+    /**
+     * This is the main driver for WebSQL
+     * 
+     * Premises:
+     * - All methods must require an existing transaction
+     * 
+     */
+    angular.module('tnt.storage.websql', []).service('WebSQLDriver', function WebSQLDriver($q, $log, $rootScope) {
 
         var db = openDatabase('PersistentStorage', '1.0', 'Persistent Storage', 5 * 1024 * 1024);
         var entities = {};
@@ -26,11 +33,17 @@
          * @returns deferred
          */
         this.transaction = function(txBody) {
-
+          
             $log.debug("starting transaction");
 
             var deferred = $q.defer();
-            db.transaction(txBody, deferred.reject, deferred.resolve);
+            db.transaction(txBody, function(data){
+                deferred.reject(data); 
+                $rootScope.$apply();
+            }, function(data){
+                deferred.resolve(data); 
+                $rootScope.$apply();
+            });
 
             $log.debug("transaction started");
 
@@ -40,7 +53,7 @@
                 $log.error("transaction failed");
                 $log.debug(failure);
             });
-
+            
             return deferred.promise;
         };
 
@@ -145,7 +158,7 @@
          * @spec WebSQLDriver.persist#1
          * Given a valid transaction
          * and a valid bucket name
-         * and a valid data with anyorder of attributes
+         * and a valid data with any order of attributes
          * When a persist is triggered
          * Then the data must be inserted into proper table
          * 
@@ -199,7 +212,38 @@
             SQL.push(values);
 
             SQL = SQL.join(' ');
-
+            tx.executeSql(SQL);
+        };
+        
+        /**
+         * Updates data in the given bucket
+         * 
+         * @param {Object} transaction
+         * @param {String} bucket name
+         * @param {Object} where clause parameters
+         * @param {Object} data to be updated
+         * 
+         * TODO Test Me kira!
+         */
+        this.update = function(tx, name, params, data) {
+            var updatables = [];
+  
+            for ( var columnName in data) {
+                updatables.push(columnName + ' = ' + quote(data[columnName]));
+            }
+  
+            updatables = updatables.join(', ');
+  
+            var SQL = [];
+  
+            SQL.push('UPDATE');
+            SQL.push(name);
+            SQL.push('SET');
+            SQL.push(updatables);
+            SQL.push('WHERE');
+            SQL.push(where(name, params));
+  
+            SQL = SQL.join(' ');
             tx.executeSql(SQL);
         };
 
@@ -257,8 +301,10 @@
                 cb = function(tx, results) {
                     if (results.rows.length === 1) {
                         deferred.resolve(results.rows.item(0));
+                        $rootScope.$apply();
                     } else {
                         deferred.reject(null);
+                        $rootScope.$apply();
                     }
                 };
             } else {
@@ -299,6 +345,8 @@
          * @param bucket name
          * @param optional object with parameters and values
          * @param optional callback function
+         * 
+         * FIXME this method never rejects?
          */
         this.list = function(tx, name, params, cb) {
 
@@ -329,6 +377,7 @@
                     }
 
                     deferred.resolve(result);
+                    $rootScope.$apply();
                 };
             } else {
                 $log.debug("Callback given, no promise for you");
@@ -382,14 +431,17 @@
 
         };
 
+        // TODO - Test for strings, numbers, booleans and nulls. Also add those
+        // tests to the persist method
         var quote = function(value) {
-            if (angular.isNumber(value)) {
+            if (angular.isNumber(value) || value instanceof Boolean || value === null) {
                 return value;
             } else {
                 return '\'' + value + '\'';
             }
         };
 
+        // TODO - remove name
         var where = function(name, params) {
             var where = [];
 

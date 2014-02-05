@@ -1,7 +1,7 @@
 (function(angular, ObjectUtils) {
     'use strict';
 
-    angular.module('tnt.catalog.storage.persistent', []).factory('PersistentStorage', function PersistentStorage($log, $q) {
+    angular.module('tnt.catalog.storage.persistent', ['tnt.storage.websql']).factory('PersistentStorage', function PersistentStorage($log, $q) {
 
         var service = function(driver) {
             var entities = {};
@@ -75,14 +75,39 @@
                     });
                 }
 
-                promise.then(function(ok) {
-                    //FIXME change the console.log to something
-                    //console.log(ok);
-                }, function(error) {
-                    //FIXME change the console.log to something
-                    //console.log(error);
-                });
+                return promise;
+            };
+            
+            /**
+             * Updates the given entity by primary key
+             * 
+             * @param {Object} The entity to be updated
+             * @returns {Promise} The promise of better days
+             * 
+             * TODO Test Me kira!
+             */
+            this.update = function(entity, tx) {
 
+                var deferred = $q.defer();
+                
+                var data = extract(entity);
+                var name = getType(entity);
+                var metadata = entity.metadata();
+                
+                var key = {};
+                key[metadata.key] = data[metadata.key];
+                delete data[metadata.key];
+                
+                if (angular.isUndefined(tx)) {
+                    dbDriver.transaction(function(tx) {
+                        deferred.resolve(dbDriver.update(tx, name, key, data));
+                    })['catch'](function(error){
+                        deferred.reject(error);
+                    });
+                } else {
+                    deferred.resolve(dbDriver.update(tx, name, key, data));
+                }
+                
                 return promise;
             };
 
@@ -140,19 +165,42 @@
             /**
              * remove the entity
              * 
-             * @param String - the name of the entity
-             * @param Object - the parameters to include in the search
+             * @param {Object} - the entity to be removed
              * @param Object - [optional] the transaction handle
              */
-            this.remove = function(name, params, tx) {
+            this.remove = function(entity, tx) {
+              
+                var deferred = $q.defer();
+              
+                var data = extract(entity);
+                var name = getType(entity);
+                var metadata = entity.metadata();
                 
+                var key = {};
+                key[metadata.key] = data[metadata.key];
+              
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
-                        return dbDriver.remove(tx, name, params);
+                        deferred.resolve(dbDriver.remove(tx, name, key));
+                    })['catch'](function(error){
+                        deferred.reject(error);
                     });
                 } else {
-                    return dbDriver.remove(tx, name, params);
+                    deferred.resolve(dbDriver.remove(tx, name, key));
                 }
+                
+                return deferred.promise;
+            };
+            
+            /**
+             * Removes all the entries of the given type from the database
+             * 
+             * @param String - The name of the entity to be removed
+             */
+            this.nuke = function(name){
+                return dbDriver.transaction(function(tx) {
+                    dbDriver.dropBucket(tx, name);
+                });
             };
 
             /**

@@ -1,11 +1,24 @@
 describe('Service: PaymentServicePersistCouponQuantity', function() {
 
+    var orderService = {};
+    var entityService = {};
+    var voucherService = {};
+    var receivableService = {};
+    var productReturnService = {};
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.payment.entity');
         module('tnt.catalog.payment.service');
         module('tnt.catalog.service.coupon');
+
+        module(function($provide) {
+            $provide.value('OrderService', orderService);
+            $provide.value('EntityService', entityService);
+            $provide.value('VoucherService', voucherService);
+            $provide.value('ReceivableService', receivableService);
+            $provide.value('ProductReturnService', productReturnService);
+        });
     });
 
     // instantiate service
@@ -22,20 +35,22 @@ describe('Service: PaymentServicePersistCouponQuantity', function() {
         PaymentService = _PaymentService_;
     }));
 
-    it('sets the quantity of coupons of a given amount', function () {
-      var
-        amount = 10,
-        qty = 5;
+    it('sets the quantity of coupons of a given amount', function() {
+        var amount = 10, qty = 5;
 
-      PaymentService.persistCouponQuantity(amount, qty);
-      expect(PaymentService.persistedCoupons[10]).toBe(5);
+        PaymentService.persistCouponQuantity(amount, qty);
+        expect(PaymentService.persistedCoupons[10]).toBe(5);
     });
 
-    it('removes entry from persistedCoupons if qty is set to 0', function () {
-      PaymentService.persistCouponQuantity(10, 5);
-      expect(PaymentService.persistedCoupons).toEqual({10 : 5});
-      PaymentService.persistCouponQuantity(10, 0);
-      expect(PaymentService.persistedCoupons).toEqual({});
-      expect(PaymentService.persistedCoupons).not.toEqual({10 : 0});
+    it('removes entry from persistedCoupons if qty is set to 0', function() {
+        PaymentService.persistCouponQuantity(10, 5);
+        expect(PaymentService.persistedCoupons).toEqual({
+            10 : 5
+        });
+        PaymentService.persistCouponQuantity(10, 0);
+        expect(PaymentService.persistedCoupons).toEqual({});
+        expect(PaymentService.persistedCoupons).not.toEqual({
+            10 : 0
+        });
     });
 });

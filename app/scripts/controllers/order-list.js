@@ -2,18 +2,13 @@
     'use strict';
     angular.module('tnt.catalog.orderList.ctrl', [
         'tnt.catalog.order.service', 'tnt.utils.array'
-    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService) {
+    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, EntityService, ReceivableService) {
 
-        // FIXME - Mocks, created for test purposes while the
-        // OrderService dosn't work.
-        var entities = DataProvider.customers;
-        console.log(entities);
         // #############################################################################################################
         // Warming up the controller
         // #############################################################################################################
 
-        var orders = OrderService.list();
-        var totalTemplate = {
+        var paymentsTotalTemplate = {
             cash : {
                 qty : 0,
                 amount : 0
@@ -41,38 +36,62 @@
             onCuff : {
                 qty : 0,
                 amount : 0
-            },
-            all : {
-                qty : 0,
-                amount : 0
             }
         };
-        
-        $scope.dateFilter = {
-                dtInitial : '',
-                dtFinal : ''
-            };
-        
-        $scope.total = {};
-
-        $scope.filteredOrders = angular.copy(orders);
-
-        $scope.selectOrder = function selectOrder(order) {
-            updateOrdersTotal(order);
+        var ordersTotalTemplate = {
+            all : {
+                orderCount : 0,
+                entityCount : 0,
+                productCount : 0,
+                stock : 0,
+                qty : 0,
+                avgPrice : 0,
+                amount : 0,
+                lastOrder : 0
+            }
         };
 
-        for ( var ix in orders) {
-            var order = orders[ix];
-            // Find the entity name
-            order.entityName = ArrayUtils.find(entities, 'id', order.customerId).name;
+        var hideOptions = true;
 
-            var qtyTotal = $filter('sum')(order.items, 'qty');
-            var amountTotal = $filter('sum')(order.items, 'price', 'qty');
-            
-            order.itemsQty = qtyTotal;
-            order.avgPrice = (amountTotal) / (qtyTotal);
-            order.amountTotal = amountTotal;
-        }
+        // initialize dates
+        // Set first and last instants of dates.
+        var dtInitial = new Date();
+        dtInitial.setHours(0);
+        dtInitial.setMinutes(0);
+        dtInitial.setSeconds(0);
+
+        var dtFinal = new Date();
+        dtFinal.setHours(23);
+        dtFinal.setMinutes(59);
+        dtFinal.setSeconds(59);
+
+        $scope.total = {};
+        $scope.orders = OrderService.list();
+        $scope.entities = EntityService.list();
+
+        $scope.dateFilter = {
+            dtInitial : dtInitial,
+            dtFinal : dtFinal
+        };
+
+        $scope.resetPaymentsTotal = function(resetOrders) {
+            angular.extend($scope.total, angular.copy(paymentsTotalTemplate));
+        };
+        $scope.resetOrdersTotal = function(resetOrders) {
+            angular.extend($scope.total, angular.copy(ordersTotalTemplate));
+        };
+
+        $scope.invertHideOption = function() {
+            $scope.hideOptions = !hideOptions;
+            hideOptions = !hideOptions;
+        };
+
+        $scope.startHideOption = function() {
+            $scope.hideOptions = hideOptions;
+        };
+
+        $scope.resetPaymentsTotal();
+        $scope.resetOrdersTotal();
 
         // #############################################################################################################
         // Local functions and variables
@@ -80,7 +99,7 @@
         /**
          * DateFilter
          */
-        function filterByDate(order) {
+        $scope.filterByDate = function filterByDate(order) {
             var initialFilter = null;
             var finalFilter = null;
             if ($scope.dateFilter.dtInitial !== '') {
@@ -112,42 +131,7 @@
             } else {
                 return true;
             }
-        }
+        };
 
-        function updateOrdersTotal(order) {
-            var filteredOrders = null;
-            if (order) {
-                filteredOrders = [
-                    order
-                ];
-            } else {
-                filteredOrders = $scope.filteredOrders;
-            }
-            $scope.total = angular.copy(totalTemplate);
-            for ( var ix in filteredOrders) {
-                var order = filteredOrders[ix];
-                var receivables = ReceivableService.listByDocument(order.uuid);
-                for ( var ix in receivables) {
-                    var receivable = receivables[ix];
-                    $scope.total[receivable.type].amount += receivable.amount;
-                    $scope.total.all.amount += receivable.amount;
-
-                    $scope.total[receivable.type].qty++;
-                    $scope.total.all.qty++;
-                }
-            }
-        }
-
-        // #############################################################################################################
-        // Watchers
-        // #############################################################################################################
-
-        /**
-         * Watcher to filter the orders and populate the grid.
-         */
-        $scope.$watchCollection('dateFilter', function() {
-            $scope.filteredOrders = angular.copy($filter('filter')(orders, filterByDate));
-            updateOrdersTotal();
-        });
     });
 }(angular));

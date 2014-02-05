@@ -153,7 +153,14 @@
             // save the journal entry
             return JournalKeeper.compose(entry);
         };
-
+        
+        /**
+         * read (Entity)
+         */
+        this.read = function(uuid) {
+            return ArrayUtils.find(this.list(), 'uuid', uuid);
+        };
+        
         /**
          * list(type)
          */
@@ -165,6 +172,8 @@
 
     angular.module('tnt.catalog.entity', [
         'tnt.catalog.entity.entity', 'tnt.catalog.entity.keeper'
-    ]);
+    ]).run(function(EntityKeeper) {
+        // Warming up EntityKeeper
+    });
 
 }(angular));

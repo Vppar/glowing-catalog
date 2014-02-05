@@ -45,7 +45,7 @@
      * The keeper for the current stock
      */
     angular.module('tnt.catalog.type.keeper', [
-        'tnt.utils.array'
+        'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
     ]).service('TypeKeeper', function TypeKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
 
         var currentEventVersion = 1;
@@ -74,6 +74,11 @@
             }
 
         });
+        
+        /**
+         * Registering the handlers with the Replayer
+         */
+        Replayer.registerHandlers(this.handlers);
 
         this.add = function(type) {
 

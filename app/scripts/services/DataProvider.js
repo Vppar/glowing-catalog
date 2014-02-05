@@ -45,10 +45,6 @@
 
                     angular.extend(scope, response.data);
 
-                    scope.customers.sort(function(x, y) {
-                        return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
-                    });
-
                     if (scope.products.length) {
                         $rootScope.$broadcast('DataProvider.update');
                     }
@@ -64,16 +60,14 @@
                         $rootScope.$broadcast('DataProvider.update');
                     }
                 });
-
-                $http.get('resources/voucher.json').then(function(response) {
-                    for ( var ix in response.data) {
-
-                        var data = response.data[ix];
-
-                        var item = new JournalEntry(0, 0, data.type, data.version, data.event);
-
-                        Replayer.replay(item);
-                    }
+                
+                $.get( 'resources/replay.json', function(result) {
+                  for ( var ix in result) {
+                    var data = result[ix];
+                    var item = new JournalEntry(0, 0, data.type, data.version, data.event);
+                    Replayer.replay(item);
+                  }
+                  $rootScope.$broadcast('DataProvider.replayFinished');
                 });
             });
 }(angular));

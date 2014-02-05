@@ -8,6 +8,10 @@
                 'ui.bootstrap',
                 'ui.select2',
                 'tnt.catalog.directive.numpad',
+                'tnt.catalog.productReturn',
+                'tnt.catalog.productReturn.entity',
+                'tnt.catalog.productReturn.service',
+                'tnt.catalog.productReturn.keeper',
                 'tnt.catalog.filter.count',
                 'tnt.catalog.filter.findBy',
                 'tnt.catalog.filter.sum',
@@ -29,10 +33,11 @@
                 'tnt.catalog.customer.choose',
                 'tnt.catalog.product.input.dialog',
                 'tnt.catalog.receivable.service',
-                'tnt.catalog.financial.receivable',
+                'tnt.catalog.financial.receivable.ctrl',
                 'tnt.catalog.financial.receivable.entity',
                 'tnt.catalog.financial.expense',
                 'tnt.catalog.financial.incomeStatement',
+                'tnt.catalog.financial.receivable.search.ctrl',
                 'tnt.utils.array',
                 'tnt.catalog.components.product-display',
                 'tnt.catalog.components.catalog-section',
@@ -44,7 +49,12 @@
                 'tnt.catalog.payment.coupon',
                 'tnt.catalog.keyboard.input',
                 'tnt.catalog.voucher.ctrl',
+                'tnt.catalog.voucher.active.ctrl',
+                'tnt.catalog.voucher.historic.ctrl',
                 'tnt.catalog.voucher.entity',
+                'tnt.catalog.entity',
+                'tnt.catalog.entity.service',
+                'tnt.catalog.entity.entity',
                 'tnt.catalog.journal.entity',
                 'tnt.catalog.payment',
                 'tnt.catalog.payment.check',
@@ -58,7 +68,10 @@
                 'tnt.catalog.payment.discount',
                 'tnt.catalog.entity.service',
                 'tnt.catalog.entity.entity',
-                'tnt.catalog.orderList.ctrl'
+                'tnt.catalog.orderList.ctrl',
+                'tnt.catalog.orderList.orders.ctrl', 
+                'tnt.catalog.orderList.products.ctrl', 
+                'tnt.catalog.orderList.clients.ctrl'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -116,11 +129,6 @@
             templateUrl : 'views/cash-flow.html',
         }).otherwise({
             redirectTo : '/'
-        });
-    }).config(function($provide) {
-        $provide.decorator('$log', function($delegate) {
-            $delegate.fatal = $delegate.log;
-            return $delegate;
         });
     });
 }(angular));
