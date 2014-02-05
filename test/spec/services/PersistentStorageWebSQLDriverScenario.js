@@ -401,15 +401,20 @@ describe('Service: PersistentStorageFactory', function() {
 
         // remove
         runs(function() {
-            promise = storage.remove('JournalEntry', {
-                sequence : 'i'
+            ok = false;
+          
+            var je = new JournalEntry('i', null, null, null, null);
+            promise = storage.remove(je);
+            
+            promise.then(function() {
+                ok = true;
             });
 
         });
 
         waitsFor(function() {
             scope.$apply();
-            return true;
+            return ok;
         });
 
         // list something

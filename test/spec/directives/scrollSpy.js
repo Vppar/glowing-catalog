@@ -3,7 +3,7 @@
 describe('Directive: scrollSpy', function () {
 
   // load the directive's module
-  beforeEach(module('glowingCatalogApp'));
+  beforeEach(module('tnt.catalog.components.input-qty'));
 
   var element,
     scope;

@@ -37,6 +37,7 @@
                 'tnt.catalog.financial.receivable.entity',
                 'tnt.catalog.financial.expense',
                 'tnt.catalog.financial.incomeStatement',
+                'tnt.catalog.financial.receivable.search.ctrl',
                 'tnt.utils.array',
                 'tnt.catalog.components.product-display',
                 'tnt.catalog.components.catalog-section',
@@ -128,11 +129,6 @@
             templateUrl : 'views/cash-flow.html',
         }).otherwise({
             redirectTo : '/'
-        });
-    }).config(function($provide) {
-        $provide.decorator('$log', function($delegate) {
-            $delegate.fatal = $delegate.log;
-            return $delegate;
         });
     });
 }(angular));

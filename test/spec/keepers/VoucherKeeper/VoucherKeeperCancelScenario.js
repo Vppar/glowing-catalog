@@ -18,7 +18,12 @@ describe('Service: VoucherKeeperCancelScenario', function() {
     var version = 'V1';
     var myCreateFunction = 'voucherCreate' + version;
 
-    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _ArrayUtils_) {
+    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _ArrayUtils_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         VoucherKeeper = _VoucherKeeper_;
         Voucher = _Voucher_;
         ArrayUtils = _ArrayUtils_;

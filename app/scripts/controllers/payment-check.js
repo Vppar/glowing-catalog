@@ -8,7 +8,7 @@
                 'tnt.catalog.payment.service'
             ]).controller(
             'PaymentCheckCtrl',
-            function($scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
+            function($q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
 
                 // #####################################################################################################
                 // Warm up the controller

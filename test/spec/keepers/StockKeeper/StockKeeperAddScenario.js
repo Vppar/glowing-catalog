@@ -11,7 +11,12 @@ describe('Service: StockKeeperAddScenario', function() {
     var StockKeeper = undefined;
     var Stock = undefined;
     var Scope = undefined;
-    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_) {
+    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         Scope = $rootScope;
@@ -55,20 +60,25 @@ describe('Service: StockKeeperAddScenario', function() {
      * then a stock must be update with average cost and quantity sum
      * </pre>
      */
-    it('updte stock', function() {
+    it('update stock', function() {
         //givens
         var ev = new Stock(110, 3, 10);
         var ev2 = new Stock(110, 5, 35);
         var finalQuantity = (ev.quantity + ev2.quantity);
         var finalPrice = ((ev.quantity * ev.cost) + (ev2.quantity * ev2.cost)) / (ev.quantity + ev2.quantity);
+        
+        var go = false;
         runs(function() {
             //when
-            StockKeeper.add(ev);
-            StockKeeper.add(ev2);
+            StockKeeper.add(ev).then(function(){
+                StockKeeper.add(ev2).then(function(){
+                    go = true;
+                });
+            });
         });
 
         waitsFor(function() {
-            return StockKeeper.list().length;
+            return go;
         }, 'JournalKeeper is taking too long', 300);
 
         runs(function() {

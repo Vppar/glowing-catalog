@@ -13,7 +13,12 @@ describe('Service: EntityKeeperUpdateScenario', function() {
     var EntityKeeper = null;
     var Entity = null;
     var $rootScope = null;
-    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_) {
+    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_, WebSQLDriver) {
+      
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+      
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
         $rootScope = _$rootScope_;
