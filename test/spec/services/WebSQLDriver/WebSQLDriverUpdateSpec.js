@@ -55,10 +55,9 @@ describe('Service: WebSQLDriver.update', function() {
         var id = 'a';
 
         var createdBucket = false;
-        var listed = false;
         var persisted = false;
         var updated = false;
-        var readedAgain = false;
+        var read = false;
 
         var returnedObject = null;
         var updatedObject = null;
@@ -103,45 +102,18 @@ describe('Service: WebSQLDriver.update', function() {
             return persisted;
         });
 
-        // read an item
-        runs(function() {
-
-            var promises = {};
-
-            // tx to list
-            var txBody = function(tx) {
-                promises.find = WebSQLDriver.find(tx, bucketName, id);
-            };
-
-            // promise from the create
-            promises.transaction = WebSQLDriver.transaction(txBody);
-
-            // sucess of create
-            promises.transaction.then(function(result) {
-
-                promises.find.then(function(result) {
-                    listed = true;
-                    returnedObject = result;
-                });
-            });
-
-        });
-
-        waitsFor(function(d) {
-            scope.$apply();
-            return listed;
-        });
-
         // try to update
         runs(function() {
 
-            returnedObject.b = 'updatedValue';
+            var object = {
+                    b : 'updatedValue'
+            };
 
             // tx to update
             var txBody = function(tx) {
                 WebSQLDriver.update(tx, bucketName, {
                     a : id
-                }, returnedObject);
+                }, object);
             };
 
             // promise from the update
@@ -159,7 +131,7 @@ describe('Service: WebSQLDriver.update', function() {
             return updated;
         });
 
-        // read again!
+        // read!
         runs(function() {
 
             var promises = {};
@@ -174,7 +146,7 @@ describe('Service: WebSQLDriver.update', function() {
             promises.transaction.then(function(result) {
 
                 promises.find.then(function(result) {
-                    readedAgain = true;
+                    read = true;
                     updatedObject = result;
                 });
             });
@@ -183,11 +155,11 @@ describe('Service: WebSQLDriver.update', function() {
 
         waitsFor(function(d) {
             scope.$apply();
-            return readedAgain;
+            return read;
         });
 
         runs(function() {
-            expect(returnedObject).toEqual(updatedObject);
+            expect(updatedObject.b).toEqual('updatedValue');
         });
 
     });
@@ -371,43 +343,16 @@ describe('Service: WebSQLDriver.update', function() {
             return persisted;
         });
 
-        // read an item
-        runs(function() {
-
-            var promises = {};
-
-            // tx to list
-            var txBody = function(tx) {
-                promises.find = WebSQLDriver.find(tx, bucketName, id);
-            };
-
-            // promise from the create
-            promises.transaction = WebSQLDriver.transaction(txBody);
-
-            // sucess of create
-            promises.transaction.then(function(result) {
-
-                promises.find.then(function(result) {
-                    listed = true;
-                    returnedObject = result;
-                });
-            });
-
-        });
-
-        waitsFor(function(d) {
-            scope.$apply();
-            return listed;
-        });
-
         // try to update
         runs(function() {
 
-            returnedObject.b = 'updatedValue';
+            var object = {
+                    b:'updatedValue'
+            };
 
             // tx to update
             var txBody = function(tx) {
-                WebSQLDriver.update(tx, bucketName, null, returnedObject);
+                WebSQLDriver.update(tx, bucketName, null, object);
             };
 
             // promise from the update
