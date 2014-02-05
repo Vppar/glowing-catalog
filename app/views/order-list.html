@@ -180,7 +180,7 @@
 						<div class="scroll-order-list">
 							<div class="row-order-list hover-state-pointer"
 								ng-repeat="order in filteredOrders | orderBy: '-date'"
-								ng-click="updatePaymentsTotal([order])">
+								ng-click="updatePaymentsTotal([order]); enableHideOption()">
 								<div class="col-1">
 									<span>{{order.date | date:'dd/MM/yyyy'}}</span>
 								</div>
@@ -260,7 +260,7 @@
 						<div class="scroll-order-list">
 							<div class="row-order-list hover-state-pointer"
 								ng-repeat="entity in filteredEntities | orderBy: '-amountTotal'"
-								ng-click="updatePaymentsTotal([entity])">
+								ng-click="updatePaymentsTotal([entity]); enableHideOption()">
 								<div class="col-1">
 									<span>{{$index+1}}</span>
 								</div>
