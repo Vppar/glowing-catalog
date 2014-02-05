@@ -6,6 +6,7 @@ describe('Service: PaymentServiceAdd', function() {
     var voucherService = {};
     var receivableService = {};
     var productReturnService = {};
+    var stockKeeper = {};
 
     // load the service's module
     beforeEach(function() {
@@ -19,6 +20,7 @@ describe('Service: PaymentServiceAdd', function() {
             $provide.value('VoucherService', voucherService);
             $provide.value('ReceivableService', receivableService);
             $provide.value('ProductReturnService', productReturnService);
+            $provide.value('StockKeeper', stockKeeper);
         });
     });
 
