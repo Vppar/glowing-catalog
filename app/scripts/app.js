@@ -74,7 +74,8 @@
                 'tnt.catalog.orderList.clients.ctrl',
                 'tnt.catalog.stock',
                 'tnt.catalog.lineup',
-                'tnt.catalog.productsToBuy.ctrl'
+                'tnt.catalog.productsToBuy.ctrl',
+                'tnt.catalog.stock.service'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -126,6 +127,7 @@
             controller : 'IncomeStatementCtrl'
         }).when('/stock', {
             templateUrl : 'views/stock.html',
+            controller : 'StockCtrl'
         }).when('/voucher', {
             templateUrl : 'views/voucher.html',
             controller : 'VoucherCtrl'

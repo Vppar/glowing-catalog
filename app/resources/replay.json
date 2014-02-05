@@ -314,7 +314,6 @@
         }
     },
     {
-<<<<<<< Upstream, based on origin/master
         "type": "orderAdd",
         "version": 1,
         "event" : {
