@@ -16,20 +16,41 @@
             key : 'sequence',
             // indexed columns
             ix : [],
+            // colums that must be serialized/unserialized
+            serializable: ['event']
         };
 
         var service = function svc(sequence, stamp, type, version, event) {
+          
+            var validProperties = [ 'sequence', 'stamp', 'type', 'version', 'event', 'synced' ];
 
+            ObjectUtils.method(svc, 'isValid', function() {
+                for ( var ix in this) {
+                    var prop = this[ix];
+    
+                    if (!angular.isFunction(prop)) {
+                        if (validProperties.indexOf(ix) === -1) {
+                            throw "Unexpected property " + ix;
+                        }
+                    }
+                }
+            });
+          
             if (arguments.length != svc.length) {
-                throw 'JournalEntry must be initialized with sequence, stamp, type, version and event';
+                if (arguments.length === 1 && angular.isObject(arguments[0])) {
+                    svc.prototype.isValid.apply(arguments[0]);
+                    ObjectUtils.dataCopy(this, arguments[0]);
+                } else {
+                    throw 'JournalEntry must be initialized with sequence, stamp, type, version and event';
+                }
+            } else {
+                this.sequence = sequence;
+                this.stamp = stamp;
+                this.type = type;
+                this.version = version;
+                this.event = event;
+                this.synced = false;
             }
-
-            this.sequence = sequence;
-            this.stamp = stamp;
-            this.type = type;
-            this.version = version;
-            this.event = event;
-            this.synced = false;
         };
 
         ObjectUtils.method(service, 'metadata', function() {
@@ -166,12 +187,20 @@
             storage.list(entityName).then(function(results){
                 $log.debug('Starting replay on ' + results.length + ' entries');
 
+                var entry = null;
+                
                 try {
                     for(var ix in results){
-                        promises.push(Replayer.replay(results[ix]));
+                      
+                        entry = results[ix];
+                        
+                        sequence = sequence > entry.sequence ? sequence : entry.sequence;
+                        
+                        promises.push(Replayer.replay(entry));
                     }
                 } catch (err) {
                     $log.error('Failed to resync: replay failed');
+                    $log.debug('Failed to resync: replay failed -', err, entry);
                     deferred.reject(err);
                 }
 
@@ -179,7 +208,7 @@
                 deferred.resolve($q.all(promises));
             },function(error){
                 $log.error('Failed to resync: list failed');
-                $log.debug('Failed to resync: list failed ', error);
+                $log.debug('Failed to resync: list failed', error);
                 deferred.reject(error);
             });
             

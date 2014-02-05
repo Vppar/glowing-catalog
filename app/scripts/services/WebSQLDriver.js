@@ -193,11 +193,12 @@
          * @param data
          */
         this.persist = function(tx, name, data) {
-            var columns = [], values = [];
+            var columns = [], values = [], bindings = [];
 
             for ( var columnName in data) {
                 columns.push(columnName);
-                values.push(quote(data[columnName]));
+                values.push('?');
+                bindings.push(data[columnName]);
             }
 
             columns = '(' + columns.join(', ') + ')';
@@ -212,7 +213,7 @@
             SQL.push(values);
 
             SQL = SQL.join(' ');
-            tx.executeSql(SQL);
+            tx.executeSql(SQL, bindings);
         };
         
         /**

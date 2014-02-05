@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Remotesync', function () {
+describe('Service: RemoteSync', function () {
 
   // load the service's module
-  beforeEach(module('glowingCatalogApp'));
+  beforeEach(module('tnt.catalog.sync'));
 
   // instantiate service
-  var Remotesync;
-  beforeEach(inject(function (_Remotesync_) {
-    Remotesync = _Remotesync_;
+  var RemoteSync;
+  beforeEach(inject(function (_RemoteSync_) {
+    RemoteSync = _RemoteSync_;
   }));
 
   it('should do something', function () {
-    expect(!!Remotesync).toBe(true);
+    expect(!!RemoteSync).toBe(true);
   });
 
 });

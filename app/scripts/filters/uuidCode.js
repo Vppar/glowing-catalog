@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('glowingCatalogApp').filter('uuidCode', function(IdentityService) {
+  angular.module('tnt.catalog.filters.uuidCode', ['tnt.identity']).filter('uuidCode', function(IdentityService) {
     return function(item) {
       if (!item.uuid) {
         return item;
