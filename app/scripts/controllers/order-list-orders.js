@@ -19,11 +19,13 @@
                     order.entityName = ArrayUtils.find(entities, 'uuid', order.customerId).name;
 
                     var qtyTotal = $filter('sum')(order.items, 'qty');
-                    var amountTotal = $filter('sum')(order.items, 'price', 'qty');
+                    var priceTotal = $filter('sum')(order.items, 'price', 'qty');
+                    var amountTotal = $filter('sum')(order.items, 'amount');
+                    
 
                     order.itemsQty = qtyTotal;
-                    order.avgPrice = (amountTotal) / (qtyTotal);
-                    order.amountTotal = amountTotal;
+                    order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
+                    order.amountTotal = (priceTotal + amountTotal);
                 }
 
                 function updatePaymentsTotal(orders) {
