@@ -17,8 +17,10 @@
                         var reportItem = angular.copy(inventoryItem);
                         angular.extend(reportItem, stockItem);
 
-                        if (!reportItem.reserve || (type === 'productsToBuy' && reportItem.quantity >= reportItem.reserve)) {
-                            continue;
+                        if (type === 'productsToBuy') {
+                            if (!reportItem.reserve || reportItem.quantity >= reportItem.reserve) {
+                                continue;
+                            }
                         }
 
                         var session = buildSession(report, reportItem);
