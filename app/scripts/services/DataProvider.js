@@ -61,7 +61,7 @@
                     }
                 });
                 
-                $.get( 'resources/replay.json', function( result ) {
+                $.get( 'resources/replay.json', function(result) {
                   for ( var ix in result) {
                     var data = result[ix];
                     var item = new JournalEntry(0, 0, data.type, data.version, data.event);

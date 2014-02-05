@@ -8,7 +8,7 @@
         // Warming up the controller
         // #############################################################################################################
 
-        var totalTemplate = {
+        var paymentsTotalTemplate = {
             cash : {
                 qty : 0,
                 amount : 0
@@ -36,19 +36,20 @@
             onCuff : {
                 qty : 0,
                 amount : 0
-            },
+            }
+        };
+        var ordersTotalTemplate = {
             all : {
                 orderCount : 0,
                 entityCount : 0,
                 qty : 0,
                 avgPrice : 0,
-                amount : 0
+                amount : 0,
+                lastOrder : 0
             }
         };
-        var hideOptions = true;
 
-        $scope.orders = OrderService.list();
-        $scope.entities = EntityService.list();
+        var hideOptions = true;
 
         // initialize dates
         // Set first and last instants of dates.
@@ -62,15 +63,21 @@
         dtFinal.setMinutes(59);
         dtFinal.setSeconds(59);
 
+        $scope.total = {};
+        $scope.orders = OrderService.list();
+        $scope.entities = EntityService.list();
+
         $scope.dateFilter = {
             dtInitial : dtInitial,
             dtFinal : dtFinal
         };
 
-        $scope.resetTotal = function() {
-            $scope.total = angular.copy(totalTemplate);
+        $scope.resetPaymentsTotal = function(resetOrders) {
+            angular.extend($scope.total, angular.copy(paymentsTotalTemplate));
         };
-        $scope.resetTotal();
+        $scope.resetOrdersTotal = function(resetOrders) {
+            angular.extend($scope.total, angular.copy(ordersTotalTemplate));
+        };
 
         $scope.invertHideOption = function() {
             $scope.hideOptions = !hideOptions;
@@ -80,6 +87,9 @@
         $scope.startHideOption = function() {
             $scope.hideOptions = hideOptions;
         };
+
+        $scope.resetPaymentsTotal();
+        $scope.resetOrdersTotal();
 
         // #############################################################################################################
         // Local functions and variables

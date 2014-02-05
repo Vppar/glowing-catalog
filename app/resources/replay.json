@@ -312,8 +312,193 @@
             "amount": 475,
             "duedate": 1388484500000
         }
+    },
+    
+    {
+        "type": "orderAdd",
+        "version": 1,
+        "event" : {
+	        "uuid": "cc02b600-5d0b-11e3-96c3-010004000021",
+	        "customerId": "cc02b600-5d0b-11e3-96c3-010001000002",
+	        "date": 1385856000000,
+	        "created": 1385856000000,
+	        "code": "mary-0001-13",
+	        "canceled": false,
+	        "items": [{
+	            "id": 1,
+	            "price": "85.23",
+	            "qty": 1
+	        }, {
+	            "id": 15,
+	            "price": "25.23",
+	            "qty": 5
+	        }, {
+	            "id": 17,	            
+	            "price": "25.32",
+	            "qty": 4
+	        }, {
+	            "id": 19,
+	            "price": "323.23",
+	            "qty": 4
+        	}]
+    	}
+    },
+    {
+        "type": "receivableAdd",
+        "version": 1,
+        "event": {
+            "uuid": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000021",
+            "type": "cash",
+            "amount": "-94.42",
+            "duedate": 1388484500000
+        }
+    },
+    {
+        "type": "receivableAdd",
+        "version": 1,
+        "event": {
+            "uuid": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000021",
+            "type": "onCuff",
+            "amount": "1700.00",
+            "duedate": 1388484500000
+        }
+    },
+    {
+        "type": "orderAdd",
+        "version": 1,
+        "event" : {
+	        "uuid": "cc02b600-5d0b-11e3-96c3-010004000022",
+	        "customerId": "cc02b600-5d0b-11e3-96c3-010001000001",
+	        "created": 1388534400000,
+	        "date": 1388534400000,
+	        "code": "mary-0001-13",
+	        "canceled": false,
+	        "items": [{
+	            "id": 1,
+	            "price": "85.23",
+	            "qty": 1
+	        }, {
+	            "id": 15,
+	            "price": "23.67",
+	            "qty": 5
+	        }, {
+	            "id": 17,
+	            "price": "212.23",
+	            "qty": 4
+	        }, {
+	            "id": 19,
+	            "price": "231.2",
+	            "qty": 4
+        	}]
+    	}
+    },
+    {
+        "type": "receivableAdd",
+        "version": 1,
+        "event": {
+            "uuid": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000022",
+            "type": "cash",
+            "amount": "-22.7",
+            "duedate": 1388484500000
+        }
+    },
+    {
+        "type": "receivableAdd",
+        "version": 1,
+        "event": {
+            "uuid": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000022",
+            "type": "check",
+            "amount": "2000.00",
+            "duedate": 1388484500000
+        }
+    },
+    {
+        "type": "orderAdd",
+        "version": 1,
+        "event" : {
+	        "uuid": "cc02b600-5d0b-11e3-96c3-010004000023",
+	        "customerId": "cc02b600-5d0b-11e3-96c3-010001000001",
+	        "created": 1391212800000,
+	        "date": 1391212800000,
+	        "code": "mary-0001-13",
+	        "canceled": false,
+	        "items": [{
+	            "id": 1,
+	            "price": "85.23",
+	            "qty": 3
+	        }, {
+	            "id": 15,
+	            "price": "23.67",
+	            "qty": 2
+	        }, {
+	            "id": 17,
+	            "price": "212.23",
+	            "qty": 7
+	        }, {
+	            "id": 19,
+	            "price": "21.2",
+	            "qty": 4
+        	}]
+    	}
+    },
+    {
+        "type": "receivableAdd",
+        "version": 1,
+        "event": {
+            "uuid": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000023",
+            "type": "cash",
+            "amount": "193.44",
+            "duedate": 1388484500000
+        }
+    },
+    {
+        "type": "receivableAdd",
+        "version": 1,
+        "event": {
+            "uuid": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "entityId": "cc02b600-5d0b-11e3-96c3-010001000016",
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000023",
+            "type": "creditCard",
+            "amount": "1500",
+            "duedate": 1388484500000
+        }
+    },
+    {
+        "type": "productReturnAdd",
+        "version": 1,
+        "event": {
+            "id": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000023",
+            "cost": "25",
+            "quantity": "2"
+        }
+    },
+    {
+        "type": "voucherCreate",
+        "version": 1,
+        "event": {
+            "id": "cc02b600-5d0b-11e3-96c3-010001000021",
+            "created": 1388284400000,
+            "documentId": "cc02b600-5d0b-11e3-96c3-010004000023",
+            "type": "coupon",
+            "amount": "130"
+        }
     }
-
-
-
 ]
