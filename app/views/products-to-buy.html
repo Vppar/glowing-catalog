@@ -16,38 +16,25 @@
 					<span class="principal">Pedido de compra</span> &nbsp; <span class="crumbs">&nbsp;</span>
 				</span>
 				<span class="span6">
-					<!--<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-add.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-edit.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-open.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-search.png">
-					</div>-->
 					<div class="float-right">
 						<span class="menu-level">
-							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option">Fazer pedido</a> 
-								<a class="btn btn-option">Confirmar pedido</a> 
-								<a class="btn btn-option">Aferir NF compra</a>
-								<a class="btn btn-option">Produtos pendentes</a>
-								<a class="btn btn-option">Cr&eacute;dito dispon&iacute;vel</a>
+							<div class="btn-group btn-group-sm" ng-init="selectedTab='buildOrder'">
+								<a class="btn btn-option" ng-class="{active:selectedTab=='buildOrder'}" ng-click="selectedTab='buildOrder'">Fazer pedido</a> 
+								<a class="btn btn-option" ng-class="{active:selectedTab=='confirmOrder'}" ng-click="selectedTab='confirmOrder'">Confirmar pedido</a> 
+								<a class="btn btn-option" ng-class="{active:selectedTab=='verifyNF'}" ng-click="selectedTab='verifyNF'">Aferir NF compra</a>
+								<a class="btn btn-option" ng-class="{active:selectedTab=='pendentProducts'}" ng-click="selectedTab='pendentProducts'">Produtos pendentes</a>
+								<a class="btn btn-option" ng-class="{active:selectedTab=='availableCredit'}" ng-click="selectedTab='availableCredit'">Cr&eacute;dito dispon&iacute;vel</a>
 							</div>
 						</span>
 					</div>
 				</span>
 			</div>
-				
 		</div>		
 		
-		<div class="products-to-buy-left">
+		<div class="products-to-buy-left" ng-switch="selectedTab">
 		
 			<!--Tela "Fazer pedido"-->
-			<div class="row-fluid step1 display-none">	
+			<div class="row-fluid step1" ng-switch-when="buildOrder">	
 				<div class="products-to-buy-edit">	
 					<div class="row-fluid">
 						<div class="grid-payment-products-to-buy-edit">
@@ -279,12 +266,9 @@
 					
 				</div>
 			</div>
-			
-			
-			
 						
 			<!--Tela "Confirmar pedido"-->
-			<div class="row-fluid step2">	
+			<div class="row-fluid step2" ng-switch-when="confirmOrder">	
 				<div class="products-to-buy-edit">	
 					<div class="row-fluid">
 						<div class="grid-payment-products-to-buy-edit">
@@ -406,7 +390,6 @@
 		<div class="products-to-buy-right">
 			<div class="row-fluid">		
 					<div class="details-products-to-buy-item">
-						
 						<div class="col-details-products-to-buy-item">
 							<span class="section">Se&ccedil;&atilde;o 1</span>
 							<div class="row-details-products-to-buy-item">
@@ -478,7 +461,7 @@
 						</div>
 						
 						<!--Tela "Fazer pedido"-->
-						<div class="col-details-products-to-buy-item border-none display-none">			
+						<div class="col-details-products-to-buy-item border-none display-none" ng-show="selectedTab=='buildOrder'">			
 							<div class="btns-details-products-to-buy-item">
 								<button class="btn btn-cancel" type="submit">Cancelar</button>
 								<button class="btn btn-ok float-right" type="submit" ng-click="openDeliveryDetails()">Prosseguir</button>
@@ -486,7 +469,7 @@
 						</div>
 						
 						<!--Tela "Confirmar pedido"-->
-						<div class="col-details-products-to-buy-item border-none">			
+						<div class="col-details-products-to-buy-item border-none" ng-show="selectedTab=='confirmOrder'">			
 							<div class="btns-details-products-to-buy-item">
 								<button class="btn btn-cancel" type="submit">Cancelar</button>
 								<button class="btn btn-ok float-right" type="submit" ng-click="openDeliveryDetails()">Confirmar</button>
