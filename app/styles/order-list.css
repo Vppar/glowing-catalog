@@ -134,6 +134,7 @@
 	/*margin: 0 2px 0 2px;*/
 	text-align: center;
 	display: inline-block;
+	color:rgba(0, 0, 0, 0.5);
 }
 .form-order-list .btn-price-payment {
 	width: 80px;
