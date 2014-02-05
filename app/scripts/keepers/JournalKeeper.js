@@ -86,38 +86,55 @@
          * Returns all unsynced entries in the database
          * 
          * @returns {Promise}
-         * 
-         * TODO Test Me!
          */
         this.readUnsynced = function() {
-            return storage.list(entityName, {synced: false});
+            var promise = storage.list(entityName, {synced: false});
+
+            promise.then(null, function (err) {
+                $log.debug('Failed to read unsynced:', err);
+            });
+
+            return promise;
         };
         
         /**
-         * Marks a given entity as synced
+         * Marks a given entry as synced
          * 
-         * @param {Object} The entity to be updated
+         * @param {Object} entry The entry to be updated
          * @return {Promise} The transaction promise
-         * 
-         * TODO Test Me!
          */
-        this.markAsSynced = function(entity) {
-            entity.synced = true;
-            return storage.update(entity);
+        this.markAsSynced = function(entry) {
+            entry.synced = true;
+
+            var promise = storage.update(entry);
+
+            promise.then(null, function (err) {
+                // FIXME: should we revert entry.synced back to false in case
+                // of failures in the update?
+                $log.error('Failed to update journal entry', err);
+            });
+
+            return promise;
         };
 
         /**
          * Remove the given entry
          * 
-         * @param {Object} The entity to be updated
+         * @param {Object} entry The entry to be updated
          * @return {Promise} The transaction promise
          * 
-         * TODO Test Me!
          */
-        this.remove = function(entity) {
-            return storage.remove(entity);
+        this.remove = function(entry) {
+            var promise = storage.remove(entry);
+
+            promise.then(null, function (err) {
+                $log.error('Failed to remove journal entry', err);
+            });
+
+            return promise;
         };
         
+
         /**
          * Nukes the local storage - Use with extreme caution
          * 
@@ -126,11 +143,16 @@
          *  - The database has been compromised.
          *  
          * @return {Promise} The transaction promise
-         *  
-         * TODO Test Me!
          */
         this.nuke = function(){
-            return storage.nuke(entityName);
+            var promise = storage.nuke(entityName);
+
+            promise.then(null, function (err) {
+                $log.fatal('Failed to nuke journal entries: PersistentStorage.nuke failed');
+                $log.debug('Failed to nuke: PersistentStorage.nuke failed', err);
+            });
+
+            return promise;
         };
 
         /**
