@@ -301,6 +301,8 @@
 
     angular.module('tnt.catalog.stock', [
         'tnt.catalog.stock.entity', 'tnt.catalog.stock.keeper'
-    ]);
+    ]).run(function (StockKeeper) {
+     // Warming up EntityKeeper
+    });
 
 }(angular));
