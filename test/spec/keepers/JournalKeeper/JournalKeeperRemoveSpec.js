@@ -105,7 +105,7 @@ describe('Service: JournalKeeperRemove', function() {
       expect(storage.remove).toHaveBeenCalledWith(entry);
 
       expect($log.error.logs[0]).toEqual([
-          'Failed to remove journal entry:',
+          'Failed to remove journal entry',
           'Removal failed: PersistentStorage.remove failed'
       ]);
     });
