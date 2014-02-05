@@ -180,7 +180,7 @@
     });
 
     angular.module('tnt.catalog.payment.service', [
-        'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon'
+        'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log'
     ]).service(
             'PaymentService',
             function PaymentService($location, $q, $log, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
