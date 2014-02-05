@@ -4,103 +4,144 @@
         'tnt.catalog.order.service', 'tnt.utils.array'
     ]).controller(
             'OrderListClientsCtrl',
-            function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ProductReturnService, ReceivableService) {
+            function($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService, ProductReturnService, VoucherService) {
 
                 // $scope.entities come from OrderListCtrl
                 var entities = $scope.entities;
                 var orders = $scope.orders;
 
-                $scope.ordersByCLientList = [];
-                
-                $scope.updateOrdersTotal = updateOrdersTotal;
-                
-                $scope.selectOrder = function selectOrder(consol) {
-                    updateOrdersTotal(consol);
-                };
+                // $scope.filteredOrders come from OrderListCtrl
+                $scope.filteredOrders = angular.copy(orders);
+                $scope.filteredEntities = [];
 
-                // add a missing property for innerJoin
-                for ( var idx in entities) {
-                    entities[idx].customerId = entities[idx].uuid;
+                for ( var ix in orders) {
+                    var order = orders[ix];
+                    // Find the entity name
+                    order.entityName = ArrayUtils.find(entities, 'uuid', order.customerId).name;
+
+                    var qtyTotal = $filter('sum')(order.items, 'qty');
+                    var amountTotal = $filter('sum')(order.items, 'price', 'qty');
+
+                    order.itemsQty = qtyTotal;
+                    order.avgPrice = (amountTotal) / (qtyTotal);
+                    order.amountTotal = amountTotal;
                 }
-                function consolideteOrdersByClient() {
-                    $scope.ordersByCLientList = [];
-                    var joinClientOrder = ArrayUtils.innerJoin(entities, $scope.filteredOrders, 'customerId');
-                    var distincsClients = ArrayUtils.distinct(joinClientOrder, 'customerId');
-                    var client = {};
 
-                    for ( var idx in distincsClients) {
-                        // list all orders of one client.
-                        var ordersByClient = ArrayUtils.filter(joinClientOrder, {
-                            customerId : distincsClients[idx]
+                function updateFilteredEntities() {
+                    
+                    $scope.filteredEntities.length = 0;
+                    
+                    for ( var ix in entities) {
+                        var entity = entities[ix];
+
+                        var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
+                            customerId : entity.uuid
                         });
-                        // use the first of array for common information
-                        client = ordersByClient[0];
-                        client.orders = [];
-                        var totalAmount = 0;
-                        var totalQuantity = 0;
-                        var lastOrder = 1;
+                        
+                        if (ordersByEntity.length > 0) {
+                            var entityOrders = {
+                                uuid : entity.uuid,
+                                name : entity.name,
+                                lastOrder : 0,
+                                itemsQty : 0,
+                                avgPrice : 0,
+                                amountTotal : 0
+                            };
 
-                        for ( var idy in ordersByClient) {
-                            totalAmount += $filter('sum')(ordersByClient[idy].items, 'price', 'qty');
-                            totalQuantity += $filter('sum')(ordersByClient[idy].items, 'qty');
-                            client.orders.push(ordersByClient[idy].uuid);
-                            if (ordersByClient[idy].created > lastOrder) {
-                                lastOrder = ordersByClient[idy].created;
+                            for ( var ix2 in ordersByEntity) {
+                                var order = ordersByEntity[ix2];
+
+                                var lastOrder = entityOrders.lastOrder;
+
+                                entityOrders.lastOrder = lastOrder > order.created ? lastOrder : order.created;
+                                entityOrders.amountTotal += order.amountTotal;
+                                entityOrders.itemsQty += order.itemsQty;
                             }
-                        }
+                            entityOrders.avgPrice = Math.round(100 * (entityOrders.amountTotal / entityOrders.itemsQty)) / 100;
 
-                        client.totalAmount = totalAmount;
-                        client.totalQuantity = totalQuantity;
-                        client.averagePrice = (totalAmount / totalQuantity);
-                        client.lastOrder = new Date(lastOrder);
-                        $scope.ordersByCLientList.push(client);
+                            $scope.filteredEntities.push(entityOrders);
+                        }
                     }
                 }
 
-                function updateOrdersTotal(consol) {
-                    var filteredOrders = null;
-                    if (consol) {
-                        filteredOrders = [
-                            consol
-                        ];
-                    } else {
-                        filteredOrders = $scope.ordersByCLientList;
-                    }
-                    $scope.resetTotal();
-                    for ( var ix in filteredOrders) {
-                        var client = filteredOrders[ix];
-                        for ( var ix in client.orders) {
-                            var order = client.orders[ix];
-                            var receivables = ReceivableService.listByDocument(order);
+                function updatePaymentsTotal(entities) {
+                    $scope.resetPaymentsTotal();
+
+                    for ( var ix in entities) {
+                        var entity = entities[ix];
+
+                        var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
+                            customerId : entity.uuid
+                        });
+
+                        for ( var ix2 in ordersByEntity) {
+                            var order = ordersByEntity[ix2];
+
+                            var receivables = ReceivableService.listByDocument(order.uuid);
                             for ( var ix in receivables) {
                                 var receivable = receivables[ix];
-                                $scope.total[receivable.type].amount += receivable.amount;
-                                $scope.total.all.amount += receivable.amount;
+                                var amount = Number(receivable.amount);
 
+                                $scope.total[receivable.type].amount += amount;
                                 $scope.total[receivable.type].qty++;
-                                $scope.total.all.qty++;
                             }
-                            var exchangedProducts = ProductReturnService.listByDocument(order);
+
+                            var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
                             for ( var ix in exchangedProducts) {
                                 var exchanged = exchangedProducts[ix];
                                 $scope.total['exchange'].amount += (exchanged.cost * exchanged.quantity);
-                                $scope.total.all.amount += exchanged.cost;
-                                $scope.total['exchange'].qty += exchanged.quantity;
+                                $scope.total['exchange'].qty += Number(exchanged.quantity);
                             }
 
-                        }
+                            var vouchers = VoucherService.listByDocument(order.uuid);
+                            for ( var idx in vouchers) {
+                                var voucher = vouchers[idx];
 
+                                var amount = Number(voucher.amount);
+
+                                $scope.total.voucher.amount += amount;
+                                $scope.total.voucher.qty += voucher.qty;
+                            }
+                        }
                     }
                 }
-                updateOrdersTotal();
+
+                function updateOrdersTotal() {
+                    $scope.resetOrdersTotal();
+
+                    var entityMap = {};
+
+                    var filteredOrders = $scope.filteredOrders;
+                    for ( var ix in filteredOrders) {
+                        var filteredOrder = filteredOrders[ix];
+
+                        if (!entityMap[filteredOrder.customerId]) {
+                            entityMap[filteredOrder.customerId] = filteredOrder.customerId;
+                            $scope.total.all.entityCount++;
+                        }
+
+                        $scope.total.all.amount += filteredOrder.amountTotal;
+                        $scope.total.all.qty += filteredOrder.itemsQty;
+
+                        var lastOrder = $scope.total.all.lastOrder;
+
+                        $scope.total.all.lastOrder = lastOrder > filteredOrder.created ? lastOrder : filteredOrder.created;
+                        $scope.total.all.orderCount++;
+                    }
+                    $scope.total.all.avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
+                }
+
+                $scope.updateOrdersTotal = updateOrdersTotal;
+                $scope.updatePaymentsTotal = updatePaymentsTotal;
 
                 /**
                  * Watcher to filter the orders and populate the grid.
                  */
                 $scope.$watchCollection('dateFilter', function() {
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
-                    consolideteOrdersByClient();
                     updateOrdersTotal();
+                    updatePaymentsTotal(entities);
+                    updateFilteredEntities();
                 });
 
             });

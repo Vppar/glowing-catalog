@@ -68,7 +68,7 @@
                 if (angular.isFunction(eventHandlers[entry.type + 'V' + entry.version])) {
                     return eventHandlers[entry.type + 'V' + entry.version](entry.event);
                 } else {
-                    throw 'We have no register of a proper handler for ' + entry.type + ' version ' + entry.version;
+                    $log.fatal('We have no register of a proper handler for ' + entry.type + ' version ' + entry.version);
                 }
             } else {
                 throw 'Only instances of JournalEntry are allowed';
