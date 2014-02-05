@@ -158,7 +158,7 @@
          * @spec WebSQLDriver.persist#1
          * Given a valid transaction
          * and a valid bucket name
-         * and a valid data with anyorder of attributes
+         * and a valid data with any order of attributes
          * When a persist is triggered
          * Then the data must be inserted into proper table
          * 
@@ -211,6 +211,38 @@
             SQL.push('VALUES');
             SQL.push(values);
 
+            SQL = SQL.join(' ');
+            tx.executeSql(SQL);
+        };
+        
+        /**
+         * Updates data in the given bucket
+         * 
+         * @param {Object} transaction
+         * @param {String} bucket name
+         * @param {Object} where clause parameters
+         * @param {Object} data to be updated
+         * 
+         * TODO Test Me kira!
+         */
+        this.update = function(tx, name, params, data) {
+            var updatables = [];
+  
+            for ( var columnName in data) {
+                updatables.push(columnName + ' = ' + quote(data[columnName]));
+            }
+  
+            updatables = updatables.join(', ');
+  
+            var SQL = [];
+  
+            SQL.push('UPDATE');
+            SQL.push(name);
+            SQL.push('SET');
+            SQL.push(updatables);
+            SQL.push('WHERE');
+            SQL.push(where(name, params));
+  
             SQL = SQL.join(' ');
             tx.executeSql(SQL);
         };
@@ -399,14 +431,17 @@
 
         };
 
+        // TODO - Test for strings, numbers, booleans and nulls. Also add those
+        // tests to the persist method
         var quote = function(value) {
-            if (angular.isNumber(value)) {
+            if (angular.isNumber(value) || value instanceof Boolean || value === null) {
                 return value;
             } else {
                 return '\'' + value + '\'';
             }
         };
 
+        // TODO - remove name
         var where = function(name, params) {
             var where = [];
 

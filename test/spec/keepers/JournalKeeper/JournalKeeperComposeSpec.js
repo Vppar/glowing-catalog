@@ -13,6 +13,7 @@ describe('Service: JournalKeeperCompose', function() {
 
   // load the service's module
   beforeEach(function() {
+    module('tnt.util.log');
     module('tnt.catalog.journal');
 
     module(function($provide) {
@@ -234,7 +235,7 @@ describe('Service: JournalKeeperCompose', function() {
     }, 'Resync seems to have failed');
 
     runs(function() {
-      expect($log.error.logs[0][0]).toBe('Failed to replay: Replayer.replay failed');
+      expect($log.fatal.logs[0][0]).toBe('Failed to replay: Replayer.replay failed');
       expect(storage.persist).toHaveBeenCalled();
       expect(replayer.replay).toHaveBeenCalled();
     });

@@ -130,11 +130,6 @@
         }).otherwise({
             redirectTo : '/'
         });
-    }).config(function($provide) {
-        $provide.decorator('$log', function($delegate) {
-            $delegate.fatal = $delegate.log;
-            return $delegate;
-        });
     });
 }(angular));
 
