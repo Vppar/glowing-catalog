@@ -39,10 +39,10 @@
 						<span class="lbl-money">
 							<div class="controls">
 								<div class="control-group lbl-top">
-									<div class="controls w175">
+									<div class="controls w180">
 										Per&iacute;odo <input id="dtIni" type="text" placeholder=""
-											show-weeks="false" datepicker-popup="dd/MM/yy"
-											class="date-field input-small w70" required
+											show-weeks="false" datepicker-popup="dd/MM/yyyy"
+											class="date-field input-small w75" required
 											ng-model="dateFilter.dtInitial"><label for="dtIni"
 											class="ic-calendar hover-state-pointer"><img
 											src="images/icons/ic-calendar.png"></label>
@@ -52,10 +52,10 @@
 						</span> <span class="lbl-money order-list-periodo2">
 							<div class="controls">
 								<div class="control-group lbl-top">
-									<div class="controls">
+									<div class="controls ">
 										<input id="dtFinal" type="text" placeholder=""
-											show-weeks="false" datepicker-popup="dd/MM/yy"
-											class="date-field input-small w70" required
+											show-weeks="false" datepicker-popup="dd/MM/yyyy"
+											class="date-field input-small w75" required
 											ng-model="dateFilter.dtFinal"><label for="dtFinal"
 											class="ic-calendar hover-state-pointer"><img
 											src="images/icons/ic-calendar.png"></label>
@@ -244,7 +244,7 @@
 									<span>{{total.all.entityCount}}</span>
 								</div>
 								<div class="col-3">
-									<span>{{total.all.lastOrder | date:'dd/MM/yyyy'}}</span>
+									<span ng-show="total.all.lastOrder>0" >{{total.all.lastOrder | date:'dd/MM/yyyy'}}</span>
 								</div>
 								<div class="col-4">
 									<span>{{total.all.qty}}</span>
@@ -320,16 +320,16 @@
 									<span>Total</span>
 								</div>
 								<div class="col-2">
-									<span>3</span>
+									<span>{{total.all.productCount}}</span>
 								</div>
 								<div class="col-3">
-									<span>2</span>
+									<span>{{total.all.stock}}</span>
 								</div>
 								<div class="col-4">
-									<span>8</span>
+									<span>{{total.all.qty}}</span>
 								</div>
 								<div class="col-5 ">
-									<span>58,44</span>
+									<span>{{total.all.avgPrice| currency: ''}}</span>
 								</div>
 								<div class="col-6">
 									<span>{{total.all.amount | currency:''}}</span>
@@ -338,7 +338,7 @@
 						</div>
 						<div class="scroll-order-list">
 							<div class="row-order-list hover-state-pointer"
-								ng-repeat="product in products | orderBy:'-priceTotal' ">
+								ng-repeat="product in filteredProducts | orderBy:'-priceTotal' ">
 								<div class="col-1">
 									<span>{{$index + 1}}</span>
 								</div>
@@ -347,7 +347,7 @@
 									<div class="comment">{{product.uniqueName}}</div>
 								</div>
 								<div class="col-3">
-									<span></span>
+									<span>{{product.stock}}</span>
 								</div>
 								<div class="col-4">
 									<span>{{product.qty}}</span>

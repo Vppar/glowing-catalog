@@ -42,6 +42,8 @@
             all : {
                 orderCount : 0,
                 entityCount : 0,
+                productCount : 0,
+                stock : 0,
                 qty : 0,
                 avgPrice : 0,
                 amount : 0,

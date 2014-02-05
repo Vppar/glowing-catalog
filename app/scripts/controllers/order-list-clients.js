@@ -12,6 +12,7 @@
 
                 // $scope.filteredOrders come from OrderListCtrl
                 $scope.filteredOrders = angular.copy(orders);
+                $scope.filteredEntities = [];
 
                 for ( var ix in orders) {
                     var order = orders[ix];
@@ -25,8 +26,6 @@
                     order.avgPrice = (amountTotal) / (qtyTotal);
                     order.amountTotal = amountTotal;
                 }
-
-                $scope.filteredEntities = [];
 
                 function updateFilteredEntities() {
                     
@@ -141,7 +140,7 @@
                 $scope.$watchCollection('dateFilter', function() {
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
                     updateOrdersTotal();
-                    updatePaymentsTotal();
+                    updatePaymentsTotal(entities);
                     updateFilteredEntities();
                 });
 

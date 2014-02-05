@@ -327,17 +327,25 @@
 	        "items": [{
 	            "id": 1,
 	            "price": "85.23",
+	            "title": "Máscara para Cílios Lash Love - 8g",
+	            "uniqueName" : "10-042319 - Azul",
 	            "qty": 1
 	        }, {
 	            "id": 15,
+	            "title": "Kit Olhar Zen",
+	            "uniqueName" : "10-076864",
 	            "price": "25.23",
 	            "qty": 5
 	        }, {
 	            "id": 17,	            
+	            "title":"Trio de Sombras - 10g",
+	            "uniqueName":"10-060636 - Garden Sky",
 	            "price": "25.32",
 	            "qty": 4
 	        }, {
 	            "id": 19,
+	            "title":"Esmalte para as Unhas - 4g",
+	            "uniqueName":"10-060585 - Ginseng Blossom",
 	            "price": "323.23",
 	            "qty": 4
         	}]
@@ -381,18 +389,26 @@
 	        "canceled": false,
 	        "items": [{
 	            "id": 1,
+	            "title": "Máscara para Cílios Lash Love - 8g",
+	            "uniqueName" : "10-042319 - Azul",
 	            "price": "85.23",
 	            "qty": 1
 	        }, {
 	            "id": 15,
+	            "title": "Kit Olhar Zen",
+	            "uniqueName" : "10-076864",
 	            "price": "23.67",
 	            "qty": 5
 	        }, {
 	            "id": 17,
+	            "title":"Trio de Sombras - 10g",
+	            "uniqueName":"10-060636 - Garden Sky",
 	            "price": "212.23",
 	            "qty": 4
 	        }, {
 	            "id": 19,
+	            "title":"Esmalte para as Unhas - 4g",
+	            "uniqueName":"10-060585 - Ginseng Blossom",
 	            "price": "231.2",
 	            "qty": 4
         	}]
@@ -436,18 +452,26 @@
 	        "canceled": false,
 	        "items": [{
 	            "id": 1,
+	            "title": "Máscara para Cílios Lash Love - 8g",
+	            "uniqueName" : "10-042319 - Azul",
 	            "price": "85.23",
 	            "qty": 3
 	        }, {
 	            "id": 15,
+	            "title": "Kit Olhar Zen",
+	            "uniqueName" : "10-076864",
 	            "price": "23.67",
 	            "qty": 2
 	        }, {
 	            "id": 17,
+	            "title":"Trio de Sombras - 10g",
+	            "uniqueName":"10-060636 - Garden Sky",
 	            "price": "212.23",
 	            "qty": 7
 	        }, {
 	            "id": 19,
+	            "title":"Esmalte para as Unhas - 4g",
+	            "uniqueName":"10-060585 - Ginseng Blossom",
 	            "price": "21.2",
 	            "qty": 4
         	}]
