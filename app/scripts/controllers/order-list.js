@@ -86,11 +86,6 @@
             hideOptions = !hideOptions;
         };
         
-        $scope.enableHideOption = function() {
-            $scope.hideOptions = false;
-            hideOptions = false;
-        };
-        
         $scope.startHideOption = function() {
             $scope.hideOptions = hideOptions;
         };
