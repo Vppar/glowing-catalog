@@ -96,7 +96,7 @@
         /**
          * Marks a given entity as synced
          * 
-         * @param {Object} The entity to be updated
+         * @param {Object} entity The entity to be updated
          * @return {Promise} The transaction promise
          * 
          * TODO Test Me!
@@ -109,7 +109,7 @@
         /**
          * Remove the given entry
          * 
-         * @param {Object} The entity to be updated
+         * @param {Object} entity The entity to be updated
          * @return {Promise} The transaction promise
          * 
          * TODO Test Me!
@@ -126,11 +126,16 @@
          *  - The database has been compromised.
          *  
          * @return {Promise} The transaction promise
-         *  
-         * TODO Test Me!
          */
         this.nuke = function(){
-            return storage.nuke(entityName);
+            var promise = storage.nuke(entityName);
+
+            promise.then(null, function (err) {
+                $log.fatal('Failed to nuke journal entries: PersistentStorage.nuke failed');
+                $log.debug('Failed to nuke: PersistentStorage.nuke failed', err);
+            });
+
+            return promise;
         };
 
         /**
