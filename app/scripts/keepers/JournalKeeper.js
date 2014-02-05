@@ -113,13 +113,18 @@
         /**
          * Remove the given entry
          * 
-         * @param {Object} entity The entity to be updated
+         * @param {Object} entry The entry to be updated
          * @return {Promise} The transaction promise
          * 
-         * TODO Test Me!
          */
-        this.remove = function(entity) {
-            return storage.remove(entity);
+        this.remove = function(entry) {
+            var promise = storage.remove(entry);
+
+            promise.then(null, function (err) {
+                $log.error('Failed to remove journal entry', err);
+            });
+
+            return promise;
         };
         
 
