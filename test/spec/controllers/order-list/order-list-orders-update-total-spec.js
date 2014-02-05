@@ -1,4 +1,4 @@
-ddescribe('Controller: order-list-orders-update-total', function() {
+describe('Controller: order-list-orders-update-total', function() {
 
     var ArrayUtils = {};
     var ReceivableService = {};
