@@ -41,7 +41,7 @@ describe('Service: JournalKeeperReadUnsynced', function() {
 
   // Making sure all entries are unsynced should be done in
   // WebSQLDriver or PersistentStorage tests (not sure in which one).
-  it('gets unsynced entries from PersistentStorage', function () {
+  it('gets unsynced entries from persisted storage', function () {
     var success = false;
 
     runs(function() {

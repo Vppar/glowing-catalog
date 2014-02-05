@@ -41,7 +41,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
   }));
 
 
-  it('updates the entry with PersistentStorage', function () {
+  it('updates the entry in persistent storage', function () {
     var updated = false;
     var entry = new JournalEntry(1, null, null, null, null);
 
@@ -78,7 +78,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     });
   });
 
-  it('logs an error if PersistentStorage.update fails', function () {
+  it('logs an error if update fails', function () {
     var failed = true;
     var entry = new JournalEntry(1, null, null, null, null);
 

@@ -70,7 +70,7 @@ describe('Service: JournalKeeperNuke', function() {
   });
 
 
-  it('logs a fatal if PersistentStorage.nuke fails', function () {
+  it('logs a fatal if nuke fails', function () {
     var failed = false;
 
     runs(function() {
