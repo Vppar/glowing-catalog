@@ -9,11 +9,10 @@
         $scope.receivables = {};
 
         // Stores the list of payments to be displayed
-        $scope.receivables.list = [];
+        $scope.receivables.list = ReceivableService.list();
 
         // Stores the total of all listed payments
         $scope.receivables.total = 0;
-
         /**
          * Entities list to augment expenses.
          */

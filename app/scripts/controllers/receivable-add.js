@@ -15,16 +15,19 @@
                 // Scope variables
                 // #############################################################################################################
 
-                $scope.receivable = {};
-                $scope.receivable.created = new Date();
+                $scope.emptyReceivable = {
+                        created : new Date()
+                };
+                
+                $scope.receivable = angular.copy($scope.emptyReceivable);
                 $scope.installments = [];
+                $scope.installmentsCopy = [];
                 $scope.customers = EntityService.list();
                 $scope.installmentsExist = false;
-
+                $scope.receivables.list = ReceivableService.list();
+                
                 $scope.documents = TypeKeeper.list('document');
-                
-                $scope.documents = TypeKeeper.list('');
-                
+                $scope.classification = TypeKeeper.list('classification');
                 
                 /**
                  * Check if there's any installment to control the Confirm
@@ -41,11 +44,15 @@
                 /**
                  * Confirm the Receivables
                  */
-                $scope.createReceivable = function createReceivable() {
+                $scope.createReceivables = function createReceivables() {
                     for ( var i in $scope.installments) {
                         ReceivableService.register($scope.installments[i]);
                     }
+                    
+                    $scope.installmentsCopy.splice(0, $scope.installmentsCopy.length);
                     $scope.installments.splice(0, $scope.installments.length);
+                    $scope.receivables.list = ReceivableService.list();
+                    $scope.receivable = angular.copy($scope.emptyReceivable);
                 };
 
                 /**
@@ -68,15 +75,18 @@
                                 var copyDate = angular.copy($scope.receivable.duedate);
 
                                 mReceivable =
-                                        new Receivable(null, new Date(), $scope.customerId, installments[idx].amount, properDate(
-                                                copyDate, idx));
+                                        new Receivable(
+                                                null, new Date(), $scope.receivable.customerId, installments[idx].amount, properDate(
+                                                        copyDate, idx));
 
-                                mReceivable.document = $scope.receivable.document;
+                                mReceivable.documentId = $scope.receivable.documentId;
                                 mReceivable.type = $scope.receivable.type;
+                                mReceivable.document = $scope.receivable.documentNumber;
                                 mReceivable.remarks = $scope.receivable.remarks;
 
                                 $scope.installments.push(mReceivable);
                             }
+                            $scope.installmentsCopy = angular.copy($scope.installments);
                         };
 
                 // #############################################################################################################
@@ -91,7 +101,7 @@
                     if (baseDate.getDate() > date.getDate()) {
                         return date;
                     } else {
-                        return baseDate.setMonth(baseDate.getMonth() + increase);
+                        return baseDate.setMonth((parseInt(baseDate.getMonth(),10) + parseInt(increase,10)));
                     }
                 }
             });

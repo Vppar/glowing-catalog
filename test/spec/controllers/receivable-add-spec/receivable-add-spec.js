@@ -34,7 +34,7 @@ describe('Controller: ReceivableCtrlAdd', function() {
         
         var mReceivable = new Receivable(3, new Date().getTime(), 2, 23.5,new Date().getTime());
         // when
-        scope.createReceivable();
+        scope.createReceivables();
         // then
         expect(rService.register).toHaveBeenCalledWith(mReceivable);
     });
@@ -47,7 +47,7 @@ describe('Controller: ReceivableCtrlAdd', function() {
         scope.receivable.document = {};
         scope.createInstallments();
         // when
-        scope.createReceivable();
+        scope.createReceivables();
         // then
         expect(rService.register.callCount).toEqual(3);
     });

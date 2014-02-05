@@ -10,7 +10,12 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper'
     ]).service(
             'ReceivableService',
-            function ReceivableService($q, $log, ArrayUtils, Receivable, CoinKeeper) {
+            function ReceivableService($q, $log, ArrayUtils, Receivable, CoinKeeper, WebSQLDriver) {
+                
+                // FIXME Remove this as soon as the Persistent replay is properly working
+                WebSQLDriver.transaction(function(tx){
+                    WebSQLDriver.dropBucket(tx, 'JournalEntry');
+                });
 
                 var ReceivableKeeper = CoinKeeper('receivable');
 

@@ -6,7 +6,7 @@
         var service = function svc(uuid, created, entityId, amount, duedate) {
 
             var validProperties = [
-                'uuid', 'created', 'entityId', 'documentId', 'type', 'payment', 'amount', 'duedate', 'canceled', 'liquidated'
+                'uuid', 'created', 'entityId', 'documentId', 'type', 'payment', 'amount', 'duedate', 'canceled', 'liquidated', 'remarks', 'document'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -25,7 +25,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Coin must be initialized with uuid, created, entityId, type, amount, duedate';
+                    throw 'Coin must be initialized with uuid, created, entityId, amount, duedate';
                 }
             } else {
                 this.uuid = uuid;
