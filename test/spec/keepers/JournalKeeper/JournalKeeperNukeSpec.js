@@ -95,8 +95,6 @@ describe('Service: JournalKeeperNuke', function() {
     }, 'Resync seems to have failed');
 
     runs(function() {
-      expect(storage.nuke).toHaveBeenCalled();
-      expect(storage.nuke).toHaveBeenCalledWith('JournalEntry');
       expect($log.fatal.logs[0][0]).toBe('Failed to nuke journal entries: PersistentStorage.nuke failed');
     });
   });

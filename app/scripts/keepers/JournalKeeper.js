@@ -98,16 +98,23 @@
         };
         
         /**
-         * Marks a given entity as synced
+         * Marks a given entry as synced
          * 
-         * @param {Object} entity The entity to be updated
+         * @param {Object} entry The entry to be updated
          * @return {Promise} The transaction promise
-         * 
-         * TODO Test Me!
          */
-        this.markAsSynced = function(entity) {
-            entity.synced = true;
-            return storage.update(entity);
+        this.markAsSynced = function(entry) {
+            entry.synced = true;
+
+            var promise = storage.update(entry);
+
+            promise.then(null, function (err) {
+                // FIXME: should we revert entry.synced back to false in case
+                // of failures in the update?
+                $log.error('Failed to update journal entry', err);
+            });
+
+            return promise;
         };
 
         /**
