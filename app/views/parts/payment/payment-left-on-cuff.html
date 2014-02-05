@@ -30,7 +30,7 @@
 				<span class="span3">
 					<div class="control-group">
 						<label class="control-label text-center">1.Vencto</label>
-							<input id="vencto" class="date-field input-block-level payment-input-large text-center" type="text" ng-model="dueDate" min="dateMin" maxlength="8" datepicker-popup="dd/MM/yy" tnt-input show-weeks="false" />
+							<input id="vencto" class="date-field input-block-level payment-input-large text-center" type="text" ng-model="dueDate" min="dateMin" maxlength="8" datepicker-popup="dd/MM/yyyy" tnt-input readonly show-weeks="false" />
 					</div>
 				</span>	
 				<span class="span3 w160">
@@ -66,7 +66,7 @@
 								</span>
 								<span class="col-s2">
 									<div>
-										<input id="{{'dueDate' + $index}}" name="" class="item w138 text-center payment-input-large" ng-model="payment.dueDate"  maxlength="8" datepicker-popup="dd/MM/yy" tnt-input show-weeks="false"></input>
+										<input id="{{'dueDate' + $index}}" name="" class="item w138 text-center payment-input-large" ng-model="payment.dueDate"  maxlength="8" datepicker-popup="dd/MM/yyyy" readonly tnt-input show-weeks="false"></input>
 									</div>
 								</span>
 								<span class="col-s3">
