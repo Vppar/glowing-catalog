@@ -4,21 +4,26 @@
     angular.module('tnt.catalog.stock.service', []).service(
             'StockService', function StockService(ArrayUtils, InventoryKeeper, StockKeeper) {
 
-                var stockReport = function stockReport() {
-                    var inventory = InventoryKeeper.list();
+                var stockReport = function stockReport(type) {
+                    var inventory = InventoryKeeper.read();
                     var stock = StockKeeper.list();
                     var report = {};
 
                     for ( var ix in inventory) {
                         var inventoryItem = inventory[ix];
-                        var stockItem = ArrayUtils.find(stock, 'id', inventoryItem.id);
+
+                        var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
 
                         var reportItem = angular.copy(inventoryItem);
                         angular.extend(reportItem, stockItem);
 
+                        if (!reportItem.reserve || (type === 'productsToBuy' && reportItem.quantity >= reportItem.reserve)) {
+                            continue;
+                        }
+
                         var session = buildSession(report, reportItem);
                         var line = buildLine(session, reportItem);
-                        
+
                         line.items.push(reportItem);
                     }
 
@@ -26,29 +31,43 @@
                 };
 
                 var buildSession = function buildSession(report, reportItem) {
-                    var session = report[reportItem.session];
+                    var sessionLabel = reportItem.session;
+                    var session = report[sessionLabel];
                     if (!session) {
-                        session = reportItem.session;
-                        session.total.qty = 0;
-                        session.total.cost = 0;
+                        report[sessionLabel] = {
+                            label : sessionLabel,
+                            total : {
+                                qty : 0,
+                                amount : 0
+                            }
+                        };
+                        session = report[sessionLabel];
                     }
 
-                    session.total.qty += reportItem.qty;
-                    session.total.cost += reportItem.cost;
+                    session.total.qty += Number(reportItem.quantity);
+                    session.total.amount += Math.round(100 * (Number(reportItem.quantity) * Number(reportItem.cost))) / 100;
 
                     return session;
                 };
 
                 var buildLine = function buildLine(session, reportItem) {
-                    var line = session[reportItem.line];
+                    var lineLabel = reportItem.line;
+                    var line = session[lineLabel];
                     if (!line) {
-                        line = reportItem.line;
-                        line.total.qty = 0;
-                        line.total.cost = 0;
+                        session[lineLabel] = {
+                            label : lineLabel,
+                            total : {
+                                qty : 0,
+                                amount : 0
+                            },
+                            items : []
+                        };
+                        line = session[lineLabel];
                     }
 
-                    line.total.qty += reportItem.qty;
-                    line.total.cost += reportItem.cost;
+                    line.total.qty += Number(reportItem.quantity);
+                    line.total.amount += Math.round(100 * (Number(reportItem.quantity) * Number(reportItem.cost))) / 100;
+
                     return line;
                 };
 
