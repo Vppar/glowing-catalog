@@ -245,14 +245,14 @@
 }
 .step1 .section-header-products-to-buy{
 	margin: 0 !important;
-	background-color: #7F7F7F;
-	color: #fff;
+	background-color: #bbb;
+	color: #000;
 	border-radius: 4px;
 	border-bottom:0 !important;
 }
 .step1 .subtitle-header-products-to-buy{
 	margin: 0 !important;
-	background-color: #f2f2f2;
+	background-color: #dadada;
 	border-radius: 4px;
 	border-bottom:0 !important;
 	font-weight: bold;
@@ -519,3 +519,38 @@
 }
 
 /*-------------end grid step2------------*/
+
+/*------------- Confirmar pedido  ------- */
+.conf-order-panel {
+	width:60%;
+	border:1px solid #ddd;
+	border-radius:4px;
+	margin: 30px auto;
+}
+span.title-order-panel {
+	margin: 0 !important;
+	background-color: #333333;
+	color: #fff;
+	border-radius: 4px;
+	border-bottom:0 !important;
+	clear:both;
+	display:block;
+}
+.text-order-panel {
+	clear:both;
+	display:block;
+	padding:0 8px;
+}
+.text-order-panel span, .title-order-panel span{
+	display:inline-block;
+	padding:8px;
+}
+.conf-order-panel span .col-1 {
+	width:28%;
+}
+.conf-order-panel span .col-2 {
+	width:28%;
+}
+.conf-order-panel span .col-3 {
+	width:28%;
+}
