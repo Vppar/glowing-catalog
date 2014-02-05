@@ -348,6 +348,7 @@
                  * Saves the payments and closes the order.
                  */
                 function checkout(result, change) {
+                    console.log(OrderService.order);
                     if (!result) {
                         return $q.reject();
                     }
