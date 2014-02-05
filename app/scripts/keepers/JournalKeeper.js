@@ -86,11 +86,15 @@
          * Returns all unsynced entries in the database
          * 
          * @returns {Promise}
-         * 
-         * TODO Test Me!
          */
         this.readUnsynced = function() {
-            return storage.list(entityName, {synced: false});
+            var promise = storage.list(entityName, {synced: false});
+
+            promise.then(null, function (err) {
+                $log.debug('Failed to read unsynced:', err);
+            });
+
+            return promise;
         };
         
         /**
@@ -118,6 +122,7 @@
             return storage.remove(entity);
         };
         
+
         /**
          * Nukes the local storage - Use with extreme caution
          * 
