@@ -124,17 +124,9 @@
                     return result;
                 };
 
-                var findInStock = function findInStock(items) {
+                var findInStock = function findInStock(itemId) {
                     var copyList = angular.copy(StockKeeper.list());
-                    var result = [];
-                    if(items.length>1){
-                        for ( var ix in items) {
-                            result.push(ArrayUtils.find(copyList, 'inventoryId', items[ix].id));
-                        }
-                    }else{
-                        result = (ArrayUtils.find(copyList, 'inventoryId', items.id+1)); 
-                    }
-                    return result;
+                       return ArrayUtils.find(copyList, 'inventoryId', itemId); 
                 };
 
                 this.findInStock = findInStock;

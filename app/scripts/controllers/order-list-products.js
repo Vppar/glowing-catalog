@@ -4,7 +4,7 @@
         'tnt.catalog.order.service', 'tnt.utils.array'
     ]).controller(
             'OrderListProductsCtrl',
-            function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, ProductReturnService,
+            function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, StockService,ProductReturnService,
                     VoucherService) {
 
                 // $scope.entities come from OrderListCtrl
@@ -14,6 +14,14 @@
                 // $scope.filteredOrders come from OrderListCtrl
                 $scope.filteredOrders = angular.copy(orders);
                 $scope.filteredProducts = [];
+                
+                for(var i in $scope.filteredOrders ){
+                    var result = StockService.findInStock($scope.filteredOrders[i].items);
+                    for(var j in result){
+                        $scope.filteredOrders[i].items[j].stock = result[j].quantity;
+                    }
+                }
+                
 
                 for ( var ix in orders) {
                     var order = orders[ix];
@@ -58,8 +66,14 @@
                                 }
                                 productsMap[SKU].priceAvg =
                                         Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
-                                productsMap[SKU].stock = 0;
-
+                                
+                                var stockResponse = StockService.findInStock(item.id);
+                                if(stockResponse.quantity > 0){
+                                    productsMap[SKU].stock = stockResponse.quantity;
+                                }else{
+                                    productsMap[SKU].stock = 0;
+                                }
+                                
                             }
                         }
                     }

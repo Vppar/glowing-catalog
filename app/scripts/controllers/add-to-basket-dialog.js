@@ -13,8 +13,9 @@
                 // Find the product and make a copy to the local scope.
                 var product = ArrayUtils.find(DataProvider.products, 'id', dialog.data.id);
 
-                var productStock = StockService.findInStock(product);
-                if(productStock > 0){
+                var productStock = StockService.findInStock(product.id+1);
+
+                if(productStock.quantity > 0){
                     product.inventory = productStock.quantity;
                 }else{
                     product.inventory = 0;
@@ -22,11 +23,11 @@
                 
                 // find the grid
                 var grid = angular.copy(ArrayUtils.list(inventory, 'parent', dialog.data.id));
-                var gridStock = StockService.findInStock(grid);
 
-                for(var i in gridStock){
-                    if(gridStock[i].quantity > 0){
-                        grid[i].inventory = gridStock[i].quantity;
+                for(var i in grid){
+                var gridStock = StockService.findInStock(grid[i].id);
+                    if(gridStock.quantity > 0){
+                        grid[i].inventory = gridStock.quantity;
                     }else{
                         grid[i].inventory = 0;
                     }
