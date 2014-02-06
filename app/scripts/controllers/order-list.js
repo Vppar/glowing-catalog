@@ -85,7 +85,7 @@
             $scope.hideOptions = !hideOptions;
             hideOptions = !hideOptions;
         };
-
+        
         $scope.startHideOption = function() {
             $scope.hideOptions = hideOptions;
         };
