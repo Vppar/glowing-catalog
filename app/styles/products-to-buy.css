@@ -310,6 +310,18 @@
 	min-height:40px;
 	vertical-align:top;
 }
+.p-title {
+	display:inline-block;
+	width:73%;
+	float:left;
+}
+.p-points {
+	display:inline-block;
+	width:22%;
+	float:left;
+	padding: 0 0 0 5px;
+	color:#999;
+}
 .step1 .grid-payment-products-to-buy-edit .col-s2-list {
 	width: 60px;
 	text-align:right;
@@ -545,12 +557,107 @@ span.title-order-panel {
 	display:inline-block;
 	padding:8px;
 }
-.conf-order-panel span .col-1 {
+.conf-order-panel span .col-1, .conf-order-panel span .col-2, .conf-order-panel span .col-3 {
 	width:28%;
 }
-.conf-order-panel span .col-2 {
-	width:28%;
+
+
+.conf-nf-panel {
+	width:60%;
+	border:1px solid #ddd;
+	border-radius:4px;
+	margin: 30px auto;
 }
-.conf-order-panel span .col-3 {
-	width:28%;
+.conf-nf-panel span .col-1, .conf-nf-panel span .col-2 {
+	width:44%;
+}
+
+.input-nf-panel {
+	background-color:#C9C9C9;
+	width:80%;
+}
+.center-align {
+	width:60%;
+	margin:10px auto;
+	display:block;
+}
+.row-last-payments {
+	width:60%;
+	display:block;
+	margin:10px auto;
+}
+div.row-last-payments .col-1, div.row-last-payments .col-2, div.row-last-payments .col-3, div.row-last-payments .col-4 {
+	width:23%;
+	display:inline-block;
+	padding:2px;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s1 {
+	width: 10%;
+	text-align: left;
+	display: inline-block;
+	line-height: 30px;
+	padding-left:5px;
+	vertical-align:top;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s2 {
+	width: 10%;
+	text-align:center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s3 {
+	width: 10%;
+	text-align:center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s4{
+	width: 36%;
+	text-align:left;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s5 {
+	width: 7%;
+	text-align:center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s6 {
+	width: 6%;
+	text-align:center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s7{
+	width: 5%;
+	text-align:center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.step1 .grid-pending-products-to-buy-edit .col-s8 {
+	width: 9%;
+	text-align:center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.small-text {
+	font-size: 11px;
+	display: block;
+	width: 90%;
+	clear: both;
+	height: 20px;
+	vertical-align: top;
+	line-height: 10px;
+	color:#A0A0A0;
+}
+div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-grid2 {
+	max-height:310px !important;
 }
