@@ -109,7 +109,7 @@
                     deferred.resolve(dbDriver.update(tx, name, key, data));
                 }
                 
-                return promise;
+                return deferred.promise;
             };
 
             /**

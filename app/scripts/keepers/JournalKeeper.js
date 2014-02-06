@@ -126,7 +126,7 @@
          * @return {Promise} The transaction promise
          */
         this.markAsSynced = function(entry) {
-            entry.synced = true;
+            entry.synced = new Date().getTime();
 
             var promise = storage.update(entry);
 

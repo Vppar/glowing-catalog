@@ -55,13 +55,18 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
         return deferred.promise;
       });
 
+      // Make getTime() return a predictable value
+      var getTimeFn = Date.prototype.getTime;
+      spyOn(Date.prototype, 'getTime').andReturn(123);
+
       var promise = JournalKeeper.markAsSynced(entry);
+
+      // Restore getTime()
+      Date.prototype.getTime = getTimeFn;
 
       promise.then(function(entry) {
         // Make sure the synced attr is updated
-        // FIXME: once journal entries get a timestamp when they are
-        // synced, update this text to check for that timestamp
-        expect(entry.synced).toEqual(true);
+        expect(entry.synced).toBe(123);
 
         // Once the promise is resolved, we assume the update was
         // successful
