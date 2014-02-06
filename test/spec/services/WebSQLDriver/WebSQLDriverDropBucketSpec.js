@@ -45,17 +45,14 @@ describe('Service: WebSQLDriver.dropBucket', function() {
 
         runs(function() {
 
-            var data = {
-                a : 'a',
-                b : 'b'
-            };
             var metadata = {
-                metaVersion : 1
+                metaVersion : 1,
+                columns: ['a', 'b']
             };
 
             // create a bucket
             var txBody = function(tx) {
-                WebSQLDriver.createBucket(tx, name, data, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
             };
             //promise from the create
             var promise = WebSQLDriver.transaction(txBody);

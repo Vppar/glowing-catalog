@@ -8,24 +8,25 @@ describe('Service: WebSQLDriver.list', function() {
         b : 'b',
         c : 'c'
     };
+    
     var metadata = {
         key : 'a',
-        metaVersion : 1
+        metaVersion : 1,
+        columns: ['a', 'b', 'c']
     };
     
     var data1 = {
-            a : 'alpha1',
-            b : 'beta1',
-            c : 'comma1'
-        };
-        var data2 = {
-                a : 'alpha2',
-                b : 'beta2',
-                c : 'comma2'
-            };
+        a : 'alpha1',
+        b : 'beta1',
+        c : 'comma1'
+    };
     
+    var data2 = {
+        a : 'alpha2',
+        b : 'beta2',
+        c : 'comma2'
+    };
     
-	
     // load the service's module
     beforeEach(function() {
 
@@ -74,7 +75,7 @@ describe('Service: WebSQLDriver.list', function() {
             // tx to create a bucket
             var txBody = function(tx) {
             	WebSQLDriver.dropBucket(tx, name);
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
@@ -165,7 +166,7 @@ describe('Service: WebSQLDriver.list', function() {
             // tx to create a bucket
             var txBody = function(tx) {
             	WebSQLDriver.dropBucket(tx, name);
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
