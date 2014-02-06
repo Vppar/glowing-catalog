@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.receivable.ctrl', []).controller('ReceivableCtrl', function($scope, $filter, ReceivableService) {
+    angular.module('tnt.catalog.financial.receivable.ctrl', ['tnt.catalog.filters.uuidCode']).controller('ReceivableCtrl', function($scope, $filter, ReceivableService) {
 
 
         // An object where lists of receivables can be stored without

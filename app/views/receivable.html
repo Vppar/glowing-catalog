@@ -19,9 +19,9 @@
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm">
 								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='add'}" ng-click="selectedReceivableMode='add'">Adicionar</a>
-								<a class="btn btn-option">Editar</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='write'}" ng-click="selectedReceivableMode='write'">Editar</a>
 								<a class="btn btn-option">Baixa Pgto.</a>
-								<a class="btn btn-option active" ng-click="selectReceivableMode('search')">Pesquisar</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='search'}"  ng-click="selectReceivableMode('search')">Pesquisar</a>
 							</div>
 						</span>
 					</div>
