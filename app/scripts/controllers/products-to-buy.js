@@ -4,19 +4,19 @@
         'tnt.catalog.stock.service'
     ]).controller('ProductsToBuyCtrl', function($scope, $filter, StockService) {
 
-        var productsToBuy = StockService.stockReport('productsToBuy');
+        var productsToBuy = StockService.stockReport();
 
-        $scope.productsToBuy = productsToBuy;
-
-        for ( var session in productsToBuy) {
-            for ( var line in productsToBuy[session]) {
-                if (productsToBuy[session][line].items) {
-                    for ( var ix in productsToBuy[session][line].items) {
-                        var item = productsToBuy[session][line].items[ix];
-                        item.refMinQty = item.minQty === 0 ? '' : item.minQty;
-                    }
+        for ( var ix in productsToBuy.sessions) {
+            var session = productsToBuy.sessions[ix];
+            for ( var ix2 in session.lines) {
+                var line = session.lines[ix2];
+                for ( var ix3 in line.items) {
+                    var item = line.items[ix3];
+                    item.refMinQty = item.minQty === 0 ? '' : item.minQty;
                 }
             }
         }
+
+        $scope.productsToBuy = productsToBuy;
     });
 }(angular));

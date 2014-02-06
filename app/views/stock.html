@@ -18,24 +18,12 @@
 					<img class="ic-calendar hover-state-pointer calendar-stock" src="images/icons/ic-calendar.png"></label></span>
 				</span>
 				<span class="span6">
-					<!--<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-add.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-edit.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-open.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-search.png">
-					</div>-->
 					<div class="float-right">
 						<span class="menu-level">
-							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option">N&iacute;vel 1</a> 
-								<a class="btn btn-option">N&iacute;vel 2</a> 
-								<a class="btn btn-option active">N&iacute;vel 3</a> 
+							<div class="btn-group btn-group-sm" ng-init="selectedLevel='3'">
+								<a class="btn btn-option" ng-class="{active: selectedLevel=='1'}" ng-click="selectedLevel='1'">N&iacute;vel 1</a> 
+								<a class="btn btn-option" ng-class="{active: selectedLevel=='2'}" ng-click="selectedLevel='2'">N&iacute;vel 2</a> 
+								<a class="btn btn-option" ng-class="{active: selectedLevel=='3'}" ng-click="selectedLevel='3'">N&iacute;vel 3</a> 
 							</div>
 						</span>
 					</div>
@@ -43,45 +31,6 @@
 			</div>
 				
 		</div>	
-		
-		<!--<div class="row-fluid">
-			<div class="details-stock-item">						
-				<div class="col-details-stock-item">
-					<div class="row-details-stock-item">
-						<span class="item-total">
-							<span class="type title1">Estoque</span>
-							<span class="date title2">N&iacute;vel 1</span>
-							<span class="date title2">N&iacute;vel 2</span>
-							<span class="date title2">N&iacute;vel 3</span>
-						</span>
-						<span class="item-total">
-							<span class="type">Todos os produtos em estoque</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-						</span>
-						<span class="item-total">
-							<span class="type">Produtos dispon&iacute;veis para venda</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-						</span>
-						<span class="item-total">
-							<span class="type">Produtos reservados para entrega</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-						</span>
-						<span class="item-total">
-							<span class="type">Produtos emprestados para consultas</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-							<span class="date">04/01/14</span>
-						</span>
-					</div>
-				</div>
-			</div>
-		</div>-->
 		
 		<div class="row-fluid data">
 			<div class="details-stock-title margint0">
@@ -96,9 +45,9 @@
 						<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter" ng-model="filter.amount">
 						<span class="float-right margin-r-5">Total Geral</span>
 					</span> &nbsp; 
-					<span class="title-col-3">16</span> &nbsp; 
-					<span class="title-col-4 margin-l-4">45,63</span> &nbsp; 
-					<span class="title-col-5">730,00</span>
+					<span class="title-col-3">{{overallProducts.qty}}</span> &nbsp; 
+					<span class="title-col-4 margin-l-4">{{overallProducts.avgCost | currency:''}}</span> &nbsp; 
+					<span class="title-col-5">{{overallProducts.amount | currency:''}}</span>
 				</span>
 			</div>
 		</div>
@@ -107,273 +56,84 @@
 			<div class="row-fluid data">
 				<div class="details-stock-total margint0">
 					<span class="span12">
-						<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+						<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsAvailable.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsAvailable.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5">{{productsAvailable.total.amount | currency:''}}</span>
 					</span>
 				</div>
 			</div>
 			<div class="row-fluid data">
 				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Cuidados com a Pele<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
+					<span ng-repeat="session in productsAvailable.sessions">
+						<div class="details-stock-subtitle" ng-show="selectedLevel>=1">
+							<span class="span12">
+								<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{session.label}}<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">{{session.total.qty}}</span> &nbsp; <span class="title-col-4">{{session.total.avgCost |currency:''}}</span> &nbsp; <span class="title-col-5">{{session.total.amount | currency:''}}</span>
+							</span>
+						</div>
+						<span ng-repeat="line in session.lines " ng-show="selectedLevel>=2">
+							<div class="details-stock-category">
+								<span class="span12">
+									<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{line.label}}</span> &nbsp; <span class="title-col-3">{{line.total.qty}}</span> &nbsp; <span class="title-col-4">{{line.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{line.total.amount | currency:''}}</span>
+								</span>
+							</div>
+							<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
+								<div class="details-stock-item">
+									<span class="span12">
+										<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.quantity}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.quantity * product.price | currency:''}}</span>
+									</span>
+								</div>
+							</span>
 						</span>
-					</div>
-					<div class="details-stock-category">
+					</span>
+				</div>
+			</div>
+			<br/>
+			<div class="row-fluid data">
+				<div class="row-fluid data">
+					<div class="details-stock-total margint0">
 						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">TimeWise</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">3</span> &nbsp; <span class="title-col-4">40,00</span> &nbsp; <span class="title-col-5 btn-price-payment">120,00</span>
+							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS RESERVADOS PARA ENTREGA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsReserved.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsReserved.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5">{{productsReserved.total.amount | currency:''}}</span>
 						</span>
 					</div>
 				</div>
-			</div>
-			<div class="row-fluid data">
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Maquiagem<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Olhos</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid data">
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Spa e Frag&acirc;ncias<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Frag&acirc;ncia Feminina</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
+				<div class="row-fluid data">
+					<div class="details-stock border">
+						<span ng-repeat="session in productsReserved.sessions" ng-show="selectedLevel>=1">
+							<div class="details-stock-subtitle">
+								<span class="span12">
+									<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{session.label}}<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">{{session.total.qty}}</span> &nbsp; <span class="title-col-4">{{session.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5">{{session.total.amount | currency:''}}</span>
+								</span>
+							</div>
+							<span ng-repeat="line in session.lines" ng-show="selectedLevel>=2">
+								<div class="details-stock-category">
+									<span class="span12">
+										<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{line.label}}</span> &nbsp; <span class="title-col-3">{{line.total.qty}}</span> &nbsp; <span class="title-col-4">{{line.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{line.total.amount | currency:''}}</span>
+									</span>
+								</div>
+								<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
+									<div class="details-stock-item">
+										<span class="span12">
+											<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.quantity}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.quantity * product.price | currency:''}}</span>
+										</span>
+									</div>
+								</span>
+							</span>
 						</span>
 					</div>
 				</div>
 			</div>
 			<br/>
-		
-		
-		
-		
 			<div class="row-fluid data">
 				<div class="row-fluid data">
 					<div class="details-stock-total margint0">
 						<span class="span12">
-							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS RESERVADOS PARA ENTREGA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">7</span> &nbsp; <span class="title-col-4">45,71</span> &nbsp; <span class="title-col-5">320,00</span>
-						</span>
-					</div>
-				</div>
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Cuidados com a Pele<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">TimeWise</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">3</span> &nbsp; <span class="title-col-4">40,00</span> &nbsp; <span class="title-col-5 btn-price-payment">120,00</span>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid data">
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Maquiagem<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Olhos</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid data">
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Spa e Frag&acirc;ncias<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Frag&acirc;ncia Feminina</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
-						</span>
-					</div>
-				</div>
-			</div>
-			<br/>
-		
-		
-		
-		
-			<div class="row-fluid data">
-				<div class="row-fluid data">
-					<div class="details-stock-total margint0">
-						<span class="span12">
-							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">7</span> &nbsp; <span class="title-col-4">45,71</span> &nbsp; <span class="title-col-5">320,00</span>
-						</span>
-					</div>
-				</div>
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Cuidados com a Pele<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">TimeWise</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">3</span> &nbsp; <span class="title-col-4">40,00</span> &nbsp; <span class="title-col-5 btn-price-payment">120,00</span>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid data">
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Maquiagem<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Olhos</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
-						</span>
-					</div>
-				</div>
-			</div>
-			<div class="row-fluid data">
-				<div class="details-stock border">
-					<div class="details-stock-subtitle">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Spa e Frag&acirc;ncias<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-category">
-						<span class="span12">
-							<span class="title-col-1"></span> &nbsp; <span class="title-col-2">Frag&acirc;ncia Feminina</span> &nbsp; <span class="title-col-3">9</span> &nbsp; <span class="title-col-4">45,56</span> &nbsp; <span class="title-col-5 btn-price-payment">410,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">4</span> &nbsp; <span class="title-col-4">50,00</span> &nbsp; <span class="title-col-5 btn-price-payment">200,00</span>
-						</span>
-					</div>
-					<div class="details-stock-item">
-						<span class="span12">
-							<span class="title-col-1">10042114</span> &nbsp; <span class="title-col-2">Black Diamonds Desodorante Col&ocirc;nia - 60 ml</span> &nbsp; <span class="title-col-3">2</span> &nbsp; <span class="title-col-4">45,00</span> &nbsp; <span class="title-col-5 btn-price-payment">90,00</span>
+							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">0</span> &nbsp; <span class="title-col-4">0,00</span> &nbsp; <span class="title-col-5">0,00</span>
 						</span>
 					</div>
 				</div>
 			</div>
 		</div>
 		<br/>
-	
 	</div>
 	<br/>
-		
-		
 	</div>
 	<br/>
-	
 </div>
