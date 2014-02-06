@@ -11,7 +11,7 @@
                     };
                     return $delegate;
                 });
-        }).factory('PersistentStorage', function PersistentStorage($log, $q, $location) {
+        }).factory('PersistentStorage', function PersistentStorage($log, $q) {
 
         var service = function(driver) {
             var entities = {};
