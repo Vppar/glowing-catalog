@@ -124,6 +124,20 @@
                     return result;
                 };
 
+                var findInStock = function findInStock(items) {
+                    var copyList = angular.copy(StockKeeper.list());
+                    var result = [];
+                    if(items.length>1){
+                        for ( var ix in items) {
+                            result.push(ArrayUtils.find(copyList, 'inventoryId', items[ix].id));
+                        }
+                    }else{
+                        result = (ArrayUtils.find(copyList, 'inventoryId', items.id+1)); 
+                    }
+                    return result;
+                };
+
+                this.findInStock = findInStock;
                 this.buildLine = buildLine;
                 this.buildSession = buildSession;
                 this.stockReport = stockReport;
