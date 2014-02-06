@@ -40,7 +40,7 @@ describe('Service: StockKeeperAddScenario', function() {
 
         waitsFor(function() {
             return StockKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long', 500);
 
         runs(function() {
             //then

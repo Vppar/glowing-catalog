@@ -53,7 +53,7 @@ describe('StockKeeperUnreserveSpec', function() {
         
         StockKeeper.unreserve(23, 3);
         
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
         ev.quantity = null;
         ev.cost = null;
         ev.reserve = 3;
