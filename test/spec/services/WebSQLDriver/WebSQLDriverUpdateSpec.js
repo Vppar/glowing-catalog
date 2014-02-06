@@ -21,7 +21,8 @@ describe('Service: WebSQLDriver.update', function() {
 
     var metadata = {
         key : 'a',
-        metaVersion : 1
+        metaVersion : 1,
+        columns : ['a', 'b', 'c']
     };
 
     var log = {};
@@ -67,7 +68,7 @@ describe('Service: WebSQLDriver.update', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
@@ -180,7 +181,7 @@ describe('Service: WebSQLDriver.update', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
@@ -308,7 +309,7 @@ describe('Service: WebSQLDriver.update', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
@@ -390,7 +391,7 @@ describe('Service: WebSQLDriver.update', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
@@ -479,7 +480,7 @@ describe('Service: WebSQLDriver.update', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);

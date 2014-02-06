@@ -59,7 +59,7 @@
                 if (initialized.indexOf(name) === -1) {
 
                     promise = dbDriver.transaction(function(tx) {
-                        dbDriver.createBucket(tx, name, data, metadata);
+                        dbDriver.createBucket(tx, name, metadata);
                         dbDriver.persist(tx, name, data);
                     });
                     
