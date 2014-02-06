@@ -152,7 +152,8 @@
             var entry = ArrayUtils.find(stock, 'inventoryId', event.inventoryId);
             
             if (entry === null) {
-                throw 'Entity not found, cosistency must be broken! Replay?';
+                entry = new Stock(event.inventoryId, 0, 0);
+                stock.push(event);
             }
             entry.reserve += event.reserve;
             return entry.reserve;
@@ -255,14 +256,14 @@
         this.reserve = function(inventoryId, reserve) {
             
             var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
-            if (entry === null) {
-                return $q.reject( 'No stockable found with this inventoryId: '+ inventoryId );
-            }
             
+            if (entry === null) {
+                this.add(new Stock(inventoryId, 0, 0));
+            }
+
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;
-            
-            var stamp = (new Date()).getTime() / 1000;
+            var stamp = (new Date()).getTime();
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'stockReserve', currentEventVersion, event);
 

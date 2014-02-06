@@ -26,10 +26,12 @@ describe('StockKeeperReserveSpec', function() {
     var StockKeeper = undefined;
     var Stock = undefined;
     var JournalEntry = undefined;
-    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_) {
+    var ArrayUtils = undefined;
+    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_, _ArrayUtils_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         JournalEntry = _JournalEntry_;
+        ArrayUtils = _ArrayUtils_;
     }));
     
     /**
@@ -53,7 +55,7 @@ describe('StockKeeperReserveSpec', function() {
         
         StockKeeper.reserve(23, 3);
         
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
         ev.quantity = null;
         ev.cost = null;
         ev.reserve = 3;
@@ -109,6 +111,24 @@ describe('StockKeeperReserveSpec', function() {
         expect(StockKeeper.list().length).toEqual(1);
         expect(StockKeeper.list()[0].reserve).toEqual(finalReserve);
 
+    });
+    
+    /**
+     * <pre>
+     * @spec StockKeeper.reserve#4
+     * Given a invalid stock instance
+     * when stockReserveV1 is triggered
+     * then stock must be create
+     * </pre>
+     */
+    it('handler reserve of nonexistent stock', function() {
+        var ev1 = new Stock(1, 1, 1);
+        
+        ev1.reserve = 5;
+        spyOn(ArrayUtils, 'find').andReturn(null);
+        var reserve = StockKeeper.handlers.stockReserveV1(ev1);
+        expect(reserve).toEqual(5);
+        
     });
 
 });
