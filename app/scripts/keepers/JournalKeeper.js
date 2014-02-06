@@ -49,7 +49,7 @@
                 this.type = type;
                 this.version = version;
                 this.event = event;
-                this.synced = false;
+                this.synced = 0;
             }
         };
 
@@ -92,6 +92,7 @@
                         deferred.resolve(Replayer.replay(journalEntry));
                     } catch (e){
                         $log.fatal('Failed to replay: Replayer.replay failed');
+                        $log.debug('Failed to replay', e, journalEntry);
                         deferred.reject(e);
                     }
                 }, function(error){

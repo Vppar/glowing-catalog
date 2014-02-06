@@ -45,7 +45,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     var updated = false;
     var entry = new JournalEntry(1, null, null, null, null);
 
-    expect(entry.synced).toBe(false);
+    expect(entry.synced).toBe(0);
 
 
     runs(function() {
@@ -59,7 +59,9 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
 
       promise.then(function(entry) {
         // Make sure the synced attr is updated
-        expect(entry.synced).toBe(true);
+        // FIXME: once journal entries get a timestamp when they are
+        // synced, update this text to check for that timestamp
+        expect(entry.synced).toEqual(true);
 
         // Once the promise is resolved, we assume the update was
         // successful
@@ -82,7 +84,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     var failed = true;
     var entry = new JournalEntry(1, null, null, null, null);
 
-    expect(entry.synced).toBe(false);
+    expect(entry.synced).toBe(0);
 
     runs(function() {
       storage.update.andCallFake(function() {
