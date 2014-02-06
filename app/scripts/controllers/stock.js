@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.stock.ctrl', [
         'tnt.catalog.stock.service'
-    ]).controller('StockCtrl', function($scope, StockService) {
+    ]).controller('StockCtrl', function($scope, $filter, StockService) {
 
         var fullReservedListBkp = StockService.stockReport('reserved');
         var fullAvailableListBkp = StockService.stockReport('available');
@@ -25,13 +25,8 @@
             };
         }
 
-        var dtInitial = new Date();
-        dtInitial.setHours(0);
-        dtInitial.setMinutes(0);
-        dtInitial.setSeconds(0);
-
         $scope.productFilter = {
-            dtInitial : dtInitial,
+            dtInitial : $filter('date')(new Date().getTime()),
             text : ''
         };
 
@@ -39,17 +34,14 @@
             var myTextFilter = $scope.productFilter.text;
             if (String(myTextFilter).length > 3) {
                 var objFilter = {
-                    title : myTextFilter
+                    title : myTextFilter,
+                    SKU : myTextFilter
                 };
                 buildList(objFilter);
             } else {
                 $scope.productsReserved = fullReservedListBkp;
                 $scope.productsAvailable = fullAvailableListBkp;
             }
-
-            $scope.productFilter.dtInitial.setHours(0);
-            $scope.productFilter.dtInitial.setMinutes(0);
-            $scope.productFilter.dtInitial.setSeconds(0);
         });
     });
 }(angular));
