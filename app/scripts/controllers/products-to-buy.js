@@ -4,8 +4,6 @@
         'tnt.catalog.stock.service'
     ]).controller('ProductsToBuyCtrl', function($scope, $filter, StockService) {
 
-        $scope.productQty = {};
-
         var productsToBuy = StockService.stockReport('productsToBuy');
 
         $scope.productsToBuy = productsToBuy;
@@ -15,7 +13,7 @@
                 if (productsToBuy[session][line].items) {
                     for ( var ix in productsToBuy[session][line].items) {
                         var item = productsToBuy[session][line].items[ix];
-                        $scope.productQty[item.id] = item.minQty;
+                        item.refMinQty = item.minQty === 0 ? '' : item.minQty;
                     }
                 }
             }

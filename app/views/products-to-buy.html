@@ -111,11 +111,11 @@
 												<div>{{product.cost | currency: ''}}</div>
 											</span>
 											<span class="col-s4-list">
-												<div>{{product.minQty}}</div>
+												<div>{{product.refMinQty}}</div>
 											</span>
 											<span class="col-s5-list">
 												<div>
-													<input-qty ng-model="productQty[product.id]" min="0"></input-qty>
+													<input-qty ng-model="product.minQty" min="0"></input-qty>
 												</div>
 											</span>
 										</div>
