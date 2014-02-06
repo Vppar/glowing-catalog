@@ -2,67 +2,75 @@
     'use strict';
 
     angular.module('tnt.catalog.stock.service', []).service(
-            'StockService', function StockService(ArrayUtils, InventoryKeeper, StockKeeper) {
+            'StockService',
+            function StockService($log, ArrayUtils, InventoryKeeper, StockKeeper) {
 
-                var stockReport = function stockReport(type) {
-                    var inventory = InventoryKeeper.read();
-                    var stock = StockKeeper.list();
-                    var report = {
-                        total : {
-                            amount : 0,
-                            qty : 0,
-                            avgCost : 0
-                        },
-                        sessions : {}
-                    };
+                var stockReport =
+                        function stockReport(type) {
+                            var processStarted = new Date().getTime();
 
-                    for ( var ix in inventory) {
-                        var inventoryItem = inventory[ix];
+                            var inventory = InventoryKeeper.read();
+                            var stock = StockKeeper.list();
+                            var report = {
+                                total : {
+                                    amount : 0,
+                                    qty : 0,
+                                    avgCost : 0
+                                },
+                                sessions : {}
+                            };
 
-                        var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
+                            for ( var ix in inventory) {
+                                var inventoryItem = inventory[ix];
 
-                        var reportItem = angular.copy(inventoryItem);
-                        angular.extend(reportItem, angular.copy(stockItem));
+                                var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
 
-                        if (reportItem.reserve && reportItem.reserve > reportItem.quantity) {
-                            reportItem.minQty = reportItem.reserve - reportItem.quantity;
-                        } else {
-                            reportItem.minQty = 0;
-                        }
+                                var reportItem = angular.copy(inventoryItem);
+                                angular.extend(reportItem, angular.copy(stockItem));
 
-                        if (shouldSkip(type, reportItem)) {
-                            continue;
-                        }
+                                reportItem.reserve = reportItem.reserve ? reportItem.reserve : 0;
 
-                        var session = buildSession(report, reportItem);
-                        var line = buildLine(session, reportItem);
+                                if (shouldSkip(type, reportItem)) {
+                                    continue;
+                                }
 
-                        report.total.amount += currencyMultiply(reportItem.quantity, reportItem.cost);
-                        report.total.qty += reportItem.quantity;
+                                var session = buildSession(type, report, reportItem);
+                                var line = buildLine(type, session, reportItem);
 
-                        line.items.push(reportItem);
-                    }
-                    report.total.avgCost = currencyDivide(report.total.amount, report.total.qty);
+                                report.total.qty += reportItem.qty;
+                                report.total.amount += currencyMultiply(reportItem.cost, reportItem.qty);
 
-                    return report;
-                };
+                                line.items.push(reportItem);
+                            }
+                            report.total.avgCost = currencyDivide(report.total.amount, report.total.qty);
+
+                            var processDone = new Date().getTime();
+
+                            $log.debug('StockService.stockReport(' + (type ? type : '') + '): -It took ' + (processDone - processStarted) +
+                                'ms to create the stockReport.');
+
+                            return report;
+                        };
 
                 var shouldSkip = function shouldSkip(type, reportItem) {
                     var result = true;
 
                     if (type === 'available') {
-                        var reserve = reportItem.reserve ? reportItem.reserve : 0;
-                        result = result & ((reportItem.quantity - reserve) <= 0);
+                        reportItem.qty = reportItem.quantity - reportItem.reserve;
+                        result = result & (reportItem.qty <= 0);
                     } else if (type === 'reserved') {
-                        result = result & reportItem.reserve ? false : true;
-                    } else {
+                        reportItem.qty = reportItem.reserve;
+                        result = result & (reportItem.qty === 0);
+                    } else if (type === 'all') {
+                        var minQty = reportItem.reserve - reportItem.quantity;
+                        reportItem.minQty = minQty > 0 ? minQty : 0;
                         result = false;
                     }
 
                     return result;
                 };
 
-                var buildSession = function buildSession(report, reportItem) {
+                var buildSession = function buildSession(type, report, reportItem) {
                     var sessionLabel = reportItem.session;
                     var session = report.sessions[sessionLabel];
                     if (!session) {
@@ -77,14 +85,13 @@
                         };
                         session = report.sessions[sessionLabel];
                     }
-
-                    session.total.qty += Number(reportItem.quantity);
-                    session.total.amount += currencyMultiply(reportItem.quantity, reportItem.cost);
+                    session.total.qty += reportItem.qty;
+                    session.total.amount += currencyMultiply(reportItem.cost, reportItem.qty);
                     session.total.avgCost = currencyDivide(session.total.amount, session.total.qty);
                     return session;
                 };
 
-                var buildLine = function buildLine(session, reportItem) {
+                var buildLine = function buildLine(type, session, reportItem) {
                     var lineLabel = reportItem.line;
                     var line = session.lines[lineLabel];
                     if (!line) {
@@ -99,17 +106,17 @@
                         };
                         line = session.lines[lineLabel];
                     }
-
-                    line.total.qty += Number(reportItem.quantity);
-                    line.total.amount += currencyMultiply(reportItem.quantity, reportItem.cost);
-                    line.total.avgCost += currencyDivide(line.total.amount, line.total.qty);
+                    line.total.qty += reportItem.qty;
+                    line.total.amount += currencyMultiply(reportItem.cost, reportItem.qty);
+                    line.total.avgCost = currencyDivide(line.total.amount, line.total.qty);
                     return line;
                 };
 
                 var currencyMultiply = function currencyMultiply(value1, value2) {
                     return Math.round(100 * (Number(value1) * Number(value2))) / 100;
                 };
-                var currencyDivide = function currencyMultiply(value1, value2) {
+
+                var currencyDivide = function currencyDivide(value1, value2) {
                     var result = 0;
                     if (value2 !== 0) {
                         result = Math.round(100 * (Number(value1) / Number(value2))) / 100;

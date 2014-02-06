@@ -4,7 +4,7 @@
         'tnt.catalog.stock.service'
     ]).controller('ProductsToBuyCtrl', function($scope, $filter, StockService) {
 
-        var productsToBuy = StockService.stockReport();
+        var productsToBuy = StockService.stockReport('all');
 
         for ( var ix in productsToBuy.sessions) {
             var session = productsToBuy.sessions[ix];
