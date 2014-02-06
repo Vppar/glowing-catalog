@@ -155,6 +155,7 @@
                 entry = new Stock(event.inventoryId, 0, 0);
                 stock.push(event);
             }
+            entry.reserve = entry.reserve ? entry.reserve: 0;
             entry.reserve += event.reserve;
             return entry.reserve;
         });
@@ -203,7 +204,7 @@
                 return $q.reject( "Wrong instance of Stock" );
             }
 
-            var stamp = (new Date()).getTime() / 1000;
+            var stamp = (new Date()).getTime();
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'stockAdd', currentEventVersion, stock);
 
@@ -242,7 +243,7 @@
             }
             
             var event = new Stock(inventoryId, quantity, null);
-            var stamp = (new Date()).getTime() / 1000;
+            var stamp = (new Date()).getTime();
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'stockRemove', currentEventVersion, event);
 
@@ -259,6 +260,7 @@
 
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;
+            
             var stamp = (new Date()).getTime();
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'stockReserve', currentEventVersion, event);
@@ -280,7 +282,7 @@
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;
             
-            var stamp = (new Date()).getTime() / 1000;
+            var stamp = (new Date()).getTime();
             // create a new journal entry
             var entry = new JournalEntry(null, stamp, 'stockUnreserve', currentEventVersion, event);
 
