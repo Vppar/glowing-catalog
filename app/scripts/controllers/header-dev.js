@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.headerDev', []).controller('DevelopmentHeaderCtrl', function($scope, DataProvider) {
+    angular.module('tnt.catalog.headerDev', []).controller('DevelopmentHeaderCtrl', function($log, $scope, DataProvider, JournalKeeper) {
         // ###################################
         // Development functions
         // ###################################
@@ -28,6 +28,11 @@
          */
         $scope.toggleInternetConnectivity = function () {
           envFlags.internet = !envFlags.internet;
+        };
+
+        $scope.nukeData = function () {
+            JournalKeeper.nuke();
+            $log.debug('All persisted data has been nuked! Everything will be gone on next reload!');
         };
     });
 })(angular);
