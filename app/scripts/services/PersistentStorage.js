@@ -227,6 +227,8 @@
                     dbDriver.dropBucket(tx, name);
                 });
             };
+            // TODO - Remove this line on 0.9.10 version
+            var nuke = this.nuke; 
 
             /**
              * Returns the constructor function friendly name
@@ -279,7 +281,14 @@
                 // TODO - handle read only properties
                 for ( var propertyName in entity) {
                     if(serializable.indexOf(propertyName) !== -1){
-                        entity[propertyName] = JSON.parse(entity[propertyName]);
+                        if (entity[propertyName] === '[object Object]') {
+                            $log.fatal('PersistentStorage.inject: Trying unserialize ancient data.');
+                            nuke('JournalEntry').then(function(){
+                                location.reload(true);
+                            });
+                        } else {
+                            entity[propertyName] = JSON.parse(entity[propertyName]);
+                        }
                     }
                 }
                 
