@@ -256,10 +256,6 @@
         this.reserve = function(inventoryId, reserve) {
             
             var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
-            
-            if (entry === null) {
-                this.add(new Stock(inventoryId, 0, 0));
-            }
 
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;

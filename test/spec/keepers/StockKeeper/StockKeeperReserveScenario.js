@@ -66,7 +66,7 @@ describe('StockeeperReserveScenario', function() {
      */
     it('should reserve', function() {
         var result = null;
-        var ev = new Stock(110, 34, 50);
+        var ev = new Stock(110, 24, 50);
         runs(function() {
             //then
             StockKeeper.handlers.stockAddV1(ev);
