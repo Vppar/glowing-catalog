@@ -10,7 +10,8 @@ describe('Service: WebSQLDriver.persist', function() {
     };
     var metadata = {
         key : 'a',
-        metaVersion : 1
+        metaVersion : 1,
+        columns: ['a', 'b', 'c']
     };
 
     // load the service's module
@@ -64,7 +65,7 @@ describe('Service: WebSQLDriver.persist', function() {
         runs(function() {
             // tx to create a bucket
             var txBody = function(tx) {
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
@@ -133,7 +134,7 @@ describe('Service: WebSQLDriver.persist', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, name);
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
 
             };
             // promise from the create
@@ -218,7 +219,7 @@ describe('Service: WebSQLDriver.persist', function() {
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, name);
 
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
 
             };
             // promise from the create
@@ -285,7 +286,7 @@ describe('Service: WebSQLDriver.persist', function() {
         runs(function() {
             // tx to create a bucket
             var txBody = function(tx) {
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
             };
             // promise from the create
             var promise = WebSQLDriver.transaction(txBody);
@@ -350,7 +351,7 @@ describe('Service: WebSQLDriver.persist', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, name);
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
 
             };
             // promise from the create
@@ -413,7 +414,7 @@ describe('Service: WebSQLDriver.persist', function() {
             // tx to create a bucket
             var txBody = function(tx) {
                 WebSQLDriver.dropBucket(tx, name);
-                WebSQLDriver.createBucket(tx, name, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
 
             };
             // promise from the create

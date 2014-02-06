@@ -91,7 +91,7 @@
          * @param data
          * @param metadata
          */
-        this.createBucket = function(tx, name, data, metadata) {
+        this.createBucket = function(tx, name, metadata) {
             if (metadata.metaVersion === 1) {
 
                 // FIXME trade Primary Key for Primary Index or ID
@@ -103,7 +103,9 @@
 
                 var columns = [];
 
-                for ( var columnName in data) {
+                for ( var ix in metadata.columns) {
+                  
+                    var columnName = metadata.columns[ix];
 
                     if (pk && pk === columnName) {
                         columns.push(columnName + ' PRIMARY KEY NOT NULL');

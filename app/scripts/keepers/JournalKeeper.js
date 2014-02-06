@@ -17,19 +17,19 @@
             // indexed columns
             ix : [],
             // colums that must be serialized/unserialized
-            serializable: ['event']
+            serializable: ['event'],
+            // valid properties for this object
+            columns: [ 'sequence', 'stamp', 'type', 'version', 'event', 'synced' ]
         };
 
         var service = function svc(sequence, stamp, type, version, event) {
           
-            var validProperties = [ 'sequence', 'stamp', 'type', 'version', 'event', 'synced' ];
-
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
                     var prop = this[ix];
     
                     if (!angular.isFunction(prop)) {
-                        if (validProperties.indexOf(ix) === -1) {
+                        if (metadata.columns.indexOf(ix) === -1) {
                             throw "Unexpected property " + ix;
                         }
                     }
