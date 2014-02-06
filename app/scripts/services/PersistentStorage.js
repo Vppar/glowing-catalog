@@ -1,7 +1,17 @@
 (function(angular, ObjectUtils) {
     'use strict';
 
-    angular.module('tnt.catalog.storage.persistent', ['tnt.storage.websql']).factory('PersistentStorage', function PersistentStorage($log, $q) {
+    angular.module('tnt.catalog.storage.persistent', ['tnt.storage.websql'])
+    .config(function($provide) {
+                $provide.decorator('$q', function($delegate) {
+                    $delegate.reject = function(reason){
+                        var deferred = $delegate.defer();
+                        deferred.reject(reason);
+                        return deferred.promise;
+                    };
+                    return $delegate;
+                });
+        }).factory('PersistentStorage', function PersistentStorage($log, $q) {
 
         var service = function(driver) {
             var entities = {};
@@ -109,7 +119,7 @@
                     deferred.resolve(dbDriver.update(tx, name, key, data));
                 }
                 
-                return promise;
+                return deferred.promise;
             };
 
             /**
@@ -227,7 +237,7 @@
                         return name;
                     }
                 }
-                throw "Unknown entity!";
+                throw 'Unknown entity!';
             };
 
             /**
