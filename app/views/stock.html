@@ -42,7 +42,7 @@
 				<span class="span12">
 					<span class="title-col-1">&nbsp;</span> &nbsp; 
 					<span class="title-col-2">
-						<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter" ng-model="filter.amount">
+						<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter" ng-model="productFilter.text">
 						<span class="float-right margin-r-5">Total Geral</span>
 					</span> &nbsp;
 					<span class="title-col-3">{{overallProducts.qty}}</span> &nbsp; 
@@ -63,18 +63,18 @@
 			<div class="row-fluid data">
 				<div class="details-stock border">
 					<span ng-repeat="session in productsAvailable.sessions">
-						<div class="details-stock-subtitle" ng-show="selectedLevel>=1">
+						<div class="details-stock-subtitle" ng-show="selectedLevel>1">
 							<span class="span12">
 								<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{session.label}}<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">{{session.total.qty}}</span> &nbsp; <span class="title-col-4">{{session.total.avgCost |currency:''}}</span> &nbsp; <span class="title-col-5">{{session.total.amount | currency:''}}</span>
 							</span>
 						</div>
-						<span ng-repeat="line in session.lines " ng-show="selectedLevel>=2">
+						<span ng-repeat="line in session.lines " ng-show="selectedLevel>2">
 							<div class="details-stock-category">
 								<span class="span12">
 									<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{line.label}}</span> &nbsp; <span class="title-col-3">{{line.total.qty}}</span> &nbsp; <span class="title-col-4">{{line.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{line.total.amount | currency:''}}</span>
 								</span>
 							</div>
-							<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
+							<span  ng-repeat="product in line.items" ng-show="selectedLevel>2">
 								<div class="details-stock-item">
 									<span class="span12">
 										<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.qty}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.qty * product.price | currency:''}}</span>
@@ -96,19 +96,19 @@
 				</div>
 				<div class="row-fluid data">
 					<div class="details-stock border">
-						<span ng-repeat="session in productsReserved.sessions" ng-show="selectedLevel>=1">
+						<span ng-repeat="session in productsReserved.sessions" ng-show="selectedLevel>1">
 							<div class="details-stock-subtitle">
 								<span class="span12">
 									<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{session.label}}<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">{{session.total.qty}}</span> &nbsp; <span class="title-col-4">{{session.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5">{{session.total.amount | currency:''}}</span>
 								</span>
 							</div>
-							<span ng-repeat="line in session.lines" ng-show="selectedLevel>=2">
+							<span ng-repeat="line in session.lines" ng-show="selectedLevel>2">
 								<div class="details-stock-category">
 									<span class="span12">
 										<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{line.label}}</span> &nbsp; <span class="title-col-3">{{line.total.qty}}</span> &nbsp; <span class="title-col-4">{{line.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{line.total.amount | currency:''}}</span>
 									</span>
 								</div>
-								<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
+								<span  ng-repeat="product in line.items" ng-show="selectedLevel>2">
 									<div class="details-stock-item">
 										<span class="span12">
 											<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.qty}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.qty * product.price | currency:''}}</span>

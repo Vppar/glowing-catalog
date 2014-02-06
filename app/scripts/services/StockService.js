@@ -6,11 +6,15 @@
             function StockService($log, ArrayUtils, InventoryKeeper, StockKeeper) {
 
                 var stockReport =
-                        function stockReport(type) {
+                        function stockReport(type, filter) {
+                            // current time for log
                             var processStarted = new Date().getTime();
 
+                            // read inventory and stock
                             var inventory = InventoryKeeper.read();
                             var stock = StockKeeper.list();
+
+                            // kickstart to report
                             var report = {
                                 total : {
                                     amount : 0,
@@ -20,17 +24,20 @@
                                 sessions : {}
                             };
 
+                            // walk though all inventory items
                             for ( var ix in inventory) {
                                 var inventoryItem = inventory[ix];
 
+                                // and merge it with stock
                                 var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
-
                                 var reportItem = angular.copy(inventoryItem);
                                 angular.extend(reportItem, angular.copy(stockItem));
 
-                                reportItem.reserve = reportItem.reserve ? reportItem.reserve : 0;
+                                // augment the reportItem with undefined
+                                // protected reserve property and qty
+                                augmentReserveAndQty(type, reportItem, filter);
 
-                                if (shouldSkip(type, reportItem)) {
+                                if (shouldSkip(type, reportItem, filter)) {
                                     continue;
                                 }
 
@@ -52,21 +59,44 @@
                             return report;
                         };
 
-                var shouldSkip = function shouldSkip(type, reportItem) {
-                    var result = true;
-
+                var augmentReserveAndQty = function augmentReserveAndQty(type, reportItem) {
+                    reportItem.reserve = reportItem.reserve ? reportItem.reserve : 0;
                     if (type === 'available') {
                         reportItem.qty = reportItem.quantity - reportItem.reserve;
-                        result = result & (reportItem.qty <= 0);
                     } else if (type === 'reserved') {
                         reportItem.qty = reportItem.reserve;
-                        result = result & (reportItem.qty === 0);
                     } else if (type === 'all') {
                         var minQty = reportItem.reserve - reportItem.quantity;
-                        reportItem.minQty = minQty > 0 ? minQty : 0;
-                        result = false;
+                        reportItem.qty = minQty > 0 ? minQty : 0;
+                        reportItem.minQty = reportItem.qty;
+                    }
+                };
+                var shouldSkip = function shouldSkip(type, reportItem, filter) {
+                    var result = true;
+
+                    // use the object filter to test if this item should be
+                    // included or not.
+                    if (angular.isObject(filter)) {
+                        for ( var ix in filter) {
+                            if (reportItem[ix]) {
+                                var property = String(reportItem[ix]).toLowerCase();
+                                var myFilter = String(filter[ix]).toLowerCase();
+                                if (property.indexOf(myFilter) < 0) {
+                                    return result;
+                                }
+                            }
+                        }
                     }
 
+                    if (type === 'available') {
+                        // test if there is no available product
+                        result = result & (reportItem.qty <= 0);
+                    } else if (type === 'reserved') {
+                        // test if there is no reserver of this product
+                        result = result & (reportItem.qty === 0);
+                    } else if (type === 'all') {
+                        result = false;
+                    }
                     return result;
                 };
 
