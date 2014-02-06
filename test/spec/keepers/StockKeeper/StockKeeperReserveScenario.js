@@ -15,7 +15,12 @@ describe('StockeeperReserveScenario', function() {
     var Stock = undefined;
     var Scope = undefined;
 
-    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_) {
+    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_, WebSQLDriver) {
+        
+        WebSQLDriver.transaction(function(tx){
+            WebSQLDriver.dropBucket(tx, 'JournalEntry');
+        });
+        
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         Scope = $rootScope;
@@ -27,12 +32,41 @@ describe('StockeeperReserveScenario', function() {
      * Given a populated list of Stocks
      * And a valid stock entry
      * when reserve is triggered
-     * then a Stock entry must be updated  
+     * then a Stock entry must be create  
+     * </pre>
+     */
+    it('should reserve new item', function() {
+        var result = null;
+        runs(function() {
+            //when
+            StockKeeper.reserve(2,2).then(function(_result_){
+                result = _result_;
+            });
+
+        });
+
+        waitsFor(function(){
+            Scope.$apply();
+            return !!result;
+        }, 'JournalKeeper is taking too long', 300);
+
+        runs(function() {
+            //then
+            expect(result).toEqual(2);
+        });
+    });
+    
+    /**
+     * <pre>
+     * @spec StockKeeper.reserve#2
+     * Given a invalid stock
+     * when remove is triggered
+     * then an error must be raised
      * </pre>
      */
     it('should reserve', function() {
         var result = null;
-        var ev = new Stock(110, 34, 50);
+        var ev = new Stock(110, 24, 50);
         runs(function() {
             //then
             StockKeeper.handlers.stockAddV1(ev);
@@ -53,36 +87,5 @@ describe('StockeeperReserveScenario', function() {
             expect(result).toEqual(12);
         });
     });
-    
-    /**
-     * <pre>
-     * @spec StockKeeper.reserve#2
-     * Given a invalid stock
-     * when remove is triggered
-     * then an error must be raised
-     * </pre>
-     */
-    it('should reject promise', function() {
-        var id = 13;
-        var reserve = 5;
-        var resolution = null;
-        
-        runs(function(){
-            var promise = StockKeeper.reserve(id, reserve);
-            
-            promise['catch'](function(_resolution_){
-                resolution = _resolution_;
-            });
-        });
-        
-        waitsFor(function(){
-            Scope.$apply();
-            return !!resolution;
-        }, 'JournalKeeper is taking too long', 300);
-        
-        runs(function(){
-            expect(resolution).toBe('No stockable found with this inventoryId: ' + id);
-        });
-    });
-    
+  
 });

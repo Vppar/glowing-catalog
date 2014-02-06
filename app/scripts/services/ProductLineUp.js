@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').service(
+    angular.module('tnt.catalog.lineup', ['tnt.utils.array']).service(
             'ProductLineUp',
             function ProductLineUp(ArrayUtils) {
 

@@ -91,7 +91,7 @@
             var entry = new JournalEntry(null, stamp, 'typeAdd', currentEventVersion, type);
 
             // save the journal entry
-            JournalKeeper.compose(entry);
+            return JournalKeeper.compose(entry);
         };
 
         this.list = function(classification) {

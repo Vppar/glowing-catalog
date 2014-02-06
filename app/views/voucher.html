@@ -52,7 +52,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									Saldo em aberto <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="voucherFilter.date">
+									Saldo em aberto <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small"  required readonly ng-model="voucherFilter.date">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -115,7 +115,7 @@
 								<div>{{$index+1}}</div>
 							</span>
 							<span class="col-s2">
-								<div>{{voucher.created | date:'dd/MM/yy'}}</div>
+								<div>{{voucher.created | date:'dd/MM/yyyy'}}</div>
 							</span>
 							<span class="col-s3">
 								<div>{{voucher.type}}</div>
@@ -144,7 +144,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="historicVoucher.dtInitial">
+									Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" readonly required ng-model="historicVoucher.dtInitial">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -157,7 +157,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small"  required ng-model="historicVoucher.dtFinal">
+									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" readonly required ng-model="historicVoucher.dtFinal">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -219,7 +219,7 @@
 								<div class="scroll-grid">
 									<div class="row-grid-product-voucher" ng-repeat="voucher in historicVouchers">
 										<span class="col-s1">
-											<div>{{voucher.created | date:'dd/MM/yy'}}</div>
+											<div>{{voucher.created | date:'dd/MM/yyyy'}}</div>
 										</span>
 										<span class="col-s2">
 											<div>
@@ -233,7 +233,7 @@
 											{{voucher.amount | currency:''}}
 										</span>
 										<span class="col-s5">
-											{{voucher.status | date:'dd/MM/yy'}}
+											{{voucher.status | date:'dd/MM/yyyy'}}
 										</span>
 									</div>
 								</div>

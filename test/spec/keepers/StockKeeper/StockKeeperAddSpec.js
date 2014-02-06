@@ -49,7 +49,7 @@ describe('Service: StockKeeperAddSpec', function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         var ev = new Stock(23, 1, 0);
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
         var entry = new JournalEntry(null, stp, 'stockAdd', 1, ev);
 
         StockKeeper.add(ev);

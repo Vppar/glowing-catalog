@@ -159,7 +159,6 @@ describe('Service: JournalKeeperCompose', function() {
       promise.then(null, function(msg) {
         failed = true;
         expect(msg).toBe('Failed Replayer.replay');
-        $log.debug.lo
       });
     });
 

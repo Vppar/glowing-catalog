@@ -114,17 +114,17 @@
             }
 
             if (initialFilter && finalFilter) {
-                if (order.date >= initialFilter && order.date <= finalFilter) {
+                if (order.created >= initialFilter && order.created <= finalFilter) {
                     return true;
                 }
                 return false;
             } else if (initialFilter) {
-                if (order.date >= initialFilter) {
+                if (order.created >= initialFilter) {
                     return true;
                 }
                 return false;
             } else if (finalFilter) {
-                if (order.date <= finalFilter) {
+                if (order.created <= finalFilter) {
                     return true;
                 }
                 return false;

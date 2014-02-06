@@ -55,7 +55,7 @@ describe('Service: StockKeeperRemoveSpec', function() {
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
         var entry = new JournalEntry(null, stp, 'stockRemove', 1, ev);
 
         var removeCall = function() {

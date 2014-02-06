@@ -34,7 +34,7 @@
 			<div class="control-group lbl-top">
 				<label class="control-label bold">Vencto.</label>
 				<div class="controls">
-					<input type="text" id="vencto" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
+					<input type="text" id="vencto" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
 				</div>
 			</div>
 			<div class="control-group lbl-top">
@@ -78,7 +78,7 @@
 		                	<div>{{payment.number}}</div>
 		                </span>
 						<span class="col-check-s6">
-							<div>{{payment.duedate | date:'dd/MM/yy'}}</div>
+							<div>{{payment.duedate | date:'dd/MM/yyyy'}}</div>
 						</span>
 		                <span class="col-check-s7 t-right">
 		                	<div>{{payment.amount | currency:''}}</div>
