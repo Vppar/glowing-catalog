@@ -15,11 +15,13 @@
                         var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
 
                         var reportItem = angular.copy(inventoryItem);
-                        angular.extend(reportItem, stockItem);
+                        angular.extend(reportItem, angular.copy(stockItem));
 
                         if (type === 'productsToBuy') {
                             if (!reportItem.reserve || reportItem.quantity >= reportItem.reserve) {
                                 continue;
+                            } else {
+                                reportItem.minQty = reportItem.reserve - reportItem.quantity; 
                             }
                         }
 
