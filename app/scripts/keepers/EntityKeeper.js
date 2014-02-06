@@ -75,6 +75,15 @@
           return ++currentCounter;
         }
 
+
+        // Nuke event for clearing the entities list
+        ObjectUtils.ro(this.handlers, 'nukeV1', function() {
+            entities.length = 0;
+            // Not sure if we MUST return something
+            return true;
+        });
+        
+        
         ObjectUtils.ro(this.handlers, 'entityCreateV1', function(event) {
           
             var eventData = IdentityService.getUUIDData(event.uuid);
