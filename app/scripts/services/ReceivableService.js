@@ -11,11 +11,6 @@
     ]).service(
             'ReceivableService',
             function ReceivableService($q, $log, ArrayUtils, Receivable, CoinKeeper, WebSQLDriver) {
-                
-                // FIXME Remove this as soon as the Persistent replay is properly working
-                WebSQLDriver.transaction(function(tx){
-                    WebSQLDriver.dropBucket(tx, 'JournalEntry');
-                });
 
                 var ReceivableKeeper = CoinKeeper('receivable');
 
@@ -31,7 +26,8 @@
                     // FIXME - Verify if is a valid entityId
                     invalidProperty.entityId = true;
                     // FIXME - Verify if is a valid receivable type
-//                    invalidProperty.type = angular.isDefined(receivable.type);
+                    // invalidProperty.type =
+                    // angular.isDefined(receivable.type);
                     invalidProperty.amount = Number(receivable.amount) !== 0;
 
                     var result = [];
@@ -210,5 +206,6 @@
                 this.list = list;
                 this.receive = receive;
                 this.cancel = cancel;
-            }).run(function (ReceivableService) {});
+            }).run(function(ReceivableService) {
+    });
 }(angular));
