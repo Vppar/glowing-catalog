@@ -137,8 +137,10 @@
         }).otherwise({
             redirectTo : '/'
         });
-    }).run(function(JournalKeeper){
-        JournalKeeper.resync();
+    }).run(function(JournalKeeper, DataProvider){
+        DataProvider.fakeJournal().then(function(){
+            JournalKeeper.resync();
+        });
     });
 }(angular));
 

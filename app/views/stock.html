@@ -44,9 +44,9 @@
 					<span class="title-col-2">
 						<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter" ng-model="filter.amount">
 						<span class="float-right margin-r-5">Total Geral</span>
-					</span> &nbsp; 
+					</span> &nbsp;
 					<span class="title-col-3">{{overallProducts.qty}}</span> &nbsp; 
-					<span class="title-col-4 margin-l-4">{{overallProducts.avgCost | currency:''}}</span> &nbsp; 
+					<span class="title-col-4 margin-l-4">{{overallProducts.avgCost | currency:''}}</span>&nbsp; 
 					<span class="title-col-5">{{overallProducts.amount | currency:''}}</span>
 				</span>
 			</div>
@@ -56,7 +56,7 @@
 			<div class="row-fluid data">
 				<div class="details-stock-total margint0">
 					<span class="span12">
-						<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsAvailable.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsAvailable.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5">{{productsAvailable.total.amount | currency:''}}</span>
+						<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsAvailable.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsAvailable.total.avgCost | currency:''}}</span> &nbsp;<span class="title-col-5">{{productsAvailable.total.amount | currency:''}}</span>
 					</span>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 							<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
 								<div class="details-stock-item">
 									<span class="span12">
-										<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.quantity}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.quantity * product.price | currency:''}}</span>
+										<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.qty}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.qty * product.price | currency:''}}</span>
 									</span>
 								</div>
 							</span>
@@ -90,7 +90,7 @@
 				<div class="row-fluid data">
 					<div class="details-stock-total margint0">
 						<span class="span12">
-							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS RESERVADOS PARA ENTREGA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsReserved.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsReserved.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5">{{productsReserved.total.amount | currency:''}}</span>
+							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS RESERVADOS PARA ENTREGA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsReserved.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsReserved.total.avgCost | currency:''}}</span> &nbsp;<span class="title-col-5">{{productsReserved.total.amount | currency:''}}</span>
 						</span>
 					</div>
 				</div>
@@ -111,7 +111,7 @@
 								<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
 									<div class="details-stock-item">
 										<span class="span12">
-											<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.quantity}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.quantity * product.price | currency:''}}</span>
+											<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.qty}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.qty * product.price | currency:''}}</span>
 										</span>
 									</div>
 								</span>
@@ -125,7 +125,7 @@
 				<div class="row-fluid data">
 					<div class="details-stock-total margint0">
 						<span class="span12">
-							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">0</span> &nbsp; <span class="title-col-4">0,00</span> &nbsp; <span class="title-col-5">0,00</span>
+							<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">0</span> &nbsp; <span class="title-col-4">0,00</span> &nbsp;<span class="title-col-5">0,00</span>
 						</span>
 					</div>
 				</div>

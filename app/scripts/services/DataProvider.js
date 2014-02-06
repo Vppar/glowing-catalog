@@ -5,7 +5,7 @@
      * Providing data since... ever.
      */
     angular.module('tnt.catalog.service.data', []).service(
-            'DataProvider', function DataProvider($http, $timeout, $rootScope, InventoryKeeper, Replayer, JournalEntry) {
+            'DataProvider', function DataProvider($q, $http, $timeout, $rootScope, InventoryKeeper, Replayer, JournalEntry) {
 
                 var scope = this;
 
@@ -61,13 +61,20 @@
                     }
                 });
                 
-                $.get( 'resources/replay.json', function(result) {
-                  for ( var ix in result) {
-                    var data = result[ix];
-                    var item = new JournalEntry(0, 0, data.type, data.version, data.event);
-                    Replayer.replay(item);
-                  }
-                  $rootScope.$broadcast('DataProvider.replayFinished');
-                });
+                // FIXME remove these fake entries ASAP
+                this.fakeJournal = function(){
+                    var deferred = $q.defer();
+                    $.get( 'resources/replay.json', function(result) {
+                        for ( var ix in result) {
+                            var data = result[ix];
+                            var item = new JournalEntry(0, 0, data.type, data.version, data.event);
+                            Replayer.replay(item);
+                        }
+                        $rootScope.$broadcast('DataProvider.replayFinished');
+                        deferred.resolve();
+                    });
+                    
+                    return deferred.promise;
+                };
             });
 }(angular));
