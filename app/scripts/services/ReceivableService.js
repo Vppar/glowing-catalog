@@ -10,7 +10,7 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper'
     ]).service(
             'ReceivableService',
-            function ReceivableService($q, $log, ArrayUtils, Receivable, CoinKeeper) {
+            function ReceivableService($q, $log, ArrayUtils, Receivable, CoinKeeper, WebSQLDriver) {
 
                 var ReceivableKeeper = CoinKeeper('receivable');
 
@@ -26,7 +26,8 @@
                     // FIXME - Verify if is a valid entityId
                     invalidProperty.entityId = true;
                     // FIXME - Verify if is a valid receivable type
-                    invalidProperty.type = angular.isDefined(receivable.type);
+                    // invalidProperty.type =
+                    // angular.isDefined(receivable.type);
                     invalidProperty.amount = Number(receivable.amount) !== 0;
 
                     var result = [];
@@ -205,5 +206,6 @@
                 this.list = list;
                 this.receive = receive;
                 this.cancel = cancel;
-            }).run(function (ReceivableService) {});
+            }).run(function(ReceivableService) {
+    });
 }(angular));

@@ -15,25 +15,13 @@
 					<span class="principal">Contas a receber</span> &nbsp; <span class="crumbs">&nbsp;</span>
 				</span>
 				<span class="span6">
-					<!--<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-add.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-edit.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-open.png">
-					</div>	
-					<div class="control-group lbl-top icons">
-						<img src="images/icons/ic-search.png">
-					</div>-->
 					<div class="float-right">
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option">Adicionar</a> 
-								<a class="btn btn-option">Editar</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='add'}" ng-click="selectedReceivableMode='add'">Adicionar</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='write'}" ng-click="selectedReceivableMode='write'">Editar</a>
 								<a class="btn btn-option">Baixa Pgto.</a>
-								<a class="btn btn-option active" ng-click="selectReceivableMode('search')">Pesquisar</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='search'}"  ng-click="selectReceivableMode('search')">Pesquisar</a>
 							</div>
 						</span>
 					</div>
@@ -41,6 +29,7 @@
 			</div>
 		
             <div ng-switch on="selectedReceivableMode">
+            	<span ng-switch-when="add"><span ng-controller="ReceivableAddCtrl" ng-include src="'views/parts/receivable/receivable-add.html'"></span></span>
 				<span ng-switch-when="read"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
 				<span ng-switch-when="write"><span ng-include src="'views/parts/receivable/receivable-write.html'"></span></span>
 				<span ng-switch-when="search"><span ng-include src="'views/parts/receivable/receivable-search.html'"></span></span>

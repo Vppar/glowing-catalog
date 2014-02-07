@@ -1,0 +1,128 @@
+<form name="receivableForm" >
+	<div class="row-fluid receivable-write-left">
+		<div class="row-fluid">
+			<span class="span3">
+				<div class="control-group">
+					<label class="control-label">Data</label>
+					<input name="date"
+						class="input-block-level" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" 
+						ng-model="receivable.created" min="dateMin" required readonly onkeyup="checkInputKeyUp(this)">
+				</div>
+			</span>
+			<span class="span8">
+				<div class="control-group">
+					<label class="control-label">Conta a receber</label>
+						<select ui-select2 class='combo-width' data-placeholder="Seleione o Cliente" ng-model="receivable.customerId">
+								<option value="">Selecione Cliente</option>
+								<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
+						</select>
+				</div>
+			</span>
+		</div>
+		<div class="row-fluid">
+			<span class="span11 w550">
+				<div class="control-group">
+					<label class="control-label">Observa&ccedil;&atilde;o</label>
+					<input name="date"
+						class="input-block-level" type="text" placeholder=""
+						ng-model="receivable.remarks">
+				</div>
+			</span>
+		</div>
+		<div class="row-fluid">
+			<span class="span3">
+				<div class="control-group">
+					<label class="control-label">Documento</label>
+						<select ui-select2 class="input-block-level hover-state-pointer" data-placeholder="Seleione o Documento" ng-model="receivable.documentId">
+								<option value="">Selecione o Documento</option>
+								<option value="{{document.name}}" ng-repeat="document in documents">{{document.name}}</option>
+						</select>
+				</div>
+			</span>
+			
+			<span class="span3">
+				<div class="control-group">
+					<label class="control-label">Nro Docto</label>
+						<input class="input-block-level hover-state-pointer"
+							id="numberdoc" type="text" ng-model="receivable.documentNumber">
+				</div>
+			</span>
+			
+			<span class="span5">
+				<div class="control-group ">
+					<label class="control-label">Classifica&ccedil;&atilde;o</label>
+						<select ui-select2 class="input-block-level hover-state-pointer" data-placeholder="Selecione a Classifica&ccedil;&atilde;o" ng-model="receivable.type">
+								<option value="">Selecione a Classifica&ccedil;&atilde;o</option>
+								<option value="{{type.name}}" ng-repeat="type in classification">{{type.name}}</option>
+						</select>
+				</div>
+			</span>
+		</div>
+		<div class="row-fluid">
+			<span class="span3">
+				<div class="control-group ">
+					<label class="control-label">Valor</label>
+					<input name="amount"
+						class="input-block-level" type="text" placeholder=""
+						ng-model="receivable.amount" currency>
+				</div>
+			</span>	
+			<span class="span2">
+				<div class="control-group ">
+					<label class="control-label">Nro Parc.</label>
+						<input class="input-block-level hover-state-pointer"
+							id="installments" type="text" ng-model="receivable.installments"
+							ng-click="">
+				</div>
+			</span>	
+			<span class="span4">
+				<div class="control-group ">
+					<label class="control-label">Vencto 1a. parc.</label>
+						<!--<input class="input-block-level hover-state-pointer" ng-model="receivable.duedate"
+							ng-click="" disabled>-->
+						<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="receivable.duedate" required readonly min="dateMin" onkeyup="checkInputKeyUp(this)">
+				</div>
+			</span>	
+			<span class="span2">
+				<div class="control-group">
+					<button class="btn btn-open margint19" ng-click="createInstallments()" ng-disabled="!validForm" type="button">Ver parcela</button>
+				</div>
+			</span>
+		</div>
+	</div>
+	
+	
+	<!-- mesmo conteudo da "receivable-write-parc-dialog". Foram feitas duas opcoes.-->
+	<div class="row-fluid receivable-write-right display-none">
+			<div class="row-fluid">
+			
+				<div class="grid-input-receivable-dialog margintn10">
+						<div class="header">
+							<div class="row-input-receivable-dialog-grid">
+								<span class="col-1"><div>Parcela</div></span>
+								<span class="col-2"><div>Vencto.</div></span>
+								<span class="col-3"><div>Valor</div></span>
+							</div>
+						</div>
+						<div class="scroll-input-receivable-dialog-grid">
+							<div class="row-input-receivable-dialog-grid" ng-repeat="installment in installmentsCopy">
+								<span class="col-1"><div>{{$index+1}} de {{installmentsCopy.length}}</div></span>
+								<span class="col-2"><div>{{installment.duedate | date:'dd/MM/yy'}}</div></span>
+								<span class="col-3"><div>{{installment.amount | currency: ''}}</div></span>
+							</div>
+						</div>					
+				</div>
+						
+				<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o c�digo </div>
+			
+			</div>
+		
+			<div class="clearfix"></div><hr />
+			<button ng-click='cancelReceivable()' class="btn btn-cancel btn-large btn-login" type="submit">
+				Cancelar
+			</button>
+			<button ng-click='createReceivables()' ng-disabled="!installmentsExist" class="btn-large btn btn-ok btn-login pull-right" type="button">
+				Confirmar
+			</button>
+	</div>
+</form>
