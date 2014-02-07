@@ -49,7 +49,32 @@
     ]).service('TypeKeeper', function TypeKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
 
         var currentEventVersion = 1;
-        var types = {};
+        var types = {
+            document : [
+                {
+                    name : 'Pedido',
+                    id : 1
+                }, {
+                    name : 'Cheque',
+                    id : 2
+                }, {
+                    name : 'Contas a recebe',
+                    id : 3
+                }
+            ],
+            classification : [
+                {
+                    name : 'vendas de produtos',
+                    id : 1
+                }, {
+                    name : 'receitas diversas',
+                    id : 2
+                }, {
+                    name : 'acrescimo s/ recebimentos',
+                    id : 3
+                }
+            ]
+        };
         this.handlers = {};
 
         ObjectUtils.ro(this.handlers, 'typeAddV1', function(event) {
@@ -64,17 +89,16 @@
             var entry = ArrayUtils.find(types[event.classification], 'id', event.id);
 
             if (entry === null) {
-                
+
                 var type = new Type(types[event.classification].length, event.name, event.classification);
                 types[event.classification].push(type);
-            
-                
+
             } else {
                 throw 'Somehow, we got a repeated type!?!?';
             }
 
         });
-        
+
         /**
          * Registering the handlers with the Replayer
          */
