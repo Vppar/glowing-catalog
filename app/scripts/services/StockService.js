@@ -6,11 +6,15 @@
             function StockService($log, ArrayUtils, InventoryKeeper, StockKeeper) {
 
                 var stockReport =
-                        function stockReport(type) {
+                        function stockReport(type, filter) {
+                            // current time for log
                             var processStarted = new Date().getTime();
 
+                            // read inventory and stock
                             var inventory = InventoryKeeper.read();
                             var stock = StockKeeper.list();
+
+                            // kickstart to report
                             var report = {
                                 total : {
                                     amount : 0,
@@ -20,17 +24,20 @@
                                 sessions : {}
                             };
 
+                            // walk though all inventory items
                             for ( var ix in inventory) {
                                 var inventoryItem = inventory[ix];
 
+                                // and merge it with stock
                                 var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
-
                                 var reportItem = angular.copy(inventoryItem);
                                 angular.extend(reportItem, angular.copy(stockItem));
 
-                                reportItem.reserve = reportItem.reserve ? reportItem.reserve : 0;
+                                // augment the reportItem with undefined
+                                // protected reserve property and qty
+                                augmentReserveAndQty(type, reportItem, filter);
 
-                                if (shouldSkip(type, reportItem)) {
+                                if (shouldFilter(filter, reportItem) || shouldSkip(type, reportItem)) {
                                     continue;
                                 }
 
@@ -52,21 +59,50 @@
                             return report;
                         };
 
-                var shouldSkip = function shouldSkip(type, reportItem) {
-                    var result = true;
-
+                var augmentReserveAndQty = function augmentReserveAndQty(type, reportItem) {
+                    reportItem.reserve = reportItem.reserve ? reportItem.reserve : 0;
                     if (type === 'available') {
                         reportItem.qty = reportItem.quantity - reportItem.reserve;
-                        result = result & (reportItem.qty <= 0);
                     } else if (type === 'reserved') {
                         reportItem.qty = reportItem.reserve;
-                        result = result & (reportItem.qty === 0);
                     } else if (type === 'all') {
                         var minQty = reportItem.reserve - reportItem.quantity;
-                        reportItem.minQty = minQty > 0 ? minQty : 0;
+                        reportItem.qty = minQty > 0 ? minQty : 0;
+                        reportItem.minQty = angular.copy(reportItem.qty);
+                    }
+                };
+                var shouldFilter = function shouldFilter(filter, reportItem) {
+                    // use the object filter to test if this item should be
+                    // included or not.
+                    var result = true;
+                    if (angular.isObject(filter)) {
+                        for ( var ix in filter) {
+                            if (reportItem[ix]) {
+                                var property = String(reportItem[ix]).toLowerCase();
+                                var myFilter = String(filter[ix]).toLowerCase();
+                                if (property.indexOf(myFilter) > -1) {
+                                    result = false;
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
                         result = false;
                     }
-
+                    return result;
+                };
+                var shouldSkip = function shouldSkip(type, reportItem) {
+                    var result = true;
+                    if (type === 'available') {
+                        // test if there is no available product should skip
+                        result = result & (reportItem.qty <= 0);
+                    } else if (type === 'reserved') {
+                        // test if there is no reserver of this product should
+                        // skip
+                        result = result & (reportItem.qty === 0);
+                    } else if (type === 'all') {
+                        result = false;
+                    }
                     return result;
                 };
 
@@ -124,6 +160,12 @@
                     return result;
                 };
 
+                var findInStock = function findInStock(itemId) {
+                    var copyList = StockKeeper.list();
+                       return ArrayUtils.find(copyList, 'inventoryId', itemId); 
+                };
+
+                this.findInStock = findInStock;
                 this.buildLine = buildLine;
                 this.buildSession = buildSession;
                 this.stockReport = stockReport;

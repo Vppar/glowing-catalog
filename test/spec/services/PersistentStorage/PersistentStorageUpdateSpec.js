@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: PersistentStorage.update', function() {
+describe('Service: PersistentStorage.update', function() {
 
     var $q = {};
     var $log = {};

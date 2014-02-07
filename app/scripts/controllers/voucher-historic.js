@@ -22,15 +22,32 @@
                 function historicFilterVoucher(voucher) {
                     var initialFilter = null;
                     var finalFilter = null;
+                    var isDateInitial = false;
+                    var isDateFinal = false;
+                    if ($scope.historicVoucher.dtInitial instanceof Date) {
 
-                    if ($scope.historicVoucher.dtInitial !== '') {
-                        if ($scope.historicVoucher.dtInitial) {
-                            initialFilter = $scope.historicVoucher.dtInitial.getTime();
-                        }
+                        $scope.historicVoucher.dtInitial.setHours(0);
+                        $scope.historicVoucher.dtInitial.setMinutes(0);
+                        $scope.historicVoucher.dtInitial.setSeconds(0);
+
+                        initialFilter = $scope.historicVoucher.dtInitial.getTime();
+
+                        isDateInitial = true;
                     }
-                    if ($scope.historicVoucher.dtFinal !== '') {
-                        if ($scope.historicVoucher.dtFinal) {
-                            finalFilter = $scope.historicVoucher.dtFinal.getTime();
+                    if ($scope.historicVoucher.dtFinal instanceof Date) {
+
+                        $scope.historicVoucher.dtFinal.setHours(23);
+                        $scope.historicVoucher.dtFinal.setMinutes(59);
+                        $scope.historicVoucher.dtFinal.setSeconds(59);
+
+                        finalFilter = $scope.historicVoucher.dtFinal.getTime();
+
+                        isDateFinal = true;
+                    }
+
+                    if (isDateInitial && isDateFinal) {
+                        if ($scope.historicVoucher.dtInitial.getTime() > $scope.historicVoucher.dtFinal.getTime()) {
+                            $scope.historicVoucher.dtFinal = angular.copy($scope.historicVoucher.dtInitial);
                         }
                     }
 

@@ -157,7 +157,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" readonly required ng-model="historicVoucher.dtFinal">
+									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" readonly required min="historicVoucher.dtInitial" ng-model="historicVoucher.dtFinal">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -223,7 +223,7 @@
 										</span>
 										<span class="col-s2">
 											<div>
-												{{voucher.id}}
+												{{voucher.type}}
 											</div>
 										</span>
 										<span class="col-s3">

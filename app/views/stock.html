@@ -12,10 +12,12 @@
 			<!-- BREAD CRUMBS -->
 			<div class="row-fluid bread-crumbs">
 				<span class="span6">
-					<span class="principal">Estoque</span> &nbsp;&gt;&nbsp; <span class="crumbs">situa&ccedil;&atilde;o em 
-					<div class="space-stock-date"><input id="dt" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small stock-date" required readonly ng-model="dtInitial"></div>
-					<label for="dt" class="ic-calendar hover-state-pointer">
-					<img class="ic-calendar hover-state-pointer calendar-stock" src="images/icons/ic-calendar.png"></label></span>
+					<span class="principal">Estoque</span> &nbsp;&gt;&nbsp; <span class="crumbs">Situa&ccedil;&atilde;o em 
+<!-- 					<div class="space-stock-date"><input id="dt" type="text" placeholder="" show-weeks="false" class="date-field input-small stock-date" required readonly ng-model="productFilter.dtInitial"></div> -->
+<!-- 					<label for="dt" class="ic-calendar hover-state-pointer"> -->
+<!-- 					<img class="ic-calendar hover-state-pointer calendar-stock" src="images/icons/ic-calendar.png"></label> -->
+						{{productFilter.dtInitial}}
+					</span>
 				</span>
 				<span class="span6">
 					<div class="float-right">
@@ -42,7 +44,7 @@
 				<span class="span12">
 					<span class="title-col-1">&nbsp;</span> &nbsp; 
 					<span class="title-col-2">
-						<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter" ng-model="filter.amount">
+						<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter" ng-model="productFilter.text">
 						<span class="float-right margin-r-5">Total Geral</span>
 					</span> &nbsp;
 					<span class="title-col-3">{{overallProducts.qty}}</span> &nbsp; 
@@ -56,25 +58,25 @@
 			<div class="row-fluid data">
 				<div class="details-stock-total margint0">
 					<span class="span12">
-						<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">Produtos Dispon&iacute;veis para Venda<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsAvailable.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsAvailable.total.avgCost | currency:''}}</span> &nbsp;<span class="title-col-5">{{productsAvailable.total.amount | currency:''}}</span>
+						<span class="title-col-1">&nbsp;</span> &nbsp; <span class="title-col-2">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span> &nbsp; <span class="title-col-3">{{productsAvailable.total.qty}}</span> &nbsp; <span class="title-col-4">{{productsAvailable.total.avgCost | currency:''}}</span> &nbsp;<span class="title-col-5">{{productsAvailable.total.amount | currency:''}}</span>
 					</span>
 				</div>
 			</div>
 			<div class="row-fluid data">
 				<div class="details-stock border">
 					<span ng-repeat="session in productsAvailable.sessions">
-						<div class="details-stock-subtitle" ng-show="selectedLevel>=1">
+						<div class="details-stock-subtitle" ng-show="selectedLevel>1">
 							<span class="span12">
 								<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{session.label}}<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">{{session.total.qty}}</span> &nbsp; <span class="title-col-4">{{session.total.avgCost |currency:''}}</span> &nbsp; <span class="title-col-5">{{session.total.amount | currency:''}}</span>
 							</span>
 						</div>
-						<span ng-repeat="line in session.lines " ng-show="selectedLevel>=2">
+						<span ng-repeat="line in session.lines " ng-show="selectedLevel>2">
 							<div class="details-stock-category">
 								<span class="span12">
 									<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{line.label}}</span> &nbsp; <span class="title-col-3">{{line.total.qty}}</span> &nbsp; <span class="title-col-4">{{line.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{line.total.amount | currency:''}}</span>
 								</span>
 							</div>
-							<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
+							<span  ng-repeat="product in line.items" ng-show="selectedLevel>2">
 								<div class="details-stock-item">
 									<span class="span12">
 										<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.qty}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.qty * product.price | currency:''}}</span>
@@ -85,7 +87,6 @@
 					</span>
 				</div>
 			</div>
-			<br/>
 			<div class="row-fluid data">
 				<div class="row-fluid data">
 					<div class="details-stock-total margint0">
@@ -96,19 +97,19 @@
 				</div>
 				<div class="row-fluid data">
 					<div class="details-stock border">
-						<span ng-repeat="session in productsReserved.sessions" ng-show="selectedLevel>=1">
+						<span ng-repeat="session in productsReserved.sessions" ng-show="selectedLevel>1">
 							<div class="details-stock-subtitle">
 								<span class="span12">
 									<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{session.label}}<span class="float-right">Subtotal</span></span> &nbsp; <span class="title-col-3">{{session.total.qty}}</span> &nbsp; <span class="title-col-4">{{session.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5">{{session.total.amount | currency:''}}</span>
 								</span>
 							</div>
-							<span ng-repeat="line in session.lines" ng-show="selectedLevel>=2">
+							<span ng-repeat="line in session.lines" ng-show="selectedLevel>2">
 								<div class="details-stock-category">
 									<span class="span12">
 										<span class="title-col-1"></span> &nbsp; <span class="title-col-2">{{line.label}}</span> &nbsp; <span class="title-col-3">{{line.total.qty}}</span> &nbsp; <span class="title-col-4">{{line.total.avgCost | currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{line.total.amount | currency:''}}</span>
 									</span>
 								</div>
-								<span  ng-repeat="product in line.items" ng-show="selectedLevel>=3">
+								<span  ng-repeat="product in line.items" ng-show="selectedLevel>2">
 									<div class="details-stock-item">
 										<span class="span12">
 											<span class="title-col-1">{{product.SKU}}</span> &nbsp; <span class="title-col-2">{{product.title}}</span> &nbsp; <span class="title-col-3">{{product.qty}}</span> &nbsp; <span class="title-col-4">{{product.price| currency:''}}</span> &nbsp; <span class="title-col-5 btn-price-payment">{{product.qty * product.price | currency:''}}</span>
@@ -120,7 +121,6 @@
 					</div>
 				</div>
 			</div>
-			<br/>
 			<div class="row-fluid data">
 				<div class="row-fluid data">
 					<div class="details-stock-total margint0">
