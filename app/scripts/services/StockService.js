@@ -37,7 +37,7 @@
                                 // protected reserve property and qty
                                 augmentReserveAndQty(type, reportItem, filter);
 
-                                if (shouldSkip(type, reportItem, filter)) {
+                                if (shouldFilter(filter, reportItem) || shouldSkip(type, reportItem)) {
                                     continue;
                                 }
 
@@ -71,28 +71,34 @@
                         reportItem.minQty = reportItem.qty;
                     }
                 };
-                var shouldSkip = function shouldSkip(type, reportItem, filter) {
-                    var result = true;
-
+                var shouldFilter = function shouldFilter(filter, reportItem) {
                     // use the object filter to test if this item should be
                     // included or not.
+                    var result = true;
                     if (angular.isObject(filter)) {
                         for ( var ix in filter) {
                             if (reportItem[ix]) {
                                 var property = String(reportItem[ix]).toLowerCase();
                                 var myFilter = String(filter[ix]).toLowerCase();
-                                if (property.indexOf(myFilter) < 0) {
-                                    return result;
+                                if (property.indexOf(myFilter) > -1) {
+                                    result = false;
+                                    break;
                                 }
                             }
                         }
+                    } else {
+                        result = false;
                     }
-
+                    return result;
+                };
+                var shouldSkip = function shouldSkip(type, reportItem) {
+                    var result = true;
                     if (type === 'available') {
-                        // test if there is no available product
+                        // test if there is no available product should skip
                         result = result & (reportItem.qty <= 0);
                     } else if (type === 'reserved') {
-                        // test if there is no reserver of this product
+                        // test if there is no reserver of this product should
+                        // skip
                         result = result & (reportItem.qty === 0);
                     } else if (type === 'all') {
                         result = false;
