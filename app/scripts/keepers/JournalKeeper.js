@@ -49,7 +49,7 @@
                 this.type = type;
                 this.version = version;
                 this.event = event;
-                this.synced = false;
+                this.synced = 0;
             }
         };
 
@@ -92,6 +92,7 @@
                         deferred.resolve(Replayer.replay(journalEntry));
                     } catch (e){
                         $log.fatal('Failed to replay: Replayer.replay failed');
+                        $log.debug('Failed to replay', e, journalEntry);
                         deferred.reject(e);
                     }
                 }, function(error){
@@ -109,7 +110,7 @@
          * @returns {Promise}
          */
         this.readUnsynced = function() {
-            var promise = storage.list(entityName, {synced: false});
+            var promise = storage.list(entityName, {synced: 0});
 
             promise.then(null, function (err) {
                 $log.debug('Failed to read unsynced:', err);
@@ -125,7 +126,7 @@
          * @return {Promise} The transaction promise
          */
         this.markAsSynced = function(entry) {
-            entry.synced = true;
+            entry.synced = new Date().getTime();
 
             var promise = storage.update(entry);
 

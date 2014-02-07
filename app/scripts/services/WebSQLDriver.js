@@ -442,7 +442,7 @@
         // TODO - Test for strings, numbers, booleans and nulls. Also add those
         // tests to the persist method
         var quote = function(value) {
-            if (angular.isNumber(value) || value instanceof Boolean || value === null) {
+            if (angular.isNumber(value) || value === true || value === false || value === null) {
                 return value;
             } else {
                 return '\'' + value + '\'';
