@@ -67,7 +67,7 @@ describe('Service: JournalKeeperReadUnsynced', function() {
 
     runs(function() {
       expect(storage.list).toHaveBeenCalled();
-      expect(storage.list).toHaveBeenCalledWith('JournalEntry', {synced : false});
+      expect(storage.list).toHaveBeenCalledWith('JournalEntry', {synced : 0});
     });
   });
 

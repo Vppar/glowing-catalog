@@ -110,7 +110,7 @@
          * @returns {Promise}
          */
         this.readUnsynced = function() {
-            var promise = storage.list(entityName, {synced: false});
+            var promise = storage.list(entityName, {synced: 0});
 
             promise.then(null, function (err) {
                 $log.debug('Failed to read unsynced:', err);
