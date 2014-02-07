@@ -4,13 +4,6 @@ describe('Service: JournalKeeperCompose', function() {
   var replayer = {};
   var storage = {};
 
-  beforeEach(function () {
-      replayer.replay = jasmine.createSpy('Replayer.replay');
-      storage.register = jasmine.createSpy('PersistentStorage.register');
-      storage.persist = jasmine.createSpy('PersistentStorage.persist');
-  });
-
-
   // load the service's module
   beforeEach(function() {
     module('tnt.util.log');
@@ -24,6 +17,21 @@ describe('Service: JournalKeeperCompose', function() {
       // $provide.value('$log', {debug: console.log});
     });
   });
+  
+  beforeEach(inject(function ($q, $rootScope) {
+    replayer.replay = jasmine.createSpy('Replayer.replay');
+    storage.register = jasmine.createSpy('PersistentStorage.register').andCallFake(function(){
+      var deferred = $q.defer();
+      
+      setTimeout(function(){
+        deferred.resolve();
+        $rootScope.$apply();
+      }, 0);
+      
+      return deferred.promise;
+    });
+    storage.persist = jasmine.createSpy('PersistentStorage.persist');
+  }));
 
   // instantiate service
   var JournalKeeper;

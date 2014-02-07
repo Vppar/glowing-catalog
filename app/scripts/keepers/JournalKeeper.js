@@ -71,36 +71,38 @@
         var entityName = 'JournalEntry';
         
         var storage = new PersistentStorage(WebSQLDriver);
-        storage.register(entityName, JournalEntry);
+        var registered = storage.register(entityName, JournalEntry);
       
         /**
          * Persist and replay a journal entry
          */
         this.compose = function(journalEntry) {
-            var deferred = $q.defer();
-            
-            if(!(journalEntry instanceof JournalEntry)){
+            return registered.then(function(){
+              var deferred = $q.defer();
+              
+              if(!(journalEntry instanceof JournalEntry)){
                 deferred.reject('the given entry is not an instance of JournalEntry');
-            } else {
-              
+              } else {
+                
                 journalEntry.sequence = ++sequence;
-              
+                
                 // FIXME: what happens if we persisted the entry and the replay
                 // fails? Should we remove the entry?
                 storage.persist(journalEntry).then(function(){
-                    try {
-                        deferred.resolve(Replayer.replay(journalEntry));
-                    } catch (e){
-                        $log.fatal('Failed to replay: Replayer.replay failed');
-                        deferred.reject(e);
-                    }
+                  try {
+                    deferred.resolve(Replayer.replay(journalEntry));
+                  } catch (e){
+                    $log.fatal('Failed to replay: Replayer.replay failed');
+                    deferred.reject(e);
+                  }
                 }, function(error){
-                    $log.error('Failed to compose: PersistentStorage.persist failed');
-                    deferred.reject(error);
+                  $log.error('Failed to compose: PersistentStorage.persist failed');
+                  deferred.reject(error);
                 });
-            }
-            
-            return deferred.promise;
+              }
+              
+              return deferred.promise;
+            });
         };
 
         /**

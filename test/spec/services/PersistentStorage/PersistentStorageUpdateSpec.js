@@ -22,6 +22,8 @@ describe('Service: PersistentStorage.update', function() {
             $provide.value('$log', $log);
             $provide.value('WebSQLDriver', webSqlDriverMock);
         });
+        
+        webSqlDriverMock.createBucket = jasmine.createSpy('WebSQLDriver.createBucket');
     });
 
     // inject the the dependencies
