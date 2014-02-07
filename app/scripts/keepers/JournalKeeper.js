@@ -49,7 +49,7 @@
                 this.type = type;
                 this.version = version;
                 this.event = event;
-                this.synced = false;
+                this.synced = 0;
             }
         };
 
@@ -89,12 +89,13 @@
                 // FIXME: what happens if we persisted the entry and the replay
                 // fails? Should we remove the entry?
                 storage.persist(journalEntry).then(function(){
-                  try {
-                    deferred.resolve(Replayer.replay(journalEntry));
-                  } catch (e){
-                    $log.fatal('Failed to replay: Replayer.replay failed');
-                    deferred.reject(e);
-                  }
+                    try {
+                        deferred.resolve(Replayer.replay(journalEntry));
+                    } catch (e){
+                        $log.fatal('Failed to replay: Replayer.replay failed');
+                        $log.debug('Failed to replay', e, journalEntry);
+                        deferred.reject(e);
+                    }
                 }, function(error){
                   $log.error('Failed to compose: PersistentStorage.persist failed');
                   deferred.reject(error);
@@ -111,7 +112,7 @@
          * @returns {Promise}
          */
         this.readUnsynced = function() {
-            var promise = storage.list(entityName, {synced: false});
+            var promise = storage.list(entityName, {synced: 0});
 
             promise.then(null, function (err) {
                 $log.debug('Failed to read unsynced:', err);
@@ -127,7 +128,7 @@
          * @return {Promise} The transaction promise
          */
         this.markAsSynced = function(entry) {
-            entry.synced = true;
+            entry.synced = new Date().getTime();
 
             var promise = storage.update(entry);
 
