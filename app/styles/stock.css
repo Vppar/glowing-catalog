@@ -139,7 +139,7 @@
 }
 .form-stock .details-stock-total{	
 	border-radius: 4px;
-	background: #bbb;
+	background: #999;
 	color: #000;
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
@@ -236,7 +236,7 @@
 	padding-right: 4px;
 }
 .details-stock-category .title-col-2{
-	color:#c8c8c8;
+	color:#777;
 }
 .form-stock .scroll-stock .title-col-2{
 	padding-right: 15px;
@@ -258,8 +258,9 @@
 	padding: 5px;
 	display: block;
 	min-height:20px;
-	font-weight:bold;
 	padding: 8px 5px 8px 12px;
+	color:#777;
+	border-top: 1px dotted #ccc;
 }
 
 .form-stock .details-stock-item{
@@ -268,6 +269,7 @@
 	min-height:20px;
 	font-weight:normal;
 	padding: 8px 5px 8px 12px;
+	border-top: 1px dotted #ccc;
 }
 	.form-stock .details-stock-item .title-col-1{
 		text-align: right;
@@ -331,8 +333,8 @@
 .form-stock .details-stock-category .btn-price-payment  {
 	width: 10%;
 	text-align: right;
-	border: 1px solid #eee;
-	background-color: #f2f2f2;
+	/*border: 1px solid #eee;
+	background-color: #f2f2f2;*/
 	border-radius: 4px;
 	display:inline-block;
 }
