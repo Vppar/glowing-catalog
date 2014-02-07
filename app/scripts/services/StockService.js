@@ -160,6 +160,12 @@
                     return result;
                 };
 
+                var findInStock = function findInStock(itemId) {
+                    var copyList = StockKeeper.list();
+                       return ArrayUtils.find(copyList, 'inventoryId', itemId); 
+                };
+
+                this.findInStock = findInStock;
                 this.buildLine = buildLine;
                 this.buildSession = buildSession;
                 this.stockReport = stockReport;
