@@ -68,7 +68,7 @@
                     } else if (type === 'all') {
                         var minQty = reportItem.reserve - reportItem.quantity;
                         reportItem.qty = minQty > 0 ? minQty : 0;
-                        reportItem.minQty = reportItem.qty;
+                        reportItem.minQty = angular.copy(reportItem.qty);
                     }
                 };
                 var shouldFilter = function shouldFilter(filter, reportItem) {
