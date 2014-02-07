@@ -26,6 +26,11 @@ describe('Service: PersistentStorageFactory', function() {
 
     });
 
+
+    function getFakeEntityMetadata() {
+        return {metaVersion : 1};
+    }
+
     beforeEach(inject(function(_PersistentStorage_, WebSQLDriver, _JournalEntry_, $rootScope) {
         PersistentStorage = _PersistentStorage_;
         driver = WebSQLDriver;
@@ -42,6 +47,8 @@ describe('Service: PersistentStorageFactory', function() {
         var Entity = function Entity() {
         };
 
+        Entity.prototype.metadata = getFakeEntityMetadata;
+
         // register
         storage.register('foo', Entity);
 
@@ -55,9 +62,11 @@ describe('Service: PersistentStorageFactory', function() {
 
         var Entity = function Entity() {
         };
+        Entity.prototype.metadata = getFakeEntityMetadata;
 
         var AnotherEntity = function AnotherEntity() {
         };
+        AnotherEntity.prototype.metadata = getFakeEntityMetadata;
 
         runs(function() {
             storage = new PersistentStorage(driver);
