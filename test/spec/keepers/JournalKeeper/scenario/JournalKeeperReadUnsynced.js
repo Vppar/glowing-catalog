@@ -26,7 +26,7 @@ describe('Keeper: JournalKeeper.readUnsynced() scenario', function() {
         module('tnt.catalog.entity.keeper');
 
         log.warn = angular.noop;
-        log.debug = console.log;
+        log.debug = angular.noop;
         log.error = angular.noop;
         log.fatal = angular.noop;
 
