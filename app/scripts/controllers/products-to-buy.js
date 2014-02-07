@@ -12,7 +12,7 @@
                 var line = session.lines[ix2];
                 for ( var ix3 in line.items) {
                     var item = line.items[ix3];
-                    item.refMinQty = item.minQty === 0 ? '' : item.minQty;
+                    item.minQty = item.minQty === 0 ? '' : item.minQty;
                 }
             }
         }
