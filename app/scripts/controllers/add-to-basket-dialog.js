@@ -13,26 +13,39 @@
                 // Find the product and make a copy to the local scope.
                 var product = ArrayUtils.find(DataProvider.products, 'id', dialog.data.id);
 
-                var productStock = StockService.findInStock(product.id+1);
+                var productStock = StockService.findInStock(product.id + 1);
 
-                if(productStock.quantity > 0){
+                if (productStock.reserve > 0) {
+                    if ((productStock.quantity - productStock.reserve) > 0) {
+                        product.inventory = (productStock.quantity - productStock.reserve);
+                    } else {
+                        product.inventory = 0;
+                    }
+                } else if (productStock.quantity > 0) {
                     product.inventory = productStock.quantity;
-                }else{
+                } else {
                     product.inventory = 0;
                 }
-                
+
                 // find the grid
                 var grid = angular.copy(ArrayUtils.list(inventory, 'parent', dialog.data.id));
 
-                for(var i in grid){
-                var gridStock = StockService.findInStock(grid[i].id);
-                    if(gridStock.quantity > 0){
+                for ( var i in grid) {
+                    var gridStock = StockService.findInStock(grid[i].id);
+
+                    if (gridStock.reserve > 0) {
+                        if ((gridStock.quantity - gridStock.reserve) > 0) {
+                            grid[i].inventory = (gridStock.quantity - gridStock.reserve);
+                        } else {
+                            grid[i].inventory = 0;
+                        }
+                    } else if (gridStock.quantity > 0) {
                         grid[i].inventory = gridStock.quantity;
-                    }else{
+                    } else {
                         grid[i].inventory = 0;
                     }
                 }
-                
+
                 var index = orderItems.length - 1;
                 $scope.product = product;
                 $scope.grid = grid;
