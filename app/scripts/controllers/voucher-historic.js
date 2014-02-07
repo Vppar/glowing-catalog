@@ -30,7 +30,7 @@
                         $scope.historicVoucher.dtInitial.setMinutes(0);
                         $scope.historicVoucher.dtInitial.setSeconds(0);
 
-                        initialFilter = $scope.dateFilter.dtInitial.getTime();
+                        initialFilter = $scope.historicVoucher.dtInitial.getTime();
 
                         isDateInitial = true;
                     }
