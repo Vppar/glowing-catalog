@@ -115,7 +115,7 @@
 											</span>
 											<span class="col-s5-list">
 												<div>
-													<input-qty ng-model="product.qty" min="0"></input-qty>
+													<input-qty ng-model="watchedQty[product.id]" min="0"></input-qty>
 												</div>
 											</span>
 										</div>
@@ -635,7 +635,7 @@
             
 		</div>
 		
-		
+		<!-- Right Screen Details -->
 		
 		
 		<div class="products-to-buy-right">
@@ -646,21 +646,21 @@
 							<div class="row-details-products-to-buy-item">
 								<span class="item">
 									<span class="lbl-money">Valor da compra</span>
-									<span class="btn-price-payment">1.000,00</span>
+									<span class="btn-price-payment">{{orderTotal | currency: 'R$ '}}</span>
 								</span>
 								<span class="item">
 									<span class="lbl-money">Percentual de desconto</span>
-									<span class="btn-price-payment">30,00%</span>
+									<span class="btn-price-payment">{{discount | currency: ''}}%</span>
 								</span>
 							</div>
 							<div class="row-details-products-to-buy-item">
 								<span class="item">
 									<span class="lbl-money">Valor com desconto</span>
-									<span class="btn-price-payment">700,00</span>
+									<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$'}}</span>
 								</span>
 								<span class="item">
 									<span class="lbl-money">Total de pontos</span>
-									<span class="btn-price-payment">345</span>
+									<span class="btn-price-payment">{{pointsTotal}}</span>
 								</span>
 							</div>
 						</div>
@@ -669,7 +669,7 @@
 							<div class="row-details-products-to-buy-item">
 								<span class="item">
 									<span class="lbl-money">Valor da compra</span>
-									<span class="btn-price-payment">1.000,00</span>
+									<span class="btn-price-payment">{{orderTotal2 | currency: 'R$ '}}</span>
 								</span>
 							</div>
 						</div>
@@ -678,11 +678,11 @@
 							<div class="row-details-products-to-buy-item">
 								<span class="item">
 									<span class="lbl-money">Valor total da compra</span>
-									<span class="btn-price-payment">760,00</span>
+									<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$'}}</span>
 								</span>
 								<span class="item">
 									<span class="lbl-money">Valor de frete</span>
-									<span class="btn-price-payment">0,00</span>
+									<span class="btn-price-payment">{{freight | currency:'R$'}}</span>
 								</span>
 							</div>
 							<div class="row-details-products-to-buy-item">
@@ -692,7 +692,7 @@
 								</span>
 								<span class="item">
 									<span class="lbl-money">Subtotal</span>
-									<span class="btn-price-payment">760,00</span>
+									<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$'}}</span>
 								</span>
 							</div>
 							<div class="row-details-products-to-buy-item">
@@ -702,11 +702,11 @@
 								</span>
 								<span class="item">
 									<span class="lbl-money font-bold">Total do pedido</span>
-									<span class="btn-price-payment font-bold">760,00</span>
+									<span class="btn-price-payment font-bold">{{orderTotalDiscount | currency:'R$'}}</span>
 								</span>
 								<span class="item">
 									<span class="lbl-money">Total pts</span>
-									<span class="btn-price-payment">345,00</span>
+									<span class="btn-price-payment">{{pointsTotal}}</span>
 								</span>
 							</div>
 						</div>
