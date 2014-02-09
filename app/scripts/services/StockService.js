@@ -24,12 +24,13 @@
                                 sessions : {}
                             };
 
-                            // walk though all inventory items
                             for ( var ix in inventory) {
+                                // walk though all inventory items
                                 var inventoryItem = inventory[ix];
-
-                                // and merge it with stock
+                                // find the stock item
                                 var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
+                                
+                                // and merge it with stock
                                 var reportItem = angular.copy(inventoryItem);
                                 angular.extend(reportItem, angular.copy(stockItem));
 
@@ -52,7 +53,6 @@
                             report.total.avgCost = currencyDivide(report.total.amount, report.total.qty);
 
                             var processDone = new Date().getTime();
-
                             $log.debug('StockService.stockReport(' + (type ? type : '') + '): -It took ' + (processDone - processStarted) +
                                 'ms to create the stockReport.');
 
@@ -71,6 +71,7 @@
                         reportItem.minQty = angular.copy(reportItem.qty);
                     }
                 };
+                
                 var shouldFilter = function shouldFilter(filter, reportItem) {
                     // use the object filter to test if this item should be
                     // included or not.
@@ -162,7 +163,7 @@
 
                 var findInStock = function findInStock(itemId) {
                     var copyList = StockKeeper.list();
-                       return ArrayUtils.find(copyList, 'inventoryId', itemId); 
+                    return ArrayUtils.find(copyList, 'inventoryId', itemId);
                 };
 
                 this.findInStock = findInStock;
