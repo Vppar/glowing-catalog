@@ -45,7 +45,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     var updated = false;
     var entry = new JournalEntry(1, null, null, null, null);
 
-    expect(entry.synced).toBe(false);
+    expect(entry.synced).toBe(0);
 
 
     runs(function() {
@@ -55,11 +55,18 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
         return deferred.promise;
       });
 
+      // Make getTime() return a predictable value
+      var getTimeFn = Date.prototype.getTime;
+      spyOn(Date.prototype, 'getTime').andReturn(123);
+
       var promise = JournalKeeper.markAsSynced(entry);
+
+      // Restore getTime()
+      Date.prototype.getTime = getTimeFn;
 
       promise.then(function(entry) {
         // Make sure the synced attr is updated
-        expect(entry.synced).toBe(true);
+        expect(entry.synced).toBe(123);
 
         // Once the promise is resolved, we assume the update was
         // successful
@@ -82,7 +89,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     var failed = true;
     var entry = new JournalEntry(1, null, null, null, null);
 
-    expect(entry.synced).toBe(false);
+    expect(entry.synced).toBe(0);
 
     runs(function() {
       storage.update.andCallFake(function() {
