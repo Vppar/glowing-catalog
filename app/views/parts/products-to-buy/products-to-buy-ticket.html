@@ -1,7 +1,7 @@
 <div class="row-fluid step1">	
             	
-<!-------- Parte 1 ------------>
-	<div class="products-to-buy-edit">	
+	<!-------- Parte 1 ------------>
+	<div class="products-to-buy-edit" ng-show="selectedPart=='part1'">	
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
 	            <div class="control-group lbl-top center-align">
@@ -69,14 +69,14 @@
 					<button class="btn btn-cancel margint30" type="submit" >Cancelar</button>
 				</div>
 				<div class="payment-btn-area">
-					<button class="btn btn-ok margint30" type="submit" >Confirmar</button>
+					<button class="btn btn-ok margint30" type="submit" ng-click="selectPart('part2')">Confirmar</button>
 				</div>
 			</div>
 		</div>
 	</div>
     <!-------- FIM Parte 1 -------->
     <!-------- Parte 2 ------------>
-	<div class="products-to-buy-edit display-none">	
+	<div class="products-to-buy-edit" ng-show="selectedPart=='part2'">	
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
 				<div class="header header2 title-header-products-to-buy">

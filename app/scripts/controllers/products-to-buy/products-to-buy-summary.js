@@ -1,10 +1,8 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.productsToBuy.summary.ctrl', [
-        'tnt.catalog.service.dialog'
-    ]).controller(
+    angular.module('tnt.catalog.productsToBuy.summary.ctrl', []).controller(
             'ProductsToBuySummaryCtrl',
-            function($scope, $filter, $log, DialogService) {
+            function($scope, $filter, $log) {
 
                 // if the order total is less then the amount use the fee.
                 var discounts = [
@@ -69,35 +67,6 @@
                 function financialRound(value) {
                     return (Math.round(100 * value) / 100);
                 }
-
-                $scope.cancel =
-                        function() {
-                            var result = DialogService.messageDialog({
-                                title : 'Pedido de Compra',
-                                message : 'Cancelar o pedido de compra?',
-                                btnYes : 'Sim',
-                                btnNo : 'Não'
-                            });
-                            result.then(function(result) {
-                                if (result) {
-                                    $scope.$emit('cancel');
-                                }
-                            });
-                        };
-
-                $scope.confirm = function() {
-                    var result = DialogService.messageDialog({
-                        title : 'Pedido de Compra',
-                        message : 'Confirmar o pedido de compra?',
-                        btnYes : 'Sim',
-                        btnNo : 'Não'
-                    });
-                    result.then(function(result) {
-                        if (result) {
-                            $scope.$emit('confirm');
-                        }
-                    });
-                };
 
                 $scope.$on('updateSummary', function(event, args) {
                     // current time for log
