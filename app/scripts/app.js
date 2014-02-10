@@ -86,7 +86,8 @@
                 'tnt.catalog.productsToBuy.pending.ctrl',
                 'tnt.catalog.productsToBuy.credit.ctrl',
                 'tnt.catalog.productsToBuy.confirm.dialog.ctrl',
-                'tnt.catalog.purchaseOrder'
+                'tnt.catalog.purchaseOrder',
+                'tnt.catalog.timer.service'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
