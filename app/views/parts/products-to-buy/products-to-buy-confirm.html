@@ -18,70 +18,27 @@
 						</span>
 					</div>
 				</div>							
-				<div class="scroll-payment-grid">	<!--scroll-->
-					<div class="section">Timewise</div>
-					<div class="row-payment-grid-product-products-to-buy">
-						<span class="col-s1-list">
-							<div>Black Diamonds Desodorante Col&ocirc;nia - 60ml</div>
-							<div class="code-product">cod.: 01-2390348</div>
+				<div class="scroll-payment-grid"><!--scroll-->
+					<span ng-repeat="session in confirmedProducts.sessions">
+						<span ng-repeat="line in session.lines">
+							<div class="section">{{line.label}}</div>
+							<div class="row-payment-grid-product-products-to-buy">
+								<span class="col-s1-list">
+									<div>{{product.title}}</div>
+									<div class="code-product">cod.: {{product.SKU}}</div>
+								</span>
+								<span class="col-s2-list">
+									<div>{{product.points}} pts</div>
+								</span>
+								<span class="col-s3-list">
+									<div>{{product.cost | currency: ''}}</div>
+								</span>
+								<span class="col-s4-list">
+									<div>{{product.minQty}}</div>
+								</span>
+							</div>
 						</span>
-						<span class="col-s2-list">
-							<div>15 pts</div>
-						</span>
-						<span class="col-s3-list">
-							<div>50,00</div>
-						</span>
-						<span class="col-s4-list">
-							<div>1</div>
-						</span>
-					</div>
-					<div class="row-payment-grid-product-products-to-buy">
-						<span class="col-s1-list">
-							<div>Black Diamonds Desodorante Col&ocirc;nia - 60ml</div>
-							<div class="code-product">cod.: 01-2390348</div>
-						</span>
-						<span class="col-s2-list">
-							<div>15 pts</div>
-						</span>
-						<span class="col-s3-list">
-							<div>50,00</div>
-						</span>
-						<span class="col-s4-list">
-							<div>1</div>
-						</span>
-					</div>
-					<div class="section">Olhos</div>
-					<div class="row-payment-grid-product-products-to-buy">
-						<span class="col-s1-list">
-							<div>Black Diamonds Desodorante Col&ocirc;nia - 60ml</div>
-							<div class="code-product">cod.: 01-2390348</div>
-						</span>
-						<span class="col-s2-list">
-							<div>15 pts</div>
-						</span>
-						<span class="col-s3-list">
-							<div>50,00</div>
-						</span>
-						<span class="col-s4-list">
-							<div>1</div>
-						</span>
-					</div>
-					<div class="row-payment-grid-product-products-to-buy">
-						<span class="col-s1-list">
-							<div>Black Diamonds Desodorante Col&ocirc;nia - 60ml</div>
-							<div class="code-product">cod.: 01-2390348</div>
-						</span>
-						<span class="col-s2-list">
-							<div>15 pts</div>
-						</span>
-						<span class="col-s3-list">
-							<div>50,00</div>
-						</span>
-						<span class="col-s4-list">
-							<div>1</div>
-						</span>
-					</div>
-					
+					</span>
 				</div><!--fim scroll-->
 			</div>
 		</div>	

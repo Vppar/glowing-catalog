@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.productsToBuy.summary.ctrl', []).controller('ProductsToBuySummaryCtrl', function($scope) {
-
-        var productsToBuy = $scope.productsToBuy;
+    angular.module('tnt.catalog.productsToBuy.summary.ctrl', [
+        'tnt.catalog.service.dialog'
+    ]).controller('ProductsToBuySummaryCtrl', function($scope, DialogService) {
 
         $scope.orderTotal = 0;
         $scope.orderTotal2 = 0;
@@ -11,31 +11,10 @@
         $scope.orderTotalDiscount = 0;
         $scope.pointsTotal = 0;
 
-        function calculateTotals(watchedQty) {
-            $scope.orderTotal = 0;
-            $scope.pointsTotal = 0;
+        function calculateTotals(args) {
+            $scope.orderTotal = args.amount;
+            $scope.pointsTotal = args.points;
 
-            // products
-            for ( var ix in productsToBuy.sessions) {
-                // sessions
-                var session = productsToBuy.sessions[ix];
-                // variables to session total and qty
-
-                // lines of that session
-                for ( var ix2 in session.lines) {
-                    // lines
-                    var line = session.lines[ix2];
-
-                    // items of that line
-                    for ( var ix3 in line.items) {
-                        var item = line.items[ix3];
-                        var qty = watchedQty[item.id];
-
-                        $scope.orderTotal += (qty * item.price);
-                        $scope.pointsTotal += (item.points * qty);
-                    }
-                }
-            }
             calculateDiscount();
         }
 
@@ -57,6 +36,36 @@
                 $scope.discount = 0;
             }
         }
+
+        $scope.cancel = function() {
+            console.log('cancel');
+            var result = DialogService.messageDialog({
+                title : 'Pedido de Compra',
+                message : 'Cancelar o pedido de compra?',
+                btnYes : 'Sim',
+                btnNo : 'Não'
+            });
+            result.then(function(result) {
+                if (result) {
+                    $scope.$emit('cancel');
+                }
+            });
+        };
+
+        $scope.confirm = function() {
+            console.log('confirm');
+            var result = DialogService.messageDialog({
+                title : 'Pedido de Compra',
+                message : 'Confirmar o pedido de compra?',
+                btnYes : 'Sim',
+                btnNo : 'Não'
+            });
+            result.then(function(result) {
+                if (result) {
+                    $scope.$emit('confirm');
+                }
+            });
+        };
 
         $scope.$on('updateSummary', function(event, args) {
             calculateTotals(args);

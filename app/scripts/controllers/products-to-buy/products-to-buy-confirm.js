@@ -6,8 +6,8 @@
     ]).controller('ProductsToBuyConfirmCtrl', function($scope) {
 
         // inherited from ProductsToBuyCtrl
-        this.listConfirmedProducts = function listConfirmedProducts(productsToBuy) {
-            var report = angular.copy(productsToBuy);
+        this.listConfirmedProducts = function listConfirmedProducts(stockReport) {
+            var report = angular.copy(stockReport);
             for ( var ix in report.sessions) {
 
                 var session = report.sessions[ix];
@@ -38,6 +38,7 @@
             }
             return report;
         };
-        $scope.confirmedProducts = this.listConfirmedProducts($scope.productsToBuy);
     });
+
+    $scope.confirmedProducts = this.listConfirmedProducts($scope.stockReport);
 }(angular));
