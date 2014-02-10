@@ -1,4 +1,4 @@
-ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
+describe('Controller: products-to-buy-confirm-list-spec', function() {
 
     var productsToBuyConfirmCtrl = null;
 
