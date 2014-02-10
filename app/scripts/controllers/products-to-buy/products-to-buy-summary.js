@@ -6,6 +6,7 @@
             'ProductsToBuySummaryCtrl',
             function($scope, $filter, DialogService) {
 
+                // if the order total is less then the amount use the fee.
                 var discounts = [
                     {
                         amount : 555,
@@ -40,9 +41,10 @@
                 }
 
                 function calculateDiscount() {
-
                     for ( var ix in discounts) {
                         var nix = Number(ix);
+                        // if the order total is less then the amount use the
+                        // fee.
                         if ($scope.orderTotal < discounts[nix].amount) {
 
                             var appliedFee = (1 - discounts[nix].fee);
