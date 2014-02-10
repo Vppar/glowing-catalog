@@ -561,7 +561,7 @@
 	margin: 30px auto;
 }
 span.title-order-panel {
-	margin: 0 !important;
+	margin-bottom: 4px;
 	background-color: #333333;
 	color: #fff;
 	border-radius: 4px;
@@ -569,11 +569,12 @@ span.title-order-panel {
 	clear:both;
 	display:block;
 	padding:0 8px;
+	line-height: 40px;
 }
 .text-order-panel {
 	clear:both;
 	display:block;
-	padding:0 8px;
+	padding:4px 8px 4px 8px;
 }
 .text-order-panel span, .title-order-panel span{
 	display:inline-block;
@@ -594,21 +595,22 @@ span.title-order-panel {
 
 
 .conf-nf-panel {
-	width:60%;
+	width: 57%;
 	border:1px solid #ddd;
 	border-radius:4px;
 	margin: 30px auto;
 }
 .conf-nf-panel span .col-1, .conf-nf-panel span .col-2 {
-	width:44%;
+	width:49%;
 }
 
 .input-nf-panel {
 	background-color:#C9C9C9;
 	width:80%;
+	margin: 0;
 }
 .center-align {
-	width:60%;
+	width:57%;
 	margin:10px auto;
 	display:block;
 }
@@ -693,12 +695,16 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 	max-height:313px !important;
 	margin-bottom:20px;
 }
+.step5 div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-grid2 {
+	max-height:326px !important;
+	margin-bottom:15px;
+}
 .details-stock-subtitle {
 	border-radius: 4px;
 	background: #DADADA; /*#F2F2F2*/
 	color: #333;
 	min-height: 20px;
-	padding: 8px 5px 8px 12px;
+	/*padding: 8px 5px 8px 12px;*/
 	font-weight: bold;
 }
 .step1 .grid-pending-products-to-buy-edit .col-1 {
@@ -855,3 +861,94 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 	vertical-align:top;
 }
 	
+
+.step5 .control-label-products-to-buy{
+	width:400px;
+}
+
+.step5 .products-to-buy-initial .header-products-to-buy{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+}
+.step5 .products-to-buy-initial .header-products-to-buy, .products-to-buy-edit .header-products-to-buy{
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.step5 .title-header-products-to-buy{
+	margin: 0 !important;
+	background-color: #333333;
+	color: #fff;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+.step5 .section-header-products-to-buy{
+	margin: 0 !important;
+	background-color: #bbb;
+	color: #000;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+.step5 .subtitle-header-products-to-buy{
+	margin: 0 !important;
+	background-color: #dadada;
+	border-radius: 4px;
+	border-bottom:0 !important;
+	font-weight: bold;
+}
+
+.step5 .row-pending-product-products-to-buy{
+	/*margin: 5px 0 5px 0;*/
+	display: block;
+	font-weight: normal;
+	border-bottom: 1px dotted #ccc;
+}
+
+.step5 .grid-pending-products-to-buy-edit .col-1 {
+	width: 10%;
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left:10px;
+	vertical-align:top;
+}
+.step5 .grid-pending-products-to-buy-edit .col-2 {
+	width: 30%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step5 .grid-pending-products-to-buy-edit .col-3 {
+	width: 14%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step5 .grid-pending-products-to-buy-edit .col-4{
+	width: 12%;
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step5 .grid-pending-products-to-buy-edit .col-5 {
+	width: 12%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step5 .grid-pending-products-to-buy-edit .col-6 {
+	width: 15%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.margint20{margin-top:20px;}
+.margint30{margin-top:30px;}
