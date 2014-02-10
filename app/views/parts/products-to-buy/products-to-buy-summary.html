@@ -1,0 +1,88 @@
+<div class="row-fluid">		
+	<div class="details-products-to-buy-item">
+		<div class="col-details-products-to-buy-item">
+			<span class="section">Se&ccedil;&atilde;o 1</span>
+			<div class="row-details-products-to-buy-item">
+				<span class="item">
+					<span class="lbl-money">Valor da compra</span>
+					<span class="btn-price-payment">{{orderTotal | currency: 'R$ '}}</span>
+				</span>
+				<span class="item">
+					<span class="lbl-money">Percentual de desconto</span>
+					<span class="btn-price-payment">{{discount | currency: ''}}%</span>
+				</span>
+			</div>
+			<div class="row-details-products-to-buy-item">
+				<span class="item">
+					<span class="lbl-money">Valor com desconto</span>
+					<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$ '}}</span>
+				</span>
+				<span class="item">
+					<span class="lbl-money">Total de pontos</span>
+					<span class="btn-price-payment">{{pointsTotal}}</span>
+				</span>
+			</div>
+		</div>
+		<div class="col-details-products-to-buy-item">							
+			<span class="section">Se&ccedil;&atilde;o 2</span>
+			<div class="row-details-products-to-buy-item">
+				<span class="item">
+					<span class="lbl-money">Valor da compra</span>
+					<span class="btn-price-payment">{{orderTotal2 | currency: 'R$ '}}</span>
+				</span>
+			</div>
+		</div>
+		<div class="col-details-products-to-buy-item">		
+			<span class="section">Total se&ccedil;&atilde;o 1 e 2</span>
+			<div class="row-details-products-to-buy-item">
+				<span class="item">
+					<span class="lbl-money">Valor total da compra</span>
+					<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$ '}}</span>
+				</span>
+				<span class="item">
+					<span class="lbl-money">Valor de frete</span>
+					<span class="btn-price-payment">{{freight | currency:'R$ '}}</span>
+				</span>
+			</div>
+			<div class="row-details-products-to-buy-item">
+				<span class="item">
+					<span class="lbl-money">SD dispon&iacute;vel (d&eacute;bito)</span>
+					<span class="btn-price-payment">0,00</span>
+				</span>
+				<span class="item">
+					<span class="lbl-money">Subtotal</span>
+					<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$ '}}</span>
+				</span>
+			</div>
+			<div class="row-details-products-to-buy-item">
+				<span class="item">
+					<span class="lbl-money">SD dispon&iacute;vel (cr&eacute;dito)</span>
+					<span class="btn-price-payment">0,00</span>
+				</span>
+				<span class="item">
+					<span class="lbl-money font-bold">Total do pedido</span>
+					<span class="btn-price-payment font-bold">{{orderTotalDiscount | currency:'R$ '}}</span>
+				</span>
+				<span class="item">
+					<span class="lbl-money">Total pts</span>
+					<span class="btn-price-payment">{{pointsTotal}}</span>
+				</span>
+			</div>
+		</div>
+		<!--Tela "Fazer pedido"-->
+		<div class="col-details-products-to-buy-item border-none" ng-show="selectedTab=='buildOrder'">			
+			<div class="btns-details-products-to-buy-item">
+				<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
+				<button class="btn btn-ok float-right" type="submit" ng-click="selectTab('confirmOrder')">Prosseguir</button>
+			</div>		
+		</div>
+		
+		<!--Tela "Confirmar pedido"-->
+		<div class="col-details-products-to-buy-item border-none" ng-show="selectedTab=='confirmOrder'">			
+			<div class="btns-details-products-to-buy-item">
+				<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
+				<button class="btn btn-ok float-right" type="submit" ng-click="confirm()">Confirmar</button>
+			</div>		
+		</div>
+	</div>
+</div>	

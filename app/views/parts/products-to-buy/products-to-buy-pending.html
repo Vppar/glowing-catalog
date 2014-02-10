@@ -1,0 +1,117 @@
+<div class="row-fluid step1">	
+	<div class="products-to-buy-edit">	
+		<div class="row-fluid">
+			<div class="grid-payment-products-to-buy-edit">
+			 	<div class="control-group lbl-top center-align">
+                    <label class="control-label">&nbsp;</label>
+                    <select ui-select2
+                        name="product"
+                        class="combo-width-product-exchange marginr10 control-label-exchange select-h38"
+                        ng-model="productId">
+                        <option value="">Selecione um Pedido</option>
+                        <option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
+                    </select>
+                </div>
+                <div class="row-last-payments" >
+                        <span class="col-1">
+                            <div>012-14</div>
+                        </span>
+                        <span class="col-2">
+                            <div>24/01/2014</div>
+                        </span>
+                        <span class="col-3">
+                            <div>15:31 h</div>
+                        </span>
+                        <span class="col-4">
+                            <div>R$ 986,34</div>
+                        </span>
+                </div>
+                <div class="row-last-payments" >
+                        <span class="col-1">
+                            <div>012-14</div>
+                        </span>
+                        <span class="col-2">
+                            <div>24/01/2014</div>
+                        </span>
+                        <span class="col-3">
+                            <div>15:31 h</div>
+                        </span>
+                        <span class="col-4">
+                            <div>R$ 986,34</div>
+                        </span>
+                </div>
+				<div class="grid-pending-products-to-buy-edit">
+					<div class="header header2 title-header-products-to-buy">
+						<div class="row-payment-grid">
+	                             	<span class="col-s1">
+								<div>Data</div>
+							</span>
+							<span class="col-s2">
+								<div>Pedido</div>
+							</span>
+							<span class="col-s3">
+								<div>NFe</div>
+							</span>
+							<span class="col-s4">
+								<div>Produto/C&oacute;digo</div>
+							</span>
+							<span class="col-s5">
+								<div>P.Unit</div>
+							</span>
+							<span class="col-s6">
+								<div>Qtde</div>
+							</span>
+							<span class="col-s7">
+								<div>Ok</div>
+							</span>
+							<span class="col-s8">
+								<div>Pend./Qtde.</div>
+							</span>
+						</div>
+					</div>	
+	
+					<div class="scroll-payment-grid scroll-payment-grid2">
+						<span ng-repeat="sessions in stockReport">									
+							<span ng-repeat="lines in sessions"> 
+								<div class="section"></div>
+								<div class="row-pending-product-products-to-buy" >
+									<span class="col-s1">
+										<div class="p-title">24/01/2014</div>
+									</span>
+									<span class="col-s2">
+										<div>012-14</div>
+									</span>
+									<span class="col-s3">
+										<div>12345138</div>
+									</span>
+	                                         <span class="col-s4">
+										<div class="p-title">{{product.title}}</div>&nbsp;<div class="p-points">{{product.points}} pts</div>
+										<div class="small-text">cod.: {{product.SKU}}</div>
+									</span>
+									<span class="col-s5">
+										<div>{{product.cost | currency: ''}}</div>
+									</span>
+									<span class="col-s6">
+										<div>{{product.refMinQty}}</div>
+									</span>
+									<span class="col-s7">
+										<div> <input type="checkbox"></div>
+									</span>
+									<span class="col-s8">
+										<div>1</div>
+									</span>
+								</div>
+							</span>												
+						</span>
+					</div><!--fim scroll-->
+	                <div class="payment-btn-area">
+	                    <button class="btn btn-cancel" type="submit" >Cancelar</button>
+	                </div>
+	                <div class="payment-btn-area">
+	                    <button class="btn btn-ok" type="submit" >Confirmar</button>
+	                </div>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
