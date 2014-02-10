@@ -2,26 +2,41 @@
 
 describe('Service: TypeKeeperAddScenario', function() {
 
+    var logger = angular.noop;
+
+    var log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.type');
         module('tnt.catalog.type.keeper');
         module('tnt.catalog.type.entity');
+
+        module(function($provide) {
+          $provide.value('$log', log);
+        });
     });
 
     // instantiate service
     var TypeKeeper = undefined;
     var Type = undefined;
+    var JournalKeeper = undefined;
+    var $rootScope = undefined;
 
-    beforeEach(inject(function(_TypeKeeper_, _Type_, WebSQLDriver) {
-      
-        WebSQLDriver.transaction(function(tx){
-            WebSQLDriver.dropBucket(tx, 'JournalEntry');
-        });
-      
+    beforeEach(inject(function(_$rootScope_, _TypeKeeper_, _Type_, _JournalKeeper_) {
         TypeKeeper = _TypeKeeper_;
         Type = _Type_;
+        JournalKeeper = _JournalKeeper_;
+        $rootScope = _$rootScope_;
     }));
+
+
+    beforeEach(nukeData);
 
     /**
      * <pre>
@@ -37,13 +52,23 @@ describe('Service: TypeKeeperAddScenario', function() {
         var classification = 'a class';
         var ev = new Type(null, name, classification);
 
+        var added = false;
+
         runs(function() {
-            TypeKeeper.add(ev);
+            var promise = TypeKeeper.add(ev);
+            promise.then(function (result) {
+                log.debug('Type added!', result);
+                added = true;
+            }, function (err) {
+                log.debug('Failed to add Type!', err);
+            });
+
+            $rootScope.$apply();
         }); 
 
         waitsFor(function() {
-            return TypeKeeper.list(classification);
-        }, 'JournalKeeper is taking too long', 300);
+            return added;
+        }, 'TypeKeeper.add()', 300);
 
         runs(function() {
             expect(TypeKeeper.list(classification).length).toBe(1);
@@ -51,4 +76,19 @@ describe('Service: TypeKeeperAddScenario', function() {
         });
     });
 
+
+    function nukeData() {
+        var nuked = null;
+
+        runs(function () {
+            JournalKeeper.nuke().then(function () {
+                log.debug('Nuked data!');
+                nuked = true;
+            });
+        });
+
+        waitsFor(function () {
+            return nuked;
+        }, 'JournalKeeper.nuke()');
+    }
 });
