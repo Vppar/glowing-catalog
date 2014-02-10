@@ -53,7 +53,7 @@ describe('Service: StockeeperRemoveScenario', function() {
             if (ArrayUtils.find(StockKeeper.list(), 'inventoryId', 110).quantity != ev.quantity) {
                 return ArrayUtils.find(StockKeeper.list(), 'inventoryId', 110).quantity;
             }
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long', 500);
 
         runs(function() {
             //then

@@ -33,7 +33,7 @@
 
         $scope.$watchCollection('productFilter', function() {
             var myTextFilter = $scope.productFilter.text;
-            if (String(myTextFilter).length > 3) {
+            if (String(myTextFilter).length >= 3) {
                 var objFilter = {
                     title : myTextFilter,
                     SKU : myTextFilter
