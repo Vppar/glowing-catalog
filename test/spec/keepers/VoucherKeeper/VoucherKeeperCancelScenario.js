@@ -94,6 +94,8 @@ describe('Service: VoucherKeeperCancelScenario', function() {
                 log.debug('Nuked data!');
                 nuked = true;
             });
+
+            $rootScope.$apply();
         });
 
         waitsFor(function () {

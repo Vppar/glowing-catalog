@@ -95,6 +95,8 @@ describe('Service: EntityServiceAddScenario', function() {
                 log.debug('Nuked data!');
                 nuked = true;
             });
+
+            $rootScope.$apply();
         });
 
         waitsFor(function () {

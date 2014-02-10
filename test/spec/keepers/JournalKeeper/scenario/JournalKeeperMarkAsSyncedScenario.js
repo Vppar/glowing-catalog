@@ -85,6 +85,8 @@ describe('Keeper: JournalKeeper.markAsSynced() scenario', function() {
                     // Restore the getTime() method
                     Date.prototype.getTime = getTimeFn;
                 });
+
+                scope.$apply();
             });
 
             waitsFor(function () {

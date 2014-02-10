@@ -93,6 +93,8 @@ describe('Service: VoucherKeeperRedeemScenario', function() {
                 log.debug('Nuked data!');
                 nuked = true;
             });
+
+            $rootScope.$apply();
         });
 
         waitsFor(function () {

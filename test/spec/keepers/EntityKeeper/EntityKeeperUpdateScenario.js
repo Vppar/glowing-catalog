@@ -228,6 +228,8 @@ describe('Service: EntityKeeperUpdateScenario', function() {
                 log.debug('Nuked data!');
                 nuked = true;
             });
+
+            $rootScope.$apply();
         });
 
         waitsFor(function () {

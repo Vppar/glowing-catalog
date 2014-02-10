@@ -72,6 +72,10 @@
         
         var storage = new PersistentStorage(WebSQLDriver);
         var registered = storage.register(entityName, JournalEntry);
+
+        registered.then(null, function (err) { 
+            $log.fatal('Failed to register the entity!', entityName, err);
+        });
       
         /**
          * Persist and replay a journal entry
@@ -112,13 +116,15 @@
          * @returns {Promise}
          */
         this.readUnsynced = function() {
-            var promise = storage.list(entityName, {synced: 0});
+            return registered.then(function () {
+                var promise = storage.list(entityName, {synced: 0});
 
-            promise.then(null, function (err) {
-                $log.debug('Failed to read unsynced:', err);
+                promise.then(null, function (err) {
+                    $log.debug('Failed to read unsynced:', err);
+                });
+
+                return promise;
             });
-
-            return promise;
         };
         
         /**
@@ -128,17 +134,19 @@
          * @return {Promise} The transaction promise
          */
         this.markAsSynced = function(entry) {
-            entry.synced = new Date().getTime();
+            return registered.then(function () {
+                entry.synced = new Date().getTime();
 
-            var promise = storage.update(entry);
+                var promise = storage.update(entry);
 
-            promise.then(null, function (err) {
-                // FIXME: should we revert entry.synced back to false in case
-                // of failures in the update?
-                $log.error('Failed to update journal entry', err);
+                promise.then(null, function (err) {
+                    // FIXME: should we revert entry.synced back to false in case
+                    // of failures in the update?
+                    $log.error('Failed to update journal entry', err);
+                });
+
+                return promise;
             });
-
-            return promise;
         };
 
         /**
@@ -149,13 +157,15 @@
          * 
          */
         this.remove = function(entry) {
-            var promise = storage.remove(entry);
+            return registered.then(function () {
+                var promise = storage.remove(entry);
 
-            promise.then(null, function (err) {
-                $log.error('Failed to remove journal entry', err);
+                promise.then(null, function (err) {
+                    $log.error('Failed to remove journal entry', err);
+                });
+
+                return promise;
             });
-
-            return promise;
         };
         
 
@@ -169,53 +179,56 @@
          * @return {Promise} The transaction promise
          */
         this.nuke = function(){
-            var promise = storage.nuke(entityName);
+            return registered.then(function () {
+                var promise = storage.nuke(entityName);
 
-            promise.then(null, function (err) {
-                $log.fatal('Failed to nuke journal entries: PersistentStorage.nuke failed');
-                $log.debug('Failed to nuke: PersistentStorage.nuke failed', err);
+                promise.then(null, function (err) {
+                    $log.fatal('Failed to nuke journal entries: PersistentStorage.nuke failed');
+                    $log.debug('Failed to nuke: PersistentStorage.nuke failed', err);
+                });
+
+                return promise;
             });
-
-            return promise;
         };
 
         /**
          * Resyncs the local in-memory data on the keepers based on the persisted
          */
         this.resync = function() {
-          
-            var deferred = $q.defer();
-            var promises = [];
-          
-            storage.list(entityName).then(function(results){
-                $log.debug('Starting replay on ' + results.length + ' entries');
+            return registered.then(function () {
+                var deferred = $q.defer();
+                var promises = [];
+              
+                storage.list(entityName).then(function(results){
+                    $log.debug('Starting replay on ' + results.length + ' entries');
 
-                var entry = null;
-                
-                try {
-                    for(var ix in results){
-                      
-                        entry = results[ix];
-                        
-                        sequence = sequence > entry.sequence ? sequence : entry.sequence;
-                        
-                        promises.push(Replayer.replay(entry));
+                    var entry = null;
+                    
+                    try {
+                        for(var ix in results){
+                          
+                            entry = results[ix];
+                            
+                            sequence = sequence > entry.sequence ? sequence : entry.sequence;
+                            
+                            promises.push(Replayer.replay(entry));
+                        }
+                    } catch (err) {
+                        $log.error('Failed to resync: replay failed');
+                        $log.debug('Failed to resync: replay failed -', err, entry);
+                        deferred.reject(err);
                     }
-                } catch (err) {
-                    $log.error('Failed to resync: replay failed');
-                    $log.debug('Failed to resync: replay failed -', err, entry);
-                    deferred.reject(err);
-                }
 
-                $log.debug('waiting for ' + promises.length + ' promises to resolve');
-                deferred.resolve($q.all(promises));
-            },function(error){
-                $log.error('Failed to resync: list failed');
-                $log.debug('Failed to resync: list failed', error);
-                deferred.reject(error);
+                    $log.debug('waiting for ' + promises.length + ' promises to resolve');
+                    deferred.resolve($q.all(promises));
+                },function(error){
+                    $log.error('Failed to resync: list failed');
+                    $log.debug('Failed to resync: list failed', error);
+                    deferred.reject(error);
+                });
+                
+                return deferred.promise;
             });
-            
-            return deferred.promise;
         };
     });
 

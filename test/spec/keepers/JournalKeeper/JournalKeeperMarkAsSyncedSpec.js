@@ -8,6 +8,13 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
   beforeEach(function () {
       storage.register = jasmine.createSpy('PersistentStorage.register');
       storage.update = jasmine.createSpy('PersistentStorage.update');
+
+      // Assumes the storage.register() call to have succeeded
+      storage.register.andCallFake(function () {
+        var deferred = q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      });
   });
 
 
@@ -32,10 +39,14 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
   var $rootScope = null;
   var $log = null;
 
-  beforeEach(inject(function($q, _$log_, _JournalKeeper_, _JournalEntry_, _$rootScope_) {
+  // q must be defined before JournalKeeper is injected
+  beforeEach(inject(function ($q) {
+    q = $q;
+  }));
+
+  beforeEach(inject(function(_$log_, _JournalKeeper_, _JournalEntry_, _$rootScope_) {
     JournalKeeper = _JournalKeeper_;
     JournalEntry = _JournalEntry_;
-    q = $q;
     $rootScope = _$rootScope_;
     $log = _$log_;
   }));
@@ -61,21 +72,22 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
 
       var promise = JournalKeeper.markAsSynced(entry);
 
-      // Restore getTime()
-      Date.prototype.getTime = getTimeFn;
-
       promise.then(function(entry) {
         // Make sure the synced attr is updated
         expect(entry.synced).toBe(123);
+
+        // Restore getTime()
+        Date.prototype.getTime = getTimeFn;
 
         // Once the promise is resolved, we assume the update was
         // successful
         updated = true;
       });
+
+      $rootScope.$apply();
     });
 
     waitsFor(function() {
-      $rootScope.$apply();
       return updated;
     }, 'Resync seems to have failed');
 

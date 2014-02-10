@@ -85,6 +85,8 @@ describe('Service: TypeKeeperAddScenario', function() {
                 log.debug('Nuked data!');
                 nuked = true;
             });
+
+            $rootScope.$apply();
         });
 
         waitsFor(function () {
