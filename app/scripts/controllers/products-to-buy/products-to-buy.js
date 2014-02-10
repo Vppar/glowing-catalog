@@ -55,15 +55,15 @@
         };
 
         $scope.$on('cancel', function() {
-            resetReport();
+            updateReport(stockReportBkp);
             $scope.$broadcast('resetWatchedQty');
             $scope.selectedTab = 'buildOrder';
         });
 
         $scope.$on('confirm', function() {
-            resetReport();
+            updateReport(stockReportBkp);
             $scope.$broadcast('resetWatchedQty');
-            $scope.selectedTab = 'buildOrder';
+            $scope.selectedTab = 'verifyTicket';
             // TODO - Save the order
         });
 
