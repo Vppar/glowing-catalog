@@ -2,27 +2,41 @@
 
 describe('Service: EntityKeeperUpdateScenario', function() {
 
+    var logger = angular.noop;
+
+    var log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.entity');
         module('tnt.catalog.entity.keeper');
         module('tnt.catalog.entity.entity');
+
+        module(function($provide) {
+          $provide.value('$log', log);
+        });
     });
 
     // instantiate service
+    var JournalKeeper = null;
     var EntityKeeper = null;
     var Entity = null;
     var $rootScope = null;
-    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_, WebSQLDriver) {
-      
-        WebSQLDriver.transaction(function(tx){
-            WebSQLDriver.dropBucket(tx, 'JournalEntry');
-        });
-      
+
+    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_, _JournalKeeper_) {
+        JournalKeeper = _JournalKeeper_;
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
         $rootScope = _$rootScope_;
     }));
+
+
+    beforeEach(nukeData);
     
     /**
      * <pre>
@@ -53,12 +67,16 @@ describe('Service: EntityKeeperUpdateScenario', function() {
             var promise = EntityKeeper.create(ev);
             
             promise.then(function(_uuid_){
+                log.debug('Entity\'s uuid:', _uuid_);
                 uuid = _uuid_;
+            }, function (err) {
+                log.debug('Failed to create entity', err);
             });
+
+            $rootScope.$apply();
         });
         
         waitsFor(function(){
-            $rootScope.$apply();
             return !!uuid;
         }, 'Create is taking too long', 300);
         
@@ -177,22 +195,43 @@ describe('Service: EntityKeeperUpdateScenario', function() {
         ev2.remarks = 'super bad client';
         ev2.namespaceURI = 'cassiana';
         
+
+        var created = null;
         
         runs(function(){
-            
-            EntityKeeper.create(ev);
+            var promise = EntityKeeper.create(ev);
+            promise.then(function (result) {
+                created = true;
+            }, function (err) {
+            });
+
+            $rootScope.$apply();
         });
         
         waitsFor(function(){
-            return EntityKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+            return created;
+        }, 'EntityKeeper.create()', 300);
         
         runs(function(){
             var createCall = function(){
-                
                 EntityKeeper.handlers.entityUpdateV1(ev2);
             };
             expect(createCall).toThrow('User not found.');
         });
     });
+
+    function nukeData() {
+        var nuked = null;
+
+        runs(function () {
+            JournalKeeper.nuke().then(function () {
+                log.debug('Nuked data!');
+                nuked = true;
+            });
+        });
+
+        waitsFor(function () {
+            return nuked;
+        }, 'JournalKeeper.nuke()');
+    }
 });

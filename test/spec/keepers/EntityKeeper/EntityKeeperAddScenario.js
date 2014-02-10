@@ -2,29 +2,47 @@
 
 describe('Service: EntityKeeperAddScenario', function() {
 
+    var logger = angular.noop;
+
+    var log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.entity');
         module('tnt.catalog.entity.keeper');
         module('tnt.catalog.entity.entity');
+
+        module(function($provide) {
+            $provide.value('$log', log);
+        });
     });
 
     // instantiate service
     var EntityKeeper = null;
     var Entity = null;
     var $rootScope = null;
-    
-    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_, WebSQLDriver) {
-      
-        WebSQLDriver.transaction(function(tx){
-            WebSQLDriver.dropBucket(tx, 'JournalEntry');
-        });
-      
+    var JournalKeeper = null;
+    var WebSQLDriver = null;
+
+
+    beforeEach(inject(function(_EntityKeeper_, _Entity_, _$rootScope_, _JournalKeeper_, _WebSQLDriver_) {
         EntityKeeper = _EntityKeeper_;
         Entity = _Entity_;
         $rootScope = _$rootScope_;
+        JournalKeeper = _JournalKeeper_;
+        WebSQLDriver = _WebSQLDriver_;
     }));
+
+
+    // Clear existing data
+    beforeEach(nukeData);
     
+
     /**
      * <pre>
      * @spec EntityKeeper.add#1
@@ -50,18 +68,25 @@ describe('Service: EntityKeeperAddScenario', function() {
         
         //when
         runs(function(){
-            EntityKeeper.create(ev);
+            EntityKeeper.create(ev).then(function () {
+                log.debug('Entity created');
+            }, function (err) {
+                log.debug('Failed to create entity', err);
+            });
+
+            $rootScope.$apply();
         });
         
         waitsFor(function(){
             return EntityKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'EntityKeeper.create()', 500);
         
         //then
         runs(function(){
             expect(EntityKeeper.list()[0].name).toBe('cassiano');
             expect(EntityKeeper.list().length).toBe(1);
         });
+
 
     });
     
@@ -129,5 +154,21 @@ describe('Service: EntityKeeperAddScenario', function() {
         });
 
     });
+
+
+    function nukeData() {
+        var nuked = null;
+
+        runs(function () {
+            JournalKeeper.nuke().then(function () {
+                log.debug('Nuked data!');
+                nuked = true;
+            });
+        });
+
+        waitsFor(function () {
+            return nuked;
+        }, 'JournalKeeper.nuke()');
+    }
     
 });
