@@ -555,10 +555,10 @@
 
 /*------------- Confirmar pedido  ------- */
 .conf-order-panel {
-	width:60%;
-	/*border:1px solid #ddd;*/
+	/*width:60%;
+	border:1px solid #ddd;
+	margin: 30px auto;*/
 	border-radius:4px;
-	margin: 30px auto;
 }
 span.title-order-panel {
 	margin-bottom: 4px;
