@@ -43,7 +43,7 @@ describe('Service: TypeKeeperAddScenario', function() {
 
         waitsFor(function() {
             return TypeKeeper.list(classification);
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long', 500);
 
         runs(function() {
             expect(TypeKeeper.list(classification).length).toBe(1);

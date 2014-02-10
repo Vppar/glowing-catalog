@@ -49,7 +49,7 @@ describe('Service: VoucherKeeperCancelScenario', function() {
 
         waitsFor(function() {
             return VoucherKeeper.list('voucher')[0].canceled;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long', 500);
 
         runs(function() {
             var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 'cc02b600-5d0b-11e3-96c3-010001000001');
