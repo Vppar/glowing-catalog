@@ -4,8 +4,8 @@
         'tnt.catalog.order.service', 'tnt.utils.array'
     ]).controller(
             'OrderListProductsCtrl',
-            function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, ProductReturnService,
-                    VoucherService) {
+            function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, StockService,
+                    ProductReturnService, VoucherService) {
 
                 // $scope.entities come from OrderListCtrl
                 var entities = $scope.entities;
@@ -14,6 +14,7 @@
                 // $scope.filteredOrders come from OrderListCtrl
                 $scope.filteredOrders = angular.copy(orders);
                 $scope.filteredProducts = [];
+                $scope.filteredProducts.totalStock = 0;
 
                 for ( var ix in orders) {
                     var order = orders[ix];
@@ -46,6 +47,7 @@
                                 if (response) {
                                     productsMap[SKU].qty += item.qty;
                                     productsMap[SKU].priceTotal += Math.round(100 * (Number(item.qty) * Number(item.price))) / 100;
+                                    
                                 } else {
                                     productsMap[SKU] = angular.copy(item);
                                     productsMap[SKU].priceTotal =
@@ -55,10 +57,26 @@
                                             Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
 
                                     $scope.filteredProducts.push(productsMap[SKU]);
+
+                                    //Stock black magic
+                                    
+                                    var stockResponse = StockService.findInStock(item.id);
+
+                                    if (stockResponse.reserve > 0) {
+                                        if ((stockResponse.quantity - stockResponse.reserve) > 0) {
+                                            productsMap[SKU].stock = stockResponse.quantity;
+                                        } else {
+                                            productsMap[SKU].stock = 0;
+                                        }
+                                    } else if (stockResponse.quantity > 0) {
+                                        productsMap[SKU].stock = stockResponse.quantity;
+                                    } else {
+                                        productsMap[SKU].stock = 0;
+                                    }
+                                    $scope.filteredProducts.totalStock += productsMap[SKU].stock;
                                 }
                                 productsMap[SKU].priceAvg =
-                                        Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
-                                productsMap[SKU].stock = 0;
+                                    Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
 
                             }
                         }

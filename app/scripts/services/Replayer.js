@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.journal.replayer', ['tnt.catalog.journal.entity']).service('Replayer', function Replayer(JournalEntry) {
+    angular.module('tnt.catalog.journal.replayer', ['tnt.catalog.journal.entity']).service('Replayer', function Replayer($log, JournalEntry) {
 
         var eventHandlers = {};
 
@@ -66,6 +66,7 @@
         this.replay = function(entry) {
             if (entry instanceof JournalEntry) {
                 if (angular.isFunction(eventHandlers[entry.type + 'V' + entry.version])) {
+                    $log.debug('Replaying', entry);
                     return eventHandlers[entry.type + 'V' + entry.version](entry.event);
                 } else {
                     $log.fatal('We have no register of a proper handler for ' + entry.type + ' version ' + entry.version);

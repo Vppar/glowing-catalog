@@ -9,7 +9,7 @@ describe('Service: Misplacedservice', function() {
     ];
 
     // load the service's module
-    beforeEach(module('glowingCatalogApp'));
+    beforeEach(module('tnt.catalog.misplaced.service'));
 
     // instantiate service
     var Misplacedservice = null;

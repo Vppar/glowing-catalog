@@ -31,8 +31,9 @@ describe('Service: WebSQLDriver.remove', function() {
         };
 	
 	var metadata = {
-            metaVersion : 1
-        };
+      metaVersion : 1,
+      columns: ['a', 'b']
+  };
 	
 	
     // load the service's module
@@ -86,7 +87,7 @@ describe('Service: WebSQLDriver.remove', function() {
 
             var txBody = function(tx) {
             	WebSQLDriver.dropBucket(tx,bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
 
             var promise = WebSQLDriver.transaction(txBody);
@@ -189,7 +190,7 @@ describe('Service: WebSQLDriver.remove', function() {
 
             var txBody = function(tx) {
             	WebSQLDriver.dropBucket(tx,bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
 
             var promise = WebSQLDriver.transaction(txBody);
@@ -292,7 +293,7 @@ describe('Service: WebSQLDriver.remove', function() {
 
             var txBody = function(tx) {
             	WebSQLDriver.dropBucket(tx,bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
 
             var promise = WebSQLDriver.transaction(txBody);
@@ -395,7 +396,7 @@ describe('Service: WebSQLDriver.remove', function() {
 
             var txBody = function(tx) {
             	WebSQLDriver.dropBucket(tx,bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
 
             var promise = WebSQLDriver.transaction(txBody);
@@ -498,7 +499,7 @@ describe('Service: WebSQLDriver.remove', function() {
 
             var txBody = function(tx) {
             	WebSQLDriver.dropBucket(tx,bucketName);
-                WebSQLDriver.createBucket(tx, bucketName, dataCreate, metadata);
+                WebSQLDriver.createBucket(tx, bucketName, metadata);
             };
 
             var promise = WebSQLDriver.transaction(txBody);

@@ -17,6 +17,7 @@
         var vouchersList = VoucherKeeper.list('voucher');
         var couponList = VoucherKeeper.list('coupon');
         var giftList = VoucherKeeper.list('giftCard');
+        
         for ( var ix in vouchersList) {
             vouchersList[ix].entity = EntityService.read(vouchersList[ix].entity).name;
             vouchersList[ix].type = 'Vale Crédito';

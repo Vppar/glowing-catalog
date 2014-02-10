@@ -44,7 +44,7 @@
 					<div class="controls">
 						<div class="control-group lbl-top">
 							<div class="controls">
-								Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small margin0" required ng-model="dtInitial">
+								Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small margin0" required readonly ng-model="dtInitial">
 							</div>
 						</div>
 						<div class="control-group lbl-top">
@@ -57,7 +57,7 @@
 					<div class="controls">
 						<div class="control-group lbl-top">
 							<div class="controls">
-								<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yy" class="date-field input-small" required ng-model="dtFinal">
+								<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" readonly required ng-model="dtFinal">
 							</div>
 						</div>
 						<div class="control-group lbl-top">
@@ -68,7 +68,7 @@
 				
 				<span class="span6">
 					<input type="checkbox" id="filter-bar-checkbox" value="todos">
-					<span class="txtpad filter-bar-check">todos os valores em aberto at&eacute; {{dtInitial}}</span>
+					<span class="txtpad filter-bar-check">todos os valores em aberto at&eacute; {{dtFinalTime | date:'dd/MM/yyyy'}}</span>
 				</span>					
 			</div>
 				

@@ -3,7 +3,7 @@
 describe('Service: ProductLineUp', function () {
 
   // load the service's module
-  beforeEach(module('glowingCatalogApp'));
+  beforeEach(module('tnt.catalog.lineup'));
 
   // instantiate service
   var ProductLineUp = undefined;

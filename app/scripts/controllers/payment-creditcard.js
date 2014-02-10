@@ -16,7 +16,7 @@
                 function getAmount(change) {
                     return !change || change > 0 ? 0 : -change;
                 }
-
+                
                 // Initializing credit card data with a empty credit card
                 var creditCard = {};
                 var emptyCreditCardTemplate = {
@@ -83,7 +83,6 @@
                 while (currYear < cardMaxExpirationYear) {
                     cardExpirationYears.push(currYear++);
                 }
-
                 creditCard.expirationMonth = 1;
                 creditCard.expirationYear = new Date().getFullYear();
                 $scope.cardExpirationYears = cardExpirationYears;

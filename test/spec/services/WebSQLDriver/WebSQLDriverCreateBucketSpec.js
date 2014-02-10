@@ -46,17 +46,13 @@ describe('Service: WebSQLDriver.transaction', function() {
 
         runs(function() {
 
-            var data = {
-                a : 'a',
-                b : 'b'
-            };
-
             var metadata = {
-                metaVersion : 1
+                metaVersion : 1,
+                columns: ['a', 'b']
             };
 
             var txBody = function(tx) {
-                WebSQLDriver.createBucket(tx, 'MyBucket', data, metadata);
+                WebSQLDriver.createBucket(tx, 'MyBucket', metadata);
             };
 
             var promise = WebSQLDriver.transaction(txBody);
@@ -86,17 +82,12 @@ describe('Service: WebSQLDriver.transaction', function() {
      */
     it('should fail with wrong metaVersion', function() {
 
-        var data = {
-            a : 'a',
-            b : 'b'
-        };
-
         var metadata = {};
         var name = 'MyBucket';
 
         var txBody = function(tx) {
             try {
-                WebSQLDriver.createBucket(tx, name, data, metadata);
+                WebSQLDriver.createBucket(tx, name, metadata);
             } catch (e) {
                 expect(e).toEqual('Metadata version not suported in ' + name);
             }

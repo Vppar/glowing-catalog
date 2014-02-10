@@ -71,7 +71,14 @@
                 'tnt.catalog.orderList.ctrl',
                 'tnt.catalog.orderList.orders.ctrl', 
                 'tnt.catalog.orderList.products.ctrl', 
-                'tnt.catalog.orderList.clients.ctrl'
+                'tnt.catalog.orderList.clients.ctrl',
+                'tnt.catalog.stock',
+                'tnt.catalog.lineup',
+                'tnt.catalog.productsToBuy.ctrl',
+                'tnt.catalog.stock.service',
+                'tnt.catalog.stock.ctrl',
+                'tnt.catalog.receivable.add.ctrl',
+                'tnt.catalog.type'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
@@ -94,10 +101,11 @@
         }).when('/partial-delivery', {
             templateUrl : 'views/partial-delivery.html',
             controller : 'PartialDeliveryCtrl'
+        }).when('/products-to-buy', {
+            templateUrl : 'views/products-to-buy.html',
+            controller : 'ProductsToBuyCtrl'
         }).when('/pending-delivery', {
             templateUrl : 'views/pending-delivery.html'
-        }).when('/products-to-buy', {
-            templateUrl : 'views/products-to-buy.html'
         }).when('/order-list', {
             templateUrl : 'views/order-list.html',
             controller : 'OrderListCtrl'
@@ -122,6 +130,7 @@
             controller : 'IncomeStatementCtrl'
         }).when('/stock', {
             templateUrl : 'views/stock.html',
+            controller : 'StockCtrl'
         }).when('/voucher', {
             templateUrl : 'views/voucher.html',
             controller : 'VoucherCtrl'
@@ -129,6 +138,10 @@
             templateUrl : 'views/cash-flow.html',
         }).otherwise({
             redirectTo : '/'
+        });
+    }).run(function(JournalKeeper, DataProvider){
+        DataProvider.fakeJournal().then(function(){
+            JournalKeeper.resync();
         });
     });
 }(angular));

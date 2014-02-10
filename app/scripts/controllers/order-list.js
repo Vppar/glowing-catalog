@@ -102,29 +102,47 @@
         $scope.filterByDate = function filterByDate(order) {
             var initialFilter = null;
             var finalFilter = null;
-            if ($scope.dateFilter.dtInitial !== '') {
-                if ($scope.dateFilter.dtInitial) {
-                    initialFilter = $scope.dateFilter.dtInitial.getTime();
-                }
+            var isDateInitial = false;
+            var isDateFinal = false;
+            if ($scope.dateFilter.dtInitial instanceof Date) {
+
+                $scope.dateFilter.dtInitial.setHours(0);
+                $scope.dateFilter.dtInitial.setMinutes(0);
+                $scope.dateFilter.dtInitial.setSeconds(0);
+
+                initialFilter = $scope.dateFilter.dtInitial.getTime();
+
+                isDateInitial = true;
             }
-            if ($scope.dateFilter.dtFinal !== '') {
-                if ($scope.dateFilter.dtFinal) {
-                    finalFilter = $scope.dateFilter.dtFinal.getTime();
+            if ($scope.dateFilter.dtFinal instanceof Date) {
+
+                $scope.dateFilter.dtFinal.setHours(23);
+                $scope.dateFilter.dtFinal.setMinutes(59);
+                $scope.dateFilter.dtFinal.setSeconds(59);
+
+                finalFilter = $scope.dateFilter.dtFinal.getTime();
+
+                isDateFinal = true;
+            }
+
+            if (isDateInitial && isDateFinal) {
+                if ($scope.dateFilter.dtInitial.getTime() > $scope.dateFilter.dtFinal.getTime()) {
+                    $scope.dateFilter.dtFinal = angular.copy($scope.dateFilter.dtInitial);
                 }
             }
 
             if (initialFilter && finalFilter) {
-                if (order.date >= initialFilter && order.date <= finalFilter) {
+                if (order.created >= initialFilter && order.created <= finalFilter) {
                     return true;
                 }
                 return false;
             } else if (initialFilter) {
-                if (order.date >= initialFilter) {
+                if (order.created >= initialFilter) {
                     return true;
                 }
                 return false;
             } else if (finalFilter) {
-                if (order.date <= finalFilter) {
+                if (order.created <= finalFilter) {
                     return true;
                 }
                 return false;

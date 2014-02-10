@@ -16,20 +16,41 @@
             key : 'sequence',
             // indexed columns
             ix : [],
+            // colums that must be serialized/unserialized
+            serializable: ['event'],
+            // valid properties for this object
+            columns: [ 'sequence', 'stamp', 'type', 'version', 'event', 'synced' ]
         };
 
         var service = function svc(sequence, stamp, type, version, event) {
-
+          
+            ObjectUtils.method(svc, 'isValid', function() {
+                for ( var ix in this) {
+                    var prop = this[ix];
+    
+                    if (!angular.isFunction(prop)) {
+                        if (metadata.columns.indexOf(ix) === -1) {
+                            throw "Unexpected property " + ix;
+                        }
+                    }
+                }
+            });
+          
             if (arguments.length != svc.length) {
-                throw 'JournalEntry must be initialized with sequence, stamp, type, version and event';
+                if (arguments.length === 1 && angular.isObject(arguments[0])) {
+                    svc.prototype.isValid.apply(arguments[0]);
+                    ObjectUtils.dataCopy(this, arguments[0]);
+                } else {
+                    throw 'JournalEntry must be initialized with sequence, stamp, type, version and event';
+                }
+            } else {
+                this.sequence = sequence;
+                this.stamp = stamp;
+                this.type = type;
+                this.version = version;
+                this.event = event;
+                this.synced = 0;
             }
-
-            this.sequence = sequence;
-            this.stamp = stamp;
-            this.type = type;
-            this.version = version;
-            this.event = event;
-            this.synced = false;
         };
 
         ObjectUtils.method(service, 'metadata', function() {
@@ -71,6 +92,7 @@
                         deferred.resolve(Replayer.replay(journalEntry));
                     } catch (e){
                         $log.fatal('Failed to replay: Replayer.replay failed');
+                        $log.debug('Failed to replay', e, journalEntry);
                         deferred.reject(e);
                     }
                 }, function(error){
@@ -86,38 +108,55 @@
          * Returns all unsynced entries in the database
          * 
          * @returns {Promise}
-         * 
-         * TODO Test Me!
          */
         this.readUnsynced = function() {
-            return storage.list(entityName, {synced: false});
+            var promise = storage.list(entityName, {synced: 0});
+
+            promise.then(null, function (err) {
+                $log.debug('Failed to read unsynced:', err);
+            });
+
+            return promise;
         };
         
         /**
-         * Marks a given entity as synced
+         * Marks a given entry as synced
          * 
-         * @param {Object} The entity to be updated
+         * @param {Object} entry The entry to be updated
          * @return {Promise} The transaction promise
-         * 
-         * TODO Test Me!
          */
-        this.markAsSynced = function(entity) {
-            entity.synced = true;
-            return storage.update(entity);
+        this.markAsSynced = function(entry) {
+            entry.synced = new Date().getTime();
+
+            var promise = storage.update(entry);
+
+            promise.then(null, function (err) {
+                // FIXME: should we revert entry.synced back to false in case
+                // of failures in the update?
+                $log.error('Failed to update journal entry', err);
+            });
+
+            return promise;
         };
 
         /**
          * Remove the given entry
          * 
-         * @param {Object} The entity to be updated
+         * @param {Object} entry The entry to be updated
          * @return {Promise} The transaction promise
          * 
-         * TODO Test Me!
          */
-        this.remove = function(entity) {
-            return storage.remove(entity);
+        this.remove = function(entry) {
+            var promise = storage.remove(entry);
+
+            promise.then(null, function (err) {
+                $log.error('Failed to remove journal entry', err);
+            });
+
+            return promise;
         };
         
+
         /**
          * Nukes the local storage - Use with extreme caution
          * 
@@ -126,11 +165,16 @@
          *  - The database has been compromised.
          *  
          * @return {Promise} The transaction promise
-         *  
-         * TODO Test Me!
          */
         this.nuke = function(){
-            return storage.nuke(entityName);
+            var promise = storage.nuke(entityName);
+
+            promise.then(null, function (err) {
+                $log.fatal('Failed to nuke journal entries: PersistentStorage.nuke failed');
+                $log.debug('Failed to nuke: PersistentStorage.nuke failed', err);
+            });
+
+            return promise;
         };
 
         /**
@@ -144,12 +188,20 @@
             storage.list(entityName).then(function(results){
                 $log.debug('Starting replay on ' + results.length + ' entries');
 
+                var entry = null;
+                
                 try {
                     for(var ix in results){
-                        promises.push(Replayer.replay(results[ix]));
+                      
+                        entry = results[ix];
+                        
+                        sequence = sequence > entry.sequence ? sequence : entry.sequence;
+                        
+                        promises.push(Replayer.replay(entry));
                     }
                 } catch (err) {
                     $log.error('Failed to resync: replay failed');
+                    $log.debug('Failed to resync: replay failed -', err, entry);
                     deferred.reject(err);
                 }
 
@@ -157,7 +209,7 @@
                 deferred.resolve($q.all(promises));
             },function(error){
                 $log.error('Failed to resync: list failed');
-                $log.debug('Failed to resync: list failed ', error);
+                $log.debug('Failed to resync: list failed', error);
                 deferred.reject(error);
             });
             

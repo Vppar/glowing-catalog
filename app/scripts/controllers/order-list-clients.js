@@ -27,6 +27,13 @@
                     order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
                     order.amountTotal = priceTotal + amountTotal;
                 }
+                
+                $scope.updateAndEnableHideOption = function(entity) {
+                    updatePaymentsTotal(entity);
+                    if($scope.hideOptions === true){
+                        $scope.invertHideOption();
+                    }
+                };
 
                 function updateFilteredEntities() {
                     

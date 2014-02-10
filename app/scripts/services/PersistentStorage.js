@@ -1,7 +1,17 @@
 (function(angular, ObjectUtils) {
     'use strict';
 
-    angular.module('tnt.catalog.storage.persistent', ['tnt.storage.websql']).factory('PersistentStorage', function PersistentStorage($log, $q) {
+    angular.module('tnt.catalog.storage.persistent', ['tnt.storage.websql'])
+    .config(function($provide) {
+                $provide.decorator('$q', function($delegate) {
+                    $delegate.reject = function(reason){
+                        var deferred = $delegate.defer();
+                        deferred.reject(reason);
+                        return deferred.promise;
+                    };
+                    return $delegate;
+                });
+        }).factory('PersistentStorage', function PersistentStorage($log, $q) {
 
         var service = function(driver) {
             var entities = {};
@@ -54,11 +64,12 @@
 
                 var promise;
 
+                var metadata = entity.metadata();
+                
                 if (initialized.indexOf(name) === -1) {
-                    var metadata = entity.metadata();
 
                     promise = dbDriver.transaction(function(tx) {
-                        dbDriver.createBucket(tx, name, data, metadata);
+                        dbDriver.createBucket(tx, name, metadata);
                         dbDriver.persist(tx, name, data);
                     });
                     
@@ -108,7 +119,7 @@
                     deferred.resolve(dbDriver.update(tx, name, key, data));
                 }
                 
-                return promise;
+                return deferred.promise;
             };
 
             /**
@@ -126,7 +137,11 @@
                 
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
-                        deferred.resolve(dbDriver.find(tx, name, id, cb));
+                        dbDriver.find(tx, name, id, cb).then(function(entity){
+                            deferred.resolve(inject(entity, name));
+                        }, function(error){
+                            deferred.reject(error);
+                        });
                     })['catch'](function(error){
                         deferred.reject(error);
                     });
@@ -151,7 +166,17 @@
 
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
-                        deferred.resolve(dbDriver.list(tx, name, params, cb));
+                        dbDriver.list(tx, name, params, cb).then(function(entities){
+                            var list = [];
+                            
+                            for (var ix in entities ){
+                                list.push(inject(entities[ix], name));
+                            }
+                          
+                            deferred.resolve(list);
+                        }, function(error){
+                            deferred.reject(error);
+                        });
                     })['catch'](function(error){
                         deferred.reject(error);
                     });
@@ -202,6 +227,8 @@
                     dbDriver.dropBucket(tx, name);
                 });
             };
+            // TODO - Remove this line on 0.9.10 version
+            var nuke = this.nuke; 
 
             /**
              * Returns the constructor function friendly name
@@ -212,7 +239,7 @@
                         return name;
                     }
                 }
-                throw "Unknown entity!";
+                throw 'Unknown entity!';
             };
 
             /**
@@ -221,14 +248,51 @@
             var extract = function(entity) {
 
                 var data = {};
+                
+                var serializable = entity.metadata().serializable;
 
                 for ( var propertyName in entity) {
-                    if (!angular.isFunction(entity[propertyName])) {
+                    if (angular.isFunction(entity[propertyName])) {
+                        continue;
+                    }
+                    
+                    if(serializable.indexOf(propertyName) !== -1){
+                        data[propertyName] = JSON.stringify(entity[propertyName]);
+                    } else {
                         data[propertyName] = entity[propertyName];
                     }
                 }
 
                 return data;
+            };
+            
+            var inject = function(data, name){
+              
+                if(angular.isUndefined(entities[name])){
+                    $log.debug('Unknown entity ', name);
+                    throw 'Unknown entity ' + name;
+                }
+              
+              
+                var entity = new entities[name](data);
+                var serializable = entity.metadata().serializable;
+                
+                
+                // TODO - handle read only properties
+                for ( var propertyName in entity) {
+                    if(serializable.indexOf(propertyName) !== -1){
+                        if (entity[propertyName] === '[object Object]') {
+                            $log.fatal('PersistentStorage.inject: Trying unserialize ancient data.');
+                            nuke('JournalEntry').then(function(){
+                                location.reload(true);
+                            });
+                        } else {
+                            entity[propertyName] = JSON.parse(entity[propertyName]);
+                        }
+                    }
+                }
+                
+                return entity;
             };
         };
 

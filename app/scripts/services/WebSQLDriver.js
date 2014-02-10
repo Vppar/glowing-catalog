@@ -91,7 +91,7 @@
          * @param data
          * @param metadata
          */
-        this.createBucket = function(tx, name, data, metadata) {
+        this.createBucket = function(tx, name, metadata) {
             if (metadata.metaVersion === 1) {
 
                 // FIXME trade Primary Key for Primary Index or ID
@@ -103,7 +103,9 @@
 
                 var columns = [];
 
-                for ( var columnName in data) {
+                for ( var ix in metadata.columns) {
+                  
+                    var columnName = metadata.columns[ix];
 
                     if (pk && pk === columnName) {
                         columns.push(columnName + ' PRIMARY KEY NOT NULL');
@@ -193,11 +195,12 @@
          * @param data
          */
         this.persist = function(tx, name, data) {
-            var columns = [], values = [];
+            var columns = [], values = [], bindings = [];
 
             for ( var columnName in data) {
                 columns.push(columnName);
-                values.push(quote(data[columnName]));
+                values.push('?');
+                bindings.push(data[columnName]);
             }
 
             columns = '(' + columns.join(', ') + ')';
@@ -212,7 +215,7 @@
             SQL.push(values);
 
             SQL = SQL.join(' ');
-            tx.executeSql(SQL);
+            tx.executeSql(SQL, bindings);
         };
         
         /**
@@ -223,7 +226,7 @@
          * @param {Object} where clause parameters
          * @param {Object} data to be updated
          * 
-         * TODO Test Me kira!
+         * TODO make errors to be treated here, not at the websql.
          */
         this.update = function(tx, name, params, data) {
             var updatables = [];
@@ -244,6 +247,7 @@
             SQL.push(where(name, params));
   
             SQL = SQL.join(' ');
+
             tx.executeSql(SQL);
         };
 
@@ -300,7 +304,9 @@
                 
                 cb = function(tx, results) {
                     if (results.rows.length === 1) {
-                        deferred.resolve(results.rows.item(0));
+                        
+                        deferred.resolve(angular.copy(results.rows.item(0)));
+                        
                         $rootScope.$apply();
                     } else {
                         deferred.reject(null);
@@ -373,7 +379,9 @@
 
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
-                        result.push(results.rows.item(i));
+                        
+                      result.push(angular.copy(results.rows.item(i)));
+                        
                     }
 
                     deferred.resolve(result);
@@ -434,7 +442,7 @@
         // TODO - Test for strings, numbers, booleans and nulls. Also add those
         // tests to the persist method
         var quote = function(value) {
-            if (angular.isNumber(value) || value instanceof Boolean || value === null) {
+            if (angular.isNumber(value) || value === true || value === false || value === null) {
                 return value;
             } else {
                 return '\'' + value + '\'';

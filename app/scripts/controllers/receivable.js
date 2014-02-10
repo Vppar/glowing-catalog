@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.receivable.ctrl', []).controller('ReceivableCtrl', function($scope, $filter, ReceivableService) {
+    angular.module('tnt.catalog.financial.receivable.ctrl', ['tnt.catalog.filters.uuidCode']).controller('ReceivableCtrl', function($scope, $filter, ReceivableService) {
 
 
         // An object where lists of receivables can be stored without
@@ -9,11 +9,10 @@
         $scope.receivables = {};
 
         // Stores the list of payments to be displayed
-        $scope.receivables.list = [];
+        $scope.receivables.list = ReceivableService.list();
 
         // Stores the total of all listed payments
         $scope.receivables.total = 0;
-
         /**
          * Entities list to augment expenses.
          */
@@ -26,7 +25,6 @@
         $scope.selectReceivableMode = function selectReceivableMode(selectedMode) {
             $scope.selectedReceivableMode = selectedMode;
         };
-
 
         $scope.$watch('receivables.list', function () {
             $scope.receivables.total = getReceivablesTotal();
