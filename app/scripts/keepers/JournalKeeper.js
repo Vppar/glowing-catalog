@@ -97,7 +97,7 @@
                         deferred.reject(e);
                     }
                 }, function(error){
-                  $log.error('Failed to compose: PersistentStorage.persist failed');
+                  $log.error('Failed to compose: PersistentStorage.persist failed', error);
                   deferred.reject(error);
                 });
               }
