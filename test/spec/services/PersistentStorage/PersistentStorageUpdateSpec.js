@@ -22,6 +22,8 @@ describe('Service: PersistentStorage.update', function() {
             $provide.value('$log', $log);
             $provide.value('WebSQLDriver', webSqlDriverMock);
         });
+        
+        webSqlDriverMock.createBucket = jasmine.createSpy('WebSQLDriver.createBucket');
     });
 
     // inject the the dependencies
@@ -131,9 +133,13 @@ describe('Service: PersistentStorage.update', function() {
 
         var journal = new JournalEntry('i', 'a', 'b', 'c', 'd');
 
+        // PersistentStorage.register() calls WebSQLDriver.transaction()...
+        expect(webSqlDriverMock.transaction.callCount).toBe(1);
+
         persistentObject.update(journal, {});
 
-        expect(webSqlDriverMock.transaction).not.toHaveBeenCalled();
+        // Make sure transaction was not called again.
+        expect(webSqlDriverMock.transaction.callCount).toBe(1);
     });
 
     it('should call driver.update if everything is ok and a transaction is passed by', function() {

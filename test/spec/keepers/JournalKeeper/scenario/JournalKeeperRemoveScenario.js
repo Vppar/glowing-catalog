@@ -85,6 +85,8 @@ describe('Keeper: JournalKeeper.remove() scenario', function() {
                     }, function (err) {
                         console.log('###', err);
                     });
+
+                    scope.$apply();
                 });
 
                 waitsFor(function () {

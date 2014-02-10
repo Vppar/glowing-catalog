@@ -8,6 +8,13 @@ describe('Service: JournalKeeperReadUnsynced', function() {
   beforeEach(function () {
       storage.register = jasmine.createSpy('PersistentStorage.register');
       storage.list = jasmine.createSpy('PersistentStorage.list');
+
+      // Assumes the storage.register() call to have succeeded
+      storage.register.andCallFake(function () {
+        var deferred = $q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      });
   });
 
 
@@ -21,19 +28,22 @@ describe('Service: JournalKeeperReadUnsynced', function() {
       $provide.value('PersistentStorage', function() {
         return storage;
       });
-      // $provide.value('$log', {debug: console.log});
     });
   });
 
   // instantiate service
   var JournalKeeper = null;
-  var q = null;
+  var $q = null;
   var $rootScope = null;
   var $log = null;
 
-  beforeEach(inject(function(_$log_, _JournalKeeper_, $q, _$rootScope_) {
+  // $q must be defined before JournalKeeper is loaded
+  beforeEach(inject(function (_$q_) {
+    $q = _$q_;
+  }));
+
+  beforeEach(inject(function(_$log_, _JournalKeeper_, _$rootScope_) {
     JournalKeeper = _JournalKeeper_;
-    q = $q;
     $rootScope = _$rootScope_;
     $log = _$log_;
   }));
@@ -46,24 +56,28 @@ describe('Service: JournalKeeperReadUnsynced', function() {
 
     runs(function() {
       storage.list.andCallFake(function() {
-        var deferred = q.defer();
+        var deferred = $q.defer();
         deferred.resolve();
         return deferred.promise;
       });
 
       var promise = JournalKeeper.readUnsynced();
 
-      promise.then(function() {
+      promise.then(function(result) {
         // Once the promise is resolved, we assume the reading was
         // successful
+        $log.debug('Unsynced read!', result);
         success = true;
+      }, function (error) {
+        $log.debug('Failed to read unsynced!', error);
       });
+
+      $rootScope.$apply();
     });
 
     waitsFor(function() {
-      $rootScope.$apply();
       return success;
-    }, 'Resync seems to have failed');
+    }, 'JournalKeeper.readUnsynced()', 300);
 
     runs(function() {
       expect(storage.list).toHaveBeenCalled();

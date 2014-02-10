@@ -1,6 +1,15 @@
 'use strict';
 
 describe('Service: StockeeperRemoveScenario', function() {
+
+    var logger = angular.noop;
+
+    var log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
     
     // load the service's module
     beforeEach(function() {
@@ -8,25 +17,29 @@ describe('Service: StockeeperRemoveScenario', function() {
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');
 
+        module(function($provide) {
+          $provide.value('$log', log);
+        });
     });
 
     // instantiate service
     var StockKeeper = undefined;
     var Stock = undefined;
     var ArrayUtils = undefined;
-    var Scope = undefined;
+    var $rootScope = undefined;
+    var JournalKeeper = undefined;
+    var $q = undefined;
 
-    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_, WebSQLDriver) {
-      
-        WebSQLDriver.transaction(function(tx){
-            WebSQLDriver.dropBucket(tx, 'JournalEntry');
-        });
-      
+    beforeEach(inject(function(_$rootScope_, _$q_, _StockKeeper_, _Stock_, _ArrayUtils_, _JournalKeeper_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         ArrayUtils = _ArrayUtils_;
-        Scope = $rootScope;
+        $rootScope = _$rootScope_;
+        JournalKeeper = _JournalKeeper_;
+        $q = _$q_;
     }));
+
+    beforeEach(nukeData);
 
     /**
      * <pre>
@@ -38,22 +51,49 @@ describe('Service: StockeeperRemoveScenario', function() {
      * </pre>
      */
     it('should cancel', function() {
-        var ev = new Stock(110, 34, 50);
+        var ev1 = new Stock(110, 34, 50);
         var ev2 = new Stock(54, 12, 25);
-        runs(function() {
-            //then
-            StockKeeper.handlers.stockAddV1(ev);
-            StockKeeper.handlers.stockAddV1(ev2);
-            //when
-            StockKeeper.remove(110, 12);
 
+        // Add Stock data
+        var added = false;
+        runs(function() {
+            var promises = [];
+            promises.push(StockKeeper.add(ev1));
+            promises.push(StockKeeper.add(ev2));
+
+            var promise = $q.all(promises);
+            promise.then(function (result) {
+                log.debug('Stock added!', result);
+                added = true;
+            }, function (err) {
+                log.debug('Failed to add Stock!', err);
+            });
+
+            $rootScope.$apply();
         });
 
-        waitsFor(function() {
-            if (ArrayUtils.find(StockKeeper.list(), 'inventoryId', 110).quantity != ev.quantity) {
-                return ArrayUtils.find(StockKeeper.list(), 'inventoryId', 110).quantity;
-            }
-        }, 'JournalKeeper is taking too long', 500);
+        waitsFor(function () {
+            return added;
+        }, 'Stock to be added', 500);
+
+        // Remove stock
+        var removed = false;
+        runs(function () {
+            var promise = StockKeeper.remove(110, 12);
+            promise.then(function (result) {
+                log.debug('Stock removed!', result);
+                removed = true;
+            }, function (err) {
+                log.debug('Failed to remove Stock!', err);
+            });
+
+            $rootScope.$apply();
+        });
+
+
+        waitsFor(function () {
+            return removed;
+        }, 'StockKeeper.remove()', 300);
 
         runs(function() {
             //then
@@ -85,7 +125,7 @@ describe('Service: StockeeperRemoveScenario', function() {
         });
         
         waitsFor(function(){
-            Scope.$apply();
+            $rootScope.$apply();
             return !!resolution;
         }, 'JournalKeeper is taking too long', 300);
         
@@ -94,4 +134,21 @@ describe('Service: StockeeperRemoveScenario', function() {
         });
     });
     
+
+    function nukeData() {
+        var nuked = null;
+
+        runs(function () {
+            JournalKeeper.nuke().then(function () {
+                log.debug('Nuked data!');
+                nuked = true;
+            });
+
+            $rootScope.$apply();
+        });
+
+        waitsFor(function () {
+            return nuked;
+        }, 'JournalKeeper.nuke()');
+    }
 });
