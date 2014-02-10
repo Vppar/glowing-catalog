@@ -223,6 +223,7 @@
             this.nuke = function(name){
                 return dbDriver.transaction(function(tx) {
                     dbDriver.dropBucket(tx, name);
+                    dbDriver.createBucket(tx, name, entities[name].prototype.metadata());
                 });
             };
             // TODO - Remove this line on 0.9.10 version
