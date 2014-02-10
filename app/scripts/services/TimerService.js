@@ -108,7 +108,7 @@
                           'Timer ' + id + ' runned for ' + elapsedTime + 'ms and is still running.';
                     }
 
-                    return 'Timer ' + id + ' has not been started yet.'
+                    return 'Timer ' + id + ' has not been started yet.';
                 }
             };
             

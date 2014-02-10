@@ -5,60 +5,6 @@
             'StockService',
             function StockService($log, ArrayUtils, InventoryKeeper, StockKeeper) {
 
-                var stockReport =
-                        function stockReport(type, filter) {
-                            // current time for log
-                            var processStarted = new Date().getTime();
-
-                            // read inventory and stock
-                            var inventory = InventoryKeeper.read();
-                            var stock = StockKeeper.list();
-
-                            // kickstart to report
-                            var report = {
-                                total : {
-                                    amount : 0,
-                                    qty : 0,
-                                    avgCost : 0
-                                },
-                                sessions : {}
-                            };
-
-                            for ( var ix in inventory) {
-                                // walk though all inventory items
-                                var inventoryItem = inventory[ix];
-                                // find the stock item
-                                var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
-                                
-                                // and merge it with stock
-                                var reportItem = angular.copy(inventoryItem);
-                                angular.extend(reportItem, angular.copy(stockItem));
-
-                                // augment the reportItem with undefined
-                                // protected reserve property and qty
-                                augmentReserveAndQty(type, reportItem, filter);
-
-                                if (shouldFilter(filter, reportItem) || shouldSkip(type, reportItem)) {
-                                    continue;
-                                }
-
-                                var session = buildSession(type, report, reportItem);
-                                var line = buildLine(type, session, reportItem);
-
-                                report.total.qty += reportItem.qty;
-                                report.total.amount += currencyMultiply(reportItem.cost, reportItem.qty);
-
-                                line.items.push(reportItem);
-                            }
-                            report.total.avgCost = currencyDivide(report.total.amount, report.total.qty);
-
-                            var processDone = new Date().getTime();
-                            $log.debug('StockService.stockReport(' + (type ? type : '') + '): -It took ' + (processDone - processStarted) +
-                                'ms to create the stockReport.');
-
-                            return report;
-                        };
-
                 var augmentReserveAndQty = function augmentReserveAndQty(type, reportItem) {
                     reportItem.reserve = reportItem.reserve ? reportItem.reserve : 0;
                     if (type === 'available') {
@@ -71,7 +17,7 @@
                         reportItem.minQty = angular.copy(reportItem.qty);
                     }
                 };
-                
+
                 var shouldFilter = function shouldFilter(filter, reportItem) {
                     // use the object filter to test if this item should be
                     // included or not.
@@ -92,6 +38,7 @@
                     }
                     return result;
                 };
+
                 var shouldSkip = function shouldSkip(type, reportItem) {
                     var result = true;
                     if (type === 'available') {
@@ -161,14 +108,104 @@
                     return result;
                 };
 
+                var stockReport =
+                        function stockReport(type, filter) {
+                            // current time for log
+                            var processStarted = new Date().getTime();
+
+                            // read inventory and stock
+                            var inventory = InventoryKeeper.read();
+                            var stock = StockKeeper.list();
+
+                            // kickstart to report
+                            var report = {
+                                total : {
+                                    amount : 0,
+                                    qty : 0,
+                                    avgCost : 0
+                                },
+                                sessions : {}
+                            };
+
+                            for ( var ix in inventory) {
+                                // walk though all inventory items
+                                var inventoryItem = inventory[ix];
+                                // find the stock item
+                                var stockItem = ArrayUtils.find(stock, 'inventoryId', inventoryItem.id);
+
+                                // and merge it with stock
+                                var reportItem = angular.copy(inventoryItem);
+                                angular.extend(reportItem, angular.copy(stockItem));
+
+                                // augment the reportItem with undefined
+                                // protected reserve property and qty
+                                augmentReserveAndQty(type, reportItem, filter);
+
+                                if (shouldFilter(filter, reportItem) || shouldSkip(type, reportItem)) {
+                                    continue;
+                                }
+
+                                var session = buildSession(type, report, reportItem);
+                                var line = buildLine(type, session, reportItem);
+
+                                report.total.qty += reportItem.qty;
+                                report.total.amount += currencyMultiply(reportItem.cost, reportItem.qty);
+
+                                line.items.push(reportItem);
+                            }
+                            report.total.avgCost = currencyDivide(report.total.amount, report.total.qty);
+
+                            var processDone = new Date().getTime();
+                            $log.debug('StockService.stockReport(' + (type ? type : '') + '): -It took ' + (processDone - processStarted) +
+                                'ms to create the stockReport.');
+
+                            return report;
+                        };
+
+                var updateReport = function updateReport(stockReport, filter) {
+                    // products
+                    for ( var ix in stockReport.sessions) {
+                        // sessions
+                        var session = stockReport.sessions[ix];
+                        // variables to session total and qty
+                        var lineCount = 0;
+                        // lines of that session
+                        for ( var ix2 in session.lines) {
+                            // lines
+                            var line = session.lines[ix2];
+
+                            // items of that line
+                            var itemCount = 0;
+                            for ( var ix3 in line.items) {
+                                var item = line.items[ix3];
+                                item.minQty = item.minQty === 0 ? '' : item.minQty;
+                                item.hide = shouldFilter(filter, item);
+                                if (!item.hide) {
+                                    itemCount++;
+                                }
+                            }
+                            if (itemCount === 0) {
+                                line.hide = true;
+                            } else {
+                                line.hide = false;
+                                lineCount++;
+                            }
+                        }
+                        if (lineCount === 0) {
+                            session.hide = true;
+                        } else {
+                            session.hide = false;
+                        }
+                    }
+                };
+
                 var findInStock = function findInStock(itemId) {
                     var copyList = StockKeeper.list();
                     return ArrayUtils.find(copyList, 'inventoryId', itemId);
                 };
 
-                this.findInStock = findInStock;
-                this.buildLine = buildLine;
-                this.buildSession = buildSession;
+                this.updateReport = updateReport;
                 this.stockReport = stockReport;
+                this.findInStock = findInStock;
             });
 }(angular));
