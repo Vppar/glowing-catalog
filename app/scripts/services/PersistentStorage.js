@@ -43,10 +43,26 @@
              * @param Function - the constructor for the entity being registered
              */
             this.register = function(name, constructor) {
+              
+                var deferred = $q.defer();
+                var metadata = constructor.prototype.metadata();
+              
                 if (angular.isDefined(entities[name])) {
-                    $log.warn("Overwriting an already registered entity: " + name);
+                    var message = "Overwriting an already registered entity: " + name + '(Database wont be udated)';
+                    $log.warn(message);
+                    deferred.resolve(message);
+                } else {
+                    deferred.resolve(dbDriver.transaction(function(tx) {
+                        dbDriver.createBucket(tx, name, metadata);
+                    }));
                 }
                 entities[name] = constructor;
+
+                deferred.promise.then(null, function (err) {
+                    $log.error('Failed to register entity!', name, err);
+                });
+                
+                return deferred.promise;
             };
 
             /**
@@ -55,38 +71,24 @@
              * @param Object - the entity to be persisted
              * @param Object - [optional] the transaction handle
              */
-            this.persist = function(entity, tx) {
+            this.persist = function persist(entity, tx) {
 
                 // FIXME - Implement the use of a given transaction as well as creating a new one when needed 
-              
-                var data = extract(entity);
-                var name = getType(entity);
 
-                var promise;
-
-                var metadata = entity.metadata();
-                
-                if (initialized.indexOf(name) === -1) {
-
-                    promise = dbDriver.transaction(function(tx) {
-                        dbDriver.createBucket(tx, name, metadata);
-                        dbDriver.persist(tx, name, data);
-                    });
-                    
-                    promise.then(function(){
-                        initialized.push(name);
-                    }, function(message){
-                        //FIXME change the console.log to something
-                        //console.log(message);
-                    });
-                    
-                } else {
-                    promise = dbDriver.transaction(function(tx) {
-                        return dbDriver.persist(tx, name, data);
-                    });
+                var name = null;
+                var deferred = $q.defer();
+                try {
+                    name = getType(entity);
+                } catch (e){
+                    deferred.reject(e);
                 }
+                
+                var data = extract(entity);
+                deferred.resolve(dbDriver.transaction(function(tx) {
+                    dbDriver.persist(tx, name, data);
+                }));
 
-                return promise;
+                return deferred.promise;
             };
             
             /**
@@ -101,8 +103,8 @@
 
                 var deferred = $q.defer();
                 
-                var data = extract(entity);
                 var name = getType(entity);
+                var data = extract(entity);
                 var metadata = entity.metadata();
                 
                 var key = {};
@@ -225,6 +227,7 @@
             this.nuke = function(name){
                 return dbDriver.transaction(function(tx) {
                     dbDriver.dropBucket(tx, name);
+                    dbDriver.createBucket(tx, name, entities[name].prototype.metadata());
                 });
             };
             // TODO - Remove this line on 0.9.10 version

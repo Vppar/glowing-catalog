@@ -2,25 +2,41 @@
 
 describe('Service: StockKeeperAddScenario', function() {
 
+    var logger = angular.noop;
+
+    var log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+
     beforeEach(function() {
         module('tnt.catalog.stock');
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');
+
+        module(function($provide) {
+          $provide.value('$log', log);
+        });
     });
 
     var StockKeeper = undefined;
     var Stock = undefined;
-    var Scope = undefined;
-    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, WebSQLDriver) {
-      
-        WebSQLDriver.transaction(function(tx){
-            WebSQLDriver.dropBucket(tx, 'JournalEntry');
-        });
-      
+    var JournalKeeper = undefined;
+    var $rootScope = undefined;
+
+
+    beforeEach(inject(function(_$rootScope_, _StockKeeper_, _Stock_, _JournalKeeper_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
-        Scope = $rootScope;
+        $rootScope = _$rootScope_;
+        JournalKeeper = _JournalKeeper_;
     }));
+
+
+    beforeEach(nukeData);
+
     
     /**
      * <pre>
@@ -33,14 +49,25 @@ describe('Service: StockKeeperAddScenario', function() {
     it('add a new stock', function() {
         //givens
         var ev = new Stock(110, 4, 50);
+
+        var added = false;
+
         runs(function() {
             //when
-            StockKeeper.add(ev);
+            var promise = StockKeeper.add(ev);
+            promise.then(function (result) {
+              log.debug('Stock added!', result);
+              added = true;
+            }, function (err) {
+              log.debug('Failed to add Stock', err);
+            });
+
+            $rootScope.$apply();
         });
 
         waitsFor(function() {
-            return StockKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 500);
+            return added;
+        }, 'StockKeeper.add()', 500);
 
         runs(function() {
             //then
@@ -67,19 +94,46 @@ describe('Service: StockKeeperAddScenario', function() {
         var finalQuantity = (ev.quantity + ev2.quantity);
         var finalPrice = ((ev.quantity * ev.cost) + (ev2.quantity * ev2.cost)) / (ev.quantity + ev2.quantity);
         
-        var go = false;
+
+        // Add Stock
+        var added = false;
+
         runs(function() {
-            //when
-            StockKeeper.add(ev).then(function(){
-                StockKeeper.add(ev2).then(function(){
-                    go = true;
-                });
+            var promise = StockKeeper.add(ev);
+            
+            promise.then(function (result) {
+                log.debug('Stock added!', result);
+                added = true;
+            }, function (err) {
+                log.debug('Failed to add Stock!', err);
             });
+
+            $rootScope.$apply();
         });
 
         waitsFor(function() {
-            return go;
-        }, 'JournalKeeper is taking too long', 300);
+            return added;
+        }, 'first call to StockKeeper.add()', 300);
+
+        // Update stock
+        var updated = false;
+
+        runs(function () {
+            var promise = StockKeeper.add(ev2);
+
+            promise.then(function (result) {
+                log.debug('Stock updated!', result);
+                updated = true;
+            }, function (err) {
+                log.debug('Failed to update Stock!', err);
+            });
+
+            $rootScope.$apply();
+        });
+
+        waitsFor(function () {
+          return updated;
+        }, 'second call to StockKeeper.add()', 300);
 
         runs(function() {
             //then
@@ -118,7 +172,7 @@ describe('Service: StockKeeperAddScenario', function() {
         });
         
         waitsFor(function(){
-            Scope.$apply();
+            $rootScope.$apply();
             return !!resolution;
         }, 'JournalKeeper is taking too long', 300);
         
@@ -154,7 +208,7 @@ describe('Service: StockKeeperAddScenario', function() {
         });
         
         waitsFor(function(){
-            Scope.$apply();
+            $rootScope.$apply();
             return !!resolution;
         }, 'JournalKeeper is taking too long', 300);
         
@@ -163,4 +217,22 @@ describe('Service: StockKeeperAddScenario', function() {
         });
     });
 
+
+    function nukeData() {
+        var nuked = null;
+
+        runs(function () {
+            JournalKeeper.nuke().then(function () {
+                log.debug('Nuked data!');
+                nuked = true;
+            });
+
+            $rootScope.$apply();
+        });
+
+        waitsFor(function () {
+            return nuked;
+        }, 'JournalKeeper.nuke()');
+    }
+    
 });

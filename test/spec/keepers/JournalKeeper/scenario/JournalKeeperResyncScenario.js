@@ -89,6 +89,8 @@ describe('Keeper: JournalKeeper.resync() scenario', function() {
                     promise.then(function () {
                         resynced = true;
                     });
+
+                    scope.$apply();
                 });
 
                 waitsFor(function () {
@@ -122,6 +124,8 @@ describe('Keeper: JournalKeeper.resync() scenario', function() {
                 }, function (err) {
                     log.debug('Failed to nuke!', err);
                 });
+
+                scope.$apply();
             });
 
             waitsFor(function () {

@@ -2,26 +2,40 @@
 
 describe('Service: EntityServiceAddScenario', function() {
 
+    var logger = angular.noop;
+
+    var log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.entity');
         module('tnt.catalog.entity.service');
         module('tnt.catalog.entity.entity');
+
+        module(function($provide) {
+          $provide.value('$log', log);
+        });
     });
 
     // instantiate service
     var EntityService = undefined;
     var Entity = undefined;
+    var $rootScope = undefined;
+    var JournalKeeper = undefined;
     
-    beforeEach(inject(function(_EntityService_, _Entity_, WebSQLDriver) {
-      
-        WebSQLDriver.transaction(function(tx){
-            WebSQLDriver.dropBucket(tx, 'JournalEntry');
-        });
-      
+    beforeEach(inject(function(_$rootScope_, _EntityService_, _Entity_, _JournalKeeper_) {
         EntityService = _EntityService_;
         Entity = _Entity_;
+        $rootScope = _$rootScope_;
+        JournalKeeper = _JournalKeeper_;
     }));
+
+    beforeEach(nukeData);
     
     /**
      * <pre>
@@ -46,20 +60,47 @@ describe('Service: EntityServiceAddScenario', function() {
         
         var ev = new Entity(id, name, emails, birthDate, phones, cep, document, addresses,  remarks);
         
+        var created = false;
+
         //when
         runs(function(){
-            EntityService.create(ev);
+            var promise = EntityService.create(ev);
+            promise.then(function (result) {
+                log.debug('Entity created!', result);
+                created = true;
+            }, function (err) {
+                log.debug('Failed to create Entity!', err);
+            });
+
+            $rootScope.$apply();
         });
         
         waitsFor(function(){
-            return EntityService.list().length > 0;
-        }, 'JournalKeeper is taking too long', 300);
+            return created;
+        }, 'EntityService.create()', 300);
         
         //then
         runs(function(){
             expect(EntityService.list()[0].name).toBe('cassiano');
             expect(EntityService.list().length).toBe(1);
         });
-
     });
+
+
+    function nukeData() {
+        var nuked = null;
+
+        runs(function () {
+            JournalKeeper.nuke().then(function () {
+                log.debug('Nuked data!');
+                nuked = true;
+            });
+
+            $rootScope.$apply();
+        });
+
+        waitsFor(function () {
+            return nuked;
+        }, 'JournalKeeper.nuke()');
+    }
 });

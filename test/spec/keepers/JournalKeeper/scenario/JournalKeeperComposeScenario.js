@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Keeper: JournalKeeper', function() {
+describe('Keeper: JournalKeeper.compose()', function() {
 
     var PersistentStorage;
     var WebSQLDriver;
@@ -62,7 +62,7 @@ describe('Keeper: JournalKeeper', function() {
 
 
     // Tests JournalKeeper.compose() scenarios
-    describe('Journal entry composition', function () {
+    describe('in a happy day', function () {
         // We are testing only a happy day scenario. This is intentional
         // (for now). If you have some spare time, feel free to
         // implement failure scenarios.
