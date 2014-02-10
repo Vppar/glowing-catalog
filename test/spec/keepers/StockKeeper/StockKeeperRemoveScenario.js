@@ -58,12 +58,10 @@ describe('Service: StockeeperRemoveScenario', function() {
         var added = false;
         runs(function() {
             var promises = [];
-
             promises.push(StockKeeper.add(ev1));
             promises.push(StockKeeper.add(ev2));
 
             var promise = $q.all(promises);
-
             promise.then(function (result) {
                 log.debug('Stock added!', result);
                 added = true;
