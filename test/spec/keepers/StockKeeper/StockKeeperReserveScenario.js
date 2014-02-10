@@ -48,7 +48,7 @@ describe('StockeeperReserveScenario', function() {
         waitsFor(function(){
             Scope.$apply();
             return !!result;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long', 500);
 
         runs(function() {
             //then
@@ -80,7 +80,7 @@ describe('StockeeperReserveScenario', function() {
         waitsFor(function(){
             Scope.$apply();
             return !!result;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long', 500);
 
         runs(function() {
             //then

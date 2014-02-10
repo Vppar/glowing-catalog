@@ -1,0 +1,48 @@
+<div class="row-fluid step2">	
+	<div class="products-to-buy-edit">	
+		<div class="row-fluid">
+			<div class="grid-payment-products-to-buy-edit">
+				<div class="header header2 title-header-products-to-buy">
+					<div class="row-payment-grid">
+						<span class="col-s1">
+							<div>Produto/C&oacute;digo</div>
+						</span>
+						<span class="col-s2">
+							<div>P.Unit</div>
+						</span>
+						<span class="col-s3">
+							<div>Qtde m&iacute;n.</div>
+						</span>
+						<span class="col-s4">
+							<div>Qtde.</div>
+						</span>
+					</div>
+				</div>							
+				<div class="scroll-payment-grid"><!--scroll-->
+					<span ng-repeat="session in confirmedProducts.sessions">
+						<span ng-repeat="line in session.lines">
+							<div class="section">{{line.label}}</div>
+							<span ng-repeat="product in line.items">
+								<div class="row-payment-grid-product-products-to-buy">
+									<span class="col-s1-list">
+										<div>{{product.title}}</div>
+										<div class="code-product">cod.: {{product.SKU}}</div>
+									</span>
+									<span class="col-s2-list">
+										<div>{{product.points}} pts</div>
+									</span>
+									<span class="col-s3-list">
+										<div>{{product.minQty}}</div>
+									</span>
+									<span class="col-s4-list">
+										<div>{{product.qty}}</div>
+									</span>
+								</div>
+							</span>
+						</span>
+					</span>
+				</div><!--fim scroll-->
+			</div>
+		</div>	
+	</div>
+</div>

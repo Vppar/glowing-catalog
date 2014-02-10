@@ -1,0 +1,123 @@
+<div class="row-fluid step1">	
+            	
+<!-------- Parte 1 ------------>
+	<div class="products-to-buy-edit">	
+		<div class="row-fluid">
+			<div class="grid-payment-products-to-buy-edit">
+	            <div class="control-group lbl-top center-align">
+	             	<label class="control-label">&nbsp;</label>
+	                <select ui-select2
+	                        name="product"
+	                        class="combo-width-product-exchange marginr10 control-label-exchange select-h38"
+	                        ng-model="productId">
+	                        <option value="">Selecione um Pedido</option>
+	                        <option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
+	                </select>
+	            </div>
+                <div class="row-last-payments" >
+                	<span class="col-1">
+                        <div>012-14</div>
+                    </span>
+                    <span class="col-2">
+                        <div>24/01/2014</div>
+                    </span>
+                    <span class="col-3">
+                        <div>15:31 h</div>
+                    </span>
+                    <span class="col-4">
+                        <div>R$ 986,34</div>
+                    </span>
+                </div>
+                <div class="row-last-payments" >
+                    <span class="col-1">
+                        <div>012-14</div>
+                    </span>
+                    <span class="col-2">
+                        <div>24/01/2014</div>
+                    </span>
+                    <span class="col-3">
+                        <div>15:31 h</div>
+                    </span>
+                    <span class="col-4">
+                        <div>R$ 986,34</div>
+                    </span>
+                </div>
+                <div class="conf-nf-panel">
+                    <span class="title-order-panel"> 
+                        <span class="col-1">Dados da Nota Fiscal</span>
+                        <span class="col-2">Pedido de Compra</span>
+                    </span>
+                    <span class="text-order-panel"> 
+                        <span class="col-1">Informar a data NF</span>
+                        <span class="col-2"><input id="i1" type="text" name="i1" class="input-nf-panel" /></span>
+                    </span>
+                    <span class="text-order-panel"> 
+                        <span class="col-1">Valor total da NF</span>
+                        <span class="col-2"><input id="i2" type="text" name="i2" class="input-nf-panel" /></span>
+                    </span>
+                    <span class="text-order-panel"> 
+                        <span class="col-1" >Informar o Vr Frete</span>
+                        <span class="col-2"><input id="i3" type="text" name="i3" class="input-nf-panel" /></span>
+                    </span>
+                    <span class="text-order-panel"> 
+                        <span class="col-1">Informar Vr Crédito utilizado</span>
+                        <span class="col-2"><input id="i4" type="text" name="i4" class="input-nf-panel" /></span>
+                    </span>
+                </div>
+			</div>
+		</div>
+	</div>
+    <!-------- FIM Parte 1 -------->
+    <!-------- Parte 2 ------------>
+	<div class="products-to-buy-edit display-none">	
+		<div class="row-fluid">
+			<div class="grid-payment-products-to-buy-edit">
+				<div class="header header2 title-header-products-to-buy">
+					<div class="row-payment-grid">
+						<span class="col-s1">
+							<div>Produto/C&oacute;digo</div>
+						</span>
+						<span class="col-s2">
+							<div>P.Unit</div>
+						</span>
+						<span class="col-s3">
+							<div>Qtde</div>
+						</span>
+						<span class="col-s4">
+							<div>Ok</div>
+						</span>
+						<span class="col-s5">
+							<div>Pendente/Qtde.</div>
+						</span>
+					</div>
+				</div>	
+
+				<div class="scroll-payment-grid">	
+					<span ng-repeat="sessions in stockReport">									
+						<span ng-repeat="lines in sessions"> 
+							<div class="section">{{lines.label}}</div>
+							<div class="row-payment-grid-product-products-to-buy" ng-repeat="product in lines.items">
+								<span class="col-s1-list">
+									<div class="p-title">{{product.title}}</div>&nbsp;&nbsp; <div class="p-points">{{product.points}} pts</div>
+									<div class="code-product">cod.: {{product.SKU}}</div>
+								</span>
+								<span class="col-s2-list">
+									<div>{{product.cost | currency: ''}}</div>
+								</span>
+								<span class="col-s3-list">
+									<div>{{product.refMinQty}}</div>
+								</span>
+								<span class="col-s4-list">
+									<div> <input type="checkbox"></div>
+								</span>
+								<span class="col-s5-list">
+									<div>1</div>
+								</span>
+							</div>
+						</span>												
+					</span>
+				</div><!--fim scroll-->
+			</div>
+		</div>	
+	</div>
+</div>
