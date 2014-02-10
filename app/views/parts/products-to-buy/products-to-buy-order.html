@@ -59,7 +59,7 @@
 					</div>
 				</div>
 				<div class="scroll-payment-grid">	
-					<span ng-repeat="session in stockReport.sessions">									
+					<span ng-repeat="session in stockReport.sessions" ng-hide="session.hide">									
 						<div class="header header2 subtitle-header-products-to-buy">
 							<div class="row-payment-grid">
 								<span class="col-s1">
@@ -79,9 +79,9 @@
 								</span>
 							</div>
 						</div>
-						<span ng-repeat="line in session.lines"> 
+						<span ng-repeat="line in session.lines" ng-hide="line.hide"> 
 							<div class="section">{{line.label}}</div>
-							<div class="row-payment-grid-product-products-to-buy" ng-repeat="product in line.items">
+							<div class="row-payment-grid-product-products-to-buy" ng-repeat="product in line.items" ng-hide="product.hide">
 								<span class="col-s1-list">
 									<div>{{product.title}}</div>
 									<div class="code-product">cod.: {{product.SKU}}</div>
