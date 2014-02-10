@@ -73,7 +73,7 @@
 
                 $scope.$watchCollection('historicVoucher', function() {
                     var myFilter = $scope.historicVoucher.value;
-                    $scope.filteredVouchers = $filter('filter')(historicVouchers, function(voucher) {
+                    $scope.historicVouchers = $filter('filter')(historicVouchers, function(voucher) {
                         var result = true;
                         if ($scope.historicVoucher.value.length > 0) {
                             result = false;
@@ -81,14 +81,18 @@
                             var type = '' + voucher.type;
                             var amount = '' + voucher.amount;
                             var entity = '' + voucher.entity;
-
+                            
+                            type = type.toLowerCase();
+                            entity = entity.toLowerCase();
+                            myFilter = myFilter.toLowerCase();
+                            
                             result = result || (type.indexOf(myFilter) > -1);
                             result = result || (amount.indexOf(myFilter) > -1);
                             result = result || (entity.indexOf(myFilter) > -1);
                         }
                         return result;
                     });
-                    $scope.historicVouchers = $filter('filter')(historicVouchers, historicFilterVoucher);
+                    $scope.historicVouchers = $filter('filter')($scope.historicVouchers, historicFilterVoucher);
                 });
             });
 }(angular));

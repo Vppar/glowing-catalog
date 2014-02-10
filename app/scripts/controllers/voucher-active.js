@@ -49,6 +49,10 @@
                             var type = '' + voucher.type;
                             var amount = '' + voucher.amount;
                             var entity = '' + voucher.entity;
+                            
+                            type = type.toLowerCase();
+                            entity = entity.toLowerCase();
+                            myFilter = myFilter.toLowerCase();
 
                             result = result || (type.indexOf(myFilter) > -1);
                             result = result || (amount.indexOf(myFilter) > -1);
