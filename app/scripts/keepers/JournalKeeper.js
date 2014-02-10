@@ -72,10 +72,6 @@
         
         var storage = new PersistentStorage(WebSQLDriver);
         var registered = storage.register(entityName, JournalEntry);
-
-        registered.then(null, function (err) { 
-            $log.fatal('Failed to register the entity!', entityName, err);
-        });
       
         /**
          * Persist and replay a journal entry

@@ -57,6 +57,10 @@
                     }));
                 }
                 entities[name] = constructor;
+
+                deferred.promise.then(null, function (err) {
+                    $log.error('Failed to register entity!', name, err);
+                });
                 
                 return deferred.promise;
             };
