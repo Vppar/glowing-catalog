@@ -24,11 +24,29 @@
         }
         resetWatchedQty();
 
+        function updateReportQty() {
+            for ( var ix in $scope.stockReport.sessions) {
+                // sessions
+                var session = $scope.stockReport.sessions[ix];
+                // lines of that session
+                for ( var ix2 in session.lines) {
+                    // lines
+                    var line = session.lines[ix2];
+                    // items of that line
+                    for ( var ix3 in line.items) {
+                        var item = line.items[ix3];
+                        item.qty = $scope.watchedQty[item.id];
+                    }
+                }
+            }
+        }
+
         $scope.$watchCollection('watchedQty', function(newObj, oldObj) {
             var diff = {
                 amount : 0,
                 points : 0
             };
+
             for ( var ix in newObj) {
                 var price = items[ix].price;
                 var points = items[ix].points;
@@ -36,6 +54,8 @@
                 diff.amount += (newObj[ix] * price);
                 diff.points += (newObj[ix] * points);
             }
+
+            updateReportQty();
 
             $scope.$emit('productQtyChange', diff);
         });

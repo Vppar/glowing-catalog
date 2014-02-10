@@ -8,7 +8,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
     var item4 = null;
 
     // load the controller's module
-    beforeEach(module('tnt.catalog.productToBuy.confirm.ctrl'));
+    beforeEach(module('tnt.catalog.productsToBuy.confirm.ctrl'));
 
     beforeEach(function() {
         item1 = {
@@ -33,7 +33,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         scope = $rootScope.$new();
 
-        scope.productsToBuy = {
+        scope.stockReport = {
             sessions : {}
         };
 
@@ -52,7 +52,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
      */
     it('should list confirmed products', function() {
         // given
-        var productsToBuy = {
+        var stockReport = {
             sessions : {
                 mySession1 : {
                     lines : {
@@ -67,7 +67,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
         };
 
         // when
-        var result = productsToBuyConfirmCtrl.listConfirmedProducts(productsToBuy);
+        var result = productsToBuyConfirmCtrl.listConfirmedProducts(stockReport);
 
         // then
         expect(result.sessions.mySession1).not.toBeUndefined();
@@ -78,7 +78,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
 
     it('should remove a line without products', function() {
         // given
-        var productsToBuy = {
+        var stockReport = {
             sessions : {
                 mySession1 : {
                     lines : {
@@ -98,7 +98,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
         };
 
         // when
-        var result = productsToBuyConfirmCtrl.listConfirmedProducts(productsToBuy);
+        var result = productsToBuyConfirmCtrl.listConfirmedProducts(stockReport);
 
         // then
         expect(result.sessions.mySession1.lines.myLine1).toBeUndefined();
@@ -107,7 +107,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
 
     it('should remove a sessions without products', function() {
         // given
-        var productsToBuy = {
+        var stockReport = {
             sessions : {
                 mySession1 : {
                     lines : {
@@ -136,7 +136,7 @@ ddescribe('Controller: products-to-buy-confirm-list-spec', function() {
         };
 
         // when
-        var result = productsToBuyConfirmCtrl.listConfirmedProducts(productsToBuy);
+        var result = productsToBuyConfirmCtrl.listConfirmedProducts(stockReport);
 
         // then
         expect(result.sessions.mySession1).toBeUndefined();

@@ -1,45 +1,46 @@
-<div class="row-fluid step1"">	
-	<!-------- Parte 1 ------------>
+<div class="row-fluid step1">	
+            	
+<!-------- Parte 1 ------------>
 	<div class="products-to-buy-edit">	
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
-            	<div class="control-group lbl-top center-align">
-                 	<label class="control-label">&nbsp;</label>
-                    <select ui-select2
-                        name="product"
-                        class="combo-width-product-exchange marginr10 control-label-exchange select-h38"
-                        ng-model="productId">
-                        <option value="">Selecione um Pedido</option>
-                        <option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
-                    </select>
+	            <div class="control-group lbl-top center-align">
+	             	<label class="control-label">&nbsp;</label>
+	                <select ui-select2
+	                        name="product"
+	                        class="combo-width-product-exchange marginr10 control-label-exchange select-h38"
+	                        ng-model="productId">
+	                        <option value="">Selecione um Pedido</option>
+	                        <option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
+	                </select>
+	            </div>
+                <div class="row-last-payments" >
+                	<span class="col-1">
+                        <div>012-14</div>
+                    </span>
+                    <span class="col-2">
+                        <div>24/01/2014</div>
+                    </span>
+                    <span class="col-3">
+                        <div>15:31 h</div>
+                    </span>
+                    <span class="col-4">
+                        <div>R$ 986,34</div>
+                    </span>
                 </div>
                 <div class="row-last-payments" >
-	                <span class="col-1">
-	                    <div>012-14</div>
-	                </span>
-	                <span class="col-2">
-	                    <div>24/01/2014</div>
-	                </span>
-	                <span class="col-3">
-	                    <div>15:31 h</div>
-	                </span>
-	                <span class="col-4">
-	                    <div>R$ 986,34</div>
-	                </span>
-                </div>
-                <div class="row-last-payments" >
-	                <span class="col-1">
-	                    <div>012-14</div>
-	                </span>
-	                <span class="col-2">
-	                    <div>24/01/2014</div>
-	                </span>
-	                <span class="col-3">
-	                    <div>15:31 h</div>
-	                </span>
-	                <span class="col-4">
-	                    <div>R$ 986,34</div>
-	                </span>
+                    <span class="col-1">
+                        <div>012-14</div>
+                    </span>
+                    <span class="col-2">
+                        <div>24/01/2014</div>
+                    </span>
+                    <span class="col-3">
+                        <div>15:31 h</div>
+                    </span>
+                    <span class="col-4">
+                        <div>R$ 986,34</div>
+                    </span>
                 </div>
                 <div class="conf-nf-panel">
                     <span class="title-order-panel"> 
@@ -66,8 +67,8 @@
 			</div>
 		</div>
 	</div>
-	<!-------- FIM Parte 1 -------->              
-	<!-------- Parte 2 ------------>
+    <!-------- FIM Parte 1 -------->
+    <!-------- Parte 2 ------------>
 	<div class="products-to-buy-edit display-none">	
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
@@ -92,8 +93,7 @@
 				</div>	
 
 				<div class="scroll-payment-grid">	
-					<span ng-repeat="sessions in productsToBuy">									
-
+					<span ng-repeat="sessions in stockReport">									
 						<span ng-repeat="lines in sessions"> 
 							<div class="section">{{lines.label}}</div>
 							<div class="row-payment-grid-product-products-to-buy" ng-repeat="product in lines.items">

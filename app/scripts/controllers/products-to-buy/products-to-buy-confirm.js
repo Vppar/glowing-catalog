@@ -1,12 +1,10 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.productsToBuy.confirm.ctrl', [
-        'tnt.catalog.stock.service'
-    ]).controller('ProductsToBuyConfirmCtrl', function($scope) {
+    angular.module('tnt.catalog.productsToBuy.confirm.ctrl', []).controller('ProductsToBuyConfirmCtrl', function($scope) {
 
         // inherited from ProductsToBuyCtrl
-        this.listConfirmedProducts = function listConfirmedProducts(stockReport) {
+        var listConfirmedProducts = function listConfirmedProducts(stockReport) {
             var report = angular.copy(stockReport);
             for ( var ix in report.sessions) {
 
@@ -38,7 +36,11 @@
             }
             return report;
         };
+        
+        $scope.$on('updateConfirmed', function (){
+            $scope.confirmedProducts = listConfirmedProducts($scope.stockReport); 
+        });
+        
+        this.listConfirmedProducts = listConfirmedProducts;
     });
-
-    $scope.confirmedProducts = this.listConfirmedProducts($scope.stockReport);
 }(angular));

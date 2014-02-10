@@ -22,21 +22,23 @@
 					<span ng-repeat="session in confirmedProducts.sessions">
 						<span ng-repeat="line in session.lines">
 							<div class="section">{{line.label}}</div>
-							<div class="row-payment-grid-product-products-to-buy">
-								<span class="col-s1-list">
-									<div>{{product.title}}</div>
-									<div class="code-product">cod.: {{product.SKU}}</div>
-								</span>
-								<span class="col-s2-list">
-									<div>{{product.points}} pts</div>
-								</span>
-								<span class="col-s3-list">
-									<div>{{product.cost | currency: ''}}</div>
-								</span>
-								<span class="col-s4-list">
-									<div>{{product.minQty}}</div>
-								</span>
-							</div>
+							<span ng-repeat="product in line.items">
+								<div class="row-payment-grid-product-products-to-buy">
+									<span class="col-s1-list">
+										<div>{{product.title}}</div>
+										<div class="code-product">cod.: {{product.SKU}}</div>
+									</span>
+									<span class="col-s2-list">
+										<div>{{product.points}} pts</div>
+									</span>
+									<span class="col-s3-list">
+										<div>{{product.minQty}}</div>
+									</span>
+									<span class="col-s4-list">
+										<div>{{product.qty}}</div>
+									</span>
+								</div>
+							</span>
 						</span>
 					</span>
 				</div><!--fim scroll-->
