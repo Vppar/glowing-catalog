@@ -1,4 +1,4 @@
-<div class="row-fluid step1">	
+<div class="row-fluid step4">	
 	<div class="products-to-buy-edit">	
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
@@ -73,7 +73,6 @@
 					<div class="scroll-payment-grid scroll-payment-grid2">
 						<span ng-repeat="sessions in stockReport">									
 							<span ng-repeat="lines in sessions"> 
-								<div class="section"></div>
 								<div class="row-pending-product-products-to-buy" >
 									<span class="col-s1">
 										<div class="p-title">24/01/2014</div>
@@ -95,10 +94,10 @@
 										<div>{{product.refMinQty}}</div>
 									</span>
 									<span class="col-s7">
-										<div> <input type="checkbox"></div>
+										<div><input type="checkbox"></div>
 									</span>
 									<span class="col-s8">
-										<div>1</div>
+										<div><input-qty ng-model="watchedQty[product.id]" min="0"></input-qty></div>
 									</span>
 								</div>
 							</span>												

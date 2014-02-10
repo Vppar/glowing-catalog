@@ -1,7 +1,7 @@
 <div class="row-fluid step1">	
             	
-<!-------- Parte 1 ------------>
-	<div class="products-to-buy-edit">	
+	<!-------- Parte 1 ------------>
+	<div class="products-to-buy-edit" ng-show="selectedPart=='part1'">	
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
 	            <div class="control-group lbl-top center-align">
@@ -48,11 +48,11 @@
                         <span class="col-2">Pedido de Compra</span>
                     </span>
                     <span class="text-order-panel"> 
-                        <span class="col-1">Informar a data NF</span>
+                        <span class="col-1">Informar a data NFe</span>
                         <span class="col-2"><input id="i1" type="text" name="i1" class="input-nf-panel" /></span>
                     </span>
                     <span class="text-order-panel"> 
-                        <span class="col-1">Valor total da NF</span>
+                        <span class="col-1">Valor total da NFe</span>
                         <span class="col-2"><input id="i2" type="text" name="i2" class="input-nf-panel" /></span>
                     </span>
                     <span class="text-order-panel"> 
@@ -60,16 +60,23 @@
                         <span class="col-2"><input id="i3" type="text" name="i3" class="input-nf-panel" /></span>
                     </span>
                     <span class="text-order-panel"> 
-                        <span class="col-1">Informar Vr Crédito utilizado</span>
+                        <span class="col-1">Cr&eacute;dito de b&ocirc;nus utilizado</span>
                         <span class="col-2"><input id="i4" type="text" name="i4" class="input-nf-panel" /></span>
                     </span>
                 </div>
+				
+				<div class="payment-btn-area">
+					<button class="btn btn-cancel margint30" type="submit" >Cancelar</button>
+				</div>
+				<div class="payment-btn-area">
+					<button class="btn btn-ok margint30" type="submit" ng-click="selectPart('part2')">Confirmar</button>
+				</div>
 			</div>
 		</div>
 	</div>
     <!-------- FIM Parte 1 -------->
     <!-------- Parte 2 ------------>
-	<div class="products-to-buy-edit display-none">	
+	<div class="products-to-buy-edit" ng-show="selectedPart=='part2'">	
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
 				<div class="header header2 title-header-products-to-buy">

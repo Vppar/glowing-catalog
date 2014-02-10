@@ -77,6 +77,10 @@
         this.openDialogCustomerInfo = function(data) {
             return openDialog('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl', data);
         };
+        
+        this.openDialogProductsToBuyConfirm = function(data) {
+            return openDialog('views/parts/products-to-buy/products-to-buy-confirm-dialog.html', 'ProductsToBuyConfirmDialogCtrl', data);
+        };
     });
 
 }(angular));
