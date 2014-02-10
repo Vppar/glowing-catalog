@@ -74,11 +74,17 @@
                 'tnt.catalog.orderList.clients.ctrl',
                 'tnt.catalog.stock',
                 'tnt.catalog.lineup',
-                'tnt.catalog.productsToBuy.ctrl',
                 'tnt.catalog.stock.service',
                 'tnt.catalog.stock.ctrl',
                 'tnt.catalog.receivable.add.ctrl',
-                'tnt.catalog.type'
+                'tnt.catalog.type',
+                'tnt.catalog.productsToBuy.ctrl',
+                'tnt.catalog.productsToBuy.confirm.ctrl',
+                'tnt.catalog.productsToBuy.order.ctrl',
+                'tnt.catalog.productsToBuy.summary.ctrl',
+                'tnt.catalog.productsToBuy.ticket.ctrl',
+                'tnt.catalog.productsToBuy.pending.ctrl',
+                'tnt.catalog.productsToBuy.credit.ctrl'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

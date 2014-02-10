@@ -31,120 +31,32 @@
 			</div>
 		</div>		
 		
-		<div class="products-to-buy-left" ng-switch="selectedTab">
-		
+		<div class="products-to-buy-left">
 			<!--Tela "Fazer pedido"-->
-			<span ng-switch-when="buildOrder">
-				<span ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'"></span>
+			<span ng-show="selectedTab=='buildOrder'">
+				<span ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'" ng-controller="ProductsToBuyOrderCtrl"></span>
 			</span>						
 			<!--Tela "Confirmar pedido"-->
-			<span ng-switch-when="confirmOrder">
+			<span ng-show="selectedTab=='confirmOrder'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-confirm.html'" ng-controller="ProductsToBuyConfirmCtrl"></span>
 			</span>	
             <!--Tela "Verificar NF"-->
-            <span ng-switch-when="verifyTicket">
-				<span ng-include src="'views/parts/products-to-buy/products-to-buy-ticket.html'"></span>
+            <span ng-show="selectedTab=='verifyTicket'">
+				<span ng-include src="'views/parts/products-to-buy/products-to-buy-ticket.html'" ng-controller="ProductsToBuyTicketCtrl"></span>
 			</span>
 			<!--Tela "Produtos Pendentes"-->
-			<span ng-switch-when="pendingProducts">
-				<span ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'"></span>
+			<span ng-show="selectedTab=='pendingProducts'">
+				<span ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'" ng-controller="ProductsToBuyPendingCtrl"></span>
 			</span>	
             <!--Tela "Credito disponivel"-->
-			<span ng-switch-when="availableCredit">
-				<span ng-include src="'views/parts/products-to-buy/products-to-buy-credit.html'"></span>
+			<span ng-show="selectedTab=='availableCredit'">
+				<span ng-include src="'views/parts/products-to-buy/products-to-buy-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span>
 			</span>	
 		</div>
 
 		<!-- Right Screen Details -->
 		<div class="products-to-buy-right">
-			<div class="row-fluid">		
-				<div class="details-products-to-buy-item">
-					<div class="col-details-products-to-buy-item">
-						<span class="section">Se&ccedil;&atilde;o 1</span>
-						<div class="row-details-products-to-buy-item">
-							<span class="item">
-								<span class="lbl-money">Valor da compra</span>
-								<span class="btn-price-payment">{{orderTotal | currency: 'R$ '}}</span>
-							</span>
-							<span class="item">
-								<span class="lbl-money">Percentual de desconto</span>
-								<span class="btn-price-payment">{{discount | currency: ''}}%</span>
-							</span>
-						</div>
-						<div class="row-details-products-to-buy-item">
-							<span class="item">
-								<span class="lbl-money">Valor com desconto</span>
-								<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$'}}</span>
-							</span>
-							<span class="item">
-								<span class="lbl-money">Total de pontos</span>
-								<span class="btn-price-payment">{{pointsTotal}}</span>
-							</span>
-						</div>
-					</div>
-					<div class="col-details-products-to-buy-item">							
-						<span class="section">Se&ccedil;&atilde;o 2</span>
-						<div class="row-details-products-to-buy-item">
-							<span class="item">
-								<span class="lbl-money">Valor da compra</span>
-								<span class="btn-price-payment">{{orderTotal2 | currency: 'R$ '}}</span>
-							</span>
-						</div>
-					</div>
-					<div class="col-details-products-to-buy-item">		
-						<span class="section">Total se&ccedil;&atilde;o 1 e 2</span>
-						<div class="row-details-products-to-buy-item">
-							<span class="item">
-								<span class="lbl-money">Valor total da compra</span>
-								<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$'}}</span>
-							</span>
-							<span class="item">
-								<span class="lbl-money">Valor de frete</span>
-								<span class="btn-price-payment">{{freight | currency:'R$'}}</span>
-							</span>
-						</div>
-						<div class="row-details-products-to-buy-item">
-							<span class="item">
-								<span class="lbl-money">SD dispon&iacute;vel (d&eacute;bito)</span>
-								<span class="btn-price-payment">0,00</span>
-							</span>
-							<span class="item">
-								<span class="lbl-money">Subtotal</span>
-								<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$'}}</span>
-							</span>
-						</div>
-						<div class="row-details-products-to-buy-item">
-							<span class="item">
-								<span class="lbl-money">SD dispon&iacute;vel (cr&eacute;dito)</span>
-								<span class="btn-price-payment">0,00</span>
-							</span>
-							<span class="item">
-								<span class="lbl-money font-bold">Total do pedido</span>
-								<span class="btn-price-payment font-bold">{{orderTotalDiscount | currency:'R$'}}</span>
-							</span>
-							<span class="item">
-								<span class="lbl-money">Total pts</span>
-								<span class="btn-price-payment">{{pointsTotal}}</span>
-							</span>
-						</div>
-					</div>
-					<!--Tela "Fazer pedido"-->
-					<div class="col-details-products-to-buy-item border-none" ng-show="selectedTab=='buildOrder'">			
-						<div class="btns-details-products-to-buy-item">
-							<button class="btn btn-cancel" type="submit">Cancelar</button>
-							<button class="btn btn-ok float-right" type="submit" ng-click="openDeliveryDetails()">Prosseguir</button>
-						</div>		
-					</div>
-					
-					<!--Tela "Confirmar pedido"-->
-					<div class="col-details-products-to-buy-item border-none" ng-show="selectedTab=='confirmOrder'">			
-						<div class="btns-details-products-to-buy-item">
-							<button class="btn btn-cancel" type="submit">Cancelar</button>
-							<button class="btn btn-ok float-right" type="submit" ng-click="openDeliveryDetails()">Confirmar</button>
-						</div>		
-					</div>
-				</div>
-			</div>
+			<span ng-include src="'views/parts/products-to-buy/products-to-buy-summary.html'" ng-controller="ProductsToBuySummaryCtrl"></span>	
 		</div>
 	</div>
 </div>

@@ -41,7 +41,7 @@
 					</div>
 				</div>
 				<div class="scroll-payment-grid">	
-					<span ng-repeat="session in productsToBuy.sessions">									
+					<span ng-repeat="session in products.sessions">									
 						<div class="header header2 subtitle-header-products-to-buy">
 							<div class="row-payment-grid">
 								<span class="col-s1">
@@ -79,7 +79,7 @@
 								</span>
 								<span class="col-s5-list">
 									<div>
-										<input-qty ng-model="product.qty" min="0"></input-qty>
+										<input-qty ng-model="watchedQty[product.id]" min="0"></input-qty>
 									</div>
 								</span>
 							</div>
