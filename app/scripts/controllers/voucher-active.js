@@ -38,8 +38,8 @@
                         return true;
                     }
                 }
-
-                $scope.$watchCollection('voucherFilter', function() {
+                
+                $scope.filter = function filter(){
                     var myFilter = $scope.voucherFilter.value;
                     $scope.filteredVouchers = $filter('filter')(filteredVouchers, function(voucher) {
                         var result = true;
@@ -63,6 +63,10 @@
                     $scope.filteredVouchers = $filter('filter')($scope.filteredVouchers, filterVoucher);
                     $scope.qtyTotal = $scope.filteredVouchers.length;
                     $scope.priceTotal = $filter('sum')($scope.filteredVouchers, 'amount');
+                };
+
+                $scope.$watchCollection('voucherFilter', function() {
+                    $scope.filter();
                 });
 
             });
