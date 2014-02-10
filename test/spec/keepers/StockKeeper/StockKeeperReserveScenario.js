@@ -1,6 +1,15 @@
 'use strict';
 
 describe('StockeeperReserveScenario', function() {
+
+    var logger = angular.noop;
+
+    var log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
     
     // load the service's module
     beforeEach(function() {
@@ -8,23 +17,25 @@ describe('StockeeperReserveScenario', function() {
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');
 
+        module(function($provide) {
+          $provide.value('$log', log);
+        });
     });
 
     // instantiate service
     var StockKeeper = undefined;
     var Stock = undefined;
-    var Scope = undefined;
+    var $rootScope = undefined;
+    var JournalKeeper = undefined;
 
-    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_, WebSQLDriver) {
-        
-        WebSQLDriver.transaction(function(tx){
-            WebSQLDriver.dropBucket(tx, 'JournalEntry');
-        });
-        
+    beforeEach(inject(function(_$rootScope_, _StockKeeper_, _Stock_, _ArrayUtils_, _JournalKeeper_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
-        Scope = $rootScope;
+        $rootScope = _$rootScope_;
+        JournalKeeper = _JournalKeeper_;
     }));
+
+    beforeEach(nukeData);
 
     /**
      * <pre>
@@ -32,27 +43,34 @@ describe('StockeeperReserveScenario', function() {
      * Given a populated list of Stocks
      * And a valid stock entry
      * when reserve is triggered
-     * then a Stock entry must be create  
+     * then a Stock entry must be created
      * </pre>
      */
     it('should reserve new item', function() {
-        var result = null;
+        var created = false;
+        var entry = null;
         runs(function() {
             //when
-            StockKeeper.reserve(2,2).then(function(_result_){
-                result = _result_;
+            var promise = StockKeeper.reserve(2, 2);
+            
+            promise.then(function(result){
+                log.debug('Stock created on reserve!', result);
+                created = true;
+                entry = result;
+            }, function (err) {
+                log.debug('Failed to create stock!', err);
             });
 
+            $rootScope.$apply();
         });
 
         waitsFor(function(){
-            Scope.$apply();
-            return !!result;
-        }, 'JournalKeeper is taking too long', 300);
+            return created;
+        }, 'StockKeeper.reserve()', 300);
 
         runs(function() {
             //then
-            expect(result).toEqual(2);
+            expect(entry).toEqual(2);
         });
     });
     
@@ -78,7 +96,7 @@ describe('StockeeperReserveScenario', function() {
         });
 
         waitsFor(function(){
-            Scope.$apply();
+            $rootScope.$apply();
             return !!result;
         }, 'JournalKeeper is taking too long', 300);
 
@@ -88,4 +106,19 @@ describe('StockeeperReserveScenario', function() {
         });
     });
   
+
+    function nukeData() {
+        var nuked = null;
+
+        runs(function () {
+            JournalKeeper.nuke().then(function () {
+                log.debug('Nuked data!');
+                nuked = true;
+            });
+        });
+
+        waitsFor(function () {
+            return nuked;
+        }, 'JournalKeeper.nuke()');
+    }
 });
