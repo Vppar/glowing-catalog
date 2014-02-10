@@ -1,9 +1,10 @@
 (function(angular) {
     'use strict';
-
-    angular.module('tnt.catalog.productsToBuy.confirm.ctrl', []).controller(
+    angular.module('tnt.catalog.productsToBuy.confirm.ctrl', [
+        'tnt.catalog.service.dialog'
+    ]).controller(
             'ProductsToBuyConfirmCtrl',
-            function($scope, $log) {
+            function($scope, $log, DialogService) {
 
                 // inherited from ProductsToBuyCtrl
                 var listConfirmedProducts = function listConfirmedProducts(stockReport) {
@@ -50,6 +51,39 @@
                         'ms to updateConfirmed list.');
 
                 });
+
+                $scope.cancel = function() {
+                    var result = DialogService.messageDialog({
+                        title : 'Pedido de Compra',
+                        message : 'Cancelar o pedido de compra?',
+                        btnYes : 'Sim',
+                        btnNo : 'Não'
+                    });
+                    result.then(function(result) {
+                        if (result) {
+                            $scope.$emit('cancel');
+                        }
+                    });
+                };
+
+                $scope.confirm = function() {
+                    var promise = DialogService.openDialogProductsToBuyConfirm();
+                    promise.then(function(confirm) {
+                        if (confirm) {
+                            var result = DialogService.messageDialog({
+                                title : 'Pedido de Compra',
+                                message : 'Confirmar o pedido de compra?',
+                                btnYes : 'Sim',
+                                btnNo : 'Não'
+                            });
+                            result.then(function(result) {
+                                if (result) {
+                                    $scope.$emit('confirm');
+                                }
+                            });
+                        }
+                    });
+                };
 
                 this.listConfirmedProducts = listConfirmedProducts;
             });
