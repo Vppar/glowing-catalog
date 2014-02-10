@@ -36,6 +36,18 @@
 	float:left;
 	width:30%;
 }
+
+.menu-level-products-to-buy{	
+	margin: 0 !important;
+	padding: 0 !important;
+	/*margin-left: 50px !important;*/
+}
+
+.menu-level-products-to-buy .btn{	
+	font-weight: normal !important;
+	margin-bottom:10px;
+}
+
 .row-products-to-buy  .btn {
 	background: #ecbab9;
 	text-shadow: none;
@@ -264,7 +276,16 @@
 	height: 15px !important;
 }
 
-.step1 .row-payment-grid-product-products-to-buy{margin: 7px 0 7px 0;}
+.section-header-products-to-buy .closeimg{
+	background: #fff url('com/images/select_close.png') no-repeat 97% 7px;
+}
+
+.step1 .row-payment-grid-product-products-to-buy{
+	margin: 5px 0 5px 0;
+	display: block;
+	font-weight: normal;
+	border-bottom: 1px dotted #ccc;
+}
 
 .step1 .row-payment-grid-product-products-to-buy .input-qty {
 	margin-top: -5px;
@@ -535,7 +556,7 @@
 /*------------- Confirmar pedido  ------- */
 .conf-order-panel {
 	width:60%;
-	border:1px solid #ddd;
+	/*border:1px solid #ddd;*/
 	border-radius:4px;
 	margin: 30px auto;
 }
@@ -547,6 +568,7 @@ span.title-order-panel {
 	border-bottom:0 !important;
 	clear:both;
 	display:block;
+	padding:0 8px;
 }
 .text-order-panel {
 	clear:both;
@@ -555,10 +577,19 @@ span.title-order-panel {
 }
 .text-order-panel span, .title-order-panel span{
 	display:inline-block;
-	padding:8px;
 }
-.conf-order-panel span .col-1, .conf-order-panel span .col-2, .conf-order-panel span .col-3 {
-	width:28%;
+.conf-order-panel span .col-1{
+	width:50%;
+	padding:8px 0 8px 0;
+}
+.conf-order-panel span .col-1 input[type="radio"]{margin: 0 5px 0 0;}
+.conf-order-panel span .col-2{
+	width:20%;
+	padding:8px 0 8px 8px;
+}
+.conf-order-panel span .col-3 {
+	width:20%;
+	padding:8px 0 8px 8px;
 }
 
 
@@ -659,7 +690,7 @@ div.row-last-payments .col-1, div.row-last-payments .col-2, div.row-last-payment
 	color:#A0A0A0;
 }
 div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-grid2 {
-	max-height:260px !important;
+	max-height:313px !important;
 	margin-bottom:20px;
 }
 .details-stock-subtitle {
@@ -714,4 +745,113 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 	vertical-align:top;
 }
 
+
+.step4 .control-label-products-to-buy{
+	width:400px;
+}
+
+.step4 .products-to-buy-initial .header-products-to-buy{
+	border-radius: 4px;
+	background: #333;
+	color: #fff;
+	font-weight:normal;
+}
+.step4 .products-to-buy-initial .header-products-to-buy, .products-to-buy-edit .header-products-to-buy{
+	border-radius: 4px;
+	border: none !important;
+	margin-top: 0;
+}
+
+.step4 .title-header-products-to-buy{
+	margin: 0 !important;
+	background-color: #333333;
+	color: #fff;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+.step4 .section-header-products-to-buy{
+	margin: 0 !important;
+	background-color: #bbb;
+	color: #000;
+	border-radius: 4px;
+	border-bottom:0 !important;
+}
+.step4 .subtitle-header-products-to-buy{
+	margin: 0 !important;
+	background-color: #dadada;
+	border-radius: 4px;
+	border-bottom:0 !important;
+	font-weight: bold;
+}
+
+.step4 .products-to-buy-filter {
+	margin: -3px 0 0 0 !important;
+	width: 80%;
+	height: 15px !important;
+}
+
+.step4 .row-pending-product-products-to-buy{
+	margin: 5px 0 5px 0;
+	display: block;
+	font-weight: normal;
+	border-bottom: 1px dotted #ccc;
+}
+
+.step4 .grid-pending-products-to-buy-edit .col-s1 {
+	width: 11%;
+	text-align: left;
+	display: inline-block;
+	line-height: 40px;
+	padding-left:5px;
+	vertical-align:top;
+}
+.step4 .grid-pending-products-to-buy-edit .col-s2 {
+	width: 15%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step4 .grid-pending-products-to-buy-edit .col-s3 {
+	width: 10%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step4 .grid-pending-products-to-buy-edit .col-s4{
+	width: 25%;
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step4 .grid-pending-products-to-buy-edit .col-s5 {
+	width: 6%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step4 .grid-pending-products-to-buy-edit .col-s6 {
+	width: 5%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step4 .grid-pending-products-to-buy-edit .col-s7{
+	width: 4%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
+.step4 .grid-pending-products-to-buy-edit .col-s8 {
+	width: 18%;
+	text-align:center;
+	display: inline-block;
+	line-height: 40px;
+	vertical-align:top;
+}
 	

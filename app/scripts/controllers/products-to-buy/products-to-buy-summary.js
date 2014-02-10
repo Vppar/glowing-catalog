@@ -4,7 +4,7 @@
         'tnt.catalog.service.dialog'
     ]).controller(
             'ProductsToBuySummaryCtrl',
-            function($scope, $filter, DialogService) {
+            function($scope, $filter, $log, DialogService) {
 
                 // if the order total is less then the amount use the fee.
                 var discounts = [
@@ -54,7 +54,7 @@
 
                             $scope.nextDiscount.amount = (discounts[nix].amount - $scope.orderTotal);
                             $scope.nextDiscount.percent = 100 * (discounts[nix + 1].fee);
-                            console.log('Faltam ' + $filter('currency')($scope.nextDiscount.amount) + ' para a classe de desconto de ' +
+                            $log.info('Faltam ' + $filter('currency')($scope.nextDiscount.amount) + ' para a classe de desconto de ' +
                                 $scope.nextDiscount.percent + '%.');
                             break;
                         } else if (!discounts[nix + 1]) {
@@ -70,19 +70,20 @@
                     return (Math.round(100 * value) / 100);
                 }
 
-                $scope.cancel = function() {
-                    var result = DialogService.messageDialog({
-                        title : 'Pedido de Compra',
-                        message : 'Cancelar o pedido de compra?',
-                        btnYes : 'Sim',
-                        btnNo : 'Não'
-                    });
-                    result.then(function(result) {
-                        if (result) {
-                            $scope.$emit('cancel');
-                        }
-                    });
-                };
+                $scope.cancel =
+                        function() {
+                            var result = DialogService.messageDialog({
+                                title : 'Pedido de Compra',
+                                message : 'Cancelar o pedido de compra?',
+                                btnYes : 'Sim',
+                                btnNo : 'Não'
+                            });
+                            result.then(function(result) {
+                                if (result) {
+                                    $scope.$emit('cancel');
+                                }
+                            });
+                        };
 
                 $scope.confirm = function() {
                     var result = DialogService.messageDialog({
@@ -99,7 +100,13 @@
                 };
 
                 $scope.$on('updateSummary', function(event, args) {
+                    // current time for log
+                    var processStarted = new Date().getTime();
                     calculateTotals(args);
+                    var processDone = new Date().getTime();
+                    $log.debug('ProductsToBuySummaryCtrl.on(updateSummary): -It took ' + (processDone - processStarted) +
+                        'ms to update summary.');
+
                 });
             });
 }(angular));
