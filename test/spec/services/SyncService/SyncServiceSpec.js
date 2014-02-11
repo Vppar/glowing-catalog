@@ -66,7 +66,9 @@ describe('Service: SyncService', function () {
 
 
   describe('SyncService.sync()', function () {
-    var entry1, entry2, entries;
+    var entry1 = {};
+    var entry2 = {};
+    var entries = {};
 
     beforeEach(function () {
       // Create some fake entries
@@ -134,8 +136,8 @@ describe('Service: SyncService', function () {
       expect(JournalKeeperMock.markAsSynced.callCount).toBe(2);
       // Check if we return a promise
       expect(typeof promise.then).toBe('function');
-      expect(typeof promise.catch).toBe('function');
-      expect(typeof promise.finally).toBe('function');
+      expect(typeof promise['catch']).toBe('function');
+      expect(typeof promise['finally']).toBe('function');
     });
 
 
@@ -146,13 +148,10 @@ describe('Service: SyncService', function () {
         // JournalKeeper.markAsSynced() is not called
         JournalKeeperMock.readUnsynced.andCallFake(rejectedPromiseReturner('Rejecting JournalKeeper.readUnsynced()'));
 
-        var resolved = false;
         var rejected = false;
 
         var promise = SyncService.sync();
-        promise.then(function () {
-          resolved = true;
-        }, function (err) {
+        promise.then(null, function (err) {
           expect(err).toBe('Rejecting JournalKeeper.readUnsynced()');
           rejected = true;
         });
@@ -294,7 +293,7 @@ describe('Service: SyncService', function () {
       var deferred = $q.defer();
       deferred.resolve(result);
       return deferred.promise;
-    }
+    };
   }
 
   function rejectedPromiseReturner(result) {
@@ -302,6 +301,6 @@ describe('Service: SyncService', function () {
       var deferred = $q.defer();
       deferred.reject(result);
       return deferred.promise;
-    }
+    };
   }
 });
