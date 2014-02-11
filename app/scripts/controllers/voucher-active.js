@@ -14,7 +14,7 @@
                 /**
                  * The real deal
                  */
-                var filteredVouchers = $filter('filter')(vouchers, function(voucher) {
+                $scope.filteredActiveVouchers = $filter('filter')(vouchers, function(voucher) {
                     return !(voucher.canceled || voucher.redeemed);
                 });
 
@@ -38,10 +38,10 @@
                         return true;
                     }
                 }
-
-                $scope.$watchCollection('voucherFilter', function() {
+                
+                $scope.filter = function filter(){
                     var myFilter = $scope.voucherFilter.value;
-                    $scope.filteredVouchers = $filter('filter')(filteredVouchers, function(voucher) {
+                    $scope.filteredVouchers = $filter('filter')($scope.filteredActiveVouchers, function(voucher) {
                         var result = true;
                         if ($scope.voucherFilter.value.length > 0) {
                             result = false;
@@ -49,6 +49,10 @@
                             var type = '' + voucher.type;
                             var amount = '' + voucher.amount;
                             var entity = '' + voucher.entity;
+                            
+                            type = type.toLowerCase();
+                            entity = entity.toLowerCase();
+                            myFilter = myFilter.toLowerCase();
 
                             result = result || (type.indexOf(myFilter) > -1);
                             result = result || (amount.indexOf(myFilter) > -1);
@@ -59,6 +63,10 @@
                     $scope.filteredVouchers = $filter('filter')($scope.filteredVouchers, filterVoucher);
                     $scope.qtyTotal = $scope.filteredVouchers.length;
                     $scope.priceTotal = $filter('sum')($scope.filteredVouchers, 'amount');
+                };
+
+                $scope.$watchCollection('voucherFilter', function() {
+                    $scope.filter();
                 });
 
             });
