@@ -2,7 +2,6 @@ describe('Controller: voucher-active', function() {
 
     var scope = {};
     var PaymentService = {};
-    var VoucherKeeper = {};
     var OrderService = {};
 
     beforeEach(function() {
@@ -19,7 +18,6 @@ describe('Controller: voucher-active', function() {
     beforeEach(inject(function($controller, $rootScope, $filter) {
         $controller('VoucherActiveCtrl', {
             $scope : scope,
-            VoucherKeeper : VoucherKeeper,
             PaymentService : PaymentService,
             OrderService : OrderService
         });
