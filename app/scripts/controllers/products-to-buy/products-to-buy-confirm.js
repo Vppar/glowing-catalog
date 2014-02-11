@@ -40,7 +40,6 @@
 
         $scope.$on('updateConfirmed', function() {
             $scope.confirmedProducts = listConfirmedProducts($scope.stockReport);
-            $scope.$emit('productQtyChangeDone', 'updateConfirmed');
         });
 
         $scope.cancel = function() {
@@ -74,6 +73,15 @@
                     });
                 }
             });
+        };
+
+        $scope.shouldHideButtons = function() {
+            var result = true;
+            for ( var ix in $scope.confirmedProducts.sessions) {
+                result = false;
+                break;
+            }
+            return result;
         };
 
         this.listConfirmedProducts = listConfirmedProducts;
