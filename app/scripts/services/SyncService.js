@@ -13,33 +13,44 @@
         ) {
 
             this.sync = function () {
-              var deferred = $q.defer();
+                var deferred = $q.defer();
 
-              var unsyncedPromise;
-              var driverSyncPromise;
-              var markAsSyncedPromises = [];
-              
-              unsyncedPromise = JournalKeeper.getUnsynced();
+                
+                var promise1 = JournalKeeper.readUnsynced();
 
-              unsyncedPromise.then(function (unsyncedEntries) {
-                  if (unsyncedEntries.length) {
-                      driverSyncPromise = driver.sync(unsyncedEntries);
+                promise1.then(function (unsyncedEntries) {
+                    if (unsyncedEntries.length) {
+                        
+                        var promise2 = SyncDriver.sync(unsyncedEntries);
 
-                      driverSyncPromise.then(function (syncedEntries) {
-                          for (idx in syncedEntries) {
-                              markAsSyncedPromises.push(JournalKeeper.markAsSynced(syncedEntries[idx]));
-                          }
+                        promise2.then(function (syncedEntries) {
+                            var promises = [];
 
-                          deferred.resolve($q.all(markAsSyncedPromises));
-                      }, function (err) {
-                          $log.debug('Failed to sync entries!', err);
-                          deferred.reject(err);
-                      });
-                  }
-              }, function (err) {
-                  $log.debug('Failed to get unsynced entries!', err);
-                  deferred.reject(err);
-              });
+                            for (idx in syncedEntries) {
+                                promises.push(JournalKeeper.markAsSynced(syncedEntries[idx]));
+                            }
+
+                            var promise3 = $q.all(promises);
+
+                            deferred.resolve(promise3);
+
+                            promise3.then(null, function (err) {
+                                $log.error('Failed to mark entries as synced!', err);
+                            });
+                        }, function (err) {
+                            $log.debug('Failed to sync entries!', err);
+                            deferred.reject(err);
+                        });
+                    } else {
+                        $log.debug('There are no unsynced entries in the JournalKeeper.');
+                        deferred.resolve('There are no unsynced entries in the JournalKeeper.');
+                    }
+                }, function (err) {
+                    $log.debug('Failed to get unsynced entries!', err);
+                    deferred.reject(err);
+                });
+
+                return deferred.promise;
             };
 
 
