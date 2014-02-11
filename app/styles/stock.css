@@ -255,12 +255,19 @@
 }
 
 .form-stock .details-stock-category{
-	padding: 5px;
+/*	padding: 5px;
 	display: block;
 	min-height:20px;
 	padding: 8px 5px 8px 12px;
 	color:#777;
-	border-top: 1px dotted #ccc;
+	border-top: 1px dotted #ccc;*/
+	
+	border-radius: 4px;
+	background: #e5e5e5;
+	color: #333;
+	min-height: 20px;
+	padding: 8px 5px 8px 12px;
+	font-weight: bold;
 }
 
 .form-stock .details-stock-item{
