@@ -1,4 +1,4 @@
-ddescribe('Controller: voucher-active', function() {
+describe('Controller: voucher-active', function() {
 
     var scope = {};
     var PaymentService = {};
