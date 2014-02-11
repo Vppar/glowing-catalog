@@ -9,6 +9,13 @@ describe('Service: JournalKeeperResync', function() {
 
       storage.register = jasmine.createSpy('PersistentStorage.register');
       storage.list = jasmine.createSpy('PersistentStorage.list');
+
+      // Assumes the storage.register() call to have succeeded
+      storage.register.andCallFake(function () {
+        var deferred = q.defer();
+        deferred.resolve();
+        return deferred.promise;
+      });
   });
 
 
@@ -32,9 +39,13 @@ describe('Service: JournalKeeperResync', function() {
   var $log = null;
   var JournalEntry = null;
 
-  beforeEach(inject(function(_$log_, _JournalKeeper_, $q, _$rootScope_, _JournalEntry_) {
-    JournalKeeper = _JournalKeeper_;
+  // q must be defined before JournalKeeper is injected
+  beforeEach(inject(function ($q) {
     q = $q;
+  }));
+
+  beforeEach(inject(function(_$log_, _JournalKeeper_, _$rootScope_, _JournalEntry_) {
+    JournalKeeper = _JournalKeeper_;
     $rootScope = _$rootScope_;
     $log = _$log_;
     JournalEntry = _JournalEntry_;

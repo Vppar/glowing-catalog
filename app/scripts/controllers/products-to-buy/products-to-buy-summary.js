@@ -52,8 +52,10 @@
 
                             $scope.nextDiscount.amount = (discounts[nix].amount - $scope.orderTotal);
                             $scope.nextDiscount.percent = 100 * (discounts[nix + 1].fee);
+                            
                             $log.info('Faltam ' + $filter('currency')($scope.nextDiscount.amount) + ' para a classe de desconto de ' +
                                 $scope.nextDiscount.percent + '%.');
+                            
                             break;
                         } else if (!discounts[nix + 1]) {
                             $scope.nextDiscount.amount = 0;
@@ -69,13 +71,8 @@
                 }
 
                 $scope.$on('updateSummary', function(event, args) {
-                    // current time for log
-                    var processStarted = new Date().getTime();
                     calculateTotals(args);
-                    var processDone = new Date().getTime();
-                    $log.debug('ProductsToBuySummaryCtrl.on(updateSummary): -It took ' + (processDone - processStarted) +
-                        'ms to update summary.');
-
+                    $scope.$emit('productQtyChangeDone', 'updateSummary');
                 });
             });
 }(angular));
