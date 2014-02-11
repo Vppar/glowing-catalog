@@ -8,6 +8,7 @@ ddescribe('Service: PurchaseOrderService', function() {
     var $rootScope = null;
     var $log = {};
     var $q = {};
+    var myUuid;
 
     var purchase = {
         uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
@@ -23,6 +24,7 @@ ddescribe('Service: PurchaseOrderService', function() {
     beforeEach(function() {
         $log.debug = jasmine.createSpy('$log.debug');
         $log.error = jasmine.createSpy('$log.error');
+        myUuid = 'cc02b600-5d0b-11e3-96c3-010001000123';
     });
 
     // load the service's module
@@ -49,7 +51,7 @@ ddescribe('Service: PurchaseOrderService', function() {
             var deferred = $q.defer();
 
             setTimeout(function() {
-                deferred.resolve('cc02b600-5d0b-11e3-96c3-010001000123');
+                deferred.resolve(myUuid);
             }, 0);
 
             return deferred.promise;
@@ -58,7 +60,7 @@ ddescribe('Service: PurchaseOrderService', function() {
             var deferred = $q.defer();
 
             setTimeout(function() {
-                deferred.resolve('cc02b600-5d0b-11e3-96c3-010001000001');
+                deferred.resolve(myUuid);
             }, 0);
 
             return deferred.promise;
@@ -66,14 +68,6 @@ ddescribe('Service: PurchaseOrderService', function() {
     });
 
     it('initializes an purchaseOrder object', function() {
-
-        var expense = {
-            uuid : purchase.uuid,
-            created : new Date(),
-            entityId : 1,
-            amount : purchase.amount,
-            duedate : new Date()
-        };
 
         var resolved = false;
 
@@ -91,7 +85,7 @@ ddescribe('Service: PurchaseOrderService', function() {
         // then
         runs(function() {
             expect(ExpenseService.register).toHaveBeenCalled();
-            expect(ExpenseService.register.mostRecentCall.args[0].uuid).toBe('cc02b600-5d0b-11e3-96c3-010001000001');
+            expect(ExpenseService.register.mostRecentCall.args[0].uuid).toBe(myUuid);
         });
     });
 });

@@ -38,7 +38,8 @@
                 result.then(function(uuid) {
                     var duedate = new Date();
                     var entityId = 0;
-                    var expense = new Expense(uuid, new Date(), entityId, result.amount, duedate);
+                    var expense = new Expense(null, new Date(), entityId, result.amount, duedate);
+                    expense.documentId = uuid;
                     ExpenseService.register(expense);
                 }, function(err) {
                     $log.error('PurchaseOrderService.register: -Failed to create an purchaseOrder. ', err);

@@ -125,8 +125,8 @@
                     var entry = new JournalEntry(null, event.created, 'purchaseOrderAdd', currentEventVersion, event);
 
                     // save the journal entry
-                    JournalKeeper.compose(entry);
-                    return event.uuid
+                    
+                    return JournalKeeper.compose(entry);
                 };
 
                 /**
