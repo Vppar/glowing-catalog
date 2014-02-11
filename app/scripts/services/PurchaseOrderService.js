@@ -32,13 +32,13 @@
 
         var register = function register(purchase) {
             var result = null;
-            var hasErrors = this.isValid(purchase);
+            var hasErrors = isValid(purchase);
             if (hasErrors.length === 0) {
                 result = PurchaseOrderKeeper.add(new PurchaseOrder(purchase));
-                result.then(function() {
-                    var duedate = undefined;
+                result.then(function(uuid) {
+                    var duedate = new Date();
                     var entityId = 0;
-                    var expense = new Expense(result.uuid, new Date(), entityId, result.amount, duedate);
+                    var expense = new Expense(uuid, new Date(), entityId, result.amount, duedate);
                     ExpenseService.register(expense);
                 }, function(err) {
                     $log.error('PurchaseOrderService.register: -Failed to create an purchaseOrder. ', err);

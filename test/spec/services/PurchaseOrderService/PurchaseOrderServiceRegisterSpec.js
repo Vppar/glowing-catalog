@@ -2,12 +2,15 @@
 
 ddescribe('Service: PurchaseOrderService', function() {
 
-    var PurchaseOrderService;
     var PurchaseOrderKeeper = {};
-    var ExpenseService;
+    var ExpenseService = {};
+    var PurchaseOrderService = {};
+    var $rootScope = null;
+    var $log = {};
+    var $q = {};
 
     var purchase = {
-        uuid : '1',
+        uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
         created : new Date(),
         canceled : false,
         items : [
@@ -17,41 +20,78 @@ ddescribe('Service: PurchaseOrderService', function() {
         ]
     };
 
+    beforeEach(function() {
+        $log.debug = jasmine.createSpy('$log.debug');
+        $log.error = jasmine.createSpy('$log.error');
+    });
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.purchaseOrder');
         module('tnt.catalog.purchaseOrder.service');
+        module('tnt.catalog.expense.entity');
+
+        module(function($provide) {
+            $provide.value('$log', $log);
+            $provide.value('PurchaseOrderKeeper', PurchaseOrderKeeper);
+            $provide.value('ExpenseService', ExpenseService);
+        });
     });
 
-    beforeEach(inject(function(_PurchaseOrderService_, _ExpenseService_) {
+    beforeEach(inject(function(_$rootScope_, _$q_, _PurchaseOrderService_) {
+        $q = _$q_;
+        $rootScope = _$rootScope_;
         PurchaseOrderService = _PurchaseOrderService_;
-        ExpenseService = _ExpenseService_;
     }));
+    
+    beforeEach(function() {
+        ExpenseService.register = jasmine.createSpy('ExpenseService.register').andCallFake(function() {
+            var deferred = $q.defer();
+
+            setTimeout(function() {
+                deferred.resolve('cc02b600-5d0b-11e3-96c3-010001000123');
+            }, 0);
+
+            return deferred.promise;
+        });
+        PurchaseOrderKeeper.add = jasmine.createSpy('PurchaseOrderKeeper.add').andCallFake(function() {
+            var deferred = $q.defer();
+
+            setTimeout(function() {
+                deferred.resolve('cc02b600-5d0b-11e3-96c3-010001000001');
+            }, 0);
+
+            return deferred.promise;
+        });
+    });
 
     it('initializes an purchaseOrder object', function() {
-        
-        ExpenseService.register = jasmine.createSpy('ExpenseService.register');
-        
-        runs(function(){
-            PurchaseOrderService.register(purchase).then(function () {
-                log.debug('Entity created');
-            }, function (err) {
-                log.debug('Failed to create entity', err);
-            });
-            
-            waitsFor(function(){
-                return EntityKeeper.list().length;
-            }, 'EntityKeeper.create()', 500);
-            
-            //then
-            runs(function(){
-                expect(EntityKeeper.list()[0].name).toBe('cassiano');
-                expect(EntityKeeper.list().length).toBe(1);
-            });
 
-            $rootScope.$apply();
+        var expense = {
+            uuid : purchase.uuid,
+            created : new Date(),
+            entityId : 1,
+            amount : purchase.amount,
+            duedate : new Date()
+        };
+
+        var resolved = false;
+
+        runs(function() {
+            PurchaseOrderService.register(purchase).then(function() {
+                resolved = true;
+            });
         });
-        
-        expect(ExpenseService.register).toHaveBeenCalled();
+
+        waitsFor(function() {
+            $rootScope.$apply();
+            return resolved;
+        }, 'Register a purchase order is taking too long', 100);
+
+        // then
+        runs(function() {
+            expect(ExpenseService.register).toHaveBeenCalled();
+            expect(ExpenseService.register.mostRecentCall.args[0].uuid).toBe('cc02b600-5d0b-11e3-96c3-010001000001');
+        });
     });
 });
