@@ -83,7 +83,7 @@ describe('Controller: voucher-active', function() {
         expect(scope.filteredVouchers[0]).toBe(expected);
 
     });
-    
+
     it('should filter by amount', function() {
         var expected = {
             entity : 'Fabio',
