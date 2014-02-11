@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.purchaseOrder.service', [
-        'tnt.catalog.expense.entity', 'tnt.catalog.service.expense'
+        'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder'
     ]).service('PurchaseOrderService', function PurchaseOrderService($q, $log, PurchaseOrderKeeper, Expense, PurchaseOrder, ExpenseService) {
 
         var isValid = function isValid(order) {
@@ -35,18 +35,18 @@
             var hasErrors = isValid(purchase);
             if (hasErrors.length === 0) {
                 result = PurchaseOrderKeeper.add(new PurchaseOrder(purchase));
-                result.then(function(uuid) {
-                    var duedate = new Date();
-                    var entityId = 0;
-                    var expense = new Expense(null, new Date(), entityId, result.amount, duedate);
-                    expense.documentId = uuid;
-                    ExpenseService.register(expense);
-                }, function(err) {
-                    $log.error('PurchaseOrderService.register: -Failed to create an purchaseOrder. ', err);
-                });
-            } else {
-                $log.error('PurchaseOrderService.register: -Invalid purchaseOrder. ', hasErrors);
-                result = $q.reject(hasErrors);
+//                result.then(function(uuid) {
+//                    var duedate = new Date();
+//                    var entityId = 0;
+//                    var expense = new Expense(null, new Date(), entityId, result.amount, duedate);
+//                    expense.documentId = uuid;
+//                    ExpenseService.register(expense);
+//                }, function(err) {
+//                    $log.error('PurchaseOrderService.register: -Failed to create an purchaseOrder. ', err);
+//                });
+//            } else {
+//                $log.error('PurchaseOrderService.register: -Invalid purchaseOrder. ', hasErrors);
+//                result = $q.reject(hasErrors);
             }
             
             return result;
