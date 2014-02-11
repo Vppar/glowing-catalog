@@ -11,10 +11,9 @@
 
                 var vouchers = angular.copy($scope.vouchers);
 
-                $scope.vouchers = $filter('filter')(vouchers, function(voucher) {
+                $scope.notActiveVouchers = $filter('filter')(vouchers, function(voucher) {
                     return (voucher.canceled || voucher.redeemed);
                 });
-                var historicVouchers = angular.copy($scope.vouchers);
 
                 /**
                  * Historic DateFilter
@@ -73,7 +72,7 @@
 
                 $scope.filter = function filter() {
                     var myFilter = $scope.historicVoucher.value;
-                    $scope.historicVouchers = $filter('filter')(historicVouchers, function(voucher) {
+                    $scope.historicVouchers = $filter('filter')($scope.notActiveVouchers, function(voucher) {
                         var result = true;
                         if ($scope.historicVoucher.value.length > 0) {
                             result = false;

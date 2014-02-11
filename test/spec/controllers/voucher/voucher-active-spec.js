@@ -85,6 +85,40 @@ describe('Controller: voucher-active', function() {
         expect(scope.filteredVouchers[0]).toBe(expected);
 
     });
+    
+    it('should filter by amount', function() {
+        var expected = {
+            entity : 'Fabio',
+            type : 'voucher',
+            amount : 20,
+            created : new Date()
+        };
+
+        scope.filteredActiveVouchers = [
+            {
+                entity : 'Arnaldo',
+                type : 'coupon',
+                amount : 30,
+                created : new Date()
+            }, {
+                entity : 'Wesley',
+                type : 'giftCard',
+                amount : 40,
+                created : new Date()
+            }, expected
+
+        ];
+
+        scope.voucherFilter = {
+            value : '2',
+            date : new Date()
+        };
+
+        scope.filter();
+
+        expect(scope.filteredVouchers[0]).toBe(expected);
+
+    });
 
     it('should filter by date', function() {
         var fabio = {
