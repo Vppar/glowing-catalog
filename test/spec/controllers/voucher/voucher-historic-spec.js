@@ -177,7 +177,7 @@ describe('Controller: voucher-historic', function() {
 
     });
     
-    it('should filter by initial date', function() {
+    it('should filter by final date', function() {
         var fabio = {
             entity : 'Fabio',
             type : 'voucher',
