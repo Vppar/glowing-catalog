@@ -51,6 +51,7 @@ describe('Service: PurchaseOrderKeeperAddSpec', function() {
     it('should add a purchase-order', function() {
         // given
         var purchasex = new PurchaseOrder(purchase);
+        purchasex.code = '01-0001-14';
 
         var entry = new JournalEntry(null, purchasex.created, 'purchaseOrderAdd', 1, purchasex);
 

@@ -6,7 +6,7 @@
         var service = function svc(uuid, created, canceled, items) {
 
             var validProperties = [
-                'uuid', 'created', 'canceled', 'items'
+                'uuid', 'created', 'canceled', 'items', 'code'
             ];
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
@@ -115,9 +115,9 @@
                     var uuidData = IdentityService.getUUIDData(purchaseObj.uuid);
 
                     // build order code base in its uuid
-//                    var strDeviceId = IdentityService.leftPad(uuidData.deviceId, 2);
-//                    var strId = IdentityService.leftPad(uuidData.id, 4);
-//                    purchaseObj.code = strDeviceId + '-' + strId + '-' + String(now.getFullYear()).substring(2);
+                    var strDeviceId = IdentityService.leftPad(uuidData.deviceId, 2);
+                    var strId = IdentityService.leftPad(uuidData.id, 4);
+                    purchaseObj.code = strDeviceId + '-' + strId + '-' + String(now.getFullYear()).substring(2);
 
                     var event = new PurchaseOrder(purchaseObj);
 
