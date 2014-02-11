@@ -1247,7 +1247,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-receivable .header .col-1 {
-	width: 60px;
+	width: 85px;
 	display: inline-block;
 }
 	.grid-receivable .header .col-1 div {
@@ -1261,7 +1261,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-receivable .header .col-3 {
-	width: 200px;
+	width: 180px;
 	display: inline-block;
 }
 .grid-receivable .header .col-4 {
@@ -1304,7 +1304,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-receivable .subtitle .col-1 {
-	width: 60px;
+	width: 85px;
 	display: inline-block;
 }
 	.grid-receivable .subtitle .col-1 div {
@@ -1318,7 +1318,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-receivable .subtitle .col-3 {
-	width: 200px;
+	width: 180px;
 	display: inline-block;
 }
 .grid-receivable .subtitle .col-4 {
@@ -1354,7 +1354,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align: center;
 	}
 .row-receivable .col-1 {
-	width: 60px;
+	width: 85px;
 	display: inline-block;
 }
 	.grid-receivable .col-1 div {
@@ -1369,7 +1369,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align: center;
 	}
 .row-receivable .col-3 {
-	width: 200px;
+	width: 180px;
 	vertical-align:top;
 	display: inline-block;
 }
@@ -1512,7 +1512,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-expense .header .col-1 {
-	width: 60px;
+	width: 85px;
 	display: inline-block;
 }
 	.grid-expense .header .col-1 div {
@@ -1526,7 +1526,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-expense .header .col-3 {
-	width: 200px;
+	width: 180px;
 	display: inline-block;
 }
 .grid-expense .header .col-4 {
@@ -1569,7 +1569,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-expense .subtitle .col-1 {
-	width: 60px;
+	width: 85px;
 	display: inline-block;
 }
 	.grid-expense .subtitle .col-1 div {
@@ -1583,7 +1583,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align:center;
 	}
 .grid-expense .subtitle .col-3 {
-	width: 200px;
+	width: 180px;
 	display: inline-block;
 }
 .grid-expense .subtitle .col-4 {
@@ -1620,7 +1620,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align: center;
 	}
 .row-expense .col-1 {
-	width: 60px;
+	width: 85px;
 	display: inline-block;
 }
 	.grid-expense .col-1 div {
@@ -1635,7 +1635,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 		text-align: center;
 	}
 .row-expense .col-3 {
-	width: 200px;
+	width: 180px;
 	vertical-align:top;
 	display: inline-block;
 }
