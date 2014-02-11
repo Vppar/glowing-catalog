@@ -38,10 +38,8 @@ describe('Service: EntityKeeperAddScenario', function() {
         WebSQLDriver = _WebSQLDriver_;
     }));
 
-
     // Clear existing data
     beforeEach(nukeData);
-    
 
     /**
      * <pre>
@@ -73,7 +71,6 @@ describe('Service: EntityKeeperAddScenario', function() {
             }, function (err) {
                 log.debug('Failed to create entity', err);
             });
-
             $rootScope.$apply();
         });
         

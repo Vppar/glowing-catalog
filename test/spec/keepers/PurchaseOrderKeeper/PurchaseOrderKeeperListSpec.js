@@ -20,7 +20,7 @@ describe('Service: PurchaseOrderKeeperListSpec', function() {
 
     /**
      * <pre>
-     * GivenafilledOrderKeeperWhenlistis triggered
+     * GivenafilledOrderKeeperWhenlististriggered
      * Then the target order should be returned
      * </pre>
      */
@@ -28,17 +28,15 @@ describe('Service: PurchaseOrderKeeperListSpec', function() {
         // given
         var myPurchaseOrder = {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            code : 12,
-            date : new Date(),
-            customerId : 1,
+            created : new Date(),
+            canceled : false,
             items : []
         };
 
         var yourPurchaseOrder = {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000002',
-            code : 13,
-            date : new Date(),
-            customerId : 2,
+            created : new Date(),
+            canceled : false,
             items : []
         };
 
@@ -57,7 +55,7 @@ describe('Service: PurchaseOrderKeeperListSpec', function() {
 
     /**
      * <pre>
-     * GivenanemptyOrderKeeperWhenanlistis triggered
+     * GivenanemptyOrderKeeperWhenanlististriggered
      * Then an empty array must be returned
      * </pre>
      */
