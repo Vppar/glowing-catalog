@@ -14,7 +14,7 @@ ddescribe('Service: BookKeeperWriteSpecr', function() {
     var bookEntry2 = {};
     var composeReturn = {};
     // load the service's module
-    
+
     beforeEach(function() {
         module('tnt.catalog.bookkeeping');
         module('tnt.catalog.bookkeeping.entry');
@@ -22,7 +22,7 @@ ddescribe('Service: BookKeeperWriteSpecr', function() {
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
     });
-    
+
     beforeEach(function() {
         creditAccount = "creditCashFlow";
         debitAccount = "debitCashFlow";
@@ -68,6 +68,10 @@ ddescribe('Service: BookKeeperWriteSpecr', function() {
         ArrayUtils = _ArrayUtils_;
         JournalEntry = _JournalEntry_;
     }));
+
+    it('should inject BookKeeper properly', function() {
+        expect(!!BookKeeper).toBe(true);
+    });
 
     it('should automatically create a new book', function() {
         // Given
@@ -129,10 +133,12 @@ ddescribe('Service: BookKeeperWriteSpecr', function() {
     it('should properly create the entry', function() {
         // make sure the enrty makes it to the journal
         // Given
-        var result = BookKeeper.write(bookEntry);
-
         var entry = new JournalEntry(null, bookEntry.created, 'bookWrite', 1, bookEntry);
 
+        //When
+        var result = BookKeeper.write(bookEntry);
+
+        //Then
         expect(JournalKeeper.compose).toHaveBeenCalledWith(entry);
         expect(result).toEqual(composeReturn);
     });
