@@ -8,8 +8,6 @@
         $scope.selectPart = function(part) {
             $scope.selectedPart = part;
         };
-        
-        $scope.watchedQty = {};
     });
 
 }(angular));
