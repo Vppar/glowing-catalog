@@ -14,7 +14,7 @@
                 /**
                  * The real deal
                  */
-                var filteredVouchers = $filter('filter')(vouchers, function(voucher) {
+                $scope.filteredActiveVouchers = $filter('filter')(vouchers, function(voucher) {
                     return !(voucher.canceled || voucher.redeemed);
                 });
 
@@ -41,7 +41,7 @@
                 
                 $scope.filter = function filter(){
                     var myFilter = $scope.voucherFilter.value;
-                    $scope.filteredVouchers = $filter('filter')(filteredVouchers, function(voucher) {
+                    $scope.filteredVouchers = $filter('filter')($scope.filteredActiveVouchers, function(voucher) {
                         var result = true;
                         if ($scope.voucherFilter.value.length > 0) {
                             result = false;
