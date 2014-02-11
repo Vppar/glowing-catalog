@@ -9,16 +9,13 @@ describe('Service: PurchaseOrderKeeperCancelSpec', function() {
     var PurchaseOrder = null;
 
     var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
-    var code = 12;
     var date = new Date().getTime();
-    var customerId = 1;
     var items = [];
 
     var purchase = {
         uuid : uuid,
-        code : code,
-        date : date,
-        customerId : customerId,
+        created : date,
+        canceled : true,
         items : items
     };
 

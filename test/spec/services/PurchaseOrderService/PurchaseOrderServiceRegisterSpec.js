@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: PurchaseOrderService', function() {
+describe('Service: PurchaseOrderService', function() {
 
     var PurchaseOrderKeeper = {};
     var ExpenseService = {};
@@ -85,7 +85,7 @@ ddescribe('Service: PurchaseOrderService', function() {
         // then
         runs(function() {
             expect(ExpenseService.register).toHaveBeenCalled();
-            expect(ExpenseService.register.mostRecentCall.args[0].uuid).toBe(myUuid);
+            expect(ExpenseService.register.mostRecentCall.args[0].documentId).toBe(myUuid);
         });
     });
 });
