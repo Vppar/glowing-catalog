@@ -3,12 +3,11 @@
 
     angular.module('tnt.catalog.purchaseOrder.entity', []).factory('PurchaseOrder', function PurchaseOrder() {
 
-        var service = function svc(uuid, code, date, canceled, customerId, items) {
+        var service = function svc(uuid, created, canceled, items) {
 
             var validProperties = [
-                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'items'
+                'uuid', 'created', 'canceled', 'items', 'code'
             ];
-
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
                     var prop = this[ix];
@@ -25,20 +24,16 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'PurchaseOrder must be initialized with uuid, code, date, canceled, customerId, items';
+                    throw 'PurchaseOrder must be initialized with uuid, created, canceled, items';
                 }
             } else {
                 this.uuid = uuid;
-                this.code = code;
-                this.date = date;
+                this.created = created;
                 this.canceled = canceled;
-                this.customerId = customerId;
                 this.items = items;
             }
             ObjectUtils.ro(this, 'uuid', this.uuid);
-            ObjectUtils.ro(this, 'code', this.code);
-            ObjectUtils.ro(this, 'date', this.date);
-            ObjectUtils.ro(this, 'customerId', this.customerId);
+            ObjectUtils.ro(this, 'created', this.created);
             ObjectUtils.ro(this, 'items', this.items);
         };
 
@@ -130,6 +125,7 @@
                     var entry = new JournalEntry(null, event.created, 'purchaseOrderAdd', currentEventVersion, event);
 
                     // save the journal entry
+                    
                     return JournalKeeper.compose(entry);
                 };
 

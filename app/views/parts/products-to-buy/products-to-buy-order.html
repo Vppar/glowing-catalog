@@ -45,7 +45,7 @@
 							<div><input type="text" placeholder="Filtrar produto" class="date-field input-small products-to-buy-filter closeimg" ng-model="productFilter.text"></div>
 						</span>
 						<span class="col-s2">
-							<div>Se&ccedil;&atilde;o 1</div>
+							<div>Se&ccedil;&atilde;o {{selectedSession}}</div>
 						</span>
 						<span class="col-s3">
 							<div>&nbsp;</div>
@@ -58,7 +58,7 @@
 						</span>
 					</div>
 				</div>
-				<div class="scroll-payment-grid">	
+				<div class="scroll-payment-grid" ng-show="selectedSession=='1'">	
 					<span ng-repeat="session in stockReport.sessions" ng-hide="session.hide">									
 						<div class="header header2 subtitle-header-products-to-buy">
 							<div class="row-payment-grid">

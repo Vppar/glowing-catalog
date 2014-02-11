@@ -29,6 +29,12 @@
             $scope.selectedTab = tabName;
         };
 
+
+        $scope.summaryIsVisible = function (tabName) {
+            return tabName === 'buildOrder' || tabName === 'confirmOrder';
+        };
+
+
         $scope.$on('cancel', function() {
 
             $scope.productFilter.text = '';

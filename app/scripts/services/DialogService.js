@@ -81,6 +81,10 @@
         this.openDialogProductsToBuyConfirm = function(data) {
             return openDialog('views/parts/products-to-buy/products-to-buy-confirm-dialog.html', 'ProductsToBuyConfirmDialogCtrl', data);
         };
+        
+        this.openDialogProductsToBuyTicket = function(data) {
+            return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data);
+        };
     });
 
 }(angular));
