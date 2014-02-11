@@ -487,8 +487,19 @@ div.header-date {
 }
 
 .navbar .dropdown .dropdown-submenu .dropdown-menu{
- margin: 0 0 0 -25px;
- width:200px;
+	margin: 0 0 0 -25px;
+	width:200px;
+}
+.dropdown-submenu .dropdown-menu{/*.navbar .dropdown .dropdown-submenu *{*/
+	/*bottom: 0 !important;
+	top: -100% !important;
+	transform:translateY(-100%);
+	position: relative;*/
+	top:100%;
+	-webkit-transform: translateY(-100%);
+	-moz-transform:translateY(-100%);
+	-o-transform:translateY(-100%);
+	transform:translateY(-100%);
 }
 .dropdown-submenu > a:after, .dropdown-submenu > a:hover:after {
  display: block;
