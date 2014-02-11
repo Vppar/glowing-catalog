@@ -12,6 +12,10 @@
             text : ''
         };
 
+        $scope.clearFilter = function () {
+            $scope.productFilter.text = '';
+        };
+
         $scope.$watch('productFilter.text', function(newVal, oldVal) {
             var myTextFilter = $scope.productFilter.text;
             if (String(myTextFilter).length >= 3) {
