@@ -22,15 +22,5 @@
                 return deferred.promise;
             };
 
-
-
-
-            /**
-             * Gets entries created after the given timestamp.
-             * @return {Array} Array of entries.
-             */
-            this.getNewEntries = function (timestamp) {
-            };
-
         });
 }(angular));
