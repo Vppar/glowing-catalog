@@ -7,6 +7,7 @@
         var items = {};
         $scope.selectedLevel = 3;
         $scope.watchedQty = {};
+
         $scope.productFilter = {
             text : ''
         };
@@ -60,6 +61,10 @@
                 }
             }
         }
+
+        $scope.clearFilter = function clearFilter() {
+            $scope.productFilter.text = '';
+        };
 
         $scope.showLevel = function showLevel(level) {
             $scope.productFilter.text = '';
