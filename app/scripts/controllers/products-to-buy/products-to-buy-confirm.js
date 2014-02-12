@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.productsToBuy.confirm.ctrl', [
-        'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service', 
-    ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, DialogService, PurchaseOrderService, PurchaseOrder) {
+        'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service',
+    ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
 
         // inherited from ProductsToBuyCtrl
         var listConfirmedProducts = function listConfirmedProducts(stockReport) {
@@ -79,11 +79,11 @@
             }
         }
         function persitPurchaseOrder() {
-            
+
             var orderBck = angular.copy($scope.confirmedProducts);
-            
+
             var items = [];
-            
+
             for ( var ix in orderBck.sessions) {
                 // sessions
                 var session = orderBck.sessions[ix];
@@ -100,7 +100,7 @@
             }
             var purchase = new PurchaseOrder(null, new Date(), false, items);
             PurchaseOrderService.register(purchase);
-            
+
             return true;
         }
 

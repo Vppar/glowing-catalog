@@ -61,7 +61,7 @@
         });
     }).service('OrderKeeper', function OrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, Order) {
 
-        var type = 2;
+        var type = 4;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var orders = [];

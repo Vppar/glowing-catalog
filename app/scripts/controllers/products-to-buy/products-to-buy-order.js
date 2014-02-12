@@ -6,6 +6,7 @@
 
         var items = {};
         $scope.selectedLevel = 3;
+        
         $scope.watchedQty = {};
 
         $scope.productFilter = {
@@ -115,7 +116,7 @@
                 StockService.updateReport($scope.stockReport);
             }
         });
-
+        
         $scope.$watchCollection('watchedQty', function(newObj, oldObj) {
             var diff = {
                 amount : 0,

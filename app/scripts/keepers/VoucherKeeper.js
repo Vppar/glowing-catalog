@@ -56,7 +56,7 @@
                 'tnt.catalog.journal.keeper', 'tnt.identity'
             ]).service('VoucherKeeper', function VoucherKeeper($log, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher, IdentityService) {
 
-        var type = 6;
+        var type = 7;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var voucher = {

@@ -6,41 +6,27 @@
 
         // Get a stock report to use as reference
         var stockReportBkp = StockService.stockReport('all');
+
         $scope.stockReport = angular.copy(stockReportBkp);
 
-        $scope.productFilter = {
-            text : ''
-        };
-
-        $scope.clearFilter = function () {
-            $scope.productFilter.text = '';
-        };
-
-        $scope.$watch('productFilter.text', function(newVal, oldVal) {
-            var myTextFilter = $scope.productFilter.text;
-            if (String(myTextFilter).length >= 3) {
-                var objFilter = {
-                    title : myTextFilter,
-                    SKU : myTextFilter
-                };
-                StockService.updateReport($scope.stockReport, objFilter);
-            } else {
-                StockService.updateReport($scope.stockReport);
-            }
-        });
+        $scope.summary = {};
+        $scope.summary.orderTotal = 0;
+        $scope.summary.orderDiscount = 0;
+        $scope.summary.orderPoints = 0;
 
         $scope.selectTab = function selectTab(tabName) {
             $scope.selectedTab = tabName;
         };
 
-        $scope.summaryIsVisible = function (tabName) {
+        $scope.summaryIsVisible = function(tabName) {
             return tabName === 'buildOrder' || tabName === 'confirmOrder';
         };
 
         $scope.$on('cancel', function() {
+            var updatedBkpCopy = StockService.updateReport(angular.copy(stockReportBkp));
+            angular.extend($scope.stockReport, updatedBkpCopy);
 
             $scope.productFilter.text = '';
-            angular.extend($scope.stockReport, angular.copy(stockReportBkp));
 
             updateReport($scope.stockReport);
 
@@ -50,15 +36,15 @@
         });
 
         $scope.$on('confirm', function() {
-            $scope.productFilter.text = '';
-            angular.extend($scope.stockReport, angular.copy(stockReportBkp));
+            var updatedBkpCopy = StockService.updateReport(angular.copy(stockReportBkp));
+            angular.extend($scope.stockReport, updatedBkpCopy);
 
-            StockService.updateReport($scope.stockReport);
+            $scope.productFilter.text = '';
 
             $scope.selectedTab = 'verifyTicket';
 
             $scope.$broadcast('resetWatchedQty');
-            // TODO - Save the order
+            $scope.$broadcast('updatePuchaseOrders');
         });
 
         $scope.$on('productQtyChange', function(event, args) {

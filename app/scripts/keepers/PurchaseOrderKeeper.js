@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.purchaseOrder.entity', []).factory('PurchaseOrder', function PurchaseOrder() {
 
-        var service = function svc(uuid, created, canceled, items) {
+        var service = function svc(uuid, created, amount, discount, points, redeemed, canceled, items) {
 
             var validProperties = [
-                'uuid', 'created', 'canceled', 'items', 'code'
+                'uuid', 'created', 'amount', 'discount', 'points', 'redeemed', 'canceled', 'items', 'code'
             ];
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
@@ -58,7 +58,7 @@
             'PurchaseOrderKeeper',
             function PurchaseOrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, PurchaseOrder) {
 
-                var type = 2;
+                var type = 6;
                 var currentEventVersion = 1;
                 var currentCounter = 0;
                 var purchases = [];
@@ -125,7 +125,7 @@
                     var entry = new JournalEntry(null, event.created, 'purchaseOrderAdd', currentEventVersion, event);
 
                     // save the journal entry
-                    
+
                     return JournalKeeper.compose(entry);
                 };
 
