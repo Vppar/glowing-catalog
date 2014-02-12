@@ -25,7 +25,7 @@ describe('Service: SyncService', function () {
       spyOn($log, 'warn').andCallThrough();
       spyOn($log, 'fatal').andCallThrough();
 
-      SyncDriverMock.sync = jasmine.createSpy('SyncDriver.sync');
+      SyncDriverMock.save = jasmine.createSpy('SyncDriver.save');
 
       JournalKeeperMock.readUnsynced = jasmine.createSpy('JournalKeeper.readUnsynced');
       JournalKeeperMock.markAsSynced = jasmine.createSpy('JournalKeeper.markAsSynced');
@@ -65,6 +65,64 @@ describe('Service: SyncService', function () {
 
 
 
+  describe('SyncService.getStashedEntries()', function () {
+    var originalStash = ['foo', 'bar'];
+
+    it('is accessible', function () {
+      expect(SyncService.getStashedEntries).toBeDefined();
+    });
+
+    it('is a function', function () {
+      expect(typeof SyncService.getStashedEntries).toBe('function');
+    });
+
+    it('returns an emtpy array if there\'s no stash', function () {
+      // By default, stash is null when the module is loaded.
+      expect(SyncService.getStashedEntries()).toEqual([]);
+    });
+
+    it('returns a shallow copy of the stash', function () {
+      JournalKeeperMock.readUnsynced = jasmine.createSpy('JournalKeeper.readUnsynced')
+        .andCallFake(resolvedPromiseReturner(originalStash));
+
+      JournalKeeperMock.remove = jasmine.createSpy('JournalKeeper.remove')
+        .andCallFake(resolvedPromiseReturner(true));
+      
+      var stashed = false;
+
+      runs(function () {
+        var promise = SyncService.stashEntries();
+        promise.then(function () {
+          stashed = true;
+        });
+
+        $rootScope.$apply();
+      });
+
+      waitsFor(function () {
+        return stashed;
+      }, 'SyncService.stashEntries()', 200);
+
+      runs(function () {
+        var stash1 = SyncService.getStashedEntries();
+        var stash2 = SyncService.getStashedEntries();
+
+        // The returned value MUST not be the same array returned
+        // by readUnsynced()
+        expect(stash1).not.toBe(originalStash);
+        expect(stash1).toEqual(originalStash);
+
+        // Running getStashedEntries() multiple times, should always
+        // return a new array (prevent others from getting access to the
+        // original stash array).
+        expect(stash1).not.toBe(stash2);
+        expect(stash1).toEqual(stash2);
+      });
+    });
+  });
+
+
+
   describe('SyncService.sync()', function () {
     var entry1 = {};
     var entry2 = {};
@@ -95,25 +153,25 @@ describe('Service: SyncService', function () {
 
     it('sends unsynced entries to synchronization driver', function () {
       JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-      SyncDriverMock.sync.andCallFake(resolvedPromiseReturner(true));
+      SyncDriverMock.save.andCallFake(resolvedPromiseReturner(true));
 
       SyncService.sync();
       $rootScope.$apply();
 
       expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-      expect(SyncDriverMock.sync).toHaveBeenCalledWith(entries);
+      expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
     });
 
     it('sends entries-to-be-synced back to journal keeper', function () {
       JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-      SyncDriverMock.sync.andCallFake(resolvedPromiseReturner(entries));
+      SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
       JournalKeeperMock.markAsSynced.andCallFake(resolvedPromiseReturner(true));
 
       SyncService.sync();
       $rootScope.$apply();
 
       expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-      expect(SyncDriverMock.sync).toHaveBeenCalledWith(entries);
+      expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
       for (var idx in entries) {
         expect(JournalKeeperMock.markAsSynced.calls[idx].args[0]).toBe(entries[idx]);
       }
@@ -122,14 +180,14 @@ describe('Service: SyncService', function () {
 
     it('returns a promise', function () {
       JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-      SyncDriverMock.sync.andCallFake(resolvedPromiseReturner(entries));
+      SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
       JournalKeeperMock.markAsSynced.andCallFake(resolvedPromiseReturner(true));
 
       var promise = SyncService.sync();
       $rootScope.$apply();
 
       expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-      expect(SyncDriverMock.sync).toHaveBeenCalledWith(entries);
+      expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
       for (var idx in entries) {
         expect(JournalKeeperMock.markAsSynced.calls[idx].args[0]).toBe(entries[idx]);
       }
@@ -160,7 +218,7 @@ describe('Service: SyncService', function () {
 
         expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
         expect(rejected).toBe(true);
-        expect(SyncDriverMock.sync).not.toHaveBeenCalled();
+        expect(SyncDriverMock.save).not.toHaveBeenCalled();
         expect(JournalKeeperMock.markAsSynced).not.toHaveBeenCalled();
       });
 
@@ -169,7 +227,7 @@ describe('Service: SyncService', function () {
         // SyncDriver.sync() rejects
         // JournalKeeper.markAsSynced() is not called
         JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-        SyncDriverMock.sync.andCallFake(rejectedPromiseReturner('Rejecting SyncDriver.sync()'));
+        SyncDriverMock.save.andCallFake(rejectedPromiseReturner('Rejecting SyncDriver.sync()'));
 
         var resolved = false;
         var rejected = false;
@@ -185,7 +243,7 @@ describe('Service: SyncService', function () {
         $rootScope.$apply();
 
         expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-        expect(SyncDriverMock.sync).toHaveBeenCalledWith(entries);
+        expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
         expect(JournalKeeperMock.markAsSynced).not.toHaveBeenCalled();
 
         expect(resolved).toBe(false);
@@ -197,7 +255,7 @@ describe('Service: SyncService', function () {
         // SyncDriver.sync() resolves
         // One or more JournalKeeper.markAsSynced() rejects
         JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-        SyncDriverMock.sync.andCallFake(resolvedPromiseReturner(entries));
+        SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
         JournalKeeperMock.markAsSynced.andCallFake(rejectedPromiseReturner('Rejecting JournalKeeper.markAsSynced()'));
 
         var resolved = false;
@@ -214,7 +272,7 @@ describe('Service: SyncService', function () {
         $rootScope.$apply();
 
         expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-        expect(SyncDriverMock.sync).toHaveBeenCalledWith(entries);
+        expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
         expect(JournalKeeperMock.markAsSynced).toHaveBeenCalled();
         for (var idx in  entries) {
           expect(JournalKeeperMock.markAsSynced.calls[idx].args[0]).toBe(entries[idx]);
@@ -229,7 +287,7 @@ describe('Service: SyncService', function () {
         // SyncDriver.sync() resolves
         // All JournalKeeper.markAsSynced() resolve
         JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-        SyncDriverMock.sync.andCallFake(resolvedPromiseReturner(entries));
+        SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
         JournalKeeperMock.markAsSynced.andCallFake(resolvedPromiseReturner(true));
 
         var rejected = false;
@@ -250,7 +308,7 @@ describe('Service: SyncService', function () {
         $rootScope.$apply();
 
         expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-        expect(SyncDriverMock.sync).toHaveBeenCalledWith(entries);
+        expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
         expect(JournalKeeperMock.markAsSynced.callCount).toBe(2);
         expect(resolved).toBe(true);
         expect(rejected).toBe(false);
@@ -277,7 +335,7 @@ describe('Service: SyncService', function () {
         $rootScope.$apply();
 
         expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-        expect(SyncDriverMock.sync).not.toHaveBeenCalled();
+        expect(SyncDriverMock.save).not.toHaveBeenCalled();
         expect(JournalKeeperMock.markAsSynced).not.toHaveBeenCalled();
 
         expect(resolved).toBe(true);

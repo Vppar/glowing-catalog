@@ -12,7 +12,7 @@
             }
 
 
-            this.sync = function (entries) {
+            this.save = function (entries) {
                 var deferred = $q.defer();
 
                 hasSucceded() ?
@@ -21,5 +21,16 @@
 
                 return deferred.promise;
             };
+
+
+
+
+            /**
+             * Gets entries created after the given timestamp.
+             * @return {Array} Array of entries.
+             */
+            this.getNewEntries = function (timestamp) {
+            };
+
         });
 }(angular));
