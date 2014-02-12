@@ -24,7 +24,7 @@
          * @return {Object} the journal entry
          */
         ObjectUtils.method(MasterKeeper, 'journalize', function(eventOp, eventObj) {
-            var eventName = this.eventDataType.substr(0, 1) + this.eventDataType.substr(1) + eventOp;
+            var eventName = (this.eventDataType.substr(0, 1)).toLowerCase() + this.eventDataType.substr(1) + (eventOp.substr(0, 1)).toUpperCase() + eventOp.substr(1);
             var now = (new Date()).getTime();
             var event = new this.eventType(eventObj);
             var entry = new JournalEntry(null, now, eventName, this.eventVersion, event);

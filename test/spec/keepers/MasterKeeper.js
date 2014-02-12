@@ -1,13 +1,13 @@
 'use strict';
 
-ddescribe('Service: MasterKeeper', function() {
-    
+describe('Service: MasterKeeper', function() {
+
     var MasterKeeper = null;
     var Stock = null;
     var JournalKeeper = {};
     var JournalEntry = {};
     var expectedReturn = 'this is sparta';
-    
+
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.keeper');
@@ -76,42 +76,66 @@ ddescribe('Service: MasterKeeper', function() {
         var dataType = null;
         var eventVersion = null;
         var newStock = null;
-        
+
         beforeEach(function() {
             fakeNow = 1412421495;
             spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
             dataType = 'Stock';
-            eventVersion = '1';
+            eventVersion = 1;
             masterKeeper = new MasterKeeper(dataType, Stock, eventVersion);
             newStock = new Stock(1, 15, 30);
         });
 
+        it('should accept first letter lower case for dataType and eventOp', function() {
+            var mk = new MasterKeeper('stock', Stock, eventVersion);
+            mk.journalize('add', newStock);
+            expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
+        });
+
+        it('should accept first letter upper case for dataType and eventOp', function() {
+            var mk = new MasterKeeper('Stock', Stock, eventVersion);
+            mk.journalize('Add', newStock);
+            expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
+        });
+
+        it('should accept first letter upper case for dataType and lower case for eventOp', function() {
+            var mk = new MasterKeeper('Stock', Stock, eventVersion);
+            mk.journalize('add', newStock);
+            expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
+        });
+
+        it('should accept first letter lower case for dataType and upper case for eventOp', function() {
+            var mk = new MasterKeeper('stock', Stock, eventVersion);
+            mk.journalize('Add', newStock);
+            expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
+        });
+
         it('should create entry with the proper date', function() {
-            masterKeeper.journalize('add', newStock);
+            masterKeeper.journalize('Add', newStock);
             expect(JournalKeeper.compose.mostRecentCall.args[0].stamp).toEqual(fakeNow);
         });
 
         it('should create entry with the proper eventTypeName', function() {
-            masterKeeper.journalize('add', newStock);
+            masterKeeper.journalize('Add', newStock);
             expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
         });
-        
+
         it('should create entry with the proper eventVersion', function() {
-            masterKeeper.journalize('add', newStock);
+            masterKeeper.journalize('Add', newStock);
             expect(JournalKeeper.compose.mostRecentCall.args[0].version).toEqual(eventVersion);
         });
-        
+
         it('should create entry with the proper event', function() {
-            masterKeeper.journalize('add', newStock);
+            masterKeeper.journalize('Add', newStock);
             expect(JournalKeeper.compose.mostRecentCall.args[0].event).toEqual(newStock);
         });
-        
+
         it('should call JournalKeeper.compose with the proper entry type', function() {
             var entry = new JournalEntry(null, fakeNow, 'stockAdd', 1, newStock);
-            masterKeeper.journalize('add', newStock);
+            masterKeeper.journalize('Add', newStock);
             expect(JournalKeeper.compose).toHaveBeenCalledWith(entry);
         });
-        
+
         it('should proxy the return from JorunalKeeper.compose', function() {
             var result = masterKeeper.journalize('add', newStock);
             expect(result).toEqual(expectedReturn);
