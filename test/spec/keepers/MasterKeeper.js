@@ -98,26 +98,9 @@ describe('Service: MasterKeeper', function() {
             expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
         });
 
-        it('should accept first letter upper case for dataType and lower case for eventOp', function() {
-            var mk = new MasterKeeper('Stock', Stock, eventVersion);
-            mk.journalize('add', newStock);
-            expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
-        });
-
-        it('should accept first letter lower case for dataType and upper case for eventOp', function() {
-            var mk = new MasterKeeper('stock', Stock, eventVersion);
-            mk.journalize('Add', newStock);
-            expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
-        });
-
         it('should create entry with the proper date', function() {
             masterKeeper.journalize('Add', newStock);
             expect(JournalKeeper.compose.mostRecentCall.args[0].stamp).toEqual(fakeNow);
-        });
-
-        it('should create entry with the proper eventTypeName', function() {
-            masterKeeper.journalize('Add', newStock);
-            expect(JournalKeeper.compose.mostRecentCall.args[0].type).toEqual('stockAdd');
         });
 
         it('should create entry with the proper eventVersion', function() {
@@ -128,6 +111,7 @@ describe('Service: MasterKeeper', function() {
         it('should create entry with the proper event', function() {
             masterKeeper.journalize('Add', newStock);
             expect(JournalKeeper.compose.mostRecentCall.args[0].event).toEqual(newStock);
+            expect(JournalKeeper.compose.mostRecentCall.args[0].event).not.toBe(newStock);
         });
 
         it('should call JournalKeeper.compose with the proper entry type', function() {
