@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.productsToBuy.confirm.ctrl', [
-        'tnt.catalog.service.dialog'
-    ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, DialogService) {
+        'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service', 
+    ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, DialogService, PurchaseOrderService, PurchaseOrder) {
 
         // inherited from ProductsToBuyCtrl
         var listConfirmedProducts = function listConfirmedProducts(stockReport) {
@@ -40,7 +40,6 @@
 
         $scope.$on('updateConfirmed', function() {
             $scope.confirmedProducts = listConfirmedProducts($scope.stockReport);
-            $scope.$emit('productQtyChangeDone', 'updateConfirmed');
         });
 
         $scope.cancel = function() {
@@ -59,21 +58,59 @@
 
         $scope.confirm = function() {
             var promise = DialogService.openDialogProductsToBuyConfirm();
-            promise.then(function(confirm) {
-                if (confirm) {
-                    var result = DialogService.messageDialog({
-                        title : 'Pedido de Compra',
-                        message : 'Confirmar o pedido de compra?',
-                        btnYes : 'Sim',
-                        btnNo : 'Não'
-                    });
-                    result.then(function(result) {
-                        if (result) {
-                            $scope.$emit('confirm');
-                        }
-                    });
+            var confirmedPurchaseOrder = promise.then(confirmDialog);
+            var persistedPurchaseOrder = confirmedPurchaseOrder.then(persitPurchaseOrder);
+            persistedPurchaseOrder.then(function(result) {
+                if (result) {
+                    $scope.$emit('confirm');
                 }
             });
+
+        };
+        function confirmDialog(confirm) {
+            if (confirm) {
+                var result = DialogService.messageDialog({
+                    title : 'Pedido de Compra',
+                    message : 'Confirmar o pedido de compra?',
+                    btnYes : 'Sim',
+                    btnNo : 'Não'
+                });
+                return result;
+            }
+        }
+        function persitPurchaseOrder() {
+            
+            var orderBck = angular.copy($scope.confirmedProducts);
+            
+            var items = [];
+            
+            for ( var ix in orderBck.sessions) {
+                // sessions
+                var session = orderBck.sessions[ix];
+                // lines of that session
+                for ( var ix2 in session.lines) {
+                    // lines
+                    var line = session.lines[ix2];
+                    // items of that line
+                    for ( var ix3 in line.items) {
+                        var item = line.items[ix3];
+                        items.push(item);
+                    }
+                }
+            }
+            var purchase = new PurchaseOrder(null, new Date(), false, items);
+            PurchaseOrderService.register(purchase);
+            
+            return true;
+        }
+
+        $scope.shouldHideButtons = function() {
+            var result = true;
+            for ( var ix in $scope.confirmedProducts.sessions) {
+                result = false;
+                break;
+            }
+            return result;
         };
 
         this.listConfirmedProducts = listConfirmedProducts;

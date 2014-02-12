@@ -12,6 +12,10 @@
             text : ''
         };
 
+        $scope.clearFilter = function () {
+            $scope.productFilter.text = '';
+        };
+
         $scope.$watch('productFilter.text', function(newVal, oldVal) {
             var myTextFilter = $scope.productFilter.text;
             if (String(myTextFilter).length >= 3) {
@@ -27,6 +31,10 @@
 
         $scope.selectTab = function selectTab(tabName) {
             $scope.selectedTab = tabName;
+        };
+
+        $scope.summaryIsVisible = function (tabName) {
+            return tabName === 'buildOrder' || tabName === 'confirmOrder';
         };
 
         $scope.$on('cancel', function() {

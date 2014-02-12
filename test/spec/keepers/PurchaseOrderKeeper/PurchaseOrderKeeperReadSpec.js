@@ -23,7 +23,7 @@ describe('Service: PurchaseOrderKeeperReadSpec', function() {
 
     /**
      * <pre>
-     * Givena existing expense id     
+     * Givenaexistingexpense id     
      * When an get is triggered
      * Then the target expense should be returned
      * </pre>
@@ -32,17 +32,15 @@ describe('Service: PurchaseOrderKeeperReadSpec', function() {
         // given
         var myPurchaseOrder = {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            code : 12,
-            date : new Date(),
-            customerId : 1,
+            created : new Date(),
+            canceled : true,
             items : []
         };
 
         var yourPurchaseOrder = {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000002',
-            code : 13,
-            date : new Date(),
-            customerId : 2,
+            created : new Date(),
+            canceled : true,
             items : []
         };
 
@@ -68,7 +66,7 @@ describe('Service: PurchaseOrderKeeperReadSpec', function() {
 
     /**
      * <pre>
-     * Givena missing order id     
+     * Givenamissingorder id     
      * When an read is triggered
      * Then undefined should be returned
      * </pre>
@@ -77,9 +75,8 @@ describe('Service: PurchaseOrderKeeperReadSpec', function() {
         // given
         var myPurchaseOrder = {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            code : 12,
-            date : new Date(),
-            customerId : 1,
+            created : new Date(),
+            canceled : true,
             items : []
         };
         PurchaseOrderKeeper.handlers['purchaseOrderAddV1'](myPurchaseOrder);
