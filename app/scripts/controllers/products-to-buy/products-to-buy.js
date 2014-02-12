@@ -42,6 +42,8 @@
         $scope.$on('confirmPurchaseOrder', function() {
             angular.extend($scope.stockReport, angular.copy(stockReportBkp));
             StockService.updateReport($scope.stockReport);
+            
+            $scope.selectedTab = 'verifyTicket';
 
             $scope.$broadcast('resetWatchedQty');
             $scope.$broadcast('newPurchaseOrder');

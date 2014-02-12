@@ -9,19 +9,19 @@
                 $scope.selectedPart = 'part1';
                 $scope.purchase = {
                     orders : PurchaseOrderService.list()
-                };                
+                };
 
                 $scope.selectPart = function(part) {
                     $scope.selectedPart = part;
                 };
-                
-                $scope.resetWatchedQty = function(){
+
+                $scope.resetWatchedQty = function() {
                     for ( var ix in $scope.purchase.items) {
                         var item = $scope.purchase.items[ix];
                         $scope.watchedQty[item.id] = 0;
                     }
                 };
-                
+
                 $scope.setPurchaseOrder = function(uuid) {
                     $scope.purchase = PurchaseOrderService.read(uuid);
                     var date = new Date();
@@ -31,22 +31,21 @@
                 };
 
                 $scope.openDialog = function(purchase) {
-                    DialogService.openDialogProductsToBuyTicket(purchase).then(function(result){
-                        if(result){
+                    DialogService.openDialogProductsToBuyTicket(purchase).then(function(result) {
+                        if (result) {
                             $scope.setPurchaseOrder(result.uuid);
                             $scope.selectPart('part2');
                         }
                     });
                 };
-                
-                $scope.cancel = function(){
+
+                $scope.cancel = function() {
                     $scope.selectPart('part1');
                 };
-                
+
                 $scope.$on('newPurchaseOrder', function() {
                     $scope.purchase.orders = PurchaseOrderService.list();
                 });
-
             });
 
 }(angular));

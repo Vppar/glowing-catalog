@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.confirm.ctrl', [
         'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service',
-    ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
+    ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, $q, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
 
         var summary = {};
 
@@ -41,15 +41,18 @@
         };
 
         function confirmDialog(confirm) {
+            var result = null;
             if (confirm) {
-                var result = DialogService.messageDialog({
+                result = DialogService.messageDialog({
                     title : 'Pedido de Compra',
                     message : 'Confirmar o pedido de compra?',
                     btnYes : 'Sim',
                     btnNo : 'Não'
                 });
-                return result;
+            } else {
+                result = $q.reject();
             }
+            return result;
         }
         function persitPurchaseOrder() {
 
