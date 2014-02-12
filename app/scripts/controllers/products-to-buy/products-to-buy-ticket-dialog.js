@@ -24,7 +24,7 @@
             dialog.close($q.reject());
         };
 
-        $scope.back = function back() {
+        $scope.confirm = function confirm() {
             dialog.close(true);
         };
         
