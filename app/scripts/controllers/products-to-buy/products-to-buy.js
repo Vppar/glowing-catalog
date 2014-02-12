@@ -22,34 +22,29 @@
             return tabName === 'buildOrder' || tabName === 'confirmOrder';
         };
 
-        $scope.$on('cancel', function() {
-            var updatedBkpCopy = StockService.updateReport(angular.copy(stockReportBkp));
-            angular.extend($scope.stockReport, updatedBkpCopy);
+        $scope.$on('productQtyChange', function(event, args) {
+            $scope.$broadcast('updateSummary', args);
+        });
 
-            $scope.productFilter.text = '';
+        $scope.$on('summaryUpdated', function(event, args) {
+            $scope.$broadcast('updatedPurchaseOrder', args);
+        });
 
-            updateReport($scope.stockReport);
+        $scope.$on('cancelPurchaseOrder', function() {
+            angular.extend($scope.stockReport, angular.copy(stockReportBkp));
+            StockService.updateReport($scope.stockReport);
 
             $scope.selectedTab = 'buildOrder';
 
             $scope.$broadcast('resetWatchedQty');
         });
 
-        $scope.$on('confirm', function() {
-            var updatedBkpCopy = StockService.updateReport(angular.copy(stockReportBkp));
-            angular.extend($scope.stockReport, updatedBkpCopy);
-
-            $scope.productFilter.text = '';
-
-            $scope.selectedTab = 'verifyTicket';
+        $scope.$on('confirmPurchaseOrder', function() {
+            angular.extend($scope.stockReport, angular.copy(stockReportBkp));
+            StockService.updateReport($scope.stockReport);
 
             $scope.$broadcast('resetWatchedQty');
-            $scope.$broadcast('updatePuchaseOrders');
-        });
-
-        $scope.$on('productQtyChange', function(event, args) {
-            $scope.$broadcast('updateSummary', args);
-            $scope.$broadcast('updateConfirmed', args);
+            $scope.$broadcast('newPurchaseOrder');
         });
     });
 }(angular));

@@ -5,21 +5,21 @@
 			<div class="row-details-products-to-buy-item">
 				<span class="item">
 					<span class="lbl-money">Valor da compra</span>
-					<span class="btn-price-payment">{{orderTotal | currency: 'R$ '}}</span>
+					<span class="btn-price-payment">{{summary.orderTotal | currency: 'R$ '}}</span>
 				</span>
 				<span class="item">
 					<span class="lbl-money">Percentual de desconto</span>
-					<span class="btn-price-payment">{{discount | currency: ''}}%</span>
+					<span class="btn-price-payment">{{summary.discount | currency: ''}}%</span>
 				</span>
 			</div>
 			<div class="row-details-products-to-buy-item">
 				<span class="item">
 					<span class="lbl-money">Valor com desconto</span>
-					<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$ '}}</span>
+					<span class="btn-price-payment">{{summary.orderTotalDiscount | currency:'R$ '}}</span>
 				</span>
 				<span class="item">
 					<span class="lbl-money">Total de pontos</span>
-					<span class="btn-price-payment">{{pointsTotal}}</span>
+					<span class="btn-price-payment">{{summary.pointsTotal}}</span>
 				</span>
 			</div>
 		</div>
@@ -28,7 +28,7 @@
 			<div class="row-details-products-to-buy-item">
 				<span class="item">
 					<span class="lbl-money">Valor da compra</span>
-					<span class="btn-price-payment">{{orderTotal2 | currency: 'R$ '}}</span>
+					<span class="btn-price-payment">{{summary.orderTotal2 | currency: 'R$ '}}</span>
 				</span>
 			</div>
 		</div>
@@ -37,11 +37,11 @@
 			<div class="row-details-products-to-buy-item">
 				<span class="item">
 					<span class="lbl-money">Valor total da compra</span>
-					<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$ '}}</span>
+					<span class="btn-price-payment">{{summary.orderTotalDiscount | currency:'R$ '}}</span>
 				</span>
 				<span class="item">
 					<span class="lbl-money">Valor de frete</span>
-					<span class="btn-price-payment">{{freight | currency:'R$ '}}</span>
+					<span class="btn-price-payment">{{summary.freight | currency:'R$ '}}</span>
 				</span>
 			</div>
 			<div class="row-details-products-to-buy-item">
@@ -51,7 +51,7 @@
 				</span>
 				<span class="item">
 					<span class="lbl-money">Subtotal</span>
-					<span class="btn-price-payment">{{orderTotalDiscount | currency:'R$ '}}</span>
+					<span class="btn-price-payment">{{summary.orderTotalDiscount | currency:'R$ '}}</span>
 				</span>
 			</div>
 			<div class="row-details-products-to-buy-item">
@@ -61,11 +61,11 @@
 				</span>
 				<span class="item">
 					<span class="lbl-money font-bold">Total do pedido</span>
-					<span class="btn-price-payment font-bold">{{orderTotalDiscount | currency:'R$ '}}</span>
+					<span class="btn-price-payment font-bold">{{summary.orderTotalDiscount | currency:'R$ '}}</span>
 				</span>
 				<span class="item">
 					<span class="lbl-money">Total pts</span>
-					<span class="btn-price-payment">{{pointsTotal}}</span>
+					<span class="btn-price-payment">{{summary.pointsTotal}}</span>
 				</span>
 			</div>
 		</div>

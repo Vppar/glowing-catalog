@@ -11,7 +11,6 @@
 
                     // See validation helpers in the end of this file
                     invalidProperty = {
-                        canceled : isBoolean(order.canceled),
                         items : areValidItems(order.items)
                     };
 
@@ -37,23 +36,21 @@
                     var hasErrors = isValid(purchase);
                     if (hasErrors.length === 0) {
                         result = PurchaseOrderKeeper.add(new PurchaseOrder(purchase));
-                        // TODO - Uncomment and correct this section, we need to
-                        // create a Expense.
-                        // result.then(function(uuid) {
-                        // var duedate = new Date();
-                        // var entityId = 0;
-                        // var expense = new Expense(null, new Date(), entityId,
-                        // result.amount, duedate);
-                        // expense.documentId = uuid;
-                        // ExpenseService.register(expense);
-                        // }, function(err) {
-                        // $log.error('PurchaseOrderService.register: -Failed to
-                        // create an purchaseOrder. ', err);
-                        // });
-                        // } else {
-                        // $log.error('PurchaseOrderService.register: -Invalid
-                        // purchaseOrder. ', hasErrors);
-                        // result = $q.reject(hasErrors);
+                        result.then(function(uuid) {
+                            // TODO - Uncomment and correct this section, we
+                            // need to create a Expense.
+                            // var duedate = new Date();
+                            // var entityId = 0;
+                            // var expense = new Expense(null, new Date(),
+                            // entityId, result.amount, duedate);
+                            // expense.documentId = uuid;
+                            // ExpenseService.register(expense);
+                        }, function(err) {
+                            $log.error('PurchaseOrderService.register: -Failed to create an purchaseOrder. ', err);
+                        });
+                    } else {
+                        $log.error('PurchaseOrderService.register: -Invalid purchaseOrder. ', hasErrors);
+                        result = $q.reject(hasErrors);
                     }
 
                     return result;
@@ -99,8 +96,23 @@
                     }
                     return result;
                 };
+                
+                /**
+                 * Redeem a purchaseOrder
+                 */
+                var redeem = function redeem(uuid) {
+                    var result = true;
+                    try {
+                        result = PurchaseOrderKeeper.redeem(uuid);
+                    } catch (err) {
+                        throw 'PurchaseOrderService.redeem: Unable to redeem the purchaseOrder with uuid=' + uuid + '. ' + 'Err=' + err;
+                    }
+                    return result;
+                };
 
                 this.register = register;
+                this.cancel = cancel;
+                this.redeem = redeem;
                 this.list = list;
                 this.isValid = isValid;
 

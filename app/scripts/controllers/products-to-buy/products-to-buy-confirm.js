@@ -4,6 +4,8 @@
         'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service',
     ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
 
+        var summary = {};
+
         // inherited from ProductsToBuyCtrl
         var listConfirmedProducts = function listConfirmedProducts(stockReport) {
             var report = angular.copy(stockReport);
@@ -38,35 +40,6 @@
             return report;
         };
 
-        $scope.$on('updateConfirmed', function() {
-            $scope.confirmedProducts = listConfirmedProducts($scope.stockReport);
-        });
-
-        $scope.cancel = function() {
-            var result = DialogService.messageDialog({
-                title : 'Pedido de Compra',
-                message : 'Cancelar o pedido de compra?',
-                btnYes : 'Sim',
-                btnNo : 'Não'
-            });
-            result.then(function(result) {
-                if (result) {
-                    $scope.$emit('cancel');
-                }
-            });
-        };
-
-        $scope.confirm = function() {
-            var promise = DialogService.openDialogProductsToBuyConfirm();
-            var confirmedPurchaseOrder = promise.then(confirmDialog);
-            var persistedPurchaseOrder = confirmedPurchaseOrder.then(persitPurchaseOrder);
-            persistedPurchaseOrder.then(function(result) {
-                if (result) {
-                    $scope.$emit('confirm');
-                }
-            });
-
-        };
         function confirmDialog(confirm) {
             if (confirm) {
                 var result = DialogService.messageDialog({
@@ -98,11 +71,43 @@
                     }
                 }
             }
-            var purchase = new PurchaseOrder(null, new Date(), false, items);
-            PurchaseOrderService.register(purchase);
+            var purchase = {
+                uuid : null,
+                amount : summary.orderTotal,
+                discount : summary.orderTotalDiscount,
+                freight : summary.freight,
+                points : summary.pointsTotal,
+                items : items
+            };
 
-            return true;
+            return PurchaseOrderService.register(purchase);
         }
+
+        $scope.cancel = function() {
+            var result = DialogService.messageDialog({
+                title : 'Pedido de Compra',
+                message : 'Cancelar o pedido de compra?',
+                btnYes : 'Sim',
+                btnNo : 'Não'
+            });
+            result.then(function(result) {
+                if (result) {
+                    $scope.$emit('cancelPurchaseOrder');
+                }
+            });
+        };
+
+        $scope.confirm = function() {
+            var promise = DialogService.openDialogProductsToBuyConfirm();
+            var confirmedPurchaseOrder = promise.then(confirmDialog);
+            var persistedPurchaseOrder = confirmedPurchaseOrder.then(persitPurchaseOrder);
+            persistedPurchaseOrder.then(function(result) {
+                if (result) {
+                    $scope.$emit('confirmPurchaseOrder');
+                }
+            });
+
+        };
 
         $scope.shouldHideButtons = function() {
             var result = true;
@@ -112,6 +117,11 @@
             }
             return result;
         };
+
+        $scope.$on('updatedPurchaseOrder', function(event, args) {
+            $scope.confirmedProducts = listConfirmedProducts($scope.stockReport);
+            summary = args;
+        });
 
         this.listConfirmedProducts = listConfirmedProducts;
     });

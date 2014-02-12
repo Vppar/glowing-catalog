@@ -138,6 +138,7 @@
 
         $scope.$on('resetWatchedQty', function() {
             resetWatchedQty();
+            $scope.productFilter.text = '';
         });
 
     });

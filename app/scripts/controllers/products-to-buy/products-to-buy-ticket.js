@@ -11,7 +11,6 @@
                     orders : PurchaseOrderService.list()
                 };                
 
-                
                 $scope.selectPart = function(part) {
                     $scope.selectedPart = part;
                 };
@@ -44,7 +43,7 @@
                     $scope.selectPart('part1');
                 };
                 
-                $scope.$on('updatePuchaseOrders', function() {
+                $scope.$on('newPurchaseOrder', function() {
                     $scope.purchase.orders = PurchaseOrderService.list();
                 });
 
