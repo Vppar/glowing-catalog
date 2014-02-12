@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.purchaseOrder.entity', []).factory('PurchaseOrder', function PurchaseOrder() {
 
-        var service = function svc(uuid, created, canceled, items) {
+        var service = function svc(uuid, amount, discount, points, items) {
 
             var validProperties = [
-                'uuid', 'created', 'canceled', 'items', 'code'
+                'uuid', 'created', 'amount', 'freight', 'discount', 'points', 'redeemed', 'canceled', 'items', 'code'
             ];
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
@@ -58,7 +58,7 @@
             'PurchaseOrderKeeper',
             function PurchaseOrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, PurchaseOrder) {
 
-                var type = 2;
+                var type = 6;
                 var currentEventVersion = 1;
                 var currentCounter = 0;
                 var purchases = [];
@@ -88,6 +88,15 @@
                     var purchaseEntry = ArrayUtils.find(purchases, 'uuid', event.id);
                     if (purchaseEntry) {
                         purchaseEntry.canceled = event.canceled;
+                    } else {
+                        throw 'Unable to find an PurchaseOrder with uuid=\'' + event.uuid + '\'';
+                    }
+                });
+
+                ObjectUtils.ro(this.handlers, 'purchaseOrderRedeemV1', function(event) {
+                    var purchaseEntry = ArrayUtils.find(purchases, 'uuid', event.id);
+                    if (purchaseEntry) {
+                        purchaseEntry.redeemed = event.redeemed;
                     } else {
                         throw 'Unable to find an PurchaseOrder with uuid=\'' + event.uuid + '\'';
                     }
@@ -125,7 +134,7 @@
                     var entry = new JournalEntry(null, event.created, 'purchaseOrderAdd', currentEventVersion, event);
 
                     // save the journal entry
-                    
+
                     return JournalKeeper.compose(entry);
                 };
 
@@ -141,6 +150,25 @@
                  */
                 var read = function read(uuid) {
                     return angular.copy(ArrayUtils.find(purchases, 'uuid', uuid));
+                };
+
+                /**
+                 * Redeem an order
+                 */
+                var redeem = function redeem(uuid) {
+                    var purchase = ArrayUtils.find(purchases, 'uuid', uuid);
+                    if (!purchase) {
+                        throw 'Unable to find an PurchaseOrder with uuid=\'' + uuid + '\'';
+                    }
+                    var redeemEv = {
+                        uuid : purchase.uuid,
+                        redeemed : new Date().getTime()
+                    };
+                    // create a new journal entry
+                    var entry = new JournalEntry(null, cancelEv.redeemed, 'purchaseOrderRedeem', currentEventVersion, redeemEv);
+
+                    // save the journal entry
+                    return JournalKeeper.compose(entry);
                 };
 
                 /**
@@ -166,6 +194,7 @@
                 this.list = list;
                 this.read = read;
                 this.cancel = cancel;
+                this.redeem = redeem;
 
             });
     angular.module('tnt.catalog.purchaseOrder', [

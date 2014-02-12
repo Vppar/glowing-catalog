@@ -38,7 +38,7 @@
 					</div>	
 	
 					<div class="scroll-payment-grid scroll-payment-grid2">
-							<span ng-repeat="purchase in purchases"> 
+							<span ng-repeat="purchase in purchase.orders"> 
 								<div class="row-pending-product-products-to-buy" ng-click="openDialog(purchase)">
 									<span class="col-s1">
 										<div class="p-title">{{purchase.created | date:'dd/MM/yyyy'}}</div>
