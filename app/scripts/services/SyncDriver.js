@@ -12,7 +12,7 @@
             }
 
 
-            this.sync = function (entries) {
+            this.save = function (entries) {
                 var deferred = $q.defer();
 
                 hasSucceded() ?
@@ -21,5 +21,6 @@
 
                 return deferred.promise;
             };
+
         });
 }(angular));

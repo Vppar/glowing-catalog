@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: JournalKeeperCompose', function() {
+describe('Service: JournalKeeperInsert', function() {
   var replayer = {};
   var storage = {};
 
@@ -54,7 +54,7 @@ describe('Service: JournalKeeperCompose', function() {
     entry = new JournalEntry(1, new Date().getTime(), 'createFoo', 1, event);
   }));
 
-  it('should compose', function () {
+  it('should insert the entry', function () {
     var ready = false;
 
     runs(function() {
@@ -70,7 +70,7 @@ describe('Service: JournalKeeperCompose', function() {
           return true;
       });
 
-      var promise = JournalKeeper.compose(entry);
+      var promise = JournalKeeper.insert(entry);
 
       promise.then(function() {
         ready = true;
@@ -89,11 +89,11 @@ describe('Service: JournalKeeperCompose', function() {
   });
 
 
-  it('should fail to compose on a wrong instance type', function () {
+  it('should fail to insert on a wrong instance type', function () {
     var failed = false;
 
     runs(function() {
-      var promise = JournalKeeper.compose({});
+      var promise = JournalKeeper.insert({});
 
       // Failed resync
       promise.then(null, function(msg) {
@@ -114,7 +114,7 @@ describe('Service: JournalKeeperCompose', function() {
   });
 
 
-  it('should fail to compose on storage.persist failure', function () {
+  it('should fail to insert on storage.persist failure', function () {
     var failed = false;
 
     runs(function() {
@@ -124,7 +124,7 @@ describe('Service: JournalKeeperCompose', function() {
         return deferred.promise;
       });
 
-      var promise = JournalKeeper.compose(entry);
+      var promise = JournalKeeper.insert(entry);
 
       // Failed resync
       promise.then(null, function(msg) {
@@ -146,8 +146,8 @@ describe('Service: JournalKeeperCompose', function() {
 
 
   // FIXME: there's no garantee that an entry is not persisted
-  // when the replay fails. See JounralKeeper.compose().
-  it('should fail to compose on replay failure', function () {
+  // when the replay fails. See JounralKeeper.insert().
+  it('should fail to insert on replay failure', function () {
     var failed = false;
 
     runs(function() {
@@ -161,7 +161,7 @@ describe('Service: JournalKeeperCompose', function() {
         throw 'Failed Replayer.replay';
       });
 
-      var promise = JournalKeeper.compose(entry);
+      var promise = JournalKeeper.insert(entry);
 
       // Failed resync
       promise.then(null, function(msg) {
@@ -192,7 +192,7 @@ describe('Service: JournalKeeperCompose', function() {
         return deferred.promise;
       });
 
-      var promise = JournalKeeper.compose(entry);
+      var promise = JournalKeeper.insert(entry);
 
       // Failed resync
       promise.then(null, function(msg) {
@@ -227,7 +227,7 @@ describe('Service: JournalKeeperCompose', function() {
           throw 'Failed Replayer.replay';
       });
 
-      var promise = JournalKeeper.compose(entry);
+      var promise = JournalKeeper.insert(entry);
 
       // Failed resync
       promise.then(null, function(msg) {
@@ -248,11 +248,12 @@ describe('Service: JournalKeeperCompose', function() {
     });
   });
 
-
-  it('increments the sequence value by 1', function () {
+  it('updates sequence value if entry\'s value is higher than current sequence', function () {
     expect(JournalKeeper.getSequence()).toBe(0);
 
-    var composed = false;
+    var inserted = false;
+
+    entry.sequence = 5;
 
     runs(function () {
       storage.persist.andCallFake(function() {
@@ -261,24 +262,83 @@ describe('Service: JournalKeeperCompose', function() {
         return deferred.promise;
       });
 
-      var promise = JournalKeeper.compose(entry);
+      var promise = JournalKeeper.insert(entry);
 
       promise.then(function () {
-        composed = true;
+        inserted = true;
       }, function (err) {
-        $log.debug('Failed to compose entry!', entry);
+        $log.debug('Failed to insert entry!', entry);
       });
 
       $rootScope.$apply();
     });
 
     waitsFor(function () {
-      return composed;
-    }, 'JournalKeeper.compose()', 100);
+      return inserted;
+    }, 'JournalKeeper.insert()', 100);
 
 
     runs(function () {
-      expect(JournalKeeper.getSequence()).toBe(1);
+      expect(JournalKeeper.getSequence()).toBe(5);
     });
+  });
+
+  it('does not update sequence value if entry\'s value is lower than current sequence', function () {
+    storage.persist.andCallFake(function() {
+      var deferred = q.defer();
+      deferred.resolve();
+      return deferred.promise;
+    });
+
+    expect(JournalKeeper.getSequence()).toBe(0);
+
+    var higherSequenceValue = 10;
+    var lowerSequenceValue = 5;
+
+    var inserted1 = false;
+    var inserted2 = false;
+
+
+    // Insert an entry to update the sequence value
+    runs(function () {
+      var newEntry = new JournalEntry(higherSequenceValue, new Date().getTime(), 'createFoo', 1, event);
+
+      var promise = JournalKeeper.insert(newEntry);
+
+      promise.then(function () {
+        expect(JournalKeeper.getSequence()).toBe(higherSequenceValue);
+        inserted1 = true;
+      }, function (err) {
+        $log.debug('Failed to insert entry!', err, entry);
+      });
+
+      $rootScope.$apply();
+    });
+
+    waitsFor(function () {
+      return inserted1;
+    }, 'JournalKeeper.insert()', 100);
+
+
+    // Insert an entry with lower sequence value
+    runs(function () {
+      // Set entry's sequence to a lower value than current sequence
+      entry.sequence = lowerSequenceValue;
+      var promise = JournalKeeper.insert(entry);
+
+      promise.then(function () {
+        // Make sure sequence value was not updated by the lowest value
+        expect(JournalKeeper.getSequence()).toBe(higherSequenceValue);
+        inserted2 = true;
+      }, function (err) {
+        $log.debug('Failed to insert entry!', err, entry);
+      });
+
+      $rootScope.$apply();
+    });
+
+    waitsFor(function () {
+      return inserted2;
+    }, 'JournalKeeper.insert()', 100);
   });
 });

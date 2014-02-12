@@ -73,37 +73,24 @@
         var storage = new PersistentStorage(WebSQLDriver);
         var registered = storage.register(entityName, JournalEntry);
       
+
+        /**
+         * Returns sequence number.
+         * @return {Number}
+         */
+        this.getSequence = function () {
+          return sequence;
+        };
+
         /**
          * Persist and replay a journal entry
          */
         this.compose = function(journalEntry) {
-            return registered.then(function(){
-              var deferred = $q.defer();
-              
-              if(!(journalEntry instanceof JournalEntry)){
-                deferred.reject('the given entry is not an instance of JournalEntry');
-              } else {
-                
-                journalEntry.sequence = ++sequence;
-                
-                // FIXME: what happens if we persisted the entry and the replay
-                // fails? Should we remove the entry?
-                storage.persist(journalEntry).then(function(){
-                    try {
-                        deferred.resolve(Replayer.replay(journalEntry));
-                    } catch (e){
-                        $log.fatal('Failed to replay: Replayer.replay failed');
-                        $log.debug('Failed to replay', e, journalEntry);
-                        deferred.reject(e);
-                    }
-                }, function(error){
-                  $log.error('Failed to compose: PersistentStorage.persist failed', error);
-                  deferred.reject(error);
-                });
-              }
-              
-              return deferred.promise;
-            });
+            return persistEntry(journalEntry, incrementSequence);
+        };
+
+        this.insert = function (journalEntry) {
+            return persistEntry(journalEntry, updateSequence);
         };
 
         /**
@@ -226,6 +213,49 @@
                 return deferred.promise;
             });
         };
+
+
+
+
+
+        function updateSequence(entry) {
+            var val = entry.sequence;
+            sequence = angular.isDefined(val) && (sequence > val) ? sequence : val;
+        }
+
+        function incrementSequence(entry) {
+            entry.sequence = ++sequence;
+        }
+
+        function persistEntry (entry, updateSequence) {
+            return registered.then(function () {
+                var deferred = $q.defer();
+
+                if(!(entry instanceof JournalEntry)) {
+                  deferred.reject('the given entry is not an instance of JournalEntry');
+                } else {
+                  updateSequence(entry);
+                  
+                  // FIXME: what happens if we persisted the entry and the replay
+                  // fails? Should we remove the entry?
+                  storage.persist(entry).then(function(){
+                      try {
+                          deferred.resolve(Replayer.replay(entry));
+                      } catch (e){
+                          $log.fatal('Failed to replay: Replayer.replay failed');
+                          $log.debug('Failed to replay', e, entry);
+                          deferred.reject(e);
+                      }
+                  }, function(error){
+                    $log.error('Failed to compose: PersistentStorage.persist failed', error);
+                    deferred.reject(error);
+                  });
+                }
+
+                return deferred.promise;
+            });
+        };
+
     });
 
     angular.module('tnt.catalog.journal', [
