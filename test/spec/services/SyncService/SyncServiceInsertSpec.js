@@ -87,6 +87,93 @@ describe('Service: SyncServiceInsertSpec', function () {
         expect(JournalKeeperMock.insert).toHaveBeenCalledWith(entry);
       });
     });
+
+
+    describe('conflicting sequence number', function () {
+      var receivedEntry;
+
+      var sequenceNumber = 5;
+      var conflictingNumber = 4;
+
+      beforeEach(function () {
+        JournalKeeperMock.getSequence.andReturn(sequenceNumber);
+        JournalKeeperMock.insert.andCallFake(resolvedPromiseReturner(true));
+        receivedEntry = new JournalEntry(conflictingNumber, new Date().getTime(), 'createFoo', 1, {});
+
+        spyOn(SyncService, 'stashEntries').andCallFake(resolvedPromiseReturner(true));
+        spyOn(SyncService, 'unstashEntries').andCallFake(resolvedPromiseReturner(true));
+      });
+
+      it('stashes the unsynced entries', function () {
+        var resolved = false;
+
+        runs(function () {
+          var promise = SyncService.insert(receivedEntry);
+          promise.then(function () {
+            resolved = true;
+          });
+
+          $rootScope.$apply();
+        });
+
+        waitsFor(function () {
+          return resolved;
+        }, 'SyncService.insert()', 100);
+
+        runs(function () {
+          expect(SyncService.stashEntries).toHaveBeenCalled();
+        });
+      });
+
+      it('inserts the received entry', function () {
+        var resolved = false;
+
+        runs(function () {
+          var promise = SyncService.insert(receivedEntry);
+          promise.then(function () {
+            resolved = true;
+          });
+
+          $rootScope.$apply();
+        });
+
+        waitsFor(function () {
+          return resolved;
+        }, 'SyncService.insert()', 100);
+
+        runs(function () {
+          expect(JournalKeeperMock.insert).toHaveBeenCalledWith(receivedEntry);
+        });
+      });
+
+      it('unstashes the stashed entries', function () {
+        var resolved = false;
+
+        runs(function () {
+          var promise = SyncService.insert(receivedEntry);
+          promise.then(function () {
+            resolved = true;
+          });
+
+          $rootScope.$apply();
+        });
+
+        waitsFor(function () {
+          return resolved;
+        }, 'SyncService.insert()', 100);
+
+        runs(function () {
+          expect(SyncService.unstashEntries).toHaveBeenCalled();
+        });
+      });
+
+      it('returns a promise', function () {
+        var promise = SyncService.insert(receivedEntry);
+        expect(typeof promise.then).toBe('function');
+        expect(typeof promise.catch).toBe('function');
+        expect(typeof promise.finally).toBe('function');
+      });
+    }); // conflicting sequence number
   }); // SyncService.insert()
 
 

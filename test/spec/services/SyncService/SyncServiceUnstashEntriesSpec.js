@@ -152,6 +152,7 @@ describe('Service: SyncServiceUnstashEntries', function () {
       });
     });
 
+    // FIXME: implement these tests
     it('returns a promise');
     it('returns a resolved promise if there\'s nothing in the stash');
   }); // SyncService.unstashEntries()

@@ -12,11 +12,13 @@
             SyncDriver
         ) {
 
+            var self = this;
+
             /**
              * Syncs unsynced entries from journal with the server.
              * @return {Promise}
              */
-            this.sync = function () {
+            function sync() {
                 var deferred = $q.defer();
 
                 var promise1 = JournalKeeper.readUnsynced();
@@ -63,7 +65,7 @@
              * @param {Object} entry The JournalEntry received from the server.
              * @return {Promise} The promise returned by the JournalKeeper.
              */
-            this.insert = function (entry) {
+            function insert(entry) {
                 if (!angular.isNumber(entry.sequence)) {
                     var msg = 'Received an invalid entry from the server!';
                     $log.fatal(msg, entry);
@@ -71,15 +73,7 @@
                 }
 
                 if (entry.sequence <= JournalKeeper.getSequence()) {
-                    // FIXME: should we check if the new entry is already in
-                    // the journal? If objects are equivalent, there's no point
-                    // in rising an error. This might happen when the device
-                    // receives its own entries.
-                    //
-                    // FIXME: we need to resync entries!
-                    var msg = 'Sequence conflict!';
-                    $log.error(msg, entry);
-                    return $q.reject(msg);
+                    return resolveSequenceConflict(entry);
                 }
 
                 return JournalKeeper.insert(entry);
@@ -103,7 +97,7 @@
              *
              * @return {Array} A shallow copy of the stash array.
              */
-            this.getStashedEntries = function () {
+            function getStashedEntries() {
                 return (stash && getStash().slice(0)) || [];
             };
 
@@ -113,7 +107,7 @@
              * with the server.
              * @return {Promise}
              */
-            this.stashEntries = function () {
+            function stashEntries() {
                 var deferred = $q.defer();
 
                 // FIXME: what should we do if stashEntries() is called while
@@ -146,7 +140,7 @@
              * Re-compose stashed entries and queue them for synchronization.
              * @return {Promise}
              */
-            this.unstashEntries = function () {
+            function unstashEntries() {
                 if (!stash) {
                     var deferred = $q.defer();
                     deferred.resolve(true);
@@ -167,8 +161,10 @@
 
                 var result = $q.all(promises);
 
+
+                // FIXME: should we call sync() once entries are re-composed?
                 result.then(null, function (err) {
-                    // FIXME: what should we do if this happens!?
+                    // FIXME: what should we do if re-composing fails?
                     $log.debug('Failed to re-compose entries during unstash process!', err);
                 });
 
@@ -188,5 +184,43 @@
 
                 return stash;
             }
+
+
+            /**
+             * Runs the stash-insert-unstash process for resolving conflicting
+             * sequence numbers between unsynced entries and entries received
+             * from the server.
+             *
+             * @param {JournalEntry} entry The entry received from the server.
+             * @return {Promise}
+             */
+            function resolveSequenceConflict(entry) {
+                var deferred = $q.defer();
+
+                // Stash unsynced entries
+                var promise1 = self.stashEntries();
+
+                promise1.then(function () {
+                    // Insert entry in the journal
+                    var promise2 = JournalKeeper.insert(entry);
+                    promise2.then(function () {
+                        deferred.resolve(self.unstashEntries());
+                    }, function (err) {
+                        deferred.reject('Failed to insert entry!', entry, err);
+                    });
+                }, function (err) {
+                    deferred.reject('Failed to stash entries!', err);
+                });
+
+                return deferred.promise;
+            };
+
+
+
+            this.sync = sync;
+            this.insert = insert;
+            this.stashEntries = stashEntries;
+            this.unstashEntries = unstashEntries;
+            this.getStashedEntries = getStashedEntries;
         });
 }(angular));
