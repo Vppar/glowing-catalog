@@ -4,30 +4,34 @@
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', []).controller(
             'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService) {
 
-                $scope.purchase = null;
-                $scope.watchedQty = {};
-                $scope.selectedPart = 'part1';
-                $scope.purchase = {
-                    orders : PurchaseOrderService.list()
-                };
+                // #####################################################################################################
+                // Local variables
+                // #####################################################################################################
 
-                $scope.selectPart = function(part) {
-                    $scope.selectedPart = part;
-                };
-
-                $scope.resetWatchedQty = function() {
+                var ticket = $scope.ticket;
+                var resetWatchedQty = function resetWatchedQty() {
                     for ( var ix in $scope.purchase.items) {
                         var item = $scope.purchase.items[ix];
-                        $scope.watchedQty[item.id] = 0;
+                        $scope.ticket.watchedQty[item.id] = 0;
                     }
+                };
+
+                // #####################################################################################################
+                // Scope functions
+                // #####################################################################################################
+
+                $scope.selectPart = function(part) {
+                    ticket.selectedPart = part;
                 };
 
                 $scope.setPurchaseOrder = function(uuid) {
                     $scope.purchase = PurchaseOrderService.read(uuid);
+
                     var date = new Date();
                     date.setTime($scope.purchase.created);
                     $scope.purchase.date = $filter('date')(date, 'dd/MM/yyyy');
-                    $scope.resetWatchedQty();
+
+                    resetWatchedQty();
                 };
 
                 $scope.openDialog = function(purchase) {
@@ -43,9 +47,11 @@
                     $scope.selectPart('part1');
                 };
 
-                $scope.$on('newPurchaseOrder', function() {
-                    $scope.purchase.orders = PurchaseOrderService.list();
-                });
+                // #####################################################################################################
+                // Controller warm up
+                // #####################################################################################################
+
+                ticket.loadPurchaseOrders();
             });
 
 }(angular));

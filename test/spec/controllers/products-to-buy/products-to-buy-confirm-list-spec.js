@@ -5,8 +5,9 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
     var item2 = null;
     var item3 = null;
     var item4 = null;
-    
+
     var DialogService = {};
+    var TimerService = {};
 
     // load the controller's module
     beforeEach(module('tnt.catalog.productsToBuy.confirm.ctrl'));
@@ -37,19 +38,20 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
         scope.stockReport = {
             sessions : {}
         };
-        
+
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         DialogService.openDialogProductsToBuyConfirm = jasmine.createSpy('DialogService.openDialogProductsToBuyConfirm');
 
         productsToBuyConfirmCtrl = $controller('ProductsToBuyConfirmCtrl', {
             $scope : scope,
-            DialogService : DialogService
+            DialogService : DialogService,
+            TimerService : TimerService
         });
     }));
 
     /**
      * <pre>
-     * Given a stockreport 
+     * Givena stockreport 
      * and all products have a property qty 
      * When list is triggered 
      * Then return the products with qty greater then 0

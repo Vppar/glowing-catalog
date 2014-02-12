@@ -76,7 +76,7 @@
                         function read(uuid) {
                             var result = null;
                             try {
-                                result = PurchaseOrderKeeper.read(id);
+                                result = PurchaseOrderKeeper.read(uuid);
                             } catch (err) {
                                 $log.debug('PurchaseOrderService.read: Unable to find an purchaseOrder with the uuid=' + uuid + '. ' +
                                     'Err=' + err);
@@ -96,7 +96,7 @@
                     }
                     return result;
                 };
-                
+
                 /**
                  * Redeem a purchaseOrder
                  */
@@ -111,9 +111,10 @@
                 };
 
                 this.register = register;
+                this.list = list;
+                this.read = read;
                 this.cancel = cancel;
                 this.redeem = redeem;
-                this.list = list;
                 this.isValid = isValid;
 
                 // ===========================================
