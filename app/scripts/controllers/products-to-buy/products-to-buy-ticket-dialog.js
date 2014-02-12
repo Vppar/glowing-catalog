@@ -25,7 +25,7 @@
         };
 
         $scope.confirm = function confirm() {
-            dialog.close(true);
+            dialog.close(dialog.data);
         };
         
     });
