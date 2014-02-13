@@ -12,12 +12,12 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         scope = $rootScope.$new();
 
         scope.ticket = jasmine.createSpy('scope.ticket');
-        scope.ticket.loadPurchaseOrders = jasmine.createSpy('scope.ticket.loadPurchaseOrders').andReturn('');
+        scope.ticket.loadPurchaseOrders = jasmine.createSpy('scope.ticket.loadPurchaseOrders');
 
         productsToBuyTicketCtrl = $controller('ProductsToBuyTicketCtrl', {
             $scope : scope,
             DialogService : DialogService,
-            PurchaseOrderService : PurchaseOrderService,
+            PurchaseOrderService : PurchaseOrderService
         });
     }));
 
