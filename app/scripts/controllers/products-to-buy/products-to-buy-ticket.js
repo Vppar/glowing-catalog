@@ -48,10 +48,10 @@
                 };
 
                 $scope.disableButton = function disableButton() {
-                    var result = true;
+                    var result = false;
                     for ( var i in $scope.ticket.watchedQty) {
-                        if ($scope.checkBox[i] || ($scope.ticket.watchedQty[i] !== 0)) {
-                            result = false;
+                        if (!$scope.checkBox[i] && ($scope.ticket.watchedQty[i] === 0)) {
+                            result = true;
                         }
                     }
                     return result;

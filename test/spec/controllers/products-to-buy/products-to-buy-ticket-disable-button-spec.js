@@ -21,10 +21,10 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         });
     }));
 
-    it('should not disable', function() {
+    it('should not disable, at values different from 0', function() {
         // given
         scope.ticket.watchedQty = [
-            1, 0, 1
+            1, 1, 1
         ];
         scope.checkBox = [
             false, false, false
@@ -37,7 +37,55 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         expect(result).toBe(false);
     });
     
-    it('should disable', function() {
+    it('should not disable, at least marked checkbox', function() {
+        // given
+        scope.ticket.watchedQty = [
+            0, 0, 0
+        ];
+        scope.checkBox = [
+            true, true, true
+        ];
+
+        // when
+        scope.disableButton();
+        result = scope.disableButton();
+        // then
+        expect(result).toBe(false);
+    });
+    
+    it('should not disable, at least one value different from 0 and one checkbox marked', function() {
+        // given
+        scope.ticket.watchedQty = [
+            1, 0, 1
+        ];
+        scope.checkBox = [
+            true, true, false
+        ];
+
+        // when
+        scope.disableButton();
+        result = scope.disableButton();
+        // then
+        expect(result).toBe(false);
+    });
+    
+    it('should disable, only one disabled', function() {
+        // given
+        scope.ticket.watchedQty = [
+            1, 0, 0
+        ];
+        scope.checkBox = [
+            false, true, false
+        ];
+
+        // when
+        scope.disableButton();
+        result = scope.disableButton();
+        // then
+        expect(result).toBe(true);
+    });
+    
+    it('should disable, everything disabled', function() {
         // given
         scope.ticket.watchedQty = [
             0, 0, 0
