@@ -90,7 +90,7 @@ describe('Service: SyncServiceInsertSpec', function () {
 
 
     describe('conflicting sequence number', function () {
-      var receivedEntry;
+      var receivedEntry = null;
 
       var sequenceNumber = 5;
       var conflictingNumber = 4;
@@ -170,8 +170,8 @@ describe('Service: SyncServiceInsertSpec', function () {
       it('returns a promise', function () {
         var promise = SyncService.insert(receivedEntry);
         expect(typeof promise.then).toBe('function');
-        expect(typeof promise.catch).toBe('function');
-        expect(typeof promise.finally).toBe('function');
+        expect(typeof promise['catch']).toBe('function');
+        expect(typeof promise['finally']).toBe('function');
       });
     }); // conflicting sequence number
   }); // SyncService.insert()
@@ -183,7 +183,7 @@ describe('Service: SyncServiceInsertSpec', function () {
       var deferred = $q.defer();
       deferred.resolve(result);
       return deferred.promise;
-    }
+    };
   }
 
   function rejectedPromiseReturner(result) {
@@ -191,6 +191,6 @@ describe('Service: SyncServiceInsertSpec', function () {
       var deferred = $q.defer();
       deferred.reject(result);
       return deferred.promise;
-    }
+    };
   }
 });

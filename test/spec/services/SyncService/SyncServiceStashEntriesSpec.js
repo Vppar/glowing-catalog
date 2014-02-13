@@ -13,7 +13,6 @@ describe('Service: SyncServiceStashEntries', function () {
   var $q = null;
 
   var SyncService = null;
-  var JournalEntry = null;
 
   var SyncDriverMock = {};
   var JournalKeeperMock = {};
@@ -122,8 +121,8 @@ describe('Service: SyncServiceStashEntries', function () {
     it('returns a promise', function () {
       var result = SyncService.stashEntries();
       expect(typeof result.then).toBe('function');
-      expect(typeof result.catch).toBe('function');
-      expect(typeof result.finally).toBe('function');
+      expect(typeof result['catch']).toBe('function');
+      expect(typeof result['finally']).toBe('function');
     });
   }); // SyncService.stashEntries()
 
@@ -134,7 +133,7 @@ describe('Service: SyncServiceStashEntries', function () {
       var deferred = $q.defer();
       deferred.resolve(result);
       return deferred.promise;
-    }
+    };
   }
 
   function rejectedPromiseReturner(result) {
@@ -142,6 +141,6 @@ describe('Service: SyncServiceStashEntries', function () {
       var deferred = $q.defer();
       deferred.reject(result);
       return deferred.promise;
-    }
+    };
   }
 });

@@ -26,18 +26,24 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
             qty : 0
         };
         item4 = {
-            id : 3,
+            id : 4,
             qty : 2
-        };
+        }; 
     });
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         scope = $rootScope.$new();
 
-        scope.stockReport = {
-            sessions : {}
+        scope.purchaseOrder = {};
+        scope.purchaseOrder.watchedQty = {
+            '1' : 0,
+            '2' : 4,
+            '3' : 0,
+            '4' : 2
         };
+        scope.stockReport = {};
+        scope.stockReport.sessions = {};
 
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         DialogService.openDialogProductsToBuyConfirm = jasmine.createSpy('DialogService.openDialogProductsToBuyConfirm');
@@ -51,7 +57,7 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
 
     /**
      * <pre>
-     * Givena stockreport 
+     * Given a stock report 
      * and all products have a property qty 
      * When list is triggered 
      * Then return the products with qty greater then 0
@@ -79,6 +85,7 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
         // then
         expect(result.sessions.mySession1).not.toBeUndefined();
         expect(result.sessions.mySession1.lines.myLine1).not.toBeUndefined();
+
         expect(result.sessions.mySession1.lines.myLine1.items[0]).toEqual(item2);
         expect(result.sessions.mySession1.lines.myLine1.items[1]).toEqual(item4);
     });
