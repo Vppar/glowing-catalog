@@ -65,7 +65,7 @@
                 });
         }).service('EntityKeeper', function EntityKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity, IdentityService) {
 
-        var type = 1;
+        var type = 3;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var entities = [];
@@ -88,7 +88,7 @@
           
             var eventData = IdentityService.getUUIDData(event.uuid);
           
-            if(eventData.deviceId === IdentityService.deviceId){
+            if(eventData.deviceId === IdentityService.getDeviceId()){
                 currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
             

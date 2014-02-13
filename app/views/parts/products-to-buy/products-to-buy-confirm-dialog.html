@@ -10,29 +10,29 @@
 			<span class="col-3">Vencto</span>
 		</span>
 		<span class="text-order-panel"> 
-			<span class="col-1"><input type="radio" name="group1" value="boleto">Boleto Banc&aacute;rio</span>
-			<span class="col-2">340,00</span>
-			<span class="col-3">24/02/2014</span>
+			<span class="col-1"><input type="radio" name="group1" value="boleto" ng-model="payment.method">Boleto Banc&aacute;rio</span>
+			<span class="col-2">{{payment.amount | currency: ''}}</span>
+			<span class="col-3">{{payment.duedate | date: 'dd/MM/yyyy'}}</span>
 		</span>
 		<span class="text-order-panel"> 
-			<span class="col-1"><input type="radio" name="group1" value="deposito">Dep&oacute;sito Identificado</span>
-			<span class="col-2">100,00</span>
-			<span class="col-3">24/02/2014</span>
+			<span class="col-1"><input type="radio" name="group1" value="deposito" ng-model="payment.method">Dep&oacute;sito Identificado</span>
+			<span class="col-2">{{payment.amount | currency: ''}}</span>
+			<span class="col-3">{{payment.duedate | date: 'dd/MM/yyyy'}}</span>
 		</span>
 		<span class="text-order-panel"> 
-			<span class="col-1"><input type="radio" name="group1" value="transferencia">Transf. Eletr&ocirc;nica</span>
-			<span class="col-2">100,00</span>
-			<span class="col-3">24/02/2014</span>
+			<span class="col-1"><input type="radio" name="group1" value="transferencia" ng-model="payment.method">Transf. Eletr&ocirc;nica</span>
+			<span class="col-2">{{payment.amount | currency: ''}}</span>
+			<span class="col-3">{{payment.duedate | date: 'dd/MM/yyyy'}}</span>
 		</span>
 		<span class="text-order-panel"> 
-			<span class="col-1"><input type="radio" name="group1" value="debito">D&eacute;bito em conta</span>
-			<span class="col-2">100,00</span>
-			<span class="col-3">24/02/2014</span>
+			<span class="col-1"><input type="radio" name="group1" value="debito" ng-model="payment.method">D&eacute;bito em conta</span>
+			<span class="col-2">{{payment.amount | currency: ''}}</span>
+			<span class="col-3">{{payment.duedate | date: 'dd/MM/yyyy'}}</span>
 		</span>
 		<span class="text-order-panel"> 
-			<span class="col-1"><input type="radio" name="group1" value="credito">Cart&atilde;o de cr&eacute;dito</span>
-			<span class="col-2">100,00</span>
-			<span class="col-3">24/02/2014</span>
+			<span class="col-1"><input type="radio" name="group1" value="credito" ng-model="payment.method">Cart&atilde;o de cr&eacute;dito</span>
+			<span class="col-2">{{payment.amount | currency: ''}}</span>
+			<span class="col-3">{{payment.duedate | date: 'dd/MM/yyyy'}}</span>
 		</span>
 		<div class="clearfix"></div>
 		<hr />
@@ -40,7 +40,7 @@
 			<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button class="btn btn-ok" type="submit" ng-click="confirm()">Confirmar</button>
+			<button class="btn btn-ok" type="submit" ng-disabled="payment.method==''" ng-click="confirm()">Confirmar</button>
 		</div>
 	</div>
 	

@@ -56,7 +56,7 @@
                 'tnt.catalog.journal.keeper', 'tnt.identity'
             ]).service('VoucherKeeper', function VoucherKeeper($log, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Voucher, IdentityService) {
 
-        var type = 6;
+        var type = 7;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var voucher = {
@@ -78,7 +78,7 @@
         ObjectUtils.ro(this.handlers, 'voucherCreateV1', function(event) {
             var eventData = IdentityService.getUUIDData(event.id);
           
-            if(eventData.deviceId === IdentityService.deviceId){
+            if(eventData.deviceId === IdentityService.getDeviceId()){
                 currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
             

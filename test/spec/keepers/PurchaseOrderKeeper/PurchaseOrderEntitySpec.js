@@ -20,7 +20,7 @@ describe('Service: PurchaseOrderEntity', function() {
 
     /**
      * <pre>
-     * Given a order description
+     * Givena order description
      * and a document
      * When new is triggered
      * Then a Order instance should be created
@@ -29,17 +29,18 @@ describe('Service: PurchaseOrderEntity', function() {
     it('should create a new PurchaseOrder instance', function() {
         // given
         var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
-        var canceled = false;
-        var items = [];
         var created = new Date(1234123);
+        var amount = 123.45;
+        var discount = 0;
+        var points = 23;
+        var items = [];
 
         // when
-        var pOrder = new PurchaseOrder(uuid, created, canceled, items);
+        var pOrder = new PurchaseOrder(uuid, created, amount, discount, points, items);
 
         // then
         expect(pOrder.uuid).toBe(uuid);
         expect(pOrder.created).toBe(created);
-        expect(pOrder.canceled).toBe(canceled);
         expect(pOrder.items).toBe(items);
 
     });

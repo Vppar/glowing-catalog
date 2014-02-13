@@ -67,7 +67,7 @@
         function instance(name) {
 
             // FIXME - Make it flexible
-            var type = (name === 'receivable' ? 3 : 4);
+            var type = (name === 'receivable' ? 1 : 2);
             var currentEventVersion = 1;
             var currentCounter = 0;
             var vault = [];
@@ -86,7 +86,7 @@
                 // and instantiate
                 var eventData = IdentityService.getUUIDData(event.uuid);
 
-                if (eventData.deviceId === IdentityService.deviceId) {
+                if (eventData.deviceId === IdentityService.getDeviceId()) {
                     currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
                 }
 

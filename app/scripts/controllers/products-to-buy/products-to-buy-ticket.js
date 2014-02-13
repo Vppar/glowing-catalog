@@ -2,38 +2,58 @@
     'use strict';
 
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', []).controller(
-            'ProductsToBuyTicketCtrl', function($scope, DialogService, PurchaseOrderService) {
+            'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService) {
 
-                 $scope.purchases = PurchaseOrderService.list();
+                // #####################################################################################################
+                // Local variables
+                // #####################################################################################################
 
-                $scope.$watchCollection('selectedTab', function() {
-                    $scope.purchases = PurchaseOrderService.list();
-                    
-                    for(var i in $scope.purchases){
-                        var purchase = $scope.purchases[i];
-                        var sum = 0;
-                        for(var i2 in purchase.items){
-                            sum += purchase.items[i2].price;
-                        }
-                        $scope.purchases[i].amount = sum;
+                var ticket = $scope.ticket;
+
+                var resetWatchedQty = function resetWatchedQty() {
+                    for ( var ix in $scope.purchase.items) {
+                        var item = $scope.purchase.items[ix];
+                        $scope.ticket.watchedQty[item.id] = 0;
                     }
-                });
-
-                $scope.selectedPart = 'part1';
-
-                $scope.watchedQty = {};
-
-                $scope.selectPart = function(part) {
-                    $scope.selectedPart = part;
                 };
 
-                $scope.openDialog = function() {
+                var setPurchaseOrder = function setPurchaseOrder(uuid) {
+                    $scope.purchase = PurchaseOrderService.read(uuid);
 
-                    DialogService.openDialogProductsToBuyTicket({
-                        idDelievery : null
+                    var date = new Date();
+                    date.setTime($scope.purchase.created);
+                    $scope.purchase.date = $filter('date')(date, 'dd/MM/yyyy');
+
+                    resetWatchedQty();
+                };
+                var selectPart = function selectPart(part) {
+                    ticket.selectedPart = part;
+                };
+
+                // #####################################################################################################
+                // Scope functions
+                // #####################################################################################################
+
+                $scope.openDialog = function(purchase) {
+                    var nfePromise = DialogService.openDialogProductsToBuyTicket(purchase);
+                    nfePromise.then(function(result) {
+                        if (result) {
+                            ticket.nfeData = result.nfe;
+                            setPurchaseOrder(result.uuid);
+                            selectPart('part2');
+                        }
                     });
                 };
 
+                $scope.cancel = function() {
+                    selectPart('part1');
+                };
+
+                // #####################################################################################################
+                // Controller warm up
+                // #####################################################################################################
+
+                ticket.loadPurchaseOrders();
             });
 
 }(angular));

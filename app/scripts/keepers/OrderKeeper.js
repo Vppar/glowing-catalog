@@ -61,7 +61,7 @@
         });
     }).service('OrderKeeper', function OrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, Order) {
 
-        var type = 2;
+        var type = 4;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var orders = [];
@@ -77,7 +77,7 @@
         ObjectUtils.ro(this.handlers, 'orderAddV1', function(event) {
             var eventData = IdentityService.getUUIDData(event.uuid);
 
-            if (eventData.deviceId === IdentityService.deviceId) {
+            if (eventData.deviceId === IdentityService.getDeviceId()) {
                 currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
 

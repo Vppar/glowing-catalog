@@ -2,68 +2,133 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.ctrl', [
         'tnt.catalog.stock.service', 'tnt.catalog.timer.service'
-    ]).controller('ProductsToBuyCtrl', function($scope, $log, StockService) {
+    ]).controller('ProductsToBuyCtrl', function($scope, $log, StockService, PurchaseOrderService) {
 
-        // Get a stock report to use as reference
+        // #####################################################################################################
+        // Local variables
+        // #####################################################################################################
+
+        /**
+         * Stock report to fill the views
+         */
         var stockReportBkp = StockService.stockReport('all');
-        $scope.stockReport = angular.copy(stockReportBkp);
 
-        $scope.productFilter = {
-            text : ''
-        };
+        // #####################################################################################################
+        // Local Functions
+        // #####################################################################################################
 
-        $scope.clearFilter = function () {
-            $scope.productFilter.text = '';
-        };
-
-        $scope.$watch('productFilter.text', function(newVal, oldVal) {
-            var myTextFilter = $scope.productFilter.text;
-            if (String(myTextFilter).length >= 3) {
-                var objFilter = {
-                    title : myTextFilter,
-                    SKU : myTextFilter
-                };
-                StockService.updateReport($scope.stockReport, objFilter);
-            } else {
-                StockService.updateReport($scope.stockReport);
+        function resetWatchedQty() {
+            for ( var ix in $scope.stockReport.sessions) {
+                // sessions
+                var session = $scope.stockReport.sessions[ix];
+                // lines of that session
+                for ( var ix2 in session.lines) {
+                    // lines
+                    var line = session.lines[ix2];
+                    // items of that line
+                    for ( var ix3 in line.items) {
+                        var item = line.items[ix3];
+                        // backup items to use when a recals is needed
+                        $scope.purchaseOrder.items[item.id] = item;
+                        $scope.purchaseOrder.watchedQty[item.id] = item.qty;
+                    }
+                }
             }
-        });
+        }
+
+        function loadPurchaseOrders() {
+            $scope.ticket.purchaseOrders = PurchaseOrderService.list();
+        }
+
+        // #####################################################################################################
+        // Scope variables
+        // #####################################################################################################
+
+        $scope.stockReport = angular.copy(stockReportBkp);
+        $scope.tabs = {};
+        $scope.tabs.selected = 'buildOrder';
+
+        /**
+         * Summary tab
+         */
+        $scope.summary = {};
+        $scope.summary.total = {};
+        $scope.summary.discount = {};
+        $scope.summary.freight = {};
+        $scope.summary.total.amount = 0;
+        $scope.summary.total.amount2 = 0;
+        $scope.summary.total.amountWithDiscount = 0;
+        $scope.summary.total.points = 0;
+        $scope.summary.discount.fee = 0;
+        $scope.summary.freight.amount = 0;
+
+        /**
+         * Order tab
+         */
+        $scope.purchaseOrder = {};
+        $scope.purchaseOrder.items = {};
+        $scope.purchaseOrder.watchedQty = {};
+
+        /**
+         * Ticket tab
+         */
+        $scope.ticket = {};
+        $scope.ticket.watchedQty = {};
+        $scope.ticket.selectedPart = 'part1';
+        $scope.ticket.loadPurchaseOrders = loadPurchaseOrders;
+        $scope.ticket.purchaseOrders = {};
+
+        // #####################################################################################################
+        // Scope functions
+        // #####################################################################################################
 
         $scope.selectTab = function selectTab(tabName) {
-            $scope.selectedTab = tabName;
+            $scope.tabs.selected = tabName;
         };
 
-        $scope.summaryIsVisible = function (tabName) {
+        $scope.summaryIsVisible = function(tabName) {
             return tabName === 'buildOrder' || tabName === 'confirmOrder';
         };
 
-        $scope.$on('cancel', function() {
+        $scope.financialRound = function financialRound(value) {
+            return (Math.round(100 * value) / 100);
+        };
 
-            $scope.productFilter.text = '';
-            angular.extend($scope.stockReport, angular.copy(stockReportBkp));
+        $scope.resetPurchaseOrder = function resetPurchaseOrder() {
+            setTimeout(function() {
+                angular.extend($scope.stockReport, angular.copy(stockReportBkp));
+                StockService.updateReport($scope.stockReport);
+            }, 0);
+            resetWatchedQty();
+            loadPurchaseOrders();
+        };
 
-            updateReport($scope.stockReport);
+        // #####################################################################################################
+        // Watchers
+        // #####################################################################################################
 
-            $scope.selectedTab = 'buildOrder';
+        $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj, oldObj) {
+            var diff = {
+                amount : 0,
+                points : 0
+            };
 
-            $scope.$broadcast('resetWatchedQty');
+            for ( var ix in newObj) {
+                var price = $scope.purchaseOrder.items[ix].price;
+                var points = $scope.purchaseOrder.items[ix].points;
+
+                diff.amount += (newObj[ix] * price);
+                diff.points += (newObj[ix] * points);
+            }
+
+            $scope.summary.total.amount = diff.amount;
+            $scope.summary.total.points = diff.points;
         });
 
-        $scope.$on('confirm', function() {
-            $scope.productFilter.text = '';
-            angular.extend($scope.stockReport, angular.copy(stockReportBkp));
+        // #####################################################################################################
+        // Controller warm up
+        // #####################################################################################################
 
-            StockService.updateReport($scope.stockReport);
-
-            $scope.selectedTab = 'verifyTicket';
-
-            $scope.$broadcast('resetWatchedQty');
-            // TODO - Save the order
-        });
-
-        $scope.$on('productQtyChange', function(event, args) {
-            $scope.$broadcast('updateSummary', args);
-            $scope.$broadcast('updateConfirmed', args);
-        });
+        resetWatchedQty();
     });
 }(angular));

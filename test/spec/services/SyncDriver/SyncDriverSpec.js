@@ -49,13 +49,13 @@ describe('Service: SyncDriver', function () {
 
 
   // FIXME: implement missing tests (TBD)
-  describe('SyncDriver.sync()', function () {
+  describe('SyncDriver.save()', function () {
       it('is accessible', function () {
-        expect(SyncDriver.sync).toBeDefined();
+        expect(SyncDriver.save).toBeDefined();
       });
 
       it('is a function', function () {
-        expect(typeof SyncDriver.sync).toBe('function');
+        expect(typeof SyncDriver.save).toBe('function');
       });
   }); // SyncDriver.sync()
 });
