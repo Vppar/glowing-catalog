@@ -55,21 +55,6 @@
             return report;
         };
 
-        function confirmDialog(confirm) {
-            var result = null;
-            if (confirm) {
-                result = DialogService.messageDialog({
-                    title : 'Pedido de Compra',
-                    message : 'Confirmar o pedido de compra?',
-                    btnYes : 'Sim',
-                    btnNo : 'Não'
-                });
-            } else {
-                result = $q.reject();
-            }
-            return result;
-        }
-
         function persitPurchaseOrder() {
 
             var orderBck = angular.copy($scope.confirmedProducts);
@@ -127,11 +112,12 @@
         };
 
         $scope.confirm = function() {
-            var promise = DialogService.openDialogProductsToBuyConfirm({
-                duedate : new Date().getTime(),
-                amount : summary.total.amountWithDiscount
+            var confirmedPurchaseOrder = DialogService.messageDialog({
+                title : 'Pedido de Compra',
+                message : 'Confirmar o pedido de compra?',
+                btnYes : 'Sim',
+                btnNo : 'Não'
             });
-            var confirmedPurchaseOrder = promise.then(confirmDialog);
             var persistedPurchaseOrder = confirmedPurchaseOrder.then(persitPurchaseOrder);
 
             persistedPurchaseOrder.then(function(result) {
