@@ -37,6 +37,36 @@
                             });
                             return result;
                         };
+                        
+                        // ############################################################################################
+                        // Getters
+                        // ############################################################################################
+                        var getPhoneNumber = function(customer) {
+                            // Find a cell number.
+                            var to = null;
+                            for ( var idx in customer.phones) {
+                                var phone = customer.phones[idx];
+                                if (phone.number.charAt(2) >= 7) {
+                                    to = phone.number;
+                                    break;
+                                }
+                            }
+                            return to;
+                        };
+
+                        var getFirstName = function(customer) {
+                            return customer.name.split(' ')[0];
+                        };
+
+                        var getYourConsultantGenderRelativePhrase = function(user) {
+                            var phrase = null;
+                            if (user.gender === 'Female') {
+                                phrase = 'sua consultora';
+                            } else {
+                                phrase = 'seu consultor';
+                            }
+                            return phrase;
+                        };
 
                         // ############################################################################################
                         // Payment functions
@@ -49,52 +79,25 @@
                         var cellMissingAlert =
                                 'Não foi possível enviar o SMS, o cliente {{customerFirstName}} não possui um número de celular em seu cadastro.';
 
-                        var getPhoneNumber = function (customer){
-                         // Find a cell number.
-                            var to = null;
-                            for ( var idx in customer.phones) {
-                                var phone = customer.phones[idx];
-                                if (phone.number.charAt(2) >= 7) {
-                                    to = phone.number;
-                                    break;
-                                }
-                            }
-                            return to;
-                        };
-                        
-                        var getFirstName = function(customer){
-                            return customer.name.split(' ')[0];
-                        };
-                        
-                        var getYourConsultantGenderRelativePhrase = function(user){
-                            var phrase = null;
-                            if(user.gender === 'Female'){
-                                phrase = 'sua consultora';
-                            } else {
-                                phrase = 'seu consultor';
-                            }
-                            return phrase;
-                        };
-                        
                         var sendPaymentConfirmation = function sendPaymentConfirmation(customer, orderAmount) {
-                            
+
                             var to = getPhoneNumber(customer);
-                            
+
                             // FIXME use UserService
                             var user = {
-                                    name : 'WhatEver',
-                                    gender : 'Female'
+                                name : 'WhatEver',
+                                gender : 'Female'
 
-                                };
+                            };
 
                             var smsSent = null;
-                            var data = {}; 
-                            
-                            //complete data object
+                            var data = {};
+
+                            // complete data object
                             data.customerFirstName = getFirstName(customer);
                             data.representativeName = DataProvider.representative.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
-                            
+
                             if (to) {
                                 var smsMessage = $interpolate(paymentConfirmationSMS)(data);
                                 smsSent = send('55' + to, smsMessage);
