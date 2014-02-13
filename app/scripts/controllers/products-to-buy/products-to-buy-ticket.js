@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', []).controller(
-            'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService, ArrayUtils) {
+            'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService) {
 
                 // #####################################################################################################
                 // Local variables
