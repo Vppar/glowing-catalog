@@ -28,7 +28,7 @@ describe('Service: SMSService', function() {
 
         SMSService.sendPaymentConfirmation(customer, orderAmount);
 
-        expect(SMSService.send).toHaveBeenCalledWith('5599887766', 'Ola Bertina, seu pedido no valor de R$30,00 reais foi confirmado. Maria Lima, sua consultora Mary Kay.');
+        expect(SMSService.send).toHaveBeenCalledWith('5599887766', 'Ola Bertina Pagudagua, seu pedido no valor de R$30,00 reais foi confirmado. Maria Lima, sua consultora Mary Kay.');
     });
     
     it('should not send a sms', function() {

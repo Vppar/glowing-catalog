@@ -53,10 +53,6 @@
                             return to;
                         };
 
-                        var getFirstName = function(customer) {
-                            return customer.name.split(' ')[0];
-                        };
-
                         var getYourConsultantGenderRelativePhrase = function(user) {
                             var phrase = null;
                             if (user.gender === 'Female') {
@@ -74,9 +70,9 @@
                          * Msgs template.
                          */
                         var paymentConfirmationSMS =
-                                'Ola {{customerFirstName}}, seu pedido no valor de {{orderAmount | currency}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                                'Ola {{customerName}}, seu pedido no valor de {{orderAmount | currency}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
                         var cellMissingAlert =
-                                'Não foi possível enviar o SMS, o cliente {{customerFirstName}} não possui um número de celular em seu cadastro.';
+                                'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
 
                         this.sendPaymentConfirmation = function sendPaymentConfirmation(customer, orderAmount) {
 
@@ -93,7 +89,7 @@
                             var data = {};
 
                             // complete data object
-                            data.customerFirstName = getFirstName(customer);
+                            data.customerName = customer.name;
                             data.orderAmount = orderAmount;
                             data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
