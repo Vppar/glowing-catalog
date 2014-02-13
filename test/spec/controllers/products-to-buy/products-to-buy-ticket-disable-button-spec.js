@@ -1,4 +1,4 @@
-ddescribe('Controller: products-to-buy-ticket-disable-button-spec', function() {
+describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
 
     var DialogService = null;
     var PurchaseOrderService = null;
