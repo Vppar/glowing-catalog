@@ -6,6 +6,7 @@ describe('Service: PaymentServiceHasPersistedCoupons', function() {
     var receivableService = {};
     var productReturnService = {};
     var stockKeeper = {};
+    var smsService = {};
 
     // load the service's module
     beforeEach(function() {
@@ -20,6 +21,7 @@ describe('Service: PaymentServiceHasPersistedCoupons', function() {
             $provide.value('ReceivableService', receivableService);
             $provide.value('ProductReturnService', productReturnService);
             $provide.value('StockKeeper', stockKeeper);
+            $provide.value('SMSService', smsService);
         });
     });
     

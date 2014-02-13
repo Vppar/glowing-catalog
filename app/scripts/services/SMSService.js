@@ -2,7 +2,9 @@
     'use strict';
 
     angular
-            .module('tnt.catalog.service.sms', ['tnt.catalog.service.data'])
+            .module('tnt.catalog.service.sms', [
+                'tnt.catalog.service.data'
+            ])
             .service(
                     'SMSService',
                     function($http, $q, DataProvider) {
@@ -43,37 +45,64 @@
                          * Msgs template.
                          */
                         var paymentConfirmationSMS =
-                                'Ola {{customerFirstName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor Mary Kay.';
+                                'Ola {{customerFirstName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
                         var cellMissingAlert =
                                 'Não foi possível enviar o SMS, o cliente {{customerFirstName}} não possui um número de celular em seu cadastro.';
 
-                        var sendPaymentConfirmation =
-                                function sendPaymentConfirmation(customer, orderAmount) {
-                                    // Find a cell number.
-                                    var to = null;
-                                    for ( var idx in customer.phones) {
-                                        var phone = customer.phones[idx];
-                                        if (phone.number.charAt(2) >= 7) {
-                                            to = phone.number;
-                                            break;
-                                        }
-                                    }
+                        var getPhoneNumber = function (customer){
+                         // Find a cell number.
+                            var to = null;
+                            for ( var idx in customer.phones) {
+                                var phone = customer.phones[idx];
+                                if (phone.number.charAt(2) >= 7) {
+                                    to = phone.number;
+                                    break;
+                                }
+                            }
+                            return to;
+                        };
+                        
+                        var getFirstName = function(customer){
+                            return customer.name.split(' ')[0];
+                        };
+                        
+                        var getYourConsultantGenderRelativePhrase = function(user){
+                            var phrase = null;
+                            if(user.gender === 'Female'){
+                                phrase = 'sua consultora';
+                            } else {
+                                phrase = 'seu consultor';
+                            }
+                            return phrase;
+                        };
+                        
+                        var sendPaymentConfirmation = function sendPaymentConfirmation(customer, orderAmount) {
+                            
+                            var to = getPhoneNumber(customer);
+                            
+                            // FIXME use UserService
+                            var user = {
+                                    name : 'WhatEver',
+                                    gender : 'Female'
 
-                                    // Send the sms.
-                                    var smsSent = null;
-                                    var customerFirstName = customer.name.split(' ')[0];
-                                    if (to) {
-                                        // Get the customer first name
-                                        var smsMessage =
-                                                paymentConfirmationSMS.replace('{{customerFirstName}}', customerFirstName).replace(
-                                                        '{{representativeName}}', DataProvider.representative.name).replace(
-                                                        '{{orderAmount}}', orderAmount);
-                                        smsSent = send('55' + to, smsMessage);
-                                    } else {
-                                        smsSent = $q.reject(cellMissingAlert.replace('{{customerFirstName}}', customerFirstName));
-                                    }
-                                    return smsSent;
                                 };
+
+                            var smsSent = null;
+                            var data = {}; 
+                            
+                            //complete data object
+                            data.customerFirstName = getFirstName(customer);
+                            data.representativeName = DataProvider.representative.name;
+                            data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
+                            
+                            if (to) {
+                                var smsMessage = $interpolate(paymentConfirmationSMS)(data);
+                                smsSent = send('55' + to, smsMessage);
+                            } else {
+                                smsSent = $q.reject($interpolate(cellMissingAlert)(data));
+                            }
+                            return smsSent;
+                        };
 
                         this.send = send;
                         this.sendPaymentConfirmation = sendPaymentConfirmation;

@@ -185,7 +185,7 @@
             'PaymentService',
             function PaymentService($location, $q, $log, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
-                    ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper) {
+                    ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService) {
 
                 /**
                  * The current payments.
