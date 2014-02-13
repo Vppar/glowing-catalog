@@ -5,6 +5,8 @@
         $scope.purchase = {
             orders : angular.copy(PurchaseOrderService.list())
         };
+
+        console.log($scope.purchase.orders);
         
         $scope.credit = {
                 dtInitial : new Date(),
@@ -17,6 +19,7 @@
         
         $scope.filter = function(){
             $scope.purchase.orders = $filter('filter')(angular.copy(PurchaseOrderService.list()), dateFilter);
+            console.log($scope.purchase.orders);
         };
         
         /**
