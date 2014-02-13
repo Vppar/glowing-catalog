@@ -110,6 +110,29 @@
             });
         };
         
+
+        // FIXME: need to test this!
+        this.readOldestUnsynced = function () {
+          var deferred = $q.defer();
+
+          var promise = this.readUnsynced();
+          promise.then(function (result) {
+              if (!result || !result.length) {
+                  // There are no unsynced entries
+                  deferred.resolve(null);
+              } else if (result && result.length) {
+                  deferred.resolve(result[0]);
+              } else {
+                  deferred.reject('Got an unexpected result from JournalKeeper.readUnsynced()!');
+              }
+          }, function (err) {
+              deferred.reject('Failed to get unsynced entries!');
+          });
+
+          return deferred.promise;
+        };
+
+
         /**
          * Marks a given entry as synced
          * 
