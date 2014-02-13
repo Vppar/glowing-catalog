@@ -2,10 +2,12 @@
     'use strict';
 
     angular
-            .module('tnt.catalog.service.sms', ['tnt.catalog.service.data'])
+            .module('tnt.catalog.service.sms', [
+                'tnt.catalog.service.data'
+            ])
             .service(
                     'SMSService',
-                    function($http, $q, DataProvider) {
+                    function($http, $q, $interpolate) {
 
                         // ############################################################################################
                         // SMS related functions
@@ -14,7 +16,7 @@
                         var token = '8f934ur83rhq34r879hncfq9f4yq987nf4dh4fyn98hdmi44dz21x3gdju893d2';
                         var method = 'GET';
 
-                        var send = function send(to, message) {
+                        this.send = function send(to, message) {
                             var url = baseUrl + '?to=' + to;
                             url = url + '&message=' + message;
                             url = url + '&token=' + token;
@@ -35,6 +37,31 @@
                             });
                             return result;
                         };
+                        
+                        // ############################################################################################
+                        // Getters
+                        // ############################################################################################
+                        var getPhoneNumber = function(customer) {
+                            var to = null;
+                            for ( var idx in customer.phones) {
+                                var phone = customer.phones[idx];
+                                if (phone.number.charAt(2) >= 7) {
+                                    to = '55'+phone.number;
+                                    break;
+                                }
+                            }
+                            return to;
+                        };
+
+                        var getYourConsultantGenderRelativePhrase = function(user) {
+                            var phrase = null;
+                            if (user.gender === 'Female') {
+                                phrase = 'sua consultora';
+                            } else {
+                                phrase = 'seu consultor';
+                            }
+                            return phrase;
+                        };
 
                         // ############################################################################################
                         // Payment functions
@@ -43,39 +70,38 @@
                          * Msgs template.
                          */
                         var paymentConfirmationSMS =
-                                'Ola {{customerFirstName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor Mary Kay.';
+                                'Ola {{customerName}}, seu pedido no valor de {{orderAmount | currency}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
                         var cellMissingAlert =
-                                'Não foi possível enviar o SMS, o cliente {{customerFirstName}} não possui um número de celular em seu cadastro.';
+                                'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
 
-                        var sendPaymentConfirmation =
-                                function sendPaymentConfirmation(customer, orderAmount) {
-                                    // Find a cell number.
-                                    var to = null;
-                                    for ( var idx in customer.phones) {
-                                        var phone = customer.phones[idx];
-                                        if (phone.number.charAt(2) >= 7) {
-                                            to = phone.number;
-                                            break;
-                                        }
-                                    }
+                        this.sendPaymentConfirmation = function sendPaymentConfirmation(customer, orderAmount) {
 
-                                    // Send the sms.
-                                    var smsSent = null;
-                                    var customerFirstName = customer.name.split(' ')[0];
-                                    if (to) {
-                                        // Get the customer first name
-                                        var smsMessage =
-                                                paymentConfirmationSMS.replace('{{customerFirstName}}', customerFirstName).replace(
-                                                        '{{representativeName}}', DataProvider.representative.name).replace(
-                                                        '{{orderAmount}}', orderAmount);
-                                        smsSent = send('55' + to, smsMessage);
-                                    } else {
-                                        smsSent = $q.reject(cellMissingAlert.replace('{{customerFirstName}}', customerFirstName));
-                                    }
-                                    return smsSent;
-                                };
+                            var to = getPhoneNumber(customer);
 
-                        this.send = send;
-                        this.sendPaymentConfirmation = sendPaymentConfirmation;
+                            // FIXME use UserService
+                            var user = {
+                                name : 'Maria Lima',
+                                gender : 'Female'
+
+                            };
+
+                            var smsSent = null;
+                            var data = {};
+
+                            // complete data object
+                            data.customerName = customer.name;
+                            data.orderAmount = orderAmount;
+                            data.representativeName = user.name;
+                            data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
+
+                            if (to) {
+                                var smsMessage = $interpolate(paymentConfirmationSMS)(data);
+                                smsSent = this.send(to, smsMessage);
+                            } else {
+                                smsSent = $q.reject($interpolate(cellMissingAlert)(data));
+                            }
+                            return smsSent;
+                        };
+
                     });
 }(angular));

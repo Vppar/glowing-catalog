@@ -10,6 +10,7 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
     var prs = {};
     var vs = {};
     var sk = {};
+    var sms = {};
 
     beforeEach(function() {
         module('tnt.catalog.payment.check');
@@ -29,6 +30,7 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
             $provide.value('ProductReturnService', prs);
             $provide.value('VoucherService', vs);
             $provide.value('StockKeeper', sk);
+            $provide.value('SMSService', sms);
         });
     });
 

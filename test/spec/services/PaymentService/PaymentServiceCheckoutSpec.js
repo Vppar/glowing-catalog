@@ -6,6 +6,7 @@ describe('Service: PaymentServiceCheckout - Reserve', function() {
     var receivableService = {};
     var productReturnService = {};
     var stockKeeper = {};
+    var smsService = {};
     var $q = {};
 
     // load the service's module
@@ -21,6 +22,7 @@ describe('Service: PaymentServiceCheckout - Reserve', function() {
             $provide.value('ReceivableService', receivableService);
             $provide.value('ProductReturnService', productReturnService);
             $provide.value('StockKeeper', stockKeeper);
+            $provide.value('SMSService', smsService);
         });
     });
 
@@ -32,6 +34,7 @@ describe('Service: PaymentServiceCheckout - Reserve', function() {
 
     // mocks
     beforeEach(function() {
+        smsService.sendPaymentConfirmation = jasmine.createSpy('SMSService.sendPaymentConfirmation');
 
         entityService.list = jasmine.createSpy('EntityService.list').andReturn([
             {
