@@ -37,6 +37,7 @@ describe('Service: CoinKeeperReceiveExpensesSpec', function() {
 
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
         IdentityService.getUUIDData = jasmine.createSpy('IdentityService.getUUIDData').andReturn({deviceId: 1});
+        IdentityService.getDeviceId = jasmine.createSpy('IdentityService.getDeviceId').andReturn(1);
     });
     
     // load the service's module

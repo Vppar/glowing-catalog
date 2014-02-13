@@ -4,7 +4,21 @@
         'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service',
     ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, $q, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
 
-        var summary = {};
+        // #####################################################################################################
+        // Local variables
+        // #####################################################################################################
+
+        // inherited object
+        var summary = $scope.summary;
+
+        // inherited functions
+        var financialRound = $scope.financialRound;
+        var resetPurchaseOrder = $scope.resetPurchaseOrder;
+        var selectTab = $scope.selectTab;
+
+        // #####################################################################################################
+        // Local Functions
+        // #####################################################################################################
 
         // inherited from ProductsToBuyCtrl
         var listConfirmedProducts = function listConfirmedProducts(stockReport) {
@@ -17,6 +31,7 @@
                     var line = session.lines[ix2];
                     for ( var ix3 = 0; ix3 < line.items.length;) {
                         var item = line.items[ix3];
+                        item.qty = $scope.purchaseOrder.watchedQty[item.id];
                         if (item.qty === 0) {
                             line.items.splice(ix3, 1);
                         } else {
@@ -54,12 +69,11 @@
             }
             return result;
         }
+
         function persitPurchaseOrder() {
 
             var orderBck = angular.copy($scope.confirmedProducts);
-
             var items = [];
-
             for ( var ix in orderBck.sessions) {
                 // sessions
                 var session = orderBck.sessions[ix];
@@ -74,17 +88,28 @@
                     }
                 }
             }
+
             var purchase = {
                 uuid : null,
-                amount : summary.orderTotal,
-                discount : summary.orderTotalDiscount,
+                amount : summary.total.amount,
+                discount : financialRound(summary.total.amount - summary.total.amountWithDiscount),
                 freight : summary.freight,
-                points : summary.pointsTotal,
+                points : summary.total.points,
                 items : items
             };
 
             return PurchaseOrderService.register(purchase);
         }
+
+        // #####################################################################################################
+        // Scope variables
+        // #####################################################################################################
+
+        $scope.confirmedProducts = {};
+
+        // #####################################################################################################
+        // Scope functions
+        // #####################################################################################################
 
         $scope.cancel = function() {
             var result = DialogService.messageDialog({
@@ -95,18 +120,24 @@
             });
             result.then(function(result) {
                 if (result) {
-                    $scope.$emit('cancelPurchaseOrder');
+                    $scope.selectTab('buildOrder');
+                    resetPurchaseOrder();
                 }
             });
         };
 
         $scope.confirm = function() {
-            var promise = DialogService.openDialogProductsToBuyConfirm();
+            var promise = DialogService.openDialogProductsToBuyConfirm({
+                duedate : new Date().getTime(),
+                amount : summary.total.amountWithDiscount
+            });
             var confirmedPurchaseOrder = promise.then(confirmDialog);
             var persistedPurchaseOrder = confirmedPurchaseOrder.then(persitPurchaseOrder);
+
             persistedPurchaseOrder.then(function(result) {
                 if (result) {
-                    $scope.$emit('confirmPurchaseOrder');
+                    $scope.selectTab('verifyTicket');
+                    resetPurchaseOrder();
                 }
             });
 
@@ -121,10 +152,17 @@
             return result;
         };
 
-        $scope.$on('updatedPurchaseOrder', function(event, args) {
+        // #####################################################################################################
+        // Watchers
+        // #####################################################################################################
+
+        $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj, oldObj) {
             $scope.confirmedProducts = listConfirmedProducts($scope.stockReport);
-            summary = args;
         });
+
+        // #####################################################################################################
+        // Publishing methods to be tested
+        // #####################################################################################################
 
         this.listConfirmedProducts = listConfirmedProducts;
     });

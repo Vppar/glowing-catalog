@@ -10,14 +10,11 @@ describe('Service: PurchaseOrderKeeperAddSpec', function() {
     var jKeeper = {};
 
     var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
-    var date = new Date().getTime();
-    var customerId = 1;
     var items = [];
 
     var purchase = {
         uuid : uuid,
         created : new Date(1386179100000).getTime(),
-        canceled : false,
         items : items
     };
 
@@ -51,7 +48,6 @@ describe('Service: PurchaseOrderKeeperAddSpec', function() {
     it('should add a purchase-order', function() {
         // given
         var purchasex = new PurchaseOrder(purchase);
-        purchasex.code = '01-0001-14';
 
         var entry = new JournalEntry(null, purchasex.created, 'purchaseOrderAdd', 1, purchasex);
 

@@ -4,48 +4,56 @@
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', []).controller(
             'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService) {
 
-                $scope.purchase = null;
-                $scope.watchedQty = {};
-                $scope.selectedPart = 'part1';
-                $scope.purchase = {
-                    orders : PurchaseOrderService.list()
-                };
+                // #####################################################################################################
+                // Local variables
+                // #####################################################################################################
 
-                $scope.selectPart = function(part) {
-                    $scope.selectedPart = part;
-                };
+                var ticket = $scope.ticket;
 
-                $scope.resetWatchedQty = function() {
+                var resetWatchedQty = function resetWatchedQty() {
                     for ( var ix in $scope.purchase.items) {
                         var item = $scope.purchase.items[ix];
-                        $scope.watchedQty[item.id] = 0;
+                        $scope.ticket.watchedQty[item.id] = 0;
                     }
                 };
 
-                $scope.setPurchaseOrder = function(uuid) {
+                var setPurchaseOrder = function setPurchaseOrder(uuid) {
                     $scope.purchase = PurchaseOrderService.read(uuid);
+
                     var date = new Date();
                     date.setTime($scope.purchase.created);
                     $scope.purchase.date = $filter('date')(date, 'dd/MM/yyyy');
-                    $scope.resetWatchedQty();
+
+                    resetWatchedQty();
+                };
+                var selectPart = function selectPart(part) {
+                    ticket.selectedPart = part;
                 };
 
+                // #####################################################################################################
+                // Scope functions
+                // #####################################################################################################
+
                 $scope.openDialog = function(purchase) {
-                    DialogService.openDialogProductsToBuyTicket(purchase).then(function(result) {
+                    var nfePromise = DialogService.openDialogProductsToBuyTicket(purchase);
+                    nfePromise.then(function(result) {
                         if (result) {
-                            $scope.setPurchaseOrder(result.uuid);
-                            $scope.selectPart('part2');
+                            ticket.nfeData = result.nfe;
+                            setPurchaseOrder(result.uuid);
+                            selectPart('part2');
                         }
                     });
                 };
 
                 $scope.cancel = function() {
-                    $scope.selectPart('part1');
+                    selectPart('part1');
                 };
 
-                $scope.$on('newPurchaseOrder', function() {
-                    $scope.purchase.orders = PurchaseOrderService.list();
-                });
+                // #####################################################################################################
+                // Controller warm up
+                // #####################################################################################################
+
+                ticket.loadPurchaseOrders();
             });
 
 }(angular));

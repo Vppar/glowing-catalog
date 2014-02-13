@@ -4,50 +4,15 @@
         'tnt.catalog.stock.service'
     ]).controller('ProductsToBuyOrderCtrl', function($scope, $log, StockService) {
 
-        var items = {};
-        $scope.selectedLevel = 3;
+        // #####################################################################################################
+        // Local Functions
+        // #####################################################################################################
         
-        $scope.watchedQty = {};
+        var stockReport = $scope.stockReport;
 
-        $scope.productFilter = {
-            text : ''
-        };
-
-        function resetWatchedQty() {
-            for ( var ix in $scope.stockReport.sessions) {
-                // sessions
-                var session = $scope.stockReport.sessions[ix];
-                // lines of that session
-                for ( var ix2 in session.lines) {
-                    // lines
-                    var line = session.lines[ix2];
-                    // items of that line
-                    for ( var ix3 in line.items) {
-                        var item = line.items[ix3];
-                        items[item.id] = item;
-                        $scope.watchedQty[item.id] = item.qty;
-                    }
-                }
-            }
-        }
-        resetWatchedQty();
-
-        function updateReportQty() {
-            for ( var ix in $scope.stockReport.sessions) {
-                // sessions
-                var session = $scope.stockReport.sessions[ix];
-                // lines of that session
-                for ( var ix2 in session.lines) {
-                    // lines
-                    var line = session.lines[ix2];
-                    // items of that line
-                    for ( var ix3 in line.items) {
-                        var item = line.items[ix3];
-                        item.qty = $scope.watchedQty[item.id];
-                    }
-                }
-            }
-        }
+        // #####################################################################################################
+        // Local Functions
+        // #####################################################################################################
 
         function setHideAttributes(sessions, hideLine, hideProduct) {
             for ( var ix in sessions) {
@@ -63,27 +28,22 @@
             }
         }
 
-        $scope.clearFilter = function clearFilter() {
-            $scope.productFilter.text = '';
+        // #####################################################################################################
+        // Scope variables
+        // #####################################################################################################
+
+        $scope.selectedLevel = 3;
+
+        $scope.productFilter = {
+            text : ''
         };
 
-        $scope.showLevel = function showLevel(level) {
+        // #####################################################################################################
+        // Scope functions
+        // #####################################################################################################
+
+        $scope.clearFilter = function clearFilter() {
             $scope.productFilter.text = '';
-            setTimeout(function() {
-                $scope.selectedLevel = level;
-                switch (level) {
-                case 1:
-                    setHideAttributes($scope.stockReport.sessions, true, true);
-                    break;
-                case 2:
-                    setHideAttributes($scope.stockReport.sessions, false, true);
-                    break;
-                case 3:
-                    setHideAttributes($scope.stockReport.sessions, false, false);
-                    break;
-                }
-                $scope.$apply();
-            }, 0);
         };
 
         $scope.toggleSession = function toggleSession(session) {
@@ -104,6 +64,29 @@
             }
         };
 
+        $scope.showLevel = function showLevel(level) {
+            $scope.productFilter.text = '';
+            setTimeout(function() {
+                $scope.selectedLevel = level;
+                switch (level) {
+                case 1:
+                    setHideAttributes(stockReport.sessions, true, true);
+                    break;
+                case 2:
+                    setHideAttributes(stockReport.sessions, false, true);
+                    break;
+                case 3:
+                    setHideAttributes(stockReport.sessions, false, false);
+                    break;
+                }
+                $scope.$apply();
+            }, 0);
+        };
+
+        // #####################################################################################################
+        // Watchers
+        // #####################################################################################################
+
         $scope.$watch('productFilter.text', function(newVal, oldVal) {
             var myTextFilter = $scope.productFilter.text;
             if (String(myTextFilter).length >= 3) {
@@ -111,35 +94,10 @@
                     title : myTextFilter,
                     SKU : myTextFilter
                 };
-                StockService.updateReport($scope.stockReport, objFilter);
+                StockService.updateReport(stockReport, objFilter);
             } else {
-                StockService.updateReport($scope.stockReport);
+                StockService.updateReport(stockReport);
             }
         });
-        
-        $scope.$watchCollection('watchedQty', function(newObj, oldObj) {
-            var diff = {
-                amount : 0,
-                points : 0
-            };
-
-            for ( var ix in newObj) {
-                var price = items[ix].price;
-                var points = items[ix].points;
-
-                diff.amount += (newObj[ix] * price);
-                diff.points += (newObj[ix] * points);
-            }
-
-            updateReportQty();
-
-            $scope.$emit('productQtyChange', diff);
-        });
-
-        $scope.$on('resetWatchedQty', function() {
-            resetWatchedQty();
-            $scope.productFilter.text = '';
-        });
-
     });
 }(angular));

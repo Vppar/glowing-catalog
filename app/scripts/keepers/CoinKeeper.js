@@ -86,7 +86,7 @@
                 // and instantiate
                 var eventData = IdentityService.getUUIDData(event.uuid);
 
-                if (eventData.deviceId === IdentityService.deviceId) {
+                if (eventData.deviceId === IdentityService.getDeviceId()) {
                     currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
                 }
 

@@ -5,8 +5,9 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
     var item2 = null;
     var item3 = null;
     var item4 = null;
-    
+
     var DialogService = {};
+    var TimerService = {};
 
     // load the controller's module
     beforeEach(module('tnt.catalog.productsToBuy.confirm.ctrl'));
@@ -25,31 +26,38 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
             qty : 0
         };
         item4 = {
-            id : 3,
+            id : 4,
             qty : 2
-        };
+        }; 
     });
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         scope = $rootScope.$new();
 
-        scope.stockReport = {
-            sessions : {}
+        scope.purchaseOrder = {};
+        scope.purchaseOrder.watchedQty = {
+            '1' : 0,
+            '2' : 4,
+            '3' : 0,
+            '4' : 2
         };
-        
+        scope.stockReport = {};
+        scope.stockReport.sessions = {};
+
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         DialogService.openDialogProductsToBuyConfirm = jasmine.createSpy('DialogService.openDialogProductsToBuyConfirm');
 
         productsToBuyConfirmCtrl = $controller('ProductsToBuyConfirmCtrl', {
             $scope : scope,
-            DialogService : DialogService
+            DialogService : DialogService,
+            TimerService : TimerService
         });
     }));
 
     /**
      * <pre>
-     * Given a stockreport 
+     * Given a stock report 
      * and all products have a property qty 
      * When list is triggered 
      * Then return the products with qty greater then 0
@@ -77,6 +85,7 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
         // then
         expect(result.sessions.mySession1).not.toBeUndefined();
         expect(result.sessions.mySession1.lines.myLine1).not.toBeUndefined();
+
         expect(result.sessions.mySession1.lines.myLine1.items[0]).toEqual(item2);
         expect(result.sessions.mySession1.lines.myLine1.items[1]).toEqual(item4);
     });

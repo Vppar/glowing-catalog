@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.purchaseOrder.entity', []).factory('PurchaseOrder', function PurchaseOrder() {
 
-        var service = function svc(uuid, amount, discount, points, items) {
+        var service = function svc(uuid, created, amount, discount, points, items) {
 
             var validProperties = [
-                'uuid', 'created', 'amount', 'freight', 'discount', 'points', 'redeemed', 'canceled', 'items', 'code'
+                'uuid', 'created', 'amount', 'freight', 'discount', 'points', 'redeemed', 'canceled', 'items'
             ];
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
@@ -24,16 +24,21 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'PurchaseOrder must be initialized with uuid, created, canceled, items';
+                    throw 'PurchaseOrder must be initialized with uuid, created, amount, discount, points, items';
                 }
             } else {
                 this.uuid = uuid;
                 this.created = created;
-                this.canceled = canceled;
+                this.amount = amount;
+                this.discount = discount;
+                this.points = points;
                 this.items = items;
             }
             ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'created', this.created);
+            ObjectUtils.ro(this, 'amount', this.amount);
+            ObjectUtils.ro(this, 'discount', this.discount);
+            ObjectUtils.ro(this, 'points', this.points);
             ObjectUtils.ro(this, 'items', this.items);
         };
 
@@ -74,7 +79,7 @@
                 ObjectUtils.ro(this.handlers, 'purchaseOrderAddV1', function(event) {
                     var eventData = IdentityService.getUUIDData(event.uuid);
 
-                    if (eventData.deviceId === IdentityService.deviceId) {
+                    if (eventData.deviceId === IdentityService.getDeviceId()) {
                         currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
                     }
 
@@ -121,12 +126,6 @@
 
                     purchaseObj.created = now.getTime();
                     purchaseObj.uuid = IdentityService.getUUID(type, getNextId());
-                    var uuidData = IdentityService.getUUIDData(purchaseObj.uuid);
-
-                    // build order code base in its uuid
-                    var strDeviceId = IdentityService.leftPad(uuidData.deviceId, 2);
-                    var strId = IdentityService.leftPad(uuidData.id, 4);
-                    purchaseObj.code = strDeviceId + '-' + strId + '-' + String(now.getFullYear()).substring(2);
 
                     var event = new PurchaseOrder(purchaseObj);
 
