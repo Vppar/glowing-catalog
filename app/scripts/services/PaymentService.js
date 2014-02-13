@@ -347,13 +347,8 @@
                 /**
                  * Saves the payments and closes the order.
                  */
-                function checkout(result, change) {
-                    if (!result) {
-                        return $q.reject();
-                    }
-
+                function checkout(customer, amount, change) {
                     var promises = [];
-                    var customer = ArrayUtils.find(EntityService.list(), 'uuid', OrderService.order.customerId);
 
                     if (OrderService.hasItems()) {
                         // Save the order
@@ -415,6 +410,10 @@
                     }
 
                     var savedSalePromise = $q.all(promises);
+
+                    savedSalePromise.then(function() {
+                        SMSService.sendPaymentConfirmation(customer, amount);
+                    });
 
                     // clear all
                     return savedSalePromise.then(function() {

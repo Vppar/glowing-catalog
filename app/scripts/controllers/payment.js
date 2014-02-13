@@ -345,8 +345,15 @@
                         }
                         $scope.isPaymentValid = isPaymentValid;
 
-                        function checkout(result) {
-                            return PaymentService.checkout(result, $scope.total.change);
+                        function checkout(value) {
+                            var result = null;
+                            if (value) {
+                                result = PaymentService.checkout(customer, $scope.total.order.amount, $scope.total.change);
+                            } else {
+                                result = $q.reject();
+
+                            }
+                            return result;
                         }
 
                         /**
@@ -355,13 +362,6 @@
                          */
                         function paymentDone() {
                             $location.path('/');
-                        }
-
-                        /**
-                         * Sends the SMS to the customer about his order.
-                         */
-                        function sendAlertSMSAttempt() {
-                            return SMSService.sendPaymentConfirmation(customer, $scope.total.order.amount);
                         }
 
                         /**
@@ -405,9 +405,6 @@
 
                             // Inform the user that the payment is done.
                             paidPromise.then(paymentDone, paymentErr);
-
-                            // Send the alert SMS to the customer.
-                            paidPromise.then(sendAlertSMSAttempt);
 
                             // Cancel payment
                             var canceledPaymentPromise = cancelPaymentFactory();
