@@ -30,6 +30,12 @@
 .add-dotted-line{
 	border-bottom: 1px dotted #ccc;
 }
+.make-clickable{
+	cursor: pointer;
+}
+.make-clickable:hover{
+	background-color:#ccc;
+}
 
 
 
