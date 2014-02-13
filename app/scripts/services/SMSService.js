@@ -7,7 +7,7 @@
             ])
             .service(
                     'SMSService',
-                    function($http, $q) {
+                    function($http, $q, $interpolate) {
 
                         // ############################################################################################
                         // SMS related functions
@@ -16,7 +16,7 @@
                         var token = '8f934ur83rhq34r879hncfq9f4yq987nf4dh4fyn98hdmi44dz21x3gdju893d2';
                         var method = 'GET';
 
-                        var send = function send(to, message) {
+                        this.send = function send(to, message) {
                             var url = baseUrl + '?to=' + to;
                             url = url + '&message=' + message;
                             url = url + '&token=' + token;
@@ -74,17 +74,17 @@
                          * Msgs template.
                          */
                         var paymentConfirmationSMS =
-                                'Ola {{customerFirstName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                                'Ola {{customerFirstName}}, seu pedido no valor de {{orderAmount | currency}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
                         var cellMissingAlert =
                                 'Não foi possível enviar o SMS, o cliente {{customerFirstName}} não possui um número de celular em seu cadastro.';
 
-                        var sendPaymentConfirmation = function sendPaymentConfirmation(customer, orderAmount) {
+                        this.sendPaymentConfirmation = function sendPaymentConfirmation(customer, orderAmount) {
 
                             var to = getPhoneNumber(customer);
 
                             // FIXME use UserService
                             var user = {
-                                name : 'WhatEver',
+                                name : 'Maria Lima',
                                 gender : 'Female'
 
                             };
@@ -94,19 +94,18 @@
 
                             // complete data object
                             data.customerFirstName = getFirstName(customer);
+                            data.orderAmount = orderAmount;
                             data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
 
                             if (to) {
                                 var smsMessage = $interpolate(paymentConfirmationSMS)(data);
-                                smsSent = send(to, smsMessage);
+                                smsSent = this.send(to, smsMessage);
                             } else {
                                 smsSent = $q.reject($interpolate(cellMissingAlert)(data));
                             }
                             return smsSent;
                         };
 
-                        this.send = send;
-                        this.sendPaymentConfirmation = sendPaymentConfirmation;
                     });
 }(angular));
