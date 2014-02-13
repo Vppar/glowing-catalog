@@ -120,7 +120,11 @@ describe('Service: JournalKeeperCompose', function() {
     runs(function() {
       storage.persist.andCallFake(function() {
         var deferred = q.defer();
-        deferred.reject('Failed PersistentStorage.persist');
+
+        setTimeout(function () {
+          deferred.reject('Failed PersistentStorage.persist');
+        }, 0);
+
         return deferred.promise;
       });
 
@@ -153,7 +157,11 @@ describe('Service: JournalKeeperCompose', function() {
     runs(function() {
       storage.persist.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve();
+
+        setTimeout(function () {
+          deferred.resolve();
+        }, 0);
+
         return deferred.promise;
       });
 
@@ -188,7 +196,11 @@ describe('Service: JournalKeeperCompose', function() {
     runs(function() {
       storage.persist.andCallFake(function() {
         var deferred = q.defer();
-        deferred.reject('Failed PersistentStorage.persist');
+
+        setTimeout(function () {
+          deferred.reject('Failed PersistentStorage.persist');
+        }, 0);
+
         return deferred.promise;
       });
 
@@ -219,7 +231,9 @@ describe('Service: JournalKeeperCompose', function() {
     runs(function() {
       storage.persist.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve();
+        setTimeout(function () {
+          deferred.resolve();
+        }, 0);
         return deferred.promise;
       });
 
@@ -257,7 +271,9 @@ describe('Service: JournalKeeperCompose', function() {
     runs(function () {
       storage.persist.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve();
+        setTimeout(function () {
+          deferred.resolve();
+        }, 0);
         return deferred.promise;
       });
 
@@ -268,11 +284,10 @@ describe('Service: JournalKeeperCompose', function() {
       }, function (err) {
         $log.debug('Failed to compose entry!', entry);
       });
-
-      $rootScope.$apply();
     });
 
     waitsFor(function () {
+      $rootScope.$apply();
       return composed;
     }, 'JournalKeeper.compose()', 100);
 

@@ -62,7 +62,9 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     runs(function() {
       storage.update.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve(entry);
+        setTimeout(function () {
+          deferred.resolve(entry);
+        }, 0);
         return deferred.promise;
       });
 
@@ -83,13 +85,12 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
         // successful
         updated = true;
       });
-
-      $rootScope.$apply();
     });
 
     waitsFor(function() {
+      $rootScope.$apply();
       return updated;
-    }, 'Resync seems to have failed');
+    }, 'Resync seems to have failed', 100);
 
     runs(function() {
       expect(storage.update).toHaveBeenCalled();
@@ -98,7 +99,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
   });
 
   it('logs an error if update fails', function () {
-    var failed = true;
+    var failed = false;
     var entry = new JournalEntry(1, null, null, null, null);
 
     expect(entry.synced).toBe(0);
@@ -106,7 +107,9 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     runs(function() {
       storage.update.andCallFake(function() {
         var deferred = q.defer();
-        deferred.reject('Update failed: PersistentStorage.update failed');
+        setTimeout(function () {
+          deferred.reject('Update failed: PersistentStorage.update failed');
+        }, 0);
         return deferred.promise;
       });
 

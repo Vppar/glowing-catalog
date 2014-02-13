@@ -57,7 +57,9 @@ describe('Service: JournalKeeperReadUnsynced', function() {
     runs(function() {
       storage.list.andCallFake(function() {
         var deferred = $q.defer();
-        deferred.resolve();
+        setTimeout(function () {
+          deferred.resolve();
+        }, 0);
         return deferred.promise;
       });
 
@@ -71,11 +73,10 @@ describe('Service: JournalKeeperReadUnsynced', function() {
       }, function (error) {
         $log.debug('Failed to read unsynced!', error);
       });
-
-      $rootScope.$apply();
     });
 
     waitsFor(function() {
+      $rootScope.$apply();
       return success;
     }, 'JournalKeeper.readUnsynced()', 300);
 

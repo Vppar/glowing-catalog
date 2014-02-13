@@ -62,7 +62,9 @@ describe('Service: JournalKeeperResync', function() {
     runs(function() {
       storage.list.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve(events);
+        setTimeout(function () {
+          deferred.resolve(events);
+        }, 0);
         return deferred.promise;
       });
 
@@ -102,7 +104,9 @@ describe('Service: JournalKeeperResync', function() {
     runs(function() {
       storage.list.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve(events);
+        setTimeout(function () {
+          deferred.resolve(events);
+        }, 0);
         return deferred.promise;
       });
 
@@ -137,7 +141,9 @@ describe('Service: JournalKeeperResync', function() {
     runs(function() {
       storage.list.andCallFake(function() {
         var deferred = q.defer();
-        deferred.reject('Failed PersistentStorage.list');
+        setTimeout(function () {
+          deferred.reject('Failed PersistentStorage.list');
+        }, 0);
         return deferred.promise;
       });
 
@@ -175,7 +181,9 @@ describe('Service: JournalKeeperResync', function() {
     runs(function() {
       storage.list.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve(events);
+        setTimeout(function () {
+          deferred.resolve(events);
+        }, 0);
         return deferred.promise;
       });
 

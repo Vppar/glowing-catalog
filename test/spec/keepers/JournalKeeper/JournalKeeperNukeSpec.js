@@ -56,7 +56,9 @@ describe('Service: JournalKeeperNuke', function() {
     runs(function() {
       storage.nuke.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve();
+        setTimeout(function () {
+          deferred.resolve();
+        }, 0);
         return deferred.promise;
       });
 
@@ -87,7 +89,9 @@ describe('Service: JournalKeeperNuke', function() {
     runs(function() {
       storage.nuke.andCallFake(function() {
         var deferred = q.defer();
-        deferred.reject('Failed PersistentStorage.nuke');
+        setTimeout(function () {
+          deferred.reject('Failed PersistentStorage.nuke');
+        }, 0);
         return deferred.promise;
       });
 
