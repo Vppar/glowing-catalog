@@ -42,12 +42,11 @@
                         // Getters
                         // ############################################################################################
                         var getPhoneNumber = function(customer) {
-                            // Find a cell number.
                             var to = null;
                             for ( var idx in customer.phones) {
                                 var phone = customer.phones[idx];
                                 if (phone.number.charAt(2) >= 7) {
-                                    to = phone.number;
+                                    to = '55'+phone.number;
                                     break;
                                 }
                             }
@@ -100,7 +99,7 @@
 
                             if (to) {
                                 var smsMessage = $interpolate(paymentConfirmationSMS)(data);
-                                smsSent = send('55' + to, smsMessage);
+                                smsSent = send(to, smsMessage);
                             } else {
                                 smsSent = $q.reject($interpolate(cellMissingAlert)(data));
                             }
