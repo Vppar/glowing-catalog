@@ -7,7 +7,7 @@
                 date : $filter('date')(new Date(), 'dd/MM/yyyy'),
                 total : '',
                 shipping : '',
-                bonus : '',
+                order : '',
                 number : '',
                 disable : true
         };
@@ -17,7 +17,7 @@
             result = result && ($scope.nfe.date && $scope.nfe.date != '');
             result = result && ($scope.nfe.total && $scope.nfe.total != '');
             result = result && ($scope.nfe.shipping && $scope.nfe.shipping != '');
-            result = result && ($scope.nfe.bonus && $scope.nfe.bonus != '');
+            result = result && ($scope.nfe.order && $scope.nfe.order != '');
             // TODO - Uncomment this validation when the NFe number field be available 
             // result = result && ($scope.nfe.number && $scope.nfe.number != '');
             $scope.nfe.disable = !result;

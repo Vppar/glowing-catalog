@@ -10,7 +10,8 @@
 			<span class="col-3">Vencto</span>
 		</span>
 		<span class="text-order-panel"> 
-			<span class="col-1"><input type="radio" name="group1" value="boleto" ng-model="payment.method">Boleto Banc&aacute;rio</span>
+			<span class="col-1">
+				<input type="radio" name="group1" value="boleto" ng-model="payment.method">Boleto Banc&aacute;rio</span>
 			<span class="col-2">{{payment.amount | currency: ''}}</span>
 			<span class="col-3">{{payment.duedate | date: 'dd/MM/yyyy'}}</span>
 		</span>
