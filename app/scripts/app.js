@@ -91,7 +91,8 @@
                 'tnt.catalog.timer.service',
                 'tnt.catalog.sync.driver',
                 'tnt.catalog.sync.service',
-                'tnt.catalog.purchaseOrder.service'
+                'tnt.catalog.purchaseOrder.service',
+                'tnt.catalog.login.ctrl'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
