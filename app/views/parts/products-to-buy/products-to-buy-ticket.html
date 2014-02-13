@@ -1,5 +1,6 @@
 <div class="row-fluid step1">
 
+
 	<!-------- Parte 1 ------------>
 	<div class="products-to-buy-edit" ng-show="ticket.selectedPart=='part1'">
 		<div class="row-fluid">
@@ -23,24 +24,24 @@
 				</div>
 				<div class="grid-pending-products-to-buy-edit width970">
 					<div class="header header2 title-header-products-to-buy">
-						<div class="row-payment-grid">
+						<div class="row-payment-grid height40">
 	                             	<span class="col-s1">
-								<div>Data</div>
+								<div class="height40">Data</div>
 							</span>
 							<span class="col-s2">
-								<div>Hora</div>
+								<div class="height40">Hora</div>
 							</span>
 							<span class="col-s3">
 								<div></div>
 							</span>
 							<span class="col-s4">
-								<div>Codigo do Pedido</div>
+								<div class="height40" >Codigo do Pedido</div>
 							</span>
 							<span class="col-s5">
 								<div></div>
 							</span>
 							<span class="col-s6">
-								<div>Valor</div>
+								<div class="height40">Valor</div>
 							</span>
 							<span class="col-s7">
 								<div></div>
@@ -110,7 +111,7 @@
 			</div>
 		</div>
 
-		<div class="scroll-payment-grid scroll-payment-grid2 max-height-480-overrule marginBottom width970">
+		<div class="scroll-payment-grid scroll-payment-grid2 max-height-480-overrule min-height-reset marginBottom width970">
 			<span ng-repeat="item in purchase.items">
 					<div class="row-pending-product-products-to-buy add-dotted-line">
 						<span class="col-s1">
@@ -145,11 +146,10 @@
 			</span>
 		</div>
 		<!--fim scroll-->
-		<div class="payment-btn-area">
-			<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
-		</div>
-		<div class="payment-btn-area">
-			<button class="btn btn-ok" type="submit" ng-disabled="disableButton()" ng-click="confirmPending()">Confirmar</button>
+		<div class="payment-btn-area width970">
+			<button class="btn btn-cancel pull-left margin-left" type="submit" ng-click="cancel()">Cancelar</button>
+		
+			<button class="btn btn-ok pull-right margin-right" type="submit">Confirmar</button>
 		</div>
 	</div>
 </div>

@@ -5,6 +5,16 @@
 .width970{
 	width: 970px;
 }
+
+.width100perc{
+	width: 100%;
+}
+
+
+.height40{
+	height: 40px;
+	line-height: 40px;
+}
 .marginReset{
 	margin:0px !important;
 }
@@ -13,9 +23,21 @@
 	max-height:500px !important;
 }
 
+.min-height-reset{
+	min-height: 80px !important;
+}
+
 .max-height-480-overrule{
 	max-height:480px !important;
 }
+
+.margin-left{
+	margin-left:20px;
+}
+.margin-right{
+	margin-right:20px;
+}
+
 
 .marginBottom{
 	margin-bottom:20px;
@@ -649,9 +671,9 @@ span.title-order-panel {
 
 .conf-nf-panel {
 	top:30px;
-	padding: 22px 22px 0px 22px;
 	border-radius:4px;
 	/*
+	padding: 22px 22px 0px 22px;
 	border:1px solid #ddd;
 	margin: 30px auto;
 	width: 57%;
