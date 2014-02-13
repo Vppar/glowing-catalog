@@ -1,73 +1,85 @@
 'use strict';
 
-ddescribe('Service: SMSService', function() {
+describe(
+        'Service: SMSService',
+        function() {
 
-    // load the service's module
-    beforeEach(module('tnt.catalog.service.sms'));
+            // load the service's module
+            beforeEach(module('tnt.catalog.service.sms'));
 
-    // instantiate service
-    var SMSService = undefined;
-    beforeEach(inject(function(_SMSService_) {
-        SMSService = _SMSService_;
-    }));
+            // instantiate service
+            var SMSService = undefined;
+            beforeEach(inject(function(_SMSService_) {
+                SMSService = _SMSService_;
+            }));
 
-    it('should send a payment sms', function() {
-        
-        SMSService.send = jasmine.createSpy('SMSService.send');
+            it(
+                    'should send a payment sms',
+                    function() {
 
-        var customer = {
-            name : 'Bertina Pagudagua',
-            phones : [
-                {
-                    number : '99887766'
-                }
-            ]
-        };
+                        SMSService.send = jasmine.createSpy('SMSService.send');
 
-        var orderAmount = 30;
+                        var customer = {
+                            name : 'Bertina Pagudagua',
+                            phones : [
+                                {
+                                    number : '99887766'
+                                }
+                            ]
+                        };
 
-        SMSService.sendPaymentConfirmation(customer, orderAmount);
+                        var orderAmount = 30;
 
-        expect(SMSService.send).toHaveBeenCalledWith('5599887766', 'Ola Bertina Pagudagua, seu pedido no valor de R$30,00 reais foi confirmado. Maria Lima, sua consultora Mary Kay.');
-    });
-    
-    it('should send a voucher sms', function() {
-        
-        SMSService.send = jasmine.createSpy('SMSService.send');
+                        SMSService.sendPaymentConfirmation(customer, orderAmount);
 
-        var customer = {
-            name : 'Bertina Pagudagua',
-            phones : [
-                {
-                    number : '99887766'
-                }
-            ]
-        };
+                        expect(SMSService.send)
+                                .toHaveBeenCalledWith(
+                                        '5599887766',
+                                        'Ola Bertina Pagudagua, seu pedido no valor de R$30,00 reais foi confirmado. Maria Lima, sua consultora Mary Kay.');
+                    });
 
-        var voucherAmount = 30;
+            it(
+                    'should send a voucher sms',
+                    function() {
 
-        SMSService.sendVoucherConfirmation(customer, voucherAmount);
+                        SMSService.send = jasmine.createSpy('SMSService.send');
 
-        expect(SMSService.send).toHaveBeenCalledWith('5599887766', 'Vale Crédito: Você recebeu um Vale Credito no valor de R$30,00 a ser utilizado na sua próxima compra de produtos MK.Maria Lima, sua consultora Mary Kay.');
-    });
-    
-    it('should not send a sms', function() {
-        
-        SMSService.send = jasmine.createSpy('SMSService.send');
+                        var customer = {
+                            name : 'Bertina Pagudagua',
+                            phones : [
+                                {
+                                    number : '99887766'
+                                }
+                            ]
+                        };
 
-        var customer = {
-            name : 'Bertina Pagudagua',
-            phones : [
-                {
-                    number : '30325500'
-                }
-            ]
-        };
+                        var voucherAmount = 30;
 
-        var orderAmount = 30;
+                        SMSService.sendVoucherConfirmation(customer, voucherAmount);
 
-        SMSService.sendPaymentConfirmation(customer, orderAmount);
+                        expect(SMSService.send)
+                                .toHaveBeenCalledWith(
+                                        '5599887766',
+                                        'Vale Crédito: Você recebeu um Vale Credito no valor de R$30,00 a ser utilizado na sua próxima compra de produtos MK.Maria Lima, sua consultora Mary Kay.');
+                    });
 
-        expect(SMSService.send).not.toHaveBeenCalled();
-    });
-});
+            it('should not send a sms', function() {
+
+                SMSService.send = jasmine.createSpy('SMSService.send');
+
+                var customer = {
+                    name : 'Bertina Pagudagua',
+                    phones : [
+                        {
+                            number : '30325500'
+                        }
+                    ]
+                };
+
+                var orderAmount = 30;
+
+                SMSService.sendPaymentConfirmation(customer, orderAmount);
+
+                expect(SMSService.send).not.toHaveBeenCalled();
+            });
+        });
