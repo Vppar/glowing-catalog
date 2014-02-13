@@ -183,7 +183,7 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log'
     ]).service(
             'PaymentService',
-            function PaymentService($location, $q, $log, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
+            function PaymentService($location, $q, $log, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
                     ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService) {
 
@@ -344,6 +344,8 @@
                     }
                 };
 
+                var vouchers = [];
+
                 /**
                  * Saves the payments and closes the order.
                  */
@@ -378,7 +380,7 @@
                         }, propagateRejectedPromise);
 
                         // Create new vouchers and gift cards
-                        var vouchers = ArrayUtils.list(OrderService.order.items, 'type', 'voucher');
+                        vouchers = ArrayUtils.list(OrderService.order.items, 'type', 'voucher');
                         var giftCards = ArrayUtils.list(OrderService.order.items, 'type', 'giftCard');
 
                         var newVouchersPromise =
@@ -413,6 +415,11 @@
 
                     savedSalePromise.then(function() {
                         SMSService.sendPaymentConfirmation(customer, amount);
+                        if (vouchers.length > 0) {
+                            for ( var i in vouchers) {
+                                SMSService.sendVoucherConfirmation(customer, vouchers[i].amount);
+                            }
+                        }
                     });
 
                     // clear all

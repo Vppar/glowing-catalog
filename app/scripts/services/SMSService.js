@@ -67,7 +67,7 @@
                         // Payment functions
                         // ############################################################################################
                         /**
-                         * Msgs template.
+                         * Payment msgs template.
                          */
                         var paymentConfirmationSMS =
                                 'Ola {{customerName}}, seu pedido no valor de {{orderAmount | currency}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
@@ -96,6 +96,43 @@
 
                             if (to) {
                                 var smsMessage = $interpolate(paymentConfirmationSMS)(data);
+                                smsSent = this.send(to, smsMessage);
+                            } else {
+                                smsSent = $q.reject($interpolate(cellMissingAlert)(data));
+                            }
+                            return smsSent;
+                        };
+                        
+                        /**
+                         * Voucher msgs template.
+                         */
+                        var voucherConfirmationSMS =
+                                'Vale Crédito: Você recebeu um Vale Credito no valor de {{voucherAmount | currency}} a ser utilizado na sua próxima compra de produtos MK.{{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        var cellMissingAlert =
+                                'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
+
+                        this.sendVoucherConfirmation = function sendVoucherConfirmation(customer, voucherAmount) {
+
+                            var to = getPhoneNumber(customer);
+
+                            // FIXME use UserService
+                            var user = {
+                                name : 'Maria Lima',
+                                gender : 'Female'
+
+                            };
+
+                            var smsSent = null;
+                            var data = {};
+
+                            // complete data object
+                            data.customerName = customer.name;
+                            data.voucherAmount = voucherAmount;
+                            data.representativeName = user.name;
+                            data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
+
+                            if (to) {
+                                var smsMessage = $interpolate(voucherConfirmationSMS)(data);
                                 smsSent = this.send(to, smsMessage);
                             } else {
                                 smsSent = $q.reject($interpolate(cellMissingAlert)(data));
