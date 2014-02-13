@@ -49,7 +49,7 @@ describe('Controller : LoginCtrl', function() {
                     } else {
                         deferred.reject();
                     }
-                }, 1500);
+                }, 0);
                 return deferred.promise;
             });
 
@@ -72,7 +72,7 @@ describe('Controller : LoginCtrl', function() {
             waitsFor(function() {
                 scope.$apply();
                 return done;
-            }, 'scope.login()', 2000);
+            }, 'scope.login()');
 
             runs(function() {
                 expect(UserService.login).toHaveBeenCalledWith(user, pass, rememberMe);
@@ -104,7 +104,7 @@ describe('Controller : LoginCtrl', function() {
             waitsFor(function() {
                 scope.$apply();
                 return done;
-            }, 'scope.login()', 2000);
+            }, 'scope.login()');
 
             runs(function() {
                 expect(UserService.login).toHaveBeenCalledWith(user, pass, rememberMe);
