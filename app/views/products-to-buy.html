@@ -33,23 +33,23 @@
 		
 		<div class="products-to-buy-left">
 			<!--Tela "Fazer pedido"-->
-			<span ng-show="tabs.selected=='buildOrder'">
+			<span ng-if="tabs.selected=='buildOrder'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'" ng-controller="ProductsToBuyOrderCtrl"></span>
 			</span>						
 			<!--Tela "Confirmar pedido"-->
-			<span ng-show="tabs.selected=='confirmOrder'">
+			<span ng-if="tabs.selected=='confirmOrder'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-confirm.html'" ng-controller="ProductsToBuyConfirmCtrl"></span>
 			</span>	
             <!--Tela "Verificar NF"-->
-            <span ng-show="tabs.selected=='verifyTicket'">
+            <span ng-if="tabs.selected=='verifyTicket'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-ticket.html'" ng-controller="ProductsToBuyTicketCtrl"></span>
 			</span>
 			<!--Tela "Produtos Pendentes"-->
-			<span ng-show="tabs.selected=='pendingProducts'">
+			<span ng-if="tabs.selected=='pendingProducts'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'" ng-controller="ProductsToBuyPendingCtrl"></span>
 			</span>	
             <!--Tela "Credito bonus"-->
-			<span ng-show="tabs.selected=='availableCredit'">
+			<span ng-if="tabs.selected=='availableCredit'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span>
 			</span>	
 		</div>

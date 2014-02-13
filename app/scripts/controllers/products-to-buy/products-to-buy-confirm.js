@@ -9,6 +9,7 @@
         // #####################################################################################################
 
         // inherited object
+        var stockReport = $scope.stockReport;
         var summary = $scope.summary;
 
         // inherited functions
@@ -90,7 +91,7 @@
         // Scope variables
         // #####################################################################################################
 
-        $scope.confirmedProducts = {};
+        $scope.confirmedProducts = listConfirmedProducts(stockReport);
 
         // #####################################################################################################
         // Scope functions
@@ -137,14 +138,6 @@
             }
             return result;
         };
-
-        // #####################################################################################################
-        // Watchers
-        // #####################################################################################################
-
-        $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj, oldObj) {
-            $scope.confirmedProducts = listConfirmedProducts($scope.stockReport);
-        });
 
         // #####################################################################################################
         // Publishing methods to be tested
