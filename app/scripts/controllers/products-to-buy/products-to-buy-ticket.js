@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', []).controller(
-            'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService) {
+            'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService, ArrayUtils) {
 
                 // #####################################################################################################
                 // Local variables
@@ -30,9 +30,27 @@
                     ticket.selectedPart = part;
                 };
 
+                var validatePending = function validatePending() {
+                    var x = 0;
+                    $scope.enableButton = false;
+                    for ( var i in $scope.ticket.watchedQty) {
+                        if ($scope.checkBox[i] || ($scope.ticket.watchedQty[i] !== 0)) {
+                            $scope.purchase.items[x].valid = true;
+                            $scope.enableButton = true;
+                        } else {
+                            $scope.purchase.items[x].valid = false;
+                        }
+                        x++;
+                    }
+                };
+
                 // #####################################################################################################
                 // Scope functions
                 // #####################################################################################################
+
+                $scope.checkBox = [];
+
+                $scope.enableButton = false;
 
                 $scope.openDialog = function(purchase) {
                     var nfePromise = DialogService.openDialogProductsToBuyTicket(purchase);
@@ -44,6 +62,14 @@
                         }
                     });
                 };
+
+                $scope.$watchCollection('checkBox', function() {
+                    validatePending();
+                });
+
+                $scope.$watchCollection('ticket.watchedQty', function() {
+                    validatePending();
+                });
 
                 $scope.cancel = function() {
                     selectPart('part1');
