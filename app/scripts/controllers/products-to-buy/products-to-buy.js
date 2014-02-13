@@ -8,10 +8,6 @@
         // Local variables
         // #####################################################################################################
 
-        /**
-         * Stock report to fill the views
-         */
-        var stockReportBkp = StockService.stockReport('all');
 
         // #####################################################################################################
         // Local Functions
@@ -44,7 +40,7 @@
         // Scope variables
         // #####################################################################################################
 
-        $scope.stockReport = angular.copy(stockReportBkp);
+        $scope.stockReport = StockService.stockReport('all');
         $scope.tabs = {};
         $scope.tabs.selected = 'buildOrder';
 
@@ -84,6 +80,7 @@
 
         $scope.selectTab = function selectTab(tabName) {
             $scope.tabs.selected = tabName;
+            $scope.ticket.selectedPart = 'part1';
         };
 
         $scope.summaryIsVisible = function(tabName) {
@@ -96,7 +93,7 @@
 
         $scope.resetPurchaseOrder = function resetPurchaseOrder() {
             setTimeout(function() {
-                angular.extend($scope.stockReport, angular.copy(stockReportBkp));
+                angular.extend($scope.stockReport, StockService.stockReport('all'));
                 StockService.updateReport($scope.stockReport);
             }, 0);
             resetWatchedQty();
@@ -124,6 +121,7 @@
             $scope.summary.total.amount = diff.amount;
             $scope.summary.total.points = diff.points;
         });
+        
 
         // #####################################################################################################
         // Controller warm up

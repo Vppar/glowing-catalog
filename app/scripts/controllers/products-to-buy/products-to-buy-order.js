@@ -7,7 +7,7 @@
         // #####################################################################################################
         // Local Functions
         // #####################################################################################################
-        
+
         var stockReport = $scope.stockReport;
 
         // #####################################################################################################
@@ -17,6 +17,7 @@
         function setHideAttributes(sessions, hideLine, hideProduct) {
             for ( var ix in sessions) {
                 var session = sessions[ix];
+                session.hide = false;
                 for ( var ix2 in session.lines) {
                     var line = session.lines[ix2];
                     line.hide = hideLine;
@@ -32,7 +33,7 @@
         // Scope variables
         // #####################################################################################################
 
-        $scope.selectedLevel = 3;
+        $scope.selectedLevel = 1;
 
         $scope.productFilter = {
             text : ''
@@ -65,39 +66,55 @@
         };
 
         $scope.showLevel = function showLevel(level) {
+            // Disable watcher
+            productFilterWatcher();
+            // Clear filter
             $scope.productFilter.text = '';
-            setTimeout(function() {
-                $scope.selectedLevel = level;
-                switch (level) {
-                case 1:
-                    setHideAttributes(stockReport.sessions, true, true);
-                    break;
-                case 2:
-                    setHideAttributes(stockReport.sessions, false, true);
-                    break;
-                case 3:
-                    setHideAttributes(stockReport.sessions, false, false);
-                    break;
-                }
-                $scope.$apply();
-            }, 0);
-        };
+            // Enable watcher
+            productFilterWatcher();
 
+            switch (level) {
+            case 1:
+                setHideAttributes(stockReport.sessions, true, true);
+                break;
+            case 2:
+                setHideAttributes(stockReport.sessions, false, true);
+                break;
+            case 3:
+                setHideAttributes(stockReport.sessions, false, false);
+                break;
+            }
+            
+            $scope.selectedLevel = level;
+        };
         // #####################################################################################################
         // Watchers
         // #####################################################################################################
 
-        $scope.$watch('productFilter.text', function(newVal, oldVal) {
-            var myTextFilter = $scope.productFilter.text;
-            if (String(myTextFilter).length >= 3) {
-                var objFilter = {
-                    title : myTextFilter,
-                    SKU : myTextFilter
-                };
-                StockService.updateReport(stockReport, objFilter);
-            } else {
-                StockService.updateReport(stockReport);
-            }
-        });
+        var productFilterWatcher = function() {
+            $scope.$watch('productFilter.text', function(newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    var myTextFilter = String($scope.productFilter.text);
+                    if (myTextFilter.length >= 3) {
+                        $scope.selectedLevel = 3;
+                        var objFilter = {
+                            title : myTextFilter,
+                            SKU : myTextFilter
+                        };
+                        StockService.updateReport(stockReport, objFilter);
+                    } else if (String(oldVal).legth >= 3) {
+                        StockService.updateReport(stockReport);
+                    }
+                }
+            });
+        };
+
+        // #####################################################################################################
+        // Controller warm up
+        // #####################################################################################################
+        // Enable watcher
+        productFilterWatcher();
+        $scope.showLevel(1);
+
     });
 }(angular));

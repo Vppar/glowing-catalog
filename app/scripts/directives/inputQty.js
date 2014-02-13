@@ -9,7 +9,7 @@
         });
     });
 
-    angular.module('glowingCatalogApp').directive('inputQty', function() {
+    angular.module('glowingCatalogApp').directive('inputQty', function(TimerService) {
         return {
             restrict : 'E',
             scope : {
@@ -50,9 +50,11 @@
                 value = scope.value;
 
                 function propagate() {
+                    var id = 'inputQty:' + Math.random();
+                    TimerService.startTimer(id,'propagate changes');
                     scope.$apply('value = ' + value);
+                    TimerService.stopTimer(id);
                 }
-                setTimeout(propagate, 0);
 
                 var dec = element.find('.ic-arrow-left');
                 dec.bind('tap', function() {

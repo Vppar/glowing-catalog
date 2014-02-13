@@ -12,9 +12,13 @@
                     } else if (type === 'reserved') {
                         reportItem.qty = reportItem.reserve;
                     } else if (type === 'all') {
-                        var minQty = reportItem.reserve - reportItem.quantity;
-                        reportItem.qty = minQty > 0 ? minQty : 0;
-                        reportItem.minQty = angular.copy(reportItem.qty);
+                        var missingQty = reportItem.reserve - reportItem.quantity;
+                        if (missingQty > 0) {
+                            reportItem.qty = missingQty;
+                            reportItem.minQty = missingQty;
+                        } else {
+                            reportItem.qty = 0;
+                        }
                     }
                 };
 
@@ -178,7 +182,6 @@
                             var itemCount = 0;
                             for ( var ix3 in line.items) {
                                 var item = line.items[ix3];
-                                item.minQty = item.minQty === 0 ? '' : item.minQty;
                                 item.hide = shouldFilter(filter, item);
                                 if (!item.hide) {
                                     itemCount++;
