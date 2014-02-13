@@ -5,6 +5,32 @@
 .width970{
 	width: 970px;
 }
+.marginReset{
+	margin:0px !important;
+}
+
+.max-height-500-overrule{
+	max-height:500px !important;
+}
+
+.max-height-480-overrule{
+	max-height:480px !important;
+}
+
+.marginBottom{
+	margin-bottom:20px;
+}
+.col-input-qty {
+	width: 120px;
+	text-align:center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align:top;
+}
+.add-dotted-line{
+	border-bottom: 1px dotted #ccc;
+}
+
 
 
 .form-products-to-buy {
@@ -487,7 +513,7 @@
 }
 
 .step2 .grid-payment-products-to-buy-edit .col-s1 {
-	width: 385px;
+	width: 305px;
 	text-align: left;
 	display: inline-block;
 	line-height: 40px;
@@ -513,13 +539,21 @@
 }
 
 .step2 .grid-payment-products-to-buy-edit .col-s1-list {
-	width: 385px;
+	width: 305px;
 	text-align: left;
 	display: inline-block;
 	padding-left: 5px;
 	min-height:40px;
 	vertical-align:top;
 }
+.step2 .grid-payment-products-to-buy-edit .col-s-list {
+	width: 80px;
+	text-align:center;
+	display: inline-block;
+	min-height:40px;
+	vertical-align:top;
+}
+
 .step2 .grid-payment-products-to-buy-edit .col-s2-list {
 	width: 80px;
 	text-align:center;
@@ -569,8 +603,14 @@
 }
 span.title-order-panel {
 	margin-bottom: 4px;
+
+	background-color: #fff;
+	color: #333;
+
+	
 	background-color: #333333;
 	color: #fff;
+
 	border-radius: 4px;
 	border-bottom:0 !important;
 	clear:both;
@@ -602,10 +642,15 @@ span.title-order-panel {
 
 
 .conf-nf-panel {
-	width: 57%;
-	border:1px solid #ddd;
+	top:30px;
+	padding: 22px 22px 0px 22px;
 	border-radius:4px;
+	/*
+	border:1px solid #ddd;
 	margin: 30px auto;
+	width: 57%;
+	
+	*/
 }
 .conf-nf-panel span .col-1, .conf-nf-panel span .col-2 {
 	width:49%;
@@ -702,6 +747,17 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 	max-height:313px !important;
 	margin-bottom:20px;
 }
+
+div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-grid2-500 {
+	max-height:500px !important;
+	margin-bottom:20px;
+}
+
+.step4 div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-grid2 {
+	max-height:500px !important;
+	margin-bottom:20px;
+}
+
 .step5 div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-grid2 {
 	max-height:326px !important;
 	margin-bottom:15px;

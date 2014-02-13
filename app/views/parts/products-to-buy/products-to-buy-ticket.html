@@ -4,10 +4,24 @@
 	<div class="products-to-buy-edit" ng-show="ticket.selectedPart=='part1'">
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
-				<div class="control-group lbl-top center-align">
-					<label class="control-label">&nbsp;</label>
+				<div class="control-group lbl-top">
+					
+						<span class="menu-level">
+							<div class="btn-group btn-group-sm" >
+								<a class="btn btn-option" >Pedidos em Aberto</a> 
+								<a class="btn btn-option" >Todos os Pedidos</a> 
+								
+							</div>
+						</span>
+					
+					
+					
+					<label class="control-label">&nbsp;
+					
+					
+					</label>
 				</div>
-				<div class="grid-pending-products-to-buy-edit">
+				<div class="grid-pending-products-to-buy-edit width970">
 					<div class="header header2 title-header-products-to-buy">
 						<div class="row-payment-grid">
 	                             	<span class="col-s1">
@@ -37,9 +51,9 @@
 						</div>
 					</div>	
 	
-					<div class="scroll-payment-grid scroll-payment-grid2">
+					<div class="scroll-payment-grid max-height-500-overrule">
 							<span ng-repeat="purchase in ticket.purchaseOrders"> 
-								<div class="row-pending-product-products-to-buy" ng-click="openDialog(purchase)">
+								<div class="row-pending-product-products-to-buy add-dotted-line" ng-click="openDialog(purchase)">
 									<span class="col-s1">
 										<div class="p-title">{{purchase.created | date:'dd/MM/yyyy'}}</div>
 									</span>
@@ -73,9 +87,9 @@
 	</div>
 	<!-------- FIM Parte 1 -------->
 	<!-------- Parte 2 ------------>
-	<div class="grid-pending-products-to-buy-edit" ng-show="ticket.selectedPart=='part2'">
-		<div class="header header2 title-header-products-to-buy">
-			<div class="row-payment-grid">
+	<div class="grid-pending-products-to-buy-edit width970" ng-show="ticket.selectedPart=='part2'">
+		<div class="header header2 title-header-products-to-buy width970">
+			<div class="row-payment-grid width970">
 				<span class="col-s1">
 					<div>Data</div>
 				</span> <span class="col-s2">
@@ -96,9 +110,9 @@
 			</div>
 		</div>
 
-		<div class="scroll-payment-grid scroll-payment-grid2">
+		<div class="scroll-payment-grid scroll-payment-grid2 max-height-480-overrule marginBottom width970">
 			<span ng-repeat="item in purchase.items">
-					<div class="row-pending-product-products-to-buy">
+					<div class="row-pending-product-products-to-buy add-dotted-line">
 						<span class="col-s1">
 							<div class="p-title">{{purchase.date}}</div>
 						</span> 
@@ -123,10 +137,9 @@
 								<input type="checkbox">
 							</div>
 						</span> 
-						<span class="col-s8">
-							<div>
-								<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
-							</div>
+						<span class="col-input-qty">
+							<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
+							
 						</span>
 					</div>
 			</span>
