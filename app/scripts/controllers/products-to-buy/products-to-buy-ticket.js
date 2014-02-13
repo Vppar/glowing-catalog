@@ -34,6 +34,8 @@
                 // Scope functions
                 // #####################################################################################################
 
+                $scope.checkBox = [];
+
                 $scope.openDialog = function(purchase) {
                     var nfePromise = DialogService.openDialogProductsToBuyTicket(purchase);
                     nfePromise.then(function(result) {
@@ -43,6 +45,16 @@
                             selectPart('part2');
                         }
                     });
+                };
+
+                $scope.disableButton = function disableButton() {
+                    var result = false;
+                    for ( var i in $scope.ticket.watchedQty) {
+                        if (!$scope.checkBox[i] && ($scope.ticket.watchedQty[i] === 0)) {
+                            result = true;
+                        }
+                    }
+                    return result;
                 };
 
                 $scope.cancel = function() {
