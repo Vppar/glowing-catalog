@@ -9,6 +9,7 @@
                 // #####################################################################################################
 
                 var ticket = $scope.ticket;
+
                 var resetWatchedQty = function resetWatchedQty() {
                     for ( var ix in $scope.purchase.items) {
                         var item = $scope.purchase.items[ix];
@@ -16,15 +17,7 @@
                     }
                 };
 
-                // #####################################################################################################
-                // Scope functions
-                // #####################################################################################################
-
-                $scope.selectPart = function(part) {
-                    ticket.selectedPart = part;
-                };
-
-                $scope.setPurchaseOrder = function(uuid) {
+                var setPurchaseOrder = function setPurchaseOrder(uuid) {
                     $scope.purchase = PurchaseOrderService.read(uuid);
 
                     var date = new Date();
@@ -33,18 +26,27 @@
 
                     resetWatchedQty();
                 };
+                var selectPart = function selectPart(part) {
+                    ticket.selectedPart = part;
+                };
+
+                // #####################################################################################################
+                // Scope functions
+                // #####################################################################################################
 
                 $scope.openDialog = function(purchase) {
-                    DialogService.openDialogProductsToBuyTicket(purchase).then(function(result) {
+                    var nfePromise = DialogService.openDialogProductsToBuyTicket(purchase);
+                    nfePromise.then(function(result) {
                         if (result) {
-                            $scope.setPurchaseOrder(result.uuid);
-                            $scope.selectPart('part2');
+                            ticket.nfeData = result.nfe;
+                            setPurchaseOrder(result.uuid);
+                            selectPart('part2');
                         }
                     });
                 };
 
                 $scope.cancel = function() {
-                    $scope.selectPart('part1');
+                    selectPart('part1');
                 };
 
                 // #####################################################################################################

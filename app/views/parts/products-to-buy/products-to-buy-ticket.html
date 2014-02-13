@@ -49,8 +49,8 @@
 									<span class="col-s3">
 										<div></div>
 									</span>
-	                                         <span class="col-s4">
-										<div>{{purchase.code}}</div>
+	                                <span class="col-s4">
+										<div>{{purchase | uuidCode}}</div>
 									</span>
 									<span class="col-s5">
 										<div></div>
@@ -103,7 +103,7 @@
 							<div class="p-title">{{purchase.date}}</div>
 						</span> 
 						<span class="col-s2">
-							<div>{{purchase.code}}</div>
+							<div>{{purchase | uuidCode}}</div>
 						</span> 
 						<span class="col-s3">
 							<div>{{item.nfe}}</div>

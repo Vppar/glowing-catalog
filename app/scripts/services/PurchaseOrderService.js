@@ -4,7 +4,7 @@
         'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder'
     ]).service(
             'PurchaseOrderService',
-            function PurchaseOrderService($q, $log, PurchaseOrderKeeper, Expense, PurchaseOrder, ExpenseService) {
+            function PurchaseOrderService($q, $log, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
 
                 var isValid = function isValid(order) {
                     var invalidProperty, result = [];
@@ -60,13 +60,13 @@
                  * List all PurchaseOrders.
                  */
                 var list = function list() {
-                    var result = null;
+                    var results = null;
                     try {
-                        result = PurchaseOrderKeeper.list();
+                        results = PurchaseOrderKeeper.list();
                     } catch (err) {
                         $log.debug('PurchaseOrderService.list: Unable to recover the list of purchaseOrders. ' + 'Err=' + err);
                     }
-                    return result;
+                    return results;
                 };
 
                 /**

@@ -78,7 +78,7 @@
         ObjectUtils.ro(this.handlers, 'voucherCreateV1', function(event) {
             var eventData = IdentityService.getUUIDData(event.id);
           
-            if(eventData.deviceId === IdentityService.deviceId){
+            if(eventData.deviceId === IdentityService.getDeviceId()){
                 currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
             

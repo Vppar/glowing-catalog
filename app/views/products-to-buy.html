@@ -55,7 +55,7 @@
 		</div>
 
 		<!-- Right Screen Details -->
-		<div class="products-to-buy-right" ng-show="summaryIsVisible(tabs.selected)">
+		<div class="products-to-buy-right" ng-if="summaryIsVisible(tabs.selected)">
 			<span ng-include src="'views/parts/products-to-buy/products-to-buy-summary.html'" ng-controller="ProductsToBuySummaryCtrl"></span>	
 		</div>
 	</div>

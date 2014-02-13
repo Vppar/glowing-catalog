@@ -8,6 +8,7 @@
                 total : '',
                 shipping : '',
                 bonus : '',
+                number : '',
                 disable : true
         };
         
@@ -17,6 +18,8 @@
             result = result && ($scope.nfe.total && $scope.nfe.total != '');
             result = result && ($scope.nfe.shipping && $scope.nfe.shipping != '');
             result = result && ($scope.nfe.bonus && $scope.nfe.bonus != '');
+            // TODO - Uncomment this validation when the NFe number field be available 
+            // result = result && ($scope.nfe.number && $scope.nfe.number != '');
             $scope.nfe.disable = !result;
         });
         
@@ -25,6 +28,8 @@
         };
 
         $scope.confirm = function confirm() {
+            delete $scope.nfe.disabled;
+            dialog.data.nfe = $scope.nfe;
             dialog.close(dialog.data);
         };
         
