@@ -11,7 +11,7 @@ angular.module('tnt.catalog.login.ctrl', [
     var denyCredentials = function() {
         DialogService.messageDialog({
             title : 'Login',
-            message : 'Não foi possível realizar o login, usuário ou senha inválidos.',
+            message : 'Usuário ou senha inválidos. Por favor tente novamente.',
             btnYes : 'Voltar'
         });
     };
