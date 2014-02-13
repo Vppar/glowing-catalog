@@ -78,11 +78,10 @@ describe('Service: SyncServiceUnstashEntries', function () {
         promise.then(function () {
           stashed = true;
         });
-
-        $rootScope.$apply();
       });
 
       waitsFor(function () {
+        $rootScope.$apply();
         return stashed;
       }, 'SyncService.stashEntries()', 100);
 
@@ -92,11 +91,10 @@ describe('Service: SyncServiceUnstashEntries', function () {
         promise.then(function () {
           unstashed = true;
         });
-
-        $rootScope.$apply();
       });
 
       waitsFor(function () {
+        $rootScope.$apply();
         return unstashed;
       }, 'SyncService.unstashEntries', 100);
 
@@ -119,11 +117,10 @@ describe('Service: SyncServiceUnstashEntries', function () {
         promise.then(function () {
           stashed = true;
         });
-
-        $rootScope.$apply();
       });
 
       waitsFor(function () {
+        $rootScope.$apply();
         return stashed;
       }, 'SyncService.stashEntries()', 100);
 
@@ -138,11 +135,10 @@ describe('Service: SyncServiceUnstashEntries', function () {
         promise.then(function () {
           unstashed = true;
         });
-
-        $rootScope.$apply();
       });
 
       waitsFor(function () {
+        $rootScope.$apply();
         return unstashed;
       }, 'SyncService.unstashEntries', 100);
 
@@ -158,20 +154,29 @@ describe('Service: SyncServiceUnstashEntries', function () {
   }); // SyncService.unstashEntries()
 
 
-
   function resolvedPromiseReturner(result) {
     return function () {
       var deferred = $q.defer();
-      deferred.resolve(result);
+
+      setTimeout(function () {
+        $log.debug('Promise resolved with result', result);
+        deferred.resolve(result);
+      }, 0);
+
       return deferred.promise;
-    }
+    };
   }
 
   function rejectedPromiseReturner(result) {
     return function () {
       var deferred = $q.defer();
-      deferred.reject(result);
+
+      setTimeout(function () {
+        $log.debug('Promise rejected with result', result);
+        deferred.reject(result);
+      }, 0);
+
       return deferred.promise;
-    }
+    };
   }
 });

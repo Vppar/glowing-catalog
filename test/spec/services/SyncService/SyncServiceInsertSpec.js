@@ -75,11 +75,10 @@ describe('Service: SyncServiceInsertSpec', function () {
         }, function (err) {
           $log.debug('Failed to insert entry!', err, entry);
         });
-
-        $rootScope.$apply();
       });
 
       waitsFor(function () {
+        $rootScope.$apply();
         return inserted;
       }, 'SyncService.insert()', 100);
 
@@ -112,11 +111,10 @@ describe('Service: SyncServiceInsertSpec', function () {
           promise.then(function () {
             resolved = true;
           });
-
-          $rootScope.$apply();
         });
 
         waitsFor(function () {
+          $rootScope.$apply();
           return resolved;
         }, 'SyncService.insert()', 100);
 
@@ -133,11 +131,10 @@ describe('Service: SyncServiceInsertSpec', function () {
           promise.then(function () {
             resolved = true;
           });
-
-          $rootScope.$apply();
         });
 
         waitsFor(function () {
+          $rootScope.$apply();
           return resolved;
         }, 'SyncService.insert()', 100);
 
@@ -154,11 +151,10 @@ describe('Service: SyncServiceInsertSpec', function () {
           promise.then(function () {
             resolved = true;
           });
-
-          $rootScope.$apply();
         });
 
         waitsFor(function () {
+          $rootScope.$apply();
           return resolved;
         }, 'SyncService.insert()', 100);
 
@@ -177,11 +173,15 @@ describe('Service: SyncServiceInsertSpec', function () {
   }); // SyncService.insert()
 
 
-
   function resolvedPromiseReturner(result) {
     return function () {
       var deferred = $q.defer();
-      deferred.resolve(result);
+
+      setTimeout(function () {
+        $log.debug('Promise resolved with result', result);
+        deferred.resolve(result);
+      }, 0);
+
       return deferred.promise;
     };
   }
@@ -189,7 +189,12 @@ describe('Service: SyncServiceInsertSpec', function () {
   function rejectedPromiseReturner(result) {
     return function () {
       var deferred = $q.defer();
-      deferred.reject(result);
+
+      setTimeout(function () {
+        $log.debug('Promise rejected with result', result);
+        deferred.reject(result);
+      }, 0);
+
       return deferred.promise;
     };
   }

@@ -61,7 +61,11 @@ describe('Service: JournalKeeperInsert', function() {
       storage.persist.andCallFake(function(journalEntry) {
         var deferred = q.defer();
         expect(journalEntry).toBe(entry);
-        deferred.resolve();
+
+        setTimeout(function () {
+          deferred.resolve();
+        }, 0);
+
         return deferred.promise;
       });
 
@@ -118,11 +122,7 @@ describe('Service: JournalKeeperInsert', function() {
     var failed = false;
 
     runs(function() {
-      storage.persist.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.reject('Failed PersistentStorage.persist');
-        return deferred.promise;
-      });
+      storage.persist.andCallFake(rejectedPromiseReturner('Failed PersistentStorage.persist'));
 
       var promise = JournalKeeper.insert(entry);
 
@@ -151,11 +151,7 @@ describe('Service: JournalKeeperInsert', function() {
     var failed = false;
 
     runs(function() {
-      storage.persist.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.resolve();
-        return deferred.promise;
-      });
+      storage.persist.andCallFake(resolvedPromiseReturner(true));
 
       replayer.replay.andCallFake(function() {
         throw 'Failed Replayer.replay';
@@ -186,11 +182,7 @@ describe('Service: JournalKeeperInsert', function() {
     var failed = false;
 
     runs(function() {
-      storage.persist.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.reject('Failed PersistentStorage.persist');
-        return deferred.promise;
-      });
+      storage.persist.andCallFake(rejectedPromiseReturner('Failed PersistentStorage.persist'));
 
       var promise = JournalKeeper.insert(entry);
 
@@ -217,11 +209,7 @@ describe('Service: JournalKeeperInsert', function() {
     var failed = false;
 
     runs(function() {
-      storage.persist.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.resolve();
-        return deferred.promise;
-      });
+      storage.persist.andCallFake(resolvedPromiseReturner(true));
 
       replayer.replay.andCallFake(function () {
           throw 'Failed Replayer.replay';
@@ -256,11 +244,7 @@ describe('Service: JournalKeeperInsert', function() {
     entry.sequence = 5;
 
     runs(function () {
-      storage.persist.andCallFake(function() {
-        var deferred = q.defer();
-        deferred.resolve();
-        return deferred.promise;
-      });
+      storage.persist.andCallFake(resolvedPromiseReturner(true));
 
       var promise = JournalKeeper.insert(entry);
 
@@ -269,11 +253,10 @@ describe('Service: JournalKeeperInsert', function() {
       }, function (err) {
         $log.debug('Failed to insert entry!', entry);
       });
-
-      $rootScope.$apply();
     });
 
     waitsFor(function () {
+      $rootScope.$apply();
       return inserted;
     }, 'JournalKeeper.insert()', 100);
 
@@ -284,11 +267,7 @@ describe('Service: JournalKeeperInsert', function() {
   });
 
   it('does not update sequence value if entry\'s value is lower than current sequence', function () {
-    storage.persist.andCallFake(function() {
-      var deferred = q.defer();
-      deferred.resolve();
-      return deferred.promise;
-    });
+    storage.persist.andCallFake(resolvedPromiseReturner(true));
 
     expect(JournalKeeper.getSequence()).toBe(0);
 
@@ -311,11 +290,10 @@ describe('Service: JournalKeeperInsert', function() {
       }, function (err) {
         $log.debug('Failed to insert entry!', err, entry);
       });
-
-      $rootScope.$apply();
     });
 
     waitsFor(function () {
+      $rootScope.$apply();
       return inserted1;
     }, 'JournalKeeper.insert()', 100);
 
@@ -333,12 +311,37 @@ describe('Service: JournalKeeperInsert', function() {
       }, function (err) {
         $log.debug('Failed to insert entry!', err, entry);
       });
-
-      $rootScope.$apply();
     });
 
     waitsFor(function () {
+      $rootScope.$apply();
       return inserted2;
     }, 'JournalKeeper.insert()', 100);
   });
+
+
+
+  function resolvedPromiseReturner(result) {
+    return function () {
+      var deferred = q.defer();
+      setTimeout(function () {
+        $log.debug('Resolved promise with result', result);
+        deferred.resolve(result);
+      }, 0);
+
+      return deferred.promise;
+    };
+  }
+
+  function rejectedPromiseReturner(result) {
+    return function () {
+      var deferred = q.defer();
+      setTimeout(function () {
+        $log.debug('Rejected promise with result', result);
+        deferred.reject(result);
+      }, 0);
+
+      return deferred.promise;
+    };
+  }
 });

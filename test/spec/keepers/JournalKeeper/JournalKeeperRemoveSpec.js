@@ -61,7 +61,9 @@ describe('Service: JournalKeeperRemove', function() {
     runs(function() {
       storage.remove.andCallFake(function() {
         var deferred = q.defer();
-        deferred.resolve(entry);
+        setTimeout(function () {
+          deferred.resolve(entry);
+        }, 0);
         return deferred.promise;
       });
 
@@ -89,13 +91,15 @@ describe('Service: JournalKeeperRemove', function() {
   });
 
   it('logs an error if removing an entry fails', function () {
-    var failed = true;
+    var failed = false;
     var entry = new JournalEntry(1, null, null, null, null);
 
     runs(function() {
       storage.remove.andCallFake(function() {
         var deferred = q.defer();
-        deferred.reject('Removal failed: PersistentStorage.remove failed');
+        setTimeout(function () {
+          deferred.reject('Removal failed: PersistentStorage.remove failed');
+        }, 0);
         return deferred.promise;
       });
 

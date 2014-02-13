@@ -25,7 +25,6 @@
 
                 promise1.then(function (unsyncedEntries) {
                     if (unsyncedEntries.length) {
-                        
                         var promise2 = SyncDriver.save(unsyncedEntries);
 
                         promise2.then(function (syncedEntries) {
