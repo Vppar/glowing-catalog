@@ -1,4 +1,4 @@
-ddescribe('Controller : LoginCtrl', function() {
+describe('Controller : LoginCtrl', function() {
 
     var scope = null;
     var controller = null;
