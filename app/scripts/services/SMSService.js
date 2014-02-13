@@ -7,7 +7,7 @@
             ])
             .service(
                     'SMSService',
-                    function($http, $q, DataProvider) {
+                    function($http, $q) {
 
                         // ############################################################################################
                         // SMS related functions
