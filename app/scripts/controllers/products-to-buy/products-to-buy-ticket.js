@@ -47,13 +47,14 @@
                     });
                 };
 
-                $scope.enableButton = function enableButton() {
+                $scope.disableButton = function disableButton() {
+                    var result = true;
                     for ( var i in $scope.ticket.watchedQty) {
                         if ($scope.checkBox[i] || ($scope.ticket.watchedQty[i] !== 0)) {
-                            return true;
+                            result = false;
                         }
                     }
-                    return false;
+                    return result;
                 };
 
                 $scope.cancel = function() {
