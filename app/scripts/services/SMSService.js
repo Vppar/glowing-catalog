@@ -95,7 +95,7 @@
 
                             // complete data object
                             data.customerFirstName = getFirstName(customer);
-                            data.representativeName = DataProvider.representative.name;
+                            data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
 
                             if (to) {
