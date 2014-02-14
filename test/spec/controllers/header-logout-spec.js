@@ -8,7 +8,6 @@ describe('Controller:HeaderCtrl', function() {
 
     beforeEach(function() {
         module('tnt.catalog.header');
-        module('tnt.catalog.service.dialog');
     });
 
     beforeEach(inject(function($controller, $rootScope, _$q_) {
@@ -67,14 +66,14 @@ describe('Controller:HeaderCtrl', function() {
         });
 
         // Review this test.
-        xit('should show message dialog when UserServcice can\'t logout', function() {
+        it('should show message dialog when UserServcice can\'t logout', function() {
             var done = false;
             var dialog = {
                 title : 'Logout',
-                message : 'Have you tried to turn it off and on again?.',
+                message : 'Ocorreram problemas no processo de logout. Por favor tente novamente.',
                 btnYes : 'Voltar'
             };
-            // mock happy scenario for logout
+            // mock unhappy scenario for logout
             UserService.logout.andCallFake(function() {
                 var deferred = $q.defer();
                 setTimeout(function() {
