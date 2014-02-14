@@ -68,16 +68,12 @@
                 }
                 $interval(refreshDate, 10000);
                 refreshDate();
-                
+
                 $scope.logout = function() {
                     return UserService.logout().then(function() {
                         $location.path('/login');
                     }, function() {
-                        DialogService.messageDialog({
-                            title : 'Logout',
-                            message : 'Ocorreram problemas no processo de logout. Por favor tente novamente.',
-                            btnYes : 'Voltar'
-                        });
+                        $location.path('/login');
                     });
                 };
             });

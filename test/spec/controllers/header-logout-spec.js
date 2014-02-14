@@ -17,8 +17,7 @@ describe('Controller:HeaderCtrl', function() {
         scope = $rootScope.$new();
         $q = _$q_;
         UserService.logout = jasmine.createSpy('UserService.logout');
-        DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
-        
+
         controller = $controller('HeaderCtrl', {
             $scope : scope,
             $q : _$q_,
@@ -66,13 +65,8 @@ describe('Controller:HeaderCtrl', function() {
         });
 
         // Review this test.
-        it('should show message dialog when UserServcice can\'t logout', function() {
+        it('should redirect to login page when UserServcice can\'t logout', function() {
             var done = false;
-            var dialog = {
-                title : 'Logout',
-                message : 'Ocorreram problemas no processo de logout. Por favor tente novamente.',
-                btnYes : 'Voltar'
-            };
             // mock unhappy scenario for logout
             UserService.logout.andCallFake(function() {
                 var deferred = $q.defer();
@@ -95,7 +89,7 @@ describe('Controller:HeaderCtrl', function() {
 
             runs(function() {
                 expect(UserService.logout).toHaveBeenCalled();
-                expect(DialogService.messageDialog).toHaveBeenCalledWith(dialog);
+                expect(location.path).toHaveBeenCalledWith('/login');
             });
         });
     });
