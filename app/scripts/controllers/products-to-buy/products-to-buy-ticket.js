@@ -34,6 +34,8 @@
         // Scope functions
         // #####################################################################################################
 
+        $scope.tab = 'open';
+
         $scope.openDialog = function(purchaseOrder) {
             var nfePromise = DialogService.openDialogProductsToBuyTicket(purchaseOrder);
             nfePromise.then(function(result) {
@@ -71,6 +73,14 @@
                 selectPart('part1');
                 ticket.loadPurchaseOrders();
             });
+        };
+
+        $scope.changeTab = function changeTab(tab) {
+            $scope.tab = tab;
+        };
+
+        $scope.filterOrders = function filterOrders(purchase) {
+            return angular.isUndefined(purchase.received) || $scope.tab === 'all';
         };
 
         $scope.cancel = function() {
