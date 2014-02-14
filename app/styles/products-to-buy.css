@@ -1,7 +1,7 @@
 /*FORM PRODUCTS TO BUY*/
 /*PEDIDO DE COMPRA*/
 
-/*im very sory for this....*/
+/*im very sorry for this....*/
 .width970{
 	width: 970px;
 }
@@ -58,6 +58,12 @@
 .make-clickable:hover{
 	background-color:#ccc;
 }
+
+/*-----------------------------------*/
+
+
+
+
 
 
 
@@ -402,6 +408,8 @@
 	width:22%;
 	float:left;
 	padding: 0 0 0 5px;
+	height:20px;
+	line-height:20px;
 	color:#999;
 }
 .step1 .grid-payment-products-to-buy-edit .col-s2-list {
@@ -888,10 +896,10 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 }
 
 .step4 .row-pending-product-products-to-buy{
-	margin: 5px 0 5px 0;
 	display: block;
 	font-weight: normal;
 	border-bottom: 1px dotted #ccc;
+	height:40px;
 }
 
 .step4 .grid-pending-products-to-buy-edit .col-s1 {
@@ -920,9 +928,14 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 	width: 25%;
 	text-align:left;
 	display: inline-block;
-	line-height: 40px;
+	
 	vertical-align:top;
 }
+
+.step4 .row-payment-grid .col-s4{
+	line-height: 40px;
+}
+
 .step4 .grid-pending-products-to-buy-edit .col-s5 {
 	width: 6%;
 	text-align:center;
@@ -1043,3 +1056,21 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 }
 .margint20{margin-top:20px;}
 .margint30{margin-top:30px;}
+
+
+/* trying to make a little sense-------------------------------------*/
+
+.step2 .session-label{
+	height:40px;
+	background-color: #dadada;
+	border-radius: 4px;
+}
+
+.step2 .line{
+	margin:5px 0 5px 4px;
+	font-weight:bold;
+	border-bottom:0px;
+	min-height:22px;
+	line-height:22px;
+}
+
