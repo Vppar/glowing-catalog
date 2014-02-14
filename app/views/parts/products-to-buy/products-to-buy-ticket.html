@@ -9,8 +9,8 @@
 					
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm" >
-								<a class="btn btn-option" >Pedidos em Aberto</a> 
-								<a class="btn btn-option" >Todos os Pedidos</a> 
+								<a class="btn btn-option" ng-click="changeTab('open')">Pedidos em Aberto</a> 
+								<a class="btn btn-option" ng-click="changeTab('all')">Todos os Pedidos</a> 
 								
 							</div>
 						</span>
@@ -54,7 +54,7 @@
 	
 					<div class="scroll-payment-grid max-height-500-overrule">
 							<span ng-repeat="purchaseOrder in ticket.purchaseOrders | orderBy:'-created'"> 
-								<div class="row-pending-product-products-to-buy add-dotted-line make-clickable" ng-click="openDialog(purchaseOrder)">
+								<div class="row-pending-product-products-to-buy add-dotted-line make-clickable" ng-click="openDialog(purchaseOrder)" ng-if="filterOrders(purchase)">
 									<span class="col-s1">
 										<div class="p-title">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
 									</span>
