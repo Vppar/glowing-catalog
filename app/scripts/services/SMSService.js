@@ -16,6 +16,13 @@
                         var token = '8f934ur83rhq34r879hncfq9f4yq987nf4dh4fyn98hdmi44dz21x3gdju893d2';
                         var method = 'GET';
 
+                        // FIXME use UserService
+                        var user = {
+                            name : 'Maria Lima',
+                            gender : 'Female'
+
+                        };
+
                         this.send = function send(to, message) {
                             var url = baseUrl + '?to=' + to;
                             url = url + '&message=' + message;
@@ -37,7 +44,7 @@
                             });
                             return result;
                         };
-                        
+
                         // ############################################################################################
                         // Getters
                         // ############################################################################################
@@ -46,7 +53,7 @@
                             for ( var idx in customer.phones) {
                                 var phone = customer.phones[idx];
                                 if (phone.number.charAt(2) >= 7) {
-                                    to = '55'+phone.number;
+                                    to = '55' + phone.number;
                                     break;
                                 }
                             }
@@ -78,13 +85,6 @@
 
                             var to = getPhoneNumber(customer);
 
-                            // FIXME use UserService
-                            var user = {
-                                name : 'Maria Lima',
-                                gender : 'Female'
-
-                            };
-
                             var smsSent = null;
                             var data = {};
 
@@ -102,7 +102,7 @@
                             }
                             return smsSent;
                         };
-                        
+
                         /**
                          * Voucher msgs template.
                          */
@@ -115,13 +115,6 @@
 
                             var to = getPhoneNumber(customer);
 
-                            // FIXME use UserService
-                            var user = {
-                                name : 'Maria Lima',
-                                gender : 'Female'
-
-                            };
-
                             var smsSent = null;
                             var data = {};
 
@@ -133,6 +126,37 @@
 
                             if (to) {
                                 var smsMessage = $interpolate(voucherConfirmationSMS)(data);
+                                smsSent = this.send(to, smsMessage);
+                            } else {
+                                smsSent = $q.reject($interpolate(cellMissingAlert)(data));
+                            }
+                            return smsSent;
+                        };
+
+                        /**
+                         * Coupons msgs template.
+                         */
+                        var couponConfirmationSMS =
+                                'Cupom promocional: Você recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount | currency}} a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        var cellMissingAlert =
+                                'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
+
+                        this.sendCouponConfirmation = function sendCouponConfirmation(customer, couponsAmount, couponsQty) {
+
+                            var to = getPhoneNumber(customer);
+
+                            var smsSent = null;
+                            var data = {};
+
+                            // complete data object
+                            data.customerName = customer.name;
+                            data.couponsAmount = couponsAmount;
+                            data.couponsQty = couponsQty;
+                            data.representativeName = user.name;
+                            data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
+
+                            if (to) {
+                                var smsMessage = $interpolate(couponConfirmationSMS)(data);
                                 smsSent = this.send(to, smsMessage);
                             } else {
                                 smsSent = $q.reject($interpolate(cellMissingAlert)(data));

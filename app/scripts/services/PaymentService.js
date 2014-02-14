@@ -200,6 +200,8 @@
                     onCuff : []
                 };
 
+                var couponsSaved = [];
+                console.log('reset');
                 var receivables = [
                     'cash', 'check', 'creditCard', 'noMerchantCc', 'onCuff'
                 ];
@@ -375,8 +377,8 @@
 
                         // Process used vouchers, coupons and gift cards
                         var usedVouchersPromise = savedOrderPromise.then(function(orderUuid) {
-                            var vouchers = list('coupon');
-                            return VoucherService.bulkProcess(vouchers, customer, orderUuid);
+                            var coupons = list('coupon');
+                            return VoucherService.bulkProcess(coupons, customer, orderUuid);
                         }, propagateRejectedPromise);
 
                         // Create new vouchers and gift cards
@@ -413,13 +415,24 @@
 
                     var savedSalePromise = $q.all(promises);
 
-                    savedSalePromise.then(function() {
-                        SMSService.sendPaymentConfirmation(customer, amount);
+                    function sendVoucherSMS(vouchers) {
                         if (vouchers.length > 0) {
                             for ( var i in vouchers) {
                                 SMSService.sendVoucherConfirmation(customer, vouchers[i].amount);
                             }
                         }
+                    }
+
+                    function sendCouponsSMS(coupons) {
+                        if (coupons.length > 0) {
+                            SMSService.sendCouponsConfirmation(customer, (i * coupons[i]), coupons[i]);
+                        }
+                    }
+
+                    savedSalePromise.then(function() {
+                        SMSService.sendPaymentConfirmation(customer, amount);
+                        sendVoucherSMS(vouchers);
+                        sendCouponsSMS(couponsSaved);
                     });
 
                     // clear all
@@ -517,6 +530,7 @@
                     } else {
                         persistedCoupons[amount] = qty;
                     }
+                    couponsSaved = angular.copy(persistedCoupons);
                 };
 
                 var clearPersistedCoupons = function clearPersistedCoupons() {
