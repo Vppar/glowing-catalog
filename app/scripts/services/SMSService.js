@@ -3,11 +3,11 @@
 
     angular
             .module('tnt.catalog.service.sms', [
-                'tnt.catalog.service.data'
+                'tnt.catalog.service.data', 'tnt.catalog.entity.service'
             ])
             .service(
                     'SMSService',
-                    function($http, $q, $interpolate) {
+                    function($http, $q, $interpolate, EntityService) {
 
                         // ############################################################################################
                         // SMS related functions
@@ -104,12 +104,10 @@
                         };
 
                         /**
-                         * Voucher msgs template.
+                         * Voucher msg template.
                          */
                         var voucherConfirmationSMS =
-                                'Vale Crédito: Você recebeu um Vale Credito no valor de {{voucherAmount | currency}} a ser utilizado na sua próxima compra de produtos MK.{{representativeName}}, {{yourConsultant}} Mary Kay.';
-                        var cellMissingAlert =
-                                'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
+                                'Você recebeu um Vale Crédito no valor de {{voucherAmount | currency}} a ser utilizado na sua próxima compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
 
                         this.sendVoucherConfirmation = function sendVoucherConfirmation(customer, voucherAmount) {
 
@@ -134,13 +132,13 @@
                         };
 
                         /**
-                         * Coupons msgs template.
+                         * Coupons msg template.
                          */
-                        var couponConfirmationSMS =
-                                'Cupom promocional: Você recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount | currency}} a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
-                        var cellMissingAlert =
-                                'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
-
+                        var singularCouponConfirmationSMS =
+                                'Você recebeu um cupon promocional no valor total de {{couponsAmount | currency}} a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        var pluralCouponConfirmationSMS =
+                                'Você recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount | currency}} a serem utilizados na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        
                         this.sendCouponConfirmation = function sendCouponConfirmation(customer, couponsAmount, couponsQty) {
 
                             var to = getPhoneNumber(customer);
@@ -156,7 +154,41 @@
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
 
                             if (to) {
-                                var smsMessage = $interpolate(couponConfirmationSMS)(data);
+                                var smsMessage = null;
+                                if(couponsQty > 1){
+                                    smsMessage = $interpolate(pluralCouponConfirmationSMS)(data);
+                                }else{
+                                    smsMessage = $interpolate(singularCouponConfirmationSMS)(data);
+                                }
+                                smsSent = this.send(to, smsMessage);
+                            } else {
+                                smsSent = $q.reject($interpolate(cellMissingAlert)(data));
+                            }
+                            return smsSent;
+                        };
+
+                        /**
+                         * Giftcard msg template.
+                         */
+                        var giftCardConfirmationSMS =
+                                "Você recebeu de {{customerName}} um Vale Presente no valor de {{giftCardAmount | currency}} a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.";
+
+                        this.sendGiftCardConfirmation = function sendGiftCardConfirmation(customer, giftCard) {
+                           
+                            var entity = EntityService.read(giftCard.entity);
+                            var to = getPhoneNumber(entity);
+
+                            var smsSent = null;
+                            var data = {};
+
+                            // complete data object
+                            data.customerName = customer.name;
+                            data.giftCardAmount = giftCard.amount;
+                            data.representativeName = user.name;
+                            data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
+
+                            if (to) {
+                                var smsMessage = $interpolate(giftCardConfirmationSMS)(data);
                                 smsSent = this.send(to, smsMessage);
                             } else {
                                 smsSent = $q.reject($interpolate(cellMissingAlert)(data));
@@ -165,4 +197,5 @@
                         };
 
                     });
+
 }(angular));
