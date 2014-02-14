@@ -10,6 +10,7 @@
         // #####################################################################################################
 
         var ticket = $scope.ticket;
+        ticket.tab = 'open';
 
         var resetWatchedQty = function resetWatchedQty() {
             $scope.ticket.watchedQty = {};
