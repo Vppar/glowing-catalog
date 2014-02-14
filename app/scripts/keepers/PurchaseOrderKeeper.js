@@ -119,20 +119,20 @@
                         throw 'Unable to find an PurchaseOrder with uuid=\'' + event.uuid + '\'';
                     }
                     
-                    var item = ArrayUtils.find(purchaseEntry.items, 'id', event.productUuid);
+                    var item = ArrayUtils.find(purchaseEntry.items, 'id', event.productId);
                     if (!item) {
-                        throw 'Unable to find in PurchaseOrder uuid=\'' + event.uuid + '\'' + ' an item with uuid=\'' + event.productUuid + '\'';
+                        throw 'Unable to find in PurchaseOrder uuid=\'' + event.uuid + '\'' + ' an item with id=\'' + event.productId + '\'';
                     }
 
-                    var deliver = {};
-                    deliver.id = event.productUuid;
-                    deliver.nfeNumber = event.nfeNumber;
-                    deliver.received = event.received;
-                    deliver.qty = event.qty;
+                    var receive = {};
+                    receive.productId = event.productId;
+                    receive.nfeNumber = event.nfeNumber;
+                    receive.received = event.received;
+                    receive.qty = event.qty;
                     
-                    purchaseEntry.itemsReceived.push(deliver);
+                    purchaseEntry.itemsReceived.push(receive);
                     
-                    return item.id;
+                    return receive.productId;
                 });
 
                 /**
@@ -219,20 +219,20 @@
                 /**
                  * Mark as received an item of the order
                  */
-                var receive = function receive(uuid, productUuid, nfeNumber, qty) {
+                var receive = function receive(uuid, productId, nfeNumber, qty) {
                     var purchase = ArrayUtils.find(purchases, 'uuid', uuid);
                     if (!purchase) {
                         throw 'Unable to find an PurchaseOrder with uuid=\'' + uuid + '\'';
                     }
 
-                    var item = ArrayUtils.find(purchase.items, 'id',  productUuid);
+                    var item = ArrayUtils.find(purchase.items, 'id',  productId);
                     if (!item) {
-                        throw 'Unable to find in PurchaseOrder uuid=\'' + uuid + '\'' + ' an item with uuid=\'' + id + '\'';
+                        throw 'Unable to find in PurchaseOrder uuid=\'' + uuid + '\'' + ' an item with id=\'' + id + '\'';
                     }
 
                     var receiveEv = {
                         uuid : purchase.uuid,
-                        productUuid : productUuid,
+                        productId : productId,
                         nfeNumber : nfeNumber,
                         received : new Date().getTime(),
                         qty : qty,

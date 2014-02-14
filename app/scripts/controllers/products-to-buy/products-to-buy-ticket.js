@@ -1,88 +1,87 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.productsToBuy.ticket.ctrl', []).controller(
-            'ProductsToBuyTicketCtrl', function($scope, $filter, DialogService, PurchaseOrderService) {
+    angular.module('tnt.catalog.productsToBuy.ticket.ctrl', [
+        'tnt.utils.array'
+    ]).controller('ProductsToBuyTicketCtrl', function($scope, $filter, ArrayUtils, DialogService, PurchaseOrderService) {
 
-                // #####################################################################################################
-                // Local variables
-                // #####################################################################################################
+        // #####################################################################################################
+        // Local variables
+        // #####################################################################################################
 
-                var ticket = $scope.ticket;
+        var ticket = $scope.ticket;
 
-                var resetWatchedQty = function resetWatchedQty() {
-                    $scope.ticket.watchedQty = {};
-                    $scope.ticket.checkBox = {};
-                    for ( var ix in $scope.purchaseOrder.items) {
-                        var item = $scope.purchaseOrder.items[ix];
-                        $scope.ticket.watchedQty[item.id] = 0;
-                        $scope.ticket.checkBox[item.id] = 0;
-                    }
-                };
+        var resetWatchedQty = function resetWatchedQty() {
+            $scope.ticket.watchedQty = {};
+            $scope.ticket.checkBox = {};
+            for ( var ix in $scope.purchaseOrder.items) {
+                var item = $scope.purchaseOrder.items[ix];
+                $scope.ticket.watchedQty[item.id] = 0;
+                $scope.ticket.checkBox[item.id] = 0;
+            }
+        };
 
-                var setPurchaseOrder = function setPurchaseOrder(purchaseOrder) {
-                    var filteredPurchaseOrder = PurchaseOrderService.filterReceived(purchaseOrder);
+        var setPurchaseOrder = function setPurchaseOrder(purchaseOrder) {
+            $scope.purchaseOrder = PurchaseOrderService.filterReceived(purchaseOrder);
+            resetWatchedQty();
+        };
 
-                    var date = new Date();
-                    date.setTime(filteredPurchaseOrder.created);
-                    filteredPurchaseOrder.date = date;
+        var selectPart = function selectPart(part) {
+            ticket.selectedPart = part;
+        };
 
-                    $scope.purchaseOrder = filteredPurchaseOrder;
+        // #####################################################################################################
+        // Scope functions
+        // #####################################################################################################
 
-                    resetWatchedQty();
-                };
-
-                var selectPart = function selectPart(part) {
-                    ticket.selectedPart = part;
-                };
-
-                // #####################################################################################################
-                // Scope functions
-                // #####################################################################################################
-
-                $scope.openDialog = function(purchaseOrder) {
-                    var nfePromise = DialogService.openDialogProductsToBuyTicket(purchaseOrder);
-                    nfePromise.then(function(result) {
-                        if (result) {
-                            ticket.nfeData = result.nfe;
-                            setPurchaseOrder(purchaseOrder);
-                            selectPart('part2');
-                        }
-                    });
-                };
-
-                $scope.disableButton = function disableButton() {
-                    var result = false;
-                    for ( var ix in ticket.watchedQty) {
-                        if (!$scope.ticket.checkBox[ix] && (ticket.watchedQty[ix] === 0)) {
-                            result = true;
-                        }
-                    }
-                    return result;
-                };
-
-                $scope.confirm = function() {
-                    for ( var ix in ticket.watchedQty) {
-                        if (ticket.checkBox[ix]) {
-                            PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData.number);
-                        } else {
-                            PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData.number, ticket.watchedQty[ix]);
-                        }
-                    }
-                    PurchaseOrderService.redeem($scope.purchaseOrder.uuid);
-                    resetWatchedQty();
-                    selectPart('part1');
-                };
-
-                $scope.cancel = function() {
-                    selectPart('part1');
-                };
-
-                // #####################################################################################################
-                // Controller warm up
-                // #####################################################################################################
-
-                ticket.loadPurchaseOrders();
+        $scope.openDialog = function(purchaseOrder) {
+            var nfePromise = DialogService.openDialogProductsToBuyTicket(purchaseOrder);
+            nfePromise.then(function(result) {
+                if (result) {
+                    ticket.nfeData = result.nfe;
+                    setPurchaseOrder(purchaseOrder);
+                    selectPart('part2');
+                }
             });
+        };
+
+        $scope.disableButton = function disableButton() {
+            var result = false;
+            for ( var ix in ticket.watchedQty) {
+                if (!$scope.ticket.checkBox[ix] && (ticket.watchedQty[ix] === 0)) {
+                    result = true;
+                }
+            }
+            return result;
+        };
+
+        $scope.confirm = function() {
+            var receivedPromises = [];
+            for ( var ix in ticket.watchedQty) {
+                var item = ArrayUtils.find($scope.purchaseOrder.items, 'id', Number(ix));
+                var receiveQty = item.qty - ticket.watchedQty[ix];
+                if (receiveQty > 0) {
+                    var receivedPromise = PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData.number, receiveQty);
+                    receivedPromises.push(receivedPromise);
+                }
+            }
+
+            $q.all(receivedPromises).then(function() {
+                PurchaseOrderService.redeem($scope.purchaseOrder.uuid);
+                resetWatchedQty();
+                selectPart('part1');
+            });
+        };
+
+        $scope.cancel = function() {
+            selectPart('part1');
+        };
+
+        // #####################################################################################################
+        // Controller warm up
+        // #####################################################################################################
+
+        ticket.loadPurchaseOrders();
+    });
 
 }(angular));

@@ -2,7 +2,7 @@
 
 
 	<!-------- Parte 1 ------------>
-	<div class="products-to-buy-edit" ng-show="ticket.selectedPart=='part1'">
+	<div class="products-to-buy-edit" ng-if="ticket.selectedPart=='part1'">
 		<div class="row-fluid">
 			<div class="grid-payment-products-to-buy-edit">
 				<div class="control-group lbl-top">
@@ -88,7 +88,7 @@
 	</div>
 	<!-------- FIM Parte 1 -------->
 	<!-------- Parte 2 ------------>
-	<div class="grid-pending-products-to-buy-edit width970" ng-show="ticket.selectedPart=='part2'">
+	<div class="grid-pending-products-to-buy-edit width970" ng-if="ticket.selectedPart=='part2'">
 		<div class="header header2 title-header-products-to-buy width970">
 			<div class="row-payment-grid width970">
 				<span class="col-s1">
@@ -115,7 +115,7 @@
 			<span ng-repeat="item in purchaseOrder.items">
 					<div class="row-pending-product-products-to-buy add-dotted-line">
 						<span class="col-s1">
-							<div class="p-title">{{purchaseOrder.date}}</div>
+							<div class="p-title">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
 						</span> 
 						<span class="col-s2">
 							<div>{{purchaseOrder | uuidCode}}</div>
