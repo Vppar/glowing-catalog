@@ -54,7 +54,7 @@
 	
 					<div class="scroll-payment-grid max-height-500-overrule">
 							<span ng-repeat="purchaseOrder in ticket.purchaseOrders | orderBy:'-created'"> 
-								<div class="row-pending-product-products-to-buy add-dotted-line make-clickable" ng-click="openDialog(purchaseOrder)" ng-if="filterOrders(purchase)">
+								<div class="row-pending-product-products-to-buy add-dotted-line make-clickable" ng-click="openDialog(purchaseOrder)" ng-if="filterOrders(purchaseOrder)">
 									<span class="col-s1">
 										<div class="p-title">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
 									</span>
