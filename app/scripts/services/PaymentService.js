@@ -201,7 +201,7 @@
                 };
 
                 var couponsSaved = [];
-                console.log('reset');
+
                 var receivables = [
                     'cash', 'check', 'creditCard', 'noMerchantCc', 'onCuff'
                 ];
