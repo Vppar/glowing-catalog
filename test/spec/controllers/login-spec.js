@@ -8,7 +8,6 @@ describe('Controller : LoginCtrl', function() {
 
     beforeEach(function() {
         module('tnt.catalog.login.ctrl');
-        module('tnt.catalog.service.dialog');
     });
 
     beforeEach(inject(function($controller, $rootScope, _$q_) {
@@ -29,7 +28,7 @@ describe('Controller : LoginCtrl', function() {
     }));
 
     describe('When create controller', function() {
-        it('controller acessible', function() {
+        it('controller is accessible', function() {
             expect(!!controller).toBe(true);
         });
     });
