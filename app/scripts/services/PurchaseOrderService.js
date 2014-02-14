@@ -1,12 +1,12 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.purchaseOrder.service', [
-        'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder'
+        'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder', 'tnt.catalog.filter.sum'
     ]).service(
             'PurchaseOrderService',
             function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
 
-                var isValid = function isValid(order) {
+                this.isValid = function isValid(order) {
                     var invalidProperty, result = [];
 
                     // See validation helpers in the end of this file
@@ -30,9 +30,9 @@
                 /**
                  * register
                  */
-                var register = function register(purchase) {
+                this.register = function register(purchase) {
                     var result = null;
-                    var hasErrors = isValid(purchase);
+                    var hasErrors = this.isValid(purchase);
                     if (hasErrors.length === 0) {
                         result = PurchaseOrderKeeper.add(new PurchaseOrder(purchase));
                         result.then(function(uuid) {
@@ -58,7 +58,7 @@
                 /**
                  * List all PurchaseOrders.
                  */
-                var list = function list() {
+                this.list = function list() {
                     var results = null;
                     try {
                         results = PurchaseOrderKeeper.list();
@@ -71,7 +71,7 @@
                 /**
                  * Read a specific purchaseOrder
                  */
-                var read =
+                this.read =
                         function read(uuid) {
                             var result = null;
                             try {
@@ -83,12 +83,12 @@
                             return result;
                         };
 
-                var receive =
+                this.receive =
                         function receive(uuid, productId, nfeNumber, receiveQty) {
                             var result = true;
                             var numericProductId = Number(productId);
                             try {
-                                var purchaseOrder = read(uuid);
+                                var purchaseOrder = this.read(uuid);
                                 var purchasedProduct = ArrayUtils.find(purchaseOrder.items, 'id', numericProductId);
                                 var receivedProducts = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', numericProductId);
 
@@ -108,7 +108,7 @@
                             return result;
                         };
 
-                var filterReceived = function filterReceived(purchaseOrder) {
+                this.filterReceived = function filterReceived(purchaseOrder) {
                     var result = angular.copy(purchaseOrder);
                     for ( var i = 0; i < result.items.length;) {
 
@@ -127,10 +127,23 @@
                     return result;
                 };
 
+                this.filterPending = function filterPending() {
+                    var orders = this.list();
+                    var pending = []; 
+                    for(var i in orders){
+                        if(orders[i].received){
+                            //do nothing
+                        }else{
+                            pending.push(this.filterReceived(orders[i]));
+                        }
+                    }
+                    return pending;
+                };
+
                 /**
                  * Cancel a purchaseOrder
                  */
-                var cancel = function cancel(uuid) {
+                this.cancel = function cancel(uuid) {
                     var result = true;
                     try {
                         result = PurchaseOrderKeeper.cancel(uuid);
@@ -143,11 +156,11 @@
                 /**
                  * Redeem a purchaseOrder
                  */
-                var redeem = function redeem(uuid) {
+                this.redeem = function redeem(uuid) {
                     var result = null;
                     var redeemed = true;
                     try {
-                        var purchaseOrder = read(uuid);
+                        var purchaseOrder = this.read(uuid);
                         for ( var ix in purchaseOrder.items) {
                             var item = purchaseOrder.items[ix];
                             var receivedProducts = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', item.id);
@@ -168,15 +181,6 @@
                     }
                     return result;
                 };
-
-                this.register = register;
-                this.list = list;
-                this.read = read;
-                this.filterReceived = filterReceived;
-                this.receive = receive;
-                this.cancel = cancel;
-                this.redeem = redeem;
-                this.isValid = isValid;
 
                 // ===========================================
                 // Helpers
