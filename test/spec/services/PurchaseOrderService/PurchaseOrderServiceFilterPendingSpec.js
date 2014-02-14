@@ -1,5 +1,5 @@
 'use strict';
-ddescribe('Service: PurchaseOrderService', function() {
+describe('Service: PurchaseOrderService', function() {
 
     var PurchaseOrderService = {};
     var purchases = [{
@@ -59,7 +59,7 @@ ddescribe('Service: PurchaseOrderService', function() {
         PurchaseOrderService.list = jasmine.createSpy('list').andReturn(purchases);
     }));
 
-    it('initializes an purchaseOrder object', function() {
+    it('filter the orders with pending items', function() {
         //given
         //when
         var result = PurchaseOrderService.filterPending();
