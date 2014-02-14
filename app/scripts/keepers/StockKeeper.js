@@ -263,10 +263,6 @@
          */
         this.reserve = function(inventoryId, reserve) {
             
-            var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
-            if (entry === null) {
-                return $q.reject( 'No stockable found with this inventoryId: '+ inventoryId );
-            }
 
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;
