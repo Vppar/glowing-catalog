@@ -1,4 +1,4 @@
-<div class="row-fluid step1">
+<div class="row-fluid step1 step3">
 
 
 	<!-------- Parte 1 ------------>
@@ -8,7 +8,7 @@
 				<div class="control-group lbl-top">
 					
 						<span class="menu-level">
-							<div class="btn-group btn-group-sm" >
+							<div class="btn-group btn-group-sm">
 								<a class="btn btn-option" ng-class="{active: ticket.tab=='open'}" ng-click="changeTab('open')">Pedidos em Aberto</a> 
 								<a class="btn btn-option" ng-class="{active: ticket.tab=='all'}" ng-click="changeTab('all')">Todos os Pedidos</a> 
 								
@@ -23,7 +23,7 @@
 					</label>
 				</div>
 				<div class="grid-pending-products-to-buy-edit width970">
-					<div class="header header2 title-header-products-to-buy">
+					<div class="step3title-header-products-to-buy">
 						<div class="row-payment-grid height40">
 	                             	<span class="col-s1">
 								<div class="height40">Data</div>
@@ -54,29 +54,29 @@
 	
 					<div class="scroll-payment-grid max-height-500-overrule">
 							<span ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'"> 
-								<div class="row-pending-product-products-to-buy add-dotted-line make-clickable" ng-click="openDialog(purchaseOrder)">
-									<span class="col-s1">
+								<div class="row-pending-product-products-to-buy height40 add-dotted-line make-clickable" ng-click="openDialog(purchaseOrder)">
+									<span class="col-s1 lineheight20-overrule">
 										<div class="p-title">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
 									</span>
-									<span class="col-s2">
+									<span class="col-s2 lineheight20-overrule">
 										<div>{{purchaseOrder.created | date:'HH:mm'}}</div>
 									</span>
-									<span class="col-s3">
+									<span class="col-s3 lineheight20-overrule">
 										<div></div>
 									</span>
-	                                <span class="col-s4">
+	                                <span class="col-s4 lineheight20-overrule">
 										<div>{{purchaseOrder | uuidCode}}</div>
 									</span>
-									<span class="col-s5">
+									<span class="col-s5 lineheight20-overrule">
 										<div></div>
 									</span>
-									<span class="col-s6">
+									<span class="col-s6 lineheight20-overrule">
 										<div>{{purchaseOrder.amount | currency:''}}</div>
 									</span>
-									<span class="col-s7">
+									<span class="col-s7 lineheight20-overrule">
 										<div></div>
 									</span>
-									<span class="col-s8">
+									<span class="col-s8 lineheight20-overrule">
 										<div></div>
 									</span>
 								</div>
@@ -89,23 +89,35 @@
 	<!-------- FIM Parte 1 -------->
 	<!-------- Parte 2 ------------>
 	<div class="grid-pending-products-to-buy-edit width970" ng-if="ticket.selectedPart=='part2'">
-		<div class="header header2 title-header-products-to-buy width970">
+		<div class="step3title-header-products-to-buy width970">
 			<div class="row-payment-grid width970">
-				<span class="col-s1">
+				<span class="step3col col-10perc">
 					<div>Data</div>
-				</span> <span class="col-s2">
+				</span> <span class="step3col col-8perc">
 					<div>Pedido</div>
-				</span> <span class="col-s3">
+				</span> <span class="step3col col-10perc">
 					<div>NFe</div>
-				</span> <span class="col-s4">
+				</span> <span class="step3col col-30perc step3colleft">
 					<div>Produto/C&oacute;digo</div>
-				</span> <span class="col-s5">
+				</span> 
+				
+				</span> <span class="step3col col-5perc">
+					<div>Pts</div>
+				</span>
+				
+				<span class="step3col col-10perc">
 					<div>P.Unit</div>
-				</span> <span class="col-s6">
+				</span> 
+				
+				<span class="step3col col-5perc">
 					<div>Qtde</div>
-				</span> <span class="col-s7">
+				</span> 
+				
+				<span class="step3col col-5perc">
 					<div>Ok</div>
-				</span> <span class="col-s8">
+				</span> 
+				
+				<span class="step3col col-input-qty">
 					<div>Pend./Qtde.</div>
 				</span>
 			</div>
@@ -113,32 +125,39 @@
 
 		<div class="scroll-payment-grid scroll-payment-grid2 max-height-480-overrule min-height-reset marginBottom width970">
 			<span ng-repeat="item in purchaseOrder.items">
-					<div class="row-pending-product-products-to-buy add-dotted-line">
-						<span class="col-s1">
-							<div class="p-title">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
-						</span> 
-						<span class="col-s2">
-							<div>{{purchaseOrder | uuidCode}}</div>
-						</span> 
-						<span class="col-s3">
-							<div>{{item.nfe}}</div>
-						</span> 
-						<span class="col-s4">
-							<div class="p-title">{{item.title}}</div>&nbsp;
-							<div class="p-points">{{item.points}} pts</div>
-							<div class="small-text">cod.: {{item.SKU}}</div>
-						</span> 
-						<span class="col-s5">
+				<div class="row-pending-product-products-to-buy add-dotted-line">
+					<span class="step3col col-10perc">
+						<div class="p-title">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
+					</span> 
+					
+					<span class="step3col col-8perc">
+						<div>{{purchaseOrder | uuidCode}}</div>
+					</span> 
+					
+					<span class="step3col col-10perc">
+						<div>{{item.nfe}}</div>
+					</span> 
+					
+					<span class="step3col col-30perc step3colleft">
+						<div class="p-title">{{item.title}}</div>
+						<div class="small-text">cod.: {{item.SKU}}</div>
+					</span> 
+						
+					<span class="step3col col-5perc">
+							{{item.points}}
+						</span>
+						
+						<span class="step3col col-10perc">
 							<div>{{item.cost | currency: ''}}</div>
-						</span> <span class="col-s6">
+						</span> <span class="step3col col-5perc">
 							<div>{{item.qty}}</div>
 						</span> 
-						<span class="col-s7">
+						<span class="step3col col-5perc">
 							<div>
 								<input type="checkbox" ng-model="ticket.checkBox[item.id]">
 							</div>
 						</span> 
-						<span class="col-input-qty">
+						<span class="step3col col-input-qty">
 							<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
 							
 						</span>

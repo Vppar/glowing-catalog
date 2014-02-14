@@ -4,24 +4,27 @@
 			<div class="grid-payment-products-to-buy-edit">
 			 	              
 				<div class="grid-pending-products-to-buy-edit">
-					<div class="header header2 title-header-products-to-buy">
+					<div class="steptitle-header-products-to-buy">
 						<div class="row-payment-grid">
-	                             	<span class="col-s1">
+	                             	<span class="stepcol col-10perc">
 								<div>Data</div>
 							</span>
-							<span class="col-s2">
+							<span class="stepcol col-10perc">
 								<div>Pedido</div>
 							</span>
-							<span class="col-s3">
+							<span class="stepcol col-10perc">
 								<div>NFe</div>
 							</span>
-							<span class="col-s4">
+							<span class="stepcol col-35perc stepcolleft">
 								<div>Produto/C&oacute;digo</div>
 							</span>
-							<span class="col-s5">
+							<span class="stepcol col-10perc">
+								<div>Pts.</div>
+							</span>
+							<span class="stepcol col-10perc">
 								<div>P.Unit</div>
 							</span>
-							<span class="col-s8">
+							<span class="stepcol col-10perc">
 								<div>Pend./Qtde.</div>
 							</span>
 						</div>
@@ -31,23 +34,29 @@
 						<span ng-repeat="sessions in stockReport">									
 							<span ng-repeat="lines in sessions"> 
 								<div class="row-pending-product-products-to-buy" >
-									<span class="col-s1">
-										<div class="p-title">24/01/2014</div>
+									<span class="stepcol col-10perc">
+										<div>24/01/2014</div>
 									</span>
-									<span class="col-s2">
+									<span class="stepcol col-10perc">
 										<div>012-14</div>
 									</span>
-									<span class="col-s3">
+									<span class="stepcol col-10perc">
 										<div>12345138</div>
 									</span>
-	                                         <span class="col-s4">
-										<div class="p-title">{{product.title}}</div>&nbsp;<div class="p-points">{{product.points}} pts</div>
+	                                 
+	                                 <span class="stepcol col-35perc stepcolleft">
+										<div class="p-title">{{product.title}}</div>
 										<div class="small-text">cod.: {{product.SKU}}</div>
 									</span>
-									<span class="col-s5">
+									
+									<span class="stepcol col-10perc">
+										<div class="p-points">{{product.points}}</div>
+									</span>
+									
+									<span class="stepcol col-10perc">
 										<div>{{product.cost | currency: ''}}</div>
 									</span>
-									<span class="col-s8">
+									<span class="stepcol col-10perc">
 										<div>{{1}}</div>
 									</span>
 								</div>

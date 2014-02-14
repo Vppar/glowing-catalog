@@ -10,6 +10,9 @@
 	width: 100%;
 }
 
+.lineheight20-overrule{
+	line-height: 20px !important;
+}
 
 .height40{
 	height: 40px;
@@ -1059,6 +1062,108 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 
 
 /* trying to make a little sense-------------------------------------*/
+
+
+
+
+.steptitle-header-products-to-buy {
+	margin-bottom:2px;
+	background-color: #333333;
+	color: #fff;
+	border-radius: 4px; 
+	height: 40px;
+	line-height: 40px;
+}
+.steptitle-header-products-to-buy span{
+	height:40px;
+	line-height: 40px;
+}
+.steptitle-header-products-to-buy span div{
+	height:40px;
+	line-height: 40px;
+}
+.stepcol{
+	text-align: center;
+	display: inline-block;
+	line-height: 20px;
+	vertical-align: top;
+}
+
+.stepcolleft{
+	text-align: left;
+}
+
+
+/*this was the temporary solution encapsulated
+  all step3something should be transformed
+*/
+.step3title-header-products-to-buy {
+	margin-bottom:2px;
+	background-color: #333333;
+	color: #fff;
+	border-radius: 4px; 
+	height: 40px;
+	line-height: 40px;
+}
+.step3title-header-products-to-buy span{
+	height:40px;
+	line-height: 40px;
+}
+.step3title-header-products-to-buy span div{
+	height:40px;
+	line-height: 40px;
+}
+
+.step3col{
+	text-align: center;
+	display: inline-block;
+	line-height: 20px;
+	vertical-align: top;
+}
+.step3col input[type="checkbox"]{
+	margin:0px;
+}
+
+.step3colinput{
+	text-align: center;
+	display: inline-block;
+	line-height: 30px;
+	vertical-align: top;
+}
+
+.step3colleft{
+	text-align: left;
+}
+
+.col-30perc{
+	width:30%;
+}
+
+.col-8perc{
+	width:8%;
+}
+.col-10perc{
+	width:10%;
+}
+.col-5perc{
+	width:5%;
+}
+.col-50perc{
+	width:50%;
+}
+.col-40perc{
+	width:40%;
+}
+.col-35perc{
+	width:35%;
+}
+
+.step3 .p-title {
+	width:100%;
+}
+
+
+
 
 .step2 .session-label{
 	height:40px;
