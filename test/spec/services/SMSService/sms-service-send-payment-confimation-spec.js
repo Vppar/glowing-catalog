@@ -60,7 +60,7 @@ describe(
                         expect(SMSService.send)
                                 .toHaveBeenCalledWith(
                                         '5599887766',
-                                        'Vale Crédito: Você recebeu um Vale Credito no valor de R$30,00 a ser utilizado na sua próxima compra de produtos MK.Maria Lima, sua consultora Mary Kay.');
+                                        'Vale Crédito: Você recebeu um Vale Credito no valor de R$30,00 a ser utilizado na sua próxima compra de produtos MK. Maria Lima, sua consultora Mary Kay.');
                     });
 
             it('should not send a sms', function() {

@@ -347,6 +347,7 @@
                 };
 
                 var vouchers = [];
+                var giftCards = [];
 
                 /**
                  * Saves the payments and closes the order.
@@ -383,7 +384,7 @@
 
                         // Create new vouchers and gift cards
                         vouchers = ArrayUtils.list(OrderService.order.items, 'type', 'voucher');
-                        var giftCards = ArrayUtils.list(OrderService.order.items, 'type', 'giftCard');
+                        giftCards = ArrayUtils.list(OrderService.order.items, 'type', 'giftCard');
 
                         var newVouchersPromise =
                                 vouchers.length && VoucherService.bulkCreate(vouchers).then(null, propagateRejectedPromise);
@@ -429,10 +430,19 @@
                         }
                     }
 
+                    function sendGiftCardSMS(giftCards) {
+                        if (giftCards.length > 0) {
+                            for ( var i in giftCards) {
+                                SMSService.sendGiftCardConfirmation(customer, giftCards[i]);
+                            }
+                        }
+                    }
+
                     savedSalePromise.then(function() {
                         SMSService.sendPaymentConfirmation(customer, amount);
                         sendVoucherSMS(vouchers);
                         sendCouponsSMS(couponsSaved);
+                        sendGiftCardSMS(giftCards);
                     });
 
                     // clear all
