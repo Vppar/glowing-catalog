@@ -70,6 +70,16 @@
                             return phrase;
                         };
 
+                        var getCurrencyFormat = function getCurrencyFormat(amount) {
+                            var string = amount + "";
+                            if (string.indexOf('.') === -1) {
+                                string += ',00';
+                            } else {
+                                string = string.replace('.', ',');
+                            }
+                            return string;
+                        };
+
                         // ############################################################################################
                         // Payment functions
                         // ############################################################################################
@@ -77,7 +87,7 @@
                          * Payment msgs template.
                          */
                         var paymentConfirmationSMS =
-                                'Ola {{customerName}}, seu pedido no valor de {{orderAmount | currency}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                                'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}}, {{yourConsultant}} Mary Kay.';
                         var cellMissingAlert =
                                 'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
 
@@ -90,7 +100,7 @@
 
                             // complete data object
                             data.customerName = customer.name;
-                            data.orderAmount = orderAmount;
+                            data.orderAmount = getCurrencyFormat(orderAmount);
                             data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
 
@@ -107,7 +117,7 @@
                          * Voucher msg template.
                          */
                         var voucherConfirmationSMS =
-                                'Você recebeu um Vale Crédito no valor de {{voucherAmount | currency}} a ser utilizado na sua próxima compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                                'Voce recebeu um Vale Credito no valor de {{voucherAmount}} reais a ser utilizado na sua proxima compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
 
                         this.sendVoucherConfirmation = function sendVoucherConfirmation(customer, voucherAmount) {
 
@@ -118,7 +128,7 @@
 
                             // complete data object
                             data.customerName = customer.name;
-                            data.voucherAmount = voucherAmount;
+                            data.voucherAmount = getCurrencyFormat(voucherAmount);
                             data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
 
@@ -135,10 +145,10 @@
                          * Coupons msg template.
                          */
                         var singularCouponConfirmationSMS =
-                                'Você recebeu um cupon promocional no valor total de {{couponsAmount | currency}} a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                                'Voce recebeu um cupon promocional no valor total de {{couponsAmount}} reais a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
                         var pluralCouponConfirmationSMS =
-                                'Você recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount | currency}} a serem utilizados na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
-                        
+                                'Voce recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount}} reais a serem utilizados na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+
                         this.sendCouponConfirmation = function sendCouponConfirmation(customer, couponsAmount, couponsQty) {
 
                             var to = getPhoneNumber(customer);
@@ -148,16 +158,16 @@
 
                             // complete data object
                             data.customerName = customer.name;
-                            data.couponsAmount = couponsAmount;
+                            data.couponsAmount = getCurrencyFormat(couponsAmount);
                             data.couponsQty = couponsQty;
                             data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
 
                             if (to) {
                                 var smsMessage = null;
-                                if(couponsQty > 1){
+                                if (couponsQty > 1) {
                                     smsMessage = $interpolate(pluralCouponConfirmationSMS)(data);
-                                }else{
+                                } else {
                                     smsMessage = $interpolate(singularCouponConfirmationSMS)(data);
                                 }
                                 smsSent = this.send(to, smsMessage);
@@ -171,10 +181,10 @@
                          * Giftcard msg template.
                          */
                         var giftCardConfirmationSMS =
-                                "Você recebeu de {{customerName}} um Vale Presente no valor de {{giftCardAmount | currency}} a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.";
+                                "Voce recebeu de {{customerName}} um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.";
 
                         this.sendGiftCardConfirmation = function sendGiftCardConfirmation(customer, giftCard) {
-                           
+
                             var entity = EntityService.read(giftCard.entity);
                             var to = getPhoneNumber(entity);
 
@@ -183,7 +193,7 @@
 
                             // complete data object
                             data.customerName = customer.name;
-                            data.giftCardAmount = giftCard.amount;
+                            data.giftCardAmount = getCurrencyFormat(giftCard.amount);
                             data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
 
