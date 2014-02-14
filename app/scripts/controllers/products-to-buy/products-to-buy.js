@@ -69,11 +69,12 @@
          * Ticket tab
          */
         $scope.ticket = {};
+        $scope.ticket.tab = 'open';
         $scope.ticket.watchedQty = {};
         $scope.ticket.checkBox = [];
         $scope.ticket.selectedPart = 'part1';
         $scope.ticket.loadPurchaseOrders = loadPurchaseOrders;
-        $scope.ticket.purchaseOrders = {};
+        $scope.ticket.purchaseOrders = [];
 
         // #####################################################################################################
         // Scope functions
