@@ -7,7 +7,8 @@
                 'tnt.catalog.filter.sum'
             ]).service(
             'PurchaseOrderService',
-            function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
+            function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService,
+                    Stock, StockService) {
 
                 this.isValid = function isValid(order) {
                     var invalidProperty, result = [];
@@ -104,6 +105,11 @@
                                     }
                                 }
                                 result = PurchaseOrderKeeper.receive(uuid, numericProductId, nfeNumber, receiveQty);
+
+                                result = result.then(function(productId) {
+                                    return StockService.add(new Stock(Number(productId), receiveQty, purchasedProduct.cost));
+                                });
+
                             } catch (err) {
                                 throw 'PurchaseOrderService.receive: Unable to receive the item with id=' + numericProductId +
                                     ' of the purchaseOrder with uuid=' + uuid + '. ' + 'Err=' + err;
@@ -161,31 +167,35 @@
                 /**
                  * Redeem a purchaseOrder
                  */
-                this.redeem = function redeem(uuid) {
-                    var result = null;
-                    var redeemed = true;
-                    try {
-                        var purchaseOrder = this.read(uuid);
-                        for ( var ix in purchaseOrder.items) {
-                            var item = purchaseOrder.items[ix];
-                            var receivedProducts = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', item.id);
-                            var receivedQty = $filter('sum')(receivedProducts, 'qty', item.id);
+                this.redeem =
+                        function redeem(uuid) {
+                            var result = null;
+                            var redeemed = true;
+                            try {
+                                var purchaseOrder = this.read(uuid);
+                                for ( var ix in purchaseOrder.items) {
+                                    var item = purchaseOrder.items[ix];
+                                    var receivedProducts = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', item.id);
+                                    var receivedQty = $filter('sum')(receivedProducts, 'qty', item.id);
 
-                            if (item.qty !== receivedQty) {
-                                redeemed = false;
-                                break;
+                                    if (item.qty !== receivedQty) {
+                                        redeemed = false;
+                                        break;
+                                    }
+                                }
+                                if (redeemed) {
+                                    result = PurchaseOrderKeeper.redeem(uuid);
+                                } else {
+                                    var deferred = $q.defer();
+                                    deferred.resolve('PurchaseOrderService.redeem: Purchase order not fully received.');
+                                    result = deferred.promise;
+                                }
+                            } catch (err) {
+                                $q.reject('PurchaseOrderService.redeem: Unable to redeem the purchaseOrder with uuid=' + uuid + '. ' +
+                                    'Err=' + err);
                             }
-                        }
-                        if (redeemed) {
-                            result = PurchaseOrderKeeper.redeem(uuid);
-                        } else {
-                            result = $q.reject('PurchaseOrderService.redeem: Purchase order not fully received.');
-                        }
-                    } catch (err) {
-                        throw 'PurchaseOrderService.redeem: Unable to redeem the purchaseOrder with uuid=' + uuid + '. ' + 'Err=' + err;
-                    }
-                    return result;
-                };
+                            return result;
+                        };
 
                 // ===========================================
                 // Helpers

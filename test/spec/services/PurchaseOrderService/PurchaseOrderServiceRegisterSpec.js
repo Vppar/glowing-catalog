@@ -5,6 +5,7 @@ xdescribe('Service: PurchaseOrderService', function() {
     var PurchaseOrderKeeper = {};
     var ExpenseService = {};
     var PurchaseOrderService = {};
+    var StockService = {};
     var $rootScope = null;
     var $log = {};
     var $q = {};
@@ -32,10 +33,12 @@ xdescribe('Service: PurchaseOrderService', function() {
         module('tnt.catalog.purchaseOrder');
         module('tnt.catalog.purchaseOrder.service');
         module('tnt.catalog.expense.entity');
+        module('tnt.catalog.stock.entity');
 
         module(function($provide) {
             $provide.value('$log', $log);
             $provide.value('PurchaseOrderKeeper', PurchaseOrderKeeper);
+            $provide.value('StockService', StockService);
             $provide.value('ExpenseService', ExpenseService);
         });
     });

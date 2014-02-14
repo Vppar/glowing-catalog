@@ -104,15 +104,20 @@
          */
         ObjectUtils.ro(this.handlers, 'stockAddV1', function(event) {
             var entry = ArrayUtils.find(stock, 'inventoryId', event.inventoryId);
+            var updatedInv = null;
             if (entry === null) {
                 event = new Stock(event);
+                updatedInv = event.quantity;
+                
                 stock.push(event);
             } else {
-                var updatedInv = entry.quantity + event.quantity;
+                updatedInv = entry.quantity + event.quantity;
                 var average = ((entry.quantity * entry.cost) + (event.quantity * event.cost)) / updatedInv;
+                
                 entry.cost = average;
                 entry.quantity = updatedInv;
             }
+            return updatedInv;
         });
 
         /**
@@ -145,6 +150,8 @@
                 throw 'Entity not found, cosistency must be broken! Replay?';
             }
             entry.quantity -= event.quantity;
+            
+            return entry.quantity;
         });
         
         ObjectUtils.ro(this.handlers, 'stockReserveV1', function(event) {
@@ -201,7 +208,7 @@
         this.add = function(stock) {
 
             if (!(stock instanceof Stock)) {
-                return $q.reject( "Wrong instance of Stock" );
+                return $q.reject( 'Wrong instance of Stock' );
             }
 
             var stamp = (new Date()).getTime();
@@ -256,7 +263,6 @@
          */
         this.reserve = function(inventoryId, reserve) {
             
-            var entry = ArrayUtils.find(stock, 'inventoryId', inventoryId);
 
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;

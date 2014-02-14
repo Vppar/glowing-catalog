@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', [
         'tnt.utils.array'
-    ]).controller('ProductsToBuyTicketCtrl', function($scope, $filter, $q, ArrayUtils, DialogService, PurchaseOrderService) {
+    ]).controller('ProductsToBuyTicketCtrl', function($scope, $filter, $q, $log,  ArrayUtils, DialogService, PurchaseOrderService) {
 
         // #####################################################################################################
         // Local variables
@@ -11,6 +11,8 @@
 
         var ticket = $scope.ticket;
         ticket.tab = 'open';
+        
+        var resetPurchaseOrder = $scope.resetPurchaseOrder;
 
         var resetWatchedQty = function resetWatchedQty() {
             $scope.ticket.watchedQty = {};
@@ -76,8 +78,8 @@
             redeemedPromise.then(function() {
                 ticket.loadPurchaseOrders();
                 selectPart('part1');
+                resetPurchaseOrder();
             });
-
         };
 
         $scope.changeTab = function changeTab(tab) {

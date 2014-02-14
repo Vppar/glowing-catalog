@@ -1,9 +1,13 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.stock.service', []).service(
+    angular.module('tnt.catalog.stock.service', ['tnt.catalog.stock']).service(
             'StockService',
-            function StockService($log, ArrayUtils, InventoryKeeper, StockKeeper) {
+            function StockService($q, $log, ArrayUtils, InventoryKeeper, Stock, StockKeeper) {
+
+                // ###############################################################################################
+                // Private methods
+                // ###############################################################################################
 
                 var augmentReserveAndQty = function augmentReserveAndQty(type, reportItem) {
                     reportItem.reserve = reportItem.reserve ? reportItem.reserve : 0;
@@ -112,7 +116,50 @@
                     return result;
                 };
 
-                var stockReport =
+                // ###############################################################################################
+                // Public methods
+                // ###############################################################################################
+
+                this.isValid = function(item) {
+                    var invalidProperty = {};
+
+                    // just name and phone are mandatory
+                    invalidProperty.inventoryId = angular.isDefined(item.inventoryId);
+                    invalidProperty.quantity = angular.isDefined(item.quantity) && angular.isNumber(item.quantity) && item.quantity > 0;
+                    invalidProperty.quantity = angular.isDefined(item.cost) && angular.isNumber(item.cost) && item.cost > 0;
+
+                    var result = [];
+
+                    for ( var ix in invalidProperty) {
+                        if (!invalidProperty[ix]) {
+                            // Create a new empty object, set a property
+                            // with the name of the invalid property,
+                            // fill it with the invalid value and add to
+                            // the result
+                            var error = {};
+                            error[ix] = item[ix];
+                            result.push(error);
+                        }
+                    }
+
+                    return result;
+                };
+
+                this.add = function add(item) {
+                    var result = null;
+
+                    var hasErrors = this.isValid(item);
+
+                    if (hasErrors.length === 0) {
+                        var stockEntry = new Stock(item.inventoryId, item.quantity, item.cost);
+                        result = StockKeeper.add(stockEntry);
+                    } else {
+                        result = $q.reject(hasErrors);
+                    }
+                    return result;
+                };
+
+                this.stockReport =
                         function stockReport(type, filter) {
                             // current time for log
                             var processStarted = new Date().getTime();
@@ -166,7 +213,7 @@
                             return report;
                         };
 
-                var updateReport = function updateReport(stockReport, filter) {
+                this.updateReport = function updateReport(stockReport, filter) {
                     // products
                     for ( var ix in stockReport.sessions) {
                         // sessions
@@ -202,13 +249,10 @@
                     }
                 };
 
-                var findInStock = function findInStock(itemId) {
+                this.findInStock = function findInStock(itemId) {
                     var copyList = StockKeeper.list();
                     return ArrayUtils.find(copyList, 'inventoryId', itemId);
                 };
 
-                this.updateReport = updateReport;
-                this.stockReport = stockReport;
-                this.findInStock = findInStock;
             });
 }(angular));

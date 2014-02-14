@@ -66,7 +66,7 @@ describe('StockeeperReserveScenario', function() {
 
         waitsFor(function(){
             return created;
-        }, 'StockKeeper.reserve()', 300);
+        }, 'StockKeeper.reserve()');
 
         runs(function() {
             //then
