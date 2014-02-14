@@ -7,7 +7,7 @@ describe('Controller: HeaderCtrl', function() {
     var ds = {};
     var os = {};
     var location = {};
-
+    var UserService = {};
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
         // $location mock
@@ -22,7 +22,7 @@ describe('Controller: HeaderCtrl', function() {
         // DialogService mock
         ds.openDialogChooseCustomer = jasmine.createSpy('DialogService.openDialogChooseCustomer');
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
-
+        UserService = jasmine.createSpy('UserService');
         // $scope mock
         scope = $rootScope.$new();
         
@@ -31,7 +31,8 @@ describe('Controller: HeaderCtrl', function() {
             $scope : scope,
             $location : location,
             OrderService : os,
-            DialogService : ds
+            DialogService : ds,
+            UserService : UserService
         });
     }));
 
