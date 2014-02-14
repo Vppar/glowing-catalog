@@ -2,6 +2,18 @@
 /**
  * A helper for creating functions that return a rejected/resolved promise
  * to be used in tests.
+ *
+ * Usage:
+ *
+ * beforeEach(inject(function ($q, $log) {
+ *   PromiseHelper.config($q, $log.debug);
+ * });
+ *
+ * And setup a spy:
+ *
+ * foo.bar = jasmine.createSpy('foo.bar').andCallFake(PromiseHelper.resolved('yay'));
+ * foo.baz = jasmine.createSpy('foo.baz').andCallFake(PromiseHelper.rejected('aw...'));
+ *
  * @type {Object}
  */
 var PromiseHelper = (function () {
