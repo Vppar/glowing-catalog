@@ -1,10 +1,10 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.purchaseOrder.service', [
-        'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder'
+        'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder'
     ]).service(
             'PurchaseOrderService',
-            function PurchaseOrderService($q, $log, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
+            function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
 
                 var isValid = function isValid(order) {
                     var invalidProperty, result = [];
@@ -30,7 +30,6 @@
                 /**
                  * register
                  */
-
                 var register = function register(purchase) {
                     var result = null;
                     var hasErrors = isValid(purchase);
@@ -85,6 +84,56 @@
                         };
 
                 /**
+                 * Receive an item of a purchaseOrder
+                 */
+                var receive =
+                        function receive(uuid, productUuid, nfeNumber, missingQty) {
+                            var result = true;
+                            var qty = null;
+                            try {
+                                var numericProductUuid = Number(productUuid);
+                                var purchaseOrder = read(uuid);
+                                var productPurchase = ArrayUtils.find(purchaseOrder.items, 'id', numericProductUuid);
+                                var productDelivers = ArrayUtils.list(purchaseOrder.itemsReceived, 'id', numericProductUuid);
+
+                                qty = productPurchase.qty - (missingQty ? missingQty : 0);
+
+                                if (productDelivers.length > 0) {
+                                    var purchasesQty = productPurchase.qty;
+                                    var deliveredQty = $filter('sum')(productDelivers, 'qty', numericProductUuid);
+
+                                    if ((deliveredQty + qty) > purchasesQty) {
+                                        throw 'The deliver that is being informed is greater than the total ordered';
+                                    }
+                                }
+                                result = PurchaseOrderKeeper.receive(uuid, numericProductUuid, nfeNumber, qty);
+                            } catch (err) {
+                                throw 'PurchaseOrderService.receive: Unable to receive the item with uuid=' + productUuid +
+                                    ' of the purchaseOrder with uuid=' + uuid + '. ' + 'Err=' + err;
+                            }
+                            return result;
+                        };
+
+                var filterReceived = function filterReceived(purchaseOrder) {
+                    var result = angular.copy(purchaseOrder);
+                    for ( var i = 0; i < result.items.length;) {
+
+                        var item = purchaseOrder.items[ix];
+                        var productDelivers = ArrayUtils.list(purchaseOrder.itemsReceived, 'id', item.id);
+                        var receivedQty = $filter('sum')(productDelivers, 'qty');
+
+                        item.qty = item.qty - receivedQty;
+
+                        if (item.qty === 0) {
+                            result.items.splice(i, 0);
+                        } else {
+                            i++;
+                        }
+                    }
+                    return result;
+                };
+
+                /**
                  * Cancel a purchaseOrder
                  */
                 var cancel = function cancel(uuid) {
@@ -113,6 +162,8 @@
                 this.register = register;
                 this.list = list;
                 this.read = read;
+                this.filterReceived = filterReceived;
+                this.receive = receive;
                 this.cancel = cancel;
                 this.redeem = redeem;
                 this.isValid = isValid;

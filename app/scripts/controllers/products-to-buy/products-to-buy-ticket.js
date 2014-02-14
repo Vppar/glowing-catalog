@@ -11,21 +11,27 @@
                 var ticket = $scope.ticket;
 
                 var resetWatchedQty = function resetWatchedQty() {
-                    for ( var ix in $scope.purchase.items) {
-                        var item = $scope.purchase.items[ix];
+                    $scope.ticket.watchedQty = {};
+                    $scope.ticket.checkBox = {};
+                    for ( var ix in $scope.purchaseOrder.items) {
+                        var item = $scope.purchaseOrder.items[ix];
                         $scope.ticket.watchedQty[item.id] = 0;
+                        $scope.ticket.checkBox[item.id] = 0;
                     }
                 };
 
-                var setPurchaseOrder = function setPurchaseOrder(uuid) {
-                    $scope.purchase = PurchaseOrderService.read(uuid);
+                var setPurchaseOrder = function setPurchaseOrder(purchaseOrder) {
+                    var filteredPurchaseOrder = PurchaseOrderService.filterReceived(purchaseOrder);
 
                     var date = new Date();
-                    date.setTime($scope.purchase.created);
-                    $scope.purchase.date = $filter('date')(date, 'dd/MM/yyyy');
+                    date.setTime(filteredPurchaseOrder.created);
+                    filteredPurchaseOrder.date = date;
+
+                    $scope.purchaseOrder = filteredPurchaseOrder;
 
                     resetWatchedQty();
                 };
+
                 var selectPart = function selectPart(part) {
                     ticket.selectedPart = part;
                 };
@@ -34,14 +40,12 @@
                 // Scope functions
                 // #####################################################################################################
 
-                $scope.checkBox = [];
-
-                $scope.openDialog = function(purchase) {
-                    var nfePromise = DialogService.openDialogProductsToBuyTicket(purchase);
+                $scope.openDialog = function(purchaseOrder) {
+                    var nfePromise = DialogService.openDialogProductsToBuyTicket(purchaseOrder);
                     nfePromise.then(function(result) {
                         if (result) {
                             ticket.nfeData = result.nfe;
-                            setPurchaseOrder(result.uuid);
+                            setPurchaseOrder(purchaseOrder);
                             selectPart('part2');
                         }
                     });
@@ -49,12 +53,25 @@
 
                 $scope.disableButton = function disableButton() {
                     var result = false;
-                    for ( var i in $scope.ticket.watchedQty) {
-                        if (!$scope.checkBox[i] && ($scope.ticket.watchedQty[i] === 0)) {
+                    for ( var ix in ticket.watchedQty) {
+                        if (!$scope.ticket.checkBox[ix] && (ticket.watchedQty[ix] === 0)) {
                             result = true;
                         }
                     }
                     return result;
+                };
+
+                $scope.confirm = function() {
+                    for ( var ix in ticket.watchedQty) {
+                        if (ticket.checkBox[ix]) {
+                            PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData.number);
+                        } else {
+                            PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData.number, ticket.watchedQty[ix]);
+                        }
+                    }
+                    PurchaseOrderService.redeem($scope.purchaseOrder.uuid);
+                    resetWatchedQty();
+                    selectPart('part1');
                 };
 
                 $scope.cancel = function() {
