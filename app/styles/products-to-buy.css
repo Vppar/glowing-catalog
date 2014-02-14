@@ -1060,31 +1060,17 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 
 /* trying to make a little sense-------------------------------------*/
 
-.ste4 .row-10{
-	margin: 0px -5px;
-}
-
-.step4 .col-10{
+.step2 .session-label{
 	height:40px;
+	background-color: #dadada;
+	border-radius: 4px;
 }
 
-.step4 .col-10-1 {
-	width: 10%;
-	float:left;
+.step2 .line{
+	margin:5px 0 5px 4px;
+	font-weight:bold;
+	border-bottom:0px;
+	min-height:22px;
+	line-height:22px;
 }
-.step4 .col-10-2 {
-	width: 20%;
-	float:left;
-}
-.step4 .col-10-3 {
-	width: 30%;
-	float:left;
-}
-.step4 .col-10-4 {
-	width: 40%;
-	float:left;
-}
-.step4 .col-10-5 {
-	width: 50%;
-	float:left;
-}
+

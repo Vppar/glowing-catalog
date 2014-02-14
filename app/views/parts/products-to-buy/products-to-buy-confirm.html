@@ -24,7 +24,7 @@
 				<div class="scroll-payment-grid"><!--scroll-->
 					<span ng-repeat="session in confirmedProducts.sessions">
 						<div class="header header2 subtitle-header-products-to-buy">
-							<div class="row-payment-grid">
+							<div class="row-payment-grid session-label">
 								<span class="col-s1">
 									<div>{{session.label}}</div>
 								</span>
@@ -43,7 +43,7 @@
 							</div>
 						</div>
 						<span ng-repeat="line in session.lines">
-							<div class="section">{{line.label}}</div>
+							<div class="line">{{line.label}}</div>
 							<span ng-repeat="product in line.items">
 								<div class="row-payment-grid-product-products-to-buy add-dotted-line">
 									<span class="col-s1-list">
