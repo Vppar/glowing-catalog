@@ -13,9 +13,9 @@
         // #####################################################################################################
 
         function resetWatchedQty() {
-            for ( var ix in $scope.stockReport.sessions) {
+            for ( var ix in $scope.main.stockReport.sessions) {
                 // sessions
-                var session = $scope.stockReport.sessions[ix];
+                var session = $scope.main.stockReport.sessions[ix];
                 // lines of that session
                 for ( var ix2 in session.lines) {
                     // lines
@@ -38,8 +38,8 @@
         // #####################################################################################################
         // Scope variables
         // #####################################################################################################
-
-        $scope.stockReport = StockService.stockReport('all');
+        $scope.main= {};
+        $scope.main.stockReport = StockService.stockReport('all');
         $scope.tabs = {};
         $scope.tabs.selected = 'buildOrder';
 
@@ -93,10 +93,10 @@
 
         $scope.resetPurchaseOrder = function resetPurchaseOrder() {
             setTimeout(function() {
-                angular.extend($scope.stockReport, StockService.stockReport('all'));
-                StockService.updateReport($scope.stockReport);
+                $scope.main.stockReport = StockService.stockReport('all');
+                StockService.updateReport($scope.main.stockReport);
+                resetWatchedQty();
             }, 0);
-            resetWatchedQty();
         };
 
         // #####################################################################################################

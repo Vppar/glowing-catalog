@@ -9,7 +9,7 @@
         // #####################################################################################################
 
         // inherited object
-        var stockReport = $scope.stockReport;
+        var stockReport = $scope.main.stockReport;
         var summary = $scope.summary;
 
         // inherited functions
