@@ -35,7 +35,7 @@
         // #####################################################################################################
 
         $scope.openDialog = function(purchaseOrder) {
-            if(angular.isUndefined(purchaseOrder.received)){
+            if (angular.isUndefined(purchaseOrder.received)) {
                 var nfePromise = DialogService.openDialogProductsToBuyTicket(purchaseOrder);
                 nfePromise.then(function(result) {
                     if (result) {
@@ -68,11 +68,15 @@
                 }
             }
 
-            $q.all(receivedPromises).then(function() {
-                PurchaseOrderService.redeem($scope.purchaseOrder.uuid);
-                selectPart('part1');
-                ticket.loadPurchaseOrders();
+            var redeemedPromise = $q.all(receivedPromises).then(function() {
+                return PurchaseOrderService.redeem($scope.purchaseOrder.uuid);
             });
+
+            redeemedPromise.then(function() {
+                ticket.loadPurchaseOrders();
+                selectPart('part1');
+            });
+
         };
 
         $scope.changeTab = function changeTab(tab) {
