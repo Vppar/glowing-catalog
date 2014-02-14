@@ -8,9 +8,13 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
 
     var DialogService = {};
     var TimerService = {};
+    var PurchaseOrderService = {};
 
     // load the controller's module
-    beforeEach(module('tnt.catalog.productsToBuy.confirm.ctrl'));
+    beforeEach(function() {
+        module('tnt.catalog.productsToBuy.confirm.ctrl');
+        module('tnt.catalog.stock.entity');
+    });
 
     beforeEach(function() {
         item1 = {
@@ -28,7 +32,7 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
         item4 = {
             id : 4,
             qty : 2
-        }; 
+        };
     });
 
     // Initialize the controller and a mock scope
@@ -42,8 +46,9 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
             '3' : 0,
             '4' : 2
         };
-        scope.stockReport = {};
-        scope.stockReport.sessions = {};
+        scope.main = {};
+        scope.main.stockReport = {};
+        scope.main.stockReport.sessions = {};
 
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         DialogService.openDialogProductsToBuyConfirm = jasmine.createSpy('DialogService.openDialogProductsToBuyConfirm');
@@ -51,13 +56,14 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
         productsToBuyConfirmCtrl = $controller('ProductsToBuyConfirmCtrl', {
             $scope : scope,
             DialogService : DialogService,
-            TimerService : TimerService
+            TimerService : TimerService,
+            PurchaseOrderService : PurchaseOrderService
         });
     }));
 
     /**
      * <pre>
-     * Given a stock report 
+     * Givena stock report 
      * and all products have a property qty 
      * When list is triggered 
      * Then return the products with qty greater then 0

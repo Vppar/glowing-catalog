@@ -1,4 +1,4 @@
-ddescribe('Service: StockServiceAddSpec -', function() {
+describe('Service: StockServiceAddSpec -', function() {
 
     var log = null;
     var fakeNow = null;
@@ -49,7 +49,7 @@ ddescribe('Service: StockServiceAddSpec -', function() {
             StockService.isValid = jasmine.createSpy('StockService.isValid').andReturn([]);
 
             var wannaBeStockEntry = {
-                id : 5,
+                inventoryId : 5,
                 quantity : 5,
                 cost : 66.6
             };
@@ -68,7 +68,7 @@ ddescribe('Service: StockServiceAddSpec -', function() {
 
             // then
             runs(function() {
-                var stockEntry = new Stock(wannaBeStockEntry.id, wannaBeStockEntry.quantity, wannaBeStockEntry.cost);
+                var stockEntry = new Stock(wannaBeStockEntry.inventoryId, wannaBeStockEntry.quantity, wannaBeStockEntry.cost);
                 expect(StockService.isValid).toHaveBeenCalledWith(wannaBeStockEntry);
                 expect(StockKeeper.add).toHaveBeenCalledWith(stockEntry);
             });
@@ -84,7 +84,7 @@ ddescribe('Service: StockServiceAddSpec -', function() {
             ]);
 
             var wannaBeStockEntry = {
-                id : 5,
+                inventoryId : 5,
                 quantity : 5,
                 cost : 66.6
             };
@@ -108,7 +108,7 @@ ddescribe('Service: StockServiceAddSpec -', function() {
                 expect(StockKeeper.add).not.toHaveBeenCalledWith();
             });
         });
-        
+
         it('shouldn\'t add a product rejected by the keeper', function() {
             // given
             StockKeeper.add = jasmine.createSpy('StockKeeper.add').andCallFake(function() {
@@ -121,7 +121,7 @@ ddescribe('Service: StockServiceAddSpec -', function() {
             StockService.isValid = jasmine.createSpy('StockService.isValid').andReturn([]);
 
             var wannaBeStockEntry = {
-                id : 5,
+                inventoryId : 5,
                 quantity : 5,
                 cost : 66.6
             };
@@ -141,7 +141,7 @@ ddescribe('Service: StockServiceAddSpec -', function() {
 
             // then
             runs(function() {
-                var stockEntry = new Stock(wannaBeStockEntry.id, wannaBeStockEntry.quantity, wannaBeStockEntry.cost);
+                var stockEntry = new Stock(wannaBeStockEntry.inventoryId, wannaBeStockEntry.quantity, wannaBeStockEntry.cost);
                 expect(StockService.isValid).toHaveBeenCalledWith(wannaBeStockEntry);
                 expect(StockKeeper.add).toHaveBeenCalledWith(stockEntry);
                 expect(result).toBe('rejected');

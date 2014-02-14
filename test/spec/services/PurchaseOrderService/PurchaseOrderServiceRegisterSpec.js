@@ -32,6 +32,7 @@ xdescribe('Service: PurchaseOrderService', function() {
         module('tnt.catalog.purchaseOrder');
         module('tnt.catalog.purchaseOrder.service');
         module('tnt.catalog.expense.entity');
+        module('tnt.catalog.stock.entity');
 
         module(function($provide) {
             $provide.value('$log', $log);
