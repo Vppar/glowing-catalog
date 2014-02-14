@@ -1,10 +1,10 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.purchaseOrder.service', [
-        'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder'
+        'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder'
     ]).service(
             'PurchaseOrderService',
-            function PurchaseOrderService($q, $log, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
+            function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
 
                 var isValid = function isValid(order) {
                     var invalidProperty, result = [];
@@ -30,7 +30,6 @@
                 /**
                  * register
                  */
-
                 var register = function register(purchase) {
                     var result = null;
                     var hasErrors = isValid(purchase);
@@ -84,6 +83,50 @@
                             return result;
                         };
 
+                var receive =
+                        function receive(uuid, productId, nfeNumber, receiveQty) {
+                            var result = true;
+                            var numericProductId = Number(productId);
+                            try {
+                                var purchaseOrder = read(uuid);
+                                var purchasedProduct = ArrayUtils.find(purchaseOrder.items, 'id', numericProductId);
+                                var receivedProducts = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', numericProductId);
+
+                                if (receivedProducts.length > 0) {
+                                    var purchasedQty = purchasedProduct.qty;
+                                    var receivedQty = $filter('sum')(receivedProducts, 'qty', numericProductId);
+
+                                    if ((receivedQty + receiveQty) > purchasedQty) {
+                                        throw 'The deliver that is being informed is greater than the total ordered';
+                                    }
+                                }
+                                result = PurchaseOrderKeeper.receive(uuid, numericProductId, nfeNumber, receiveQty);
+                            } catch (err) {
+                                throw 'PurchaseOrderService.receive: Unable to receive the item with id=' + numericProductId +
+                                    ' of the purchaseOrder with uuid=' + uuid + '. ' + 'Err=' + err;
+                            }
+                            return result;
+                        };
+
+                var filterReceived = function filterReceived(purchaseOrder) {
+                    var result = angular.copy(purchaseOrder);
+                    for ( var i = 0; i < result.items.length;) {
+
+                        var item = result.items[i];
+                        var productReceivings = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', item.id);
+                        var receivedQty = $filter('sum')(productReceivings, 'qty');
+
+                        item.qty = item.qty - receivedQty;
+
+                        if (item.qty === 0) {
+                            result.items.splice(i, 1);
+                        } else {
+                            i++;
+                        }
+                    }
+                    return result;
+                };
+
                 /**
                  * Cancel a purchaseOrder
                  */
@@ -101,9 +144,25 @@
                  * Redeem a purchaseOrder
                  */
                 var redeem = function redeem(uuid) {
-                    var result = true;
+                    var result = null;
+                    var redeemed = true;
                     try {
-                        result = PurchaseOrderKeeper.redeem(uuid);
+                        var purchaseOrder = read(uuid);
+                        for ( var ix in purchaseOrder.items) {
+                            var item = purchaseOrder.items[ix];
+                            var receivedProducts = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', item.id);
+                            var receivedQty = $filter('sum')(receivedProducts, 'qty', item.id);
+
+                            if (item.qty !== receivedQty) {
+                                redeemed = false;
+                                break;
+                            }
+                        }
+                        if (redeemed) {
+                            result = PurchaseOrderKeeper.redeem(uuid);
+                        } else {
+                            result = $q.reject('PurchaseOrderService.redeem: Purchase order not fully received.');
+                        }
                     } catch (err) {
                         throw 'PurchaseOrderService.redeem: Unable to redeem the purchaseOrder with uuid=' + uuid + '. ' + 'Err=' + err;
                     }
@@ -113,6 +172,8 @@
                 this.register = register;
                 this.list = list;
                 this.read = read;
+                this.filterReceived = filterReceived;
+                this.receive = receive;
                 this.cancel = cancel;
                 this.redeem = redeem;
                 this.isValid = isValid;

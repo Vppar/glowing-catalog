@@ -10,8 +10,8 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         scope = $rootScope.$new();
-
-        scope.ticket = jasmine.createSpy('scope.ticket');
+        
+        scope.ticket = {};
         scope.ticket.loadPurchaseOrders = jasmine.createSpy('scope.ticket.loadPurchaseOrders');
 
         productsToBuyTicketCtrl = $controller('ProductsToBuyTicketCtrl', {
@@ -26,7 +26,7 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         scope.ticket.watchedQty = [
             1, 1, 1
         ];
-        scope.checkBox = [
+        scope.ticket.checkBox = [
             false, false, false
         ];
 
@@ -42,7 +42,7 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         scope.ticket.watchedQty = [
             0, 0, 0
         ];
-        scope.checkBox = [
+        scope.ticket.checkBox = [
             true, true, true
         ];
 
@@ -58,7 +58,7 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         scope.ticket.watchedQty = [
             1, 0, 1
         ];
-        scope.checkBox = [
+        scope.ticket.checkBox = [
             true, true, false
         ];
 
@@ -74,7 +74,7 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         scope.ticket.watchedQty = [
             1, 0, 0
         ];
-        scope.checkBox = [
+        scope.ticket.checkBox = [
             false, true, false
         ];
 
@@ -90,7 +90,7 @@ describe('Controller: products-to-buy-ticket-disable-button-spec', function() {
         scope.ticket.watchedQty = [
             0, 0, 0
         ];
-        scope.checkBox = [
+        scope.ticket.checkBox = [
             false, false, false
         ];
 
