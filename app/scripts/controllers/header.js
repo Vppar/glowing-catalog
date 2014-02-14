@@ -70,7 +70,9 @@
                 refreshDate();
 
                 $scope.logout = function() {
-                    UserService.logout().then(function() {}, function() {});
+                    return UserService.logout().then(function() {
+                        $location.path('/login');
+                    });
                 };
             });
 }(angular));
