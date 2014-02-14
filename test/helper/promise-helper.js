@@ -1,21 +1,21 @@
 
-
-
 /**
  * A helper for creating functions that return a rejected/resolved promise
  * to be used in tests.
  * @type {Object}
  */
 var PromiseHelper = (function () {
-  var defaultQ = null;
-  var defaultLogger = null;
+  var config = {
+    q : null,
+    logger : null
+  };
 
-  function createPromiseGetter(resolve, result, logger, q, timeout) {
-    q = angular.isDefined(q) ? q : defaultQ;
-    logger = angular.isDefined(logger) ? logger : defaultLogger;
+  function createPromiseGetter(resolve, result, timeout, logger, q) {
+    q = angular.isDefined(q) ? q : config.q;
+    logger = angular.isDefined(logger) ? logger : config.logger;
 
     if (!q) {
-      throw('Missing $q! See "PromiseHelper.setQ()".');
+      throw('Missing $q! See "PromiseHelper.config()".');
     }
 
     return function () {
@@ -39,21 +39,14 @@ var PromiseHelper = (function () {
   return {
 
     /**
-     * Sets the $q object from which we get the deferred objects. This will
-     * be called after injecting $q in a test suite, usually in a
-     * beforeEach() block.
-     * @param {Object} q The $q object to be used.
+     * Configures the promise helper.
+     * @param {Object} q The $q object from with which we create deferred
+     *  objects.
+     * @param {Function} logger A logger function, such as {@code console.log}.
      */
-    setQ : function (q) {
-      defaultQ = q;
-    },
-
-    /**
-     * Sets the default logger to be used in the generated promises.
-     * @param {Function} logger The logger function.
-     */
-    setLogger : function (logger) {
-      defaultLogger = logger;
+    config : function (q, logger) {
+      config.q = q;
+      config.logger = logger;
     },
 
     /**
