@@ -1,8 +1,11 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.purchaseOrder.service', [
-        'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder', 'tnt.catalog.filter.sum'
-    ]).service(
+    angular.module(
+            'tnt.catalog.purchaseOrder.service',
+            [
+                'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder',
+                'tnt.catalog.filter.sum'
+            ]).service(
             'PurchaseOrderService',
             function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService) {
 
@@ -115,9 +118,7 @@
                         var item = result.items[i];
                         var productReceivings = ArrayUtils.list(purchaseOrder.itemsReceived, 'productId', item.id);
                         var receivedQty = $filter('sum')(productReceivings, 'qty');
-
                         item.qty = item.qty - receivedQty;
-
                         if (item.qty === 0) {
                             result.items.splice(i, 1);
                         } else {
@@ -129,14 +130,18 @@
 
                 this.filterPending = function filterPending() {
                     var orders = this.list();
-                    var pending = []; 
-                    for(var i in orders){
-                        if(orders[i].received){
-                            //do nothing
-                        }else{
-                            pending.push(this.filterReceived(orders[i]));
+                    var pending = [];
+                    for ( var i in orders) {
+                        if (orders[i].received) {
+                            // do nothing
+                        } else {
+                            if (this.filterReceived(orders[i]).items.length === 0) {
+                            } else {
+                                pending.push(orders[i]);
+                            }
                         }
                     }
+
                     return pending;
                 };
 

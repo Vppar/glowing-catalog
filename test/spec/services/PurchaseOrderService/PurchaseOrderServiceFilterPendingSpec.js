@@ -30,6 +30,22 @@ ddescribe('Service: PurchaseOrderService', function() {
             }
         ],
         itemsReceived : [{productId : 1, qty : 1},{productId : 2, qty : 1}]
+    },{
+        uuid : 'cc02b600-5d0b-11e3-96c3-010001000003',
+        created : new Date(),
+        canceled : false,
+        items : [
+            {
+                id : 1,
+                qty : 2
+                
+            },{
+                id : 2,
+                qty : 4
+                
+            }
+        ],
+        itemsReceived : [{productId : 1, qty : 2},{productId : 2, qty : 4}]
     }];
 
     // load the service's module
