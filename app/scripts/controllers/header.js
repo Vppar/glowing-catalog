@@ -68,11 +68,18 @@
                 }
                 $interval(refreshDate, 10000);
                 refreshDate();
-
+                
+                //FIXME - Not sure about the reject callback.
                 $scope.logout = function() {
                     return UserService.logout().then(function() {
                         $location.path('/login');
-                    });
+                    }/*, function() {
+                        DialogService.messageDialog({
+                            title : 'Logout',
+                            message : 'Have you tried to turn it off and on again?.',
+                            btnYes : 'Voltar'
+                        });
+                    }*/);
                 };
             });
 }(angular));
