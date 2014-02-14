@@ -50,6 +50,6 @@ describe(
                         expect(SMSService.send)
                                 .toHaveBeenCalledWith(
                                         '5588887766',
-                                        'Vale Presente: Você recebeu de Bertina Pagudagua um Vale Presente no valor de R$30,00 a ser utilizado na compra de produtos MK. Maria Lima, sua consultora Mary Kay.');
+                                        'Você recebeu de Bertina Pagudagua um Vale Presente no valor de R$30,00 a ser utilizado na compra de produtos MK. Maria Lima, sua consultora Mary Kay.');
                     });
         });

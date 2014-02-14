@@ -38,6 +38,6 @@ describe(
                         expect(SMSService.send)
                                 .toHaveBeenCalledWith(
                                         '5599887766',
-                                        'Cupom promocional: Você recebeu 3 cupons promocionais no valor total de R$30,00 a ser utilizado na compra de produtos MK. Maria Lima, sua consultora Mary Kay.');
+                                        'Você recebeu 3 cupons promocionais no valor total de R$30,00 a serem utilizados na compra de produtos MK. Maria Lima, sua consultora Mary Kay.');
                     });
         });
