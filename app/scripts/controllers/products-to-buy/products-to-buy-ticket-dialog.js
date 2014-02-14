@@ -4,7 +4,7 @@
     angular.module('tnt.catalog.productsToBuy.ticket.dialog.ctrl', []).controller('ProductsToBuyTicketDialogCtrl', function($scope, $q, $filter, dialog) {
 
         $scope.nfe = {
-                date : $filter('date')(new Date(), 'dd/MM/yyyy'),
+                date : new Date(),
                 total : '',
                 shipping : '',
                 order : '',
@@ -17,7 +17,6 @@
             result = result && ($scope.nfe.date && $scope.nfe.date != '');
             result = result && ($scope.nfe.number && $scope.nfe.number != '');
             result = result && ($scope.nfe.total && $scope.nfe.total != '');
-            result = result && ($scope.nfe.shipping && $scope.nfe.shipping != '');
             result = result && ($scope.nfe.order && $scope.nfe.order != '');
             $scope.nfe.disable = !result;
         });

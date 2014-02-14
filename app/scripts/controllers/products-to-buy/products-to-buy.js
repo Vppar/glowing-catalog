@@ -8,7 +8,6 @@
         // Local variables
         // #####################################################################################################
 
-
         // #####################################################################################################
         // Local Functions
         // #####################################################################################################
@@ -69,7 +68,6 @@
          * Ticket tab
          */
         $scope.ticket = {};
-        $scope.ticket.tab = 'open';
         $scope.ticket.watchedQty = {};
         $scope.ticket.checkBox = [];
         $scope.ticket.selectedPart = 'part1';
@@ -99,7 +97,6 @@
                 StockService.updateReport($scope.stockReport);
             }, 0);
             resetWatchedQty();
-            loadPurchaseOrders();
         };
 
         // #####################################################################################################
@@ -123,7 +120,6 @@
             $scope.summary.total.amount = diff.amount;
             $scope.summary.total.points = diff.points;
         });
-        
 
         // #####################################################################################################
         // Controller warm up

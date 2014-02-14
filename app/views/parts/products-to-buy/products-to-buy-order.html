@@ -81,8 +81,8 @@
 								</span>
 							</div>
 						</div>
-						<span ng-repeat="line in session.lines" ng-click="toggleLine(line)" ng-if="!line.hide"> 
-							<div class="section">{{line.label}}</div>
+						<span ng-repeat="line in session.lines" ng-if="!line.hide"> 
+							<div class="section" ng-click="toggleLine(line)">{{line.label}}</div>
 							<div class="row-payment-grid-product-products-to-buy" ng-repeat="product in line.items" ng-if="!product.hide">
 								<span class="col-s1-list">
 									<div>{{product.title}}</div>
