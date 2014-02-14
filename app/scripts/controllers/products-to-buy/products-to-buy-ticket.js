@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', [
         'tnt.utils.array'
-    ]).controller('ProductsToBuyTicketCtrl', function($scope, $filter, ArrayUtils, DialogService, PurchaseOrderService) {
+    ]).controller('ProductsToBuyTicketCtrl', function($scope, $filter, $q, ArrayUtils, DialogService, PurchaseOrderService) {
 
         // #####################################################################################################
         // Local variables
@@ -68,8 +68,8 @@
 
             $q.all(receivedPromises).then(function() {
                 PurchaseOrderService.redeem($scope.purchaseOrder.uuid);
-                resetWatchedQty();
                 selectPart('part1');
+                ticket.loadPurchaseOrders();
             });
         };
 
