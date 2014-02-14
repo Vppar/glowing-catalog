@@ -34,6 +34,8 @@
                 // Scope functions
                 // #####################################################################################################
 
+                $scope.tab = 'open';
+                
                 $scope.checkBox = [];
 
                 $scope.openDialog = function(purchase) {
@@ -55,6 +57,14 @@
                         }
                     }
                     return result;
+                };
+                
+                $scope.changeTab = function changeTab(tab){
+                    $scope.tab = tab;
+                };
+                
+                $scope.filterOrders = function filterOrders(purchase){
+                    return angular.isUndefined(purchase.received) || $scope.tab==='all';
                 };
 
                 $scope.cancel = function() {
