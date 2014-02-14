@@ -29,6 +29,7 @@ describe('Service: SyncService', function () {
       SyncDriverMock.save = jasmine.createSpy('SyncDriver.save');
 
       JournalKeeperMock.readUnsynced = jasmine.createSpy('JournalKeeper.readUnsynced');
+      JournalKeeperMock.readOldestUnsynced = jasmine.createSpy('JournalKeeper.readOldestUnsynced');
       JournalKeeperMock.markAsSynced = jasmine.createSpy('JournalKeeper.markAsSynced');
   });
 
@@ -51,7 +52,6 @@ describe('Service: SyncService', function () {
     $q = _$q_;
     SyncService = _SyncService_;
     JournalEntry = _JournalEntry_;
-
   }));
 
 
@@ -109,7 +109,7 @@ describe('Service: SyncService', function () {
         var stash2 = SyncService.getStashedEntries();
 
         // The returned value MUST not be the same array returned
-        // by readUnsynced()
+        // by readOldestUnsynced()
         expect(stash1).not.toBe(originalStash);
         expect(stash1).toEqual(originalStash);
 
@@ -145,15 +145,16 @@ describe('Service: SyncService', function () {
     });
 
     it('gets unsynced entries from journal keeper', function () {
-      JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(true));
-      expect(JournalKeeperMock.readUnsynced).not.toHaveBeenCalled();
+      JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(true));
+      expect(JournalKeeperMock.readOldestUnsynced).not.toHaveBeenCalled();
       SyncService.sync();
-      expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
+      expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
     });
 
     it('sends unsynced entries to synchronization driver', function () {
-      JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
+      JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(entries[0]));
       SyncDriverMock.save.andCallFake(resolvedPromiseReturner(true));
+      JournalKeeperMock.markAsSynced.andCallFake(resolvedPromiseReturner(true));
 
       var synced = false;
 
@@ -170,14 +171,14 @@ describe('Service: SyncService', function () {
       });
 
       runs(function () {
-        expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-        expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
+        expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
+        expect(SyncDriverMock.save).toHaveBeenCalledWith(entries[0]);
       });
     });
 
     it('sends entries-to-be-synced back to journal keeper', function () {
-      JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-      SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
+      JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(entries[0]));
+      SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries[0]));
       JournalKeeperMock.markAsSynced.andCallFake(resolvedPromiseReturner(true));
 
       var synced = false;
@@ -195,17 +196,14 @@ describe('Service: SyncService', function () {
       }, 'SyncService.sync()', 100);
 
       runs(function () {
-        expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-        expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
-        for (var idx in entries) {
-          expect(JournalKeeperMock.markAsSynced.calls[idx].args[0]).toBe(entries[idx]);
-        }
-        expect(JournalKeeperMock.markAsSynced.callCount).toBe(2);
+        expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
+        expect(SyncDriverMock.save).toHaveBeenCalledWith(entries[0]);
+        expect(JournalKeeperMock.markAsSynced).toHaveBeenCalledWith(entries[0]);
       });
     });
 
     it('returns a promise', function () {
-      JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
+      JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(entries));
       SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
       JournalKeeperMock.markAsSynced.andCallFake(resolvedPromiseReturner(true));
 
@@ -220,17 +218,17 @@ describe('Service: SyncService', function () {
 
     describe('returned promise', function () {
       it('is rejected if failed to get unsynced entries from journal', function () {
-        // JournalKeeper.readUnsynced() rejects
+        // JournalKeeper.readOldestUnsynced() rejects
         // SyncDriver.sync() is not called
         // JournalKeeper.markAsSynced() is not called
-        JournalKeeperMock.readUnsynced.andCallFake(rejectedPromiseReturner('Rejecting JournalKeeper.readUnsynced()'));
+        JournalKeeperMock.readOldestUnsynced.andCallFake(rejectedPromiseReturner('Rejecting JournalKeeper.readOldestUnsynced()'));
 
         var rejected = false;
 
         runs(function () {
           var promise = SyncService.sync();
           promise.then(null, function (err) {
-            expect(err).toBe('Rejecting JournalKeeper.readUnsynced()');
+            expect(err).toBe('Rejecting JournalKeeper.readOldestUnsynced()');
             rejected = true;
           });
         });
@@ -241,7 +239,7 @@ describe('Service: SyncService', function () {
         }, 'SyncService.sync()', 100);
 
         runs(function () {
-          expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
+          expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
           expect(rejected).toBe(true);
           expect(SyncDriverMock.save).not.toHaveBeenCalled();
           expect(JournalKeeperMock.markAsSynced).not.toHaveBeenCalled();
@@ -249,10 +247,10 @@ describe('Service: SyncService', function () {
       });
 
       it('is rejected when sync driver fails to sync entries', function () {
-        // JournalKeeper.readUnsynced() resolves
+        // JournalKeeper.readOldestUnsynced() resolves
         // SyncDriver.sync() rejects
         // JournalKeeper.markAsSynced() is not called
-        JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
+        JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(entries));
         SyncDriverMock.save.andCallFake(rejectedPromiseReturner('Rejecting SyncDriver.sync()'));
 
         var resolved = false;
@@ -274,7 +272,7 @@ describe('Service: SyncService', function () {
         }, 'SyncService.sync()', 100);
 
         runs(function () {
-          expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
+          expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
           expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
           expect(JournalKeeperMock.markAsSynced).not.toHaveBeenCalled();
 
@@ -284,11 +282,11 @@ describe('Service: SyncService', function () {
       });
 
       it('is rejected if journal keeper fails to mark any of the entries as synced', function () {
-        // JournalKeeper.readUnsynced() resolves
+        // JournalKeeper.readOldestUnsynced() resolves
         // SyncDriver.sync() resolves
         // One or more JournalKeeper.markAsSynced() rejects
-        JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
-        SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
+        JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(entries[0]));
+        SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries[0]));
         JournalKeeperMock.markAsSynced.andCallFake(rejectedPromiseReturner('Rejecting JournalKeeper.markAsSynced()'));
 
         var resolved = false;
@@ -311,12 +309,9 @@ describe('Service: SyncService', function () {
         }, 'SyncService.sync()', 100);
 
         runs(function () {
-          expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-          expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
-          expect(JournalKeeperMock.markAsSynced).toHaveBeenCalled();
-          for (var idx in  entries) {
-            expect(JournalKeeperMock.markAsSynced.calls[idx].args[0]).toBe(entries[idx]);
-          }
+          expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
+          expect(SyncDriverMock.save).toHaveBeenCalledWith(entries[0]);
+          expect(JournalKeeperMock.markAsSynced).toHaveBeenCalledWith(entries[0]);
           expect(resolved).toBe(false);
           expect(rejected).toBe(true);
         });
@@ -324,10 +319,10 @@ describe('Service: SyncService', function () {
 
 
       it('is resolved if everything goes well', function () {
-        // JournalKeeper.readUnsynced() resolves
+        // JournalKeeper.readOldestUnsynced() resolves
         // SyncDriver.sync() resolves
         // All JournalKeeper.markAsSynced() resolve
-        JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner(entries));
+        JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(entries[0]));
         SyncDriverMock.save.andCallFake(resolvedPromiseReturner(entries));
         JournalKeeperMock.markAsSynced.andCallFake(resolvedPromiseReturner(true));
 
@@ -337,11 +332,7 @@ describe('Service: SyncService', function () {
         runs(function () {
           var promise = SyncService.sync();
 
-          promise.then(function (result) {
-            expect(result.length).toBe(2);
-            for (var idx in result) {
-              expect(result[idx]).toBe(true);
-            }
+          promise.then(function () {
             resolved = true;
           }, function (err) {
             rejected = true;
@@ -354,20 +345,20 @@ describe('Service: SyncService', function () {
         }, 'SyncService.sync()', 100);
 
         runs(function () {
-          expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
-          expect(SyncDriverMock.save).toHaveBeenCalledWith(entries);
-          expect(JournalKeeperMock.markAsSynced.callCount).toBe(2);
+          expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
+          expect(SyncDriverMock.save).toHaveBeenCalledWith(entries[0]);
+          expect(JournalKeeperMock.markAsSynced).toHaveBeenCalledWith(entries[0]);
           expect(resolved).toBe(true);
           expect(rejected).toBe(false);
         });
       });
 
       it('is resolved if there are no unsynced entries', function () {
-        // JournalKeeper.readUnsynced() resolves
+        // JournalKeeper.readOldestUnsynced() resolves
         // SyncDriver.sync() is not called
         // JournalKeeper.markAsSynced() is not called
 
-        JournalKeeperMock.readUnsynced.andCallFake(resolvedPromiseReturner([]));
+        JournalKeeperMock.readOldestUnsynced.andCallFake(resolvedPromiseReturner(null));
 
         var resolved = false;
         var rejected = false;
@@ -388,7 +379,7 @@ describe('Service: SyncService', function () {
         }, 'SyncService.sync()', 100);
 
         runs(function () {
-          expect(JournalKeeperMock.readUnsynced).toHaveBeenCalled();
+          expect(JournalKeeperMock.readOldestUnsynced).toHaveBeenCalled();
           expect(SyncDriverMock.save).not.toHaveBeenCalled();
           expect(JournalKeeperMock.markAsSynced).not.toHaveBeenCalled();
 
