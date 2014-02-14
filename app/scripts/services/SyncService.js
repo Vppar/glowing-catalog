@@ -11,44 +11,240 @@
             JournalKeeper,
             SyncDriver
         ) {
+
+            // How many times should we attempt to sync an entry before
+            // logging a fatal? Made public to allow changing this setting
+            // when this makes sense (such as in tests).
+            this.MAX_SYNC_ATTEMPTS = 5;
+
             var self = this;
+            var syncDeferred = null;
+            var synching = false;
+            var syncDeferred = null;
+
+
+            // Object used for storing attempt counts for failing
+            // synchronizations.
+            var SyncAttempt = {
+              /**
+               * Stores attempt counters for failed entries.
+               * @type {Object}
+               */
+              attempts : {},
+
+              /**
+               * Increments the attempt counter for the given uuid.
+               * @param {UUID} uuid Failed entry's uuid.
+               * @return {Number} The new attempt count value.
+               */
+              increment : function (uuid) {
+                  if (!this.attempts[uuid]) {
+                      this.attempts[uuid] = 0;
+                  }
+
+                  return ++this.attempts[uuid];
+              },
+
+              /**
+               * Clears the attempt counters. If no uuid is given, clears ALL
+               * counters, otherwise, clears the counter only for the given
+               * uuid.
+               * @param {UUID?} uuid The para
+               */
+              clear : function (uuid) {
+                  if (!uuid) {
+                      this.attempts = {};
+                  } else {
+                      delete this.attempts[uuid];
+                  }
+              }
+            };
+
+
+            /**
+             * Checks if a synchronization is in progress.
+             * @return {Boolean} Whether there's a synchronization in progress
+             */
+            function isSynching() {
+              return !!syncDeferred;
+            }
+
 
             /**
              * Syncs unsynced entries from journal with the server.
              * @return {Promise}
              */
             function sync() {
-                var deferred = $q.defer();
+                if (isSynching()) {
+                  $log.debug('Synchronization already running!');
+                  return syncDeferred;
+                }
 
-                // Get oldest unsynced entry
+                syncDeferred = $q.defer();
+
+                syncNext();
+
+                // Remove the reference to the syncPromise once finished,
+                // either with rejection or resolution
+                function clearPromise() {
+                    syncDeferred = null;
+                    // Clear all attempt counters
+                    SyncAttempt.clear();
+                }
+
+                syncDeferred.promise.then(clearPromise, clearPromise);
+
+                return syncDeferred.promise;
+            }
+
+
+
+            /**
+             * Handles the step of getting the oldest unsynced entry from the
+             * journal during the synchronization process.
+             *
+             * Tries to get the oldes entry MAX_SYNC_ATTEMPTS times before
+             * throwing a fatal error.
+             *
+             * @private
+             */
+            function syncReadOldestUnsynced() {
                 var promise = JournalKeeper.readOldestUnsynced();
 
                 promise.then(function (entry) {
                     if (!entry) {
-                        deferred.resolve();
+                        // There are no more unsynced entries!
+                        //
+                        syncDeferred.resolve();
                     } else {
-                        var promise = SyncDriver.save(entry);
-                        promise.then(function () {
-                            var promise = JournalKeeper.markAsSynced(entry);
-                            promise.then(function () {
-                                deferred.resolve();
-                            }, function (err) {
-                                $log.fatal('JournalKeeper.markAsSynced() failed!', err, entry);
-                                deferred.reject(err);
-                            });
-                        }, function (err) {
-                            $log.error('SyncDriver.save() failed!', err);
-                            deferred.reject(err);
-                        });
+                        syncSaveEntry(entry);
                     }
                 }, function (err) {
-                    $log.error('JournalKeeper.readOldestUnsynced()', err);
-                    deferred.reject(err);
+                    var counterId = 'syncReadOldestUnsynced';
+
+                    if (SyncAttempt.increment(counterId) < self.MAX_SYNC_ATTEMPTS) {
+                        // Oops! Failed to get unsynced entry! Try again!
+                        // FIXME: should we add a timeout here? Maybe with a
+                        // progressive interval?
+
+                        // Oops! Failed to save! Try again!
+                        $log.error('JournalKeeper.readOldestUnsynced() failed! Trying again.');
+                        syncReadOldestUnsynced();
+                    } else {
+                        SyncAttempt.clear(counterId);
+                        $log.fatal('JournalKeeper.readOldestUnsynced() failed! Giving up after ' + self.MAX_SYNC_ATTEMPTS + ' attempts!', err);
+                        syncDeferred.reject(err);
+                    }
                 });
+            }
 
-                return deferred.promise;
-            };
+            /**
+             * Handles the step of saving the entry to the server during the
+             * synchronization process.
+             *
+             * Will try to save it MAX_SYNC_ATTEMPTS before rising a fatal
+             * error.
+             *
+             * @param {JournalEntry} entry Entry to be saved.
+             *
+             * @private
+             */
+            function syncSaveEntry(entry) {
+                var promise = SyncDriver.save(entry);
 
+                promise.then(function () {
+                    syncMarkAsSynced(entry);
+                }, function (err) {
+                    // If err tells us that the sequence is already in
+                    // use in the server, there's not point in continuing the
+                    // synchronization process. Stop it, and handle the
+                    // insertion of the new entry.
+                  
+                    // FIXME: check error message returned from the driver.
+                    if (err === 'Duplicate entry sequence') {
+                        
+                        // FIXME: The sequence we tried to save to the server
+                        // was already in use. The driver should handle this
+                        // case and ensure we don't get to this point.
+                        $log.fatal('Entry sequence conflict while running syncSaveEntry()!', entry);
+                        syncDeferred.reject('Sync stopped to insert new entries from server.');
+
+                        return;
+                    }
+
+                    var counterId = 'syncSaveEntry - ' + entry.uuid;
+
+                    if (SyncAttempt.increment(counterId) < self.MAX_SYNC_ATTEMPTS) {
+                        // FIXME: should we add a timeout here? Maybe with a
+                        // progressive interval?
+
+                        // Oops! Failed to save! Try again!
+                        $log.error('SyncDriver.save() failed! Trying again.');
+                        syncSaveEntry(entry);
+                    } else {
+                        SyncAttempt.clear(counterId);
+                        $log.fatal('SyncDriver.save() failed! Giving up after ' + self.MAX_SYNC_ATTEMPTS + ' attempts!', entry, err);
+                        syncDeferred.reject(err);
+                    }
+                });
+            }
+
+
+            /**
+             * Handles the step of marking the entry as synced during the
+             * synchronization process.
+             *
+             * If an error occurs during this step, a nuke and resync must
+             * be triggered to ensure the device has the same state as the
+             * server.
+             *
+             * @param {JournalEntry} entry Entry that has already been pushed
+             *  to the server and needs to be marked as synced.
+             *
+             * @private
+             */
+            function syncMarkAsSynced(entry) {
+                var promise = JournalKeeper.markAsSynced(entry);
+
+                promise.then(function () {
+                    // Everything went fine with this entry! Yay! Let's
+                    // sync the next one!
+                    $log.debug('Entry successfully synched!', entry);
+                    syncNext();
+                }, function (err) {
+                    var counterId = 'syncMarkAsSynced - ' + entry.uuid;
+
+                    // TODO: I've triple checked and it seems to be ok to try to mark
+                    // an entry as synced again if we failed. Anyway, still need to
+                    // check with @wesleyakio if this seems right.
+
+                    if (SyncAttempt.increment(counterId) < self.MAX_SYNC_ATTEMPTS) {
+                        // FIXME: should we add a timeout here? Maybe with a
+                        // progressive interval?
+
+                        // Oops! Failed to save! Try again!
+                        $log.error('SyncDriver.save() failed! Trying again.');
+
+                        syncMarkAsSynced(entry);
+                    } else {
+                        SyncAttempt.clear(counterId);
+                        $log.fatal('SyncDriver.save() failed! Giving up after ' + self.MAX_SYNC_ATTEMPTS + ' attempts!', entry, err);
+
+                        // TODO: Since we were unable to mark the entry as synced,
+                        // we got into an inconsistent state!
+                        // Can we nuke and resync now!? We need to lock the
+                        // system before doing so and let the user know that
+                        // it'll be unavailable for a while.
+                        syncDeferred.reject(err);
+                    }
+                });
+            }
+
+
+            // syncReadOldestUnsynced starts the whole synchronization process
+            // for the next unsynced entry. I'm creating an alias for it just
+            // to make the code easier to read and the logic easier to follow.
+            var syncNext = syncReadOldestUnsynced;
 
 
             /**
@@ -209,6 +405,7 @@
 
 
             this.sync = sync;
+            this.isSynching = isSynching;
             this.insert = insert;
             this.stashEntries = stashEntries;
             this.unstashEntries = unstashEntries;
