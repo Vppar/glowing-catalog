@@ -38,7 +38,10 @@
         // #####################################################################################################
         // Scope variables
         // #####################################################################################################
-        $scope.main= {};
+        /**
+         * Shared by all fragments
+         */
+        $scope.main = {};
         $scope.main.stockReport = StockService.stockReport('all');
         $scope.tabs = {};
         $scope.tabs.selected = 'buildOrder';
@@ -73,6 +76,11 @@
         $scope.ticket.selectedPart = 'part1';
         $scope.ticket.loadPurchaseOrders = loadPurchaseOrders;
         $scope.ticket.purchaseOrders = [];
+
+        /**
+         * Pending tab
+         */
+        $scope.pending = {};
 
         // #####################################################################################################
         // Scope functions
