@@ -9,6 +9,7 @@
         // #####################################################################################################
 
         var stockReport = $scope.main.stockReport;
+        var currentProductWatcher = {};
 
         // #####################################################################################################
         // Local Functions
@@ -25,6 +26,22 @@
                         var item = line.items[ix3];
                         item.hide = hideProduct;
                     }
+                }
+            }
+        }
+
+        function productFilter(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                var myTextFilter = String($scope.productFilter.text);
+                if (myTextFilter.length >= 3) {
+                    $scope.selectedLevel = 3;
+                    var objFilter = {
+                        title : myTextFilter,
+                        SKU : myTextFilter
+                    };
+                    StockService.updateReport(stockReport, objFilter);
+                } else if (String(oldVal).length >= 3) {
+                    StockService.updateReport(stockReport);
                 }
             }
         }
@@ -67,11 +84,11 @@
 
         $scope.showLevel = function showLevel(level) {
             // Disable watcher
-            productFilterWatcher();
+            disableProductWatcher();
             // Clear filter
-            $scope.productFilter.text = '';
+            $scope.clearFilter();
             // Enable watcher
-            productFilterWatcher();
+            enableProductWatcher();
 
             switch (level) {
             case 1:
@@ -84,37 +101,29 @@
                 setHideAttributes(stockReport.sessions, false, false);
                 break;
             }
-            
+
             $scope.selectedLevel = level;
         };
         // #####################################################################################################
         // Watchers
         // #####################################################################################################
 
-        var productFilterWatcher = function() {
-            $scope.$watch('productFilter.text', function(newVal, oldVal) {
-                if (newVal !== oldVal) {
-                    var myTextFilter = String($scope.productFilter.text);
-                    if (myTextFilter.length >= 3) {
-                        $scope.selectedLevel = 3;
-                        var objFilter = {
-                            title : myTextFilter,
-                            SKU : myTextFilter
-                        };
-                        StockService.updateReport(stockReport, objFilter);
-                    } else if (String(oldVal).legth >= 3) {
-                        StockService.updateReport(stockReport);
-                    }
-                }
-            });
-        };
+        function enableProductWatcher() {
+            currentProductWatcher = $scope.$watch('productFilter.text', productFilter);
+        }
+
+        function disableProductWatcher() {
+            currentProductWatcher();
+        }
 
         // #####################################################################################################
         // Controller warm up
         // #####################################################################################################
+        
         // Enable watcher
-        productFilterWatcher();
+        enableProductWatcher();
         $scope.showLevel(1);
 
     });
+
 }(angular));
