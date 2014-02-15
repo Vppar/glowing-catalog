@@ -90,6 +90,7 @@
                 'tnt.catalog.purchaseOrder',
                 'tnt.catalog.timer.service',
                 'tnt.catalog.sync.driver',
+                'tnt.catalog.sync.firebase',
                 'tnt.catalog.sync.service',
                 'tnt.catalog.purchaseOrder.service',
                 'tnt.catalog.login.ctrl'
