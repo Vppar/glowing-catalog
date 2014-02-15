@@ -131,11 +131,12 @@
 					</span> 
 					
 					<span class="step3col col-8perc">
-						<div>{{purchaseOrder | uuidCode}}</div>
+						<div class="p-title">{{purchaseOrder | uuidCode}}</div>
+						<div class="small-text">{{purchaseOrder.nfe.order}}</div>
 					</span> 
 					
 					<span class="step3col col-10perc">
-						<div>{{item.nfe}}</div>
+						<div>{{purchaseOrder.nfe.number}}</div>
 					</span> 
 					
 					<span class="step3col col-30perc step3colleft">

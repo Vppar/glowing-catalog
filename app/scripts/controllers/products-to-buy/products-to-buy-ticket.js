@@ -43,6 +43,7 @@
                 nfePromise.then(function(result) {
                     if (result) {
                         ticket.nfeData = result.nfe;
+                        purchaseOrder.nfe = result.nfe;
                         setPurchaseOrder(purchaseOrder);
                         selectPart('part2');
                     }
