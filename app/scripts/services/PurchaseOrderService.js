@@ -88,7 +88,7 @@
                         };
 
                 this.receive =
-                        function receive(uuid, productId, nfeNumber, receiveQty) {
+                        function receive(uuid, productId, nfeNumber, receivedQty) {
                             var result = true;
                             var numericProductId = Number(productId);
                             try {
@@ -98,16 +98,16 @@
 
                                 if (receivedProducts.length > 0) {
                                     var purchasedQty = purchasedProduct.qty;
-                                    var receivedQty = $filter('sum')(receivedProducts, 'qty', numericProductId);
+                                    var histReceivedQty = $filter('sum')(receivedProducts, 'qty');
 
-                                    if ((receivedQty + receiveQty) > purchasedQty) {
+                                    if ((histReceivedQty + receivedQty) > purchasedQty) {
                                         throw 'The deliver that is being informed is greater than the total ordered';
                                     }
                                 }
-                                result = PurchaseOrderKeeper.receive(uuid, numericProductId, nfeNumber, receiveQty);
+                                result = PurchaseOrderKeeper.receive(uuid, numericProductId, nfeNumber, receivedQty);
 
                                 result = result.then(function(productId) {
-                                    return StockService.add(new Stock(Number(productId), receiveQty, purchasedProduct.cost));
+                                    return StockService.add(new Stock(Number(productId), receivedQty, purchasedProduct.cost));
                                 });
 
                             } catch (err) {
@@ -134,20 +134,18 @@
                     return result;
                 };
 
-                this.filterPending = function filterPending() {
-                    var orders = this.list();
+                this.listPendingProducts = function listPendingProducts() {
+                    var purchaseOrders = this.list();
                     var pending = [];
-                    for ( var i in orders) {
-                        if (orders[i].received) {
-                            // do nothing
-                        } else {
-                            if (this.filterReceived(orders[i]).items.length === 0) {
-                            } else {
-                                pending.push(orders[i]);
+
+                    for ( var i in purchaseOrders) {
+                        if (!purchaseOrders[i].received) {
+                            var filteredOrder = this.filterReceived(purchaseOrders[i]);
+                            if (filteredOrder.items.length > 0) {
+                                pending.push(filteredOrder);
                             }
                         }
                     }
-
                     return pending;
                 };
 

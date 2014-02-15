@@ -31,33 +31,30 @@
 					</div>	
 	
 					<div class="scroll-payment-grid scroll-payment-grid2">
-						<span ng-repeat="sessions in main.stockReport">									
-							<span ng-repeat="lines in sessions"> 
-								<div class="row-pending-product-products-to-buy" >
+						<span ng-repeat="purchaseOrder in pending.purchaseOrders">
+							<span ng-repeat="item in purchaseOrder.items">  
+								<div class="row-pending-product-products-to-buy">
 									<span class="stepcol col-10perc">
-										<div>24/01/2014</div>
+										<div>{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
 									</span>
 									<span class="stepcol col-10perc">
-										<div>012-14</div>
+										<div>{{purchaseOrder | uuidCode}}</div>
 									</span>
 									<span class="stepcol col-10perc">
 										<div>12345138</div>
 									</span>
-	                                 
-	                                 <span class="stepcol col-35perc stepcolleft">
-										<div class="p-title">{{product.title}}</div>
-										<div class="small-text">cod.: {{product.SKU}}</div>
-									</span>
-									
-									<span class="stepcol col-10perc">
-										<div class="p-points">{{product.points}}</div>
-									</span>
-									
-									<span class="stepcol col-10perc">
-										<div>{{product.cost | currency: ''}}</div>
+	                                <span class="stepcol col-35perc stepcolleft">
+										<div class="p-title">{{item.title}}</div>
+										<div class="small-text">cod.: {{item.SKU}}</div>
 									</span>
 									<span class="stepcol col-10perc">
-										<div>{{1}}</div>
+										<div class="p-points">{{item.points}}</div>
+									</span>
+									<span class="stepcol col-10perc">
+										<div>{{item.cost | currency: ''}}</div>
+									</span>
+									<span class="stepcol col-10perc">
+										<div>{{item.qty}}</div>
 									</span>
 								</div>
 							</span>												
