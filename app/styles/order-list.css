@@ -1,25 +1,120 @@
+.order-col{
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
+}
+
+.order-col-2-rows{
+	display: block;
+	height: 40px;
+	line-height: 20px;
+	text-align: center;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
+}
+
+.order-col-1{
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 7.14%;
+}
+
+.order-col-1half{
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 10.7%;
+}
+.order-col-2{
+	width: 14.28%;
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.order-col-3{
+	width: 21.42%;
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.order-col-4{
+	width: 28.56%;
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.order-col-5{
+	width: 35.7%;
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.text-left{
+	text-align: left;
+}
+
+.text-right{
+	text-align: right;
+	padding-right: 20px;
+}
+
+.order-table-header{
+	display: block;
+	height: 40px;
+	width: 950px;
+	line-height: 40px;
+}
+.order-table-row{
+	cursor: pointer;
+	display: block;
+	min-height: 40px;
+	width: 950px;
+	line-height: 40px;
+}
+.order-table-sum{
+	cursor: pointer;
+	display: block;
+	height: 40px;
+	width: 950px;
+	line-height: 40px;
+	border-radius: 4px;
+	background-color: #c8c8c8;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	font-weight: bold;
+}
+.order-product{
+	line-height: 20px;
+}
+.order-product .product-name{
+	line-height: 20px;
+	display: inline-block;
+}
+
+
 /*FORM ORDER LIST*/
 .form-order-list {
 	border-radius: 6px;
 	margin: -9px 10px 0 10px;
-	border: 1px solid #e0e0e0;
 	background: #fff;
 	padding: 10px 15px 0 15px;
 	width: 970px;
 	display: block;
 	position: relative;
-	/*bottom: 12px;
-	top: 90px;*/
 }
 
 .btn-plus-pink {
 	position: relative;
 	top: 25px
 }
-
-/*.btn:hover {
-	background: #e2a9a8 !important;
-}*/
 
 .form-order-list .combo-width {
 	width: 250px;
@@ -31,7 +126,6 @@
 	height: 30px
 }
 .total-value-order-list {
-	/*float: right;*/
 	text-align: right;
 }
 
@@ -39,25 +133,9 @@
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
 	margin: auto;
-	/*margin-top: 30px;
-	margin-bottom: 20px;*/
 	background-color: #FFF
 }
-/*.details-order-list-title{	
-	border-radius: 4px;
-	background: #333;
-	color: #fff;
-	min-height: 20px;
-	padding: 8px 5px 8px 12px;
-	margin: auto;
-	/*margin-bottom: 20px;
-	border-bottom: 1px solid #ccc;
-	padding: 15px;
-	font-size: 16px;
-	color: #e5b1b0;
-	font-weight: bold;
-	min-height: 20px;/
-}*/
+
 .lbl-money label {
 	display:inline;
 }
@@ -76,47 +154,31 @@
 .margintn5{margin-top: -5px;}
 
 .details-order-list-item-total{
-	/*color:#ff2839;
-	width: 300px;*/
 	font-size: 16px;
 	font-weight: bolder;
-	/*padding: 15px 0 15px 0;*/
 	display: block;
 }
 
 .details-order-number{
-	/*float:right;*/
 	text-align: right;
 	padding-right: 8px;
 }
 
 .details-order-list-item{
-	/*padding: 8px 5px 8px 12px;*/
 	display: block;
 	min-height:20px;
 }
 
 .details-order-list-item .border{
-	/*float: left;*/
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
 	display: block;		
 	margin: 0 0 10px 0;
 	width: 305px;
 }
-
-/*.details-order-list-item .border-total
-	border-radius: 4px;
-	border: 1px solid #e0e0e0;
-	display: block;		
-	margin: 0 0 10px 63px;
-	padding: 25px 0 25px 0;
-	width: 242px;
+.order-list-periodo2{
+	margin-left: 50px !important;
 }
-
-.details-order-list-item .border-total .details-order-list-item-total{width:243px;}
-.details-order-list-item .border-total .lbl-money{width:98px;}*/
-.order-list-periodo2{margin-left: 50px !important;/*width:106px !important; float: right*/}
 
 .show-details-icon {margin: 5px 0 0 10px;}
 .show-details-icon img { cursor:pointer;}
@@ -131,7 +193,6 @@
 }
 .form-order-list .lbl-money3 {
 	width: 45px;
-	/*margin: 0 2px 0 2px;*/
 	text-align: center;
 	display: inline-block;
 	color:rgba(0, 0, 0, 0.5);
@@ -148,10 +209,6 @@
 	float: right;
 }
 
-/*.w165{
-	width:165px !important;
-}*/
-
 .form-order-list .controls input {
 	margin: 0 5px 0 5px;
 }
@@ -164,7 +221,6 @@
 
 .btns-details-order-list-item{ 
 	display:inline-block;
-	/*margin: 0 0 0 63px;*/
 }
 
 .marginr20{
@@ -174,15 +230,3 @@
 .marginl93{
 	margin-left: 93px !important;
 }
-
-/*.order-list-btns {
-	width: 354px;
-	margin: auto;
-	/*margin: 20px 0 20px 1px;/
-}
-
-.order-list-btn-area {
-	margin-left: 17%;
-	float: left;
-	text-align: center;
-}*/
