@@ -12,8 +12,6 @@
 	background: #000;
 	font-family: "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
 	text-align:center;
-	/*min-width:404px;
-	letter-spacing:-1px;*/
 }
 .form-confirmation-dialog, 
 .form-add-email,
@@ -40,8 +38,14 @@
 /*form add email*/
 .form-add-to-basket .form-add-email, .form-add-to-basket .form-add-tel {
 	margin-left: -215px;
-	width: 370px
+	width: 370px;
 }
+
+.form-add-email, .form-add-tel {
+	margin-left: -207px;
+	width: 370px;
+}
+
 /*add to basket dialog details*/
 
 .form-add-to-basket .quantidade{
@@ -406,9 +410,7 @@ input.sub-total-payment {
 .form-payment-advance-money .btn-plus-payment-credit-card {
 	margin-top: 25px;
 }
-/*.btn:hover {
-	background: #e2a9a8 !important;
-}*/
+
 .form-payment-advance-money .combo-width {
 	width: 250px;
 }
@@ -494,9 +496,7 @@ input.sub-total-payment {
 .form-payment-credit-card .btn-plus-payment-credit-card {
 	margin-top: 25px;
 }
-/*.btn:hover {
-	background: #e2a9a8 !important;
-}*/
+
 .form-payment-credit-card .combo-width-1 {
 	width: 96px;
 }
@@ -604,23 +604,3 @@ input.sub-total-payment {
 .change-pass-dialog-left-btns  button {
 	margin-left: 50px;
 }
-/*
-.change-pass-dialog-left-btns {
-	width: 500px;
-	float:right;
-	text-align: right;
-	height:50px;
-	/border-top: 1px dotted #ccc;/
-	padding-top: 10px;
-	
-}
-
-.change-pass-dialog-left-btns-area {
-	width: 671px;
-	height: 60px;
-	float: left;
-	margin-top: -79px;
-	position: relative;
-	border-top: 1px dotted #ccc;
-}*/
-
