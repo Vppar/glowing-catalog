@@ -28,6 +28,8 @@
                     }
                     if(reportItem.option){
                         reportItem.uniqueName = reportItem.SKU + ' - ' + reportItem.option;
+                    }else{
+                        reportItem.uniqueName = reportItem.SKU;
                     }
                 };
 
