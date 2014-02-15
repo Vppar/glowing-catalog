@@ -902,7 +902,7 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 	display: block;
 	font-weight: normal;
 	border-bottom: 1px dotted #ccc;
-	height:40px;
+	min-height:40px;
 }
 
 .step4 .grid-pending-products-to-buy-edit .col-s1 {
@@ -1154,11 +1154,17 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 .col-40perc{
 	width:40%;
 }
+.col-45perc{
+	width:45%;
+}
 .col-35perc{
 	width:35%;
 }
 
 .step3 .p-title {
+	width:100%;
+}
+.step4 .p-title {
 	width:100%;
 }
 
