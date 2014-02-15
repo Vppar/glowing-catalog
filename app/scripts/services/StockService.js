@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.stock.service', [
-        'tnt.catalog.stock'
+        'tnt.catalog.stock', 'tnt.catalog.inventory'
     ]).service(
             'StockService',
             function StockService($q, $log, ArrayUtils, InventoryKeeper, Stock, StockKeeper) {
