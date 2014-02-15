@@ -76,7 +76,8 @@
 										<div></div>
 									</span>
 									<span class="col-s8 lineheight20-overrule">
-										<div>Status</div>
+										<div ng-if="purchaseOrder.received">Entregue</div>
+										<div ng-if="!purchaseOrder.received">Em Aberto</div>
 									</span>
 								</div>
 							</span>												
@@ -130,8 +131,8 @@
 					</span> 
 					
 					<span class="step3col col-8perc">
-						<div class="p-title">{{purchaseOrder | uuidCode}}</div>
-						<div class="small-text">{{purchaseOrder.nfe.order}}</div>
+						<div class="p-title">{{purchaseOrder.nfe.order}}</div>
+						<div class="small-text">{{purchaseOrder | uuidCode}}</div>
 					</span> 
 					
 					<span class="step3col col-10perc">

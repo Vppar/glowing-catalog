@@ -57,7 +57,6 @@
         };
 
         function persitPurchaseOrder() {
-
             var orderBck = angular.copy($scope.confirmedProducts);
             var items = [];
             for ( var ix in orderBck.sessions) {
@@ -119,8 +118,11 @@
                 btnYes : 'Sim',
                 btnNo : 'Não'
             });
-            var persistedPurchaseOrder = confirmedPurchaseOrder.then(persitPurchaseOrder);
-
+            var persistedPurchaseOrder = confirmedPurchaseOrder.then(function(result) {
+                if (result) {
+                    return persitPurchaseOrder();
+                }
+            });
             persistedPurchaseOrder.then(function(result) {
                 if (result) {
                     $scope.selectTab('verifyTicket');
