@@ -1,7 +1,9 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.stock.service', ['tnt.catalog.stock']).service(
+    angular.module('tnt.catalog.stock.service', [
+        'tnt.catalog.stock'
+    ]).service(
             'StockService',
             function StockService($q, $log, ArrayUtils, InventoryKeeper, Stock, StockKeeper) {
 
@@ -24,6 +26,7 @@
                             reportItem.qty = 0;
                         }
                     }
+                    reportItem.uniqueName = reportItem.SKU + ' - ' + reportItem.option;
                 };
 
                 var shouldFilter = function shouldFilter(filter, reportItem) {
