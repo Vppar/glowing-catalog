@@ -26,7 +26,9 @@
                             reportItem.qty = 0;
                         }
                     }
-                    reportItem.uniqueName = reportItem.SKU + ' - ' + reportItem.option;
+                    if(reportItem.option){
+                        reportItem.uniqueName = reportItem.SKU + ' - ' + reportItem.option;
+                    }
                 };
 
                 var shouldFilter = function shouldFilter(filter, reportItem) {
