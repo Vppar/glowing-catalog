@@ -4,7 +4,7 @@
             'tnt.catalog.purchaseOrder.service',
             [
                 'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.service.expense', 'tnt.catalog.purchaseOrder',
-                'tnt.catalog.filter.sum'
+                'tnt.catalog.filter.sum', 'tnt.catalog.stock.ctrl'
             ]).service(
             'PurchaseOrderService',
             function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService,
