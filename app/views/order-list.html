@@ -18,17 +18,14 @@
 					<div class="float-right">
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm" ng-init="ol='orders'">
-								<a class="btn btn-option" ng-class="{active: ol=='orders'}"
-								ng-click="ol='orders'">Pedidos</a> <a class="btn btn-option"
-								ng-class="{active: ol=='customers'}" ng-click="ol='customers'">Clientes</a>
-								<a class="btn btn-option" ng-class="{active: ol=='products'}"
-								ng-click="ol='products'">Produtos</a>
+								<a class="btn btn-option" ng-class="{active: ol=='orders'}" ng-click="ol='orders'">Pedidos</a> 
+								<a class="btn btn-option" ng-class="{active: ol=='customers'}" ng-click="ol='customers'">Clientes</a>
+								<a class="btn btn-option" ng-class="{active: ol=='products'}" ng-click="ol='products'">Produtos</a>
 							</div>
 						</span>
 					</div>
 				</span>
 			</div>
-
 		</div>
 
 		<div class="row-fluid">
@@ -39,86 +36,84 @@
 						<span class="lbl-money">
 							<div class="controls">
 								<div class="control-group lbl-top">
-									<div class="controls w180">
-										Per&iacute;odo <input id="dtIni" type="text" placeholder=""
-										show-weeks="false" datepicker-popup="dd/MM/yyyy" 
+									<div class="controls w180"> 
+										Per&iacute;odo 
+										<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75" required readonly maxlength="10" ng-model="dateFilter.dtInitial">
+										<label for="dtIni" class="ic-calendar hover-state-pointer">
+											<img src="images/icons/ic-calendar.png"></label>
+										</div>
+									</div>
+								</div>
+							</span> <span class="lbl-money order-list-periodo2">
+							<div class="controls">
+								<div class="control-group lbl-top">
+									<div class="controls ">
+										<input id="dtFinal" type="text" placeholder=""
+										show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial"
 										class="date-field input-small w75" required readonly maxlength="10"
-										ng-model="dateFilter.dtInitial"><label for="dtIni"
+										ng-model="dateFilter.dtFinal"><label for="dtFinal"
 										class="ic-calendar hover-state-pointer"><img
 										src="images/icons/ic-calendar.png"></label>
 									</div>
 								</div>
 							</div>
-						</span> <span class="lbl-money order-list-periodo2">
-						<div class="controls">
-							<div class="control-group lbl-top">
-								<div class="controls ">
-									<input id="dtFinal" type="text" placeholder=""
-									show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial"
-									class="date-field input-small w75" required readonly maxlength="10"
-									ng-model="dateFilter.dtFinal"><label for="dtFinal"
-									class="ic-calendar hover-state-pointer"><img
-									src="images/icons/ic-calendar.png"></label>
-								</div>
-							</div>
-						</div>
-					</span>
+						</span>
+					</div>
 				</div>
-			</div>
-			<div class="col-details-order-list-item" ng-show="ol!='products'">
-				<div class="show-details-icon">
-					<img src="images/ic-sort-triangle-up-pink.png"
-					ng-click="invertHideOption()" ng-hide="hideOptions"> <img
-					src="images/ic-sort-triangle-down-pink.png"
-					ng-click="invertHideOption()" ng-show="hideOptions">
+				<div class="col-details-order-list-item" ng-show="ol!='products'">
+					<div class="show-details-icon">
+						<img src="images/ic-sort-triangle-up-pink.png"
+						ng-click="invertHideOption()" ng-hide="hideOptions"> <img
+						src="images/ic-sort-triangle-down-pink.png"
+						ng-click="invertHideOption()" ng-show="hideOptions">
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row-fluid show-details" ng-show="ol!='products'">
-		<div class="details-order-list-item" ng-hide="hideOptions"
-		ng-init="startHideOption()">
+		<div class="row-fluid show-details" ng-show="ol!='products'">
+			<div class="details-order-list-item" ng-hide="hideOptions"
+			ng-init="startHideOption()">
 
-		<div class="col-details-order-list-item">
-			<span class="border"> <span class="lbl-money"
-				ng-show="total.cash.amount >= 0">Dinheiro</span> <span
-				class="lbl-money" ng-hide="total.cash.amount >= 0">Troco</span> <span
-				class="lbl-money3">&nbsp;</span> <span class="btn-price-payment"
-				ng-show="total.cash.amount >= 0">{{total.cash.amount |
-				currency:''}}</span> <span class="btn-price-payment"
-				ng-hide="total.cash.amount >= 0">{{(-1)*total.cash.amount |
-				currency:''}}</span>
-			</span> <span class="border"> <span class="lbl-money">Cheque</span>
-			<span class="lbl-money3" ng-show="total.check.qty !== 0">(
-				{{total.check.qty}} )</span> <span class="btn-price-payment">{{total.check.amount
+			<div class="col-details-order-list-item">
+				<span class="border"> <span class="lbl-money"
+					ng-show="total.cash.amount >= 0">Dinheiro</span> <span
+					class="lbl-money" ng-hide="total.cash.amount >= 0">Troco</span> <span
+					class="lbl-money3">&nbsp;</span> <span class="btn-price-payment"
+					ng-show="total.cash.amount >= 0">{{total.cash.amount |
+					currency:''}}</span> <span class="btn-price-payment"
+					ng-hide="total.cash.amount >= 0">{{(-1)*total.cash.amount |
+					currency:''}}</span>
+				</span> <span class="border"> <span class="lbl-money">Cheque</span>
+				<span class="lbl-money3" ng-show="total.check.qty !== 0">(
+					{{total.check.qty}} )</span> <span class="btn-price-payment">{{total.check.amount
+					| currency:''}}</span>
+				</span>
+			</div>
+
+			<div class="col-details-order-list-item">
+				<span class="border"> <span class="lbl-money">Cart&atilde;o</span>
+				<span class="lbl-money3"
+				ng-show="(total.creditCard.qty + total.noMerchantCc.qty) !== 0">(
+				{{total.creditCard.qty + total.noMerchantCc.qty}} )</span> <span
+				class="btn-price-payment">{{(total.creditCard.amount +
+				total.noMerchantCc.amount)| currency:''}}</span>
+			</span> <span class="border"> <span class="lbl-money">Troca</span>
+			<span class="lbl-money3" ng-show="total.exchange.qty !== 0">(
+				{{total.exchange.qty}} )</span> <span class="btn-price-payment">{{total.exchange.amount
 				| currency:''}}</span>
 			</span>
 		</div>
 
 		<div class="col-details-order-list-item">
-			<span class="border"> <span class="lbl-money">Cart&atilde;o</span>
-			<span class="lbl-money3"
-			ng-show="(total.creditCard.qty + total.noMerchantCc.qty) !== 0">(
-			{{total.creditCard.qty + total.noMerchantCc.qty}} )</span> <span
-			class="btn-price-payment">{{(total.creditCard.amount +
-			total.noMerchantCc.amount)| currency:''}}</span>
-		</span> <span class="border"> <span class="lbl-money">Troca</span>
-		<span class="lbl-money3" ng-show="total.exchange.qty !== 0">(
-			{{total.exchange.qty}} )</span> <span class="btn-price-payment">{{total.exchange.amount
-			| currency:''}}</span>
-		</span>
-	</div>
-
-	<div class="col-details-order-list-item">
-		<span class="border"> <span class="lbl-money">Vale/Cupom</span>
-		<span class="lbl-money3">&nbsp;</span> <span
-		class="btn-price-payment">{{total.voucher.amount |
+			<span class="border"> <span class="lbl-money">Vale/Cupom</span>
+			<span class="lbl-money3">&nbsp;</span> <span
+			class="btn-price-payment">{{total.voucher.amount |
+			currency:''}}</span>
+		</span> <span class="border"> <span class="lbl-money">Contas
+		a Receber</span> <span class="lbl-money3">&nbsp;</span> <span
+		class="btn-price-payment">{{total.onCuff.amount |
 		currency:''}}</span>
-	</span> <span class="border"> <span class="lbl-money">Contas
-	a Receber</span> <span class="lbl-money3">&nbsp;</span> <span
-	class="btn-price-payment">{{total.onCuff.amount |
-	currency:''}}</span>
-</span>
+	</span>
 </div>
 </div>
 </div>
@@ -131,7 +126,7 @@
 		<div class="grid-order-list">
 			<div class="header" ng-click="updatePaymentsTotal(filteredOrders)">
 				<div class="order-table-header">
-				<div class="order-col order-col-2">
+					<div class="order-col order-col-2">
 						Data
 					</div>
 					<div class="order-col order-col-2 text-left">
@@ -221,48 +216,54 @@ ng-controller="OrderListClientsCtrl">
 <div class="row-fluid">
 	<div class="grid-order-list">
 		<div class="header" ng-click="updatePaymentsTotal(filteredEntities)">
-			<div class="row-order-list">
-				<div class="col-1">
+			<div class="order-table-header">
+				<div class="order-col order-col-1">
 					<span>Rank</span>
 				</div>
-				<div class="col-2">
+				<div class="order-col order-col-4 text-left">
 					<span>Clientes</span>
 				</div>
-				<div class="col-3">
+				<div class="order-col order-col-2 text-left">
 					<span>&Uacute;ltimo pedido</span>
 				</div>
-				<div class="col-4">
+				<div class="order-col order-col-1">
 					<span>Qtde.</span>
 				</div>
-				<div class="col-5">
+				<div class="order-col order-col-2 text-right">
 					<span>P. M&eacute;dio</span>
 				</div>
-				<div class="col-6">
+				<div class="order-col order-col-2 text-right">
 					<span>Valor total</span>
+				</div>
+				<div class="order-col order-col-2 text-right">
+					<span>VA</span>
 				</div>
 			</div>
 		</div>
-		<div class="scroll-order-list scroll-order-list2">
+		<div class="order-table-sum">
 			<div
 			class="row-order-list hover-state-pointer details-resumo-total"
 			ng-click="updatePaymentsTotal(filteredEntities)">
-			<div class="col-1">
+			<div class="order-col order-col-1">
 				<span>Total</span>
 			</div>
-			<div class="col-2">
+			<div class="order-col order-col-4 text-left">
 				<span>{{total.all.entityCount}}</span>
 			</div>
-			<div class="col-3">
+			<div class="order-col order-col-2 text-left">
 				<span ng-show="total.all.lastOrder>0" >{{total.all.lastOrder | date:'dd/MM/yyyy'}}</span>
 			</div>
-			<div class="col-4">
+			<div class="order-col order-col-1">
 				<span>{{total.all.qty}}</span>
 			</div>
-			<div class="col-5 ">
+			<div class="order-col order-col-2 text-right">
 				<span>{{total.all.avgPrice| currency: ''}}</span>
 			</div>
-			<div class="col-6">
+			<div class="order-col order-col-2 text-right">
 				<span>{{total.all.amount | currency:''}}</span>
+			</div>
+			<div class="order-col order-col-2 text-right">
+			VA
 			</div>
 		</div>
 	</div>
@@ -270,24 +271,27 @@ ng-controller="OrderListClientsCtrl">
 		<div class="row-order-list hover-state-pointer"
 		ng-repeat="entity in filteredEntities | orderBy: '-amountTotal'"
 		ng-click="updateAndEnableHideOption([entity])">
-		<div class="col-1">
+		<div class="order-col order-col-1">
 			<span>{{$index+1}}</span>
 		</div>
-		<div class="col-2">
+		<div class="order-col order-col-4 text-left">
 			<span>{{entity.name| truncate: 50}}</span>
 		</div>
-		<div class="col-3">
+		<div class="order-col order-col-2 text-left">
 			<span>{{entity.lastOrder | date:'dd/MM/yyyy'}}</span>
 		</div>
-		<div class="col-4">
+		<div class="order-col order-col-1">
 			<span>{{entity.itemsQty}}</span>
 		</div>
-		<div class="col-5">
+		<div class="order-col order-col-2 text-right">
 			<span>{{entity.avgPrice | currency:''}}</span>
 		</div>
-		<div class="col-6">
+		<div class="order-col order-col-2 text-right">
 			<span>{{entity.amountTotal | currency:''}}</span>
 		</div>
+		<div class="order-col order-col-2 text-right">
+			VA
+			</div>
 	</div>
 </div>
 </div>
@@ -301,26 +305,35 @@ ng-controller="OrderListProductsCtrl">
 <div class="row-fluid">
 	<div class="grid-order-list">
 		<div class="header">
-			<div class="row-order-list">
-				<div class="col-1">
+
+
+
+			<div class="order-table-header">
+				<div class="order-col order-col-1">
 					<span>Rank</span>
 				</div>
-				<div class="col-2">
+				<div class="order-col order-col-1">
 					<span>Produtos</span>
 				</div>
-				<div class="col-3">
+				<div class="order-col order-col-1">
 					<span>Estoque atual</span>
 				</div>
-				<div class="col-4">
+				<div class="order-col order-col-1">
 					<span>Qtde. Vendida</span>
 				</div>
-				<div class="col-5">
+				<div class="order-col order-col-1">
 					<span>Vlr. unit.</span>
 				</div>
-				<div class="col-6">
+				<div class="order-col order-col-1">
 					<span>Valor total</span>
 				</div>
+				<div class="order-col order-col-1">
+					<span>VA</span>
+				</div>
 			</div>
+
+
+
 		</div>
 		<div class="scroll-order-list scroll-order-list2">
 			<div
