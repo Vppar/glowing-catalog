@@ -1,27 +1,27 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.productsToBuy.credit.ctrl', ['tnt.catalog.purchaseOrder.service']).controller('ProductsToBuyCreditCtrl', function($scope, $filter,PurchaseOrderService) {
+    angular.module('tnt.catalog.productsToBuy.credit.ctrl', [
+        'tnt.catalog.purchaseOrder.service'
+    ]).controller('ProductsToBuyCreditCtrl', function($scope, $filter, PurchaseOrderService) {
 
         $scope.purchase = {
-//            orders : angular.copy(PurchaseOrderService.list())
-                order : {}
+            order : {}
         };
-        
+
         $scope.today = new Date();
-        
+
         $scope.credit = {
-                dtInitial : new Date(),
-                dtFinal : new Date()
+            dtInitial : new Date(),
+            dtFinal : new Date()
         };
-        
-        $scope.$watchCollection('credit', function(){
+
+        $scope.$watchCollection('credit', function() {
             $scope.filter();
         });
-        
-        $scope.filter = function(){
-//            $scope.purchase.orders = $filter('filter')(angular.copy(PurchaseOrderService.list()), dateFilter);
+
+        $scope.filter = function() {
         };
-        
+
         /**
          * Historic DateFilter
          */
@@ -40,7 +40,7 @@
 
                 isDateInitial = true;
             }
-            
+
             if ($scope.credit.dtFinal instanceof Date) {
 
                 $scope.credit.dtFinal.setHours(23);
@@ -51,7 +51,7 @@
 
                 isDateFinal = true;
             }
-            
+
             if (isDateInitial && isDateFinal) {
                 if ($scope.credit.dtInitial.getTime() > $scope.credit.dtFinal.getTime()) {
                     $scope.credit.dtFinal = angular.copy($scope.credit.dtInitial);
