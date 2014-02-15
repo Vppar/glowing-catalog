@@ -12,10 +12,7 @@
 							<span class="stepcol col-10perc">
 								<div>Pedido</div>
 							</span>
-							<span class="stepcol col-10perc">
-								<div>NFe</div>
-							</span>
-							<span class="stepcol col-35perc stepcolleft">
+							<span class="stepcol col-45perc stepcolleft">
 								<div>Produto/C&oacute;digo</div>
 							</span>
 							<span class="stepcol col-10perc">
@@ -40,15 +37,12 @@
 									<span class="stepcol col-10perc">
 										<div>{{purchaseOrder | uuidCode}}</div>
 									</span>
-									<span class="stepcol col-10perc">
-										<div>12345138</div>
-									</span>
-	                                <span class="stepcol col-35perc stepcolleft">
+									<span class="stepcol col-45perc stepcolleft">
 										<div class="p-title">{{item.title}}</div>
 										<div class="small-text">{{item.uniqueName}}</div>
 									</span>
 									<span class="stepcol col-10perc">
-										<div class="p-points">{{item.points}}</div>
+										{{item.points}}
 									</span>
 									<span class="stepcol col-10perc">
 										<div>{{item.price | currency: ''}}</div>
