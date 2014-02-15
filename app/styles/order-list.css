@@ -219,6 +219,13 @@
 	vertical-align: top;
 }
 
+.col-details-order-list-item-select{
+	display:inline-block;
+	margin: 10px 10px 15px 10px;
+	vertical-align: top;
+}
+
+
 .btns-details-order-list-item{ 
 	display:inline-block;
 }
