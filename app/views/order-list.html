@@ -312,73 +312,81 @@ ng-controller="OrderListProductsCtrl">
 				<div class="order-col order-col-1">
 					<span>Rank</span>
 				</div>
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-5 text-left">
 					<span>Produtos</span>
 				</div>
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-2">
 					<span>Estoque atual</span>
 				</div>
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-1half">
 					<span>Qtde. Vendida</span>
 				</div>
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-1half text-right">
 					<span>Vlr. unit.</span>
 				</div>
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-1half text-right">
 					<span>Valor total</span>
 				</div>
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-1half text-right">
 					<span>VA</span>
 				</div>
 			</div>
-
-
-
 		</div>
-		<div class="scroll-order-list scroll-order-list2">
+
+		<div class="order-table-sum">
 			<div
 			class="row-order-list hover-state-pointer details-resumo-total">
-			<div class="col-1">
+			<div class="order-col order-col-1">
 				<span>Total</span>
 			</div>
-			<div class="col-2">
+			<div class="order-col order-col-5 text-left">
 				<span>{{total.all.productCount}}</span>
 			</div>
-			<div class="col-3">
+			<div class="order-col order-col-2">
 				<span>{{filteredProducts.totalStock}}</span>
 			</div>
-			<div class="col-4">
+			<div class="order-col order-col-1half">
 				<span>{{total.all.qty}}</span>
 			</div>
-			<div class="col-5 ">
+			<div class="order-col order-col-1half text-right">
 				<span>{{total.all.avgPrice| currency: ''}}</span>
 			</div>
-			<div class="col-6">
+			<div class="order-col order-col-1half text-right">
 				<span>{{total.all.amount | currency:''}}</span>
+			</div>
+			<div class="order-col order-col-1half text-right">
+				VA
 			</div>
 		</div>
 	</div>
+
+
+
+
 	<div class="scroll-order-list">
 		<div class="row-order-list hover-state-pointer"
 		ng-repeat="product in filteredProducts | orderBy:'-priceTotal' ">
-		<div class="col-1">
-			<span>{{$index + 1}}</span>
+		<div class="order-col order-col-1">
+			{{$index + 1}}
 		</div>
-		<div class="col-2">
-			<div>{{product.title}}</div>
+		<div class="order-product order-col order-col-5 order-product text-left">
+			<div class="product-name">{{product.title}}</div>
 			<div class="comment">{{product.uniqueName}}</div>
 		</div>
-		<div class="col-3">
-			<span>{{product.stock}}</span>
+		<div class="order-col-2-rows order-col-2">
+			{{product.stock}}
 		</div>
-		<div class="col-4">
-			<span>{{product.qty}}</span>
+		<div class="order-col-2-rows order-col-1half">
+			{{product.qty}}
 		</div>
-		<div class="col-5">
-			<span>{{product.price | currency:''}}</span>
+		<div class="order-col-2-rows order-col-1half text-right">
+			{{product.price | currency:''}}
 		</div>
-		<div class="col-6">
-			<span>{{product.priceTotal | currency:''}}</span>
+		<div class="order-col-2-rows order-col-1half text-right">
+			{{product.priceTotal | currency:''}}
+		</div>
+		<div class="order-col-2-rows order-col-1half text-right">
+			VA
 		</div>
 	</div>
 </div>

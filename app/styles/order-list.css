@@ -8,12 +8,28 @@
     box-sizing:        border-box;
 }
 
+.order-col-2-rows{
+	display: block;
+	height: 40px;
+	line-height: 20px;
+	text-align: center;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
+}
+
 .order-col-1{
 	float:left;
 	padding-left: 5px;
 	padding-right: 5px;
 	width: 7.14%;
-	
+}
+
+.order-col-1half{
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 10.7%;
 }
 .order-col-2{
 	width: 14.28%;
@@ -21,7 +37,6 @@
 	padding-left: 5px;
 	padding-right: 5px;
 }
-
 .order-col-3{
 	width: 21.42%;
 	float:left;
@@ -35,7 +50,12 @@
 	padding-left: 5px;
 	padding-right: 5px;
 }
-
+.order-col-5{
+	width: 35.7%;
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+}
 
 .text-left{
 	text-align: left;
@@ -55,7 +75,7 @@
 .order-table-row{
 	cursor: pointer;
 	display: block;
-	height: 40px;
+	min-height: 40px;
 	width: 950px;
 	line-height: 40px;
 }
@@ -68,9 +88,16 @@
 	border-radius: 4px;
 	background-color: #c8c8c8;
 	margin-top: 3px;
+	margin-bottom: 3px;
 	font-weight: bold;
 }
-
+.order-product{
+	line-height: 20px;
+}
+.order-product .product-name{
+	line-height: 20px;
+	display: inline-block;
+}
 
 
 /*FORM ORDER LIST*/
