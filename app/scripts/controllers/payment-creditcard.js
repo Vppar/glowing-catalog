@@ -2,10 +2,10 @@
     'use strict';
 
     angular.module('tnt.catalog.payment.creditcard', [
-        'tnt.catalog.service.data', 'tnt.catalog.payment.service', 'tnt.catalog.payment.entity'
+        'tnt.catalog.service.dialog', 'tnt.catalog.service.data', 'tnt.catalog.payment.creditcard.service'
     ]).controller(
             'PaymentCreditCardCtrl',
-            function($scope, $element, $filter, DataProvider, OrderService, CreditCardPayment, PaymentService, Misplacedservice) {
+            function($scope, $element, $filter, DataProvider, DialogService, OrderService, CreditCardPaymentService) {
 
                 // #####################################################################################################
                 // Warm up the controller
@@ -16,7 +16,7 @@
                 function getAmount(change) {
                     return !change || change > 0 ? 0 : -change;
                 }
-                
+
                 // Initializing credit card data with a empty credit card
                 var creditCard = {};
                 var emptyCreditCardTemplate = {
@@ -93,40 +93,24 @@
                 /**
                  * Confirms a credit card payment.
                  */
-                $scope.confirmCreditCardPayment =
-                        function confirmCreditCardPayment() {
-                            $element.find('form').find('input').removeClass('ng-pristine').addClass('ng-dirty');
-                            if (!($scope.creditCardForm.$valid && $scope.creditCard.amount > 0)) {
-                                return;
-                            }
+                $scope.confirmCreditCardPayment = function confirmCreditCardPayment() {
+                    $element.find('form').find('input').removeClass('ng-pristine').addClass('ng-dirty');
+                    if (!($scope.creditCardForm.$valid && $scope.creditCard.amount > 0)) {
+                        return;
+                    }
+                    var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
+                    var result = CreditCardPaymentService.charge(creditCard, creditCard.amount, numInstallments);
 
-                            var creditCardInstallments = [];
-                            var numInstallments = creditCard.installment.replace('x', '').replace(' ', '');
-
-                            for ( var i = 0; i < numInstallments; i++) {
-                                var cc = angular.copy(creditCard);
-                                cc.amount = 0;
-                                cc.installment = i + 1;
-                                creditCardInstallments.push(cc);
-                            }
-
-                            Misplacedservice.recalc($scope.creditCard.amount, -1, creditCardInstallments, 'amount');
-
-                            var dueDate = new Date();
-                            var creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
-                            
-                            for ( var ix in creditCardInstallments) {
-                                var creditCardInstallment = creditCardInstallments[ix];
-                                // FIXME - Fix duedate and installment
-                                var payment =
-                                        new CreditCardPayment(
-                                                creditCardInstallment.amount, creditCardInstallment.flag, creditCardInstallment.number,
-                                                creditCardInstallment.cardholderName, creditCardDueDate, creditCard.cvv,
-                                                creditCard.cardholderDocument, creditCardInstallment.installment, dueDate.getTime());
-                                PaymentService.add(payment);
-                            }
-                            $scope.selectPaymentMethod('none');
-                        };
+                    result.then(function() {
+                        $scope.selectPaymentMethod('none');
+                    }, function(errMsg) {
+                        DialogService.messageDialog({
+                            title : 'Pagamento',
+                            message : errMsg,
+                            btnYes : 'OK'
+                        });
+                    });
+                };
 
             });
 }(angular));
