@@ -67,7 +67,7 @@
 					</div>
 				</div>
 <div class="col-details-order-list-item-select pull-right">
-				<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId">
+				<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="filter.customerId">
 		<option value="">Selecione Cliente</option>
 		<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
 	</select>
@@ -150,7 +150,7 @@
 						Valor total
 					</div>
 					<div class="order-col order-col-2 text-right">
-						VA
+						AV%
 					</div>
 				</div>
 			</div>
@@ -178,7 +178,7 @@
 					<span>{{total.all.amount | currency:''}}</span>
 				</div>
 				<div class="order-col order-col-2 text-right">
-					VA
+					100%
 				</div>
 			</div>
 		</div>
@@ -206,7 +206,7 @@
 				<span>{{order.amountTotal | currency: ''}}</span>
 			</div>
 			<div class="order-col order-col-2 text-right">
-				<span>{{order.amountTotal | currency: ''}}</span>
+				<span>{{order.va | currency: ''}}</span>
 			</div>
 		</div>
 	</div>
@@ -241,7 +241,7 @@ ng-controller="OrderListClientsCtrl">
 					<span>Valor total</span>
 				</div>
 				<div class="order-col order-col-2 text-right">
-					<span>VA</span>
+					<span>AV%</span>
 				</div>
 			</div>
 		</div>
@@ -268,7 +268,7 @@ ng-controller="OrderListClientsCtrl">
 				<span>{{total.all.amount | currency:''}}</span>
 			</div>
 			<div class="order-col order-col-2 text-right">
-				VA
+				100%
 			</div>
 		</div>
 	</div>
@@ -295,7 +295,7 @@ ng-controller="OrderListClientsCtrl">
 			<span>{{entity.amountTotal | currency:''}}</span>
 		</div>
 		<div class="order-col order-col-2 text-right">
-			VA
+			{{entity.va | currency: ''}}
 		</div>
 	</div>
 </div>
@@ -333,7 +333,7 @@ ng-controller="OrderListProductsCtrl">
 					<span>Valor total</span>
 				</div>
 				<div class="order-col order-col-1half text-right">
-					<span>VA</span>
+					<span>AV%</span>
 				</div>
 			</div>
 		</div>
@@ -360,7 +360,7 @@ ng-controller="OrderListProductsCtrl">
 				<span>{{total.all.amount | currency:''}}</span>
 			</div>
 			<div class="order-col order-col-1half text-right">
-				VA
+				100%
 			</div>
 		</div>
 	</div>
@@ -391,7 +391,7 @@ ng-controller="OrderListProductsCtrl">
 			{{product.priceTotal | currency:''}}
 		</div>
 		<div class="order-col-2-rows order-col-1half text-right">
-			VA
+			{{product.va | currency:''}}
 		</div>
 	</div>
 </div>
