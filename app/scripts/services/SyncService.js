@@ -270,7 +270,21 @@
                 }
 
                 if (entry.sequence <= JournalKeeper.getSequence()) {
-                    return resolveSequenceConflict(entry);
+                    var deferred = $q.defer();
+
+                    JournalKeeper.findEntry(entry.uuid).then(function (journalEntry) {
+                        journalEntry ?
+
+                            // Entry is already in the journal, do nothing.
+                            deferred.resolve() :
+
+                            // We have a conflict! Resolve it!
+                            deferred.resolve(resolveSequenceConflict(entry));
+                    }, function (err) {
+                        deferred.reject(err);
+                    });
+
+                    return deferred.promise;
                 }
 
                 return JournalKeeper.insert(entry);

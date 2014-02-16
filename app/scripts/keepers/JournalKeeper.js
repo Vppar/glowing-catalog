@@ -159,6 +159,26 @@
                 return promise;
             });
         };
+
+
+        /**
+         * Searches and returns the entry with the given id in the journal.
+         * @param {String} uuid Wanted entry's id.
+         * @return {Promise}
+         */
+        // TODO write tests
+        this.findEntry = function (uuid) {
+            return registered.then(function () {
+                var deferred = $q.defer();
+
+                storage.list(entityName, {uuid : uuid}).then(function (entries) {
+                    deferred.resolve(entries[0] || null);
+                }, function (err) {
+                    $log.debug('Failed to find entry for the uuid', uuid);
+                    deferred.reject(err);
+                });
+            });
+        };
         
 
         // FIXME: need to test this!

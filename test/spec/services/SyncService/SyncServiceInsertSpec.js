@@ -27,6 +27,7 @@ describe('Service: SyncServiceInsertSpec', function () {
 
       JournalKeeperMock.insert = jasmine.createSpy('JournalKeeper.insert');
       JournalKeeperMock.getSequence = jasmine.createSpy('JournalKeeper.getSequence');
+      JournalKeeperMock.findEntry = jasmine.createSpy('JournalKeeper.findEntry');
   });
 
 
@@ -48,6 +49,8 @@ describe('Service: SyncServiceInsertSpec', function () {
     $q = _$q_;
     SyncService = _SyncService_;
     JournalEntry = _JournalEntry_;
+
+    PromiseHelper.config($q, $log.debug);
   }));
 
 
@@ -63,7 +66,7 @@ describe('Service: SyncServiceInsertSpec', function () {
     it('inserts the entry in the journal', function () {
       var entry = new JournalEntry(5, new Date().getTime(), 'createFoo', 1, {});
 
-      JournalKeeperMock.insert.andCallFake(resolvedPromiseReturner(true));
+      JournalKeeperMock.insert.andCallFake(PromiseHelper.resolved(true));
       JournalKeeperMock.getSequence.andReturn(1);
 
       var inserted = false;
@@ -88,6 +91,47 @@ describe('Service: SyncServiceInsertSpec', function () {
     });
 
 
+    describe('existing local entry', function () {
+      var receivedEntry = null;
+
+      var sequenceNumber = 5;
+      var conflictingNumber = 4;
+
+      beforeEach(function () {
+        var timestamp = new Date().getTime();
+
+        // Two entries should be equal but not the same
+        receivedEntry = new JournalEntry(conflictingNumber, timestamp, 'createFoo', 1, {});
+        foundEntry = new JournalEntry(conflictingNumber, timestamp, 'createFoo', 1, {});
+
+        JournalKeeperMock.getSequence.andReturn(sequenceNumber);
+        JournalKeeperMock.findEntry.andCallFake(PromiseHelper.resolved(foundEntry));
+
+        spyOn(SyncService, 'stashEntries').andCallFake(PromiseHelper.resolved(true));
+        spyOn(SyncService, 'unstashEntries').andCallFake(PromiseHelper.resolved(true));
+      });
+
+      it('does not inserts the received entry in the journal', function () {
+        var resolved = false;
+
+        runs(function () {
+            SyncService.insert(receivedEntry).then(function () {
+                resolved = true;
+            });
+        });
+
+        waitsFor(function () {
+            $rootScope.$apply();
+            return resolved;
+        }, 'SyncService.insert()');
+
+        runs(function () {
+            expect(JournalKeeperMock.insert).not.toHaveBeenCalled();
+        });
+      });
+    });
+
+
     describe('conflicting sequence number', function () {
       var receivedEntry = null;
 
@@ -96,11 +140,12 @@ describe('Service: SyncServiceInsertSpec', function () {
 
       beforeEach(function () {
         JournalKeeperMock.getSequence.andReturn(sequenceNumber);
-        JournalKeeperMock.insert.andCallFake(resolvedPromiseReturner(true));
+        JournalKeeperMock.insert.andCallFake(PromiseHelper.resolved(true));
+        JournalKeeperMock.findEntry.andCallFake(PromiseHelper.resolved(null));
         receivedEntry = new JournalEntry(conflictingNumber, new Date().getTime(), 'createFoo', 1, {});
 
-        spyOn(SyncService, 'stashEntries').andCallFake(resolvedPromiseReturner(true));
-        spyOn(SyncService, 'unstashEntries').andCallFake(resolvedPromiseReturner(true));
+        spyOn(SyncService, 'stashEntries').andCallFake(PromiseHelper.resolved(true));
+        spyOn(SyncService, 'unstashEntries').andCallFake(PromiseHelper.resolved(true));
       });
 
       it('stashes the unsynced entries', function () {
@@ -172,30 +217,4 @@ describe('Service: SyncServiceInsertSpec', function () {
     }); // conflicting sequence number
   }); // SyncService.insert()
 
-
-  function resolvedPromiseReturner(result) {
-    return function () {
-      var deferred = $q.defer();
-
-      setTimeout(function () {
-        $log.debug('Promise resolved with result', result);
-        deferred.resolve(result);
-      }, 0);
-
-      return deferred.promise;
-    };
-  }
-
-  function rejectedPromiseReturner(result) {
-    return function () {
-      var deferred = $q.defer();
-
-      setTimeout(function () {
-        $log.debug('Promise rejected with result', result);
-        deferred.reject(result);
-      }, 0);
-
-      return deferred.promise;
-    };
-  }
 });
