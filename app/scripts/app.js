@@ -94,7 +94,8 @@
                 'tnt.catalog.sync.firebase',
                 'tnt.catalog.sync.service',
                 'tnt.catalog.purchaseOrder.service',
-                'tnt.catalog.login.ctrl'
+                'tnt.catalog.login.ctrl',
+                'tnt.utils.cep'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',

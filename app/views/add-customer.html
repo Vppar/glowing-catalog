@@ -61,7 +61,7 @@
 					<div class="control-group ">
 						<label class="control-label">CEP</label>
 						<input name="cep"  tabindex="3"
-							class="input-cep" type="text" ng-model="customer.cep"
+							class="input-cep" type="text" ng-model="customer.cep" ng-blur="getCep()"
 							ng-minlength="8" cep >
 					</div>
 				</span>

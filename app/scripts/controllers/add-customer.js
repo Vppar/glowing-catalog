@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.customer', [
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
-    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService) {
+    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService) {
 
         // ############################################################################################################
         // Scope binding variables
@@ -41,6 +41,26 @@
             });
         };
 
+        $scope.getCep = function() {
+            CepService.search($scope.customer.cep).then(function(address) {
+                completeAddress(address);
+            }, function(error) {
+                if(error.status === 404){
+                    DialogService.messageDialog({
+                        title : 'Erro ao buscar o CEP.',
+                        message : 'Verifique se o CEP foi digitado corretamente.',
+                        btnYes : 'OK'
+                    }).then();
+                }else if(error.status === 500){
+                    DialogService.messageDialog({
+                        title : 'Erro ao buscar o CEP.',
+                        message : 'Não foi possível contactar o serviço de CEP, verifique sua conexão com a internet.',
+                        btnYes : 'OK'
+                    }).then();
+                }
+            });
+        };
+
         $scope.openDialogAddCustomerEmails = function openDialogAddCustomerEmails(emails) {
             DialogService.openDialogAddCustomerEmails({
                 emails : emails
@@ -65,7 +85,6 @@
                 OrderService.order.customerId = uuid;
             }, function(err) {
                 // TODO something about it
-                //console.log(err);
             });
 
             $location.path('/');
@@ -73,6 +92,13 @@
 
         $scope.cancel = function cancel() {
             $location.path('/');
+        };
+        
+        var completeAddress = function completeAddress(address) {
+            $scope.customer.addresses.street = address.logradouro;
+            $scope.customer.addresses.neighborhood = address.bairro;
+            $scope.customer.addresses.state = address.uf;
+            $scope.customer.addresses.city = address.localidade;
         };
     });
 }(angular));
