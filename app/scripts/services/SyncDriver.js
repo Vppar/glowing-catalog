@@ -16,27 +16,6 @@
 
 
 
-        this.nukeStoredData = function(securityHash) {
-          if (securityHash !== "I'm TOTALLY aware that this should only be used in tests!") {
-            throw('You shall not nuke the stored data! Check your security hash!');
-          }
-
-          var deferred = $q.defer();
-
-          userJournalRef.remove(function (err) {
-            if (err) {
-              $log.debug('Failed to clear data!', err);
-              deferred.reject(err);
-            } else {
-              $log.debug('Data cleared!');
-              deferred.resolve();
-            }
-          });
-
-          return deferred.promise;
-        };
-
-
         // TODO implement rememberMe
         this.login = function(user, pass, rememberMe) {
 
