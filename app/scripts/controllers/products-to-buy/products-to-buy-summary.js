@@ -42,7 +42,6 @@
                         if ($scope.summary.total.amount < discounts[nix].amount) {
 
                             var appliedFee = (1 - discounts[nix].fee);
-
                             $scope.summary.discount.fee = discounts[nix].fee * 100;
                             $scope.summary.total.amountWithDiscount = financialRound($scope.summary.total.amount * appliedFee);
 
@@ -55,6 +54,7 @@
                             break;
                         } else if (!discounts[nix + 1]) {
                             nextDiscount.amount = 0;
+                            $scope.summary.discount.fee = discounts[nix].fee * 100;
                             nextDiscount.percent = discounts[discounts.length - 1].fee;
                             $log.info('Você está na classe de desconto máximo.');
                         }
