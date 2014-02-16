@@ -67,13 +67,13 @@
                 var item = ArrayUtils.find($scope.purchaseOrder.items, 'id', Number(ix));
                 var receiveQty = item.qty - ticket.watchedQty[ix];
                 if (receiveQty > 0) {
-                    var receivedPromise = PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData.number, receiveQty);
+                    var receivedPromise = PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData, receiveQty);
                     receivedPromises.push(receivedPromise);
                 }
             }
 
             var redeemedPromise = $q.all(receivedPromises).then(function() {
-                return PurchaseOrderService.redeem($scope.purchaseOrder.uuid);
+                return PurchaseOrderService.redeem($scope.purchaseOrder.uuid, ticket.nfeData.order);
             });
 
             redeemedPromise.then(function() {

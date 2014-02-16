@@ -6,7 +6,7 @@
         var service = function svc(uuid, created, amount, discount, points, items) {
 
             var validProperties = [
-                'uuid', 'created', 'amount', 'freight', 'discount', 'points', 'received', 'canceled', 'items', 'itemsReceived'
+                'uuid', 'created', 'amount', 'freight', 'discount', 'points', 'received', 'nfeNumber', 'canceled', 'items', 'itemsReceived'
             ];
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
@@ -34,9 +34,9 @@
                 this.points = points;
                 this.items = items;
             }
-            
+
             this.itemsReceived = [];
-            
+
             ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'created', this.created);
             ObjectUtils.ro(this, 'amount', this.amount);
@@ -106,10 +106,11 @@
                     var purchaseEntry = ArrayUtils.find(purchases, 'uuid', event.uuid);
                     if (purchaseEntry) {
                         purchaseEntry.received = event.received;
+                        purchaseEntry.nfeNumber = event.nfeNumber;
                     } else {
                         throw 'Unable to find an PurchaseOrder with uuid=\'' + event.uuid + '\'';
                     }
-                    
+
                     return event.uuid;
                 });
 
@@ -118,20 +119,23 @@
                     if (!purchaseEntry) {
                         throw 'Unable to find an PurchaseOrder with uuid=\'' + event.uuid + '\'';
                     }
-                    
+
                     var item = ArrayUtils.find(purchaseEntry.items, 'id', event.productId);
                     if (!item) {
-                        throw 'Unable to find in PurchaseOrder uuid=\'' + event.uuid + '\'' + ' an item with id=\'' + event.productId + '\'';
+                        throw 'Unable to find in PurchaseOrder uuid=\'' + event.uuid + '\'' + ' an item with id=\'' + event.productId +
+                            '\'';
                     }
 
                     var receive = {};
                     receive.productId = event.productId;
                     receive.nfeNumber = event.nfeNumber;
+                    receive.extNumber = event.extNumber;
                     receive.received = event.received;
                     receive.qty = event.qty;
-                    
+
                     purchaseEntry.itemsReceived.push(receive);
-                    
+                    purchaseEntry.extNumber = event.extNumber;
+
                     return receive.productId;
                 });
 
@@ -181,14 +185,15 @@
                 /**
                  * Redeem an order
                  */
-                var redeem = function redeem(uuid) {
+                var redeem = function redeem(uuid, nfeNumber) {
                     var purchase = ArrayUtils.find(purchases, 'uuid', uuid);
                     if (!purchase) {
                         throw 'Unable to find an PurchaseOrder with uuid=\'' + uuid + '\'';
                     }
                     var redeemEv = {
                         uuid : purchase.uuid,
-                        received : new Date().getTime()
+                        received : new Date().getTime(),
+                        nfeNumber : nfeNumber
                     };
                     // create a new journal entry
                     var entry = new JournalEntry(null, redeemEv.received, 'purchaseOrderRedeem', currentEventVersion, redeemEv);
@@ -219,13 +224,13 @@
                 /**
                  * Mark as received an item of the order
                  */
-                var receive = function receive(uuid, productId, nfeNumber, qty) {
+                var receive = function receive(uuid, productId, nfeNumber, extNumber, qty) {
                     var purchase = ArrayUtils.find(purchases, 'uuid', uuid);
                     if (!purchase) {
                         throw 'Unable to find an PurchaseOrder with uuid=\'' + uuid + '\'';
                     }
 
-                    var item = ArrayUtils.find(purchase.items, 'id',  productId);
+                    var item = ArrayUtils.find(purchase.items, 'id', productId);
                     if (!item) {
                         throw 'Unable to find in PurchaseOrder uuid=\'' + uuid + '\'' + ' an item with id=\'' + id + '\'';
                     }
@@ -234,6 +239,7 @@
                         uuid : purchase.uuid,
                         productId : productId,
                         nfeNumber : nfeNumber,
+                        extNumber : extNumber,
                         received : new Date().getTime(),
                         qty : qty,
                     };
