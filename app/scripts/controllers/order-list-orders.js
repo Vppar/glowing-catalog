@@ -21,16 +21,15 @@
                     var qtyTotal = $filter('sum')(order.items, 'qty');
                     var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                     var amountTotal = $filter('sum')(order.items, 'amount');
-                    
 
                     order.itemsQty = qtyTotal;
                     order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
                     order.amountTotal = (priceTotal + amountTotal);
                 }
-                
+
                 $scope.updateAndEnableHideOption = function(order) {
                     updatePaymentsTotal(order);
-                    if($scope.hideOptions === true){
+                    if ($scope.hideOptions === true) {
                         $scope.invertHideOption();
                     }
                 };
@@ -87,7 +86,15 @@
                     }
                     $scope.total.all.avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
                 }
-
+                
+                function generateVa(filteredOrders){
+                    for ( var ix in filteredOrders) {
+                        var filteredOrder = filteredOrders[ix];
+                        filteredOrder.va = (filteredOrder.amountTotal/$scope.total.all.amount)*100;
+                    }
+                }
+                
+                $scope.generateVa = generateVa;
                 $scope.updateOrdersTotal = updateOrdersTotal;
                 $scope.updatePaymentsTotal = updatePaymentsTotal;
                 /**
@@ -95,8 +102,18 @@
                  */
                 $scope.$watchCollection('dateFilter', function() {
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
+                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
                     updateOrdersTotal();
                     updatePaymentsTotal($scope.filteredOrders);
+                    generateVa($scope.filteredOrders);
+                });
+
+                $scope.$watchCollection('filter.customerId', function() {
+                    $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
+                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
+                    updateOrdersTotal();
+                    updatePaymentsTotal($scope.filteredOrders);
+                    generateVa($scope.filteredOrders);
                 });
 
             });

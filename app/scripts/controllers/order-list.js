@@ -96,6 +96,24 @@
         // #############################################################################################################
         // Local functions and variables
         // #############################################################################################################
+
+        $scope.customers = EntityService.list();
+        
+        $scope.filter = {
+                customerId : ''
+        };
+        
+        /**
+         * ClientFilter
+         */
+        $scope.filterByClient = function filterByClient(order) {
+            if ($scope.filter.customerId === '') {
+                return true;
+            } else if (order.customerId === $scope.filter.customerId) {
+                return true;
+            }
+        };
+
         /**
          * DateFilter
          */
