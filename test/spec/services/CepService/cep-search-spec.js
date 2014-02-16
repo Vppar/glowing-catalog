@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: CepService', function() {
+describe('Service: CepService', function() {
 
     // load the service's module
     beforeEach(module('tnt.utils.cep'));
@@ -25,7 +25,6 @@ ddescribe('Service: CepService', function() {
             CepService.search('80060140').then(function(address) {
                 result = address;
             }, function(error) {
-                console.log('error');
                 throw error;
             });
         });

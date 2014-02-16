@@ -85,7 +85,6 @@
                 OrderService.order.customerId = uuid;
             }, function(err) {
                 // TODO something about it
-                // console.log(err);
             });
 
             $location.path('/');
