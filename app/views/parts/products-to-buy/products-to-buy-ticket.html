@@ -64,7 +64,9 @@
 										<div></div>
 									</span>
 	                                <span class="col-s4 lineheight20-overrule">
-										<div>{{purchaseOrder | uuidCode}}</div>
+										<div class="p-title" ng-if="purchaseOrder.extNumber">{{purchaseOrder.extNumber}}</div>
+										<div class="small-text" ng-if="purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
+										<div class="p-title" ng-if="!purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
 									</span>
 									<span class="col-s5 lineheight20-overrule">
 										<div></div>
