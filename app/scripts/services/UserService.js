@@ -1,7 +1,9 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.user', ['tnt.catalog.sync.driver']).service('UserService', function UserService($q, SyncDriver) {
+    angular
+    .module('tnt.catalog.user', ['tnt.catalog.sync.driver', 'tnt.catalog.sync.service'])
+    .service('UserService', function UserService($q, SyncDriver, SyncService) {
 
         // FIXME implement criptography
 
@@ -14,7 +16,13 @@
             // FIXME - save the md5
             localStorage.user = user;
 
-            return SyncDriver.login(user, pass, rememberMe);
+            var promise = SyncDriver.login(user, pass, rememberMe);
+
+            promise.then(function () {
+              SyncDriver.registerSyncService(SyncService);
+            });
+
+            return promise;
         };
 
 

@@ -247,6 +247,16 @@
             var syncNext = syncReadOldestUnsynced;
 
 
+
+            /**
+             * Returns the sequence number for the last synced entry from the
+             * journal.
+             * @return {Number}
+             */
+            function getLastSyncedSequence() {
+                return JournalKeeper.getSyncedSequence();
+            }
+
             /**
              * Inserts an entry received from the server into the journal.
              * @param {Object} entry The JournalEntry received from the server.
@@ -406,6 +416,7 @@
 
             this.sync = sync;
             this.isSynching = isSynching;
+            this.getLastSyncedSequence = getLastSyncedSequence;
             this.insert = insert;
             this.stashEntries = stashEntries;
             this.unstashEntries = unstashEntries;

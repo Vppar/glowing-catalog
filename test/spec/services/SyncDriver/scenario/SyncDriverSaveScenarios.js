@@ -1,6 +1,10 @@
 describe('Service: SyncDriverSaveScenarios', function () {
   'use strict';
 
+  var FIREBASE_USER_DATA_LOCATION = 'voppwishlist.firebaseio.com/users/test@fake_acc';
+  var FIREBASE_USERNAME = 'test@fake.acc';
+  var FIREBASE_PASSWORD = 'senha123';
+
   var logger = angular.noop;
   //var logger = console.log;
 
@@ -17,7 +21,7 @@ describe('Service: SyncDriverSaveScenarios', function () {
   var $rootScope = null;
 
 
-  var baseTestRef = new Firebase('voppwishlist.firebaseio.com/users/wesleyakio@tuntscorp_com');
+  var baseTestRef = new Firebase(FIREBASE_USER_DATA_LOCATION);
   var journalTestRef = null;
 
 
@@ -50,7 +54,7 @@ describe('Service: SyncDriverSaveScenarios', function () {
     var signedIn = false;
     
     runs(function () {
-      var promise = SyncDriver.login('wesleyakio@tuntscorp.com', 'senha123');
+      var promise = SyncDriver.login(FIREBASE_USERNAME, FIREBASE_PASSWORD);
       promise.then(function () {
         signedIn = true;
       });

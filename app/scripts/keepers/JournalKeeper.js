@@ -68,6 +68,7 @@
     angular.module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log']).service('JournalKeeper', function JournalKeeper($q, $log, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
 
         var sequence = 0;
+        var syncedSequence = 0;
         var entityName = 'JournalEntry';
         
         var storage = new PersistentStorage(WebSQLDriver);
@@ -83,6 +84,21 @@
         };
 
         /**
+         * Returns the sequence of the last synced entry.
+         * @return {Number}
+         */
+        // FIXME: From my understanding, it is NOT the JournalKeeper's
+        // responsibility to keep track of the syncedSequence number.
+        // This would probably be better if kept in SyncService, but
+        // it's implementation is not that trivial since it depends
+        // from JournalKeeper.resync() for keeping track of it on
+        // startup. Maybe .resync() should be moved over to
+        // SyncService?
+        this.getSyncedSequence = function () {
+          return syncedSequence;
+        };
+
+        /**
          * Persist and replay a journal entry
          */
         this.compose = function(journalEntry) {
@@ -90,7 +106,41 @@
         };
 
         this.insert = function (journalEntry) {
+            if (journalEntry.sequence > syncedSequence) {
+              syncedSequence = journalEntry.sequence;
+            }
             return persistEntry(journalEntry, updateSequence);
+        };
+
+
+
+        /**
+         * Gets all synced entries from the local database.
+         * @returns {Promise}
+         */
+        // FIXME Implement tests
+        //
+        // FIXME Need to re-implement this method once WebSQLDriver's querying
+        // capabilities are improved.
+        this.readSynced = function () {
+            return registered.then(function () {
+                var deferred = $q.defer();
+
+                var promise = storage.list(entityName);
+                promise.then(function (entries) {
+                    var synced = [];
+                    for (var idx in entries) {
+                        var entry = entries[idx];
+                        entry.synced && synced.push(entry);
+                    }
+                    deferred.resolve(synced);
+                }, function (err) {
+                    $log.debug('Failed to read unsynced:', err);
+                    deferred.reject(err);
+                });
+
+                return deferred.promise;
+            });
         };
 
         /**
@@ -216,6 +266,10 @@
                             entry = results[ix];
                             
                             sequence = sequence > entry.sequence ? sequence : entry.sequence;
+                            
+                            if (entry.synced && entry.sequence > syncedSequence) {
+                                syncedSequence = entry.sequence;
+                            }
                             
                             promises.push(Replayer.replay(entry));
                         }

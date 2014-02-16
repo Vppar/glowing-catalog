@@ -2,8 +2,18 @@
 
 describe('Service: UserService', function() {
 
+  var SyncDriverMock = {};
+  var SyncServiceMock = {};
+
   // load the service's module
-  beforeEach(module('tnt.catalog.user'));
+  beforeEach(function () {
+    module('tnt.catalog.user');
+
+    module(function ($provide) {
+      $provide.value('SyncDriver', SyncDriverMock);
+      $provide.value('SyncService', SyncServiceMock);
+    });
+  });
 
   // instantiate service
   var UserService = null;
@@ -11,7 +21,7 @@ describe('Service: UserService', function() {
     UserService = _UserService_;
   }));
 
-  it('should do something', function() {
+  it('is accessible', function() {
     expect(!!UserService).toBe(true);
   });
 });

@@ -5,29 +5,35 @@
   ]).service(
     'SyncDriver',
     [
+      '$log',
       '$q',
       'Firebase',
       'FirebaseSimpleLogin',
-      function SyncDriver($q, Firebase, FirebaseSimpleLogin) {
+      function SyncDriver($log, $q, Firebase, FirebaseSimpleLogin) {
 
-        var service = null;
         var baseRef = new Firebase('voppwishlist.firebaseio.com');
         var userJournalRef = null;
 
 
 
         // TODO implement rememberMe
+        //
+        // FIXME Firebase authentication expects a single callback to handle
+        // all authentication state changes. Right now we create two
+        // instances of FirebaseSimpleLogin() to use 2 different
+        // callbacks (one for login, another for logout). This is bothering
+        // me and I hope to fix this later to use a single callback.
         this.login = function(user, pass, rememberMe) {
 
           var deferred = $q.defer();
 
-          new FirebaseSimpleLogin(baseRef, function(error, user) {
-            if (error) {
-              deferred.reject(error);
+          new FirebaseSimpleLogin(baseRef, function(err, user) {
+            if (err) {
+              $log.debug('Firebase authentication error (login cb)', err);
+              deferred.reject(err);
             } else if (user) {
+              $log.debug('Logged in to Firebase as ' + user);
               deferred.resolve(user);
-            } else {
-              deferred.reject('whaaat?!');
             }
           }).login('password', {
             email : user,
@@ -41,16 +47,16 @@
           return deferred.promise;
         };
 
-        this.logout = function( ) {
 
+        this.logout = function( ) {
           var deferred = $q.defer();
 
-          new FirebaseSimpleLogin(baseRef, function(error, user) {
-            if (error) {
-              deferred.reject(error);
-            } else if (user) {
-              deferred.reject(user);
-            } else {
+          new FirebaseSimpleLogin(baseRef, function(err, user) {
+            if (err) {
+              $log.debug('Firebase authentication error (logout cb)', err);
+              deferred.reject(err);
+            } else if (!user) {
+              $log.debug('Logged out from Firebase!');
               deferred.resolve('Logout successfull');
             }
           }).logout();
@@ -58,18 +64,18 @@
           return deferred.promise;
         };
 
-        this.registerSync =
-          function(syncService, lastSyncedEntrySequence) {
-            service = syncService;
 
-            userJournalRef.child('journal').startAt(lastSyncedEntrySequence + 1).on(
+        this.registerSyncService =
+          function(SyncService) {
+            userJournalRef.startAt(SyncService.getLastSyncedSequence() + 1).on(
               'child_added',
               function(snapshot) {
-                var messageInfo = snapshot.val();
-                console.log('child_added', messageInfo);
-                service.insert(messageInfo);
+                var entry = snapshot.val();
+                $log.debug('Firebase child_added cb', entry);
+                SyncService.insert(entry);
               });
           };
+
 
         this.save = function(entry) {
           var deferred = $q.defer();
