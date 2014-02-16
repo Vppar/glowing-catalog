@@ -59,6 +59,7 @@
                 'tnt.catalog.payment',
                 'tnt.catalog.payment.check',
                 'tnt.catalog.payment.creditcard',
+                'tnt.catalog.payment.creditcard.service',
                 'tnt.catalog.payment.exchange',
                 'tnt.catalog.misplaced.service',
                 'tnt.catalog.payment.service',
