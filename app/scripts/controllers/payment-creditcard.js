@@ -123,6 +123,8 @@
                                                 creditCardInstallment.amount, creditCardInstallment.flag, creditCardInstallment.number,
                                                 creditCardInstallment.cardholderName, creditCardDueDate, creditCard.cvv,
                                                 creditCard.cardholderDocument, creditCardInstallment.installment, dueDate.getTime());
+                                
+                                
                                 PaymentService.add(payment);
                             }
                             $scope.selectPaymentMethod('none');
