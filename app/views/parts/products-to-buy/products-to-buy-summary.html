@@ -3,7 +3,13 @@
 <div class="details-products-to-buy-item">
 	<div class="col-details-products-to-buy-item">
 		<div class="discount-notice">
-			Faltam <strong>R$555,00</strong> para a classe de desconto de <strong>25%.</strong>
+		<span ng-show="summary.nextDiscount.amount !== 0">
+			Faltam <strong>{{summary.nextDiscount.amount | currency:'R$ '}}</strong> para desconto de <strong>{{summary.nextDiscount.fee}}%</strong>
+		</span>
+		<span ng-hide="summary.nextDiscount.amount !== 0">
+			Voc&ecirc; atingiu o desconto m&aacute;ximo
+		</span>
+		
 		</div>
 	</div>
 </div>
