@@ -145,7 +145,7 @@
                          * Coupons msg template.
                          */
                         var singularCouponConfirmationSMS =
-                                'Voce recebeu um cupon promocional no valor total de {{couponsAmount}} reais a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                                'Voce recebeu um cupom promocional no valor total de {{couponsAmount}} reais a ser utilizado na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
                         var pluralCouponConfirmationSMS =
                                 'Voce recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount}} reais a serem utilizados na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
 
