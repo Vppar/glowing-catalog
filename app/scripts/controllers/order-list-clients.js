@@ -139,13 +139,6 @@
                     $scope.total.all.avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
                 }
                 
-                function generateVa(filteredEntities){
-                    for ( var ix in filteredEntities) {
-                        var filteredEntitie = filteredEntities[ix];
-                        filteredEntitie.va = (filteredEntitie.amountTotal/$scope.total.all.amount)*100;
-                    }
-                }
-
                 $scope.updateOrdersTotal = updateOrdersTotal;
                 $scope.updatePaymentsTotal = updatePaymentsTotal;
 
@@ -154,20 +147,10 @@
                  */
                 $scope.$watchCollection('dateFilter', function() {
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
-                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
                     updateOrdersTotal();
                     updatePaymentsTotal(entities);
                     updateFilteredEntities();
-                    generateVa($scope.filteredEntities);
+                    $scope.generateVA($scope.filteredEntities);
                 });
-                $scope.$watchCollection('filter.customerId', function() {
-                    $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
-                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
-                    updateOrdersTotal();
-                    updatePaymentsTotal(entities);
-                    updateFilteredEntities();
-                    generateVa($scope.filteredEntities);
-                });
-
             });
 }(angular));

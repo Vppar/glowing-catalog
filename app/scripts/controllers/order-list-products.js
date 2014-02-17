@@ -28,14 +28,15 @@
                         return result;
                     });
                     var qtyTotal = $filter('sum')(filteredItems, 'qty');
-                    var priceTotal = $filter('sum')(filteredItems, 'price', 'qty');
+                    var amountTotal = $filter('sum')(filteredItems, 'price', 'qty');
 
                     order.itemsQty = qtyTotal;
-                    order.avgPrice = Math.round(100 * (priceTotal / qtyTotal)) / 100;
-                    order.amountTotal = priceTotal;
+                    order.avgPrice = Math.round(100 * (amountTotal / qtyTotal)) / 100;
+                    order.amountTotal = amountTotal;
                 }
 
                 function updateFilteredProducts() {
+                    $scope.filteredProducts.totalStock = 0;
                     $scope.filteredProducts.length = 0;
                     var productsMap = {};
                     for ( var ix in $scope.filteredOrders) {
@@ -46,15 +47,15 @@
                                 var response = ArrayUtils.find(productsMap, 'SKU', SKU);
                                 if (response) {
                                     productsMap[SKU].qty += item.qty;
-                                    productsMap[SKU].priceTotal += Math.round(100 * (Number(item.qty) * Number(item.price))) / 100;
+                                    productsMap[SKU].amountTotal += Math.round(100 * (Number(item.qty) * Number(item.price))) / 100;
 
                                 } else {
                                     productsMap[SKU] = angular.copy(item);
-                                    productsMap[SKU].priceTotal =
+                                    productsMap[SKU].amountTotal =
                                             Math.round(100 * (Number(productsMap[SKU].qty) * Number(productsMap[SKU].price))) / 100;
 
                                     productsMap[SKU].priceAvg =
-                                            Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
+                                            Math.round(100 * (Number(productsMap[SKU].amountTotal) / Number(productsMap[SKU].qty))) / 100;
 
                                     $scope.filteredProducts.push(productsMap[SKU]);
 
@@ -76,7 +77,7 @@
                                     $scope.filteredProducts.totalStock += productsMap[SKU].stock;
                                 }
                                 productsMap[SKU].priceAvg =
-                                        Math.round(100 * (Number(productsMap[SKU].priceTotal) / Number(productsMap[SKU].qty))) / 100;
+                                        Math.round(100 * (Number(productsMap[SKU].amountTotal) / Number(productsMap[SKU].qty))) / 100;
 
                             }
                         }
@@ -121,20 +122,12 @@
                     var filteredOrders = $scope.filteredOrders;
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
-
                         $scope.total.all.amount += filteredOrder.amountTotal;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
                     }
                     $scope.total.all.productCount = $scope.filteredProducts.length;
                     $scope.total.all.avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
-                }
-                
-                function generateVa(filteredProducts){
-                    for ( var ix in filteredProducts) {
-                        var filteredProduct = filteredProducts[ix];
-                        filteredProduct.va = (filteredProduct.priceTotal/$scope.total.all.amount)*100;
-                    }
                 }
 
                 $scope.$watchCollection('dateFilter', function() {
@@ -143,7 +136,7 @@
                     updateFilteredProducts();
                     updateOrdersTotal();
                     updatePaymentsTotal($scope.filteredOrders);
-                    generateVa($scope.filteredProducts);
+                    $scope.generateVA($scope.filteredProducts);
                 });
 
                 $scope.$watchCollection('filter.customerId', function() {
@@ -151,8 +144,7 @@
                     $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
                     updateFilteredProducts();
                     updateOrdersTotal();
-                    updatePaymentsTotal($scope.filteredOrders);
-                    generateVa($scope.filteredProducts);
+                    $scope.generateVA($scope.filteredProducts);
                 });
 
             });
