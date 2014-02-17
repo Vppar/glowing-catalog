@@ -425,8 +425,10 @@
                     }
 
                     function sendCouponsSMS(coupons) {
-                        if (coupons.length > 0) {
-                            SMSService.sendCouponsConfirmation(customer, (i * coupons[i]), coupons[i]);
+                        if (coupons) {
+                            for ( var i in coupons) {
+                                SMSService.sendCouponConfirmation(customer, (i * coupons[i]), coupons[i]);
+                            }
                         }
                     }
 
