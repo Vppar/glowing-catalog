@@ -21,7 +21,7 @@ describe('Controller: AddCustomerCtrl', function() {
     };
     
     beforeEach(function(){module(function($provide) {
-        $provide.value('epService', cs);
+        $provide.value('CepService', cs);
         });
     });
 
