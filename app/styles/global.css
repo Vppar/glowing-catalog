@@ -248,7 +248,7 @@ body {
 	color: #333
 }
 .bg-login-right {
-	background: url(../images/bg-right-mary.png);
+	/*background: url(../images/bg-right-mary.png);*/
 	width: 603px;
 	height: 569px;
 	position: absolute;
@@ -256,7 +256,7 @@ body {
 	right: 0;
 }
 .bg-login-left {
-	background: url(../images/bg-left-mary.png);
+	/*background: url(../images/bg-left-mary.png);*/
 	width: 420px;
 	height: 623px;
 	position: absolute;
@@ -265,7 +265,7 @@ body {
 }
 
 .bg-login-center {
-	background: url(../images/bg-center-mary.png);
+	/*background: url(../images/bg-center-mary.png);*/
 	width: 458px;
 	height: 418px;
 	position: absolute;
@@ -371,7 +371,7 @@ body {
 	height: 66px
 }
 .form-signin-heading img {
-	margin:18px 14px 14px 14px;
+	margin:0px;
 }
 .form-signin input[type="text"], .form-signin input[type="password"] {
 	font-size: 16px;
