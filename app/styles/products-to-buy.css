@@ -167,8 +167,11 @@
 }
 .details-products-to-buy-item .item{
 	display: inline-block;		
-	margin: 5px 0 5px 0;
-	width:  100%; /*290px;*/
+	margin: 3px 0 3px 0;
+	width:  100%;
+}
+.discount-notice{
+	margin: 5px;
 }
 
 .w595{
@@ -204,8 +207,8 @@
 
 .col-details-products-to-buy-item{
 	/*display:inline-block;*/
-	margin: 0 0 10px 10px;
-	width: 295px; /*150px;*/
+	margin: 0 0 8px 10px;
+	width: 295px; 
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
 }
