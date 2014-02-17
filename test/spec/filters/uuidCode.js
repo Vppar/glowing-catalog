@@ -19,24 +19,24 @@ describe('Filter: uuidCode', function() {
     expect(uuidCode(item)).toBe('0001-01-14');
   });
   
-  xit('should make an object with standard uuid into an human friendly code', function() {
+  it('should make an object with standard uuid into an human friendly code', function() {
 
       var item = {
-        uuid : 'cc02b600-5d0b-11e3-96c3-01000100000a',
+        uuid : 'cc02b600-5d0b-11e3-96c3-01000100000b',
         created : new Date('2014-02-02').getTime()
       };
 
-      expect(uuidCode(item)).toBe('0010-01-14');
+      expect(uuidCode(item)).toBe('0011-01-14');
     });
   
   it('should make an object with standard uuid into an human friendly code', function() {
 
       var item = {
-        uuid : 'cc02b600-5d0b-11e3-96c3-010001009000',
+        uuid : 'cc02b600-5d0b-11e3-96c3-01000100270f',
         created : new Date('2014-02-02').getTime()
       };
 
-      expect(uuidCode(item)).toBe('9000-01-14');
+      expect(uuidCode(item)).toBe('9999-01-14');
     });
 
 });
