@@ -340,7 +340,8 @@ body {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: #faeae9
+	/*background: #faeae9;*/
+	background-color: #fff;
 }
 .lbl-top {
 	display: inline-block;
