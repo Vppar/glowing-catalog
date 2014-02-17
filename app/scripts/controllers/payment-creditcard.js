@@ -31,6 +31,7 @@
                     // cardholder's CPF
                     cardholderDocument : null
                 };
+
                 angular.extend(creditCard, emptyCreditCardTemplate);
                 $scope.creditCard = creditCard;
 
@@ -83,9 +84,23 @@
                 while (currYear < cardMaxExpirationYear) {
                     cardExpirationYears.push(currYear++);
                 }
-                creditCard.expirationMonth = 1;
+                creditCard.expirationMonth = new Date().getMonth() + 1;
                 creditCard.expirationYear = new Date().getFullYear();
                 $scope.cardExpirationYears = cardExpirationYears;
+
+                $scope.$watch('creditCard.expirationYear', function() {
+                    if (Number(creditCard.expirationYear) === new Date().getFullYear()) {
+                        var minMonth = new Date().getMonth() + 1;
+                        var months = [];
+                        for ( var ix in DataProvider.date.months) {
+                            if (Number(DataProvider.date.months[ix].id) >= minMonth)
+                                months.push(DataProvider.date.months[ix]);
+                        }
+                        $scope.months = months;
+                    } else {
+                        $scope.months = DataProvider.date.months;
+                    }
+                });
 
                 // #####################################################################################################
                 // Scope action functions
