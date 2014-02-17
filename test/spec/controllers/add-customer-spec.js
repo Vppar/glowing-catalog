@@ -4,6 +4,7 @@ describe('Controller: AddCustomerCtrl', function() {
     beforeEach(function() {
         module('tnt.catalog.customer');
         module('tnt.catalog.filter.findBy');
+        module('tnt.utils.cep');
     });
 
     var scope = {};
@@ -13,10 +14,16 @@ describe('Controller: AddCustomerCtrl', function() {
     var dp = {};
     var ds = {};
     var os = {};
+    var cs = {};
 
     q.reject = function() {
         return 'rejected';
     };
+    
+    beforeEach(function(){module(function($provide) {
+        $provide.value('epService', cs);
+        });
+    });
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
