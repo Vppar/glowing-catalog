@@ -90,7 +90,6 @@
 
                 $scope.$watch('creditCard.expirationYear', function() {
                     if (Number(creditCard.expirationYear) === new Date().getFullYear()) {
-                        console.log('entrou em 2014');
                         var minMonth = new Date().getMonth() + 1;
                         var months = [];
                         for ( var ix in DataProvider.date.months) {
