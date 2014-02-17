@@ -154,20 +154,21 @@
                  */
                 $scope.$watchCollection('dateFilter', function() {
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
-                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
+                    //$scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
                     updateOrdersTotal();
                     updatePaymentsTotal(entities);
                     updateFilteredEntities();
                     generateVa($scope.filteredEntities);
                 });
-                $scope.$watchCollection('filter.customerId', function() {
+                
+               /* $scope.$watchCollection('filter.customerId', function() {
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
                     $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
                     updateOrdersTotal();
                     updatePaymentsTotal(entities);
                     updateFilteredEntities();
                     generateVa($scope.filteredEntities);
-                });
+                });*/
 
             });
 }(angular));

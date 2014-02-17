@@ -66,13 +66,12 @@
 						ng-click="invertHideOption()" ng-show="hideOptions">
 					</div>
 				</div>
-<div class="col-details-order-list-item-select pull-right">
-				<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="filter.customerId">
-		<option value="">Selecione Cliente</option>
-		<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
-	</select>
-	</div>
-
+				<div class="col-details-order-list-item-select pull-right" ng-show="ol=='products'">
+					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="filter.customerId">
+						<option value="">Selecione Cliente</option>
+						<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
+					</select>
+				</div>
 			</div>
 		</div>
 		<div class="row-fluid show-details" ng-show="ol!='products'">

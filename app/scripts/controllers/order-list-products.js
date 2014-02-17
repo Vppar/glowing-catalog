@@ -121,7 +121,6 @@
                     var filteredOrders = $scope.filteredOrders;
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
-
                         $scope.total.all.amount += filteredOrder.amountTotal;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
@@ -151,7 +150,7 @@
                     $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
                     updateFilteredProducts();
                     updateOrdersTotal();
-                    updatePaymentsTotal($scope.filteredOrders);
+                    //updatePaymentsTotal($scope.filteredOrders);
                     generateVa($scope.filteredProducts);
                 });
 
