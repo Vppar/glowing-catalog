@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: UserService', function() {
+describe('Service: UserService', function() {
 
     // load the service's module
     beforeEach(function() {
