@@ -76,7 +76,5 @@
                         $location.path('/login');
                     });
                 };
-                
-                $scope.preventClose = function(event) { event.stopPropagation(); };
             });
 }(angular));
