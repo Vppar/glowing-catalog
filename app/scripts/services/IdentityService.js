@@ -34,9 +34,9 @@
             }
 
             var data = {};
-            data.id = parseInt(uuid.substring(32, 36), 10);
-            data.deviceId = parseInt(uuid.substring(24, 26), 10);
-            data.typeId = parseInt(uuid.substring(28, 30), 10);
+            data.id = parseInt('0x'+uuid.substring(32, 36));
+            data.deviceId = parseInt('0x'+uuid.substring(24, 26));
+            data.typeId = parseInt('0x'+uuid.substring(28, 30));
 
             return data;
         };
