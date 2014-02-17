@@ -69,7 +69,7 @@
 				<div class="col-details-order-list-item-select pull-right" ng-show="ol=='products'">
 					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="filter.customerId">
 						<option value="">Selecione Cliente</option>
-						<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
+						<option value="{{customer.uuid}}" ng-repeat="customer in customers | orderBy:'name'">{{customer.name}}</option>
 					</select>
 				</div>
 			</div>
@@ -177,7 +177,7 @@
 					<span>{{total.all.amount | currency:''}}</span>
 				</div>
 				<div class="order-col order-col-2 text-right">
-					100%
+					100
 				</div>
 			</div>
 		</div>
@@ -267,7 +267,7 @@ ng-controller="OrderListClientsCtrl">
 				<span>{{total.all.amount | currency:''}}</span>
 			</div>
 			<div class="order-col order-col-2 text-right">
-				100%
+				100
 			</div>
 		</div>
 	</div>
@@ -359,7 +359,7 @@ ng-controller="OrderListProductsCtrl">
 				<span>{{total.all.amount | currency:''}}</span>
 			</div>
 			<div class="order-col order-col-1half text-right">
-				100%
+				100
 			</div>
 		</div>
 	</div>
@@ -369,7 +369,7 @@ ng-controller="OrderListProductsCtrl">
 
 	<div class="scroll-order-list">
 		<div class="row-order-list hover-state-pointer"
-		ng-repeat="product in filteredProducts | orderBy:'-priceTotal' ">
+		ng-repeat="product in filteredProducts | orderBy:'-amountTotal' ">
 		<div class="order-col order-col-1">
 			{{$index + 1}}
 		</div>
@@ -387,7 +387,7 @@ ng-controller="OrderListProductsCtrl">
 			{{product.price | currency:''}}
 		</div>
 		<div class="order-col-2-rows order-col-1half text-right">
-			{{product.priceTotal | currency:''}}
+			{{product.amountTotal | currency:''}}
 		</div>
 		<div class="order-col-2-rows order-col-1half text-right">
 			{{product.va | currency:''}}
