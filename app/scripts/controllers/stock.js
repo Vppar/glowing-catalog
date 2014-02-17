@@ -14,10 +14,6 @@
         var fullReservedListBkp = StockService.stockReport('reserved');
         var fullAvailableListBkp = StockService.stockReport('available');
 
-        // #####################################################################################################
-        // Local Functions
-        // #####################################################################################################
-
         function buildList(productsReserved, productsAvailable, objFilter) {
             $scope.productsReserved = productsReserved;
             $scope.productsAvailable = productsAvailable;
@@ -31,20 +27,11 @@
             $scope.overallProducts.amount = overallAmount;
         }
 
-        function setHideAttributes(sessions, hideLine, hideProduct) {
-            for ( var ix in sessions) {
-                var session = sessions[ix];
-                session.hide = false;
-                for ( var ix2 in session.lines) {
-                    var line = session.lines[ix2];
-                    line.hide = hideLine;
-                    for ( var ix3 in line.items) {
-                        var item = line.items[ix3];
-                        item.hide = hideProduct;
-                    }
-                }
-            }
-        }
+        $scope.overallProducts = {
+            qty : 0,
+            avgCost : 0,
+            amount : 0
+        };
 
         var productFilter = function productFilter(newVal, oldVal) {
             if (newVal !== oldVal) {
