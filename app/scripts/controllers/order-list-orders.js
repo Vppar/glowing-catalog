@@ -88,10 +88,20 @@
                 }
                 
                 function generateVa(filteredOrders){
+                    var acumulator = 0;
+                    var biggestOrder = {va:0};
+                    var biggestRounded = 0;
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
                         filteredOrder.va = (filteredOrder.amountTotal/$scope.total.all.amount)*100;
+                        var roundedVa = (Math.round(100*filteredOrder.va)/100);
+                        acumulator += roundedVa;
+                        if(roundedVa > biggestOrder.va){
+                            biggestOrder = filteredOrder;
+                            biggestRounded = roundedVa;
+                        }
                     }
+                    biggestOrder.va = biggestRounded + Math.round(100*(100 - acumulator))/100;
                 }
                 
                 $scope.generateVa = generateVa;
