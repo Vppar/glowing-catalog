@@ -171,7 +171,7 @@
 	width:  100%;
 }
 .discount-notice{
-	margin: 5px;
+	margin: 8px;
 }
 
 .w595{
@@ -207,7 +207,7 @@
 
 .col-details-products-to-buy-item{
 	/*display:inline-block;*/
-	margin: 0 0 8px 10px;
+	margin: 0 0 10px 10px;
 	width: 295px; 
 	border-radius: 4px;
 	border: 1px solid #e0e0e0;
