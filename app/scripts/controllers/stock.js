@@ -104,8 +104,8 @@
                 hideAllSections($scope.productsReserved.sessions);
                 break;
             case 2:
-                setHideAttributes($scope.productsAvailable.sessions, false, true);
-                setHideAttributes($scope.productsReserved.sessions, false, true);
+                setHideAttributes($scope.productsAvailable.sessions, true, true);
+                setHideAttributes($scope.productsReserved.sessions, true, true);
                 break;
             case 3:
                 setHideAttributes($scope.productsAvailable.sessions, false, false);
