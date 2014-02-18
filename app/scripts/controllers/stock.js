@@ -98,6 +98,8 @@
         $scope.showLevel = function showLevel(level) {
             switch (level) {
             case 1:
+                setHideAttributes($scope.productsAvailable.sessions, true, true);
+                setHideAttributes($scope.productsReserved.sessions, true, true);
                 hideAllSections($scope.productsAvailable.sessions);
                 hideAllSections($scope.productsReserved.sessions);
                 break;

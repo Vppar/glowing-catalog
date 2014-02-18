@@ -48,7 +48,8 @@
 						<span class="float-right margin-r-5">Total Geral</span>
 					</span> &nbsp;
 					<span class="title-col-3">{{overallProducts.qty}}</span> &nbsp; 
-					<span class="title-col-4 margin-l-4">{{overallProducts.avgCost | currency:''}}</span>&nbsp; 
+					<span class="title-col-4 margin-l-4" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</span> 
+					<span class="title-col-4 margin-l-4" ng-if="!overallProducts.avgCost">0,00</span>
 					<span class="title-col-5">{{overallProducts.amount | currency:''}}</span>
 				</span>
 			</div>
