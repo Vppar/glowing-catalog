@@ -10,14 +10,14 @@ describe('Service: CoinKeeperReceiveExpensesSpec', function() {
     var monthTime = 2592000;
     var IdentityService = {};
     var jKeeper = {};
-
+    var fakeUUID = {};
     var keeperName = 'sarava';
 
     // mock and stubs
     beforeEach(function() {
 
         fakeNow = 1386179100000;
-
+        
         var type = 'my type';
         var created = fakeNow;
         var duedate = fakeNow + monthTime;
@@ -32,10 +32,11 @@ describe('Service: CoinKeeperReceiveExpensesSpec', function() {
             duedate : duedate,
             amount : amount
         };
-
+        
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
+        fakeUUID= '123456-4646231231-6465';
+        IdentityService.getUUID = jasmine.createSpy('IdentityService.getUUID').andReturn(fakeUUID);
         IdentityService.getUUIDData = jasmine.createSpy('IdentityService.getUUIDData').andReturn({deviceId: 1});
         IdentityService.getDeviceId = jasmine.createSpy('IdentityService.getDeviceId').andReturn(1);
     });

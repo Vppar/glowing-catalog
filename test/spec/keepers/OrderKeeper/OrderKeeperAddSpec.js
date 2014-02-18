@@ -8,7 +8,6 @@ describe('Service: OrderKeeperAddSpec', function() {
     var Order = null;
     var IdentityService = null;
     var jKeeper = {};
-
     var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
     var code = '01-0001-14';
     var date = new Date().getTime();
@@ -33,7 +32,7 @@ describe('Service: OrderKeeperAddSpec', function() {
 
         fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-
+        
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
 
         module(function($provide) {
@@ -54,10 +53,9 @@ describe('Service: OrderKeeperAddSpec', function() {
         // given
         var orderx = new Order(order);
         orderx.created = fakeNow;
-
-        var entry = new JournalEntry(null, orderx.created, 'orderAdd', 1, orderx);
-        
         spyOn(IdentityService, 'getUUID').andReturn(orderx.uuid);
+        
+        var entry = new JournalEntry(null, orderx.created, 'orderAdd', 1, orderx);
 
         // when
         var addCall = function() {
