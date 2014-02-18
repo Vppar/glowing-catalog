@@ -45,7 +45,7 @@
                 $rootScope.$apply();
             });
 
-            //$log.debug("transaction started");
+            $log.debug("transaction started");
 
             deferred.promise.then(function() {
                 $log.debug("transaction succeded");

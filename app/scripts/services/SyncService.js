@@ -176,7 +176,9 @@
                     // synchronization process. Stop it, and handle the
                     // insertion of the new entry.
                   
-                    // FIXME: check error message returned from the driver.
+                    // Checks if the following message is within the error
+                    // message (see Bitwise NOT operator if in doubt about
+                    // the tilde)
                     if (~err.indexOf('Duplicate entry sequence!')) {
                         
                         // FIXME: The sequence we tried to save to the server

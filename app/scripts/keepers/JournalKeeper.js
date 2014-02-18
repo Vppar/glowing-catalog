@@ -375,8 +375,6 @@
                 if(!(entry instanceof JournalEntry)) {
                   deferred.reject('the given entry is not an instance of JournalEntry');
                 } else {
-                  //updateSequence(entry);
-                  
                   // FIXME: what happens if we persisted the entry and the replay
                   // fails? Should we remove the entry?
 
