@@ -23,7 +23,8 @@
 								<a class="btn btn-option" ng-class="{active:tabs.selected=='confirmOrder'}" ng-click="selectTab('confirmOrder')">Confirmar pedido</a> 
 								<a class="btn btn-option" ng-class="{active:tabs.selected=='verifyTicket'}" ng-click="selectTab('verifyTicket')">Pedidos de Compra</a>
 								<a class="btn btn-option" ng-class="{active:tabs.selected=='pendingProducts'}" ng-click="selectTab('pendingProducts')">Produtos pendentes</a>
-								<a class="btn btn-option" ng-class="{active:tabs.selected=='availableCredit'}" ng-click="selectTab('availableCredit')">Controle de B&ocirc;nus</a>
+<!-- Commented until the screen is finished -->
+<!-- 								<a class="btn btn-option" ng-class="{active:tabs.selected=='availableCredit'}" ng-click="selectTab('availableCredit')">Controle de B&ocirc;nus</a> -->
 							</div>
 						</span>
 					</div>
@@ -49,9 +50,10 @@
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'" ng-controller="ProductsToBuyPendingCtrl"></span>
 			</span>	
             <!--Tela "Credito bonus"-->
-			<span ng-if="tabs.selected=='availableCredit'">
-				<span ng-include src="'views/parts/products-to-buy/products-to-buy-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span>
-			</span>	
+<!--             Commented until the screen is finished -->
+<!-- 			<span ng-if="tabs.selected=='availableCredit'"> -->
+<!-- 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span> -->
+<!-- 			</span>	 -->
 		</div>
 
 		<!-- Right Screen Details -->
