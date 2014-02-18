@@ -14,8 +14,26 @@
 
         var baseRef = new Firebase('voppwishlist.firebaseio.com');
         var userJournalRef = null;
+        var connectedRef = baseRef.child('.info/connected');
+
+        var connected = false;
+
+        connectedRef.on('value', function (snap) {
+          if (snap.val() !== connected) {
+            connected = snap.val();
+
+            connected ?
+              $rootScope.$broadcast('FirebaseConnected') :
+              $rootScope.$broadcast('FirebaseDisconnected');
+          }
+        });
 
 
+        // Uses Firebase's connected ref...
+        this.isConnected = function () {
+          return connected;
+        };
+        
         // For now, this implementation should be enough
         this.hasLoggedIn = function () {
           return !!userJournalRef;
