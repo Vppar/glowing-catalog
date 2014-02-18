@@ -237,11 +237,12 @@ describe('Service: JournalKeeperInsert', function() {
   });
 
   it('updates sequence value if entry\'s value is higher than current sequence', function () {
-    expect(JournalKeeper.getSequence()).toBe(0);
+    expect(JournalKeeper.getSequence()).toBe(1);
 
     var inserted = false;
 
     entry.sequence = 5;
+    entry.synced = 123;
 
     runs(function () {
       storage.persist.andCallFake(resolvedPromiseReturner(true));
@@ -262,14 +263,14 @@ describe('Service: JournalKeeperInsert', function() {
 
 
     runs(function () {
-      expect(JournalKeeper.getSequence()).toBe(5);
+      expect(JournalKeeper.getSequence()).toBe(entry.sequence + 1);
     });
   });
 
   it('does not update sequence value if entry\'s value is lower than current sequence', function () {
     storage.persist.andCallFake(resolvedPromiseReturner(true));
 
-    expect(JournalKeeper.getSequence()).toBe(0);
+    expect(JournalKeeper.getSequence()).toBe(1);
 
     var higherSequenceValue = 10;
     var lowerSequenceValue = 5;
@@ -281,11 +282,12 @@ describe('Service: JournalKeeperInsert', function() {
     // Insert an entry to update the sequence value
     runs(function () {
       var newEntry = new JournalEntry(higherSequenceValue, new Date().getTime(), 'createFoo', 1, event);
+      newEntry.synced = 123;
 
       var promise = JournalKeeper.insert(newEntry);
 
       promise.then(function () {
-        expect(JournalKeeper.getSequence()).toBe(higherSequenceValue);
+        expect(JournalKeeper.getSequence()).toBe(higherSequenceValue + 1);
         inserted1 = true;
       }, function (err) {
         $log.debug('Failed to insert entry!', err, entry);
@@ -302,11 +304,12 @@ describe('Service: JournalKeeperInsert', function() {
     runs(function () {
       // Set entry's sequence to a lower value than current sequence
       entry.sequence = lowerSequenceValue;
+      entry.synced = 1234;
       var promise = JournalKeeper.insert(entry);
 
       promise.then(function () {
         // Make sure sequence value was not updated by the lowest value
-        expect(JournalKeeper.getSequence()).toBe(higherSequenceValue);
+        expect(JournalKeeper.getSequence()).toBe(higherSequenceValue + 1);
         inserted2 = true;
       }, function (err) {
         $log.debug('Failed to insert entry!', err, entry);

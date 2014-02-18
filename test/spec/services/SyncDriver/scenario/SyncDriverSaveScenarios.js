@@ -157,7 +157,7 @@ describe('Service: SyncDriverSaveScenarios', function () {
       runs(function () {
         var promise = SyncDriver.save(entry);
         promise.then(null, function (err) {
-          expect(err).toBe('Entry 567 already saved!');
+          expect(err).toBe('Duplicate entry sequence!');
           failed = true;
         });
       });

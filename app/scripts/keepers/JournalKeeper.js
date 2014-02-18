@@ -7,7 +7,15 @@
      * The elementary journal entry. All journal entries must be created through
      * this factory.
      */
-    angular.module('tnt.catalog.journal.entity', []).factory('JournalEntry', function JournalEntry() {
+    angular.module('tnt.catalog.journal.entity', ['tnt.identity']).factory('JournalEntry', function JournalEntry(IdentityService) {
+
+        var identityType = 7;
+        var currentCounter = 0;
+        
+        function getNextId(){
+          return ++currentCounter;
+        }
+
 
         var metadata = {
             // metadata version
@@ -19,7 +27,7 @@
             // colums that must be serialized/unserialized
             serializable: ['event'],
             // valid properties for this object
-            columns: [ 'sequence', 'stamp', 'type', 'version', 'event', 'synced' ]
+            columns: [ 'sequence', 'stamp', 'type', 'version', 'event', 'synced', 'uuid' ]
         };
 
         var service = function svc(sequence, stamp, type, version, event) {
@@ -50,6 +58,11 @@
                 this.version = version;
                 this.event = event;
                 this.synced = 0;
+                this.uuid = null;
+            }
+
+            if (!this.uuid) {
+                this.uuid = IdentityService.getUUID(identityType, getNextId());
             }
         };
 
@@ -65,15 +78,19 @@
      * 
      * The CRUD for journal keeping operations
      */
-    angular.module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log']).service('JournalKeeper', function JournalKeeper($q, $log, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
+    angular
+    .module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log'])
+    .service('JournalKeeper', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
 
-        var sequence = 0;
+        var self = this;
+        var sequence = 1;
         var syncedSequence = 0;
         var entityName = 'JournalEntry';
         
         var storage = new PersistentStorage(WebSQLDriver);
         var registered = storage.register(entityName, JournalEntry);
-      
+
+
 
         /**
          * Returns sequence number.
@@ -82,6 +99,13 @@
         this.getSequence = function () {
           return sequence;
         };
+
+
+        this.setSequence = function (val) {
+          sequence = val;
+          $rootScope.$broadcast('JournalKeeper.setSequence', val);
+        };
+
 
         /**
          * Returns the sequence of the last synced entry.
@@ -98,18 +122,36 @@
           return syncedSequence;
         };
 
+
         /**
          * Persist and replay a journal entry
          */
         this.compose = function(journalEntry) {
-            return persistEntry(journalEntry, incrementSequence);
+            var promise = persistEntry(journalEntry);
+
+            promise.then(function () {
+                $rootScope.$broadcast('JournalKeeper.compose', journalEntry);
+            });
+
+            return promise;
         };
 
+
         this.insert = function (journalEntry) {
+            $log.debug('Inserting entry', journalEntry);
+
             if (journalEntry.sequence > syncedSequence) {
-              syncedSequence = journalEntry.sequence;
+                syncedSequence = journalEntry.sequence;
             }
-            return persistEntry(journalEntry, updateSequence);
+
+            var promise = persistEntry(journalEntry);
+
+            promise.then(function () {
+                $rootScope.$broadcast('JournalKeeper.insert', journalEntry);
+            });
+
+
+            return promise;
         };
 
 
@@ -167,16 +209,18 @@
          * @return {Promise}
          */
         // TODO write tests
-        this.findEntry = function (uuid) {
+        this.findEntry = function (sequence) {
             return registered.then(function () {
                 var deferred = $q.defer();
 
-                storage.list(entityName, {uuid : uuid}).then(function (entries) {
+                storage.list(entityName, {sequence : sequence}).then(function (entries) {
                     deferred.resolve(entries[0] || null);
                 }, function (err) {
-                    $log.debug('Failed to find entry for the uuid', uuid);
+                    $log.debug('Failed to find entry for the sequence', sequence);
                     deferred.reject(err);
                 });
+
+                return deferred.promise;
             });
         };
         
@@ -211,11 +255,16 @@
          */
         this.markAsSynced = function(entry) {
             return registered.then(function () {
-                entry.synced = new Date().getTime();
+                if (!entry.synced) {
+                    entry.synced = new Date().getTime();
+                }
 
                 var promise = storage.update(entry);
 
-                promise.then(null, function (err) {
+                promise.then(function () {
+                    $log.debug('Marked as synced!', entry);
+                    $rootScope.$broadcast('JournalKeeper.markAsSynced', entry);
+                }, function (err) {
                     // FIXME: should we revert entry.synced back to false in case
                     // of failures in the update?
                     $log.error('Failed to update journal entry', err);
@@ -236,7 +285,9 @@
             return registered.then(function () {
                 var promise = storage.remove(entry);
 
-                promise.then(null, function (err) {
+                promise.then(function () {
+                    $rootScope.$broadcast('JournalKeeper.remove', entry);
+                }, function (err) {
                     $log.error('Failed to remove journal entry', err);
                 });
 
@@ -258,7 +309,9 @@
             return registered.then(function () {
                 var promise = storage.nuke(entityName);
 
-                promise.then(null, function (err) {
+                promise.then(function () {
+                    $rootScope.$broadcast('JournalKeeper.nuke');
+                }, function (err) {
                     $log.fatal('Failed to nuke journal entries: PersistentStorage.nuke failed');
                     $log.debug('Failed to nuke: PersistentStorage.nuke failed', err);
                 });
@@ -315,26 +368,27 @@
 
 
 
-        function updateSequence(entry) {
-            var val = entry.sequence;
-            sequence = angular.isDefined(val) && (sequence > val) ? sequence : val;
-        }
-
-        function incrementSequence(entry) {
-            entry.sequence = ++sequence;
-        }
-
-        function persistEntry (entry, updateSequence) {
+        function persistEntry (entry) {
             return registered.then(function () {
                 var deferred = $q.defer();
 
                 if(!(entry instanceof JournalEntry)) {
                   deferred.reject('the given entry is not an instance of JournalEntry');
                 } else {
-                  updateSequence(entry);
+                  //updateSequence(entry);
                   
                   // FIXME: what happens if we persisted the entry and the replay
                   // fails? Should we remove the entry?
+
+                  if (entry.synced) {
+                      if (parseInt(entry.sequence) && entry.sequence > sequence) {
+                          self.setSequence(entry.sequence + 1);
+                      }
+                  } else {
+                      entry.sequence = self.getSequence();
+                      self.setSequence(sequence + 1);
+                  }
+
                   storage.persist(entry).then(function(){
                       try {
                           deferred.resolve(Replayer.replay(entry));
@@ -343,6 +397,8 @@
                           $log.debug('Failed to replay', e, entry);
                           deferred.reject(e);
                       }
+
+                      $rootScope.$broadcast('JournalKeeper.persistEntry');
                   }, function(error){
                     $log.error('Failed to compose: PersistentStorage.persist failed', error);
                     deferred.reject(error);

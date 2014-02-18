@@ -165,6 +165,7 @@ describe('Keeper: JournalKeeper.readUnsynced() scenario', function() {
 
             // Flag one of the entries as synced
             validJournalEntries[2].synced = new Date().getTime() - dayToMs(8);
+            validJournalEntries[2].sequence = 3;
         });
 
 

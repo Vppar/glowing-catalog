@@ -28,6 +28,7 @@ describe('Service: SyncServiceInsertSpec', function () {
       JournalKeeperMock.insert = jasmine.createSpy('JournalKeeper.insert');
       JournalKeeperMock.getSequence = jasmine.createSpy('JournalKeeper.getSequence');
       JournalKeeperMock.findEntry = jasmine.createSpy('JournalKeeper.findEntry');
+      JournalKeeperMock.setSequence = jasmine.createSpy('JournalKeeper.setSequence');
   });
 
 
@@ -139,10 +140,15 @@ describe('Service: SyncServiceInsertSpec', function () {
       var conflictingNumber = 4;
 
       beforeEach(function () {
+        receivedEntry = new JournalEntry(conflictingNumber, new Date().getTime(), 'createFoo', 1, {});
+        existingEntry = new JournalEntry(conflictingNumber, new Date().getTime() - 10, 'createFoo', 1, {});
+
+        receivedEntry.synced = new Date().getTime();
+        existingEntry.synced = new Date().getTime() - 1000;
+
         JournalKeeperMock.getSequence.andReturn(sequenceNumber);
         JournalKeeperMock.insert.andCallFake(PromiseHelper.resolved(true));
-        JournalKeeperMock.findEntry.andCallFake(PromiseHelper.resolved(null));
-        receivedEntry = new JournalEntry(conflictingNumber, new Date().getTime(), 'createFoo', 1, {});
+        JournalKeeperMock.findEntry.andCallFake(PromiseHelper.resolved(existingEntry));
 
         spyOn(SyncService, 'stashEntries').andCallFake(PromiseHelper.resolved(true));
         spyOn(SyncService, 'unstashEntries').andCallFake(PromiseHelper.resolved(true));

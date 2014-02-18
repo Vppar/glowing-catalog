@@ -5,16 +5,21 @@
   ]).service(
     'SyncDriver',
     [
+      '$rootScope',
       '$log',
       '$q',
       'Firebase',
       'FirebaseSimpleLogin',
-      function SyncDriver($log, $q, Firebase, FirebaseSimpleLogin) {
+      function SyncDriver($rootScope, $log, $q, Firebase, FirebaseSimpleLogin) {
 
         var baseRef = new Firebase('voppwishlist.firebaseio.com');
         var userJournalRef = null;
 
 
+        // For now, this implementation should be enough
+        this.hasLoggedIn = function () {
+          return !!userJournalRef;
+        };
 
         // TODO implement rememberMe
         //
@@ -41,7 +46,7 @@
           });
 
           deferred.promise.then(function( ) {
-            userJournalRef = baseRef.child('users').child(user.replace('.', '_')).child('journal');
+            userJournalRef = baseRef.child('users').child(user.replace(/\.+/g, '_')).child('journal');
           });
 
           return deferred.promise;
@@ -72,6 +77,9 @@
               function(snapshot) {
                 var entry = snapshot.val();
                 $log.debug('Firebase child_added cb', entry);
+
+                $rootScope.$broadcast('Firebase:childAdded', entry);
+
                 SyncService.insert(entry);
               });
           };
@@ -82,6 +90,8 @@
 
           userJournalRef.child(entry.sequence).transaction(function(currentValue) {
             if (currentValue === null) {
+              entry.synced = new Date().getTime();
+
               return {
                 '.value' : entry,
                 '.priority' : entry.sequence
@@ -96,7 +106,7 @@
               deferred.reject(error);
             } else {
               // Entry already exists
-              var message = 'Entry ' + entry.sequence + ' already saved!';
+              var message = 'Duplicate entry sequence!';
               deferred.reject(message);
             }
           });

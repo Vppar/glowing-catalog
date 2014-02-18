@@ -49,6 +49,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
     JournalEntry = _JournalEntry_;
     $rootScope = _$rootScope_;
     $log = _$log_;
+    PromiseHelper.config(q, $log.debug);
   }));
 
 
@@ -60,13 +61,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
 
 
     runs(function() {
-      storage.update.andCallFake(function() {
-        var deferred = q.defer();
-        setTimeout(function () {
-          deferred.resolve(entry);
-        }, 0);
-        return deferred.promise;
-      });
+      storage.update.andCallFake(PromiseHelper.resolved(entry));
 
       // Make getTime() return a predictable value
       var getTimeFn = Date.prototype.getTime;
