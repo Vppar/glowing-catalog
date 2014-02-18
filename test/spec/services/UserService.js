@@ -2,7 +2,6 @@
 
 describe('Service: UserService', function() {
 
-
     // instantiate service
     var UserService = null;
     var $q = {};
@@ -10,22 +9,22 @@ describe('Service: UserService', function() {
     var md5 = {};
     var SyncService = {};
     var SyncDriver = {};
-        
+
     // load the service's module
     beforeEach(function() {
         module('angular-md5');
         module('tnt.catalog.user');
-        module(function($provide){
+        module(function($provide) {
             $provide.value('SyncService', SyncService);
             $provide.value('SyncDriver', SyncDriver);
         });
         delete localStorage.hashMD5;
-        
+
         SyncDriver.login = jasmine.createSpy('SyncDriver.login');
         SyncDriver.logout = jasmine.createSpy('SyncDriver.logout');
-        
+
     });
-    
+
     beforeEach(inject(function(_UserService_, _$q_, _$rootScope_, _md5_) {
         UserService = _UserService_;
         $q = _$q_;
