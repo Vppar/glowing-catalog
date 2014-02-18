@@ -106,28 +106,30 @@
         this.save = function(entry) {
           var deferred = $q.defer();
 
-          userJournalRef.child(entry.sequence).transaction(function(currentValue) {
-            if (currentValue === null) {
-              entry.synced = new Date().getTime();
+          if (userJournalRef) {
+            userJournalRef.child(entry.sequence).transaction(function(currentValue) {
+              if (currentValue === null) {
+                entry.synced = new Date().getTime();
 
-              return {
-                '.value' : entry,
-                '.priority' : entry.sequence
-              };
-            }
-          }, function(error, committed, snapshot) {
-            if (committed) {
-              // Entry stored
-              deferred.resolve();
-            } else if (error) {
-              // Failed to store entry
-              deferred.reject(error);
-            } else {
-              // Entry already exists
-              var message = 'Duplicate entry sequence!';
-              deferred.reject(message);
-            }
-          });
+                return {
+                  '.value' : entry,
+                  '.priority' : entry.sequence
+                };
+              }
+            }, function(error, committed, snapshot) {
+              if (committed) {
+                // Entry stored
+                deferred.resolve();
+              } else if (error) {
+                // Failed to store entry
+                deferred.reject(error);
+              } else {
+                // Entry already exists
+                var message = 'Duplicate entry sequence!';
+                deferred.reject(message);
+              }
+            });
+          }
 
           return deferred.promise;
         };

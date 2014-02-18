@@ -27,8 +27,20 @@
 
             // Event Handlers
             $rootScope.$on('JournalKeeper.compose', function () {
-              self.sync();
+              $log.debug('Entry composed! sync()!');
+              sync();
             });
+
+
+            $rootScope.$on('FirebaseDisconnected', function () {
+              if (isSynching()) {
+                $log.debug('Disconnected from Firebase during sync!');
+                // FIXME: do we need to do something here?
+              }
+            });
+
+
+            $rootScope.$on('FirebaseConnected', sync);
 
 
             // Object used for storing attempt counts for failing
@@ -100,6 +112,8 @@
                     syncDeferred = null;
                     // Clear all attempt counters
                     SyncAttempt.clear();
+
+                    $rootScope.$broadcast('SyncService.sync stopped');
                 }
 
                 syncDeferred.promise.then(clearPromise, clearPromise);
@@ -147,6 +161,11 @@
              * @private
              */
             function syncSaveEntry(deferred, entry) {
+                if (!SyncDriver.isConnected()) {
+                  deferred.reject('Not connected to Firebase');
+                  return;
+                }
+
                 var promise = SyncDriver.save(entry);
 
                 promise.then(function () {

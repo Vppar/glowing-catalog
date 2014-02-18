@@ -27,10 +27,12 @@ describe('Service: SyncServiceSync', function () {
       spyOn($log, 'fatal').andCallThrough();
 
       SyncDriverMock.save = jasmine.createSpy('SyncDriver.save');
+      SyncDriverMock.isConnected = jasmine.createSpy('SyncDriver.isConnected').andReturn(true);
 
       JournalKeeperMock.readUnsynced = jasmine.createSpy('JournalKeeper.readUnsynced');
       JournalKeeperMock.readOldestUnsynced = jasmine.createSpy('JournalKeeper.readOldestUnsynced');
       JournalKeeperMock.markAsSynced = jasmine.createSpy('JournalKeeper.markAsSynced');
+
   });
 
 

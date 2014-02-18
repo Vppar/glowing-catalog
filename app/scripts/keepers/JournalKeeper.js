@@ -338,7 +338,7 @@
                           
                             entry = results[ix];
                             
-                            sequence = sequence > entry.sequence ? sequence : entry.sequence;
+                            sequence = sequence > entry.sequence ? sequence : entry.sequence + 1;
                             
                             if (entry.synced && entry.sequence > syncedSequence) {
                                 syncedSequence = entry.sequence;
