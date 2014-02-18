@@ -19,10 +19,10 @@
 					<div class="float-right">
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option" ng-class="{active:tabs.selected=='buildOrder'}" ng-click="selectTab('buildOrder')">Fazer pedido</a> 
-								<a class="btn btn-option" ng-class="{active:tabs.selected=='confirmOrder'}" ng-click="selectTab('confirmOrder')">Confirmar pedido</a> 
-								<a class="btn btn-option" ng-class="{active:tabs.selected=='verifyTicket'}" ng-click="selectTab('verifyTicket')">Pedidos de Compra</a>
-								<a class="btn btn-option" ng-class="{active:tabs.selected=='pendingProducts'}" ng-click="selectTab('pendingProducts')">Produtos pendentes</a>
+								<a class="btn btn-option" ng-class="{active:tabs.selected=='buildOrder'}" ng-click="selectTab('buildOrder')">Novo Pedido</a> 
+								<a class="btn btn-option" ng-class="{active:tabs.selected=='confirmOrder'}" ng-click="selectTab('confirmOrder')">Confirmar Pedido</a> 
+								<a class="btn btn-option" ng-class="{active:tabs.selected=='verifyTicket'}" ng-click="selectTab('verifyTicket')">Aferir NFe Compra</a>
+								<a class="btn btn-option" ng-class="{active:tabs.selected=='pendingProducts'}" ng-click="selectTab('pendingProducts')">Produtos Pendentes</a>
 <!-- Commented until the screen is finished -->
 <!-- 								<a class="btn btn-option" ng-class="{active:tabs.selected=='availableCredit'}" ng-click="selectTab('availableCredit')">Controle de B&ocirc;nus</a> -->
 							</div>
@@ -33,7 +33,7 @@
 		</div>		
 		
 		<div class="products-to-buy-left">
-			<!--Tela "Fazer pedido"-->
+			<!--Tela "Novo Pedido"-->
 			<span ng-if="tabs.selected=='buildOrder'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'" ng-controller="ProductsToBuyOrderCtrl"></span>
 			</span>						
