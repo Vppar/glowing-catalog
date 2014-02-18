@@ -84,49 +84,11 @@
             amount : 0
         };
 
-        var productFilter = function productFilter(newVal, oldVal) {
-            if (newVal !== oldVal) {
-                var myTextFilter = String($scope.productFilter.text);
-                if (myTextFilter.length >= 3) {
-                    $scope.selectedLevel = 3;
-                    var objFilter = {
-                        title : myTextFilter,
-                        SKU : myTextFilter
-                    };
-                    var reserved = StockService.stockReport('reserved', objFilter);
-                    var available = StockService.stockReport('available', objFilter);
-                    buildList(reserved, available, objFilter);
-                } else if (String(oldVal).length >= 3) {
-                    buildList(fullReservedListBkp, fullAvailableListBkp);
-                    $scope.showLevel($scope.selectedLevel);
-                }
-            }
-        };
-
-        var hideAllSections = function hideAllSections(sessions) {
-            for ( var ix in sessions) {
-                var session = sessions[ix];
-                session.hide = true;
-            }
-        };
-
-        // #####################################################################################################
-        // Scope variables
-        // #####################################################################################################
-
-        $scope.selectedLevel = 1;
-
-        $scope.overallProducts = {
-            qty : 0,
-            avgCost : 0,
-            amount : 0
-        };
-
         $scope.productFilter = {
             dtInitial : $filter('date')(new Date().getTime()),
             text : ''
         };
-
+	
         // #####################################################################################################
         // Scope functions
         // #####################################################################################################
