@@ -56,8 +56,8 @@
         this.logout = function() {
             // TODO log out of the driver
             var promise = SyncDriver.logout();
-            
-            promise.then(function(){
+
+            promise.then(function() {
                 logged = false;
             });
             return promise;

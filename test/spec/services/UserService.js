@@ -1,7 +1,7 @@
 'use strict';
 
 describe('Service: UserService', function() {
-
+ 
     // instantiate service
     var UserService = null;
     var $q = {};
