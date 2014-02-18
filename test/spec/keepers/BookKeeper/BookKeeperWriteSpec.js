@@ -10,9 +10,11 @@ describe('Service: BookKeeperWriteSpecr', function() {
     var creditAccount = {};
     var debitAccount = {};
     var fakeNow = {};
+    var fakeUUID = {};
     var bookEntry = {};
     var bookEntry2 = {};
     var composeReturn = {};
+    var IdentityService ={};
     // load the service's module
 
     beforeEach(function() {
@@ -30,7 +32,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         composeReturn = {
             name : 'i\'m a stub'
         };
-
+        
         bookEntry = {
             uuid : null,
             created : fakeNow,
@@ -55,11 +57,13 @@ describe('Service: BookKeeperWriteSpecr', function() {
     });
 
     beforeEach(function() {
+        fakeUUID= '123456-4646231231-6465';
         JournalKeeper.compose = jasmine.createSpy('JournalKeeper.compose').andReturn(composeReturn);
-
+        IdentityService.getUUID = jasmine.createSpy('IdentityService.getUUID').andReturn(fakeUUID);
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         module(function($provide) {
             $provide.value('JournalKeeper', JournalKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 

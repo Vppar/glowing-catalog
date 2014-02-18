@@ -48,10 +48,10 @@ describe('Service: PurchaseOrderKeeperAddSpec', function() {
     it('should add a purchase-order', function() {
         // given
         var purchasex = new PurchaseOrder(purchase);
-
+        spyOn(IdentityService, 'getUUID').andReturn(purchasex.uuid);
         var entry = new JournalEntry(null, purchasex.created, 'purchaseOrderAdd', 1, purchasex);
 
-        spyOn(IdentityService, 'getUUID').andReturn(purchasex.uuid);
+       
 
         // when
         var addCall = function() {

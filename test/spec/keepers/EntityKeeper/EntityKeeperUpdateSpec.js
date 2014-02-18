@@ -3,7 +3,8 @@
 describe('Service: EntityKeeper', function() {
 
     var jKeeper = {};
-    
+    var IdentityService ={};
+    var fakeUUID = {};
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.entity');
@@ -16,9 +17,11 @@ describe('Service: EntityKeeper', function() {
 
     beforeEach(function() {
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
-        
+        fakeUUID= '123456-4646231231-6465';
+        IdentityService.getUUID = jasmine.createSpy('IdentityService.getUUID').andReturn(fakeUUID);
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 

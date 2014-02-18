@@ -13,7 +13,8 @@ describe('Service: OrderKeeperCancelSpec', function() {
     var date = new Date().getTime();
     var customerId = 1;
     var items = [];
-
+    var IdentityService ={};
+    
     var order = {
         uuid : uuid,
         code : code,
@@ -34,9 +35,13 @@ describe('Service: OrderKeeperCancelSpec', function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
+        IdentityService.getUUID = jasmine.createSpy('IdentityService.getUUID').andReturn(uuid);
+        IdentityService.getUUIDData = jasmine.createSpy('IdentityService.getUUIDData').andReturn({deviceId: 1});
+        IdentityService.getDeviceId = jasmine.createSpy('IdentityService.getDeviceId').andReturn(1);
 
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 
