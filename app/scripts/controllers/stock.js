@@ -14,6 +14,10 @@
         var fullReservedListBkp = StockService.stockReport('reserved');
         var fullAvailableListBkp = StockService.stockReport('available');
 
+        // #####################################################################################################
+        // Local Functions
+        // #####################################################################################################
+
         function buildList(productsReserved, productsAvailable, objFilter) {
             $scope.productsReserved = productsReserved;
             $scope.productsAvailable = productsAvailable;
@@ -26,6 +30,53 @@
             $scope.overallProducts.avgCost = overallAvgCost;
             $scope.overallProducts.amount = overallAmount;
         }
+
+        function setHideAttributes(sessions, hideLine, hideProduct) {
+            for ( var ix in sessions) {
+                var session = sessions[ix];
+                session.hide = false;
+                for ( var ix2 in session.lines) {
+                    var line = session.lines[ix2];
+                    line.hide = hideLine;
+                    for ( var ix3 in line.items) {
+                        var item = line.items[ix3];
+                        item.hide = hideProduct;
+                    }
+                }
+            }
+        }
+
+        var productFilter = function productFilter(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                var myTextFilter = String($scope.productFilter.text);
+                if (myTextFilter.length >= 3) {
+                    $scope.selectedLevel = 3;
+                    var objFilter = {
+                        title : myTextFilter,
+                        SKU : myTextFilter
+                    };
+                    var reserved = StockService.stockReport('reserved', objFilter);
+                    var available = StockService.stockReport('available', objFilter);
+                    buildList(reserved, available, objFilter);
+                } else if (String(oldVal).length >= 3) {
+                    buildList(fullReservedListBkp, fullAvailableListBkp);
+                    $scope.showLevel($scope.selectedLevel);
+                }
+            }
+        };
+
+        var hideAllSections = function hideAllSections(sessions) {
+            for ( var ix in sessions) {
+                var session = sessions[ix];
+                session.hide = true;
+            }
+        };
+
+        // #####################################################################################################
+        // Scope variables
+        // #####################################################################################################
+
+        $scope.selectedLevel = 1;
 
         $scope.overallProducts = {
             qty : 0,
