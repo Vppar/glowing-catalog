@@ -1,7 +1,9 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.financial.incomeStatement', []).controller('IncomeStatementCtrl', function($scope) {
+    angular.module('tnt.catalog.financial.incomeStatement', []).controller('IncomeStatementCtrl', function($scope, UserService) {
+        
+        UserService.redirectIfIsNotLoggedIn();
         
         $scope.dtInitial = new Date();
         $scope.dtInitial.setHours(0);

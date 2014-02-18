@@ -1,8 +1,10 @@
 (function(angular) {
     'use strict';
     angular.module('glowingCatalogApp').controller(
-            'MainCtrl', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper) {
-
+            'MainCtrl', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper, UserService) {
+               
+                UserService.redirectIfIsNotLoggedIn();
+                
                 function dataProviderUpdate() {
 
                     var sections = [];

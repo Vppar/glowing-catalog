@@ -15,6 +15,7 @@ describe('Controller: AddCustomerCtrl', function() {
     var ds = {};
     var os = {};
     var cs = {};
+    var us = {};
 
     q.reject = function() {
         return 'rejected';
@@ -22,7 +23,10 @@ describe('Controller: AddCustomerCtrl', function() {
     
     beforeEach(function(){module(function($provide) {
         $provide.value('CepService', cs);
+        $provide.value('UserService', us);
         });
+    
+        us.redirectIfIsNotLoggedIn = jasmine.createSpy('redirectIfIsNotLoggedIn');
     });
 
     // Initialize the controller and a mock scope

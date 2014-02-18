@@ -1,9 +1,12 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.user', []).service('UserService', function UserService($q) {
+    angular.module('tnt.catalog.user', []).service('UserService', function UserService($q, $location) {
 
         // FIXME implement criptography
+        
+        //FIXME change default value to FALSE
+        var logged = true;
 
         /**
          * @param {String}
@@ -21,8 +24,10 @@
             setTimeout(function() {
                 if (pass === 'marykay') {
                     deferred.resolve();
+                    logged = true;
                 } else {
                     deferred.reject();
+                    logged = false;
                 }
             }, 1500);
 
@@ -34,9 +39,18 @@
             
             setTimeout(function() {
                 deferred.resolve();
+                logged = false;
             }, 1500);
             
             return deferred.promise;
+        };
+        this.isLogged = function isLogged() {
+            return logged;
+        };
+        this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
+          if(!logged) {
+              $location.path('/login');
+          }  
         };
     });
 })(angular);

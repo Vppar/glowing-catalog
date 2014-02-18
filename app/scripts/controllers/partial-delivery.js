@@ -5,8 +5,10 @@
             .module('glowingCatalogApp')
             .controller(
                     'PartialDeliveryCtrl',
-                    function($scope, $location, $filter, $dialog, $q, DataProvider, DialogService, SMSService) {
+                    function($scope, $location, $filter, $dialog, $q, DataProvider, DialogService, SMSService, UserService) {
 
+                        UserService.redirectIfIsNotLoggedIn();
+                        
                         var scheduledDefaultMsg =
                                 'Ola {{customerName}}, uma entrega referente ao pedido {{order.code}} foi agendada para {{order.date}}. {{representativeName}} seu consultor Mary Kay.';
                         var deliveredDefaultMsg =
