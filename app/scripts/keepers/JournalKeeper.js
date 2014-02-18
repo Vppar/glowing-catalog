@@ -381,7 +381,7 @@
                   // fails? Should we remove the entry?
 
                   if (entry.synced) {
-                      if (parseInt(entry.sequence) && entry.sequence > sequence) {
+                      if (parseInt(entry.sequence) && entry.sequence >= sequence) {
                           self.setSequence(entry.sequence + 1);
                       }
                   } else {
