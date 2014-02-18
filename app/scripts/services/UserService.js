@@ -4,7 +4,9 @@
     angular.module('tnt.catalog.user', []).service('UserService', function UserService($q, $location) {
 
         // FIXME implement criptography
-        var logged = false;
+        
+        //FIXME change default value to FALSE
+        var logged = true;
 
         /**
          * @param {String}
