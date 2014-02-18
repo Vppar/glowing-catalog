@@ -1,4 +1,4 @@
-ddescribe('Service: SyncDriverIsConnectedScenario', function() {
+describe('Service: SyncDriverIsConnectedScenario', function() {
 
     var SyncDriver = null;
 

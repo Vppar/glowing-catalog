@@ -14,27 +14,15 @@
 
         var baseRef = new Firebase('voppwishlist.firebaseio.com');
         var userJournalRef = null;
-        var connectedRef = baseRef.child('.info/connected');
-
         var connected = false;
-
-        connectedRef.on('value', function (snap) {
-          if (snap.val() !== connected) {
-            connected = snap.val();
-
-            connected ?
-              $rootScope.$broadcast('FirebaseConnected') :
-              $rootScope.$broadcast('FirebaseDisconnected');
-          }
-        });
-
 
         // Uses Firebase's connected ref...
         this.isConnected = function () {
           return connected;
         };
         
-        // For now, this implementation should be enough
+        //FIXME to check if the user is connected 
+        // use 'SyncDriver.isConnected'
         this.hasLoggedIn = function () {
           return !!userJournalRef;
         };
@@ -55,8 +43,13 @@
               $log.debug('Firebase authentication error (login cb)', err);
               deferred.reject(err);
             } else if (user) {
+              connected = true;
+              $rootScope.$broadcast('FirebaseConnected');
               $log.debug('Logged in to Firebase as ' + user);
               deferred.resolve(user);
+            }else{
+                connected = false;
+                $rootScope.$broadcast('FirebaseDisconnected');
             }
           }).login('password', {
             email : user,
