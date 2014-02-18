@@ -103,7 +103,9 @@ describe('Service: SyncServiceInsertSpec', function () {
 
         // Two entries should be equal but not the same
         receivedEntry = new JournalEntry(conflictingNumber, timestamp, 'createFoo', 1, {});
-        foundEntry = new JournalEntry(conflictingNumber, timestamp, 'createFoo', 1, {});
+        var data = {};
+        ObjectUtils.dataCopy(data, receivedEntry);
+        foundEntry = new JournalEntry(data);
 
         JournalKeeperMock.getSequence.andReturn(sequenceNumber);
         JournalKeeperMock.findEntry.andCallFake(PromiseHelper.resolved(foundEntry));

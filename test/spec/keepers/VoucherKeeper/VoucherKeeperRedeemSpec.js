@@ -27,12 +27,14 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
     var Voucher = undefined;
     var JournalEntry = undefined;
     var ArrayUtils = undefined;
+    var IdentityService = undefined;
 
-    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _JournalEntry_, _ArrayUtils_) {
+    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _JournalEntry_, _ArrayUtils_, _IdentityService_) {
         VoucherKeeper = _VoucherKeeper_;
         Voucher = _Voucher_;
         JournalEntry = _JournalEntry_;
         ArrayUtils = _ArrayUtils_;
+        IdentityService = _IdentityService_;
     }));
 
     it('should do something', function() {
@@ -49,6 +51,8 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
      * </pre>
      */
     it('redeem - public call', function() {
+
+        spyOn(IdentityService, 'getUUID').andReturn('cc02b600-5d0b-11e3-96c3-010001300002');
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
@@ -75,6 +79,7 @@ describe('Service: VoucherKeeperRedeemSpec', function() {
         expect(createCall).not.toThrow();
         expect(VoucherKeeper.list('voucher').length).toBe(2);
         expect(jKeeper.compose.mostRecentCall.args[0]).toEqual(entry);
+
 
     });
     /**
