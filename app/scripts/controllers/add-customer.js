@@ -3,8 +3,10 @@
 
     angular.module('tnt.catalog.customer', [
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
-    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService) {
+    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService) {
 
+        UserService.redirectIfIsNotLoggedIn();
+        
         // ############################################################################################################
         // Scope binding variables
         // ############################################################################################################

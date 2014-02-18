@@ -7,8 +7,10 @@
             .controller(
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                            SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService) {
+                            SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService, UserService) {
 
+                        UserService.redirectIfIsNotLoggedIn();
+                        
                         // #############################################################################################
                         // Controller warm up
                         // #############################################################################################

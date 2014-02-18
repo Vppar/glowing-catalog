@@ -100,9 +100,6 @@
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
             controller : 'MainCtrl'
-        }).when('/dashboard', {
-            templateUrl : 'views/dashboard.html',
-            controller : 'DashboardCtrl'
         }).when('/add-customer', {
             templateUrl : 'views/add-customer.html',
             controller : 'AddCustomerCtrl'

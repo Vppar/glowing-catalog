@@ -2,8 +2,10 @@
     'use strict';
     angular.module('tnt.catalog.stock.ctrl', [
         'tnt.catalog.stock.service'
-    ]).controller('StockCtrl', function($scope, $filter, StockService) {
+    ]).controller('StockCtrl', function($scope, $filter, StockService, UserService) {
 
+        UserService.redirectIfIsNotLoggedIn();
+        
         // #####################################################################################################
         // Local Variables
         // #####################################################################################################

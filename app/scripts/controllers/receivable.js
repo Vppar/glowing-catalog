@@ -1,7 +1,8 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.receivable.ctrl', ['tnt.catalog.filters.uuidCode']).controller('ReceivableCtrl', function($scope, $filter, ReceivableService) {
+    angular.module('tnt.catalog.financial.receivable.ctrl', ['tnt.catalog.filters.uuidCode']).controller('ReceivableCtrl', function($scope, $filter, ReceivableService, UserService) {
 
+        UserService.redirectIfIsNotLoggedIn();
 
         // An object where lists of receivables can be stored without
         // loosing reference in the child scopes. Don't override this
