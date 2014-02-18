@@ -3,6 +3,7 @@
 describe('Service: JournalKeeperCompose', function() {
   var replayer = {};
   var storage = {};
+  var SyncServiceMock = {};
 
   // load the service's module
   beforeEach(function() {
@@ -31,6 +32,7 @@ describe('Service: JournalKeeperCompose', function() {
       return deferred.promise;
     });
     storage.persist = jasmine.createSpy('PersistentStorage.persist');
+    SyncServiceMock.sync = jasmine.createSpy('SyncService.sync');
   }));
 
   // instantiate service
@@ -264,7 +266,7 @@ describe('Service: JournalKeeperCompose', function() {
 
 
   it('increments the sequence value by 1', function () {
-    expect(JournalKeeper.getSequence()).toBe(0);
+    expect(JournalKeeper.getSequence()).toBe(1);
 
     var composed = false;
 
@@ -293,7 +295,7 @@ describe('Service: JournalKeeperCompose', function() {
 
 
     runs(function () {
-      expect(JournalKeeper.getSequence()).toBe(1);
+      expect(JournalKeeper.getSequence()).toBe(2);
     });
   });
 });

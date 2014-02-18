@@ -7,7 +7,8 @@ describe('Service: PurchaseOrderKeeperCancelSpec', function() {
     var jKeeper = {};
     var PurchaseOrderKeeper = null;
     var PurchaseOrder = null;
-
+    var IdentityService ={};
+    
     var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
     var date = new Date().getTime();
     var items = [];
@@ -31,9 +32,13 @@ describe('Service: PurchaseOrderKeeperCancelSpec', function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
-
+        IdentityService.getUUID = jasmine.createSpy('IdentityService.getUUID').andReturn(uuid);
+        IdentityService.getUUIDData = jasmine.createSpy('IdentityService.getUUIDData').andReturn({deviceId: 1});
+        IdentityService.getDeviceId = jasmine.createSpy('IdentityService.getDeviceId').andReturn(1);
+        
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 

@@ -72,10 +72,11 @@
              * @param Object - [optional] the transaction handle
              */
             this.persist = function persist(entity, tx) {
-
                 // FIXME - Implement the use of a given transaction as well as creating a new one when needed 
 
                 var name = null;
+                var data = extract(entity);
+
                 var deferred = $q.defer();
                 try {
                     name = getType(entity);
@@ -84,9 +85,16 @@
                 }
                 
                 var data = extract(entity);
-                deferred.resolve(dbDriver.transaction(function(tx) {
-                    dbDriver.persist(tx, name, data);
-                }));
+
+                if (angular.isUndefined(tx)) {
+                    dbDriver.transaction(function(tx) {
+                        deferred.resolve(dbDriver.persist(tx, name, data));
+                    })['catch'](function(error){
+                        deferred.reject(error);
+                    });
+                } else {
+                    deferred.resolve(dbDriver.persist(tx, name, data));
+                }
 
                 return deferred.promise;
             };

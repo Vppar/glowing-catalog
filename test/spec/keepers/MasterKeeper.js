@@ -7,16 +7,19 @@ describe('Service: MasterKeeper', function() {
     var JournalKeeper = {};
     var JournalEntry = {};
     var expectedReturn = 'this is sparta';
+    var IdentityService ={};
+    var fakeUUID = {};
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.keeper');
         module('tnt.catalog.stock.entity');
-
+        fakeUUID= '123456-4646231231-6465';
         JournalKeeper.compose = jasmine.createSpy('JournalKeeper.compose').andReturn(expectedReturn);
-
+        IdentityService.getUUID = jasmine.createSpy('IdentityService.getUUID').andReturn(fakeUUID);
         module(function($provide) {
             $provide.value('JournalKeeper', JournalKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 

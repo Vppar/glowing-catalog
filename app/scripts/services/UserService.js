@@ -1,7 +1,9 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.user', []).service('UserService', function UserService($q, $location) {
+    angular
+    .module('tnt.catalog.user', ['tnt.catalog.sync.driver', 'tnt.catalog.sync.service'])
+    .service('UserService', function UserService($q, $location, SyncDriver, SyncService) {
 
         // FIXME implement criptography
         
@@ -14,39 +16,36 @@
          * @param {Boolean}
          */
         this.login = function(user, pass, rememberMe) {
-            // TODO log into the driver
-
             // FIXME - save the md5
             localStorage.user = user;
 
-            var deferred = $q.defer();
+            var promise = SyncDriver.login(user, pass, rememberMe);
 
-            setTimeout(function() {
-                if (pass === 'marykay') {
-                    deferred.resolve();
-                    logged = true;
-                } else {
-                    deferred.reject();
-                    logged = false;
-                }
-            }, 1500);
+            promise.then(function () {
+              logged = true;
+              SyncDriver.registerSyncService(SyncService);
+            });
 
-            return deferred.promise;
+            return promise;
         };
+
+
         this.logout = function() {
-            // TODO log out of the driver
-            var deferred = $q.defer();
+            var promise = SyncDriver.logout();
+
+            logged = false;
+
+            promise.then(function () {
+              logged = false;
+            });
             
-            setTimeout(function() {
-                deferred.resolve();
-                logged = false;
-            }, 1500);
-            
-            return deferred.promise;
+            return promise;
         };
+
         this.isLogged = function isLogged() {
             return logged;
         };
+
         this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
           if(!logged) {
               $location.path('/login');

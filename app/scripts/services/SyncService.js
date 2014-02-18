@@ -8,9 +8,12 @@
         .service('SyncService', function SyncService(
             $q,
             $log,
+            $rootScope,
             JournalKeeper,
+            JournalEntry,
             SyncDriver
         ) {
+
 
             // How many times should we attempt to sync an entry before
             // logging a fatal? Made public to allow changing this setting
@@ -18,9 +21,26 @@
             this.MAX_SYNC_ATTEMPTS = 5;
 
             var self = this;
-            var syncDeferred = null;
             var synching = false;
             var syncDeferred = null;
+
+
+            // Event Handlers
+            $rootScope.$on('JournalKeeper.compose', function () {
+              $log.debug('Entry composed! sync()!');
+              sync();
+            });
+
+
+            $rootScope.$on('FirebaseDisconnected', function () {
+              if (isSynching()) {
+                $log.debug('Disconnected from Firebase during sync!');
+                // FIXME: do we need to do something here?
+              }
+            });
+
+
+            $rootScope.$on('FirebaseConnected', sync);
 
 
             // Object used for storing attempt counts for failing
@@ -77,12 +97,14 @@
             function sync() {
                 if (isSynching()) {
                   $log.debug('Synchronization already running!');
-                  return syncDeferred;
+                  return syncDeferred.promise;
                 }
 
                 syncDeferred = $q.defer();
 
-                syncNext();
+                $rootScope.$broadcast('SyncService.sync start');
+
+                syncNext(syncDeferred);
 
                 // Remove the reference to the syncPromise once finished,
                 // either with rejection or resolution
@@ -90,6 +112,8 @@
                     syncDeferred = null;
                     // Clear all attempt counters
                     SyncAttempt.clear();
+
+                    $rootScope.$broadcast('SyncService.sync stopped');
                 }
 
                 syncDeferred.promise.then(clearPromise, clearPromise);
@@ -108,33 +132,20 @@
              *
              * @private
              */
-            function syncReadOldestUnsynced() {
+            function syncReadOldestUnsynced(deferred) {
                 var promise = JournalKeeper.readOldestUnsynced();
 
                 promise.then(function (entry) {
                     if (!entry) {
                         // There are no more unsynced entries!
-                        //
-                        syncDeferred.resolve();
+                        deferred.resolve();
+                        $rootScope.$broadcast('SyncService.sync end');
                     } else {
-                        syncSaveEntry(entry);
+                        syncSaveEntry(deferred, entry);
                     }
                 }, function (err) {
-                    var counterId = 'syncReadOldestUnsynced';
-
-                    if (SyncAttempt.increment(counterId) < self.MAX_SYNC_ATTEMPTS) {
-                        // Oops! Failed to get unsynced entry! Try again!
-                        // FIXME: should we add a timeout here? Maybe with a
-                        // progressive interval?
-
-                        // Oops! Failed to save! Try again!
-                        $log.error('JournalKeeper.readOldestUnsynced() failed! Trying again.');
-                        syncReadOldestUnsynced();
-                    } else {
-                        SyncAttempt.clear(counterId);
-                        $log.fatal('JournalKeeper.readOldestUnsynced() failed! Giving up after ' + self.MAX_SYNC_ATTEMPTS + ' attempts!', err);
-                        syncDeferred.reject(err);
-                    }
+                    $log.fatal('JournalKeeper.readOldestUnsynced() failed!');
+                    deferred.reject(err);
                 });
             }
 
@@ -149,30 +160,37 @@
              *
              * @private
              */
-            function syncSaveEntry(entry) {
+            function syncSaveEntry(deferred, entry) {
+                if (!SyncDriver.isConnected()) {
+                  deferred.reject('Not connected to Firebase');
+                  return;
+                }
+
                 var promise = SyncDriver.save(entry);
 
                 promise.then(function () {
-                    syncMarkAsSynced(entry);
+                    syncMarkAsSynced(deferred, entry);
                 }, function (err) {
                     // If err tells us that the sequence is already in
                     // use in the server, there's not point in continuing the
                     // synchronization process. Stop it, and handle the
                     // insertion of the new entry.
                   
-                    // FIXME: check error message returned from the driver.
-                    if (err === 'Duplicate entry sequence') {
+                    // Checks if the following message is within the error
+                    // message (see Bitwise NOT operator if in doubt about
+                    // the tilde)
+                    if (~err.indexOf('Duplicate entry sequence!')) {
                         
                         // FIXME: The sequence we tried to save to the server
                         // was already in use. The driver should handle this
                         // case and ensure we don't get to this point.
                         $log.fatal('Entry sequence conflict while running syncSaveEntry()!', entry);
-                        syncDeferred.reject('Sync stopped to insert new entries from server.');
+                        deferred.reject('Sync stopped to insert new entries from server.');
 
                         return;
                     }
 
-                    var counterId = 'syncSaveEntry - ' + entry.uuid;
+                    var counterId = 'syncSaveEntry - ' + entry.sequence;
 
                     if (SyncAttempt.increment(counterId) < self.MAX_SYNC_ATTEMPTS) {
                         // FIXME: should we add a timeout here? Maybe with a
@@ -180,11 +198,11 @@
 
                         // Oops! Failed to save! Try again!
                         $log.error('SyncDriver.save() failed! Trying again.');
-                        syncSaveEntry(entry);
+                        syncSaveEntry(deferred, entry);
                     } else {
                         SyncAttempt.clear(counterId);
                         $log.fatal('SyncDriver.save() failed! Giving up after ' + self.MAX_SYNC_ATTEMPTS + ' attempts!', entry, err);
-                        syncDeferred.reject(err);
+                        deferred.reject(err);
                     }
                 });
             }
@@ -203,42 +221,33 @@
              *
              * @private
              */
-            function syncMarkAsSynced(entry) {
+            function syncMarkAsSynced(deferred, entry) {
                 var promise = JournalKeeper.markAsSynced(entry);
 
                 promise.then(function () {
                     // Everything went fine with this entry! Yay! Let's
                     // sync the next one!
                     $log.debug('Entry successfully synched!', entry);
-                    syncNext();
+                    syncNext(deferred);
                 }, function (err) {
-                    var counterId = 'syncMarkAsSynced - ' + entry.uuid;
-
                     // TODO: I've triple checked and it seems to be ok to try to mark
                     // an entry as synced again if we failed. Anyway, still need to
                     // check with @wesleyakio if this seems right.
 
-                    if (SyncAttempt.increment(counterId) < self.MAX_SYNC_ATTEMPTS) {
-                        // FIXME: should we add a timeout here? Maybe with a
-                        // progressive interval?
+                    $log.fatal('JournalKeeper.markAsSynced() failed!');
 
-                        // Oops! Failed to save! Try again!
-                        $log.error('SyncDriver.save() failed! Trying again.');
-
-                        syncMarkAsSynced(entry);
-                    } else {
-                        SyncAttempt.clear(counterId);
-                        $log.fatal('SyncDriver.save() failed! Giving up after ' + self.MAX_SYNC_ATTEMPTS + ' attempts!', entry, err);
-
-                        // TODO: Since we were unable to mark the entry as synced,
-                        // we got into an inconsistent state!
-                        // Can we nuke and resync now!? We need to lock the
-                        // system before doing so and let the user know that
-                        // it'll be unavailable for a while.
-                        syncDeferred.reject(err);
-                    }
+                    // TODO: Since we were unable to mark the entry as synced,
+                    // we got into an inconsistent state!
+                    // Can we nuke and resync now!? We need to lock the
+                    // system before doing so and let the user know that
+                    // it'll be unavailable for a while.
+                    deferred.reject(err);
                 });
             }
+
+
+
+
 
 
             // syncReadOldestUnsynced starts the whole synchronization process
@@ -247,20 +256,71 @@
             var syncNext = syncReadOldestUnsynced;
 
 
+
+            /**
+             * Returns the sequence number for the last synced entry from the
+             * journal.
+             * @return {Number}
+             */
+            function getLastSyncedSequence() {
+                return JournalKeeper.getSyncedSequence();
+            }
+
             /**
              * Inserts an entry received from the server into the journal.
              * @param {Object} entry The JournalEntry received from the server.
              * @return {Promise} The promise returned by the JournalKeeper.
              */
             function insert(entry) {
+                if (!entry || typeof entry !== 'object') {
+                    $log.fatal('Trying to insert an invalid entry!', entry);
+                    return $q.reject('Trying to insert an invalid entry!');
+                }
+
+                if (!(entry instanceof JournalEntry)) {
+                    try {
+                        entry = new JournalEntry(entry);
+                    } catch (err) {
+                        $log.fatal('Unable to create a JournalEntry from received snapshot!', entry);
+                        throw(err);
+                    }
+                }
+                
                 if (!angular.isNumber(entry.sequence)) {
                     var msg = 'Received an invalid entry from the server!';
                     $log.fatal(msg, entry);
                     return $q.reject(msg);
                 }
 
+                if (!entry.uuid) {
+                  var msg = 'Received an entry with an invalid UUID!';
+                  $log.fatal(msg, entry);
+                  return $q.reject(msg);
+                }
+
+                // We have unsynced entries, check for conflicts
                 if (entry.sequence <= JournalKeeper.getSequence()) {
-                    return resolveSequenceConflict(entry);
+                    var deferred = $q.defer();
+
+                    JournalKeeper.findEntry(entry.sequence).then(function (journalEntry) {
+                        if (journalEntry) {
+                            entry.uuid === journalEntry.uuid ?
+                                // Entry is already in the journal, do nothing.
+                                deferred.resolve() :
+                                // We have a conflict! Resolve it!
+                                deferred.resolve(resolveSequenceConflict(entry));
+                        } else {
+                            // TODO This is an odd situation. The received entry has a sequence
+                            // number lower than the one in our JournalKeeper but we don't
+                            // have a local entry for it.
+                            $log.fatal('Odd situation found! There was a missing sequence entry.');
+                            deferred.resolve(JournalKeeper.insert(entry));
+                        }
+                    }, function (err) {
+                        deferred.reject(err);
+                    });
+
+                    return deferred.promise;
                 }
 
                 return JournalKeeper.insert(entry);
@@ -382,12 +442,17 @@
              * @return {Promise}
              */
             function resolveSequenceConflict(entry) {
+                $log.debug('Resolving sequence conflict!', entry);
+
                 var deferred = $q.defer();
 
                 // Stash unsynced entries
                 var promise1 = self.stashEntries();
 
                 promise1.then(function () {
+                    // Once entries are stashed, reset the sequence number.
+                    JournalKeeper.setSequence(0);
+
                     // Insert entry in the journal
                     var promise2 = JournalKeeper.insert(entry);
                     promise2.then(function () {
@@ -406,6 +471,7 @@
 
             this.sync = sync;
             this.isSynching = isSynching;
+            this.getLastSyncedSequence = getLastSyncedSequence;
             this.insert = insert;
             this.stashEntries = stashEntries;
             this.unstashEntries = unstashEntries;

@@ -26,10 +26,13 @@ describe('Service: VoucherKeeper', function() {
     var VoucherKeeper = undefined;
     var Voucher = undefined;
     var JournalEntry = undefined;
-    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _JournalEntry_) {
+    var IdentityService = undefined;
+
+    beforeEach(inject(function(_VoucherKeeper_, _Voucher_, _JournalEntry_, _IdentityService_) {
         VoucherKeeper = _VoucherKeeper_;
         Voucher = _Voucher_;
         JournalEntry = _JournalEntry_;
+        IdentityService = _IdentityService_;
     }));
 
     it('should do something', function() {
@@ -37,6 +40,8 @@ describe('Service: VoucherKeeper', function() {
     });
 
     it('should create', function() {
+
+        spyOn(IdentityService, 'getUUID').andReturn('cc02b600-5d0b-11e3-96c3-010001000001');
 
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);

@@ -3,7 +3,8 @@
 describe('StockKeeperReserveSpec', function() {
 
     var jKeeper = {};
-
+    var IdentityService ={};
+    var fakeUUID = {};
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.stock');
@@ -16,9 +17,10 @@ describe('StockKeeperReserveSpec', function() {
 
     beforeEach(function() {
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
-
+        IdentityService.getUUID = jasmine.createSpy('IdentityService.getUUID').andReturn(fakeUUID);
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 

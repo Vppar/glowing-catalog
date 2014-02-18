@@ -1,4 +1,4 @@
-describe('Service: SyncService', function () {
+describe('Service: SyncServiceSync', function () {
 
   var showLog = false;
 
@@ -27,10 +27,12 @@ describe('Service: SyncService', function () {
       spyOn($log, 'fatal').andCallThrough();
 
       SyncDriverMock.save = jasmine.createSpy('SyncDriver.save');
+      SyncDriverMock.isConnected = jasmine.createSpy('SyncDriver.isConnected').andReturn(true);
 
       JournalKeeperMock.readUnsynced = jasmine.createSpy('JournalKeeper.readUnsynced');
       JournalKeeperMock.readOldestUnsynced = jasmine.createSpy('JournalKeeper.readOldestUnsynced');
       JournalKeeperMock.markAsSynced = jasmine.createSpy('JournalKeeper.markAsSynced');
+
   });
 
 
@@ -95,7 +97,7 @@ describe('Service: SyncService', function () {
       expect(SyncService.isSynching()).toBe(true);
     });
 
-    describe('happy way', function () {
+    describe('happy day', function () {
       beforeEach(function () {
         var count = 0;
 
@@ -185,7 +187,7 @@ describe('Service: SyncService', function () {
       });
 
       it('logs an error', function () {
-        expect($log.error).toHaveBeenCalled();
+        expect($log.fatal).toHaveBeenCalled();
       });
 
       it('removes the syncing flag from the service', function () {
@@ -193,13 +195,17 @@ describe('Service: SyncService', function () {
       });
 
       it('makes MAX_SYNC_ATTEMPTS attempts to sync', function () {
-        expect(JournalKeeperMock.readOldestUnsynced.callCount).toBe(SyncService.MAX_SYNC_ATTEMPTS);
+        expect(JournalKeeperMock.readOldestUnsynced.callCount).toBe(1);
         expect($log.fatal).toHaveBeenCalled();
       });
     }); // failing to get unsynced entries
 
 
     describe('fail to sync with server', function () {
+      beforeEach(function () {
+        $rootScope.$apply();
+      });
+
       beforeEach(function () {
         JournalKeeperMock.readOldestUnsynced
           .andCallFake(PromiseHelper.resolved(entry1));
@@ -267,7 +273,7 @@ describe('Service: SyncService', function () {
       it('removes the syncing flag from the service');
 
       it('makes MAX_SYNC_ATTEMPTS attempts to sync', function () {
-        expect(JournalKeeperMock.markAsSynced.callCount).toBe(SyncService.MAX_SYNC_ATTEMPTS);
+        expect(JournalKeeperMock.markAsSynced.callCount).toBe(1);
         expect($log.fatal).toHaveBeenCalled();
       });
     }); // fail to mark as synced
