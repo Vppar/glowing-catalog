@@ -66,13 +66,12 @@
 						ng-click="invertHideOption()" ng-show="hideOptions">
 					</div>
 				</div>
-<div class="col-details-order-list-item-select pull-right">
-				<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId">
-		<option value="">Selecione Cliente</option>
-		<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
-	</select>
-	</div>
-
+				<div class="col-details-order-list-item-select pull-right" ng-show="ol=='products'">
+					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="filter.customerId">
+						<option value="">Selecione Cliente</option>
+						<option value="{{customer.uuid}}" ng-repeat="customer in customers | orderBy:'name'">{{customer.name}}</option>
+					</select>
+				</div>
 			</div>
 		</div>
 		<div class="row-fluid show-details" ng-show="ol!='products'">
@@ -150,7 +149,7 @@
 						Valor total
 					</div>
 					<div class="order-col order-col-2 text-right">
-						VA
+						AV%
 					</div>
 				</div>
 			</div>
@@ -178,7 +177,7 @@
 					<span>{{total.all.amount | currency:''}}</span>
 				</div>
 				<div class="order-col order-col-2 text-right">
-					VA
+					100,00
 				</div>
 			</div>
 		</div>
@@ -206,7 +205,7 @@
 				<span>{{order.amountTotal | currency: ''}}</span>
 			</div>
 			<div class="order-col order-col-2 text-right">
-				<span>{{order.amountTotal | currency: ''}}</span>
+				<span>{{order.va | currency: ''}}</span>
 			</div>
 		</div>
 	</div>
@@ -241,7 +240,7 @@ ng-controller="OrderListClientsCtrl">
 					<span>Valor total</span>
 				</div>
 				<div class="order-col order-col-2 text-right">
-					<span>VA</span>
+					<span>AV%</span>
 				</div>
 			</div>
 		</div>
@@ -268,7 +267,7 @@ ng-controller="OrderListClientsCtrl">
 				<span>{{total.all.amount | currency:''}}</span>
 			</div>
 			<div class="order-col order-col-2 text-right">
-				VA
+				100,00
 			</div>
 		</div>
 	</div>
@@ -295,7 +294,7 @@ ng-controller="OrderListClientsCtrl">
 			<span>{{entity.amountTotal | currency:''}}</span>
 		</div>
 		<div class="order-col order-col-2 text-right">
-			VA
+			{{entity.va | currency: ''}}
 		</div>
 	</div>
 </div>
@@ -333,7 +332,7 @@ ng-controller="OrderListProductsCtrl">
 					<span>Valor total</span>
 				</div>
 				<div class="order-col order-col-1half text-right">
-					<span>VA</span>
+					<span>AV%</span>
 				</div>
 			</div>
 		</div>
@@ -360,7 +359,7 @@ ng-controller="OrderListProductsCtrl">
 				<span>{{total.all.amount | currency:''}}</span>
 			</div>
 			<div class="order-col order-col-1half text-right">
-				VA
+				100,00
 			</div>
 		</div>
 	</div>
@@ -370,7 +369,7 @@ ng-controller="OrderListProductsCtrl">
 
 	<div class="scroll-order-list">
 		<div class="row-order-list hover-state-pointer"
-		ng-repeat="product in filteredProducts | orderBy:'-priceTotal' ">
+		ng-repeat="product in filteredProducts | orderBy:'-amountTotal' ">
 		<div class="order-col order-col-1">
 			{{$index + 1}}
 		</div>
@@ -388,10 +387,10 @@ ng-controller="OrderListProductsCtrl">
 			{{product.price | currency:''}}
 		</div>
 		<div class="order-col-2-rows order-col-1half text-right">
-			{{product.priceTotal | currency:''}}
+			{{product.amountTotal | currency:''}}
 		</div>
 		<div class="order-col-2-rows order-col-1half text-right">
-			VA
+			{{product.va | currency:''}}
 		</div>
 	</div>
 </div>

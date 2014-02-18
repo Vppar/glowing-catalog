@@ -1,4 +1,19 @@
 <div class="row-fluid">		
+
+<div class="details-products-to-buy-item">
+	<div class="col-details-products-to-buy-item">
+		<div class="discount-notice">
+		<span ng-show="summary.nextDiscount.amount !== 0">
+			Faltam <strong>{{summary.nextDiscount.amount | currency:'R$ '}}</strong> para desconto de <strong>{{summary.nextDiscount.fee}}%</strong>
+		</span>
+		<span ng-hide="summary.nextDiscount.amount !== 0">
+			Voc&ecirc; atingiu o desconto m&aacute;ximo
+		</span>
+		
+		</div>
+	</div>
+</div>
+
 	<div class="details-products-to-buy-item">
 		<div class="col-details-products-to-buy-item">
 			<span class="section">Se&ccedil;&atilde;o 1</span>
@@ -9,7 +24,7 @@
 				</span>
 				<span class="item">
 					<span class="lbl-money">Percentual de desconto</span>
-					<span class="btn-price-payment">{{summary.discount.fee | currency: ''}}%</span>
+					<span class="btn-price-payment">{{summary.discount.fee | currency: ''}}</span>
 				</span>
 			</div>
 			<div class="row-details-products-to-buy-item">
@@ -55,10 +70,6 @@
 				</span>
 			</div>
 			<div class="row-details-products-to-buy-item">
-				<span class="item">
-					<span class="lbl-money">SD dispon&iacute;vel (cr&eacute;dito)</span>
-					<span class="btn-price-payment">0,00</span>
-				</span>
 				<span class="item">
 					<span class="lbl-money font-bold">Total do pedido</span>
 					<span class="btn-price-payment font-bold">{{summary.total.amountWithDiscount | currency:'R$ '}}</span>

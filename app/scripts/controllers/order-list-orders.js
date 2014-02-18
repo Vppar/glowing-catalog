@@ -9,7 +9,6 @@
                 // $scope.entities come from OrderListCtrl
                 var entities = $scope.entities;
                 var orders = $scope.orders;
-
                 // $scope.filteredOrders come from OrderListCtrl
                 $scope.filteredOrders = angular.copy(orders);
 
@@ -21,16 +20,15 @@
                     var qtyTotal = $filter('sum')(order.items, 'qty');
                     var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                     var amountTotal = $filter('sum')(order.items, 'amount');
-                    
 
                     order.itemsQty = qtyTotal;
                     order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
                     order.amountTotal = (priceTotal + amountTotal);
                 }
-                
+
                 $scope.updateAndEnableHideOption = function(order) {
                     updatePaymentsTotal(order);
-                    if($scope.hideOptions === true){
+                    if ($scope.hideOptions === true) {
                         $scope.invertHideOption();
                     }
                 };
@@ -97,6 +95,7 @@
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
                     updateOrdersTotal();
                     updatePaymentsTotal($scope.filteredOrders);
+                    $scope.generateVA($scope.filteredOrders);
                 });
 
             });

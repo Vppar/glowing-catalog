@@ -16,7 +16,8 @@
     "jquery-zoom": "~1.7.11",
     "node-uuid": "~1.4.1",
     "firebase": "~1.0.6",
-    "firebase-simple-login": "~1.2.5"
+    "firebase-simple-login": "~1.2.5",
+    "angular-md5": "~0.1.7"
   },
   "devDependencies": {
     "angular-mocks": "1.2.7",

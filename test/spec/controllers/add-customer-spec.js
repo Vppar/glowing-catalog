@@ -4,6 +4,7 @@ describe('Controller: AddCustomerCtrl', function() {
     beforeEach(function() {
         module('tnt.catalog.customer');
         module('tnt.catalog.filter.findBy');
+        module('tnt.utils.cep');
     });
 
     var scope = {};
@@ -13,10 +14,20 @@ describe('Controller: AddCustomerCtrl', function() {
     var dp = {};
     var ds = {};
     var os = {};
+    var cs = {};
+    var us = {};
 
     q.reject = function() {
         return 'rejected';
     };
+    
+    beforeEach(function(){module(function($provide) {
+        $provide.value('CepService', cs);
+        $provide.value('UserService', us);
+        });
+    
+        us.redirectIfIsNotLoggedIn = jasmine.createSpy('redirectIfIsNotLoggedIn');
+    });
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, _$filter_) {

@@ -88,7 +88,7 @@
                         };
 
                 this.receive =
-                        function receive(uuid, productId, nfeNumber, receivedQty) {
+                        function receive(uuid, productId, nfeData, receivedQty) {
                             var result = true;
                             var numericProductId = Number(productId);
                             try {
@@ -104,7 +104,7 @@
                                         throw 'The deliver that is being informed is greater than the total ordered';
                                     }
                                 }
-                                result = PurchaseOrderKeeper.receive(uuid, numericProductId, nfeNumber, receivedQty);
+                                result = PurchaseOrderKeeper.receive(uuid, numericProductId, nfeData.nfeNumber, nfeData.order, receivedQty);
 
                                 result = result.then(function(productId) {
                                     return StockService.add(new Stock(Number(productId), receivedQty, purchasedProduct.cost));
@@ -166,7 +166,7 @@
                  * Redeem a purchaseOrder
                  */
                 this.redeem =
-                        function redeem(uuid) {
+                        function redeem(uuid, extNumber) {
                             var result = null;
                             var redeemed = true;
                             try {
@@ -182,7 +182,7 @@
                                     }
                                 }
                                 if (redeemed) {
-                                    result = PurchaseOrderKeeper.redeem(uuid);
+                                    result = PurchaseOrderKeeper.redeem(uuid, extNumber);
                                 } else {
                                     var deferred = $q.defer();
                                     deferred.resolve('PurchaseOrderService.redeem: Purchase order not fully received.');

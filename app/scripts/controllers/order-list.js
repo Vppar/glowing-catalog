@@ -2,8 +2,10 @@
     'use strict';
     angular.module('tnt.catalog.orderList.ctrl', [
         'tnt.catalog.order.service', 'tnt.utils.array'
-    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, EntityService, ReceivableService) {
+    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, EntityService, ReceivableService, UserService) {
 
+        UserService.redirectIfIsNotLoggedIn();
+        
         // #############################################################################################################
         // Warming up the controller
         // #############################################################################################################
@@ -96,6 +98,45 @@
         // #############################################################################################################
         // Local functions and variables
         // #############################################################################################################
+
+        $scope.customers = EntityService.list();
+        
+        $scope.filter = {
+                customerId : ''
+        };
+        
+        $scope.generateVA = function generateVa(filterList) {
+            var acumulator = 0;
+            var biggestOrder = {
+                va : 0
+            };
+            var biggestRounded = 0;
+            for ( var ix in filterList) {
+                var filteredOrder = filterList[ix];
+                if(angular.isObject(filteredOrder)){
+                    filteredOrder.va = (filteredOrder.amountTotal / $scope.total.all.amount) * 100;
+                    var roundedVa = (Math.round(100 * filteredOrder.va) / 100);
+                    acumulator += roundedVa;
+                    if (roundedVa > biggestOrder.va) {
+                        biggestOrder = filteredOrder;
+                        biggestRounded = roundedVa;
+                    }
+                }
+            }
+            biggestOrder.va = biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
+        };
+        
+        /**
+         * ClientFilter
+         */
+        $scope.filterByClient = function filterByClient(order) {
+            if ($scope.filter.customerId === '') {
+                return true;
+            } else if (order.customerId === $scope.filter.customerId) {
+                return true;
+            }
+        };
+
         /**
          * DateFilter
          */

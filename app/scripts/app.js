@@ -7,6 +7,7 @@
                 'ngRoute',
                 'ui.bootstrap',
                 'ui.select2',
+                'angular-md5',
                 'tnt.catalog.directive.numpad',
                 'tnt.catalog.productReturn',
                 'tnt.catalog.productReturn.entity',
@@ -59,6 +60,7 @@
                 'tnt.catalog.payment',
                 'tnt.catalog.payment.check',
                 'tnt.catalog.payment.creditcard',
+                'tnt.catalog.payment.creditcard.service',
                 'tnt.catalog.payment.exchange',
                 'tnt.catalog.misplaced.service',
                 'tnt.catalog.payment.service',
@@ -93,14 +95,12 @@
                 'tnt.catalog.sync.firebase',
                 'tnt.catalog.sync.service',
                 'tnt.catalog.purchaseOrder.service',
-                'tnt.catalog.login.ctrl'
+                'tnt.catalog.login.ctrl',
+                'tnt.utils.cep'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
             controller : 'MainCtrl'
-        }).when('/dashboard', {
-            templateUrl : 'views/dashboard.html',
-            controller : 'DashboardCtrl'
         }).when('/add-customer', {
             templateUrl : 'views/add-customer.html',
             controller : 'AddCustomerCtrl'

@@ -27,25 +27,25 @@
                     order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
                     order.amountTotal = priceTotal + amountTotal;
                 }
-                
+
                 $scope.updateAndEnableHideOption = function(entity) {
                     updatePaymentsTotal(entity);
-                    if($scope.hideOptions === true){
+                    if ($scope.hideOptions === true) {
                         $scope.invertHideOption();
                     }
                 };
 
                 function updateFilteredEntities() {
-                    
+
                     $scope.filteredEntities.length = 0;
-                    
+
                     for ( var ix in entities) {
                         var entity = entities[ix];
 
                         var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
                             customerId : entity.uuid
                         });
-                        
+
                         if (ordersByEntity.length > 0) {
                             var entityOrders = {
                                 uuid : entity.uuid,
@@ -138,7 +138,7 @@
                     }
                     $scope.total.all.avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
                 }
-
+                
                 $scope.updateOrdersTotal = updateOrdersTotal;
                 $scope.updatePaymentsTotal = updatePaymentsTotal;
 
@@ -150,7 +150,7 @@
                     updateOrdersTotal();
                     updatePaymentsTotal(entities);
                     updateFilteredEntities();
+                    $scope.generateVA($scope.filteredEntities);
                 });
-
             });
 }(angular));

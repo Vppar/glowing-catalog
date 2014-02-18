@@ -2,8 +2,10 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.ctrl', [
         'tnt.catalog.stock.service', 'tnt.catalog.timer.service'
-    ]).controller('ProductsToBuyCtrl', function($scope, $log, StockService, PurchaseOrderService) {
+    ]).controller('ProductsToBuyCtrl', function($scope, $log, StockService, PurchaseOrderService, UserService) {
 
+        UserService.redirectIfIsNotLoggedIn();
+        
         // #####################################################################################################
         // Local variables
         // #####################################################################################################

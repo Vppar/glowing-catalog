@@ -28,8 +28,10 @@
                         fee : 0.4
                     }
                 ];
-                var nextDiscount = {};
+                
 
+                $scope.summary.nextDiscount = {};
+                
                 // #####################################################################################################
                 // Local Functions
                 // #####################################################################################################
@@ -42,21 +44,24 @@
                         if ($scope.summary.total.amount < discounts[nix].amount) {
 
                             var appliedFee = (1 - discounts[nix].fee);
-
                             $scope.summary.discount.fee = discounts[nix].fee * 100;
                             $scope.summary.total.amountWithDiscount = financialRound($scope.summary.total.amount * appliedFee);
 
-                            nextDiscount.amount = financialRound(discounts[nix].amount - $scope.summary.total.amount);
-                            nextDiscount.percent = 100 * (discounts[nix + 1].fee);
+                            $scope.summary.nextDiscount.amount = financialRound(discounts[nix].amount - $scope.summary.total.amount);
+                            $scope.summary.nextDiscount.fee = 100 * (discounts[nix + 1].fee);
 
-                            $log.info('Faltam ' + $filter('currency')(nextDiscount.amount) + ' para a classe de desconto de ' +
-                                nextDiscount.percent + '%.');
-
+                            $log.info('Faltam ' + $filter('currency')($scope.summary.nextDiscount.amount) + ' para a classe de desconto de ' +
+                                    $scope.summary.nextDiscount.percent + '%.');
+                            
+                            
                             break;
                         } else if (!discounts[nix + 1]) {
-                            nextDiscount.amount = 0;
-                            nextDiscount.percent = discounts[discounts.length - 1].fee;
+                            
+                            $scope.summary.discount.fee = discounts[nix].fee * 100;
+                            $scope.summary.nextDiscount.amount = 0;                            
+                            $scope.summary.nextDiscount.fee = discounts[discounts.length - 1].fee;
                             $log.info('Você está na classe de desconto máximo.');
+                            
                         }
                     }
 

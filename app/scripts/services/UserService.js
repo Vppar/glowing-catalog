@@ -1,11 +1,15 @@
 (function(angular) {
     'use strict';
 
+<<<<<<< HEAD
     angular
     .module('tnt.catalog.user', ['tnt.catalog.sync.driver', 'tnt.catalog.sync.service'])
-    .service('UserService', function UserService($q, SyncDriver, SyncService) {
+    .service('UserService', function UserService($q, $location, SyncDriver, SyncService) {
 
         // FIXME implement criptography
+        
+        //FIXME change default value to FALSE
+        var logged = true;
 
         /**
          * @param {String}
@@ -19,6 +23,7 @@
             var promise = SyncDriver.login(user, pass, rememberMe);
 
             promise.then(function () {
+              logged = true;
               SyncDriver.registerSyncService(SyncService);
             });
 
@@ -27,7 +32,25 @@
 
 
         this.logout = function() {
-            return SyncDriver.logout();
+            var promise = SyncDriver.logout();
+
+            logged = false;
+
+            promise.then(function () {
+              logged = false;
+            });
+            
+            return promise;
+        };
+
+        this.isLogged = function isLogged() {
+            return logged;
+        };
+
+        this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
+          if(!logged) {
+              $location.path('/login');
+          }  
         };
     });
 })(angular);
