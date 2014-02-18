@@ -1,7 +1,6 @@
 (function(angular) {
     'use strict';
 
-<<<<<<< HEAD
     angular
     .module('tnt.catalog.user', ['tnt.catalog.sync.driver', 'tnt.catalog.sync.service'])
     .service('UserService', function UserService($q, $location, SyncDriver, SyncService) {
