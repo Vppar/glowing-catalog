@@ -28,6 +28,7 @@
         this.loggedIn = function loggedIn(user, pass) {
             var hashMD5 = md5.createHash(user + ':' + SALT + ':' + pass);
             localStorage.hashMD5 = hashMD5;
+            localStorage.user = user;
             return hashMD5;
         };
 

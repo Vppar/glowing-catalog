@@ -4,7 +4,11 @@
     angular.module('tnt.catalog.login.ctrl', [
         'tnt.catalog.user'
     ]).controller('LoginCtrl', function($scope, $log, $location, UserService, DialogService) {
-
+        
+        if(localStorage.user !== "undefined"){
+            $scope.user = localStorage.user;
+        }
+        
         $scope.login = function() {
             return UserService.login($scope.user, $scope.pass, $scope.rememberMe).then(function() {
                 $log.debug('Logged in as ', $scope.user);
