@@ -204,16 +204,65 @@ components/catalog-highlights/catalog-highlights.html
 
 views/parts/catalog/input-qty.html
 views/parts/global/header.html
+views/parts/payment/payment-right-totals.html
+views/parts/payment/payment-left-order.html
+views/parts/catalog/num-pad.html
+views/parts/global/choose-customer-dialog.html
+views/parts/global/message-dialog.html
+views/parts/add-customer/add-customer-phones-dialog.html
+views/parts/add-customer/add-customer-emails-dialog.html
+views/parts/products-to-buy/products-to-buy-summary.html
+views/parts/products-to-buy/products-to-buy-order.html
+views/parts/products-to-buy/products-to-buy-confirm.html
+views/parts/products-to-buy/products-to-buy-pending.html
+views/parts/products-to-buy/products-to-buy-ticket.html
+views/parts/products-to-buy/products-to-buy-ticket-dialog.html
+
+images/keyboard/n0.png
+images/keyboard/n1.png
+images/keyboard/n2.png
+images/keyboard/n3.png
+images/keyboard/n4.png
+images/keyboard/n5.png
+images/keyboard/n6.png
+images/keyboard/n7.png
+images/keyboard/n8.png
+images/keyboard/n9.png
+images/keyboard/n00.png
+images/keyboard/comma.png
+images/keyboard/btn-ok.png
+images/keyboard/btn-clear.png
+images/keyboard/btn-back.png
 
 views/catalog/best-sellers.html
 
 views/main.html
+views/payment.html
+views/add-customer.html
+views/stock.html
+views/products-to-buy.html
+views/order-list.html
+views/voucher.html
 
 images/logo-home.png
 images/icon-drop-menu.png
 images/cat-li-menu.png
 images/bag-mk.png
 images/plus-w.png
+images/last-opportunity-banner-v2.png
+images/select2.png
+images/select2-spinner.gif
+images/alert-sign-small-v3.png
+images/ic-sort-triangle-up-pink.png
+images/ic-sort-triangle-down-pink.png
+images/del-pink.png
+images/glyphicons-halflings.png
+images/arrow-right-pink.png
+images/arrow-left-pink.png
+
+images/icons/ic-calendar.png
+
+styles/com/images/select_close.png
 
 images/catalog/best-sellers/best-sellers.png
 images/catalog/best-sellers/best-sellers-1.png
