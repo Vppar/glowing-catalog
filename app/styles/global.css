@@ -248,7 +248,6 @@ body {
 	color: #333
 }
 .bg-login-right {
-	/*background: url(../images/bg-right-mary.png);*/
 	width: 603px;
 	height: 569px;
 	position: absolute;
@@ -256,7 +255,6 @@ body {
 	right: 0;
 }
 .bg-login-left {
-	/*background: url(../images/bg-left-mary.png);*/
 	width: 420px;
 	height: 623px;
 	position: absolute;
@@ -265,7 +263,6 @@ body {
 }
 
 .bg-login-center {
-	/*background: url(../images/bg-center-mary.png);*/
 	width: 458px;
 	height: 418px;
 	position: absolute;
