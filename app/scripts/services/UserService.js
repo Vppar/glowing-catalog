@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service'
-    ]).service('UserService', function UserService($q, $location, md5, SyncDriver, SyncService) {
+        'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service'
+    ]).service('UserService', function UserService($q, $location, md5, SyncDriver, SyncService, PrefetchService) {
 
         // FIXME change default value to FALSE
         var logged = false;
@@ -18,6 +18,7 @@
             var promise = SyncDriver.login(user, pass);
             promise.then(function() {
                 logged = true;
+                PrefetchService.doIt();
                 SyncDriver.registerSyncService(SyncService);
             });
 
