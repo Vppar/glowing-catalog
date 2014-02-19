@@ -313,7 +313,7 @@ ng-controller="OrderListProductsCtrl">
 
 
 			<div class="order-table-header">
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-1 ">
 					<span>Rank</span>
 				</div>
 				<div class="order-col order-col-5 text-left">
@@ -370,7 +370,7 @@ ng-controller="OrderListProductsCtrl">
 	<div class="scroll-order-list">
 		<div class="row-order-list hover-state-pointer"
 		ng-repeat="product in filteredProducts | orderBy:'-amountTotal' ">
-		<div class="order-col order-col-1">
+		<div class="order-col order-col-1 lineheight20-overrule">
 			{{$index + 1}}
 		</div>
 		<div class="order-product order-col order-col-5 order-product text-left">
