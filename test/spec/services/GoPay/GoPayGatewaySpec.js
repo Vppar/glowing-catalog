@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: GoPayGateway', function() {
+describe('Service: GoPayGateway', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.gopay.gateway'));
@@ -24,10 +24,8 @@ ddescribe('Service: GoPayGateway', function() {
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
-                console.log('success', message);
                 result = message;
             }, function(message) {
-                console.log('fail', message);
                 result = message;
             });
         });
@@ -52,10 +50,8 @@ ddescribe('Service: GoPayGateway', function() {
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
-                console.log('success', message);
                 result = message;
             }, function(message) {
-                console.log('fail', message);
                 result = message;
             });
         });
@@ -80,10 +76,8 @@ ddescribe('Service: GoPayGateway', function() {
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
-                console.log('success', message);
                 result = message;
             }, function(message) {
-                console.log('fail', message);
                 result = message;
             });
         });
@@ -108,10 +102,8 @@ ddescribe('Service: GoPayGateway', function() {
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
-                console.log('success', message);
                 result = message;
             }, function(message) {
-                console.log('fail', message);
                 result = message;
             });
         });
@@ -136,10 +128,8 @@ ddescribe('Service: GoPayGateway', function() {
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
-                console.log('success', message);
                 result = message;
             }, function(message) {
-                console.log('fail', message);
                 result = message;
             });
         });
