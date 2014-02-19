@@ -6,7 +6,7 @@
     ]).service('UserService', function UserService($q, $location, md5, SyncDriver, SyncService) {
 
         // FIXME change default value to FALSE
-        var logged = true;
+        var logged = false;
         var SALT = '7un7sC0rp';
 
         /**
@@ -35,6 +35,7 @@
             if (localStorage.hashMD5) {
                 var hashMD5 = md5.createHash(user + ':' + SALT + ':' + pass);
                 if (localStorage.hashMD5 === hashMD5) {
+                    logged = true;
                     result = true;
                 }
             }
