@@ -208,5 +208,5 @@ describe('Service: UserService', function() {
         });
 
     });
-
+    
 });

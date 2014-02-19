@@ -9,6 +9,8 @@
         var logged = false;
         var SALT = '7un7sC0rp';
 
+        var userService = this;
+
         /**
          * @param {String}
          * @param {String}
@@ -43,20 +45,24 @@
             }
             return result;
         };
-        
-        this.onlineLoginErrorHandler = function onlineLoginErrorHandler(err) {
+
+        this.onlineLoginErrorHandler = function onlineLoginErrorHandler(err, user, pass) {
             var result = null;
-            if (err.code === 'INVALID_EMAIL') {
-                result =  $q.reject(err);
-            } else if (err.code === 'INVALID_PASSWORD') {
-                delete localStorage.hashMD5;
+            if (err && err.code === 'INVALID_EMAIL') {
+                result = $q.reject(err);
+            } else if (err && err.code === 'INVALID_PASSWORD') {
+                var oldHashMD5 = md5.createHash(user + ':' + SALT + ':' + pass);
+                if (localStorage.hashMD5 === oldHashMD5) {
+                    // password changed
+                    delete localStorage.hashMD5;
+                }
                 result = $q.reject(err);
             } else {
-                result = this.loginOffline(user, pass);
+                result = userService.loginOffline(user, pass);
             }
-            return result; 
+            return result;
         };
-        
+
         this.login = function(user, pass, rememberMe) {
             var onlineLoggedPromise = this.loginOnline(user, pass);
             var loggedIn = this.loggedIn;
@@ -64,11 +70,11 @@
             var loggedPromise = onlineLoggedPromise.then(function() {
                 return loggedIn(user, pass);
             }, function(err) {
-                return onlineLoginErrorHandler(err);
+                return onlineLoginErrorHandler(err, user, pass);
             });
-
             return loggedPromise;
         };
+
         this.logout = function() {
             // TODO log out of the driver
             var promise = SyncDriver.logout();
@@ -78,9 +84,11 @@
             });
             return promise;
         };
+
         this.isLogged = function isLogged() {
             return logged;
         };
+
         this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
             if (!logged) {
                 $location.path('/login');
