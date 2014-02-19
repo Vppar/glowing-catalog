@@ -55,7 +55,7 @@
             email : user,
             password : pass
           });
-
+          
           deferred.promise.then(function( ) {
             userJournalRef = baseRef.child('users').child(user.replace(/\.+/g, '_')).child('journal');
           });
