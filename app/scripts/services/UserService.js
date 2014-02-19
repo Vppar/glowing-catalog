@@ -43,15 +43,28 @@
             }
             return result;
         };
-
+        
+        this.onlineLoginErrorHandler = function onlineLoginErrorHandler(err) {
+            var result = null;
+            if (err.code === 'INVALID_EMAIL') {
+                result =  $q.reject(err);
+            } else if (err.code === 'INVALID_PASSWORD') {
+                delete localStorage.hashMD5;
+                result = $q.reject(err);
+            } else {
+                result = this.loginOffline(user, pass);
+            }
+            return result; 
+        };
+        
         this.login = function(user, pass, rememberMe) {
             var onlineLoggedPromise = this.loginOnline(user, pass);
             var loggedIn = this.loggedIn;
-            var loginOffline = this.loginOffline;
+            var onlineLoginErrorHandler = this.onlineLoginErrorHandler;
             var loggedPromise = onlineLoggedPromise.then(function() {
                 return loggedIn(user, pass);
-            }, function() {
-                return loginOffline(user, pass);
+            }, function(err) {
+                return onlineLoginErrorHandler(err);
             });
 
             return loggedPromise;
