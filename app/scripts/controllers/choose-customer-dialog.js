@@ -5,6 +5,12 @@
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
     ]).controller('ChooseCustomerDialogCtrl', function($scope, $q, $location, dialog, OrderService, EntityService) {
 
+        $scope.hideNativeKeyboard = function hideNativeKeyboard(event) {
+            var element = angular.element(event.target);
+            console.log(element.blur);
+            element.blur();
+        };
+
         $scope.customers = EntityService.list().sort(function(x, y) {
             return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
         });

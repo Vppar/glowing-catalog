@@ -1,27 +1,64 @@
 (function(angular) {
 
     'use strict';
-    angular.module('tnt.catalog.payment.creditcard.service', [
-        'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.gopay.integration', 'tnt.catalog.misplaced.service'
-    ]).service(
+    angular.module(
+            'tnt.catalog.payment.creditcard.service',
+            [
+                'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.gopay.integration',
+                'tnt.catalog.misplaced.service', 'tnt.catalog.gopay.gateway'
+            ]).service(
             'CreditCardPaymentService',
-            function CreditcardPaymentService($q, $log, PaymentService, CreditCardPayment, Misplacedservice) {
+            function CreditcardPaymentService($q, $log, GoPayGateway, PaymentService, CreditCardPayment, Misplacedservice) {
 
-                var errMsgs = {
-                    0 : 'Falha no processamento da transação',
-                    1 : 'Pagamento recusado pela operadora do cartão'
+                var acceptedCardFlags = {
+                    'American Express' : 'AMERICANEXPRESS',
+                    'Diners Club' : 'DINERS',
+                    'MasterCard' : 'MASTERCARD',
+                    'Visa' : 'VISA'
                 };
+                var errMsgs =
+                        {
+                            '-1' : 'Tentativa de transação como o mesmo cartão de crédito e '
+                                + 'o mesmo valor mais de uma vez, em um período menor que 5 minutos.',
+                            '-2' : 'Transação não autorizada pela instituição financeira.',
+                            '-3' : 'Dados do cartão de crédito incorretos.'
+                        };
 
                 /**
                  * Calls the credit card company and send the charges to a
                  * credit card.
                  */
                 this.sendCharges = function sendCharges(data) {
-                    // TODO - Implement the real deal, you should call go pay
-                    // service or something like that.
-                    var deferred = $q.defer();
-                    deferred.resolve(true);
-                    return deferred.promise;
+
+                    var codedFlag = acceptedCardFlags[data.creditCard.flag];
+
+                    var month = data.creditCard.expirationMonth > 9 ? '' : '0';
+                    month += data.creditCard.expirationMonth;
+
+                    var year = String(data.creditCard.expirationYear).substring(2);
+
+                    var validity = month + '/' + year;
+
+                    var card = {
+                        flag : codedFlag,
+                        number : data.creditCard.number,
+                        holder : data.creditCard.cardholderName,
+                        validity : validity,
+                        cvv : data.creditCard.cvv,
+                        amount : data.amount,
+                        installments : data.installments,
+                        cpf : data.cardholderDocument,
+                        description : 'GoPay%20Test'
+                    };
+
+                    var payedPromise = GoPayGateway.pay(card).then(function(data) {
+                        return data;
+                    }, function(err) {
+                        $log.fatal('CreditcardPaymentService.sendCharges', err);
+                        return $q.reject(err.Status);
+                    });
+
+                    return payedPromise;
                 };
 
                 /**
@@ -60,7 +97,7 @@
                                 PaymentService.add(payment);
                             }
                         };
-                
+
                 /**
                  * Creates the credit card payment to feed the PaymentService,
                  * and try to send the charge the credit card company
@@ -75,16 +112,16 @@
                         var chargedCCPromise = this.sendCharges({
                             creditCard : creditCard,
                             amount : amount,
-                            installments : numInstallments
+                            installments : numInstallments,
                         });
-                        
+
                         var createCreditCardPayments = this.createCreditCardPayments;
-                        
-                        recordedPayment = chargedCCPromise.then(function() {
-                            createCreditCardPayments(creditCard, amount, numInstallments);
+
+                        recordedPayment = chargedCCPromise.then(function(result) {
+                            createCreditCardPayments(creditCard, amount, numInstallments, result);
                             return true;
                         }, function(errCod) {
-                            var errMsg = errMsgs[errCod];
+                            var errMsg = errCod.indexOf('-') < 0 ? errMsgs['X'] : errMsgs[errCod];
                             return $q.reject(errMsg);
                         });
                     } catch (err) {

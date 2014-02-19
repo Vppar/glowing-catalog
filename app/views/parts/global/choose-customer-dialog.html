@@ -6,7 +6,7 @@
 				<div class="control-group lbl-top">
 					<div class="controls">
 						<div class="control-group lbl-top">
-							<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId">
+							<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId" ng-click="hideNativeKeyboard($event)">
 								<option value="">Selecione Cliente</option>
 								<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
 							</select>
