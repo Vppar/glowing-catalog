@@ -1,7 +1,7 @@
 (function(angular) {
   'use strict';
 
-  angular.module('tnt.catalog.prefetch.service', []).service(
+  angular.module('tnt.catalog.prefetch.service', ['tnt.catalog.service.dialog']).service(
     'PrefetchService',
     function PrefetchService($q, $http, $log, DialogService) {
 

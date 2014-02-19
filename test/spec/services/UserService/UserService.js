@@ -9,6 +9,7 @@ describe('Service: UserService', function() {
     var md5 = {};
     var SyncService = {};
     var SyncDriver = {};
+    var PrefetchService = {};
 
     // load the service's module
     beforeEach(function() {
@@ -17,6 +18,7 @@ describe('Service: UserService', function() {
         module(function($provide) {
             $provide.value('SyncService', SyncService);
             $provide.value('SyncDriver', SyncDriver);
+            $provide.value('PrefetchService', PrefetchService);
         });
         delete localStorage.hashMD5;
 
