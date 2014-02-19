@@ -23,6 +23,9 @@
             var self = this;
             var synching = false;
             var syncDeferred = null;
+            var sequenceConflictPromise = null;
+            var insertionCounter = 0;
+            var waitingToSync = false;
 
 
             // Event Handlers
@@ -31,16 +34,26 @@
               sync();
             });
 
+            $rootScope.$on('EntryReceived', function (e, entry) {
+              insert(entry);
+            });
 
             $rootScope.$on('FirebaseDisconnected', function () {
               if (isSynching()) {
                 $log.debug('Disconnected from Firebase during sync!');
                 // FIXME: do we need to do something here?
+                syncDeferred.reject('Disconnected from Firebase!');
               }
             });
 
-
             $rootScope.$on('FirebaseConnected', sync);
+            $rootScope.$on('FirebaseIdle', function () {
+              if (isWaitingToSync()) {
+                $log.debug('Trying to sync again now that Firebase is idle');
+                waitingToSync = false;
+                sync();
+              }
+            });
 
 
             // Object used for storing attempt counts for failing
@@ -90,35 +103,61 @@
             }
 
 
+            function isWaitingToSync() {
+              return waitingToSync;
+            }
+
+
             /**
              * Syncs unsynced entries from journal with the server.
              * @return {Promise}
              */
             function sync() {
+                $log.debug('Starting synchronization attempt');
+
                 if (isSynching()) {
                   $log.debug('Synchronization already running!');
+                  // syncDeferred is declared in the "parent closure"
                   return syncDeferred.promise;
                 }
 
-                syncDeferred = $q.defer();
-
-                $rootScope.$broadcast('SyncService.sync start');
-
-                syncNext(syncDeferred);
-
-                // Remove the reference to the syncPromise once finished,
-                // either with rejection or resolution
-                function clearPromise() {
-                    syncDeferred = null;
-                    // Clear all attempt counters
-                    SyncAttempt.clear();
-
-                    $rootScope.$broadcast('SyncService.sync stopped');
+                if (!SyncDriver.isConnected()) {
+                  $log.debug('Not connected to firebase!');
+                  return $q.reject('Not connected to firebase!');
                 }
 
-                syncDeferred.promise.then(clearPromise, clearPromise);
+                if (SyncDriver.isFirebaseBusy()) {
+                  waitingToSync = true;
+                  $log.debug('Firebase is busy! We\'ll wait for it to be idle.');
+                  return $q.reject('Firebase is busy!');
+                }
 
-                return syncDeferred.promise;
+                var deferred = $q.defer();
+
+                SyncDriver.lock(function () {
+                  $rootScope.$broadcast('SyncStart');
+
+                  syncNext(deferred);
+
+                  // Remove the reference to the syncPromise once finished,
+                  // either with rejection or resolution
+                  function clearPromise() {
+                      syncDeferred = null;
+                      // Clear all attempt counters
+                      SyncAttempt.clear();
+
+                      $rootScope.$broadcast('SyncStop');
+                  }
+
+                  deferred.promise.then(clearPromise, clearPromise);
+                }, function (err) {
+                  $log.debug('Failed to get lock Firebase for sync!', err);
+                  deferred.reject(err);
+                });
+
+                syncDeferred = deferred;
+
+                return deferred.promise;
             }
 
 
@@ -272,6 +311,7 @@
              * @return {Promise} The promise returned by the JournalKeeper.
              */
             function insert(entry) {
+                console.log('INSERTING', entry);
                 if (!entry || typeof entry !== 'object') {
                     $log.fatal('Trying to insert an invalid entry!', entry);
                     return $q.reject('Trying to insert an invalid entry!');
@@ -298,35 +338,34 @@
                   return $q.reject(msg);
                 }
 
+
                 // We have unsynced entries, check for conflicts
-                if (entry.sequence <= JournalKeeper.getSequence()) {
-                    var deferred = $q.defer();
+                if (isResolvingConflict() || entry.sequence <= JournalKeeper.getSequence()) {
+                    insertionCounter++;
+                    if (sequenceConflictPromise) {
+                      sequenceConflictPromise = sequenceConflictPromise.then(function () {
+                        return resolveSequenceConflict(entry);
+                      });
+                    } else {
+                      sequenceConflictPromise = resolveSequenceConflict(entry);
+                    }
 
-                    JournalKeeper.findEntry(entry.sequence).then(function (journalEntry) {
-                        if (journalEntry) {
-                            entry.uuid === journalEntry.uuid ?
-                                // Entry is already in the journal, do nothing.
-                                deferred.resolve() :
-                                // We have a conflict! Resolve it!
-                                deferred.resolve(resolveSequenceConflict(entry));
-                        } else {
-                            // TODO This is an odd situation. The received entry has a sequence
-                            // number lower than the one in our JournalKeeper but we don't
-                            // have a local entry for it.
-                            $log.fatal('Odd situation found! There was a missing sequence entry.');
-                            deferred.resolve(JournalKeeper.insert(entry));
-                        }
-                    }, function (err) {
-                        deferred.reject(err);
-                    });
+                    sequenceConflictPromise.then(decreaseInsertionCounter);
 
-                    return deferred.promise;
+                    return sequenceConflictPromise;
                 }
 
                 return JournalKeeper.insert(entry);
             };
 
 
+            function decreaseInsertionCounter() {
+              insertionCounter--;
+
+              if (insertionCounter === 0) {
+                sequenceConflictPromise = null;
+              }
+            }
 
             /**
              * Where the unsynced entries will be stored during synchronization
@@ -441,7 +480,7 @@
              * @param {JournalEntry} entry The entry received from the server.
              * @return {Promise}
              */
-            function resolveSequenceConflict(entry) {
+            function reSequence(entry) {
                 $log.debug('Resolving sequence conflict!', entry);
 
                 var deferred = $q.defer();
@@ -466,6 +505,40 @@
 
                 return deferred.promise;
             };
+
+
+            //// <START sequence conclict resolution
+            function isResolvingConflict() {
+              return !!sequenceConflictPromise;
+            }
+
+            function resolveSequenceConflict(entry) {
+                var deferred = $q.defer();
+
+                JournalKeeper.findEntry(entry.sequence).then(function (journalEntry) {
+                    if (journalEntry) {
+                        entry.uuid === journalEntry.uuid ?
+                            // Entry is already in the journal, do nothing.
+                            deferred.resolve() :
+                            // We have a conflict! Resolve it!
+                            deferred.resolve(reSequence(entry));
+                    } else {
+                        // TODO This is an odd situation. The received entry has a sequence
+                        // number lower than the one in our JournalKeeper but we don't
+                        // have a local entry for it.
+                        $log.fatal('Odd situation found! There was a missing sequence entry.');
+                        deferred.resolve(JournalKeeper.insert(entry));
+                    }
+                }, function (err) {
+                    console.log('#################', err);
+                    deferred.reject(err);
+                });
+
+                return deferred.promise;
+            }
+
+
+            //// sequence conflict resolution END>
 
 
 
