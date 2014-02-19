@@ -47,6 +47,7 @@
     "phoneTypes": ["Residencial", "Comercial", "Celular"],
     "cardData": {
         "flags": ["American Express", "Aura", "BNDES", "Diners Club", "Elo", "Hipercard", "MasterCard", "Sorocred", "Visa"],
+        "goPayflags": ["American Express", "Diners Club", "MasterCard", "Visa"],
         "installments": ["1 x", "2 x", "3 x", "4 x", "5 x", "6 x", "7 x", "8 x", "9 x", "10 x", "11 x", "12 x"]
     },
     "customers": [{
