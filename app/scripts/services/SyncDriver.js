@@ -13,8 +13,25 @@
       function SyncDriver($rootScope, $log, $q, Firebase, FirebaseSimpleLogin) {
 
         var baseRef = new Firebase('voppwishlist.firebaseio.com');
-        var userJournalRef = null;
+        var userRef = null;
+        var journalRef = null;
+        var syncingFlagRef = null;
+
         var connected = false;
+
+        var firebaseSyncStartTime = null;
+        var firebaseSyncStartTime2 = null;
+
+
+        $rootScope.$on('SyncStop', function () {
+          if (syncingFlagRef) {
+            syncingFlagRef.remove();
+          }
+        });
+
+        this.isFirebaseBusy = function () {
+          return !!firebaseSyncStartTime && firebaseSyncStartTime !== firebaseSyncStartTime2;
+        };
 
         // Uses Firebase's connected ref...
         this.isConnected = function () {
@@ -24,7 +41,30 @@
         //FIXME to check if the user is connected 
         // use 'SyncDriver.isConnected'
         this.hasLoggedIn = function () {
-          return !!userJournalRef;
+          return !!journalRef;
+        };
+
+
+        this.lock = function (successCb, failureCb) {
+          $log.debug('Trying to lock the user journal for synchronizing this device');
+          syncingFlagRef.transaction(function (currentValue) {
+            // Ooops! Another device got our slot! Abort synchronization!
+            if (!currentValue) {
+              return Firebase.ServerValue.TIMESTAMP;
+            }
+          }, function (err, committed, snapshot) {
+            if (err) {
+              failureCb(err);
+            } else {
+              if (committed) {
+                firebaseSyncStartTime2 = snapshot.val();
+                $log.debug('Firebase user journal locked!');
+                successCb(snapshot.val());
+              } else {
+                failureCb('Firebase already being synced!');
+              }
+            }
+          });
         };
 
         // TODO implement rememberMe
@@ -34,8 +74,7 @@
         // instances of FirebaseSimpleLogin() to use 2 different
         // callbacks (one for login, another for logout). This is bothering
         // me and I hope to fix this later to use a single callback.
-        this.login = function(user, pass, rememberMe) {
-
+        this.login = function(username, password, rememberMe) {
           var deferred = $q.defer();
 
           new FirebaseSimpleLogin(baseRef, function(err, user) {
@@ -43,21 +82,37 @@
               $log.debug('Firebase authentication error (login cb)', err);
               deferred.reject(err);
             } else if (user) {
+              userRef = baseRef.child('users').child(username.replace(/\.+/g, '_'));
+              journalRef = userRef.child('journal');
+              syncingFlagRef = userRef.child('syncing');
+
+              syncingFlagRef.onDisconnect().remove();
+
+              syncingFlagRef.on('value', function (snapshot) {
+                var syncing = snapshot.val();
+                firebaseSyncStartTime  = syncing || null;
+
+                syncing ?
+                  $rootScope.$broadcast('FirebaseBusy', syncing) :
+                  $rootScope.$broadcast('FirebaseIdle');
+              });
+
               connected = true;
+              // Broadcast the event once everything is ready
               $rootScope.$broadcast('FirebaseConnected');
-              $log.debug('Logged in to Firebase as ' + user);
+
+              $log.debug('Logged in to Firebase as ' + username);
               deferred.resolve(user);
             }else{
                 connected = false;
                 $rootScope.$broadcast('FirebaseDisconnected');
             }
           }).login('password', {
-            email : user,
-            password : pass
+            email : username,
+            password : password
           });
           
           deferred.promise.then(function( ) {
-            userJournalRef = baseRef.child('users').child(user.replace(/\.+/g, '_')).child('journal');
           });
 
           return deferred.promise;
@@ -83,15 +138,11 @@
 
         this.registerSyncService =
           function(SyncService) {
-            userJournalRef.startAt(SyncService.getLastSyncedSequence() + 1).on(
+            journalRef.startAt(SyncService.getLastSyncedSequence() + 1).on(
               'child_added',
               function(snapshot) {
                 var entry = snapshot.val();
-                $log.debug('Firebase child_added cb', entry);
-
-                $rootScope.$broadcast('Firebase:childAdded', entry);
-
-                SyncService.insert(entry);
+                $rootScope.$broadcast('EntryReceived', entry);
               });
           };
 
@@ -99,8 +150,8 @@
         this.save = function(entry) {
           var deferred = $q.defer();
 
-          if (userJournalRef) {
-            userJournalRef.child(entry.sequence).transaction(function(currentValue) {
+          if (journalRef) {
+            journalRef.child(entry.sequence).transaction(function(currentValue) {
               if (currentValue === null) {
                 entry.synced = new Date().getTime();
 

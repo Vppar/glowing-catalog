@@ -28,11 +28,12 @@ describe('Service: SyncServiceSync', function () {
 
       SyncDriverMock.save = jasmine.createSpy('SyncDriver.save');
       SyncDriverMock.isConnected = jasmine.createSpy('SyncDriver.isConnected').andReturn(true);
+      SyncDriverMock.isFirebaseBusy = jasmine.createSpy('SyncDriver.isFirebaseBusy');
+      SyncDriverMock.lock = jasmine.createSpy('SyncDriver.lock');
 
       JournalKeeperMock.readUnsynced = jasmine.createSpy('JournalKeeper.readUnsynced');
       JournalKeeperMock.readOldestUnsynced = jasmine.createSpy('JournalKeeper.readOldestUnsynced');
       JournalKeeperMock.markAsSynced = jasmine.createSpy('JournalKeeper.markAsSynced');
-
   });
 
 
@@ -59,6 +60,8 @@ describe('Service: SyncServiceSync', function () {
     SyncService.MAX_SYNC_ATTEMPTS = 2;
 
     PromiseHelper.config($q, $log.debug);
+
+    SyncDriverMock.lock.andCallFake(function (fn) { fn(123456); });
   }));
 
 

@@ -42,7 +42,7 @@ describe('Service: SyncDriverIsConnectedScenario', function() {
                 signedIn = true;
             };
             
-            var username = '';
+            var username = 'foo';
             var password = '';
             
             runs(function() {

@@ -28,6 +28,7 @@ describe('Service: SyncServiceUnstashEntries', function () {
       spyOn($log, 'fatal').andCallThrough();
 
       JournalKeeperMock.compose = jasmine.createSpy('JournalKeeper.compose');
+      JournalKeeperMock.resync = jasmine.createSpy('JournalKeeper.resync');
 
       // We'll use this to insert entries in the stash
       JournalKeeperMock.readUnsynced = jasmine.createSpy('JournalKeeper.readUnsynced')

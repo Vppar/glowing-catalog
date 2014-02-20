@@ -155,10 +155,8 @@
         }).otherwise({
             redirectTo : '/'
         });
-    }).run(function(JournalKeeper, DataProvider){
-        DataProvider.fakeJournal().then(function(){
-            JournalKeeper.resync();
-        });
+    }).run(function(JournalKeeper){
+        JournalKeeper.resync();
     });
 }(angular));
 
