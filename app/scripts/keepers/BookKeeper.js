@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.bookkeeping.entry', []).factory('BookEntry', function BookEntry() {
+    angular.module('tnt.catalog.bookkeeping.entry', []).factory('BookEntry', function () {
         var BookEntry = function svc(uuid, created, debitAccount, creditAccount, document, entity, op, amount) {
             this.uuid = uuid;
             this.created = created;
@@ -10,15 +10,17 @@
             this.document = document;
             this.entity = entity;
             this.op = op;
+            this.remark = remark;
             this.amount = amount;
         };
 
         return BookEntry;
     });
 
-    angular.module('tnt.catalog.bookkeeping.entry').factory('Book', function Book() {
-        var Book = function svc(name) {
+    angular.module('tnt.catalog.bookkeeping.entry').factory('Book', function () {
+        var Book = function svc(name, reference) {
             this.name = name;
+            this.reference = reference;
             this.balance = 0;
         };
         return Book;
