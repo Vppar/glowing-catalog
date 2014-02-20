@@ -6,6 +6,7 @@ describe('Service: JournalKeeperResync', function() {
 
   beforeEach(function () {
       replayer.replay = jasmine.createSpy('Replayer.replay');
+      replayer.nukeKeepers = jasmine.createSpy('Replayer.nukeKeepers');
 
       storage.register = jasmine.createSpy('PersistentStorage.register');
       storage.list = jasmine.createSpy('PersistentStorage.list');

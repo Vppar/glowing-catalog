@@ -1,7 +1,7 @@
 
 // This scenario should test the case of two devices signed in with
 // the same user trying to sync different entries at the same time.
-ddescribe('SyncService.sync() with concurrent .insert()s', function () {
+xdescribe('SyncService.sync() with concurrent .insert()s', function () {
   'use strict';
 
   var FIREBASE_USER_DATA_LOCATION = 'voppwishlist.firebaseio.com/users/test@fake_acc/journal';

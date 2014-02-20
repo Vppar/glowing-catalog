@@ -41,6 +41,7 @@ describe('Service: SyncDriverIsConnectedScenario', function() {
             var loging = function() {
                 signedIn = true;
             };
+
             delete localStorage.firebaseConnected;
             var username = '';
             var password = '';
