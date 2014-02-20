@@ -1,51 +1,60 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.bookkeeping.entry', []).factory('BookEntry', function() {
+    angular
+            .module('tnt.catalog.bookkeeping.entry', [])
+            .factory(
+                    'BookEntry',
+                    function() {
 
-        var BookEntry = function svc(uuid, created, debitAccount, creditAccount, document, entity, op, amount) {
-            
-            var validProperties = ['uuid', 'created', 'debitAccount', 'creditAccount', 'document', 'entity', 'op', 'remark', 'amount'];
-            
-            ObjectUtils.method(svc, 'isValid', function() {
-                for ( var ix in this) {
-                    var prop = this[ix];
-                    if (!angular.isFunction(prop)) {
-                        if (validProperties.indexOf(ix) === -1) {
-                            throw 'Unexpected property ' + ix;
-                        }
-                    }
-                }
-            });
-            
-            if (arguments.length != svc.length) {
-                if (arguments.length === 1 && angular.isObject(arguments[0])) {
-                    svc.prototype.isValid.apply(arguments[0]);
-                    ObjectUtils.dataCopy(this, arguments[0]);
-                } else {
-                    throw 'BookEntry must be initialized with uuid, created, debitAccount, creditAccount, document, entity, op, remark, amount';
-                }
-            } else {
-                this.uuid = uuid;
-                this.created = created;
-                this.debitAccount = debitAccount;
-                this.creditAccount = creditAccount;
-                this.document = document;
-                this.entity = entity;
-                this.op = op;
-                this.remark = remark;
-                this.amount = amount;
-            }
-        };
+                        var BookEntry =
+                                function svc(uuid, created, debitAccount, creditAccount, document, entity, op, amount) {
 
-        return BookEntry;
-    });
+                                    var validProperties = [
+                                        'uuid', 'created', 'debitAccount', 'creditAccount', 'document', 'entity', 'op', 'remark', 'amount'
+                                    ];
+
+                                    ObjectUtils.method(svc, 'isValid', function() {
+                                        for ( var ix in this) {
+                                            var prop = this[ix];
+                                            if (!angular.isFunction(prop)) {
+                                                if (validProperties.indexOf(ix) === -1) {
+                                                    throw 'Unexpected property ' + ix;
+                                                }
+                                            }
+                                        }
+                                    });
+
+                                    if (arguments.length != svc.length) {
+                                        if (arguments.length === 1 && angular.isObject(arguments[0])) {
+                                            svc.prototype.isValid.apply(arguments[0]);
+                                            ObjectUtils.dataCopy(this, arguments[0]);
+                                        } else {
+                                            throw 'BookEntry must be initialized with uuid, created, debitAccount, creditAccount, document, entity, op, remark, amount';
+                                        }
+                                    } else {
+                                        this.uuid = uuid;
+                                        this.created = created;
+                                        this.debitAccount = debitAccount;
+                                        this.creditAccount = creditAccount;
+                                        this.document = document;
+                                        this.entity = entity;
+                                        this.op = op;
+                                        this.remark = remark;
+                                        this.amount = amount;
+                                    }
+                                };
+
+                        return BookEntry;
+                    });
 
     angular.module('tnt.catalog.bookkeeping.entry').factory('Book', function() {
         var Book = function svc(name, reference) {
 
-            var validProperties = ['name', 'reference'];
-            
+            var validProperties = [
+                'name', 'reference'
+            ];
+
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
                     var prop = this[ix];
@@ -56,7 +65,7 @@
                     }
                 }
             });
-            
+
             if (arguments.length != svc.length) {
                 if (arguments.length === 1 && angular.isObject(arguments[0])) {
                     svc.prototype.isValid.apply(arguments[0]);
@@ -89,7 +98,8 @@
          */
         ObjectUtils.ro(this.handlers, 'bookWriteV1', function(event) {
             var eventData = angular.copy(event);
-            var debitBook = ArrayUtils.find(books, 'name', eventData.debitAccount);
+            var entityBook = ArrayUtils.list(books, 'name', eventData.entity);
+            var debitBook = ArrayUtils.find(entityBook, 'reference', eventData.debitAccount);
 
             if (debitBook == null) {
                 var book = new Book(eventData.entity, eventData.debitAccount);
@@ -99,7 +109,7 @@
                 debitBook.balance = debitBook.balance - eventData.amount;
             }
 
-            var creditBook = ArrayUtils.find(books, 'name', eventData.creditAccount);
+            var creditBook = ArrayUtils.find(entityBook, 'reference', eventData.creditAccount);
             if (!creditBook) {
                 var book = new Book(eventData.entity, eventData.creditAccount);
                 book.balance += eventData.amount;
@@ -128,9 +138,15 @@
             return JournalKeeper.compose(entry);
         };
 
-        this.read = function() {
+        this.list = function() {
             return angular.copy(books);
         };
+    });
+
+    angular.module('tnt.catalog.book', [
+        'tnt.catalog.bookkeeping.entry', 'tnt.catalog.bookkeeping.entry', 'tnt.catalog.bookkeeping'
+    ]).run(function(BookKeeper) {
+        // Warming up BookKeeper
     });
 
 })(angular);

@@ -1,5 +1,4 @@
 'use strict';
-
 describe('Service: BookKeeperWriteSpecr', function() {
 
     // instantiate service
@@ -84,7 +83,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);
 
         // Then
-        expect(BookKeeper.read().length).toBe(2);
+        expect(BookKeeper.list().length).toBe(2);
     });
 
     it('should debit a newly created book', function() {
@@ -94,7 +93,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);
 
         // then
-        var book = ArrayUtils.list(BookKeeper.read(), 'name', bookEntry.entity);
+        var book = ArrayUtils.list(BookKeeper.list(), 'name', bookEntry.entity);
         var book2 = ArrayUtils.find(book, 'reference', debitAccount);
         expect((book2.balance)).toEqual(-100);
     });
@@ -105,7 +104,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         // when
         BookKeeper.handlers['bookWriteV1'](bookEntry);
 
-        var book = ArrayUtils.list(BookKeeper.read(), 'name', bookEntry.entity);
+        var book = ArrayUtils.list(BookKeeper.list(), 'name', bookEntry.entity);
         var book2 = ArrayUtils.find(book, 'reference', creditAccount);
         // then
         expect((book2.balance)).toEqual(100);
@@ -118,7 +117,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);// 100
         BookKeeper.handlers['bookWriteV1'](bookEntry2);// 20
 
-        var book = ArrayUtils.list(BookKeeper.read(), 'reference', debitAccount);
+        var book = ArrayUtils.list(BookKeeper.list(), 'reference', debitAccount);
         var totalDebitAccount = 0;
         for(var i in book){
             totalDebitAccount += book[i].balance;
@@ -134,7 +133,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);// 100
         BookKeeper.handlers['bookWriteV1'](bookEntry2);// 20
 
-        var book = ArrayUtils.list(BookKeeper.read(), 'reference', creditAccount);
+        var book = ArrayUtils.list(BookKeeper.list(), 'reference', creditAccount);
         
         var totalcreditAccount = 0;
         for(var i in book){
