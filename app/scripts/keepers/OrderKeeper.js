@@ -97,7 +97,7 @@
         });
 
         // Nuke event for clearing the orders list
-        ObjectUtils.ro(this.handlers, 'nukeV1', function() {
+        ObjectUtils.ro(this.handlers, 'nukeOrdersV1', function() {
             orders.length = 0;
             return true;
         });

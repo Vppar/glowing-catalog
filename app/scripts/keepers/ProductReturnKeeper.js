@@ -123,7 +123,7 @@
 
 
         // Nuke event for clearing the productsReturned list
-        ObjectUtils.ro(this.handlers, 'nukeV1', function() {
+        ObjectUtils.ro(this.handlers, 'nukeProductsReturnedV1', function() {
             productsReturned.length = 0;
             return true;
         });

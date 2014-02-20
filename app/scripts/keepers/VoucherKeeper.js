@@ -73,7 +73,7 @@
 
 
         // Nuke event for clearing the vouchers lists
-        ObjectUtils.ro(this.handlers, 'nukeV1', function() {
+        ObjectUtils.ro(this.handlers, 'nukeVouchersV1', function() {
             voucher.voucher.length = 0;
             voucher.coupon.length = 0;
             voucher.giftCard.length = 0;
