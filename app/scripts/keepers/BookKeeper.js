@@ -1,27 +1,75 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.bookkeeping.entry', []).factory('BookEntry', function () {
+    angular.module('tnt.catalog.bookkeeping.entry', []).factory('BookEntry', function() {
+
         var BookEntry = function svc(uuid, created, debitAccount, creditAccount, document, entity, op, amount) {
-            this.uuid = uuid;
-            this.created = created;
-            this.debitAccount = debitAccount;
-            this.creditAccount = creditAccount;
-            this.document = document;
-            this.entity = entity;
-            this.op = op;
-            this.remark = remark;
-            this.amount = amount;
+            
+            var validProperties = ['uuid', 'created', 'debitAccount', 'creditAccount', 'document', 'entity', 'op', 'remark', 'amount'];
+            
+            ObjectUtils.method(svc, 'isValid', function() {
+                for ( var ix in this) {
+                    var prop = this[ix];
+                    if (!angular.isFunction(prop)) {
+                        if (validProperties.indexOf(ix) === -1) {
+                            throw 'Unexpected property ' + ix;
+                        }
+                    }
+                }
+            });
+            
+            if (arguments.length != svc.length) {
+                if (arguments.length === 1 && angular.isObject(arguments[0])) {
+                    svc.prototype.isValid.apply(arguments[0]);
+                    ObjectUtils.dataCopy(this, arguments[0]);
+                } else {
+                    throw 'BookEntry must be initialized with uuid, created, debitAccount, creditAccount, document, entity, op, remark, amount';
+                }
+            } else {
+                this.uuid = uuid;
+                this.created = created;
+                this.debitAccount = debitAccount;
+                this.creditAccount = creditAccount;
+                this.document = document;
+                this.entity = entity;
+                this.op = op;
+                this.remark = remark;
+                this.amount = amount;
+            }
         };
 
         return BookEntry;
     });
 
-    angular.module('tnt.catalog.bookkeeping.entry').factory('Book', function () {
+    angular.module('tnt.catalog.bookkeeping.entry').factory('Book', function() {
         var Book = function svc(name, reference) {
-            this.name = name;
-            this.reference = reference;
-            this.balance = 0;
+
+            var validProperties = ['name', 'reference'];
+            
+            ObjectUtils.method(svc, 'isValid', function() {
+                for ( var ix in this) {
+                    var prop = this[ix];
+                    if (!angular.isFunction(prop)) {
+                        if (validProperties.indexOf(ix) === -1) {
+                            throw 'Unexpected property ' + ix;
+                        }
+                    }
+                }
+            });
+            
+            if (arguments.length != svc.length) {
+                if (arguments.length === 1 && angular.isObject(arguments[0])) {
+                    svc.prototype.isValid.apply(arguments[0]);
+                    ObjectUtils.dataCopy(this, arguments[0]);
+                } else {
+                    throw 'Book must be initialized with name, reference.';
+                }
+            } else {
+                this.name = name;
+                this.reference = reference;
+                this.balance = 0;
+            }
+
         };
         return Book;
     });
@@ -44,7 +92,7 @@
             var debitBook = ArrayUtils.find(books, 'name', eventData.debitAccount);
 
             if (debitBook == null) {
-                var book = new Book(eventData.debitAccount);
+                var book = new Book(eventData.entity, eventData.debitAccount);
                 book.balance -= eventData.amount;
                 books.push(book);
             } else {
@@ -53,7 +101,7 @@
 
             var creditBook = ArrayUtils.find(books, 'name', eventData.creditAccount);
             if (!creditBook) {
-                var book = new Book(eventData.creditAccount);
+                var book = new Book(eventData.entity, eventData.creditAccount);
                 book.balance += eventData.amount;
                 books.push(book);
             } else {
@@ -64,7 +112,7 @@
         Replayer.registerHandlers(this.handlers);
 
         this.write = function(entry) {
-            
+
             var event = angular.copy(entry);
             event.created = (new Date()).getTime();
 

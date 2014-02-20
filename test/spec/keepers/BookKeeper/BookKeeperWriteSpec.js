@@ -94,8 +94,9 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);
 
         // then
-        var book = ArrayUtils.find(BookKeeper.read(), 'name', debitAccount);
-        expect((book.balance)).toEqual(-100);
+        var book = ArrayUtils.list(BookKeeper.read(), 'name', bookEntry.entity);
+        var book2 = ArrayUtils.find(book, 'reference', debitAccount);
+        expect((book2.balance)).toEqual(-100);
     });
 
     it('should credit a newly created book', function() {
@@ -104,9 +105,10 @@ describe('Service: BookKeeperWriteSpecr', function() {
         // when
         BookKeeper.handlers['bookWriteV1'](bookEntry);
 
-        var book = ArrayUtils.find(BookKeeper.read(), 'name', creditAccount);
+        var book = ArrayUtils.list(BookKeeper.read(), 'name', bookEntry.entity);
+        var book2 = ArrayUtils.find(book, 'reference', creditAccount);
         // then
-        expect((book.balance)).toEqual(100);
+        expect((book2.balance)).toEqual(100);
     });
 
     it('should debit a previously existing book', function() {
@@ -116,9 +118,13 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);// 100
         BookKeeper.handlers['bookWriteV1'](bookEntry2);// 20
 
-        var book = ArrayUtils.find(BookKeeper.read(), 'name', debitAccount);
+        var book = ArrayUtils.list(BookKeeper.read(), 'reference', debitAccount);
+        var totalDebitAccount = 0;
+        for(var i in book){
+            totalDebitAccount += book[i].balance;
+        }
         // then
-        expect((book.balance)).toEqual(-120);
+        expect((totalDebitAccount)).toEqual(-120);
     });
 
     it('should credit a previously existing book', function() {
@@ -128,10 +134,14 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);// 100
         BookKeeper.handlers['bookWriteV1'](bookEntry2);// 20
 
-        var book = ArrayUtils.find(BookKeeper.read(), 'name', creditAccount);
-
+        var book = ArrayUtils.list(BookKeeper.read(), 'reference', creditAccount);
+        
+        var totalcreditAccount = 0;
+        for(var i in book){
+            totalcreditAccount += book[i].balance;
+        }
         // then
-        expect((book.balance)).toEqual(120);
+        expect((totalcreditAccount)).toEqual(120);
     });
 
     it('should properly create the entry', function() {
