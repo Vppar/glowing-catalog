@@ -7,7 +7,7 @@
             var token = localStorage.gpToken;
             $http({
                 method : 'POST',
-                url : 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token='+token,
+                url : 'http://vopp.tunts.net/gopay/insertCreditCardPayment/?token='+token,
                 data : data,
             }).success(function(data) {
                 if (data.Status !== 0) {

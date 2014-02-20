@@ -58,7 +58,7 @@
           
           deferred.promise.then(function( ) {
             userJournalRef = baseRef.child('users').child(user.replace(/\.+/g, '_')).child('journal');
-            var tokenRef = baseRef.child('users').child(user.replace(/\.+/g, '_')).child('credentials').child('gpToken');
+            var tokenRef = baseRef.child('users').child(user.replace(/\.+/g, '_')).child('account').child('gpToken');
             tokenRef.on('value', function(nameSnapshot) {
                 if(nameSnapshot){
                     localStorage.gpToken = nameSnapshot.val() ;
