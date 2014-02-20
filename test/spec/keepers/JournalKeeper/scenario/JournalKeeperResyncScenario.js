@@ -192,7 +192,7 @@ describe('Keeper: JournalKeeper.resync() scenario', function() {
 
         function clearKeeper() {
             // Clears all entities from the EntityKeeper
-            EntityKeeper.handlers.nukeV1();
+            EntityKeeper.handlers.nukeEntitiesV1();
             expect(EntityKeeper.list().length).toBe(0);
         } // clearKeepers()
     });
