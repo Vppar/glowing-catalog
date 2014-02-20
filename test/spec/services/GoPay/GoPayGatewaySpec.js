@@ -14,6 +14,10 @@ describe('Service: GoPayGateway', function() {
         $httpBackend = _$httpBackend_;
         $rootScope = _$rootScope_;
     }));
+    
+    beforeEach(function(){
+        localStorage.gpToken = 'fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374';
+    });
 
     it('should get status 0', function() {
         var result = undefined;

@@ -4,10 +4,10 @@
     angular.module('tnt.catalog.gopay.gateway', []).service('GoPayGateway', function GoPayGateway($q, $http) {
         this.pay = function(data) {
             var deferred = $q.defer();
-
+            var token = localStorage.gpToken;
             $http({
                 method : 'POST',
-                url : 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374',
+                url : 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token='+token,
                 data : data,
             }).success(function(data) {
                 if (data.Status !== 0) {
