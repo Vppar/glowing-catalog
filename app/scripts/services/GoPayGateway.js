@@ -16,7 +16,7 @@
                     deferred.resolve(data);
                 }
             }).error(function() {
-                deferred.reject('There was an error contacting the server');
+                deferred.reject({Status: 'conn', Message: 'There was an error contacting the server'});
             });
 
             return deferred.promise;
