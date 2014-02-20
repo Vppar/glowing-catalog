@@ -24,7 +24,7 @@ describe('Service: GoPayGateway', function() {
         var cc = {};
         var expected = { Status : 0}; 
         
-        $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
+        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
@@ -50,7 +50,7 @@ describe('Service: GoPayGateway', function() {
         var cc = {};
         var expected = { Status : -1}; 
         
-        $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
+        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
@@ -76,7 +76,7 @@ describe('Service: GoPayGateway', function() {
         var cc = {};
         var expected = { Status : -2}; 
         
-        $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
+        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
@@ -102,7 +102,7 @@ describe('Service: GoPayGateway', function() {
         var cc = {};
         var expected = {Status : -3}; 
         
-        $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
+        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
@@ -128,7 +128,7 @@ describe('Service: GoPayGateway', function() {
         var cc = {};
         var expected = {Status: 'conn', Message: 'There was an error contacting the server'}; 
         
-        $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
+        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(500);
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
