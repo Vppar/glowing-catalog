@@ -149,7 +149,6 @@
               function(snapshot) {
                 var entry = snapshot.val();
                 $rootScope.$broadcast('EntryReceived', entry);
-                //SyncService.insert(entry);
               });
           };
 

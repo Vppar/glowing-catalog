@@ -79,8 +79,8 @@
      * The CRUD for journal keeping operations
      */
     angular
-    .module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log', 'tnt.catalog.service.data'])
-    .service('JournalKeeper', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver, PersistentStorage, DataProvider) {
+    .module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log'])
+    .service('JournalKeeper', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
 
         var self = this;
         var sequence = 1;
@@ -332,13 +332,6 @@
 
 
                 var promise = storage.list(entityName);
-
-                // FIXME Remove this ASAP
-                // Inserts fake entries in the app.
-                promise
-                    .then(function (results) {
-                        return DataProvider.fakeJournal();
-                    });
 
                 promise
                     // Replays data from WebSQL into the app.
