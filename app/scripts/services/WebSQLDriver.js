@@ -230,9 +230,11 @@
          */
         this.update = function(tx, name, params, data) {
             var updatables = [];
+            var bindings = [];
   
             for ( var columnName in data) {
-                updatables.push(columnName + ' = ' + quote(data[columnName]));
+                updatables.push(columnName + " = ?");
+                bindings.push(data[columnName]);
             }
   
             updatables = updatables.join(', ');
@@ -247,8 +249,7 @@
             SQL.push(where(name, params));
   
             SQL = SQL.join(' ');
-
-            tx.executeSql(SQL);
+            tx.executeSql(SQL, bindings);
         };
 
         /**
