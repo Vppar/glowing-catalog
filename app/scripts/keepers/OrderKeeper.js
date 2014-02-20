@@ -96,6 +96,12 @@
             }
         });
 
+        // Nuke event for clearing the orders list
+        ObjectUtils.ro(this.handlers, 'nukeOrdersV1', function() {
+            orders.length = 0;
+            return true;
+        });
+
         /**
          * Registering the handlers with the Replayer
          */

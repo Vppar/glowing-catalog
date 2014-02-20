@@ -119,6 +119,14 @@
                 return event.uuid;
             });
 
+
+            // Nuke event for clearing the vault list
+            ObjectUtils.ro(this.handlers, 'nukeCoinsV1', function() {
+                vault.length = 0;
+                return true;
+            });
+
+
             /**
              * Registering the handlers with the Replayer
              */

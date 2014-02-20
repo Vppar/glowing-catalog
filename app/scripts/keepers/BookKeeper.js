@@ -59,6 +59,12 @@
             }
         });
 
+        // Nuke event for clearing the books list
+        ObjectUtils.ro(this.handlers, 'nukeBooksV1', function() {
+            books.length = 0;
+            return true;
+        });
+
         Replayer.registerHandlers(this.handlers);
 
         this.write = function(entry) {
