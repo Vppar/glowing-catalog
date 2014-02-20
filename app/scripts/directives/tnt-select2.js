@@ -12,7 +12,6 @@
                         $('input:focus').blur(); //works at iOS too
                         element.removeAttr('readonly');
                         element.removeAttr('disabled');
-                        
                     }, 100);
                 }
                 element.bind('click', closeNativeKeyBoard);

@@ -27,7 +27,7 @@
 			<div class="controls-row" ng-hide="delivery.status=='delivered'||(delivery.orderItems | filter: itemsRemainingFilter).length==0">
 				<div class="control-group lbl-top">
 					<label class="control-label">Produto</label>
-					<select class="combo-width-delivery-details" ui-select2 select2 ng-model="item.id" ng-click="selectOrderItem(item.id)">
+					<select class="combo-width-delivery-details" ui-select2 tnt-select2 ng-model="item.id" ng-click="selectOrderItem(item.id)">
 						<option ng-repeat="orderItem in delivery.orderItems | filter: itemsRemainingFilter" value="{{orderItem.id}}">{{orderItem.title}}</option>
 					</select>
 				</div>
