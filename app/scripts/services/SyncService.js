@@ -311,7 +311,7 @@
              * @return {Promise} The promise returned by the JournalKeeper.
              */
             function insert(entry) {
-                console.log('INSERTING', entry);
+                $log.debug('INSERTING', entry);
                 if (!entry || typeof entry !== 'object') {
                     $log.fatal('Trying to insert an invalid entry!', entry);
                     return $q.reject('Trying to insert an invalid entry!');
@@ -444,17 +444,18 @@
                 }
 
                 clearStash();
-
-                var result = $q.all(promises);
-
+                          
+                var promise = $q.all(promises);
 
                 // FIXME: should we call sync() once entries are re-composed?
-                result.then(null, function (err) {
+                promise.then(function () {
+                    return JournalKeeper.resync();
+                }, function (err) {
                     // FIXME: what should we do if re-composing fails?
                     $log.debug('Failed to re-compose entries during unstash process!', err);
                 });
 
-                return result;
+                return promise;
             };
 
 
@@ -530,7 +531,6 @@
                         deferred.resolve(JournalKeeper.insert(entry));
                     }
                 }, function (err) {
-                    console.log('#################', err);
                     deferred.reject(err);
                 });
 

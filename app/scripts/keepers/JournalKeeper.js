@@ -80,7 +80,7 @@
      */
     angular
     .module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log'])
-    .service('JournalKeeper', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver, PersistentStorage) {
+    .service('JournalKeeper', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver, PersistentStorage, DataProvider) {
 
         var self = this;
         var sequence = 1;
@@ -328,40 +328,53 @@
                 var deferred = $q.defer();
                 var promises = [];
               
-                storage.list(entityName).then(function(results){
-                    $log.debug('Starting replay on ' + results.length + ' entries');
+                Replayer.nukeKeepers();
 
-                    var entry = null;
-                    
-                    try {
-                        for(var ix in results){
-                          
-                            entry = results[ix];
-                            
-                            sequence = sequence > entry.sequence ? sequence : entry.sequence + 1;
-                            
-                            if (entry.synced && entry.sequence > syncedSequence) {
-                                syncedSequence = entry.sequence;
+
+                var promise = storage.list(entityName);
+
+                // FIXME Remove this ASAP
+                // Inserts fake entries in the app.
+                promise
+                    .then(function (results) {
+                        return DataProvider.fakeJournal();
+                    });
+
+                promise
+                    // Replays data from WebSQL into the app.
+                    .then(function(results){
+                        $log.debug('Starting replay on ' + results.length + ' entries');
+
+                        var entry = null;
+                        
+                        try {
+                            for(var ix in results){
+                                entry = results[ix];
+                                
+                                sequence = sequence > entry.sequence ? sequence : entry.sequence + 1;
+                                
+                                if (entry.synced && entry.sequence > syncedSequence) {
+                                    syncedSequence = entry.sequence;
+                                }
+                                
+                                promises.push(Replayer.replay(entry));
                             }
-                            
-                            promises.push(Replayer.replay(entry));
+                        } catch (err) {
+                            $log.error('Failed to resync: replay failed');
+                            $log.debug('Failed to resync: replay failed -', err, entry);
+                            deferred.reject(err);
                         }
-                    } catch (err) {
-                        $log.error('Failed to resync: replay failed');
-                        $log.debug('Failed to resync: replay failed -', err, entry);
-                        deferred.reject(err);
-                    }
 
-                    $log.debug('waiting for ' + promises.length + ' promises to resolve');
-                    deferred.resolve($q.all(promises));
-                },function(error){
-                    $log.error('Failed to resync: list failed');
-                    $log.debug('Failed to resync: list failed', error);
-                    deferred.reject(error);
+                        $log.debug('waiting for ' + promises.length + ' promises to resolve');
+                        deferred.resolve($q.all(promises));
+                    },function(error){
+                        $log.error('Failed to resync: list failed');
+                        $log.debug('Failed to resync: list failed', error);
+                        deferred.reject(error);
+                    });
+                    
+                    return deferred.promise;
                 });
-                
-                return deferred.promise;
-            });
         };
 
 
@@ -398,8 +411,8 @@
 
                       $rootScope.$broadcast('JournalKeeper.persistEntry');
                   }, function(error){
-                    $log.error('Failed to compose: PersistentStorage.persist failed', error);
-                    deferred.reject(error);
+                      $log.error('Failed to compose: PersistentStorage.persist failed', error);
+                      deferred.reject(error);
                   });
                 }
 

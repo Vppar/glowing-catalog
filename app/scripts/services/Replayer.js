@@ -26,7 +26,6 @@
          * @param handler - The handler for this event and version
          */
         this.registerHandlers = function(handlers) {
-            
             for(var name in handlers){
                 var handler = handlers[name];
                 if (angular.isFunction(handler)) {
@@ -35,8 +34,19 @@
                     throw 'Only functions are allowed';
                 }
             }
-            
         };
+
+
+        this.nukeKeepers = function () {
+          for (var name in eventHandlers) {
+            // FIXME: we probably need a better way to get nuke handlers
+            if (name.substr(0, 4) === 'nuke' && name.substr(-2) === 'V1') {
+              $log.debug('Running ' + name + ' handler!');
+              eventHandlers[name]();
+            }
+          }
+        };
+
 
         /**
          * <pre>
