@@ -96,7 +96,7 @@ describe('Service: GoPayGateway', function() {
     it('should get status -3', function() {
         var result = undefined;
         var cc = {};
-        var expected = { Status : -3}; 
+        var expected = {Status : -3}; 
         
         $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
         
@@ -122,9 +122,9 @@ describe('Service: GoPayGateway', function() {
     it('should get return an error', function() {
         var result = undefined;
         var cc = {};
-        var expected = 'There was an error contacting the server'; 
+        var expected = {Status: 'conn', Message: 'There was an error contacting the server'}; 
         
-        $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(500);
+        $httpBackend.when('POST', 'http://be7-atl1.vopp.tunts.net/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374').respond(expected);
         
         runs(function() {
             GoPayGateway.pay(cc).then(function(message) {
