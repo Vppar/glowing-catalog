@@ -1,4 +1,4 @@
-describe('Service: SyncServiceSyncScenario', function () {
+xdescribe('Service: SyncServiceSyncScenario', function () {
   'use strict';
 
 
