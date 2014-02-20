@@ -66,8 +66,8 @@
 						ng-click="invertHideOption()" ng-show="hideOptions">
 					</div>
 				</div>
-				<div class="col-details-order-list-item-select pull-right" ng-show="ol=='products'">
-					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="filter.customerId">
+				<div class="col-details-order-list-item-select" ng-show="ol=='products'">
+					<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="filter.customerId">
 						<option value="">Selecione Cliente</option>
 						<option value="{{customer.uuid}}" ng-repeat="customer in customers | orderBy:'name'">{{customer.name}}</option>
 					</select>
@@ -313,7 +313,7 @@ ng-controller="OrderListProductsCtrl">
 
 
 			<div class="order-table-header">
-				<div class="order-col order-col-1">
+				<div class="order-col order-col-1 ">
 					<span>Rank</span>
 				</div>
 				<div class="order-col order-col-5 text-left">
@@ -370,7 +370,7 @@ ng-controller="OrderListProductsCtrl">
 	<div class="scroll-order-list">
 		<div class="row-order-list hover-state-pointer"
 		ng-repeat="product in filteredProducts | orderBy:'-amountTotal' ">
-		<div class="order-col order-col-1">
+		<div class="order-col order-col-1 lineheight20-overrule">
 			{{$index + 1}}
 		</div>
 		<div class="order-product order-col order-col-5 order-product text-left">

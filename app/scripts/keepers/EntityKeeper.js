@@ -77,9 +77,8 @@
 
 
         // Nuke event for clearing the entities list
-        ObjectUtils.ro(this.handlers, 'nukeV1', function() {
+        ObjectUtils.ro(this.handlers, 'nukeEntitiesV1', function() {
             entities.length = 0;
-            // Not sure if we MUST return something
             return true;
         });
         

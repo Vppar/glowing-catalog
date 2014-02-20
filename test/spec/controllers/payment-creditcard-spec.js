@@ -93,7 +93,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
 
     it('should add a credit card payment', function() {
         scope.creditCardForm.$valid = true;
-
+        scope.envFlags = {internet : true};
+        
         scope.creditCard = {
             installment : '2x',
             flag : 'Visa',

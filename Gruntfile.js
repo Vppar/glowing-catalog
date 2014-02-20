@@ -314,6 +314,10 @@ module.exports =
                     unit : {
                         configFile : 'karma.conf.js',
                         singleRun : true
+                    },
+                    coverage : {
+                        configFile : 'coverage.conf.js',
+                        singleRun : true
                     }
                 },
                 cdnify : {
@@ -359,7 +363,7 @@ module.exports =
             });
 
             grunt.registerTask('test', [
-                'clean:server', 'concurrent:test', 'autoprefixer', 'connect:test', 'karma'
+                'clean:server', 'concurrent:test', 'autoprefixer', 'connect:test', 'karma:unit'
             ]);
 
             grunt.registerTask('build', [

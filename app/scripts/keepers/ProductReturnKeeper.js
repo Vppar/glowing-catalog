@@ -121,6 +121,14 @@
             return event.id;
         });
 
+
+        // Nuke event for clearing the productsReturned list
+        ObjectUtils.ro(this.handlers, 'nukeProductsReturnedV1', function() {
+            productsReturned.length = 0;
+            return true;
+        });
+
+
         // Registering the handlers with the Replayer
         Replayer.registerHandlers(this.handlers);
 

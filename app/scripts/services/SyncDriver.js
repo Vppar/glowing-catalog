@@ -111,7 +111,7 @@
             email : username,
             password : password
           });
-
+          
           deferred.promise.then(function( ) {
           });
 

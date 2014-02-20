@@ -102,6 +102,17 @@
                     }
                 });
 
+                $scope.$watch('gopay.merchant', reloadCardFlags);
+                $scope.$watch('envFlags.internet', reloadCardFlags);
+
+                function reloadCardFlags(newVal, oldVal) {
+                    if ($scope.gopay.merchant && $scope.envFlags.internet) {
+                        $scope.cardFlags = DataProvider.cardData.goPayflags;
+                    } else {
+                        $scope.cardFlags = DataProvider.cardData.flags;
+                    }
+                }
+
                 // #####################################################################################################
                 // Scope action functions
                 // #####################################################################################################
@@ -114,7 +125,9 @@
                         return;
                     }
                     var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
-                    var result = CreditCardPaymentService.charge(creditCard, creditCard.amount, numInstallments);
+
+                    var isGoPay = $scope.gopay.merchant && $scope.envFlags.internet;
+                    var result = CreditCardPaymentService.charge(creditCard, creditCard.amount, numInstallments, isGoPay);
 
                     result.then(function() {
                         $scope.selectPaymentMethod('none');

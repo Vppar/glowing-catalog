@@ -49,23 +49,37 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
         });
 
         describe('when called with valid paramenters', function() {
-            var creditCard = {
-                stub : 'i\'m a stub'
-            };
-            var amount = 150;
-            var installments = 1;
+            var creditCard = null;
+            var amount = null;
+            var installments = null;
+
+            beforeEach(function() {
+                creditCard = {
+                    stub : 'i\'m a stub'
+                };
+                amount = 150;
+                installments = 1;
+
+                CreditCardPaymentService.createCreditCardPayments = jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments');
+            });
 
             it('should charge a credit card', function() {
                 var result = null;
+                var isGoPay = true;
+                var sendChargesReturn = {
+                    stub : 'i\'m a stub return'
+                };
+
                 CreditCardPaymentService.createCreditCardPayments = jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments');
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     var deferred = $q.defer();
-                    deferred.resolve(true);
+                    setTimeout(function() {
+                        deferred.resolve(sendChargesReturn);
+                    }, 0);
                     return deferred.promise;
                 });
-
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay);
                     chargedPromise.then(function(_result_) {
                         result = _result_;
                     });
@@ -83,21 +97,26 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                         amount : amount,
                         installments : installments
                     });
-                    expect(CreditCardPaymentService.createCreditCardPayments).toHaveBeenCalledWith(creditCard, amount, installments);
+                    expect(CreditCardPaymentService.createCreditCardPayments).toHaveBeenCalledWith(
+                            creditCard, amount, installments, sendChargesReturn);
                 });
             });
 
-            it('should charge a credit card', function() {
+            it('shouldn\'t charge a credit card with rejected promise', function() {
                 var result = null;
-                CreditCardPaymentService.createCreditCardPayments = jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments');
+                var isGoPay = true;
+                var errMsg = 'err text msg';
+
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     var deferred = $q.defer();
-                    deferred.reject('0');
+                    setTimeout(function() {
+                        deferred.reject(errMsg);
+                    }, 0);
                     return deferred.promise;
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -109,7 +128,8 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 }, 500);
 
                 runs(function() {
-                    expect(result).toBe('Falha no processamento da transação');
+                    expect(angular.isObject(result)).toBe(false);
+                    expect(result).toEqual(errMsg);
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
                         creditCard : creditCard,
                         amount : amount,
@@ -119,17 +139,16 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
             });
 
-            it('should handle a charge rejection', function() {
+            it('shouldn\'t charge a credit card with an exception in sendCharges', function() {
                 var result = null;
-                CreditCardPaymentService.createCreditCardPayments = jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments');
+                var isGoPay = true;
+
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
-                    var deferred = $q.defer();
-                    deferred.reject('1');
-                    return deferred.promise;
+                    throw 'I\'m an unexpected exception';
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -141,7 +160,8 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 }, 500);
 
                 runs(function() {
-                    expect(result).toBe('Pagamento recusado pela operadora do cartão');
+                    expect(angular.isObject(result)).toBe(false);
+                    expect(result).toEqual('Erro interno na aplicação. Por favor, contate o administrador do sistema.');
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
                         creditCard : creditCard,
                         amount : amount,
