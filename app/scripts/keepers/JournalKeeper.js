@@ -79,7 +79,7 @@
      * The CRUD for journal keeping operations
      */
     angular
-    .module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log'])
+    .module('tnt.catalog.journal.keeper', ['tnt.catalog.storage.persistent', 'tnt.util.log', 'tnt.catalog.service.data'])
     .service('JournalKeeper', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver, PersistentStorage, DataProvider) {
 
         var self = this;
