@@ -39,11 +39,11 @@
 				<span class="span2"> 
                 	<label for="">Data de Anivers&aacute;rio</label>
                     	<div>
-						<select name="birthday" class="select-width-01"	ui-select2 ng-model="customer.birthDate.day"  tabindex="3" >
-                            <option value="day" ng-repeat="day in birthdate.days">{{day}}</option>
+						<select name="birthday" class="select-width-01"ng-model="customer.birthDate.day"  tabindex="3" ui-select2 tnt-select2>
+                            <option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
 						</select>
-                        <select name="birthmonth" class="select-width-01 marginl5" ui-select2 ng-model="customer.birthDate.month"   tabindex="4">
-                                <option value="month.id" ng-repeat="month in birthdate.months">{{month.id}}</option>
+                        <select name="birthmonth" class="select-width-01 marginl5" ng-model="customer.birthDate.month" tabindex="4" ui-select2 tnt-select2>
+                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
                         </select>
                         </div>
 				</span> 
@@ -99,7 +99,7 @@
 							ng-model="customer.addresses.neighborhood" >
 					</div>
 				</span> <span class="span1"> <label class="control-label">UF</label>
-					<select name="state"  tabindex="12" ui-select2 class="select-width-02"
+					<select name="state"  tabindex="12" ui-select2 tnt-select2 class="select-width-02"
 					ng-model="customer.addresses.state" >
 						<option value="{{state}}"
 							ng-repeat="state in states">{{state}}</option>

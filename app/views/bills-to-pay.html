@@ -30,11 +30,11 @@
 				<span class="span2"> 
                 	<label for="">Documento</label>
                     	<div>
-						<select name="birthday" class="select-width-01"	ui-select2 ng-model="customer.birthday.day" >
+						<select name="birthday" class="select-width-01"	ui-select2 tnt-select2 ng-model="customer.birthday.day" >
                             <option value="" />
                             <option value="day" ng-repeat="day in dataProvider.date.days">{{day}}</option>
 						</select>
-                        <select name="birthmonth" class="select-width-01" ui-select2 ng-model="customer.birthday.month" >
+                        <select name="birthmonth" class="select-width-01" ui-select2 tnt-select2 ng-model="customer.birthday.month" >
                                 <option value="" />
                                 <option value="month.id" ng-repeat="month in dataProvider.date.months">{{month.id}}</option>
                         </select>
@@ -83,7 +83,7 @@
 							ng-model="customer.address.neighborhood" >
 					</div>
 				</span> <span class="span1"> <label class="control-label">UF</label>
-					<select name="state" ui-select2 class="select-width-02"
+					<select name="state" ui-select2 tnt-select2 class="select-width-02"
 					ng-model="customer.address.state" >
 						<option value="" />
 						<option value="{{state}}"

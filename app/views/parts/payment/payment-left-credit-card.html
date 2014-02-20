@@ -34,6 +34,7 @@
 							class="bandeira-cartao select-h38"
 							ng-model="creditCard.flag"
               ng-change="checkCreditCardFlagChange(creditCard.flag)"
+              tnt-select2
 							required>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
@@ -82,6 +83,7 @@
 							name="cardExpirationMonth"
 							class="payment-input-large select-h38 padding0"
 							ng-model="creditCard.expirationMonth"
+							tnt-select2
 							required>
 							<option ng-repeat="month in months" value="{{month.id}}">{{month.name}}</option>
 						</select>
@@ -95,6 +97,7 @@
 							name="cardExpirationYear"
 							class="payment-input-large select-h38 padding0"
 							ng-model="creditCard.expirationYear"
+							tnt-select2
 							required>
 							<option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
 						</select>
@@ -142,6 +145,7 @@
 							name="installment"
 							class="parcelas-cartao select-h38"
 							ng-model="creditCard.installment"
+							tnt-select2
 							required>
 							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
 						</select>
@@ -189,7 +193,9 @@
 							id="creditCardFlag"
 							class="bandeira-cartao select-h38"
 							ng-model="creditCard.flag"
-							required>
+							required
+							tnt-select2
+							>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
 					</div>
@@ -204,6 +210,7 @@
 							name="installment"
 							class="parcelas-cartao select-h38"
 							ng-model="creditCard.installment"
+							tnt-select2
 							required>
 							<option value="">nro parcelas</option>
 							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
