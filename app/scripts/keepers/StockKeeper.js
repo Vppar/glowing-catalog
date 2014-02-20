@@ -120,6 +120,12 @@
             return updatedInv;
         });
 
+        // Nuke event for clearing the stock list
+        ObjectUtils.ro(this.handlers, 'nukeV1', function() {
+            stock.length = 0;
+            return true;
+        });
+
         /**
          * <pre>
          * @spec StockKeeper.handlers.stockRemoveV1#1

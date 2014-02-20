@@ -76,6 +76,13 @@
                     return ++currentCounter;
                 }
 
+
+                // Nuke event for clearing the purchases list
+                ObjectUtils.ro(this.handlers, 'nukeV1', function() {
+                    purchases.length = 0;
+                    return true;
+                });
+
                 /**
                  * Registering handlers
                  */
