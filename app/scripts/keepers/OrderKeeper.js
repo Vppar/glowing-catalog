@@ -39,7 +39,6 @@
             ObjectUtils.ro(this, 'code', this.code);
             ObjectUtils.ro(this, 'date', this.date);
             ObjectUtils.ro(this, 'customerId', this.customerId);
-            // ObjectUtils.ro(this, 'items', this.items);
         };
 
         return service;
