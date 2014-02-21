@@ -1,5 +1,5 @@
 'use strict';
-describe('Service: BookKeeperWriteSpecr', function() {
+describe('Service: BookKeeperWriteSpec', function() {
 
     // instantiate service
     var BookKeeper = {};
@@ -17,8 +17,9 @@ describe('Service: BookKeeperWriteSpecr', function() {
     // load the service's module
 
     beforeEach(function() {
-        module('tnt.catalog.bookkeeping');
+        module('tnt.catalog.bookkeeping.keeper');
         module('tnt.catalog.bookkeeping.entry');
+        module('tnt.catalog.bookkeeping.entity');
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
@@ -93,8 +94,8 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);
 
         // then
-        var book = ArrayUtils.list(BookKeeper.list(), 'name', bookEntry.entity);
-        var book2 = ArrayUtils.find(book, 'reference', debitAccount);
+        var book = ArrayUtils.list(BookKeeper.list(), 'entities', bookEntry.entity);
+        var book2 = ArrayUtils.find(book, 'name', debitAccount);
         expect((book2.balance)).toEqual(-100);
     });
 
@@ -104,8 +105,8 @@ describe('Service: BookKeeperWriteSpecr', function() {
         // when
         BookKeeper.handlers['bookWriteV1'](bookEntry);
 
-        var book = ArrayUtils.list(BookKeeper.list(), 'name', bookEntry.entity);
-        var book2 = ArrayUtils.find(book, 'reference', creditAccount);
+        var book = ArrayUtils.list(BookKeeper.list(), 'entities', bookEntry.entity);
+        var book2 = ArrayUtils.find(book, 'name', creditAccount);
         // then
         expect((book2.balance)).toEqual(100);
     });
@@ -117,7 +118,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);// 100
         BookKeeper.handlers['bookWriteV1'](bookEntry2);// 20
 
-        var book = ArrayUtils.list(BookKeeper.list(), 'reference', debitAccount);
+        var book = ArrayUtils.list(BookKeeper.list(), 'name', debitAccount);
         var totalDebitAccount = 0;
         for(var i in book){
             totalDebitAccount += book[i].balance;
@@ -133,7 +134,7 @@ describe('Service: BookKeeperWriteSpecr', function() {
         BookKeeper.handlers['bookWriteV1'](bookEntry);// 100
         BookKeeper.handlers['bookWriteV1'](bookEntry2);// 20
 
-        var book = ArrayUtils.list(BookKeeper.list(), 'reference', creditAccount);
+        var book = ArrayUtils.list(BookKeeper.list(), 'name', creditAccount);
         
         var totalcreditAccount = 0;
         for(var i in book){
