@@ -30,6 +30,7 @@ describe('Service: UserServiceLoginOnlineScenario', function() {
         SyncDriver.registerSyncService = jasmine.createSpy('SyncDriver.registerService');
         SyncDriver.logout = jasmine.createSpy('SyncDriver.logout');
         PrefetchService.doIt = jasmine.createSpy('PrefetchService.doIt');
+        delete localStorage.firebaseConnected;
     });
 
     // dependence injection
@@ -51,6 +52,7 @@ describe('Service: UserServiceLoginOnlineScenario', function() {
         beforeEach(function() {
             user = 'usertest';
             pass = 'passtest';
+            SyncDriver.isConnected = jasmine.createSpy('SyncDriver.isConnected');
             SyncDriver.login = jasmine.createSpy('SyncDriver.login').andCallFake(function() {
                 var deferred = $q.defer();
                 setTimeout(function() {
