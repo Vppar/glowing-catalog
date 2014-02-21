@@ -6,7 +6,7 @@
         var service = function svc(uuid, code, date, canceled, customerId, items) {
 
             var validProperties = [
-                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'items'
+                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'updated', 'items'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -39,7 +39,7 @@
             ObjectUtils.ro(this, 'code', this.code);
             ObjectUtils.ro(this, 'date', this.date);
             ObjectUtils.ro(this, 'customerId', this.customerId);
-            ObjectUtils.ro(this, 'items', this.items);
+            // ObjectUtils.ro(this, 'items', this.items);
         };
 
         return service;
@@ -91,6 +91,16 @@
             var orderEntry = ArrayUtils.find(orders, 'uuid', event.id);
             if (orderEntry) {
                 orderEntry.canceled = event.canceled;
+            } else {
+                throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
+            }
+        });
+
+        ObjectUtils.ro(this.handlers, 'orderUpdateV1', function(event) {
+            var orderEntry = ArrayUtils.find(orders, 'uuid', event.uuid);
+            if (orderEntry) {
+                orderEntry.items = event.items;
+                orderEntry.updated = event.updated;
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -152,6 +162,25 @@
         };
 
         /**
+         * Update an order
+         */
+        var update = function update(uuid, items) {
+            var order = ArrayUtils.find(orders, 'uuid', uuid);
+            if (!order) {
+                throw 'Unable to find an order with uuid=\'' + uuid + '\'';
+            }
+            var updateEv = {
+                uuid : order.uuid,
+                updated : new Date().getTime(),
+                items : items
+            };
+            // create a new journal entry
+            var entry = new JournalEntry(null, updateEv.updated, 'orderUpdate', currentEventVersion, updateEv);
+            // save the journal entry
+            return JournalKeeper.compose(entry);
+        };
+
+        /**
          * Cancel an order
          */
         var cancel = function cancel(uuid) {
@@ -174,6 +203,7 @@
         this.list = list;
         this.read = read;
         this.cancel = cancel;
+        this.update = update;
 
     });
     angular.module('tnt.catalog.order', [

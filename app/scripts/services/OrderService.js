@@ -127,6 +127,23 @@
                     }
                     return result;
                 };
+                
+                /**
+                 * Updates an order.
+                 * 
+                 * @param id - Order id.
+                 * @param itens - New items to update
+                 * @return boolean Result if the receivable is canceled.
+                 */
+                var update = function update(id, items) {
+                    var result = true;
+                    try {
+                        result = OrderKeeper.update(id, items);
+                    } catch (err) {
+                        throw 'OrderService.update: Unable to update the order with id=' + id + '. ' + 'Err=' + err;
+                    }
+                    return result;
+                };
 
                 /**
                  * Adds the current order to the list of orders.
@@ -184,6 +201,7 @@
                 this.list = list;
                 this.read = read;
                 this.cancel = cancel;
+                this.update = update;
                 this.save = save;
                 this.clear = clear;
                 this.hasItems = hasItems;
