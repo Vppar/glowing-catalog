@@ -328,13 +328,12 @@
                 var deferred = $q.defer();
                 var promises = [];
               
+                // Clear the keepers!
                 Replayer.nukeKeepers();
-
 
                 var promise = storage.list(entityName);
 
                 // Comment/Uncomment this as you need warm up data.
-                // Don't forget to add/remove DataProvider to the dependencies
                 // FIXME Remove this.
                 promise.then(function () {
                     return insertWarmUpData();
@@ -375,8 +374,6 @@
                 return deferred.promise;
             });
         };
-
-
 
 
         // Inserts warmup data into the app

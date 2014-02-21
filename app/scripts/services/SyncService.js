@@ -47,6 +47,7 @@
             });
 
             $rootScope.$on('FirebaseConnected', sync);
+
             $rootScope.$on('FirebaseIdle', function () {
               if (isWaitingToSync()) {
                 $log.debug('Trying to sync again now that Firebase is idle');
@@ -135,6 +136,8 @@
                 var deferred = $q.defer();
 
                 SyncDriver.lock(function () {
+                  syncDeferred = deferred;
+
                   $rootScope.$broadcast('SyncStart');
 
                   syncNext(deferred);
@@ -152,10 +155,10 @@
                   deferred.promise.then(clearPromise, clearPromise);
                 }, function (err) {
                   $log.debug('Failed to get lock Firebase for sync!', err);
+                  waitingToSync = true;
                   deferred.reject(err);
                 });
 
-                syncDeferred = deferred;
 
                 return deferred.promise;
             }
