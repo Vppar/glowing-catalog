@@ -30,8 +30,34 @@ describe('Service: OrderServiceUpdate', function () {
   }));
 
   it('gets order from OrderKeeper.update()', function () {
-    var order = OrderService.update(1,[{test:'updated'}]);
-    expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}]);
-    expect(order).toEqual('ok');
+    var order = null;
+
+    OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andCallFake(function() {
+        var deferred = $q.defer();
+
+        setTimeout(function() {
+            deferred.resolve();
+        }, 0);
+
+        return deferred.promise;
+    });
+
+    runs(function() {
+        // when
+        order = OrderService.update(1,[{test:'updated'}]);
+        order.then(function() {
+            result = true;
+        });
+        scope.$apply();
+    });
+
+    waitsFor(function() {
+        return result;
+    }, 'JournalKeeper is taking too long', 300);
+
+    runs(function() {
+        expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}]);
+    });
+
   });
 });

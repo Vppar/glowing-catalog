@@ -127,6 +127,7 @@
                         });
                     } catch (err) {
                         $log.debug('OrderService.cancel: Unable to cancel the order with id=' + id + '. ' + 'Err=' + err);
+                        return $q.reject(err);
                     }
                     return result;
                 };
@@ -147,6 +148,7 @@
                         });
                     } catch (err) {
                         $log.debug('OrderService.update: Unable to update the order with id=' + id + '. ' + 'Err=' + err);
+                        return $q.reject(err);
                     }
                     return result;
                 };
