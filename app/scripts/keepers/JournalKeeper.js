@@ -333,45 +333,70 @@
 
                 var promise = storage.list(entityName);
 
-                promise
-                    // Replays data from WebSQL into the app.
-                    .then(function(results){
-                        $log.debug('Starting replay on ' + results.length + ' entries');
-
-                        var entry = null;
-                        
-                        try {
-                            for(var ix in results){
-                                entry = results[ix];
-                                
-                                sequence = sequence > entry.sequence ? sequence : entry.sequence + 1;
-                                
-                                if (entry.synced && entry.sequence > syncedSequence) {
-                                    syncedSequence = entry.sequence;
-                                }
-                                
-                                promises.push(Replayer.replay(entry));
-                            }
-                        } catch (err) {
-                            $log.error('Failed to resync: replay failed');
-                            $log.debug('Failed to resync: replay failed -', err, entry);
-                            deferred.reject(err);
-                        }
-
-                        $log.debug('waiting for ' + promises.length + ' promises to resolve');
-                        deferred.resolve($q.all(promises));
-                    },function(error){
-                        $log.error('Failed to resync: list failed');
-                        $log.debug('Failed to resync: list failed', error);
-                        deferred.reject(error);
-                    });
-                    
-                    return deferred.promise;
+                // Comment/Uncomment this as you need warm up data.
+                // Don't forget to add/remove DataProvider to the dependencies
+                // FIXME Remove this.
+                promise.then(function () {
+                    return insertWarmUpData();
                 });
+
+                // Replays data from WebSQL into the app.
+                promise.then(function(results){
+                    $log.debug('Starting replay on ' + results.length + ' entries');
+
+                    var entry = null;
+                    
+                    try {
+                        for(var ix in results){
+                            entry = results[ix];
+                            
+                            sequence = sequence > entry.sequence ? sequence : entry.sequence + 1;
+                            
+                            if (entry.synced && entry.sequence > syncedSequence) {
+                                syncedSequence = entry.sequence;
+                            }
+                            
+                            promises.push(Replayer.replay(entry));
+                        }
+                    } catch (err) {
+                        $log.error('Failed to resync: replay failed');
+                        $log.debug('Failed to resync: replay failed -', err, entry);
+                        deferred.reject(err);
+                    }
+
+                    $log.debug('waiting for ' + promises.length + ' promises to resolve');
+                    deferred.resolve($q.all(promises));
+                },function(error){
+                    $log.error('Failed to resync: list failed');
+                    $log.debug('Failed to resync: list failed', error);
+                    deferred.reject(error);
+                });
+                
+                return deferred.promise;
+            });
         };
 
 
 
+
+        // Inserts warmup data into the app
+        // FIXME Should be removed ASAP, once we implement another method
+        // for inserting that warm up data.
+        function insertWarmUpData() {
+            var deferred = $q.defer();
+
+            $.get( 'resources/replay.json', function(result) {
+                for ( var ix in result) {
+                    var data = result[ix];
+                    var item = new JournalEntry(0, 0, data.type, data.version, data.event);
+                    Replayer.replay(item);
+                }
+                $rootScope.$broadcast('DataProvider.replayFinished');
+                deferred.resolve();
+            });
+            
+            return deferred.promise;
+        }
 
 
         function persistEntry (entry) {
