@@ -106,48 +106,9 @@ describe('Service: SyncServiceInsertScenario', function () {
     }, 'JournalKeeper.nuke()', 1500);
   });
 
-
-  // Sign in to Firebase
-  beforeEach(function () {
-    var signedIn = false;
-    
-    runs(function () {
-      var promise = SyncDriver.login(FIREBASE_USERNAME, FIREBASE_PASSWORD);
-      promise.then(function () {
-        SyncDriver.registerSyncService(SyncService);
-        signedIn = true;
-      });
-    });
-
-    waitsFor(function () {
-      $rootScope.$apply();
-      return signedIn;
-    }, 'SyncDriver.login()', 2000);
-  });
-
   // Get a reference to the journal
   beforeEach(function () {
     journalTestRef = baseTestRef.child('journal');
-  });
-
-  // Clear journal
-  beforeEach(function () {
-    var cleared = false;
-
-    runs(function () {
-      journalTestRef.remove(function (err) {
-        if (err) {
-          $log.debug('Failed to clear data!', err);
-        } else {
-          $log.debug('Data cleared!');
-          cleared = true;
-        }
-      });
-    });
-
-    waitsFor(function () {
-      return cleared;
-    }, 'ref.remove()', 2000);
   });
 
 
@@ -217,17 +178,58 @@ describe('Service: SyncServiceInsertScenario', function () {
     });
 
 
+    // Sign in to Firebase
+    beforeEach(function () {
+      var signedIn = false;
+      
+      runs(function () {
+        var promise = SyncDriver.login(FIREBASE_USERNAME, FIREBASE_PASSWORD);
+        promise.then(function () {
+          SyncDriver.registerSyncService(SyncService);
+          signedIn = true;
+        });
+      });
+
+      waitsFor(function () {
+        $rootScope.$apply();
+        return signedIn;
+      }, 'SyncDriver.login()', 2000);
+    });
+
+    // Clear journal
+    beforeEach(function () {
+      var cleared = false;
+
+      runs(function () {
+        journalTestRef.remove(function (err) {
+          if (err) {
+            $log.debug('Failed to clear data!', err);
+          } else {
+            $log.debug('Data cleared!');
+            cleared = true;
+          }
+        });
+      });
+
+      waitsFor(function () {
+        return cleared;
+      }, 'ref.remove()', 2000);
+    });
+
+
 
     beforeEach(function () {
       var synced = false;
       received = [];
 
-      $rootScope.$on('Firebase:childAdded', function (e, entry) {
+      $rootScope.$on('EntryReceived', function (e, entry) {
+        $log.debug('Received entry!', entry);
         received.push(entry);
       });
 
       runs(function () {
         SyncService.sync().then(function () {
+          $log.debug('Sync complete!');
           synced = true;
         });
       });

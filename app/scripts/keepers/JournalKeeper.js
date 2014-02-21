@@ -328,14 +328,25 @@
                 var deferred = $q.defer();
                 var promises = [];
               
-                storage.list(entityName).then(function(results){
+                // Clear the keepers!
+                Replayer.nukeKeepers();
+
+                var promise = storage.list(entityName);
+
+                // Comment/Uncomment this as you need warm up data.
+                // FIXME Remove this.
+                promise.then(function () {
+                    return insertWarmUpData();
+                });
+
+                // Replays data from WebSQL into the app.
+                promise.then(function(results){
                     $log.debug('Starting replay on ' + results.length + ' entries');
 
                     var entry = null;
                     
                     try {
                         for(var ix in results){
-                          
                             entry = results[ix];
                             
                             sequence = sequence > entry.sequence ? sequence : entry.sequence + 1;
@@ -365,7 +376,24 @@
         };
 
 
+        // Inserts warmup data into the app
+        // FIXME Should be removed ASAP, once we implement another method
+        // for inserting that warm up data.
+        function insertWarmUpData() {
+            var deferred = $q.defer();
 
+            $.get( 'resources/replay.json', function(result) {
+                for ( var ix in result) {
+                    var data = result[ix];
+                    var item = new JournalEntry(0, 0, data.type, data.version, data.event);
+                    Replayer.replay(item);
+                }
+                $rootScope.$broadcast('DataProvider.replayFinished');
+                deferred.resolve();
+            });
+            
+            return deferred.promise;
+        }
 
 
         function persistEntry (entry) {
@@ -398,8 +426,8 @@
 
                       $rootScope.$broadcast('JournalKeeper.persistEntry');
                   }, function(error){
-                    $log.error('Failed to compose: PersistentStorage.persist failed', error);
-                    deferred.reject(error);
+                      $log.error('Failed to compose: PersistentStorage.persist failed', error);
+                      deferred.reject(error);
                   });
                 }
 
