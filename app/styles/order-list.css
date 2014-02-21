@@ -1,11 +1,15 @@
 .order-col{
 	display: block;
-	height: 40px;
+	min-height: 40px;
 	line-height: 40px;
 	text-align: center;
 	-moz-box-sizing:    border-box;
     -webkit-box-sizing: border-box;
     box-sizing:        border-box;
+}
+.order-row{
+	display:inline-block;
+	width:100%;
 }
 
 .order-col-2-rows{
@@ -83,7 +87,7 @@
 	cursor: pointer;
 	display: block;
 	height: 40px;
-	width: 950px;
+	width: 948px;
 	line-height: 40px;
 	border-radius: 4px;
 	background-color: #c8c8c8;
@@ -109,6 +113,7 @@
 	width: 970px;
 	display: block;
 	position: relative;
+	border:1px solid #e0e0e0;
 }
 
 .btn-plus-pink {
@@ -221,7 +226,7 @@
 
 .col-details-order-list-item-select{
 	display:inline-block;
-	margin: 10px 10px 25px 20px;
+	margin: 10px 10px 15px 20px;
 	vertical-align: top;
 }
 
