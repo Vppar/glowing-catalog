@@ -25,7 +25,7 @@ describe('Service: GoPayGateway', function() {
         var expected = {
             Status : 0
         };
-
+ 
         $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
                 .respond(expected);
 
