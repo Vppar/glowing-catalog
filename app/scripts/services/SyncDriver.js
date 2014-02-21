@@ -85,7 +85,7 @@
                   .child('users')
                   .child(user.replace(/\.+/g, '_'))
                   .child('account')
-                  .child('gpToken');
+                  .child('gpToken')
                   .on('value', function(nameSnapshot) {
                       if(nameSnapshot){
                           localStorage.gpToken = nameSnapshot.val() ;
