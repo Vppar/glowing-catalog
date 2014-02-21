@@ -85,7 +85,7 @@
         };
 
         this.isLogged = function isLogged() {
-            if(SyncDriver.isConnected()=='1'){
+            if(SyncDriver.isConnected()){
                 logged = true;
             }
             return logged;

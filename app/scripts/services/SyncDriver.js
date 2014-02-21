@@ -17,11 +17,12 @@
         var journalRef = null;
         var syncingFlagRef = null;
 
-        var connected = false;
-
         var firebaseSyncStartTime = null;
         var firebaseSyncStartTime2 = null;
 
+        if (isConnected()) {
+          setFirebaseReferences(localStorage.firebaseUser);
+        }
 
         $rootScope.$on('SyncStop', function () {
           if (syncingFlagRef) {
@@ -29,14 +30,16 @@
           }
         });
 
-        this.isFirebaseBusy = function () {
+        function isFirebaseBusy() {
           return !!firebaseSyncStartTime && firebaseSyncStartTime !== firebaseSyncStartTime2;
         };
+        this.isFirebaseBusy = isFirebaseBusy;
 
         // Uses Firebase's connected ref...
-        this.isConnected = function () {
-          return localStorage.firebaseConnected;
+        function isConnected() {
+          return !!localStorage.firebaseUser;
         };
+        this.isConnected = isConnected;
         
         this.lock = function (successCb, failureCb) {
           $log.debug('Trying to lock the user journal for synchronizing this device');
@@ -60,6 +63,12 @@
           });
         };
 
+        function setFirebaseReferences(username) {
+            userRef = baseRef.child('users').child(username.replace(/\.+/g, '_'));
+            journalRef = userRef.child('journal');
+            syncingFlagRef = userRef.child('syncing');
+        }
+
         // TODO implement rememberMe
         //
         // FIXME Firebase authentication expects a single callback to handle
@@ -75,15 +84,11 @@
               $log.debug('Firebase authentication error (login cb)', err);
               deferred.reject(err);
             } else if (user) {
-              localStorage.firebaseConnected = 1;
-              userRef = baseRef.child('users').child(username.replace(/\.+/g, '_'));
-              journalRef = userRef.child('journal');
-              syncingFlagRef = userRef.child('syncing');
+              localStorage.firebaseUser = username;
+              setFirebaseReferences(username);
 
               // Get the GoPay token from Firebase
-              baseRef
-                  .child('users')
-                  .child(user.replace(/\.+/g, '_'))
+              userRef
                   .child('account')
                   .child('gpToken')
                   .on('value', function(nameSnapshot) {
@@ -105,14 +110,13 @@
                   $rootScope.$broadcast('FirebaseIdle');
               });
 
-              connected = true;
               // Broadcast the event once everything is ready
               $rootScope.$broadcast('FirebaseConnected');
 
               $log.debug('Logged in to Firebase as ' + username);
               deferred.resolve(user);
             }else{
-                delete localStorage.firebaseConnected;
+                delete localStorage.firebaseUser;
                 $rootScope.$broadcast('FirebaseDisconnected');
             }
           }).login('password', {
@@ -132,7 +136,7 @@
               $log.debug('Firebase authentication error (logout cb)', err);
               deferred.reject(err);
             } else if (!user) {
-              delete localStorage.firebaseConnected;
+              delete localStorage.firebaseUser;
               $log.debug('Logged out from Firebase!');
               deferred.resolve('Logout successfull');
             }
