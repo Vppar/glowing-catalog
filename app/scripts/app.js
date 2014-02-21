@@ -97,7 +97,8 @@
                 'tnt.catalog.purchaseOrder.service',
                 'tnt.catalog.login.ctrl',
                 'tnt.utils.cep',
-                'tnt.catalog.gopay.gateway'
+                'tnt.catalog.gopay.gateway',
+                'tnt.catalog.service.book'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
