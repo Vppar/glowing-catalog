@@ -29,12 +29,6 @@ describe('Service: OrderServiceUpdate', function () {
     OrderService = _OrderService_;
   }));
 
-
-  /**
-   * OrderService.cancel() works as a proxy to OrderKeeper.cancel(), just
-   * adding some basic error handling. Therefore, it should just invoke
-   * and return the OrderKeeper's results.
-   */
   it('gets order from OrderKeeper.update()', function () {
     var order = OrderService.update(1,[{test:'updated'}]);
     expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}]);
