@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Directive: lowerCase', function() {
+describe('Directive: lowerCase', function() {
     // load the directive's module
     beforeEach(module('tnt.catalog.attrs.lowerCase'));
 
