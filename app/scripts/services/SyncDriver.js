@@ -14,19 +14,12 @@
 
         var baseRef = new Firebase('voppwishlist.firebaseio.com');
         var userJournalRef = null;
-        var connected = false;
 
         // Uses Firebase's connected ref...
         this.isConnected = function () {
-          return connected;
+          return localStorage.firebaseConnected;
         };
         
-        //FIXME to check if the user is connected 
-        // use 'SyncDriver.isConnected'
-        this.hasLoggedIn = function () {
-          return !!userJournalRef;
-        };
-
         // TODO implement rememberMe
         //
         // FIXME Firebase authentication expects a single callback to handle
@@ -43,12 +36,12 @@
               $log.debug('Firebase authentication error (login cb)', err);
               deferred.reject(err);
             } else if (user) {
-              connected = true;
+              localStorage.firebaseConnected = 1;
               $rootScope.$broadcast('FirebaseConnected');
               $log.debug('Logged in to Firebase as ' + user);
               deferred.resolve(user);
             }else{
-                connected = false;
+                delete localStorage.firebaseConnected;
                 $rootScope.$broadcast('FirebaseDisconnected');
             }
           }).login('password', {
@@ -80,6 +73,7 @@
               $log.debug('Firebase authentication error (logout cb)', err);
               deferred.reject(err);
             } else if (!user) {
+              delete localStorage.firebaseConnected;
               $log.debug('Logged out from Firebase!');
               deferred.resolve('Logout successfull');
             }

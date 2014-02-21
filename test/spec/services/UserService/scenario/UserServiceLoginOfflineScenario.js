@@ -36,6 +36,8 @@ describe('Service: UserServiceLoginOfflineScenario', function() {
     beforeEach(function() {
         SyncDriver.registerSyncService = jasmine.createSpy('SyncDriver.registerService');
         SyncDriver.logout = jasmine.createSpy('SyncDriver.logout');
+        SyncDriver.isConnected = jasmine.createSpy('SyncDriver.isConnected');
+        delete localStorage.firebaseConnected;
         PrefetchService.doIt = jasmine.createSpy('PrefetchService.doIt');
         md5.createHash = jasmine.createSpy('md5.createHash').andCallFake(function() {
             return user + pass;
@@ -65,7 +67,6 @@ describe('Service: UserServiceLoginOfflineScenario', function() {
             localStorage.hashMD5 = user + pass;
             spyOn(UserService, 'loginOffline').andCallThrough();
             spyOn(UserService, 'onlineLoginErrorHandler').andCallThrough();  
-            
             // when
             runs(function() {
                 UserService.login(user, pass, false).then(function() {

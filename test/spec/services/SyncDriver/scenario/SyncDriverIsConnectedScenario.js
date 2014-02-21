@@ -41,7 +41,7 @@ describe('Service: SyncDriverIsConnectedScenario', function() {
             var loging = function() {
                 signedIn = true;
             };
-            
+            delete localStorage.firebaseConnected;
             var username = '';
             var password = '';
             
@@ -56,9 +56,9 @@ describe('Service: SyncDriverIsConnectedScenario', function() {
             }, 'SyncDriver.login()');
         });
 
-        it('isConnected should return true', function() {
+        it('isConnected should return false', function() {
             var isConnected = SyncDriver.isConnected();
-            expect(isConnected).toBe(false);
+            expect(isConnected).toBe(undefined);
         });
 
     });
@@ -93,7 +93,7 @@ describe('Service: SyncDriverIsConnectedScenario', function() {
 
         it('isConnected should return true', function() { 
             var isConnected = SyncDriver.isConnected();
-            expect(isConnected).toBe(true);
+            expect(isConnected).toBe('1');
         });
 
     });
@@ -142,7 +142,7 @@ describe('Service: SyncDriverIsConnectedScenario', function() {
         });
         
         it('isConnected should be false',function(){
-            expect(SyncDriver.isConnected()).toBe(false);
+            expect(SyncDriver.isConnected()).toBe(undefined);
         });
     });
 

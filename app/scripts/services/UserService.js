@@ -8,7 +8,6 @@
         // FIXME change default value to FALSE
         var logged = false;
         var SALT = '7un7sC0rp';
-
         var userService = this;
 
         /**
@@ -86,11 +85,14 @@
         };
 
         this.isLogged = function isLogged() {
+            if(SyncDriver.isConnected()=='1'){
+                logged = true;
+            }
             return logged;
         };
 
         this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
-            if (!logged) {
+            if (!this.isLogged()) {
                 $location.path('/login');
             }
         };
