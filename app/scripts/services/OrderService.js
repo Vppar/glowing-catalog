@@ -119,11 +119,36 @@
                  * @return boolean Result if the receivable is canceled.
                  */
                 var cancel = function cancel(id) {
-                    var result = true;
+                    var result = null;
                     try {
                         result = OrderKeeper.cancel(id);
+                        result['catch'](function(err) {
+                            $log.debug('OrderService.cancel: -Failed to cancel an order. ', err);
+                        });
                     } catch (err) {
-                        throw 'OrderService.cancel: Unable to cancel the order with id=' + id + '. ' + 'Err=' + err;
+                        $log.debug('OrderService.cancel: Unable to cancel the order with id=' + id + '. ' + 'Err=' + err);
+                        result = $q.reject(err);
+                    }
+                    return result;
+                };
+                
+                /**
+                 * Updates an order.
+                 * 
+                 * @param id - Order id.
+                 * @param itens - New items to update
+                 * @return boolean Result if the receivable is canceled.
+                 */
+                var update = function update(id, items) {
+                    var result = null;
+                    try {
+                        result = OrderKeeper.update(id, items);
+                        result['catch'](function(err) {
+                            $log.debug('OrderService.update: -Failed to update an order. ', err);
+                        });
+                    } catch (err) {
+                        $log.debug('OrderService.update: Unable to update the order with id=' + id + '. ' + 'Err=' + err);
+                        result = $q.reject(err);
                     }
                     return result;
                 };
@@ -184,6 +209,7 @@
                 this.list = list;
                 this.read = read;
                 this.cancel = cancel;
+                this.update = update;
                 this.save = save;
                 this.clear = clear;
                 this.hasItems = hasItems;
