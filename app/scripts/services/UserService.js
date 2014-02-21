@@ -85,15 +85,15 @@
         };
 
         this.isLogged = function isLogged() {
-            if(SyncDriver.isConnected()){
-                logged = true;
-            }
             return logged;
         };
-
+        
         this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
             if (!this.isLogged()) {
-                $location.path('/login');
+                SyncDriver.logout().then(function(){
+                    $location.path('/login');
+                });
+                
             }
         };
 
