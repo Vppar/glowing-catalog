@@ -146,9 +146,15 @@
               $rootScope.$broadcast('FirebaseConnected');
           });
           
+          var connectedRef = baseRef.child('.info').child('connected');
+          connectedRef.on("value", function(snap) {
+            if (snap.val() === false) {
+              delete localStorage.gpToken;
+            }
+          });
+          
           return deferred.promise;
         };
-
 
 
 
@@ -161,6 +167,7 @@
               deferred.reject(err);
             } else if (!user) {
               delete localStorage.firebaseUser;
+              delete localStorage.gpToken;
               $log.debug('Logged out from Firebase!');
               deferred.resolve('Logout successfull');
             }
@@ -168,7 +175,6 @@
 
           return deferred.promise;
         };
-
 
         this.registerSyncService =
           function(SyncService) {
@@ -179,7 +185,6 @@
                 $rootScope.$broadcast('EntryReceived', entry);
               });
           };
-
 
         this.save = function(entry) {
           var deferred = $q.defer();
