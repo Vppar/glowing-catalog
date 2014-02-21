@@ -32,7 +32,6 @@ describe('Service: OrderServiceUpdate', function () {
   it('gets order from OrderKeeper.update()', function () {
     var order = OrderService.update(1,[{test:'updated'}]);
     expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}]);
-    // Are we returning the value returned by 'OrderKeeper.cancel()'?
     expect(order).toEqual('ok');
   });
 });
