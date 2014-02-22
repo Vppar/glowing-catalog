@@ -93,8 +93,8 @@ describe('Service: BookKeeperAddSpec', function() {
     it('should properly create the entry', function() {
         // make sure the enrty makes it to the journal
         // Given
-        
-        var book1 = new Book('numn1nh0-d3m4-f4g4-f0s7-1nh4m3m4f4g4',fakeNow, debitAccount,  'syntethic','debit', 'Joao Da Silva');
+
+        var book1 = new Book('numn1nh0-d3m4-f4g4-f0s7-1nh4m3m4f4g4', fakeNow, debitAccount, 'syntethic', 'debit', 'Joao Da Silva');
         var entry = new JournalEntry(null, book1.created, 'addBook', 1, book1);
         // When
         var result = BookKeeper.addBook(book1);

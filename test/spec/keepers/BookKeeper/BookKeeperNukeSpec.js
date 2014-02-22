@@ -4,8 +4,8 @@ describe('Service: BookKeeperNukeSpec', function() {
     // instantiate service
     var BookKeeper = {};
     var JournalKeeper = {};
-    var JournalEntry = {};
     var creditAccount = {};
+    var IdentityService = {};
     var debitAccount = {};
     var fakeNow = {};
     var newBook = {};
@@ -47,14 +47,20 @@ describe('Service: BookKeeperNukeSpec', function() {
 
     beforeEach(function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
+        IdentityService.getUUIDData = jasmine.createSpy('IdentityService.getUUIDData').andReturn({
+            deviceId : 1
+        });
+        IdentityService.getDeviceId = jasmine.createSpy('IdentityService.getDeviceId').andReturn(1);
+        
         module(function($provide) {
             $provide.value('JournalKeeper', JournalKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 
     beforeEach(inject(function(_BookKeeper_, _ArrayUtils_, _JournalEntry_) {
         BookKeeper = _BookKeeper_;
-        JournalEntry = _JournalEntry_;
     }));
 
     it('should nuke book entries', function() {

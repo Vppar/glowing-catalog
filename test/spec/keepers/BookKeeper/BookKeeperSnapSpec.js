@@ -4,7 +4,7 @@ describe('Service: BookKeeperNukeSpec', function() {
     // instantiate service
     var BookKeeper = {};
     var JournalKeeper = {};
-    var JournalEntry = {};
+    var IdentityService = {};
     var creditAccount = {};
     var debitAccount = {};
     var fakeNow = {};
@@ -55,14 +55,20 @@ describe('Service: BookKeeperNukeSpec', function() {
 
     beforeEach(function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
+        IdentityService.getUUIDData = jasmine.createSpy('IdentityService.getUUIDData').andReturn({
+            deviceId : 1
+        });
+        IdentityService.getDeviceId = jasmine.createSpy('IdentityService.getDeviceId').andReturn(1);
+        
         module(function($provide) {
             $provide.value('JournalKeeper', JournalKeeper);
+            $provide.value('IdentityService', IdentityService);
         });
     });
 
     beforeEach(inject(function(_BookKeeper_, _ArrayUtils_, _JournalEntry_) {
         BookKeeper = _BookKeeper_;
-        JournalEntry = _JournalEntry_;
     }));
 
     it('should create replace the current books with the snapshot', function() {

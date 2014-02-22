@@ -130,18 +130,16 @@
          * AddBook
          */
         ObjectUtils.ro(this.handlers, 'addBookV1', function(event) {
-            
             var eventData = IdentityService.getUUIDData(event.uuid);
-            
+
             if (eventData.deviceId === IdentityService.getDeviceId()) {
                 currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
 
             event = new Book(event);
             books.push(event);
-            
-            return event.uuid;
 
+            return event.uuid;
         });
 
         /**
@@ -151,6 +149,7 @@
             var eventData = angular.copy(event);
             books.length = 0;
             books = eventData;
+            currentCounter = books.length;
         });
         /**
          * nukeBooks
