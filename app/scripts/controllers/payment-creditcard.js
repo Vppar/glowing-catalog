@@ -41,7 +41,7 @@
                 $scope.creditCard.flag = DataProvider.cardData.flags[6];
                 $scope.installments = DataProvider.cardData.installments;
 
-                $scope.gopay = DataProvider.gopay;
+                $scope.gopay = localStorage.gpToken ? {merchant:true,token:localStorage.gpToken} : false;
                 $scope.envFlags = DataProvider.envFlags;
 
                 $scope.months = DataProvider.date.months;
