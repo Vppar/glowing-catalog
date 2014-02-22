@@ -28,7 +28,7 @@ describe('Service: BookKeeperNukeSpec', function() {
         fakeNow = 1386179100000;
 
         newBook = {
-            uuid : null,
+            uuid : 'numn1nh0-d3m4-f1g4-f0s7-1nh3m3m1f4g1',
             access : fakeNow,
             name : debitAccount,
             type : 'syntethic',
@@ -37,7 +37,7 @@ describe('Service: BookKeeperNukeSpec', function() {
         };
 
         newBook2 = {
-            uuid : null,
+            uuid : 'numn1nh0-d3m4-f4g4-f0s7-1nh4m3m4f4g4',
             access : fakeNow,
             name : creditAccount,
             type : 'synthetic',

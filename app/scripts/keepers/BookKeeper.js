@@ -52,9 +52,8 @@
         var Book = function svc(uuid, access, name, type, nature, entities) {
 
             var validProperties = [
-                'uuid','access', 'name', 'type', 'nature', 'entities'
+                'uuid', 'access', 'name', 'type', 'nature', 'entities', 'balance'
             ];
-
             ObjectUtils.method(svc, 'isValid', function() {
                 for ( var ix in this) {
                     var prop = this[ix];
@@ -88,11 +87,16 @@
 
     angular.module('tnt.catalog.bookkeeping.keeper', [
         'tnt.catalog.journal.replayer', 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.keeper'
-    ]).service('BookKeeper', function(Replayer, ArrayUtils, Book, JournalEntry, JournalKeeper) {
-
+    ]).service('BookKeeper', function($q, Replayer, ArrayUtils, Book, JournalEntry, JournalKeeper, IdentityService) {
+        
+        var type = 8;
         var books = [];
-
+        var currentCounter = 0;
         this.handlers = {};
+
+        function getNextId() {
+            return ++currentCounter;
+        }
 
         /**
          * 
@@ -103,7 +107,7 @@
             var eventData = angular.copy(event);
             var entityBook = ArrayUtils.list(books, 'entities', eventData.entity);
             var debitBook = ArrayUtils.find(entityBook, 'name', eventData.debitAccount);
-            
+
             if (debitBook == null) {
                 var book = new Book(null, new Date().getTime(), event.debitAccount, 'synthetic', 'debit', eventData.entity);
                 book.balance -= eventData.amount;
@@ -126,8 +130,18 @@
          * AddBook
          */
         ObjectUtils.ro(this.handlers, 'addBookV1', function(event) {
-            var eventData = angular.copy(event);
-            books.push(eventData);
+            
+            var eventData = IdentityService.getUUIDData(event.uuid);
+            
+            if (eventData.deviceId === IdentityService.getDeviceId()) {
+                currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
+            }
+
+            event = new Book(event);
+            books.push(event);
+            
+            return event.uuid;
+
         });
 
         /**
@@ -161,16 +175,14 @@
         };
 
         this.addBook = function(book) {
-            if (!(entity instanceof Book)) {
+            if (!(book instanceof Book)) {
                 return $q.reject('Wrong instance to BookKeeper');
             }
 
-            var entityObj = angular.copy(entity);
-
-            entityObj.created = (new Date()).getTime();
-            entityObj.uuid = IdentityService.getUUID(type, getNextId());
-
-            var event = new Book(entityObj);
+            var bookObj = angular.copy(book);
+            bookObj.uuid = IdentityService.getUUID(type, getNextId());
+            
+            var event = new Book(bookObj);
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.created, 'addBook', 1, event);
