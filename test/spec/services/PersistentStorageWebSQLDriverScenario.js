@@ -11,6 +11,7 @@ describe('Service: PersistentStorageFactory', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.storage.persistent');
         module('tnt.storage.websql');
         module('tnt.catalog.journal.entity');
@@ -35,7 +36,7 @@ describe('Service: PersistentStorageFactory', function() {
         PersistentStorage = _PersistentStorage_;
         driver = WebSQLDriver;
         JournalEntry = _JournalEntry_;
-        scope = $rootScope;
+        scope = $rootScope;        
     }));
 
     // register

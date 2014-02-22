@@ -4,10 +4,10 @@ describe('Service: OrderKeeperCancelScenario', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.order');
         module('tnt.catalog.order.keeper');
         module('tnt.catalog.order.entity');
-        
     });
     
     // instantiate service

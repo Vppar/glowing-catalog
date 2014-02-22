@@ -13,6 +13,7 @@ describe('Service: TypeKeeperAddScenario', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.type');
         module('tnt.catalog.type.keeper');
         module('tnt.catalog.type.entity');

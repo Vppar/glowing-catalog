@@ -13,6 +13,7 @@ describe('Service: VoucherKeeperRedeemScenario', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.voucher');
         module('tnt.catalog.voucher.keeper');
         module('tnt.catalog.voucher.entity');

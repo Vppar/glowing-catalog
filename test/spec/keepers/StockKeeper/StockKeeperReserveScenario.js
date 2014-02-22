@@ -13,6 +13,7 @@ describe('StockeeperReserveScenario', function() {
     
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.stock');
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');

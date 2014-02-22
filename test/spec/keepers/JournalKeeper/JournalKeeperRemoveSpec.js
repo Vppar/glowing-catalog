@@ -6,6 +6,7 @@ describe('Service: JournalKeeperRemove', function() {
 
 
   beforeEach(function () {
+      localStorage.deviceId = 1;
       storage.register = jasmine.createSpy('PersistentStorage.register');
       storage.remove = jasmine.createSpy('PersistentStorage.remove');
 

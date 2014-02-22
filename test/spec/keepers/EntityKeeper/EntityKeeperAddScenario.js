@@ -13,6 +13,7 @@ describe('Service: EntityKeeperAddScenario', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.entity');
         module('tnt.catalog.entity.keeper');
         module('tnt.catalog.entity.entity');
@@ -35,7 +36,7 @@ describe('Service: EntityKeeperAddScenario', function() {
         Entity = _Entity_;
         $rootScope = _$rootScope_;
         JournalKeeper = _JournalKeeper_;
-        WebSQLDriver = _WebSQLDriver_;
+        WebSQLDriver = _WebSQLDriver_;        
     }));
 
     // Clear existing data

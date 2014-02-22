@@ -7,6 +7,7 @@ describe('Service: JournalKeeperCompose', function() {
 
   // load the service's module
   beforeEach(function() {
+    localStorage.deviceId = 1;
     module('tnt.util.log');
     module('tnt.catalog.journal');
 

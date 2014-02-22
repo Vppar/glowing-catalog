@@ -6,6 +6,7 @@ describe('Service: JournalKeeperReadOldestUnsynced', function() {
 
 
   beforeEach(function () {
+      localStorage.deviceId = 1;
       storage.register = jasmine.createSpy('PersistentStorage.register');
       storage.list = jasmine.createSpy('PersistentStorage.list');
 

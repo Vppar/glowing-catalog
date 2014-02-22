@@ -7,9 +7,7 @@
         // ###################################
         // TODO: remove this from production
         //
-        var
-          gopay = DataProvider.gopay,
-          envFlags = DataProvider.envFlags;
+        var gopay = DataProvider.gopay, envFlags = DataProvider.envFlags;
 
         $scope.gopay = gopay;
         $scope.envFlags = envFlags;
@@ -18,22 +16,27 @@
          * Toggles the 'merchant' attribute in the scope.
          */
         var _originalMerchant; // holds merchant's original value
-        $scope.toggleMerchant = function () {
-            if (gopay.merchant) { _originalMerchant = gopay.merchant; }
+        $scope.toggleMerchant = function() {
+            if (gopay.merchant) {
+                _originalMerchant = gopay.merchant;
+            }
             gopay.merchant = gopay.merchant ? false : _originalMerchant;
         };
 
         /**
          * Toggles the 'internet' attribte in the scope.
          */
-        $scope.toggleInternetConnectivity = function () {
-          envFlags.internet = !envFlags.internet;
+        $scope.toggleInternetConnectivity = function() {
+            envFlags.internet = !envFlags.internet;
         };
 
-        $scope.nukeData = function () {
+        $scope.nukeData = function() {
             JournalKeeper.nuke();
             $log.debug('All persisted data has been nuked! Everything will be gone on next reload!');
         };
+
+        $scope.removeDeviceId = function() {
+            localStorage.removeItem('deviceId');
+        };
     });
 })(angular);
-
