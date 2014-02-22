@@ -83,13 +83,15 @@
                 });
                 return;
             }
-            EntityService.create(customer).then(function(uuid) {
+            var entityCreatedPromise = EntityService.create(customer).then(function(uuid) {
                 OrderService.order.customerId = uuid;
+                return uuid;
             }, function(err) {
                 // TODO something about it
             });
-
             $location.path('/');
+            
+            return entityCreatedPromise;
         };
 
         $scope.cancel = function cancel() {

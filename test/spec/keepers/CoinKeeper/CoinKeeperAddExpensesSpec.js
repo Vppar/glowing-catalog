@@ -14,6 +14,7 @@ describe('Service: CoinKeeperAddExpense', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.expense.entity');
         module('tnt.catalog.receivable.entity');
         module('tnt.catalog.coin.keeper');
@@ -54,7 +55,7 @@ describe('Service: CoinKeeperAddExpense', function() {
         ExpensesKeeper = _CoinKeeper_('expense');
         CoinKeeper = _CoinKeeper_;
         JournalEntry = _JournalEntry_;
-        IdentityService = _IdentityService_;
+        IdentityService = _IdentityService_;        
     }));
 
     it('should return the same entity', function() {

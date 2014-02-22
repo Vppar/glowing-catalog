@@ -6,6 +6,7 @@ describe('Service: JournalKeeperMarkAsSynced', function() {
 
 
   beforeEach(function () {
+      localStorage.deviceId = 1;
       storage.register = jasmine.createSpy('PersistentStorage.register');
       storage.update = jasmine.createSpy('PersistentStorage.update');
 

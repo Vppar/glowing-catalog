@@ -18,6 +18,7 @@ describe('Keeper: JournalKeeper.markAsSynced() scenario', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.storage.persistent');
         module('tnt.storage.websql');
         module('tnt.catalog.journal.entity');
