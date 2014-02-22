@@ -1,13 +1,22 @@
 (function(angular, uuid) {
     'use strict';
 
-    angular.module('tnt.identity', []).service('IdentityService', function IdentityService() {
+    angular
+    .module('tnt.identity', ['tnt.catalog.sync.driver'])
+    .service('IdentityService', function IdentityService() {
 
-        // TODO find a unique id for the device
-        var deviceId = 1;
+        // Device Id should be defined the first time the user connects to
+        // Firebase. See the login process in SyncDriver.login().
+        function getDeviceId() {
+          if (!localStorage.deviceId) {
+            throw('A device must have connected before being able to generate a UUID!');
+          }
+
+          return localStorage.deviceId;
+        }
+
 
         this.getUUID = function(op, id) {
-
             if (op > 0xff || id > 0xffff) {
                 throw 'uuid seed data too big, op max is 255 and id max is 4095';
             }
@@ -18,7 +27,7 @@
 
             // map our precious 6 bytes
             var seed = [
-                deviceId, 0x00, op, 0x00, high, low
+                getDeviceId(), 0x00, op, 0x00, high, low
             ];
 
             // generate the uuid
@@ -28,7 +37,6 @@
         };
 
         this.getUUIDData = function(uuid) {
-
             if (uuid.length !== 36) {
                 throw 'This is not an uuid: ' + uuid;
             }
@@ -42,7 +50,8 @@
         };
 
         this.getDeviceId = function() {
-            return angular.copy(deviceId);
+            // FIXME: do we really need a copy here?
+            return angular.copy(getDeviceId());
         };
 
         this.leftPad = function(n, p, c) {

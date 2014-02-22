@@ -81,12 +81,44 @@
 
           new FirebaseSimpleLogin(baseRef, function(err, user) {
             if (err) {
-              $log.debug('Firebase authentication error (login cb)', err);
-              deferred.reject(err);
+                $log.debug('Firebase authentication error (login cb)', err);
+                deferred.reject(err);
             } else if (user) {
-              localStorage.firebaseUser = username;
-              setFirebaseReferences(username);
+                $log.debug('Logged in to Firebase as ' + username);
+                localStorage.firebaseUser = username;
+                setFirebaseReferences(username);
 
+                // We need a unique deviceId! Get one from the server!
+                if (!localStorage.deviceId) {
+                    $log.debug('This device has no ID! Get one from the server.');
+                    userRef
+                        .child('lastDeviceId')
+                        .transaction(function (currentValue) {
+                            if (!currentValue) { currentValue = 0; }
+                            return currentValue + 1;
+                        }, function (err, committed, snapshot) {
+                            if (err) {
+                                $log.debug('Failed to update the device id!', err);
+                                deferred.reject(err);
+                            } else if (committed) {
+                                localStorage.deviceId = snapshot.val();
+                                deferred.resolve(user);
+                            }
+                        });
+                } else {
+                    // We already have a deviceId
+                    deferred.resolve(user);
+                }
+            }else{
+                delete localStorage.firebaseUser;
+                $rootScope.$broadcast('FirebaseDisconnected');
+            }
+          }).login('password', {
+            email : username,
+            password : password
+          });
+
+          deferred.promise.then(function () {
               // Get the GoPay token from Firebase
               userRef
                   .child('account')
@@ -112,20 +144,12 @@
 
               // Broadcast the event once everything is ready
               $rootScope.$broadcast('FirebaseConnected');
-
-              $log.debug('Logged in to Firebase as ' + username);
-              deferred.resolve(user);
-            }else{
-                delete localStorage.firebaseUser;
-                $rootScope.$broadcast('FirebaseDisconnected');
-            }
-          }).login('password', {
-            email : username,
-            password : password
           });
           
           return deferred.promise;
         };
+
+
 
 
         this.logout = function( ) {
