@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.service.book', []).service('BookService', function BookService(BookKeeper, Book) {
+    angular.module('tnt.catalog.service.book', ['tnt.catalog.bookkeeping.entity']).service('BookService', function BookService(BookKeeper, Book) {
 
         this.write = function(debitAcc, creditAcc, document, entity, op, amount) {
             var entry = {

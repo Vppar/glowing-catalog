@@ -57,7 +57,7 @@ describe('Service: BookKeeperNukeSpec', function() {
         JournalEntry = _JournalEntry_;
     }));
 
-    it('should create two new book', function() {
+    it('should nuke book entries', function() {
         // Given
         BookKeeper.handlers['addBookV1'](newBook);
         BookKeeper.handlers['addBookV1'](newBook2);
