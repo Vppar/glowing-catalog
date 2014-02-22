@@ -10,45 +10,49 @@ describe('Controller: AddCustomerCtrl', function() {
     var scope = {};
     var dialog = {};
     var location = {};
-    var q = {};
     var dp = {};
     var ds = {};
     var os = {};
     var cs = {};
     var us = {};
+    var es = {};
+    var $q = {};
+    var $rootScope = {};
 
-    q.reject = function() {
-        return 'rejected';
-    };
-    
-    beforeEach(function(){module(function($provide) {
-        $provide.value('CepService', cs);
-        $provide.value('UserService', us);
+    beforeEach(function() {
+        module(function($provide) {
+            $provide.value('CepService', cs);
+            $provide.value('UserService', us);
+            $provide.value('EntityService', es);
         });
-    
+
         us.redirectIfIsNotLoggedIn = jasmine.createSpy('redirectIfIsNotLoggedIn');
     });
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function($controller, $rootScope, _$filter_) {
-        // $dialog mock 
+    beforeEach(inject(function($controller, _$filter_, _$q_, _$rootScope_) {
+
+        $q = _$q_;
+        $rootScope = _$rootScope_;
+
+        // $dialog mock
         dialog.close = jasmine.createSpy();
 
         // $location mock
         location.path = jasmine.createSpy();
-        
+
         // DialogService mock
         ds.messageDialog = jasmine.createSpy();
-        
+
         // DataProvider mock
         dp.date = angular.copy(sampleData.date);
         dp.customers = angular.copy(sampleData.customers);
         dp.products = angular.copy(sampleData.products);
-        
+
         // scope mock;
         scope = $rootScope.$new();
         scope.newCustomerForm = {};
-        
+
         $controller('AddCustomerCtrl', {
             $scope : scope,
             $location : location,
@@ -79,15 +83,41 @@ describe('Controller: AddCustomerCtrl', function() {
      * Should add a new customer and when it's done, redirect to main screen.
      */
     it('should add a customer', function() {
+        var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
+        es.create = jasmine.createSpy('EntityService.create').andCallFake(function() {
+            var deffered = $q.defer();
+            setTimeout(function() {
+                deffered.resolve(uuid);
+            }, 0);
+            return deffered.promise;
+        });
+
         scope.customer.name = 'Earl Hickey';
-        scope.customer.phones.push({type: 'Residencial', number: '123456789'});
+        scope.customer.phones.push({
+            type : 'Residencial',
+            number : '123456789'
+        });
         scope.newCustomerForm.$valid = true;
         os.order = {};
 
-        scope.confirm();
+        var result = null;
+        runs(function() {
+            scope.confirm().then(function(_result_) {
+                result = _result_;
+            });
+        });
 
-        //expect(os.order.customerId).toEqual();
-        expect(location.path).toHaveBeenCalledWith('/');
+        waitsFor(function() {
+            scope.$apply();
+            return !!result;
+        });
+
+        runs(function() {
+            expect(location.path).toHaveBeenCalledWith('/');
+            expect(es.create).toHaveBeenCalledWith(scope.customer);
+            expect(result).toEqual(uuid);
+            expect(os.order.customerId).toEqual(uuid);
+        });
     });
 
     /**
