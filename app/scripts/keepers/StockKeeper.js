@@ -166,7 +166,7 @@
             
             if (entry === null) {
                 entry = new Stock(event.inventoryId, 0, 0);
-                stock.push(event);
+                stock.push(entry);
             }
             entry.reserve = entry.reserve ? entry.reserve: 0;
             entry.reserve += event.reserve;
