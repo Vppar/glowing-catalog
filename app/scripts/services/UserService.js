@@ -71,6 +71,13 @@
             }, function(err) {
                 return onlineLoginErrorHandler(err, user, pass);
             });
+
+            // FIXME: This should initialize warm up data during development.
+            // Should be removed ASAP!
+            loggedPromise.then(function () {
+              SyncService.resync();
+            });
+
             return loggedPromise;
         };
 
@@ -95,6 +102,16 @@
                 });
                 
             }
+        };
+
+
+        this.hasUnsyncedData = function hasUnsyncedData() {
+            return SyncService.hasUnsyncedEntries();
+        };
+
+        this.clearData = function clearData() {
+            localStorage.clear();
+            return SyncService.clearData();
         };
 
     });

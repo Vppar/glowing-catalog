@@ -101,11 +101,18 @@
         };
 
 
-        this.setSequence = function (val) {
+        function setSequence(val) {
           sequence = val;
           $rootScope.$broadcast('JournalKeeper.setSequence', val);
-        };
+        }
 
+        this.setSequence = setSequence;
+
+
+        function setSyncedSequence(val) {
+          syncedSequence = val;
+          $rootScope.$broadcast('JournalKeeper.setSyncedSequence', val);
+        }
 
         /**
          * Returns the sequence of the last synced entry.
@@ -372,6 +379,18 @@
                 });
                 
                 return deferred.promise;
+            });
+        };
+
+
+        /**
+         * Clears all data from both keepers and WebSQL.
+         */
+        this.clear = function () {
+            Replayer.nukeKeepers();
+            return this.nuke().then(function () {
+              setSequence(1);
+              setSyncedSequence(0);
             });
         };
 

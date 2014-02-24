@@ -160,8 +160,6 @@
         }).otherwise({
             redirectTo : '/'
         });
-    }).run(function(JournalKeeper){
-        JournalKeeper.resync();
     });
 }(angular));
 

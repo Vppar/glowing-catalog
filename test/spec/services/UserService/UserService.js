@@ -24,6 +24,7 @@ describe('Service: UserService', function() {
 
         SyncDriver.login = jasmine.createSpy('SyncDriver.login');
         SyncDriver.logout = jasmine.createSpy('SyncDriver.logout');
+        SyncService.resync = jasmine.createSpy('SyncService.resync');
 
     });
 

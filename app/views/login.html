@@ -10,13 +10,17 @@
 					<h2 class="form-signin-heading"><img src="images/logo-home.png" alt="" /></h2>
 					<div class="control-group lbl-top" >
 						<label>Login</label>
-						<input type="text" class="input-xlarge" ng-model="user" lower-case placeholder="" name="username">
+						<input type="text" class="input-xlarge" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="" name="username">
 					</div>
 
 					<div class="control-group lbl-top" >
 						<label>Senha</label>
 						<input type="password" class="input-xlarge" ng-model="pass" placeholder="">
 					</div>
+
+          <button ng-click="changeUser()" ng-if="hasPersistedUser()" class="btn btn-large btn-cancel btn-change-user" type="button">
+            Change user
+          </button>
 
 					<button ng-click='login()' class="btn btn-ok btn-large btn-login" type="submit">
 						Entrar
