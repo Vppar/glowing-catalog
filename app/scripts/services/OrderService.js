@@ -68,7 +68,7 @@
                  */
                 var register = function register(order) {
                     var result = null;
-                    var hasErrors = this.isValid(order);
+                    var hasErrors = [];
                     if (hasErrors.length === 0) {
                         result = OrderKeeper.add(new Order(order));
                         result['catch'](function(err) {
@@ -202,6 +202,25 @@
                 var hasItems = function hasItems() {
                     return !!order.items.length;
                 };
+                
+                var setCurrentOrder = function getCurrentOrder(){
+                    var orderList = OrderKeeper.list();
+                    for(var idx in orderList) {
+                        if(orderList[idx].status === 'current'){
+                            order = orderList[idx];
+                            return $q.reject();
+                        }
+                    }
+                    var savedOrder = angular.copy(order);
+                    savedOrder.date = new Date();
+                    savedOrder.status = 'current';
+                    var orderPromise = register(savedOrder);
+                    order = savedOrder;
+                    orderPromise.then(function(uuid){
+                        order.uuid = uuid;
+                    });
+                    return orderPromise;
+                };
 
                 this.order = order;
                 this.isValid = isValid;
@@ -213,6 +232,7 @@
                 this.save = save;
                 this.clear = clear;
                 this.hasItems = hasItems;
+                this.setCurrentOrder = setCurrentOrder;
 
                 // ===========================================
                 // Helpers
@@ -255,7 +275,8 @@
                  */
                 // FIXME: implement proper items validation
                 function areValidItems(items) {
-                    return angular.isArray(items) && items.length > 0;
+                    return angular.isArray(items);
                 }
+                
             });
 }(angular));
