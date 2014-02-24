@@ -103,38 +103,38 @@
                 
                 <li><a class="hover-state-pointer gren-item-menu" ng-click="checkout(true)">Pagamento do Cliente</a></li>
                 
-                <li><a href="#">*Pedido de Vendas</a></li>
+                <li class="display-none"><a href="#">*Pedido de Vendas</a></li>
                 
                 <li><a href="#/order-list">Resumo de Vendas</a></li>
 
                 <!-- <div class="dropup"> -->
-                    <li class="dropdown-submenu pull-left">
+                <li class="dropdown-submenu pull-left">
 
-                        <a tabindex="-1" ng-click="preventClose($event)">Estoque</a>
+                    <a tabindex="-1" ng-click="preventClose($event)">Estoque</a>
 
-                        <ul class="dropdown-menu">
+                    <ul class="dropdown-menu">
 
-                            <li><a href="#/stock">Posi&ccedil;&atilde;o Atual</a></li>
-                        
-                            <li><a href="#">*Transferir p/ Amostra</a></li>
-                        
-                            <li><a href="#">*Transferir p/ Perda</a></li>
-                        
-                            <li><a href="#">Empr&eacute;stimo Concedido</a></li>
-                        
-                            <li><a class="last-header" href="#">Empr&eacute;stimo Tomado</a></li>
-                     
-                        </ul>
+                        <li><a class="last-header" href="#/stock">Posi&ccedil;&atilde;o Atual</a></li>
+                    
+                        <li class="display-none"><a href="#">*Transferir p/ Amostra</a></li>
+                    
+                        <li class="display-none"><a href="#">*Transferir p/ Perda</a></li>
+                    
+                        <li class="display-none"><a href="#">*Empr&eacute;stimo Concedido</a></li>
+                    
+                        <li class="display-none"><a class="last-header" href="#">*Empr&eacute;stimo Tomado</a></li>
+                 
+                    </ul>
 
-                    </li>
+                </li>
                 <!-- </div> -->
 
                 <li><a href="#/products-to-buy">Pedido de Compra</a></li>
                 
-                <li><a href="#">*Controle de Bonifica&ccedil;&atilde;o</a></li>
+                <li class="display-none"><a href="#">*Controle de Bonifica&ccedil;&atilde;o</a></li>
                 
-                 <div class="dropup">
-                <li class="dropdown-submenu pull-left">
+                <div class="dropup">
+                <li class="dropdown-submenu pull-left display-none">
                     <a tabindex="-1" href="#">Gestão Comercial</a>
                     <ul class="dropdown-menu">
                         <li>
@@ -163,13 +163,13 @@
                         <li>
                             <a href="#">*Cheques de clientes</a>
                         </li>
-                        <li>
+                        <li class="display-none">
                             <a href="#">*Conta Banc&aacute;ria</a>
                         </li>
                         <li>
                             <a href="#/receivable">Contas a Receber</a>
                         </li>
-                        <li>
+                        <li class="display-none">
                             <a href="#/expense">Contas a Pagar</a>
                         </li>
                         <li>
@@ -185,11 +185,11 @@
                 </li>
                 </div>
 
-                 <div class="dropup">
+                <div class="dropup">
                 <li class="dropdown-submenu pull-left">
                     <a tabindex="-1" href="#">Cadastro Geral</a>
                     <ul class="dropdown-menu">
-                        <li>
+                        <li class="display-none">
                             <a href="#">*Cadastro de Terceiros</a>
                         </li>
                         <li>
