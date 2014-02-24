@@ -160,6 +160,8 @@
                 
         }).when('/cash-flow', {
             templateUrl : 'views/cash-flow.html',
+        }).when('/book-keeping-report', {
+            templateUrl : 'views/book-keeping-report.html',
         }).otherwise({
             redirectTo : '/'
         });
