@@ -9,14 +9,18 @@
 
                 var scope = this;
 
-                this.gopay = {}
+                this.gopay = {
+                    merchant : false,
+                    token : null
+                };
                 this.reloadGoPay = function() {
-                    this.gopay = localStorage.gpToken === 'null' ? {
-                        merchant : false
-                    } : {
-                        merchant : true,
-                        token : localStorage.gpToken
-                    };
+                    if (localStorage.gpToken === 'null') {
+                        this.gopay.merchant = false;
+                        this.gopay.token = null;
+                    } else {
+                        this.gopay.merchant = true;
+                        this.gopay.token = localStorage.gpToken;
+                    }
                 };
                 this.reloadGoPay();
 
