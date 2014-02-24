@@ -139,7 +139,7 @@
                  * @param itens - New items to update
                  * @return boolean Result if the receivable is canceled.
                  */
-                var update = function update(id, items) {
+                var update = function update(id, items, customerId, status) {
                     var result = null;
                     try {
                         result = OrderKeeper.update(id, items);

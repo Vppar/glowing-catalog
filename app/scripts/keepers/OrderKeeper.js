@@ -39,7 +39,6 @@
             ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'code', this.code);
             ObjectUtils.ro(this, 'date', this.date);
-            // ObjectUtils.ro(this, 'customerId', this.customerId);
         };
 
         return service;
@@ -98,7 +97,15 @@
         ObjectUtils.ro(this.handlers, 'orderUpdateV1', function(event) {
             var orderEntry = ArrayUtils.find(orders, 'uuid', event.uuid);
             if (orderEntry) {
-                orderEntry.items = event.items;
+                if (orderEntry.items) {
+                    orderEntry.items = event.items;
+                }
+                if (orderEntry.customerId) {
+                    orderEntry.customerId = event.customerId;
+                }
+                if (orderEntry.status) {
+                    orderEntry.status = event.status;
+                }
                 orderEntry.updated = event.updated;
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
@@ -163,7 +170,7 @@
         /**
          * Update an order
          */
-        var update = function update(uuid, items) {
+        var update = function update(uuid, items, costumerId, status) {
             var order = ArrayUtils.find(orders, 'uuid', uuid);
             if (!order) {
                 throw 'Unable to find an order with uuid=\'' + uuid + '\'';
@@ -171,7 +178,9 @@
             var updateEv = {
                 uuid : order.uuid,
                 updated : new Date().getTime(),
-                items : items
+                items : items,
+                costumerId : costumerId,
+                status : status
             };
             // create a new journal entry
             var entry = new JournalEntry(null, updateEv.updated, 'orderUpdate', currentEventVersion, updateEv);

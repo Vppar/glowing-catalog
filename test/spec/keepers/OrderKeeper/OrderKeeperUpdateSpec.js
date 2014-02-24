@@ -54,7 +54,7 @@ describe('Service: OrderKeeperUpdateSpec', function() {
         JournalEntry = _JournalEntry_;
     }));
 
-    it('should update an order', function() {
+    it('should update an order - items', function() {
 
         var addEv = new Order(order);
         var recEv = {
@@ -80,6 +80,54 @@ describe('Service: OrderKeeperUpdateSpec', function() {
         // when
         var receiveCall = function() {
             OrderKeeper.update(addEv.uuid, items);
+        };
+
+        expect(receiveCall).not.toThrow();
+        expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
+    });
+    
+    xit('should update an order - customerId', function() {
+
+        var addEv = new Order(order);
+        var recEv = {
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
+            updated : fakeNow,
+            items : null,
+            customerId : '123',
+            status : undefined   
+        };
+
+        var receiveEntry = new JournalEntry(null, recEv.updated, 'orderUpdate', 1, recEv);
+
+        OrderKeeper.handlers['orderAddV1'](addEv);
+
+        // when
+        var receiveCall = function() {
+            OrderKeeper.update(addEv.uuid, null, '123');
+        };
+
+        expect(receiveCall).not.toThrow();
+        expect(jKeeper.compose).toHaveBeenCalledWith(receiveEntry);
+    });
+    
+    xit('should update an order - status', function() {
+
+        var addEv = new Order(order);
+        var recEv = {
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
+            updated : fakeNow,
+            items : null,
+            customerId : null,
+            status : 'pending'   
+        };
+
+        var receiveEntry = new JournalEntry(null, recEv.updated, 'orderUpdate', 1, recEv);
+
+        OrderKeeper.handlers['orderAddV1'](addEv);
+
+        // when
+        var receiveCall = function() {
+            OrderKeeper.update(addEv.uuid, null, null, 'pending');
         };
 
         expect(receiveCall).not.toThrow();
