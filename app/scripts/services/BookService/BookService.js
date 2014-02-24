@@ -97,6 +97,8 @@
             
             if(cash){
                 entries.push(new BookEntry(null, null, 11111, 70001, orderUUID, entityUUID, null, cash));
+            } else if (cash < 0){
+                entries.push(new BookEntry(null, null, 70001, 11111, orderUUID, entityUUID, null, cash));
             }
             if(check){
                 entries.push(new BookEntry(null, null, 11121, 70001, orderUUID, entityUUID, null, check));
