@@ -6,7 +6,7 @@
         var service = function svc(uuid, code, date, canceled, customerId, items) {
 
             var validProperties = [
-                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'updated', 'items'
+                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'updated', 'items', 'status'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -34,11 +34,12 @@
                 this.canceled = canceled;
                 this.customerId = customerId;
                 this.items = items;
+                this.status = status;
             }
             ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'code', this.code);
             ObjectUtils.ro(this, 'date', this.date);
-            ObjectUtils.ro(this, 'customerId', this.customerId);
+            // ObjectUtils.ro(this, 'customerId', this.customerId);
         };
 
         return service;
@@ -79,7 +80,6 @@
             if (eventData.deviceId === IdentityService.getDeviceId()) {
                 currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
-
             event = new Order(event);
             orders.push(event);
 

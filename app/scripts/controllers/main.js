@@ -61,5 +61,8 @@
                         });
                     }
                 };
+                
+                OrderService.setCurrentOrder();
+                
             });
 }(angular));
