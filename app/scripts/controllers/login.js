@@ -15,9 +15,14 @@
                 $location.path('/');
             }, function(err) {
                 $log.debug('Failed to login!', err);
+
+                var msg = err && err.code === 'SERVER_ERROR' ?
+                  'Autenticação offline não disponível. Verifique sua conexão com a Internet e tente novamente.' :
+                  'Usuário ou senha inválidos. Por favor, tente novamente.';
+
                 DialogService.messageDialog({
                     title : 'Login',
-                    message : 'Usuário ou senha inválidos. Por favor tente novamente.',
+                    message : msg,
                     btnYes : 'Voltar'
                 });
             });
