@@ -56,6 +56,8 @@
                     delete localStorage.hashMD5;
                 }
                 result = $q.reject(err);
+            } else if (err && err.code === 'SERVER_ERROR' && !localStorage.hashMD5) {
+                result = $q.reject(err);
             } else {
                 result = userService.loginOffline(user, pass);
             }
