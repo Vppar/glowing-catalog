@@ -555,6 +555,11 @@
             }
 
 
+            // FIXME This is a dirty proxy to the JournalKeeper's method.
+            this.resync = function () {
+              return JournalKeeper.resync();
+            };
+
             this.clearData = clearData;
             this.hasUnsyncedEntries = hasUnsyncedEntries;
             this.sync = sync;
