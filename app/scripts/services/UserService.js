@@ -97,5 +97,15 @@
             }
         };
 
+
+        this.hasUnsyncedData = function hasUnsyncedData() {
+            return SyncService.hasUnsyncedEntries();
+        };
+
+        this.clearData = function clearData() {
+            localStorage.clear();
+            return SyncService.clearData();
+        };
+
     });
 })(angular);

@@ -511,7 +511,6 @@
             };
 
 
-            //// <START sequence conclict resolution
             function isResolvingConflict() {
               return !!sequenceConflictPromise;
             }
@@ -541,10 +540,23 @@
             }
 
 
-            //// sequence conflict resolution END>
+
+            /**
+             * Clears all synced and unsynced entries.
+             */
+            function clearData() {
+                return JournalKeeper.clear();
+            };
+
+            function hasUnsyncedEntries() {
+                return JournalKeeper.readUnsynced().then(function (result) {
+                    return !!(result && result.length);
+                });
+            }
 
 
-
+            this.clearData = clearData;
+            this.hasUnsyncedEntries = hasUnsyncedEntries;
             this.sync = sync;
             this.isSynching = isSynching;
             this.getLastSyncedSequence = getLastSyncedSequence;
