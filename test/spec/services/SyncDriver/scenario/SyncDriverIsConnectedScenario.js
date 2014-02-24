@@ -1,10 +1,24 @@
 describe('Service: SyncDriverIsConnectedScenario', function() {
 
+    var logger = angular.noop;
+    //var logger = console.log;
+
+    var $log = {
+      debug : logger,
+      warn : logger,
+      fatal : logger,
+      error : logger
+    };
+
     var SyncDriver = null;
 
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.sync.driver');
+
+        module(function ($provide) {
+          $provide.value('$log', $log);
+        });
     });
 
     beforeEach(inject(function(_SyncDriver_) {
