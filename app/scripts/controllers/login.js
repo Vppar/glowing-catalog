@@ -4,14 +4,16 @@
     angular.module('tnt.catalog.login.ctrl', [
         'tnt.catalog.user'
     ]).controller('LoginCtrl', function($scope, $log, $location, UserService, DialogService) {
-        
-        $scope.hasPersistedUser = function () {
-            return localStorage.user;
-        };
 
-        if(localStorage.user !== "undefined"){
+        function hasPersistedUser() {
+            return !!localStorage.user;
+        }
+
+        if(hasPersistedUser()) {
             $scope.user = localStorage.user;
         }
+        
+        $scope.hasPersistedUser = hasPersistedUser;
 
 
         $scope.changeUser = function () {
