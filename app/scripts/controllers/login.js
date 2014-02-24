@@ -27,8 +27,8 @@
                     $log.debug('Trying to switch users with unsynced entries.');
                     DialogService.messageDialog({
                         title : 'Atenção! Dados podem ser perdidos!',
-                        message : 'Alguns dados não foram salvos no servidor. '
-                            + 'Ao trocar de usuário estes dados serão excluídos permanentemente. '
+                        message : 'Alguns dados não foram salvos no servidor e serão '
+                            + 'excluídos permanentemente ao trocar de usuário. '
                             + 'Tem certeza de que deseja continuar?',
                         btnYes : 'Sim, tenho certeza.',
                         btnNo : 'Não'
