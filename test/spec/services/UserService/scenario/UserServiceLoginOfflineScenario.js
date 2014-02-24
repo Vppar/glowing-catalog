@@ -34,6 +34,7 @@ describe('Service: UserServiceLoginOfflineScenario', function() {
     
     // mock stuff
     beforeEach(function() {
+        SyncService.resync = jasmine.createSpy('SyncService.resync');
         SyncDriver.registerSyncService = jasmine.createSpy('SyncDriver.registerService');
         SyncDriver.logout = jasmine.createSpy('SyncDriver.logout');
         SyncDriver.isConnected = jasmine.createSpy('SyncDriver.isConnected');

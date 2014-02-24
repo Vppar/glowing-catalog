@@ -29,6 +29,7 @@ describe('Service: UserServiceLoginOnlineScenario', function() {
     beforeEach(function() {
         SyncDriver.registerSyncService = jasmine.createSpy('SyncDriver.registerService');
         SyncDriver.logout = jasmine.createSpy('SyncDriver.logout');
+        SyncService.resync = jasmine.createSpy('SyncService.resync');
         PrefetchService.doIt = jasmine.createSpy('PrefetchService.doIt');
         delete localStorage.firebaseConnected;
     });
