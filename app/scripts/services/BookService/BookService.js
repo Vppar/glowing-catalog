@@ -124,5 +124,26 @@
             
             return entries;
         };
+        
+        this.validate = function(entries){
+          
+            var amount = 0;
+          
+            for(var entry in entries){
+                if(BookKeeper.getNature(entry.debitAccount) === 'credit'){
+                  amount += entry.amount;
+                } else {
+                  amount -= entry.amount;
+                }
+                
+                if(BookKeeper.getNature(entry.creditAccount) === 'credit'){
+                  amount += entry.amount;
+                } else {
+                  amount -= entry.amount;
+                }
+            }
+            
+            return (amount === 0);
+        };
     });
 }(angular));
