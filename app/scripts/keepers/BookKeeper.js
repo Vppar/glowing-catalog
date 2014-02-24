@@ -211,7 +211,12 @@
         };
 
         this.list = function() {
-            return angular.copy(books);
+          return angular.copy(books);
+        };
+        
+        this.getNature = function(access) {
+            var book = ArrayUtils.find(books, 'access', access);
+            return angular.copy(book.nature);
         };
     });
 
