@@ -155,6 +155,9 @@
         }).when('/voucher', {
             templateUrl : 'views/voucher.html',
             controller : 'VoucherCtrl'
+        }).when('/warm-up', {
+            templateUrl : 'views/warm-up.html'
+                
         }).when('/cash-flow', {
             templateUrl : 'views/cash-flow.html',
         }).otherwise({
