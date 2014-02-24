@@ -40,7 +40,6 @@
                                         this.document = document;
                                         this.entity = entity;
                                         this.op = op;
-                                        this.remark = remark;
                                         this.amount = amount;
                                     }
                                 };
@@ -87,15 +86,22 @@
 
     angular.module('tnt.catalog.bookkeeping.keeper', [
         'tnt.catalog.journal.replayer', 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.keeper'
-    ]).service('BookKeeper', function($q, Replayer, ArrayUtils, Book, JournalEntry, JournalKeeper, IdentityService) {
-        
+    ]).service('BookKeeper', function($q, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService) {
+
         var type = 8;
         var books = [];
         var currentCounter = 0;
+
+        var entryType = 9;
+        var entryCurrentCounter = 0;
+
         this.handlers = {};
 
         function getNextId() {
             return ++currentCounter;
+        }
+        function getEntryNextId() {
+            return ++entryCurrentCounter;
         }
 
         /**
@@ -163,9 +169,15 @@
         Replayer.registerHandlers(this.handlers);
 
         this.write = function(entry) {
+            if (!(entry instanceof BookEntry)) {
+                return $q.reject('Wrong instance to BookKeeper');
+            }
 
-            var event = angular.copy(entry);
-            event.created = (new Date()).getTime();
+            var entryObj = angular.copy(entry);
+            entryObj.uuid = IdentityService.getUUID(entryType, getEntryNextId());
+            entryObj.created = (new Date()).getTime();
+
+            var event = new BookEntry(entryObj);
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.created, 'bookWrite', 1, event);
@@ -180,8 +192,9 @@
 
             var bookObj = angular.copy(book);
             bookObj.uuid = IdentityService.getUUID(type, getNextId());
-            
+
             var event = new Book(bookObj);
+            event.created = (new Date()).getTime();
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.created, 'addBook', 1, event);
@@ -211,9 +224,9 @@
         };
 
         this.list = function() {
-          return angular.copy(books);
+            return angular.copy(books);
         };
-        
+
         this.getNature = function(access) {
             var book = ArrayUtils.find(books, 'access', access);
             return angular.copy(book.nature);
