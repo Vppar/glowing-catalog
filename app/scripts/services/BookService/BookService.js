@@ -39,14 +39,10 @@
          * 
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
-         * @param {number} productAmount the total value for products in this
-         *            order
-         * @param {number} productCost the total cost for products in this order
-         *            based on stock average cost
-         * @param {number} voucher the total amount of given vouchers in this
-         *            order
-         * @param {number} gift the total amount of given giftCards in this
-         *            order
+         * @param {number} productAmount the total value for products in this order
+         * @param {number} productCost the total cost for products in this order based on stock average cost
+         * @param {number} voucher the total amount of given vouchers in this order
+         * @param {number} gift the total amount of given giftCards in this order
          */
         this.order = function(orderUUID, entityUUID, productAmount, productCost, voucher, gift) {
 
@@ -79,10 +75,8 @@
          * 
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
-         * @param {number} productAmount the total value for products being
-         *            returned
-         * @param {number} productCost the total cost for products being
-         *            returned based on stock average cost
+         * @param {number} productAmount the total value for products being returned
+         * @param {number} productCost the total cost for products being returned based on stock average cost
          */
         this.productReturn = function(orderUUID, entityUUID, productAmount, productCost) {
             var entries = [];
