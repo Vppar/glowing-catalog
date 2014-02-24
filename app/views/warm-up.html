@@ -1,0 +1,198 @@
+<div class="container">
+	<div class="row-fluid">
+		<span class="span12"> <span ng-include
+			src="'views/parts/global/header.html'"></span>
+		</span>
+	</div>
+
+
+	<div class="warm-up">
+		<div class="warm-up-header">
+			<span>Saldo Inicial</span>
+		</div>
+		<div class="warm-up-body">
+
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="warm-up-calendar">
+						data: 
+						<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75 ng-pristine ng-valid ng-valid-required" required="" readonly="" maxlength="10" ng-model="dateFilter.dtInitial">
+						<label for="dtIni" class="ic-calendar">
+							<img src="images/icons/ic-calendar.png">
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="warm-up-section">
+				<div class="row-fluid">
+						<div class="warm-up-body-header">
+							<div class="new-col-12">Caixa Geral</div>
+							<div class="new-col-12 currency">R$ 20.000,00</div>
+						</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="warm-up-body-row">
+							<div class="new-col-18">Caixa</div>
+
+							<div class="new-col-6">
+								<input class="input-block-level currency" type="text" placeholder="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="warm-up-section">
+				<div class="row-fluid">
+						<div class="warm-up-body-header">
+							<div class="new-col-12">Cheque <small>(3)</small></div>
+							<div class="new-col-12 currency">R$ 20.000,00</div>
+						</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="warm-up-body-row">
+							<div class="new-col-6">Banco do Brasil</div>
+							<div class="new-col-3">ag. 3262-x</div>
+							<div class="new-col-3">cc 11.255-7</div>
+							<div class="new-col-4">venc. 25/03/2014</div>
+							<div class="new-col-4">de: Albert Einstein</div>
+							<div class="new-col-4 currency">12.005,00</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid" ng-show="true">
+					<div class="span12">
+						<div class="warm-up-body-row-form">
+							<div class="new-col-6">
+								<label>Banco</label>
+								<select ui-select2 data-placeholder="Selecione o Banco" ng-model="bankId" tnt-select2 >
+									<option value="">Selecione o Banco</option>
+									<option value="{{bank.id}}" ng-repeat="bank in banks">{{bank.name}}</option>
+								</select>
+							</div>
+							<div class="new-col-3">
+								<label>Agência</label>
+								<input class="input-block-level currency" type="text" placeholder="">
+							</div>
+							<div class="new-col-3">
+								<label>Conta Corrente</label>
+								<input class="input-block-level currency" type="text" placeholder="">
+							</div>
+							<div class="new-col-4">
+<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75 ng-pristine ng-valid ng-valid-required" required="" readonly="" maxlength="10" ng-model="dateFilter.dtInitial">
+						<label for="dtIni" class="ic-calendar">
+							<img src="images/icons/ic-calendar.png">
+						</label>
+							</div>
+							<div class="new-col-4">
+								<label>Cliente</label>
+								<input class="input-block-level currency" type="text" placeholder=""></div>
+							<div class="new-col-4">
+								<label>Valor</label>
+								<input class="input-block-level currency" type="text" placeholder="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="warm-up-section">
+				<div class="row-fluid">
+						<div class="warm-up-body-header">
+							<div class="new-col-12">Banco Conta Corrente</div>
+							<div class="new-col-12 currency">R$ 20.000,00</div>
+						</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="warm-up-body-row">
+							<div class="new-col-6">Banco do Brasil</div>
+							<div class="new-col-6">ag. 3262-x</div>
+							<div class="new-col-6">cc 11566-9</div>
+							<div class="new-col-6 currency">125,00</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid" ng-show="true">
+					<div class="span12">
+						<div class="warm-up-body-row-form">
+							<div class="new-col-6">
+								<label>Banco</label>
+								<select ui-select2 data-placeholder="Selecione o Banco" ng-model="bankId" tnt-select2 >
+									<option value="">Selecione o Banco</option>
+									<option value="{{bank.id}}" ng-repeat="bank in banks">{{bank.name}}</option>
+								</select>
+							</div>
+							<div class="new-col-6">
+								<label>Agência</label>
+								<input class="input-block-level" type="text" placeholder="">
+							</div>
+							<div class="new-col-6">
+								<label>Conta Corrente</label>
+								<input class="input-block-level" type="text" placeholder="">
+							</div>
+							<div class="new-col-6">
+								<label>Valor</label>
+								<input class="input-block-level currency" type="text" placeholder="">
+							</div>
+							<div class="warm-up-btn-holder">
+								<button class="btn btn-ok btn-small pull-right">Adicionar</button>
+								<button class="btn btn-cancel btn-small pull-right">Cancelar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row-fluid" ng-show="false">
+						<button class="btn btn-ok btn-small pull-right">Adicionar</button>
+				</div>
+			</div>
+
+			<div class="warm-up-section">
+				<div class="row-fluid">
+						<div class="warm-up-body-header">
+							<div class="new-col-12">Banco Aplicações</div>
+							<div class="new-col-12 currency">R$ 20.000,00</div>
+						</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="warm-up-body-row">
+							<div class="new-col-6">Banco do Brasil</div>
+							<div class="new-col-12">Poupança</div>
+							<div class="new-col-6 currency">12.005,00</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid" ng-show="true">
+					<div class="span12">
+						<div class="warm-up-body-row-form">
+							<div class="new-col-6">
+								<label>Banco</label>
+								<select ui-select2 data-placeholder="Selecione o Banco" ng-model="bankId" tnt-select2 >
+									<option value="">Selecione o Banco</option>
+									<option value="{{bank.id}}" ng-repeat="bank in banks">{{bank.name}}</option>
+								</select>
+							</div>
+							<div class="new-col-12">
+								<label>Aplicação</label>
+								<input class="input-block-level" type="text" placeholder="">
+							</div>
+							<div class="new-col-6">
+								<label>Valor</label>
+								<input class="input-block-level currency" type="text" placeholder="">
+							</div>
+							<div class="warm-up-btn-holder">
+								<button class="btn btn-ok btn-small pull-right">Adicionar</button>
+								<button class="btn btn-cancel btn-small pull-right">Cancelar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
