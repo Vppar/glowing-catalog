@@ -7,7 +7,7 @@
             var token = localStorage.gpToken;
             $http({
                 method : 'POST',
-                url : 'http://vopp.com.br/gopay/insertCreditCardPayment/?token='+token,
+                url : 'https://vopp.com.br/gopay/insertCreditCardPayment/?token='+token,
                 data : data,
             }).success(function(data) {
                 if (data.Status !== 0) {

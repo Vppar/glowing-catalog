@@ -24,7 +24,7 @@
         };
 
         this.list = function() {
-            return angular.copy(BookKeeper.list);
+            return angular.copy(BookKeeper.list());
         };
 
         /**

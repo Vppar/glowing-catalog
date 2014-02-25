@@ -12,7 +12,7 @@
             throw('A device must have connected before being able to generate a UUID!');
           }
 
-          return localStorage.deviceId;
+          return Number(localStorage.deviceId);
         }
 
 

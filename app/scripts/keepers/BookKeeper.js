@@ -90,6 +90,7 @@
 
         var type = 8;
         var books = [];
+        var bookEntries = [];
         var currentCounter = 0;
 
         var entryType = 9;
@@ -103,34 +104,6 @@
         function getEntryNextId() {
             return ++entryCurrentCounter;
         }
-
-        /**
-         * 
-         * @param {Object} event
-         * @return {Promise}
-         */
-        ObjectUtils.ro(this.handlers, 'bookWriteV1', function(event) {
-            var eventData = angular.copy(event);
-            var entityBook = ArrayUtils.list(books, 'entities', eventData.entity);
-            var debitBook = ArrayUtils.find(entityBook, 'name', eventData.debitAccount);
-
-            if (debitBook == null) {
-                var book = new Book(null, new Date().getTime(), event.debitAccount, 'synthetic', 'debit', eventData.entity);
-                book.balance -= eventData.amount;
-                books.push(book);
-            } else {
-                debitBook.balance = debitBook.balance - eventData.amount;
-            }
-
-            var creditBook = ArrayUtils.find(entityBook, 'name', eventData.creditAccount);
-            if (!creditBook) {
-                var book = new Book(null, new Date().getTime(), event.creditAccount, 'synthetic', 'credit', eventData.entity);
-                book.balance += eventData.amount;
-                books.push(book);
-            } else {
-                creditBook.balance += eventData.amount;
-            }
-        });
 
         /**
          * AddBook
@@ -148,6 +121,48 @@
             return event.uuid;
         });
 
+        function forceAddBook(access, type, nature, entities) {
+            var book = new Book(IdentityService.getUUID(type, getNextId()), access, access, type, nature, 'entities');
+            books.push(book);
+            return book;
+        }
+
+        /**
+         * 
+         * @param {Object} event
+         * @return {Promise}
+         */
+        ObjectUtils.ro(this.handlers, 'bookWriteV1', function(event) {
+
+            var uuidData = IdentityService.getUUIDData(event.uuid);
+
+            if (uuidData.deviceId === IdentityService.getDeviceId()) {
+                entryCurrentCounter = entryCurrentCounter >= uuidData.id ? entryCurrentCounter : uuidData.id;
+            }
+
+            var debitBook = ArrayUtils.find(books, 'access', event.debitAccount);
+
+            if (debitBook == null) {
+                var book = forceAddBook(event.debitAccount, 'synthetic', 'debit', false);
+                book.balance -= event.amount;
+            } else {
+                debitBook.balance = debitBook.balance - event.amount;
+            }
+
+            var creditBook = ArrayUtils.find(books, 'access', event.creditAccount);
+            if (!creditBook) {
+                var book = forceAddBook(event.creditAccount, 'synthetic', 'credit', false);
+                book.balance += book.amount;
+            } else {
+                creditBook.balance += event.amount;
+            }
+
+            var entry = new BookEntry(event);
+            bookEntries.push(entry);
+
+            return entry;
+        });
+
         /**
          * SnapBooks
          */
@@ -163,6 +178,15 @@
         // Nuke event for clearing the books list
         ObjectUtils.ro(this.handlers, 'nukeBooksV1', function() {
             books.length = 0;
+            return true;
+        });
+        
+        /**
+         * nukeBooks
+         */
+        // Nuke event for clearing the books list
+        ObjectUtils.ro(this.handlers, 'nukeEntriesV1', function() {
+            bookEntries.length = 0;
             return true;
         });
 

@@ -1,5 +1,5 @@
 'use strict';
-describe('Service: BookKeeperWriteSpec', function() {
+xdescribe('Service: BookKeeperWriteSpec', function() {
 
     // instantiate service
     var BookKeeper = {};

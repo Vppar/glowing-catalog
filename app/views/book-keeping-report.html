@@ -32,16 +32,17 @@
 		<div class="cell p10" >Operação</div>
 		<div class="cell p10" >Obs Valor</div>
 	</div>
-	<div class="row" ng-repeat="row in rows" style="width:100%; border-bottom:1px solid #666; display:inline-block;">
-		<div class="cell p20" >{{row.name}}</div>
-		<div class="cell p10" >{{row.date}}</div>
-		<div class="cell p10" >{{row.debit}}</div>
-		<div class="cell p10" >{{row.credit}}</div>
-		<div class="cell p10" >{{row.docType}}</div>
-		<div class="cell p10" >{{row.docNum}}</div>
-		<div class="cell p10" >{{row.thirdParty}}</div>
-		<div class="cell p10" >{{row.operation}}</div>
-		<div class="cell p10" >{{row.obsValue}}</div>
-	</div>
-
+	<span ng-repeat="book in books">
+		<div class="row" ng-repeat="row in book" style="width:100%; border-bottom:1px solid #666; display:inline-block;">
+			<div class="cell p20" >{{row.name}}</div>
+			<div class="cell p10" >{{row.date}}</div>
+			<div class="cell p10" >{{row.debit}}</div>
+			<div class="cell p10" >{{row.credit}}</div>
+			<div class="cell p10" >{{row.docType}}</div>
+			<div class="cell p10" >{{row.docNum}}</div>
+			<div class="cell p10" >{{row.thirdParty}}</div>
+			<div class="cell p10" >{{row.operation}}</div>
+			<div class="cell p10" >{{row.obsValue}}</div>
+		</div>
+	</span>
 </div>

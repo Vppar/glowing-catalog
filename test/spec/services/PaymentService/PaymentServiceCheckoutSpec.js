@@ -8,6 +8,7 @@ describe('Service: PaymentServiceCheckout - Reserve', function() {
     var stockKeeper = {};
     var smsService = {};
     var $q = {};
+    var BookService = {};
 
     // load the service's module
     beforeEach(function() {
@@ -23,6 +24,7 @@ describe('Service: PaymentServiceCheckout - Reserve', function() {
             $provide.value('ProductReturnService', productReturnService);
             $provide.value('StockKeeper', stockKeeper);
             $provide.value('SMSService', smsService);
+            $provide.value('BookService', BookService);
         });
     });
 
