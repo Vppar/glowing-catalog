@@ -167,6 +167,10 @@
         }).otherwise({
             redirectTo : '/'
         });
+    }).run(function($rootScope, OrderService){
+            $rootScope.$on('resync finished', function(){
+                OrderService.setCurrentOrder();
+            });
     });
 }(angular));
 
