@@ -1,6 +1,5 @@
 .order-col{
 	display: block;
-	min-height: 40px;
 	line-height: 40px;
 	text-align: center;
 	-moz-box-sizing:    border-box;
@@ -78,10 +77,13 @@
 }
 .order-table-row{
 	cursor: pointer;
-	display: block;
-	min-height: 40px;
-	width: 950px;
+	display: inline-table;
+	width: 100%;
 	line-height: 40px;
+	border-bottom:1px #E0E0E0 dotted; 
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
 }
 .order-table-sum{
 	cursor: pointer;

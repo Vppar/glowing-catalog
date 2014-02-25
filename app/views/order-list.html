@@ -122,34 +122,34 @@
 </div>
 </div>
 
-<div ng-switch="ol">
 	<!--Pedidos-->
-	<div class="order-list-grid-pedidos" ng-switch-when="orders"
+<div ng-switch="ol">
+	<div class="" ng-switch-when="orders"
 	ng-controller="OrderListOrdersCtrl">
 	<div class="row-fluid">
 		<div class="grid-order-list">
 			<div class="header" ng-click="updatePaymentsTotal(filteredOrders)">
 				<div class="order-table-header">
 					<div class="order-col order-col-2">
-						Data
+						<span>Data</span>
 					</div>
 					<div class="order-col order-col-2 text-left">
-						Pedido
+						<span>Pedido</span>
 					</div>
 					<div class="order-col order-col-3 text-left">
-						Clientes
+						<span>Clientes</span>
 					</div>
 					<div class="order-col order-col-1">
-						Qtde.
+						<span>Qtde.</span>
 					</div>
 					<div class="order-col order-col-2 text-right">
-						P. M&eacute;dio
+						<span>P. M&eacute;dio</span>
 					</div>
 					<div class="order-col order-col-2 text-right">
-						Valor total
+						<span>Valor total</span>
 					</div>
 					<div class="order-col order-col-2 text-right">
-						AV%
+						<span>AV%</span>
 					</div>
 				</div>
 			</div>
@@ -177,13 +177,13 @@
 					<span>{{total.all.amount | currency:''}}</span>
 				</div>
 				<div class="order-col order-col-2 text-right">
-					100,00
+					<span>100,00</span>
 				</div>
 			</div>
 		</div>
 
 		<div class="scroll-order-list">
-			<div class="row-order-list hover-state-pointer"
+			<div class="order-table-row"
 			ng-repeat="order in filteredOrders | orderBy: '-date'"
 			ng-click="updateAndEnableHideOption([order])">
 			<div class="order-col order-col-2">
@@ -215,8 +215,7 @@
 <br />
 </div>
 <!--Clientes-->
-<div class="order-list-grid-clientes" ng-switch-when="customers"
-ng-controller="OrderListClientsCtrl">
+<div class="order-list-grid-clientes" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
 <div class="row-fluid">
 	<div class="grid-order-list">
 		<div class="header" ng-click="updatePaymentsTotal(filteredEntities)">
@@ -267,14 +266,12 @@ ng-controller="OrderListClientsCtrl">
 				<span>{{total.all.amount | currency:''}}</span>
 			</div>
 			<div class="order-col order-col-2 text-right">
-				100,00
+				<span>100,00</span>
 			</div>
 		</div>
 	</div>
 	<div class="scroll-order-list">
-		<div class="row-order-list hover-state-pointer"
-		ng-repeat="entity in filteredEntities | orderBy: '-amountTotal'"
-		ng-click="updateAndEnableHideOption([entity])">
+		<div class="order-table-row" ng-repeat="entity in filteredEntities | orderBy: '-amountTotal'" ng-click="updateAndEnableHideOption([entity])">
 		<div class="order-col order-col-1">
 			<span>{{$index+1}}</span>
 		</div>
@@ -294,7 +291,7 @@ ng-controller="OrderListClientsCtrl">
 			<span>{{entity.amountTotal | currency:''}}</span>
 		</div>
 		<div class="order-col order-col-2 text-right">
-			{{entity.va | currency: ''}}
+			<span>{{entity.va | currency: ''}}</span>
 		</div>
 	</div>
 </div>
