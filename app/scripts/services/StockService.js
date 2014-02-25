@@ -31,6 +31,8 @@
                     }else{
                         reportItem.uniqueName = reportItem.SKU;
                     }
+
+                    reportItem.cost = reportItem.cost ? reportItem.cost : reportItem.price;
                 };
 
                 var shouldFilter = function shouldFilter(filter, reportItem) {
