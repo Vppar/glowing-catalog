@@ -64,22 +64,19 @@ describe('Service: OrderKeeperUpdateSpec', function() {
                 {
                     test : 'updated'
                 }
-            ]
+            ],
+            customerId : undefined,
+            status: undefined
+            
         };
 
         var receiveEntry = new JournalEntry(null, recEv.updated, 'orderUpdate', 1, recEv);
 
         OrderKeeper.handlers['orderAddV1'](addEv);
 
-        var items = [
-            {
-                test : 'updated'
-            }
-        ];
-
         // when
         var receiveCall = function() {
-            OrderKeeper.update(addEv.uuid, items);
+            OrderKeeper.update(addEv.uuid, recEv.items);
         };
 
         expect(receiveCall).not.toThrow();
@@ -91,10 +88,10 @@ describe('Service: OrderKeeperUpdateSpec', function() {
         var addEv = new Order(order);
         var recEv = {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            updated : fakeNow,
+            updted : fakeNow,
             items : null,
             customerId : '123',
-            status : undefined   
+            status: undefined 
         };
 
         var receiveEntry = new JournalEntry(null, recEv.updated, 'orderUpdate', 1, recEv);
