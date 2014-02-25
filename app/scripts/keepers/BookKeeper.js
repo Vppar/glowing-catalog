@@ -250,6 +250,10 @@
         this.list = function() {
             return angular.copy(books);
         };
+        
+        this.listEntries = function() {
+            return angular.copy(bookEntries);
+        };
 
         this.getNature = function(access) {
             var book = ArrayUtils.find(books, 'access', access);

@@ -41,7 +41,7 @@ describe('Service: BookServiceWriteSpec', function() {
         expect(!!BookService).toBe(true);
     });
 
-    it('should automatically create a new book', function() {
+    xit('should automatically create a new book', function() {
         // Given
         var expected = {
             debitAccount : debitAccount,

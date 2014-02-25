@@ -103,6 +103,7 @@
                 'tnt.catalog.bookkeeping.entity',
                 'tnt.catalog.bookkeeping.keeper',
                 'tnt.catalog.bookkeeping.entry',
+                'tnt.catalog.bookkeeping.report.ctrl',
                 'tnt.catalog.service.book'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {

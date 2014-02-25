@@ -51,7 +51,7 @@
                         amount : data.amount,
                         installments : data.installments,
                         cpf : data.creditCard.cardholderDocument,
-                        description : 'GoPay%20Test'
+                        description : 'Pedido MK no valor de ' + data.amount
                     };
 
                     var payedPromise = GoPayGateway.pay(card).then(function(data) {
@@ -62,7 +62,7 @@
 
                         var errMsg = '';
                         if (angular.isObject(err)) {
-                            if (err.Status && err.Status.indexOf('-') < 0) {
+                            if (err.Status && String(err.Status).indexOf('-') < 0) {
                                 errMsg = errMsgs.conn;
                             } else {
                                 errMsg = errMsgs[err.Status];

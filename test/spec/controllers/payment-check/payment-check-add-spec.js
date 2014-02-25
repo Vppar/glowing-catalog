@@ -11,6 +11,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
     var vs = {};
     var sk = {};
     var sms = {};
+    var BookService = {};
 
     beforeEach(function() {
         module('tnt.catalog.payment.check');
@@ -31,6 +32,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
             $provide.value('VoucherService', vs);
             $provide.value('StockKeeper', sk);
             $provide.value('SMSService', sms);
+            $provide.value('BookService', BookService);
         });
     });
     

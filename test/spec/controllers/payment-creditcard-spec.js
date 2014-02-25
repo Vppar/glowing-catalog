@@ -50,6 +50,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
                 '', '', '', '', '', '', 'MasterCard'
             ]
         };
+        dp.reloadGoPay= jasmine.createSpy('DataProvider.reloadGoPay');
 
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         ccps.charge = jasmine.createSpy('CreditCardPaymentService.charge').andCallFake(function() {

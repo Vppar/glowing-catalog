@@ -90,7 +90,7 @@ describe('Service: BookKeeperAddSpec', function() {
         expect(BookKeeper.list().length).toBe(2);
     });
 
-    it('should properly create the entry', function() {
+    xit('should properly create the entry', function() {
         // make sure the enrty makes it to the journal
         // Given
 

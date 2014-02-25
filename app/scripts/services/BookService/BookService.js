@@ -24,7 +24,11 @@
         };
 
         this.list = function() {
-            return angular.copy(BookKeeper.list());
+            return BookKeeper.list();
+        };
+
+        this.listEntries = function() {
+            return BookKeeper.listEntries();
         };
 
         /**
@@ -47,20 +51,24 @@
         this.order = function(orderUUID, entityUUID, productAmount, productCost, voucher, gift) {
 
             var entries = [];
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
 
             if (productAmount) {
-                entries.push(new BookEntry(null, null, 70001, 41101, orderUUID, entityUUID, null, productAmount));
-                entries.push(new BookEntry(null, null, 51115, 11701, orderUUID, entityUUID, null, productCost));
+                entries.push(new BookEntry(null, null, 70001, 41101, document, entityUUID, 'Valor bruto da venda', productAmount));
+                entries.push(new BookEntry(null, null, 51115, 11701, document, entityUUID, 'Custo de produto', productCost));
             }
 
             if (voucher) {
-                entries.push(new BookEntry(null, null, 70001, 21301, orderUUID, entityUUID, null, voucher));
+                entries.push(new BookEntry(null, null, 70001, 21301, document, entityUUID, 'Valor Total Vale Presente', voucher));
             }
 
             if (gift) {
-                entries.push(new BookEntry(null, null, 70001, 21305, orderUUID, entityUUID, null, gift));
+                entries.push(new BookEntry(null, null, 70001, 21305, document, entityUUID, 'Valor Total Vale Crédito', gift));
             }
-            
+
             $log.debug('BookService.order', entries);
 
             return entries;
@@ -81,10 +89,14 @@
          */
         this.productReturn = function(orderUUID, entityUUID, productAmount, productCost) {
             var entries = [];
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
 
-            entries.push(new BookEntry(null, null, 41305, 70001, orderUUID, entityUUID, null, productAmount));
-            entries.push(new BookEntry(null, null, 11701, 51115, orderUUID, entityUUID, null, productCost));
-            
+            entries.push(new BookEntry(null, null, 41305, 70001, document, entityUUID, 'Devolução de Produto', productAmount));
+            entries.push(new BookEntry(null, null, 11701, 51115, document, entityUUID, 'Devolução custo de produto', productCost));
+
             $log.debug('BookService.productReturn', entries);
 
             return entries;
@@ -108,34 +120,38 @@
          */
         this.payment = function(orderUUID, entityUUID, cash, check, card, cuff, voucher, gift, discount, coupon) {
             var entries = [];
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
 
             if (cash) {
-                entries.push(new BookEntry(null, null, 11111, 70001, orderUUID, entityUUID, null, cash));
+                entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento', cash));
             } else if (cash < 0) {
-                entries.push(new BookEntry(null, null, 70001, 11111, orderUUID, entityUUID, null, cash));
+                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento', cash));
             }
             if (check) {
-                entries.push(new BookEntry(null, null, 11121, 70001, orderUUID, entityUUID, null, check));
+                entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Parcela', check));
             }
             if (card) {
-                entries.push(new BookEntry(null, null, 11512, 70001, orderUUID, entityUUID, null, card));
+                entries.push(new BookEntry(null, null, 11512, 70001, document, entityUUID, 'Parcela', card));
             }
             if (cuff) {
-                entries.push(new BookEntry(null, null, 11511, 70001, orderUUID, entityUUID, null, cuff));
+                entries.push(new BookEntry(null, null, 11511, 70001, document, entityUUID, 'Parcela', cuff));
             }
             if (voucher) {
-                entries.push(new BookEntry(null, null, 21301, 70001, orderUUID, entityUUID, null, voucher));
+                entries.push(new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento Vale Crédito', voucher));
             }
             if (gift) {
-                entries.push(new BookEntry(null, null, 21305, 70001, orderUUID, entityUUID, null, gift));
+                entries.push(new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento Vale Presente', gift));
             }
             if (discount) {
-                entries.push(new BookEntry(null, null, 41301, 70001, orderUUID, entityUUID, null, discount));
+                entries.push(new BookEntry(null, null, 41301, 70001, document, entityUUID, 'Desconto concedido', discount));
             }
             if (coupon) {
-                entries.push(new BookEntry(null, null, 41303, 70001, orderUUID, entityUUID, null, coupon));
+                entries.push(new BookEntry(null, null, 41303, 70001, document, entityUUID, 'Desconto Cupom Promocional', coupon));
             }
-            
+
             $log.debug('BookService.payment', entries);
 
             return entries;

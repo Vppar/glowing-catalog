@@ -201,6 +201,8 @@
                 };
 
                 var couponsSaved = [];
+                var vouchers = [];
+                var giftCards = [];
 
                 var receivables = [
                     'cash', 'check', 'creditCard', 'noMerchantCc', 'onCuff'
@@ -345,9 +347,6 @@
                         }
                     }
                 };
-
-                var vouchers = [];
-                var giftCards = [];
 
                 /**
                  * Saves the payments and closes the order.
@@ -502,8 +501,9 @@
 
                     bookEntriesPromises = bookEntriesPromises.concat(insertPaymentBookEntries(orderUUID, entityUUID, payments, change));
 
-                    if (list('exchange').length > 0) {
-                        bookEntriesPromises = bookEntriesPromises.concat(insertProductReturnBookEntries(orderUUID, entityUUID));
+                    var exchanges = list('exchange');
+                    if (exchanges.length > 0) {
+                        bookEntriesPromises = bookEntriesPromises.concat(insertProductReturnBookEntries(orderUUID, entityUUID, exchanges));
                     }
 
                     return $q.all(bookEntriesPromises);
@@ -557,8 +557,8 @@
 
                     for ( var ix in exchanges) {
                         var item = exchanges[ix];
-                        productAmount += currencyMultiply(item.amount, item.qty);
-                        productCost += currencyMultiply(item.cost, item.qty);
+                        productAmount += currencyMultiply(item.amount ? item.amount : 0, item.qty);
+                        productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
                     }
 
                     var bookEntries = BookService.productReturn(orderUUID, entityUUID, productAmount, productCost);
