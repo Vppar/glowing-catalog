@@ -18,9 +18,9 @@
 					<div class="float-right">
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm">
-								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='add'}" ng-click="selectedReceivableMode='add'">Adicionar</a>
-								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='write'}" ng-click="selectedReceivableMode='write'">Editar</a>
-								<a class="btn btn-option">Baixa Pgto.</a>
+								<!-- <a class="btn btn-option" ng-class="{active: selectedReceivableMode=='add'}" ng-click="selectReceivableMode('add')">Adicionar</a> -->
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='edit'}" ng-click="selectReceivableMode('edit')">Editar</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='payment'}" ng-click="selectReceivableMode('payment')">Baixa Pgto.</a>
 								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='search'}"  ng-click="selectReceivableMode('search')">Pesquisar</a>
 							</div>
 						</span>
@@ -29,10 +29,10 @@
 			</div>
 		
             <div ng-switch on="selectedReceivableMode">
-            	<span ng-switch-when="add"><span ng-controller="ReceivableAddCtrl" ng-include src="'views/parts/receivable/receivable-add.html'"></span></span>
-				<span ng-switch-when="read"><span ng-include src="'views/parts/receivable/receivable-read.html'"></span></span>
-				<span ng-switch-when="write"><span ng-include src="'views/parts/receivable/receivable-write.html'"></span></span>
-				<span ng-switch-when="search"><span ng-include src="'views/parts/receivable/receivable-search.html'"></span></span>
+            	<!-- <span ng-switch-when="add"><span ng-controller="ReceivableAddCtrl" ng-include src="'views/parts/receivable/receivable-add.html'"></span></span> -->
+				<span ng-switch-when="edit"><span ng-controller="ReceivableEditCtrl" ng-include src="'views/parts/receivable/receivable-edit.html'"></span></span>
+				<span ng-switch-when="payment"><span ng-include src="'views/parts/receivable/receivable-payment.html'"></span></span>
+				<span ng-switch-when="search"><span  ng-include src="'views/parts/receivable/receivable-search.html'"></span></span>
 			</div>
 		</div>
             
@@ -100,7 +100,7 @@
                 </div>
                 
                 <div class="scroll-receivable">
-                    <div class="row-receivable" ng-repeat="receivable in receivables.list"> 
+                    <div class="row-receivable" ng-repeat="receivable in receivables.list" ng-click="selectReceivable(receivable)"> 
                         <span class="col-0">
                             <div>{{$index + 1}}</div>
                         </span>
@@ -111,7 +111,7 @@
                             <div>{{receivable.created | date:"dd/MM/yyyy"}}</div>
                         </span> 
                         <span class="col-3">
-                            <div>{{receivable.type}}</div>
+                            <div>{{receivable.typeTranslate}}</div>
                         </span> 
                         <span class="col-4">
                             <div>{{receivable.entityName}}</div>

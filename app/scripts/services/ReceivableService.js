@@ -123,7 +123,7 @@
                         var payment = payments[ix];
                         if (payment.amount !== 0) {
                             var receivable = new Receivable({
-                                entityId : payment.entity ? payment.entity.id : entity.id,
+                                entityId : entity.uuid,
                                 documentId : document,
                                 type : payment.type,
                                 amount : payment.amount,

@@ -20,8 +20,6 @@
             // @see setEntityName()
             var entities = EntityService.list();
 
-            $scope.receivables.list = [];
-
             $scope.query = '';
             $scope.dtInitial = new Date();
             $scope.dtFinal = new Date();
