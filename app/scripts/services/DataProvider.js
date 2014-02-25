@@ -14,12 +14,12 @@
                     token : null
                 };
                 this.reloadGoPay = function() {
-                    if (localStorage.gpToken === 'null') {
-                        this.gopay.merchant = false;
-                        this.gopay.token = null;
-                    } else {
+                    if (localStorage.gpToken) {
                         this.gopay.merchant = true;
                         this.gopay.token = localStorage.gpToken;
+                    } else {
+                        this.gopay.merchant = false;
+                        this.gopay.token = null;
                     }
                 };
                 this.reloadGoPay();
