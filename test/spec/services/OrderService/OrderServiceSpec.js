@@ -4,6 +4,7 @@ describe('Service: OrderService', function () {
   var OrderMock = {};
   var OrderKeeperMock = {};
   var DataProviderMock = {};
+  var IdentityServiceMock = {};
 
   var OrderService;
 
@@ -20,6 +21,7 @@ describe('Service: OrderService', function () {
       $provide.value('Order', OrderMock);
       $provide.value('OrderKeeper', OrderKeeperMock);
       $provide.value('DataProvider', DataProviderMock);
+      $provide.value('IdentityService', IdentityServiceMock);
     });
   });
 

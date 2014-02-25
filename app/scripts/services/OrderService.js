@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.order.service', []).service(
-            'OrderService', function OrderService2($q, $log, Order, OrderKeeper, DataProvider) {
+            'OrderService', function OrderService2($q, $log, Order, OrderKeeper, DataProvider, IdentityService) {
 
                 var orderTemplate = {
                     // FIXME: generate codes dynamically.
@@ -131,7 +131,7 @@
                     }
                     return result;
                 };
-                
+
                 /**
                  * Updates an order.
                  * 
@@ -203,12 +203,21 @@
                     return !!order.items.length;
                 };
                 
-                var setCurrentOrder = function getCurrentOrder(){
+                var white = true;
+                var setCurrentOrder = function getCurrentOrder() {
+                    //FIXME remove <white> and make sure that you only calls this method after you've replayed all data
+                    if (white) {
+                        white = false;
+                        return $q.reject();
+                    }
                     var orderList = OrderKeeper.list();
-                    for(var idx in orderList) {
-                        if(orderList[idx].status === 'current'){
-                            order = orderList[idx];
-                            return $q.reject();
+                    for ( var idx in orderList) {
+                        if (orderList[idx].status === 'current') {
+                            var deviceId = IdentityService.getUUIDData(orderList[idx].uuid).deviceId;
+                            if (deviceId == IdentityService.getDeviceId()) {
+                                order = orderList[idx];
+                                return $q.reject();
+                            }
                         }
                     }
                     var savedOrder = angular.copy(order);
@@ -216,7 +225,7 @@
                     savedOrder.status = 'current';
                     var orderPromise = register(savedOrder);
                     order = savedOrder;
-                    orderPromise.then(function(uuid){
+                    orderPromise.then(function(uuid) {
                         order.uuid = uuid;
                     });
                     return orderPromise;
@@ -277,6 +286,6 @@
                 function areValidItems(items) {
                     return angular.isArray(items);
                 }
-                
+
             });
 }(angular));
