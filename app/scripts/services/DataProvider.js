@@ -9,9 +9,20 @@
 
                 var scope = this;
 
-                this.gopay = {};
-                this.gopay.merchant = '4';
-                this.gopay.token = 'bd653333319902a290102188713791401d5832356ff3875ee9b2b173cae2b4c3610d24d04ee7c4169bd99c4f93';
+                this.gopay = {
+                    merchant : false,
+                    token : null
+                };
+                this.reloadGoPay = function() {
+                    if (localStorage.gpToken === 'null') {
+                        this.gopay.merchant = false;
+                        this.gopay.token = null;
+                    } else {
+                        this.gopay.merchant = true;
+                        this.gopay.token = localStorage.gpToken;
+                    }
+                };
+                this.reloadGoPay();
 
                 this.envFlags = {
                     internet : true
@@ -60,11 +71,11 @@
                         $rootScope.$broadcast('DataProvider.update');
                     }
                 });
-                
+
                 // FIXME remove these fake entries ASAP
-                this.fakeJournal = function(){
+                this.fakeJournal = function() {
                     var deferred = $q.defer();
-                    $.get( 'resources/replay.json', function(result) {
+                    $.get('resources/replay.json', function(result) {
                         for ( var ix in result) {
                             var data = result[ix];
                             var item = new JournalEntry(0, 0, data.type, data.version, data.event);
@@ -73,7 +84,7 @@
                         $rootScope.$broadcast('DataProvider.replayFinished');
                         deferred.resolve();
                     });
-                    
+
                     return deferred.promise;
                 };
             });

@@ -99,9 +99,11 @@
                 'tnt.catalog.login.ctrl',
                 'tnt.utils.cep',
                 'tnt.catalog.gopay.gateway',
+                'tnt.catalog.book',
                 'tnt.catalog.bookkeeping.entity',
                 'tnt.catalog.bookkeeping.keeper',
                 'tnt.catalog.bookkeeping.entry',
+                'tnt.catalog.bookkeeping.report.ctrl',
                 'tnt.catalog.service.book'
             ]).config(function($routeProvider) {
         $routeProvider.when('/', {
@@ -159,11 +161,11 @@
             templateUrl : 'views/warm-up.html'
          }).when('/receivable-list', {
             templateUrl : 'views/receivable-list.html'    
-                
         }).when('/cash-flow', {
             templateUrl : 'views/cash-flow.html',
         }).when('/book-keeping-report', {
             templateUrl : 'views/book-keeping-report.html',
+            controller : 'BookKeepingReportCtrl'
         }).otherwise({
             redirectTo : '/'
         });

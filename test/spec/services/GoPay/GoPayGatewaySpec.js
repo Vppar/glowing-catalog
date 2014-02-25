@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: GoPayGateway', function() {
+describe('Service: GoPayGatewaySpec', function() {
 
     // load the service's module
     beforeEach(module('tnt.catalog.gopay.gateway'));
@@ -26,7 +26,7 @@ describe('Service: GoPayGateway', function() {
             Status : 0
         };
  
-        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
+        $httpBackend.when('POST', 'https://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
                 .respond(expected);
 
         runs(function() {
@@ -55,7 +55,7 @@ describe('Service: GoPayGateway', function() {
             Status : -1
         };
 
-        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
+        $httpBackend.when('POST', 'https://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
                 .respond(expected);
 
         runs(function() {
@@ -84,7 +84,7 @@ describe('Service: GoPayGateway', function() {
             Status : -2
         };
 
-        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
+        $httpBackend.when('POST', 'https://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
                 .respond(expected);
 
         runs(function() {
@@ -113,7 +113,7 @@ describe('Service: GoPayGateway', function() {
             Status : -3
         };
 
-        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
+        $httpBackend.when('POST', 'https://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
                 .respond(expected);
 
         runs(function() {
@@ -143,7 +143,7 @@ describe('Service: GoPayGateway', function() {
             Message : 'There was an error contacting the server'
         };
 
-        $httpBackend.when('POST', 'http://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
+        $httpBackend.when('POST', 'https://vopp.com.br/gopay/insertCreditCardPayment/?token=fa87wy4fnhw78fjw78fh9w87f8796wjyf36g6f92374')
                 .respond(500);
 
         runs(function() {

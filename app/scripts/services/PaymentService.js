@@ -180,12 +180,12 @@
     });
 
     angular.module('tnt.catalog.payment.service', [
-        'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log'
+        'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log', 'tnt.catalog.service.book'
     ]).service(
             'PaymentService',
             function PaymentService($location, $q, $log, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
-                    ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService) {
+                    ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService, BookService) {
 
                 /**
                  * The current payments.
@@ -201,6 +201,8 @@
                 };
 
                 var couponsSaved = [];
+                var vouchers = [];
+                var giftCards = [];
 
                 var receivables = [
                     'cash', 'check', 'creditCard', 'noMerchantCc', 'onCuff'
@@ -346,9 +348,6 @@
                     }
                 };
 
-                var vouchers = [];
-                var giftCards = [];
-
                 /**
                  * Saves the payments and closes the order.
                  */
@@ -382,20 +381,24 @@
                             return VoucherService.bulkProcess(coupons, customer, orderUuid);
                         }, propagateRejectedPromise);
 
+                        promises.push(savedOrderPromise);
+                        promises.push(receivablesPromise);
+                        promises.push(productsReturnPromise);
+                        promises.push(usedVouchersPromise);
+
                         // Create new vouchers and gift cards
                         vouchers = ArrayUtils.list(OrderService.order.items, 'type', 'voucher');
                         giftCards = ArrayUtils.list(OrderService.order.items, 'type', 'giftCard');
 
-                        var newVouchersPromise =
-                                vouchers.length && VoucherService.bulkCreate(vouchers).then(null, propagateRejectedPromise);
-                        var newGiftCardsPromise =
-                                giftCards.length && VoucherService.bulkCreate(giftCards).then(null, propagateRejectedPromise);
+                        if (vouchers.length) {
+                            var newVouchersPromise = VoucherService.bulkCreate(vouchers).then(null, propagateRejectedPromise);
+                            promises.push(newVouchersPromise);
+                        }
 
-                        promises.push(receivablesPromise);
-                        promises.push(productsReturnPromise);
-                        promises.push(usedVouchersPromise);
-                        promises.push(newVouchersPromise);
-                        promises.push(newGiftCardsPromise);
+                        if (giftCards.length) {
+                            var newGiftCardsPromise = VoucherService.bulkCreate(giftCards).then(null, propagateRejectedPromise);
+                            promises.push(newGiftCardsPromise);
+                        }
 
                     }
 
@@ -414,7 +417,12 @@
                         }
                     }
 
-                    var savedSalePromise = $q.all(promises);
+                    var savedSalePromise = $q.all(promises).then(function(result) {
+                        // first result of q.all promise is the order uuid
+                        var orderUUID = result[0];
+                        var order = OrderService.read(orderUUID);
+                        insertBookEntries(order, payments, change);
+                    });
 
                     function sendVoucherSMS(vouchers) {
                         if (vouchers.length > 0) {
@@ -480,6 +488,92 @@
                     } else if (change < 0) {
                         $log.error('PaymentService.checkout: Something went wrong its impossible to do a' + 'checkout missing amount');
                     }
+                }
+
+                function insertBookEntries(order, payments, change) {
+                    var orderUUID = order.uuid;
+                    var entityUUID = order.customerId;
+
+                    var bookEntriesPromises = null;
+                    if (order.items.length > 0) {
+                        bookEntriesPromises = insertOrderBookEntries(orderUUID, entityUUID, order.items);
+                    }
+
+                    bookEntriesPromises = bookEntriesPromises.concat(insertPaymentBookEntries(orderUUID, entityUUID, payments, change));
+
+                    var exchanges = list('exchange');
+                    if (exchanges.length > 0) {
+                        bookEntriesPromises = bookEntriesPromises.concat(insertProductReturnBookEntries(orderUUID, entityUUID, exchanges));
+                    }
+
+                    return $q.all(bookEntriesPromises);
+                }
+
+                function insertOrderBookEntries(orderUUID, entityUUID, orderItems) {
+                    var productAmount = 0;
+                    var productCost = 0;
+                    var voucherAmount = 0;
+                    var giftAmount = 0;
+
+                    for ( var ix in orderItems) {
+                        var item = orderItems[ix];
+                        if (!item.type) {
+                            productAmount += currencyMultiply(item.price ? item.price : 0, item.qty);
+                            productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
+                        } else if (item.type === 'voucher') {
+                            voucherAmount += currencyMultiply(item.amount, item.qty);
+                        } else if (item.type === 'giftCard') {
+                            giftAmount += currencyMultiply(item.amount, item.qty);
+                        }
+                    }
+                    var bookEntries = BookService.order(orderUUID, entityUUID, productAmount, productCost, voucherAmount, giftAmount);
+
+                    return writeBookEntries(bookEntries);
+                }
+
+                function insertPaymentBookEntries(orderUUID, entityUUID, payments, change) {
+                    var cash = financialRound($filter('sum')(payments.cash, 'amount'));
+                    cash = financialRound(cash - change);
+
+                    var check = financialRound($filter('sum')(payments.check, 'amount'));
+
+                    var card = financialRound($filter('sum')(payments.creditCard, 'amount'));
+                    card += financialRound($filter('sum')(payments.noMerchantCc, 'amount'));
+
+                    var cuff = financialRound($filter('sum')(payments.onCuff, 'amount'));
+                    var voucher = financialRound($filter('sum')(ArrayUtils.list(payments.coupon, 'type', 'voucher'), 'amount'));
+                    var gift = financialRound($filter('sum')(ArrayUtils.list(payments.coupon, 'type', 'giftCard'), 'amount'));
+                    var coupon = financialRound($filter('sum')(ArrayUtils.list(payments.coupon, 'type', 'coupon'), 'amount'));
+
+                    var bookEntries = BookService.payment(orderUUID, entityUUID, cash, check, card, cuff, voucher, gift, null, coupon);
+
+                    return writeBookEntries(bookEntries);
+                }
+
+                function insertProductReturnBookEntries(orderUUID, entityUUID, exchanges) {
+
+                    var productAmount = 0;
+                    var productCost = 0;
+
+                    for ( var ix in exchanges) {
+                        var item = exchanges[ix];
+                        productAmount += currencyMultiply(item.amount ? item.amount : 0, item.qty);
+                        productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
+                    }
+
+                    var bookEntries = BookService.productReturn(orderUUID, entityUUID, productAmount, productCost);
+
+                    return writeBookEntries(bookEntries);
+                }
+
+                function writeBookEntries(bookEntries) {
+                    var bookEntryPromises = [];
+                    for ( var ix in bookEntries) {
+                        var entry = bookEntries[ix];
+                        var entryPromise = BookService.write(entry);
+                        bookEntryPromises.push(entryPromise);
+                    }
+                    return bookEntryPromises;
                 }
 
                 /**
@@ -652,6 +746,14 @@
                         // TODO: should we keep track in journal?
                     }
                 }
+
+                var currencyMultiply = function currencyMultiply(value1, value2) {
+                    return financialRound(Number(value1) * Number(value2));
+                };
+
+                var financialRound = function financialRound(value) {
+                    return Math.round(100 * value) / 100;
+                };
 
                 this.persistedCoupons = persistedCoupons;
                 this.hasPersistedCoupons = hasPersistedCoupons;

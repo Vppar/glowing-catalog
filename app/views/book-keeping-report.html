@@ -22,7 +22,7 @@
 
 <div style="width:100%;">
 	<div class="header">
-		<div class="cell p20" >Nome</div>
+		<div class="cell p10" ></div>
 		<div class="cell p10" >Data</div>
 		<div class="cell p10" >Debito</div>
 		<div class="cell p10" >Credito</div>
@@ -30,18 +30,19 @@
 		<div class="cell p10" >Dcto Nro</div>
 		<div class="cell p10" >Terceiro</div>
 		<div class="cell p10" >Operação</div>
-		<div class="cell p10" >Obs Valor</div>
+		<div class="cell p10" >Obs</div>
+		<div class="cell p10" >Valor</div>
 	</div>
-	<div class="row" ng-repeat="row in rows" style="width:100%; border-bottom:1px solid #666; display:inline-block;">
-		<div class="cell p20" >{{row.name}}</div>
-		<div class="cell p10" >{{row.date}}</div>
-		<div class="cell p10" >{{row.debit}}</div>
-		<div class="cell p10" >{{row.credit}}</div>
-		<div class="cell p10" >{{row.docType}}</div>
-		<div class="cell p10" >{{row.docNum}}</div>
-		<div class="cell p10" >{{row.thirdParty}}</div>
-		<div class="cell p10" >{{row.operation}}</div>
-		<div class="cell p10" >{{row.obsValue}}</div>
+	<div class="row" ng-repeat="bookEntry in bookEntries | orderBy:'-date'" style="width:100%; border-bottom:1px solid #666; display:inline-block;">
+		<div class="cell p10"></div>
+		<div class="cell p10" >{{bookEntry.created | date:'dd/MM/yyyy'}}</div>
+		<div class="cell p10" >{{bookEntry.debitAccount}}</div>
+		<div class="cell p10" >{{bookEntry.creditAccount}}</div>
+		<div class="cell p10" >Pedido</div>
+		<div class="cell p10" >{{bookEntry.document | uuidCode}}</div>
+		<div class="cell p10" >{{bookEntry.entity}}</div>
+		<div class="cell p10" >{{bookEntry.op}}</div>
+		<div class="cell p10" >{{bookEntry.remark}}</div>
+		<div class="cell p10" >{{bookEntry.amount}}</div>
 	</div>
-
 </div>

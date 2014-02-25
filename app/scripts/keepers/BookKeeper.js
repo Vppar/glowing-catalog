@@ -40,7 +40,6 @@
                                         this.document = document;
                                         this.entity = entity;
                                         this.op = op;
-                                        this.remark = remark;
                                         this.amount = amount;
                                     }
                                 };
@@ -87,44 +86,24 @@
 
     angular.module('tnt.catalog.bookkeeping.keeper', [
         'tnt.catalog.journal.replayer', 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.keeper'
-    ]).service('BookKeeper', function($q, Replayer, ArrayUtils, Book, JournalEntry, JournalKeeper, IdentityService) {
-        
+    ]).service('BookKeeper', function($q, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService) {
+
         var type = 8;
         var books = [];
+        var bookEntries = [];
         var currentCounter = 0;
+
+        var entryType = 9;
+        var entryCurrentCounter = 0;
+
         this.handlers = {};
 
         function getNextId() {
             return ++currentCounter;
         }
-
-        /**
-         * 
-         * @param {Object} event
-         * @return {Promise}
-         */
-        ObjectUtils.ro(this.handlers, 'bookWriteV1', function(event) {
-            var eventData = angular.copy(event);
-            var entityBook = ArrayUtils.list(books, 'entities', eventData.entity);
-            var debitBook = ArrayUtils.find(entityBook, 'name', eventData.debitAccount);
-
-            if (debitBook == null) {
-                var book = new Book(null, new Date().getTime(), event.debitAccount, 'synthetic', 'debit', eventData.entity);
-                book.balance -= eventData.amount;
-                books.push(book);
-            } else {
-                debitBook.balance = debitBook.balance - eventData.amount;
-            }
-
-            var creditBook = ArrayUtils.find(entityBook, 'name', eventData.creditAccount);
-            if (!creditBook) {
-                var book = new Book(null, new Date().getTime(), event.creditAccount, 'synthetic', 'credit', eventData.entity);
-                book.balance += eventData.amount;
-                books.push(book);
-            } else {
-                creditBook.balance += eventData.amount;
-            }
-        });
+        function getEntryNextId() {
+            return ++entryCurrentCounter;
+        }
 
         /**
          * AddBook
@@ -140,6 +119,48 @@
             books.push(event);
 
             return event.uuid;
+        });
+
+        function forceAddBook(access, type, nature, entities) {
+            var book = new Book(IdentityService.getUUID(type, getNextId()), access, access, type, nature, 'entities');
+            books.push(book);
+            return book;
+        }
+
+        /**
+         * 
+         * @param {Object} event
+         * @return {Promise}
+         */
+        ObjectUtils.ro(this.handlers, 'bookWriteV1', function(event) {
+
+            var uuidData = IdentityService.getUUIDData(event.uuid);
+
+            if (uuidData.deviceId === IdentityService.getDeviceId()) {
+                entryCurrentCounter = entryCurrentCounter >= uuidData.id ? entryCurrentCounter : uuidData.id;
+            }
+
+            var debitBook = ArrayUtils.find(books, 'access', event.debitAccount);
+
+            if (debitBook == null) {
+                var book = forceAddBook(event.debitAccount, 'synthetic', 'debit', false);
+                book.balance -= event.amount;
+            } else {
+                debitBook.balance = debitBook.balance - event.amount;
+            }
+
+            var creditBook = ArrayUtils.find(books, 'access', event.creditAccount);
+            if (!creditBook) {
+                var book = forceAddBook(event.creditAccount, 'synthetic', 'credit', false);
+                book.balance += book.amount;
+            } else {
+                creditBook.balance += event.amount;
+            }
+
+            var entry = new BookEntry(event);
+            bookEntries.push(entry);
+
+            return entry;
         });
 
         /**
@@ -159,13 +180,28 @@
             books.length = 0;
             return true;
         });
+        
+        /**
+         * nukeBooks
+         */
+        // Nuke event for clearing the books list
+        ObjectUtils.ro(this.handlers, 'nukeEntriesV1', function() {
+            bookEntries.length = 0;
+            return true;
+        });
 
         Replayer.registerHandlers(this.handlers);
 
         this.write = function(entry) {
+            if (!(entry instanceof BookEntry)) {
+                return $q.reject('Wrong instance to BookKeeper');
+            }
 
-            var event = angular.copy(entry);
-            event.created = (new Date()).getTime();
+            var entryObj = angular.copy(entry);
+            entryObj.uuid = IdentityService.getUUID(entryType, getEntryNextId());
+            entryObj.created = (new Date()).getTime();
+
+            var event = new BookEntry(entryObj);
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.created, 'bookWrite', 1, event);
@@ -180,8 +216,9 @@
 
             var bookObj = angular.copy(book);
             bookObj.uuid = IdentityService.getUUID(type, getNextId());
-            
+
             var event = new Book(bookObj);
+            event.created = (new Date()).getTime();
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.created, 'addBook', 1, event);
@@ -211,9 +248,13 @@
         };
 
         this.list = function() {
-          return angular.copy(books);
+            return angular.copy(books);
         };
         
+        this.listEntries = function() {
+            return angular.copy(bookEntries);
+        };
+
         this.getNature = function(access) {
             var book = ArrayUtils.find(books, 'access', access);
             return angular.copy(book.nature);

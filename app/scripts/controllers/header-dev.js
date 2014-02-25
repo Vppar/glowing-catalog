@@ -15,12 +15,8 @@
         /**
          * Toggles the 'merchant' attribute in the scope.
          */
-        var _originalMerchant; // holds merchant's original value
         $scope.toggleMerchant = function() {
-            if (gopay.merchant) {
-                _originalMerchant = gopay.merchant;
-            }
-            gopay.merchant = gopay.merchant ? false : _originalMerchant;
+            gopay.merchant = !gopay.merchant;
         };
 
         /**
