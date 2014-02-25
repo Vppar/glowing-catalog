@@ -89,6 +89,7 @@
                 }
 
                 filterReceivablesByDate();
+                $scope.argumentReceivables();
             }
 
             function getEntity(uuid) {

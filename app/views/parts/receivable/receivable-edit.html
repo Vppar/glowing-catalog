@@ -1,11 +1,14 @@
-<div class="row-fluid receivable-write-left">
+<div class="row-fluid receivable-write-left" ng-show="selectedReceivable">
 	<div class="row-fluid">
 		<span class="span3">
 			<div class="control-group">
 				<label class="control-label">Data</label>
-				<input name="date"
-					class="input-block-level" type="text" placeholder=""
-					ng-model="selectedReceivable.created" required>
+				<input type="text" 
+					id="date" class="date-field input-block-level" maxlength="10" 
+					datepicker-popup="dd/MM/yyyy" show-weeks="false" 
+					ng-model="selectedReceivable.created" 
+					required readonly">
+					
 			</div>
 		</span>
 		
@@ -39,7 +42,7 @@
 					ng-model="document.label" required>-->
 				<div class="input-append input-width-bills w80porc">
 					<input class="input-block-level hover-state-pointer"
-						id="appendedInput" type="text" ng-model="selectedReceivable.uuid" disabled>
+						id="appendedInput" type="text" ng-model="selectedReceivable.uuidCode" disabled>
 					<span ng-click="" class="add-on">+</span>
 				</div>
 			</div>
@@ -50,7 +53,7 @@
 				<label class="control-label">Nro Docto</label>
 				<!-- document.number -->
 					<input class="input-block-level hover-state-pointer"
-						id="numberdoc" type="text" ng-model="selectedReceivable.documentId"
+						id="numberdoc" type="text" ng-model="selectedReceivable.order.uiidCode"
 						ng-click="" disabled>
 			</div>
 		</span>
@@ -104,7 +107,7 @@
 
 
 <!-- mesmo conteudo da "receivable-write-parc-dialog". Foram feitas duas opcoes.-->
-<div class="row-fluid receivable-write-right display-none">
+<div class="row-fluid receivable-write-right display-none" ng-show="selectedReceivable" >
 		<div class="row-fluid">
 		
 			<div class="grid-input-receivable-dialog margintn10">
