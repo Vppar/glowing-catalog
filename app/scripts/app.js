@@ -157,6 +157,8 @@
             controller : 'VoucherCtrl'
         }).when('/warm-up', {
             templateUrl : 'views/warm-up.html'
+         }).when('/receivable-list', {
+            templateUrl : 'views/receivable-list.html'    
                 
         }).when('/cash-flow', {
             templateUrl : 'views/cash-flow.html',
