@@ -203,13 +203,7 @@
                     return !!order.items.length;
                 };
                 
-                var white = true;
                 var setCurrentOrder = function getCurrentOrder() {
-                    //FIXME remove <white> and make sure that you only calls this method after you've replayed all data
-                    if (white) {
-                        white = false;
-                        return $q.reject();
-                    }
                     var orderList = OrderKeeper.list();
                     for ( var idx in orderList) {
                         if (orderList[idx].status === 'current') {

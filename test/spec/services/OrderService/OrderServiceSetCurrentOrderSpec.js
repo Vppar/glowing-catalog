@@ -47,7 +47,6 @@ describe('Service: OrderServiceUpdate', function() {
 
         runs(function() {
             // when
-            OrderService.setCurrentOrder();
             var orderPromise = OrderService.setCurrentOrder();
             orderPromise.then(function() {
                 result = true;
@@ -74,7 +73,6 @@ describe('Service: OrderServiceUpdate', function() {
         ];
         var length = OrderService.list().length;
         
-        OrderService.setCurrentOrder();
         OrderService.setCurrentOrder();
 
         expect(OrderService.list().length).toBe(length);
