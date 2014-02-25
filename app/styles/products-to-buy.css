@@ -1204,4 +1204,18 @@ div.products-to-buy-edit .grid-payment-products-to-buy-edit  .scroll-payment-gri
 	line-height:22px;
 }
 
+.orange{
+	color:#b53c34;
+}
+
+.qty-not-component{
+	width: 35px;
+height: 35px;
+text-align: center;
+font-size: 20px;
+display: inline-block;
+margin-top: 4px;
+vertical-align: middle;
+
+}
 
