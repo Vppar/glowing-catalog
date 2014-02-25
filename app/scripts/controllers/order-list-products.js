@@ -19,7 +19,12 @@
                 for ( var ix in orders) {
                     var order = orders[ix];
                     // Find the entity name
-                    order.entityName = ArrayUtils.find(entities, 'uuid', order.customerId).name;
+                    var entity = ArrayUtils.find(entities, 'uuid', order.customerId);
+                    if (entity) {
+                        order.entityName = entity.name;
+                    } else {
+                        order.entityName = '';
+                    }
                     var filteredItems = $filter('filter')(order.items, function(item) {
                         var result = false;
                         if (item.type !== 'giftCard' && item.type !== 'voucher') {
