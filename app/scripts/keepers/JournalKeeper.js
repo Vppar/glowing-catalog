@@ -377,7 +377,9 @@
                     $log.debug('Failed to resync: list failed', error);
                     deferred.reject(error);
                 });
-                
+                deferred.promise.then(function(){
+                    $rootScope.$broadcast('resync finished');
+                });
                 return deferred.promise;
             });
         };

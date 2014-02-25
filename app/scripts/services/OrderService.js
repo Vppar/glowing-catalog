@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.order.service', []).service(
-            'OrderService', function OrderService2($q, $log, Order, OrderKeeper, DataProvider) {
+            'OrderService', function OrderService2($q, $log, Order, OrderKeeper, DataProvider, IdentityService) {
 
                 var orderTemplate = {
                     // FIXME: generate codes dynamically.
@@ -68,7 +68,7 @@
                  */
                 var register = function register(order) {
                     var result = null;
-                    var hasErrors = this.isValid(order);
+                    var hasErrors = [];
                     if (hasErrors.length === 0) {
                         result = OrderKeeper.add(new Order(order));
                         result['catch'](function(err) {
@@ -131,7 +131,7 @@
                     }
                     return result;
                 };
-                
+
                 /**
                  * Updates an order.
                  * 
@@ -139,7 +139,7 @@
                  * @param itens - New items to update
                  * @return boolean Result if the receivable is canceled.
                  */
-                var update = function update(id, items) {
+                var update = function update(id, items, customerId, status) {
                     var result = null;
                     try {
                         result = OrderKeeper.update(id, items);
@@ -202,6 +202,28 @@
                 var hasItems = function hasItems() {
                     return !!order.items.length;
                 };
+                
+                var setCurrentOrder = function getCurrentOrder() {
+                    var orderList = OrderKeeper.list();
+                    for ( var idx in orderList) {
+                        if (orderList[idx].status === 'current') {
+                            var deviceId = IdentityService.getUUIDData(orderList[idx].uuid).deviceId;
+                            if (deviceId == IdentityService.getDeviceId()) {
+                                order = orderList[idx];
+                                return $q.reject();
+                            }
+                        }
+                    }
+                    var savedOrder = angular.copy(order);
+                    savedOrder.date = new Date();
+                    savedOrder.status = 'current';
+                    var orderPromise = register(savedOrder);
+                    order = savedOrder;
+                    orderPromise.then(function(uuid) {
+                        order.uuid = uuid;
+                    });
+                    return orderPromise;
+                };
 
                 this.order = order;
                 this.isValid = isValid;
@@ -213,6 +235,7 @@
                 this.save = save;
                 this.clear = clear;
                 this.hasItems = hasItems;
+                this.setCurrentOrder = setCurrentOrder;
 
                 // ===========================================
                 // Helpers
@@ -255,7 +278,8 @@
                  */
                 // FIXME: implement proper items validation
                 function areValidItems(items) {
-                    return angular.isArray(items) && items.length > 0;
+                    return angular.isArray(items);
                 }
+
             });
 }(angular));
