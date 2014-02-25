@@ -16,7 +16,11 @@
                     var order = orders[ix];
                     // Find the entity name
                     var entity = ArrayUtils.find(entities, 'uuid', order.customerId);
-                    order.entityName = entity ? entity.name : '';
+                    if (entity) {
+                        order.entityName = entity.name;
+                    } else {
+                        order.entityName = '';
+                    }
 
                     var qtyTotal = $filter('sum')(order.items, 'qty');
                     var priceTotal = $filter('sum')(order.items, 'price', 'qty');
