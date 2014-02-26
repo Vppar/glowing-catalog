@@ -57,8 +57,7 @@
             };
 
             if (productAmount) {
-                entries.push(new BookEntry(null, null, 70001, 41101, document, entityUUID, 'Valor bruto da venda', productAmount));
-                entries.push(new BookEntry(null, null, 51115, 11701, document, entityUUID, 'Custo de produto', productCost));
+                entries.push(new BookEntry(null, null, 70001, 21307, document, entityUUID, 'Valor bruto da venda', productAmount));
             }
 
             if (voucher) {
@@ -68,8 +67,6 @@
             if (gift) {
                 entries.push(new BookEntry(null, null, 70001, 21305, document, entityUUID, 'Valor Total Vale Crédito', gift));
             }
-
-            $log.debug('BookService.order', entries);
 
             return entries;
         };
@@ -94,10 +91,9 @@
                 type : 'Pedido'
             };
 
+            // Custo do produto
+            entries.push(new BookEntry(null, null, 11701, 51115, document, entityUUID, 'Devolução de Produto', productCost));
             entries.push(new BookEntry(null, null, 41305, 70001, document, entityUUID, 'Devolução de Produto', productAmount));
-            entries.push(new BookEntry(null, null, 11701, 51115, document, entityUUID, 'Devolução custo de produto', productCost));
-
-            $log.debug('BookService.productReturn', entries);
 
             return entries;
         };
@@ -126,18 +122,18 @@
             };
 
             if (cash) {
-                entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento', cash));
+                entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em Dinheiro', cash));
             } else if (cash < 0) {
-                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento', cash));
+                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento em Dinheiro', cash));
             }
             if (check) {
-                entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Parcela', check));
+                entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Recebimento em Cheque', check));
             }
             if (card) {
-                entries.push(new BookEntry(null, null, 11512, 70001, document, entityUUID, 'Parcela', card));
+                entries.push(new BookEntry(null, null, 11512, 70001, document, entityUUID, 'Recebimento em Cartão', card));
             }
             if (cuff) {
-                entries.push(new BookEntry(null, null, 11511, 70001, document, entityUUID, 'Parcela', cuff));
+                entries.push(new BookEntry(null, null, 11511, 70001, document, entityUUID, 'Saldo a Receber', cuff));
             }
             if (voucher) {
                 entries.push(new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento Vale Crédito', voucher));
@@ -152,9 +148,16 @@
                 entries.push(new BookEntry(null, null, 41303, 70001, document, entityUUID, 'Desconto Cupom Promocional', coupon));
             }
 
-            $log.debug('BookService.payment', entries);
-
             return entries;
+        };
+
+        this.liquidateCheck = function() {
+        };
+
+        this.liquidateCreditCard = function() {
+        };
+
+        this.liquidateCuff = function() {
         };
 
         this.validate = function(entries) {
