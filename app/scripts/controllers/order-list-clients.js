@@ -141,7 +141,13 @@
                         $scope.total.all.lastOrder = lastOrder > filteredOrder.created ? lastOrder : filteredOrder.created;
                         $scope.total.all.orderCount++;
                     }
-                    $scope.total.all.avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
+                    
+                    var avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
+                    if(!isNaN(avgPrice)){
+                        $scope.total.all.avgPrice = avgPrice;
+                    }else{
+                        $scope.total.all.avgPrice = 0;
+                    }
                 }
                 
                 $scope.updateOrdersTotal = updateOrdersTotal;
