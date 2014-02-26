@@ -18,7 +18,7 @@
 				<div class="input-append input-width-bills w98porc">
 					<input class="input-block-level hover-state-pointer"
 						id="appendedInput" type="text" ng-model="selectedReceivable.entityName" disabled>
-					<span ng-click="" class="add-on">+</span>
+					<span ng-click="openDialogChooseCustomer()" class="add-on">+</span>
 				</div>
 			</div>
 		</span>
@@ -42,7 +42,7 @@
 					ng-model="document.label" required>-->
 				<div class="input-append input-width-bills w80porc">
 					<input class="input-block-level hover-state-pointer"
-						id="appendedInput" type="text" ng-model="selectedReceivable.uuidCode" disabled>
+						id="appendedInput" type="text" ng-model="selectedReceivable.order.document" disabled>
 					<span ng-click="" class="add-on">+</span>
 				</div>
 			</div>
@@ -66,7 +66,7 @@
 						ng-click="" disabled>-->
 					<div class="input-append input-width-bills">
 					<input class="input-block-level hover-state-pointer"
-						id="appendedInput" type="text" ng-model="selectedReceivable.typeTranslate" disabled>
+						id="appendedInput" type="text" ng-model="selectedReceivable.classification" disabled>
 					<span ng-click="" class="add-on">+</span>
 				</div>
 			</div>
@@ -104,38 +104,12 @@
 		</span>
 	</div>
 </div>
-
-
-<!-- mesmo conteudo da "receivable-write-parc-dialog". Foram feitas duas opcoes.-->
-<div class="row-fluid receivable-write-right display-none" ng-show="selectedReceivable" >
-		<div class="row-fluid">
-		
-			<div class="grid-input-receivable-dialog margintn10">
-					<div class="header">
-						<div class="row-input-receivable-dialog-grid">
-							<span class="col-1"><div>Parcela</div></span>
-							<span class="col-2"><div>Vencto.</div></span>
-							<span class="col-3"><div>Valor</div></span>
-						</div>
-					</div>
-					<div class="scroll-input-receivable-dialog-grid">
-						<div class="row-input-receivable-dialog-grid" ng-repeat="installment in selectedReceivable.installments">
-							<span class="col-1"><div>{{$index +1}} de {{selectedReceivable.installments.length}}</div></span>
-							<span class="col-2 display-none"><div><input type="text" class="col-2 text-center date-field"  input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="installment.duedate" required readonly onkeyup="checkInputKeyUp(this)"/></div></span>
-							<span class="col-3 display-none"><div><input type="text" class="col-3 value" ng-model="installment.amount"/></div></span>
-						</div>
-					</div>					
-			</div>
-					
-			<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o c�digo </div>
-		
-		</div>
-	
-		<div class="clearfix"></div><hr />
-		<button ng-click='closeDialog()' class="btn btn-cancel btn-large btn-login" type="submit">
-			Cancelar
-		</button>
-		<button ng-click='closeDialog()' class="btn-large btn btn-ok btn-login pull-right" type="submit">
-			Confirmar
-		</button>
+<div class="row-fluid receivable-write-right display-none">
+	<div class="clearfix"></div><hr />
+	<button ng-click="cancelEdit()" class="btn btn-cancel btn-large btn-login" type="submit">
+		Cancelar
+	</button>
+	<button ng-click="updateReceivable()" class="btn-large btn btn-ok btn-login pull-right" type="submit">
+		Confirmar
+	</button>
 </div>

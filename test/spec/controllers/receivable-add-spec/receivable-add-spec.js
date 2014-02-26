@@ -5,7 +5,7 @@ describe('Controller: ReceivableCtrlAdd', function() {
     var fakeNow = 1386444467895;
     
     beforeEach(function() {
-        module('tnt.catalog.receivable.add.ctrl');
+        module('tnt.catalog.financial.receivable.add.ctrl');
         module('tnt.catalog.receivable.entity');
         
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);

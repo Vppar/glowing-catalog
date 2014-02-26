@@ -20,8 +20,8 @@
 							<div class="btn-group btn-group-sm">
 								<!-- <a class="btn btn-option" ng-class="{active: selectedReceivableMode=='add'}" ng-click="selectReceivableMode('add')">Adicionar</a> -->
 								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='edit'}" ng-click="selectReceivableMode('edit')">Editar</a>
-								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='payment'}" ng-click="selectReceivableMode('payment')">Baixa Pgto.</a>
-								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='search'}"  ng-click="selectReceivableMode('list')">Pesquisar</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='receive'}" ng-click="selectReceivableMode('receive')">Baixa Pgto.</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='list'}"  ng-click="selectReceivableMode('list')">Pesquisar</a>
 							</div>
 						</span>
 					</div>
@@ -31,8 +31,8 @@
             <div ng-switch on="selectedReceivableMode">
             	<!-- <span ng-switch-when="add"><span ng-controller="ReceivableAddCtrl" ng-include src="'views/parts/receivable/receivable-add.html'"></span></span> -->
 				<span ng-switch-when="edit"><span ng-controller="ReceivableEditCtrl" ng-include src="'views/parts/receivable/receivable-edit.html'"></span></span>
-				<span ng-switch-when="payment"><span ng-include src="'views/parts/receivable/receivable-payment.html'"></span></span>
-				<span ng-switch-when="list"><span ng-controller="ReceivableSearchCtrl" ng-include src="views/parts/receivable/receivable-list.html"></span></span>
+				<span ng-switch-when="receive"><span ng-controller="ReceivableReceiveCtrl" ng-include src="'views/parts/receivable/receivable-receive.html'"></span></span>
+				<span ng-switch-when="list"><span ng-controller="ReceivableListCtrl" ng-include src="'views/parts/receivable/receivable-list.html'"></span></span>
 			</div>
 		</div>
             
@@ -65,8 +65,8 @@
                         <div class="new-col-3">{{receivable.installment}} de {{receivable.installments.length}}</div>
                         
                         <div class="new-col-3">
-                            <div><b>Pedido</b></div>
-                            <small>{{receivable.uuidCode}}</small>
+                            <div><b>{{receivable.documentType}}</b></div>
+                            <small>{{receivable.order.uiidCode}}</small>
                         </div>
                         
                         <div class="new-col-3">{{receivable.duedate | date:"dd/MM/yyyy"}}</div>

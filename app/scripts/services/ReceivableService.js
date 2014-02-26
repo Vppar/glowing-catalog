@@ -10,7 +10,7 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper'
     ]).service(
             'ReceivableService',
-            function ReceivableService($q, $log, ArrayUtils, Receivable, CoinKeeper, WebSQLDriver) {
+            function ReceivableService($q, $log, $filter, ArrayUtils, Receivable, CoinKeeper, WebSQLDriver) {
 
                 var ReceivableKeeper = CoinKeeper('receivable');
 
@@ -59,7 +59,17 @@
                     } catch (err) {
                         $log.debug('ReceivableService.list: Unable to recover the list of receivables. Err=' + err);
                     }
+                    
                     return result;
+                };
+                
+                /**
+                 * Returns the full receivables list.
+                 * 
+                 * @return Array - Receivables list.
+                 */
+                var listActive = function list() {
+                    return filterReceivablesByCanceled(this.list());
                 };
 
                 /**
@@ -74,7 +84,18 @@
                     } catch (err) {
                         $log.debug('ReceivableService.list: Unable to recover the list of receivables. Err=' + err);
                     }
+
                     return result;
+                };
+
+                /**
+                 * Returns the full receivables list.
+                 * 
+                 * @return Array - Receivables list.
+                 */
+                var listActiveByDocument = function listByDocument(document) {
+                    
+                    return filterReceivablesByCanceled(this.listByDocument(document));
                 };
 
                 /**
@@ -153,7 +174,7 @@
                             var result = isValid(receivable);
                             if (result.length === 0) {
                                 try {
-                                    ReceivableKeeper.cancel(receivable.id);
+                                    ReceivableKeeper.cancel(receivable.uuid);
                                     ReceivableKeeper.add(receivable);
                                 } catch (err) {
                                     throw 'ReceivableService.register: Unable to register a receivable=' + JSON.stringify(receivable) +
@@ -187,25 +208,37 @@
                  * @param id - Receivable id.
                  * @return boolean - Result if the receivable is canceled.
                  */
-                var cancel = function cancel(id) {
+                var cancel = function cancel(uuid) {
                     var result = true;
                     try {
-                        ReceivableKeeper.cancel(id);
+                        ReceivableKeeper.cancel(uuid);
                     } catch (err) {
                         throw 'ReceivableService.register: Unable to cancel a receivable=' + JSON.stringify(receivable) + '. Err=' + err;
                     }
                     return result;
                 };
 
+                function receivableCanceledAndLiquidatedFilter(receivable) {
+                    var result = (receivable.canceled === undefined ) && (receivable.liquidated === undefined);  
+                    return result;
+                }
+
+                function filterReceivablesByCanceled(receivables) {
+                    return $filter('filter')(receivables, receivableCanceledAndLiquidatedFilter);
+                }
+
                 this.isValid = isValid;
                 this.register = register;
                 this.bulkRegister = bulkRegister;
                 this.listByDocument = listByDocument;
+                this.listActiveByDocument = listActiveByDocument;
                 this.update = update;
                 this.read = read;
                 this.list = list;
+                this.listActive= listActive;
                 this.receive = receive;
                 this.cancel = cancel;
+
             }).run(function(ReceivableService) {
     });
 }(angular));
