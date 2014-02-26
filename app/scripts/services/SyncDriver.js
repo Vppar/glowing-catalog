@@ -25,12 +25,6 @@
           setFirebaseReferences(localStorage.firebaseUser);
         }
 
-        $rootScope.$on('SyncStop', function () {
-          if (syncingFlagRef) {
-            syncingFlagRef.remove();
-            $log.debug('Unlocking journal...');
-          }
-        });
 
         function isFirebaseBusy() {
           return !!firebaseSyncStartTime && firebaseSyncStartTime !== firebaseSyncStartTime2;
@@ -44,8 +38,18 @@
         this.isConnected = isConnected;
         
 
+        function unlock() {
+          if (syncingFlagRef) {
+            syncingFlagRef.remove();
+            $log.debug('Unlocking journal...');
+          }
+        }
+
+        this.unlock = unlock;
+
+
         function lock(successCb, failureCb) {
-          $log.debug('Trying to lock the user journal for synchronizing this device');
+          $log.debug('Trying to lock the user journal for this device');
 
           var deferred = $q.defer();
 
@@ -61,10 +65,10 @@
             } else {
               if (committed) {
                 firebaseSyncStartTime2 = snapshot.val();
-                $log.debug('Firebase user journal locked!');
+                $log.debug('User journal locked for this device!');
                 deferred.resolve(firebaseSyncStartTime2);
               } else {
-                failureCb('Firebase already being synced!');
+                $log.debug('User journal already locked!');
                 deferred.resolve(false);
               }
             }
@@ -180,7 +184,7 @@
                   .on('value', function (snapshot) {
                       if (snapshot) {
                           var lastUpdated = snapshot.val();
-                          if (lastUpdated !== localStorage.warmUpLastUpdated) {
+                          if (lastUpdated !== parseInt(localStorage.warmUpLastUpdated)) {
                               deferred.resolve(updateLocalWarmUpData());
                           } else {
                               $log.debug('Local warmup data is up-to-date.');
@@ -237,6 +241,27 @@
 
             return deferred.promise;
         }
+
+
+        function fetchJournal() {
+          $log.debug('Fetching journal data...');
+          var deferred = $q.defer();
+
+          journalRef
+            .once('value', function (snapshot) {
+              if (snapshot) {
+                var journal = snapshot.val() || [];
+                $log.debug('Journal data fetched.', journal);
+                deferred.resolve(journal);
+              } else {
+                deferred.resolve([]);
+              }
+            });
+
+          return deferred.promise;
+        }
+
+        this.fetchJournal = fetchJournal;
 
 
         this.logout = function( ) {

@@ -26,6 +26,7 @@
             var sequenceConflictPromise = null;
             var insertionCounter = 0;
             var waitingToSync = false;
+            var waitingToUpdateWarmUpData = false;
 
 
             // Event Handlers
@@ -45,6 +46,27 @@
                 syncDeferred.reject('Disconnected from Firebase!');
               }
             });
+
+
+            // FIXME I think listening for the FirebaseIdle event is
+            // enough, need to test it later on...
+            $rootScope.$on('SyncStop', function () {
+              $log.debug('Updating local data on SyncStop!');
+              if (isWaitingToUpdateWarmUpData()) {
+                updateLocalData();
+              }
+            });
+
+
+            $rootScope.$on('FirebaseIdle', function () {
+              $log.debug('Updating local data on FirebaseIdle!');
+              if (isWaitingToUpdateWarmUpData()) {
+                updateLocalData();
+              }
+            });
+
+
+            $rootScope.$on('WarmUpDataUpdated', updateLocalData);
 
             $rootScope.$on('FirebaseConnected', sync);
 
@@ -108,6 +130,94 @@
               return waitingToSync;
             }
 
+            function isWaitingToUpdateWarmUpData() {
+              return waitingToUpdateWarmUpData;
+            }
+
+
+
+            function updateLocalData() {
+              return hasUnsyncedEntries().then(function (hasEntries) {
+                if (hasEntries) { 
+                  waitingToUpdateWarmUpData = true;
+                  $log.debug('Unsynced data found! Trying to update warm up data once everything is synced!');
+                  return $q.reject('Unsynced data found!');
+                } else {
+                  // There are no unsynced entries! Let's whipe everything
+                  // and sync initial data!
+
+                  // TODO lock app!
+
+                  waitingToUpdateWarmUpData = false;
+
+                  // Prevent other devices from syncing the journal while we
+                  // whipe and reload the user data
+                  promise = lockJournal()
+                      // Clear everything from the journal
+                      .then(clearJournal)
+                      // Warm up!
+                      .then(insertWarmUpData)
+                      // Reload the data from the server
+                      .then(insertJournalData)
+                      // Unlock the journal
+                      .then(unlockJournal);
+
+                  // TODO
+                  // Unlock the app for the user
+                  //promise.then(unlockApp);
+
+                  /* TODO
+                  promise.then(function () {
+                    // unlock app!
+                  });
+                  */
+
+                  return promise;
+                }
+              });
+            }
+
+            function lockJournal() {
+              return SyncDriver.lock();
+            }
+
+            function unlockJournal() {
+              return SyncDriver.unlock();
+            }
+
+            function clearJournal() {
+              return JournalKeeper.clear();
+            }
+
+            function insertWarmUpData() {
+              return JournalKeeper.insertWarmUpData();
+            }
+
+
+            function insertJournalData() {
+              var deferred = $q.defer();
+
+              var promise = SyncDriver.fetchJournal().then(function (entries) {
+                console.log('fetched entries:', entries);
+                var promises = [];
+
+                $log.debug('Inserting journal data...');
+                for (var idx in entries) {
+                  promises.push(insert(entries[idx]));
+                }
+
+                deferred.resolve($q.all(promises));
+              }, function (err) {
+                $log.debug('Failed to fetch journal!', err);
+                deferred.reject('Failed to fetch journal!');
+              });
+
+              return deferred.promise;
+            }
+
+            function resync() {
+              return JournalKeeper.resync();
+            }
 
             /**
              * Syncs unsynced entries from journal with the server.
@@ -135,6 +245,9 @@
 
                 var deferred = $q.defer();
 
+                // FIXME I've changed SyncDriver.lock() to work with a promise.
+                // Should update this code to use that and get rid of the
+                // callback signature... what was I thinking?
                 SyncDriver.lock(function () {
                   syncDeferred = deferred;
 
@@ -150,6 +263,7 @@
                       SyncAttempt.clear();
 
                       $rootScope.$broadcast('SyncStop');
+                      SyncDriver.unlock();
                   }
 
                   deferred.promise.then(clearPromise, clearPromise);
@@ -546,7 +660,7 @@
              */
             function clearData() {
                 return JournalKeeper.clear();
-            };
+            }
 
             function hasUnsyncedEntries() {
                 return JournalKeeper.readUnsynced().then(function (result) {

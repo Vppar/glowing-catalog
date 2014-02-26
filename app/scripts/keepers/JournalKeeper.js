@@ -426,6 +426,8 @@
             return deferred.promise;
         }
 
+        this.insertWarmUpData = insertWarmUpData;
+
 
         function persistEntry (entry) {
             return registered.then(function () {
