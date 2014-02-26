@@ -28,6 +28,7 @@
         $rootScope.$on('SyncStop', function () {
           if (syncingFlagRef) {
             syncingFlagRef.remove();
+            $log.debug('Unlocking journal...');
           }
         });
 
@@ -69,7 +70,7 @@
             }
           });
 
-          deferred.then(function (result) {
+          deferred.promise.then(function (result) {
             // result is a valid timestamp
             if (result || result === 0) {
               // if a success callback was given, call it
