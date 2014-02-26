@@ -2,14 +2,14 @@
     'use strict';
 
     /**
-     * Service to manage operations over Events (Appointments).
+     * Service to manage operations over Appointments.
      * 
      * @author Iago Quirino
      */
 
-    angular.module('tnt.vpsa.appointments.events.service', [
-        'tnt.vpsa.appointments.events.entity', 'tnt.vpsa.appointments.events.keeper'
-    ]).service('EventService', function EventService($log, $q, EventKeeper, Event) {
+    angular.module('tnt.catalog.appointments.service', [
+        'tnt.catalog.appointments.entity', 'tnt.catalog.appointments.keeper'
+    ]).service('AppointmentService', function AppointmentService($log, $q, AppointmentKeeper, Appointment) {
 
       this.isValid = function(entity) {
             var invalidProperty = {};
@@ -43,42 +43,42 @@
         this.list = function() {
             var result = null;
             try {
-                result = EventKeeper.list();
+                result = AppointmentKeeper.list();
             } catch (err) {
-                $log.debug('EventService.list: Unable to recover the list of events. Err=' + err);
+                $log.debug('AppointmentService.list: Unable to recover the list of appointments. Err=' + err);
             }
             return result;
         };
 
         /**
-         * Returns a single event by its id.
+         * Returns a single appointment by its id.
          * 
-         * @param uuid - Event uuid.
-         * @return Event - The desired entity.
+         * @param uuid - Appointment uuid.
+         * @return Appointment - The desired entity.
          */
         this.read = function(uuid) {
             var result = null;
             try {
-                result = EventKeeper.read(uuid);
+                result = AppointmentKeeper.read(uuid);
             } catch (err) {
-                $log.debug('EventService.read: Unable to find an event with id=\'' + uuid + '. Err=' + err);
+                $log.debug('AppointmentService.read: Unable to find an appointment with id=\'' + uuid + '. Err=' + err);
             }
             return result;
         };
 
         /**
-         * Create a event in the datastore.
+         * Create a appointment in the datastore.
          * 
-         * @param event - Event object to be registered.
+         * @param appointment - Appointment object to be registered.
          * @return Array - Array of objects containing the invalid properties.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
-        this.create = function(event) {
+        this.create = function(appointment) {
             var result = null;
-            event = new Event(event);
-            var hasErrors = this.isValid(event);
+            appointment = new Appointment(appointment);
+            var hasErrors = this.isValid(appointment);
             if (hasErrors.length === 0) {
-                result = EventKeeper.create(event);
+                result = AppointmentKeeper.create(appointment);
             } else {
                 result = $q.reject(hasErrors);
             }
@@ -87,19 +87,19 @@
 
         /**
          * 
-         * Update values from event
+         * Update values from appointment
          * 
-         * @param eventObj - Event to be update.
+         * @param appointmentObj - Appointment to be update.
          * @return Array - Array of objects containing the invalid properties.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
-        this.update = function(event) {
-            var result = this.isValid(event);
+        this.update = function(appointment) {
+            var result = this.isValid(appointment);
             if (result.length === 0) {
                 try {
-                    EventKeeper.update(event);
+                    AppointmentKeeper.update(appointment);
                 } catch (err) {
-                    throw 'EventService.update: Unable to update an event=' + JSON.stringify(receivable) + '. Err=' + err;
+                    throw 'AppointmentService.update: Unable to update an appointment=' + JSON.stringify(receivable) + '. Err=' + err;
                 }
             }
             return result;
@@ -107,38 +107,38 @@
         
         /**
          * 
-         * Set event to Done
+         * Set appointment to Done
          * 
-         * @param id - id of Event to be update.
+         * @param id - id of Appointment to be update.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
         this.done = function(id) {
         	var result = "";
         	try {
-        		var event = this.read(id);
-        		event.status = "DONE";
-        		result = this.update(event);
+        		var appointment = this.read(id);
+        		appointment.status = "DONE";
+        		result = this.update(appointment);
             } catch (err) {
-                throw 'EventService.done: Unable to done an event=' + JSON.stringify(receivable) + '. Err=' + err;
+                throw 'AppointmentService.done: Unable to done an appointment=' + JSON.stringify(receivable) + '. Err=' + err;
             }
             return result;
         };
         
         /**
          * 
-         * Set event to Cancel
+         * Set appointment to Cancel
          * 
-         * @param id - id of Event to be update.
+         * @param id - id of Appointment to be update.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
         this.cancel = function(id) {
         	var result = "";
         	try {
-        		var event = this.read(id);
-            	event.status = "CANCELLED";
-            	result = this.update(event);	
+        		var appointment = this.read(id);
+            	appointment.status = "CANCELLED";
+            	result = this.update(appointment);	
             } catch (err) {
-                throw 'EventService.cancel: Unable to cancel an event=' + JSON.stringify(receivable) + '. Err=' + err;
+                throw 'AppointmentService.cancel: Unable to cancel an appointment=' + JSON.stringify(receivable) + '. Err=' + err;
             }
             return result;
         };

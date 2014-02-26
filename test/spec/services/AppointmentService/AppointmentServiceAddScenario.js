@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: EventServiceAddScenario', function() {
+describe('Service: AppointmentServiceAddScenario', function() {
 
     var logger = angular.noop;
 
@@ -13,10 +13,10 @@ describe('Service: EventServiceAddScenario', function() {
 
     // load the service's module
     beforeEach(function() {
-        module('tnt.vpsa.appointments.entity');
-        module('tnt.vpsa.appointments.events.service');
-        module('tnt.vpsa.appointments.events.entity');
-        module('tnt.vpsa.appointments.events.keeper');
+        module('tnt.catalog.appointments');
+        module('tnt.catalog.appointments.service');
+        module('tnt.catalog.appointments.entity');
+        module('tnt.catalog.appointments.keeper');
 
         module(function($provide) {
           $provide.value('$log', log);
@@ -24,14 +24,14 @@ describe('Service: EventServiceAddScenario', function() {
     });
 
     // instantiate service
-    var EventService = undefined;
-    var Event = undefined;
+    var AppointmentService = undefined;
+    var Appointment = undefined;
     var $rootScope = undefined;
     var JournalKeeper = undefined;
     
-    beforeEach(inject(function(_$rootScope_, _EventService_, _Event_, _JournalKeeper_) {
-        EventService = _EventService_;
-        Event = _Event_;
+    beforeEach(inject(function(_$rootScope_, _AppointmentService_, _Appointment_, _JournalKeeper_) {
+        AppointmentService = _AppointmentService_;
+        Appointment = _Appointment_;
         $rootScope = _$rootScope_;
         JournalKeeper = _JournalKeeper_;
     }));
@@ -40,10 +40,10 @@ describe('Service: EventServiceAddScenario', function() {
     
     /**
      * <pre>
-     * @spec EventService.create
+     * @spec AppointmentService.create
      * Given a valid values
      * when and create is triggered
-     * then a event must be created
+     * then a appointment must be created
      * an the entry must be registered
      * </pre>
      */
@@ -60,18 +60,18 @@ describe('Service: EventServiceAddScenario', function() {
         var type = 'VISITA';
         var status = 'STATU';
         
-        var ev = new Event(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
+        var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
         
         var created = false;
 
         //when
         runs(function(){
-            var promise = EventService.create(ev);
+            var promise = AppointmentService.create(ev);
             promise.then(function (result) {
-                log.debug('Event created!', result);
+                log.debug('Appointment created!', result);
                 created = true;
             }, function (err) {
-                log.debug('Failed to create Event!', err);
+                log.debug('Failed to create Appointment!', err);
             });
 
             $rootScope.$apply();
@@ -79,13 +79,13 @@ describe('Service: EventServiceAddScenario', function() {
         
         waitsFor(function(){
             return created;
-        }, 'EventService.create()', 500);
+        }, 'AppointmentService.create()', 500);
         
         
         //then
         runs(function(){
-        	expect(EventService.list().length).toBe(1);
-            expect(EventService.list()[0].title).toBe('VISITA NO CLIENTE');
+        	expect(AppointmentService.list().length).toBe(1);
+            expect(AppointmentService.list()[0].title).toBe('VISITA NO CLIENTE');
         });
     });
 

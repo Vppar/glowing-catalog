@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.vpsa.appointments.events.entity', []).factory('Event', function Event() {
+    angular.module('tnt.catalog.appointments.entity', []).factory('Appointment', function Appointment() {
 
         var service = function svc(uuid, title,description, date, startTime, endTime, address, contacts, type,status) {
 
@@ -51,9 +51,9 @@
      * The keeper for the current entity
      */
     angular.module(
-            'tnt.vpsa.appointments.events.keeper',
+            'tnt.catalog.appointments.keeper',
             [
-                'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.vpsa.appointments.events.entity',
+                'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.appointments.entity',
                 'tnt.catalog.journal.keeper', 'tnt.identity'
             ]).config(function($provide) {
                 $provide.decorator('$q', function($delegate) {
@@ -64,12 +64,12 @@
                     };
                     return $delegate;
                 });
-        }).service('EventKeeper', function EventKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Event, IdentityService) {
+        }).service('AppointmentKeeper', function AppointmentKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Appointment, IdentityService) {
 
     	var type = 'ff';
         var currentEventVersion = 1;
         var currentCounter = 0;
-        var events = [];
+        var appointments = [];
         this.handlers = {};
         
         function getNextId(){
@@ -77,40 +77,40 @@
         }
 
 
-        // Nuke event for clearing the event list
-        ObjectUtils.ro(this.handlers, 'nukeEvent', function() {
-        	events.length = 0;
+        // Nuke appointment for clearing the appointment list
+        ObjectUtils.ro(this.handlers, 'nukeAppointment', function() {
+        	appointments.length = 0;
             return true;
         });
         
         
-        ObjectUtils.ro(this.handlers, 'eventCreateV1', function(event) {
+        ObjectUtils.ro(this.handlers, 'appointmentCreateV1', function(appointment) {
           
-            var eventData = IdentityService.getUUIDData(event.uuid);
+            var appointmentData = IdentityService.getUUIDData(appointment.uuid);
           
-            if(eventData.deviceId === IdentityService.getDeviceId()){
-                currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
+            if(appointmentData.deviceId === IdentityService.getDeviceId()){
+                currentCounter = currentCounter >= appointmentData.id ? currentCounter : appointmentData.id;
             }
             
-            event = new Event(event);
-            events.push(event);
+            appointment = new Appointment(appointment);
+            appointments.push(appointment);
             
-            return event.uuid;
+            return appointment.uuid;
         });
         
         
 
-        ObjectUtils.ro(this.handlers, 'eventUpdateV1', function(event) {
-            var entry = ArrayUtils.find(events, 'uuid', event.uuid);
+        ObjectUtils.ro(this.handlers, 'appointmentUpdateV1', function(appointment) {
+            var entry = ArrayUtils.find(appointments, 'uuid', appointment.uuid);
 
             if (entry !== null) {
               
-                event = angular.copy(event);
-                delete event.uuid;
-                angular.extend(entry, event);
+                appointment = angular.copy(appointment);
+                delete appointment.uuid;
+                angular.extend(entry, appointment);
                 
             } else {
-                throw 'Event not found.';
+                throw 'Appointment not found.';
             }
             
             return entry.uuid;
@@ -122,12 +122,12 @@
         Replayer.registerHandlers(this.handlers);
 
         /**
-         * create (Event)
+         * create (Appointment)
          */
         this.create = function(entity) {
             
-            if (!(entity instanceof Event)) {
-                return $q.reject('Wrong instance to EventKeeper');
+            if (!(entity instanceof Appointment)) {
+                return $q.reject('Wrong instance to AppointmentKeeper');
             }
             
             var entityObj = angular.copy(entity);
@@ -135,35 +135,35 @@
             entityObj.created = (new Date()).getTime();
             entityObj.uuid = IdentityService.getUUID(type, getNextId());
             
-            var event = new Event(entityObj);
+            var appointment = new Appointment(entityObj);
 
             // create a new journal entry
-            var entry = new JournalEntry(null, event.created, 'eventCreate', currentEventVersion, event);
+            var entry = new JournalEntry(null, appointment.created, 'appointmentCreate', currentEventVersion, appointment);
 
             // save the journal entry
             return JournalKeeper.compose(entry);
         };                
 
         /**
-         * update (Event)
+         * update (Appointment)
          */
-        this.update = function(event) {
+        this.update = function(appointment) {
 
-            if (!(event instanceof Event)) {
-                return $q.reject('Wrong instance to EventKeeper');
+            if (!(appointment instanceof Appointment)) {
+                return $q.reject('Wrong instance to AppointmentKeeper');
             }
             
             var stamp = (new Date()).getTime() / 1000;
 
             // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'eventUpdate', currentEventVersion, event);
+            var entry = new JournalEntry(null, stamp, 'appointmentUpdate', currentEventVersion, appointment);
 
             // save the journal entry
             return JournalKeeper.compose(entry);
         };
         
         /**
-         * read (Event)
+         * read (Appointment)
          */
         this.read = function(uuid) {
             return ArrayUtils.find(this.list(), 'uuid', uuid);
@@ -173,15 +173,15 @@
          * list(type)
          */
         this.list = function() {
-            return angular.copy(events);
+            return angular.copy(appointments);
         };
         
     });
 
-    angular.module('tnt.vpsa.appointments.entity', [
-        'tnt.vpsa.appointments.events.entity', 'tnt.vpsa.appointments.events.keeper'
-    ]).run(function(EventKeeper) {
-        // Warming up EventKeeper
+    angular.module('tnt.catalog.appointments', [
+        'tnt.catalog.appointments.entity', 'tnt.catalog.appointments.keeper'
+    ]).run(function(AppointmentKeeper) {
+        // Warming up AppointmentKeeper
     });
 
 }(angular));

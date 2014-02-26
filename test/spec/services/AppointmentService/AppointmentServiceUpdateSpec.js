@@ -1,8 +1,8 @@
-describe('Service: EventServiceUpdateSpec', function() {
+describe('Service: AppointmentServiceUpdateSpec', function() {
 
     var log = {};
     var fakeNow = 1386444467895;
-    var EventKeeper = {};
+    var AppointmentKeeper = {};
 
     // load the service's module
     beforeEach(function() {
@@ -10,23 +10,23 @@ describe('Service: EventServiceUpdateSpec', function() {
 
         log.debug = jasmine.createSpy('log.debug');
 
-        module('tnt.vpsa.appointments.events.service');
+        module('tnt.catalog.appointments.service');
         module(function($provide) {
             $provide.value('$log', log);
-            $provide.value('EventKeeper', EventKeeper);
+            $provide.value('AppointmentKeeper', AppointmentKeeper);
         });
     });
-    beforeEach(inject(function(_Event_, _EventService_) {
-    	Event = _Event_;
-    	EventService = _EventService_;
+    beforeEach(inject(function(_Appointment_, _AppointmentService_) {
+    	Appointment = _Appointment_;
+    	AppointmentService = _AppointmentService_;
     }));
 
-    it('should update a event instance', function() {
+    it('should update a appointment instance', function() {
         // given
-    	EventKeeper.update = jasmine.createSpy('EventKeeper.update');
-    	EventService.isValid = jasmine.createSpy('EventService.isValid').andReturn([]);
+    	AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update');
+    	AppointmentService.isValid = jasmine.createSpy('AppointmentService.isValid').andReturn([]);
         
-    	var event = {
+    	var appointment = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -40,20 +40,20 @@ describe('Service: EventServiceUpdateSpec', function() {
         };
 
         // when
-        var result = EventService.update(event);
+        var result = AppointmentService.update(appointment);
 
         // then
-        expect(EventKeeper.update).toHaveBeenCalledWith(event);
+        expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointment);
         expect(result.length).toBe(0);
     });
   
-    it('shouldn\'t update a event instance', function() {
+    it('shouldn\'t update a appointment instance', function() {
         // given
-        EventService.isValid = jasmine.createSpy('EventKeeper.isValid').andReturn([]);
-        EventKeeper.update = jasmine.createSpy('EventKeeper.update').andCallFake(function() {
+        AppointmentService.isValid = jasmine.createSpy('AppointmentKeeper.isValid').andReturn([]);
+        AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update').andCallFake(function() {
             throw 'my exception';
         });
-        var event = {
+        var appointment = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -67,15 +67,15 @@ describe('Service: EventServiceUpdateSpec', function() {
         };
         // when
         var createCall = function() {
-            EventService.update(event);
+            AppointmentService.update(appointment);
         };
 
         // then
         expect(createCall).toThrow();
     });
     
-    it('should done an event', function() {
-    	var event = {
+    it('should done an appointment', function() {
+    	var appointment = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -88,7 +88,7 @@ describe('Service: EventServiceUpdateSpec', function() {
                 status: 'PENDENTE'
         };
     	
-    	var eventDone = {
+    	var appointmentDone = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -102,20 +102,20 @@ describe('Service: EventServiceUpdateSpec', function() {
         };
     	
         // given
-    	EventKeeper.update = jasmine.createSpy('EventKeeper.update');
-        EventService.isValid = jasmine.createSpy('EventKeeper.isValid').andReturn([]);
-        EventKeeper.read = jasmine.createSpy('EventKeeper.read').andReturn(event);
+    	AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update');
+        AppointmentService.isValid = jasmine.createSpy('AppointmentKeeper.isValid').andReturn([]);
+        AppointmentKeeper.read = jasmine.createSpy('AppointmentKeeper.read').andReturn(appointment);
         
         // when
-        var result = EventService.done(1);
+        var result = AppointmentService.done(1);
 
         // then
-        expect(EventKeeper.update).toHaveBeenCalledWith(eventDone);
+        expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointmentDone);
         expect(result.length).toBe(0);
     });
 
-    it('should cancel an event', function() {
-    	var event = {
+    it('should cancel an appointment', function() {
+    	var appointment = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -128,7 +128,7 @@ describe('Service: EventServiceUpdateSpec', function() {
                 status: 'PENDENTE'
         };
     	
-    	var eventCancel = {
+    	var appointmentCancel = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -142,15 +142,15 @@ describe('Service: EventServiceUpdateSpec', function() {
         };
     	
         // given
-    	EventKeeper.update = jasmine.createSpy('EventKeeper.update');
-        EventService.isValid = jasmine.createSpy('EventKeeper.isValid').andReturn([]);
-        EventKeeper.read = jasmine.createSpy('EventKeeper.read').andReturn(event);
+    	AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update');
+        AppointmentService.isValid = jasmine.createSpy('AppointmentKeeper.isValid').andReturn([]);
+        AppointmentKeeper.read = jasmine.createSpy('AppointmentKeeper.read').andReturn(appointment);
         
         // when
-        var result = EventService.cancel(1);
+        var result = AppointmentService.cancel(1);
 
         // then
-        expect(EventKeeper.update).toHaveBeenCalledWith(eventCancel);
+        expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointmentCancel);
         expect(result.length).toBe(0);
     });
     

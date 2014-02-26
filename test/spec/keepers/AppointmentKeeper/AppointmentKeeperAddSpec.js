@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Service: EventKeeper', function() {
+describe('Service: AppointmentKeeper', function() {
 
     var jKeeper = {};
     
     // load the service's module
     beforeEach(function() {
-        module('tnt.vpsa.appointments.entity');
-        module('tnt.vpsa.appointments.events.entity');
-        module('tnt.vpsa.appointments.events.keeper');
+        module('tnt.catalog.appointments');
+        module('tnt.catalog.appointments.entity');
+        module('tnt.catalog.appointments.keeper');
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
@@ -23,18 +23,18 @@ describe('Service: EventKeeper', function() {
     });
 
     // instantiate service
-    var EventKeeper = null;
-    var Event = null;
+    var AppointmentKeeper = null;
+    var Appointment = null;
     var JournalEntry = null;
     var IdentityService = null;
-    beforeEach(inject(function(_EventKeeper_, _Event_, _JournalEntry_, _IdentityService_) {
-    	EventKeeper = _EventKeeper_;
-        Event = _Event_;
+    beforeEach(inject(function(_AppointmentKeeper_, _Appointment_, _JournalEntry_, _IdentityService_) {
+    	AppointmentKeeper = _AppointmentKeeper_;
+        Appointment = _Appointment_;
         JournalEntry =_JournalEntry_;
         IdentityService = _IdentityService_;
     }));
     
-    it('should handle an add appointment event', function() {
+    it('should handle an add appointment appointment', function() {
         // given
         var validEntity = {
                 uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
@@ -48,20 +48,20 @@ describe('Service: EventKeeper', function() {
                 type : 'VISITA',
                 status: 'PENDENTE'
         };
-        var event = new Event(validEntity);
+        var appointment = new Appointment(validEntity);
 
         // when
-        EventKeeper.handlers['eventCreateV1'](event);
-        var events = EventKeeper.list();
+        AppointmentKeeper.handlers['appointmentCreateV1'](appointment);
+        var appointments = AppointmentKeeper.list();
 
         // then
-        expect(events[0]).not.toBe(event);
-        expect(events[0]).toEqual(event);
+        expect(appointments[0]).not.toBe(appointment);
+        expect(appointments[0]).toEqual(appointment);
     });
     
     /**
      * <pre>
-     * @spec EventKeeper.add#1
+     * @spec AppointmentKeeper.add#1
      * Given a valid values
      * when and create is triggered
      * then a journal entry must be created
@@ -87,13 +87,13 @@ describe('Service: EventKeeper', function() {
         var status = 'STATUS';
         
         var stp = fakeNow;
-        var ev = new Event(uuid, title, description, date, startTime, endTime, address, contacts, type, status);
+        var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type, status);
         ev.created = stp;
         
-        var entry = new JournalEntry(null, stp, 'eventCreate', 1, ev); 
+        var entry = new JournalEntry(null, stp, 'appointmentCreate', 1, ev); 
         
         expect(function() {
-            EventKeeper.create(ev);}).not.toThrow();
+            AppointmentKeeper.create(ev);}).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
 });

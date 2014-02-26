@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: EventKeeperAddScenario', function() {
+describe('Service: AppointmentKeeperAddScenario', function() {
 
     var logger = angular.noop;
 
@@ -14,9 +14,9 @@ describe('Service: EventKeeperAddScenario', function() {
     // load the service's module
     beforeEach(function() {
         localStorage.deviceId = 1;
-        module('tnt.vpsa.appointments.entity');
-        module('tnt.vpsa.appointments.events.entity');
-        module('tnt.vpsa.appointments.events.keeper');
+        module('tnt.catalog.appointments');
+        module('tnt.catalog.appointments.entity');
+        module('tnt.catalog.appointments.keeper');
 
         module(function($provide) {
             $provide.value('$log', log);
@@ -24,16 +24,16 @@ describe('Service: EventKeeperAddScenario', function() {
     });
 
     // instantiate service
-    var EventKeeper = null;
-    var Event = null;
+    var AppointmentKeeper = null;
+    var Appointment = null;
     var $rootScope = null;
     var JournalKeeper = null;
     var WebSQLDriver = null;
 
 
-    beforeEach(inject(function(_EventKeeper_, _Event_, _$rootScope_, _JournalKeeper_, _WebSQLDriver_) {
-        EventKeeper = _EventKeeper_;
-        Event = _Event_;
+    beforeEach(inject(function(_AppointmentKeeper_, _Appointment_, _$rootScope_, _JournalKeeper_, _WebSQLDriver_) {
+        AppointmentKeeper = _AppointmentKeeper_;
+        Appointment = _Appointment_;
         $rootScope = _$rootScope_;
         JournalKeeper = _JournalKeeper_;
         WebSQLDriver = _WebSQLDriver_;        
@@ -44,7 +44,7 @@ describe('Service: EventKeeperAddScenario', function() {
 
     /**
      * <pre>
-     * @spec EventKeeper.add#1
+     * @spec AppointmentKeeper.add#1
      * Given a valid values
      * when and create is triggered
      * then a enitity must be created
@@ -64,11 +64,11 @@ describe('Service: EventKeeperAddScenario', function() {
         var type = 'VISITA';
         var status = 'STATUS';
         
-        var ev = new Event(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
+        var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
         //when
         runs(function(){
-            EventKeeper.create(ev).then(function () {
-                log.debug('Event created');
+            AppointmentKeeper.create(ev).then(function () {
+                log.debug('Appointment created');
             }, function (err) {
                 log.debug('Failed to create entity', err);
             });
@@ -76,13 +76,13 @@ describe('Service: EventKeeperAddScenario', function() {
         });
         
         waitsFor(function(){
-            return EventKeeper.list().length;
-        }, 'EventKeeper.create()', 500);
+            return AppointmentKeeper.list().length;
+        }, 'AppointmentKeeper.create()', 500);
         
         //then
         runs(function(){
-            expect(EventKeeper.list()[0].title).toBe('VISITA NO CLIENTE');
-            expect(EventKeeper.list().length).toBe(1);
+            expect(AppointmentKeeper.list()[0].title).toBe('VISITA NO CLIENTE');
+            expect(AppointmentKeeper.list().length).toBe(1);
         });
 
         
@@ -91,10 +91,10 @@ describe('Service: EventKeeperAddScenario', function() {
     
     /**
      * <pre>
-     * @spec EventKeeper.add#1
+     * @spec AppointmentKeeper.add#1
      * Given a invalid values
      * when and create is triggered
-     * then a exception must be throw 'Wrong instance to EventKeeper'
+     * then a exception must be throw 'Wrong instance to AppointmentKeeper'
      * </pre>
      */
     it('should not add', function() {
@@ -115,7 +115,7 @@ describe('Service: EventKeeperAddScenario', function() {
         var resolution = null;
         
         runs(function(){
-            var promise = EventKeeper.create(ev);
+            var promise = AppointmentKeeper.create(ev);
             
             promise['catch'](function(_resolution_){
                 resolution = _resolution_;
@@ -128,7 +128,7 @@ describe('Service: EventKeeperAddScenario', function() {
         }, 'Create is taking too long', 500);
         
         runs(function(){
-            expect(resolution).toBe('Wrong instance to EventKeeper');
+            expect(resolution).toBe('Wrong instance to AppointmentKeeper');
         });
 
     });

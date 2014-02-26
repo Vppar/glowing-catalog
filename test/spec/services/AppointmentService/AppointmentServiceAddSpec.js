@@ -1,8 +1,8 @@
-describe('Service: EventServiceAddSpec', function() {
+describe('Service: AppointmentServiceAddSpec', function() {
 
     var log = {};
     var fakeNow = 1386444467895;
-    var EventKeeper = {};
+    var AppointmentKeeper = {};
 
     // load the service's module
     beforeEach(function() {
@@ -10,23 +10,23 @@ describe('Service: EventServiceAddSpec', function() {
 
         log.debug = jasmine.createSpy('log.debug');
 
-        module('tnt.vpsa.appointments.events.service');
+        module('tnt.catalog.appointments.service');
         module(function($provide) {
             $provide.value('$log', log);
-            $provide.value('EventKeeper', EventKeeper);
+            $provide.value('AppointmentKeeper', AppointmentKeeper);
         });
     });
-    beforeEach(inject(function(_Event_, _EventService_) {
-        Event = _Event_;
-        EventService = _EventService_;
+    beforeEach(inject(function(_Appointment_, _AppointmentService_) {
+        Appointment = _Appointment_;
+        AppointmentService = _AppointmentService_;
     }));
 
-    it('should create a event instance', function() {
+    it('should create a appointment instance', function() {
         // given
-        EventKeeper.create = jasmine.createSpy('EventKeeper.create');
-        EventService.isValid = jasmine.createSpy('EventService.isValid').andReturn([]);
+        AppointmentKeeper.create = jasmine.createSpy('AppointmentKeeper.create');
+        AppointmentService.isValid = jasmine.createSpy('AppointmentService.isValid').andReturn([]);
         
-        var event = {
+        var appointment = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -41,20 +41,20 @@ describe('Service: EventServiceAddSpec', function() {
         
 
         // when
-        var result = EventService.create(event);
+        var result = AppointmentService.create(appointment);
 
         // then
-        expect(EventKeeper.create).toHaveBeenCalledWith(new Event(event));
+        expect(AppointmentKeeper.create).toHaveBeenCalledWith(new Appointment(appointment));
         expect(result).toBe(undefined);
     });
   
-    it('shouldn\'t create a event instance', function() {
+    it('shouldn\'t create a appointment instance', function() {
         // given
-        EventService.isValid = jasmine.createSpy('EventService.isValid').andReturn([]);
-        EventKeeper.create = jasmine.createSpy('EventKeeper.create').andCallFake(function() {
+        AppointmentService.isValid = jasmine.createSpy('AppointmentService.isValid').andReturn([]);
+        AppointmentKeeper.create = jasmine.createSpy('AppointmentKeeper.create').andCallFake(function() {
             throw 'my exception';
         });
-        var event = {
+        var appointment = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -68,7 +68,7 @@ describe('Service: EventServiceAddSpec', function() {
         };
         // when
         var createCall = function() {
-            EventService.create(event);
+            AppointmentService.create(appointment);
         };
 
         // then

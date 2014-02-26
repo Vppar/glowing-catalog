@@ -1,43 +1,43 @@
-describe('Service: EventServiceAddSpec', function() {
+describe('Service: AppointmentServiceAddSpec', function() {
 
-    var EventService = {};
-    var EventKeeper = {};
+    var AppointmentService = {};
+    var AppointmentKeeper = {};
 
     // load the service's module
     beforeEach(function() {
-    	module('tnt.vpsa.appointments.events.service');
-        module('tnt.vpsa.appointments.entity');
-        module('tnt.vpsa.appointments.events.keeper');
+    	module('tnt.catalog.appointments.service');
+        module('tnt.catalog.appointments.entity');
+        module('tnt.catalog.appointments.keeper');
     });
     
     beforeEach(function() {
-        EventKeeper.read = jasmine.createSpy('EventKeeper.read');
+        AppointmentKeeper.read = jasmine.createSpy('AppointmentKeeper.read');
         module(function($provide) {
-            $provide.value('EventKeeper', EventKeeper);
+            $provide.value('AppointmentKeeper', AppointmentKeeper);
         });
     });
     
-    beforeEach(inject(function(_EventKeeper_, _Event_, _JournalEntry_, _EventService_) {
-        Event = _Event_; 
-        EventService = _EventService_;
+    beforeEach(inject(function(_AppointmentKeeper_, _Appointment_, _JournalEntry_, _AppointmentService_) {
+        Appointment = _Appointment_; 
+        AppointmentService = _AppointmentService_;
     }));
     
     /**
      * <pre>
-     * @spec EventService.read#1
-     * Given a valid uuid of event
+     * @spec AppointmentService.read#1
+     * Given a valid uuid of appointment
      * when read is triggered
      * then the keeper must be call
      * </pre>
      */
-    it('must call eventKeeper', function() {
+    it('must call appointmentkeeper', function() {
         // given
         var uuid = 'cc02b600-5d0b-11e3-96c3-010001000002';
         // when
-        EventService.read(uuid);
+        AppointmentService.read(uuid);
         // then
-        expect(EventKeeper.read).toHaveBeenCalledWith(uuid);
-        expect(EventService.read).not.toThrow();
+        expect(AppointmentKeeper.read).toHaveBeenCalledWith(uuid);
+        expect(AppointmentService.read).not.toThrow();
     });
 
 });

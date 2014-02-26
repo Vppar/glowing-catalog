@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: EventKeeperUpdateScenario', function() {
+describe('Service: AppointmentKeeperUpdateScenario', function() {
 
     var logger = angular.noop;
 
@@ -13,9 +13,9 @@ describe('Service: EventKeeperUpdateScenario', function() {
 
     // load the service's module
     beforeEach(function() {
-    	module('tnt.vpsa.appointments.entity');
-        module('tnt.vpsa.appointments.events.entity');
-        module('tnt.vpsa.appointments.events.keeper');
+    	module('tnt.catalog.appointments');
+        module('tnt.catalog.appointments.entity');
+        module('tnt.catalog.appointments.keeper');
 
         module(function($provide) {
           $provide.value('$log', log);
@@ -24,14 +24,14 @@ describe('Service: EventKeeperUpdateScenario', function() {
 
     // instantiate service
     var JournalKeeper = null;
-    var EventKeeper = null;
-    var Event = null;
+    var AppointmentKeeper = null;
+    var Appointment = null;
     var $rootScope = null;
 
-    beforeEach(inject(function(_EventKeeper_, _Event_, _$rootScope_, _JournalKeeper_) {
+    beforeEach(inject(function(_AppointmentKeeper_, _Appointment_, _$rootScope_, _JournalKeeper_) {
         JournalKeeper = _JournalKeeper_;
-        EventKeeper = _EventKeeper_;
-        Event = _Event_;
+        AppointmentKeeper = _AppointmentKeeper_;
+        Appointment = _Appointment_;
         $rootScope = _$rootScope_;
     }));
 
@@ -40,10 +40,10 @@ describe('Service: EventKeeperUpdateScenario', function() {
     
     /**
      * <pre>
-     * @spec EventKeeper.update#1
+     * @spec AppointmentKeeper.update#1
      * Given a already registered client
      * when and update is triggered
-     * then a Event must be updated
+     * then a Appointment must be updated
      * an the entry must be registered
      * </pre>
      */
@@ -64,15 +64,15 @@ describe('Service: EventKeeperUpdateScenario', function() {
       
         runs(function(){
             
-            var ev = new Event(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
+            var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
             
-            var promise = EventKeeper.create(ev);
+            var promise = AppointmentKeeper.create(ev);
             
             promise.then(function(_uuid_){
-                log.debug('Event\'s uuid:', _uuid_);
+                log.debug('Appointment\'s uuid:', _uuid_);
                 uuid = _uuid_;
             }, function (err) {
-                log.debug('Failed to create Event', err);
+                log.debug('Failed to create Appointment', err);
             });
 
             $rootScope.$apply();
@@ -84,9 +84,9 @@ describe('Service: EventKeeperUpdateScenario', function() {
         
         runs(function(){
             var title = 'super bad client';
-            var ev = new Event(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
+            var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
             
-            var promise = EventKeeper.update(ev);
+            var promise = AppointmentKeeper.update(ev);
             
             uuid = null;
             
@@ -101,18 +101,18 @@ describe('Service: EventKeeperUpdateScenario', function() {
         }, 'Update is taking too long', 500);
         
         runs(function(){
-            expect(EventKeeper.list().length).toBe(1);
-            expect(EventKeeper.list()[0].title).toBe('super bad client');
+            expect(AppointmentKeeper.list().length).toBe(1);
+            expect(AppointmentKeeper.list()[0].title).toBe('super bad client');
         });
 
     });
     
     /**
      * <pre>
-     * @spec EventKeeper.update#1
+     * @spec AppointmentKeeper.update#1
      * Given a invalid client
      * when and update is triggered
-     * then a Event must not be updated
+     * then a Appointment must not be updated
      * </pre>
      */
     it('should throw exception', function() {
@@ -132,7 +132,7 @@ describe('Service: EventKeeperUpdateScenario', function() {
         var resolution = null;
         
         runs(function(){
-            var promise = EventKeeper.update(ev);
+            var promise = AppointmentKeeper.update(ev);
             
             promise['catch'](function(_resolution_){
                 resolution = _resolution_;
@@ -145,16 +145,16 @@ describe('Service: EventKeeperUpdateScenario', function() {
         }, 'Update is taking too long', 300);
         
         runs(function(){
-            expect(resolution).toBe('Wrong instance to EventKeeper');
+            expect(resolution).toBe('Wrong instance to AppointmentKeeper');
         });
     });
     
     /**
      * <pre>
-     * @spec EventKeeper.update#1
+     * @spec AppointmentKeeper.update#1
      * Given a unregistered client
      * when and update is triggered
-     * then a Event must not be updated
+     * then a Appointment must not be updated
      * </pre>
      */
     
@@ -171,9 +171,9 @@ describe('Service: EventKeeperUpdateScenario', function() {
         var type = 'VISITA';
         var status = 'STATUS';
         
-        var ev = new Event(1, title, description, date, startTime, endTime, address, contacts, type,  status);
+        var ev = new Appointment(1, title, description, date, startTime, endTime, address, contacts, type,  status);
         
-        var ev2 = new Event(2, title, description, date, startTime, endTime, address, contacts, type,  status);
+        var ev2 = new Appointment(2, title, description, date, startTime, endTime, address, contacts, type,  status);
         ev2.title = 'super bad client';
         ev2.description = 'cassiana';
         
@@ -181,7 +181,7 @@ describe('Service: EventKeeperUpdateScenario', function() {
         var created = null;
         
         runs(function(){
-            var promise = EventKeeper.create(ev);
+            var promise = AppointmentKeeper.create(ev);
             promise.then(function (result) {
                 created = true;
             }, function (err) {
@@ -192,13 +192,13 @@ describe('Service: EventKeeperUpdateScenario', function() {
         
         waitsFor(function(){
             return created;
-        }, 'EventKeeper.create()', 300);
+        }, 'AppointmentKeeper.create()', 300);
         
         runs(function(){
             var createCall = function(){
-                EventKeeper.handlers.eventUpdateV1(ev2);
+                AppointmentKeeper.handlers.appointmentUpdateV1(ev2);
             };
-            expect(createCall).toThrow('Event not found.');
+            expect(createCall).toThrow('Appointment not found.');
         });
     });
 

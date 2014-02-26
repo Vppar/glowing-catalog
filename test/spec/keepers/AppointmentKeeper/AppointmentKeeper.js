@@ -1,22 +1,24 @@
 'use strict';
 
-describe('Service: EventKeeper', function() {
+describe('Service: AppointmentKeeper', function() {
 
     // load the service's module
     beforeEach(function() {
-        module('tnt.vpsa.appointments.entity');
+    	module('tnt.catalog.appointments');
+    	module('tnt.catalog.appointments.keeper');
+        module('tnt.catalog.appointments.entity');
         module('tnt.catalog.journal.replayer');
         module('tnt.catalog.journal');
     });
 
     // instantiate service
-    var EventKeeper = undefined;
-    beforeEach(inject(function(_EventKeeper_) {
-    	EventKeeper = _EventKeeper_;
+    var AppointmentKeeper = undefined;
+    beforeEach(inject(function(_AppointmentKeeper_) {
+    	AppointmentKeeper = _AppointmentKeeper_;
     }));
 
     it('should do something', function() {
-        expect(!!EventKeeper).toBe(true);
+        expect(!!AppointmentKeeper).toBe(true);
     });
 
 });

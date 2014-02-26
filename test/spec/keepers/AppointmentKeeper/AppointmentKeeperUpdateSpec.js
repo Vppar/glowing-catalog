@@ -1,15 +1,15 @@
 'use strict';
 
-describe('Service: EventKeeper', function() {
+describe('Service: AppointmentKeeper', function() {
 
     var jKeeper = {};
     var IdentityService ={};
     var fakeUUID = {};
     // load the service's module
     beforeEach(function() {
-    	module('tnt.vpsa.appointments.entity');
-        module('tnt.vpsa.appointments.events.entity');
-        module('tnt.vpsa.appointments.events.keeper');
+    	module('tnt.catalog.appointments');
+        module('tnt.catalog.appointments.entity');
+        module('tnt.catalog.appointments.keeper');
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
@@ -26,19 +26,19 @@ describe('Service: EventKeeper', function() {
     });
 
     // instantiate service
-    var EventKeeper = undefined;
-    var Event = undefined;
+    var AppointmentKeeper = undefined;
+    var Appointment = undefined;
     var JournalEntry = undefined;
-    beforeEach(inject(function(_EventKeeper_, _Event_, _JournalEntry_) {
-    	EventKeeper = _EventKeeper_;
-        Event = _Event_;
+    beforeEach(inject(function(_AppointmentKeeper_, _Appointment_, _JournalEntry_) {
+    	AppointmentKeeper = _AppointmentKeeper_;
+        Appointment = _Appointment_;
         JournalEntry =_JournalEntry_;
     }));
     
     
-    it('should handle an update an appointment event', function() {
+    it('should handle an update an appointment appointment', function() {
         // given
-    	var validEvent = {
+    	var validAppointment = {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
@@ -50,18 +50,18 @@ describe('Service: EventKeeper', function() {
                 type : 'VISITA',
                 status: 'PENDENTE'
         };
-        var event = new Event(validEvent);
+        var appointment = new Appointment(validAppointment);
 
         // when
         expect(function() {
-            EventKeeper.handlers['eventUpdateV1'](event);}).toThrow('Event not found.');
+            AppointmentKeeper.handlers['appointmentUpdateV1'](appointment);}).toThrow('Appointment not found.');
 
     });
     
     
     /**
      * <pre>
-     * @spec EventKeeper.update#1
+     * @spec AppointmentKeeper.update#1
      * Given a valid values
      * when and create is triggered
      * then a journal entry must be created
@@ -85,18 +85,18 @@ describe('Service: EventKeeper', function() {
         var type = 'VISITA';
         var status = 'STATUS';
         
-        var ev = new Event(uuid, title, description, date, startTime, endTime, address, contacts, type,status);
+        var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type,status);
         var stp = fakeNow / 1000;
-        var entry = new JournalEntry(null, stp, 'eventUpdate', 1, ev); 
+        var entry = new JournalEntry(null, stp, 'appointmentUpdate', 1, ev); 
         
         expect(function() {
-            EventKeeper.update(ev);}).not.toThrow();
+            AppointmentKeeper.update(ev);}).not.toThrow();
         expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
     
     /**
      * <pre>
-     * @spec EventKeeper.update#2
+     * @spec AppointmentKeeper.update#2
      * Given a invalid document
      * when and update is triggered
      * then an error must be raised
@@ -104,8 +104,8 @@ describe('Service: EventKeeper', function() {
      */
     it('should throw error', function() {
         
-        EventKeeper.update = jasmine.createSpy('EventKeeper.update').andCallFake(function() {
-            throw 'Event not found.';
+        AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update').andCallFake(function() {
+            throw 'Appointment not found.';
         });
         var uuid = 1;
         var title = 'VISITA NO CLIENTE';
@@ -119,7 +119,7 @@ describe('Service: EventKeeper', function() {
         var status = 'STATUS';
 
         expect(function() {
-            EventKeeper.update(uuid, title, description, date, startTime, endTime, address, contacts, type,status);}).toThrow('Event not found.');
+            AppointmentKeeper.update(uuid, title, description, date, startTime, endTime, address, contacts, type,status);}).toThrow('Appointment not found.');
     });
 
 });
