@@ -42,8 +42,12 @@
         };
         this.isConnected = isConnected;
         
-        this.lock = function (successCb, failureCb) {
+
+        function lock(successCb, failureCb) {
           $log.debug('Trying to lock the user journal for synchronizing this device');
+
+          var deferred = $q.defer();
+
           syncingFlagRef.transaction(function (currentValue) {
             // Ooops! Another device got our slot! Abort synchronization!
             if (!currentValue) {
@@ -51,18 +55,38 @@
             }
           }, function (err, committed, snapshot) {
             if (err) {
-              failureCb(err);
+              $log.debug('An error occurred while trying to lock the journal!', err);
+              deferred.reject(err);
             } else {
               if (committed) {
                 firebaseSyncStartTime2 = snapshot.val();
                 $log.debug('Firebase user journal locked!');
-                successCb(snapshot.val());
+                deferred.resolve(firebaseSyncStartTime2);
               } else {
                 failureCb('Firebase already being synced!');
+                deferred.resolve(false);
               }
             }
           });
+
+          deferred.then(function (result) {
+            // result is a valid timestamp
+            if (result || result === 0) {
+              // if a success callback was given, call it
+              return successCb && successCb(result);
+            }
+
+            return failureCb && failureCb('Journal already locked!');
+          }, function (err) {
+            // If a failure callback was given, call it
+            return failureCb && failureCb(err);
+          });
+
+          return deferred.promise;
         };
+
+        this.lock = lock;
+
 
         function setFirebaseReferences(username) {
             userRef = baseRef.child('users').child(username.replace(/\.+/g, '_'));
