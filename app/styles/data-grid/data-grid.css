@@ -622,6 +622,7 @@ div.scroll-input-products-grid2 .row-input-products-grid {border-bottom:1px soli
 }
 .scroll-order-list {
 	overflow-y: scroll;
+	overflow-x: hidden;
 	-webkit-overflow-scrolling: touch;
 	position: fixed;
 	/*margin: 0 10px 0 10px;
