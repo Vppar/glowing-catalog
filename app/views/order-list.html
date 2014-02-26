@@ -130,25 +130,25 @@
 		<div class="grid-order-list">
 			<div class="header" ng-click="updatePaymentsTotal(filteredOrders)">
 				<div class="order-table-header">
-					<div class="order-col order-col-2">
+					<div class="new-col-2 text-center">
 						<span>Data</span>
 					</div>
-					<div class="order-col order-col-2 text-left">
+					<div class="new-col-2 text-center">
 						<span>Pedido</span>
 					</div>
-					<div class="order-col order-col-3 text-left">
+					<div class="new-col-11">
 						<span>Clientes</span>
 					</div>
-					<div class="order-col order-col-1">
+					<div class="new-col-2 text-center">
 						<span>Qtde.</span>
 					</div>
-					<div class="order-col order-col-2 text-right">
+					<div class="new-col-2 currency">
 						<span>P. M&eacute;dio</span>
 					</div>
-					<div class="order-col order-col-2 text-right">
+					<div class="new-col-3 currency">
 						<span>Valor total</span>
 					</div>
-					<div class="order-col order-col-2 text-right">
+					<div class="new-col-2 currency">
 						<span>AV%</span>
 					</div>
 				</div>
@@ -158,25 +158,25 @@
 				<div
 				class="row-order-list hover-state-pointer details-resumo-total"
 				ng-click="updatePaymentsTotal(filteredOrders)">
-				<div class="order-col order-col-2">
+				<div class="new-col-2 text-center">
 					<span>Total</span>
 				</div>
-				<div class="order-col order-col-2 text-left">
+				<div class="new-col-2 text-center">
 					<span>{{total.all.orderCount}}</span>
 				</div>
-				<div class="order-col order-col-3 text-left">
+				<div class="new-col-11">
 					<span>{{total.all.entityCount}}</span>
 				</div>
-				<div class="order-col order-col-1">
+				<div class="new-col-2 text-center">
 					<span>{{total.all.qty}}</span>
 				</div>
-				<div class="order-col order-col-2 text-right">
+				<div class="new-col-2 currency">
 					<span>{{total.all.avgPrice | currency:''}}</span>
 				</div>
-				<div class="order-col order-col-2 text-right">
+				<div class="new-col-3 currency">
 					<span>{{total.all.amount | currency:''}}</span>
 				</div>
-				<div class="order-col order-col-2 text-right">
+				<div class="new-col-2 currency">
 					<span>100,00</span>
 				</div>
 			</div>
