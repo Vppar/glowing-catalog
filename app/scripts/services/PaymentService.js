@@ -360,11 +360,14 @@
 
                         // Generate receivables
                         var receivablesPromise = savedOrderPromise.then(function(orderUuid) {
+                            console.log('uuid = '+orderUuid);
                             var receivables = getReceivables();
 
                             // FIXME - This is a workaround to temporally
                             // resolve the problems with change
                             makeZeroChange(receivables, change);
+                            
+                            OrderService.setCurrentOrder();
 
                             return ReceivableService.bulkRegister(receivables, customer, orderUuid);
                         }, propagateRejectedPromise);

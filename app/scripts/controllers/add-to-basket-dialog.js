@@ -6,7 +6,8 @@
     ]).controller(
             'AddToBasketDialogCtrl',
             function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService) {
-
+                console.log('opa');
+                console.log(OrderService.order);
                 var orderItems = OrderService.order.items;
                 var inventory = InventoryKeeper.read();
 
@@ -92,6 +93,8 @@
                             }
                         }
                     }
+                    console.log('added');
+                    console.log(OrderService.order);
                     dialog.close(true);
                 };
 

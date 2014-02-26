@@ -11,11 +11,11 @@
                     date : null,
                     canceled : false,
                     customerId : null,
-                    items : null
+                    items : []
                 };
 
-                var order = {};
-                initOrder();
+                this.order = {};
+                initOrder(this.order);
 
                 /**
                  * Verifies if a order is valid.
@@ -67,6 +67,8 @@
                  *             keeper.
                  */
                 var register = function register(order) {
+                    console.log('register aaaaaaaaaaaaaa');
+                    console.log(order);
                     var result = null;
                     var hasErrors = [];
                     if (hasErrors.length === 0) {
@@ -140,9 +142,12 @@
                  * @return boolean Result if the receivable is canceled.
                  */
                 var update = function update(id, items, customerId, status) {
+                    console.log('update');
+                    console.log('customerid' , customerId);
+                    console.log('items' , items);
                     var result = null;
                     try {
-                        result = OrderKeeper.update(id, items);
+                        result = OrderKeeper.update(id, items, customerId, status);
                         result['catch'](function(err) {
                             $log.debug('OrderService.update: -Failed to update an order. ', err);
                         });
@@ -166,18 +171,16 @@
                 var save = function save() {
                     // Removes items without quantity
                     var selectedItems = [];
-                    for ( var idx in order.items) {
-                        var item = order.items[idx];
+                    for ( var idx in this.order.items) {
+                        var item = this.order.items[idx];
                         if (item.qty) {
                             selectedItems.push(item);
                         }
                     }
 
-                    var savedOrder = angular.copy(order);
-                    savedOrder.date = new Date();
-                    savedOrder.items = selectedItems;
-
-                    return this.register(savedOrder);
+                    var savedOrder = angular.copy(this.order);
+                    console.log(savedOrder);
+                    return this.update(savedOrder.uuid, selectedItems, savedOrder.customerId, 'confirmed');
                 };
 
                 /**
@@ -185,13 +188,13 @@
                  */
                 var clear = function clear() {
                     // Reset the current order to an empty object.
-                    for ( var idx in order) {
-                        if (order.hasOwnProperty(idx)) {
-                            delete order[idx];
+                    for ( var idx in this.order) {
+                        if (this.order.hasOwnProperty(idx)) {
+                            delete this.order[idx];
                         }
                     }
 
-                    initOrder();
+                    initOrder(this.order);
                 };
 
                 /**
@@ -200,32 +203,39 @@
                  * @return {boolean}
                  */
                 var hasItems = function hasItems() {
-                    return !!order.items.length;
+                    return !!this.order.items.length;
                 };
                 
-                var setCurrentOrder = function getCurrentOrder() {
+                var setCurrentOrder = function setCurrentOrder() {
+                    console.log('setCurrentOrder was called');
                     var orderList = OrderKeeper.list();
                     for ( var idx in orderList) {
                         if (orderList[idx].status === 'current') {
                             var deviceId = IdentityService.getUUIDData(orderList[idx].uuid).deviceId;
                             if (deviceId == IdentityService.getDeviceId()) {
-                                order = orderList[idx];
+                                this.order = orderList[idx];
+                                console.log(this.order);
                                 return $q.reject();
                             }
                         }
                     }
-                    var savedOrder = angular.copy(order);
+                    var savedOrder = angular.copy(this.order);
                     savedOrder.date = new Date();
                     savedOrder.status = 'current';
                     var orderPromise = register(savedOrder);
-                    order = savedOrder;
-                    orderPromise.then(function(uuid) {
-                        order.uuid = uuid;
+                    this.order = savedOrder;
+                    var currentOrder = this.order;
+                    var setUuid = this.setUuid;
+                    orderPromise.then(function(uuid){
+                        setUuid(uuid, currentOrder);
                     });
                     return orderPromise;
                 };
+                
+                this.setUuid = function setUuid(uuid, order) {
+                        order.uuid = uuid;
+                };
 
-                this.order = order;
                 this.isValid = isValid;
                 this.register = register;
                 this.list = list;
@@ -247,9 +257,8 @@
                  * NOTE: it's not garanteed that the order will be reset after
                  * calling this function. Use clear() if that's what you need.
                  */
-                function initOrder() {
-                    angular.extend(order, orderTemplate);
-                    order.items = [];
+                function initOrder(order) {
+                    order = angular.extend(order, orderTemplate);
                 }
 
                 /**

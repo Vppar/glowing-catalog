@@ -95,18 +95,14 @@
         });
 
         ObjectUtils.ro(this.handlers, 'orderUpdateV1', function(event) {
+            console.log('replayed', event);
             var orderEntry = ArrayUtils.find(orders, 'uuid', event.uuid);
             if (orderEntry) {
-                if (orderEntry.items) {
-                    orderEntry.items = event.items;
-                }
-                if (orderEntry.customerId) {
-                    orderEntry.customerId = event.customerId;
-                }
-                if (orderEntry.status) {
-                    orderEntry.status = event.status;
-                }
+                orderEntry.items = event.items;
+                orderEntry.customerId = event.customerId;
+                orderEntry.status = event.status;
                 orderEntry.updated = event.updated;
+                return event.uuid;
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -170,7 +166,7 @@
         /**
          * Update an order
          */
-        var update = function update(uuid, items, costumerId, status) {
+        var update = function update(uuid, items, customerId, status) {
             var order = ArrayUtils.find(orders, 'uuid', uuid);
             if (!order) {
                 throw 'Unable to find an order with uuid=\'' + uuid + '\'';
@@ -179,7 +175,7 @@
                 uuid : order.uuid,
                 updated : new Date().getTime(),
                 items : items,
-                costumerId : costumerId,
+                customerId : customerId,
                 status : status
             };
             // create a new journal entry
