@@ -157,6 +157,7 @@
              */
             var add = function add(coin) {
                 var coinObj = angular.copy(coin);
+                
                 coinObj.created = (new Date()).getTime();
                 coinObj.uuid = IdentityService.getUUID(type, getNextId());
 
