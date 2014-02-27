@@ -1,12 +1,12 @@
 [
     {
-    	"type": "stockAdd",
-    	"version": 1,
-    	"event": {
-    		"inventoryId": 35,
-    		"cost": 34,
-    		"quantity": 0
-    	}
+      "type": "stockAdd",
+      "version": 1,
+      "event": {
+        "inventoryId": 35,
+        "cost": 34,
+        "quantity": 0
+      }
     },
     {
       "type":"stockAdd",
@@ -3022,5 +3022,581 @@
          "cost":16,
          "quantity": 0
       }
-   }
+    }, {
+      "stamp" : 1393534540501,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 37,
+        "inventoryId" : 1,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84316050-9ff1-11e3-86e9-14000700042d"
+    }, {
+      "stamp" : 1393534540643,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 37,
+        "inventoryId" : 2,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84470b30-9ff1-11e3-86e9-14000700042e"
+    }, {
+      "stamp" : 1393534540755,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 21,
+        "inventoryId" : 4,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84582230-9ff1-11e3-86e9-14000700042f"
+    }, {
+      "stamp" : 1393534540886,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 21,
+        "inventoryId" : 5,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "846c1f60-9ff1-11e3-86e9-140007000430"
+    }, {
+      "stamp" : 1393534541016,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 21,
+        "inventoryId" : 6,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "847ff580-9ff1-11e3-86e9-140007000431"
+    }, {
+      "stamp" : 1393534541148,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 21,
+        "inventoryId" : 7,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "849419c0-9ff1-11e3-86e9-140007000432"
+    }, {
+      "stamp" : 1393534541275,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 21,
+        "inventoryId" : 8,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84a77ab0-9ff1-11e3-86e9-140007000433"
+    }, {
+      "stamp" : 1393534541388,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 21,
+        "inventoryId" : 9,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84b8b8c0-9ff1-11e3-86e9-140007000434"
+    }, {
+      "stamp" : 1393534541487,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 49,
+        "inventoryId" : 11,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84c7d3f0-9ff1-11e3-86e9-140007000435"
+    }, {
+      "stamp" : 1393534541602,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 85,
+        "inventoryId" : 13,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84d96020-9ff1-11e3-86e9-140007000436"
+    }, {
+      "stamp" : 1393534541698,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 48,
+        "inventoryId" : 17,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "84e80620-9ff1-11e3-86e9-140007000437"
+    }, {
+      "stamp" : 1393534541942,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 22,
+        "inventoryId" : 19,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "850d4160-9ff1-11e3-86e9-140007000438"
+    }, {
+      "stamp" : 1393534542044,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 22,
+        "inventoryId" : 20,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "851cd1c0-9ff1-11e3-86e9-140007000439"
+    }, {
+      "stamp" : 1393534542142,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 22,
+        "inventoryId" : 21,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "852bc5e0-9ff1-11e3-86e9-14000700043a"
+    }, {
+      "stamp" : 1393534542254,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 45,
+        "inventoryId" : 23,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "853cdce0-9ff1-11e3-86e9-14000700043b"
+    }, {
+      "stamp" : 1393534542365,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 45,
+        "inventoryId" : 24,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "854dccd0-9ff1-11e3-86e9-14000700043c"
+    }, {
+      "stamp" : 1393534542477,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 35,
+        "inventoryId" : 26,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "855ee3d0-9ff1-11e3-86e9-14000700043d"
+    }, {
+      "stamp" : 1393534542589,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 35,
+        "inventoryId" : 27,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "856ffad0-9ff1-11e3-86e9-14000700043e"
+    }, {
+      "stamp" : 1393534542689,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 65,
+        "inventoryId" : 31,
+        "quantity" : 2
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "857f6420-9ff1-11e3-86e9-14000700043f"
+    }, {
+      "stamp" : 1393534542801,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 85,
+        "inventoryId" : 47,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "85905410-9ff1-11e3-86e9-140007000440"
+    }, {
+      "stamp" : 1393534542890,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 29,
+        "inventoryId" : 99,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "859de8a0-9ff1-11e3-86e9-140007000441"
+    }, {
+      "stamp" : 1393534543013,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 49,
+        "inventoryId" : 102,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "85b0ad50-9ff1-11e3-86e9-140007000442"
+    }, {
+      "stamp" : 1393534543105,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 29,
+        "inventoryId" : 105,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "85beb710-9ff1-11e3-86e9-140007000443"
+    }, {
+      "stamp" : 1393534543259,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 29,
+        "inventoryId" : 108,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "85d636b0-9ff1-11e3-86e9-140007000444"
+    }, {
+      "stamp" : 1393534543397,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 45,
+        "inventoryId" : 130,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "85eb4550-9ff1-11e3-86e9-140007000445"
+    }, {
+      "stamp" : 1393534543509,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 38,
+        "inventoryId" : 132,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "85fc5c50-9ff1-11e3-86e9-140007000446"
+    }, {
+      "stamp" : 1393534543613,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 37,
+        "inventoryId" : 134,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "860c3ad0-9ff1-11e3-86e9-140007000447"
+    }, {
+      "stamp" : 1393534543725,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 33,
+        "inventoryId" : 136,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "861d51d0-9ff1-11e3-86e9-140007000448"
+    }, {
+      "stamp" : 1393534543835,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 54,
+        "inventoryId" : 172,
+        "quantity" : 3
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "862e1ab0-9ff1-11e3-86e9-140007000449"
+    }, {
+      "stamp" : 1393534543958,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 54,
+        "inventoryId" : 182,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "8640df60-9ff1-11e3-86e9-14000700044a"
+    }, {
+      "stamp" : 1393534544082,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 47,
+        "inventoryId" : 232,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "8653cb20-9ff1-11e3-86e9-14000700044b"
+    }, {
+      "stamp" : 1393534544226,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 240,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "8669c420-9ff1-11e3-86e9-14000700044c"
+    }, {
+      "stamp" : 1393534544350,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 241,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "867cafe0-9ff1-11e3-86e9-14000700044d"
+    }, {
+      "stamp" : 1393534544462,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 242,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "868dc6e0-9ff1-11e3-86e9-14000700044e"
+    }, {
+      "stamp" : 1393534544570,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 243,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "869e41a0-9ff1-11e3-86e9-14000700044f"
+    }, {
+      "stamp" : 1393534544691,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 18,
+        "inventoryId" : 245,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "86b0b830-9ff1-11e3-86e9-140007000450"
+    }, {
+      "stamp" : 1393534544782,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 18,
+        "inventoryId" : 246,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "86be9ae0-9ff1-11e3-86e9-140007000451"
+    }, {
+      "stamp" : 1393534544893,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 18,
+        "inventoryId" : 247,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "86cf8ad0-9ff1-11e3-86e9-140007000452"
+    }, {
+      "stamp" : 1393534544992,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 18,
+        "inventoryId" : 248,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "86dea600-9ff1-11e3-86e9-140007000453"
+    }, {
+      "stamp" : 1393534545180,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 250,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "86fb55c0-9ff1-11e3-86e9-140007000454"
+    }, {
+      "stamp" : 1393534545291,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 251,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "870c45b0-9ff1-11e3-86e9-140007000455"
+    }, {
+      "stamp" : 1393534545391,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 252,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "871b87f0-9ff1-11e3-86e9-140007000456"
+    }, {
+      "stamp" : 1393534545482,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 20,
+        "inventoryId" : 253,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "87296aa0-9ff1-11e3-86e9-140007000457"
+    }, {
+      "stamp" : 1393534545624,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 35,
+        "inventoryId" : 301,
+        "quantity" : 2
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "873f1580-9ff1-11e3-86e9-140007000458"
+    }, {
+      "stamp" : 1393534545733,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 51,
+        "inventoryId" : 325,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "874fb750-9ff1-11e3-86e9-140007000459"
+    }, {
+      "stamp" : 1393534545827,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 49,
+        "inventoryId" : 337,
+        "quantity" : 2
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "875e0f30-9ff1-11e3-86e9-14000700045a"
+    }, {
+      "stamp" : 1393534545914,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 33,
+        "inventoryId" : 407,
+        "quantity" : 1
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "876b55a0-9ff1-11e3-86e9-14000700045b"
+    }, {
+      "stamp" : 1393534546014,
+      "type" : "stockAdd",
+      "event" : {
+        "reserve" : 0,
+        "cost" : 11,
+        "inventoryId" : 443,
+        "quantity" : 6
+      },
+      "sequence" : 0,
+      "version" : 1,
+      "uuid" : "877a97e0-9ff1-11e3-86e9-14000700045c"
+    }
 ]
