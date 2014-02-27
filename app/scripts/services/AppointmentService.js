@@ -176,7 +176,6 @@
 	        				for (var idx in appointment.contacts)
 	        				{
 	        					var entity = appointment.contacts[idx];
-	        					alert(entity.uuid);
 	        					if(entity.uuid == entityuuid)
 	        					{
 	        						return true;

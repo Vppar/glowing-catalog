@@ -51,4 +51,41 @@ describe('Service: EntityServiceListSpec', function() {
         expect(log.debug).toHaveBeenCalledWith('EntityService.list: Unable to recover the list of entity. Err=my exception');
         expect(result).toEqual(null);
     });
+    
+    it('should list births 01/01/2000 upon 03/01/2000 ',function()
+    	    {
+    	    	// given
+    	        var dummyReceivables = [
+    	            {
+    	            	uuid:1,
+    	            	birthDate : '01/01/1988'
+    	            },
+    	            {
+    	            	uuid:2,
+    	            	birthDate : '05/01/1999'
+    	            },
+    	            {
+    	            	uuid:3,
+    	            	birthDate : '03/01/1964'
+    	            },
+    	            {
+    	            	uuid:4,
+    	            	birthDate : '06/01/2000'
+    	            },
+    	            {
+    	            	uuid:5,
+    	            	birthDate : '04/01/1999'
+    	            }
+    	        ];
+    	        
+    	        EntityKeeper.list = jasmine.createSpy('EntityKeeper.list').andReturn(dummyReceivables);
+    	    	// when
+    	        var entities = EntityService.listByBirthDate('01/01/2000','03/01/2000');
+
+    	        // then
+    	    	expect(entities.length).toEqual(2);
+    	    	expect(entities[0].uuid).toEqual(1);
+    	    	expect(entities[1].uuid).toEqual(3);
+    });
+    
 });

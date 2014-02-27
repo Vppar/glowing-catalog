@@ -105,6 +105,41 @@
             return result;
         };
         this.find = function(id) {};
+        
+        
+        this.listByBirthDate = function(since,upon)
+        {
+        	var entitiesReturn = [];
+        	var entitiesList = this.list();
+        	if(entitiesList)
+        	{
+	        	for(var idx in entitiesList)
+	        	{
+	        		var entity = entitiesList[idx];
+	        		if(verifyFilterByBirth(entity,since,upon))
+	        		{
+	        			entitiesReturn.push(entity);
+	        		}
+	        	}
+        	}
+        	return entitiesReturn;
+        };
+        
+        function verifyFilterByBirth(entity,since,upon)
+        {
+        	if(entity && since && upon)
+        	{
+        		since = new Date(since);
+        		upon = new Date(upon);
+        		var birthday = new Date(entity.birthDate);
+        		birthday.setYear(since.getFullYear());
+        		if(birthday >= since && birthday <= upon)
+        		{
+    				return true;
+        		}
+        	}
+        	return false;
+        }
     });
 
 })(angular);
