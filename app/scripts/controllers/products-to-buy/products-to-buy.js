@@ -39,6 +39,82 @@
                     $scope.ticket.purchaseOrders = PurchaseOrderService.list();
                 }
 
+                // #####################################################################################################
+                // Scope variables
+                // #####################################################################################################
+                /**
+                 * Shared by all fragments
+                 */
+                $scope.main = {};
+                $scope.main.stockReport = StockService.stockReport('all');
+                $scope.tabs = {};
+                $scope.tabs.selected = 'buildOrder';
+
+                /**
+                 * Summary tab
+                 */
+                $scope.summary = {};
+                $scope.summary.total = {};
+                $scope.summary.discount = {};
+                $scope.summary.freight = {};
+                $scope.summary.total.amount = 0;
+                $scope.summary.total.amount2 = 0;
+                $scope.summary.total.sessions = {};
+                $scope.summary.total.amountWithDiscount = 0;
+                $scope.summary.total.points = 0;
+                $scope.summary.discount.fee = 0;
+                $scope.summary.freight.amount = 0;
+
+                /**
+                 * Order tab
+                 */
+                $scope.purchaseOrder = {};
+                $scope.purchaseOrder.items = {};
+                $scope.purchaseOrder.watchedQty = {};
+                $scope.filter = {
+                    text : ''
+                };
+
+                /**
+                 * Ticket tab
+                 */
+                $scope.ticket = {};
+                $scope.ticket.watchedQty = {};
+                $scope.ticket.checkBox = [];
+                $scope.ticket.selectedPart = 'part1';
+                $scope.ticket.loadPurchaseOrders = loadPurchaseOrders;
+                $scope.ticket.purchaseOrders = [];
+
+                /**
+                 * Pending tab
+                 */
+                $scope.pending = {};
+
+                // #####################################################################################################
+                // Scope functions
+                // #####################################################################################################
+
+                $scope.selectTab = function selectTab(tabName) {
+                    $scope.tabs.selected = tabName;
+                    $scope.ticket.selectedPart = 'part1';
+                };
+
+                $scope.summaryIsVisible = function(tabName) {
+                    return tabName === 'buildOrder' || tabName === 'confirmOrder';
+                };
+
+                $scope.financialRound = function financialRound(value) {
+                    return (Math.round(100 * value) / 100);
+                };
+
+                $scope.resetPurchaseOrder = function resetPurchaseOrder() {
+                    setTimeout(function() {
+                        $scope.main.stockReport = StockService.stockReport('all');
+                        StockService.updateReport($scope.main.stockReport);
+                        resetWatchedQty();
+                    }, 0);
+                };
+
                 $scope.summarizer =
                         function(newObj, hide) {
                             var diff = {
@@ -47,10 +123,8 @@
                             };
 
                             $scope.summary.total.sessions = {};
-                            $scope.summary.total.lines = {};
 
                             for ( var ix in newObj) {
-
                                 var price = $scope.purchaseOrder.items[ix].price;
                                 var points = $scope.purchaseOrder.items[ix].points;
                                 var session = $scope.purchaseOrder.items[ix].session;
@@ -115,84 +189,6 @@
                                 }
                             }
                         };
-
-                // #####################################################################################################
-                // Scope variables
-                // #####################################################################################################
-                /**
-                 * Shared by all fragments
-                 */
-                $scope.main = {};
-                $scope.main.stockReport = StockService.stockReport('all');
-                $scope.tabs = {};
-                $scope.tabs.selected = 'buildOrder';
-
-                /**
-                 * Summary tab
-                 */
-                $scope.summary = {};
-                $scope.summary.total = {};
-                $scope.summary.discount = {};
-                $scope.summary.freight = {};
-                $scope.summary.total.amount = 0;
-                $scope.summary.total.lines = {};
-                $scope.summary.total.amount2 = 0;
-                $scope.summary.total.sessions = {};
-                $scope.summary.total.amountWithDiscount = 0;
-                $scope.summary.total.points = 0;
-                $scope.summary.discount.fee = 0;
-                $scope.summary.freight.amount = 0;
-
-                /**
-                 * Order tab
-                 */
-                $scope.purchaseOrder = {};
-                $scope.purchaseOrder.items = {};
-                $scope.purchaseOrder.watchedQty = {};
-                $scope.filter = {
-                    text : ''
-                };
-
-                /**
-                 * Ticket tab
-                 */
-                $scope.ticket = {};
-                $scope.ticket.watchedQty = {};
-                $scope.ticket.checkBox = [];
-                $scope.ticket.selectedPart = 'part1';
-                $scope.ticket.loadPurchaseOrders = loadPurchaseOrders;
-                $scope.ticket.purchaseOrders = [];
-
-                /**
-                 * Pending tab
-                 */
-                $scope.pending = {};
-
-                // #####################################################################################################
-                // Scope functions
-                // #####################################################################################################
-
-                $scope.selectTab = function selectTab(tabName) {
-                    $scope.tabs.selected = tabName;
-                    $scope.ticket.selectedPart = 'part1';
-                };
-
-                $scope.summaryIsVisible = function(tabName) {
-                    return tabName === 'buildOrder' || tabName === 'confirmOrder';
-                };
-
-                $scope.financialRound = function financialRound(value) {
-                    return (Math.round(100 * value) / 100);
-                };
-
-                $scope.resetPurchaseOrder = function resetPurchaseOrder() {
-                    setTimeout(function() {
-                        $scope.main.stockReport = StockService.stockReport('all');
-                        StockService.updateReport($scope.main.stockReport);
-                        resetWatchedQty();
-                    }, 0);
-                };
-
                 // #####################################################################################################
                 // Watchers
                 // #####################################################################################################
