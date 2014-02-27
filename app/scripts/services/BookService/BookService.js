@@ -39,10 +39,14 @@
          * 
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
-         * @param {number} productAmount the total value for products in this order
-         * @param {number} productCost the total cost for products in this order based on stock average cost
-         * @param {number} voucher the total amount of given vouchers in this order
-         * @param {number} gift the total amount of given giftCards in this order
+         * @param {number} productAmount the total value for products in this
+         *            order
+         * @param {number} productCost the total cost for products in this order
+         *            based on stock average cost
+         * @param {number} voucher the total amount of given vouchers in this
+         *            order
+         * @param {number} gift the total amount of given giftCards in this
+         *            order
          */
         this.order = function(orderUUID, entityUUID, productAmount, voucher, gift) {
 
@@ -75,8 +79,10 @@
          * 
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
-         * @param {number} productAmount the total value for products being returned
-         * @param {number} productCost the total cost for products being returned based on stock average cost
+         * @param {number} productAmount the total value for products being
+         *            returned
+         * @param {number} productCost the total cost for products being
+         *            returned based on stock average cost
          */
         this.productReturn = function(orderUUID, entityUUID, productAmount, productCost) {
             var entries = [];
@@ -115,10 +121,10 @@
                 type : 'Pedido'
             };
 
-            if (cash) {
+            if (cash > 0) {
                 entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', cash));
             } else if (cash < 0) {
-                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento em dinheiro', cash));
+                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento em dinheiro', -cash));
             }
             if (check) {
                 entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Recebimento em cheque', check));
@@ -145,13 +151,46 @@
             return entries;
         };
 
-        this.liquidateCheck = function() {
+        this.receiveCheck = function(orderUUID, entityUUID, check) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (check) {
+                entry = new BookEntry(null, null, 11131, 11121, document, entityUUID, 'Depósito cheque', check);
+            }
+
+            return entry;
         };
 
-        this.liquidateCreditCard = function() {
+        this.receiveCreditCard = function(orderUUID, entityUUID, card) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (card) {
+                entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', card);
+            }
+
+            return entry;
         };
 
-        this.liquidateCuff = function() {
+        this.receiveCuff = function(orderUUID, entityUUID, cuff) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (cuff) {
+                entry = new BookEntry(null, null, 11111, 11511, document, entityUUID, 'Recebimento parcela', cuff);
+            }
+
+            return entry;
         };
 
         this.validate = function(entries) {

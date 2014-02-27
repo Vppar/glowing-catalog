@@ -48,7 +48,7 @@ describe('Service: BookServicePaymentSpec', function() {
         BookEntry = _BookEntry_;
     }));
 
-    it('should create cash BookEntry', function() {
+    it('should create positive cash BookEntry', function() {
         // Given
         var expected = new BookEntry({
             uuid : null,
@@ -62,6 +62,32 @@ describe('Service: BookServicePaymentSpec', function() {
         });
         // When
         var result = BookService.payment(document.uuid, entityUUID, cashAmount, null, null, null, null, null, null, null);
+        // Then
+        expect(result.length).toBe(1);
+        expect(result[0].debitAccount).toEqual(expected.debitAccount);
+        expect(result[0].creditAccount).toEqual(expected.creditAccount);
+        expect(result[0].document).toEqual(expected.document);
+        expect(result[0].entity).toEqual(expected.entity);
+        expect(result[0].op).toEqual(expected.op);
+        expect(result[0].amount).toEqual(expected.amount);
+    });
+    
+    it('should create negative cash BookEntry', function() {
+        // Given
+        var expected = new BookEntry({
+            uuid : null,
+            created : null,
+            debitAccount : 70001,
+            creditAccount : 11111,
+            document : document,
+            entity : entityUUID,
+            op : 'Recebimento em dinheiro',
+            amount : cashAmount
+        });
+
+        // When
+        var result = BookService.payment(document.uuid, entityUUID, -cashAmount, null, null, null, null, null, null, null);
+        
         // Then
         expect(result.length).toBe(1);
         expect(result[0].debitAccount).toEqual(expected.debitAccount);

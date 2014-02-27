@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: VoucherServiceSpec', function() {
+describe('Service: VoucherServiceSpec', function() {
 
     var $rootScope = null;
 
@@ -10,9 +10,6 @@ ddescribe('Service: VoucherServiceSpec', function() {
         module('tnt.catalog.voucher.service');
         module('tnt.catalog.voucher.keeper');
         module('tnt.catalog.voucher.entity');
-        module('tnt.catalog.journal');
-        module('tnt.catalog.journal.entity');
-        module('tnt.catalog.journal.replayer');
     });
 
     // instantiate service

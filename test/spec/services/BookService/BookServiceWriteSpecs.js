@@ -29,16 +29,16 @@ describe('Service: BookServiceWriteSpec', function() {
 
     it('should write a book entry', function() {
         // Given
-
+        var result = null;
+        var returnedMsg = 'resolved promise';
         var entry = {
             stub : 'I\'m a stub',
         };
-        var result = null;
 
         BookKeeper.write = jasmine.createSpy('BookKeeper.write').andCallFake(function() {
             var deferred = $q.defer();
             setTimeout(function() {
-                deferred.resolve('resolved promise');
+                deferred.resolve(returnedMsg);
             }, 0);
             return deferred.promise;
         });
@@ -58,20 +58,22 @@ describe('Service: BookServiceWriteSpec', function() {
         // Then
         runs(function() {
             expect(BookKeeper.write).toHaveBeenCalledWith(entry);
+            expect(result).toBe(returnedMsg);
         });
     });
 
     it('shouldn\'t write a book entry', function() {
         // Given
+        var result = null;
+        var returnedMsg = 'rejected promise';
         var entry = {
             stub : 'I\'m a stub',
         };
-        var result = null;
 
         BookKeeper.write = jasmine.createSpy('BookKeeper.write').andCallFake(function() {
             var deferred = $q.defer();
             setTimeout(function() {
-                deferred.reject('rejected promise');
+                deferred.reject(returnedMsg);
             }, 0);
             return deferred.promise;
         });
@@ -90,7 +92,37 @@ describe('Service: BookServiceWriteSpec', function() {
 
         // Then
         runs(function() {
-            expect(result).toBe('rejected promise');
+            expect(result).toBe(returnedMsg);
+        });
+    });
+
+    it('shouldn\'t write a book entry when an exception is thrown', function() {
+        // Given
+        var result = null;
+        var exception = 'my exception';
+        var entry = {
+            stub : 'I\'m a stub',
+        };
+
+        BookKeeper.write = jasmine.createSpy('BookKeeper.write').andCallFake(function() {
+            throw exception;
+        });
+
+        // When
+        runs(function() {
+            BookService.write(entry).then(null, function(_result_) {
+                result = _result_;
+            });
+        });
+
+        waitsFor(function() {
+            $rootScope.$apply();
+            return !!result;
+        });
+
+        // Then
+        runs(function() {
+            expect(result).toBe(exception);
         });
     });
 
