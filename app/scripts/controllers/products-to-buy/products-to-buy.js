@@ -71,44 +71,47 @@
                                         total : 0,
                                         minQty : 0,
                                         orderQty : 0,
-                                        avg : 0
+                                        avg : 0,
+                                        lines : {}
                                     };
                                 }
-                                if (!$scope.summary.total.lines[line]) {
-                                    $scope.summary.total.lines[line] = {
+                                if (!$scope.summary.total.sessions[session].lines[line]) {
+                                    $scope.summary.total.sessions[session].lines[line] = {
                                         total : 0,
                                         minQty : 0,
                                         orderQty : 0,
                                         avg : 0
                                     };
                                 }
+
                                 if ((newObj[ix] * price) > 0 && itemHide === false) {
-                                    console.log($scope.purchaseOrder.items[ix]);
                                     $scope.summary.total.sessions[session].total += (newObj[ix] * price);
-                                    $scope.summary.total.lines[line].total += (newObj[ix] * price);
+                                    $scope.summary.total.sessions[session].lines[line].total += (newObj[ix] * price);
                                 }
                                 if (minQty && itemHide === false) {
                                     $scope.summary.total.sessions[session].minQty += minQty;
-                                    $scope.summary.total.lines[line].minQty += minQty;
+                                    $scope.summary.total.sessions[session].lines[line].minQty += minQty;
                                 }
                                 if (qty > 0 && itemHide === false) {
                                     $scope.summary.total.sessions[session].orderQty += qty;
-                                    $scope.summary.total.lines[line].orderQty += qty;
+                                    $scope.summary.total.sessions[session].lines[line].orderQty += qty;
                                 }
                             }
 
                             $scope.summary.total.amount = diff.amount;
                             $scope.summary.total.points = diff.points;
+
                             for ( var ix in $scope.summary.total.sessions) {
                                 if ($scope.summary.total.sessions[ix].orderQty > 0) {
                                     $scope.summary.total.sessions[ix].avg =
                                             ($scope.summary.total.sessions[ix].total) / ($scope.summary.total.sessions[ix].orderQty);
                                 }
-                            }
-                            for ( var ix in $scope.summary.total.lines) {
-                                if ($scope.summary.total.lines[ix].orderQty > 0) {
-                                    $scope.summary.total.lines[ix].avg =
-                                            ($scope.summary.total.lines[ix].total) / ($scope.summary.total.lines[ix].orderQty);
+                                for ( var ix2 in $scope.summary.total.sessions[ix].lines) {
+                                    if ($scope.summary.total.sessions[ix].lines[ix2].orderQty > 0) {
+                                        $scope.summary.total.sessions[ix].lines[ix2].avg =
+                                                ($scope.summary.total.sessions[ix].lines[ix2].total) /
+                                                    ($scope.summary.total.sessions[ix].lines[ix2].orderQty);
+                                    }
                                 }
                             }
                         };
@@ -147,8 +150,8 @@
                 $scope.purchaseOrder.items = {};
                 $scope.purchaseOrder.watchedQty = {};
                 $scope.filter = {
-                        text : ''
-                    };
+                    text : ''
+                };
 
                 /**
                  * Ticket tab
