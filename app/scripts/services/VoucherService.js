@@ -196,7 +196,7 @@
                 }
             }
 
-            return; $q.all(voucherPromises);
+            return $q.all(voucherPromises);
         };
 
 
