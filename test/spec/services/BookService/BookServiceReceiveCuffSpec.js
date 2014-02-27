@@ -63,7 +63,7 @@ describe('Service: BookServiceReceiveCuffSpec', function() {
         // Given
 
         // When
-        var result = BookService.receiveCheck(document.uuid, entityUUID, 0);
+        var result = BookService.receiveCuff(document.uuid, entityUUID, 0);
 
         // Then
         expect(result).toBe(null);
