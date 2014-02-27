@@ -44,6 +44,7 @@
                     StockService.updateReport(stockReport);
                 }
             }
+
         }
 
         // #####################################################################################################
@@ -70,6 +71,9 @@
                     var line = session.lines[ix];
                     line.hide = !line.hide;
                 }
+                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
+            } else {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
             }
         };
 
@@ -79,6 +83,9 @@
                     var item = line.items[ix];
                     item.hide = !item.hide;
                 }
+                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
+            } else {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
             }
         };
 
@@ -110,6 +117,12 @@
 
         function enableProductWatcher() {
             currentProductWatcher = $scope.$watch('productFilter.text', productFilter);
+            $scope.filer.text = $scope.productFilter.text;
+            if ($scope.productFilter.text === '') {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
+            } else {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
+            }
         }
 
         function disableProductWatcher() {
@@ -119,7 +132,7 @@
         // #####################################################################################################
         // Controller warm up
         // #####################################################################################################
-        
+
         // Enable watcher
         enableProductWatcher();
         $scope.showLevel(1);

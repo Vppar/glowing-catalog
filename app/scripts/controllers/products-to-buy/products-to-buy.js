@@ -39,6 +39,79 @@
                     $scope.ticket.purchaseOrders = PurchaseOrderService.list();
                 }
 
+                $scope.summarizer =
+                        function(newObj, hide) {
+                            var diff = {
+                                amount : 0,
+                                points : 0
+                            };
+
+                            $scope.summary.total.sessions = {};
+                            $scope.summary.total.lines = {};
+
+                            for ( var ix in newObj) {
+
+                                var price = $scope.purchaseOrder.items[ix].price;
+                                var points = $scope.purchaseOrder.items[ix].points;
+                                var session = $scope.purchaseOrder.items[ix].session;
+                                var line = $scope.purchaseOrder.items[ix].line;
+                                var minQty = $scope.purchaseOrder.items[ix].minQty;
+                                var qty = newObj[ix];
+                                var itemHide;
+                                if (hide === true) {
+                                    itemHide = $scope.purchaseOrder.items[ix].hide;
+                                } else {
+                                    itemHide = false;
+                                }
+                                diff.amount += (newObj[ix] * price);
+                                diff.points += (newObj[ix] * points);
+
+                                if (!$scope.summary.total.sessions[session]) {
+                                    $scope.summary.total.sessions[session] = {
+                                        total : 0,
+                                        minQty : 0,
+                                        orderQty : 0,
+                                        avg : 0
+                                    };
+                                }
+                                if (!$scope.summary.total.lines[line]) {
+                                    $scope.summary.total.lines[line] = {
+                                        total : 0,
+                                        minQty : 0,
+                                        orderQty : 0,
+                                        avg : 0
+                                    };
+                                }
+                                if ((newObj[ix] * price) > 0 && itemHide === false) {
+                                    $scope.summary.total.sessions[session].total += (newObj[ix] * price);
+                                    $scope.summary.total.lines[line].total += (newObj[ix] * price);
+                                }
+                                if (minQty && itemHide === false) {
+                                    $scope.summary.total.sessions[session].minQty += minQty;
+                                    $scope.summary.total.lines[line].minQty += minQty;
+                                }
+                                if (qty > 0 && itemHide === false) {
+                                    $scope.summary.total.sessions[session].orderQty += qty;
+                                    $scope.summary.total.lines[line].orderQty += qty;
+                                }
+                            }
+
+                            $scope.summary.total.amount = diff.amount;
+                            $scope.summary.total.points = diff.points;
+                            for ( var ix in $scope.summary.total.sessions) {
+                                if ($scope.summary.total.sessions[ix].orderQty > 0) {
+                                    $scope.summary.total.sessions[ix].avg =
+                                            ($scope.summary.total.sessions[ix].total) / ($scope.summary.total.sessions[ix].orderQty);
+                                }
+                            }
+                            for ( var ix in $scope.summary.total.lines) {
+                                if ($scope.summary.total.lines[ix].orderQty > 0) {
+                                    $scope.summary.total.lines[ix].avg =
+                                            ($scope.summary.total.lines[ix].total) / ($scope.summary.total.lines[ix].orderQty);
+                                }
+                            }
+                        };
+
                 // #####################################################################################################
                 // Scope variables
                 // #####################################################################################################
@@ -72,6 +145,9 @@
                 $scope.purchaseOrder = {};
                 $scope.purchaseOrder.items = {};
                 $scope.purchaseOrder.watchedQty = {};
+                $scope.filer = {
+                        text : ''
+                    };
 
                 /**
                  * Ticket tab
@@ -118,69 +194,10 @@
                 // #####################################################################################################
 
                 $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj, oldObj) {
-                    var diff = {
-                        amount : 0,
-                        points : 0
-                    };
-
-                    $scope.summary.total.sessions = {};
-                    $scope.summary.total.lines = {};
-
-                    for ( var ix in newObj) {
-
-                        var price = $scope.purchaseOrder.items[ix].price;
-                        var points = $scope.purchaseOrder.items[ix].points;
-                        var session = $scope.purchaseOrder.items[ix].session;
-                        var line = $scope.purchaseOrder.items[ix].line;
-                        var minQty = $scope.purchaseOrder.items[ix].minQty;
-                        var qty = newObj[ix];
-
-                        diff.amount += (newObj[ix] * price);
-                        diff.points += (newObj[ix] * points);
-
-                        if (!$scope.summary.total.sessions[session]) {
-                            $scope.summary.total.sessions[session] = {
-                                total : 0,
-                                minQty : 0,
-                                orderQty : 0,
-                                avg : 0
-                            };
-                        }
-                        if (!$scope.summary.total.lines[line]) {
-                            $scope.summary.total.lines[line] = {
-                                total : 0,
-                                minQty : 0,
-                                orderQty : 0,
-                                avg : 0
-                            };
-                        }
-                        if ((newObj[ix] * price) > 0) {
-                            $scope.summary.total.sessions[session].total += (newObj[ix] * price);
-                            $scope.summary.total.lines[line].total += (newObj[ix] * price);
-                        }
-                        if (minQty) {
-                            $scope.summary.total.sessions[session].minQty += minQty;
-                            $scope.summary.total.lines[line].minQty += minQty;
-                        }
-                        if (qty > 0) {
-                            $scope.summary.total.sessions[session].orderQty += qty;
-                            $scope.summary.total.lines[line].orderQty += qty;
-                        }
-                    }
-
-                    $scope.summary.total.amount = diff.amount;
-                    $scope.summary.total.points = diff.points;
-                    for ( var ix in $scope.summary.total.sessions) {
-                        if ($scope.summary.total.sessions[ix].orderQty > 0) {
-                            $scope.summary.total.sessions[ix].avg =
-                                    ($scope.summary.total.sessions[ix].total) / ($scope.summary.total.sessions[ix].orderQty);
-                        }
-                    }
-                    for ( var ix in $scope.summary.total.lines) {
-                        if ($scope.summary.total.lines[ix].orderQty > 0) {
-                            $scope.summary.total.lines[ix].avg =
-                                    ($scope.summary.total.lines[ix].total) / ($scope.summary.total.lines[ix].orderQty);
-                        }
+                    if ($scope.filer.text === '') {
+                        $scope.summarizer(newObj, false);
+                    } else {
+                        $scope.summarizer(newObj, true);
                     }
                 });
 
