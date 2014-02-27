@@ -146,10 +146,11 @@
         this.listByPeriod = function(since,upon,entityuuid){
         	var appointmentsReturn = [];
         	var appointmentsList = this.list();
-        	if(appointmentsList != null)
+        	if(appointmentsList)
         	{
-	        	for(var appointment in appointmentsList)
+	        	for(var idx in appointmentsList)
 	        	{
+	        		var appointment = appointmentsList[idx];
 	        		if(verifyFilterAppointment(appointment,since,upon,entityuuid))
 	        		{
 	        			appointmentsReturn.push(appointment);
@@ -159,19 +160,24 @@
         	return appointmentsReturn;
         };
         
-        this.verifyFilterAppointment = function (appointment,since,upon,entityuuid)
+        function verifyFilterAppointment(appointment,since,upon,entityuuid)
         {
         	if(appointment && since && upon)
         	{
-        		if(appointment.date.getTime() >= since.getTime() && appointment.date.getTime() <= upon.getTime())
+        		since = new Date(since);
+        		upon = new Date(upon);
+        		appointment.date = new Date(appointment.date);
+        		if(appointment.date >= since && appointment.date <= upon)
         		{
         			if(entityuuid)
         			{
         				if(appointment.contacts)
         				{
-	        				for (var entity in appointment.contacts)
+	        				for (var idx in appointment.contacts)
 	        				{
-	        					if(entity && entity.uuid == entityuuid)
+	        					var entity = appointment.contacts[idx];
+	        					alert(entity.uuid);
+	        					if(entity.uuid == entityuuid)
 	        					{
 	        						return true;
 	        					}
