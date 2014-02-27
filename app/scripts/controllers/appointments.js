@@ -8,11 +8,15 @@
 							AppointmentService, EntityService, UserService) {
 
 						UserService.redirectIfIsNotLoggedIn();
-
+							
+						
 						// #############################################################################################################
 						// Warming up the controller
 						// #############################################################################################################
 
+						$scope.entities = EntityService.list();
+						
+						
 						var dtInitial = new Date();
 						dtInitial.setHours(0);
 						dtInitial.setMinutes(0);

@@ -171,6 +171,9 @@
         }).when('/book-keeping-report', {
             templateUrl : 'views/book-keeping-report.html',
             controller : 'BookKeepingReportCtrl'
+        }).when('/appointment', {
+            templateUrl : 'views/appointments.html',
+            controller : 'AppointmentsCtrl'
         }).otherwise({
             redirectTo : '/'
         });

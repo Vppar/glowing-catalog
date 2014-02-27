@@ -1,59 +1,31 @@
-<html>
-    <head>
-        <title>AngularJS - Tableless</title>
-        
-<%--         <script src="<c:url value ="/assets/js/controllers/appointments-contacts.js" />"></script> --%>
-<%--         <script src="<c:url value ="/assets/js/angular.js" />"></script> --%>
-<%--         <script src="<c:url value ="/assets/agenda/jquery.min.js" />"></script> --%>
-<%-- 		<script src="<c:url value ="/assets/agenda/jquery-ui.custom.min.js" />"></script> --%>
+<div class="container ng-scope">
 
-			<script src="assets/js/angular.js"></script>
-			<script src="assets/agenda/jquery.min.js"></script>
-			<script src="assets/agenda/jquery-ui.custom.min.js"></script>
-			<script src="assets/js/app.js"></script>
-			<script src="assets/js/controllers/appointments-events.js"></script> 
-			<script src="assets/js/services/EventService.js"></script>        
-    </head>
-    <body>
+	<!-- HEADER -->
+	<div class="row-fluid">
+		<span class="span12"><span ng-include
+			src="'views/parts/global/header.html'"></span></span>
+	</div>
 
-        <div ng-app="tnt.vpsa.appointments.events" ng-controller="EventsController">
-            <div>
-        	    DE:<input type="text" ng-model="since" value="12/01/2014 00:00:00" >
-        	    ATÉ:<input type="text" ng-model="upon" value="12/01/2018 00:00:00">
-        	    <button ng-click='listEventsByPeriod()' type="submit">Pesquisar</button> 
-        	 </div>
-        
-        
-		    <table>
-		      <thead>
-		        <tr>
-		          <th>Descricao</th>
-		          <th>Data Evento</th>
-		        </tr>
-		      </thead>
-		      <tbody>
-		        <tr ng-repeat="event in events">
-		          <td><strong>{{ event.descricao }}</strong></td>
-		          <td>{{ event.dataEvento }}</td>
-		        </tr>
-		      </tbody>
-		    </table>
-		    
-		      <div>
-        	    <button ng-click="create('JSON EVENTO')" type="submit">Criar Evento</button> 
-        	 </div>
-        	 <div>
-        	    <button ng-click="update('JSON EVENTO')" type="submit">Alterar Evento</button> 
-        	 </div>
-        	 <div>
-        	    <button ng-click="done('ID EVENTO')" type="submit">Confirmar Evento</button> 
-        	 </div>
-        	 <div>
-        	    <button ng-click="cancel('ID EVENTO')" type="submit">Cancelar Evento</button> 
-        	 </div>
-		</div>
-        
-       
-        
-    </body>
-</html>
+	<div class="form-order-list">
+
+			<div class="row-fluid pull-right panel-top">
+
+				<!-- BREAD CRUMBS -->
+				<div class="row-fluid bread-crumbs">
+					<span class="span6"> <span class="principal">Agenda</span> 
+					</span> <span class="span6">
+					<div class="float-right">
+					</div>
+				</span>
+				</div>
+			</div>
+			
+			<div class="row-fluid">
+				<div class="order-table-row" ng-repeat="entity in entities ">
+					<div>
+						<span>{{entity.name}}</span>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>
