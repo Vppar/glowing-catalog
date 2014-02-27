@@ -16,6 +16,11 @@
 	margin-top: 20px
 }
 
+.loading-icon{
+	margin-top:6px;
+	margin-left:80px;
+}
+
 
 .navbar .nav > li > .dropdown-menu:before{ right:30px !important;}
 
@@ -751,12 +756,22 @@ div.sidebar-menu ul li a {
 }
 
 .home-scroll-content {
+	
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	width: 1024px;
 	position: fixed;
 	top: 70px;
-	bottom: 0px;
+	bottom: 0px; 
+	
+	/*
+	 overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	width: 1024px;
+	position: absolute;
+	top: 70px;
+	height:600px;
+	*/
 }
 /*.home-scroll-content::-webkit-scrollbar{ 
     display: none !important; 
