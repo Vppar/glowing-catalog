@@ -31,6 +31,7 @@
         }
 
         function productFilter(newVal, oldVal) {
+            $scope.filter.text = newVal;
             if (newVal !== oldVal) {
                 var myTextFilter = String($scope.productFilter.text);
                 if (myTextFilter.length >= 3) {
@@ -44,7 +45,12 @@
                     StockService.updateReport(stockReport);
                 }
             }
-
+            
+            if ($scope.productFilter.text === '') {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
+            } else {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
+            }
         }
 
         // #####################################################################################################
@@ -71,10 +77,7 @@
                     var line = session.lines[ix];
                     line.hide = !line.hide;
                 }
-                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
-            } else {
-                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
-            }
+            } 
         };
 
         $scope.toggleLine = function toggleLine(line) {
@@ -83,10 +86,7 @@
                     var item = line.items[ix];
                     item.hide = !item.hide;
                 }
-                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
-            } else {
-                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
-            }
+            } 
         };
 
         $scope.showLevel = function showLevel(level) {
@@ -117,12 +117,6 @@
 
         function enableProductWatcher() {
             currentProductWatcher = $scope.$watch('productFilter.text', productFilter);
-            $scope.filer.text = $scope.productFilter.text;
-            if ($scope.productFilter.text === '') {
-                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
-            } else {
-                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
-            }
         }
 
         function disableProductWatcher() {

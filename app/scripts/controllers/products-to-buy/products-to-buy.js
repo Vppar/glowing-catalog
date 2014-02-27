@@ -83,6 +83,7 @@
                                     };
                                 }
                                 if ((newObj[ix] * price) > 0 && itemHide === false) {
+                                    console.log($scope.purchaseOrder.items[ix]);
                                     $scope.summary.total.sessions[session].total += (newObj[ix] * price);
                                     $scope.summary.total.lines[line].total += (newObj[ix] * price);
                                 }
@@ -145,7 +146,7 @@
                 $scope.purchaseOrder = {};
                 $scope.purchaseOrder.items = {};
                 $scope.purchaseOrder.watchedQty = {};
-                $scope.filer = {
+                $scope.filter = {
                         text : ''
                     };
 
@@ -194,7 +195,7 @@
                 // #####################################################################################################
 
                 $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj, oldObj) {
-                    if ($scope.filer.text === '') {
+                    if ($scope.filter.text === '') {
                         $scope.summarizer(newObj, false);
                     } else {
                         $scope.summarizer(newObj, true);
