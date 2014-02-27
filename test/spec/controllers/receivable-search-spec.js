@@ -1,8 +1,8 @@
-describe('Controller: ReceivableSearchCtrl', function() {
+xdescribe('Controller: ReceivableListCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
-        module('tnt.catalog.financial.receivable.search.ctrl');
+        module('tnt.catalog.financial.receivable.list.ctrl');
         module('tnt.catalog.entity.service');
         module('tnt.catalog.filter.sum');
     });
@@ -13,8 +13,8 @@ describe('Controller: ReceivableSearchCtrl', function() {
     var ReceivableServiceMock = {};
     var now = new Date();
     var EntityServiceMock = {};
-
-    var ReceivableSearchCtrl;
+    var OrderService = [];
+    var ReceivableListCtrl;
 
     log.debug = angular.noop;
 
@@ -42,24 +42,26 @@ describe('Controller: ReceivableSearchCtrl', function() {
         log.error = jasmine.createSpy('$log.error');
 
         // ReceivableService mock
-        ReceivableServiceMock.list = jasmine.createSpy('ReceivableService.list').andReturn([]);
+        ReceivableServiceMock.listActive = jasmine.createSpy('ReceivableService.listActive').andReturn([]);
+        ReceivableServiceMock.listActiveByDocument = jasmine.createSpy('ReceivableService.listActiveByDocument').andReturn([]);
 
 
         // EntityService mock
         EntityServiceMock.list = jasmine.createSpy('EntityService.list').andReturn(entities);
 
-        ReceivableSearchCtrl = $controller('ReceivableSearchCtrl', {
+        ReceivableListCtrl = $controller('ReceivableListCtrl', {
             $scope : scope,
             $filter : $filter,
             ReceivableService : ReceivableServiceMock,
             $log : log,
             ArrayUtils : _ArrayUtils_,
-            EntityService : EntityServiceMock
+            EntityService : EntityServiceMock,
+            OrderService : OrderService
         });
     }));
 
 
-    describe('ReceivableSearchCtrl.receivableDateFilter', function () {
+    describe('ReceivableListCtrl.receivableDateFilter', function () {
         var receivable = {};
 
         beforeEach(function () {
@@ -68,22 +70,22 @@ describe('Controller: ReceivableSearchCtrl', function() {
         });
 
         it('is a function', function () {
-            expect(ReceivableSearchCtrl.receivableDateFilter).toBeDefined();
-            expect(typeof ReceivableSearchCtrl.receivableDateFilter).toBe('function');
+            expect(ReceivableListCtrl.receivableDateFilter).toBeDefined();
+            expect(typeof ReceivableListCtrl.receivableDateFilter).toBe('function');
         });
 
         it('returns true if receivable duedate is equal initial datetime', function () {
             // set dtFinal to be greater than the initial date
             scope.dtFinal.setHours(scope.dtFinal.getHours() + 1);
             receivable.duedate = scope.dtInitial.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(true);
         });
 
         it('returns true if receivable duedate is equal final datetime', function () {
             // set dtInitial to be lower than the final date
             scope.dtInitial.setHours(scope.dtInitial.getHours() - 1);
             receivable.duedate = scope.dtFinal.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(true);
         });
 
         it('returns true if receivable duedate is greater than initial datetime and lower than final datetime', function () {
@@ -97,7 +99,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // set receivable's duedate to be now
             receivable.duedate = now.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(true);
         });
 
         it('returns false if receivable duedate is lower than initial datetime', function () {
@@ -105,7 +107,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
             // Set duedate to a date in the past, before date initial
             now.setHours(now.getHours() - 1);
             receivable.duedate = now.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(false);
         });
 
         it('returns false if receivable duedate is greater than final datetime', function () {
@@ -113,12 +115,12 @@ describe('Controller: ReceivableSearchCtrl', function() {
             // Set duedate to a date in the future, after final date
             now.setHours(now.getHours() + 1);
             receivable.duedate = now.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(false);
         });
     });
 
 
-    describe('ReceivableSearchCtrl.receivableQueryFilter', function () {
+    describe('ReceivableListCtrl.receivableQueryFilter', function () {
         var receivable;
 
         beforeEach(function () {
@@ -132,15 +134,15 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.amount = 123;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.amount = 12345;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.amount = 678;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by remarks', function () {
@@ -149,15 +151,15 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.remarks = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.remarks = 'This is not a reasonable remark.';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.remarks = 'A different remark.';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by type', function () {
@@ -166,11 +168,11 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.type = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.type = 'check';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by id', function () {
@@ -179,15 +181,15 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.uuid = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.uuid = 'foobarbaz';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.uuid = 'baz';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by entityName', function () {
@@ -196,22 +198,22 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.entityName = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.entityName = 'Albert Einstein';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.entityName = 'Chris Hemsworth';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('is case insensitive', function () {
             scope.query = 'CASH';
             scope.$apply();
             receivable.type = 'cash';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
         });
 
         it('matches multiple fields', function () {
@@ -219,11 +221,11 @@ describe('Controller: ReceivableSearchCtrl', function() {
             scope.$apply();
             receivable.type = 'cash';
             receivable.amount = 123;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Matches cash but not amount
             receivable.amount = 567;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
     });
 

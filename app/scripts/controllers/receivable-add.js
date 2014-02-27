@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module(
-            'tnt.catalog.receivable.add.ctrl',
+            'tnt.catalog.financial.receivable.add.ctrl',
             [
                 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity', 'tnt.catalog.misplaced.service', 'tnt.catalog.entity.service',
                 'tnt.catalog.type'
