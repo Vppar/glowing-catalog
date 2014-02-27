@@ -151,6 +151,10 @@
                                 duedate : payment.duedate,
                                 payment : payment
                             });
+                            //FIXME set liquidate for cash
+                            if(payment.type === 'cash'){
+                                receivable.liquidated = payment.duedate;
+                            }
                             receivablesPromises[ix] = register(receivable);
                         } else {
                             $log.warn('Payment will be ignored because its amount is 0: ' + JSON.stringify(payment));

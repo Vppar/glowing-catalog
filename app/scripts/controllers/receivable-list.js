@@ -74,7 +74,11 @@
                     return receivable.duedate >= $scope.dtFilter.dtInitial.getTime() &&
                         receivable.duedate <= $scope.dtFilter.dtFinal.getTime();
                 }
-
+                
+                function receivablePendingFilter(receivable) {
+                    var result = (receivable.canceled === undefined ) && (receivable.liquidated === undefined);  
+                    return result;
+                }
                 function filterReceivablesByQuery() {
                     $scope.receivables.list = $filter('filter')($scope.receivables.list, receivableQueryFilter);
                 }
@@ -83,6 +87,10 @@
                     setTime($scope.dtFilter.dtInitial, 0, 0, 0, 0);
                     setTime($scope.dtFilter.dtFinal, 23, 59, 59, 999);
                     $scope.receivables.list = $filter('filter')($scope.receivables.list, receivableDateFilter);
+                }
+                
+                function filterByPending(receivables) {
+                    return $filter('filter')(receivables, receivablePendingFilter);
                 }
                 
 
@@ -109,7 +117,8 @@
                         receivable.entityName = EntityService.read(receivable.entityId).name;
                         receivable.classification = translate[receivable.type];
                         receivable.documentType = 'Pedido';
-                        receivable.installments = ReceivableService.listActiveByDocument(receivable.documentId,filterCancel);
+
+                        receivable.installments = ReceivableService.listByDocument(receivable.documentId,filterCancel);
                         
                         for ( var y in receivable.installments) {
                             if (receivable.installments[y].uuid === receivable.uuid) {
@@ -117,6 +126,8 @@
                                 receivable.installment = Number(y) + 1;
                             }
                         }
+                        
+                        receivable.installments = filterByPending(receivable.installments);
                         
                         receivable.order = OrderService.read(receivable.documentId);
                         receivable.order.uiidCode = $filter('uuidCode')(receivable.order);
