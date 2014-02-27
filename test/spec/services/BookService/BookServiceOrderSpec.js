@@ -4,26 +4,32 @@ describe('Service: BookServiceOrderSpec', function() {
 
     var BookService = {};
     var BookEntry = {};
+    var BookKeeper = {};
 
-    var orderUUID = undefined;
-    var entityUUID = undefined;
-    var productAmount = undefined;
-    var productCost = undefined;
-    var voucher = undefined;
-    var gift = undefined;
+    var document = null;
+    var entityUUID = null;
+    var productAmount = null;
+    var voucherAmount = null;
+    var giftAmount = null;
 
     beforeEach(function() {
         module('tnt.catalog.service.book');
         module('tnt.catalog.bookkeeping.entry');
+
+        module(function($provide) {
+            $provide.value('BookKeeper', BookKeeper);
+        });
     });
 
     beforeEach(function() {
-        orderUUID = 'cc02b600-5d0b-11e3-96c3-010001000001';
+        document = {
+            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
+            type : 'Pedido'
+        };
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
         productAmount = 5;
-        productCost = 69;
-        voucher = 69;
-        gift = 138;
+        voucherAmount = 69;
+        giftAmount = 138;
     });
 
     beforeEach(inject(function(_BookService_, _BookEntry_) {
@@ -31,235 +37,137 @@ describe('Service: BookServiceOrderSpec', function() {
         BookEntry = _BookEntry_;
     }));
 
-    it('should create the BookEntries with all parameters', function() {
+    it('should create a product BookEntry', function() {
+        // Given
+        var expected = new BookEntry({
+            uuid : null,
+            created : null,
+            debitAccount : 70001,
+            creditAccount : 21307,
+            document : document,
+            entity : entityUUID,
+            op : 'Valor bruto da venda',
+            amount : productAmount
+        });
+
+        // When
+        var result = BookService.order(document.uuid, entityUUID, productAmount, null, null);
+
+        // Then
+        expect(result.length).toBe(1);
+        expect(result[0].debitAccount).toEqual(expected.debitAccount);
+        expect(result[0].creditAccount).toEqual(expected.creditAccount);
+        expect(result[0].document).toEqual(expected.document);
+        expect(result[0].entity).toEqual(expected.entity);
+        expect(result[0].op).toEqual(expected.op);
+        expect(result[0].amount).toEqual(expected.amount);
+    });
+
+    it('should create a voucher BookEntry', function() {
+        // Given
+        var expected = new BookEntry({
+            uuid : null,
+            created : null,
+            debitAccount : 70001,
+            creditAccount : 21301,
+            document : document,
+            entity : entityUUID,
+            op : 'Valor total vale crédito',
+            amount : voucherAmount
+        });
+
+        // When
+        var result = BookService.order(document.uuid, entityUUID, null, voucherAmount, null);
+
+        // Then
+        expect(result[0].length).toBe(expected.length);
+        expect(result[0].debitAccount).toEqual(expected.debitAccount);
+        expect(result[0].creditAccount).toEqual(expected.creditAccount);
+        expect(result[0].document).toEqual(expected.document);
+        expect(result[0].entity).toEqual(expected.entity);
+        expect(result[0].op).toEqual(expected.op);
+        expect(result[0].amount).toEqual(expected.amount);
+    });
+
+    it('should create a gift card BookEntry', function() {
+        // Given
+        var expected = new BookEntry({
+            uuid : null,
+            created : null,
+            debitAccount : 70001,
+            creditAccount : 21305,
+            document : document,
+            entity : entityUUID,
+            op : 'Valor total vale presente',
+            amount : giftAmount
+        });
+
+        // When
+        var result = BookService.order(document.uuid, entityUUID, null, null, giftAmount);
+
+        // Then
+        expect(result.length).toBe(1);
+        expect(result[0].debitAccount).toEqual(expected.debitAccount);
+        expect(result[0].creditAccount).toEqual(expected.creditAccount);
+        expect(result[0].document).toEqual(expected.document);
+        expect(result[0].entity).toEqual(expected.entity);
+        expect(result[0].op).toEqual(expected.op);
+        expect(result[0].amount).toEqual(expected.amount);
+    });
+
+    it('should create all order BookEntries', function() {
         // Given
         var expected = [
             new BookEntry({
                 uuid : null,
                 created : null,
                 debitAccount : 70001,
-                creditAccount : 41101,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 5
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 51115,
-                creditAccount : 11701,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 69
+                creditAccount : 21307,
+                document : document,
+                entity : entityUUID,
+                op : 'Valor bruto da venda',
+                amount : productAmount
             }), new BookEntry({
                 uuid : null,
                 created : null,
                 debitAccount : 70001,
                 creditAccount : 21301,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 69
+                document : document,
+                entity : entityUUID,
+                op : 'Valor total vale crédito',
+                amount : voucherAmount
             }), new BookEntry({
                 uuid : null,
                 created : null,
                 debitAccount : 70001,
                 creditAccount : 21305,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 138
+                document : document,
+                entity : entityUUID,
+                op : 'Valor total vale presente',
+                amount : giftAmount
             })
         ];
-        // When
-        var result = BookService.order(orderUUID, entityUUID, productAmount, productCost, voucher, gift);
-        // Then
-        expect(result.length).toBe(4);
-        expect(result).toEqual(expected);
-    });
 
-    it('should create the BookEntries without productAmount', function() {
-        // Given
-        var expected = [
-            new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 21301,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 69
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 21305,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 138
-            })
-        ];
         // When
-        var result = BookService.order(orderUUID, entityUUID, null, productCost, voucher, gift);
-        // Then
-        expect(result.length).toBe(2);
-        expect(result).toEqual(expected);
-    });
+        var result = BookService.order(document.uuid, entityUUID, productAmount, voucherAmount, giftAmount);
 
-    it('should create the BookEntries without productCost', function() {
-        // Given
-        var expected = [
-            new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 41101,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 5
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 51115,
-                creditAccount : 11701,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : null
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 21301,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 69
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 21305,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 138
-            })
-        ];
-        // When
-        var result = BookService.order(orderUUID, entityUUID, productAmount, null, voucher, gift);
-        // Then
-        expect(result.length).toBe(4);
-        expect(result).toEqual(expected);
-    });
-
-    it('should create the BookEntries without voucher', function() {
-        // Given
-        var expected = [
-            new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 41101,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 5
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 51115,
-                creditAccount : 11701,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 69
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 21305,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 138
-            })
-        ];
-        // When
-        var result = BookService.order(orderUUID, entityUUID, productAmount, productCost, null, gift);
         // Then
         expect(result.length).toBe(3);
-        expect(result).toEqual(expected);
+        expect(result[0]).toEqual(expected[0]);
+        expect(result[1]).toEqual(expected[1]);
+        expect(result[2]).toEqual(expected[2]);
+        expect(result[3]).toEqual(expected[3]);
+        expect(result[4]).toEqual(expected[4]);
+        expect(result[5]).toEqual(expected[5]);
+        expect(result[6]).toEqual(expected[6]);
+        expect(result[7]).toEqual(expected[7]);
     });
 
-    it('should create the BookEntries without voucher', function() {
+    it('shouldn\'t create book entries', function() {
         // Given
-        var expected = [new BookEntry({
-            uuid: null,
-            created: null,
-            debitAccount: 70001,
-            creditAccount: 41101,
-            document: 'cc02b600-5d0b-11e3-96c3-010001000001',
-            entity: 'cc02b600-1337-11e3-96c3-010001000001',
-            op: null,
-            amount: 5
-        }), new BookEntry({
-            uuid: null,
-            created: null,
-            debitAccount: 51115,
-            creditAccount: 11701,
-            document: 'cc02b600-5d0b-11e3-96c3-010001000001',
-            entity: 'cc02b600-1337-11e3-96c3-010001000001',
-            op: null,
-            amount: 69
-        }), new BookEntry({
-            uuid: null,
-            created: null,
-            debitAccount: 70001,
-            creditAccount: 21301,
-            document: 'cc02b600-5d0b-11e3-96c3-010001000001',
-            entity: 'cc02b600-1337-11e3-96c3-010001000001',
-            op: null,
-            amount: 69
-        })];
         // When
-        var result = BookService.order(orderUUID, entityUUID, productAmount, productCost, voucher, null);
+        var result = BookService.order(document.uuid, entityUUID, null, null, null);
         // Then
-        expect(result.length).toBe(3);
-        expect(result).toEqual(expected);
-    });
-
-    it('should create the BookEntries with only one parameter', function() {
-        // Given
-        var expected = [
-            new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 70001,
-                creditAccount : 41101,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : 5
-            }), new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 51115,
-                creditAccount : 11701,
-                document : 'cc02b600-5d0b-11e3-96c3-010001000001',
-                entity : 'cc02b600-1337-11e3-96c3-010001000001',
-                op : null,
-                amount : null
-            })
-        ];
-        // When
-        var result = BookService.order(orderUUID, entityUUID, productAmount, null, null, null);
-        // Then
-        expect(result.length).toBe(2);
-        expect(result).toEqual(expected);
+        expect(result.length).toBe(0);
     });
 });

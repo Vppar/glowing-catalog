@@ -511,7 +511,6 @@
 
                 function insertOrderBookEntries(orderUUID, entityUUID, orderItems) {
                     var productAmount = 0;
-                    var productCost = 0;
                     var voucherAmount = 0;
                     var giftAmount = 0;
 
@@ -519,14 +518,13 @@
                         var item = orderItems[ix];
                         if (!item.type) {
                             productAmount += currencyMultiply(item.price ? item.price : 0, item.qty);
-                            productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
                         } else if (item.type === 'voucher') {
                             voucherAmount += currencyMultiply(item.amount, item.qty);
                         } else if (item.type === 'giftCard') {
                             giftAmount += currencyMultiply(item.amount, item.qty);
                         }
                     }
-                    var bookEntries = BookService.order(orderUUID, entityUUID, productAmount, productCost, voucherAmount, giftAmount);
+                    var bookEntries = BookService.order(orderUUID, entityUUID, productAmount, voucherAmount, giftAmount);
 
                     return writeBookEntries(bookEntries);
                 }

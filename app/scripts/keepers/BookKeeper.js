@@ -30,7 +30,7 @@
                                             svc.prototype.isValid.apply(arguments[0]);
                                             ObjectUtils.dataCopy(this, arguments[0]);
                                         } else {
-                                            throw 'BookEntry must be initialized with uuid, created, debitAccount, creditAccount, document, entity, op, remark, amount';
+                                            throw 'BookEntry must be initialized with uuid, created, debitAccount, creditAccount, document, entity, op, amount';
                                         }
                                     } else {
                                         this.uuid = uuid;
