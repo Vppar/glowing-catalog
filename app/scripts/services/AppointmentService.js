@@ -143,10 +143,48 @@
             return result;
         };
         
-        this.listByPeriod = function(since,upon)
-        {
-        	return this.list();
+        this.listByPeriod = function(since,upon,entityuuid){
+        	var appointmentsReturn = [];
+        	var appointmentsList = this.list();
+        	if(appointmentsList != null)
+        	{
+	        	for(var appointment in appointmentsList)
+	        	{
+	        		if(verifyFilterAppointment(appointment,since,upon,entityuuid))
+	        		{
+	        			appointmentsReturn.push(appointment);
+	        		}
+	        	}
+        	}
+        	return appointmentsReturn;
         };
+        
+        this.verifyFilterAppointment = function (appointment,since,upon,entityuuid)
+        {
+        	if(appointment && since && upon)
+        	{
+        		if(appointment.date.getTime() >= since.getTime() && appointment.date.getTime() <= upon.getTime())
+        		{
+        			if(entityuuid)
+        			{
+        				if(appointment.contacts)
+        				{
+	        				for (var entity in appointment.contacts)
+	        				{
+	        					if(entity && entity.uuid == entityuuid)
+	        					{
+	        						return true;
+	        					}
+	        				}
+        				}
+        			}else
+        			{
+        				return true;
+        			}
+        		}
+        	}
+        	return false;
+        }
         
     });
 
