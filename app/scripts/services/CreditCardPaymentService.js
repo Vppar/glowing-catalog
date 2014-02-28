@@ -8,7 +8,7 @@
                 'tnt.catalog.misplaced.service', 'tnt.catalog.gopay.gateway'
             ]).service(
             'CreditCardPaymentService',
-            function CreditcardPaymentService($q, $log, GoPayGateway, PaymentService, CreditCardPayment, Misplacedservice) {
+            function CreditcardPaymentService($q, $log, $filter, GoPayGateway, PaymentService, CreditCardPayment, Misplacedservice) {
 
                 var acceptedCardFlags = {
                     'American Express' : 'AMERICANEXPRESS',
@@ -34,12 +34,11 @@
                 this.sendCharges = function sendCharges(data) {
 
                     var codedFlag = acceptedCardFlags[data.creditCard.flag];
-
-                    var month = data.creditCard.expirationMonth > 9 ? '' : '0';
-                    month += data.creditCard.expirationMonth;
+                    var maskedCpf = $filter('cpf')(data.creditCard.cardholderDocument);
 
                     var year = String(data.creditCard.expirationYear).substring(2);
-
+                    var month = data.creditCard.expirationMonth > 9 ? '' : '0';
+                    month += data.creditCard.expirationMonth;
                     var validity = month + '/' + year;
 
                     var card = {
@@ -50,9 +49,11 @@
                         cvv : data.creditCard.cvv,
                         amount : data.amount,
                         installments : data.installments,
-                        cpf : data.creditCard.cardholderDocument,
-                        description : 'Pedido MK no valor de ' + data.amount
+                        cpf : maskedCpf,
+                        description : 'Pedido MK no valor de ' + $filter('currency')(data.amount, '') + ' reais'
                     };
+
+                    $log.debug(card);
 
                     var payedPromise = GoPayGateway.pay(card).then(function(data) {
                         return data;
