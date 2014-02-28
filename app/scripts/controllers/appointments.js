@@ -13,40 +13,14 @@
 						// Warming up the controller
 						// #############################################################################################################
 
-						//$scope.entities = EntityService.list();
-						
-						$scope.contacts = [ {
-							"id" : 1,
-							"nome" : "ROGER"
-						}, {
-							"id" : 2,
-							"nome" : "IAGO"
-						}, {
-							"id" : 3,
-							"nome" : "RENNAN"
-						} ];
+						$scope.contacts = EntityService.list();
 						
 						$scope.birthdates = '';
 
-						$scope.appointments = [ {
-							"id" : 1,
-							"dataEvento" : "12-12-2014",
-							"status" : "PENDENTE",
-							"tipoEvento" : "VISITA",
-							"descricao" : "Visita na casa do valtanete"
-						}, {
-							"id" : 2,
-							"dataEvento" : "12-12-2010",
-							"status" : "CANCELADO",
-							"tipoEvento" : "REUNIAO",
-							"descricao" : "Reuniao na casa do Roger"
-						}, {
-							"id" : 3,
-							"dataEvento" : "08-11-2013",
-							"status" : "OK",
-							"tipoEvento" : "LIGACAO",
-							"descricao" : "Ligar para o Iago"
-						} ];
+						$scope.appointment = undefined;
+						$scope.type = undefined;
+						$scope.appointments = AppointmentService.list();
+						
 
 						var dtInitial = new Date();
 						dtInitial.setHours(0);
@@ -66,16 +40,6 @@
 						// #############################################################################################################
 						// Local functions and variables
 						// #############################################################################################################
-
-						$scope.create = function() {
-							$scope.appointments.push({
-								id : $scope.appointment.id,
-								descricao : $scope.appointment.descricao,
-								tipoEvento : $scope.appointment.tipoEvento,
-								dataEvento : $scope.appointment.dataEvento
-							});
-							$scope.appointment.id = $scope.appointment.descricao = $scope.appointment.dataEvento = '';
-						};
 
 						$scope.remove = function(appointment) {
 							$scope.appointments.splice($scope.appointments.indexOf(appointment), 1);
@@ -121,28 +85,30 @@
 					        //Chamada do service;
 					    };
 					    
-						/*$scope.createAppointment = function(type) {
-							var appointment = {
-								title : 'VISITA NO CLIENTE',
-								description : 'VISITA DIA 12/01/2014',
-								date : '12/01/2014',
-								startTime : '12:00',
-								endTime : '12:30',
-								address : {
-									street : 'rua',
-									number : 555,
-									cep : '12222-000'
-								},
-								contacts : [ {
-									uuid : 'uidcontato1'
-								}, {
-									uuid : 'uidcontato2'
-								} ],
-								type : type,
-								status : 'PENDENTE'
-							};
-							AppointmentService.create(appointment);
-						};*/
-
+					    $scope.setType = function(type)
+						{
+							$scope.type = type;
+						};
+						
+						$scope.create = function ()
+						{
+							if(!$scope.type)
+							{
+								alert('Selecione um tipo de evento');
+								return;
+							}
+							$scope.appointment.type = $scope.type;
+							$scope.appointment.status = 'PENDANT';
+							AppointmentService.create($scope.appointment).then(function(uuid) {
+				               alert('Cadastro efetuado com sucesso');
+				               $scope.appointment = undefined;
+				               $scope.type = undefined;
+				               $scope.appointments = AppointmentService.list();
+				            }, function(err) {
+				            	alert('Erro:' + err);
+				            });
+							
+						};
+					    
 					});
 }(angular));

@@ -17,6 +17,8 @@
             //just title and description are mandatory
             invalidProperty.title = angular.isDefined(entity.title);
             invalidProperty.description = angular.isDefined(entity.description);
+            invalidProperty.status = angular.isDefined(entity.status);
+            invalidProperty.type = angular.isDefined(entity.type);
 
             var result = [];
 
