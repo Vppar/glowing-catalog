@@ -30,6 +30,8 @@ styles/cash-flow.css
 styles/catalog.css
 styles/voucher.css
 styles/stock.css
+styles/warm-up.css
+styles/new.css
 bower_components/jquery/jquery.js
 bower_components/angular/angular.js
 bower_components/bootstrap-sass/js/bootstrap-affix.js
@@ -112,12 +114,13 @@ scripts/controllers/receivable.js
 scripts/controllers/receivable-add.js
 scripts/controllers/receivable-edit.js
 scripts/controllers/receivable-entity.js
-scripts/controllers/receivable-payment.js
-scripts/controllers/receivable-search.js
+scripts/controllers/receivable-list.js
+scripts/controllers/receivable-receive.js
 scripts/controllers/stock.js
 scripts/controllers/voucher.js
 scripts/controllers/voucher-active.js
 scripts/controllers/voucher-historic.js
+scripts/controllers/book-keeping-report.js
 scripts/directives/anchor.js
 scripts/directives/cep.js
 scripts/directives/cpf.js
@@ -135,6 +138,8 @@ scripts/directives/scrollContainer.js
 scripts/directives/scrollSpy.js
 scripts/directives/tnt-input.js
 scripts/directives/upperCase.js
+scripts/directives/tnt-select2.js
+scripts/directives/lowerCase.js
 scripts/filters/count.js
 scripts/filters/cpf.js
 scripts/filters/creditCard.js
@@ -153,6 +158,7 @@ scripts/keepers/JournalKeeper.js
 scripts/keepers/StockKeeper.js
 scripts/keepers/VoucherKeeper.js
 scripts/services/ArrayUtils.js
+scripts/services/BookService/BookService.js
 scripts/services/CouponService.js
 scripts/services/DataProvider.js
 scripts/services/DialogService.js
@@ -188,6 +194,7 @@ scripts/keepers/PurchaseOrderKeeper.js
 scripts/services/ProductReturnService.js
 scripts/keepers/ProductReturnKeeper.js
 scripts/keepers/TypeKeeper.js
+scripts/keepers/BookKeeper.js
 scripts/preloader/datepicker.js
 scripts/services/RemoteSync.js
 scripts/services/log.js
@@ -242,11 +249,10 @@ views/parts/products-to-buy/products-to-buy-summary.html
 views/parts/products-to-buy/products-to-buy-ticket-dialog.html
 views/parts/products-to-buy/products-to-buy-ticket.html
 views/parts/receivable/receivable-add.html
-views/parts/receivable/receivable-read.html
-views/parts/receivable/receivable-search.html
-views/parts/receivable/receivable-write-parc-dialog.html
-views/parts/receivable/receivable-write.html
-
+views/parts/receivable/receivable-edit-parc-dialog.html
+views/parts/receivable/receivable-edit.html
+views/parts/receivable/receivable-list.html
+views/parts/receivable/receivable-receive.html
 views/add-customer.html
 views/basket.html
 views/bills-to-pay.html
@@ -300,6 +306,7 @@ images/del-pink.png
 images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
+images/loading_20.gif
 
 images/icons/ic-calendar.png
 
