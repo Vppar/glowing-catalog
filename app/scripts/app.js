@@ -167,6 +167,8 @@
         }).when('/book-keeping-report', {
             templateUrl : 'views/book-keeping-report.html',
             controller : 'BookKeepingReportCtrl'
+        }).when('/receivable-check', {
+            templateUrl : 'views/receivable-check.html'
         }).otherwise({
             redirectTo : '/'
         });
