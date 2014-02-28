@@ -18,6 +18,7 @@
 						$scope.birthdates = '';
 
 						$scope.appointment = undefined;
+						$scope.appointmentToUpdate = undefined; 
 						$scope.type = undefined;
 						
 						$scope.appointments = AppointmentService.list();
@@ -36,7 +37,7 @@
 							dtInitial : dtInitial,
 							dtFinal : dtFinal
 						};
-
+						
 						// #############################################################################################################
 						// Local functions and variables
 						// #############################################################################################################
@@ -52,7 +53,7 @@
 											$scope.dateFilter.dtFinal);
 						};
 						
-						$scope.done = function(appointment) {	
+						$scope.done = function(appointment) {
 						   AppointmentService.done(appointment).then(function() {
 							   alert('Evento Finalizado com sucesso!');
 				               $scope.appointments = AppointmentService.list();
@@ -70,11 +71,7 @@
 					            	alert('Erro: ' + err);
 					            });
 						};
-
-						$scope.update = function(appointment) {
-							AppointmentsService.update(appointment);
-						};
-
+						
 						$scope.listBirthdatesByPeriod = function (since, upon) {
 							$scope.birthdates = [ {
 								"id" : 1,
@@ -96,11 +93,33 @@
 						{
 							$scope.type = type;
 						};
+														
+						$scope.prepareUpdate = function(appointment) {
+							$scope.appointmentToUpdate = angular.copy(appointment);	
+						};	
 						
-						$scope.create = function ()
-						{
-							if(!$scope.type)
-							{
+						$scope.cancelarEdicao = function() {
+							$scope.appointment = undefined;
+							$scope.appointmentToUpdate = undefined;
+						};	
+						
+						$scope.update = function() {
+							if(!$scope.appointmentToUpdate) {
+								alert('Selecione um evento para ser atualizado');
+								return;
+							}
+							AppointmentService.update($scope.appointmentToUpdate).then(function(uuid) {
+					               alert('Atualizacao efetuada com sucesso');
+					               $scope.appointmentToUpdate = undefined;
+					               $scope.type = undefined;
+					               $scope.appointments = AppointmentService.list();
+					            }, function(err) {
+					            	alert('Erro:' + err);
+					            });
+						};
+						
+						$scope.create = function ()	{
+							if(!$scope.type) {
 								alert('Selecione um tipo de evento');
 								return;
 							}

@@ -96,14 +96,14 @@
          * @throws Exception in case of a fatal error comming from the keeper.
          */
         this.update = function(appointment) {
-            var result = this.isValid(appointment);
-            if (result.length === 0) {
-                try {
-                    AppointmentKeeper.update(appointment);
-                } catch (err) {
-                    throw 'AppointmentService.update: Unable to update an appointment=' + JSON.stringify(receivable) + '. Err=' + err;
-                }
-            }
+        	 var result = null;
+             appointment = new Appointment(appointment);
+             var hasErrors = this.isValid(appointment);
+             if (hasErrors.length === 0) {
+                 result = AppointmentKeeper.update(appointment);
+             } else {
+                 result = $q.reject(hasErrors);
+             }
             return result;
         };
         

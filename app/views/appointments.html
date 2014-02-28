@@ -29,7 +29,7 @@
 		<div class="row-fluid">
 				<form class="form-inline" name="formAppontiment">
 					Titulo Evento: <input type="text" ng-model="appointment.title" name="title"><BR>
-					Descrição Evento: <input type="text" ng-model="appointment.description" name="description"><BR>
+					Descricao Evento: <input type="text" ng-model="appointment.description" name="description"><BR>
 					Data Evento: <input type="text" ng-model="appointment.date" name="date"><BR>
 					Hora inicio: <input type="text" ng-model="appointment.startTime" name="startTime"><BR>
 					Hora Fim: <input type="text" ng-model="appointment.endTime" name="endTime"><BR>
@@ -41,12 +41,31 @@
 	</div>	
 	<br><br><br>
 	<div>
+		<B>ATUALIZAR EVENTO</B>
+		<div class="row-fluid">
+				<form class="form-inline" name="formAppontiment">
+				    UUID: <input disabled="disabled" type="text" ng-model="appointmentToUpdate.uuid" name="uuid"><BR>
+					Titulo Evento: <input type="text" ng-model="appointmentToUpdate.title" name="title"><BR>
+					Descricao Evento: <input type="text" ng-model="appointmentToUpdate.description" name="description"><BR>
+					Data Evento: <input type="text" ng-model="appointmentToUpdate.date" name="date"><BR>
+					Hora inicio: <input type="text" ng-model="appointmentToUpdate.startTime" name="startTime"><BR>
+					Hora Fim: <input type="text" ng-model="appointmentToUpdate.endTime" name="endTime"><BR>
+					Endereco RUA: <input type="text" ng-model="appointmentToUpdate.address.street" name="street"><BR>
+					UUID Contato: <input type="text" ng-model="appointmentToUpdate.contacts.uuid" name="contacts.uuid"><BR>
+					<a class="btn btn-option" ng-click="update()">ATUALIZAR EVENTO</a>
+					<a class="btn btn-option" ng-click="cancelarEdicao()">CANCELAR EDICAO</a>
+				</form>
+		</div>
+	</div>	
+	<br><br><br>
+	<div>
 		<B>LISTA DE EVENTOS</B>
 		<div class="row-fluid">
 			<TABLE border='1'>
 				<tr>
 					<td>DELETAR EVENTO</a></td>
 					<td>FINALIZAR EVENTO</a></td>
+					<td>ATUALIZAR EVENTO</a></td>
 					<td>CANCELAR EVENTO</a></td>
 					<td>ID</td>
 					<td>TITULO</td>
@@ -59,6 +78,7 @@
 				<tr ng-repeat="app in appointments ">
 					<td><a ng-click="remove(app)">Delete   </a></td>
 					<td><a ng-click="done(app)">Done   </a></td>
+					<td><a ng-click="prepareUpdate(app)">Update   </a></td>
 					<td><a ng-click="cancel(app)">Cancel   </a></td>
 					<td><span>{{app.uuid}}</span></td>
 					<td><span>{{app.title}}</span></td>

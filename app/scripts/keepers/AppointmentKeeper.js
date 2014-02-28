@@ -149,10 +149,10 @@
          */
         this.update = function(appointment) {
 
-            if (!(appointment instanceof Appointment)) {
+        	if (!(appointment instanceof Appointment)) {
                 return $q.reject('Wrong instance to AppointmentKeeper');
             }
-            
+               
             var stamp = (new Date()).getTime() / 1000;
 
             // create a new journal entry
