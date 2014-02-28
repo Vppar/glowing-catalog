@@ -167,6 +167,7 @@
          * Update an order
          */
         var update = function update(uuid, items, customerId, status) {
+            console.log(items);
             var order = ArrayUtils.find(orders, 'uuid', uuid);
             if (!order) {
                 throw 'Unable to find an order with uuid=\'' + uuid + '\'';

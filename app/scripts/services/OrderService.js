@@ -67,7 +67,7 @@
                  *             keeper.
                  */
                 var register = function register(order) {
-                    console.log('register aaaaaaaaaaaaaa');
+                    console.log('registering current order');
                     console.log(order);
                     var result = null;
                     var hasErrors = [];
@@ -170,17 +170,13 @@
                 // NOTE: This DOES NOT clears the current order automatically.
                 var save = function save() {
                     // Removes items without quantity
-                    var selectedItems = [];
-                    for ( var idx in this.order.items) {
-                        var item = this.order.items[idx];
-                        if (item.qty) {
-                            selectedItems.push(item);
-                        }
-                    }
 
                     var savedOrder = angular.copy(this.order);
-                    console.log(savedOrder);
-                    return this.update(savedOrder.uuid, selectedItems, savedOrder.customerId, 'confirmed');
+                    console.log('savedOrder', savedOrder);
+                    
+                    updatePromise = this.update(savedOrder.uuid, savedOrder.items, savedOrder.customerId, 'confirmed');
+                    setCurrentOrder();
+                    return updatePromise;
                 };
 
                 /**
@@ -214,6 +210,9 @@
                             var deviceId = IdentityService.getUUIDData(orderList[idx].uuid).deviceId;
                             if (deviceId == IdentityService.getDeviceId()) {
                                 this.order = orderList[idx];
+                                if(!this.order.items){
+                                    this.order.items = [];
+                                }
                                 console.log(this.order);
                                 return $q.reject();
                             }
