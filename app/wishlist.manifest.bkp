@@ -65,6 +65,7 @@ components/catalog-highlights/catalogHighlights.js
 components/catalog-section/catalogSection.js
 components/product-display/productDisplay.js
 components/highlight-display/highlightDisplay.js
+
 scripts/ObjectUtils.js
 scripts/controllers/main.js
 scripts/controllers/add-customer.js
@@ -118,6 +119,7 @@ scripts/controllers/stock.js
 scripts/controllers/voucher.js
 scripts/controllers/voucher-active.js
 scripts/controllers/voucher-historic.js
+scripts/controllers/appointments.js
 scripts/directives/anchor.js
 scripts/directives/cep.js
 scripts/directives/cpf.js
@@ -152,6 +154,7 @@ scripts/keepers/EntityKeeper.js
 scripts/keepers/JournalKeeper.js
 scripts/keepers/StockKeeper.js
 scripts/keepers/VoucherKeeper.js
+scripts/keepers/AppointmentKeeper.js
 scripts/services/ArrayUtils.js
 scripts/services/CouponService.js
 scripts/services/DataProvider.js
@@ -180,6 +183,7 @@ scripts/services/SyncDriver.js
 scripts/services/SyncService.js
 scripts/services/PurchaseOrderService.js
 scripts/services/UserService.js
+scripts/services/AppointmentService.js
 scripts/services/cep/CepService.js
 scripts/filters/uuidCode.js
 scripts/services/Firebase.js

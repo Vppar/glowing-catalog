@@ -114,10 +114,9 @@
          * @param id - id of Appointment to be update.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
-        this.done = function(id) {
+        this.done = function(appointment) {
         	var result = "";
         	try {
-        		var appointment = this.read(id);
         		appointment.status = "DONE";
         		result = this.update(appointment);
             } catch (err) {
@@ -133,11 +132,10 @@
          * @param id - id of Appointment to be update.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
-        this.cancel = function(id) {
+        this.cancel = function(appointment) {
         	var result = "";
         	try {
-        		var appointment = this.read(id);
-            	appointment.status = "CANCELLED";
+        		appointment.status = "CANCELLED";
             	result = this.update(appointment);	
             } catch (err) {
                 throw 'AppointmentService.cancel: Unable to cancel an appointment=' + JSON.stringify(receivable) + '. Err=' + err;

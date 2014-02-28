@@ -107,47 +107,6 @@ describe('Service: AppointmentKeeperUpdateScenario', function() {
 
     });
     
-    /**
-     * <pre>
-     * @spec AppointmentKeeper.update#1
-     * Given a invalid client
-     * when and update is triggered
-     * then a Appointment must not be updated
-     * </pre>
-     */
-    it('should throw exception', function() {
-    	var ev = {
-                uuid : 1,
-                title : 'VISITA NO CLIENTE',
-                description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
-                address : {street: 'rua', number: 555, cep: '12222-000'},
-                contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
-                type : 'VISITA',
-                status: 'PENDENTE'
-        };
-        
-        var resolution = null;
-        
-        runs(function(){
-            var promise = AppointmentKeeper.update(ev);
-            
-            promise['catch'](function(_resolution_){
-                resolution = _resolution_;
-            });
-        });
-        
-        waitsFor(function(){
-            $rootScope.$apply();
-            return !!resolution;
-        }, 'Update is taking too long', 300);
-        
-        runs(function(){
-            expect(resolution).toBe('Wrong instance to AppointmentKeeper');
-        });
-    });
     
     /**
      * <pre>

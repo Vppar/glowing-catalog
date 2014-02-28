@@ -107,7 +107,7 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
         AppointmentKeeper.read = jasmine.createSpy('AppointmentKeeper.read').andReturn(appointment);
         
         // when
-        var result = AppointmentService.done(1);
+        var result = AppointmentService.done(appointment);
 
         // then
         expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointmentDone);
@@ -147,7 +147,7 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
         AppointmentKeeper.read = jasmine.createSpy('AppointmentKeeper.read').andReturn(appointment);
         
         // when
-        var result = AppointmentService.cancel(1);
+        var result = AppointmentService.cancel(appointment);
 
         // then
         expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointmentCancel);

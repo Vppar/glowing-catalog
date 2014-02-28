@@ -7,7 +7,7 @@
 					function($scope, $location, $filter, ArrayUtils,
 							AppointmentService, EntityService, UserService) {
 
-						//UserService.redirectIfIsNotLoggedIn();
+						UserService.redirectIfIsNotLoggedIn();
 
 						// #############################################################################################################
 						// Warming up the controller
@@ -19,8 +19,8 @@
 
 						$scope.appointment = undefined;
 						$scope.type = undefined;
-						$scope.appointments = AppointmentService.list();
 						
+						$scope.appointments = AppointmentService.list();
 
 						var dtInitial = new Date();
 						dtInitial.setHours(0);
@@ -52,20 +52,27 @@
 											$scope.dateFilter.dtFinal);
 						};
 						
-						$scope.done = function(appointment) {							
-							var index = $scope.appointments.indexOf(appointment);
-							appointment.status="DONE";
-							$scope.appointments[index]=appointment;
+						$scope.done = function(appointment) {	
+						   AppointmentService.done(appointment).then(function() {
+							   alert('Evento Finalizado com sucesso!');
+				               $scope.appointments = AppointmentService.list();
+				            }, function(err) {
+				            	alert('Erro: ' + err);
+				            });
+			               
 						};
 
 						$scope.cancel = function(appointment) {							
-							var index = $scope.appointments.indexOf(appointment);
-							appointment.status="CANCEL";
-							$scope.appointments[index]=appointment;
+							AppointmentService.cancel(appointment).then(function() {
+								   alert('Evento Cancelado com sucesso!');
+					               $scope.appointments = AppointmentService.list();
+					            }, function(err) {
+					            	alert('Erro: ' + err);
+					            });
 						};
 
 						$scope.update = function(appointment) {
-							AppointmentsService.updateAppointment(appointment);
+							AppointmentsService.update(appointment);
 						};
 
 						$scope.listBirthdatesByPeriod = function (since, upon) {
