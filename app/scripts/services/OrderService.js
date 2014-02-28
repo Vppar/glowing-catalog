@@ -67,8 +67,6 @@
                  *             keeper.
                  */
                 var register = function register(order) {
-                    console.log('registering current order');
-                    console.log(order);
                     var result = null;
                     var hasErrors = [];
                     if (hasErrors.length === 0) {
@@ -142,9 +140,6 @@
                  * @return boolean Result if the receivable is canceled.
                  */
                 var update = function update(id, items, customerId, status) {
-                    console.log('update');
-                    console.log('customerid' , customerId);
-                    console.log('items' , items);
                     var result = null;
                     try {
                         result = OrderKeeper.update(id, items, customerId, status);
@@ -172,11 +167,8 @@
                     // Removes items without quantity
 
                     var savedOrder = angular.copy(this.order);
-                    console.log('savedOrder', savedOrder);
                     
-                    updatePromise = this.update(savedOrder.uuid, savedOrder.items, savedOrder.customerId, 'confirmed');
-                    setCurrentOrder();
-                    return updatePromise;
+                    return this.update(savedOrder.uuid, savedOrder.items, savedOrder.customerId, 'confirmed');
                 };
 
                 /**
@@ -203,7 +195,6 @@
                 };
                 
                 var setCurrentOrder = function setCurrentOrder() {
-                    console.log('setCurrentOrder was called');
                     var orderList = OrderKeeper.list();
                     for ( var idx in orderList) {
                         if (orderList[idx].status === 'current') {
@@ -213,11 +204,11 @@
                                 if(!this.order.items){
                                     this.order.items = [];
                                 }
-                                console.log(this.order);
                                 return $q.reject();
                             }
                         }
                     }
+                    this.clear();
                     var savedOrder = angular.copy(this.order);
                     savedOrder.date = new Date();
                     savedOrder.status = 'current';

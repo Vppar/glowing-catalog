@@ -360,7 +360,6 @@
 
                         // Generate receivables
                         var receivablesPromise = savedOrderPromise.then(function(orderUuid) {
-                            console.log('uuid = '+orderUuid);
                             var receivables = getReceivables();
 
                             // FIXME - This is a workaround to temporally
@@ -461,6 +460,7 @@
                     // clear all
                     return savedSalePromise.then(function() {
                         OrderService.clear();
+                        OrderService.setCurrentOrder();
                         clearAllPayments();
                         clearPersistedCoupons();
                     }, propagateRejectedPromise);

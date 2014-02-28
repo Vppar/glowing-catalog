@@ -52,14 +52,13 @@ describe('Service: OrderServiceClear', function () {
 
   it('creates a new items list', function () {
     var oldItems = OrderService.order.items;
-    OrderService.clear();
-    expect(OrderService.order.items).not.toBe(oldItems);
-  });
+    expect(OrderService.order.items).toEqual([]);
+  }); 
 
 
   it('keeps the same object (references and bindings do not break)', function () {
     var oldOrder = OrderService.order;
-    OrderService.clear();
+    OrderService.clear(); 
     expect(OrderService.order).toBe(oldOrder);
   });
 });

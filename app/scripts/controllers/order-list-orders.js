@@ -19,7 +19,6 @@
                 var orders = $scope.orders;
                 // $scope.filteredOrders come from OrderListCtrl
                 $scope.filteredOrders = angular.copy(orders);
-                console.log(orders);
                 for ( var ix in orders) {
                     var order = orders[ix];
                     // Find the entity name

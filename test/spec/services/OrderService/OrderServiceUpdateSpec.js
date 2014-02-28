@@ -58,7 +58,7 @@ describe('Service: OrderServiceUpdate', function () {
     }, 'JournalKeeper is taking too long', 300);
 
     runs(function() {
-        expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}]);
+        expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}],undefined,undefined);
     });
 
   });
