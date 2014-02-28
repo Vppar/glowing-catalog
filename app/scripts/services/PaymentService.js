@@ -365,6 +365,8 @@
                             // FIXME - This is a workaround to temporally
                             // resolve the problems with change
                             makeZeroChange(receivables, change);
+                            
+                            OrderService.setCurrentOrder();
 
                             return ReceivableService.bulkRegister(receivables, customer, orderUuid);
                         }, propagateRejectedPromise);
@@ -458,6 +460,7 @@
                     // clear all
                     return savedSalePromise.then(function() {
                         OrderService.clear();
+                        OrderService.setCurrentOrder();
                         clearAllPayments();
                         clearPersistedCoupons();
                     }, propagateRejectedPromise);

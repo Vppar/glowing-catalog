@@ -4,6 +4,7 @@ describe('Service: OrderServiceUpdate', function () {
   var OrderMock = {};
   var OrderKeeperMock = {};
   var DataProviderMock = {};
+  var IdentityServiceMock = {};
 
   var OrderService;
 
@@ -22,6 +23,7 @@ describe('Service: OrderServiceUpdate', function () {
       $provide.value('Order', OrderMock);
       $provide.value('OrderKeeper', OrderKeeperMock);
       $provide.value('DataProvider', DataProviderMock);
+      $provide.value('IdentityService', IdentityServiceMock);
     });
   });
 
@@ -56,7 +58,7 @@ describe('Service: OrderServiceUpdate', function () {
     }, 'JournalKeeper is taking too long', 300);
 
     runs(function() {
-        expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}]);
+        expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}],undefined,undefined);
     });
 
   });

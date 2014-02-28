@@ -6,7 +6,6 @@
     ]).controller(
             'AddToBasketDialogCtrl',
             function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService) {
-
                 var orderItems = OrderService.order.items;
                 var inventory = InventoryKeeper.read();
 

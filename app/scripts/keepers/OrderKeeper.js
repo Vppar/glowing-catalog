@@ -6,7 +6,7 @@
         var service = function svc(uuid, code, date, canceled, customerId, items) {
 
             var validProperties = [
-                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'updated', 'items'
+                'uuid', 'created', 'code', 'date', 'canceled', 'customerId', 'updated', 'items', 'status'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -34,11 +34,11 @@
                 this.canceled = canceled;
                 this.customerId = customerId;
                 this.items = items;
+                this.status = status;
             }
             ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'code', this.code);
             ObjectUtils.ro(this, 'date', this.date);
-            ObjectUtils.ro(this, 'customerId', this.customerId);
         };
 
         return service;
@@ -79,7 +79,6 @@
             if (eventData.deviceId === IdentityService.getDeviceId()) {
                 currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
             }
-
             event = new Order(event);
             orders.push(event);
 
@@ -99,7 +98,10 @@
             var orderEntry = ArrayUtils.find(orders, 'uuid', event.uuid);
             if (orderEntry) {
                 orderEntry.items = event.items;
+                orderEntry.customerId = event.customerId;
+                orderEntry.status = event.status;
                 orderEntry.updated = event.updated;
+                return event.uuid;
             } else {
                 throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
             }
@@ -163,7 +165,7 @@
         /**
          * Update an order
          */
-        var update = function update(uuid, items) {
+        var update = function update(uuid, items, customerId, status) {
             var order = ArrayUtils.find(orders, 'uuid', uuid);
             if (!order) {
                 throw 'Unable to find an order with uuid=\'' + uuid + '\'';
@@ -171,7 +173,9 @@
             var updateEv = {
                 uuid : order.uuid,
                 updated : new Date().getTime(),
-                items : items
+                items : items,
+                customerId : customerId,
+                status : status
             };
             // create a new journal entry
             var entry = new JournalEntry(null, updateEv.updated, 'orderUpdate', currentEventVersion, updateEv);

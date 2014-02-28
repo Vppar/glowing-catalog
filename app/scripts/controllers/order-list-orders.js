@@ -8,10 +8,17 @@
 
                 // $scope.entities come from OrderListCtrl
                 var entities = $scope.entities;
+                var validOrders = [];
+                for (var idx in $scope.orders){
+                    if($scope.orders[idx].status && $scope.orders[idx].status !== 'confirmed'){
+                        continue;
+                    }
+                    validOrders.push($scope.orders[idx]);
+                }
+                $scope.orders = validOrders;
                 var orders = $scope.orders;
                 // $scope.filteredOrders come from OrderListCtrl
                 $scope.filteredOrders = angular.copy(orders);
-
                 for ( var ix in orders) {
                     var order = orders[ix];
                     // Find the entity name
