@@ -1,8 +1,8 @@
-describe('Controller: ReceivableReceiveCtrl', function() {
+describe('Controller: ReceivableEditCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
-        module('tnt.catalog.financial.receivable.receive.ctrl');
+        module('tnt.catalog.financial.receivable.edit.ctrl');
     });
 
     var scope = {};
@@ -16,8 +16,9 @@ describe('Controller: ReceivableReceiveCtrl', function() {
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, $q) {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+        
         // ReceivableService mock
-        ReceivableService.receive = jasmine.createSpy('ReceivableService.receive');
+        ReceivableService.update = jasmine.createSpy('ReceivableService.update');
         ReceivableService.listActive = jasmine.createSpy('ReceivableService.listActive').andReturn(receivables);
 
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function() {
@@ -26,12 +27,15 @@ describe('Controller: ReceivableReceiveCtrl', function() {
             result = true;
             return defer.promise;
         });
+        
         // $scope mock
         scope = $rootScope.$new();
+        
         // mock function of parent controller.
         scope.selectReceivableMode = jasmine.createSpy('scope.selectReceivableMode');
         scope.clearSelectedReceivable = jasmine.createSpy('scope.clearSelectedReceivable');
-        $controller('ReceivableReceiveCtrl', {
+        
+        $controller('ReceivableEditCtrl', {
             $scope : scope,
             DataProvider : DataProvider,
             DialogService : DialogService,
@@ -65,7 +69,7 @@ describe('Controller: ReceivableReceiveCtrl', function() {
         });
     });
 
-    it('should isValid return true', function() {
+    it('should valid receivable', function() {
         // given
 
         // when
@@ -76,7 +80,7 @@ describe('Controller: ReceivableReceiveCtrl', function() {
 
     });
 
-    it('should isValid return false', function() {
+    it('should invalid receivable', function() {
         // given
 
         // when
@@ -87,12 +91,13 @@ describe('Controller: ReceivableReceiveCtrl', function() {
 
     });
 
-    it('should receive a receivable', function() {
+    it('should update a receivable', function() {
         runs(function() {
+            scope.removeArguments = jasmine.createSpy('scope.removeArguments').andReturn(receivables[0]);
             // given
             scope.selectedReceivable = receivables[0];
             // when
-            scope.comfirmReceive();
+            scope.comfirmUpdate();
         });
 
         waitsFor(function() {
@@ -103,16 +108,17 @@ describe('Controller: ReceivableReceiveCtrl', function() {
         runs(function() {
             // then
             expect(DialogService.messageDialog).toHaveBeenCalled();
-            expect(ReceivableService.receive).toHaveBeenCalledWith(receivables[0].uuid, fakeNow);
+            expect(ReceivableService.update).toHaveBeenCalledWith(receivables[0].uuid,receivables[0].remarks, receivables[0].duedate);
         });
     });
 
-    it('should not receive a receivable', function() {
+    it('should not update a receivable', function() {
         runs(function() {
+            scope.removeArguments = jasmine.createSpy('scope.removeArguments').andReturn(receivables[1]);
             // given
             scope.selectedReceivable = receivables[1];
             // when
-            scope.comfirmReceive();
+            scope.comfirmUpdate();
         });
 
         waitsFor(function() {
@@ -122,7 +128,7 @@ describe('Controller: ReceivableReceiveCtrl', function() {
 
         runs(function() {
             // then
-            expect(ReceivableService.receive).not.toHaveBeenCalled();
+            expect(ReceivableService.update).not.toHaveBeenCalled();
             expect(DialogService.messageDialog).toHaveBeenCalled();
             expect(scope.clearSelectedReceivable).toHaveBeenCalled();
         });

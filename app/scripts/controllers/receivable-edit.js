@@ -1,28 +1,56 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.financial.receivable.edit.ctrl', []).controller(
-            'ReceivableEditCtrl', function($scope,$filter, ReceivableService, OrderService, EntityService, DialogService) {
-                
-                $scope.updateReceivable = function(){
+            'ReceivableEditCtrl', function($scope, $filter, ReceivableService, DialogService) {
+
+                $scope.comfirmUpdate = function() {
                     var receivable = angular.copy($scope.selectedReceivable);
+                    if ($scope.isValid(receivable)) {
+                        updateReceivable(receivable);
+                    } else {
+                        invalidReceivable();
+                    }
+                };
+
+                function updateReceivable(receivable) {
                     var dialogPromise = DialogService.messageDialog({
-                        title : 'Recebíveis',
+                        title : 'Edição de Recebíveis',
                         message : 'Deseja confirmar alteração?',
                         btnYes : 'Sim',
                         btnNo : 'Não'
                     });
 
-                    dialogPromise.then(function(){
-                        ReceivableService.update($scope.removeArguments(receivable));
-                        $scope.cancelEdit();
+                    dialogPromise.then(function() {
+                        // FIXME change from object to arguments
+                        ReceivableService.update(receivable.uuid, receivable.remarks, receivable.duedate);
+                        $scope.clearSelectedReceivable();
                     });
-                };
+                }
+
+                function invalidReceivable() {
+                    var dialogPromise = DialogService.messageDialog({
+                        title : 'Edição de Recebível',
+                        message : 'Valor inválido para liquidação',
+                        btnYes : 'Ok',
+                    });
+
+                    dialogPromise.then(function() {
+                        $scope.clearSelectedReceivable();
+                    });
+                }
                 
-                $scope.cancelEdit = function(){
-                    $scope.selectedReceivable = null;
-                    $scope.selectReceivableMode('list');  
-                    $scope.$apply();
+                /**
+                 * Verifies if a receivable is valid.
+                 * 
+                 * @returns boolean
+                 */
+                $scope.isValid = function isValid(receivable) {
+                    var result = true;
+                    if (angular.isDefined(receivable.amount) && receivable.amount <= 0) {
+                        result = false;
+                    }
+                    return result;
                 };
-                
+
             });
 }(angular));

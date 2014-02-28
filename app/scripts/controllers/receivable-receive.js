@@ -3,27 +3,52 @@
     angular.module('tnt.catalog.financial.receivable.receive.ctrl', []).controller(
             'ReceivableReceiveCtrl', function($scope, ReceivableService, DialogService) {
 
-                $scope.comfirmLiquidate = function() {
-                    var dialogPromise = DialogService.messageDialog({
+                $scope.comfirmReceive = function comfirmReceive() {
+                    var receivable = angular.copy($scope.selectedReceivable);
+
+                    if ($scope.isValid(receivable)) {
+                        receiveReceivable(receivable);
+                    } else {
+                        invalidReceivable();
+                    }
+                };
+                
+                function receiveReceivable(receivable){
+                    
+                    DialogService.messageDialog({
                         title : 'Recebíveis',
                         message : 'Deseja liquidar recebível?',
                         btnYes : 'Sim',
                         btnNo : 'Não'
+                    }).then(function() {
+                        ReceivableService.receive(receivable.uuid, new Date().getTime());
+                    });
+                };
+                
+                function invalidReceivable() {
+                    var dialogPromise = DialogService.messageDialog({
+                        title : 'Edição de Recebível',
+                        message : 'Valor inválido para liquidação',
+                        btnYes : 'Ok',
                     });
 
                     dialogPromise.then(function() {
-                        var receivable = angular.copy($scope.selectedReceivable);
-                        ReceivableService.receive(receivable.uuid, new Date());
-                        $scope.selectedReceivable = null;
-                        $scope.selectReceivableMode('list');
+                        $scope.clearSelectedReceivable();
                     });
-
+                }
+                
+                /**
+                 * Verifies if a receivable is valid.
+                 * 
+                 * @returns boolean
+                 */
+                $scope.isValid = function isValid(receivable) {
+                    var result = true;
+                    if (angular.isDefined(receivable.amount) && receivable.amount <= 0) {
+                        result = false;
+                    }
+                    return result;
                 };
-
-                $scope.cancelPayment = function() {
-                    $scope.selectedReceivable = null;
-                    $scope.selectReceivableMode('list');
-                };
-
+                
             });
 }(angular));

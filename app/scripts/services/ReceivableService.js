@@ -174,11 +174,15 @@
                  *             keeper.
                  */
                 var update =
-                        function update(receivable) {
+                        function update(uuid, remarks, duedate) {
+                            var receivable = this.read(uuid);
+                            receivable.remarks = remarks;
+                            receivable.duedate = duedate;
+                            
                             var result = isValid(receivable);
-                            if (result.length === 0) {
+                            if (receivable && result.length === 0) {
                                 try {
-                                    ReceivableKeeper.cancel(receivable.uuid);
+                                    ReceivableKeeper.cancel(uuid);
                                     ReceivableKeeper.add(receivable);
                                 } catch (err) {
                                     throw 'ReceivableService.register: Unable to register a receivable=' + JSON.stringify(receivable) +

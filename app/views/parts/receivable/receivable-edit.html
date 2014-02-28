@@ -1,4 +1,4 @@
-<div class="row-fluid receivable-write-left" ng-show="selectedReceivable">
+<div class="row-fluid receivable-write-left">
 	<div class="row-fluid">
 		<span class="span3">
 			<div class="control-group">
@@ -7,7 +7,7 @@
 					id="date" class="date-field input-block-level" maxlength="10" 
 					datepicker-popup="dd/MM/yyyy" show-weeks="false" 
 					ng-model="selectedReceivable.created" 
-					required readonly">
+					required readonly disabled>
 					
 			</div>
 		</span>
@@ -78,7 +78,7 @@
 				<label class="control-label">Valor</label>
 				<input name="amount"
 					class="input-block-level" type="text" placeholder=""
-					ng-model="selectedReceivable.amount" required currency>
+					ng-model="selectedReceivable.amount" required currency disabled>
 			</div>
 		</span>	
 		<span class="span2">
@@ -97,19 +97,19 @@
 					<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.installments[0].duedate" required readonly onkeyup="checkInputKeyUp(this)">
 			</div>
 		</span>	
-		<span class="span2">
+		<!-- <span class="span2">
 			<div class="control-group">
 				<a class="btn btn-open margint19" ng-click="">Ver parcela</a>
 			</div>
-		</span>
+		</span> -->
 	</div>
 </div>
 <div class="row-fluid receivable-write-right display-none">
 	<div class="clearfix"></div><hr />
-	<button ng-click="cancelEdit()" class="btn btn-cancel btn-large btn-login" type="submit">
+	<button ng-click="clearSelectedReceivable()" class="btn btn-cancel btn-large btn-login" type="submit">
 		Cancelar
 	</button>
-	<button ng-click="updateReceivable()" class="btn-large btn btn-ok btn-login pull-right" type="submit">
+	<button ng-click="comfirmUpdate()" class="btn-large btn btn-ok btn-login pull-right" type="submit">
 		Confirmar
 	</button>
 </div>

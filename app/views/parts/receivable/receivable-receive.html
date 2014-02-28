@@ -6,9 +6,7 @@
 				<input type="text" 
 					id="date" class="date-field input-block-level" maxlength="10" 
 					datepicker-popup="dd/MM/yyyy" show-weeks="false" 
-					ng-model="selectedReceivable.created" 
-					required readonly">
-					
+					ng-model="selectedReceivable.created" disabled>
 			</div>
 		</span>
 		
@@ -29,7 +27,7 @@
 				<label class="control-label">Observa&ccedil;&atilde;o</label>
 				<input name="date"
 					class="input-block-level" type="text" placeholder=""
-					ng-model="selectedReceivable.remarks" required>
+					ng-model="selectedReceivable.remarks" disabled>
 			</div>
 		</span>
 	</div>
@@ -78,7 +76,7 @@
 				<label class="control-label">Valor</label>
 				<input name="amount"
 					class="input-block-level" type="text" placeholder=""
-					ng-model="selectedReceivable.amount" required currency>
+					ng-model="selectedReceivable.amount" required currency disabled>
 			</div>
 		</span>	
 		<span class="span2">
@@ -94,14 +92,14 @@
 				<label class="control-label">Vencto 1a. parc.</label>
 					<!--<input class="input-block-level hover-state-pointer" ng-model="receivable.duedate"
 						ng-click="" disabled>-->
-					<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.installments[0].duedate" required readonly onkeyup="checkInputKeyUp(this)">
+					<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.installments[0].duedate" required readonly onkeyup="checkInputKeyUp(this)" disabled>
 			</div>
 		</span>	
-		<span class="span2">
+		<!-- <span class="span2">
 			<div class="control-group">
 				<a class="btn btn-open margint19" ng-click="">Ver parcela</a>
 			</div>
-		</span>
+		</span> -->
 	</div>
 </div>
 
@@ -109,10 +107,10 @@
 <!-- mesmo conteudo da "receivable-write-parc-dialog". Foram feitas duas opcoes.-->
 <div class="row-fluid receivable-write-right display-none">
 		<div class="clearfix"></div><hr />
-		<button ng-click="cancelPayment()" class="btn btn-cancel btn-large btn-login" type="submit">
+		<button ng-click="clearSelectedReceivable()" class="btn btn-cancel btn-large btn-login" type="submit">
 			Cancelar
 		</button>
-		<button ng-click="comfirmLiquidate()" class="btn-large btn btn-ok btn-login pull-right" type="submit">
+		<button ng-click="comfirmReceive()" class="btn-large btn btn-ok btn-login pull-right" type="submit">
 			Confirmar
 		</button>
 </div>
