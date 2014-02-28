@@ -7,13 +7,26 @@
 					function($scope, $location, $filter, ArrayUtils,
 							AppointmentService, EntityService, UserService) {
 
-						UserService.redirectIfIsNotLoggedIn();
+						//UserService.redirectIfIsNotLoggedIn();
 
 						// #############################################################################################################
 						// Warming up the controller
 						// #############################################################################################################
 
-						$scope.entities = EntityService.list();												
+						//$scope.entities = EntityService.list();
+						
+						$scope.contacts = [ {
+							"id" : 1,
+							"nome" : "ROGER"
+						}, {
+							"id" : 2,
+							"nome" : "IAGO"
+						}, {
+							"id" : 3,
+							"nome" : "RENNAN"
+						} ];
+						
+						$scope.birthdates = '';
 
 						$scope.appointments = [ {
 							"id" : 1,
@@ -91,6 +104,23 @@
 							AppointmentsService.updateAppointment(appointment);
 						};
 
+						$scope.listBirthdatesByPeriod = function (since, upon) {
+							$scope.birthdates = [ {
+								"id" : 1,
+								"data" : "12-12-1910",
+								"nome" : "ROGER"							
+							}, {
+								"id" : 2,
+								"data" : "12-12-1920",
+								"nome" : "IAGO"
+							}, {
+								"id" : 3,
+								"data" : "12-12-1930",
+								"nome" : "RENNAN"
+							} ];
+					        //Chamada do service;
+					    };
+					    
 						/*$scope.createAppointment = function(type) {
 							var appointment = {
 								title : 'VISITA NO CLIENTE',
