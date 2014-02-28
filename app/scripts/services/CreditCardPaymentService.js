@@ -47,10 +47,10 @@
                         holder : data.creditCard.cardholderName,
                         validity : validity,
                         cvv : data.creditCard.cvv,
-                        amount : data.amount,
+                        amount : $filter('currency')(data.amount, ''),
                         installments : data.installments,
                         cpf : maskedCpf,
-                        description : 'Pedido MK no valor de ' + $filter('currency')(data.amount, '') + ' reais'
+                        description : 'Pedido MK no valor de ' + $filter('currency')(data.amount, 'R$ ')
                     };
 
                     var payedPromise = GoPayGateway.pay(card).then(function(data) {
