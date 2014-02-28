@@ -21,9 +21,12 @@
                     });
 
                     dialogPromise.then(function() {
-                        // FIXME change from object to arguments
-                        ReceivableService.update(receivable.uuid, receivable.remarks, receivable.duedate);
-                        $scope.clearSelectedReceivable();
+                        var result = ReceivableService.update(receivable.uuid, receivable.remarks, receivable.duedate);
+                        
+                        result.then(function() {
+                            $scope.clearSelectedReceivable();
+                        });
+
                     });
                 }
 
@@ -38,7 +41,7 @@
                         $scope.clearSelectedReceivable();
                     });
                 }
-                
+
                 /**
                  * Verifies if a receivable is valid.
                  * 

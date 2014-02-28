@@ -417,13 +417,13 @@ describe('Controller: ReceivableListCtrl', function() {
                 // Set final date to a date far away in the future
                 scope.dtFilter.dtFinal.setDate(scope.dtFilter.dtFinal.getDate() + 60);
                 scope.$apply();
-
+                
                 expect(scope.receivables.list.length).toBe(1);
             });
 
 
 
-            xit('expands when query filter is loosened up', function () {
+            it('expands when query filter is loosened up', function () {
                 scope.dtFilter.dtInitial = new Date();
                 scope.dtFilter.dtFinal = new Date();
                 scope.query = '123';

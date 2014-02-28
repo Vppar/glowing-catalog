@@ -17,7 +17,12 @@ describe('Controller: ReceivableReceiveCtrl', function() {
     beforeEach(inject(function($controller, $rootScope, $q) {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         // ReceivableService mock
-        ReceivableService.receive = jasmine.createSpy('ReceivableService.receive');
+        ReceivableService.receive = jasmine.createSpy('ReceivableService.receive').andCallFake(function(){
+            var defer = $q.defer();
+            defer.resolve();
+            return defer.promise;
+        });
+        
         ReceivableService.listActive = jasmine.createSpy('ReceivableService.listActive').andReturn(receivables);
 
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function() {
@@ -26,6 +31,7 @@ describe('Controller: ReceivableReceiveCtrl', function() {
             result = true;
             return defer.promise;
         });
+        
         // $scope mock
         scope = $rootScope.$new();
         // mock function of parent controller.

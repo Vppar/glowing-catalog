@@ -46,17 +46,6 @@
             $scope.selectReceivableMode('receive');
         };
 
-        // FIXME think some better.
-        $scope.removeArguments = function removeArguments(receivable) {
-            delete receivable.classification;
-            delete receivable.documentType;
-            delete receivable.installment;
-            delete receivable.installments;
-            delete receivable.order;
-            delete receivable.entityName;
-            return receivable;
-        };
-
         $scope.clearSelectedReceivable = function() {
             $scope.selectedReceivable = null;
             $scope.selectReceivableMode('list');

@@ -18,7 +18,11 @@ describe('Controller: ReceivableEditCtrl', function() {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         
         // ReceivableService mock
-        ReceivableService.update = jasmine.createSpy('ReceivableService.update');
+        ReceivableService.update = jasmine.createSpy('ReceivableService.update').andCallFake(function(){
+            var defer = $q.defer();
+            defer.resolve();
+            return defer.promise;
+        });
         ReceivableService.listActive = jasmine.createSpy('ReceivableService.listActive').andReturn(receivables);
 
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function() {

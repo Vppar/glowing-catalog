@@ -69,7 +69,7 @@
                  * @return Array - Receivables list.
                  */
                 var listActive = function list() {
-                    return filterReceivablesByCanceled(this.list());
+                    return filterReceivablesByCanceledAndLiquidated(this.list());
                 };
 
                 /**
@@ -95,9 +95,9 @@
                  */
                 var listActiveByDocument = function listByDocument(document) {
                     
-                    return filterReceivablesByCanceled(this.listByDocument(document));
+                    return filterReceivablesByCanceledAndLiquidated(this.listByDocument(document));
                 };
-
+                
                 /**
                  * Returns a single receivable by its id.
                  * 
@@ -183,10 +183,11 @@
                             if (receivable && result.length === 0) {
                                 try {
                                     ReceivableKeeper.cancel(uuid);
-                                    ReceivableKeeper.add(receivable);
+                                    result = ReceivableKeeper.add(receivable);
                                 } catch (err) {
-                                    throw 'ReceivableService.register: Unable to register a receivable=' + JSON.stringify(receivable) +
-                                        '. Err=' + err;
+                                    $log.debug('ReceivableService.register: Unable to register a receivable=' + JSON.stringify(receivable) +
+                                        '. Err=' + err);
+                                    result = $q.reject(err);
                                 }
                             }
                             return result;
@@ -202,10 +203,11 @@
                         function receive(id, receiveDate) {
                             var result = true;
                             try {
-                                ReceivableKeeper.liquidate(id, receiveDate);
+                                result = ReceivableKeeper.liquidate(id, receiveDate);
                             } catch (err) {
-                                throw 'ReceivableService.register: Unable to receive a payment to a receivable=' +
-                                    JSON.stringify(receivable) + '. Err=' + err;
+                                $log.debug('ReceivableService.register: Unable to receive a payment to a receivable=' +
+                                    JSON.stringify(receivable) + '. Err=' + err);
+                                result = $q.reject(err);
                             }
                             return result;
                         };
@@ -231,7 +233,7 @@
                     return result;
                 }
 
-                function filterReceivablesByCanceled(receivables) {
+                function filterReceivablesByCanceledAndLiquidated(receivables) {
                     return $filter('filter')(receivables, receivableCanceledAndLiquidatedFilter);
                 }
 

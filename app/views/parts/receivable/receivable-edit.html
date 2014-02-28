@@ -85,7 +85,7 @@
 			<div class="control-group ">
 				<label class="control-label">Nro Parc.</label>
 					<input class="input-block-level hover-state-pointer"
-						id="installments" type="text" ng-model="selectedReceivable.installments.length"
+						id="installments" type="text" ng-model="selectedReceivable.installment"
 						ng-click="" disabled>
 			</div>
 		</span>	
@@ -94,7 +94,7 @@
 				<label class="control-label">Vencto 1a. parc.</label>
 					<!--<input class="input-block-level hover-state-pointer" ng-model="receivable.duedate"
 						ng-click="" disabled>-->
-					<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.installments[0].duedate" required readonly onkeyup="checkInputKeyUp(this)">
+					<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" required readonly onkeyup="checkInputKeyUp(this)">
 			</div>
 		</span>	
 		<!-- <span class="span2">

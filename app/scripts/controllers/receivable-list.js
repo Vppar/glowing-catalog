@@ -66,35 +66,45 @@
                         receivable.duedate <= $scope.dtFilter.dtFinal.getTime();
                 }
 
-                function receivablePendingFilter(receivable) {
-                    var result = (receivable.canceled === undefined) && (receivable.liquidated === undefined);
+                function receivableCanceledFilter(receivable) {
+                    var result = (receivable.canceled === undefined);
                     return result;
                 }
 
-                function filterReceivablesByQuery() {
-                    $scope.receivables.list = $filter('filter')($scope.receivables.list, receivableQueryFilter);
+                function receivableLiquidatedFilter(receivable) {
+                    var result = (receivable.liquidated === undefined);
+                    return result;
                 }
 
-                function filterReceivablesByDate() {
+                function filterReceivablesByQuery(receivables) {
+                    return $filter('filter')(receivables, receivableQueryFilter);
+                }
+
+                function filterReceivablesByDate(receivables) {
                     setTime($scope.dtFilter.dtInitial, 0, 0, 0, 0);
                     setTime($scope.dtFilter.dtFinal, 23, 59, 59, 999);
-                    $scope.receivables.list = $filter('filter')($scope.receivables.list, receivableDateFilter);
+                    return $filter('filter')(receivables, receivableDateFilter);
                 }
 
-                function filterByPending(receivables) {
-                    return $filter('filter')(receivables, receivablePendingFilter);
+                function filterByCanceled(receivables) {
+                    return $filter('filter')(receivables, receivableCanceledFilter);
+                }
+
+                function filterByLiquidated(receivables) {
+                    return $filter('filter')(receivables, receivableLiquidatedFilter);
                 }
 
                 function filterReceivables() {
-                    $scope.receivables.list = ReceivableService.listActive();
+                    var receivables = ReceivableService.listActive();
 
                     if ($scope.query) {
-                        filterReceivablesByQuery();
+                        receivables = filterReceivablesByQuery(receivables);
                     }
 
-                    filterReceivablesByDate();
+                    receivables = filterReceivablesByDate(receivables);
+                    receivables = argumentReceivables(receivables);
 
-                    argumentReceivables($scope.receivables.list);
+                    $scope.receivables.list = $filter('orderBy')(receivables, 'duedate');
                 }
 
                 function ensureDateOrder() {
@@ -114,15 +124,17 @@
                         receivable.documentType = 'Pedido';
 
                         receivable.installments = ReceivableService.listByDocument(receivable.documentId);
+                        receivable.installments = filterByCanceled(receivable.installments);
                         receivable.numberOfInstallment = receivable.installments.length;
+
+                        receivable.installments = $filter('orderBy')(receivable.installments, 'duedate');
                         for ( var y in receivable.installments) {
                             if (receivable.installments[y].uuid === receivable.uuid) {
                                 // set actual installment
                                 receivable.installment = Number(y) + 1;
                             }
                         }
-
-                        receivable.installments = filterByPending(receivable.installments);
+                        receivable.installments = filterByLiquidated(receivable.installments);
 
                         receivable.order = OrderService.read(receivable.documentId);
                         receivable.order.uiidCode = $filter('uuidCode')(receivable.order);
@@ -130,11 +142,12 @@
                         // FIXME document type hard coded.
                         receivable.order.document = 'Venda de Produtos';
                     }
+                    return receivables;
                 }
 
                 $scope.$watchCollection('dtFilter', ensureDateOrder);
                 $scope.$watchCollection('dtFilter', filterReceivables);
-
+                $scope.$watchCollection('query', filterReceivables);
                 this.receivableDateFilter = receivableDateFilter;
                 this.receivableQueryFilter = receivableQueryFilter;
             });

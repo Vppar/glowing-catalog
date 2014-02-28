@@ -12,19 +12,24 @@
                         invalidReceivable();
                     }
                 };
-                
-                function receiveReceivable(receivable){
-                    
+
+                function receiveReceivable(receivable) {
+
                     DialogService.messageDialog({
                         title : 'Recebíveis',
                         message : 'Deseja liquidar recebível?',
                         btnYes : 'Sim',
                         btnNo : 'Não'
                     }).then(function() {
-                        ReceivableService.receive(receivable.uuid, new Date().getTime());
+                        var result = ReceivableService.receive(receivable.uuid, new Date().getTime());
+                        
+                        result.then(function() {
+                            $scope.clearSelectedReceivable();
+                        });
                     });
-                };
-                
+                }
+                ;
+
                 function invalidReceivable() {
                     var dialogPromise = DialogService.messageDialog({
                         title : 'Edição de Recebível',
@@ -36,7 +41,7 @@
                         $scope.clearSelectedReceivable();
                     });
                 }
-                
+
                 /**
                  * Verifies if a receivable is valid.
                  * 
@@ -49,6 +54,6 @@
                     }
                     return result;
                 };
-                
+
             });
 }(angular));
