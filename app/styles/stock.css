@@ -139,8 +139,8 @@
 }
 .form-stock .details-stock-total{	
 	border-radius: 4px;
-	background: #bbb;
-	color: #000;
+	background: #ccc;
+	color: #222;
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
 	margin: auto;
@@ -150,8 +150,8 @@
 }
 .form-stock .details-stock-subtitle{	
 	border-radius: 4px;
-	background: #DADADA; /*#F2F2F2*/
-	color: #333;
+	background: #e3e3e3; /*#F2F2F2*/
+	color: #444;
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
 	font-weight: bold;
@@ -224,7 +224,7 @@
 	padding-right: 4px;
 }
 .details-stock-category .title-col-2{
-	color:#333;
+	color:#777;
 }
 .form-stock .scroll-stock .title-col-2{
 	padding-right: 15px;
@@ -244,8 +244,8 @@
 
 .form-stock .details-stock-category{
 	border-radius: 4px;
-	background: #e5e5e5;
-	color: #333;
+	background: #f4f4f4;
+	color: #777;
 	min-height: 20px;
 	padding: 8px 5px 8px 12px;
 	font-weight: bold;
