@@ -53,8 +53,6 @@
                         description : 'Pedido MK no valor de ' + $filter('currency')(data.amount, '') + ' reais'
                     };
 
-                    $log.debug(card);
-
                     var payedPromise = GoPayGateway.pay(card).then(function(data) {
                         return data;
                     }, function(err) {
