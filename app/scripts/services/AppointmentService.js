@@ -14,9 +14,9 @@
       this.isValid = function(entity) {
             var invalidProperty = {};
 
-            //just name and phone are mandatory
-            invalidProperty.name = angular.isDefined(entity.name);
-            invalidProperty.phones = angular.isDefined(entity.phones);
+            //just title and description are mandatory
+            invalidProperty.title = angular.isDefined(entity.title);
+            invalidProperty.description = angular.isDefined(entity.description);
 
             var result = [];
 

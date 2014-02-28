@@ -15,8 +15,15 @@
 					<span class="span6"> <span class="principal">Agenda</span> 
 					</span> <span class="span6">
 					<div class="float-right">
+						<span class="menu-level">
+							<div class="btn-group btn-group-sm" ng-init="ol='orders'">
+								<a class="btn btn-option" ng-click="createAppointment('VISITA')">VISITA</a> 
+								<a class="btn btn-option" ng-click="createAppointment('ENTREGA')">ENTREGA</a>
+								<a class="btn btn-option" ng-click="createAppointment('OUTROS')">OUTROS</a>
+							</div>
+						</span>
 					</div>
-				</span>
+					</span>
 				</div>
 			</div>
 			
@@ -24,6 +31,14 @@
 				<div class="order-table-row" ng-repeat="entity in entities ">
 					<div>
 						<span>{{entity.name}}</span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row-fluid">
+				<div class="order-table-row" ng-repeat="appointment in appointments ">
+					<div>
+						<span>{{appointment.title}}</span>
 					</div>
 				</div>
 			</div>

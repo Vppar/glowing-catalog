@@ -16,7 +16,6 @@
 
 						$scope.entities = EntityService.list();
 						
-						
 						var dtInitial = new Date();
 						dtInitial.setHours(0);
 						dtInitial.setMinutes(0);
@@ -60,6 +59,23 @@
 						//<div ng-repeat="appointment in appointments" ng-click="update([appointment])">
 						$scope.update = function(appointment) {
 							AppointmentsService.updateAppointment(appointment);
+						};
+						
+						
+						$scope.createAppointment = function (type)
+						{
+							var appointment = {
+					                title : 'VISITA NO CLIENTE',
+					                description : 'VISITA DIA 12/01/2014',
+					                date: '12/01/2014',
+					                startTime: '12:00',
+					                endTime: '12:30',
+					                address : {street: 'rua', number: 555, cep: '12222-000'},
+					                contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+					                type : type,
+					                status: 'PENDENTE'
+					        };
+							AppointmentService.create(appointment);
 						};
 
 					});

@@ -66,7 +66,7 @@
                 });
         }).service('AppointmentKeeper', function AppointmentKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Appointment, IdentityService) {
 
-    	var type = 'ff';
+    	var type = 99;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var appointments = [];
