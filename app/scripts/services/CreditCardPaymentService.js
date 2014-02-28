@@ -41,16 +41,18 @@
                     month += data.creditCard.expirationMonth;
                     var validity = month + '/' + year;
 
+                    var formattedAmount = $filter('currency')(data.amount, '');
+
                     var card = {
                         flag : codedFlag,
                         number : data.creditCard.number,
                         holder : data.creditCard.cardholderName,
                         validity : validity,
                         cvv : data.creditCard.cvv,
-                        amount : $filter('currency')(data.amount, ''),
+                        amount : formattedAmount,
                         installments : data.installments,
                         cpf : maskedCpf,
-                        description : 'Pedido MK no valor de ' + $filter('currency')(data.amount, 'R$ ')
+                        description : 'Pedido MK no valor de R$ ' + formattedAmount
                     };
 
                     var payedPromise = GoPayGateway.pay(card).then(function(data) {
