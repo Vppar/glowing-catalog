@@ -72,7 +72,6 @@
                         $scope.creditCardCvvLength = 3;
                         resetCardNumberAndCvv();
                     }
-
                     // Changing from a non-Amex flag to another, do nothing
                 };
 
@@ -94,8 +93,9 @@
                         var minMonth = new Date().getMonth() + 1;
                         var months = [];
                         for ( var ix in DataProvider.date.months) {
-                            if (Number(DataProvider.date.months[ix].id) >= minMonth)
+                            if (Number(DataProvider.date.months[ix].id) >= minMonth) {
                                 months.push(DataProvider.date.months[ix]);
+                            }
                         }
                         $scope.months = months;
                     } else {
