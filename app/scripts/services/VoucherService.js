@@ -192,7 +192,7 @@
                         voucherPromises.push(create(usedAmountVoucher));
                     }
                 } else {
-                    $log.warn('Voucher will be ignored because its amount is 0: ' + JSON.stringify(voucher));
+                    $log.warn('Voucher will be ignored because its amount is 0: ' + JSON.stringify(usedVoucher));
                 }
             }
 
