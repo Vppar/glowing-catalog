@@ -40,7 +40,7 @@
                     var numericMonth = Number(data.creditCard.expirationMonth);
                     var month = numericMonth > 9 ? '' : '0';
                     month += numericMonth;
-                    
+
                     var validity = month + '/' + year;
 
                     var formattedAmount = $filter('currency')(data.amount, '');
