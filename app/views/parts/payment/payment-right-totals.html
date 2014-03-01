@@ -1,7 +1,6 @@
 <div class="title-right">
-	<div>
-		Pagamento
-	</div>
+  <div class="title">Pedido de Venda</div>
+  <div class="order">{{order.code}}</div>
 </div>
 <div class="btns-right-payment right-column-payment">
   	<div class="row-right-payment row-right-payment-client" ng-click="openDialogChooseCustomer()">
@@ -15,18 +14,33 @@
 		    </span>
 		</div>
 	</div>
-	<div class="row-right-payment2">
+
+	<div class="row-right-payment">
+      <span class="container-discount">
+          <span class="label-discount">Desconto</span>
+      </span>
+      <span class=""> 
+        <span class="btn-price-payment">{{total.order.discount | currency:''}}</span>
+        <!-- Remove or fix the ng-hide directive when setting the keyboard up -->
+        <input id="discount" class="btn-price-payment" ng-hide="true" ng-model="total.order.discount" currency focus/>
+      </span>
+	</div>
+
+	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
+		<span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10"  ng-hide="hideExchangeQtde">({{total.payments.exchange | count:'id'}})</span>
+		<span>
+			<span class="btn-price-payment">{{total.payments.exchange | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+
+	<div class="payment-subtotal">
 		<span class="lbl-money2 display-block">
 			<strong class="lbl-money">Subtotal</strong>
 			<span class="lbl-money4">&nbsp;</span>
-			<span class="btn-sub-payment">{{total.order.amount | currency: '' }}</span>
+			<span class="btn-sub-payment">{{total.order.getSubTotal() | currency: '' }}</span>
 		</span>				
-		<span class="lbl-money2 display-block qty-values">
-			<span class="lbl-money4 qntty" ng-show="total.order.qty !== 1"> ({{total.order.qty}}) itens</span>
-			<span class="lbl-money4 qntty" ng-hide="total.order.qty !== 1"> ({{total.order.qty}}) item</span>
-			<span class="lbl-money4 qntty"> ({{total.order.unit}}) unid.</span>
-		</span>
 	</div>
+
 	<div class="row-right-payment" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectMoneyPayment()">
 	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
@@ -48,12 +62,6 @@
 		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10"  ng-hide="hideCardQtde">({{total.payments.creditCard | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{total.payments.creditCard | sum:'amount'| currency:''}}</span>
-		</span>
-	</div>
-	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10"  ng-hide="hideExchangeQtde">({{total.payments.exchange | count:'id'}})</span>
-		<span>
-			<span class="btn-price-payment">{{total.payments.exchange | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('discount')">

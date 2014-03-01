@@ -37,7 +37,7 @@
                         var isNumPadVisible = false;
 
                         // Payment variables
-                        $scope.total = {
+                        var total = {
                             payments : {
                                 cash : [],
                                 check : [],
@@ -50,12 +50,26 @@
                                 amount : 0,
                                 qty : 0,
                                 unit : 0,
+                                discount : 0,
+
+                                // Returns the average price of the units in the order.
                                 getAvgUnitPrice : function () {
                                   return getAverage(this.amount, this.unit);
+                                },
+
+                                // Returns the difference between the total order amount,
+                                // the total discount and the exchanges.
+                                getSubTotal : function () {
+                                  var exchanges = total.payments.exchange;
+                                  var exchangeTotal = exchanges.length ? $filter('sum')($scope.total.payments.exchange, 'amount') : 0;
+                                  var subtotal = this.amount - this.discount - exchangeTotal;
+                                  return subtotal < 0 ? 0 : subtotal;
                                 }
                             },
                             change : 0
                         };
+
+                        $scope.total = total;
 
 
                         function getAverage(amount, count) {
