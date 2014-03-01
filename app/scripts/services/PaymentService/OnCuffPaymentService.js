@@ -4,6 +4,7 @@
     angular.module('tnt.catalog.payment.oncuff.service', [
         'tnt.catalog.entity.service', 'tnt.catalog.payment.service'
     ]).service('OnCuffPaymentService',
+
     /**
      * Service to handle on cuff payment business logic.
      * 
@@ -85,7 +86,7 @@
                 var installment = {};
 
                 installment.number = i + 1;
-                installment.dueDate = this.properDate(firstDueDate, i);
+                installment.dueDate = this.buildDueDate(firstDueDate, i);
                 installment.amount = 0;
 
                 installments.push(installment);
@@ -103,14 +104,18 @@
          * @param firstDueDate - The first duedate of the installments.
          * @param increase - Number of months to increase.
          */
-        this.properDate = function properDate(firstDueDate, increase) {
+        this.buildDueDate = function buildDueDate(firstDueDate, increase) {
             var baseDate = angular.copy(firstDueDate);
 
             var date = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1 + increase, 0);
             if (date.getDate() > baseDate.getDate()) {
                 date = new Date(baseDate.setMonth(baseDate.getMonth() + increase));
             }
-
+            
+            date.setHours(0);
+            date.setMinutes(0);
+            date.setSeconds(0);
+            
             return date;
         };
 
