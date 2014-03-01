@@ -37,8 +37,10 @@
                     var maskedCpf = $filter('cpf')(data.creditCard.cardholderDocument);
 
                     var year = String(data.creditCard.expirationYear).substring(2);
-                    var month = data.creditCard.expirationMonth > 9 ? '' : '0';
-                    month += data.creditCard.expirationMonth;
+                    var numericMonth = Number(data.creditCard.expirationMonth);
+                    var month = numericMonth > 9 ? '' : '0';
+                    month += numericMonth;
+
                     var validity = month + '/' + year;
 
                     var formattedAmount = $filter('currency')(data.amount, '');
