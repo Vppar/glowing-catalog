@@ -50,4 +50,44 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         return installments;
     };
 
+
+
+    // We could calculate the orderTotal here, but since it should already
+    // be calculated in PaymentCtrl, we don't need to calculate it again IMO.
+    this.distributeDiscount = function (orderTotal, discountTotal, orderItems) {
+      var currTotalDiscount = 0;
+
+      for (var idx in orderItems) {
+        var item = orderItems[idx];
+
+        if (!orderTotal || !discountTotal) {
+          item.discount = 0;
+          continue;
+        }
+
+        var itemTotal = item.qty * (item.price || item.cost);
+        var itemShare = itemTotal / orderTotal;
+        var itemDiscount = Math.round(100 * discountTotal * itemShare) / 100;
+
+        var isLastItem = parseInt(idx) === (orderItems.length - 1);
+        var discountTotalProjection = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
+        var discountDoesNotMatch = discountTotalProjection !== discountTotal;
+
+        // Since we're rounding the discounts to the second decimal,
+        // in many cases we'll end up with an inconsistency between the
+        // given total discount and the sum of all individual discounts
+        // of each item. We handle this case by adjusting the value for
+        // the last item if needed, not allowing the sum of all discounts
+        // to be greater than the given total discount.
+        
+        if (isLastItem && discountDoesNotMatch) {
+          itemDiscount = Math.round(100 * (discountTotal - currTotalDiscount)) / 100;
+        }
+
+        currTotalDiscount += itemDiscount;
+
+        item.discount = itemDiscount;
+      }
+    };
+
 });
