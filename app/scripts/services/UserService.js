@@ -74,8 +74,7 @@
                 return onlineLoginErrorHandler(err, user, pass);
             });
 
-            // FIXME: This should initialize warm up data during development.
-            // Should be removed ASAP!
+            // FIXME need to check if this is really needed...
             loggedPromise.then(function () {
               SyncService.resync();
             });

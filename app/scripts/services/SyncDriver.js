@@ -16,6 +16,7 @@
         var userRef = null;
         var journalRef = null;
         var syncingFlagRef = null;
+        var warmUpRef = null;
 
         var firebaseSyncStartTime = null;
         var firebaseSyncStartTime2 = null;
@@ -24,11 +25,6 @@
           setFirebaseReferences(localStorage.firebaseUser);
         }
 
-        $rootScope.$on('SyncStop', function () {
-          if (syncingFlagRef) {
-            syncingFlagRef.remove();
-          }
-        });
 
         function isFirebaseBusy() {
           return !!firebaseSyncStartTime && firebaseSyncStartTime !== firebaseSyncStartTime2;
@@ -41,8 +37,22 @@
         };
         this.isConnected = isConnected;
         
-        this.lock = function (successCb, failureCb) {
-          $log.debug('Trying to lock the user journal for synchronizing this device');
+
+        function unlock() {
+          if (syncingFlagRef) {
+            syncingFlagRef.remove();
+            $log.debug('Unlocking journal...');
+          }
+        }
+
+        this.unlock = unlock;
+
+
+        function lock(successCb, failureCb) {
+          $log.debug('Trying to lock the user journal for this device');
+
+          var deferred = $q.defer();
+
           syncingFlagRef.transaction(function (currentValue) {
             // Ooops! Another device got our slot! Abort synchronization!
             if (!currentValue) {
@@ -50,23 +60,44 @@
             }
           }, function (err, committed, snapshot) {
             if (err) {
-              failureCb(err);
+              $log.debug('An error occurred while trying to lock the journal!', err);
+              deferred.reject(err);
             } else {
               if (committed) {
                 firebaseSyncStartTime2 = snapshot.val();
-                $log.debug('Firebase user journal locked!');
-                successCb(snapshot.val());
+                $log.debug('User journal locked for this device!');
+                deferred.resolve(firebaseSyncStartTime2);
               } else {
-                failureCb('Firebase already being synced!');
+                $log.debug('User journal already locked!');
+                deferred.resolve(false);
               }
             }
           });
+
+          deferred.promise.then(function (result) {
+            // result is a valid timestamp
+            if (result || result === 0) {
+              // if a success callback was given, call it
+              return successCb && successCb(result);
+            }
+
+            return failureCb && failureCb('Journal already locked!');
+          }, function (err) {
+            // If a failure callback was given, call it
+            return failureCb && failureCb(err);
+          });
+
+          return deferred.promise;
         };
+
+        this.lock = lock;
+
 
         function setFirebaseReferences(username) {
             userRef = baseRef.child('users').child(username.replace(/\.+/g, '_'));
             journalRef = userRef.child('journal');
             syncingFlagRef = userRef.child('syncing');
+            warmUpRef = userRef.child('warmup');
         }
 
         // TODO implement rememberMe
@@ -130,7 +161,9 @@
                           delete localStorage.gpToken;
                       }
                   });
+          });
 
+          deferred.promise.then(function () {
               syncingFlagRef.onDisconnect().remove();
 
               syncingFlagRef.on('value', function (snapshot) {
@@ -141,7 +174,34 @@
                   $rootScope.$broadcast('FirebaseBusy', syncing) :
                   $rootScope.$broadcast('FirebaseIdle');
               });
+          });
 
+          deferred.promise.then(function () {
+              var deferred = $q.defer();
+
+              warmUpRef
+                  .child('lastUpdated')
+                  .on('value', function (snapshot) {
+                      if (snapshot) {
+                          var lastUpdated = snapshot.val();
+                          if (lastUpdated !== parseInt(localStorage.warmUpLastUpdated)) {
+                              deferred.resolve(updateLocalWarmUpData());
+                          } else {
+                              $log.debug('Local warmup data is up-to-date.');
+                              deferred.resolve();
+                          }
+                      } else {
+                          $log.fatal('User has no initial data!');
+                          deferred.reject('No initial data for this user!');
+                          // FIXME Should we create some default initial data?
+                          // Like stock 0 for all products?
+                      }
+                  });
+
+              return deferred.promise;
+          });
+
+          deferred.promise.then(function () {
               // Broadcast the event once everything is ready
               $rootScope.$broadcast('FirebaseConnected');
           });
@@ -156,6 +216,52 @@
           return deferred.promise;
         };
 
+
+        function updateLocalWarmUpData() {
+            if (!warmUpRef) {
+                throw('Local warm up data can only be updated after a connection to Firebase has been established!');
+            }
+
+            var deferred = $q.defer();
+
+            warmUpRef
+                .once('value', function (snapshot) {
+                    if (snapshot) {
+                        var warmUpData = snapshot.val();
+                        localStorage.warmUpLastUpdated = warmUpData.lastUpdated;
+                        localStorage.warmUpData = JSON.stringify(warmUpData.entries);
+                        $log.debug('Local warm up data updated!');
+                        $rootScope.$broadcast('WarmUpDataUpdated');
+                        deferred.resolve();
+                    } else {
+                        $log.debug('This user has no warm up data!');
+                        deferred.reject('No warm up data for this user!');
+                    }
+                });
+
+            return deferred.promise;
+        }
+
+
+        function fetchJournal() {
+          $log.debug('Fetching journal data...');
+          var deferred = $q.defer();
+
+          journalRef
+            .once('value', function (snapshot) {
+              if (snapshot) {
+                var journal = snapshot.val() || [];
+                $log.debug('Journal data fetched.', journal);
+                deferred.resolve(journal);
+              } else {
+                deferred.resolve([]);
+              }
+            });
+
+          return deferred.promise;
+        }
+
+        this.fetchJournal = fetchJournal;
 
 
         this.logout = function( ) {
@@ -178,40 +284,42 @@
 
         this.registerSyncService =
           function(SyncService) {
-            journalRef.startAt(SyncService.getLastSyncedSequence() + 1).on(
-              'child_added',
-              function(snapshot) {
-                var entry = snapshot.val();
-                $rootScope.$broadcast('EntryReceived', entry);
-              });
+            journalRef
+                .startAt(SyncService.getLastSyncedSequence() + 1)
+                .on('child_added', function(snapshot) {
+                    var entry = snapshot.val();
+                    $rootScope.$broadcast('EntryReceived', entry);
+                });
           };
 
         this.save = function(entry) {
           var deferred = $q.defer();
 
           if (journalRef) {
-            journalRef.child(entry.sequence).transaction(function(currentValue) {
-              if (currentValue === null) {
-                entry.synced = new Date().getTime();
+            journalRef
+                .child(entry.sequence)
+                .transaction(function(currentValue) {
+                    if (currentValue === null) {
+                        entry.synced = new Date().getTime();
 
-                return {
-                  '.value' : entry,
-                  '.priority' : entry.sequence
-                };
-              }
-            }, function(error, committed, snapshot) {
-              if (committed) {
-                // Entry stored
-                deferred.resolve();
-              } else if (error) {
-                // Failed to store entry
-                deferred.reject(error);
-              } else {
-                // Entry already exists
-                var message = 'Duplicate entry sequence!';
-                deferred.reject(message);
-              }
-            });
+                        return {
+                            '.value' : entry,
+                            '.priority' : entry.sequence
+                        };
+                    }
+                }, function(error, committed, snapshot) {
+                    if (committed) {
+                        // Entry stored
+                        deferred.resolve();
+                    } else if (error) {
+                        // Failed to store entry
+                        deferred.reject(error);
+                    } else {
+                        // Entry already exists
+                        var message = 'Duplicate entry sequence!';
+                        deferred.reject(message);
+                    }
+                });
           }
 
           return deferred.promise;

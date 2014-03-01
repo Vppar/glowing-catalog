@@ -330,7 +330,7 @@
         /**
          * Resyncs the local in-memory data on the keepers based on the persisted
          */
-        this.resync = function() {
+        function resync() {
             return registered.then(function () {
                 var deferred = $q.defer();
                 var promises = [];
@@ -380,7 +380,9 @@
                 
                 return deferred.promise;
             });
-        };
+        }
+
+        this.resync = resync;
 
 
         /**
@@ -395,24 +397,36 @@
         };
 
 
+
         // Inserts warmup data into the app
         // FIXME Should be removed ASAP, once we implement another method
         // for inserting that warm up data.
         function insertWarmUpData() {
-            var deferred = $q.defer();
+            if (localStorage.warmUpData) {
+              var warmUpData = JSON.parse(localStorage.warmUpData);
+              var promises = [];
 
-            $.get( 'resources/replay.json', function(result) {
-                for ( var ix in result) {
-                    var data = result[ix];
-                    var item = new JournalEntry(0, 0, data.type, data.version, data.event);
-                    Replayer.replay(item);
-                }
-                $rootScope.$broadcast('DataProvider.replayFinished');
-                deferred.resolve();
-            });
-            
+              $log.debug('Replaying warm up data...');
+
+              for (var idx in warmUpData) {
+                var data = warmUpData[idx];
+                var entry = new JournalEntry(0, 0, data.type, data.version, data.event);
+                promises.push(Replayer.replay(entry));
+              }
+
+              return $q.all(promises).then(function () {
+                $log.debug('Warm up data replayed.');
+                $rootScope.$broadcast('ReplayWarmUpDataEnd');
+              });
+            }
+
+            // Return a resolved promise
+            var deferred = $q.defer();
+            deferred.resolve();
             return deferred.promise;
         }
+
+        this.insertWarmUpData = insertWarmUpData;
 
 
         function persistEntry (entry) {
