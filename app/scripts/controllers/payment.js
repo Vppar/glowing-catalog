@@ -49,10 +49,19 @@
                             order : {
                                 amount : 0,
                                 qty : 0,
-                                unit : 0
+                                unit : 0,
+                                getAvgUnitPrice : function () {
+                                  return getAverage(this.amount, this.unit);
+                                }
                             },
                             change : 0
                         };
+
+
+                        function getAverage(amount, count) {
+                          return count ? Math.round(100 * (parseFloat(amount) / parseFloat(count))) / 100 : 0;
+                        }
+
 
                         /**
                          * Gets the current cash amount from the cash payments

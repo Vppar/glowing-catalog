@@ -1,18 +1,19 @@
-<div class="title-left">
-	<div>
-		Pedido de venda
-	</div>
-	<!--<div class="payment-send">
-		<img src="images/icons/payment-send.png">
-	</div>-->
-</div>
 <div class="left-payment">
 	<div class="header">
 		<span class="col-1">Item</span>
 		<span class="col-2">Produto/C&oacute;digo</span>
 		<span class="col-3">Vr Unit.</span>
 		<span class="col-4">Qtde</span>
-		<span class="col-5 marginl8">Vr Total</span>
+		<span class="col-5">Vr Total</span>
+		<span class="col-6 marginl8">Desc</span>
+	</div>
+	<div class="summary">
+    <span class="col-1">{{total.order.qty}}</span>
+		<span class="col-2">Total</span>
+    <span class="col-3">{{total.order.getAvgUnitPrice() | currency:''}}</span>
+    <span class="col-4">{{total.order.unit}}</span>
+    <span class="col-5">{{total.order.amount | currency:''}}</span>
+    <span class="col-6 marginl8">{{total.order.discount | currency:''}}</span>
 	</div>
 	<div class="content-scroll">
 		<div ng-repeat="item in items | orderBy:'idx'" ng-click="addToBasket(item)">
@@ -22,6 +23,7 @@
 			<span class="col-3">{{item.price | currency: ''}}</span>
 			<span class="col-4">{{item.qty}}</span>
 			<span class="col-5">{{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
+      <span class="col-6">{{item.discount | currency:''}}</span>
 		</div>
 	</div>
 </div>
