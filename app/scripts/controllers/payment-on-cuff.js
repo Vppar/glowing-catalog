@@ -1,115 +1,136 @@
 (function(angular) {
     'use strict';
 
-    angular.module(
-            'tnt.catalog.payment.oncuff',
-            [
-                'tnt.catalog.service.coupon', 'tnt.catalog.service.dialog', 'tnt.catalog.misplaced.service', 'tnt.catalog.payment.service',
-                'tnt.catalog.payment.entity'
-            ]).controller(
-            'PaymentOnCuffCtrl',
-            function($filter, $scope, $log, DialogService, EntityService, OrderService, Misplacedservice, PaymentService, OnCuffPayment) {
-                var emptyInstallmentTemplate = {
-                    installment : 1,
-                    dueDate : null,
-                    amount : 0
+    angular.module('tnt.catalog.payment.oncuff.ctrl', [
+        'tnt.catalog.service.dialog', 'tnt.catalog.order.service', 'tnt.catalog.payment.oncuff.service', 'tnt.catalog.misplaced.service'
+    ]).controller('PaymentOnCuffCtrl',
+
+    /**
+     * Controller to handle payment-left-on-cuff screen.
+     * 
+     * @param {Object} $scope - Angular execution context.
+     * @param {function} $filter - Angular filter service.
+     * @param {function} $log - Angular log service.
+     * @param {DialogService} DialogService - Handles all dialog message box.
+     * @param {OnCuffPaymentService} OnCuffPaymentService - Handles the business
+     *            logic of this controller.
+     * @param {Misplacedservice} Misplacedservice - Generate installments to
+     *            general payments.
+     */
+    function PaymentOnCuffCtrl($scope, $filter, $log, DialogService, OrderService, OnCuffPaymentService, Misplacedservice) {
+
+        // Block undesired access.
+        shouldOpenOnCuff(DialogService, $scope.total.change);
+
+        // #####################################################################################################
+        // Local variables
+        // #####################################################################################################
+
+        /** @type {Date} TODAY - Reference date. */
+        var TODAY = new Date();
+        TODAY.setHours(0);
+        TODAY.setMinutes(0);
+        TODAY.setSeconds(0);
+
+        /** @type {Object} - Provide easier access to the sale order entity. */
+        var order = angular.copy(OrderService.order);
+        /**
+         * @type {function} - Inherited selectPaymentMethod function from parent
+         *       scope.
+         */
+        var selectPaymentMethod = $scope.selectPaymentMethod;
+        /** @type {function} - Inherited change amount. */
+        var paymentChange = $scope.total.change;
+
+        // #####################################################################################################
+        // Local functions
+        // #####################################################################################################
+
+        /**
+         * Test if there is any amount left of the order, if there is allow
+         * entrance, if not, send a warning dialog and kick the user out.
+         * 
+         * @param {DialogService} - Service that handle dialogs.
+         * @param {number} - Order change amount
+         */
+        function shouldOpenOnCuff(dialogService, paymentChange) {
+            if (paymentChange >= 0) {
+                var dialogData = {
+                    title : 'Contas a receber',
+                    message : 'Não há saldo a receber neste pedido de venda.',
+                    btnYes : 'OK'
                 };
-                $scope.dateMin = new Date();
-                // Compute amount and installments and compute.
-                $scope.computeInstallments = function computeInstallments() {
-                    $scope.payments = [];
-                    var payment = {};
-                    angular.extend(payment, emptyInstallmentTemplate);
-                    payment.dueDate = $scope.dueDate;
-                    payment.amount = $scope.amount;
-                    payment.installment = $scope.installmentQty;
-                    createInstallment(payment, $scope.dueDate);
-                    $scope.payments = Misplacedservice.recalc($scope.amount, -1, $scope.payments, 'amount');
-                };
-
-                $scope.valueCheck = function valueCheck(index) {
-                    $scope.payments = Misplacedservice.recalc($scope.amount, index, $scope.payments, 'amount');
-                };
-
-                // We need to call the first time to compute within initial
-                // values.
-
-                $scope.confirmOnCuffPayment = function confirmOnCuffPayment() {
-                    PaymentService.clear('onCuff');
-                    for ( var ix in $scope.payments) {
-                        var data = $scope.payments[ix];
-                        if (data.amount > 0) {
-                            var payment = new OnCuffPayment(data.amount, data.dueDate);
-                            payment.installment = data.installment;
-                            PaymentService.add(payment);
-                        }
-                    }
-                    $scope.selectPaymentMethod('none');
-                };
-
-                function createInstallment(payment, baseDate) {
-                    for ( var ix = 0; ix < payment.installment; ix++) {
-                        var pay = {};
-                        var copyDate = angular.copy(baseDate);
-                        angular.extend(pay, emptyInstallmentTemplate);
-                        pay.dueDate = properDate(copyDate, ix);
-                        pay.installment = ix + 1;
-                        $scope.payments.push(pay);
-                    }
-                }
-
-                function properDate(baseDate, increase) {
-                    var date = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1 + increase, 0);
-                    if (date.getDate() > baseDate.getDate()) {
-                        date = new Date(baseDate.setMonth(baseDate.getMonth() + increase));
-                    }
-                    return date;
-                }
-
-                // #####################################################################################################
-                // Warm up the controller
-                // #####################################################################################################
-                $scope.payments = [];
-                $scope.payments = PaymentService.list('onCuff');
-                var order = OrderService.order;
-
-                // find customer
-                $scope.customer = $filter('findBy')(EntityService.list(), 'uuid', order.customerId);
-
-                $scope.amount = 0;
-                if ($scope.payments.length === 0) {
-                    $scope.installmentQty = 1;
-                    $scope.dueDate = new Date();
-                    if ($scope.total.change < 0) {
-                        $scope.amount = $scope.total.change * -1;
-                    } else {
-                        // show dialog
-                        DialogService.messageDialog({
-                            title : 'Contas a receber',
-                            message : 'Não há saldo a receber neste pedido de venda.',
-                            btnYes : 'OK'
-                        }).then(function() {
-                            $scope.selectPaymentMethod('none');
-                        });
-
-                    }
-                    $scope.computeInstallments();
-                } else {
-                    $scope.amount = $filter('sum')($scope.payments, 'amount');
-                    $scope.installmentQty = $scope.payments.length;
-                    $scope.dueDate = new Date($scope.payments[0].dueDate);
-                }
-
-                $scope.$watch('dueDate', function(val, old) {
-                    if (val !== old && val && angular.isDate(val)) {
-                        $scope.computeInstallments();
-                    }
+                dialogService.messageDialog(dialogData).then(function() {
+                    selectPaymentMethod('none');
                 });
-                $scope.$watch('amount', function(val, old) {
-                    if (val !== old) {
-                        $scope.computeInstallments();
-                    }
-                });
+            }
+        }
 
-            });
+        // #####################################################################################################
+        // Scope variables
+        // #####################################################################################################
+
+        /** @type {Object} - Declaring onCuff reference object. */
+        $scope.onCuff = OnCuffPaymentService.buildOnCuffRef(paymentChange, order);
+
+        /**
+         * @type {Object} - Date to be used by datepicker as minimum date
+         *       allowed.
+         */
+        $scope.TODAY = angular.copy(TODAY);
+
+        // #####################################################################################################
+        // Scope functions
+        // #####################################################################################################
+
+        /**
+         * Recalculate installments amount on change.
+         * 
+         * @param index - Index of changed installment amount.
+         */
+        $scope.recalcInstallments = function recalcInstallments(index) {
+            var onCuff = $scope.onCuff;
+            onCuff.installments = Misplacedservice.recalc(onCuff.amount, index, onCuff.installments, 'amount');
+        };
+
+        /**
+         * Register on PaymentService temporary storage the onCuff payments and
+         * go home.
+         */
+        $scope.confirmOnCuffPayment = function confirmOnCuffPayment() {
+            var installments = $scope.onCuff.installments;
+
+            OnCuffPaymentService.registerInstallments(installments);
+
+            selectPaymentMethod('none');
+        };
+
+        // #####################################################################################################
+        // Watchers
+        // #####################################################################################################
+
+        /**
+         * OnCuff reference watchers.
+         * 
+         * Every amount change, will update all onCuff installments.
+         */
+        $scope.$watch('onCuff.amount', function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments($scope.onCuff);
+            }
+
+        });
+
+        /**
+         * OnCuff reference watchers.
+         * 
+         * Every duedate will update all onCuff installments.
+         */
+        $scope.$watch('onCuff.dueDate', function(newVal, oldVal) {
+            // Test newVal to see if it is a valid date.
+            if (newVal && angular.isDate(newVal) && newVal !== oldVal) {
+                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments($scope.onCuff);
+            }
+        });
+    });
 }(angular));
