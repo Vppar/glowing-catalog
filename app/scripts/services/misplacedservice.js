@@ -31,6 +31,8 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
                 fixed = fixed ? fixed : floor((total - gone) / (installments.length - ix));
                 var val = 0;
 
+                /*jshint eqeqeq:false */
+                // FIXME why does === fails here?
                 if (ix == (installments.length - 1)) {
                     val = round(total - gone);
                 } else {

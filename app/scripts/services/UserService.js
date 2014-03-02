@@ -64,7 +64,7 @@
             return result;
         };
 
-        this.login = function(user, pass, rememberMe) {
+        this.login = function(user, pass) {
             var onlineLoggedPromise = this.loginOnline(user, pass);
             var loggedIn = this.loggedIn;
             var onlineLoginErrorHandler = this.onlineLoginErrorHandler;
@@ -77,7 +77,7 @@
             // FIXME: This should initialize warm up data during development.
             // Should be removed ASAP!
             loggedPromise.then(function () {
-              SyncService.resync();
+                SyncService.resync();
             });
 
             return loggedPromise;
