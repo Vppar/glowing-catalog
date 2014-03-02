@@ -93,6 +93,63 @@ describe('PaymentCtrl', function () {
 
 
 
+  describe('order subtotal', function () {
+    var orderTotal = 50;
+    var order;
+    var total;
+
+    beforeEach(initController);
+
+    beforeEach(function () {
+      total = $scope.total;
+      order = total.order;
+
+      order.amount = orderTotal;
+      $scope.$apply();
+
+      // Make sure we always have the expected subTotal
+      expect(order.subTotal).toBe(orderTotal);
+    });
+
+
+    it('is updated when the order total changes', function () {
+      var newOrderTotal = 100;
+
+      order.amount = newOrderTotal;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(newOrderTotal);
+    });
+
+
+    it('is updated when order discount changes', function () {
+      order.discount = 25;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(order.amount - order.discount);
+    });
+
+
+    it('is updated when exchanged products total changes', function () {
+      total.paymentsExchange = 25;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(order.amount - total.paymentsExchange);
+    });
+
+
+    it('subtracts discount and total exchanges from order amount', function () {
+      order.discount = 10;
+      total.paymentsExchange = 15;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(order.amount - order.discount - total.paymentsExchange);
+    });
+  }); // order subtotal
+
+
+
+
 
   ///////////////////////////////////////////////
   // Initialization functions

@@ -51,25 +51,48 @@
                                 qty : 0,
                                 unit : 0,
                                 discount : getTotalDiscount(),
+                                subTotal : 0,
 
                                 // Returns the average price of the units in the order.
                                 getAvgUnitPrice : function () {
                                   return getAverage(this.amount, this.unit);
                                 },
-
-                                // Returns the difference between the total order amount,
-                                // the total discount and the exchanges.
-                                getSubTotal : function () {
-                                  var exchanges = total.payments.exchange;
-                                  var exchangeTotal = exchanges.length ? $filter('sum')($scope.total.payments.exchange, 'amount') : 0;
-                                  var subtotal = this.amount - this.discount - exchangeTotal;
-                                  return subtotal < 0 ? 0 : subtotal;
-                                }
                             },
                             change : 0
                         };
 
+
+                        // Holds the total amount paid in exchanged products.
+                        total.paymentsExchange = 0;
+
+
                         $scope.total = total;
+
+
+                        // Set initial subTotal when the controller is loaded
+                        updateSubTotal();
+
+                        $scope.$watch('total.order.amount', updateSubTotal);
+                        $scope.$watch('total.order.discount', updateSubTotal);
+                        $scope.$watch('total.paymentsExchange', updateSubTotal);
+
+                        $scope.$watchCollection('total.payments.exchange', function () {
+                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
+                        });
+
+
+                        function updateSubTotal() {
+                          total.order.subTotal = getSubTotal();
+                        }
+
+
+                        // Returns the difference between the total order amount,
+                        // the total discount and the exchanges.
+                        function getSubTotal() {
+                          var exchanges = total.payments.exchange;
+                          var subtotal = total.order.amount - total.order.discount - total.paymentsExchange;
+                          return subtotal < 0 ? 0 : subtotal;
+                        }
 
 
                         function getTotalDiscount() {
