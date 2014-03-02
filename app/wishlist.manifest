@@ -98,7 +98,7 @@ scripts/controllers/payment-coupon.js
 scripts/controllers/payment-creditcard.js
 scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
-scripts/controllers/payment-on-cuff.js
+scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
 scripts/controllers/products-to-buy/products-to-buy.js
 scripts/controllers/products-to-buy/products-to-buy-order.js

@@ -48,7 +48,7 @@
                 'tnt.catalog.gopay.integration',
                 'tnt.catalog.components.catalog-highlights',
                 'tnt.catalog.inventory',
-                'tnt.catalog.payment.oncuff',
+                'tnt.catalog.payment.oncuff.ctrl',
                 'tnt.catalog.payment.coupon',
                 'tnt.catalog.keyboard.input',
                 'tnt.catalog.voucher.ctrl',
