@@ -143,8 +143,7 @@
          * @return {Object} installments - Recalculated installments.
          */
         this.recalcInstallments = function recalcInstallments(index, onCuff) {
-            var installments = angular.copy(onCuff.installments);
-            return Misplacedservice.recalc(onCuff.amount, index, installments, 'amount');
+            return Misplacedservice.recalc(onCuff.amount, index, onCuff.installments, 'amount');
         };
 
     });

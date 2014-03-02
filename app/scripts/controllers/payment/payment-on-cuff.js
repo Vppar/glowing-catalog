@@ -88,7 +88,7 @@
          */
         $scope.recalcInstallments = function recalcInstallments(index) {
             var onCuff = $scope.onCuff;
-            onCuff.installments = OnCuffPaymentService.recalcInstallments(index, onCuff);
+            OnCuffPaymentService.recalcInstallments(index, onCuff);
         };
 
         /**
