@@ -9,15 +9,15 @@
      * Controller to handle payment-left-on-cuff screen.
      * 
      * @param {Object} $scope - Angular execution context.
-     * @param {function} $log - Angular log service.
+     * @param {OrderService} OrderService - Handles sale orders operations.
      * @param {DialogService} DialogService - Handles all dialog message box.
      * @param {OnCuffPaymentService} OnCuffPaymentService - Handles the business
      *            logic of this controller.
      */
-    function PaymentOnCuffCtrl($scope, $log, DialogService, OrderService, OnCuffPaymentService) {
+    function PaymentOnCuffCtrl($scope, DialogService, OrderService, OnCuffPaymentService) {
 
         // Block undesired access.
-        shouldOpenOnCuff(DialogService, $scope.total.change);
+        shouldOpen(DialogService, $scope.total.change);
 
         // #####################################################################################################
         // Local variables
@@ -50,8 +50,8 @@
          * @param {DialogService} - Service that handle dialogs.
          * @param {number} - Order change amount
          */
-        function shouldOpenOnCuff(dialogService, paymentChange) {
-            if (paymentChange >= 0) {
+        function shouldOpen(dialogService, paymentChange) {
+            if (paymentChange > 0) {
                 var dialogData = {
                     title : 'Contas a receber',
                     message : 'Não há saldo a receber neste pedido de venda.',
@@ -62,13 +62,14 @@
                 });
             }
         }
+        this.shouldOpen = shouldOpen;
 
         // #####################################################################################################
         // Scope variables
         // #####################################################################################################
 
         /** @type {Object} - Declaring onCuff reference object. */
-        $scope.onCuff = OnCuffPaymentService.buildOnCuffRef(orderRemaining, order);
+        $scope.onCuff = OnCuffPaymentService.buildOnCuffRef(orderRemaining, order.customerId);
 
         /**
          * @type {Object} - Date to be used by datepicker as minimum date
@@ -87,7 +88,7 @@
          */
         $scope.recalcInstallments = function recalcInstallments(index) {
             var onCuff = $scope.onCuff;
-            onCuff.installments = Misplacedservice.recalc(onCuff.amount, index, onCuff.installments, 'amount');
+            onCuff.installments = OnCuffPaymentService.recalInstallments(index, onCuff);
         };
 
         /**
@@ -109,11 +110,17 @@
         /**
          * OnCuff reference watchers.
          * 
-         * Every amount change, will update all onCuff installments.
+         * Every number of installments change, will update all onCuff installments.
          */
-        $scope.$watch('onCuff.amount', function(newVal, oldVal) {
+        $scope.$watch('onCuff.numberOfInstallments', function(newVal, oldVal) {
             if (newVal !== oldVal) {
-                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments($scope.onCuff);
+                var onCuff = $scope.onCuff;
+
+                var numberOfInstallments = onCuff.numberOfInstallments;
+                var firstDueDateTime = onCuff.duedate.getTime();
+                var amount = onCuff.amount;
+
+                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments(numberOfInstallments, firstDueDateTime, amount);
             }
 
         });
@@ -123,10 +130,16 @@
          * 
          * Every duedate will update all onCuff installments.
          */
-        $scope.$watch('onCuff.dueDate', function(newVal, oldVal) {
+        $scope.$watch('onCuff.duedate', function(newVal, oldVal) {
             // Test newVal to see if it is a valid date.
             if (newVal && angular.isDate(newVal) && newVal !== oldVal) {
-                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments($scope.onCuff);
+                var onCuff = $scope.onCuff;
+
+                var numberOfInstallments = onCuff.numberOfInstallments;
+                var firstDueDateTime = onCuff.duedate.getTime();
+                var amount = onCuff.amount;
+
+                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments(numberOfInstallments, firstDueDateTime, amount);
             }
         });
     });

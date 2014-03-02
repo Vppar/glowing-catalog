@@ -39,7 +39,7 @@
 								datepicker-popup="dd/MM/yyyy"
 								min="TODAY" 
 								show-weeks="false" 
-								ng-model="dueDate" 
+								ng-model="onCuff.duedate" 
 								maxlength="8" 
 								tnt-input
 								readonly 								
@@ -53,7 +53,7 @@
 							class="input-block-level payment-input-large text-right" 
 							id="amount" 
 							type="text" 
-							ng-model="amount" 
+							ng-model="onCuff.amount" 
 							currency  
 							readonly
 						/>
@@ -88,10 +88,10 @@
 									<div>
 										<input 
 											class="item w138 text-center payment-input-large"
-											id="{{'dueDate' + $index}}"
+											id="{{'duedate' + $index}}"
 											datepicker-popup="dd/MM/yyyy" 
 											show-weeks="false" 
-											ng-model="installment.dueDate"
+											ng-model="installment.duedate"
 											tnt-input  
 											maxlength="8" 
 											readonly

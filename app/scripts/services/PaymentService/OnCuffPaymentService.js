@@ -30,10 +30,8 @@
                 // FIXME - this allows some installments be lost and no one will
                 // know.
                 if (installment.amount > 0) {
-                    var onCuffPayment = new OnCuffPayment(installment.amount, installment.dueDate);
-                    // TODO - Change installment to number or number to
-                    // installment
-                    onCuffPayment.installment = installment.number;
+                    var onCuffPayment = new OnCuffPayment(installment.amount, installment.duedate);
+                    onCuffPayment.number = installment.number;
 
                     PaymentService.add(onCuffPayment);
                 }
@@ -55,7 +53,7 @@
                 var installment = {};
 
                 installment.number = i + 1;
-                installment.dueDate = this.buildDueDate(firstDueDateTime, i);
+                installment.duedate = this.buildDueDate(firstDueDateTime, i);
                 installment.amount = 0;
 
                 installments.push(installment);
@@ -77,13 +75,13 @@
             var onCuff = {
                 customer : null,
                 numberOfInstallments : null,
-                dueDate : null,
+                duedate : null,
                 amount : null,
                 installments : null
             };
 
             onCuff.customer = EntityService.read(entityUUID);
-
+            
             var recoveredInstallments = PaymentService.list('onCuff');
 
             if (recoveredInstallments.length === 0) {
@@ -93,12 +91,12 @@
                 today.setSeconds(0);
 
                 onCuff.numberOfInstallments = 1;
-                onCuff.dueDate = today;
+                onCuff.duedate = today;
                 onCuff.amount = remainingAmount;
-                onCuff.installments = this.buildInstallments(onCuff.numberOfInstallments, onCuff.dueDate.getTime(), onCuff.amount);
+                onCuff.installments = this.buildInstallments(onCuff.numberOfInstallments, onCuff.duedate.getTime(), onCuff.amount);
             } else {
                 onCuff.numberOfInstallments = recoveredInstallments.length;
-                onCuff.dueDate = new Date(recoveredInstallments[0].dueDate);
+                onCuff.duedate = new Date(recoveredInstallments[0].duedate.getTime());
                 onCuff.amount = $filter('sum')(recoveredInstallments, 'amount');
                 onCuff.installments = recoveredInstallments;
             }
@@ -126,6 +124,11 @@
             date.setSeconds(0);
 
             return date;
+        };
+
+        this.recalcInstallments = function recalcInstallments(index, onCuff) {
+            var installments = angular.copy(onCuff.installments);
+            return Misplacedservice.recalc(onCuff.amount, index, installments, 'amount');
         };
 
     });
