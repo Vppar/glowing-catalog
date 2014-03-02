@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: OnCuffPaymentServiceBuildInstallmentsSpec\n', function() {
+describe('Service: OnCuffPaymentServiceBuildInstallmentsSpec\n', function() {
 
     var OnCuffPaymentService = null;
     var EntityService = null;
