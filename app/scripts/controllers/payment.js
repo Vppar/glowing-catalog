@@ -50,7 +50,7 @@
                                 amount : 0,
                                 qty : 0,
                                 unit : 0,
-                                discount : 0,
+                                discount : getTotalDiscount(),
 
                                 // Returns the average price of the units in the order.
                                 getAvgUnitPrice : function () {
@@ -70,6 +70,17 @@
                         };
 
                         $scope.total = total;
+
+
+                        function getTotalDiscount() {
+                          var totalDiscount = 0;
+
+                          for (var idx in order.items) {
+                            totalDiscount += order.items[idx].discount || 0;
+                          }
+
+                          return totalDiscount;
+                        }
 
 
                         function getAverage(amount, count) {
@@ -411,6 +422,9 @@
                                         });
                             }
                         }
+
+
+
 
                         /**
                          * Main function responsible for chaining the
