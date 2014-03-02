@@ -8,6 +8,14 @@ describe('Controller: HeaderCtrl', function() {
     var os = {};
     var location = {};
     var UserService = {};
+    var element = {};
+    element.find = jasmine.createSpy('element.find').andCallFake(function () {
+        return {
+            css : function () {
+            }
+        };
+    });
+    
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope) {
         // $location mock
@@ -32,7 +40,8 @@ describe('Controller: HeaderCtrl', function() {
             $location : location,
             OrderService : os,
             DialogService : ds,
-            UserService : UserService
+            UserService : UserService,
+            $element: element
         });
     }));
 

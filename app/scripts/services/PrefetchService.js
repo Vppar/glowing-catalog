@@ -6,6 +6,10 @@
     function PrefetchService($q, $http, $log, DialogService) {
 
       this.doIt = function() {
+          console.log('doIt should no longer be necessary');
+      };
+      
+      function oldDoIt(){
         // cache warmUp
         $http.get('wishlist.manifest').success(function(data) {
           var list = data.split(/\n/);

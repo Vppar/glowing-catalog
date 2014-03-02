@@ -70,18 +70,20 @@
                   	<li>
 	                    <a href="#/login">login</a>
 	                </li>
-                <li>
-                    <a class="hover-state-pointer gren-item-menu" ng-click="openDialogChangePass()">Trocar Senha</a>
-                </li>
-                
-                <li>
+	                <li>
+	                    <a class="hover-state-pointer gren-item-menu" ng-click="openDialogChangePass()">Trocar Senha</a>
+	                </li>
+               		<li>
 	                    <a href="#/book-keeping-report">book keeping report</a>
 	                </li>
+	                <li>
+                    	<a class="cache-refresh" ng-click="updateCache()">update cache</a>
+                  	</li>
                 
             </ul>
             <!-- dev-menu end -->
         </li>
-<img class="loading-icon" ng-show="false" src="images/loading_20.gif"/>
+		<img class="loading-icon" src="images/loading_20.gif" ng-click="updateCache()"/>
         <li class="dropdown" >
             
             <!-- Trigger -->
