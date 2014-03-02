@@ -20,7 +20,8 @@ describe('PaymentCtrl', function () {
     InventoryKeeperMock,
     CashPayment,
     EntityServiceMock,
-    UserServiceMock;
+    UserServiceMock,
+    MisplacedServiceMock;
 
   var PaymentCtrl;
 
@@ -75,7 +76,22 @@ describe('PaymentCtrl', function () {
         expect($scope.items).toBe(items);
         expect($scope.total.order.discount).toBe(totalDiscount);
       });
-  });
+
+
+    it('is distributed accross all products when changed', function () {
+      $scope.total.order.discount = 70;
+      $scope.$apply();
+
+      var orderTotal = $scope.total.order.amount;
+      var discountTotal = $scope.total.order.discount;
+      var orderItems = items;
+
+      expect(MisplacedServiceMock.distributeDiscount).toHaveBeenCalledWith(orderTotal, discountTotal, orderItems);
+    });
+  }); // total discount
+
+
+
 
 
   ///////////////////////////////////////////////
@@ -93,6 +109,7 @@ describe('PaymentCtrl', function () {
     InventoryKeeperMock = {};
     EntityServiceMock = {};
     UserServiceMock = {};
+    MisplacedServiceMock = {};
   }
 
 
@@ -132,15 +149,16 @@ describe('PaymentCtrl', function () {
 
     KeyboardServiceMock.getKeyboard = jasmine.createSpy('KeyboardService.getKeyboard');
 
+    MisplacedServiceMock.distributeDiscount = jasmine.createSpy('Misplacedservice.distributeDiscount');
+
     OrderServiceMock.order = {
       customerId : 1
     };
 
     PaymentServiceMock.list = jasmine.createSpy('PaymentService.list').andReturn([]);
+    PaymentServiceMock.clear = jasmine.createSpy('PaymentService.clear');
 
     UserServiceMock.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn');
-
-
   }
 
 
@@ -161,7 +179,8 @@ describe('PaymentCtrl', function () {
       InventoryKeeper : InventoryKeeperMock,
       CashPayment : CashPayment,
       EntityService : EntityServiceMock,
-      UserService : UserServiceMock
+      UserService : UserServiceMock,
+      Misplacedservice : MisplacedServiceMock
     });
   }
 

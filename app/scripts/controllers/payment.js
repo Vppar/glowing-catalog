@@ -2,12 +2,12 @@
     'use strict';
     angular
             .module('tnt.catalog.payment', [
-                'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity', 'tnt.catalog.voucher.service'
+                'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity', 'tnt.catalog.voucher.service', 'tnt.catalog.misplaced.service'
             ])
             .controller(
                     'PaymentCtrl',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                            SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService, UserService) {
+                            SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService, UserService, Misplacedservice) {
 
                         UserService.redirectIfIsNotLoggedIn();
                         
@@ -119,6 +119,14 @@
                         // Define the customer
                         var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                         $scope.customer = customer;
+
+
+                        $scope.$watch('total.order.discount', function () {
+                          var orderTotal = $scope.total.order.amount;
+                          var discountTotal = $scope.total.order.discount;
+                          Misplacedservice.distributeDiscount(orderTotal, discountTotal, order.items);
+                        });
+
 
                         // When a product is added on items list, we need to
                         // rebuild the
