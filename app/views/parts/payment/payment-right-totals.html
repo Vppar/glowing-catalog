@@ -20,9 +20,9 @@
           <span class="label-discount">Desconto</span>
       </span>
       <span class=""> 
-        <span class="btn-price-payment">{{total.order.discount | currency:''}}</span>
         <!-- Remove or fix the ng-hide directive when setting the keyboard up -->
-        <input id="discount" class="btn-price-payment" ng-hide="true" ng-model="total.order.discount" currency focus/>
+        <span ng-hide="true" class="btn-price-payment">{{total.order.discount | currency:''}}</span>
+        <input id="discount" class="btn-price-payment" ng-model="total.order.discount" currency focus/>
       </span>
 	</div>
 
