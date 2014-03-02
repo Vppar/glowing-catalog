@@ -87,7 +87,7 @@ describe('Service: OnCuffPaymentServiceBuildInstallmentsSpec\n', function() {
                 installments = [
                     {
                         number : 1,
-                        dueDate : new Date(fakeNow),
+                        duedate : new Date(fakeNow),
                         amount : 0
                     }
                 ];
@@ -129,15 +129,15 @@ describe('Service: OnCuffPaymentServiceBuildInstallmentsSpec\n', function() {
                 installments = [
                     {
                         number : 1,
-                        dueDate : new Date(fakeNow),
+                        duedate : new Date(fakeNow),
                         amount : 0
                     }, {
                         number : 2,
-                        dueDate : new Date(fakeNow),
+                        duedate : new Date(fakeNow),
                         amount : 0
                     }, {
                         number : 3,
-                        dueDate : new Date(fakeNow),
+                        duedate : new Date(fakeNow),
                         amount : 0
                     }
                 ];

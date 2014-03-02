@@ -12,7 +12,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
 
     var firstDueDate = null;
     var increase = null;
-    var dueDate = null;
+    var duedate = null;
 
     // Stub dependencies
     beforeEach(function() {
@@ -53,7 +53,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
 
             beforeEach(function() {
                 increase = 1;
-                dueDate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
+                duedate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
             });
 
             it('should return an one month increased date', function() {
@@ -63,7 +63,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
                 nextMonth.setMinutes(0);
                 nextMonth.setSeconds(0);
 
-                expect(dueDate).toEqual(nextMonth);
+                expect(duedate).toEqual(nextMonth);
             });
         });
 
@@ -71,7 +71,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
 
             beforeEach(function() {
                 increase = 2;
-                dueDate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
+                duedate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
             });
 
             it('should return more than one month increased date', function() {
@@ -81,7 +81,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
                 coupleOfMonths.setMinutes(0);
                 coupleOfMonths.setSeconds(0);
 
-                expect(dueDate).toEqual(coupleOfMonths);
+                expect(duedate).toEqual(coupleOfMonths);
             });
         });
     });
@@ -96,7 +96,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
 
             beforeEach(function() {
                 increase = 1;
-                dueDate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
+                duedate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
             });
 
             it('should return an one month increased date', function() {
@@ -108,7 +108,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
                 coupleOfMonths.setMinutes(0);
                 coupleOfMonths.setSeconds(0);
 
-                expect(dueDate).toEqual(coupleOfMonths);
+                expect(duedate).toEqual(coupleOfMonths);
             });
         });
 
@@ -116,7 +116,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
 
             beforeEach(function() {
                 increase = 2;
-                dueDate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
+                duedate = OnCuffPaymentService.buildDueDate(firstDueDate, increase);
             });
 
             it('should return more than one month increased date', function() {
@@ -128,7 +128,7 @@ describe('Service: OnCuffPaymentServiceBuildDueDateSpec\n', function() {
                 coupleOfMonths.setMinutes(0);
                 coupleOfMonths.setSeconds(0);
 
-                expect(dueDate).toEqual(coupleOfMonths);
+                expect(duedate).toEqual(coupleOfMonths);
             });
         });
     });

@@ -92,7 +92,7 @@ describe('Service: OnCuffPaymentServiceBuildOnCuffRefSpec\n', function() {
                 expect(onCuffRef.numberOfInstallments).toBe(1);
 
                 // duedate ajustment
-                expect(onCuffRef.dueDate.getTime()).toBe(fakeNow);
+                expect(onCuffRef.duedate.getTime()).toBe(fakeNow);
                 expect(Date.prototype.setHours).toHaveBeenCalledWith(0);
                 expect(Date.prototype.setMinutes).toHaveBeenCalledWith(0);
                 expect(Date.prototype.setSeconds).toHaveBeenCalledWith(0);
@@ -107,10 +107,10 @@ describe('Service: OnCuffPaymentServiceBuildOnCuffRefSpec\n', function() {
             beforeEach(function() {
                 paymentServiceListReturn = [
                     {
-                        dueDate : new Date(fakeNow),
+                        duedate : new Date(fakeNow),
                         amount : 150
                     }, {
-                        dueDate : new Date(fakeNow + monthTime),
+                        duedate : new Date(fakeNow + monthTime),
                         amount : 150
                     }
                 ];
@@ -138,7 +138,7 @@ describe('Service: OnCuffPaymentServiceBuildOnCuffRefSpec\n', function() {
                 expect(onCuffRef.numberOfInstallments).toBe(2);
 
                 // duedate ajustment
-                expect(onCuffRef.dueDate.getTime()).toBe(fakeNow);
+                expect(onCuffRef.duedate.getTime()).toBe(fakeNow);
                 expect(onCuffRef.amount).toBe(300);
                 expect(onCuffRef.installments).toEqual(paymentServiceListReturn);
             });

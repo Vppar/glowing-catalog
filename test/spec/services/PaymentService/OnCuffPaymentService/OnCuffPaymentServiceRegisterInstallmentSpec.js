@@ -54,15 +54,15 @@ describe('Service: OnCuffPaymentServiceRegisterInstallmentSpec\n', function() {
         beforeEach(function() {
             installment1 = {
                 amount : 100,
-                dueDate : new Date(fakeNow)
+                duedate : new Date(fakeNow)
             };
             installment2 = {
                 amount : 101,
-                dueDate : new Date(fakeNow + monthTime)
+                duedate : new Date(fakeNow + monthTime)
             };
 
-            onCuffPayment1 = new OnCuffPayment(installment1.amount, installment1.dueDate);
-            onCuffPayment2 = new OnCuffPayment(installment2.amount, installment2.dueDate);
+            onCuffPayment1 = new OnCuffPayment(installment1.amount, installment1.duedate);
+            onCuffPayment2 = new OnCuffPayment(installment2.amount, installment2.duedate);
         });
 
         // When
@@ -119,18 +119,18 @@ describe('Service: OnCuffPaymentServiceRegisterInstallmentSpec\n', function() {
         beforeEach(function() {
             installment1 = {
                 amount : 100,
-                dueDate : new Date(fakeNow)
+                duedate : new Date(fakeNow)
             };
             installment2 = {
                 amount : 0,
-                dueDate : new Date(fakeNow + monthTime)
+                duedate : new Date(fakeNow + monthTime)
             };
             installment3 = {
                 amount : -101,
-                dueDate : new Date(fakeNow + 2 * monthTime)
+                duedate : new Date(fakeNow + 2 * monthTime)
             };
 
-            onCuffPayment1 = new OnCuffPayment(installment1.amount, installment1.dueDate);
+            onCuffPayment1 = new OnCuffPayment(installment1.amount, installment1.duedate);
         });
 
         // When
