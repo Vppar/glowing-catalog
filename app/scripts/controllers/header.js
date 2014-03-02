@@ -1,8 +1,8 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.header', []).controller(
-            'HeaderCtrl', function($scope, $filter, $location, $interval, OrderService, DialogService, UserService) {
+    angular.module('tnt.catalog.header', ['tnt.catalog.manifest']).controller(
+            'HeaderCtrl', function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController) {
 
                 // #############################################################################################################
                 // Scope variables from services
@@ -78,5 +78,25 @@
                 };
                 
                 $scope.preventClose = function(event) { event.stopPropagation(); };
+                
+                // #############################################################################################################
+                // Manifest related stuff
+                // #############################################################################################################
+                
+                function addCacheUpdateListeners(){
+                    CacheController.getPromise().then(function(){
+                        $element.find('img.loading-icon').css('visibility', 'hidden');
+                    }, function(){
+                        $element.find('img.loading-icon').css('visibility', 'hidden');
+                    });
+                }
+                addCacheUpdateListeners();
+                
+                $scope.updateCache = function(){
+                    CacheController.checkForUpdates().then(function(){
+                        $element.find('img.loading-icon').css('visibility', '');
+                        addCacheUpdateListeners();
+                    });
+                };
             });
-}(angular));
+})(angular);

@@ -87,7 +87,7 @@ module.exports =
                         port : 9000,
                         // Change this to '0.0.0.0' to access the server from
                         // outside.
-                        hostname : 'localhost'
+                        hostname : '0.0.0.0'
                     },
                     livereload : {
                         options : {
@@ -358,7 +358,7 @@ module.exports =
                 }
 
                 grunt.task.run([
-                    'clean:server', 'concurrent:server', 'autoprefixer', 'connect:livereload', 'open', 'watch'
+                    'clean:server', 'concurrent:server', 'connect:livereload', 'open', 'watch'
                 ]);
             });
 

@@ -201,6 +201,7 @@ scripts/services/log.js
 scripts/services/CreditCardPaymentService.js
 scripts/services/PrefetchService.js
 scripts/services/GoPayGateway.js
+scripts/services/CacheController.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
@@ -923,5 +924,4 @@ images/catalog/products/10-563500b.jpg
 images/catalog/products/10-998000.jpg
 
 NETWORK:
-
 *
