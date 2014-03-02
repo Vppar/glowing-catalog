@@ -8,10 +8,14 @@
     /**
      * Service to handle on cuff payment business logic.
      * 
-     * @param EntityService - Handle customer entity operations.
-     * @param PaymentService - Handle payment operations
+     * @param {function} $filter - Angular filter service.
+     * @param {OnCuffPayment} OnCuffPayment - OnCuff payment entity
+     * @param {EntityService} EntityService - Handle customer entity operations.
+     * @param {EntityService} PaymentService - Handle payment operations
+     * @param {Misplacedservice} Misplacedservice - Generate installments to
+     *            general payments.
      */
-    function OnCuffPaymentService(EntityService, PaymentService) {
+    function OnCuffPaymentService($filter, OnCuffPayment, EntityService, PaymentService, Misplacedservice) {
 
         /**
          * Register in PaymentService the onCuff installments.
@@ -23,48 +27,17 @@
 
             for ( var i in installments) {
                 var installment = installments[i];
+                // FIXME - this allows some installments be lost and no one will
+                // know.
                 if (installment.amount > 0) {
-                    var payment = new OnCuffPayment(installment.amount, installment.dueDate);
-                    payment.installment = installment.number;
+                    var onCuffPayment = new OnCuffPayment(installment.amount, installment.dueDate);
+                    // TODO - Change installment to number or number to
+                    // installment
+                    onCuffPayment.installment = installment.number;
 
-                    PaymentService.add(payment);
+                    PaymentService.add(onCuffPayment);
                 }
             }
-        };
-
-        /**
-         * Build onCuff reference object.
-         * 
-         * @param paymentChange - Amount left of the order.
-         * @param entityUUID - Customer entity uuid.
-         */
-        this.buildOnCuffRef = function buildOnCuffRef(paymentChange, entityUUID) {
-
-            var onCuff = {
-                customer : null,
-                numberOfInstallments : null,
-                dueDate : null,
-                amount : null,
-                installments : null
-            };
-
-            onCuff.customer = EntityService.find(entityUUID);
-
-            var recoveredInstallments = PaymentService.list('onCuff');
-
-            if (onCuff.installments === 0) {
-                onCuff.numberOfInstallments = 1;
-                onCuff.dueDate = angular.copy(TODAY);
-                onCuff.amount = paymentChange * -1;
-                onCuff.installments = this.buildInstallments(onCuff.number, onCuff.dueDate, onCuff.amount);
-            } else {
-                onCuff.numberOfInstallments = onCuff.installments.length;
-                onCuff.dueDate = new Date(onCuff.installments[0].dueDate);
-                onCuff.amount = $filter('sum')(recoveredInstallments, 'amount');
-                onCuff.installments = recoveredInstallments;
-            }
-
-            return onCuff;
         };
 
         /**
@@ -75,18 +48,14 @@
          *            installments.
          * @param amount - Total amount of all installments.
          */
-        this.buildInstallments = function buildInstallments(numberOfInstallments, firstDueDate, amount) {
-            var numberOfInstallments = onCuff.numberOfInstallments;
-            var firstDueDate = onCuff.dueDate;
-            var amount = onCuff.amount;
-
+        this.buildInstallments = function buildInstallments(numberOfInstallments, firstDueDateTime, amount) {
             var installments = [];
-            for ( var i in numberOfInstallments) {
+            for ( var i = 0; i < numberOfInstallments; i++) {
 
                 var installment = {};
 
                 installment.number = i + 1;
-                installment.dueDate = this.buildDueDate(firstDueDate, i);
+                installment.dueDate = this.buildDueDate(firstDueDateTime, i);
                 installment.amount = 0;
 
                 installments.push(installment);
@@ -98,24 +67,64 @@
         };
 
         /**
+         * Build onCuff reference object.
+         * 
+         * @param remainingAmount - Amount left of the order.
+         * @param entityUUID - Customer entity uuid.
+         */
+        this.buildOnCuffRef = function buildOnCuffRef(remainingAmount, entityUUID) {
+
+            var onCuff = {
+                customer : null,
+                numberOfInstallments : null,
+                dueDate : null,
+                amount : null,
+                installments : null
+            };
+
+            onCuff.customer = EntityService.read(entityUUID);
+
+            var recoveredInstallments = PaymentService.list('onCuff');
+
+            if (recoveredInstallments.length === 0) {
+                var today = new Date();
+                today.setHours(0);
+                today.setMinutes(0);
+                today.setSeconds(0);
+
+                onCuff.numberOfInstallments = 1;
+                onCuff.dueDate = today;
+                onCuff.amount = remainingAmount;
+                onCuff.installments = this.buildInstallments(onCuff.numberOfInstallments, onCuff.dueDate.getTime(), onCuff.amount);
+            } else {
+                onCuff.numberOfInstallments = recoveredInstallments.length;
+                onCuff.dueDate = new Date(recoveredInstallments[0].dueDate);
+                onCuff.amount = $filter('sum')(recoveredInstallments, 'amount');
+                onCuff.installments = recoveredInstallments;
+            }
+
+            return onCuff;
+        };
+
+        /**
          * Calculates the proper duedate based on the first duedate informed and
          * the number of months to add.
          * 
          * @param firstDueDate - The first duedate of the installments.
          * @param increase - Number of months to increase.
          */
-        this.buildDueDate = function buildDueDate(firstDueDate, increase) {
-            var baseDate = angular.copy(firstDueDate);
+        this.buildDueDate = function buildDueDate(firstDueDateTime, increase) {
+            var baseDate = new Date(firstDueDateTime);
 
             var date = new Date(baseDate.getFullYear(), baseDate.getMonth() + 1 + increase, 0);
             if (date.getDate() > baseDate.getDate()) {
                 date = new Date(baseDate.setMonth(baseDate.getMonth() + increase));
             }
-            
+
             date.setHours(0);
             date.setMinutes(0);
             date.setSeconds(0);
-            
+
             return date;
         };
 

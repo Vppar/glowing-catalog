@@ -9,15 +9,12 @@
      * Controller to handle payment-left-on-cuff screen.
      * 
      * @param {Object} $scope - Angular execution context.
-     * @param {function} $filter - Angular filter service.
      * @param {function} $log - Angular log service.
      * @param {DialogService} DialogService - Handles all dialog message box.
      * @param {OnCuffPaymentService} OnCuffPaymentService - Handles the business
      *            logic of this controller.
-     * @param {Misplacedservice} Misplacedservice - Generate installments to
-     *            general payments.
      */
-    function PaymentOnCuffCtrl($scope, $filter, $log, DialogService, OrderService, OnCuffPaymentService, Misplacedservice) {
+    function PaymentOnCuffCtrl($scope, $log, DialogService, OrderService, OnCuffPaymentService) {
 
         // Block undesired access.
         shouldOpenOnCuff(DialogService, $scope.total.change);
@@ -40,7 +37,7 @@
          */
         var selectPaymentMethod = $scope.selectPaymentMethod;
         /** @type {function} - Inherited change amount. */
-        var paymentChange = $scope.total.change;
+        var orderRemaining = -$scope.total.change;
 
         // #####################################################################################################
         // Local functions
@@ -71,7 +68,7 @@
         // #####################################################################################################
 
         /** @type {Object} - Declaring onCuff reference object. */
-        $scope.onCuff = OnCuffPaymentService.buildOnCuffRef(paymentChange, order);
+        $scope.onCuff = OnCuffPaymentService.buildOnCuffRef(orderRemaining, order);
 
         /**
          * @type {Object} - Date to be used by datepicker as minimum date
