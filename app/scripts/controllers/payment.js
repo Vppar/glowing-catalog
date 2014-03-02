@@ -344,26 +344,26 @@
                             // Calculate the Subtotal
                             if (order.items) {
                                 // Payment total
-                                $scope.total.payments.cash = PaymentService.list('cash');
-                                $scope.total.payments.check = PaymentService.list('check');
-                                $scope.total.payments.creditCard = PaymentService.list('creditCard');
-                                $scope.total.payments.exchange = PaymentService.list('exchange');
-                                $scope.total.payments.coupon = PaymentService.list('coupon');
-                                $scope.total.payments.onCuff = PaymentService.list('onCuff');
+                                total.payments.cash = PaymentService.list('cash');
+                                total.payments.check = PaymentService.list('check');
+                                total.payments.creditCard = PaymentService.list('creditCard');
+                                total.payments.exchange = PaymentService.list('exchange');
+                                total.payments.coupon = PaymentService.list('coupon');
+                                total.payments.onCuff = PaymentService.list('onCuff');
 
-                                if ($scope.total.payments.check == 0) {
+                                if (total.payments.check == 0) {
                                     $scope.hideCheckQtde = true;
                                 } else {
                                     $scope.hideCheckQtde = false;
                                 }
 
-                                if ($scope.total.payments.creditCard == 0) {
+                                if (total.payments.creditCard == 0) {
                                     $scope.hideCardQtde = true;
                                 } else {
                                     $scope.hideCardQtde = false;
                                 }
 
-                                if ($scope.total.payments.exchange == 0) {
+                                if (total.payments.exchange == 0) {
                                     $scope.hideExchangeQtde = true;
                                 } else {
                                     $scope.hideExchangeQtde = false;
@@ -371,22 +371,28 @@
 
                                 var totalPayments = 0;
                                 for ( var ix in $scope.total.payments) {
-                                    totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
+                                    // Exchanged products are already discounted when
+                                    // when the subtotal is calculated
+                                    if (ix === 'exchange') { continue; }
+
+                                    totalPayments += $filter('sum')(total.payments[ix], 'amount');
                                 }
 
                                 // Order total
                                 var basket = order.items;
 
-                                $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
+                                total.order.amount = $filter('sum')(basket, 'price', 'qty');
                                 // Handle non-normalized price/amount field
-                                $scope.total.order.amount += $filter('sum')(basket, 'amount', 'qty');
-                                $scope.total.order.unit = $filter('sum')(basket, 'qty');
-                                $scope.total.order.qty = basket ? basket.length : 0;
+                                total.order.amount += $filter('sum')(basket, 'amount', 'qty');
+                                total.order.unit = $filter('sum')(basket, 'qty');
+                                total.order.qty = basket ? basket.length : 0;
 
                                 // Change
-                                $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
+                                total.change = Math.round((totalPayments - total.order.subTotal) * 100) / 100;
                             }
                         }
+
+                        $scope.$watch('total.order.subTotal', updateOrderAndPaymentTotal);
 
                         $scope.$watch('total.change', function() {
                             if ($scope.total.change != 0) {
