@@ -20,7 +20,7 @@
         /**
          * Register in PaymentService the onCuff installments.
          * 
-         * @param installments - onCuff installments to be persisted
+         * @param {Object} installments - onCuff installments to be persisted.
          */
         this.registerInstallments = function(installments) {
             PaymentService.clear('onCuff');
@@ -41,10 +41,13 @@
         /**
          * Build onCuff monthly installments based on onCuff reference object.
          * 
-         * @param numberOfInstallments - number of installments to be built.
-         * @param firstDueDate - First duedate to be reference to the others
-         *            installments.
-         * @param amount - Total amount of all installments.
+         * @param {number} numberOfInstallments - number of installments to be
+         *            built.
+         * @param {date} firstDueDate - First duedate to be reference to the
+         *            others installments.
+         * @param {number} amount - Total amount of all installments.
+         * 
+         * @return {array} installments - OnCuff installments.
          */
         this.buildInstallments = function buildInstallments(numberOfInstallments, firstDueDateTime, amount) {
             var installments = [];
@@ -67,8 +70,11 @@
         /**
          * Build onCuff reference object.
          * 
-         * @param remainingAmount - Amount left of the order.
-         * @param entityUUID - Customer entity uuid.
+         * @param {number} remainingAmount - Amount left of the order.
+         * @param {string} entityUUID - Customer entity uuid.
+         * 
+         * @return {Object} onCuff - OnCuff reference object to be used by the
+         *         controller.
          */
         this.buildOnCuffRef = function buildOnCuffRef(remainingAmount, entityUUID) {
 
@@ -81,7 +87,7 @@
             };
 
             onCuff.customer = EntityService.read(entityUUID);
-            
+
             var recoveredInstallments = PaymentService.list('onCuff');
 
             if (recoveredInstallments.length === 0) {
@@ -108,8 +114,10 @@
          * Calculates the proper duedate based on the first duedate informed and
          * the number of months to add.
          * 
-         * @param firstDueDate - The first duedate of the installments.
-         * @param increase - Number of months to increase.
+         * @param {date} firstDueDate - The first duedate of the installments.
+         * @param {number} increase - Number of months to increase.
+         * 
+         * @return {date} date - The proper incresed date.
          */
         this.buildDueDate = function buildDueDate(firstDueDateTime, increase) {
             var baseDate = new Date(firstDueDateTime);
@@ -126,6 +134,14 @@
             return date;
         };
 
+        /**
+         * Recalc OnCuff installments.
+         * 
+         * @param {number} index - The installment changed.
+         * @param {Object} onCuff - OnCuff reference object.
+         * 
+         * @return {Object} installments - Recalculated installments.
+         */
         this.recalcInstallments = function recalcInstallments(index, onCuff) {
             var installments = angular.copy(onCuff.installments);
             return Misplacedservice.recalc(onCuff.amount, index, installments, 'amount');
