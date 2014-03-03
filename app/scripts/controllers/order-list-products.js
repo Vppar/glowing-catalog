@@ -15,7 +15,7 @@
                 $scope.filteredOrders = angular.copy(orders);
                 $scope.filteredProducts = [];
                 $scope.filteredProducts.totalStock = 0;
-                
+
                 var filterByType = function(item) {
                     var result = false;
                     if (item.type !== 'giftCard' && item.type !== 'voucher') {
@@ -23,7 +23,7 @@
                     }
                     return result;
                 };
-                
+
                 for ( var ix in orders) {
                     var order = orders[ix];
                     // Find the entity name
@@ -134,11 +134,11 @@
                         $scope.total.all.orderCount++;
                     }
                     $scope.total.all.productCount = $scope.filteredProducts.length;
-                    
+
                     var avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
-                    if(!isNaN(avgPrice)){
+                    if (!isNaN(avgPrice)) {
                         $scope.total.all.avgPrice = avgPrice;
-                    }else{
+                    } else {
                         $scope.total.all.avgPrice = 0;
                     }
                 }

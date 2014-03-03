@@ -87,16 +87,14 @@
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
                     }
-                    
-                    
+
                     var avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
-                    if(!isNaN(avgPrice)){
+                    if (!isNaN(avgPrice)) {
                         $scope.total.all.avgPrice = avgPrice;
-                    }else{
+                    } else {
                         $scope.total.all.avgPrice = 0;
                     }
-                   
-                    
+
                 }
 
                 $scope.updateOrdersTotal = updateOrdersTotal;
