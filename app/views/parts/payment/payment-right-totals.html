@@ -33,15 +33,27 @@
 		</span>
 	</div>
 
-	<div class="payment-subtotal">
+<!-- 	<div class="payment-subtotal">
 		<span class="lbl-money2 display-block">
 			<strong class="lbl-money">Subtotal</strong>
 			<span class="lbl-money4">&nbsp;</span>
 			<span class="btn-sub-payment">{{total.order.subTotal | currency: '' }}</span>
 		</span>				
+	</div> -->
+
+	<div class="subtotal-resume">
+		<div class="lbl-resume">
+			<div>
+				Subtotal
+			</div>
+		</div>
+		<div class="values-resume">
+			{{total.order.subTotal | currency: '' }}
+		</div>
+
 	</div>
 
-	<div class="row-right-payment" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectMoneyPayment()">
+	<div class="row-right-payment first-right" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectMoneyPayment()">
 	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
@@ -89,9 +101,9 @@
             </div>
         </div>
 	</div>
-	<br />
-	<div class="row-right-payment" ng-click="selectPaymentMethod('voucher')">
-		<span class="lbl-money w112">Emitir vale/cupom</span>
+
+	<div class="row-right-payment first-right" ng-click="selectPaymentMethod('voucher')">
+		<span class="lbl-money w130">Emitir vale/cupom</span>
 		<span class="">
 			<!-- <span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency:''}}</span> -->
 	        <span class="btn-price-payment btn-price-payment2" >{{items | filter: voucherFilter | sum : 'amount' | currency:'' }}</span>
