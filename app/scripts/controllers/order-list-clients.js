@@ -91,8 +91,8 @@
                             var order = ordersByEntity[ix2];
 
                             var receivables = ReceivableService.listByDocument(order.uuid);
-                            for ( var ix in receivables) {
-                                var receivable = receivables[ix];
+                            for ( var ix3 in receivables) {
+                                var receivable = receivables[ix3];
                                 var amount = Number(receivable.amount);
 
                                 $scope.total[receivable.type].amount += amount;
@@ -100,19 +100,19 @@
                             }
 
                             var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
-                            for ( var ix in exchangedProducts) {
-                                var exchanged = exchangedProducts[ix];
-                                $scope.total['exchange'].amount += (exchanged.cost * exchanged.quantity);
-                                $scope.total['exchange'].qty += Number(exchanged.quantity);
+                            for ( var ix4 in exchangedProducts) {
+                                var exchanged = exchangedProducts[ix4];
+                                $scope.total.exchange.amount += (exchanged.cost * exchanged.quantity);
+                                $scope.total.exchange.qty += Number(exchanged.quantity);
                             }
 
                             var vouchers = VoucherService.listByDocument(order.uuid);
-                            for ( var idx in vouchers) {
-                                var voucher = vouchers[idx];
+                            for ( var ix5 in vouchers) {
+                                var voucher = vouchers[ix5];
 
-                                var amount = Number(voucher.amount);
+                                var voucherAmount = Number(voucher.amount);
 
-                                $scope.total.voucher.amount += amount;
+                                $scope.total.voucher.amount += voucherAmount;
                                 $scope.total.voucher.qty += voucher.qty;
                             }
                         }
