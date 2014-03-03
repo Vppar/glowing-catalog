@@ -5,7 +5,7 @@
     ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, EntityService, ReceivableService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
-        
+
         // #############################################################################################################
         // Warming up the controller
         // #############################################################################################################
@@ -76,10 +76,10 @@
             dtFinal : dtFinal
         };
 
-        $scope.resetPaymentsTotal = function(resetOrders) {
+        $scope.resetPaymentsTotal = function() {
             angular.extend($scope.total, angular.copy(paymentsTotalTemplate));
         };
-        $scope.resetOrdersTotal = function(resetOrders) {
+        $scope.resetOrdersTotal = function() {
             angular.extend($scope.total, angular.copy(ordersTotalTemplate));
         };
 
@@ -100,11 +100,11 @@
         // #############################################################################################################
 
         $scope.customers = EntityService.list();
-        
+
         $scope.filter = {
-                customerId : ''
+            customerId : ''
         };
-        
+
         $scope.generateVA = function generateVa(filterList) {
             var acumulator = 0;
             var biggestOrder = {
@@ -113,7 +113,7 @@
             var biggestRounded = 0;
             for ( var ix in filterList) {
                 var filteredOrder = filterList[ix];
-                if(angular.isObject(filteredOrder)){
+                if (angular.isObject(filteredOrder)) {
                     filteredOrder.va = (filteredOrder.amountTotal / $scope.total.all.amount) * 100;
                     var roundedVa = (Math.round(100 * filteredOrder.va) / 100);
                     acumulator += roundedVa;
@@ -125,7 +125,7 @@
             }
             biggestOrder.va = biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
         };
-        
+
         /**
          * ClientFilter
          */

@@ -165,12 +165,12 @@
      */
     entities.factory('OnCuffPayment', function OnCuffPayment(Payment) {
 
-        var service = function svc(amount, dueDate) {
+        var service = function svc(amount, duedate) {
             if (arguments.length != svc.length) {
                 throw 'OnCuffPayment must be initialized with all params';
             }
-            this.dueDate = dueDate;
-            ObjectUtils.ro(this, 'dueDate', this.dueDate);
+            this.duedate = duedate;
+            ObjectUtils.ro(this, 'duedate', this.duedate);
             ObjectUtils.superInvoke(this, amount);
         };
 

@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.service.dialog',[]).service('DialogService', function($dialog) {
+    angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', function($dialog) {
 
         /**
          * Generic function to open a dialog.

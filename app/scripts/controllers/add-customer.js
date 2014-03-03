@@ -86,7 +86,7 @@
             var entityCreatedPromise = EntityService.create(customer).then(function(uuid) {
                 OrderService.order.customerId = uuid;
                 return uuid;
-            }, function(err) {
+            }, function() {
                 // TODO something about it
             });
             $location.path('/');

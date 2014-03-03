@@ -10,7 +10,7 @@
                             SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService, UserService, Misplacedservice) {
 
                         UserService.redirectIfIsNotLoggedIn();
-                        
+
                         // #############################################################################################
                         // Controller warm up
                         // #############################################################################################
@@ -187,24 +187,26 @@
 
                         $scope.openDialogChooseCustomer = function() {
                             dialogService.openDialogChooseCustomer().then(function(uuid) {
-                                customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
-                                $scope.customer = customer;
+                                if (uuid) {
+                                    customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
+                                    $scope.customer = customer;
 
-                                // Propagate customer to order
-                                order.customerId = customer.uuid;
+                                    // Propagate customer to order
+                                    order.customerId = customer.uuid;
 
-                                // Update vouchers with new customer
-                                var items = order.items, item, len, i;
-                                for (i = 0, len = items.length; i < len; i += 1) {
-                                    item = items[i];
-                                    if (item.type === 'voucher') {
-                                        item.uniqueName = customer.name;
-                                        item.entity = customer.uuid;
+                                    // Update vouchers with new customer
+                                    var items = order.items, item, len, i;
+                                    for (i = 0, len = items.length; i < len; i += 1) {
+                                        item = items[i];
+                                        if (item.type === 'voucher') {
+                                            item.uniqueName = customer.name;
+                                            item.entity = customer.uuid;
+                                        }
                                     }
+                                    PaymentService.clear('coupon');
+                                    $scope.total.payments.coupon.length = 0;
+                                    updateOrderAndPaymentTotal();
                                 }
-                                PaymentService.clear('coupon');
-                                $scope.total.payments.coupon.length = 0;
-                                updateOrderAndPaymentTotal();
                             });
                         };
 

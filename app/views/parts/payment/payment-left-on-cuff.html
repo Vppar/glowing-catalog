@@ -2,12 +2,7 @@
 	<div>
         Contas a receber
 	</div>
-	<!--<div class="payment-send">
-		<img src="images/icons/payment-send.png">
-	</div>-->
 </div>
-
-
 <div class="left-payment" ng-switch="receivableSelected" ng-controller="PaymentOnCuffCtrl">	
 	<br/>
 	<div class="row-fluid payment-receivable-fields marginl112">
@@ -16,7 +11,7 @@
 				<span class="span8 w428">
 					<div class="control-group">
 						<label class="control-label">Cliente</label>
-						<input class="input-block-level payment-input-large" type="text" value="{{customer.name}}" readonly>
+						<input class="input-block-level payment-input-large" type="text" value="{{onCuff.customer.name}}" readonly>
 					</div>
 				</span>
 			</div>
@@ -24,19 +19,44 @@
 				<span class="span2 w85">
 					<div class="control-group">
 						<label class="control-label text-center">Nro Parc.</label>
-							<input class="input-block-level payment-input-large text-center" id="installment" type="text" ng-model="installmentQty" maxlength="2" tnt-input ng-change="computeInstallments()" recall />
+							<input
+								class="input-block-level payment-input-large text-center"
+								id="installment" 
+								type="text" 
+								ng-model="onCuff.numberOfInstallments" 
+								maxlength="2" 
+								tnt-input 
+								recall />
 					</div>
 				</span>	
 				<span class="span3">
 					<div class="control-group">
 						<label class="control-label text-center">1.Vencto</label>
-							<input id="vencto" class="date-field input-block-level payment-input-large text-center" type="text" ng-model="dueDate" min="dateMin" maxlength="8" datepicker-popup="dd/MM/yyyy" tnt-input readonly show-weeks="false" />
+							<input 
+								class="date-field input-block-level payment-input-large text-center" 
+								id="vencto" 
+								type="text" 
+								datepicker-popup="dd/MM/yyyy"
+								min="TODAY" 
+								show-weeks="false" 
+								ng-model="onCuff.duedate" 
+								maxlength="8" 
+								tnt-input
+								readonly 								
+							/>
 					</div>
 				</span>	
 				<span class="span3 w160">
 					<div class="control-group">
 						<label class="control-label text-right marginr7">Valor total</label>
-						<input id="amount" class="input-block-level payment-input-large text-right" type="text" ng-model="amount" readonly currency />
+						<input 
+							class="input-block-level payment-input-large text-right" 
+							id="amount" 
+							type="text" 
+							ng-model="onCuff.amount" 
+							currency  
+							readonly
+						/>
 					</div>
 				</span>	
 			</div>
@@ -58,20 +78,38 @@
 							</div>
 						</div>
 						<div class="scroll-payment-grid">
-							<div class="row-payment-grid-product-receivable" ng-repeat="payment in payments" ng-click="selectInstallment(payment.installment)">
+							<div class="row-payment-grid-product-receivable" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)">
 								<span class="col-s1">
 									<div>
-										<span name="installment" class="item payment-input-large">{{payment.installment}}</span>
+										<span name="installment" class="item payment-input-large">{{installment.number}}</span>
 									</div>
 								</span>
 								<span class="col-s2">
 									<div>
-										<input id="{{'dueDate' + $index}}" name="" class="item w138 text-center payment-input-large" ng-model="payment.dueDate"  maxlength="8" datepicker-popup="dd/MM/yyyy" readonly tnt-input show-weeks="false"></input>
+										<input 
+											class="item w138 text-center payment-input-large"
+											id="{{'duedate' + $index}}"
+											datepicker-popup="dd/MM/yyyy" 
+											show-weeks="false" 
+											ng-model="installment.duedate"
+											tnt-input  
+											maxlength="8" 
+											readonly
+										/>
 									</div>
 								</span>
 								<span class="col-s3">
 									<div>
-										<input id="{{'amount' + $index}}" name="" class="item w146 text-right payment-input-large" ng-model="payment.amount" ng-change="valueCheck($index)" recall tnt-input currency></input>
+										<input 
+											id="{{'amount' + $index}}" 
+											name="" 
+											class="item w146 text-right payment-input-large" 
+											ng-model="installment.amount" 
+											ng-change="recalcInstallments($index)"
+											recall 
+											tnt-input 
+											currency
+										/>
 									</div>
 								</span>
 							</div>

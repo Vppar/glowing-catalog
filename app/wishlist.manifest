@@ -98,7 +98,7 @@ scripts/controllers/payment-coupon.js
 scripts/controllers/payment-creditcard.js
 scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
-scripts/controllers/payment-on-cuff.js
+scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
 scripts/controllers/products-to-buy/products-to-buy.js
 scripts/controllers/products-to-buy/products-to-buy-order.js
@@ -201,6 +201,7 @@ scripts/services/log.js
 scripts/services/CreditCardPaymentService.js
 scripts/services/PrefetchService.js
 scripts/services/GoPayGateway.js
+scripts/services/CacheController.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
@@ -924,5 +925,4 @@ images/catalog/products/10-563500b.jpg
 images/catalog/products/10-998000.jpg
 
 NETWORK:
-
 *
