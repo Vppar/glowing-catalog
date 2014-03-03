@@ -142,16 +142,14 @@ describe('Service: Misplacedservice', function() {
         //
         // Thanks to the rounding of the values, the sum of the discounts
         // for each item would be 50.01. The method must take care of this
-        // and remove that extra 0.01 from the discount of the last item
-        // in the list.
+        // and adjust the discount of the item with the largest value.
         Ms.distributeDiscount(itemsTotal, totalDiscount, items);
 
-        // In this case, since item1 and item4 are the same, usually we
-        // would expect them to have the same discount. We may test if the
-        // method works by comparing these two items.
-        expect(item1.qty).toBe(item4.qty);
-        expect(item1.price).toBe(item4.price);
-        expect(item1.discount).not.toBe(item4.discount);
+
+        // Check that our adjustment was done in the item with the
+        // largest value (without the adjustment, it would be
+        // the original 27.27).
+        expect(item3.discount).toBe(27.26);
 
         // And then checking the sum of all discounts against the given
         // total discount.

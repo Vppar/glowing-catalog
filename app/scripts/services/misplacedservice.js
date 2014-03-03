@@ -58,6 +58,9 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
     // be calculated in PaymentCtrl, we don't need to calculate it again IMO.
     this.distributeDiscount = function (orderTotal, discountTotal, orderItems) {
       var currTotalDiscount = 0;
+      var largestProductIndex = null;
+      var largestProductValue = 0;
+
 
       for (var idx in orderItems) {
         var item = orderItems[idx];
@@ -68,12 +71,19 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         }
 
         var itemTotal = item.qty * (item.price || item.cost);
+
+        if (itemTotal > largestProductValue) {
+          largestProductValue = itemTotal;
+          largestProductIndex = idx;
+        }
+
         var itemShare = itemTotal / orderTotal;
         var itemDiscount = Math.round(100 * discountTotal * itemShare) / 100;
-
         var isLastItem = parseInt(idx) === (orderItems.length - 1);
-        var discountTotalProjection = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
-        var discountDoesNotMatch = discountTotalProjection !== discountTotal;
+        var currTotalDiscount = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
+        var discountDoesNotMatch = currTotalDiscount !== discountTotal;
+
+        item.discount = itemDiscount;
 
         // Since we're rounding the discounts to the second decimal,
         // in many cases we'll end up with an inconsistency between the
@@ -81,14 +91,11 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         // of each item. We handle this case by adjusting the value for
         // the last item if needed, not allowing the sum of all discounts
         // to be greater than the given total discount.
-        
         if (isLastItem && discountDoesNotMatch) {
-          itemDiscount = Math.round(100 * (discountTotal - currTotalDiscount)) / 100;
+          var discountDiff = discountTotal - currTotalDiscount;
+          var largestItem = orderItems[largestProductIndex];
+          largestItem.discount = Math.round(100 * (largestItem.discount + discountDiff)) / 100;
         }
-
-        currTotalDiscount += itemDiscount;
-
-        item.discount = itemDiscount;
       }
     };
 
