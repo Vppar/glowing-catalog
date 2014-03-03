@@ -22,6 +22,7 @@
                         if (!order.customerId) {
                             $location.path('/');
                         }
+
                         $scope.voucherFilter = function(item) {
                             if (item.type === 'voucher' || item.type === 'giftCard') {
                                 return true;
@@ -241,7 +242,7 @@
                          */
                         $scope.selectPaymentMethod = function selectPaymentMethod(method) {
                             updateOrderAndPaymentTotal();
-                            $scope.showPaymentButtons = (method === 'none' || method === 'money');
+                            $scope.showPaymentButtons = (method === 'none' || method === 'money' || method === 'orderDiscount');
                             $scope.selectedPaymentMethod = method;
                         };
 
