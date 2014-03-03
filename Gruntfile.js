@@ -69,7 +69,7 @@ module.exports =
                         files : [
                             '<%= yeoman.app %>/**/*.html',
                             '.tmp/styles/{,*/}*.css',
-                            '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+                            '<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                         ]
                     }
                 },
@@ -191,7 +191,7 @@ module.exports =
                             src : [
                                 '<%= yeoman.dist %>/scripts/**/*.js',
                                 '<%= yeoman.dist %>/styles/{,*/}*.css',
-                                '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                                // FIXME uncomment this '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                                 '<%= yeoman.dist %>/styles/fonts/*'
                             ]
                         }
@@ -215,7 +215,7 @@ module.exports =
                 usemin : {
                     html : [
                         '<%= yeoman.dist %>/*.html',
-                        '<%= yeoman.dist %>/views/**/*.html',
+                        // FIXME remove this '<%= yeoman.dist %>/views/**/*.html',
                         '<%= yeoman.dist %>/components/**/*.html'
                     ],
                     css : [
@@ -236,7 +236,7 @@ module.exports =
                             {
                                 expand : true,
                                 cwd : '<%= yeoman.app %>/images',
-                                src : '{,*/}*.{png,jpg,jpeg,gif}',
+                                src : '**/*.{png,jpg,jpeg,gif}',
                                 dest : '<%= yeoman.dist %>/images'
                             }
                         ]
@@ -318,7 +318,8 @@ module.exports =
                                     'components/**/*.html',
                                     'bower_components/**/*',
                                     'images/{,*/}*.{webp}',
-                                    'fonts/*'
+                                    'fonts/*',
+                                    '*.manifest'
                                 ]
                             },
                             {
@@ -485,7 +486,7 @@ module.exports =
             'uglify',
             'rev',
             'usemin',
-            'htmlmin'
+            // FIXME uncomment this 'htmlmin'
         ]);
 
         grunt.registerTask('default', [
