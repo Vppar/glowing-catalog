@@ -86,12 +86,14 @@ describe('Controller: products-to-buy-summarizer-spec', function() {
                     minQty : 7,
                     orderQty : '023',
                     avg : 6.173913043478261,
+                    pts : 99,
                     lines : {
                         Olhos : {
                             total : 142,
                             minQty : 7,
                             orderQty : '023',
-                            avg : 6.173913043478261
+                            avg : 6.173913043478261,
+                            pts : 99
                         }
                     }
                 },
@@ -100,12 +102,14 @@ describe('Controller: products-to-buy-summarizer-spec', function() {
                     minQty : 3,
                     orderQty : '04',
                     avg : 98,
+                    pts : 36,
                     lines : {
                         Suvaco : {
                             total : 392,
                             minQty : 3,
                             orderQty : '04',
-                            avg : 98
+                            avg : 98,
+                            pts : 36
                         }
                     }
                 }
@@ -148,12 +152,14 @@ describe('Controller: products-to-buy-summarizer-spec', function() {
                     minQty : 5,
                     orderQty : '03',
                     avg : 32,
+                    pts : 63,
                     lines : {
                         Olhos : {
                             total : 96,
                             minQty : 5,
                             orderQty : '03',
-                            avg : 32
+                            avg : 32,
+                            pts : 63
                         }
                     }
                 },
@@ -162,12 +168,14 @@ describe('Controller: products-to-buy-summarizer-spec', function() {
                     minQty : 1,
                     orderQty : 0,
                     avg : 0,
+                    pts : 0,
                     lines : {
                         Suvaco : {
                             total : 0,
                             minQty : 1,
                             orderQty : 0,
-                            avg : 0
+                            avg : 0,
+                            pts : 0
                         }
                     }
                 }
