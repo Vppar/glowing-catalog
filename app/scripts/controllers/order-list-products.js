@@ -92,39 +92,6 @@
                     }
                 }
 
-                function updatePaymentsTotal(orders) {
-                    $scope.resetPaymentsTotal();
-                    for ( var ix in orders) {
-                        var order = orders[ix];
-
-                        var receivables = ReceivableService.listByDocument(order.uuid);
-                        for ( var ix2 in receivables) {
-                            var receivable = receivables[ix2];
-                            var amount = Number(receivable.amount);
-
-                            $scope.total[receivable.type].amount += amount;
-                            $scope.total[receivable.type].qty++;
-                        }
-
-                        var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
-                        for ( var ix3 in exchangedProducts) {
-                            var exchanged = exchangedProducts[ix3];
-                            $scope.total.exchange.amount += (exchanged.cost * exchanged.quantity);
-                            $scope.total.exchange.qty += Number(exchanged.quantity);
-                        }
-
-                        var vouchers = VoucherService.listByDocument(order.uuid);
-                        for ( var ix4 in vouchers) {
-                            var voucher = vouchers[ix4];
-
-                            var voucherAmount = Number(voucher.amount);
-
-                            $scope.total.voucher.amount += voucherAmount;
-                            $scope.total.voucher.qty += voucher.qty;
-                        }
-                    }
-                }
-
                 function updateOrdersTotal() {
                     $scope.resetOrdersTotal();
                     var filteredOrders = $scope.filteredOrders;
@@ -149,7 +116,7 @@
                     $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
                     updateFilteredProducts();
                     updateOrdersTotal();
-                    updatePaymentsTotal($scope.filteredOrders);
+                    $scope.updatePaymentsTotal($scope.filteredOrders);
                     $scope.generateVA($scope.filteredProducts);
                 });
 
