@@ -115,6 +115,16 @@
                     }, 0);
                 };
 
+                /**
+                 * Method to summarize the products from the list
+                 * 
+                 * @param newObj - List with the value of the selector from the
+                 *            html
+                 * 
+                 * @param hide - boolean used to determine if the filter will
+                 *            consider the hide attribute on the items.
+                 * 
+                 */
                 $scope.summarizer =
                         function(newObj, hide) {
                             var diff = {
@@ -125,6 +135,8 @@
                             $scope.summary.total.sessions = {};
 
                             for ( var ix in newObj) {
+
+                                // get the necessary values from the item
                                 var price = $scope.purchaseOrder.items[ix].price;
                                 var points = $scope.purchaseOrder.items[ix].points;
                                 var session = $scope.purchaseOrder.items[ix].session;
@@ -132,20 +144,31 @@
                                 var minQty = $scope.purchaseOrder.items[ix].minQty;
                                 var qty = newObj[ix];
                                 var itemHide;
+
+                                // if the method receives hide as true, then the
+                                // itemHide will be the same as the hide
+                                // property of the item, that way the items with
+                                // hide = true won't be considered.
+                                // Otherwise the itemHide receives false and all
+                                // items will be considered.
                                 if (hide === true) {
                                     itemHide = $scope.purchaseOrder.items[ix].hide;
                                 } else {
                                     itemHide = false;
                                 }
+
                                 diff.amount += (newObj[ix] * price);
                                 diff.points += (newObj[ix] * points);
 
+                                // create the objects for the current session
+                                // and line.
                                 if (!$scope.summary.total.sessions[session]) {
                                     $scope.summary.total.sessions[session] = {
                                         total : 0,
                                         minQty : 0,
                                         orderQty : 0,
                                         avg : 0,
+                                        pts : 0,
                                         lines : {}
                                     };
                                 }
@@ -154,27 +177,39 @@
                                         total : 0,
                                         minQty : 0,
                                         orderQty : 0,
-                                        avg : 0
+                                        avg : 0,
+                                        pts : 0
                                     };
                                 }
 
+                                // sum of the price per line and session
                                 if ((newObj[ix] * price) > 0 && itemHide === false) {
                                     $scope.summary.total.sessions[session].total += (newObj[ix] * price);
                                     $scope.summary.total.sessions[session].lines[line].total += (newObj[ix] * price);
                                 }
+                                // sum of the minQty per line and session
                                 if (minQty && itemHide === false) {
                                     $scope.summary.total.sessions[session].minQty += minQty;
                                     $scope.summary.total.sessions[session].lines[line].minQty += minQty;
                                 }
+                                // sum of the actual selected qty per line and
+                                // session
                                 if (qty > 0 && itemHide === false) {
                                     $scope.summary.total.sessions[session].orderQty += qty;
                                     $scope.summary.total.sessions[session].lines[line].orderQty += qty;
                                 }
+                                // sum of the points per line and session
+                                if (qty > 0 && itemHide === false) {
+                                    $scope.summary.total.sessions[session].pts += (newObj[ix] * points);
+                                    $scope.summary.total.sessions[session].lines[line].pts += (newObj[ix] * points);
+                                }
                             }
 
+                            // the total overall
                             $scope.summary.total.amount = diff.amount;
                             $scope.summary.total.points = diff.points;
 
+                            // calculate the avg value.
                             for ( var ix in $scope.summary.total.sessions) {
                                 if ($scope.summary.total.sessions[ix].orderQty > 0) {
                                     $scope.summary.total.sessions[ix].avg =

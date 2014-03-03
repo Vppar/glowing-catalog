@@ -68,7 +68,7 @@
                                     <div>{{session.label}}</div>
                                 </span>
                                 <span class="col-s2">
-                                    <div></div>
+                                    <div>{{summary.total.sessions[session.label].pts}}</div>
                                 </span>
                                 <span class="col-s3">
                                     <div>{{summary.total.sessions[session.label].avg | currency:''}}</div>
@@ -89,7 +89,7 @@
                                     <div>{{line.label}}</div>
                                 </span>
                                 <span class="col-s2">
-                                    <div></div>
+                                    <div>{{summary.total.sessions[session.label].lines[line.label].pts}}</div>
                                 </span>
                                 <span class="col-s3">
                                     <div>{{summary.total.sessions[session.label].lines[line.label].avg | currency:''}}</div>
