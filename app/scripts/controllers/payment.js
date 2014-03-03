@@ -254,6 +254,15 @@
                             }
                         };
 
+                        $scope.selectDiscount = function selectMoneyPayment() {
+                            // FIXME - Used to temporally resolve VOPP-210.
+                            var delta = new Date().getTime() - $scope.keyboard.status.changed;
+                            delta = isNaN(delta) ? 501 : delta;
+                            if (!$scope.keyboard.status.active && delta > 500) {
+                                $scope.selectPaymentMethod('orderDiscount');
+                            }
+                        };
+
                         $scope.addToBasket = function addToBasket(item) {
                             if (item.type === 'giftCard') {
                                 DialogService.messageDialog({
