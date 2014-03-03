@@ -16,9 +16,6 @@
      */
     function PaymentOnCuffCtrl($scope, DialogService, OrderService, OnCuffPaymentService) {
 
-        // Block undesired access.
-        shouldOpen(DialogService, $scope.total.change);
-
         // #####################################################################################################
         // Local variables
         // #####################################################################################################
@@ -50,7 +47,7 @@
          * @param {DialogService} - Service that handle dialogs.
          * @param {number} - Order change amount
          */
-        function shouldOpen(dialogService, paymentChange) {
+        this.shouldOpen = function shouldOpen(dialogService, paymentChange) {
             if (paymentChange > 0) {
                 var dialogData = {
                     title : 'Contas a receber',
@@ -61,8 +58,42 @@
                     selectPaymentMethod('none');
                 });
             }
+        };
+        
+        /***/
+        function numberOfInstallmentsWatcherCallback(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                var onCuff = $scope.onCuff;
+
+                var numberOfInstallments = onCuff.numberOfInstallments;
+                var firstDueDateTime = onCuff.duedate.getTime();
+                var amount = onCuff.amount;
+
+                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments(numberOfInstallments, firstDueDateTime, amount);
+            }
+
         }
-        this.shouldOpen = shouldOpen;
+        // Publish to be tested
+        this.numberOfInstallmentsWatcherCallback = numberOfInstallmentsWatcherCallback;
+        
+        /***/
+        function duedateWatcherCallback(newVal, oldVal) {
+            // Test newVal to see if it is a valid date.
+            if (newVal && angular.isDate(newVal) && newVal !== oldVal) {
+                var onCuff = $scope.onCuff;
+
+                var numberOfInstallments = onCuff.numberOfInstallments;
+                var firstDueDateTime = onCuff.duedate.getTime();
+                var amount = onCuff.amount;
+
+                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments(numberOfInstallments, firstDueDateTime, amount);
+            }
+        }
+        // Publish to be tested
+        this.duedateWatcherCallback = duedateWatcherCallback;
+        
+        // Block undesired access.
+        this.shouldOpen(DialogService, $scope.total.change);
 
         // #####################################################################################################
         // Scope variables
@@ -108,39 +139,18 @@
         // #####################################################################################################
 
         /**
-         * OnCuff reference watchers.
+         * OnCuff numberOfInstallments watcher.
          * 
-         * Every number of installments change, will update all onCuff installments.
+         * Every number of installments change, will update all onCuff
+         * installments.
          */
-        $scope.$watch('onCuff.numberOfInstallments', function(newVal, oldVal) {
-            if (newVal !== oldVal) {
-                var onCuff = $scope.onCuff;
-
-                var numberOfInstallments = onCuff.numberOfInstallments;
-                var firstDueDateTime = onCuff.duedate.getTime();
-                var amount = onCuff.amount;
-
-                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments(numberOfInstallments, firstDueDateTime, amount);
-            }
-
-        });
+        $scope.$watch('onCuff.numberOfInstallments', numberOfInstallmentsWatcherCallback);
 
         /**
-         * OnCuff reference watchers.
+         * OnCuff duedate watcher.
          * 
          * Every duedate will update all onCuff installments.
          */
-        $scope.$watch('onCuff.duedate', function(newVal, oldVal) {
-            // Test newVal to see if it is a valid date.
-            if (newVal && angular.isDate(newVal) && newVal !== oldVal) {
-                var onCuff = $scope.onCuff;
-
-                var numberOfInstallments = onCuff.numberOfInstallments;
-                var firstDueDateTime = onCuff.duedate.getTime();
-                var amount = onCuff.amount;
-
-                $scope.onCuff.installments = OnCuffPaymentService.buildInstallments(numberOfInstallments, firstDueDateTime, amount);
-            }
-        });
+        $scope.$watch('onCuff.duedate', duedateWatcherCallback);
     });
 }(angular));
