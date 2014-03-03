@@ -40,7 +40,7 @@
         superInvoke : function(p1, p2) {
             var instance, name, args;
 
-            if (typeof p1 === "string") {
+            if (typeof p1 === 'string') {
                 name = p1;
                 instance = p2;
 
