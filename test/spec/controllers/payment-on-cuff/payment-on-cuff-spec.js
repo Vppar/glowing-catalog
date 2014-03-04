@@ -66,6 +66,10 @@ describe('Controller: PaymentOnCuffCtrl\n', function() {
             it('should have shouldOpen function', function() {
                 expect(typeof PaymentOnCuffCtrl.shouldOpen === 'function').toBe(true);
             });
+            
+            it('should have shouldOpen function', function() {
+                expect(typeof PaymentOnCuffCtrl.buildInstallments === 'function').toBe(true);
+            });
 
             it('should have numberOfInstallmentsWatcherCallback function', function() {
                 expect(typeof PaymentOnCuffCtrl.numberOfInstallmentsWatcherCallback === 'function').toBe(true);

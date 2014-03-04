@@ -1,5 +1,6 @@
 describe('Controller: PaymentOnCuffCtrlShoudOpenSpec\n', function() {
 
+    var $rootScope = null;
     var DialogService = null;
     var OrderService = null;
     var OnCuffPaymentService = null;
@@ -29,9 +30,11 @@ describe('Controller: PaymentOnCuffCtrlShoudOpenSpec\n', function() {
     describe('Given a controller execution context\n', function() {
 
         describe('and a scope inherited negative total.change \n When the controller is instantiated \n Then', function() {
-            beforeEach(inject(function($controller, $rootScope, $q) {
-                scope = $rootScope.$new();
+            beforeEach(inject(function($controller, _$rootScope_, $q) {
+                $rootScope = _$rootScope_;
 
+                scope = $rootScope.$new();
+                // inherited from PaymentCtrl
                 scope.total = {};
                 scope.total.change = -150;
                 scope.selectPaymentMethod = jasmine.createSpy('scope.selectPaymentMethod');
@@ -54,9 +57,10 @@ describe('Controller: PaymentOnCuffCtrlShoudOpenSpec\n', function() {
         });
 
         describe('and a scope inherited zero total.change \n When the controller is instantiated \n Then', function() {
-            beforeEach(inject(function($controller, $rootScope, $q) {
-                scope = $rootScope.$new();
+            beforeEach(inject(function($controller, _$rootScope_, $q) {
+                $rootScope = _$rootScope_;
 
+                scope = $rootScope.$new();
                 // inherited from PaymentCtrl
                 scope.total = {};
                 scope.total.change = 0;
@@ -80,9 +84,11 @@ describe('Controller: PaymentOnCuffCtrlShoudOpenSpec\n', function() {
         });
 
         describe('and a scope inherited positive total.change \n When the controller is instantiated \n Then', function() {
-            beforeEach(inject(function($controller, $rootScope, $q) {
-                scope = $rootScope.$new();
+            beforeEach(inject(function($controller, _$rootScope_, $q) {
+                $rootScope = _$rootScope_;
 
+                scope = $rootScope.$new();
+                // inherited from PaymentCtrl
                 scope.total = {};
                 scope.total.change = 150;
                 scope.selectPaymentMethod = jasmine.createSpy('scope.selectPaymentMethod');
@@ -108,6 +114,7 @@ describe('Controller: PaymentOnCuffCtrlShoudOpenSpec\n', function() {
 
             it('shouldn\'t allow entrance', function() {
                 waitsFor(function() {
+                    $rootScope.$apply();
                     return dialogResolved;
                 });
                 runs(function() {
