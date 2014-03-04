@@ -28,6 +28,10 @@
             return openDialog('views/parts/global/message-dialog.html', 'MessageDialogCtrl', data, cssDefaultClass);
         };
 
+        this.openDialogDiscount = function(data) {
+            return openDialog('views/parts/global/discount-dialog.html', 'DiscountDialogCtrl', data, cssDefaultClass);
+        };
+
         this.openDialogAddCustomerTels = function(data) {
             return openDialog('views/parts/add-customer/add-customer-phones-dialog.html', 'AddCustomerPhonesDialogCtrl', data, cssDefaultClass);
         };
