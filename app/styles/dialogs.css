@@ -50,6 +50,9 @@
      -webkit-box-sizing: border-box;
      box-sizing:        border-box;   
  }
+ .modal-foot hr{
+ 	margin: 10px 0px 20px 0px;
+ }
  
  .modal-body .numpad-holder{
      float: left;
@@ -79,8 +82,8 @@
      top: 80px;
      left: 50%;
      z-index: 1050;
-     width: 790px;
-     margin-left: -395px;
+     width: 820px;
+     margin-left: -410px;
      background-color: white;
      border: none;
      border-radius: 4px;
@@ -185,7 +188,7 @@
      margin: 0px 15px 2px 2px;
  }
  .modal-add-basket-details-dialog-body .info{
-     width: 200px;
+     width: 230px;
  }
  .modal-add-basket-details-dialog-body .info .info-item{
      float: left;
@@ -195,16 +198,22 @@
      width: 100%;
      display: inline-block;
  }
+.modal-add-basket-details-dialog-body .quantity .info-label,
+.modal-add-basket-details-dialog-body .total 	.info-label{
+	margin-bottom: 10px;
+}
+
+
  .modal-add-basket-details-dialog-body .quantity{
-     width: 50%;
+     width: 25%;
      display: inline-block;
  }
  .modal-add-basket-details-dialog-body .total{
-     width: 50%;
+     width: 45%;
      display: inline-block;
  }
  .modal-add-basket-details-dialog-body .discount{
-     width: 100%;
+     width: 30%;
      display: inline-block;
  }
  
