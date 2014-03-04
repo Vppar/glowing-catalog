@@ -184,9 +184,9 @@
     var $injector = angular.injector([
         'ng'
     ]);
-    $injector.invoke(function (_$log_) {
+    $injector.invoke(['$log',function (_$log_) {
         $log = _$log_;
-    });
+    }]);
 
     // FIXME this tap event has been altered to prevent default pointer
     // behavior, what
