@@ -29,7 +29,7 @@
     /**
      * The Inventory item, same as SKU or a product with an applied grid
      */
-    angular.module('tnt.catalog.inventory.keeper', ['tnt.utils.array']).service('InventoryKeeper', function InventoryKeeper(Inventory, ArrayUtils) {
+    angular.module('tnt.catalog.inventory.keeper', ['tnt.utils.array']).service('InventoryKeeper', ['Inventory', 'ArrayUtils', function InventoryKeeper(Inventory, ArrayUtils) {
         var inventory = [];
         
         /**
@@ -120,7 +120,7 @@
         this.read = function(){
             return angular.copy(inventory);
         };
-    });
+    }]);
     
     angular.module('tnt.catalog.inventory', ['tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper']);
 })(angular);

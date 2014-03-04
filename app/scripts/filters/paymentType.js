@@ -19,7 +19,7 @@
     
     angular.module('tnt.catalog.filter.paymentType', [
         'tnt.catalog.filter.findBy'
-    ]).filter('paymentType', function($filter) {
+    ]).filter('paymentType', ['$filter', function($filter) {
         /**
          * Find the first item in the array that the property is an exact match
          * of the informed property. If not found return an empty object.
@@ -39,5 +39,5 @@
             }
             return filteredPayments;
         };
-    });
+    }]);
 })(angular);

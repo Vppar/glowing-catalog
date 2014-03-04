@@ -57,16 +57,7 @@
      */
     angular.module('tnt.catalog.stock.keeper', [
         'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
-    ]).config(function($provide) {
-        $provide.decorator('$q', function($delegate) {
-            $delegate.reject = function(reason){
-                var deferred = $delegate.defer();
-                deferred.reject(reason);
-                return deferred.promise;
-            };
-            return $delegate;
-        });
-    }).service('StockKeeper', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
+    ]).service('StockKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Stock', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
 
         var currentEventVersion = 1;
         var stock = [];
@@ -308,12 +299,12 @@
         this.list = function list() {
             return angular.copy(stock);
         };
-    });
+    }]);
 
     angular.module('tnt.catalog.stock', [
         'tnt.catalog.stock.entity', 'tnt.catalog.stock.keeper'
-    ]).run(function (StockKeeper) {
+    ]).run(['StockKeeper', function (StockKeeper) {
      // Warming up EntityKeeper
-    });
+    }]);
 
 }(angular));

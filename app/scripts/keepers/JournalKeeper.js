@@ -13,7 +13,7 @@
         ])
         .factory (
             'JournalEntry',
-            function JournalEntry(IdentityService) {
+            ['IdentityService', function JournalEntry(IdentityService) {
 
                 var identityType = 7;
                 var currentCounter = 0;
@@ -81,7 +81,7 @@
                 });
 
                 return service;
-            });
+            }]);
 
     /**
      * Journal Keeper
@@ -94,7 +94,8 @@
         ])
         .service (
             'JournalKeeper',
-            function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver,
+            ['$q', '$log', '$rootScope', 'JournalEntry', 'Replayer', 'WebSQLDriver',
+             'PersistentStorage', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver,
                 PersistentStorage) {
 
                 var self = this;
@@ -491,7 +492,7 @@
                         return deferred.promise;
                     });
                 }
-            });
+            }]);
 
     angular.module ('tnt.catalog.journal', [
         'tnt.catalog.journal.entity', 'tnt.catalog.journal.keeper'

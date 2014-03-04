@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.keeper', [
         'tnt.catalog.journal', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
-    ]).factory('MasterKeeper', function(JournalEntry, JournalKeeper) {
+    ]).factory('MasterKeeper', ['JournalEntry', 'JournalKeeper', function(JournalEntry, JournalKeeper) {
 
         /**
          * 
@@ -33,5 +33,5 @@
         });
 
         return MasterKeeper;
-    });
+    }]);
 })(angular);

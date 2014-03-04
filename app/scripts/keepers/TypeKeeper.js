@@ -46,7 +46,7 @@
      */
     angular.module('tnt.catalog.type.keeper', [
         'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
-    ]).service('TypeKeeper', function TypeKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
+    ]).service('TypeKeeper', ['Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Type', function TypeKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, Type) {
 
         var currentEventVersion = 1;
         var types = {
@@ -122,7 +122,7 @@
             return angular.copy(types[classification]);
         };
 
-    });
+    }]);
 
     angular.module('tnt.catalog.type', [
         'tnt.catalog.type.entity', 'tnt.catalog.type.keeper'
