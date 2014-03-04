@@ -13,7 +13,7 @@
                 // Warming up the controller
                 // #############################################################################################################
 
-                var paymentsTotalTemplate = {
+                var receivablesTotalTemplate = {
                     cash : {
                         qty : 0,
                         amount : 0
@@ -82,7 +82,7 @@
                 };
 
                 $scope.resetPaymentsTotal = function() {
-                    angular.extend($scope.total, angular.copy(paymentsTotalTemplate));
+                    angular.extend($scope.total, angular.copy(receivablesTotalTemplate));
                 };
                 $scope.resetOrdersTotal = function() {
                     angular.extend($scope.total, angular.copy(ordersTotalTemplate));
@@ -114,7 +114,7 @@
                     order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
                     order.amountTotal = (priceTotal + amountTotal);
                 }
-                
+
                 /**
                  * Generate VA
                  */
@@ -146,9 +146,9 @@
                     var filteredOrders = orders;
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
-                        //argumenting
+                        // argumenting
                         argumentOrder(filteredOrder);
-                        
+
                         if (!entityMap[filteredOrder.customerId]) {
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
@@ -204,6 +204,8 @@
                 };
 
                 $scope.filterOrders = function(orders) {
+                    orders = filterOrdersByDate(orders);
+                    
                     $scope.updateReceivablesTotal(orders);
                     updateOrdersTotal(orders);
                     $scope.generateVA(orders);
@@ -220,6 +222,11 @@
                     customerId : ''
                 };
 
+                function filterOrdersByDate(orders){
+                    return angular.copy($filter('filter')(orders, $scope.filterByDate));
+                };
+                
+                
                 /**
                  * ClientFilter
                  */
@@ -259,7 +266,6 @@
 
                         isDateFinal = true;
                     }
-
                     if (isDateInitial && isDateFinal) {
                         if ($scope.dateFilter.dtInitial.getTime() > $scope.dateFilter.dtFinal.getTime()) {
                             $scope.dateFilter.dtFinal = angular.copy($scope.dateFilter.dtInitial);
