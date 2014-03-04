@@ -193,7 +193,7 @@
                 var entry = new JournalEntry(null, stamp, name + 'Liquidate', currentEventVersion, liqEv);
 
                 // save the journal entry
-                JournalKeeper.compose(entry);
+                return JournalKeeper.compose(entry);
             };
 
             /**
