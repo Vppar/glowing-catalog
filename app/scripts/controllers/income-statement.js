@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.financial.incomeStatement', []).controller('IncomeStatementCtrl', function($scope, UserService) {
+    angular.module('tnt.catalog.financial.incomeStatement', []).controller('IncomeStatementCtrl', ['$scope', 'UserService', function($scope, UserService) {
         
         UserService.redirectIfIsNotLoggedIn();
         
@@ -16,5 +16,5 @@
         $scope.dtFinal.setSeconds(59);
         
         $scope.dtFinalTime = $scope.dtFinal.getTime();
-    });
+    }]);
 }(angular));

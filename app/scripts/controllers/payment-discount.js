@@ -7,7 +7,7 @@
                 'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper', 'tnt.catalog.payment.service', 'tnt.catalog.payment.entity',
                 'tnt.utils.array'
             ]).controller(
-            'PaymentDiscountCtrl', function($scope, $filter, Voucher, VoucherKeeper, PaymentService, CouponPayment, ArrayUtils, OrderService) {
+            'PaymentDiscountCtrl', ['$scope', '$filter', 'Voucher', 'VoucherKeeper', 'PaymentService', 'CouponPayment', 'ArrayUtils', 'OrderService', function($scope, $filter, Voucher, VoucherKeeper, PaymentService, CouponPayment, ArrayUtils, OrderService) {
 
                 // #############################################################################################
                 // Scope variables
@@ -133,5 +133,5 @@
 
                 $scope.$watch('order.customerId', updateEntityDiscounts);
 
-            });
+            }]);
 }(angular));

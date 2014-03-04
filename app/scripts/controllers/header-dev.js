@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.headerDev', []).controller('DevelopmentHeaderCtrl', function($log, $scope, DataProvider, JournalKeeper) {
+    angular.module('tnt.catalog.headerDev', []).controller('DevelopmentHeaderCtrl', ['$log', '$scope', 'DataProvider', 'JournalKeeper', function($log, $scope, DataProvider, JournalKeeper) {
         // ###################################
         // Development functions
         // ###################################
@@ -34,5 +34,5 @@
         $scope.removeDeviceId = function() {
             localStorage.removeItem('deviceId');
         };
-    });
+    }]);
 })(angular);

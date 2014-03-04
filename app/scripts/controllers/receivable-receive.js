@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.financial.receivable.receive.ctrl', []).controller(
-            'ReceivableReceiveCtrl', function($scope, ReceivableService, DialogService) {
+            'ReceivableReceiveCtrl', ['$scope', 'ReceivableService', 'DialogService', function($scope, ReceivableService, DialogService) {
 
                 $scope.comfirmReceive = function comfirmReceive() {
                     var receivable = angular.copy($scope.selectedReceivable);
@@ -55,5 +55,5 @@
                     return result;
                 };
 
-            });
+            }]);
 }(angular));

@@ -13,6 +13,7 @@
         ])
         .controller(
             'PaymentCouponCtrl',
+            ['$filter', '$scope', '$log', 'CouponService', 'DialogService', 'ArrayUtils', 'OrderService', 'PaymentService', 'EntityService',
             function ($filter, $scope, $log, CouponService, DialogService, ArrayUtils,
                 OrderService, PaymentService, EntityService) {
 
@@ -260,5 +261,5 @@
                     $scope.selectPaymentMethod('none');
                 };
 
-            });
+            }]);
 }(angular));

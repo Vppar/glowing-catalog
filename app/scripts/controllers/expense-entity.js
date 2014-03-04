@@ -8,7 +8,7 @@
      */
     angular.module('tnt.catalog.financial.expense.entity', [
         'tnt.catalog.filter.findBy'
-    ]).controller('ExpenseEntityCtrl', function($scope, $log, $filter, DataProvider, DialogService, ExpenseService) {
+    ]).controller('ExpenseEntityCtrl', ['$scope', '$log', '$filter', 'DataProvider', 'DialogService', 'ExpenseService', function($scope, $log, $filter, DataProvider, DialogService, ExpenseService) {
 
         // #####################################################################################################
         // Local variables
@@ -213,6 +213,6 @@
         $scope.save = save;
         $scope.receive = receive;
         $scope.putDocument = putDocument;
-    });
+    }]);
 
 }(angular));

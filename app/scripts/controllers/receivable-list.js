@@ -2,6 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.financial.receivable.list.ctrl', []).controller(
             'ReceivableListCtrl',
+            ['$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'ArrayUtils',
             function($log, $scope, $filter, ReceivableService, EntityService, OrderService, ArrayUtils) {
                 function setTime(date, hours, minutes, seconds, milliseconds) {
                     date.setHours(hours);
@@ -150,5 +151,5 @@
                 $scope.$watchCollection('query', filterReceivables);
                 this.receivableDateFilter = receivableDateFilter;
                 this.receivableQueryFilter = receivableQueryFilter;
-            });
+            }]);
 }(angular));

@@ -4,6 +4,7 @@
         'tnt.catalog.order.service', 'tnt.utils.array'
     ]).controller(
             'OrderListProductsCtrl',
+            ['$scope', '$location', '$filter', 'OrderService', 'ArrayUtils', 'DataProvider', 'ReceivableService', 'StockService', 'ProductReturnService', 'VoucherService',
             function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, StockService,
                     ProductReturnService, VoucherService) {
 
@@ -160,5 +161,5 @@
                     $scope.generateVA($scope.filteredProducts);
                 });
 
-            });
+            }]);
 }(angular));

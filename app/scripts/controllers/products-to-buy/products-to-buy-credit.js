@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.credit.ctrl', [
         'tnt.catalog.purchaseOrder.service'
-    ]).controller('ProductsToBuyCreditCtrl', function($scope, $filter, PurchaseOrderService) {
+    ]).controller('ProductsToBuyCreditCtrl', ['$scope', '$filter', 'PurchaseOrderService', function($scope, $filter, PurchaseOrderService) {
 
         $scope.purchase = {
             order : {}
@@ -78,5 +78,5 @@
             }
         }
 
-    });
+    }]);
 }(angular));

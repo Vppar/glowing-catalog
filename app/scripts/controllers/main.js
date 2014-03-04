@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('glowingCatalogApp').controller(
-            'MainCtrl', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper, UserService) {
+            'MainCtrl', ['$scope', '$location', 'DataProvider', 'ArrayUtils', 'OrderService', 'DialogService', 'InventoryKeeper', 'UserService', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper, UserService) {
                
                 UserService.redirectIfIsNotLoggedIn();
                 
@@ -61,5 +61,5 @@
                         });
                     }
                 };
-            });
+            }]);
 }(angular));

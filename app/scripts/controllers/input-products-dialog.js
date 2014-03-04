@@ -5,6 +5,7 @@
         .module('tnt.catalog.product.input.dialog', [])
         .controller(
             'InputProductsCtrl',
+            ['$scope', 'dialog', 'DataProvider', 'ArrayUtils', '$filter',
             function ($scope, dialog, DataProvider, ArrayUtils, $filter) {
 
                 // Local vars
@@ -108,5 +109,5 @@
                     dialog.close();
                 };
 
-            });
+            }]);
 }(angular));

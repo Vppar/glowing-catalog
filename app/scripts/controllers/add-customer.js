@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.customer', [
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
-    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService) {
+    ]).controller('AddCustomerCtrl', ['$scope', '$location', 'DataProvider', 'DialogService', 'OrderService', 'EntityService', 'CepService', 'UserService', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
         
@@ -104,5 +104,5 @@
             $scope.customer.addresses.state = address.uf;
             $scope.customer.addresses.city = address.localidade;
         };
-    });
+    }]);
 }(angular));

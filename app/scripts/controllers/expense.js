@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.expense', []).controller('ExpenseCtrl', function($scope, ExpenseService, UserService) {
+    angular.module('tnt.catalog.financial.expense', []).controller('ExpenseCtrl', ['$scope', 'ExpenseService', 'UserService', function($scope, ExpenseService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
         
@@ -24,5 +24,5 @@
             $scope.selectedExpenseMode = selectedMode;
         };
         
-    });
+    }]);
 }(angular));

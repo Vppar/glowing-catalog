@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.orderList.ctrl', [
         'tnt.catalog.order.service', 'tnt.utils.array'
-    ]).controller('OrderListCtrl', function($scope, $location, $filter, OrderService, EntityService, ReceivableService, UserService) {
+    ]).controller('OrderListCtrl', ['$scope', '$location', '$filter', 'OrderService', 'EntityService', 'ReceivableService', 'UserService', function($scope, $location, $filter, OrderService, EntityService, ReceivableService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
 
@@ -192,5 +192,5 @@
             }
         };
 
-    });
+    }]);
 }(angular));

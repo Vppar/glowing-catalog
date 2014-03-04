@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.customer.choose', [
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
-    ]).controller('ChooseCustomerDialogCtrl', function($scope, $q, $location, dialog, OrderService, EntityService) {
+    ]).controller('ChooseCustomerDialogCtrl', ['$scope', '$q', '$location', 'dialog', 'OrderService', 'EntityService', function($scope, $q, $location, dialog, OrderService, EntityService) {
 
         $scope.customers = EntityService.list().sort(function(x, y) {
             return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
@@ -31,5 +31,5 @@
             dialog.close(uuid);
         };
 
-    });
+    }]);
 }(angular));

@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.productsToBuy.ticket.dialog.ctrl', []).controller('ProductsToBuyTicketDialogCtrl', function($scope, $q, $filter, dialog) {
+    angular.module('tnt.catalog.productsToBuy.ticket.dialog.ctrl', []).controller('ProductsToBuyTicketDialogCtrl', ['$scope', '$q', '$filter', 'dialog', function($scope, $q, $filter, dialog) {
 
         $scope.nfe = {
                 date : new Date(),
@@ -31,6 +31,6 @@
             dialog.close(dialog.data);
         };
         
-    });
+    }]);
 
 }(angular));

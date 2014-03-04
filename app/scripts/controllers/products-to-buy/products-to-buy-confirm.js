@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.confirm.ctrl', [
         'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service',
-    ]).controller('ProductsToBuyConfirmCtrl', function($scope, $log, $q, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
+    ]).controller('ProductsToBuyConfirmCtrl', ['$scope', '$log', '$q', 'DialogService', 'PurchaseOrderService', 'PurchaseOrder', 'TimerService', function($scope, $log, $q, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
 
         // #####################################################################################################
         // Local variables
@@ -146,5 +146,5 @@
         // #####################################################################################################
 
         this.listConfirmedProducts = listConfirmedProducts;
-    });
+    }]);
 }(angular));

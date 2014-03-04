@@ -5,6 +5,7 @@
             .module('glowingCatalogApp')
             .controller(
                     'PartialDeliveryCtrl',
+                    ['$scope', '$location', '$filter', '$dialog', '$q', 'DataProvider', 'DialogService', 'SMSService', 'UserService', 
                     function($scope, $location, $filter, $dialog, $q, DataProvider, DialogService, SMSService, UserService) {
 
                         UserService.redirectIfIsNotLoggedIn();
@@ -166,5 +167,5 @@
                             }
                         }
                         main();
-                    });
+                    }]);
 }(angular));

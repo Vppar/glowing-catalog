@@ -6,6 +6,8 @@
             ])
             .controller(
                     'PaymentCtrl',
+                    ['$scope', '$filter', '$location', '$q', '$log', 'ArrayUtils', 'DataProvider', 'DialogService', 'OrderService', 'PaymentService',
+                    'SMSService', 'KeyboardService', 'InventoryKeeper', 'CashPayment', 'EntityService', 'UserService', 'Misplacedservice',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
                             SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService, UserService, Misplacedservice) {
 
@@ -505,5 +507,5 @@
                         }
 
                         main();
-                    });
+                    }]);
 }(angular));

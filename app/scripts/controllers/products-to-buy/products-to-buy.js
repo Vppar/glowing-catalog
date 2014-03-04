@@ -4,6 +4,7 @@
         'tnt.catalog.stock.service', 'tnt.catalog.timer.service'
     ]).controller(
             'ProductsToBuyCtrl',
+            ['$scope', '$log', 'ArrayUtils', 'StockService', 'PurchaseOrderService', 'UserService', 
             function($scope, $log, ArrayUtils, StockService, PurchaseOrderService, UserService) {
 
                 UserService.redirectIfIsNotLoggedIn();
@@ -241,5 +242,5 @@
                 // #####################################################################################################
 
                 resetWatchedQty();
-            });
+            }]);
 }(angular));
