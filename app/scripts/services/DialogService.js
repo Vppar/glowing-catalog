@@ -41,7 +41,7 @@
         };
 
         this.openDialogAddToBasket = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');
         };
         
         this.openDialogAddToBasketDetails = function(data) {
