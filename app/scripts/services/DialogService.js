@@ -28,8 +28,8 @@
             return openDialog('views/parts/global/message-dialog.html', 'MessageDialogCtrl', data, cssDefaultClass);
         };
 
-        this.openDialogDiscount = function(data) {
-            return openDialog('views/parts/global/discount-dialog.html', 'DiscountDialogCtrl', data, cssDefaultClass);
+        this.openDialogNumpad = function(data) {
+            return openDialog('views/parts/global/numpad-dialog.html', 'NumpadDialogCtrl', data, 'modal-numpad');
         };
 
         this.openDialogAddCustomerTels = function(data) {
