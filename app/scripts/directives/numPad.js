@@ -189,6 +189,11 @@
                                     event.preventDefault();
                                     scope.$apply('keypress(\'ok\')');
                                 });
+                                element.find("img[alt='percent']").bind('tap', function(event) {
+                                    event.stopPropagation();
+                                    event.preventDefault();
+                                    scope.$apply('keypress(\'percent\')');
+                                });
                             }
                         };
                     });

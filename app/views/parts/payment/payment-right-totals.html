@@ -1,7 +1,6 @@
 <div class="title-right">
-	<div>
-		Pagamento
-	</div>
+  <div class="title">Pedido de Venda</div>
+  <div class="order">{{order.code}}</div>
 </div>
 <div class="btns-right-payment right-column-payment">
   	<div class="row-right-payment row-right-payment-client" ng-click="openDialogChooseCustomer()">
@@ -15,19 +14,46 @@
 		    </span>
 		</div>
 	</div>
-	<div class="row-right-payment2">
+
+	<div class="row-right-payment">
+      <span class="container-discount">
+          <span class="label-discount">Desconto</span>
+      </span>
+      <span class=""> 
+        <!-- Remove or fix the ng-hide directive when setting the keyboard up -->
+        <span ng-hide="selectedPaymentMethod=='orderDiscount'" class="btn-price-payment" ng-click="selectDiscount()">{{total.order.discount | currency:''}}</span>
+        <input id="discount" class="btn-price-payment" ng-if="selectedPaymentMethod=='orderDiscount'" ng-model="total.order.discount" tnt-input currency focus ok-click="selectPaymentMethod('none')" tnt-relative-value="total.order.amount"/>
+      </span>
+	</div>
+
+	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
+		<span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10"  ng-hide="hideExchangeQtde">({{total.payments.exchange | count:'id'}})</span>
+		<span>
+			<span class="btn-price-payment">{{total.payments.exchange | sum:'amount' | currency:''}}</span>
+		</span>
+	</div>
+
+<!-- 	<div class="payment-subtotal">
 		<span class="lbl-money2 display-block">
 			<strong class="lbl-money">Subtotal</strong>
 			<span class="lbl-money4">&nbsp;</span>
-			<span class="btn-sub-payment">{{total.order.amount | currency: '' }}</span>
+			<span class="btn-sub-payment">{{total.order.subTotal | currency: '' }}</span>
 		</span>				
-		<span class="lbl-money2 display-block qty-values">
-			<span class="lbl-money4 qntty" ng-show="total.order.qty !== 1"> ({{total.order.qty}}) itens</span>
-			<span class="lbl-money4 qntty" ng-hide="total.order.qty !== 1"> ({{total.order.qty}}) item</span>
-			<span class="lbl-money4 qntty"> ({{total.order.unit}}) unid.</span>
-		</span>
+	</div> -->
+
+	<div class="subtotal-resume">
+		<div class="lbl-resume">
+			<div>
+				Subtotal
+			</div>
+		</div>
+		<div class="values-resume">
+			{{total.order.subTotal | currency: '' }}
+		</div>
+
 	</div>
-	<div class="row-right-payment" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money'}" ng-click="selectMoneyPayment()">
+
+	<div class="row-right-payment first-right" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money' && selectedPaymentMethod!=='orderDiscount'}" ng-click="selectMoneyPayment()">
 	    <div class="btn-payments-left">
 	        <span class="container-money-payment">
 	            <span class="label-money">Dinheiro</span>
@@ -48,12 +74,6 @@
 		<span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10"  ng-hide="hideCardQtde">({{total.payments.creditCard | count:'id'}})</span>
 		<span class="">
 			<span class="btn-price-payment">{{total.payments.creditCard | sum:'amount'| currency:''}}</span>
-		</span>
-	</div>
-	<div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-		<span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10"  ng-hide="hideExchangeQtde">({{total.payments.exchange | count:'id'}})</span>
-		<span>
-			<span class="btn-price-payment">{{total.payments.exchange | sum:'amount' | currency:''}}</span>
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('discount')">
@@ -81,9 +101,9 @@
             </div>
         </div>
 	</div>
-	<br />
-	<div class="row-right-payment" ng-click="selectPaymentMethod('voucher')">
-		<span class="lbl-money w112">Emitir vale/cupom</span>
+
+	<div class="row-right-payment first-right" ng-click="selectPaymentMethod('voucher')">
+		<span class="lbl-money w130">Emitir vale/cupom</span>
 		<span class="">
 			<!-- <span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency:''}}</span> -->
 	        <span class="btn-price-payment btn-price-payment2" >{{items | filter: voucherFilter | sum : 'amount' | currency:'' }}</span>

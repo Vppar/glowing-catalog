@@ -1,3 +1,58 @@
+/*this should be moved to new.css */
+.new-body-row-summary{
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	-webkit-user-select: none;
+	background-color: rgb(200, 200, 200);
+	border-radius: 4px;
+	display: inline-table;
+	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+}
+/*this should be moved to new.css */
+.new-col-10{
+	float:left;
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 41.667%;
+	-moz-box-sizing:    border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing:        border-box;
+	display: block;
+}
+
+.first-right{
+	margin-top: 0px !important;
+}
+
+.subtotal-resume{
+	border-radius: 4px;
+	color: #333;
+	padding: 5px 15px 0px 15px;
+	width: 288px;
+	font-size: 16px;
+	display: inline-table;
+}
+.subtotal-resume .values-resume{
+float: right;
+text-align: right;
+margin-right: 13px;
+font-size: 18px;
+}
+.subtotal-resume .lbl-resume{
+float: left;
+}
+
+.left-payment .new-body-header{
+	margin: 0px;
+}
+
+
 .container-payment {
 	margin: 0 10px;
 	position: relative;
@@ -72,7 +127,7 @@
 .row-right-payment *{border:none !important;}
 
 .row-right-payment-client {
-	min-height:40px !important;
+	min-height:30px !important;
 }
 .row-right-payment2 {
 	border-radius: 4px;
@@ -107,7 +162,6 @@ margin-top: 5px;
 .big-font {font-size:26px;}
 .payment-resume .lbl-resume {
 	float: left;
-	margin-left: 5px;
 }
 .payment-resume .values-resume {
 	float: right;
@@ -173,10 +227,11 @@ margin-top: 5px;
 .payment-resume {
 	border-radius: 4px;
 	color: #333;
-	padding: 10px;
+	padding: 5px 15px 0px 15px;
 	width: 288px;
 	/*height:10px;*/
 	font-size:16px;
+	display: inline-table;
 }
 .customer-info {
 	border-radius: 4px;
@@ -213,7 +268,7 @@ margin-top: 5px;
 }
 .lbl-name-client{
 	width: 270px;
-	margin: 8px 0 0 -7px;
+	margin: -4px 0 0 -7px;
 	padding: 4px 6px;
 	font-size: 14px;
 	color: #555555;
@@ -240,7 +295,6 @@ margin-top: 5px;
 }
 .left-payment .header, .left-payment .content-scroll div {
 	border-bottom: 1px dotted #ccc;
-	line-height: 40px;
 }
 .left-payment .header2 {
 	line-height: 20px;
@@ -368,10 +422,18 @@ margin-top: 5px;
 	color: #fff;
 	padding: 10px 0 10px 0;
 }
-.title-right div {
-	text-align: center;
+.title-right .title {
+	text-align: left;
 	vertical-align: middle;
 	font-size:120%;
+	width: 50%;
+	padding-left: 10px;
+}
+.title-right .order {
+	text-align: left;
+	vertical-align: middle;
+	font-size:120%;
+	width: 40%;
 }
 .container-payment .table th, .table {
 	padding: 8px;
@@ -534,7 +596,7 @@ float: right;
 position: absolute;
 padding: 5px;
 margin: 23px 0 40px 0;
-top: 218px;
+top: 236px;
 z-index: 11;
 border-radius: 4px;
 }

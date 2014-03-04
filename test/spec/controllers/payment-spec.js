@@ -1,3 +1,259 @@
+// There's an old implementation of tests for PaymentCtrl further down in
+// this file. It was already commented and I've left it there for now, until
+// someone checks whats wrong with it.
+describe('PaymentCtrl', function () {
+  // Dependencies
+  var
+    $rootScope,
+    $scope,
+    $filter,
+    $location,
+    $q,
+    $log,
+    ArrayUtils,
+    DataProviderMock,
+    DialogServiceMock,
+    OrderServiceMock,
+    PaymentServiceMock,
+    SMSServiceMock,
+    KeyboardServiceMock,
+    InventoryKeeperMock,
+    CashPayment,
+    EntityServiceMock,
+    UserServiceMock,
+    MisplacedServiceMock;
+
+  var PaymentCtrl;
+
+  var showLogs = false;
+
+  var logger = showLogs ? console.log : angular.noop;
+
+  $log = {
+    debug : logger,
+    error : logger,
+    fatal : logger,
+    warn : logger
+  };
+
+
+  beforeEach(createMocks);
+  beforeEach(loadModules);
+  beforeEach(inject(injectDependencies));
+  beforeEach(createSpies);
+  // Don't call initController() here, but inside each describe, allowing
+  // to change the order and payments before initializing the controller.
+
+
+  describe('total discount', function () {
+    var item1, item2, item3, items;
+
+    beforeEach(function () {
+      item1 = {qty : 1, price : 10, discount : 1};
+      item2 = {qty : 2, price : 20, discount : 2};
+      item3 = {qty : 3, price : 30, discount : 3};
+      items = [item1, item2, item3];
+
+      OrderServiceMock.order.items = items;
+    });
+
+    beforeEach(initController);
+
+
+    it('is calculated when the controller is loaded', function () {
+      expect($scope.total.order.discount).not.toBe(0);
+    });
+
+
+    it('is the sum of the discount given for each product in the order',
+      function () {
+        var totalDiscount = 0;
+
+        for (var idx in items) {
+          totalDiscount += items[idx].discount;
+        }
+
+        expect($scope.items).toBe(items);
+        expect($scope.total.order.discount).toBe(totalDiscount);
+      });
+
+
+    it('is distributed accross all products when changed', function () {
+      $scope.total.order.discount = 70;
+      $scope.$apply();
+
+      var orderTotal = $scope.total.order.amount;
+      var discountTotal = $scope.total.order.discount;
+      var orderItems = items;
+
+      expect(MisplacedServiceMock.distributeDiscount).toHaveBeenCalledWith(orderTotal, discountTotal, orderItems);
+    });
+  }); // total discount
+
+
+
+
+  describe('order subtotal', function () {
+    var orderTotal = 50;
+    var order;
+    var total;
+
+    beforeEach(initController);
+
+    beforeEach(function () {
+      total = $scope.total;
+      order = total.order;
+
+      order.amount = orderTotal;
+      $scope.$apply();
+
+      // Make sure we always have the expected subTotal
+      expect(order.subTotal).toBe(orderTotal);
+    });
+
+
+    it('is updated when the order total changes', function () {
+      var newOrderTotal = 100;
+
+      order.amount = newOrderTotal;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(newOrderTotal);
+    });
+
+
+    it('is updated when order discount changes', function () {
+      order.discount = 25;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(order.amount - order.discount);
+    });
+
+
+    it('is updated when exchanged products total changes', function () {
+      total.paymentsExchange = 25;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(order.amount - total.paymentsExchange);
+    });
+
+
+    it('subtracts discount and total exchanges from order amount', function () {
+      order.discount = 10;
+      total.paymentsExchange = 15;
+      $scope.$apply();
+
+      expect(order.subTotal).toBe(order.amount - order.discount - total.paymentsExchange);
+    });
+  }); // order subtotal
+
+
+
+
+
+  ///////////////////////////////////////////////
+  // Initialization functions
+  ///////////////////////////////////////////////
+  // Functions that initialize the module/controller and its dependencies.
+
+  function createMocks() {
+    DataProviderMock = {};
+    DialogServiceMock = {};
+    OrderServiceMock = {};
+    PaymentServiceMock = {};
+    SMSServiceMock = {};
+    KeyboardServiceMock = {};
+    InventoryKeeperMock = {};
+    EntityServiceMock = {};
+    UserServiceMock = {};
+    MisplacedServiceMock = {};
+  }
+
+
+  function loadModules() {
+    module('tnt.catalog.payment');
+    module('tnt.catalog.filter.findBy');
+    module('tnt.catalog.filter.paymentType');
+    module('tnt.catalog.filter.sum');
+  }
+
+
+  function injectDependencies(
+    _$controller_,
+    _$q_,
+    _$rootScope_,
+    _$filter_,
+    _$location_,
+    _ArrayUtils_,
+    _CashPayment_
+  ) {
+    $controller = _$controller_;
+    $q = _$q_;
+    $rootScope = _$rootScope_;
+    $scope = $rootScope.$new();
+    $filter = _$filter_;
+    $location = _$location_;
+    ArrayUtils = _ArrayUtils_;
+    CashPayment = _CashPayment_;
+  }
+
+
+  function createSpies() {
+    EntityServiceMock.list = jasmine.createSpy('EntityService.list').andReturn([{
+      uuid : 1,
+      name : 'Fake Entity'
+    }]);
+
+    KeyboardServiceMock.getKeyboard = jasmine.createSpy('KeyboardService.getKeyboard');
+
+    MisplacedServiceMock.distributeDiscount = jasmine.createSpy('Misplacedservice.distributeDiscount');
+
+    OrderServiceMock.order = {
+      customerId : 1
+    };
+
+    PaymentServiceMock.list = jasmine.createSpy('PaymentService.list').andReturn([]);
+    PaymentServiceMock.clear = jasmine.createSpy('PaymentService.clear');
+
+    UserServiceMock.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn');
+  }
+
+
+  function initController() {
+    PaymentCtrl = $controller('PaymentCtrl', {
+      $scope : $scope,
+      $location : $location,
+      $filter : $filter,
+      $q : $q,
+      $log : $log,
+      ArrayUtils : ArrayUtils,
+      DataProvider : DataProviderMock,
+      DialogService : DialogServiceMock,
+      OrderService : OrderServiceMock,
+      PaymentService : PaymentServiceMock,
+      SMSService : SMSServiceMock,
+      KeyboardService : KeyboardServiceMock,
+      InventoryKeeper : InventoryKeeperMock,
+      CashPayment : CashPayment,
+      EntityService : EntityServiceMock,
+      UserService : UserServiceMock,
+      Misplacedservice : MisplacedServiceMock
+    });
+  }
+
+
+}); // PaymentCtrl
+
+
+
+
+
+//////////////////////////////////////////////////////////////
+// Old test implementation
+/////////////////////////////////////////////////////////////
+// This tests were already commented out. I've decided to
+// not work on top of a code in need of review...
+
 // FIXME - This whole suit test needs review
 xdescribe('Controller: PaymentCtrl', function() {
     var rootScope = {};
