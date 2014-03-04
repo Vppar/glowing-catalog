@@ -12,78 +12,84 @@
          *            closes.
          * 
          */
-        var openDialog = function openDialog(template, controller, data) {
+        var openDialog = function openDialog(template, controller, data, cssClass) {
             var d = $dialog.dialog({
                 backdropClick : true,
-                dialogClass : 'modal'
+                dialogClass : cssClass
             });
             d.data = data;
             return d.open(template, controller);
         };
         this.openDialog = openDialog;
 
+        var cssDefaultClass = 'modal';
+
         this.messageDialog = function(data) {
-            return openDialog('views/parts/global/message-dialog.html', 'MessageDialogCtrl', data);
+            return openDialog('views/parts/global/message-dialog.html', 'MessageDialogCtrl', data, cssDefaultClass);
+        };
+
+        this.openDialogNumpad = function(data) {
+            return openDialog('views/parts/global/numpad-dialog.html', 'NumpadDialogCtrl', data, 'modal-numpad');
         };
 
         this.openDialogAddCustomerTels = function(data) {
-            return openDialog('views/parts/add-customer/add-customer-phones-dialog.html', 'AddCustomerPhonesDialogCtrl', data);
+            return openDialog('views/parts/add-customer/add-customer-phones-dialog.html', 'AddCustomerPhonesDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogAddCustomerEmails = function(data) {
-            return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data);
+            return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogAddToBasket = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data);
+            return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, cssDefaultClass);
         };
         
         this.openDialogAddToBasketDetails = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data);
+            return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogChangePass = function(data) {
-            return openDialog('views/parts/global/change-pass-dialog.html', 'ChangePassDialogCtrl', data);
+            return openDialog('views/parts/global/change-pass-dialog.html', 'ChangePassDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogChooseCustomer = function(data) {
-            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data);
+            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogInputProducts = function(data) {
-            return openDialog('views/parts/global/input-products-dialog.html', 'InputProductsCtrl', data);
+            return openDialog('views/parts/global/input-products-dialog.html', 'InputProductsCtrl', data, cssDefaultClass);
         };
 
         this.openDialogAdvanceMoney = function(data) {
-            return openDialog('views/parts/payment/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl', data);
+            return openDialog('views/parts/payment/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogProductExchange = function(data) {
-            return openDialog('views/parts/payment/payment-product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl', data);
+            return openDialog('views/parts/payment/payment-product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogCheck = function(data) {
-            return openDialog('views/parts/payment/payment-check-dialog.html', 'PaymentCheckDialogCtrl', data);
+            return openDialog('views/parts/payment/payment-check-dialog.html', 'PaymentCheckDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogCreditCard = function(data) {
-            return openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data);
+            return openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogDeliveryDetails = function(data) {
-            return openDialog('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl', data);
+            return openDialog('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogCustomerInfo = function(data) {
-            return openDialog('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl', data);
+            return openDialog('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl', data, cssDefaultClass);
         };
         
         this.openDialogProductsToBuyConfirm = function(data) {
-            return openDialog('views/parts/products-to-buy/products-to-buy-confirm-dialog.html', 'ProductsToBuyConfirmDialogCtrl', data);
+            return openDialog('views/parts/products-to-buy/products-to-buy-confirm-dialog.html', 'ProductsToBuyConfirmDialogCtrl', data, cssDefaultClass);
         };
         
         this.openDialogProductsToBuyTicket = function(data) {
-            return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data);
+            return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data, cssDefaultClass);
         };
     });
 
