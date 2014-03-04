@@ -111,15 +111,7 @@
  /*
 	all this at modal-body, maybe should be at some more restricted class....
  */
-/* .modal-body .img-holder{
-     float:left;
-     display:inline-block;
-     width: 250px;
-     box-sizing: border-box;
-     padding-right: 10px;
-     padding-left: 20px;
-     padding-top: 20px;  
- }*/
+
  .modal-body .img-holder{    
      text-align:center;
      vertical-align:center;
