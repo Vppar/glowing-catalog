@@ -92,8 +92,8 @@
      top: 80px;
      left: 50%;
      z-index: 1050;
-     width: 420px;
-     margin-left: -210px;
+     width: 400px;
+     margin-left: -200px;
      background-color: white;
      border: none;
      border-radius: 4px;
@@ -101,7 +101,7 @@
  }
 
  .modal-add-basket-dialog-body .info{
-     width: 120px;
+     width: 130px;
  }
  .modal-add-basket-dialog-body .info .info-item{
      width: 100%;
