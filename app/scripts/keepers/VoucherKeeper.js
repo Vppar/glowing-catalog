@@ -74,7 +74,8 @@
         ])
         .service (
             'VoucherKeeper',
-            function VoucherKeeper($log, Replayer, JournalEntry, JournalKeeper, ArrayUtils,
+            ['$log', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Voucher', 'IdentityService',
+             function VoucherKeeper($log, Replayer, JournalEntry, JournalKeeper, ArrayUtils,
                 Voucher, IdentityService) {
 
                 var type = 7;
@@ -266,12 +267,12 @@
                         return result.length ? result : null;
                     };
 
-            });
+            }]);
 
     angular.module ('tnt.catalog.voucher', [
         'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper'
-    ]).run (function(VoucherKeeper) {
+    ]).run (['VoucherKeeper', function(VoucherKeeper) {
         // Warming up VoucherKeeper
-    });
+    }]);
 
 }) (angular, ObjectUtils);

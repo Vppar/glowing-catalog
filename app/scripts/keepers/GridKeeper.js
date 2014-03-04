@@ -35,7 +35,7 @@
 
     angular.module('tnt.catalog.grid.keeper', [
         'tnt.utils.array'
-    ]).service('GridKeeper', function GridKeeper(Grid, ArrayUtils) {
+    ]).service('GridKeeper', ['Grid', 'ArrayUtils', function GridKeeper(Grid, ArrayUtils) {
         var grid = [];
         /**
          * <pre>
@@ -82,7 +82,7 @@
             return angular.copy(grid);
         };
 
-    });
+    }]);
 
     angular.module('tnt.catalog.grid', [
         'tnt.catalog.grid.entity', 'tnt.catalog.grid.keeper'

@@ -53,18 +53,10 @@
             [
                 'tnt.utils.array', 'tnt.catalog.purchaseOrder.entity', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer',
                 'tnt.catalog.journal.keeper', 'tnt.identity'
-            ]).config(function($provide) {
-        $provide.decorator('$q', function($delegate) {
-            $delegate.reject = function(reason) {
-                var deferred = $delegate.defer();
-                deferred.reject(reason);
-                return deferred.promise;
-            };
-            return $delegate;
-        });
-    }).service(
+            ]).service(
             'PurchaseOrderKeeper',
-            function PurchaseOrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, PurchaseOrder) {
+            ['$q', 'ArrayUtils', 'JournalKeeper', 'JournalEntry', 'Replayer', 'IdentityService', 'PurchaseOrder',
+             function PurchaseOrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, PurchaseOrder) {
 
                 var type = 6;
                 var currentEventVersion = 1;
@@ -265,11 +257,11 @@
                 this.redeem = redeem;
                 this.receive = receive;
 
-            });
+            }]);
     angular.module('tnt.catalog.purchaseOrder', [
         'tnt.catalog.purchaseOrder.entity', 'tnt.catalog.purchaseOrder.keeper'
-    ]).run(function(PurchaseOrderKeeper) {
+    ]).run(['PurchaseOrderKeeper', function(PurchaseOrderKeeper) {
         // Warming up OrderKeeper
-    });
+    }]);
 
 }(angular));

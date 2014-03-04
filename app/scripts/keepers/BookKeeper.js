@@ -86,7 +86,7 @@
 
     angular.module('tnt.catalog.bookkeeping.keeper', [
         'tnt.catalog.journal.replayer', 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.keeper'
-    ]).service('BookKeeper', function($q, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService) {
+    ]).service('BookKeeper', ['$q', 'Replayer', 'ArrayUtils', 'Book', 'BookEntry', 'JournalEntry', 'JournalKeeper', 'IdentityService', function($q, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService) {
 
         var type = 8;
         var books = [];
@@ -259,12 +259,12 @@
             var book = ArrayUtils.find(books, 'access', access);
             return angular.copy(book.nature);
         };
-    });
+    }]);
 
     angular.module('tnt.catalog.book', [
         'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry', 'tnt.catalog.bookkeeping.keeper'
-    ]).run(function(BookKeeper) {
+    ]).run(['BookKeeper', function(BookKeeper) {
         // Warming up BookKeeper
-    });
+    }]);
 
 })(angular);

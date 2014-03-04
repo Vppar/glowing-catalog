@@ -61,7 +61,7 @@
             [
                 'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
                 'tnt.catalog.journal.replayer'
-            ]).factory('CoinKeeper', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer) {
+            ]).factory('CoinKeeper', ['ArrayUtils', 'Coin', 'IdentityService', 'JournalKeeper', 'JournalEntry', 'Replayer', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer) {
 
         var keepers = {};
         function instance(name) {
@@ -239,5 +239,5 @@
         angular.module('tnt.catalog.coin.keeper', [
             'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity'
         ]);
-    });
+    }]);
 }(angular));

@@ -56,16 +56,7 @@
     angular.module('tnt.catalog.productReturn.keeper', [
 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.productReturn.entity',
 'tnt.catalog.journal.keeper', 'tnt.identity'
-    ]).config(function($provide) {
-        $provide.decorator('$q', function($delegate) {
-            $delegate.reject = function(reason){
-                var deferred = $delegate.defer();
-                deferred.reject(reason);
-                return deferred.promise;
-            };
-            return $delegate;
-        });
-}).service('ProductReturnKeeper', function ProductReturnKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, ProductReturn,IdentityService) {
+    ]).service('ProductReturnKeeper', ['Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'ProductReturn', 'IdentityService', function ProductReturnKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, ProductReturn,IdentityService) {
 
         var currentEventVersion = 1;
         var productsReturned = [];
@@ -178,12 +169,12 @@
             return angular.copy(productsReturned);
         };
 
-    });
+    }]);
 
     angular.module('tnt.catalog.productReturn', [
         'tnt.catalog.productReturn.entity', 'tnt.catalog.productReturn.keeper'
-    ]).run(function(ProductReturnKeeper) {
+    ]).run(['ProductReturnKeeper', function(ProductReturnKeeper) {
         // Warming up EntityKeeper
-    });
+    }]);
 
 }(angular));

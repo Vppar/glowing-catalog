@@ -54,16 +54,7 @@
             [
                 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.entity.entity',
                 'tnt.catalog.journal.keeper', 'tnt.identity'
-            ]).config(function($provide) {
-                $provide.decorator('$q', function($delegate) {
-                    $delegate.reject = function(reason){
-                        var deferred = $delegate.defer();
-                        deferred.reject(reason);
-                        return deferred.promise;
-                    };
-                    return $delegate;
-                });
-        }).service('EntityKeeper', function EntityKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity, IdentityService) {
+            ]).service('EntityKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Entity', 'IdentityService', function EntityKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity, IdentityService) {
 
         var type = 3;
         var currentEventVersion = 1;
@@ -176,12 +167,12 @@
             return angular.copy(entities);
         };
 
-    });
+    }]);
 
     angular.module('tnt.catalog.entity', [
         'tnt.catalog.entity.entity', 'tnt.catalog.entity.keeper'
-    ]).run(function(EntityKeeper) {
+    ]).run(['EntityKeeper', function(EntityKeeper) {
         // Warming up EntityKeeper
-    });
+    }]);
 
 }(angular));

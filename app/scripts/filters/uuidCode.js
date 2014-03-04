@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.filters.uuidCode', [
         'tnt.identity'
-    ]).filter('uuidCode', function (IdentityService) {
+    ]).filter('uuidCode', ['IdentityService', function (IdentityService) {
         return function (item) {
             if (!item.uuid) {
                 return item;
@@ -20,5 +20,5 @@
 
             return leftPad(data.id, 4) + '-' + leftPad(data.deviceId, 2) + '-' + year;
         };
-    });
+    }]);
 })(angular);
