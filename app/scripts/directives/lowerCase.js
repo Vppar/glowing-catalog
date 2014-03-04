@@ -14,5 +14,5 @@
             }
         };
     }
-    angular.module('tnt.catalog.attrs.lowerCase', []).directive('lowerCase', lowerCase);
+    angular.module('tnt.catalog.attrs.lowerCase', []).directive('lowerCase', ['$filter', lowerCase]);
 }(angular));

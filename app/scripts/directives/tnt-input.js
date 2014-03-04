@@ -5,7 +5,7 @@
         'tnt.catalog.keyboard.service'
     ]);
 
-    kinput.directive('tntKbutton', function(KeyboardService, $log) {
+    kinput.directive('tntKbutton', ['KeyboardService', '$log', function(KeyboardService, $log) {
         return {
             restrict : 'A',
             scope : {},
@@ -36,9 +36,9 @@
                 });
             }
         };
-    });
+    }]);
 
-    kinput.directive('tntInput', function(KeyboardService, $log, $document) {
+    kinput.directive('tntInput', ['KeyboardService', '$log', '$document', function(KeyboardService, $log, $document) {
         return {
             restrict : 'A',
             require : 'ngModel',
@@ -202,5 +202,5 @@
                 }
             }
         };
-    });
+    }]);
 })(angular);

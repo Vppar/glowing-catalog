@@ -3,11 +3,11 @@
 
     var templateUrl = 'components/highlight-display/highlight-display.html';
 
-    angular.module('glowingCatalogApp').run(function($http, $templateCache) {
+    angular.module('glowingCatalogApp').run(['$http', '$templateCache', function($http, $templateCache) {
         $http.get(templateUrl, {
             cache : $templateCache
         });
-    });
+    }]);
 
     angular.module('tnt.catalog.components.highlight-display', []).directive('highlightDisplay', function() {
         return {

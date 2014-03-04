@@ -3,13 +3,13 @@
 
     var templateUrl = 'views/parts/catalog/input-qty.html';
 
-    angular.module('glowingCatalogApp').run(function($http, $templateCache) {
+    angular.module('glowingCatalogApp').run(['$http', '$templateCache', function($http, $templateCache) {
         $http.get(templateUrl, {
             cache : $templateCache
         });
-    });
+    }]);
 
-    angular.module('glowingCatalogApp').directive('inputQty', function(TimerService) {
+    angular.module('glowingCatalogApp').directive('inputQty', ['TimerService', function(TimerService) {
         return {
             restrict : 'E',
             scope : {
@@ -73,5 +73,5 @@
                 });
             }
         };
-    });
+    }]);
 }(angular));

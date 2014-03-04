@@ -107,7 +107,7 @@
             'tnt.catalog.service.book'
         ]);
 
-    glowingCatalogApp.config(function ($routeProvider) {
+    glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
             controller : 'MainCtrl'
@@ -173,7 +173,7 @@
         }).otherwise({
             redirectTo : '/'
         });
-    });
+    }]);
 })(angular);
 
 (function ($, angular) {

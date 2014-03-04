@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').directive('tntSelect2', function select2($filter) {
+    angular.module('glowingCatalogApp').directive('tntSelect2', ['$filter', function select2($filter) {
         return {
             restrict : 'A',
             link : function(scope, element, attrs, ctrl) {
@@ -18,5 +18,5 @@
         
             }
         };
-    });
+    }]);
 }(angular));
