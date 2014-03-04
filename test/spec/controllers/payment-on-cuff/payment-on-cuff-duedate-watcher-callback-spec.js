@@ -44,9 +44,9 @@ describe('Controller: PaymentOnCuffCtrlDuedateWatcherCallBackSpec\n', function()
         };
 
         OnCuffPaymentService = {};
+        OnCuffPaymentService.buildOnCuffRef = jasmine.createSpy('OnCuffPaymentService.buildOnCuffRef').andReturn(buildOnCuffRefReturn);
         OnCuffPaymentService.buildInstallments =
                 jasmine.createSpy('OnCuffPaymentService.buildInstallments').andReturn(buildInstallmentsReturn);
-        OnCuffPaymentService.buildOnCuffRef = jasmine.createSpy('OnCuffPaymentService.buildOnCuffRef').andReturn(buildOnCuffRefReturn);
     });
 
     describe('Given a controller execution context\n', function() {

@@ -1,16 +1,14 @@
 'use strict';
 
-describe('Controller: PaymentOnCuffCtrlNumberOfInstallmentsWatcherCallBackSpec\n', function() {
+describe('Controller: PaymentOnCuffCtrlConfirmSpec\n', function() {
 
     var DialogService = null;
     var OrderService = null;
     var OnCuffPaymentService = null;
-    var PaymentOnCuffCtrl = null;
 
     var scope = null;
     var fakeNow = null;
 
-    var buildInstallmentsReturn = null;
     var buildOnCuffRefReturn = null;
 
     // load modules
@@ -34,9 +32,6 @@ describe('Controller: PaymentOnCuffCtrlNumberOfInstallmentsWatcherCallBackSpec\n
         DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
 
         // OnCuffPaymentService stub.
-        buildInstallmentsReturn = {
-            stub : 'i\'m an installments stub'
-        };
         buildOnCuffRefReturn = {
             numberOfInstallments : 1,
             duedate : new Date(),
@@ -45,8 +40,7 @@ describe('Controller: PaymentOnCuffCtrlNumberOfInstallmentsWatcherCallBackSpec\n
 
         OnCuffPaymentService = {};
         OnCuffPaymentService.buildOnCuffRef = jasmine.createSpy('OnCuffPaymentService.buildOnCuffRef').andReturn(buildOnCuffRefReturn);
-        OnCuffPaymentService.buildInstallments =
-                jasmine.createSpy('OnCuffPaymentService.buildInstallments').andReturn(buildInstallmentsReturn);
+        OnCuffPaymentService.registerInstallments = jasmine.createSpy('OnCuffPaymentService.registerInstallments');
     });
 
     describe('Given a controller execution context\n', function() {
@@ -56,8 +50,9 @@ describe('Controller: PaymentOnCuffCtrlNumberOfInstallmentsWatcherCallBackSpec\n
             // inherited from PaymentCtrl
             scope.total = {};
             scope.total.change = -1;
+            scope.selectPaymentMethod = jasmine.createSpy('scope.selectPaymentMethod');
 
-            PaymentOnCuffCtrl = $controller('PaymentOnCuffCtrl', {
+            $controller('PaymentOnCuffCtrl', {
                 $scope : scope,
                 DialogService : DialogService,
                 OrderService : OrderService,
@@ -66,40 +61,18 @@ describe('Controller: PaymentOnCuffCtrlNumberOfInstallmentsWatcherCallBackSpec\n
 
         }));
 
-        describe('and a valid newVal different to the oldVal \n When numberOfInstallmentsWatcherCallback is called\n Then', function() {
+        describe('and a valid newVal different to the oldVal \n When duedateWatcherCallback is called\n Then', function() {
 
             beforeEach(function() {
-                var oldVal = 1;
-                var newVal = 2;
-
-                PaymentOnCuffCtrl.numberOfInstallmentsWatcherCallback(newVal, oldVal);
+                scope.confirmOnCuffPayment();
             });
 
             it('should call OnCuffPaymentService.buildInstallments', function() {
-                expect(OnCuffPaymentService.buildInstallments).toHaveBeenCalledWith(
-                        buildOnCuffRefReturn.numberOfInstallments, buildOnCuffRefReturn.duedate.getTime(), buildOnCuffRefReturn.amount);
+                expect(OnCuffPaymentService.registerInstallments).toHaveBeenCalledWith(buildOnCuffRefReturn.installments);
             });
 
             it('should update onCuff.installments', function() {
-                expect(scope.onCuff.installments).toEqual(buildInstallmentsReturn);
-            });
-        });
-
-        describe('and a valid newVal equal to the oldVal \n When numberOfInstallmentsWatcherCallback is called\n Then', function() {
-
-            beforeEach(function() {
-                var oldVal = 1;
-                var newVal = 1;
-
-                PaymentOnCuffCtrl.numberOfInstallmentsWatcherCallback(newVal, oldVal);
-            });
-
-            it('shouldn\'t call PaymentOnCuffCtrl.buildInstallments', function() {
-                expect(OnCuffPaymentService.buildInstallments).not.toHaveBeenCalled();
-            });
-
-            it('should left onCuff.installments untouched', function() {
-                expect(scope.onCuff.installments).toEqual(buildOnCuffRefReturn.installments);
+                expect(scope.selectPaymentMethod).toHaveBeenCalledWith('none');
             });
         });
     });

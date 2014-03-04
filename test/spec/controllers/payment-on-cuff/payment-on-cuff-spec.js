@@ -38,7 +38,7 @@ describe('Controller: PaymentOnCuffCtrl\n', function() {
         buildOnCufRefReturn = {
             stub : 'i\'m a stub'
         };
-        
+
         OnCuffPaymentService = {};
         OnCuffPaymentService.buildOnCuffRef = jasmine.createSpy('OnCuffPaymentService.buildOnCuffRef').andReturn(buildOnCufRefReturn);
     });
@@ -66,7 +66,7 @@ describe('Controller: PaymentOnCuffCtrl\n', function() {
             it('should have shouldOpen function', function() {
                 expect(typeof PaymentOnCuffCtrl.shouldOpen === 'function').toBe(true);
             });
-            
+
             it('should have shouldOpen function', function() {
                 expect(typeof PaymentOnCuffCtrl.buildInstallments === 'function').toBe(true);
             });
