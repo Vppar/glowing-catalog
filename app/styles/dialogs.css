@@ -9,6 +9,14 @@
      font-size: 16px;
      cursor: pointer;
  }
+
+ div.zoom{
+ 	width: 230px;
+ 	height: 230px;
+ }
+ .zoom img{
+ 	margin: auto;
+ }
  
  /* modal structure */
  .modal-head{
@@ -103,21 +111,13 @@
  /*
 	all this at modal-body, maybe should be at some more restricted class....
  */
- .modal-body .img-holder{
-     float:left;
-     display:inline-block;
-     width: 250px;
-     box-sizing: border-box;
-     padding-right: 10px;
-     padding-left: 20px;
-     padding-top: 20px;  
- }
+
  .modal-body .img-holder{    
      text-align:center;
      vertical-align:center;
      display:block;
      margin:auto;
-     width: 200px;
+     float: left;
  }
  .modal-body .info{
      text-align:center;
@@ -173,7 +173,6 @@
  .modal-body .info .line-gradient{
      margin-top: 30px;
      width: 100%;
-     display: inline-block;
  }
  .modal-body .info .stock{
      margin-top: 10px;
