@@ -1,3 +1,37 @@
+<div class="container">
+<script>
+var initMagnifier = function () {
+    $('#magnifier').zoom({magnify: 2});
+};
+</script>
+    <form class="form-add-to-basket2">  
+        <span class="heading-gradient">{{product.title}}</span>
+        <span class="wrapper-qtde2">
+            <div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div> 
+            <span class="label-input-qtde">Qtde</span>
+            <input-qty ng-model="grid[0].qty" min="0"></input-qty>
+            <div class="price-add-to-basket margint14">
+                <span class="price-popup-total">Total</span>
+                <br />
+                <br />
+                <span class="price-popup-small">R$</span> {{product.price * grid[0].qty | currency:''}}
+            </div>
+            <div class="line-gradient">&nbsp;</div>
+            <div class="quantity-products-basket">{{product.inventory}} em estoque</div>
+        </span>
+        <div class="img-catalog-basket2">
+            <span class='zoom' id='magnifier'>
+                <img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
+            </span>
+        </div>
+        <span class="code-product .code-product-vs">{{item.SKU}}</span>
+        <div class="clearfix"></div>
+        <hr />
+        <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+        <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
+    </form>
+</div>
+<!--
     <script>
     var initMagnifier = function () {
         $('#magnifier').zoom({magnify: 2});
@@ -39,7 +73,7 @@
             <div class="line-gradient">&nbsp;</div>
             <div class="stock">{{product.inventory}} em estoque</div>
         </div>
-		<!-- i dont know what this does, so i will leave it here -->
+		
         <span class="code-product code-product-vs">{{item.SKU}}</span>
     </div>
 
@@ -48,3 +82,4 @@
         <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
         <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
     </div>
+    -->
