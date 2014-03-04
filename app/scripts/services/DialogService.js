@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', function($dialog) {
+    angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', ['$dialog', function($dialog) {
 
         /**
          * Generic function to open a dialog.
@@ -91,6 +91,6 @@
         this.openDialogProductsToBuyTicket = function(data) {
             return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data, cssDefaultClass);
         };
-    });
+    }]);
 
 }(angular));

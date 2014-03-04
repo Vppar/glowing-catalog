@@ -8,6 +8,7 @@
                 'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.stock.keeper', 'tnt.catalog.stock.entity'
             ]).service(
             'ProductReturnService',
+            ['$q', '$log', 'ProductReturn', 'ProductReturnKeeper', 'EntityService', 'InventoryKeeper', 'ArrayUtils', 'StockKeeper', 'Stock',
             function ProductReturnService($q, $log, ProductReturn, ProductReturnKeeper, EntityService, InventoryKeeper, ArrayUtils,
                   StockKeeper, Stock) {
                 
@@ -79,5 +80,5 @@
                 this.isValid = isValid;
                 this.list = list;
                 this.listByDocument = listByDocument;
-            });
+            }]);
 })(angular);

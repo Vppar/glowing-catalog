@@ -5,6 +5,7 @@
         'tnt.catalog.stock', 'tnt.catalog.inventory'
     ]).service(
             'StockService',
+            ['$q', '$log', 'ArrayUtils', 'InventoryKeeper', 'Stock', 'StockKeeper',
             function StockService($q, $log, ArrayUtils, InventoryKeeper, Stock, StockKeeper) {
 
                 // ###############################################################################################
@@ -263,5 +264,5 @@
                     return ArrayUtils.find(copyList, 'inventoryId', itemId);
                 };
 
-            });
+            }]);
 }(angular));

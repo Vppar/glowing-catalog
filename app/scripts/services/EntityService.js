@@ -9,7 +9,7 @@
 
     angular.module('tnt.catalog.entity.service', [
         'tnt.catalog.entity.entity', 'tnt.catalog.entity.keeper'
-    ]).service('EntityService', function EntityService($log, $q, EntityKeeper, Entity) {
+    ]).service('EntityService', ['$log', '$q', 'EntityKeeper', 'Entity', function EntityService($log, $q, EntityKeeper, Entity) {
 
       this.isValid = function(entity) {
             var invalidProperty = {};
@@ -105,6 +105,6 @@
             return result;
         };
         this.find = function(id) {};
-    });
+    }]);
 
 })(angular);

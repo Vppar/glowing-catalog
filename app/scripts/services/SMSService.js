@@ -7,6 +7,7 @@
         ])
         .service(
             'SMSService',
+            ['$http', '$q', '$interpolate', 'EntityService',
             function ($http, $q, $interpolate, EntityService) {
 
                 // ############################################################################################
@@ -215,6 +216,6 @@
                         return smsSent;
                     };
 
-            });
+            }]);
 
 }(angular));

@@ -1,7 +1,7 @@
 (function(angular, window) {
     'use strict';
 
-    angular.module('tnt.catalog.gopay.integration', ['tnt.catalog.service.data']).service('GoPayService', function GoPayService($log, $q, DataProvider) {
+    angular.module('tnt.catalog.gopay.integration', ['tnt.catalog.service.data']).service('GoPayService', ['$log', '$q', 'DataProvider',function GoPayService($log, $q, DataProvider) {
 
         if (!angular.isDefined(window.webintent)) {
             $log.warn('WebIntent is not loaded!');
@@ -95,10 +95,10 @@
                 // FIXME Call some service to register the payment, on success or failure
             });
         };
-    });
+    }]);
 
-    angular.module('tnt.catalog.gopay', ['tnt.catalog.gopay.integration']).run(function(GoPayService) {
+    angular.module('tnt.catalog.gopay', ['tnt.catalog.gopay.integration']).run(['GoPayService', function(GoPayService) {
         GoPayService.listen();
-    });
+    }]);
 
 })(angular, window);

@@ -5,6 +5,7 @@
     ])
         .service(
             'SyncService',
+            ['$q', '$log', '$rootScope', 'JournalKeeper', 'JournalEntry', 'SyncDriver',
             function SyncService ($q, $log, $rootScope, JournalKeeper, JournalEntry, SyncDriver) {
 
                 // How many times should we attempt to sync an entry before
@@ -568,5 +569,5 @@
                 this.stashEntries = stashEntries;
                 this.unstashEntries = unstashEntries;
                 this.getStashedEntries = getStashedEntries;
-            });
+            }]);
 }(angular));

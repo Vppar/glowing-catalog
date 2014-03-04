@@ -5,7 +5,7 @@
         'tnt.util.log', 'tnt.catalog.service.dialog'
     ]);
 
-    manifest.service('CacheController', function CacheController ($q, $rootScope, logger,
+    manifest.service('CacheController', ['$q', '$rootScope', 'logger', 'DialogService', function CacheController ($q, $rootScope, logger,
         DialogService) {
         var deferred = $q.defer();
 
@@ -140,5 +140,5 @@
         this.getPromise = function () {
             return deferred.promise;
         };
-    });
+    }]);
 })(angular, window.applicationCache);

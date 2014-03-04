@@ -3,6 +3,7 @@
 
     angular.module('tnt.catalog.timer.service', []).service(
         'TimerService',
+        ['$log',
         function TimerService($log) {
 
             // Processes taking longer than x milliseconds should be logged
@@ -202,5 +203,5 @@
                     delete timers[id];
                 }
             };
-        });
+        }]);
 }(angular));

@@ -10,6 +10,7 @@
         'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper'
     ]).service(
             'ReceivableService',
+            ['$q', '$log', '$filter', 'ArrayUtils', 'Receivable', 'CoinKeeper', 'WebSQLDriver',
             function ReceivableService($q, $log, $filter, ArrayUtils, Receivable, CoinKeeper, WebSQLDriver) {
 
                 var ReceivableKeeper = CoinKeeper('receivable');
@@ -249,6 +250,6 @@
                 this.receive = receive;
                 this.cancel = cancel;
 
-            }).run(function(ReceivableService) {
-    });
+            }]).run(['ReceivableService', function(ReceivableService) {
+    }]);
 }(angular));

@@ -6,7 +6,7 @@
      */
     angular.module('tnt.catalog.service.expense', [
         'tnt.catalog.expense.entity', 'tnt.catalog.coin.keeper'
-    ]).service('ExpenseService', function ExpenseService($log, Expense, CoinKeeper) {
+    ]).service('ExpenseService', ['$log', 'Expense', 'CoinKeeper', function ExpenseService($log, Expense, CoinKeeper) {
 
         var ExpenseKeeper = CoinKeeper('expense');
 
@@ -131,5 +131,5 @@
         this.list = list;
         this.pay = pay;
         this.cancel = cancel;
-    });
+    }]);
 }(angular));

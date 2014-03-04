@@ -5,6 +5,7 @@
         'tnt.utils.array'
     ]).service(
         'ProductLineUp',
+        ['ArrayUtils', 
         function ProductLineUp (ArrayUtils) {
 
             function p3x3 (product) {
@@ -186,5 +187,5 @@
                 }
             }
 
-        });
+        }]);
 })(angular);

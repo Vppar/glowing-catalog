@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.service.book', [
         'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry'
-    ]).service('BookService', function BookService($q, $log, BookKeeper, Book, BookEntry) {
+    ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $log, BookKeeper, Book, BookEntry) {
 
         this.write = function(entry) {
             var result = null;
@@ -214,5 +214,5 @@
             return (amount === 0);
         };
 
-    });
+    }]);
 }(angular));
