@@ -336,7 +336,7 @@ module.exports =
                         expand : true,
                         cwd : '<%= yeoman.app %>/styles',
                         dest : '.tmp/styles/',
-                        src : '{,*/}*.css'
+                        src : '**/*.css'
                     }
                 },
 
@@ -448,9 +448,9 @@ module.exports =
             grunt.task.run([
                 'clean:server',
                 'bower-install',
-                'less',
+                //'less',
                 'concurrent:server',
-                'autoprefixer',
+                //'autoprefixer',
                 'connect:livereload',
                 'watch'
             ]);
