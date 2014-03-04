@@ -190,8 +190,8 @@ module.exports =
                         files : {
                             src : [
                                 '<%= yeoman.dist %>/scripts/**/*.js',
-                                '<%= yeoman.dist %>/styles/{,*/}*.css',
-                                // FIXME uncomment this '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+                                '<%= yeoman.dist %>/styles/**/*.css',
+                                '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
                                 '<%= yeoman.dist %>/styles/fonts/*'
                             ]
                         }
@@ -219,7 +219,7 @@ module.exports =
                         '<%= yeoman.dist %>/components/**/*.html'
                     ],
                     css : [
-                        '<%= yeoman.dist %>/styles/{,*/}*.css'
+                        '<%= yeoman.dist %>/styles/**/*.css'
                     ],
                     options : {
                         assetsDirs : [
@@ -319,8 +319,13 @@ module.exports =
                                     'bower_components/**/*',
                                     'images/{,*/}*.{webp}',
                                     'fonts/*',
-                                    '*.manifest'
+                                    'styles/**/*.css',
+                                    'resources/**/*'
                                 ]
+                            },
+                            {
+                                src: '<%= yeoman.app %>/wishlist.manifest.dist',
+                                dest: '<%= yeoman.dist %>/wishlist.manifest'
                             },
                             {
                                 expand : true,
@@ -448,9 +453,9 @@ module.exports =
             grunt.task.run([
                 'clean:server',
                 'bower-install',
-                //'less',
+                'less',
                 'concurrent:server',
-                //'autoprefixer',
+                'autoprefixer',
                 'connect:livereload',
                 'watch'
             ]);
@@ -484,7 +489,7 @@ module.exports =
             'cdnify',
             'cssmin',
             'uglify',
-            'rev',
+            // No need to revision since the manifest forces update 'rev',
             'usemin',
             // FIXME uncomment this 'htmlmin'
         ]);

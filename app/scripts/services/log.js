@@ -2,10 +2,10 @@
 	'use strict';
 
 	angular.module('tnt.util.log', []).config(['$provide', function($provide) {
-        $provide.decorator('$log', function($delegate) {
+        $provide.decorator('$log', ['$delegate', function($delegate) {
             $delegate.fatal = $delegate.log;
             return $delegate;
-        });
+        }]);
     }]).service('logger', ['$log', function logger($log) {
 		// TODO Create a console interceptor to warn about the use of console.log
 		return $log;
