@@ -22,10 +22,10 @@
 			<span class="new-col-2 text-center" ng-show="item.idx <= 8">{{ '0' + (item.idx + 1)}}</span>
 			<span class="new-col-2 text-center" ng-show="item.idx > 8">{{item.idx + 1}}</span>
 			<span class="new-col-10">{{item.title}} &nbsp;<span class="code-product">{{item.uniqueName}}</span></span>
-			<span class="new-col-3 currency">{{item.price | currency: ''}}</span>
+			<span class="new-col-3 currency">{{(item.price || item.amount) | currency: ''}}</span>
 			<span class="new-col-3 text-center">{{item.qty}}</span>
 			<span class="new-col-3 currency">{{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
-      		<span class="new-col-3 currency">{{item.discount | currency:''}}</span>
+      		<span class="new-col-3 currency">{{(item.discount || 0) | currency:''}}</span>
 		</div>
 	</div>
 </div>

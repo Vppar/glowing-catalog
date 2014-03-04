@@ -70,7 +70,7 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
           continue;
         }
 
-        var itemTotal = item.qty * (item.price || item.cost);
+        var itemTotal = item.qty * (item.price || item.cost || item.amount);
 
         if (itemTotal > largestProductValue) {
           largestProductValue = itemTotal;
