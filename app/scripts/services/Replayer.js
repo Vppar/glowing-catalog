@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.journal.replayer', ['tnt.catalog.journal.entity']).service('Replayer', function Replayer($log, JournalEntry) {
+    angular.module('tnt.catalog.journal.replayer', ['tnt.catalog.journal.entity']).service('Replayer', ['$log', 'JournalEntry', function Replayer($log, JournalEntry) {
 
         var eventHandlers = {};
 
@@ -93,5 +93,5 @@
             // TODO get all journal entries since lastPos
             // TODO replay said events
         };
-    });
+    }]);
 }(angular));

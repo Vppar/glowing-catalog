@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.gopay.gateway', []).service('GoPayGateway', function GoPayGateway($q, $http) {
+    angular.module('tnt.catalog.gopay.gateway', []).service('GoPayGateway', ['$q', '$http', function GoPayGateway($q, $http) {
         this.pay = function(data) {
             var deferred = $q.defer();
             var token = localStorage.gpToken;
@@ -21,5 +21,5 @@
 
             return deferred.promise;
         };
-    });
+    }]);
 }(angular));

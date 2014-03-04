@@ -4,7 +4,7 @@
     angular.module('tnt.catalog.payment.oncuff.service', [
         'tnt.catalog.entity.service', 'tnt.catalog.payment.service'
     ]).service('OnCuffPaymentService',
-
+        ['$filter', 'OnCuffPayment', 'EntityService', 'PaymentService', 'Misplacedservice',
     /**
      * Service to handle on cuff payment business logic.
      * 
@@ -146,5 +146,5 @@
             return Misplacedservice.recalc(onCuff.amount, index, onCuff.installments, 'amount');
         };
 
-    });
+    }]);
 }(angular));

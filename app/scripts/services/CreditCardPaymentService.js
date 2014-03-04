@@ -8,6 +8,7 @@
                 'tnt.catalog.misplaced.service', 'tnt.catalog.gopay.gateway'
             ]).service(
             'CreditCardPaymentService',
+            ['$q', '$log', '$filter', 'GoPayGateway', 'PaymentService', 'CreditCardPayment', 'Misplacedservice',
             function CreditcardPaymentService($q, $log, $filter, GoPayGateway, PaymentService, CreditCardPayment, Misplacedservice) {
 
                 var acceptedCardFlags = {
@@ -162,6 +163,6 @@
 
                     return recordedPayment;
                 };
-            });
+            }]);
 
 }(angular));

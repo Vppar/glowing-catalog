@@ -7,6 +7,7 @@
         ])
         .service(
             'PrefetchService',
+            ['$q', '$http', '$log', 'DialogService',
             function PrefetchService ($q, $http, $log, DialogService) {
 
                 this.doIt = function () {
@@ -48,5 +49,5 @@
                             });
                 }
                 ;
-            });
+            }]);
 }(angular));

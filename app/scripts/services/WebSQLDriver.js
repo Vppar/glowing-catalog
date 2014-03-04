@@ -8,7 +8,7 @@
      * - All methods must require an existing transaction
      * 
      */
-    angular.module('tnt.storage.websql', []).service('WebSQLDriver', function WebSQLDriver($q, $log, $rootScope) {
+    angular.module('tnt.storage.websql', []).service('WebSQLDriver', ['$q', '$log', '$rootScope', function WebSQLDriver($q, $log, $rootScope) {
 
         var db = openDatabase('PersistentStorage', '1.0', 'Persistent Storage', 5 * 1024 * 1024);
         var entities = {};
@@ -460,5 +460,5 @@
 
             return where.join(' AND ');
         };
-    });
+    }]);
 })(angular, window.openDatabase);

@@ -23,7 +23,7 @@
     /**
      * Cash payment entity.
      */
-    entities.factory('CashPayment', function CashPayment(Payment) {
+    entities.factory('CashPayment', ['Payment', function CashPayment(Payment) {
 
         var service = function svc(amount) {
             ObjectUtils.superInvoke(this, amount);
@@ -32,12 +32,12 @@
         ObjectUtils.inherit(service, Payment);
 
         return service;
-    });
+    }]);
 
     /**
      * Check payment entity.
      */
-    entities.factory('CheckPayment', function CheckPayment(Payment) {
+    entities.factory('CheckPayment', ['Payment', function CheckPayment(Payment) {
 
         var service = function svc(amount, bank, agency, account, number, duedate) {
 
@@ -58,12 +58,12 @@
         ObjectUtils.inherit(service, Payment);
 
         return service;
-    });
+    }]);
 
     /**
      * Credit card payment entity.
      */
-    entities.factory('CreditCardPayment', function CreditCardPayment(Payment) {
+    entities.factory('CreditCardPayment', ['Payment', function CreditCardPayment(Payment) {
 
         var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments, duedate) {
 
@@ -94,12 +94,12 @@
         ObjectUtils.inherit(service, Payment);
 
         return service;
-    });
+    }]);
 
     /**
      * Credit card without merchant payment entity.
      */
-    entities.factory('NoMerchantCreditCardPayment', function NoMerchantCreditCardPayment(Payment) {
+    entities.factory('NoMerchantCreditCardPayment', ['Payment', function NoMerchantCreditCardPayment(Payment) {
 
         var service = function svc(orderId, amount, flag, installments) {
 
@@ -124,12 +124,12 @@
         ObjectUtils.inherit(service, Payment);
 
         return service;
-    });
+    }]);
 
     /**
      * Exchange payment entity.
      */
-    entities.factory('ExchangePayment', function ExchangePayment(Payment) {
+    entities.factory('ExchangePayment', ['Payment', function ExchangePayment(Payment) {
 
         var service = function svc(id, productId, qty, price, amount) {
             this.id = id;
@@ -144,12 +144,12 @@
         ObjectUtils.inherit(service, Payment);
 
         return service;
-    });
+    }]);
 
     /**
      * Coupon payment entity.
      */
-    entities.factory('CouponPayment', function CouponPayment(Payment) {
+    entities.factory('CouponPayment', ['Payment', function CouponPayment(Payment) {
 
         var service = function svc(amount) {
             ObjectUtils.superInvoke(this, amount);
@@ -158,12 +158,12 @@
         ObjectUtils.inherit(service, Payment);
 
         return service;
-    });
+    }]);
 
     /**
      * Coupon payment entity.
      */
-    entities.factory('OnCuffPayment', function OnCuffPayment(Payment) {
+    entities.factory('OnCuffPayment', ['Payment', function OnCuffPayment(Payment) {
 
         var service = function svc(amount, duedate) {
             if (arguments.length != svc.length) {
@@ -177,12 +177,15 @@
         ObjectUtils.inherit(service, Payment);
 
         return service;
-    });
+    }]);
 
     angular.module('tnt.catalog.payment.service', [
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log', 'tnt.catalog.service.book'
     ]).service(
             'PaymentService',
+            ['$location', '$q', '$log', '$filter', 'ArrayUtils', 'Payment', 'CashPayment', 'CheckPayment', 'CreditCardPayment',
+             'NoMerchantCreditCardPayment', 'ExchangePayment', 'CouponPayment', 'CouponService', 'OnCuffPayment', 'OrderService', 'EntityService',
+             'ReceivableService', 'ProductReturnService', 'VoucherService', 'WebSQLDriver', 'StockKeeper', 'SMSService', 'BookService',
             function PaymentService($location, $q, $log, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                     NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService, EntityService,
                     ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService, BookService) {
@@ -758,5 +761,5 @@
                 this.persistCouponQuantity = persistCouponQuantity;
                 this.clearPersistedCoupons = clearPersistedCoupons;
                 this.createCoupons = createCoupons;
-            });
+            }]);
 }(angular));

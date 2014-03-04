@@ -2,16 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.storage.persistent', ['tnt.storage.websql'])
-    .config(function($provide) {
-                $provide.decorator('$q', function($delegate) {
-                    $delegate.reject = function(reason){
-                        var deferred = $delegate.defer();
-                        deferred.reject(reason);
-                        return deferred.promise;
-                    };
-                    return $delegate;
-                });
-        }).factory('PersistentStorage', function PersistentStorage($log, $q) {
+    .factory('PersistentStorage', ['$log', '$q', function PersistentStorage($log, $q) {
 
         var service = function(driver) {
             var entities = {};
@@ -309,6 +300,6 @@
 
         return service;
 
-    });
+    }]);
 
 })(angular, window.ObjectUtils);

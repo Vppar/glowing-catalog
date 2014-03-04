@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.order.service', []).service(
-            'OrderService', function OrderService2($q, $log, Order, OrderKeeper, DataProvider) {
+            'OrderService', ['$q', '$log', 'Order', 'OrderKeeper', 'DataProvider', function OrderService2($q, $log, Order, OrderKeeper, DataProvider) {
 
                 var orderTemplate = {
                     // FIXME: generate codes dynamically.
@@ -257,5 +257,5 @@
                 function areValidItems(items) {
                     return angular.isArray(items) && items.length > 0;
                 }
-            });
+            }]);
 }(angular));

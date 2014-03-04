@@ -5,7 +5,7 @@
      * Providing data since... ever.
      */
     angular.module('tnt.catalog.service.data', []).service(
-            'DataProvider', function DataProvider($q, $http, $timeout, $rootScope, InventoryKeeper, Replayer, JournalEntry) {
+            'DataProvider', ['$q', '$http', '$timeout', '$rootScope', 'InventoryKeeper', 'Replayer', 'JournalEntry', function DataProvider($q, $http, $timeout, $rootScope, InventoryKeeper, Replayer, JournalEntry) {
 
                 var scope = this;
 
@@ -87,5 +87,5 @@
 
                     return deferred.promise;
                 };
-            });
+            }]);
 }(angular));
