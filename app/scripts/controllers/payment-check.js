@@ -60,6 +60,7 @@
                         return;
                     }
 
+                    // isDuplicated(check);
                     if (isDuplicated(check)) {
                         // check if is duplicated.
                         dialogService.messageDialog({
@@ -70,43 +71,19 @@
                         return;
                     }
 
-                    if (check.id) {
-                        // if is an update
-                        var id = check.id;
-
-                        var editCheck = $filter('findBy')($scope.payments, 'id', id);
-                        editCheck.bank = check.bank;
-                        editCheck.agency = check.agency;
-                        editCheck.account = check.account;
-                        editCheck.duedate = check.duedate;
-                        editCheck.amount = check.amount;
-
-                        Misplacedservice.recalc(checkSum, $scope.payments.indexOf(editCheck), $scope.payments, 'amount');
+                    var newChecks = null;
+                    // Will be payed by installments ?
+                    if (check.installments > 1) {
+                        newChecks = buildInstallments(check);
                     } else {
-                        var newChecks = null;
-                        // Will be payed by installments ?
-                        if (check.installments > 1) {
-                            newChecks = buildInstallments(check);
-                        } else {
-                            var newCheckCopy = angular.copy(check);
-                            newChecks = [
-                                newCheckCopy
-                            ];
-                        }
-                        createPayments(newChecks);
+                        var newCheckCopy = angular.copy(check);
+                        newChecks = [
+                            newCheckCopy
+                        ];
                     }
+                    createPayments(newChecks);
                     angular.extend(check, emptyCheckTemplate);
                     $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
-                };
-
-                $scope.edit = function edit(payment) {
-                    check.id = payment.id;
-                    check.amount = payment.amount;
-                    check.duedate = payment.duedate;
-                    check.number = payment.number;
-                    check.bank = payment.bank;
-                    check.agency = payment.agency;
-                    check.account = payment.account;
                 };
 
                 /**
@@ -145,6 +122,19 @@
                 };
 
                 $scope.confirmCheckPayments = function confirmCheckPayments() {
+                    console.log($scope.payments);
+                    for ( var i in $scope.payments) {
+                        if (isDuplicated($scope.payments[i])) {
+                            // check if is duplicated.
+                            dialogService.messageDialog({
+                                title : 'Pagamento com Cheque',
+                                message : 'Cheque de número ' + $scope.payments[i].number + ' precisa ser único.',
+                                btnYes : 'OK'
+                            });
+                            return;
+                        }
+                    }
+
                     PaymentService.clear('check');
                     for ( var ix in $scope.payments) {
                         var data = $scope.payments[ix];
@@ -170,13 +160,9 @@
                     var newChecks = [];
                     // Well the payment will be by installments, so
                     // store
-
                     // save the installments number so we can delete it
-                    var installmentsNumber = newCheck.installments;
-                    delete newCheck.installments;
-
-                    var installmentsSum = 0;
-                    for ( var i = 0; i < installmentsNumber; i++) {
+                    var installmentsAmount = Math.round(100 *(Number(newCheck.amount)/Number(newCheck.installments))) /100;
+                    for ( var i = 0; i < newCheck.installments; i++) {
                         // make a copy
                         var checkInstallment = angular.copy(newCheck);
 
@@ -184,33 +170,21 @@
 
                         checkInstallment.duedate = properDate(checkInstallment.duedate, i);
 
-                        checkInstallment.amount = 0;
+                        if(i===(newCheck.installments-1)){
+                            checkInstallment.amount = (newCheck.amount)-(installmentsAmount*(newCheck.installments-1));
+                        }else{
+                            checkInstallment.amount = installmentsAmount;
+                        }
 
-                        installmentsSum = Math.round((installmentsSum + checkInstallment.amount) * 100) / 100;
                         newChecks.push(checkInstallment);
                     }
 
-                    var total = checkSum - $filter('sum')($scope.payments, 'amount');
-                    newChecks[0].amount = check.amount;
-                    Misplacedservice.recalc(total, 0, newChecks, 'amount');
-
-                    if ((installmentsSum + sumChecks()) !== checkSum) {
-                        $log.info('PaymentCheckCtrl.buildInstallments: -The sum of the installments and the amount are' +
-                            ' different, installmentsSum=' + (installmentsSum + sumChecks()) + ' originalAmount=' + checkSum);
-                    }
+//                    if ((installmentsSum + sumChecks()) !== checkSum) {
+//                        $log.info('PaymentCheckCtrl.buildInstallments: -The sum of the installments and the amount are' +
+//                            ' different, installmentsSum=' + (installmentsSum + sumChecks()) + ' originalAmount=' + checkSum);
+//                    }
                     return newChecks;
                 }
-                //                
-                // function recalcChecks(id){
-                // var copyPayments = angular.copy($scope.payments);
-                // var sumRemaining = 0;
-                // var remainingInstallments = 0;
-                // for(var x = id;x++;x<copyPayments.length){
-                // sumRemaining+=copyPayments[x].amount;
-                // remainingInstallments++;
-                // }
-                //                    
-                // }
 
                 function sumChecks() {
                     copyPayments = angular.copy($scope.payments);
@@ -234,9 +208,9 @@
                 function createPayments(newChecks) {
                     for ( var ix in newChecks) {
                         newChecks[ix].id = $scope.payments.length + 1;
+                        console.log(newChecks[ix]);
                         $scope.payments.push(newChecks[ix]);
                     }
-                    // $scope.payments = newChecks;
                 }
                 /**
                  * Check if the new check is already added into another payment.
@@ -244,22 +218,17 @@
                  * @param newCheck - the object containing the newCheck data.
                  */
                 function isDuplicated(newCheck) {
-                    var checks = $filter('filter')($scope.payments, function(item) {
-                        var result = false;
-                        result = item.bank === newCheck.bank;
-                        result = result && (item.agency === newCheck.agency);
-                        result = result && (item.account === newCheck.account);
-                        result = result && (Number(item.number) >= Number(newCheck.number));
-                        result = result && (Number(item.number) <= ((Number(newCheck.number) + Number(newCheck.installments)) - 1));
-                        if (newCheck.id) {
-                            // isn't
-                            // duplicated,
-                            // is an update
-                            result = result && (item.id !== newCheck.id);
-                        }
-                        return result;
-                    });
-                    return checks.length > 0;
+
+                    var result = ArrayUtils.list($scope.payments, 'bank', newCheck.bank);
+                    result = ArrayUtils.list(result, 'agency', newCheck.agency);
+                    result = ArrayUtils.list(result, 'account', newCheck.account);
+                    result = ArrayUtils.list(result, 'number', newCheck.number);
+
+                    if (result.length > 1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             });
 }(angular));
