@@ -3,6 +3,7 @@
 
     angular.module('glowingCatalogApp').controller(
             'DeliveryDetailsDialogCtrl',
+            ['$scope', '$filter', '$timeout', 'dialog', 'DataProvider', 'DialogService',
             function($scope, $filter, $timeout, dialog, DataProvider, DialogService) {
 
                 // #############################################################################################################
@@ -205,5 +206,5 @@
                     timewatch();
                 }
                 main();
-            });
+            }]);
 }(angular));

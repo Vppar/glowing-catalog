@@ -5,6 +5,7 @@
         'tnt.catalog.service.dialog', 'tnt.catalog.service.data', 'tnt.catalog.payment.creditcard.service'
     ]).controller(
             'PaymentCreditCardCtrl',
+            ['$scope', '$element', '$filter', 'DataProvider', 'DialogService', 'OrderService', 'CreditCardPaymentService', 
             function($scope, $element, $filter, DataProvider, DialogService, OrderService, CreditCardPaymentService) {
 
                 // #####################################################################################################
@@ -141,5 +142,5 @@
                     });
                 };
 
-            });
+            }]);
 }(angular));

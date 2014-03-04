@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.stock.ctrl', [
         'tnt.catalog.stock.service'
-    ]).controller('StockCtrl', function($scope, $filter, StockService, UserService) {
+    ]).controller('StockCtrl', ['$scope', '$filter', 'StockService', 'UserService', function($scope, $filter, StockService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
         
@@ -161,5 +161,5 @@
         enableProductWatcher();
 
         $scope.showLevel(1);
-    });
+    }]);
 }(angular));

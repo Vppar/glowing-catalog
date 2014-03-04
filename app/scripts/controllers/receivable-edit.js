@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.financial.receivable.edit.ctrl', []).controller(
-            'ReceivableEditCtrl', function($scope, $filter, ReceivableService, DialogService) {
+            'ReceivableEditCtrl', ['$scope', '$filter', 'ReceivableService', 'DialogService', function($scope, $filter, ReceivableService, DialogService) {
 
                 $scope.comfirmUpdate = function() {
                     var receivable = angular.copy($scope.selectedReceivable);
@@ -55,5 +55,5 @@
                     return result;
                 };
 
-            });
+            }]);
 }(angular));

@@ -2,6 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.summary.ctrl', []).controller(
             'ProductsToBuySummaryCtrl',
+            ['$scope', '$filter', '$log', 
             function($scope, $filter, $log) {
 
                 // #####################################################################################################
@@ -74,5 +75,5 @@
                     calculateDiscount();
                 });
 
-            });
+            }]);
 }(angular));

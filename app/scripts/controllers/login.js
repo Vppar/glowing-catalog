@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.login.ctrl', [
         'tnt.catalog.user'
-    ]).controller('LoginCtrl', function($scope, $log, $location, UserService, DialogService) {
+    ]).controller('LoginCtrl', ['$scope', '$log', '$location', 'UserService', 'DialogService', function($scope, $log, $location, UserService, DialogService) {
 
         function hasPersistedUser() {
             return !!localStorage.user;
@@ -72,5 +72,5 @@
             });
         };
 
-    });
+    }]);
 }(angular));

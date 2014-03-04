@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.order.ctrl', [
         'tnt.catalog.stock.service'
-    ]).controller('ProductsToBuyOrderCtrl', function($scope, $log, StockService) {
+    ]).controller('ProductsToBuyOrderCtrl', ['$scope', '$log', 'StockService', function($scope, $log, StockService) {
 
         // #####################################################################################################
         // Local Functions
@@ -131,6 +131,6 @@
         enableProductWatcher();
         $scope.showLevel(1);
 
-    });
+    }]);
 
 }(angular));

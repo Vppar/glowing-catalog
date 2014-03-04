@@ -4,6 +4,7 @@
         'tnt.catalog.order.service', 'tnt.utils.array'
     ]).controller(
             'OrderListClientsCtrl',
+            ['$scope', '$location', '$filter', 'OrderService', 'ArrayUtils', 'ReceivableService', 'ProductReturnService', 'VoucherService',
             function($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService, ProductReturnService, VoucherService) {
 
                 // $scope.entities come from OrderListCtrl
@@ -163,5 +164,5 @@
                     updateFilteredEntities();
                     $scope.generateVA($scope.filteredEntities);
                 });
-            });
+            }]);
 }(angular));

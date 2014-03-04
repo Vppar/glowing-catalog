@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.payment.exchange', [
         'tnt.catalog.productReturn.keeper','tnt.catalog.payment.service', 'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.payment.entity'
-    ]).controller('PaymentExchangeCtrl', function($scope, ProductReturnKeeper, PaymentService, InventoryKeeper, ArrayUtils, DialogService, ExchangePayment) {
+    ]).controller('PaymentExchangeCtrl', ['$scope', 'ProductReturnKeeper', 'PaymentService', 'InventoryKeeper', 'ArrayUtils', 'DialogService', 'ExchangePayment', function($scope, ProductReturnKeeper, PaymentService, InventoryKeeper, ArrayUtils, DialogService, ExchangePayment) {
 
         // #####################################################################################################
         // Warm up the controller
@@ -118,5 +118,5 @@
 
         // Set already included exchange payments
         $scope.computeTotals();
-    });
+    }]);
 }(angular));

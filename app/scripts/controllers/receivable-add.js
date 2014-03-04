@@ -7,6 +7,7 @@
                 'tnt.catalog.type'
             ]).controller(
             'ReceivableAddCtrl',
+            ['$scope', '$q', 'ReceivableService', 'Receivable', 'Misplacedservice', 'EntityService', 'TypeKeeper',
             function($scope, $q, ReceivableService, Receivable, Misplacedservice, EntityService, TypeKeeper) {
 
                 var mReceivable = '';
@@ -138,5 +139,5 @@
                         return baseDate.setMonth((parseInt(baseDate.getMonth(), 10) + parseInt(increase, 10)));
                     }
                 }
-            });
+            }]);
 }(angular));

@@ -5,6 +5,7 @@
         'tnt.catalog.service.data'
     ]).controller(
             'AddToBasketDialogCtrl',
+            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService',
             function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService) {
 
                 var orderItems = OrderService.order.items;
@@ -102,5 +103,5 @@
                 $scope.cancel = function cancel() {
                     dialog.close($q.reject());
                 };
-            });
+            }]);
 }(angular));

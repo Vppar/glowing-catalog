@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.productsToBuy.ticket.ctrl', [
         'tnt.utils.array'
-    ]).controller('ProductsToBuyTicketCtrl', function($scope, $filter, $q, $log,  ArrayUtils, DialogService, PurchaseOrderService) {
+    ]).controller('ProductsToBuyTicketCtrl', ['$scope', '$filter', '$q', '$log', 'ArrayUtils', 'DialogService', 'PurchaseOrderService', function($scope, $filter, $q, $log,  ArrayUtils, DialogService, PurchaseOrderService) {
 
         // #####################################################################################################
         // Local variables
@@ -100,6 +100,6 @@
         // #####################################################################################################
 
         ticket.loadPurchaseOrders();
-    });
+    }]);
 
 }(angular));

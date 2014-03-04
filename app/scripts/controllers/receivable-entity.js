@@ -9,7 +9,7 @@
     // FIXME: I've renamed it to ReceivableCtrlOLD because it seemed to be
     // conflicting with a newer controller defined in receivable.js
     angular.module('tnt.catalog.financial.receivable.entity', []).controller(
-            'ReceivableCtrlOLD', function($scope, $log, $filter, DataProvider, DialogService, ReceivableService) {
+            'ReceivableCtrlOLD', ['$scope', '$log', '$filter', 'DataProvider', 'DialogService', 'ReceivableService', function($scope, $log, $filter, DataProvider, DialogService, ReceivableService) {
 
                 // #####################################################################################################
                 // Local variables
@@ -215,6 +215,6 @@
                 $scope.save = save;
                 $scope.receive = receive;
                 $scope.putDocument = putDocument;
-            });
+            }]);
 
 }(angular));

@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.financial.receivable.ctrl', [
         'tnt.catalog.filters.uuidCode'
-    ]).controller('ReceivableCtrl', function($scope, $filter, ReceivableService, UserService) {
+    ]).controller('ReceivableCtrl', ['$scope', '$filter', 'ReceivableService', 'UserService', function($scope, $filter, ReceivableService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
 
@@ -51,5 +51,5 @@
             $scope.selectReceivableMode('list');
         };
 
-    });
+    }]);
 }(angular));

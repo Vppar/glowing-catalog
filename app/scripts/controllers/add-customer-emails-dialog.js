@@ -11,7 +11,7 @@
      */
     angular.module('tnt.catalog.customer.add.emails', [
         'tnt.catalog.service.data'
-    ]).controller('AddCustomerEmailsDialogCtrl', function($scope, $q, $filter, dialog, DialogService) {
+    ]).controller('AddCustomerEmailsDialogCtrl', ['$scope', '$q', '$filter', 'dialog', 'DialogService', function($scope, $q, $filter, dialog, DialogService) {
 
         $scope.email = {};
 
@@ -102,5 +102,5 @@
             dialog.close($q.reject());
         };
 
-    });
+    }]);
 }(angular));

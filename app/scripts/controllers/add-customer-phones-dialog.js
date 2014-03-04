@@ -11,7 +11,7 @@
      */
     angular.module('tnt.catalog.customer.add.phones', [
         'tnt.catalog.service.data'
-    ]).controller('AddCustomerPhonesDialogCtrl', function($scope, $q, $filter, dialog, DataProvider, DialogService) {
+    ]).controller('AddCustomerPhonesDialogCtrl', ['$scope', '$q', '$filter', 'dialog', 'DataProvider', 'DialogService', function($scope, $q, $filter, dialog, DataProvider, DialogService) {
         // set phone types into dropdown menu
         $scope.phoneTypes = DataProvider.phoneTypes;
         $scope.phone = {
@@ -103,5 +103,5 @@
             dialog.close($q.reject());
         };
 
-    });
+    }]);
 }(angular));
