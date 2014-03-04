@@ -13,7 +13,7 @@
                 var orders = $scope.orders;
 
                 // $scope.filteredOrders come from OrderListCtrl
-                $scope.filteredOrders = angular.copy(orders);
+                //$scope.filteredOrders = angular.copy(orders);
                 $scope.filteredProducts = [];
                 $scope.filteredProducts.totalStock = 0;
 

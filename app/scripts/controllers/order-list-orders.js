@@ -9,9 +9,10 @@
 
                 // $scope.entities come from OrderListCtrl
                 var entities = $scope.entities;
-                var orders = $scope.orders;
+                //var orders = $scope.orders;
                 // $scope.filteredOrders come from OrderListCtrl
-                $scope.filteredOrders = angular.copy(orders);
+                //$scope.filteredOrders = angular.copy(orders);
+                var orders = angular.copy($scope.filteredOrders);
 
                 for ( var ix in orders) {
                     var order = orders[ix];
@@ -22,7 +23,7 @@
                     } else {
                         order.entityName = '';
                     }
-
+                    
                     var qtyTotal = $filter('sum')(order.items, 'qty');
                     var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                     var amountTotal = $filter('sum')(order.items, 'amount');
@@ -33,7 +34,7 @@
                 }
 
                 $scope.updateAndEnableHideOption = function(order) {
-                    updatePaymentsTotal(order);
+                    $scope.updateReceivablesTotal(order);
                     if ($scope.hideOptions === true) {
                         $scope.invertHideOption();
                     }
@@ -65,17 +66,17 @@
 
                 }
 
-                $scope.updateOrdersTotal = updateOrdersTotal;
-                $scope.updatePaymentsTotal = updatePaymentsTotal;
+              /*  $scope.updateOrdersTotal = updateOrdersTotal;
+                $scope.updatePaymentsTotal = updatePaymentsTotal;*/
                 /**
                  * Watcher to filter the orders and populate the grid.
-                 */
+                 *//*
                 $scope.$watchCollection('dateFilter', function() {
                     $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
                     updateOrdersTotal();
                     $scope.updatePaymentsTotal($scope.filteredOrders);
                     $scope.generateVA($scope.filteredOrders);
-                });
+                });*/
 
             }]);
 }(angular));

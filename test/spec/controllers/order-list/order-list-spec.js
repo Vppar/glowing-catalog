@@ -5,9 +5,10 @@ ddescribe('Controller: order-list', function() {
     var EntityService = {};
     var ReceivableService = {};
     var UserService = {};
-    var fakeNow = null;
     var ProductReturnService = {};
     var VoucherService = {};
+    var ArrayUtils = null;
+    var orders = [];
     function daysToMilliseconds(days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -15,20 +16,137 @@ ddescribe('Controller: order-list', function() {
     beforeEach(function() {
         module('tnt.catalog.orderList.ctrl');
         module('tnt.catalog.filter.sum');
+        module('tnt.utils.array');
     });
+    beforeEach(function() {
+        receivables = [
+            {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
+                documentId : "cc02a100-5d0a-11e3-96c3-010001000001",
+                // created one month ago
+                created : new Date().getTime() - daysToMilliseconds(28),
+                type : "cash",
+                amount : 253,
+                // expired one week ago
+                duedate : new Date().getTime() - daysToMilliseconds(7)
+            }, {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000020",
+                documentId : "cc02a200-5d0a-11e3-96c3-010001000002",
+                created : new Date().getTime() - daysToMilliseconds(7),
+                type : "cash",
+                amount : 135,
+                duedate : new Date().getTime() + daysToMilliseconds(7)
+            }, {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000021",
+                documentId : "cc02a300-5d0a-11e3-96c3-010001000003",
+                created : new Date().getTime(),
+                type : "cash",
+                amount : 81,
+                duedate : new Date().getTime()
+            }, {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000022",
+                documentId : "cc02a400-5d0a-11e3-96c3-010001000004",
+                created : new Date().getTime(),
+                type : "check",
+                amount : 277,
+                duedate : new Date().getTime() + daysToMilliseconds(15)
+            }
+        ];
 
-    beforeEach(inject(function($controller, $rootScope) {
+        orders = [
+            {
+                uuid : "cc02a100-5d0a-11e3-96c3-010001000001",
+                canceled : false,
+                customerId : 14,
+                created : 1392214432,
+                // Wed, 12 Feb 2014 14:13:52 GMT
+                date : 1392214432,
+                items : [
+                    {
+                        price : "15",
+                        qty : 1
+                    }, {
+                        price : "5",
+                        qty : 1
+                    }, {
+                        price : "20",
+                        qty : 1
+                    }, {
+                        price : "5",
+                        qty : 2
+                    }
+
+                ]
+            }, {
+                uuid : "cc02a200-5d0a-11e3-96c3-010001000002",
+                canceled : false,
+                customerId : 15,
+                created : 1392113512,
+                // Tue, 11 Feb 2014 10:11:52 GMT
+                date : 1392113512,
+                items : [
+                    {
+                        price : "5",
+                        qty : 2
+                    }, {
+                        price : "10",
+                        qty : 1
+                    }
+                ]
+            }, {
+                uuid : "cc02a300-5d0a-11e3-96c3-010001000003",
+                canceled : false,
+                customerId : 16,
+                created : 1390231852,
+                // Mon, 20 Jan 2014 15:30:52 GMT
+                date : 1390231852,
+                items : [
+                    {
+                        price : "10",
+                        qty : 3
+                    }
+                ]
+            }, {
+                uuid : "cc02a400-5d0a-11e3-96c3-010001000004",
+                canceled : false,
+                customerId : 16,
+                created : 1392910252,
+                // Thu, 20 Feb 2014 15:30:52 GMT
+                date : 1392910252,
+                items : [
+                    {
+                        price : "30",
+                        qty : 1
+                    }, {
+                        price : "22",
+                        qty : 2
+                    }, {
+                        price : "90",
+                        qty : 2
+                    }, {
+                        price : "23",
+                        qty : 1
+                    }
+
+                ]
+            }
+        ];
+    });
+    beforeEach(inject(function($controller, $rootScope, _ArrayUtils_) {
         // scope mock
         scope = $rootScope.$new();
 
         // dependecy mocks
-        OrderService.list = jasmine.createSpy('OrderService.list');
+        OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         EntityService.list = jasmine.createSpy('EntityService.list');
         UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
-        ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument');
         ProductReturnService.listByDocument = jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
+        ArrayUtils = _ArrayUtils_;
+        ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
+            return ArrayUtils.list(receivables, 'documentId', document);
 
+        });
         $controller('OrderListCtrl', {
             $scope : scope,
             OrderService : OrderService,
@@ -36,28 +154,25 @@ ddescribe('Controller: order-list', function() {
             UserService : UserService,
             ReceivableService : ReceivableService,
             ProductReturnService : ProductReturnService,
-            VoucherService : VoucherService
+            VoucherService : VoucherService,
+            ArrayUtils : _ArrayUtils_
         });
     }));
 
     describe('When instantiate controller', function() {
-        beforeEach(function() {
-            fakeNow = 1393854733359;
-            spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        });
 
         it('should verify if user is logged in', function() {
             expect(UserService.redirectIfIsNotLoggedIn).toHaveBeenCalled();
         });
 
         it('should instantiate dateFilter properly', function() {
-            var expectInitialDate = new Date(fakeNow);
+            var expectInitialDate = new Date();
             expectInitialDate.setHours(0);
             expectInitialDate.setMinutes(0);
             expectInitialDate.setSeconds(0);
             expectInitialDate.setMilliseconds(0);
 
-            var expectFinalDate = new Date(fakeNow);
+            var expectFinalDate = new Date();
             expectFinalDate.setHours(23);
             expectFinalDate.setMinutes(59);
             expectFinalDate.setSeconds(59);
@@ -191,130 +306,23 @@ ddescribe('Controller: order-list', function() {
             expect(scope.total.amount).toEqual(expectedOrdersTotal.amount);
             expect(scope.total.lastOrder).toEqual(expectedOrdersTotal.lastOrder);
         });
-    });
 
-    describe('When generateVA is triggered', function() {
-        var orders = null;
+        it('should calculate properly the receivables totals by type', function() {
 
-        beforeEach(function() {
-            receivables = [
-                {
-                    uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
-                    documentId : "cc02a100-5d0a-11e3-96c3-010001000001",
-                    // created one month ago
-                    created : new Date().getTime() - daysToMilliseconds(28),
-                    type : "cash",
-                    amount : 253,
-                    // expired one week ago
-                    duedate : new Date().getTime() - daysToMilliseconds(7)
-                }, {
-                    uuid : "cc02b600-5d0b-11e3-96c3-010001000020",
-                    documentId : "cc02a200-5d0a-11e3-96c3-010001000002",
-                    created : new Date().getTime() - daysToMilliseconds(7),
-                    type : "cash",
-                    amount : 135,
-                    duedate : new Date().getTime() + daysToMilliseconds(7)
-                }, {
-                    uuid : "cc02b600-5d0b-11e3-96c3-010001000021",
-                    documentId : "cc02a300-5d0a-11e3-96c3-010001000003",
-                    created : new Date().getTime(),
-                    type : "cash",
-                    amount : 81,
-                    duedate : new Date().getTime()
-                }, {
-                    uuid : "cc02b600-5d0b-11e3-96c3-010001000022",
-                    documentId : "cc02a400-5d0a-11e3-96c3-010001000004",
-                    created : new Date().getTime(),
-                    type : "check",
-                    amount : 277,
-                    duedate : new Date().getTime() + daysToMilliseconds(15)
-                }
-            ];
-
-            orders = [
-                {
-                    uuid : "cc02a100-5d0a-11e3-96c3-010001000001",
-                    canceled : false,
-                    customerId : 14,
-                    created: 1392214432,
-                    // Wed, 12 Feb 2014 14:13:52 GMT
-                    date : 1392214432,
-                    items : [
-                        {
-                            price : "85",
-                            qty : 1
-                        }, {
-                            price : "32",
-                            qty : 1
-                        }, {
-                            price : "90",
-                            qty : 1
-                        }, {
-                            price : "23",
-                            qty : 2
-                        }
-
-                    ]
-                }, {
-                    uuid : "cc02a200-5d0a-11e3-96c3-010001000002",
-                    canceled : false,
-                    customerId : 15,
-                    created: 1392113512,
-                    // Tue, 11 Feb 2014 10:11:52 GMT
-                    date : 1392113512,
-                    items : [
-                        {
-                            price : "30",
-                            qty : 2
-                        }, {
-                            price : "75",
-                            qty : 1
-                        }
-                    ]
-                }, {
-                    uuid : "cc02a300-5d0a-11e3-96c3-010001000003",
-                    canceled : false,
-                    customerId : 16,
-                    created: 1390231852,
-                    // Mon, 20 Jan 2014 15:30:52 GMT
-                    date : 1390231852,
-                    items : [
-                        {
-                            price : "27",
-                            qty : 3
-                        }
-                    ]
-                }, {
-                    uuid : "cc02a400-5d0a-11e3-96c3-010001000004",
-                    canceled : false,
-                    customerId : 16,
-                    created : 1392910252,
-                    // Thu, 20 Feb 2014 15:30:52 GMT
-                    date : 1392910252,
-                    items : [
-                        {
-                            price : "30",
-                            qty : 1
-                        }, {
-                            price : "22",
-                            qty : 2
-                        }, {
-                            price : "90",
-                            qty : 2
-                        }, {
-                            price : "23",
-                            qty : 1
-                        }
-
-                    ]
-                }
-            ];
         });
 
-        it('must convert the amunt as a percentage relative to the total amount of orders', function() {
-            scope.updatePaymentsTotal(orders);
-            scope.generateVA(orders);
-            console.log(orders);
+        it('should calculate properly the orders totals', function() {
+
+        });
+
+        it('should argument properly order with itemsQty, avgPrice, amountTotal, avgOrder', function() {
+            scope.$apply();
+
+            for ( var x in scope.filteredOrders) {
+                var order = scope.filteredOrders[x];
+                console.log(order.va);
+            }
+
         });
     });
 
