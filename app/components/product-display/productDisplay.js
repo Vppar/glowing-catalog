@@ -5,15 +5,15 @@
 
     // angular.module('tnt.catalog.components.product-display.template',
     // []).run(function($http, $templateCache) {
-    angular.module('glowingCatalogApp').run(function($http, $templateCache) {
+    angular.module('glowingCatalogApp').run(['$http', '$templateCache', function($http, $templateCache) {
 
         $http.get(templateUrl, {
             cache : $templateCache
         });
-    });
+    }]);
 
     angular.module('tnt.catalog.components.product-display', []).directive(
-            'productDisplay', function(DataProvider, OrderService, DialogService, InventoryKeeper, ArrayUtils) {
+            'productDisplay', ['DataProvider', 'OrderService', 'DialogService', 'InventoryKeeper', 'ArrayUtils', function(DataProvider, OrderService, DialogService, InventoryKeeper, ArrayUtils) {
                 return {
                     restrict : 'E',
                     templateUrl : templateUrl,
@@ -61,5 +61,5 @@
                         };
                     }
                 };
-            });
+            }]);
 }(angular));

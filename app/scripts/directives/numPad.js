@@ -3,11 +3,11 @@
 
     var templateUrl = 'views/parts/catalog/num-pad.html';
 
-    angular.module('tnt.catalog.directive.numpad.template', []).run(function($http, $templateCache) {
+    angular.module('tnt.catalog.directive.numpad.template', []).run(['$http', '$templateCache', function($http, $templateCache) {
         $http.get(templateUrl, {
             cache : $templateCache
         });
-    });
+    }]);
 
     angular
             .module('tnt.catalog.directive.numpad', [

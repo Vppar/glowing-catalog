@@ -14,5 +14,5 @@
             }
         };
     }
-    angular.module('tnt.catalog.attrs.upperCase', []).directive('upperCase', upperCase);
+    angular.module('tnt.catalog.attrs.upperCase', []).directive('upperCase', ['$filter', upperCase]);
 }(angular));
