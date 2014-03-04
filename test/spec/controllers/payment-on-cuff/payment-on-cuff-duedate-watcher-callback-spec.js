@@ -38,7 +38,9 @@ describe('Controller: PaymentOnCuffCtrlDuedateWatcherCallBackSpec\n', function()
             stub : 'i\'m an installments stub'
         };
         buildOnCuffRefReturn = {
-            installments : 'i\'m a onCuffRef stub'
+            numberOfInstallments : 1,
+            duedate : new Date(),
+            amount : 1
         };
 
         OnCuffPaymentService = {};
@@ -68,13 +70,18 @@ describe('Controller: PaymentOnCuffCtrlDuedateWatcherCallBackSpec\n', function()
 
             beforeEach(function() {
                 var oldVal = new Date();
-                var newVal = oldVal;
+                var newVal = new Date(oldVal.setMonth(oldVal.getMonth() + 1));
 
                 PaymentOnCuffCtrl.duedateWatcherCallback(newVal, oldVal);
             });
 
-            it('should call PaymentOnCuffCtrl.buildInstallments', function() {
-                expect(OnCuffPaymentService.buildInstallments).not.toHaveBeenCalledWith(scope.onCuff);
+            it('should call OnCuffPaymentService.buildInstallments', function() {
+                expect(OnCuffPaymentService.buildInstallments).toHaveBeenCalledWith(
+                        buildOnCuffRefReturn.numberOfInstallments, buildOnCuffRefReturn.duedate.getTime(), buildOnCuffRefReturn.amount);
+            });
+
+            it('should update onCuff.installments', function() {
+                expect(scope.onCuff.installments).toEqual(buildInstallmentsReturn);
             });
         });
 
