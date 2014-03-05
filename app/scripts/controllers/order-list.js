@@ -74,11 +74,16 @@
                     }
                     if (!(date.dtInitial instanceof Date)) {
                         date.dtInitial = setTime(new Date(), 0, 0, 0, 0);
+                    }else{
+                        date.dtInitial = setTime(date.dtInitial, 0, 0, 0, 0);
                     }
 
                     if (!(date.dtFinal instanceof Date)) {
                         date.dtFinal = setTime(new Date(), 23, 59, 59, 999);
+                    }else{
+                        date.dtFinal = setTime(date.dtFinal, 23, 59, 59, 999);
                     }
+                    
 
                     return date;
 
@@ -230,6 +235,8 @@
                 };
 
                 function filterOrdersByDate(orders) {
+                    $scope.dtFilter.dtInitial = setTime($scope.dtFilter.dtInitial,0,0,0,0);
+                    $scope.dtFilter.dtFinal = setTime($scope.dtFilter.dtFinal,23,59,59,999);
                     return angular.copy($filter('filter')(orders, dateFilter));
                 }
 
@@ -251,7 +258,7 @@
                 /**
                  * Watcher to filter the orders and populate the grid.
                  */
-                $scope.$watchCollection('dateFilter', function() {
+                $scope.$watchCollection('dtFilter', function() {
                     $scope.filterOrders($scope.orders);
                     /*
                      * $scope.filteredOrders =

@@ -1,4 +1,4 @@
-ddescribe('Controller: order-list', function() {
+describe('Controller: order-list', function() {
 
     var scope = {};
     var OrderService = {};
