@@ -108,7 +108,7 @@ describe('Service: OrderKeeperAddScenario', function() {
         runs(function(){
             var promise = OrderKeeper.add(order);
             
-            promise['catch'](function(_resolution_){
+            promise.then(null, function(_resolution_){
                 resolution = _resolution_;
             });
         });

@@ -113,7 +113,7 @@
                 if (angular.isUndefined(tx)) {
                     dbDriver.transaction(function(tx) {
                         deferred.resolve(dbDriver.update(tx, name, key, data));
-                    })['catch'](function(error){
+                    }).then(null, function(error){
                         deferred.reject(error);
                     });
                 } else {

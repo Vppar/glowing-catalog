@@ -137,7 +137,7 @@ describe('Service: EntityKeeperAddScenario', function() {
         runs(function(){
             var promise = EntityKeeper.create(ev);
             
-            promise['catch'](function(_resolution_){
+            promise.then(null, function(_resolution_){
                 resolution = _resolution_;
             });
         });
