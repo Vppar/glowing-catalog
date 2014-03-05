@@ -1,4 +1,4 @@
-describe('Controller: OrderListCtrlWatcherSpec', function() {
+xdescribe('Controller: OrderListCtrlWatcherSpec', function() {
 
     var scope = {};
     var OrderService = {};
