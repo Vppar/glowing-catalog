@@ -260,25 +260,25 @@ describe('Controller: order-list-clients', function() {
         expect(scope.filteredEntities[0].amountTotal).toEqual(362);
         expect(scope.filteredEntities[0].itemsQty).toEqual(9);
         expect(scope.filteredEntities[0].avgPrice).toEqual(40.22);
-        // expect(scope.filteredEntities[0].lastOrder).toEqual(1391306400000);
+        //expect(scope.filteredEntities[0].lastOrder).toEqual(1391306400000);
 
         expect(scope.filteredEntities[1].name).toEqual('Pilintra');
         expect(scope.filteredEntities[1].amountTotal).toEqual(140);
         expect(scope.filteredEntities[1].itemsQty).toEqual(3);
         expect(scope.filteredEntities[1].avgPrice).toEqual(46.67);
-        // expect(scope.filteredEntities[1].lastOrder).toEqual(1391306400000);
+        //expect(scope.filteredEntities[1].lastOrder).toEqual(1391306400000);
 
         expect(scope.filteredEntities[2].name).toEqual('Sephiroth');
         expect(scope.filteredEntities[2].amountTotal).toEqual(436);
         expect(scope.filteredEntities[2].itemsQty).toEqual(6);
         expect(scope.filteredEntities[2].avgPrice).toEqual(72.67);
-        // expect(scope.filteredEntities[2].lastOrder).toEqual(1391565600000);
+        //expect(scope.filteredEntities[2].lastOrder).toEqual(1391565600000);
 
         expect(scope.filteredEntities[3].name).toEqual('Linka');
         expect(scope.filteredEntities[3].amountTotal).toEqual(506);
         expect(scope.filteredEntities[3].itemsQty).toEqual(10);
         expect(scope.filteredEntities[3].avgPrice).toEqual(50.6);
-        // expect(scope.filteredEntities[3].lastOrder).toEqual(1391565600000);
+        //expect(scope.filteredEntities[3].lastOrder).toEqual(1391565600000);
 
     });
 });

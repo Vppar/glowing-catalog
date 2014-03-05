@@ -8,40 +8,8 @@
             function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, StockService,
                     ProductReturnService, VoucherService) {
 
-                // $scope.entities come from OrderListCtrl
-                var entities = $scope.entities;
-                var orders = $scope.orders;
-
-                // $scope.filteredOrders come from OrderListCtrl
-                $scope.filteredOrders = angular.copy(orders);
                 $scope.filteredProducts = [];
                 $scope.filteredProducts.totalStock = 0;
-
-                var filterByType = function(item) {
-                    var result = false;
-                    if (item.type !== 'giftCard' && item.type !== 'voucher') {
-                        result = true;
-                    }
-                    return result;
-                };
-
-                for ( var ix in orders) {
-                    var order = orders[ix];
-                    // Find the entity name
-                    var entity = ArrayUtils.find(entities, 'uuid', order.customerId);
-                    if (entity) {
-                        order.entityName = entity.name;
-                    } else {
-                        order.entityName = '';
-                    }
-                    var filteredItems = $filter('filter')(order.items, filterByType);
-                    var qtyTotal = $filter('sum')(filteredItems, 'qty');
-                    var amountTotal = $filter('sum')(filteredItems, 'price', 'qty');
-
-                    order.itemsQty = qtyTotal;
-                    order.avgPrice = Math.round(100 * (amountTotal / qtyTotal)) / 100;
-                    order.amountTotal = amountTotal;
-                }
 
                 function updateFilteredProducts() {
                     $scope.filteredProducts.totalStock = 0;
@@ -92,72 +60,15 @@
                     }
                 }
 
-                function updatePaymentsTotal(orders) {
-                    $scope.resetPaymentsTotal();
-                    for ( var ix in orders) {
-                        var order = orders[ix];
-
-                        var receivables = ReceivableService.listByDocument(order.uuid);
-                        for ( var ix2 in receivables) {
-                            var receivable = receivables[ix2];
-                            var amount = Number(receivable.amount);
-
-                            $scope.total[receivable.type].amount += amount;
-                            $scope.total[receivable.type].qty++;
-                        }
-
-                        var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
-                        for ( var ix3 in exchangedProducts) {
-                            var exchanged = exchangedProducts[ix3];
-                            $scope.total.exchange.amount += (exchanged.cost * exchanged.quantity);
-                            $scope.total.exchange.qty += Number(exchanged.quantity);
-                        }
-
-                        var vouchers = VoucherService.listByDocument(order.uuid);
-                        for ( var ix4 in vouchers) {
-                            var voucher = vouchers[ix4];
-
-                            var voucherAmount = Number(voucher.amount);
-
-                            $scope.total.voucher.amount += voucherAmount;
-                            $scope.total.voucher.qty += voucher.qty;
-                        }
-                    }
-                }
-
-                function updateOrdersTotal() {
-                    $scope.resetOrdersTotal();
-                    var filteredOrders = $scope.filteredOrders;
-                    for ( var ix in filteredOrders) {
-                        var filteredOrder = filteredOrders[ix];
-                        $scope.total.all.amount += filteredOrder.amountTotal;
-                        $scope.total.all.qty += filteredOrder.itemsQty;
-                        $scope.total.all.orderCount++;
-                    }
-                    $scope.total.all.productCount = $scope.filteredProducts.length;
-
-                    var avgPrice = Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
-                    if (!isNaN(avgPrice)) {
-                        $scope.total.all.avgPrice = avgPrice;
-                    } else {
-                        $scope.total.all.avgPrice = 0;
-                    }
-                }
-
-                $scope.$watchCollection('dateFilter', function() {
-                    $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
-                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
+                $scope.$watchCollection('dtFilter', function() {
                     updateFilteredProducts();
-                    updateOrdersTotal();
-                    updatePaymentsTotal($scope.filteredOrders);
                     $scope.generateVA($scope.filteredProducts);
                 });
 
                 $scope.$watchCollection('filter.customerId', function() {
-                    $scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
-                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
+                    $scope.filteredOrders = $scope.filterOrders($scope.orders);
+                    $scope.filteredOrders = $filter('filter')($scope.filteredOrders, $scope.filterByClient);
                     updateFilteredProducts();
-                    updateOrdersTotal();
                     $scope.generateVA($scope.filteredProducts);
                 });
 
