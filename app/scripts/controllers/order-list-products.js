@@ -66,11 +66,10 @@
                 });
 
                 $scope.$watchCollection('filter.customerId', function() {
-                    /*$scope.filteredOrders = angular.copy($filter('filter')(orders, $scope.filterByDate));
-                    $scope.filteredOrders = angular.copy($filter('filter')($scope.filteredOrders, $scope.filterByClient));
+                    $scope.filteredOrders = $scope.filterOrders($scope.orders);
+                    $scope.filteredOrders = $filter('filter')($scope.filteredOrders, $scope.filterByClient);
                     updateFilteredProducts();
-                    updateOrdersTotal();
-                    $scope.generateVA($scope.filteredProducts);*/
+                    $scope.generateVA($scope.filteredProducts);
                 });
 
             }]);

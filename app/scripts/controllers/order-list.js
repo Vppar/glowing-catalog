@@ -110,7 +110,7 @@
                     $scope.hideOptions = hideOptions;
                 };
 
-                function argumentOrder(order) {
+                $scope.argumentOrder = function(order) {
                     // Find the entity name
                     var entity = ArrayUtils.find($scope.customers, 'uuid', order.customerId);
                     if (entity) {
@@ -126,7 +126,7 @@
                     order.itemsQty = qtyTotal;
                     order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
                     order.amountTotal = (priceTotal + amountTotal);
-                }
+                };
 
                 /**
                  * Generate VA
@@ -160,7 +160,7 @@
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
                         // argumenting
-                        argumentOrder(filteredOrder);
+                        $scope.argumentOrder(filteredOrder);
 
                         if (!entityMap[filteredOrder.customerId]) {
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
@@ -222,6 +222,7 @@
                     updateOrdersTotal(orders);
                     $scope.generateVA(orders);
                     $scope.filteredOrders = orders;
+                    return $scope.filteredOrders;
                 };
 
                 // #############################################################################################################
@@ -235,9 +236,7 @@
                 };
 
                 function filterOrdersByDate(orders) {
-                    $scope.dtFilter.dtInitial = setTime($scope.dtFilter.dtInitial,0,0,0,0);
-                    $scope.dtFilter.dtFinal = setTime($scope.dtFilter.dtFinal,23,59,59,999);
-                    return angular.copy($filter('filter')(orders, dateFilter));
+                    return angular.copy($filter('filter')(orders, filterByDate));
                 }
 
                 /**
@@ -254,19 +253,63 @@
                 function dateFilter(order) {
                     return order.created >= $scope.dtFilter.dtInitial.getTime() && order.created <= $scope.dtFilter.dtFinal.getTime();
                 }
+                
+                /**
+                 * DateFilter
+                 */
+                function filterByDate(order) {
+                    var initialFilter = null;
+                    var finalFilter = null;
+                    var isDtInitial = false;
+                    var isDtFinal = false;
+                    if ($scope.dtFilter.dtInitial instanceof Date) {
+
+                        
+                        $scope.dtFilter.dtInitial = setTime($scope.dtFilter.dtInitial,0,0,0,0);
+
+                        initialFilter = $scope.dtFilter.dtInitial.getTime();
+
+                        isDtInitial = true;
+                    }
+                    if ($scope.dtFilter.dtFinal instanceof Date) {
+
+                        $scope.dtFilter.dtFinal = setTime($scope.dtFilter.dtFinal, 23,59,59,999);
+                        finalFilter = $scope.dtFilter.dtFinal.getTime();
+
+                        isDtFinal = true;
+                    }
+
+                    if (isDtInitial && isDtFinal) {
+                        if ($scope.dtFilter.dtInitial.getTime() > $scope.dtFilter.dtFinal.getTime()) {
+                            $scope.dtFilter.dtFinal = angular.copy($scope.dtFilter.dtInitial);
+                        }
+                    }
+
+                    if (initialFilter && finalFilter) {
+                        if (order.created >= initialFilter && order.created <= finalFilter) {
+                            return true;
+                        }
+                        return false;
+                    } else if (initialFilter) {
+                        if (order.created >= initialFilter) {
+                            return true;
+                        }
+                        return false;
+                    } else if (finalFilter) {
+                        if (order.created <= finalFilter) {
+                            return true;
+                        }
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
 
                 /**
                  * Watcher to filter the orders and populate the grid.
                  */
                 $scope.$watchCollection('dtFilter', function() {
                     $scope.filterOrders($scope.orders);
-                    /*
-                     * $scope.filteredOrders =
-                     * angular.copy($filter('filter')(orders,
-                     * $scope.filterByDate)); updateOrdersTotal();
-                     * $scope.updatePaymentsTotal($scope.filteredOrders);
-                     * $scope.generateVA($scope.filteredOrders);
-                     */
                 });
             });
 }(angular));

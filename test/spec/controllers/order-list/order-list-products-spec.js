@@ -1,4 +1,4 @@
-describe('Controller: order-list-clients', function() {
+ddescribe('Controller: order-list-clients', function() {
 
     var scope = {};
     var OrderService = {};
@@ -226,7 +226,6 @@ describe('Controller: order-list-clients', function() {
             order.itemsQty = qtyTotal;
             order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
             order.amountTotal = (priceTotal + amountTotal);
-            console.log(order);
         });
 
         ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
