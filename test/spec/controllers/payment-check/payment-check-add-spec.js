@@ -23,8 +23,8 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
         module('tnt.catalog.filter.sum');
         module('tnt.catalog.filter.paymentType');
         module('tnt.catalog.misplaced.service');
-        
-        module(function($provide){
+
+        module(function($provide) {
             $provide.value('OrderService', os);
             $provide.value('EntityService', es);
             $provide.value('ReceivableService', rs);
@@ -35,7 +35,7 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
             $provide.value('BookService', BookService);
         });
     });
-    
+
     beforeEach(inject(function($controller, $rootScope, _$filter_) {
         // scope mock
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
@@ -147,10 +147,8 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
 
         var check = angular.copy(scope.check);
         var paymentsSize = scope.payments.length;
-
         // when
         scope.addCheck(scope.check);
-
         // then
         expect(scope.payments.length).toBe(paymentsSize);
         expect(scope.check).toEqual(check);
@@ -159,5 +157,19 @@ describe('Controller: PaymentCheckCtrlAdd', function() {
             message : 'O cheque número ' + check.number + ' já foi adicionado',
             btnYes : 'OK'
         });
+    });
+    it('shouldn\'t add a check with amount 0', function() {
+        // given
+        angular.extend(scope.check, sampleData.payment.check);
+        var check = angular.copy(scope.check);
+        scope.check.amount = 0;
+        var paymentsSize = scope.payments.length;
+
+        // when
+        scope.addCheck(check);
+        console.log(scope.payments);
+        
+        // then
+        expect(scope.payments.length).toBe(paymentsSize);
     });
 });
