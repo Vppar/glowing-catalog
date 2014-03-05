@@ -51,6 +51,30 @@
             }
             return result;
         };
+        
+        this.listAppointmentsByPeriod = function(since,upon)
+        {
+        	var appointmentReturn = [];
+        	var appointmentList = this.list();
+        	alert(appointmentList.length);
+        	if(appointmentList)
+        	{
+	        	for(var idx in appointmentList)
+	        	{
+	        		var appointment = appointmentList[idx];
+	        		since = new Date(since);
+	        		upon = new Date(upon);
+	        		var dateAppointment = new Date(appointment.date);
+	        		alert(dateAppointment);
+	        		if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime())
+	        		{
+	        			alert('true');
+	        			appointmentReturn.push(appointment);
+	        		}
+		        }
+        	}
+        	return appointmentReturn;
+        };
 
         /**
          * Returns a single appointment by its id.

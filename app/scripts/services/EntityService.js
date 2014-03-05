@@ -111,32 +111,44 @@
         {
         	var entitiesReturn = [];
         	var entitiesList = this.list();
+        	alert(entitiesList);
         	if(entitiesList)
         	{
 	        	for(var idx in entitiesList)
 	        	{
 	        		var entity = entitiesList[idx];
-	        		if(verifyFilterByBirth(entity,since,upon))
+	        		
+	        		since = new Date(since);
+	        		upon = new Date(upon);
+	        		
+	        		for (var i=since.getFullYear();i<upon.getFullYear()+1;i++)
 	        		{
-	        			entitiesReturn.push(entity);
+		        		if(verifyFilterByBirth(entity,since,upon,i))
+		        		{
+		        			if(jQuery.inArray(entity, entitiesReturn) == -1)
+		        			{
+		        				entitiesReturn.push(entity);
+		        			}
+		        		}
 	        		}
 	        	}
         	}
         	return entitiesReturn;
         };
         
-        function verifyFilterByBirth(entity,since,upon)
+        function verifyFilterByBirth(entity,since,upon, yearCurrent)
         {
-        	if(entity && since && upon)
+        	since = new Date(since);
+    		upon = new Date(upon);
+        	var birthDate = entity.birthDate; 
+        	if(birthDate && since && upon)
         	{
-        		since = new Date(since);
-        		upon = new Date(upon);
-        		var birthday = new Date(entity.birthDate);
-        		birthday.setYear(since.getFullYear());
-        		if(birthday >= since && birthday <= upon)
+        		var birthday = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
+        		if(birthday.getTime() >= since.getTime() && birthday.getTime() <= upon.getTime())
         		{
-    				return true;
+        			return true;
         		}
+        		
         	}
         	return false;
         }

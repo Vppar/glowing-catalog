@@ -47,7 +47,7 @@
 						};
 
 						$scope.listAppointmentsByPeriod = function() {
-							$scope.appointments = AppointmentService
+							$scope.appointmentsFilter = AppointmentService
 									.listAppointmentsByPeriod(
 											$scope.dateFilter.dtInitial,
 											$scope.dateFilter.dtFinal);
@@ -88,6 +88,13 @@
 							} ];
 					        //Chamada do service;
 					    };
+					    
+					    
+						
+						$scope.listEntityByBirthDate = function() {
+							$scope.entityByBirthDate = EntityService.listByBirthDate($scope.dateFilter.dtInitial, $scope.dateFilter.dtFinal);
+						};
+
 					    
 					    $scope.setType = function(type)
 						{
