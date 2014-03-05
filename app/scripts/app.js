@@ -8,6 +8,7 @@
             'ui.select2',
             'angular-md5',
             'tnt.catalog.directive.numpad',
+            'tnt.catalog.dialog.numpad.ctrl',
             'tnt.catalog.productReturn',
             'tnt.catalog.productReturn.entity',
             'tnt.catalog.productReturn.service',
