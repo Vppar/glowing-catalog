@@ -66,56 +66,26 @@
 						<div style="width:56px; text-align:center; line-height:40px;">{{($index + 1)}}</div>
 					</div>
 					<div class="control-group lbl-top">
-						<input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input focus maxlength="3" type="text">
+						<input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input  maxlength="3" type="text">
 					</div>
 					<div class="control-group lbl-top">
-						<input name="" class="agencia payment-input-large" id="ag+{{$index}}" ng-model= "payment.agency" required tnt-input focus maxlength="4" type="text">
+						<input name="" class="agencia payment-input-large" id="ag+{{$index}}" ng-model= "payment.agency" required tnt-input  maxlength="4" type="text">
 					</div>
 					<div class="control-group lbl-top">
-						<input name="" class="conta payment-input-large" id="account+{{$index}}" ng-model= "payment.account" required tnt-input focus maxlength="13" type="text">
+						<input name="" class="conta payment-input-large" id="account+{{$index}}" ng-model= "payment.account" required tnt-input  maxlength="13" type="text">
 					</div>
 					<div class="control-group lbl-top">
-						<input name="" class="cheque payment-input-large" id="check+{{$index}}" ng-model= "payment.number" required tnt-input focus maxlength="6" type="text">
+						<input name="" class="cheque payment-input-large" id="check+{{$index}}" ng-model= "payment.number" required tnt-input  maxlength="6" type="text">
 					</div>
 					<div class="control-group lbl-top">
-						<input type="text" id="" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="payment.duedate" required tnt-input>
+						<input type="text" id="dueDate+{{$index}}" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="payment.duedate" required tnt-input>
 					</div>
 					<div class="control-group lbl-top">
-						<input name="" class="check-value payment-input-large" id="value+{{$index}}" ng-model= "payment.amount" required currency tnt-input focus maxlength="11" type="text">
+						<input name="" class="check-value payment-input-large" id="value+{{$index}}" ng-model= "payment.amount" required currency tnt-input  maxlength="11" type="text">
 					</div>
 					<div class="control-group lbl-top">
 						<img style="margin-top:10px; margin-left:8px;" src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
 					</div>
-
-					<!-- <span>
-						<span class="col-check-s1">
-							<div>{{($index + 1)}}</div>
-						</span>
-		               	<span class="col-check-s2">
-		               		<input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input focus maxlength="3" type="text">
-		               	</span>
-		             	<span class="col-check-s3">
-		             		<input name="" class="agencia payment-input-large" id="ag+{{$index}}" ng-model= "payment.agency" required tnt-input focus maxlength="4" type="text">
-		             	</span>
-		                <span class="col-check-s4">
-		                	<input name="" class="conta payment-input-large" id="account+{{$index}}" ng-model= "payment.account" required tnt-input focus maxlength="13" type="text">
-		                </span>
-		                <span class="col-check-s5">
-		                	<input name="" class="cheque payment-input-large" id="check+{{$index}}" ng-model= "payment.number" required tnt-input focus maxlength="6" type="text">
-		                </span>
-						<span class="col-check-s6">
-							<input type="text" id="" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="payment.duedate" required tnt-input>
-						</span>
-		                <span class="col-check-s7 t-right">
-		                	<input name="" class="check-value payment-input-large" id="value+{{$index}}" ng-model= "payment.amount" required currency tnt-input focus maxlength="11" type="text">
-		                </span>
-               		</span>
-	                <span class="col-check-s8">
-	                	<div class="hover-state-pointer">
-							<img src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
-						</div>
-	                </span> -->
-
 				</div>
 			</div>
     	</div>

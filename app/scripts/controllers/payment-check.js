@@ -9,9 +9,8 @@
             ]).controller(
             'PaymentCheckCtrl',
             [
-                '$q', '$scope', '$filter', '$log', '$element', 'CheckPayment', 'OrderService', 'ArrayUtils', 'Misplacedservice',
-                'PaymentService',
-                function($q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
+                '$q', '$scope', '$filter', '$log', '$element', 'CheckPayment', 'OrderService', 'ArrayUtils', 'Misplacedservice', 'PaymentService',
+                function($q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils,Misplacedservice, PaymentService) {
 
                     // #####################################################################################################
                     // Warm up the controller
@@ -105,12 +104,14 @@
                      */
                     $scope.removeCheck = function removeCheck(payment) {
                         // Show dialog to confirm exclusion
-                        dialogService.messageDialog({
+                        var dialogPromise = dialogService.messageDialog({
                             title : 'Pagamento Com Cheque',
                             message : 'Confirmar exclusão da parcela?',
                             btnYes : 'Sim',
                             btnNo : 'Não'
-                        }).then(function(result) {
+                        });
+
+                        var promiseResult = dialogPromise.then(function(result) {
                             if (!result) {
                                 return $q.reject();
                             }
@@ -123,11 +124,13 @@
                                 Misplacedservice.recalc(checkSum, paymentIdx - 1, $scope.payments, 'amount');
                             }
                         });
+
+                        return promiseResult;
                     };
 
                     $scope.confirmCheckPayments = function confirmCheckPayments() {
                         for ( var i in $scope.payments) {
-                            if (isDuplicated($scope.payments[i])) {
+                            if (!duplicationConfirm()) {
                                 // check if is duplicated.
                                 dialogService.messageDialog({
                                     title : 'Pagamento com Cheque',
@@ -147,13 +150,6 @@
                         }
                         $scope.selectPaymentMethod('none');
                     };
-
-                    function rebuildInstallmentIds() {
-                        var checkPayments = $filter('paymentType')($scope.payments, 'check');
-                        for ( var idx in checkPayments) {
-                            checkPayments[idx].id = Number(idx) + 1;
-                        }
-                    }
 
                     // #####################################################################################################
                     // Auxiliary functions
@@ -191,6 +187,13 @@
                         return newChecks;
                     }
 
+                    function rebuildInstallmentIds() {
+                        var checkPayments = $filter('paymentType')($scope.payments, 'check');
+                        for ( var idx in checkPayments) {
+                            checkPayments[idx].id = Number(idx) + 1;
+                        }
+                    }
+
                     function sumChecks() {
                         copyPayments = angular.copy($scope.payments);
                         var sumChecks = 0;
@@ -223,7 +226,7 @@
                      * @param newCheck - the object containing the newCheck
                      *            data.
                      */
-                    
+
                     function isDuplicated(newCheck) {
                         var checks = $filter('filter')($scope.payments, function(item) {
                             var result = false;
@@ -242,26 +245,19 @@
                         });
                         return checks.length > 0;
                     }
-                    
-                    
-                    function isDuplicated(newCheck) {
-                        var checks = $filter('filter')($scope.payments, function(item) {
-                            var result = false;
-                            result = item.bank === newCheck.bank;
-                            result = result && (item.agency === newCheck.agency);
-                            result = result && (item.account === newCheck.account);
-                            result = result && (Number(item.number) >= Number(newCheck.number));
-                            result = result && (Number(item.number) <= ((Number(newCheck.number) + Number(newCheck.installments)) - 1));
-                            if (newCheck.id) {
-                                // isn't
-                                // duplicated,
-                                // is an update
-                                result = result && (item.id !== newCheck.id);
+
+                    function duplicationConfirm() {
+                        for ( var i in $scope.payments) {
+                            var check = $scope.payments[i];
+                            var checkFilter = ArrayUtils.list($scope.payments, 'agency', check.agency);
+                            checkFilter = ArrayUtils.list($scope.payments, 'account', check.account);
+                            checkFilter = ArrayUtils.list($scope.payments, 'bank', check.bank);
+                            checkFilter = ArrayUtils.list($scope.payments, 'number', check.number);
+                            if (checkFilter.length >= 2) {
+                                return false;
                             }
-                            return result;
-                        });
-                        return checks.length > 0;
-                        
+                        }
+                        return true;
                     }
                 }
             ]);
