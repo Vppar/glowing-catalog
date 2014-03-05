@@ -3,23 +3,22 @@
 
     angular.module(
             'tnt.catalog.payment.check',
-            [
-                'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array', 'tnt.catalog.misplaced.service',
+            ['tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array', 'tnt.catalog.misplaced.service',
                 'tnt.catalog.payment.service'
             ]).controller(
             'PaymentCheckCtrl',
-            [
-                '$q', '$scope', '$filter', '$log', '$element', 'CheckPayment', 'OrderService', 'ArrayUtils', 'Misplacedservice', 'PaymentService',
-                function($q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils,Misplacedservice, PaymentService) {
+            ['$q', '$scope', '$filter', '$log', '$element', 'CheckPayment', 'OrderService', 'ArrayUtils', 'Misplacedservice',
+                'PaymentService',
+                function($q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
 
                     // #####################################################################################################
                     // Warm up the controller
                     // #####################################################################################################
 
+                    //Minimal date for the datepickers 
                     $scope.dateMin = new Date();
 
                     var check = $scope.check = {};
-                    var copyPayments = [];
                     var checkSum = 0;
 
                     $scope.payments = PaymentService.list('check');
@@ -127,7 +126,10 @@
 
                         return promiseResult;
                     };
-
+                    
+                    /**
+                     * Confirm the Checks
+                     */
                     $scope.confirmCheckPayments = function confirmCheckPayments() {
                         for ( var i in $scope.payments) {
                             if (!duplicationConfirm()) {
@@ -154,7 +156,10 @@
                     // #####################################################################################################
                     // Auxiliary functions
                     // #####################################################################################################
-
+                    
+                    /**
+                     * Create an array of Checks with date and amount for each installment
+                     */
                     function buildInstallments(newCheck) {
                         var newChecks = [];
                         // Well the payment will be by installments, so
@@ -177,32 +182,19 @@
 
                             newChecks.push(checkInstallment);
                         }
-
-                        // if ((installmentsSum + sumChecks()) !== checkSum) {
-                        // $log.info('PaymentCheckCtrl.buildInstallments: -The
-                        // sum of the installments and the amount are' +
-                        // ' different, installmentsSum=' + (installmentsSum +
-                        // sumChecks()) + ' originalAmount=' + checkSum);
-                        // }
                         return newChecks;
                     }
-
+                    
                     function rebuildInstallmentIds() {
                         var checkPayments = $filter('paymentType')($scope.payments, 'check');
                         for ( var idx in checkPayments) {
                             checkPayments[idx].id = Number(idx) + 1;
                         }
                     }
-
-                    function sumChecks() {
-                        copyPayments = angular.copy($scope.payments);
-                        var sumChecks = 0;
-                        for ( var x in copyPayments) {
-                            sumChecks += copyPayments[x].amount;
-                        }
-                        return sumChecks;
-                    }
-
+                    
+                    /**
+                     * Calculate the proper date of the installments
+                     */
                     function properDate(baseDate, increase) {
                         var date = new Date(baseDate.getYear(), baseDate.getMonth() + 1 + increase, 0);
 
@@ -246,6 +238,9 @@
                         return checks.length > 0;
                     }
 
+                    /**
+                     * Checks the duplication again, for the ConfirmPayment process
+                     */
                     function duplicationConfirm() {
                         for ( var i in $scope.payments) {
                             var check = $scope.payments[i];
