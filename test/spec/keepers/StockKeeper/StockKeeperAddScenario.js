@@ -167,7 +167,7 @@ describe('Service: StockKeeperAddScenario', function() {
         runs(function(){
             var promise = StockKeeper.add(fakeStock);
             
-            promise['catch'](function(_resolution_){
+            promise.then(null, function(_resolution_){
                 resolution = _resolution_;
             });
         });
@@ -203,7 +203,7 @@ describe('Service: StockKeeperAddScenario', function() {
         runs(function(){
             var promise = StockKeeper.add(fakeStock);
             
-            promise['catch'](function(_resolution_){
+            promise.then(null, function(_resolution_){
                 resolution = _resolution_;
             });
         });

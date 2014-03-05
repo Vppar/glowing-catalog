@@ -153,7 +153,7 @@ describe('Service: EntityKeeperUpdateScenario', function() {
         runs(function(){
             var promise = EntityKeeper.update(ev);
             
-            promise['catch'](function(_resolution_){
+            promise.then(null, function(_resolution_){
                 resolution = _resolution_;
             });
         });

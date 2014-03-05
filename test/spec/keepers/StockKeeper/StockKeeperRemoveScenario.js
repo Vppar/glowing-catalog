@@ -120,7 +120,7 @@ describe('Service: StockeeperRemoveScenario', function() {
         runs(function(){
             var promise = StockKeeper.remove(id, quantity);
             
-            promise['catch'](function(_resolution_){
+            promise.then(null, function(_resolution_){
                 resolution = _resolution_;
             });
         });
