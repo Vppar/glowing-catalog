@@ -34,7 +34,10 @@
                         amount : 0
                     };
                     angular.extend(check, emptyCheckTemplate);
-
+                    if(checkSum > 0){
+                        $scope.check.amount = checkSum; 
+                    }
+                    
                     // Recovering dialogService from parent scope.
                     var dialogService = $scope.dialogService;
 
