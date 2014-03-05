@@ -13,19 +13,11 @@
                 // $scope.filteredOrders come from OrderListCtrl
                 $scope.filteredEntities = [];
 
-                $scope.updateAndEnableHideOption = function(entity) {
-                    $scope.updateReceivablesTotal(entity);
-                    if ($scope.hideOptions === true) {
-                        $scope.invertHideOption();
-                    }
-                };
-
                 function updateFilteredEntities() {
                     $scope.filteredEntities.length = 0;
                     
                     for ( var ix in entities) {
                         var entity = entities[ix];
-
                         var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
                             customerId : entity.uuid
                         });
