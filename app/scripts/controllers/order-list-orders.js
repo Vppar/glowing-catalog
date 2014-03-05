@@ -4,9 +4,16 @@
         'tnt.catalog.order.service', 'tnt.utils.array'
     ]).controller(
             'OrderListOrdersCtrl',
-            ['$scope', '$location', '$filter', 'ArrayUtils', 'ReceivableService', 'ProductReturnService', 'VoucherService', 
-            function($scope, $location, $filter, ArrayUtils, ReceivableService, ProductReturnService, VoucherService) {
+            [
+                '$scope', '$location', '$filter', 'ArrayUtils', 'ReceivableService', 'ProductReturnService', 'VoucherService',
+                function($scope, $location, $filter, ArrayUtils, ReceivableService, ProductReturnService, VoucherService) {
 
-
-            }]);
+                    $scope.updateAndEnableHideOption = function(order) {
+                        $scope.updateReceivablesTotal(order);
+                        if ($scope.hideOptions === true) {
+                            $scope.invertHideOption();
+                        }
+                    };
+                }
+            ]);
 }(angular));

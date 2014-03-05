@@ -184,7 +184,7 @@ describe('Controller: order-list-clients', function() {
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
-        scope.entities = customers;
+        scope.customers = customers;
         scope.generateVA = jasmine.createSpy('scope.generateVA').andCallFake(function generateVa(filterList) {
             var acumulator = 0;
             var biggestOrder = {

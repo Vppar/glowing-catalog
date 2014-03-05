@@ -8,7 +8,7 @@
                     VoucherService, ArrayUtils) {
                 // Login verify
                 UserService.redirectIfIsNotLoggedIn();
-
+                var hideOptions = true;
                 /**
                  * Templates
                  */
@@ -168,7 +168,7 @@
 
                 $scope.argumentOrder = function(order) {
                     // Find the entity name
-                    var entity = ArrayUtils.find($scope.entities, 'uuid', order.customerId);
+                    var entity = ArrayUtils.find($scope.customers, 'uuid', order.customerId);
                     if (entity) {
                         order.entityName = entity.name;
                     } else {
@@ -297,9 +297,8 @@
                 $scope.dtFilter = initializeDates($scope.dtFilter);
                 $scope.total = {};
                 $scope.orders = OrderService.list();
-                $scope.entities = EntityService.list();
-                var hideOptions = true;
-                
+                $scope.customers = EntityService.list();
+
                 $scope.filter = {
                     customerId : ''
                 };
