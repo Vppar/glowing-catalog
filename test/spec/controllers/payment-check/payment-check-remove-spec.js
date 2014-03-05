@@ -61,7 +61,7 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
 
         // dialog service mock
         var defered = $q.defer();
-        defered.resolve();
+        defered.resolve(true);
         dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(defered.promise);
         scope.dialogService = dialogService;
 
@@ -78,15 +78,12 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
         angular.extend(scope.check, sampleData.payment.check);
         scope.payments.push(sampleData.payment.check);
 
-        var check = angular.copy(scope.check);
-        var paymentsSize = scope.payments.length;
-
         // when
         scope.removeCheck(scope.check);
-
+        scope.$apply();
+        
         // then
-        expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.check).toEqual(check);
+        expect(scope.payments.length).toBe(0);
         expect(dialogService.messageDialog).toHaveBeenCalledWith({
             title : 'Pagamento Com Cheque',
             message : 'Confirmar exclusão da parcela?',
