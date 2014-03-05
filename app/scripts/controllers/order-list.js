@@ -12,7 +12,13 @@
                 // #############################################################################################################
                 // Warming up the controller
                 // #############################################################################################################
-
+                function setTime(date, hours, minutes, seconds, milliseconds) {
+                    date.setHours(hours);
+                    date.setMinutes(minutes);
+                    date.setSeconds(seconds);
+                    date.setMilliseconds(milliseconds);
+                    return date;
+                }
                 var receivablesTotalTemplate = {
                     cash : {
                         qty : 0,
@@ -55,31 +61,33 @@
                         lastOrder : 0
                     }
                 };
+                var dtFilterTemplate = {
+                    dtInitial : null,
+                    dtFinal : null
+                };
 
                 var hideOptions = true;
 
-                // initialize dates
-                // Set first and last instants of dates.
-                var dtInitial = new Date();
-                dtInitial.setHours(0);
-                dtInitial.setMinutes(0);
-                dtInitial.setSeconds(0);
-                dtInitial.setMilliseconds(0);
+                function initializeDates(date) {
+                    if (!date) {
+                        date = angular.copy(dtFilterTemplate);
+                    }
+                    if (!(date.dtInitial instanceof Date)) {
+                        date.dtInitial = setTime(new Date(), 0, 0, 0, 0);
+                    }
 
-                var dtFinal = new Date();
-                dtFinal.setHours(23);
-                dtFinal.setMinutes(59);
-                dtFinal.setSeconds(59);
-                dtFinal.setMilliseconds(999);
+                    if (!(date.dtFinal instanceof Date)) {
+                        date.dtFinal = setTime(new Date(), 23, 59, 59, 999);
+                    }
 
+                    return date;
+
+                }
+
+                $scope.dtFilter = initializeDates($scope.dtFilter);
                 $scope.total = {};
                 $scope.orders = OrderService.list();
                 $scope.entities = EntityService.list();
-
-                $scope.dateFilter = {
-                    dtInitial : dtInitial,
-                    dtFinal : dtFinal
-                };
 
                 $scope.resetPaymentsTotal = function() {
                     angular.extend($scope.total, angular.copy(receivablesTotalTemplate));
@@ -205,7 +213,6 @@
 
                 $scope.filterOrders = function(orders) {
                     orders = filterOrdersByDate(orders);
-                    
                     $scope.updateReceivablesTotal(orders);
                     updateOrdersTotal(orders);
                     $scope.generateVA(orders);
@@ -222,11 +229,10 @@
                     customerId : ''
                 };
 
-                function filterOrdersByDate(orders){
-                    return angular.copy($filter('filter')(orders, $scope.filterByDate));
-                };
-                
-                
+                function filterOrdersByDate(orders) {
+                    return angular.copy($filter('filter')(orders, dateFilter));
+                }
+
                 /**
                  * ClientFilter
                  */
@@ -238,59 +244,9 @@
                     }
                 };
 
-                /**
-                 * DateFilter
-                 */
-                $scope.filterByDate = function filterByDate(order) {
-                    var initialFilter = null;
-                    var finalFilter = null;
-                    var isDateInitial = false;
-                    var isDateFinal = false;
-                    if ($scope.dateFilter.dtInitial instanceof Date) {
-
-                        $scope.dateFilter.dtInitial.setHours(0);
-                        $scope.dateFilter.dtInitial.setMinutes(0);
-                        $scope.dateFilter.dtInitial.setSeconds(0);
-
-                        initialFilter = $scope.dateFilter.dtInitial.getTime();
-
-                        isDateInitial = true;
-                    }
-                    if ($scope.dateFilter.dtFinal instanceof Date) {
-
-                        $scope.dateFilter.dtFinal.setHours(23);
-                        $scope.dateFilter.dtFinal.setMinutes(59);
-                        $scope.dateFilter.dtFinal.setSeconds(59);
-
-                        finalFilter = $scope.dateFilter.dtFinal.getTime();
-
-                        isDateFinal = true;
-                    }
-                    if (isDateInitial && isDateFinal) {
-                        if ($scope.dateFilter.dtInitial.getTime() > $scope.dateFilter.dtFinal.getTime()) {
-                            $scope.dateFilter.dtFinal = angular.copy($scope.dateFilter.dtInitial);
-                        }
-                    }
-
-                    if (initialFilter && finalFilter) {
-                        if (order.created >= initialFilter && order.created <= finalFilter) {
-                            return true;
-                        }
-                        return false;
-                    } else if (initialFilter) {
-                        if (order.created >= initialFilter) {
-                            return true;
-                        }
-                        return false;
-                    } else if (finalFilter) {
-                        if (order.created <= finalFilter) {
-                            return true;
-                        }
-                        return false;
-                    } else {
-                        return true;
-                    }
-                };
+                function dateFilter(order) {
+                    return order.created >= $scope.dtFilter.dtInitial.getTime() && order.created <= $scope.dtFilter.dtFinal.getTime();
+                }
 
                 /**
                  * Watcher to filter the orders and populate the grid.

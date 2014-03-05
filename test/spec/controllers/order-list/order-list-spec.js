@@ -1,7 +1,6 @@
-describe('Controller: order-list', function() {
+ddescribe('Controller: order-list', function() {
 
     var scope = {};
-    scope.dateFilter = {};
     var OrderService = {};
     var EntityService = {};
     var ReceivableService = {};
@@ -10,6 +9,7 @@ describe('Controller: order-list', function() {
     var VoucherService = {};
     var ArrayUtils = null;
     var orders = [];
+
     function daysToMilliseconds(days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -19,6 +19,7 @@ describe('Controller: order-list', function() {
         module('tnt.catalog.filter.sum');
         module('tnt.utils.array');
     });
+
     beforeEach(function() {
         receivables = [
             {
@@ -159,6 +160,7 @@ describe('Controller: order-list', function() {
             VoucherService : VoucherService,
             ArrayUtils : _ArrayUtils_
         });
+
     }));
 
     describe('When instantiate controller', function() {
@@ -181,8 +183,13 @@ describe('Controller: order-list', function() {
             expectFinalDate.setMilliseconds(999);
 
             // Not comparing with getTime() once getTime is a mock.
-            expect(scope.dateFilter.dtInitial.toJSON()).toEqual(expectInitialDate.toJSON());
-            expect(scope.dateFilter.dtFinal.toJSON()).toEqual(expectFinalDate.toJSON());
+            expect(scope.dtFilter.dtInitial.toJSON()).toEqual(expectInitialDate.toJSON());
+            expect(scope.dtFilter.dtFinal.toJSON()).toEqual(expectFinalDate.toJSON());
+        });
+
+        it('should have 4 orders in the list', function() {
+            scope.$apply();
+            expect(scope.filteredOrders.length).toEqual(4);
         });
     });
 
@@ -383,14 +390,15 @@ describe('Controller: order-list', function() {
             expect(scope.filteredOrders[3].va).toEqual(20);
 
         });
-        //FIXME how test this?
-        it('should filter orders by date', function() {
-            scope.dateFilter.dtInitial = scope.$apply();
 
-            expect(scope.filteredOrders[0].va).toEqual(30);
-            expect(scope.filteredOrders[1].va).toEqual(25);
-            expect(scope.filteredOrders[2].va).toEqual(25);
-            expect(scope.filteredOrders[3].va).toEqual(20);
+        describe('When date filter change', function() {
+            it('should filter orders by date', function() {
+                scope.dtFilter.dtInitial = new Date(new Date() - daysToMilliseconds(2));
+                scope.dtFilter.dtFinal = new Date(new Date() - daysToMilliseconds(1));
+                scope.filterOrders(scope.filteredOrders);
+                expect(scope.filteredOrders.length).toEqual(0);
+
+            });
 
         });
     });
