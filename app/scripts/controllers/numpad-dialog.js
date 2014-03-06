@@ -4,6 +4,8 @@
     angular.module('tnt.catalog.dialog.numpad.ctrl', [
     ]).controller('NumpadDialogCtrl', ['$scope', '$q', 'dialog', function($scope, $q, dialog) {
 
+        $scope.value = 0;
+
         /**
          * Closes the dialog, rejecting the value
          */

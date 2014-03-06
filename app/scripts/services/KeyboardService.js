@@ -9,6 +9,12 @@
         var currentField = null;
         var keyboard = {};
 
+        function setActive(active) {
+            keyboard.active = active;
+        }
+
+        keyboard.setActive = setActive;
+
         /**
          * register an input field
          */
@@ -48,6 +54,15 @@
         this.setKeyboard = function setKeyboard(value) {
             keyboard.setActive = value.setActive;
             keyboard.status = value.status;
+            if (keyboard.active) {
+                keyboard.setActive(keyboard.active);
+                delete keyboard.active;
+            }
+        };
+
+        this.unsetKeyboard = function unsetKeyboard() {
+            keyboard.setActive = setActive;
+            delete keyboard.status;
         };
         
         this.getKeyboard = function() {
