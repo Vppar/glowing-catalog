@@ -257,7 +257,8 @@
                     $scope.resetPaymentsTotal();
                     for ( var ix in orders) {
                         var order = orders[ix];
-                        var receivables = ReceivableService.listActiveByDocument(order.uuid);
+                        //FIXME list only active receivables.
+                        var receivables = ReceivableService.listByDocument(order.uuid);
                         for ( var ix2 in receivables) {
                             var receivable = receivables[ix2];
                             var amount = Number(receivable.amount);

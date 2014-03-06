@@ -162,7 +162,7 @@ describe('Controller: order-list', function() {
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         ArrayUtils = _ArrayUtils_;
         
-        ReceivableService.listActiveByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
+        ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
             return ArrayUtils.list(receivables, 'documentId', document);
 
         });

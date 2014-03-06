@@ -306,7 +306,7 @@ describe('Controller: order-list-clients', function() {
             order.amountTotal = (priceTotal + amountTotal);
         });
 
-        ReceivableService.listActiveByDocument =
+        ReceivableService.listByDocument =
                 jasmine.createSpy('ReceivableService.listActiveByDocument').andCallFake(function(document) {
                     return ArrayUtils.list(receivables, 'documentId', document);
                 });

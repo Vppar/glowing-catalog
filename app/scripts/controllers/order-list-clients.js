@@ -74,8 +74,8 @@
 
                             for ( var ix2 in ordersByEntity) {
                                 var order = ordersByEntity[ix2];
-                                
-                                var receivables = ReceivableService.listActiveByDocument(order.uuid);
+                                //FIXME list only active receivables.
+                                var receivables = ReceivableService.listByDocument(order.uuid);
                                 for ( var ix3 in receivables) {
                                     var receivable = receivables[ix3];
                                     var amount = Number(receivable.amount);
