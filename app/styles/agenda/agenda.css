@@ -227,8 +227,35 @@
 
 #dialog .field-big {
 	width: 100%;
+	height: 33px;
+margin: 0 0 10px 0;
 }
 
 #txt-descricao {
 	height: 80px;
 }
+/************ Popup Events *********/
+.ui-widget-header {
+	background: #111 !important;
+	color: #fff !important;
+	font-size:16px !important;
+	font-weight:normal !important;
+	line-height: 28px;
+	border: 0 !important;
+	margin: -5px -5px 0 -5px !important;
+}
+/* Corner radius */
+.ui-corner-all,
+.ui-corner-bottom,
+.ui-corner-left,
+.ui-corner-tl {
+	border-bottom-left-radius: 0px !important;
+}
+.ui-corner-all,
+.ui-corner-bottom,
+.ui-corner-right,
+.ui-corner-tr {
+	border-bottom-right-radius: 0px !important;
+}
+#txt-description { font-family:-webkit-body !important; height:100px !important;}
+#select-hour, #select-minute {margin: 10px 0 20px 0; font-size: 16px;}

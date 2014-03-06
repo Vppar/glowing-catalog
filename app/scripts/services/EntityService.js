@@ -116,10 +116,6 @@
 	        	for(var idx in entitiesList)
 	        	{
 	        		var entity = entitiesList[idx];
-	        		
-	        		since = new Date(since);
-	        		upon = new Date(upon);
-	        		
 	        		for (var i=since.getFullYear();i<upon.getFullYear()+1;i++)
 	        		{
 		        		if(verifyFilterByBirth(entity,since,upon,i))
@@ -137,8 +133,6 @@
         
         function verifyFilterByBirth(entity,since,upon, yearCurrent)
         {
-        	since = new Date(since);
-    		upon = new Date(upon);
         	var birthDate = entity.birthDate; 
         	if(birthDate && since && upon)
         	{

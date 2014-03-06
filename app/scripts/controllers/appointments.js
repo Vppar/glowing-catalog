@@ -11,9 +11,6 @@
 
 						$scope.contador = 0;
 						$scope.tempDate = undefined;
-						var idCount = 0;
-						var tempId;
-						var tempCalEvent;
 						
 						// tags arrastáveis
 						$('.external-event').each(function() {
@@ -62,35 +59,30 @@
 
 						function openNewEventDialog(eventType, hour, minute, client, title, desc, eventEdit) { // abre pop de cadastro do evento
 							if(eventType) {
-								$("#select-event").val(eventType);
+								$("#select-event-u").val(eventType);
 							} else {
 								$("#select-event").val(0);
 							}
-//							if(hour) {
-//								$("#select-hour").val(hour);
-//							} else {
-//								$("#select-hour").val(8);
-//							}
-//							if(minute) {
-//								$("#select-minute").val(minute);
-//							} else {
-//								$("#select-minute").val(0);
-//							}
-//							if(client) {
-//								$("#select-client").val(client);
-//							} else {
-//								$("#select-client").val(0);
-//							}
-//							if(title) {
-//								$("#txt-title").val(title);
-//							} else {
-//								$("#txt-title").val("");
-//							}
-//							if(desc) {
-//								$("#txt-description").val(desc);
-//							} else {
-//								$("#txt-description").val("");
-//							}
+							if(hour) {
+								$("#select-hour-u").val(hour);
+							} else {
+								$("#select-hour").val(8);
+							}
+							if(minute) {
+								$("#select-minute-u").val(minute);
+							} else {
+								$("#select-minute").val(0);
+							}
+							if(title) {
+								$("#txt-title-u").val(title);
+							} else {
+								$("#txt-title").val("");
+							}
+							if(desc) {
+								$("#txt-description-u").val(desc);
+							} else {
+								$("#txt-description").val("");
+							}
 							
 							if(eventEdit) {
 								var title = 'Alterar evento';
@@ -99,28 +91,13 @@
 								$("#calendar-id-u").val(eventEdit.id);
 								$("#dialog-update").dialog({
 									modal: true,
-									title: title,
-									open: function(event, ui) {
-										var contacts = EntityService.list();
-										$('#select-client-u').children().remove();
-										for (var i = 0 ; i < contacts.length ; i++) {
-											$('#select-client-u').append('<option value="' + contacts[i].uuid + '">' + contacts[i].name + '</option>');
-										}
-									}
+									title: title
 								});
 							} else {
 								var title = "Novo evento";
-								tempId = null;
 								$( "#dialog" ).dialog({
 									modal: true,
-									title: title,
-									open: function(event, ui) {
-										var contacts = EntityService.list();
-										$('#select-client').children().remove();
-										for (var i = 0 ; i < contacts.length ; i++) {
-											$('#select-client').append('<option value="' + contacts[i].uuid + '">' + contacts[i].name + '</option>');
-										}
-									}
+									title: title
 								});
 							}
 							
@@ -183,7 +160,11 @@
 									/* NOVO CÓDIGO */
 									if($('#calendar').fullCalendar('getView').name == 'month') {
 										var actualDate = new Date();
-										date.setHours(actualDate.getHours());
+										if (actualDate.getHours() >= 22 || actualDate.getHours() <= 6) {
+											date.setHours(8);
+										} else {
+											date.setHours(actualDate.getHours() + 2);
+										}
 										date.setMinutes(actualDate.getMinutes());
 									}
 									$scope.tempDate = date;
@@ -198,7 +179,11 @@
 										/* NOVO CÓDIGO */
 										if ($('#calendar').fullCalendar('getView').name == 'month') {
 											var actualDate = new Date();	
-											start.setHours(actualDate.getHours() + 2);
+											if (actualDate.getHours() >= 22 || actualDate.getHours() <= 6) {
+												start.setHours(8);
+											} else {
+												start.setHours(actualDate.getHours() + 2);
+											}
 										}
 										$scope.tempDate = start;
 										/* FIM NOVO CÓDIGO */
@@ -209,39 +194,37 @@
 									if(!calEvent.allDay)
 									{
 										$scope.appointmentToUpdate = $scope.getEvent(calEvent.uuid);
-										openNewEventDialog(calEvent.type, calEvent.start.getHours(), calEvent.start.getMinutes(), calEvent.client, calEvent.title, calEvent.description, calEvent);
+										var client = $scope.appointmentToUpdate != null ? $scope.appointmentToUpdate.contacts : undefined;
+										openNewEventDialog(calEvent.type, calEvent.start.getHours(), calEvent.start.getMinutes(), client, calEvent.title, calEvent.description, calEvent);
 									}
 								},
 								viewRender: function(view, element) {
 									$('#calendar').ready(function() {
+										$('#calendar .fc-widget-header').each(function(i) {
+										     $(this).text($(this).text().replace('&#231;', 'ç').replace('&#225;', 'á'));
+										});
+										
 										$scope.updateCalendar();
 										$scope.contador = 0;
+										
 										if ($scope.birthdays) {
-											var thisMonth = $('#calendar').fullCalendar('getDate').getMonth();
-											var thisFullYear = $('#calendar').fullCalendar('getDate').getFullYear();
 											for (var idx in $scope.birthdays) {
-												var birth = $scope.birthdays[idx];
-												
-												var birthdate = $.datepicker.parseDate('dd-mm-yy', birth.birthDate.substr(0, 10));
-													if (birthdate.getMonth() == thisMonth) {
-													var thisDate = new Date();
-													thisDate.setDate(birthdate.getDate());
-													thisDate.setMonth(thisMonth);
-													thisDate.setFullYear(thisFullYear);
-													$scope.contador = $scope.contador + 1;
-													var event = {
-														title: 'Aniversário de ' + birth.name,
-														start: thisDate,
-														allDay: true,
-														color: $('.tag7').find('.tag-circle').css('background-color'),
-														description: '',
-														client: birth.name,
-														type: 7,
-														id: $scope.contador
-													};
-													if (isNewEvent(event)) {
-														$('#calendar').fullCalendar('renderEvent', event, true);
-													}
+												var entity = $scope.birthdays[idx];
+												var yearCurrent = $('#calendar').fullCalendar('getDate').getFullYear();
+												var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
+												$scope.contador = $scope.contador + 1;
+												var event = {
+													title: 'Aniversário de ' + entity.name,
+													start: thisDate,
+													allDay: true,
+													color: $('.tag7').find('.tag-circle').css('background-color'),
+													description: '',
+													client: entity.name,
+													type: 7,
+													id: $scope.contador
+												};
+												if (isNewEvent(event)) {
+													$('#calendar').fullCalendar('renderEvent', event, true);
 												}
 											}
 										}
@@ -286,15 +269,15 @@
 							var actualSince; 
 							var actualUpon; 
 							if ($('#calendar').fullCalendar('getView').name == 'month') {
-								actualSince = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-first td:eq(0)').attr('data-date')))
-								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')))	
+								actualSince = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-first td:eq(0)').attr('data-date')));
+								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
 							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].trim()))
+								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].trim()));
 								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].substr(0, 4) + headerTitle.split('—')[1].substr(1, 1)))
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].substr(0, 4) + headerTitle.split('—')[1].substr(1, 1)));
 								} else {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))))
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))));
 								}
 							} else {
 								var headerTitle = $('.fc-header-title').text();
@@ -352,6 +335,7 @@
 								alert('Selecione um evento para ser atualizado');
 								return;
 							}
+							prepareUpdate($scope.appointmentToUpdate);
 							
 							var hour = $("#select-hour-u").val();
 							var minute = $("#select-minute-u").val();
