@@ -186,7 +186,7 @@
 							<span>{{order.date | date:'dd/MM/yyyy'}}</span>
 						</div>
 						<div class="new-col-3">
-							<span>{{order.code}}</span>
+							<span>{{order | uuidCode}}</span>
 						</div>
 						<div class="new-col-8">
 							<span>{{order.entityName | truncate: 50}}</span>

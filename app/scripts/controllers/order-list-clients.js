@@ -60,16 +60,16 @@
                     $scope.updatePaymentsTotal = function(entities) {
                         $scope.resetPaymentsTotal();
 
+                        console.log(entities);
                         for ( var ix in entities) {
                             var entity = entities[ix];
-
                             var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
                                 customerId : entity.entityId
                             });
 
                             for ( var ix2 in ordersByEntity) {
                                 var order = ordersByEntity[ix2];
-
+                                
                                 var receivables = ReceivableService.listByDocument(order.uuid);
                                 for ( var ix3 in receivables) {
                                     var receivable = receivables[ix3];
@@ -97,6 +97,7 @@
                                 }
                             }
                         }
+                        console.log($scope.total);
                     };
 
                     /**
