@@ -4,7 +4,14 @@
     angular.module('tnt.catalog.dialog.numpad.ctrl', [
     ]).controller('NumpadDialogCtrl', ['$scope', '$q', 'dialog', function($scope, $q, dialog) {
 
-        $scope.value = 0;
+        var $parentScope = dialog.parentDialog.$scope;
+
+        $scope.value = ($parentScope.product && $parentScope.product.discount) || 0;
+        
+
+        $scope.$watch('value', function () {
+            $parentScope.setDiscount($scope.value);
+        });
 
         /**
          * Closes the dialog, rejecting the value

@@ -20,15 +20,17 @@
                 backdropClick : true,
                 dialogClass : cssClass
             });
+
             d.data = data;
+            d.parentDialog = parentDialog;
 
             function closeDialog() {
                 d.$scope.cancel();
             }
 
             if (parentDialog) {
-                // If the parent dialog is ended somehow (resolved or rejected),
-                // close the child dialog.
+                // If the parent dialog's promise is ended somehow (resolved
+                // or rejected), close the child dialog.
                 parentDialog.deferred.promise.then(closeDialog, closeDialog);
             }
 

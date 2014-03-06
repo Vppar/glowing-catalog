@@ -118,5 +118,12 @@
                 }
 
                 $scope.openDialogNumpad = openDialogNumpad;
+
+
+                function setDiscount(discount) {
+                  $scope.product.discount = discount || 0;
+                }
+
+                $scope.setDiscount = setDiscount;
             }]);
 }(angular));
