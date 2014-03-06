@@ -2,11 +2,12 @@
     'use strict';
 
     angular.module('tnt.catalog.basket.add', [
-        'tnt.catalog.service.data'
+        'tnt.catalog.service.data',
+        'tnt.catalog.service.dialog'
     ]).controller(
             'AddToBasketDialogCtrl',
-            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService',
-            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService) {
+            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService',
+            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService) {
 
                 var orderItems = OrderService.order.items;
                 var inventory = InventoryKeeper.read();
@@ -103,5 +104,19 @@
                 $scope.cancel = function cancel() {
                     dialog.close($q.reject());
                 };
+
+
+                function openDialogNumpad() {
+                    var numpadDialog = DialogService.openDialogNumpad(null, dialog).then(function (discount) {
+                      console.log('discount:', discount);
+                      $scope.discount = discount;
+
+                      // TODO
+                      // if product has a grid, set discount to all types
+                      // otherwise, set discount to product
+                    });
+                }
+
+                $scope.openDialogNumpad = openDialogNumpad;
             }]);
 }(angular));
