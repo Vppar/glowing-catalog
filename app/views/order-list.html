@@ -1,4 +1,4 @@
-<div class="container ng-scope">
+<div class="container">
 
 	<!-- HEADER -->
 	<div class="row-fluid">
@@ -7,7 +7,7 @@
 		</span>
 	</div>
 
-	<div class="form-order-list">
+	<div class="form-order-list form-order-list-full">
 
 		<div class="row-fluid pull-right panel-top">
 			<!-- BREAD CRUMBS -->
@@ -122,10 +122,10 @@
 </div>
 
 	<!--Pedidos-->
-<div ng-switch="ol">
-	<div class="" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
-		<div class="row-fluid">
-			<div class="grid-order-list">
+<div ng-switch="ol" style="height: calc(100% - 150px);">
+	<div class="height100perc" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
+		<div class="row-fluid height100perc">
+			<div class="grid-order-list order-scroll-area-fix">
 				<div class="header" ng-click="callUpdateReceivableTotal(filteredOrders)">
 					<div class="order-table-header">
 						<div class="new-col-3 text-center">
@@ -179,7 +179,7 @@
 					</div>
 				</div>
 	
-				<div class="scroll-order-list">
+				<div class="scroll-order-list" ng-class="{'order-scroll-closed': hideOptions, 'order-scroll-openned': !hideOptions}">
 					<div class="order-table-row"  ng-repeat="order in filteredOrders | orderBy: '-date'"
 						ng-click="updateAndEnableHideOption(order)" ng-class="{'row-selected': checkedOrderUUID==order.uuid}">
 						<div class="new-col-3 text-center">
@@ -211,9 +211,9 @@
 	</div>
 	
 	<!--Clientes-->
-	<div class="order-list-grid-clientes" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
-		<div class="row-fluid">
-			<div class="grid-order-list">
+	<div class="order-list-grid-clientes height100perc" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
+		<div class="row-fluid height100perc">
+			<div class="grid-order-list order-scroll-area-fix">
 				<div class="header" ng-click="callUpdateReceivableTotal(filteredEntities)">
 					<div class="order-table-header">
 						<div class="new-col-2 text-center">
@@ -266,7 +266,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="scroll-order-list">
+				<div class="scroll-order-list" ng-class="{'order-scroll-closed': hideOptions, 'order-scroll-openned': !hideOptions}">
 					<div class="order-table-row" ng-repeat="entity in filteredEntities | orderBy: '-amountTotal'" ng-click="updateAndEnableHideOption(entity)"
 						ng-class="{'row-selected': checkedEntityUUID==entity.entityId}">
 						<div class="new-col-2 text-center">
@@ -298,9 +298,9 @@
 	</div>
 	
 	<!--Produtos-->
-	<div class="order-list-grid-produtos" ng-switch-when="products" ng-controller="OrderListProductsCtrl">
-		<div class="row-fluid">
-			<div class="grid-order-list">
+	<div class="order-list-grid-produtos height100perc" ng-switch-when="products" ng-controller="OrderListProductsCtrl">
+		<div class="row-fluid height100perc">
+			<div class="grid-order-list order-scroll-area-fix">
 				<div class="header">
 					<div class="order-table-header">
 						<div class="new-col-2 text-center">
@@ -352,7 +352,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="scroll-order-list">
+				<div class="scroll-order-list" ng-class="{'order-scroll-closed': hideOptions, 'order-scroll-openned': !hideOptions}">
 					<div class="row-order-list hover-state-pointer order-row"
 						ng-repeat="product in filteredProducts | orderBy:'-amountTotal'">
 						<div class="new-col-2 text-center">

@@ -1,3 +1,40 @@
+/* just to scroll 100%*/
+ .order-scroll-area-fix{
+ 	height: calc(100% - 90px);
+ }
+ .order-scroll-closed{
+ 	height: calc(100% - 85px);
+ }
+ 
+ .order-scroll-openned{
+ 	height: calc(100% - 190px);
+ }
+ 
+ .form-order-list-full{
+ 	height: calc(100% - 105px);
+ }
+ 
+ .grid-order-list{
+ 	height: 100%;
+ }
+ .height100perc{
+ 	height: 100%;
+ }
+ .div-master{
+ 	height: 100%;
+ }
+ .div-master .container:first-child{
+ 	height: 100%;
+ }
+ body{
+ 	height: 100%;
+ 	overflow: hidden;
+ }
+ html{
+ 	height: 100%;
+ 	overflow: hidden;
+ }
+
 .row-selected{
 	background-color: #ccff99;
 	border-radius: 4px;
