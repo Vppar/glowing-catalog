@@ -17,13 +17,15 @@
                     $scope.checkedEntityUUID = null;
                     $scope.updateAndEnableHideOption = function(entity) {
                         $scope.checkedEntityUUID = entity.entityId;
-                        $scope.updatePaymentsTotal([entity]);
+                        $scope.updatePaymentsTotal([
+                            entity
+                        ]);
                         if ($scope.hideOptions === true) {
                             $scope.invertHideOption();
                         }
                     };
-                    
-                    $scope.callUpdateReceivableTotal = function(entities){
+
+                    $scope.callUpdateReceivableTotal = function(entities) {
                         $scope.checkedEntityUUID = null;
                         $scope.updatePaymentsTotal(entities);
                     };
@@ -46,7 +48,7 @@
                                     avgPrice : 0,
                                     amountTotal : 0
                                 };
-                                
+
                                 for ( var ix2 in ordersByEntity) {
                                     var order = ordersByEntity[ix2];
                                     $scope.argumentOrder(order);
@@ -65,7 +67,7 @@
 
                     $scope.updatePaymentsTotal = function(entities) {
                         $scope.resetPaymentsTotal();
-                        
+
                         for ( var ix in entities) {
                             var entity = entities[ix];
                             var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
@@ -74,7 +76,7 @@
 
                             for ( var ix2 in ordersByEntity) {
                                 var order = ordersByEntity[ix2];
-                                //FIXME list only active receivables.
+                                // FIXME list only active receivables.
                                 var receivables = ReceivableService.listByDocument(order.uuid);
                                 for ( var ix3 in receivables) {
                                     var receivable = receivables[ix3];

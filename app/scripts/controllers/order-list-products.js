@@ -15,16 +15,13 @@
                         'DataProvider',
                         'ReceivableService',
                         'StockService',
-                        'ProductReturnService',
-                        'VoucherService',
-                        function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, StockService,
-                                ProductReturnService, VoucherService) {
+                        function($scope, $location, $filter, OrderService, ArrayUtils, DataProvider, ReceivableService, StockService) {
 
                             $scope.filteredProducts = [];
                             $scope.filteredProducts.totalStock = 0;
-                            $scope.avaliableCustomers =[];
-                            $scope.checkedProductSKU= null;
-                            
+                            $scope.avaliableCustomers = [];
+                            $scope.checkedProductSKU = null;
+
                             function updateFilteredProducts() {
                                 $scope.filteredProducts.totalStock = 0;
                                 $scope.filteredProducts.length = 0;
@@ -75,8 +72,6 @@
                                     }
                                 }
                             }
-
-                            
 
                             $scope.$watchCollection('dtFilter', function() {
                                 updateFilteredProducts();
