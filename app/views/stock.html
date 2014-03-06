@@ -26,85 +26,82 @@
 					<div class="new-body-header details-stock-title">
 						<span class="new-col-3">C&oacute;digo</span>
 						<span class="new-col-10">Produto</span>
-						<span class="new-col-3">Qtde.</span>
+						<span class="new-col-3 text-center">Qtde.</span>
 						<span class="new-col-4 currency">Custo unit.</span>
 						<span class="new-col-4 currency">Custo total</span>
 					</div>
 				</div>
 
 				<div class="row-fluid">
-					<div class="span12">
-						<div class="new-body-row details-stock-total">
-							<span class="new-col-3">&nbsp;</span>
-							<span class="new-col-10">
-								<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter closeimg" ng-model="productFilter.text" ng-click="clearFilter()">
-								<span class="float-right">Total Geral</span>
-							</span>
-							<span class="new-col-3">{{overallProducts.qty}}</span>
-							<span class="new-col-4 currency" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</span> 
-							<span class="new-col-4 currency" ng-if="!overallProducts.avgCost">0,00</span>
-							<span class="new-col-4 currency">{{overallProducts.amount | currency:''}}</span>
-						</div>
+					<div class="new-body-row details-stock-total fixed-line">
+						<span class="new-col-3">&nbsp;</span>
+						<span class="new-col-10">
+							<input type="text" placeholder="Filtrar produto" class="date-field input-small stock-filter closeimg" ng-model="productFilter.text" ng-click="clearFilter()">
+							<span class="float-right">Total Geral</span>
+						</span>
+						<span class="new-col-3 text-center">{{overallProducts.qty}}</span>
+						<span class="new-col-4 currency" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</span> 
+						<span class="new-col-4 currency" ng-if="!overallProducts.avgCost">0,00</span>
+						<span class="new-col-4 currency">{{overallProducts.amount | currency:''}}</span>
 					</div>
 				</div>
+
+
+			<div class="scroll-stock">
 
 				<div class="row-fluid" ng-click="toggleAllSections(productsAvailable.sessions)">
-					<div class="span12">
-						<div class="new-body-row details-stock-total">
-							<span class="new-col-3">&nbsp;</span>
-							<span class="new-col-10">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span>
-							<span class="new-col-3">{{productsAvailable.total.qty}}</span>
-							<span class="new-col-4 currency">{{productsAvailable.total.avgCost | currency:''}}</span>
-							<span class="new-col-4 currency">{{productsAvailable.total.amount | currency:''}}</span>
-						</div>
+					<div class="new-body-row details-stock-total">
+						<span class="new-col-3">&nbsp;</span>
+						<span class="new-col-10">PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span></span>
+						<span class="new-col-3 text-center">{{productsAvailable.total.qty}}</span>
+						<span class="new-col-4 currency">{{productsAvailable.total.avgCost | currency:''}}</span>
+						<span class="new-col-4 currency">{{productsAvailable.total.amount | currency:''}}</span>
 					</div>
 				</div>
 
 				<div class="row-fluid">
-					<div class="span12">
-						<div class="new-body-row">
-							<span ng-repeat="session in productsAvailable.sessions" ng-if="!session.hide">
-								<div class="details-stock-subtitle" ng-click="toggleSession(session)">
+					<div class="new-body-row">
+						<span ng-repeat="session in productsAvailable.sessions" ng-if="!session.hide">
+							<div class="details-stock-subtitle" ng-click="toggleSession(session)">
+								<span class="new-col-3">&nbsp;</span>
+								<span class="new-col-10">{{session.label}}<span class="float-right">Subtotal</span></span>
+								<span class="new-col-3 text-center">{{session.total.qty}}</span>
+								<span class="new-col-4 currency">{{session.total.avgCost |currency:''}}</span>
+								<span class="new-col-4 currency">{{session.total.amount | currency:''}}</span>
+							</div>
+							<span ng-repeat="line in session.lines" ng-if="!line.hide">
+								<div class="details-stock-category" ng-click="toggleLine(line)">
 									<span class="new-col-3">&nbsp;</span>
-									<span class="new-col-10">{{session.label}}<span class="float-right">Subtotal</span></span>
-									<span class="new-col-3">{{session.total.qty}}</span>
-									<span class="new-col-4 currency">{{session.total.avgCost |currency:''}}</span>
-									<span class="new-col-4 currency">{{session.total.amount | currency:''}}</span>
+									<span class="new-col-10">{{line.label}}</span>
+									<span class="new-col-3 text-center">{{line.total.qty}}</span>
+									<span class="new-col-4 currency">{{line.total.avgCost | currency:''}}</span>
+									<span class="new-col-4 currency">{{line.total.amount | currency:''}}</span>
 								</div>
-								<span ng-repeat="line in session.lines" ng-if="!line.hide">
-									<div class="details-stock-category" ng-click="toggleLine(line)">
-										<span class="new-col-3">&nbsp;</span>
-										<span class="new-col-10">{{line.label}}</span>
-										<span class="new-col-3">{{line.total.qty}}</span>
-										<span class="new-col-4 currency">{{line.total.avgCost | currency:''}}</span>
-										<span class="new-col-4 currency">{{line.total.amount | currency:''}}</span>
+								<span ng-repeat="product in line.items" ng-if="!product.hide">
+									<div class="details-stock-item">
+										<span class="new-col-3">{{product.SKU}}</span>
+										<span class="new-col-10">{{product.title}}</span>
+										<span class="new-col-3 text-center">{{product.qty}}</span>
+										<span class="new-col-4 currency">{{product.price| currency:''}}</span>
+										<span class="new-col-4 currency">{{product.qty * product.price | currency:''}}</span>
 									</div>
-									<span ng-repeat="product in line.items" ng-if="!product.hide">
-										<div class="details-stock-item">
-											<span class="new-col-3">{{product.SKU}}</span>
-											<span class="new-col-10">{{product.title}}</span>
-											<span class="new-col-3">{{product.qty}}</span>
-											<span class="new-col-4 currency">{{product.price| currency:''}}</span>
-											<span class="new-col-4 currency">{{product.qty * product.price | currency:''}}</span>
-										</div>
-									</span>
 								</span>
 							</span>
-						</div>
+						</span>
 					</div>
 				</div>
 
 				<div class="row-fluid">
-					<div class="span12">
-						<div class="new-body-row details-stock-total">
-							<span class="new-col-3">&nbsp;</span>
-							<span class="new-col-10">PRODUTOS PENDENTES NO PEDIDO DE COMPRA <span class="float-right">Total</span></span>
-							<span class="new-col-3">0</span>
-							<span class="new-col-4 currency">0,00</span>
-							<span class="new-col-4 currency">0,00</span>
-						</div>
+					<div class="new-body-row details-stock-total">
+						<span class="new-col-3">&nbsp;</span>
+						<span class="new-col-10">PRODUTOS PENDENTES NO PEDIDO DE COMPRA <span class="float-right">Total</span></span>
+						<span class="new-col-3 text-center">0</span>
+						<span class="new-col-4 currency">0,00</span>
+						<span class="new-col-4 currency">0,00</span>
 					</div>
 				</div>
+
+			</div> <!-- //scroll-stock -->
 
 			</div> <!--// new-section -->
 		</div> <!--// new-body -->

@@ -48,7 +48,7 @@
 	width:  100%; /*290px;*/
 }
 
-.form-stock .scroll-stock {
+.scroll-stock {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	/*position: fixed;
@@ -310,8 +310,19 @@
 }
 .details-stock-category, .details-stock-subtitle, .details-stock-total, .details-stock-category-title, .details-stock-item {
 	border-radius:4px;
-	padding: 8px 5px 8px 12px!important;
+	padding: 8px 5px 8px 0!important;
 	min-height: 20px;
+}
+
+.fixed-line .currency {
+	padding-right:14px;
+}
+.fixed-line .currency:last-child {
+	padding-right:6px;
+}
+.scroll-stock .details-stock-category .currency:last-child, .scroll-stock .details-stock-subtitle .currency:last-child,
+.scroll-stock .details-stock-total .currency:last-child, .scroll-stock .details-stock-item .currency:last-child {
+	padding-right:4px;
 }
 
 .crumbs {
