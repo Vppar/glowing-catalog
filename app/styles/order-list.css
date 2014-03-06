@@ -1,3 +1,9 @@
+.row-selected{
+	background-color: #ddd;
+	border-radius: 4px;
+	border: 0;
+}
+
 .order-col{
 	display: block;
 	line-height: 40px;
