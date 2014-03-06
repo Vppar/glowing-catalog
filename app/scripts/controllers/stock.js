@@ -18,7 +18,7 @@
         // Local Functions
         // #####################################################################################################
 
-        function buildList(productsReserved, productsAvailable, objFilter) {
+        function buildList(productsReserved, productsAvailable) {
             $scope.productsReserved = productsReserved;
             $scope.productsAvailable = productsAvailable;
 
@@ -122,7 +122,7 @@
             $scope.selectedLevel = level;
         };
 
-        $scope.toggleAllSections = function toggleAllSections(sessions, force) {
+        $scope.toggleAllSections = function toggleAllSections(sessions) {
             for ( var ix in sessions) {
                 var session = sessions[ix];
                 session.hide = !session.hide;
@@ -149,10 +149,6 @@
 
         function enableProductWatcher() {
             currentProductWatcher = $scope.$watch('productFilter.text', productFilter);
-        }
-
-        function disableProductWatcher() {
-            currentProductWatcher();
         }
 
         // #####################################################################################################
