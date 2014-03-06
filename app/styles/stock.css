@@ -279,7 +279,8 @@
 .details-stock-item{
 	display: block;
 	font-weight:normal;
-	border-top: 1px dotted #ccc;
+	float:left;
+	/*border-top: 1px dotted #ccc;*/
 }
 .details-stock-title{
 	background: #333;
@@ -288,25 +289,21 @@
 .details-stock-total{
 	background: #ccc;
 	color: #222;
-	margin-bottom:2px;
 }
 .details-stock-subtitle{
 	background: #e3e3e3; /*#F2F2F2*/
 	color: #444;
 	border-bottom: 2px solid #fff;
-	margin-bottom:4px;
-	margin-top:-4px;
 }
 .details-stock-category{
 	background: #f4f4f4;
 	color: #777;
-	border-bottom: 2px solid #fff; 
-	margin-bottom:4px;
-	margin-top:-4px;
+	border-bottom: 2px solid #fff;
 }
 
 .details-stock-category, .details-stock-subtitle, .details-stock-total {
 	font-weight:bold;
+	margin-bottom:2px;
 }
 .details-stock-category, .details-stock-subtitle, .details-stock-total, .details-stock-category-title, .details-stock-item {
 	border-radius:4px;
