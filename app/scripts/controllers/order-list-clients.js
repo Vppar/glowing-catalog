@@ -11,7 +11,7 @@
 
                     // $scope.entities come from OrderListCtrl
                     var customers = $scope.customers;
-
+                    $scope.avaliableCustomer = [];
                     // $scope.filteredOrders come from OrderListCtrl
                     $scope.filteredEntities = [];
 
@@ -40,7 +40,7 @@
                                     avgPrice : 0,
                                     amountTotal : 0
                                 };
-
+                                
                                 for ( var ix2 in ordersByEntity) {
                                     var order = ordersByEntity[ix2];
                                     $scope.argumentOrder(order);
