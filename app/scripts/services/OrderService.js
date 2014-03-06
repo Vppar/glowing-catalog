@@ -174,7 +174,7 @@
                     }
 
                     var savedOrder = angular.copy(order);
-                    savedOrder.date = new Date().getTime();
+                    savedOrder.date = new Date();
                     savedOrder.items = selectedItems;
 
                     return this.register(savedOrder);

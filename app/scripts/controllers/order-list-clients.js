@@ -14,12 +14,18 @@
                     $scope.avaliableCustomer = [];
                     // $scope.filteredOrders come from OrderListCtrl
                     $scope.filteredEntities = [];
-
+                    $scope.checkedEntityUUID = null;
                     $scope.updateAndEnableHideOption = function(entity) {
-                        $scope.updatePaymentsTotal(entity);
+                        $scope.checkedEntityUUID = entity.entityId;
+                        $scope.updatePaymentsTotal([entity]);
                         if ($scope.hideOptions === true) {
                             $scope.invertHideOption();
                         }
+                    };
+                    
+                    $scope.callUpdateReceivableTotal = function(entities){
+                        $scope.checkedEntityUUID = null;
+                        $scope.updatePaymentsTotal(entities);
                     };
 
                     function updateFilteredEntities() {
@@ -59,8 +65,7 @@
 
                     $scope.updatePaymentsTotal = function(entities) {
                         $scope.resetPaymentsTotal();
-
-                        console.log(entities);
+                        
                         for ( var ix in entities) {
                             var entity = entities[ix];
                             var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
@@ -70,13 +75,14 @@
                             for ( var ix2 in ordersByEntity) {
                                 var order = ordersByEntity[ix2];
                                 
-                                var receivables = ReceivableService.listByDocument(order.uuid);
+                                var receivables = ReceivableService.listActiveByDocument(order.uuid);
                                 for ( var ix3 in receivables) {
                                     var receivable = receivables[ix3];
                                     var amount = Number(receivable.amount);
 
                                     $scope.total[receivable.type].amount += amount;
                                     $scope.total[receivable.type].qty++;
+                                    $scope.total.amount += amount;
                                 }
 
                                 var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
@@ -84,6 +90,7 @@
                                     var exchanged = exchangedProducts[ix4];
                                     $scope.total.exchange.amount += (exchanged.cost * exchanged.quantity);
                                     $scope.total.exchange.qty += Number(exchanged.quantity);
+                                    $scope.total.amount += (exchanged.cost * exchanged.quantity);
                                 }
 
                                 var vouchers = VoucherService.listByDocument(order.uuid);
@@ -94,10 +101,10 @@
 
                                     $scope.total.voucher.amount += voucherAmount;
                                     $scope.total.voucher.qty += voucher.qty;
+                                    $scope.total.amount += voucherAmount;
                                 }
                             }
                         }
-                        console.log($scope.total);
                     };
 
                     /**

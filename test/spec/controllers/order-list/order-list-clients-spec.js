@@ -1,4 +1,4 @@
-ddescribe('Controller: order-list-clients', function() {
+describe('Controller: order-list-clients', function() {
 
     var scope = {};
     var OrderService = {};
@@ -10,6 +10,7 @@ ddescribe('Controller: order-list-clients', function() {
     var ArrayUtils = null;
     var orders = [];
     var receivables = null;
+    var receivablesTotalTemplate = null;
     var total = {
         all : {
             amount : 0
@@ -30,6 +31,39 @@ ddescribe('Controller: order-list-clients', function() {
     });
 
     beforeEach(function() {
+        receivablesTotalTemplate = {
+            total : {
+                amount : 0
+            },
+            cash : {
+                qty : 0,
+                amount : 0
+            },
+            check : {
+                qty : 0,
+                amount : 0
+            },
+            creditCard : {
+                qty : 0,
+                amount : 0
+            },
+            noMerchantCc : {
+                qty : 0,
+                amount : 0
+            },
+            exchange : {
+                qty : 0,
+                amount : 0
+            },
+            voucher : {
+                qty : 0,
+                amount : 0
+            },
+            onCuff : {
+                qty : 0,
+                amount : 0
+            }
+        };
         orders = [
             {
                 canceled : false,
@@ -224,7 +258,11 @@ ddescribe('Controller: order-list-clients', function() {
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
         scope.customers = customers;
-        scope.resetPaymentsTotal = jasmine.createSpy('scope.resetPaymentsTotal');
+        scope.resetPaymentsTotal = jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function() {
+            scope.total = receivablesTotalTemplate;
+        })
+
+        ;
         scope.generateVA = jasmine.createSpy('scope.generateVA').andCallFake(function generateVa(filterList) {
             var acumulator = 0;
             var biggestOrder = {
@@ -268,9 +306,10 @@ ddescribe('Controller: order-list-clients', function() {
             order.amountTotal = (priceTotal + amountTotal);
         });
 
-        ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
-            return ArrayUtils.list(receivables, 'documentId', document);
-        });
+        ReceivableService.listActiveByDocument =
+                jasmine.createSpy('ReceivableService.listActiveByDocument').andCallFake(function(document) {
+                    return ArrayUtils.list(receivables, 'documentId', document);
+                });
 
         $controller('OrderListClientsCtrl', {
             $scope : scope,
@@ -322,11 +361,20 @@ ddescribe('Controller: order-list-clients', function() {
 
     });
 
-    xit('should updatePaymentsTotal', function() {
+    it('should updatePaymentsTotal', function() {
         scope.$apply();
         scope.updatePaymentsTotal(scope.filteredEntities);
-
-        console.log(scope.total);
-
+        expect(scope.total.cash.qty).toEqual(3);
+        expect(scope.total.cash.amount).toEqual(800);
+        expect(scope.total.check.qty).toEqual(1);
+        expect(scope.total.check.amount).toEqual(200);
+        expect(scope.total.creditCard.qty).toEqual(0);
+        expect(scope.total.creditCard.amount).toEqual(0);
+        expect(scope.total.noMerchantCc.qty).toEqual(0);
+        expect(scope.total.noMerchantCc.amount).toEqual(0);
+        expect(scope.total.exchange.qty).toEqual(0);
+        expect(scope.total.exchange.amount).toEqual(0);
+        expect(scope.total.voucher.qty).toEqual(0);
+        expect(scope.total.voucher.amount).toEqual(0);
     });
 });

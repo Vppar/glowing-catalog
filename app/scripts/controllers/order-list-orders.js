@@ -9,10 +9,17 @@
                 function($scope, $location, $filter, ArrayUtils, ReceivableService, ProductReturnService, VoucherService) {
 
                     $scope.updateAndEnableHideOption = function(order) {
-                        $scope.updateReceivablesTotal(order);
+                        $scope.checkedOrderUUID = order.uuid;
+                        $scope.updateReceivablesTotal([order]);
+                        
                         if ($scope.hideOptions === true) {
                             $scope.invertHideOption();
                         }
+                    };
+                    
+                    $scope.callUpdateReceivableTotal = function(orders){
+                        $scope.checkedOrderUUID = null;
+                        $scope.updateReceivablesTotal(orders);
                     };
                 }
             ]);

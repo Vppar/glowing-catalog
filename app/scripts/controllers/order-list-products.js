@@ -23,6 +23,7 @@
                             $scope.filteredProducts = [];
                             $scope.filteredProducts.totalStock = 0;
                             $scope.avaliableCustomers =[];
+                            $scope.checkedProductSKU= null;
                             
                             function updateFilteredProducts() {
                                 $scope.filteredProducts.totalStock = 0;
@@ -81,7 +82,6 @@
                                 updateFilteredProducts();
                                 $scope.computeAvaliableCustomers($scope.customers);
                                 $scope.generateVA($scope.filteredProducts);
-                                console.log($scope.avaliableCustomers);
                             });
 
                             $scope.$watchCollection('filter.customerId', function() {
@@ -90,7 +90,6 @@
                                 updateFilteredProducts();
                                 $scope.computeAvaliableCustomers($scope.customers);
                                 $scope.generateVA($scope.filteredProducts);
-                                console.log($scope.avaliableCustomers);
                             });
 
                         }
