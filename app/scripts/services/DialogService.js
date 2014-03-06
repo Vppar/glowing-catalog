@@ -41,11 +41,13 @@
         };
 
         this.openDialogAddToBasket = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');
+            // at new layout, the last attr should be 'modal-add-basket-dialog'
+            return openDialog('views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, cssDefaultClass);
         };
         
         this.openDialogAddToBasketDetails = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-details-dialog');
+            // at new layout, the last attr should be 'modal-add-basket-details-dialog'
+            return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data, cssDefaultClass);
         };
 
         this.openDialogChangePass = function(data) {
