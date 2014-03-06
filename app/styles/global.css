@@ -16,6 +16,11 @@
 	margin-top: 20px
 }
 
+/*mod at li special to header*/
+.loading-icon-holder{
+	width: 40px;
+}
+
 .loading-icon{
 	margin-top:6px;
 	margin-left:60px;
