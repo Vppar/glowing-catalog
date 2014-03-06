@@ -107,6 +107,7 @@
                 'tnt.catalog.service.book',
                 'tnt.catalog.appointments',
                 'tnt.catalog.appointments.ctrl',
+                'tnt.catalog.appointments.ctrl2',
                 'tnt.catalog.appointments.service',
                 'tnt.catalog.appointments.entity',
                 'tnt.catalog.appointments.keeper'

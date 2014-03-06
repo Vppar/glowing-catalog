@@ -16,6 +16,7 @@
 
             //just title and description are mandatory
             invalidProperty.title = angular.isDefined(entity.title);
+            invalidProperty.date = angular.isDefined(entity.date);
             invalidProperty.description = angular.isDefined(entity.description);
             invalidProperty.status = angular.isDefined(entity.status);
             invalidProperty.type = angular.isDefined(entity.type);
@@ -56,19 +57,14 @@
         {
         	var appointmentReturn = [];
         	var appointmentList = this.list();
-        	alert(appointmentList.length);
         	if(appointmentList)
         	{
 	        	for(var idx in appointmentList)
 	        	{
 	        		var appointment = appointmentList[idx];
-	        		since = new Date(since);
-	        		upon = new Date(upon);
 	        		var dateAppointment = new Date(appointment.date);
-	        		alert(dateAppointment);
 	        		if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime())
 	        		{
-	        			alert('true');
 	        			appointmentReturn.push(appointment);
 	        		}
 		        }
@@ -120,14 +116,14 @@
          * @throws Exception in case of a fatal error comming from the keeper.
          */
         this.update = function(appointment) {
-        	 var result = null;
-             appointment = new Appointment(appointment);
-             var hasErrors = this.isValid(appointment);
-             if (hasErrors.length === 0) {
-                 result = AppointmentKeeper.update(appointment);
-             } else {
-                 result = $q.reject(hasErrors);
-             }
+        	var result = this.isValid(appointment);
+            if (result.length === 0) {
+                try {
+                    return AppointmentKeeper.update(appointment);
+                } catch (err) {
+                    throw 'AppointmentService.update: Unable to update a appointment=' + JSON.stringify(receivable) + '. Err=' + err;
+                }
+            }
             return result;
         };
         

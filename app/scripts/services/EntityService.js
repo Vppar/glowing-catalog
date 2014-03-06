@@ -111,7 +111,6 @@
         {
         	var entitiesReturn = [];
         	var entitiesList = this.list();
-        	alert(entitiesList);
         	if(entitiesList)
         	{
 	        	for(var idx in entitiesList)

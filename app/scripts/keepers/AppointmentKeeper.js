@@ -4,9 +4,8 @@
     angular.module('tnt.catalog.appointments.entity', []).factory('Appointment', function Appointment() {
 
         var service = function svc(uuid, title,description, date, startTime, endTime, address, contacts, type,status) {
-
             var validProperties = [
-                'uuid', 'title', 'description', 'date', 'startTime', 'endTime', 'address', 'contacts', 'type','status','created'
+                'uuid', 'title', 'description', 'date', 'startTime', 'endTime', 'address', 'contacts', 'type','status','allDay','color','created'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -38,6 +37,8 @@
                 this.address = address;
                 this.contacts = contacts;
                 this.type = type;
+                this.color = color;
+                this.allDay = allDay;
                 this.status = status;
                 
             }
@@ -149,9 +150,9 @@
          */
         this.update = function(appointment) {
 
-        	if (!(appointment instanceof Appointment)) {
-                return $q.reject('Wrong instance to AppointmentKeeper');
-            }
+//        	if (!(appointment instanceof Appointment)) {
+//                return $q.reject('Wrong instance to AppointmentKeeper');
+//            }
                
             var stamp = (new Date()).getTime() / 1000;
 
