@@ -60,15 +60,18 @@
 						function openNewEventDialog(eventType, hour, minute, client, title, desc, eventEdit) { // abre pop de cadastro do evento
 							if(eventType) {
 								$("#select-event-u").val(eventType);
+								$("#select-event").val(eventType);
 							} else {
 								$("#select-event").val(0);
 							}
 							if(hour) {
+								$("#select-hour").val(hour);
 								$("#select-hour-u").val(hour);
 							} else {
 								$("#select-hour").val(8);
 							}
 							if(minute) {
+								$("#select-minute").val(minute);
 								$("#select-minute-u").val(minute);
 							} else {
 								$("#select-minute").val(0);
@@ -161,7 +164,7 @@
 									if($('#calendar').fullCalendar('getView').name == 'month') {
 										var actualDate = new Date();
 										if (actualDate.getHours() >= 22 || actualDate.getHours() <= 6) {
-											date.setHours(8);
+											date.setHours(actualDate.getHours());
 										} else {
 											date.setHours(actualDate.getHours() + 2);
 										}
@@ -180,7 +183,7 @@
 										if ($('#calendar').fullCalendar('getView').name == 'month') {
 											var actualDate = new Date();	
 											if (actualDate.getHours() >= 22 || actualDate.getHours() <= 6) {
-												start.setHours(8);
+												start.setHours(actualDate.getHours());
 											} else {
 												start.setHours(actualDate.getHours() + 2);
 											}
