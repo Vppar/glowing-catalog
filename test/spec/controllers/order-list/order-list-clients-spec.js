@@ -9,6 +9,8 @@ describe('Controller: order-list-clients', function() {
     var VoucherService = {};
     var ArrayUtils = null;
     var orders = [];
+    var receivables = null;
+    var receivablesTotalTemplate = null;
     var total = {
         all : {
             amount : 0
@@ -29,10 +31,44 @@ describe('Controller: order-list-clients', function() {
     });
 
     beforeEach(function() {
+        receivablesTotalTemplate = {
+            total : {
+                amount : 0
+            },
+            cash : {
+                qty : 0,
+                amount : 0
+            },
+            check : {
+                qty : 0,
+                amount : 0
+            },
+            creditCard : {
+                qty : 0,
+                amount : 0
+            },
+            noMerchantCc : {
+                qty : 0,
+                amount : 0
+            },
+            exchange : {
+                qty : 0,
+                amount : 0
+            },
+            voucher : {
+                qty : 0,
+                amount : 0
+            },
+            onCuff : {
+                qty : 0,
+                amount : 0
+            }
+        };
         orders = [
             {
                 canceled : false,
                 code : "mary-0001-13",
+                uuid : "cc02a100-5d0a-11e3-96c3-010001000001",
                 customerId : 14,
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
@@ -54,6 +90,7 @@ describe('Controller: order-list-clients', function() {
             }, {
                 canceled : false,
                 code : "mary-0001-14",
+                uuid : "cc02a200-5d0a-11e3-96c3-010001000002",
                 customerId : 14,
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
@@ -69,6 +106,7 @@ describe('Controller: order-list-clients', function() {
             }, {
                 canceled : false,
                 code : "mary-0001-15",
+                uuid : "cc02a300-5d0a-11e3-96c3-010001000003",
                 customerId : 15,
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
@@ -84,6 +122,7 @@ describe('Controller: order-list-clients', function() {
             }, {
                 canceled : false,
                 code : "mary-0001-16",
+                uuid : "cc02a400-5d0a-11e3-96c3-010001000004",
                 customerId : 16,
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
@@ -170,6 +209,40 @@ describe('Controller: order-list-clients', function() {
                 name : 'Linka'
             }
         ];
+
+        receivables = [
+            {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
+                documentId : "cc02a100-5d0a-11e3-96c3-010001000001",
+                // created one month ago
+                created : new Date().getTime() - daysToMilliseconds(28),
+                type : "cash",
+                amount : 300,
+                // expired one week ago
+                duedate : new Date().getTime() - daysToMilliseconds(7)
+            }, {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000020",
+                documentId : "cc02a200-5d0a-11e3-96c3-010001000002",
+                created : new Date().getTime() - daysToMilliseconds(7),
+                type : "cash",
+                amount : 250,
+                duedate : new Date().getTime() + daysToMilliseconds(7)
+            }, {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000021",
+                documentId : "cc02a300-5d0a-11e3-96c3-010001000003",
+                created : new Date().getTime(),
+                type : "cash",
+                amount : 250,
+                duedate : new Date().getTime()
+            }, {
+                uuid : "cc02b600-5d0b-11e3-96c3-010001000022",
+                documentId : "cc02a400-5d0a-11e3-96c3-010001000004",
+                created : new Date().getTime(),
+                type : "check",
+                amount : 200,
+                duedate : new Date().getTime() + daysToMilliseconds(15)
+            }
+        ];
     });
 
     beforeEach(inject(function($controller, $filter, $rootScope, _ArrayUtils_) {
@@ -185,6 +258,11 @@ describe('Controller: order-list-clients', function() {
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
         scope.customers = customers;
+        scope.resetPaymentsTotal = jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function() {
+            scope.total = receivablesTotalTemplate;
+        })
+
+        ;
         scope.generateVA = jasmine.createSpy('scope.generateVA').andCallFake(function generateVa(filterList) {
             var acumulator = 0;
             var biggestOrder = {
@@ -228,10 +306,10 @@ describe('Controller: order-list-clients', function() {
             order.amountTotal = (priceTotal + amountTotal);
         });
 
-        ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
-            return ArrayUtils.list(receivables, 'documentId', document);
-
-        });
+        ReceivableService.listByDocument =
+                jasmine.createSpy('ReceivableService.listActiveByDocument').andCallFake(function(document) {
+                    return ArrayUtils.list(receivables, 'documentId', document);
+                });
 
         $controller('OrderListClientsCtrl', {
             $scope : scope,
@@ -246,7 +324,7 @@ describe('Controller: order-list-clients', function() {
 
     }));
 
-    it('consolidate orders by clients.', function() {
+    it('should consolidate orders by clients.', function() {
         // given
         // the orderList and entities list
         // when
@@ -254,6 +332,7 @@ describe('Controller: order-list-clients', function() {
         // then
         scope.argumentOrder(scope.filteredEntities);
         scope.generateVA(scope.filteredEntities);
+
         expect(scope.filteredEntities.length).toEqual(4);
 
         expect(scope.filteredEntities[0].name).toEqual('Tiburço');
@@ -280,5 +359,22 @@ describe('Controller: order-list-clients', function() {
         expect(scope.filteredEntities[3].avgPrice).toEqual(50.6);
         // expect(scope.filteredEntities[3].lastOrder).toEqual(1391565600000);
 
+    });
+
+    it('should updatePaymentsTotal', function() {
+        scope.$apply();
+        scope.updatePaymentsTotal(scope.filteredEntities);
+        expect(scope.total.cash.qty).toEqual(3);
+        expect(scope.total.cash.amount).toEqual(800);
+        expect(scope.total.check.qty).toEqual(1);
+        expect(scope.total.check.amount).toEqual(200);
+        expect(scope.total.creditCard.qty).toEqual(0);
+        expect(scope.total.creditCard.amount).toEqual(0);
+        expect(scope.total.noMerchantCc.qty).toEqual(0);
+        expect(scope.total.noMerchantCc.amount).toEqual(0);
+        expect(scope.total.exchange.qty).toEqual(0);
+        expect(scope.total.exchange.amount).toEqual(0);
+        expect(scope.total.voucher.qty).toEqual(0);
+        expect(scope.total.voucher.amount).toEqual(0);
     });
 });

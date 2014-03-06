@@ -9,7 +9,8 @@ describe('Controller: order-list', function() {
     var VoucherService = {};
     var ArrayUtils = null;
     var orders = [];
-
+    var customers = null;
+    
     function daysToMilliseconds(days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -133,6 +134,21 @@ describe('Controller: order-list', function() {
                 ]
             }
         ];
+        customers = [
+            {
+                uuid : 14,
+                name : 'Tiburço'
+            }, {
+                uuid : 15,
+                name : 'Pilintra'
+            }, {
+                uuid : 16,
+                name : 'Sephiroth'
+            }, {
+                uuid : 17,
+                name : 'Linka'
+            }
+        ];
     });
     beforeEach(inject(function($controller, $rootScope, _ArrayUtils_) {
         // scope mock
@@ -140,11 +156,12 @@ describe('Controller: order-list', function() {
 
         // dependecy mocks
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
-        EntityService.list = jasmine.createSpy('EntityService.list');
+        EntityService.list = jasmine.createSpy('EntityService.list').andReturn(customers);
         UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
         ProductReturnService.listByDocument = jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         ArrayUtils = _ArrayUtils_;
+        
         ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
             return ArrayUtils.list(receivables, 'documentId', document);
 
