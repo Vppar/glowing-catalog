@@ -79,6 +79,7 @@
                     }
 
                     $scope.$watchCollection('dtFilter', function () {
+                        $scope.filteredOrders = $scope.filterOrders($scope.orders);
                         updateFilteredProducts();
                         $scope.computeAvaliableCustomers($scope.customers);
                         $scope.generateVA($scope.filteredProducts);
