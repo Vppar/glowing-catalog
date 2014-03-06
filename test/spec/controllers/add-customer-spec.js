@@ -5,6 +5,7 @@ describe('Controller: AddCustomerCtrl', function() {
         module('tnt.catalog.customer');
         module('tnt.catalog.filter.findBy');
         module('tnt.utils.cep');
+        module('tnt.utils.cpf');
     });
 
     var scope = {};
@@ -17,6 +18,7 @@ describe('Controller: AddCustomerCtrl', function() {
     var us = {};
     var es = {};
     var $q = {};
+    var CpfService = {};
     var $rootScope = {};
 
     beforeEach(function() {
@@ -30,8 +32,9 @@ describe('Controller: AddCustomerCtrl', function() {
     });
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function($controller, _$filter_, _$q_, _$rootScope_) {
+    beforeEach(inject(function($controller, _$filter_, _$q_, _$rootScope_, _CpfService_) {
 
+        CpfService = _CpfService_;
         $q = _$q_;
         $rootScope = _$rootScope_;
 
@@ -146,6 +149,41 @@ describe('Controller: AddCustomerCtrl', function() {
     it('should cancel add a customer', function() {
         scope.cancel();
         expect(location.path).toHaveBeenCalledWith('/');
+    });
+
+    it('should validate the cpf', function() {
+        // given
+        spyOn(CpfService, 'validate').andReturn(true);
+        // assign a random number just to skip the input check
+        var cpf = '123123';
+        // when
+        scope.validateCpf(cpf);
+    });
+
+    it('shouldn\'t try to validate the cpf', function() {
+        // given
+        spyOn(CpfService, 'validate');
+        var cpf = '';
+        // when
+        scope.validateCpf(cpf);
+
+        expect(CpfService.validate).not.toHaveBeenCalled();
+    });
+
+    it('shouldn\'t validate the cpf', function() {
+        // given
+        spyOn(CpfService, 'validate').andReturn(false);
+        // assign a random number just to skip the input check
+        var cpf = '123';
+        // when
+        scope.validateCpf(cpf);
+
+        expect(CpfService.validate).toHaveBeenCalled();
+        expect(ds.messageDialog).toHaveBeenCalledWith({
+            title : 'CPF invalido.',
+            message : 'Verifique se o CPF foi digitado corretamente.',
+            btnYes : 'OK'
+        });
     });
 
 });
