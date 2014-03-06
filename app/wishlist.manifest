@@ -3,6 +3,11 @@ CACHE MANIFEST
 # v0.0.2
 
 CACHE:
+apple-touch-icon.png
+apple-touch-icon-76x76.png
+apple-touch-icon-120x120.png
+apple-touch-icon-152x152.png
+favicon.ico
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
 bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css
 styles/com/select2/select2.css
