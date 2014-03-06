@@ -120,7 +120,8 @@
 }
 .order-table-row{
 	cursor: pointer;
-	display: inline-table;
+	display: block;
+	float: left;
 	width: 100%;
 	line-height: 40px;
 	border-bottom:1px #E0E0E0 dotted; 
@@ -147,7 +148,6 @@
 	line-height: 20px;
 	display: inline-block;
 }
-
 
 /*FORM ORDER LIST*/
 .form-order-list {
