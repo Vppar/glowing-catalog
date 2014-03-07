@@ -62,6 +62,8 @@
 	        	{
 	        		var appointment = appointmentList[idx];
 	        		var dateAppointment = new Date(appointment.date);
+	        		dateAppointment.setHours(0);
+	        		dateAppointment.setMinutes(0);
 	        		if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime())
 	        		{
 	        			appointmentReturn.push(appointment);
