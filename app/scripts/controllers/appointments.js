@@ -56,13 +56,13 @@
 									openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
 								},
 								
-								select: function(start, end, allDay) { // quando clica em uma data/hora 
-									openEventDialog(null, date.getDate(), start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);									
+								select: function(start, end, allDay) { // quando clica em uma data/hora
+									openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);									
 								},
 								
 								eventClick: function(event, jsEvent, view) {
 									if(!event.allDay) {										
-										openEventDialog(event.type, calEvent.getDate(), calEvent.start.getHours(), calEvent.start.getMinutes(), calEvent.end.getHours(), calEvent.end.getMinutes(), event);
+										openEventDialog(event.type, event.getDate(), event.start.getHours(), event.start.getMinutes(), event.end.getHours(), event.end.getMinutes(), event);
 									}
 								},
 								
@@ -217,25 +217,22 @@
 							} else {
 								$("#select-minute-end").val(0);
 							}
-							if(event.title) {
-								$("#txt-title-u").val(event.title);
-							} else {
-								$("#txt-title").val("");
-							}
-							if(event.desc) {
-								$("#txt-description-u").val(event.desc);
-							} else {
-								$("#txt-description").val("");
-							}
 
-							if(event.client) {								
-								$("#select-client-u").val(event.client);
-							} else {
-								$("#select-client").val("");
-								$("#select-client-u").val("");
-							}				
-
+							$("#select-client").val("");
+							$("#txt-description").val("");
+							$("#txt-title").val("");
+							
 							if(event) {
+								if(event.title) {
+									$("#txt-title").val(event.title);
+								}
+								if(event.desc) {
+									$("#txt-description").val(event.desc);
+								}
+								if(event.client) {								
+									$("#select-client").val(event.client);
+								}
+								
 								$("#event-status-u").val(eventEdit.status);
 								$("#event-id-u").val(eventEdit.uuid);
 								$("#calendar-id-u").val(eventEdit.id);
