@@ -1,14 +1,8 @@
 /*FORM INCOME STATEMENT*/
 .form-stock {
 	border-radius: 6px;
-	margin: -9px 10px 0 10px;
 	border: 1px solid #e0e0e0;
-	background: #fff;
 	padding: 10px 15px 0 15px;
-	width: 970px;
-	/*position: fixed;
-	top: 90px;
-	bottom: 20px*/
 	display: block;
 	position: relative;
 }
@@ -54,18 +48,16 @@
 	width:  100%; /*290px;*/
 }
 
-.form-stock .scroll-stock {
+.scroll-stock {
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 	/*position: fixed;
 	top: 225px;
-	bottom: 45px;*/
-	width: 970px;
-	
-	position: relative;
+	bottom: 45px;
 	max-height:370px;
-	top: 0px;
-	bottom: 45px;	
+	width: 970px;*/
+	position: relative;
+	top:0;
 }
 
 /*.scroll-stock {
@@ -111,51 +103,6 @@
 .form-stock .total-value-stock {
 	float: right;
 	text-align: right;
-}
-
-.form-stock .details-stock{
-	/*border-radius: 4px;
-	border: 1px solid #e0e0e0;
-	margin: auto;*/
-	/*margin-top: 30px;
-	margin-bottom: 20px;*/
-	background-color: #FFF;
-}
-.form-stock .details-stock-title{	
-	border-radius: 4px;
-	background: #333;
-	color: #fff;
-	min-height: 20px;
-	padding: 8px 5px 8px 12px;
-	margin: auto;
-	margin-top:30px;
-	/*margin-bottom: 20px;
-	border-bottom: 1px solid #ccc;
-	padding: 15px;
-	font-size: 16px;
-	color: #e5b1b0;
-	font-weight: bold;
-	min-height: 20px;*/
-}
-.form-stock .details-stock-total{	
-	border-radius: 4px;
-	background: #ccc;
-	color: #222;
-	min-height: 20px;
-	padding: 8px 5px 8px 12px;
-	margin: auto;
-	margin-top:30px;
-	font-weight: bold;
-	
-}
-.form-stock .details-stock-subtitle{	
-	border-radius: 4px;
-	background: #e3e3e3; /*#F2F2F2*/
-	color: #444;
-	min-height: 20px;
-	padding: 8px 5px 8px 12px;
-	font-weight: bold;
-	border-bottom: 2px solid #fff;
 }
 
 .stock-filter{
@@ -242,25 +189,6 @@
 	padding-right: 0px;
 }
 
-.form-stock .details-stock-category{
-	border-radius: 4px;
-	background: #f4f4f4;
-	color: #777;
-	min-height: 20px;
-	padding: 8px 5px 8px 12px;
-	font-weight: bold;
-	border-bottom: 2px solid #fff; 
-}
-
-.form-stock .details-stock-item{
-	padding: 5px;
-	display: block;
-	min-height:20px;
-	font-weight:normal;
-	padding: 8px 5px 8px 12px;
-	border-top: 1px dotted #ccc;
-}
-
 	.form-stock .details-stock-item .title-col-1{
 		text-align: right;
 	}
@@ -333,4 +261,86 @@
 }
 .margin-l-4 {
 	margin-left:4px;
+}
+
+.form-stock .details-stock{
+	/*border-radius: 4px;
+	border: 1px solid #e0e0e0;
+	margin: auto;*/
+	/*margin-top: 30px;
+	margin-bottom: 20px;*/
+	background-color: #FFF;
+}
+
+
+
+
+.details-stock-item{
+	display: block;
+	font-weight:normal;
+	float:left;
+	/*border-top: 1px dotted #ccc;*/
+}
+.details-stock-title{
+	background: #333;
+	color: #fff;`
+}
+.details-stock-total{
+	background: #ccc;
+	color: #222;
+}
+.details-stock-subtitle{
+	background: #e3e3e3; /*#F2F2F2*/
+	color: #444;
+	border-bottom: 2px solid #fff;
+}
+.details-stock-category{
+	background: #f4f4f4;
+	color: #777;
+	border-bottom: 2px solid #fff;
+}
+
+.details-stock-category, .details-stock-subtitle, .details-stock-total {
+	font-weight:bold;
+	margin-bottom:2px;
+}
+.details-stock-category, .details-stock-subtitle, .details-stock-total, .details-stock-category-title, .details-stock-item {
+	border-radius:4px;
+	padding: 8px 5px 8px 0!important;
+	min-height: 20px;
+}
+
+.fixed-line .currency {
+	padding-right:14px;
+}
+.fixed-line .currency:last-child {
+	padding-right:6px;
+}
+.scroll-stock .details-stock-category .currency:last-child, .scroll-stock .details-stock-subtitle .currency:last-child,
+.scroll-stock .details-stock-total .currency:last-child, .scroll-stock .details-stock-item .currency:last-child {
+	padding-right:4px;
+}
+
+.crumbs {
+	font-weight:normal;
+}
+
+
+
+/* just to scroll 100%*/
+.form-stock{
+	height:calc(100% - 105px);
+	overflow:hidden;
+}
+.scroll-stock{
+	height:calc(100% - 175px);
+}
+
+.new-body, .new-section,
+.div-master, .div-master .container:first-child{
+ 	height: 100%;
+}
+html, body{
+ 	height: 100%;
+ 	overflow: hidden;
 }

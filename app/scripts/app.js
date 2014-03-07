@@ -105,6 +105,7 @@
             'tnt.catalog.bookkeeping.entry',
             'tnt.catalog.bookkeeping.report.ctrl',
             'tnt.catalog.service.book',
+            'tnt.utils.cpf',
             'tnt.catalog.appointments',
             'tnt.catalog.appointments.ctrl',
             'tnt.catalog.appointments.service',

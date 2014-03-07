@@ -192,6 +192,7 @@ scripts/services/SyncService.js
 scripts/services/PurchaseOrderService.js
 scripts/services/UserService.js
 scripts/services/cep/CepService.js
+scripts/services/cpf/CpfService.js
 scripts/filters/uuidCode.js
 scripts/services/Firebase.js
 scripts/keepers/OrderKeeper.js

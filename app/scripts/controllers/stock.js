@@ -99,21 +99,21 @@
 
         $scope.showLevel = function showLevel(level) {
             switch (level) {
-            case 0:
+            case 1:
                 setHideAttributes($scope.productsAvailable.sessions, true, true);
                 setHideAttributes($scope.productsReserved.sessions, true, true);
                 hideAllSections($scope.productsAvailable.sessions);
                 hideAllSections($scope.productsReserved.sessions);
                 break;
-            case 1:
+            case 2:
                 setHideAttributes($scope.productsAvailable.sessions, true, true);
                 setHideAttributes($scope.productsReserved.sessions, true, true);
                 break;
-            case 2:
+            case 3:
                 setHideAttributes($scope.productsAvailable.sessions, false, true);
                 setHideAttributes($scope.productsReserved.sessions, false, true);
                 break;
-            case 3:
+            case 4:
                 setHideAttributes($scope.productsAvailable.sessions, false, false);
                 setHideAttributes($scope.productsReserved.sessions, false, false);
                 break;
@@ -160,6 +160,6 @@
         // Enable watcher
         enableProductWatcher();
 
-        $scope.showLevel(0);
+        $scope.showLevel(1);
     }]);
 }(angular));

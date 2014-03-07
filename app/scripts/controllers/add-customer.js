@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.customer', [
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
-    ]).controller('AddCustomerCtrl', ['$scope', '$location', 'DataProvider', 'DialogService', 'OrderService', 'EntityService', 'CepService', 'UserService', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService) {
+    ]).controller('AddCustomerCtrl', ['$scope', '$location', 'DataProvider', 'DialogService', 'OrderService', 'EntityService', 'CepService', 'UserService', 'CpfService',function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService) {
 
         UserService.redirectIfIsNotLoggedIn();
         
@@ -96,6 +96,18 @@
 
         $scope.cancel = function cancel() {
             $location.path('/');
+        };
+        
+        $scope.validateCpf = function(cpf){
+            if(cpf){
+                if(!CpfService.validate(cpf)){
+                    DialogService.messageDialog({
+                        title : 'CPF invalido.',
+                        message : 'Verifique se o CPF foi digitado corretamente.',
+                        btnYes : 'OK'
+                    });
+                }
+            }
         };
         
         var completeAddress = function completeAddress(address) {
