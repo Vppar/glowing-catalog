@@ -159,6 +159,7 @@
 												start: app.startDate,
 												end: app.endDate,
 												allDay: false,
+												status: app.status,
 												color: $('.tag'+app.type).find('.tag-circle').css('background-color'),
 												description: app.description,
 												client: nameEntity,
@@ -196,13 +197,10 @@
 						// #############################################################################################################												
 						function openEventDialog(eventType, date, startHours, startMinutes, endHours, endMinutes, client, title, desc, event) { 
 							
-							if(event && event.uuid) {
-								$("#select-event-uuid").val(event.uuid);
-							}
-
 							if($('#calendar').fullCalendar('getView').name == 'month') {
-								if (new Date().getHours() <= 22) {
+								if (new Date().getHours() < 21) {
 									startHours += 2;
+									endHours += 3;
 								}
 							}
 
@@ -244,8 +242,14 @@
 							$("#select-client").val("");
 							$("#txt-description").val("");
 							$("#txt-title").val("");
+							$("#event-status").addClass('hide');
 							
 							if(event) {
+
+								$("#select-event-uuid").val(event.uuid);
+
+								$("#event-status").val(event.status);
+
 								if(event.title) {
 									$("#txt-title").val(event.title);
 								}
@@ -264,12 +268,14 @@
 									$("#btn-alterar").addClass('hide');
 									$("#btn-concluir").addClass('hide');
 									$("#btn-cancelar").addClass('hide');
+									$("#btn-salvar").addClass('hide');
 								}
 								else
 								{
 									$("#btn-alterar").removeClass('hide');
 									$("#btn-concluir").removeClass('hide');
 									$("#btn-cancelar").removeClass('hide');
+									$("#btn-salvar").removeClass('hide');
 								}
 								$("#btn-concluir").val(eventEdit.id);
 								$("#btn-cancelar").val(eventEdit.id);
