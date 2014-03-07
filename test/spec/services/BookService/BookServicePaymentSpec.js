@@ -81,7 +81,7 @@ describe('Service: BookServicePaymentSpec', function() {
             creditAccount : 11111,
             document : document,
             entity : entityUUID,
-            op : 'Recebimento em dinheiro',
+            op : 'Troco em dinheiro',
             amount : cashAmount
         });
 
