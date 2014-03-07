@@ -351,7 +351,6 @@
 						};		
 		
 						$scope.create = function ()	{
-							alert($("#select-event").val());
 							if( $("#select-event").val() == "") {
 								alert( 'Selecione um tipo de evento.' );
 								return;
@@ -361,6 +360,9 @@
 							var selectedEndDate = $("#select-date").val() + " " + $("#select-hour-end").val() + ":" + $("#select-minute-end").val();
 							
 							$scope.appointment = {};
+							$scope.appointment.title = $("#txt-title").val();
+							$scope.appointment.description = $("#txt-description").val();
+							$scope.appointment.contacts = $("#select-client").val();
 							$scope.appointment.startDate = selectedStartDate;
 							$scope.appointment.endDate = selectedEndDate;
 							$scope.appointment.status = 'PENDANT';
