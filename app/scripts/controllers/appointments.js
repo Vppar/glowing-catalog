@@ -55,14 +55,25 @@
 								drop: function(date, allDay) { // funcao quando solta tag sobre calendario
 									openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
 								},
-								
 								select: function(start, end, allDay) { // quando clica em uma data/hora
-									openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);									
+									//Se não tem evento permite criacao do evento.
+									//Se tem evento na visualizacao mensal não abre popup muda para visualizacao diaria.
+									if(eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name == 'month')) {
+										$('#calendar').fullCalendar('changeView', 'agendaDay');
+										$('#calendar').fullCalendar('gotoDate', start);
+									} else {
+										openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);
+									}
 								},
 								
 								eventClick: function(event, jsEvent, view) {
-									if(!event.allDay) {										
-										openEventDialog(event.type, event.getDate(), event.start.getHours(), event.start.getMinutes(), event.end.getHours(), event.end.getMinutes(), event);
+									if(($('#calendar').fullCalendar('getView').name == 'month')) {
+										$('#calendar').fullCalendar('changeView', 'agendaDay');
+										$('#calendar').fullCalendar('gotoDate', event.start);
+									} else {
+										if(!event.allDay) {										
+											openEventDialog(event.type, event.start, event.start.getHours(), event.start.getMinutes(), event.end.getHours(), event.end.getMinutes(), event);
+										}
 									}
 								},
 								
@@ -72,6 +83,17 @@
 
 							});
 						};	
+						
+						function eventsInDay(date) { //retorna quantos eventos existem na mesma data
+							var evts = $('#calendar').fullCalendar('clientEvents');
+							var count = 0;
+							for(var i=0; i<evts.length; i++) {
+								if(evts[i].start.getDate() == date.getDate() && evts[i].start.getMonth() == date.getMonth() && evts[i].start.getFullYear() == date.getFullYear()){
+									count++;
+								}
+							}
+							return count;
+						}
 
 						$scope.rebuildCalendarJsEvents = function () {
 
@@ -98,6 +120,7 @@
 							}
 							
 							birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
+							
 							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon);
 							
 							var contador = 0;
@@ -133,8 +156,8 @@
 				                    }
 										var event = {
 												title: app.title,
-												start: app.date,
-												end: app.date,
+												start: app.startDate,
+												end: app.endDate,
 												allDay: false,
 												color: $('.tag'+app.type).find('.tag-circle').css('background-color'),
 												description: app.description,
@@ -405,30 +428,32 @@
 							}	
 						};
 					    
-					});
+						// #############################################################################################################
+						// Drag and Drop Adam Shaw Full Calendar Component
+						// #############################################################################################################
+						$('.external-event').each(function() {
+								
+							// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+							// it doesn't need to have a start or end
+							var id = $(this).attr("id");
+							id = id.replace("tagEvent","");
 
-					// #############################################################################################################
-					// Drag and Drop Adam Shaw Full Calendar Component
-					// #############################################################################################################
-					$('.external-event').each(function() {
+							var eventObject = {
+								eventType: id
+							};
 							
-						// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-						// it doesn't need to have a start or end
-						var id = $(this).attr("id");
-						id = id.replace("tagEvent","");
+							// store the Event Object in the DOM element so we can get to it later
+							$(this).data('eventObject', eventObject);
+							
+							// make the event draggable using jQuery UI
+							$(this).draggable({
+								zIndex: 999,
+								revert: true,      // will cause the event to go back to its
+								revertDuration: 0  //  original position after the drag
+							});					
+						});
 
-						var eventObject = {
-							eventType: id
-						};
 						
-						// store the Event Object in the DOM element so we can get to it later
-						$(this).data('eventObject', eventObject);
-						
-						// make the event draggable using jQuery UI
-						$(this).draggable({
-							zIndex: 999,
-							revert: true,      // will cause the event to go back to its
-							revertDuration: 0  //  original position after the drag
-						});					
 					});
+
 }(angular));

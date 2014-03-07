@@ -189,53 +189,6 @@
             return result;
         };
         
-        this.listByPeriod = function(since,upon,entityuuid){
-        	var appointmentsReturn = [];
-        	var appointmentsList = this.list();
-        	if(appointmentsList)
-        	{
-	        	for(var idx in appointmentsList)
-	        	{
-	        		var appointment = appointmentsList[idx];
-	        		if(verifyFilterAppointment(appointment,since,upon,entityuuid))
-	        		{
-	        			appointmentsReturn.push(appointment);
-	        		}
-	        	}
-        	}
-        	return appointmentsReturn;
-        };
-        
-        function verifyFilterAppointment(appointment,since,upon,entityuuid)
-        {
-        	if(appointment && since && upon)
-        	{
-        		since = new Date(since);
-        		upon = new Date(upon);
-        		appointment.date = new Date(appointment.date);
-        		if(appointment.date >= since && appointment.date <= upon)
-        		{
-        			if(entityuuid)
-        			{
-        				if(appointment.contacts)
-        				{
-	        				for (var idx in appointment.contacts)
-	        				{
-	        					var entity = appointment.contacts[idx];
-	        					if(entity.uuid == entityuuid)
-	        					{
-	        						return true;
-	        					}
-	        				}
-        				}
-        			}else
-        			{
-        				return true;
-        			}
-        		}
-        	}
-        	return false;
-        }
         
     });
 
