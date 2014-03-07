@@ -2,15 +2,17 @@
     'use strict';
     angular
             .module('tnt.catalog.payment', [
-                'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity', 'tnt.catalog.voucher.service'
+                'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity', 'tnt.catalog.voucher.service', 'tnt.catalog.misplaced.service'
             ])
             .controller(
                     'PaymentCtrl',
+                    ['$scope', '$filter', '$location', '$q', '$log', 'ArrayUtils', 'DataProvider', 'DialogService', 'OrderService', 'PaymentService',
+                    'SMSService', 'KeyboardService', 'InventoryKeeper', 'CashPayment', 'EntityService', 'UserService', 'Misplacedservice',
                     function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService,
-                            SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService, UserService) {
+                            SMSService, KeyboardService, InventoryKeeper, CashPayment, EntityService, UserService, Misplacedservice) {
 
                         UserService.redirectIfIsNotLoggedIn();
-                        
+
                         // #############################################################################################
                         // Controller warm up
                         // #############################################################################################
@@ -22,6 +24,7 @@
                         if (!order.customerId) {
                             $location.path('/');
                         }
+
                         $scope.voucherFilter = function(item) {
                             if (item.type === 'voucher' || item.type === 'giftCard') {
                                 return true;
@@ -37,7 +40,7 @@
                         var isNumPadVisible = false;
 
                         // Payment variables
-                        $scope.total = {
+                        var total = {
                             payments : {
                                 cash : [],
                                 check : [],
@@ -49,10 +52,67 @@
                             order : {
                                 amount : 0,
                                 qty : 0,
-                                unit : 0
+                                unit : 0,
+                                discount : getTotalDiscount(),
+                                subTotal : 0,
+
+                                // Returns the average price of the units in the order.
+                                getAvgUnitPrice : function () {
+                                  return getAverage(this.amount, this.unit);
+                                },
                             },
                             change : 0
                         };
+
+
+                        // Holds the total amount paid in exchanged products.
+                        total.paymentsExchange = 0;
+
+
+                        $scope.total = total;
+
+
+                        // Set initial subTotal when the controller is loaded
+                        updateSubTotal();
+
+                        $scope.$watch('total.order.amount', updateSubTotal);
+                        $scope.$watch('total.order.discount', updateSubTotal);
+                        $scope.$watch('total.paymentsExchange', updateSubTotal);
+
+                        $scope.$watchCollection('total.payments.exchange', function () {
+                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
+                        });
+
+
+                        function updateSubTotal() {
+                          total.order.subTotal = getSubTotal();
+                        }
+
+
+                        // Returns the difference between the total order amount,
+                        // the total discount and the exchanges.
+                        function getSubTotal() {
+                          var exchanges = total.payments.exchange;
+                          var subtotal = total.order.amount - total.order.discount - total.paymentsExchange;
+                          return subtotal < 0 ? 0 : subtotal;
+                        }
+
+
+                        function getTotalDiscount() {
+                          var totalDiscount = 0;
+
+                          for (var idx in order.items) {
+                            totalDiscount += order.items[idx].discount || 0;
+                          }
+
+                          return totalDiscount;
+                        }
+
+
+                        function getAverage(amount, count) {
+                          return count ? Math.round(100 * (parseFloat(amount) / parseFloat(count))) / 100 : 0;
+                        }
+
 
                         /**
                          * Gets the current cash amount from the cash payments
@@ -85,6 +145,14 @@
                         // Define the customer
                         var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                         $scope.customer = customer;
+
+
+                        $scope.$watch('total.order.discount', function () {
+                          var orderTotal = $scope.total.order.amount;
+                          var discountTotal = $scope.total.order.discount;
+                          Misplacedservice.distributeDiscount(orderTotal, discountTotal, order.items);
+                        });
+
 
                         // When a product is added on items list, we need to
                         // rebuild the
@@ -121,24 +189,26 @@
 
                         $scope.openDialogChooseCustomer = function() {
                             dialogService.openDialogChooseCustomer().then(function(uuid) {
-                                customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
-                                $scope.customer = customer;
+                                if (uuid) {
+                                    customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
+                                    $scope.customer = customer;
 
-                                // Propagate customer to order
-                                order.customerId = customer.uuid;
+                                    // Propagate customer to order
+                                    order.customerId = customer.uuid;
 
-                                // Update vouchers with new customer
-                                var items = order.items, item, len, i;
-                                for (i = 0, len = items.length; i < len; i += 1) {
-                                    item = items[i];
-                                    if (item.type === 'voucher') {
-                                        item.uniqueName = customer.name;
-                                        item.entity = customer.uuid;
+                                    // Update vouchers with new customer
+                                    var items = order.items, item, len, i;
+                                    for (i = 0, len = items.length; i < len; i += 1) {
+                                        item = items[i];
+                                        if (item.type === 'voucher') {
+                                            item.uniqueName = customer.name;
+                                            item.entity = customer.uuid;
+                                        }
                                     }
+                                    PaymentService.clear('coupon');
+                                    $scope.total.payments.coupon.length = 0;
+                                    updateOrderAndPaymentTotal();
                                 }
-                                PaymentService.clear('coupon');
-                                $scope.total.payments.coupon.length = 0;
-                                updateOrderAndPaymentTotal();
                             });
                         };
 
@@ -176,7 +246,7 @@
                          */
                         $scope.selectPaymentMethod = function selectPaymentMethod(method) {
                             updateOrderAndPaymentTotal();
-                            $scope.showPaymentButtons = (method === 'none' || method === 'money');
+                            $scope.showPaymentButtons = (method === 'none' || method === 'money' || method === 'orderDiscount');
                             $scope.selectedPaymentMethod = method;
                         };
 
@@ -186,6 +256,15 @@
                             delta = isNaN(delta) ? 501 : delta;
                             if (!$scope.keyboard.status.active && delta > 500) {
                                 $scope.selectPaymentMethod('money');
+                            }
+                        };
+
+                        $scope.selectDiscount = function selectMoneyPayment() {
+                            // FIXME - Used to temporally resolve VOPP-210.
+                            var delta = new Date().getTime() - $scope.keyboard.status.changed;
+                            delta = isNaN(delta) ? 501 : delta;
+                            if (!$scope.keyboard.status.active && delta > 500) {
+                                $scope.selectPaymentMethod('orderDiscount');
                             }
                         };
 
@@ -279,26 +358,26 @@
                             // Calculate the Subtotal
                             if (order.items) {
                                 // Payment total
-                                $scope.total.payments.cash = PaymentService.list('cash');
-                                $scope.total.payments.check = PaymentService.list('check');
-                                $scope.total.payments.creditCard = PaymentService.list('creditCard');
-                                $scope.total.payments.exchange = PaymentService.list('exchange');
-                                $scope.total.payments.coupon = PaymentService.list('coupon');
-                                $scope.total.payments.onCuff = PaymentService.list('onCuff');
+                                total.payments.cash = PaymentService.list('cash');
+                                total.payments.check = PaymentService.list('check');
+                                total.payments.creditCard = PaymentService.list('creditCard');
+                                total.payments.exchange = PaymentService.list('exchange');
+                                total.payments.coupon = PaymentService.list('coupon');
+                                total.payments.onCuff = PaymentService.list('onCuff');
 
-                                if ($scope.total.payments.check == 0) {
+                                if (total.payments.check == 0) {
                                     $scope.hideCheckQtde = true;
                                 } else {
                                     $scope.hideCheckQtde = false;
                                 }
 
-                                if ($scope.total.payments.creditCard == 0) {
+                                if (total.payments.creditCard == 0) {
                                     $scope.hideCardQtde = true;
                                 } else {
                                     $scope.hideCardQtde = false;
                                 }
 
-                                if ($scope.total.payments.exchange == 0) {
+                                if (total.payments.exchange == 0) {
                                     $scope.hideExchangeQtde = true;
                                 } else {
                                     $scope.hideExchangeQtde = false;
@@ -306,22 +385,28 @@
 
                                 var totalPayments = 0;
                                 for ( var ix in $scope.total.payments) {
-                                    totalPayments += $filter('sum')($scope.total.payments[ix], 'amount');
+                                    // Exchanged products are already discounted when
+                                    // when the subtotal is calculated
+                                    if (ix === 'exchange') { continue; }
+
+                                    totalPayments += $filter('sum')(total.payments[ix], 'amount');
                                 }
 
                                 // Order total
                                 var basket = order.items;
 
-                                $scope.total.order.amount = $filter('sum')(basket, 'price', 'qty');
+                                total.order.amount = $filter('sum')(basket, 'price', 'qty');
                                 // Handle non-normalized price/amount field
-                                $scope.total.order.amount += $filter('sum')(basket, 'amount', 'qty');
-                                $scope.total.order.unit = $filter('sum')(basket, 'qty');
-                                $scope.total.order.qty = basket ? basket.length : 0;
+                                total.order.amount += $filter('sum')(basket, 'amount', 'qty');
+                                total.order.unit = $filter('sum')(basket, 'qty');
+                                total.order.qty = basket ? basket.length : 0;
 
                                 // Change
-                                $scope.total.change = Math.round((totalPayments - $scope.total.order.amount) * 100) / 100;
+                                total.change = Math.round((totalPayments - total.order.subTotal) * 100) / 100;
                             }
                         }
+
+                        $scope.$watch('total.order.subTotal', updateOrderAndPaymentTotal);
 
                         $scope.$watch('total.change', function() {
                             if ($scope.total.change != 0) {
@@ -389,6 +474,9 @@
                             }
                         }
 
+
+
+
                         /**
                          * Main function responsible for chaining the
                          * confirmation and cancel processes.
@@ -419,5 +507,5 @@
                         }
 
                         main();
-                    });
+                    }]);
 }(angular));

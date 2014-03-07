@@ -1,6 +1,8 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.receivable.ctrl', ['tnt.catalog.filters.uuidCode']).controller('ReceivableCtrl', function($scope, $filter, ReceivableService, UserService) {
+    angular.module('tnt.catalog.financial.receivable.ctrl', [
+        'tnt.catalog.filters.uuidCode'
+    ]).controller('ReceivableCtrl', ['$scope', '$filter', 'ReceivableService', 'UserService', function($scope, $filter, ReceivableService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
 
@@ -9,30 +11,45 @@
         // object.
         $scope.receivables = {};
 
-        // Stores the list of payments to be displayed
-        $scope.receivables.list = ReceivableService.list();
-
         // Stores the total of all listed payments
         $scope.receivables.total = 0;
-        /**
-         * Entities list to augment expenses.
-         */
-        // $scope.entities = ReceivableService.entities();
+
+        // Store the actual select receivable
+        $scope.selectedReceivable = null;
+
+        $scope.dtFilter = {
+            dtInitial : new Date(),
+            dtFinal : new Date()
+        };
+
         /**
          * Controls which fragment will be shown.
          */
-        $scope.selectedReceivableMode = 'write';
+        // starting by 'list' tab
+        $scope.selectedReceivableMode = 'list';
 
         $scope.selectReceivableMode = function selectReceivableMode(selectedMode) {
             $scope.selectedReceivableMode = selectedMode;
         };
 
-        $scope.$watch('receivables.list', function () {
+        $scope.$watch('receivables.list', function() {
             $scope.receivables.total = getReceivablesTotal();
         });
 
         function getReceivablesTotal() {
             return $filter('sum')($scope.receivables.list, 'amount');
         }
-    });
+
+        $scope.selectReceivable = function(receivable) {
+            // when a receivable is select force redirect to payment tab.
+            $scope.selectedReceivable = angular.copy(receivable);
+            $scope.selectReceivableMode('receive');
+        };
+
+        $scope.clearSelectedReceivable = function() {
+            $scope.selectedReceivable = null;
+            $scope.selectReceivableMode('list');
+        };
+
+    }]);
 }(angular));

@@ -3,15 +3,15 @@
 
     var templateUrl = 'components/catalog-highlights/catalog-highlights.html';
 
-    angular.module('glowingCatalogApp').run(function($http, $templateCache) {
+    angular.module('glowingCatalogApp').run(['$http', '$templateCache', function($http, $templateCache) {
 
         $http.get(templateUrl, {
             cache : $templateCache
         });
-    });
+    }]);
 
     angular.module('tnt.catalog.components.catalog-highlights', []).directive(
-            'catalogHighlights', function(DataProvider, ArrayUtils, ProductLineUp) {
+            'catalogHighlights', ['DataProvider', 'ArrayUtils', 'ProductLineUp', function(DataProvider, ArrayUtils, ProductLineUp) {
                 return {
                     templateUrl : templateUrl,
                     restrict : 'E',
@@ -54,6 +54,6 @@
                         scope.$on('DataProvider.update', reload);
                     }
                 };
-            });
+            }]);
 
 }(angular));

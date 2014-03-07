@@ -1,35 +1,53 @@
-(function(angular) {
-  'use strict';
+(function (angular) {
+    'use strict';
 
-  angular.module('tnt.catalog.prefetch.service', ['tnt.catalog.service.dialog']).service(
-    'PrefetchService',
-    function PrefetchService($q, $http, $log, DialogService) {
+    angular
+        .module('tnt.catalog.prefetch.service', [
+            'tnt.catalog.service.dialog'
+        ])
+        .service(
+            'PrefetchService',
+            ['$q', '$http', '$log', 'DialogService',
+            function PrefetchService ($q, $http, $log, DialogService) {
 
-      this.doIt = function() {
-        // cache warmUp
-        $http.get('wishlist.manifest').success(function(data) {
-          var list = data.split(/\n/);
-          $log.debug('list is ' + list.length + ' long');
+                this.doIt = function () {
+                    console.log('doIt should no longer be necessary');
+                };
 
-          var promises = [];
+                function oldDoIt () {
+                    // cache warmUp
+                    $http
+                        .get('wishlist.manifest')
+                        .success(
+                            function (data) {
+                                var list = data.split(/\n/);
+                                $log.debug('list is ' + list.length + ' long');
 
-          for ( var ix in list) {
-            if (list[ix].indexOf("/") != -1) {
-              var deferred = $q.defer();
-              $http.get(list[ix]).success(deferred.resolve).error(deferred.reject);
+                                var promises = [];
 
-              promises.push(deferred.promise);
-            }
-          }
+                                for ( var ix in list) {
+                                    if (list[ix].indexOf("/") != -1) {
+                                        var deferred = $q.defer();
+                                        $http.get(list[ix]).success(deferred.resolve).error(
+                                            deferred.reject);
 
-          $q.all(promises).then(function() {
-            DialogService.messageDialog({
-              title : 'Atualização',
-              message : 'A atualização foi concluida, você já pode utilizar seu aplicativo offline.',
-              btnYes : 'OK'
-            });
-          });
-        });
-      };
-    });
+                                        promises.push(deferred.promise);
+                                    }
+                                }
+
+                                $q
+                                    .all(promises)
+                                    .then(
+                                        function () {
+                                            DialogService
+                                                .messageDialog({
+                                                    title : 'Atualização',
+                                                    message : 'A atualização foi concluida, você já pode utilizar seu aplicativo offline.',
+                                                    btnYes : 'OK'
+                                                });
+                                        });
+                            });
+                }
+                ;
+            }]);
 }(angular));

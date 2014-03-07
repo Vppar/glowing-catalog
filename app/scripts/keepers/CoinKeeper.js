@@ -61,7 +61,7 @@
             [
                 'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
                 'tnt.catalog.journal.replayer'
-            ]).factory('CoinKeeper', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer) {
+            ]).factory('CoinKeeper', ['ArrayUtils', 'Coin', 'IdentityService', 'JournalKeeper', 'JournalEntry', 'Replayer', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer) {
 
         var keepers = {};
         function instance(name) {
@@ -157,7 +157,7 @@
              */
             var add = function add(coin) {
                 var coinObj = angular.copy(coin);
-
+                
                 coinObj.created = (new Date()).getTime();
                 coinObj.uuid = IdentityService.getUUID(type, getNextId());
 
@@ -193,7 +193,7 @@
                 var entry = new JournalEntry(null, stamp, name + 'Liquidate', currentEventVersion, liqEv);
 
                 // save the journal entry
-                JournalKeeper.compose(entry);
+                return JournalKeeper.compose(entry);
             };
 
             /**
@@ -239,5 +239,5 @@
         angular.module('tnt.catalog.coin.keeper', [
             'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity'
         ]);
-    });
+    }]);
 }(angular));

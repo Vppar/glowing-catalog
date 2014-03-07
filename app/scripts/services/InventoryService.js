@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.service.inventory', [
         'tnt.catalog.service.storage'
-    ]).service('InventoryService', function InventoryService($log, StorageService) {
+    ]).service('InventoryService', ['$log', 'StorageService', function InventoryService($log, StorageService) {
 
         var storage = StorageService;
 
@@ -86,6 +86,6 @@
         this.list = list;
         this.add = add;
         this.remove = remove;
-    });
+    }]);
 
 }(angular));

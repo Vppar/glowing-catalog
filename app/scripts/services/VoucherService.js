@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.voucher.service', [
         'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper', 'tnt.catalog.entity.service', 'tnt.utils.array'
-    ]).service('VoucherService', function VoucherService($q, $log, Voucher, VoucherKeeper, EntityService, ArrayUtils) {
+    ]).service('VoucherService', ['$q', '$log', 'Voucher', 'VoucherKeeper', 'EntityService', 'ArrayUtils', function VoucherService($q, $log, Voucher, VoucherKeeper, EntityService, ArrayUtils) {
 
         var isValid = function isValid(voucher) {
             var invalidProperty = {};
@@ -192,11 +192,11 @@
                         voucherPromises.push(create(usedAmountVoucher));
                     }
                 } else {
-                    $log.warn('Voucher will be ignored because its amount is 0: ' + JSON.stringify(voucher));
+                    $log.warn('Voucher will be ignored because its amount is 0: ' + JSON.stringify(usedVoucher));
                 }
             }
 
-            return; $q.all(voucherPromises);
+            return $q.all(voucherPromises);
         };
 
 
@@ -210,5 +210,5 @@
         this.list = list;
         this.listByDocument = listByDocument;
 
-    });
+    }]);
 })(angular);

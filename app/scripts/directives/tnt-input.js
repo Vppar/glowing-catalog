@@ -5,7 +5,7 @@
         'tnt.catalog.keyboard.service'
     ]);
 
-    kinput.directive('tntKbutton', function(KeyboardService, $log) {
+    kinput.directive('tntKbutton', ['KeyboardService', '$log', function(KeyboardService, $log) {
         return {
             restrict : 'A',
             scope : {},
@@ -36,15 +36,16 @@
                 });
             }
         };
-    });
+    }]);
 
-    kinput.directive('tntInput', function(KeyboardService, $log, $document) {
+    kinput.directive('tntInput', ['KeyboardService', '$log', '$document', function(KeyboardService, $log, $document) {
         return {
             restrict : 'A',
             require : 'ngModel',
             scope : {
                 ngModel : '=',
-                okClick : '&'
+                okClick : '&',
+                tntRelativeValue : '&'
             },
             link : function postLink(scope, element, attrs, ctrl) {
 
@@ -82,6 +83,45 @@
                         if (scope.okClick) {
                             scope.okClick();
                         }
+                        return;
+                    } else if (key === 'percent') {
+                        // We'll need to get a model to use as a base for the
+                        // calculating the percentage
+
+                        var relatedVal = scope.tntRelativeValue && scope.tntRelativeValue();
+
+                        if (relatedVal) {
+                            if (typeof current === 'string') {
+                              // Clear up the value to make it be properly
+                              // parsed by parseFloat()
+                              current = current.replace('.', '');
+                              current = current.replace(',', '.');
+                            }
+
+                            var ratio = parseFloat(current) / 100;
+
+                            // When we apply the value back to the element, we
+                            // must compensate for the decimal places used by
+                            // the currency directive, that's why we multiply
+                            // the value by 100 twice, instead of only once,
+                            // as we would normally do to round the float.
+                            var absoluteVal = Math.round(100 * 100 * relatedVal * ratio) / 100;
+
+                            KeyboardService.next();
+
+                            if (scope.okClick) {
+                              scope.okClick();
+                            }
+
+                            // Time 100 to compensate for the two decimal set by the
+                            // currency directive
+                            element.val(absoluteVal);
+
+                            // Trigger the input event to make angular update the
+                            // model's value.
+                            element.trigger('input');
+                        }
+
                         return;
                     } else {
                         if (!attrs.maxlength || current.length < attrs.maxlength) {
@@ -162,5 +202,5 @@
                 }
             }
         };
-    });
+    }]);
 })(angular);

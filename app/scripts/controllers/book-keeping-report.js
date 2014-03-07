@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.bookkeeping.report.ctrl', [
         'tnt.catalog.filters.uuidCode'
-    ]).controller('BookKeepingReportCtrl', function($scope, $log, BookService, UserService) {
+    ]).controller('BookKeepingReportCtrl', ['$scope', '$log', 'BookService', 'UserService', function($scope, $log, BookService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
 
@@ -17,5 +17,5 @@
         }
         $scope.bookEntries = bookEntries;
 
-    });
+    }]);
 }(angular));

@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.user', [
         'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service'
-    ]).service('UserService', function UserService($q, $location, md5, SyncDriver, SyncService, PrefetchService) {
+    ]).service('UserService', ['$q', '$location', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', function UserService($q, $location, md5, SyncDriver, SyncService, PrefetchService) {
 
         // FIXME change default value to FALSE
         var logged = false;
@@ -64,7 +64,7 @@
             return result;
         };
 
-        this.login = function(user, pass, rememberMe) {
+        this.login = function(user, pass) {
             var onlineLoggedPromise = this.loginOnline(user, pass);
             var loggedIn = this.loggedIn;
             var onlineLoginErrorHandler = this.onlineLoginErrorHandler;
@@ -77,7 +77,7 @@
             // FIXME: This should initialize warm up data during development.
             // Should be removed ASAP!
             loggedPromise.then(function () {
-              SyncService.resync();
+                SyncService.resync();
             });
 
             return loggedPromise;
@@ -116,5 +116,5 @@
             return SyncService.clearData();
         };
 
-    });
+    }]);
 })(angular);

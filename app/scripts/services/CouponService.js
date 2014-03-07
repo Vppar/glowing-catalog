@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.service.coupon', [
         'tnt.utils.array', 'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper'
-    ]).service('CouponService', function CouponService(ArrayUtils, VoucherKeeper, Voucher) {
+    ]).service('CouponService', ['ArrayUtils', 'VoucherKeeper', 'Voucher', function CouponService(ArrayUtils, VoucherKeeper, Voucher) {
 
         /**
          * List all coupons.
@@ -51,5 +51,5 @@
         this.redeem = redeem;
         this.cancel = cancel;
         this.create = create;
-    });
+    }]);
 }(angular));

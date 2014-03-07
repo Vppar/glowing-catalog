@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.stock.ctrl', [
         'tnt.catalog.stock.service'
-    ]).controller('StockCtrl', function($scope, $filter, StockService, UserService) {
+    ]).controller('StockCtrl', ['$scope', '$filter', 'StockService', 'UserService', function($scope, $filter, StockService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
         
@@ -18,7 +18,7 @@
         // Local Functions
         // #####################################################################################################
 
-        function buildList(productsReserved, productsAvailable, objFilter) {
+        function buildList(productsReserved, productsAvailable) {
             $scope.productsReserved = productsReserved;
             $scope.productsAvailable = productsAvailable;
 
@@ -76,7 +76,7 @@
         // Scope variables
         // #####################################################################################################
 
-        $scope.selectedLevel = 1;
+        $scope.selectedLevel = 0;
 
         $scope.overallProducts = {
             qty : 0,
@@ -99,15 +99,19 @@
 
         $scope.showLevel = function showLevel(level) {
             switch (level) {
-            case 1:
+            case 0:
                 setHideAttributes($scope.productsAvailable.sessions, true, true);
                 setHideAttributes($scope.productsReserved.sessions, true, true);
                 hideAllSections($scope.productsAvailable.sessions);
                 hideAllSections($scope.productsReserved.sessions);
                 break;
-            case 2:
+            case 1:
                 setHideAttributes($scope.productsAvailable.sessions, true, true);
                 setHideAttributes($scope.productsReserved.sessions, true, true);
+                break;
+            case 2:
+                setHideAttributes($scope.productsAvailable.sessions, false, true);
+                setHideAttributes($scope.productsReserved.sessions, false, true);
                 break;
             case 3:
                 setHideAttributes($scope.productsAvailable.sessions, false, false);
@@ -118,7 +122,7 @@
             $scope.selectedLevel = level;
         };
 
-        $scope.toggleAllSections = function toggleAllSections(sessions, force) {
+        $scope.toggleAllSections = function toggleAllSections(sessions) {
             for ( var ix in sessions) {
                 var session = sessions[ix];
                 session.hide = !session.hide;
@@ -147,10 +151,6 @@
             currentProductWatcher = $scope.$watch('productFilter.text', productFilter);
         }
 
-        function disableProductWatcher() {
-            currentProductWatcher();
-        }
-
         // #####################################################################################################
         // Controller warm up
         // #####################################################################################################
@@ -160,6 +160,6 @@
         // Enable watcher
         enableProductWatcher();
 
-        $scope.showLevel(1);
-    });
+        $scope.showLevel(0);
+    }]);
 }(angular));

@@ -7,7 +7,7 @@
                 'tnt.catalog.voucher.keeper', 'tnt.catalog.payment.service', 'tnt.utils.array', 'tnt.catalog.payment.service',
                 'tnt.catalog.entity.service'
             ]).controller(
-            'VoucherCtrl', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService, UserService) {
+            'VoucherCtrl', ['$scope', '$filter', 'VoucherKeeper', 'ArrayUtils', 'PaymentService', 'OrderService', 'EntityService', 'UserService', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService, UserService) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
@@ -59,5 +59,5 @@
                 $scope.historicVoucher.dtFinal.setMinutes(59);
                 $scope.historicVoucher.dtFinal.setSeconds(59);
 
-            });
+            }]);
 }(angular));

@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.customer', [
         'tnt.catalog.service.data', 'tnt.catalog.entity.service'
-    ]).controller('AddCustomerCtrl', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService) {
+    ]).controller('AddCustomerCtrl', ['$scope', '$location', 'DataProvider', 'DialogService', 'OrderService', 'EntityService', 'CepService', 'UserService', function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService) {
 
         UserService.redirectIfIsNotLoggedIn();
         
@@ -86,7 +86,7 @@
             var entityCreatedPromise = EntityService.create(customer).then(function(uuid) {
                 OrderService.order.customerId = uuid;
                 return uuid;
-            }, function(err) {
+            }, function() {
                 // TODO something about it
             });
             $location.path('/');
@@ -104,5 +104,5 @@
             $scope.customer.addresses.state = address.uf;
             $scope.customer.addresses.city = address.localidade;
         };
-    });
+    }]);
 }(angular));

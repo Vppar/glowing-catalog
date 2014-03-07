@@ -1,139 +1,137 @@
-xdescribe('Controller: ReceivableCtrl', function() {
+describe('Controller: ReceivableReceiveCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
-        module('tnt.catalog.financial.receivable');
+        module('tnt.catalog.financial.receivable.receive.ctrl');
     });
 
     var scope = {};
-    var log = {};
-    var dp = {};
-    var ds = {};
-    var rs = {};
-    var fakeNow = 0;
-    var oneHour = 60 * 60 * 1000;
+    var DataProvider = {};
+    var ReceivableService = {};
+    var DialogService = {};
+    var receivables = null;
+    var fakeNow = 1412421495;
+    var result = false;
 
     // Initialize the controller and a mock scope
-    beforeEach(inject(function($controller, $rootScope) {
-        // $log mock
-        log.error = jasmine.createSpy('$log.error');
-
+    beforeEach(inject(function($controller, $rootScope, $q) {
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         // ReceivableService mock
-        rs.update = jasmine.createSpy('ReceivableService.update');
+        ReceivableService.receive = jasmine.createSpy('ReceivableService.receive').andCallFake(function(){
+            var defer = $q.defer();
+            defer.resolve();
+            return defer.promise;
+        });
+        
+        ReceivableService.listActive = jasmine.createSpy('ReceivableService.listActive').andReturn(receivables);
 
+        DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function() {
+            var defer = $q.defer();
+            defer.resolve();
+            result = true;
+            return defer.promise;
+        });
+        
         // $scope mock
         scope = $rootScope.$new();
-        fakeNow = 1385380800000;
-        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-
-        $controller('ReceivableCtrl', {
+        // mock function of parent controller.
+        scope.selectReceivableMode = jasmine.createSpy('scope.selectReceivableMode');
+        scope.clearSelectedReceivable = jasmine.createSpy('scope.clearSelectedReceivable');
+        $controller('ReceivableReceiveCtrl', {
             $scope : scope,
-            $log : log,
-            DataProvider : dp,
-            DialogService : ds,
-            ReceivableService : rs
+            DataProvider : DataProvider,
+            DialogService : DialogService,
+            ReceivableService : ReceivableService
         });
     }));
 
-    /**
-     * <pre>
-     * Given a pending receivable
-     * and it is not canceled
-     * when a receive is triggered
-     * then we must fulfill the receivable
-     * </pre>
-     */
-    it('should fulfill the receivable', function() {
-        // given
-        scope.receivable.canceled = false;
+    beforeEach(function() {
+        receivables = [];
 
-        // when
-        scope.receive(fakeNow - oneHour, '100.00');
-
-        // then
-        expect(rs.update).toHaveBeenCalledWith(scope.receivable);
+        // An old and expired receivable
+        receivables.push({
+            uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
+            // created one month ago
+            created : new Date().getTime(),
+            entityId : 1,
+            type : "check",
+            amount : 123,
+            // expired one week ago
+            duedate : new Date().getTime()
+        });
+        receivables.push({
+            uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
+            // created one month ago
+            created : new Date().getTime(),
+            entityId : 1,
+            type : "check",
+            amount : 0,
+            // expired one week ago
+            duedate : new Date().getTime()
+        });
     });
 
-    /**
-     * <pre>
-     * Given a pending receivable
-     * and it is cancelled
-     * when a receive is triggered
-     * then a message should be logged: 'Unable to fulfill a canceled receivable'
-     * </pre>
-     */
-    it('shouldn\'t fulfill a canceled receivable', function() {
+    it('should isValid return true', function() {
         // given
-        scope.receivable.canceled = true;
 
         // when
-        scope.receive(fakeNow - oneHour, '100.00');
+        var result = scope.isValid(receivables[0]);
 
         // then
-        expect(rs.update).not.toHaveBeenCalled();
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Unable to fulfill a canceled receivable.');
+        expect(result).toEqual(true);
+
     });
 
-    /**
-     * <pre>
-     * Given a fulfilled receivable
-     * when a receive is triggered
-     * then a message should be logged: 'The receivable is already fulfilled'
-     * </pre>
-     */
-    it('shouldn\'t fulfill a already fulfilled receivable', function() {
+    it('should isValid return false', function() {
         // given
-        scope.receivable.canceled = false;
-        scope.receivable.received = {
-            date : fakeNow - oneHour,
-            amount : '100.00'
-        };
 
         // when
-        scope.receive(1385380800000, '100.00');
+        var result = scope.isValid(receivables[1]);
 
         // then
-        expect(rs.update).not.toHaveBeenCalled();
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -The receivable is already fulfilled');
+        expect(result).toEqual(false);
+
     });
 
-    /**
-     * <pre>
-     * Given a pending receivable
-     * and a invalid receipt date.
-     * when a receive is triggered
-     * then a message should be logged: 'Unable to fulfill a canceled receivable'
-     * </pre>
-     */
-    it('shouldn\'t fulfill a receivable with invalid receipt date', function() {
-        // given
-        scope.receivable.canceled = false;
+    it('should receive a receivable', function() {
+        runs(function() {
+            // given
+            scope.selectedReceivable = receivables[0];
+            // when
+            scope.comfirmReceive();
+        });
 
-        // when
-        scope.receive(fakeNow + oneHour, '100.00');
+        waitsFor(function() {
+            scope.$apply();
+            return !!result;
+        });
 
-        // then
-        expect(rs.update).not.toHaveBeenCalled();
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid receipt date.');
+        runs(function() {
+            // then
+            expect(DialogService.messageDialog).toHaveBeenCalled();
+            expect(ReceivableService.receive).toHaveBeenCalledWith(receivables[0].uuid, fakeNow);
+        });
     });
 
-    /**
-     * <pre>
-     * Given a pending receivable
-     * and a invalid amount.
-     * when a receive is triggered
-     * then a message should be logged: 'Unable to fulfill a canceled receivable'
-     * </pre>
-     */
-    it('shouldn\'t fulfill a receivable with invalid receipt date', function() {
-        // given
-        scope.receivable.canceled = false;
+    it('should not receive a receivable', function() {
+        runs(function() {
+            // given
+            scope.selectedReceivable = receivables[1];
+            // when
+            scope.comfirmReceive();
+        });
 
-        // when
-        scope.receive(fakeNow - oneHour, '-5.00');
+        waitsFor(function() {
+            scope.$apply();
+            return !!result;
+        });
 
-        // then
-        expect(rs.update).not.toHaveBeenCalled();
-        expect(log.error).toHaveBeenCalledWith('ReceivableCtrl: -Invalid amount.');
+        runs(function() {
+            // then
+            expect(ReceivableService.receive).not.toHaveBeenCalled();
+            expect(DialogService.messageDialog).toHaveBeenCalled();
+            expect(scope.clearSelectedReceivable).toHaveBeenCalled();
+        });
     });
+
 });

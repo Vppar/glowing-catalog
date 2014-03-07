@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.order.ctrl', [
         'tnt.catalog.stock.service'
-    ]).controller('ProductsToBuyOrderCtrl', function($scope, $log, StockService) {
+    ]).controller('ProductsToBuyOrderCtrl', ['$scope', '$log', 'StockService', function($scope, $log, StockService) {
 
         // #####################################################################################################
         // Local Functions
@@ -31,6 +31,7 @@
         }
 
         function productFilter(newVal, oldVal) {
+            $scope.filter.text = newVal;
             if (newVal !== oldVal) {
                 var myTextFilter = String($scope.productFilter.text);
                 if (myTextFilter.length >= 3) {
@@ -43,6 +44,12 @@
                 } else if (String(oldVal).length >= 3) {
                     StockService.updateReport(stockReport);
                 }
+            }
+            
+            if ($scope.productFilter.text === '') {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, false);
+            } else {
+                $scope.summarizer($scope.purchaseOrder.watchedQty, true);
             }
         }
 
@@ -70,7 +77,7 @@
                     var line = session.lines[ix];
                     line.hide = !line.hide;
                 }
-            }
+            } 
         };
 
         $scope.toggleLine = function toggleLine(line) {
@@ -79,7 +86,7 @@
                     var item = line.items[ix];
                     item.hide = !item.hide;
                 }
-            }
+            } 
         };
 
         $scope.showLevel = function showLevel(level) {
@@ -119,11 +126,11 @@
         // #####################################################################################################
         // Controller warm up
         // #####################################################################################################
-        
+
         // Enable watcher
         enableProductWatcher();
         $scope.showLevel(1);
 
-    });
+    }]);
 
 }(angular));

@@ -7,6 +7,7 @@
                 'tnt.catalog.filter.sum', 'tnt.catalog.stock.ctrl'
             ]).service(
             'PurchaseOrderService',
+            ['$q', '$log', '$filter', 'ArrayUtils', 'Expense', 'PurchaseOrder', 'PurchaseOrderKeeper', 'ExpenseService', 'Stock', 'StockService', 
             function PurchaseOrderService($q, $log, $filter, ArrayUtils, Expense, PurchaseOrder, PurchaseOrderKeeper, ExpenseService,
                     Stock, StockService) {
 
@@ -216,5 +217,5 @@
                 function areValidItems(items) {
                     return angular.isArray(items) && items.length > 0;
                 }
-            });
+            }]);
 }(angular));

@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.utils.cep', []).service('CepService', function ArrayUtils($q, $http) {
+    angular.module('tnt.utils.cep', []).service('CepService', ['$q', '$http', function ArrayUtils($q, $http) {
 
         this.search = function(CEP) {
             var deferred = $q.defer();
@@ -24,5 +24,5 @@
             });
             return deferred.promise;
         };
-    });
+    }]);
 })(angular);

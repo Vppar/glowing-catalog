@@ -7,7 +7,7 @@
                 'tnt.catalog.voucher.keeper', 'tnt.catalog.payment.service', 'tnt.utils.array', 'tnt.catalog.payment.service',
                 'tnt.catalog.entity.service'
             ]).controller(
-            'VoucherHistoricCtrl', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService) {
+            'VoucherHistoricCtrl', ['$scope', '$filter', 'VoucherKeeper', 'ArrayUtils', 'PaymentService', 'OrderService', 'EntityService', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService) {
 
                 var vouchers = angular.copy($scope.vouchers);
 
@@ -102,5 +102,5 @@
                 $scope.$watchCollection('historicVoucher', function() {
                     $scope.filter();
                 });
-            });
+            }]);
 }(angular));

@@ -4,7 +4,7 @@
 
     angular.module('glowingCatalogApp').directive(
             'scrollSpy',
-            function($window) {
+            ['$window', function($window) {
                 return {
                     restrict : 'A',
                     controller : function($scope) {
@@ -76,5 +76,5 @@
                         };
                     }
                 };
-            });
+            }]);
 })(angular);

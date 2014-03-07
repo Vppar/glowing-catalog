@@ -1,3 +1,229 @@
+/*-------------------------
+  new stuff to make our lives easer, or not.
+ ---------------------------*/
+ .fake-input{
+     border-radius: 4px;
+     border: 1px #ccc solid;
+     padding: 4px;
+     height: 20px;
+     font-size: 16px;
+     cursor: pointer;
+ }
+
+ div.zoom{
+ 	width: 230px;
+ 	height: 230px;
+ }
+ .zoom img{
+ 	margin: auto;
+ }
+ 
+ /* modal structure */
+ .modal-head{
+     border-radius: 4px 4px 0 0;
+     width: 100%;
+     color: #fff;
+     font-size: 16px;
+     white-space: pre-wrap;
+     padding: 10px;
+     background: #000;
+     font-family: "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
+     text-align:center;
+     -moz-box-sizing:    border-box;
+     -webkit-box-sizing: border-box;
+     box-sizing:        border-box;
+ }
+ 
+ .modal-body{
+     padding: 20px 20px 0px 20px;
+     width: 100%;
+     display: inline-table;
+     -moz-box-sizing:    border-box;
+     -webkit-box-sizing: border-box;
+     box-sizing:        border-box;
+ }
+ 
+ .modal-foot{
+     padding: 0px 20px 20px 20px;
+     width: 100%;
+     -moz-box-sizing:    border-box;
+     -webkit-box-sizing: border-box;
+     box-sizing:        border-box;   
+ }
+ .modal-foot hr{
+ 	margin: 10px 0px 20px 0px;
+ }
+ 
+ .modal-body .numpad-holder{
+     float: left;
+     display: block;
+ }
+ 
+ /* numpad */
+ .modal-numpad{
+     position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 336px;
+     margin-left: -320px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+ }
+ .modal-numpad input{
+     width: 282px;
+     height: 40px;
+ }
+ 
+ .modal-add-basket-details-dialog{
+     position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 820px;
+     margin-left: -410px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+ }
+ 
+ .modal-add-basket-dialog {
+     position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 400px;
+     margin-left: -200px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+ }
+
+ .modal-add-basket-dialog-body .info{
+     width: 130px;
+ }
+ .modal-add-basket-dialog-body .info .info-item{
+     width: 100%;
+     margin-top: 25px;
+ }
+ 
+ /*
+	all this at modal-body, maybe should be at some more restricted class....
+ */
+
+ .modal-body .img-holder{    
+     text-align:center;
+     vertical-align:center;
+     display:block;
+     margin:auto;
+     float: left;
+ }
+ .modal-body .info{
+     text-align:center;
+     display:block;
+     float: left;
+ }
+  
+ .modal-body .info small{
+     font-size: 12px;
+     text-align: center;
+     color: #333;
+ }
+ .modal-body .info .info-label{
+     margin-bottom: 5px;
+ }
+ .modal-body .info .price{
+     font-size: 19px;
+     text-align: center;
+     color: #333;
+ }
+ .modal-body .info .discount span{
+     display: block;
+ }
+ .modal-body .info .discount .fake-input{
+     width: 60px;
+     margin: auto;
+ }
+ 
+ .modal-body .info .price small{
+     display: inline-block;
+     padding-right: 6px;
+ }
+ 
+ .modal-body .info .total span{
+     display: block;
+ }
+ .modal-body .info .total .total-value{
+     font-size: 19px;
+     text-align: center;
+     color: #333;
+ }
+ .modal-body .info .total .total-value{
+     font-size: 19px;
+     text-align: center;
+     color: #333;
+ }
+ .modal-body .info .quantity .quantity-value{
+     font-size: 19px;
+     text-align: center;
+     color: #333;
+ }
+ 
+ .modal-body .info .line-gradient{
+     margin-top: 30px;
+     width: 100%;
+ }
+ .modal-body .info .stock{
+     margin-top: 10px;
+     color: #aaa;
+ }
+ 
+ .modal-add-basket-details-dialog-body .skus{
+     width: 530px;
+     float: left;
+     margin: 0px 15px 2px 2px;
+ }
+ .modal-add-basket-details-dialog-body .info{
+     width: 230px;
+ }
+ .modal-add-basket-details-dialog-body .info .info-item{
+     float: left;
+     margin-top: 25px;
+ }
+ .modal-add-basket-details-dialog-body .info .info-label{
+     width: 100%;
+     display: inline-block;
+ }
+.modal-add-basket-details-dialog-body .quantity .info-label,
+.modal-add-basket-details-dialog-body .total 	.info-label{
+	margin-bottom: 10px;
+}
+
+
+ .modal-add-basket-details-dialog-body .quantity{
+     width: 25%;
+     display: inline-block;
+ }
+ .modal-add-basket-details-dialog-body .total{
+     width: 45%;
+     display: inline-block;
+ }
+ .modal-add-basket-details-dialog-body .discount{
+     width: 30%;
+     display: inline-block;
+ }
+ 
+ /*-------------------------
+  end of the new stuff
+ ---------------------------*/
+ 
+ 
+ 
+
 /*HEADING*/
 .heading-gradient {
 	position: absolute;

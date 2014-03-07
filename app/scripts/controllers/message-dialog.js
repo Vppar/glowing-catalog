@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').controller('MessageDialogCtrl', function($scope, $q, dialog) {
+    angular.module('glowingCatalogApp').controller('MessageDialogCtrl', ['$scope', '$q', 'dialog', function($scope, $q, dialog) {
 
         $scope.title = dialog.data.title;
         $scope.message = dialog.data.message;
@@ -14,5 +14,5 @@
             dialog.close($q.reject());
         };
 
-    });
+    }]);
 })(angular);

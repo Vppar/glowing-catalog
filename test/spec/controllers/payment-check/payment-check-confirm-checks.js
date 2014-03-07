@@ -1,9 +1,8 @@
-describe('Controller: PaymentCheckCtrlEdit', function() {
+describe('Controller: PaymentCheckCtrlConfirmChecks', function() {
 
     var scope = {};
     var element = {};
-    var dialogService = {};
-    var fakeNow = 1412421495;
+    var paymentService = {};
     var os = {};
     var es = {};
     var rs = {};
@@ -23,8 +22,8 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
         module('tnt.catalog.filter.sum');
         module('tnt.catalog.filter.paymentType');
         module('tnt.catalog.misplaced.service');
-        
-        module(function($provide){
+
+        module(function($provide) {
             $provide.value('OrderService', os);
             $provide.value('EntityService', es);
             $provide.value('ReceivableService', rs);
@@ -35,57 +34,36 @@ describe('Controller: PaymentCheckCtrlEdit', function() {
             $provide.value('BookService', BookService);
         });
     });
-
-    beforeEach(inject(function($controller, $rootScope, _$filter_) {
+    beforeEach(inject(function($controller, $rootScope, _$filter_, $q, Misplacedservice) {
         // scope mock
-        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-
         scope = $rootScope.$new();
-        scope.checkForm = {
-            $valid : true
-        };
+
         scope.total = {
             change : 0
         };
-        // element mock
-        element.find = function(name) {
-            var element = {
-                removeClass : function(name) {
-                    return this;
-                },
-                addClass : function(name) {
-                    return this;
-                }
-            };
-            return element;
-        };
 
         // dialog service mock
-        dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog');
-        scope.dialogService = dialogService;
-
+        scope.selectPaymentMethod = jasmine.createSpy('scope.selectPaymentMethod');
+        paymentService.clear = jasmine.createSpy('PaymentService.clear');
+        paymentService.add = jasmine.createSpy('PaymentService.add');
+        paymentService.list = jasmine.createSpy('PaymentService.list');
         $controller('PaymentCheckCtrl', {
             $scope : scope,
             $element : element,
-            $filter : _$filter_
+            PaymentService : paymentService
         });
     }));
 
-    it('should edit a check payment', function() {
+    it('should confirm the payments', function() {
         // given
+        // list of payment in the before each
         angular.extend(scope.check, sampleData.payment.check);
-        var check = angular.copy(sampleData.payment.check);
+        scope.payments = sampleData.payment.check;
 
-        // when
-        scope.edit(check);
+        scope.confirmCheckPayments();
 
-        // then
-        expect(scope.check.amount).toBe(check.amount);
-        expect(scope.check.duedate).toBe(check.duedate);
-        expect(scope.check.number).toBe(check.number);
-        expect(scope.check.bank).toBe(check.bank);
-        expect(scope.check.agency).toBe(check.agency);
-        expect(scope.check.account).toBe(check.account);
-
+        expect(scope.selectPaymentMethod).toHaveBeenCalled();
+        expect(paymentService.clear).toHaveBeenCalled();
+        expect(paymentService.add).toHaveBeenCalled();
     });
 });

@@ -32,5 +32,5 @@
             }
         };
     }
-    angular.module('glowingCatalogApp').directive('creditCard', creditCard);
+    angular.module('glowingCatalogApp').directive('creditCard', ['$filter', creditCard]);
 }(angular));

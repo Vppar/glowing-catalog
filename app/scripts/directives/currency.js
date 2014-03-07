@@ -21,6 +21,6 @@
             }
         };
     }
-    angular.module('glowingCatalogApp').directive('currencyInput', currency);
-    angular.module('glowingCatalogApp').directive('currency', currency);
+    angular.module('glowingCatalogApp').directive('currencyInput', ['$filter', currency]);
+    angular.module('glowingCatalogApp').directive('currency', ['$filter', currency]);
 }(angular));

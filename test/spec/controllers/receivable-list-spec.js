@@ -1,20 +1,20 @@
-describe('Controller: ReceivableSearchCtrl', function() {
+describe('Controller: ReceivableListCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {
-        module('tnt.catalog.financial.receivable.search.ctrl');
+        module('tnt.catalog.financial.receivable.list.ctrl');
         module('tnt.catalog.entity.service');
         module('tnt.catalog.filter.sum');
+        module('tnt.catalog.filters.uuidCode');
     });
 
-    var receivableId = 1;
     var scope = {};
     var log = {};
     var ReceivableServiceMock = {};
     var now = new Date();
     var EntityServiceMock = {};
-
-    var ReceivableSearchCtrl;
+    var OrderService = [];
+    var ReceivableListCtrl = null;
 
     log.debug = angular.noop;
 
@@ -30,74 +30,83 @@ describe('Controller: ReceivableSearchCtrl', function() {
         uuid : 2,
         name : 'Chris Hemsworth'
     }];
-
+    var orderReuturn = [{uuid:"cc02b600-5d0b-11e3-96c3-010001000022"}];
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, $filter, _ArrayUtils_) {
         // $scope mock
         scope = $rootScope.$new();
         scope.receivables = {};
+        scope.dtFilter = {
+                dtInitial : new Date(),
+                dtFinal : new Date()
+            };
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');
 
         // ReceivableService mock
-        ReceivableServiceMock.list = jasmine.createSpy('ReceivableService.list').andReturn([]);
-
-
+        ReceivableServiceMock.listActive = jasmine.createSpy('ReceivableService.listActive').andReturn([]);
+        ReceivableServiceMock.listActiveByDocument = jasmine.createSpy('ReceivableService.listActiveByDocument').andReturn([]);
+        ReceivableServiceMock.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andReturn([]);
+        ReceivableServiceMock.list = jasmine.createSpy('ReceivableService.list');
+        
+        OrderService.read = jasmine.createSpy('OrderService.read').andReturn(orderReuturn);
+        
         // EntityService mock
         EntityServiceMock.list = jasmine.createSpy('EntityService.list').andReturn(entities);
-
-        ReceivableSearchCtrl = $controller('ReceivableSearchCtrl', {
+        EntityServiceMock.read = jasmine.createSpy('EntityService.read').andReturn({name:'blabla'});
+        ReceivableListCtrl = $controller('ReceivableListCtrl', {
             $scope : scope,
             $filter : $filter,
             ReceivableService : ReceivableServiceMock,
             $log : log,
             ArrayUtils : _ArrayUtils_,
-            EntityService : EntityServiceMock
+            EntityService : EntityServiceMock,
+            OrderService : OrderService
         });
     }));
 
 
-    describe('ReceivableSearchCtrl.receivableDateFilter', function () {
+    describe('ReceivableListCtrl.receivableDateFilter', function () {
         var receivable = {};
 
         beforeEach(function () {
-            scope.dtInitial = new Date();
-            scope.dtFinal = new Date();
+            scope.dtFilter.dtInitial = new Date();
+            scope.dtFilter.dtFinal = new Date();
         });
 
         it('is a function', function () {
-            expect(ReceivableSearchCtrl.receivableDateFilter).toBeDefined();
-            expect(typeof ReceivableSearchCtrl.receivableDateFilter).toBe('function');
+            expect(ReceivableListCtrl.receivableDateFilter).toBeDefined();
+            expect(typeof ReceivableListCtrl.receivableDateFilter).toBe('function');
         });
 
         it('returns true if receivable duedate is equal initial datetime', function () {
             // set dtFinal to be greater than the initial date
-            scope.dtFinal.setHours(scope.dtFinal.getHours() + 1);
-            receivable.duedate = scope.dtInitial.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(true);
+            scope.dtFilter.dtFinal.setHours(scope.dtFilter.dtFinal.getHours() + 1);
+            receivable.duedate = scope.dtFilter.dtInitial.getTime();
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(true);
         });
 
         it('returns true if receivable duedate is equal final datetime', function () {
             // set dtInitial to be lower than the final date
-            scope.dtInitial.setHours(scope.dtInitial.getHours() - 1);
-            receivable.duedate = scope.dtFinal.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(true);
+            scope.dtFilter.dtInitial.setHours(scope.dtFilter.dtInitial.getHours() - 1);
+            receivable.duedate = scope.dtFilter.dtFinal.getTime();
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(true);
         });
 
         it('returns true if receivable duedate is greater than initial datetime and lower than final datetime', function () {
             var now = new Date();
 
             // set dtInitial to be in the past
-            scope.dtInitial.setHours(scope.dtInitial.getHours() - 1);
+            scope.dtFilter.dtInitial.setHours(scope.dtFilter.dtInitial.getHours() - 1);
 
             // set dtInitial to be in the future
-            scope.dtFinal.setHours(scope.dtFinal.getHours() + 1);
+            scope.dtFilter.dtFinal.setHours(scope.dtFilter.dtFinal.getHours() + 1);
 
             // set receivable's duedate to be now
             receivable.duedate = now.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(true);
         });
 
         it('returns false if receivable duedate is lower than initial datetime', function () {
@@ -105,7 +114,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
             // Set duedate to a date in the past, before date initial
             now.setHours(now.getHours() - 1);
             receivable.duedate = now.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(false);
         });
 
         it('returns false if receivable duedate is greater than final datetime', function () {
@@ -113,12 +122,12 @@ describe('Controller: ReceivableSearchCtrl', function() {
             // Set duedate to a date in the future, after final date
             now.setHours(now.getHours() + 1);
             receivable.duedate = now.getTime();
-            expect(ReceivableSearchCtrl.receivableDateFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableDateFilter(receivable)).toBe(false);
         });
     });
 
 
-    describe('ReceivableSearchCtrl.receivableQueryFilter', function () {
+    describe('ReceivableListCtrl.receivableQueryFilter', function () {
         var receivable;
 
         beforeEach(function () {
@@ -132,15 +141,15 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.amount = 123;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.amount = 12345;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.amount = 678;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by remarks', function () {
@@ -149,15 +158,15 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.remarks = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.remarks = 'This is not a reasonable remark.';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.remarks = 'A different remark.';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by type', function () {
@@ -166,11 +175,11 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.type = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.type = 'check';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by id', function () {
@@ -179,15 +188,15 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.uuid = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.uuid = 'foobarbaz';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.uuid = 'baz';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('filters by entityName', function () {
@@ -196,22 +205,22 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
             // Exact matches
             receivable.entityName = scope.query;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Partial matches
             receivable.entityName = 'Albert Einstein';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // No match
             receivable.entityName = 'Chris Hemsworth';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
 
         it('is case insensitive', function () {
             scope.query = 'CASH';
             scope.$apply();
             receivable.type = 'cash';
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
         });
 
         it('matches multiple fields', function () {
@@ -219,87 +228,87 @@ describe('Controller: ReceivableSearchCtrl', function() {
             scope.$apply();
             receivable.type = 'cash';
             receivable.amount = 123;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(true);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(true);
 
             // Matches cash but not amount
             receivable.amount = 567;
-            expect(ReceivableSearchCtrl.receivableQueryFilter(receivable)).toBe(false);
+            expect(ReceivableListCtrl.receivableQueryFilter(receivable)).toBe(false);
         });
     });
 
 
     describe('filtering', function () {
         beforeEach(function () {
-            scope.dtInitial = new Date();
-            scope.dtFinal = new Date();
+            scope.dtFilter.dtInitial = new Date();
+            scope.dtFilter.dtFinal = new Date();
         });
 
         describe('initial date', function () {
 
             it('is always the earliest', function () {
-                var final = scope.dtFinal;
+                var final = scope.dtFilter.dtFinal;
 
                 // Set the final date to a date before the initial
-                scope.dtFinal.setDate(scope.dtFinal.getDate() - 90);
+                scope.dtFilter.dtFinal.setDate(scope.dtFilter.dtFinal.getDate() - 90);
                 scope.$apply();
 
-                expect(scope.dtInitial).toBe(final);
+                expect(scope.dtFilter.dtInitial).toBe(final);
             });
 
             it('is set to current date on initialization', function () {
                 scope.$apply();
-                expect(scope.dtInitial.getDate()).toBe(now.getDate());
-                expect(scope.dtInitial.getMonth()).toBe(now.getMonth());
-                expect(scope.dtInitial.getFullYear()).toBe(now.getFullYear());
+                expect(scope.dtFilter.dtInitial.getDate()).toBe(now.getDate());
+                expect(scope.dtFilter.dtInitial.getMonth()).toBe(now.getMonth());
+                expect(scope.dtFilter.dtInitial.getFullYear()).toBe(now.getFullYear());
             });
 
             it('sets its time to 0:00:00.000 on initialization', function () {
                 scope.$apply();
-                expect(scope.dtInitial.getHours()).toBe(0);
-                expect(scope.dtInitial.getMinutes()).toBe(0);
-                expect(scope.dtInitial.getSeconds()).toBe(0);
-                expect(scope.dtInitial.getMilliseconds()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getHours()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getMinutes()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getSeconds()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getMilliseconds()).toBe(0);
             });
 
             it('sets its time to 0:00:00.000 when initial date changes', function () {
                 var newDate = new Date();
                 newDate.setDate(newDate.getDate() + 1);
 
-                scope.dtInitial = newDate;
+                scope.dtFilter.dtInitial = newDate;
                 scope.$apply();
 
-                expect(scope.dtInitial.getHours()).toBe(0);
-                expect(scope.dtInitial.getMinutes()).toBe(0);
-                expect(scope.dtInitial.getSeconds()).toBe(0);
-                expect(scope.dtInitial.getMilliseconds()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getHours()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getMinutes()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getSeconds()).toBe(0);
+                expect(scope.dtFilter.dtInitial.getMilliseconds()).toBe(0);
             });
         });
 
 
         describe('final date', function () {
             it('is always the latest', function () {
-                var initial = scope.dtInitial;
+                var initial = scope.dtFilter.dtInitial;
 
                 // Set the initial date to a date after the final
-                scope.dtInitial.setDate(scope.dtInitial.getDate() + 90);
+                scope.dtFilter.dtInitial.setDate(scope.dtFilter.dtInitial.getDate() + 90);
                 scope.$apply();
 
-                expect(scope.dtFinal).toBe(initial);
+                expect(scope.dtFilter.dtFinal).toBe(initial);
             });
 
             it('is set to current date on initialization', function () {
                 scope.$apply();
-                expect(scope.dtFinal.getDate()).toBe(now.getDate());
-                expect(scope.dtFinal.getMonth()).toBe(now.getMonth());
-                expect(scope.dtFinal.getFullYear()).toBe(now.getFullYear());
+                expect(scope.dtFilter.dtFinal.getDate()).toBe(now.getDate());
+                expect(scope.dtFilter.dtFinal.getMonth()).toBe(now.getMonth());
+                expect(scope.dtFilter.dtFinal.getFullYear()).toBe(now.getFullYear());
             });
 
             it('its time is set to 0:00:00.000 on initialization', function () {
                 scope.$apply();
-                expect(scope.dtFinal.getHours()).toBe(23);
-                expect(scope.dtFinal.getMinutes()).toBe(59);
-                expect(scope.dtFinal.getSeconds()).toBe(59);
-                expect(scope.dtFinal.getMilliseconds()).toBe(999);
+                expect(scope.dtFilter.dtFinal.getHours()).toBe(23);
+                expect(scope.dtFilter.dtFinal.getMinutes()).toBe(59);
+                expect(scope.dtFilter.dtFinal.getSeconds()).toBe(59);
+                expect(scope.dtFilter.dtFinal.getMilliseconds()).toBe(999);
             });
 
             it('has its time set to 0:00:00.000 when initial date changes', function () {
@@ -307,13 +316,13 @@ describe('Controller: ReceivableSearchCtrl', function() {
                 // Set final date to a different date
                 newDate.setDate(newDate.getDate() + 1);
 
-                scope.dtFinal = newDate;
+                scope.dtFilter.dtFinal = newDate;
                 scope.$apply();
 
-                expect(scope.dtFinal.getHours()).toBe(23);
-                expect(scope.dtFinal.getMinutes()).toBe(59);
-                expect(scope.dtFinal.getSeconds()).toBe(59);
-                expect(scope.dtFinal.getMilliseconds()).toBe(999);
+                expect(scope.dtFilter.dtFinal.getHours()).toBe(23);
+                expect(scope.dtFilter.dtFinal.getMinutes()).toBe(59);
+                expect(scope.dtFilter.dtFinal.getSeconds()).toBe(59);
+                expect(scope.dtFilter.dtFinal.getMilliseconds()).toBe(999);
             });
         });
 
@@ -326,7 +335,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
         });
 
         describe('receivables list', function () {
-            var receivables;
+            var receivables = null;
 
             beforeEach(function () {
                 receivables = [];
@@ -340,7 +349,7 @@ describe('Controller: ReceivableSearchCtrl', function() {
                     type : "check",
                     amount : 123,
                     // expired one week ago
-                    duedate : new Date().getTime() - daysToMilliseconds(7)
+                    duedate : new Date().getTime() - daysToMilliseconds(7)                    
                 });
                 
                 
@@ -374,25 +383,25 @@ describe('Controller: ReceivableSearchCtrl', function() {
                     duedate : new Date().getTime() + daysToMilliseconds(15)
                 });
 
-                ReceivableServiceMock.list.andReturn(receivables);
+                ReceivableServiceMock.listActive.andReturn(receivables);
             }); // beforeEach
 
 
             it('is updated when initial date changes', function () {
-                scope.dtInitial = new Date();
-                scope.dtFinal = new Date();
+                scope.dtFilter.dtInitial = new Date();
+                scope.dtFilter.dtFinal = new Date();
                 // Show only receivables with due dates in the next 30 days
-                scope.dtFinal.setDate(scope.dtFinal.getDate() + 30);
+                scope.dtFilter.dtFinal.setDate(scope.dtFilter.dtFinal.getDate() + 30);
                 scope.$apply();
                 log.debug('Filtered Receivables', scope.receivables.list);
                 expect(scope.receivables.list.length).toBe(3);
             });
 
             it('is updated when final date changes', function () {
-                scope.dtInitial = new Date();
-                scope.dtFinal = new Date();
+                scope.dtFilter.dtInitial = new Date();
+                scope.dtFilter.dtFinal = new Date();
                 // Show only receivables with due dates in the last 30 days
-                scope.dtInitial.setDate(scope.dtInitial.getDate() - 30);
+                scope.dtFilter.dtInitial.setDate(scope.dtFilter.dtInitial.getDate() - 30);
                 scope.$apply();
                 expect(scope.receivables.list.length).toBe(2);
             });
@@ -400,68 +409,67 @@ describe('Controller: ReceivableSearchCtrl', function() {
 
 
             it('is updated when query changes', function () {
-                scope.dtInitial = new Date();
-                scope.dtFinal = new Date();
-
-                // Set initial date to a date far away in the past
-                scope.dtInitial.setDate(scope.dtInitial.getDate() - 60);
-                // Set final date to a date far away in the future
-                scope.dtFinal.setDate(scope.dtFinal.getDate() + 60);
-                scope.$apply();
-
+                scope.dtFilter.dtInitial = new Date();
+                scope.dtFilter.dtFinal = new Date();
                 scope.query = '123';
+                // Set initial date to a date far away in the past
+                scope.dtFilter.dtInitial.setDate(scope.dtFilter.dtInitial.getDate() - 60);
+                // Set final date to a date far away in the future
+                scope.dtFilter.dtFinal.setDate(scope.dtFilter.dtFinal.getDate() + 60);
                 scope.$apply();
+                
                 expect(scope.receivables.list.length).toBe(1);
             });
 
 
 
             it('expands when query filter is loosened up', function () {
-                scope.dtInitial = new Date();
-                scope.dtFinal = new Date();
+                scope.dtFilter.dtInitial = new Date();
+                scope.dtFilter.dtFinal = new Date();
+                scope.query = '123';
 
                 // Set initial date to a date far away in the past
-                scope.dtInitial.setDate(scope.dtInitial.getDate() - 60);
+                scope.dtFilter.dtInitial.setDate(scope.dtFilter.dtInitial.getDate() - 60);
                 // Set final date to a date far away in the future
-                scope.dtFinal.setDate(scope.dtFinal.getDate() + 60);
+                scope.dtFilter.dtFinal.setDate(scope.dtFilter.dtFinal.getDate() + 60);
                 scope.$apply();
 
-                scope.query = '123';
-                scope.$apply();
                 expect(scope.receivables.list.length).toBe(1);
 
                 scope.query = '';
                 scope.$apply();
+                
                 expect(scope.receivables.list.length).toBe(receivables.length);
+                
             });
 
 
             it('expands when date filter is loosened up', function () {
-                scope.dtInitial = new Date();
-                scope.dtFinal = new Date();
+                scope.dtFilter.dtInitial = new Date();
+                scope.dtFilter.dtFinal = new Date();
 
                 // Show only receivables with due dates in the last 30 days
-                scope.dtInitial.setDate(scope.dtInitial.getDate() - 30);
-                scope.dtFinal.setMilliseconds(scope.dtFinal.getMilliseconds() - 1);
+                scope.dtFilter.dtInitial.setDate(scope.dtFilter.dtInitial.getDate() - 30);
+                scope.dtFilter.dtFinal.setMilliseconds(scope.dtFilter.dtFinal.getMilliseconds() - 1);
                 scope.$apply();
 
                 expect(scope.receivables.list.length).toBe(2);
 
-                scope.dtFinal = new Date();
+                scope.dtFilter.dtFinal = new Date();
                 // Show receivables from the last 30 days AND until 1 week in the future
-                scope.dtFinal.setDate(scope.dtFinal.getDate() + 7);
+                scope.dtFilter.dtFinal.setDate(scope.dtFilter.dtFinal.getDate() + 7);
                 scope.$apply();
 
                 expect(scope.receivables.list.length).toBe(3);
             });
 
             it('gets the entityName attribute set for each receivable', function () {
-                scope.dtInitial = new Date();
-                scope.dtFinal = new Date();
+                scope.dtFilter.dtInitial = new Date();
+                scope.dtFilter.dtFinal = new Date();
 
                 // Set a wide date range to get all receivables
-                scope.dtInitial.setDate(scope.dtInitial.getDate() - 90);
-                scope.dtFinal.setDate(scope.dtFinal.getDate() + 90);
+                scope.dtFilter.dtInitial.setDate(scope.dtFilter.dtInitial.getDate() - 90);
+                scope.dtFilter.dtFinal.setDate(scope.dtFilter.dtFinal.getDate() + 90);
                 scope.$apply();
 
                 expect(scope.receivables.list.length).toBe(4);

@@ -12,6 +12,7 @@
         
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/com/select2/select2.css">
+        <!-- endbuild -->
         <link rel="stylesheet" href="styles/responsive-style.css">
         <link rel="stylesheet" href="styles/grid-catalog.css">
         <link rel="stylesheet" href="styles/data-grid/data-grid.css">
@@ -45,9 +46,14 @@
 		<link rel="stylesheet" href="styles/agenda/fullcalendar.print.css" media="print" />
         <!-- FIM AGENDA -->
         
-		<!-- <link rel="stylesheet" href="styles/new.css"> -->
-        <!-- endbuild -->
-        
+		<link rel="stylesheet" href="styles/new.css">
+
+        <link href="apple-touch-icon.png" rel="apple-touch-icon" />
+        <link href="apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+        <link href="apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+        <link href="apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+        <link rel="icon" type="image/ico" href="favicon.ico">
+
     </head>
     <body ng-app="glowingCatalogApp">
         <!--[if lt IE 9]>
@@ -55,7 +61,7 @@
     	    <![endif]-->
     
         <!-- Add your site or application content here -->
-        <div ng-view=""></div>
+        <div class="div-master" ng-view=""></div>
     
         <script src="bower_components/jquery/jquery.js"></script>
         <script src="bower_components/jquery/jquery.min.js"></script>
@@ -133,7 +139,7 @@
         <script src="scripts/controllers/payment-creditcard.js"></script>
         <script src="scripts/controllers/payment-exchange.js"></script>
         <script src="scripts/controllers/partial-delivery.js"></script>
-        <script src="scripts/controllers/payment-on-cuff.js"></script>
+        <script src="scripts/controllers/payment/payment-on-cuff.js"></script>
         <script src="scripts/controllers/payment-discount.js"></script>
         <script src="scripts/controllers/products-to-buy/products-to-buy.js"></script>
         <script src="scripts/controllers/products-to-buy/products-to-buy-order.js"></script>
@@ -148,9 +154,8 @@
         <script src="scripts/controllers/receivable.js"></script>
         <script src="scripts/controllers/receivable-add.js"></script>
         <script src="scripts/controllers/receivable-edit.js"></script>
-        <script src="scripts/controllers/receivable-entity.js"></script>
-        <script src="scripts/controllers/receivable-payment.js"></script>
-        <script src="scripts/controllers/receivable-search.js"></script>
+        <script src="scripts/controllers/receivable-receive.js"></script>
+        <script src="scripts/controllers/receivable-list.js"></script>
         <script src="scripts/controllers/stock.js"></script>
         <script src="scripts/controllers/voucher.js"></script>
         <script src="scripts/controllers/voucher-active.js"></script>
@@ -224,14 +229,11 @@
         <script src="scripts/filters/uuidCode.js"></script>
         <script src="scripts/services/Firebase.js"></script>
         <script src="scripts/services/BookService/BookService.js"></script>
-
         <script src="scripts/keepers/OrderKeeper.js"></script>
         <script src="scripts/keepers/PurchaseOrderKeeper.js"></script>
-
         <script src="scripts/services/ProductReturnService.js"></script>
         <script src="scripts/keepers/ProductReturnKeeper.js"></script>
         <script src="scripts/keepers/TypeKeeper.js"></script>
-        
         <script src="scripts/preloader/datepicker.js"></script>
 		<!-- agenda -->
         <!--<script src="scripts/preloader/agenda/agenda.js"></script>-->
@@ -240,18 +242,18 @@
         <!-- end agenda -->
         <script src="scripts/services/RemoteSync.js"></script>
         <script src="scripts/services/log.js"></script>
-         
         <script src="scripts/services/CreditCardPaymentService.js"></script>
         <script src="scripts/services/PrefetchService.js"></script>
         <script src="scripts/services/GoPayGateway.js"></script>
+        <script src="scripts/services/CacheController.js"></script>
+        <script src="scripts/services/PaymentService/OnCuffPaymentService.js"></script>
         <!-- endbuild -->
         
         <!-- appointments -->
         <script src="scripts/controllers/appointments.js"></script>
         <script src="scripts/services/AppointmentService.js"></script>
         <script src="scripts/keepers/AppointmentKeeper.js"></script>
-	    <!-- endappointments -->
-        
+	    <!-- endappointments -->        
         
     </body>
 </html>

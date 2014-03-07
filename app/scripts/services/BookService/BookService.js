@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.service.book', [
         'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry'
-    ]).service('BookService', function BookService($q, $log, BookKeeper, Book, BookEntry) {
+    ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $log, BookKeeper, Book, BookEntry) {
 
         this.write = function(entry) {
             var result = null;
@@ -48,7 +48,7 @@
          * @param {number} gift the total amount of given giftCards in this
          *            order
          */
-        this.order = function(orderUUID, entityUUID, productAmount, productCost, voucher, gift) {
+        this.order = function(orderUUID, entityUUID, productAmount, voucher, gift) {
 
             var entries = [];
             var document = {
@@ -57,19 +57,16 @@
             };
 
             if (productAmount) {
-                entries.push(new BookEntry(null, null, 70001, 41101, document, entityUUID, 'Valor bruto da venda', productAmount));
-                entries.push(new BookEntry(null, null, 51115, 11701, document, entityUUID, 'Custo de produto', productCost));
+                entries.push(new BookEntry(null, null, 70001, 21307, document, entityUUID, 'Valor bruto da venda', productAmount));
             }
 
             if (voucher) {
-                entries.push(new BookEntry(null, null, 70001, 21301, document, entityUUID, 'Valor Total Vale Presente', voucher));
+                entries.push(new BookEntry(null, null, 70001, 21301, document, entityUUID, 'Valor total vale crédito', voucher));
             }
 
             if (gift) {
-                entries.push(new BookEntry(null, null, 70001, 21305, document, entityUUID, 'Valor Total Vale Crédito', gift));
+                entries.push(new BookEntry(null, null, 70001, 21305, document, entityUUID, 'Valor total vale presente', gift));
             }
-
-            $log.debug('BookService.order', entries);
 
             return entries;
         };
@@ -94,10 +91,9 @@
                 type : 'Pedido'
             };
 
-            entries.push(new BookEntry(null, null, 41305, 70001, document, entityUUID, 'Devolução de Produto', productAmount));
-            entries.push(new BookEntry(null, null, 11701, 51115, document, entityUUID, 'Devolução custo de produto', productCost));
-
-            $log.debug('BookService.productReturn', entries);
+            // Custo do produto
+            entries.push(new BookEntry(null, null, 41305, 70001, document, entityUUID, 'Devolução de produto', productAmount));
+            entries.push(new BookEntry(null, null, 11701, 51115, document, entityUUID, 'Devolução de produto', productCost));
 
             return entries;
         };
@@ -125,36 +121,76 @@
                 type : 'Pedido'
             };
 
-            if (cash) {
-                entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento', cash));
+            if (cash > 0) {
+                entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', cash));
             } else if (cash < 0) {
-                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento', cash));
+                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Troco em dinheiro', -cash));
             }
             if (check) {
-                entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Parcela', check));
+                entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Recebimento em cheque', check));
             }
             if (card) {
-                entries.push(new BookEntry(null, null, 11512, 70001, document, entityUUID, 'Parcela', card));
+                entries.push(new BookEntry(null, null, 11512, 70001, document, entityUUID, 'Recebimento em cartão', card));
             }
             if (cuff) {
-                entries.push(new BookEntry(null, null, 11511, 70001, document, entityUUID, 'Parcela', cuff));
+                entries.push(new BookEntry(null, null, 11511, 70001, document, entityUUID, 'Saldo a receber', cuff));
             }
             if (voucher) {
-                entries.push(new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento Vale Crédito', voucher));
+                entries.push(new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', voucher));
             }
             if (gift) {
-                entries.push(new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento Vale Presente', gift));
+                entries.push(new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento vale presente', gift));
             }
             if (discount) {
                 entries.push(new BookEntry(null, null, 41301, 70001, document, entityUUID, 'Desconto concedido', discount));
             }
             if (coupon) {
-                entries.push(new BookEntry(null, null, 41303, 70001, document, entityUUID, 'Desconto Cupom Promocional', coupon));
+                entries.push(new BookEntry(null, null, 41303, 70001, document, entityUUID, 'Desconto cupom promocional', coupon));
             }
 
-            $log.debug('BookService.payment', entries);
-
             return entries;
+        };
+
+        this.receiveCheck = function(orderUUID, entityUUID, check) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (check) {
+                entry = new BookEntry(null, null, 11131, 11121, document, entityUUID, 'Depósito cheque', check);
+            }
+
+            return entry;
+        };
+
+        this.receiveCreditCard = function(orderUUID, entityUUID, card) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (card) {
+                entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', card);
+            }
+
+            return entry;
+        };
+
+        this.receiveCuff = function(orderUUID, entityUUID, cuff) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (cuff) {
+                entry = new BookEntry(null, null, 11111, 11511, document, entityUUID, 'Recebimento parcela', cuff);
+            }
+
+            return entry;
         };
 
         this.validate = function(entries) {
@@ -178,5 +214,5 @@
             return (amount === 0);
         };
 
-    });
+    }]);
 }(angular));

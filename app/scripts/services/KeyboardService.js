@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.keyboard.service', [
         'tnt.utils.array'
-    ]).service('KeyboardService', function KeyboardService(ArrayUtils) {
+    ]).service('KeyboardService', ['ArrayUtils', function KeyboardService(ArrayUtils) {
 
         var fields = [];
         var currentField = null;
@@ -122,5 +122,5 @@
                 }
             }
         }
-    });
+    }]);
 })(angular);

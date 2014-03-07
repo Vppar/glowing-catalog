@@ -8,7 +8,7 @@
      * - All methods must require an existing transaction
      * 
      */
-    angular.module('tnt.storage.websql', []).service('WebSQLDriver', function WebSQLDriver($q, $log, $rootScope) {
+    angular.module('tnt.storage.websql', []).service('WebSQLDriver', ['$q', '$log', '$rootScope', function WebSQLDriver($q, $log, $rootScope) {
 
         var db = openDatabase('PersistentStorage', '1.0', 'Persistent Storage', 5 * 1024 * 1024);
         var entities = {};
@@ -34,23 +34,23 @@
          */
         this.transaction = function(txBody) {
           
-            $log.debug("starting transaction");
+            $log.debug('starting transaction');
 
             var deferred = $q.defer();
             db.transaction(txBody, function(data){
-                deferred.reject(data); 
+                deferred.reject(data);
                 $rootScope.$apply();
             }, function(data){
-                deferred.resolve(data); 
+                deferred.resolve(data);
                 $rootScope.$apply();
             });
 
-            $log.debug("transaction started");
+            $log.debug('transaction started');
 
             deferred.promise.then(function() {
-                $log.debug("transaction succeded");
+                $log.debug('transaction succeded');
             }, function(failure) {
-                $log.error("transaction failed");
+                $log.error('transaction failed');
                 $log.debug(failure);
             });
             
@@ -233,7 +233,7 @@
             var bindings = [];
   
             for ( var columnName in data) {
-                updatables.push(columnName + " = ?");
+                updatables.push(columnName + ' = ?');
                 bindings.push(data[columnName]);
             }
   
@@ -284,7 +284,7 @@
         this.find = function(tx, name, id, cb) {
 
             if (angular.isUndefined(entities[name].pk)) {
-                throw "Entity " + name + " has no primary index!";
+                throw 'Entity ' + name + ' has no primary index!';
             }
 
             var SQL = [];
@@ -315,7 +315,7 @@
                     }
                 };
             } else {
-                $log.debug("Callback given, no promise for you");
+                $log.debug('Callback given, no promise for you');
             }
             
             // FIXME use binded arguments
@@ -381,7 +381,7 @@
                     var len = results.rows.length, i;
                     for (i = 0; i < len; i++) {
                         
-                      result.push(angular.copy(results.rows.item(i)));
+                        result.push(angular.copy(results.rows.item(i)));
                         
                     }
 
@@ -389,7 +389,7 @@
                     $rootScope.$apply();
                 };
             } else {
-                $log.debug("Callback given, no promise for you");
+                $log.debug('Callback given, no promise for you');
             }
 
             // FIXME use binded arguments
@@ -398,7 +398,7 @@
             return deferred.promise;
         };
 
-        this.merge = function(tx, name, data) {
+        this.merge = function() {
             // not implemented for lack of use
         };
 
@@ -460,5 +460,5 @@
 
             return where.join(' AND ');
         };
-    });
+    }]);
 })(angular, window.openDatabase);

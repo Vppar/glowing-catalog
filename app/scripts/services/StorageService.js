@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.service.storage', [
         'tnt.catalog.filter.findBy', 'tnt.catalog.service.data'
-    ]).service('StorageService', function StorageService($log, $filter, DataProvider) {
+    ]).service('StorageService', ['$log', '$filter', 'DataProvider', function StorageService($log, $filter, DataProvider) {
 
         // Easy the access to DataProvider service.
         var data = DataProvider;
@@ -207,5 +207,5 @@
         this.list = list;
         this.update = update;
         this.remove = remove;
-    });
+    }]);
 }(angular));

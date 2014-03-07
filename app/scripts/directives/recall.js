@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').directive('recall', function($log) {
+    angular.module('glowingCatalogApp').directive('recall', ['$log', function($log) {
         return {
             require : 'ngModel',
             link : function postLink(scope, element, attrs, ctrl) {
@@ -32,5 +32,5 @@
 
             }
         };
-    });
+    }]);
 }(angular));

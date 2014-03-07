@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('glowingCatalogApp').directive('phone', function phone($filter) {
+    angular.module('glowingCatalogApp').directive('phone', ['$filter', function phone($filter) {
         return {
             require : 'ngModel',
             link : function(scope, element, attrs, ctrl) {
@@ -37,5 +37,5 @@
 
             }
         };
-    });
+    }]);
 }(angular));

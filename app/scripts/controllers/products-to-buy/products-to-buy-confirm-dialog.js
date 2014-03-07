@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.productsToBuy.confirm.dialog.ctrl', []).controller(
-            'ProductsToBuyConfirmDialogCtrl', function($scope, $q, dialog) {
+            'ProductsToBuyConfirmDialogCtrl', ['$scope', '$q', 'dialog', function($scope, $q, dialog) {
                 
                 $scope.payment = {};
                 $scope.payment.duedate = dialog.data.duedate;
@@ -18,5 +18,5 @@
                     dialog.close(true);
                 };
 
-            });
+            }]);
 }(angular));

@@ -3,9 +3,10 @@
 		<span class="span3">
 			<div class="control-group">
 				<label class="control-label">Data</label>
-				<input name="date"
-					class="input-block-level" type="text" placeholder=""
-					ng-model="receivable.createdate" required>
+				<input type="text" 
+					id="date" class="date-field input-block-level" maxlength="10" 
+					datepicker-popup="dd/MM/yyyy" show-weeks="false" 
+					ng-model="selectedReceivable.created" disabled>
 			</div>
 		</span>
 		
@@ -14,7 +15,7 @@
 				<label class="control-label">Conta a receber</label>
 				<div class="input-append input-width-bills w98porc">
 					<input class="input-block-level hover-state-pointer"
-						id="appendedInput" type="text" ng-model="receivable.entity" disabled>
+						id="appendedInput" type="text" ng-model="selectedReceivable.entityName" disabled>
 					<span ng-click="" class="add-on">+</span>
 				</div>
 			</div>
@@ -26,7 +27,7 @@
 				<label class="control-label">Observa&ccedil;&atilde;o</label>
 				<input name="date"
 					class="input-block-level" type="text" placeholder=""
-					ng-model="receivable.createdate" required>
+					ng-model="selectedReceivable.remarks" disabled>
 			</div>
 		</span>
 	</div>
@@ -39,7 +40,7 @@
 					ng-model="document.label" required>-->
 				<div class="input-append input-width-bills w80porc">
 					<input class="input-block-level hover-state-pointer"
-						id="appendedInput" type="text" ng-model="receivable.entity" disabled>
+						id="appendedInput" type="text" ng-model="selectedReceivable.order.document" disabled>
 					<span ng-click="" class="add-on">+</span>
 				</div>
 			</div>
@@ -48,8 +49,9 @@
 		<span class="span3">
 			<div class="control-group">
 				<label class="control-label">Nro Docto</label>
+				<!-- document.number -->
 					<input class="input-block-level hover-state-pointer"
-						id="numberdoc" type="text" ng-model="document.number"
+						id="numberdoc" type="text" ng-model="selectedReceivable.order.uiidCode"
 						ng-click="" disabled>
 			</div>
 		</span>
@@ -62,7 +64,7 @@
 						ng-click="" disabled>-->
 					<div class="input-append input-width-bills">
 					<input class="input-block-level hover-state-pointer"
-						id="appendedInput" type="text" ng-model="receivable.entity" disabled>
+						id="appendedInput" type="text" ng-model="selectedReceivable.classification" disabled>
 					<span ng-click="" class="add-on">+</span>
 				</div>
 			</div>
@@ -74,14 +76,14 @@
 				<label class="control-label">Valor</label>
 				<input name="amount"
 					class="input-block-level" type="text" placeholder=""
-					ng-model="receivable.amount" required>
+					ng-model="selectedReceivable.amount" required currency disabled>
 			</div>
 		</span>	
 		<span class="span2">
 			<div class="control-group ">
 				<label class="control-label">Nro Parc.</label>
 					<input class="input-block-level hover-state-pointer"
-						id="installments" type="text" ng-model="receivable.installments"
+						id="installments" type="text" ng-model="selectedReceivable.installment"
 						ng-click="" disabled>
 			</div>
 		</span>	
@@ -90,58 +92,25 @@
 				<label class="control-label">Vencto 1a. parc.</label>
 					<!--<input class="input-block-level hover-state-pointer" ng-model="receivable.duedate"
 						ng-click="" disabled>-->
-					<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="check.duedate" required readonly onkeyup="checkInputKeyUp(this)">
+					<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" required readonly onkeyup="checkInputKeyUp(this)" disabled>
 			</div>
 		</span>	
-		<span class="span2">
+		<!-- <span class="span2">
 			<div class="control-group">
 				<a class="btn btn-open margint19" ng-click="">Ver parcela</a>
 			</div>
-		</span>
+		</span> -->
 	</div>
 </div>
 
 
 <!-- mesmo conteudo da "receivable-write-parc-dialog". Foram feitas duas opcoes.-->
 <div class="row-fluid receivable-write-right display-none">
-		<div class="row-fluid">
-		
-			<div class="grid-input-receivable-dialog margintn10">
-					<div class="header">
-						<div class="row-input-receivable-dialog-grid">
-							<span class="col-1"><div>Parcela</div></span>
-							<span class="col-2"><div>Vencto.</div></span>
-							<span class="col-3"><div>Valor</div></span>
-						</div>
-					</div>
-					<div class="scroll-input-receivable-dialog-grid">
-						<div class="row-input-receivable-dialog-grid" >
-							<span class="col-1"><div>1 de 3</div></span>
-							<span class="col-2 display-none"><div><input type="text" class="col-2 text-center date-field"  input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="check.duedate" required readonly onkeyup="checkInputKeyUp(this)"/></div></span>
-							<span class="col-3 display-none"><div><input type="text" class="col-3 value"/></div></span>
-						</div>
-						<div class="row-input-receivable-dialog-grid" >
-							<span class="col-1"><div>2 de 3</div></span>
-							<span class="col-2"><div>20/02/13</div></span>
-							<span class="col-3"><div>120,00</div></span>
-						</div>	
-						<div class="row-input-receivable-dialog-grid" >
-							<span class="col-1"><div>3 de 3</div></span>
-							<span class="col-2"><div>20/03/13</div></span>
-							<span class="col-3"><div>120,00</div></span>
-						</div>		
-					</div>					
-			</div>
-					
-			<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o c�digo </div>
-		
-		</div>
-	
 		<div class="clearfix"></div><hr />
-		<button ng-click='closeDialog()' class="btn btn-cancel btn-large btn-login" type="submit">
+		<button ng-click="clearSelectedReceivable()" class="btn btn-cancel btn-large btn-login" type="submit">
 			Cancelar
 		</button>
-		<button ng-click='closeDialog()' class="btn-large btn btn-ok btn-login pull-right" type="submit">
+		<button ng-click="comfirmReceive()" class="btn-large btn btn-ok btn-login pull-right" type="submit">
 			Confirmar
 		</button>
 </div>

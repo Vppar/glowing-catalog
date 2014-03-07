@@ -20,5 +20,5 @@
             }
         };
     }
-    angular.module('glowingCatalogApp').directive('cpf', cpf);
+    angular.module('glowingCatalogApp').directive('cpf', ['$filter', cpf]);
 }(angular));

@@ -1,12 +1,13 @@
 (function(angular) {
     'use strict';
     angular.module(
-            'tnt.catalog.receivable.add.ctrl',
+            'tnt.catalog.financial.receivable.add.ctrl',
             [
                 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity', 'tnt.catalog.misplaced.service', 'tnt.catalog.entity.service',
                 'tnt.catalog.type'
             ]).controller(
             'ReceivableAddCtrl',
+            ['$scope', '$q', 'ReceivableService', 'Receivable', 'Misplacedservice', 'EntityService', 'TypeKeeper',
             function($scope, $q, ReceivableService, Receivable, Misplacedservice, EntityService, TypeKeeper) {
 
                 var mReceivable = '';
@@ -138,5 +139,5 @@
                         return baseDate.setMonth((parseInt(baseDate.getMonth(), 10) + parseInt(increase, 10)));
                     }
                 }
-            });
+            }]);
 }(angular));
