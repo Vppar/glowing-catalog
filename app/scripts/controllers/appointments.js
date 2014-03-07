@@ -262,7 +262,8 @@
 							$("#event-status").val("");
 							$("#btn-alterar").addClass('hide');
 							$("#btn-concluir").addClass('hide');
-							$("#btn-cancelar").addClass('hide');							
+							$("#btn-cancelar").addClass('hide');
+							$("#btn-excluir").addClass('hide');
 							
 							if(event) {
 
@@ -287,6 +288,7 @@
 									$("#btn-alterar").removeClass('hide');
 									$("#btn-concluir").removeClass('hide');
 									$("#btn-cancelar").removeClass('hide');
+									$("#btn-excluir").removeClass('hide');
 									$("#btn-salvar").addClass('hide');
 								}								
 								

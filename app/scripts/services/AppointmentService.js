@@ -62,12 +62,15 @@
 	        	for(var idx in appointmentList)
 	        	{
 	        		var appointment = appointmentList[idx];
-	        		var dateAppointment = new Date(appointment.startDate);
-	        		dateAppointment.setHours(0);
-	        		dateAppointment.setMinutes(0);
-	        		if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime())
+	        		if(appointment.status != 'REMOVED')
 	        		{
-	        			appointmentReturn.push(appointment);
+		        		var dateAppointment = new Date(appointment.startDate);
+		        		dateAppointment.setHours(0);
+		        		dateAppointment.setMinutes(0);
+		        		if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime())
+		        		{
+		        			appointmentReturn.push(appointment);
+		        		}
 	        		}
 		        }
         	}
@@ -189,7 +192,24 @@
             return result;
         };
         
-        
+        /**
+         * 
+         * Set appointment to REMOVED
+         * 
+         * @param id - id of Appointment to be removed.
+         * @throws Exception in case of a fatal error comming from the keeper.
+         */
+        this.remove = function(uuid) {
+        	var result = "";
+        	try {
+        		var appointment = this.loadByUUID(uuid);
+        		appointment.status = "REMOVED";
+        		result = this.update(appointment);
+            } catch (err) {
+                throw 'AppointmentService.done: Unable to done an appointment=' + JSON.stringify(receivable) + '. Err=' + err;
+            }
+            return result;
+        };
     });
 
 })(angular);
