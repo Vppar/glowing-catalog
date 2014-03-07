@@ -16,7 +16,7 @@
 
             //just title and description are mandatory
             invalidProperty.titulo = angular.isDefined(entity.title);
-            invalidProperty.data_inicial = angular.isDefined(entity.starDate);
+            invalidProperty.data_inicial = angular.isDefined(entity.startDate);
             invalidProperty.data_final = angular.isDefined(entity.endDate);
             invalidProperty.descricao = angular.isDefined(entity.description);
             invalidProperty.status = angular.isDefined(entity.status);
