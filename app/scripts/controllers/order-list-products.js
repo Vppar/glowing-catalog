@@ -22,7 +22,7 @@
                     $scope.filteredProducts.totalStock = 0;
                     $scope.avaliableCustomers = [];
                     $scope.checkedProductSKU = null;
-                    
+
                     function updateFilteredProducts () {
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
@@ -78,27 +78,30 @@
                         }
                     }
 
-                    $scope.$watchCollection('dtFilter', function () {
-                        $scope.filteredOrders = $scope.filterOrders($scope.orders);
-                        updateFilteredProducts();
-                        $scope.computeAvaliableCustomers($scope.customers);
-                        $scope.generateVA($scope.filteredProducts);
-                    });
-
-                    $scope.$watch('customerId', function (newVal, oldVal) {
-                        if (newVal != oldVal) {
+                    $scope.updateProducts =
+                        function () {
                             $scope.filteredOrders = $scope.filterOrders($scope.orders);
-                            
-                            if($scope.customerId != 0){
+
+                            if ($scope.customerId !== 0) {
                                 $scope.filteredOrders =
                                     $filter('filter')($scope.filteredOrders, $scope.filterByClient);
                             }
-                            
+
                             $scope.updateOrdersTotal($scope.filteredOrders);
                             updateFilteredProducts();
                             $scope.computeAvaliableCustomers($scope.customers);
                             $scope.generateVA($scope.filteredProducts);
+                        };
 
+                    $scope.updateProducts();
+
+                    $scope.$watchCollection('dtFilter', function () {
+                        $scope.updateProducts();
+                    });
+
+                    $scope.$watch('customerId', function (newVal, oldVal) {
+                        if (newVal !== oldVal) {
+                            $scope.updateProducts();
                         }
                     });
 
