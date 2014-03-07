@@ -51,13 +51,13 @@
 								selectHelper: true,
 								droppable: true,
 								editable: true,
+								disableDragging: true,
+								eventDurationEditable: false,
 								
-								drop: function(date, allDay) { // funcao quando solta tag sobre calendario
+								drop: function(date, allDay) {
 									openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);									
 								},
-								select: function(start, end, allDay) { // quando clica em uma data/hora
-									//Se não tem evento permite criacao do evento.
-									//Se tem evento na visualizacao mensal não abre popup muda para visualizacao diaria.
+								select: function(start, end, allDay) {
 									if(eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name == 'month')) {
 										$('#calendar').fullCalendar('changeView', 'agendaDay');
 										$('#calendar').fullCalendar('gotoDate', start);
@@ -118,16 +118,16 @@
 								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
 							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].trim()));
+								actualSince = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0] + headerTitle.split('—')[1].substr(headerTitle.split('—')[1].lastIndexOf(' ') + 1, 10)))
 								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].substr(0, 4) + headerTitle.split('—')[1].substr(1, 1)));
+									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0].substr(0, 3) + headerTitle.split('—')[1]))
 								} else {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))));
+									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))))
 								}
 							} else {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split(',')[1].trim()));
-								actualUpon = ($.datepicker.parseDate('M d', headerTitle.split(',')[1].trim()));
+								actualSince = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
+								actualUpon = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
 							}
 							
 							birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
@@ -142,7 +142,7 @@
 									var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
 									contador = contador + 1;
 									var event = {
-										title: 'Aniversï¿½rio de ' + entity.name,
+										title: 'Anivers&#225;rio de ' + entity.name,
 										start: thisDate,
 										allDay: true,
 										color: $('.tag7').find('.tag-circle').css('background-color'),
@@ -185,10 +185,8 @@
 							
 							removeCalendarJsEvents();
 							
-							if(events)
-							{
-								for (var idx in events)
-								{
+							if(events) {
+								for (var idx in events) {
 									var event = events[idx];
 									$('#calendar').fullCalendar('renderEvent', event, true);
 								}
@@ -205,7 +203,7 @@
 						}
 
 						// #############################################################################################################
-						// Methods of controller (appointments.html)
+						// Controller methods (appointments.html)
 						// #############################################################################################################												
 						function openEventDialog(eventType, date, startHours, startMinutes, endHours, endMinutes, event) { 
 							
@@ -238,8 +236,7 @@
 									$("#select-hour-end").val(startHours+1);
 									$("#select-minute-end").val(0);
 								}
-								else if( !endMinutes )
-								{
+								else if( !endMinutes ) {
 									$("#select-hour-end").val(startHours);
 									$("#select-minute-end").val(startMinutes+30);
 								}									
@@ -326,16 +323,16 @@
 								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
 							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].trim()));
-								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('ï¿½') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].substr(0, 4) + headerTitle.split('ï¿½')[1].substr(1, 1)));
+								actualSince = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0] + headerTitle.split('—')[1].substr(headerTitle.split('—')[1].lastIndexOf(' ') + 1, 10)))
+								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
+									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0].substr(0, 3) + headerTitle.split('—')[1]))
 								} else {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[1].substr(1, headerTitle.lastIndexOf(' '))));
+									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))))
 								}
 							} else {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split(',')[1].trim()));
-								actualUpon = ($.datepicker.parseDate('M d', headerTitle.split(',')[1].trim()));
+								actualSince = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
+								actualUpon = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
 							}
 							
 							$scope.birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
@@ -343,7 +340,7 @@
 						};						
 
 						$scope.remove = function() {
-							if( confirm("Deseja confirmar a exclusão do evento?") ){
+							if( confirm("Deseja confirmar a exclus&#227;o do evento?") ){
 								$scope.validateUUID();
 							    AppointmentService.remove($("#select-event-uuid").val()).then(function() {
 								   alert('Evento Removido com sucesso!');
@@ -355,7 +352,7 @@
 						};
 						
 						$scope.done = function() {						
-							if( confirm("Deseja confirmar a conclusão do evento?") ){
+							if( confirm("Deseja confirmar a conclus&#227;o do evento?") ){
 								$scope.validateUUID();
 							    AppointmentService.done($("#select-event-uuid").val()).then(function() {
 								   alert('Evento Finalizado com sucesso!');
@@ -403,7 +400,7 @@
 																
 								AppointmentService.update($scope.appointment).then(function(uuid) {
 									   $scope.closeEventDialog();								   								
-						               alert('Atualizacao efetuada com sucesso.');					              
+						               alert('Atualiza&#231;&#227;o efetuada com sucesso.');					              
 						            }, function(err) {
 						            	alert('Erro:' + err);
 						        });
@@ -443,7 +440,7 @@
 
 						$scope.validateUUID = function ()	{
 							if( !$("#select-event-uuid").val() ) {
-								alert('UUID do Evento é um campo obrigatório.');
+								alert('UUID do Evento &#233; um campo obrigat&#243;rio.');
 								return false;
 							}
 							return true;						
@@ -451,23 +448,23 @@
 
 						$scope.validateEventDialogFields = function ()	{							
 							if( !$("#select-date").val() ) {
-								alert('A data do evento é um campo obrigatório.');
+								alert('A data do evento &#233; um campo obrigat&#243;rio.');
 								return false;
 							}	
 							if( !$("#select-client").val() ) {
-								alert('O contato do evento é um campo obrigatório.');
+								alert('O contato do evento &#233; um campo obrigat&#243;rio.');
 								return false;
 							}	
 							if( !$("#txt-title").val() ) {
-								alert('O título do evento é um campo obrigatório.');
+								alert('O t&#237;tulo do evento &#233; um campo obrigat&#243;rio.');
 								return false;
 							}
 							if( !$("#txt-description").val() ) {
-								alert('A descrição do evento é um campo obrigatório.');
+								alert('A descri&#231;&#227;o do evento &#233; um campo obrigat&#243;rio.');
 								return false;
 							}							
 							if( !$("#select-event").val() ) {
-								alert('O tipo do evento é um campo obrigatório.');
+								alert('O tipo do evento &#233; um campo obrigat&#243;rio.');
 								return false;
 							}	
 							return true;
@@ -478,8 +475,6 @@
 						// #############################################################################################################
 						$('.external-event').each(function() {
 								
-							// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-							// it doesn't need to have a start or end
 							var id = $(this).attr("id");
 							id = id.replace("tagEvent","");
 
@@ -487,18 +482,13 @@
 								eventType: id
 							};
 							
-							// store the Event Object in the DOM element so we can get to it later
 							$(this).data('eventObject', eventObject);
 							
-							// make the event draggable using jQuery UI
 							$(this).draggable({
 								zIndex: 999,
-								revert: true,      // will cause the event to go back to its
-								revertDuration: 0  //  original position after the drag
+								revert: true,
+								revertDuration: 0 
 							});					
-						});
-
-						
+						});						
 					});
-
 }(angular));
