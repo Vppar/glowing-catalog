@@ -22,7 +22,7 @@
                     $scope.filteredProducts.totalStock = 0;
                     $scope.avaliableCustomers = [];
                     $scope.checkedProductSKU = null;
-
+                    
                     function updateFilteredProducts () {
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
@@ -88,8 +88,12 @@
                     $scope.$watch('customerId', function (newVal, oldVal) {
                         if (newVal != oldVal) {
                             $scope.filteredOrders = $scope.filterOrders($scope.orders);
-                            $scope.filteredOrders =
-                                $filter('filter')($scope.filteredOrders, $scope.filterByClient);
+                            
+                            if($scope.customerId != 0){
+                                $scope.filteredOrders =
+                                    $filter('filter')($scope.filteredOrders, $scope.filterByClient);
+                            }
+                            
                             $scope.updateOrdersTotal($scope.filteredOrders);
                             updateFilteredProducts();
                             $scope.computeAvaliableCustomers($scope.customers);
