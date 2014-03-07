@@ -354,7 +354,7 @@
                 /**
                  * Saves the payments and closes the order.
                  */
-                function checkout(customer, amount, change) {
+                function checkout(customer, amount, discount, change) {
                     var promises = [];
 
                     if (OrderService.hasItems()) {
@@ -424,7 +424,7 @@
                         // first result of q.all promise is the order uuid
                         var orderUUID = result[0];
                         var order = OrderService.read(orderUUID);
-                        insertBookEntries(order, customer, payments, change);
+                        insertBookEntries(order, customer, payments, discount, change);
                     });
 
                     function sendVoucherSMS(vouchers) {
@@ -493,7 +493,7 @@
                     }
                 }
 
-                function insertBookEntries(order, customer, payments, change) {
+                function insertBookEntries(order, customer, payments, discount, change) {
                     var orderUUID = order ? order.uuid : null;
                     var entityUUID = customer.uuid;
 
@@ -501,8 +501,8 @@
                     if (order && order.items.length > 0) {
                         bookEntriesPromises = insertOrderBookEntries(orderUUID, entityUUID, order.items);
                     }
-                    
-                    bookEntriesPromises = bookEntriesPromises.concat(insertPaymentBookEntries(orderUUID, entityUUID, payments, change));
+
+                    bookEntriesPromises = bookEntriesPromises.concat(insertPaymentBookEntries(orderUUID, entityUUID, payments, discount, change));
 
                     var exchanges = list('exchange');
                     if (exchanges.length > 0) {
@@ -532,7 +532,7 @@
                     return writeBookEntries(bookEntries);
                 }
 
-                function insertPaymentBookEntries(orderUUID, entityUUID, payments, change) {
+                function insertPaymentBookEntries(orderUUID, entityUUID, payments, discount, change) {
                     var cash = financialRound($filter('sum')(payments.cash, 'amount'));
                     cash = financialRound(cash - change);
 
@@ -546,7 +546,7 @@
                     var gift = financialRound($filter('sum')(ArrayUtils.list(payments.coupon, 'type', 'giftCard'), 'amount'));
                     var coupon = financialRound($filter('sum')(ArrayUtils.list(payments.coupon, 'type', 'coupon'), 'amount'));
 
-                    var bookEntries = BookService.payment(orderUUID, entityUUID, cash, check, card, cuff, voucher, gift, null, coupon);
+                    var bookEntries = BookService.payment(orderUUID, entityUUID, cash, check, card, cuff, voucher, gift, discount, coupon);
 
                     return writeBookEntries(bookEntries);
                 }
