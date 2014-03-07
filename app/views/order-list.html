@@ -75,8 +75,8 @@
 
 				<div class="col-details-order-list-item-select" ng-show="ol=='products'">
 					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId">
-					<option value="" ng-hide="true"></option>
-					<option value="0">Selecione o Cliente</option>
+						<option value="" ng-hide="true"></option>
+						<option selected="selected" value="0">Selecione o Cliente</option>
 						<option value="{{customer.uuid}}" ng-repeat="customer in avaliableCustomers ">{{customer.name}}</option>
 					</select>
 				</div>
@@ -95,7 +95,7 @@
 				</span> 
 				<span class="border"> 
 					<span class="lbl-money">Cheque</span>
-					<span class="lbl-money3" ng-show="total.check.qty !== 0">({{total.check.qty}} )</span> 
+					<span class="lbl-money3" ng-show="total.check.qty !== 0">({{total.check.qty}})</span> 
 					<span class="btn-price-payment">{{total.check.amount |currency:''}}</span>
 				</span>
 			</div>
@@ -103,12 +103,12 @@
 			<div class="col-details-order-list-item">
 				<span class="border"> 
 					<span class="lbl-money">Cart&atilde;o</span>
-					<span class="lbl-money3" ng-show="(total.creditCard.qty + total.noMerchantCc.qty) !== 0">({{total.creditCard.qty + total.noMerchantCc.qty}} )</span> 
+					<span class="lbl-money3" ng-show="(total.creditCard.qty + total.noMerchantCc.qty) !== 0">({{total.creditCard.qty + total.noMerchantCc.qty}})</span> 
 					<span class="btn-price-payment">{{(total.creditCard.amount + total.noMerchantCc.amount)| currency:''}}</span>
 				</span> 
 				<span class="border"> 
 					<span class="lbl-money">Troca</span>
-					<span class="lbl-money3" ng-show="total.exchange.qty !== 0">({{total.exchange.qty}} )</span> 
+					<span class="lbl-money3" ng-show="total.exchange.qty !== 0">({{total.exchange.qty}})</span> 
 					<span class="btn-price-payment">{{total.exchange.amount | currency:''}}</span>
 				</span>
 			</div>
