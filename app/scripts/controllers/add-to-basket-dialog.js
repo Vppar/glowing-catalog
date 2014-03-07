@@ -71,7 +71,15 @@
                         qty = orderProduct.qty;
                     }
                     $scope.grid[ix].qty = qty;
-                    $scope.$watch('grid[' + ix + '].qty', updateTotal);
+                    $scope.$watch('grid[' + ix + '].qty', function () {
+                        clearDiscount();
+                        updateTotal();
+                    });
+                }
+
+
+                function clearDiscount() {
+                    product.discount = 0;
                 }
 
                 /**
