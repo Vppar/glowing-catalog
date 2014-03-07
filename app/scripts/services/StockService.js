@@ -79,7 +79,7 @@
                     return result;
                 };
 
-                var buildSession = function buildSession(type, report, reportItem) {
+                this.buildSession = function buildSession(type, report, reportItem) {
                     var sessionLabel = reportItem.session;
                     var session = report.sessions[sessionLabel];
                     if (!session) {
@@ -100,7 +100,7 @@
                     return session;
                 };
 
-                var buildLine = function buildLine(type, session, reportItem) {
+                this.buildLine = function buildLine(type, session, reportItem) {
                     var lineLabel = reportItem.line;
                     var line = session.lines[lineLabel];
                     if (!line) {
