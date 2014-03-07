@@ -85,13 +85,17 @@
                         $scope.generateVA($scope.filteredProducts);
                     });
 
-                    $scope.$watchCollection('filter.customerId', function () {
-                        $scope.filteredOrders = $scope.filterOrders($scope.orders);
-                        $scope.filteredOrders =
-                            $filter('filter')($scope.filteredOrders, $scope.filterByClient);
-                        updateFilteredProducts();
-                        $scope.computeAvaliableCustomers($scope.customers);
-                        $scope.generateVA($scope.filteredProducts);
+                    $scope.$watch('customerId', function (newVal, oldVal) {
+                        if (newVal != oldVal) {
+                            $scope.filteredOrders = $scope.filterOrders($scope.orders);
+                            $scope.filteredOrders =
+                                $filter('filter')($scope.filteredOrders, $scope.filterByClient);
+                            $scope.updateOrdersTotal($scope.filteredOrders);
+                            updateFilteredProducts();
+                            $scope.computeAvaliableCustomers($scope.customers);
+                            $scope.generateVA($scope.filteredProducts);
+
+                        }
                     });
 
                 }
