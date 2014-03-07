@@ -237,7 +237,6 @@
 							var actualSince; 
 							var actualUpon;
 							var birthdays = [];
-							var appointments = [];
 							var events = [];
 							if ($('#calendar').fullCalendar('getView').name == 'month') {
 								actualSince = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-first td:eq(0)').attr('data-date')));
@@ -257,7 +256,7 @@
 							}
 							
 							birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
-							appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon);
+							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon);
 							
 							var contador = 0;
 							if (birthdays) {
@@ -267,7 +266,7 @@
 									var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
 									contador = contador + 1;
 									var event = {
-										title: 'Aniversï¿½rio de ' + entity.name,
+										title: 'Aniversário de ' + entity.name,
 										start: thisDate,
 										allDay: true,
 										color: $('.tag7').find('.tag-circle').css('background-color'),
@@ -279,11 +278,11 @@
 									events.push(event);
 								}
 							}
-							if (appointments) 
+							if ($scope.appointments) 
 							{
-								for(var idx in appointments)
+								for(var idx in $scope.appointments)
 								{
-									var app = appointments[idx];
+									var app = $scope.appointments[idx];
 									var nameEntity = "";
 									contador = contador + 1;
 									var entity = ArrayUtils.find($scope.contacts, 'uuid', app.contacts);
