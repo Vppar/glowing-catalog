@@ -193,6 +193,10 @@
             templateUrl : 'routes/components/tnt-number-picker/tnt-number-picker.html'
         }).when('/scenarios/ipad-keyboard-focus-scenario', {
             templateUrl : 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
+        }).when('/tutorial-ipad', {
+            templateUrl : 'views/tutorial-ipad.html'
+        }).when('/tutorial-android', {
+            templateUrl : 'views/tutorial-android.html'
         }).otherwise({
             redirectTo : '/'
         });
