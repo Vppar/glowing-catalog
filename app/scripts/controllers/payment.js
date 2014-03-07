@@ -53,8 +53,11 @@
                                 amount : 0,
                                 qty : 0,
                                 unit : 0,
-                                discount : getTotalDiscount(),
+                                discount : getOrderDiscount(),
                                 subTotal : 0,
+                                // This is the total amount WITHOUT products with
+                                // specific discounts
+                                amountWithoutDiscount : getNonDiscountedTotal(),
 
                                 // Returns the average price of the units in the order.
                                 getAvgUnitPrice : function () {
@@ -68,20 +71,11 @@
                         // Holds the total amount paid in exchanged products.
                         total.paymentsExchange = 0;
 
-
                         $scope.total = total;
 
 
                         // Set initial subTotal when the controller is loaded
                         updateSubTotal();
-
-                        $scope.$watch('total.order.amount', updateSubTotal);
-                        $scope.$watch('total.order.discount', updateSubTotal);
-                        $scope.$watch('total.paymentsExchange', updateSubTotal);
-
-                        $scope.$watchCollection('total.payments.exchange', function () {
-                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
-                        });
 
 
                         function updateSubTotal() {
@@ -92,21 +86,40 @@
                         // Returns the difference between the total order amount,
                         // the total discount and the exchanges.
                         function getSubTotal() {
-                          var exchanges = total.payments.exchange;
-                          var subtotal = total.order.amount - total.order.discount - total.paymentsExchange;
-                          return subtotal < 0 ? 0 : subtotal;
-                        }
-
-
-                        function getTotalDiscount() {
                           var totalDiscount = 0;
 
                           for (var idx in order.items) {
-                            totalDiscount += order.items[idx].discount || 0;
+                            var item = order.items[idx];
+                            totalDiscount += (item.specificDiscount || item.orderDiscount || 0);
                           }
 
-                          return totalDiscount;
+                          var subtotal = total.order.amount - totalDiscount - total.paymentsExchange;
+                          return subtotal < 0 ? 0 : subtotal;
                         }
+
+                        function getOrderDiscount() {
+                            var orderDiscount = 0;
+
+                            for (var idx in order.items) {
+                              var item = order.items[idx];
+                              orderDiscount += (item.orderDiscount || 0);
+                            }
+
+                            return orderDiscount;
+                        }
+
+                        function getTotalDiscount() {
+                            var totalDiscount = 0;
+
+                            for (var idx in order.items) {
+                              var item = order.items[idx];
+                              totalDiscount += (item.specificDiscount || item.orderDiscount || 0);
+                            }
+
+                            return totalDiscount;
+                        }
+
+                        $scope.getTotalDiscount = getTotalDiscount;
 
 
                         function getAverage(amount, count) {
@@ -142,16 +155,47 @@
                         // Controls the num pad.
                         $scope.isNumPadVisible = isNumPadVisible;
 
+
+
                         // Define the customer
                         var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                         $scope.customer = customer;
 
 
+                        function getNonDiscountedTotal() {
+                          var total = 0;
+                          for (var idx in order.items) {
+                            var item = order.items[idx];
+                            if (!item.specificDiscount) {
+                              total += item.qty * (item.price || item.cost || item.amount);
+                            }
+                          }
+                          return total;
+                        }
+
                         $scope.$watch('total.order.discount', function () {
-                          var orderTotal = $scope.total.order.amount;
                           var discountTotal = $scope.total.order.discount;
-                          Misplacedservice.distributeDiscount(orderTotal, discountTotal, order.items);
+
+                          var items = [];
+
+                          for (var idx in order.items) {
+                            var item = order.items[idx];
+                            if (!item.specificDiscount) {
+                              items.push(item);
+                            }
+                          }
+
+                          Misplacedservice.distributeOrderDiscount(discountTotal, items);
                         });
+
+                        $scope.$watch('total.order.amount', updateSubTotal);
+                        $scope.$watch('total.order.discount', updateSubTotal);
+                        $scope.$watch('total.paymentsExchange', updateSubTotal);
+
+                        $scope.$watchCollection('total.payments.exchange', function () {
+                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
+                        });
+
 
 
                         // When a product is added on items list, we need to
@@ -302,6 +346,8 @@
                                 dialogPromise.then(updateOrderAndPaymentTotal);
                             }
                         };
+
+
 
                         /**
                          * Triggers the payment confirmation process by showing

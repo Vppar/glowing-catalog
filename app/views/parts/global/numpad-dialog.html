@@ -3,7 +3,7 @@ desconto em Produto
 </div>
 
 <div class="modal-body">
-  <input id="dialog-input" type="text" ng-model="value" tnt-input focus currency />
+  <input id="dialog-input" type="text" ng-model="value" tnt-input focus currency ok-click="confirm()" tnt-relative-value="parent.total" />
   <div class="numpad-holder">
     <num-pad class="new-numpad"></num-pad>
   </div>
