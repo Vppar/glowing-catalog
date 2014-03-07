@@ -53,8 +53,8 @@
 		  	<option value="{{customer.uuid}}" ng-repeat="customer in contacts | orderBy:'name'">{{customer.name}}</option>
 		  </select>
 		  <br/>
-		  Hor&aacute;rio In&iacute;cio:
-		  <select id="select-hour-initial" size="3">
+		  De 		  
+		  <select id="select-hour-initial" style="width:55px">
 			<option value="0">00</option>
 			<option value="1">01</option>
 			<option value="2">02</option>
@@ -81,13 +81,14 @@
 			<option value="23">23</option>
 		  </select>
 		  :
-		  <select id="select-minute-initial" size="2">
+		  <select id="select-minute-initial" style="width:55px">
 			<option value="00">00</option>
 			<option value="15">15</option>
 			<option value="30">30</option>
 			<option value="45">45</option>
 		  </select>
-		  <select id="select-hour-end" size="4">
+		  At&eacute;
+		  <select id="select-hour-end" style="width:55px">
 			<option value="0">00</option>
 			<option value="1">01</option>
 			<option value="2">02</option>
@@ -114,7 +115,7 @@
 			<option value="23">23</option>
 		  </select>
 		  :
-		  <select id="select-minute-end" size="5">
+		  <select id="select-minute-end" style="width:55px">
 			<option value="00">00</option>
 			<option value="15">15</option>
 			<option value="30">30</option>
@@ -150,7 +151,7 @@
 			<option value="{{customer.uuid}}" ng-repeat="customer in contacts | orderBy:'name'">{{customer.name}}</option>
 		  </select>
 		  <br/>
-		  Hor&aacute;rio In&iacute;cio: 
+		 <!-- Hor&aacute;rio In&iacute;cio: 
 		  <select id="select-hour-u">
 			<option value="0">00</option>
 			<option value="1">01</option>
@@ -183,7 +184,7 @@
 			<option value="15">15</option>
 			<option value="30">30</option>
 			<option value="45">45</option>
-		  </select>
+		  </select> -->
 		  m
 		  <br/>
 		  <input type="text" placeholder="T&iacute;tulo" id="txt-title-u" class="field-big" ng-model="appointmentToUpdate.title" />

@@ -5,7 +5,7 @@
 
         var service = function svc(uuid, title,description, date, startTime, endTime, address, contacts, type,status) {
             var validProperties = [
-                'uuid', 'title', 'description', 'date', 'startTime', 'endTime', 'address', 'contacts', 'type','status','allDay','color','created'
+                'uuid', 'title', 'description', 'startDate', 'endDate', 'address', 'contacts', 'type','status','allDay','color','created'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
