@@ -12,7 +12,7 @@
 						$scope.contador = 0;
 						$scope.tempDate = undefined;
 						
-						// tags arrastáveis
+						// tags arrastaveis
 						$('.external-event').each(function() {
 							
 							// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
@@ -86,12 +86,33 @@
 							} else {
 								$("#txt-description").val("");
 							}
-							
+
+							if(client) {								
+								$("#select-client-u").val(client);
+							} else {
+								$("#select-client").val("");
+								$("#select-client-u").val("");
+							}								
+
 							if(eventEdit) {
 								var title = 'Alterar evento';
 								$("#event-status-u").val(eventEdit.status);
 								$("#event-id-u").val(eventEdit.uuid);
 								$("#calendar-id-u").val(eventEdit.id);
+								if(eventEdit.status=='CANCELLED' || eventEdit.status=='DONE')
+								{
+									$("#btn-alterar").addClass('hide');
+									$("#btn-concluir").addClass('hide');
+									$("#btn-cancelar").addClass('hide');
+								}
+								else
+								{
+									$("#btn-alterar").removeClass('hide');
+									$("#btn-concluir").removeClass('hide');
+									$("#btn-cancelar").removeClass('hide');
+								}
+								$("#btn-concluir").val(eventEdit.id);
+								$("#btn-cancelar").val(eventEdit.id);
 								$("#dialog-update").dialog({
 									modal: true,
 									title: title
@@ -115,8 +136,7 @@
 							$("#dialog-update").dialog( "close" );
 							$scope.cancelarEdicao();
 						};
-						
-						
+												
 						// #############################################################################################################
 						// Warming up the controller
 						// #############################################################################################################
@@ -133,6 +153,7 @@
 						 */
 						$scope.loadCalendar = function()
 						{
+							$scope.contacts = [];
 							$scope.contacts = EntityService.list();
 							
 							$('#calendar').fullCalendar({
@@ -158,20 +179,19 @@
 								selectable: true,
 								selectHelper: true,
 								droppable: true,
-								drop: function(date, allDay) { // função quando solta tag sobre calendário
+								drop: function(date, allDay) { // funcao quando solta tag sobre calendario
 									var eventObject = $(this).data('eventObject');
-									/* NOVO CÓDIGO */
+									
+									/* NOVO CODIGO */									
 									if($('#calendar').fullCalendar('getView').name == 'month') {
 										var actualDate = new Date();
-										if (actualDate.getHours() >= 22 || actualDate.getHours() <= 6) {
-											date.setHours(actualDate.getHours());
-										} else {
+										if (actualDate.getHours() <= 22) {
 											date.setHours(actualDate.getHours() + 2);
-										}
-										date.setMinutes(actualDate.getMinutes());
+										}									
 									}
 									$scope.tempDate = date;
 									/* FIM NOVO CÓDIGO */
+
 									openNewEventDialog(eventObject.eventType, date.getHours(), date.getMinutes());
 								},
 								select: function(start, end, allDay) { // quando clica em uma data/hora 
@@ -182,14 +202,12 @@
 										/* NOVO CÓDIGO */
 										if ($('#calendar').fullCalendar('getView').name == 'month') {
 											var actualDate = new Date();	
-											if (actualDate.getHours() >= 22 || actualDate.getHours() <= 6) {
-												start.setHours(actualDate.getHours());
-											} else {
+											if (actualDate.getHours() <= 22) {
 												start.setHours(actualDate.getHours() + 2);
 											}
 										}
 										$scope.tempDate = start;
-										/* FIM NOVO CÓDIGO */
+										/* FIM NOVO CODIGO */
 										openNewEventDialog(null, start.getHours(), start.getMinutes());
 									}
 								},
@@ -197,6 +215,7 @@
 									if(!calEvent.allDay)
 									{
 										$scope.appointmentToUpdate = $scope.getEvent(calEvent.uuid);
+										$scope.tempDate = $scope.appointmentToUpdate.date; 
 										var client = $scope.appointmentToUpdate != null ? $scope.appointmentToUpdate.contacts : undefined;
 										openNewEventDialog(calEvent.type, calEvent.start.getHours(), calEvent.start.getMinutes(), client, calEvent.title, calEvent.description, calEvent);
 									}
@@ -226,9 +245,7 @@
 													type: 7,
 													id: $scope.contador
 												};
-												if (isNewEvent(event)) {
-													$('#calendar').fullCalendar('renderEvent', event, true);
-												}
+												$('#calendar').fullCalendar('renderEvent', event, true);
 											}
 										}
 										if ($scope.appointments) 
@@ -246,11 +263,10 @@
 														client: "teste",
 														type: app.type,
 														id: $scope.contador,
+														status:app.status,
 														uuid: app.uuid
 												};
-												if (isNewEvent(event)) {
-													$('#calendar').fullCalendar('renderEvent', event, true);
-												}
+												$('#calendar').fullCalendar('renderEvent', event, true);
 											}
 										}
 									});
@@ -298,32 +314,39 @@
 						};
 
 						
-						$scope.done = function(appointmentToUpdate) {
-						   AppointmentService.done(appointmentToUpdate).then(function() {
-							   alert('Evento Finalizado com sucesso!');
-							   $scope.closeDialogUpdate();
-							   $scope.updateCalendar();
-				            }, function(err) {
-				            	alert('Erro: ' + err);
-				            });
-			               
-						};
-
-						$scope.cancel = function(appointmentToUpdate) {							
-							AppointmentService.cancel(appointmentToUpdate).then(function() {
-								   alert('Evento Cancelado com sucesso!');
+						$scope.done = function(appointmentToUpdate) 
+						{
+							var agree = confirm("Deseja confirmar a conclusão do evento?")
+							
+							if( agree )
+							{
+							   AppointmentService.done(appointmentToUpdate).then(function() {
+								   alert('Evento Finalizado com sucesso!');
 								   $scope.closeDialogUpdate();
 								   $scope.updateCalendar();
 					            }, function(err) {
 					            	alert('Erro: ' + err);
 					            });
-						};
-						
-						$scope.listBirthdaysByPeriod = function() {
-							$scope.birthdays = EntityService.listByBirthDate($scope.dateFilter.dtInitial, $scope.dateFilter.dtFinal);
+							}
+			               
 						};
 
-					    
+						$scope.cancel = function(appointmentToUpdate) 
+						{
+							var agree = confirm("Deseja confirmar o cancelamento do evento?")
+							
+							if( agree )
+							{	
+								AppointmentService.cancel(appointmentToUpdate).then(function() {
+									   alert('Evento Cancelado com sucesso!');
+									   $scope.closeDialogUpdate();
+									   $scope.updateCalendar();
+						            }, function(err) {
+						            	alert('Erro: ' + err);
+						            });
+							}
+						};						
+			    
 						$scope.cancelarEdicao = function() {
 							$scope.appointment = undefined;
 							$scope.appointmentToUpdate = undefined;
@@ -338,7 +361,7 @@
 								alert('Selecione um evento para ser atualizado');
 								return;
 							}
-							prepareUpdate($scope.appointmentToUpdate);
+							//$scope.prepareUpdate($scope.appointmentToUpdate);
 							
 							var hour = $("#select-hour-u").val();
 							var minute = $("#select-minute-u").val();
@@ -347,10 +370,11 @@
 							var calendarId = $("#calendar-id").val();
 							$('#calendar').fullCalendar('removeEvents', calendarId);
 							
-							$scope.appointmentToUpdate.date = $scope.tempDate;
+							//$scope.appointmentToUpdate.date = $scope.tempDate;
 							$scope.appointmentToUpdate.startTime = time;
 							$scope.appointmentToUpdate.endTime = time;
 							$scope.appointmentToUpdate.allDay =  false;
+							$scope.appointmentToUpdate.type = $("#select-event-u").val();
 							$scope.appointmentToUpdate.color =  $('.tag' + $scope.appointmentToUpdate.type).find('.tag-circle').css('background-color');
 							delete $scope.appointmentToUpdate.isValid;
 							
@@ -394,59 +418,11 @@
 								}
 							}
 							return {};
-						};	
-						
-//						$scope.persist = function () { //salva o evento
-//							var eventId = $("#event-id").val();
-//							var calendarId = $("#calendar-id").val();
-//							var eventStatus = $("#event-status").val();
-//							var eventType = $("#select-event").val();
-//							var client = $("#select-client").val();
-//							if(eventType == "") {
-//								alert('Selecione o tipo de evento.');
-//								return;
-//							}
-//							if(client == "")
-//							{
-//								alert('Selecione um cliente.');
-//								return;
-//							}
-//							
-//							var eventColor = $('.tag' + eventType).find('.tag-circle').css('background-color');
-//							var hour = $("#select-hour").val();
-//							var minute = $("#select-minute").val();
-//							var time = hour+":"+minute;
-//							
-//							var title = $("#txt-title").val();
-//							var desc = $("#txt-description").val();
-//							
-//							var date = $scope.tempDate;
-//							date.setHours(hour);
-//							date.setMinutes(minute);
-//							
-//							var event = $scope.verifyEvent(eventId);
-//							event.title =  title;
-//							event.date =  $scope.tempDate;
-//							event.startTime =  time;
-//							event.endTime =  time;
-//							event.status =  eventStatus;
-//							event.allDay =  false;
-//							event.color =  eventColor;
-//							event.description =  desc;
-//							event.contacts = client;
-//							event.type =  eventType;
-//
-//							if(eventId)
-//							{
-//								$('#calendar').fullCalendar('removeEvents', calendarId);
-//								$scope.update(event);
-//							}else
-//								{
-//									$scope.create(event);	
-//								}
-//						};
-						
+						};					
+		
 						$scope.create = function ()	{
+							if( !$scope.appointment )
+								alert( 'Selecione um evento' )
 							var hour = $("#select-hour").val();
 							var minute = $("#select-minute").val();
 							var time = hour+":"+minute;
@@ -456,6 +432,7 @@
 							$scope.appointment.endTime = time;
 							$scope.appointment.status = 'PENDANT';
 							$scope.appointment.allDay =  false;
+							$scope.appointment.type = $("#select-event").val();
 							$scope.appointment.color =  $('.tag' + $scope.appointment.type).find('.tag-circle').css('background-color');
 							
 							AppointmentService.create($scope.appointment).then(function(uuid) {
@@ -479,7 +456,7 @@
 							  $scope.closeDialog();
 							  $scope.updateCalendar();
 				            }, function(err) {
-				            	alert('Erro:' + err);
+				            	alert('Erro. Verifique os seguintes campos: ' + err);
 				            });
 						};
 					    
