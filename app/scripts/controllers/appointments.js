@@ -68,7 +68,7 @@
 								
 								viewRender: function(view, element) {
 									$scope.rebuildCalendarJsEvents();					
-								};							
+								},							
 
 							});
 						};	
@@ -108,7 +108,7 @@
 									var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
 									contador = contador + 1;
 									var event = {
-										title: 'Aniversário de ' + entity.name,
+										title: 'Aniversï¿½rio de ' + entity.name,
 										start: thisDate,
 										allDay: true,
 										color: $('.tag7').find('.tag-circle').css('background-color'),
@@ -177,7 +177,7 @@
 								$("#select-event-uuid").val(event.uuid);
 							}
 
-							if($('#calendar').fullCalendar('getView').name == 'month')) {
+							if($('#calendar').fullCalendar('getView').name == 'month') {
 								if (new Date().getHours() <= 22) {
 									startHours += 2;
 								}
@@ -281,11 +281,11 @@
 								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
 							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].trim()));
-								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].substr(0, 4) + headerTitle.split('—')[1].substr(1, 1)));
+								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].trim()));
+								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('ï¿½') + 2), 10))) {
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].substr(0, 4) + headerTitle.split('ï¿½')[1].substr(1, 1)));
 								} else {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))));
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[1].substr(1, headerTitle.lastIndexOf(' '))));
 								}
 							} else {
 								var headerTitle = $('.fc-header-title').text();
@@ -298,7 +298,7 @@
 						};						
 
 						$scope.remove = function() {
-							if( confirm("Deseja confirmar a exclusão do evento?") ){
+							if( confirm("Deseja confirmar a exclusï¿½o do evento?") ){
 							   AppointmentService.remove($("#select-event-uuid").val()).then(function() {
 								   alert('Evento Removido com sucesso!');
 								   $scope.closeEventDialog();								   
@@ -309,7 +309,7 @@
 						};
 						
 						$scope.done = function() {						
-							if( confirm("Deseja confirmar a conclusão do evento?") ){
+							if( confirm("Deseja confirmar a conclusï¿½o do evento?") ){
 							   AppointmentService.done($("#select-event-uuid").val()).then(function() {
 								   alert('Evento Finalizado com sucesso!');
 								   $scope.closeEventDialog();								   
