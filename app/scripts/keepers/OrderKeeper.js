@@ -19,7 +19,9 @@
                                 'canceled',
                                 'customerId',
                                 'updated',
-                                'items'
+                                'items',
+                                'itemDiscount',
+                                'orderDiscount'
                             ];
 
                         ObjectUtils.method(svc, 'isValid', function () {
