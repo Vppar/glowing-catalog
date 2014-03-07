@@ -9,10 +9,6 @@
         $scope.value = $parentScope.specificDiscount || 0;
 
         $scope.parent = $parentScope;
-        
-        $scope.$watch('value', function () {
-            $parentScope.setSpecificDiscount($scope.value);
-        });
 
         /**
          * Closes the dialog, rejecting the value

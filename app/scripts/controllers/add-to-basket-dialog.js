@@ -113,11 +113,6 @@
                 }
 
 
-                function clearOrderDiscountFromProduct() {
-                    product.orderDiscount = 0;
-                }
-
-
                 /**
                  * Closes the dialog telling the caller to add the product to
                  * the basket.
@@ -128,6 +123,10 @@
                     for ( var ix in $scope.grid) {
                         var orderProduct = ArrayUtils.find(orderItems, 'id', $scope.grid[ix].id);
                         if (orderProduct) {
+                          if ($scope.specificDiscount) {
+                            // clear order discount from this item
+                            orderProduct.orderDiscount = 0;
+                          }
                           innerGrid.push(orderProduct);
                         } else {
                           innerGrid.push($scope.grid[ix]);
@@ -153,11 +152,6 @@
                     }
 
 
-                    if ($scope.specificDiscount) {
-                        clearOrderDiscountFromProduct();
-                    }
-
-
                     dialog.close(true);
                 };
 
@@ -172,6 +166,8 @@
 
                 function openDialogNumpad() {
                     var numpadDialog = DialogService.openDialogNumpad(null, dialog).then(function (discount) {
+                      discount = discount > $scope.total ? $scope.total : discount;
+                      setSpecificDiscount(discount);
 
                       // TODO
                       // if product has a grid, set discount to all types
