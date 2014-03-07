@@ -40,12 +40,13 @@ describe('Service: AppointmentKeeper', function() {
                 uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '12/01/2014 12:00',
+                endDate: '12/01/2014 12:30',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
                 type : 'VISITA',
+                allDay: false,
+                color: 'red',
                 status: 'PENDENTE'
         };
         var appointment = new Appointment(validEntity);
@@ -78,16 +79,17 @@ describe('Service: AppointmentKeeper', function() {
         var uuid = 'cc02b600-5d0b-11e3-96c3-0100ee000001';
         var title = 'VISITA NO CLIENTE';
         var description = 'VISITA DIA 12/01/2014';
-        var date = '12/01/2014';
-        var startTime = '12:00';
-        var endTime = '12:30';
+        
+        var date = new Date();
+        var allDay = false;
+        var color = 'ref';
         var address = {street: 'rua', number: 555, cep: '12222-000'};
         var contacts = [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}];
         var type = 'VISITA';
         var status = 'STATUS';
         
         var stp = fakeNow;
-        var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type, status);
+        var ev = new Appointment(uuid, title, description, date , date , address, contacts, type, allDay, color, status);
         ev.created = stp;
         
         var entry = new JournalEntry(null, stp, 'appointmentCreate', 1, ev); 

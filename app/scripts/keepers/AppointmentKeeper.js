@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.appointments.entity', []).factory('Appointment', function Appointment() {
 
-        var service = function svc(uuid, title,description, startDate, endDate, address, contacts, type,status) {
+        var service = function svc(uuid, title,description, startDate, endDate, address, contacts,allDay,color, type,status) {
             var validProperties = [
                 'uuid', 'title', 'description', 'startDate', 'endDate', 'address', 'contacts', 'type','status','allDay','color','created'
             ];

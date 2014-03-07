@@ -137,6 +137,9 @@
         	if(birthDate && since && upon)
         	{
         		var birthday = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
+        		birthday.setHours(0);
+        		birthday.setMinutes(0);
+        		
         		if(birthday.getTime() >= since.getTime() && birthday.getTime() <= upon.getTime())
         		{
         			return true;

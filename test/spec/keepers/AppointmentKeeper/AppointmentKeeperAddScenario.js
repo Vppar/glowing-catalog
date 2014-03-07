@@ -56,15 +56,15 @@ describe('Service: AppointmentKeeperAddScenario', function() {
         var uuid = 'cc02b600-5d0b-11e3-96c3-010009000001';
         var title = 'VISITA NO CLIENTE';
         var description = 'VISITA DIA 12/01/2014';
-        var date = '12/01/2014';
-        var startTime = '12:00';
-        var endTime = '12:30';
+        var date = new Date();
         var address = {street: 'rua', number: 555, cep: '12222-000'};
         var contacts = [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}];
         var type = 'VISITA';
+        var allDay = false;
+        var color = 'red';
         var status = 'STATUS';
         
-        var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type,  status);
+        var ev = new Appointment(uuid, title, description, date, date, address, contacts,allDay,color, type,  status);
         //when
         runs(function(){
             AppointmentKeeper.create(ev).then(function () {
@@ -103,11 +103,12 @@ describe('Service: AppointmentKeeperAddScenario', function() {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: new Date(),
+                endDate: new Date(),
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay : false,
+                color : 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
         };

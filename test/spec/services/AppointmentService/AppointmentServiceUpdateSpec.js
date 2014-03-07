@@ -30,11 +30,12 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
         };
@@ -44,7 +45,7 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
 
         // then
         expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointment);
-        expect(result.length).toBe(0);
+        expect(result).toBe(undefined);
     });
   
     it('shouldn\'t update a appointment instance', function() {
@@ -54,14 +55,15 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
             throw 'my exception';
         });
         var appointment = {
-                uuid : 1,
+        		uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
         };
@@ -75,28 +77,30 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
     });
     
     it('should done an appointment', function() {
-    	var appointment = {
-                uuid : 1,
+    	var appointments = [{
+    			uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
-        };
+        }];
     	
     	var appointmentDone = {
-                uuid : 1,
+    			uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'DONE'
         };
@@ -104,39 +108,42 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
         // given
     	AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update');
         AppointmentService.isValid = jasmine.createSpy('AppointmentKeeper.isValid').andReturn([]);
-        AppointmentKeeper.read = jasmine.createSpy('AppointmentKeeper.read').andReturn(appointment);
+        AppointmentKeeper.list = jasmine.createSpy('AppointmentKeeper.list').andReturn(appointments);
         
         // when
-        var result = AppointmentService.done(appointment);
+        var result = AppointmentService.done(1);
 
         // then
         expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointmentDone);
-        expect(result.length).toBe(0);
+        expect(result).toBe(undefined);
     });
 
     it('should cancel an appointment', function() {
-    	var appointment = {
-                uuid : 1,
+
+    	var appointments = [{
+    			uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
-        };
+        }];
     	
     	var appointmentCancel = {
-                uuid : 1,
+    			uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'CANCELLED'
         };
@@ -144,14 +151,57 @@ describe('Service: AppointmentServiceUpdateSpec', function() {
         // given
     	AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update');
         AppointmentService.isValid = jasmine.createSpy('AppointmentKeeper.isValid').andReturn([]);
-        AppointmentKeeper.read = jasmine.createSpy('AppointmentKeeper.read').andReturn(appointment);
+        AppointmentKeeper.list = jasmine.createSpy('AppointmentKeeper.list').andReturn(appointments);
         
         // when
-        var result = AppointmentService.cancel(appointment);
+        var result = AppointmentService.cancel(1);
 
         // then
         expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointmentCancel);
-        expect(result.length).toBe(0);
+        expect(result).toBe(undefined);
+    });
+    
+    it('should remove an appointment', function() {
+
+    	var appointments = [{
+    			uuid : 1,
+                title : 'VISITA NO CLIENTE',
+                description : 'VISITA DIA 12/01/2014',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
+                address : {street: 'rua', number: 555, cep: '12222-000'},
+                contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
+                type : 'VISITA',
+                status: 'PENDENTE'
+        }];
+    	
+    	var appointmentRemoved = {
+    			uuid : 1,
+                title : 'VISITA NO CLIENTE',
+                description : 'VISITA DIA 12/01/2014',
+                startDate: '01/01/2000',
+                endDate: '01/01/2000',
+                address : {street: 'rua', number: 555, cep: '12222-000'},
+                contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
+                type : 'VISITA',
+                status: 'REMOVED'
+        };
+    	
+        // given
+    	AppointmentKeeper.update = jasmine.createSpy('AppointmentKeeper.update');
+        AppointmentService.isValid = jasmine.createSpy('AppointmentKeeper.isValid').andReturn([]);
+        AppointmentKeeper.list = jasmine.createSpy('AppointmentKeeper.list').andReturn(appointments);
+        
+        // when
+        var result = AppointmentService.remove(1);
+
+        // then
+        expect(AppointmentKeeper.update).toHaveBeenCalledWith(appointmentRemoved);
+        expect(result).toBe(undefined);
     });
     
 

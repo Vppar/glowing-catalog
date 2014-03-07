@@ -42,11 +42,12 @@ describe('Service: AppointmentKeeper', function() {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: '12/01/2014 12:00',
+                endDate: '12/01/2014 12:30',
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay: false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
         };
@@ -77,15 +78,16 @@ describe('Service: AppointmentKeeper', function() {
         var uuid = 1;
         var title = 'VISITA NO CLIENTE';
         var description = 'VISITA DIA 12/01/2014';
-        var date = '12/01/2014';
-        var startTime = '12:00';
-        var endTime = '12:30';
+        var startDate = '12/01/2014 12:00';
+        var endDate = '12/01/2014 12:30';
         var address = {street: 'rua', number: 555, cep: '12222-000'};
         var contacts = [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}];
         var type = 'VISITA';
+        var allDay = false;
+        var color = 'red';
         var status = 'STATUS';
         
-        var ev = new Appointment(uuid, title, description, date, startTime, endTime, address, contacts, type,status);
+        var ev = new Appointment(uuid, title, description, startDate, endDate, address, contacts,allDay,color, type,status);
         var stp = fakeNow / 1000;
         var entry = new JournalEntry(null, stp, 'appointmentUpdate', 1, ev); 
         

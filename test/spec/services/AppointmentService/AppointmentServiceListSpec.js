@@ -58,28 +58,35 @@ describe('Service: AppointmentServiceListSpec', function() {
         var dummyReceivables = [
             {
             	uuid:1,
-                date : '01/01/2000'
+                startDate : '01/01/2000'
             },
             {
             	uuid:2,
-            	date : '05/01/2000'
+            	startDate : '05/01/2000'
             },
             {
             	uuid:3,
-            	date : '03/01/2000'
+            	startDate : '03/01/2000'
             },
             {
             	uuid:4,
-            	date : '06/01/2000'
+            	startDate : '06/01/2000'
             },
             {
             	uuid:5,
-            	date : '04/01/1999'
+            	startDate : '04/01/1999'
             }
         ];
         AppointmentKeeper.list = jasmine.createSpy('AppointmentKeeper.list').andReturn(dummyReceivables);
+        var since = new Date('01/01/2000');
+        since.setHours(0);
+        since.setMinutes(0);
+        
+        var upon = new Date('05/01/2000');
+        upon.setHours(0);
+        upon.setMinutes(0);
     	// when
-        var appointments = AppointmentService.listByPeriod('01/01/2000','05/01/2000');
+        var appointments = AppointmentService.listAppointmentsByPeriod(since,upon);
 
         // then
     	expect(appointments.length).toEqual(3);
@@ -88,53 +95,5 @@ describe('Service: AppointmentServiceListSpec', function() {
     	expect(appointments[2].uuid).toEqual(3);
     });
     
-    it('should list since 01/01/2000 upon 03/01/2000 and especific entity',function()
-    	    {
-    	    	// given
-    	        var dummyReceivables = [
-    	            {
-    	            	uuid:1,
-    	                date : '01/01/2000',
-    	                contacts : [{
-    	                	uuid: 'not'
-    	                }]
-    	            },
-    	            {
-    	            	uuid:2,
-    	            	date : '05/01/2000',
-    	            	contacts : [{
-    	                	uuid: 'not'
-    	                }]
-    	            },
-    	            {
-    	            	uuid:3,
-    	            	date : '03/01/2000',
-    	            	contacts : [{
-    	                	uuid: 'entityuuid1'
-    	                }]
-    	            },
-    	            {
-    	            	uuid:4,
-    	            	date : '06/01/2000',
-    	            	contacts : [{
-    	                	uuid: 'not'
-    	                }]
-    	            },
-    	            {
-    	            	uuid:5,
-    	            	date : '04/01/1999',
-    	            	contacts : [{
-    	                	uuid: 'not'
-    	                }]
-    	            }
-    	        ];
-    	        AppointmentKeeper.list = jasmine.createSpy('AppointmentKeeper.list').andReturn(dummyReceivables);
-    	    	// when
-    	        var appointments = AppointmentService.listByPeriod('01/01/2000','03/01/2000','entityuuid1');
-
-    	        // then
-    	    	expect(appointments.length).toEqual(1);
-    	    	expect(appointments[0].uuid).toEqual(3);
-    	    });
     
 });

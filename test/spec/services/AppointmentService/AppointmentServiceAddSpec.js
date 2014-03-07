@@ -30,11 +30,12 @@ describe('Service: AppointmentServiceAddSpec', function() {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: new Date(),
+                endDate: new Date(),
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay : false,
+                color : 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
         };
@@ -58,11 +59,12 @@ describe('Service: AppointmentServiceAddSpec', function() {
                 uuid : 1,
                 title : 'VISITA NO CLIENTE',
                 description : 'VISITA DIA 12/01/2014',
-                date: '12/01/2014',
-                startTime: '12:00',
-                endTime: '12:30',
+                startDate: new Date(),
+                endDate: new Date(),
                 address : {street: 'rua', number: 555, cep: '12222-000'},
                 contacts : [{uuid: 'uidcontato1'},{uuid:'uidcontato2'}],
+                allDay : false,
+                color: 'red',
                 type : 'VISITA',
                 status: 'PENDENTE'
         };
