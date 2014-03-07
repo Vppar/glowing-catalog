@@ -267,7 +267,7 @@
 							$("#select-date").val(null);
 							$("#dialog").dialog( "close" );
 							$scope.appointment = undefined;
-							$scope.rebuildCalendarJsGrid();							
+							$scope.rebuildCalendarJsEvents();							
 						};				
 
 						$scope.updateCalendar = function ()	{
@@ -356,8 +356,13 @@
 								return;
 							}
 
-							var selectedStartDate = $("#select-date").val() + " " + $("#select-hour-initial").val() + ":" + $("#select-minute-initial").val();
-							var selectedEndDate = $("#select-date").val() + " " + $("#select-hour-end").val() + ":" + $("#select-minute-end").val();
+							var selectedStartDate = new Date($("#select-date").val());
+							selectedStartDate.setHours($("#select-hour-initial").val());
+							selectedStartDate.setMinutes($("#select-minute-initial").val());
+							
+							var selectedEndDate = new Date($("#select-date").val());
+							selectedEndDate.setHours($("#select-hour-end").val());
+							selectedEndDate.setMinutes($("#select-minute-end").val());
 							
 							$scope.appointment = {};
 							$scope.appointment.title = $("#txt-title").val();
