@@ -247,9 +247,9 @@
              * ClientFilter
              */
             $scope.filterByClient = function filterByClient (order) {
-                if ($scope.filter.customerId === '') {
+                if ($scope.customerId === '') {
                     return true;
-                } else if (order.customerId === $scope.filter.customerId) {
+                } else if (order.customerId === $scope.customerId) {
                     return true;
                 }
             };
@@ -307,7 +307,9 @@
                             uuid : ordersByCustomer[0].customerId
                         });
                     }
+                    
                 }
+                
                 return $scope.avaliableCustomers;
             };
 
@@ -328,9 +330,7 @@
             $scope.orders = OrderService.list();
             $scope.customers = EntityService.list();
             $scope.avaliableCustomers = [];
-            $scope.filter = {
-                customerId : ''
-            };
+            $scope.customerId = '';
 
             /**
              * whenever dtFilter changes filter list.
