@@ -124,7 +124,7 @@
             if (cash > 0) {
                 entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', cash));
             } else if (cash < 0) {
-                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento em dinheiro', -cash));
+                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Troco em dinheiro', -cash));
             }
             if (check) {
                 entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Recebimento em cheque', check));

@@ -424,7 +424,7 @@
                         // first result of q.all promise is the order uuid
                         var orderUUID = result[0];
                         var order = OrderService.read(orderUUID);
-                        insertBookEntries(order, payments, change);
+                        insertBookEntries(order, customer, payments, change);
                     });
 
                     function sendVoucherSMS(vouchers) {
@@ -493,15 +493,15 @@
                     }
                 }
 
-                function insertBookEntries(order, payments, change) {
-                    var orderUUID = order.uuid;
-                    var entityUUID = order.customerId;
+                function insertBookEntries(order, customer, payments, change) {
+                    var orderUUID = order ? order.uuid : null;
+                    var entityUUID = customer.uuid;
 
-                    var bookEntriesPromises = null;
-                    if (order.items.length > 0) {
+                    var bookEntriesPromises = [];
+                    if (order && order.items.length > 0) {
                         bookEntriesPromises = insertOrderBookEntries(orderUUID, entityUUID, order.items);
                     }
-
+                    
                     bookEntriesPromises = bookEntriesPromises.concat(insertPaymentBookEntries(orderUUID, entityUUID, payments, change));
 
                     var exchanges = list('exchange');
