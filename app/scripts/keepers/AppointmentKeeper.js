@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.appointments.entity', []).factory('Appointment', function Appointment() {
 
-        var service = function svc(uuid, title,description, date, startTime, endTime, address, contacts, type,status) {
+        var service = function svc(uuid, title,description, startDate, endDate, address, contacts, type,status) {
             var validProperties = [
                 'uuid', 'title', 'description', 'startDate', 'endDate', 'address', 'contacts', 'type','status','allDay','color','created'
             ];
@@ -25,15 +25,14 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Entity must be initialized with id, title, description, date, starTime, endTime, address, contacts,  type, status';
+                    throw 'Entity must be initialized with id, title, description, startDate, endDate, address, contacts,  type, status';
                 }
             } else {
                 this.uuid = uuid;
                 this.title = title;
                 this.description = description;
-                this.date = date;
-                this.startTime = startTime;
-                this.endTime = endTime;
+                this.startDate = startDate;
+                this.endDate = endDate;
                 this.address = address;
                 this.contacts = contacts;
                 this.type = type;
