@@ -61,27 +61,27 @@
 	        <!-- ROW 1 Example -->
 			<div class="scroll-payment-grid">
 				<div class="row-payment-check-grid" ng-repeat="payment in payments | orderBy: -'duedate'" >
-					<span ng-click="edit(payment)">
+					<span>
 						<span class="col-check-s1">
 							<div>{{($index + 1)}}</div>
 						</span>
 		               	<span class="col-check-s2">
-		               		<div>{{payment.bank}}</div>
+		               		<input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input focus maxlength="3" type="text">
 		               	</span>
 		             	<span class="col-check-s3">
-		             		<div>{{payment.agency}}</div>
+		             		<input name="" class="agencia payment-input-large" id="ag+{{$index}}" ng-model= "payment.agency" required tnt-input focus maxlength="4" type="text">
 		             	</span>
 		                <span class="col-check-s4">
-		                	<div>{{payment.account}}</div>
+		                	<input name="" class="conta payment-input-large" id="account+{{$index}}" ng-model= "payment.account" required tnt-input focus maxlength="13" type="text">
 		                </span>
 		                <span class="col-check-s5">
-		                	<div>{{payment.number}}</div>
+		                	<input name="" class="cheque payment-input-large" id="check+{{$index}}" ng-model= "payment.number" required tnt-input focus maxlength="6" type="text">
 		                </span>
 						<span class="col-check-s6">
-							<div>{{payment.duedate | date:'dd/MM/yyyy'}}</div>
+							<input type="text" id="" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="payment.duedate" required tnt-input>
 						</span>
 		                <span class="col-check-s7 t-right">
-		                	<div>{{payment.amount | currency:''}}</div>
+		                	<input name="" class="check-value payment-input-large" id="value+{{$index}}" ng-model= "payment.amount" required currency tnt-input focus maxlength="11" type="text">
 		                </span>
                		</span>
 	                <span class="col-check-s8">
