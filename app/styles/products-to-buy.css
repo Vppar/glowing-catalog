@@ -160,7 +160,7 @@
 }
 .details-products-to-buy-item .section, .grid-payment-products-to-buy-edit .section{
 	display: block;			
-	/* margin: 5px 0 5px 4px; */
+	margin: 5px 0 0 4px;
 	font-weight:bold;
 	height:22px;
 	line-height:22px
@@ -179,6 +179,7 @@
 	margin: 8px;
 	color:#FF9D00;
 	letter-spacing: -0.5px;
+	text-align:center;
 }
 
 .w595{
@@ -1220,3 +1221,57 @@ vertical-align: middle;
 
 }
 
+
+/* -- NEW CSS -- */
+
+.details-item{
+	display: block;
+	font-weight:normal;
+	float:left;
+}
+.details-title{
+	background: #333;
+	color: #fff;`
+}
+.details-total{
+	background: #ccc;
+	color: #222;
+}
+.details-subtitle{
+	background: #e3e3e3; /*#F2F2F2*/
+	color: #444;
+	border-bottom: 2px solid #fff;
+}
+.details-category{
+	background: #f4f4f4;
+	color: #777;
+	border-bottom: 2px solid #fff;
+}
+
+.details-category, .details-subtitle, .details-total {
+	font-weight:bold;
+	margin-bottom:2px;
+}
+.details-category, .details-subtitle, .details-total, .details-category-title, .details-item {
+	border-radius:4px;
+	padding: 8px 5px 8px 0!important;
+	min-height: 20px;
+}
+
+.fixed-line .currency {
+	padding-right:14px;
+}
+.fixed-line .currency:last-child {
+	padding-right:6px;
+}
+.new-scrollpanel .details-category .currency:last-child, .new-scroll-panel .details-subtitle .currency:last-child,
+.new-scrollpanel .details-total .currency:last-child, .new-scroll-panel .details-item .currency:last-child {
+	padding-right:4px;
+}
+
+.step1 .new-scrollpanel{
+	height:calc(100% - 175px);
+}
+.new-scrollpanel .new-body-row span {
+	min-height:1px;
+}
