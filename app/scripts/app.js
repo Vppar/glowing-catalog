@@ -104,7 +104,8 @@
             'tnt.catalog.bookkeeping.keeper',
             'tnt.catalog.bookkeeping.entry',
             'tnt.catalog.bookkeeping.report.ctrl',
-            'tnt.catalog.service.book'
+            'tnt.catalog.service.book',
+            'tnt.utils.cpf'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
