@@ -16,7 +16,8 @@
 
             //just title and description are mandatory
             invalidProperty.titulo = angular.isDefined(entity.title);
-            invalidProperty.data = angular.isDefined(entity.date);
+            invalidProperty.data_inicial = angular.isDefined(entity.starDate);
+            invalidProperty.data_final = angular.isDefined(entity.endDate);
             invalidProperty.descricao = angular.isDefined(entity.description);
             invalidProperty.status = angular.isDefined(entity.status);
             invalidProperty.tipo = angular.isDefined(entity.type);
@@ -61,7 +62,7 @@
 	        	for(var idx in appointmentList)
 	        	{
 	        		var appointment = appointmentList[idx];
-	        		var dateAppointment = new Date(appointment.date);
+	        		var dateAppointment = new Date(appointment.startDate);
 	        		dateAppointment.setHours(0);
 	        		dateAppointment.setMinutes(0);
 	        		if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime())
@@ -73,6 +74,27 @@
         	return appointmentReturn;
         };
 
+        this.loadByUUID = function (uuid)
+        {
+        	if(uuid)
+			{
+				var appointmentList = this.list();
+				if(appointmentList)
+				{
+					for(var idx in appointmentList)
+					{
+						var app = appointmentList[idx];
+						if(app.uuid == uuid)
+						{
+							return app;
+						}
+					}	
+				}
+			}
+			return {};
+        };
+        
+        
         /**
          * Returns a single appointment by its id.
          * 
@@ -136,9 +158,10 @@
          * @param id - id of Appointment to be update.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
-        this.done = function(appointment) {
+        this.done = function(uuid) {
         	var result = "";
         	try {
+        		var appointment = this.loadByUUID(uuid);
         		appointment.status = "DONE";
         		result = this.update(appointment);
             } catch (err) {
@@ -154,9 +177,10 @@
          * @param id - id of Appointment to be update.
          * @throws Exception in case of a fatal error comming from the keeper.
          */
-        this.cancel = function(appointment) {
+        this.cancel = function(uuid) {
         	var result = "";
         	try {
+        		var appointment = this.loadByUUID(uuid);
         		appointment.status = "CANCELLED";
             	result = this.update(appointment);	
             } catch (err) {
