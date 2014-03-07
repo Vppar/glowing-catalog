@@ -23,8 +23,8 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
         module('tnt.catalog.filter.sum');
         module('tnt.catalog.filter.paymentType');
         module('tnt.catalog.misplaced.service');
-        
-        module(function($provide){
+
+        module(function($provide) {
             $provide.value('OrderService', os);
             $provide.value('EntityService', es);
             $provide.value('ReceivableService', rs);
@@ -38,6 +38,8 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
     beforeEach(inject(function($controller, $rootScope, _$filter_, $q, Misplacedservice) {
         // scope mock
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+
+        PromiseHelper.config($q, angular.noop);
 
         scope = $rootScope.$new();
         scope.checkForm = {
@@ -60,9 +62,7 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
         };
 
         // dialog service mock
-        var defered = $q.defer();
-        defered.resolve();
-        dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andReturn(defered.promise);
+        dialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(PromiseHelper.resolved(true));
         scope.dialogService = dialogService;
 
         $controller('PaymentCheckCtrl', {
@@ -75,23 +75,32 @@ describe('Controller: PaymentCheckCtrlRemove', function() {
     it('should remove a check payment', function() {
         // given
         // list of payment in the before each
+
         angular.extend(scope.check, sampleData.payment.check);
         scope.payments.push(sampleData.payment.check);
 
-        var check = angular.copy(scope.check);
-        var paymentsSize = scope.payments.length;
-
+        var result = false;
         // when
-        scope.removeCheck(scope.check);
+        runs(function() {
+            scope.removeCheck(scope.check).then(function() {
+                result = true;
+            });
+        });
+
+        waitsFor(function() {
+            scope.$apply();
+            return result;
+        });
 
         // then
-        expect(scope.payments.length).toBe(paymentsSize);
-        expect(scope.check).toEqual(check);
-        expect(dialogService.messageDialog).toHaveBeenCalledWith({
-            title : 'Pagamento Com Cheque',
-            message : 'Confirmar exclusão da parcela?',
-            btnYes : 'Sim',
-            btnNo : 'Não'
+        runs(function() {
+            expect(scope.payments.length).toBe(0);
+            expect(dialogService.messageDialog).toHaveBeenCalledWith({
+                title : 'Pagamento Com Cheque',
+                message : 'Confirmar exclusão da parcela?',
+                btnYes : 'Sim',
+                btnNo : 'Não'
+            });
         });
     });
 });
