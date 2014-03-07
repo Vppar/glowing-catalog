@@ -53,7 +53,7 @@
 								editable: true,
 								
 								drop: function(date, allDay) { // funcao quando solta tag sobre calendario
-									openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
+									openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);									
 								},
 								select: function(start, end, allDay) { // quando clica em uma data/hora
 									//Se não tem evento permite criacao do evento.
@@ -61,8 +61,14 @@
 									if(eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name == 'month')) {
 										$('#calendar').fullCalendar('changeView', 'agendaDay');
 										$('#calendar').fullCalendar('gotoDate', start);
-									} else {
-										openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);
+									} else {										
+										var initialHours = new Date().getHours();
+										var endHours = initialHours;
+										if(initialHours < 21) {
+											initialHours = initialHours+2;
+											endHours = endHours + 3;
+										}
+										openEventDialog(null, start, initialHours, start.getMinutes(), endHours, end.getMinutes(), null);
 									}
 								},
 								
@@ -107,11 +113,11 @@
 								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
 							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].trim()));
-								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('ï¿½') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].substr(0, 4) + headerTitle.split('ï¿½')[1].substr(1, 1)));
+								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].trim()));
+								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].substr(0, 4) + headerTitle.split('—')[1].substr(1, 1)));
 								} else {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[1].substr(1, headerTitle.lastIndexOf(' '))));
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))));
 								}
 							} else {
 								var headerTitle = $('.fc-header-title').text();
@@ -163,6 +169,7 @@
 												color: $('.tag'+app.type).find('.tag-circle').css('background-color'),
 												description: app.description,
 												client: nameEntity,
+												clientUUID: app.contacts,
 												type: app.type,
 												id: contador,
 												uuid: app.uuid
@@ -195,58 +202,62 @@
 						// #############################################################################################################
 						// Methods of controller (appointments.html)
 						// #############################################################################################################												
-						function openEventDialog(eventType, date, startHours, startMinutes, endHours, endMinutes, client, title, desc, event) { 
+						function openEventDialog(eventType, date, startHours, startMinutes, endHours, endMinutes, event) { 
 							
-							if($('#calendar').fullCalendar('getView').name == 'month') {
-								if (new Date().getHours() < 21) {
-									startHours += 2;
-									endHours += 3;
-								}
-							}
+							$("#select-hour-end").val(0);
+							$("#select-minute-end").val(0);							
 
 							if(date) {
 								$("#select-date").val(date);
 							}
 
 							if(eventType) {
-								$("#select-event-u").val(eventType);
 								$("#select-event").val(eventType);
 							} else {
 								$("#select-event").val(0);
 							}
+							
 							if(startHours) {
 								$("#select-hour-initial").val(startHours);
-								$("#select-hour-u-initial").val(startHours);
 							} else {
 								$("#select-hour-initial").val(8);
 							}
+							
 							if(startMinutes) {
 								$("#select-minute-initial").val(startMinutes);
-								$("#select-minute-u-initial").val(startMinutes);
 							} else {
 								$("#select-minute-initial").val(0);
 							}
-							if(endHours) {
-								$("#select-hour-end").val(endHours);
-								$("#select-hour-u-end").val(endHours);
+							if(!endHours) {
+								if( !endMinutes && startMinutes == 30 )	{
+									$("#select-hour-end").val(startHours+1);
+									$("#select-minute-end").val(0);
+								}
+								else if( !endMinutes )
+								{
+									$("#select-hour-end").val(startHours);
+									$("#select-minute-end").val(startMinutes+30);
+								}									
+							}
+							else if(endHours) {
+								$("#select-hour-end").val(endHours);							
 							} else {
 								$("#select-hour-end").val(8);
 							}
+
 							if(endMinutes) {
 								$("#select-minute-end").val(endMinutes);
-								$("#select-minute-u-end").val(endMinutes);
-							} else {
-								$("#select-minute-end").val(0);
-							}
+							} 
 
 							$("#select-client").val("");
 							$("#txt-description").val("");
 							$("#txt-title").val("");
 
+							$("#btn-salvar").removeClass('hide');
+							$("#event-status").val("");
 							$("#btn-alterar").addClass('hide');
 							$("#btn-concluir").addClass('hide');
-							$("#btn-cancelar").addClass('hide');
-							
+							$("#btn-cancelar").addClass('hide');							
 							
 							if(event) {
 
@@ -257,16 +268,13 @@
 								if(event.title) {
 									$("#txt-title").val(event.title);
 								}
-								if(event.desc) {
-									$("#txt-description").val(event.desc);
+								if(event.description) {
+									$("#txt-description").val(event.description);
 								}
 								if(event.client) {								
-									$("#select-client").val(event.client);
-								}
-								
-								$("#event-status-u").val(eventEdit.status);
-								$("#event-id-u").val(eventEdit.uuid);
-								$("#calendar-id-u").val(eventEdit.id);
+									$("#select-client").val(event.clientUUID);
+								}	
+
 								if(event.status=='CANCELLED' || event.status=='DONE')
 								{								
 									$("#btn-salvar").addClass('hide');
@@ -275,16 +283,14 @@
 									$("#btn-concluir").removeClass('hide');
 									$("#btn-cancelar").removeClass('hide');
 									$("#btn-salvar").addClass('hide');
-								}
+								}								
 								
-								$("#btn-concluir").val(eventEdit.id);
-								$("#btn-cancelar").val(eventEdit.id);
-								$("#dialog-update").dialog({
+								$("#event-dialog").dialog({
 									modal: true,
 									title: "Alterar evento"
 								});
 							} else {
-								$( "#dialog" ).dialog({
+								$( "#event-dialog" ).dialog({
 									modal: true,
 									title: "Novo evento"
 								});
@@ -292,9 +298,15 @@
 						}
 
 						$scope.closeEventDialog = function() {
+							$("#select-hour-end").val(0);
+							$("#select-minute-end").val(0);
+							$("#event-status").val("");
+							$("#select-client").val("");
+							$("#txt-description").val("");
+							$("#txt-title").val("");
 							$("#select-event-uuid").val(null);
 							$("#select-date").val(null);
-							$("#dialog").dialog( "close" );
+							$("#event-dialog").dialog( "close" );
 							$scope.appointment = undefined;
 							$scope.rebuildCalendarJsEvents();							
 						};				
@@ -369,16 +381,16 @@
 								
 								var selectedEndDate = new Date($("#select-date").val());
 								selectedEndDate.setHours($("#select-hour-end").val());
-								selectedEndDate.setMinutes($("#select-minute-end").val());
-								
-								$scope.appointment.uuid = $("#select-event-uuid").val();
+								selectedEndDate.setMinutes($("#select-minute-end").val());		
+
+								$scope.appointment = AppointmentService.loadByUUID( $("#select-event-uuid").val());
 								$scope.appointment.contacts = $("#select-client").val();
 								$scope.appointment.title = $("#txt-title").val();
 								$scope.appointment.description = $("#txt-description").val();
 								$scope.appointment.startDate = selectedStartDate;
 								$scope.appointment.endDate = selectedEndDate;
 								$scope.appointment.allDay =  false;
-								$scope.appointment.status = $("#status").val();
+								$scope.appointment.status = $("#event-status").val();
 								$scope.appointment.type = $("#select-event").val();
 								$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
 																

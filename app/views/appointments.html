@@ -8,11 +8,7 @@
 
 	<div class="form-container">		
 
-		<input type="hidden" id="select-date" value="">
-
 		<input type="hidden" id="select-event-uuid" value="">
-
-		<input type="text" disabled="disabled" id="event-status" value="">
     
             <!-- BREAD CRUMBS -->
 	    <div class="row-fluid bread-crumbs">
@@ -41,104 +37,106 @@
 				
 			</div>
 		</div>
-		  <div id="dialog" style="display: none;">
-		  <select id="select-event" class="field-big">
-			<option value="">Selecione o evento</option>
-			<option value="1">Ligar</option>
-			<option value="2">Visitar</option>
-			<option value="3">Agendar visita</option>
-			<option value="4">Visitar clientes</option>
-			<option value="5">Entregar produto</option>
-			<option value="6">Acompanhar</option>
-			<option value="8">Eventos</option>
-			<option value="9">Outros</option>
-		  </select>
-		  <br/>
-		  <select id="select-client" class="field-big">
-		  	<option value="">Selecione Cliente</option>
-		  	<option value="{{customer.uuid}}" ng-repeat="customer in contacts | orderBy:'name'">{{customer.name}}</option>
-		  </select>
-		  <br/>
-		  De 		  
-		  <select id="select-hour-initial" style="width:55px">
-			<option value="0">00</option>
-			<option value="1">01</option>
-			<option value="2">02</option>
-			<option value="3">03</option>
-			<option value="4">04</option>
-			<option value="5">05</option>
-			<option value="6">06</option>
-			<option value="7">07</option>
-			<option value="8">08</option>
-			<option value="9">09</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-			<option value="13">13</option>
-			<option value="14">14</option>
-			<option value="15">15</option>
-			<option value="16">16</option>
-			<option value="17">17</option>
-			<option value="18">18</option>
-			<option value="19">19</option>
-			<option value="20">20</option>
-			<option value="21">21</option>
-			<option value="22">22</option>
-			<option value="23">23</option>
-		  </select>
-		  :
-		  <select id="select-minute-initial" style="width:55px">
-			<option value="00">00</option>
-			<option value="15">15</option>
-			<option value="30">30</option>
-			<option value="45">45</option>
-		  </select>
-		  At&eacute;
-		  <select id="select-hour-end" style="width:55px">
-			<option value="0">00</option>
-			<option value="1">01</option>
-			<option value="2">02</option>
-			<option value="3">03</option>
-			<option value="4">04</option>
-			<option value="5">05</option>
-			<option value="6">06</option>
-			<option value="7">07</option>
-			<option value="8">08</option>
-			<option value="9">09</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-			<option value="13">13</option>
-			<option value="14">14</option>
-			<option value="15">15</option>
-			<option value="16">16</option>
-			<option value="17">17</option>
-			<option value="18">18</option>
-			<option value="19">19</option>
-			<option value="20">20</option>
-			<option value="21">21</option>
-			<option value="22">22</option>
-			<option value="23">23</option>
-		  </select>
-		  :
-		  <select id="select-minute-end" style="width:55px">
-			<option value="00">00</option>
-			<option value="15">15</option>
-			<option value="30">30</option>
-			<option value="45">45</option>
-		  </select>
-		  m
-		  <br/>
-		  <input type="text" placeholder="T&iacute;tulo" id="txt-title" class="field-big" />
-		  <br/>
-		  <textarea placeholder="Descri&ccedil;&atilde;o" id="txt-description" class="field-big"></textarea>
-		  <br/><br/>
-		  <div class="dialog-buttons field-big">
-		  	<button id="btn-salvar" class="btn btn-ok" ng-click="create()" type="button">Salvar</button>
-		  	<button id="btn-alterar" class="btn btn-ok" ng-click="update()" type="button">Alterar</button>
-		  	<button id="btn-concluir" class="btn btn-ok" ng-click="done()" type="button">Concluir</button>
-		  	<button id="btn-cancelar" class="btn btn-ok" ng-click="cancel()" type="button">Cancelar Evento</button>
-		  	<!--<button class="btn-excluir" ng-click="remove()" type="button">Excluir Evento</button>-->
+		  <div id="event-dialog" style="display: none;">
+		  	<input type="hidden" id="select-date" value="">
+			<input type="hidden" id="event-status" value="">
+			  <select id="select-event" class="field-big">
+				<option value="">Selecione o evento</option>
+				<option value="1">Ligar</option>
+				<option value="2">Visitar</option>
+				<option value="3">Agendar visita</option>
+				<option value="4">Visitar clientes</option>
+				<option value="5">Entregar produto</option>
+				<option value="6">Acompanhar</option>
+				<option value="8">Eventos</option>
+				<option value="9">Outros</option>
+			  </select>
+			  <br/>
+			  <select id="select-client" class="field-big">
+			  	<option value="">Selecione Cliente</option>
+			  	<option value="{{customer.uuid}}" ng-repeat="customer in contacts | orderBy:'name'">{{customer.name}}</option>
+			  </select>
+			  <br/>
+			  De 		  
+			  <select id="select-hour-initial" style="width:55px">
+				<option value="0">00</option>
+				<option value="1">01</option>
+				<option value="2">02</option>
+				<option value="3">03</option>
+				<option value="4">04</option>
+				<option value="5">05</option>
+				<option value="6">06</option>
+				<option value="7">07</option>
+				<option value="8">08</option>
+				<option value="9">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">17</option>
+				<option value="18">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+				<option value="21">21</option>
+				<option value="22">22</option>
+				<option value="23">23</option>
+			  </select>
+			  :
+			  <select id="select-minute-initial" style="width:55px">
+				<option value="00">00</option>
+				<option value="15">15</option>
+				<option value="30">30</option>
+				<option value="45">45</option>
+			  </select>
+			  At&eacute;
+			  <select id="select-hour-end" style="width:55px">
+				<option value="0">00</option>
+				<option value="1">01</option>
+				<option value="2">02</option>
+				<option value="3">03</option>
+				<option value="4">04</option>
+				<option value="5">05</option>
+				<option value="6">06</option>
+				<option value="7">07</option>
+				<option value="8">08</option>
+				<option value="9">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+				<option value="13">13</option>
+				<option value="14">14</option>
+				<option value="15">15</option>
+				<option value="16">16</option>
+				<option value="17">17</option>
+				<option value="18">18</option>
+				<option value="19">19</option>
+				<option value="20">20</option>
+				<option value="21">21</option>
+				<option value="22">22</option>
+				<option value="23">23</option>
+			  </select>
+			  :
+			  <select id="select-minute-end" style="width:55px">
+				<option value="00">00</option>
+				<option value="15">15</option>
+				<option value="30">30</option>
+				<option value="45">45</option>
+			  </select>
+			  m
+			  <br/>
+			  <input type="text" placeholder="T&iacute;tulo" id="txt-title" class="field-big" />
+			  <br/>
+			  <textarea placeholder="Descri&ccedil;&atilde;o" id="txt-description" class="field-big"></textarea>
+			  <br/><br/>
+			  <div class="dialog-buttons field-big">
+			  	<button id="btn-salvar" class="btn btn-ok" ng-click="create()" type="button">Salvar</button>
+			  	<button id="btn-alterar" class="btn btn-ok" ng-click="update()" type="button">Alterar</button>
+			  	<button id="btn-concluir" class="btn btn-ok" ng-click="done()" type="button">Concluir</button>
+			  	<button id="btn-cancelar" class="btn btn-ok" ng-click="cancel()" type="button">Cancelar Evento</button>
+			  	<!--<button class="btn-excluir" ng-click="remove()" type="button">Excluir Evento</button>-->
 		  </div>
 		</div>
 				
