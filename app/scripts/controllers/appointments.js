@@ -56,19 +56,19 @@
 									openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
 								},
 								
-								select: function(start, end, allDay) { // quando clica em uma data/hora 
-									openEventDialog(null, date.getDate(), start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);									
+								select: function(start, end, allDay) { // quando clica em uma data/hora
+									openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);									
 								},
 								
 								eventClick: function(event, jsEvent, view) {
 									if(!event.allDay) {										
-										openEventDialog(event.type, calEvent.getDate(), calEvent.start.getHours(), calEvent.start.getMinutes(), calEvent.end.getHours(), calEvent.end.getMinutes(), event);
+										openEventDialog(event.type, event.getDate(), event.start.getHours(), event.start.getMinutes(), event.end.getHours(), event.end.getMinutes(), event);
 									}
 								},
 								
 								viewRender: function(view, element) {
 									$scope.rebuildCalendarJsEvents();					
-								};							
+								},							
 
 							});
 						};	
@@ -108,7 +108,7 @@
 									var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
 									contador = contador + 1;
 									var event = {
-										title: 'Aniversário de ' + entity.name,
+										title: 'Aniversï¿½rio de ' + entity.name,
 										start: thisDate,
 										allDay: true,
 										color: $('.tag7').find('.tag-circle').css('background-color'),
@@ -177,7 +177,7 @@
 								$("#select-event-uuid").val(event.uuid);
 							}
 
-							if($('#calendar').fullCalendar('getView').name == 'month')) {
+							if($('#calendar').fullCalendar('getView').name == 'month') {
 								if (new Date().getHours() <= 22) {
 									startHours += 2;
 								}
@@ -217,25 +217,22 @@
 							} else {
 								$("#select-minute-end").val(0);
 							}
-							if(event.title) {
-								$("#txt-title-u").val(event.title);
-							} else {
-								$("#txt-title").val("");
-							}
-							if(event.desc) {
-								$("#txt-description-u").val(event.desc);
-							} else {
-								$("#txt-description").val("");
-							}
 
-							if(event.client) {								
-								$("#select-client-u").val(event.client);
-							} else {
-								$("#select-client").val("");
-								$("#select-client-u").val("");
-							}				
-
+							$("#select-client").val("");
+							$("#txt-description").val("");
+							$("#txt-title").val("");
+							
 							if(event) {
+								if(event.title) {
+									$("#txt-title").val(event.title);
+								}
+								if(event.desc) {
+									$("#txt-description").val(event.desc);
+								}
+								if(event.client) {								
+									$("#select-client").val(event.client);
+								}
+								
 								$("#event-status-u").val(eventEdit.status);
 								$("#event-id-u").val(eventEdit.uuid);
 								$("#calendar-id-u").val(eventEdit.id);
@@ -265,7 +262,7 @@
 							}							
 						}
 
-						$scope.closeEventDialog = function() { // fecha dialogo
+						$scope.closeEventDialog = function() {
 							$("#select-event-uuid").val(null);
 							$("#select-date").val(null);
 							$("#dialog").dialog( "close" );
@@ -281,11 +278,11 @@
 								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
 							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
 								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].trim()));
-								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[0].substr(0, 4) + headerTitle.split('—')[1].substr(1, 1)));
+								actualSince = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].trim()));
+								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('ï¿½') + 2), 10))) {
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[0].substr(0, 4) + headerTitle.split('ï¿½')[1].substr(1, 1)));
 								} else {
-									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))));
+									actualUpon = ($.datepicker.parseDate('M d', headerTitle.split('ï¿½')[1].substr(1, headerTitle.lastIndexOf(' '))));
 								}
 							} else {
 								var headerTitle = $('.fc-header-title').text();
