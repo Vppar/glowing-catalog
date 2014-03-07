@@ -131,6 +131,7 @@ scripts/directives/cep.js
 scripts/directives/cpf.js
 scripts/directives/creditCard.js
 scripts/directives/currency.js
+scripts/directives/customerName.js
 scripts/directives/hour.js
 scripts/directives/minlength.js
 scripts/directives/inputQty.js
