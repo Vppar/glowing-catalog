@@ -242,7 +242,11 @@
 							$("#select-client").val("");
 							$("#txt-description").val("");
 							$("#txt-title").val("");
-							$("#event-status").addClass('hide');
+
+							$("#btn-alterar").addClass('hide');
+							$("#btn-concluir").addClass('hide');
+							$("#btn-cancelar").addClass('hide');
+							
 							
 							if(event) {
 
@@ -263,20 +267,16 @@
 								$("#event-status-u").val(eventEdit.status);
 								$("#event-id-u").val(eventEdit.uuid);
 								$("#calendar-id-u").val(eventEdit.id);
-								if(eventEdit.status=='CANCELLED' || eventEdit.status=='DONE')
-								{
-									$("#btn-alterar").addClass('hide');
-									$("#btn-concluir").addClass('hide');
-									$("#btn-cancelar").addClass('hide');
+								if(event.status=='CANCELLED' || event.status=='DONE')
+								{								
 									$("#btn-salvar").addClass('hide');
-								}
-								else
-								{
+								} else {
 									$("#btn-alterar").removeClass('hide');
 									$("#btn-concluir").removeClass('hide');
 									$("#btn-cancelar").removeClass('hide');
-									$("#btn-salvar").removeClass('hide');
+									$("#btn-salvar").addClass('hide');
 								}
+								
 								$("#btn-concluir").val(eventEdit.id);
 								$("#btn-cancelar").val(eventEdit.id);
 								$("#dialog-update").dialog({
@@ -296,7 +296,7 @@
 							$("#select-date").val(null);
 							$("#dialog").dialog( "close" );
 							$scope.appointment = undefined;
-							$scope.rebuildCalendarJsGrid();							
+							$scope.rebuildCalendarJsEvents();							
 						};				
 
 						$scope.updateCalendar = function ()	{
@@ -360,78 +360,98 @@
 						};						
 						
 						$scope.update = function() {							
-							$scope.validateUUID();
-							$scope.validateEventDialogFields();
 							
-							$scope.appointment.uuid = $("#select-event-uuid").val();
-							$scope.appointment.startDate = new Date($("#select-date").val() + " " + $("#select-hour-initial").val() + ":" + $("#select-minute-initial").val());
-							$scope.appointment.endDate = new Date($("#select-date").val() + " " + $("#select-hour-end").val() + ":" + $("#select-minute-end").val());
-							$scope.appointment.allDay =  false;
-							$scope.appointment.status = $("#status").val();
-							$scope.appointment.type = $("#select-event").val();
-							$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
-														
-							AppointmentService.update($scope.appointment).then(function(uuid) {
-								   $scope.closeEventDialog();								   								
-					               alert('Atualizacao efetuada com sucesso.');					              
-					            }, function(err) {
-					            	alert('Erro:' + err);
-					            });
+							if($scope.validateUUID() && $scope.validateEventDialogFields()) {
+
+								var selectedStartDate = new Date($("#select-date").val());
+								selectedStartDate.setHours($("#select-hour-initial").val());
+								selectedStartDate.setMinutes($("#select-minute-initial").val());
+								
+								var selectedEndDate = new Date($("#select-date").val());
+								selectedEndDate.setHours($("#select-hour-end").val());
+								selectedEndDate.setMinutes($("#select-minute-end").val());
+								
+								$scope.appointment.uuid = $("#select-event-uuid").val();
+								$scope.appointment.contacts = $("#select-client").val();
+								$scope.appointment.title = $("#txt-title").val();
+								$scope.appointment.description = $("#txt-description").val();
+								$scope.appointment.startDate = selectedStartDate;
+								$scope.appointment.endDate = selectedEndDate;
+								$scope.appointment.allDay =  false;
+								$scope.appointment.status = $("#status").val();
+								$scope.appointment.type = $("#select-event").val();
+								$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
+																
+								AppointmentService.update($scope.appointment).then(function(uuid) {
+									   $scope.closeEventDialog();								   								
+						               alert('Atualizacao efetuada com sucesso.');					              
+						            }, function(err) {
+						            	alert('Erro:' + err);
+						        });
+							}
 						};		
 		
 						$scope.create = function ()	{
-							$scope.validateUUID();
-							$scope.validateEventDialogFields();
-														
-							$scope.appointment.startDate = new Date($("#select-date").val() + " " + $("#select-hour-initial").val() + ":" + $("#select-minute-initial").val());
-							$scope.appointment.endDate = new Date($("#select-date").val() + " " + $("#select-hour-end").val() + ":" + $("#select-minute-end").val());
-							$scope.appointment.status = 'PENDANT';
-							$scope.appointment.allDay =  false;
-							$scope.appointment.type = $("#select-event").val();
-							$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
-							
-							AppointmentService.create($scope.appointment).then(function(uuid) {
-								alert('Evento cadastrado com sucesso.');
-							    $scope.closeEventDialog();	
-				            }, function(err) {
-				            	alert('Erro. Verifique os seguintes campos: ' + err);
-				            });
-						};
+							if($scope.validateEventDialogFields()) {
+
+								var selectedStartDate = new Date($("#select-date").val());
+								selectedStartDate.setHours($("#select-hour-initial").val());
+								selectedStartDate.setMinutes($("#select-minute-initial").val());
+								
+								var selectedEndDate = new Date($("#select-date").val());
+								selectedEndDate.setHours($("#select-hour-end").val());
+								selectedEndDate.setMinutes($("#select-minute-end").val());
+								
+								$scope.appointment = {};
+								$scope.appointment.title = $("#txt-title").val();
+								$scope.appointment.description = $("#txt-description").val();
+								$scope.appointment.contacts = $("#select-client").val();
+								$scope.appointment.startDate = selectedStartDate;
+								$scope.appointment.endDate = selectedEndDate;
+								$scope.appointment.status = 'PENDANT';
+								$scope.appointment.allDay =  false;
+								$scope.appointment.type = $("#select-event").val();
+								$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
+								
+								AppointmentService.create($scope.appointment).then(function(uuid) {
+									alert('Evento cadastrado com sucesso.');
+								    $scope.closeEventDialog();	
+					            }, function(err) {
+					            	alert('Erro. Verifique os seguintes campos: ' + err);
+					            });
+							}
+						};						
 
 						$scope.validateUUID = function ()	{
-							if( $("#select-event-uuid").val() ) {
+							if( !$("#select-event-uuid").val() ) {
 								alert('UUID do Evento é um campo obrigatório.');
-							}						
-						};
-
-						$scope.validateUUID = function ()	{
-							if( $("#select-event-uuid").val() ) {
-								alert('UUID do Evento é um campo obrigatório.');
-							}						
+								return false;
+							}
+							return true;						
 						};
 
 						$scope.validateEventDialogFields = function ()	{							
-							if( $("#select-date").val() ) {
+							if( !$("#select-date").val() ) {
 								alert('A data do evento é um campo obrigatório.');
-							}						
-							if( $("#select-hour-initial").val() ) {
-								alert('A hora do início do evento um campo obrigatório.');
+								return false;
 							}	
-							if( $("#select-minute-initial").val() ) {
-								alert('O minuto do início do evento é um campo obrigatório.');
+							if( !$("#select-client").val() ) {
+								alert('O contato do evento é um campo obrigatório.');
+								return false;
 							}	
-							if( $("#select-hour-end").val() ) {
-								alert('A hora do fim do evento é um campo obrigatório.');
-							}	
-							if( $("#select-minute-end").val() ) {
-								alert('O minuto do fim do evento é um campo obrigatório.');
-							}	
-							if( $("#status").val() ) {
-								alert('O status do evento é um campo obrigatório.');
-							}	
-							if( $("#select-event").val() ) {
+							if( !$("#txt-title").val() ) {
+								alert('O título do evento é um campo obrigatório.');
+								return false;
+							}
+							if( !$("#txt-description").val() ) {
+								alert('A descrição do evento é um campo obrigatório.');
+								return false;
+							}							
+							if( !$("#select-event").val() ) {
 								alert('O tipo do evento é um campo obrigatório.');
+								return false;
 							}	
+							return true;
 						};
 					    
 						// #############################################################################################################
