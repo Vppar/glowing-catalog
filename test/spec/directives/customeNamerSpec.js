@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Directive: upperCase', function() {
+describe('Directive: upperCase', function() {
     // load the directive's module
     beforeEach(module('tnt.catalog.attrs.customerName'));
 
