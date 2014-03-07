@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.4
+# v0.0.2
 
 CACHE:
 apple-touch-icon.png
@@ -134,7 +134,6 @@ scripts/directives/currency.js
 scripts/directives/hour.js
 scripts/directives/minlength.js
 scripts/directives/inputQty.js
-scripts/directives/customerName.js
 scripts/directives/number.js
 scripts/directives/numPad.js
 scripts/directives/phone.js
