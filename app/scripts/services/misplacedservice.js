@@ -54,21 +54,13 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
 
 
 
-    // We could calculate the orderTotal here, but since it should already
-    // be calculated in PaymentCtrl, we don't need to calculate it again IMO.
-    this.distributeDiscount = function (orderTotal, discountTotal, orderItems) {
+    this.distributeSpecificDiscount = function (total, discount, items) {
       var currTotalDiscount = 0;
       var largestProductIndex = null;
       var largestProductValue = 0;
 
-
-      for (var idx in orderItems) {
-        var item = orderItems[idx];
-
-        if (!orderTotal || !discountTotal) {
-          item.discount = 0;
-          continue;
-        }
+      for (var idx in items) {
+        var item = items[idx];
 
         var itemTotal = item.qty * (item.price || item.cost || item.amount);
 
@@ -76,14 +68,18 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
           largestProductValue = itemTotal;
           largestProductIndex = idx;
         }
+      }
 
-        var itemShare = itemTotal / orderTotal;
-        var itemDiscount = Math.round(100 * discountTotal * itemShare) / 100;
-        var isLastItem = parseInt(idx) === (orderItems.length - 1);
+      for (var idx in items) {
+        var item = items[idx];
+
+        var itemShare = itemTotal / total;
+        var itemDiscount = Math.round(100 * discount * itemShare) / 100;
+        var isLastItem = parseInt(idx) === (items.length - 1);
         var currTotalDiscount = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
-        var discountDoesNotMatch = currTotalDiscount !== discountTotal;
+        var discountDoesNotMatch = currTotalDiscount !== discount;
 
-        item.discount = itemDiscount;
+        item.specificDiscount = itemDiscount;
 
         // Since we're rounding the discounts to the second decimal,
         // in many cases we'll end up with an inconsistency between the
@@ -92,9 +88,130 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         // the last item if needed, not allowing the sum of all discounts
         // to be greater than the given total discount.
         if (isLastItem && discountDoesNotMatch) {
-          var discountDiff = discountTotal - currTotalDiscount;
-          var largestItem = orderItems[largestProductIndex];
-          largestItem.discount = Math.round(100 * (largestItem.discount + discountDiff)) / 100;
+          var discountDiff = discount - currTotalDiscount;
+          var largestItem = items[largestProductIndex];
+          largestItem.specificDiscount = Math.round(100 * (largestItem.specificDiscount + discountDiff)) / 100;
+        }
+      }
+    };
+
+
+    this.distributeOrderDiscount = function (discount, items) {
+      var currTotalDiscount = 0;
+      var largestProductIndex = null;
+      var largestProductValue = 0;
+
+      var total = 0;
+
+      for (var idx in items) {
+        var item = items[idx];
+
+        var itemTotal = item.qty * (item.price || item.cost || item.amount);
+
+        total += itemTotal;
+
+        if (itemTotal > largestProductValue) {
+          largestProductValue = itemTotal;
+          largestProductIndex = idx;
+        }
+      }
+
+      for (var idx in items) {
+        var item = items[idx];
+
+        var itemShare = itemTotal / total;
+        var itemDiscount = Math.round(100 * discount * itemShare) / 100;
+        var isLastItem = parseInt(idx) === (items.length - 1);
+        var currTotalDiscount = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
+        var discountDoesNotMatch = currTotalDiscount !== discount;
+
+        item.orderDiscount = itemDiscount;
+
+        // Since we're rounding the discounts to the second decimal,
+        // in many cases we'll end up with an inconsistency between the
+        // given total discount and the sum of all individual discounts
+        // of each item. We handle this case by adjusting the value for
+        // the last item if needed, not allowing the sum of all discounts
+        // to be greater than the given total discount.
+        if (isLastItem && discountDoesNotMatch) {
+          var discountDiff = discount - currTotalDiscount;
+          var largestItem = items[largestProductIndex];
+          largestItem.orderDiscount = Math.round(100 * (largestItem.orderDiscount + discountDiff)) / 100;
+        }
+      }
+    };
+
+
+    // We could calculate the orderTotal here, but since it should already
+    // be calculated in PaymentCtrl, we don't need to calculate it again IMO.
+    this.distributeDiscount = function (orderTotal, discountTotal, orderItems) {
+      var currTotalDiscount = 0;
+      var largestProductIndex = null;
+      var largestProductValue = 0;
+
+      // Get the total value of items without specific discount
+      var orderTotal = 0;
+
+      for (var idx in orderItems) {
+        var item = orderItems[idx];
+
+        var itemTotal = item.qty * (item.price || item.cost || item.amount);
+
+        if (!item.specificDiscount) {
+          orderTotal += itemTotal;
+        }
+
+        if (itemTotal > largestProductValue) {
+          largestProductValue = itemTotal;
+          largestProductIndex = idx;
+        }
+      }
+
+      for (var idx in orderItems) {
+        var item = orderItems[idx];
+
+        var itemTotal = item.qty * (item.price || item.cost || item.amount);
+
+        if (!orderTotal || !discountTotal) {
+          item.orderDiscount = 0;
+          continue;
+        }
+
+        if (itemTotal > largestProductValue) {
+          largestProductValue = itemTotal;
+          largestProductIndex = idx;
+        }
+      }
+
+
+      for (var idx in orderItems) {
+        if (!orderTotal || !discountTotal) {
+          item.orderDiscount = 0;
+          continue;
+        }
+
+        var item = orderItems[idx];
+
+        if (!item.specificDiscount) {
+          var itemShare = itemTotal / orderTotal;
+          var itemDiscount = Math.round(100 * discountTotal * itemShare) / 100;
+          var isLastItem = parseInt(idx) === (orderItems.length - 1);
+          var currTotalDiscount = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
+          var discountDoesNotMatch = currTotalDiscount !== discountTotal;
+
+          item.orderDiscount = itemDiscount;
+
+          // Since we're rounding the discounts to the second decimal,
+          // in many cases we'll end up with an inconsistency between the
+          // given total discount and the sum of all individual discounts
+          // of each item. We handle this case by adjusting the value for
+          // the last item if needed, not allowing the sum of all discounts
+          // to be greater than the given total discount.
+          if (isLastItem && discountDoesNotMatch) {
+            var discountDiff = discountTotal - currTotalDiscount;
+            var largestItem = orderItems[largestProductIndex];
+            largestItem.orderDiscount = Math.round(100 * (largestItem.orderDiscount + discountDiff)) / 100;
+          }
         }
       }
     };
