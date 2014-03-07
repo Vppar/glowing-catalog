@@ -61,12 +61,17 @@
 									if(eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name == 'month')) {
 										$('#calendar').fullCalendar('changeView', 'agendaDay');
 										$('#calendar').fullCalendar('gotoDate', start);
-									} else {										
-										var initialHours = new Date().getHours();
-										var endHours = initialHours;
-										if(initialHours < 21) {
-											initialHours = initialHours+2;
-											endHours = endHours + 3;
+									} else {				
+										var initialHours = start.getHours();
+										var endHours = end.getHours();
+										if(($('#calendar').fullCalendar('getView').name == 'month'))
+										{
+											initialHours = new Date().getHours();
+											endHours = initialHours;
+											if(initialHours < 21) {
+												initialHours = initialHours+2;
+												endHours = endHours + 3;
+											}
 										}
 										openEventDialog(null, start, initialHours, start.getMinutes(), endHours, end.getMinutes(), null);
 									}
