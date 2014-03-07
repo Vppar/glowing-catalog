@@ -260,9 +260,9 @@ describe('Controller: order-list-clients', function() {
         scope.customers = customers;
         scope.resetPaymentsTotal = jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function() {
             scope.total = receivablesTotalTemplate;
-        })
-
-        ;
+        });
+        scope.filterOrders = jasmine.createSpy('scope.filterOrders');
+        
         scope.generateVA = jasmine.createSpy('scope.generateVA').andCallFake(function generateVa(filterList) {
             var acumulator = 0;
             var biggestOrder = {
