@@ -55,9 +55,10 @@
 								drop: function(date, allDay) { // funcao quando solta tag sobre calendario
 									openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
 								},
-								
 								select: function(start, end, allDay) { // quando clica em uma data/hora
-									if(eventsInDay(start) > 0 && $('#calendar').fullCalendar('getView').name == 'month') {
+									//Se não tem evento permite criacao do evento.
+									//Se tem evento na visualizacao mensal não abre popup muda para visualizacao diaria.
+									if(eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name == 'month')) {
 										$('#calendar').fullCalendar('changeView', 'agendaDay');
 										$('#calendar').fullCalendar('gotoDate', start);
 									} else {
@@ -66,8 +67,13 @@
 								},
 								
 								eventClick: function(event, jsEvent, view) {
-									if(!event.allDay) {										
-										openEventDialog(event.type, event.start, event.start.getHours(), event.start.getMinutes(), event.end.getHours(), event.end.getMinutes(), event);
+									if(($('#calendar').fullCalendar('getView').name == 'month')) {
+										$('#calendar').fullCalendar('changeView', 'agendaDay');
+										$('#calendar').fullCalendar('gotoDate', event.start);
+									} else {
+										if(!event.allDay) {										
+											openEventDialog(event.type, event.start, event.start.getHours(), event.start.getMinutes(), event.end.getHours(), event.end.getMinutes(), event);
+										}
 									}
 								},
 								
