@@ -54,11 +54,10 @@
 	/*position: fixed;
 	top: 225px;
 	bottom: 45px;
+	max-height:370px;
 	width: 970px;*/
 	position: relative;
-	max-height:370px;
-	top: 0px;
-	bottom: 45px;	
+	top:0;
 }
 
 /*.scroll-stock {
@@ -324,4 +323,24 @@
 
 .crumbs {
 	font-weight:normal;
+}
+
+
+
+/* just to scroll 100%*/
+.form-stock{
+	height:calc(100% - 105px);
+	overflow:hidden;
+}
+.scroll-stock{
+	height:calc(100% - 175px);
+}
+
+.new-body, .new-section,
+.div-master, .div-master .container:first-child{
+ 	height: 100%;
+}
+html, body{
+ 	height: 100%;
+ 	overflow: hidden;
 }
