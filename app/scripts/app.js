@@ -105,7 +105,12 @@
             'tnt.catalog.bookkeeping.entry',
             'tnt.catalog.bookkeeping.report.ctrl',
             'tnt.catalog.service.book',
-            'tnt.utils.cpf'
+            'tnt.utils.cpf',
+            'tnt.catalog.appointments',
+            'tnt.catalog.appointments.ctrl',
+            'tnt.catalog.appointments.service',
+            'tnt.catalog.appointments.entity',
+            'tnt.catalog.appointments.keeper'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -169,6 +174,9 @@
         }).when('/book-keeping-report', {
             templateUrl : 'views/book-keeping-report.html',
             controller : 'BookKeepingReportCtrl'
+        }).when('/appointment', {
+            templateUrl : 'views/appointments.html',
+            controller : 'AppointmentsCtrl'
         }).when('/receivable-check', {
             templateUrl : 'views/receivable-check.html'
         }).otherwise({

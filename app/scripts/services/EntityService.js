@@ -105,6 +105,49 @@
             return result;
         };
         this.find = function(id) {};
+        
+        
+        this.listByBirthDate = function(since,upon)
+        {
+        	var entitiesReturn = [];
+        	var entitiesList = this.list();
+        	if(entitiesList)
+        	{
+	        	for(var idx in entitiesList)
+	        	{
+	        		var entity = entitiesList[idx];
+	        		for (var i=since.getFullYear();i<upon.getFullYear()+1;i++)
+	        		{
+		        		if(verifyFilterByBirth(entity,since,upon,i))
+		        		{
+		        			if(jQuery.inArray(entity, entitiesReturn) == -1)
+		        			{
+		        				entitiesReturn.push(entity);
+		        			}
+		        		}
+	        		}
+	        	}
+        	}
+        	return entitiesReturn;
+        };
+        
+        function verifyFilterByBirth(entity,since,upon, yearCurrent)
+        {
+        	var birthDate = entity.birthDate; 
+        	if(birthDate && since && upon)
+        	{
+        		var birthday = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
+        		birthday.setHours(0);
+        		birthday.setMinutes(0);
+        		
+        		if(birthday.getTime() >= since.getTime() && birthday.getTime() <= upon.getTime())
+        		{
+        			return true;
+        		}
+        		
+        	}
+        	return false;
+        }
     }]);
 
 })(angular);
