@@ -351,13 +351,16 @@
 						};		
 		
 						$scope.create = function ()	{
-							if( $("#select-event").val() ) {
+							alert($("#select-event").val());
+							if( $("#select-event").val() == "") {
 								alert( 'Selecione um tipo de evento.' );
+								return;
 							}
 
 							var selectedStartDate = $("#select-date").val() + " " + $("#select-hour-initial").val() + ":" + $("#select-minute-initial").val();
 							var selectedEndDate = $("#select-date").val() + " " + $("#select-hour-end").val() + ":" + $("#select-minute-end").val();
-														
+							
+							$scope.appointment = {};
 							$scope.appointment.startDate = selectedStartDate;
 							$scope.appointment.endDate = selectedEndDate;
 							$scope.appointment.status = 'PENDANT';

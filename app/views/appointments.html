@@ -40,7 +40,7 @@
 			</div>
 		</div>
 		  <div id="dialog" style="display: none;">
-		  <select id="select-event" class="field-big" ng-model="appointment.type">
+		  <select id="select-event" class="field-big">
 			<option value="">Selecione o evento</option>
 			<option value="1">Ligar</option>
 			<option value="2">Visitar</option>
@@ -52,7 +52,7 @@
 			<option value="9">Outros</option>
 		  </select>
 		  <br/>
-		  <select id="select-client" class="field-big" ng-model="appointment.contacts">
+		  <select id="select-client" class="field-big">
 		  	<option value="">Selecione Cliente</option>
 		  	<option value="{{customer.uuid}}" ng-repeat="customer in contacts | orderBy:'name'">{{customer.name}}</option>
 		  </select>
@@ -127,9 +127,9 @@
 		  </select>
 		  m
 		  <br/>
-		  <input type="text" placeholder="T&iacute;tulo" id="txt-title" class="field-big" ng-model="appointment.title" />
+		  <input type="text" placeholder="T&iacute;tulo" id="txt-title" class="field-big" />
 		  <br/>
-		  <textarea placeholder="Descri&ccedil;&atilde;o" id="txt-description" ng-model="appointment.description" class="field-big"></textarea>
+		  <textarea placeholder="Descri&ccedil;&atilde;o" id="txt-description" class="field-big"></textarea>
 		  <br/><br/>
 		  <div class="dialog-buttons field-big">
 		  	<button class="btn btn-ok" ng-click="create()" type="button">Salvar</button>
