@@ -68,7 +68,6 @@
                         if(result & reportItem.qty === 0){
                             result = true;
                         } else if(reportItem.reserve > reportItem.quantity) {
-                            console.log('report', reportItem);
                             reportItem.qty = reportItem.quantity;
                             result = false;
                         } else {
