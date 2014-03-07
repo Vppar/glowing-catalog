@@ -193,8 +193,69 @@ describe('Controller: AddCustomerPhonesDialogCtrl', function() {
      * Should close the dialog and pass the new phone list.
      */
     it('should confirm add phones', function() {
+        scope.phone.number = '12345678901';
         scope.confirm();
         expect(dialog.close).toHaveBeenCalledWith(scope.phones);
+    });
+    
+    it('should enable the *salvar* button, 10 characters number, empty list', function(){
+        //given
+        scope.isDisabled = true;
+        scope.phone.number = '1234567890';
+        scope.newPhoneForm.$valid = true;
+        scope.phones.length = 0;
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(false);
+    });
+    
+    it('should enable the *salvar* button, 10 characters number, already populated list', function(){
+        //given
+        scope.isDisabled = true;
+        scope.phone.number = '1234567890';
+        scope.newPhoneForm.$valid = true;
+        scope.phones.length = 3;
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(false);
+    });
+    
+    it('should enable the *salvar* button, 11 characters number', function(){
+        //given
+        scope.isDisabled = true;
+        scope.phone.number = '12345678901';
+        scope.newPhoneForm.$valid = true;
+        scope.phones.length = 0;
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(false);
+    });
+    
+    it('should enable the *salvar* button, empty input, list with at least one phone ', function(){
+        //given
+        scope.isDisabled = true;
+        scope.phone.number = '';
+        scope.newPhoneForm.$valid = true;
+        scope.phones.length = 3;
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(false);
+    });
+    
+    it('shouldn\'t enable the *salvar* button, phones list > 0, input with invalid number', function(){
+        //given
+        scope.isDisabled = true;
+        scope.phone.number = '1234';
+        scope.newPhoneForm.$valid = false;
+        scope.phones.length = 2;
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(true);
     });
 
 });
