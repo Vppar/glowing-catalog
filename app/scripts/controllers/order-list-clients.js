@@ -24,6 +24,7 @@
                     $scope.filteredEntities = [];
                     $scope.checkedEntityUUID = null;
                     $scope.filterOrders($scope.orders);
+
                     $scope.updateAndEnableHideOption = function (entity) {
                         $scope.checkedEntityUUID = entity.entityId;
                         $scope.updatePaymentsTotal([
@@ -41,7 +42,7 @@
 
                     function updateFilteredEntities () {
                         $scope.filteredEntities.length = 0;
-
+                        
                         for ( var ix in customers) {
                             var entity = customers[ix];
                             var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
@@ -55,7 +56,8 @@
                                     lastOrder : 0,
                                     itemsQty : 0,
                                     avgPrice : 0,
-                                    amountTotal : 0
+                                    amountTotal : 0,
+                                    amountTotalWithDiscount : 0
                                 };
 
                                 for ( var ix2 in ordersByEntity) {
@@ -67,10 +69,12 @@
                                         lastOrder > order.created ? lastOrder : order.created;
                                     entityOrders.amountTotal += order.amountTotal;
                                     entityOrders.itemsQty += order.itemsQty;
+                                    entityOrders.amountTotalWithDiscount +=
+                                        order.amountTotalWithDiscount;
                                 }
                                 entityOrders.avgPrice =
                                     Math
-                                        .round(100 * (entityOrders.amountTotal / entityOrders.itemsQty)) / 100;
+                                        .round(100 * (entityOrders.amountTotalWithDiscount / entityOrders.itemsQty)) / 100;
 
                                 $scope.filteredEntities.push(entityOrders);
                             }
@@ -121,6 +125,8 @@
                                         $scope.total.voucher.qty += voucher.qty;
                                         $scope.total.amount += voucherAmount;
                                     }
+                                    var discount = $scope.getTotalDiscountByOrder(order);
+                                    $scope.total.discount += discount;
                                 }
                             }
                         };
