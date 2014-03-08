@@ -435,7 +435,7 @@
                         function checkout(value) {
                             var result = null;
                             if (value) {
-                                result = PaymentService.checkout(customer, $scope.total.order.amount, $scope.total.change);
+                                result = PaymentService.checkout(customer, $scope.total.order.amount, $scope.total.order.discount, $scope.total.change);
                             } else {
                                 result = $q.reject();
 
