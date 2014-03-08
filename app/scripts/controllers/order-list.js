@@ -54,6 +54,7 @@
                     qty : 0,
                     avgPrice : 0,
                     amount : 0,
+                    amountWithDiscount : 0,
                     lastOrder : 0,
                 }
             };
@@ -181,7 +182,6 @@
                 var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                 var amountTotal = $filter('sum')(order.items, 'amount');
                 var discount = $scope.getTotalDiscountByOrder(order);
-
                 order.itemsQty = qtyTotal;
                 order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
                 order.amountTotal = (priceTotal + amountTotal);
@@ -202,7 +202,7 @@
                         var order = orders[ix];
                         if (angular.isObject(order)) {
                             order.va =
-                                (order.amountTotalWithDiscount / $scope.total.all.amount) * 100;
+                                (order.amountTotalWithDiscount / $scope.total.all.amountWithDiscount) * 100;
                             var roundedVa = (Math.round(100 * order.va) / 100);
                             acumulator += roundedVa;
                             order.va = roundedVa;
@@ -214,6 +214,7 @@
                     }
                     biggestOrder.va =
                         biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
+                    
                 };
 
             $scope.updateOrdersTotal =
@@ -231,13 +232,14 @@
                             $scope.total.all.entityCount++;
                         }
 
-                        $scope.total.all.amount += filteredOrder.amountTotalWithDiscount;
+                        $scope.total.all.amountWithDiscount += filteredOrder.amountTotalWithDiscount;
+                        $scope.total.all.amount += filteredOrder.amountTotal;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
                     }
 
                     var avgPrice =
-                        Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
+                        Math.round(100 * ($scope.total.all.amountWithDiscount / $scope.total.all.qty)) / 100;
                     if (!isNaN(avgPrice)) {
                         $scope.total.all.avgPrice = avgPrice;
                     } else {

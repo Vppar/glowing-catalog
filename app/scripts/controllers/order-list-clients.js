@@ -42,7 +42,7 @@
 
                     function updateFilteredEntities () {
                         $scope.filteredEntities.length = 0;
-
+                        
                         for ( var ix in customers) {
                             var entity = customers[ix];
                             var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
@@ -74,7 +74,7 @@
                                 }
                                 entityOrders.avgPrice =
                                     Math
-                                        .round(100 * (entityOrders.amountTotal / entityOrders.itemsQty)) / 100;
+                                        .round(100 * (entityOrders.amountTotalWithDiscount / entityOrders.itemsQty)) / 100;
 
                                 $scope.filteredEntities.push(entityOrders);
                             }

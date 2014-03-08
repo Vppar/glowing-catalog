@@ -1,4 +1,4 @@
-describe('Controller: order-list-clients', function() {
+describe('Controller: order-list-clients', function () {
 
     var scope = {};
     var OrderService = {};
@@ -16,11 +16,11 @@ describe('Controller: order-list-clients', function() {
             amount : 0
         }
     };
-    function daysToMilliseconds(days) {
+    function daysToMilliseconds (days) {
         return days * 24 * 60 * 60 * 1000;
     }
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('tnt.catalog.orderList.clients.ctrl');
         module('tnt.catalog.filter.sum');
         module('tnt.catalog.service.data');
@@ -30,11 +30,10 @@ describe('Controller: order-list-clients', function() {
 
     });
 
-    beforeEach(function() {
+    beforeEach(function () {
         receivablesTotalTemplate = {
-            total : {
-                amount : 0
-            },
+            amount : 0,
+            discount : 0,
             cash : {
                 qty : 0,
                 amount : 0
@@ -74,16 +73,20 @@ describe('Controller: order-list-clients', function() {
                 items : [
                     {
                         price : "85",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "32",
-                        qty : 3
+                        qty : 3,
+                        discount : 0
                     }, {
                         price : "90",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "23",
-                        qty : 2
+                        qty : 2,
+                        discount : 0
                     }
                 ],
                 paymentId : 1,
@@ -96,10 +99,12 @@ describe('Controller: order-list-clients', function() {
                 items : [
                     {
                         price : "30",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "15",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }
                 ],
                 paymentId : 1,
@@ -112,10 +117,12 @@ describe('Controller: order-list-clients', function() {
                 items : [
                     {
                         price : "20",
-                        qty : 2
+                        qty : 2,
+                        discount : 0
                     }, {
                         price : "100",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }
                 ],
                 paymentId : 1,
@@ -128,7 +135,8 @@ describe('Controller: order-list-clients', function() {
                 items : [
                     {
                         price : "100",
-                        qty : 3
+                        qty : 3,
+                        discount : 0
                     }
                 ],
                 paymentId : 1,
@@ -140,10 +148,12 @@ describe('Controller: order-list-clients', function() {
                 items : [
                     {
                         price : "90",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "23",
-                        qty : 2
+                        qty : 2,
+                        discount : 0
                     }
 
                 ],
@@ -156,16 +166,20 @@ describe('Controller: order-list-clients', function() {
                 items : [
                     {
                         price : "85",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "32",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "90",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "23",
-                        qty : 2
+                        qty : 2,
+                        discount : 0
                     }
 
                 ],
@@ -178,16 +192,20 @@ describe('Controller: order-list-clients', function() {
                 items : [
                     {
                         price : "85",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "32",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "90",
-                        qty : 1
+                        qty : 1,
+                        discount : 0
                     }, {
                         price : "23",
-                        qty : 2
+                        qty : 2,
+                        discount : 0
                     }
 
                 ],
@@ -245,70 +263,80 @@ describe('Controller: order-list-clients', function() {
         ];
     });
 
-    beforeEach(inject(function($controller, $filter, $rootScope, _ArrayUtils_) {
+    beforeEach(inject(function ($controller, $filter, $rootScope, _ArrayUtils_) {
         // scope mock
         scope = $rootScope.$new();
 
         // dependecy mocks
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         EntityService.list = jasmine.createSpy('EntityService.list');
-        UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
-        ProductReturnService.listByDocument = jasmine.createSpy('ProductReturnService.listByDocument');
+        UserService.redirectIfIsNotLoggedIn =
+            jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
+        ProductReturnService.listByDocument =
+            jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
         scope.customers = customers;
-        scope.resetPaymentsTotal = jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function() {
-            scope.total = receivablesTotalTemplate;
-        });
-        scope.getTotalDiscountByOrder = jasmine.createSpy('scope.getTotalDiscountByOrder').andReturn(0);
+        scope.resetPaymentsTotal =
+            jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function () {
+                scope.total = receivablesTotalTemplate;
+            });
+        scope.getTotalDiscountByOrder =
+            jasmine.createSpy('scope.getTotalDiscountByOrder').andReturn(0);
         scope.filterOrders = jasmine.createSpy('scope.filterOrders');
-        
-        scope.generateVA = jasmine.createSpy('scope.generateVA').andCallFake(function generateVa(filterList) {
-            var acumulator = 0;
-            var biggestOrder = {
-                va : 0
-            };
-            var biggestRounded = 0;
 
-            for ( var ix in filterList) {
-                var order = filterList[ix];
+        scope.generateVA =
+            jasmine.createSpy('scope.generateVA').andCallFake(
+                function generateVa (filterList) {
+                    var acumulator = 0;
+                    var biggestOrder = {
+                        va : 0
+                    };
+                    var biggestRounded = 0;
 
-                if (angular.isObject(order)) {
-                    order.va = (order.amountTotal / total.all.amount) * 100;
-                    var roundedVa = (Math.round(100 * order.va) / 100);
-                    acumulator += roundedVa;
-                    order.va = roundedVa;
-                    if (roundedVa > biggestOrder.va) {
-                        biggestOrder = order;
-                        biggestRounded = roundedVa;
+                    for ( var ix in filterList) {
+                        var order = filterList[ix];
+
+                        if (angular.isObject(order)) {
+                            order.va = (order.amountTotal / total.all.amount) * 100;
+                            var roundedVa = (Math.round(100 * order.va) / 100);
+                            acumulator += roundedVa;
+                            order.va = roundedVa;
+                            if (roundedVa > biggestOrder.va) {
+                                biggestOrder = order;
+                                biggestRounded = roundedVa;
+                            }
+                        }
                     }
+
+                    biggestOrder.va =
+                        biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
+                });
+
+        scope.argumentOrder =
+            jasmine.createSpy('scope.argumentOrder').andCallFake(function argumentOrder (order) {
+                // Find the entity name
+                var entity = ArrayUtils.find(scope.customers, 'uuid', order.customerId);
+                if (entity) {
+                    order.entityName = entity.name;
+                } else {
+                    order.entityName = '';
                 }
-            }
+                var discount = scope.getTotalDiscountByOrder(order);
+                var qtyTotal = $filter('sum')(order.items, 'qty');
+                var priceTotal = $filter('sum')(order.items, 'price', 'qty');
+                var amountTotal = $filter('sum')(order.items, 'amount');
 
-            biggestOrder.va = biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
-        });
-
-        scope.argumentOrder = jasmine.createSpy('scope.argumentOrder').andCallFake(function argumentOrder(order) {
-            // Find the entity name
-            var entity = ArrayUtils.find(scope.customers, 'uuid', order.customerId);
-            if (entity) {
-                order.entityName = entity.name;
-            } else {
-                order.entityName = '';
-            }
-
-            var qtyTotal = $filter('sum')(order.items, 'qty');
-            var priceTotal = $filter('sum')(order.items, 'price', 'qty');
-            var amountTotal = $filter('sum')(order.items, 'amount');
-
-            order.itemsQty = qtyTotal;
-            order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
-            order.amountTotal = (priceTotal + amountTotal);
-        });
+                order.itemsQty = qtyTotal;
+                order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
+                order.amountTotal = (priceTotal + amountTotal);
+                order.amountTotalWithDiscount = ((priceTotal + amountTotal) - discount);
+            });
 
         ReceivableService.listByDocument =
-                jasmine.createSpy('ReceivableService.listActiveByDocument').andCallFake(function(document) {
+            jasmine.createSpy('ReceivableService.listActiveByDocument').andCallFake(
+                function (document) {
                     return ArrayUtils.list(receivables, 'documentId', document);
                 });
 
@@ -325,17 +353,16 @@ describe('Controller: order-list-clients', function() {
 
     }));
 
-    it('should consolidate orders by clients.', function() {
+    it('should consolidate orders by clients.', function () {
         // given
         // the orderList and entities list
         // when
         scope.$apply();
         // then
-        scope.argumentOrder(scope.filteredEntities);
-        scope.generateVA(scope.filteredEntities);
+        /*scope.argumentOrder(scope.filteredEntities);
+        scope.generateVA(scope.filteredEntities);*/
 
         expect(scope.filteredEntities.length).toEqual(4);
-
         expect(scope.filteredEntities[0].name).toEqual('Tiburço');
         expect(scope.filteredEntities[0].amountTotal).toEqual(362);
         expect(scope.filteredEntities[0].itemsQty).toEqual(9);
@@ -362,7 +389,7 @@ describe('Controller: order-list-clients', function() {
 
     });
 
-    it('should updatePaymentsTotal', function() {
+    it('should updatePaymentsTotal', function () {
         scope.$apply();
         scope.updatePaymentsTotal(scope.filteredEntities);
         expect(scope.total.cash.qty).toEqual(3);

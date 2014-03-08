@@ -35,19 +35,29 @@
                                     var response = ArrayUtils.find(productsMap, 'SKU', SKU);
                                     if (response) {
                                         productsMap[SKU].qty += item.qty;
-                                        productsMap[SKU].amountTotal +=
+                                        var amount =
                                             Math
                                                 .round(100 * (Number(item.qty) * Number(item.price))) / 100;
+
+                                        productsMap[SKU].amountTotal += amount;
+                                        productsMap[SKU].amountTotalWithDiscount +=
+                                            amount - item.discount;
 
                                     } else {
                                         productsMap[SKU] = angular.copy(item);
                                         productsMap[SKU].amountTotal =
                                             Math
                                                 .round(100 * (Number(productsMap[SKU].qty) * Number(productsMap[SKU].price))) / 100;
-                                        productsMap[SKU].amountTotalWithDiscount =  productsMap[SKU].amountTotal - item.discount;
+                                        var discount = 0;
+                                        if (item.discount) {
+                                            discount = item.discount;
+                                        }
+
+                                        productsMap[SKU].amountTotalWithDiscount =
+                                            productsMap[SKU].amountTotal - discount;
                                         productsMap[SKU].priceAvg =
                                             Math
-                                                .round(100 * (Number(productsMap[SKU].amountTotal) / Number(productsMap[SKU].qty))) / 100;
+                                                .round(100 * (Number(productsMap[SKU].amountTotalWithDiscount) / Number(productsMap[SKU].qty))) / 100;
 
                                         $scope.filteredProducts.push(productsMap[SKU]);
 
@@ -71,7 +81,7 @@
                                     }
                                     productsMap[SKU].priceAvg =
                                         Math
-                                            .round(100 * (Number(productsMap[SKU].amountTotal) / Number(productsMap[SKU].qty))) / 100;
+                                            .round(100 * (Number(productsMap[SKU].amountTotalWithDiscount) / Number(productsMap[SKU].qty))) / 100;
 
                                 }
                             }
@@ -82,7 +92,7 @@
                         function () {
                             $scope.filteredOrders = $scope.filterOrders($scope.orders);
 
-                            if ($scope.customerId !==  '0') {
+                            if ($scope.customerId !== '0') {
                                 $scope.filteredOrders =
                                     $filter('filter')($scope.filteredOrders, $scope.filterByClient);
                             }

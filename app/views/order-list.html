@@ -178,7 +178,7 @@
 							<span>{{total.all.avgPrice | currency:''}}</span>
 						</div>
 						<div class="new-col-3 currency">
-							<span>{{total.all.amount | currency:''}}</span>
+							<span>{{total.all.amountWithDiscount | currency:''}}</span>
 						</div>
 						<div class="new-col-2 currency">
 							<span>100,00</span>
@@ -266,7 +266,7 @@
 							<span>{{total.all.avgPrice| currency: ''}}</span>
 						</div>
 						<div class="new-col-3 currency">
-							<span>{{total.all.amount | currency:''}}</span>
+							<span>{{total.all.amountWithDiscount | currency:''}}</span>
 						</div>
 						<div class="new-col-2 currency">
 							<span>100,00</span>
@@ -352,7 +352,7 @@
 							<span>{{total.all.avgPrice| currency: ''}}</span>
 						</div>
 						<div class="new-col-3 currency">
-							<span>{{total.all.amount | currency:''}}</span>
+							<span>{{total.all.amountWithDiscount | currency:''}}</span>
 						</div>
 						<div class="new-col-2 currency">
 							100,00
@@ -376,7 +376,7 @@
 							{{product.qty}}
 						</div>
 						<div class="new-col-2 currency">
-							{{product.price | currency:''}}
+							{{product.priceAvg | currency:''}}
 						</div>
 						<div class="new-col-3 currency">
 							{{product.amountTotalWithDiscount | currency:''}}
