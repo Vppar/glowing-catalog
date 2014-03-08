@@ -13,7 +13,9 @@
                 link : function postLink (scope, element, attrs) {
                     scope.click = function ($event) {
                         var key = $event.target.alt;
-                        console.log(key);
+                        if(key){
+                            scope.$emit('tnt.events.virtualKeyboard.KeyPress', key);
+                        }
                     };
 
                     scope.prevent = function ($event) {
