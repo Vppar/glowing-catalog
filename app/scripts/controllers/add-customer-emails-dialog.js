@@ -15,6 +15,9 @@
 
         $scope.email = {};
         $scope.isDisabled = true;
+        /**
+         * Regex created to only accept e-mails that follow the format something@somewhere.whatever
+         */
         $scope.emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
 
         // get emails already set
