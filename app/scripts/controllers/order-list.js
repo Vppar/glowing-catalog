@@ -5,7 +5,7 @@
     ]).controller(
         'OrderListCtrl',
         function ($scope, $location, $filter, OrderService, EntityService, ReceivableService,
-            UserService, ProductReturnService, VoucherService, ArrayUtils) {
+            UserService, ProductReturnService, VoucherService, ArrayUtils, BookService) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;
@@ -55,7 +55,8 @@
                     qty : 0,
                     avgPrice : 0,
                     amount : 0,
-                    lastOrder : 0
+                    lastOrder : 0,
+                    discount : 0
                 }
             };
 
@@ -228,8 +229,9 @@
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
                         }
-
-                        $scope.total.all.amount += filteredOrder.amountTotal;
+                        var discount = getTotalDiscountByOrder(filteredOrder);
+                        $scope.total.all.discount += discount;
+                        $scope.total.all.amount += filteredOrder.amountTotal - discount;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
                     }
@@ -242,6 +244,18 @@
                         $scope.total.all.avgPrice = 0;
                     }
                 };
+
+            function getTotalDiscountByOrder (order) {
+                var bookEntries = BookService.listByOrder(order.uuid);
+                bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder, uuid);
+                return $filter('sum')(bookEntries, 'amount');
+            }
+
+            function bookEntriesByOrder (bookEntry) {
+                var result =
+                    (bookEntry.debitAccount === 41301) && (bookEntry.creditAccount === 70001);
+                return result;
+            }
 
             /**
              * ClientFilter
@@ -330,7 +344,7 @@
             $scope.orders = OrderService.list();
             $scope.customers = EntityService.list();
             $scope.avaliableCustomers = [];
-            $scope.customerId = '';
+            $scope.customerId = '0';
 
             /**
              * whenever dtFilter changes filter list.

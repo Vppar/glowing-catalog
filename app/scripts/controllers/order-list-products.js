@@ -82,7 +82,7 @@
                         function () {
                             $scope.filteredOrders = $scope.filterOrders($scope.orders);
 
-                            if ($scope.customerId !== 0) {
+                            if ($scope.customerId !==  '0') {
                                 $scope.filteredOrders =
                                     $filter('filter')($scope.filteredOrders, $scope.filterByClient);
                             }

@@ -77,7 +77,7 @@
 					<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId">
 						<option value="" ng-hide="true"></option>
 						<option value="0">Selecione o Cliente</option>
-						<option value="{{customer.uuid}}" ng-repeat="customer in avaliableCustomers ">{{customer.name}}</option>
+						<option value="{{customer.uuid}}" ng-repeat="customer in avaliableCustomers | orderBy: 'name' ">{{customer.name}}</option>
 					</select>
 				</div>
 			</div>
@@ -133,7 +133,7 @@
 	<div class="height100perc" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
 		<div class="row-fluid height100perc">
 			<div class="grid-order-list order-scroll-area-fix">
-				<div class="header" ng-click="callUpdateReceivableTotal(filteredOrders)">
+				<div class="header">
 					<div class="order-table-header">
 						<div class="new-col-3 text-center">
 							<span>Data</span>
@@ -221,7 +221,7 @@
 	<div class="order-list-grid-clientes height100perc" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
 		<div class="row-fluid height100perc">
 			<div class="grid-order-list order-scroll-area-fix">
-				<div class="header" ng-click="callUpdateReceivableTotal(filteredEntities)">
+				<div class="header">
 					<div class="order-table-header">
 						<div class="new-col-2 text-center">
 							<span>Rank</span>
