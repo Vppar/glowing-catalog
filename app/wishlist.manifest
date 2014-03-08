@@ -66,6 +66,7 @@ bower_components/angular-sanitize/angular-sanitize.js
 bower_components/angular-route/angular-route.js
 bower_components/angular-touch/angular-touch.js
 bower_components/angular-md5/angular-md5.js
+bower_components/fastclick/lib/fastclick.js
 scripts/app.js
 components/catalog-highlights/catalogHighlights.js
 components/catalog-section/catalogSection.js
@@ -145,6 +146,11 @@ scripts/directives/tnt-input.js
 scripts/directives/upperCase.js
 scripts/directives/tnt-select2.js
 scripts/directives/lowerCase.js
+scripts/directives/clickDelay.js
+scripts/directives/fastClick.js
+scripts/directives/preventBlur.js
+scripts/directives/virtualKeyboard.js
+scripts/directives/keyboardCage.js
 scripts/filters/count.js
 scripts/filters/cpf.js
 scripts/filters/creditCard.js
@@ -194,6 +200,7 @@ scripts/services/PurchaseOrderService.js
 scripts/services/UserService.js
 scripts/services/cep/CepService.js
 scripts/services/cpf/CpfService.js
+scripts/services/PaymentService/OnCuffPaymentService.js
 scripts/filters/uuidCode.js
 scripts/services/Firebase.js
 scripts/keepers/OrderKeeper.js
@@ -209,6 +216,9 @@ scripts/services/CreditCardPaymentService.js
 scripts/services/PrefetchService.js
 scripts/services/GoPayGateway.js
 scripts/services/CacheController.js
+
+components/tnt-numpad/tntNumpad.js
+components/tnt-number-picker/tntNumberPicker.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
