@@ -61,11 +61,11 @@
                 var result = true;
                 if (type === 'available') {
                     // test if there is no available product should skip
-                    result = result & (reportItem.qty <= 0);
+                    result = result && (reportItem.qty <= 0);
                 } else if (type === 'reserved') {
                     // test if there is no reserver of this product should
                     // skip
-                    if (result & reportItem.qty === 0) {
+                    if (result && reportItem.qty === 0) {
                         result = true;
                     } else if (reportItem.reserve > reportItem.quantity) {
                         reportItem.qty = reportItem.quantity;
