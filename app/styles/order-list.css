@@ -11,6 +11,10 @@
 	margin-right: 5px;
 }
 
+.new-calendar .date-field{
+	cursor: pointer;
+}
+
 .order-header-page{
 	margin-left: 10px;
 		-moz-box-sizing:    border-box;
