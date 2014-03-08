@@ -5,7 +5,7 @@
     ]).controller(
         'OrderListCtrl',
         function ($scope, $location, $filter, OrderService, EntityService, ReceivableService,
-            UserService, ProductReturnService, VoucherService, ArrayUtils, BookService) {
+            UserService, ProductReturnService, VoucherService, ArrayUtils) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;
@@ -245,11 +245,11 @@
                     }
                 };
 
-            function getTotalDiscountByOrder (order) {
+            /*function getTotalDiscountByOrder (order) {
                 var bookEntries = BookService.listByOrder(order.uuid);
                 bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder, uuid);
                 return $filter('sum')(bookEntries, 'amount');
-            }
+            }*/
 
             function bookEntriesByOrder (bookEntry) {
                 var result =
