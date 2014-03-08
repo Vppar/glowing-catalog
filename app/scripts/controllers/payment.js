@@ -58,6 +58,7 @@
                                 // This is the total amount WITHOUT products with
                                 // specific discounts
                                 amountWithoutDiscount : getNonDiscountedTotal(),
+                                specificDiscount : 0,
 
                                 // Returns the average price of the units in the order.
                                 getAvgUnitPrice : function () {
@@ -79,7 +80,9 @@
 
 
                         function updateSubTotal() {
+                          // FIXME: change subTotal to total and newSubTotal to subTotal
                           total.order.subTotal = getSubTotal();
+                          total.order.newSubTotal = getNewSubTotal();
                         }
 
 
@@ -93,9 +96,28 @@
                             totalDiscount += (item.specificDiscount || item.orderDiscount || 0);
                           }
 
-                          var subtotal = total.order.amount - totalDiscount - total.paymentsExchange;
+                          var subtotal = total.order.amount - totalDiscount;
                           return subtotal < 0 ? 0 : subtotal;
                         }
+
+                        function getNewSubTotal() {
+                          var subtotal = total.order.amount - total.order.specificDiscount;
+                          return subtotal < 0 ? 0 : subtotal;
+                        }
+
+                        function getSpecificDiscount() {
+                            var discount = 0;
+
+                            for (var idx in order.items) {
+                              var item = order.items[idx];
+                              discount += (item.specificDiscount || 0);
+                            }
+
+                            return discount;
+                        }
+
+                        $scope.getSpecificDiscount = getSpecificDiscount;
+
 
                         function getOrderDiscount() {
                             var orderDiscount = 0;
@@ -187,15 +209,6 @@
 
                           Misplacedservice.distributeOrderDiscount(discountTotal, items);
                         });
-
-                        $scope.$watch('total.order.amount', updateSubTotal);
-                        $scope.$watch('total.order.discount', updateSubTotal);
-                        $scope.$watch('total.paymentsExchange', updateSubTotal);
-
-                        $scope.$watchCollection('total.payments.exchange', function () {
-                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
-                        });
-
 
 
                         // When a product is added on items list, we need to
@@ -431,9 +444,6 @@
 
                                 var totalPayments = 0;
                                 for ( var ix in $scope.total.payments) {
-                                    // Exchanged products are already discounted when
-                                    // when the subtotal is calculated
-                                    if (ix === 'exchange') { continue; }
 
                                     totalPayments += $filter('sum')(total.payments[ix], 'amount');
                                 }
@@ -521,6 +531,41 @@
                         }
 
 
+
+                        $scope.$watch('total.order.amount', updateSubTotal);
+                        $scope.$watch('total.order.discount', updateSubTotal);
+                        $scope.$watch('total.order.specificDiscount', updateSubTotal);
+                        $scope.$watch('total.paymentsExchange', updateSubTotal);
+
+                        $scope.$watch('total.order.specificDiscount', function () {
+                          for (var idx in order.items) {
+                            if (!order.items[idx].specificDiscount) {
+                              $scope.disableOrderDiscount = false;
+                              return;
+                            }
+                          }
+
+                          $scope.disableOrderDiscount = true;
+                          $scope.total.order.discount = 0;
+                        });
+
+                        $scope.$watchCollection('total.payments.exchange', function () {
+                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
+                        });
+
+
+                        function updateDiscountRelatedValues() {
+                          total.order.specificDiscount = getSpecificDiscount();
+                        }
+
+
+                        function watchSpecificDiscounts() {
+                          for (var idx in order.items) {
+                            $scope.$watch('items.' + idx + '.specificDiscount', updateDiscountRelatedValues);
+                          }
+                        }
+
+                        $scope.$watchCollection('items', watchSpecificDiscounts);
 
 
                         /**

@@ -128,7 +128,7 @@
                             orderProduct.orderDiscount = 0;
                           }
                           innerGrid.push(orderProduct);
-                        } else {
+                        } else if ($scope.grid[ix].qty) {
                           innerGrid.push($scope.grid[ix]);
                         }
                     }

@@ -73,6 +73,8 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
       for (var idx in items) {
         var item = items[idx];
 
+        var itemTotal = item.qty * (item.price || item.cost || item.amount);
+
         var itemShare = itemTotal / total;
         var itemDiscount = Math.round(100 * discount * itemShare) / 100;
         var isLastItem = parseInt(idx) === (items.length - 1);

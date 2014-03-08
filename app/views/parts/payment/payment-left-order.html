@@ -14,7 +14,7 @@
 	    <span class="new-col-3 currency">{{total.order.getAvgUnitPrice() | currency:''}}</span>
 	    <span class="new-col-3 text-center">{{total.order.unit}}</span>
 	    <span class="new-col-3 currency">{{total.order.amount | currency:''}}</span>
-	    <span class="new-col-3 currency">{{getTotalDiscount() | currency:''}}</span>
+	    <span class="new-col-3 currency">{{getSpecificDiscount() | currency:''}}</span>
 	</div>
 
 	<div class="content-scroll">
@@ -25,7 +25,7 @@
 			<span class="new-col-3 currency">{{(item.price || item.amount) | currency: ''}}</span>
 			<span class="new-col-3 text-center">{{item.qty}}</span>
 			<span class="new-col-3 currency">{{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
-      		<span class="new-col-3 currency">{{(item.specificDiscount || item.orderDiscount || 0) | currency:''}}</span>
+      		<span class="new-col-3 currency">{{(item.specificDiscount || 0) | currency:''}}</span>
 		</div>
 	</div>
 </div>
