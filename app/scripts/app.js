@@ -44,7 +44,6 @@
             'tnt.catalog.components.product-display',
             'tnt.catalog.components.catalog-section',
             'tnt.catalog.components.highlight-display',
-            'tnt.catalog.gopay.integration',
             'tnt.catalog.components.catalog-highlights',
             'tnt.catalog.inventory',
             'tnt.catalog.payment.oncuff.ctrl',
