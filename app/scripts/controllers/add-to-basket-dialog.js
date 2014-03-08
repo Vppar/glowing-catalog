@@ -10,8 +10,11 @@
             ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService', 'Misplacedservice',
             function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService, Misplacedservice) {
 
+                var Discount = Misplacedservice.discount;
+
                 var orderItems = OrderService.order.items;
                 var inventory = InventoryKeeper.read();
+
 
                 // Find the product and make a copy to the local scope.
                 var product = ArrayUtils.find(DataProvider.products, 'id', dialog.data.id);
@@ -51,21 +54,20 @@
                 }
 
                 function getProductDiscount() {
-                  var total = 0;
+                  var items = [];
                   for (var idx in grid) {
                     var orderProduct = ArrayUtils.find(orderItems, 'id', grid[idx].id);
-                    var item = orderProduct || grid[idx];
-                    total += item.specificDiscount || 0;
+                    items.push(orderProduct || grid[idx]);
                   }
 
-                  return total;
+                  return Discount.getTotalItemDiscount(items);
                 }
 
                 var index = orderItems.length - 1;
                 $scope.product = product;
                 $scope.grid = grid;
                 $scope.total = 0;
-                $scope.specificDiscount = getProductDiscount();
+                $scope.itemDiscount = getProductDiscount();
 
 
                 var originalTotal = 0;
@@ -102,14 +104,14 @@
                       var changedTotals = $scope.total !== originalTotal || $scope.count !== originalQty;
 
                       if (changedTotals) {
-                          clearSpecificDiscount();
+                          clearItemDiscount();
                       }
                     });
                 }
 
 
-                function clearSpecificDiscount() {
-                    $scope.specificDiscount = 0;
+                function clearItemDiscount() {
+                    $scope.itemDiscount = 0;
                 }
 
 
@@ -118,22 +120,18 @@
                  * the basket.
                  */
                 $scope.addToBasket = function addToBasket() {
-                    var innerGrid = [];
+                    var items = [];
 
                     for ( var ix in $scope.grid) {
                         var orderProduct = ArrayUtils.find(orderItems, 'id', $scope.grid[ix].id);
                         if (orderProduct) {
-                          if ($scope.specificDiscount) {
-                            // clear order discount from this item
-                            orderProduct.orderDiscount = 0;
-                          }
-                          innerGrid.push(orderProduct);
+                          items.push(orderProduct);
                         } else if ($scope.grid[ix].qty) {
-                          innerGrid.push($scope.grid[ix]);
+                          items.push($scope.grid[ix]);
                         }
                     }
 
-                    Misplacedservice.distributeSpecificDiscount($scope.total, $scope.specificDiscount, innerGrid);
+                    Discount.distributeItemDiscount(items, $scope.itemDiscount);
 
                     for (var ix in $scope.grid) {
                         var orderProduct = ArrayUtils.find(orderItems, 'id', $scope.grid[ix].id);
@@ -167,21 +165,17 @@
                 function openDialogNumpad() {
                     var numpadDialog = DialogService.openDialogNumpad(null, dialog).then(function (discount) {
                       discount = discount > $scope.total ? $scope.total : discount;
-                      setSpecificDiscount(discount);
-
-                      // TODO
-                      // if product has a grid, set discount to all types
-                      // otherwise, set discount to product
+                      setItemDiscount(discount);
                     });
                 }
 
                 $scope.openDialogNumpad = openDialogNumpad;
 
 
-                function setSpecificDiscount(discount) {
-                  $scope.specificDiscount = discount || 0;
+                function setItemDiscount(discount) {
+                    $scope.itemDiscount = discount || 0;
                 }
 
-                $scope.setSpecificDiscount = setSpecificDiscount;
+                $scope.setItemDiscount = setItemDiscount;
             }]);
 }(angular));
