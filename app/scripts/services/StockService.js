@@ -65,7 +65,14 @@
                     } else if (type === 'reserved') {
                         // test if there is no reserver of this product should
                         // skip
-                        result = result & (reportItem.qty === 0);
+                        if(result & reportItem.qty === 0){
+                            result = true;
+                        } else if(reportItem.reserve > reportItem.quantity) {
+                            reportItem.qty = reportItem.quantity;
+                            result = false;
+                        } else {
+                            result = false;
+                        }
                     } else if (type === 'all') {
                         result = false;
                     }

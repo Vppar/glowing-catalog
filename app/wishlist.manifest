@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.2
+# v0.0.4
 
 CACHE:
 apple-touch-icon.png
@@ -134,6 +134,7 @@ scripts/directives/currency.js
 scripts/directives/hour.js
 scripts/directives/minlength.js
 scripts/directives/inputQty.js
+scripts/directives/customerName.js
 scripts/directives/number.js
 scripts/directives/numPad.js
 scripts/directives/phone.js
@@ -192,6 +193,7 @@ scripts/services/SyncService.js
 scripts/services/PurchaseOrderService.js
 scripts/services/UserService.js
 scripts/services/cep/CepService.js
+scripts/services/cpf/CpfService.js
 scripts/filters/uuidCode.js
 scripts/services/Firebase.js
 scripts/keepers/OrderKeeper.js
