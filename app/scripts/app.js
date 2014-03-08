@@ -119,7 +119,8 @@
             'tnt.catalog.components.numberPicker',
             'tnt.catalog.directives.preventBlur',
             'tnt.catalog.directives.virtualKeyboard',
-            'tnt.catalog.directives.keyboardCage'
+            'tnt.catalog.directives.keyboardCage',
+            'tnt.catalog.directives.focus'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
