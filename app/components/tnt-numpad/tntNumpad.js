@@ -9,7 +9,6 @@
                 templateUrl : templateUrl,
                 restrict : 'E',
                 replace : true,
-                scope : {},
                 link : function postLink (scope, element, attrs) {
                     scope.click = function ($event) {
                         var key = $event.target.alt;
