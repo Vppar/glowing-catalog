@@ -132,7 +132,5 @@
                 $scope.isDisabled = true;
             }
         });
-
-
     }]);
 }(angular));
