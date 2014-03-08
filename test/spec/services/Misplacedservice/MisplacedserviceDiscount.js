@@ -379,4 +379,52 @@ describe('Misplacedservice.discount', function() {
           });
     }); // .setItemDiscount()
 
+
+    describe('.unsetitemdiscount()', function () {
+        it('is accessible', function () {
+            expect(Discount.unsetItemDiscount).not.toBeUndefined();
+        });
+
+        it('is a function', function () {
+            expect(typeof Discount.unsetItemDiscount).toBe('function');
+        });
+
+        it('removes the item discount attribute', function () {
+            Discount.setItemDiscount(item1, 10);
+            Discount.unsetItemDiscount(item1);
+            expect(item1.itemDiscount).toBeUndefined();
+        });
+
+        it('does nothing if item has no item discount', function () {
+            expect(item1.itemDiscount).toBeUndefined();
+            expect(function () {
+                Discount.unsetItemDiscount(item1);
+            }).not.toThrow();
+        });
+    }); // .unsetitemdiscount()
+
+
+    describe('.unsetOrderDiscount()', function () {
+        it('is accessible', function () {
+            expect(Discount.unsetOrderDiscount).not.toBeUndefined();
+        });
+
+        it('is a function', function () {
+            expect(typeof Discount.unsetOrderDiscount).toBe('function');
+        });
+
+        it('removes the order discount attribute', function () {
+            Discount.setOrderDiscount(item1, 10);
+            Discount.unsetOrderDiscount(item1);
+            expect(item1.orderDiscount).toBeUndefined();
+        });
+
+        it('does nothing if item has no order discount', function () {
+            expect(item1.orderDiscount).toBeUndefined();
+            expect(function () {
+                Discount.unsetOrderDiscount(item1);
+            }).not.toThrow();
+        });
+    }); // .unsetItemDiscount()
+
 });

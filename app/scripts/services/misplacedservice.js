@@ -284,6 +284,9 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         }
 
 
+        /**
+         * Unsets item discount in the given item.
+         */
         function unsetItemDiscount(item) {
             delete item.itemDiscount;
         }
@@ -308,6 +311,9 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         }
 
 
+        /**
+         * Unsets the order discount from the given item.
+         */
         function unsetOrderDiscount(item) {
             delete item.orderDiscount;
         }
@@ -455,7 +461,10 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
             getTotalDiscount : getTotalDiscount,
 
             setItemDiscount : setItemDiscount,
-            setOrderDiscount : setOrderDiscount
+            setOrderDiscount : setOrderDiscount,
+
+            unsetItemDiscount : unsetItemDiscount,
+            unsetOrderDiscount : unsetOrderDiscount
         };
     })();
 
