@@ -44,7 +44,7 @@
                                         productsMap[SKU].amountTotal =
                                             Math
                                                 .round(100 * (Number(productsMap[SKU].qty) * Number(productsMap[SKU].price))) / 100;
-
+                                        productsMap[SKU].amountTotalWithDiscount =  productsMap[SKU].amountTotal - item.discount;
                                         productsMap[SKU].priceAvg =
                                             Math
                                                 .round(100 * (Number(productsMap[SKU].amountTotal) / Number(productsMap[SKU].qty))) / 100;

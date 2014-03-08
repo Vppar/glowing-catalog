@@ -180,7 +180,7 @@
                 var qtyTotal = $filter('sum')(order.items, 'qty');
                 var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                 var amountTotal = $filter('sum')(order.items, 'amount');
-                var discount = getTotalDiscountByOrder(order);
+                var discount = $scope.getTotalDiscountByOrder(order);
 
                 order.itemsQty = qtyTotal;
                 order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
@@ -201,7 +201,8 @@
                     for ( var ix in orders) {
                         var order = orders[ix];
                         if (angular.isObject(order)) {
-                            order.va = (order.amountTotalWithDiscount / $scope.total.all.amount) * 100;
+                            order.va =
+                                (order.amountTotalWithDiscount / $scope.total.all.amount) * 100;
                             var roundedVa = (Math.round(100 * order.va) / 100);
                             acumulator += roundedVa;
                             order.va = roundedVa;
@@ -244,11 +245,11 @@
                     }
                 };
 
-            function getTotalDiscountByOrder (order) {
+            $scope.getTotalDiscountByOrder = function (order) {
                 var bookEntries = BookService.listByOrder(order.uuid);
                 bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder, uuid);
                 return $filter('sum')(bookEntries, 'amount');
-            }
+            };
 
             function bookEntriesByOrder (bookEntry) {
                 var result =
@@ -306,10 +307,9 @@
                     }
 
                     // computing the discount.
-                    var discount = getTotalDiscountByOrder(order);
+                    var discount = $scope.getTotalDiscountByOrder(order);
                     $scope.total.discount += discount;
-                    $scope.total.amount += discount;
-                    
+
                 }
 
             };

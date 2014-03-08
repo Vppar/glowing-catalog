@@ -292,7 +292,7 @@
 							<span>{{entity.avgPrice | currency:''}}</span>
 						</div>
 						<div class="new-col-3 currency">
-							<span>{{entity.amountTotal | currency:''}}</span>
+							<span>{{entity.amountTotalWithDiscount | currency:''}}</span>
 						</div>
 						<div class="new-col-2 currency">
 							<span>{{entity.va | currency: ''}}</span>
@@ -379,7 +379,7 @@
 							{{product.price | currency:''}}
 						</div>
 						<div class="new-col-3 currency">
-							{{product.amountTotal | currency:''}}
+							{{product.amountTotalWithDiscount | currency:''}}
 						</div>
 						<div class="new-col-2 currency">
 							{{product.va | currency:''}}

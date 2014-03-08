@@ -261,6 +261,7 @@ describe('Controller: order-list-clients', function() {
         scope.resetPaymentsTotal = jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function() {
             scope.total = receivablesTotalTemplate;
         });
+        scope.getTotalDiscountByOrder = jasmine.createSpy('scope.getTotalDiscountByOrder').andReturn(0);
         scope.filterOrders = jasmine.createSpy('scope.filterOrders');
         
         scope.generateVA = jasmine.createSpy('scope.generateVA').andCallFake(function generateVa(filterList) {
