@@ -170,6 +170,7 @@ scripts/services/DataProvider.js
 scripts/services/DialogService.js
 scripts/services/EntityService.js
 scripts/services/ExpenseService.js
+scripts/services/financial/FinancialMathService.js
 scripts/services/IdentityService.js
 scripts/services/InventoryService.js
 scripts/services/KeyboardService.js
@@ -179,6 +180,7 @@ scripts/services/PaymentService.js
 scripts/services/ProductLineUp.js
 scripts/services/ReceivableService.js
 scripts/services/Replayer.js
+scripts/services/report/ReportService.js
 scripts/services/SMSService.js
 scripts/services/StockService.js
 scripts/services/StorageService.js
