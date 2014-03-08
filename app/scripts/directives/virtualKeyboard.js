@@ -1,13 +1,9 @@
 (function (angular) {
     'use strict';
-    angular.module('tnt.catalog.directives.virtualKeyboard', []).directive(
-        'tntVirtualKeyboard',
-        function () {
+    angular.module('tnt.catalog.directives.virtualKeyboard', []).directive('tntVirtualKeyboard', [
+        '$parse', function ($parse) {
             return {
-                scope : {
-                    okClick : '&'
-                },
-                link : function (scope, element) {
+                link : function (scope, element, attrs) {
                     scope.$on('tnt.events.virtualKeyboard.KeyPress', function (event, key) {
                         // If this event has not yet been handled
                         if (!event.defaultPrevented && element.is(':focus')) {
@@ -16,9 +12,7 @@
                             } else if (key === 'backspace') {
                                 element.val(element.val().slice(0, -1));
                             } else if (key === 'enter') {
-                                if (scope.okClick) {
-                                    scope.okClick();
-                                }
+                                $parse(attrs.okClick)(scope);
                             } else {
                                 element.val(element.val() + key);
                             }
@@ -27,5 +21,6 @@
 
                 }
             };
-        });
+        }
+    ]);
 }(angular));
