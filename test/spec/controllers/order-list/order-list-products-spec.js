@@ -1,6 +1,7 @@
 describe('Controller: order-list-products', function () {
 
     var scope = {};
+    var DataProvider = {};
     var OrderService = {};
     var EntityService = {};
     var ReceivableService = {};
@@ -24,12 +25,10 @@ describe('Controller: order-list-products', function () {
     beforeEach(function () {
         module('tnt.catalog.orderList.products.ctrl');
         module('tnt.catalog.filter.sum');
-        module('tnt.catalog.service.data');
         module('tnt.catalog.inventory.entity');
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.journal.replayer');
         module('tnt.catalog.stock.service');
-
     });
 
     beforeEach(function () {
@@ -544,7 +543,8 @@ describe('Controller: order-list-products', function () {
             ProductReturnService : ProductReturnService,
             VoucherService : VoucherService,
             ArrayUtils : _ArrayUtils_,
-            StockService : StockService
+            StockService : StockService,
+            DataProvider : DataProvider
         });
     }));
 
