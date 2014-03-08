@@ -64,7 +64,7 @@
                                         // Stock black magic
 
                                         var stockResponse = StockService.findInStock(item.id);
-
+                                        
                                         if (stockResponse.reserve > 0) {
                                             if ((stockResponse.quantity - stockResponse.reserve) > 0) {
                                                 productsMap[SKU].stock = stockResponse.quantity;
@@ -91,7 +91,6 @@
                     $scope.updateProducts =
                         function () {
                             $scope.filteredOrders = $scope.filterOrders($scope.orders);
-
                             if ($scope.customerId !== '0') {
                                 $scope.filteredOrders =
                                     $filter('filter')($scope.filteredOrders, $scope.filterByClient);

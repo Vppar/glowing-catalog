@@ -1,4 +1,4 @@
-describe('Controller: order-list', function() {
+describe('Controller: order-list', function () {
 
     var scope = {};
     var OrderService = {};
@@ -11,17 +11,17 @@ describe('Controller: order-list', function() {
     var orders = [];
     var customers = null;
     var BookService = {};
-    function daysToMilliseconds(days) {
+    function daysToMilliseconds (days) {
         return days * 24 * 60 * 60 * 1000;
     }
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('tnt.catalog.orderList.ctrl');
         module('tnt.catalog.filter.sum');
         module('tnt.utils.array');
     });
 
-    beforeEach(function() {
+    beforeEach(function () {
         receivables = [
             {
                 uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
@@ -150,22 +150,25 @@ describe('Controller: order-list', function() {
             }
         ];
     });
-    beforeEach(inject(function($controller, $rootScope, _ArrayUtils_) {
+    beforeEach(inject(function ($controller, $rootScope, _ArrayUtils_) {
         // scope mock
         scope = $rootScope.$new();
 
         // dependecy mocks
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         EntityService.list = jasmine.createSpy('EntityService.list').andReturn(customers);
-        UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
-        ProductReturnService.listByDocument = jasmine.createSpy('ProductReturnService.listByDocument');
+        UserService.redirectIfIsNotLoggedIn =
+            jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
+        ProductReturnService.listByDocument =
+            jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         ArrayUtils = _ArrayUtils_;
         BookService.listByOrder = jasmine.createSpy('BookService.listByOrder');
-        ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
-            return ArrayUtils.list(receivables, 'documentId', document);
+        ReceivableService.listByDocument =
+            jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function (document) {
+                return ArrayUtils.list(receivables, 'documentId', document);
 
-        });
+            });
 
         $controller('OrderListCtrl', {
             $scope : scope,
@@ -181,13 +184,13 @@ describe('Controller: order-list', function() {
 
     }));
 
-    describe('When instantiate controller', function() {
+    describe('When instantiate controller', function () {
 
-        it('should verify if user is logged in', function() {
+        it('should verify if user is logged in', function () {
             expect(UserService.redirectIfIsNotLoggedIn).toHaveBeenCalled();
         });
 
-        it('should instantiate dateFilter properly', function() {
+        it('should instantiate dateFilter properly', function () {
             var expectInitialDate = new Date();
             expectInitialDate.setHours(0);
             expectInitialDate.setMinutes(0);
@@ -205,20 +208,20 @@ describe('Controller: order-list', function() {
             expect(scope.dtFilter.dtFinal.toJSON()).toEqual(expectFinalDate.toJSON());
         });
 
-        it('should have 4 orders in the list', function() {
+        it('should have 4 orders in the list', function () {
             scope.$apply();
             expect(scope.filteredOrders.length).toEqual(4);
         });
     });
 
-    describe('When resetPaymentsTotal and resetOrdersTotal is triggered', function() {
+    describe('When resetPaymentsTotal and resetOrdersTotal is triggered', function () {
         var messyTotal = null;
         var expectedTotal = null;
 
         var expectedOrdersTotal = null;
         var messyOrdersTotal = null;
 
-        beforeEach(function() {
+        beforeEach(function () {
 
             messyTotal = {
                 cash : {
@@ -311,7 +314,7 @@ describe('Controller: order-list', function() {
             scope.$apply();
         });
 
-        it('should reset recevaibles total by type', function() {
+        it('should reset recevaibles total by type', function () {
             scope.resetPaymentsTotal();
             expect(scope.total.cash).toEqual(expectedTotal.cash);
             expect(scope.total.check).toEqual(expectedTotal.check);
@@ -322,7 +325,7 @@ describe('Controller: order-list', function() {
             expect(scope.total.onCuff).toEqual(expectedTotal.onCuff);
         });
 
-        it('should reset order totals', function() {
+        it('should reset order totals', function () {
             scope.resetOrdersTotal();
             expect(scope.total.all.orderCount).toEqual(expectedOrdersTotal.all.orderCount);
             expect(scope.total.all.entityCount).toEqual(expectedOrdersTotal.all.entityCount);
@@ -334,7 +337,7 @@ describe('Controller: order-list', function() {
             expect(scope.total.all.lastOrder).toEqual(expectedOrdersTotal.all.lastOrder);
         });
 
-        it('should updateReceivablesTotal calculate properly the receivables by type', function() {
+        it('should updateReceivablesTotal calculate properly the receivables by type', function () {
             expect(scope.total.cash.qty).toEqual(3);
             expect(scope.total.cash.amount).toEqual(800);
 
@@ -357,7 +360,7 @@ describe('Controller: order-list', function() {
             expect(scope.total.onCuff.amount).toEqual(0);
         });
 
-        it('should updateReceivablesTotal calculate properly the receivable by type', function() {
+        it('should updateReceivablesTotal calculate properly the receivable by type', function () {
             scope.updateReceivablesTotal([
                 orders[0]
             ]);
@@ -385,32 +388,32 @@ describe('Controller: order-list', function() {
 
         });
 
-        it('should calculate properly the orders totals', function() {
+        it('should calculate properly the orders totals', function () {
             expect(scope.total.all.orderCount).toEqual(4);
             expect(scope.total.all.entityCount).toEqual(3);
-            // FIXME
             expect(scope.total.all.productCount).toEqual(0);
             expect(scope.total.all.stock).toEqual(0);
             expect(scope.total.all.qty).toEqual(30);
             expect(scope.total.all.avgPrice).toEqual(33.33);
             expect(scope.total.all.amount).toEqual(1000);
-            // FIXME
             expect(scope.total.all.lastOrder).toEqual(0);
         });
 
-        it('should argument properly order with itemsQty, avgPrice, amountTotal, avgOrder', function() {
+        it(
+            'should argument properly order with itemsQty, avgPrice, amountTotal, avgOrder',
+            function () {
 
-            scope.$apply();
+                scope.$apply();
 
-            expect(scope.filteredOrders[0].va).toEqual(30);
-            expect(scope.filteredOrders[1].va).toEqual(25);
-            expect(scope.filteredOrders[2].va).toEqual(25);
-            expect(scope.filteredOrders[3].va).toEqual(20);
+                expect(scope.filteredOrders[0].va).toEqual(30);
+                expect(scope.filteredOrders[1].va).toEqual(25);
+                expect(scope.filteredOrders[2].va).toEqual(25);
+                expect(scope.filteredOrders[3].va).toEqual(20);
 
-        });
+            });
 
-        describe('When date filter change', function() {
-            it('should filter orders by date', function() {
+        describe('When date filter change', function () {
+            it('should filter orders by date', function () {
                 scope.dtFilter.dtInitial = new Date(new Date() - daysToMilliseconds(2));
                 scope.dtFilter.dtFinal = new Date(new Date() - daysToMilliseconds(1));
                 scope.filterOrders(scope.filteredOrders);

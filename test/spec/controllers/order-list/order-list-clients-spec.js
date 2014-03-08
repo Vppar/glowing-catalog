@@ -282,6 +282,7 @@ describe('Controller: order-list-clients', function () {
             jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function () {
                 scope.total = receivablesTotalTemplate;
             });
+
         scope.getTotalDiscountByOrder =
             jasmine.createSpy('scope.getTotalDiscountByOrder').andReturn(0);
         scope.filterOrders = jasmine.createSpy('scope.filterOrders');
@@ -354,13 +355,7 @@ describe('Controller: order-list-clients', function () {
     }));
 
     it('should consolidate orders by clients.', function () {
-        // given
-        // the orderList and entities list
-        // when
         scope.$apply();
-        // then
-        /*scope.argumentOrder(scope.filteredEntities);
-        scope.generateVA(scope.filteredEntities);*/
 
         expect(scope.filteredEntities.length).toEqual(4);
         expect(scope.filteredEntities[0].name).toEqual('Tiburço');
