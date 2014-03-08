@@ -230,7 +230,7 @@
                             $scope.total.all.entityCount++;
                         }
                         //var discount = getTotalDiscountByOrder(filteredOrder);
-                        $scope.total.all.discount += discount;
+                        //$scope.total.all.discount += discount;
                         $scope.total.all.amount += filteredOrder.amountTotal;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
