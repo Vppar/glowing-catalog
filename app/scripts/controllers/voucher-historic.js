@@ -1,20 +1,26 @@
-(function(angular) {
+(function (angular) {
     'use strict';
 
     angular.module(
-            'tnt.catalog.voucher.historic.ctrl',
-            [
-                'tnt.catalog.voucher.keeper', 'tnt.catalog.payment.service', 'tnt.utils.array', 'tnt.catalog.payment.service',
-                'tnt.catalog.entity.service'
-            ]).controller(
-            'VoucherHistoricCtrl', ['$scope', '$filter', 'VoucherKeeper', 'ArrayUtils', 'PaymentService', 'OrderService', 'EntityService', function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService) {
+        'tnt.catalog.voucher.historic.ctrl',
+        [
+            'tnt.catalog.voucher.keeper',
+            'tnt.catalog.payment.service',
+            'tnt.utils.array',
+            'tnt.catalog.payment.service',
+            'tnt.catalog.entity.service'
+        ]).controller(
+        'VoucherHistoricCtrl',
+        [
+            '$scope',
+            '$filter',
+            function ($scope, $filter) {
 
                 var vouchers = angular.copy($scope.vouchers);
 
-                $scope.notActiveVouchers = $filter('filter')(vouchers, function(voucher) {
+                $scope.notActiveVouchers = $filter('filter')(vouchers, function (voucher) {
                     return (voucher.canceled || voucher.redeemed);
                 });
-
 
                 $scope.isRedeemed = function (voucher) {
                     return !!voucher.redeemed;
@@ -23,7 +29,7 @@
                 /**
                  * Historic DateFilter
                  */
-                function historicFilterVoucher(voucher) {
+                function historicFilterVoucher (voucher) {
                     var initialFilter = null;
                     var finalFilter = null;
                     var isDateInitial = false;
@@ -50,8 +56,10 @@
                     }
 
                     if (isDateInitial && isDateFinal) {
-                        if ($scope.historicVoucher.dtInitial.getTime() > $scope.historicVoucher.dtFinal.getTime()) {
-                            $scope.historicVoucher.dtFinal = angular.copy($scope.historicVoucher.dtInitial);
+                        if ($scope.historicVoucher.dtInitial.getTime() > $scope.historicVoucher.dtFinal
+                            .getTime()) {
+                            $scope.historicVoucher.dtFinal =
+                                angular.copy($scope.historicVoucher.dtInitial);
                         }
                     }
 
@@ -75,32 +83,36 @@
                     }
                 }
 
-                $scope.filter = function filter() {
-                    var myFilter = $scope.historicVoucher.value;
-                    $scope.historicVouchers = $filter('filter')($scope.notActiveVouchers, function(voucher) {
-                        var result = true;
-                        if ($scope.historicVoucher.value.length > 0) {
-                            result = false;
+                $scope.filter =
+                    function filter () {
+                        var myFilter = $scope.historicVoucher.value;
+                        $scope.historicVouchers =
+                            $filter('filter')($scope.notActiveVouchers, function (voucher) {
+                                var result = true;
+                                if ($scope.historicVoucher.value.length > 0) {
+                                    result = false;
 
-                            var type = '' + voucher.type;
-                            var amount = '' + voucher.amount;
-                            var entity = '' + voucher.entity;
+                                    var type = '' + voucher.type;
+                                    var amount = '' + voucher.amount;
+                                    var entity = '' + voucher.entity;
 
-                            type = type.toLowerCase();
-                            entity = entity.toLowerCase();
-                            myFilter = myFilter.toLowerCase();
+                                    type = type.toLowerCase();
+                                    entity = entity.toLowerCase();
+                                    myFilter = myFilter.toLowerCase();
 
-                            result = result || (type.indexOf(myFilter) > -1);
-                            result = result || (amount.indexOf(myFilter) > -1);
-                            result = result || (entity.indexOf(myFilter) > -1);
-                        }
-                        return result;
-                    });
-                    $scope.historicVouchers = $filter('filter')($scope.historicVouchers, historicFilterVoucher);
-                };
+                                    result = result || (type.indexOf(myFilter) > -1);
+                                    result = result || (amount.indexOf(myFilter) > -1);
+                                    result = result || (entity.indexOf(myFilter) > -1);
+                                }
+                                return result;
+                            });
+                        $scope.historicVouchers =
+                            $filter('filter')($scope.historicVouchers, historicFilterVoucher);
+                    };
 
-                $scope.$watchCollection('historicVoucher', function() {
+                $scope.$watchCollection('historicVoucher', function () {
                     $scope.filter();
                 });
-            }]);
+            }
+        ]);
 }(angular));

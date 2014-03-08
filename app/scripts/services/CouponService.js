@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.service.coupon', [
         'tnt.utils.array', 'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper'
-    ]).service('CouponService', ['ArrayUtils', 'VoucherKeeper', 'Voucher', function CouponService(ArrayUtils, VoucherKeeper, Voucher) {
+    ]).service('CouponService', ['ArrayUtils', 'VoucherKeeper', 'Voucher', '$log', function CouponService(ArrayUtils, VoucherKeeper, Voucher, $log) {
 
         /**
          * List all coupons.

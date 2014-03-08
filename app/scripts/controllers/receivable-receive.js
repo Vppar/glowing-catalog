@@ -28,7 +28,6 @@
                         });
                     });
                 }
-                ;
 
                 function invalidReceivable() {
                     var dialogPromise = DialogService.messageDialog({

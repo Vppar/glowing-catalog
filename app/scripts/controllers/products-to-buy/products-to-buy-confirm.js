@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.confirm.ctrl', [
         'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service',
-    ]).controller('ProductsToBuyConfirmCtrl', ['$scope', '$log', '$q', 'DialogService', 'PurchaseOrderService', 'PurchaseOrder', 'TimerService', function($scope, $log, $q, DialogService, PurchaseOrderService, PurchaseOrder, TimerService) {
+    ]).controller('ProductsToBuyConfirmCtrl', ['$scope', '$log', '$q', 'DialogService', 'PurchaseOrderService', function($scope, $log, $q, DialogService, PurchaseOrderService) {
 
         // #####################################################################################################
         // Local variables
@@ -15,7 +15,6 @@
         // inherited functions
         var financialRound = $scope.financialRound;
         var resetPurchaseOrder = $scope.resetPurchaseOrder;
-        var selectTab = $scope.selectTab;
 
         // #####################################################################################################
         // Local Functions

@@ -27,9 +27,9 @@
                     $log.debug('Trying to switch users with unsynced entries.');
                     DialogService.messageDialog({
                         title : 'Atenção! Dados podem ser perdidos!',
-                        message : 'Alguns dados não foram salvos no servidor e serão '
-                            + 'excluídos permanentemente ao trocar de usuário. '
-                            + 'Tem certeza de que deseja continuar?',
+                        message : 'Alguns dados não foram salvos no servidor e serão ' +
+                            'excluídos permanentemente ao trocar de usuário. ' +
+                            'Tem certeza de que deseja continuar?',
                         btnYes : 'Sim, tenho certeza.',
                         btnNo : 'Não'
                     }).then(function () {
@@ -45,8 +45,8 @@
                 } else {
                     console.log('Switch user! No unsynced data found.');
                     return UserService.clearData().then(function () {
-                      $log.debug('User data cleared.');
-                      $scope.user = '';
+                        $log.debug('User data cleared.');
+                        $scope.user = '';
                     });
                 }
             });

@@ -16,7 +16,7 @@
     angular.module('tnt.catalog.inventory.entity', []).factory('Inventory', function Inventory() {
         var service = function svc(id) {
 
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 throw 'Inventory must be initialized with an id';
             }
 

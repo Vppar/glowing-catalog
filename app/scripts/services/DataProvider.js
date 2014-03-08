@@ -1,4 +1,4 @@
-(function(angular) {
+(function(angular, $) {
     'use strict';
 
     /**
@@ -88,4 +88,4 @@
                     return deferred.promise;
                 };
             }]);
-}(angular));
+})(angular, jQuery);

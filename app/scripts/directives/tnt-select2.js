@@ -1,12 +1,12 @@
-(function(angular) {
+(function(angular, $) {
     'use strict';
-    angular.module('glowingCatalogApp').directive('tntSelect2', ['$filter', function select2($filter) {
+    angular.module('glowingCatalogApp').directive('tntSelect2', [function select2() {
         return {
             restrict : 'A',
-            link : function(scope, element, attrs, ctrl) {
+            link : function(scope, element) {
                 function closeNativeKeyBoard(){
-                    element.attr('readonly', 'readonly'); 
-                    element.attr('disabled', 'true'); 
+                    element.attr('readonly', 'readonly');
+                    element.attr('disabled', 'true');
                     setTimeout(function() {
                         //element.blur(); //just works at Android
                         $('input:focus').blur(); //works at iOS too
@@ -19,4 +19,4 @@
             }
         };
     }]);
-}(angular));
+})(angular, jQuery);

@@ -2,8 +2,8 @@
     'use strict';
     angular.module('tnt.catalog.financial.receivable.list.ctrl', []).controller(
             'ReceivableListCtrl',
-            ['$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'ArrayUtils',
-            function($log, $scope, $filter, ReceivableService, EntityService, OrderService, ArrayUtils) {
+            ['$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService',
+            function($log, $scope, $filter, ReceivableService, EntityService, OrderService) {
                 function setTime(date, hours, minutes, seconds, milliseconds) {
                     date.setHours(hours);
                     date.setMinutes(minutes);
@@ -13,15 +13,15 @@
                 }
                 // FIXME may is't the right information
                 var translate = {};
-                translate["cash"] = "Dinheiro";
-                translate["onCuff"] = "Fiado";
-                translate["check"] = "Cheque";
-                translate["voucher"] = "Voucher";
-                translate["gift"] = "Vale Presente";
-                translate["exchange"] = "Troca de Produto";
-                translate["coupon"] = "Cupom";
-                translate["noMerchantCc"] = "Cartão de Crédito";
-                translate["creditCard"] = "Cartão de Crédito";
+                translate.cash = 'Dinheiro';
+                translate.onCuff = 'Fiado';
+                translate.check = 'Cheque';
+                translate.voucher = 'Voucher';
+                translate.gift = 'Vale Presente';
+                translate.exchange = 'Troca de Produto';
+                translate.coupon = 'Cupom';
+                translate.noMerchantCc = 'Cartão de Crédito';
+                translate.creditCard = 'Cartão de Crédito';
                 $scope.query = '';
 
                 var searchableFields = [

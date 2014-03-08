@@ -5,7 +5,7 @@
         'tnt.catalog.keyboard.service'
     ]);
 
-    kinput.directive('tntKbutton', ['KeyboardService', '$log', function(KeyboardService, $log) {
+    kinput.directive('tntKbutton', ['KeyboardService', function(KeyboardService) {
         return {
             restrict : 'A',
             scope : {},
@@ -17,7 +17,7 @@
                     prev : attrs.prev,
                 };
 
-                input.keypress = function(key) {
+                input.keypress = function() {
                 };
 
                 input.setActive = function(active) {
@@ -92,10 +92,10 @@
 
                         if (relatedVal) {
                             if (typeof current === 'string') {
-                              // Clear up the value to make it be properly
-                              // parsed by parseFloat()
-                              current = current.replace('.', '');
-                              current = current.replace(',', '.');
+                                // Clear up the value to make it be properly
+                                // parsed by parseFloat()
+                                current = current.replace('.', '');
+                                current = current.replace(',', '.');
                             }
 
                             var ratio = parseFloat(current) / 100;
@@ -110,7 +110,7 @@
                             KeyboardService.next();
 
                             if (scope.okClick) {
-                              scope.okClick();
+                                scope.okClick();
                             }
 
                             // Time 100 to compensate for the two decimal set by the
@@ -173,7 +173,7 @@
 
                     if (active) {
                         element.unbind('focus', bindFocus);
-                        if(!element.is(":focus")){
+                        if(!element.is(':focus')){
                             setTimeout(function() {
                                 element.focus();
                             }, 0);
@@ -182,7 +182,7 @@
 
                     } else {
                         watcher();
-                        if(element.is(":focus")){
+                        if(element.is(':focus')){
                             element.trigger('blur');
                         }
                         element.bind('focus', bindFocus);
