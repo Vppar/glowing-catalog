@@ -20,10 +20,10 @@
 
                     // $scope.entities come from OrderListCtrl
                     var customers = $scope.customers;
-                    $scope.avaliableCustomer = [];
                     // $scope.filteredOrders come from OrderListCtrl
                     $scope.filteredEntities = [];
                     $scope.checkedEntityUUID = null;
+                    $scope.filterOrders($scope.orders);
                     $scope.updateAndEnableHideOption = function (entity) {
                         $scope.checkedEntityUUID = entity.entityId;
                         $scope.updatePaymentsTotal([

@@ -55,7 +55,8 @@
                     qty : 0,
                     avgPrice : 0,
                     amount : 0,
-                    lastOrder : 0
+                    lastOrder : 0,
+                    discount : 0
                 }
             };
 
@@ -228,7 +229,8 @@
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
                         }
-
+                        //var discount = getTotalDiscountByOrder(filteredOrder);
+                        //$scope.total.all.discount += discount;
                         $scope.total.all.amount += filteredOrder.amountTotal;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
@@ -243,13 +245,25 @@
                     }
                 };
 
+            /*function getTotalDiscountByOrder (order) {
+                var bookEntries = BookService.listByOrder(order.uuid);
+                bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder, uuid);
+                return $filter('sum')(bookEntries, 'amount');
+            }*/
+
+            function bookEntriesByOrder (bookEntry) {
+                var result =
+                    (bookEntry.debitAccount === 41301) && (bookEntry.creditAccount === 70001);
+                return result;
+            }
+
             /**
              * ClientFilter
              */
             $scope.filterByClient = function filterByClient (order) {
-                if ($scope.filter.customerId === '') {
+                if ($scope.customerId === '') {
                     return true;
-                } else if (order.customerId === $scope.filter.customerId) {
+                } else if (order.customerId === $scope.customerId) {
                     return true;
                 }
             };
@@ -261,7 +275,7 @@
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
                     var order = orders[ix];
-                    //FIXME list only active receivables.
+                    // FIXME list only active receivables.
                     var receivables = ReceivableService.listByDocument(order.uuid);
                     for ( var ix2 in receivables) {
                         var receivable = receivables[ix2];
@@ -307,7 +321,9 @@
                             uuid : ordersByCustomer[0].customerId
                         });
                     }
+
                 }
+
                 return $scope.avaliableCustomers;
             };
 
@@ -328,9 +344,7 @@
             $scope.orders = OrderService.list();
             $scope.customers = EntityService.list();
             $scope.avaliableCustomers = [];
-            $scope.filter = {
-                customerId : ''
-            };
+            $scope.customerId = '0';
 
             /**
              * whenever dtFilter changes filter list.

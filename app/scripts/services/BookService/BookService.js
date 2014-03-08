@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.service.book', [
         'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry'
-    ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $log, BookKeeper, Book, BookEntry) {
+    ]).service('BookService', ['$q','$filter', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $filter, $log, BookKeeper, Book, BookEntry) {
 
         this.write = function(entry) {
             var result = null;
@@ -26,7 +26,14 @@
         this.list = function() {
             return BookKeeper.list();
         };
-
+        
+        this.listByOrder = function(uuid){
+            var result = $filter('filter')(this.listEntries(), function(entry){
+                return (entry.document.uuid === uuid);
+            });
+            return result;
+        };
+        
         this.listEntries = function() {
             return BookKeeper.listEntries();
         };
