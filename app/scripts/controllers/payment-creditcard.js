@@ -5,7 +5,7 @@
         'tnt.catalog.service.dialog', 'tnt.catalog.service.data', 'tnt.catalog.payment.creditcard.service'
     ]).controller(
             'PaymentCreditCardCtrl',
-            ['$scope', '$element', '$filter', 'DataProvider', 'DialogService', 'OrderService', 'CreditCardPaymentService', 
+            ['$scope', '$element', '$filter', 'DataProvider', 'DialogService', 'OrderService', 'CreditCardPaymentService',
             function($scope, $element, $filter, DataProvider, DialogService, OrderService, CreditCardPaymentService) {
 
                 // #####################################################################################################
@@ -104,16 +104,16 @@
                     }
                 });
 
-                $scope.$watch('gopay.merchant', reloadCardFlags);
-                $scope.$watch('envFlags.internet', reloadCardFlags);
-
-                function reloadCardFlags(newVal, oldVal) {
+                function reloadCardFlags() {
                     if ($scope.gopay.merchant && $scope.envFlags.internet) {
                         $scope.cardFlags = DataProvider.cardData.goPayflags;
                     } else {
                         $scope.cardFlags = DataProvider.cardData.flags;
                     }
                 }
+                
+                $scope.$watch('gopay.merchant', reloadCardFlags);
+                $scope.$watch('envFlags.internet', reloadCardFlags);
 
                 // #####################################################################################################
                 // Scope action functions

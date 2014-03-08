@@ -121,7 +121,7 @@
             return event.uuid;
         });
 
-        function forceAddBook(access, type, nature, entities) {
+        function forceAddBook(access, type, nature) {
             var book = new Book(IdentityService.getUUID(type, getNextId()), access, access, type, nature, 'entities');
             books.push(book);
             return book;

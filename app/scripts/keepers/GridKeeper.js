@@ -18,7 +18,7 @@
     angular.module('tnt.catalog.grid.entity', []).factory('Grid', function Grid() {
         var service = function svc(id, grid) {
 
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 throw 'Grid must be initialized with an id and a grid(array of ids)';
             }
 

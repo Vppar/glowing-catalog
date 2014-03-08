@@ -224,7 +224,7 @@
                 var target = startEvent.target;
 
                 $self.one('touchend', function (endEvent) {
-                    if (target == endEvent.target) {
+                    if (target === endEvent.target) {
                         $log.debug('touch tap on ' + id);
                         $.event.simulate('tap', self, endEvent);
                     }

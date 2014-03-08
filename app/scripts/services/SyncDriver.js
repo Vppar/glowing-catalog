@@ -34,14 +34,12 @@
                     return !!firebaseSyncStartTime &&
                         firebaseSyncStartTime !== firebaseSyncStartTime2;
                 }
-                ;
                 this.isFirebaseBusy = isFirebaseBusy;
 
                 // Uses Firebase's connected ref...
                 function isConnected () {
                     return !!localStorage.firebaseUser;
                 }
-                ;
                 this.isConnected = isConnected;
 
                 this.lock = function (successCb, failureCb) {
@@ -83,7 +81,7 @@
                 // bothering
                 // me and I hope to fix this later to use a single callback.
                 this.login =
-                    function (username, password, rememberMe) {
+                    function (username, password) {
                         var deferred = $q.defer();
 
                         new FirebaseSimpleLogin(baseRef, function (err, user) {
@@ -155,7 +153,7 @@
                         });
 
                         var connectedRef = baseRef.child('.info').child('connected');
-                        connectedRef.on("value", function (snap) {
+                        connectedRef.on('value', function (snap) {
                             if (snap.val() === false) {
                                 delete localStorage.gpToken;
                             }
@@ -205,7 +203,7 @@
                                     '.priority' : entry.sequence
                                 };
                             }
-                        }, function (error, committed, snapshot) {
+                        }, function (error, committed) {
                             if (committed) {
                                 // Entry stored
                                 deferred.resolve();

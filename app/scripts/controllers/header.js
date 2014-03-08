@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.header', ['tnt.catalog.manifest']).controller(
             'HeaderCtrl',
-            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 
+            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController',
             function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController) {
 
                 // #############################################################################################################

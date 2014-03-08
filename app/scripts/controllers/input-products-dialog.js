@@ -23,7 +23,7 @@
                 $scope.productsToInsert = productsToInsert;
 
                 $scope.addToStock =
-                    function (product) {
+                    function () {
                         var selectedProduct = JSON.parse($scope.selectedProduct);
                         selectedProduct.price = $scope.price;
                         selectedProduct.quantity = $scope.quantity;

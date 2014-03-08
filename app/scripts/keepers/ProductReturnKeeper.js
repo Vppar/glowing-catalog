@@ -24,12 +24,12 @@
                     var prop = this[ix];
                     if (!angular.isFunction(prop)) {
                         if (validProperties.indexOf(ix) === -1) {
-                            throw "Unexpected property " + ix;
+                            throw 'Unexpected property ' + ix;
                         }
                     }
                 }
             });
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 if (arguments.length === 1 && angular.isObject(arguments[0])) {
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
@@ -54,8 +54,8 @@
      * The keeper for the returned product
      */
     angular.module('tnt.catalog.productReturn.keeper', [
-'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.productReturn.entity',
-'tnt.catalog.journal.keeper', 'tnt.identity'
+        'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.productReturn.entity',
+        'tnt.catalog.journal.keeper', 'tnt.identity'
     ]).service('ProductReturnKeeper', ['Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'ProductReturn', 'IdentityService', function ProductReturnKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, ProductReturn,IdentityService) {
 
         var currentEventVersion = 1;
@@ -160,7 +160,7 @@
             var entry = new JournalEntry(null, event.created, 'productReturnAdd', currentEventVersion, event);
 
             // save the journal entry
-            return JournalKeeper.compose(entry);  
+            return JournalKeeper.compose(entry);
         };
         
         

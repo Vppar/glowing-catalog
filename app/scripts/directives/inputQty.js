@@ -18,7 +18,7 @@
                 max : '@'
             },
             templateUrl : templateUrl,
-            link : function postLink(scope, element, attr) {
+            link : function postLink(scope, element) {
 
                 var min, max, value, qty = element.find('.qty');
 
