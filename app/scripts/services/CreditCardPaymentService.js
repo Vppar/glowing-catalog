@@ -4,7 +4,7 @@
     angular.module(
             'tnt.catalog.payment.creditcard.service',
             [
-                'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.gopay.integration',
+                'tnt.catalog.payment.service', 'tnt.catalog.payment.entity',
                 'tnt.catalog.misplaced.service', 'tnt.catalog.gopay.gateway'
             ]).service(
             'CreditCardPaymentService',
