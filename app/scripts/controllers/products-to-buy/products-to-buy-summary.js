@@ -49,10 +49,6 @@
 
                             $scope.summary.nextDiscount.amount = financialRound(discounts[nix].amount - $scope.summary.total.amount);
                             $scope.summary.nextDiscount.fee = 100 * (discounts[nix + 1].fee);
-
-                            $log.info('Faltam ' + $filter('currency')($scope.summary.nextDiscount.amount) + ' para a classe de desconto de ' +
-                                    $scope.summary.nextDiscount.percent + '%.');
-                            
                             
                             break;
                         } else if (!discounts[nix + 1]) {
@@ -61,7 +57,6 @@
                             $scope.summary.total.amountWithDiscount = financialRound($scope.summary.total.amount * appliedFee);
                             $scope.summary.nextDiscount.amount = 0;
                             $scope.summary.nextDiscount.fee = discounts[discounts.length - 1].fee;
-                            $log.info('Você está na classe de desconto máximo.');
                         }
                     }
 

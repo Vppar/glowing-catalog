@@ -101,7 +101,7 @@
 					<div class="new-body-row details-stock-subtitle" ng-click="toggleSession(session)">
 						<span class="new-col-3">&nbsp;</span>
 						<span class="new-col-10">{{session.label}}<span class="float-right">Subtotal</span></span>
-						<span class="new-col-3">{{session.total.qty}}</span>
+						<span class="new-col-3 text-center">{{session.total.qty}}</span>
 						<span class="new-col-4 currency">{{session.total.avgCost | currency:''}}</span>
 						<span class="new-col-4 currency">{{session.total.amount | currency:''}}</span>
 					</div>
@@ -109,7 +109,7 @@
 						<div class="new-body-row details-stock-category" ng-click="toggleLine(line)">
 							<span class="new-col-3">&nbsp;</span>
 							<span class="new-col-10">{{line.label}}</span>
-							<span class="new-col-3">{{line.total.qty}}</span>
+							<span class="new-col-3 text-center">{{line.total.qty}}</span>
 							<span class="new-col-4 currency">{{line.total.avgCost | currency:''}}</span>
 							<span class="new-col-4 currency">{{line.total.amount | currency:''}}</span>
 						</div>
@@ -117,7 +117,7 @@
 							<div class="new-body-row details-stock-item">
 								<span class="new-col-3">{{product.SKU}}</span>
 								<span class="new-col-10">{{product.title}}</span>
-								<span class="new-col-3">{{product.qty}}</span>
+								<span class="new-col-3 text-center">{{product.qty}}</span>
 								<span class="new-col-4 currency">{{product.price| currency:''}}</span>
 								<span class="new-col-4 currency">{{product.qty * product.price | currency:''}}</span>
 							</div>

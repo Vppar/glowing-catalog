@@ -74,11 +74,24 @@
                         return result;
                     };
 
+                    this.reportAvailable = function reportAvailable (filter) {
+                        return this.stockReport('available', filter);
+                    };
+                    this.reportPending = function reportPending () {
+                        return {
+                            total : {
+                                amount : 0,
+                                qty : 0,
+                                avgCost : 0
+                            }
+                        };
+                    };
+                    this.reportReserved = function reportReserved (filter) {
+                        return this.stockReport('reserved', filter);
+                    };
+
                     this.stockReport =
                         function stockReport (type, filter) {
-                            // current time for log
-                            var processStarted = new Date().getTime();
-
                             // read inventory and stock
                             var inventory = InventoryKeeper.read();
                             var stock = StockKeeper.list();
@@ -129,11 +142,6 @@
                                 FinancialMathService.currencyDivide(
                                     report.total.amount,
                                     report.total.qty);
-
-                            var processDone = new Date().getTime();
-                            $log.debug('StockService.stockReport(' + (type ? type : '') +
-                                '): -It took ' + (processDone - processStarted) +
-                                'ms to create the stockReport.');
 
                             return report;
                         };
