@@ -5,6 +5,7 @@
     ]).controller('OrderListOrdersCtrl', [
         '$scope', function ($scope) {
             $scope.filterOrders($scope.orders);
+
             $scope.updateAndEnableHideOption = function (order) {
                 $scope.checkedOrderUUID = order.uuid;
                 $scope.updateReceivablesTotal([

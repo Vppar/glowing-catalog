@@ -10,7 +10,7 @@ describe('Controller: order-list', function() {
     var ArrayUtils = null;
     var orders = [];
     var customers = null;
-    
+    var BookService = {};
     function daysToMilliseconds(days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -161,7 +161,7 @@ describe('Controller: order-list', function() {
         ProductReturnService.listByDocument = jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         ArrayUtils = _ArrayUtils_;
-        
+        BookService.listByOrder = jasmine.createSpy('BookService.listByOrder');
         ReceivableService.listByDocument = jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function(document) {
             return ArrayUtils.list(receivables, 'documentId', document);
 
@@ -175,7 +175,8 @@ describe('Controller: order-list', function() {
             ReceivableService : ReceivableService,
             ProductReturnService : ProductReturnService,
             VoucherService : VoucherService,
-            ArrayUtils : _ArrayUtils_
+            ArrayUtils : _ArrayUtils_,
+            BookService : BookService
         });
 
     }));

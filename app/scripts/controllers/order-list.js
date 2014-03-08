@@ -5,7 +5,7 @@
     ]).controller(
         'OrderListCtrl',
         function ($scope, $location, $filter, OrderService, EntityService, ReceivableService,
-            UserService, ProductReturnService, VoucherService, ArrayUtils) {
+            UserService, ProductReturnService, VoucherService, ArrayUtils, BookService) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;
@@ -13,9 +13,8 @@
              * Templates
              */
             var receivablesTotalTemplate = {
-                total : {
-                    amount : 0
-                },
+                amount : 0,
+                discount : 0,
                 cash : {
                     qty : 0,
                     amount : 0
@@ -56,7 +55,6 @@
                     avgPrice : 0,
                     amount : 0,
                     lastOrder : 0,
-                    discount : 0
                 }
             };
 
@@ -182,10 +180,12 @@
                 var qtyTotal = $filter('sum')(order.items, 'qty');
                 var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                 var amountTotal = $filter('sum')(order.items, 'amount');
+                var discount = getTotalDiscountByOrder(order);
 
                 order.itemsQty = qtyTotal;
-                order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
+                order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
                 order.amountTotal = (priceTotal + amountTotal);
+                order.amountTotalWithDiscount = ((priceTotal + amountTotal) - discount);
             };
 
             /**
@@ -201,7 +201,7 @@
                     for ( var ix in orders) {
                         var order = orders[ix];
                         if (angular.isObject(order)) {
-                            order.va = (order.amountTotal / $scope.total.all.amount) * 100;
+                            order.va = (order.amountTotalWithDiscount / $scope.total.all.amount) * 100;
                             var roundedVa = (Math.round(100 * order.va) / 100);
                             acumulator += roundedVa;
                             order.va = roundedVa;
@@ -229,9 +229,8 @@
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
                         }
-                        //var discount = getTotalDiscountByOrder(filteredOrder);
-                        //$scope.total.all.discount += discount;
-                        $scope.total.all.amount += filteredOrder.amountTotal;
+
+                        $scope.total.all.amount += filteredOrder.amountTotalWithDiscount;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
                     }
@@ -245,11 +244,11 @@
                     }
                 };
 
-            /*function getTotalDiscountByOrder (order) {
+            function getTotalDiscountByOrder (order) {
                 var bookEntries = BookService.listByOrder(order.uuid);
                 bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder, uuid);
                 return $filter('sum')(bookEntries, 'amount');
-            }*/
+            }
 
             function bookEntriesByOrder (bookEntry) {
                 var result =
@@ -275,6 +274,7 @@
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
                     var order = orders[ix];
+
                     // FIXME list only active receivables.
                     var receivables = ReceivableService.listByDocument(order.uuid);
                     for ( var ix2 in receivables) {
@@ -304,7 +304,14 @@
                         $scope.total.voucher.qty += voucher.qty;
                         $scope.total.amount += voucherAmount;
                     }
+
+                    // computing the discount.
+                    var discount = getTotalDiscountByOrder(order);
+                    $scope.total.discount += discount;
+                    $scope.total.amount += discount;
+                    
                 }
+
             };
 
             $scope.computeAvaliableCustomers = function (customers) {

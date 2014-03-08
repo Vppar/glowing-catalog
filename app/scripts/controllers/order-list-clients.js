@@ -24,6 +24,7 @@
                     $scope.filteredEntities = [];
                     $scope.checkedEntityUUID = null;
                     $scope.filterOrders($scope.orders);
+                    
                     $scope.updateAndEnableHideOption = function (entity) {
                         $scope.checkedEntityUUID = entity.entityId;
                         $scope.updatePaymentsTotal([

@@ -60,7 +60,7 @@
 							Desconto	
 						</div>
 						<div class="value">
-							---
+							{{total.discount | currency:''}}
 						</div>
 					</div>
 					<div class="total-item total">
@@ -68,7 +68,7 @@
 							Total	
 						</div>
 						<div class="value">
-							{{total.all.amount | currency:''}}
+							{{total.amount | currency:''}}
 						</div>
 					</div>
 				</div>
@@ -205,7 +205,7 @@
 							<span>{{order.avgPrice | currency: ''}}</span>
 						</div>
 						<div class="new-col-3 currency">
-							<span>{{order.amountTotal | currency: ''}}</span>
+							<span>{{order.amountTotalWithDiscount | currency: ''}}</span>
 						</div>
 						<div class="new-col-2 currency">
 							<span>{{order.va | currency: ''}}</span>
