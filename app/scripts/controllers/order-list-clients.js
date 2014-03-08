@@ -127,7 +127,6 @@
                                     }
                                     var discount = $scope.getTotalDiscountByOrder(order);
                                     $scope.total.discount += discount;
-                                    $scope.total.amount += discount;
                                 }
                             }
                         };

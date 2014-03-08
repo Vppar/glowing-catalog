@@ -247,7 +247,7 @@
 
             $scope.getTotalDiscountByOrder = function (order) {
                 var bookEntries = BookService.listByOrder(order.uuid);
-                bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder, uuid);
+                bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder);
                 return $filter('sum')(bookEntries, 'amount');
             };
 
