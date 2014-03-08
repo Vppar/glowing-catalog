@@ -18,6 +18,7 @@ module.exports = function(config) {
       'app/bower_components/angular-mocks/angular-mocks.js',
       'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'app/bower_components/firebase/firebase.js',
+      'app/bower_components/fastclick/lib/fastclick.js',
       'app/bower_components/firebase-simple-login/firebase-simple-login.js',
       'app/bower_components/bootstrap-sass/js/bootstrap-affix.js',
       'app/bower_components/bootstrap-sass/js/bootstrap-alert.js',

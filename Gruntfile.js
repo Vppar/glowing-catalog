@@ -453,9 +453,9 @@ module.exports =
             grunt.task.run([
                 'clean:server',
                 'bower-install',
-                'less',
+                //'less',
                 'concurrent:server',
-                'autoprefixer',
+                //'autoprefixer',
                 'connect:livereload',
                 'watch'
             ]);

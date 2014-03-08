@@ -111,7 +111,13 @@
             'tnt.catalog.appointments.ctrl',
             'tnt.catalog.appointments.service',
             'tnt.catalog.appointments.entity',
-            'tnt.catalog.appointments.keeper'
+            'tnt.catalog.appointments.keeper',
+            
+            'tnt.catalog.components.numpad',
+            'tnt.catalog.directives.clickDelay',
+            'tnt.catalog.directives.fastClick',
+            'tnt.catalog.components.numberPicker',
+            'tnt.catalog.directives.preventBlur'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -180,6 +186,12 @@
             controller : 'AppointmentsCtrl'
         }).when('/receivable-check', {
             templateUrl : 'views/receivable-check.html'
+        }).when('/components/tnt-numpad', {
+            templateUrl : 'routes/components/tnt-numpad/tnt-numpad.html'
+        }).when('/components/tnt-number-picker', {
+            templateUrl : 'routes/components/tnt-number-picker/tnt-number-picker.html'
+        }).when('/scenarios/ipad-keyboard-focus-scenario', {
+            templateUrl : 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
         }).otherwise({
             redirectTo : '/'
         });
