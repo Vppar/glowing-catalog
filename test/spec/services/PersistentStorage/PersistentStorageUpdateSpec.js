@@ -89,7 +89,7 @@ describe('Service: PersistentStorage.update', function() {
         waitsFor(function() {
             $scope.$apply();
             return ready;
-        },'waiting for update',300);
+        },'waiting for update');
 
         runs(function() {
             expect(webSqlDriverMock.transaction).toHaveBeenCalled();

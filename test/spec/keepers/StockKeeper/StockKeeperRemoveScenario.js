@@ -94,7 +94,7 @@ describe('Service: StockeeperRemoveScenario', function() {
 
         waitsFor(function () {
             return removed;
-        }, 'StockKeeper.remove()', 300);
+        }, 'StockKeeper.remove()');
 
         runs(function() {
             //then
@@ -128,7 +128,7 @@ describe('Service: StockeeperRemoveScenario', function() {
         waitsFor(function(){
             $rootScope.$apply();
             return !!resolution;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
         
         runs(function(){
             expect(resolution).toBe('No stockable found with this inventoryId: ' + id);

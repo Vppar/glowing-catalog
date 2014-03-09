@@ -70,7 +70,7 @@ describe('Service: OrderKeeperReadScenario', function() {
         
         waitsFor(function(){
             return OrderKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
         
         runs(function(){
             expect(OrderKeeper.read(6)).toBe(null);

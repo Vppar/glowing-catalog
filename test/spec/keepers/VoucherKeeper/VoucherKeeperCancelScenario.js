@@ -75,7 +75,7 @@ describe('Service: VoucherKeeperCancelScenario', function() {
 
         waitsFor(function() {
             return canceled;
-        }, 'VoucherKeeper.cancel()', 300);
+        }, 'VoucherKeeper.cancel()');
 
         runs(function() {
             var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 'cc02b600-5d0b-11e3-96c3-010001000001');

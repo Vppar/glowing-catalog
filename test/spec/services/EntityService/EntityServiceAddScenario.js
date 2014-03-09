@@ -77,7 +77,7 @@ describe('Service: EntityServiceAddScenario', function() {
         
         waitsFor(function(){
             return created;
-        }, 'EntityService.create()', 300);
+        }, 'EntityService.create()');
         
         //then
         runs(function(){

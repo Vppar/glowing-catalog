@@ -77,7 +77,7 @@ describe('StockeeperUnreserveScenario', function() {
         waitsFor(function(){
             Scope.$apply();
             return !!resolution;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
         
         runs(function(){
             expect(resolution).toBe('No stockable found with this inventoryId: ' + id);

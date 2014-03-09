@@ -69,7 +69,7 @@ describe('Service: VoucherKeeperCreateScenario', function() {
 
         waitsFor(function() {
             return created;
-        }, 'VoucherKeeper.create()', 300);
+        }, 'VoucherKeeper.create()');
 
         runs(function() {
             expect(VoucherKeeper.list('voucher').length).toBe(1);

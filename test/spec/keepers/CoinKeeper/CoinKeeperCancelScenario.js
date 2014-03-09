@@ -49,7 +49,7 @@ xdescribe('Service: CoinKeeperCancelScenario', function() {
 
         waitsFor(function() {
             return CoinKeeper.list()[0].canceled;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
 
         runs(function() {
             var entry = ArrayUtils.find(CoinKeeper.list(), 'id', 1);

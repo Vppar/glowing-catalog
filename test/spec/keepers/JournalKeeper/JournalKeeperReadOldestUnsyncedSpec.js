@@ -79,7 +79,7 @@ describe('Service: JournalKeeperReadOldestUnsynced', function() {
     waitsFor(function() {
       $rootScope.$apply();
       return success;
-    }, 'JournalKeeper.readOldestUnsynced()', 300);
+    }, 'JournalKeeper.readOldestUnsynced()');
 
     runs(function() {
       expect(JournalKeeper.readUnsynced).toHaveBeenCalled();
