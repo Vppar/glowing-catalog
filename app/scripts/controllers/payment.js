@@ -168,7 +168,6 @@
                             }
 
                             total.order.discount = val;
-                            $scope.discountInput = val;
                             $scope.selectPaymentMethod('none');
                         };
 
@@ -553,6 +552,7 @@
 
                         function updateDiscountRelatedValues() {
                           total.order.itemDiscount = getSpecificDiscount();
+                          total.order.discount = getOrderDiscount();
                         }
 
 
@@ -561,6 +561,10 @@
                             $scope.$watch('items.' + idx + '.itemDiscount', updateDiscountRelatedValues);
                           }
                         }
+
+                        $scope.$watch('total.order.discount', function () {
+                            $scope.discountInput = total.order.discount;
+                        });
 
                         $scope.$watchCollection('items', watchItemDiscounts);
 
