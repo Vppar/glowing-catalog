@@ -290,6 +290,8 @@ views/previous-entries.html
 views/products-to-buy.html
 views/receivable.html
 views/stock.html
+views/tutorial-android.html
+views/tutorial-ipad.html
 views/voucher.html
 
 
@@ -331,6 +333,9 @@ images/icons/ic-calendar.png
 
 styles/com/images/select_close.png
 styles/com/images/icon.png
+
+images/tutorial/tutorial-android-mockup-full.png
+images/tutorial/tutorial-ipad-mockup-full.png
 
 images/catalog/best-sellers/best-sellers.png
 images/catalog/best-sellers/best-sellers-1.png
