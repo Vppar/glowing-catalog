@@ -14,6 +14,11 @@
     ]).controller('AddCustomerEmailsDialogCtrl', ['$scope', '$q', '$filter', 'dialog', 'DialogService', function($scope, $q, $filter, dialog, DialogService) {
 
         $scope.email = {};
+        $scope.isDisabled = true;
+        /**
+         * Regex created to only accept e-mails that follow the format something@somewhere.whatever
+         */
+        $scope.emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
 
         // get emails already set
         if (dialog.data.emails && dialog.data.emails.length > 0 && dialog.data.emails[0].address !== '') {
@@ -85,6 +90,11 @@
          */
         $scope.confirm = function() {
             var emails = {};
+            
+            if ($scope.newEmailForm.$valid && $scope.email.address) {
+                $scope.addEmail($scope.email);
+            }
+            
             if ($scope.emails.length >= 1) {
                 emails = $scope.emails;
             } else {
@@ -101,6 +111,29 @@
         $scope.cancel = function() {
             dialog.close($q.reject());
         };
-
+        
+        
+        /**
+         * Watcher to control the visibility of the "Salvar" button.
+         * 
+         * ^([a-z0-9!#$%&'*+/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$
+         * 
+         */
+        $scope.$watchCollection('email.address', function() {
+            
+            if ($scope.email.address) {
+                if ($scope.newEmailForm.$valid) {
+                    $scope.isDisabled = false;
+                } else {
+                    $scope.isDisabled = true;
+                }
+            } else if ($scope.email.address === '') {
+                if ($scope.emails.length > 0) {
+                    $scope.isDisabled = false;
+                }
+            }else if($scope.email.address === undefined){
+                $scope.isDisabled = true;
+            }
+        });
     }]);
 }(angular));
