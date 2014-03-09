@@ -1,4 +1,4 @@
-<!--<script>
+<script>
 	var initMagnifier = function () {
 	 $('#magnifier').zoom({magnify: 2});
 	};
@@ -62,7 +62,7 @@
 
              <div class="info-item discount">
                 <span class="info-label">Desconto</span>
-                <span class="fake-input"></span>
+                <span class="fake-input" ng-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
             </div>
             
     </div>
@@ -73,8 +73,7 @@
         <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
         <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
     </div>
--->
-
+<!--
 <div class="container">
 	<script>
 	var initMagnifier = function () {
@@ -128,3 +127,4 @@
 			type="submit">Adicionar</button>
 	</form>
 </div>
+-->

@@ -26,6 +26,21 @@
 	display: block;
 }
 
+/* <<<START TNT-INPUT-ADJUSTMENTS */
+/* Adjustments for the tnt-input in the catalog screen.
+ * This should probably be moved to new.css too.
+ */
+.numpad-holder #keyNum {
+  position: relative;
+  margin: 0;
+  top: 0;
+}
+
+.numpad-holder .new-numpad {
+  margin-top: 0;
+}
+/* TNT-INPUT-ADJUSTMENTS END>>> */
+
 .first-right{
 	margin-top: 0px !important;
 }
@@ -599,7 +614,7 @@ float: right;
 position: absolute;
 padding: 5px;
 margin: 23px 0 40px 0;
-top: 236px;
+top: 215px;
 z-index: 11;
 border-radius: 4px;
 }

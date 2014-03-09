@@ -37,6 +37,8 @@
 
                         $scope.keyboard = KeyboardService.getKeyboard();
 
+                        var Discount = Misplacedservice.discount;
+
                         var isNumPadVisible = false;
 
                         // Payment variables
@@ -53,8 +55,12 @@
                                 amount : 0,
                                 qty : 0,
                                 unit : 0,
-                                discount : getTotalDiscount(),
+                                discount : getOrderDiscount(),
                                 subTotal : 0,
+                                // This is the total amount WITHOUT products with
+                                // item discounts
+                                amountWithoutDiscount : getNonDiscountedTotal(),
+                                itemDiscount : getSpecificDiscount(),
 
                                 // Returns the average price of the units in the order.
                                 getAvgUnitPrice : function () {
@@ -68,45 +74,55 @@
                         // Holds the total amount paid in exchanged products.
                         total.paymentsExchange = 0;
 
-
                         $scope.total = total;
 
+
+                        $scope.enableDiscount = true;
 
                         // Set initial subTotal when the controller is loaded
                         updateSubTotal();
 
-                        $scope.$watch('total.order.amount', updateSubTotal);
-                        $scope.$watch('total.order.discount', updateSubTotal);
-                        $scope.$watch('total.paymentsExchange', updateSubTotal);
-
-                        $scope.$watchCollection('total.payments.exchange', function () {
-                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
-                        });
-
 
                         function updateSubTotal() {
+                          // FIXME: change subTotal to total and newSubTotal to subTotal
                           total.order.subTotal = getSubTotal();
+                          total.order.newSubTotal = getNewSubTotal();
                         }
 
 
                         // Returns the difference between the total order amount,
                         // the total discount and the exchanges.
                         function getSubTotal() {
-                          var exchanges = total.payments.exchange;
-                          var subtotal = total.order.amount - total.order.discount - total.paymentsExchange;
+                          var totalDiscount = Discount.getTotalDiscount(order.items);
+
+                          var subtotal = total.order.amount - totalDiscount;
+                          return subtotal < 0 ? 0 : subtotal;
+                        }
+
+                        function getNewSubTotal() {
+                          var subtotal = total.order.amount - total.order.itemDiscount;
                           return subtotal < 0 ? 0 : subtotal;
                         }
 
 
-                        function getTotalDiscount() {
-                          var totalDiscount = 0;
-
-                          for (var idx in order.items) {
-                            totalDiscount += order.items[idx].discount || 0;
-                          }
-
-                          return totalDiscount;
+                        // FIXME Replace calls to this with the Discount method,
+                        // leaving it this way now because I'm in a hurry! Sorry...
+                        function getSpecificDiscount() {
+                            return Discount.getTotalItemDiscount(order.items);
                         }
+
+                        $scope.getSpecificDiscount = getSpecificDiscount;
+
+
+                        function getOrderDiscount() {
+                            return Discount.getTotalOrderDiscount(order.items);
+                        }
+
+                        function getTotalDiscount() {
+                            return Discount.getTotalDiscount(order.items);
+                        }
+
+                        $scope.getTotalDiscount = getTotalDiscount;
 
 
                         function getAverage(amount, count) {
@@ -142,15 +158,52 @@
                         // Controls the num pad.
                         $scope.isNumPadVisible = isNumPadVisible;
 
+
+
+                        $scope.discountInput = total.order.discount;
+
+                        $scope.setOrderDiscount = function (val) {
+                            if (val > total.order.newSubTotal) {
+                              val = total.order.newSubTotal;
+                            }
+
+                            total.order.discount = val;
+                            $scope.selectPaymentMethod('none');
+                        };
+
+
                         // Define the customer
                         var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                         $scope.customer = customer;
 
 
+                        function getNonDiscountedTotal() {
+                          var total = 0;
+
+                          for (var idx in order.items) {
+                              var item = order.items[idx];
+                              if (!item.itemDiscount) {
+                                  total += Discount._getItemTotal(item);
+                              }
+                          }
+
+                          return total;
+                        }
+
                         $scope.$watch('total.order.discount', function () {
-                          var orderTotal = $scope.total.order.amount;
                           var discountTotal = $scope.total.order.discount;
-                          Misplacedservice.distributeDiscount(orderTotal, discountTotal, order.items);
+
+
+                          var items = [];
+
+                          for (var idx in order.items) {
+                              var item = order.items[idx];
+                              if (!item.itemDiscount) {
+                                  items.push(item);
+                              }
+                          }
+
+                          Discount.distributeOrderDiscount(items, discountTotal);
                         });
 
 
@@ -303,6 +356,8 @@
                             }
                         };
 
+
+
                         /**
                          * Triggers the payment confirmation process by showing
                          * the confirmation dialog.
@@ -385,9 +440,6 @@
 
                                 var totalPayments = 0;
                                 for ( var ix in $scope.total.payments) {
-                                    // Exchanged products are already discounted when
-                                    // when the subtotal is calculated
-                                    if (ix === 'exchange') { continue; }
 
                                     totalPayments += $filter('sum')(total.payments[ix], 'amount');
                                 }
@@ -435,7 +487,7 @@
                         function checkout(value) {
                             var result = null;
                             if (value) {
-                                result = PaymentService.checkout(customer, $scope.total.order.amount, $scope.total.order.discount, $scope.total.change);
+                                result = PaymentService.checkout(customer, $scope.total.order.amount, getTotalDiscount(), $scope.total.change);
                             } else {
                                 result = $q.reject();
 
@@ -475,6 +527,46 @@
                         }
 
 
+
+                        $scope.$watch('total.order.amount', updateSubTotal);
+                        $scope.$watch('total.order.discount', updateSubTotal);
+                        $scope.$watch('total.order.itemDiscount', updateSubTotal);
+                        $scope.$watch('total.paymentsExchange', updateSubTotal);
+
+                        $scope.$watch('total.order.itemDiscount', function () {
+                            var hasItemsWithoutItemDiscount = false;
+
+                            for (var idx in order.items) {
+                                if (!order.items[idx].itemDiscount) {
+                                    hasItemsWithoutItemDiscount = true;
+                                }
+                            }
+
+                            $scope.enableDiscount = hasItemsWithoutItemDiscount;
+                        });
+
+                        $scope.$watchCollection('total.payments.exchange', function () {
+                          total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
+                        });
+
+
+                        function updateDiscountRelatedValues() {
+                          total.order.itemDiscount = getSpecificDiscount();
+                          total.order.discount = getOrderDiscount();
+                        }
+
+
+                        function watchItemDiscounts() {
+                          for (var idx in order.items) {
+                            $scope.$watch('items.' + idx + '.itemDiscount', updateDiscountRelatedValues);
+                          }
+                        }
+
+                        $scope.$watch('total.order.discount', function () {
+                            $scope.discountInput = total.order.discount;
+                        });
+
+                        $scope.$watchCollection('items', watchItemDiscounts);
 
 
                         /**

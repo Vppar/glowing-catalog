@@ -126,6 +126,7 @@ scripts/controllers/voucher.js
 scripts/controllers/voucher-active.js
 scripts/controllers/voucher-historic.js
 scripts/controllers/book-keeping-report.js
+scripts/controllers/numpad-dialog.js
 scripts/directives/anchor.js
 scripts/directives/cep.js
 scripts/directives/cpf.js
@@ -151,6 +152,7 @@ scripts/directives/fastClick.js
 scripts/directives/preventBlur.js
 scripts/directives/virtualKeyboard.js
 scripts/directives/keyboardCage.js
+scripts/directives/focus.js
 scripts/filters/count.js
 scripts/filters/cpf.js
 scripts/filters/creditCard.js

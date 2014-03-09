@@ -109,10 +109,6 @@
 
                             KeyboardService.next();
 
-                            if (scope.okClick) {
-                                scope.okClick();
-                            }
-
                             // Time 100 to compensate for the two decimal set by the
                             // currency directive
                             element.val(absoluteVal);
@@ -120,12 +116,17 @@
                             // Trigger the input event to make angular update the
                             // model's value.
                             element.trigger('input');
+
+                            if (scope.okClick) {
+                                scope.okClick();
+                            }
                         }
 
                         return;
                     } else {
                         if (!attrs.maxlength || current.length < attrs.maxlength) {
                             current += key;
+                            // FIXME check this eqeqeq
                             if (current.length == attrs.maxlength) {
                                 setTimeout(function(){
                                     KeyboardService.next();
