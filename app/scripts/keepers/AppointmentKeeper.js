@@ -57,7 +57,7 @@
                 'tnt.catalog.journal.keeper', 'tnt.identity'
             ]).service('AppointmentKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Appointment', 'IdentityService', function AppointmentKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Appointment, IdentityService) {
 
-        var type = 99;
+    	var type = 99;
         var currentEventVersion = 1;
         var currentCounter = 0;
         var appointments = [];

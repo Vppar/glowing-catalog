@@ -4,6 +4,7 @@ describe('Service: StockServiceAddSpec -', function() {
     var fakeNow = null;
     var StockKeeper = null;
     var InventoryKeeper = null;
+    var FinancialMathService = null;
     var $q = null;
 
     // mock and stub
@@ -11,6 +12,7 @@ describe('Service: StockServiceAddSpec -', function() {
         fakeNow = 1386444467895;
         StockKeeper = {};
         InventoryKeeper = {};
+        FinancialMathService = {};
 
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     });
@@ -25,6 +27,7 @@ describe('Service: StockServiceAddSpec -', function() {
             $provide.value('$log', log);
             $provide.value('StockKeeper', StockKeeper);
             $provide.value('InventoryKeeper', InventoryKeeper);
+            $provide.value('FinancialMathService', FinancialMathService);
         });
     });
 

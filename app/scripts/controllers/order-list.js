@@ -5,7 +5,7 @@
     ]).controller(
         'OrderListCtrl',
         function ($scope, $location, $filter, OrderService, EntityService, ReceivableService,
-            UserService, ProductReturnService, VoucherService, ArrayUtils) {
+            UserService, ProductReturnService, VoucherService, ArrayUtils, BookService) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;
@@ -13,9 +13,8 @@
              * Templates
              */
             var receivablesTotalTemplate = {
-                total : {
-                    amount : 0
-                },
+                amount : 0,
+                discount : 0,
                 cash : {
                     qty : 0,
                     amount : 0
@@ -55,7 +54,8 @@
                     qty : 0,
                     avgPrice : 0,
                     amount : 0,
-                    lastOrder : 0
+                    amountWithDiscount : 0,
+                    lastOrder : 0,
                 }
             };
 
@@ -181,10 +181,11 @@
                 var qtyTotal = $filter('sum')(order.items, 'qty');
                 var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                 var amountTotal = $filter('sum')(order.items, 'amount');
-
+                var discount = $scope.getTotalDiscountByOrder(order);
                 order.itemsQty = qtyTotal;
-                order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
+                order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
                 order.amountTotal = (priceTotal + amountTotal);
+                order.amountTotalWithDiscount = ((priceTotal + amountTotal) - discount);
             };
 
             /**
@@ -200,7 +201,8 @@
                     for ( var ix in orders) {
                         var order = orders[ix];
                         if (angular.isObject(order)) {
-                            order.va = (order.amountTotal / $scope.total.all.amount) * 100;
+                            order.va =
+                                (order.amountTotalWithDiscount / $scope.total.all.amountWithDiscount) * 100;
                             var roundedVa = (Math.round(100 * order.va) / 100);
                             acumulator += roundedVa;
                             order.va = roundedVa;
@@ -212,6 +214,7 @@
                     }
                     biggestOrder.va =
                         biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
+                    
                 };
 
             $scope.updateOrdersTotal =
@@ -229,13 +232,14 @@
                             $scope.total.all.entityCount++;
                         }
 
+                        $scope.total.all.amountWithDiscount += filteredOrder.amountTotalWithDiscount;
                         $scope.total.all.amount += filteredOrder.amountTotal;
                         $scope.total.all.qty += filteredOrder.itemsQty;
                         $scope.total.all.orderCount++;
                     }
 
                     var avgPrice =
-                        Math.round(100 * ($scope.total.all.amount / $scope.total.all.qty)) / 100;
+                        Math.round(100 * ($scope.total.all.amountWithDiscount / $scope.total.all.qty)) / 100;
                     if (!isNaN(avgPrice)) {
                         $scope.total.all.avgPrice = avgPrice;
                     } else {
@@ -243,13 +247,25 @@
                     }
                 };
 
+            $scope.getTotalDiscountByOrder = function (order) {
+                var bookEntries = BookService.listByOrder(order.uuid);
+                bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder);
+                return $filter('sum')(bookEntries, 'amount');
+            };
+
+            function bookEntriesByOrder (bookEntry) {
+                var result =
+                    (bookEntry.debitAccount === 41301) && (bookEntry.creditAccount === 70001);
+                return result;
+            }
+
             /**
              * ClientFilter
              */
             $scope.filterByClient = function filterByClient (order) {
-                if ($scope.filter.customerId === '') {
+                if ($scope.customerId === '') {
                     return true;
-                } else if (order.customerId === $scope.filter.customerId) {
+                } else if (order.customerId === $scope.customerId) {
                     return true;
                 }
             };
@@ -261,7 +277,8 @@
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
                     var order = orders[ix];
-                    //FIXME list only active receivables.
+
+                    // FIXME list only active receivables.
                     var receivables = ReceivableService.listByDocument(order.uuid);
                     for ( var ix2 in receivables) {
                         var receivable = receivables[ix2];
@@ -290,7 +307,13 @@
                         $scope.total.voucher.qty += voucher.qty;
                         $scope.total.amount += voucherAmount;
                     }
+
+                    // computing the discount.
+                    var discount = $scope.getTotalDiscountByOrder(order);
+                    $scope.total.discount += discount;
+
                 }
+
             };
 
             $scope.computeAvaliableCustomers = function (customers) {
@@ -307,7 +330,9 @@
                             uuid : ordersByCustomer[0].customerId
                         });
                     }
+
                 }
+
                 return $scope.avaliableCustomers;
             };
 
@@ -328,9 +353,7 @@
             $scope.orders = OrderService.list();
             $scope.customers = EntityService.list();
             $scope.avaliableCustomers = [];
-            $scope.filter = {
-                customerId : ''
-            };
+            $scope.customerId = '0';
 
             /**
              * whenever dtFilter changes filter list.

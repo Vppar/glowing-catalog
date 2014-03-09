@@ -5,7 +5,6 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
     var CreditCardPaymentService = null;
     var PaymentService = null;
     var Misplacedservice = null;
-    var GoPayService = null;
     var $rootScope = null;
     var $q = null;
     var log = null;
@@ -22,7 +21,6 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
         module(function($provide) {
             $provide.value('Misplacedservice', Misplacedservice);
             $provide.value('PaymentService', PaymentService);
-            $provide.value('GoPayService', GoPayService);
             $provide.value('$log', log);
         });
     });

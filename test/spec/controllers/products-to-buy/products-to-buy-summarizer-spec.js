@@ -1,6 +1,7 @@
 describe('Controller: products-to-buy-summarizer-spec', function() {
 
     var PurchaseOrderService = {};
+    var StockService = {};
     var UserService = {};
 
     // load the controller's module

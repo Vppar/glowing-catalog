@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.productsToBuy.summary.ctrl', []).controller(
             'ProductsToBuySummaryCtrl',
-            ['$scope', '$filter', '$log', 
+            ['$scope', '$filter', '$log',
             function($scope, $filter, $log) {
 
                 // #####################################################################################################
@@ -49,19 +49,14 @@
 
                             $scope.summary.nextDiscount.amount = financialRound(discounts[nix].amount - $scope.summary.total.amount);
                             $scope.summary.nextDiscount.fee = 100 * (discounts[nix + 1].fee);
-
-                            $log.info('Faltam ' + $filter('currency')($scope.summary.nextDiscount.amount) + ' para a classe de desconto de ' +
-                                    $scope.summary.nextDiscount.percent + '%.');
-                            
                             
                             break;
                         } else if (!discounts[nix + 1]) {
                             var appliedFee = (1 - discounts[nix].fee);
                             $scope.summary.discount.fee = discounts[nix].fee * 100;
                             $scope.summary.total.amountWithDiscount = financialRound($scope.summary.total.amount * appliedFee);
-                            $scope.summary.nextDiscount.amount = 0;                            
+                            $scope.summary.nextDiscount.amount = 0;
                             $scope.summary.nextDiscount.fee = discounts[discounts.length - 1].fee;
-                            $log.info('Você está na classe de desconto máximo.');
                         }
                     }
 
@@ -71,7 +66,7 @@
                 // Watchers
                 // #####################################################################################################
 
-                $scope.$watchCollection('summary.total.amount', function(newObj, oldObj) {
+                $scope.$watchCollection('summary.total.amount', function() {
                     calculateDiscount();
                 });
 

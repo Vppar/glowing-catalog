@@ -176,8 +176,64 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
      * Should close the dialog and pass the new email list.
      */
     it('should confirm add emails', function() {
+        var emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
+        scope.email.address = 'asdassda@asdasasd.com';
+        scope.newEmailForm.$valid = emailRegex.test(scope.email.address);
         scope.confirm();
         expect(dialog.close).toHaveBeenCalledWith(scope.emails);
+    });
+    
+    it('should enable the *salvar* button', function(){
+        //given
+        var emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
+        
+        scope.isDisabled = true;
+        scope.email.address = 'asdassda@asdasasd.com';
+        scope.newEmailForm.$valid = emailRegex.test(scope.email.address);
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(false);
+    });
+    
+    it('should enable the *salvar* button', function(){
+        //given
+        var emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
+        
+        scope.isDisabled = true;
+        scope.email.address = '';
+        scope.newEmailForm.$valid = emailRegex.test(scope.email.address);
+        scope.emails.length = 1;
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(false);
+    });
+    
+    it('shouldn\'t enable the *salvar* button', function(){
+        //given
+        var emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
+        
+        scope.isDisabled = true;
+        scope.email.address = undefined;
+        scope.newEmailForm.$valid = emailRegex.test(scope.email.address);
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(true);
+    });
+    
+    it('shouldn\'t enable the *salvar* button', function(){
+        //given
+        var emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
+        
+        scope.isDisabled = true;
+        scope.email.address = 'asdasdasdasd';
+        scope.newEmailForm.$valid = emailRegex.test(scope.email.address);
+        //when
+        scope.$apply();
+        //expect
+        expect(scope.isDisabled).toBe(true);
     });
 
 });

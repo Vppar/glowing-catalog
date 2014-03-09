@@ -4,7 +4,7 @@
         'tnt.catalog.stock.service', 'tnt.catalog.timer.service'
     ]).controller(
             'ProductsToBuyCtrl',
-            ['$scope', '$log', 'ArrayUtils', 'StockService', 'PurchaseOrderService', 'UserService', 
+            ['$scope', '$log', 'ArrayUtils', 'StockService', 'PurchaseOrderService', 'UserService',
             function($scope, $log, ArrayUtils, StockService, PurchaseOrderService, UserService) {
 
                 UserService.redirectIfIsNotLoggedIn();
@@ -229,7 +229,7 @@
                 // Watchers
                 // #####################################################################################################
 
-                $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj, oldObj) {
+                $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj) {
                     if ($scope.filter.text === '') {
                         $scope.summarizer(newObj, false);
                     } else {

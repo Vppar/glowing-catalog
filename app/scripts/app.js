@@ -44,7 +44,6 @@
             'tnt.catalog.components.product-display',
             'tnt.catalog.components.catalog-section',
             'tnt.catalog.components.highlight-display',
-            'tnt.catalog.gopay.integration',
             'tnt.catalog.components.catalog-highlights',
             'tnt.catalog.inventory',
             'tnt.catalog.payment.oncuff.ctrl',
@@ -106,11 +105,20 @@
             'tnt.catalog.bookkeeping.report.ctrl',
             'tnt.catalog.service.book',
             'tnt.utils.cpf',
+            'tnt.catalog.attrs.customerName',
             'tnt.catalog.appointments',
             'tnt.catalog.appointments.ctrl',
             'tnt.catalog.appointments.service',
             'tnt.catalog.appointments.entity',
-            'tnt.catalog.appointments.keeper'
+            'tnt.catalog.appointments.keeper',
+            
+            'tnt.catalog.components.numpad',
+            'tnt.catalog.directives.clickDelay',
+            'tnt.catalog.directives.fastClick',
+            'tnt.catalog.components.numberPicker',
+            'tnt.catalog.directives.preventBlur',
+            'tnt.catalog.directives.virtualKeyboard',
+            'tnt.catalog.directives.keyboardCage'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -179,6 +187,16 @@
             controller : 'AppointmentsCtrl'
         }).when('/receivable-check', {
             templateUrl : 'views/receivable-check.html'
+        }).when('/components/tnt-numpad', {
+            templateUrl : 'routes/components/tnt-numpad/tnt-numpad.html'
+        }).when('/components/tnt-number-picker', {
+            templateUrl : 'routes/components/tnt-number-picker/tnt-number-picker.html'
+        }).when('/scenarios/ipad-keyboard-focus-scenario', {
+            templateUrl : 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
+        }).when('/tutorial-ipad', {
+            templateUrl : 'views/tutorial-ipad.html'
+        }).when('/tutorial-android', {
+            templateUrl : 'views/tutorial-android.html'
         }).otherwise({
             redirectTo : '/'
         });
@@ -212,7 +230,7 @@
                 var target = startEvent.target;
 
                 $self.one('touchend', function (endEvent) {
-                    if (target == endEvent.target) {
+                    if (target === endEvent.target) {
                         $log.debug('touch tap on ' + id);
                         $.event.simulate('tap', self, endEvent);
                     }

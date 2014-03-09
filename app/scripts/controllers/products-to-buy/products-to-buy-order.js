@@ -77,7 +77,7 @@
                     var line = session.lines[ix];
                     line.hide = !line.hide;
                 }
-            } 
+            }
         };
 
         $scope.toggleLine = function toggleLine(line) {
@@ -86,7 +86,7 @@
                     var item = line.items[ix];
                     item.hide = !item.hide;
                 }
-            } 
+            }
         };
 
         $scope.showLevel = function showLevel(level) {

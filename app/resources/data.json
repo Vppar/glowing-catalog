@@ -44,7 +44,7 @@
     "states": ["AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI",
         "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"
     ],
-    "phoneTypes": ["Residencial", "Comercial", "Celular"],
+    "phoneTypes": ["Celular", "Residencial", "Comercial"],
     "cardData": {
         "flags": ["American Express", "Aura", "BNDES", "Diners Club", "Elo", "Hipercard", "MasterCard", "Sorocred", "Visa"],
         "goPayflags": ["American Express", "Diners Club", "MasterCard", "Visa"],

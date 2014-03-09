@@ -149,6 +149,25 @@
                     }
                     return pending;
                 };
+                
+                this.pendingReport = function pendingReport() {
+                    var report = {
+                            total : {
+                                amount : 0,
+                                qty : 0,
+                                avgCost : 0
+                            },
+                            sessions : {}
+                     };
+                    
+                    var pendingProducts = this.listPendingProducts();
+                    console.log(pendingProducts);
+                    var type = 'all';
+                    var session = StockService.buildSession(type, report, pendingProducts[0]);
+                    var line = StockService.buildLine(type, session, pendingProducts[0]);
+                    
+                    
+                };
 
                 /**
                  * Cancel a purchaseOrder

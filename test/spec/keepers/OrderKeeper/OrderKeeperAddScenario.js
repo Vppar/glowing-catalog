@@ -75,7 +75,7 @@ describe('Service: OrderKeeperAddScenario', function() {
 
         waitsFor(function() {
             return added;
-        }, 'OrderKeeper.add()', 300);
+        }, 'OrderKeeper.add()');
 
 
         runs(function() {
@@ -116,7 +116,7 @@ describe('Service: OrderKeeperAddScenario', function() {
         waitsFor(function(){
             $rootScope.$apply();
             return !!resolution;
-        }, 'Create is taking too long', 300);
+        }, 'Create is taking too long');
         
         //then
         runs(function(){

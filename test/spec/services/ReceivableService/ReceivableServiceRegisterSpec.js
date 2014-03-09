@@ -53,7 +53,7 @@ xdescribe('Service: ReceivableServiceRegisterSpec', function() {
         });
         waitsFor(function() {
             return result !== null;
-        }, 'Register is taking to long', 300);
+        }, 'Register is taking to long');
 
         // then
         runs(function() {

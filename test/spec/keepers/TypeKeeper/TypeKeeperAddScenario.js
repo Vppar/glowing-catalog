@@ -69,7 +69,7 @@ describe('Service: TypeKeeperAddScenario', function() {
 
         waitsFor(function() {
             return added;
-        }, 'TypeKeeper.add()', 300);
+        }, 'TypeKeeper.add()');
 
         runs(function() {
             expect(TypeKeeper.list(classification).length).toBe(1);

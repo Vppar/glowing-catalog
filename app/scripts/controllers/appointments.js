@@ -361,8 +361,10 @@
 								
 								var selectedEndDate = new Date($("#select-date").val());
 								selectedEndDate.setHours($("#select-hour-end").val());
-								selectedEndDate.setMinutes($("#select-minute-end").val());		
-
+								selectedEndDate.setMinutes($("#select-minute-end").val());	
+								
+								validateDate(selectedStartDate,selectedEndDate);
+								
 								$scope.appointment = AppointmentService.loadByUUID( $("#select-event-uuid").val());
 								$scope.appointment.contacts = $("#select-client").val();
 								$scope.appointment.title = $("#txt-title").val();
@@ -393,6 +395,8 @@
 								var selectedEndDate = new Date($("#select-date").val());
 								selectedEndDate.setHours($("#select-hour-end").val());
 								selectedEndDate.setMinutes($("#select-minute-end").val());
+								
+								validateDate(selectedStartDate,selectedEndDate);
 								
 								$scope.appointment = {};
 								$scope.appointment.title = $("#txt-title").val();
@@ -445,6 +449,17 @@
 							}	
 							return true;
 						};
+						
+						function validateDate(selectedStartDate,selectedEndDate)
+						{
+							if(selectedEndDate < selectedStartDate)
+							{
+								alert('Hora inv&#243;lida para o evento.');
+								return false;
+							}
+							return true;
+						}
+						
 					    
 						// #############################################################################################################
 						// Drag and Drop Adam Shaw Full Calendar Component

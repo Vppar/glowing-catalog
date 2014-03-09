@@ -114,7 +114,7 @@ describe('Service: StockKeeperAddScenario', function() {
 
         waitsFor(function() {
             return added;
-        }, 'first call to StockKeeper.add()', 300);
+        }, 'first call to StockKeeper.add()');
 
         // Update stock
         var updated = false;
@@ -134,7 +134,7 @@ describe('Service: StockKeeperAddScenario', function() {
 
         waitsFor(function () {
           return updated;
-        }, 'second call to StockKeeper.add()', 300);
+        }, 'second call to StockKeeper.add()');
 
         runs(function() {
             //then
@@ -175,7 +175,7 @@ describe('Service: StockKeeperAddScenario', function() {
         waitsFor(function(){
             $rootScope.$apply();
             return !!resolution;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
         
         runs(function(){
             expect(resolution).toBe('Wrong instance of Stock');
@@ -211,7 +211,7 @@ describe('Service: StockKeeperAddScenario', function() {
         waitsFor(function(){
             $rootScope.$apply();
             return !!resolution;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
         
         runs(function(){
             expect(resolution).toBe('Wrong instance of Stock');

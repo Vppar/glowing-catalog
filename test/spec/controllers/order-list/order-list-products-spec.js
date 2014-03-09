@@ -1,6 +1,7 @@
-xdescribe('Controller: order-list-products', function() {
+describe('Controller: order-list-products', function () {
 
     var scope = {};
+    var DataProvider = {};
     var OrderService = {};
     var EntityService = {};
     var ReceivableService = {};
@@ -11,27 +12,26 @@ xdescribe('Controller: order-list-products', function() {
     var orders = [];
     var receivables = null;
     var receivablesTotalTemplate = null;
-    var StockService = null;
+    var StockService = {};
     var total = {
         all : {
             amount : 0
         }
     };
-    function daysToMilliseconds(days) {
+    function daysToMilliseconds (days) {
         return days * 24 * 60 * 60 * 1000;
     }
 
-    beforeEach(function() {
+    beforeEach(function () {
         module('tnt.catalog.orderList.products.ctrl');
         module('tnt.catalog.filter.sum');
-        module('tnt.catalog.service.data');
         module('tnt.catalog.inventory.entity');
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.journal.replayer');
-
+        module('tnt.catalog.stock.service');
     });
 
-    beforeEach(function() {
+    beforeEach(function () {
         receivablesTotalTemplate = {
             total : {
                 amount : 0
@@ -74,17 +74,61 @@ xdescribe('Controller: order-list-products', function() {
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
                     {
-                        price : "85",
-                        qty : 1
+                        SKU : "10-042751",
+                        discount : 10,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        price : 85,
+                        qty : 1,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca"
                     }, {
-                        price : "32",
-                        qty : 3
+                        SKU : "10-042751",
+                        discount : 20,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        price : 32,
+                        qty : 3,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca"
                     }, {
-                        price : "90",
-                        qty : 1
+                        SKU : "10-042761",
+                        discount : 0,
+                        id : 36,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Mista/Oleosa",
+                        parent : 34,
+                        points : 37,
+                        price : 90,
+                        qty : 1,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042761 - Pele Mista/Oleosa"
                     }, {
-                        price : "23",
-                        qty : 2
+                        SKU : "10-042751",
+                        discount : 15,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        price : 23,
+                        qty : 2,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca"
                     }
                 ],
                 paymentId : 1,
@@ -96,11 +140,33 @@ xdescribe('Controller: order-list-products', function() {
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
                     {
-                        price : "30",
-                        qty : 1
+                        SKU : "10-042761",
+                        discount : 0,
+                        id : 36,
+                        inventory : 0,
+                        ine : "TimeWise",
+                        option : "Pele Mista/Oleosa",
+                        parent : 34,
+                        points : 37,
+                        price : 30,
+                        qty : 1,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042761 - Pele Mista/Oleosa"
                     }, {
-                        price : "15",
-                        qty : 1
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        price : 15,
+                        qty : 1,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca"
                     }
                 ],
                 paymentId : 1,
@@ -112,10 +178,32 @@ xdescribe('Controller: order-list-products', function() {
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
                     {
-                        price : "20",
-                        qty : 2
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        price : 20,
+                        qty : 2,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca"
                     }, {
-                        price : "100",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 100,
                         qty : 1
                     }
                 ],
@@ -128,7 +216,18 @@ xdescribe('Controller: order-list-products', function() {
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
                     {
-                        price : "100",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 100,
                         qty : 3
                     }
                 ],
@@ -140,10 +239,32 @@ xdescribe('Controller: order-list-products', function() {
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
                     {
-                        price : "90",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 90,
                         qty : 1
                     }, {
-                        price : "23",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 23,
                         qty : 2
                     }
 
@@ -156,19 +277,62 @@ xdescribe('Controller: order-list-products', function() {
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
                     {
-                        price : "85",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 85,
                         qty : 1
                     }, {
-                        price : "32",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 32,
                         qty : 1
                     }, {
-                        price : "90",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 90,
                         qty : 1
                     }, {
-                        price : "23",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 23,
                         qty : 2
                     }
-
                 ],
                 paymentId : 1,
             }, {
@@ -178,16 +342,60 @@ xdescribe('Controller: order-list-products', function() {
                 created : new Date().getTime() - daysToMilliseconds(0),
                 items : [
                     {
-                        price : "85",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 85,
                         qty : 1
                     }, {
-                        price : "32",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 32,
                         qty : 1
                     }, {
-                        price : "90",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 90,
                         qty : 1
                     }, {
-                        price : "23",
+                        SKU : "10-042751",
+                        discount : 0,
+                        id : 35,
+                        inventory : 0,
+                        line : "TimeWise",
+                        option : "Pele Normal/Seca",
+                        parent : 34,
+                        points : 37,
+                        session : "Cuidados com a Pele",
+                        title : "Creme de Limpeza 3 em 1 - 127g",
+                        uniqueName : "10-042751 - Pele Normal/Seca",
+                        price : 23,
                         qty : 2
                     }
 
@@ -246,70 +454,85 @@ xdescribe('Controller: order-list-products', function() {
         ];
     });
 
-    beforeEach(inject(function($controller, $filter, $rootScope, _ArrayUtils_, _StockService_) {
+    beforeEach(inject(function ($controller, $filter, $rootScope, _ArrayUtils_) {
         // scope mock
         scope = $rootScope.$new();
 
         // dependecy mocks
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         EntityService.list = jasmine.createSpy('EntityService.list');
-        UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
-        ProductReturnService.listByDocument = jasmine.createSpy('ProductReturnService.listByDocument');
+        UserService.redirectIfIsNotLoggedIn =
+            jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
+        ProductReturnService.listByDocument =
+            jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
         scope.customers = customers;
-        scope.resetPaymentsTotal = jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function() {
-            scope.total = receivablesTotalTemplate;
-        })
+        scope.filterOrders = jasmine.createSpy('scope.filterOrders').andReturn(orders);
+        scope.computeAvaliableCustomers = jasmine.createSpy('scope.computeAvaliableCustomers');
+        scope.resetPaymentsTotal =
+            jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function () {
+                scope.total = receivablesTotalTemplate;
+            });
+        scope.updateOrdersTotal = jasmine.createSpy('scope.updateOrdersTotal').andReturn(orders);
 
-        scope.generateVA = jasmine.createSpy('scope.generateVA').andCallFake(function generateVa(filterList) {
-            var acumulator = 0;
-            var biggestOrder = {
-                va : 0
-            };
-            var biggestRounded = 0;
+        scope.generateVA =
+            jasmine.createSpy('scope.generateVA').andCallFake(
+                function generateVa (filterList) {
+                    var acumulator = 0;
+                    var biggestOrder = {
+                        va : 0
+                    };
+                    var biggestRounded = 0;
 
-            for ( var ix in filterList) {
-                var order = filterList[ix];
+                    for ( var ix in filterList) {
+                        var order = filterList[ix];
 
-                if (angular.isObject(order)) {
-                    order.va = (order.amountTotal / total.all.amount) * 100;
-                    var roundedVa = (Math.round(100 * order.va) / 100);
-                    acumulator += roundedVa;
-                    order.va = roundedVa;
-                    if (roundedVa > biggestOrder.va) {
-                        biggestOrder = order;
-                        biggestRounded = roundedVa;
+                        if (angular.isObject(order)) {
+                            order.va = (order.amountTotal / total.all.amount) * 100;
+                            var roundedVa = (Math.round(100 * order.va) / 100);
+                            acumulator += roundedVa;
+                            order.va = roundedVa;
+                            if (roundedVa > biggestOrder.va) {
+                                biggestOrder = order;
+                                biggestRounded = roundedVa;
+                            }
+                        }
                     }
+
+                    biggestOrder.va =
+                        biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
+                });
+
+        scope.argumentOrder =
+            jasmine.createSpy('scope.argumentOrder').andCallFake(function argumentOrder (order) {
+                // Find the entity name
+                var entity = ArrayUtils.find(scope.customers, 'uuid', order.customerId);
+                if (entity) {
+                    order.entityName = entity.name;
+                } else {
+                    order.entityName = '';
                 }
-            }
+                var discount = scope.getTotalDiscountByOrder(order);
+                var qtyTotal = $filter('sum')(order.items, 'qty');
+                var priceTotal = $filter('sum')(order.items, 'price', 'qty');
+                var amountTotal = $filter('sum')(order.items, 'amount');
 
-            biggestOrder.va = biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
-        });
-
-        scope.argumentOrder = jasmine.createSpy('scope.argumentOrder').andCallFake(function argumentOrder(order) {
-            // Find the entity name
-            var entity = ArrayUtils.find(scope.customers, 'uuid', order.customerId);
-            if (entity) {
-                order.entityName = entity.name;
-            } else {
-                order.entityName = '';
-            }
-
-            var qtyTotal = $filter('sum')(order.items, 'qty');
-            var priceTotal = $filter('sum')(order.items, 'price', 'qty');
-            var amountTotal = $filter('sum')(order.items, 'amount');
-
-            order.itemsQty = qtyTotal;
-            order.avgPrice = (priceTotal + amountTotal) / (qtyTotal);
-            order.amountTotal = (priceTotal + amountTotal);
-        });
+                order.itemsQty = qtyTotal;
+                order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
+                order.amountTotal = (priceTotal + amountTotal);
+                order.amountTotalWithDiscount = ((priceTotal + amountTotal) - discount);
+            });
 
         ReceivableService.listActiveByDocument =
-                jasmine.createSpy('ReceivableService.listActiveByDocument').andCallFake(function(document) {
+            jasmine.createSpy('ReceivableService.listActiveByDocument').andCallFake(
+                function (document) {
                     return ArrayUtils.list(receivables, 'documentId', document);
                 });
+        StockService.findInStock = jasmine.createSpy('StockService.findInStock').andReturn({
+            reserve : 0
+        });
 
         $controller('OrderListProductsCtrl', {
             $scope : scope,
@@ -320,62 +543,28 @@ xdescribe('Controller: order-list-products', function() {
             ProductReturnService : ProductReturnService,
             VoucherService : VoucherService,
             ArrayUtils : _ArrayUtils_,
-            StockService : _StockService_
+            StockService : StockService,
+            DataProvider : DataProvider
         });
-
     }));
 
-    it('should consolidate orders by clients.', function() {
-        // given
-        // the orderList and entities list
-        // when
-        scope.$apply();
-        // then
-        scope.argumentOrder(scope.filteredEntities);
-        scope.generateVA(scope.filteredEntities);
+    it('should consolidate orders by clients.', function () {
+        scope.updateProducts();
 
-        expect(scope.filteredEntities.length).toEqual(4);
+        expect(scope.filteredProducts.length).toEqual(2);
+        expect(scope.filteredProducts[0].id).toEqual(35);
+        expect(scope.filteredProducts[0].amountTotal).toEqual(1324);
+        expect(scope.filteredProducts[0].amountTotalWithDiscount).toEqual(1324 - 45);
+        expect(scope.filteredProducts[0].qty).toEqual(26);
+        // (1324-45)/26
+        expect(scope.filteredProducts[0].priceAvg).toEqual(49.19);
 
-        expect(scope.filteredEntities[0].name).toEqual('Tiburço');
-        expect(scope.filteredEntities[0].amountTotal).toEqual(362);
-        expect(scope.filteredEntities[0].itemsQty).toEqual(9);
-        expect(scope.filteredEntities[0].avgPrice).toEqual(40.22);
-        // expect(scope.filteredEntities[0].lastOrder).toEqual(1391306400000);
-
-        expect(scope.filteredEntities[1].name).toEqual('Pilintra');
-        expect(scope.filteredEntities[1].amountTotal).toEqual(140);
-        expect(scope.filteredEntities[1].itemsQty).toEqual(3);
-        expect(scope.filteredEntities[1].avgPrice).toEqual(46.67);
-        // expect(scope.filteredEntities[1].lastOrder).toEqual(1391306400000);
-
-        expect(scope.filteredEntities[2].name).toEqual('Sephiroth');
-        expect(scope.filteredEntities[2].amountTotal).toEqual(436);
-        expect(scope.filteredEntities[2].itemsQty).toEqual(6);
-        expect(scope.filteredEntities[2].avgPrice).toEqual(72.67);
-        // expect(scope.filteredEntities[2].lastOrder).toEqual(1391565600000);
-
-        expect(scope.filteredEntities[3].name).toEqual('Linka');
-        expect(scope.filteredEntities[3].amountTotal).toEqual(506);
-        expect(scope.filteredEntities[3].itemsQty).toEqual(10);
-        expect(scope.filteredEntities[3].avgPrice).toEqual(50.6);
-        // expect(scope.filteredEntities[3].lastOrder).toEqual(1391565600000);
-
+        expect(scope.filteredProducts[1].id).toEqual(36);
+        expect(scope.filteredProducts[1].amountTotal).toEqual(120);
+        // no discount
+        expect(scope.filteredProducts[1].amountTotalWithDiscount).toEqual(120);
+        expect(scope.filteredProducts[1].qty).toEqual(2);
+        expect(scope.filteredProducts[1].priceAvg).toEqual(60);
     });
 
-/*    it('should updatePaymentsTotal', function() {
-        scope.$apply();
-        scope.updatePaymentsTotal(scope.filteredEntities);
-        expect(scope.total.cash.qty).toEqual(3);
-        expect(scope.total.cash.amount).toEqual(800);
-        expect(scope.total.check.qty).toEqual(1);
-        expect(scope.total.check.amount).toEqual(200);
-        expect(scope.total.creditCard.qty).toEqual(0);
-        expect(scope.total.creditCard.amount).toEqual(0);
-        expect(scope.total.noMerchantCc.qty).toEqual(0);
-        expect(scope.total.noMerchantCc.amount).toEqual(0);
-        expect(scope.total.exchange.qty).toEqual(0);
-        expect(scope.total.exchange.amount).toEqual(0);
-        expect(scope.total.voucher.qty).toEqual(0);
-        expect(scope.total.voucher.amount).toEqual(0);
-    });*/
 });

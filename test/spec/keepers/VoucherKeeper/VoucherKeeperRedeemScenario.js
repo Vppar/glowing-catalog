@@ -74,7 +74,7 @@ describe('Service: VoucherKeeperRedeemScenario', function() {
         waitsFor(function() {
             return redeemed;
             //return VoucherKeeper.list('voucher')[1].redeemed;
-        }, 'VoucherKeeper.redeem()', 300);
+        }, 'VoucherKeeper.redeem()');
 
         runs(function() {
             var voucher = ArrayUtils.find(VoucherKeeper.list('voucher'), 'id', 'cc02b600-5d0b-11e3-96c3-010001000002');
