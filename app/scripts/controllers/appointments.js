@@ -133,7 +133,7 @@
 							birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
 							
 							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon);
-							
+
 							var contador = 0;
 							if (birthdays) {
 								for (var idx in birthdays) {
@@ -314,30 +314,6 @@
 							$scope.appointment = undefined;
 							$scope.rebuildCalendarJsEvents();							
 						};				
-
-						$scope.updateCalendar = function ()	{
-							var actualSince; 
-							var actualUpon; 
-							if ($('#calendar').fullCalendar('getView').name == 'month') {
-								actualSince = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-first td:eq(0)').attr('data-date')));
-								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
-							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
-								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0] + headerTitle.split('—')[1].substr(headerTitle.split('—')[1].lastIndexOf(' ') + 1, 10)))
-								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0].substr(0, 3) + headerTitle.split('—')[1]))
-								} else {
-									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))))
-								}
-							} else {
-								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
-								actualUpon = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
-							}
-							
-							$scope.birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
-							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon);
-						};						
 
 						$scope.remove = function() {
 							if( confirm("Deseja confirmar a exclus&#227;o do evento?") ){
