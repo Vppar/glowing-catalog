@@ -1,15 +1,16 @@
 (function (angular) {
     'use strict';
     angular.module('tnt.catalog.stock.ctrl', [
-        'tnt.catalog.stock.service'
+        'tnt.catalog.stock.service', 'tnt.catalog.purchaseOrder.service', 'tnt.catalog.user'
     ]).controller(
         'StockCtrl',
         [
             '$scope',
             '$filter',
             'StockService',
+            'PurchaseOrderService',
             'UserService',
-            function ($scope, $filter, StockService, UserService) {
+            function ($scope, $filter, StockService, PurchaseOrderService, UserService) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
@@ -21,7 +22,7 @@
 
                 var fullReservedListBkp = StockService.reportReserved();
                 var fullAvailableListBkp = StockService.reportAvailable();
-                var fullPendingListBkp = StockService.reportPending();
+                var fullPendingListBkp = PurchaseOrderService.reportPending();
 
                 // #####################################################################################################
                 // Local Functions
@@ -73,7 +74,7 @@
 
                                 var available = StockService.reportAvailable(objFilter);
                                 var reserved = StockService.reportReserved(objFilter);
-                                var pending = StockService.reportPending(objFilter);
+                                var pending = PurchaseOrderService.reportPending(objFilter);
 
                                 buildList(available, reserved, pending, objFilter);
 
@@ -125,20 +126,25 @@
                         case 1:
                             setHideAttributes($scope.productsAvailable.sessions, true, true);
                             setHideAttributes($scope.productsReserved.sessions, true, true);
+                            setHideAttributes($scope.productsPending.sessions, true, true);
                             hideAllSections($scope.productsAvailable.sessions);
                             hideAllSections($scope.productsReserved.sessions);
+                            hideAllSections($scope.productsPending.sessions);
                             break;
                         case 2:
                             setHideAttributes($scope.productsAvailable.sessions, true, true);
                             setHideAttributes($scope.productsReserved.sessions, true, true);
+                            setHideAttributes($scope.productsPending.sessions, true, true);
                             break;
                         case 3:
                             setHideAttributes($scope.productsAvailable.sessions, false, true);
                             setHideAttributes($scope.productsReserved.sessions, false, true);
+                            setHideAttributes($scope.productsPending.sessions, false, true);
                             break;
                         case 4:
                             setHideAttributes($scope.productsAvailable.sessions, false, false);
                             setHideAttributes($scope.productsReserved.sessions, false, false);
+                            setHideAttributes($scope.productsPending.sessions, false, false);
                             break;
                     }
 
