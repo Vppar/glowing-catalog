@@ -95,7 +95,7 @@
                      */
                     $scope.confirm = function() {
                         var phones = {};
-                        if ($scope.phone && ($scope.phone.number.length === 10 || $scope.phone.number.length === 11)) {
+                        if ($scope.phone.number && ($scope.phone.number.length === 10 || $scope.phone.number.length === 11)) {
                             $scope.addPhone($scope.phone);
                         }
 
