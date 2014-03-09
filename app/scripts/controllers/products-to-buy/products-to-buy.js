@@ -226,17 +226,17 @@
                             $scope.summary.total.points = diff.points;
 
                             // calculate the average value.
-                            for ( var ix in $scope.summary.total.sessions) {
-                                if ($scope.summary.total.sessions[ix].orderQty > 0) {
-                                    $scope.summary.total.sessions[ix].avg =
-                                        ($scope.summary.total.sessions[ix].total) /
-                                            ($scope.summary.total.sessions[ix].orderQty);
+                            for ( var ix1 in $scope.summary.total.sessions) {
+                                if ($scope.summary.total.sessions[ix1].orderQty > 0) {
+                                    $scope.summary.total.sessions[ix1].avg =
+                                        ($scope.summary.total.sessions[ix1].total) /
+                                            ($scope.summary.total.sessions[ix1].orderQty);
                                 }
-                                for ( var ix2 in $scope.summary.total.sessions[ix].lines) {
-                                    if ($scope.summary.total.sessions[ix].lines[ix2].orderQty > 0) {
-                                        $scope.summary.total.sessions[ix].lines[ix2].avg =
-                                            ($scope.summary.total.sessions[ix].lines[ix2].total) /
-                                                ($scope.summary.total.sessions[ix].lines[ix2].orderQty);
+                                for ( var ix2 in $scope.summary.total.sessions[ix1].lines) {
+                                    if ($scope.summary.total.sessions[ix1].lines[ix2].orderQty > 0) {
+                                        $scope.summary.total.sessions[ix1].lines[ix2].avg =
+                                            ($scope.summary.total.sessions[ix1].lines[ix2].total) /
+                                                ($scope.summary.total.sessions[ix1].lines[ix2].orderQty);
                                     }
                                 }
                             }

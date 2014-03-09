@@ -3,8 +3,7 @@
     angular
         .module(
             'tnt.catalog.purchaseOrder.service',
-            [
-                'tnt.utils.array',
+            [   'tnt.utils.array',
                 'tnt.catalog.financial.math.service',
                 'tnt.catalog.report.service',
                 'tnt.catalog.purchaseOrder',
@@ -14,8 +13,7 @@
             ])
         .service(
             'PurchaseOrderService',
-            [
-                '$q',
+            [   '$q',
                 '$log',
                 '$filter',
                 'ArrayUtils',
@@ -58,26 +56,24 @@
                             var hasErrors = this.isValid(purchase);
                             if (hasErrors.length === 0) {
                                 result = PurchaseOrderKeeper.add(new PurchaseOrder(purchase));
-                                result
-                                    .then(
-                                        function (uuid) {
-                                            /**
-                                             * <pre>
-                                             * TODO - Uncomment and correct this section, we need to create a Expense.
-                                             * var duedate = new Date();
-                                             * var entityId = 0;
-                                             * var expense = new Expense(null, new Date(), entityId, result.amount, duedate); 
-                                             * expense.documentId = uuid;
-                                             * ExpenseService.register(expense);
-                                             * </pre>
-                                             */
-                                        },
-                                        function (err) {
-                                            $log
-                                                .error(
-                                                    'PurchaseOrderService.register: -Failed to create an purchaseOrder. ',
-                                                    err);
-                                        });
+                                result.then(function () {
+                                    /**
+                                     * <pre>
+                                     * TODO - Uncomment and correct this section, we need to create a Expense.
+                                     * var duedate = new Date();
+                                     * var entityId = 0;
+                                     * var expense = new Expense(null, new Date(), entityId, result.amount, duedate); 
+                                     * expense.documentId = uuid;
+                                     * ExpenseService.register(expense);
+                                     * </pre>
+                                     */
+                                },
+                                function (err) {
+                                    $log
+                                        .error(
+                                            'PurchaseOrderService.register: -Failed to create an purchaseOrder. ',
+                                            err);
+                                });
                             } else {
                                 $log.error(
                                     'PurchaseOrderService.register: -Invalid purchaseOrder. ',
@@ -320,15 +316,6 @@
                     // ===========================================
                     // Helpers
                     // ===========================================
-
-                    /**
-                     * Checks if a value is a boolean.
-                     * 
-                     * @param {*} val Value to be checked.
-                     */
-                    function isBoolean (val) {
-                        return val === true || val === false;
-                    }
 
                     /**
                      * Checks if the given array contains only valid items.
