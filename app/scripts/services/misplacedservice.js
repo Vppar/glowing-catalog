@@ -376,6 +376,21 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         }
 
 
+        // FIXME doc && test
+        function getItemsWithoutItemDiscount(items) {
+          var items = [];
+
+          for (var idx in items) {
+              var item = items[idx];
+              if (!item.itemDiscount) {
+                  items.push(item);
+              }
+          }
+
+          return items;
+        }
+
+
         /**
          * Gets all items that have an order discount applied to them from
          * the given list of items.
@@ -455,6 +470,8 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
 
             getItemsWithItemDiscount : getItemsWithItemDiscount,
             getItemsWithOrderDiscount : getItemsWithOrderDiscount,
+
+            getItemsWithoutItemDiscount : getItemsWithoutItemDiscount,
 
             getTotalItemDiscount : getTotalItemDiscount,
             getTotalOrderDiscount : getTotalOrderDiscount,

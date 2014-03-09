@@ -37,6 +37,8 @@
 
                         $scope.keyboard = KeyboardService.getKeyboard();
 
+                        var Discount = Misplacedservice.discount;
+
                         var isNumPadVisible = false;
 
                         // Payment variables
@@ -56,9 +58,9 @@
                                 discount : getOrderDiscount(),
                                 subTotal : 0,
                                 // This is the total amount WITHOUT products with
-                                // specific discounts
+                                // item discounts
                                 amountWithoutDiscount : getNonDiscountedTotal(),
-                                specificDiscount : 0,
+                                itemDiscount : getSpecificDiscount(),
 
                                 // Returns the average price of the units in the order.
                                 getAvgUnitPrice : function () {
@@ -75,6 +77,8 @@
                         $scope.total = total;
 
 
+                        $scope.enableDiscount = true;
+
                         // Set initial subTotal when the controller is loaded
                         updateSubTotal();
 
@@ -89,56 +93,33 @@
                         // Returns the difference between the total order amount,
                         // the total discount and the exchanges.
                         function getSubTotal() {
-                          var totalDiscount = 0;
-
-                          for (var idx in order.items) {
-                            var item = order.items[idx];
-                            totalDiscount += (item.specificDiscount || item.orderDiscount || 0);
-                          }
+                          var totalDiscount = Discount.getTotalDiscount(order.items);
 
                           var subtotal = total.order.amount - totalDiscount;
                           return subtotal < 0 ? 0 : subtotal;
                         }
 
                         function getNewSubTotal() {
-                          var subtotal = total.order.amount - total.order.specificDiscount;
+                          var subtotal = total.order.amount - total.order.itemDiscount;
                           return subtotal < 0 ? 0 : subtotal;
                         }
 
+
+                        // FIXME Replace calls to this with the Discount method,
+                        // leaving it this way now because I'm in a hurry! Sorry...
                         function getSpecificDiscount() {
-                            var discount = 0;
-
-                            for (var idx in order.items) {
-                              var item = order.items[idx];
-                              discount += (item.specificDiscount || 0);
-                            }
-
-                            return discount;
+                            return Discount.getTotalItemDiscount(order.items);
                         }
 
                         $scope.getSpecificDiscount = getSpecificDiscount;
 
 
                         function getOrderDiscount() {
-                            var orderDiscount = 0;
-
-                            for (var idx in order.items) {
-                              var item = order.items[idx];
-                              orderDiscount += (item.orderDiscount || 0);
-                            }
-
-                            return orderDiscount;
+                            return Discount.getTotalOrderDiscount(order.items);
                         }
 
                         function getTotalDiscount() {
-                            var totalDiscount = 0;
-
-                            for (var idx in order.items) {
-                              var item = order.items[idx];
-                              totalDiscount += (item.specificDiscount || item.orderDiscount || 0);
-                            }
-
-                            return totalDiscount;
+                            return Discount.getTotalDiscount(order.items);
                         }
 
                         $scope.getTotalDiscount = getTotalDiscount;
@@ -179,6 +160,19 @@
 
 
 
+                        $scope.discountInput = total.order.discount;
+
+                        $scope.setOrderDiscount = function (val) {
+                            if (val > total.order.newSubTotal) {
+                              val = total.order.newSubTotal;
+                            }
+
+                            total.order.discount = val;
+                            $scope.discountInput = val;
+                            $scope.selectPaymentMethod('none');
+                        };
+
+
                         // Define the customer
                         var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                         $scope.customer = customer;
@@ -186,28 +180,31 @@
 
                         function getNonDiscountedTotal() {
                           var total = 0;
+
                           for (var idx in order.items) {
-                            var item = order.items[idx];
-                            if (!item.specificDiscount) {
-                              total += item.qty * (item.price || item.cost || item.amount);
-                            }
+                              var item = order.items[idx];
+                              if (!item.itemDiscount) {
+                                  total += Discount._getItemTotal(item);
+                              }
                           }
+
                           return total;
                         }
 
                         $scope.$watch('total.order.discount', function () {
                           var discountTotal = $scope.total.order.discount;
 
+
                           var items = [];
 
                           for (var idx in order.items) {
-                            var item = order.items[idx];
-                            if (!item.specificDiscount) {
-                              items.push(item);
-                            }
+                              var item = order.items[idx];
+                              if (!item.itemDiscount) {
+                                  items.push(item);
+                              }
                           }
 
-                          Misplacedservice.distributeOrderDiscount(discountTotal, items);
+                          Discount.distributeOrderDiscount(items, discountTotal);
                         });
 
 
@@ -534,19 +531,19 @@
 
                         $scope.$watch('total.order.amount', updateSubTotal);
                         $scope.$watch('total.order.discount', updateSubTotal);
-                        $scope.$watch('total.order.specificDiscount', updateSubTotal);
+                        $scope.$watch('total.order.itemDiscount', updateSubTotal);
                         $scope.$watch('total.paymentsExchange', updateSubTotal);
 
-                        $scope.$watch('total.order.specificDiscount', function () {
-                          for (var idx in order.items) {
-                            if (!order.items[idx].specificDiscount) {
-                              $scope.disableOrderDiscount = false;
-                              return;
-                            }
-                          }
+                        $scope.$watch('total.order.itemDiscount', function () {
+                            var hasItemsWithoutItemDiscount = false;
 
-                          $scope.disableOrderDiscount = true;
-                          $scope.total.order.discount = 0;
+                            for (var idx in order.items) {
+                                if (!order.items[idx].itemDiscount) {
+                                    hasItemsWithoutItemDiscount = true;
+                                }
+                            }
+
+                            $scope.enableDiscount = hasItemsWithoutItemDiscount;
                         });
 
                         $scope.$watchCollection('total.payments.exchange', function () {
@@ -555,17 +552,17 @@
 
 
                         function updateDiscountRelatedValues() {
-                          total.order.specificDiscount = getSpecificDiscount();
+                          total.order.itemDiscount = getSpecificDiscount();
                         }
 
 
-                        function watchSpecificDiscounts() {
+                        function watchItemDiscounts() {
                           for (var idx in order.items) {
-                            $scope.$watch('items.' + idx + '.specificDiscount', updateDiscountRelatedValues);
+                            $scope.$watch('items.' + idx + '.itemDiscount', updateDiscountRelatedValues);
                           }
                         }
 
-                        $scope.$watchCollection('items', watchSpecificDiscounts);
+                        $scope.$watchCollection('items', watchItemDiscounts);
 
 
                         /**
