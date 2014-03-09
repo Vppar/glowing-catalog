@@ -58,6 +58,19 @@ module.exports = function(config) {
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,
 
+    sauceLabs: {
+        username: 'wesleyakio',
+        accessKey: 'a1e78cf5-385a-4e02-ae4e-8e712275365d',
+        testName: 'Tunts CI'
+    },
+    
+    customLaunchers: {
+        sl_chrome_linux: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            platform: 'linux'
+        }
+    },
 
     // Start these browsers, currently available:
     // - Chrome
