@@ -273,6 +273,9 @@ margin-top: 5px;
 	font-size: 14px;
 	color: #555555;
 	display:block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .right-column-payment .disabled{ /*para desabilitar o click no link da coluna direita (payment)*/
