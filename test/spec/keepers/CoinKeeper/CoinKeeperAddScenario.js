@@ -43,7 +43,7 @@ xdescribe('Service: CoinKeeperAddScenario', function() {
 
         waitsFor(function() {
             return CoinKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
 
         runs(function() {
             expect(CoinKeeper.list().length).toBe(1);

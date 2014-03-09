@@ -48,7 +48,7 @@ xdescribe('Service: CoinKeeper.liquidate', function() {
 
         waitsFor(function() {
             return CoinKeeper.list()[0].liquidated;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
 
         runs(function() {
             var entry = ArrayUtils.find(CoinKeeper.list(), 'id', idToLiquidate);

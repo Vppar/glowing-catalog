@@ -34,7 +34,7 @@ xdescribe('Service: ProductReturnKeeperAddScenario', function() {
 
         waitsFor(function() {
             return ProductReturnKeeper.list().length;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
 
         //then
         runs(function() {

@@ -78,7 +78,7 @@ describe('Service: JournalKeeperReadUnsynced', function() {
     waitsFor(function() {
       $rootScope.$apply();
       return success;
-    }, 'JournalKeeper.readUnsynced()', 300);
+    }, 'JournalKeeper.readUnsynced()');
 
     runs(function() {
       expect(storage.list).toHaveBeenCalled();

@@ -78,7 +78,7 @@ describe('Service: EntityKeeperUpdateScenario', function() {
         
         waitsFor(function(){
             return !!uuid;
-        }, 'Create is taking too long', 300);
+        }, 'Create is taking too long');
         
         runs(function(){
             var remarks = 'super bad client';
@@ -96,7 +96,7 @@ describe('Service: EntityKeeperUpdateScenario', function() {
         waitsFor(function(){
             $rootScope.$apply();
             return !!uuid;
-        }, 'Update is taking too long', 300);
+        }, 'Update is taking too long');
         
         runs(function(){
             expect(EntityKeeper.list().length).toBe(1);
@@ -161,7 +161,7 @@ describe('Service: EntityKeeperUpdateScenario', function() {
         waitsFor(function(){
             $rootScope.$apply();
             return !!resolution;
-        }, 'Update is taking too long', 300);
+        }, 'Update is taking too long');
         
         runs(function(){
             expect(resolution).toBe('Wrong instance to EntityKeeper');
@@ -210,7 +210,7 @@ describe('Service: EntityKeeperUpdateScenario', function() {
         
         waitsFor(function(){
             return created;
-        }, 'EntityKeeper.create()', 300);
+        }, 'EntityKeeper.create()');
         
         runs(function(){
             var createCall = function(){

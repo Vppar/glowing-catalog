@@ -145,7 +145,7 @@ describe('Service: EntityKeeperAddScenario', function() {
         waitsFor(function(){
             $rootScope.$apply();
             return !!resolution;
-        }, 'Create is taking too long', 300);
+        }, 'Create is taking too long');
         
         runs(function(){
             expect(resolution).toBe('Wrong instance to EntityKeeper');

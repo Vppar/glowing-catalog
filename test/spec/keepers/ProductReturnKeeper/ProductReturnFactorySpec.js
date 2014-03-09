@@ -1,9 +1,9 @@
 'use strict';
 
-describe('Service: ProductReturnFactorySpec', function() {
+describe('Service: ProductReturnFactorySpec', function () {
 
     // load the service's module
-    beforeEach(function() {
+    beforeEach(function () {
         module('tnt.catalog.productReturn');
         module('tnt.catalog.productReturn.keeper');
         module('tnt.catalog.productReturn.entity');
@@ -14,11 +14,11 @@ describe('Service: ProductReturnFactorySpec', function() {
 
     // instantiate service
     var ProductReturn = undefined;
-    beforeEach(inject(function(_ProductReturn_) {
+    beforeEach(inject(function (_ProductReturn_) {
         ProductReturn = _ProductReturn_;
     }));
 
-    it('should creat a new ProductReturn entity', function() {
+    it('should creat a new ProductReturn entity', function () {
         // given
         var devId = 1;
         var pId = 23;
@@ -33,20 +33,24 @@ describe('Service: ProductReturnFactorySpec', function() {
         };
 
         // when
-        var actual = new ProductReturn(devId, pId,4, qty, ct);
+        var actual = new ProductReturn(devId, pId, 4, qty, ct);
 
         // then
-        expect(JSON.stringify(expectedArray)).toEqual(JSON.stringify(actual));
+        expect(expectedArray.id).toEqual(actual.id);
+        expect(expectedArray.productId).toEqual(actual.productId);
+        expect(expectedArray.documentId).toEqual(actual.documentId);
+        expect(expectedArray.quantity).toEqual(actual.quantity);
+        expect(expectedArray.cost).toEqual(actual.cost);
 
     });
 
-    it('should throw error', function() {
+    it('should throw error', function () {
         // given
         var pId = 23;
         var qty = -1;
 
         // then
-        expect(function() {
+        expect(function () {
             new ProductReturn(pId, qty);
         }).toThrow();
 

@@ -58,7 +58,7 @@ describe('Service: OrderServiceCancel', function() {
 
         waitsFor(function() {
             return result;
-        }, 'JournalKeeper is taking too long', 300);
+        }, 'JournalKeeper is taking too long');
 
         runs(function() {
             expect(OrderKeeperMock.cancel).toHaveBeenCalledWith(1);
