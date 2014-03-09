@@ -55,16 +55,7 @@
             [
                 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.appointments.entity',
                 'tnt.catalog.journal.keeper', 'tnt.identity'
-            ]).config(function($provide) {
-                $provide.decorator('$q', function($delegate) {
-                    $delegate.reject = function(reason){
-                        var deferred = $delegate.defer();
-                        deferred.reject(reason);
-                        return deferred.promise;
-                    };
-                    return $delegate;
-                });
-        }).service('AppointmentKeeper', function AppointmentKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Appointment, IdentityService) {
+            ]).service('AppointmentKeeper', function AppointmentKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Appointment, IdentityService) {
 
     	var type = 99;
         var currentEventVersion = 1;
