@@ -12,7 +12,6 @@
                     ctrl.$viewValue = fmt;
                     ctrl.$render();
                     
-                    
                     if(value.length === 11){
                         ctrl.$setValidity('cpf', CpfService.validate(value));
                     } else if(value === ''){
