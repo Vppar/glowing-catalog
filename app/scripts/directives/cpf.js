@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    function cpf($filter) {
+    function cpf($filter, CpfService) {
         return {
             require : 'ngModel',
             link : function(scope, element, attrs, ctrl) {
@@ -11,6 +11,18 @@
                     var fmt = $filter('cpf')(value);
                     ctrl.$viewValue = fmt;
                     ctrl.$render();
+                    
+                    
+                    if(value.length === 11){
+                        console.log('yarrr');
+                        console.log(CpfService.validate(value));
+                        ctrl.$setValidity('cpf', CpfService.validate(value));
+                    } else if(value === ''){
+                        ctrl.$setValidity('cpf', true);
+                    } else {
+                        ctrl.$setValidity('cpf', false);
+                    }
+                    
                     return value;
                 });
                 ctrl.$formatters.unshift(function(value) {
@@ -20,5 +32,5 @@
             }
         };
     }
-    angular.module('glowingCatalogApp').directive('cpf', ['$filter', cpf]);
+    angular.module('glowingCatalogApp').directive('cpf', ['$filter', 'CpfService',cpf]);
 }(angular));
