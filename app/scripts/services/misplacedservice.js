@@ -54,106 +54,6 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
 
 
 
-    this.distributeSpecificDiscount = function (total, discount, items) {
-      var currTotalDiscount = 0;
-      var largestProductIndex = null;
-      var largestProductValue = 0;
-
-      for (var idx in items) {
-        var item = items[idx];
-
-        var itemTotal = item.qty * (item.price || item.cost || item.amount);
-
-        if (itemTotal > largestProductValue) {
-          largestProductValue = itemTotal;
-          largestProductIndex = idx;
-        }
-      }
-
-      for (var idx in items) {
-        var item = items[idx];
-
-        var itemTotal = item.qty * (item.price || item.cost || item.amount);
-
-        var itemShare = itemTotal / total;
-        var itemDiscount = Math.round(100 * discount * itemShare) / 100;
-        var isLastItem = parseInt(idx) === (items.length - 1);
-        var currTotalDiscount = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
-        var discountDoesNotMatch = currTotalDiscount !== discount;
-
-        item.specificDiscount = itemDiscount;
-
-        // Since we're rounding the discounts to the second decimal,
-        // in many cases we'll end up with an inconsistency between the
-        // given total discount and the sum of all individual discounts
-        // of each item. We handle this case by adjusting the value for
-        // the last item if needed, not allowing the sum of all discounts
-        // to be greater than the given total discount.
-        if (isLastItem && discountDoesNotMatch) {
-          var discountDiff = discount - currTotalDiscount;
-          var largestItem = items[largestProductIndex];
-          largestItem.specificDiscount = Math.round(100 * (largestItem.specificDiscount + discountDiff)) / 100;
-        }
-      }
-    };
-
-
-    this.distributeOrderDiscount = function (discount, items) {
-      var currTotalDiscount = 0;
-      var largestProductIndex = null;
-      var largestProductValue = 0;
-
-      var total = 0;
-
-      for (var idx in items) {
-        var item = items[idx];
-
-        var itemTotal = item.qty * (item.price || item.cost || item.amount);
-
-        total += itemTotal;
-
-        if (itemTotal > largestProductValue) {
-          largestProductValue = itemTotal;
-          largestProductIndex = idx;
-        }
-      }
-
-      for (var idx in items) {
-        var item = items[idx];
-
-        var itemShare = itemTotal / total;
-        var itemDiscount = Math.round(100 * discount * itemShare) / 100;
-        var isLastItem = parseInt(idx) === (items.length - 1);
-        var currTotalDiscount = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
-        var discountDoesNotMatch = currTotalDiscount !== discount;
-
-        item.orderDiscount = itemDiscount;
-
-        // Since we're rounding the discounts to the second decimal,
-        // in many cases we'll end up with an inconsistency between the
-        // given total discount and the sum of all individual discounts
-        // of each item. We handle this case by adjusting the value for
-        // the last item if needed, not allowing the sum of all discounts
-        // to be greater than the given total discount.
-        if (isLastItem && discountDoesNotMatch) {
-          var discountDiff = discount - currTotalDiscount;
-          var largestItem = items[largestProductIndex];
-          largestItem.orderDiscount = Math.round(100 * (largestItem.orderDiscount + discountDiff)) / 100;
-        }
-      }
-    };
-
-    function distributeDiscount(discount, items) {
-      var currTotalDiscount = 0;
-      var largestProductIndex = null;
-      var largestProductValue = 0;
-
-      var total = 0;
-
-    }
-
-
-
     /**
      * Defines most of the logic required to handle discounts in the app.
      */
@@ -461,6 +361,9 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
 
 
         return {
+            // These are being exposed just as a convenience. They should
+            // be placed somewhere else, where they make more sense, like
+            // the OrderService (not sure).
             _getItemTotal : _getItemTotal,
             _getItemsTotal : _getItemsTotal,
 
