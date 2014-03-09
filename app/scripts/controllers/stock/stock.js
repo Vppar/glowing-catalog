@@ -66,7 +66,7 @@
                         if (newVal !== oldVal) {
                             var myTextFilter = String($scope.productFilter.text);
                             if (myTextFilter.length >= 3) {
-                                $scope.selectedLevel = 3;
+                                $scope.selectedLevel = 4;
                                 var objFilter = {
                                     title : myTextFilter,
                                     SKU : myTextFilter

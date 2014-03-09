@@ -228,7 +228,6 @@
                                     if (pendingOrders[ix].itemsReceived &&
                                         pendingOrders[ix].itemsReceived.length === 0 ||
                                         ReportService.shouldFilter(filter, reportItem)) {
-                                        console.log('filtered', pendingOrders[ix].items[ix2]);
                                         continue;
                                     }
 
