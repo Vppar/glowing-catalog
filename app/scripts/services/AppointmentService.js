@@ -53,28 +53,32 @@
             return result;
         };
         
-        this.listAppointmentsByPeriod = function(since,upon)
-        {
-        	var appointmentReturn = [];
-        	var appointmentList = this.list();
-        	if(appointmentList)
-        	{
-	        	for(var idx in appointmentList)
-	        	{
-	        		var appointment = appointmentList[idx];
-	        		if(appointment.status != 'REMOVED')
-	        		{
-		        		var dateAppointment = new Date(appointment.startDate);
-		        		dateAppointment.setHours(0);
-		        		dateAppointment.setMinutes(0);
-		        		if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime())
-		        		{
-		        			appointmentReturn.push(appointment);
-		        		}
-	        		}
-		        }
-        	}
-        	return appointmentReturn;
+        this.listAppointmentsByPeriod = function(since,upon,types) {
+            var appointmentReturn = [];
+            var appointmentList = this.list();
+            if(appointmentList) {
+                for(var idx in appointmentList) {
+                    var appointment = appointmentList[idx];
+                    if(appointment.status != 'REMOVED') {
+                        var dateAppointment = new Date(appointment.startDate);
+                        dateAppointment.setHours(0);
+                        dateAppointment.setMinutes(0);
+                        if(dateAppointment.getTime() >= since.getTime() && dateAppointment.getTime() <= upon.getTime()) {
+                            if(!types) {
+                                appointmentReturn.push(appointment);
+                            } else {
+                                 for(var i = 0; i < types.length; i++){
+                                    if(types[i] == appointment.type) {
+                                        appointmentReturn.push(appointment);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return appointmentReturn;
         };
 
         this.loadByUUID = function (uuid)
