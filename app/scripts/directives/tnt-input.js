@@ -118,7 +118,7 @@
                             element.trigger('input');
 
                             if (scope.okClick) {
-                              scope.okClick();
+                                scope.okClick();
                             }
                         }
 
@@ -126,6 +126,7 @@
                     } else {
                         if (!attrs.maxlength || current.length < attrs.maxlength) {
                             current += key;
+                            // FIXME check this eqeqeq
                             if (current.length == attrs.maxlength) {
                                 setTimeout(function(){
                                     KeyboardService.next();

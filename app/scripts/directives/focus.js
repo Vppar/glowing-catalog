@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    angular.module('tnt.catalog.directives.focus', []).directive('tntFocus', function () {
+    angular.module('tnt.catalog.directives.focus', []).directive('tntFocus', ['$log', function ($log) {
         return {
             /**
              * Overrides the method focus() for HTML elements
@@ -18,5 +18,5 @@
                 }
             }
         };
-    });
+    }]);
 }(angular));
