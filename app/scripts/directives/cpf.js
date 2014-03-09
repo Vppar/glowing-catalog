@@ -14,8 +14,6 @@
                     
                     
                     if(value.length === 11){
-                        console.log('yarrr');
-                        console.log(CpfService.validate(value));
                         ctrl.$setValidity('cpf', CpfService.validate(value));
                     } else if(value === ''){
                         ctrl.$setValidity('cpf', true);
