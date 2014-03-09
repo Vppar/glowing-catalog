@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container order-list-page">
 
 	<!-- HEADER -->
 	<div class="row-fluid">
@@ -74,7 +74,7 @@
 				</div>
 
 				<div class="col-details-order-list-item-select" ng-show="ol=='products'">
-					<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId">
+					<select ui-select2 tnt-select2 class='select-client' data-placeholder="Selecione Cliente" ng-model="customerId">
 						<option value="" ng-hide="true"></option>
 						<option value="0">Selecione o Cliente</option>
 						<option value="{{customer.uuid}}" ng-repeat="customer in avaliableCustomers | orderBy: 'name' ">{{customer.name}}</option>

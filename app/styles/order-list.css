@@ -1,3 +1,7 @@
+.order-list-page .select-client{
+	width: 450px;
+}
+
 .new-calendar{
 	margin-bottom: 10px;
 	margin-right: 30px;
@@ -223,9 +227,6 @@ text-align: right;
 	top: 25px
 }
 
-.form-order-list .combo-width {
-	width: 250px;
-}
 .row-order-list  .btn {
 	background: #ecbab9;
 	text-shadow: none;
