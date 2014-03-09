@@ -34,7 +34,7 @@
       <span class=""> 
         <!-- Remove or fix the ng-hide directive when setting the keyboard up -->
         <span ng-hide="selectedPaymentMethod=='orderDiscount' || !enableDiscount" class="btn-price-payment" ng-click="selectDiscount()">{{total.order.discount | currency:''}}</span>
-        <input id="discount" class="btn-price-payment" ng-if="selectedPaymentMethod=='orderDiscount' || !enableDiscount" ng-disabled="enableDiscount" ng-model="discountInput" tnt-input currency focus ok-click="setOrderDiscount(discountInput)" tnt-relative-value="total.order.newSubTotal"/>
+        <input id="discount" class="btn-price-payment" ng-if="selectedPaymentMethod=='orderDiscount' || !enableDiscount" ng-disabled="!enableDiscount" ng-model="discountInput" tnt-input currency focus ok-click="setOrderDiscount(discountInput)" tnt-relative-value="total.order.newSubTotal"/>
       </span>
 	</div>
 
