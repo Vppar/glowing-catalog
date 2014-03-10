@@ -259,3 +259,10 @@ margin: 0 0 10px 0;
 }
 #txt-description { font-family:-webkit-body !important; height:100px !important;}
 #select-hour, #select-minute {margin: 10px 0 20px 0; font-size: 16px;}
+.ui-dialog .ui-dialog-content {font-size:14px;}
+div.ui-dialog { width:400px !important;}
+div.ui-dialog #event-dialog .field-big { width:100% !important;}
+.fc-event-container { margin-top:2px !important; margin-left:68px !important; clear:both !important;}
+.fc-event-inner {text-indent:10px !important;}
+.fc-event {position:relative !important};
+.fc-agenda-allday .fc-day-content {max-height:140px !important;}

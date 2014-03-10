@@ -21,6 +21,26 @@
 						$scope.appointment = undefined;
 						$scope.contacts = [];
 						$scope.contacts = EntityService.list();
+						$.datepicker.regional['pt'] = {
+        					closeText: 'Fechar',
+					        prevText: 'Anterior',
+					        nextText: 'Seguinte',
+					        currentText: 'Hoje',
+					        monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho',
+					        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+					        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					        'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+					        dayNames: ['Domingo', 'Segunda-feira', 'Ter&ccedil;a-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'S&aacute;bado'],
+					        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'],
+					        dayNamesMin: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'],
+					        weekHeader: 'Sem',
+					        dateFormat: 'dd/mm/yy',
+					        firstDay: 0,
+					        isRTL: false,
+					        showMonthAfterYear: false,
+					        yearSuffix: ''
+    					};
+    					$.datepicker.setDefaults($.datepicker.regional['pt']);
 
 						// #############################################################################################################
 						// Initialize/Rebuild Adam Shaw Full Calendar Component
@@ -33,13 +53,14 @@
 									prev: 'Ant.',
 									next: 'Prox.',
 									today: 'Hoje',
-									month: 'M&#234;s',
+									month: 'M&ecirc;s',
 									agendaWeek: 'Semana',
 									agendaDay: 'Dia'
 								},
-								monthNames: ['Janeiro', 'Fevereiro', 'Mar&#231;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-								dayNames: ['Domingo', 'Segunda', 'Ter&#231;a', 'Quarta',	'Quinta', 'Sexta', 'S&#225;bado'],
-								dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&#225;b'],
+								monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+								monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+								dayNames: ['Domingo', 'Segunda', 'Ter&ccedil;a', 'Quarta',	'Quinta', 'Sexta', 'S&aacute;bado'],
+								dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'],
 								
 								header: {
 									left: 'prev,next today',
@@ -114,17 +135,24 @@
 							var events = [];
 							
 							if ($('#calendar').fullCalendar('getView').name == 'month') {
+								$('.fc-sat.fc-widget-header').html($('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
 								actualSince = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-first td:eq(0)').attr('data-date')));
 								actualUpon = ($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
 							} else if ($('#calendar').fullCalendar('getView').name == 'agendaWeek') {
-								var headerTitle = $('.fc-header-title').text();
-								actualSince = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0] + headerTitle.split('—')[1].substr(headerTitle.split('—')[1].lastIndexOf(' ') + 1, 10)))
-								if (!isNaN(parseInt(headerTitle.charAt(headerTitle.indexOf('—') + 2), 10))) {
-									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[0].substr(0, 3) + headerTitle.split('—')[1]))
+								$('.fc-sat.fc-widget-header').html($('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
+								var headerTitle = $('.fc-header-title').text().split(' ');
+								actualSince = ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' + headerTitle[1] + ' ' + headerTitle[headerTitle.length - 1]))
+								if (!isNaN(parseInt(headerTitle[3], 10))) {
+									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' + headerTitle[3] + ' ' + headerTitle[4]))
+								} else if (headerTitle.length == 6) {
+									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle[3] + ' ' + headerTitle[4] + ' ' + headerTitle[5]))
 								} else {
-									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle.split('—')[1].substr(1, headerTitle.lastIndexOf(' '))))
+									actualSince = ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' + headerTitle[1] + ' ' + headerTitle[2]))
+									actualUpon = ($.datepicker.parseDate('M d yy', headerTitle[4] + ' ' + headerTitle[5] + ' ' + headerTitle[6]))
 								}
 							} else {
+								$('.fc-tue.fc-widget-header').html($('.fc-tue.fc-widget-header').text().replace('&ccedil;', '&#231;'));
+								$('.fc-sat.fc-widget-header').html($('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
 								var headerTitle = $('.fc-header-title').text();
 								actualSince = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
 								actualUpon = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
