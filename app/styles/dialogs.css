@@ -8,6 +8,7 @@
      height: 20px;
      font-size: 16px;
      cursor: pointer;
+     overflow: hidden;
  }
 
  div.zoom{
@@ -75,6 +76,7 @@
  .modal-numpad input{
      width: 282px;
      height: 40px;
+     text-align: right;
  }
  
  .modal-add-basket-details-dialog{
