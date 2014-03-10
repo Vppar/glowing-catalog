@@ -267,4 +267,4 @@ div.ui-dialog #event-dialog .field-big { width:96% !important;}
 /*.fc-event {position:relative !important};*/
 .fc-agenda-allday .fc-day-content {max-height:140px !important;}
 .ui-dialog-titlebar-close {margin-right:10px !important;}
-div.event-dialog .dialog-buttons .btn {zoom:0.8 !important; min-width:70px !important; margin-right: 8px !important;}
+div.dialog-buttons .btn {zoom:0.79 !important; min-width:70px !important; margin-right: 8px !important;}
