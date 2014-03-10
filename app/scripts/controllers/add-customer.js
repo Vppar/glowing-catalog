@@ -55,18 +55,17 @@
                             completeAddress(address);
                         }, function(error) {
                             if (error.status === 404) {
-                                console.log('yar');
                                 DialogService.messageDialog({
                                     title : 'Erro ao buscar o CEP.',
                                     message : 'Verifique se o CEP foi digitado corretamente.',
                                     btnYes : 'OK'
-                                }).then();
+                                });
                             } else if (error.status === 500) {
                                 DialogService.messageDialog({
                                     title : 'Erro ao buscar o CEP.',
                                     message : 'Não foi possível contactar o serviço de CEP, verifique sua conexão com a internet.',
                                     btnYes : 'OK'
-                                }).then();
+                                });
                             }
                         });
                         
