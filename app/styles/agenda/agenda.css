@@ -257,12 +257,14 @@ margin: 0 0 10px 0;
 .ui-corner-tr {
 	border-bottom-right-radius: 0px !important;
 }
-#txt-description { font-family:-webkit-body !important; height:100px !important;}
+#txt-description {  height:100px !important;}
 #select-hour, #select-minute {margin: 10px 0 20px 0; font-size: 16px;}
 .ui-dialog .ui-dialog-content {font-size:14px;}
 div.ui-dialog { width:400px !important;}
-div.ui-dialog #event-dialog .field-big { width:100% !important;}
-.fc-event-container { margin-top:2px !important; margin-left:68px !important; clear:both !important;}
+div.ui-dialog #event-dialog .field-big { width:96% !important;}
+.fc-event-container { margin-top:2px !important;/* margin-left:68px !important;*/ clear:both !important;}
 .fc-event-inner {text-indent:10px !important;}
-.fc-event {position:relative !important};
+/*.fc-event {position:relative !important};*/
 .fc-agenda-allday .fc-day-content {max-height:140px !important;}
+.ui-dialog-titlebar-close {margin-right:10px !important;}
+div.event-dialog .dialog-buttons .btn {zoom:0.8 !important; min-width:70px !important; margin-right: 8px !important;}
