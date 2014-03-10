@@ -167,8 +167,8 @@
 				                    }
 										var event = {
 												title: app.title,
-												start: app.startDate,
-												end: app.endDate,
+												start: new Date(app.startDate),
+												end: new Date(app.endDate),
 												allDay: false,
 												status: app.status,
 												color: $('.tag'+app.type).find('.tag-circle').css('background-color'),
