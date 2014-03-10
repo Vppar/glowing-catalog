@@ -75,7 +75,7 @@ describe('Controller: order-list-products', function () {
                 items : [
                     {
                         SKU : "10-042751",
-                        discount : 10,
+                        itemDiscount : 10,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -89,7 +89,7 @@ describe('Controller: order-list-products', function () {
                         uniqueName : "10-042751 - Pele Normal/Seca"
                     }, {
                         SKU : "10-042751",
-                        discount : 20,
+                        itemDiscount : 20,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -103,7 +103,7 @@ describe('Controller: order-list-products', function () {
                         uniqueName : "10-042751 - Pele Normal/Seca"
                     }, {
                         SKU : "10-042761",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 36,
                         inventory : 0,
                         line : "TimeWise",
@@ -117,7 +117,7 @@ describe('Controller: order-list-products', function () {
                         uniqueName : "10-042761 - Pele Mista/Oleosa"
                     }, {
                         SKU : "10-042751",
-                        discount : 15,
+                        itemDiscount : 15,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -141,7 +141,7 @@ describe('Controller: order-list-products', function () {
                 items : [
                     {
                         SKU : "10-042761",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 36,
                         inventory : 0,
                         ine : "TimeWise",
@@ -155,7 +155,7 @@ describe('Controller: order-list-products', function () {
                         uniqueName : "10-042761 - Pele Mista/Oleosa"
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -179,7 +179,7 @@ describe('Controller: order-list-products', function () {
                 items : [
                     {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -193,7 +193,7 @@ describe('Controller: order-list-products', function () {
                         uniqueName : "10-042751 - Pele Normal/Seca"
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -217,7 +217,7 @@ describe('Controller: order-list-products', function () {
                 items : [
                     {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -240,7 +240,7 @@ describe('Controller: order-list-products', function () {
                 items : [
                     {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -254,7 +254,7 @@ describe('Controller: order-list-products', function () {
                         qty : 1
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -278,7 +278,7 @@ describe('Controller: order-list-products', function () {
                 items : [
                     {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -292,7 +292,7 @@ describe('Controller: order-list-products', function () {
                         qty : 1
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -306,7 +306,7 @@ describe('Controller: order-list-products', function () {
                         qty : 1
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -320,7 +320,7 @@ describe('Controller: order-list-products', function () {
                         qty : 1
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -343,7 +343,7 @@ describe('Controller: order-list-products', function () {
                 items : [
                     {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -357,7 +357,7 @@ describe('Controller: order-list-products', function () {
                         qty : 1
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -371,7 +371,7 @@ describe('Controller: order-list-products', function () {
                         qty : 1
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
@@ -385,7 +385,7 @@ describe('Controller: order-list-products', function () {
                         qty : 1
                     }, {
                         SKU : "10-042751",
-                        discount : 0,
+                        itemDiscount : 0,
                         id : 35,
                         inventory : 0,
                         line : "TimeWise",
