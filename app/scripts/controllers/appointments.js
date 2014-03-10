@@ -170,7 +170,7 @@
 									var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
 									contador = contador + 1;
 									var event = {
-										title: 'Anivers&#225;rio de ' + entity.name,
+										title: 'Anivers' + unescape('%E1') + 'rio de ' + entity.name,
 										start: thisDate,
 										allDay: true,
 										color: $('.tag7').find('.tag-circle').css('background-color'),
