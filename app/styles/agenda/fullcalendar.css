@@ -473,7 +473,7 @@ table.fc-border-separate {
 /* all-day area */
 	
 .fc-agenda-allday th {
-	border-width: 0 1px;
+	border-width: 0 0px;
 	}
 	
 .fc-agenda-allday .fc-day-content {
