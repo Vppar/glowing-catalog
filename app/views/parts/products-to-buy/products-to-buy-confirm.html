@@ -1,4 +1,4 @@
-<div class="step2">
+<div class="step2 product-to-buy-confirm-part">
 
     <div class="row-fluid">
         <div class="new-body-header details-title">
@@ -10,7 +10,8 @@
         </div>
     </div>
 
-    <div class="new-scrollpanel" ng-repeat="session in confirmedProducts.sessions">
+	<div class="new-scrollpanel">
+    <div ng-repeat="session in confirmedProducts.sessions">
         <div class="row-fluid">
             <div class="new-body-row details-subtitle">
                 <span class="new-col-11">{{session.label}}</span>
@@ -35,6 +36,7 @@
                 </div>
 			</span>
 		</span>
+    </div>
     </div><!--// new-scrollpanel -->
 
 	<!--Tela "Confirmar pedido"-->
