@@ -33,16 +33,17 @@
                                 if (item.type !== 'giftCard' && item.type !== 'voucher') {
                                     var SKU = item.SKU;
                                     var response = ArrayUtils.find(productsMap, 'SKU', SKU);
-                                    
+
                                     /**
-                                     * Verification of the two variables was
-                                     * used because there was a change in
-                                     * its name, so that there are records
-                                     * persisted in firebase both ways. and
-                                     * to prevent the screen make boom.
+                                     * The value can be provided by
+                                     * item.itemDiscount or item.discount. This
+                                     * happen because was made a change on
+                                     * discount property name. This way some
+                                     * firebase registers are with the old
+                                     * property others with the new one
                                      */
                                     var discount = item.itemDiscount || item.discount || 0;
-                                    
+
                                     if (response) {
                                         productsMap[SKU].qty += item.qty;
                                         var amount =
@@ -58,7 +59,7 @@
                                         productsMap[SKU].amountTotal =
                                             Math
                                                 .round(100 * (Number(productsMap[SKU].qty) * Number(productsMap[SKU].price))) / 100;
-                                        
+
                                         productsMap[SKU].amountTotalWithDiscount =
                                             productsMap[SKU].amountTotal - discount;
                                         productsMap[SKU].priceAvg =
