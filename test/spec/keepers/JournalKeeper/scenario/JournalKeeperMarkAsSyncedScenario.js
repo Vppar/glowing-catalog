@@ -92,7 +92,7 @@ describe('Keeper: JournalKeeper.markAsSynced() scenario', function() {
 
             waitsFor(function () {
                 return synced;
-            });
+            }, 'marke as synced');
 
             runs(function () {
                 promise = storage.list('JournalEntry', {type : 'entityCreate'});
@@ -131,13 +131,14 @@ describe('Keeper: JournalKeeper.markAsSynced() scenario', function() {
                 log.debug('Nuke before each test');
                 nuked = true;
             }, function (err) {
-                log.debug('Failed to nuke!', err);
+                console.log('Failed to nuke!', err);
             });
         });
 
         waitsFor(function () {
+            scope.$apply();
             return nuked;
-        });
+        }, 'Nuke to complete');
     } // nuke()
 
 
@@ -186,7 +187,7 @@ describe('Keeper: JournalKeeper.markAsSynced() scenario', function() {
 
         waitsFor(function () {
             return composeCount === validJournalEntries.length;
-        });
+        }, 'Entities to be created');
 
         runs(function () {
             expect(log.fatal).not.toHaveBeenCalled();

@@ -105,6 +105,12 @@
 
                 var storage = new PersistentStorage (WebSQLDriver);
                 var registered = storage.register (entityName, JournalEntry);
+                
+                registered.then(function(){
+                    $log.debug('Entity ' + entityName + ' registered');
+                }, function(){
+                    $log.error('Entity ' + entityName + ' failed to register');
+                });
 
                 /**
                  * Returns sequence number.
@@ -334,10 +340,16 @@
                  */
                 this.nuke =
                     function( ) {
+                    
+                        $log.debug('JournalService scheduling nuke');
+                    
                         return registered
                             .then (function( ) {
-                                var promise = storage.nuke (entityName);
+                                
+                                $log.debug('JournalService carrying nuke');
 
+                                var promise = storage.nuke (entityName);
+                                
                                 promise
                                     .then (
                                         function( ) {
