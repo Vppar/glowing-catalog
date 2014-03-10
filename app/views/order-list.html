@@ -274,7 +274,7 @@
 					</div>
 				</div>
 				<div class="scroll-order-list" ng-class="{'order-scroll-closed': hideOptions, 'order-scroll-openned': !hideOptions}">
-					<div class="order-table-row" ng-repeat="entity in filteredEntities | orderBy: '-amountTotal'" ng-click="updateAndEnableHideOption(entity)"
+					<div class="order-table-row" ng-repeat="entity in filteredEntities | orderBy: '-amountTotalWithDiscount'" ng-click="updateAndEnableHideOption(entity)"
 						ng-class="{'row-selected': checkedEntityUUID==entity.entityId}">
 						<div class="new-col-2 text-center">
 							<span>{{$index+1}}</span>
@@ -361,7 +361,7 @@
 				</div>
 				<div class="scroll-order-list order-scroll-closed">
 					<div class="row-order-list hover-state-pointer order-row"
-						ng-repeat="product in filteredProducts | orderBy:'-amountTotal'">
+						ng-repeat="product in filteredProducts | orderBy:'-amountTotalWithDiscount'">
 						<div class="new-col-2 text-center">
 							{{$index + 1}}
 						</div>
