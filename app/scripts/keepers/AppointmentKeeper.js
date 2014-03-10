@@ -55,7 +55,7 @@
             [
                 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.appointments.entity',
                 'tnt.catalog.journal.keeper', 'tnt.identity'
-            ]).service('AppointmentKeeper', function AppointmentKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Appointment, IdentityService) {
+            ]).service('AppointmentKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Appointment', 'IdentityService', function AppointmentKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Appointment, IdentityService) {
 
     	var type = 99;
         var currentEventVersion = 1;
@@ -69,7 +69,7 @@
 
 
         // Nuke appointment for clearing the appointment list
-        ObjectUtils.ro(this.handlers, 'nukeAppointment', function() {
+        ObjectUtils.ro(this.handlers, 'nukeAppointmentV1', function() {
         	appointments.length = 0;
             return true;
         });
@@ -78,14 +78,12 @@
         ObjectUtils.ro(this.handlers, 'appointmentCreateV1', function(appointment) {
           
             var appointmentData = IdentityService.getUUIDData(appointment.uuid);
-          
+            
             if(appointmentData.deviceId === IdentityService.getDeviceId()){
                 currentCounter = currentCounter >= appointmentData.id ? currentCounter : appointmentData.id;
             }
-            
             appointment = new Appointment(appointment);
             appointments.push(appointment);
-            
             return appointment.uuid;
         });
         
@@ -167,7 +165,7 @@
             return angular.copy(appointments);
         };
         
-    });
+    }]);
 
     angular.module('tnt.catalog.appointments', [
         'tnt.catalog.appointments.entity', 'tnt.catalog.appointments.keeper'

@@ -118,7 +118,7 @@ describe('Service: AppointmentKeeperAddScenario', function() {
         runs(function(){
             var promise = AppointmentKeeper.create(ev);
             
-            promise['catch'](function(_resolution_){
+            promise.then(null, function(_resolution_){
                 resolution = _resolution_;
             });
         });
