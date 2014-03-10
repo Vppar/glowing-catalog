@@ -23,7 +23,6 @@ describe('Controller: AddCustomerCtrl', function() {
 
     beforeEach(function() {
         module(function($provide) {
-            $provide.value('CepService', cs);
             $provide.value('UserService', us);
             $provide.value('EntityService', es);
         });
@@ -33,7 +32,6 @@ describe('Controller: AddCustomerCtrl', function() {
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, _$filter_, _$q_, _$rootScope_, _CpfService_) {
-
         CpfService = _CpfService_;
         $q = _$q_;
         $rootScope = _$rootScope_;
@@ -62,7 +60,9 @@ describe('Controller: AddCustomerCtrl', function() {
             dialog : dialog,
             OrderService : os,
             DataProvider : dp,
-            DialogService : ds
+            DialogService : ds,
+            CepService : cs
+
         });
         $filter = _$filter_;
     }));
@@ -186,4 +186,40 @@ describe('Controller: AddCustomerCtrl', function() {
         });
     });
 
+    it('should get the CEP', function() {
+        // given
+        var result = {
+            logradouro : 'Rua',
+            bairro : 'Bairro',
+            uf : 'Estado',
+            localidade : 'Cidade'
+        };
+
+        var expected = {
+            street : 'Rua',
+            neighborhood : 'Bairro',
+            state : 'Estado',
+            city : 'Cidade'
+        };
+        PromiseHelper.config($q, angular.noop);
+        cs.search = jasmine.createSpy('CepService.search').andCallFake(PromiseHelper.resolved(result));
+        // valid Cep
+        scope.customer.cep = '81110-010';
+
+        // when
+        var done = false;
+        runs(function() {
+            scope.getCep().then(function() {
+                done = true;
+            });
+        });
+
+        waitsFor(function() {
+            scope.$apply();
+            return done;
+        });
+        runs(function() {
+            expect(scope.customer.addresses).toEqual(expected);
+        });
+    });
 });
