@@ -67,7 +67,7 @@
                                         
                                         if (stockResponse.reserve > 0) {
                                             if ((stockResponse.quantity - stockResponse.reserve) > 0) {
-                                                productsMap[SKU].stock = stockResponse.quantity - stockResponse.reserve;
+                                                productsMap[SKU].stock = stockResponse.quantity
                                             } else {
                                                 productsMap[SKU].stock = 0;
                                             }
