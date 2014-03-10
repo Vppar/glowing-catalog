@@ -353,68 +353,62 @@
 						
 						$scope.update = function() {							
 							
-							if($scope.validateUUID() && $scope.validateEventDialogFields()) {
-
-								var selectedStartDate = new Date($("#select-date").val());
-								selectedStartDate.setHours($("#select-hour-initial").val());
-								selectedStartDate.setMinutes($("#select-minute-initial").val());
-								
-								var selectedEndDate = new Date($("#select-date").val());
-								selectedEndDate.setHours($("#select-hour-end").val());
-								selectedEndDate.setMinutes($("#select-minute-end").val());	
-								
-								validateDate(selectedStartDate,selectedEndDate);
-								
-								$scope.appointment = AppointmentService.loadByUUID( $("#select-event-uuid").val());
-								$scope.appointment.contacts = $("#select-client").val();
-								$scope.appointment.title = $("#txt-title").val();
-								$scope.appointment.description = $("#txt-description").val();
-								$scope.appointment.startDate = selectedStartDate;
-								$scope.appointment.endDate = selectedEndDate;
-								$scope.appointment.allDay =  false;
-								$scope.appointment.status = $("#event-status").val();
-								$scope.appointment.type = $("#select-event").val();
-								$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
-																
-								AppointmentService.update($scope.appointment).then(function(uuid) {
-									   $scope.closeEventDialog();								   								
-						               alert('Atualiza&#231;&#227;o efetuada com sucesso.');					              
-						            }, function(err) {
-						            	alert('Erro:' + err);
-						        });
+							var selectedStartDate = new Date($("#select-date").val());
+							selectedStartDate.setHours($("#select-hour-initial").val());
+							selectedStartDate.setMinutes($("#select-minute-initial").val());
+							
+							var selectedEndDate = new Date($("#select-date").val());
+							selectedEndDate.setHours($("#select-hour-end").val());
+							selectedEndDate.setMinutes($("#select-minute-end").val());	
+							
+							if($scope.validateUUID() && $scope.validateEventDialogFields(selectedStartDate,selectedEndDate)) {
+									$scope.appointment = AppointmentService.loadByUUID( $("#select-event-uuid").val());
+									$scope.appointment.contacts = $("#select-client").val();
+									$scope.appointment.title = $("#txt-title").val();
+									$scope.appointment.description = $("#txt-description").val();
+									$scope.appointment.startDate = selectedStartDate;
+									$scope.appointment.endDate = selectedEndDate;
+									$scope.appointment.allDay =  false;
+									$scope.appointment.status = $("#event-status").val();
+									$scope.appointment.type = $("#select-event").val();
+									$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
+																	
+									AppointmentService.update($scope.appointment).then(function(uuid) {
+										   $scope.closeEventDialog();								   								
+							               alert('Atualiza&#231;&#227;o efetuada com sucesso.');					              
+							            }, function(err) {
+							            	alert('Erro:' + err);
+							        });
 							}
 						};		
 		
 						$scope.create = function ()	{
-							if($scope.validateEventDialogFields()) {
-
-								var selectedStartDate = new Date($("#select-date").val());
-								selectedStartDate.setHours($("#select-hour-initial").val());
-								selectedStartDate.setMinutes($("#select-minute-initial").val());
-								
-								var selectedEndDate = new Date($("#select-date").val());
-								selectedEndDate.setHours($("#select-hour-end").val());
-								selectedEndDate.setMinutes($("#select-minute-end").val());
-								
-								validateDate(selectedStartDate,selectedEndDate);
-								
-								$scope.appointment = {};
-								$scope.appointment.title = $("#txt-title").val();
-								$scope.appointment.description = $("#txt-description").val();
-								$scope.appointment.contacts = $("#select-client").val();
-								$scope.appointment.startDate = selectedStartDate;
-								$scope.appointment.endDate = selectedEndDate;
-								$scope.appointment.status = 'PENDANT';
-								$scope.appointment.allDay =  false;
-								$scope.appointment.type = $("#select-event").val();
-								$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
-								
-								AppointmentService.create($scope.appointment).then(function(uuid) {
-									alert('Evento cadastrado com sucesso.');
-								    $scope.closeEventDialog();	
-					            }, function(err) {
-					            	alert('Erro. Verifique os seguintes campos: ' + err);
-					            });
+							var selectedStartDate = new Date($("#select-date").val());
+							selectedStartDate.setHours($("#select-hour-initial").val());
+							selectedStartDate.setMinutes($("#select-minute-initial").val());
+							
+							var selectedEndDate = new Date($("#select-date").val());
+							selectedEndDate.setHours($("#select-hour-end").val());
+							selectedEndDate.setMinutes($("#select-minute-end").val());
+							
+							if($scope.validateEventDialogFields(selectedStartDate,selectedEndDate)) {
+									$scope.appointment = {};
+									$scope.appointment.title = $("#txt-title").val();
+									$scope.appointment.description = $("#txt-description").val();
+									$scope.appointment.contacts = $("#select-client").val();
+									$scope.appointment.startDate = selectedStartDate;
+									$scope.appointment.endDate = selectedEndDate;
+									$scope.appointment.status = 'PENDANT';
+									$scope.appointment.allDay =  false;
+									$scope.appointment.type = $("#select-event").val();
+									$scope.appointment.color =  $('.tag' + $("#select-event").val()).find('.tag-circle').css('background-color');
+									
+									AppointmentService.create($scope.appointment).then(function(uuid) {
+										alert('Evento cadastrado com sucesso.');
+									    $scope.closeEventDialog();	
+						            }, function(err) {
+						            	alert('Erro. Verifique os seguintes campos: ' + err);
+						            });
 							}
 						};						
 
@@ -426,7 +420,7 @@
 							return true;						
 						};
 
-						$scope.validateEventDialogFields = function ()	{							
+						$scope.validateEventDialogFields = function (selectedStartDate,selectedEndDate)	{							
 							if( !$("#select-date").val() ) {
 								alert('A data do evento &#233; um campo obrigat&#243;rio.');
 								return false;
@@ -435,6 +429,12 @@
 								alert('O contato do evento &#233; um campo obrigat&#243;rio.');
 								return false;
 							}	
+							
+							if (!validateDate(selectedStartDate,selectedEndDate))
+							{
+								return false;
+							}
+							
 							if( !$("#txt-title").val() ) {
 								alert('O t&#237;tulo do evento &#233; um campo obrigat&#243;rio.');
 								return false;
@@ -452,6 +452,12 @@
 						
 						function validateDate(selectedStartDate,selectedEndDate)
 						{
+							if(selectedStartDate < new Date())
+							{
+								alert('N&#227;o &#233; permitido cadastrar eventos anterior a data atual.');
+								return false;
+							}
+							
 							if(selectedEndDate < selectedStartDate)
 							{
 								alert('Hora inv&#243;lida para o evento.');
