@@ -1,3 +1,18 @@
+/* new stuff*/
+.new-part-holder{
+	height: 100%;
+}
+.product-to-buy-page .new-body{
+	height: calc(100% - 91px);
+}
+.product-to-buy-order-part{
+	height: 100%;
+}
+.product-to-buy-order-part .new-scrollpanel{
+	height: calc(100% - 129px);
+}
+
+
 /*FORM PRODUCTS TO BUY*/
 /*PEDIDO DE COMPRA*/
 
@@ -100,6 +115,7 @@
 	display: block;
 	float:left;
 	width:68%;
+	height: 100%;
 }
 .products-to-buy-right{
 	display: block;
@@ -1281,7 +1297,7 @@ vertical-align: middle;
 	top:0;
 }
 
-.step1 .new-scrollpanel,
+
 .step2 .new-scrollpanel,
 .step3 .new-scrollpanel,
 .step4 .new-scrollpanel,
