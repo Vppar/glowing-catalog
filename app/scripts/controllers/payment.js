@@ -171,9 +171,6 @@
 
                     $scope.showPaymentButtons = true;
 
-                    // Controls the num pad.
-                    $scope.isNumPadVisible = false;
-
                     // Define the customer
                     var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
                     $scope.customer = customer;
@@ -326,7 +323,7 @@
                                 (method === 'none' || method === 'money' || method === 'orderDiscount');
                             $scope.selectedPaymentMethod = method;
                         };
-
+                    
                     $scope.selectMoneyPayment = function selectMoneyPayment () {
                         // FIXME - Used to temporally resolve VOPP-210.
                         var delta = new Date().getTime() - $scope.keyboard.status.changed;
@@ -336,7 +333,7 @@
                         }
                     };
 
-                    $scope.selectDiscount = function selectMoneyPayment () {
+                    $scope.selectDiscount = function selectDiscount () {
                         // FIXME - Used to temporally resolve VOPP-210.
                         var delta = new Date().getTime() - $scope.keyboard.status.changed;
                         delta = isNaN(delta) ? 501 : delta;

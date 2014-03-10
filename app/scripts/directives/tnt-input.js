@@ -51,7 +51,6 @@
                 scope : {
                     ngModel : '=',
                     okClick : '&',
-                    pctClick : '&',
                     tntRelativeValue : '&'
                 },
                 link : function postLink (scope, element, attrs, ctrl) {
@@ -112,13 +111,17 @@
                                 if (ratio > 100) {
                                     absoluteVal = 100 * relatedVal;
                                 } else {
-                                    // When we apply the value back to the element,
+                                    // When we apply the value back to the
+                                    // element,
                                     // we must compensate for the decimal places
-                                    // used by the currency directive, that's why we
-                                    // multiply the value by 100 twice, instead of
-                                    // only once, as we would normally do to round
+                                    // used by the currency directive, that's
+                                    // why we
+                                    // multiply the value by 100 twice, instead
+                                    // of
+                                    // only once, as we would normally do to
+                                    // round
                                     // the float.
-                                    absoluteVal = Math.round(100 * 100 * relatedVal * ratio) / 100;
+                                    absoluteVal = 100 * Math.round(100 * relatedVal * ratio) / 100;
                                 }
 
                                 KeyboardService.next();
@@ -198,7 +201,6 @@
                                     }, 0);
                                 }
                                 watcher = changeWatcher();
-
                             } else {
                                 watcher();
                                 if (element.is(':focus')) {
@@ -210,7 +212,6 @@
                                     var current = element.val();
                                     var discountLimit =
                                         scope.tntRelativeValue && scope.tntRelativeValue();
-                                    ;
 
                                     current = current.replace('.', '');
                                     current = Number(current.replace(',', '.'));
