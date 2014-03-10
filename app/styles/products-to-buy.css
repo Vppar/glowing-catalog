@@ -1258,6 +1258,11 @@ vertical-align: middle;
 	min-height: 20px;
 }
 
+.new-content-box {
+	height:calc(100% - 105px);
+	overflow:hidden;
+}
+
 .fixed-line .currency {
 	padding-right:14px;
 }
@@ -1269,7 +1274,17 @@ vertical-align: middle;
 	padding-right:4px;
 }
 
-.step1 .new-scrollpanel{
+.new-scrollpanel {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: relative;
+	top:0;
+}
+
+.step1 .new-scrollpanel,
+.step2 .new-scrollpanel,
+.step3 .new-scrollpanel,
+.step4 .new-scrollpanel{
 	height:calc(100% - 175px);
 }
 .new-scrollpanel .new-body-row span {
