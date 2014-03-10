@@ -62,8 +62,6 @@
 
                     var Discount = Misplacedservice.discount;
 
-                    var isNumPadVisible = false;
-
                     // Payment variables
                     var total = {
                         payments : {
@@ -174,7 +172,7 @@
                     $scope.showPaymentButtons = true;
 
                     // Controls the num pad.
-                    $scope.isNumPadVisible = isNumPadVisible;
+                    $scope.isNumPadVisible = false;
 
                     // Define the customer
                     var customer = ArrayUtils.find(EntityService.list(), 'uuid', order.customerId);
@@ -575,7 +573,6 @@
                                 hasItemsWithoutItemDiscount = true;
                             }
                         }
-
                         $scope.enableDiscount = hasItemsWithoutItemDiscount;
                     });
 
