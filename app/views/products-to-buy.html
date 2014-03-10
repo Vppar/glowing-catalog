@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container product-to-buy-page">
 	<div class="row-fluid">
 		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
@@ -22,25 +22,31 @@
 		</div>
 
 		<div class="new-body">
-			<div class="new-section">
-
 				<div class="products-to-buy-left">
+					
 					<!--Tela "Novo Pedido"-->
-					<span ng-if="tabs.selected=='buildOrder'">
-						<span ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'" ng-controller="ProductsToBuyOrderCtrl"></span>
-					</span>
+					<div 	ng-if="tabs.selected=='buildOrder'" class="new-part-holder"
+							ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'" 
+							ng-controller="ProductsToBuyOrderCtrl">
+					</div>
+					
 					<!--Tela "Confirmar pedido"-->
-					<span ng-if="tabs.selected=='confirmOrder'">
-						<span ng-include src="'views/parts/products-to-buy/products-to-buy-confirm.html'" ng-controller="ProductsToBuyConfirmCtrl"></span>
-					</span>
+					<div 	ng-if="tabs.selected=='confirmOrder'" class="new-part-holder"
+							ng-include src="'views/parts/products-to-buy/products-to-buy-confirm.html'" 
+							ng-controller="ProductsToBuyConfirmCtrl">
+					</div>
+		            
 		            <!--Tela "Verificar NF"-->
-		            <span ng-if="tabs.selected=='verifyTicket'">
-						<span ng-include src="'views/parts/products-to-buy/products-to-buy-ticket.html'" ng-controller="ProductsToBuyTicketCtrl"></span>
-					</span>
+		            <div 	ng-if="tabs.selected=='verifyTicket'" class="new-part-holder" 
+							ng-include src="'views/parts/products-to-buy/products-to-buy-ticket.html'" 
+							ng-controller="ProductsToBuyTicketCtrl">
+					</div>
+
 					<!--Tela "Produtos Pendentes"-->
-					<span ng-if="tabs.selected=='pendingProducts'">
-						<span ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'" ng-controller="ProductsToBuyPendingCtrl"></span>
-					</span>
+					<div 	ng-if="tabs.selected=='pendingProducts'" class="new-part-holder"
+							ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'" 
+							ng-controller="ProductsToBuyPendingCtrl">
+					</div>
 		            <!--Tela "Credito bonus"-->
 		<!--             Commented until the screen is finished -->
 		<!-- 			<span ng-if="tabs.selected=='availableCredit'"> -->
@@ -50,10 +56,8 @@
 
 				<div class="products-to-buy-right" ng-if="summaryIsVisible(tabs.selected)">
 					<!-- Right Screen Details -->
-					<span ng-include src="'views/parts/products-to-buy/products-to-buy-summary.html'" ng-controller="ProductsToBuySummaryCtrl"></span>
+					<div ng-include src="'views/parts/products-to-buy/products-to-buy-summary.html'" ng-controller="ProductsToBuySummaryCtrl"></div>
 				</div>
-
-			</div><!--// new-section -->
 		</div><!-- //new-body -->
 	</div> <!--// new-page -->
 </div>
