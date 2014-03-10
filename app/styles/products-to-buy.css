@@ -5,12 +5,14 @@
 .product-to-buy-page .new-body{
 	height: calc(100% - 91px);
 }
-.product-to-buy-order-part{
+.product-to-buy-order-part, .product-to-buy-order-part{
 	height: 100%;
 }
 .product-to-buy-order-part .new-scrollpanel{
 	height: calc(100% - 129px);
 }
+
+
 
 
 /*FORM PRODUCTS TO BUY*/
