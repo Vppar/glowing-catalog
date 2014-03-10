@@ -4,7 +4,7 @@
             'ProductsToBuyPendingCtrl', ['$scope', 'PurchaseOrderService', function($scope, PurchaseOrderService) {
 
                 $scope.watchedQty = {};
-                $scope.pending.purchaseOrders = PurchaseOrderService.listPendingProducts();
+                $scope.pending.purchaseOrders = PurchaseOrderService.listPendingPurchaseOrders();
 
             }]);
 }(angular));

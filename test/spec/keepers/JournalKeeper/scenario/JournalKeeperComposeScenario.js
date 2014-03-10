@@ -77,13 +77,14 @@ describe('Keeper: JournalKeeper.compose()', function() {
                     log.debug('Nuke before each test');
                     nuked = true;
                 }, function (err) {
-                    log.debug('Failed to nuke!', err);
+                    console.log('Failed to nuke!', err);
                 });
             });
 
             waitsFor(function () {
+                scope.$apply();
                 return nuked;
-            });
+            }, 'Nuke to complete');
         });
 
 

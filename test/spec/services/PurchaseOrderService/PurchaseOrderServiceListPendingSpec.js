@@ -70,7 +70,7 @@ describe('Service: PurchaseOrderService', function() {
         PurchaseOrderService.list = jasmine.createSpy('list').andReturn(purchases);
         
         //when
-        var result = PurchaseOrderService.listPendingProducts();
+        var result = PurchaseOrderService.listPendingPurchaseOrders();
         //then
         expect(result.length).toBe(1);
     });
@@ -128,7 +128,7 @@ describe('Service: PurchaseOrderService', function() {
         PurchaseOrderService.list = jasmine.createSpy('list').andReturn(purchases);
         
         //when
-        var result = PurchaseOrderService.listPendingProducts();
+        var result = PurchaseOrderService.listPendingPurchaseOrders();
         //then
         expect(result.length).toBe(0);
     });
@@ -184,7 +184,7 @@ describe('Service: PurchaseOrderService', function() {
         PurchaseOrderService.list = jasmine.createSpy('list').andReturn(purchases);
         
         //when
-        var result = PurchaseOrderService.listPendingProducts();
+        var result = PurchaseOrderService.listPendingPurchaseOrders();
         //then
         expect(result.length).toBe(0);
     });
