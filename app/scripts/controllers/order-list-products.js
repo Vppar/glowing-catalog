@@ -34,15 +34,7 @@
                                     var SKU = item.SKU;
                                     var response = ArrayUtils.find(productsMap, 'SKU', SKU);
 
-                                    /**
-                                     * The value can be provided by
-                                     * item.itemDiscount or item.discount. This
-                                     * happen because was made a change on
-                                     * discount property name. This way some
-                                     * firebase registers are with the old
-                                     * property others with the new one
-                                     */
-                                    var discount = item.itemDiscount || item.discount || 0;
+                                    var discount = item.itemDiscount || 0;
 
                                     if (response) {
                                         productsMap[SKU].qty += item.qty;
