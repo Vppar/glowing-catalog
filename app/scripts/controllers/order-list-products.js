@@ -34,7 +34,7 @@
                                     var SKU = item.SKU;
                                     var response = ArrayUtils.find(productsMap, 'SKU', SKU);
 
-                                    var discount = item.itemDiscount ||item.orderDiscount || 0;
+                                    var discount = item.itemDiscount || item.orderDiscount || 0;
                                     
                                     
                                     if (response) {
