@@ -1284,7 +1284,8 @@ vertical-align: middle;
 .step1 .new-scrollpanel,
 .step2 .new-scrollpanel,
 .step3 .new-scrollpanel,
-.step4 .new-scrollpanel{
+.step4 .new-scrollpanel,
+.step5 .new-scrollpanel{
 	height:calc(100% - 175px);
 }
 .new-scrollpanel .new-body-row span {
@@ -1294,6 +1295,10 @@ vertical-align: middle;
 .step3, .step4 {
 	position:absolute;
 	width:96%;
+}
+
+.products-to-buy-left .new-body-header {
+	margin-top:0;
 }
 
 .products-to-buy-right .lbl-money {
