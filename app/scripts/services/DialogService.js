@@ -33,7 +33,7 @@
         };
 
         this.openDialogAddCustomerTels = function(data) {
-            return openDialog('views/parts/add-customer/add-customer-phones-dialog.html', 'AddCustomerPhonesDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/add-customer/add-customer-phones-dialog.html', 'AddCustomerPhonesDialogCtrl', data, 'modal-add-customer-tel');
         };
 
         this.openDialogAddCustomerEmails = function(data) {
