@@ -126,13 +126,40 @@
 				</div>
 
 				<div class="row-fluid">
-					<div class="new-body-row details-stock-total">
+					<div class="new-body-row details-stock-total" ng-click="toggleAllSections(productsPending.sessions)">
 						<span class="new-col-3">&nbsp;</span>
 						<span class="new-col-10">PRODUTOS PENDENTES NO PEDIDO DE COMPRA <span class="float-right">Total</span></span>
-						<span class="new-col-3 text-center">0</span>
-						<span class="new-col-4 currency">0,00</span>
-						<span class="new-col-4 currency">0,00</span>
+						<span class="new-col-3 text-center">{{productsPending.total.qty}}</span>
+						<span class="new-col-4 currency">{{productsPending.total.avgCost | currency:''}}</span>
+						<span class="new-col-4 currency">{{productsPending.total.amount | currency:''}}</span>
 					</div>
+				</div>
+				<div class="row-fluid" ng-repeat="session in productsPending.sessions" ng-if="!session.hide">
+					<div class="new-body-row details-stock-subtitle" ng-click="toggleSession(session)">
+						<span class="new-col-3">&nbsp;</span>
+						<span class="new-col-10">{{session.label}}<span class="float-right">Subtotal</span></span>
+						<span class="new-col-3 text-center">{{session.total.qty}}</span>
+						<span class="new-col-4 currency">{{session.total.avgCost | currency:''}}</span>
+						<span class="new-col-4 currency">{{session.total.amount | currency:''}}</span>
+					</div>
+					<span ng-repeat="line in session.lines" ng-if="!line.hide">
+						<div class="new-body-row details-stock-category" ng-click="toggleLine(line)">
+							<span class="new-col-3">&nbsp;</span>
+							<span class="new-col-10">{{line.label}}</span>
+							<span class="new-col-3 text-center">{{line.total.qty}}</span>
+							<span class="new-col-4 currency">{{line.total.avgCost | currency:''}}</span>
+							<span class="new-col-4 currency">{{line.total.amount | currency:''}}</span>
+						</div>
+						<span ng-repeat="product in line.items" ng-if="!product.hide">
+							<div class="new-body-row details-stock-item">
+								<span class="new-col-3">{{product.SKU}}</span>
+								<span class="new-col-10">{{product.title}}</span>
+								<span class="new-col-3 text-center">{{product.qty}}</span>
+								<span class="new-col-4 currency">{{product.price| currency:''}}</span>
+								<span class="new-col-4 currency">{{product.qty * product.price | currency:''}}</span>
+							</div>
+						</span>
+					</span>
 				</div>
 
 			</div> <!-- //scroll-stock -->
