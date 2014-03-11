@@ -22,6 +22,38 @@
 /*FORM PRODUCTS TO BUY*/
 /*PEDIDO DE COMPRA*/
 
+/*header correction at order - review this!!!!!
+  no ipad o new-col-3 tem larguras diferentes!!!!!!
+*/
+.product-header-order{
+	width: 266px;
+float: left;
+-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+padding-left: 6px;
+}
+
+.product-order{
+	width: 266px;
+float: left;
+-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+padding-left: 6px;
+}
+
+.pedido-header-order{
+	width: 128px;
+	float: left;
+}
+
+.outros-header-order{
+	width: 75px;
+	float: left;
+}
+
+
 /*im very sorry for this....*/
 .width970{
 	width: 970px;
@@ -1352,4 +1384,11 @@ vertical-align: middle;
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;
+}
+.step2 .new-scrollpanel .currency {
+	padding-right:6px;
+}
+
+.step1 .new-scrollpanel .currency {
+	padding-right:12px;
 }
