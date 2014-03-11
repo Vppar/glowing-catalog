@@ -1,6 +1,5 @@
-'use strict';
-
 describe('Service: UserService', function() {
+    'use strict';
  
     // instantiate service
     var UserService = null;
@@ -24,6 +23,7 @@ describe('Service: UserService', function() {
 
         SyncDriver.login = jasmine.createSpy('SyncDriver.login');
         SyncDriver.logout = jasmine.createSpy('SyncDriver.logout');
+        SyncDriver.changePassword = jasmine.createSpy('SyncDriver.changePassword');
         SyncService.resync = jasmine.createSpy('SyncService.resync');
 
     });
@@ -33,6 +33,8 @@ describe('Service: UserService', function() {
         $q = _$q_;
         scope = _$rootScope_;
         md5 = _md5_;
+
+        PromiseHelper.config($q, angular.noop);
     }));
 
     it('should instantiate service', function() {
@@ -211,5 +213,136 @@ describe('Service: UserService', function() {
         });
 
     });
+
+
+
+
+
+
+    //////////////////////////////////////////////////////////////////////////
+    // UserService.changePassword()
+    //////////////////////////////////////////////////////////////////////////
+
+    describe('.changePassword()', function () {
+        var email = 'foo@bar.baz';
+        var oldPassword = 'oldPassword';
+        var newPassword = 'newPassword';
+
+
+        beforeEach(function () {
+            SyncDriver.changePassword.andCallFake(PromiseHelper.resolved(true));
+            localStorage.user = email;
+            delete localStorage.hashMD5;
+        });
+
+
+
+        it('is accessible', function () {
+            expect(UserService.changePassword).toBeDefined();
+        });
+
+        it('is a function', function () {
+            expect(typeof UserService.changePassword).toBe('function');
+        });
+
+
+        it('changes the password from the current user', function () {
+            localStorage.user = email;
+            UserService.changePassword(oldPassword, newPassword);
+            var args = SyncDriver.changePassword.calls[0].args;
+            expect(args[0]).toBe(localStorage.user);
+        });
+
+        it('returns a promise', function () {
+            var result = UserService.changePassword(oldPassword, newPassword);
+            // Should return a then-able
+            expect(typeof result.then).toBe('function');
+        });
+
+
+        it('resolves the promise if the password is successfully changed',
+          function () {
+              // Our mock should be simulating a successfull password change by
+              // default.
+
+              var resolved = false;
+
+              runs(function () {
+                  var result = UserService.changePassword(oldPassword, newPassword);
+                  result.then(function () {
+                      resolved = true;
+                  });
+              });
+
+              waitsFor(function () {
+                  scope.$apply();
+                  return resolved;
+              });
+
+
+              runs(function () {
+                  expect(SyncDriver.changePassword).toHaveBeenCalled();
+              });
+          });
+
+
+        it('updates the user MD5 hash when the password is successfully changed',
+          function () {
+              function getHash() {
+                  return localStorage.hashMD5;
+              }
+
+              var resolved = false;
+
+              runs(function () {
+                  var oldHash = getHash();
+
+                  var result = UserService.changePassword(oldPassword, newPassword);
+
+                  result.then(function () {
+                      var newHash = getHash();
+                      expect(newHash).not.toEqual(oldHash);
+                      resolved = true;
+                  });
+              });
+
+              waitsFor(function () {
+                  scope.$apply();
+                  return resolved;
+              });
+          });
+
+
+        it('rejects the promise if the password is not changed', function () {
+            SyncDriver.changePassword.andCallFake(PromiseHelper.rejected('An error!'));
+
+            var rejected = false;
+
+            runs(function () {
+                var result = UserService.changePassword(oldPassword, newPassword);
+                result.then(null, function (err) {
+                    expect(err).toBe('An error!');
+                    rejected = true;
+                });
+            });
+
+            waitsFor(function () {
+                scope.$apply();
+                return rejected;
+            });
+        });
+
+
+        it('passes the old and the new password to SyncDriver.changePassword()',
+          function () {
+              UserService.changePassword(oldPassword, newPassword);
+
+              var args = SyncDriver.changePassword.calls[0].args;
+
+              expect(args[0]).toBe(localStorage.user);
+              expect(args[1]).toBe(oldPassword);
+              expect(args[2]).toBe(newPassword);
+          });
+    }); // .changePassword()
     
 });
