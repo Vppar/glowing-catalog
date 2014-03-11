@@ -5,15 +5,19 @@
 .product-to-buy-page .new-body{
 	height: calc(100% - 91px);
 }
-.product-to-buy-order-part, .product-to-buy-order-part{
+.product-to-buy-order-part, .product-to-buy-confirm-part{
 	height: 100%;
 }
 .product-to-buy-order-part .new-scrollpanel{
 	height: calc(100% - 129px);
 }
-
-
-
+.product-to-buy-confirm-part .new-scrollpanel{
+	height: calc(100% - 85px);
+}
+.product-to-buy-confirm-part .payment-btn-area{
+	width: 100%;
+	margin-top: 10px;
+}
 
 /*FORM PRODUCTS TO BUY*/
 /*PEDIDO DE COMPRA*/
@@ -1299,8 +1303,6 @@ vertical-align: middle;
 	top:0;
 }
 
-
-.step2 .new-scrollpanel,
 .step3 .new-scrollpanel,
 .step4 .new-scrollpanel,
 .step5 .new-scrollpanel{
