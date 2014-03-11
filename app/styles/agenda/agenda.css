@@ -58,7 +58,12 @@
 	display: inline-block;
 	height: 15px;
 	width: 15px;
-	border-radius: 10px;
+	border-radius: 12px;
+	border: 4px solid #fff;
+}
+
+.tag0 .tag-circle {
+	background-color: #ccc;
 }
 
 .tag1 .tag-circle {
@@ -70,30 +75,68 @@
 }
 
 .tag3 .tag-circle {
-	background-color: #c371d7;
+	background-color: #777;
 }
 
 .tag4 .tag-circle {
-	background-color: #f85596;
-}
-
-.tag5 .tag-circle {
-	background-color: #9e9e9e;
-}
-
-.tag6 .tag-circle {
 	background-color: #4feb3f;
 }
 
-.tag7 .tag-circle {
-	background-color: #75c8d2;
+.tag5 .tag-circle {
+	background-color: #6cc8f3;
 }
+
+.tag6 .tag-circle {
+	background-color: #ebeb52;
+}
+
+.tag7 .tag-circle {
+	background-color: #e19eb4;
+}
+
+
+.tag0 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #ccc !important;
+}
+
+.tag1 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #3a87ad !important;
+}
+
+.tag2 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #fb8b55 !important;
+}
+
+.tag3 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #777 !important;
+}
+
+.tag4 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #4feb3f !important;
+}
+
+.tag5 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #6cc8f3 !important;
+}
+
+.tag6 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #ebeb52 !important;
+}
+
+.tag7 .tag-circle-selected {
+	background-color: #fff;
+	border: 4px solid #e19eb4 !important;
+}
+
 
 .tag8 .tag-circle {
-	background-color: #deb4b8;
-}
-
-.tag9 .tag-circle {
 	background-color: #f7ec6f;
 }
 
