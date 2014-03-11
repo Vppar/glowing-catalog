@@ -1,4 +1,5 @@
 (function (angular) {
+    'use strict';
 
     angular.module('tnt.catalog.sync.driver', [
         'tnt.catalog.sync.firebase'
@@ -17,12 +18,10 @@
                 var journalRef = null;
                 var syncingFlagRef = null;
 
+                var auth = null;
+
                 var firebaseSyncStartTime = null;
                 var firebaseSyncStartTime2 = null;
-
-                if (isConnected()) {
-                    setFirebaseReferences(localStorage.firebaseUser);
-                }
 
                 $rootScope.$on('SyncStop', function () {
                     if (syncingFlagRef) {
@@ -71,6 +70,30 @@
                     syncingFlagRef = userRef.child('syncing');
                 }
 
+
+                function changePassword(email, oldPassword, newPassword) {
+                    if (!auth) {
+                        return $q.reject('Not connected to Firebase!');
+                    }
+
+                    var deferred = $q.defer();
+
+                    auth.changePassword(email, oldPassword, newPassword, function (err) {
+                        if (!err) {
+                            deferred.resolve(true);
+                        } else {
+                            $log.debug('Failed to change password:', err);
+                            deferred.reject(err);
+                        }
+                    });
+
+                    return deferred.promise;
+                }
+
+                this.changePassword = changePassword;
+
+
+
                 // TODO implement rememberMe
                 //
                 // FIXME Firebase authentication expects a single callback to
@@ -84,7 +107,7 @@
                     function (username, password) {
                         var deferred = $q.defer();
 
-                        new FirebaseSimpleLogin(baseRef, function (err, user) {
+                        auth = new FirebaseSimpleLogin(baseRef, function (err, user) {
                             if (err) {
                                 $log.debug('Firebase authentication error (login cb)', err);
                                 deferred.reject(err);
@@ -121,7 +144,9 @@
                                 delete localStorage.firebaseUser;
                                 $rootScope.$broadcast('FirebaseDisconnected');
                             }
-                        }).login('password', {
+                        });
+                        
+                        auth.login('password', {
                             email : username,
                             password : password
                         });
@@ -144,8 +169,11 @@
                                 var syncing = snapshot.val();
                                 firebaseSyncStartTime = syncing || null;
 
-                                syncing ? $rootScope.$broadcast('FirebaseBusy', syncing)
-                                    : $rootScope.$broadcast('FirebaseIdle');
+                                if (syncing) {
+                                    $rootScope.$broadcast('FirebaseBusy', syncing);
+                                } else {
+                                    $rootScope.$broadcast('FirebaseIdle');
+                                }
                             });
 
                             // Broadcast the event once everything is ready
@@ -220,6 +248,12 @@
 
                     return deferred.promise;
                 };
+
+
+
+                if (isConnected()) {
+                    setFirebaseReferences(localStorage.firebaseUser);
+                }
 
             }
         ]);
