@@ -3,6 +3,7 @@
 
     var glowingCatalogApp =
         angular.module('glowingCatalogApp', [
+            'once',
             'ngRoute',
             'ui.bootstrap',
             'ui.select2',

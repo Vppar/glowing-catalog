@@ -51,6 +51,8 @@
                 this.states = [];
                 this.products = [];
                 this.lines = [];
+                
+                this.images = {};
 
                 $http.get('resources/data.json').then(function(response) {
 
@@ -60,6 +62,10 @@
                         $rootScope.$broadcast('DataProvider.update');
                     }
 
+                });
+                
+                $http.get('resources/images.json').then(function(response) {
+                    angular.extend(scope.images, response.data);
                 });
 
                 $http.get('resources/products.json').then(function(response) {
