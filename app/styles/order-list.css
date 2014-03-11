@@ -351,3 +351,16 @@ text-align: right;
 .marginl93{
 	margin-left: 93px !important;
 }
+
+.form-order-list .fixed-line .currency {
+	padding-right:8px;
+}
+.form-order-list .fixed-line .currency:last-child {
+	padding-right:5px;
+}
+.scroll-order-list .currency {
+	padding-right:7px;
+}
+.scroll-order-list .currency:last-child {
+	padding-right:4px;
+}
