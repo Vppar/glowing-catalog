@@ -1,4 +1,4 @@
-describe('Controller: products-to-buy-confirm-spec', function() {
+describe('Controller: products-to-buy-persist-purchase-order-spec', function() {
 
     var PurchaseOrderService = {};
     var item1 = null;
