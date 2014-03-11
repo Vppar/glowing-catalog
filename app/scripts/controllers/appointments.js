@@ -96,8 +96,8 @@
 								dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'],
 								
 								header: {
-									left: 'prev,next today',
-									center: 'title',
+									left: 'today',
+									center: 'prev,title,next',
 									right: 'agendaDay,agendaWeek,month'
 								},
 								
