@@ -344,6 +344,29 @@ describe('Service: UserService', function() {
               expect(args[1]).toBe(oldPassword);
               expect(args[2]).toBe(newPassword);
           });
+
+
+
+        it('reject the promise if there\'s no user set (probably not authenticated)',
+          function () {
+              delete localStorage.user;
+
+              var rejected = false;
+
+              runs(function () {
+                  var result = UserService.changePassword(oldPassword, newPassword);
+
+                  result.then(null, function (err) {
+                      expect(err).toBe('Not connected to Firebase!');
+                      rejected = true;
+                  });
+              });
+
+              waitsFor(function () {
+                  scope.$apply();
+                  return rejected;
+              });
+          });
     }); // .changePassword()
     
 });
