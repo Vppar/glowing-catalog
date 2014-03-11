@@ -117,6 +117,9 @@
 									if ($('#calendar').fullCalendar('getView').name != 'month') {
 										$.each($('.fc-event'), function(i, element) {
 											$(this).css('width', 'auto');
+											if ($(this).parent().next().prop('tagName') == 'TABLE' && $(this).parent().next().attr('class') == 'fc-agenda-allday') {
+            									$(this).css('min-width', '260px');
+           									}
 										});
 									}
 								}

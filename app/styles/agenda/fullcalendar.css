@@ -273,6 +273,7 @@ html .fc,
 	width:20px !important;
 	}
 
+
 a.fc-event {
 	text-decoration: none;
 	}
@@ -311,7 +312,7 @@ a.fc-event,
 /* Horizontal Events
 ------------------------------------------------------------------------*/
 
-.fc-event-hori {
+div.fc-event-hori {
 	border-width: 1px 0;
 	margin-bottom: 1px;
 	}
