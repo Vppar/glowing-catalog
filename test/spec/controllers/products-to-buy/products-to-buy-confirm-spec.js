@@ -49,7 +49,9 @@ describe('Controller: products-to-buy-confirm-spec', function() {
             DialogService : DialogService,
             PurchaseOrderService : PurchaseOrderService
         });
+        
     }));
+
 
     it('should confirm products', function() {
         // given
@@ -70,6 +72,7 @@ describe('Controller: products-to-buy-confirm-spec', function() {
         runs(function() {
             expect(scope.selectTab).toHaveBeenCalledWith('verifyTicket');
             expect(scope.resetPurchaseOrder).toHaveBeenCalled();
+            expect(PurchaseOrderService.register).toHaveBeenCalled();
         });
         
     });

@@ -85,7 +85,7 @@
             return PurchaseOrderService.register(purchase);
         };
         
-        var persitPurchaseOrder = this.persitPurchaseOrder;
+        
 
         // #####################################################################################################
         // Scope variables
@@ -112,6 +112,8 @@
             });
         };
 
+        var that = this;
+        
         $scope.confirm = function() {
             var confirmedPurchaseOrder = DialogService.messageDialog({
                 title : 'Pedido de Compra',
@@ -122,7 +124,7 @@
             
             var persistedPurchaseOrder = confirmedPurchaseOrder.then(function(result) {
                 if (result) {
-                    return persitPurchaseOrder();
+                    return that.persitPurchaseOrder();
                 }
             });
             
