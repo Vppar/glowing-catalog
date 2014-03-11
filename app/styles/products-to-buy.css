@@ -1304,8 +1304,7 @@ vertical-align: middle;
 }
 
 .step3 .new-scrollpanel,
-.step4 .new-scrollpanel,
-.step5 .new-scrollpanel{
+.step4 .new-scrollpanel{
 	height:calc(100% - 175px);
 }
 .new-scrollpanel .new-body-row span {
@@ -1342,4 +1341,7 @@ vertical-align: middle;
 
 .step2 .details-category {
 	padding-left: 6px!important;
+	display:block;
+	float:left;
+	width:100%;
 }
