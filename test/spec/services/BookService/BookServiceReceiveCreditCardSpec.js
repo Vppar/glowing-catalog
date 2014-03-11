@@ -47,7 +47,7 @@ describe('Service: BookServiceCreditCardSpec', function() {
         });
 
         // When
-        var result = BookService.receiveCreditCard(document.uuid, entityUUID, creditCardAmount);
+        var result = BookService.liquidateCreditCard(document.uuid, entityUUID, creditCardAmount);
 
         // Then
         expect(result.debitAccount).toEqual(expected.debitAccount);
@@ -63,7 +63,7 @@ describe('Service: BookServiceCreditCardSpec', function() {
         // Given
 
         // When
-        var result = BookService.receiveCreditCard(document.uuid, entityUUID, 0);
+        var result = BookService.liquidateCreditCard(document.uuid, entityUUID, 0);
 
         // Then
         expect(result).toBe(null);

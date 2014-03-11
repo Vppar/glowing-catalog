@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: BookServiceReceiveCuffSpec', function() {
+describe('Service: BookServiceReceiveVoucherSpec', function() {
 
     var BookService = {};
     var BookEntry = {};
@@ -8,7 +8,7 @@ describe('Service: BookServiceReceiveCuffSpec', function() {
 
     var document = null;
     var entityUUID = null;
-    var cuffAmount = null;
+    var voucherAmount = null;
 
     beforeEach(function() {
         module('tnt.catalog.service.book');
@@ -25,7 +25,7 @@ describe('Service: BookServiceReceiveCuffSpec', function() {
             type : 'Pedido'
         };
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
-        cuffAmount = 150;
+        voucherAmount = 150;
     });
 
     beforeEach(inject(function(_BookService_, _BookEntry_) {
@@ -38,16 +38,16 @@ describe('Service: BookServiceReceiveCuffSpec', function() {
         var expected = new BookEntry({
             uuid : null,
             created : null,
-            debitAccount : 11111,
-            creditAccount : 11511,
+            debitAccount : 21301,  
+            creditAccount : 70001,
             document : document,
             entity : entityUUID,
-            op : 'Recebimento parcela',
-            amount : cuffAmount
+            op : 'Abatimento vale crédito',
+            amount : voucherAmount
         });
 
         // When
-        var result = BookService.liquidateCuff(document.uuid, entityUUID, cuffAmount);
+        var result = BookService.liquidateVoucher(document.uuid, entityUUID, voucherAmount);
 
         // Then
         expect(result.debitAccount).toEqual(expected.debitAccount);
@@ -63,7 +63,7 @@ describe('Service: BookServiceReceiveCuffSpec', function() {
         // Given
 
         // When
-        var result = BookService.liquidateCuff(document.uuid, entityUUID, 0);
+        var result = BookService.liquidateVoucher(document.uuid, entityUUID, 0);
 
         // Then
         expect(result).toBe(null);

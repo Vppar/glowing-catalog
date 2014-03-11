@@ -158,7 +158,7 @@
             return entries;
         };
 
-        this.receiveCheck = function(orderUUID, entityUUID, check) {
+        this.liquidateCheck = function(orderUUID, entityUUID, check) {
             var entry = null;
             var document = {
                 uuid : orderUUID,
@@ -172,7 +172,7 @@
             return entry;
         };
 
-        this.receiveCreditCard = function(orderUUID, entityUUID, card) {
+        this.liquidateCreditCard = function(orderUUID, entityUUID, card) {
             var entry = null;
             var document = {
                 uuid : orderUUID,
@@ -186,7 +186,7 @@
             return entry;
         };
 
-        this.receiveCuff = function(orderUUID, entityUUID, cuff) {
+        this.liquidateCuff = function(orderUUID, entityUUID, cuff) {
             var entry = null;
             var document = {
                 uuid : orderUUID,
@@ -199,7 +199,67 @@
 
             return entry;
         };
+        
+        this.liquidateCash = function(orderUUID, entityUUID, cash) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
 
+            if (cash) {
+                entry = new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento em dinheiro', cash);
+            }
+
+            return entry;
+        };
+        
+        this.liquidateVoucher = function(orderUUID, entityUUID, voucher) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (voucher) {
+                entry = new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', voucher);
+            }
+
+            return entry;
+        };
+        
+        this.liquidateGift = function(orderUUID, entityUUID, gift) {
+            var entry = null;
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+
+            if (gift) {
+                entry = new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento vale presente', gift);
+            }
+
+            return entry;
+        };
+
+                        
+        this.liquidate = function (type, orderUUID, entityUUID, amount) {
+            var entry = null;
+            if (type === 'cash') {
+                entry = this.liquidateCash(orderUUID, entityUUID, amount);
+            } else if (type === 'check') {
+                entry = this.liquidateCheck(orderUUID, entityUUID, amount);
+            } else if (type === 'card') {
+                entry = this.liquidateCreditCard(orderUUID, entityUUID, amount);
+            } else if (type === 'voucher') {
+                entry = this.liquidateVoucher(orderUUID, entityUUID, amount);
+            } else if (type === 'gift') {
+                entry = this.liquidateGift(orderUUID, entityUUID, amount);
+            }
+            
+            return this.write(entry);
+        };
+        
         this.validate = function(entries) {
 
             var amount = 0;

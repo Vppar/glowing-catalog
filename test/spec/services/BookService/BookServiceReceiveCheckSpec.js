@@ -47,7 +47,7 @@ describe('Service: BookServiceReceiveCheckSpec', function() {
         });
 
         // When
-        var result = BookService.receiveCheck(document.uuid, entityUUID, checkAmount);
+        var result = BookService.liquidateCheck(document.uuid, entityUUID, checkAmount);
 
         // Then
         expect(result.debitAccount).toEqual(expected.debitAccount);
@@ -63,7 +63,7 @@ describe('Service: BookServiceReceiveCheckSpec', function() {
         // Given
 
         // When
-        var result = BookService.receiveCheck(document.uuid, entityUUID, 0);
+        var result = BookService.liquidateCheck(document.uuid, entityUUID, 0);
 
         // Then
         expect(result).toBe(null);
