@@ -130,6 +130,7 @@ html .fc,
 	color:#fff !important;
 	border-radius: 4px;
 	}
+.fc-today {background:#fff !important;}
 .fc-state-highlight	div.fc-day-number { color:#fff !important;}
 	
 .fc-cell-overlay { /* semi-transparent rectangle while dragging */
