@@ -55,7 +55,7 @@
             return report;
         };
 
-        function persitPurchaseOrder() {
+        $scope.persitPurchaseOrder = function persitPurchaseOrder() {
             var orderBck = angular.copy($scope.confirmedProducts);
             var items = [];
             for ( var ix in orderBck.sessions) {
@@ -71,8 +71,8 @@
                         items.push(item);
                     }
                 }
-            }
-
+            };
+            
             var purchase = {
                 uuid : null,
                 amount : summary.total.amount,
@@ -83,7 +83,9 @@
             };
 
             return PurchaseOrderService.register(purchase);
-        }
+        };
+        
+        var persitPurchaseOrder = $scope.persitPurchaseOrder;
 
         // #####################################################################################################
         // Scope variables
@@ -117,18 +119,21 @@
                 btnYes : 'Sim',
                 btnNo : 'Não'
             });
+            
             var persistedPurchaseOrder = confirmedPurchaseOrder.then(function(result) {
                 if (result) {
                     return persitPurchaseOrder();
                 }
             });
+            
             persistedPurchaseOrder.then(function(result) {
                 if (result) {
                     $scope.selectTab('verifyTicket');
                     resetPurchaseOrder();
                 }
             });
-
+            
+            return persistedPurchaseOrder;
         };
 
         $scope.shouldHideButtons = function() {
