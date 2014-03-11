@@ -21,6 +21,7 @@
 						$scope.appointment = undefined;
 						$scope.contacts = [];
 						$scope.contacts = EntityService.list();
+						$scope.filter = [];
 						$.datepicker.regional['pt'] = {
         					closeText: 'Fechar',
 					        prevText: 'Anterior',
@@ -41,6 +42,38 @@
 					        yearSuffix: ''
     					};
     					$.datepicker.setDefaults($.datepicker.regional['pt']);
+
+    					$scope.filterEvents = function($event) {
+
+    						var element = $event.target;
+    						var circleElement = $(element).attr('class') == 'tag-name' ? $(element).next() : $(element).attr('id') != undefined ? $(element).find('div[class*="tag-circle"]') : $(element);
+    						var circleCss = $(circleElement).attr('class');
+    						if ($(circleElement).parent().attr('id') != 'tagEvent0' || $(circleElement).attr('class').indexOf('tag-circle-selected') < 0) {
+    							$(circleElement).attr('class', circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle tag-circle-selected' : 'tag-circle');	
+    						}
+    						var tagNumber = $(circleElement).parent().attr('id').replace('tagEvent', '');
+    						if (tagNumber != 0) {
+    							if (circleCss.indexOf('tag-circle-selected') < 0) {
+    								$scope.filter.push(tagNumber);
+    							} else {
+    								$scope.filter.splice($scope.filter.indexOf(tagNumber), 1);
+    							}
+    							if ($scope.filter.length > 0) {
+    								$('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr('class', 'tag-circle');
+    							} else {
+    								$('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr('class', 'tag-circle tag-circle-selected');
+    								$scope.filter = [];
+    							}
+    						} else {
+    							$scope.filter = [];
+    							$.each($('div[id*=tagEvent]'), function(i, element) {
+    								if ($(this).attr('id') != 'tagEvent0') {
+    									$(this).find('div[class*="tag-circle"]').attr('class', 'tag-circle');
+    								}
+    							});
+    						}
+    						$scope.rebuildCalendarJsEvents();
+    					}
 
 						// #############################################################################################################
 						// Initialize/Rebuild Adam Shaw Full Calendar Component
@@ -169,9 +202,12 @@
 								actualUpon = ($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1, headerTitle.length).trim()));
 							}
 							
-							birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
+							birthdays = undefined;
+							if ($scope.filter.length == 0 || $scope.filter.indexOf('7') >= 0) {
+								birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
+							}
 							
-							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon, null);
+							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon, $scope.filter.length > 0 ? $scope.filter : null);
 
 							var contador = 0;
 							if (birthdays) {
@@ -180,11 +216,12 @@
 									var yearCurrent = $('#calendar').fullCalendar('getDate').getFullYear();
 									var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
 									contador = contador + 1;
+									var typeCircle = $('.tag7').find('.tag-circle');
 									var event = {
 										title: 'Anivers' + unescape('%E1') + 'rio de ' + entity.name,
 										start: thisDate,
 										allDay: true,
-										color: $('.tag7').find('.tag-circle').css('background-color'),
+										color: typeCircle.attr('class').indexOf('tag-circle-selected') < 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
 										description: '',
 										client: entity.name,
 										type: 7,
@@ -204,22 +241,23 @@
 									if (entity) {
 				                    	nameEntity = entity.name;
 				                    }
-										var event = {
-												title: app.title,
-												start: new Date(app.startDate),
-												end: new Date(app.endDate),
-												allDay: false,
-												status: app.status,
-												color: $('.tag'+app.type).find('.tag-circle').css('background-color'),
-												description: app.description,
-												client: nameEntity,
-												clientUUID: app.contacts,
-												type: app.type,
-												id: contador,
-												uuid: app.uuid
-										};
-										events.push(event);
-									}
+				                    var typeCircle = $('.tag' + app.type).find('.tag-circle');
+									var event = {
+											title: app.title,
+											start: new Date(app.startDate),
+											end: new Date(app.endDate),
+											allDay: false,
+											status: app.status,
+											color: typeCircle.attr('class').indexOf('tag-circle-selected') < 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
+											description: app.description,
+											client: nameEntity,
+											clientUUID: app.contacts,
+											type: app.type,
+											id: contador,
+											uuid: app.uuid
+									};
+									events.push(event);
+								}
 							}
 							
 							removeCalendarJsEvents();

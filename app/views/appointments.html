@@ -20,15 +20,14 @@
 		<div class="row-fluid">
 			<div class="form-agenda">
 				<div class="col2">		
-					<div id="tagEvent1" class="tags tag1 external-event"><div class='tag-name'>Ligar</div><div class='tag-circle'></div></div>	
-					<div id="tagEvent2" class="tags tag2 external-event"><div class='tag-name'>Visitar</div><div class='tag-circle'></div></div>
-					<div id="tagEvent3" class="tags tag3 external-event"><div class='tag-name'>Agendar visita</div><div class='tag-circle'></div></div>
-					<div id="tagEvent4" class="tags tag4 external-event"><div class='tag-name'>Visitar clientes</div><div class='tag-circle'></div></div>
-					<div id="tagEvent5" class="tags tag5 external-event"><div class='tag-name'>Entregar produto</div><div class='tag-circle'></div></div>
-					<div id="tagEvent6" class="tags tag6 external-event"><div class='tag-name'>Acompanhar</div><div class='tag-circle'></div></div>
-					<div id="tagEvent7" class="tags tag7 external-event"><div class='tag-name'>Aniversariante</div><div class='tag-circle'></div></div>
-					<div id="tagEvent8" class="tags tag8 external-event"><div class='tag-name'>Eventos</div><div class='tag-circle'></div></div>
-					<div id="tagEvent9" class="tags tag9 external-event"><div class='tag-name'>Outros</div><div class='tag-circle'></div></div>
+					<div id="tagEvent0" class="tags tag0 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Todos</div><div class='tag-circle tag-circle-selected'></div></div>	
+					<div id="tagEvent1" class="tags tag1 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Agendar visita</div><div class='tag-circle'></div></div>
+					<div id="tagEvent2" class="tags tag2 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Visitar cliente</div><div class='tag-circle'></div></div>
+					<div id="tagEvent3" class="tags tag3 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Entregar produto</div><div class='tag-circle'></div></div>
+					<div id="tagEvent4" class="tags tag4 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Acompanhamento</div><div class='tag-circle'></div></div>
+					<div id="tagEvent7" class="tags tag7 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Aniversariante</div><div class='tag-circle'></div></div>
+					<div id="tagEvent5" class="tags tag5 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Evento</div><div class='tag-circle'></div></div>
+					<div id="tagEvent6" class="tags tag6 external-event" ng-click="filterEvents($event)"><div class='tag-name'>Outros</div><div class='tag-circle'></div></div>
 				</div>
 		
 				<div class="col3">		
@@ -42,14 +41,12 @@
 			<input type="hidden" id="event-status" value="">
 			  <select id="select-event" class="field-big">
 				<option value="">Selecione o evento</option>
-				<option value="1">Ligar</option>
-				<option value="2">Visitar</option>
-				<option value="3">Agendar visita</option>
-				<option value="4">Visitar clientes</option>
-				<option value="5">Entregar produto</option>
-				<option value="6">Acompanhar</option>
-				<option value="8">Eventos</option>
-				<option value="9">Outros</option>
+				<option value="1">Agenda visita</option>
+				<option value="2">Visitar cliente</option>
+				<option value="3">Entregar produto</option>
+				<option value="4">Acompanhamento</option>
+				<option value="5">Evento</option>
+				<option value="6">Outros</option>
 			  </select>
 			  <br/>
 			  <select id="select-client" class="field-big">
@@ -59,7 +56,7 @@
 			  <br/>
 			  De 		  
 			  <select id="select-hour-initial" style="width:55px">
-				<option value="0">00</option>
+					<option value="0">00</option>
 				<option value="1">01</option>
 				<option value="2">02</option>
 				<option value="3">03</option>
