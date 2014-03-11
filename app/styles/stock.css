@@ -310,11 +310,16 @@
 	min-height: 20px;
 }
 
-.fixed-line .currency {
-	padding-right:14px;
-}
-.fixed-line .currency:last-child {
+
+.form-stock .fixed-line .currency {
 	padding-right:6px;
+}
+.form-stock .fixed-line .currency:last-child {
+	padding-right:5px;
+}
+.scroll-stock .details-stock-category .currency, .scroll-stock .details-stock-subtitle .currency,
+.scroll-stock .details-stock-total .currency, .scroll-stock .details-stock-item .currency {
+	padding-right:7px;
 }
 .scroll-stock .details-stock-category .currency:last-child, .scroll-stock .details-stock-subtitle .currency:last-child,
 .scroll-stock .details-stock-total .currency:last-child, .scroll-stock .details-stock-item .currency:last-child {
