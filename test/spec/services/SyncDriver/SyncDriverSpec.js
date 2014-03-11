@@ -78,9 +78,10 @@ describe('Service: SyncDriver', function () {
 
 
 
-  // FIXME: implement missing tests (not sure how to implement unit tests
-  // for the SyncDriver, since most methods are, somehow, integrated with
-  // Firebase.
+  // FIXME: implement missing tests. When I (mkretschek) first wrote these,
+  // I did not know how to test most methods, since they are, somehow,
+  // integrated with Firebase. Now I have some clues on how to isolate them.
+  // But this will take some time, which I don't have at the moment.
   describe('SyncDriver.save()', function () {
       it('is accessible', function () {
         expect(SyncDriver.save).toBeDefined();
