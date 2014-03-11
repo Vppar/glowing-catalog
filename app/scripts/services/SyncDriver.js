@@ -10,9 +10,10 @@
             '$q',
             'Firebase',
             'FirebaseSimpleLogin',
-            function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin) {
+            'CatalogConfig',
+            function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin, CatalogConfig) {
 
-                var baseRef = new Firebase('voppwishlist.firebaseio.com');
+                var baseRef = new Firebase(CatalogConfig.firebaseURL);
                 var userRef = null;
                 var journalRef = null;
                 var syncingFlagRef = null;
