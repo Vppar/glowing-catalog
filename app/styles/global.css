@@ -119,6 +119,29 @@ li.menu-black:last-child a:hover {
 	background-clip: none;
 	outline: none;
 }
+.modal-choose-customer-dialog {
+	position: absolute;
+	top: 40px;
+	left: 50%;
+	z-index: 1050;
+	width: 400px;
+	margin-left: -200px;
+	background-color: white;
+	border: none;
+	border: none;
+	*border: none;
+	/* IE6-7 */
+	-webkit-border-radius: none;
+	-moz-border-radius: none;
+	border-radius: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	-webkit-background-clip: none;
+	-moz-background-clip: none;
+	background-clip: none;
+	outline: none;
+}
 .rose-color {
 	color: #b77a78;
 }

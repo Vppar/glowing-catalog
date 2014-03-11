@@ -71,7 +71,7 @@
         };
 
         this.openDialogChooseCustomer = function(data) {
-            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
         };
 
         this.openDialogInputProducts = function(data) {
