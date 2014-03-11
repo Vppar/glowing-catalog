@@ -55,7 +55,7 @@
             return report;
         };
 
-        $scope.persitPurchaseOrder = function persitPurchaseOrder() {
+        this.persitPurchaseOrder = function persitPurchaseOrder() {
             var orderBck = angular.copy($scope.confirmedProducts);
             var items = [];
             for ( var ix in orderBck.sessions) {
@@ -85,7 +85,7 @@
             return PurchaseOrderService.register(purchase);
         };
         
-        var persitPurchaseOrder = $scope.persitPurchaseOrder;
+        var persitPurchaseOrder = this.persitPurchaseOrder;
 
         // #####################################################################################################
         // Scope variables
