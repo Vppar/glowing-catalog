@@ -18,7 +18,7 @@
 	
 html .fc,
 .fc table {
-	font-size: 0.88em;
+	font-size: 1em;
 	}
 	
 .fc td,
@@ -389,6 +389,9 @@ table.fc-border-separate {
 
 .fc-grid th {
 	text-align: center;
+	color: #999;
+	font-weight: normal;
+	font-size: 15px;
 	}
 
 .fc .fc-week-number {
