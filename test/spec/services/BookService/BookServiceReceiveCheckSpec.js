@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: BookServiceReceiveCheckSpec', function() {
+describe('Service: BookServiceLiquidateCheckSpec', function() {
 
     var BookService = {};
     var BookEntry = {};
