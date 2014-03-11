@@ -246,9 +246,10 @@ describe('Service: UserService', function() {
         });
 
 
-        it('changes the password from the current user', function () {
+        it('changes the password for the current user', function () {
             localStorage.user = email;
             UserService.changePassword(oldPassword, newPassword);
+            expect(SyncDriver.changePassword).toHaveBeenCalled();
             var args = SyncDriver.changePassword.calls[0].args;
             expect(args[0]).toBe(localStorage.user);
         });
