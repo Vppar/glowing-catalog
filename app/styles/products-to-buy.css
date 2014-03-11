@@ -1353,3 +1353,10 @@ vertical-align: middle;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;
 }
+.step2 .new-scrollpanel .currency {
+	padding-right:6px;
+}
+
+.step1 .new-scrollpanel .currency {
+	padding-right:5px;
+}

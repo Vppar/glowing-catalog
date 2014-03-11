@@ -44,10 +44,10 @@
             <div class="row-fluid" ng-click="toggleSession(session)">
                 <div class="new-body-row details-subtitle">
                     <span class="new-col-10">{{session.label}}</span>
-                    <span class="new-col-3 text-center">{{summary.total.sessions[session.label].pts}}</span>
+                    <span class="new-col-3 text-center">&nbsp;{{summary.total.sessions[session.label].pts}}</span>
                     <span class="new-col-3 currency">{{summary.total.sessions[session.label].avg | currency:''}}</span>
-                    <span class="new-col-3 text-center">{{summary.total.sessions[session.label].minQty}}</span>
-                    <span class="new-col-5 text-center">{{summary.total.sessions[session.label].orderQty}}</span>
+                    <span class="new-col-3 text-center">&nbsp;&nbsp;{{summary.total.sessions[session.label].minQty}}</span>
+                    <span class="new-col-5 text-center">&nbsp;&nbsp;&nbsp;&nbsp;{{summary.total.sessions[session.label].orderQty}}</span>
                 </div>
             </div>
 
@@ -55,10 +55,10 @@
                 <div class="row-fluid" ng-click="toggleLine(line)">
                     <div class="new-body-row details-category">
                         <span class="new-col-10">{{line.label}}</span>
-                        <span class="new-col-3 text-center">{{summary.total.sessions[session.label].lines[line.label].pts}}</span>
+                        <span class="new-col-3 text-center">&nbsp;{{summary.total.sessions[session.label].lines[line.label].pts}}</span>
                         <span class="new-col-3 currency">{{summary.total.sessions[session.label].lines[line.label].avg | currency:''}}</span>
-                        <span class="new-col-3 text-center">{{summary.total.sessions[session.label].lines[line.label].minQty}}</span>
-                        <span class="new-col-5 text-center">{{summary.total.sessions[session.label].lines[line.label].orderQty}}</span>
+                        <span class="new-col-3 text-center">&nbsp;&nbsp;{{summary.total.sessions[session.label].lines[line.label].minQty}}</span>
+                        <span class="new-col-5 text-center">&nbsp;&nbsp;&nbsp;&nbsp;{{summary.total.sessions[session.label].lines[line.label].orderQty}}</span>
                     </div>
                 </div>
                 <div class="row-fluid" ng-repeat="product in line.items" ng-if="!product.hide">
@@ -67,11 +67,11 @@
                             {{product.title}}
                             <div class="code-product">{{product.uniqueName}}</div>
                         </span>
-                        <span class="new-col-3 text-center">{{product.points}}</span>
+                        <span class="new-col-3 text-center">&nbsp;{{product.points}}</span>
                         <span class="new-col-3 currency">{{product.cost | currency: ''}}</span>
-                        <span class="new-col-3 text-center">{{product.minQty}}</span>
+                        <span class="new-col-3 text-center">&nbsp;&nbsp;{{product.minQty}}</span>
                         <span class="new-col-5 text-center">
-                            <input-qty ng-model="purchaseOrder.watchedQty[product.id]" min="0"></input-qty>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<input-qty ng-model="purchaseOrder.watchedQty[product.id]" min="0"></input-qty>
                         </span>
                     </div>
                 </div>
