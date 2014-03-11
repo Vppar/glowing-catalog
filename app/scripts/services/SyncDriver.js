@@ -1,4 +1,5 @@
 (function (angular) {
+    'use strict';
 
     angular.module('tnt.catalog.sync.driver', [
         'tnt.catalog.sync.firebase'
@@ -21,10 +22,6 @@
 
                 var firebaseSyncStartTime = null;
                 var firebaseSyncStartTime2 = null;
-
-                if (isConnected()) {
-                    setFirebaseReferences(localStorage.firebaseUser);
-                }
 
                 $rootScope.$on('SyncStop', function () {
                     if (syncingFlagRef) {
@@ -81,7 +78,7 @@
 
                     var deferred = $q.defer();
 
-                    auth.changePassword(email, oldPassword, newPassword, function (err, success) {
+                    auth.changePassword(email, oldPassword, newPassword, function (err) {
                         if (!err) {
                             deferred.resolve(true);
                         } else {
@@ -172,8 +169,11 @@
                                 var syncing = snapshot.val();
                                 firebaseSyncStartTime = syncing || null;
 
-                                syncing ? $rootScope.$broadcast('FirebaseBusy', syncing)
-                                    : $rootScope.$broadcast('FirebaseIdle');
+                                if (syncing) {
+                                    $rootScope.$broadcast('FirebaseBusy', syncing);
+                                } else {
+                                    $rootScope.$broadcast('FirebaseIdle');
+                                }
                             });
 
                             // Broadcast the event once everything is ready
@@ -248,6 +248,12 @@
 
                     return deferred.promise;
                 };
+
+
+
+                if (isConnected()) {
+                    setFirebaseReferences(localStorage.firebaseUser);
+                }
 
             }
         ]);
