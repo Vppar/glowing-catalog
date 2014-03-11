@@ -1339,3 +1339,7 @@ vertical-align: middle;
 	height:20px;
 	line-height:20px;
 }
+
+.step2 .details-category {
+	padding-left: 6px!important;
+}
