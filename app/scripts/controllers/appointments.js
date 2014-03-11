@@ -111,7 +111,15 @@
 								
 								viewRender: function(view, element) {
 									$scope.rebuildCalendarJsEvents();					
-								},							
+								},
+
+								eventAfterAllRender: function(view) {
+									if ($('#calendar').fullCalendar('getView').name != 'month') {
+										$.each($('.fc-event'), function(i, element) {
+											$(this).css('width', 'auto');
+										});
+									}
+								}
 
 							});
 						};	
