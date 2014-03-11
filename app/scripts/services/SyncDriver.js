@@ -17,6 +17,8 @@
                 var journalRef = null;
                 var syncingFlagRef = null;
 
+                var auth = null;
+
                 var firebaseSyncStartTime = null;
                 var firebaseSyncStartTime2 = null;
 
@@ -71,6 +73,31 @@
                     syncingFlagRef = userRef.child('syncing');
                 }
 
+
+                function changePassword(email, oldPassword, newPassword) {
+                    if (!auth) {
+                        return $q.reject('Not connected to Firebase!');
+                    }
+
+                    var deferred = $q.defer();
+
+                    auth.changePassword(email, oldPassword, newPassword, function (err, success) {
+                        if (!err) {
+                            deferred.resolve(true);
+                        } else {
+                            // TODO check error messages and build proper messages
+                            $log.debug('Failed to change password!');
+                            deferred.reject(err);
+                        }
+                    });
+
+                    return deferred.promise;
+                }
+
+                this.changePassword = changePassword;
+
+
+
                 // TODO implement rememberMe
                 //
                 // FIXME Firebase authentication expects a single callback to
@@ -84,7 +111,7 @@
                     function (username, password) {
                         var deferred = $q.defer();
 
-                        new FirebaseSimpleLogin(baseRef, function (err, user) {
+                        auth = new FirebaseSimpleLogin(baseRef, function (err, user) {
                             if (err) {
                                 $log.debug('Firebase authentication error (login cb)', err);
                                 deferred.reject(err);
@@ -121,7 +148,9 @@
                                 delete localStorage.firebaseUser;
                                 $rootScope.$broadcast('FirebaseDisconnected');
                             }
-                        }).login('password', {
+                        });
+                        
+                        auth.login('password', {
                             email : username,
                             password : password
                         });
