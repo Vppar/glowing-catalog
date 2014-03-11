@@ -7,6 +7,7 @@
             'ui.bootstrap',
             'ui.select2',
             'angular-md5',
+            'tnt.catalog.config',
             'tnt.catalog.directive.numpad',
             'tnt.catalog.dialog.numpad.ctrl',
             'tnt.catalog.productReturn',

@@ -227,6 +227,7 @@ components/highlight-display/highlight-display.html
 components/catalog-section/catalog-section.html
 components/catalog-highlights/catalog-highlights.html
 
+resources/config.js
 resources/replay.json
 resources/data.json
 resources/orders.json
