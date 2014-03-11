@@ -9,11 +9,21 @@
      * Check entity
      */
     angular.module('tnt.catalog.check.entity', []).factory('Check', function Check() {
-
-        var service = function svc(uuid, installments, bank, agency, account, number, duedate, amount) {
+        
+        /**
+         * Factory that creates the Check Object.
+         * 
+         * @param {string} uuid - User Unique Id.
+         * @param {string} bank - Check bank code
+         * @param {string} agency - Check agency code.
+         * @param {string} number - Check number code.
+         * @param {Date} duedate - Check duedate.
+         * @param {number} amount - Check amount.
+         */
+        var service = function svc(uuid, bank, agency, account, number, duedate, amount) {
 
             var validProperties = [
-                'uuid', 'installments', 'bank', 'agency', 'account', 'number', 'duedate', 'amount'
+                'uuid', 'bank', 'agency', 'account', 'number', 'duedate', 'amount', 'document'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -33,11 +43,10 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Check must be initialized with uuid, installments, bank, agency, account, number, duedate and amount';
+                    throw 'Check must be initialized with uuid, bank, agency, account, number, duedate and amount';
                 }
             } else {
                 this.uuid = uuid;
-                this.installments = installments;
                 this.bank = bank;
                 this.agency = agency;
                 this.account = account;
@@ -47,7 +56,6 @@
             }
 
             ObjectUtils.ro(this, 'uuid', this.uuid);
-            ObjectUtils.ro(this, 'installments', this.installments);
             ObjectUtils.ro(this, 'bank', this.bank);
             ObjectUtils.ro(this, 'agency', this.agency);
             ObjectUtils.ro(this, 'account', this.account);
@@ -71,6 +79,17 @@
             'CheckKeeper',
             [
                 'ArrayUtils', 'Replayer', 'JournalEntry', 'JournalKeeper', 'IdentityService', 'Check',
+                
+                /**
+                 * Keeper that handle the check data.
+                 * 
+                 * @param {ArrayUtils} ArrayUtils - Array utilities.
+                 * @param {Replayer} Replayer - Class that handles the Journal Entries.
+                 * @param {JournalEntry} JournalEntry - JournalEntry Entity.
+                 * @param {JournalKeeper} JournalKeeper - Handle journal data.
+                 * @param {IdentityService} IdentityService - Service that creates the uuids.
+                 */
+                
                 function CheckKeeper(ArrayUtils, Replayer, JournalEntry, JournalKeeper, IdentityService, Check) {
 
                     var type = 10;
@@ -84,7 +103,9 @@
                     }
 
                     /**
-                     * Registering handlers
+                     * Create the final check object and push it to the DataBase
+                     * 
+                     * @param {event} - Object containing the nescessary data to create the check.
                      */
 
                     ObjectUtils.ro(this.handlers, 'checkAddV1', function(event) {
@@ -103,14 +124,14 @@
                         return event.uuid;
                     });
 
+                    /**
+                     * Get the check of the given uuid and replace the current state with the new one.
+                     * 
+                     * @param {event} - Object containing the uuid of the check and his new state.
+                     */
+                    
                     ObjectUtils.ro(this.handlers, 'checkChangeStateV1', function(event) {
 
-                        var eventData = IdentityService.getUUIDData(event.uuid);
-
-                        if (eventData.deviceId === IdentityService.getDeviceId()) {
-                            currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
-                        }
-                        
                         var check = ArrayUtils.find(checks, 'uuid', event.uuid);
                         check.state = event.state;
 
@@ -120,7 +141,7 @@
                     /**
                      * Adds a check to the list.
                      * 
-                     * @param check - Check to be added.
+                     * @param check - Check object to be added.
                      */
 
                     this.add = function(check) {

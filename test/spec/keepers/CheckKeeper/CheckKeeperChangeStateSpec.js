@@ -12,7 +12,6 @@ describe('Service: CheckKeeperChangeStateSpec', function() {
     var date = new Date().getTime();
     var checkTemplate = {
             uuid : uuid,
-            installments : 1,
             bank : 1234,
             agency : 123,
             account : 12,
