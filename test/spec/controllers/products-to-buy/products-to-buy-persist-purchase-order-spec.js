@@ -75,11 +75,18 @@ describe('Controller: products-to-buy-persist-purchase-order-spec', function() {
 
     it('should confirm products', function() {
         
-       
+       var expected = { uuid : null,
+           amount : 0,
+           discount : undefined,
+           freight : undefined,
+           points : undefined,
+           items : [ { id : 2, qty : 4 },
+                     { id : 4, qty : 2 } ] 
+       } ;
 
         productsToBuyConfirmCtrl.persitPurchaseOrder();
         
-        expect(PurchaseOrderService.register).toHaveBeenCalled();
+        expect(PurchaseOrderService.register).toHaveBeenCalledWith(expected);
         
     });
 
