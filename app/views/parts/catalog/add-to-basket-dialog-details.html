@@ -28,7 +28,7 @@
 		<div class="new-scroll-area">
 		<div class="new-body-row" ng-repeat="item in grid">
 			<div class="new-col-10 product-name">
-				<img ng-if="item.image" src="images/catalog/products/{{item.SKU}}b.jpg" alt="sample" />
+				<img ng-if="item.image" once-src="getImageData(item.SKU)" alt="sample" />
 				<span>{{item.option}}</span>
 				<br/>
 				<small class="">{{item.SKU}}</small>
@@ -45,7 +45,7 @@
 	<div class="info">
 		<div class="img-sholder">
             <div class='zoom' id='magnifier'>
-                <img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
+                <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
             </div>
         </div>
             <div class="info-item quantity">
@@ -73,58 +73,4 @@
         <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
         <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
     </div>
-<!--
-<div class="container">
-	<script>
-	var initMagnifier = function () {
-	 $('#magnifier').zoom({magnify: 2});
-	};
-	</script>
-	
-	<form class="form-add-to-basket">	
-		<span class="heading-gradient">{{product.title}}</span>
-		<span class="wrapper-qtde wrapper-size">
-			
-				<div class="grid-input-products">
-					<div class="header2">
-						<div class="row-input-products-grid">
-							<span class="col-1"><div>Op&ccedil;&otilde;es</div></span><span class="col-2"><div>Estoque</div></span><span class="col-3"><div>Pre&ccedil;o</div></span><span class="col-4"><div>Qtde</div></span>
-						</div>
-					</div>
-					<div class="scroll-input-products-grid2">
-						<div class="row-input-products-grid" ng-repeat="item in grid">
-							
-							<span class="col-1"><img ng-if="item.image" src="images/catalog/products/{{item.SKU}}b.jpg" alt="sample" /><div>{{item.option}}<br/><span class="code-product">{{item.SKU}}</span></div></span>
-							<span class="col-2"><div>{{item.inventory}}</div></span>
-							<span class="col-3"><div>{{product.price | currency:''}}</div></span>
-							<span class="col-4"><input-qty ng-model="item.qty" min="0"></input-qty></span>
-						</div>
-					</div>
-				</div>
-		</span>
-		<div class="img-catalog-basket">
-			<span class='zoom' id='magnifier'>
-            	<img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
-           </span>
-           
-		    <div class="price-add-to-basket margint10">
-				<div class="quantidade">
-					<span class="label-input-qtde">Qtde</span>
-					<span class="qty-value">{{count}}</span>
-				</div>
-				<div class="preco">
-					<span class="label-input-qtde">Total</span>
-					<span class="qty-value"><span class="price-popup-small">R$</span> {{total | currency:''}}</span>
-				</div>
-			</div>
-		</div>
-        
-		<div class="clearfix"></div>
-		<hr />
-		<button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"
-			type="submit">Cancelar</button>
-		<button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right"
-			type="submit">Adicionar</button>
-	</form>
-</div>
--->
+

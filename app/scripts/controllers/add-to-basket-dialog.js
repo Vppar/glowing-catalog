@@ -4,12 +4,19 @@
     angular.module('tnt.catalog.basket.add', [
         'tnt.catalog.service.data',
         'tnt.catalog.service.dialog',
-        'tnt.catalog.misplaced.service'
+        'tnt.catalog.misplaced.service',
+        'tnt.catalog.config'
     ]).controller(
             'AddToBasketDialogCtrl',
-            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService', 'Misplacedservice',
-            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService, Misplacedservice) {
+            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService', 'Misplacedservice', 'CatalogConfig',
+            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService, Misplacedservice, CatalogConfig) {
 
+                $scope.config = CatalogConfig;
+                
+                $scope.getImageData = function(name){
+                    return DataProvider.images[name];
+                };
+                
                 var Discount = Misplacedservice.discount;
 
                 var orderItems = OrderService.order.items;
