@@ -1,15 +1,24 @@
 <div class="modal-head">Selecione o cliente</div>
 
 <div class="modal-body modal-add-basket-dialog-body">
-	<div class="controls">
-		<div class="control-group lbl-top">
-			<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId" tnt-select2 >
-				<option value="">Selecione Cliente</option>
-				<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
-			</select>
+
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="controls">
+				<div class="control-group lbl-top">
+					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId" tnt-select2 >
+						<option value="">Selecione Cliente</option>
+						<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
+					</select>
+				</div>
+			</div>
 		</div>
 	</div>
-	<div class="error" style="display: none">Erro ao inserir dados, contate o suporte informando o código</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="error" style="display: none">Erro ao inserir dados, contate o suporte informando o código</div>
+		</div>
+	</div>
 </div>
 
 <div class="modal-foot">
