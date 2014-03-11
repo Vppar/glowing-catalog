@@ -77,7 +77,7 @@ describe('Controller: products-to-buy-persist-purchase-order-spec', function() {
         
        
 
-        scope.persitPurchaseOrder();
+        productsToBuyConfirmCtrl.persitPurchaseOrder();
         
         expect(PurchaseOrderService.register).toHaveBeenCalled();
         
