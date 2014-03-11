@@ -46,10 +46,10 @@
     					$scope.filterEvents = function($event) {
 
     						var element = $event.target;
-    						var circleElement = $(element).attr('class') == 'tag-name' ? $(element).next() : $(element).attr('id') != undefined ? $(element).find('div[class*="tag-circle"]') : $(element);
+    						var circleElement = $(element).attr('class') == 'tag-name' ? $(element).prev() : $(element).attr('id') != undefined ? $(element).find('div[class*="tag-circle"]') : $(element);
     						var circleCss = $(circleElement).attr('class');
     						if ($(circleElement).parent().attr('id') != 'tagEvent0' || $(circleElement).attr('class').indexOf('tag-circle-selected') < 0) {
-    							$(circleElement).attr('class', circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle tag-circle-selected' : 'tag-circle');	
+    							$(circleElement).attr('class', circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle-selected' : 'tag-circle');	
     						}
     						var tagNumber = $(circleElement).parent().attr('id').replace('tagEvent', '');
     						if (tagNumber != 0) {
@@ -61,7 +61,7 @@
     							if ($scope.filter.length > 0) {
     								$('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr('class', 'tag-circle');
     							} else {
-    								$('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr('class', 'tag-circle tag-circle-selected');
+    								$('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr('class', 'tag-circle-selected');
     								$scope.filter = [];
     							}
     						} else {
@@ -216,12 +216,12 @@
 									var yearCurrent = $('#calendar').fullCalendar('getDate').getFullYear();
 									var thisDate = new Date(yearCurrent, entity.birthDate['month'] -1, entity.birthDate['day']);
 									contador = contador + 1;
-									var typeCircle = $('.tag7').find('.tag-circle');
+									var typeCircle = $('.tag7').find('div[class*="tag-circle"]');
 									var event = {
 										title: 'Anivers' + unescape('%E1') + 'rio de ' + entity.name,
 										start: thisDate,
 										allDay: true,
-										color: typeCircle.attr('class').indexOf('tag-circle-selected') < 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
+										color: typeCircle.attr('class').indexOf('tag-circle-selected') >= 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
 										description: '',
 										client: entity.name,
 										type: 7,
@@ -241,14 +241,14 @@
 									if (entity) {
 				                    	nameEntity = entity.name;
 				                    }
-				                    var typeCircle = $('.tag' + app.type).find('.tag-circle');
+				                    var typeCircle = $('.tag' + app.type).find('div[class*="tag-circle"]');
 									var event = {
 											title: app.title,
 											start: new Date(app.startDate),
 											end: new Date(app.endDate),
 											allDay: false,
 											status: app.status,
-											color: typeCircle.attr('class').indexOf('tag-circle-selected') < 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
+											color: typeCircle.attr('class').indexOf('tag-circle-selected') >= 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
 											description: app.description,
 											client: nameEntity,
 											clientUUID: app.contacts,
