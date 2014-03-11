@@ -38,8 +38,8 @@ describe('Service: BookServiceLiquidateCashSpec', function() {
         var expected = new BookEntry({
             uuid : null,
             created : null,
-            debitAccount : 70001, 
-            creditAccount : 11111,
+            debitAccount : 11111, 
+            creditAccount : 70001,
             document : document,
             entity : entityUUID,
             op : 'Recebimento em dinheiro',

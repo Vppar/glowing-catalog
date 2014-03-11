@@ -207,8 +207,8 @@
                 type : 'Pedido'
             };
 
-            if (cash) {
-                entry = new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Recebimento em dinheiro', cash);
+            if (cash) {    
+                entry = new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', cash);
             }
 
             return entry;
