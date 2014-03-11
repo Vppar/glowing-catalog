@@ -126,11 +126,10 @@ html .fc,
 	
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
 	/*background:url(../../images/bg-calendar-highlight-cell.png) no-repeat top right;*/
-	background:#ccc;
+	background:#ddd;
 	color:#fff !important;
 	border-radius: 4px;
 	}
-.fc-today {background:#fff !important;}
 .fc-state-highlight	div.fc-day-number { color:#fff !important;}
 	
 .fc-cell-overlay { /* semi-transparent rectangle while dragging */
