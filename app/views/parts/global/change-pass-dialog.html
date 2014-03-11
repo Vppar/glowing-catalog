@@ -2,19 +2,19 @@
 	<!-- not remove this! (background of login screen) -->
 </div>
 <div class="container">
-	<form class="form-signin">
+	<form class="form-signin" name="changePasswordForm">
 		<span class="heading-gradient">Trocar senha</span>
 		<div class="control-group lbl-top" >
 			<label>Senha atual</label>
-			<input type="password" class="input-xlarge" placeholder="">
+			<input name="current-password" ng-model="oldPassword" type="password" class="input-xlarge" placeholder="" ng-required>
 		</div>
 		<div class="control-group lbl-top" >
 			<label>Nova senha</label>
-			<input type="password" class="input-xlarge" placeholder="">
+			<input name="new-password" ng-model="newPassword" type="password" class="input-xlarge" placeholder="" ng-required>
 		</div>
 		<div class="control-group lbl-top" >
 			<label>Confirmar senha</label>
-			<input type="password" class="input-xlarge" placeholder="">
+			<input name="new-password-verification" ng-model="newPasswordVerification" tnt-equals="newPassword" type="password" class="input-xlarge" placeholder="" ng-required>
 		</div>
 		<div class="clearfix"></div>		
 		
@@ -23,7 +23,7 @@
 			<button ng-click='closeDialog()' class="btn btn-large btn-cancel" type="submit">Cancelar</button>
 		</div>
 		<div class="change-pass-dialog-btn-area">
-			<button ng-click='closeDialog()' class="btn btn-large btn-ok" type="submit">Confirmar</button>
+			<button ng-click='changePassword()' class="btn btn-large btn-ok" type="submit">Confirmar</button>
 		</div>
 	</div>
 		
