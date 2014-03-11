@@ -37,7 +37,7 @@ html .fc,
 	}
 
 .fc-header-left {
-	width: 25%;
+	width: 15%;
 	text-align: left;
 	}
 	
@@ -58,6 +58,8 @@ html .fc,
 .fc-header-title h2 {
 	margin-top: 0;
 	white-space: nowrap;
+	color:#ccc;
+	font-weight:300;
 	}
 	
 .fc .fc-header-space {
@@ -73,6 +75,7 @@ html .fc,
 
 .fc-header .fc-button {
 	margin-right: -1px;
+	font-size: 16px;
 	}
 	
 .fc-header .fc-corner-right,  /* non-theme */
@@ -122,8 +125,12 @@ html .fc,
 	}
 	
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
-	background: #D7F0BF;
+	/*background:url(../../images/bg-calendar-highlight-cell.png) no-repeat top right;*/
+	background:#ccc;
+	color:#fff !important;
+	border-radius: 4px;
 	}
+.fc-state-highlight	div.fc-day-number { color:#fff !important;}
 	
 .fc-cell-overlay { /* semi-transparent rectangle while dragging */
 	background: #D7F0BF;
@@ -364,12 +371,12 @@ table.fc-border-separate {
 	
 .fc-border-separate th,
 .fc-border-separate td {
-	border-width: 1px 0 0 1px;
+	border-width: 1px 0 0 0px;
 	}
 	
 .fc-border-separate th.fc-last,
 .fc-border-separate td.fc-last {
-	border-right-width: 1px;
+	border-right-width: 0px;
 	}
 	
 .fc-border-separate tr.fc-last th,
@@ -380,12 +387,36 @@ table.fc-border-separate {
 .fc-border-separate tbody tr.fc-first td,
 .fc-border-separate tbody tr.fc-first th {
 	border-top-width: 0;
+	border-top-color:#fff;
 	}
 	
+.fc-widget-header {color:#aaa;}
 	
 
 /* Month View, Basic Week View, Basic Day View
 ------------------------------------------------------------------------*/
+.fc-button-prev {
+	width:22px;
+	height:29px;
+	text-indent:-9000px;
+	background: none;
+	border: 0px;
+	box-shadow: none;
+	background:url(../../images/arrow-left-calendar.png) no-repeat top left;
+	top: 4px;
+}
+
+.fc-button-next {
+	width:22px;
+	height:29px;
+	text-indent:-9000px;
+	background: none;
+	border: 0px;
+	box-shadow: none;
+	background:url(../../images/arrow-right-calendar.png) no-repeat top left;
+	margin-left: 20px;
+	top: 4px;
+}
 
 .fc-grid th {
 	text-align: center;
@@ -406,6 +437,9 @@ table.fc-border-separate {
 .fc-grid .fc-day-number {
 	float: right;
 	padding: 0 2px;
+	font-size: 2em;
+	color: #ccc;
+	padding: 10px;
 	}
 	
 .fc-grid .fc-other-month .fc-day-number {
