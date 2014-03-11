@@ -55,7 +55,7 @@
         };
 
         this.openDialogAddCustomerEmails = function(data) {
-            return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, 'modal-add-customer-email');
         };
 
         this.openDialogAddToBasket = function(data) {

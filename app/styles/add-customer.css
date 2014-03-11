@@ -17,6 +17,25 @@
 	width: 185px;
 }
 
+.modal-add-customer-email{
+	 position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     margin-left: -205px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+	width:410px;
+}
+.modal-add-customer-email form{
+	margin-bottom: 0px;
+}
+.modal-add-customer-email .input-append {
+	width:342px;
+}
+
 
 /*dialogs*/
 .customer-tel-type {
@@ -24,12 +43,6 @@
 }
 .ic-sort-triangle:hover {
 	cursor: pointer;
-}
-.add-customer-input-tels {
-	width: 185px
-}
-.add-customer-input-emails {
-	width: 342px
 }
 .row-data-dialog {
 	border-bottom: 1px solid #ccc;
