@@ -126,7 +126,7 @@ html .fc,
 	
 .fc-state-highlight { /* <td> today cell */ /* TODO: add .fc-today to <th> */
 	/*background:url(../../images/bg-calendar-highlight-cell.png) no-repeat top right;*/
-	background:#ddd;
+	background:#eee;
 	color:#fff !important;
 	border-radius: 4px;
 	}
