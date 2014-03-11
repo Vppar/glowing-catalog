@@ -563,6 +563,7 @@ nav ul li {
 .container .navbar .nav {
 	float: none;
 	margin: 18px auto 0 auto;
+	font-weight:normal;
 }
 
 .text-product {
