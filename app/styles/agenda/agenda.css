@@ -262,6 +262,7 @@ margin: 0 0 10px 0;
 .ui-dialog .ui-dialog-content {font-size:14px;}
 div.ui-dialog { width:400px !important;}
 div.ui-dialog #event-dialog .field-big { width:96% !important;}
+div.ui-dialog #event-dialog .dialog-buttons { width:100% !important;}
 .fc-event-container { margin-top:2px !important;/* margin-left:68px !important;*/ clear:both !important;}
 .fc-event-inner {text-indent:10px !important;}
 /*.fc-event {position:relative !important};*/
