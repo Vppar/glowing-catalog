@@ -85,8 +85,7 @@
                         if (!err) {
                             deferred.resolve(true);
                         } else {
-                            // TODO check error messages and build proper messages
-                            $log.debug('Failed to change password!');
+                            $log.debug('Failed to change password:', err);
                             deferred.reject(err);
                         }
                     });
