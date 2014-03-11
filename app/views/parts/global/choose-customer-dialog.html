@@ -1,3 +1,28 @@
+<div class="modal-head">Selecione o cliente</div>
+
+<div class="modal-body modal-add-basket-dialog-body">
+	<div class="controls">
+		<div class="control-group lbl-top">
+			<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId" tnt-select2 >
+				<option value="">Selecione Cliente</option>
+				<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="error" style="display: none">Erro ao inserir dados, contate o suporte informando o código</div>
+</div>
+
+<div class="modal-foot">
+    <hr />
+    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+	<button ng-click='confirm()' class="btn btn-ok btn-large btn-login pull-right" type="submit">
+		<span ng-hide="customerId">Novo Cliente</span>
+		<span ng-show="customerId">Confirmar</span>
+	</button>
+</div>
+
+
+<!-- COD ANTIGO
 <div class="container">
 	<form class="form-choose-customer">
 		<span class="heading-gradient">Selecione o cliente</span>
@@ -27,3 +52,4 @@
 		</button>
 	</form>
 </div>
+-->
