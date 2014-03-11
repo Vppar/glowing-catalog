@@ -163,6 +163,7 @@ scripts/filters/paymentType.js
 scripts/filters/phone.js
 scripts/filters/sum.js
 scripts/filters/truncate.js
+scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
 scripts/keepers/InventoryKeeper.js
 scripts/keepers/GridKeeper.js
