@@ -175,6 +175,10 @@
 
                         var check = read(uuid);
                         
+                        if (!check) {
+                            return $q.reject('Couldn\'t find a check for the uuid: '+uuid);
+                        }
+                        
                         check.state = newState;
 
                         var stamp = (new Date()).getTime();
