@@ -1,7 +1,8 @@
 (function (angular) {
 
     angular.module('tnt.catalog.sync.driver', [
-        'tnt.catalog.sync.firebase'
+        'tnt.catalog.sync.firebase',
+        'tnt.catalog.config'
     ]).service(
         'SyncDriver',
         [
