@@ -122,6 +122,7 @@
             'tnt.catalog.directives.virtualKeyboard',
             'tnt.catalog.directives.keyboardCage',
             'tnt.catalog.directives.focus',
+            'tnt.catalog.directives.equals',
             'tnt.catalog.directives.promiseClick',
             'tnt.catalog.Check'
         ]);
