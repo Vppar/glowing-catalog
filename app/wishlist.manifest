@@ -139,6 +139,7 @@ scripts/directives/inputQty.js
 scripts/directives/number.js
 scripts/directives/numPad.js
 scripts/directives/phone.js
+scripts/directives/promiseClick.js
 scripts/directives/recall.js
 scripts/directives/spy.js
 scripts/directives/scrollContainer.js
