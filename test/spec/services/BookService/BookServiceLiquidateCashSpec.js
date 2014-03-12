@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: BookServiceCreditCardSpec', function() {
+describe('Service: BookServiceLiquidateCashSpec', function() {
 
     var BookService = {};
     var BookEntry = {};
@@ -8,7 +8,7 @@ describe('Service: BookServiceCreditCardSpec', function() {
 
     var document = null;
     var entityUUID = null;
-    var creditCardAmount = null;
+    var cashAmount = null;
 
     beforeEach(function() {
         module('tnt.catalog.service.book');
@@ -25,7 +25,7 @@ describe('Service: BookServiceCreditCardSpec', function() {
             type : 'Pedido'
         };
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
-        creditCardAmount = 150;
+        cashAmount = 150;
     });
 
     beforeEach(inject(function(_BookService_, _BookEntry_) {
@@ -33,21 +33,21 @@ describe('Service: BookServiceCreditCardSpec', function() {
         BookEntry = _BookEntry_;
     }));
 
-    it('should create a receive credit card BookEntry', function() {
+    it('should create a receive check BookEntry', function() {
         // Given
         var expected = new BookEntry({
             uuid : null,
             created : null,
-            debitAccount : 11131,
-            creditAccount : 11512,
+            debitAccount : 11111, 
+            creditAccount : 70001,
             document : document,
             entity : entityUUID,
-            op : 'Recebimento cartão',
-            amount : creditCardAmount
+            op : 'Recebimento em dinheiro',
+            amount : cashAmount
         });
 
         // When
-        var result = BookService.receiveCreditCard(document.uuid, entityUUID, creditCardAmount);
+        var result = BookService.liquidateCash(document.uuid, entityUUID, cashAmount);
 
         // Then
         expect(result.debitAccount).toEqual(expected.debitAccount);
@@ -59,11 +59,11 @@ describe('Service: BookServiceCreditCardSpec', function() {
 
     });
 
-    it('shouldn\'t create a receive credit card BookEntry', function() {
+    it('shouldn\'t create a receive check BookEntry', function() {
         // Given
 
         // When
-        var result = BookService.receiveCreditCard(document.uuid, entityUUID, 0);
+        var result = BookService.liquidateCash(document.uuid, entityUUID, 0);
 
         // Then
         expect(result).toBe(null);
