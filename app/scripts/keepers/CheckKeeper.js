@@ -206,7 +206,7 @@
         }
     ]);
 
-    angular.module('tnt.catalog.Check', [
+    angular.module('tnt.catalog.check', [
         'tnt.catalog.check.entity', 'tnt.catalog.check.keeper'
     ]).run([
         'CheckKeeper', function(CheckKeeper) {
