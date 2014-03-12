@@ -51,7 +51,6 @@
                 }
             });
         };
-
         
         $scope.login = function() {
             return UserService.login($scope.user, $scope.pass, $scope.rememberMe).then(function() {
@@ -71,6 +70,5 @@
                 });
             });
         };
-
     }]);
 }(angular));
