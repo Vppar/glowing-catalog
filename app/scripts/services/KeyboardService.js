@@ -20,6 +20,9 @@
             if (angular.isFunction(activeCallback)) {
                 activeCallback(active);
             }
+            if (angular.isFunction(keyboard.setActive)) {
+                keyboard.setActive(active);
+            }
         };
 
         /**
