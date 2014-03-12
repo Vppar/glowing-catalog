@@ -1,11 +1,10 @@
 CACHE MANIFEST
 
-# v0.x.x
+# v0.x.x c
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
-bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css
-styles/select2.css
+styles/main.css
 styles/responsive-style.css
 styles/grid-catalog.css
 styles/data-grid/data-grid.css
@@ -147,10 +146,6 @@ images/arrow-left-pink.png
 images/loading_20.gif
 
 images/icons/ic-calendar.png
-
-# find out how the hell those images got on styles and FIX IT
-#styles/com/images/select_close.png
-#styles/com/images/icon.png
 
 images/catalog/best-sellers/best-sellers.png
 images/catalog/best-sellers/best-sellers-1.png
