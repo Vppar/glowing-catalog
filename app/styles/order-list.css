@@ -351,3 +351,60 @@ text-align: right;
 .marginl93{
 	margin-left: 93px !important;
 }
+
+/* parte responsável pelos alinhamentos das colunas/infos */
+	/*pedidos*/
+.order-list-grid-pedidos .fixed-line .currency {
+	padding-right:10px;
+}
+.order-list-grid-pedidos .fixed-line .currency:last-child {
+	padding-right:8px;
+}
+.order-list-grid-pedidos .scroll-order-list .currency {
+	padding-right:7px;
+}
+.order-list-grid-pedidos .scroll-order-list .currency:last-child {
+	padding-right:6px;
+}
+.order-list-grid-pedidos .scroll-order-list .text-center {
+	margin-right:-2px;
+	margin-left:1px;
+}
+
+	/*clientes*/	
+.order-list-grid-clientes .fixed-line .currency {
+	padding-right:10px;
+}
+.order-list-grid-clientes .fixed-line .currency:last-child {
+	padding-right:8px;
+}
+.order-list-grid-clientes .scroll-order-list .currency {
+	padding-right:9px;
+}
+.order-list-grid-clientes .scroll-order-list .currency:last-child {
+	padding-right:8px;
+}
+.order-list-grid-clientes .scroll-order-list .text-center {
+	margin-right:1px;
+	margin-left:-1px;
+}
+
+	/*produtos*/
+.order-list-grid-produtos .fixed-line .currency {
+	padding-right:10px;
+}
+.order-list-grid-produtos .fixed-line .currency:last-child {
+	padding-right:8px;
+}
+.order-list-grid-produtos .scroll-order-list .currency {
+	padding-right:10px;
+}
+.order-list-grid-produtos .scroll-order-list .currency:last-child {
+	padding-right:8px;
+}
+.order-list-grid-produtos .scroll-order-list .text-center {
+	margin-right:2px;
+	margin-left:-2px;
+}
+
+/* // fim - parte dos alinhamentos */

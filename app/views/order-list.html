@@ -130,7 +130,7 @@
 
 	<!--Pedidos-->
 <div ng-switch="ol" style="height: calc(100% - 150px);">
-	<div class="height100perc" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
+	<div class="height100perc order-list-grid-pedidos" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
 		<div class="row-fluid height100perc">
 			<div class="grid-order-list order-scroll-area-fix">
 				<div class="header">
@@ -160,7 +160,7 @@
 				</div>
 	
 				<div class="order-table-sum">
-					<div class="row-order-list hover-state-pointer details-resumo-total"
+					<div class="row-order-list hover-state-pointer details-resumo-total fixed-line"
 						ng-click="callUpdateReceivableTotal(filteredOrders)">
 						<div class="new-col-3 text-center">
 							<span>Total</span>
@@ -247,7 +247,7 @@
 					</div>
 				</div>
 				<div class="order-table-sum">
-					<div class="row-order-list hover-state-pointer details-resumo-total"
+					<div class="row-order-list hover-state-pointer details-resumo-total fixed-line"
 						ng-click="callUpdateReceivableTotal(filteredEntities)">
 						<div class="new-col-2 text-center">
 							<span>Total</span>
@@ -335,7 +335,7 @@
 				</div>
 		
 				<div class="order-table-sum">
-					<div class="row-order-list hover-state-pointer details-resumo-total">
+					<div class="row-order-list hover-state-pointer details-resumo-total fixed-line">
 						<div class="new-col-2 text-center">
 							<span>Total</span>
 						</div>
