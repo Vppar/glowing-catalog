@@ -9,7 +9,7 @@ favicon-68.png
 favicon-152.png
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
 bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css
-styles/com/select2/select2.css
+styles/select2.css
 styles/responsive-style.css
 styles/grid-catalog.css
 styles/data-grid/data-grid.css
