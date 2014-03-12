@@ -153,8 +153,6 @@
                     recordedPayment = chargedCCPromise.then(function(result) {
                         createCreditCardPayments(creditCard, amount, numInstallments, result);
                         return true;
-                    }, function(errMsg) {
-                        return $q.reject(errMsg);
                     });
                 } catch (err) {
                     $log.fatal('CreditcardPaymentService.charge', err);

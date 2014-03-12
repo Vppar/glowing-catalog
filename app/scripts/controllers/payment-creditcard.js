@@ -131,7 +131,7 @@
                     var isGoPay = $scope.gopay.merchant && $scope.envFlags.internet;
                     var result = CreditCardPaymentService.charge(creditCard, creditCard.amount, numInstallments, isGoPay);
 
-                    result.then(function() {
+                    return result.then(function() {
                         $scope.selectPaymentMethod('none');
                     }, function(errMsg) {
                         DialogService.messageDialog({
