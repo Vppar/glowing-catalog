@@ -132,10 +132,10 @@
 
 	<div class="payment-btns">
 		<div class="payment-btn-area">
-			<button ng-click="cancel()" class="btn btn-cancel" type="submit" ng-show="showPaymentButtons">Cancelar</button>
+			<button tnt-promise-click="cancel()" class="btn btn-cancel" type="submit" ng-show="showPaymentButtons">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-			<button ng-click="confirm()" class="btn btn-ok" type="submit" ng-show="showPaymentButtons" ng-disabled="(total.change<0||keyboard.status.active)">Confirmar</button>
+			<button tnt-promise-click="confirm()" class="btn btn-ok" type="submit" ng-show="showPaymentButtons" ng-disabled="(total.change<0||keyboard.status.active)">Confirmar</button>
 		</div>
 	</div>
     <num-pad></num-pad>

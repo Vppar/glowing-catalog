@@ -1,6 +1,6 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', ['$dialog', function($dialog) {
+    angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', ['$q','$dialog', function($q, $dialog) {
 
         /**
          * Generic function to open a dialog.
@@ -42,8 +42,31 @@
 
         var cssDefaultClass = 'modal';
 
+        /**
+         * Message dialog that returns a promise and if the dialog is not closed
+         * by the cancel button return a rejected promise.
+         * 
+         * @param {object} data - Object to be passed to the dialog.
+         * @returns {object} safeDialog - Dialog promise with safe exit.
+         */
         this.messageDialog = function(data) {
-            return openDialog('views/parts/global/message-dialog.html', 'MessageDialogCtrl', data, cssDefaultClass);
+            var dialogPromise =
+                    openDialog(
+                            'views/parts/global/message-dialog.html', 'MessageDialogCtrl', data,
+                            cssDefaultClass);
+            var safeDialog = dialogPromise.then(function(success) {
+                var result = null;
+                if(success){
+                    result = success;
+                } else {
+                    result = $q.reject('Empty dialog return.');
+                }
+                return result;
+            }, function(err) {
+                return $q.reject(err);
+            });
+            
+            return safeDialog;
         };
 
         this.openDialogNumpad = function(data, parent) {

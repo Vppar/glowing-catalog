@@ -382,58 +382,6 @@
                             }
                         };
 
-                    /**
-                     * Triggers the payment confirmation process by showing the
-                     * confirmation dialog.
-                     */
-                    function paymentFactory () {
-                        var paymentIntent = $q.defer();
-                        var confirmedPaymentPromise =
-                            paymentIntent.promise.then(showPaymentConfirmationDialog);
-
-                        $scope.confirm = paymentIntent.resolve;
-
-                        return confirmedPaymentPromise;
-                    }
-
-                    /**
-                     * Shows the payment confirmation dialog.
-                     */
-                    function showPaymentConfirmationDialog () {
-                        var result = dialogService.messageDialog({
-                            title : 'Pagamento',
-                            message : 'Confirmar o pagamento?',
-                            btnYes : 'Sim',
-                            btnNo : 'Não'
-                        });
-                        return result;
-                    }
-
-                    /**
-                     * Triggers the payment canceling process by showing the
-                     * confirmation dialog.
-                     */
-                    function cancelPaymentFactory () {
-                        var cancelPaymentIntent = $q.defer();
-                        var canceledPaymentPromise =
-                            cancelPaymentIntent.promise.then(showCancelPaymentDialog);
-
-                        $scope.cancel = cancelPaymentIntent.resolve;
-
-                        return canceledPaymentPromise;
-                    }
-
-                    /**
-                     * Shows the payment canceling dialog.
-                     */
-                    function showCancelPaymentDialog () {
-                        return dialogService.messageDialog({
-                            title : 'Cancelar Pedido?',
-                            message : 'Deseja cancelar este pedido?',
-                            btnYes : 'Sim',
-                            btnNo : 'Não'
-                        });
-                    }
 
                     function updateOrderAndPaymentTotal () {
                         // Calculate the Subtotal
@@ -497,7 +445,7 @@
                     // #############################################################################################
                     // Main related functions
                     // #############################################################################################
-
+                    
                     /**
                      * Checks out if the payment is valid.
                      */
@@ -510,22 +458,6 @@
                         return isValid;
                     }
                     $scope.isPaymentValid = isPaymentValid;
-
-                    function checkout (value) {
-                        var result = null;
-                        if (value) {
-                            result =
-                                PaymentService.checkout(
-                                    customer,
-                                    $scope.total.order.amount,
-                                    getTotalDiscount(),
-                                    $scope.total.change);
-                        } else {
-                            result = $q.reject();
-
-                        }
-                        return result;
-                    }
 
                     /**
                      * Ends of the payment process, return the main screen and
@@ -596,36 +528,80 @@
 
                     $scope.$watchCollection('items', watchItemDiscounts);
 
+                    // #############################################################################################
+                    // REVIEWED METHOD - DO NOT put anything here that has not been properly reviewed.
+                    // #############################################################################################
+                    
+                    // #############################################################################################
+                    // Local varialbles
+                    // #############################################################################################
+                    
+                    // #############################################################################################
+                    // Local functions
+                    // #############################################################################################
+                    
                     /**
-                     * Main function responsible for chaining the confirmation
-                     * and cancel processes.
+                     * Show the payment confirmation dialog.
+                     * 
+                     * @return {Object} result - Returns the promise generated by the dialog.
                      */
-                    function main () {
-                        // Execute when payment is confirmed.
-                        var confirmedPaymentPromise = paymentFactory();
-
-                        // reconstruct the chain of promises in case of
-                        // error or success
-                        confirmedPaymentPromise.then(main, main);
-
-                        var paidPromise = confirmedPaymentPromise.then(checkout, function () {
-                            return $q.reject('canceledByUser');
+                    function showConfirmPaymentDialog () {
+                        var result = dialogService.messageDialog({
+                            title : 'Pagamento',
+                            message : 'Confirmar o pagamento?',
+                            btnYes : 'Sim',
+                            btnNo : 'Não'
                         });
-
-                        // Inform the user that the payment is done.
-                        paidPromise.then(paymentDone, paymentErr);
-
-                        // Cancel payment
-                        var canceledPaymentPromise = cancelPaymentFactory();
-                        // reconstruct the chain of promises in case of
-                        // error or success
-                        canceledPaymentPromise.then(main, main);
-                        canceledPaymentPromise.then(PaymentService.cancelPayment, main);
-
-                        $scope.selectPaymentMethod('none');
+                        return result;
                     }
 
-                    main();
+                    /**
+                     * Show the payment canceling dialog.
+                     * 
+                     * @return {Object} result - Returns the promise generated by the dialog.
+                     */
+                    function showCancelPaymentDialog () {
+                        var result = dialogService.messageDialog({
+                            title : 'Cancelar Pedido?',
+                            message : 'Deseja cancelar este pedido?',
+                            btnYes : 'Sim',
+                            btnNo : 'Não'
+                        });
+                        return result;
+                    }
+                    
+                    // #############################################################################################
+                    // Scope varialbles
+                    // #############################################################################################
+                    
+                    // #############################################################################################
+                    // Scope functions
+                    // #############################################################################################
+                    
+                    $scope.confirm = function(){
+                        var customer = $scope.customer;
+                        var totalOrder =  $scope.total.order.amount;
+                        var totalDiscont = getTotalDiscount();
+                        var totalChange = $scope.total.change;
+                        
+                        var confirmPaymentIntentPromise = showConfirmPaymentDialog();
+                        
+                        var confirmedPromise = confirmPaymentIntentPromise.then(function(){
+                            return PaymentService.checkout(customer, totalOrder, totalDiscont, totalChange);
+                        }, function () {
+                            return $q.reject('canceledByUser');
+                        });
+                            
+                        // Inform the user that the payment is done.
+                        return confirmedPromise.then(paymentDone, paymentErr);
+                    };
+                    
+                    $scope.cancel = function() {
+                        var cancelPaymentIntentPromise = showCancelPaymentDialog();
+                        // reconstruct the chain of promises in case of
+                        // error or success
+                        return cancelPaymentIntentPromise.then(PaymentService.cancelPayment);
+                    };
                 }
             ]);
-}(angular));
+})(angular);
