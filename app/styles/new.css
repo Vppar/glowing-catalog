@@ -146,7 +146,7 @@
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 	box-sizing:border-box;
-	display:block;	
+	display:inline-table;	
 }
 
 .new-col-1{width: 4.16%;}
