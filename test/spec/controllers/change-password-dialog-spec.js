@@ -1,3 +1,4 @@
+// FIXME - Remove all unnecessary $scope.$apply()
 describe('ChangePassDialogCtrl', function() {
 
     var logger = angular.noop;
