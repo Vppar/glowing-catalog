@@ -1,4 +1,4 @@
-ddescribe('Controller: products-to-buy-ticket-set-purchase-order-spec', function () {
+describe('Controller: products-to-buy-ticket-set-purchase-order-spec', function () {
 
     var DialogService = {};
     var PurchaseOrderService = {};
