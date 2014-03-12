@@ -1,4 +1,4 @@
-<div class="step4">
+<div class="step4 products-to-buy-pending-part">
 
     <div class="row-fluid">
         <div class="new-body-header details-title">
@@ -14,7 +14,7 @@
     <div class="new-scrollpanel" ng-repeat="purchaseOrder in pending.purchaseOrders">
 		<span ng-repeat="item in purchaseOrder.items">
             <div class="row-fluid">
-                <div class="new-body-row details-subtitle">
+                <div class="new-body-row details-item">
 	                <span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
 	                <span class="new-col-3">{{purchaseOrder | uuidCode}}</span>
 	                <span class="new-col-10">
