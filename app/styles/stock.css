@@ -310,27 +310,34 @@
 	min-height: 20px;
 }
 
-
+/* parte responsável pelos alinhamentos das colunas/infos */
 .form-stock .fixed-line .currency {
-	padding-right:6px;
+	padding-right:7px;
 }
 .form-stock .fixed-line .currency:last-child {
 	padding-right:5px;
 }
 .scroll-stock .details-stock-category .currency, .scroll-stock .details-stock-subtitle .currency,
 .scroll-stock .details-stock-total .currency, .scroll-stock .details-stock-item .currency {
-	padding-right:7px;
+	padding-right:5px;
 }
 .scroll-stock .details-stock-category .currency:last-child, .scroll-stock .details-stock-subtitle .currency:last-child,
 .scroll-stock .details-stock-total .currency:last-child, .scroll-stock .details-stock-item .currency:last-child {
 	padding-right:4px;
 }
+.scroll-stock .text-center {
+	margin-right:-1px;
+	margin-left:1px;
+}
+.scroll-stock .float-right {
+	margin-right:-1px;
+}
+/* // fim - parte dos alinhamentos */
+
 
 .crumbs {
 	font-weight:normal;
 }
-
-
 
 /* just to scroll 100%*/
 .form-stock{
