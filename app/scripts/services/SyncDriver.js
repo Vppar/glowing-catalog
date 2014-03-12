@@ -16,6 +16,9 @@
             function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin, CatalogConfig) {
 
                 var baseRef = new Firebase(CatalogConfig.firebaseURL);
+
+                var PASSWORD_LENGTH_MIN = 6;
+
                 var userRef = null;
                 var journalRef = null;
                 var syncingFlagRef = null;
@@ -73,9 +76,37 @@
                 }
 
 
+                /**
+                 * Checks if the given password meets the system's safety requirements.
+                 * @param {String} password Password being checked.
+                 * @return {boolean} Whether the password is safe or not.
+                 */
+                function isValidPassword(password) {
+                    // IMPORTANT! When this check is changed, make sure to
+                    // update the message in the change-password dialog!
+                    return !!password &&
+                        typeof password === 'string' &&
+                        password.length >= PASSWORD_LENGTH_MIN;
+                }
+
+
+                /**
+                 * Changes the password for the user with the given email.
+                 * @param {string} email The e-mail of the user we should
+                 *    change the password for.
+                 * @param {string} oldPassword User's currently valid password.
+                 * @param {string} newPassword User's new password.
+                 * @return {Object} A promise that will be resolved when the
+                 *    password is successfully changed or rejected otherwise.
+                 */
                 function changePassword(email, oldPassword, newPassword) {
                     if (!auth) {
                         return $q.reject('Not connected to Firebase!');
+                    }
+
+                    // Firebase seems to accept ANY string as a valid password...
+                    if (!isValidPassword(newPassword)) {
+                        return $q.reject('Password not safe enough');
                     }
 
                     var deferred = $q.defer();

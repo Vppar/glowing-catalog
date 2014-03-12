@@ -10,6 +10,7 @@
             'angular-md5',
             'tnt.catalog.directive.numpad',
             'tnt.catalog.dialog.numpad.ctrl',
+            'tnt.catalog.dialog.changePassword.ctrl',
             'tnt.catalog.productReturn',
             'tnt.catalog.productReturn.entity',
             'tnt.catalog.productReturn.service',
@@ -122,6 +123,7 @@
             'tnt.catalog.directives.virtualKeyboard',
             'tnt.catalog.directives.keyboardCage',
             'tnt.catalog.directives.focus',
+            'tnt.catalog.directives.equals',
             'tnt.catalog.directives.promiseClick',
             'tnt.catalog.Check'
         ]);

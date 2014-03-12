@@ -155,6 +155,7 @@ scripts/directives/preventBlur.js
 scripts/directives/virtualKeyboard.js
 scripts/directives/keyboardCage.js
 scripts/directives/focus.js
+scripts/directives/equals.js
 scripts/filters/count.js
 scripts/filters/cpf.js
 scripts/filters/creditCard.js
