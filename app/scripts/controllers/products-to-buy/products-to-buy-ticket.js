@@ -23,6 +23,8 @@
                 $scope.ticket.checkBox[item.id] = 0;
             }
         };
+        
+        this.resetWatchedQty = resetWatchedQty;
 
         var setPurchaseOrder = function setPurchaseOrder(purchaseOrder) {
             $scope.purchaseOrder = PurchaseOrderService.filterReceived(purchaseOrder);
