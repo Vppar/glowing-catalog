@@ -1,4 +1,4 @@
-<div class="container ng-scope">
+<div class="container">
 	
     <!-- HEADER -->
     <div class="row-fluid">
@@ -18,10 +18,9 @@
 					<div class="float-right">
 						<span class="menu-level">
 							<div class="btn-group btn-group-sm">
-								<!-- <a class="btn btn-option" ng-class="{active: selectedReceivableMode=='add'}" ng-click="selectReceivableMode('add')">Adicionar</a> -->
-								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='edit'}" ng-click="selectReceivableMode('edit')">Editar</a>
-								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='receive'}" ng-click="selectReceivableMode('receive')">Baixa Pgto.</a>
-								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='list'}"  ng-click="selectReceivableMode('list')">Pesquisar</a>
+								
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='receive'}" ng-click="selectReceivableMode('receive')">À Receber</a>
+								<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='list'}"  ng-click="selectReceivableMode('list')">Todos</a>
 							</div>
 						</span>
 					</div>
@@ -29,10 +28,18 @@
 			</div>
 		
             <div ng-switch on="selectedReceivableMode">
-            	<!-- <span ng-switch-when="add"><span ng-controller="ReceivableAddCtrl" ng-include src="'views/parts/receivable/receivable-add.html'"></span></span> -->
-				<span ng-switch-when="edit"><span ng-controller="ReceivableEditCtrl" ng-include src="'views/parts/receivable/receivable-edit.html'"></span></span>
-				<span ng-switch-when="receive"><span ng-controller="ReceivableReceiveCtrl" ng-include src="'views/parts/receivable/receivable-receive.html'"></span></span>
-				<span ng-switch-when="list"><span ng-controller="ReceivableListCtrl" ng-include src="'views/parts/receivable/receivable-list.html'"></span></span>
+				<span ng-switch-when="edit">
+                    <span ng-controller="ReceivableEditCtrl" ng-include src="'views/parts/receivable/receivable-edit.html'"></span>
+                </span>
+				
+                <span ng-switch-when="receive">
+                    <span ng-controller="ReceivableReceiveCtrl" ng-include src="'views/parts/receivable/receivable-receive.html'"></span>
+                </span>
+				
+                <span ng-switch-when="list">
+                    <span ng-controller="ReceivableListCtrl" ng-include src="'views/parts/receivable/receivable-list.html'"></span>
+                </span>
+
 			</div>
 		</div>
             
@@ -43,11 +50,12 @@
                     <div class="new-body-header">
                         <div class="new-col-2 text-center">Item</div>
                         <div class="new-col-4">Emissão</div>
-                        <div class="new-col-6">Conta</div>
-                        <div class="new-col-3">Parcela</div>
+                        <div class="new-col-4">Conta</div>
+                        <div class="new-col-2">Parcela</div>
                         <div class="new-col-3">Docto / Nro</div>
                         <div class="new-col-3">Vencimento</div>
-                        <div class="new-col-3 currency">Valor</div> 
+                        <div class="new-col-3 currency">Valor</div>
+                        <div class="new-col-3 text-center">Status</div>
                     </div>
                 </div>
                 <div class="row-fluid" ng-repeat="receivable in receivables.list | orderBy:'duedate'" ng-click="selectReceivable(receivable)">
@@ -57,12 +65,12 @@
                         <div class="new-col-2 text-center">{{$index + 1}}</div>
                         <div class="new-col-4">{{receivable.created | date:"dd/MM/yyyy"}}</div>
 
-                        <div class="new-col-6">
+                        <div class="new-col-4">
                             <div><b>{{receivable.entityName}}</b></div>
                             <small>{{receivable.order.document}}</small>
                         </div>
                         
-                        <div class="new-col-3">{{receivable.installment}} de {{receivable.numberOfInstallment}}</div>
+                        <div class="new-col-2">{{receivable.installment}} de {{receivable.numberOfInstallment}}</div>
                         
                         <div class="new-col-3">
                             <div><b>{{receivable.documentType}}</b></div>
@@ -72,6 +80,8 @@
                         <div class="new-col-3">{{receivable.duedate | date:"dd/MM/yyyy"}}</div>
                         
                         <div class="new-col-3 currency">{{receivable.amount | currency:''}}</div> 
+
+                        <div class="new-col-3 text-center">aberto</div> 
                                 
                             </div>
                         </div>
