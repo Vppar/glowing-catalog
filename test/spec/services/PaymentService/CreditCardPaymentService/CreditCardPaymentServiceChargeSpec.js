@@ -68,7 +68,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     stub : 'i\'m a stub return'
                 };
 
-                CreditCardPaymentService.createCreditCardPayments = jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments');
+                CreditCardPaymentService.createCreditCardPayments = jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments').andReturn(true);
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     var deferred = $q.defer();
                     setTimeout(function() {
