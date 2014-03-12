@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').controller(
+    angular.module('tnt.catalog.dialog.changePassword.ctrl', []).controller(
         'ChangePassDialogCtrl',
         ['$scope', '$log', 'dialog', 'UserService', 'DialogService',
         function($scope, $log, dialog, UserService, DialogService) {
