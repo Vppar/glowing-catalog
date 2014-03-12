@@ -26,6 +26,21 @@
 	height: calc(100% - 141px);
 }
 
+.products-to-buy-pending-part-line{
+	border-bottom-color: rgb(204, 204, 204);
+	border-bottom-style: dotted;
+	border-bottom-width: 1px;
+	box-sizing: border-box;
+	display: block;
+	float: left;
+	line-height: 20px;
+	min-height: 20px;
+}
+
+.scroll-title-compensator{
+	padding-right: 2px;
+}
+
 /*FORM PRODUCTS TO BUY*/
 /*PEDIDO DE COMPRA*/
 
