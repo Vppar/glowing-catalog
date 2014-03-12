@@ -82,6 +82,8 @@
                  * @return {boolean} Whether the password is safe or not.
                  */
                 function isValidPassword(password) {
+                    // IMPORTANT! When this check is changed, make sure to
+                    // update the message in the change-password dialog!
                     return !!password
                         && typeof password === 'string'
                         && password.length >= PASSWORD_LENGTH_MIN;

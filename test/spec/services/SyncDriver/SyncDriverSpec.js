@@ -248,6 +248,32 @@ describe('Service: SyncDriver', function () {
                 return rejected;
             });
         });
+
+
+
+      describe('password strength check', function () {
+          beforeEach(function () {
+              SyncDriver.login();
+          });
+
+          it('checks that a password has a minimum length', function () {
+            var rejected = false;
+
+            runs(function () {
+                var result = SyncDriver.changePassword(email, oldPassword, '123');
+
+                result.then(null, function (err) {
+                    expect(err).toBe('Password not safe enough');
+                    rejected = true;
+                });
+            });
+
+            waitsFor(function () {
+                $rootScope.$apply();
+                return rejected;
+            });
+          });
+      }); // password strength check
   }); // SyncDriver.changePassword()
 
 
