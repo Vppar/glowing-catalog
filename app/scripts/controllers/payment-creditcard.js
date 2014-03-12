@@ -5,8 +5,8 @@
         'tnt.catalog.service.dialog', 'tnt.catalog.service.data', 'tnt.catalog.payment.creditcard.service'
     ]).controller(
             'PaymentCreditCardCtrl',
-            ['$scope', '$element', '$filter', 'DataProvider', 'DialogService', 'OrderService', 'CreditCardPaymentService',
-            function($scope, $element, $filter, DataProvider, DialogService, OrderService, CreditCardPaymentService) {
+            ['$scope', '$element', '$filter', '$q', 'DataProvider', 'DialogService', 'OrderService', 'CreditCardPaymentService',
+            function($scope, $element, $filter, $q, DataProvider, DialogService, OrderService, CreditCardPaymentService) {
 
                 // #####################################################################################################
                 // Warm up the controller
@@ -124,7 +124,9 @@
                 $scope.confirmCreditCardPayment = function confirmCreditCardPayment() {
                     $element.find('form').find('input').removeClass('ng-pristine').addClass('ng-dirty');
                     if (!($scope.creditCardForm.$valid && $scope.creditCard.amount > 0)) {
-                        return;
+                        var deferred = $q.defer();
+                        deferred.resolve();
+                        return deferred.promise;
                     }
                     var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
 

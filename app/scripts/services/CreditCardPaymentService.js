@@ -122,6 +122,8 @@
 
                             PaymentService.add(payment);
                         }
+                        
+                        return true;
                     };
 
             /**
@@ -151,8 +153,9 @@
                     var createCreditCardPayments = this.createCreditCardPayments;
 
                     recordedPayment = chargedCCPromise.then(function(result) {
-                        createCreditCardPayments(creditCard, amount, numInstallments, result);
-                        return true;
+                        return createCreditCardPayments(creditCard, amount, numInstallments, result);
+                    }, function(errMsg) {
+                        return $q.reject(errMsg);
                     });
                 } catch (err) {
                     $log.fatal('CreditcardPaymentService.charge', err);
