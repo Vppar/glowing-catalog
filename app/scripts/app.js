@@ -114,7 +114,6 @@
             'tnt.catalog.appointments.service',
             'tnt.catalog.appointments.entity',
             'tnt.catalog.appointments.keeper',
-            
             'tnt.catalog.components.numpad',
             'tnt.catalog.directives.clickDelay',
             'tnt.catalog.directives.fastClick',
@@ -125,7 +124,8 @@
             'tnt.catalog.directives.focus',
             'tnt.catalog.directives.equals',
             'tnt.catalog.directives.promiseClick',
-            'tnt.catalog.Check'
+            'tnt.catalog.check',
+            'tnt.catalog.check.service'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
