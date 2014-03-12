@@ -588,8 +588,6 @@
                         
                         var confirmedPromise = confirmPaymentIntentPromise.then(function(){
                             return PaymentService.checkout(customer, totalOrder, totalDiscont, totalChange);
-                        }, function () {
-                            return $q.reject('canceledByUser');
                         });
                             
                         // Inform the user that the payment is done.

@@ -59,11 +59,9 @@
                 if(success){
                     result = success;
                 } else {
-                    result = $q.reject('Empty dialog return.');
+                    result = $q.reject('canceledByUser');
                 }
                 return result;
-            }, function(err) {
-                return $q.reject(err);
             });
             
             return safeDialog;
