@@ -441,16 +441,15 @@ margin-top: 5px;
 	padding: 10px 0 10px 0;
 }
 .title-right .title {
-	text-align: left;
+	text-align: center;
 	vertical-align: middle;
 	font-size:120%;
-	width: 50%;
-	padding-left: 10px;
+	width: 100%;
 }
 .title-right .order {
 	text-align: left;
 	vertical-align: middle;
-	font-size:120%;
+	font-size:80%;
 	width: 40%;
 }
 .container-payment .table th, .table {
