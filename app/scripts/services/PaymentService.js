@@ -65,7 +65,7 @@
      */
     entities.factory('CreditCardPayment', ['Payment', function CreditCardPayment(Payment) {
 
-        var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments, duedate) {
+        var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cpf, installments, duedate) {
 
             if (arguments.length != svc.length) {
                 throw 'CreditCardPayment must be initialized with all params';
@@ -75,7 +75,6 @@
             this.ccNumber = ccNumber;
             this.owner = owner;
             this.ccDueDate = ccDueDate;
-            this.cvv = cvv;
             this.cpf = cpf;
             this.installments = installments;
 
@@ -83,7 +82,6 @@
             ObjectUtils.ro(this, 'ccNumber', this.ccNumber);
             ObjectUtils.ro(this, 'owner', this.owner);
             ObjectUtils.ro(this, 'ccDueDate', this.ccDueDate);
-            ObjectUtils.ro(this, 'cvv', this.cvv);
             ObjectUtils.ro(this, 'cpf', this.cpf);
             ObjectUtils.ro(this, 'installments', this.installments);
 
@@ -101,21 +99,19 @@
      */
     entities.factory('NoMerchantCreditCardPayment', ['Payment', function NoMerchantCreditCardPayment(Payment) {
 
-        var service = function svc(orderId, amount, flag, installments) {
+        var service = function svc(amount, flag, installments, duedate) {
 
             if (arguments.length != svc.length) {
                 throw 'CreditCardPayment must be initialized with all params';
             }
 
-            this.orderId = orderId;
-            this.amount = amount;
             this.flag = flag;
             this.installments = installments;
+            this.duedate = duedate;
 
-            ObjectUtils.ro(this, 'orderId', this.flag);
-            ObjectUtils.ro(this, 'amount', this.flag);
             ObjectUtils.ro(this, 'flag', this.flag);
             ObjectUtils.ro(this, 'installments', this.installments);
+            ObjectUtils.ro(this, 'duedate', this.duedate);
 
             ObjectUtils.superInvoke(this, amount);
 

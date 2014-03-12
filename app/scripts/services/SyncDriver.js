@@ -1,7 +1,9 @@
 (function (angular) {
+    'use strict';
 
     angular.module('tnt.catalog.sync.driver', [
-        'tnt.catalog.sync.firebase'
+        'tnt.catalog.sync.firebase',
+        'tnt.catalog.config'
     ]).service(
         'SyncDriver',
         [
@@ -10,19 +12,21 @@
             '$q',
             'Firebase',
             'FirebaseSimpleLogin',
-            function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin) {
+            'CatalogConfig',
+            function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin, CatalogConfig) {
 
-                var baseRef = new Firebase('voppwishlist.firebaseio.com');
+                var baseRef = new Firebase(CatalogConfig.firebaseURL);
+
+                var PASSWORD_LENGTH_MIN = 6;
+
                 var userRef = null;
                 var journalRef = null;
                 var syncingFlagRef = null;
 
+                var auth = null;
+
                 var firebaseSyncStartTime = null;
                 var firebaseSyncStartTime2 = null;
-
-                if (isConnected()) {
-                    setFirebaseReferences(localStorage.firebaseUser);
-                }
 
                 $rootScope.$on('SyncStop', function () {
                     if (syncingFlagRef) {
@@ -71,6 +75,58 @@
                     syncingFlagRef = userRef.child('syncing');
                 }
 
+
+                /**
+                 * Checks if the given password meets the system's safety requirements.
+                 * @param {String} password Password being checked.
+                 * @return {boolean} Whether the password is safe or not.
+                 */
+                function isValidPassword(password) {
+                    // IMPORTANT! When this check is changed, make sure to
+                    // update the message in the change-password dialog!
+                    return !!password &&
+                        typeof password === 'string' &&
+                        password.length >= PASSWORD_LENGTH_MIN;
+                }
+
+
+                /**
+                 * Changes the password for the user with the given email.
+                 * @param {string} email The e-mail of the user we should
+                 *    change the password for.
+                 * @param {string} oldPassword User's currently valid password.
+                 * @param {string} newPassword User's new password.
+                 * @return {Object} A promise that will be resolved when the
+                 *    password is successfully changed or rejected otherwise.
+                 */
+                function changePassword(email, oldPassword, newPassword) {
+                    if (!auth) {
+                        return $q.reject('Not connected to Firebase!');
+                    }
+
+                    // Firebase seems to accept ANY string as a valid password...
+                    if (!isValidPassword(newPassword)) {
+                        return $q.reject('Password not safe enough');
+                    }
+
+                    var deferred = $q.defer();
+
+                    auth.changePassword(email, oldPassword, newPassword, function (err) {
+                        if (!err) {
+                            deferred.resolve(true);
+                        } else {
+                            $log.debug('Failed to change password:', err);
+                            deferred.reject(err);
+                        }
+                    });
+
+                    return deferred.promise;
+                }
+
+                this.changePassword = changePassword;
+
+
+
                 // TODO implement rememberMe
                 //
                 // FIXME Firebase authentication expects a single callback to
@@ -84,7 +140,7 @@
                     function (username, password) {
                         var deferred = $q.defer();
 
-                        new FirebaseSimpleLogin(baseRef, function (err, user) {
+                        auth = new FirebaseSimpleLogin(baseRef, function (err, user) {
                             if (err) {
                                 $log.debug('Firebase authentication error (login cb)', err);
                                 deferred.reject(err);
@@ -121,7 +177,9 @@
                                 delete localStorage.firebaseUser;
                                 $rootScope.$broadcast('FirebaseDisconnected');
                             }
-                        }).login('password', {
+                        });
+                        
+                        auth.login('password', {
                             email : username,
                             password : password
                         });
@@ -144,8 +202,11 @@
                                 var syncing = snapshot.val();
                                 firebaseSyncStartTime = syncing || null;
 
-                                syncing ? $rootScope.$broadcast('FirebaseBusy', syncing)
-                                    : $rootScope.$broadcast('FirebaseIdle');
+                                if (syncing) {
+                                    $rootScope.$broadcast('FirebaseBusy', syncing);
+                                } else {
+                                    $rootScope.$broadcast('FirebaseIdle');
+                                }
                             });
 
                             // Broadcast the event once everything is ready
@@ -220,6 +281,12 @@
 
                     return deferred.promise;
                 };
+
+
+
+                if (isConnected()) {
+                    setFirebaseReferences(localStorage.firebaseUser);
+                }
 
             }
         ]);

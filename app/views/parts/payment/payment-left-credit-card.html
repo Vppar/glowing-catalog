@@ -273,12 +273,12 @@
 		<div class="error" style="display:none">Erro ao inserir dados, contate o suporte informando o código </div>
 	</div>
 	
-	<div class="payment-left-btns-area">
+	<div class="payment-left-btns-area" fast-click>
 		<div class="payment-left-btns">
 			<button class="btn btn-cancel btn-large btn-login btn-payment-creditcard" type="button" ng-click="cancelPayments()">
 				Cancelar
 			</button>
-			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="button" ng-click="confirmCreditCardPayment()" >
+			<button class="btn btn-ok btn-large btn-login pull-right btn-payment-creditcard" type="button" tnt-promise-click="confirmCreditCardPayment()" >
 				Confirmar
 			</button>
 		</div>

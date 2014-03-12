@@ -1,85 +1,51 @@
-<div class="container">
 <script>
 var initMagnifier = function () {
     $('#magnifier').zoom({magnify: 2});
 };
 </script>
-    <form class="form-add-to-basket2">  
-        <span class="heading-gradient">{{product.title}}</span>
-        <span class="wrapper-qtde2">
-            <div class="price-add-to-basket"><span class="price-popup-small">R$</span> {{product.price | currency:''}}</div> 
-            <span class="label-input-qtde">Qtde</span>
+
+<div class="modal-head">{{product.title}}</div>
+
+<div class="modal-body modal-add-basket-dialog-body">
+
+    <div class="img-holder">
+        <div class='zoom' id='magnifier'>
+            <!-- <img ng-src="{{config.imageBaseURL}}{{product.image}}" onload="javascript:initMagnifier();" alt="" />  -->
+            <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
+        </div>
+    </div>
+    <div class="info">
+
+        <div class="info-item price">
+            <small>R$</small>{{product.price | currency:''}}</span>
+        </div> 
+        
+        <div class="info-item quantity">
+            <span class="info-label">Qtde</span>
             <input-qty ng-model="grid[0].qty" min="0"></input-qty>
-            <div class="price-add-to-basket margint14">
-                <span class="price-popup-total">Total</span>
-                <br />
-                <br />
-                <span class="price-popup-small">R$</span> {{product.price * grid[0].qty | currency:''}}
-            </div>
-            <div class="line-gradient">&nbsp;</div>
-            <div class="quantity-products-basket">{{product.inventory}} em estoque</div>
-        </span>
-        <div class="img-catalog-basket2">
-            <span class='zoom' id='magnifier'>
-                <img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
+        </div>
+
+        <div class="info-item total">
+            <span class="info-label">Total</span>
+            <span class="total-value">
+                <small>R$</small> {{product.price * grid[0].qty | currency:''}}
             </span>
         </div>
-        <span class="code-product .code-product-vs">{{item.SKU}}</span>
-        <div class="clearfix"></div>
-        <hr />
-        <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
-        <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
-    </form>
+
+         <div class="info-item discount">
+            <span class="info-label">Desconto</span>
+            <span class="fake-input" ng-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
+        </div>
+           
+        <div class="line-gradient">&nbsp;</div>
+        <div class="stock">{{product.inventory}} em estoque</div>
+    </div>
+
+    <span class="code-product code-product-vs">{{item.SKU}}</span>
 </div>
-<!--
-    <script>
-    var initMagnifier = function () {
-        $('#magnifier').zoom({magnify: 2});
-    };
-    </script>
-    
-    <div class="modal-head">{{product.title}}</div>
 
-    <div class="modal-body modal-add-basket-dialog-body">
-
-        <div class="img-holder">
-            <div class='zoom' id='magnifier'>
-                <img ng-src="images/catalog/products/{{product.image}}" onload="javascript:initMagnifier();" alt="" />
-            </div>
-        </div>
-        <div class="info">
-
-            <div class="info-item price">
-                <small>R$</small>{{product.price | currency:''}}</span>
-            </div> 
-            
-            <div class="info-item quantity">
-                <span class="info-label">Qtde</span>
-                <input-qty ng-model="grid[0].qty" min="0"></input-qty>
-            </div>
-
-            <div class="info-item total">
-                <span class="info-label">Total</span>
-                <span class="total-value">
-                    <small>R$</small> {{product.price * grid[0].qty | currency:''}}
-                </span>
-            </div>
-
-             <div class="info-item discount">
-                <span class="info-label">Desconto</span>
-                <span class="fake-input" ng-click="foo()"></span>
-            </div>
-               
-            <div class="line-gradient">&nbsp;</div>
-            <div class="stock">{{product.inventory}} em estoque</div>
-        </div>
-		
-        <span class="code-product code-product-vs">{{item.SKU}}</span>
-    </div>
-
-    <div class="modal-foot">
-        <hr />
-        <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
-        <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
-    </div>
-    -->
+<div class="modal-foot">
+    <hr />
+    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+    <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
+</div>

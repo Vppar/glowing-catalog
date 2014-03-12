@@ -8,6 +8,7 @@
      height: 20px;
      font-size: 16px;
      cursor: pointer;
+     overflow: hidden;
  }
 
  div.zoom{
@@ -75,6 +76,7 @@
  .modal-numpad input{
      width: 282px;
      height: 40px;
+     text-align: right;
  }
  
  .modal-add-basket-details-dialog{
@@ -111,6 +113,26 @@
      margin-top: 25px;
  }
  
+.modal-products-to-buy-ticket {
+    position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 400px;
+     margin-left: -200px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+     padding-bottom:20px;
+}
+.modal-products-to-buy-ticket .modal-body .row-fluid:first-child {
+	margin-bottom:6px;
+}
+.modal-products-to-buy-ticket .modal-body .span6:first-child {
+	line-height:30px;
+}
+
  /*
 	all this at modal-body, maybe should be at some more restricted class....
  */
