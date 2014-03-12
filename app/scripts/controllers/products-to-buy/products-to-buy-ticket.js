@@ -81,6 +81,8 @@
                 selectPart('part1');
                 resetPurchaseOrder();
             });
+            
+            return redeemedPromise;
         };
 
         $scope.changeTab = function changeTab(tab) {
