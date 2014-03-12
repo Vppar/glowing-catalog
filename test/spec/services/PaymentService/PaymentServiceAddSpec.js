@@ -116,10 +116,9 @@ describe('Service: PaymentServiceAdd', function() {
         var ccNumber = '4567890';
         var owner = 'its me mario';
         var ccDueDate = 12345678;
-        var cvv = 123;
         var cpf = 1234567890;
         var installments = 1;
-        var payment = new CreditCardPayment(uuid, amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments);
+        var payment = new CreditCardPayment(uuid, amount, flag, ccNumber, owner, ccDueDate, cpf, installments);
 
         // when
         var addCall = function() {

@@ -65,7 +65,7 @@
      */
     entities.factory('CreditCardPayment', ['Payment', function CreditCardPayment(Payment) {
 
-        var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cvv, cpf, installments, duedate) {
+        var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cpf, installments, duedate) {
 
             if (arguments.length != svc.length) {
                 throw 'CreditCardPayment must be initialized with all params';
@@ -75,7 +75,6 @@
             this.ccNumber = ccNumber;
             this.owner = owner;
             this.ccDueDate = ccDueDate;
-            this.cvv = cvv;
             this.cpf = cpf;
             this.installments = installments;
 
@@ -83,7 +82,6 @@
             ObjectUtils.ro(this, 'ccNumber', this.ccNumber);
             ObjectUtils.ro(this, 'owner', this.owner);
             ObjectUtils.ro(this, 'ccDueDate', this.ccDueDate);
-            ObjectUtils.ro(this, 'cvv', this.cvv);
             ObjectUtils.ro(this, 'cpf', this.cpf);
             ObjectUtils.ro(this, 'installments', this.installments);
 

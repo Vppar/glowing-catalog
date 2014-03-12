@@ -127,7 +127,7 @@
                                                     new CreditCardPayment(
                                                             creditCardInstallment.amount, creditCardInstallment.flag,
                                                             creditCardInstallment.number, creditCardInstallment.cardholderName,
-                                                            creditCardDueDate, creditCard.cvv, creditCard.cardholderDocument,
+                                                            creditCardDueDate, creditCard.cardholderDocument,
                                                             creditCardInstallment.installment, dueDate.getTime());
                                             payment.gopayInfo = gopayInfo;
                                         } else {
