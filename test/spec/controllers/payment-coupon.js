@@ -10,7 +10,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     var DataProvider = {};
 
     var itemsMock = [];
-    
+
     log.debug = angular.noop;
 
     // load the controller's module
@@ -38,7 +38,6 @@ describe('Controller: PaymentCouponCtrl', function() {
         orderServiceMock.order.paymentIds = [];
 
         paymentServiceMock.persistedCoupons = {
-            // amount : qty
             10 : 2
         };
 
@@ -80,8 +79,6 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     it('Should calculate totals - qty=5 ', function() {
 
-        expect(scope.coupon.total).toEqual(0);
-
         for ( var ix in scope.list) {
             item = scope.list[ix];
             item.qty = 5;
@@ -98,8 +95,6 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('Should calculate totals - qty=23. ', function() {
-
-        expect(scope.coupon.total).toEqual(0);
 
         for ( var ix in scope.list) {
             item = scope.list[ix];
@@ -147,10 +142,18 @@ describe('Controller: PaymentCouponCtrl', function() {
 
             expect(paymentServiceMock.persistCouponQuantity).toHaveBeenCalled();
             expect(paymentServiceMock.persistCouponQuantity.calls.length).toBe(scope.list.length);
-            expect(paymentServiceMock.persistCouponQuantity.calls[0].args).toEqual([5, 0]);
-            expect(paymentServiceMock.persistCouponQuantity.calls[1].args).toEqual([10, 1]);
-            expect(paymentServiceMock.persistCouponQuantity.calls[2].args).toEqual([20, 0]);
-            expect(paymentServiceMock.persistCouponQuantity.calls[3].args).toEqual([30, 2]);
+            expect(paymentServiceMock.persistCouponQuantity.calls[0].args).toEqual([
+                5, 0
+            ]);
+            expect(paymentServiceMock.persistCouponQuantity.calls[1].args).toEqual([
+                10, 1
+            ]);
+            expect(paymentServiceMock.persistCouponQuantity.calls[2].args).toEqual([
+                20, 0
+            ]);
+            expect(paymentServiceMock.persistCouponQuantity.calls[3].args).toEqual([
+                30, 2
+            ]);
         });
     });
 
@@ -231,7 +234,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     // Allows to confirm with value 0 if there's an existing voucher
-    it('allows to remove an existing voucher by setting the value to 0', function () {
+    it('allows to remove an existing voucher by setting the value to 0', function() {
         // If failing, make sure there's a voucher in OrderService.order.items
         scope.voucher.total = 0;
         scope.option = 'option01';
@@ -269,7 +272,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         scope.option = 'option02';
         scope.gift.total = 0;
         scope.gift.customer = {
-          name : 'Anyname'
+            name : 'Anyname'
         };
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(false);
@@ -286,14 +289,13 @@ describe('Controller: PaymentCouponCtrl', function() {
 
     // If the user added coupons and, later, decides to remove them by
     // setting their quantity to 0, we should allow them to be removed.
-    it('allows to confirm if total value of coupons is 0 and there are persisted coupons', function () {
+    it('allows to confirm if total value of coupons is 0 and there are persisted coupons', function() {
         paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(true);
         scope.option = 'option03';
         scope.coupon.total = 0;
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(true);
     });
-
 
     it('should not allow to confirm if the total value of coupons is equals or less than zero', function() {
         // I'm not sure why, but I had to make this call to $apply() to get
