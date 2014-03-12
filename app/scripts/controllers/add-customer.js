@@ -85,19 +85,17 @@
                     $scope.confirm = function confirm() {
                         $scope.failed = true;
                         if (!$scope.newCustomerForm.$valid) {
-                            DialogService.messageDialog({
+                            return DialogService.messageDialog({
                                 title : 'Novo usuário',
                                 message : 'Os campos destacados são de preenchimento obrigatório.',
                                 btnYes : 'OK'
                             });
-                            return;
                         }
                         var entityCreatedPromise = EntityService.create(customer).then(function(uuid) {
                             OrderService.order.customerId = uuid;
                             return uuid;
-                        }, function() {
-                            // TODO something about it
                         });
+                        
                         $location.path('/');
 
                         return entityCreatedPromise;
