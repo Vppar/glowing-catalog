@@ -128,7 +128,7 @@
         };
         
         this.openDialogProductsToBuyTicket = function(data) {
-            return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data, 'modal-products-to-buy-ticket');
         };
     }]);
 
