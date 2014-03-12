@@ -337,8 +337,8 @@ images/loading_20.gif
 
 images/icons/ic-calendar.png
 
-styles/com/images/select_close.png
-styles/com/images/icon.png
+images/thirdparty/select2/select_close.png
+images/thirdparty/magnifier/icon.png
 
 images/tutorial/tutorial-android-mockup-full.png
 images/tutorial/tutorial-ipad-mockup-full.png
