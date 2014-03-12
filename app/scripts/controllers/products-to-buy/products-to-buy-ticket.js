@@ -30,6 +30,8 @@
             $scope.purchaseOrder = PurchaseOrderService.filterReceived(purchaseOrder);
             resetWatchedQty();
         };
+        
+        this.setPurchaseOrder = setPurchaseOrder;
 
         var selectPart = function selectPart(part) {
             ticket.selectedPart = part;
