@@ -38,30 +38,29 @@
                                     // VOPP-210.
                                     status.changed = new Date().getTime();
                                     scope.isActive = active;
-                                    // TODO - Remove commented code.
-//                                    if (active) {
-//                                        $document.find('body').append(mask);
-//                                        mask.bind('click', function (event) {
-//                                            if (!scope.isActive) {
-//                                                mask.remove();
-//                                            } else {
-//                                                KeyboardService.quit();
-//                                                scope.$apply();
-//                                                mask.remove();
-//                                                var el =
-//                                                    $(document.elementFromPoint(
-//                                                        event.clientX,
-//                                                        event.clientY));
-//
-//                                                if (!el.is(':disabled')) {
-//                                                    el.trigger('click');
-//                                                    el.trigger('focus');
-//                                                }
-//                                            }
-//                                        });
-//                                    } else if (!('ontouchstart' in window || 'onmsgesturechange' in window)) {
-//                                        mask.remove();
-//                                    }
+                                    if (active) {
+                                        $document.find('body').append(mask);
+                                        mask.bind('click', function (event) {
+                                            if (!scope.isActive) {
+                                                mask.remove();
+                                            } else {
+                                                KeyboardService.quit();
+                                                scope.$apply();
+                                                mask.remove();
+                                                var el =
+                                                    $(document.elementFromPoint(
+                                                        event.clientX,
+                                                        event.clientY));
+
+                                                if (!el.is(':disabled')) {
+                                                    el.trigger('click');
+                                                    el.trigger('focus');
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        mask.remove();
+                                    }
                                 },
                                 status : status
                             };
