@@ -19,6 +19,13 @@
 	margin-top: 10px;
 }
 
+.products-to-buy-pending-part {
+	height: 100%;
+}
+.products-to-buy-pending-part .new-scrollpanel{
+	height: calc(100% - 141px);
+}
+
 /*FORM PRODUCTS TO BUY*/
 /*PEDIDO DE COMPRA*/
 
@@ -1335,8 +1342,7 @@ vertical-align: middle;
 	top:0;
 }
 
-.step3 .new-scrollpanel,
-.step4 .new-scrollpanel{
+.step3 .new-scrollpanel{
 	height:calc(100% - 175px);
 }
 .new-scrollpanel .new-body-row span {
