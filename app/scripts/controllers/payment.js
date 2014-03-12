@@ -389,7 +389,11 @@
                             // Payment total
                             total.payments.cash = PaymentService.list('cash');
                             total.payments.check = PaymentService.list('check');
-                            total.payments.creditCard = PaymentService.list('creditCard');
+                            
+                            var creditCard = PaymentService.list('creditCard');
+                            var noMerchantCreditCard = PaymentService.list('noMerchantCc');
+                            total.payments.creditCard = creditCard.concat(noMerchantCreditCard);
+                            
                             total.payments.exchange = PaymentService.list('exchange');
                             total.payments.coupon = PaymentService.list('coupon');
                             total.payments.onCuff = PaymentService.list('onCuff');
