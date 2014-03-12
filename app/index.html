@@ -57,12 +57,13 @@
     	      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     	    <![endif]-->
     
-        <!-- Splash Page / Showed before "Preloader" - change "display:none" to "display:block" to see this 'page' -->
-        <div style="display:none;width:100%;height:100%;text-align:center;background:url('images/logo-home.png') center center no-repeat #000;"></div>
+        <style type="text/css">@-webkit-keyframes stretchdelay {0%,40%,100%{-webkit-transform:scaleY(0.4)} 20%{-webkit-transform:scaleY(1.0)}}
+        @keyframes stretchdelay {0%,40%,100%{transform:scaleY(0.4);-webkit-transform:scaleY(0.4);} 20%{transform:scaleY(1.0);-webkit-transform: scaleY(1.0);}}[ng-cloak].splash {display: block !important;}.splash{display: none;}</style>
+
+        <!-- Splash Page -->
+        <div class="splash" ng-cloak="" style="width:100%;height:100%;text-align:center;background:url('images/logo-home.png') center center no-repeat #000;"></div>
 
         <!-- Preloader + Loading percentage -->
-        <style type="text/css">@-webkit-keyframes stretchdelay {0%,40%,100%{-webkit-transform:scaleY(0.4)} 20%{-webkit-transform:scaleY(1.0)}}
-        @keyframes stretchdelay {0%,40%,100%{transform:scaleY(0.4);-webkit-transform:scaleY(0.4);} 20%{transform:scaleY(1.0);-webkit-transform: scaleY(1.0);}}</style>
         <!-- Change here "display:none" to "display:block" to see this 'page' -->
         <div style="display:none;width:100%;height:100%;text-align:center;padding-top:20%;background-color:#000;position:relative;">
 
@@ -83,7 +84,7 @@
         </div>
 
         <!-- Add your site or application content here -->
-        <div class="div-master" ng-view=""></div>
+        <div class="div-master" ng-cloak  ng-view=""></div>
     
         <!-- build:js scripts/plugins.js -->
         <script src="bower_components/jquery/jquery.js"></script>
