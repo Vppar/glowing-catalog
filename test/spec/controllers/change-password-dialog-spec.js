@@ -118,28 +118,80 @@ describe('ChangePassDialogCtrl', function() {
             });
         });
 
-        it('shows PROPER a message if the password was NOT changed', function () {
-            UserServiceMock.changePassword.andCallFake(PromiseHelper.rejected('INVALID_PASSWORD'));
-            $scope.oldPassword = 'oldPassword';
-            $scope.newPassword = 'newPassword';
-            $scope.$apply();
 
-            var resolved = false;
 
-            runs(function () {
-                $scope.changePassword();
-            });
-
-            waitsFor(function () {
+        describe('error message handling', function () {
+            it('shows PROPER proper message if the wrong password is passed', function () {
+                UserServiceMock.changePassword.andCallFake(PromiseHelper.rejected('INVALID_PASSWORD'));
+                $scope.oldPassword = 'oldPassword';
+                $scope.newPassword = 'newPassword';
                 $scope.$apply();
-                return DialogServiceMock.messageDialog.calls.length;
+
+                var resolved = false;
+
+                runs(function () {
+                    $scope.changePassword();
+                });
+
+                waitsFor(function () {
+                    $scope.$apply();
+                    return DialogServiceMock.messageDialog.calls.length;
+                });
+
+                runs(function () {
+                    var args = DialogServiceMock.messageDialog.calls[0].args;
+                    expect(args[0].message).toBe('Senha inválida.');
+                });
             });
 
-            runs(function () {
-                var args = DialogServiceMock.messageDialog.calls[0].args;
-                expect(args[0].message).toBe('Senha inválida.');
+
+            it('shows PROPER proper message if not connected to Firebase', function () {
+                UserServiceMock.changePassword.andCallFake(PromiseHelper.rejected('Not connected to Firebase!'));
+                $scope.oldPassword = 'oldPassword';
+                $scope.newPassword = 'newPassword';
+                $scope.$apply();
+
+                var resolved = false;
+
+                runs(function () {
+                    $scope.changePassword();
+                });
+
+                waitsFor(function () {
+                    $scope.$apply();
+                    return DialogServiceMock.messageDialog.calls.length;
+                });
+
+                runs(function () {
+                    var args = DialogServiceMock.messageDialog.calls[0].args;
+                    expect(args[0].message).toBe('Dispositivo não conectado à internet.');
+                });
             });
-        });
+
+
+            it('shows PROPER proper message if password is not safe enough', function () {
+                UserServiceMock.changePassword.andCallFake(PromiseHelper.rejected('Password not safe enough'));
+                $scope.oldPassword = 'oldPassword';
+                $scope.newPassword = 'newPassword';
+                $scope.$apply();
+
+                var resolved = false;
+
+                runs(function () {
+                    $scope.changePassword();
+                });
+
+                waitsFor(function () {
+                    $scope.$apply();
+                    return DialogServiceMock.messageDialog.calls.length;
+                });
+
+                runs(function () {
+                    var args = DialogServiceMock.messageDialog.calls[0].args;
+                    expect(args[0].message).toBe('Senhas devem conter pelo menos 6 caracteres.');
+                });
+            });
+        }); // error message handling
     }); // $scope.changePassword()
 
 
