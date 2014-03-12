@@ -19,8 +19,7 @@
 						$scope.contacts = undefined;
 						$scope.appointments = [];						
 						$scope.appointment = undefined;
-						$scope.contacts = [];
-						$scope.contacts = EntityService.list();
+						
 						$scope.filter = [];
 						$.datepicker.regional['pt'] = {
         					closeText: 'Fechar',
@@ -79,6 +78,7 @@
 						// Initialize/Rebuild Adam Shaw Full Calendar Component
 						// #############################################################################################################
 						$scope.rebuildCalendarJsGrid = function() {							
+							$scope.contacts = EntityService.list();
 							
 							$('#calendar').fullCalendar({
 								
@@ -235,28 +235,28 @@
 								for(var idx in $scope.appointments)
 								{
 									var app = $scope.appointments[idx];
-									var nameEntity = "";
-									contador = contador + 1;
-									var entity = ArrayUtils.find($scope.contacts, 'uuid', app.contacts);
-									if (entity) {
-				                    	nameEntity = entity.name;
-				                    }
-				                    var typeCircle = $('.tag' + app.type).find('div[class*="tag-circle"]');
-									var event = {
-											title: app.title,
-											start: new Date(app.startDate),
-											end: new Date(app.endDate),
-											allDay: false,
-											status: app.status,
-											color: typeCircle.attr('class').indexOf('tag-circle-selected') >= 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
-											description: app.description,
-											client: nameEntity,
-											clientUUID: app.contacts,
-											type: app.type,
-											id: contador,
-											uuid: app.uuid
-									};
-									events.push(event);
+										var nameEntity = "";
+										contador = contador + 1;
+										var entity = ArrayUtils.find($scope.contacts, 'uuid', app.contacts);
+										if (entity) {
+					                    	nameEntity = entity.name;
+					                    }
+										var typeCircle = $('.tag'+ app.type).find('div[class*="tag-circle"]');
+										var event = {
+												title: app.title,
+												start: new Date(app.startDate),
+												end: new Date(app.endDate),
+												allDay: false,
+												status: app.status,
+												color: typeCircle.attr('class').indexOf('tag-circle-selected') >= 0 ? typeCircle.css('background-color') : typeCircle.css('border-color'),
+												description: app.description,
+												client: nameEntity,
+												clientUUID: app.contacts,
+												type: app.type,
+												id: contador,
+												uuid: app.uuid
+										};
+										events.push(event);
 								}
 							}
 							
@@ -283,18 +283,14 @@
 						// Controller methods (appointments.html)
 						// #############################################################################################################												
 						function openEventDialog(eventType, date, startHours, startMinutes, endHours, endMinutes, event) { 
+							$scope.contacts = EntityService.list();
 							
-							$("#select-hour-end").val(0);
-							$("#select-minute-end").val(0);							
-
-							if(date) {
-								$("#select-date").val(date);
-							}
+							$("#select-date").val(date);
 
 							if(eventType) {
 								$("#select-event").val(eventType);
 							} else {
-								$("#select-event").val(0);
+								$("#select-event").val("");
 							}
 							
 							if(startHours) {
@@ -306,12 +302,12 @@
 							if(startMinutes) {
 								$("#select-minute-initial").val(startMinutes);
 							} else {
-								$("#select-minute-initial").val(0);
+								$("#select-minute-initial").val("00");
 							}
 							if(!endHours) {
 								if( !endMinutes && startMinutes == 30 )	{
 									$("#select-hour-end").val(startHours+1);
-									$("#select-minute-end").val(0);
+									$("#select-minute-end").val("00");
 								}
 								else if( !endMinutes ) {
 									$("#select-hour-end").val(startHours);
