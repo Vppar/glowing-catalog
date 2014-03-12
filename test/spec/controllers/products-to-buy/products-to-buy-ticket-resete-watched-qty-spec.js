@@ -1,4 +1,4 @@
-ddescribe('Controller: products-to-buy-ticket-reset-watched-qty-spec', function () {
+describe('Controller: products-to-buy-ticket-reset-watched-qty-spec', function () {
 
     var DialogService = {};
     var PurchaseOrderService = {};
