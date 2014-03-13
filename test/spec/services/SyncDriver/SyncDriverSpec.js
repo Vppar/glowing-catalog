@@ -35,7 +35,7 @@ describe('Service: SyncDriver', function () {
     FirebaseSimpleLoginMock = FirebaseHelper.FirebaseSimpleLogin;
 
     CatalogConfigMock = {
-        firebaseURL : 'firebaseHost'
+        firebaseURL : 'firebase'
     };
 
     module('tnt.catalog.sync.driver');
