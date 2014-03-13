@@ -212,12 +212,4 @@
             }
         ]);
 
-    angular.module('tnt.catalog.entity', [
-        'tnt.catalog.entity.entity', 'tnt.catalog.entity.keeper'
-    ]).run([
-        'EntityKeeper', function (EntityKeeper) {
-            // Warming up EntityKeeper
-        }
-    ]);
-
 }(angular));
