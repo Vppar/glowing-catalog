@@ -3,6 +3,10 @@
     angular.module('tnt.catalog.financial.receivable.receive.ctrl', []).controller(
             'ReceivableReceiveCtrl', ['$scope', 'ReceivableService', 'DialogService', function($scope, ReceivableService, DialogService) {
 
+                $scope.openReceivable = function openReceivable (){
+                    DialogService.openDialogReceivable();
+                }
+
                 $scope.comfirmReceive = function comfirmReceive() {
                     var receivable = angular.copy($scope.selectedReceivable);
 
