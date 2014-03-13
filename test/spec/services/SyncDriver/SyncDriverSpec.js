@@ -1,4 +1,5 @@
 describe('Service: SyncDriver', function () {
+  'use strict';
 
   var logger = angular.noop;
 
@@ -12,26 +13,10 @@ describe('Service: SyncDriver', function () {
   var $rootScope = null;
   var SyncDriver = null;
 
-  var FirebaseMock = function () {
-  };
+  var FirebaseMock = null;
+  var FirebaseSimpleLoginMock = null;
 
-  FirebaseMock.prototype = {
-      child : function () {
-          // Make the calls to child() chainable
-          return this;
-      },
-
-      on : function () {}
-  };
-
-
-  var FirebaseSimpleLoginMock = function () {
-  };
-
-  FirebaseSimpleLoginMock.prototype = {
-      changePassword : function () {},
-      login : function () {}
-  };
+  var CatalogConfigMock = null;
 
 
   beforeEach(function () {
@@ -44,15 +29,24 @@ describe('Service: SyncDriver', function () {
 
   // load the service's module
   beforeEach(function () {
+    FirebaseHelper.reset();
+
+    FirebaseMock = FirebaseHelper.Firebase;
+    FirebaseSimpleLoginMock = FirebaseHelper.FirebaseSimpleLogin;
+
+    CatalogConfigMock = {
+        firebaseURL : 'firebaseHost'
+    };
+
     module('tnt.catalog.sync.driver');
 
     module(function ($provide) {
       $provide.value('$log', $log);
       $provide.value('Firebase', FirebaseMock);
       $provide.value('FirebaseSimpleLogin', FirebaseSimpleLoginMock);
+      $provide.value('CatalogConfig', CatalogConfigMock);
     });
   });
-
 
   // create spies
   beforeEach(function () {
@@ -64,6 +58,11 @@ describe('Service: SyncDriver', function () {
     $rootScope = _$rootScope_;
     SyncDriver = _SyncDriver_;
   }));
+
+
+  beforeEach(function () {
+      FirebaseHelper.reset();
+  });
 
 
 
@@ -250,5 +249,169 @@ describe('Service: SyncDriver', function () {
         });
   }); // SyncDriver.changePassword()
 
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////
+  // data warmup
+  ////////////////////////////////////////////////////////////////////////////////
+  // Theses tests make sure the application is listening to changes to the
+  // warm up data in Firebase.
+  describe('data warmup', function () {
+      // The _watchWarmupData() method should be considered private. It was
+      // exposed solely for testing.
+
+      var baseRef = null;
+      var newTimestamp = null;
+      var newData = null;
+
+      beforeEach(function () {
+          delete localStorage.warmupTimestamp;
+          delete localStorage.warmupData;
+          baseRef = new FirebaseMock('base');
+
+          newTimestamp = 123456;
+          newData = ['foo', 'bar', 'baz'];
+      });
+
+
+      it('logs an error if the user is not connected to Firebase', function () {
+          SyncDriver._watchWarmupData(null);
+          expect($log.error).toHaveBeenCalledWith('Not connected to Firebase!');
+      });
+
+
+      // Check that .on('value', fn) is called on the timestamp reference
+      it('listens to changes to the warmup timestamp in Firebase', function () {
+          SyncDriver._watchWarmupData(baseRef);
+
+          var timestampRef = FirebaseHelper.getRef('base.warmup.timestamp');
+          expect(timestampRef).toBeDefined();
+          expect(timestampRef.on).toHaveBeenCalled();
+          expect(timestampRef.on.calls[0].args[0]).toBe('value');
+      });
+
+
+      it('updates local warmup data if remote timestamp is not the same as the local one',
+        function () {
+            localStorage.warmupTimestamp = 0;
+
+            SyncDriver._watchWarmupData(baseRef);
+
+            var timestampRef = FirebaseHelper.getRef('base.warmup.timestamp');
+            FirebaseHelper.trigger(timestampRef, 'value', newTimestamp);
+
+            var warmupRef = FirebaseHelper.getRef('base.warmup');
+            expect(warmupRef).toBeDefined();
+            expect(warmupRef.once).toHaveBeenCalled();
+            expect(warmupRef.once.calls[0].args[0]).toBe('value');
+
+            FirebaseHelper.trigger(warmupRef, 'value', {
+                timestamp : newTimestamp,
+                data : newData
+            });
+            
+            expect(parseInt(localStorage.warmupTimestamp)).toBe(newTimestamp);
+            expect(localStorage.warmupData).toBe(JSON.stringify(newData));
+        });
+
+
+      it('does not update if warmup timestamp is the same as the local one', function () {
+          localStorage.warmupTimestamp = 0;
+
+          SyncDriver._watchWarmupData(baseRef);
+
+          var timestampRef = FirebaseHelper.getRef('base.warmup.timestamp');
+          FirebaseHelper.trigger(timestampRef, 'value', 0);
+
+          var warmupRef = FirebaseHelper.getRef('base.warmup');
+          expect(warmupRef.once).not.toHaveBeenCalled();
+      });
+
+
+      it('stringifies warmup data before storing it locally', function () {
+          localStorage.warmupTimestamp = 0;
+
+          SyncDriver._watchWarmupData(baseRef);
+
+          var timestampRef = FirebaseHelper.getRef('base.warmup.timestamp');
+          FirebaseHelper.trigger(timestampRef, 'value', newTimestamp);
+
+          var warmupRef = FirebaseHelper.getRef('base.warmup');
+          expect(warmupRef).toBeDefined();
+          expect(warmupRef.once).toHaveBeenCalled();
+          expect(warmupRef.once.calls[0].args[0]).toBe('value');
+
+          FirebaseHelper.trigger(warmupRef, 'value', {
+              timestamp : newTimestamp,
+              data : newData
+          });
+          
+          expect(localStorage.warmupData).not.toBe(newData);
+          expect(localStorage.warmupData).toBe(JSON.stringify(newData));
+      });
+
+
+      it('DOES NOT broadcast the WarmupDataUpdated if the data is not updated',
+        function () {
+            var eventBroadcasted = false;
+
+            $rootScope.$on('WarmupDataUpdated', function () {
+                eventBroadcasted = true;
+            });
+
+            localStorage.warmupTimestamp = 0;
+
+            SyncDriver._watchWarmupData(baseRef);
+
+            var timestampRef = FirebaseHelper.getRef('base.warmup.timestamp');
+            FirebaseHelper.trigger(timestampRef, 'value', 0);
+
+            var warmupRef = FirebaseHelper.getRef('base.warmup');
+            expect(warmupRef.once).not.toHaveBeenCalled();
+
+            expect(eventBroadcasted).toBe(false);
+        });
+
+
+      it('broadcasts the WarmupDataUpdated event after the warmup data has been updated',
+        function () {
+            var eventBroadcasted = false;
+
+            $rootScope.$on('WarmupDataUpdated', function () {
+                eventBroadcasted = true;
+            });
+
+            runs(function () {
+                localStorage.warmupTimestamp = 0;
+
+                SyncDriver._watchWarmupData(baseRef);
+
+                var timestampRef = FirebaseHelper.getRef('base.warmup.timestamp');
+                FirebaseHelper.trigger(timestampRef, 'value', newTimestamp);
+
+                var warmupRef = FirebaseHelper.getRef('base.warmup');
+
+                FirebaseHelper.trigger(warmupRef, 'value', {
+                    timestamp : newTimestamp,
+                    data : newData
+                });
+            });
+
+
+            waitsFor(function () {
+                // No promises involved, no need to call scope.$apply();
+                return eventBroadcasted;
+            });
+        });
+
+
+        // FIXME need to implement this once tests for login are implemented
+        // and we're able to properly test it. Login should probably be
+        // refactored.
+        //
+        // Must check if SyncDriver._watchWarmupData() is called.
+        it('is done when the user logs in');
+  }); // data warmup
 
 });
