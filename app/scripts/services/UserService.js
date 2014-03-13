@@ -26,9 +26,16 @@
             return promise;
         };
 
-        this.loggedIn = function loggedIn(user, pass) {
+
+        function setUserMD5(user, pass) {
             var hashMD5 = md5.createHash(user + ':' + SALT + ':' + pass);
             localStorage.hashMD5 = hashMD5;
+            return hashMD5;
+        }
+
+
+        this.loggedIn = function loggedIn(user, pass) {
+            var hashMD5 = setUserMD5(user, pass);
             localStorage.user = user;
             return hashMD5;
         };
@@ -115,6 +122,35 @@
             localStorage.clear();
             return SyncService.clearData();
         };
+
+
+
+
+        /**
+         * Updates the current user's password and updates his/her MD5 hash.
+         * @param {string} oldPassword The user's old password.
+         * @param {string} newPassword The user's new password.
+         * @return {Object} A promise that will be resolved when the password
+         *    is updated or rejected if something else happens while trying to
+         *    update it.
+         */
+        function changePassword(oldPassword, newPassword) {
+            var user = localStorage.user;
+
+            if (!user) {
+                return $q.reject('Not connected to Firebase!');
+            }
+
+            var promise = SyncDriver.changePassword(user, oldPassword, newPassword);
+
+            return promise.then(function () {
+                setUserMD5(user, newPassword);
+            });
+        }
+
+
+        this.changePassword = changePassword;
+
 
     }]);
 })(angular);

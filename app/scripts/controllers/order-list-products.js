@@ -33,6 +33,10 @@
                                 if (item.type !== 'giftCard' && item.type !== 'voucher') {
                                     var SKU = item.SKU;
                                     var response = ArrayUtils.find(productsMap, 'SKU', SKU);
+
+                                    var discount = item.itemDiscount || item.orderDiscount || 0;
+                                    
+                                    
                                     if (response) {
                                         productsMap[SKU].qty += item.qty;
                                         var amount =
@@ -41,17 +45,13 @@
 
                                         productsMap[SKU].amountTotal += amount;
                                         productsMap[SKU].amountTotalWithDiscount +=
-                                            amount - item.discount;
+                                            amount - discount;
 
                                     } else {
                                         productsMap[SKU] = angular.copy(item);
                                         productsMap[SKU].amountTotal =
                                             Math
                                                 .round(100 * (Number(productsMap[SKU].qty) * Number(productsMap[SKU].price))) / 100;
-                                        var discount = 0;
-                                        if (item.discount) {
-                                            discount = item.discount;
-                                        }
 
                                         productsMap[SKU].amountTotalWithDiscount =
                                             productsMap[SKU].amountTotal - discount;
@@ -64,10 +64,11 @@
                                         // Stock black magic
 
                                         var stockResponse = StockService.findInStock(item.id);
-                                        
+
                                         if (stockResponse.reserve > 0) {
                                             if ((stockResponse.quantity - stockResponse.reserve) > 0) {
-                                                productsMap[SKU].stock = stockResponse.quantity;
+                                                productsMap[SKU].stock =
+                                                    stockResponse.quantity - stockResponse.reserve;
                                             } else {
                                                 productsMap[SKU].stock = 0;
                                             }

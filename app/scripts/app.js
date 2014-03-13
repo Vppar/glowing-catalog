@@ -3,11 +3,14 @@
 
     var glowingCatalogApp =
         angular.module('glowingCatalogApp', [
+            'once',
             'ngRoute',
             'ui.bootstrap',
             'ui.select2',
             'angular-md5',
             'tnt.catalog.directive.numpad',
+            'tnt.catalog.dialog.numpad.ctrl',
+            'tnt.catalog.dialog.changePassword.ctrl',
             'tnt.catalog.productReturn',
             'tnt.catalog.productReturn.entity',
             'tnt.catalog.productReturn.service',
@@ -111,14 +114,18 @@
             'tnt.catalog.appointments.service',
             'tnt.catalog.appointments.entity',
             'tnt.catalog.appointments.keeper',
-            
             'tnt.catalog.components.numpad',
             'tnt.catalog.directives.clickDelay',
             'tnt.catalog.directives.fastClick',
             'tnt.catalog.components.numberPicker',
             'tnt.catalog.directives.preventBlur',
             'tnt.catalog.directives.virtualKeyboard',
-            'tnt.catalog.directives.keyboardCage'
+            'tnt.catalog.directives.keyboardCage',
+            'tnt.catalog.directives.focus',
+            'tnt.catalog.directives.equals',
+            'tnt.catalog.directives.promiseClick',
+            'tnt.catalog.check',
+            'tnt.catalog.check.service'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {

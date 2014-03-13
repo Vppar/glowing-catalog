@@ -37,6 +37,7 @@ module.exports = function(config) {
       'app/bower_components/angular-ui-select2/src/select2.js',
       'app/bower_components/node-uuid/uuid.js',
       'app/bower_components/angular-md5/angular-md5.js',
+      'app/resources/config.js',
       'app/scripts/**/*.js',
       'app/components/**/*.js',
       'test/mock/**/*.js',

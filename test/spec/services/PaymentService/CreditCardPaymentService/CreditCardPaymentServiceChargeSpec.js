@@ -64,11 +64,13 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             it('should charge a credit card', function() {
                 var result = null;
                 var isGoPay = true;
+                var hasInternet = true;
                 var sendChargesReturn = {
                     stub : 'i\'m a stub return'
                 };
 
-                CreditCardPaymentService.createCreditCardPayments = jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments');
+                CreditCardPaymentService.createCreditCardPayments =
+                        jasmine.createSpy('CreditCardPaymentService.createCreditCardPayments').andReturn(true);
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     var deferred = $q.defer();
                     setTimeout(function() {
@@ -77,7 +79,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     return deferred.promise;
                 });
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
                     chargedPromise.then(function(_result_) {
                         result = _result_;
                     });
@@ -96,13 +98,14 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                         installments : installments
                     });
                     expect(CreditCardPaymentService.createCreditCardPayments).toHaveBeenCalledWith(
-                            creditCard, amount, installments, sendChargesReturn);
+                            creditCard, amount, installments, sendChargesReturn, hasInternet);
                 });
             });
 
             it('shouldn\'t charge a credit card with rejected promise', function() {
                 var result = null;
                 var isGoPay = true;
+                var hasInternet = true;
                 var errMsg = 'err text msg';
 
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
@@ -114,7 +117,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -140,13 +143,14 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             it('shouldn\'t charge a credit card with an exception in sendCharges', function() {
                 var result = null;
                 var isGoPay = true;
+                var hasInternet = true;
 
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     throw 'I\'m an unexpected exception';
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
