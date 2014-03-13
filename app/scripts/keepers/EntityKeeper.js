@@ -1,4 +1,3 @@
-/*jshint unused:false */
 (function (angular) {
     'use strict';
 
@@ -24,7 +23,7 @@
                                 'addresses',
                                 'remarks',
                                 'created'
-                            ];
+                            ];                            
 
                         ObjectUtils.method(svc, 'isValid', function () {
                             for ( var ix in this) {
