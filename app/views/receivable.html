@@ -4,24 +4,17 @@
     <div class="row-fluid">
         <span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
     </div>
+
     <div class="new-page"> 
 
-    <div class="row-fluid pull-right panel-top">
-
-     <!-- BREAD CRUMBS -->
-     <div class="row-fluid bread-crumbs">
+       <div class="new-header row-fluid">
+        <div class="span6">
+            <h2>Contas a receber</h2>
+        </div>
         <span class="span6">
-           <span class="principal">Contas a receber</span> &nbsp; <span class="crumbs">&nbsp;</span>
-       </span>
-       <span class="span6">
-           <div class="float-right">
-              <span class="menu-level">
-                 <div class="btn-group btn-group-sm">
-
-                    <a class="btn btn-option" ng-class="{active: selectedReceivableMode=='receive'}" ng-click="selectReceivableMode('receive')">À Receber</a>
-                    <a class="btn btn-option" ng-class="{active: selectedReceivableMode=='list'}"  ng-click="selectReceivableMode('list')">Todos</a>
-                </div>
-            </span>
+         <div class="btn-group btn-group-sm pull-right">
+            <a class="btn btn-option" ng-class="{active: selectedReceivableMode=='receive'}" ng-click="selectReceivableMode('receive')">À Receber</a>
+            <a class="btn btn-option" ng-class="{active: selectedReceivableMode=='list'}"  ng-click="selectReceivableMode('list')">Todos</a>
         </div>
     </span>
 </div>
@@ -42,42 +35,40 @@
 </div> -->
 
 <div ng-switch on="selectedReceivableMode">
- <div ng-switch-when="receive">
-        <div ng-controller="ReceivableReceiveCtrl" ng-include src="'views/parts/receivable/receivable-receive.html'"></div>
-    </div>
+   <div ng-switch-when="receive">
+    <div ng-controller="ReceivableReceiveCtrl" ng-include src="'views/parts/receivable/receivable-receive.html'"></div>
+</div>
 </div>
 
-
-</div>
-
-<div class="clearfix"></div>
 
 <div class="new-section">
 
   <div class="row-fluid">
       <div class="span12">
-          <div class="new-calendar">
-              <div class="text">Período: </div>
-              <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75 ng-pristine ng-valid ng-valid-required" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
-              <label for="dtIni" class="ic-calendar">
-                  <img src="images/icons/ic-calendar.png">
-              </label>
-          </div>
-          <div class="new-calendar">
-              <input id="dtEnd" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75 ng-pristine ng-valid ng-valid-required" required readonly maxlength="10" ng-model="dtFilter.dtFinal"> 
-              <label for="dtEnd" class="ic-calendar">
-                  <img src="images/icons/ic-calendar.png">
-              </label>
-          </div>
+        <div class="new-calendar">
+            <div class="text-over">Data Inicial</div>
+            <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
+            <label for="dtIni" class="ic-calendar">
+                <img src="images/icons/ic-calendar.png">
+            </label>
+        </div>
 
-          <form ng-controller="ReceivableListCtrl" class="inline-checkbox">
-             <fieldset>
-                <label class="checkbox">
-                    <input type="checkbox" ng-model="allOpenReceivables" ng-true-value="true" ng-false-value="false"> todos em aberto até {{ dtFilter.dtFinal | date:"dd/MM/yyyy"}}
-                </label>
-            </fieldset>
-        </form>
-    </div>
+        <div class="new-calendar">
+            <div class="text-over">Data Final</div>
+            <input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
+            <label for="dtFinal" class="ic-calendar">
+                <img src="images/icons/ic-calendar.png">
+            </label>
+        </div>
+
+        <form ng-controller="ReceivableListCtrl" class="inline-checkbox">
+           <fieldset>
+            <label class="checkbox">
+                <input type="checkbox" ng-model="allOpenReceivables" ng-true-value="true" ng-false-value="false"> todos em aberto até {{ dtFilter.dtFinal | date:"dd/MM/yyyy"}}
+            </label>
+        </fieldset>
+    </form>
+</div>
 </div>
 
 
@@ -215,7 +206,7 @@
                         <span class="col-6">
                             <div>{{receivable.amount | currency:''}}</div>
                         </span> 
-                        <span class="col-7">						
+                        <span class="col-7">                        
                             somente para a tela de baixa
                             <div><input type="checkbox" id="filter-bar-checkbox" value="todos"></div>
                             
