@@ -65,7 +65,7 @@
     font-weight: bold;
     margin:0px;
     float: left;
-    display: block;
+
 }
 .new-header h3{
     font-size: 16px;
@@ -73,7 +73,6 @@
     margin:0px;
     float: left;
     font-weight: normal;
-    display: block;
 }
 
 
@@ -216,4 +215,5 @@
     float: left;
     display: inline-block;
  }
+
 

@@ -56,6 +56,11 @@
 	height: calc(100% - 75px);
 }
 
+.new-buttom-holder{
+	width: 100%;
+	float: left;
+	margin-top: 10px;
+}
 
 
 .scroll-title-compensator{
@@ -153,9 +158,6 @@ padding-left: 6px;
 }
 .make-clickable{
 	cursor: pointer;
-}
-.make-clickable:hover{
-	background-color:rgba(85,85,85,0.8);
 }
 
 /*-----------------------------------*/
