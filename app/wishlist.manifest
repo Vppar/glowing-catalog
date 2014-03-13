@@ -164,6 +164,7 @@ scripts/controllers/products-to-buy/products-to-buy-credit.js
 scripts/controllers/order-list.js
 scripts/controllers/receivable.js
 scripts/controllers/receivable-add.js
+scripts/controllers/receivable-check.js
 scripts/controllers/receivable-edit.js
 scripts/controllers/receivable-entity.js
 scripts/controllers/receivable-list.js
