@@ -5,10 +5,10 @@ CACHE MANIFEST
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
+
 favicon-68.png
 favicon-152.png
-bower_components/bootstrap-sass/bootstrap-2.3.2.css
-bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css
+
 styles/select2.css
 styles/responsive-style.css
 styles/grid-catalog.css
@@ -36,6 +36,30 @@ styles/voucher.css
 styles/stock.css
 styles/warm-up.css
 styles/new.css
+
+styles/agenda/agenda.css
+styles/agenda/fullcalendar.css
+styles/agenda/fullcalendar.print.css
+styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
+styles/agenda/smoothness/images/animated-overlay.gif
+styles/agenda/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
+styles/agenda/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
+styles/agenda/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_65_ffffff_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_75_dadada_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_95_fef1ec_1x400.png
+styles/agenda/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+styles/agenda/smoothness/images/ui-icons_222222_256x240.png
+styles/agenda/smoothness/images/ui-icons_2e83ff_256x240.png
+styles/agenda/smoothness/images/ui-icons_454545_256x240.png
+styles/agenda/smoothness/images/ui-icons_888888_256x240.png
+styles/agenda/smoothness/images/ui-icons_cd0a0a_256x240.png
+
+bower_components/bootstrap-sass/bootstrap-2.3.2.css
+bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css
+bower_components/fullcalendar/fullcalendar.js
+bower_components/jquery-ui/ui/jquery-ui.js
 bower_components/jquery/jquery.js
 bower_components/angular/angular.js
 bower_components/bootstrap-sass/js/bootstrap-affix.js
@@ -68,11 +92,13 @@ bower_components/angular-route/angular-route.js
 bower_components/angular-touch/angular-touch.js
 bower_components/angular-md5/angular-md5.js
 bower_components/fastclick/lib/fastclick.js
-scripts/app.js
+
 components/catalog-highlights/catalogHighlights.js
 components/catalog-section/catalogSection.js
 components/product-display/productDisplay.js
 components/highlight-display/highlightDisplay.js
+
+scripts/app.js
 scripts/ObjectUtils.js
 scripts/controllers/main.js
 scripts/controllers/add-customer.js
@@ -223,10 +249,12 @@ scripts/services/CreditCardPaymentService.js
 scripts/services/PrefetchService.js
 scripts/services/GoPayGateway.js
 scripts/services/CacheController.js
+scripts/controllers/appointments.js
+scripts/keepers/AppointmentKeeper.js
+scripts/services/AppointmentService.js
 
 components/tnt-numpad/tntNumpad.js
 components/tnt-number-picker/tntNumberPicker.js
-
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
 components/catalog-section/catalog-section.html
@@ -239,8 +267,8 @@ resources/data.json
 resources/orders.json
 resources/products.json
 
+views/appointments.html
 views/catalog/best-sellers.html
-
 views/parts/add-customer/add-customer-phones-dialog.html
 views/parts/add-customer/add-customer-emails-dialog.html
 views/parts/catalog/add-to-basket-dialog-details.html
@@ -303,7 +331,6 @@ views/tutorial-android.html
 views/tutorial-ipad.html
 views/voucher.html
 
-
 images/keyboard/n0.png
 images/keyboard/n1.png
 images/keyboard/n2.png
@@ -320,7 +347,6 @@ images/keyboard/btn-ok.png
 images/keyboard/btn-clear.png
 images/keyboard/btn-back.png
 images/keyboard/percent.png
-
 images/logo-home.png
 images/icon-drop-menu.png
 images/cat-li-menu.png
@@ -337,15 +363,11 @@ images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
 images/loading_20.gif
-
 images/icons/ic-calendar.png
-
 images/thirdparty/select2/select_close.png
 images/thirdparty/magnifier/icon.png
-
 images/tutorial/tutorial-android-mockup-full.png
 images/tutorial/tutorial-ipad-mockup-full.png
-
 images/catalog/best-sellers/best-sellers.png
 images/catalog/best-sellers/best-sellers-1.png
 images/catalog/best-sellers/best-sellers-2.png
@@ -357,10 +379,6 @@ images/catalog/best-sellers/best-sellers-7.png
 images/catalog/best-sellers/best-sellers-8.png
 images/catalog/best-sellers/best-sellers-9.png
 images/catalog/best-sellers/best-sellers-10.png
-
-scripts/controllers/appointments.js
-scripts/keepers/AppointmentKeeper.js
-scripts/services/AppointmentService.js
 
 NETWORK:
 *

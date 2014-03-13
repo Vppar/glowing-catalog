@@ -4,6 +4,11 @@ CACHE MANIFEST
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
+bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css
+bower_components/fullcalendar/fullcalendar.js
+bower_components/jquery-ui/ui/jquery-ui.js
+
+styles/com/select2/select2.css
 styles/main.css
 styles/responsive-style.css
 styles/grid-catalog.css
@@ -31,6 +36,27 @@ styles/voucher.css
 styles/stock.css
 styles/warm-up.css
 styles/new.css
+styles/agenda/agenda.css
+styles/agenda/fullcalendar.css
+styles/agenda/fullcalendar.print.css
+styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
+styles/agenda/smoothness/images/animated-overlay.gif
+styles/agenda/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
+styles/agenda/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
+styles/agenda/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_65_ffffff_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_75_dadada_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png
+styles/agenda/smoothness/images/ui-bg_glass_95_fef1ec_1x400.png
+styles/agenda/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+styles/agenda/smoothness/images/ui-icons_222222_256x240.png
+styles/agenda/smoothness/images/ui-icons_2e83ff_256x240.png
+styles/agenda/smoothness/images/ui-icons_454545_256x240.png
+styles/agenda/smoothness/images/ui-icons_888888_256x240.png
+styles/agenda/smoothness/images/ui-icons_cd0a0a_256x240.png
+# find out how the hell those images got on styles and FIX IT
+# styles/com/images/select_close.png
+# styles/com/images/icon.png
 
 scripts/plugins.js
 scripts/modules.js
@@ -48,8 +74,8 @@ resources/data.json
 resources/orders.json
 resources/products.json
 
+views/appointments.html
 views/catalog/best-sellers.html
-
 views/parts/add-customer/add-customer-phones-dialog.html
 views/parts/add-customer/add-customer-emails-dialog.html
 views/parts/catalog/add-to-basket-dialog-details.html
@@ -110,7 +136,6 @@ views/receivable.html
 views/stock.html
 views/voucher.html
 
-
 images/keyboard/n0.png
 images/keyboard/n1.png
 images/keyboard/n2.png
@@ -127,7 +152,6 @@ images/keyboard/btn-ok.png
 images/keyboard/btn-clear.png
 images/keyboard/btn-back.png
 images/keyboard/percent.png
-
 images/logo-home.png
 images/icon-drop-menu.png
 images/cat-li-menu.png
@@ -144,9 +168,7 @@ images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
 images/loading_20.gif
-
 images/icons/ic-calendar.png
-
 images/catalog/best-sellers/best-sellers.png
 images/catalog/best-sellers/best-sellers-1.png
 images/catalog/best-sellers/best-sellers-2.png
