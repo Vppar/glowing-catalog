@@ -132,7 +132,7 @@
 							
 							birthdays = EntityService.listByBirthDate(actualSince, actualUpon);
 							
-							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince,actualUpon, null);
+							$scope.appointments = AppointmentService.listAppointmentsByPeriod(actualSince, actualUpon, null);
 
 							var contador = 0;
 							if (birthdays) {
