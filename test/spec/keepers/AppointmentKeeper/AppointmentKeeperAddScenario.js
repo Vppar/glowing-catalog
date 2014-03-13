@@ -22,6 +22,7 @@ describe('Service: AppointmentKeeperAddScenario', function() {
 			$provide.value('$log', log);
 		});
 	});
+	
 
 	// instantiate service
 	var AppointmentKeeper = null;
