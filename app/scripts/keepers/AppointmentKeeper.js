@@ -1,3 +1,4 @@
+/*jshint unused:false */
 (function (angular) {
     'use strict';
 
@@ -184,5 +185,11 @@
 
             }
         ]);
+
+    angular.module('tnt.catalog.appointments', [
+        'tnt.catalog.appointments.entity', 'tnt.catalog.appointments.keeper'
+    ]).run(function(AppointmentKeeper) {
+        // Warming up AppointmentKeeper
+    });
 
 }(angular));

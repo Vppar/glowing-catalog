@@ -86,8 +86,7 @@
                     };
                 $.datepicker.setDefaults($.datepicker.regional.pt);
 
-                $scope.filterEvents =
-                    function ($event) {
+                $scope.filterEvents = function ($event) {
 
                         var element = $event.target;
                         var circleElement =
@@ -97,12 +96,9 @@
                         var circleCss = $(circleElement).attr('class');
                         if ($(circleElement).parent().attr('id') !== 'tagEvent0' ||
                             $(circleElement).attr('class').indexOf('tag-circle-selected') < 0) {
-                            $(circleElement).attr(
-                                'class',
-                                circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle-selected' : 'tag-circle');
+                            $(circleElement).attr('class', circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle-selected' : 'tag-circle');
                         }
-                        var tagNumber =
-                            $(circleElement).parent().attr('id').replace('tagEvent', '');
+                        var tagNumber = $(circleElement).parent().attr('id').replace('tagEvent', '');
                         if (tagNumber !== 0) {
                             if (circleCss.indexOf('tag-circle-selected') < 0) {
                                 $scope.filter.push(tagNumber);
@@ -110,22 +106,16 @@
                                 $scope.filter.splice($scope.filter.indexOf(tagNumber), 1);
                             }
                             if ($scope.filter.length > 0) {
-                                $('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr(
-                                    'class',
-                                    'tag-circle');
+                                $('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr('class', 'tag-circle');
                             } else {
-                                $('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr(
-                                    'class',
-                                    'tag-circle-selected');
+                                $('div[id=tagEvent0]').find('div[class*="tag-circle"]').attr('class', 'tag-circle-selected');
                                 $scope.filter = [];
                             }
                         } else {
                             $scope.filter = [];
                             $.each($('div[id*=tagEvent]'), function (i, element) {
                                 if ($(this).attr('id') !== 'tagEvent0') {
-                                    $(this).find('div[class*="tag-circle"]').attr(
-                                        'class',
-                                        'tag-circle');
+                                    $(this).find('div[class*="tag-circle"]').attr('class', 'tag-circle');
                                 }
                             });
                         }
@@ -187,27 +177,34 @@
                                 eventDurationEditable : false,
 
                                 drop : function (date, allDay) {
-                                    openEventDialog($(this).data('eventObject').eventType, date.getDate(), date
-                                        .getHours(), date.getMinutes(), null, null, null);
+                                    openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
                                 },
                                 select : function (start, end, allDay) {
-                                    if (eventsInDay(start) > 0 &&
-                                        ($('#calendar').fullCalendar('getView').name === 'month')) {
+                                    if (eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name === 'month')) {
                                         $('#calendar').fullCalendar('changeView', 'agendaDay');
                                         $('#calendar').fullCalendar('gotoDate', start);
                                     } else {
-                                        var initialHours = start.getHours();
-                                        var endHours = end.getHours();
                                         if (($('#calendar').fullCalendar('getView').name === 'month')) {
-                                            initialHours = new Date().getHours();
-                                            endHours = initialHours;
-                                            if (initialHours < 21) {
-                                                initialHours = initialHours + 2;
-                                                endHours = endHours + 3;
+
+                                            var actualStartHours = new Date().getHours();
+                                            var initialHours = '';
+                                            var endHours = '';
+                                            
+                                            if (actualStartHours < 21) {
+                                                initialHours = actualStartHours + 2;
+                                                endHours = actualStartHours + 3;
+                                            } else if(actualStartHours < 23) {
+                                                initialHours = actualStartHours;
+                                                endHours = actualStartHours + 1;
+                                            } else {
+                                                initialHours = actualStartHours;
+                                                endHours = '00';
                                             }
+
+                                            openEventDialog(null, start, initialHours, '00', endHours, '00', null);
+                                        } else {
+                                            openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);
                                         }
-                                        openEventDialog(null, start, initialHours, start.getMinutes(), endHours, end
-                                            .getMinutes(), null);
                                     }
                                 },
 
@@ -270,52 +267,28 @@
                         var headerTitle = '';
 
                         if ($('#calendar').fullCalendar('getView').name === 'month') {
-                            $('.fc-sat.fc-widget-header').html(
-                                $('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
-                            actualSince =
-                                ($.datepicker.parseDate('yy-mm-dd', $(
-                                    'tr.fc-week.fc-first td:eq(0)').attr('data-date')));
-                            actualUpon =
-                                ($.datepicker.parseDate(
-                                    'yy-mm-dd',
-                                    $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
+                            $('.fc-sat.fc-widget-header').html( $('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
+                            actualSince = ($.datepicker.parseDate('yy-mm-dd', $( 'tr.fc-week.fc-first td:eq(0)').attr('data-date')));
+                            actualUpon =($.datepicker.parseDate('yy-mm-dd', $('tr.fc-week.fc-last td:eq(6)').attr('data-date')));
                         } else if ($('#calendar').fullCalendar('getView').name === 'agendaWeek') {
                             $('.fc-sat.fc-widget-header').html(
                                 $('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
                             headerTitle = $('.fc-header-title').text().split(' ');
-                            actualSince =
-                                ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' +
-                                    headerTitle[1] + ' ' + headerTitle[headerTitle.length - 1]));
+                            actualSince =($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' + headerTitle[1] + ' ' + headerTitle[headerTitle.length - 1]));
                             if (!isNaN(parseInt(headerTitle[3], 10))) {
-                                actualUpon =
-                                    ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' +
-                                        headerTitle[3] + ' ' + headerTitle[4]));
+                                actualUpon = ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' + headerTitle[3] + ' ' + headerTitle[4]));
                             } else if (headerTitle.length === 6) {
-                                actualUpon =
-                                    ($.datepicker.parseDate('M d yy', headerTitle[3] + ' ' +
-                                        headerTitle[4] + ' ' + headerTitle[5]));
+                                actualUpon = ($.datepicker.parseDate('M d yy', headerTitle[3] + ' ' + headerTitle[4] + ' ' + headerTitle[5]));
                             } else {
-                                actualSince =
-                                    ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' +
-                                        headerTitle[1] + ' ' + headerTitle[2]));
-                                actualUpon =
-                                    ($.datepicker.parseDate('M d yy', headerTitle[4] + ' ' +
-                                        headerTitle[5] + ' ' + headerTitle[6]));
+                                actualSince = ($.datepicker.parseDate('M d yy', headerTitle[0] + ' ' + headerTitle[1] + ' ' + headerTitle[2]));
+                                actualUpon = ($.datepicker.parseDate('M d yy', headerTitle[4] + ' ' + headerTitle[5] + ' ' + headerTitle[6]));
                             }
                         } else {
-                            $('.fc-tue.fc-widget-header').html(
-                                $('.fc-tue.fc-widget-header').text().replace('&ccedil;', '&#231;'));
-                            $('.fc-sat.fc-widget-header').html(
-                                $('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
+                            $('.fc-tue.fc-widget-header').html($('.fc-tue.fc-widget-header').text().replace('&ccedil;', '&#231;'));
+                            $('.fc-sat.fc-widget-header').html($('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
                             headerTitle = $('.fc-header-title').text();
-                            actualSince =
-                                ($.datepicker.parseDate('M d, yy', headerTitle.substr(
-                                    headerTitle.indexOf(',') + 1,
-                                    headerTitle.length).trim()));
-                            actualUpon =
-                                ($.datepicker.parseDate('M d, yy', headerTitle.substr(
-                                    headerTitle.indexOf(',') + 1,
-                                    headerTitle.length).trim()));
+                            actualSince =($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1,headerTitle.length).trim()));
+                            actualUpon =($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1,headerTitle.length).trim()));
                         }
 
                         birthdays = undefined;
@@ -418,8 +391,7 @@
                 // #############################################################################################################
                 // Controller methods (appointments.html)
                 // #############################################################################################################
-                function openEventDialog (eventType, date, startHours, startMinutes, endHours,
-                    endMinutes, event) {
+                function openEventDialog (eventType, date, startHours, startMinutes, endHours, endMinutes, event) {
                     $scope.contacts = EntityService.list();
 
                     $('#select-date').val(date);
@@ -441,22 +413,17 @@
                     } else {
                         $('#select-minute-initial').val('00');
                     }
-                    if (!endHours) {
-                        if (!endMinutes && startMinutes === 30) {
-                            $('#select-hour-end').val(startHours + 1);
-                            $('#select-minute-end').val('00');
-                        } else if (!endMinutes) {
-                            $('#select-hour-end').val(startHours);
-                            $('#select-minute-end').val(startMinutes + 30);
-                        }
-                    } else if (endHours) {
+
+                    if (endHours) {
                         $('#select-hour-end').val(endHours);
                     } else {
-                        $('#select-hour-end').val(8);
+                        $('#select-hour-end').val(9);
                     }
 
                     if (endMinutes) {
                         $('#select-minute-end').val(endMinutes);
+                    } else {
+                        $('#select-minute-end').val('00');
                     }
 
                     $('#select-client').val('');
@@ -523,7 +490,7 @@
                 };
 
                 $scope.remove = function () {
-                    if (confirm('Deseja confirmar a exclus&#227;o do evento?')) {
+                    if (confirm('Deseja confirmar a exclus'+unescape('%e3')+'o do evento?')) {
                         $scope.validateUUID();
                         AppointmentService.remove($('#select-event-uuid').val()).then(function () {
                             alert('Evento Removido com sucesso!');
@@ -538,7 +505,7 @@
                     if (confirm('Deseja confirmar a conclus&#227;o do evento?')) {
                         $scope.validateUUID();
                         AppointmentService.done($('#select-event-uuid').val()).then(function () {
-                            alert('Evento Finalizado com sucesso!');
+                            alert('Evento finalizado com sucesso.');
                             $scope.closeEventDialog();
                         }, function (err) {
                             alert('Erro: ' + err);
@@ -550,7 +517,7 @@
                     if (confirm('Deseja confirmar o cancelamento do evento?')) {
                         $scope.validateUUID();
                         AppointmentService.cancel($('#select-event-uuid').val()).then(function () {
-                            alert('Evento Cancelado com sucesso!');
+                            alert('Evento cancelado com sucesso.');
                             $scope.closeEventDialog();
                         }, function (err) {
                             alert('Erro: ' + err);
@@ -558,8 +525,7 @@
                     }
                 };
 
-                $scope.update =
-                    function () {
+                $scope.update = function () {
 
                         var selectedStartDate = new Date($('#select-date').val());
                         selectedStartDate.setHours($('#select-hour-initial').val());
@@ -569,10 +535,8 @@
                         selectedEndDate.setHours($('#select-hour-end').val());
                         selectedEndDate.setMinutes($('#select-minute-end').val());
 
-                        if ($scope.validateUUID() &&
-                            $scope.validateEventDialogFields(selectedStartDate, selectedEndDate)) {
-                            $scope.appointment =
-                                AppointmentService.loadByUUID($('#select-event-uuid').val());
+                        if ($scope.validateUUID() && $scope.validateEventDialogFields(selectedStartDate, selectedEndDate)) {
+                            $scope.appointment = AppointmentService.loadByUUID($('#select-event-uuid').val());
                             $scope.appointment.contacts = $('#select-client').val();
                             $scope.appointment.title = $('#txt-title').val();
                             $scope.appointment.description = $('#txt-description').val();
@@ -581,13 +545,11 @@
                             $scope.appointment.allDay = false;
                             $scope.appointment.status = $('#event-status').val();
                             $scope.appointment.type = $('#select-event').val();
-                            $scope.appointment.color =
-                                $('.tag' + $('#select-event').val()).find('.tag-circle').css(
-                                    'background-color');
+                            $scope.appointment.color = $('.tag' + $('#select-event').val()).find('.tag-circle').css('background-color');
 
                             AppointmentService.update($scope.appointment).then(function (uuid) {
                                 $scope.closeEventDialog();
-                                alert('Atualiza&#231;&#227;o efetuada com sucesso.');
+                                alert('Atualiza'+unescape('%e7')+unescape('%e3')+'o efetuada com sucesso.');
                             }, function (err) {
                                 alert('Erro:' + err);
                             });
@@ -614,9 +576,7 @@
                             $scope.appointment.status = 'PENDANT';
                             $scope.appointment.allDay = false;
                             $scope.appointment.type = $('#select-event').val();
-                            $scope.appointment.color =
-                                $('.tag' + $('#select-event').val()).find('.tag-circle').css(
-                                    'background-color');
+                            $scope.appointment.color =  $('.tag' + $('#select-event').val()).find('.tag-circle').css('background-color');
 
                             AppointmentService.create($scope.appointment).then(function (uuid) {
                                 alert('Evento cadastrado com sucesso.');
@@ -629,49 +589,55 @@
 
                 $scope.validateUUID = function () {
                     if (!$('#select-event-uuid').val()) {
-                        alert('UUID do Evento &#233; um campo obrigat&#243;rio.');
+                        alert('UUID do Evento '+unescape('%e9')+' um campo obrigat'+unescape('%f3')+'rio.');
                         return false;
                     }
                     return true;
                 };
 
-                $scope.validateEventDialogFields = function (selectedStartDate, selectedEndDate) {
-                    if (!$('#select-date').val()) {
-                        alert('A data do evento &#233; um campo obrigat&#243;rio.');
-                        return false;
-                    }
-                    if (!$('#select-client').val()) {
-                        alert('O contato do evento &#233; um campo obrigat&#243;rio.');
-                        return false;
-                    }
+                $scope.validateEventDialogFields =
+                    function (selectedStartDate, selectedEndDate) {
+                        if (!$('#select-date').val()) {
+                            alert('A data do evento ' + unescape('%e9') + ' um campo obrigat' +
+                                unescape('%f3') + 'rio.');
+                            return false;
+                        }
+                        if (!$('#select-client').val()) {
+                            alert('O contato do evento ' + unescape('%e9') + ' um campo obrigat' +
+                                unescape('%f3') + 'rio.');
+                            return false;
+                        }
 
-                    if (!validateDate(selectedStartDate, selectedEndDate)) {
-                        return false;
-                    }
+                        if (!validateDate(selectedStartDate, selectedEndDate)) {
+                            return false;
+                        }
 
-                    if (!$('#txt-title').val()) {
-                        alert('O t&#237;tulo do evento &#233; um campo obrigat&#243;rio.');
-                        return false;
-                    }
-                    if (!$('#txt-description').val()) {
-                        alert('A descri&#231;&#227;o do evento &#233; um campo obrigat&#243;rio.');
-                        return false;
-                    }
-                    if (!$('#select-event').val()) {
-                        alert('O tipo do evento &#233; um campo obrigat&#243;rio.');
-                        return false;
-                    }
-                    return true;
-                };
+                        if (!$('#txt-title').val()) {
+                            alert('O t' + unescape('%ed') + 'tulo do evento ' + unescape('%e9') +
+                                ' um campo obrigat' + unescape('%f3') + 'rio.');
+                            return false;
+                        }
+                        if (!$('#txt-description').val()) {
+                            alert('A descri' + unescape('%e7') + unescape('%e3') + 'o do evento ' +
+                                unescape('%e9') + ' um campo obrigat' + unescape('%f3') + 'rio.');
+                            return false;
+                        }
+                        if (!$('#select-event').val()) {
+                            alert('O tipo do evento ' + unescape('%e9') + ' um campo obrigat' +
+                                unescape('%f3') + 'rio.');
+                            return false;
+                        }
+                        return true;
+                    };
 
                 function validateDate (selectedStartDate, selectedEndDate) {
                     if (selectedStartDate < new Date()) {
-                        alert('N&#227;o &#233; permitido cadastrar eventos anterior a data atual.');
+                        alert('N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.');
                         return false;
                     }
 
                     if (selectedEndDate < selectedStartDate) {
-                        alert('Hora inv&#243;lida para o evento.');
+                        alert('Hora inv'+unescape('%e1')+'lida para o evento.');
                         return false;
                     }
                     return true;
