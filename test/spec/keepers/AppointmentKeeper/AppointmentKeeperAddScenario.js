@@ -29,13 +29,11 @@ describe('Service: AppointmentKeeperAddScenario', function() {
 	var $rootScope = null;
 	var JournalKeeper = null;
 
-	beforeEach(inject(function(_AppointmentKeeper_, _Appointment_,
-			_$rootScope_, _JournalKeeper_, _WebSQLDriver_) {
+	beforeEach(inject(function(_AppointmentKeeper_, _Appointment_, _$rootScope_, _JournalKeeper_) {
 		AppointmentKeeper = _AppointmentKeeper_;
 		Appointment = _Appointment_;
 		$rootScope = _$rootScope_;
 		JournalKeeper = _JournalKeeper_;
-		WebSQLDriver = _WebSQLDriver_;
 	}));
 
 	// Clear existing data
