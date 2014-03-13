@@ -41,18 +41,22 @@
 	height: 100%;
 }
 
-
-
 .product-to-buy-ticket-part1{
 	margin-top: 10px;
+	height: calc(100% - 95px);
 }
 .product-to-buy-ticket-part1 .new-scrollpanel{
-	height: calc(100% - 129px);
+	height: calc(100% - 90px);
 }
 
 .product-to-buy-ticket-part2{
-	
+	height: calc(100% - 95px);
 }
+.product-to-buy-ticket-part2 .new-scrollpanel{
+	height: calc(100% - 75px);
+}
+
+
 
 .scroll-title-compensator{
 	padding-right: 2px;

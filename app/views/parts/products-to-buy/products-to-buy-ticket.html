@@ -22,7 +22,7 @@
                 <span class="new-col-4 text-center">Status</span>
             </div>
         </div>
-		<div class="new-scrollpanel" >
+		<div class="new-scrollpanel">
         <div ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'">
             <div class="row-fluid" ng-click="openDialog(purchaseOrder)">
                 <div class="new-body-row products-to-buy-ticket-part-line make-clickable">
@@ -45,7 +45,7 @@
 	</div><!--//FIM - *** PARTE 01 *** -->
 
 	<!-- *** PARTE 02 *** -->
-	<div ng-if="ticket.selectedPart=='part2'">
+	<div class="product-to-buy-ticket-part2" ng-if="ticket.selectedPart=='part2'">
 
         <div class="row-fluid">
             <div class="new-body-header details-title">
@@ -60,8 +60,8 @@
                 <span class="new-col-4 text-center">Pend./Qtde.</span>
             </div>
         </div>
-
-        <div class="new-scrollpanel" ng-repeat="item in purchaseOrder.items">
+<div class="new-scrollpanel" >
+        <div ng-repeat="item in purchaseOrder.items">
             <div class="row-fluid">
                 <div class="new-body-row products-to-buy-ticket-part-line">
 	                <span class="new-col-2">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
@@ -87,8 +87,8 @@
 	                </span>
                 </div>
             </div>
-        </div><!--// new-scrollpanel -->
-
+        </div>
+</div>
 		<div class="payment-btn-area">
 			<button class="btn btn-cancel pull-left margin-left" type="submit" ng-click="cancel()">Cancelar</button>
 			<button class="btn btn-ok pull-right margin-right" ng-disabled="disableButton()" type="submit" ng-click="confirm()">Confirmar</button>
