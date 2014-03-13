@@ -37,7 +37,44 @@
         this.listEntries = function() {
             return BookKeeper.listEntries();
         };
-
+        
+        /**
+         * Create the proper Book entries for earning
+         * 
+         * @param {string} orderUUID the order UUID
+         * @param {string} entityUUID the entity UUID
+         * @param {number} amount the total amount of given giftCards in this
+         *            order
+         */
+        this.earning = function(orderUUID, entityUUID, amount){
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+            //FIXME accounts
+            var entry = new BookEntry(null, null, 70001, 43005 , document, entityUUID, 'Acrécimos s/ Recebimentos', amount);
+            return this.write(entry);
+        };
+        
+        /**
+         * Create the proper Book entries for losses
+         * 
+         * @param {string} orderUUID the order UUID
+         * @param {string} entityUUID the entity UUID
+         * @param {number} amount the total amount of given giftCards in this
+         *            order
+         */
+        this.losses = function(orderUUID, entityUUID, amount){
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
+            //FIXME - accounts.
+            var entry = new BookEntry(null, null, 63103, 70001, document, entityUUID, 'Adiantamentos de Clientes', amount);
+            
+            return this.write(entry);
+        };
+        
         /**
          * Create the proper Book entries for a sale
          * 
