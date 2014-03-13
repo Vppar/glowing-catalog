@@ -168,12 +168,12 @@
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
          * @param {number} amount to be paid
-         */                
+         */
         this.liquidate = function (type, orderUUID, entityUUID, amount) {
             var document = {
                 uuid : orderUUID,
                 type : 'Pedido'
-            }; 
+            };
             var entry = null;
             if (type === 'cash') {
                 entry = new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', amount);
@@ -182,7 +182,7 @@
             } else if (type === 'check') {
                 entry = new BookEntry(null, null, 11131, 11121, document, entityUUID, 'Depósito cheque', amount);
             } else if (type === 'card') {
-                entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', amount);;
+                entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', amount);
             } else if (type === 'voucher') {
                 entry = new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', amount);
             } else if (type === 'gift') {
@@ -207,20 +207,21 @@
          * @param {string} entityUUID the entity UUID
          * @param {number} amount to be transfer
          */
-        this.transfer = function (newType, oldType, orderUUID, entityUUID, amount) {
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            }; 
+        this.transfer =
+            function (newType, oldType, orderUUID, entityUUID, amount) {
+                var document = {
+                    uuid : orderUUID,
+                    type : 'Pedido'
+                };
             
-            var creditAccount = getAccount(oldType);
-            var debitAccount = getAccount(newType);
-            var op = getOperationName(newType, oldType);
-            
-            var entry = new BookEntry(null, null, debitAccount, creditAccount, document, entityUUID, op, amount);
-    
-            return this.write(entry);
-        };
+                var creditAccount = getAccount(oldType);
+                var debitAccount = getAccount(newType);
+                var op = getOperationName(newType, oldType);
+                
+                var entry = new BookEntry(null, null, debitAccount, creditAccount, document, entityUUID, op, amount);
+        
+                return this.write(entry);
+            };
         
         function getAccount(type) {
             if (type === 'cuff') {
