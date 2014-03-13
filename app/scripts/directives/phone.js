@@ -26,7 +26,7 @@
                     ctrl.$viewValue = phone;
                     ctrl.$render();
                     
-                    if(clearPhone.length === 10 || clearPhone.length === 11){
+                    if(clearPhone.length === 10 || clearPhone.length === 11 || clearPhone.length === 0){
                         ctrl.$setValidity('phone', true);
                     } else {
                         ctrl.$setValidity('phone', false);
