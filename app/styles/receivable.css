@@ -6,11 +6,19 @@
 .receivable-page .page-closed{
 
 }
-.receivable-page .page-open-form{
+.receivable-page .page-open-details{
+	height: calc(100% - 394px);
+}
+.receivable-page .page-open-check-details{
 	
 }
-.receivable-page .page-open-form{
-	
+
+.receivable-list{
+
+}
+
+.receivable-page .select2-container{
+	width: 100%;
 }
 
 

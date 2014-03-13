@@ -20,7 +20,13 @@
 		<span class="span2">
 			<div class="control-group">
 				<label class="control-label">Tipo de Recebível</label>
-				<input class="input-block-level hover-state-pointer" type="text" disabled>
+				<!-- <input class="input-block-level hover-state-pointer" type="text" disabled> -->
+				<select ui-select2 tnt-select2 class='select-client' ng-model="customerId">
+					<option value="" ng-hide="true"></option>
+					<option value="0">Cheque</option>
+					<option value="1">Caixa</option>
+					
+				</select>
 			</div>
 		</span>
 
@@ -90,7 +96,7 @@
 
 	</div>
 
-	<div class="row-fluid">
+	<div class="row-fluid" ng-hide="true">
 		<div class="control-group">
 			<span class="span1">
 				<label class="control-label">&nbsp;</label>
@@ -156,7 +162,16 @@
 			<button ng-click="clearSelectedReceivable()" class="btn btn-cancel btn-large btn-login" type="submit">Negociação</button>
 			<button ng-click="comfirmReceive()" class="btn-large btn btn-ok btn-login pull-right" type="submit">Liquidar</button>
 		</span>
+		<!-- negociate state buttons -->
+		<span class="span3 pull-right" ng-hide="true">
+			<label class="control-label">&nbsp;</label>
+			<button ng-click="clearSelectedReceivable()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
+			<button ng-click="comfirmReceive()" class="btn-large btn btn-ok btn-login pull-right" type="submit">Confirmar</button>
+		</span>
 	</div>
+
+	
+	
 
 </div> 
 
