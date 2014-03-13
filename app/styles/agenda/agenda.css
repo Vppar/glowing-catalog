@@ -318,10 +318,12 @@ margin: 0 0 10px 0;
 .ui-dialog .ui-dialog-content {font-size:14px;}
 div.ui-dialog { width:400px !important;}
 div.ui-dialog #event-dialog .field-big { width:96% !important;}
-div.ui-dialog #event-dialog .dialog-buttons { width:100% !important;}
+div.ui-dialog #event-dialog #select-event, div.ui-dialog #event-dialog .dialog-buttons, div.ui-dialog #event-dialog #select-client {width:100% !important;}
+div.ui-dialog #event-dialog #event-status {width: 28% !important; float: right; text-align: right; background-color:#F0F3DF; color:#777;}
 .fc-event-container { margin-top:2px !important;/* margin-left:68px !important;*/ clear:both !important;}
 .fc-event-inner {text-indent:10px !important;}
 /*.fc-event {position:relative !important};*/
 .fc-agenda-allday .fc-day-content {max-height:140px !important;}
 .ui-dialog-titlebar-close {margin-right:10px !important;}
-div.dialog-buttons .btn {zoom:0.79 !important; min-width:70px !important; margin-right: 8px !important;}
+div.dialog-buttons .btn {zoom:0.79 !important; min-width:70px !important; margin-right: 14px !important;}
+div.dialog-buttons .btn:last-child {margin-right:0 !important;}
