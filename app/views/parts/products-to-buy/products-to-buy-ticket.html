@@ -1,7 +1,7 @@
-<div class="step3">
+<div class="step3 product-to-buy-ticket-page">
 
 	<!-- *** PARTE 01 *** -->
-	<div ng-if="ticket.selectedPart=='part1'">
+	<div class="product-to-buy-ticket-part1" ng-if="ticket.selectedPart=='part1'">
 
 		<div class="control-group lbl-top">					
 			<span class="menu-level">
@@ -22,10 +22,10 @@
                 <span class="new-col-4 text-center">Status</span>
             </div>
         </div>
-
-        <div class="new-scrollpanel" ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'">
+		<div class="new-scrollpanel">
+        <div ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'">
             <div class="row-fluid" ng-click="openDialog(purchaseOrder)">
-                <div class="new-body-row details-subtitle">
+                <div class="new-body-row products-to-buy-ticket-part-line make-clickable">
 	                <span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
 	                <span class="new-col-3">{{purchaseOrder.created | date:'HH:mm'}}</span>
 	                <span class="new-col-10">
@@ -41,44 +41,45 @@
                 </div>
             </div>
         </div><!--// new-scrollpanel -->
+        </div>
 	</div><!--//FIM - *** PARTE 01 *** -->
 
 	<!-- *** PARTE 02 *** -->
-	<div ng-if="ticket.selectedPart=='part2'">
+	<div class="product-to-buy-ticket-part2" ng-if="ticket.selectedPart=='part2'">
 
         <div class="row-fluid">
             <div class="new-body-header details-title">
-                <span class="new-col-3">Data</span>
-                <span class="new-col-3">Pedido</span>
-                <span class="new-col-10">NFe</span>
-                <span class="new-col-4 currency">Produto/C&oacute;digo</span>
-                <span class="new-col-4 text-center">Pts</span>
-                <span class="new-col-4 currency">P.Unit</span>
-                <span class="new-col-4 text-center">Qtde</span>
-                <span class="new-col-4 currency">Ok</span>
+                <span class="new-col-2">Data</span>
+                <span class="new-col-2">Pedido</span>
+                <span class="new-col-2">NFe</span>
+                <span class="new-col-6">Produto/C&oacute;digo</span>
+                <span class="new-col-2 text-center">Pts</span>
+                <span class="new-col-2 currency">P.Unit</span>
+                <span class="new-col-2 text-center">Qtde</span>
+                <span class="new-col-2 text-center">Ok</span>
                 <span class="new-col-4 text-center">Pend./Qtde.</span>
             </div>
         </div>
-
-        <div class="new-scrollpanel" ng-repeat="item in purchaseOrder.items">
+<div class="new-scrollpanel" >
+        <div ng-repeat="item in purchaseOrder.items">
             <div class="row-fluid">
-                <div class="new-body-row details-subtitle">
-	                <span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
-	                <span class="new-col-3">
+                <div class="new-body-row products-to-buy-ticket-part-line">
+	                <span class="new-col-2">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
+	                <span class="new-col-2">
 						{{purchaseOrder.nfe.order}}
 						<div class="small-text">{{purchaseOrder | uuidCode}}</div>
 	                </span>
-	                <span class="new-col-10">{{purchaseOrder.nfe.number}}</span>
-	                <span class="new-col-4 currency">
+	                <span class="new-col-2">{{purchaseOrder.nfe.number}}</span>
+	                <span class="new-col-6 product-name">
 						<div class="p-title">{{item.title}}</div>
 						<div class="small-text">{{item.uniqueName}}</div>
 	                </span>
-	                <span class="new-col-4 text-center">{{item.points}}</span>
+	                <span class="new-col-2 text-center">{{item.points}}</span>
 
 
-	                <span class="new-col-4 text-center">{{item.cost | currency: ''}}</span>
-	                <span class="new-col-4 text-center">{{item.qty}}</span>
-	                <span class="new-col-4 text-center">
+	                <span class="new-col-2 text-center">{{item.cost | currency: ''}}</span>
+	                <span class="new-col-2 text-center">{{item.qty}}</span>
+	                <span class="new-col-2 text-center">
 	                	<input type="checkbox" ng-model="ticket.checkBox[item.id]">
 	                </span>
 	                <span class="new-col-4 text-center">
@@ -86,9 +87,9 @@
 	                </span>
                 </div>
             </div>
-        </div><!--// new-scrollpanel -->
-
-		<div class="payment-btn-area">
+        </div>
+</div>
+		<div class="new-buttom-holder">
 			<button class="btn btn-cancel pull-left margin-left" type="submit" ng-click="cancel()">Cancelar</button>
 			<button class="btn btn-ok pull-right margin-right" ng-disabled="disableButton()" type="submit" ng-click="confirm()">Confirmar</button>
 		</div>

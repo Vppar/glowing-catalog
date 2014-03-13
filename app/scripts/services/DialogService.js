@@ -76,7 +76,7 @@
         };
 
         this.openDialogAddCustomerEmails = function(data) {
-            return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/add-customer/add-customer-emails-dialog.html', 'AddCustomerEmailsDialogCtrl', data, 'modal-add-customer-email');
         };
 
         this.openDialogAddToBasket = function(data) {
@@ -92,7 +92,7 @@
         };
 
         this.openDialogChooseCustomer = function(data) {
-            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
         };
 
         this.openDialogInputProducts = function(data) {
