@@ -95,7 +95,7 @@
                             $(circleElement).attr('class', circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle-selected' : 'tag-circle');
                         }
                         var tagNumber = $(circleElement).parent().attr('id').replace('tagEvent', '');
-                        if (tagNumber !== 0) {
+                        if (tagNumber !== '0') {
                             if (circleCss.indexOf('tag-circle-selected') < 0) {
                                 $scope.filter.push(tagNumber);
                             } else {
