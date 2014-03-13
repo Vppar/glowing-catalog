@@ -255,7 +255,7 @@ describe('Service: SyncDriver', function () {
   ////////////////////////////////////////////////////////////////////////////////
   // data warmup
   ////////////////////////////////////////////////////////////////////////////////
-  // Theses tests make sure the application is listening to changes to the
+  // These tests make sure the application is listening to changes to the
   // warm up data in Firebase.
   describe('data warmup', function () {
       // The _watchWarmupData() method should be considered private. It was
@@ -406,11 +406,12 @@ describe('Service: SyncDriver', function () {
         });
 
 
-        // FIXME need to implement this once tests for login are implemented
-        // and we're able to properly test it. Login should probably be
-        // refactored.
+        // FIXME need to implement this test once the warmup is integrated to
+        // the login process and we are able to properly test it. Login should
+        // probably be refactored in the process (hopefully).
         //
-        // Must check if SyncDriver._watchWarmupData() is called.
+        // Must check if SyncDriver._watchWarmupData() is called sometime
+        // during the login process (after a successful login).
         it('is done when the user logs in');
   }); // data warmup
 
