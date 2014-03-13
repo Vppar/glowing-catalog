@@ -204,6 +204,8 @@
             templateUrl : 'views/tutorial-ipad.html'
         }).when('/tutorial-android', {
             templateUrl : 'views/tutorial-android.html'
+        }).when('/third-parties', {
+            templateUrl : 'views/third-parties.html'
         }).otherwise({
             redirectTo : '/'
         });
