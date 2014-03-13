@@ -20,13 +20,13 @@
 		<span class="span2">
 			<div class="control-group">
 				<label class="control-label">Tipo de Recebível</label>
-				<!-- <input class="input-block-level hover-state-pointer" type="text" disabled> -->
-				<select ui-select2 tnt-select2 class='select-client' ng-model="customerId">
+				<input class="input-block-level hover-state-pointer" type="text" disabled ng-show="true">
+				<select ui-select2 tnt-select2 class='select-client' ng-model="customerId" ng-show="false">
 					<option value="" ng-hide="true"></option>
 					<option value="0">Cheque</option>
 					<option value="1">Caixa</option>
-					
 				</select>
+
 			</div>
 		</span>
 
@@ -96,7 +96,7 @@
 
 	</div>
 
-	<div class="row-fluid" ng-hide="true">
+	<div class="row-fluid" ng-hide="false">
 		<div class="control-group">
 			<span class="span1">
 				<label class="control-label">&nbsp;</label>

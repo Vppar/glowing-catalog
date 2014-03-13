@@ -3,14 +3,14 @@
 .receivable-page .new-scrollpanel{
 	
 }
-.receivable-page .page-closed{
-
+.receivable-page .page-closed-details{
+	height: calc(100% - 198px)
 }
 .receivable-page .page-open-details{
 	height: calc(100% - 394px);
 }
 .receivable-page .page-open-check-details{
-	
+	height: calc(100% - 458px);
 }
 
 .receivable-list{
