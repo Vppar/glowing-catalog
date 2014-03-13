@@ -26,7 +26,7 @@
 	height: calc(100% - 141px);
 }
 
-.products-to-buy-pending-part-line{
+.products-to-buy-pending-part-line, .products-to-buy-ticket-part-line{
 	border-bottom-color: rgb(204, 204, 204);
 	border-bottom-style: dotted;
 	border-bottom-width: 1px;
@@ -35,6 +35,16 @@
 	float: left;
 	line-height: 20px;
 	min-height: 20px;
+}
+
+
+
+.product-to-buy-ticket-part1{
+	margin-top: 10px;
+}
+
+.product-to-buy-ticket-part2{
+	
 }
 
 .scroll-title-compensator{
@@ -134,7 +144,7 @@ padding-left: 6px;
 	cursor: pointer;
 }
 .make-clickable:hover{
-	background-color:#ccc;
+	background-color:rgb(119,119,119);
 }
 
 /*-----------------------------------*/
