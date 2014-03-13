@@ -99,7 +99,7 @@
                             $(circleElement).attr('class', circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle-selected' : 'tag-circle');
                         }
                         var tagNumber = $(circleElement).parent().attr('id').replace('tagEvent', '');
-                        if (tagNumber !== 0) {
+                        if (tagNumber != 0) {
                             if (circleCss.indexOf('tag-circle-selected') < 0) {
                                 $scope.filter.push(tagNumber);
                             } else {
@@ -162,6 +162,13 @@
                                 dayNamesShort : [
                                     'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'
                                 ],
+                                titleFormat : {
+                                	day : "dddd, d 'de' MMMM 'de' yyyy"
+                                },
+                                columnFormat : {
+                                	week : "ddd d/M",
+                                	day : "dddd d/M"
+                                },
 
                                 header : {
                                     left : 'today',
@@ -286,9 +293,9 @@
                         } else {
                             $('.fc-tue.fc-widget-header').html($('.fc-tue.fc-widget-header').text().replace('&ccedil;', '&#231;'));
                             $('.fc-sat.fc-widget-header').html($('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
-                            headerTitle = $('.fc-header-title').text();
-                            actualSince =($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1,headerTitle.length).trim()));
-                            actualUpon =($.datepicker.parseDate('M d, yy', headerTitle.substr(headerTitle.indexOf(',') + 1,headerTitle.length).trim()));
+                            headerTitle = $('.fc-header-title').text().split(' de ');
+                            actualSince =($.datepicker.parseDate('M d, yy', headerTitle[1].substr(0, 3) + ' ' + headerTitle[0].substr(headerTitle[0].indexOf(',') + 2, headerTitle[0].length) + ', ' + headerTitle[2].trim()));
+                            actualUpon =($.datepicker.parseDate('M d, yy', headerTitle[1].substr(0, 3) + ' ' + headerTitle[0].substr(headerTitle[0].indexOf(',') + 2, headerTitle[0].length) + ', ' + headerTitle[2].trim()));
                         }
 
                         birthdays = undefined;
@@ -396,6 +403,8 @@
 
                     $('#select-date').val(date);
 
+                    $('#event-status').val('PENDENTE');
+
                     if (eventType) {
                         $('#select-event').val(eventType);
                     } else {
@@ -431,7 +440,6 @@
                     $('#txt-title').val('');
 
                     $('#btn-salvar').removeClass('hide');
-                    $('#event-status').val('');
                     $('#btn-alterar').addClass('hide');
                     $('#btn-concluir').addClass('hide');
                     $('#btn-cancelar').addClass('hide');
@@ -441,7 +449,7 @@
 
                         $('#select-event-uuid').val(event.uuid);
 
-                        $('#event-status').val(event.status);
+                        $('#event-status').val(event.status === 'PENDANT' ? 'PENDENTE' : event.status === 'CANCELLED' ? 'CANCELADO' : event.status === 'DONE' ? 'FINALIZADO' : event.status === 'REMOVED' ? 'REMOVIDO' : '');
 
                         if (event.title) {
                             $('#txt-title').val(event.title);
