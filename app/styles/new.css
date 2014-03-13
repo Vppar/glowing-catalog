@@ -258,6 +258,9 @@ button, .btn {
 .third-parties .new-scrollpanel {
     height:calc(100% - 120px);
 }
+.third-parties .new-scrollpanel .new-col-8 {
+    text-overflow:ellipsis;
+}
 .third-parties .new-scrollpanel .text-center {
     padding-left:12px;
 }
