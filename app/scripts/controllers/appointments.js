@@ -1,4 +1,4 @@
-(function ($, angular) {
+(function ($, angular, alert, confirm, unescape) {
     'use strict';
     angular
         .module('tnt.catalog.appointments.ctrl', [
@@ -260,7 +260,7 @@
                 }
 
                 $scope.rebuildCalendarJsEvents =
-                    function (alert, confirm, unescape) {
+                    function () {
 
                         var actualSince;
                         var actualUpon;
@@ -492,7 +492,7 @@
                     $scope.rebuildCalendarJsEvents();
                 };
 
-                $scope.remove = function (confirm, alert, unescape) {
+                $scope.remove = function () {
                     if (confirm('Deseja confirmar a exclus'+unescape('%e3')+'o do evento?')) {
                         $scope.validateUUID();
                         AppointmentService.remove($('#select-event-uuid').val()).then(function () {
@@ -504,7 +504,7 @@
                     }
                 };
 
-                $scope.done = function (confirm, alert, unescape) {
+                $scope.done = function () {
                     if (confirm('Deseja confirmar a conclus'+unescape('%e3')+'o do evento?')) {
                         $scope.validateUUID();
                         AppointmentService.done($('#select-event-uuid').val()).then(function () {
@@ -516,7 +516,7 @@
                     }
                 };
 
-                $scope.cancel = function (confirm, alert) {
+                $scope.cancel = function () {
                     if (confirm('Deseja confirmar o cancelamento do evento?')) {
                         $scope.validateUUID();
                         AppointmentService.cancel($('#select-event-uuid').val()).then(function () {
@@ -528,7 +528,7 @@
                     }
                 };
 
-                $scope.update = function (alert, unescape) {
+                $scope.update = function () {
 
                         var selectedStartDate = new Date($('#select-date').val());
                         selectedStartDate.setHours($('#select-hour-initial').val());
@@ -560,7 +560,7 @@
                     };
 
                 $scope.create =
-                    function (alert) {
+                    function () {
                         var selectedStartDate = new Date($('#select-date').val());
                         selectedStartDate.setHours($('#select-hour-initial').val());
                         selectedStartDate.setMinutes($('#select-minute-initial').val());
@@ -590,7 +590,7 @@
                         }
                     };
 
-                $scope.validateUUID = function (alert, unescape) {
+                $scope.validateUUID = function () {
                     if (!$('#select-event-uuid').val()) {
                         alert('UUID do Evento '+unescape('%e9')+' um campo obrigat'+unescape('%f3')+'rio.');
                         return false;
@@ -599,7 +599,7 @@
                 };
 
                 $scope.validateEventDialogFields =
-                    function (selectedStartDate, selectedEndDate, alert, unescape) {
+                    function (selectedStartDate, selectedEndDate) {
                         if (!$('#select-date').val()) {
                             alert('A data do evento ' + unescape('%e9') + ' um campo obrigat' +
                                 unescape('%f3') + 'rio.');
@@ -633,7 +633,7 @@
                         return true;
                     };
 
-                function validateDate (selectedStartDate, selectedEndDate, alert, unescape) {
+                function validateDate (selectedStartDate, selectedEndDate) {
                     if (selectedStartDate < new Date()) {
                         alert('N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.');
                         return false;
@@ -667,4 +667,4 @@
                     });
                 });
             });
-}(jQuery, angular));
+}(jQuery, angular, window.alert, window.confirm, window.unescape));
