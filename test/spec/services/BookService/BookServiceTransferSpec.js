@@ -1,186 +1,203 @@
 'use strict';
 
-describe('Service: BookServiceLiquidateSpec', function () {
+describe('Service: BookServiceTransferSpec', function() {
 
     var BookService = {};
-    var BookKeeper = {};
     var BookEntry = {};
+    var BookKeeper = {};
 
     var document = null;
     var entityUUID = null;
     var amount = null;
-    var type = null;
+    var newType = null;
+    var oldType = null;
     var expected = null;
-
-    beforeEach(function () {
+    
+    beforeEach(function() {
         module('tnt.catalog.service.book');
         module('tnt.catalog.bookkeeping.entry');
 
-        module(function ($provide) {
+        module(function($provide) {
             $provide.value('BookKeeper', BookKeeper);
         });
     });
 
-    beforeEach(function () {
+    beforeEach(function() {
         document = {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
             type : 'Pedido'
         };
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
         amount = 150;
-        type = null;
     });
 
-    beforeEach(inject(function (_BookService_, _BookEntry_) {
+    beforeEach(inject(function(_BookService_, _BookEntry_) {
         BookService = _BookService_;
         BookEntry = _BookEntry_;
     }));
-
-    beforeEach(function () {
+    
+    beforeEach(function(){
         spyOn(BookService, 'write');
+        spyOn(BookService, 'transfer').andCallThrough();
     });
-
-    describe('When type is CASH', function () {
-
+    
+    describe('When trasnfering from check to cuff', function(){
         beforeEach(function () {
             // Given
-            type = 'cash';
+            newType = 'cuff';
+            oldType = 'check';
             expected = new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 11111,
-                creditAccount : 70001,
-                document : document,
-                entity : entityUUID,
-                op : 'Recebimento em dinheiro',
-                amount : amount
-            });
-        });
-
-        it('should write in book with the right entry', function () {
-            // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
-            // Then
-            expect(BookService.write).toHaveBeenCalledWith(expected);
-        });
-    });
-
-    describe('When type is CHECK', function () {
-        beforeEach(function () {
-            // Given
-            type = 'check';
-            expected = new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 11131,
+                debitAccount : 11511,
                 creditAccount : 11121,
                 document : document,
                 entity : entityUUID,
-                op : 'Depósito cheque',
+                op : 'Transferencia de cheque para a receber',
                 amount : amount
             });
+
         });
 
-        it('should write in book with the right entry', function () {
+        it('should create a properly entry and write in book keeper', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            BookService.transfer(newType, oldType, document.uuid, entityUUID, amount);
             // Then
             expect(BookService.write).toHaveBeenCalledWith(expected);
         });
+        
     });
-
-    describe('When type is CREDIT CARD', function () {
+    
+    describe('When trasnfering from card to cuff', function(){
         beforeEach(function () {
             // Given
-            type = 'card';
+            newType = 'cuff';
+            oldType = 'card';
             expected = new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 11131,
+                debitAccount : 11511,
                 creditAccount : 11512,
                 document : document,
                 entity : entityUUID,
-                op : 'Recebimento cartão',
+                op : 'Transferencia de cartao para a receber',
                 amount : amount
             });
+
         });
 
-        it('should write in book with the right entry', function () {
+        it('should create a properly entry and write in book keeper', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            BookService.transfer(newType, oldType, document.uuid, entityUUID, amount);
             // Then
             expect(BookService.write).toHaveBeenCalledWith(expected);
         });
+        
     });
-    describe('When type is ON CUFF', function () {
+    
+    describe('When trasnfering from cuff to card', function(){
         beforeEach(function () {
             // Given
-            type = 'cuff';
+            newType = 'card';
+            oldType = 'cuff';
             expected = new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 11111,
+                debitAccount : 11512,
                 creditAccount : 11511,
                 document : document,
                 entity : entityUUID,
-                op : 'Recebimento parcela',
+                op : 'Transferencia de a receber para cartao',
                 amount : amount
             });
+
         });
 
-        it('should write in book with the right entry', function () {
+        it('should create a properly entry and write in book keeper', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            BookService.transfer(newType, oldType, document.uuid, entityUUID, amount);
             // Then
             expect(BookService.write).toHaveBeenCalledWith(expected);
         });
+        
     });
-
-    describe('When type is VOUCHER', function () {
+    
+    describe('When trasnfering from check to card', function(){
         beforeEach(function () {
             // Given
-            type = 'voucher';
+            newType = 'card';
+            oldType = 'check';
             expected = new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 21301,
-                creditAccount : 70001,
+                debitAccount : 11512,
+                creditAccount : 11121,
                 document : document,
                 entity : entityUUID,
-                op : 'Abatimento vale crédito',
+                op : 'Transferencia de cheque para cartao',
                 amount : amount
             });
+
         });
-        it('should write in book with the right entry', function () {
+
+        it('should create a properly entry and write in book keeper', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            BookService.transfer(newType, oldType, document.uuid, entityUUID, amount);
             // Then
             expect(BookService.write).toHaveBeenCalledWith(expected);
         });
     });
-
-    describe('When type is GIFRT', function () {
+    
+    describe('When trasnfering from cuff to check', function(){
         beforeEach(function () {
             // Given
-            type = 'gift';
+            newType = 'check';
+            oldType = 'cuff';
             expected = new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 21305,
-                creditAccount : 70001,
+                debitAccount : 11121,
+                creditAccount : 11511,
                 document : document,
                 entity : entityUUID,
-                op : 'Abatimento vale presente',
+                op : 'Transferencia de a receber para cheque',
                 amount : amount
             });
+
         });
 
-        it('should write in book with the right entry', function () {
+        it('should create a properly entry and write in book keeper', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            BookService.transfer(newType, oldType, document.uuid, entityUUID, amount);
             // Then
             expect(BookService.write).toHaveBeenCalledWith(expected);
         });
     });
+    
+    describe('When trasnfering from card to check', function(){
+        beforeEach(function () {
+            // Given
+            newType = 'check';
+            oldType = 'card';
+            expected = new BookEntry({
+                uuid : null,
+                created : null,
+                debitAccount : 11121,
+                creditAccount : 11512,
+                document : document,
+                entity : entityUUID,
+                op : 'Transferencia de cartao para cheque',
+                amount : amount
+            });
 
+        });
+
+        it('should create a properly entry and write in book keeper', function () {
+            // When
+            BookService.transfer(newType, oldType, document.uuid, entityUUID, amount);
+            // Then
+            expect(BookService.write).toHaveBeenCalledWith(expected);
+        });
+    });
 });
+
