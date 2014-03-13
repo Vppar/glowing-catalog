@@ -5,16 +5,14 @@ var initMagnifier = function () {
 </script>
 
 <div class="modal-head">{{product.title}}</div>
-
 <div class="modal-body modal-add-basket-dialog-body">
-
     <div class="img-holder">
         <div class='zoom' id='magnifier'>
             <!-- <img ng-src="{{config.imageBaseURL}}{{product.image}}" onload="javascript:initMagnifier();" alt="" />  -->
             <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
         </div>
     </div>
-    <div class="info">
+    <div class="info" fast-click>
 
         <div class="info-item price">
             <small>R$</small>{{product.price | currency:''}}</span>
@@ -22,7 +20,7 @@ var initMagnifier = function () {
         
         <div class="info-item quantity">
             <span class="info-label">Qtde</span>
-            <input-qty ng-model="grid[0].qty" min="0"></input-qty>
+            <tnt-number-picker ng-model="grid[0].qty" min="0"></tnt-number-picker>
         </div>
 
         <div class="info-item total">
@@ -34,7 +32,7 @@ var initMagnifier = function () {
 
          <div class="info-item discount">
             <span class="info-label">Desconto</span>
-            <span class="fake-input" ng-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
+            <span class="fake-input" tnt-promise-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
         </div>
            
         <div class="line-gradient">&nbsp;</div>
@@ -43,8 +41,7 @@ var initMagnifier = function () {
 
     <span class="code-product code-product-vs">{{item.SKU}}</span>
 </div>
-
-<div class="modal-foot">
+<div class="modal-foot" fast-click>
     <hr />
     <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
     <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>

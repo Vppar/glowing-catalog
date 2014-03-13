@@ -5,7 +5,6 @@
 </script>
 
 <div class="modal-head">{{product.title}}</div>
-
 <div class="modal-body modal-add-basket-details-dialog-body">
 	<div class="skus">
 		<div class="new-body-header">
@@ -25,21 +24,21 @@
 				Qtde
 			</div>
 		</div>
-		<div class="new-scroll-area">
-		<div class="new-body-row" ng-repeat="item in grid">
-			<div class="new-col-10 product-name">
-				<img ng-if="item.image" once-src="getImageData(item.SKU)" alt="sample" />
-				<span>{{item.option}}</span>
-				<br/>
-				<small class="">{{item.SKU}}</small>
-			</div>
-
-				<div class="new-col-4 text-vertical-middle text-center">{{item.inventory}}</div>
-				<div class="new-col-4 text-vertical-middle currency">{{product.price | currency:''}}</div>
-				<div class="new-col-6 text-center">
-					<input-qty ng-model="item.qty" min="0"></input-qty>
+		<div class="new-scroll-area" fast-click>
+			<div class="new-body-row" ng-repeat="item in grid">
+				<div class="new-col-10 product-name">
+					<img ng-if="item.image" once-src="getImageData(item.SKU)" alt="sample" />
+					<span>{{item.option}}</span>
+					<br/>
+					<small class="">{{item.SKU}}</small>
 				</div>
-		</div>
+	
+					<div class="new-col-4 text-vertical-middle text-center">{{item.inventory}}</div>
+					<div class="new-col-4 text-vertical-middle currency">{{product.price | currency:''}}</div>
+					<div class="new-col-6 text-center">
+						<tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
+					</div>
+			</div>
 		</div>
 	</div>
 	<div class="info">
@@ -48,29 +47,28 @@
                 <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
             </div>
         </div>
-            <div class="info-item quantity">
-                <span class="info-label">Qtde</span>
-                <span class="quantity-value">{{count}}</span>
-            </div>
-
-            <div class="info-item total">
-                <span class="info-label">Total</span>
-                <span class="total-value">
-                    <small>R$</small> {{total | currency:''}}
-                </span>
-            </div>
-
-             <div class="info-item discount">
-                <span class="info-label">Desconto</span>
-                <span class="fake-input" ng-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
-            </div>
+		<div class="info-item quantity">
+		    <span class="info-label">Qtde</span>
+		    <span class="quantity-value">{{count}}</span>
+		</div>
+		
+		<div class="info-item total">
+		    <span class="info-label">Total</span>
+		    <span class="total-value">
+		        <small>R$</small> {{total | currency:''}}
+		    </span>
+		</div>
+		
+		 <div class="info-item discount" fast-click>
+		    <span class="info-label">Desconto</span>
+		    <span class="fake-input" tnt-promise-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
+		</div>
             
     </div>
 </div>
 
- <div class="modal-foot">
-        <hr />
-        <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
-        <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
-    </div>
-
+ <div class="modal-foot" fast-click>
+	<hr />
+    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+    <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
+</div>
