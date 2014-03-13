@@ -15,7 +15,7 @@
                 link : function postLink (scope, element, attrs) {
                     
                     if(!scope.value){
-                        scope.value = attrs.min || 0;
+                        scope.value = Number(attrs.min) || 0;
                     }
                     
                     scope.add = function () {
