@@ -174,6 +174,7 @@
                       discount = discount > $scope.total ? $scope.total : discount;
                       setItemDiscount(discount);
                     });
+                    return numpadDialog;
                 }
 
                 $scope.openDialogNumpad = openDialogNumpad;
