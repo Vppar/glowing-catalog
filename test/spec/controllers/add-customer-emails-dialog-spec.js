@@ -201,8 +201,7 @@ describe('Controller: AddCustomerEmailsDialogCtrl', function() {
         var emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
         
         scope.isDisabled = true;
-        scope.email.address = '';
-        scope.newEmailForm.$valid = emailRegex.test(scope.email.address);
+        scope.newEmailForm.$valid = true;
         scope.emails.length = 1;
         //when
         scope.$apply();

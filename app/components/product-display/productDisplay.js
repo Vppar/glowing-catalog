@@ -23,6 +23,10 @@
                         color : '='
                     },
                     link : function postLink(scope, element, attrs) {
+                        
+                        scope.getImageData = function(name){
+                            return DataProvider.images[name];
+                        };
 
                         scope.blockStyle = [];
                         scope.blockStyle[0] = 'w0' + scope.product.w;

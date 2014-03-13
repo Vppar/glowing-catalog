@@ -1,5 +1,3 @@
-<div class="row-fluid">		
-
 <div class="details-products-to-buy-item">
 	<div class="col-details-products-to-buy-item">
 		<div class="discount-notice">
@@ -14,86 +12,81 @@
 	</div>
 </div>
 
-	<div class="details-products-to-buy-item">
-		<div class="col-details-products-to-buy-item">
-			<span class="section">Se&ccedil;&atilde;o 1</span>
-			<div class="row-details-products-to-buy-item">
-				<span class="item">
-					<span class="lbl-money">Valor da compra</span>
-					<span class="btn-price-payment">{{summary.total.amount | currency: ' '}}</span>
-				</span>
-				<span class="item">
-					<span class="lbl-money">Percentual de desconto</span>
-					<span class="btn-price-payment">{{summary.discount.fee | currency: ''}}</span>
-				</span>
-			</div>
-			<div class="row-details-products-to-buy-item">
-				<span class="item">
-					<span class="lbl-money">Valor com desconto</span>
-					<span class="btn-price-payment">{{summary.total.amountWithDiscount | currency:' '}}</span>
-				</span>
-				<span class="item">
-					<span class="lbl-money">Total de pontos</span>
-					<span class="btn-price-payment">{{summary.total.points}}</span>
-				</span>
-			</div>
+<div class="details-products-to-buy-item">
+	<div class="col-details-products-to-buy-item">
+		<span class="section">Se&ccedil;&atilde;o 1</span>
+		<div class="row-details-products-to-buy-item">
+			<span class="item">
+				<span class="lbl-money">Valor da compra</span>
+				<span class="btn-price-payment">{{summary.total.amount | currency: ' '}}</span>
+			</span>
+			<span class="item">
+				<span class="lbl-money">Percentual de desconto</span>
+				<span class="btn-price-payment">{{summary.discount.fee | currency: ''}}</span>
+			</span>
 		</div>
-		<div class="col-details-products-to-buy-item">							
-			<span class="section">Se&ccedil;&atilde;o 2</span>
-			<div class="row-details-products-to-buy-item">
-				<span class="item">
-					<span class="lbl-money">Valor da compra</span>
-					<span class="btn-price-payment">{{summary.total.amount2 | currency: ' '}}</span>
-				</span>
-			</div>
-		</div>
-		<div class="col-details-products-to-buy-item">		
-			<span class="section">Total se&ccedil;&atilde;o 1 e 2</span>
-			<div class="row-details-products-to-buy-item">
-				<span class="item">
-					<span class="lbl-money">Valor total da compra</span>
-					<span class="btn-price-payment">{{summary.total.amount | currency:' '}}</span>
-				</span>
-				<span class="item">
-					<span class="lbl-money">Valor de frete</span>
-					<span class="btn-price-payment">{{summary.freight.amount | currency:' '}}</span>
-				</span>
-			</div>
-			<div class="row-details-products-to-buy-item">
-				<span class="item">
-					<span class="lbl-money">SD dispon&iacute;vel (d&eacute;bito)</span>
-					<span class="btn-price-payment">0,00</span>
-				</span>
-				<span class="item">
-					<span class="lbl-money">Subtotal</span>
-					<span class="btn-price-payment">{{summary.total.amountWithDiscount | currency:' '}}</span>
-				</span>
-			</div>
-			<div class="row-details-products-to-buy-item">
-				<span class="item">
-					<span class="lbl-money font-bold">Total do pedido</span>
-					<span class="btn-price-payment font-bold">{{summary.total.amountWithDiscount | currency:' '}}</span>
-				</span>
-				<span class="item">
-					<span class="lbl-money">Total pts</span>
-					<span class="btn-price-payment">{{summary.total.points}}</span>
-				</span>
-			</div>
-		</div>
-		<!--Tela "Fazer pedido"-->
-		<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='buildOrder'">			
-			<div class="btns-details-products-to-buy-item">
-				<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
-				<button class="btn btn-ok float-right" type="submit" ng-click="selectTab('confirmOrder')">Prosseguir</button>
-			</div>		
-		</div>
-		
-		<!--Tela "Aferir NFe compra" - PARTE 2-->
-		<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='verifyTicket'">			
-			<div class="btns-details-products-to-buy-item">
-				<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
-				<button class="btn btn-ok float-right" type="submit" ng-click="confirm()">Confirmar</button>
-			</div>		
+		<div class="row-details-products-to-buy-item">
+			<span class="item">
+				<span class="lbl-money">Valor com desconto</span>
+				<span class="btn-price-payment">{{summary.total.amountWithDiscount | currency:' '}}</span>
+			</span>
+			<span class="item">
+				<span class="lbl-money">Total de pontos</span>
+				<span class="btn-price-payment">{{summary.total.points}}</span>
+			</span>
 		</div>
 	</div>
-</div>	
+	<div class="col-details-products-to-buy-item">							
+		<span class="section">Se&ccedil;&atilde;o 2</span>
+		<div class="row-details-products-to-buy-item">
+			<span class="item">
+				<span class="lbl-money">Valor da compra</span>
+				<span class="btn-price-payment">{{summary.total.amount2 | currency: ' '}}</span>
+			</span>
+		</div>
+	</div>
+	<div class="col-details-products-to-buy-item">		
+		<span class="section">Total se&ccedil;&atilde;o 1 e 2</span>
+		<div class="row-details-products-to-buy-item">
+			<span class="item">
+				<span class="lbl-money">Valor total da compra</span>
+				<span class="btn-price-payment">{{summary.total.amount | currency:' '}}</span>
+			</span>
+			<span class="item">
+				<span class="lbl-money">Valor de frete</span>
+				<span class="btn-price-payment">{{summary.freight.amount | currency:' '}}</span>
+			</span>
+		</div>
+		<div class="row-details-products-to-buy-item">
+			<span class="item">
+				<span class="lbl-money">SD dispon&iacute;vel (cr&eacute;dito)</span>
+				<span class="btn-price-payment">0,00</span>
+			</span>
+			<span class="item">
+				<span class="lbl-money">Subtotal</span>
+				<span class="btn-price-payment">{{summary.total.amountWithDiscount | currency:' '}}</span>
+			</span>
+		</div>
+		<div class="row-details-products-to-buy-item">
+			<span class="item">
+				<span class="lbl-money font-bold">Total do pedido</span>
+				<span class="btn-price-payment font-bold">{{summary.total.amountWithDiscount | currency:' '}}</span>
+			</span>
+		</div>
+	</div>
+	<!--Tela "Fazer pedido"-->
+	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='buildOrder'">			
+		<div class="btns-details-products-to-buy-item">
+			<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
+			<button class="btn btn-ok float-right" type="submit" ng-click="selectTab('confirmOrder')">Prosseguir</button>
+		</div>		
+	</div>
+	
+	<!--Tela "Aferir NFe compra" - PARTE 2-->
+	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='verifyTicket'">			
+		<div class="btns-details-products-to-buy-item">
+			<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
+			<button class="btn btn-ok float-right" type="submit" ng-click="confirm()">Confirmar</button>
+		</div>		
+	</div>
+</div>

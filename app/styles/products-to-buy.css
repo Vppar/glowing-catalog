@@ -1,5 +1,80 @@
+/* new stuff*/
+.new-part-holder{
+	height: 100%;
+}
+.product-to-buy-page .new-body{
+	height: calc(100% - 91px);
+}
+.product-to-buy-order-part, .product-to-buy-confirm-part{
+	height: 100%;
+}
+.product-to-buy-order-part .new-scrollpanel{
+	height: calc(100% - 129px);
+}
+.product-to-buy-confirm-part .new-scrollpanel{
+	height: calc(100% - 85px);
+}
+.product-to-buy-confirm-part .payment-btn-area{
+	width: 100%;
+	margin-top: 10px;
+}
+
+.products-to-buy-pending-part {
+	height: 100%;
+}
+.products-to-buy-pending-part .new-scrollpanel{
+	height: calc(100% - 141px);
+}
+
+.products-to-buy-pending-part-line{
+	border-bottom-color: rgb(204, 204, 204);
+	border-bottom-style: dotted;
+	border-bottom-width: 1px;
+	box-sizing: border-box;
+	display: block;
+	float: left;
+	line-height: 20px;
+	min-height: 20px;
+}
+
+.scroll-title-compensator{
+	padding-right: 2px;
+}
+
 /*FORM PRODUCTS TO BUY*/
 /*PEDIDO DE COMPRA*/
+
+/*header correction at order - review this!!!!!
+  no ipad o new-col-3 tem larguras diferentes!!!!!!
+*/
+.product-header-order{
+	width: 266px;
+float: left;
+-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+padding-left: 6px;
+}
+
+.product-order{
+	width: 266px;
+float: left;
+-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+padding-left: 6px;
+}
+
+.pedido-header-order{
+	width: 128px;
+	float: left;
+}
+
+.outros-header-order{
+	width: 75px;
+	float: left;
+}
+
 
 /*im very sorry for this....*/
 .width970{
@@ -100,6 +175,7 @@
 	display: block;
 	float:left;
 	width:68%;
+	height: 100%;
 }
 .products-to-buy-right{
 	display: block;
@@ -160,7 +236,7 @@
 }
 .details-products-to-buy-item .section, .grid-payment-products-to-buy-edit .section{
 	display: block;			
-	/* margin: 5px 0 5px 4px; */
+	margin: 5px 0 0 4px;
 	font-weight:bold;
 	height:22px;
 	line-height:22px
@@ -179,6 +255,7 @@
 	margin: 8px;
 	color:#FF9D00;
 	letter-spacing: -0.5px;
+	text-align:center;
 }
 
 .w595{
@@ -1220,3 +1297,119 @@ vertical-align: middle;
 
 }
 
+
+/* -- NEW CSS -- */
+
+.details-item{
+	display: block;
+	font-weight:normal;
+	float:left;
+}
+.details-title{
+	background: #333;
+	color: #fff;`
+}
+.details-total{
+	background: #ccc;
+	color: #222;
+}
+.details-subtitle{
+	background: #e3e3e3; /*#F2F2F2*/
+	color: #444;
+	border-bottom: 2px solid #fff;
+}
+.details-category{
+	background: #f4f4f4;
+	color: #777;
+	border-bottom: 2px solid #fff;
+}
+
+.details-category, .details-subtitle, .details-total {
+	font-weight:bold;
+	margin-bottom:2px;
+}
+.details-category, .details-subtitle, .details-total, .details-category-title, .details-item {
+	border-radius:4px;
+	padding: 8px 5px 8px 0!important;
+	min-height: 20px;
+}
+
+.new-content-box {
+	height:calc(100% - 105px);
+	overflow:hidden;
+}
+
+.fixed-line .currency {
+	padding-right:14px;
+}
+.fixed-line .currency:last-child {
+	padding-right:6px;
+}
+.new-scrollpanel .details-category .currency:last-child, .new-scroll-panel .details-subtitle .currency:last-child,
+.new-scrollpanel .details-total .currency:last-child, .new-scroll-panel .details-item .currency:last-child {
+	padding-right:4px;
+}
+
+.new-scrollpanel {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: relative;
+	top:0;
+}
+
+.step3 .new-scrollpanel{
+	height:calc(100% - 175px);
+}
+.new-scrollpanel .new-body-row span {
+	min-height:1px;
+}
+
+.step3, .step4 {
+	position:absolute;
+	width:96%;
+}
+
+.products-to-buy-left .new-body-header {
+	margin-top:0;
+}
+
+.products-to-buy-right .lbl-money {
+	display:inline-block;
+	width: 165px;
+	margin-left: 5px;
+	height:22px;
+	line-height:22px
+}
+.products-to-buy-right .btn-price-payment {
+	width: 110px;
+	text-align: right;
+	border: 1px solid #eee;
+	background-color: #f2f2f2;
+	border-radius: 4px;
+	margin-right: 5px;
+	display: inline-block;
+	height:20px;
+	line-height:20px;
+}
+
+.step2 .details-category {
+	padding-left: 6px!important;
+}
+
+.step2 .details-category,
+.step2 .details-item,
+.step2 .details-subtitle {
+	display:block;
+	float:left;
+	width:100%;
+	-webkit-box-sizing:border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+.step2 .new-scrollpanel .currency {
+	padding-right:6px;
+}
+
+.step1 .new-scrollpanel .currency {
+	padding-right:12px;
+}

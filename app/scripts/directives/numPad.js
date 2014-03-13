@@ -58,7 +58,7 @@
                                                 }
                                             }
                                         });
-                                    } else if (!('ontouchstart' in window || 'onmsgesturechange' in window)) {
+                                    } else {
                                         mask.remove();
                                     }
                                 },

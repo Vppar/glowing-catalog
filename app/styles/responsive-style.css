@@ -137,7 +137,7 @@
 	/*home scroll content*/
 	.home-scroll-content {
 		width: 825px;
-		height: 670px !important;
+/*		height: 670px !important;*/		
 		overflow-y: auto;
 		-webkit-overflow-scrolling: touch;
 		position: absolute !important;

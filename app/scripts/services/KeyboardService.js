@@ -9,6 +9,22 @@
         var currentField = null;
         var keyboard = {};
 
+        var active = false;
+        var activeCallback = null;
+
+        var that = this;
+
+        this.setActive = function (isActive) {
+            active = isActive;
+            keyboard.active = isActive;
+            if (angular.isFunction(activeCallback)) {
+                activeCallback(active);
+            }
+            if (angular.isFunction(keyboard.setActive)) {
+                keyboard.setActive(active);
+            }
+        };
+
         /**
          * register an input field
          */
@@ -22,7 +38,7 @@
             // callbacks and some data)
             input.setFocus = function() {
                 select(input);
-                keyboard.setActive(true);
+                that.setActive(true);
             };
 
             fields.push(input);
@@ -37,8 +53,8 @@
                 fields.splice(index, 1);
                 
                 if(currentField == foundItem){
-                    unselect();
-                    keyboard.setActive(false);
+                    this.setActive(false);
+                    currentField = null;
                 }
             } else {
                 throw "input not found in fields";
@@ -46,8 +62,14 @@
         };
 
         this.setKeyboard = function setKeyboard(value) {
-            keyboard.setActive = value.setActive;
             keyboard.status = value.status;
+            activeCallback = value.setActive;
+            value.setActive(active);
+        };
+
+        this.unsetKeyboard = function unsetKeyboard() {
+            active = false;
+            activeCallback = null;
         };
         
         this.getKeyboard = function() {
@@ -73,7 +95,7 @@
                 select(next);
             } else {
                 unselect();
-                keyboard.setActive(false);
+                this.setActive(false);
             }
         };
 
@@ -95,13 +117,15 @@
         }
 
         function unselect() {
-            currentField.setActive(false);
-            currentField = null;
+            if (currentField !== null) {
+                currentField.setActive(false);
+                currentField = null;
+            }
         }
         
         this.quit = function(){
             unselect();
-            keyboard.setActive(false);
+            this.setActive(false);
         };
 
         function reorder() {

@@ -1,17 +1,79 @@
-<div class="container ng-scope">
-
+<div class="container product-to-buy-page">
 	<div class="row-fluid">
-		<span class="span12"> <span ng-include src="'views/parts/global/header.html'"></span>
-		</span>
+		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
 
-	
+	<div class="new-page new-content-box">
+		<div class="new-header">
+			<span>Pedido de compra</span><span class="crumbs"></span>
+			<div class="float-right">
+				<span class="menu-level">
+
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-option" ng-class="{active:tabs.selected=='buildOrder'}" ng-click="selectTab('buildOrder')">Novo Pedido</a> 
+						<a class="btn btn-option" ng-class="{active:tabs.selected=='confirmOrder'}" ng-click="selectTab('confirmOrder')">Confirmar Pedido</a> 
+						<a class="btn btn-option" ng-class="{active:tabs.selected=='verifyTicket'}" ng-click="selectTab('verifyTicket')">Aferir NFe Compra</a>
+						<a class="btn btn-option" ng-class="{active:tabs.selected=='pendingProducts'}" ng-click="selectTab('pendingProducts')">Produtos Pendentes</a>
+<!-- Commented until the screen is finished -->
+<!-- 								<a class="btn btn-option" ng-class="{active:tabs.selected=='availableCredit'}" ng-click="selectTab('availableCredit')">Controle de B&ocirc;nus</a> -->
+					</div>
+				</span>
+			</div>
+		</div>
+
+		<div class="new-body">
+				<div class="products-to-buy-left">
+					
+					<!--Tela "Novo Pedido"-->
+					<div 	ng-if="tabs.selected=='buildOrder'" class="new-part-holder"
+							ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'" 
+							ng-controller="ProductsToBuyOrderCtrl">
+					</div>
+					
+					<!--Tela "Confirmar pedido"-->
+					<div 	ng-if="tabs.selected=='confirmOrder'" class="new-part-holder"
+							ng-include src="'views/parts/products-to-buy/products-to-buy-confirm.html'" 
+							ng-controller="ProductsToBuyConfirmCtrl">
+					</div>
+		            
+		            <!--Tela "Verificar NF"-->
+		            <div 	ng-if="tabs.selected=='verifyTicket'" class="new-part-holder" 
+							ng-include src="'views/parts/products-to-buy/products-to-buy-ticket.html'" 
+							ng-controller="ProductsToBuyTicketCtrl">
+					</div>
+
+					<!--Tela "Produtos Pendentes"-->
+					<div 	ng-if="tabs.selected=='pendingProducts'" class="new-part-holder"
+							ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'" 
+							ng-controller="ProductsToBuyPendingCtrl">
+					</div>
+		            <!--Tela "Credito bonus"-->
+		<!--             Commented until the screen is finished -->
+		<!-- 			<span ng-if="tabs.selected=='availableCredit'"> -->
+		<!-- 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span> -->
+		<!-- 			</span>	 -->
+				</div>
+
+				<div class="products-to-buy-right" ng-if="summaryIsVisible(tabs.selected)">
+					<!-- Right Screen Details -->
+					<div ng-include src="'views/parts/products-to-buy/products-to-buy-summary.html'" ng-controller="ProductsToBuySummaryCtrl"></div>
+				</div>
+		</div><!-- //new-body -->
+	</div> <!--// new-page -->
+</div>
+
+<!--
+<div class="container">
+	<div class="row-fluid">
+		<span class="span12"> <span ng-include src="'views/parts/global/header.html'"></span></span>
+	</div>
+
 	<div class="form-products-to-buy">
     
 		<div class="row-fluid pull-right panel-top">
 
 			<!-- BREAD CRUMBS -->
-			<div class="row-fluid bread-crumbs">
+<!--			<div class="row-fluid bread-crumbs">
 				<span class="span6">
 					<span class="principal">Pedido de compra</span> &nbsp; <span class="crumbs">&nbsp;</span>
 				</span>
@@ -25,7 +87,7 @@
 								<a class="btn btn-option" ng-class="{active:tabs.selected=='pendingProducts'}" ng-click="selectTab('pendingProducts')">Produtos Pendentes</a>
 <!-- Commented until the screen is finished -->
 <!-- 								<a class="btn btn-option" ng-class="{active:tabs.selected=='availableCredit'}" ng-click="selectTab('availableCredit')">Controle de B&ocirc;nus</a> -->
-							</div>
+<!--							</div>
 						</span>
 					</div>
 				</span>
@@ -34,19 +96,19 @@
 		
 		<div class="products-to-buy-left">
 			<!--Tela "Novo Pedido"-->
-			<span ng-if="tabs.selected=='buildOrder'">
+<!--			<span ng-if="tabs.selected=='buildOrder'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-order.html'" ng-controller="ProductsToBuyOrderCtrl"></span>
 			</span>						
 			<!--Tela "Confirmar pedido"-->
-			<span ng-if="tabs.selected=='confirmOrder'">
+<!--			<span ng-if="tabs.selected=='confirmOrder'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-confirm.html'" ng-controller="ProductsToBuyConfirmCtrl"></span>
 			</span>	
             <!--Tela "Verificar NF"-->
-            <span ng-if="tabs.selected=='verifyTicket'">
+<!--            <span ng-if="tabs.selected=='verifyTicket'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-ticket.html'" ng-controller="ProductsToBuyTicketCtrl"></span>
 			</span>
 			<!--Tela "Produtos Pendentes"-->
-			<span ng-if="tabs.selected=='pendingProducts'">
+<!--			<span ng-if="tabs.selected=='pendingProducts'">
 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-pending.html'" ng-controller="ProductsToBuyPendingCtrl"></span>
 			</span>	
             <!--Tela "Credito bonus"-->
@@ -54,11 +116,11 @@
 <!-- 			<span ng-if="tabs.selected=='availableCredit'"> -->
 <!-- 				<span ng-include src="'views/parts/products-to-buy/products-to-buy-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span> -->
 <!-- 			</span>	 -->
-		</div>
+<!--		</div>
 
 		<!-- Right Screen Details -->
-		<div class="products-to-buy-right" ng-if="summaryIsVisible(tabs.selected)">
+<!--		<div class="products-to-buy-right" ng-if="summaryIsVisible(tabs.selected)">
 			<span ng-include src="'views/parts/products-to-buy/products-to-buy-summary.html'" ng-controller="ProductsToBuySummaryCtrl"></span>	
 		</div>
 	</div>
-</div>
+</div>-->

@@ -1,3 +1,55 @@
+<div class="step2 product-to-buy-confirm-part">
+
+    <div class="row-fluid">
+        <div class="new-body-header details-title">
+            <span class="new-col-11">Produto/C&oacute;digo</span>
+            <span class="new-col-3 text-center">Pts.</span>
+            <span class="new-col-3 currency">P.Unit</span>
+            <span class="new-col-4 text-center">Qtde m&iacute;n.</span>
+            <span class="new-col-3 text-center">Pedido</span>
+        </div>
+    </div>
+
+	<div class="new-scrollpanel">
+    <div ng-repeat="session in confirmedProducts.sessions">
+        <div class="row-fluid">
+            <div class="new-body-row details-subtitle">
+                <span class="new-col-11">{{session.label}}</span>
+                <span class="new-col-3 text-center">&nbsp;</span>
+                <span class="new-col-3 currency">&nbsp;</span>
+                <span class="new-col-4 text-center">&nbsp;</span>
+                <span class="new-col-3 text-center">&nbsp;</span>
+            </div>
+        </div>
+		<span ng-repeat="line in session.lines">
+			<div class="details-category">{{line.label}}</div>
+			<span ng-repeat="product in line.items">
+                <div class="new-body-row details-item">
+                    <span class="new-col-11">
+						{{product.title}}
+						<div class="code-product">{{product.uniqueName}}</div>
+                    </span>
+                    <span class="new-col-3 text-center">&nbsp;{{product.points}}</span>
+                    <span class="new-col-3 currency">{{product.price | currency:''}}</span>
+                    <span class="new-col-4 text-center">&nbsp;&nbsp;{{product.minQty}}</span>
+                    <span class="new-col-3 text-center">&nbsp;&nbsp;&nbsp;&nbsp;{{product.qty}}</span>
+                </div>
+			</span>
+		</span>
+    </div>
+    </div><!--// new-scrollpanel -->
+
+	<!--Tela "Confirmar pedido"-->
+	<div class="payment-btn-area">
+		
+		<button class="btn btn-cancel pull-left margin-left" ng-hide="shouldHideButtons()" type="submit" ng-click="cancel()">Cancelar</button>
+		<button class="btn btn-ok pull-right margin-right" ng-hide="shouldHideButtons()" type="submit" ng-click="confirm()">Confirmar</button>
+	</div>	
+
+</div>
+
+
+<!-- COD ANTIGO
 <div class="row-fluid step2">	
 	<div class="products-to-buy-edit">	
 		<div class="row-fluid">
@@ -22,7 +74,7 @@
 					</div>
 				</div>							
 				<div class="scroll-payment-grid"><!--scroll-->
-					<span ng-repeat="session in confirmedProducts.sessions">
+<!--					<span ng-repeat="session in confirmedProducts.sessions">
 						<div class="header header2 subtitle-header-products-to-buy">
 							<div class="row-payment-grid session-label">
 								<span class="col-s1">
@@ -70,7 +122,7 @@
 				</div><!--fim scroll-->
 							
 				<!--Tela "Confirmar pedido"-->
-				<div class="payment-btn-area width100perc">
+<!--				<div class="payment-btn-area width100perc">
 					<button class="btn btn-cancel pull-left margin-left" ng-hide="shouldHideButtons()" type="submit" ng-click="cancel()">Cancelar</button>
 	
 					<button class="btn btn-ok pull-right margin-right" ng-hide="shouldHideButtons()" type="submit" ng-click="confirm()">Confirmar</button>
