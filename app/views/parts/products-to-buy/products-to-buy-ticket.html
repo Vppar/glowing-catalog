@@ -1,4 +1,4 @@
-<div class="step3">
+<div class="step3 product-to-buy-ticket-page">
 
 	<!-- *** PARTE 01 *** -->
 	<div class="product-to-buy-ticket-part1" ng-if="ticket.selectedPart=='part1'">
@@ -22,8 +22,8 @@
                 <span class="new-col-4 text-center">Status</span>
             </div>
         </div>
-
-        <div class="new-scrollpanel" ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'">
+		<div class="new-scrollpanel" >
+        <div ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'">
             <div class="row-fluid" ng-click="openDialog(purchaseOrder)">
                 <div class="new-body-row products-to-buy-ticket-part-line make-clickable">
 	                <span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
@@ -41,6 +41,7 @@
                 </div>
             </div>
         </div><!--// new-scrollpanel -->
+        </div>
 	</div><!--//FIM - *** PARTE 01 *** -->
 
 	<!-- *** PARTE 02 *** -->

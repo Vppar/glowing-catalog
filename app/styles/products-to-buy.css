@@ -37,10 +37,17 @@
 	min-height: 20px;
 }
 
+.product-to-buy-ticket-page{
+	height: 100%;
+}
+
 
 
 .product-to-buy-ticket-part1{
 	margin-top: 10px;
+}
+.product-to-buy-ticket-part1 .new-scrollpanel{
+	height: calc(100% - 129px);
 }
 
 .product-to-buy-ticket-part2{
@@ -144,7 +151,7 @@ padding-left: 6px;
 	cursor: pointer;
 }
 .make-clickable:hover{
-	background-color:rgb(119,119,119);
+	background-color:rgba(85,85,85,0.8);
 }
 
 /*-----------------------------------*/
@@ -1367,9 +1374,6 @@ vertical-align: middle;
 	top:0;
 }
 
-.step3 .new-scrollpanel{
-	height:calc(100% - 175px);
-}
 .new-scrollpanel .new-body-row span {
 	min-height:1px;
 }
