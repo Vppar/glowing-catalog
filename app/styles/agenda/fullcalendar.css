@@ -130,7 +130,7 @@ html .fc,
 	color:#fff !important;
 	border-radius: 4px;
 	}
-.fc-state-highlight	div.fc-day-number { color:#fff !important;}
+.fc-state-highlight	div.fc-day-number { color:#fff !important; text-shadow: 1px 1px 3px #777;}
 	
 .fc-cell-overlay { /* semi-transparent rectangle while dragging */
 	background: #D7F0BF;
@@ -435,11 +435,12 @@ table.fc-border-separate {
 	}
 	
 .fc-grid .fc-day-number {
-	float: right;
+	/*float: right;*/
 	padding: 0 2px;
 	font-size: 2em;
 	color: #ccc;
-	padding: 10px;
+	padding: 10px 0;
+	text-align:left;
 	}
 	
 .fc-grid .fc-other-month .fc-day-number {
@@ -452,7 +453,7 @@ table.fc-border-separate {
 	
 .fc-grid .fc-day-content {
 	clear: both;
-	padding: 2px 2px 1px; /* distance between events and day edges */
+	padding: 2px 2px 10px 1px; /* distance between events and day edges */
 	}
 	
 /* event styles */
