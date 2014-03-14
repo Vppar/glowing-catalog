@@ -57,39 +57,7 @@
             // SCOPE VARS
             // ##################################################################################################
 
-//            $scope.checks = CheckService.list();
-            
-            $scope.checks = [
-                {
-                    bank : '001',
-                    agency : '3262-x',
-                    account : 31254,
-                    duedate : new Date(),
-                    amount : 500,
-                    state : 1
-                }, {
-                    bank : '003',
-                    agency : '3262-x',
-                    account : 31254,
-                    duedate : new Date(),
-                    amount : 500,
-                    state : 2
-                }, {
-                    bank : '004',
-                    agency : '3262-x',
-                    account : 31254,
-                    duedate : new Date(),
-                    amount : 500,
-                    state : 3
-                }, {
-                    bank : '019',
-                    agency : '3262-x',
-                    account : 31254,
-                    duedate : new Date(),
-                    amount : 500,
-                    state : 4
-                }
-            ];
+            $scope.checks = CheckService.list();
             
             $scope.filteredChecks = angular.copy($scope.checks);
             

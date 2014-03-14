@@ -8,7 +8,7 @@ describe('Controller: receivable-check-watchers', function() {
     var checksMock = [
         {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            bank : 'Banco do Brasil',
+            bank : '001',
             agency : '3262-x',
             account : 31254,
             duedate : new Date(),
@@ -16,7 +16,7 @@ describe('Controller: receivable-check-watchers', function() {
             state : 1
         }, {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000002',
-            bank : 'Banco Brazuca',
+            bank : '003',
             agency : '3262-x',
             account : 31254,
             duedate : new Date(),
@@ -24,7 +24,7 @@ describe('Controller: receivable-check-watchers', function() {
             state : 2
         }, {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000003',
-            bank : 'Banco do Bozo',
+            bank : '004',
             agency : '3262-x',
             account : 31254,
             duedate : new Date(),
@@ -32,7 +32,7 @@ describe('Controller: receivable-check-watchers', function() {
             state : 3
         }, {
             uuid : 'cc02b600-5d0b-11e3-96c3-010001000004',
-            bank : 'Banco de Praça',
+            bank : '019',
             agency : '3262-x',
             account : 31254,
             duedate : new Date(),
@@ -54,7 +54,13 @@ describe('Controller: receivable-check-watchers', function() {
         scope = $rootScope.$new();
         CheckService = _CheckService_;
         UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn');
-
+        
+        
+        DataProvider.banks = [{ "001":  "BANCO DO BRASIL S.A.",
+        "003":  "BANCO DA AMAZONIA S.A.",
+        "004":  "BANCO DO NORDESTE DO BRASIL S.A.",
+        "019":  "BANCO AZTECA DO BRASIL S.A."}];
+        
         receivableCheckCtrl = $controller('ReceivableCheckCtrl', {
             $scope : scope,
             UserService : UserService,
