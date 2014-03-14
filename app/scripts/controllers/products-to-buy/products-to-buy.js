@@ -261,4 +261,4 @@
                     resetWatchedQty();
                 }
             ]);
-}(angular));
+})(angular);

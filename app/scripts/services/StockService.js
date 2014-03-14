@@ -77,15 +77,7 @@
                     this.reportAvailable = function reportAvailable (filter) {
                         return this.stockReport('available', filter);
                     };
-                    this.reportPending = function reportPending () {
-                        return {
-                            total : {
-                                amount : 0,
-                                qty : 0,
-                                avgCost : 0
-                            }
-                        };
-                    };
+                    
                     this.reportReserved = function reportReserved (filter) {
                         return this.stockReport('reserved', filter);
                     };
