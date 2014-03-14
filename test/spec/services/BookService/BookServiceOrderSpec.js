@@ -6,7 +6,7 @@ describe('Service: BookServiceOrderSpec', function() {
     var BookEntry = {};
     var BookKeeper = {};
 
-    var document = null;
+    var uuid = null;
     var entityUUID = null;
     var productAmount = null;
     var voucherAmount = null;
@@ -22,10 +22,7 @@ describe('Service: BookServiceOrderSpec', function() {
     });
 
     beforeEach(function() {
-        document = {
-            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            type : 'Pedido'
-        };
+        uuid = 'cc02b600-5d0b-11e3-96c3-010001000001',
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
         productAmount = 5;
         voucherAmount = 69;
@@ -44,14 +41,14 @@ describe('Service: BookServiceOrderSpec', function() {
             created : null,
             debitAccount : 70001,
             creditAccount : 21307,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Valor bruto da venda',
             amount : productAmount
         });
 
         // When
-        var result = BookService.order(document.uuid, entityUUID, productAmount, null, null);
+        var result = BookService.order(uuid, entityUUID, productAmount, null, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -70,14 +67,14 @@ describe('Service: BookServiceOrderSpec', function() {
             created : null,
             debitAccount : 70001,
             creditAccount : 21301,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Valor total vale crédito',
             amount : voucherAmount
         });
 
         // When
-        var result = BookService.order(document.uuid, entityUUID, null, voucherAmount, null);
+        var result = BookService.order(uuid, entityUUID, null, voucherAmount, null);
 
         // Then
         expect(result[0].length).toBe(expected.length);
@@ -96,14 +93,14 @@ describe('Service: BookServiceOrderSpec', function() {
             created : null,
             debitAccount : 70001,
             creditAccount : 21305,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Valor total vale presente',
             amount : giftAmount
         });
 
         // When
-        var result = BookService.order(document.uuid, entityUUID, null, null, giftAmount);
+        var result = BookService.order(uuid, entityUUID, null, null, giftAmount);
 
         // Then
         expect(result.length).toBe(1);
@@ -123,7 +120,7 @@ describe('Service: BookServiceOrderSpec', function() {
                 created : null,
                 debitAccount : 70001,
                 creditAccount : 21307,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Valor bruto da venda',
                 amount : productAmount
@@ -132,7 +129,7 @@ describe('Service: BookServiceOrderSpec', function() {
                 created : null,
                 debitAccount : 70001,
                 creditAccount : 21301,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Valor total vale crédito',
                 amount : voucherAmount
@@ -141,7 +138,7 @@ describe('Service: BookServiceOrderSpec', function() {
                 created : null,
                 debitAccount : 70001,
                 creditAccount : 21305,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Valor total vale presente',
                 amount : giftAmount
@@ -149,7 +146,7 @@ describe('Service: BookServiceOrderSpec', function() {
         ];
 
         // When
-        var result = BookService.order(document.uuid, entityUUID, productAmount, voucherAmount, giftAmount);
+        var result = BookService.order(uuid, entityUUID, productAmount, voucherAmount, giftAmount);
 
         // Then
         expect(result.length).toBe(3);
@@ -166,7 +163,7 @@ describe('Service: BookServiceOrderSpec', function() {
     it('shouldn\'t create book entries', function() {
         // Given
         // When
-        var result = BookService.order(document.uuid, entityUUID, null, null, null);
+        var result = BookService.order(uuid, entityUUID, null, null, null);
         // Then
         expect(result.length).toBe(0);
     });

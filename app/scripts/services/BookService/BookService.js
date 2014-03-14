@@ -3,11 +3,19 @@
 
     angular.module('tnt.catalog.service.book', [
         'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry'
-    ]).service('BookService', ['$q','$filter', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $filter, $log, BookKeeper, Book, BookEntry) {
+    ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $log, BookKeeper, Book, BookEntry) {
 
         // TODO Should this be here?
         this.write = function(entry) {
-            return BookKeeper.write(entry);
+            var result = null;
+            try {
+                result =  BookKeeper.write(entry);
+            } catch (err) {
+                result = $q.reject(err);
+                $log.fatal('Failed to write on BookKeeper', 'entry: ',entry, 'error: ', err);
+            }
+            return result;
+            
         };
 
         this.addBook = function(name, type, nature, entities) {
@@ -18,12 +26,8 @@
             return BookKeeper.list();
         };
         
-        // TODO pretty sure this filter could an should be on the Keeper
         this.listByOrder = function(uuid){
-            var result = $filter('filter')(this.listEntries(), function(entry){
-                return (entry.document.uuid === uuid);
-            });
-            return result;
+            return BookKeeper.listByOrder(uuid);
         };
         
         this.listEntries = function() {
@@ -168,11 +172,11 @@
         };
         
         this.deposit = function(account, amount, documentUUID, entityUUID){
-            return [new BookEntry(null, null, account, 70001, documentUUID, entityUUID, 'Recebimento', account)];
+            return [new BookEntry(null, null, account, 70001, documentUUID, entityUUID, 'Recebimento', amount)];
         };
         
         this.withdraw = function(account, amount, documentUUID, entityUUID){
-            return [new BookEntry(null, null, 70001, account, documentUUID, entityUUID, 'Pagamento', account)];
+            return [new BookEntry(null, null, 70001, account, documentUUID, entityUUID, 'Pagamento', amount)];
         };
 
         /**
@@ -187,18 +191,23 @@
          * @param {number} amount to be paid
          */
         this.liquidate = function (type, orderUUID, entityUUID, amount) {
-            var entry;
+            var entry = null;
             
             if (type === 'check') {
-                entry = new BookEntry(null, null, 70001, 11121, orderUUID, entityUUID, 'Recebimento em cheque', check);
+                entry = new BookEntry(null, null, 70001, 11121, orderUUID, entityUUID, 'Recebimento em cheque', amount);
             } else if (type === 'card') {
-                entry = new BookEntry(null, null, 70001, 11512, orderUUID, entityUUID, 'Recebimento em cartão', card);
+                entry = new BookEntry(null, null, 70001, 11512, orderUUID, entityUUID, 'Recebimento em cartão', amount);
             } else if (type === 'cuff') {
-                entry = new BookEntry(null, null, 70001, 11511, orderUUID, entityUUID, 'Saldo a receber', cuff);
+                entry = new BookEntry(null, null, 70001, 11511, orderUUID, entityUUID, 'Saldo a receber', amount);
             } else {
-                // TODO Log some nasty fatal here!
+                var logInfo = {
+                    type : type,
+                    orderUUID : orderUUID,
+                    entityUUID : entityUUID,
+                    amount : amount
+                };
+                $log.fatal('Failed to identify the receivable liquidation type: BookService.liquidate with: ', logInfo);
             }
-            
             return [entry];
         };
         
