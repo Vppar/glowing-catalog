@@ -1,5 +1,5 @@
 'use strict';
-describe('Service: PurchaseOrderService', function() {
+describe('Service: PurchaseOrderServiceListPendingSpec', function() {
 
     var PurchaseOrderService = {};
     var StockService = {};

@@ -331,15 +331,21 @@
                     // Current pending order methods
                     // ############################################################################################################
                     /**
-                     * @type Stores the purchase order allowed status.
+                     * Stores the purchase order allowed status.
+                     * 
+                     * @type
                      */
                     var statusTypes = TypeKeeper.list('purchaseOrderStatus');
                     /**
-                     * @type Stores the current purchase order.
+                     * Stores the current purchase order.
+                     * 
+                     * @type
                      */
                     var purchaseOrder = null;
                     /**
-                     * @constructor Current purchase order type.
+                     * Current purchase order type.
+                     * 
+                     * @constructor
                      */
                     function PendingPurchaseOrder() {
                         this.uuid = null;
@@ -383,7 +389,7 @@
                      */
                     this.createNewCurrent = function() {
                         purchaseOrder = new PendingPurchaseOrder();
-                        $log.debug('PurchaseOrderService.createNew: New current order created.');
+                        $log.info('PurchaseOrderService.createNew: New current order created.');
                         return purchaseOrder;
                     };
                     /**
@@ -403,20 +409,24 @@
                         $log.info('PurchaseOrderService.save: Saving current purchase order.');
                         $log.debug(purchaseOrder);
 
-                        var savedPromise = null;
+                        var saveIntentPromise = null;
                         if (purchaseOrder.uuid) {
-                            savedPromise = this.update(purchaseOrder);
+                            saveIntentPromise = this.update(purchaseOrder);
                         } else {
-                            savedPromise = this.add(purchaseOrder);
+                            saveIntentPromise = this.add(purchaseOrder);
                         }
 
-                        savedPromise.then(function(uiid) {
+                        var savedPromise = saveIntentPromise.then(function(uiid) {
                             purchaseOrder.uuid = uuid;
                             purchaseOrder.isDirty = false;
+
                             $log.info('PurchaseOrderService.save: Current purchase order saved.');
                             $log.debug(purchaseOrder);
 
                             return uuid;
+                        }, function(err) {
+                            $log.error('PurchaseOrderService.save: Save current purchase order failed.', err);
+                            return $q.reject(err);
                         });
 
                         return savedPromise;
@@ -431,12 +441,17 @@
                         $log.info('PurchaseOrderService.cancel: Canceling current purchase order.');
                         $log.debug(purchaseOrder);
 
-                        var canceledPromise = this.cancel(purchaseOrder);
+                        var cancelIntentPromise = this.cancel(purchaseOrder);
 
-                        canceledPromise.then(function() {
-                            this.clearCurrent();
+                        var canceledPromise = cancelIntentPromise.then(function() {
+                            _this.clearCurrent();
                             $log.info('PurchaseOrderService.cancel: Current purchase order canceled.');
+                        }, function(err) {
+                            $log.error('PurchaseOrderService.cancel: Cancel current purchase order failed.', err);
+                            return $q.reject(err);
                         });
+
+                        return canceledPromise;
                     };
                     /**
                      * Save current purchase order as confirmed.
@@ -449,12 +464,17 @@
                         $log.debug(purchaseOrder);
 
                         purchaseOrder.status = statusTypes['confirmed'];
-                        var savedPromise = this.saveCurrent();
+                        var saveIntentPromise = this.saveCurrent();
 
-                        return savedPromise.then(function() {
+                        var savedPromise = saveIntentPromise.then(function() {
                             _this.clearCurrent();
                             $log.info('PurchaseOrderService.checkoutCurrent: Checkout done.');
+                        }, function(err) {
+                            $log.error('PurchaseOrderService.cancel: Cancel current purchase order failed.', err);
+                            return $q.reject(err);
                         });
+
+                        return savedPromise;
                     };
                 }
             ]);
