@@ -302,7 +302,7 @@
 
                         purchaseOrder.status = statusTypes['confirmed'];
                         var saveIntentPromise = this.saveCurrent();
-
+                        // TODO - Create a Expense 
                         var savedPromise = saveIntentPromise.then(function() {
                             _this.clearCurrent();
                             $log.info('PurchaseOrderService.checkoutCurrent: Checkout done.');
