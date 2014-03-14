@@ -36,6 +36,7 @@ styles/voucher.css
 styles/stock.css
 styles/warm-up.css
 styles/new.css
+styles/new-ipad-only.css
 bower_components/jquery/jquery.js
 bower_components/angular/angular.js
 bower_components/bootstrap-sass/js/bootstrap-affix.js

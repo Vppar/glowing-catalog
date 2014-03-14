@@ -31,7 +31,7 @@
 
 .order-header-page{
 	margin-left: 10px;
-		-moz-box-sizing:    border-box;
+	-moz-box-sizing:    border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing:        border-box;
 	display: block;
@@ -185,6 +185,9 @@ text-align: right;
 	height: 40px;
 	width: 950px;
 	line-height: 40px;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
 }
 .order-table-row{
 	cursor: pointer;
@@ -207,6 +210,9 @@ text-align: right;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	font-weight: bold;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
 }
 .order-product{
 	line-height: 20px;
