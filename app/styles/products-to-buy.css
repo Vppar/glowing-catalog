@@ -23,7 +23,7 @@
 	height: 100%;
 }
 .products-to-buy-pending-part .new-scrollpanel{
-	height: calc(100% - 141px);
+	height: calc(100% - 125px);
 }
 
 .products-to-buy-pending-part-line, .products-to-buy-ticket-part-line{
