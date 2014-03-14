@@ -103,7 +103,8 @@
                                 return $q.reject(hasErrors);
                             });
                         } else {
-                            $log.error('PurchaseOrderService.update: Invalid purchaseOrder.', hasErrors);
+                            $log.error('PurchaseOrderService.update: Invalid purchaseOrder.');
+                            $log.debug(hasErrors);
                             result = $q.reject(hasErrors);
                         }
 
