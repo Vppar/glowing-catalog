@@ -320,7 +320,8 @@ module.exports =
                                     'images/{,*/}*.{webp}',
                                     'fonts/*',
                                     'styles/**/*.css',
-                                    'resources/**/*'
+                                    'resources/**/*',
+                                    'scripts/**/*'
                                 ]
                             },
                             {
