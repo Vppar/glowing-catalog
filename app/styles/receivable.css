@@ -1,5 +1,8 @@
-.receivable-check .new-scrollpanel {
+.receivable-check .new-scrollpanel.with-buttons {
 	height:calc(100% - 240px);
+}
+.receivable-check .new-scrollpanel.without-buttons {
+	height:calc(100% - 199px);
 }
 
 .receivable-details{
