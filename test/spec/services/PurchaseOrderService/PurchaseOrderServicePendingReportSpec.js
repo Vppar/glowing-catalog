@@ -3,6 +3,7 @@ describe('Service: PurchaseOrderService', function() {
 
     var PurchaseOrderService = {};
     var StockService = {};
+    var TypeKeeper = {};
 
     // load the service's module
     beforeEach(function() {
@@ -12,6 +13,7 @@ describe('Service: PurchaseOrderService', function() {
 
         module(function($provide) {
             $provide.value('StockService', StockService);
+            $provide.value('TypeKeeper', TypeKeeper);
         });
     });
 

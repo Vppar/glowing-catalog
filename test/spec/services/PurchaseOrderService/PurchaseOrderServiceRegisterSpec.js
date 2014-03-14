@@ -5,6 +5,7 @@ xdescribe('Service: PurchaseOrderService', function() {
     var PurchaseOrderKeeper = {};
     var ExpenseService = {};
     var PurchaseOrderService = {};
+    var TypeKeeper = {};
     var StockService = {};
     var $rootScope = null;
     var $log = {};
@@ -40,6 +41,7 @@ xdescribe('Service: PurchaseOrderService', function() {
             $provide.value('PurchaseOrderKeeper', PurchaseOrderKeeper);
             $provide.value('StockService', StockService);
             $provide.value('ExpenseService', ExpenseService);
+            $provide.value('TypeKeeper', TypeKeeper);
         });
     });
 
