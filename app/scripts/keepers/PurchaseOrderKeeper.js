@@ -172,7 +172,6 @@
                         var entry = new JournalEntry(null, event.created, 'purchaseOrderAdd', currentEventVersion, event);
 
                         // save the journal entry
-
                         return JournalKeeper.compose(entry);
                     };
 
