@@ -185,6 +185,7 @@
 .new-col-12{width: 50%;}
 .new-col-13{width: 54.1667%;}
 .new-col-14{width: 58.334%;}
+.new-col-16 {width: 66.667%;}
 .new-col-18{width: 75%;}
 .new-col-24{width: 100%;}
 
@@ -249,8 +250,34 @@ button, .btn {
     outline:none!important;
 }
 
-
 /* cadastro de nova consultora - registration-new-consultant */
 .registration-consultant .select-full-width {
     width:100%;
+}
+
+.third-parties{
+    
+}
+
+/* Third Parties CSS */
+.third-parties input {
+    width:100%;
+    padding: 10px;
+    height: 36px;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.third-parties .new-body-row .btn-group {
+    margin-top:-4px;
+    margin-left:20px;
+}
+.third-parties .new-scrollpanel {
+    height:calc(100% - 170px);
+}
+.third-parties .new-scrollpanel .new-col-8 {
+    text-overflow:ellipsis;
+}
+.third-parties .new-scrollpanel .text-center {
+    padding-left:12px;
 }

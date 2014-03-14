@@ -207,6 +207,8 @@
             templateUrl : 'views/tutorial-android.html'
         }).when('/registration', {
             templateUrl : 'views/registration.html'
+        }).when('/third-parties', {
+            templateUrl : 'views/third-parties.html'
         }).otherwise({
             redirectTo : '/'
         });
