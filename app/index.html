@@ -16,6 +16,7 @@
         
         <style type="text/css">@-webkit-keyframes stretchdelay {0%,40%,100%{-webkit-transform:scaleY(0.4)} 20%{-webkit-transform:scaleY(1.0)}}
         @keyframes stretchdelay {0%,40%,100%{transform:scaleY(0.4);-webkit-transform:scaleY(0.4);} 20%{transform:scaleY(1.0);-webkit-transform: scaleY(1.0);}}[ng-cloak], .cloak{display: none;}</style>
+        <style id="tmpCloak" type="text/css">.tmpCloak{display: none;}</style>
         
     </head>
     <body ng-app="glowingCatalogApp">
@@ -51,12 +52,12 @@
 	        </div>
 	    </div>
         <!-- Add your site or application content here -->
-        <div id="loaded" class="div-master cloak" ng-cloak ng-view=""></div>
+        <div id="loaded" class="div-master tmpCloak" ng-cloak ng-view=""></div>
 	    <script type="text/javascript">
 	    // This is here because it animates the loader and must be loaded with the index.html
 	    (function (appCache) {
 	        'use strict';
-	
+
 	        var element = document.getElementById('progress');
 	        function onProgress(evt){
 	            if(evt.total && evt.loaded){
@@ -64,12 +65,12 @@
 		            element.innerHTML = value + '%';
 	            }
 	        }
-	        
+
 	        function onUpdateReady(){
 	            // Beware of the dragons
 	            location.reload();
 	        }
-	        
+
 	        function onError(evt){
 	            if(appCache.status === 0){ // it failed and is not yet cached
 	                location.reload(); // force it
@@ -77,34 +78,33 @@
 	                skip(); // pretend nothing happened
 	            }
 	        }
-	        
+
 	        function skip(){
-	            
 	            appCache.removeEventListener('progress', onProgress, false);
 		        appCache.removeEventListener('updateready', onUpdateReady, false);
 		        appCache.removeEventListener('noupdate', skip, false);
 		        appCache.removeEventListener('cached', skip, false);
 		        appCache.removeEventListener('error', onError, false);
 		        appCache.removeEventListener('obsolete', onUpdateReady, false);
-		        
+
 		        var interval = setInterval(function(){
 			        var loading = document.getElementById("loading");
 			        var loaded = document.getElementById("loaded");
 			        if(loading && loaded){
 				        loading.className = "cloak";
-				        loaded.className = loaded.className.replace(/\bcloak\b/,'');
+				        var styleSheet = document.getElementById('tmpCloak');
+				        styleSheet.parentNode.removeChild(styleSheet);
 				        clearInterval(interval);
 			        }
 		        }, 20);
 	        }
-	        
+
 	        appCache.addEventListener('progress', onProgress, false);
 	        appCache.addEventListener('updateready', onUpdateReady, false);
 	        appCache.addEventListener('noupdate', skip, false);
 	        appCache.addEventListener('cached', skip, false);
 	        appCache.addEventListener('error', onError, false);
 	        appCache.addEventListener('obsolete', onUpdateReady, false);
-	        
 	    })(window.applicationCache);
 	    </script>
 
