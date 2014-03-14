@@ -23,11 +23,15 @@
                 $scope.ticket.checkBox[item.id] = 0;
             }
         };
+        
+        this.resetWatchedQty = resetWatchedQty;
 
         var setPurchaseOrder = function setPurchaseOrder(purchaseOrder) {
             $scope.purchaseOrder = PurchaseOrderService.filterReceived(purchaseOrder);
             resetWatchedQty();
         };
+        
+        this.setPurchaseOrder = setPurchaseOrder;
 
         var selectPart = function selectPart(part) {
             ticket.selectedPart = part;
@@ -81,6 +85,8 @@
                 selectPart('part1');
                 resetPurchaseOrder();
             });
+            
+            return redeemedPromise;
         };
 
         $scope.changeTab = function changeTab(tab) {
