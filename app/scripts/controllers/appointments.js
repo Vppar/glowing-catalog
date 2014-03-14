@@ -467,7 +467,9 @@
                         if (event.status === 'CANCELLED' || event.status === 'DONE') {
                             $('#btn-salvar').addClass('hide');
                         } else {
-                            $('#btn-alterar').removeClass('hide');
+                            if (event.end >= new Date()) {
+                                $('#btn-alterar').removeClass('hide');
+                            }
                             $('#btn-concluir').removeClass('hide');
                             $('#btn-cancelar').removeClass('hide');
                             $('#btn-excluir').removeClass('hide');
