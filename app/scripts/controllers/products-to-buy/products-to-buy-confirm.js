@@ -32,7 +32,7 @@
                     for ( var ix3 = 0; ix3 < line.items.length;) {
                         var item = line.items[ix3];
                         item.qty = $scope.purchaseOrder.watchedQty[item.id];
-                        if (item.qty === 0) {
+                        if (Number(item.qty) === 0) {
                             line.items.splice(ix3, 1);
                         } else {
                             ix3++;

@@ -1,5 +1,22 @@
-.form-receivable .panel-top .combo-width{
-	width:220px
+.receivable-details{
+	margin-bottom: 30px;
+}
+.receivable-page .new-scrollpanel{
+	
+}
+.receivable-page .page-closed{
+
+}
+.receivable-page .page-open-form{
+	
+}
+.receivable-page .page-open-form{
+	
+}
+
+
+/*.form-receivable .panel-top .combo-width{
+	width:220px;
 }
 .form-receivable {
 	border-radius: 6px;
@@ -8,9 +25,7 @@
 	background: #fff;
 	padding: 10px 15px 0 15px;
 	width: 970px;
-	/*position: fixed;
-	top: 90px;
-	bottom: 20px*/
+	
 	display: block;
 	position: relative;
 }
@@ -55,3 +70,4 @@
 }
 
 .scroll-input-receivable-dialog-grid .value{text-align:right; width:88px;}
+*/

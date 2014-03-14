@@ -158,107 +158,96 @@
             return entries;
         };
 
-        this.liquidateCheck = function(orderUUID, entityUUID, check) {
-            var entry = null;
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
-
-            if (check) {
-                entry = new BookEntry(null, null, 11131, 11121, document, entityUUID, 'Depósito cheque', check);
-            }
-
-            return entry;
-        };
-
-        this.liquidateCreditCard = function(orderUUID, entityUUID, card) {
-            var entry = null;
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
-
-            if (card) {
-                entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', card);
-            }
-
-            return entry;
-        };
-
-        this.liquidateCuff = function(orderUUID, entityUUID, cuff) {
-            var entry = null;
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
-
-            if (cuff) {
-                entry = new BookEntry(null, null, 11111, 11511, document, entityUUID, 'Recebimento parcela', cuff);
-            }
-
-            return entry;
-        };
-        
-        this.liquidateCash = function(orderUUID, entityUUID, cash) {
-            var entry = null;
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
-
-            if (cash) {    
-                entry = new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', cash);
-            }
-
-            return entry;
-        };
-        
-        this.liquidateVoucher = function(orderUUID, entityUUID, voucher) {
-            var entry = null;
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
-
-            if (voucher) {
-                entry = new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', voucher);
-            }
-
-            return entry;
-        };
-        
-        this.liquidateGift = function(orderUUID, entityUUID, gift) {
-            var entry = null;
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
-
-            if (gift) {
-                entry = new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento vale presente', gift);
-            }
-
-            return entry;
-        };
-
-                        
+        /**
+         * Write the proper Book entry for receivables liquidation.
+         * 
+         * Document should not need a type since the type is present in the
+         * UUID(Is this right?)
+         * 
+         * @param {string} type the receivable of liquidation 
+         * @param {string} orderUUID the order UUID
+         * @param {string} entityUUID the entity UUID
+         * @param {number} amount to be paid
+         */
         this.liquidate = function (type, orderUUID, entityUUID, amount) {
+            var document = {
+                uuid : orderUUID,
+                type : 'Pedido'
+            };
             var entry = null;
             if (type === 'cash') {
-                entry = this.liquidateCash(orderUUID, entityUUID, amount);
+                entry = new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', amount);
+            }else if(type === 'cuff'){
+                entry = new BookEntry(null, null, 11111, 11511, document, entityUUID, 'Recebimento parcela', amount);
             } else if (type === 'check') {
-                entry = this.liquidateCheck(orderUUID, entityUUID, amount);
+                entry = new BookEntry(null, null, 11131, 11121, document, entityUUID, 'Depósito cheque', amount);
             } else if (type === 'card') {
-                entry = this.liquidateCreditCard(orderUUID, entityUUID, amount);
+                entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', amount);
             } else if (type === 'voucher') {
-                entry = this.liquidateVoucher(orderUUID, entityUUID, amount);
+                entry = new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', amount);
             } else if (type === 'gift') {
-                entry = this.liquidateGift(orderUUID, entityUUID, amount);
+                entry = new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento vale presente', amount);
             }
             
             return this.write(entry);
         };
+        
+        /**
+         * Write the proper Book entry for receivables transfer.
+         * When a receivable change his liquidation type we must 
+         * transfer the amount of receivable between the 
+         * old book to new book keeper
+         * 
+         * Document should not need a type since the type is present in the
+         * UUID(Is this right?)
+         * 
+         * @param {string} newType receivable liquidation type 
+         * @param {string} oldType receivable liquidation type
+         * @param {string} orderUUID the order UUID
+         * @param {string} entityUUID the entity UUID
+         * @param {number} amount to be transfer
+         */
+        this.transfer =
+            function (newType, oldType, orderUUID, entityUUID, amount) {
+                var document = {
+                    uuid : orderUUID,
+                    type : 'Pedido'
+                };
+            
+                var creditAccount = getAccount(oldType);
+                var debitAccount = getAccount(newType);
+                var op = getOperationName(newType, oldType);
+                
+                var entry = new BookEntry(null, null, debitAccount, creditAccount, document, entityUUID, op, amount);
+        
+                return this.write(entry);
+            };
+        
+        function getAccount(type) {
+            if (type === 'cuff') {
+                return 11511;
+            } else if (type === 'check') {
+                return 11121;
+            } else if (type === 'card') {
+                return 11512;
+            }
+        }
+        
+        function getOperationName(newType, oldType) {
+            if (newType === 'check' && oldType === 'cuff') {
+                return 'Transferencia de a receber para cheque';
+            }else if (newType === 'check' && oldType === 'card') {
+                return 'Transferencia de cartao para cheque';
+            }else if (newType === 'cuff' && oldType === 'check') {
+                return 'Transferencia de cheque para a receber';
+            }else if (newType === 'cuff' && oldType === 'card') {
+                return 'Transferencia de cartao para a receber';
+            }else if (newType === 'card' && oldType === 'cuff') {
+                return 'Transferencia de a receber para cartao';
+            }else if (newType === 'card' && oldType === 'check') {
+                return 'Transferencia de cheque para cartao';
+            }
+        }
         
         this.validate = function(entries) {
 

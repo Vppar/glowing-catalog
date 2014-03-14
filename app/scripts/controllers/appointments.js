@@ -1,8 +1,4 @@
-/*global $:false */
-/*global unescape:false */
-/*jshint devel:true */
-/*jshint unused:false */
-(function (angular) {
+(function ($, angular, alert, confirm, unescape) {
     'use strict';
     angular
         .module('tnt.catalog.appointments.ctrl', [
@@ -99,7 +95,7 @@
                             $(circleElement).attr('class', circleCss.indexOf('tag-circle-selected') < 0 ? 'tag-circle-selected' : 'tag-circle');
                         }
                         var tagNumber = $(circleElement).parent().attr('id').replace('tagEvent', '');
-                        if (tagNumber != 0) {
+                        if (tagNumber !== '0') {
                             if (circleCss.indexOf('tag-circle-selected') < 0) {
                                 $scope.filter.push(tagNumber);
                             } else {
@@ -113,7 +109,7 @@
                             }
                         } else {
                             $scope.filter = [];
-                            $.each($('div[id*=tagEvent]'), function (i, element) {
+                            $.each($('div[id*=tagEvent]'), function () {
                                 if ($(this).attr('id') !== 'tagEvent0') {
                                     $(this).find('div[class*="tag-circle"]').attr('class', 'tag-circle');
                                 }
@@ -163,13 +159,12 @@
                                     'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'S&aacute;b'
                                 ],
                                 titleFormat : {
-                                	day : "dddd, d 'de' MMMM 'de' yyyy"
+                                    day : 'dddd, d \'de\' MMMM \'de\' yyyy'
                                 },
                                 columnFormat : {
-                                	week : "ddd d/M",
-                                	day : "dddd d/M"
+                                    week : 'ddd d/M',
+                                    day : 'dddd d/M'
                                 },
-
                                 header : {
                                     left : 'today',
                                     center : 'prev,title,next',
@@ -183,10 +178,10 @@
                                 disableDragging : true,
                                 eventDurationEditable : false,
 
-                                drop : function (date, allDay) {
+                                drop : function (date) {
                                     openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
                                 },
-                                select : function (start, end, allDay) {
+                                select : function (start, end) {
                                     if (eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name === 'month')) {
                                         $('#calendar').fullCalendar('changeView', 'agendaDay');
                                         $('#calendar').fullCalendar('gotoDate', start);
@@ -215,7 +210,7 @@
                                     }
                                 },
 
-                                eventClick : function (event, jsEvent, view) {
+                                eventClick : function (event) {
                                     if (($('#calendar').fullCalendar('getView').name === 'month')) {
                                         $('#calendar').fullCalendar('changeView', 'agendaDay');
                                         $('#calendar').fullCalendar('gotoDate', event.start);
@@ -233,13 +228,13 @@
                                     }
                                 },
 
-                                viewRender : function (view, element) {
+                                viewRender : function () {
                                     $scope.rebuildCalendarJsEvents();
                                 },
 
-                                eventAfterAllRender : function (view) {
+                                eventAfterAllRender : function () {
                                     if ($('#calendar').fullCalendar('getView').name !== 'month') {
-                                        $.each($('.fc-event'), function (i, element) {
+                                        $.each($('.fc-event'), function () {
                                             $(this).css('width', 'auto');
                                             if ($(this).parent().next().prop('tagName') === 'TABLE' &&
                                                 $(this).parent().next().attr('class') === 'fc-agenda-allday') {
@@ -510,7 +505,7 @@
                 };
 
                 $scope.done = function () {
-                    if (confirm('Deseja confirmar a conclus&#227;o do evento?')) {
+                    if (confirm('Deseja confirmar a conclus'+unescape('%e3')+'o do evento?')) {
                         $scope.validateUUID();
                         AppointmentService.done($('#select-event-uuid').val()).then(function () {
                             alert('Evento finalizado com sucesso.');
@@ -555,7 +550,7 @@
                             $scope.appointment.type = $('#select-event').val();
                             $scope.appointment.color = $('.tag' + $('#select-event').val()).find('.tag-circle').css('background-color');
 
-                            AppointmentService.update($scope.appointment).then(function (uuid) {
+                            AppointmentService.update($scope.appointment).then(function () {
                                 $scope.closeEventDialog();
                                 alert('Atualiza'+unescape('%e7')+unescape('%e3')+'o efetuada com sucesso.');
                             }, function (err) {
@@ -586,7 +581,7 @@
                             $scope.appointment.type = $('#select-event').val();
                             $scope.appointment.color =  $('.tag' + $('#select-event').val()).find('.tag-circle').css('background-color');
 
-                            AppointmentService.create($scope.appointment).then(function (uuid) {
+                            AppointmentService.create($scope.appointment).then(function () {
                                 alert('Evento cadastrado com sucesso.');
                                 $scope.closeEventDialog();
                             }, function (err) {
@@ -672,4 +667,4 @@
                     });
                 });
             });
-}(angular));
+}(jQuery, angular, window.alert, window.confirm, window.unescape));
