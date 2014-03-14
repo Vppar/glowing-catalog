@@ -130,6 +130,10 @@
         this.openDialogProductsToBuyTicket = function(data) {
             return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data, 'modal-products-to-buy-ticket');
         };
+
+        this.openDialogReceivable = function(data) {
+            return openDialog('views/parts/receivable/receivable-dialog.html', '', data, 'modal-receivable');
+        };
     }]);
 
 }(angular));

@@ -1,0 +1,58 @@
+<div class="modal-head">Receb&iacute;veis</div>
+
+<div class="modal-body">
+
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="control-group">
+				<label class="control-label">Tipo de Recebimento</label>
+					<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Selecione o tipo" ng-model="receivable.customerId">
+							<option value="">Selecione o tipo</option>
+							<option value="">Em caixa</option>
+							<option value="">Em banco</option>
+							<option value="">Em cheque</option>
+					</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="scroll-dialog">
+
+		<div class="row-fluid">
+			<div class="span12">
+	            <label class="control-label">Banco</label>
+	            <div class="radio">
+	            	<input type="radio" name="bank"> Nome do Banco 1
+	            </div>
+	            <div class="radio">
+	            	<input type="radio" name="bank"> Nome do Banco 2
+	            </div>
+	            <div class="radio">
+	            	<input type="radio" name="bank"> Nome do Banco 3
+	            </div>
+			</div>
+		</div>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="control-group">
+		            <label class="control-label">Conta</label>
+		            <div class="radio">
+		            	<input type="radio" name="account"> Conta 1111
+		            </div>
+		            <div class="radio">
+		            	<input type="radio" name="account"> Conta 2222
+		        	</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<div class="modal-foot">
+    <hr />
+    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+    <button ng-click='confirm()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Confirmar</button>
+</div>

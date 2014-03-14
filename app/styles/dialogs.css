@@ -132,6 +132,34 @@
 	line-height:30px;
 }
 
+.modal-receivable {
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	z-index: 1050;
+	width: 400px;
+	margin-left: -200px;
+	background-color: white;
+	border: none;
+	border-radius: 4px;
+	box-shadow: -5px -5px 100px 10px #525151;
+	overflow:hidden;
+	max-height:calc(100% - 105px);
+}
+.modal-receivable .control-label {
+	margin-top:10px;
+}
+.modal-receivable .scroll-dialog {
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	position: relative;
+	top:0;
+	max-height:200px;
+	padding-left:1px;
+}
+.modal-receivable .scroll-dialog .row-fluid {
+	float:left;
+}
  /*
 	all this at modal-body, maybe should be at some more restricted class....
  */

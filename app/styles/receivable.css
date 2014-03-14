@@ -6,19 +6,26 @@
 }
 
 .receivable-details{
-	margin-bottom: 30px;
 }
 .receivable-page .new-scrollpanel{
 	
 }
-.receivable-page .page-closed{
+.receivable-page .page-closed-details{
+	height: calc(100% - 198px)
+}
+.receivable-page .page-open-details{
+	height: calc(100% - 394px);
+}
+.receivable-page .page-open-check-details{
+	height: calc(100% - 458px);
+}
+
+.receivable-list{
 
 }
-.receivable-page .page-open-form{
-	
-}
-.receivable-page .page-open-form{
-	
+
+.receivable-page .select2-container{
+	width: 100%;
 }
 
 
