@@ -45,7 +45,7 @@
 	font-size: 16px;
 	float: left;
 width: 305px;
-margin-left: 18px;
+margin-left: 15px;
 margin-top: 8px;
 height: 32px;
 -moz-box-sizing:    border-box;
@@ -60,6 +60,7 @@ height: 32px;
 	font-weight: bold;
 padding: 5px 9px 5px 5px;
 background-color: #f2f2f2;
+border: 1px solid #f2f2f2;
 border-radius: 4px;
 margin-top: 2px;
 text-align: right;
@@ -200,7 +201,6 @@ text-align: right;
 	cursor: pointer;
 	display: block;
 	height: 40px;
-	width: 948px;
 	line-height: 40px;
 	border-radius: 4px;
 	background-color: #c8c8c8;
@@ -285,6 +285,7 @@ text-align: right;
 .show-details-icon {
 	float: left;
 	margin-top: 32px;
+	margin-left: 5px;
 }
 .show-details-icon img { cursor:pointer;}
 .show-details-icon img:hover { opacity:0.5;}
@@ -319,8 +320,9 @@ text-align: right;
 }
 
 .col-details-order-list-item{
-	display:inline-block;
-	margin: 10px 0 15px 10px;
+	display:block;
+	float: left;
+	margin: 10px 0 15px 13px;
 	vertical-align: top;
 }
 
