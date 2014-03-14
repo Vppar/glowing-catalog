@@ -179,33 +179,41 @@
                                 eventDurationEditable : false,
 
                                 drop : function (date) {
-                                    openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
+                                    if (date < new Date()) {
+                                        alert('N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.');
+                                    } else {
+                                        openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);    
+                                    }                     
                                 },
                                 select : function (start, end) {
                                     if (eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name === 'month')) {
                                         $('#calendar').fullCalendar('changeView', 'agendaDay');
                                         $('#calendar').fullCalendar('gotoDate', start);
                                     } else {
-                                        if (($('#calendar').fullCalendar('getView').name === 'month')) {
+                                        if (start >= new Date()) {
+                                            if (($('#calendar').fullCalendar('getView').name === 'month')) {
 
-                                            var actualStartHours = new Date().getHours();
-                                            var initialHours = '';
-                                            var endHours = '';
-                                            
-                                            if (actualStartHours < 21) {
-                                                initialHours = actualStartHours + 2;
-                                                endHours = actualStartHours + 3;
-                                            } else if(actualStartHours < 23) {
-                                                initialHours = actualStartHours;
-                                                endHours = actualStartHours + 1;
+                                                var actualStartHours = new Date().getHours();
+                                                var initialHours = '';
+                                                var endHours = '';
+                                                
+                                                if (actualStartHours < 21) {
+                                                    initialHours = actualStartHours + 2;
+                                                    endHours = actualStartHours + 3;
+                                                } else if(actualStartHours < 23) {
+                                                    initialHours = actualStartHours;
+                                                    endHours = actualStartHours + 1;
+                                                } else {
+                                                    initialHours = actualStartHours;
+                                                    endHours = '00';
+                                                }
+
+                                                openEventDialog(null, start, initialHours, '00', endHours, '00', null);
                                             } else {
-                                                initialHours = actualStartHours;
-                                                endHours = '00';
+                                                openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);
                                             }
-
-                                            openEventDialog(null, start, initialHours, '00', endHours, '00', null);
                                         } else {
-                                            openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);
+                                            alert('N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.');
                                         }
                                     }
                                 },
@@ -267,6 +275,8 @@
                         var birthdays = [];
                         var events = [];
                         var headerTitle = '';
+
+                        $scope.contacts = EntityService.list();
 
                         if ($('#calendar').fullCalendar('getView').name === 'month') {
                             $('.fc-sat.fc-widget-header').html( $('.fc-sat.fc-widget-header').text().replace('&aacute;', '&#225;'));
@@ -394,7 +404,6 @@
                 // Controller methods (appointments.html)
                 // #############################################################################################################
                 function openEventDialog (eventType, date, startHours, startMinutes, endHours, endMinutes, event) {
-                    $scope.contacts = EntityService.list();
 
                     $('#select-date').val(date);
 
@@ -441,7 +450,6 @@
                     $('#btn-excluir').addClass('hide');
 
                     if (event) {
-
                         $('#select-event-uuid').val(event.uuid);
 
                         $('#event-status').val(event.status === 'PENDANT' ? 'PENDENTE' : event.status === 'CANCELLED' ? 'CANCELADO' : event.status === 'DONE' ? 'FINALIZADO' : event.status === 'REMOVED' ? 'REMOVIDO' : '');

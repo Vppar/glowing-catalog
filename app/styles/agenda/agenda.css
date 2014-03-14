@@ -43,7 +43,7 @@
 	height: 25px;
 	vertical-align:middle;
 	padding:3px;
-	z-index: 9999;
+	z-index: 10;
 	text-align: left;
 	padding-top: 10px;
 }
