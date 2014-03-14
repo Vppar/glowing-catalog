@@ -137,7 +137,7 @@
                 }
 
                 var promise = $q.all(promises);
-                var resolvedPromises = promise.then(function(result) {
+                var resolvedPromises = promise.then(function() {
                     $log.info('State Changed!');
                 }, function(err) {
                     $log.error('Failed to change state!');
@@ -349,8 +349,8 @@
                             checks[ix].bank = banksMap[bankCode];
                         }
                     }
-                return checks;
-            }
+                    return checks;
+                }
 
             // ###################################
             // WARM UP

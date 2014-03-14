@@ -32,13 +32,13 @@
 
                     if (!angular.isFunction(prop)) {
                         if (validProperties.indexOf(ix) === -1) {
-                            throw "Unexpected property " + ix;
+                            throw 'Unexpected property ' + ix;
                         }
                     }
                 }
             });
 
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 if (arguments.length === 1 && angular.isObject(arguments[0])) {
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
