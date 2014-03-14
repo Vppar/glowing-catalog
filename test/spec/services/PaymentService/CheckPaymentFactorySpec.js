@@ -23,7 +23,7 @@ describe('Service: Payment', function() {
         var amount = 123.4;
 
         expect(function() {
-            var checkPayment = new CheckPayment(amount, bank, agency, account, check, expiration);
+            var checkPayment = new CheckPayment(null, amount, bank, agency, account, check, expiration);
         }).not.toThrow();
     });
 
@@ -38,7 +38,7 @@ describe('Service: Payment', function() {
         var fake = 'fake';
 
         expect(function() {
-            var checkPayment = new CheckPayment(amount, bank, agency, account, check, expiration, fake);
+            var checkPayment = new CheckPayment(null, amount, bank, agency, account, check, expiration, fake);
         }).toThrow();
 
     });
@@ -52,7 +52,7 @@ describe('Service: Payment', function() {
         var amount = 123.4;
         
         expect(function() {
-            var checkPayment = new CheckPayment(amount, bank, agency, account, check);
+            var checkPayment = new CheckPayment(null, amount, bank, agency, account, check);
         }).toThrow();
 
     });
