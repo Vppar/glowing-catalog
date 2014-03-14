@@ -50,7 +50,6 @@ describe('Service: CheckServiceChangeStateScenario', function() {
             CheckService.changeState(checkId, 2).then(function() {
                 result = true;
             },function(error) {
-                console.log(error);
                 result = error;
             });
         });
