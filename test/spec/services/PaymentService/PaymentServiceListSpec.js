@@ -61,7 +61,7 @@ xdescribe('Service: PaymentServiceList', function() {
         var account = 789;
         var check = 0123;
         var expiration = 123456789;
-        var payment = new CheckPayment(amount, bank, agency, account, check, expiration);
+        var payment = new CheckPayment(null, amount, bank, agency, account, check, expiration);
         var payments = [];
 
         PaymentService.add(payment);

@@ -102,17 +102,11 @@
                 /**
                  * Returns a single receivable by its id.
                  * 
-                 * @param id - Receivable id.
+                 * @param uuid - Receivable uuid.
                  * @return Receivable - The desired receivable.
                  */
-                var read = function read(id) {
-                    var result = null;
-                    try {
-                        result = ReceivableKeeper.read(id);
-                    } catch (err) {
-                        $log.debug('ReceivableService.read: Unable to find a receivable with id=\'' + id + '. Err=' + err);
-                    }
-                    return result;
+                var read = function read(uuid) {
+                    return ReceivableKeeper.read(uuid);
                 };
 
                 /**

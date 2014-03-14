@@ -40,7 +40,7 @@ xdescribe('Service: PaymentServiceClearAll', function() {
     it('should reset the payment array for all payment types', function () {
       PaymentService.add(new CouponPayment(100));
       PaymentService.add(new CashPayment(100));
-      PaymentService.add(new CheckPayment(123, 123, 123, 123, 123, new Date()));
+      PaymentService.add(new CheckPayment(null, 123, 123, 123, 123, 123, new Date()));
       PaymentService.add(new CreditCardPayment(123, 'VISA', 123123123123, 'FOO', new Date(), 123, '1231231321', 2));
       PaymentService.add(new ExchangePayment(1, 1, 62));
       PaymentService.add(new OnCuffPayment(123, new Date()));
