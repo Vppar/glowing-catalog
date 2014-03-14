@@ -1,3 +1,7 @@
+.receivable-check .new-scrollpanel {
+	height:calc(100% - 240px);
+}
+
 .receivable-details{
 	margin-bottom: 30px;
 }

@@ -125,7 +125,8 @@
             'tnt.catalog.directives.equals',
             'tnt.catalog.directives.promiseClick',
             'tnt.catalog.check',
-            'tnt.catalog.check.service'
+            'tnt.catalog.check.service',
+            'tnt.catalog.check.ctrl'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
