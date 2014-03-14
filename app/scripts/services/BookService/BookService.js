@@ -206,24 +206,27 @@
          * @param {string} entityUUID the entity UUID
          * @param {number} amount to be paid
          */
-        this.liquidate = function (type, orderUUID, entityUUID, amount) {
+        this.liquidate = function (type, paymentType, orderUUID, entityUUID, amount) {
             var document = {
                 uuid : orderUUID,
                 type : 'Pedido'
             };
             var entry = null;
-            if (type === 'cash') {
-                entry = new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', amount);
-            }else if(type === 'cuff'){
-                entry = new BookEntry(null, null, 11111, 11511, document, entityUUID, 'Recebimento parcela', amount);
+            if(type === 'cuff'){
+                if(paymentType === 'check'){
+                    
+                }else if(paymentType === 'deposit'){
+                    
+                }else if(paymentType === 'cash'){
+                    entry = new BookEntry(null, null, 11111, 11511, document, entityUUID, 'Recebimento parcela', amount);
+                }else if(paymentType === ''){
+                    
+                };
+                
             } else if (type === 'check') {
                 entry = new BookEntry(null, null, 11131, 11121, document, entityUUID, 'Depósito cheque', amount);
             } else if (type === 'card') {
                 entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', amount);
-            } else if (type === 'voucher') {
-                entry = new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', amount);
-            } else if (type === 'gift') {
-                entry = new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento vale presente', amount);
             }
             
             return this.write(entry);
