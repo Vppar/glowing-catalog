@@ -224,7 +224,7 @@
                 };
 
                 function receivableCanceledAndLiquidatedFilter(receivable) {
-                    var result = (receivable.canceled === undefined ) && (receivable.liquidated === undefined);  
+                    var result = (receivable.canceled === undefined ) && (receivable.liquidated === undefined); 
                     return result;
                 }
 

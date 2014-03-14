@@ -10,7 +10,7 @@
 
         var service = function svc(amount) {
 
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 throw 'Payment must be initialized with amount';
             }
 
@@ -54,13 +54,13 @@
 
                         if (!angular.isFunction(prop)) {
                             if (validProperties.indexOf(ix) === -1) {
-                                throw "Unexpected property " + ix;
+                                throw 'Unexpected property ' + ix;
                             }
                         }
                     }
                 });
                 
-                if (arguments.length != svc.length) {
+                if (arguments.length !== svc.length) {
                     if (arguments.length === 1 && angular.isObject(arguments[0])) {
                         svc.prototype.isValid.apply(arguments[0]);
                         ObjectUtils.dataCopy(this, arguments[0]);
@@ -99,7 +99,7 @@
 
             var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cpf, installments, duedate) {
 
-                if (arguments.length != svc.length) {
+                if (arguments.length !==svc.length) {
                     throw 'CreditCardPayment must be initialized with all params';
                 }
 
@@ -135,7 +135,7 @@
 
             var service = function svc(amount, flag, installments, duedate) {
 
-                if (arguments.length != svc.length) {
+                if (arguments.length !== svc.length) {
                     throw 'CreditCardPayment must be initialized with all params';
                 }
 
@@ -202,7 +202,7 @@
         'Payment', function OnCuffPayment(Payment) {
 
             var service = function svc(amount, duedate) {
-                if (arguments.length != svc.length) {
+                if (arguments.length !== svc.length) {
                     throw 'OnCuffPayment must be initialized with all params';
                 }
                 this.duedate = duedate;
@@ -220,34 +220,34 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log', 'tnt.catalog.service.book'
     ]).service(
             'PaymentService',
-            [
-                '$location',
-                '$q',
-                '$log',
-                '$filter',
-                'ArrayUtils',
-                'Payment',
-                'CashPayment',
-                'CheckPayment',
-                'CreditCardPayment',
-                'NoMerchantCreditCardPayment',
-                'ExchangePayment',
-                'CouponPayment',
-                'CouponService',
-                'OnCuffPayment',
-                'OrderService',
-                'EntityService',
-                'ReceivableService',
-                'ProductReturnService',
-                'VoucherService',
-                'WebSQLDriver',
-                'StockKeeper',
-                'SMSService',
-                'BookService',
+            ['$location',
+             '$q',
+             '$log',
+             '$filter',
+             'ArrayUtils',
+             'Payment',
+             'CashPayment',
+             'CheckPayment',
+             'CreditCardPayment',
+             'NoMerchantCreditCardPayment',
+             'ExchangePayment',
+             'CouponPayment',
+             'CouponService',
+             'OnCuffPayment',
+             'OrderService',
+             'EntityService',
+             'ReceivableService',
+             'ProductReturnService',
+             'VoucherService',
+             'WebSQLDriver',
+             'StockKeeper',
+             'SMSService',
+             'BookService',
+             'DialogService',
                 function PaymentService($location, $q, $log, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                         NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService,
                         EntityService, ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService,
-                        BookService) {
+                        BookService, DialogService) {
 
                     /**
                      * The current payments.
