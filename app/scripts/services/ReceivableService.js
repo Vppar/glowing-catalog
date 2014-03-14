@@ -243,6 +243,87 @@
                 this.listActive= listActive;
                 this.receive = receive;
                 this.cancel = cancel;
+                
+                //#################################################################################################
+                //CHECK STUFF 
+                //#################################################################################################
+                
+                this.listChecks = function(){
+                    var checkReceivables = ArrayUtils.list(ReceivableKeeper.list(), 'type', 'check');
+                    var checks = [];
+                    for(var ix in checkReceivables){
+                        checks.push(checkReceivables[ix].payment);
+                    }
+                    return checks;
+                };
+                
+                this.readCheck = function(uuid){
+                    return this.read(uuid).payment;
+                };
+                
+                var self = this;
+                /**
+                 * Validates the if there's a check for the given uuid and if the
+                 * transition is valid, then calls the Keeper or return a rejected
+                 * promise.
+                 * 
+                 * @param {String} - uuid of the desired check.
+                 * @param {Number} - position of the new state.
+                 * @return - JournalKeeper promise in case of success or a rejected
+                 *         promise with the error message.
+                 */
+                this.changeState = function(uuid, newState) {
+                    var check = this.readCheck(uuid);
+                    if (!check) {
+                        return $q.reject('Couldn\'t find a receivable for the uuid: ' + uuid);
+                    }
+                    check.uuid = uuid;
+                    var result = validateStateTransition(check.state, newState);
+                    
+                    if (result) {
+                        //update the state
+                        check.state = newState;
+                        return ReceivableKeeper.updateCheck(check);
+                    } else {
+                        return $q.reject('Invalid transition from "' + check.state + '" to "' + newState + '"');
+                    }
+                };
+                
+                /**
+                 * Validates if the desired transition from A->B is possible.
+                 * 
+                 * @param - Current state of the Check.
+                 * @param - Desired state for the Check.
+                 * @return {boolean} - true if possible, false otherwise.
+                 */
+                var validateStateTransition = function(currentState, newState) {
+                    var result = true;
+                    var resp = self.states()[currentState].indexOf(newState);
+                    if (resp === -1) {
+                        result = false;
+                    }
+                    return result;
+                };
+
+                /**
+                 * Check States Map.
+                 */
+                this.states = function() {
+                    return {
+                        '1' : [
+                            2, 3
+                        ],
+                        '2' : [
+                            1, 4
+                        ],
+                        '3' : [
+                            1, 4
+                        ],
+                        '4' : [
+                            2, 3
+                        ]
+                    };
+                };
 
             }]).run(['ReceivableService', function(ReceivableService) {
     }]);

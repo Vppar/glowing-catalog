@@ -55,4 +55,34 @@ describe('Service: ReceivableServiceListSpec', function() {
         expect(log.debug).toHaveBeenCalledWith('ReceivableService.list: Unable to recover the list of receivables. Err=my exception');
         expect(result).toEqual(null);
     });
+    
+    it('should return a list of checks only', function() {
+        // given
+        var dummyReceivables = [
+            {
+                type : 'check',
+                payment : {
+                    uuid : 2
+                }
+            }, {
+                type : 'check',
+                payment : {
+                    uuid : 32
+                }
+            }, {
+                type : 'cash',
+                payment : {
+                    uuid : 987978986
+                }
+            }
+        ];
+        ReceivableKeeper.list = jasmine.createSpy('ReceivableKeeper.list').andReturn(dummyReceivables);
+
+        // when
+        var receivables = ReceivableService.listChecks();
+
+        // then
+        expect(ReceivableKeeper.list).toHaveBeenCalled();
+        expect(receivables).toEqual([ { uuid : 2 }, { uuid : 32 } ]);
+    });
 });
