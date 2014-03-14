@@ -251,17 +251,15 @@ button, .btn {
 
 
 /* Third Parties CSS */
-.third-parties .new-header .span4 {
-    margin-left:0;
-}
-.third-parties .new-header .controls input {
+.third-parties .new-body-row input {
     width:100%;
 }
-.third-parties .new-header .btn-group {
-    margin-top:21px;
+.third-parties .new-body-row .btn-group {
+    margin-top:-4px;
+    margin-left:20px;
 }
 .third-parties .new-scrollpanel {
-    height:calc(100% - 180px);
+    height:calc(100% - 170px);
 }
 .third-parties .new-scrollpanel .new-col-8 {
     text-overflow:ellipsis;
