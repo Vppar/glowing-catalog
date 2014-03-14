@@ -7,24 +7,6 @@
         // ###################################
         // TODO: remove this from production
         //
-        var gopay = DataProvider.gopay, envFlags = DataProvider.envFlags;
-
-        $scope.gopay = gopay;
-        $scope.envFlags = envFlags;
-
-        /**
-         * Toggles the 'merchant' attribute in the scope.
-         */
-        $scope.toggleMerchant = function() {
-            gopay.merchant = !gopay.merchant;
-        };
-
-        /**
-         * Toggles the 'internet' attribte in the scope.
-         */
-        $scope.toggleInternetConnectivity = function() {
-            envFlags.internet = !envFlags.internet;
-        };
 
         $scope.nukeData = function() {
             JournalKeeper.nuke();
