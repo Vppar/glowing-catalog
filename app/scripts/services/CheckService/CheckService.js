@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.check.service', []).service('CheckService', [
+    angular.module('tnt.catalog.check.service', ['tnt.catalog.check']).service('CheckService', [
         '$q', '$log', 'Check', 'CheckKeeper',
 
         /**
@@ -14,7 +14,9 @@
          *            management.
          */
         function CheckService($q, $log, Check, CheckKeeper) {
+            
             var self = this;
+            
             /**
              * Check if the current parameters for the check creation are valid
              * and if everything is OK send it to the keeper.
@@ -50,8 +52,7 @@
              */
             this.changeState = function(uuid, newState) {
                 var check = CheckKeeper.read(uuid);
-
-                if (!(check instanceof Check)) {
+                if (!check) {
                     return $q.reject('Couldn\'t find a check for the uuid: ' + uuid);
                 }
 

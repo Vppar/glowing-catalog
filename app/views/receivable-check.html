@@ -46,7 +46,7 @@
 				<div class="inline-checkbox">
 						<fieldset>
 							<label class="checkbox">
-								<input type="checkbox" ng-model="allOpen" > {{message}} {{ dtFilter.dtFinal | date:"dd/MM/yyyy"}}
+								<input type="checkbox" ng-model="allChecks" > {{message}} {{ dtFilter.dtFinal | date:"dd/MM/yyyy"}}
 							</label>
 						</fieldset>
 						</div>
@@ -55,7 +55,7 @@
 			</div>
 
 
-			<div class="new-section">
+			
 				<div class="row-fluid">
 					<div class="new-body-header">
 						<div class="new-col-1">&nbsp;</div>
@@ -67,11 +67,12 @@
 						<div class="new-col-4 text-center">Status</div>
 					</div>
 				</div>
+				<div class="new-scrollpanel">
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="new-body-row" ng-repeat="check in filteredChecks">
 							<label for="checkid">
-								<div class="new-col-1"><input id="checkid" type="checkbox" ng-model="box$index"/></div>
+								<div class="new-col-1"><input id="checkid" type="checkbox" ng-model="boxes[$index]"/></div>
 								<div class="new-col-6">{{check.bank}}</div>
 								<div class="new-col-4">{{check.agency}}</div>
 								<div class="new-col-3">{{check.account}}</div>
@@ -82,13 +83,14 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				</div>
+			
 			
 			<div class="new-btn-holder">
-				<button class="btn btn-ok pull-right" ng-show="toDeposit">A Depositar</button>
-				<button class="btn btn-ok pull-right" ng-show="deposited">Depositado</button>
-				<button class="btn btn-ok pull-right" ng-show="moneyReceived">Recebido em Dinheiro</button>
-				<button class="btn btn-ok pull-right" ng-show="returned">Devolvido</button>
+				<button class="btn btn-ok pull-right" ng-show="toDeposit" ng-click="changeState(1)">A Depositar</button>
+				<button class="btn btn-ok pull-right" ng-show="deposited" ng-click="changeState(2)">Depositado</button>
+				<button class="btn btn-ok pull-right" ng-show="moneyReceived" ng-click="changeState(3)">Recebido em Dinheiro</button>
+				<button class="btn btn-ok pull-right" ng-show="returned" ng-click="changeState(4)">Devolvido</button>
 			</div>
 
 		</div>

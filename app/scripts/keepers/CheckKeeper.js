@@ -106,7 +106,6 @@
              *            the check.
              */
             ObjectUtils.ro(this.handlers, 'checkAddV1', function(event) {
-
                 var eventData = IdentityService.getUUIDData(event.uuid);
 
                 if (eventData.deviceId === IdentityService.getDeviceId()) {
@@ -135,6 +134,11 @@
 
                 return event.uuid;
             });
+            
+            /**
+             * Registering the handlers with the Replayer
+             */
+            Replayer.registerHandlers(this.handlers);
 
             /**
              * Adds a check to the list.
@@ -210,7 +214,7 @@
         'tnt.catalog.check.entity', 'tnt.catalog.check.keeper'
     ]).run([
         'CheckKeeper', function(CheckKeeper) {
-            // Warming up EntityKeeper
+            // Warming up CheckKeeper
         }
     ]);
 

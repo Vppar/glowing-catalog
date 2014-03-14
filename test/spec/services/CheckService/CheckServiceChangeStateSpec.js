@@ -80,7 +80,7 @@ describe('Service: CheckServiceChangeStateSpec', function() {
             return deferred.promise;
         });
 
-        CheckKeeper.read = jasmine.createSpy('CheckKeeper.read').andReturn('derp');
+        CheckKeeper.read = jasmine.createSpy('CheckKeeper.read').andReturn(null);
         var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
         var result = null;
         // when
