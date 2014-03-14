@@ -86,15 +86,15 @@
                                 name : 'canceled',
                                 id : 2
                             }, {
-                                name : 'partiallyReceived',
+                                name : 'confirmed',
                                 id : 3
                             }, {
-                                name : 'received',
+                                name : 'partiallyReceived',
                                 id : 4
                             }, {
-                                name : 'confirmed',
+                                name : 'received',
                                 id : 5
-                            },
+                            }
                         ],
                     };
                     this.handlers = {};
