@@ -11,22 +11,24 @@
         </div>
     </div>
 
-    <div class="new-scrollpanel" ng-repeat="purchaseOrder in pending.purchaseOrders">
-		<span ng-repeat="item in purchaseOrder.items">
-            <div class="row-fluid">
-                <div class="new-body-row products-to-buy-pending-part-line">
-	                <span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
-	                <span class="new-col-3">{{purchaseOrder | uuidCode}}</span>
-	                <span class="new-col-10">
-						{{item.title}}
-						<div class="small-text">{{item.uniqueName}}</div>
-	                </span>
-	                <span class="new-col-2 text-center">{{item.points}}</span>
-	                <span class="new-col-3 currency">{{item.price | currency: ''}}</span>
-	                <span class="new-col-3 text-center">{{item.qty}}</span>
-                </div>
-            </div>
-    	</span>
+    <div class="new-scrollpanel">
+		<div ng-repeat="purchaseOrder in pending.purchaseOrders">
+			<span ng-repeat="item in purchaseOrder.items">
+	            <div class="row-fluid">
+	                <div class="new-body-row products-to-buy-pending-part-line">
+		                <span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
+		                <span class="new-col-3">{{purchaseOrder | uuidCode}}</span>
+		                <span class="new-col-10">
+							{{item.title}}
+							<div class="small-text">{{item.uniqueName}}</div>
+		                </span>
+		                <span class="new-col-2 text-center">{{item.points}}</span>
+		                <span class="new-col-3 currency">{{item.price | currency: ''}}</span>
+		                <span class="new-col-3 text-center">{{item.qty}}</span>
+	                </div>
+	            </div>
+	    	</span>
+		</div>
     </div>
 
 </div>
