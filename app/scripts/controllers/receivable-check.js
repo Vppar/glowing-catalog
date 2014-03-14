@@ -301,7 +301,6 @@
                     }
                 }
                 return bankTranslator3000(checks);
-//                return checks;
             }
             
             /**
