@@ -243,11 +243,10 @@
              'StockKeeper',
              'SMSService',
              'BookService',
-             'DialogService',
                 function PaymentService($location, $q, $log, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                         NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService,
                         EntityService, ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService,
-                        BookService, DialogService) {
+                        BookService) {
 
                     /**
                      * The current payments.
