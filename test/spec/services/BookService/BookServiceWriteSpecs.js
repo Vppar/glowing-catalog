@@ -7,13 +7,29 @@ describe('Service: BookServiceWriteSpec', function() {
 
     var $rootScope = null;
     var $q = null;
+    var logger = angular.noop;
 
+    var $log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+    
+    beforeEach(function () {
+        spyOn($log, 'debug').andCallThrough();
+        spyOn($log, 'error').andCallThrough();
+        spyOn($log, 'warn').andCallThrough();
+        spyOn($log, 'fatal').andCallThrough();
+    });
+    
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.service.book');
 
         module(function($provide) {
             $provide.value('BookKeeper', BookKeeper);
+            $provide.value('$log', $log);
         });
     });
 

@@ -6,26 +6,39 @@ describe('Service: BookServiceLiquidateSpec', function () {
     var BookKeeper = {};
     var BookEntry = {};
 
-    var document = null;
+    var uuid = null;
     var entityUUID = null;
     var amount = null;
     var type = null;
     var expected = null;
+    var logger = angular.noop;
 
+    var $log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+    
+    beforeEach(function () {
+        spyOn($log, 'debug').andCallThrough();
+        spyOn($log, 'error').andCallThrough();
+        spyOn($log, 'warn').andCallThrough();
+        spyOn($log, 'fatal').andCallThrough();
+    });
+    
     beforeEach(function () {
         module('tnt.catalog.service.book');
         module('tnt.catalog.bookkeeping.entry');
 
         module(function ($provide) {
             $provide.value('BookKeeper', BookKeeper);
+            $provide.value('$log', $log);
         });
     });
 
     beforeEach(function () {
-        document = {
-            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            type : 'Pedido'
-        };
+        uuid = 'cc02b600-5d0b-11e3-96c3-010001000001',
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
         amount = 150;
         type = null;
@@ -40,52 +53,27 @@ describe('Service: BookServiceLiquidateSpec', function () {
         spyOn(BookService, 'write');
     });
 
-    describe('When type is CASH', function () {
-
-        beforeEach(function () {
-            // Given
-            type = 'cash';
-            expected = new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 11111,
-                creditAccount : 70001,
-                document : document,
-                entity : entityUUID,
-                op : 'Recebimento em dinheiro',
-                amount : amount
-            });
-        });
-
-        it('should write in book with the right entry', function () {
-            // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
-            // Then
-            expect(BookService.write).toHaveBeenCalledWith(expected);
-        });
-    });
-
     describe('When type is CHECK', function () {
         beforeEach(function () {
             // Given
             type = 'check';
-            expected = new BookEntry({
+            expected = [new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 11131,
+                debitAccount : 70001,
                 creditAccount : 11121,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
-                op : 'Depósito cheque',
+                op : 'Recebimento em cheque',
                 amount : amount
-            });
+            })];
         });
 
         it('should write in book with the right entry', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            var result = BookService.liquidate(type, uuid, entityUUID, amount);
             // Then
-            expect(BookService.write).toHaveBeenCalledWith(expected);
+            expect(result).toEqual(expected);
         });
     });
 
@@ -93,93 +81,71 @@ describe('Service: BookServiceLiquidateSpec', function () {
         beforeEach(function () {
             // Given
             type = 'card';
-            expected = new BookEntry({
+            expected = [new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 11131,
+                debitAccount : 70001,
                 creditAccount : 11512,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
-                op : 'Recebimento cartão',
+                op : 'Recebimento em cartão',
                 amount : amount
-            });
+            })];
         });
 
         it('should write in book with the right entry', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            var result = BookService.liquidate(type, uuid, entityUUID, amount);
             // Then
-            expect(BookService.write).toHaveBeenCalledWith(expected);
+            expect(result).toEqual(expected);
         });
     });
+    
     describe('When type is ON CUFF', function () {
         beforeEach(function () {
             // Given
             type = 'cuff';
-            expected = new BookEntry({
+            expected = [new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 11111,
+                debitAccount : 70001,
                 creditAccount : 11511,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
-                op : 'Recebimento parcela',
+                op : 'Saldo a receber',
                 amount : amount
-            });
+            })];
         });
 
         it('should write in book with the right entry', function () {
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            var result = BookService.liquidate(type, uuid, entityUUID, amount);
             // Then
-            expect(BookService.write).toHaveBeenCalledWith(expected);
+            expect(result).toEqual(expected);
         });
     });
-
-    describe('When type is VOUCHER', function () {
+    
+    describe('When type is invalid', function () {
         beforeEach(function () {
             // Given
-            type = 'voucher';
-            expected = new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 21301,
-                creditAccount : 70001,
-                document : document,
-                entity : entityUUID,
-                op : 'Abatimento vale crédito',
-                amount : amount
-            });
-        });
-        it('should write in book with the right entry', function () {
-            // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
-            // Then
-            expect(BookService.write).toHaveBeenCalledWith(expected);
-        });
-    });
-
-    describe('When type is GIFRT', function () {
-        beforeEach(function () {
-            // Given
-            type = 'gift';
-            expected = new BookEntry({
-                uuid : null,
-                created : null,
-                debitAccount : 21305,
-                creditAccount : 70001,
-                document : document,
-                entity : entityUUID,
-                op : 'Abatimento vale presente',
-                amount : amount
-            });
+            type = 'invalid type riar riar riar';
+            
+            
+            
         });
 
         it('should write in book with the right entry', function () {
+            var logInfo = {
+                type : type,
+                orderUUID : uuid,
+                entityUUID : entityUUID,
+                amount : amount
+            };
+            var expectedLogInfo = 'Failed to identify the receivable liquidation type: BookService.liquidate with: '; 
             // When
-            BookService.liquidate(type, document.uuid, entityUUID, amount);
+            BookService.liquidate(type, uuid, entityUUID, amount);
             // Then
-            expect(BookService.write).toHaveBeenCalledWith(expected);
+            expect($log.fatal).toHaveBeenCalledWith(expectedLogInfo, logInfo);
         });
     });
 
