@@ -231,6 +231,8 @@ components/product-display/product-display.html
 components/highlight-display/highlight-display.html
 components/catalog-section/catalog-section.html
 components/catalog-highlights/catalog-highlights.html
+components/tnt-number-picker/tnt-number-picker.html
+components/tnt-numpad/tnt-numpad.html
 
 resources/config.js
 resources/images.json
