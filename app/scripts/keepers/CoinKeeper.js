@@ -118,7 +118,17 @@
 
                 return event.uuid;
             });
+            
+            ObjectUtils.ro(this.handlers, name + 'updateCheckV1', function(event) {
+                var coin = ArrayUtils.find(vault, 'uuid', event.uuid);
+                if (coin) {
+                    coin.payment = event.payment;
+                } else {
+                    throw 'Unable to find a ' + name + ' with uuid=\'' + event.uuid + '\'';
+                }
 
+                return event.uuid;
+            });
 
             // Nuke event for clearing the vault list
             ObjectUtils.ro(this.handlers, 'nukeCoinsV1', function() {
@@ -220,6 +230,21 @@
                 // save the journal entry
                 JournalKeeper.compose(entry);
             };
+            
+            var changeState = function(check){
+                var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', check.uuid));
+                check = new PaymentCheck(check);
+                receivable.payment = check;
+                
+                var event = new Coin(receivable);
+                
+                // create a new journal entry
+                var entry = new JournalEntry(null, event.created, name + 'UpdateCheck', currentEventVersion, event);
+
+                // save the journal entry
+                return JournalKeeper.compose(entry);
+                
+            };
 
             // Publishing
             this.list = list;
@@ -227,6 +252,7 @@
             this.add = add;
             this.liquidate = liquidate;
             this.cancel = cancel;
+            this.changeState = changeState;
         }
 
         return function(name) {
