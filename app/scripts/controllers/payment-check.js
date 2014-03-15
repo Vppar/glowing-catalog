@@ -152,9 +152,7 @@
                         PaymentService.clear('check');
                         for ( var ix in $scope.payments) {
                             var data = $scope.payments[ix];
-                            console.log(data.amount);
                             var payment = new CheckPayment(null, data.amount, data.bank, data.agency, data.account, data.number, data.duedate);
-//                            payment.amount = data.amount;
                             PaymentService.add(payment);
                         }
                         $scope.selectPaymentMethod('none');

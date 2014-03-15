@@ -10,7 +10,7 @@
 
         var service = function svc(amount) {
 
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 throw 'Payment must be initialized with amount';
             }
 
@@ -54,14 +54,13 @@
 
                         if (!angular.isFunction(prop)) {
                             if (validProperties.indexOf(ix) === -1) {
-                                throw "Unexpected property " + ix;
+                                throw 'Unexpected property ' + ix;
                             }
                         }
                     }
                 });
                 
-                console.log(arguments, 'args');
-                if (arguments.length != svc.length) {
+                if (arguments.length !== svc.length) {
                     if (arguments.length === 1 && angular.isObject(arguments[0])) {
                         svc.prototype.isValid.apply(arguments[0]);
                         ObjectUtils.dataCopy(this, arguments[0]);
@@ -100,7 +99,7 @@
 
             var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cpf, installments, duedate) {
 
-                if (arguments.length != svc.length) {
+                if (arguments.length !==svc.length) {
                     throw 'CreditCardPayment must be initialized with all params';
                 }
 
@@ -136,7 +135,7 @@
 
             var service = function svc(amount, flag, installments, duedate) {
 
-                if (arguments.length != svc.length) {
+                if (arguments.length !== svc.length) {
                     throw 'CreditCardPayment must be initialized with all params';
                 }
 
@@ -203,7 +202,7 @@
         'Payment', function OnCuffPayment(Payment) {
 
             var service = function svc(amount, duedate) {
-                if (arguments.length != svc.length) {
+                if (arguments.length !== svc.length) {
                     throw 'OnCuffPayment must be initialized with all params';
                 }
                 this.duedate = duedate;
@@ -221,30 +220,29 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log', 'tnt.catalog.service.book'
     ]).service(
             'PaymentService',
-            [
-                '$location',
-                '$q',
-                '$log',
-                '$filter',
-                'ArrayUtils',
-                'Payment',
-                'CashPayment',
-                'CheckPayment',
-                'CreditCardPayment',
-                'NoMerchantCreditCardPayment',
-                'ExchangePayment',
-                'CouponPayment',
-                'CouponService',
-                'OnCuffPayment',
-                'OrderService',
-                'EntityService',
-                'ReceivableService',
-                'ProductReturnService',
-                'VoucherService',
-                'WebSQLDriver',
-                'StockKeeper',
-                'SMSService',
-                'BookService',
+            ['$location',
+             '$q',
+             '$log',
+             '$filter',
+             'ArrayUtils',
+             'Payment',
+             'CashPayment',
+             'CheckPayment',
+             'CreditCardPayment',
+             'NoMerchantCreditCardPayment',
+             'ExchangePayment',
+             'CouponPayment',
+             'CouponService',
+             'OnCuffPayment',
+             'OrderService',
+             'EntityService',
+             'ReceivableService',
+             'ProductReturnService',
+             'VoucherService',
+             'WebSQLDriver',
+             'StockKeeper',
+             'SMSService',
+             'BookService',
                 function PaymentService($location, $q, $log, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                         NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService,
                         EntityService, ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService,
@@ -832,79 +830,7 @@
                     this.persistCouponQuantity = persistCouponQuantity;
                     this.clearPersistedCoupons = clearPersistedCoupons;
                     this.createCoupons = createCoupons;
-                    
-                    
-                    
-                    
-                    
-                    //#################################################################################################
-                    //CHECK STUFF (MOVE TO RECEIVABLE)
-                    //#################################################################################################
-                    var self = this;
-                    /**
-                     * Validates the if there's a check for the given uuid and if the
-                     * transition is valid, then calls the Keeper or return a rejected
-                     * promise.
-                     * 
-                     * @param {String} - uuid of the desired check.
-                     * @param {Number} - position of the new state.
-                     * @return - JournalKeeper promise in case of success or a rejected
-                     *         promise with the error message.
-                     */
-                    this.changeState = function(uuid, newState) {
-                        var receivable = ReceivableService.read(uuid);
-                        if (!receivable) {
-                            return $q.reject('Couldn\'t find a receivable for the uuid: ' + uuid);
-                        }
-                        var check = receivable.payment;
-                        check.uuid = uuid;
-                        var result = validateStateTransition(check.state, newState);
-                        
-                        if (result) {
-                            //update the state
-                            check.state = newState;
-                            
-                            return ReceivableService.updateCheck(check);
-                        } else {
-                            return $q.reject('Invalid transition from "' + check.state + '" to "' + newState + '"');
-                        }
-                    };
-                    
-                    /**
-                     * Validates if the desired transition from A->B is possible.
-                     * 
-                     * @param - Current state of the Check.
-                     * @param - Desired state for the Check.
-                     * @return {boolean} - true if possible, false otherwise.
-                     */
-                    var validateStateTransition = function(currentState, newState) {
-                        var result = true;
-                        var resp = self.states()[currentState].indexOf(newState);
-                        if (resp === -1) {
-                            result = false;
-                        }
-                        return result;
-                    };
 
-                    /**
-                     * Check States Map.
-                     */
-                    this.states = function() {
-                        return {
-                            '1' : [
-                                2, 3
-                            ],
-                            '2' : [
-                                1, 4
-                            ],
-                            '3' : [
-                                1, 4
-                            ],
-                            '4' : [
-                                2, 3
-                            ]
-                        };
-                    };
                 }
             ]);
 }(angular));
