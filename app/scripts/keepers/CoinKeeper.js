@@ -20,7 +20,7 @@
                 }
             });
 
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 if (arguments.length === 1 && angular.isObject(arguments[0])) {
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
@@ -58,9 +58,8 @@
 
     angular.module(
             'tnt.catalog.coin.keeper',
-            [
-                'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
-                'tnt.catalog.journal.replayer', 'tnt.catalog.payment.entity'
+            ['tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
+             'tnt.catalog.journal.replayer', 'tnt.catalog.payment.entity'
             ]).factory('CoinKeeper', ['ArrayUtils', 'Coin', 'IdentityService', 'JournalKeeper', 'JournalEntry', 'Replayer', 'CheckPayment', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer, CheckPayment) {
 
         var keepers = {};
@@ -85,7 +84,6 @@
                 // Get the coin info from type map, get the respective entity
                 // and instantiate
                 var eventData = IdentityService.getUUIDData(event.uuid);
-
                 if (eventData.deviceId === IdentityService.getDeviceId()) {
                     currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
                 }
@@ -119,8 +117,9 @@
                 return event.uuid;
             });
             
-            ObjectUtils.ro(this.handlers, name + 'updateCheckV1', function(event) {
+            ObjectUtils.ro(this.handlers, name + 'UpdateCheckV1', function(event) {
                 var coin = ArrayUtils.find(vault, 'uuid', event.uuid);
+                
                 if (coin) {
                     coin.payment = event.payment;
                 } else {
@@ -237,7 +236,7 @@
              * 
              * @param {check} - check with the updated state. 
              */
-            var changeState = function(check){
+            var updateCheck = function(check){
                 var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', check.uuid));
                 check = new CheckPayment(check);
                 receivable.payment = check;
@@ -246,7 +245,6 @@
                 
                 // create a new journal entry
                 var entry = new JournalEntry(null, event.created, name + 'UpdateCheck', currentEventVersion, event);
-
                 // save the journal entry
                 return JournalKeeper.compose(entry);
                 
@@ -258,7 +256,7 @@
             this.add = add;
             this.liquidate = liquidate;
             this.cancel = cancel;
-            this.changeState = changeState;
+            this.updateCheck = updateCheck;
         }
 
         return function(name) {
