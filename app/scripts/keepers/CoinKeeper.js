@@ -60,8 +60,8 @@
             'tnt.catalog.coin.keeper',
             [
                 'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
-                'tnt.catalog.journal.replayer'
-            ]).factory('CoinKeeper', ['ArrayUtils', 'Coin', 'IdentityService', 'JournalKeeper', 'JournalEntry', 'Replayer', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer) {
+                'tnt.catalog.journal.replayer', 'tnt.catalog.payment.entity'
+            ]).factory('CoinKeeper', ['ArrayUtils', 'Coin', 'IdentityService', 'JournalKeeper', 'JournalEntry', 'Replayer', 'CheckPayment', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer, CheckPayment) {
 
         var keepers = {};
         function instance(name) {
@@ -231,9 +231,15 @@
                 JournalKeeper.compose(entry);
             };
             
+            
+            /**
+             * Change the state of a receivable.
+             * 
+             * @param {check} - check with the updated state. 
+             */
             var changeState = function(check){
                 var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', check.uuid));
-                check = new PaymentCheck(check);
+                check = new CheckPayment(check);
                 receivable.payment = check;
                 
                 var event = new Coin(receivable);

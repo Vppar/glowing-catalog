@@ -5,13 +5,16 @@ ddescribe('Service: CoinKeeperUpdateCheck', function() {
     var ExpensesKeeper = null;
     var Expense = null;
     var JournalEntry = null;
+    var ArrayUtils = {};
     var IdentityService = null;
     var fakeNow = null;
     var monthTime = 2592000;
     var validExpense = null;
     var jKeeper = {};
     var CoinKeeper = null;
-
+    var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
+    
+    
     // load the service's module
     beforeEach(function() {
         localStorage.deviceId = 1;
@@ -22,12 +25,14 @@ ddescribe('Service: CoinKeeperUpdateCheck', function() {
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
         module('tnt.identity');
+        module('tnt.catalog.payment.entity');
 
         fakeNow = 138617910000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-
+        
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
 
+        
         var entityId = 'M A V COMERCIO DE ACESSORIOS LTDA';
         var documentId = 2;
         var type = 'check';
@@ -40,22 +45,26 @@ ddescribe('Service: CoinKeeperUpdateCheck', function() {
                 agency : 123,
                 account : 12,
                 number : 1,
-                duedate : date,
+                duedate : 138617910000,
                 amount : 150,
                 state : 1
             };
 
         validExpense = {
+            uuid : uuid,
             created : created,
             entityId : entityId,
             documentId : documentId,
             type : type,
             duedate : duedate,
-            amount : amount
+            amount : amount,
+            payment : payment
         };
 
+        ArrayUtils.find = jasmine.createSpy('ArrayUtils.find').andReturn(validExpense);
         module(function($provide) {
             $provide.value('JournalKeeper', jKeeper);
+            $provide.value('ArrayUtils', ArrayUtils);
         });
     });
 
@@ -68,29 +77,33 @@ ddescribe('Service: CoinKeeperUpdateCheck', function() {
         IdentityService = _IdentityService_;        
     }));
 
-    it('should return the same entity', function() {
-        expect(CoinKeeper('expense')).toBe(CoinKeeper('expense'));
-    });
-
     it('should add a expense', function() {
-        var uuid = 'cc02b600-5d0b-11e3-96c3-010001000001';
+        
 
         spyOn(IdentityService, 'getUUID').andReturn(uuid);
 
         // given
-        validExpense.uuid = uuid;
         var expense = new Expense(validExpense);
-        
+        expense.payment.state = 2;
         var tstamp = fakeNow;// / 1000;
-        var entry = new JournalEntry(null, tstamp, 'expenseAdd', 1, expense);
-
-        // when
-        var addCall = function() {
-            ExpensesKeeper.add(expense);
+        var entry = new JournalEntry(null, tstamp, 'expenseUpdateCheck', 1, expense);
+        var check =  {
+            uuid : uuid,
+            bank : 1234,
+            agency : 123,
+            account : 12,
+            number : 1,
+            duedate : 138617910000,
+            amount : 150,
+            state : 2
         };
+        // when
+            var calls = function(){
+                ExpensesKeeper.changeState(check);
+            };
 
         // then
-        expect(addCall).not.toThrow();
-        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
+        expect(calls).not.toThrow();
+//        expect(jKeeper.compose).toHaveBeenCalledWith(entry);
     });
 });
