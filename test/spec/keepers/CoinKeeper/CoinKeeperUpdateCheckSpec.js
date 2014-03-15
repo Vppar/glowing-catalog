@@ -103,7 +103,7 @@ describe('Service: CoinKeeperUpdateCheck', function() {
         };
         // when
         var calls = function() {
-            ExpensesKeeper.updateCheck(check);
+            ExpensesKeeper.updateCheck(check)
         };
 
         // then

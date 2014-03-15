@@ -117,7 +117,7 @@
                 return event.uuid;
             });
             
-            ObjectUtils.ro(this.handlers, name + 'UpdateCheckV1', function(event) {
+            ObjectUtils.ro(this.handlers, name + 'UpdatePaymentV1', function(event) {
                 var coin = ArrayUtils.find(vault, 'uuid', event.uuid);
                 
                 if (coin) {
@@ -239,12 +239,11 @@
             var updateCheck = function(check){
                 var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', check.uuid));
                 check = new CheckPayment(check);
+                delete(check.uuid);
                 receivable.payment = check;
                 
-                var event = new Coin(receivable);
-                
                 // create a new journal entry
-                var entry = new JournalEntry(null, event.created, name + 'UpdateCheck', currentEventVersion, event);
+                var entry = new JournalEntry(null, receivable.created, name + 'UpdatePayment', currentEventVersion, receivable);
                 // save the journal entry
                 return JournalKeeper.compose(entry);
                 
