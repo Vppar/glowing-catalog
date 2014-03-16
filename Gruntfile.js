@@ -38,7 +38,8 @@ module.exports =
                             'newer:jshint:all'
                         ],
                         options : {
-                            livereload : true
+                            livereload : true,
+                            interval: 5007
                         }
                     },
                     jsTest : {
@@ -64,12 +65,13 @@ module.exports =
                     },
                     livereload : {
                         options : {
-                            livereload : '<%= connect.options.livereload %>'
+                            livereload : '<%= connect.options.livereload %>',
+                            interval: 5007
                         },
                         files : [
                             '<%= yeoman.app %>/**/*.html',
-                            '.tmp/styles/{,*/}*.css',
-                            '<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
+                            '.tmp/styles/{,*/}*.css'
+                            //'<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                         ]
                     }
                 },
