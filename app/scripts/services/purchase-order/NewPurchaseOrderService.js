@@ -1,14 +1,33 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.purchase.service', [
-        'tnt.utils.array', 'tnt.catalog.purchaseOrder', 'tnt.catalog.type.keeper'
+        'tnt.utils.array', 'tnt.catalog.purchaseOrder', 'tnt.catalog.type.keeper', 'tnt.catalog.financial.math.service'
     ]).service(
             'NewPurchaseOrderService',
             [
-                '$q', '$log', '$filter', 'ArrayUtils', 'TypeKeeper', 'PurchaseOrder', 'PurchaseOrderKeeper',
-                function NewPurchaseOrderService($q, $log, $filter, ArrayUtils, TypeKeeper, PurchaseOrder, PurchaseOrderKeeper) {
+                '$q',
+                '$log',
+                '$filter',
+                'ArrayUtils',
+                'TypeKeeper',
+                'FinancialMathService',
+                'PurchaseOrder',
+                'PurchaseOrderKeeper',
+                function NewPurchaseOrderService($q, $log, $filter, ArrayUtils, TypeKeeper, FinancialMathService, PurchaseOrder,
+                        PurchaseOrderKeeper) {
 
+                    // ############################################################################################################
+                    // Local variables
+                    // ############################################################################################################
+                    
                     var _this = this;
+                    
+                    /**
+                     * Stores the purchase order allowed status.
+                     * 
+                     * @type
+                     */
+                    var statusTypes = TypeKeeper.list('purchaseOrderStatus');
 
                     // ############################################################################################################
                     // Aux methods
@@ -19,7 +38,7 @@
 
                         // See validation helpers in the end of this file
                         invalidProperty = {
-                            items : (angular.isArray(order.items) && items.length > 0)
+                            items : (angular.isArray(order.items) && order.items.length > 0)
                         };
 
                         for ( var ix in invalidProperty) {
@@ -113,6 +132,8 @@
 
                     /**
                      * List all PurchaseOrders.
+                     * 
+                     * @return {array} - All purchase orders.
                      */
                     this.list = function() {
                         var results = null;
@@ -126,9 +147,27 @@
                     };
 
                     /**
-                     * Read a specific purchaseOrder
+                     * List stashed PurchaseOrders.
+                     * 
+                     * @return {array} - Stashed purchase orders.
+                     */
+                    this.listStashed = function() {
+                        var results = null;
+                        try {
+                            results = PurchaseOrderKeeper.listByStatus('stashed');
+                        } catch (err) {
+                            $log.error('PurchaseOrderService.list: Unable to recover the list of stashed purchaseOrders.');
+                            $log.debug(err);
+                        }
+                        return results;
+                    };
+
+                    /**
+                     * Read a specific PurchaseOrder.
                      * 
                      * @param {string} uuid - Purchase order uuid.
+                     * @return {PurchaseOrder} - Purchase order with informed
+                     *         uuid.
                      */
                     this.read = function(uuid) {
                         var result = null;
@@ -142,10 +181,11 @@
                     };
 
                     /**
-                     * Cancel a purchaseOrder
+                     * Cancel a PurchaseOrder.
                      * 
                      * @param {string} uuid - UUID from the purchase order to be
                      *            cancelled.
+                     * @return {object} - Promise with the cancel result.
                      */
                     this.cancel = function(uuid) {
                         var cancelIntentPromise = PurchaseOrderKeeper.cancel(uuid);
@@ -162,14 +202,8 @@
                     };
 
                     // ############################################################################################################
-                    // Current pending order methods
+                    // Current purchase order methods
                     // ############################################################################################################
-                    /**
-                     * Stores the purchase order allowed status.
-                     * 
-                     * @type
-                     */
-                    var statusTypes = TypeKeeper.list('purchaseOrderStatus');
                     /**
                      * Stores the current purchase order.
                      * 
@@ -181,11 +215,11 @@
                      * 
                      * @constructor
                      */
-                    function PendingPurchaseOrder() {
+                    function StashedPurchaseOrder() {
                         this.uuid = null;
                         this.amount = 0;
                         this.discount = 0;
-                        this.status = ArrayUtils.find(statusTypes, 'pending')['id'];
+                        this.status = ArrayUtils.find(statusTypes, 'name', 'stashed')['id'];
                         this.freight = 0;
                         this.points = 0;
                         this.items = [];
@@ -196,33 +230,64 @@
                      * 
                      * @param {object} product - Product to be added.
                      */
-                    PendingPurchaseOrder.prototype.add = function(product) {
-                        this.items.push(product);
-                        this.points += product.points;
-                        this.amount += product.amount;
-                        this.isDirty = true;
-                        $log.debug('PendingPurchaseOrder.add: Product added to current PurchaseOrder.', product);
+                    StashedPurchaseOrder.prototype.add = function(product) {
+                        var foundProduct = ArrayUtils.find(this.items, 'id', product.id);
+
+                        var changeProduct = {
+                            points : 0,
+                            amount : 0
+                        };
+
+                        if (foundProduct) {
+                            if (foundProduct.qty !== product.qty) {
+                                changeProduct.qty = product.qty - foundProduct.qty;
+
+                                changeProduct.points = changeProduct.qty * product.points;
+                                changeProduct.amount = FinancialMathService.currencyMultiply(changeProduct.qty, product.cost);
+
+                                foundProduct.qty = product.qty;
+
+                                $log.debug('StashedPurchaseOrder.add: Product update in current PurchaseOrder.', product);
+
+                                this.isDirty = true;
+                            } else {
+                                $log.debug('StashedPurchaseOrder.add: Nothing to do same qty.', product);
+                            }
+                        } else {
+                            changeProduct.points = product.points;
+                            changeProduct.amount = FinancialMathService.currencyMultiply(product.qty, product.cost);
+                            this.items.push(angular.copy(product));
+                            this.isDirty = true;
+
+                            $log.debug('StashedPurchaseOrder.add: Product added to current PurchaseOrder.', product);
+                        }
+                        this.points += changeProduct.points;
+                        this.amount += changeProduct.amount;
                     };
                     /**
                      * Remove a product from current purchase order.
                      * 
                      * @param {object} product - Product to be removed.
                      */
-                    PendingPurchaseOrder.prototype.remove = function(product) {
-                        this.items.splice(this.items.indexOf(product), 1);
-                        this.points -= product.points;
-                        this.amount -= product.amount;
-                        this.isDirty = true;
-                        $log.debug('PendingPurchaseOrder.remove: Product removed from current PurchaseOrder.', product);
+                    StashedPurchaseOrder.prototype.remove = function(product) {
+                        var foundProduct = ArrayUtils.find(this.items, 'id', product.id);
+
+                        if (foundProduct) {
+                            this.items.splice(this.items.indexOf(product), 1);
+                            this.points -= product.points;
+                            this.amount = FinancialMathService.currencyMultiply(this.amount, product.amount);
+                            this.isDirty = true;
+                            $log.debug('StashedPurchaseOrder.remove: Product removed from current PurchaseOrder.', product);
+                        }
                     };
                     /**
                      * Creates a new current purchase order.
                      * 
-                     * @return {PendingPurchaseOrder} purchaseOrder - The
+                     * @return {StashedPurchaseOrder} purchaseOrder - The
                      *         current purchase order.
                      */
                     this.createNewCurrent = function() {
-                        _this.purchaseOrder = new PendingPurchaseOrder();
+                        _this.purchaseOrder = new StashedPurchaseOrder();
                         $log.info('PurchaseOrderService.createNew: New current order created.');
                         return _this.purchaseOrder;
                     };
@@ -238,11 +303,14 @@
                      * 
                      * @param {object} savedPromise - Promise that will resolve
                      *            when the purchase order is saved.
+                     * @return {object} - Promise with the save result.
                      */
                     this.saveCurrent = function() {
                         $log.info('PurchaseOrderService.save: Saving current purchase order.');
                         $log.debug(_this.purchaseOrder);
-
+                        
+                        delete _this.purchaseOrder.isDirty;
+                        
                         var saveIntentPromise = null;
                         if (_this.purchaseOrder.uuid) {
                             saveIntentPromise = _this.update(_this.purchaseOrder);
@@ -271,6 +339,7 @@
                      * 
                      * @param {object} canceledPromise - Promise that will
                      *            resolve when the purchase order is canceled.
+                     * @return {object} - Promise with the cancelCurrent result.
                      */
                     this.cancelCurrent = function() {
                         $log.info('PurchaseOrderService.cancel: Canceling current purchase order.');
@@ -283,7 +352,7 @@
 
                             canceledPromise = cancelIntentPromise.then(function(uuid) {
                                 _this.clearCurrent();
-                                $log.info('PurchaseOrderService.cancel: Current purchase order canceled.');
+                                $log.info('PurchaseOrderService.cancel: Stashed purchase order canceled.');
 
                                 return uuid;
                             }, function(err) {
@@ -297,6 +366,8 @@
                             var deferred = $q.defer();
                             deferred.resolve('0');
                             canceledPromise = deferred.promise;
+
+                            $log.info('PurchaseOrderService.cancel: Current purchase order canceled.');
                         }
 
                         return canceledPromise;
@@ -306,12 +377,14 @@
                      * 
                      * @param {object} savedPromise - Promise that will resolve
                      *            when the purchase order is confirmed.
+                     * @return {object} - Promise with the checkoutCurrent
+                     *         result.
                      */
                     this.checkoutCurrent = function() {
                         $log.info('PurchaseOrderService.checkoutCurrent: Checkout current purchase order started.');
                         $log.debug(_this.purchaseOrder);
 
-                        _this.purchaseOrder.status = statusTypes['confirmed'];
+                        _this.purchaseOrder.status = ArrayUtils.find(statusTypes, 'name', 'confirmed')['id'];;
                         var saveIntentPromise = _this.saveCurrent();
                         // TODO - Create an Expense
                         var savedPromise = saveIntentPromise.then(function(uuid) {
@@ -320,7 +393,7 @@
 
                             return uuid;
                         }, function(err) {
-                            $log.error('PurchaseOrderService.cancel: Cancel current purchase order failed.');
+                            $log.error('PurchaseOrderService.checkoutCurrent: Checkout current purchase order failed.');
                             $log.debug(err);
                             return $q.reject(err);
                         });

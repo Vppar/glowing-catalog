@@ -1,4 +1,4 @@
-ddescribe('Service: PurchaseOrderServiceCreateSpec\n', function() {
+describe('Service: PurchaseOrderServiceCreateSpec\n', function() {
 
     var rootScope = null;
     var TypeKeeper = null;

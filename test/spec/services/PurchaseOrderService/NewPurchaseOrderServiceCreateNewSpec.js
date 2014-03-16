@@ -1,4 +1,4 @@
-ddescribe('Service: PurchaseOrderServiceCreateNewSpec\n', function() {
+describe('Service: PurchaseOrderServiceCreateNewSpec\n', function() {
 
     var TypeKeeper = null;
     var PurchaseOrderKeeper = null;

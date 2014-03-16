@@ -75,15 +75,16 @@
 		</div>
 	</div>
 	<!--Tela "Fazer pedido"-->
-	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='buildOrder'">			
+	<div class="col-details-products-to-buy-item border-none" ng-show="(tabs.selected=='new'||tabs.selected=='confirm')">			
 		<div class="btns-details-products-to-buy-item">
-			<button class="btn btn-cancel" type="submit" promise-click="cancel()">Cancelar</button>
-			<button class="btn btn-ok float-right" type="submit" ng-click="selectTab('confirmOrder')">Prosseguir</button>
+			<button class="btn btn-cancel" type="submit" ng-show="tabs.selected=='confirm'" ng-click="selectTab('new')">Voltar</button>
+			<button class="btn btn-cancel" type="submit" ng-show="tabs.selected=='new'" tnt-promise-click="cancel()">Cancelar</button>
+			<button class="btn btn-ok float-right" type="submit" ng-show="tabs.selected=='new'" ng-click="selectTab('confirm')">Prosseguir</button>
 		</div>		
 	</div>
 	
 	<!--Tela "Aferir NFe compra" - PARTE 2-->
-	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='verifyTicket'">			
+	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='ticket'">			
 		<div class="btns-details-products-to-buy-item">
 			<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
 			<button class="btn btn-ok float-right" type="submit" ng-click="confirm()">Confirmar</button>

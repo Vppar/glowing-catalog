@@ -10,8 +10,8 @@
 
                             var validProperties =
                                     [
-                                        'uuid', 'created', 'status', 'amount', 'freight', 'discount', 'points', 'received', 'nfeNumber',
-                                        'canceled', 'items', 'itemsReceived'
+                                        'uuid', 'created', 'updated', 'status', 'amount', 'freight', 'discount', 'points', 'received',
+                                        'nfeNumber', 'canceled', 'items', 'itemsReceived'
                                     ];
                             ObjectUtils.method(svc, 'isValid', function() {
                                 for ( var ix in this) {
@@ -62,8 +62,16 @@
             ]).service(
             'PurchaseOrderKeeper',
             [
-                '$q', 'ArrayUtils', 'JournalKeeper', 'JournalEntry', 'Replayer', 'IdentityService', 'PurchaseOrder',
-                function PurchaseOrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, PurchaseOrder) {
+                '$q',
+                'ArrayUtils',
+                'JournalKeeper',
+                'JournalEntry',
+                'Replayer',
+                'IdentityService',
+                'PurchaseOrder',
+                'TypeKeeper',
+                function PurchaseOrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, PurchaseOrder,
+                        TypeKeeper) {
 
                     var type = 6;
                     var currentEventVersion = 1;
@@ -101,6 +109,7 @@
                         var purchaseEntry = ArrayUtils.find(purchases, 'uuid', event.uuid);
 
                         purchaseEntry.uuid = event.uuid;
+                        purchaseEntry.updated = event.updated;
                         purchaseEntry.amount = event.amount;
                         purchaseEntry.discount = event.discount;
                         purchaseEntry.status = event.status;
@@ -164,6 +173,7 @@
                         var now = new Date();
 
                         purchaseObj.created = now.getTime();
+                        purchaseObj.updated = purchaseObj.created;
                         purchaseObj.uuid = IdentityService.getUUID(type, getNextId());
 
                         var event = new PurchaseOrder(purchaseObj);
@@ -183,6 +193,24 @@
                     };
 
                     /**
+                     * List purchase orders by status.
+                     * 
+                     * @return {array} purchaseOrders - A list of purchase
+                     *         orders filtered by status.
+                     */
+                    var listByStatus = function(status) {
+                        var selectedType = ArrayUtils.find(TypeKeeper.list('purchaseOrderStatus'), 'name', status);
+
+                        if (!selectedType) {
+                            throw 'PurchaseOrderKeeper.listByStatus: Invalid purchase order status: ' + status;
+                        }
+
+                        var purchaseOrders = ArrayUtils.list(purchases, 'status', selectedType['id']);
+
+                        return angular.copy(purchaseOrders);
+                    };
+
+                    /**
                      * Read an order
                      */
                     var read = function read(uuid) {
@@ -195,6 +223,7 @@
                      * <pre>
                      * Will only update the following fields:
                      *  - uuid
+                     *  - updated
                      *  - amount
                      *  - discount 
                      *  - status
@@ -217,6 +246,7 @@
 
                         var updateEv = {
                             uuid : purchaseOrder.uuid,
+                            updated : new Date().getTime(),
                             amount : purchaseOrder.amount,
                             discount : purchaseOrder.discount,
                             status : purchaseOrder.status,
@@ -226,7 +256,7 @@
                         };
 
                         // create a new journal entry
-                        var entry = new JournalEntry(null, updateEv.received, 'purchaseOrderUpdate', currentEventVersion, updateEv);
+                        var entry = new JournalEntry(null, updateEv.updated, 'purchaseOrderUpdate', currentEventVersion, updateEv);
 
                         // save the journal entry
                         return JournalKeeper.compose(entry);
@@ -303,6 +333,7 @@
 
                     this.add = add;
                     this.list = list;
+                    this.listByStatus = listByStatus;
                     this.read = read;
                     this.update = update;
                     this.cancel = cancel;

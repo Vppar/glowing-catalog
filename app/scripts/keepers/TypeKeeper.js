@@ -80,7 +80,7 @@
                         ],
                         purchaseOrderStatus : [
                             {
-                                name : 'pending',
+                                name : 'stashed',
                                 id : 1
                             }, {
                                 name : 'canceled',
