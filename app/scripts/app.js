@@ -211,6 +211,8 @@
         }).when('/third-parties', {
             templateUrl : 'views/third-parties.html',
             controller: 'ThirdPartyCtrl'
+        }).when('/spinner-button-promise', {
+            templateUrl : 'views/spinner-button-promise.html'
         }).otherwise({
             redirectTo : '/'
         });

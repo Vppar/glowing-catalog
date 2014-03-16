@@ -1,0 +1,25 @@
+.new-button{
+	border-radius: 4px;
+	cursor: pointer;
+	display: inline-block;
+	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
+	font-size: 16px;
+	height: 20px;
+	line-height: 20px;
+	margin-bottom: 0px;
+	max-width: 300px;
+	min-width: 86px;
+	padding: 8px 10px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+.new-button-ok, .new-button-ok:hover{
+	color: #fff;	
+}
+.new-button-ok{
+	background-color: #5d9732;
+}
+.new-button-ok:hover, .new-button-ok-waiting{
+	background-color: #48841c;
+}
