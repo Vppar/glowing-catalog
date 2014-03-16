@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.x.x c
+# v0.x.x caa
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -150,85 +150,12 @@ scripts/services/ProductReturnService.js
 
 scripts/preloader/datepicker.js
 
-components/product-display/product-display.html
-components/highlight-display/highlight-display.html
-components/catalog-section/catalog-section.html
-components/catalog-highlights/catalog-highlights.html
-components/tnt-number-picker/tnt-number-picker.html
-components/tnt-numpad/tnt-numpad.html
-
 resources/config.js
 resources/images.json
 resources/replay.json
 resources/data.json
 resources/orders.json
 resources/products.json
-
-views/catalog/best-sellers.html
-
-views/parts/add-customer/add-customer-phones-dialog.html
-views/parts/add-customer/add-customer-emails-dialog.html
-views/parts/catalog/add-to-basket-dialog-details.html
-views/parts/catalog/add-to-basket-dialog.html
-views/parts/catalog/footer.html
-views/parts/catalog/input-qty.html
-views/parts/catalog/num-pad.html
-views/parts/expense/expense-read.html
-views/parts/expense/expense-write-parc-dialog.html
-views/parts/expense/expense-write.html
-views/parts/global/change-pass-dialog.html
-views/parts/global/choose-customer-dialog.html
-views/parts/global/header.html
-views/parts/global/input-products-dialog.html
-views/parts/global/message-dialog.html
-views/parts/global/numpad-dialog.html
-views/parts/partial-delivery/customer-info-dialog.html
-views/parts/partial-delivery/delivery-details-dialog.html
-views/parts/payment/payment-left-advance.html
-views/parts/payment/payment-left-check.html
-views/parts/payment/payment-left-credit-card.html
-views/parts/payment/payment-left-discount.html
-views/parts/payment/payment-left-exchange.html
-views/parts/payment/payment-left-on-cuff.html
-views/parts/payment/payment-left-order.html
-views/parts/payment/payment-left-voucher.html
-views/parts/payment/payment-right-totals.html
-views/parts/products-to-buy/products-to-buy-confirm-dialog.html
-views/parts/products-to-buy/products-to-buy-confirm.html
-views/parts/products-to-buy/products-to-buy-credit.html
-views/parts/products-to-buy/products-to-buy-order.html
-views/parts/products-to-buy/products-to-buy-pending.html
-views/parts/products-to-buy/products-to-buy-summary.html
-views/parts/products-to-buy/products-to-buy-ticket-dialog.html
-views/parts/products-to-buy/products-to-buy-ticket.html
-views/parts/receivable/receivable-add.html
-views/parts/receivable/receivable-edit-parc-dialog.html
-views/parts/receivable/receivable-edit.html
-views/parts/receivable/receivable-list.html
-views/parts/receivable/receivable-receive.html
-views/add-customer.html
-views/basket.html
-views/bills-to-pay.html
-views/cash-flow.html
-views/delivery.html
-views/expense.html
-views/financial.html
-views/income-statement.html
-views/inventory.html
-views/login.html
-views/main.html
-views/order-list.html
-views/partial-delivery.html
-views/payment.html
-views/pending-delivery.html
-views/previous-entries.html
-views/products-to-buy.html
-views/receivable.html
-views/stock.html
-views/tutorial-android.html
-views/tutorial-ipad.html
-views/voucher.html
-
 
 images/keyboard/n0.png
 images/keyboard/n1.png
