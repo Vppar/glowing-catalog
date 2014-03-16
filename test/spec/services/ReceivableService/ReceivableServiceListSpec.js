@@ -60,14 +60,16 @@ describe('Service: ReceivableServiceListSpec', function() {
         // given
         var dummyReceivables = [
             {
+                uuid : 2,
                 type : 'check',
                 payment : {
-                    uuid : 2
+                    uuid : null
                 }
             }, {
+                uuid : 32,
                 type : 'check',
                 payment : {
-                    uuid : 32
+                    uuid : null
                 }
             }, {
                 type : 'cash',

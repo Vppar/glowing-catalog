@@ -238,8 +238,14 @@
              */
             var updateCheck = function(check){
                 var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', check.uuid));
+                
+                //FIXME - quick fix to remove the old and useless check.id
+                if(check.id){
+                    delete check.id;
+                }
+                
                 check = new CheckPayment(check);
-                delete(check.uuid);
+                delete check.uuid;
                 receivable.payment = check;
                 
                 // create a new journal entry

@@ -1,9 +1,9 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.check.ctrl', [
-        'tnt.catalog.check.service', 'tnt.utils.array'
+        'tnt.catalog.receivable.service', 'tnt.utils.array'
     ]).controller('ReceivableCheckCtrl', [
-        '$log', '$q', '$scope', '$filter', 'UserService', 'CheckService', 'ArrayUtils', 'DataProvider',
+        '$log', '$q', '$scope', '$filter', 'UserService', 'ReceivableService', 'ArrayUtils', 'DataProvider',
 
         /**
          * Service to handle check business logic.
@@ -13,11 +13,11 @@
          * @param {function} $scope - scope.
          * @param {function} $filter - angular filter module.
          * @param {UserService} UserService - Service responsible for helping with the User data.
-         * @param {CheckService} CheckService - Service responsible for checking
+         * @param {ReceivableService} ReceivableService - Service responsible for checking
          *            the infos and passing forward to the keeper.
          * @param {ArrayUtils} ArrayUtils - Library of array utilities.
          */
-        function($log, $q, $scope, $filter, UserService, CheckService, ArrayUtils, DataProvider) {
+        function($log, $q, $scope, $filter, UserService, ReceivableService, ArrayUtils, DataProvider) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
 
@@ -57,7 +57,7 @@
             // SCOPE VARS
             // ##################################################################################################
 
-            $scope.checks = CheckService.list();
+            $scope.checks = ReceivableService.listChecks();
             
             $scope.filteredChecks = angular.copy($scope.checks);
             
@@ -70,7 +70,13 @@
             /**
              * Object containing all the checkBoxes values.
              */
-            $scope.boxes = {};
+            $scope.boxes = {
+                    toDeposit : [],
+                    deposited : [],
+                    moneyReceived: [],
+                    returned : [],
+                    all : []
+            };
             
             /**
              * SelectButton group.
@@ -98,28 +104,43 @@
             $scope.changeState = function(newState) {
                 var promises = [];
 
-                for ( var ix in $scope.boxes) {
-                    if ($scope.boxes[ix] === true) {
-                        promises.push(CheckService.changeState($scope.filteredChecks[ix].uuid, newState));
+                for ( var ix in $scope.boxes[$scope.selected]) {
+                    if ($scope.boxes[$scope.selected][ix] === true) {
+                        promises.push(ReceivableService.changeState($scope.filteredChecks[ix].uuid, newState));
                     }
                 }
 
                 var promise = $q.all(promises);
-                var resolvedPromises = promise.then(function() {
+                var resolvedPromises = promise.then(function(result) {
                     $log.info('State Changed!');
+                    $scope.checks = ReceivableService.listChecks();
                 }, function(err) {
                     $log.error('Failed to change state!');
                     $log.debug(err);
                     return $q.reject();
                 });
-
+                
                 return resolvedPromises;
             };
 
             // ##################################################################################################
             // WATCHERS
             // ##################################################################################################
-
+            /**
+             * Refresh the list when one of the checks is moved. 
+             */
+            $scope.$watchCollection('checks', function() {
+                $scope.filteredChecks = $filter('filter')(angular.copy($scope.checks), filterByDate);
+                $scope.filteredChecks = filterByState($scope.filteredChecks);
+                $scope.boxes = {
+                        toDeposit : [],
+                        deposited : [],
+                        moneyReceived: [],
+                        returned : [],
+                        all : []
+                };
+            });
+            
             /**
              * Watcher for the SelectButton group.
              * Handle the behavior of the components in the screen based on the button selected;
@@ -268,6 +289,7 @@
              * Filter by State.
              */
             function filterByState(checks) {
+                checks = stateConfirm(checks);
                 if ($scope.selected === 'all') {
                     return stateTranslator3000(checks);
                 }
@@ -296,7 +318,7 @@
                     }
                 } else {
                     for ( var ix2 in checks) {
-                        var x = Number(ix2) + Number(1);
+                        var x = checks[ix2].state;
                         checks[ix2].state = statesMap[x][STATE_DESCRIPTION_PT];
                     }
                 }
@@ -318,6 +340,22 @@
                     }
                     return checks;
                 }
+            
+            /**
+             * Some of the old checks doesn\'t have a state,
+             * this function assures. 
+             * 
+             * @param [Checks] - An array of Checks.
+             * @return [checks] - An array of Checks with the bank translated.
+             */
+            function stateConfirm(checks){
+                for(var ix in checks){
+                    if(!checks[ix].state){
+                        checks[ix].state = 1;
+                    }
+                }
+                return checks;
+            }
 
             // ###################################
             // WARM UP

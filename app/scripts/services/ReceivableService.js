@@ -262,6 +262,7 @@
                         var checkReceivables = ArrayUtils.list(ReceivableKeeper.list(), 'type', 'check');
                         var checks = [];
                         for ( var ix in checkReceivables) {
+                            checkReceivables[ix].payment.uuid = checkReceivables[ix].uuid;
                             checks.push(checkReceivables[ix].payment);
                         }
                         return checks;
@@ -288,7 +289,11 @@
                             return $q.reject('Couldn\'t find a receivable for the uuid: ' + uuid);
                         }
                         check.uuid = uuid;
-                        var oldState = check.state;
+                        if(check.state){
+                            var oldState = check.state;
+                        }else{
+                            var oldState = 1;
+                        }
                         var result = validateStateTransition(oldState, newState);
 
                         if (result) {

@@ -41,11 +41,14 @@
      */
     entities.factory('CheckPayment', [
         'Payment', function CheckPayment(Payment) {
-            
+
             var service = function svc(uuid, amount, bank, agency, account, number, duedate) {
 
+                // FIXME - type was included for legacy reasons but we aren\'t
+                // sure if he is really used on the application. Pls review
+                // this.
                 var validProperties = [
-                    'uuid', 'bank', 'agency', 'account', 'number', 'duedate', 'amount', 'document', 'state'
+                    'uuid', 'bank', 'agency', 'account', 'number', 'duedate', 'amount', 'document', 'state', 'type'
                 ];
 
                 ObjectUtils.method(svc, 'isValid', function() {
@@ -59,7 +62,7 @@
                         }
                     }
                 });
-                
+
                 if (arguments.length !== svc.length) {
                     if (arguments.length === 1 && angular.isObject(arguments[0])) {
                         svc.prototype.isValid.apply(arguments[0]);
@@ -99,7 +102,7 @@
 
             var service = function svc(amount, flag, ccNumber, owner, ccDueDate, cpf, installments, duedate) {
 
-                if (arguments.length !==svc.length) {
+                if (arguments.length !== svc.length) {
                     throw 'CreditCardPayment must be initialized with all params';
                 }
 
@@ -220,29 +223,30 @@
         'tnt.utils.array', 'tnt.catalog.payment.entity', 'tnt.catalog.service.coupon', 'tnt.util.log', 'tnt.catalog.service.book'
     ]).service(
             'PaymentService',
-            ['$location',
-             '$q',
-             '$log',
-             '$filter',
-             'ArrayUtils',
-             'Payment',
-             'CashPayment',
-             'CheckPayment',
-             'CreditCardPayment',
-             'NoMerchantCreditCardPayment',
-             'ExchangePayment',
-             'CouponPayment',
-             'CouponService',
-             'OnCuffPayment',
-             'OrderService',
-             'EntityService',
-             'ReceivableService',
-             'ProductReturnService',
-             'VoucherService',
-             'WebSQLDriver',
-             'StockKeeper',
-             'SMSService',
-             'BookService',
+            [
+                '$location',
+                '$q',
+                '$log',
+                '$filter',
+                'ArrayUtils',
+                'Payment',
+                'CashPayment',
+                'CheckPayment',
+                'CreditCardPayment',
+                'NoMerchantCreditCardPayment',
+                'ExchangePayment',
+                'CouponPayment',
+                'CouponService',
+                'OnCuffPayment',
+                'OrderService',
+                'EntityService',
+                'ReceivableService',
+                'ProductReturnService',
+                'VoucherService',
+                'WebSQLDriver',
+                'StockKeeper',
+                'SMSService',
+                'BookService',
                 function PaymentService($location, $q, $log, $filter, ArrayUtils, Payment, CashPayment, CheckPayment, CreditCardPayment,
                         NoMerchantCreditCardPayment, ExchangePayment, CouponPayment, CouponService, OnCuffPayment, OrderService,
                         EntityService, ReceivableService, ProductReturnService, VoucherService, WebSQLDriver, StockKeeper, SMSService,
@@ -376,7 +380,9 @@
                                 }
 
                                 // FIXME: should we use a UUID?
-                                payment.id = ArrayUtils.generateUUID();
+                                if(payment.type !== 'check'){
+                                    payment.id = ArrayUtils.generateUUID();
+                                }
                                 payments[typeName].push(angular.copy(payment));
                             };
 
