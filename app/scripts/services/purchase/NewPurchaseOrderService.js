@@ -1,24 +1,12 @@
 (function(angular) {
     'use strict';
-    angular.module(
-            'tnt.catalog.purchase.service',
+    angular.module('tnt.catalog.purchase.service', [
+        'tnt.utils.array', 'tnt.catalog.purchaseOrder', 'tnt.catalog.type.keeper'
+    ]).service(
+            'NewPurchaseOrderService',
             [
-                'tnt.utils.array', 'tnt.catalog.financial.math.service', 'tnt.catalog.report.service', 'tnt.catalog.purchaseOrder',
-                'tnt.catalog.filter.sum', 'tnt.catalog.stock.entity', 'tnt.catalog.stock.service', 'tnt.catalog.type.keeper'
-            ]).service(
-            'PurchaseOrderService',
-            [
-                '$q',
-                '$log',
-                '$filter',
-                'ReportService',
-                'TypeKeeper',
-                'PurchaseOrder',
-                'PurchaseOrderKeeper',
-                'Stock',
-                'StockService',
-                function PurchaseOrderService($q, $log, $filter, ReportService, TypeKeeper, PurchaseOrder, PurchaseOrderKeeper, Stock,
-                        StockService) {
+                '$q', '$log', '$filter', 'ArrayUtils', 'TypeKeeper', 'PurchaseOrder', 'PurchaseOrderKeeper',
+                function NewPurchaseOrderService($q, $log, $filter, ArrayUtils, TypeKeeper, PurchaseOrder, PurchaseOrderKeeper) {
 
                     var _this = this;
 
@@ -31,7 +19,7 @@
 
                         // See validation helpers in the end of this file
                         invalidProperty = {
-                            items : (angular.isArray(items) && items.length > 0)
+                            items : (angular.isArray(order.items) && items.length > 0)
                         };
 
                         for ( var ix in invalidProperty) {
@@ -62,16 +50,22 @@
                         var result = null;
                         var hasErrors = _this.isValid(purchaseOrder);
                         if (hasErrors.length === 0) {
-                            var createIntentPromise = PurchaseOrderKeeper.add(new PurchaseOrder(purchaseOrder));
-                            result = createIntentPromise.then(function(uuid) {
-                                $log.info('PurchaseOrderService.create: Purchase order created.');
-                                $log.debug(uuid);
-                                return uuid;
-                            }, function(err) {
+                            try {
+                                var createIntentPromise = PurchaseOrderKeeper.add(new PurchaseOrder(purchaseOrder));
+                                result = createIntentPromise.then(function(uuid) {
+                                    $log.info('PurchaseOrderService.create: Purchase order created.');
+                                    $log.debug(uuid);
+                                    return uuid;
+                                }, function(err) {
+                                    $log.error('PurchaseOrderService.create: Failed to create an purchaseOrder.');
+                                    $log.debug(err);
+                                    return $q.reject(err);
+                                });
+                            } catch (err) {
                                 $log.error('PurchaseOrderService.create: Failed to create an purchaseOrder.');
                                 $log.debug(err);
-                                return $q.reject(err);
-                            });
+                                result = $q.reject(err);
+                            }
                         } else {
                             $log.error('PurchaseOrderService.create: Invalid purchaseOrder.');
                             $log.debug(hasErrors);
@@ -92,16 +86,22 @@
                         var result = null;
                         var hasErrors = _this.isValid(purchaseOrder);
                         if (hasErrors.length === 0) {
-                            var updateIntentPromise = PurchaseOrderKeeper.update(new PurchaseOrder(purchaseOrder));
-                            result = updateIntentPromise.then(function(uuid) {
-                                $log.info('PurchaseOrderService.update: Purchase order updated.');
-                                $log.debug(uuid);
-                                return uuid;
-                            }, function(err) {
-                                $log.error('PurchaseOrderService.update: Failed to create an purchaseOrder.');
+                            try {
+                                var updateIntentPromise = PurchaseOrderKeeper.update(new PurchaseOrder(purchaseOrder));
+                                result = updateIntentPromise.then(function(uuid) {
+                                    $log.info('PurchaseOrderService.update: Purchase order updated.');
+                                    $log.debug(uuid);
+                                    return uuid;
+                                }, function(err) {
+                                    $log.error('PurchaseOrderService.update: Failed to update an purchaseOrder.');
+                                    $log.debug(err);
+                                    return $q.reject(err);
+                                });
+                            } catch (err) {
+                                $log.error('PurchaseOrderService.update: Failed to update an purchaseOrder.');
                                 $log.debug(err);
-                                return $q.reject(hasErrors);
-                            });
+                                result = $q.reject(err);
+                            }
                         } else {
                             $log.error('PurchaseOrderService.update: Invalid purchaseOrder.');
                             $log.debug(hasErrors);
@@ -137,7 +137,6 @@
                         } catch (err) {
                             $log.error('PurchaseOrderService.read: Unable to find an purchaseOrder.');
                             $log.debug(err);
-                            result = $q.reject(err);
                         }
                         return result;
                     };
@@ -176,7 +175,7 @@
                      * 
                      * @type
                      */
-                    var purchaseOrder = null;
+                    this.purchaseOrder = null;
                     /**
                      * Current purchase order type.
                      * 
@@ -186,7 +185,7 @@
                         this.uuid = null;
                         this.amount = 0;
                         this.discount = 0;
-                        this.status = statusTypes['pending'];
+                        this.status = ArrayUtils.find(statusTypes, 'pending')['id'];
                         this.freight = 0;
                         this.points = 0;
                         this.items = [];
@@ -210,7 +209,7 @@
                      * @param {object} product - Product to be removed.
                      */
                     PendingPurchaseOrder.prototype.remove = function(product) {
-                        this.items.splice(items.indexOf(product), 1);
+                        this.items.splice(this.items.indexOf(product), 1);
                         this.points -= product.points;
                         this.amount -= product.amount;
                         this.isDirty = true;
@@ -223,15 +222,15 @@
                      *         current purchase order.
                      */
                     this.createNewCurrent = function() {
-                        purchaseOrder = new PendingPurchaseOrder();
+                        _this.purchaseOrder = new PendingPurchaseOrder();
                         $log.info('PurchaseOrderService.createNew: New current order created.');
-                        return purchaseOrder;
+                        return _this.purchaseOrder;
                     };
                     /**
                      * Clear the current purchase order.
                      */
                     this.clearCurrent = function() {
-                        purchaseOrder = null;
+                        _this.purchaseOrder = null;
                         $log.debug('PurchaseOrderService.clear: Current order cleared.');
                     };
                     /**
@@ -242,21 +241,21 @@
                      */
                     this.saveCurrent = function() {
                         $log.info('PurchaseOrderService.save: Saving current purchase order.');
-                        $log.debug(purchaseOrder);
+                        $log.debug(_this.purchaseOrder);
 
                         var saveIntentPromise = null;
-                        if (purchaseOrder.uuid) {
-                            saveIntentPromise = this.update(purchaseOrder);
+                        if (_this.purchaseOrder.uuid) {
+                            saveIntentPromise = _this.update(_this.purchaseOrder);
                         } else {
-                            saveIntentPromise = this.add(purchaseOrder);
+                            saveIntentPromise = _this.create(_this.purchaseOrder);
                         }
 
-                        var savedPromise = saveIntentPromise.then(function(uiid) {
-                            purchaseOrder.uuid = uuid;
-                            purchaseOrder.isDirty = false;
+                        var savedPromise = saveIntentPromise.then(function(uuid) {
+                            _this.purchaseOrder.uuid = uuid;
+                            _this.purchaseOrder.isDirty = false;
 
                             $log.info('PurchaseOrderService.save: Current purchase order saved.');
-                            $log.debug(purchaseOrder);
+                            $log.debug(_this.purchaseOrder);
 
                             return uuid;
                         }, function(err) {
@@ -275,18 +274,30 @@
                      */
                     this.cancelCurrent = function() {
                         $log.info('PurchaseOrderService.cancel: Canceling current purchase order.');
-                        $log.debug(purchaseOrder);
+                        $log.debug(_this.purchaseOrder);
 
-                        var cancelIntentPromise = this.cancel(purchaseOrder);
+                        var canceledPromise = null;
 
-                        var canceledPromise = cancelIntentPromise.then(function() {
+                        if (_this.purchaseOrder.uuid) {
+                            var cancelIntentPromise = _this.cancel(_this.purchaseOrder.uuid);
+
+                            canceledPromise = cancelIntentPromise.then(function(uuid) {
+                                _this.clearCurrent();
+                                $log.info('PurchaseOrderService.cancel: Current purchase order canceled.');
+
+                                return uuid;
+                            }, function(err) {
+                                $log.error('PurchaseOrderService.cancel: Cancel current purchase order failed.');
+                                $log.debug(err);
+                                return $q.reject(err);
+                            });
+                        } else {
                             _this.clearCurrent();
-                            $log.info('PurchaseOrderService.cancel: Current purchase order canceled.');
-                        }, function(err) {
-                            $log.error('PurchaseOrderService.cancel: Cancel current purchase order failed.');
-                            $log.debug(err);
-                            return $q.reject(err);
-                        });
+
+                            var deferred = $q.defer();
+                            deferred.resolve('0');
+                            canceledPromise = deferred.promise;
+                        }
 
                         return canceledPromise;
                     };
@@ -298,14 +309,16 @@
                      */
                     this.checkoutCurrent = function() {
                         $log.info('PurchaseOrderService.checkoutCurrent: Checkout current purchase order started.');
-                        $log.debug(purchaseOrder);
+                        $log.debug(_this.purchaseOrder);
 
-                        purchaseOrder.status = statusTypes['confirmed'];
-                        var saveIntentPromise = this.saveCurrent();
-                        // TODO - Create a Expense 
-                        var savedPromise = saveIntentPromise.then(function() {
+                        _this.purchaseOrder.status = statusTypes['confirmed'];
+                        var saveIntentPromise = _this.saveCurrent();
+                        // TODO - Create an Expense
+                        var savedPromise = saveIntentPromise.then(function(uuid) {
                             _this.clearCurrent();
                             $log.info('PurchaseOrderService.checkoutCurrent: Checkout done.');
+
+                            return uuid;
                         }, function(err) {
                             $log.error('PurchaseOrderService.cancel: Cancel current purchase order failed.');
                             $log.debug(err);
