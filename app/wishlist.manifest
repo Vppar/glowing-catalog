@@ -176,6 +176,7 @@ scripts/controllers/voucher-active.js
 scripts/controllers/voucher-historic.js
 scripts/controllers/book-keeping-report.js
 scripts/controllers/numpad-dialog.js
+scripts/controllers/third-party.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -314,6 +315,7 @@ views/stock.html
 views/tutorial-android.html
 views/tutorial-ipad.html
 views/voucher.html
+views/third-parties.html
 
 
 images/keyboard/n0.png
