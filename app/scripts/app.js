@@ -126,7 +126,8 @@
             'tnt.catalog.directives.promiseClick',
             'tnt.catalog.check',
             'tnt.catalog.check.service',
-            'tnt.catalog.check.ctrl'
+            'tnt.catalog.check.ctrl',
+            'tnt.catalog.thirdparty'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -208,7 +209,8 @@
         }).when('/registration', {
             templateUrl : 'views/registration.html'
         }).when('/third-parties', {
-            templateUrl : 'views/third-parties.html'
+            templateUrl : 'views/third-parties.html',
+            controller: 'ThirdPartyCtrl'
         }).otherwise({
             redirectTo : '/'
         });
