@@ -209,6 +209,8 @@
             templateUrl : 'views/registration.html'
         }).when('/third-parties', {
             templateUrl : 'views/third-parties.html'
+        }).when('/spinner-button-promise', {
+            templateUrl : 'views/spinner-button-promise.html'
         }).otherwise({
             redirectTo : '/'
         });

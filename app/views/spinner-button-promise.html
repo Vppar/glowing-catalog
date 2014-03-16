@@ -1,0 +1,10 @@
+<div class="row-fluid">
+	<span ng-include src="'views/parts/global/header.html'"></span>
+</div>
+
+click! and reclick!
+
+<buttom class="new-button new-button-ok" ng-init="ctrl=true" ng-click="ctrl=!ctrl" ng-class="{ 'new-button-ok-waiting' : !ctrl}">
+	<span ng-show="ctrl" >Confirmar</span>
+	<img ng-hide="ctrl" src="images/loading-btn_20.gif"/>
+</buttom>
