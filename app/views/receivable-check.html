@@ -47,8 +47,8 @@
 			<div class="row-fluid">
 				<div class="new-body-header">
 					<div class="new-col-1">&nbsp;</div>
-					<div class="new-col-6">Banco</div>
-					<div class="new-col-4">Agência</div>
+					<div class="new-col-7">Banco</div>
+					<div class="new-col-3">Agência</div>
 					<div class="new-col-3">Conta Corrente</div>
 					<div class="new-col-3 text-center">Vencimento</div>
 					<div class="new-col-3 currency">Valor</div>
@@ -62,8 +62,8 @@
 						<div class="new-body-row" ng-repeat="check in filteredChecks | orderBy : 'duedate'">
 							<label for="checkid">
 								<div class="new-col-1"><input id="checkid{{$index}}" type="checkbox" ng-model="boxes[selected][$index]"/></div>
-								<div class="new-col-6">{{check.bank}}</div>
-								<div class="new-col-4">{{check.agency}}</div>
+								<div class="new-col-7">{{check.bank}}</div>
+								<div class="new-col-3">{{check.agency}}</div>
 								<div class="new-col-3">{{check.account}}</div>
 								<div class="new-col-3 text-center">{{check.duedate | date:'dd/MM/yyyy'}}</div>
 								<div class="new-col-3 currency">{{check.amount | currency:''}}</div>
