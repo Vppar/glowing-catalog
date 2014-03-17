@@ -293,6 +293,7 @@ views/parts/products-to-buy/products-to-buy-summary.html
 views/parts/products-to-buy/products-to-buy-ticket-dialog.html
 views/parts/products-to-buy/products-to-buy-ticket.html
 views/parts/receivable/receivable-add.html
+views/parts/receivable/receivable-dialog.html
 views/parts/receivable/receivable-edit-parc-dialog.html
 views/parts/receivable/receivable-edit.html
 views/parts/receivable/receivable-list.html
