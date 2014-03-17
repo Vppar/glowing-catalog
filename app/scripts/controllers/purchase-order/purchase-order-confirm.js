@@ -106,7 +106,7 @@
                                             NewPurchaseOrderService.purchaseOrder.freight = summary.freight;
                                             NewPurchaseOrderService.purchaseOrder.points = summary.total.points;
 
-                                            return NewPurchaseOrderService.checkoutCurrent();
+                                            return NewPurchaseOrderService.saveCurrent();
                                         });
 
                                 var savedPromise = saveCurrentPromise.then(function() {

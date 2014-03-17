@@ -8,14 +8,23 @@
                 '$scope', '$filter', '$q', '$log', 'NewPurchaseOrderService',
                 function PurchseOrderStashedCtrl($scope, $filter, $q, $log, NewPurchaseOrderService) {
 
-                    if (NewPurchaseOrderService.purchaseOrder) {
-                        $scope.selectTab('new');
-                    }
+                    // ############################################################################################################
+                    // Scope variables
+                    // ############################################################################################################
 
                     $scope.stashedPurchaseOrders = NewPurchaseOrderService.listStashed();
 
+                    // ############################################################################################################
+                    // Scope functions
+                    // ############################################################################################################
+
                     $scope.newPurchaseOrder = function() {
                         $scope.purchaseOrder.current = NewPurchaseOrderService.createNewCurrent();
+                        $scope.selectTab('new');
+                    };
+
+                    $scope.openStashed = function(purchaseOrder) {
+                        NewPurchaseOrderService.purchaseOrder = NewPurchaseOrderService.createNewCurrent(purchaseOrder);
                         $scope.selectTab('new');
                     };
                 }

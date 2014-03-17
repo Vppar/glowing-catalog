@@ -1,9 +1,9 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.purchase.new.ctrl', [
-        'tnt.catalog.stock.service'
+        'tnt.catalog.stock.service', 'tnt.catalog.purchase.service'
     ]).controller('PurchaseOrderNewCtrl', [
-        '$scope', '$log', 'StockService', function($scope, $log, StockService) {
+        '$scope', '$log', 'StockService', 'NewPurchaseOrderService', function($scope, $log, StockService, NewPurchaseOrderService) {
 
             // #####################################################################################################
             // Local Functions
@@ -11,6 +11,7 @@
 
             var stockReport = $scope.main.stockReport;
             var currentProductWatcher = {};
+            var purchaseOrder = NewPurchaseOrderService.purchaseOrder;
 
             // #####################################################################################################
             // Local Functions
@@ -31,6 +32,31 @@
                 }
             }
 
+            function loadStashedPurchaseOrder(stockReport, purchaseOrder) {
+                if (purchaseOrder) {
+                    var mapQty = {};
+                    for ( var i in purchaseOrder.items) {
+                        var item = NewPurchaseOrderService.purchaseOrder.items[i];
+                        mapQty[item.id] = item.qty;
+                    }
+
+                    for ( var ix in stockReport.sessions) {
+                        var session = stockReport.sessions[ix];
+                        for ( var ix2 in session.lines) {
+                            var line = session.lines[ix2];
+                            for ( var ix3 in line.items) {
+                                var item = line.items[ix3];
+                                var qty = mapQty[item.id];
+                                if (qty) {
+                                    item.qty = qty;
+                                    $scope.purchaseOrder.watchedQty[item.id] = qty;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             function productFilter(newVal, oldVal) {
                 $scope.filter.text = newVal;
                 if (newVal !== oldVal) {
@@ -42,8 +68,10 @@
                             SKU : myTextFilter
                         };
                         StockService.updateReport(stockReport, objFilter);
+                        loadPurchaseOrder(stockReport);
                     } else if (String(oldVal).length >= 3) {
                         StockService.updateReport(stockReport);
+                        loadPurchaseOrder(stockReport);
                     }
                 }
 
@@ -130,6 +158,7 @@
 
             // Enable watcher
             enableProductWatcher();
+            loadStashedPurchaseOrder(stockReport, purchaseOrder);
             $scope.showLevel(1);
         }
     ]);

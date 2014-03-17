@@ -45,10 +45,6 @@
 
                             ObjectUtils.ro(this, 'uuid', this.uuid);
                             ObjectUtils.ro(this, 'created', this.created);
-                            ObjectUtils.ro(this, 'amount', this.amount);
-                            ObjectUtils.ro(this, 'discount', this.discount);
-                            ObjectUtils.ro(this, 'points', this.points);
-                            ObjectUtils.ro(this, 'items', this.items);
                         };
 
                 return service;
@@ -108,7 +104,6 @@
                     ObjectUtils.ro(this.handlers, 'purchaseOrderUpdateV1', function(event) {
                         var purchaseEntry = ArrayUtils.find(purchases, 'uuid', event.uuid);
 
-                        purchaseEntry.uuid = event.uuid;
                         purchaseEntry.updated = event.updated;
                         purchaseEntry.amount = event.amount;
                         purchaseEntry.discount = event.discount;

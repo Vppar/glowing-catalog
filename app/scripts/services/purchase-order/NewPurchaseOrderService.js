@@ -19,9 +19,9 @@
                     // ############################################################################################################
                     // Local variables
                     // ############################################################################################################
-                    
+
                     var _this = this;
-                    
+
                     /**
                      * Stores the purchase order allowed status.
                      * 
@@ -145,7 +145,21 @@
                         }
                         return results;
                     };
-
+                    /**
+                     * List confirmed PurchaseOrders.
+                     * 
+                     * @return {array} - Confirmed purchase orders.
+                     */
+                    this.listConfirmed = function() {
+                        var results = null;
+                        try {
+                            results = PurchaseOrderKeeper.listByStatus('confirmed');
+                        } catch (err) {
+                            $log.error('PurchaseOrderService.list: Unable to recover the list of stashed purchaseOrders.');
+                            $log.debug(err);
+                        }
+                        return results;
+                    };
                     /**
                      * List stashed PurchaseOrders.
                      * 
@@ -286,8 +300,13 @@
                      * @return {StashedPurchaseOrder} purchaseOrder - The
                      *         current purchase order.
                      */
-                    this.createNewCurrent = function() {
+                    this.createNewCurrent = function(purchaseOrder) {
                         _this.purchaseOrder = new StashedPurchaseOrder();
+
+                        if (purchaseOrder) {
+                            angular.extend(_this.purchaseOrder, purchaseOrder);
+                        }
+
                         $log.info('PurchaseOrderService.createNew: New current order created.');
                         return _this.purchaseOrder;
                     };
@@ -308,9 +327,9 @@
                     this.saveCurrent = function() {
                         $log.info('PurchaseOrderService.save: Saving current purchase order.');
                         $log.debug(_this.purchaseOrder);
-                        
+
                         delete _this.purchaseOrder.isDirty;
-                        
+
                         var saveIntentPromise = null;
                         if (_this.purchaseOrder.uuid) {
                             saveIntentPromise = _this.update(_this.purchaseOrder);
@@ -384,7 +403,7 @@
                         $log.info('PurchaseOrderService.checkoutCurrent: Checkout current purchase order started.');
                         $log.debug(_this.purchaseOrder);
 
-                        _this.purchaseOrder.status = ArrayUtils.find(statusTypes, 'name', 'confirmed')['id'];;
+                        _this.purchaseOrder.status = ArrayUtils.find(statusTypes, 'name', 'confirmed')['id'];
                         var saveIntentPromise = _this.saveCurrent();
                         // TODO - Create an Expense
                         var savedPromise = saveIntentPromise.then(function(uuid) {

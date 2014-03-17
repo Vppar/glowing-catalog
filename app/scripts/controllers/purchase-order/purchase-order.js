@@ -11,7 +11,8 @@
                 'StockService',
                 'PurchaseOrderService',
                 'UserService',
-                function($scope, $log, ArrayUtils, StockService, PurchaseOrderService, UserService) {
+                'NewPurchaseOrderService',
+                function($scope, $log, ArrayUtils, StockService, PurchaseOrderService, UserService, NewPurchaseOrderService) {
 
                     UserService.redirectIfIsNotLoggedIn();
 
@@ -44,7 +45,7 @@
                     }
 
                     function loadPurchaseOrders() {
-                        $scope.ticket.purchaseOrders = PurchaseOrderService.list();
+                        $scope.ticket.purchaseOrders = NewPurchaseOrderService.listConfirmed();
                     }
 
                     // #####################################################################################################
