@@ -257,7 +257,7 @@
         
         this.listByOrder = function(uuid){
             var result = $filter('filter')(this.listEntries(), function(entry){
-                return (entry.document.uuid === uuid);
+                return (entry.document === uuid);
             });
             return result;
         };
