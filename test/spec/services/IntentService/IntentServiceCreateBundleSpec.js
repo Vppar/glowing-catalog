@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: IntentServiceCreateBundleSpec', function() {
+ddescribe('Service: IntentServiceCreateBundleSpec', function() {
 
     var log = {};
 
@@ -25,7 +25,7 @@ describe('Service: IntentServiceCreateBundleSpec', function() {
         var resp = null;
 
         //when
-        IntentService.createBundle(data);
+        IntentService.putBundle(data);
         resp = IntentService.getBundle(data);
 
         //expect
@@ -40,9 +40,9 @@ describe('Service: IntentServiceCreateBundleSpec', function() {
         var resp = null;
 
         // when
-        IntentService.createBundle(data);
+        IntentService.putBundle(data);
 
-        IntentService.createBundle(data2);
+        IntentService.putBundle(data2);
 
         resp = IntentService.getBundle(data);
 
