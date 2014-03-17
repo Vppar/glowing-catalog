@@ -60,14 +60,4 @@ describe('Controller: ReceivableCtrl', function() {
 
     });
 
-    it('should sum amount of receivables', function() {
-        scope.receivables.list = receivables;
-
-        scope.$apply();
-
-        expect(scope.receivables.total).toEqual(30);
-        
-    });
-
-
 });

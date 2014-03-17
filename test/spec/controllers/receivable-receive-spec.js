@@ -3,6 +3,8 @@ describe('Controller: ReceivableReceiveCtrl', function() {
     // load the controller's module
     beforeEach(function() {
         module('tnt.catalog.financial.receivable.receive.ctrl');
+        module('tnt.catalog.service.book');
+        module('tnt.catalog.bookkeeping.keeper');
     });
 
     var scope = {};
@@ -11,7 +13,6 @@ describe('Controller: ReceivableReceiveCtrl', function() {
     var DialogService = {};
     var receivables = null;
     var fakeNow = 1412421495;
-    var result = false;
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function($controller, $rootScope, $q) {
@@ -25,13 +26,6 @@ describe('Controller: ReceivableReceiveCtrl', function() {
         
         ReceivableService.listActive = jasmine.createSpy('ReceivableService.listActive').andReturn(receivables);
 
-        DialogService.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function() {
-            var defer = $q.defer();
-            defer.resolve();
-            result = true;
-            return defer.promise;
-        });
-        
         // $scope mock
         scope = $rootScope.$new();
         // mock function of parent controller.
@@ -92,46 +86,4 @@ describe('Controller: ReceivableReceiveCtrl', function() {
         expect(result).toEqual(false);
 
     });
-
-    it('should receive a receivable', function() {
-        runs(function() {
-            // given
-            scope.selectedReceivable = receivables[0];
-            // when
-            scope.comfirmReceive();
-        });
-
-        waitsFor(function() {
-            scope.$apply();
-            return !!result;
-        });
-
-        runs(function() {
-            // then
-            expect(DialogService.messageDialog).toHaveBeenCalled();
-            expect(ReceivableService.receive).toHaveBeenCalledWith(receivables[0].uuid, fakeNow);
-        });
-    });
-
-    it('should not receive a receivable', function() {
-        runs(function() {
-            // given
-            scope.selectedReceivable = receivables[1];
-            // when
-            scope.comfirmReceive();
-        });
-
-        waitsFor(function() {
-            scope.$apply();
-            return !!result;
-        });
-
-        runs(function() {
-            // then
-            expect(ReceivableService.receive).not.toHaveBeenCalled();
-            expect(DialogService.messageDialog).toHaveBeenCalled();
-            expect(scope.clearSelectedReceivable).toHaveBeenCalled();
-        });
-    });
-
 });

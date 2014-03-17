@@ -1,4 +1,4 @@
-describe('Controller: ReceivableEditCtrl', function() {
+xdescribe('Controller: ReceivableEditCtrl', function() {
 
     // load the controller's module
     beforeEach(function() {

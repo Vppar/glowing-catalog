@@ -7,17 +7,27 @@
 
 .receivable-details{
 }
+
+.receivable-details .date-field{
+	width: 100%;
+}
+
 .receivable-page .new-scrollpanel{
 	
 }
+
+.receivable-page .receivable-body{
+ 	height: calc(100% - 76px);
+}
+ 
 .receivable-page .page-closed-details{
-	height: calc(100% - 198px)
+	height: calc(100% - 124px)
 }
 .receivable-page .page-open-details{
-	height: calc(100% - 394px);
+	height: calc(100% - 318px);
 }
 .receivable-page .page-open-check-details{
-	height: calc(100% - 458px);
+	height: calc(100% - 381px);
 }
 
 .receivable-list{
@@ -28,6 +38,13 @@
 	width: 100%;
 }
 
+.margin-right-10 {
+	margin-right: 10px;
+}
+
+.margin-left-10 {
+	margin-left: 10px;
+}
 
 /*.form-receivable .panel-top .combo-width{
 	width:220px;

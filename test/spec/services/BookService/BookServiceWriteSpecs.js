@@ -112,34 +112,4 @@ describe('Service: BookServiceWriteSpec', function() {
         });
     });
 
-    it('shouldn\'t write a book entry when an exception is thrown', function() {
-        // Given
-        var result = null;
-        var exception = 'my exception';
-        var entry = {
-            stub : 'I\'m a stub',
-        };
-
-        BookKeeper.write = jasmine.createSpy('BookKeeper.write').andCallFake(function() {
-            throw exception;
-        });
-
-        // When
-        runs(function() {
-            BookService.write(entry).then(null, function(_result_) {
-                result = _result_;
-            });
-        });
-
-        waitsFor(function() {
-            $rootScope.$apply();
-            return !!result;
-        });
-
-        // Then
-        runs(function() {
-            expect(result).toBe(exception);
-        });
-    });
-
 });

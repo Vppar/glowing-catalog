@@ -3,6 +3,7 @@ describe('Service: ReceivableChangeStateSpec', function() {
     var ReceivableKeeper = {};
     var $q = {};
     var $rootScope = {};
+    var BookService = {};
     var CoinKeeper = function() {
         return ReceivableKeeper;
     };
@@ -13,6 +14,7 @@ describe('Service: ReceivableChangeStateSpec', function() {
         module('tnt.catalog.receivable.service');
         module(function($provide) {
             $provide.value('CoinKeeper', CoinKeeper);
+            $provide.value('BookService', BookService);
         });
     });
     beforeEach(inject(function(_ReceivableService_, _$q_, _$rootScope_) {
