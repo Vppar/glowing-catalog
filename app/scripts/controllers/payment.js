@@ -575,10 +575,17 @@
                             }
 
                             function updateCoupons() {
-                                var vouchers = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', order.customerId);
-                                var giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', order.customerId);
-                                var coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', order.customerId);
+                                var vouchers = getAvailableCouponArray('voucher');
+                                var giftCard = getAvailableCouponArray('giftCard');
+                                var coupon = getAvailableCouponArray('coupon');
                                 $scope.hasCoupons = vouchers.length > 0 || giftCard.length > 0 || coupon.length > 0;
+                            }
+                            
+                            function getAvailableCouponArray(type) {
+                                var array = $filter('filter')(ArrayUtils.list(VoucherKeeper.list(type)), function (item) {
+                                   return (!item.redeemed && !item.canceled);
+                                 });
+                                return array;
                             }
 
                             // #############################################################################################
