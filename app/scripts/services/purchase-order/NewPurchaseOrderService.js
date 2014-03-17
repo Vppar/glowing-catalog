@@ -22,12 +22,15 @@
 
                     var _this = this;
 
-                    /**
-                     * Stores the purchase order allowed status.
-                     * 
-                     * @type
-                     */
-                    var statusTypes = TypeKeeper.list('purchaseOrderStatus');
+                    // ############################################################################################################
+                    // Local functions
+                    // ############################################################################################################
+
+                    function resolvedPromiseWith(param) {
+                        var deferred = $q.defer();
+                        deferred.resolve(param);
+                        return deferred.promise;
+                    }
 
                     // ############################################################################################################
                     // Aux methods
@@ -95,6 +98,38 @@
                     };
 
                     /**
+                     * Changes the status of purchase order.
+                     * 
+                     * @param {object} purchaseOrder - Purchase order to be
+                     *            updated.
+                     * @return {object} result - Promise of update process.
+                     */
+                    this.changeStatus =
+                            function(uuid, statusName) {
+                                var result = null;
+                                try {
+                                    var updateIntentPromise = PurchaseOrderKeeper.changeStatus(uuid, statusName);
+                                    result =
+                                            updateIntentPromise.then(function(status) {
+                                                $log.info('PurchaseOrderService.changeStatus: Purchase order \'' + uuid +
+                                                    '\' status changed from \'' + status.from + '\' to \'' + status.to + '\'');
+                                                $log.debug(uuid);
+                                                return uuid;
+                                            }, function(err) {
+                                                $log.error('PurchaseOrderService.changeStatus: Failed to change an purchaseOrder.');
+                                                $log.debug(uuid, err);
+                                                return $q.reject(err);
+                                            });
+                                } catch (err) {
+                                    $log.error('PurchaseOrderService.update: Failed to update an purchaseOrder.');
+                                    $log.debug(err);
+                                    result = $q.reject(err);
+                                }
+
+                                return result;
+                            };
+
+                    /**
                      * Updates a purchase order.
                      * 
                      * @param {object} purchaseOrder - Purchase order to be
@@ -113,7 +148,7 @@
                                     return uuid;
                                 }, function(err) {
                                     $log.error('PurchaseOrderService.update: Failed to update an purchaseOrder.');
-                                    $log.debug(err);
+                                    $log.debug(purchaseOrder.uuid, err);
                                     return $q.reject(err);
                                 });
                             } catch (err) {
@@ -189,7 +224,7 @@
                             result = PurchaseOrderKeeper.read(uuid);
                         } catch (err) {
                             $log.error('PurchaseOrderService.read: Unable to find an purchaseOrder.');
-                            $log.debug(err);
+                            $log.debug(uuid, err);
                         }
                         return result;
                     };
@@ -209,7 +244,7 @@
                             return uuid;
                         }, function(err) {
                             $log.error('PurchaseOrderService.cancel: Unable to cancel the purchaseOrder.');
-                            $log.debug(err);
+                            $log.debug(uuid, err);
                             return $q.reject(err);
                         });
                         return result;
@@ -233,7 +268,6 @@
                         this.uuid = null;
                         this.amount = 0;
                         this.discount = 0;
-                        this.status = ArrayUtils.find(statusTypes, 'name', 'stashed')['id'];
                         this.freight = 0;
                         this.points = 0;
                         this.items = [];
@@ -268,7 +302,7 @@
                                 $log.debug('StashedPurchaseOrder.add: Nothing to do same qty.', product);
                             }
                         } else {
-                            changeProduct.points = product.points;
+                            changeProduct.points = product.qty * product.points;
                             changeProduct.amount = FinancialMathService.currencyMultiply(product.qty, product.cost);
                             this.items.push(angular.copy(product));
                             this.isDirty = true;
@@ -283,17 +317,20 @@
                      * 
                      * @param {object} product - Product to be removed.
                      */
-                    StashedPurchaseOrder.prototype.remove = function(product) {
-                        var foundProduct = ArrayUtils.find(this.items, 'id', product.id);
+                    StashedPurchaseOrder.prototype.remove =
+                            function(product) {
+                                var foundProduct = ArrayUtils.find(this.items, 'id', product.id);
 
-                        if (foundProduct) {
-                            this.items.splice(this.items.indexOf(product), 1);
-                            this.points -= product.points;
-                            this.amount = FinancialMathService.currencyMultiply(this.amount, product.amount);
-                            this.isDirty = true;
-                            $log.debug('StashedPurchaseOrder.remove: Product removed from current PurchaseOrder.', product);
-                        }
-                    };
+                                if (foundProduct) {
+                                    this.items.splice(this.items.indexOf(product), 1);
+                                    this.points -= (product.qty * product.points);
+                                    this.amount =
+                                            FinancialMathService.currencySubtract(this.amount, FinancialMathService.currencyMultiply(
+                                                    product.qty, product.cost));
+                                    this.isDirty = true;
+                                    $log.debug('StashedPurchaseOrder.remove: Product removed from current PurchaseOrder.', product);
+                                }
+                            };
                     /**
                      * Creates a new current purchase order.
                      * 
@@ -328,16 +365,29 @@
                         $log.info('PurchaseOrderService.save: Saving current purchase order.');
                         $log.debug(_this.purchaseOrder);
 
-                        delete _this.purchaseOrder.isDirty;
+                        var isDirty = _this.purchaseOrder.isDirty;
+                        var createIntentPromise = null;
 
-                        var saveIntentPromise = null;
                         if (_this.purchaseOrder.uuid) {
-                            saveIntentPromise = _this.update(_this.purchaseOrder);
+                            createIntentPromise = resolvedPromiseWith('0');
                         } else {
-                            saveIntentPromise = _this.create(_this.purchaseOrder);
+                            delete _this.purchaseOrder.isDirty;
+                            createIntentPromise = _this.create(_this.purchaseOrder).then(function(uuid) {
+                                _this.purchaseOrder.uuid = uuid;
+                                return uuid;
+                            });
                         }
 
-                        var savedPromise = saveIntentPromise.then(function(uuid) {
+                        var createdPromise = createIntentPromise.then(function(uuid) {
+                            var result = null;
+                            if (_this.purchaseOrder.isDirty) {
+                                result = _this.update(_this.purchaseOrder);
+                            } else {
+                                result = resolvedPromiseWith(_this.purchaseOrder.uuid);
+                            }
+                            return result;
+                        });
+                        var savedPromise = createdPromise.then(function(uuid) {
                             _this.purchaseOrder.uuid = uuid;
                             _this.purchaseOrder.isDirty = false;
 
@@ -346,6 +396,7 @@
 
                             return uuid;
                         }, function(err) {
+                            _this.purchaseOrder.isDirty = isDirty;
                             $log.error('PurchaseOrderService.save: Save current purchase order failed.');
                             $log.debug(err);
                             return $q.reject(err);
@@ -382,9 +433,7 @@
                         } else {
                             _this.clearCurrent();
 
-                            var deferred = $q.defer();
-                            deferred.resolve('0');
-                            canceledPromise = deferred.promise;
+                            canceledPromise = resolvedPromiseWith('0');
 
                             $log.info('PurchaseOrderService.cancel: Current purchase order canceled.');
                         }
@@ -403,10 +452,14 @@
                         $log.info('PurchaseOrderService.checkoutCurrent: Checkout current purchase order started.');
                         $log.debug(_this.purchaseOrder);
 
-                        _this.purchaseOrder.status = ArrayUtils.find(statusTypes, 'name', 'confirmed')['id'];
-                        var saveIntentPromise = _this.saveCurrent();
+                        var savedPromise = _this.saveCurrent();
+
+                        var confirmedPromise = savedPromise.then(function(uuid) {
+                            return _this.changeStatus(uuid, 'confirmed');
+                        });
+
                         // TODO - Create an Expense
-                        var savedPromise = saveIntentPromise.then(function(uuid) {
+                        var checkoutPromise = confirmedPromise.then(function(uuid) {
                             _this.clearCurrent();
                             $log.info('PurchaseOrderService.checkoutCurrent: Checkout done.');
 
@@ -417,7 +470,7 @@
                             return $q.reject(err);
                         });
 
-                        return savedPromise;
+                        return checkoutPromise;
                     };
                 }
             ]);

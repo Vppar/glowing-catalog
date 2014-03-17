@@ -179,7 +179,7 @@ describe('Service: PurchaseOrderServiceUpdateSpec\n', function() {
                 expect(PurchaseOrderKeeper.update).not.toHaveBeenCalledWith();
             });
             it('should return the errors as parameters', function() {
-                expect(promiseResult).toEqual('Unexpected property extraparamenter');
+                expect(promiseResult).toEqual('PurchaseOrder: Unexpected property extraparamenter');
             });
         });
     });

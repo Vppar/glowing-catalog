@@ -28,8 +28,18 @@ describe('Service: PurchaseOrderServiceCreateNewSpec\n', function() {
         typeKeeperListReturn = [
             statusTypePending
         ];
-        product = {amount: 50, points: 150};
-        product2 = {amount: 150, points: 300};
+        product = {
+            id : 1,
+            cost : 50,
+            points : 150,
+            qty : 2
+        };
+        product2 = {
+            id : 3,
+            cost : 150,
+            points : 300,
+            qty : 1
+        };
     });
 
     // Mock dependencies
@@ -63,7 +73,6 @@ describe('Service: PurchaseOrderServiceCreateNewSpec\n', function() {
             expect(purchaseOrder.uuid).toEqual(expectedPurchaseOrder.uuid);
             expect(purchaseOrder.amount).toEqual(expectedPurchaseOrder.amount);
             expect(purchaseOrder.discount).toEqual(expectedPurchaseOrder.discount);
-            expect(purchaseOrder.status).toEqual(expectedPurchaseOrder.status);
             expect(purchaseOrder.freight).toEqual(expectedPurchaseOrder.freight);
             expect(purchaseOrder.points).toEqual(expectedPurchaseOrder.points);
             expect(purchaseOrder.items).toEqual(expectedPurchaseOrder.items);
@@ -79,24 +88,47 @@ describe('Service: PurchaseOrderServiceCreateNewSpec\n', function() {
             purchaseOrder = PurchaseOrderService.createNewCurrent();
         });
         describe('When purchaseOrder.add is called\n', function() {
-            beforeEach(function(){
+            beforeEach(function() {
                 purchaseOrder.add(product);
             });
             it('should add product', function() {
-                expect(purchaseOrder.amount).toEqual(product.amount);
-                expect(purchaseOrder.points).toEqual(product.points);
+                expect(purchaseOrder.amount).toEqual(product.qty * product.cost);
+                expect(purchaseOrder.points).toEqual(product.qty * product.points);
             });
         });
-        
+
+        describe('When purchaseOrder.add is called with the same product\n', function() {
+            beforeEach(function() {
+                purchaseOrder.add(product);
+                product.qty = 2 * product.qty;
+                purchaseOrder.add(product);
+            });
+            it('should add product', function() {
+                expect(purchaseOrder.amount).toEqual(product.qty * product.cost);
+                expect(purchaseOrder.points).toEqual(product.qty * product.points);
+            });
+        });
+
+        describe('When purchaseOrder.add is called twice\n', function() {
+            beforeEach(function() {
+                purchaseOrder.add(product);
+                purchaseOrder.add(product2);
+            });
+            it('should add product', function() {
+                expect(purchaseOrder.amount).toEqual(product.qty * product.cost + product2.qty * product2.cost);
+                expect(purchaseOrder.points).toEqual(product.qty * product.points + product2.qty * product2.points);
+            });
+        });
+
         describe('When purchaseOrder.remove is called\n Then', function() {
-            beforeEach(function(){
+            beforeEach(function() {
                 purchaseOrder.add(product);
                 purchaseOrder.add(product2);
                 purchaseOrder.remove(product);
             });
             it('should remove product', function() {
-                expect(purchaseOrder.amount).toEqual(product2.amount);
-                expect(purchaseOrder.points).toEqual(product2.points);
+                expect(purchaseOrder.amount).toEqual(product2.qty * product2.cost);
+                expect(purchaseOrder.points).toEqual(product2.qty * product2.points);
             });
         });
     });

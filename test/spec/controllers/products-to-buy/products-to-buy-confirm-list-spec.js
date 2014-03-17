@@ -57,7 +57,7 @@ describe('Controller: products-to-buy-confirm-list-spec', function() {
             $scope : scope,
             DialogService : DialogService,
             TimerService : TimerService,
-            PurchaseOrderService : PurchaseOrderService
+            PurchaseOrderService : PurchaseOrderService,
         });
     }));
 

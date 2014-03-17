@@ -68,8 +68,8 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
         });
         describe('and a successful PurchaseOrderService.update\n and the purchaseOrder is dirty\n', function() {
             beforeEach(function() {
-                PurchaseOrderService.update =
-                        jasmine.createSpy('PurchaseOrderService.update').andCallFake(PromiseHelper.resolved(uuid));
+                PurchaseOrderService.update = jasmine.createSpy('PurchaseOrderService.update').andCallFake(PromiseHelper.resolved(uuid));
+                PurchaseOrderService.create = jasmine.createSpy('PurchaseOrderService.create').andCallFake(PromiseHelper.resolved(uuid));
             });
             describe('When saveCurrent is called\n Then', function() {
                 beforeEach(function() {
@@ -100,6 +100,7 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
             beforeEach(function() {
                 PurchaseOrderService.update =
                         jasmine.createSpy('PurchaseOrderService.update').andCallFake(PromiseHelper.rejected(rejectedMessage));
+                PurchaseOrderService.create = jasmine.createSpy('PurchaseOrderService.create').andCallFake(PromiseHelper.rejected(uuid));
             });
             describe('When saveCurrent is called\n Then', function() {
                 beforeEach(function() {
@@ -126,16 +127,17 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
             });
         });
     });
-    
-    describe('Given purchase order with uuid\n', function() {
+
+    describe('Given purchase order without uuid\n', function() {
         beforeEach(function() {
             PurchaseOrderService.createNewCurrent();
             PurchaseOrderService.purchaseOrder.isDirty = true;
         });
         describe('and a successful PurchaseOrderService.create\n and the purchaseOrder is dirty\n', function() {
             beforeEach(function() {
-                PurchaseOrderService.create =
-                        jasmine.createSpy('PurchaseOrderService.create').andCallFake(PromiseHelper.resolved(uuid));
+                PurchaseOrderService.create = jasmine.createSpy('PurchaseOrderService.create').andCallFake(PromiseHelper.resolved(uuid));
+                PurchaseOrderService.update = jasmine.createSpy('PurchaseOrderService.update').andCallFake(PromiseHelper.resolved(uuid));
+                
                 PurchaseOrderService.purchaseOrder.isDirty = true;
             });
             describe('When saveCurrent is called\n Then', function() {

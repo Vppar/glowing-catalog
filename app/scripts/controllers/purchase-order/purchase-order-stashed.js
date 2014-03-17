@@ -9,6 +9,10 @@
                 function PurchseOrderStashedCtrl($scope, $filter, $q, $log, NewPurchaseOrderService) {
 
                     // ############################################################################################################
+                    // Local variables
+                    // ############################################################################################################
+
+                    // ############################################################################################################
                     // Scope variables
                     // ############################################################################################################
 
@@ -24,7 +28,7 @@
                     };
 
                     $scope.openStashed = function(purchaseOrder) {
-                        NewPurchaseOrderService.purchaseOrder = NewPurchaseOrderService.createNewCurrent(purchaseOrder);
+                        NewPurchaseOrderService.createNewCurrent(purchaseOrder);
                         $scope.selectTab('new');
                     };
                 }

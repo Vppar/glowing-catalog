@@ -70,6 +70,8 @@ describe('Service: PurchaseOrderServiceCheckoutCurrentSpec\n', function() {
             beforeEach(function() {
                 PurchaseOrderService.saveCurrent =
                         jasmine.createSpy('PurchaseOrderService.saveCurrent').andCallFake(PromiseHelper.resolved(uuid));
+                PurchaseOrderService.changeStatus =
+                    jasmine.createSpy('PurchaseOrderService.changeStatus').andCallFake(PromiseHelper.resolved(uuid));
                 PurchaseOrderService.clearCurrent = jasmine.createSpy('PurchaseOrderService.clearCurrent');
             });
             describe('When checkoutCurrent is called\n Then', function() {
