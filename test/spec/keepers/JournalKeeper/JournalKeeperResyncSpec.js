@@ -153,7 +153,7 @@ describe('Service: JournalKeeperResync', function() {
       // Failed resync
       promise.then(null, function(msg) {
         failed = true;
-        var logDebugArgs = $log.debug.logs[1];
+        var logDebugArgs = $log.debug.logs[2];
         expect(logDebugArgs[0]).toBe('Failed to resync: list failed');
         expect(logDebugArgs[1]).toBe('Failed PersistentStorage.list');
         // Probably not needed to test this, but better safe than sorry

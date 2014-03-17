@@ -1,13 +1,15 @@
 (function (angular) {
 
     angular.module('tnt.catalog.sync.service', [
-        'tnt.catalog.journal.keeper', 'tnt.catalog.sync.driver'
+        'tnt.util.log', 'tnt.catalog.journal.keeper', 'tnt.catalog.sync.driver'
     ])
         .service(
             'SyncService',
-            ['$q', '$log', '$rootScope', 'JournalKeeper', 'JournalEntry', 'SyncDriver',
-            function SyncService ($q, $log, $rootScope, JournalKeeper, JournalEntry, SyncDriver) {
+            ['$q', 'logger', '$rootScope', 'JournalKeeper', 'JournalEntry', 'SyncDriver',
+            function SyncService ($q, logger, $rootScope, JournalKeeper, JournalEntry, SyncDriver) {
 
+                var log = logger.getLogger('tnt.catalog.sync.service.SyncService');
+                
                 // How many times should we attempt to sync an entry before
                 // logging a fatal? Made public to allow changing this setting
                 // when this makes sense (such as in tests).
@@ -22,7 +24,7 @@
 
                 // Event Handlers
                 $rootScope.$on('JournalKeeper.compose', function () {
-                    $log.debug('Entry composed! sync()!');
+                    log.debug('Entry composed! sync()!');
                     sync();
                 });
 
@@ -32,7 +34,7 @@
 
                 $rootScope.$on('FirebaseDisconnected', function () {
                     if (isSynching()) {
-                        $log.debug('Disconnected from Firebase during sync!');
+                        log.debug('Disconnected from Firebase during sync!');
                         // FIXME: do we need to do something here?
                         syncDeferred.reject('Disconnected from Firebase!');
                     }
@@ -42,7 +44,7 @@
 
                 $rootScope.$on('FirebaseIdle', function () {
                     if (isWaitingToSync()) {
-                        $log.debug('Trying to sync again now that Firebase is idle');
+                        log.debug('Trying to sync again now that Firebase is idle');
                         waitingToSync = false;
                         sync();
                     }
@@ -108,22 +110,22 @@
                  * @return {Promise}
                  */
                 function sync () {
-                    $log.debug('Starting synchronization attempt');
+                    log.debug('Starting synchronization attempt');
 
                     if (isSynching()) {
-                        $log.debug('Synchronization already running!');
+                        log.debug('Synchronization already running!');
                         // syncDeferred is declared in the "parent closure"
                         return syncDeferred.promise;
                     }
 
                     if (!SyncDriver.isConnected()) {
-                        $log.debug('Not connected to firebase!');
+                        log.debug('Not connected to firebase!');
                         return $q.reject('Not connected to firebase!');
                     }
 
                     if (SyncDriver.isFirebaseBusy()) {
                         waitingToSync = true;
-                        $log.debug('Firebase is busy! We\'ll wait for it to be idle.');
+                        log.debug('Firebase is busy! We\'ll wait for it to be idle.');
                         return $q.reject('Firebase is busy!');
                     }
 
@@ -149,7 +151,7 @@
 
                         deferred.promise.then(clearPromise, clearPromise);
                     }, function (err) {
-                        $log.debug('Failed to get lock Firebase for sync!', err);
+                        log.debug('Failed to get lock Firebase for sync!', err);
                         waitingToSync = true;
                         deferred.reject(err);
                     });
@@ -178,7 +180,7 @@
                             syncSaveEntry(deferred, entry);
                         }
                     }, function (err) {
-                        $log.fatal('JournalKeeper.readOldestUnsynced() failed!');
+                        log.fatal('JournalKeeper.readOldestUnsynced() failed!');
                         deferred.reject(err);
                     });
                 }
@@ -220,7 +222,7 @@
                             // server
                             // was already in use. The driver should handle this
                             // case and ensure we don't get to this point.
-                            $log.fatal(
+                            log.fatal(
                                 'Entry sequence conflict while running syncSaveEntry()!',
                                 entry);
                             deferred.reject('Sync stopped to insert new entries from server.');
@@ -235,11 +237,11 @@
                             // progressive interval?
 
                             // Oops! Failed to save! Try again!
-                            $log.error('SyncDriver.save() failed! Trying again.');
+                            log.error('SyncDriver.save() failed! Trying again.');
                             syncSaveEntry(deferred, entry);
                         } else {
                             SyncAttempt.clear(counterId);
-                            $log.fatal('SyncDriver.save() failed! Giving up after ' +
+                            log.fatal('SyncDriver.save() failed! Giving up after ' +
                                 self.MAX_SYNC_ATTEMPTS + ' attempts!', entry, err);
                             deferred.reject(err);
                         }
@@ -266,7 +268,7 @@
                     promise.then(function () {
                         // Everything went fine with this entry! Yay! Let's
                         // sync the next one!
-                        $log.debug('Entry successfully synched!', entry);
+                        log.debug('Entry successfully synched!', entry);
                         syncNext(deferred);
                     }, function (err) {
                         // TODO: I've triple checked and it seems to be ok to
@@ -275,7 +277,7 @@
                         // need to
                         // check with @wesleyakio if this seems right.
 
-                        $log.fatal('JournalKeeper.markAsSynced() failed!');
+                        log.fatal('JournalKeeper.markAsSynced() failed!');
 
                         // TODO: Since we were unable to mark the entry as
                         // synced,
@@ -313,9 +315,9 @@
                  * @return {Promise} The promise returned by the JournalKeeper.
                  */
                 function insert (entry) {
-                    $log.debug('INSERTING', entry);
+                    log.debug('INSERTING', entry);
                     if (!entry || typeof entry !== 'object') {
-                        $log.fatal('Trying to insert an invalid entry!', entry);
+                        log.fatal('Trying to insert an invalid entry!', entry);
                         return $q.reject('Trying to insert an invalid entry!');
                     }
 
@@ -323,7 +325,7 @@
                         try {
                             entry = new JournalEntry(entry);
                         } catch (err) {
-                            $log.fatal(
+                            log.fatal(
                                 'Unable to create a JournalEntry from received snapshot!',
                                 entry);
                             throw (err);
@@ -332,13 +334,13 @@
 
                     if (!angular.isNumber(entry.sequence)) {
                         var msg = 'Received an invalid entry from the server!';
-                        $log.fatal(msg, entry);
+                        log.fatal(msg, entry);
                         return $q.reject(msg);
                     }
 
                     if (!entry.uuid) {
                         var msg = 'Received an entry with an invalid UUID!';
-                        $log.fatal(msg, entry);
+                        log.fatal(msg, entry);
                         return $q.reject(msg);
                     }
 
@@ -459,7 +461,7 @@
                         return JournalKeeper.resync();
                     }, function (err) {
                         // FIXME: what should we do if re-composing fails?
-                        $log.debug('Failed to re-compose entries during unstash process!', err);
+                        log.debug('Failed to re-compose entries during unstash process!', err);
                     });
 
                     return promise;
@@ -487,7 +489,7 @@
                  * @return {Promise}
                  */
                 function reSequence (entry) {
-                    $log.debug('Resolving sequence conflict!', entry);
+                    log.debug('Resolving sequence conflict!', entry);
 
                     var deferred = $q.defer();
 
@@ -532,7 +534,7 @@
                             // number lower than the one in our JournalKeeper
                             // but we don't
                             // have a local entry for it.
-                            $log.fatal('Odd situation found! There was a missing sequence entry.');
+                            log.fatal('Odd situation found! There was a missing sequence entry.');
                             deferred.resolve(JournalKeeper.insert(entry));
                         }
                     }, function (err) {
