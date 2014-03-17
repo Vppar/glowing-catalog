@@ -82,7 +82,7 @@
 		</span>
 	</div>
 	<div class="row-right-payment" ng-click="selectPaymentMethod('discount')">
-		<span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img src="images/alert-sign-small-v3.png" alt="Ver cupons" class="payment-warning display-none"></span> 
+		<span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img ng-show="hasCoupons" src="images/alert-sign-small-v3.png" alt="Ver cupons" class="payment-warning"></span> 
         <span class="btn-price-payment btn-price-payment2">{{total.payments.coupon | sum:'amount' | currency:''}}</span>
 	</div>
 
