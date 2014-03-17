@@ -98,7 +98,7 @@ describe('Controller: receivable-check-watchers', function() {
         expect(scope.deposited).toBe(false);
         expect(scope.moneyReceived).toBe(false);
         expect(scope.returned).toBe(true);
-        expect(scope.message).toBe('todos recebios em dinheiro até ');
+        expect(scope.message).toBe('todos recebidos em dinheiro até ');
     });
 
     it('expect watcher to set the proper values for selected = returned', function() {
