@@ -105,7 +105,6 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
-        expect(payments[0].id).not.toBeUndefined(payment);
     });
 
     it('should add a credit card payment', function() {

@@ -1,19 +1,25 @@
-describe('Service: ReceivableServiceRead', function() {
+describe('Service: ReceivableChangeStateSpec', function() {
 
     var ReceivableKeeper = {};
+    var $q = {};
+    var $rootScope = {};
     var CoinKeeper = function() {
         return ReceivableKeeper;
     };
 
     // load the service's module
     beforeEach(function() {
+        
         module('tnt.catalog.receivable.service');
         module(function($provide) {
             $provide.value('CoinKeeper', CoinKeeper);
         });
     });
-    beforeEach(inject(function(_ReceivableService_) {
+    beforeEach(inject(function(_ReceivableService_, _$q_, _$rootScope_) {
         ReceivableService = _ReceivableService_;
+        $q = _$q_;
+        PromiseHelper.config($q, angular.noop);
+        $rootScope = _$rootScope_;
     }));
     
     it('should return a copy of check', function() {
@@ -31,11 +37,23 @@ describe('Service: ReceivableServiceRead', function() {
         
         ReceivableKeeper.read = jasmine.createSpy('ReceivableKeeper.read').andReturn(dummyReceivables);
         ReceivableKeeper.updateCheck = jasmine.createSpy('ReceivableKeeper.updateCheck');
+        ReceivableKeeper.liquidate = jasmine.createSpy('ReceivableKeeper.liquidate').andCallFake(PromiseHelper.resolved(true));
 
+        var result = null;
         // when
-        ReceivableService.changeState(12345, 2);
+        runs(function(){
+            ReceivableService.changeState(12345, 2).then(function(){
+                result=true;
+            });
+        });
 
+        waitsFor(function(){
+            $rootScope.$apply();
+            return result;
+        });
         // then
-        expect(ReceivableKeeper.updateCheck).toHaveBeenCalledWith(newCheck);
+        runs(function(){
+            expect(ReceivableKeeper.updateCheck).toHaveBeenCalledWith(newCheck);
+        });
     });
 });
