@@ -37,8 +37,8 @@ var _LTracker = _LTracker || [];
 
                         var facility = name;
                         var search = name;
-                        var consoleLevel;
-                        var syncLevel;
+                        var consoleLevel = undefined;
+                        var syncLevel = undefined;
 
                         while (consoleLevel === undefined || syncLevel === undefined) {
                             if (consoleLevel === undefined) {
@@ -67,7 +67,7 @@ var _LTracker = _LTracker || [];
                         }
 
                         function sync (level, data) {
-                            if (syncLevel >= level) {
+                            if (syncLevel >= level && angular.isUndefined(angular.mock)) {
                                 _LTracker.push({
                                     level : levelMap[level],
                                     user : localStorage.user,
