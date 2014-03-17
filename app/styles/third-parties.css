@@ -1,0 +1,27 @@
+
+.third-parties{
+    
+}
+
+/* Third Parties CSS */
+.third-parties input {
+    width:100%;
+    padding: 10px;
+    height: 36px;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+}
+.third-parties .new-body-row .btn-group {
+    margin-top:-4px;
+    margin-left:20px;
+}
+.third-parties .new-scrollpanel {
+    height:calc(100% - 170px);
+}
+.third-parties .new-scrollpanel .new-col-8 {
+    text-overflow:ellipsis;
+}
+.third-parties .new-scrollpanel .text-center {
+    padding-left:12px;
+}
