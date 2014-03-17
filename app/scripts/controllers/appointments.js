@@ -7,7 +7,7 @@
         .controller(
             'AppointmentsCtrl',
             function ($scope, $location, $filter, ArrayUtils, AppointmentService, EntityService,
-                UserService) {
+                UserService,DialogService) {
 
                 // #############################################################################################################
                 // Security for this Controller
@@ -179,8 +179,13 @@
                                 eventDurationEditable : false,
 
                                 drop : function (date) {
-                                    if (date < new Date()) {
-                                        alert('N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.');
+                                    if (date < getActualDate()) {
+                                    	DialogService
+                                        .messageDialog({
+                                            title : 'Agenda',
+                                            message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.',
+                                            btnYes : 'OK',
+                                        });
                                     } else {
                                         openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);    
                                     }                     
@@ -190,7 +195,7 @@
                                         $('#calendar').fullCalendar('changeView', 'agendaDay');
                                         $('#calendar').fullCalendar('gotoDate', start);
                                     } else {
-                                        if (start >= new Date()) {
+                                        if (start >= getActualDate()) {
                                             if (($('#calendar').fullCalendar('getView').name === 'month')) {
 
                                                 var actualStartHours = new Date().getHours();
@@ -213,7 +218,12 @@
                                                 openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);
                                             }
                                         } else {
-                                            alert('N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.');
+                                        	DialogService
+                                            .messageDialog({
+                                                title : 'Agenda',
+                                                message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.',
+                                                btnYes : 'OK',
+                                            });
                                         }
                                     }
                                 },
@@ -253,7 +263,17 @@
                                 }
                             });
                     };
-
+                    
+                function getActualDate() {
+                	var actualDate = new Date();
+                	actualDate.setHours(0);
+                	actualDate.setMinutes(0);
+                	actualDate.setSeconds(0);
+                	actualDate.setMilliseconds(0);
+                	return actualDate;
+                }
+                    
+                    
                 function eventsInDay (date) {
                     var evts = $('#calendar').fullCalendar('clientEvents');
                     var count = 0;
@@ -503,39 +523,94 @@
                 };
 
                 $scope.remove = function () {
-                    if (confirm('Deseja confirmar a exclus'+unescape('%e3')+'o do evento?')) {
-                        $scope.validateUUID();
-                        AppointmentService.remove($('#select-event-uuid').val()).then(function () {
-                            alert('Evento Removido com sucesso!');
-                            $scope.closeEventDialog();
-                        }, function (err) {
-                            alert('Erro: ' + err);
-                        });
-                    }
+                	var result = DialogService.messageDialog({
+                        title : 'Agenda',
+                        message : 'Deseja confirmar a exclus'+unescape('%e3')+'o do evento?',
+                        btnYes : 'Sim',
+                        btnNo : 'N'+unescape('%e3')+'o'
+                    });
+                    result.then(function(result) {
+                        if (result) {
+                        	$scope.validateUUID();
+                        	AppointmentService.remove($('#select-event-uuid').val()).then(function () {
+                            	$scope.closeEventDialog();
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Evento Removido com sucesso!',
+                                    btnYes : 'OK',
+                                });
+                            }, function (err) {
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Erro: ' + err,
+                                    btnYes : 'OK',
+                                });
+                            });
+                        }
+                    });
+                    
                 };
 
                 $scope.done = function () {
-                    if (confirm('Deseja confirmar a conclus'+unescape('%e3')+'o do evento?')) {
-                        $scope.validateUUID();
-                        AppointmentService.done($('#select-event-uuid').val()).then(function () {
-                            alert('Evento finalizado com sucesso.');
-                            $scope.closeEventDialog();
-                        }, function (err) {
-                            alert('Erro: ' + err);
-                        });
-                    }
+                	var result = DialogService.messageDialog({
+                        title : 'Agenda',
+                        message : 'Deseja confirmar a conclus'+unescape('%e3')+'o do evento?',
+                        btnYes : 'Sim',
+                        btnNo : 'N'+unescape('%e3')+'o'
+                    });
+                    result.then(function(result) {
+                        if (result) {
+                        	$scope.validateUUID();
+                            AppointmentService.done($('#select-event-uuid').val()).then(function () {
+                            	$scope.closeEventDialog();
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Evento finalizado com sucesso.',
+                                    btnYes : 'OK',
+                                });
+                            }, function (err) {
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Erro: ' + err,
+                                    btnYes : 'OK',
+                                });
+                            });
+                        }
+                    });
                 };
 
                 $scope.cancel = function () {
-                    if (confirm('Deseja confirmar o cancelamento do evento?')) {
-                        $scope.validateUUID();
-                        AppointmentService.cancel($('#select-event-uuid').val()).then(function () {
-                            alert('Evento cancelado com sucesso.');
-                            $scope.closeEventDialog();
-                        }, function (err) {
-                            alert('Erro: ' + err);
-                        });
-                    }
+                	var result = DialogService.messageDialog({
+                        title : 'Agenda',
+                        message : 'Deseja confirmar o cancelamento do evento?',
+                        btnYes : 'Sim',
+                        btnNo : 'N'+unescape('%e3')+'o'
+                    });
+                    result.then(function(result) {
+                        if (result) {
+                        	$scope.validateUUID();
+                            AppointmentService.cancel($('#select-event-uuid').val()).then(function () {
+                            	$scope.closeEventDialog();
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Evento cancelado com sucesso.',
+                                    btnYes : 'OK',
+                                });
+                            }, function (err) {
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Erro: ' + err,
+                                    btnYes : 'OK',
+                                });
+                            });
+                        }
+                    });
                 };
 
                 $scope.update = function () {
@@ -556,15 +631,26 @@
                             $scope.appointment.startDate = selectedStartDate;
                             $scope.appointment.endDate = selectedEndDate;
                             $scope.appointment.allDay = false;
-                            $scope.appointment.status = $('#event-status').val();
+                            $scope.appointment.status = 'PENDANT';
                             $scope.appointment.type = $('#select-event').val();
                             $scope.appointment.color = $('.tag' + $('#select-event').val()).find('.tag-circle').css('background-color');
 
                             AppointmentService.update($scope.appointment).then(function () {
                                 $scope.closeEventDialog();
-                                alert('Atualiza'+unescape('%e7')+unescape('%e3')+'o efetuada com sucesso.');
+                                DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Atualiza'+unescape('%e7')+unescape('%e3')+'o efetuada com sucesso.',
+                                    btnYes : 'OK',
+                                });
                             }, function (err) {
-                                alert('Erro:' + err);
+                            	var message = 'Erro. Verifique os seguintes campos: ' + err;
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : message,
+                                    btnYes : 'OK',
+                                });
                             });
                         }
                     };
@@ -592,17 +678,33 @@
                             $scope.appointment.color =  $('.tag' + $('#select-event').val()).find('.tag-circle').css('background-color');
 
                             AppointmentService.create($scope.appointment).then(function () {
-                                alert('Evento cadastrado com sucesso.');
-                                $scope.closeEventDialog();
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : 'Evento cadastrado com sucesso.',
+                                    btnYes : 'OK',
+                                });
+                            	$scope.closeEventDialog();
                             }, function (err) {
-                                alert('Erro. Verifique os seguintes campos: ' + err);
+                            	var message = 'Erro. Verifique os seguintes campos: ' + err; 
+                            	DialogService
+                                .messageDialog({
+                                    title : 'Agenda',
+                                    message : message,
+                                    btnYes : 'OK',
+                                });
                             });
                         }
                     };
 
                 $scope.validateUUID = function () {
                     if (!$('#select-event-uuid').val()) {
-                        alert('UUID do Evento '+unescape('%e9')+' um campo obrigat'+unescape('%f3')+'rio.');
+                    	DialogService
+                        .messageDialog({
+                            title : 'Agenda',
+                            message : 'UUID do Evento '+unescape('%e9')+' um campo obrigat'+unescape('%f3')+'rio.',
+                            btnYes : 'OK',
+                        });
                         return false;
                     }
                     return true;
@@ -611,13 +713,23 @@
                 $scope.validateEventDialogFields =
                     function (selectedStartDate, selectedEndDate) {
                         if (!$('#select-date').val()) {
-                            alert('A data do evento ' + unescape('%e9') + ' um campo obrigat' +
-                                unescape('%f3') + 'rio.');
+                        	DialogService
+                            .messageDialog({
+                                title : 'Agenda',
+                                message : 'A data do evento ' + unescape('%e9') + ' um campo obrigat' +
+                                unescape('%f3') + 'rio.',
+                                btnYes : 'OK',
+                            });
                             return false;
                         }
                         if (!$('#select-client').val()) {
-                            alert('O contato do evento ' + unescape('%e9') + ' um campo obrigat' +
-                                unescape('%f3') + 'rio.');
+                        	DialogService
+                            .messageDialog({
+                                title : 'Agenda',
+                                message : 'O contato do evento ' + unescape('%e9') + ' um campo obrigat' +
+                                unescape('%f3') + 'rio.',
+                                btnYes : 'OK',
+                            });
                             return false;
                         }
 
@@ -626,18 +738,33 @@
                         }
 
                         if (!$('#txt-title').val()) {
-                            alert('O t' + unescape('%ed') + 'tulo do evento ' + unescape('%e9') +
-                                ' um campo obrigat' + unescape('%f3') + 'rio.');
+                        	DialogService
+                            .messageDialog({
+                                title : 'Agenda',
+                                message : 'O t' + unescape('%ed') + 'tulo do evento ' + unescape('%e9') +
+                                ' um campo obrigat' + unescape('%f3') + 'rio.',
+                                btnYes : 'OK',
+                            });
                             return false;
                         }
                         if (!$('#txt-description').val()) {
-                            alert('A descri' + unescape('%e7') + unescape('%e3') + 'o do evento ' +
-                                unescape('%e9') + ' um campo obrigat' + unescape('%f3') + 'rio.');
+                        	DialogService
+                            .messageDialog({
+                                title : 'Agenda',
+                                message : 'A descri' + unescape('%e7') + unescape('%e3') + 'o do evento ' +
+                                unescape('%e9') + ' um campo obrigat' + unescape('%f3') + 'rio.',
+                                btnYes : 'OK',
+                            });
                             return false;
                         }
                         if (!$('#select-event').val()) {
-                            alert('O tipo do evento ' + unescape('%e9') + ' um campo obrigat' +
-                                unescape('%f3') + 'rio.');
+                        	DialogService
+                            .messageDialog({
+                                title : 'Agenda',
+                                message : 'O tipo do evento ' + unescape('%e9') + ' um campo obrigat' +
+                                unescape('%f3') + 'rio.',
+                                btnYes : 'OK',
+                            });
                             return false;
                         }
                         return true;
@@ -645,12 +772,22 @@
 
                 function validateDate (selectedStartDate, selectedEndDate) {
                     if (selectedStartDate < new Date()) {
-                        alert('N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.');
+                    	DialogService
+                        .messageDialog({
+                            title : 'Agenda',
+                            message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.',
+                            btnYes : 'OK',
+                        });
                         return false;
                     }
 
                     if (selectedEndDate < selectedStartDate) {
-                        alert('Hora inv'+unescape('%e1')+'lida para o evento.');
+                    	DialogService
+                        .messageDialog({
+                            title : 'Agenda',
+                            message : 'Hora inv'+unescape('%e1')+'lida para o evento.',
+                            btnYes : 'OK',
+                        });
                         return false;
                     }
                     return true;
