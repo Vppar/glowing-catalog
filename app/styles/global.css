@@ -10,6 +10,9 @@
 	-ms-user-select: none;
 	user-select: none;
 }
+input, textarea{
+    -webkit-appearance:none;
+}
 
 .error {
 	color: #ff2839;
