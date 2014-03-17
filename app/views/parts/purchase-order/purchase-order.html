@@ -36,7 +36,7 @@
 				<!--Tela "Confirmar pedido"-->
 				<div class="new-part-holder"
 					ng-if="tabs.selected=='confirm'" 
-					ng-include src="'views/parts/purchase-order/purchase-order-confirm2.html'" 
+					ng-include src="'views/parts/purchase-order/purchase-order-confirm.html'" 
 					ng-controller="PurchaseOrderConfirmCtrl">
 				</div>
 
@@ -64,7 +64,7 @@
 			
 			<div class="products-to-buy-right" ng-if="isSummaryVisible(tabs.selected)">
 				<!-- Right Screen Details -->
-				<div ng-include src="'views/parts/purchase-order/purchase-order-summary2.html'" ng-controller="PurchaseOrderSummaryCtrl"></div>
+				<div ng-include src="'views/parts/purchase-order/purchase-order-summary.html'" ng-controller="PurchaseOrderSummaryCtrl"></div>
 			</div>
 			
 		</div><!-- //new-body -->

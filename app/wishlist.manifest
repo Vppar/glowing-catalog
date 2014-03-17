@@ -302,11 +302,11 @@ views/parts/products-to-buy/products-to-buy-pending.html
 views/parts/products-to-buy/products-to-buy-summary.html
 views/parts/products-to-buy/products-to-buy-ticket-dialog.html
 views/parts/products-to-buy/products-to-buy-ticket.html
-views/parts/purchase-order/purchase-order-confirm2.html
+views/parts/purchase-order/purchase-order-confirm.html
 views/parts/purchase-order/purchase-order-new.html
 views/parts/purchase-order/purchase-order-pending-products.html
 views/parts/purchase-order/purchase-order-stashed.html
-views/parts/purchase-order/purchase-order-summary2.html
+views/parts/purchase-order/purchase-order-summary.html
 views/parts/purchase-order/purchase-order-ticket-dialog.html
 views/parts/purchase-order/purchase-order-ticket.html
 views/parts/purchase-order/purchase-order.html
