@@ -16,11 +16,7 @@
             '$filter',
             function ($scope, $filter) {
 
-                var vouchers = angular.copy($scope.vouchers);
-
-                $scope.notActiveVouchers = $filter('filter')(vouchers, function (voucher) {
-                    return (voucher.canceled || voucher.redeemed);
-                });
+                $scope.allVouchers = angular.copy($scope.vouchers);
 
                 $scope.isRedeemed = function (voucher) {
                     return !!voucher.redeemed;
@@ -87,7 +83,7 @@
                     function filter () {
                         var myFilter = $scope.historicVoucher.value;
                         $scope.historicVouchers =
-                            $filter('filter')($scope.notActiveVouchers, function (voucher) {
+                            $filter('filter')($scope.allVouchers, function (voucher) {
                                 var result = true;
                                 if ($scope.historicVoucher.value.length > 0) {
                                     result = false;
