@@ -37,7 +37,7 @@
 				<div class="new-scrollpanel">
 
 					<div class="row-fluid" ng-repeat="entity in entities | filter:search">
-						<div class="new-body-row details-item">
+						<div class="new-body-row details-item" ng-click="editEntity(entity.uuid)">
 							<span class="new-col-8">{{entity.name}}</span>
 							<span class="new-col-8">{{entity.email[0].address}}</span>
 							<span class="new-col-4 text-center">{{entity.birthDate | date}}</span>

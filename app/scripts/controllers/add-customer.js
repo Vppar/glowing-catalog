@@ -7,8 +7,8 @@
             'AddCustomerCtrl',
             [
                 '$scope', '$location', 'DataProvider', 'DialogService', 'OrderService', 'EntityService', 'CepService', 'UserService',
-                'CpfService',
-                function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService) {
+                'CpfService', 'IntentService',
+                function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService, IntentService) {
 
                     UserService.redirectIfIsNotLoggedIn();
 
@@ -17,7 +17,7 @@
                     // ############################################################################################################
                     $scope.birthdate = DataProvider.date;
                     $scope.states = DataProvider.states;
-
+                    
                     $scope.customer = {
                         addresses : {},
                         birthDate : {},
@@ -32,6 +32,15 @@
                             }
                         ]
                     };
+                    
+                    var editUuid = IntentService.getBundle();
+                    
+                    if(editUuid){
+                        var entity = EntityService.read(editUuid);
+                        $scope.customer = entity;
+                        prepareEntity($scope.customer);
+                    }
+                    
                     var customer = $scope.customer;
 
                     // ############################################################################################################
@@ -91,14 +100,29 @@
                                 btnYes : 'OK'
                             });
                         }
-                        var entityCreatedPromise = EntityService.create(customer).then(function(uuid) {
-                            OrderService.order.customerId = uuid;
-                            return uuid;
-                        });
                         
-                        $location.path('/');
+                        var promise = null;
+                        
+                        if(editUuid){
+                            promise = EntityService.update(customer).then(function(uuid) {
+                                return uuid;
+                            }, function(error){
+                                $log.error('Failed to update the entity:', uuid);
+                                $log.debug(error);
+                            });
+                            
+                            $location.path('/');
+                        }else{
+                            promise = EntityService.create(customer).then(function(uuid) {
+                                OrderService.order.customerId = uuid;
+                                return uuid;
+                            });
+                            
+                            $location.path('/');
+                        }
+                        
 
-                        return entityCreatedPromise;
+                        return promise;
                     };
 
                     $scope.cancel = function cancel() {
@@ -123,6 +147,25 @@
                         $scope.customer.addresses.state = address.uf;
                         $scope.customer.addresses.city = address.localidade;
                     };
+                    
+                    /**
+                     * Prepares the entity for the edit.
+                     * 
+                     * @param {Entity} - Entity to be edited.
+                     */
+                    function prepareEntity(entity){
+                        if(!entity.addresses){
+                            entity.addresses = {};
+                        }
+                        
+                        if(!entity.birthDate){
+                            entity.birthDate = {};
+                        }
+                        
+                        if(!entity.birthDate){
+                            entity.birthDate = {};
+                        }
+                    }
                 }
             ]);
 }(angular));

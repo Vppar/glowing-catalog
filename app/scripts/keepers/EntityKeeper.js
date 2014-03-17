@@ -172,6 +172,7 @@
                 /**
                  * update (Entity)
                  */
+                    //FIXME - include an uuid check here also.
                 this.update =
                     function (entity) {
 
