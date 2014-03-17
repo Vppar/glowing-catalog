@@ -80,7 +80,7 @@ describe('Service: BookServiceLiquidateSpec', function () {
     describe('When type is CREDIT CARD', function () {
         beforeEach(function () {
             // Given
-            type = 'card';
+            type = 'creditCard';
             expected = [new BookEntry({
                 uuid : null,
                 created : null,
@@ -104,7 +104,7 @@ describe('Service: BookServiceLiquidateSpec', function () {
     describe('When type is ON CUFF', function () {
         beforeEach(function () {
             // Given
-            type = 'cuff';
+            type = 'onCuff';
             expected = [new BookEntry({
                 uuid : null,
                 created : null,

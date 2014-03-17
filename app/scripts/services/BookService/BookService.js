@@ -2,20 +2,12 @@
     'use strict';
 
     angular.module('tnt.catalog.service.book', [
-        'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry'
+        'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry','tnt.catalog.bookkeeping.keeper'
     ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $log, BookKeeper, Book, BookEntry) {
 
         // TODO Should this be here?
         this.write = function(entry) {
-            var result = null;
-            try {
-                result =  BookKeeper.write(entry);
-            } catch (err) {
-                result = $q.reject(err);
-                $log.fatal('Failed to write on BookKeeper', 'entry: ',entry, 'error: ', err);
-            }
-            return result;
-            
+            return BookKeeper.write(entry);
         };
 
         this.addBook = function(name, type, nature, entities) {
@@ -195,9 +187,9 @@
             
             if (type === 'check') {
                 entry = new BookEntry(null, null, 70001, 11121, orderUUID, entityUUID, 'Recebimento em cheque', amount);
-            } else if (type === 'card') {
+            } else if (type === 'creditCard') {
                 entry = new BookEntry(null, null, 70001, 11512, orderUUID, entityUUID, 'Recebimento em cartão', amount);
-            } else if (type === 'cuff') {
+            } else if (type === 'onCuff') {
                 entry = new BookEntry(null, null, 70001, 11511, orderUUID, entityUUID, 'Saldo a receber', amount);
             } else {
                 var logInfo = {

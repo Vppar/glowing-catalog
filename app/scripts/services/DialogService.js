@@ -132,7 +132,7 @@
         };
 
         this.openDialogReceivable = function(data) {
-            return openDialog('views/parts/receivable/receivable-dialog.html', '', data, 'modal-receivable');
+            return openDialog('views/parts/receivable/receivable-dialog.html', 'ReceivableConfigureLiquidateCtrl', data, 'modal-receivable');
         };
     }]);
 

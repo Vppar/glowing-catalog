@@ -1,6 +1,7 @@
 describe('Service: ReceivableServiceListSpec', function() {
 
     var ReceivableKeeper = {};
+    var BookService = {};
     var CoinKeeper = function() {
         return ReceivableKeeper;
     };
@@ -15,6 +16,7 @@ describe('Service: ReceivableServiceListSpec', function() {
         module(function($provide) {
             $provide.value('$log', log);
             $provide.value('CoinKeeper', CoinKeeper);
+            $provide.value('BookService', BookService);
         });
     });
     beforeEach(inject(function(_ReceivableService_) {

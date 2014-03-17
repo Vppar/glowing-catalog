@@ -2,6 +2,7 @@ describe('Service: ReceivableServiceChangeStateScenario', function() {
 
     var CheckPayment = {};
     var CoinKeeper = null;
+    var BookService = {};
     var $q = null;
     var JournalKeeper = null;
 
@@ -9,12 +10,16 @@ describe('Service: ReceivableServiceChangeStateScenario', function() {
     beforeEach(function() {
         module('tnt.catalog.receivable.service');
         module('tnt.catalog.payment.entity');
+        module('tnt.catalog.payment.entity');
+        module('tnt.catalog.service.book');
+        module('tnt.catalog.bookkeeping.keeper');
     });
 
-    beforeEach(inject(function(_CheckPayment_, _ReceivableService_, _CoinKeeper_,_$q_, _$rootScope_, _JournalKeeper_) {
+    beforeEach(inject(function(_CheckPayment_, _ReceivableService_, _CoinKeeper_,_$q_, _$rootScope_, _JournalKeeper_, _BookService_) {
         CheckPayment = _CheckPayment_;
         ReceivableService = _ReceivableService_;
         CoinKeeper =  _CoinKeeper_('receivable');
+        BookService = _BookService_;
         JournalKeeper = _JournalKeeper_;
         $rootScope = _$rootScope_;
         $q = _$q_;
