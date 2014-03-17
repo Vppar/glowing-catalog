@@ -1,6 +1,6 @@
 'use strict';
 
-ddescribe('Service: IntentServiceCreateBundleSpec', function() {
+describe('Service: IntentServiceCreateBundleSpec', function() {
 
     var log = {};
 
