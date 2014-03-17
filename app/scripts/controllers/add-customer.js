@@ -42,12 +42,17 @@
                         ]
                     };
 
-                    var editUuid = IntentService.getBundle();
+                    var edit = IntentService.getBundle();
+                    if (edit) {
+                        if (edit.editUuid) {
+                            var entity = EntityService.read(edit.editUuid);
+                            $scope.customer = entity;
+                            prepareEntity($scope.customer);
+                        }
 
-                    if (editUuid) {
-                        var entity = EntityService.read(editUuid);
-                        $scope.customer = entity;
-                        prepareEntity($scope.customer);
+                        if (edit.clientName) {
+                            $scope.customer.name = edit.clientName;
+                        }
                     }
 
                     var customer = $scope.customer;
@@ -120,7 +125,7 @@
                                 }
                             }
                         }
-                        if (editUuid) {
+                        if (edit && edit.editUuid) {
                             promise = EntityService.update(customer).then(function(uuid) {
                                 return uuid;
                             }, function(error) {
@@ -128,7 +133,7 @@
                                 $log.debug(error);
                             });
 
-                            $location.path('/');
+                            $location.path('/third-parties');
                         } else {
                             promise = EntityService.create(customer).then(function(uuid) {
                                 OrderService.order.customerId = uuid;
