@@ -77,6 +77,9 @@
      height: 40px;
      text-align: right;
  }
+ .modal-numpad .modal-body {
+ 	overflow:hidden;
+ }
  
  .modal-add-basket-details-dialog{
      position: absolute;
@@ -235,6 +238,9 @@
      width: 530px;
      float: left;
      margin: 0px 15px 2px 2px;
+ }
+ .modal-add-basket-details-dialog-body .skus .new-scroll-area {
+ 	height:330px;
  }
  .modal-add-basket-details-dialog-body .info{
      width: 230px;
