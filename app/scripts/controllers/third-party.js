@@ -14,7 +14,9 @@
                     $scope.isDisabled = true;
 
                     $scope.newClient = function() {
-                        IntentService.putBundle({clientName : $scope.searchClient});
+                        IntentService.putBundle({
+                            clientName : $scope.searchClient
+                        });
                         $location.path('/add-customer');
 
                     };
@@ -25,16 +27,16 @@
 
                     $scope.$watchCollection('searchClient', function() {
                         $scope.filteredEntities = $filter('filter')($scope.entities, $scope.searchClient);
-                        if($scope.filteredEntities.length===0){
+                        if ($scope.filteredEntities.length === 0) {
                             $scope.isDisabled = false;
-                        }else {
+                        } else {
                             $scope.isDisabled = true;
                         }
                     });
 
                     $scope.$watchCollection('entities', function() {
                         for ( var ix in $scope.entities) {
-                            if ($scope.entities[ix].birthDate) {
+                            if ($scope.entities[ix].birthDate && $scope.entities[ix].birthDate.day && $scope.entities[ix].birthDate.month) {
                                 var day = $scope.entities[ix].birthDate.day;
                                 var month = $scope.entities[ix].birthDate.month;
                                 $scope.entities[ix].birthDate.formated = day + '/' + month;
@@ -47,7 +49,9 @@
                     });
 
                     $scope.editEntity = function(uuid) {
-                        IntentService.putBundle({editUuid : uuid});
+                        IntentService.putBundle({
+                            editUuid : uuid
+                        });
                         $location.path('/add-customer');
                     };
                 }
