@@ -4,7 +4,7 @@
 		<span class="span12"> <span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
     
-	<div class="mary-content" ng-switch="selectedSection" fast-click>
+	<div class="mary-content" ng-switch="selectedSection">
 		<div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-default>
             <div class="row-fluid" anchor id="{{'cat' + $index}}" ng-repeat="line in lines">
 			     <catalog-section line="line" section="selectedSection"></catalog-section>
