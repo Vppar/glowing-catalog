@@ -36,6 +36,7 @@ styles/voucher.css
 styles/stock.css
 styles/warm-up.css
 styles/new.css
+styles/new-button.css
 styles/new-ipad-only.css
 bower_components/jquery/jquery.js
 bower_components/angular/angular.js
@@ -311,6 +312,7 @@ views/pending-delivery.html
 views/previous-entries.html
 views/products-to-buy.html
 views/receivable.html
+views/spinner-button-promise.html
 views/stock.html
 views/tutorial-android.html
 views/tutorial-ipad.html
@@ -351,6 +353,7 @@ images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
 images/loading_20.gif
+images/loading-btn_20.gif
 
 images/icons/ic-calendar.png
 
