@@ -576,9 +576,25 @@
 
                             function updateCoupons() {
                                 var vouchers = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', order.customerId);
+                                vouchers = getAvailableCouponArray(vouchers);
+                                console.log('vouchers',vouchers);
                                 var giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', order.customerId);
+                                giftCard = getAvailableCouponArray(giftCard);
+                                console.log('giftCard', giftCard);
                                 var coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', order.customerId);
+                                coupon = getAvailableCouponArray(coupon);
+                                console.log('coupon',coupon);
                                 $scope.hasCoupons = vouchers.length > 0 || giftCard.length > 0 || coupon.length > 0;
+                            }
+                            
+                            function getAvailableCouponArray(array) {
+                                var newArray = [];
+                                for (var ix in array){
+                                    if(!array[ix].redeemed && !array[ix].canceled) {
+                                        newArray.push(array[ix]);
+                                    }
+                                }
+                                return newArray;
                             }
 
                             // #############################################################################################
