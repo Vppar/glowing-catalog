@@ -575,23 +575,17 @@
                             }
 
                             function updateCoupons() {
-                                var vouchers = ArrayUtils.list(VoucherKeeper.list('voucher'), 'entity', order.customerId);
-                                vouchers = getAvailableCouponArray(vouchers);
-                                var giftCard = ArrayUtils.list(VoucherKeeper.list('giftCard'), 'entity', order.customerId);
-                                giftCard = getAvailableCouponArray(giftCard);
-                                var coupon = ArrayUtils.list(VoucherKeeper.list('coupon'), 'entity', order.customerId);
-                                coupon = getAvailableCouponArray(coupon);
+                                var vouchers = getAvailableCouponArray('voucher');
+                                var giftCard = getAvailableCouponArray('giftCard');
+                                var coupon = getAvailableCouponArray('coupon');
                                 $scope.hasCoupons = vouchers.length > 0 || giftCard.length > 0 || coupon.length > 0;
                             }
                             
-                            function getAvailableCouponArray(array) {
-                                var newArray = [];
-                                for (var ix in array){
-                                    if(!array[ix].redeemed && !array[ix].canceled) {
-                                        newArray.push(array[ix]);
-                                    }
-                                }
-                                return newArray;
+                            function getAvailableCouponArray(type) {
+                                var array = $filter('filter')(ArrayUtils.list(VoucherKeeper.list(type)), function (item) {
+                                   return (!item.redeemed && !item.canceled);
+                                 });
+                                return array;
                             }
 
                             // #############################################################################################
