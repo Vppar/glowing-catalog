@@ -90,9 +90,6 @@ describe('Service: PurchaseOrderServiceCheckoutCurrentSpec\n', function() {
                 it('should call PurchaseOrderService.saveCurrent', function() {
                     expect(PurchaseOrderService.saveCurrent).toHaveBeenCalled();
                 });
-                it('should clear current order', function() {
-                    expect(PurchaseOrderService.clearCurrent).toHaveBeenCalled();
-                });
             });
         });
 

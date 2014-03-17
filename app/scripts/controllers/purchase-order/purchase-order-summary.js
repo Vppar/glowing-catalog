@@ -5,7 +5,11 @@
     ]).controller(
             'PurchaseOrderSummaryCtrl',
             [
-                '$scope', '$filter', '$log', 'DialogService', 'NewPurchaseOrderService',
+                '$scope',
+                '$filter',
+                '$log',
+                'DialogService',
+                'NewPurchaseOrderService',
                 function($scope, $filter, $log, DialogService, NewPurchaseOrderService) {
 
                     // #####################################################################################################
@@ -67,7 +71,7 @@
                     }
 
                     // #####################################################################################################
-                    // Local Functions
+                    // Scope Functions
                     // #####################################################################################################
 
                     $scope.cancel = function() {
@@ -84,6 +88,61 @@
                         });
                         return canceledPromise;
                     };
+
+                    $scope.save =
+                            function() {
+                                var dialogPromise = DialogService.messageDialog({
+                                    title : 'Pedido de Compra',
+                                    message : 'Salvar o pedido de compra?',
+                                    btnYes : 'Sim',
+                                    btnNo : 'Não'
+                                });
+                                var saveCurrentPromise =
+                                        dialogPromise.then(function() {
+                                            NewPurchaseOrderService.purchaseOrder.discount =
+                                                    financialRound($scope.summary.total.amount - $scope.summary.total.amountWithDiscount);
+                                            NewPurchaseOrderService.purchaseOrder.freight = $scope.summary.freight;
+                                            NewPurchaseOrderService.purchaseOrder.points = $scope.summary.total.points;
+                                            NewPurchaseOrderService.purchaseOrder.amount = $scope.summary.total.amount;
+
+                                            return NewPurchaseOrderService.saveCurrent();
+                                        });
+
+                                var savedPromise = saveCurrentPromise.then(function() {
+                                    resetPurchaseOrder();
+                                    $scope.selectTab('stashed');
+                                });
+
+                                return savedPromise;
+                            };
+
+                    $scope.confirm =
+                            function() {
+                                var dialogPromise = DialogService.messageDialog({
+                                    title : 'Pedido de Compra',
+                                    message : 'Confirmar o pedido de compra?',
+                                    btnYes : 'Sim',
+                                    btnNo : 'Não'
+                                });
+
+                                var checkoutCurrentPromise =
+                                        dialogPromise.then(function() {
+                                            NewPurchaseOrderService.purchaseOrder.discount =
+                                                    financialRound($scope.summary.total.amount - $scope.summary.total.amountWithDiscount);
+                                            NewPurchaseOrderService.purchaseOrder.freight = $scope.summary.freight;
+                                            NewPurchaseOrderService.purchaseOrder.points = $scope.summary.total.points;
+                                            NewPurchaseOrderService.purchaseOrder.amount = $scope.summary.total.amount;
+
+                                            return NewPurchaseOrderService.checkoutCurrent();
+                                        });
+
+                                var checkoutPromise = checkoutCurrentPromise.then(function() {
+                                    resetPurchaseOrder();
+                                    $scope.selectTab('stashed');
+                                });
+
+                                return checkoutPromise;
+                            };
 
                     // #####################################################################################################
                     // Watchers

@@ -70,6 +70,7 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
             beforeEach(function() {
                 PurchaseOrderService.update = jasmine.createSpy('PurchaseOrderService.update').andCallFake(PromiseHelper.resolved(uuid));
                 PurchaseOrderService.create = jasmine.createSpy('PurchaseOrderService.create').andCallFake(PromiseHelper.resolved(uuid));
+                PurchaseOrderService.clearCurrent = jasmine.createSpy('PurchaseOrderService.create');
             });
             describe('When saveCurrent is called\n Then', function() {
                 beforeEach(function() {
@@ -87,8 +88,8 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
                 it('should call PurchaseOrderService.update', function() {
                     expect(PurchaseOrderService.update).toHaveBeenCalledWith(PurchaseOrderService.purchaseOrder);
                 });
-                it('should pristine the order', function() {
-                    expect(PurchaseOrderService.purchaseOrder.isDirty).toBe(false);
+                it('should clear the order', function() {
+                    expect(PurchaseOrderService.clearCurrent).toHaveBeenCalled();
                 });
                 it('should return uuid comming from PurchaseOrderService.update', function() {
                     expect(promiseResult).toEqual(uuid);
@@ -137,11 +138,14 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
             beforeEach(function() {
                 PurchaseOrderService.create = jasmine.createSpy('PurchaseOrderService.create').andCallFake(PromiseHelper.resolved(uuid));
                 PurchaseOrderService.update = jasmine.createSpy('PurchaseOrderService.update').andCallFake(PromiseHelper.resolved(uuid));
-                
+                PurchaseOrderService.clearCurrent = jasmine.createSpy('PurchaseOrderService.clearCurrent');
+
                 PurchaseOrderService.purchaseOrder.isDirty = true;
             });
             describe('When saveCurrent is called\n Then', function() {
+                var purchaseOrder = null;
                 beforeEach(function() {
+                    purchaseOrder = PurchaseOrderService.purchaseOrder;
                     runs(function() {
                         PurchaseOrderService.saveCurrent().then(function(_uuid_) {
                             promiseResult = _uuid_;
@@ -154,10 +158,10 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
                 });
 
                 it('should call PurchaseOrderService.create', function() {
-                    expect(PurchaseOrderService.create).toHaveBeenCalledWith(PurchaseOrderService.purchaseOrder);
+                    expect(PurchaseOrderService.create).toHaveBeenCalledWith(purchaseOrder);
                 });
-                it('should pristine the order', function() {
-                    expect(PurchaseOrderService.purchaseOrder.isDirty).toBe(false);
+                it('should clear the order', function() {
+                    expect(PurchaseOrderService.clearCurrent).toHaveBeenCalled();
                 });
                 it('should return uuid comming from PurchaseOrderService.create', function() {
                     expect(promiseResult).toEqual(uuid);

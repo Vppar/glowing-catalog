@@ -5,12 +5,7 @@
     ]).controller(
             'PurchaseOrderConfirmCtrl',
             [
-                '$scope',
-                '$log',
-                '$q',
-                'DialogService',
-                'PurchaseOrderService',
-                'NewPurchaseOrderService',
+                '$scope', '$log', '$q', 'DialogService', 'PurchaseOrderService', 'NewPurchaseOrderService',
                 function($scope, $log, $q, DialogService, PurchaseOrderService, NewPurchaseOrderService) {
 
                     // #####################################################################################################
@@ -19,11 +14,6 @@
 
                     // inherited object
                     var stockReport = $scope.main.stockReport;
-                    var summary = $scope.summary;
-
-                    // inherited functions
-                    var financialRound = $scope.financialRound;
-                    var resetPurchaseOrder = $scope.resetPurchaseOrder;
 
                     // #####################################################################################################
                     // Local Functions
@@ -76,82 +66,7 @@
                     // #####################################################################################################
                     // Scope functions
                     // #####################################################################################################
-                    $scope.cancel = function() {
-                        var dialogPromise = DialogService.messageDialog({
-                            title : 'Pedido de Compra',
-                            message : 'Cancelar o pedido de compra?',
-                            btnYes : 'Sim',
-                            btnNo : 'Não'
-                        });
-                        var currentCanceledPromise = dialogPromise.then(NewPurchaseOrderService.cancelCurrent);
-                        var canceledPromise = currentCanceledPromise.then(function() {
-                            resetPurchaseOrder();
-                            $scope.selectTab('stashed');
-                        });
-                        return canceledPromise;
-                    };
 
-                    $scope.save =
-                            function() {
-                                var dialogPromise = DialogService.messageDialog({
-                                    title : 'Pedido de Compra',
-                                    message : 'Salvar o pedido de compra?',
-                                    btnYes : 'Sim',
-                                    btnNo : 'Não'
-                                });
-                                var saveCurrentPromise =
-                                        dialogPromise.then(function() {
-                                            NewPurchaseOrderService.purchaseOrder.discount =
-                                                    financialRound(summary.total.amount - summary.total.amountWithDiscount);
-                                            NewPurchaseOrderService.purchaseOrder.freight = summary.freight;
-                                            NewPurchaseOrderService.purchaseOrder.points = summary.total.points;
-
-                                            return NewPurchaseOrderService.saveCurrent();
-                                        });
-
-                                var savedPromise = saveCurrentPromise.then(function() {
-                                    resetPurchaseOrder();
-                                    $scope.selectTab('stashed');
-                                });
-
-                                return savedPromise;
-                            };
-
-                    $scope.confirm =
-                            function() {
-                                var dialogPromise = DialogService.messageDialog({
-                                    title : 'Pedido de Compra',
-                                    message : 'Confirmar o pedido de compra?',
-                                    btnYes : 'Sim',
-                                    btnNo : 'Não'
-                                });
-
-                                var checkoutCurrentPromise =
-                                        dialogPromise.then(function() {
-                                            NewPurchaseOrderService.purchaseOrder.discount =
-                                                    financialRound(summary.total.amount - summary.total.amountWithDiscount);
-                                            NewPurchaseOrderService.purchaseOrder.freight = summary.freight;
-                                            NewPurchaseOrderService.purchaseOrder.points = summary.total.points;
-
-                                            return NewPurchaseOrderService.checkoutCurrent();
-                                        });
-
-                                var checkoutPromise = checkoutCurrentPromise.then(function() {
-                                    resetPurchaseOrder();
-                                    $scope.selectTab('stashed');
-                                });
-
-                                return checkoutPromise;
-                            };
-
-                    $scope.shouldHideButtons = function() {
-                        var result = true;
-                        for ( var ix in $scope.confirmedProducts.sessions) {
-                            result = false;
-                            break;
-                        }
-                        return result;
-                    };
 
                     // #####################################################################################################
                     // Publishing methods to be tested

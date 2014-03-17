@@ -48,6 +48,12 @@
                         $scope.ticket.purchaseOrders = NewPurchaseOrderService.listConfirmed();
                     }
 
+                    function newPurchaseOrder() {
+                        if (NewPurchaseOrderService.purchaseOrder === null) {
+                            $scope.purchaseOrder.current = NewPurchaseOrderService.createNewCurrent();
+                        }
+                    }
+
                     // #####################################################################################################
                     // Scope variables
                     // #####################################################################################################
@@ -105,8 +111,24 @@
                     // #####################################################################################################
 
                     $scope.selectTab = function selectTab(tabName) {
+                        if (tabName === 'confirm' && NewPurchaseOrderService.purchaseOrder === null) {
+                            return;
+                        }
+
+                        if (tabName === 'stashed' && NewPurchaseOrderService.purchaseOrder !== null) {
+                            return;
+                        }
+
+                        if (tabName === 'new') {
+                            newPurchaseOrder();
+                        }
+
                         $scope.tabs.selected = tabName;
                         $scope.ticket.selectedPart = 'part1';
+                    };
+
+                    $scope.hasCurrentPurchaseOrder = function() {
+                        return NewPurchaseOrderService.purchaseOrder !== null;
                     };
 
                     $scope.isSummaryVisible = function(tabName) {

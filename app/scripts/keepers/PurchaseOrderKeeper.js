@@ -326,19 +326,20 @@
                      *         the update is done.
                      */
                     var changeStatus = function changeStatus(uuid, statusName) {
-                        var recoveredPurchaseOrder = ArrayUtils.find(purchases, 'uuid', purchaseOrder.uuid);
+                        var recoveredPurchaseOrder = ArrayUtils.find(purchases, 'uuid', uuid);
 
                         if (!recoveredPurchaseOrder) {
                             throw 'Unable to find an PurchaseOrder with uuid=\'' + uuid + '\'';
                         }
 
                         var updateEv = {
+                            uuid : uuid,
                             status : ArrayUtils.find(status, 'name', statusName)['id'],
                             updated : new Date().getTime()
                         };
 
                         // create a new journal entry
-                        var entry = new JournalEntry(null, updateEv.updated, 'purchaseOrderUpdate', currentEventVersion, updateEv);
+                        var entry = new JournalEntry(null, updateEv.updated, 'purchaseOrderChangeStatus', currentEventVersion, updateEv);
 
                         // save the journal entry
                         return JournalKeeper.compose(entry);

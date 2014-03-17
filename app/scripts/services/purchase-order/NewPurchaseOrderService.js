@@ -381,6 +381,7 @@
                         var createdPromise = createIntentPromise.then(function(uuid) {
                             var result = null;
                             if (_this.purchaseOrder.isDirty) {
+                                delete _this.purchaseOrder.isDirty;
                                 result = _this.update(_this.purchaseOrder);
                             } else {
                                 result = resolvedPromiseWith(_this.purchaseOrder.uuid);
@@ -388,8 +389,7 @@
                             return result;
                         });
                         var savedPromise = createdPromise.then(function(uuid) {
-                            _this.purchaseOrder.uuid = uuid;
-                            _this.purchaseOrder.isDirty = false;
+                            _this.clearCurrent();
 
                             $log.info('PurchaseOrderService.save: Current purchase order saved.');
                             $log.debug(_this.purchaseOrder);
@@ -460,7 +460,6 @@
 
                         // TODO - Create an Expense
                         var checkoutPromise = confirmedPromise.then(function(uuid) {
-                            _this.clearCurrent();
                             $log.info('PurchaseOrderService.checkoutCurrent: Checkout done.');
 
                             return uuid;
