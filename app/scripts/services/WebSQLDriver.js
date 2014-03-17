@@ -8,8 +8,10 @@
      * - All methods must require an existing transaction
      * 
      */
-    angular.module('tnt.storage.websql', []).service('WebSQLDriver', ['$q', '$log', '$rootScope', function WebSQLDriver($q, $log, $rootScope) {
+    angular.module('tnt.storage.websql', ['tnt.util.log']).service('WebSQLDriver', ['$q', 'logger', '$rootScope', function WebSQLDriver($q, logger, $rootScope) {
 
+        var log = logger.getLogger('tnt.storage.websql.WebSQLDriver');
+        
         var db = openDatabase('PersistentStorage', '1.0', 'Persistent Storage', 5 * 1024 * 1024);
         var entities = {};
         
@@ -34,7 +36,7 @@
          */
         this.transaction = function(txBody) {
           
-            $log.debug('starting transaction');
+            log.debug('starting transaction');
 
             var deferred = $q.defer();
             db.transaction(txBody, function(data){
@@ -45,13 +47,13 @@
                 $rootScope.$apply();
             });
 
-            $log.debug('transaction started');
+            log.debug('transaction started');
 
             deferred.promise.then(function() {
-                $log.debug('transaction succeded');
+                log.debug('transaction succeded');
             }, function(failure) {
-                $log.error('transaction failed');
-                $log.debug(failure);
+                log.error('transaction failed');
+                log.debug(failure);
             });
             
             return deferred.promise;
@@ -315,7 +317,7 @@
                     }
                 };
             } else {
-                $log.debug('Callback given, no promise for you');
+                log.debug('Callback given, no promise for you');
             }
             
             // FIXME use binded arguments
@@ -389,7 +391,7 @@
                     $rootScope.$apply();
                 };
             } else {
-                $log.debug('Callback given, no promise for you');
+                log.debug('Callback given, no promise for you');
             }
 
             // FIXME use binded arguments

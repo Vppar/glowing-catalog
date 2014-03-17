@@ -7,6 +7,9 @@
 
     manifest.service('CacheController', ['$q', '$rootScope', 'logger', 'DialogService', function CacheController ($q, $rootScope, logger,
         DialogService) {
+        
+        var log = logger.getLogger('tnt.catalog.manifest.CacheController');
+        
         var deferred = $q.defer();
 
         function notify (evt) {
@@ -28,36 +31,36 @@
             deferred.promise.then(null, null, function (e) {
                 switch (e.type) {
                     case 'cached':
-                        logger.debug('data has just been cached!');
+                        log.debug('data has just been cached!');
                         deferred.resolve('IDLE');
                         break;
                     case 'noupdate':
-                        logger.debug('the data we have is already up to date');
+                        log.debug('the data we have is already up to date');
                         deferred.resolve('IDLE');
                         break;
                     case 'checking':
-                        logger.debug('Checking for updates');
+                        log.debug('Checking for updates');
                         break;
                     case 'downloading':
-                        logger.debug('fetching updates');
+                        log.debug('fetching updates');
                         break;
                     case 'error':
-                        logger.debug('things gone south');
+                        log.debug('things gone south');
                         deferred.reject('ERROR');
                         break;
                     case 'obsolete':
-                        logger.debug('the manifest no longer exists... whaat?!');
+                        log.debug('the manifest no longer exists... whaat?!');
                         deferred.reject('OBSOLETE');
                         break;
                     case 'progress':
-                        logger.debug('progress', e);
+                        log.debug('progress', e);
                         break;
                     case 'updateready':
-                        logger.debug('new data is ready! time to refresh.');
+                        log.debug('new data is ready! time to refresh.');
                         deferred.resolve('UPDATEREADY');
                         break;
                     default:
-                        logger.debug(e.type, e);
+                        log.debug(e.type, e);
                 }
             });
 

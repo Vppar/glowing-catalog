@@ -122,6 +122,9 @@ scripts/filters/sum.js
 scripts/filters/truncate.js
 scripts/filters/uuidCode.js
 
+scripts/preloader/datepicker.js
+scripts/preloader/loggly.tracker.js
+
 scripts/controllers/main.js
 scripts/controllers/add-customer.js
 scripts/controllers/add-customer-phones-dialog.js
@@ -236,8 +239,6 @@ scripts/services/CacheController.js
 scripts/services/Firebase.js
 scripts/services/ProductReturnService.js
 
-scripts/preloader/datepicker.js
-
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
 components/catalog-section/catalog-section.html
@@ -318,6 +319,7 @@ views/tutorial-android.html
 views/tutorial-ipad.html
 views/voucher.html
 views/third-parties.html
+views/receivable-check.html
 
 
 images/keyboard/n0.png
