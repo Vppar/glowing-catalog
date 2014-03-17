@@ -34,16 +34,16 @@
              */
             var statesMap = {
                 '1' : [
-                    'toDeposit', 'a depositar'
+                    'toDeposit', 'A Depositar'
                 ],
                 '2' : [
-                    'deposited', 'depositado'
+                    'deposited', 'Depositado'
                 ],
                 '3' : [
-                    'moneyReceived', 'recebido em dinheiro'
+                    'moneyReceived', 'Recebido em Dinheiro'
                 ],
                 '4' : [
-                    'returned', 'devolvido'
+                    'returned', 'Devolvido'
                 ]
             };
             
@@ -163,7 +163,7 @@
                     $scope.deposited = false;
                     $scope.moneyReceived = false;
                     $scope.returned = true;
-                    $scope.message = 'todos recebios em dinheiro até ';
+                    $scope.message = 'todos recebidos em dinheiro até ';
                 } else if ($scope.selected === 'returned') {
                     $scope.toDeposit = false;
                     $scope.deposited = true;
