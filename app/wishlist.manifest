@@ -24,6 +24,7 @@ styles/inventory.css
 styles/previous-entries.css
 styles/pending-delivery.css
 styles/products-to-buy.css
+styles/products-delivery.css
 styles/financial.css
 styles/expense.css
 styles/income-statement.css
@@ -310,6 +311,7 @@ views/payment.html
 views/pending-delivery.html
 views/previous-entries.html
 views/products-to-buy.html
+views/products-delivery.html
 views/receivable.html
 views/stock.html
 views/tutorial-android.html
