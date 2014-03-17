@@ -36,6 +36,8 @@ styles/voucher.css
 styles/stock.css
 styles/warm-up.css
 styles/new.css
+styles/new-grid.css
+styles/new-numpad.css
 styles/new-ipad-only.css
 bower_components/jquery/jquery.js
 bower_components/angular/angular.js
