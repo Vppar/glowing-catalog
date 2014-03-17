@@ -20,13 +20,15 @@ describe('Controller: AddCustomerCtrl', function() {
     var $q = {};
     var CpfService = {};
     var $rootScope = {};
+    var IntentService = {};
 
     beforeEach(function() {
         module(function($provide) {
             $provide.value('UserService', us);
             $provide.value('EntityService', es);
+            $provide.value('IntentService', IntentService);
         });
-
+        IntentService.getBundle = jasmine.createSpy('IntentService.getBundle');
         us.redirectIfIsNotLoggedIn = jasmine.createSpy('redirectIfIsNotLoggedIn');
     });
 

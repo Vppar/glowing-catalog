@@ -37,13 +37,14 @@ describe('Service: EntityServiceUpdateSpec', function() {
                 addresses : [{street: 'rua', number: 555}, {street: 'rua', number: 556}],
                 remarks : 'bad client'
         };
+        
+        entity = new Entity(entity);
 
         // when
-        var result = EntityService.update(entity);
+        EntityService.update(entity);
 
         // then
         expect(EntityKeeper.update).toHaveBeenCalledWith(entity);
-        expect(result.length).toBe(0);
     });
   
     it('shouldn\'t update a entity instance', function() {
