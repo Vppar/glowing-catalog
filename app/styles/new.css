@@ -285,3 +285,8 @@ button, .btn {
     padding-left:12px;
 }
 */
+
+/* CONTAS A RECEBER / PAYMENT */
+.payment-receivable-fields .half-row {width:50%!important;border:none!important;}
+    .payment-receivable-fields .half-row .new-col-4 {line-height:40px;}
+.payment-receivable-fields .new-body-row input {width:94%!important;height:34px;line-height:34px;margin-bottom:5px;color:#555;}
