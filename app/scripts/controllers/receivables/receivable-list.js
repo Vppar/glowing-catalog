@@ -172,9 +172,9 @@
                         }
                         return receivables;
                     }
-                    //##################################
-                    //TO REMEMBER DATE BEFORE CHECK BOX
-                    //##################################
+                    //#########################################
+                    //TO REMEMBER DATE BEFORE CLICK CHECK BOX
+                    //##########################################
                     var lastFilterDate = angular.copy($scope.dtFilter.dtInitial);
                     function removeDtInitial () {
                         if ($scope.allOpenReceivables === 'true') {
@@ -192,12 +192,11 @@
                     }
                     
                     //##############################
-                    //WATCHERS - Ah vá?
+                    //WATCHERS 
                     //###############################
                     $scope.$watchCollection('dtFilter', ensureDateOrder);
                     $scope.$watchCollection('dtFilter', filterReceivables);
                     $scope.$watch('selectedReceivableMode', filterReceivables);
-                    //fixme to mutch watchers.
                     $scope.$watch('selectedReceivable', filterReceivables);
                     $scope.$watch('allOpenReceivables', removeDtInitial);
                     
