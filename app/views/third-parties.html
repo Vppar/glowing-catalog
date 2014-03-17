@@ -16,11 +16,11 @@
 
 				<div class="row-fluid">
 						<div class="new-col-8">
-							<input type="text" placeholder="Filtrar por nome" ng-model="search">
+							<input type="text" placeholder="Filtrar por nome" ng-model="searchClient" customer-name>
 						</div>
 						<div class="new-col-16">
 							<div class="btn-group btn-group-sm pull-left">
-								<button class="btn btn-ok pull-right" type="submit">Novo Cliente</button>
+								<button class="btn btn-ok pull-right" type="submit" ng-click="newClient()" ng-disabled="isDisabled">Novo Cliente</button>
 							</div>
 						</div>
 				</div>
@@ -36,11 +36,11 @@
 
 				<div class="new-scrollpanel">
 
-					<div class="row-fluid" ng-repeat="entity in entities | filter:search">
-						<div class="new-body-row details-item">
+					<div class="row-fluid" ng-repeat="entity in filteredEntities">
+						<div class="new-body-row details-item" ng-click="editEntity(entity.uuid)">
 							<span class="new-col-8">{{entity.name}}</span>
-							<span class="new-col-8">{{entity.email[0].address}}</span>
-							<span class="new-col-4 text-center">{{entity.birthDate | date}}</span>
+							<span class="new-col-8">{{entity.emails[0].address}}</span>
+							<span class="new-col-4 text-center">{{entity.birthDate.formated}}</span>
 							<span class="new-col-4 text-center">{{entity.phones[0].number | phone}}</span>
 						</div>
 					</div>

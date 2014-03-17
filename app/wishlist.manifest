@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.4 
+# v0.0.6
 
 CACHE:
 apple-touch-icon.png
@@ -203,6 +203,7 @@ scripts/services/EntityService.js
 scripts/services/ExpenseService.js
 scripts/services/financial/FinancialMathService.js
 scripts/services/IdentityService.js
+scripts/services/IntentService.js
 scripts/services/InventoryService.js
 scripts/services/KeyboardService.js
 scripts/services/misplacedservice.js

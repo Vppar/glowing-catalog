@@ -117,7 +117,8 @@
                             var result = this.isValid(entity);
                             if (result.length === 0) {
                                 try {
-                                    EntityKeeper.update(entity);
+                                    entity = new Entity(entity);
+                                    return EntityKeeper.update(entity);
                                 } catch (err) {
                                     throw 'EntityService.update: Unable to update a entity=' +
                                         JSON.stringify(receivable) + '. Err=' + err;
