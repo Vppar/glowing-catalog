@@ -223,7 +223,7 @@
 /* green highlight/focus */
 /* verify "input:focus, .focus" no global.css */
 textarea:focus,
-input[type="textarea"],
+input[type="textarea"]:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="datetime"]:focus,
@@ -240,6 +240,9 @@ input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
     border-color:#acdf7b;
+}
+textarea:focus, input[type="textarea"]:focus {
+    outline:none;
 }
 .focused {
     border-color:#acdf7b;

@@ -1080,8 +1080,11 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 }
 
 input:focus, .focus{	
-	outline: 2px solid #ACDF7B;
-	outline-offset: -3px;
+	outline: 1px solid #ACDF7B;
+	outline-offset:0;
+}
+.grid-payment-receivable .item:focus {
+	border:none;
 }
 
 .comment{color: rgba(0, 0, 0, 0.5); font-size:12px;}
