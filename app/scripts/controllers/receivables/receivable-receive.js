@@ -11,7 +11,8 @@
             function ($scope, $filter, ReceivableService, BookService, DialogService) {
 
                 $scope.negotiate = false;
-
+                $scope.extra = 0;
+                $scope.discount = 0;
                 $scope.openReceivable = function () {
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
                         $scope.clearSelectedReceivable();
