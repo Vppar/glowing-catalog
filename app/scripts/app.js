@@ -211,6 +211,8 @@
         }).when('/third-parties', {
             templateUrl : 'views/third-parties.html',
             controller: 'ThirdPartyCtrl'
+        }).when('/products-delivery', {
+            templateUrl : 'views/products-delivery.html'
         }).otherwise({
             redirectTo : '/'
         });
