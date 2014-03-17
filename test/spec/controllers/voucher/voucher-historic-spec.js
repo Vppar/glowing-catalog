@@ -31,7 +31,7 @@ describe('Controller: voucher-historic', function() {
             canceled : new Date()
         };
 
-        scope.notActiveVouchers = [
+        scope.allVouchers = [
             expected, {
                 entity : 'Thiago',
                 type : 'coupon',
@@ -65,7 +65,7 @@ describe('Controller: voucher-historic', function() {
             redeemed : new Date()
         };
 
-        scope.notActiveVouchers = [
+        scope.allVouchers = [
             {
                 entity : 'Arnaldo',
                 type : 'coupon',
@@ -101,7 +101,7 @@ describe('Controller: voucher-historic', function() {
             redeemed : new Date()
         };
 
-        scope.notActiveVouchers = [
+        scope.allVouchers = [
             {
                 entity : 'Arnaldo',
                 type : 'coupon',
@@ -152,7 +152,7 @@ describe('Controller: voucher-historic', function() {
             redeemed : 1392216940748
         };
 
-        scope.notActiveVouchers = [
+        scope.allVouchers = [
             arnaldo, wesley, fabio
         ];
 
@@ -197,7 +197,7 @@ describe('Controller: voucher-historic', function() {
             redeemed : 1392216940748
         };
 
-        scope.notActiveVouchers = [
+        scope.allVouchers = [
             arnaldo, wesley, fabio
         ];
 
@@ -216,7 +216,7 @@ describe('Controller: voucher-historic', function() {
             arnaldo, fabio
         ];
 
-        expect(scope.historicVouchers).toEqual(expected);
+        expect(scope.historicVouchers).toEqual(expected); 
 
     });
 
