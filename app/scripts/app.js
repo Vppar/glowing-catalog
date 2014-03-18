@@ -127,7 +127,9 @@
             'tnt.catalog.check.service',
             'tnt.catalog.check.ctrl',
             'tnt.catalog.thirdparty',
-            'tnt.catalog.service.intent'
+            'tnt.catalog.service.intent',
+            'tnt.catalog.consultant.service',
+            'tnt.catalog.consultant'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
