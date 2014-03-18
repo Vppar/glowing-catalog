@@ -49,6 +49,7 @@
                 ];
 
                 function setPaymentType () {
+                    $scope.setNegotiation(false);
                     if ($scope.selectedReceivable) {
                         var receivable = $scope.selectedReceivable;
                         for ( var ix in $scope.paymentsType) {

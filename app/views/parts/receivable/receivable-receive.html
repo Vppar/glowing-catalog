@@ -16,7 +16,7 @@
 			</div> -->
 			<div class="control-group">
 				<label class="control-label">Classifica&ccedil;&atilde;o</label>
-				<select ui-select2 tnt-select2 class='select-client' ng-model="selectedClassification" ng-disabled="negotiate==false">
+				<select ui-select2 tnt-select2 class='select-client' ng-model="selectedClassification" disabled>
 					<option value="{{class.id}}" ng-repeat="class in classifications">{{class.description}}</option>
 				</select>
 			</div>
@@ -24,7 +24,7 @@
 		<span class="span2">
 			<div class="control-group">
 				<label class="control-label"> Tipo de Recebível</label>
-				<select ui-select2 tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="negotiate==false">
+				<select ui-select2 tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="negotiate==false || paymentSelected.id ==2">
 					<option value="" ng-hide="true"></option>
 					<option value="{{paymentType.id}}" ng-repeat="paymentType in paymentsType">{{paymentType.describe}}</option>
 				</select>
