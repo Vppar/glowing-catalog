@@ -41,7 +41,7 @@
 					<div class="new-col-1">&nbsp;</div>
 					<div class="new-col-22">
 						<div class="new-col-6 text-center">Parcela</div>
-						<div class="new-col-9 text-center">Vencimento</div>
+						<div class="new-col-9 text-center" style="padding-right:0px;">Vencimento</div>
 						<div class="new-col-9 currency">Valor</div>
 					</div>
 					<div class="new-col-1">&nbsp;</div>
@@ -50,19 +50,11 @@
 					<div class="new-col-1">&nbsp;</div>
 					<div class="new-col-22">
 						<div class="new-col-6 text-center">Parcela</div>
-						<div class="new-col-9 text-center">Vencimento</div>
+						<div class="new-col-9 text-center" style="padding-right:0px;">Vencimento</div>
 						<div class="new-col-9 currency">Valor</div>
 					</div>
 					<div class="new-col-1">&nbsp;</div>
 				</div>
-				
-					<!-- <div class="new-col-2 text-center">Parcela</div>
-					<div class="new-col-4 text-center">Vencimento</div>
-					<div class="new-col-4 text-center">Valor</div>
-					<div class="new-col-2">&nbsp;</div>
-					<div class="new-col-2 text-center">Parcela</div>
-					<div class="new-col-4 text-center">Vencimento</div>
-					<div class="new-col-4 text-center">Valor</div> -->
 			</div>
 			<div class="new-body-row half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)">
 				<div class="new-col-1">&nbsp;</div>
@@ -71,10 +63,10 @@
 					<div class="new-col-6 text-center installment-number">
 						{{installment.number}}
 					</div>
-					<div class="new-col-9">
+					<div class="new-col-9" style="padding-right:0px;">
 					<input class="text-center" id="{{'duedate' + $index}}" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="installment.duedate" tnt-input maxlength="8" readonly />
 					</div>
-					<div class="new-col-9">
+					<div class="new-col-9" style="padding-right:0px;">
 						<input id="{{'amount' + $index}}" name="" class="text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" recall tnt-input currency />
 					</div>
 

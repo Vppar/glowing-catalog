@@ -40,14 +40,14 @@
 	background-color: #fff;
 	line-height: 20px;
 }
-.new-body-header.installments-header{
+.row-fluid .installments-header{
 	margin-top: 10px;
 }
 .installments-header .half-row{
 	float: left;
 }
 .installments-header .currency{
-	padding-right: 27px;
+	padding-right: 22px;
 }
 
 /*this should be moved to new.css */
