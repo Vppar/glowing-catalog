@@ -307,7 +307,7 @@
                         bank : event.payment.bank,
                         agency : event.payment.agency,
                         account : event.payment.account,
-                        dueDate : event.duedate,
+                        dueDate : event.duedate ? new Date(event.duedate) : null,
                         amount : event.amount,
                         number : event.payment.number,
                         clientName : customer && customer.name,
@@ -351,7 +351,7 @@
                             // 1 is the CoinKeeper's op for generating UUIDs
                             uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
                             type : 'check',
-                            duedate : item.dueDate.getTime(),
+                            duedate : item.dueDate && item.dueDate.getTime ? item.dueDate.getTime() : item.dueDate,
                             entityId : item.entityId,
                             amount : item.amount,
                             created : item.created || null,
