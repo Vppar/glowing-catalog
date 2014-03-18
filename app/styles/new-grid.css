@@ -8,6 +8,33 @@
     box-sizing:border-box;
     display:block;  
 }
+.row-fluid > .new-col-1:first-child,
+ .row-fluid > .new-col-2:first-child,
+ .row-fluid > .new-col-3:first-child,
+ .row-fluid > .new-col-4:first-child,
+ .row-fluid > .new-col-5:first-child,
+ .row-fluid > .new-col-6:first-child,
+ .row-fluid > .new-col-7:first-child,
+ .row-fluid > .new-col-8:first-child,
+ .row-fluid > .new-col-9:first-child,
+ .row-fluid > .new-col-10:first-child,
+ .row-fluid > .new-col-11:first-child,
+ .row-fluid > .new-col-12:first-child,
+ .row-fluid > .new-col-13:first-child,
+ .row-fluid > .new-col-14:first-child,
+ .row-fluid > .new-col-15:first-child,
+ .row-fluid > .new-col-16:first-child,
+ .row-fluid > .new-col-17:first-child,
+ .row-fluid > .new-col-18:first-child,
+ .row-fluid > .new-col-19:first-child,
+ .row-fluid > .new-col-20:first-child,
+ .row-fluid > .new-col-21:first-child,
+ .row-fluid > .new-col-22:first-child,
+ .row-fluid > .new-col-23:first-child,
+ .row-fluid > .new-col-24:first-child,{
+     padding-left: 0px;
+ }
+
 
 .new-col-1{width: 4.16%;}
 .new-col-2{
