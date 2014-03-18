@@ -79,13 +79,13 @@
 						<div class="control-group">
 							<label class="control-label">Data de nascimento</label>
                     	<div>
-						<select name="birthday" class="select-width-01" ng-model="consultant.birthDate.day"  tabindex="3" ui-select2 tnt-select2>
+						<select name="birthday" class="new-date-day" ng-model="consultant.birthDate.day"  tabindex="3" ui-select2 tnt-select2>
                             <option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
 						</select>
-                        <select name="birthmonth" class="select-width-01 marginl5" ng-model="consultant.birthDate.month" tabindex="4" ui-select2 tnt-select2>
+                        <select name="birthmonth" class="new-date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2 tnt-select2>
                                 <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
                         </select>
-                        <select name="birthyear" class="select-width-01 marginl5" ng-model="consultant.birthDate.year" tabindex="4" ui-select2 tnt-select2>
+                        <select name="birthyear" class="new-date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2 tnt-select2>
                                 <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
                         </select>
                         </div>
@@ -135,7 +135,7 @@
 					<div class="new-col-2">
 						<div class="control-group">
 							<label class="control-label">UF</label>
-							<select name="state"  tabindex="12" ui-select2 tnt-select2 class="select-width-02" ng-model="consultant.address.state" required>
+							<select name="state"  tabindex="12" ui-select2 tnt-select2 class="new-state-field" ng-model="consultant.address.state" required>
 							<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
 							</select>
 						</div>
