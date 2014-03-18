@@ -32,6 +32,60 @@
                 }
             }
 
+            function reviewMinQty(stockReport, confirmed, partiallyReceived) {
+                var mapProcuctQty = {};
+
+                for ( var ci in confirmed) {
+                    var confirmedPurchaseOrder = confirmed[ci];
+                    for ( var ci2 in confirmedPurchaseOrder.items) {
+                        var item = confirmedPurchaseOrder.items[ci2];
+                        if (mapProcuctQty[item.id]) {
+                            mapProcuctQty[item.id] += Number(item.qty);
+                        } else {
+                            mapProcuctQty[item.id] = Number(item.qty);
+                        }
+                    }
+                }
+
+                for ( var pi in partiallyReceived) {
+                    var partiallyReceivedPurchaseOrder = partiallyReceived[pi];
+                    for ( var pi2 in partiallyReceivedPurchaseOrder.items) {
+                        var item = partiallyReceivedPurchaseOrder.items[pi2];
+                        var qtyReceived = ArrayUtils.find(partiallyReceived.itemReceived, 'id', item.id);
+                        var qtyBalance = item.qty - qtyReceived;
+                        if (qtyBalance > 0) {
+                            if (mapProcuctQty[item.id]) {
+                                mapProcuctQty[item.id] += Number(item.qty);
+                            } else {
+                                mapProcuctQty[item.id] = Number(item.qty);
+                            }
+                        }
+                    }
+                }
+
+                for ( var ix in stockReport.sessions) {
+                    var session = stockReport.sessions[ix];
+                    for ( var ix2 in session.lines) {
+                        var line = session.lines[ix2];
+                        for ( var ix3 in line.items) {
+                            var item = line.items[ix3];
+                            var mappedQty = mapProcuctQty[item.id];
+                            if (mappedQty) {
+                                if (item.minQty > mappedQty) {
+                                    item.minQty = item.minQty - mappedQty;
+                                    item.qty = item.minQty;
+                                    $scope.purchaseOrder.watchedQty[item.id] = item.minQty;
+                                } else {
+                                    item.minQty = 0;
+                                    item.qty = 0;
+                                    $scope.purchaseOrder.watchedQty[item.id] = 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             function loadStashedPurchaseOrder(stockReport, purchaseOrder) {
                 if (purchaseOrder.uuid) {
                     var mapQty = {};
@@ -67,10 +121,8 @@
                             SKU : myTextFilter
                         };
                         StockService.updateReport(stockReport, objFilter);
-                        loadPurchaseOrder(stockReport);
                     } else if (String(oldVal).length >= 3) {
                         StockService.updateReport(stockReport);
-                        loadPurchaseOrder(stockReport);
                     }
                 }
 
@@ -157,6 +209,7 @@
 
             // Enable watcher
             enableProductWatcher();
+            reviewMinQty(stockReport, NewPurchaseOrderService.listConfirmed(), NewPurchaseOrderService.listPartiallyReceived());
             loadStashedPurchaseOrder(stockReport, purchaseOrder);
             $scope.showLevel(1);
         }

@@ -181,21 +181,6 @@
                         return results;
                     };
                     /**
-                     * List confirmed PurchaseOrders.
-                     * 
-                     * @return {array} - Confirmed purchase orders.
-                     */
-                    this.listConfirmed = function() {
-                        var results = null;
-                        try {
-                            results = PurchaseOrderKeeper.listByStatus('confirmed');
-                        } catch (err) {
-                            $log.error('PurchaseOrderService.list: Unable to recover the list of stashed purchaseOrders.');
-                            $log.debug(err);
-                        }
-                        return results;
-                    };
-                    /**
                      * List stashed PurchaseOrders.
                      * 
                      * @return {array} - Stashed purchase orders.
@@ -210,7 +195,36 @@
                         }
                         return results;
                     };
-
+                    /**
+                     * List confirmed PurchaseOrders.
+                     * 
+                     * @return {array} - Confirmed purchase orders.
+                     */
+                    this.listConfirmed = function() {
+                        var results = null;
+                        try {
+                            results = PurchaseOrderKeeper.listByStatus('confirmed');
+                        } catch (err) {
+                            $log.error('PurchaseOrderService.listConfirmed: Unable to recover the list of stashed purchaseOrders.');
+                            $log.debug(err);
+                        }
+                        return results;
+                    };
+                    /**
+                     * List partially received PurchaseOrders.
+                     * 
+                     * @return {array} - Confirmed purchase orders.
+                     */
+                    this.listPartiallyReceived = function() {
+                        var results = null;
+                        try {
+                            results = PurchaseOrderKeeper.listByStatus('partiallyReceived');
+                        } catch (err) {
+                            $log.error('PurchaseOrderService.listPartiallyReceived: Unable to recover the list of stashed purchaseOrders.');
+                            $log.debug(err);
+                        }
+                        return results;
+                    };
                     /**
                      * Read a specific PurchaseOrder.
                      * 

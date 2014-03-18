@@ -33,7 +33,7 @@
 						<div class="small-text" ng-if="purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
 						<div ng-if="!purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
 	                </span>
-	                <span class="new-col-4 currency">{{purchaseOrder.amount | currency:''}}</span>
+	                <span class="new-col-4 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency:''}}</span>
 	                <span class="new-col-4 text-center">
 						<div ng-if="purchaseOrder.received">Entregue</div>
 						<div ng-if="!purchaseOrder.received">Em Aberto</div>
