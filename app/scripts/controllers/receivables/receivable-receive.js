@@ -10,7 +10,8 @@
             'DialogService',
             'ArrayUtils',
             'CheckPayment',
-            function ($scope, $filter, ReceivableService, BookService, DialogService, ArrayUtils, CheckPayment) {
+            'OnCuffPayment',
+            function ($scope, $filter, ReceivableService, BookService, DialogService, ArrayUtils, CheckPayment, OnCuffPayment) {
 
                 $scope.paymentSelected = {
                     id : 1
@@ -136,10 +137,9 @@
                     var newPayment = undefined;
                     if(typeNew && typeOld){
                         if(typeNew === 'check'){
-                            
                             newPayment = new CheckPayment($scope.selectedReceivable.uuid, $scope.check.bank, $scope.check.agency, $scope.check.account, $scope.check.number, $scope.selectedReceivable.duedate, totalAmount); 
                         }else if(typeNew === 'onCuff'){
-                            newPayment = new OnCuffPayment($selectedReceivable.amount, duedate);
+                            newPayment = new OnCuffPayment($scope.selectedReceivable.amount, $scope.selectedReceivable.duedate);
                         }
                     }
                     console.log(newPayment);
