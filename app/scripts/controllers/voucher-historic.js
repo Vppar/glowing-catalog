@@ -21,6 +21,10 @@
                 $scope.isRedeemed = function (voucher) {
                     return !!voucher.redeemed;
                 };
+                
+                $scope.isCanceled = function (voucher) {
+                    return !!voucher.canceled;
+                };
 
                 /**
                  * Historic DateFilter

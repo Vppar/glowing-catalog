@@ -229,7 +229,7 @@
 											</div>
 										</span>
 										<span class="col-s3">
-                      {{isRedeemed(voucher) ? 'débito' : 'crédito'}}
+                      							{{isRedeemed(voucher) ? 'Débito' : isCanceled(voucher) ? 'Cancelado' : 'Crédito'}}
 										</span>
 										<span class="col-s4">
 											{{voucher.amount | currency:''}}
