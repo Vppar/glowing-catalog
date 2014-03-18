@@ -11,8 +11,6 @@
 
                     UserService.redirectIfIsNotLoggedIn();
 
-                    $scope.isDisabled = true;
-
                     $scope.newClient = function() {
                         IntentService.putBundle({
                             clientName : $scope.searchClient
@@ -27,11 +25,6 @@
 
                     $scope.$watchCollection('searchClient', function() {
                         $scope.filteredEntities = $filter('filter')($scope.entities, $scope.searchClient);
-                        if ($scope.filteredEntities.length === 0) {
-                            $scope.isDisabled = false;
-                        } else {
-                            $scope.isDisabled = true;
-                        }
                     });
 
                     $scope.$watchCollection('entities', function() {
