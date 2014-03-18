@@ -83,13 +83,14 @@
                                     var receiveQty = item.qty - ticket.watchedQty[ix];
                                     if (receiveQty > 0) {
                                         var receivedPromise =
-                                                PurchaseOrderService.receive($scope.purchaseOrder.uuid, ix, ticket.nfeData, receiveQty);
+                                                PurchaseOrderService.receiveProduct(
+                                                        $scope.purchaseOrder.uuid, ix, ticket.nfeData, receiveQty);
                                         receivedPromises.push(receivedPromise);
                                     }
                                 }
 
                                 var redeemedPromise = $q.all(receivedPromises).then(function() {
-                                    return PurchaseOrderService.redeem($scope.purchaseOrder.uuid, ticket.nfeData.order);
+                                    return PurchaseOrderService.receive($scope.purchaseOrder.uuid, ticket.nfeData.order);
                                 });
 
                                 redeemedPromise.then(function() {
@@ -106,7 +107,10 @@
                     };
 
                     $scope.filterOrders = function filterOrders(purchase) {
-                        return angular.isUndefined(purchase.received) || $scope.ticket.tab === 'all';
+                        if (purchase.status < 3) {
+                            return false;
+                        }
+                        return purchase.status === 3 || purchase.status === 4 || $scope.ticket.tab === 'all';
                     };
 
                     $scope.cancel = function() {

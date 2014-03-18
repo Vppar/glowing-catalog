@@ -6,11 +6,12 @@
             'PurchaseOrderSummaryCtrl',
             [
                 '$scope',
+                '$q',
                 '$filter',
                 '$log',
                 'DialogService',
                 'NewPurchaseOrderService',
-                function($scope, $filter, $log, DialogService, NewPurchaseOrderService) {
+                function($scope, $q, $filter, $log, DialogService, NewPurchaseOrderService) {
 
                     // #####################################################################################################
                     // Local variables
@@ -18,6 +19,7 @@
 
                     var financialRound = $scope.financialRound;
                     var resetPurchaseOrder = $scope.resetPurchaseOrder;
+                    var stockReport = $scope.main.stockReport;
 
                     // if the order total is less then the amount use the fee.
                     var discounts = [
@@ -38,6 +40,10 @@
                         }
                     ];
 
+                    var hasCurrentPurchaseOrder = $scope.hasCurrentPurchaseOrder;
+                    var selectTab = $scope.selectTab;
+
+                    // FIXME - Relocate from this session
                     $scope.summary.nextDiscount = {};
 
                     // #####################################################################################################
@@ -70,9 +76,58 @@
 
                     }
 
+                    function backToStashed() {
+                        resetPurchaseOrder();
+                        selectTab('stashed');
+                    }
+
+                    function goToTicket() {
+                        resetPurchaseOrder();
+                        selectTab('ticket');
+                    }
+
+                    // inherited from ProductsToBuyCtrl
+                    var updateCurrentPurchaseOrder = function(stockReport) {
+                        var report = angular.copy(stockReport);
+                        for ( var ix in report.sessions) {
+                            var session = report.sessions[ix];
+                            for ( var ix2 in session.lines) {
+                                var line = session.lines[ix2];
+                                for ( var ix3 = 0; ix3 < line.items.length; ix3++) {
+                                    var item = line.items[ix3];
+                                    item.qty = $scope.purchaseOrder.watchedQty[item.id];
+                                    if (Number(item.qty) === 0) {
+                                        NewPurchaseOrderService.purchaseOrder.remove(item);
+                                    } else {
+                                        NewPurchaseOrderService.purchaseOrder.add(item);
+                                    }
+                                }
+                            }
+                        }
+                    };
+
                     // #####################################################################################################
                     // Scope Functions
                     // #####################################################################################################
+
+                    $scope.back = function() {
+                        var backPromise = null;
+                        if (hasCurrentPurchaseOrder() && NewPurchaseOrderService.purchaseOrder.isDirty) {
+                            backPromise = DialogService.messageDialog({
+                                title : 'Pedido de Compra',
+                                message : 'Existem alterações que não foram salvas. Deseja descartá-las?',
+                                btnYes : 'Descartar',
+                                btnNo : 'Voltar'
+                            }).then(NewPurchaseOrderService.clearCurrent);
+                        } else {
+                            var deferred = $q.defer();
+                            backPromise = deferred.promise.then(NewPurchaseOrderService.clearCurrent);
+
+                            deferred.resolve('backToStashed');
+                        }
+
+                        return backPromise.then(backToStashed);
+                    };
 
                     $scope.cancel = function() {
                         var dialogPromise = DialogService.messageDialog({
@@ -82,10 +137,7 @@
                             btnNo : 'Não'
                         });
                         var currentCanceledPromise = dialogPromise.then(NewPurchaseOrderService.cancelCurrent);
-                        var canceledPromise = currentCanceledPromise.then(function() {
-                            resetPurchaseOrder();
-                            $scope.selectTab('stashed');
-                        });
+                        var canceledPromise = currentCanceledPromise.then(backToStashed);
                         return canceledPromise;
                     };
 
@@ -99,6 +151,7 @@
                                 });
                                 var saveCurrentPromise =
                                         dialogPromise.then(function() {
+                                            updateCurrentPurchaseOrder(stockReport);
                                             NewPurchaseOrderService.purchaseOrder.discount =
                                                     financialRound($scope.summary.total.amount - $scope.summary.total.amountWithDiscount);
                                             NewPurchaseOrderService.purchaseOrder.freight = $scope.summary.freight;
@@ -108,10 +161,7 @@
                                             return NewPurchaseOrderService.saveCurrent();
                                         });
 
-                                var savedPromise = saveCurrentPromise.then(function() {
-                                    resetPurchaseOrder();
-                                    $scope.selectTab('stashed');
-                                });
+                                var savedPromise = saveCurrentPromise.then(backToStashed);
 
                                 return savedPromise;
                             };
@@ -136,13 +186,14 @@
                                             return NewPurchaseOrderService.checkoutCurrent();
                                         });
 
-                                var checkoutPromise = checkoutCurrentPromise.then(function() {
-                                    resetPurchaseOrder();
-                                    $scope.selectTab('stashed');
-                                });
+                                var checkoutPromise = checkoutCurrentPromise.then(goToTicket);
 
                                 return checkoutPromise;
                             };
+
+                    $scope.hasItems = function() {
+                        return $scope.summary.total.amount > 0;
+                    };
 
                     // #####################################################################################################
                     // Watchers

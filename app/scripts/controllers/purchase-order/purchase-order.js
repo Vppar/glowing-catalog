@@ -7,18 +7,25 @@
             [
                 '$scope',
                 '$log',
+                '$q',
                 'ArrayUtils',
+                'DialogService',
                 'StockService',
                 'PurchaseOrderService',
                 'UserService',
                 'NewPurchaseOrderService',
-                function($scope, $log, ArrayUtils, StockService, PurchaseOrderService, UserService, NewPurchaseOrderService) {
+                function($scope, $log, $q, ArrayUtils, DialogService, StockService, PurchaseOrderService, UserService,
+                        NewPurchaseOrderService) {
 
                     UserService.redirectIfIsNotLoggedIn();
 
                     // #####################################################################################################
                     // Local variables
                     // #####################################################################################################
+                    var purchaseOrderWatchedQty = {
+                        firstExecution : true,
+                        watcher : null
+                    };
 
                     // #####################################################################################################
                     // Local Functions
@@ -45,13 +52,42 @@
                     }
 
                     function loadPurchaseOrders() {
-                        $scope.ticket.purchaseOrders = NewPurchaseOrderService.listConfirmed();
+                        $scope.ticket.purchaseOrders = NewPurchaseOrderService.list();
                     }
 
                     function newPurchaseOrder() {
                         if (NewPurchaseOrderService.purchaseOrder === null) {
                             $scope.purchaseOrder.current = NewPurchaseOrderService.createNewCurrent();
                         }
+                    }
+
+                    function hasCurrentPurchaseOrder() {
+                        return NewPurchaseOrderService.purchaseOrder !== null;
+                    }
+
+                    function enablePurchaseOrderWatchedQty() {
+                        purchaseOrderWatchedQty.watcher = $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj) {
+                            if (purchaseOrderWatchedQty.firstExecution) {
+                                purchaseOrderWatchedQty.firstExecution = false;
+                            } else {
+                                if (hasCurrentPurchaseOrder()) {
+                                    NewPurchaseOrderService.purchaseOrder.isDirty = true;
+                                }
+
+                                if ($scope.filter.text === '') {
+                                    $scope.summarizer(newObj, false);
+                                } else {
+                                    $scope.summarizer(newObj, true);
+                                }
+
+                            }
+                        });
+
+                    }
+
+                    function disablePurchaseOrderWatchedQty() {
+                        purchaseOrderWatchedQty.watcher();
+                        purchaseOrderWatchedQty.firstExecution = true;
                     }
 
                     // #####################################################################################################
@@ -106,30 +142,31 @@
                      */
                     $scope.pending = {};
 
+                    $scope.enablePurchaseOrderWatchedQty = enablePurchaseOrderWatchedQty;
+                    $scope.disablePurchaseOrderWatchedQty = disablePurchaseOrderWatchedQty;
+
                     // #####################################################################################################
                     // Scope functions
                     // #####################################################################################################
 
                     $scope.selectTab = function selectTab(tabName) {
-                        if (tabName === 'confirm' && NewPurchaseOrderService.purchaseOrder === null) {
-                            return;
-                        }
-
-                        if (tabName === 'stashed' && NewPurchaseOrderService.purchaseOrder !== null) {
-                            return;
-                        }
-
-                        if (tabName === 'new') {
-                            newPurchaseOrder();
+                        if (hasCurrentPurchaseOrder()) {
+                            if (tabName !== 'new' && tabName !== 'confirm') {
+                                return;
+                            }
+                        } else {
+                            if (tabName === 'new') {
+                                newPurchaseOrder();
+                            } else if (tabName === 'confirm') {
+                                return;
+                            }
                         }
 
                         $scope.tabs.selected = tabName;
                         $scope.ticket.selectedPart = 'part1';
                     };
 
-                    $scope.hasCurrentPurchaseOrder = function() {
-                        return NewPurchaseOrderService.purchaseOrder !== null;
-                    };
+                    $scope.hasCurrentPurchaseOrder = hasCurrentPurchaseOrder;
 
                     $scope.isSummaryVisible = function(tabName) {
                         return tabName === 'new' || tabName === 'confirm';
@@ -146,6 +183,8 @@
                             resetWatchedQty();
                         }, 0);
                     };
+
+                    $scope.resetWatchedQty = resetWatchedQty;
 
                     /**
                      * Method to summarize the products from the list
@@ -266,11 +305,16 @@
                     // Watchers
                     // #####################################################################################################
 
-                    $scope.$watchCollection('purchaseOrder.watchedQty', function(newObj) {
-                        if ($scope.filter.text === '') {
-                            $scope.summarizer(newObj, false);
+                    $scope.$on('$destroy', function() {
+                        if (hasCurrentPurchaseOrder() && NewPurchaseOrderService.purchaseOrder.isDirty) {
+                            DialogService.messageDialog({
+                                title : 'Pedido de Compra',
+                                message : 'Existem alterações no pedido. Deseja salvá-las?',
+                                btnYes : 'Sim',
+                                btnNo : 'Não'
+                            }).then(NewPurchaseOrderService.saveCurrent, NewPurchaseOrderService.clearCurrent);
                         } else {
-                            $scope.summarizer(newObj, true);
+                            NewPurchaseOrderService.clearCurrent();
                         }
                     });
 
@@ -279,6 +323,7 @@
                     // #####################################################################################################
 
                     resetWatchedQty();
+                    enablePurchaseOrderWatchedQty();
                 }
             ]);
 })(angular);

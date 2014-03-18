@@ -35,8 +35,9 @@
 	                </span>
 	                <span class="new-col-4 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency:''}}</span>
 	                <span class="new-col-4 text-center">
-						<div ng-if="purchaseOrder.received">Entregue</div>
-						<div ng-if="!purchaseOrder.received">Em Aberto</div>
+						<div ng-if="purchaseOrder.status==3">Em Aberto</div>
+						<div ng-if="purchaseOrder.status==4">Recebimento Parcial</div>
+						<div ng-if="purchaseOrder.status==5">Entregue</div>
 	                </span>
                 </div>
             </div>
@@ -91,7 +92,7 @@
 </div>
 		<div class="new-buttom-holder">
 			<button class="btn btn-cancel pull-left margin-left" type="submit" ng-click="cancel()">Cancelar</button>
-			<button class="btn btn-ok pull-right margin-right" ng-disabled="disableButton()" type="submit" ng-click="confirm()">Confirmar</button>
+			<button class="btn btn-ok pull-right margin-right" ng-disabled="disableButton()" type="submit" tnt-promise-click="confirm()">Confirmar</button>
 		</div>
 
 	</div><!--//FIM - *** PARTE 02 *** -->

@@ -14,9 +14,9 @@
     <div class="new-scrollpanel">
 
  		<div class="row-fluid">
-            <div class="new-body-row" ng-repeat="purchaseOrder in stashedPurchaseOrders" ng-click="openStashed(purchaseOrder)">
+            <div class="new-body-row" ng-repeat="purchaseOrder in stashedPurchaseOrders | orderBy:'-updated'" ng-click="openStashed(purchaseOrder)">
                 <span class="new-col-3">{{purchaseOrder.updated | date:'dd/MM/yyyy'}}</span>
-                <span class="new-col-3">{{purchaseOrder.updated | date:'hh:mm'}}</span>
+                <span class="new-col-3">{{purchaseOrder.updated | date:'HH:mm'}}</span>
                 <span class="new-col-10">{{purchaseOrder | uuidCode}}</span>
                 <span class="new-col-2 text-center">{{purchaseOrder.points}}</span>
                 <span class="new-col-3 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency}}</span>
