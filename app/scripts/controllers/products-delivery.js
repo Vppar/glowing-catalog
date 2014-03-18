@@ -26,8 +26,6 @@ angular.module('tnt.catalog.productsDelivery',['tnt.catalog.user','tnt.catalog.o
         dtFinal : new Date()
     };
     
-    $scope.dtFilter.dtInicial = setTime(new Date(),0,0,0,0);
-    
     $scope.ticket = {};
     $scope.ticket.watchedQty = {};
     $scope.ticket.checkBox = {};
