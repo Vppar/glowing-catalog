@@ -8,7 +8,7 @@
     <div class="new-page"> 
 		<div class="new-header row-fluid">
 	        <div class="span6">
-	            <h2>Contas a receber</h2>
+	            <h2>Contas a receber {{header.description}}</h2>
 	        </div>
 	        <span class="span6">
 		        <div class="btn-group btn-group-sm pull-right">
@@ -63,20 +63,20 @@
 			<div class="new-scrollpanel" ng-class="{'page-open-details' : selectedReceivable, 'page-closed-details' : !selectedReceivable, 'page-open-check-details' : false }">
 			    <div class="row-fluid" ng-repeat="receivable in receivables.list | orderBy:'duedate'" ng-click="selectReceivable(receivable)">
 			        <div class="span12">
-			            <div class="new-body-row">
+			            <div class="new-body-row" ng-class="{'row-selected': selectedReceivable.uuid==receivable.uuid}">
 			                <div class="new-col-2 text-center">{{$index + 1}}</div>
 			                <div class="new-col-4">{{receivable.created | date:"dd/MM/yyyy"}}</div>
 
 			                <div class="new-col-4">
 			                    <div><b>{{receivable.entityName}}</b></div>
-			                    <small>{{receivable.order.document}}</small>
+			                    <small>{{receivable.document}}</small>
 			                </div>
 
 			                <div class="new-col-2">{{receivable.installment}} de {{receivable.numberOfInstallment}}</div>
 
 			                <div class="new-col-3">
-			                    <div><b>{{receivable.documentType}}</b></div>
-			                    <small>{{receivable.order.uiidCode}}</small>
+			                    <div><b>{{receivable.document}}</b></div>
+			                    <small>{{receivable.uuidCode}}</small>
 			                </div>
 
 			                <div class="new-col-3">{{receivable.duedate | date:"dd/MM/yyyy"}}</div>
