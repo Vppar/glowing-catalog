@@ -6,3 +6,5 @@ coverage
 *.sw*
 app/bower_components
 **/_notes
+/build
+/target

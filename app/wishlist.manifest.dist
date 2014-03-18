@@ -31,6 +31,10 @@ styles/voucher.css
 styles/stock.css
 styles/warm-up.css
 styles/new.css
+styles/agenda/agenda.css
+styles/agenda/fullcalendar.css
+styles/agenda/fullcalendar.print.css
+styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
 
 scripts/plugins.js
 scripts/modules.js
@@ -90,6 +94,7 @@ scripts/controllers/voucher-active.js
 scripts/controllers/voucher-historic.js
 scripts/controllers/book-keeping-report.js
 scripts/controllers/numpad-dialog.js
+scripts/controllers/appointments.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -104,6 +109,8 @@ scripts/keepers/PurchaseOrderKeeper.js
 scripts/keepers/ProductReturnKeeper.js
 scripts/keepers/TypeKeeper.js
 scripts/keepers/BookKeeper.js
+scripts/keepers/AppointmentKeeper.js
+
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
@@ -147,6 +154,8 @@ scripts/services/GoPayGateway.js
 scripts/services/CacheController.js
 scripts/services/Firebase.js
 scripts/services/ProductReturnService.js
+scripts/services/AppointmentService.js
+
 
 scripts/preloader/datepicker.js
 
@@ -210,6 +219,21 @@ images/catalog/best-sellers/best-sellers-7.png
 images/catalog/best-sellers/best-sellers-8.png
 images/catalog/best-sellers/best-sellers-9.png
 images/catalog/best-sellers/best-sellers-10.png
+
+images/smoothness/images/animated-overlay.gif
+images/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
+images/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
+images/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png
+images/smoothness/images/ui-bg_glass_65_ffffff_1x400.png
+images/smoothness/images/ui-bg_glass_75_dadada_1x400.png
+images/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png
+images/smoothness/images/ui-bg_glass_95_fef1ec_1x400.png
+images/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+images/smoothness/images/ui-icons_222222_256x240.png
+images/smoothness/images/ui-icons_2e83ff_256x240.png
+images/smoothness/images/ui-icons_454545_256x240.png
+images/smoothness/images/ui-icons_888888_256x240.png
+images/smoothness/images/ui-icons_cd0a0a_256x240.png
 
 NETWORK:
 *
