@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
     angular.module('tnt.catalog.financial.receivable.ctrl', [
-        'tnt.catalog.filters.uuidCode'
+        'tnt.catalog.filters.uuidCode','tnt.catalog.service.book'
     ]).controller(
         'ReceivableCtrl',
         [
@@ -9,7 +9,8 @@
             '$filter',
             'ReceivableService',
             'UserService',
-            function ($scope, $filter, ReceivableService, UserService) {
+            'BookService',
+            function ($scope, $filter, ReceivableService, UserService, BookService) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
@@ -17,6 +18,7 @@
                 // loosing reference in the child scopes. Don't override this
                 // object.
                 $scope.receivables = {};
+                $scope.header={description :""};
                 $scope.receivablesType = [
                     {
                         id : 1,
@@ -50,6 +52,8 @@
                     // when a receivable is select force redirect to payment
                     // tab.
                     $scope.selectedReceivable = angular.copy(receivable);
+                    $scope.header.description = "> Detalhe";
+                    
 
                 };
 
@@ -59,6 +63,7 @@
                 $scope.clearSelectedReceivable = function () {
                     $scope.selectedReceivable = null;
                     $scope.negotiate = false;
+                    $scope.header.description = "";
                 };
 
             }

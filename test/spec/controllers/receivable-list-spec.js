@@ -344,6 +344,7 @@ describe('Controller: ReceivableListCtrl', function() {
                 // An old and expired receivable
                 receivables.push({
                     uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
+                    documentId : "cc02b600-5d0b-11e3-96c3-010001000019",
                     // created one month ago
                     created : new Date().getTime() - daysToMilliseconds(28),
                     entityId : 1,
@@ -357,6 +358,7 @@ describe('Controller: ReceivableListCtrl', function() {
                 // An old receivable that has not expired yet
                 receivables.push({
                     uuid : "cc02b600-5d0b-11e3-96c3-010001000020",
+                    documentId : "cc02b600-5d0b-11e3-96c3-010001000019",
                     created : new Date().getTime() - daysToMilliseconds(7),
                     entityId : 2,
                     type : "check",
@@ -367,6 +369,7 @@ describe('Controller: ReceivableListCtrl', function() {
                 // A newly created receivable already expired
                 receivables.push({
                     uuid : "cc02b600-5d0b-11e3-96c3-010001000021",
+                    documentId : "cc02b600-5d0b-11e3-96c3-010001000019",
                     created : new Date().getTime(),
                     entityId : 1,
                     type : "cash",
@@ -377,6 +380,7 @@ describe('Controller: ReceivableListCtrl', function() {
                 // A newly created receivable expiring in the future
                 receivables.push({
                     uuid : "cc02b600-5d0b-11e3-96c3-010001000022",
+                    documentId : "cc02b600-5d0b-11e3-96c3-010001000019",
                     created : new Date().getTime(),
                     entityId : 2,
                     type : "check",

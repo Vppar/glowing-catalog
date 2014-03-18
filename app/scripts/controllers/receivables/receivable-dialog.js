@@ -16,28 +16,19 @@
 
                 $scope.paymentOptions = [
                     {
+                        id : 0,
+                        describe : 'Cheque'
+                    }, {
                         id : 1,
-                        type : 'Dinheiro'
-                    }, {
-                        id : 2,
-                        type : 'Depósito'
-                    }, {
-                        id : 3,
-                        type : 'Cheque'
+                        describe : 'Dinheiro',
+                        account : 11111
+
                     }
                 ];
-
-                $scope.selectedBank = {
-                    name : undefined,
-                    account : undefined
-                };
 
                 // Deposit Accounts
                 $scope.accounts =
                     angular.copy($filter('filter')(BookService.list(), filterByAccount));
-
-                $scope.banks = ArrayUtils.distinct($scope.accounts, 'name');
-
                 /**
                  * Filter only deposit accounts accounts that begin with 1115
                  */
@@ -47,16 +38,31 @@
                     }
                     return false;
                 }
+                /**
+                 * Init Array with payment options
+                 */
+                function initPaymentTypes () {
+                    var id = 2;
+
+                    for ( var ix in $scope.accounts) {
+                        var account = $scope.accounts[ix];
+                        $scope.paymentOptions.push({
+                            describe : account.name + ' - ' + account.access,
+                            id : id++,
+                            account : account.access
+                        });
+                    }
+                }
 
                 $scope.confirmLiquidate = function () {
                     var receivable = angular.copy(dialog.data);
                     var paymentType = angular.copy($scope.paymentType);
 
-                    if (paymentType === '3') {
+                    if (paymentType === '1') {
                         // Check
                         dialog.close($q.reject(paymentType));
                     } else {
-                        var account = (paymentType === '2') ? $scope.selectedBank.account : 11111;
+                        var account = $scope.paymentOptions[paymentType].account;
 
                         // Deposit
                         var result = receiveReceivable(receivable, account);
@@ -67,12 +73,6 @@
                 $scope.cancel = function () {
                     dialog.close();
                 };
-
-                $scope.$watchCollection('selectedBank', function () {
-                    $scope.filteredAccount = $filter('filter')($scope.accounts, function (item) {
-                        return (item.name === $scope.selectedBank.name);
-                    });
-                });
 
                 function receiveReceivable (receivable, account) {
                     var result = null;
@@ -87,9 +87,13 @@
                             account);
 
                     return result;
-
                 }
 
+                $scope.$watch('paymentType', function () {
+                    console.log($scope.paymentType);
+                });
+                $scope.paymentType = 0;
+                initPaymentTypes();
             }
         ]);
 }(angular));
