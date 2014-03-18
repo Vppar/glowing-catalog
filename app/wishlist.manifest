@@ -192,6 +192,7 @@ scripts/controllers/voucher-historic.js
 scripts/controllers/book-keeping-report.js
 scripts/controllers/numpad-dialog.js
 scripts/controllers/third-party.js
+scripts/controllers/warmup.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -317,6 +318,8 @@ views/parts/receivable/receivable-edit-parc-dialog.html
 views/parts/receivable/receivable-edit.html
 views/parts/receivable/receivable-list.html
 views/parts/receivable/receivable-receive.html
+views/parts/warm-up/warm-up-finances.html
+views/parts/warm-up/warm-up-stock.html
 views/add-customer.html
 views/basket.html
 views/bills-to-pay.html
@@ -343,6 +346,7 @@ views/tutorial-ipad.html
 views/voucher.html
 views/third-parties.html
 views/receivable-check.html
+views/warm-up.html
 
 
 images/keyboard/n0.png
