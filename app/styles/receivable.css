@@ -1,3 +1,26 @@
+/* the value of col-5 is wrong!!!! need to fix at new-grid*/
+.new-col-5-correct{
+	 float:left;
+    padding-left:5px;
+    padding-right:5px;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    box-sizing:border-box;
+    display:block;  
+    width: 20.8%;
+}
+.new-col-15{
+	width: 62.4%;
+	min-height: 1px;
+}
+.new-col-15 .padding-left-0{
+	padding-left: 0px;
+}
+.new-col-15 .padding-right-0{
+	padding-right: 0px;
+}
+
+
 .receivable-check .new-scrollpanel.with-buttons {
 	height:calc(100% - 240px);
 }
@@ -48,6 +71,12 @@
 
 .margin-top-20{
 	margin-top: 23px;
+}
+
+
+
+.receivable-buttom-height{
+	height: 65px;
 }
 
 /*.form-receivable .panel-top .combo-width{
