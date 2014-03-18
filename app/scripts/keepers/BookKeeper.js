@@ -121,12 +121,6 @@
             return event.uuid;
         });
 
-        function forceAddBook(access, type, nature) {
-            var book = new Book(IdentityService.getUUID(type, getNextId()), access, access, type, nature, 'entities');
-            books.push(book);
-            return book;
-        }
-
         /**
          * 
          * @param {Object} event
@@ -138,23 +132,6 @@
 
             if (uuidData.deviceId === IdentityService.getDeviceId()) {
                 entryCurrentCounter = entryCurrentCounter >= uuidData.id ? entryCurrentCounter : uuidData.id;
-            }
-
-            var debitBook = ArrayUtils.find(books, 'access', event.debitAccount);
-
-            if (debitBook == null) {
-                var book = forceAddBook(event.debitAccount, 'synthetic', 'debit', false);
-                book.balance -= event.amount;
-            } else {
-                debitBook.balance = debitBook.balance - event.amount;
-            }
-
-            var creditBook = ArrayUtils.find(books, 'access', event.creditAccount);
-            if (!creditBook) {
-                var book = forceAddBook(event.creditAccount, 'synthetic', 'credit', false);
-                book.balance += book.amount;
-            } else {
-                creditBook.balance += event.amount;
             }
 
             var entry = new BookEntry(event);
@@ -213,6 +190,10 @@
             if (!(book instanceof Book)) {
                 return $q.reject('Wrong instance to BookKeeper');
             }
+            
+            // FIXME - If there isn't a book we can't insert an entry
+            var debitBook = ArrayUtils.find(books, 'access', event.debitAccount);
+            var creditBook = ArrayUtils.find(books, 'access', event.creditAccount);
 
             var bookObj = angular.copy(book);
             bookObj.uuid = IdentityService.getUUID(type, getNextId());

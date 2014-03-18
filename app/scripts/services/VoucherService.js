@@ -162,11 +162,9 @@
                         throw 'VoucherService.bulkRegister: Invalid amount!';
                     }
 
-
-                    if (usedVoucher.amount === existingVoucher.amount) {
                         voucherPromises.push(redeem(existingVoucher.type, existingVoucher.id, document));
-                    } else if (usedVoucher.amount < existingVoucher.amount) {
-                        voucherPromises.push(cancel(existingVoucher.type, existingVoucher.id));
+                     
+                        if (usedVoucher.amount < existingVoucher.amount) {
 
                         // Customer did not use the whole voucher. Create a new one with
                         // difference.
@@ -179,17 +177,7 @@
                             type : usedVoucher.type
                         });
 
-                        var usedAmountVoucher = new Voucher({
-                            id : null,
-                            amount : change,
-                            entity : usedVoucher.entity,
-                            type : usedVoucher.type,
-                            redeemed : (new Date()).getTime(),
-                            documentId : document
-                        });
-
                         voucherPromises.push(create(changeVoucher));
-                        voucherPromises.push(create(usedAmountVoucher));
                     }
                 } else {
                     $log.warn('Voucher will be ignored because its amount is 0: ' + JSON.stringify(usedVoucher));

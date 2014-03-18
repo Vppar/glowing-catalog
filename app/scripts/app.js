@@ -228,7 +228,9 @@
             templateUrl : 'views/third-parties.html',
             controller: 'ThirdPartyCtrl'
         }).when('/products-delivery', {
-            templateUrl : 'views/products-delivery.html'
+            templateUrl : 'views/products-delivery.html',
+        }).when('/spinner-button-promise', {
+            templateUrl : 'views/spinner-button-promise.html'
         }).otherwise({
             redirectTo : '/'
         });

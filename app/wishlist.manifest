@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.8
+# v0.0.9
 
 CACHE:
 apple-touch-icon.png
@@ -71,7 +71,7 @@ bower_components/jquery-ui/ui/jquery.ui.resizable.js
 bower_components/jquery-ui/ui/jquery.ui.datepicker.js
 bower_components/jquery-ui/ui/jquery.ui.dialog.js
 
-
+styles/new-button.css
 styles/new-calendar.css
 styles/new-grid.css
 styles/new-numpad.css
@@ -369,6 +369,7 @@ views/previous-entries.html
 views/products-to-buy.html
 views/products-delivery.html
 views/receivable.html
+views/spinner-button-promise.html
 views/stock.html
 views/tutorial-android.html
 views/tutorial-ipad.html
@@ -410,6 +411,7 @@ images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
 images/loading_20.gif
+images/loading-btn_20.gif
 
 images/icons/ic-calendar.png
 

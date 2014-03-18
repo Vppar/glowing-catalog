@@ -22,6 +22,10 @@
 
                             var log = logger.getLogger('tnt.catalog.registration.ctrl.RegistrationCtrl');
 
+                            $scope.select2Options = {
+                                    minimumResultsForSearch : -1
+                                };
+                            
                             UserService.redirectIfIsNotLoggedIn();
 
                             /**
