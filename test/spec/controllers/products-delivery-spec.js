@@ -1,18 +1,27 @@
 'use strict';
-ddescribe('Controller: ProductsDeliveryCtrl', function () {
+describe('Controller: ProductsDeliveryCtrl', function () {
 
+    var OrderService = {};
+    
     // load the controller's module
     beforeEach(function () {
         module('tnt.catalog.productsDelivery');
         module('tnt.catalog.inventory');
         module('tnt.catalog.journal.replayer');
         module('tnt.catalog.user');
-        module('tnt.catalog.order');
-        module('tnt.catalog.service.data');
+        
+        
+        module(function($provide) {
+            $provide.value('OrderService', OrderService);
+        });
+        
+        OrderService.list = jasmine.createSpy('OrderService.list');
     });
 
     var ProductsDeliveryCtrl = {};
     var scope = {};
+    
+    
 
     // Initialize the controller and a mock scope
     beforeEach(inject(function ($controller, $rootScope) {
@@ -23,6 +32,9 @@ ddescribe('Controller: ProductsDeliveryCtrl', function () {
     }));
 
     it('should get PendingProducts', function () {
+        
+        
+        
         scope.orders = [
             {
                 items : [
