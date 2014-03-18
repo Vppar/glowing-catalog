@@ -28,7 +28,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Consultant must be initialized with uuid, name, mkCode, cep, address, cpf, rg, bank, agency, account, email';
+                    throw 'Consultant must be initialized with uuid, name, mkCode, cep, address, cpf, bank, agency, account, email';
                 }
             } else {
                 this.uuid = uuid;
@@ -37,7 +37,6 @@
                 this.cep = cep;
                 this.address = address;
                 this.cpf = cpf;
-                this.rg = rg;
                 this.bank = bank;
                 this.agency = agency;
                 this.account = account;

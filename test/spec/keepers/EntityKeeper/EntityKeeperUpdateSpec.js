@@ -84,7 +84,7 @@ describe('Service: EntityKeeper', function() {
         var remarks = 'bad client';
         
         var ev = new Entity(uuid, name, emails, birthDate, phones, cep, document, addresses,  remarks);
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
         var entry = new JournalEntry(null, stp, 'entityUpdate', 1, ev); 
         
         expect(function() {
