@@ -15,8 +15,7 @@
           return Number(localStorage.deviceId);
         }
 
-
-        this.getUUID = function(op, id) {
+        this.internalGetUUID = function (deviceId, op, id) {
             if (op > 0xff || id > 0xffff) {
                 throw 'uuid seed data too big, op max is 255 and id max is 4095';
             }
@@ -27,13 +26,17 @@
 
             // map our precious 6 bytes
             var seed = [
-                getDeviceId(), 0x00, op, 0x00, high, low
+                deviceId, 0x00, op, 0x00, high, low
             ];
 
             // generate the uuid
             return uuid.v1({
                 node : seed
             });
+        };
+
+        this.getUUID = function(op, id) {
+            return this.internalGetUUID(getDeviceId(), op, id);
         };
 
         this.getUUIDData = function(uuid) {
