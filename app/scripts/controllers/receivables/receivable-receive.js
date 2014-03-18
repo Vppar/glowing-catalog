@@ -28,7 +28,7 @@
                         description : 'Venda'
                     }
                 ];
-
+                
                 $scope.paymentsType = [
                     {
                         id : 0,
@@ -46,7 +46,7 @@
 
                     }
                 ];
-
+                
                 function setPaymentType () {
                     $scope.setNegotiation(false);
                     if ($scope.selectedReceivable) {
@@ -62,7 +62,7 @@
 
                 $scope.openReceivable = function () {
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
-                        $scope.clearSelectedReceivable();
+                        // $scope.clearSelectedReceivable();
                     }, function (err) {
                         // err = type of receivable. 1 = check
                         if (err == '0') {
@@ -77,7 +77,7 @@
                     $scope.negotiate = value;
                     // fill the header description
                     if ($scope.negotiate === true) {
-                        if($scope.header){
+                        if ($scope.header) {
                             $scope.header.description = "> Edição";
                         }
                         // should enable check fields
@@ -98,22 +98,28 @@
                 };
 
                 $scope.confirmNegotiate = function () {
-                    changedFields();
+                    var changedFields = verifyChangedFields();
+
+                    // Verifica se houve alteração no receivable
+                    if (changedFields.length === 0) {
+                        DialogService.messageDialog({
+                            title : 'Não houve alteração no recebível',
+                            message : 'Não é possível confirmar a alteração.',
+                            btnYes : 'OK'
+                        });
+                        return
+                    }
+                    // Valida os campos Discount e Extra
                     if (!isValidDiscountAndExtra()) {
                         DialogService.messageDialog({
                             title : 'Descontos e Acréscimos',
                             message : 'Não é possível preencher os dois campos.',
                             btnYes : 'OK'
                         });
+                        return
                     }
 
-                    if (!isPaymentTypeValid()) {
-                        DialogService.messageDialog({
-                            title : 'Tipo de Recebível',
-                            message : 'Não é possível alterar recebiveis em cartão de crédito.',
-                            btnYes : 'OK'
-                        });
-                    }
+                    console.log('nice');
                 };
 
                 /**
@@ -129,7 +135,7 @@
                     return result;
                 };
 
-                function changedFields () {
+                function verifyChangedFields () {
                     var receivable = $scope.selectedReceivable;
                     var originalReceivable =
                         ArrayUtils.find($scope.receivables.list, 'uuid', receivable.uuid);
@@ -138,20 +144,16 @@
                     if (receivable.amount != originalReceivable.amount) {
                         changedFields.push('amount');
                     }
-                    ;
                     if (receivable.duedate != originalReceivable.duedate) {
                         changedFields.push('duedate');
                     }
-                    ;
                     if (receivable.remarks != originalReceivable.remarks) {
                         changedFields.push('remarks');
                     }
-                    ;
                     if (receivable.type != getPaymentType($scope.paymentSelected.id)) {
                         changedFields.push('type');
                     }
-                    ;
-                    console.log(changedFields);
+                    return changedFields;
                 }
 
                 function getPaymentType (id) {
@@ -163,16 +165,16 @@
                     }
                 }
 
-                
-                $scope.showDialogOfDeath = function(){
+                $scope.showDialogOfDeath = function () {
                     DialogService.messageDialog({
                         title : 'Opps',
                         message : 'Homems trablhando nesta funcionalidade.',
                         btnYes : 'OK'
                     });
                 };
-                
+
                 $scope.$watch('selectedReceivable', setPaymentType);
+
                 $scope.$watchCollection('paymentSelected', function (newVal, oldVal) {
 
                     if ($scope.paymentSelected.id == '0') {

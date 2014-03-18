@@ -146,7 +146,8 @@
                             receivable.typeTranslated = translate[receivable.type];
                             var uiidData = IdentityService.getUUIDData(receivable.documentId);
 
-                            receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
+                            receivable.document =
+                                uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
                             receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
                             receivable.status =
                                 (receivable.liquidated === undefined) ? 'Aberto' : 'Pago';

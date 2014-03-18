@@ -41,7 +41,7 @@
 			<div class="control-group">
 				<label class="control-label">Valor</label>
 				<input name="amount"
-				class="input-block-level" type="text" placeholder=""
+				class="input-block-level currency" type="text" placeholder=""
 				ng-model="selectedReceivable.amount" required currency disabled>
 			</div>
 		</span>	
@@ -74,16 +74,16 @@
 				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-disabled="negotiate==false" ng-model="selectedReceivable.duedate" required readonly onkeyup="checkInputKeyUp(this)" disabled>
 			</div>
 		</span>	
-		<span class="span1">
+		<span class="span1" ng-show="negotiate==true ">
 			<div class="control-group">
 				<label class="control-label">Acréscimo</label>
-				<input id="extra" type="text" class="input-block-level" ng-model="aditionalInfo.extra" ng-disabled="negotiate==false" >
+				<input id="extra" type="text" class="input-block-level currency" ng-model="aditionalInfo.extra" currency ng-disabled="negotiate==false" >
 			</div>
 		</span>	
-		<span class="span1">
+		<span class="span1" ng-show="negotiate==true ">
 			<div class="control-group">
 				<label class="control-label">Desconto</label>
-				<input id="discount" type="text" class="input-block-level" ng-model="aditionalInfo.discount" ng-disabled="negotiate==false" >
+				<input id="discount" type="text" class="input-block-level currency" ng-model="aditionalInfo.discount" currency ng-disabled="negotiate==false" >
 			</div>
 		</span>	
 	</div>
@@ -91,7 +91,7 @@
 	<!-- ****************** -->
 	<!-- CHECK STUFF        -->
 	<!-- ****************** -->
-	<div class="row-fluid" ng-show="showCheckFields">
+	<div class="row-fluid" ng-show="showCheckFields && negotiate==true ">
 		<span class="span2">
 			<div class="control-group">
 				<label class="control-label">Banco</label>
@@ -123,7 +123,7 @@
 		<span class="span2">
 			<div class="control-group">
 				<label class="control-label">Valor</label>
-				<input id="amount" name="" ng-model='check.amount' class="input-block-level" required currency tnt-input  maxlength="11" type="text">
+				<input id="amount" name="" ng-model='check.amount' class="input-block-level currency" required currency tnt-input  maxlength="11" type="text">
 			</div>
 		</span>
 	</div>
@@ -139,7 +139,7 @@
 		<span class="span5 pull-right">
 			<label class="control-label">&nbsp;</label>
 			<button ng-show="selectedReceivable.status==='Aberto'" ng-hide="negotiate==true" ng-click="openReceivable()" class="btn-large btn btn-ok pull-right margin-left-10" type="submit">Baixar</button>
-			<button ng-show="selectedReceivable.status==='Aberto'" ng-click="showDialogOfDeath(); setNegotiation(true)" ng-hide="negotiate==true" class="btn btn-cancel btn-large pull-right margin-left-10" type="submit">Alterar</button>
+			<button ng-show="selectedReceivable.status==='Aberto'" ng-click="setNegotiation(true)" ng-hide="negotiate==true" class="btn btn-cancel btn-large pull-right margin-left-10" type="submit">Alterar</button>
 			<button ng-click="clearSelectedReceivable()" ng-hide="negotiate==true" class="btn btn-cancel btn-large margin-left-10 pull-right" type="submit">Voltar</button>
 		</span>
 		<!-- negociate state buttons -->

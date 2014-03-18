@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
     angular.module('tnt.catalog.financial.receivable.ctrl', [
-        'tnt.catalog.filters.uuidCode','tnt.catalog.service.book'
+        'tnt.catalog.filters.uuidCode', 'tnt.catalog.service.book'
     ]).controller(
         'ReceivableCtrl',
         [
@@ -18,19 +18,9 @@
                 // loosing reference in the child scopes. Don't override this
                 // object.
                 $scope.receivables = {};
-                $scope.header={description :""};
-                $scope.receivablesType = [
-                    {
-                        id : 1,
-                        type : 'Dinheiro'
-                    }, {
-                        id : 2,
-                        type : 'Depósito'
-                    }, {
-                        id : 3,
-                        type : 'Cheque'
-                    }
-                ];
+                $scope.header = {
+                    description : ""
+                };
 
                 // Store the actual select receivable
                 $scope.selectedReceivable = null;
@@ -53,7 +43,6 @@
                     // tab.
                     $scope.selectedReceivable = angular.copy(receivable);
                     $scope.header.description = "> Detalhe";
-                    
 
                 };
 
@@ -63,7 +52,9 @@
                 $scope.clearSelectedReceivable = function () {
                     $scope.selectedReceivable = null;
                     $scope.negotiate = false;
-                    $scope.header={description :""};
+                    $scope.header = {
+                        description : ""
+                    };
                 };
 
             }
