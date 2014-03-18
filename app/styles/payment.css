@@ -1,3 +1,21 @@
+.payment-on-cuff-part{
+
+}
+.payment-on-cuff-part .new-body-header{
+	background-color: #c8c8c8;
+}
+.payment-receivable-fields{
+	margin-top: 10px;
+}
+.payment-on-cuff-part .installment{
+	border:1px solid #c8c8c8;
+	float: left;
+	border-radius: 4px;
+}
+.payment-on-cuff-part .half-row{
+	border: none;
+}
+
 /*this should be moved to new.css */
 .new-body-row-summary{
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
