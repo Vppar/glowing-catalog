@@ -154,10 +154,16 @@
                     ObjectUtils.ro(this.handlers, 'purchaseOrderChangeStatusV2', function(event) {
                         var purchaseEntry = ArrayUtils.find(purchases, 'uuid', event.uuid);
 
+                        var status = {
+                            uuid : event.uuid,
+                            from : purchaseEntry.status,
+                            to : event.status
+                        };
+
                         purchaseEntry.status = event.status;
                         purchaseEntry.updated = event.updated;
 
-                        return event.uuid;
+                        return status;
                     });
 
                     ObjectUtils.ro(this.handlers, 'purchaseOrderCancelV2', function(event) {
