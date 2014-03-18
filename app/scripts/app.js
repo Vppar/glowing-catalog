@@ -38,7 +38,7 @@
             'tnt.catalog.receivable.service',
             'tnt.catalog.financial.receivable.ctrl',
             'tnt.catalog.financial.receivable.list.ctrl',
-            //'tnt.catalog.financial.receivable.liquidate.ctrl',
+            'tnt.catalog.financial.receivable.liquidate.ctrl',
             'tnt.catalog.financial.receivable.receive.ctrl',
             'tnt.catalog.financial.expense',
             'tnt.catalog.financial.incomeStatement',
