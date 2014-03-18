@@ -33,7 +33,7 @@
             }
 
             function loadStashedPurchaseOrder(stockReport, purchaseOrder) {
-                if (purchaseOrder) {
+                if (purchaseOrder.uuid) {
                     var mapQty = {};
                     for ( var i in purchaseOrder.items) {
                         var item = NewPurchaseOrderService.purchaseOrder.items[i];
@@ -47,10 +47,9 @@
                             for ( var ix3 in line.items) {
                                 var item = line.items[ix3];
                                 var qty = mapQty[item.id];
-                                if (qty) {
-                                    item.qty = qty;
-                                    $scope.purchaseOrder.watchedQty[item.id] = qty;
-                                }
+
+                                item.qty = qty ? qty : 0;
+                                $scope.purchaseOrder.watchedQty[item.id] = qty ? qty : 0;
                             }
                         }
                     }
