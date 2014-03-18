@@ -3,41 +3,6 @@
     overflow-y: scroll;
     overflow-x: none; 
  }
- /* TRANSFERED TO new-numpad.css
- .new-numpad{
-    width: 290px;
-     height: 290px;
-     background: #fff;
-     float: left;
-     padding: 5px;
-     margin: 23px 0 40px 0;
-     top: 218px;
-     z-index: 11;
-     border-radius: 4px;
- }
- .new-numpad .l1{
-    display: block;
-    margin: 0 0 6px 2px;
- }
- .new-numpad .l2{
-    display: block;
-    margin: 0 0 6px 2px;
- }
- .new-numpad .l3 {
-    display: block;
-    margin: 0 0 6px 2px;
-    width: 216px;
-    float: left;
- }
- .new-numpad .btn-ok {
-    float: right;
-    display: block;
-    margin: 0 5px 0 0;
- }
- .new-numpad .l4 {
-    display: block;
-    margin: 0 0 6px 2px;
- }*/
  
 .new-page{
     height: calc(100% - 103px);
@@ -78,8 +43,6 @@
     font-weight: normal;
 }
 
-
-
 .new-body{
     margin: 0px 10px;
 }
@@ -101,31 +64,6 @@
     margin-left: 10px;
     margin-top:10px;
 }
-/* TRANSFERED to new-calendar.css
-.new-calendar{
-    margin-bottom: 10px;
-    margin-right: 30px;
-    float:left;
-    display:block;
-    
-}
-
-.new-calendar label{
-    display: inline;
-}
-
-.new-calendar .text{
-    display: block;
-    float: left;
-    margin-top: 8px;
-    margin-right: 5px;
-}
-
-
-.new-calendar label img{
-    margin-top: 3px;
-    vertical-align: top;
-}*/
 
 .new-body-header{
     background-color: rgb(51, 51, 51);
@@ -156,70 +94,6 @@
 .new-body-row input[type="checkbox"]{
     margin:0px;
 }
-
-/* TRAANSFERED TO THE new-grid.css
-.new-col-1, .new-col-2, .new-col-3, .new-col-4, .new-col-5, .new-col-6, .new-col-7, .new-col-8, .new-col-9, .new-col-10, .new-col-11, .new-col-12, .new-col-13,
-.new-col-14, .new-col-15, .new-col-16, .new-col-17, .new-col-18, .new-col-19, .new-col-20, .new-col-21, .new-col-22, .new-col-23, .new-col-24 {
-    float:left;
-    padding-left:5px;
-    padding-right:5px;
-    -moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    box-sizing:border-box;
-    display:block;  
-}
-
-.new-col-1{width: 4.16%;}
-.new-col-2{
-    width: 8.333%;
-    min-width: 1px;
-}
-.new-col-3{width: 12.5%;}
-.new-col-4{width: 16.66659%;}
-.new-col-5{width: 20.334%;}
-.new-col-6{width: 25%;}
-.new-col-7{width: 29.1667%;}
-.new-col-8{width: 33.334%;}
-.new-col-9{width: 37.5%;}
-.new-col-10{width: 41.667%;}
-.new-col-11{width: 45.8334%;}
-.new-col-12{width: 50%;}
-.new-col-13{width: 54.1667%;}
-.new-col-14{width: 58.334%;}
-.new-col-16 {width: 66.667%;}
-.new-col-18{width: 75%;}
-.new-col-24{width: 100%;}
-
-.currency{
-    padding-right: 12px;
-    text-align: right;
-}
-
-.text-center{
-    text-align: center;
-}
-.text-right{
-    text-align: right;
-}
-.text-vertical-middle{
-    line-height: 40px;
- }
- 
- .product-name{}
- .product-name small{
-    color: #999;
-    float: left;
-    display: inline-block;
- }
- .product-name img{
-    float: left;
-    margin-right: 10px;
-    height: 40px;
- }
- .product-name span{
-    float: left;
-    display: inline-block;
- }*/
 
 /* green highlight/focus */
 /* verify "input:focus, .focus" no global.css */
@@ -258,33 +132,6 @@ button, .btn {
 .registration-consultant .select-full-width {
     width:100%;
 }
-
-/* TRANSFERED TO third-parties.css
-.third-parties{
-    
-}
-.third-parties input {
-    width:100%;
-    padding: 10px;
-    height: 36px;
-    -moz-box-sizing:border-box;
-    -webkit-box-sizing:border-box;
-    box-sizing:border-box;
-}
-.third-parties .new-body-row .btn-group {
-    margin-top:-4px;
-    margin-left:20px;
-}
-.third-parties .new-scrollpanel {
-    height:calc(100% - 170px);
-}
-.third-parties .new-scrollpanel .new-col-8 {
-    text-overflow:ellipsis;
-}
-.third-parties .new-scrollpanel .text-center {
-    padding-left:12px;
-}
-*/
 
 /* CONTAS A RECEBER / PAYMENT */
 .payment-receivable-fields .half-row {
