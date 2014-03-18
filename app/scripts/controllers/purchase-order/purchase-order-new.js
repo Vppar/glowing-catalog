@@ -83,8 +83,8 @@
                                             item.qty = item.minQty;
                                             $scope.purchaseOrder.watchedQty[item.id] = item.minQty;
                                         } else {
-                                            item.minQty = 0;
-                                            delete item.qty;
+                                            delete item.minQty;
+                                            item.qty = 0;
                                             $scope.purchaseOrder.watchedQty[item.id] = 0;
                                         }
                                     }
