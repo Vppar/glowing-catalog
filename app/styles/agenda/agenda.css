@@ -273,8 +273,8 @@
 }
 
 .fc-view-month .fc-event {
-	height: 15px !important;
-	width: 15px !important;
+	height: 10px !important;
+	width: 10px !important;
 }
 
 #dialog  .dialog-buttons{
@@ -325,5 +325,11 @@ div.ui-dialog #event-dialog #event-status {width: 28% !important; float: right; 
 /*.fc-event {position:relative !important};*/
 .fc-agenda-allday .fc-day-content {max-height:140px !important;}
 .ui-dialog-titlebar-close {margin-right:10px !important;}
-div.dialog-buttons .btn {zoom:0.79 !important; min-width:70px !important; margin-right: 14px !important;}
+div.dialog-buttons .btn {
+	zoom: 0.84!important;
+	min-width: 70px !important;
+	margin-right: 2px !important;
+	margin-left: 10px;
+	float: right;/*zoom:0.79 !important; min-width:70px !important; margin-right: 14px !important;*/
+	}
 div.dialog-buttons .btn:last-child {margin-right:0 !important;}

@@ -390,7 +390,7 @@ table.fc-border-separate {
 	border-top-color:#fff;
 	}
 	
-.fc-widget-header {color:#aaa;}
+.fc-widget-header {color:#aaa;font-weight: 400;}
 	
 
 /* Month View, Basic Week View, Basic Day View
