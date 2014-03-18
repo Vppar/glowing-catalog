@@ -121,7 +121,7 @@
                                     return EntityKeeper.update(entity);
                                 } catch (err) {
                                     throw 'EntityService.update: Unable to update a entity=' +
-                                        JSON.stringify(receivable) + '. Err=' + err;
+                                        JSON.stringify(entity) + '. Err=' + err;
                                 }
                             }
                             return result;
@@ -138,7 +138,7 @@
                                     var entity = entitiesList[idx];
                                     for ( var i = since.getFullYear(); i < upon.getFullYear() + 1; i++) {
                                         if (verifyFilterByBirth(entity, since, upon, i)) {
-                                            if (jQuery.inArray(entity, entitiesReturn) == -1) {
+                                            if (jQuery.inArray(entity, entitiesReturn) === -1) {
                                                 entitiesReturn.push(entity);
                                             }
                                         }
@@ -154,8 +154,8 @@
                             var birthday =
                                 new Date(
                                     yearCurrent,
-                                    entity.birthDate['month'] - 1,
-                                    entity.birthDate['day']);
+                                    entity.birthDate.month - 1,
+                                    entity.birthDate.day);
                             birthday.setHours(0);
                             birthday.setMinutes(0);
 
