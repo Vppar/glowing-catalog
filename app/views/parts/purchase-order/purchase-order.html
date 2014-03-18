@@ -1,0 +1,74 @@
+<div class="container product-to-buy-page">
+	<div class="row-fluid">
+		<span ng-include src="'views/parts/global/header.html'"></span>
+	</div>
+	
+	<div class="new-page new-content-box">
+		<div class="new-header row-fluid">
+			<span class="span6">
+				<h2>Pedido de compra</h2>
+			</span>
+			<span class="span6">
+				<div class="btn-group btn-group-sm pull-right">
+					<a class="btn btn-option" ng-disabled="hasCurrentPurchaseOrder()" ng-class="{active:tabs.selected=='stashed'}" ng-click="selectTab('stashed')">Pedidos Pendentes</a> 
+					<a class="btn btn-option" ng-class="{active:tabs.selected=='new'}" ng-click="selectTab('new')">Novo Pedido</a>
+					<a class="btn btn-option" ng-disabled="!hasCurrentPurchaseOrder()" ng-class="{active:tabs.selected=='confirm'}" ng-click="selectTab('confirm')">Confirmar Pedido</a>
+					<a class="btn btn-option" ng-class="{active:tabs.selected=='ticket'}" ng-click="selectTab('ticket')">Aferir NFe Compra</a>
+					<a class="btn btn-option" ng-class="{active:tabs.selected=='pendingProducts'}" ng-click="selectTab('pendingProducts')">Produtos Pendentes</a>
+				</div>
+			</span>
+		</div>
+		<div class="new-body">
+			<div class="products-to-buy-left">
+			
+				<!--Tela "Pedidos Pendentes"-->
+				<div class="new-part-holder"
+					ng-if="tabs.selected=='stashed'"
+					ng-include src="'views/parts/purchase-order/purchase-order-stashed.html'" 
+					ng-controller="PurchaseOrderStashedCtrl">
+				</div>
+				
+				<!--Tela "Novo pedido"-->
+				<div class="new-part-holder"
+					ng-if="tabs.selected=='new'" 
+					ng-include src="'views/parts/purchase-order/purchase-order-new.html'" 
+					ng-controller="PurchaseOrderNewCtrl">
+				</div>
+				
+				<!--Tela "Confirmar pedido"-->
+				<div class="new-part-holder"
+					ng-if="tabs.selected=='confirm'" 
+					ng-include src="'views/parts/purchase-order/purchase-order-confirm.html'" 
+					ng-controller="PurchaseOrderConfirmCtrl">
+				</div>
+
+				<!--Tela "Verificar NF"-->
+				<div class="new-part-holder"
+					ng-if="tabs.selected=='ticket'" 
+					ng-include src="'views/parts/purchase-order/purchase-order-ticket.html'" 
+					ng-controller="PurchaseOrderTicketCtrl">
+				</div>
+
+				<!--Tela "Produtos Pendentes"-->
+				<div  class="new-part-holder"
+					ng-if="tabs.selected=='pendingProducts'"
+					ng-include src="'views/parts/purchase-order/purchase-order-pending-products.html'" 
+					ng-controller="PurchaseOrderPendingProductsCtrl">
+				</div>
+				
+				<!--Tela "Credito bonus"-->
+				<!-- Commented until the screen is finished -->
+				<!-- <span ng-if="tabs.selected=='availableCredit'"> -->
+				<!-- <span ng-include src="'views/parts/purchase-order/purchase-order-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span> -->
+				<!-- </span>	 -->
+				
+			</div>
+			
+			<div class="products-to-buy-right" ng-if="isSummaryVisible(tabs.selected)">
+				<!-- Right Screen Details -->
+				<div ng-include src="'views/parts/purchase-order/purchase-order-summary.html'" ng-controller="PurchaseOrderSummaryCtrl"></div>
+			</div>
+			
+		</div><!-- //new-body -->
+	</div> <!--// new-page -->
+</div>

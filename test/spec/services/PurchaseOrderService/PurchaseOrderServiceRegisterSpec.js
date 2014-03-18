@@ -8,9 +8,9 @@ xdescribe('Service: PurchaseOrderServiceRegisterSpec', function() {
     var TypeKeeper = {};
     var StockService = {};
     var $rootScope = null;
+    var myUuid = null;
     var $log = {};
     var $q = {};
-    var myUuid;
 
     var purchase = {
         uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
@@ -87,7 +87,7 @@ xdescribe('Service: PurchaseOrderServiceRegisterSpec', function() {
         waitsFor(function() {
             $rootScope.$apply();
             return resolved;
-        }, 'Register a purchase order is taking too long', 100);
+        }, 'Register a purchase order is taking too long');
 
         // then
         runs(function() {

@@ -6,6 +6,7 @@ describe('Service: PurchaseOrderKeeperReadSpec', function() {
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.purchaseOrder.keeper');
         module('tnt.catalog.purchaseOrder.entity');
         module('tnt.catalog.journal');

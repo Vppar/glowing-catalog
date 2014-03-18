@@ -130,7 +130,17 @@
             'tnt.catalog.service.intent',
             'tnt.catalog.consultant.service',
             'tnt.catalog.consultant',
-            'tnt.catalog.registration.ctrl'
+            'tnt.catalog.registration.ctrl',
+            
+            'tnt.catalog.purchase.service',
+            'tnt.catalog.purchase.confirm.ctrl',
+            'tnt.catalog.purchase.new.ctrl',
+            'tnt.catalog.purchase.pending.ctrl',
+            'tnt.catalog.purchase.stashed.ctrl',
+            'tnt.catalog.purchase.summary.ctrl',
+            'tnt.catalog.purchase.ticket.dialog.ctrl',
+            'tnt.catalog.purchase.ticket.ctrl',
+            'tnt.catalog.purchase.ctrl'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -155,6 +165,9 @@
         }).when('/products-to-buy', {
             templateUrl : 'views/products-to-buy.html',
             controller : 'ProductsToBuyCtrl'
+        }).when('/purchase-order', {
+            templateUrl : 'views/parts/purchase-order/purchase-order.html',
+            controller : 'PurchaseOrderCtrl'
         }).when('/pending-delivery', {
             templateUrl : 'views/pending-delivery.html'
         }).when('/order-list', {

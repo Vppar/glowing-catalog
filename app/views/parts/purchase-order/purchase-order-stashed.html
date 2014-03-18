@@ -1,0 +1,28 @@
+<div class="step0 product-to-buy-list-part">
+	
+    <div class="row-fluid">
+        <div class="new-body-header details-title ">
+            <span class="new-col-3">Data</span>
+            <span class="new-col-3">Hora</span>
+            <span class="new-col-10">C&oacute;digo do Pedido</span>
+            <span class="new-col-2 text-center">Pts.</span>
+            <span class="new-col-3 currency">Valor</span>
+            <span class="new-col-3 text-center">Status</span>
+        </div>
+    </div>
+
+    <div class="new-scrollpanel">
+
+ 		<div class="row-fluid">
+            <div class="new-body-row" ng-repeat="purchaseOrder in stashedPurchaseOrders" ng-click="openStashed(purchaseOrder)">
+                <span class="new-col-3">{{purchaseOrder.updated | date:'dd/MM/yyyy'}}</span>
+                <span class="new-col-3">{{purchaseOrder.updated | date:'hh:mm'}}</span>
+                <span class="new-col-10">{{purchaseOrder | uuidCode}}</span>
+                <span class="new-col-2 text-center">{{purchaseOrder.points}}</span>
+                <span class="new-col-3 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency}}</span>
+                <span class="new-col-3 text-center">Pendente</span>
+            </div>
+        </div>
+
+    </div><!--// new-scrollpanel -->
+</div>
