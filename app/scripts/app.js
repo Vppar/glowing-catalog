@@ -68,6 +68,8 @@
             'tnt.catalog.payment.service',
             'tnt.catalog.payment.entity',
             'tnt.catalog.voucher',
+            'tnt.catalog.warmup.ctrl',
+            'tnt.catalog.warmup.service',
             'tnt.catalog.attrs.upperCase',
             'tnt.catalog.attrs.lowerCase',
             'tnt.catalog.payment.discount',
