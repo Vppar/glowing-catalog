@@ -17,7 +17,9 @@
                 $scope.negotiate = false;
                 $scope.extra = 0;
                 $scope.discount = 0;
-
+                $scope.header = {
+                    description : ''
+                };
                 $scope.aditionalInfo = {
                     discount : 0,
                     extra : 0
@@ -76,10 +78,10 @@
 
                 $scope.setNegotiation = function (value) {
                     $scope.negotiate = value;
-                    //fill the header description
+                    // fill the header description
                     if ($scope.negotiate === true) {
                         $scope.header.description = "> Edição";
-                        //should enable check fields
+                        // should enable check fields
                         if ($scope.paymentSelected.id == 0) {
                             $scope.showCheckFields = true;
                         } else {
@@ -105,8 +107,8 @@
                             btnYes : 'OK'
                         });
                     }
-                    
-                    if(!isPaymentTypeValid()){
+
+                    if (!isPaymentTypeValid()) {
                         DialogService.messageDialog({
                             title : 'Tipo de Recebível',
                             message : 'Não é possível alterar recebiveis em cartão de crédito.',
@@ -180,7 +182,7 @@
                 }
 
                 function isPaymentTypeValid () {
-                    if($scope.paymentSelected.id == 2){
+                    if ($scope.paymentSelected.id == 2) {
                         return false;
                     }
                     return true;
