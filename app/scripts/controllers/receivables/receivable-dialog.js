@@ -58,7 +58,7 @@
                     var receivable = angular.copy(dialog.data);
                     var paymentType = angular.copy($scope.paymentType);
 
-                    if (paymentType === '1') {
+                    if (paymentType == '0') {
                         // Check
                         dialog.close($q.reject(paymentType));
                     } else {

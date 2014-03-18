@@ -65,7 +65,7 @@
                         $scope.clearSelectedReceivable();
                     }, function (err) {
                         // err = type of receivable. 1 = check
-                        if (err === '0') {
+                        if (err == '0') {
                             $scope.paymentSelected.id = 0;
                             $scope.setNegotiation(true);
                             $scope.showCheckFields = true;
@@ -175,7 +175,7 @@
                 $scope.$watch('selectedReceivable', setPaymentType);
                 $scope.$watchCollection('paymentSelected', function (newVal, oldVal) {
 
-                    if ($scope.paymentSelected.id === '0') {
+                    if ($scope.paymentSelected.id == '0') {
                         $scope.showCheckFields = true;
                     } else {
                         $scope.showCheckFields = false;
