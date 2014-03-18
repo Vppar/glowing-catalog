@@ -7,13 +7,29 @@ describe('Service: BookServiceWriteSpec', function() {
 
     var $rootScope = null;
     var $q = null;
+    var logger = angular.noop;
 
+    var $log = {
+        debug : logger,
+        error : logger,
+        warn : logger,
+        fatal : logger
+    };
+    
+    beforeEach(function () {
+        spyOn($log, 'debug').andCallThrough();
+        spyOn($log, 'error').andCallThrough();
+        spyOn($log, 'warn').andCallThrough();
+        spyOn($log, 'fatal').andCallThrough();
+    });
+    
     // load the service's module
     beforeEach(function() {
         module('tnt.catalog.service.book');
 
         module(function($provide) {
             $provide.value('BookKeeper', BookKeeper);
+            $provide.value('$log', $log);
         });
     });
 
@@ -93,36 +109,6 @@ describe('Service: BookServiceWriteSpec', function() {
         // Then
         runs(function() {
             expect(result).toBe(returnedMsg);
-        });
-    });
-
-    it('shouldn\'t write a book entry when an exception is thrown', function() {
-        // Given
-        var result = null;
-        var exception = 'my exception';
-        var entry = {
-            stub : 'I\'m a stub',
-        };
-
-        BookKeeper.write = jasmine.createSpy('BookKeeper.write').andCallFake(function() {
-            throw exception;
-        });
-
-        // When
-        runs(function() {
-            BookService.write(entry).then(null, function(_result_) {
-                result = _result_;
-            });
-        });
-
-        waitsFor(function() {
-            $rootScope.$apply();
-            return !!result;
-        });
-
-        // Then
-        runs(function() {
-            expect(result).toBe(exception);
         });
     });
 

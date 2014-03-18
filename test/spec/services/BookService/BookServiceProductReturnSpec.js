@@ -6,7 +6,7 @@ describe('Service: BookServiceProductReturnSpec', function() {
     var BookEntry = {};
     var BookKeeper = {};
 
-    var document = null;
+    var uuid = null;
     var entityUUID = null;
     var productAmount = null;
     var productCost = null;
@@ -21,10 +21,7 @@ describe('Service: BookServiceProductReturnSpec', function() {
     });
 
     beforeEach(function() {
-        document = {
-            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            type : 'Pedido'
-        };
+        uuid = 'cc02b600-5d0b-11e3-96c3-010001000001',
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
         productAmount = 5;
         productCost = 69;
@@ -43,7 +40,7 @@ describe('Service: BookServiceProductReturnSpec', function() {
                 created : null,
                 debitAccount : 41305,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Devolução de produto',
                 amount : productAmount
@@ -52,7 +49,7 @@ describe('Service: BookServiceProductReturnSpec', function() {
                 created : null,
                 debitAccount : 11701,
                 creditAccount : 51115,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Devolução de produto',
                 amount : productCost
@@ -60,7 +57,7 @@ describe('Service: BookServiceProductReturnSpec', function() {
         ];
 
         // When
-        var result = BookService.productReturn(document.uuid, entityUUID, productAmount, productCost);
+        var result = BookService.productReturn(uuid, entityUUID, productAmount, productCost);
 
         // Then
         expect(result.length).toBe(2);

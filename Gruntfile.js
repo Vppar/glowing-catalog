@@ -38,7 +38,8 @@ module.exports =
                             'newer:jshint:all'
                         ],
                         options : {
-                            livereload : true
+                            livereload : true,
+                            interval: 5007
                         }
                     },
                     jsTest : {
@@ -64,12 +65,13 @@ module.exports =
                     },
                     livereload : {
                         options : {
-                            livereload : '<%= connect.options.livereload %>'
+                            livereload : '<%= connect.options.livereload %>',
+                            interval: 5007
                         },
                         files : [
                             '<%= yeoman.app %>/**/*.html',
-                            '.tmp/styles/{,*/}*.css',
-                            '<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
+                            '.tmp/styles/{,*/}*.css'
+                            //'<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
                         ]
                     }
                 },
@@ -175,6 +177,27 @@ module.exports =
                         }
                     }
                 },
+                
+                ngtemplates: {
+                    glowingCatalogApp: {
+                        cwd: 'app',
+                        src: ['views/**/*.html', 'routes/**/*.html', 'components/**/*.html'],
+                        dest: 'dist/scripts/templates.js',
+                        options: {
+                            usemin: 'scripts/scripts.js',
+                            htmlmin: {
+                                //collapseBooleanAttributes: true,
+                                //collapseWhitespace: true,
+                                //removeAttributeQuotes: true,
+                                //removeComments: true, // Only if you don't use comment directives!
+                                //removeEmptyAttributes: true,
+                                //removeRedundantAttributes: true,
+                                //removeScriptTypeAttributes: true,
+                                //removeStyleLinkTypeAttributes: true
+                            }
+                        }
+                    }
+                },
 
                 // Automatically inject Bower components into the app
                 'bower-install' : {
@@ -216,7 +239,7 @@ module.exports =
                     html : [
                         '<%= yeoman.dist %>/*.html',
                         // FIXME remove this '<%= yeoman.dist %>/views/**/*.html',
-                        '<%= yeoman.dist %>/components/**/*.html'
+                        //'<%= yeoman.dist %>/components/**/*.html'
                     ],
                     css : [
                         '<%= yeoman.dist %>/styles/**/*.css'
@@ -314,13 +337,14 @@ module.exports =
                                     '*.{ico,png,txt}',
                                     '.htaccess',
                                     '*.html',
-                                    'views/**/*.html',
-                                    'components/**/*.html',
+                                    //'views/**/*.html',
+                                    //'components/**/*.html',
                                     'bower_components/**/*',
                                     'images/{,*/}*.{webp}',
                                     'fonts/*',
                                     'styles/**/*.css',
-                                    'resources/**/*'
+                                    'resources/**/*',
+                                    'scripts/**/*'
                                 ]
                             },
                             {
@@ -478,9 +502,10 @@ module.exports =
 
         grunt.registerTask('build', [
             'clean:dist',
-            //'bower-install',
+            'bower-install',
             'useminPrepare',
             'concurrent:dist',
+            'ngtemplates',
             //'less',
             //'autoprefixer',
             'concat',

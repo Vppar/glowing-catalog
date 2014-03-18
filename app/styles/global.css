@@ -10,6 +10,25 @@
 	-ms-user-select: none;
 	user-select: none;
 }
+textarea,
+input[type="textarea"],
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+    -webkit-appearance:none;
+}
 
 .error {
 	color: #ff2839;
@@ -118,6 +137,7 @@ li.menu-black:last-child a:hover {
 	-moz-background-clip: none;
 	background-clip: none;
 	outline: none;
+	border-radius: 4px;
 }
 .modal-choose-customer-dialog {
 	position: absolute;
@@ -141,6 +161,7 @@ li.menu-black:last-child a:hover {
 	-moz-background-clip: none;
 	background-clip: none;
 	outline: none;
+	border-radius: 4px;
 }
 .modal-add-basket-dialog-body .select2-container{
 	width: 100%;
@@ -1078,8 +1099,11 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 }
 
 input:focus, .focus{	
-	outline: 2px solid #ACDF7B;
-	outline-offset: -3px;
+	outline: 1px solid #ACDF7B;
+	outline-offset:0;
+}
+.grid-payment-receivable .item:focus {
+	border:none;
 }
 
 .comment{color: rgba(0, 0, 0, 0.5); font-size:12px;}

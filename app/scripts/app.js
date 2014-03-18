@@ -38,9 +38,8 @@
             'tnt.catalog.receivable.service',
             'tnt.catalog.financial.receivable.ctrl',
             'tnt.catalog.financial.receivable.list.ctrl',
-            'tnt.catalog.financial.receivable.edit.ctrl',
+            //'tnt.catalog.financial.receivable.liquidate.ctrl',
             'tnt.catalog.financial.receivable.receive.ctrl',
-            'tnt.catalog.financial.receivable.add.ctrl',
             'tnt.catalog.financial.expense',
             'tnt.catalog.financial.incomeStatement',
             'tnt.utils.array',
@@ -125,7 +124,10 @@
             'tnt.catalog.directives.equals',
             'tnt.catalog.directives.promiseClick',
             'tnt.catalog.check',
-            'tnt.catalog.check.service'
+            'tnt.catalog.check.service',
+            'tnt.catalog.check.ctrl',
+            'tnt.catalog.thirdparty',
+            'tnt.catalog.service.intent'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -204,6 +206,13 @@
             templateUrl : 'views/tutorial-ipad.html'
         }).when('/tutorial-android', {
             templateUrl : 'views/tutorial-android.html'
+        }).when('/registration', {
+            templateUrl : 'views/registration.html'
+        }).when('/third-parties', {
+            templateUrl : 'views/third-parties.html',
+            controller: 'ThirdPartyCtrl'
+        }).when('/products-delivery', {
+            templateUrl : 'views/products-delivery.html'
         }).otherwise({
             redirectTo : '/'
         });

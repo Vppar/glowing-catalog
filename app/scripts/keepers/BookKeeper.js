@@ -86,7 +86,7 @@
 
     angular.module('tnt.catalog.bookkeeping.keeper', [
         'tnt.catalog.journal.replayer', 'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.keeper'
-    ]).service('BookKeeper', ['$q', 'Replayer', 'ArrayUtils', 'Book', 'BookEntry', 'JournalEntry', 'JournalKeeper', 'IdentityService', function($q, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService) {
+    ]).service('BookKeeper', ['$q','$filter', 'Replayer', 'ArrayUtils', 'Book', 'BookEntry', 'JournalEntry', 'JournalKeeper', 'IdentityService', function($q, $filter, Replayer, ArrayUtils, Book, BookEntry, JournalEntry, JournalKeeper, IdentityService) {
 
         var type = 8;
         var books = [];
@@ -254,7 +254,14 @@
         this.listEntries = function() {
             return angular.copy(bookEntries);
         };
-
+        
+        this.listByOrder = function(uuid){
+            var result = $filter('filter')(this.listEntries(), function(entry){
+                return (entry.document === uuid);
+            });
+            return result;
+        };
+        
         this.getNature = function(access) {
             var book = ArrayUtils.find(books, 'access', access);
             return angular.copy(book.nature);

@@ -20,7 +20,7 @@
                 }
             });
 
-            if (arguments.length != svc.length) {
+            if (arguments.length !== svc.length) {
                 if (arguments.length === 1 && angular.isObject(arguments[0])) {
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
@@ -58,10 +58,9 @@
 
     angular.module(
             'tnt.catalog.coin.keeper',
-            [
-                'tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
-                'tnt.catalog.journal.replayer'
-            ]).factory('CoinKeeper', ['ArrayUtils', 'Coin', 'IdentityService', 'JournalKeeper', 'JournalEntry', 'Replayer', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer) {
+            ['tnt.utils.array', 'tnt.catalog.expense.entity', 'tnt.catalog.receivable.entity', 'tnt.catalog.coin.entity',
+             'tnt.catalog.journal.replayer', 'tnt.catalog.payment.entity'
+            ]).factory('CoinKeeper', ['ArrayUtils', 'Coin', 'IdentityService', 'JournalKeeper', 'JournalEntry', 'Replayer', 'CheckPayment', function CoinKeeper(ArrayUtils, Coin, IdentityService, JournalKeeper, JournalEntry, Replayer, CheckPayment) {
 
         var keepers = {};
         function instance(name) {
@@ -85,7 +84,6 @@
                 // Get the coin info from type map, get the respective entity
                 // and instantiate
                 var eventData = IdentityService.getUUIDData(event.uuid);
-
                 if (eventData.deviceId === IdentityService.getDeviceId()) {
                     currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
                 }
@@ -118,7 +116,18 @@
 
                 return event.uuid;
             });
+            
+            ObjectUtils.ro(this.handlers, name + 'UpdatePaymentV1', function(event) {
+                var coin = ArrayUtils.find(vault, 'uuid', event.uuid);
+                
+                if (coin) {
+                    coin.payment = event.payment;
+                } else {
+                    throw 'Unable to find a ' + name + ' with uuid=\'' + event.uuid + '\'';
+                }
 
+                return event.uuid;
+            });
 
             // Nuke event for clearing the vault list
             ObjectUtils.ro(this.handlers, 'nukeCoinsV1', function() {
@@ -220,6 +229,31 @@
                 // save the journal entry
                 JournalKeeper.compose(entry);
             };
+            
+            
+            /**
+             * Change the state of a receivable.
+             * 
+             * @param {check} - check with the updated state. 
+             */
+            var updateCheck = function(check){
+                var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', check.uuid));
+                
+                //FIXME - quick fix to remove the old and useless check.id
+                if(check.id){
+                    delete check.id;
+                }
+                
+                check = new CheckPayment(check);
+                delete check.uuid;
+                receivable.payment = check;
+                
+                // create a new journal entry
+                var entry = new JournalEntry(null, receivable.created, name + 'UpdatePayment', currentEventVersion, receivable);
+                // save the journal entry
+                return JournalKeeper.compose(entry);
+                
+            };
 
             // Publishing
             this.list = list;
@@ -227,6 +261,7 @@
             this.add = add;
             this.liquidate = liquidate;
             this.cancel = cancel;
+            this.updateCheck = updateCheck;
         }
 
         return function(name) {

@@ -1,8 +1,10 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.journal.replayer', ['tnt.catalog.journal.entity']).service('Replayer', ['$log', 'JournalEntry', function Replayer($log, JournalEntry) {
+    angular.module('tnt.catalog.journal.replayer', ['tnt.util.log', 'tnt.catalog.journal.entity']).service('Replayer', ['logger', 'JournalEntry', function Replayer(logger, JournalEntry) {
 
+        var log = logger.getLogger('tnt.catalog.journal.replayer.Replayer');
+        
         var eventHandlers = {};
 
         /**
@@ -41,7 +43,7 @@
           for (var name in eventHandlers) {
             // FIXME: we probably need a better way to get nuke handlers
             if (name.substr(0, 4) === 'nuke' && name.substr(-2) === 'V1') {
-              $log.debug('Running ' + name + ' handler!');
+              log.debug('Running ' + name + ' handler!');
               eventHandlers[name]();
             }
           }
@@ -76,10 +78,10 @@
         this.replay = function(entry) {
             if (entry instanceof JournalEntry) {
                 if (angular.isFunction(eventHandlers[entry.type + 'V' + entry.version])) {
-                    $log.debug('Replaying', entry);
+                    log.debug('Replaying', entry);
                     return eventHandlers[entry.type + 'V' + entry.version](entry.event);
                 } else {
-                    $log.fatal('We have no register of a proper handler for ' + entry.type + ' version ' + entry.version);
+                    log.fatal('We have no register of a proper handler for ' + entry.type + ' version ' + entry.version);
                 }
             } else {
                 throw 'Only instances of JournalEntry are allowed';

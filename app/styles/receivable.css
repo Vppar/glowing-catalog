@@ -1,17 +1,49 @@
+.receivable-check .new-scrollpanel.with-buttons {
+	height:calc(100% - 240px);
+}
+.receivable-check .new-scrollpanel.without-buttons {
+	height:calc(100% - 199px);
+}
+
 .receivable-details{
-	margin-bottom: 30px;
 }
+
+.receivable-details .date-field{
+	width: 100%;
+}
+
 .receivable-page .new-scrollpanel{
-	
-}
-.receivable-page .page-closed{
 
 }
-.receivable-page .page-open-form{
-	
+
+.receivable-page .receivable-body{
+	height: calc(100% - 76px);
 }
-.receivable-page .page-open-form{
-	
+
+.receivable-page .page-closed-details{
+	height: calc(100% - 124px);
+}
+.receivable-page .page-open-details{
+	height: calc(100% - 318px);
+}
+.receivable-page .page-open-check-details{
+	height: calc(100% - 381px);
+}
+
+.receivable-list{
+
+}
+
+.receivable-page .select2-container{
+	width: 100%;
+}
+
+.margin-right-10{
+	margin-right: 10px;
+}
+
+.margin-left-10{
+	margin-left: 10px;
 }
 
 

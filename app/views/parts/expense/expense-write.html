@@ -5,7 +5,7 @@
 				<label class="control-label">Data</label>
 				<input name="date"
 					class="input-block-level" type="text" placeholder=""
-					ng-model="expense.createdate" required>
+					ng-model="expense.createdate" required/>
 			</div>
 		</span>
 		
@@ -34,9 +34,9 @@
 		<span class="span3">
 			<div class="control-group">
 				<label class="control-label">Documento</label>
-				<!--<input name="doc"
+				<!-- <input name="doc"
 					class="input-block-level" type="text" placeholder=""
-					ng-model="document.label" required>-->
+					ng-model="document.label" required> -->
 				<div class="input-append input-width-bills w80porc">
 					<input class="input-block-level hover-state-pointer"
 						id="appendedInput" type="text" ng-model="expense.entity" disabled>
@@ -115,7 +115,7 @@
 					<div class="scroll-input-expense-dialog-grid">
 						<div class="row-input-expense-dialog-grid" >
 							<span class="col-1"><div>1 de 3</div></span>
-							<span class="col-2 display-none"><div>20/01/13</div></span><input type="text" class="col-2 text-center date-field"  input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="check.duedate" required readonly onkeyup="checkInputKeyUp(this)"/>
+							<span class="col-2 display-none"><div>20/01/13</div></span><input type="text" class="col-2 text-center date-field input-block-level" maxlength="10" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="check.duedate" required readonly onkeyup="checkInputKeyUp(this)"/>
 							<span class="col-3 display-none"><div>120,00</div></span><input type="text" class="col-3 value"/>
 						</div>
 						<div class="row-input-expense-dialog-grid" >
@@ -137,10 +137,10 @@
 		</div>
 	
 		<div class="clearfix"></div><hr />
-		<button ng-click='closeDialog()' class="btn btn-cancel btn-large btn-login" type="submit">
+		<button ng-click="closeDialog()" class="btn btn-cancel btn-large btn-login" type="submit">
 			Cancelar
 		</button>
-		<button ng-click='closeDialog()' class="btn-large btn btn-ok btn-login pull-right" type="submit">
+		<button ng-click="closeDialog()" class="btn-large btn btn-ok btn-login pull-right" type="submit">
 			Confirmar
 		</button>
 </div>

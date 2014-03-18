@@ -2,6 +2,16 @@
 	width: 450px;
 }
 
+.new-header .title{
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin:0px;
+    display:block;
+    float: left;
+    margin-top: 10px;
+}
+
 .new-calendar{
 	margin-bottom: 10px;
 	margin-right: 30px;
@@ -21,7 +31,7 @@
 
 .order-header-page{
 	margin-left: 10px;
-		-moz-box-sizing:    border-box;
+	-moz-box-sizing:    border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing:        border-box;
 	display: block;
@@ -35,7 +45,7 @@
 	font-size: 16px;
 	float: left;
 width: 305px;
-margin-left: 18px;
+margin-left: 15px;
 margin-top: 8px;
 height: 32px;
 -moz-box-sizing:    border-box;
@@ -50,6 +60,7 @@ height: 32px;
 	font-weight: bold;
 padding: 5px 9px 5px 5px;
 background-color: #f2f2f2;
+border: 1px solid #f2f2f2;
 border-radius: 4px;
 margin-top: 2px;
 text-align: right;
@@ -174,6 +185,9 @@ text-align: right;
 	height: 40px;
 	width: 950px;
 	line-height: 40px;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
 }
 .order-table-row{
 	cursor: pointer;
@@ -190,13 +204,15 @@ text-align: right;
 	cursor: pointer;
 	display: block;
 	height: 40px;
-	width: 948px;
 	line-height: 40px;
 	border-radius: 4px;
 	background-color: #c8c8c8;
 	margin-top: 3px;
 	margin-bottom: 3px;
 	font-weight: bold;
+	-moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
 }
 .order-product{
 	line-height: 20px;
@@ -275,6 +291,7 @@ text-align: right;
 .show-details-icon {
 	float: left;
 	margin-top: 32px;
+	margin-left: 5px;
 }
 .show-details-icon img { cursor:pointer;}
 .show-details-icon img:hover { opacity:0.5;}
@@ -309,8 +326,9 @@ text-align: right;
 }
 
 .col-details-order-list-item{
-	display:inline-block;
-	margin: 10px 0 15px 10px;
+	display:block;
+	float: left;
+	margin: 10px 0 15px 13px;
 	vertical-align: top;
 }
 

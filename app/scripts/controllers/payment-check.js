@@ -25,6 +25,7 @@
                     checkSum = (-1) * $scope.total.change + $filter('sum')(PaymentService.list('check'), 'amount');
 
                     var emptyCheckTemplate = {
+                        uuid : null,
                         installments : 1,
                         bank : null,
                         agency : null,
@@ -151,8 +152,7 @@
                         PaymentService.clear('check');
                         for ( var ix in $scope.payments) {
                             var data = $scope.payments[ix];
-                            var payment = new CheckPayment(data.amount, data.bank, data.agency, data.account, data.number, data.duedate);
-                            payment.amount = data.amount;
+                            var payment = new CheckPayment(null, data.amount, data.bank, data.agency, data.account, data.number, data.duedate);
                             PaymentService.add(payment);
                         }
                         $scope.selectPaymentMethod('none');

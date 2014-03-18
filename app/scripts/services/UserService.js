@@ -2,9 +2,11 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service'
-    ]).service('UserService', ['$q', '$location', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', function UserService($q, $location, md5, SyncDriver, SyncService, PrefetchService) {
+        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service'
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService) {
 
+        var log = logger.getLogger('tnt.catalog.user.UserService');
+        
         // FIXME change default value to FALSE
         var logged = false;
         var SALT = '7un7sC0rp';
@@ -16,14 +18,36 @@
          * @param {Boolean}
          */
         this.loginOnline = function loginOnline(user, pass) {
+
+            var deferred = $q.defer();
+
             var promise = SyncDriver.login(user, pass);
-            promise.then(function() {
+
+            var timer = $timeout(function(){
+                if(localStorage.hashMD5) {
+                    var message = 'Login is taking too long, falling back!';
+                    log.error(message);
+                    deferred.reject(message);
+                } else {
+                    var message = 'Login is taking too long, cannot fallback because the device is new!';
+                    log.fatal(message);
+                }
+            }, 5000);
+
+            promise['finally'](function(){
+                $timeout.cancel(timer);
+            });
+
+            promise.then(function(resolution) {
                 logged = true;
                 PrefetchService.doIt();
                 SyncDriver.registerSyncService(SyncService);
+                deferred.resolve(resolution);
+            }, function(rejection){
+                deferred.reject(rejection);
             });
 
-            return promise;
+            return deferred.promise;
         };
 
 

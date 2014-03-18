@@ -1,10 +1,11 @@
 'use strict';
-//Commented this test becuse the method it's not on his final form.
-xdescribe('Service: PurchaseOrderService', function() {
+// Commented this test becuse the method it's not on his final form.
+xdescribe('Service: PurchaseOrderServiceRegisterSpec', function() {
 
     var PurchaseOrderKeeper = {};
     var ExpenseService = {};
     var PurchaseOrderService = {};
+    var TypeKeeper = {};
     var StockService = {};
     var $rootScope = null;
     var $log = {};
@@ -23,6 +24,8 @@ xdescribe('Service: PurchaseOrderService', function() {
     };
 
     beforeEach(function() {
+        TypeKeeper.list = jasmine.createSpy('TypeKeeper.list');
+
         $log.debug = jasmine.createSpy('$log.debug');
         $log.error = jasmine.createSpy('$log.error');
         myUuid = 'cc02b600-5d0b-11e3-96c3-010001000123';
@@ -40,6 +43,7 @@ xdescribe('Service: PurchaseOrderService', function() {
             $provide.value('PurchaseOrderKeeper', PurchaseOrderKeeper);
             $provide.value('StockService', StockService);
             $provide.value('ExpenseService', ExpenseService);
+            $provide.value('TypeKeeper', TypeKeeper);
         });
     });
 
@@ -48,7 +52,7 @@ xdescribe('Service: PurchaseOrderService', function() {
         $rootScope = _$rootScope_;
         PurchaseOrderService = _PurchaseOrderService_;
     }));
-    
+
     beforeEach(function() {
         ExpenseService.register = jasmine.createSpy('ExpenseService.register').andCallFake(function() {
             var deferred = $q.defer();

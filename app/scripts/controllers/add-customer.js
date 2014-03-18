@@ -6,9 +6,18 @@
     ]).controller(
             'AddCustomerCtrl',
             [
-                '$scope', '$location', 'DataProvider', 'DialogService', 'OrderService', 'EntityService', 'CepService', 'UserService',
+                '$scope',
+                '$location',
+                'DataProvider',
+                'DialogService',
+                'OrderService',
+                'EntityService',
+                'CepService',
+                'UserService',
                 'CpfService',
-                function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService) {
+                'IntentService',
+                function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService,
+                        IntentService) {
 
                     UserService.redirectIfIsNotLoggedIn();
 
@@ -32,6 +41,20 @@
                             }
                         ]
                     };
+
+                    var edit = IntentService.getBundle();
+                    if (edit) {
+                        if (edit.editUuid) {
+                            var entity = EntityService.read(edit.editUuid);
+                            $scope.customer = entity;
+                            prepareEntity($scope.customer);
+                        }
+
+                        if (edit.clientName) {
+                            $scope.customer.name = edit.clientName;
+                        }
+                    }
+
                     var customer = $scope.customer;
 
                     // ############################################################################################################
@@ -68,7 +91,7 @@
                                 });
                             }
                         });
-                        
+
                         return promiseResult;
                     };
 
@@ -91,14 +114,36 @@
                                 btnYes : 'OK'
                             });
                         }
-                        var entityCreatedPromise = EntityService.create(customer).then(function(uuid) {
-                            OrderService.order.customerId = uuid;
-                            return uuid;
-                        });
-                        
-                        $location.path('/');
 
-                        return entityCreatedPromise;
+                        var promise = null;
+                        // FIXME - No idea from where this $$hashKey comes,
+                        // someone please investigate this in the future.
+                        if (customer.emails) {
+                            for ( var ix in customer.emails) {
+                                if (customer.emails[ix].$$hashKey) {
+                                    delete customer.emails[ix].$$hashKey;
+                                }
+                            }
+                        }
+                        if (edit && edit.editUuid) {
+                            promise = EntityService.update(customer).then(function(uuid) {
+                                return uuid;
+                            }, function(error) {
+                                $log.error('Failed to update the entity:', uuid);
+                                $log.debug(error);
+                            });
+
+                            $location.path('/third-parties');
+                        } else {
+                            promise = EntityService.create(customer).then(function(uuid) {
+                                OrderService.order.customerId = uuid;
+                                return uuid;
+                            });
+
+                            $location.path('/');
+                        }
+
+                        return promise;
                     };
 
                     $scope.cancel = function cancel() {
@@ -123,6 +168,25 @@
                         $scope.customer.addresses.state = address.uf;
                         $scope.customer.addresses.city = address.localidade;
                     };
+
+                    /**
+                     * Prepares the entity for the edit.
+                     * 
+                     * @param {Entity} - Entity to be edited.
+                     */
+                    function prepareEntity(entity) {
+                        if (!entity.addresses) {
+                            entity.addresses = {};
+                        }
+
+                        if (!entity.birthDate) {
+                            entity.birthDate = {};
+                        }
+
+                        if (!entity.birthDate) {
+                            entity.birthDate = {};
+                        }
+                    }
                 }
             ]);
 }(angular));

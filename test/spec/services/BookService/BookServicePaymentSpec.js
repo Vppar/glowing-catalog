@@ -7,7 +7,7 @@ describe('Service: BookServicePaymentSpec', function() {
     var BookKeeper = {};
 
     var entityUUID = null;
-    var document = null;
+    var uuid = null;
     var cashAmount = null;
     var checkAmount = null;
     var cardAmount = null;
@@ -27,10 +27,7 @@ describe('Service: BookServicePaymentSpec', function() {
     });
 
     beforeEach(function() {
-        document = {
-            uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-            type : 'Pedido'
-        };
+        uuid = 'cc02b600-5d0b-11e3-96c3-010001000001',
         entityUUID = 'cc02b600-1337-11e3-96c3-010001000001';
 
         cashAmount = 15;
@@ -55,13 +52,13 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 11111,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Recebimento em dinheiro',
             amount : cashAmount
         });
         // When
-        var result = BookService.payment(document.uuid, entityUUID, cashAmount, null, null, null, null, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, cashAmount, null, null, null, null, null, null, null);
         // Then
         expect(result.length).toBe(1);
         expect(result[0].debitAccount).toEqual(expected.debitAccount);
@@ -79,14 +76,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 70001,
             creditAccount : 11111,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Troco em dinheiro',
             amount : cashAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, -cashAmount, null, null, null, null, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, -cashAmount, null, null, null, null, null, null, null);
         
         // Then
         expect(result.length).toBe(1);
@@ -105,14 +102,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 11121,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Recebimento em cheque',
             amount : checkAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, checkAmount, null, null, null, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, null, checkAmount, null, null, null, null, null, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -131,14 +128,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 11512,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Recebimento em cartão',
             amount : cardAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, cardAmount, null, null, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, null, null, cardAmount, null, null, null, null, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -157,14 +154,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 11511,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Saldo a receber',
             amount : cuffAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, null, cuffAmount, null, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, null, null, null, cuffAmount, null, null, null, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -183,14 +180,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 11511,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Saldo a receber',
             amount : cuffAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, null, cuffAmount, null, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, null, null, null, cuffAmount, null, null, null, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -209,14 +206,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 21301,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Abatimento vale crédito',
             amount : voucherAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, null, null, voucherAmount, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, null, null, null, null, voucherAmount, null, null, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -235,14 +232,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 21305,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Abatimento vale presente',
             amount : giftAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, null, null, null, giftAmount, null, null);
+        var result = BookService.payment(uuid, entityUUID, null, null, null, null, null, giftAmount, null, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -261,14 +258,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 41301,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Desconto concedido',
             amount : discountAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, null, null, null, null, discountAmount, null);
+        var result = BookService.payment(uuid, entityUUID, null, null, null, null, null, null, discountAmount, null);
 
         // Then
         expect(result.length).toBe(1);
@@ -287,14 +284,14 @@ describe('Service: BookServicePaymentSpec', function() {
             created : null,
             debitAccount : 41303,
             creditAccount : 70001,
-            document : document,
+            document : uuid,
             entity : entityUUID,
             op : 'Desconto cupom promocional',
             amount : couponAmount
         });
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, null, null, null, null, null, couponAmount);
+        var result = BookService.payment(uuid, entityUUID, null, null, null, null, null, null, null, couponAmount);
 
         // Then
         expect(result.length).toBe(1);
@@ -314,7 +311,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 11111,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Recebimento em dinheiro',
                 amount : cashAmount
@@ -323,7 +320,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 11121,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Recebimento em cheque',
                 amount : checkAmount
@@ -332,7 +329,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 11512,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Recebimento em cartão',
                 amount : cardAmount
@@ -341,7 +338,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 11511,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Saldo a receber',
                 amount : cuffAmount
@@ -350,7 +347,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 21301,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Abatimento vale crédito',
                 amount : voucherAmount
@@ -359,7 +356,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 21305,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Abatimento vale presente',
                 amount : giftAmount
@@ -368,7 +365,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 41301,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Desconto concedido',
                 amount : discountAmount
@@ -377,7 +374,7 @@ describe('Service: BookServicePaymentSpec', function() {
                 created : null,
                 debitAccount : 41303,
                 creditAccount : 70001,
-                document : document,
+                document : uuid,
                 entity : entityUUID,
                 op : 'Desconto cupom promocional',
                 amount : couponAmount
@@ -387,7 +384,7 @@ describe('Service: BookServicePaymentSpec', function() {
         // When
         var result =
                 BookService.payment(
-                        document.uuid, entityUUID, cashAmount, checkAmount, cardAmount, cuffAmount, voucherAmount, giftAmount,
+                        uuid, entityUUID, cashAmount, checkAmount, cardAmount, cuffAmount, voucherAmount, giftAmount,
                         discountAmount, couponAmount);
         // Then
         expect(result.length).toBe(8);
@@ -405,7 +402,7 @@ describe('Service: BookServicePaymentSpec', function() {
         // Given
 
         // When
-        var result = BookService.payment(document.uuid, entityUUID, null, null, null, null, null, null, null, null);
+        var result = BookService.payment(uuid, entityUUID, null, null, null, null, null, null, null, null);
 
         // Then
         expect(result.length).toBe(0);

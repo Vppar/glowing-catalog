@@ -2,25 +2,16 @@
     'use strict';
 
     angular.module('tnt.catalog.service.book', [
-        'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry'
-    ]).service('BookService', ['$q','$filter', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $filter, $log, BookKeeper, Book, BookEntry) {
+        'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry','tnt.catalog.bookkeeping.keeper'
+    ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $log, BookKeeper, Book, BookEntry) {
 
+        // TODO Should this be here?
         this.write = function(entry) {
-            var result = null;
-            try {
-                result = BookKeeper.write(entry);
-            } catch (e) {
-                result = $q.reject(e);
-            }
-            return result;
+            return BookKeeper.write(entry);
         };
 
         this.addBook = function(name, type, nature, entities) {
             BookKeeper.addBook(new Book(null, null, name, type, nature, entities));
-        };
-
-        this.snapShot = function(books) {
-            BookKeeper.snapShot(books);
         };
 
         this.list = function() {
@@ -28,21 +19,33 @@
         };
         
         this.listByOrder = function(uuid){
-            var result = $filter('filter')(this.listEntries(), function(entry){
-                return (entry.document.uuid === uuid);
-            });
-            return result;
+            return BookKeeper.listByOrder(uuid);
         };
         
         this.listEntries = function() {
             return BookKeeper.listEntries();
         };
-
+        
+        /**
+         * Create the proper Book entries for a negotiation
+         * 
+         * @param {string} orderUUID the order UUID
+         * @param {string} entityUUID the entity UUID
+         * @param {number} amount the total delta in the negotiation
+         *            order
+         */
+        this.negotiation = function(orderUUID, entityUUID, amount){
+            var entry;
+            if(amount > 0){
+                entry = new BookEntry(null, null, 70001, 43005 , orderUUID, entityUUID, 'Acrécimos s/ Recebimentos', amount);
+            } else {
+                entry = new BookEntry(null, null, 63103, 70001, orderUUID, entityUUID, 'Descontos s/ Recebtos', -amount);
+            }
+            return [entry];
+        };
+        
         /**
          * Create the proper Book entries for a sale
-         * 
-         * Document should not need a type since the type is present in the
-         * UUID(Is this right?)
          * 
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
@@ -58,21 +61,17 @@
         this.order = function(orderUUID, entityUUID, productAmount, voucher, gift) {
 
             var entries = [];
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
 
             if (productAmount) {
-                entries.push(new BookEntry(null, null, 70001, 21307, document, entityUUID, 'Valor bruto da venda', productAmount));
+                entries.push(new BookEntry(null, null, 70001, 21307, orderUUID, entityUUID, 'Valor bruto da venda', productAmount));
             }
 
             if (voucher) {
-                entries.push(new BookEntry(null, null, 70001, 21301, document, entityUUID, 'Valor total vale crédito', voucher));
+                entries.push(new BookEntry(null, null, 70001, 21301, orderUUID, entityUUID, 'Valor total vale crédito', voucher));
             }
 
             if (gift) {
-                entries.push(new BookEntry(null, null, 70001, 21305, document, entityUUID, 'Valor total vale presente', gift));
+                entries.push(new BookEntry(null, null, 70001, 21305, orderUUID, entityUUID, 'Valor total vale presente', gift));
             }
 
             return entries;
@@ -80,9 +79,6 @@
 
         /**
          * Create the proper Book entries for a product return
-         * 
-         * Document should not need a type since the type is present in the
-         * UUID(Is this right?)
          * 
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
@@ -93,22 +89,35 @@
          */
         this.productReturn = function(orderUUID, entityUUID, productAmount, productCost) {
             var entries = [];
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
 
             // Custo do produto
-            entries.push(new BookEntry(null, null, 41305, 70001, document, entityUUID, 'Devolução de produto', productAmount));
-            entries.push(new BookEntry(null, null, 11701, 51115, document, entityUUID, 'Devolução de produto', productCost));
+            entries.push(new BookEntry(null, null, 41305, 70001, orderUUID, entityUUID, 'Devolução de produto', productAmount));
+            entries.push(new BookEntry(null, null, 11701, 51115, orderUUID, entityUUID, 'Devolução de produto', productCost));
 
             return entries;
         };
+        
         /**
-         * Create the proper Book entries for a product return
+         * Create the proper Book entries for a product delivery
          * 
-         * Document should not need a type since the type is present in the
-         * UUID(Is this right?)
+         * @param {string} orderUUID the order UUID
+         * @param {string} entityUUID the entity UUID
+         * @param {number} productAmount the total value for products being delivered
+         * @param {number} productCost the total cost for products being
+         *            delivered based on stock average cost
+         */
+        this.productDelivery = function(orderUUID, entityUUID, productAmount, productCost) {
+            var entries = [];
+
+            // Custo do produto
+            entries.push(new BookEntry(null, null, 21307, 41305, orderUUID, entityUUID, 'Entrega de produto', productAmount));
+            entries.push(new BookEntry(null, null, 51115, 11701, orderUUID, entityUUID, 'Entrega de produto', productCost));
+
+            return entries;
+        };
+        
+        /**
+         * Create the proper Book entries for a product payment
          * 
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
@@ -123,39 +132,43 @@
          */
         this.payment = function(orderUUID, entityUUID, cash, check, card, cuff, voucher, gift, discount, coupon) {
             var entries = [];
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
 
             if (cash > 0) {
-                entries.push(new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', cash));
+                entries.push(new BookEntry(null, null, 11111, 70001, orderUUID, entityUUID, 'Recebimento em dinheiro', cash));
             } else if (cash < 0) {
-                entries.push(new BookEntry(null, null, 70001, 11111, document, entityUUID, 'Troco em dinheiro', -cash));
+                entries.push(new BookEntry(null, null, 70001, 11111, orderUUID, entityUUID, 'Troco em dinheiro', -cash));
             }
             if (check) {
-                entries.push(new BookEntry(null, null, 11121, 70001, document, entityUUID, 'Recebimento em cheque', check));
+                entries.push(new BookEntry(null, null, 11121, 70001, orderUUID, entityUUID, 'Recebimento em cheque', check));
             }
             if (card) {
-                entries.push(new BookEntry(null, null, 11512, 70001, document, entityUUID, 'Recebimento em cartão', card));
+                entries.push(new BookEntry(null, null, 11512, 70001, orderUUID, entityUUID, 'Recebimento em cartão', card));
             }
             if (cuff) {
-                entries.push(new BookEntry(null, null, 11511, 70001, document, entityUUID, 'Saldo a receber', cuff));
+                entries.push(new BookEntry(null, null, 11511, 70001, orderUUID, entityUUID, 'Saldo a receber', cuff));
             }
             if (voucher) {
-                entries.push(new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', voucher));
+                entries.push(new BookEntry(null, null, 21301, 70001, orderUUID, entityUUID, 'Abatimento vale crédito', voucher));
             }
             if (gift) {
-                entries.push(new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento vale presente', gift));
+                entries.push(new BookEntry(null, null, 21305, 70001, orderUUID, entityUUID, 'Abatimento vale presente', gift));
             }
             if (discount) {
-                entries.push(new BookEntry(null, null, 41301, 70001, document, entityUUID, 'Desconto concedido', discount));
+                entries.push(new BookEntry(null, null, 41301, 70001, orderUUID, entityUUID, 'Desconto concedido', discount));
             }
             if (coupon) {
-                entries.push(new BookEntry(null, null, 41303, 70001, document, entityUUID, 'Desconto cupom promocional', coupon));
+                entries.push(new BookEntry(null, null, 41303, 70001, orderUUID, entityUUID, 'Desconto cupom promocional', coupon));
             }
 
             return entries;
+        };
+        
+        this.deposit = function(account, amount, documentUUID, entityUUID){
+            return [new BookEntry(null, null, account, 70001, documentUUID, entityUUID, 'Recebimento', amount)];
+        };
+        
+        this.withdraw = function(account, amount, documentUUID, entityUUID){
+            return [new BookEntry(null, null, 70001, account, documentUUID, entityUUID, 'Pagamento', amount)];
         };
 
         /**
@@ -164,90 +177,31 @@
          * Document should not need a type since the type is present in the
          * UUID(Is this right?)
          * 
-         * @param {string} type the receivable of liquidation 
+         * @param {string} type the type of receivable to liquidate
          * @param {string} orderUUID the order UUID
          * @param {string} entityUUID the entity UUID
          * @param {number} amount to be paid
          */
         this.liquidate = function (type, orderUUID, entityUUID, amount) {
-            var document = {
-                uuid : orderUUID,
-                type : 'Pedido'
-            };
             var entry = null;
-            if (type === 'cash') {
-                entry = new BookEntry(null, null, 11111, 70001, document, entityUUID, 'Recebimento em dinheiro', amount);
-            }else if(type === 'cuff'){
-                entry = new BookEntry(null, null, 11111, 11511, document, entityUUID, 'Recebimento parcela', amount);
-            } else if (type === 'check') {
-                entry = new BookEntry(null, null, 11131, 11121, document, entityUUID, 'Depósito cheque', amount);
-            } else if (type === 'card') {
-                entry = new BookEntry(null, null, 11131, 11512, document, entityUUID, 'Recebimento cartão', amount);
-            } else if (type === 'voucher') {
-                entry = new BookEntry(null, null, 21301, 70001, document, entityUUID, 'Abatimento vale crédito', amount);
-            } else if (type === 'gift') {
-                entry = new BookEntry(null, null, 21305, 70001, document, entityUUID, 'Abatimento vale presente', amount);
-            }
             
-            return this.write(entry);
-        };
-        
-        /**
-         * Write the proper Book entry for receivables transfer.
-         * When a receivable change his liquidation type we must 
-         * transfer the amount of receivable between the 
-         * old book to new book keeper
-         * 
-         * Document should not need a type since the type is present in the
-         * UUID(Is this right?)
-         * 
-         * @param {string} newType receivable liquidation type 
-         * @param {string} oldType receivable liquidation type
-         * @param {string} orderUUID the order UUID
-         * @param {string} entityUUID the entity UUID
-         * @param {number} amount to be transfer
-         */
-        this.transfer =
-            function (newType, oldType, orderUUID, entityUUID, amount) {
-                var document = {
-                    uuid : orderUUID,
-                    type : 'Pedido'
+            if (type === 'check') {
+                entry = new BookEntry(null, null, 70001, 11121, orderUUID, entityUUID, 'Recebimento em cheque', amount);
+            } else if (type === 'creditCard') {
+                entry = new BookEntry(null, null, 70001, 11512, orderUUID, entityUUID, 'Recebimento em cartão', amount);
+            } else if (type === 'onCuff') {
+                entry = new BookEntry(null, null, 70001, 11511, orderUUID, entityUUID, 'Saldo a receber', amount);
+            } else {
+                var logInfo = {
+                    type : type,
+                    orderUUID : orderUUID,
+                    entityUUID : entityUUID,
+                    amount : amount
                 };
-            
-                var creditAccount = getAccount(oldType);
-                var debitAccount = getAccount(newType);
-                var op = getOperationName(newType, oldType);
-                
-                var entry = new BookEntry(null, null, debitAccount, creditAccount, document, entityUUID, op, amount);
-        
-                return this.write(entry);
-            };
-        
-        function getAccount(type) {
-            if (type === 'cuff') {
-                return 11511;
-            } else if (type === 'check') {
-                return 11121;
-            } else if (type === 'card') {
-                return 11512;
+                $log.fatal('Failed to identify the receivable liquidation type: BookService.liquidate with: ', logInfo);
             }
-        }
-        
-        function getOperationName(newType, oldType) {
-            if (newType === 'check' && oldType === 'cuff') {
-                return 'Transferencia de a receber para cheque';
-            }else if (newType === 'check' && oldType === 'card') {
-                return 'Transferencia de cartao para cheque';
-            }else if (newType === 'cuff' && oldType === 'check') {
-                return 'Transferencia de cheque para a receber';
-            }else if (newType === 'cuff' && oldType === 'card') {
-                return 'Transferencia de cartao para a receber';
-            }else if (newType === 'card' && oldType === 'cuff') {
-                return 'Transferencia de a receber para cartao';
-            }else if (newType === 'card' && oldType === 'check') {
-                return 'Transferencia de cheque para cartao';
-            }
-        }
+            return [entry];
+        };
         
         this.validate = function(entries) {
 

@@ -51,11 +51,10 @@
                 this.states = [];
                 this.products = [];
                 this.lines = [];
-                
+                this.banks = {};
                 this.images = {};
 
                 $http.get('resources/data.json').then(function(response) {
-
                     angular.extend(scope, response.data);
 
                     if (scope.products.length) {

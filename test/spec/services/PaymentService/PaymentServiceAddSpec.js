@@ -93,7 +93,7 @@ describe('Service: PaymentServiceAdd', function() {
         var account = 789;
         var check = 0123;
         var expiration = 123456789;
-        var payment = new CheckPayment(amount, bank, agency, account, check, expiration);
+        var payment = new CheckPayment(null, amount, bank, agency, account, check, expiration);
         var payments = [];
 
         // when
@@ -105,7 +105,6 @@ describe('Service: PaymentServiceAdd', function() {
         // then
         expect(addCall).not.toThrow();
         expect(payments[0]).toEqual(payment);
-        expect(payments[0].id).not.toBeUndefined(payment);
     });
 
     it('should add a credit card payment', function() {

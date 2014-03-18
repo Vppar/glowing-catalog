@@ -118,17 +118,15 @@
                      * number of telephones already inserted.
                      * 
                      */
-                    $scope.$watchCollection('phone.number', function() {
-                        if ($scope.phone.number) {
-                            if (($scope.phone.number.length === 10 || $scope.phone.number.length === 11) && $scope.newPhoneForm.$valid) {
+                    $scope.$watchCollection('newPhoneForm.$valid', function() {
+                        if($scope.newPhoneForm.$valid){
+                            if($scope.phone.number){
                                 $scope.isDisabled = false;
-                            } else {
-                                $scope.isDisabled = true;
-                            }
-                        } else if ($scope.phone.number === '') {
-                            if ($scope.phones.length > 0) {
+                            }else if($scope.newPhoneForm.$valid && $scope.phones.length>0){
                                 $scope.isDisabled = false;
                             }
+                        }else {
+                            $scope.isDisabled = true;
                         }
                     });
 

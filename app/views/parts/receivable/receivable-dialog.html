@@ -1,0 +1,42 @@
+<div class="modal-head">Receb&iacute;veis</div>
+
+<div class="modal-body">
+
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="control-group">
+				<label class="control-label">Tipo de Recebimento</label>
+					<select ui-select2 tnt-select2 class='combo-width' data-placeholder="1" ng-model="paymentType">
+							<option value="{{option.id}}" ng-repeat="option in paymentOptions">{{option.type}}</option>
+					</select>
+			</div>
+		</div>
+	</div>
+
+	<div class="scroll-dialog" ng-show="paymentType == 2">
+		<div class="row-fluid">
+			<div class="span12">
+	            <label class="control-label">Banco</label>
+	            <div class="radio" ng-repeat="bank in banks">
+	            	<input type="radio" ng-model="selectedBank.name" ng-value="bank" name="bank">{{bank}}
+	            </div>
+			</div>
+		</div>
+		<div class="row-fluid" ng-show="filteredAccount.length > 0">
+			<div class="span12">
+				<div class="control-group">
+		            <label class="control-label">Conta</label>
+		            <div class="radio" ng-repeat="acc in filteredAccount | orderBy:'access'">
+		            	<input type="radio" ng-model="selectedBank.account" ng-value="acc.access" name="account"> {{acc.access}}
+		            </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal-foot">
+    <hr />
+    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+    <button ng-click='confirmLiquidate()' ng-show="selectedBank.account || paymentType != 2" class="btn btn-ok btn-large btn-login pull-right" type="submit">Confirmar</button>
+</div>

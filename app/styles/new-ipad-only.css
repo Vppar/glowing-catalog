@@ -1,0 +1,8 @@
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+    .order-table-sum{
+        padding-right: 0px;
+    }
+    .order-table-header{
+        padding-right: 0px;   
+    }
+}
