@@ -82,6 +82,7 @@
             'tnt.catalog.stock.service',
             'tnt.catalog.stock.ctrl',
             'tnt.catalog.type',
+            'tnt.catalog.productsDelivery',
             'tnt.catalog.purchaseOrder',
             'tnt.catalog.timer.service',
             'tnt.catalog.sync.driver',
@@ -122,7 +123,6 @@
             'tnt.catalog.consultant.service',
             'tnt.catalog.consultant',
             'tnt.catalog.registration.ctrl',
-            
             'tnt.catalog.purchase.service',
             'tnt.catalog.purchase.confirm.ctrl',
             'tnt.catalog.purchase.new.ctrl',
@@ -217,6 +217,7 @@
             controller: 'ThirdPartyCtrl'
         }).when('/products-delivery', {
             templateUrl : 'views/products-delivery.html',
+            controller : 'ProductsDeliveryCtrl'
         }).when('/spinner-button-promise', {
             templateUrl : 'views/spinner-button-promise.html'
         }).otherwise({
