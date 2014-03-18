@@ -170,7 +170,9 @@
                                     center : 'prev,title,next',
                                     right : 'agendaDay,agendaWeek,month'
                                 },
-
+                                height: 480,
+                                allDayText : 'dia inteiro',
+                                axisFormat : 'H:mm',
                                 selectable : true,
                                 selectHelper : true,
                                 droppable : true,
