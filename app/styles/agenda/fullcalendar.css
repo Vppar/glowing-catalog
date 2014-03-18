@@ -54,6 +54,11 @@ html .fc,
 	display: inline-block;
 	vertical-align: top;
 	}
+.fc-header-title h2 {
+	margin:0 !important;
+}
+.bread-crumbs {
+margin: 5px 0 10px 0;}
 	
 .fc-header-title h2 {
 	margin-top: 0;
@@ -67,7 +72,7 @@ html .fc,
 	}
 	
 .fc-header .fc-button {
-	margin-bottom: 1em;
+	margin-bottom: 0;
 	vertical-align: top;
 	}
 	
@@ -419,10 +424,11 @@ table.fc-border-separate {
 }
 
 .fc-grid th {
-	text-align: center;
+	text-align: left;
 	color: #999;
 	font-weight: normal;
 	font-size: 15px;
+	padding-left: 5px;
 	}
 
 .fc .fc-week-number {
