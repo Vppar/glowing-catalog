@@ -57,13 +57,12 @@ describe('Service: ConsultantKeeperAddScenario', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
         var email = 'teste@tunts.com';
         
-        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
         
         //when
         runs(function(){

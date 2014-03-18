@@ -1,9 +1,9 @@
 <div class="container">
 	<div class="row-fluid">
-		<span ng-include src="'views/parts/global/header.html'"></span>
+		<span ng-include src="'views/parts/global/header.html'" ></span>
 	</div>
-
-	<div class="new-page registration-consultant">
+<form name="consultantForm" >
+	<div class="new-page registration-consultant" ng-controller="RegistrationCtrl">
 
 		<div class="new-header row-fluid">
 			<div class="span12">
@@ -18,25 +18,19 @@
 					<div class="new-col-9">
 						<div class="control-group">
 							<label class="control-label">Nome da consultora iniciante</label>
-							<input name="name" class="input-block-level" type="text">
+							<input name="name" class="input-block-level" type="text" ng-model="consultant.name" customer-name required>
 						</div>
 					</div>
 					<div class="new-col-3">
 						<div class="control-group">
 							<label class="control-label">C&oacute;digo MK</label>
-							<input name="mkcode" class="input-block-level" type="text">						
+							<input name="mkcode" class="input-block-level" type="text" ng-model="consultant.mkCode" required>						
 						</div>
 					</div>
 					<div class="new-col-3">
 						<div class="control-group">
 							<label class="control-label">CEP</label>
-							<input name="cep" class="input-block-level" type="text">
-						</div>
-					</div>
-					<div class="new-col-9">
-						<div class="control-group">
-							<label class="control-label">Logradouro</label>
-							<input name="address" class="input-block-level" type="text">
+							<input name="cep" class="input-block-level" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
 						</div>
 					</div>
 				</div>
@@ -45,25 +39,37 @@
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">Estado civil</label>
-							<input name="" class="input-block-level" type="text">
+							<select ui-select2 class="input-block-level" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
+								<option value="">Selecione</option>
+								<option value="Casado(a)">Casado(a)</option>
+								<option value="Solteiro(a)">Solteiro(a)</option>
+								<option value="Divorciado(a)">Divorciado(a)</option>
+								<option value="Viúvo(a)">Viúvo(a)</option>
+							</select>
+							
 						</div>
 					</div>
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">Sexo</label>
-							<input name="" class="input-block-level" type="text">						
+							<select ui-select2 class="input-block-level" data-placeholder="Selecione" ng-model="consultant.gender" tnt-select2 required>
+								<option value="">Selecione</option>
+								<option value="Masculio">Masculino</option>
+								<option value="Feminino">Feminino</option>
+							</select>
 						</div>
+						
 					</div>
 					<div class="new-col-9">
 						<div class="control-group">
 							<label class="control-label">Endereço</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.address.street" required>
 						</div>
 					</div>
 					<div class="new-col-3">
 						<div class="control-group">
 							<label class="control-label">Nro.</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.address.number" required>
 						</div>
 					</div>
 				</div>
@@ -72,25 +78,37 @@
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">Data de nascimento</label>
-							<input name="" class="input-block-level" type="text">
+                    	<div>
+						<select name="birthday" class="select-width-01" ng-model="consultant.birthDate.day"  tabindex="3" ui-select2 tnt-select2>
+                            <option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+						</select>
+                        <select name="birthmonth" class="select-width-01 marginl5" ng-model="consultant.birthDate.month" tabindex="4" ui-select2 tnt-select2>
+                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+                        </select>
+                        <select name="birthyear" class="select-width-01 marginl5" ng-model="consultant.birthDate.year" tabindex="4" ui-select2 tnt-select2>
+                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+                        </select>
+                        </div>
+							
+							
 						</div>
 					</div>
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">País de Origem</label>
-							<input name="" class="input-block-level" type="text">						
+							<input name="" class="input-block-level" type="text" ng-model="consultant.countryOrigin" required>						
 						</div>
 					</div>
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">Bairro</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.address.neighborhood" required>
 						</div>
 					</div>
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">Complemento</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.complement">
 						</div>
 					</div>
 				</div>
@@ -99,25 +117,27 @@
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">CPF/MF</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.cpf" cpf required>
 						</div>
 					</div>
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">RG/&Oacute;rg&atilde;o emissor</label>
-							<input name="" class="input-block-level" type="text">						
+							<input name="" class="input-block-level" type="text" ng-model="consultant.emissary" >						
 						</div>
 					</div>
 					<div class="new-col-10">
 						<div class="control-group">
 							<label class="control-label">Cidade</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.address.city" required>
 						</div>
 					</div>
 					<div class="new-col-2">
 						<div class="control-group">
 							<label class="control-label">UF</label>
-							<input name="" class="input-block-level" type="text">
+							<select name="state"  tabindex="12" ui-select2 tnt-select2 class="select-width-02" ng-model="consultant.address.state" required>
+							<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
+							</select>
 						</div>
 					</div>
 				</div>
@@ -126,31 +146,31 @@
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">Banco</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.bank" required>
 						</div>
 					</div>
 					<div class="new-col-3">
 						<div class="control-group">
 							<label class="control-label">Agência</label>
-							<input name="" class="input-block-level" type="text">						
+							<input name="" class="input-block-level" type="text" ng-model="consultant.agency" required maxlength="4">						
 						</div>
 					</div>
 					<div class="new-col-3">
 						<div class="control-group">
 							<label class="control-label">Conta</label>
-							<input name="" class="input-block-level" type="text">						
+							<input name="" class="input-block-level" type="text" ng-model="consultant.account" required maxlength="13"> 						
 						</div>
 					</div>
 					<div class="new-col-8">
 						<div class="control-group">
 							<label class="control-label">E-mail</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" required>
 						</div>
 					</div>
 					<div class="new-col-4">
 						<div class="control-group">
 							<label class="control-label">Telefone</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.phone" required phone>
 						</div>
 					</div>
 				</div>
@@ -161,13 +181,13 @@
 					<div class="new-col-12">
 						<div class="control-group">
 							<label class="control-label">E-mail da iniciadora</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.emailPrimer" required>
 						</div>
 					</div>
 					<div class="new-col-12">
 						<div class="control-group">
 							<label class="control-label">E-mail da diretora</label>
-							<input name="" class="input-block-level" type="text">						
+							<input name="" class="input-block-level" type="text" ng-model="consultant.emailDirector" required>						
 						</div>
 					</div>
 				</div>
@@ -176,19 +196,19 @@
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">C&oacute;digo da iniciadora</label>
-							<input name="" class="input-block-level" type="text">
+							<input name="" class="input-block-level" type="text" ng-model="consultant.primerCode" >
 						</div>
 					</div>
 					<div class="new-col-6">
 						<div class="control-group">
 							<label class="control-label">Nro. da unidade</label>
-							<input name="" class="input-block-level" type="text">						
+							<input name="" class="input-block-level" type="text" ng-model="consultant.unityNumber" >						
 						</div>
 					</div>
 					<div class="new-col-12">
 						<div class="control-group">
 							<label class="control-label">&Aacute;rea nacional</label>
-							<select ui-select2 class="select-full-width" data-placeholder="Selecione" ng-model="area" tnt-select2 >
+							<select ui-select2 class="select-full-width" data-placeholder="Selecione" ng-model="consultant.area" tnt-select2 >
 								<option value="">Selecione</option>
 								<option value="teste">teste</option>
 							</select>
@@ -198,8 +218,11 @@
 
 				<div class="row-fluid">
 					<div class="new-btn-holder">
+					<div class="btn-group btn-group-sm pull-left">
+							<button class="btn btn-ok pull-left" tnt-promise-click="cancel()">Voltar</button>
+						</div>
 						<div class="btn-group btn-group-sm pull-right">
-							<button class="btn btn-ok pull-right" type="submit">Salvar</button>
+							<button class="btn btn-ok pull-right" tnt-promise-click="confirm()">Salvar</button>
 						</div>
 					</div>
 				</div>
@@ -207,4 +230,5 @@
 			</div> <!--// new-section -->
 		</div>
 	</div>
+</form>
 </div>

@@ -181,7 +181,7 @@
                         }
 
                         var event = entity;
-                        var stamp = (new Date()).getTime() / 1000;
+                        var stamp = (new Date()).getTime();
 
                         // create a new journal entry
                         var entry =

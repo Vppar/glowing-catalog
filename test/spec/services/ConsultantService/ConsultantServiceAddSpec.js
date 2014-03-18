@@ -36,7 +36,6 @@ describe('Service: ConsultantServiceAddSpec', function() {
                 number : 555
             },
             cpf : '8157170',
-            rg : '1234567890',
             bank : '001',
             agency : 12345,
             account : 321,
@@ -67,7 +66,6 @@ describe('Service: ConsultantServiceAddSpec', function() {
                 number : 555
             },
             cpf : '8157170',
-            rg : '1234567890',
             bank : '001',
             agency : 12345,
             account : 321,
