@@ -36,7 +36,7 @@
 	                <span class="new-col-4 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency:''}}</span>
 	                <span class="new-col-4 text-center">
 						<div ng-if="purchaseOrder.status==3">Em Aberto</div>
-						<div ng-if="purchaseOrder.status==4">Entregue Parcialmente</div>
+						<div ng-if="purchaseOrder.status==4">Recebimento Parcial</div>
 						<div ng-if="purchaseOrder.status==5">Entregue</div>
 	                </span>
                 </div>
