@@ -107,7 +107,10 @@
                     };
 
                     $scope.filterOrders = function filterOrders(purchase) {
-                        return angular.isUndefined(purchase.received) || $scope.ticket.tab === 'all';
+                        if (purchase.status < 3) {
+                            return false;
+                        }
+                        return purchase.status === 3 || purchase.status === 4 || $scope.ticket.tab === 'all';
                     };
 
                     $scope.cancel = function() {

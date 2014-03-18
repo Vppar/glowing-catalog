@@ -52,7 +52,7 @@
                     }
 
                     function loadPurchaseOrders() {
-                        $scope.ticket.purchaseOrders = NewPurchaseOrderService.listConfirmed();
+                        $scope.ticket.purchaseOrders = NewPurchaseOrderService.list();
                     }
 
                     function newPurchaseOrder() {
