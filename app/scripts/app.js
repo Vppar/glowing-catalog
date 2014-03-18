@@ -188,8 +188,9 @@
         }).when('/voucher', {
             templateUrl : 'views/voucher.html',
             controller : 'VoucherCtrl'
-        }).when('/warm-up', {
-            templateUrl : 'views/warm-up.html'
+        }).when('/warmup', {
+            templateUrl : 'views/warm-up.html',
+            controller : 'WarmupCtrl'
         }).when('/receivable-list', {
             templateUrl : 'views/receivable-list.html'
         }).when('/cash-flow', {
