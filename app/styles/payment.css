@@ -170,7 +170,7 @@
 	float: right
 }
 .container-payment .btn:hover {
-	background: #ACDF7B;
+	/*background: #ACDF7B; this was making the calendar buttom be green*/
 	cursor: pointer;
 }
 .col-payment-right {
