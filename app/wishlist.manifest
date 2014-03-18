@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.6
+# v0.0.8
 
 CACHE:
 apple-touch-icon.png
@@ -171,6 +171,7 @@ scripts/controllers/products-to-buy/products-to-buy-ticket-dialog.js
 scripts/controllers/products-to-buy/products-to-buy-pending.js
 scripts/controllers/products-to-buy/products-to-buy-credit.js
 scripts/controllers/order-list.js
+scripts/controllers/registration.js
 scripts/controllers/receivables/receivable.js
 scripts/controllers/receivables/receivable-check.js
 scripts/controllers/receivables/receivable-list.js

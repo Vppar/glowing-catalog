@@ -9,6 +9,13 @@
                     var cep = value;
                     if (cep) {
                         cep = value.replace(/[^0-9]/g, '');
+                        if (cep.length > 5) {
+                            if (cep.length <= 8) {
+                                cep = cep.substring(0, 5) + '-' + cep.substring(5);
+                            } else {
+                                cep = cep.substring(0, 5) + '-' + cep.substring(5, 8);
+                            }
+                        }
                     }
                     return cep;
                 });

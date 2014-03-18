@@ -3,10 +3,12 @@
 
     angular.module('tnt.catalog.consultant.entity', []).factory('Consultant', function Consultant() {
 
-        var service = function svc(uuid, name, mkCode, cep, address, cpf, rg, bank, agency, account, email) {
+        var service = function svc(uuid, name, mkCode, cep, address, cpf, bank, agency, account, email) {
 
             var validProperties = [
-                'uuid', 'name', 'mkCode', 'cep', 'address', 'cpf', 'rg', 'bank', 'agency', 'account', 'email'
+                'uuid', 'name', 'mkCode', 'cep', 'address', 'cpf', 'bank', 'agency', 'account', 'email', 'marital', 'gender',
+                'birthDate', 'countryOrigin', 'complement', 'emissary', 'phone', 'emailPrimer', 'emailDirector', 'primerCode', 'unityNumber',
+                'area'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -153,7 +155,17 @@
                         // save the journal entry
                         return JournalKeeper.compose(entry);
                     };
+                    
+                    /**
+                     * wipe it
+                     */
+                    this.nuke = function() {
+                        var entry = new JournalEntry(null, new Date(), 'nukeConsultants', currentEventVersion, null);
 
+                        return JournalKeeper.compose(entry);
+                    };
+                    
+                    
                     /**
                      * read (consultant)
                      */
@@ -162,10 +174,17 @@
                     };
 
                     /**
-                     * list(type)
+                     * list
                      */
                     this.list = function() {
                         return angular.copy(consultants);
+                    };
+                    
+                    /**
+                     * get
+                     */
+                    this.get = function() {
+                        return angular.copy(consultants[0]);
                     };
 
                 }
