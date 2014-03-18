@@ -180,15 +180,14 @@
 
                                 drop : function (date) {
                                     if (date < getActualDate()) {
-                                    	DialogService
-                                        .messageDialog({
+                                        DialogService.messageDialog({
                                             title : 'Agenda',
-                                            message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.',
+                                            message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anteriores a data/hora atual.',
                                             btnYes : 'OK',
                                         });
                                     } else {
-                                        openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);    
-                                    }                     
+                                        openEventDialog($(this).data('eventObject').eventType, date.getDate(), date.getHours(), date.getMinutes(), null, null, null);
+                                    }
                                 },
                                 select : function (start, end) {
                                     if (eventsInDay(start) > 0 && ($('#calendar').fullCalendar('getView').name === 'month')) {
@@ -218,10 +217,9 @@
                                                 openEventDialog(null, start, start.getHours(), start.getMinutes(), end.getHours(), end.getMinutes(), null);
                                             }
                                         } else {
-                                        	DialogService
-                                            .messageDialog({
+                                            DialogService.messageDialog({
                                                 title : 'Agenda',
-                                                message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.',
+                                                message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anteriores a data/hora atual.',
                                                 btnYes : 'OK',
                                             });
                                         }
@@ -265,14 +263,13 @@
                     };
                     
                 function getActualDate() {
-                	var actualDate = new Date();
-                	actualDate.setHours(0);
-                	actualDate.setMinutes(0);
-                	actualDate.setSeconds(0);
-                	actualDate.setMilliseconds(0);
-                	return actualDate;
+                    var actualDate = new Date();
+                    actualDate.setHours(0);
+                    actualDate.setMinutes(0);
+                    actualDate.setSeconds(0);
+                    actualDate.setMilliseconds(0);
+                    return actualDate;
                 }
-                    
                     
                 function eventsInDay (date) {
                     var evts = $('#calendar').fullCalendar('clientEvents');
@@ -427,8 +424,6 @@
 
                     $('#select-date').val(date);
 
-                    $('#event-status').val('PENDENTE');
-
                     if (eventType) {
                         $('#select-event').val(eventType);
                     } else {
@@ -468,11 +463,17 @@
                     $('#btn-concluir').addClass('hide');
                     $('#btn-cancelar').addClass('hide');
                     $('#btn-excluir').addClass('hide');
-
+                    $('#event-status').attr('type', 'hidden');
+                    
                     if (event) {
                         $('#select-event-uuid').val(event.uuid);
 
-                        $('#event-status').val(event.status === 'PENDANT' ? 'PENDENTE' : event.status === 'CANCELLED' ? 'CANCELADO' : event.status === 'DONE' ? 'FINALIZADO' : event.status === 'REMOVED' ? 'REMOVIDO' : '');
+                        if(event.status === 'PENDANT') {
+                            $('#event-status').attr('type', 'hidden');
+                        } else {
+                            $('#event-status').attr('type', 'text');
+                            $('#event-status').val(event.status === 'CANCELLED' ? 'CANCELADO' : event.status === 'DONE' ? 'FINALIZADO' : event.status === 'REMOVED' ? 'REMOVIDO' : '');
+                        }
 
                         if (event.title) {
                             $('#txt-title').val(event.title);
@@ -523,7 +524,7 @@
                 };
 
                 $scope.remove = function () {
-                	var result = DialogService.messageDialog({
+                    var result = DialogService.messageDialog({
                         title : 'Agenda',
                         message : 'Deseja confirmar a exclus'+unescape('%e3')+'o do evento?',
                         btnYes : 'Sim',
@@ -531,18 +532,16 @@
                     });
                     result.then(function(result) {
                         if (result) {
-                        	$scope.validateUUID();
-                        	AppointmentService.remove($('#select-event-uuid').val()).then(function () {
-                            	$scope.closeEventDialog();
-                            	DialogService
-                                .messageDialog({
+                            $scope.validateUUID();
+                            AppointmentService.remove($('#select-event-uuid').val()).then(function () {
+                                $scope.closeEventDialog();
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento Removido com sucesso!',
                                     btnYes : 'OK',
                                 });
                             }, function (err) {
-                            	DialogService
-                                .messageDialog({
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Erro: ' + err,
                                     btnYes : 'OK',
@@ -554,7 +553,7 @@
                 };
 
                 $scope.done = function () {
-                	var result = DialogService.messageDialog({
+                    var result = DialogService.messageDialog({
                         title : 'Agenda',
                         message : 'Deseja confirmar a conclus'+unescape('%e3')+'o do evento?',
                         btnYes : 'Sim',
@@ -562,18 +561,16 @@
                     });
                     result.then(function(result) {
                         if (result) {
-                        	$scope.validateUUID();
+                            $scope.validateUUID();
                             AppointmentService.done($('#select-event-uuid').val()).then(function () {
-                            	$scope.closeEventDialog();
-                            	DialogService
-                                .messageDialog({
+                                $scope.closeEventDialog();
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento finalizado com sucesso.',
                                     btnYes : 'OK',
                                 });
                             }, function (err) {
-                            	DialogService
-                                .messageDialog({
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Erro: ' + err,
                                     btnYes : 'OK',
@@ -584,7 +581,7 @@
                 };
 
                 $scope.cancel = function () {
-                	var result = DialogService.messageDialog({
+                    var result = DialogService.messageDialog({
                         title : 'Agenda',
                         message : 'Deseja confirmar o cancelamento do evento?',
                         btnYes : 'Sim',
@@ -592,18 +589,16 @@
                     });
                     result.then(function(result) {
                         if (result) {
-                        	$scope.validateUUID();
+                            $scope.validateUUID();
                             AppointmentService.cancel($('#select-event-uuid').val()).then(function () {
-                            	$scope.closeEventDialog();
-                            	DialogService
-                                .messageDialog({
+                                $scope.closeEventDialog();
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento cancelado com sucesso.',
                                     btnYes : 'OK',
                                 });
                             }, function (err) {
-                            	DialogService
-                                .messageDialog({
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Erro: ' + err,
                                     btnYes : 'OK',
@@ -644,9 +639,8 @@
                                     btnYes : 'OK',
                                 });
                             }, function (err) {
-                            	var message = 'Erro. Verifique os seguintes campos: ' + err;
-                            	DialogService
-                                .messageDialog({
+                                var message = 'Erro. Verifique os seguintes campos: ' + err;
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : message,
                                     btnYes : 'OK',
@@ -678,17 +672,15 @@
                             $scope.appointment.color =  $('.tag' + $('#select-event').val()).find('.tag-circle').css('background-color');
 
                             AppointmentService.create($scope.appointment).then(function () {
-                            	DialogService
-                                .messageDialog({
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento cadastrado com sucesso.',
                                     btnYes : 'OK',
                                 });
-                            	$scope.closeEventDialog();
+                                $scope.closeEventDialog();
                             }, function (err) {
-                            	var message = 'Erro. Verifique os seguintes campos: ' + err; 
-                            	DialogService
-                                .messageDialog({
+                                var message = 'Erro. Verifique os seguintes campos: ' + err;
+                                DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : message,
                                     btnYes : 'OK',
@@ -699,8 +691,7 @@
 
                 $scope.validateUUID = function () {
                     if (!$('#select-event-uuid').val()) {
-                    	DialogService
-                        .messageDialog({
+                        DialogService.messageDialog({
                             title : 'Agenda',
                             message : 'UUID do Evento '+unescape('%e9')+' um campo obrigat'+unescape('%f3')+'rio.',
                             btnYes : 'OK',
@@ -713,8 +704,7 @@
                 $scope.validateEventDialogFields =
                     function (selectedStartDate, selectedEndDate) {
                         if (!$('#select-date').val()) {
-                        	DialogService
-                            .messageDialog({
+                            DialogService.messageDialog({
                                 title : 'Agenda',
                                 message : 'A data do evento ' + unescape('%e9') + ' um campo obrigat' +
                                 unescape('%f3') + 'rio.',
@@ -723,8 +713,7 @@
                             return false;
                         }
                         if (!$('#select-client').val()) {
-                        	DialogService
-                            .messageDialog({
+                            DialogService.messageDialog({
                                 title : 'Agenda',
                                 message : 'O contato do evento ' + unescape('%e9') + ' um campo obrigat' +
                                 unescape('%f3') + 'rio.',
@@ -738,8 +727,7 @@
                         }
 
                         if (!$('#txt-title').val()) {
-                        	DialogService
-                            .messageDialog({
+                            DialogService.messageDialog({
                                 title : 'Agenda',
                                 message : 'O t' + unescape('%ed') + 'tulo do evento ' + unescape('%e9') +
                                 ' um campo obrigat' + unescape('%f3') + 'rio.',
@@ -748,8 +736,7 @@
                             return false;
                         }
                         if (!$('#txt-description').val()) {
-                        	DialogService
-                            .messageDialog({
+                            DialogService.messageDialog({
                                 title : 'Agenda',
                                 message : 'A descri' + unescape('%e7') + unescape('%e3') + 'o do evento ' +
                                 unescape('%e9') + ' um campo obrigat' + unescape('%f3') + 'rio.',
@@ -758,8 +745,7 @@
                             return false;
                         }
                         if (!$('#select-event').val()) {
-                        	DialogService
-                            .messageDialog({
+                            DialogService.messageDialog({
                                 title : 'Agenda',
                                 message : 'O tipo do evento ' + unescape('%e9') + ' um campo obrigat' +
                                 unescape('%f3') + 'rio.',
@@ -772,18 +758,16 @@
 
                 function validateDate (selectedStartDate, selectedEndDate) {
                     if (selectedStartDate < new Date()) {
-                    	DialogService
-                        .messageDialog({
+                        DialogService.messageDialog({
                             title : 'Agenda',
-                            message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anterior a data atual.',
+                            message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anteriores a data/hora atual.',
                             btnYes : 'OK',
                         });
                         return false;
                     }
 
                     if (selectedEndDate < selectedStartDate) {
-                    	DialogService
-                        .messageDialog({
+                        DialogService.messageDialog({
                             title : 'Agenda',
                             message : 'Hora inv'+unescape('%e1')+'lida para o evento.',
                             btnYes : 'OK',
