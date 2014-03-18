@@ -81,7 +81,7 @@
                             receivable.uuid,
                             new Date().getTime(),
                             receivable.type,
-                            receivable.order.uuid,
+                            receivable.uuid,
                             receivable.entityId,
                             receivable.amount,
                             account);

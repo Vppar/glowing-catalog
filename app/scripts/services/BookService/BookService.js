@@ -178,23 +178,23 @@
          * UUID(Is this right?)
          * 
          * @param {string} type the type of receivable to liquidate
-         * @param {string} orderUUID the order UUID
+         * @param {string} documentUUID the order UUID
          * @param {string} entityUUID the entity UUID
          * @param {number} amount to be paid
          */
-        this.liquidate = function (type, orderUUID, entityUUID, amount) {
+        this.liquidate = function (type, documentUUID, entityUUID, amount) {
             var entry = null;
             
             if (type === 'check') {
-                entry = new BookEntry(null, null, 70001, 11121, orderUUID, entityUUID, 'Recebimento em cheque', amount);
+                entry = new BookEntry(null, null, 70001, 11121, documentUUID, entityUUID, 'Recebimento em cheque', amount);
             } else if (type === 'creditCard') {
-                entry = new BookEntry(null, null, 70001, 11512, orderUUID, entityUUID, 'Recebimento em cartão', amount);
+                entry = new BookEntry(null, null, 70001, 11512, documentUUID, entityUUID, 'Recebimento em cartão', amount);
             } else if (type === 'onCuff') {
-                entry = new BookEntry(null, null, 70001, 11511, orderUUID, entityUUID, 'Saldo a receber', amount);
+                entry = new BookEntry(null, null, 70001, 11511, documentUUID, entityUUID, 'Saldo a receber', amount);
             } else {
                 var logInfo = {
                     type : type,
-                    orderUUID : orderUUID,
+                    documentUUID : documentUUID,
                     entityUUID : entityUUID,
                     amount : amount
                 };

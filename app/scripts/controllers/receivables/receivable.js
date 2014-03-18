@@ -63,7 +63,7 @@
                 $scope.clearSelectedReceivable = function () {
                     $scope.selectedReceivable = null;
                     $scope.negotiate = false;
-                    $scope.header.description = "";
+                    $scope.header={description :""};
                 };
 
             }

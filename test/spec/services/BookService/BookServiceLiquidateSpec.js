@@ -137,7 +137,7 @@ describe('Service: BookServiceLiquidateSpec', function () {
         it('should write in book with the right entry', function () {
             var logInfo = {
                 type : type,
-                orderUUID : uuid,
+                documentUUID : uuid,
                 entityUUID : entityUUID,
                 amount : amount
             };

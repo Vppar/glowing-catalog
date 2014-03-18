@@ -139,7 +139,7 @@
 		<span class="span5 pull-right">
 			<label class="control-label">&nbsp;</label>
 			<button ng-show="selectedReceivable.status==='Aberto'" ng-hide="negotiate==true" ng-click="openReceivable()" class="btn-large btn btn-ok pull-right margin-left-10" type="submit">Baixar</button>
-			<button ng-show="selectedReceivable.status==='Aberto'" ng-click="setNegotiation(true)" ng-hide="negotiate==true" class="btn btn-cancel btn-large pull-right margin-left-10" type="submit">Alterar</button>
+			<button ng-show="selectedReceivable.status==='Aberto'" ng-click="showDialogOfDeath(); setNegotiation(true)" ng-hide="negotiate==true" class="btn btn-cancel btn-large pull-right margin-left-10" type="submit">Alterar</button>
 			<button ng-click="clearSelectedReceivable()" ng-hide="negotiate==true" class="btn btn-cancel btn-large margin-left-10 pull-right" type="submit">Voltar</button>
 		</span>
 		<!-- negociate state buttons -->

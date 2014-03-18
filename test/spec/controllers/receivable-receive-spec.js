@@ -31,6 +31,7 @@ describe('Controller: ReceivableReceiveCtrl', function() {
         // mock function of parent controller.
         scope.selectReceivableMode = jasmine.createSpy('scope.selectReceivableMode');
         scope.clearSelectedReceivable = jasmine.createSpy('scope.clearSelectedReceivable');
+        scope.header = {description:''};
         $controller('ReceivableReceiveCtrl', {
             $scope : scope,
             DataProvider : DataProvider,

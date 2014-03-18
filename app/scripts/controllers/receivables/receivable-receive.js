@@ -17,9 +17,6 @@
                 $scope.negotiate = false;
                 $scope.extra = 0;
                 $scope.discount = 0;
-                $scope.header = {
-                    description : ''
-                };
                 $scope.aditionalInfo = {
                     discount : 0,
                     extra : 0
@@ -80,7 +77,9 @@
                     $scope.negotiate = value;
                     // fill the header description
                     if ($scope.negotiate === true) {
-                        $scope.header.description = "> Edição";
+                        if($scope.header){
+                            $scope.header.description = "> Edição";
+                        }
                         // should enable check fields
                         if ($scope.paymentSelected.id == 0) {
                             $scope.showCheckFields = true;
@@ -164,6 +163,15 @@
                     }
                 }
 
+                
+                $scope.showDialogOfDeath = function(){
+                    DialogService.messageDialog({
+                        title : 'Opps',
+                        message : 'Homems trablhando nesta funcionalidade.',
+                        btnYes : 'OK'
+                    });
+                };
+                
                 $scope.$watch('selectedReceivable', setPaymentType);
                 $scope.$watchCollection('paymentSelected', function (newVal, oldVal) {
 
