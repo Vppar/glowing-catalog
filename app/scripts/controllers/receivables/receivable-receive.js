@@ -9,11 +9,13 @@
             'BookService',
             'DialogService',
             'ArrayUtils',
-            function ($scope, $filter, ReceivableService, BookService, DialogService, ArrayUtils) {
+            'CheckPayment',
+            function ($scope, $filter, ReceivableService, BookService, DialogService, ArrayUtils, CheckPayment) {
 
                 $scope.paymentSelected = {
                     id : 1
                 };
+                $scope.check ={};
                 $scope.negotiate = false;
                 $scope.extra = 0;
                 $scope.discount = 0;
@@ -118,8 +120,30 @@
                         });
                         return
                     }
-
-                    console.log('nice');
+                    // CALL SERVICE AND MAKE THINGS WORK
+                    // update receivable.
+                    var amount = changedFields.amount?changedFields.amount.newVal:undefined ;
+                    var duedate = changedFields.duedate? changedFields.duedate.newVal: undefined;
+                    var remarks = changedFields.remarks? changedFields.remarks.newVal:undefined;
+                    var typeNew = changedFields.type? changedFields.type.newVal : undefined;
+                    var typeOld = changedFields.type? changedFields.type.oldVal : undefined;
+                    var extra = $scope.aditionalInfo.extra > 0 ? $scope.aditionalInfo.extra : undefined;
+                    var discount = $scope.aditionalInfo.discount > 0 ? $scope.aditionalInfo.discount : undefined;
+                    
+                    var totalAmount = extra ? ($scope.selectedReceivable.amount+extra) :($scope.selectedReceivable.amount - discount);
+                    
+                    
+                    var newPayment = undefined;
+                    if(typeNew && typeOld){
+                        if(typeNew === 'check'){
+                            
+                            newPayment = new CheckPayment($scope.selectedReceivable.uuid, $scope.check.bank, $scope.check.agency, $scope.check.account, $scope.check.number, $scope.selectedReceivable.duedate, totalAmount); 
+                        }else if(typeNew === 'onCuff'){
+                            newPayment = new OnCuffPayment($selectedReceivable.amount, duedate);
+                        }
+                    }
+                    console.log(newPayment);
+                    ReceivableService.update($scope.selectedReceivable.uuid, amount, duedate, remarks, newPayment, typeNew, extra, discount);
                 };
 
                 /**
@@ -140,19 +164,20 @@
                     var originalReceivable =
                         ArrayUtils.find($scope.receivables.list, 'uuid', receivable.uuid);
 
-                    var changedFields = [];
+                    var changedFields = {};
                     if (receivable.amount != originalReceivable.amount) {
-                        changedFields.push('amount');
+                        changedFields.amount={prop :'amount', oldVal:originalReceivable.amount, newVal:receivable.amount,};
                     }
                     if (receivable.duedate != originalReceivable.duedate) {
-                        changedFields.push('duedate');
+                        changedFields.duedate = {prop :'duedate', oldVal:originalReceivable.duedate, newVal:receivable.duedate,};
                     }
                     if (receivable.remarks != originalReceivable.remarks) {
-                        changedFields.push('remarks');
+                        changedFields.remarks = {prop :'remarks', oldVal:originalReceivable.remarks, newVal:receivable.remarks,};
                     }
                     if (receivable.type != getPaymentType($scope.paymentSelected.id)) {
-                        changedFields.push('type');
+                        changedFields.type = {prop :'type', oldVal:originalReceivable.type, newVal:getPaymentType($scope.paymentSelected.id)};
                     }
+                    
                     return changedFields;
                 }
 
