@@ -1,0 +1,23 @@
+.registration-consultant .select-full-width {
+ 	width:100%;
+ }
+
+.registration-consultant .new-date-day, .registration-consultant .new-date-month {
+	width:60px;
+	margin:0;
+}
+.registration-consultant .new-date-month {
+	margin-left:5px;
+}
+.registration-consultant .new-date-year {
+	width:97px;
+	margin:0;
+}
+
+.registration-consultant .new-state-field {
+	width:68px;
+}
+
+.registration-consultant .btn-group {
+	margin-bottom:10px;
+}
