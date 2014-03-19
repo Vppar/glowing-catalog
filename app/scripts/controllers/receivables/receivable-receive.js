@@ -76,12 +76,11 @@
 
                 $scope.liquidateReceivable = function () {
                     var changedFields = verifyChangedFields();
-                   
+                    if(changedFields.hasChange){
+                        $scope.save(); 
+                    }
                     $scope.selectedReceivable.totalAmount = $scope.total.amount;
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
-                        if(changedFields.hasChange){
-                            $scope.save(); 
-                        }
                         DialogService.messageDialog({
                             title : 'Baixa realizada',
                             message : 'A baixa foi realizada com sucesso.',
