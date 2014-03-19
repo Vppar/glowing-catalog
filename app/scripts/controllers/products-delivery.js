@@ -38,13 +38,11 @@ angular.module('tnt.catalog.productsDelivery', [
                         var getPendingProducts = function getPendingProducts(order) {
                             var pendingProducts = [];
                             selectedOrder = order.uuid;
-                            // console.log(order, 'Order');
                             for ( var ix in order.items) {
                                 order.items[ix].order = order.code;
                                 order.items[ix].created = order.created;
                                 pendingProducts.push(order.items[ix]);
                             }
-                            // console.log(pendingProducts, 'Items');
                             return pendingProducts;
                         };
 
@@ -70,10 +68,8 @@ angular.module('tnt.catalog.productsDelivery', [
                             for ( var i in updatedItems) {
                                 if (updatedItems[i].dQty > 0) {
                                     stock = StockService.findInStock(updatedItems[i].id);
-                                    console.log(stock);
                                     stock.quantity -= updatedItems[i].dQty;
                                     stock.reserve -= updatedItems[i].dQty;
-                                    console.log(stock);
                                     StockService.unreserve(stock);
 
                                     StockService.remove(stock);
