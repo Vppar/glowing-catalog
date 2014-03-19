@@ -39,7 +39,7 @@
 }
 
 .warm-up-finances-part .new-scrollpanel {
-  height: calc(100% - 90px);
+  height: calc(100% - 60px);
 }
 
 .warm-up-third-part .new-scrollpanel {
@@ -168,8 +168,8 @@
 	text-align: right;
 }
 
-.warm-up-body-row .new-col-6 .currency {
-  width: 98%;
+.warm-up-body-row .new-col-6 .currency, .warm-up-body-row-form .new-col-4 .currency {
+  width: 97.5%;
 }
 
 .warm-up-body-row-form .input-append input {
