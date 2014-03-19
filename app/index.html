@@ -27,6 +27,11 @@
 	                var value = Math.round(evt.loaded/evt.total * 100);
 	                document.getElementById('progress').innerHTML = value + '%';
 	            }
+	            
+	            if(window.localStorage.deviceId && window.glowingCatalogAppReady){
+	                console.log("force skip");
+	                skip();
+	            }
 	        }
 
 	        function onUpdateReady(){
