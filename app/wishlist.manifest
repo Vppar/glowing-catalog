@@ -38,6 +38,7 @@ styles/stock.css
 styles/warm-up.css
 styles/third-parties.css
 styles/new.css
+styles/new-registration.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -195,15 +196,6 @@ scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
 scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
-scripts/controllers/products-to-buy/products-to-buy.js
-scripts/controllers/products-to-buy/products-to-buy-order.js
-scripts/controllers/products-to-buy/products-to-buy-confirm.js
-scripts/controllers/products-to-buy/products-to-buy-confirm-dialog.js
-scripts/controllers/products-to-buy/products-to-buy-summary.js
-scripts/controllers/products-to-buy/products-to-buy-ticket.js
-scripts/controllers/products-to-buy/products-to-buy-ticket-dialog.js
-scripts/controllers/products-to-buy/products-to-buy-pending.js
-scripts/controllers/products-to-buy/products-to-buy-credit.js
 scripts/controllers/purchase-order/purchase-order-confirm.js
 scripts/controllers/purchase-order/purchase-order-new.js
 scripts/controllers/purchase-order/purchase-order-pending-products.js
@@ -328,14 +320,6 @@ views/parts/payment/payment-left-on-cuff.html
 views/parts/payment/payment-left-order.html
 views/parts/payment/payment-left-voucher.html
 views/parts/payment/payment-right-totals.html
-views/parts/products-to-buy/products-to-buy-confirm-dialog.html
-views/parts/products-to-buy/products-to-buy-confirm.html
-views/parts/products-to-buy/products-to-buy-credit.html
-views/parts/products-to-buy/products-to-buy-order.html
-views/parts/products-to-buy/products-to-buy-pending.html
-views/parts/products-to-buy/products-to-buy-summary.html
-views/parts/products-to-buy/products-to-buy-ticket-dialog.html
-views/parts/products-to-buy/products-to-buy-ticket.html
 views/parts/purchase-order/purchase-order-confirm.html
 views/parts/purchase-order/purchase-order-new.html
 views/parts/purchase-order/purchase-order-pending-products.html
@@ -366,7 +350,6 @@ views/partial-delivery.html
 views/payment.html
 views/pending-delivery.html
 views/previous-entries.html
-views/products-to-buy.html
 views/products-delivery.html
 views/receivable.html
 views/spinner-button-promise.html
