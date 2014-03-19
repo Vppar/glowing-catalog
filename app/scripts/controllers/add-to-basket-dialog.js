@@ -41,7 +41,13 @@
                 }
 
                 // find the grid
-                var grid = angular.copy(ArrayUtils.list(inventory, 'parent', dialog.data.id));
+                var filter = {
+                    parent: dialog.data.id,
+                    active: true
+                };
+                
+                var grid = angular.copy(ArrayUtils.filter(inventory, filter));
+                
 
                 for ( var i in grid) {
                     var gridStock = StockService.findInStock(grid[i].id);

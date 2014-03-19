@@ -55,7 +55,7 @@
             var product = null;
             for(var ix in products){
                 product = products[ix];
-                if(product.active){
+                if(product.parent !== false){
                     product = this.squash(product, products);
                     
                     var item = new Inventory(product.id);

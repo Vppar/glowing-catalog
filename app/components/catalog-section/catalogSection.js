@@ -28,7 +28,8 @@
 
                         var filter = {
                             line : scope.line.name,
-                            session : scope.section
+                            session : scope.section,
+                            active : true
                         };
 
                         var lineUp = ArrayUtils.filter(DataProvider.products, filter);
