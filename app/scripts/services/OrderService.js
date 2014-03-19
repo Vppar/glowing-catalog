@@ -5,12 +5,11 @@
             'OrderService',
             [
                 '$q',
-                '$log',
                 'Order',
                 'OrderKeeper',
                 'DataProvider',
                 'logger',
-                function OrderService2($q, $log, Order, OrderKeeper, DataProvider, logger) {
+                function OrderService2($q, Order, OrderKeeper, DataProvider, logger) {
 
                     var log = logger.getLogger('tnt.catalog.order.service.OrderService');
 
@@ -83,10 +82,10 @@
                         if (hasErrors.length === 0) {
                             result = OrderKeeper.add(new Order(order));
                             result['catch'](function(err) {
-                                $log.error('OrderService.register: -Failed to create an order. ', err);
+                                log.error('OrderService.register: -Failed to create an order. ', err);
                             });
                         } else {
-                            $log.error('OrderService.register: -Invalid order. ', hasErrors);
+                            log.error('OrderService.register: -Invalid order. ', hasErrors);
                             result = $q.reject(hasErrors);
                         }
                         return result;
@@ -102,7 +101,7 @@
                         try {
                             result = OrderKeeper.list();
                         } catch (err) {
-                            $log.debug('OrderService.list: Unable to recover the list of orders. ' + 'Err=' + err);
+                            log.debug('OrderService.list: Unable to recover the list of orders. ' + 'Err=' + err);
                         }
                         return result;
                     };
@@ -118,7 +117,7 @@
                         try {
                             result = OrderKeeper.read(id);
                         } catch (err) {
-                            $log.debug('OrderService.read: Unable to find an order with the id=' + id + '. ' + 'Err=' + err);
+                            log.debug('OrderService.read: Unable to find an order with the id=' + id + '. ' + 'Err=' + err);
                         }
                         return result;
                     };
@@ -134,10 +133,10 @@
                         try {
                             result = OrderKeeper.cancel(id);
                             result['catch'](function(err) {
-                                $log.debug('OrderService.cancel: -Failed to cancel an order. ', err);
+                                log.debug('OrderService.cancel: -Failed to cancel an order. ', err);
                             });
                         } catch (err) {
-                            $log.debug('OrderService.cancel: Unable to cancel the order with id=' + id + '. ' + 'Err=' + err);
+                            log.debug('OrderService.cancel: Unable to cancel the order with id=' + id + '. ' + 'Err=' + err);
                             result = $q.reject(err);
                         }
                         return result;
@@ -155,10 +154,10 @@
                         try {
                             result = OrderKeeper.update(id, items);
                             result['catch'](function(err) {
-                                $log.debug('OrderService.update: -Failed to update an order. ', err);
+                                log.debug('OrderService.update: -Failed to update an order. ', err);
                             });
                         } catch (err) {
-                            $log.debug('OrderService.update: Unable to update the order with id=' + id + '. ' + 'Err=' + err);
+                            log.debug('OrderService.update: Unable to update the order with id=' + id + '. ' + 'Err=' + err);
                             result = $q.reject(err);
                         }
                         return result;

@@ -1,6 +1,6 @@
-describe('Service: OrderServiceUpdateOrderQty', function() {
+describe('Service: OrderServiceUpdate', function() {
     var fakeNow = 1386444467895;
-    var logger = {};
+    var loggerMock = {};
     var OrderMock = {};
     var OrderKeeperMock = {};
     var DataProviderMock = {};
@@ -18,10 +18,12 @@ describe('Service: OrderServiceUpdateOrderQty', function() {
 
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
-        logger.info = jasmine.createSpy('logger.info');
-        logger.getLogger = jasmine.createSpy('logger.getLogger').andReturn(logger);
+        loggerMock.info = jasmine.createSpy('logger.info');
+        loggerMock.getLogger = jasmine.createSpy('logMock.getLogger').andReturn(loggerMock);
+
         module(function($provide) {
-            $provide.value('logger', logger);
+            // $provide.value('$log', logMock);
+            $provide.value('logger', loggerMock);
             $provide.value('Order', OrderMock);
             $provide.value('OrderKeeper', OrderKeeperMock);
             $provide.value('DataProvider', DataProviderMock);
@@ -34,9 +36,10 @@ describe('Service: OrderServiceUpdateOrderQty', function() {
         q = _$q_;
     }));
 
-    it('', function() {
+    it('gets order from OrderKeeper.update()', function() {
         PromiseHelper.config(q, angular.noop);
-        OrderKeeperMock.updateItemQty = jasmine.createSpy('OrderKeeper.updateItemQty').andCallFake(PromiseHelper.resolved(true));
+        OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andCallFake(PromiseHelper.resolved(true));
+        OrderKeeperMock.updateItemQty = jasmine.createSpy('OrderKeeper.update').andCallFake(PromiseHelper.resolved(true));
 
         runs(function() {
 

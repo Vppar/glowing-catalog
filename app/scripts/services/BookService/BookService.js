@@ -92,7 +92,7 @@
 
             // Custo do produto
             entries.push(new BookEntry(null, null, 41305, 70001, orderUUID, entityUUID, 'Devolução de produto', productAmount));
-            entries.push(new BookEntry(null, null, 11701, 51115, orderUUID, entityUUID, 'Devolução de produto', productCost));
+            entries.push(new BookEntry(null, null, 51115, 11701, orderUUID, entityUUID, 'Devolução de produto', productCost));
 
             return entries;
         };
@@ -110,8 +110,8 @@
             var entries = [];
 
             // Custo do produto
-            entries.push(new BookEntry(null, null, 21307, 41305, orderUUID, entityUUID, 'Entrega de produto', productAmount));
-            entries.push(new BookEntry(null, null, 51115, 11701, orderUUID, entityUUID, 'Entrega de produto', productCost));
+            entries.push(new BookEntry(null, null, 21307, 41101, orderUUID, entityUUID, 'Entrega de produto', productAmount));
+            entries.push(new BookEntry(null, null, 11701, 51115, orderUUID, entityUUID, 'Entrega de produto', productCost));
 
             return entries;
         };
