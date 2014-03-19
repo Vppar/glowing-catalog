@@ -47,9 +47,6 @@
                     $scope.header.description = "> Edição";
                 };
 
-                // starting by 'list' tab
-                $scope.selectReceivableMode('listClosed');
-
                 $scope.back = function () {
                     $scope.selectedReceivable = null;
                     $scope.header = {
