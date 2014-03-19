@@ -1,68 +1,70 @@
-describe('Service: OrderServiceUpdate', function () {
-  var fakeNow = 1386444467895;
-  var logMock = {};
-  var OrderMock = {};
-  var OrderKeeperMock = {};
-  var DataProviderMock = {};
+describe('Service: OrderServiceUpdate', function() {
+    var fakeNow = 1386444467895;
+    var loggerMock = {};
+    var OrderMock = {};
+    var OrderKeeperMock = {};
+    var DataProviderMock = {};
+    var scope = {};
 
   var OrderService;
   var scope = null;
   var result = null;
   var q = null;
 
-  // load the service's module
-  beforeEach(function () {
+    // load the service's module
+    beforeEach(function() {
 
-    module('tnt.catalog.order.service');
+        module('tnt.catalog.order.service');
 
-    spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-    logMock.debug = jasmine.createSpy('$log.debug');
+        spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
+//        logMock.debug = jasmine.createSpy('$log.debug');
 
-    OrderKeeperMock.update = jasmine.createSpy('OrderKeeper.update').andReturn('ok');
+        loggerMock.getLogger = jasmine.createSpy('logMock.getLogger');
 
-    module(function ($provide) {
-      $provide.value('$log', logMock);
-      $provide.value('Order', OrderMock);
-      $provide.value('OrderKeeper', OrderKeeperMock);
-      $provide.value('DataProvider', DataProviderMock);
-    });
-  });
-
-  beforeEach(inject(function(_OrderService_, $rootScope, $q) {
-    OrderService = _OrderService_;
-    scope = $rootScope;
-    q = $q;
-  }));
-
-  it('gets order from OrderKeeper.update()', function () {
-    var order = null;
-
-    OrderKeeperMock.update = jasmine.createSpy('OrderKeeper.update').andCallFake(function() {
-        var deferred = q.defer();
-
-        setTimeout(function() {
-            deferred.resolve();
-        }, 0);
-
-        return deferred.promise;
-    });
-
-    runs(function() {
-        // when
-        order = OrderService.update(1,[{test:'updated'}]);
-        order.then(function() {
-            result = true;
+        module(function($provide) {
+            // $provide.value('$log', logMock);
+            $provide.value('logger', loggerMock);
+            $provide.value('Order', OrderMock);
+            $provide.value('OrderKeeper', OrderKeeperMock);
+            $provide.value('DataProvider', DataProviderMock);
         });
     });
 
-    waitsFor(function() {
-        scope.$apply();
-        return result;
-    }, 'JournalKeeper is taking too long');
+    beforeEach(inject(function(_OrderService_, $rootScope, _$q_) {
+        OrderService = _OrderService_;
+        scope = $rootScope;
+        q = _$q_;
+    }));
 
-    runs(function() {
-        expect(OrderKeeperMock.update).toHaveBeenCalledWith(1,[{test:'updated'}]);
+    it('gets order from OrderKeeper.update()', function() {
+        PromiseHelper.config(q, angular.noop);
+        OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andCallFake(PromiseHelper.resolved(true));
+        OrderKeeperMock.update = jasmine.createSpy('OrderKeeper.update').andCallFake(PromiseHelper.resolved(true));
+
+        runs(function() {
+
+            // when
+            OrderService.update(1, [
+                {
+                    test : 'updated'
+                }
+            ]).then(function() {
+                result = true;
+            });
+        });
+
+        waitsFor(function() {
+            scope.$apply();
+            return result;
+        }, 'JournalKeeper is taking too long');
+
+        runs(function() {
+            expect(OrderKeeperMock.update).toHaveBeenCalledWith(1, [
+                {
+                    test : 'updated'
+                }
+            ]);
+        });
+
     });
-
-  });
 });

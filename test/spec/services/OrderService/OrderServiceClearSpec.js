@@ -1,6 +1,7 @@
 describe('Service: OrderServiceClear', function () {
   var fakeNow = 1386444467895;
   var logMock = {};
+  var loggerMock = {};
   var OrderMock = {};
   var OrderKeeperMock = {};
   var DataProviderMock = {};
@@ -13,12 +14,14 @@ describe('Service: OrderServiceClear', function () {
     module('tnt.catalog.order.service');
 
     spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-    logMock.debug = jasmine.createSpy('$log.debug');
+    logMock.debug = jasmine.createSpy('log.debug');
+    loggerMock.getLogger = jasmine.createSpy('logger.getLogger');
 
     OrderKeeperMock.clear = jasmine.createSpy('OrderKeeper.save');
 
     module(function ($provide) {
       $provide.value('$log', logMock);
+      $provide.value('logger', loggerMock);
       $provide.value('Order', OrderMock);
       $provide.value('OrderKeeper', OrderKeeperMock);
       $provide.value('DataProvider', DataProviderMock);

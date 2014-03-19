@@ -236,7 +236,7 @@
                      * Update the item qty of an order
                      */
                     var updateItemQty =
-                        function update (uuid, items) {
+                        function (uuid, items) {
                             var order = ArrayUtils.find(orders, 'uuid', uuid);
                             if (!order) {
                                 throw 'Unable to find an order with uuid=\'' + uuid + '\'';
