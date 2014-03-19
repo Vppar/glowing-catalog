@@ -37,9 +37,7 @@
             <div class="row-fluid" ng-click="toggleSession(session)">
                 <div class="new-body-row details-subtitle">
                     <span class="product-order">{{session.label}}</span>
-                    <span class="outros-header-order text-center">{{summary.total.sessions[session.label].pts}}</span>
-                    <span class="outros-header-order currency">{{summary.total.sessions[session.label].avg | currency:''}}</span>
-                    <span class="outros-header-order text-center">{{summary.total.sessions[session.label].minQty}}</span>
+                    <span class="outros-header-order text-center">%</span>
                     <span class="pedido-header-order text-center">{{summary.total.sessions[session.label].orderQty}}</span>
                 </div>
             </div>
@@ -48,9 +46,7 @@
                 <div class="row-fluid" ng-click="toggleLine(line)">
                     <div class="new-body-row details-category">
                         <span class="product-order">{{line.label}}</span>
-                        <span class="outros-header-order text-center">{{summary.total.sessions[session.label].lines[line.label].pts}}</span>
-                        <span class="outros-header-order currency">{{summary.total.sessions[session.label].lines[line.label].avg | currency:''}}</span>
-                        <span class="outros-header-order text-center">{{summary.total.sessions[session.label].lines[line.label].minQty}}</span>
+                        <span class="outros-header-order text-center">%</span>
                         <span class="pedido-header-order text-center">{{summary.total.sessions[session.label].lines[line.label].orderQty}}</span>
                     </div>
                 </div>
@@ -60,9 +56,9 @@
                             {{product.title}}
                             <div class="code-product" once-text="product.uniqueName"></div>
                         </span>
-                        <span class="outros-header-order text-center" once-text="product.points"></span>
-                        <span class="outros-header-order currency" once-text="product.cost | currency: ''"></span>
-                        <span class="outros-header-order text-center" once-text="product.minQty"></span>
+                        <span class="pedido-header-order text-center">
+                            <tnt-number-picker ng-model="newStock.discounts[product.id]" min="25" max="40" step="5"></tnt-number-picker>
+                        </span>
                         <span class="pedido-header-order text-center">
                             <tnt-number-picker ng-model="newStock.watchedQty[product.id]" min="0"></tnt-number-picker>
                         </span>

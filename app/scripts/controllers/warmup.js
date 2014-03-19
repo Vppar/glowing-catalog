@@ -239,6 +239,14 @@
             }
         }
 
+
+        function getCostWithDiscount(cost, discount) {
+            discount = parseInt(discount);
+
+            return Math.round(100 * cost * ((100 - discount) / 100)) / 100;
+        }
+
+
         //from principal!!!
         /**
          * Summary tab
@@ -249,12 +257,23 @@
         $scope.newStock = {};
         $scope.newStock.items = {};
         $scope.newStock.watchedQty = {};
+        $scope.newStock.discounts = {};
         $scope.filter = {
                         text : ''
                     };
         $scope.main = {};
         $scope.main.stockReport = StockService.stockReport('all');
 
+        function updateCostsWithDiscount() {
+            var items = $scope.newStock.items;
+
+            for (var id in items) {
+                var item = items[id];
+                var discount = $scope.newStock.discounts[id] || 25;
+                var cost = item.price || item.cost;
+                $scope.newStock.costsWithDiscount[id] = getCostWithDiscount(cost, discount);
+            }
+        }
 
         /**
                      * Method to summarize the products from the list
@@ -375,7 +394,9 @@
 
 
         //end from principal
+
         
+
         var stockReport = $scope.main.stockReport;
         var currentProductWatcher = {};
 
@@ -492,6 +513,10 @@
                     continue;
                 }
 
+                var discount = $scope.newStock.discounts[idx];
+                var cost = ArrayUtils.find(allProducts,'id', Number(idx)).price;
+                var costWithDiscount = getCostWithDiscount(cost, discount);
+
                 var entry = {
                     type : "stockAdd",
                     version : 1,
@@ -499,7 +524,7 @@
                         // $scope.newStock.watchedQty uses the product id as
                         // its index (see parts/warmu-up/warm-up-stock.html)
                         inventoryId : Number(idx),  
-                        cost : ArrayUtils.find(allProducts,'id', Number(idx)).price,
+                        cost : costWithDiscount,
                         quantity : items[idx]
                     }
                 };
@@ -512,6 +537,13 @@
         // #####################################################################################################
         // Watchers
         // #####################################################################################################
+        $scope.$watchCollection('newStock.watchedQty', function (newObj) {
+            if ($scope.filter.text === '') {
+                $scope.summarizer(newObj, false);
+            } else {
+                $scope.summarizer(newObj, true);
+            }
+        });
 
         function enableProductWatcher() {
             currentProductWatcher = $scope.$watch('productFilter.text', productFilter);
