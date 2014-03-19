@@ -42,7 +42,7 @@
 		        </div>
 		        <form  class="inline-checkbox">
 		           <fieldset>
-			            <label class="checkbox">
+			            <label class="checkbox" ng-hide="selectedReceivableMode==='listClosed'">
 			                <input type="checkbox" ng-model="allOpenReceivables" ng-true-value="true" ng-false-value="false"> todos em aberto até {{ dtFilter.dtFinal | date:"dd/MM/yyyy"}}
 			            </label>
 		       		</fieldset>
