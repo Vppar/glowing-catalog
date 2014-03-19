@@ -80,7 +80,7 @@
                 if (hasErrors.length === 0) {
                     result = ConsultantKeeper.create(consultant);
                 } else {
-                    result = $q.reject(hasErrors);
+                    result = $q.reject(log.error(hasErrors));
                 }
                 return result;
             };

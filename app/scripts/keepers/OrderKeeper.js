@@ -126,6 +126,21 @@
                         throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
                     }
                 });
+                
+                ObjectUtils.ro(this.handlers, 'orderUpdateItemQtyV1', function (event) {
+                    var orderEntry = ArrayUtils.find(orders, 'uuid', event.uuid);
+                    if (orderEntry) {
+                        for(var ix in event.items){
+                            var item = ArrayUtils.find(orderEntry.items, 'id', event.items[ix].id);
+                            if(!item.dQty){
+                                item.dQty = 0;
+                            }
+                            item.dQty += event.items[ix].dQty;
+                        }
+                    } else {
+                        throw 'Unable to find an order with uuid=\'' + event.uuid + '\'';
+                    }
+                });
 
                 // Nuke event for clearing the orders list
                 ObjectUtils.ro(this.handlers, 'nukeOrdersV1', function () {
@@ -216,6 +231,32 @@
                         // save the journal entry
                         return JournalKeeper.compose(entry);
                     };
+                    
+                    /**
+                     * Update the item qty of an order
+                     */
+                    var updateItemQty =
+                        function update (uuid, items) {
+                            var order = ArrayUtils.find(orders, 'uuid', uuid);
+                            if (!order) {
+                                throw 'Unable to find an order with uuid=\'' + uuid + '\'';
+                            }
+                            var updateEv = {
+                                uuid : order.uuid,
+                                updated : new Date().getTime(),
+                                items : items
+                            };
+                            // create a new journal entry
+                            var entry =
+                                new JournalEntry(
+                                    null,
+                                    updateEv.updated,
+                                    'orderUpdateItemQty',
+                                    currentEventVersion,
+                                    updateEv);
+                            // save the journal entry
+                            return JournalKeeper.compose(entry);
+                        };
 
                 /**
                  * Cancel an order
@@ -248,6 +289,7 @@
                 this.read = read;
                 this.cancel = cancel;
                 this.update = update;
+                this.updateItemQty = updateItemQty;
 
             }
         ]);

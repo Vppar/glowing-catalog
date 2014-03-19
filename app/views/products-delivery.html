@@ -9,11 +9,21 @@
 		
 		<div class="new-header row-fluid">
 			<div class="span6"> 
-				<div class="title">Entrega de Produtos</div> 
+				<div class="title">Entrega de Produtos</div>
+				<span class="span8">
+				<div class="btn-group btn-group-sm pull-right" ng-init="selected='orders'">
+					<a class="btn btn-option" ng-class="{active: selected=='orders'}" ng-click="selected='orders'">Pedidos</a>
+					<a class="btn btn-option" ng-class="{active: selected=='products'}" ng-click="selected='products'">Produtos</a>
+				</div>
+			</span>
 			</div> 
 		</div>
 
-		<div class="row-fluid">
+<!--Pedidos-->
+<div ng-switch="selected" style="height: calc(100% - 150px);">
+	<div class="height100perc" ng-switch-when="orders">
+	
+	<div class="row-fluid">
 			<div class="span12">
 				<div class="new-calendar">
 					<div class="text-over">Data Inicial</div>
@@ -32,18 +42,52 @@
 				</div>
 			</div>
 		</div>
-
+	
+	
+	
 		<div class="row-fluid">
 			<div class="new-body-header details-title">
 				<span class="new-col-2">Data</span>
+				<span class="new-col-2">Cliente</span>
 				<span class="new-col-2">Pedido</span>
-				<span class="new-col-2">NFe</span>
+				<span class="new-col-2">Produtos Entregues</span>
+				<span class="new-col-2">Produtos Total Produtos</span>
+			</div>
+		</div>
+		<div class="new-scrollpanel">
+			<div>
+				<div class="row-fluid">
+					<div class="new-body-row" ng-repeat="order in filteredOrders | orderBy : 'created'" ng-click="getItems($index)">
+						<span class="new-col-2">
+							{{order.created | date:'dd/MM/yyyy'}}
+						</span>
+						<span class="new-col-2">
+							{{order.customerName}}
+						</span>
+						<span class="new-col-2 text-center">
+							{{order.code}}
+						</span>
+						<span class="new-col-2 text-center">
+							{{order.totalItemsDeliv}}
+						</span>
+						<span class="new-col-2 text-center">
+							{{order.totalItems}}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!--Items-->
+	<div class="height100perc" ng-switch-when="products">
+	
+		<div class="row-fluid">
+			<div class="new-body-header details-title">
 				<span class="new-col-6">Produto/C&oacute;digo</span>
-				<span class="new-col-2 text-center">Pts</span>
-				<span class="new-col-2 currency">P.Unit</span>
-				<span class="new-col-2 text-center">Qtde</span>
-				<span class="new-col-2 text-center">Ok</span>
-				<span class="new-col-4 text-center">Pend./Qtde.</span>
+				<span class="new-col-2 currency">Qtde</span>
+				<span class="new-col-2 text-center">Entregue</span>
+				<span class="new-col-4 text-center">Entrega</span>
 			</div>
 		</div>
 		<div class="new-scrollpanel">
@@ -51,34 +95,17 @@
 				<div class="row-fluid">
 					<div class="new-body-row" ng-repeat="product in pendingProducts">
 						
-						<span class="new-col-2">
-							12/12/2014
-						</span>
-						
-						<span class="new-col-2">
-							{{product.order}}
-							<div class="small-text">{{0909090909 | uuidCode}}</div>
-						</span>
-						
-						<span class="new-col-2">{{999999}}</span>
-						
 						<span class="new-col-6 product-name">
 							<div class="p-title">{{product.description}}</div>
 							<div class="small-text">{{product.SKU}} - {{product.line}}</div>
 						</span>
-						
-						<span class="new-col-2 text-center">{{product.points}}</span>
-
-						<span class="new-col-2 text-center">{{product.price | currency: ''}}</span>
 
 						<span class="new-col-2 text-center">{{product.qty}}</span>
 
-						<span class="new-col-2 text-center">
-							<input type="checkbox" ng-model="ticket.checkBox[item.id]">
-						</span>
+						<span class="new-col-2 text-center">{{product.dQty}}</span>
 
 						<span class="new-col-4 text-center">
-							<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
+							<tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
 						</span>
 
 					</div>
@@ -86,8 +113,14 @@
 			</div>
 		</div>
 		<div class="new-buttom-holder">
-			<button class="btn btn-cancel pull-left margin-left" type="submit" ng-click="cancel()">Cancelar</button>
-			<button class="btn btn-ok pull-right margin-right" type="submit" ng-click="confirm()">Confirmar</button>
+			<button class="btn btn-ok pull-right margin-right" tnt-promise-click="confirm()">Confirmar</button>
 		</div>
 	</div>
+</div>
+
+
+	
+	
+	
+</div>
 </div>
