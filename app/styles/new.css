@@ -211,7 +211,6 @@
     box-sizing:        border-box;
 }
 .new-body-row{
-    border-radius: 4px;
     border-bottom: 1px rgb(204, 204, 204) dotted;
     padding: 4px 0px;
     width: 100%;
