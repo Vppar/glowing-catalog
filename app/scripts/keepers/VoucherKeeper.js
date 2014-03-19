@@ -21,7 +21,8 @@
                             'canceled',
                             'created',
                             'remarks',
-                            'documentId'
+                            'documentId',
+                            'origin'
                         ];
 
                     ObjectUtils.method (svc, 'isValid', function( ) {
@@ -266,6 +267,26 @@
                         }
                         return result.length ? result : null;
                     };
+                    
+                    this.listByOrigin =
+                        function(document) {
+                            var result = [];
+                            for ( var type in voucher) {
+                                if (voucher.hasOwnProperty (type)) {
+                                    try {
+                                        var voucherList =
+                                            ArrayUtils.list (this.list (type), 'origin', document);
+                                        result = result.concat (voucherList);
+                                    } catch (err) {
+                                        $log
+                                            .debug ('VoucherKeeper.listByOrigin: Unable to recover the list of vouchers. Err=' +
+                                                err);
+                                    }
+                                }
+                            }
+                            return result.length ? result : null;
+                        };
+
 
             }]);
 

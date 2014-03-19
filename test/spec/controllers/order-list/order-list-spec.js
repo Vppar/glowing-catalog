@@ -162,6 +162,7 @@ describe('Controller: order-list', function () {
         ProductReturnService.listByDocument =
             jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
+        VoucherService.listByOrigin = jasmine.createSpy('VoucherService.listByOrigin');
         ArrayUtils = _ArrayUtils_;
         BookService.listByOrder = jasmine.createSpy('BookService.listByOrder');
         ReceivableService.listByDocument =
