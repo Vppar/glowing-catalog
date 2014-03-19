@@ -63,7 +63,6 @@
             },
 
             removeItem : function (item) {
-                console.log('Removing check item', item);
                 var idx = this.items.indexOf(item);
                 if (~idx) {
                     this.items.splice(idx, 1);
@@ -203,15 +202,42 @@
         
 
         $log.debug('Initializing StockWarmupCtrl...');
-
-        var allProducts = InventoryKeeper.read();
-
-        console.log('product example', allProducts[0]);
         
 
         // #####################################################################################################
         // Local Functions
         // #####################################################################################################
+        function resetWatchedQty() {
+            for ( var ix in $scope.main.stockReport.sessions) {
+                // sessions
+                var session = $scope.main.stockReport.sessions[ix];
+                // lines of that session
+                for ( var ix2 in session.lines) {
+                    // lines
+                    var line = session.lines[ix2];
+                    // items of that line
+                    for ( var ix3 in line.items) {
+                        var item = line.items[ix3];
+                        // backup items to use when a recals is
+                        // needed
+                        $scope.newStock.items[item.id] = item;
+                        $scope.newStock.watchedQty[item.id] = item.qty;
+                    }
+                }
+            }
+
+            updateProductQty();
+        }
+
+        function updateProductQty() {
+            var warmupStock = StockWarmupService.getLocalStockEntries();
+
+            for (var idx in warmupStock) {
+                var entry = warmupStock[idx];
+                var event = entry.event;
+                $scope.newStock.watchedQty[event.inventoryId] = event.quantity;
+            }
+        }
 
         //from principal!!!
         /**
@@ -223,26 +249,12 @@
         $scope.newStock = {};
         $scope.newStock.items = {};
         $scope.newStock.watchedQty = {};
-        console.log('watched Qty', $scope.newStock.watchedQty);
         $scope.filter = {
                         text : ''
                     };
         $scope.main = {};
         $scope.main.stockReport = StockService.stockReport('all');
 
-
-        function updateProductQty() {
-            var warmupStock = StockWarmupService.getLocalStockEntries();
-
-            for (var idx in warmupStock) {
-                var entry = warmupStock[idx];
-                var event = entry.event;
-                $scope.newStock.watchedQty[event.id] = event.quantity;
-            }
-        }
-
-        updateProductQty();
-        console.log($scope.newStock.watchedQty);
 
         /**
                      * Method to summarize the products from the list
@@ -469,6 +481,8 @@
         };
         
         $scope.confirm = function confirm(){
+            var allProducts = InventoryKeeper.read();
+
             var ref = SyncDriver.refs.user.child('warmup');
             var entries = [];
             var items = angular.copy($scope.newStock.watchedQty);
@@ -491,8 +505,6 @@
                 entries.push(entry);
             }
 
-            //FIXME Remove log when integrate with service
-            console.log('stock entries to be stored', entries);
             StockWarmupService.updateStockWarmup(ref, entries);
         };
 
@@ -515,6 +527,8 @@
         // Enable watcher
         enableProductWatcher();
         $scope.showLevel(1);
+
+        resetWatchedQty();
     }
 
 
