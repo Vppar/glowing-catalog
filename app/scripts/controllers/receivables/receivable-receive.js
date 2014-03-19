@@ -20,10 +20,13 @@
                 $scope.negotiate = false;
                 $scope.extra = 0;
                 $scope.discount = 0;
+                
                 $scope.aditionalInfo = {
                     discount : 0,
-                    extra : 0
+                    extra : 0,
+                    amountTotal:0,
                 };
+                
                 $scope.selectedClassification = 1;
                 $scope.classifications = [
                     {
@@ -65,7 +68,7 @@
 
                 $scope.openReceivable = function () {
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
-                        // $scope.clearSelectedReceivable();
+                        $scope.clearSelectedReceivable();
                     }, function (err) {
                         // err = type of receivable. 1 = check
                         if (err == '0') {
@@ -143,7 +146,13 @@
                         }
                     }
                     console.log(newPayment);
-                    ReceivableService.update($scope.selectedReceivable.uuid, amount, duedate, remarks, newPayment, typeNew, extra, discount);
+                    var response = ReceivableService.update($scope.selectedReceivable.uuid, amount, duedate, remarks, newPayment, typeNew, typeOld, extra, discount);
+                    response.then(function(){
+                        console.log('all blue');
+                    }, function(err){
+                        console.log(err);
+                    });
+                    
                 };
 
                 /**

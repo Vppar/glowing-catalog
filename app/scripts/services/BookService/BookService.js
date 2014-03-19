@@ -29,17 +29,17 @@
         /**
          * Create the proper Book entries for a negotiation
          * 
-         * @param {string} orderUUID the order UUID
+         * @param {string} documentUUID the order UUID
          * @param {string} entityUUID the entity UUID
          * @param {number} amount the total delta in the negotiation
          *            order
          */
-        this.negotiation = function(orderUUID, entityUUID, amount){
+        this.negotiation = function(documentUUID, entityUUID, amount){
             var entry;
             if(amount > 0){
-                entry = new BookEntry(null, null, 70001, 43005 , orderUUID, entityUUID, 'Acrécimos s/ Recebimentos', amount);
+                entry = new BookEntry(null, null, 70001, 43005 , documentUUID, entityUUID, 'Acrécimos s/ Recebimentos', amount);
             } else {
-                entry = new BookEntry(null, null, 63103, 70001, orderUUID, entityUUID, 'Descontos s/ Recebtos', -amount);
+                entry = new BookEntry(null, null, 63103, 70001, documentUUID, entityUUID, 'Descontos s/ Recebtos', -amount);
             }
             return [entry];
         };

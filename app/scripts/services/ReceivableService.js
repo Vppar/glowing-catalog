@@ -7,9 +7,14 @@
      * @author Arnaldo S. Rodrigues Jr.
      */
     angular
-        .module('tnt.catalog.receivable.service', [
-            'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper', 'tnt.catalog.service.book', 'tnt.catalog.payment.entity'
-        ])
+        .module(
+            'tnt.catalog.receivable.service',
+            [
+                'tnt.catalog.receivable.entity',
+                'tnt.catalog.coin.keeper',
+                'tnt.catalog.service.book',
+                'tnt.catalog.payment.entity'
+            ])
         .service(
             'ReceivableService',
             [
@@ -202,36 +207,94 @@
                      */
                     var update =
                         function update (uuid, amount, duedate, remarks, paymentNew, typeNew,
-                            extra, discount ) {
-                            console.log('win');
-                            
+                            typeOld, extra, discount) {
+                            var result = null;
                             var receivable = this.read(uuid);
-                            if(duedate){
+                            if (duedate) {
                                 receivable.duedate = duedate;
                             }
-                            if(remarks){
+                            if (remarks) {
                                 receivable.remarks = remarks;
                             }
-                            if(paymentNew){
+                            if (paymentNew) {
                                 receivable.payment = paymentNew;
                             }
-                            if(typeNew){
+                            if (typeNew) {
                                 receivable.type = typeNew;
                             }
-                            if(extra){
+                            if (extra) {
                                 receivable.amount += extra;
-                            }else if(discount){
+                            } else if (discount) {
                                 receivable.amount -= discount;
                             }
 
-                            var result = isValid(receivable);
+                            result = isValid(receivable);
                             if (receivable && result.length === 0) {
                                 try {
-                                    //delete old receivable and create new one with new values.
-                                    if(this.cancel(uuid)){
+                                    // delete old receivable and create new one
+                                    // with new values.
+                                    if (this.cancel(uuid)) {
                                         result = ReceivableKeeper.add(receivable);
                                     }
-                                    
+
+                                    // BookService interations
+                                    var entries = [];
+
+                                    if (typeNew) {
+                                        // transferir acréscimo 70001 ->
+                                        // acrescimo
+                                        // 70001 -> conta do tipo antigo.
+                                        // conta do tipo novo com acréscimo ->
+                                        // 70001
+                                        var amount = extra ? extra : -discount;
+                                        var totalAmount = receivable.amouunt + amount;
+                                        entries = entries.concat(BookService.negotiation(
+                                            receivable.uuid,
+                                            receivable.entityId,
+                                            amount));
+                                        entries = entries.concat(BookService.liquidate(
+                                            typeOld,
+                                            receivable.uuid,
+                                            receivable.entityId,
+                                            receivable.amount));
+                                        if (typeNew === 'OnCuff') {
+                                            entries =
+                                                entries.concat(BookService.payment(
+                                                    receivable.uuid,
+                                                    receivable.entityId,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    totalAmount,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    null));
+                                        } else if (typeNew === 'Check') {
+                                            entries =
+                                                entries.concat(BookService.payment(
+                                                    receivable.uuid,
+                                                    receivable.entityId,
+                                                    null,
+                                                    totalAmount,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    null));
+                                        }
+                                    } else {
+                                        var amount = extra ? extra : -discount;
+                                        entries = entries.concat(BookService.negotiation(
+                                            receivable.uuid,
+                                            receivable.entityId,
+                                            amount));
+                                    }
+
+                                    var promises = writeBookEntries(entries);
+                                    result = $q.all(promises);
+
                                 } catch (err) {
                                     $log
                                         .debug('ReceivableService.register: Unable to register a receivable=' +
