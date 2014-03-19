@@ -53,6 +53,8 @@
             var uuid = 0;
             if ($scope.customerId && $scope.customerId !== '') {
                 uuid = $scope.customerId;
+            } else {
+                $location.path('/add-customer');
             }
             dialog.close(uuid);
         };
