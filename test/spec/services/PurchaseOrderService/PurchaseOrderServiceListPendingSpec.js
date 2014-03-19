@@ -49,6 +49,7 @@ describe('Service: PurchaseOrderServiceListPendingSpec', function() {
                 uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
                 created : new Date(),
                 canceled : false,
+                status : 4,
                 received : 2,
                 items : [
                     {
@@ -61,6 +62,7 @@ describe('Service: PurchaseOrderServiceListPendingSpec', function() {
                 uuid : 'cc02b600-5d0b-11e3-96c3-010001000002',
                 created : new Date(),
                 canceled : false,
+                status : 4,
                 items : [
                     {
                         id : 1,
@@ -85,6 +87,7 @@ describe('Service: PurchaseOrderServiceListPendingSpec', function() {
                 uuid : 'cc02b600-5d0b-11e3-96c3-010001000003',
                 created : new Date(),
                 canceled : false,
+                status : 5,
                 items : [
                     {
                         id : 1,
@@ -113,7 +116,7 @@ describe('Service: PurchaseOrderServiceListPendingSpec', function() {
         // when
         var result = PurchaseOrderService.listPendingPurchaseOrders();
         // then
-        expect(result.length).toBe(1);
+        expect(result.length).toBe(2);
     });
 
     it('filter the items with received property', function() {
