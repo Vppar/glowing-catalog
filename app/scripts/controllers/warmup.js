@@ -139,7 +139,15 @@
                 }
             }
 
-            return BalanceWarmupService.updateBalanceWarmup(ref, cash, check, checkingAccount);
+            return BalanceWarmupService
+                .updateBalanceWarmup(ref, cash, check, checkingAccount)
+                .then(function () {
+                    return DialogService.messageDialog({
+                        title : 'Saldo inicial',
+                        message : 'Saldo inicial armazenado com sucesso!',
+                        btnYes : 'Ok'
+                    });
+                });
         };
 
 
@@ -197,7 +205,7 @@
 
 
     ///////////////////////////////////////////////////////////
-    function StockWarmupCtrl($scope, $log, SyncDriver, StockService, InventoryKeeper, ArrayUtils, StockWarmupService) {
+    function StockWarmupCtrl($scope, $log, SyncDriver, StockService, InventoryKeeper, ArrayUtils, StockWarmupService, DialogService) {
         //FIXME Revise this controller, verify if there is dead code or unnecessary variables
         
 
@@ -221,7 +229,7 @@
                         // backup items to use when a recals is
                         // needed
                         $scope.newStock.items[item.id] = item;
-                        $scope.newStock.watchedQty[item.id] = item.qty;
+                        $scope.newStock.watchedQty[item.id] = 0;
                     }
                 }
             }
@@ -235,6 +243,14 @@
             for (var idx in warmupStock) {
                 var entry = warmupStock[idx];
                 var event = entry.event;
+                var item = $scope.newStock.items[event.inventoryId];
+
+                var discountedPrice = event.cost;
+                var originalPrice = item.price;
+
+                var discount = (100 - (discountedPrice / originalPrice) * 100);
+
+                $scope.newStock.discounts[event.inventoryId] = discount ? (Math.round(100 * discount) / 100) : 0;
                 $scope.newStock.watchedQty[event.inventoryId] = event.quantity;
             }
         }
@@ -264,16 +280,6 @@
         $scope.main = {};
         $scope.main.stockReport = StockService.stockReport('all');
 
-        function updateCostsWithDiscount() {
-            var items = $scope.newStock.items;
-
-            for (var id in items) {
-                var item = items[id];
-                var discount = $scope.newStock.discounts[id] || 25;
-                var cost = item.price || item.cost;
-                $scope.newStock.costsWithDiscount[id] = getCostWithDiscount(cost, discount);
-            }
-        }
 
         /**
                      * Method to summarize the products from the list
@@ -531,7 +537,13 @@
                 entries.push(entry);
             }
 
-            StockWarmupService.updateStockWarmup(ref, entries);
+            StockWarmupService.updateStockWarmup(ref, entries).then(function () {
+                return DialogService.messageDialog({
+                    title : 'Estoque inicial',
+                    message : 'Dados iniciais de estoque armazenados com sucesso!',
+                    btnYes : 'Ok'
+                });
+            });
         };
 
         // #####################################################################################################
@@ -583,6 +595,6 @@
         )
         .controller(
             'StockWarmupCtrl',
-            ['$scope', '$log', 'SyncDriver', 'StockService', 'InventoryKeeper', 'ArrayUtils', 'StockWarmupService', StockWarmupCtrl]
+            ['$scope', '$log', 'SyncDriver', 'StockService', 'InventoryKeeper', 'ArrayUtils', 'StockWarmupService', 'DialogService', StockWarmupCtrl]
         );
 }(angular));
