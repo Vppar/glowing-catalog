@@ -183,12 +183,16 @@
                 var amountTotal = $filter('sum')(order.items, 'amount');
                 var vouchers = VoucherService.listByOrigin(order.uuid);
                 var voucherAmount = 0;
+                var count=0;
                 for ( var ix4 in vouchers) {
+                    count++;
                     var voucher = vouchers[ix4];
                     voucherAmount += voucher.amount;
                 }
                 amountTotal += voucherAmount;
                 var discount = $scope.getTotalDiscountByOrder(order);
+                order.voucherTotal = voucherAmount;
+                order.voucherQty = count;
                 order.itemsQty = qtyTotal;
                 order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
                 order.amountTotal = (priceTotal + amountTotal);
@@ -238,13 +242,25 @@
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
                         }
-
-                        $scope.total.all.amountWithDiscount += filteredOrder.amountTotalWithDiscount;
-                        $scope.total.all.amount += filteredOrder.amountTotal;
-                        $scope.total.all.qty += filteredOrder.itemsQty;
-                        $scope.total.all.orderCount++;
+                        if($scope.ol=='products'){
+                            for(var ix in filteredOrder.items){
+                                var item = filteredOrder.items[ix];
+                                if(!item.type){
+                                    //$scope.total.all.amountWithDiscount += item.discount;
+                                    $scope.total.all.amountWithDiscount += item.price * item.qty;
+                                    $scope.total.all.qty += item.qty;
+                                }
+                            }
+                            $scope.total.all.orderCount++;
+                        }else{
+                            $scope.total.all.amountWithDiscount += filteredOrder.amountTotalWithDiscount;
+                            $scope.total.all.amount += filteredOrder.amountTotal;
+                            $scope.total.all.qty += filteredOrder.itemsQty;
+                            $scope.total.all.orderCount++;
+                        }
+                        
                     }
-
+                    
                     var avgPrice =
                         Math.round(100 * ($scope.total.all.amountWithDiscount / $scope.total.all.qty)) / 100;
                     if (!isNaN(avgPrice)) {
