@@ -68,7 +68,7 @@ describe('Service: StockKeeperAddScenario', function() {
 
         waitsFor(function() {
             return added;
-        }, 'StockKeeper.add()', 500);
+        }, 'StockKeeper.add()');
 
         runs(function() {
             //then

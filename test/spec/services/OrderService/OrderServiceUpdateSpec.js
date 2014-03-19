@@ -6,6 +6,9 @@ describe('Service: OrderServiceUpdate', function () {
   var DataProviderMock = {};
 
   var OrderService;
+  var scope = null;
+  var result = null;
+  var q = null;
 
   // load the service's module
   beforeEach(function () {
@@ -25,15 +28,17 @@ describe('Service: OrderServiceUpdate', function () {
     });
   });
 
-  beforeEach(inject(function(_OrderService_) {
+  beforeEach(inject(function(_OrderService_, $rootScope, $q) {
     OrderService = _OrderService_;
+    scope = $rootScope;
+    q = $q;
   }));
 
   it('gets order from OrderKeeper.update()', function () {
     var order = null;
 
-    OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andCallFake(function() {
-        var deferred = $q.defer();
+    OrderKeeperMock.update = jasmine.createSpy('OrderKeeper.update').andCallFake(function() {
+        var deferred = q.defer();
 
         setTimeout(function() {
             deferred.resolve();
@@ -48,10 +53,10 @@ describe('Service: OrderServiceUpdate', function () {
         order.then(function() {
             result = true;
         });
-        scope.$apply();
     });
 
     waitsFor(function() {
+        scope.$apply();
         return result;
     }, 'JournalKeeper is taking too long');
 
