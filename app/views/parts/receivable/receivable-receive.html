@@ -19,8 +19,8 @@
 		</span>
 		<span class="new-col-4">
 			<div class="control-group">
-				<label class="control-label"> Tipo de Recebível</label>
-				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2 || selectedReceivable.status==='Pago'">
+				<label class="control-label">Forma de Pagamento</label>
+				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2 || selectedReceivable.status==='Recebido'">
 					<option value="" ng-hide="true"></option>
 					<option value="{{paymentType.id}}" ng-repeat="paymentType in paymentsType">{{paymentType.describe}}</option>
 				</select>
@@ -37,7 +37,7 @@
 		<span class="new-col-9">
 			<div class="control-group">
 				<label class="control-label">Observa&ccedil;&atilde;o</label>
-				<input name="" class="input-block-level" type="text" placeholder="" ng-model="selectedReceivable.remarks" ng-disabled=" selectedReceivable.status==='Pago'">
+				<input name="" class="input-block-level" type="text" placeholder="" ng-model="selectedReceivable.remarks" ng-disabled=" selectedReceivable.status==='Recebido'">
 			</div>
 		</span>
 
@@ -69,7 +69,7 @@
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Vencto</label>
-				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" ng-disabled="selectedReceivable.status==='Pago'" required readonly onkeyup="checkInputKeyUp(this)">
+				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" ng-disabled="selectedReceivable.status==='Recebido'" required readonly onkeyup="checkInputKeyUp(this)">
 			</div>
 		</span>	
 
@@ -85,13 +85,13 @@
 		<span class="new-col-3" >
 			<div class="control-group">
 				<label class="control-label">Acréscimo</label>
-				<input id="extra" type="text" class="input-block-level currency" ng-model="aditionalInfo.extra" currency ng-disabled="selectedReceivable.status==='Pago'" >
+				<input id="extra" type="text" class="input-block-level currency" ng-model="aditionalInfo.extra" currency ng-disabled="selectedReceivable.status==='Recebido'" >
 			</div>
 		</span>	
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Desconto</label>
-				<input id="discount" type="text" class="input-block-level currency" ng-model="aditionalInfo.discount" currency ng-disabled="selectedReceivable.status==='Pago'">
+				<input id="discount" type="text" class="input-block-level currency" ng-model="aditionalInfo.discount" currency ng-disabled="selectedReceivable.status==='Recebido'">
 			</div>
 		</span>	
 
@@ -142,8 +142,8 @@
 		</div>
 		
 		<div class="new-col-9 receivable-buttom-height pull-right">
-			<button ng-click="liquidateReceivable()" ng-show="selectedReceivable.status==='Aberto'" class="btn-large margin-left-10 pull-right margin-top-20 btn-red" type="submit">Baixar</button>
-			<button ng-click="save('true')" ng-show="selectedReceivable.status==='Aberto'"  class="btn-large btn btn-ok pull-right margin-left-10 margin-top-20" type="submit">Salvar</button>
+			<button ng-click="liquidateReceivable()" ng-show="selectedReceivable.status==='A Receber'" class="btn-large margin-left-10 pull-right margin-top-20 btn-red" type="submit">Baixar</button>
+			<button ng-click="save('true')" ng-show="selectedReceivable.status==='A Receber'"  class="btn-large btn btn-ok pull-right margin-left-10 margin-top-20" type="submit">Salvar</button>
 			<button ng-click="back()" class="btn btn-cancel pull-right btn-large margin-top-20" type="submit">Voltar</button>
 		</div>
 	</div>

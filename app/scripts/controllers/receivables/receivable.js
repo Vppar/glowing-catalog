@@ -48,7 +48,7 @@
                 };
 
                 // starting by 'list' tab
-                $scope.selectReceivableMode('listAll');
+                $scope.selectReceivableMode('listClosed');
 
                 $scope.back = function () {
                     $scope.selectedReceivable = null;

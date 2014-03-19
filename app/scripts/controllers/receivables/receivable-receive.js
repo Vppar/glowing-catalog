@@ -74,32 +74,14 @@
                     }
                 }
 
-               /* $scope.setNegotiation = function (value) {
-                    $scope.negotiate = value;
-                    // fill the header description
-                    if ($scope.negotiate === true) {
-                        if ($scope.header) {
-                            $scope.header.description = "> Edição";
-                        }
-                        // should enable check fields
-                        if ($scope.paymentSelected.id == 0) {
-                            $scope.showCheckFields = true;
-                        } else {
-                            $scope.showCheckFields = false;
-                        }
-                    } else {
-                        $scope.header.description = "> Detalhe";
-                    }
-
-                };*/
-                
                 $scope.liquidateReceivable = function () {
                     var changedFields = verifyChangedFields();
-                    if(changedFields.hasChange){
-                       $scope.save(); 
-                    }
+                   
                     $scope.selectedReceivable.totalAmount = $scope.total.amount;
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
+                        if(changedFields.hasChange){
+                            $scope.save(); 
+                        }
                         DialogService.messageDialog({
                             title : 'Baixa realizada',
                             message : 'A baixa foi realizada com sucesso.',
@@ -114,6 +96,8 @@
                             $scope.showCheckFields = true;
                         }
                     });
+                    
+                    
                 };
                 
                 
@@ -242,14 +226,6 @@
                         }
                     }
                 }
-
-                $scope.showDialogOfDeath = function () {
-                    DialogService.messageDialog({
-                        title : 'Opps',
-                        message : 'Homems trablhando nesta funcionalidade.',
-                        btnYes : 'OK'
-                    });
-                };
 
                 $scope.$watch('selectedReceivable', setReceivablesInfos);
                 $scope.$watchCollection('aditionalInfo', function(){

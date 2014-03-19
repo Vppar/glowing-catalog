@@ -71,7 +71,7 @@
                 };
 
                 $scope.cancel = function () {
-                    dialog.close();
+                    dialog.close($q.reject());
                 };
 
                 function receiveReceivable (receivable, account) {
