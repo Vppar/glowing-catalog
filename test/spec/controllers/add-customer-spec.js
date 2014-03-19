@@ -28,7 +28,7 @@ describe('Controller: AddCustomerCtrl', function() {
             $provide.value('EntityService', es);
             $provide.value('IntentService', IntentService);
         });
-        IntentService.getBundle = jasmine.createSpy('IntentService.getBundle');
+        IntentService.getBundle = jasmine.createSpy('IntentService.getBundle').andReturn({screen : undefined});
         us.redirectIfIsNotLoggedIn = jasmine.createSpy('redirectIfIsNotLoggedIn');
     });
 
