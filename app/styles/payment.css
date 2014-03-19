@@ -309,7 +309,7 @@ margin-top: 5px;
 /*scroll left*/
 .left-payment .content-scroll {
 	min-height: 180px;
-	max-height: 458px;
+	max-height: 445px;
 	overflow-y: auto;
 	/*position:absolute;*/
 	-webkit-overflow-scrolling: touch;
