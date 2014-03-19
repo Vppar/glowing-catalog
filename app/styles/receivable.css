@@ -1,3 +1,44 @@
+.btn-red{
+	background-color:#AD1919;
+	height: 36px;
+border-radius: 4px;
+border: none;
+line-height: 9px;
+color: #fff;
+box-sizing: border-box;
+cursor: pointer;
+display: block;
+float: right;
+font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+font-size: 16px;
+font-weight: normal;
+height: 36px;
+letter-spacing: normal;
+line-height: 20px;
+margin-bottom: 0px;
+margin-left: 10px;
+margin-right: 0px;
+margin-top: 23px;
+max-width: 300px;
+min-width: 86px;
+outline-style: none;
+padding-bottom: 8px;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 8px;
+text-align: center;
+vertical-align: middle;
+width: 86px;
+}
+.btn-red:focus{
+	background-color:#8D1919;
+}
+.btn-red:hover{
+	background-color:#8D1919;
+}
+
+
+
 /* the value of col-5 is wrong!!!! need to fix at new-grid*/
 .new-col-5-correct{
 	 float:left;

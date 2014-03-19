@@ -210,9 +210,12 @@
                             typeOld, extra, discount) {
                             var result = null;
                             var receivable = this.read(uuid);
+                            //save the original amount for future reference.
                             var originalAmount = receivable.amount;
+                            
+                            //update all changed fields
                             if (duedate) {
-                                receivable.duedate = duedate;
+                                receivable.duedate = duedate.getTime();
                             }
                             if (remarks) {
                                 receivable.remarks = remarks;
@@ -228,16 +231,13 @@
                             } else if (discount) {
                                 receivable.amount -= discount;
                             }
-
+                            //verify is valid
                             result = isValid(receivable);
                             if (receivable && result.length === 0) {
                                 try {
-                                    // delete old receivable and create new one
-                                    // with new values.
-                                    if (this.cancel(uuid)) {
-                                        result = ReceivableKeeper.add(receivable);
-                                    }
-
+                                    // Update Receivable
+                                    result = ReceivableKeeper.updateReceivable(receivable);
+                                    
                                     // BookService interations
                                     var entries = [];
 
@@ -257,16 +257,17 @@
                                         }
                                         //liquidate old receivable.
                                         entries = entries.concat(BookService.liquidate(typeOld,receivable.uuid,receivable.entityId,originalAmount));
-                                    } else {
+                                    } else if(originalAmount != receivable.amount){
                                         var amount = extra ? extra : -discount;
                                         entries = entries.concat(BookService.negotiation(
                                             receivable.uuid,
                                             receivable.entityId,
                                             amount));
                                     }
-
-                                    var promises = writeBookEntries(entries);
-                                    result = $q.all(promises);
+                                    if(entries.length > 0 ){
+                                        var promises = writeBookEntries(entries);
+                                        result = $q.all(promises);
+                                    }
 
                                 } catch (err) {
                                     $log
@@ -277,7 +278,8 @@
                             }
                             return result;
                         };
-
+                    
+                        
                     /**
                      * Receive a payment to a receivable.
                      * 

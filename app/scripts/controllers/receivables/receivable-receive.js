@@ -54,7 +54,8 @@
                 ];
                 
                 function setReceivablesInfos () {
-                    $scope.setNegotiation(false);
+                    $scope.aditionalInfo.discount = 0;
+                    $scope.aditionalInfo.extra = 0;
                     
                     if ($scope.selectedReceivable) {
                         $scope.total.amount = $scope.selectedReceivable.amount;
@@ -68,7 +69,7 @@
                     }
                 }
 
-                $scope.setNegotiation = function (value) {
+               /* $scope.setNegotiation = function (value) {
                     $scope.negotiate = value;
                     // fill the header description
                     if ($scope.negotiate === true) {
@@ -85,14 +86,14 @@
                         $scope.header.description = "> Detalhe";
                     }
 
-                };
+                };*/
                 
                 $scope.liquidateReceivable = function () {
                     var changedFields = verifyChangedFields();
                     if(changedFields.hasChange){
                        $scope.save(); 
                     }
-                    $selectedReceivable.totalAmount = $scope.total.amount;
+                    $scope.selectedReceivable.totalAmount = $scope.total.amount;
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
                         DialogService.messageDialog({
                             title : 'Baixa realizada',
@@ -139,6 +140,9 @@
                         });
                         return
                     }
+                    
+                    
+                    
                     // CALL SERVICE AND MAKE THINGS WORK
                     var amount = changedFields.amount?changedFields.amount.newVal:undefined ;
                     var duedate = changedFields.duedate? changedFields.duedate.newVal: undefined;
@@ -213,6 +217,14 @@
                         changedFields.type = {prop :'type', oldVal:originalReceivable.type, newVal:getPaymentType($scope.paymentSelected.id)};
                         changedFields.hasChange = true;
                     }
+                    if ($scope.aditionalInfo.discount > 0) {
+                        changedFields.discount = {prop :'discount', oldVal:0, newVal:$scope.aditionalInfo.discount};
+                        changedFields.hasChange = true;
+                    }
+                    if ($scope.aditionalInfo.extra > 0) {
+                        changedFields.discount = {prop :'discount', oldVal:0, newVal:$scope.aditionalInfo.extra};
+                        changedFields.hasChange = true;
+                    }
                     
                     return changedFields;
                 }
@@ -246,7 +258,8 @@
                 });
                 
                 $scope.$watchCollection('paymentSelected', function (newVal, oldVal) {
-                    if ($scope.paymentSelected.id == '0') {
+                    
+                    if ($scope.paymentSelected.id == '0' && $scope.selectedReceivable.type != 'check') {
                         $scope.showCheckFields = true;
                     } else {
                         $scope.showCheckFields = false;

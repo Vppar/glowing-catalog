@@ -114,44 +114,37 @@
 			<span class="new-col-6 padding-left-0">
 				<div class="control-group">
 					<label class="control-label">Banco</label>
-					<input id="bank" name="bank" ng-model='check.bank' class="input-block-level" required tnt-input  maxlength="3" type="text">
+					<input id="bank" name="bank" ng-model='check.bank' class="input-block-level" required maxlength="3" type="text">
 				</div>
 			</span>
 
 			<span class="new-col-6">
 				<div class="control-group">
 					<label class="control-label">Agência</label>
-					<input id="branch" name="branch" ng-model='check.branch' class="input-block-level" required tnt-input  maxlength="4" type="text">
+					<input id="branch" name="branch" ng-model='check.branch' class="input-block-level" required maxlength="4" type="text">
 				</div>
 			</span>
 
 			<span class="new-col-6">
 				<div class="control-group">
 					<label class="control-label">Conta</label>
-					<input id="account" name="account" ng-model='check.account' class="input-block-level" required tnt-input  maxlength="13" type="text">
+					<input id="account" name="account" ng-model='check.account' class="input-block-level" required maxlength="13" type="text">
 				</div>
 			</span>
 
 			<span class="new-col-6 padding-right-0">
 				<div class="control-group">
 					<label class="control-label">Cheque</label>
-					<input id="check" name="check" ng-model='check.check' class="input-block-level" required tnt-input  maxlength="6" type="text" tnt-input>
+					<input id="check" name="check" ng-model='check.check' class="input-block-level" required maxlength="6" type="text">
 				</div>
 			</span>
 		</div>
 		</div>
+		
 		<div class="new-col-9 receivable-buttom-height pull-right">
-			<button ng-click="liquidateReceivable()" ng-show="selectedReceivable.status==='Aberto'" class="btn-large btn btn-ok margin-left-10 pull-right margin-top-20" type="submit">Baixar</button>
+			<button ng-click="liquidateReceivable()" ng-show="selectedReceivable.status==='Aberto'" class="btn-large margin-left-10 pull-right margin-top-20 btn-red" type="submit">Baixar</button>
 			<button ng-click="save('true')" ng-show="selectedReceivable.status==='Aberto'"  class="btn-large btn btn-ok pull-right margin-left-10 margin-top-20" type="submit">Salvar</button>
 			<button ng-click="back()" class="btn btn-cancel pull-right btn-large margin-top-20" type="submit">Voltar</button>
 		</div>
-		<!-- 	<button ng-show="selectedReceivable.status==='Aberto'" ng-hide="negotiate==true" ng-click="openReceivable()" class="btn-large btn btn-ok margin-left-10 pull-right margin-top-20" type="submit">Baixar</button>
-			<button ng-show="selectedReceivable.status==='Aberto'" ng-click="setNegotiation(true)" ng-hide="negotiate==true" class="btn margin-left-10 btn-cancel pull-right btn-large margin-top-20" type="submit">Alterar</button>
-			<button ng-click="clearSelectedReceivable()" ng-hide="negotiate==true" class="btn btn-cancel pull-right btn-large margin-top-20" type="submit">Voltar</button> -->
-		<!-- negociate state buttons -->
-		<!-- <span ng-show="negotiate==true">
-			<button ng-click="confirmNegotiate()" class="btn-large btn btn-ok pull-right margin-left-10 margin-top-20"  type="submit">Salvar</button>
-			<button ng-click="cancelNegotiate()" class="btn btn-cancel btn-large pull-right margin-top-20" type="submit">Cancelar</button>
-		</span> -->
 	</div>
 </div>
