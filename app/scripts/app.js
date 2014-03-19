@@ -1,4 +1,4 @@
-(function (angular) {
+(function (angular, window) {
     'use strict';
 
     var glowingCatalogApp =
@@ -226,8 +226,10 @@
         }).otherwise({
             redirectTo : '/'
         });
-    }]);
-})(angular);
+    }]).run(function(){
+        window.glowingCatalogAppReady = true;
+    });
+})(angular, window);
 
 (function ($, angular) {
     'use strict';

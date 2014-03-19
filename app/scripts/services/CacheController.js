@@ -67,19 +67,19 @@
             deferred.promise.then(function (data) {
                 console.log(data);
 
-                if (data === 'UPDATEREADY') {
-
-                    var dialog = {
-                        title : 'Atualização',
-                        message : 'Há uma nova versão disponivel, deseja atualizar agora?',
-                        btnNo : 'Não',
-                        btnYes : 'Sim'
-                    };
-
-                    DialogService.messageDialog(dialog).then(function () {
-                        window.location.reload();
-                    });
-                }
+//                if (data === 'UPDATEREADY') {
+//
+//                    var dialog = {
+//                        title : 'Atualização',
+//                        message : 'Há uma nova versão disponivel, deseja atualizar agora?',
+//                        btnNo : 'Não',
+//                        btnYes : 'Sim'
+//                    };
+//
+//                    DialogService.messageDialog(dialog).then(function () {
+//                        window.location.reload();
+//                    });
+//                }
             });
         }
 
