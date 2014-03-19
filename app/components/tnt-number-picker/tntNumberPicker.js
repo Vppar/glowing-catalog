@@ -13,20 +13,24 @@
                     value: '=ngModel'
                 },
                 link : function postLink (scope, element, attrs) {
+
+                    scope.sufix = attrs.sufix;
                     
                     if(!scope.value){
                         scope.value = Number(attrs.min) || 0;
                     }
+
+                    var step = Number(attrs.step) || 1;
                     
                     scope.add = function () {
-                        if(!attrs.max || scope.value < attrs.max){
-                            scope.value ++;
+                        if(!attrs.max || (scope.value + step) <= attrs.max){
+                            scope.value += step;
                         }
                     };
 
                     scope.sub = function () {
-                        if(!attrs.min || scope.value > attrs.min){
-                            scope.value --;
+                        if(!attrs.min || (scope.value - step) >= attrs.min){
+                            scope.value -= step;
                         }
                     };
                 }
