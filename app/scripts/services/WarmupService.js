@@ -275,7 +275,7 @@
         this.check = {
             isUsed : function (receivable) {
                 // TODO
-                return false;
+                return true;
             },
 
             getTotal : function () {
@@ -401,7 +401,7 @@
 
             isUsed : function (book) {
                 // TODO
-                return false;
+                return true;
             },
 
             isCheckingAccountBook : function (access) {
