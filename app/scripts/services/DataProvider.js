@@ -5,7 +5,7 @@
      * Providing data since... ever.
      */
     angular.module('tnt.catalog.service.data', []).service(
-            'DataProvider', ['$q', '$http', '$timeout', '$rootScope', 'InventoryKeeper', 'Replayer', 'JournalEntry', function DataProvider($q, $http, $timeout, $rootScope, InventoryKeeper, Replayer, JournalEntry) {
+            'DataProvider', ['$q', '$http', '$timeout', '$rootScope', 'InventoryKeeper', 'Replayer', 'JournalEntry', 'ArrayUtils', function DataProvider($q, $http, $timeout, $rootScope, InventoryKeeper, Replayer, JournalEntry, ArrayUtils) {
 
                 var scope = this;
 
@@ -68,6 +68,23 @@
                 });
 
                 $http.get('resources/products.json').then(function(response) {
+                    for(var ix in response.data){
+                        var product = response.data[ix];
+                        
+                        if(angular.isUndefined(product.parent)){
+                            
+                        }
+                        
+                        var filter = {
+                            parent: product.id,
+                            active: true
+                        };
+                        
+                        if(ArrayUtils.filter(response.data, filter).length){
+                            product.active = true;
+                        }
+                    }
+                    
                     angular.extend(scope.products, response.data);
 
                     InventoryKeeper.build(scope.products);

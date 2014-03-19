@@ -38,7 +38,12 @@
 
                             scope.style = 'bg-' + scope.color;
 
-                            var lineUp = ArrayUtils.list(DataProvider.products, 'session', scope.section);
+                            var filter = {
+                                session : scope.section,
+                                active : true
+                            };
+
+                            var lineUp = ArrayUtils.filter(DataProvider.products, filter);
 
                             for ( var ix in lineUp) {
                                 lineUp[ix].displayLine = lineUp[ix].line;

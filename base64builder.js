@@ -8,7 +8,7 @@ function getBase64Image (filename, exten) {
     } else {
         search = filename;
     }
-    fs.readFile('app/images/catalog2/products/' + search, function (err, data) {
+    fs.readFile('app/images/catalogOld/products/' + search, function (err, data) {
         
         if (err) {
             returnVar = null;
