@@ -1,4 +1,4 @@
-<div class="container product-to-buy-page">
+<div class="container purcharse-order-page">
 	<div class="row-fluid">
 		<span ng-include src="'views/parts/global/header.html'"></span>
 	</div>
@@ -6,7 +6,7 @@
 	<div class="new-page new-content-box">
 		<div class="new-header row-fluid">
 			<span class="span6">
-				<h2>Pedido de compra</h2>
+				<div class="title">Pedido de compra</div>
 			</span>
 			<span class="span6">
 				<div class="btn-group btn-group-sm pull-right">
@@ -19,27 +19,13 @@
 			</span>
 		</div>
 		<div class="new-body">
-			<div class="products-to-buy-left">
+			<div class="purcharse-order-full-part" ng-if="!isSummaryVisible(tabs.selected)">
 			
 				<!--Tela "Pedidos Pendentes"-->
 				<div class="new-part-holder"
-					ng-if="tabs.selected=='stashed'"
+					ng-if="tabs.selected=='stashed'" 
 					ng-include src="'views/parts/purchase-order/purchase-order-stashed.html'" 
 					ng-controller="PurchaseOrderStashedCtrl">
-				</div>
-				
-				<!--Tela "Novo pedido"-->
-				<div class="new-part-holder"
-					ng-if="tabs.selected=='new'" 
-					ng-include src="'views/parts/purchase-order/purchase-order-new.html'" 
-					ng-controller="PurchaseOrderNewCtrl">
-				</div>
-				
-				<!--Tela "Confirmar pedido"-->
-				<div class="new-part-holder"
-					ng-if="tabs.selected=='confirm'" 
-					ng-include src="'views/parts/purchase-order/purchase-order-confirm.html'" 
-					ng-controller="PurchaseOrderConfirmCtrl">
 				</div>
 
 				<!--Tela "Verificar NF"-->
@@ -62,6 +48,23 @@
 				<!-- <span ng-include src="'views/parts/purchase-order/purchase-order-credit.html'" ng-controller="ProductsToBuyCreditCtrl"></span> -->
 				<!-- </span>	 -->
 				
+			</div>
+
+			<div class="products-to-buy-left" ng-if="isSummaryVisible(tabs.selected)">
+				<!--Tela "Novo pedido"-->
+				<div class="new-part-holder"
+					ng-if="tabs.selected=='new'" 
+					ng-include src="'views/parts/purchase-order/purchase-order-new.html'" 
+					ng-controller="PurchaseOrderNewCtrl">
+				</div>
+
+				<!--Tela "Confirmar pedido"-->
+				<div class="new-part-holder"
+					ng-if="tabs.selected=='confirm'" 
+					ng-include src="'views/parts/purchase-order/purchase-order-confirm.html'" 
+					ng-controller="PurchaseOrderConfirmCtrl">
+				</div>
+
 			</div>
 			
 			<div class="products-to-buy-right" ng-if="isSummaryVisible(tabs.selected)">

@@ -1,16 +1,13 @@
-<div class="step3 product-to-buy-ticket-page">
+<div class="purchase-order-ticket-part">
 
 	<!-- *** PARTE 01 *** -->
-	<div class="product-to-buy-ticket-part1" ng-if="ticket.selectedPart=='part1'">
+	<div class="purchase-order-ticket-part1" ng-if="ticket.selectedPart=='part1'">
 
-		<div class="control-group lbl-top">					
-			<span class="menu-level">
+		<div class="row-fluid">					
 				<div class="btn-group btn-group-sm">
 					<a class="btn btn-option" ng-class="{active: ticket.tab=='open'}" ng-click="changeTab('open')">Pedidos em Aberto</a> 
 					<a class="btn btn-option" ng-class="{active: ticket.tab=='all'}" ng-click="changeTab('all')">Todos os Pedidos</a>		
 				</div>
-			</span>
-			<label class="control-label">&nbsp;</label>
 		</div>
 
         <div class="row-fluid">
@@ -46,7 +43,7 @@
 	</div><!--//FIM - *** PARTE 01 *** -->
 
 	<!-- *** PARTE 02 *** -->
-	<div class="product-to-buy-ticket-part2" ng-if="ticket.selectedPart=='part2'">
+	<div class="purchase-order-ticket-part2" ng-if="ticket.selectedPart=='part2'">
 
         <div class="row-fluid">
             <div class="new-body-header details-title">

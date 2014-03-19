@@ -7,6 +7,9 @@
     	opacity: 1;
     }
 
+    .scroll-title-compensator{
+        padding-right: 0px;
+    }
 
     .order-table-sum{
         padding-right: 0px;

@@ -1,4 +1,4 @@
-<div class="step4 products-to-buy-pending-part">
+<div class="purchase-order-pending-products-part">
 
 	<div class="row-fluid">
 		<div class="new-body-header scroll-title-compensator details-title">
@@ -12,6 +12,7 @@
 	</div>
 
 	<div class="new-scrollpanel"> 
+		
 		<div ng-repeat="purchaseOrder in pending.purchaseOrders">
 			<span ng-repeat="item in purchaseOrder.items">
 				<div class="row-fluid">
@@ -29,6 +30,7 @@
 				</div>
 			</span>
 		</div>
+
 	</div>
 	
 </div>
