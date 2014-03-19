@@ -120,7 +120,14 @@
             return VoucherKeeper.listByDocument(document);
         };
 
+        var listByOrigin = function listByDocument(document) {
+            if (!document) {
+                throw 'VoucherService.listByDocument: missing document';
+            }
 
+            return VoucherKeeper.listByOrigin(document);
+        };
+        
         var getVoucher = function (type, id) {
             var voucherId = angular.isObject(type) ? type.id : id;
             var vouchers = list(type);
@@ -174,7 +181,8 @@
                             id : null,
                             amount : change,
                             entity : usedVoucher.entity,
-                            type : usedVoucher.type
+                            type : usedVoucher.type,
+                            origin : document
                         });
 
                         voucherPromises.push(create(changeVoucher));
@@ -197,6 +205,7 @@
         this.redeem = redeem;
         this.list = list;
         this.listByDocument = listByDocument;
+        this.listByOrigin = listByOrigin;
 
     }]);
 })(angular);

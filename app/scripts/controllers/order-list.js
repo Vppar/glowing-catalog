@@ -181,6 +181,13 @@
                 var qtyTotal = $filter('sum')(order.items, 'qty');
                 var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                 var amountTotal = $filter('sum')(order.items, 'amount');
+                var vouchers = VoucherService.listByOrigin(order.uuid);
+                var voucherAmount = 0;
+                for ( var ix4 in vouchers) {
+                    var voucher = vouchers[ix4];
+                    voucherAmount += voucher.amount;
+                }
+                amountTotal += voucherAmount;
                 var discount = $scope.getTotalDiscountByOrder(order);
                 order.itemsQty = qtyTotal;
                 order.avgPrice = (priceTotal + amountTotal - discount) / (qtyTotal);
