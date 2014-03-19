@@ -78,12 +78,10 @@ scripts/controllers/products-to-buy/products-to-buy-ticket-dialog.js
 scripts/controllers/products-to-buy/products-to-buy-pending.js
 scripts/controllers/products-to-buy/products-to-buy-credit.js
 scripts/controllers/order-list.js
-scripts/controllers/receivable.js
-scripts/controllers/receivable-add.js
-scripts/controllers/receivable-edit.js
-scripts/controllers/receivable-entity.js
-scripts/controllers/receivable-list.js
-scripts/controllers/receivable-receive.js
+scripts/controllers/receivables/receivable.js
+scripts/controllers/receivables/receivable-check.js
+scripts/controllers/receivables/receivable-list.js
+scripts/controllers/receivables/receivable-receive.js
 scripts/controllers/stock/stock.js
 scripts/controllers/voucher.js
 scripts/controllers/voucher-active.js
