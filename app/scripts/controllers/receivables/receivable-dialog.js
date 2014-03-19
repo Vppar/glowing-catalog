@@ -33,7 +33,7 @@
                  * Filter only deposit accounts accounts that begin with 1115
                  */
                 function filterByAccount (book) {
-                    if (book.access >= 11151 && book.access <= 11159) {
+                    if (book.access >= 11131 && book.access <= 11139) {
                         return true;
                     }
                     return false;
@@ -71,7 +71,7 @@
                 };
 
                 $scope.cancel = function () {
-                    dialog.close();
+                    dialog.close($q.reject());
                 };
 
                 function receiveReceivable (receivable, account) {
@@ -83,16 +83,13 @@
                             receivable.type,
                             receivable.uuid,
                             receivable.entityId,
-                            receivable.amount,
+                            receivable.totalAmount,
                             account);
 
                     return result;
                 }
 
-                $scope.$watch('paymentType', function () {
-                    console.log($scope.paymentType);
-                });
-                $scope.paymentType = 0;
+                $scope.paymentType = 1;
                 initPaymentTypes();
             }
         ]);

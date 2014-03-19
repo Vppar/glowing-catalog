@@ -8,12 +8,12 @@
     <div class="new-page"> 
 		<div class="new-header row-fluid">
 	        <div class="span6">
-	            <h2>Contas a receber {{header.description}}</h2>
+	            <div class="title">Contas a receber {{header.description}}</div>
 	        </div>
 	        <span class="span6">
 		        <div class="btn-group btn-group-sm pull-right">
-	       			<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='listOpen'}" ng-click="selectReceivableMode('listOpen')">À Receber</a>
-	        		<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='listAll'}"  ng-click="selectReceivableMode('listAll')">Todos</a>
+	       			<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='listOpen'}" ng-click="selectReceivableMode('listOpen')">A Receber</a>
+	        		<a class="btn btn-option" ng-class="{active: selectedReceivableMode=='listClosed'}"  ng-click="selectReceivableMode('listClosed')">Recebidos</a>
 	        	</div>
     		</span>
 		</div>
@@ -61,7 +61,7 @@
 			    </div>
 			</div>
 			<div class="new-scrollpanel" ng-class="{'page-open-details' : selectedReceivable, 'page-closed-details' : !selectedReceivable, 'page-open-check-details' : false }">
-			    <div class="row-fluid" ng-repeat="receivable in receivables.list | orderBy:'duedate'" ng-click="selectReceivable(receivable)">
+			    <div class="row-fluid" ng-repeat="receivable in receivables.list" ng-click="selectReceivable(receivable)">
 			        <div class="span12">
 			            <div class="new-body-row" ng-class="{'row-selected': selectedReceivable.uuid==receivable.uuid}">
 			                <div class="new-col-2 text-center">{{$index + 1}}</div>

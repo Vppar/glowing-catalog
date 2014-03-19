@@ -113,7 +113,10 @@
 
                         if ($scope.selectedReceivableMode === 'listOpen') {
                             receivables = filterReceivablesByLiquidated(receivables);
+                        }else{
+                            receivables = filterReceivablesByClosed(receivables);
                         }
+                        
                         receivables = $filter('orderBy')(receivables, 'duedate');
 
                         $scope.receivables.list = argumentReceivables(receivables);
@@ -122,9 +125,16 @@
                     function filterReceivablesByLiquidated (receivables) {
                         return $filter('filter')(receivables, receivableLiquidateFilter);
                     }
-
+                    function filterReceivablesByClosed (receivables) {
+                        return $filter('filter')(receivables, receivableClosedFilter);
+                    }
+                    
                     function receivableLiquidateFilter (receivable) {
                         return (receivable.liquidated === undefined);
+                    }
+
+                    function receivableClosedFilter (receivable) {
+                        return (receivable.liquidated !== undefined);
                     }
 
                     function ensureDateOrder () {
@@ -146,10 +156,11 @@
                             receivable.typeTranslated = translate[receivable.type];
                             var uiidData = IdentityService.getUUIDData(receivable.documentId);
 
-                            receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
+                            receivable.document =
+                                uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
                             receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
                             receivable.status =
-                                (receivable.liquidated === undefined) ? 'Aberto' : 'Pago';
+                                (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';
                             receivable.installments =
                                 ReceivableService.listByDocument(receivable.documentId);
                             receivable.installments = filterByCanceled(receivable.installments);
@@ -181,7 +192,7 @@
                             $scope.dtIniDisabled = true;
                         } else {
                             $scope.dtIniDisabled = false;
-                            $scope.selectReceivableMode('listAll');
+                            $scope.selectReceivableMode('listClosed');
                             $scope.dtFilter.dtInitial = angular.copy(lastFilterDate);
                         }
                     }

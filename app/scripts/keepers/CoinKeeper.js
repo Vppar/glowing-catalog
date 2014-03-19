@@ -37,8 +37,6 @@
             ObjectUtils.ro(this, 'uuid', this.uuid);
             ObjectUtils.ro(this, 'created', this.created);
             ObjectUtils.ro(this, 'entityId', this.entityId);
-            ObjectUtils.ro(this, 'amount', this.amount);
-            ObjectUtils.ro(this, 'duedate', this.duedate);
         };
 
         return service;
@@ -115,6 +113,25 @@
                 }
 
                 return event.uuid;
+            });
+            
+            ObjectUtils.ro(this.handlers, 'updateReceivableV1', function (event) {
+                var entry = ArrayUtils.find(vault, 'uuid', event.uuid);
+
+                if (entry !== null) {
+
+                    event = angular.copy(event);
+                    //remove properties read only.
+                    delete event.uuid;
+                    delete event.created;
+                    delete event.entityId;
+                    angular.extend(entry, event);
+
+                } else {
+                    throw 'Receivable not found.';
+                }
+
+                return entry.uuid;
             });
             
             ObjectUtils.ro(this.handlers, name + 'UpdatePaymentV1', function(event) {
@@ -229,6 +246,46 @@
                 // save the journal entry
                 JournalKeeper.compose(entry);
             };
+            
+            
+            /**
+             * Change the state of a receivable.
+             * 
+             * @param {check} - check with the updated state. 
+             */
+            var update = function(coin){
+                var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', coin.uuid));
+                
+                check = new CheckPayment(check);
+                delete check.uuid;
+                receivable.payment = check;
+                
+                // create a new journal entry
+                var entry = new JournalEntry(null, receivable.created, name + 'UpdatePayment', currentEventVersion, receivable);
+                // save the journal entry
+                return JournalKeeper.compose(entry);
+                
+            };
+            
+            
+            this.updateReceivable =
+                function (receivable) {
+                    var event = angular.copy(receivable);
+                    var stamp = (new Date()).getTime();
+
+                    // create a new journal entry
+                    var entry =
+                        new JournalEntry(
+                            null,
+                            stamp,
+                            'updateReceivable',
+                            currentEventVersion,
+                            event);
+
+                    // save the journal entry
+                    return JournalKeeper.compose(entry);
+                };
+            
             
             
             /**

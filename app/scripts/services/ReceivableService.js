@@ -7,9 +7,14 @@
      * @author Arnaldo S. Rodrigues Jr.
      */
     angular
-        .module('tnt.catalog.receivable.service', [
-            'tnt.catalog.receivable.entity', 'tnt.catalog.coin.keeper', 'tnt.catalog.service.book'
-        ])
+        .module(
+            'tnt.catalog.receivable.service',
+            [
+                'tnt.catalog.receivable.entity',
+                'tnt.catalog.coin.keeper',
+                'tnt.catalog.service.book',
+                'tnt.catalog.payment.entity'
+            ])
         .service(
             'ReceivableService',
             [
@@ -201,16 +206,69 @@
                      *             the keeper.
                      */
                     var update =
-                        function update (uuid, remarks, duedate) {
+                        function update (uuid, amount, duedate, remarks, paymentNew, typeNew,
+                            typeOld, extra, discount) {
+                            var result = null;
                             var receivable = this.read(uuid);
-                            receivable.remarks = remarks;
-                            receivable.duedate = duedate;
-
-                            var result = isValid(receivable);
+                            //save the original amount for future reference.
+                            var originalAmount = receivable.amount;
+                            
+                            //update all changed fields
+                            if (duedate) {
+                                receivable.duedate = duedate.getTime();
+                            }
+                            if (remarks) {
+                                receivable.remarks = remarks;
+                            }
+                            if (paymentNew) {
+                                receivable.payment = paymentNew;
+                            }
+                            if (typeNew) {
+                                receivable.type = typeNew;
+                            }
+                            if (extra) {
+                                receivable.amount += extra;
+                            } else if (discount) {
+                                receivable.amount -= discount;
+                            }
+                            //verify is valid
+                            result = isValid(receivable);
                             if (receivable && result.length === 0) {
                                 try {
-                                    ReceivableKeeper.cancel(uuid);
-                                    result = ReceivableKeeper.add(receivable);
+                                    // Update Receivable
+                                    result = ReceivableKeeper.updateReceivable(receivable);
+                                    
+                                    // BookService interations
+                                    var entries = [];
+
+                                    if (typeNew) {
+                                        var amountDiscOrExtra = extra ? extra : -discount;
+                                        //discount
+                                        entries = entries.concat(BookService.negotiation(receivable.uuid,receivable.entityId,amountDiscOrExtra));
+                                        //payment new receivable.
+                                        if (typeNew === 'oncuff') {
+                                            entries =
+                                                entries.concat(
+                                                    BookService.payment(receivable.uuid,receivable.entityId,null,null,null,receivable.amount,null,null,null,null));
+                                        } else if (typeNew === 'check') {
+                                            entries =
+                                                entries.concat(BookService.payment(
+                                                    receivable.uuid, receivable.entityId,null,receivable.amount,null,null,null,null,null,null));
+                                        }
+                                        //liquidate old receivable.
+                                        entries = entries.concat(BookService.liquidate(typeOld,receivable.uuid,receivable.entityId,originalAmount));
+                                    } else if(originalAmount != receivable.amount){
+                                        var amount = extra ? extra : -discount;
+                                        entries = entries.concat(BookService.negotiation(
+                                            receivable.uuid,
+                                            receivable.entityId,
+                                            amount));
+                                    }
+                                    if(entries.length > 0 ){
+                                        var promises = writeBookEntries(entries);
+                                        result = $q.all(promises);
+                                    }
+
                                 } catch (err) {
                                     $log
                                         .debug('ReceivableService.register: Unable to register a receivable=' +
@@ -220,7 +278,8 @@
                             }
                             return result;
                         };
-
+                    
+                        
                     /**
                      * Receive a payment to a receivable.
                      * 
@@ -243,7 +302,8 @@
 
                                 var entries = null;
                                 entries =
-                                    BookService.deposit(account, amount, receivableUUID, entityUUID);
+                                    BookService
+                                        .deposit(account, amount, receivableUUID, entityUUID);
                                 entries =
                                     entries.concat(BookService.liquidate(
                                         paymentType,
@@ -331,17 +391,19 @@
                     // CHECK STUFF
                     // #################################################################################################
 
-                    this.listChecks = function() {
-                        var checkReceivables = ArrayUtils.list(ReceivableKeeper.list(), 'type', 'check');
-                        var checks = [];
-                        for ( var ix in checkReceivables) {
-                            checkReceivables[ix].payment.uuid = checkReceivables[ix].uuid;
-                            checks.push(checkReceivables[ix].payment);
-                        }
-                        return checks;
-                    };
+                    this.listChecks =
+                        function () {
+                            var checkReceivables =
+                                ArrayUtils.list(ReceivableKeeper.list(), 'type', 'check');
+                            var checks = [];
+                            for ( var ix in checkReceivables) {
+                                checkReceivables[ix].payment.uuid = checkReceivables[ix].uuid;
+                                checks.push(checkReceivables[ix].payment);
+                            }
+                            return checks;
+                        };
 
-                    this.readCheck = function(uuid) {
+                    this.readCheck = function (uuid) {
                         return this.read(uuid).payment;
                     };
 
@@ -356,54 +418,61 @@
                      * @return - JournalKeeper promise in case of success or a
                      *         rejected promise with the error message.
                      */
-                    this.changeState = function(uuid, newState) {
-                        var check = this.readCheck(uuid);
-                        if (!check) {
-                            return $q.reject('Couldn\'t find a receivable for the uuid: ' + uuid);
-                        }
-                        check.uuid = uuid;
-                        if(check.state){
-                            var oldState = check.state;
-                        }else{
-                            var oldState = 1;
-                        }
-                        var result = validateStateTransition(oldState, newState);
-
-                        if (result) {
-                            // update the state
-                            check.state = newState;
-                            
-                            var promise = null;
-                            
-                            // If the check goes from 1 to 2 or 3, you also need
-                            // to liquidate the Receivable.
-                            if (oldState === 1 && (newState === 2 || newState === 3)) {
-                                promise = ReceivableKeeper.liquidate(uuid, new Date());
-                                // If the check goes from 2 or 3 to 1, you also
-                                // need to re-enable the Receivable(executionDate=null).
-                            } else if (newState === 1 && (oldState === 2 || oldState === 3)) {
-                                promise = ReceivableKeeper.liquidate(uuid, null);
+                    this.changeState =
+                        function (uuid, newState) {
+                            var check = this.readCheck(uuid);
+                            if (!check) {
+                                return $q.reject('Couldn\'t find a receivable for the uuid: ' +
+                                    uuid);
+                            }
+                            check.uuid = uuid;
+                            if (check.state) {
+                                var oldState = check.state;
                             } else {
-                                //Otherwise just change the check.
-                                return ReceivableKeeper.updateCheck(check);
+                                var oldState = 1;
                             }
-                            
-                            //resolving the promises from the liquidate
-                            if(promise){
-                                return promise.then(function(result) {
-                                    $log.info('Receivable Liquidated with succes: ' + result);
-                                    $log.info('Starting to Update the check state.');
-                                    return ReceivableKeeper.updateCheck(check);
-                                }, function(error) {
-                                    $log.fatal('Failed to Liquidate the Receivable: ' + uuid + '. Cause: ' + error);
-                                    return $q.reject();
-                                });
-                            }
+                            var result = validateStateTransition(oldState, newState);
 
-                        } else {
-                            return $q.reject('Invalid transition from "' + check.state + '" to "' + newState + '"');
-                        }
-                    };
+                            if (result) {
+                                // update the state
+                                check.state = newState;
+
+                                var promise = null;
+
+                                // If the check goes from 1 to 2 or 3, you also
+                                // need
+                                // to liquidate the Receivable.
+                                if (oldState === 1 && (newState === 2 || newState === 3)) {
+                                    promise = ReceivableKeeper.liquidate(uuid, new Date());
+                                    // If the check goes from 2 or 3 to 1, you
+                                    // also
+                                    // need to re-enable the
+                                    // Receivable(executionDate=null).
+                                } else if (newState === 1 && (oldState === 2 || oldState === 3)) {
+                                    promise = ReceivableKeeper.liquidate(uuid, null);
+                                } else {
+                                    // Otherwise just change the check.
+                                    return ReceivableKeeper.updateCheck(check);
+                                }
+
+                                // resolving the promises from the liquidate
+                                if (promise) {
+                                    return promise.then(function (result) {
+                                        $log.info('Receivable Liquidated with succes: ' + result);
+                                        $log.info('Starting to Update the check state.');
+                                        return ReceivableKeeper.updateCheck(check);
+                                    }, function (error) {
+                                        $log.fatal('Failed to Liquidate the Receivable: ' + uuid +
+                                            '. Cause: ' + error);
+                                        return $q.reject();
+                                    });
+                                }
+
+                            } else {
+                                return $q.reject('Invalid transition from "' + check.state +
+                                    '" to "' + newState + '"');
+                            }
+                        };
 
                     /**
                      * Validates if the desired transition from A->B is
@@ -413,7 +482,7 @@
                      * @param - Desired state for the Check.
                      * @return {boolean} - true if possible, false otherwise.
                      */
-                    var validateStateTransition = function(currentState, newState) {
+                    var validateStateTransition = function (currentState, newState) {
                         var result = true;
                         var resp = self.states()[currentState].indexOf(newState);
                         if (resp === -1) {
@@ -425,7 +494,7 @@
                     /**
                      * Check States Map.
                      */
-                    this.states = function() {
+                    this.states = function () {
                         return {
                             '1' : [
                                 2, 3

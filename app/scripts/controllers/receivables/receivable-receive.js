@@ -9,18 +9,29 @@
             'BookService',
             'DialogService',
             'ArrayUtils',
-            function ($scope, $filter, ReceivableService, BookService, DialogService, ArrayUtils) {
+            'CheckPayment',
+            'OnCuffPayment',
+            function ($scope, $filter, ReceivableService, BookService, DialogService, ArrayUtils, CheckPayment, OnCuffPayment) {
 
                 $scope.paymentSelected = {
                     id : 1
                 };
+                
+                $scope.check ={};
                 $scope.negotiate = false;
                 $scope.extra = 0;
                 $scope.discount = 0;
+                $scope.total ={amount:0};
+                
+                $scope.select2Options = {
+                    minimumResultsForSearch : -1
+                };
+                
                 $scope.aditionalInfo = {
                     discount : 0,
-                    extra : 0
+                    extra : 0,
                 };
+                
                 $scope.selectedClassification = 1;
                 $scope.classifications = [
                     {
@@ -28,7 +39,7 @@
                         description : 'Venda'
                     }
                 ];
-
+                
                 $scope.paymentsType = [
                     {
                         id : 0,
@@ -46,10 +57,13 @@
 
                     }
                 ];
-
-                function setPaymentType () {
-                    $scope.setNegotiation(false);
+                
+                function setReceivablesInfos () {
+                    $scope.aditionalInfo.discount = 0;
+                    $scope.aditionalInfo.extra = 0;
+                    
                     if ($scope.selectedReceivable) {
+                        $scope.total.amount = $scope.selectedReceivable.amount;
                         var receivable = $scope.selectedReceivable;
                         for ( var ix in $scope.paymentsType) {
                             var paymentType = $scope.paymentsType[ix];
@@ -60,60 +74,99 @@
                     }
                 }
 
-                $scope.openReceivable = function () {
+                $scope.liquidateReceivable = function () {
+                    var changedFields = verifyChangedFields();
+                    if(changedFields.hasChange){
+                        $scope.save(); 
+                    }
+                    $scope.selectedReceivable.totalAmount = $scope.total.amount;
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
-                        $scope.clearSelectedReceivable();
+                        DialogService.messageDialog({
+                            title : 'Pagamento realizado',
+                            message : 'O pagamento foi realizada com sucesso.',
+                            btnYes : 'OK'
+                        }).then(function(){
+                            $scope.back();
+                        });
                     }, function (err) {
                         // err = type of receivable. 1 = check
                         if (err == '0') {
                             $scope.paymentSelected.id = 0;
-                            $scope.setNegotiation(true);
                             $scope.showCheckFields = true;
                         }
                     });
+                    
+                    
                 };
+                
+                
+                /**
+                 * If some form field was changed we will save the receivable.
+                 * 
+                 * @argument isToShowDialog - if setted, at end of process we
+                 *           will show a confirmation dialog.
+                 * 
+                 */
+                $scope.save = function (isToShowDialog) {
+                    var changedFields = verifyChangedFields();
 
-                $scope.setNegotiation = function (value) {
-                    $scope.negotiate = value;
-                    // fill the header description
-                    if ($scope.negotiate === true) {
-                        if($scope.header){
-                            $scope.header.description = "> Edição";
-                        }
-                        // should enable check fields
-                        if ($scope.paymentSelected.id == 0) {
-                            $scope.showCheckFields = true;
-                        } else {
-                            $scope.showCheckFields = false;
-                        }
-                    } else {
-                        $scope.header.description = "> Detalhe";
+                    // Verifica se houve alteração no receivable
+                    if (!changedFields.hasChange) {
+                        DialogService.messageDialog({
+                            title : 'Não houve alteração no recebível',
+                            message : 'O recebível não foi alterado.',
+                            btnYes : 'OK'
+                        });
+                        return
                     }
-
-                };
-
-                $scope.cancelNegotiate = function () {
-                    $scope.setNegotiation(false);
-                    $scope.showCheckFields = false;
-                };
-
-                $scope.confirmNegotiate = function () {
-                    changedFields();
+                    // Valida os campos Discount e Extra
                     if (!isValidDiscountAndExtra()) {
                         DialogService.messageDialog({
                             title : 'Descontos e Acréscimos',
-                            message : 'Não é possível preencher os dois campos.',
+                            message : 'Não é possível acréscimos e descontos ao mesmo tempo.',
                             btnYes : 'OK'
                         });
+                        return
                     }
-
-                    if (!isPaymentTypeValid()) {
-                        DialogService.messageDialog({
-                            title : 'Tipo de Recebível',
-                            message : 'Não é possível alterar recebiveis em cartão de crédito.',
-                            btnYes : 'OK'
-                        });
+                    
+                    
+                    
+                    // CALL SERVICE AND MAKE THINGS WORK
+                    var amount = changedFields.amount?changedFields.amount.newVal:undefined ;
+                    var duedate = changedFields.duedate? changedFields.duedate.newVal: undefined;
+                    var remarks = changedFields.remarks? changedFields.remarks.newVal:undefined;
+                    var typeNew = changedFields.type? changedFields.type.newVal : undefined;
+                    var typeOld = changedFields.type? changedFields.type.oldVal : undefined;
+                    var extra = $scope.aditionalInfo.extra > 0 ? $scope.aditionalInfo.extra : undefined;
+                    var discount = $scope.aditionalInfo.discount > 0 ? $scope.aditionalInfo.discount : undefined;
+                    
+                    var totalAmount = extra ? ($scope.selectedReceivable.amount+extra) :($scope.selectedReceivable.amount - discount);
+                    
+                    
+                    var newPayment = undefined;
+                    if(typeNew && typeOld){
+                        if(typeNew === 'check'){
+                            newPayment = new CheckPayment($scope.selectedReceivable.uuid, $scope.check.bank, $scope.check.agency, $scope.check.account, $scope.check.number, $scope.selectedReceivable.duedate, totalAmount); 
+                        }else if(typeNew === 'onCuff'){
+                            newPayment = new OnCuffPayment($scope.selectedReceivable.amount, $scope.selectedReceivable.duedate);
+                        }
                     }
+                    var response = ReceivableService.update($scope.selectedReceivable.uuid, amount, duedate, remarks, newPayment, typeNew, typeOld, extra, discount);
+                    
+                    response.then(function(){
+                        if(isToShowDialog){
+                            DialogService.messageDialog({
+                                title : 'Alterado com sucesso.',
+                                message : 'O recebível foi alterado com sucesso.',
+                                btnYes : 'OK'
+                            }).then(function(){
+                                $scope.back();
+                            });
+                        }
+                    }, function(err){
+                        console.log(err);
+                    });
+                    
                 };
 
                 /**
@@ -129,29 +182,39 @@
                     return result;
                 };
 
-                function changedFields () {
+                function verifyChangedFields () {
                     var receivable = $scope.selectedReceivable;
                     var originalReceivable =
                         ArrayUtils.find($scope.receivables.list, 'uuid', receivable.uuid);
 
-                    var changedFields = [];
+                    var changedFields = {};
+                    changedFields.hasChange = false;
                     if (receivable.amount != originalReceivable.amount) {
-                        changedFields.push('amount');
+                        changedFields.amount={prop :'amount', oldVal:originalReceivable.amount, newVal:receivable.amount,};
+                        changedFields.hasChange = true;
                     }
-                    ;
                     if (receivable.duedate != originalReceivable.duedate) {
-                        changedFields.push('duedate');
+                        changedFields.duedate = {prop :'duedate', oldVal:originalReceivable.duedate, newVal:receivable.duedate,};
+                        changedFields.hasChange = true;
                     }
-                    ;
                     if (receivable.remarks != originalReceivable.remarks) {
-                        changedFields.push('remarks');
+                        changedFields.remarks = {prop :'remarks', oldVal:originalReceivable.remarks, newVal:receivable.remarks,};
+                        changedFields.hasChange = true;
                     }
-                    ;
                     if (receivable.type != getPaymentType($scope.paymentSelected.id)) {
-                        changedFields.push('type');
+                        changedFields.type = {prop :'type', oldVal:originalReceivable.type, newVal:getPaymentType($scope.paymentSelected.id)};
+                        changedFields.hasChange = true;
                     }
-                    ;
-                    console.log(changedFields);
+                    if ($scope.aditionalInfo.discount > 0) {
+                        changedFields.discount = {prop :'discount', oldVal:0, newVal:$scope.aditionalInfo.discount};
+                        changedFields.hasChange = true;
+                    }
+                    if ($scope.aditionalInfo.extra > 0) {
+                        changedFields.discount = {prop :'discount', oldVal:0, newVal:$scope.aditionalInfo.extra};
+                        changedFields.hasChange = true;
+                    }
+                    
+                    return changedFields;
                 }
 
                 function getPaymentType (id) {
@@ -163,19 +226,20 @@
                     }
                 }
 
+                $scope.$watch('selectedReceivable', setReceivablesInfos);
+                $scope.$watchCollection('aditionalInfo', function(){
+                    if($scope.aditionalInfo.discount>0){
+                        $scope.total.amount = $scope.selectedReceivable.amount - $scope.aditionalInfo.discount;  
+                    }else if($scope.aditionalInfo.extra > 0){
+                        $scope.total.amount = $scope.selectedReceivable.amount + $scope.aditionalInfo.extra;
+                    }else{
+                        $scope.total.amount= 0;
+                    }
+                });
                 
-                $scope.showDialogOfDeath = function(){
-                    DialogService.messageDialog({
-                        title : 'Opps',
-                        message : 'Homems trablhando nesta funcionalidade.',
-                        btnYes : 'OK'
-                    });
-                };
-                
-                $scope.$watch('selectedReceivable', setPaymentType);
                 $scope.$watchCollection('paymentSelected', function (newVal, oldVal) {
-
-                    if ($scope.paymentSelected.id == '0') {
+                    
+                    if ($scope.paymentSelected.id == '0' && $scope.selectedReceivable.type != 'check') {
                         $scope.showCheckFields = true;
                     } else {
                         $scope.showCheckFields = false;
@@ -195,6 +259,7 @@
                     }
                     return true;
                 }
+                
             }
         ]);
 }(angular));

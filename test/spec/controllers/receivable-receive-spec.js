@@ -5,6 +5,7 @@ describe('Controller: ReceivableReceiveCtrl', function() {
         module('tnt.catalog.financial.receivable.receive.ctrl');
         module('tnt.catalog.service.book');
         module('tnt.catalog.bookkeeping.keeper');
+        module('tnt.catalog.payment.entity');
     });
 
     var scope = {};
@@ -87,4 +88,5 @@ describe('Controller: ReceivableReceiveCtrl', function() {
         expect(result).toEqual(false);
 
     });
+    
 });
