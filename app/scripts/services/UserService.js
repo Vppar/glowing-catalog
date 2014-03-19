@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService) {
+        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config'
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig) {
 
         var log = logger.getLogger('tnt.catalog.user.UserService');
         
@@ -59,6 +59,7 @@
 
 
         this.loggedIn = function loggedIn(user, pass) {
+            logger.getLogger('remotedebug.version').info(CatalogConfig.version);
             var hashMD5 = setUserMD5(user, pass);
             localStorage.user = user;
             return hashMD5;
