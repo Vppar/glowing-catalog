@@ -112,7 +112,7 @@
 						</div>
 					</div>
 					<div class="scroll-grid" style="height: calc(100% - 79px);overflow-y: scroll;overflow-x: hidden;">
-						<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666;min-height:42px;" ng-repeat="voucher in filteredVouchers | orderBy: '-created'">
+						<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666;min-height:42px;" ng-repeat="voucher in filteredVouchers | orderBy:'-created'">
 							<span class="col-s1">
 								<div>{{$index+1}}</div>
 							</span>
@@ -219,7 +219,7 @@
 									</div>
 								</div>
 								<div class="scroll-grid" style="height: calc(100% - 34px);overflow-y: scroll;overflow-x: hidden;">
-									<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666; min-height:42px;" ng-repeat="voucher in historicVouchers">
+									<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666; min-height:42px;" ng-repeat="voucher in historicVouchers | orderBy:'-created'">
 										<span class="col-s1">
 											<div>{{voucher.created | date:'dd/MM/yyyy'}}</div>
 										</span>
