@@ -210,6 +210,7 @@
                             typeOld, extra, discount) {
                             var result = null;
                             var receivable = this.read(uuid);
+                            var originalAmount = receivable.amount;
                             if (duedate) {
                                 receivable.duedate = duedate;
                             }
@@ -241,49 +242,21 @@
                                     var entries = [];
 
                                     if (typeNew) {
-                                        // transferir acréscimo 70001 ->
-                                        // acrescimo
-                                        // 70001 -> conta do tipo antigo.
-                                        // conta do tipo novo com acréscimo ->
-                                        // 70001
-                                        var amount = extra ? extra : -discount;
-                                        var totalAmount = receivable.amouunt + amount;
-                                        entries = entries.concat(BookService.negotiation(
-                                            receivable.uuid,
-                                            receivable.entityId,
-                                            amount));
-                                        entries = entries.concat(BookService.liquidate(
-                                            typeOld,
-                                            receivable.uuid,
-                                            receivable.entityId,
-                                            receivable.amount));
-                                        if (typeNew === 'OnCuff') {
+                                        var amountDiscOrExtra = extra ? extra : -discount;
+                                        //discount
+                                        entries = entries.concat(BookService.negotiation(receivable.uuid,receivable.entityId,amountDiscOrExtra));
+                                        //payment new receivable.
+                                        if (typeNew === 'oncuff') {
+                                            entries =
+                                                entries.concat(
+                                                    BookService.payment(receivable.uuid,receivable.entityId,null,null,null,receivable.amount,null,null,null,null));
+                                        } else if (typeNew === 'check') {
                                             entries =
                                                 entries.concat(BookService.payment(
-                                                    receivable.uuid,
-                                                    receivable.entityId,
-                                                    null,
-                                                    null,
-                                                    null,
-                                                    totalAmount,
-                                                    null,
-                                                    null,
-                                                    null,
-                                                    null));
-                                        } else if (typeNew === 'Check') {
-                                            entries =
-                                                entries.concat(BookService.payment(
-                                                    receivable.uuid,
-                                                    receivable.entityId,
-                                                    null,
-                                                    totalAmount,
-                                                    null,
-                                                    null,
-                                                    null,
-                                                    null,
-                                                    null,
-                                                    null));
+                                                    receivable.uuid, receivable.entityId,null,receivable.amount,null,null,null,null,null,null));
                                         }
+                                        //liquidate old receivable.
+                                        entries = entries.concat(BookService.liquidate(typeOld,receivable.uuid,receivable.entityId,originalAmount));
                                     } else {
                                         var amount = extra ? extra : -discount;
                                         entries = entries.concat(BookService.negotiation(

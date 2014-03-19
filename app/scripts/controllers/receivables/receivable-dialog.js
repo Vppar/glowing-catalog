@@ -83,15 +83,12 @@
                             receivable.type,
                             receivable.uuid,
                             receivable.entityId,
-                            receivable.amount,
+                            receivable.totalAmount,
                             account);
 
                     return result;
                 }
 
-                $scope.$watch('paymentType', function () {
-                    console.log($scope.paymentType);
-                });
                 $scope.paymentType = 0;
                 initPaymentTypes();
             }

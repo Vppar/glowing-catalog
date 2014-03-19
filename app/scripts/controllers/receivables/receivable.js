@@ -21,7 +21,12 @@
                 $scope.header = {
                     description : ""
                 };
-
+                /** @type {Date} TODAY - Reference date. */
+                $scope.TODAY = new Date();
+                $scope.TODAY.setHours(0);
+                $scope.TODAY.setMinutes(0);
+                $scope.TODAY.setSeconds(0);
+                
                 // Store the actual select receivable
                 $scope.selectedReceivable = null;
 
@@ -31,27 +36,22 @@
                 };
 
                 /**
-                 * Controls which fragment will be shown.
+                 * Switch between listAll and listOpen.
                  */
-
                 $scope.selectReceivableMode = function selectReceivableMode (selectedMode) {
                     $scope.selectedReceivableMode = selectedMode;
                 };
 
                 $scope.selectReceivable = function (receivable) {
-                    // when a receivable is select force redirect to payment
-                    // tab.
                     $scope.selectedReceivable = angular.copy(receivable);
-                    $scope.header.description = "> Detalhe";
-
+                    $scope.header.description = "> Edição";
                 };
 
                 // starting by 'list' tab
                 $scope.selectReceivableMode('listAll');
 
-                $scope.clearSelectedReceivable = function () {
+                $scope.back = function () {
                     $scope.selectedReceivable = null;
-                    $scope.negotiate = false;
                     $scope.header = {
                         description : ""
                     };

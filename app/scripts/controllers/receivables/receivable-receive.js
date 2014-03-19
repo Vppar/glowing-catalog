@@ -20,11 +20,11 @@
                 $scope.negotiate = false;
                 $scope.extra = 0;
                 $scope.discount = 0;
+                $scope.total ={amount:0};
                 
                 $scope.aditionalInfo = {
                     discount : 0,
                     extra : 0,
-                    amountTotal:0,
                 };
                 
                 $scope.selectedClassification = 1;
@@ -53,9 +53,11 @@
                     }
                 ];
                 
-                function setPaymentType () {
+                function setReceivablesInfos () {
                     $scope.setNegotiation(false);
+                    
                     if ($scope.selectedReceivable) {
+                        $scope.total.amount = $scope.selectedReceivable.amount;
                         var receivable = $scope.selectedReceivable;
                         for ( var ix in $scope.paymentsType) {
                             var paymentType = $scope.paymentsType[ix];
@@ -65,19 +67,6 @@
                         }
                     }
                 }
-
-                $scope.openReceivable = function () {
-                    DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
-                        $scope.clearSelectedReceivable();
-                    }, function (err) {
-                        // err = type of receivable. 1 = check
-                        if (err == '0') {
-                            $scope.paymentSelected.id = 0;
-                            $scope.setNegotiation(true);
-                            $scope.showCheckFields = true;
-                        }
-                    });
-                };
 
                 $scope.setNegotiation = function (value) {
                     $scope.negotiate = value;
@@ -97,17 +86,43 @@
                     }
 
                 };
-
-                $scope.cancelNegotiate = function () {
-                    $scope.setNegotiation(false);
-                    $scope.showCheckFields = false;
+                
+                $scope.liquidateReceivable = function () {
+                    var changedFields = verifyChangedFields();
+                    if(changedFields.hasChange){
+                       $scope.save(); 
+                    }
+                    $selectedReceivable.totalAmount = $scope.total.amount;
+                    DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
+                        DialogService.messageDialog({
+                            title : 'Baixa realizada',
+                            message : 'A baixa foi realizada com sucesso.',
+                            btnYes : 'OK'
+                        }).then(function(){
+                            $scope.back();
+                        });
+                    }, function (err) {
+                        // err = type of receivable. 1 = check
+                        if (err == '0') {
+                            $scope.paymentSelected.id = 0;
+                            $scope.showCheckFields = true;
+                        }
+                    });
                 };
-
-                $scope.confirmNegotiate = function () {
+                
+                
+                /**
+                 * If some form field was changed we will save the receivable.
+                 * 
+                 * @argument isToShowDialog - if setted, at end of process we
+                 *           will show a confirmation dialog.
+                 * 
+                 */
+                $scope.save = function (isToShowDialog) {
                     var changedFields = verifyChangedFields();
 
                     // Verifica se houve alteração no receivable
-                    if (changedFields.length === 0) {
+                    if (!changedFields.hasChange) {
                         DialogService.messageDialog({
                             title : 'Não houve alteração no recebível',
                             message : 'Não é possível confirmar a alteração.',
@@ -125,7 +140,6 @@
                         return
                     }
                     // CALL SERVICE AND MAKE THINGS WORK
-                    // update receivable.
                     var amount = changedFields.amount?changedFields.amount.newVal:undefined ;
                     var duedate = changedFields.duedate? changedFields.duedate.newVal: undefined;
                     var remarks = changedFields.remarks? changedFields.remarks.newVal:undefined;
@@ -145,10 +159,18 @@
                             newPayment = new OnCuffPayment($scope.selectedReceivable.amount, $scope.selectedReceivable.duedate);
                         }
                     }
-                    console.log(newPayment);
                     var response = ReceivableService.update($scope.selectedReceivable.uuid, amount, duedate, remarks, newPayment, typeNew, typeOld, extra, discount);
+                    
                     response.then(function(){
-                        console.log('all blue');
+                        if(isToShowDialog){
+                            DialogService.messageDialog({
+                                title : 'Alterado com sucesso.',
+                                message : 'O recebível foi alterado com sucesso.',
+                                btnYes : 'OK'
+                            }).then(function(){
+                                $scope.back();
+                            });
+                        }
                     }, function(err){
                         console.log(err);
                     });
@@ -174,17 +196,22 @@
                         ArrayUtils.find($scope.receivables.list, 'uuid', receivable.uuid);
 
                     var changedFields = {};
+                    changedFields.hasChange = false;
                     if (receivable.amount != originalReceivable.amount) {
                         changedFields.amount={prop :'amount', oldVal:originalReceivable.amount, newVal:receivable.amount,};
+                        changedFields.hasChange = true;
                     }
                     if (receivable.duedate != originalReceivable.duedate) {
                         changedFields.duedate = {prop :'duedate', oldVal:originalReceivable.duedate, newVal:receivable.duedate,};
+                        changedFields.hasChange = true;
                     }
                     if (receivable.remarks != originalReceivable.remarks) {
                         changedFields.remarks = {prop :'remarks', oldVal:originalReceivable.remarks, newVal:receivable.remarks,};
+                        changedFields.hasChange = true;
                     }
                     if (receivable.type != getPaymentType($scope.paymentSelected.id)) {
                         changedFields.type = {prop :'type', oldVal:originalReceivable.type, newVal:getPaymentType($scope.paymentSelected.id)};
+                        changedFields.hasChange = true;
                     }
                     
                     return changedFields;
@@ -207,10 +234,18 @@
                     });
                 };
 
-                $scope.$watch('selectedReceivable', setPaymentType);
-
+                $scope.$watch('selectedReceivable', setReceivablesInfos);
+                $scope.$watchCollection('aditionalInfo', function(){
+                    if($scope.aditionalInfo.discount>0){
+                        $scope.total.amount = $scope.selectedReceivable.amount - $scope.aditionalInfo.discount;  
+                    }else if($scope.aditionalInfo.extra > 0){
+                        $scope.total.amount = $scope.selectedReceivable.amount + $scope.aditionalInfo.extra;
+                    }else{
+                        $scope.total.amount= 0;
+                    }
+                });
+                
                 $scope.$watchCollection('paymentSelected', function (newVal, oldVal) {
-
                     if ($scope.paymentSelected.id == '0') {
                         $scope.showCheckFields = true;
                     } else {
@@ -231,6 +266,7 @@
                     }
                     return true;
                 }
+                
             }
         ]);
 }(angular));
