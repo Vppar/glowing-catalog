@@ -39,8 +39,8 @@ angular.module('tnt.catalog.productsDelivery', [
                         order.items[ix].created = order.created;
                         pendingProducts.push(order.items[ix]);
                     }
-
-                    // console.log(pendingProducts, 'Items');
+                    
+                     console.log(pendingProducts, 'Items');
                     return pendingProducts;
                 };
 

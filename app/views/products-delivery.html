@@ -80,11 +80,11 @@
 			<div class="height100perc product-delivery-itens" ng-switch-when="products">
 
 				<div class="row-fluid">
-					<div class="new-body-header details-title">
-						<span class="new-col-6">Produto/C&oacute;digo</span>
-						<span class="new-col-2 currency">Qtde</span>
-						<span class="new-col-2 text-center">Entregue</span>
-						<span class="new-col-4 text-center">Entrega</span>
+					<div class="new-body-header details-title scroll-title-compensator">
+						<span class="new-col-12">Produto/C&oacute;digo</span>
+						<span class="new-col-2 text-center">Qtde</span>
+						<span class="new-col-5 text-center">Entregue</span>
+						<span class="new-col-5 text-center">Entrega</span>
 					</div>
 				</div>
 
@@ -93,16 +93,16 @@
 						<div class="row-fluid">
 							<div class="new-body-row" ng-repeat="product in pendingProducts">
 
-								<span class="new-col-6 product-name">
-									<div class="p-title">{{product.description}}</div>
+								<span class="new-col-12 product-name">
+									<div class="p-title">{{product.title}}</div>
 									<div class="small-text">{{product.SKU}} - {{product.line}}</div>
 								</span>
 
 								<span class="new-col-2 text-center">{{product.qty}}</span>
 
-								<span class="new-col-2 text-center">{{product.dQty}}</span>
+								<span class="new-col-5 text-center">{{product.dQty}}</span>
 
-								<span class="new-col-4 text-center">
+								<span class="new-col-5 text-center">
 									<tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
 								</span>
 
