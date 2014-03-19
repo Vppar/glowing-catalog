@@ -34,12 +34,16 @@
   height : calc(100% - 90px);
 }
 
-.warm-up-finances-part {
+.warm-up-finances-part, .warm-up-third-part {
   height: 100%;
 }
 
 .warm-up-finances-part .new-scrollpanel {
   height: calc(100% - 90px);
+}
+
+.warm-up-third-part .new-scrollpanel {
+  height: calc(100% - 100px);
 }
 
 .warm-up-stock-part .new-scrollpanel {
