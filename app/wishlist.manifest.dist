@@ -19,6 +19,7 @@ styles/inventory.css
 styles/previous-entries.css
 styles/pending-delivery.css
 styles/products-to-buy.css
+styles/purchase-order.css
 styles/financial.css
 styles/expense.css
 styles/income-statement.css
@@ -79,6 +80,7 @@ scripts/controllers/receivables/receivable.js
 scripts/controllers/receivables/receivable-check.js
 scripts/controllers/receivables/receivable-list.js
 scripts/controllers/receivables/receivable-receive.js
+scripts/controllers/receivables/receivable-dialog.js
 scripts/controllers/stock/stock.js
 scripts/controllers/voucher.js
 scripts/controllers/voucher-active.js
@@ -103,6 +105,7 @@ scripts/keepers/ProductReturnKeeper.js
 scripts/keepers/TypeKeeper.js
 scripts/keepers/BookKeeper.js
 scripts/keepers/AppointmentKeeper.js
+scripts/keepers/ConsultantKeeper.js
 
 
 scripts/services/ArrayUtils.js
@@ -147,6 +150,8 @@ scripts/services/GoPayGateway.js
 scripts/services/CacheController.js
 scripts/services/Firebase.js
 scripts/services/ProductReturnService.js
+scripts/services/ConsultantService.js
+scripts/services/WarmupService.js
 scripts/services/AppointmentService.js
 
 
