@@ -45,6 +45,8 @@
                             if (!order.customerId) {
                                 $location.path('/');
                             }
+                            
+                            $scope.disabled = true;
 
                             $scope.voucherFilter = function(item) {
                                 if (item.type === 'voucher' || item.type === 'giftCard') {
@@ -55,6 +57,8 @@
                             };
 
                             $scope.items = order.items;
+                            
+                            
 
                             $scope.keyboard = KeyboardService.getKeyboard();
 
@@ -236,6 +240,13 @@
                             // rebuild the
                             // uniqueName.
                             $scope.$watchCollection('items', function() {
+                                
+                                if($scope.items.length>0){
+                                    $scope.disabled = false;
+                                }else{
+                                    $scope.disabled = true;
+                                }
+                                
                                 // Show SKU or SKU + Option(when possible).
                                 for ( var idx in order.items) {
                                     var item = order.items[idx];
