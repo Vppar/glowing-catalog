@@ -3,7 +3,8 @@
 
     angular.module('tnt.catalog.sync.driver', [
         'tnt.catalog.sync.firebase',
-        'tnt.catalog.config'
+        'tnt.catalog.config',
+        'tnt.catalog.warmup.service'
     ]).service(
         'SyncDriver',
         [
@@ -13,7 +14,10 @@
             'Firebase',
             'FirebaseSimpleLogin',
             'CatalogConfig',
-            function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin, CatalogConfig) {
+            'WarmupService',
+            function SyncDriver ($rootScope, $log, $q, Firebase, FirebaseSimpleLogin, CatalogConfig, WarmupService) {
+
+                var self = this;
 
                 var baseRef = new Firebase(CatalogConfig.firebaseURL);
 
@@ -27,6 +31,8 @@
 
                 var firebaseSyncStartTime = null;
                 var firebaseSyncStartTime2 = null;
+
+                this.refs = {};
 
                 $rootScope.$on('SyncStop', function () {
                     if (syncingFlagRef) {
@@ -73,6 +79,9 @@
                     userRef = baseRef.child('users').child(username.replace(/\.+/g, '_'));
                     journalRef = userRef.child('journal');
                     syncingFlagRef = userRef.child('syncing');
+
+                    self.refs.user = userRef;
+                    self.refs.journal = journalRef;
                 }
 
 
@@ -209,6 +218,10 @@
                                 }
                             });
 
+
+                            // Setup warmup data watchers
+                            WarmupService.watchRemoteData(userRef.child('warmup'));
+
                             // Broadcast the event once everything is ready
                             $rootScope.$broadcast('FirebaseConnected');
                         });
@@ -288,98 +301,6 @@
                     setFirebaseReferences(localStorage.firebaseUser);
                 }
 
-
-
-
-
-                //////////////////////////////////////////////////
-                // WarmUp
-                //////////////////////////////////////////////////
-
-                /**
-                 * Initializes the whole warm up watchers and ensures the local
-                 * warm up data is always up-to-date (unless there's no internet
-                 * connection, obviously).
-                 *
-                 * NOTE: This was exposed just to make it easier to test.
-                 *
-                 * @see {@code init()} below.
-                 */
-                this._watchWarmupData = (function () {
-
-                    /**
-                     * Sets a listener in the Firebase reference for the
-                     * warmup data's timestamp, keeping the warmup data
-                     * updated across all devices.
-                     *
-                     * @param {Object} userRef A Firebase reference to the
-                     *    user data stored in Firebase.
-                     */
-                    function _setRemoteTimestampListener(warmupRef) {
-                        warmupRef.child('timestamp')
-                            .on('value', function (snapshot) {
-                                var timestamp = snapshot.val();
-                                if (parseInt(localStorage.warmupTimestamp) !== timestamp) {
-                                    _updateWarmupData(warmupRef);
-                                }
-                            });
-                    }
-
-
-                    /**
-                     * Gets the warmup data from Firebase and updates the local
-                     * data. Beware!!! DOES NOT replay the new data to the
-                     * keepers.
-                     *
-                     * @param {Object} warmupRef Firebase reference to the
-                     *    warmup data.
-                     */
-                    function _updateWarmupData(warmupRef) {
-                        warmupRef.once('value', function (snapshot) {
-                                var warmup = snapshot.val();
-                                _setLocalWarmupData(warmup.data);
-                                _setLocalWarmupTimestamp(warmup.timestamp);
-                                $rootScope.$broadcast('WarmupDataUpdated');
-                            });
-                    }
-
-
-                    /**
-                     * Sets the warmup data in local storage.
-                     * @param {*} data The data to be stored locally.
-                     */
-                    function _setLocalWarmupData(data) {
-                        localStorage.warmupData = JSON.stringify(data);
-                    }
-
-
-                    /**
-                     * Sets the timestamp for the current local warmup data.
-                     * @param {Number} timestamp
-                     */
-                    function _setLocalWarmupTimestamp(timestamp) {
-                        localStorage.warmupTimestamp = timestamp;
-                    }
-
-
-                    /**
-                     * Initializes the warm up data listeners that keep the
-                     * local warmup data updated.
-                     * @param {Object} userRef Firebase reference to the user
-                     *    data.
-                     */
-                    function _init(userRef) {
-                        if (!userRef) {
-                            $log.error('Not connected to Firebase!');
-                            return;
-                        }
-
-                        var warmupRef = userRef.child('warmup');
-                        _setRemoteTimestampListener(warmupRef);
-                    }
-
-                    return _init;
-                })();
             }
         ]);
 }(angular));

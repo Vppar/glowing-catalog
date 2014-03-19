@@ -99,10 +99,12 @@ var FirebaseHelper = (function () {
     function Firebase(uri) {
         this._name = uri;
         this._handlers = [];
+        this._transactionCalls = [];
 
         spyOn(this, 'child').andCallThrough();
         spyOn(this, 'on').andCallThrough();
         spyOn(this, 'once').andCallThrough();
+        spyOn(this, 'transaction').andCallThrough();
     };
 
 
@@ -127,6 +129,10 @@ var FirebaseHelper = (function () {
                 // We MUST NOT change the handlers length.
                 handlers.splice(index, 1, null);
             });
+        },
+
+        transaction : function (updateFn, callback, applyLocally) {
+            this._transactionCalls.push(arguments);
         },
 
         _getHandlers : function (event) {
@@ -170,12 +176,77 @@ var FirebaseHelper = (function () {
 
         var handlers = ref._getHandlers(event);
         var snapshot = getSnapshot(snapshotValue);
+
+        // FIXME make this code run asynchronously (not sure yet if this
+        // is the right place to do it, nor that this is really needed).
         for (var idx in handlers) {
             var handler = handlers[idx];
             // If handler is null, skip it...
             handler && handler(snapshot);
         }
     }
+
+
+    /**
+     * Executes a transaction on the given reference object. The update
+     * function given to the transaction will be executed with
+     * {@code currentValue}. The transaction will then be called with the
+     * proper params.
+     *
+     * If you wish to simulate transaction error handling, you may pass
+     * an error as {@code err}, and it will be passed back to the transaction
+     * callback.
+     *
+     * If your code runs multiple transactions on the same reference
+     * (why!?), you may choose which transaction to run using the
+     * {@code index} parameter (defaults to 0).
+     *
+     * To make it easier to test, this function sets some properties
+     * to {@code ref.transaction()}, containing some internal values defined
+     * during the transaction:
+     *
+     *    expect(ref.transaction.result).toBe('foo');
+     *    expect(ref.transaction.committed).toBe(true);
+     *    expect(ref.transaction.snapshot.val()).toBe('foo');
+     *
+     * Beware that only the values from the last call to {@code transaction}
+     * will be available this way.
+     *
+     * @param {Object} ref Firebase reference object.
+     * @param {*} currentValue Value passed to the update function.
+     * @param {string|Error?} err Error that should be passed to the callback.
+     * @param {number?} index Transaction call index. This will be used only
+     *    in case you have multiple transaction calls for the same reference.
+     */
+    function runTransaction(ref, currentValue, err, index) {
+        index = index || 0;
+        err = err || null;
+
+        var args = ref._transactionCalls[index];
+
+        if (!args) {
+            console.log('No transaction to run for this ref:', ref);
+            return;
+        }
+
+        var updateFn = args[0];
+        var callback = args[1];
+        var applyLocally = args[2];
+
+        var result = updateFn(currentValue);
+        var committed = result !== undefined;
+        var snapshot = getSnapshot(committed ? result : currentValue);
+        
+        // Make the results accessible from tests
+        ref.transaction.committed = committed;
+        ref.transaction.result = result;
+        ref.transaction.snapshot = snapshot;
+
+        setTimeout(function () {
+            callback(err, committed, snapshot);
+        }, 0);
+    }
+
 
     /**
      * Helper that returns an object that acts like a snapshot returned from
@@ -210,6 +281,7 @@ var FirebaseHelper = (function () {
     pub.getSnapshot = getSnapshot;
     pub.reset = reset;
     pub.trigger = trigger;
+    pub.runTransaction = runTransaction;
     pub.Firebase = Firebase;
     pub.FirebaseSimpleLogin = FirebaseSimpleLogin;
 

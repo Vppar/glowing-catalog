@@ -1,12 +1,49 @@
+.warm-up-stock-part {
+  height: calc(100% - 15px);
+}
+
+.warm-up-stock-part .step1 {
+  height: 100%;
+}
+
+.warm-up-stock-part .payment-btn-area {
+  margin-top:10px;
+  width:100%;
+}
+
+.warm-up-stock-part .code-product {
+  display: block;
+}
+
+.warm-up-stock-part .new-body-header {
+  margin-top:55px;
+}
+
 .warm-up{
 	border-radius: 6px;
 	border: 1px solid #e0e0e0;
 	width: 970px;
 	display: block;
 	position: relative;
-	min-height: 655px;
 	margin: -9px 10px 0 10px;
 	padding: 10px 15px 0 15px;
+  height: calc(100% - 103px);
+}
+
+.warm-up .new-scrollpanel {
+  height : calc(100% - 90px);
+}
+
+.warm-up-finances-part {
+  height: 100%;
+}
+
+.warm-up-finances-part .new-scrollpanel {
+  height: calc(100% - 90px);
+}
+
+.warm-up-stock-part .new-scrollpanel {
+  height: calc(100% - 179px);
 }
 
 
@@ -18,16 +55,16 @@
 .warm-up-header{
 	width: 100%;
 	border-bottom: 1px solid #ccc;
-	margin-bottom: 30px;
 	font-weight: bold;
 	font-size: 16px;
-	padding: 10px 0px 20px 5px;
+	padding: 10px 0px 10px 0px;
 	-moz-box-sizing:    border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing:        border-box;
 }
 .warm-up-body{
 	margin: 0px 10px;
+  height: calc(100% - 59px);
 }
 
 .warm-up-calendar{
@@ -105,7 +142,10 @@
 }
 
 .warm-up-body-row-form .warm-up-calendar input{
-	width: 133px;
+	width: 100%;
+  box-sizing: border-box;
+  margin: 0px;
+  height: 30px;
 }
 
 .warm-up-body-row-form .select2-container{
@@ -122,6 +162,14 @@
 .warm-up-body-row input.currency{
 	margin-bottom:3px; 
 	text-align: right;
+}
+
+.warm-up-body-row .new-col-6 .currency {
+  width: 98%;
+}
+
+.warm-up-body-row-form .input-append input {
+  width:82%;
 }
 
 

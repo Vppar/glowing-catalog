@@ -95,6 +95,10 @@
             return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
         };
 
+        this.openDialogChooseCustomerNoRedirect = function(data) {
+            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogNoRedirectCtrl', data, 'modal-choose-customer-dialog');
+        };
+
         this.openDialogInputProducts = function(data) {
             return openDialog('views/parts/global/input-products-dialog.html', 'InputProductsCtrl', data, cssDefaultClass);
         };
