@@ -16,6 +16,7 @@ describe('Service: OrderKeeperUpdateScenario', function() {
     var Order = undefined;
     var ArrayUtils = undefined;
     var scope = undefined;
+    var result = undefined;
     
     beforeEach(inject(function(_$rootScope_, _OrderKeeper_, _Order_, _ArrayUtils_) {
         OrderKeeper = _OrderKeeper_;
@@ -46,10 +47,10 @@ describe('Service: OrderKeeperUpdateScenario', function() {
             actual.then(function(){
                 result = true;
             });
-            scope.$apply();
         });
         
         waitsFor(function(){
+            scope.$apply();
             return result; 
         }, 'JournalKeeper is taking too long');
         

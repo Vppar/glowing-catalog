@@ -82,15 +82,6 @@
             'tnt.catalog.stock.service',
             'tnt.catalog.stock.ctrl',
             'tnt.catalog.type',
-            'tnt.catalog.productsToBuy.ctrl',
-            'tnt.catalog.productsToBuy.order.ctrl',
-            'tnt.catalog.productsToBuy.confirm.ctrl',
-            'tnt.catalog.productsToBuy.summary.ctrl',
-            'tnt.catalog.productsToBuy.ticket.ctrl',
-            'tnt.catalog.productsToBuy.pending.ctrl',
-            'tnt.catalog.productsToBuy.credit.ctrl',
-            'tnt.catalog.productsToBuy.confirm.dialog.ctrl',
-            'tnt.catalog.productsToBuy.ticket.dialog.ctrl',
             'tnt.catalog.purchaseOrder',
             'tnt.catalog.timer.service',
             'tnt.catalog.sync.driver',
@@ -162,9 +153,6 @@
         }).when('/partial-delivery', {
             templateUrl : 'views/partial-delivery.html',
             controller : 'PartialDeliveryCtrl'
-        }).when('/products-to-buy', {
-            templateUrl : 'views/products-to-buy.html',
-            controller : 'ProductsToBuyCtrl'
         }).when('/purchase-order', {
             templateUrl : 'views/parts/purchase-order/purchase-order.html',
             controller : 'PurchaseOrderCtrl'
