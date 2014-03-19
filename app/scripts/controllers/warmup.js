@@ -3,7 +3,8 @@
 
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
-    function WarmupCtrl($scope, $log, WarmupService) {
+    function WarmupCtrl($scope, $log, UserService, WarmupService) {
+        UserService.redirectIfIsNotLoggedIn();
         $log.debug('Initializing WarmupCtrl...');
     }
 
@@ -502,7 +503,7 @@
     ])
         .controller(
             'WarmupCtrl',
-            ['$scope', '$log', 'WarmupService', WarmupCtrl]
+            ['$scope', '$log', 'UserService', 'WarmupService', WarmupCtrl]
         )
         .controller(
             'BalanceWarmupCtrl',
