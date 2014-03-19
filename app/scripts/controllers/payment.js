@@ -24,7 +24,7 @@
                         'KeyboardService',
                         'InventoryKeeper',
                         'VoucherKeeper',
-                        'CashPayment',                        
+                        'CashPayment',
                         'EntityService',
                         'UserService',
                         'Misplacedservice',
@@ -580,11 +580,13 @@
                                 var coupon = getAvailableCouponArray('coupon');
                                 $scope.hasCoupons = vouchers.length > 0 || giftCard.length > 0 || coupon.length > 0;
                             }
-                            
+
                             function getAvailableCouponArray(type) {
-                                var array = $filter('filter')(ArrayUtils.list(VoucherKeeper.list(type)), function (item) {
-                                   return (!item.redeemed && !item.canceled);
-                                 });
+                                var array =
+                                        $filter('filter')(
+                                                ArrayUtils.list(VoucherKeeper.list(type), 'entity', order.customerId), function(item) {
+                                                    return (!item.redeemed && !item.canceled);
+                                                });
                                 return array;
                             }
 

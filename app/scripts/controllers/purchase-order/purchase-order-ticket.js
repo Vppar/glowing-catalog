@@ -53,7 +53,7 @@
 
                     $scope.openDialog = function(purchaseOrder) {
                         if (angular.isUndefined(purchaseOrder.received)) {
-                            var nfePromise = DialogService.openDialogProductsToBuyTicket(purchaseOrder);
+                            var nfePromise = DialogService.openDialogPurchaseOrderTicket(purchaseOrder);
                             nfePromise.then(function(result) {
                                 if (result) {
                                     ticket.nfeData = result.nfe;
