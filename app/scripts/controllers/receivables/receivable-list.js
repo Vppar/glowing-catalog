@@ -94,14 +94,19 @@
                     /**
                      * FILTER RECEIVABLES
                      */
-                    function filterReceivables() {
+                    function filterReceivables(newVal, oldVal) {
                         var receivables = ReceivableService.listActive();
 
                         receivables = filterReceivablesByDate(receivables);
 
                         if ($scope.selectedReceivableMode === 'listOpen') {
                             receivables = filterReceivablesByLiquidated(receivables);
+
+                            if (newVal === 'listOpen') {
+                                $scope.allOpenReceivables = 'true';
+                            }
                         } else {
+                            $scope.allOpenReceivables = 'false';
                             receivables = filterReceivablesByClosed(receivables);
                         }
 
@@ -175,12 +180,12 @@
                             $scope.dtIniDisabled = true;
                         } else {
                             $scope.dtIniDisabled = false;
-                            $scope.selectReceivableMode('listClosed');
                             $scope.dtFilter.dtInitial = angular.copy(lastFilterDate);
                         }
                     }
 
                     $scope.allOpenReceivables = 'true';
+                    $scope.selectReceivableMode('listOpen');
 
                     // ##############################
                     // WATCHERS
