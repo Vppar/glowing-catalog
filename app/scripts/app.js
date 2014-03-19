@@ -68,6 +68,8 @@
             'tnt.catalog.payment.service',
             'tnt.catalog.payment.entity',
             'tnt.catalog.voucher',
+            'tnt.catalog.warmup.ctrl',
+            'tnt.catalog.warmup.service',
             'tnt.catalog.attrs.upperCase',
             'tnt.catalog.attrs.lowerCase',
             'tnt.catalog.payment.discount',
@@ -186,8 +188,9 @@
         }).when('/voucher', {
             templateUrl : 'views/voucher.html',
             controller : 'VoucherCtrl'
-        }).when('/warm-up', {
-            templateUrl : 'views/warm-up.html'
+        }).when('/warmup', {
+            templateUrl : 'views/warm-up.html',
+            controller : 'WarmupCtrl'
         }).when('/receivable-list', {
             templateUrl : 'views/receivable-list.html'
         }).when('/cash-flow', {

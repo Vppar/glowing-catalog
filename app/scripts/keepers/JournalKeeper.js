@@ -1,4 +1,4 @@
-(function(angular, ObjectUtils, $) {
+(function(angular, ObjectUtils) {
     'use strict';
 
     /**
@@ -105,6 +105,12 @@
 
                 var storage = new PersistentStorage (WebSQLDriver);
                 var registered = storage.register (entityName, JournalEntry);
+
+
+                $rootScope.$on('LocalWarmupDataSet', function () {
+                    self.resync();
+                });
+
                 
                 registered.then(function(){
                     $log.debug('Entity ' + entityName + ' registered');
@@ -381,15 +387,20 @@
                             Replayer.nukeKeepers ();
 
                             var promise = storage.list (entityName);
+                            var results = null;
 
-                            // Comment/Uncomment this as you need warm up data.
-                            // FIXME Remove this.
-                            promise.then (function( ) {
+                            promise
+
+                            .then(function (entries) {
+                                results = entries;
+                            })
+
+                            .then(function() {
                                 return insertWarmUpData ();
-                            });
+                            })
 
                             // Replays data from WebSQL into the app.
-                            promise.then (function(results) {
+                            .then (function() {
                                 $log.debug ('Starting replay on ' + results.length + ' entries');
 
                                 var entry = null;
@@ -438,27 +449,54 @@
                     });
                 };
 
+
+                function _getWarmupData() {
+                    var warmup = localStorage.getItem('warmup');
+                    if (warmup) {
+                        warmup = JSON.parse(warmup);
+                        return warmup.data || [];
+                    }
+
+                    return [];
+                }
+
+
                 // Inserts warmup data into the app
-                // FIXME Should be removed ASAP, once we implement another
-                // method
-                // for inserting that warm up data.
                 function insertWarmUpData( ) {
-                    var deferred = $q.defer ();
+                    var deferred = $q.defer();
+
+                    $log.debug('Replaying warmup data...');
 
                     $.get (
                         'resources/replay.json',
                         function(result) {
+                            $log.debug('Replaying data from replay.json...');
                             for ( var ix in result) {
                                 var data = result[ix];
                                 var item =
                                     new JournalEntry (0, 0, data.type, data.version, data.event);
                                 Replayer.replay (item);
                             }
-                            $rootScope.$broadcast ('DataProvider.replayFinished');
                             deferred.resolve ();
                         });
 
-                    return deferred.promise;
+                    return deferred.promise.then(function () {
+                        var warmupData = _getWarmupData();
+
+                        $log.debug('Replaying data from Firebase...');
+
+                        for (var idx in warmupData) {
+                            var data = warmupData[idx];
+                            var item = new JournalEntry(0, 0, data.type, data.version, data.event);
+                            Replayer.replay(item);
+                        }
+
+                        $log.debug('Warmup data replayed (' + warmupData.length + ' entries).');
+                        // FIXME deprecate this in favor of WarmupDataReplayFinished
+                        $rootScope.$broadcast('DataProvider.replayFinished');
+                        $rootScope.$broadcast('WarmupDataReplayFinished');
+                    });
+
                 }
 
                 function persistEntry(entry) {
