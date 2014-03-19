@@ -6,7 +6,7 @@
 		<div class="span12">
 			<div class="control-group">
 				<label class="control-label">Tipo de Recebimento</label>
-					<select ui-select2 tnt-select2 class='combo-width' ng-model="paymentType">
+					<select ui-select2="select2Options" tnt-select2 class='combo-width' ng-model="paymentType">
 						<option value="{{option.id}}" ng-repeat="option in paymentOptions">{{option.describe}}</option>
 					</select>
 			</div>
