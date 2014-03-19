@@ -136,15 +136,23 @@
                                 $log.error('Failed to update the entity:', uuid);
                                 $log.debug(error);
                             });
-
-                            $location.path('/third-parties');
+                            
+                            if(edit.screen){
+                                $location.path('/'+edit.screen);
+                            }else{
+                                $location.path('/'); 
+                            }
                         } else {
                             promise = EntityService.create(customer).then(function(uuid) {
                                 OrderService.order.customerId = uuid;
                                 return uuid;
                             });
-
-                            $location.path('/');
+                            
+                            if(edit.screen){
+                                $location.path('/'+edit.screen);
+                            }else{
+                                $location.path('/'); 
+                            }
                         }
 
                         return promise;

@@ -1,26 +1,10 @@
-<div class="container">
-	<div class="row-fluid">
-		<span ng-include src="'views/parts/global/header.html'"></span>
-	</div>
-
-	<div class="new-page third-parties">
-
-		<div class="new-header row-fluid">
-			<div class="span12">
-				<h2>Terceiros</h3> 
-			</div>
-		</div>
-
-		<div class="new-body">
-			<div class="new-section">
-
 				<div class="row-fluid">
 						<div class="new-col-8">
 							<input type="text" placeholder="Filtrar por nome" ng-model="searchClient" customer-name>
 						</div>
 						<div class="new-col-16">
 							<div class="btn-group btn-group-sm pull-left">
-								<button class="btn btn-ok pull-right" type="submit" ng-click="newClient('third-parties')" >Novo Cliente</button>
+								<button class="btn btn-ok pull-right" type="submit" ng-click="newClient('warmup')" >Novo Cliente</button>
 							</div>
 						</div>
 				</div>
@@ -37,7 +21,7 @@
 				<div class="new-scrollpanel">
 
 					<div class="row-fluid" ng-repeat="entity in filteredEntities">
-						<div class="new-body-row details-item" ng-click="editEntity(entity.uuid, 'third-parties')">
+						<div class="new-body-row details-item" ng-click="editEntity(entity.uuid, 'warmup')">
 							<span class="new-col-8">{{entity.name}}</span>
 							<span class="new-col-8">{{entity.emails[0].address}}</span>
 							<span class="new-col-4 text-center">{{entity.birthDate.formated}}</span>
@@ -46,8 +30,3 @@
 					</div>
 
 				</div> <!-- //scrollpanel -->
-
-			</div> <!--// new-section -->
-		</div>
-	</div>
-</div>

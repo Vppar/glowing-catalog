@@ -11,18 +11,19 @@
 
                     UserService.redirectIfIsNotLoggedIn();
 
-                    $scope.newClient = function() {
+                    $scope.newClient = function(screen) {
                         IntentService.putBundle({
-                            clientName : $scope.searchClient
+                            clientName : $scope.searchClient,
+                            screen : screen
                         });
                         $location.path('/add-customer');
 
                     };
 
-                    $scope.entities = EntityService.list().sort(function(x, y) {
-                        return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
-                    });
-
+                        $scope.entities = EntityService.list().sort(function(x, y) {
+                            return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
+                        });
+                    
                     $scope.$watchCollection('searchClient', function() {
                         $scope.filteredEntities = $filter('filter')($scope.entities, $scope.searchClient);
                     });
@@ -41,12 +42,15 @@
                         }
                     });
 
-                    $scope.editEntity = function(uuid) {
+                    $scope.editEntity = function(uuid, screen) {
+                        console.log(screen);
                         IntentService.putBundle({
-                            editUuid : uuid
+                            editUuid : uuid,
+                            screen : screen
                         });
                         $location.path('/add-customer');
                     };
+                    
                 }
             ]);
 }(angular));
