@@ -5,7 +5,7 @@
 		<span class="span12"><span ng-include src="'views/parts/global/header.html'"></span></span>
 	</div>
 	
-	<div class="form-order-list">
+	<div class="form-order-list new-page">
     
 		<div class="row-fluid pull-right panel-top">
 
@@ -42,10 +42,10 @@
 				
 		</div>		
 	
-		<div ng-switch="voucherSelected">	
+		<div ng-switch="voucherSelected" style="height:100%;">	
 		
 			<!--EM ABERTO-->
-			<div class="row-fluid" ng-switch-when="new" ng-controller="VoucherActiveCtrl">
+			<div class="row-fluid" ng-switch-when="new" ng-controller="VoucherActiveCtrl" style="height:100%;">
 			
 				<!-- DATE INTERVAL -->
 				<div class="row-fluid filter-bar">
@@ -72,7 +72,7 @@
 					</span>	
 				</div>
 				
-				<div class="grid-voucher">
+				<div class="grid-voucher" style="height: calc(100% - 152px);">
 					<div class="header header2 header-voucher">
 						<div class="row-grid">
 							<span class="col-s1">
@@ -111,8 +111,8 @@
 							</span>
 						</div>
 					</div>
-					<div class="scroll-grid">
-						<div class="row-grid-product-voucher" ng-repeat="voucher in filteredVouchers | orderBy: '-created'">
+					<div class="scroll-grid" style="height: calc(100% - 79px);overflow-y: scroll;overflow-x: hidden;">
+						<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666;min-height:42px;" ng-repeat="voucher in filteredVouchers | orderBy: '-created'">
 							<span class="col-s1">
 								<div>{{$index+1}}</div>
 							</span>
@@ -137,7 +137,7 @@
 			
 			<!--HISTORICO-->
 			
-			<div class="row-fluid" ng-switch-when="hist" ng-controller="VoucherHistoricCtrl">
+			<div class="row-fluid" ng-switch-when="hist" ng-controller="VoucherHistoricCtrl" style="height: calc(100% - 15px);">
 			
 				<!-- DATE INTERVAL -->
 				<div class="row-fluid filter-bar">
@@ -195,11 +195,11 @@
 				</div>
 				<br/>-->
 			
-				<form>
-					<div class="controls-row">
-						<div class="control-group lbl-top">				   
-							<div class="grid-voucher-history">
-								<div class="header header2 header-voucher">
+				<form style="height: calc(100% - 141px);">
+					<div class="controls-row" style="height: 100%;">
+						<div class="control-group lbl-top" style="height: 100%;">				   
+							<div class="grid-voucher-history" style="height: 100%;">
+								<div class="header header2 header-voucher" >
 									<div class="row-grid">
 										<span class="col-s1">
 											<div>Data</div>
@@ -207,7 +207,7 @@
 										<span class="col-s2">
 											<div>Vale/Cupom</div>
 										</span>
-										<span class="col-s3">
+										<span class="col-s3" style="width: 149px;">
 											<div>Cr&eacute;dito/D&eacute;bito</div>
 										</span>
 										<span class="col-s4">
@@ -218,8 +218,8 @@
 										</span>
 									</div>
 								</div>
-								<div class="scroll-grid">
-									<div class="row-grid-product-voucher" ng-repeat="voucher in historicVouchers">
+								<div class="scroll-grid" style="height: calc(100% - 34px);overflow-y: scroll;overflow-x: hidden;">
+									<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666; min-height:42px;" ng-repeat="voucher in historicVouchers">
 										<span class="col-s1">
 											<div>{{voucher.created | date:'dd/MM/yyyy'}}</div>
 										</span>
@@ -228,7 +228,7 @@
 												{{voucher.type}}
 											</div>
 										</span>
-										<span class="col-s3">
+										<span class="col-s3" style="width: 148px;">
                       							{{isRedeemed(voucher) ? 'Débito' : isCanceled(voucher) ? 'Cancelado' : 'Crédito'}}
 										</span>
 										<span class="col-s4">
