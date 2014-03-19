@@ -221,7 +221,7 @@
                         // backup items to use when a recals is
                         // needed
                         $scope.newStock.items[item.id] = item;
-                        $scope.newStock.watchedQty[item.id] = item.qty;
+                        $scope.newStock.watchedQty[item.id] = 0;
                     }
                 }
             }
@@ -235,6 +235,14 @@
             for (var idx in warmupStock) {
                 var entry = warmupStock[idx];
                 var event = entry.event;
+                var item = $scope.newStock.items[event.inventoryId];
+
+                var discountedPrice = event.cost;
+                var originalPrice = item.price;
+
+                var discount = (100 - (discountedPrice / originalPrice) * 100);
+
+                $scope.newStock.discounts[event.inventoryId] = discount ? (Math.round(100 * discount) / 100) : 0;
                 $scope.newStock.watchedQty[event.inventoryId] = event.quantity;
             }
         }
@@ -264,16 +272,6 @@
         $scope.main = {};
         $scope.main.stockReport = StockService.stockReport('all');
 
-        function updateCostsWithDiscount() {
-            var items = $scope.newStock.items;
-
-            for (var id in items) {
-                var item = items[id];
-                var discount = $scope.newStock.discounts[id] || 25;
-                var cost = item.price || item.cost;
-                $scope.newStock.costsWithDiscount[id] = getCostWithDiscount(cost, discount);
-            }
-        }
 
         /**
                      * Method to summarize the products from the list
