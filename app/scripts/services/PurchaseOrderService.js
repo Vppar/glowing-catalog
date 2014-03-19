@@ -154,7 +154,7 @@
                         var pending = [];
 
                         for ( var i in purchaseOrders) {
-                            if (!purchaseOrders[i].received) {
+                            if (purchaseOrders[i].status === 4) {
                                 var filteredOrder = this.filterReceived(purchaseOrders[i]);
                                 if (filteredOrder.items.length > 0) {
                                     pending.push(filteredOrder);

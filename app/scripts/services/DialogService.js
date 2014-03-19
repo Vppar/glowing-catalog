@@ -123,12 +123,8 @@
             return openDialog('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl', data, cssDefaultClass);
         };
         
-        this.openDialogProductsToBuyConfirm = function(data) {
-            return openDialog('views/parts/products-to-buy/products-to-buy-confirm-dialog.html', 'ProductsToBuyConfirmDialogCtrl', data, cssDefaultClass);
-        };
-        
-        this.openDialogProductsToBuyTicket = function(data) {
-            return openDialog('views/parts/products-to-buy/products-to-buy-ticket-dialog.html', 'ProductsToBuyTicketDialogCtrl', data, 'modal-products-to-buy-ticket');
+        this.openDialogPurchaseOrderTicket = function(data) {
+            return openDialog('views/parts/purchase-order/purchase-order-ticket-dialog.html', 'PurchaseOrderTicketDialogCtrl', data, 'modal-products-to-buy-ticket');
         };
 
         this.openDialogReceivable = function(data) {
