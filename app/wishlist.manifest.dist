@@ -74,15 +74,6 @@ scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
 scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
-scripts/controllers/products-to-buy/products-to-buy.js
-scripts/controllers/products-to-buy/products-to-buy-order.js
-scripts/controllers/products-to-buy/products-to-buy-confirm.js
-scripts/controllers/products-to-buy/products-to-buy-confirm-dialog.js
-scripts/controllers/products-to-buy/products-to-buy-summary.js
-scripts/controllers/products-to-buy/products-to-buy-ticket.js
-scripts/controllers/products-to-buy/products-to-buy-ticket-dialog.js
-scripts/controllers/products-to-buy/products-to-buy-pending.js
-scripts/controllers/products-to-buy/products-to-buy-credit.js
 scripts/controllers/order-list.js
 scripts/controllers/receivable.js
 scripts/controllers/receivable-add.js
