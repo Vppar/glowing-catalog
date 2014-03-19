@@ -2,14 +2,10 @@
     'use strict';
     function lowerCase($filter) {
         return {
-            require : 'ngModel',
-            link : function(scope, element, attrs, ctrl) {
-
-                ctrl.$parsers.unshift(function(value) {
-                    value = $filter('lowercase')(value);
-                    ctrl.$viewValue = value;
-                    ctrl.$render();
-                    return value;
+            link : function(scope, element, attrs) {
+                element.bind('blur', function(){
+                    element.val($filter('lowercase')(element.val()));
+                    element.trigger('input');
                 });
             }
         };
