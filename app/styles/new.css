@@ -1,8 +1,76 @@
+.payment-receivable-fields .half-row {
+    width:50%!important;
+}
+.payment-receivable-fields .half-row .new-col-4 {line-height:40px;}
+
+.payment-on-cuff-part{
+ 
+ }
+ 
+ .payment-on-cuff-part .new-body-header{
+   background-color: #c8c8c8;
+ 
+ }
+ .payment-receivable-fields{
+   margin-top: 10px;
+ }
+ .payment-on-cuff-part .installment{
+   border:1px solid #c8c8c8;
+   float: left;
+   border-radius: 4px;
+   height: 46px;
+ }
+ .payment-on-cuff-part .installment input{
+   cursor: pointer;
+   height: 35px;
+   border-radius: 4px;
+   margin-top: 4px;
+   box-sizing: border-box;
+   background-color: #f2f2f2;
+   border: 1px solid #f2f2f2;
+   width: 100%;
+   -webkit-appearance: caret;
+ }
+ .payment-on-cuff-part .installment .installment-number{
+   height: 100%;
+   line-height: 46px;
+ }
+ .payment-on-cuff-part .half-row{
+   border: none;
+ }
+ .payment-on-cuff-part .left-payment  .installments-header{
+   color: rgb(51, 51, 51);
+   font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
+   font-size: 14px;
+   font-weight: bold;
+   height: 20px;
+   background-color: #fff;
+   line-height: 20px;
+   margin-top: 30px;
+ }
+ .row-fluid .installments-header{
+   margin-top: 10px;
+ }
+ .installments-header .half-row{
+   float: left;
+ }
+ .installments-header .currency{
+   padding-right: 22px;
+ }
+ 
+
+
 .new-scroll-area{
     height: 380px;
     overflow-y: scroll;
     overflow-x: none; 
  }
+
+ .payment-receivable-fields .half-row {
+     width:50%!important;
+  }
+
+  .payment-receivable-fields .half-row .new-col-4 {line-height:40px;}
  /* TRANSFERED TO new-numpad.css
  .new-numpad{
     width: 290px;
