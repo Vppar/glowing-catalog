@@ -137,7 +137,7 @@
                                 $log.debug(error);
                             });
                             
-                            if(edit.screen){
+                            if(edit && edit.screen){
                                 $location.path('/'+edit.screen);
                             }else{
                                 $location.path('/'); 
@@ -148,7 +148,7 @@
                                 return uuid;
                             });
                             
-                            if(edit.screen){
+                            if(edit && edit.screen){
                                 $location.path('/'+edit.screen);
                             }else{
                                 $location.path('/'); 

@@ -20,7 +20,7 @@
              * Regex created to only accept e-mails that follow the format
              * something@somewhere.whatever
              */
-            $scope.emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
+            $scope.emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)/;
 
             // get emails already set
             if (dialog.data.emails && dialog.data.emails.length > 0 && dialog.data.emails[0].address !== '') {
