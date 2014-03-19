@@ -6,10 +6,6 @@
   height: 100%;
 }
 
-.warm-up-stock-part .new-scrollpanel {
-  height: calc(100% - 179px);
-}
-
 .warm-up-stock-part .payment-btn-area {
   margin-top:10px;
   width:100%;
@@ -36,6 +32,10 @@
 
 .warm-up-finances-part .new-scrollpanel {
   height: calc(100% - 90px);
+}
+
+.warm-up-stock-part .new-scrollpanel {
+  height: calc(100% - 179px);
 }
 
 

@@ -558,7 +558,52 @@
 
 
 
+    /////////////////////////////////////////////////////////////////////////
+    //#######################################################################
+    /////////////////////////////////////////////////////////////////////////
     function StockWarmupService($q, $log, $rootScope, WarmupService) {
+        var local = WarmupService.local;
+
+        this.getLocalStockEntries = function () {
+            var entries = local.data || [];
+            var result = [];
+
+            for (var idx in entries) {
+                var entry = entries[idx];
+                if (entry.type === 'stockAdd') {
+                    result.push(entry);
+                }
+            }
+
+            return result;
+        };
+
+
+        this.getLocalNonStockEntries = function () {
+            var entries = local.data || [];
+            var result = [];
+
+            for (var idx in entries) {
+                var entry = entries[idx];
+                if (entry.type !== 'stockAdd') {
+                    result.push(entry);
+                }
+            }
+
+            return result;
+        };
+
+
+
+
+        this.updateStockWarmup = function (warmupRef, stockData) {
+            var balanceData = this.getLocalNonStockEntries();
+            var data = WarmupService.buildData(balanceData, stockData);
+
+            return WarmupService.updateWarmup(warmupRef, data);
+        };
+
+
     }
 
 
