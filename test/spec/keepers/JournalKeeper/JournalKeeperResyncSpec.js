@@ -54,7 +54,7 @@ describe('Service: JournalKeeperResync', function() {
   }));
 
 
-  it('should resync', function() {
+  xit('should resync', function() {
     var ready = false;
     var events = [
       {}, {}, {}
@@ -98,7 +98,7 @@ describe('Service: JournalKeeperResync', function() {
   });
   
 
-  it('should succeed on empty list', function () {
+  xit('should succeed on empty list', function () {
     var ready = false;
     var events = [];
 
@@ -173,7 +173,7 @@ describe('Service: JournalKeeperResync', function() {
   });
 
 
-  it('should fail to resync on replay failure', function () {
+  xit('should fail to resync on replay failure', function () {
     var failed = false;
     var events = [
       {},{},{}
