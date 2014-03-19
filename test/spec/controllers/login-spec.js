@@ -82,7 +82,7 @@ describe('Controller : LoginCtrl', function() {
         it('should show messageDialog when UserServcice denied credentials', function() {
             var dialog = {
                 title : 'Login',
-                message : 'Usuário ou senha inválidos. Por favor tente novamente.',
+                message : 'Usuário e/ou senha inválidos. Por favor tente novamente.',
                 btnYes : 'Voltar'
             };
             
