@@ -11,6 +11,14 @@
   width:100%;
 }
 
+.warm-up-stock-part .code-product {
+  display: block;
+}
+
+.warm-up-stock-part .new-body-header {
+  margin-top:55px;
+}
+
 .warm-up{
 	border-radius: 6px;
 	border: 1px solid #e0e0e0;
