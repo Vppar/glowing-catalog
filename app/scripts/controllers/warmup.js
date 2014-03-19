@@ -205,7 +205,10 @@
         $log.debug('Initializing StockWarmupCtrl...');
 
         var allProducts = InventoryKeeper.read();
+
+        console.log('product example', allProducts[0]);
         
+
         // #####################################################################################################
         // Local Functions
         // #####################################################################################################
@@ -220,11 +223,27 @@
         $scope.newStock = {};
         $scope.newStock.items = {};
         $scope.newStock.watchedQty = {};
+        console.log('watched Qty', $scope.newStock.watchedQty);
         $scope.filter = {
                         text : ''
                     };
         $scope.main = {};
         $scope.main.stockReport = StockService.stockReport('all');
+
+
+        function updateProductQty() {
+            var warmupStock = StockWarmupService.getLocalStockEntries();
+
+            for (var idx in warmupStock) {
+                var entry = warmupStock[idx];
+                var event = entry.event;
+                $scope.newStock.watchedQty[event.id] = event.quantity;
+            }
+        }
+
+        updateProductQty();
+        console.log($scope.newStock.watchedQty);
+
         /**
                      * Method to summarize the products from the list
                      * 
@@ -450,25 +469,31 @@
         };
         
         $scope.confirm = function confirm(){
-            var products = [];
+            var ref = SyncDriver.refs.user.child('warmup');
+            var entries = [];
             var items = angular.copy($scope.newStock.watchedQty);
             for (var idx in items) {
                 if(items[idx] === 0){
                     continue;
                 }
+
                 var entry = {
-                    "type": "stockAdd",
-                    "version": 1,
-                    "event": {
-                        "inventoryId": Number(idx),  
-                        "cost": ArrayUtils.find(allProducts,'id', Number(idx)).price,
-                        "quantity": items[idx]
+                    type : "stockAdd",
+                    version : 1,
+                    event : {
+                        // $scope.newStock.watchedQty uses the product id as
+                        // its index (see parts/warmu-up/warm-up-stock.html)
+                        inventoryId : Number(idx),  
+                        cost : ArrayUtils.find(allProducts,'id', Number(idx)).price,
+                        quantity : items[idx]
                     }
                 };
-                products.push(entry);
+                entries.push(entry);
             }
+
             //FIXME Remove log when integrate with service
-            console.log(products);
+            console.log('stock entries to be stored', entries);
+            StockWarmupService.updateStockWarmup(ref, entries);
         };
 
         // #####################################################################################################
