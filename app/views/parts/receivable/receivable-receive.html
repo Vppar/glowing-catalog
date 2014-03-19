@@ -12,7 +12,7 @@
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Classifica&ccedil;&atilde;o</label>
-				<select ui-select2 tnt-select2 class='select-client' ng-model="selectedClassification" disabled>
+				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="selectedClassification" disabled>
 					<option value="{{class.id}}" ng-repeat="class in classifications">{{class.description}}</option>
 				</select>
 			</div>
@@ -20,7 +20,7 @@
 		<span class="new-col-4">
 			<div class="control-group">
 				<label class="control-label"> Tipo de Recebível</label>
-				<select ui-select2 tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2">
+				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2 || selectedReceivable.status==='Pago'">
 					<option value="" ng-hide="true"></option>
 					<option value="{{paymentType.id}}" ng-repeat="paymentType in paymentsType">{{paymentType.describe}}</option>
 				</select>
@@ -37,7 +37,7 @@
 		<span class="new-col-9">
 			<div class="control-group">
 				<label class="control-label">Observa&ccedil;&atilde;o</label>
-				<input name="" class="input-block-level" type="text" placeholder="" ng-model="selectedReceivable.remarks">
+				<input name="" class="input-block-level" type="text" placeholder="" ng-model="selectedReceivable.remarks" ng-disabled=" selectedReceivable.status==='Pago'">
 			</div>
 		</span>
 
@@ -69,7 +69,7 @@
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Vencto</label>
-				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" required readonly onkeyup="checkInputKeyUp(this)">
+				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" ng-disabled="selectedReceivable.status==='Pago'" required readonly onkeyup="checkInputKeyUp(this)">
 			</div>
 		</span>	
 
@@ -85,13 +85,13 @@
 		<span class="new-col-3" >
 			<div class="control-group">
 				<label class="control-label">Acréscimo</label>
-				<input id="extra" type="text" class="input-block-level currency" ng-model="aditionalInfo.extra" currency >
+				<input id="extra" type="text" class="input-block-level currency" ng-model="aditionalInfo.extra" currency ng-disabled="selectedReceivable.status==='Pago'" >
 			</div>
 		</span>	
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Desconto</label>
-				<input id="discount" type="text" class="input-block-level currency" ng-model="aditionalInfo.discount" currency>
+				<input id="discount" type="text" class="input-block-level currency" ng-model="aditionalInfo.discount" currency ng-disabled="selectedReceivable.status==='Pago'">
 			</div>
 		</span>	
 

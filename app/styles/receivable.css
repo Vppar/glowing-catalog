@@ -1,3 +1,7 @@
+.receivable-details .date-field{
+	cursor:pointer;
+}
+
 .btn-red{
 	background-color:#AD1919;
 	height: 36px;

@@ -16,11 +16,16 @@
                 $scope.paymentSelected = {
                     id : 1
                 };
+                
                 $scope.check ={};
                 $scope.negotiate = false;
                 $scope.extra = 0;
                 $scope.discount = 0;
                 $scope.total ={amount:0};
+                
+                $scope.select2Options = {
+                    minimumResultsForSearch : -1
+                };
                 
                 $scope.aditionalInfo = {
                     discount : 0,
