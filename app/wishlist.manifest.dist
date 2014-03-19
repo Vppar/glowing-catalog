@@ -20,6 +20,7 @@ styles/previous-entries.css
 styles/pending-delivery.css
 styles/products-to-buy.css
 styles/purchase-order.css
+styles/products-delivery.css
 styles/financial.css
 styles/expense.css
 styles/income-statement.css
@@ -32,7 +33,13 @@ styles/voucher.css
 styles/stock.css
 styles/warm-up.css
 styles/new.css
+styles/new-numpad.css
 styles/new-registration.css
+styles/new-ipad-only.css
+styles/new-grid.css
+styles/new-calendar.css
+styles/new-button.css
+styles/third-parties.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -75,12 +82,22 @@ scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
 scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
+scripts/controllers/products-delivery.js 
+scripts/controllers/purchase-order/purchase-order-confirm.js
+scripts/controllers/purchase-order/purchase-order-new.js
+scripts/controllers/purchase-order/purchase-order-pending-products.js
+scripts/controllers/purchase-order/purchase-order-stashed.js
+scripts/controllers/purchase-order/purchase-order-summary.js
+scripts/controllers/purchase-order/purchase-order-ticket-dialog.js
+scripts/controllers/purchase-order/purchase-order-ticket.js
+scripts/controllers/purchase-order/purchase-order.js
 scripts/controllers/order-list.js
 scripts/controllers/receivables/receivable.js
 scripts/controllers/receivables/receivable-check.js
 scripts/controllers/receivables/receivable-list.js
 scripts/controllers/receivables/receivable-receive.js
 scripts/controllers/receivables/receivable-dialog.js
+scripts/controllers/registration.js
 scripts/controllers/stock/stock.js
 scripts/controllers/voucher.js
 scripts/controllers/voucher-active.js
@@ -116,9 +133,11 @@ scripts/services/DataProvider.js
 scripts/services/DialogService.js
 scripts/services/EntityService.js
 scripts/services/ExpenseService.js
+scripts/services/purchase-order/NewPurchaseOrderService.js
 scripts/services/financial/FinancialMathService.js
 scripts/services/IdentityService.js
 scripts/services/InventoryService.js
+scripts/services/IntentService.js
 scripts/services/KeyboardService.js
 scripts/services/misplacedservice.js
 scripts/services/OrderService.js
