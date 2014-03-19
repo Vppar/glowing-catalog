@@ -18,7 +18,7 @@
                 'IntentService',
                 function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService,
                         IntentService) {
-
+                    
                     UserService.redirectIfIsNotLoggedIn();
 
                     // ############################################################################################################
@@ -26,6 +26,10 @@
                     // ############################################################################################################
                     $scope.birthdate = DataProvider.date;
                     $scope.states = DataProvider.states;
+                    
+                    $scope.select2Options = {
+                            minimumResultsForSearch : -1
+                        };
 
                     $scope.customer = {
                         addresses : {},

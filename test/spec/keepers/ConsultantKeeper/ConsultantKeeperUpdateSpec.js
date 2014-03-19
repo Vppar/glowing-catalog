@@ -42,13 +42,12 @@ describe('Service: ConsultantKeeper', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
         var email = 'teste@tunts.com';
         
-        var validConsultant = new Consultant(uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+        var validConsultant = new Consultant(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
 
         // when
         expect(function() {
@@ -78,13 +77,12 @@ describe('Service: ConsultantKeeper', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
         var email = 'teste@tunts.com';
         
-        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
         var stp = fakeNow / 1000;
         var entry = new JournalEntry(null, stp, 'consultantUpdate', 1, ev); 
         
@@ -113,14 +111,13 @@ describe('Service: ConsultantKeeper', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
         var email = 'teste@tunts.com';
 
         expect(function() {
-            ConsultantKeeper.update(uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);}).toThrow('User not found.');
+            ConsultantKeeper.update(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);}).toThrow('User not found.');
     });
 
 });

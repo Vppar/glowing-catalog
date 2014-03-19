@@ -6,7 +6,24 @@ describe('Service: PurchaseOrderServiceListPendingSpec', function() {
     var TypeKeeper = {};
 
     beforeEach(function() {
-        TypeKeeper.list = jasmine.createSpy('TypeKeeper.list');
+        TypeKeeper.list = jasmine.createSpy('TypeKeeper.list').andReturn([
+            {
+                name : 'stashed',
+                id : 1
+            }, {
+                name : 'canceled',
+                id : 2
+            }, {
+                name : 'confirmed',
+                id : 3
+            }, {
+                name : 'partiallyReceived',
+                id : 4
+            }, {
+                name : 'received',
+                id : 5
+            }
+        ]);
     });
 
     // load the service's module

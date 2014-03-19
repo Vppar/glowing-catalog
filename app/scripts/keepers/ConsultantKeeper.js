@@ -3,10 +3,12 @@
 
     angular.module('tnt.catalog.consultant.entity', []).factory('Consultant', function Consultant() {
 
-        var service = function svc(uuid, name, mkCode, cep, address, cpf, rg, bank, agency, account, email) {
+        var service = function svc(uuid, name, mkCode, cep, address, cpf, bank, agency, account, email) {
 
             var validProperties = [
-                'uuid', 'name', 'mkCode', 'cep', 'address', 'cpf', 'rg', 'bank', 'agency', 'account', 'email'
+                'uuid', 'name', 'mkCode', 'cep', 'address', 'cpf', 'bank', 'agency', 'account', 'email', 'marital', 'gender',
+                'birthDate', 'countryOrigin', 'complement', 'emissary', 'phone', 'emailPrimer', 'emailDirector', 'primerCode', 'unityNumber',
+                'area'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -26,7 +28,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Consultant must be initialized with uuid, name, mkCode, cep, address, cpf, rg, bank, agency, account, email';
+                    throw 'Consultant must be initialized with uuid, name, mkCode, cep, address, cpf, bank, agency, account, email';
                 }
             } else {
                 this.uuid = uuid;
@@ -35,7 +37,6 @@
                 this.cep = cep;
                 this.address = address;
                 this.cpf = cpf;
-                this.rg = rg;
                 this.bank = bank;
                 this.agency = agency;
                 this.account = account;
@@ -153,7 +154,17 @@
                         // save the journal entry
                         return JournalKeeper.compose(entry);
                     };
+                    
+                    /**
+                     * wipe it
+                     */
+                    this.nuke = function() {
+                        var entry = new JournalEntry(null, new Date(), 'nukeConsultants', currentEventVersion, null);
 
+                        return JournalKeeper.compose(entry);
+                    };
+                    
+                    
                     /**
                      * read (consultant)
                      */
@@ -162,10 +173,17 @@
                     };
 
                     /**
-                     * list(type)
+                     * list
                      */
                     this.list = function() {
                         return angular.copy(consultants);
+                    };
+                    
+                    /**
+                     * get
+                     */
+                    this.get = function() {
+                        return angular.copy(consultants[0]);
                     };
 
                 }

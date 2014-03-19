@@ -15,11 +15,14 @@ describe('Service: PurchaseOrderKeeperAddSpec', function() {
     var purchase = {
         uuid : uuid,
         created : new Date(1386179100000).getTime(),
+        updated : new Date(1386179100000).getTime(),
+        status : 1,
         items : items
     };
 
     // load the service's module
     beforeEach(function() {
+        localStorage.deviceId = 1;
         module('tnt.catalog.purchaseOrder.keeper');
         module('tnt.catalog.purchaseOrder.entity');
         module('tnt.catalog.journal');
@@ -49,9 +52,7 @@ describe('Service: PurchaseOrderKeeperAddSpec', function() {
         // given
         var purchasex = new PurchaseOrder(purchase);
         spyOn(IdentityService, 'getUUID').andReturn(purchasex.uuid);
-        var entry = new JournalEntry(null, purchasex.created, 'purchaseOrderAdd', 1, purchasex);
-
-       
+        var entry = new JournalEntry(null, purchasex.created, 'purchaseOrderAdd', 2, purchasex);
 
         // when
         var addCall = function() {
@@ -74,7 +75,7 @@ describe('Service: PurchaseOrderKeeperAddSpec', function() {
         };
 
         // then
-        expect(addCall).toThrow('Unexpected property onemore');
+        expect(addCall).toThrow('PurchaseOrder: Unexpected property onemore');
         expect(jKeeper.compose).not.toHaveBeenCalled();
     });
 

@@ -1,0 +1,41 @@
+<div class="step2 purchase-order-confirm-part">
+
+    <div class="row-fluid">
+        <div class="new-body-header details-title">
+            <span class="new-col-11">Produto/C&oacute;digo</span>
+            <span class="new-col-3 text-center">Pts.</span>
+            <span class="new-col-3 currency">P.Unit</span>
+            <span class="new-col-4 text-center">Qtde m&iacute;n.</span>
+            <span class="new-col-3 text-center">Pedido</span>
+        </div>
+    </div>
+
+	<div class="new-scrollpanel">
+    <div ng-repeat="session in confirmedProducts.sessions">
+        <div class="row-fluid">
+            <div class="new-body-row details-subtitle">
+                <span class="new-col-11">{{session.label}}</span>
+                <span class="new-col-3 text-center">&nbsp;</span>
+                <span class="new-col-3 currency">&nbsp;</span>
+                <span class="new-col-4 text-center">&nbsp;</span>
+                <span class="new-col-3 text-center">&nbsp;</span>
+            </div>
+        </div>
+		<span ng-repeat="line in session.lines">
+			<div class="details-category">{{line.label}}</div>
+			<span ng-repeat="product in line.items">
+                <div class="new-body-row details-item">
+                    <span class="new-col-11">
+						{{product.title}}
+						<div class="code-product">{{product.uniqueName}}</div>
+                    </span>
+                    <span class="new-col-3 text-center">&nbsp;{{product.points}}</span>
+                    <span class="new-col-3 currency">{{product.price | currency:''}}</span>
+                    <span class="new-col-4 text-center">&nbsp;&nbsp;{{product.minQty}}</span>
+                    <span class="new-col-3 text-center">&nbsp;&nbsp;&nbsp;&nbsp;{{product.qty}}</span>
+                </div>
+			</span>
+		</span>
+    </div>
+    </div><!--// new-scrollpanel -->
+</div>

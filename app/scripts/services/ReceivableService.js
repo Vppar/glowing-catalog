@@ -243,11 +243,11 @@
 
                                 var entries = null;
                                 entries =
-                                    BookService.deposit(account, amount, orderUUID, entityUUID);
+                                    BookService.deposit(account, amount, receivableUUID, entityUUID);
                                 entries =
                                     entries.concat(BookService.liquidate(
                                         paymentType,
-                                        orderUUID,
+                                        receivableUUID,
                                         entityUUID,
                                         amount));
                                 promises = promises.concat(writeBookEntries(entries));

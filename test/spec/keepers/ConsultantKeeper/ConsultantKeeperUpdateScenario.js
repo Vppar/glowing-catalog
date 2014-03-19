@@ -52,7 +52,6 @@ describe('Service: ConsultantKeeperUpdateScenario', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
@@ -61,7 +60,7 @@ describe('Service: ConsultantKeeperUpdateScenario', function() {
         var uuid = null;
         runs(function(){
             
-            var ev = new Consultant(null, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+            var ev = new Consultant(null, name, mkCode, cep, address, cpf, bank,  agency, account, email);
             
             var promise = ConsultantKeeper.create(ev);
             
@@ -81,7 +80,7 @@ describe('Service: ConsultantKeeperUpdateScenario', function() {
         
         runs(function(){
             var email = 'updated.email@test.com';
-            var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+            var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
             
             var promise = ConsultantKeeper.update(ev);
             
@@ -119,13 +118,12 @@ describe('Service: ConsultantKeeperUpdateScenario', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
         var email = 'teste@tunts.com';  
         
-        var ev = (uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+        var ev = (uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
         
         ev.picles = 'yep';
         
@@ -168,15 +166,14 @@ describe('Service: ConsultantKeeperUpdateScenario', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
         var email = 'teste@tunts.com';  
         
-        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
         
-        var ev2= new Consultant(uuid2, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+        var ev2= new Consultant(uuid2, name, mkCode, cep, address, cpf, bank,  agency, account, email);
         ev2.remarks = 'super bad client';
         ev2.namespaceURI = 'cassiana';
         

@@ -42,7 +42,6 @@ describe('Service: ConsultantKeeper', function() {
                 cep : 81110010,
                 address : {street: 'rua', number: 555},
                 cpf : '8157170',
-                rg : '1234567890',
                 bank : '001',
                 agency : 12345,
                 account : 321,
@@ -80,7 +79,6 @@ describe('Service: ConsultantKeeper', function() {
         var cep = 81110010;
         var address = {street: 'rua', number: 555};
         var cpf = '8157170';
-        var rg = '1234567890';
         var bank = '001';
         var agency = 12345;
         var account = 321;
@@ -88,7 +86,7 @@ describe('Service: ConsultantKeeper', function() {
         
         var stp = fakeNow;
 
-        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, rg, bank,  agency, account, email);
+        var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
         
         var entry = new JournalEntry(null, stp, 'consultantCreate', 1, ev); 
         

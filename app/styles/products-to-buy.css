@@ -23,7 +23,7 @@
 	height: 100%;
 }
 .products-to-buy-pending-part .new-scrollpanel{
-	height: calc(100% - 125px);
+	height: calc(100% - 141px);
 }
 
 .products-to-buy-pending-part-line, .products-to-buy-ticket-part-line{
@@ -203,7 +203,7 @@ padding-left: 6px;
 .products-to-buy-right{
 	display: block;
 	float:left;
-	width:30%;
+	width:32%;
 }
 
 .menu-level-products-to-buy{	
@@ -1384,7 +1384,7 @@ vertical-align: middle;
 	min-height:1px;
 }
 
-.step3, .step4 {
+.step3, .step4, .step0 {
 	position:absolute;
 	width:96%;
 }
@@ -1432,4 +1432,15 @@ vertical-align: middle;
 
 .step1 .new-scrollpanel .currency {
 	padding-right:12px;
+}
+
+.step0 {
+	height:100%;
+}
+.step0 .new-body-header {
+	padding-right:2px;
+}
+.step0 .new-scrollpanel {
+	height:calc(100% - 165px);
+	overflow-x:hidden;
 }

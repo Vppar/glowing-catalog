@@ -74,19 +74,19 @@
 			</span>
 		</div>
 	</div>
-	<!--Tela "Fazer pedido"-->
+	<!-- Tela "Novo Pedido"-->
 	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='buildOrder'">			
 		<div class="btns-details-products-to-buy-item">
-			<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
+			<button class="btn btn-cancel" type="submit" promise-click="cancel()">Cancelar</button>
 			<button class="btn btn-ok float-right" type="submit" ng-click="selectTab('confirmOrder')">Prosseguir</button>
 		</div>		
 	</div>
 	
-	<!--Tela "Aferir NFe compra" - PARTE 2-->
+	<!-- Tela "Confirmar Pedido" -->
 	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='verifyTicket'">			
 		<div class="btns-details-products-to-buy-item">
-			<button class="btn btn-cancel" type="submit" ng-click="cancel()">Cancelar</button>
-			<button class="btn btn-ok float-right" type="submit" ng-click="confirm()">Confirmar</button>
+			<button class="btn btn-cancel" type="submit"  tnt-promise-click="save()">Salvar</button>
+			<button class="btn btn-ok float-right" type="submit" tnt-promise-click="confirm()">Confirmar</button>
 		</div>		
 	</div>
 </div>

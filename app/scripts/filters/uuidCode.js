@@ -4,8 +4,9 @@
     angular.module('tnt.catalog.filters.uuidCode', [
         'tnt.identity'
     ]).filter('uuidCode', ['IdentityService', function (IdentityService) {
-        return function (item) {
-            if (!item.uuid) {
+        return function (item, field) {
+            field = field ? field : 'uuid';
+            if (!item[field]) {
                 return item;
             }
 
@@ -15,7 +16,7 @@
                 return (pad + n).slice(-pad.length);
             }
 
-            var data = IdentityService.getUUIDData(item.uuid);
+            var data = IdentityService.getUUIDData(item[field]);
             var year = String(new Date(item.created).getFullYear()).substring(2);
 
             return leftPad(data.id, 4) + '-' + leftPad(data.deviceId, 2) + '-' + year;

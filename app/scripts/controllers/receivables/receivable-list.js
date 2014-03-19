@@ -10,7 +10,9 @@
                 'ReceivableService',
                 'EntityService',
                 'OrderService',
-                function ($log, $scope, $filter, ReceivableService, EntityService, OrderService) {
+                'IdentityService',
+                function ($log, $scope, $filter, ReceivableService, EntityService, OrderService,
+                    IdentityService) {
 
                     function setTime (date, hours, minutes, seconds, milliseconds) {
                         date.setHours(hours);
@@ -19,24 +21,18 @@
                         date.setMilliseconds(milliseconds);
                         return date;
                     }
-                    
-                    //############################
-                    //TRASNLATOR TABAJARA
-                    //############################
+
+                    // ############################
+                    // TRASNLATOR TABAJARA
+                    // ############################
                     var translate = {};
-                    translate.cash = 'Dinheiro';
                     translate.onCuff = 'A Receber';
                     translate.check = 'Cheque';
-                    translate.voucher = 'Voucher';
-                    translate.gift = 'Vale Presente';
-                    translate.exchange = 'Troca de Produto';
-                    translate.coupon = 'Cupom';
-                    translate.noMerchantCc = 'Cartão de Crédito';
                     translate.creditCard = 'Cartão de Crédito';
 
-                    //################
-                    //FILTERS RELATED
-                    //###############
+                    // ################
+                    // FILTERS RELATED
+                    // ###############
                     function filterByDate (receivable) {
                         var initialFilter = null;
                         var finalFilter = null;
@@ -63,7 +59,7 @@
                                 .getTime()) {
                                 $scope.dtFilter.dtFinal = angular.copy($scope.dtFilter.dtInitial);
                             }
-                        }   
+                        }
                         if (initialFilter && finalFilter) {
                             if (receivable.duedate >= initialFilter &&
                                 receivable.duedate <= finalFilter) {
@@ -106,18 +102,21 @@
                     function filterByLiquidated (receivables) {
                         return $filter('filter')(receivables, receivableLiquidatedFilter);
                     }
-                    
+
+                    /**
+                     * FILTER RECEIVABLES
+                     */
                     function filterReceivables () {
                         var receivables = ReceivableService.listActive();
 
                         receivables = filterReceivablesByDate(receivables);
-                        receivables = argumentReceivables(receivables);
 
                         if ($scope.selectedReceivableMode === 'listOpen') {
                             receivables = filterReceivablesByLiquidated(receivables);
                         }
+                        receivables = $filter('orderBy')(receivables, 'duedate');
 
-                        $scope.receivables.list = $filter('orderBy')(receivables, 'duedate');
+                        $scope.receivables.list = argumentReceivables(receivables);
                     }
 
                     function filterReceivablesByLiquidated (receivables) {
@@ -127,7 +126,7 @@
                     function receivableLiquidateFilter (receivable) {
                         return (receivable.liquidated === undefined);
                     }
-                    
+
                     function ensureDateOrder () {
                         if ($scope.dtFilter.dtInitial > $scope.dtFilter.dtFinal) {
                             var initial = $scope.dtFilter.dtInitial, final =
@@ -137,18 +136,20 @@
                             $scope.dtFilter.dtFinal = initial;
                         }
                     }
-                    //#############################
-                    //ARGUMENT RECEIVABLES
-                    //#############################                    
+                    // #############################
+                    // ARGUMENT RECEIVABLES
+                    // #############################
                     function argumentReceivables (receivables) {
                         for ( var ix in receivables) {
                             var receivable = receivables[ix];
                             receivable.entityName = EntityService.read(receivable.entityId).name;
-                            receivable.classification = translate[receivable.type];
-                            receivable.documentType = 'Pedido';
+                            receivable.typeTranslated = translate[receivable.type];
+                            var uiidData = IdentityService.getUUIDData(receivable.documentId);
 
+                            receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
+                            receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
                             receivable.status =
-                                (receivable.liquidated === undefined) ? 'Aberta' : 'Pago';
+                                (receivable.liquidated === undefined) ? 'Aberto' : 'Pago';
                             receivable.installments =
                                 ReceivableService.listByDocument(receivable.documentId);
                             receivable.installments = filterByCanceled(receivable.installments);
@@ -163,18 +164,12 @@
                                 }
                             }
                             receivable.installments = filterByLiquidated(receivable.installments);
-
-                            receivable.order = OrderService.read(receivable.documentId);
-                            receivable.order.uiidCode = $filter('uuidCode')(receivable.order);
-
-                            // FIXME document type hard coded.
-                            receivable.order.document = 'Venda de Produtos';
                         }
                         return receivables;
                     }
-                    //#########################################
-                    //TO REMEMBER DATE BEFORE CLICK CHECK BOX
-                    //##########################################
+                    // #########################################
+                    // TO REMEMBER DATE BEFORE CLICK CHECK BOX
+                    // ##########################################
                     var lastFilterDate = angular.copy($scope.dtFilter.dtInitial);
                     function removeDtInitial () {
                         if ($scope.allOpenReceivables === 'true') {
@@ -190,17 +185,17 @@
                             $scope.dtFilter.dtInitial = angular.copy(lastFilterDate);
                         }
                     }
-                    
-                    //##############################
-                    //WATCHERS 
-                    //###############################
+
+                    // ##############################
+                    // WATCHERS
+                    // ###############################
                     $scope.$watchCollection('dtFilter', ensureDateOrder);
                     $scope.$watchCollection('dtFilter', filterReceivables);
                     $scope.$watch('selectedReceivableMode', filterReceivables);
                     $scope.$watch('selectedReceivable', filterReceivables);
                     $scope.$watch('allOpenReceivables', removeDtInitial);
-                    
-                    //expose functions for tests 
+
+                    // expose functions for tests
                     this.filterReceivablesByDate = filterReceivablesByDate;
                     this.filterByDate = filterByDate;
                     this.ensureDateOrder = ensureDateOrder;
