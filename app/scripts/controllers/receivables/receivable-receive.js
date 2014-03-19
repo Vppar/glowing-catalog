@@ -82,8 +82,8 @@
                     $scope.selectedReceivable.totalAmount = $scope.total.amount;
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
                         DialogService.messageDialog({
-                            title : 'Baixa realizada',
-                            message : 'A baixa foi realizada com sucesso.',
+                            title : 'Pagamento realizado',
+                            message : 'O pagamento foi realizada com sucesso.',
                             btnYes : 'OK'
                         }).then(function(){
                             $scope.back();
@@ -114,7 +114,7 @@
                     if (!changedFields.hasChange) {
                         DialogService.messageDialog({
                             title : 'Não houve alteração no recebível',
-                            message : 'Não é possível confirmar a alteração.',
+                            message : 'O recebível não foi alterado.',
                             btnYes : 'OK'
                         });
                         return
@@ -123,7 +123,7 @@
                     if (!isValidDiscountAndExtra()) {
                         DialogService.messageDialog({
                             title : 'Descontos e Acréscimos',
-                            message : 'Não é possível preencher os dois campos.',
+                            message : 'Não é possível acréscimos e descontos ao mesmo tempo.',
                             btnYes : 'OK'
                         });
                         return

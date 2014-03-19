@@ -89,7 +89,7 @@
                     return result;
                 }
 
-                $scope.paymentType = 0;
+                $scope.paymentType = 1;
                 initPaymentTypes();
             }
         ]);
