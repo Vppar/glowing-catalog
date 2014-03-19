@@ -80,7 +80,9 @@
                 if (hasErrors.length === 0) {
                     result = ConsultantKeeper.create(consultant);
                 } else {
-                    result = $q.reject(log.error(hasErrors));
+                    log.fatal('Failed to create the consultant.');
+                    log.debug(hasErrors);
+                    result = $q.reject();
                 }
                 return result;
             };
@@ -104,7 +106,9 @@
                     return promise.then(function(resp) {
                         return resp;
                     }, function(error) {
-                        return $q.reject(log.error('ConsultantService.update: Unable to update a consultant=' + +'. Err=' + error));
+                        log.error('ConsultantService.update: Unable to update a consultant');
+                        log.debug(error);
+                        return $q.reject();
                     });
                 } else {
                     return $q.reject(result);
