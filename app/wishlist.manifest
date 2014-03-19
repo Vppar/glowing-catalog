@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.990
+# v0.0.1
 
 CACHE:
 apple-touch-icon.png
@@ -24,6 +24,7 @@ styles/inventory.css
 styles/previous-entries.css
 styles/pending-delivery.css
 styles/products-to-buy.css
+styles/purchase-order.css
 styles/products-delivery.css
 styles/financial.css
 styles/expense.css
@@ -211,6 +212,7 @@ scripts/controllers/receivables/receivable.js
 scripts/controllers/receivables/receivable-check.js
 scripts/controllers/receivables/receivable-list.js
 scripts/controllers/receivables/receivable-receive.js
+scripts/controllers/receivables/receivable-dialog.js
 scripts/controllers/stock/stock.js
 scripts/controllers/voucher.js
 scripts/controllers/voucher-active.js
@@ -233,6 +235,7 @@ scripts/keepers/PurchaseOrderKeeper.js
 scripts/keepers/ProductReturnKeeper.js
 scripts/keepers/TypeKeeper.js
 scripts/keepers/BookKeeper.js
+scripts/keepers/ConsultantKeeper.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
@@ -278,6 +281,8 @@ scripts/services/GoPayGateway.js
 scripts/services/CacheController.js
 scripts/services/Firebase.js
 scripts/services/ProductReturnService.js
+scripts/services/ConsultantService.js
+scripts/services/WarmupService.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
