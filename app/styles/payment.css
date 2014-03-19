@@ -121,6 +121,9 @@ float: left;
 	background: #ACDF7B;
 	cursor: pointer;
 }
+.container-payment .dropdown-menu .btn:hover {
+	background:#f2f2f2;
+}
 .col-payment-right {
 	/*background-color:#eee;*/
 }
