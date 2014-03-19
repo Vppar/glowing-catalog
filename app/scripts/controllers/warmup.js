@@ -426,6 +426,7 @@
         // #####################################################################################################
 
         $scope.selectedLevel = 1;
+        $scope.selectedSession = 1;
 
         $scope.productFilter = {
             text : ''
