@@ -26,6 +26,7 @@
                     function updateFilteredProducts () {
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
+
                         var productsMap = {};
                         for ( var ix in $scope.filteredOrders) {
                             for ( var idx in $scope.filteredOrders[ix].items) {
@@ -88,6 +89,7 @@
                             }
                         }
                     }
+                    
 
                     $scope.updateProducts =
                         function () {
