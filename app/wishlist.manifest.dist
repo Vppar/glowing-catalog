@@ -90,6 +90,8 @@ scripts/controllers/voucher-active.js
 scripts/controllers/voucher-historic.js
 scripts/controllers/book-keeping-report.js
 scripts/controllers/numpad-dialog.js
+scripts/controllers/third-party.js
+scripts/controllers/warmup.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
