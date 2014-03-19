@@ -3,6 +3,7 @@ describe('Service: OrderServiceIsValid', function () {
   var monthTime = 2592000;
 
   var logMock = {};
+  var loggerMock = {};
   var OrderMock = {};
   var OrderKeeperMock = {};
   var DataProviderMock = {};
@@ -16,6 +17,7 @@ describe('Service: OrderServiceIsValid', function () {
 
     spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     logMock.debug = jasmine.createSpy('$log.debug');
+    loggerMock.getLogger = jasmine.createSpy('logger.getLogger');
 
     DataProviderMock.customers = [
       {
@@ -26,6 +28,7 @@ describe('Service: OrderServiceIsValid', function () {
 
     module(function ($provide) {
       $provide.value('$log', logMock);
+      $provide.value('logger', loggerMock);
       $provide.value('Order', OrderMock);
       $provide.value('OrderKeeper', OrderKeeperMock);
       $provide.value('DataProvider', DataProviderMock);

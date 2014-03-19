@@ -47,8 +47,8 @@ describe('Service: BookServiceProductReturnSpec', function() {
             }), new BookEntry({
                 uuid : null,
                 created : null,
-                debitAccount : 11701,
-                creditAccount : 51115,
+                debitAccount : 51115,
+                creditAccount : 11701,
                 document : uuid,
                 entity : entityUUID,
                 op : 'Devolução de produto',

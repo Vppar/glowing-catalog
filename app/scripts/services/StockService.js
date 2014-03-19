@@ -73,6 +73,34 @@
                         }
                         return result;
                     };
+                    
+                    this.remove = function (item) {
+                        var result = null;
+
+                        var hasErrors = this.isValid(item);
+
+                        if (hasErrors.length === 0) {
+                            var stockEntry = new Stock(item.inventoryId, item.quantity, item.cost);
+                            result = StockKeeper.remove(stockEntry);
+                        } else {
+                            result = $q.reject(hasErrors);
+                        }
+                        return result;
+                    };
+                    
+                    this.unreserve = function (item) {
+                        var result = null;
+
+                        var hasErrors = this.isValid(item);
+
+                        if (hasErrors.length === 0) {
+                            var stockEntry = new Stock(item.inventoryId, item.quantity, item.cost);
+                            result = StockKeeper.unreserve(stockEntry);
+                        } else {
+                            result = $q.reject(hasErrors);
+                        }
+                        return result;
+                    };
 
                     this.reportAvailable = function reportAvailable (filter) {
                         return this.stockReport('available', filter);

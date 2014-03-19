@@ -1,6 +1,7 @@
 describe('Service: OrderServiceCancel', function() {
     var fakeNow = 1386444467895;
     var logMock = {};
+    var loggerMock = {};
     var OrderMock = {};
     var OrderKeeperMock = {};
     var DataProviderMock = {};
@@ -14,12 +15,15 @@ describe('Service: OrderServiceCancel', function() {
     beforeEach(function() {
 
         module('tnt.catalog.order.service');
-
+        
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         logMock.debug = jasmine.createSpy('$log.debug');
 
+        loggerMock.getLogger = jasmine.createSpy('loggerMock.getLogger');
+        
         module(function($provide) {
             $provide.value('$log', logMock);
+            $provide.value('logger', loggerMock);
             $provide.value('Order', OrderMock);
             $provide.value('OrderKeeper', OrderKeeperMock);
             $provide.value('DataProvider', DataProviderMock);
@@ -39,16 +43,9 @@ describe('Service: OrderServiceCancel', function() {
      */
     it('gets order from OrderKeeper.cancel()', function() {
         var order = null;
-
-        OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andCallFake(function() {
-            var deferred = q.defer();
-
-            setTimeout(function() {
-                deferred.resolve();
-            }, 0);
-
-            return deferred.promise;
-        });
+        
+        PromiseHelper.config(q, angular.noop);
+        OrderKeeperMock.cancel = jasmine.createSpy('OrderKeeper.cancel').andCallFake(PromiseHelper.resolved(true));
 
         runs(function() {
             // when

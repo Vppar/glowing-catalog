@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.9
+# v0.0.990
 
 CACHE:
 apple-touch-icon.png
@@ -196,6 +196,7 @@ scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
 scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
+scripts/controllers/products-delivery.js
 scripts/controllers/purchase-order/purchase-order-confirm.js
 scripts/controllers/purchase-order/purchase-order-new.js
 scripts/controllers/purchase-order/purchase-order-pending-products.js

@@ -8,86 +8,115 @@
 	<div class="new-page">
 		
 		<div class="new-header row-fluid">
-			<div class="span6"> 
-				<div class="title">Entrega de Produtos</div> 
-			</div> 
-		</div>
-
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="new-calendar">
-					<div class="text-over">Data Inicial</div>
-					<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
-					<label for="dtIni" class="ic-calendar">
-						<img src="images/icons/ic-calendar.png">
-					</label>
+			<span class="span6"> 
+				<div class="title">Entrega de Produtos</div>
+			</span>
+			<span class="span6 pull-right">
+				<div class="btn-group btn-group-sm pull-right" ng-init="selected='orders'">
+					<a class="btn btn-option" ng-class="{active: selected=='orders'}" ng-click="selected='orders'">Pedidos</a>
+					<a class="btn btn-option" ng-class="{active: selected=='products'}" ng-click="selected='products'">Produtos</a>
 				</div>
-
-				<div class="new-calendar">
-					<div class="text-over">Data Final</div>
-					<input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
-					<label for="dtFinal" class="ic-calendar">
-						<img src="images/icons/ic-calendar.png">
-					</label>
-				</div>
-			</div>
+			</span>
 		</div>
+		<div class="new-body">
+			
+			
+		<!--Pedidos-->
+		<div class="height100perc" ng-switch="selected">
+			<div class="height100perc" ng-switch-when="orders">
 
-		<div class="row-fluid">
-			<div class="new-body-header details-title">
-				<span class="new-col-2">Data</span>
-				<span class="new-col-2">Pedido</span>
-				<span class="new-col-2">NFe</span>
-				<span class="new-col-6">Produto/C&oacute;digo</span>
-				<span class="new-col-2 text-center">Pts</span>
-				<span class="new-col-2 currency">P.Unit</span>
-				<span class="new-col-2 text-center">Qtde</span>
-				<span class="new-col-2 text-center">Ok</span>
-				<span class="new-col-4 text-center">Pend./Qtde.</span>
-			</div>
-		</div>
-		<div class="new-scrollpanel">
-			<div>
 				<div class="row-fluid">
-					<div class="new-body-row">
-						
-						<span class="new-col-2">
-							12/12/2014
-						</span>
-						
-						<span class="new-col-2">
-							{{0000-0000-00}}
-							<div class="small-text">{{0909090909 | uuidCode}}</div>
-						</span>
-						
-						<span class="new-col-2">{{999999}}</span>
-						
-						<span class="new-col-6 product-name">
-							<div class="p-title">Hidratante Redutor de Linhas de Expressão - 88ml</div>
-							<div class="small-text">10-042743 - Pele Mista/Oleosa</div>
-						</span>
-						
-						<span class="new-col-2 text-center">{{120}}</span>
+					<div class="span12">
+						<div class="new-calendar">
+							<div class="text-over">Data Inicial</div>
+							<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
+							<label for="dtIni" class="ic-calendar">
+								<img src="images/icons/ic-calendar.png">
+							</label>
+						</div>
 
-						<span class="new-col-2 text-center">{{99999 | currency: ''}}</span>
-
-						<span class="new-col-2 text-center">{{7}}</span>
-
-						<span class="new-col-2 text-center">
-							<input type="checkbox" ng-model="ticket.checkBox[item.id]">
-						</span>
-
-						<span class="new-col-4 text-center">
-							<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
-						</span>
-
+						<div class="new-calendar">
+							<div class="text-over">Data Final</div>
+							<input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
+							<label for="dtFinal" class="ic-calendar">
+								<img src="images/icons/ic-calendar.png">
+							</label>
+						</div>
 					</div>
 				</div>
+
+				<div class="new-body-header details-title scroll-title-compensator">
+					<span class="new-col-4">Data</span>
+					<span class="new-col-6">Cliente</span>
+					<span class="new-col-6">Pedido</span>
+					<span class="new-col-4">Produtos Entregues</span>
+					<span class="new-col-4">Total de Produtos</span>
+				</div>
+
+				<div class="new-scrollpanel">
+						<div class="row-fluid">
+							<div class="new-body-row" ng-repeat="order in filteredOrders | orderBy : 'created'" ng-click="getItems($index)">
+								<span class="new-col-4">
+									{{order.created | date:'dd/MM/yyyy'}}
+								</span>
+								<span class="new-col-6">
+									{{order.customerName}}
+								</span>
+								<span class="new-col-6">
+									{{order.code}}
+								</span>
+								<span class="new-col-4 text-center">
+									{{order.totalItemsDeliv}}
+								</span>
+								<span class="new-col-4 text-center">
+									{{order.totalItems}}
+								</span>
+							</div>
+						</div>
+				</div>
+			</div>
+
+			<!--Items-->
+			<div class="height100perc product-delivery-itens" ng-switch-when="products">
+
+				<div class="row-fluid">
+					<div class="new-body-header details-title scroll-title-compensator">
+						<span class="new-col-12">Produto/C&oacute;digo</span>
+						<span class="new-col-2 text-center">Qtde</span>
+						<span class="new-col-5 text-center">Entregue</span>
+						<span class="new-col-5 text-center">Entrega</span>
+					</div>
+				</div>
+
+				<div class="new-scrollpanel">
+					<div>
+						<div class="row-fluid">
+							<div class="new-body-row" ng-repeat="product in pendingProducts">
+
+								<span class="new-col-12 product-name">
+									<div class="p-title">{{product.title}}</div>
+									<div class="small-text">{{product.SKU}} - {{product.line}}</div>
+								</span>
+
+								<span class="new-col-2 text-center">{{product.qty}}</span>
+
+								<span class="new-col-5 text-center">{{product.dQty}}</span>
+
+								<span class="new-col-5 text-center">
+									<tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
+								</span>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="new-buttom-holder">
+					<button class="btn btn-ok pull-right margin-right" tnt-promise-click="confirm()">Confirmar</button>
+				</div>
 			</div>
 		</div>
-		<div class="new-buttom-holder">
-			<button class="btn btn-cancel pull-left margin-left" type="submit" ng-click="cancel()">Cancelar</button>
-			<button class="btn btn-ok pull-right margin-right" type="submit" ng-click="confirm()">Confirmar</button>
+
 		</div>
 	</div>
 </div>
