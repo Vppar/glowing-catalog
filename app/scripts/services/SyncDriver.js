@@ -218,6 +218,10 @@
                                 }
                             });
 
+
+                            // Setup warmup data watchers
+                            WarmupService.watchRemoteData(userRef.child('warmup'));
+
                             // Broadcast the event once everything is ready
                             $rootScope.$broadcast('FirebaseConnected');
                         });
