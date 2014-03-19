@@ -139,7 +139,15 @@
                 }
             }
 
-            return BalanceWarmupService.updateBalanceWarmup(ref, cash, check, checkingAccount);
+            return BalanceWarmupService
+                .updateBalanceWarmup(ref, cash, check, checkingAccount)
+                .then(function () {
+                    return DialogService.messageDialog({
+                        title : 'Saldo inicial',
+                        message : 'Saldo inicial armazenado com sucesso!',
+                        btnYes : 'Ok'
+                    });
+                });
         };
 
 
@@ -197,7 +205,7 @@
 
 
     ///////////////////////////////////////////////////////////
-    function StockWarmupCtrl($scope, $log, SyncDriver, StockService, InventoryKeeper, ArrayUtils, StockWarmupService) {
+    function StockWarmupCtrl($scope, $log, SyncDriver, StockService, InventoryKeeper, ArrayUtils, StockWarmupService, DialogService) {
         //FIXME Revise this controller, verify if there is dead code or unnecessary variables
         
 
@@ -529,7 +537,13 @@
                 entries.push(entry);
             }
 
-            StockWarmupService.updateStockWarmup(ref, entries);
+            StockWarmupService.updateStockWarmup(ref, entries).then(function () {
+                return DialogService.messageDialog({
+                    title : 'Estoque inicial',
+                    message : 'Dados iniciais de estoque armazenados com sucesso!',
+                    btnYes : 'Ok'
+                });
+            });
         };
 
         // #####################################################################################################
@@ -581,6 +595,6 @@
         )
         .controller(
             'StockWarmupCtrl',
-            ['$scope', '$log', 'SyncDriver', 'StockService', 'InventoryKeeper', 'ArrayUtils', 'StockWarmupService', StockWarmupCtrl]
+            ['$scope', '$log', 'SyncDriver', 'StockService', 'InventoryKeeper', 'ArrayUtils', 'StockWarmupService', 'DialogService', StockWarmupCtrl]
         );
 }(angular));
