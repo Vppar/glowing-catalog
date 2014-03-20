@@ -1,3 +1,10 @@
+.warm-up .new-header .title .name {
+	float:left;
+}
+.warm-up .new-header .title .new-calendar {
+	margin:-6px 0 0 20px;
+}
+
 .warm-up-stock-part {
   height: calc(100% - 15px);
 }
@@ -178,5 +185,6 @@
 
 
 .warm-up-section{
-	margin-bottom: 20px;
+	margin-bottom:20px;
+	margin-top:-5px;
 }

@@ -6,6 +6,11 @@
     function WarmupCtrl($scope, $log, UserService, WarmupService) {
         UserService.redirectIfIsNotLoggedIn();
         $log.debug('Initializing WarmupCtrl...');
+
+
+        $scope.date = {
+            value : new Date()
+        };
     }
 
 
@@ -18,9 +23,7 @@
         var check = {};
         var checkingAccount = {};
 
-
         balance.total = 0;
-        balance.date = null;
 
         balance.cash = {
             total : 0,
@@ -132,10 +135,11 @@
             var cash = balance.cash.item;
             var check = balance.check.items;
             var checkingAccount = balance.checkingAccount.items;
+            var date = $scope.date;
 
-            if (balance.date && balance.date.getTime) {
+            if (date.value && date.value.getTime) {
                 for (var idx in check) {
-                    check[idx].created = balance.date.getTime();
+                    check[idx].created = date.value.getTime();
                 }
             }
 
