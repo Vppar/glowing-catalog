@@ -48,7 +48,7 @@
 .subtotal-resume{
 	border-radius: 4px;
 	color: #333;
-	padding: 5px 15px 0px 15px;
+	padding: 15px 15px 10px 15px;
 	width: 288px;
 	font-size: 16px;
 	display: inline-table;
@@ -71,7 +71,11 @@ float: left;
 .container-payment {
 	margin: 0 10px;
 	position: relative;
-	top: -10px
+	top: -10px;
+	height:100%;
+}
+.payment-container-height, .payment-container-height .span4 {
+	height:calc(100% - 68px);
 }
 .container-data {
 	/*width:100%;
@@ -126,6 +130,7 @@ float: left;
 }
 .col-payment-right {
 	/*background-color:#eee;*/
+	height:100%;
 }
 .right-column-height {
 	height:400px;
@@ -245,7 +250,7 @@ margin-top: 5px;
 .payment-resume {
 	border-radius: 4px;
 	color: #333;
-	padding: 5px 15px 0px 15px;
+	padding: 15px 15px 10px 15px;
 	width: 288px;
 	/*height:10px;*/
 	font-size:16px;
@@ -265,9 +270,9 @@ margin-top: 5px;
 	background-color:#f8f8f8;
 	display:block;
 	margin-right:2px;
-	min-height:548px;
+	height:calc(100% - -45px);
 	/*para alinhar a base
-		height:100%;	
+		height:100%;
 		position: fixed;
 		bottom: 25px;
 		top: 80px;*/
@@ -481,9 +486,17 @@ margin-top: 5px;
 .payment-btns {
 	height: 50px;
 	margin: auto;
-	margin-top: 10px;
+	margin-top: 25px;
 	border-top: 1px dotted #ccc;
 	padding-top: 10px;
+	padding-bottom: 5px;
+
+/*ALTERACAO QUE EMPURRA O BLOCO DOS BOTOES PARA BAIXO DE FORMA FIXA
+	bottom:75px;
+	position:absolute;
+	width:300px;
+*/
+
 	/*para alinhar a base
 		width: 307px; /*width: 90%;/
 		position: fixed;
