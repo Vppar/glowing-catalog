@@ -3,12 +3,12 @@
 
     angular
         .module('tnt.catalog.service.sms', [
-            'tnt.catalog.service.data', 'tnt.catalog.entity.service'
+            'tnt.catalog.service.data', 'tnt.catalog.entity.service', 'tnt.catalog.consultant.service'
         ])
         .service(
             'SMSService',
-            ['$http', '$q', '$interpolate', 'EntityService',
-            function ($http, $q, $interpolate, EntityService) {
+            ['$http', '$q', '$interpolate', 'EntityService', 'ConsultantService',
+            function ($http, $q, $interpolate, EntityService, ConsultantService) {
 
                 // ############################################################################################
                 // SMS related functions
@@ -17,12 +17,11 @@
                 var token = '8f934ur83rhq34r879hncfq9f4yq987nf4dh4fyn98hdmi44dz21x3gdju893d2';
                 var method = 'GET';
 
-                // FIXME use UserService
-                var user = {
-                    name : 'Maria Lima',
-                    gender : 'Female'
-
-                };
+                var user = ConsultantService.get();
+                if (!user) {
+                    user = {};
+                    user.name = '';
+                }
 
                 this.send = function send (to, message) {
                     var url = baseUrl + '?to=' + to;
@@ -63,10 +62,14 @@
 
                 var getYourConsultantGenderRelativePhrase = function (user) {
                     var phrase = null;
-                    if (user.gender === 'Female') {
-                        phrase = 'sua consultora';
+                    if (user.gender) {
+                        if (user.gender === 'Feminino') {
+                            phrase = ', sua consultora';
+                        } else {
+                            phrase = ', seu consultor';
+                        }
                     } else {
-                        phrase = 'seu consultor';
+                        phrase = 'Sua consultora';
                     }
                     return phrase;
                 };
@@ -89,7 +92,7 @@
                  */
                 var paymentConfirmationSMS =
                     'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. '
-                        + '{{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        + '{{representativeName}}{{yourConsultant}} Mary Kay.';
                 var cellMissingAlert =
                     'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
 
@@ -121,7 +124,7 @@
                  */
                 var voucherConfirmationSMS =
                     'Voce recebeu um Vale Credito no valor de {{voucherAmount}} reais a ser utilizado na sua proxima compra '
-                        + 'de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        + 'de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
 
                 this.sendVoucherConfirmation =
                     function sendVoucherConfirmation (customer, voucherAmount) {
@@ -151,10 +154,10 @@
                  */
                 var singularCouponConfirmationSMS =
                     'Voce recebeu um cupom promocional no valor total de {{couponsAmount}} reais a ser utilizado na compra '
-                        + 'de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        + 'de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
                 var pluralCouponConfirmationSMS =
                     'Voce recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount}} reais a serem '
-                        + 'utilizados na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        + 'utilizados na compra de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
 
                 this.sendCouponConfirmation =
                     function sendCouponConfirmation (customer, couponsAmount, couponsQty) {
@@ -190,7 +193,7 @@
                  */
                 var giftCardConfirmationSMS =
                     'Voce recebeu de {{customerName}} um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado '
-                        + 'na compra de produtos MK. {{representativeName}}, {{yourConsultant}} Mary Kay.';
+                        + 'na compra de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
 
                 this.sendGiftCardConfirmation =
                     function sendGiftCardConfirmation (customer, giftCard) {
