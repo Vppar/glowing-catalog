@@ -13,14 +13,16 @@ describe('Directive: upperCase', function() {
     it('should make a customer name compliant', inject(function($compile) {
         var template = angular.element('<input ng-model="text" customer-name/>');
         element = $compile(template)(scope);
-        element.val('jOaO De gZuiS DA Sirva').trigger('input');
+        element.val('jOaO De gZuiS DA Sirva');
+        element.trigger('blur');
         expect(element.val()).toBe('Joao de Gzuis da Sirva');
     }));
     
     it('should make a customer name compliant, even with numbers', inject(function($compile) {
         var template = angular.element('<input ng-model="text" customer-name/>');
         element = $compile(template)(scope);
-        element.val('jOaO De gZuiS 1234 DA Sirva 4th').trigger('input');
+        element.val('jOaO De gZuiS 1234 DA Sirva 4th');
+        element.trigger('blur');
         expect(element.val()).toBe('Joao de Gzuis 1234 da Sirva 4th');
     }));
 
