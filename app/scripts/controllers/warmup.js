@@ -9,7 +9,7 @@
 
 
         $scope.date = {
-            value : new Date()
+            value : null
         };
     }
 
