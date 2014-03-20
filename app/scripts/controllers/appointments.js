@@ -467,6 +467,12 @@
                     $('#btn-excluir').addClass('hide');
                     $('#event-status').attr('type', 'hidden');
                     
+                    $('#select-client').children().remove();
+					$('#select-client').append('<option value="">Selecione Cliente</option>');
+					for ( var i in $scope.contacts) {
+						$('#select-client').append('<option value="' + $scope.contacts[i].uuid + '">' + $scope.contacts[i].name + '</option>');
+					}
+                    
                     if (event) {
                         $('#select-event-uuid').val(event.uuid);
 
