@@ -242,11 +242,15 @@
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
                         }
+                        //When computing totals for products, we need to get discount by products.
                         if($scope.ol=='products'){
                             for(var ix in filteredOrder.items){
                                 var item = filteredOrder.items[ix];
                                 if(!item.type){
-                                    //$scope.total.all.amountWithDiscount += item.discount;
+                                    var discount = item.orderDiscount ? item.orderDiscount:item.itemDiscount;
+                                    if(discount > 0){
+                                        $scope.total.all.amountWithDiscount -= item.discount;
+                                    }
                                     $scope.total.all.amountWithDiscount += item.price * item.qty;
                                     $scope.total.all.qty += item.qty;
                                 }
