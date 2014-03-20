@@ -5,8 +5,8 @@
             require : 'ngModel',
             link : function(scope, element, attrs, ctrl) {
                 
-                ctrl.$parsers.unshift(function(value) {
-                    var splitedValue = value.split(' ');
+                element.bind('blur', function(){
+                    var splitedValue = element.val().split(' ');
                     for ( var i in splitedValue) {
                         var firstLetter = splitedValue[i].charAt(0);
                         if ((firstLetter === 'd' || firstLetter === 'D') && !(splitedValue[i].length > 2)) {
@@ -15,9 +15,8 @@
                             splitedValue[i] = firstLetter.toUpperCase() + splitedValue[i].substring(1).toLowerCase();
                         }
                     }
-                    ctrl.$viewValue = splitedValue.join(' ');
-                    ctrl.$render();
-                    return value;
+                    element.val(splitedValue.join(' '));
+                    element.trigger('input');
                 });
             }
         };

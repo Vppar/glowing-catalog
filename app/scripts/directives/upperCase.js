@@ -5,11 +5,9 @@
             require : 'ngModel',
             link : function(scope, element, attrs, ctrl) {
 
-                ctrl.$parsers.unshift(function(value) {
-                    value = $filter('uppercase')(value);
-                    ctrl.$viewValue = value;
-                    ctrl.$render();
-                    return value;
+                element.bind('blur', function(){
+                    element.val($filter('uppercase')(element.val()));
+                    element.trigger('input');
                 });
             }
         };

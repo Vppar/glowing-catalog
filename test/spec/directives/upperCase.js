@@ -10,7 +10,7 @@ describe('Directive: upperCase', function() {
         scope = $rootScope.$new();
     }));
 
-    it('should make upperCase text', inject(function($compile) {
+    xit('should make upperCase text', inject(function($compile) {
         var template = angular.element('<input ng-model="text" upper-case/>');
         element = $compile(template)(scope);
         element.val('This text must be upperCase!').trigger('input');
