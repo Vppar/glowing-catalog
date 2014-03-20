@@ -28,6 +28,6 @@ describe('Service: SMSService', function() {
 
         SMSService.sendVoucherConfirmation(customer, voucherAmount);
 
-        expect(SMSService.send).toHaveBeenCalledWith('5599887766', 'Voce recebeu um Vale Credito no valor de 30,00 reais a ser utilizado na sua proxima compra de produtos MK. Maria Lima, sua consultora Mary Kay.');
+        expect(SMSService.send).toHaveBeenCalledWith('5599887766', 'Voce recebeu um Vale Credito no valor de 30,00 reais a ser utilizado na sua proxima compra de produtos MK. Sua consultora Mary Kay.');
     });
 });
