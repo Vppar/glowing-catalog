@@ -75,6 +75,15 @@
                 }
 
                 $scope.liquidateReceivable = function () {
+                    if (!isValidDiscountAndExtra()) {
+                        DialogService.messageDialog({
+                            title : 'Contas a receber',
+                            message : 'Não é possível acréscimos e descontos ao mesmo tempo.',
+                            btnYes : 'OK'
+                        });
+                        return
+                    }
+                    
                     var changedFields = verifyChangedFields();
                     if(changedFields.hasChange){
                         $scope.save(); 
@@ -82,8 +91,8 @@
                     $scope.selectedReceivable.totalAmount = $scope.total.amount;
                     DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
                         DialogService.messageDialog({
-                            title : 'Pagamento realizado',
-                            message : 'O pagamento foi realizada com sucesso.',
+                            title : 'Contas a receber',
+                            message : 'Baixa realizada com sucesso!',
                             btnYes : 'OK'
                         }).then(function(){
                             $scope.back();
@@ -111,18 +120,18 @@
                     var changedFields = verifyChangedFields();
 
                     // Verifica se houve alteração no receivable
-                    if (!changedFields.hasChange) {
+                    if (!changedFields.hasChange && isToShowDialog) {
                         DialogService.messageDialog({
-                            title : 'Não houve alteração no recebível',
-                            message : 'O recebível não foi alterado.',
+                            title : 'Contas a receber',
+                            message : 'O vencimento não possui alterações.',
                             btnYes : 'OK'
                         });
                         return
                     }
                     // Valida os campos Discount e Extra
-                    if (!isValidDiscountAndExtra()) {
+                    if (!isValidDiscountAndExtra() && isToShowDialog) {
                         DialogService.messageDialog({
-                            title : 'Descontos e Acréscimos',
+                            title : 'Contas a receber',
                             message : 'Não é possível acréscimos e descontos ao mesmo tempo.',
                             btnYes : 'OK'
                         });
@@ -156,8 +165,8 @@
                     response.then(function(){
                         if(isToShowDialog){
                             DialogService.messageDialog({
-                                title : 'Alterado com sucesso.',
-                                message : 'O recebível foi alterado com sucesso.',
+                                title : 'Contas a receber.',
+                                message : 'Vencimento alterado com sucesso!',
                                 btnYes : 'OK'
                             }).then(function(){
                                 $scope.back();
