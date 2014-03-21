@@ -181,7 +181,12 @@
                 var qtyTotal = $filter('sum')(order.items, 'qty');
                 var priceTotal = $filter('sum')(order.items, 'price', 'qty');
                 var amountTotal = $filter('sum')(order.items, 'amount');
-                var vouchers = VoucherService.listByOrigin(order.uuid);
+                
+                var vouchers = VoucherService.listByDocument(order.uuid);
+                vouchers = $filter('filter')(vouchers, function(voucher){
+                    return voucher.redeemed === undefined;
+                });
+                
                 var voucherAmount = 0;
                 var count=0;
                 for ( var ix4 in vouchers) {
@@ -327,14 +332,27 @@
                     var vouchers = VoucherService.listByDocument(order.uuid);
                     for ( var ix4 in vouchers) {
                         var voucher = vouchers[ix4];
-
+                        
                         var voucherAmount = Number(voucher.amount);
-
+                        
                         $scope.total.voucher.amount += voucherAmount;
                         $scope.total.voucher.qty += voucher.qty;
                         $scope.total.amount += voucherAmount;
                     }
 
+                    var vouchersOrigin = VoucherService.listByOrigin(order.uuid);
+                    for ( var ix4 in vouchersOrigin) {
+                        var voucherOrigin = vouchersOrigin[ix4];
+
+                        var voucherOriginAmount = Number(voucherOrigin.amount);
+
+                        $scope.total.voucher.amount -= voucherOriginAmount;
+                        $scope.total.voucher.qty -= voucherOrigin.qty;
+                        $scope.total.amount -= voucherOriginAmount;
+                    }
+                    
+
+                    
                     // computing the discount.
                     var discount = $scope.getTotalDiscountByOrder(order);
                     $scope.total.discount += discount;
