@@ -452,6 +452,7 @@ body {
 	padding: 10px 10px 10px 10px;
 	display: block;
 	border-bottom: 1px dotted #ccc;
+	width:100%;
 }
 
 .nav .dropdown ul li a.last-header{
@@ -493,9 +494,6 @@ body {
 
 .dropdown-menu{
 	padding: 0px;
-}
-.nav .dropdown-menu li {
-	margin-right:0;
 }
 
 .dropup .dropdown-submenu a:focus,.dropup .dropdown-submenu a, .dropup .dropdown-submenu a:after{
