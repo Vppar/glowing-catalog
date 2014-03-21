@@ -91,21 +91,72 @@
             balance : 0
         };
 
+
         balance.checkingAccount = {
+            edit : (function () {
+                var item = null;
+
+                function editInternal(targetItem) {
+                    item = targetItem || null;
+                    resetData();
+                }
+
+                var self = editInternal;
+
+                self.data = {};
+
+                function resetData() {
+                    self.data.bank = item ? item.bank : null;
+                    self.data.agency = item ? item.agency : null;
+                    self.data.account = item ? item.account : null;
+                    self.data.balance = item ? item.balance : 0;
+                }
+
+                function saveItem() {
+                    if (item) {
+                        item.bank = self.data.bank;
+                        item.agency = self.data.agency;
+                        item.account = self.data.account;
+                        item.balance = self.data.balance;
+                    } else {
+                        balance.checkingAccount.addItem(self.data);
+                    }
+
+                    clearData();
+                }
+
+                function clearData() {
+                    item = null;
+                    resetData();
+                }
+
+                function isNew() {
+                    return !item;
+                }
+
+                self.reset = resetData;
+                self.save = saveItem;
+                self.clear = clearData;
+                self.isNew = isNew;
+
+                return editInternal;
+            })(),
             
             total : BalanceWarmupService.checkingAccount.getTotal(),
             items : BalanceWarmupService.checkingAccount.getItems(),
 
             hasAvailableBook : BalanceWarmupService.checkingAccount.hasAvailableBook(),
 
-            addItem : function () {
+            addItem : function (data) {
+                data = data || {};
                 var item = {};
-                ObjectUtils.dataCopy(item, checkingAccount);
+                ObjectUtils.dataCopy(item, data);
                 item.access = BalanceWarmupService.checkingAccount.getAvailableBook();
+                // It's safe to assume new items have not been used...
+                item.used = false;
                 BalanceWarmupService.checkingAccount.takeBook(item.access);
                 this.items.push(item);
                 $log.debug('Added checkingAccount item', item);
-                this.reset();
             },
 
             removeItem : function (item) {

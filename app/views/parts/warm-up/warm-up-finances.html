@@ -96,7 +96,7 @@
 			</div>
 		</div>
 		<div class="row-fluid" ng-repeat="item in balance.checkingAccount.items">
-				<div class="warm-up-body-row">
+				<div class="warm-up-body-row" ng-click="balance.checkingAccount.edit(item)">
 		            <div class="new-col-5">Banco {{ item.bank }}</div>
 		            <div class="new-col-6">Ag. {{ item.agency }}</div>
 		            <div class="new-col-6">C/C {{ item.account }}</div>
@@ -108,23 +108,23 @@
 				<div class="warm-up-body-row-form">
 					<div class="new-col-5">
 						<label>Banco</label>
-						<input class="input-block-level" type="text" placeholder="Insira o código do banco" ng-model="checkingAccount.bank" required maxlength="3">
+						<input class="input-block-level" type="text" placeholder="Insira o código do banco" ng-model="balance.checkingAccount.edit.data.bank" required maxlength="3">
 					</div>
 					<div class="new-col-6">
 						<label>Agência</label>
-						<input class="input-block-level" type="text" placeholder="" ng-model="checkingAccount.agency" maxlength="4">
+						<input class="input-block-level" type="text" placeholder="" ng-model="balance.checkingAccount.edit.data.agency" maxlength="4">
 					</div>
 					<div class="new-col-6">
 						<label>Conta Corrente</label>
-						<input class="input-block-level" type="text" placeholder="" ng-model="checkingAccount.account" maxlength="13">
+						<input class="input-block-level" type="text" placeholder="" ng-model="balance.checkingAccount.edit.data.account" maxlength="13">
 					</div>
 					<div class="new-col-6">
 						<label>Valor</label>
-						<input class="input-block-level currency" type="text" placeholder="" ng-model="checkingAccount.balance" currency maxlength="11">
+						<input class="input-block-level currency" type="text" placeholder="" ng-model="balance.checkingAccount.edit.data.balance" currency maxlength="11">
 					</div>
 					<div class="warm-up-btn-holder">
-						<button class="btn btn-ok btn-small pull-right" ng-click="balance.checkingAccount.addItem()">Adicionar</button>
-						<button class="btn btn-cancel btn-small pull-right" ng-click="balance.checkingAccount.reset()">Cancelar</button>
+            <button class="btn btn-ok btn-small pull-right" ng-click="balance.checkingAccount.edit.save()">{{balance.checkingAccount.edit.isNew() ? 'Adicionar' : 'Salvar'}}</button>
+						<button class="btn btn-cancel btn-small pull-right" ng-click="balance.checkingAccount.edit.clear()">Cancelar</button>
 					</div>
 				</div>
 		</div>
