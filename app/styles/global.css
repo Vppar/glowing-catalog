@@ -494,6 +494,9 @@ body {
 .dropdown-menu{
 	padding: 0px;
 }
+.nav .dropdown-menu li {
+	margin-right:0;
+}
 
 .dropup .dropdown-submenu a:focus,.dropup .dropdown-submenu a, .dropup .dropdown-submenu a:after{
 	color:#333;
