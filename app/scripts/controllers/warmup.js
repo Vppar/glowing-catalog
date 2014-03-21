@@ -41,28 +41,91 @@
             entityId : null,
             number : null,
             amount : 0,
-            openChooseCustomerDialog : function () {
-                DialogService.openDialogChooseCustomerNoRedirect().then(function (uuid) {
-                    if (uuid) {
-                        var customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
-                        check.clientName = customer.name;
-                        check.entityId = uuid;
-                    }
-                })
-            }
         };
-        
+
 
         balance.check = {
+            edit : (function () {
+                var item = null;
+
+                function setItem(targetItem) {
+                    item = targetItem || null;
+                    self.new = !item;
+                }
+
+                function editInternal(targetItem) {
+                    $log.debug('editing check item', targetItem);
+                    setItem(targetItem);
+                    resetData();
+                }
+
+                var self = editInternal;
+
+                self.data = {};
+                self.new = true;
+
+                function resetData() {
+                    self.data.bank = item ? item.bank : null;
+                    self.data.agency = item ? item.agency : null;
+                    self.data.account = item ? item.account : null;
+                    self.data.clientName = item ? item.clientName : null;
+                    self.data.entityId = item ? item.entityId : null;
+                    self.data.number = item ? item.number : null;
+                    self.data.duedate = item ? item.duedate : null;
+                    self.data.amount = item ? item.amount : 0;
+                }
+
+                function saveItem() {
+                    if (item) {
+                        item.bank = self.data.bank;
+                        item.agency = self.data.agency;
+                        item.account = self.data.account;
+                        item.clientName = self.data.clientName;
+                        item.entityId = self.data.entityId;
+                        item.number = self.data.number;
+                        item.duedate = self.data.duedate.getTime();
+                        item.amount = self.data.amount;
+                    } else {
+                        balance.check.addItem(self.data);
+                    }
+
+                    clearData();
+                }
+
+                function clearData() {
+                    setItem(null);
+                    resetData();
+                }
+
+
+                function openChooseCustomerDialog() {
+                    DialogService.openDialogChooseCustomerNoRedirect().then(function (uuid) {
+                        if (uuid) {
+                            var customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
+                            self.data.clientName = customer.name;
+                            self.data.entityId = uuid;
+                        }
+                    })
+                }
+
+                self.reset = resetData;
+                self.save = saveItem;
+                self.clear = clearData;
+                self.openChooseCustomerDialog = openChooseCustomerDialog;
+
+                return editInternal;
+            })(),
+
             total : BalanceWarmupService.check.getTotal(),
             items : BalanceWarmupService.check.getItems(),
 
-            addItem : function () {
+            addItem : function (data) {
                 var item = {};
-                ObjectUtils.dataCopy(item, check);
+                ObjectUtils.dataCopy(item, data);
                 this.items.push(item);
+                // It's safe to assume new items have not been used...
+                item.used = false;
                 $log.debug('Adding check item', item);
-                this.reset();
             },
 
             removeItem : function (item) {
@@ -70,25 +133,7 @@
                 if (~idx) {
                     this.items.splice(idx, 1);
                 }
-            },
-
-            reset : function () {
-                check.bank = null;
-                check.agency = null;
-                check.account = null;
-                check.clientName = null;
-                check.entityId = null;
-                check.number = null;
-                check.amount = 0;
             }
-        };
-
-
-        checkingAccount = {
-            bank : null,
-            agency : null,
-            account : null,
-            balance : 0
         };
 
 
@@ -96,14 +141,21 @@
             edit : (function () {
                 var item = null;
 
-                function editInternal(targetItem) {
+                function setItem(targetItem) {
                     item = targetItem || null;
+                    self.new = !item;
+                }
+
+
+                function editInternal(targetItem) {
+                    setItem(targetItem);
                     resetData();
                 }
 
                 var self = editInternal;
 
                 self.data = {};
+                self.new = true;
 
                 function resetData() {
                     self.data.bank = item ? item.bank : null;
@@ -126,18 +178,13 @@
                 }
 
                 function clearData() {
-                    item = null;
+                    setItem(null);
                     resetData();
-                }
-
-                function isNew() {
-                    return !item;
                 }
 
                 self.reset = resetData;
                 self.save = saveItem;
                 self.clear = clearData;
-                self.isNew = isNew;
 
                 return editInternal;
             })(),
@@ -145,37 +192,34 @@
             total : BalanceWarmupService.checkingAccount.getTotal(),
             items : BalanceWarmupService.checkingAccount.getItems(),
 
-            hasAvailableBook : BalanceWarmupService.checkingAccount.hasAvailableBook(),
+            hasAvailableBook : BalanceWarmupService.checkingAccount.book.hasAvailable(),
 
             addItem : function (data) {
                 data = data || {};
                 var item = {};
                 ObjectUtils.dataCopy(item, data);
-                item.access = BalanceWarmupService.checkingAccount.getAvailableBook();
-                // It's safe to assume new items have not been used...
-                item.used = false;
-                BalanceWarmupService.checkingAccount.takeBook(item.access);
-                this.items.push(item);
-                $log.debug('Added checkingAccount item', item);
+                item.access = BalanceWarmupService.checkingAccount.book.getAvailable();
+
+                if (!item.access) {
+                    $log.error('No checking account book available!');
+                } else {
+                    // It's safe to assume new items have not been used...
+                    item.used = false;
+                    this.items.push(item);
+                    $log.debug('Added checkingAccount item', item);
+                }
             },
 
             removeItem : function (item) {
                 // MUST check if the book has no entries before allowing it to be
                 // removed
-                $log.debug('Removing check item', item);
+                $log.debug('Removing checking account item', item);
                 var idx = this.items.indexOf(item);
                 if (~idx) {
                     // FIXME check if the item has entries
                     this.items.splice(idx, 1);
-                    BalanceWarmupService.checkingAccount.freeBook(item.access);
+                    BalanceWarmupService.checkingAccount.book.untake(item.access);
                 }
-            },
-
-            reset : function () {
-                checkingAccount.bank = null;
-                checkingAccount.agency = null;
-                checkingAccount.account = null;
-                checkingAccount.balance = 0;
             }
         };
 
@@ -240,7 +284,7 @@
         }
 
         function checkAvailableBooks() {
-            balance.checkingAccount.hasAvailableBook = BalanceWarmupService.checkingAccount.hasAvailableBook();
+            balance.checkingAccount.hasAvailableBook = BalanceWarmupService.checkingAccount.book.hasAvailable();
         }
 
 
