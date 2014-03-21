@@ -249,7 +249,7 @@
                                 if(!item.type){
                                     var discount = item.orderDiscount ? item.orderDiscount:item.itemDiscount;
                                     if(discount > 0){
-                                        $scope.total.all.amountWithDiscount -= item.discount;
+                                        $scope.total.all.amountWithDiscount -= discount;
                                     }
                                     $scope.total.all.amountWithDiscount += item.price * item.qty;
                                     $scope.total.all.qty += item.qty;
