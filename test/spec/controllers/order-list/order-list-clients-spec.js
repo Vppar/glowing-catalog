@@ -275,6 +275,7 @@ describe('Controller: order-list-clients', function () {
         ProductReturnService.listByDocument =
             jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
+        VoucherService.listByOrigin = jasmine.createSpy('VoucherService.listByOrigin');
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
         scope.customers = customers;
