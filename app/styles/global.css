@@ -452,6 +452,7 @@ body {
 	padding: 10px 10px 10px 10px;
 	display: block;
 	border-bottom: 1px dotted #ccc;
+	width:100%;
 }
 
 .nav .dropdown ul li a.last-header{
