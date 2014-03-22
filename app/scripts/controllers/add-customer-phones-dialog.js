@@ -1,4 +1,4 @@
-(function(angular) {
+(function (angular) {
     'use strict';
 
     /**
@@ -9,12 +9,20 @@
      * @author Arnaldo
      * 
      */
-    angular.module('tnt.catalog.customer.add.phones', [
-        'tnt.catalog.service.data'
-    ]).controller(
+    angular
+        .module('tnt.catalog.customer.add.phones', [
+            'tnt.catalog.service.data'
+        ])
+        .controller(
             'AddCustomerPhonesDialogCtrl',
-            ['$scope', '$q', '$filter', 'dialog', 'DataProvider', 'DialogService',
-                function($scope, $q, $filter, dialog, DataProvider, DialogService) {
+            [
+                '$scope',
+                '$q',
+                '$filter',
+                'dialog',
+                'DataProvider',
+                'DialogService',
+                function ($scope, $q, $filter, dialog, DataProvider, DialogService) {
                     // set phone types into dropdown menu
 
                     $scope.isDisabled = true;
@@ -25,7 +33,8 @@
                     };
 
                     // get phones already set
-                    if (dialog.data.phones && dialog.data.phones.length > 0 && dialog.data.phones[0].number !== '') {
+                    if (dialog.data.phones && dialog.data.phones.length > 0 &&
+                        dialog.data.phones[0].number !== '') {
                         $scope.phones = angular.copy(dialog.data.phones);
                     } else {
                         $scope.phones = [];
@@ -36,7 +45,7 @@
                      * in the $scope.phones array and if not, adds phone to the
                      * last position of $scope.phones array
                      */
-                    $scope.addPhone = function addPhone(item) {
+                    $scope.addPhone = function addPhone (item) {
                         if ($scope.newPhoneForm.$valid && item.number) {
                             var phone = $filter('filter')($scope.phones, item.number);
                             if (phone.length === 0) {
@@ -64,7 +73,7 @@
                      * 
                      * @param index - position of phone to be moved
                      */
-                    $scope.moveUp = function moveUp(index) {
+                    $scope.moveUp = function moveUp (index) {
                         var previous = $scope.phones[index - 1];
                         var actual = $scope.phones[index];
                         $scope.phones.splice(index - 1, 2, actual, previous);
@@ -75,7 +84,7 @@
                      * 
                      * @param index - position of phone to be moved
                      */
-                    $scope.moveDown = function moveDown(index) {
+                    $scope.moveDown = function moveDown (index) {
                         var next = $scope.phones[index + 1];
                         var actual = $scope.phones[index];
                         $scope.phones.splice(index, 2, next, actual);
@@ -86,29 +95,41 @@
                      * 
                      * @param index - position of phone to be removed
                      */
-                    $scope.remove = function remove(index) {
+                    $scope.remove = function remove (index) {
                         $scope.phones.splice(index, 1);
                     };
 
                     /**
                      * Submits dialog
                      */
-                    $scope.confirm = function() {
-                        var phones = {};
-                        if ($scope.phone.number && ($scope.phone.number.length === 10 || $scope.phone.number.length === 11)) {
-                            $scope.addPhone($scope.phone);
-                        }
+                    $scope.confirm =
+                        function () {
+                            var phones = {};
+                            if ($scope.phone.number &&
+                                ($scope.phone.number.length === 10 || $scope.phone.number.length === 11)) {
+                                $scope.addPhone($scope.phone);
+                            }
 
-                        if ($scope.phones.length >= 1) {
-                            phones = $scope.phones;
-                        }
-                        dialog.close(phones);
-                    };
+                            if ($scope.phones.length >= 1) {
+                                phones = $scope.phones;
+
+                                // We need to remove $$hashKey due a firebase
+                                // error
+                                if (phones) {
+                                    for ( var ix in phones) {
+                                        if (phones[ix].$$hashKey) {
+                                            delete phones[ix].$$hashKey;
+                                        }
+                                    }
+                                }
+                            }
+                            dialog.close(phones);
+                        };
 
                     /**
                      * Closes dialog
                      */
-                    $scope.cancel = function() {
+                    $scope.cancel = function () {
                         dialog.close($q.reject());
                     };
 
@@ -118,18 +139,18 @@
                      * number of telephones already inserted.
                      * 
                      */
-                    $scope.$watchCollection('newPhoneForm.$valid', function() {
-                        if($scope.newPhoneForm.$valid){
-                            if($scope.phone.number){
+                    $scope.$watchCollection('newPhoneForm.$valid', function () {
+                        if ($scope.newPhoneForm.$valid) {
+                            if ($scope.phone.number) {
                                 $scope.isDisabled = false;
-                            }else if($scope.newPhoneForm.$valid && $scope.phones.length>0){
+                            } else if ($scope.newPhoneForm.$valid && $scope.phones.length > 0) {
                                 $scope.isDisabled = false;
                             }
-                        }else {
+                        } else {
                             $scope.isDisabled = true;
                         }
                     });
 
                 }
             ]);
-}(angular));
+})(angular);

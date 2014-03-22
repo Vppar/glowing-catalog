@@ -38,48 +38,8 @@
 
 	</form>
 </div>
-
 <div class="modal-foot">
 	<hr />
 	<button ng-click='cancel()' class="btn btn-cancel btn-large btn-login" type="button">Fechar</button>
 	<button ng-click='confirm()' class="btn btn-large btn-ok pull-right" type="button" ng-disabled="isDisabled">Salvar</button>
 </div>
-
-<!-- COD ANTIGO
-<div class="container">
-	<form class="form-add-email" name="newEmailForm">
-		<span class="heading-gradient">E-MAILS</span>
-		<div class="input-append add-cusomer-input-emails">
-        	<label for="">Adicione E-Mails</label>
-			<input class="input-block-level" style="width:343px" ng-model="email.address" id="appendedInput" type="email"  ng-pattern="emailRegex" autofocus lower-case>
-            	<span ng-click='addEmail(email)' class="add-on">+</span>
-		</div>
-		<div class="row-fluid">
-			<span class="scroll-emails"> <span class="row-data-dialog"
-				ng-repeat="item in emails"> <span class="span9"><span>{{item.address}}</span></span>
-					<span class="span1"> <span class="ic-sort-triangle"
-						ng-click='moveDown($index)' ng-hide="$last"> <img
-							src="images/ic-sort-triangle-down-pink.png" alt="" />
-					</span>
-				</span> <span class="span1"> <span class="ic-sort-triangle"
-						ng-click='moveUp($index)' ng-hide="$first"> <img
-							src="images/ic-sort-triangle-up-pink.png" alt="" />
-					</span>
-				</span> <span class="span1"> <span class="ic-sort-triangle"
-						ng-click='remove($index)'> <img src="images/del-pink.png"
-							alt="" />
-					</span>
-				</span>
-			</span>
-			</span>
-		</div>
-		<div class="clearfix"></div>
-		<hr />
-		<button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"
-			type="button">Fechar</button>
-		<button ng-click='confirm()'
-			class="btn btn-large btn-ok pull-right" type="button" ng-disabled="isDisabled">
-			Salvar</button>
-	</form>
-</div>
--->
