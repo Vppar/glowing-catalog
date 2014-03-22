@@ -120,15 +120,6 @@
                         }
 
                         var promise = null;
-                        // FIXME - No idea from where this $$hashKey comes,
-                        // someone please investigate this in the future.
-                        if (customer.emails) {
-                            for ( var ix in customer.emails) {
-                                if (customer.emails[ix].$$hashKey) {
-                                    delete customer.emails[ix].$$hashKey;
-                                }
-                            }
-                        }
                         if (edit && edit.editUuid) {
                             promise = EntityService.update(customer).then(function(uuid) {
                                 return uuid;
