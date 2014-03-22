@@ -2,14 +2,19 @@
 
     angular.module('tnt.catalog.sync.service', [
         'tnt.util.log', 'tnt.catalog.journal.keeper', 'tnt.catalog.sync.driver'
-    ])
-        .service(
-            'SyncService',
-            ['$q', 'logger', '$rootScope', 'JournalKeeper', 'JournalEntry', 'SyncDriver',
+    ]).service(
+        'SyncService',
+        [
+            '$q',
+            'logger',
+            '$rootScope',
+            'JournalKeeper',
+            'JournalEntry',
+            'SyncDriver',
             function SyncService ($q, logger, $rootScope, JournalKeeper, JournalEntry, SyncDriver) {
 
                 var log = logger.getLogger('tnt.catalog.sync.service.SyncService');
-                
+
                 // How many times should we attempt to sync an entry before
                 // logging a fatal? Made public to allow changing this setting
                 // when this makes sense (such as in tests).
@@ -160,6 +165,25 @@
                 }
 
                 /**
+                 * Remove $$hashKey from entry.event if exists.
+                 * 
+                 * @param {JournalEntry} entry - The target entry.
+                 * @return {JournalEntry} cleanEntry - Entry freed of $$hashKey
+                 */
+                function removeHashKey (cleanObject) {
+                    if (cleanObject) {
+                        delete cleanObject.$$hashKey;
+                        for ( var ix in cleanObject) {
+                            var prop = cleanObject[ix];
+                            if (angular.isObject(prop)) {
+                                removeHashKey(prop);
+                            }
+                        }
+                    }
+                    return cleanObject;
+                }
+
+                /**
                  * Handles the step of getting the oldest unsynced entry from
                  * the journal during the synchronization process.
                  * 
@@ -177,6 +201,8 @@
                             deferred.resolve();
                             $rootScope.$broadcast('SyncService.sync end');
                         } else {
+                            // Remove angular $$hashKey variable if exists
+                            removeHashKey(entry.event);
                             syncSaveEntry(deferred, entry);
                         }
                     }, function (err) {
@@ -571,5 +597,6 @@
                 this.stashEntries = stashEntries;
                 this.unstashEntries = unstashEntries;
                 this.getStashedEntries = getStashedEntries;
-            }]);
-}(angular));
+            }
+        ]);
+})(angular);
