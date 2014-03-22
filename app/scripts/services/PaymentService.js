@@ -265,7 +265,6 @@
                         onCuff : []
                     };
 
-                    var couponsSaved = [];
                     var vouchers = [];
                     var giftCards = [];
 
@@ -523,7 +522,7 @@
                         savedSalePromise.then(function() {
                             SMSService.sendPaymentConfirmation(customer, amount);
                             sendVoucherSMS(vouchers);
-                            sendCouponsSMS(couponsSaved);
+                            sendCouponsSMS(persistedCoupons);
                             sendGiftCardSMS(giftCards);
                         });
 
@@ -710,7 +709,6 @@
                         } else {
                             persistedCoupons[amount] = qty;
                         }
-                        couponsSaved = angular.copy(persistedCoupons);
                     };
 
                     var clearPersistedCoupons = function clearPersistedCoupons() {
@@ -769,7 +767,6 @@
                             } // if hasOwnProperty
                         } // for amount in persistedCoupons
 
-                        clearPersistedCoupons();
                         return $q.all(couponPromises);
                     };
 
