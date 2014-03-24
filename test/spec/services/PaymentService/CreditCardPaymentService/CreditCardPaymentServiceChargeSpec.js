@@ -8,10 +8,22 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
     var $rootScope = null;
     var $q = null;
     var log = null;
+    var logger = null;
+    var customer = {
+        name : 'say my name'
+    };
 
     beforeEach(function() {
         log = {};
         log.fatal = jasmine.createSpy('$log.fatal');
+
+        logger = {};
+        logger.getLogger = jasmine.createSpy('logger.getLogger').andReturn({
+            info : function() {
+            },
+            fatal : function() {
+            }
+        });
     });
 
     // load the service's module
@@ -22,6 +34,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             $provide.value('Misplacedservice', Misplacedservice);
             $provide.value('PaymentService', PaymentService);
             $provide.value('$log', log);
+            $provide.value('logger', logger);
         });
     });
 
@@ -63,8 +76,6 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
 
             it('should charge a credit card', function() {
                 var result = null;
-                var isGoPay = true;
-                var hasInternet = true;
                 var sendChargesReturn = {
                     stub : 'i\'m a stub return'
                 };
@@ -79,7 +90,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     return deferred.promise;
                 });
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
                     chargedPromise.then(function(_result_) {
                         result = _result_;
                     });
@@ -93,19 +104,18 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 runs(function() {
                     expect(result).toBe(true);
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
+                        customer : customer,
                         creditCard : creditCard,
                         amount : amount,
                         installments : installments
                     });
                     expect(CreditCardPaymentService.createCreditCardPayments).toHaveBeenCalledWith(
-                            creditCard, amount, installments, sendChargesReturn, hasInternet);
+                            customer, creditCard, amount, installments, sendChargesReturn);
                 });
             });
 
             it('shouldn\'t charge a credit card with rejected promise', function() {
                 var result = null;
-                var isGoPay = true;
-                var hasInternet = true;
                 var errMsg = 'err text msg';
 
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
@@ -117,7 +127,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -132,6 +142,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     expect(angular.isObject(result)).toBe(false);
                     expect(result).toEqual(errMsg);
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
+                        customer : customer,
                         creditCard : creditCard,
                         amount : amount,
                         installments : installments
@@ -142,15 +153,13 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
 
             it('shouldn\'t charge a credit card with an exception in sendCharges', function() {
                 var result = null;
-                var isGoPay = true;
-                var hasInternet = true;
 
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     throw 'I\'m an unexpected exception';
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -165,6 +174,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     expect(angular.isObject(result)).toBe(false);
                     expect(result).toEqual('Erro interno na aplicação. Por favor, contate o administrador do sistema.');
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
+                        customer : customer,
                         creditCard : creditCard,
                         amount : amount,
                         installments : installments

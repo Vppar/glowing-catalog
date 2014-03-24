@@ -74,6 +74,9 @@ float: left;
 	top: -10px;
 	height:100%;
 }
+.container-payment  .payment-include {
+	height:100%;
+}
 .payment-container-height, .payment-container-height .span4 {
 	height:calc(100% - 68px);
 }
@@ -493,11 +496,10 @@ margin-top: 5px;
 	bottom:71px;
 	position:absolute;
 	width:300px;
-
-	/*para alinhar a base
-		width: 307px; /*width: 90%;/
-		position: fixed;
-		bottom: 25px;*/
+}
+.left-payment .payment-btn-holder {
+	border-top: 1px dotted #ccc;
+	padding-top:10px;
 }
 
 .payment-btn-area {
@@ -809,10 +811,13 @@ border-radius: 4px;
 	text-align:center;
 }*/
 .bandeira-cartao{
-width: 267px;
+	width:267px;
 }
 .parcelas-cartao {
-width: 96px;
+	width:100px;
+}
+.validade-cartao {
+	width:100px;
 }
 .payment-input-large{
 	height: 40px !important;
@@ -1390,3 +1395,14 @@ margin-top: 10px;
 }
 
 .font-gde{font-size:20px;}
+
+
+.payment-credit-card {
+	height:100%;
+}
+.payment-credit-card .new-col-12 select {
+	width:70%;
+}
+.payment-credit-card form {
+	height:calc(100% - 139px);
+}

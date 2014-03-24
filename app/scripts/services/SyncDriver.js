@@ -194,14 +194,14 @@
                         });
 
                         deferred.promise.then(function () {
-                            // Get the GoPay token from Firebase
-                            userRef.child('account').child('gpToken').on(
+                            // Get the Gateway token from Firebase
+                            userRef.child('account').child('ppToken').on(
                                 'value',
                                 function (nameSnapshot) {
                                     if (nameSnapshot) {
-                                        localStorage.gpToken = nameSnapshot.val();
+                                        localStorage.ppToken = nameSnapshot.val();
                                     } else {
-                                        delete localStorage.gpToken;
+                                        delete localStorage.ppToken;
                                     }
                                 });
 
@@ -229,7 +229,7 @@
                         var connectedRef = baseRef.child('.info').child('connected');
                         connectedRef.on('value', function (snap) {
                             if (snap.val() === false) {
-                                delete localStorage.gpToken;
+                                delete localStorage.ppToken;
                             }
                         });
 
@@ -245,7 +245,7 @@
                             deferred.reject(err);
                         } else if (!user) {
                             delete localStorage.firebaseUser;
-                            delete localStorage.gpToken;
+                            delete localStorage.ppToken;
                             $log.debug('Logged out from Firebase!');
                             deferred.resolve('Logout successfull');
                         }

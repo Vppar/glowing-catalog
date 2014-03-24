@@ -57,8 +57,6 @@
                             };
 
                             $scope.items = order.items;
-                            
-                            
 
                             $scope.keyboard = KeyboardService.getKeyboard();
 

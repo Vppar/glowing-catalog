@@ -166,6 +166,7 @@ scripts/services/log.js
 scripts/services/CreditCardPaymentService.js
 scripts/services/PrefetchService.js
 scripts/services/GoPayGateway.js
+scripts/services/PagPopGateway.js
 scripts/services/CacheController.js
 scripts/services/Firebase.js
 scripts/services/ProductReturnService.js

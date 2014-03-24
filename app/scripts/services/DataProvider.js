@@ -9,25 +9,6 @@
 
                 var scope = this;
 
-                this.gopay = {
-                    merchant : false,
-                    token : null
-                };
-                this.reloadGoPay = function() {
-                    if (localStorage.gpToken) {
-                        this.gopay.merchant = true;
-                        this.gopay.token = localStorage.gpToken;
-                    } else {
-                        this.gopay.merchant = false;
-                        this.gopay.token = null;
-                    }
-                };
-                this.reloadGoPay();
-
-                this.envFlags = {
-                    internet : true
-                };
-
                 this.cardData = {}; // See app/resources/data.json
                 this.date = {}; // See app/resources/data.json
 
