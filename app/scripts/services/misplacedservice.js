@@ -277,7 +277,10 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         function setItemDiscount(item, discount) {
             if (discount || discount === 0) {
                 item.itemDiscount = discount;
-                unsetOrderDiscount(item);
+
+                if (discount !== 0 || !item.orderDiscount) {
+                    unsetOrderDiscount(item);
+                }
             } else {
                 unsetItemDiscount(item);
             }
