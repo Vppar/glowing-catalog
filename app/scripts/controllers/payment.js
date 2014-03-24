@@ -602,14 +602,11 @@
                                         'Desconto aplicado à um item com valor total de ' + nonDiscountedTotalString + '.' :
                                         'Desconto será distribuído entre ' + items.length + ' itens cujo valor total é de ' + nonDiscountedTotalString + '.';
 
-                                    var footer = 'Apenas itens que não receberam descontos individualmente são elegíveis a receber descontos concedidos ao pedido.';
-
                                     var data = {
                                         initial : total.order.discount,
                                         relative : nonDiscountedTotal,
                                         title : 'Desconto',
-                                        message : message,
-                                        footer : footer
+                                        message : message
                                     };
 
                                     dialog = DialogService.openDialogNumpad(data).then(function (discount) {
