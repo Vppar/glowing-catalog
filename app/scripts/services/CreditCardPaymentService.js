@@ -36,7 +36,6 @@
                         var card = {
                             installments : Number(data.installments),
                             amount : Number(data.amount),
-                            flag : String(data.creditCard.flag),
                             number : String(data.creditCard.number),
                             month: String(Number(data.creditCard.expirationMonth)),
                             year: String(data.creditCard.expirationYear),

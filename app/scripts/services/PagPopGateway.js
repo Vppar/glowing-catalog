@@ -22,7 +22,9 @@
                         deferred.reject(data);
                     }
                 }).error(function(result) {
-                    log.fatal('There was an error contacting the server', result);
+                    if (result !== '') {
+                        log.fatal('An error occur while processing a credit card payment', result);
+                    }
                     deferred.reject({
                         Status : 'conn',
                         Message : 'There was an error contacting the server'

@@ -91,10 +91,13 @@
                     var currYear = new Date().getFullYear();
                     var cardMaxExpirationYear = currYear + 10;
                     var cardExpirationYears = [];
+
                     while (currYear < cardMaxExpirationYear) {
                         cardExpirationYears.push(currYear++);
                     }
-                    creditCard.expirationMonth = new Date().getMonth() + 1;
+
+                    var nextMonth = new Date().getMonth() + 1;
+                    creditCard.expirationMonth = (String(nextMonth).length > 1 ? '' : '0') + nextMonth;
                     creditCard.expirationYear = new Date().getFullYear();
                     $scope.cardExpirationYears = cardExpirationYears;
 
