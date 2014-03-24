@@ -18,9 +18,10 @@
                     // TRASNLATOR TABAJARA
                     // ############################
                     var translate = {};
-                    translate.onCuff = 'A Receber';
+                    translate.onCuff = 'Saldo a receber';
                     translate.check = 'Cheque';
                     translate.creditCard = 'Cartão de Crédito';
+                    translate.cash = 'Dinheiro';
 
                     // ################
                     // FILTERS RELATED
