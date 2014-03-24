@@ -28,7 +28,7 @@
                  * something@somewhere.whatever
                  */
                 $scope.emailRegex =
-                    /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)/;
+                    /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+).\.([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)/;
 
                 // get emails already set
                 if (dialog.data.emails && dialog.data.emails.length > 0 &&
