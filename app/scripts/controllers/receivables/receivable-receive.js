@@ -48,7 +48,7 @@
 
                     }, {
                         id : 1,
-                        describe : 'A Receber',
+                        describe : 'Saldo a receber',
                         type : 'onCuff'
                     }, {
                         id : 2,
