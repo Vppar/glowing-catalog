@@ -140,3 +140,24 @@ margin-left: -38px !important;
 	display: inline-block;
 	vertical-align: middle;
 }
+
+.grid-voucher .voucher-new-subtitle {
+	background:#ccc;
+	color:#222;
+    border-radius: 4px;
+    display: block;
+    font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    width: 100%;
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
+}
+
+.grid-voucher .voucher-new-subtitle .currency {
+	padding-right:14px;
+}
