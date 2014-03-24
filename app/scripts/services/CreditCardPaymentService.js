@@ -2,27 +2,21 @@
 
     'use strict';
     angular.module('tnt.catalog.payment.creditcard.service', [
-        'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.misplaced.service', 'tnt.catalog.gopay.gateway'
+        'tnt.catalog.payment.service', 'tnt.catalog.payment.entity', 'tnt.catalog.misplaced.service', 'tnt.catalog.pagpop.gateway'
     ]).service(
             'CreditCardPaymentService',
             [
                 '$q',
                 '$log',
                 '$filter',
-                'GoPayGateway',
+                'PagPopGateway',
                 'PaymentService',
                 'CreditCardPayment',
                 'NoMerchantCreditCardPayment',
                 'Misplacedservice',
-                function CreditcardPaymentService($q, $log, $filter, GoPayGateway, PaymentService, CreditCardPayment,
+                function CreditcardPaymentService($q, $log, $filter, PagPopGateway, PaymentService, CreditCardPayment,
                         NoMerchantCreditCardPayment, Misplacedservice) {
 
-                    var acceptedCardFlags = {
-                        'American Express' : 'AMERICANEXPRESS',
-                        'Diners Club' : 'DINERS',
-                        'MasterCard' : 'MASTERCARD',
-                        'Visa' : 'VISA'
-                    };
                     var errMsgs =
                             {
                                 '-1' : 'Tentativa de transação como o mesmo cartão de crédito e '
@@ -39,33 +33,20 @@
                      * credit card.
                      */
                     this.sendCharges = function sendCharges(data) {
-
-                        var codedFlag = acceptedCardFlags[data.creditCard.flag];
-                        var maskedCpf = $filter('cpf')(data.creditCard.cardholderDocument);
-
-                        var year = String(data.creditCard.expirationYear).substring(2);
-                        var numericMonth = Number(data.creditCard.expirationMonth);
-                        var month = numericMonth > 9 ? '' : '0';
-                        month += numericMonth;
-
-                        var validity = month + '/' + year;
-
-                        var formattedAmount = $filter('currency')(data.amount, '');
-
                         var card = {
-                            flag : codedFlag,
-                            number : data.creditCard.number,
-                            holder : data.creditCard.cardholderName,
-                            validity : validity,
-                            cvv : data.creditCard.cvv,
-                            amount : formattedAmount,
-                            installments : data.installments,
-                            cpf : maskedCpf,
-                            description : 'Pedido MK no valor de R$ ' + formattedAmount
+                            installments : Number(data.installments),
+                            amount : Number(data.amount),
+                            flag : String(data.creditCard.flag),
+                            number : String(data.creditCard.number),
+                            month: String(Number(data.creditCard.expirationMonth)),
+                            year: String(data.creditCard.expirationYear),
+                            cvv: String(data.creditCard.cvv),
+                            orderId : "0000-00-00",
+                            customer : String(data.creditCard.cardholderName)    
                         };
 
-                        var payedPromise = GoPayGateway.pay(card).then(function(data) {
-                            return data;
+                        var payedPromise = PagPopGateway.pay(card).then(function(result) {
+                            return result;
                         }, function(err) {
                             // first of all, log err message
                             $log.error('CreditcardPaymentService.sendCharges', err);
@@ -95,7 +76,7 @@
                      * @param numInstallments - Number of installments.
                      */
                     this.createCreditCardPayments =
-                            function createCreditCardPayments(creditCard, amount, numInstallments, gopayInfo, hasInternet) {
+                            function createCreditCardPayments(creditCard, amount, numInstallments, gatewayInfo, hasInternet) {
                                 var result = null;
                                 try {
                                     var creditCardInstallments = [];
@@ -122,14 +103,14 @@
                                         var creditCardInstallment = creditCardInstallments[ix];
                                         // FIXME - Fix duedate and installment
                                         var payment = null;
-                                        if (gopayInfo || !hasInternet) {
+                                        if (gatewayInfo || !hasInternet) {
                                             payment =
                                                     new CreditCardPayment(
                                                             creditCardInstallment.amount, creditCardInstallment.flag,
                                                             creditCardInstallment.number, creditCardInstallment.cardholderName,
                                                             creditCardDueDate, creditCard.cardholderDocument,
                                                             creditCardInstallment.installment, dueDate.getTime());
-                                            payment.gopayInfo = gopayInfo;
+                                            payment.gatewayInfo = gatewayInfo;
                                         } else {
                                             payment =
                                                     new NoMerchantCreditCardPayment(
@@ -155,12 +136,12 @@
                      * @param amount - Charged amount.
                      * @param numInstallments - Number of installments.
                      */
-                    this.charge = function charge(creditCard, amount, numInstallments, isGoPay, hasInternet) {
+                    this.charge = function charge(creditCard, amount, numInstallments, isGateway, hasInternet) {
                         var recordedPayment = null;
                         try {
                             var creditCardCopy = angular.copy(creditCard);
                             var chargedCCPromise = null;
-                            if (isGoPay && hasInternet) {
+                            if (isGateway && hasInternet) {
                                 chargedCCPromise = this.sendCharges({
                                     creditCard : creditCardCopy,
                                     amount : amount,

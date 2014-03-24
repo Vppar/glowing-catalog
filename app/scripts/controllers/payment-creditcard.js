@@ -6,7 +6,14 @@
     ]).controller(
             'PaymentCreditCardCtrl',
             [
-                '$scope', '$element', '$filter', '$q', 'DataProvider', 'DialogService', 'OrderService', 'CreditCardPaymentService',
+                '$scope',
+                '$element',
+                '$filter',
+                '$q',
+                'DataProvider',
+                'DialogService',
+                'OrderService',
+                'CreditCardPaymentService',
                 function($scope, $element, $filter, $q, DataProvider, DialogService, OrderService, CreditCardPaymentService) {
 
                     // #####################################################################################################
@@ -43,8 +50,9 @@
                     $scope.creditCard.flag = DataProvider.cardData.flags[6];
                     $scope.installments = DataProvider.cardData.installments;
 
-                    DataProvider.reloadGoPay();
-                    $scope.gopay = DataProvider.gopay;
+                    DataProvider.reloadGateway();
+
+                    $scope.gateway = DataProvider.gateway;
                     $scope.envFlags = DataProvider.envFlags;
 
                     $scope.months = DataProvider.date.months;
@@ -106,14 +114,14 @@
                     });
 
                     function reloadCardFlags() {
-                        if ($scope.gopay.merchant && $scope.envFlags.internet) {
-                            $scope.cardFlags = DataProvider.cardData.goPayflags;
+                        if ($scope.gateway.merchant && $scope.envFlags.internet) {
+                            $scope.cardFlags = DataProvider.cardData.pagPopFlags;
                         } else {
                             $scope.cardFlags = DataProvider.cardData.flags;
                         }
                     }
 
-                    $scope.$watch('gopay.merchant', reloadCardFlags);
+                    $scope.$watch('gateway.merchant', reloadCardFlags);
                     $scope.$watch('envFlags.internet', reloadCardFlags);
 
                     // #####################################################################################################
@@ -122,30 +130,33 @@
                     /**
                      * Confirms a credit card payment.
                      */
-                    $scope.confirmCreditCardPayment = function confirmCreditCardPayment() {
-                        $element.find('form').find('input').removeClass('ng-pristine').addClass('ng-dirty');
-                        if (!($scope.creditCardForm.$valid && $scope.creditCard.amount > 0)) {
-                            var deferred = $q.defer();
-                            deferred.resolve();
-                            return deferred.promise;
-                        }
-                        var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
+                    $scope.confirmCreditCardPayment =
+                            function confirmCreditCardPayment() {
+                                $element.find('form').find('input').removeClass('ng-pristine').addClass('ng-dirty');
+                                if (!($scope.creditCardForm.$valid && $scope.creditCard.amount > 0)) {
+                                    var deferred = $q.defer();
+                                    deferred.resolve();
+                                    return deferred.promise;
+                                }
+                                var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
 
-                        var isGoPay = $scope.gopay.merchant;
-                        var hasInternet = $scope.envFlags.internet;
+                                var useGateway = $scope.gateway.merchant;
+                                var hasInternet = $scope.envFlags.internet;
 
-                        var result = CreditCardPaymentService.charge(creditCard, creditCard.amount, numInstallments, isGoPay, hasInternet);
+                                var result =
+                                        CreditCardPaymentService.charge(
+                                                creditCard, creditCard.amount, numInstallments, useGateway, hasInternet);
 
-                        return result.then(function() {
-                            $scope.selectPaymentMethod('none');
-                        }, function(errMsg) {
-                            DialogService.messageDialog({
-                                title : 'Pagamento',
-                                message : errMsg,
-                                btnYes : 'OK'
-                            });
-                        });
-                    };
+                                return result.then(function() {
+                                    $scope.selectPaymentMethod('none');
+                                }, function(errMsg) {
+                                    DialogService.messageDialog({
+                                        title : 'Pagamento',
+                                        message : errMsg,
+                                        btnYes : 'OK'
+                                    });
+                                });
+                            };
 
                 }
             ]);

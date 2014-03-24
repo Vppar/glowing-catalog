@@ -9,20 +9,20 @@
 
                 var scope = this;
 
-                this.gopay = {
+                this.gateway = {
                     merchant : false,
                     token : null
                 };
-                this.reloadGoPay = function() {
-                    if (localStorage.gpToken) {
-                        this.gopay.merchant = true;
-                        this.gopay.token = localStorage.gpToken;
+                this.reloadGateway = function() {
+                    if (localStorage.ppToken) {
+                        this.gateway.merchant = true;
+                        this.gateway.token = localStorage.ppToken;
                     } else {
-                        this.gopay.merchant = false;
-                        this.gopay.token = null;
+                        this.gateway.merchant = false;
+                        this.gateway.token = null;
                     }
                 };
-                this.reloadGoPay();
+                this.reloadGateway();
 
                 this.envFlags = {
                     internet : true

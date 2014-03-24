@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# v0.0.1
+# v0.0.0
 
 CACHE:
 apple-touch-icon.png
@@ -283,6 +283,7 @@ scripts/services/Firebase.js
 scripts/services/ProductReturnService.js
 scripts/services/ConsultantService.js
 scripts/services/WarmupService.js
+scripts/services/PagPopGateway.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
