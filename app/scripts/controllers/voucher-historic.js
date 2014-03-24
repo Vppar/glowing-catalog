@@ -108,6 +108,27 @@
                             });
                         $scope.historicVouchers =
                             $filter('filter')($scope.historicVouchers, historicFilterVoucher);
+                        
+                        var yarrr = [];
+                        $scope.historicVouchers = angular.copy($scope.historicVouchers);
+                        for(var ix in $scope.historicVouchers){
+                            if($scope.historicVouchers[ix].redeemed){
+                                var placeHolder = angular.copy($scope.historicVouchers[ix]);
+                                delete placeHolder.redeemed;
+                                yarrr.push(placeHolder);
+                                
+                                $scope.historicVouchers[ix].created = $scope.historicVouchers[ix].redeemed;
+                            }
+                            if($scope.historicVouchers[ix].canceled){
+                                var placeHolder = angular.copy($scope.historicVouchers[ix]);
+                                delete placeHolder.canceled;
+                                yarrr.push(placeHolder);
+                                
+                                $scope.historicVouchers[ix].created = $scope.historicVouchers[ix].canceled;
+                            }
+                        }
+                        $scope.historicVouchers = yarrr.concat($scope.historicVouchers);
+                        
                     };
 
                 $scope.$watchCollection('historicVoucher', function () {

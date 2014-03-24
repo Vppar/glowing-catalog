@@ -79,7 +79,7 @@
 								<div>Item</div>
 							</span>
 							<span class="col-s2">
-								<div>Data</div>
+								<div>Cliente</div>
 							</span>
 							<span class="col-s3">
 								<div>Vale / Cupom</div>
@@ -88,7 +88,7 @@
 								<div>Vlr. Total</div>
 							</span>
 							<span class="col-s5">
-								<div>Cliente</div>
+								<div></div>
 							</span>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 								<div>{{qtyTotal}}</div>
 							</span>
 							<span class="col-s2">
-								<div>&nbsp;</div>
+								<div>{{entityCounter}}</div>
 							</span>
 							<span class="col-s3">
 								<div></div>
@@ -112,12 +112,12 @@
 						</div>
 					</div>
 					<div class="scroll-grid" style="height: calc(100% - 79px);overflow-y: scroll;overflow-x: hidden;">
-						<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666;min-height:42px;" ng-repeat="voucher in filteredVouchers | orderBy:'-created'">
+						<div class="row-grid-product-voucher" style="border-bottom: 1px dotted #666;min-height:42px;" ng-repeat="voucher in filteredVouchers | orderBy:'+entity'">
 							<span class="col-s1">
 								<div>{{$index+1}}</div>
 							</span>
 							<span class="col-s2">
-								<div>{{voucher.created | date:'dd/MM/yyyy'}}</div>
+								<div>{{voucher.entity}}</div>
 							</span>
 							<span class="col-s3">
 								<div>{{voucher.type}}</div>
@@ -126,7 +126,7 @@
 								<div>{{voucher.amount | currency: ''}}</div>
 							</span>
 							<span class="col-s5">
-								<div>{{voucher.entity}}</div>
+								<div></div>
 							</span>
 						</div>
 					</div>
