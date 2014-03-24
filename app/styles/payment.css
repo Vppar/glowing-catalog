@@ -810,11 +810,14 @@ border-radius: 4px;
 .credit-card-valor{
 	text-align:center;
 }*/
-.bandeira-cartao, .validade-cartao {
-width: 267px;
+.bandeira-cartao{
+width:267px;
 }
 .parcelas-cartao {
-width: 96px;
+width:96px;
+}
+.validade-cartao {
+	width:183px;
 }
 .payment-input-large{
 	height: 40px !important;
