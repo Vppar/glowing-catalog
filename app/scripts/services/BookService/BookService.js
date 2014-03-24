@@ -90,7 +90,6 @@
         this.productReturn = function(orderUUID, entityUUID, productAmount, productCost) {
             var entries = [];
 
-            // Custo do produto
             entries.push(new BookEntry(null, null, 41305, 70001, orderUUID, entityUUID, 'Devolução de produto', productAmount));
             entries.push(new BookEntry(null, null, 51115, 11701, orderUUID, entityUUID, 'Devolução de produto', productCost));
 

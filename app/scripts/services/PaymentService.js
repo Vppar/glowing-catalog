@@ -629,9 +629,13 @@
 
                         for ( var ix in exchanges) {
                             var item = exchanges[ix];
-                            productAmount += currencyMultiply(item.amount ? item.amount : 0, item.qty);
+                            productAmount += currencyMultiply(item.price ? item.price : 0, item.qty);
                             productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
                         }
+
+                        if(productCost === 0){
+                            productCost = currencyMultiply(productAmount, 0.75); //75% of amount value
+                        }                        
 
                         var bookEntries = BookService.productReturn(orderUUID, entityUUID, productAmount, productCost);
 
