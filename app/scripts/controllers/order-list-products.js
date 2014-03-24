@@ -37,7 +37,7 @@
                                 var discount = item.itemDiscount || item.orderDiscount || 0;
 
                                 if (response) {
-                                    // now we are computing voucher, so we need to verify which fild has the amount.
+                                    // now we are computing voucher, so we need to verify which field has the amount.
                                     var itemPrice = item.price || item.amount;
                                     
                                     productsMap[SKU].qty += item.qty;
