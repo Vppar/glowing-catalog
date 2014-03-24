@@ -24,18 +24,18 @@
 			</div>
 			
 			<div class="row-fluid margint10">
-				<span class="new-col-7">
+				<span class="new-col-6">
 					<div class="control-group">
-						<label class="control-label">Validade do cart&atilde;o (m&ecirc;s)</label>					
-						<select ui-select2="select2Options" name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" tnt-select2 required>
+						<label class="control-label">Validade (m&ecirc;s)</label>					
+						<select ui-select2="select2Options" name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-mes" ng-model="creditCard.expirationMonth" tnt-select2 required>
 							<option ng-repeat="month in months" value="{{month.id}}">{{month.id}} ({{month.name}})</option>
 						</select>
 					</div>
 				</span>
-				<span class="new-col-7">
+				<span class="new-col-4">
 					<div class="control-group">
-						<label class="control-label">Validade do cart&atilde;o (ano)</label>					
-						<select ui-select2="select2Options" name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" tnt-select2 required>
+						<label class="control-label">Validade (ano)</label>					
+						<select ui-select2="select2Options" name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-ano" ng-model="creditCard.expirationYear" tnt-select2 required>
 							<option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
 						</select>
 					</div>
@@ -48,7 +48,7 @@
 						</select>
 					</div>
 				</span>	
-				<span class="new-col-6">
+				<span class="new-col-10">
 					<div class="control-group">
 						<label class="control-label">Valor R$</label>
 						<input class="input-block-level payment-input-large text-right" type="text" id="cardAmount1" name="amount" ng-model="creditCard.amount" currency tnt-input required amount="0" maxlength="11">
