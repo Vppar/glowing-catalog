@@ -633,6 +633,10 @@
                             productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
                         }
 
+                        if(productCost === 0){
+                            productCost = currencyMultiply(productAmount, 0.75); //75% of amount value
+                        }                        
+
                         var bookEntries = BookService.productReturn(orderUUID, entityUUID, productAmount, productCost);
 
                         return writeBookEntries(bookEntries);

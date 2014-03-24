@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.service.book', [
-        'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry','tnt.catalog.bookkeeping.keeper', 'tnt.catalog.financial.math.service'
-    ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', 'FinancialMathService', function BookService($q, $log, BookKeeper, Book, BookEntry, FinancialMathService) {
+        'tnt.catalog.bookkeeping.entity', 'tnt.catalog.bookkeeping.entry','tnt.catalog.bookkeeping.keeper'
+    ]).service('BookService', ['$q', '$log', 'BookKeeper', 'Book', 'BookEntry', function BookService($q, $log, BookKeeper, Book, BookEntry) {
 
         // TODO Should this be here?
         this.write = function(entry) {
@@ -90,9 +90,6 @@
         this.productReturn = function(orderUUID, entityUUID, productAmount, productCost) {
             var entries = [];
 
-            if (productCost === 0) {
-                productCost = FinancialMathService.currencyMultiply(productAmount, 0.75); //75% of amount value
-            } 
             entries.push(new BookEntry(null, null, 41305, 70001, orderUUID, entityUUID, 'Devolução de produto', productAmount));
             entries.push(new BookEntry(null, null, 51115, 11701, orderUUID, entityUUID, 'Devolução de produto', productCost));
 
