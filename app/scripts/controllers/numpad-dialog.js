@@ -8,6 +8,7 @@
         var relativeValue = dialog.data && dialog.data.relative || 0;
         var title = dialog.data && dialog.data.title;
         var message = dialog.data && dialog.data.message || null;
+        var footer = dialog.data && dialog.data.footer || null;
 
         var $parentScope = dialog.parentDialog && dialog.parentDialog.$scope;
 
@@ -18,6 +19,7 @@
 
         $scope.title = title;
         $scope.message = message;
+        $scope.footer = footer;
 
         $scope.value = initialValue || 0;
 
