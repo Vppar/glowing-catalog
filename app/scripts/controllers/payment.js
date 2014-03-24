@@ -594,16 +594,26 @@
 
                                 if ($scope.enableDiscount) {
                                     var nonDiscountedTotal = getNonDiscountedTotal();
+                                    var items = Discount.getItemsWithoutItemDiscount(order.items);
+
+                                    var nonDiscountedTotalString = $filter('currency')(nonDiscountedTotal);
+
+                                    var message = items.length === 1 ?
+                                        'Desconto aplicado à um item com valor total de ' + nonDiscountedTotalString + '.' :
+                                        'Desconto será distribuído entre ' + items.length + ' itens cujo valor total é de ' + nonDiscountedTotalString + '.';
+
+                                    var footer = 'Apenas itens que não receberam descontos individualmente são elegíveis a receber descontos concedidos ao pedido.';
 
                                     var data = {
                                         initial : total.order.discount,
-                                        relative : nonDiscountedTotal
+                                        relative : nonDiscountedTotal,
+                                        title : 'Desconto',
+                                        message : message,
+                                        footer : footer
                                     };
 
                                     dialog = DialogService.openDialogNumpad(data).then(function (discount) {
                                         discount = discount > nonDiscountedTotal ? nonDiscountedTotal : discount;
-
-                                        var items = Discount.getItemsWithoutItemDiscount(order.items);
                                         Discount.distributeOrderDiscount(items, discount);
                                         updateDiscountRelatedValues();
                                     });
