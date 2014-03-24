@@ -8,10 +8,19 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
     var $rootScope = null;
     var $q = null;
     var log = null;
+    var logger = null;
 
     beforeEach(function() {
         log = {};
         log.fatal = jasmine.createSpy('$log.fatal');
+
+        logger = {};
+        logger.getLogger = jasmine.createSpy('logger.getLogger').andReturn({
+            info : function() {
+            },
+            fatal : function() {
+            }
+        });
     });
 
     // load the service's module
@@ -22,6 +31,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
             $provide.value('Misplacedservice', Misplacedservice);
             $provide.value('PaymentService', PaymentService);
             $provide.value('$log', log);
+            $provide.value('logger', logger);
         });
     });
 
@@ -79,7 +89,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     return deferred.promise;
                 });
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
                     chargedPromise.then(function(_result_) {
                         result = _result_;
                     });
@@ -98,7 +108,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                         installments : installments
                     });
                     expect(CreditCardPaymentService.createCreditCardPayments).toHaveBeenCalledWith(
-                            creditCard, amount, installments, sendChargesReturn, hasInternet);
+                            creditCard, amount, installments, sendChargesReturn);
                 });
             });
 
@@ -117,7 +127,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -150,7 +160,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments, isGoPay, hasInternet);
+                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
