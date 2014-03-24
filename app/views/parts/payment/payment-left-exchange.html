@@ -1,10 +1,5 @@
 <div class="payment-left-exchange">
-	<div class="title-left">
-		<div>Troca de produto</div>
-	<!--<div class="payment-send">
-		<img src="images/icons/payment-send.png">
-	</div>-->
-	</div>
+	<div class="title-left">Troca de produto</div>
 	<div class="left-payment" ng-controller="PaymentExchangeCtrl">
 		<br />
 		<div class="row-fluid">
@@ -12,10 +7,7 @@
 				<div class="controls-row">
 					<div class="control-group lbl-top">
 						<label class="control-label">&nbsp;</label>
-						<select ui-select2 tnt-select2
-							name="product"
-							class="combo-width-product-exchange marginr10 control-label-exchange select-h38"
-							ng-model="productId">
+						<select ui-select2 tnt-select2 name="product" class="combo-width-product-exchange marginr10 control-label-exchange select-h38" ng-model="productId">
 							<option value="">Selecione um Produto</option>
 							<option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
 						</select>
@@ -32,8 +24,7 @@
 					<div class="control-group lbl-top">
 						<div class="controls">
 							<div class="btn-clear-form">
-								<span id="exchangeAdd" class="btn-plus2 bg-green hover-state-pointer"
-									ng-click="add()" tnt-kbutton></span>
+								<span id="exchangeAdd" class="btn-plus2 bg-green hover-state-pointer" ng-click="add()" tnt-kbutton></span>
 							</div>
 						</div>
 					</div>
@@ -41,100 +32,56 @@
 			</form>
 		</div>
 
-
 		<!--listagem de produtos-->
-		<div class="exchange-initial">
-			<div class="row-fluid">
-				<div class="grid-payment-exchange">
-					<div class="header header2 subtitle2-header-exchange">
-						<div class="row-payment-grid">
-							<span class="col-s1">
-								<div>Item</div>
-							</span> <span class="col-s2">
-								<div>Produtos</div>
-							</span> <span class="col-s3">
-								<div>Qtde.</div>
-							</span> 
-							
+		<div class="row-fluid exchange-initial">
+
+			<div class="grid-payment-exchange" style="height:100%;">
+				<div class="header header2 subtitle2-header-exchange">
+					<div class="row-payment-grid">
+						<span class="col-s1">Item</span>
+						<span class="col-s2">Produtos</span>
+						<span class="col-s3">Qtde.</span>
+						<!-- fix -->
+						<span class="col-s3">Vlr. Unit.</span>
+						<span class="col-s4 currency">Vlr. total</span>
+					</div>
+				</div>
+
+				<div class="header header2 subtitle-header-exchange">
+					<div class="row-payment-grid">
+						<span class="col-s1 font-gde">{{qtyItem}}</span>
+						<span class="col-s2">Total</span>
+						<span class="col-s3 font-gde">{{qtyTotal}}</span>
+						<!-- fix -->
+						<span class="col-s3">&nbsp;</span> 
+						<span class="col-s4 font-gde currency">{{amountTotal | currency: ''}}</span>
+					</div>
+				</div>
+
+				<div class="scroll-payment" style="height:calc(100% - 340px;)">
+					<div class="row-payment-grid-product-exchange">
+						<div ng-repeat="exch in exchanges | orderBy:'-id'" class="row-payment-grid-product-exchange">
+							<span class="col-s1"> {{exch.id}}</span>
+							<span class="col-s2">{{exch.title}} {{exch.option}}</span>
+							<span class="col-s3">{{exch.qty}}</span> 
 							<!-- fix -->
-							<span class="col-s3">
-								<div>Vlr. Unit.</div>
-							</span> 
-							
-							
-							<span class="col-s4">
-								<div class="text-right">Vlr. total</div>
+							<span class="col-s3">{{exch.price | currency:""}}</span> 
+							<span class="col-s4 currency">{{exch.amount | currency:""}}</span> 
+							<span class="col-s5 hover-state-pointer">
+								<img src="images/del-pink.png" alt="" ng-click="remove(exch)" />
 							</span>
 						</div>
 					</div>
-					<div class="header header2 subtitle-header-exchange">
-						<div class="row-payment-grid">
-							<span class="col-s1">
-								<div class="font-gde">{{qtyItem}}</div>
-							</span> <span class="col-s2">
-								<div>Total</div>
-							</span> 
-							
-							<span class="col-s3">
-								<div class="font-gde">{{qtyTotal}}</div>
-							</span> 
-							
-							<!-- fix -->
-							<span class="col-s3">
-								<div></div>
-							</span> 
-							
-							
-							
-							<span class="col-s4">
-								<div class="text-right font-gde">{{amountTotal | currency: ''}}</div>
-							</span>
-						</div>
-					</div>
-					<div class="scroll-payment-grid">
-						
-						<div class="row-payment-grid-product-exchange">
-
-							<div ng-repeat="exch in exchanges | orderBy:'-id'"
-								class="row-payment-grid-product-exchange">
-								<span class="col-s1">
-									<div>{{exch.id}}</div>
-								</span> <span class="col-s2">
-									<div>{{exch.title}} {{exch.option}}</div>
-								</span> <span class="col-s3">
-									<div>{{exch.qty}}</div>
-								</span> 
-								<!-- fix -->
-								<span class="col-s3">
-									<div>{{exch.price | currency:""}}</div>
-								</span> 
-								<span class="col-s4">
-									<div class="text-right">{{exch.amount | currency:""}}</div>
-								</span> 
-								<span class="col-s5">
-									<div class="hover-state-pointer">
-										<img src="images/del-pink.png" alt="" ng-click="remove(exch)" />
-									</div>
-								</span>
-							</div>
-						</div>
-					</div>
 				</div>
+
 			</div>
 
-			<div class="payment-left-btns-area">
-				<div class="payment-left-btns">
-					<button
-						class="btn btn-cancel btn-large btn-login btn-payment-exchange"
-						type="submit" ng-click="cancelPayments()">Cancelar</button>
-					<button
-						class="btn btn-ok btn-large btn-login pull-right btn-payment-exchange"
-						type="submit" ng-click="confirmExchangePayments()">Adicionar</button>
-				</div>
+			<div class="payment-btn-holder">
+					<button class="btn btn-cancel btn-large pull-left" type="submit" ng-click="cancelPayments()">Cancelar</button>
+					<button class="btn btn-ok btn-large pull-right" type="submit" ng-click="confirmExchangePayments()">Adicionar</button>
 			</div>
+
 		</div>
-
-
 
 		<!--edição de produtos-->
 		<div class="exchange-edit  display-none">
@@ -143,60 +90,39 @@
 					<div class="scroll-payment-grid">
 						<div class="header header2 header-exchange">
 							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>Se&ccedil;&atilde;o 1</div>
-								</span> <span class="col-s2">
-									<div>&nbsp;</div>
-								</span> <span class="col-s3">
-									<div>&nbsp;</div>
-								</span> <span class="col-s4">
-									<div>&nbsp;</div>
-								</span>
+								<span class="col-s1">Se&ccedil;&atilde;o 1</span>
+								<span class="col-s2">&nbsp;</span>
+								<span class="col-s3">&nbsp;</span>
+								<span class="col-s4">&nbsp;</span>
 							</div>
 						</div>
 						<div class="header header2 subtitle-header-exchange">
 							<div class="row-payment-grid">
-								<span class="col-s1">
-									<div>Promo&ccedil;&otilde;es</div>
-								</span> <span class="col-s2">
-									<div>&nbsp;</div>
-								</span> <span class="col-s3">
-									<div>Qtde.</div>
-								</span> <span class="col-s4">
-									<div>Valor</div>
-								</span>
+								<span class="col-s1">Promo&ccedil;&otilde;es</span>
+								<span class="col-s2">&nbsp;</span>
+								<span class="col-s3">Qtde.</span>
+								<span class="col-s4">Valor</span>
 							</div>
 						</div>
 
 						<div class="row-payment-grid-product-exchange">
-							<span class="col-s1-list">
-								<div>Codigo/Nome</div>
-							</span> <span class="col-s2-list">
-								<div>0,00/Pts</div>
-							</span> <span class="col-s3-list">
-								<div>
-									<input class="input-mini qtde text-center" type="text"
-										maxlength="3">
-								</div>
-							</span> <span class="col-s4-list">
-								<div>
-									<input class="input-mini valor text-right" type="tel">
-								</div>
+							<span class="col-s1-list">C&oacute;digo/Nome</span>
+							<span class="col-s2-list">0,00/Pts</span>
+							<span class="col-s3-list">
+								<input class="input-mini qtde text-center" type="text" maxlength="3">
+							</span>
+							<span class="col-s4-list">
+								<input class="input-mini valor text-right" type="tel">
 							</span>
 						</div>
+
 					</div>
 				</div>
 			</div>
 
-			<div class="payment-left-btns-area">
-				<div class="payment-left-btns">
-					<button
-						class="btn btn-cancel btn-large btn-login btn-payment-exchange"
-						type="submit" ng-click="cancelPayments()">Cancelar</button>
-					<button
-						class="btn btn-ok btn-large btn-login pull-right btn-payment-exchange"
-						type="submit">Adicionar</button>
-				</div>
+			<div class="payment-btn-holder">
+				<button class="btn btn-cancel btn-large pull-left" type="submit" ng-click="cancelPayments()">Cancelar</button>
+				<button class="btn btn-ok btn-large pull-right" type="submit">Adicionar</button>
 			</div>
 		</div>
 
