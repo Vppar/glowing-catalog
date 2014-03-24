@@ -240,25 +240,24 @@
                     var filteredOrders = orders;
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
-                        // argumenting
+
                         $scope.argumentOrder(filteredOrder);
 
                         if (!entityMap[filteredOrder.customerId]) {
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
                         }
-                        //When computing totals for products, we need to get discount by products.
                         if($scope.ol=='products'){
                             for(var ix in filteredOrder.items){
                                 var item = filteredOrder.items[ix];
-                                if(!item.type){
-                                    var discount = item.orderDiscount ? item.orderDiscount:item.itemDiscount;
-                                    if(discount > 0){
-                                        $scope.total.all.amountWithDiscount -= discount;
-                                    }
-                                    $scope.total.all.amountWithDiscount += item.price * item.qty;
-                                    $scope.total.all.qty += item.qty;
+                                
+                                var discount = item.orderDiscount ? item.orderDiscount:item.itemDiscount;
+                                if(discount > 0){
+                                    $scope.total.all.amountWithDiscount -= discount;
                                 }
+                                var amount = item.amount || item.price * item.qty;
+                                $scope.total.all.amountWithDiscount += amount;
+                                $scope.total.all.qty += item.qty;
                             }
                             $scope.total.all.orderCount++;
                         }else{
