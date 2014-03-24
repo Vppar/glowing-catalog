@@ -164,7 +164,7 @@
 					<div class="new-col-8">
 						<div class="control-group">
 							<label class="control-label">E-mail</label>
-							<input name="" class="input-block-level" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" required>
+							<input name="" class="input-block-level" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" lower-case required>
 						</div>
 					</div>
 					<div class="new-col-4">
@@ -181,13 +181,13 @@
 					<div class="new-col-12">
 						<div class="control-group">
 							<label class="control-label">E-mail da iniciadora</label>
-							<input name="" class="input-block-level" type="text" ng-model="consultant.emailPrimer" required>
+							<input name="" class="input-block-level" type="text" ng-model="consultant.emailPrimer" ng-pattern="emailRegex" lower-case required>
 						</div>
 					</div>
 					<div class="new-col-12">
 						<div class="control-group">
 							<label class="control-label">E-mail da diretora</label>
-							<input name="" class="input-block-level" type="text" ng-model="consultant.emailDirector" required>						
+							<input name="" class="input-block-level" type="text" ng-model="consultant.emailDirector" ng-pattern="emailRegex" lower-case required>						
 						</div>
 					</div>
 				</div>
@@ -217,10 +217,10 @@
 				<div class="row-fluid">
 					<div class="new-btn-holder">
 					<div class="btn-group btn-group-sm pull-left">
-							<button class="btn btn-cancel pull-left" tnt-promise-click="cancel()">Voltar</button>
+							<input type="button" class="btn btn-cancel pull-left" tnt-promise-click="cancel()" value="Voltar" >
 						</div>
 						<div class="btn-group btn-group-sm pull-right">
-							<button class="btn btn-ok pull-right" tnt-promise-click="confirm()">Salvar</button>
+							<input type="submit" class="btn btn-ok pull-right" tnt-promise-click="confirm()" value="Salvar" >
 						</div>
 					</div>
 				</div>
