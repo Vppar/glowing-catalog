@@ -307,7 +307,7 @@
                         bank : event.payment.bank,
                         agency : event.payment.agency,
                         account : event.payment.account,
-                        dueDate : event.duedate ? new Date(event.duedate) : null,
+                        duedate : event.duedate ? new Date(event.duedate) : null,
                         amount : event.amount,
                         number : event.payment.number,
                         clientName : customer && customer.name,
@@ -340,7 +340,7 @@
                 var entries = [];
                 for (var idx in items) {
                     var item = items[idx];
-                    // TODO get entityId
+                    var duedate = item.duedate && item.duedate.getTime ? item.duedate.getTime() : item.duedate;
                     entries.push({
                         uuid : null,
                         type : 'receivableAdd',
@@ -351,7 +351,7 @@
                             // 1 is the CoinKeeper's op for generating UUIDs
                             uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
                             type : 'check',
-                            duedate : item.dueDate && item.dueDate.getTime ? item.dueDate.getTime() : item.dueDate,
+                            duedate : duedate,
                             entityId : item.entityId,
                             amount : item.amount,
                             created : item.created || null,
@@ -361,7 +361,7 @@
                                 agency : item.agency,
                                 bank : item.bank,
                                 amount : item.amount,
-                                dueDate : item.dueDate.getTime(),
+                                dueDate : duedate,
                                 number : item.number,
                                 type : 'check'
                             }
@@ -374,54 +374,80 @@
         };
 
 
+
+
+
         ///////////////////////////////////////////////////
         this.checkingAccount = {
-            BOOKS : [
-                11131, 11132, 11133, 11134, 11135, 11136, 11137, 11138, 11139
-            ],
+            book : (function () {
+                var AVAILABLE_BOOKS = [
+                    11131, 11132, 11133, 11134, 11135, 11136, 11137, 11138, 11139
+                ];
 
-            takenBooks : [],
+                var books = {};
 
-            isBookTaken : function (access) {
-                return !!~this.takenBooks.indexOf(access);
-            },
-
-            takeBook : function (access) {
-                if (!this.isBookTaken(access)) {
-                    this.takenBooks.push(access);
+                // Set initial status for the access number...
+                for (var idx in AVAILABLE_BOOKS) {
+                    var access = AVAILABLE_BOOKS[idx];
+                    books[access] = false;
                 }
-            },
 
-            freeBook : function (access) {
-                var idx = this.takenBooks.indexOf(access);
-                if (~idx) {
-                    this.takenBooks.splice(idx, 1);
+                function isTaken(access) {
+                    return books[access];
                 }
-            },
+
+                function take(access) {
+                    books[access] = true;
+                }
+
+                function untake(access) {
+                    books[access] = false;
+                }
+
+                function exists(access) {
+                    access = parseInt(access);
+                    return !!access && !!~AVAILABLE_BOOKS.indexOf(access);
+                }
+
+                function hasAvailable() {
+                    return !!nextAvailable();
+                }
+
+                function nextAvailable() {
+                    for (var idx in books) {
+                        if (!books[idx]) {
+                            return idx;
+                        }
+                    }
+
+                    return null;
+                }
+
+                function getAvailable() {
+                    var access = nextAvailable();
+                    if (access) {
+                        take(access);
+                    }
+                    return access;
+                }
+
+
+                return {
+                    exists : exists,
+                    isTaken : isTaken,
+                    take : take,
+                    untake : untake,
+                    hasAvailable : hasAvailable,
+                    nextAvailable : nextAvailable,
+                    getAvailable : getAvailable
+                };
+            })(),
 
             isUsed : function (book) {
                 // TODO
                 return true;
             },
 
-            isCheckingAccountBook : function (access) {
-                return !!~this.BOOKS.indexOf(access);
-            },
-
-            hasAvailableBook : function () {
-                return this.takenBooks.length < this.BOOKS.length;
-            },
-
-            getAvailableBook : function () {
-                for (var idx in this.BOOKS) {
-                    var book = this.BOOKS[idx];
-                    if (!this.isBookTaken(book)) {
-                        return book;
-                    }
-                }
-
-                return null;
-            },
 
             getTotal : function () {
                 var items = this.getItems();
@@ -466,9 +492,9 @@
                     var entry = entries[idx];
                     if (
                         entry.type === 'addBook' &&
-                        this.isCheckingAccountBook(entry.event.access)
+                        this.book.exists(entry.event.access)
                     ) {
-                        this.takenBooks.push(entry.event.access);
+                        this.book.take(entry.event.access);
                         checkingAccountEntries.push(entry);
                     }
                 }
