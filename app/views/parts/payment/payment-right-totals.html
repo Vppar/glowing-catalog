@@ -24,26 +24,18 @@
 		<div class="values-resume">
 			{{total.order.newSubTotal | currency: '' }}
 		</div>
-
 	</div>
 
-	<div class="row-right-payment first-right">
-      <span class="container-discount">
-          <span class="label-discount">Desconto</span>
-      </span>
-      <span class=""> 
-        <!-- Remove or fix the ng-hide directive when setting the keyboard up -->
-        <input id="discount" class="btn-price-payment" ng-disabled="!enableDiscount" ng-model="total.order.discount" tnt-input currency tnt-relative-value="total.order.newSubTotal" next="dontfindmoneyinput"/>
-      </span>
+	<div class="subtotal-resume">
+		<div class="lbl-resume">
+			<div>
+				Desconto
+			</div>
+		</div>
+		<div class="values-resume">
+			{{total.discount | currency: '' }}
+		</div>
 	</div>
-
-<!-- 	<div class="payment-subtotal">
-		<span class="lbl-money2 display-block">
-			<strong class="lbl-money">Subtotal</strong>
-			<span class="lbl-money4">&nbsp;</span>
-			<span class="btn-sub-payment">{{total.order.subTotal | currency: '' }}</span>
-		</span>				
-	</div> -->
 
 
 	<div class="subtotal-resume">

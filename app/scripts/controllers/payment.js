@@ -104,7 +104,8 @@
                                         return getAverage(this.amount, this.unit);
                                     }
                                 },
-                                change : 0
+                                change : 0,
+                                discount : 0
                             };
 
                             // Holds the total amount paid in exchanged
@@ -131,15 +132,21 @@
                             // amount,
                             // the total discount and the exchanges.
                             function getSubTotal() {
+                                return total.order.amount - total.discount;
+                                /*
                                 var totalDiscount = Discount.getTotalDiscount(order.items);
 
                                 var subtotal = total.order.amount - totalDiscount;
                                 return subtotal < 0 ? 0 : subtotal;
+                                */
                             }
 
                             function getNewSubTotal() {
+                                return total.order.amount;
+                                /*
                                 var subtotal = total.order.amount - total.order.itemDiscount;
                                 return subtotal < 0 ? 0 : subtotal;
+                                */
                             }
 
                             // FIXME Replace calls to this with the Discount
@@ -538,11 +545,17 @@
                                 }
                             }
 
+                            function updateTotalDiscount() {
+                                total.discount = total.order.discount + total.order.itemDiscount;
+                            }
+
+
+                            $scope.$watch('total.order.discount', updateTotalDiscount);
+                            $scope.$watch('total.order.itemDiscount', updateTotalDiscount);
+
                             $scope.$watch('total.order.amount', updateSubTotal);
-                            $scope.$watch('total.order.itemDiscount', updateSubTotal);
-                            $scope.$watch('total.paymentsExchange', function(){
-                                updateSubTotal();
-                            });
+                            $scope.$watch('total.discount', updateSubTotal);
+                            $scope.$watch('total.paymentsExchange', updateSubTotal);
 
                             $scope.$watch('total.order.itemDiscount', function() {
                                 var hasItemsWithoutItemDiscount = false;
