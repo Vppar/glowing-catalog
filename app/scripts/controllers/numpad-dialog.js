@@ -6,6 +6,8 @@
         
         var initialValue = dialog.data && dialog.data.initial || 0;
         var relativeValue = dialog.data && dialog.data.relative || 0;
+        var title = dialog.data && dialog.data.title;
+        var message = dialog.data && dialog.data.message || null;
 
         var $parentScope = dialog.parentDialog && dialog.parentDialog.$scope;
 
@@ -14,11 +16,12 @@
             return Math.round(100 * relative * (value / 100)) / 100;
         }
 
+        $scope.title = title;
+        $scope.message = message;
 
         $scope.value = initialValue || 0;
 
-
-        $scope.setDiscount = function (key) {
+        $scope.setValue = function (key) {
             var response = false;
 
             switch(key) {
