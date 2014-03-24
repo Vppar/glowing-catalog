@@ -9,25 +9,6 @@
 
                 var scope = this;
 
-                this.gateway = {
-                    merchant : false,
-                    token : null
-                };
-                this.reloadGateway = function() {
-                    if (localStorage.ppToken) {
-                        this.gateway.merchant = true;
-                        this.gateway.token = localStorage.ppToken;
-                    } else {
-                        this.gateway.merchant = false;
-                        this.gateway.token = null;
-                    }
-                };
-                this.reloadGateway();
-
-                this.envFlags = {
-                    internet : true
-                };
-
                 this.cardData = {}; // See app/resources/data.json
                 this.date = {}; // See app/resources/data.json
 

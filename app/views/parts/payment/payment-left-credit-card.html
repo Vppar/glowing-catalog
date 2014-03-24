@@ -7,7 +7,7 @@
 	<!-- Full form (with merchant & internet connection) -->
 	<form name="creditCardForm" >
 
-		<div ng-if="gateway.merchant && envFlags.internet">
+		<div ng-if="true">
 			<div class="row-fluid margint10">
 				<span class="new-col-16">
 					<div class="control-group margint10">
@@ -71,7 +71,7 @@
 		</div>	
 			
 		<!-- Partial form (without merchant) -->
-		<div ng-if="!gateway.merchant">
+		<div ng-if="false">
 			<div class="row-fluid margint10">
 				<span class="new-col-11">
 					<div class="control-group">
@@ -100,7 +100,7 @@
 		</div>
 	
 		<!-- Minimal form (without internet connection) -->
-		<div ng-if="gateway.merchant && !envFlags.internet">
+		<div ng-if="false">
 			<div class="row-fluid margint10">
 				<span class="new-col-8">
 					<div class="control-group">

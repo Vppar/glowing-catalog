@@ -17,6 +17,8 @@
                 function CreditcardPaymentService($q, $log, $filter, PagPopGateway, PaymentService, CreditCardPayment,
                         NoMerchantCreditCardPayment, Misplacedservice) {
 
+                    var _this = this;
+
                     var errMsgs =
                             {
                                 '-1' : 'Tentativa de transação como o mesmo cartão de crédito e '
@@ -37,11 +39,11 @@
                             installments : Number(data.installments),
                             amount : Number(data.amount),
                             number : String(data.creditCard.number),
-                            month: String(Number(data.creditCard.expirationMonth)),
-                            year: String(data.creditCard.expirationYear),
-                            cvv: String(data.creditCard.cvv),
+                            month : String(Number(data.creditCard.expirationMonth)),
+                            year : String(data.creditCard.expirationYear),
+                            cvv : String(data.creditCard.cvv),
                             orderId : "0000-00-00",
-                            customer : String(data.creditCard.cardholderName)    
+                            customer : String(data.creditCard.cardholderName)
                         };
 
                         var payedPromise = PagPopGateway.pay(card).then(function(result) {
@@ -52,11 +54,7 @@
 
                             var errMsg = '';
                             if (angular.isObject(err)) {
-                                if (err.Status && String(err.Status).indexOf('-') < 0) {
-                                    errMsg = errMsgs.conn;
-                                } else {
-                                    errMsg = errMsgs[err.Status];
-                                }
+                                errMsg = errMsgs[err.status];
                             } else {
                                 errMsg = errMsgs.fatal;
                             }
@@ -75,7 +73,7 @@
                      * @param numInstallments - Number of installments.
                      */
                     this.createCreditCardPayments =
-                            function createCreditCardPayments(creditCard, amount, numInstallments, gatewayInfo, hasInternet) {
+                            function createCreditCardPayments(creditCard, amount, numInstallments, gatewayInfo) {
                                 var result = null;
                                 try {
                                     var creditCardInstallments = [];
@@ -101,21 +99,13 @@
                                     for ( var ix in creditCardInstallments) {
                                         var creditCardInstallment = creditCardInstallments[ix];
                                         // FIXME - Fix duedate and installment
-                                        var payment = null;
-                                        if (gatewayInfo || !hasInternet) {
-                                            payment =
-                                                    new CreditCardPayment(
-                                                            creditCardInstallment.amount, creditCardInstallment.flag,
-                                                            creditCardInstallment.number, creditCardInstallment.cardholderName,
-                                                            creditCardDueDate, creditCard.cardholderDocument,
-                                                            creditCardInstallment.installment, dueDate.getTime());
-                                            payment.gatewayInfo = gatewayInfo;
-                                        } else {
-                                            payment =
-                                                    new NoMerchantCreditCardPayment(
-                                                            creditCardInstallment.amount, creditCardInstallment.flag,
-                                                            creditCardInstallment.installment, dueDate.getTime());
-                                        }
+                                        var payment =
+                                                new CreditCardPayment(
+                                                        creditCardInstallment.amount, creditCardInstallment.flag,
+                                                        creditCardInstallment.number, creditCardInstallment.cardholderName,
+                                                        creditCardDueDate, creditCard.cardholderDocument,
+                                                        creditCardInstallment.installment, dueDate.getTime());
+                                        payment.gatewayInfo = gatewayInfo;
                                         PaymentService.add(payment);
                                     }
                                     result = true;
@@ -135,27 +125,17 @@
                      * @param amount - Charged amount.
                      * @param numInstallments - Number of installments.
                      */
-                    this.charge = function charge(creditCard, amount, numInstallments, isGateway, hasInternet) {
+                    this.charge = function charge(creditCard, amount, numInstallments) {
                         var recordedPayment = null;
                         try {
                             var creditCardCopy = angular.copy(creditCard);
-                            var chargedCCPromise = null;
-                            if (isGateway && hasInternet) {
-                                chargedCCPromise = this.sendCharges({
-                                    creditCard : creditCardCopy,
-                                    amount : amount,
-                                    installments : numInstallments,
-                                });
-                            } else {
-                                var deferred = $q.defer();
-                                deferred.resolve();
-                                chargedCCPromise = deferred.promise;
-                            }
-
-                            var createCreditCardPayments = this.createCreditCardPayments;
-
-                            recordedPayment = chargedCCPromise.then(function(result) {
-                                return createCreditCardPayments(creditCardCopy, amount, numInstallments, result, hasInternet);
+                            var chargedCCPromise = this.sendCharges({
+                                creditCard : creditCardCopy,
+                                amount : amount,
+                                installments : numInstallments,
+                            });
+                            recordedPayment = chargedCCPromise.then(function(gatewayInfo) {
+                                return _this.createCreditCardPayments(creditCardCopy, amount, numInstallments, gatewayInfo);
                             }, function(errMsg) {
                                 return $q.reject(errMsg);
                             });

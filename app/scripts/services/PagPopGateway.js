@@ -18,17 +18,27 @@
                         log.info('Credit card payment processed.', data);
                         deferred.resolve(data);
                     } else {
-                        log.info('An error has occour while processing a credit card payment.', data);
-                        deferred.reject(data);
+                        log.fatal('An error has occour while processing a credit card payment.', data);
+                        deferred.reject({
+                            status : 'conn',
+                            message : 'There was an error contacting the server.'
+                        });
                     }
-                }).error(function(result) {
-                    if (result !== '') {
-                        log.fatal('An error occur while processing a credit card payment', result);
+                }).error(function(err) {
+                    var rejection = null;
+                    if (err && err.errors && err.errors.bandeira) {
+                        rejection = {
+                            status : '-3',
+                            message : 'Invalid credit card number'
+                        };
+                    } else {
+                        rejection = {
+                            status : 'conn',
+                            message : 'There was an error contacting the server.'
+                        };
                     }
-                    deferred.reject({
-                        Status : 'conn',
-                        Message : 'There was an error contacting the server'
-                    });
+                    log.fatal('An error occur while processing a credit card payment', err);
+                    deferred.reject(rejection);
                 });
                 return deferred.promise;
             };
