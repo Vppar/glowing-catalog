@@ -24,15 +24,14 @@ describe('Controller: voucher-historic', function() {
     }));
 
     it('should filter by entity', function() {
-        var expected = {
-            entity : 'Kira',
-            type : 'coupon',
-            created : new Date(),
-            canceled : new Date()
-        };
 
         scope.allVouchers = [
-            expected, {
+            {
+                entity : 'Kira',
+                type : 'coupon',
+                created : new Date(),
+                canceled : new Date()
+            }, {
                 entity : 'Thiago',
                 type : 'coupon',
                 created : new Date(),
@@ -53,7 +52,7 @@ describe('Controller: voucher-historic', function() {
 
         scope.filter();
 
-        expect(scope.historicVouchers[0]).toBe(expected);
+        expect(scope.historicVouchers.length).toBe(2);
 
     });
 
@@ -61,8 +60,7 @@ describe('Controller: voucher-historic', function() {
         var expected = {
             entity : 'Fabio',
             type : 'voucher',
-            created : new Date(),
-            redeemed : new Date()
+            created : new Date()
         };
 
         scope.allVouchers = [
@@ -88,10 +86,10 @@ describe('Controller: voucher-historic', function() {
 
         scope.filter();
 
-        expect(scope.historicVouchers[0]).toBe(expected);
+        expect(scope.historicVouchers[0].type).toBe(expected.type);
 
     });
-    
+
     it('should filter by type', function() {
         var expected = {
             entity : 'Fabio',
@@ -126,7 +124,8 @@ describe('Controller: voucher-historic', function() {
 
         scope.filter();
 
-        expect(scope.historicVouchers[0]).toBe(expected);
+        expect(scope.historicVouchers[0].type).toBe(expected.type);
+        expect(scope.historicVouchers[0].entity).toBe(expected.entity);
 
     });
 
@@ -167,14 +166,23 @@ describe('Controller: voucher-historic', function() {
 
         scope.filter();
 
+        // Creating the copy entities without the redeemed and canceled
+        // properties
+
+        var wesley2 = angular.copy(wesley);
+        delete wesley2.redeemed;
+
+        var fabio2 = angular.copy(fabio);
+        delete fabio2.redeemed;
+
         var expected = [
-            wesley, fabio
+            wesley2, fabio2, wesley, fabio
         ];
 
         expect(scope.historicVouchers).toEqual(expected);
 
     });
-    
+
     it('should filter by final date', function() {
         var fabio = {
             entity : 'Fabio',
@@ -212,11 +220,19 @@ describe('Controller: voucher-historic', function() {
 
         scope.filter();
 
+        // Creating the copy entities without the redeemed and canceled
+        // properties
+        var arnaldo2 = angular.copy(arnaldo);
+        delete arnaldo2.canceled;
+
+        var fabio2 = angular.copy(fabio);
+        delete fabio2.redeemed;
+
         var expected = [
-            arnaldo, fabio
+            arnaldo2, fabio2, arnaldo, fabio
         ];
 
-        expect(scope.historicVouchers).toEqual(expected); 
+        expect(scope.historicVouchers).toEqual(expected);
 
     });
 
