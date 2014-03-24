@@ -497,7 +497,7 @@ margin-top: 5px;
 	position:absolute;
 	width:300px;
 }
-.left-payment .payment-btn-holder {
+.payment-btn-holder {
 	border-top: 1px dotted #ccc;
 	padding-top:10px;
 }
@@ -1405,4 +1405,19 @@ margin-top: 10px;
 }
 .payment-credit-card form {
 	height:calc(100% - 139px);
+}
+
+.payment-check {
+	height:calc(100% - 109px);
+}
+.payment-check .scroll-payment {
+	height:calc(100% - 158px);
+	overflow-y:auto;
+}
+.payment-check .check-total {
+	height:40px;
+	line-height:40px;
+	margin-bottom:10px;
+	background-color: rgb(242, 242, 242);
+	padding: 0px 10px;
 }
