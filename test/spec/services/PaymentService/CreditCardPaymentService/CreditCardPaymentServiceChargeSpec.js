@@ -9,6 +9,9 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
     var $q = null;
     var log = null;
     var logger = null;
+    var customer = {
+        name : 'say my name'
+    };
 
     beforeEach(function() {
         log = {};
@@ -73,8 +76,6 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
 
             it('should charge a credit card', function() {
                 var result = null;
-                var isGoPay = true;
-                var hasInternet = true;
                 var sendChargesReturn = {
                     stub : 'i\'m a stub return'
                 };
@@ -89,7 +90,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     return deferred.promise;
                 });
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
                     chargedPromise.then(function(_result_) {
                         result = _result_;
                     });
@@ -103,19 +104,18 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 runs(function() {
                     expect(result).toBe(true);
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
+                        customer : customer,
                         creditCard : creditCard,
                         amount : amount,
                         installments : installments
                     });
                     expect(CreditCardPaymentService.createCreditCardPayments).toHaveBeenCalledWith(
-                            creditCard, amount, installments, sendChargesReturn);
+                            customer, creditCard, amount, installments, sendChargesReturn);
                 });
             });
 
             it('shouldn\'t charge a credit card with rejected promise', function() {
                 var result = null;
-                var isGoPay = true;
-                var hasInternet = true;
                 var errMsg = 'err text msg';
 
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
@@ -127,7 +127,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -142,6 +142,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     expect(angular.isObject(result)).toBe(false);
                     expect(result).toEqual(errMsg);
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
+                        customer : customer,
                         creditCard : creditCard,
                         amount : amount,
                         installments : installments
@@ -152,15 +153,13 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
 
             it('shouldn\'t charge a credit card with an exception in sendCharges', function() {
                 var result = null;
-                var isGoPay = true;
-                var hasInternet = true;
 
                 CreditCardPaymentService.sendCharges = jasmine.createSpy('CreditCardPaymentService.sendCharges').andCallFake(function() {
                     throw 'I\'m an unexpected exception';
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -175,6 +174,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     expect(angular.isObject(result)).toBe(false);
                     expect(result).toEqual('Erro interno na aplicação. Por favor, contate o administrador do sistema.');
                     expect(CreditCardPaymentService.sendCharges).toHaveBeenCalledWith({
+                        customer : customer,
                         creditCard : creditCard,
                         amount : amount,
                         installments : installments
