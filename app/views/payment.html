@@ -8,7 +8,7 @@
 	
 	<div class="container-payment">
 		<div class="row-fluid payment-container-height">
-			<div class="span8" ng-switch on="selectedPaymentMethod">
+			<div class="span8 payment-include" ng-switch on="selectedPaymentMethod">
 				<span ng-switch-default><span ng-include src="'views/parts/payment/payment-left-order.html'"></span></span>
 				<span ng-switch-when="none"><span ng-include src="'views/parts/payment/payment-left-order.html'"></span></span>
 				<span ng-switch-when="money"><span ng-include src="'views/parts/payment/payment-left-order.html'"></span></span>
