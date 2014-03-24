@@ -816,10 +816,7 @@ border-radius: 4px;
 .parcelas-cartao {
 	width:100px;
 }
-.validade-mes {
-	width:156px;
-}
-.validade-ano {
+.validade-cartao {
 	width:100px;
 }
 .payment-input-large{
