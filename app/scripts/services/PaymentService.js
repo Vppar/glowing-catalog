@@ -629,7 +629,7 @@
 
                         for ( var ix in exchanges) {
                             var item = exchanges[ix];
-                            productAmount += currencyMultiply(item.amount ? item.amount : 0, item.qty);
+                            productAmount += currencyMultiply(item.price ? item.price : 0, item.qty);
                             productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
                         }
 
