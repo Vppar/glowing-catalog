@@ -48,6 +48,9 @@
                                     productsMap[SKU].amountTotalWithDiscount += amount - discount;
 
                                 } else {
+                                    if(item.type){
+                                        delete item.uniqueName;
+                                    }
                                     productsMap[SKU] = angular.copy(item);
                                     //now we are computing voucher, so we need to verify which fild has the amount.
                                     var itemPrice = productsMap[SKU].price || productsMap[SKU].amount;
