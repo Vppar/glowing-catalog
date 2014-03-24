@@ -555,6 +555,35 @@
 
                             $scope.$watchCollection('items', watchItemDiscounts);
 
+                            $scope.openOrderDiscountDialog = function () {
+                                var dialog = null;
+
+                                if ($scope.enableDiscount) {
+                                    var nonDiscountedTotal = getNonDiscountedTotal();
+
+                                    var data = {
+                                        initial : total.order.discount,
+                                        relative : nonDiscountedTotal
+                                    };
+
+                                    dialog = DialogService.openDialogNumpad(data).then(function (discount) {
+                                        discount = discount > nonDiscountedTotal ? nonDiscountedTotal : discount;
+
+                                        var items = Discount.getItemsWithoutItemDiscount(order.items);
+                                        Discount.distributeOrderDiscount(items, discount);
+                                        updateDiscountRelatedValues();
+                                    });
+                                } else {
+                                    dialog = DialogService.messageDialog({
+                                        title : 'Desconto',
+                                        message : 'Não é possível aplicar desconto ao pedido quando todos os seus itens possuem descontos individuais.',
+                                        btnYes : 'OK'
+                                    });
+                                }
+
+                                return dialog;
+                            };
+
                             // #############################################################################################
                             // REVIEWED METHOD - DO NOT put anything here that
                             // has not been properly reviewed.
