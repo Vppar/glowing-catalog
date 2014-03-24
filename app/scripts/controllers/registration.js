@@ -21,7 +21,7 @@
                                 UserService, logger) {
 
                             var log = logger.getLogger('tnt.catalog.registration.ctrl.RegistrationCtrl');
-
+                            
                             $scope.select2Options = {
                                     minimumResultsForSearch : -1
                                 };
@@ -32,7 +32,8 @@
                              * Regex created to only accept e-mails that follow
                              * the format something@somewhere.whatever
                              */
-                            $scope.emailRegex = /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9]+\.[a-z0-9]+)$/;
+                            $scope.emailRegex =
+                                /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)/;
 
                             // prepare the date selects
                             $scope.birthdate = DataProvider.date;
