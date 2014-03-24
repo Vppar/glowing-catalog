@@ -33,7 +33,7 @@
                              * the format something@somewhere.whatever
                              */
                             $scope.emailRegex =
-                                /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)/;
+                                /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+).\.([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)/;
 
                             // prepare the date selects
                             $scope.birthdate = DataProvider.date;
