@@ -14,7 +14,8 @@
                     url : 'https://vopp.com.br/pagpop/card/?token=' + token,
                     data : data,
                 }).success(function(data) {
-                    if (data && data.transacao && (Number(data.transacao.codigo_retorno) === 0)) {
+                    if (data && data.transacao && 
+                            (data.transacao.situacao === 'demonstrativo' || data.transacao.situacao === 'aprovado')) {
                         log.info('Credit card payment processed.', data);
                         deferred.resolve(data);
                     } else {
