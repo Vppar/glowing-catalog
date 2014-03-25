@@ -17,7 +17,9 @@
 
                     //Minimal date for the datepickers 
                     $scope.dateMin = new Date();
-
+                    
+                    $scope.isDisabled = true;
+                    
                     var check = $scope.check = {};
                     var checkSum = 0;
 
@@ -47,7 +49,16 @@
                     // #####################################################################################################
                     // Scope action functions
                     // #####################################################################################################
-
+                    
+                    $scope.$watchCollection('payments', function(){
+                        console.log($scope.payments);
+                        if($scope.payments.length>0){
+                            $scope.isDisabled = false;
+                        }else{
+                            $scope.isDisabled = true;
+                        }
+                    });
+                    
                     /**
                      * Verifies if entered check already exists in the
                      * $scope.payments array and if not, adds check to the last
