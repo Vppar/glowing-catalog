@@ -119,20 +119,10 @@
                             // the total discount and the exchanges.
                             function getSubTotal() {
                                 return total.order.amount - total.discount;
-                                /*
-                                var totalDiscount = Discount.getTotalDiscount(order.items);
-
-                                var subtotal = total.order.amount - totalDiscount;
-                                return subtotal < 0 ? 0 : subtotal;
-                                */
                             }
 
                             function getNewSubTotal() {
                                 return total.order.amount;
-                                /*
-                                var subtotal = total.order.amount - total.order.itemDiscount;
-                                return subtotal < 0 ? 0 : subtotal;
-                                */
                             }
 
                             // FIXME Replace calls to this with the Discount
