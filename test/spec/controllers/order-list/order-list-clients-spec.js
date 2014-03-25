@@ -316,8 +316,8 @@ describe('Controller: order-list-clients', function () {
                         biggestRounded + Math.round(100 * (100 - Number(acumulator))) / 100;
                 });
 
-        scope.argumentOrder =
-            jasmine.createSpy('scope.argumentOrder').andCallFake(function argumentOrder (order) {
+        scope.augmentOrder =
+            jasmine.createSpy('scope.augmentOrder').andCallFake(function augmentOrder (order) {
                 // Find the entity name
                 var entity = ArrayUtils.find(scope.customers, 'uuid', order.customerId);
                 if (entity) {

@@ -31,65 +31,72 @@
                         for ( var ix in $scope.filteredOrders) {
                             for ( var idx in $scope.filteredOrders[ix].items) {
                                 var item = $scope.filteredOrders[ix].items[idx];
-                                if (item.type !== 'giftCard' && item.type !== 'voucher') {
-                                    var SKU = item.SKU;
-                                    var response = ArrayUtils.find(productsMap, 'SKU', SKU);
+                                var response = undefined;
+                                if(item.SKU){
+                                    var SKU = item.SKU ;
+                                    response = ArrayUtils.find(productsMap, 'SKU', SKU);
+                                }else{
+                                    var SKU = item.title ;
+                                    response = ArrayUtils.find(productsMap, 'title', SKU);
+                                }
+                                var discount = item.itemDiscount || item.orderDiscount || 0;
 
-                                    var discount = item.itemDiscount || item.orderDiscount || 0;
+                                if (response) {
+                                    // now we are computing voucher, so we need to verify which field has the amount.
+                                    var itemPrice = item.price || item.amount;
                                     
-                                    
-                                    if (response) {
-                                        productsMap[SKU].qty += item.qty;
-                                        var amount =
-                                            Math
-                                                .round(100 * (Number(item.qty) * Number(item.price))) / 100;
+                                    productsMap[SKU].qty += item.qty;
+                                    var amount =
+                                        Math.round(100 * (Number(item.qty) * Number(itemPrice))) / 100;
 
-                                        productsMap[SKU].amountTotal += amount;
-                                        productsMap[SKU].amountTotalWithDiscount +=
-                                            amount - discount;
+                                    productsMap[SKU].amountTotal += amount;
+                                    productsMap[SKU].amountTotalWithDiscount += amount - discount;
 
-                                    } else {
-                                        productsMap[SKU] = angular.copy(item);
-                                        productsMap[SKU].amountTotal =
-                                            Math
-                                                .round(100 * (Number(productsMap[SKU].qty) * Number(productsMap[SKU].price))) / 100;
-
-                                        productsMap[SKU].amountTotalWithDiscount =
-                                            productsMap[SKU].amountTotal - discount;
-                                        productsMap[SKU].priceAvg =
-                                            Math
-                                                .round(100 * (Number(productsMap[SKU].amountTotalWithDiscount) / Number(productsMap[SKU].qty))) / 100;
-
-                                        $scope.filteredProducts.push(productsMap[SKU]);
-
-                                        // Stock black magic
-
-                                        var stockResponse = StockService.findInStock(item.id);
-
-                                        if (stockResponse.reserve > 0) {
-                                            if ((stockResponse.quantity - stockResponse.reserve) > 0) {
-                                                productsMap[SKU].stock =
-                                                    stockResponse.quantity - stockResponse.reserve;
-                                            } else {
-                                                productsMap[SKU].stock = 0;
-                                            }
-                                        } else if (stockResponse.quantity > 0) {
-                                            productsMap[SKU].stock = stockResponse.quantity;
-                                        } else {
-                                            productsMap[SKU].stock = 0;
-                                        }
-                                        $scope.filteredProducts.totalStock +=
-                                            productsMap[SKU].stock;
+                                } else {
+                                    if(item.type){
+                                        delete item.uniqueName;
                                     }
+                                    productsMap[SKU] = angular.copy(item);
+                                    //now we are computing voucher, so we need to verify which fild has the amount.
+                                    var itemPrice = productsMap[SKU].price || productsMap[SKU].amount;
+                                    
+                                    productsMap[SKU].amountTotal =
+                                        Math
+                                            .round(100 * (Number(productsMap[SKU].qty) * Number(itemPrice))) / 100;
+
+                                    productsMap[SKU].amountTotalWithDiscount =
+                                        productsMap[SKU].amountTotal - discount;
                                     productsMap[SKU].priceAvg =
                                         Math
                                             .round(100 * (Number(productsMap[SKU].amountTotalWithDiscount) / Number(productsMap[SKU].qty))) / 100;
 
+                                    $scope.filteredProducts.push(productsMap[SKU]);
+
+                                    // Stock black magic
+
+                                    var stockResponse = StockService.findInStock(item.id);
+
+                                    if (stockResponse && stockResponse.reserve > 0) {
+                                        if ((stockResponse.quantity - stockResponse.reserve) > 0) {
+                                            productsMap[SKU].stock =
+                                                stockResponse.quantity - stockResponse.reserve;
+                                        } else {
+                                            productsMap[SKU].stock = 0;
+                                        }
+                                    } else if (stockResponse && stockResponse.quantity > 0) {
+                                        productsMap[SKU].stock = stockResponse.quantity;
+                                    } else {
+                                        productsMap[SKU].stock = 0;
+                                    }
+                                    $scope.filteredProducts.totalStock += productsMap[SKU].stock;
                                 }
+                                productsMap[SKU].priceAvg =
+                                    Math
+                                        .round(100 * (Number(productsMap[SKU].amountTotalWithDiscount) / Number(productsMap[SKU].qty))) / 100;
+
                             }
                         }
                     }
-                    
 
                     $scope.updateProducts =
                         function () {
