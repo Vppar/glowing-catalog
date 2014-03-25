@@ -169,7 +169,7 @@
                 $scope.hideOptions = hideOptions;
             };
 
-            $scope.argumentOrder = function (order) {
+            $scope.augmentOrder = function (order) {
                 // Find the entity name
                 var entity = ArrayUtils.find($scope.customers, 'uuid', order.customerId);
                 if (entity) {
@@ -241,7 +241,7 @@
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
 
-                        $scope.argumentOrder(filteredOrder);
+                        $scope.augmentOrder(filteredOrder);
 
                         if (!entityMap[filteredOrder.customerId]) {
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;

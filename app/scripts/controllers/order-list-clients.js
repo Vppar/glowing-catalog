@@ -62,7 +62,7 @@
 
                                 for ( var ix2 in ordersByEntity) {
                                     var order = ordersByEntity[ix2];
-                                    $scope.argumentOrder(order);
+                                    $scope.augmentOrder(order);
                                     var lastOrder = entityOrders.lastOrder;
                                     entityOrders.uuid = order.uuid;
                                     entityOrders.lastOrder =
