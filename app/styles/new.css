@@ -1,3 +1,13 @@
+.new-client-filter{
+    float: left;
+    display: block;
+}
+
+.new-client-filter .text-over{
+    margin-top: 7px;
+}
+
+
 .payment-receivable-fields .half-row {
     width:50%!important;
 }
