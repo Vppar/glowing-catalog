@@ -1,6 +1,7 @@
 (function(angular) {
     'use strict';
 
+
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
     function WarmupCtrl($scope, $log, UserService, WarmupService) {
@@ -12,6 +13,12 @@
             value : null
         };
     }
+
+
+
+    function ReceivablesWarmupCtrl() {
+    }
+
 
 
     //////////////////////////////////////////////////////////
