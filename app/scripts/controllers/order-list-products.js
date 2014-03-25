@@ -31,9 +31,14 @@
                         for ( var ix in $scope.filteredOrders) {
                             for ( var idx in $scope.filteredOrders[ix].items) {
                                 var item = $scope.filteredOrders[ix].items[idx];
-                                var SKU = item.SKU;
-                                var response = ArrayUtils.find(productsMap, 'SKU', SKU);
-
+                                var response = undefined;
+                                if(item.SKU){
+                                    var SKU = item.SKU ;
+                                    response = ArrayUtils.find(productsMap, 'SKU', SKU);
+                                }else{
+                                    var SKU = item.title ;
+                                    response = ArrayUtils.find(productsMap, 'title', SKU);
+                                }
                                 var discount = item.itemDiscount || item.orderDiscount || 0;
 
                                 if (response) {
