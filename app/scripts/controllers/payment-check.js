@@ -3,11 +3,21 @@
 
     angular.module(
             'tnt.catalog.payment.check',
-            ['tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array', 'tnt.catalog.misplaced.service',
+            [
+                'tnt.catalog.filter.findBy', 'tnt.catalog.payment.entity', 'tnt.utils.array', 'tnt.catalog.misplaced.service',
                 'tnt.catalog.payment.service'
             ]).controller(
             'PaymentCheckCtrl',
-            ['$q', '$scope', '$filter', '$log', '$element', 'CheckPayment', 'OrderService', 'ArrayUtils', 'Misplacedservice',
+            [
+                '$q',
+                '$scope',
+                '$filter',
+                '$log',
+                '$element',
+                'CheckPayment',
+                'OrderService',
+                'ArrayUtils',
+                'Misplacedservice',
                 'PaymentService',
                 function($q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
 
@@ -15,13 +25,16 @@
                     // Warm up the controller
                     // #####################################################################################################
 
-                    //Minimal date for the datepickers 
+                    // Minimal date for the datepickers
                     $scope.dateMin = new Date();
+
+                    $scope.isDisabled = true;
 
                     var check = $scope.check = {};
                     var checkSum = 0;
 
                     $scope.payments = PaymentService.list('check');
+                    var checksCopy = angular.copy($scope.payments);
                     checkSum = (-1) * $scope.total.change + $filter('sum')(PaymentService.list('check'), 'amount');
 
                     var emptyCheckTemplate = {
@@ -35,18 +48,28 @@
                         amount : 0
                     };
                     angular.extend(check, emptyCheckTemplate);
-                    if($scope.total.change<0){
-                        $scope.check.amount = (-1)*$scope.total.change;
-                    }else if($scope.total.change>0 || $scope.total.change === 0){
+                    if ($scope.total.change < 0) {
+                        $scope.check.amount = (-1) * $scope.total.change;
+                    } else if ($scope.total.change > 0 || $scope.total.change === 0) {
                         $scope.check.amount = 0;
                     }
-                    
+
                     // Recovering dialogService from parent scope.
                     var dialogService = $scope.dialogService;
 
                     // #####################################################################################################
                     // Scope action functions
                     // #####################################################################################################
+
+                    $scope.$watchCollection('payments', function() {
+                        if ($scope.payments.length > 0) {
+                            $scope.isDisabled = false;
+                        } else if (checksCopy.length > 0) {
+                            $scope.isDisabled = false;
+                        } else {
+                            $scope.isDisabled = true;
+                        }
+                    });
 
                     /**
                      * Verifies if entered check already exists in the
@@ -132,38 +155,42 @@
 
                         return promiseResult;
                     };
-                    
+
                     /**
                      * Confirm the Checks
                      */
-                    $scope.confirmCheckPayments = function confirmCheckPayments() {
-                        for ( var i in $scope.payments) {
-                            if (!duplicationConfirm()) {
-                                // check if is duplicated.
-                                dialogService.messageDialog({
-                                    title : 'Pagamento com Cheque',
-                                    message : 'Cheque de número ' + $scope.payments[i].number + ' precisa ser único.',
-                                    btnYes : 'OK'
-                                });
-                                return;
-                            }
-                        }
+                    $scope.confirmCheckPayments =
+                            function confirmCheckPayments() {
+                                for ( var i in $scope.payments) {
+                                    if (!duplicationConfirm()) {
+                                        // check if is duplicated.
+                                        dialogService.messageDialog({
+                                            title : 'Pagamento com Cheque',
+                                            message : 'Cheque de número ' + $scope.payments[i].number + ' precisa ser único.',
+                                            btnYes : 'OK'
+                                        });
+                                        return;
+                                    }
+                                }
 
-                        PaymentService.clear('check');
-                        for ( var ix in $scope.payments) {
-                            var data = $scope.payments[ix];
-                            var payment = new CheckPayment(null, data.amount, data.bank, data.agency, data.account, data.number, data.duedate);
-                            PaymentService.add(payment);
-                        }
-                        $scope.selectPaymentMethod('none');
-                    };
+                                PaymentService.clear('check');
+                                for ( var ix in $scope.payments) {
+                                    var data = $scope.payments[ix];
+                                    var payment =
+                                            new CheckPayment(
+                                                    null, data.amount, data.bank, data.agency, data.account, data.number, data.duedate);
+                                    PaymentService.add(payment);
+                                }
+                                $scope.selectPaymentMethod('none');
+                            };
 
                     // #####################################################################################################
                     // Auxiliary functions
                     // #####################################################################################################
-                    
+
                     /**
-                     * Create an array of Checks with date and amount for each installment
+                     * Create an array of Checks with date and amount for each
+                     * installment
                      */
                     function buildInstallments(newCheck) {
                         var newChecks = [];
@@ -189,14 +216,14 @@
                         }
                         return newChecks;
                     }
-                    
+
                     function rebuildInstallmentIds() {
                         var checkPayments = $filter('paymentType')($scope.payments, 'check');
                         for ( var idx in checkPayments) {
                             checkPayments[idx].id = Number(idx) + 1;
                         }
                     }
-                    
+
                     /**
                      * Calculate the proper date of the installments
                      */
@@ -244,7 +271,8 @@
                     }
 
                     /**
-                     * Checks the duplication again, for the ConfirmPayment process
+                     * Checks the duplication again, for the ConfirmPayment
+                     * process
                      */
                     function duplicationConfirm() {
                         for ( var i in $scope.payments) {

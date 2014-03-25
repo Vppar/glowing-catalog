@@ -6,7 +6,7 @@
 		<span class="heading-gradient">Trocar senha</span>
 		<div class="control-group lbl-top" >
 			<label>Senha atual</label>
-			<input name="current-password" ng-model="oldPassword" type="password" class="input-xlarge" placeholder="" ng-required>
+			<input name="current-password" ng-model="oldPassword" type="password" class="input-xlarge" placeholder="" ng-required autofocus>
 		</div>
 		<div class="control-group lbl-top" >
 			<label>Nova senha</label>
@@ -20,10 +20,10 @@
 		
 	<div class="change-pass-dialog-btns">
 		<div class="change-pass-dialog-btn-area">
-			<button ng-click='closeDialog()' class="btn btn-large btn-cancel" type="submit">Cancelar</button>
+			<span ng-click='closeDialog()' class="btn btn-large btn-cancel" type="button" >Cancelar</span>
 		</div>
 		<div class="change-pass-dialog-btn-area">
-			<button ng-click='changePassword()' class="btn btn-large btn-ok" type="submit">Confirmar</button>
+			<button ng-click='changePassword()' class="btn btn-large btn-ok" type="submit">Enviar</button>
 		</div>
 	</div>
 		
