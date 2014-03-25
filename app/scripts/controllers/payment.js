@@ -91,7 +91,8 @@
                                         return getAverage(this.amount, this.unit);
                                     },
                                 },
-                                change : 0
+                                change : 0,
+                                discount : 0
                             };
 
                             // Holds the total amount paid in exchanged
@@ -118,15 +119,11 @@
                             // amount,
                             // the total discount and the exchanges.
                             function getSubTotal() {
-                                var totalDiscount = Discount.getTotalDiscount(order.items);
-
-                                var subtotal = total.order.amount - totalDiscount;
-                                return subtotal < 0 ? 0 : subtotal;
+                                return total.order.amount - total.discount;
                             }
 
                             function getNewSubTotal() {
-                                var subtotal = total.order.amount - total.order.itemDiscount;
-                                return subtotal < 0 ? 0 : subtotal;
+                                return total.order.amount;
                             }
 
                             // FIXME Replace calls to this with the Discount
@@ -204,13 +201,13 @@
                             function enableDiscountWatcher() {
                                 watcher.discount = $scope.$watch('total.order.discount', discountWatcher);
                             }
-                            function disabledDiscountWatcher() {
+                            function disableDiscountWatcher() {
                                 watcher.discount();
                             }
 
                             function discountWatcher(newVal, oldVal) {
                                 if (newVal !== oldVal) {
-                                    disabledDiscountWatcher();
+                                    disableDiscountWatcher();
                                     var discountTotal = $scope.total.order.discount;
                                     var newSubTotal = $scope.total.order.newSubTotal;
                                     var discountLimit = newSubTotal > 100 ? newSubTotal : 100;
@@ -232,6 +229,28 @@
                                     enableDiscountWatcher();
                                 }
                             }
+
+
+                            // Whenever the user changes the quantity of an item from the payment screen
+                            // check if any of them has an order discount higher than its total value.
+                            // Item discounts are handled by the add-to-basket dialog, therefore, there's
+                            // no need to check them here.
+                            function unitWatcher(newValue, oldValue) {
+                                if ($scope.total.order.discount && newValue !== oldValue) {
+                                    disableDiscountWatcher();
+                                    for (var idx in order.items) {
+                                        var item = order.items[idx];
+                                        var itemTotal = Discount._getItemTotal(item);
+                                        if (item.orderDiscount && item.orderDiscount > itemTotal) {
+                                            item.orderDiscount = itemTotal;
+                                        }
+                                    }
+                                    enableDiscountWatcher();
+                                }
+                            }
+
+                            $scope.$watch('total.order.unit', unitWatcher);
+
                             enableDiscountWatcher();
 
                             // When a product is added on items list, we need to
@@ -502,8 +521,16 @@
                                 }
                             }
 
+                            function updateTotalDiscount() {
+                                total.discount = total.order.discount + total.order.itemDiscount;
+                            }
+
+
+                            $scope.$watch('total.order.discount', updateTotalDiscount);
+                            $scope.$watch('total.order.itemDiscount', updateTotalDiscount);
+
                             $scope.$watch('total.order.amount', updateSubTotal);
-                            $scope.$watch('total.order.itemDiscount', updateSubTotal);
+                            $scope.$watch('total.discount', updateSubTotal);
                             $scope.$watch('total.paymentsExchange', updateSubTotal);
 
                             $scope.$watch('total.order.itemDiscount', function() {
@@ -537,6 +564,42 @@
                             });
 
                             $scope.$watchCollection('items', watchItemDiscounts);
+
+                            $scope.openOrderDiscountDialog = function () {
+                                var dialog = null;
+
+                                if ($scope.enableDiscount) {
+                                    var nonDiscountedTotal = getNonDiscountedTotal();
+                                    var items = Discount.getItemsWithoutItemDiscount(order.items);
+
+                                    var nonDiscountedTotalString = $filter('currency')(nonDiscountedTotal);
+
+                                    var message = items.length === 1 ?
+                                        'Desconto aplicado à um item com valor total de ' + nonDiscountedTotalString + '.' :
+                                        'Desconto será distribuído entre ' + items.length + ' itens cujo valor total é de ' + nonDiscountedTotalString + '.';
+
+                                    var data = {
+                                        initial : total.order.discount,
+                                        relative : nonDiscountedTotal,
+                                        title : 'Desconto',
+                                        message : message
+                                    };
+
+                                    dialog = DialogService.openDialogNumpad(data).then(function (discount) {
+                                        discount = discount > nonDiscountedTotal ? nonDiscountedTotal : discount;
+                                        Discount.distributeOrderDiscount(items, discount);
+                                        updateDiscountRelatedValues();
+                                    });
+                                } else {
+                                    dialog = DialogService.messageDialog({
+                                        title : 'Desconto',
+                                        message : 'Não é possível aplicar desconto ao pedido quando todos os seus itens possuem descontos individuais.',
+                                        btnYes : 'OK'
+                                    });
+                                }
+
+                                return dialog;
+                            };
 
                             // #############################################################################################
                             // REVIEWED METHOD - DO NOT put anything here that
