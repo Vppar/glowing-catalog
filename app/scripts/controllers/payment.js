@@ -56,6 +56,7 @@
                             };
 
                             $scope.items = order.items;
+                            
 
                             $scope.keyboard = KeyboardService.getKeyboard();
 
@@ -235,15 +236,19 @@
                             // Item discounts are handled by the add-to-basket dialog, therefore, there's
                             // no need to check them here.
                             function unitWatcher(newValue, oldValue) {
-                                if ($scope.total.order.discount && newValue !== oldValue) {
+                                if (newValue !== oldValue) {
                                     disableDiscountWatcher();
+                                    var orderDiscount = 0;
                                     for (var idx in order.items) {
                                         var item = order.items[idx];
                                         var itemTotal = Discount._getItemTotal(item);
                                         if (item.orderDiscount && item.orderDiscount > itemTotal) {
                                             item.orderDiscount = itemTotal;
                                         }
+
+                                        orderDiscount += item.orderDiscount || 0;
                                     }
+                                    total.order.discount = orderDiscount;
                                     enableDiscountWatcher();
                                 }
                             }
@@ -540,7 +545,7 @@
                             $scope.$watch('total.discount', updateSubTotal);
                             $scope.$watch('total.paymentsExchange', updateSubTotal);
 
-                            $scope.$watch('total.order.itemDiscount', function() {
+                            function updateEnableDiscount() {
                                 var hasItemsWithoutItemDiscount = false;
 
                                 for ( var idx in order.items) {
@@ -549,7 +554,10 @@
                                     }
                                 }
                                 $scope.enableDiscount = hasItemsWithoutItemDiscount;
-                            });
+                            }
+
+                            $scope.$watch('total.order.itemDiscount', updateEnableDiscount);
+                            $scope.$watch('total.order.unit', updateEnableDiscount);
 
                             $scope.$watchCollection('total.payments.exchange', function() {
                                 total.paymentsExchange = $filter('sum')(total.payments.exchange, 'amount');
