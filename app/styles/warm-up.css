@@ -46,7 +46,7 @@
 }
 
 .warm-up-finances-part .new-scrollpanel {
-  height: calc(100% - 60px);
+  height: calc(100% - 329px);
 }
 
 .warm-up-third-part .new-scrollpanel {
@@ -122,6 +122,18 @@
 }
 
 .warm-up-body-row{
+	border-bottom: 1px solid #666;
+	border-bottom: 1px rgb(204, 204, 204) dotted;
+	width: 100%;
+	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
+	line-height: 40px;
+	height: 40px;
+	display: inline-table;
+	-moz-box-sizing:    border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing:        border-box;
+}
+.warm-up-body-subtitle{
 	border-radius: 4px;
 	border-bottom: 1px solid #666;
 	border-bottom: 1px rgb(204, 204, 204) dotted;
@@ -133,6 +145,15 @@
 	-moz-box-sizing:    border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing:        border-box;
+	background:#ccc;
+	color:#222;
+	font-weight:bold;
+}
+.finances-cards-part .warm-up-body-subtitle .new-col-18 {
+	margin-right:-6px;
+}
+.finances-check-part .warm-up-body-subtitle .new-col-18 {
+	margin-right:-2px;
 }
 .warm-up-btn-holder button{
 	margin-left: 10px;
@@ -179,12 +200,38 @@
   width: 97.5%;
 }
 
-.warm-up-body-row-form .input-append input {
-  width:82%;
+.warm-up-body-row-form .input-append {
+  width:91%;
 }
 
 
 .warm-up-section{
 	margin-bottom:20px;
 	margin-top:-5px;
+}
+
+.warm-up-finances-part .warm-up-body-row-form {
+	margin-top:5px;
+}
+.warm-up-finances-part .warm-up-body-row-form .combo-width {
+	width:176px;
+}
+.warm-up-finances-part .warm-up-body-row-form .parcela {
+	width:40px;
+}
+.warm-up-finances-part .warm-up-body-row-form .currency label {
+	margin-right:-6px;
+}
+.warm-up-finances-part .warm-up-body-row-form .currency input {
+	margin-right:-7px;
+}
+
+.warm-up-finances-part .finances-check-part, .warm-up-finances-part .finances-cards-part {
+	height:100%;
+}
+.warm-up-finances-part .new-btn-holder {
+	margin-top:-58px;
+}
+.warm-up-finances-part .warm-up-btn-holder {
+	margin-top:5px;
 }
