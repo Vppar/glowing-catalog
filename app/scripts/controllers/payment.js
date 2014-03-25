@@ -210,13 +210,13 @@
                             function enableDiscountWatcher() {
                                 watcher.discount = $scope.$watch('total.order.discount', discountWatcher);
                             }
-                            function disabledDiscountWatcher() {
+                            function disableDiscountWatcher() {
                                 watcher.discount();
                             }
 
                             function discountWatcher(newVal, oldVal) {
                                 if (newVal !== oldVal) {
-                                    disabledDiscountWatcher();
+                                    disableDiscountWatcher();
                                     var discountTotal = $scope.total.order.discount;
                                     var newSubTotal = $scope.total.order.newSubTotal;
                                     var discountLimit = newSubTotal > 100 ? newSubTotal : 100;
@@ -238,6 +238,28 @@
                                     enableDiscountWatcher();
                                 }
                             }
+
+
+                            // Whenever the user changes the quantity of an item from the payment screen
+                            // check if any of them has an order discount higher than its total value.
+                            // Item discounts are handled by the add-to-basket dialog, therefore, there's
+                            // no need to check them here.
+                            function unitWatcher(newValue, oldValue) {
+                                if ($scope.total.order.discount && newValue !== oldValue) {
+                                    disableDiscountWatcher();
+                                    for (var idx in order.items) {
+                                        var item = order.items[idx];
+                                        var itemTotal = Discount._getItemTotal(item);
+                                        if (item.orderDiscount && item.orderDiscount > itemTotal) {
+                                            item.orderDiscount = itemTotal;
+                                        }
+                                    }
+                                    enableDiscountWatcher();
+                                }
+                            }
+
+                            $scope.$watch('total.order.unit', unitWatcher);
+
                             enableDiscountWatcher();
                             
                             $scope.disabled = setEnableConfirmButton;
