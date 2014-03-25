@@ -51,10 +51,11 @@
                     // #####################################################################################################
                     
                     $scope.$watchCollection('payments', function(){
-                        console.log($scope.payments);
                         if($scope.payments.length>0){
                             $scope.isDisabled = false;
-                        }else{
+                        }else if(PaymentService.list('check').length>0){
+                            $scope.isDisabled = false;
+                        }else {
                             $scope.isDisabled = true;
                         }
                     });
