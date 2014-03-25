@@ -214,7 +214,7 @@
         }).when('/tutorial-android', {
             templateUrl : 'views/tutorial-android.html'
         }).when('/registration', {
-            templateUrl : 'views/registration.html'
+            templateUrl : 'views/registration.html',
         }).when('/third-parties', {
             templateUrl : 'views/third-parties.html',
             controller: 'ThirdPartyCtrl'
@@ -222,7 +222,9 @@
             templateUrl : 'views/products-delivery.html',
             controller : 'ProductsDeliveryCtrl'
         }).when('/spinner-button-promise', {
-            templateUrl : 'views/spinner-button-promise.html'
+            templateUrl : 'views/spinner-button-promise.html',
+        }).when('/pagpop', {
+            templateUrl : 'views/pagpop.html'
         }).otherwise({
             redirectTo : '/'
         });

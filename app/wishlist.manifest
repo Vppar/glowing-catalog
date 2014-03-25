@@ -358,6 +358,7 @@ views/main.html
 views/order-list.html
 views/partial-delivery.html
 views/payment.html
+views/pagpop.html
 views/pending-delivery.html
 views/previous-entries.html
 views/products-delivery.html
