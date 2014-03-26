@@ -4,8 +4,8 @@
         'tnt.catalog.order.service', 'tnt.utils.array', 'tnt.catalog.orderList.service'
     ]).controller(
         'OrderListCtrl',
-        function ($scope, $location, $filter, OrderService, EntityService, 
-            UserService, VoucherService, ArrayUtils, BookService, OrderListService) {
+        function ($scope, $filter, OrderService, EntityService, 
+            UserService, VoucherService, ArrayUtils, OrderListService) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;

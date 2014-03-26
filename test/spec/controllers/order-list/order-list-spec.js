@@ -9,7 +9,7 @@ describe('Controller: order-list', function () {
     var orders = [];
     var customers = null;
     var OrderListService = {};
-    
+
     function daysToMilliseconds (days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -128,25 +128,45 @@ describe('Controller: order-list', function () {
             jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         VoucherService.listByOrigin = jasmine.createSpy('Voucher.listByOrigin');
-        ArrayUtils = _ArrayUtils_;
-        OrderListService.getTotalByType = jasmine.createSpy('OrderListService.getTotalByType').andCallFake(function(orderUUID, type){
-            if(type === 'cash'){
-                return {amount:5 , qty:1};
-            }else if(type === 'check'){
-                return {amount:10 , qty:2};
-            }else if(type === 'creditCard'){
-                return {amount:20 , qty:3};
-            }else if(type === 'onCuff'){
-                return {amount:30, qty:4};
-            }else if(type === 'voucher'){
-                return {amount:40 , qty:5};
-            }else if(type === 'exchange'){
-                return {amount:50 , qty:6};
-            }
-              
-        });
-        OrderListService.getTotalDiscountByOrder = jasmine.createSpy('OrderListService.getTotalByType').andReturn(0);
-        
+        OrderListService.getTotalByType =
+            jasmine.createSpy('OrderListService.getTotalByType').andCallFake(
+                function (orderUUID, type) {
+                    if (type === 'cash') {
+                        return {
+                            amount : 5,
+                            qty : 1
+                        };
+                    } else if (type === 'check') {
+                        return {
+                            amount : 10,
+                            qty : 2
+                        };
+                    } else if (type === 'creditCard') {
+                        return {
+                            amount : 20,
+                            qty : 3
+                        };
+                    } else if (type === 'onCuff') {
+                        return {
+                            amount : 30,
+                            qty : 4
+                        };
+                    } else if (type === 'voucher') {
+                        return {
+                            amount : 40,
+                            qty : 5
+                        };
+                    } else if (type === 'exchange') {
+                        return {
+                            amount : 50,
+                            qty : 6
+                        };
+                    }
+
+                });
+        OrderListService.getTotalDiscountByOrder =
+            jasmine.createSpy('OrderListService.getTotalByType').andReturn(0);
+
         $controller('OrderListCtrl', {
             $scope : scope,
             OrderService : OrderService,
@@ -354,7 +374,7 @@ describe('Controller: order-list', function () {
 
             expect(scope.total.onCuff.qty).toEqual(4);
             expect(scope.total.onCuff.amount).toEqual(30);
-            
+
         });
 
         it('should calculate properly the orders totals', function () {

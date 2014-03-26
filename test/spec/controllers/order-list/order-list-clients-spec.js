@@ -286,7 +286,26 @@ describe('Controller: order-list-clients', function () {
             jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function () {
                 scope.total = receivablesTotalTemplate;
             });
-
+        
+        OrderListService.getTotalByType = jasmine.createSpy('OrderListService.getTotalByType').andCallFake(function(orderUUID, type){
+            if(type === 'cash'){
+                return {amount:5 , qty:1};
+            }else if(type === 'check'){
+                return {amount:10 , qty:2};
+            }else if(type === 'creditCard'){
+                return {amount:20 , qty:3};
+            }else if(type === 'onCuff'){
+                return {amount:30, qty:4};
+            }else if(type === 'voucher'){
+                return {amount:40 , qty:5};
+            }else if(type === 'exchange'){
+                return {amount:50 , qty:6};
+            }
+            
+        });
+        
+        OrderListService.getTotalDiscountByOrder = jasmine.createSpy('OrderListService.getTotalDiscountByOrder').andReturn(0);
+        
         scope.getTotalDiscountByOrder =
             jasmine.createSpy('scope.getTotalDiscountByOrder').andReturn(0);
         scope.filterOrders = jasmine.createSpy('scope.filterOrders');
@@ -367,42 +386,36 @@ describe('Controller: order-list-clients', function () {
         expect(scope.filteredEntities[0].amountTotal).toEqual(362);
         expect(scope.filteredEntities[0].itemsQty).toEqual(9);
         expect(scope.filteredEntities[0].avgPrice).toEqual(40.22);
-        // expect(scope.filteredEntities[0].lastOrder).toEqual(1391306400000);
 
         expect(scope.filteredEntities[1].name).toEqual('Pilintra');
         expect(scope.filteredEntities[1].amountTotal).toEqual(140);
         expect(scope.filteredEntities[1].itemsQty).toEqual(3);
         expect(scope.filteredEntities[1].avgPrice).toEqual(46.67);
-        // expect(scope.filteredEntities[1].lastOrder).toEqual(1391306400000);
 
         expect(scope.filteredEntities[2].name).toEqual('Sephiroth');
         expect(scope.filteredEntities[2].amountTotal).toEqual(436);
         expect(scope.filteredEntities[2].itemsQty).toEqual(6);
         expect(scope.filteredEntities[2].avgPrice).toEqual(72.67);
-        // expect(scope.filteredEntities[2].lastOrder).toEqual(1391565600000);
 
         expect(scope.filteredEntities[3].name).toEqual('Linka');
         expect(scope.filteredEntities[3].amountTotal).toEqual(506);
         expect(scope.filteredEntities[3].itemsQty).toEqual(10);
         expect(scope.filteredEntities[3].avgPrice).toEqual(50.6);
-        // expect(scope.filteredEntities[3].lastOrder).toEqual(1391565600000);
 
     });
 
     it('should updatePaymentsTotal', function () {
         scope.$apply();
         scope.updatePaymentsTotal(scope.filteredEntities);
-        expect(scope.total.cash.qty).toEqual(3);
-        expect(scope.total.cash.amount).toEqual(800);
-        expect(scope.total.check.qty).toEqual(1);
-        expect(scope.total.check.amount).toEqual(200);
-        expect(scope.total.creditCard.qty).toEqual(0);
-        expect(scope.total.creditCard.amount).toEqual(0);
-        expect(scope.total.noMerchantCc.qty).toEqual(0);
-        expect(scope.total.noMerchantCc.amount).toEqual(0);
-        expect(scope.total.exchange.qty).toEqual(0);
-        expect(scope.total.exchange.amount).toEqual(0);
-        expect(scope.total.voucher.qty).toEqual(0);
-        expect(scope.total.voucher.amount).toEqual(0);
+        expect(scope.total.cash.qty).toEqual(7);
+        expect(scope.total.cash.amount).toEqual(35);
+        expect(scope.total.check.qty).toEqual(14);
+        expect(scope.total.check.amount).toEqual(70);
+        expect(scope.total.creditCard.qty).toEqual(21);
+        expect(scope.total.creditCard.amount).toEqual(140);
+        expect(scope.total.exchange.qty).toEqual(42);
+        expect(scope.total.exchange.amount).toEqual(350);
+        expect(scope.total.voucher.qty).toEqual(35);
+        expect(scope.total.voucher.amount).toEqual(280);
     });
 });
