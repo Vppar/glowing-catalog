@@ -16,10 +16,35 @@
 
 
 
-    function ReceivablesWarmupCtrl() {
+    /**
+     * These controllers replace the old {@code BalanceWarmupCtrl}. If any
+     * of the old functionality is required, check release v1.0.1 of the app,
+     * where it was still implemented.
+     *
+     * @see https://github.com/Tunts/glowing-catalog/tree/1.0.1
+     */
+
+
+    function CheckWarmupCtrl() {
     }
 
 
+    function CreditCardWarmupCtrl() {
+    }
+
+
+    function OtherReceivablesWarmupCtrl() {
+    }
+
+
+
+
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //###############################################################################################
+    //###############################################################################################
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////
@@ -696,8 +721,16 @@
             ['$scope', '$log', 'UserService', 'WarmupService', WarmupCtrl]
         )
         .controller(
-            'BalanceWarmupCtrl',
-            ['$scope', '$log', 'SyncDriver', 'DialogService', 'ArrayUtils', 'EntityService', 'BalanceWarmupService', BalanceWarmupCtrl]
+            'CreditCardWarmupCtrl',
+            ['$scope', '$log', 'UserService', 'WarmupService', CreditCardWarmupCtrl]
+        )
+        .controller(
+            'CheckWarmupCtrl',
+            ['$scope', '$log', 'UserService', 'WarmupService', CheckWarmupCtrl]
+        )
+        .controller(
+            'OtherReceivablesWarmupCtrl',
+            ['$scope', '$log', 'UserService', 'WarmupService', OtherReceivablesWarmupCtrl]
         )
         .controller(
             'StockWarmupCtrl',

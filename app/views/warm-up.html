@@ -19,18 +19,20 @@
 				</div>
 			</div> 
 			<div class="span6">
-				<div class="btn-group btn-group-sm pull-right" ng-init="ol='balance'">
-					<a class="btn btn-option" ng-class="{active: ol=='balance'}" ng-click="ol='balance'">Contas a Receber</a>
+				<div class="btn-group btn-group-sm pull-right" ng-init="ol='stock'">
         			<a class="btn btn-option" ng-class="{active: ol=='stock'}" ng-click="ol='stock'">Estoque de Produtos</a>
-        			<a class="btn btn-option" ng-class="{active: ol=='third'}" ng-click="ol='third'">Terceiros</a>
+              <a class="btn btn-option" ng-class="{active: ol=='check'}" ng-click="ol='check'">Cheques a receber</a>
+              <a class="btn btn-option" ng-class="{active: ol=='creditcard'}" ng-click="ol='creditcard'">Cartão de Crédito</a>
+              <a class="btn btn-option" ng-class="{active: ol=='otherreceivables'}" ng-click="ol='otherreceivables'">Contas a receber (diversas)</a>
 				</div>
 			</div>
 		</div>
 
 		<div class="warm-up-body">
-			<div class="warm-up-finances-part" ng-controller="BalanceWarmupCtrl" ng-show="ol=='balance'" ng-include src="'views/parts/warm-up/warm-up-finances.html'"></div>
 			<div class="warm-up-stock-part" ng-show="ol=='stock'" ng-include src="'views/parts/warm-up/warm-up-stock.html'"></div>
-			<div class="warm-up-third-part" fast-click ng-controller="ThirdPartyCtrl" ng-show="ol=='third'" ng-include src="'views/parts/warm-up/warm-up-third.html'"></div>
+			<div class="warm-up-finances-part" fast-click ng-show="ol=='check'" ng-include src="'views/parts/warm-up/warm-up-check.html'"></div>
+			<div class="warm-up-finances-part" fast-click ng-show="ol=='creditcard'" ng-include src="'views/parts/warm-up/warm-up-creditcard.html'"></div>
+			<div class="warm-up-finances-part" fast-click ng-show="ol=='otherreceivables'" ng-include src="'views/parts/warm-up/warm-up-otherreceivables.html'"></div>
 
 			<!-- <div class="row-fluid">
 				<div class="span12">
