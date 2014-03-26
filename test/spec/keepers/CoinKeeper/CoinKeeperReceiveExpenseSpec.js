@@ -73,7 +73,7 @@ describe('Service: CoinKeeperReceiveExpensesSpec', function() {
         var tstamp = fakeNow;
         var receiveEntry = new JournalEntry(null, tstamp, keeperName + 'Liquidate', 1, recEv);
 
-        ExpenseKeeper.handlers[keeperName + 'AddV1'](liqEv);
+        ExpenseKeeper.handlers[keeperName + 'AddV2'](liqEv);
 
         // when
         var receiveCall = function() {
@@ -88,7 +88,7 @@ describe('Service: CoinKeeperReceiveExpensesSpec', function() {
 
         var addEv = new Expense(validExpense);
 
-        ExpenseKeeper.handlers[keeperName + 'AddV1'](addEv);
+        ExpenseKeeper.handlers[keeperName + 'AddV2'](addEv);
 
         // when
         var receiveCall = function() {
@@ -105,7 +105,7 @@ describe('Service: CoinKeeperReceiveExpensesSpec', function() {
             uuid : 1,
             liquidated : fakeNow
         };
-        ExpenseKeeper.handlers[keeperName + 'AddV1'](expense);
+        ExpenseKeeper.handlers[keeperName + 'AddV2'](expense);
 
         // when
         ExpenseKeeper.handlers[keeperName + 'LiquidateV1'](recEv);
@@ -123,7 +123,7 @@ describe('Service: CoinKeeperReceiveExpensesSpec', function() {
             uuid : 5,
             payed : fakeNow
         };
-        ExpenseKeeper.handlers[keeperName + 'AddV1'](expense);
+        ExpenseKeeper.handlers[keeperName + 'AddV2'](expense);
 
         // when
         var receiveCall = function() {
