@@ -182,11 +182,6 @@
         })();
 
 
-        this.buildData = function (balanceData, stockData) {
-            return [].concat(balanceData || [], stockData || []);
-        };
-
-
         this.updateWarmup = function (warmupRef, data) {
             var timestamp = new Date().getTime();
             self.setLocalData(timestamp, data);
@@ -200,6 +195,196 @@
 
         // Update the data in our local object
         angular.extend(local, this.getLocalData());
+    }
+
+
+
+
+    /////////////////////////////////////////////////////////////////////
+    //###################################################################
+    /////////////////////////////////////////////////////////////////////
+    function CheckWarmupService($q, $log, $rootScope, ArrayUtils, EntityService, IdentityService, WarmupService) {
+        var local = WarmupService.local;
+
+
+        function getItems() {
+            var entries = getEntries();
+            var items = [];
+
+            for (var idx in entries) {
+                var entry = entries[idx];
+                items.push(createItem(entry));
+            }
+
+            return items;
+        }
+
+
+        function getEntries() {
+            var entries = local.data || [];
+            var checkEntries = [];
+
+            for (var idx in entries) {
+                var entry = entries[idx];
+                if (
+                    entry.type === 'receivableAdd' &&
+                    entry.event.type === 'check'
+                ) {
+                    checkEntries.push(entry);
+                }
+            }
+
+            return checkEntries;
+        }
+
+
+        function getOtherEntries() {
+            var entries = local.data || [];
+            var checkEntries = [];
+
+            for (var idx in entries) {
+                var entry = entries[idx];
+                if (
+                    entry.type !== 'receivableAdd' ||
+                    (entry.event && entry.event.type !== 'check')
+                ) {
+                    checkEntries.push(entry);
+                }
+            }
+
+            return checkEntries;
+        }
+
+
+        function createEntry(item, idx) {
+            // Convert to a timestamp if needed
+            var duedate = item.duedate && item.duedate.getTime ? item.duedate.getTime() : item.duedate;
+
+            var payment = {
+                id : null,
+                account : item.account,
+                agency : item.agency,
+                bank : item.bank,
+                amount : item.amount,
+                dueDate : duedate,
+                number : item.number,
+                type : 'check'
+            };
+
+            var event = {
+                // When generating the UUID:
+                // 0 is an arbitrary deviceId used in warmup entries
+                // 1 is the CoinKeeper's op for generating UUIDs
+                uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
+                type : 'check',
+                duedate : duedate,
+                entityId : item.customerId,
+                amount : item.amount,
+                created : item.created || null,
+                payment : payment
+            };
+
+            var entry = {
+                uuid : null,
+                type : 'receivableAdd',
+                version : 1,
+                event : event
+            };
+
+            return entry;
+        }
+
+
+        function createItem(entry) {
+            var item = {};
+
+            var event = entry.event;
+            var payment = event.payment;
+
+            var customer = ArrayUtils.find(EntityService.list(), 'uuid', event.entityId);
+
+            if (!customer) {
+                $log.error('Missing customer for warmup entry!', entry);
+            }
+
+            angular.extend(item, {
+                uuid : event.uuid,
+                bank : event.payment.bank,
+                agency : payment.agency,
+                account : payment.account,
+                duedate : event.duedate ? new Date(event.duedate) : null,
+                amount : event.amount,
+                number : payment.number,
+                customerName : customer && customer.name,
+                customerId : event.entityId,
+                used : isUsed(event),
+                redeemed : isRedeemed(event)
+            });
+
+            return item;
+        }
+
+
+        function isUsed(event) {
+            // TODO
+            return true;
+        }
+
+
+        function isRedeemed(event) {
+            // TODO
+            return true;
+        }
+
+
+        function createEntries(items) {
+            $log.debug('Creating warmup entries for check', items);
+            var entries = [];
+
+            for (var idx in items) {
+                var item = items[idx];
+                if (typeof item === 'object') {
+                    entries.push(createEntry(item, idx));
+                }
+            }
+
+            return entries;
+        }
+
+
+        function getTotal(items) {
+            if (!items) { return 0; }
+
+            var total = 0;
+
+            for (var idx in items) {
+                total += items[idx].amount;
+            }
+
+            return total;
+        }
+
+
+        function saveItems(warmupRef, items) {
+            var entries = createEntries(items);
+            var otherEntries = getOtherEntries();
+            var data = [].concat(entries, otherEntries);
+            return WarmupService.updateWarmup(warmupRef, data);
+        }
+
+
+        this.getEntries = getEntries;
+        this.getItems = getItems;
+        this.getTotal = getTotal;
+        this.saveItems = saveItems;
+    }
+
+
+    function CreditCardWarmupService() {
+    }
+
+
+    function OtherReceivablesWarmupService() {
     }
 
 
@@ -620,12 +805,9 @@
         };
 
 
-
-
         this.updateStockWarmup = function (warmupRef, stockData) {
-            var balanceData = this.getLocalNonStockEntries();
-            var data = WarmupService.buildData(balanceData, stockData);
-
+            var otherData = this.getLocalNonStockEntries();
+            var data = [].concat(otherData, stockData);
             return WarmupService.updateWarmup(warmupRef, data);
         };
 
@@ -635,7 +817,10 @@
 
     angular.module('tnt.catalog.warmup.service', [])
         .service('WarmupService', ['$q', '$log', '$rootScope', WarmupService])
-        .service('BalanceWarmupService', ['$q', '$log', '$rootScope', 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService', BalanceWarmupService])
+        .service('CheckWarmupService', ['$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', CheckWarmupService])
+        .service('CreditCardWarmupService', ['$q', '$log', '$rootScope', 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService', CreditCardWarmupService])
+        .service('OtherReceivablesWarmupService', ['$q', '$log', '$rootScope', 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService', OtherReceivablesWarmupService])
+        //.service('BalanceWarmupService', ['$q', '$log', '$rootScope', 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService', BalanceWarmupService])
         .service('StockWarmupService', ['$q', '$log', '$rootScope', 'WarmupService', StockWarmupService]);
 
 }(angular));

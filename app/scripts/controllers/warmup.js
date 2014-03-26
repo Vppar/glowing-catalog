@@ -25,7 +25,124 @@
      */
 
 
-    function CheckWarmupCtrl() {
+    function CheckWarmupCtrl($scope, $log, CheckWarmupService, DialogService, ArrayUtils, EntityService, SyncDriver) {
+        var initialData = null;
+        var data = {};
+
+        var items = CheckWarmupService.getItems();
+
+        items.total = CheckWarmupService.getTotal(items);
+
+        initialData = {
+            uuid : null,
+            customerName : null,
+            customerId : null,
+            bank : null,
+            agency : null,
+            account : null,
+            number : null,
+            duedate : null,
+            amount : null,
+            used : false,
+            redeemed : false
+        };
+
+
+        function addItem(item) {
+            items.push(item);
+            items.total += item.amount;
+        }
+
+
+        function createItemFromData(data) {
+            var item = {};
+            angular.extend(item, initialData, data);
+            return item;
+        }
+
+
+        function calculateTotal() {
+            items.total = CheckWarmupService.getTotal(items);
+            return items.total;
+        }
+
+
+        function resetData() {
+            angular.extend(data, initialData);
+        }
+
+
+        function add(data) {
+            var formIsValid = $scope.newWarmupCheckForm.$valid;
+            var amountIsSet = !!data.amount;
+
+            if (formIsValid && amountIsSet) {
+                addItem(createItemFromData(data));
+                // Clear the form
+                resetData();
+            } else {
+                $log.debug('Warmup check form is not valid!', data);
+                DialogService.messageDialog({
+                    title : 'Cheque a receber',
+                    message : 'Dados inválidos. Por favor, certifique-se de que todos os campos foram preenchidos e estejam corretos.',
+                    btnYes : 'OK'
+                });
+            }
+        }
+
+        function remove(item) {
+            if (!item.used && !item.redeemed) {
+                var index = items.indexOf(item);
+                var itemInItems = ~index;
+                if (itemInItems) {
+                    items.splice(index, 1);
+                    items.total -= item.amount;
+
+                    if (items.total < 0) {
+                        $log.debug('Invalid warmup check total! Cannot be lower than zero.', item, items);
+                        items.total = 0;
+                    }
+                }
+            }
+        }
+
+
+        function save() {
+            var ref = SyncDriver.refs.user.child('warmup');
+
+            $log.debug('Saving check warmup entries:', items);
+            CheckWarmupService.saveItems(ref, items).then(function () {
+                $log.debug('Check warmup entries saved.');
+                DialogService.messageDialog({
+                    title : 'Cheques a receber',
+                    message : 'Cheques a receber salvos com sucesso!',
+                    btnYes : 'OK'
+                });
+            });
+        }
+
+
+        function openChooseCustomerDialog() {
+            return DialogService.openDialogChooseCustomerNoRedirect().then(function (uuid) {
+                if (uuid) {
+                    var customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
+                    data.customerName = customer.name;
+                    data.customerId = uuid;
+                }
+            });
+        }
+
+
+        resetData();
+
+        $scope.data = data;
+        $scope.items = items;
+
+        $scope.add = add;
+        $scope.remove = remove;
+        $scope.save = save;
+
+        $scope.chooseCustomer = openChooseCustomerDialog;
     }
 
 
@@ -714,7 +831,8 @@
     //////////////////////////////////////////////////////////
     angular.module('tnt.catalog.warmup.ctrl', [
         'tnt.catalog.sync.driver',
-        'tnt.catalog.warmup.service'
+        'tnt.catalog.warmup.service',
+        'tnt.catalog.service.dialog'
     ])
         .controller(
             'WarmupCtrl',
@@ -722,11 +840,11 @@
         )
         .controller(
             'CreditCardWarmupCtrl',
-            ['$scope', '$log', 'UserService', 'WarmupService', CreditCardWarmupCtrl]
+            ['$scope', '$log', 'WarmupService', CreditCardWarmupCtrl]
         )
         .controller(
             'CheckWarmupCtrl',
-            ['$scope', '$log', 'UserService', 'WarmupService', CheckWarmupCtrl]
+            ['$scope', '$log', 'CheckWarmupService', 'DialogService', 'ArrayUtils', 'EntityService', 'SyncDriver', CheckWarmupCtrl]
         )
         .controller(
             'OtherReceivablesWarmupCtrl',
