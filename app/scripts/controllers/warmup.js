@@ -50,7 +50,7 @@
 
                 function setItem(targetItem) {
                     item = targetItem || null;
-                    self.new = !item;
+                    self.newItem = !item;
                 }
 
                 function editInternal(targetItem) {
@@ -62,7 +62,7 @@
                 var self = editInternal;
 
                 self.data = {};
-                self.new = true;
+                self.newItem = true;
 
                 function resetData() {
                     self.data.bank = item ? item.bank : null;
@@ -76,20 +76,23 @@
                 }
 
                 function saveItem() {
-                    if (item) {
-                        item.bank = self.data.bank;
-                        item.agency = self.data.agency;
-                        item.account = self.data.account;
-                        item.clientName = self.data.clientName;
-                        item.entityId = self.data.entityId;
-                        item.number = self.data.number;
-                        item.duedate = self.data.duedate.getTime();
-                        item.amount = self.data.amount;
-                    } else {
-                        balance.check.addItem(self.data);
-                    }
+                    if ($scope.warmupCheckForm.$valid) {
+                        $log.debug('Saving check item...', item);
+                        if (item) {
+                            item.bank = self.data.bank;
+                            item.agency = self.data.agency;
+                            item.account = self.data.account;
+                            item.clientName = self.data.clientName;
+                            item.entityId = self.data.entityId;
+                            item.number = self.data.number;
+                            item.duedate = self.data.duedate.getTime();
+                            item.amount = self.data.amount;
+                        } else {
+                            balance.check.addItem(self.data);
+                        }
 
-                    clearData();
+                        clearData();
+                    }
                 }
 
                 function clearData() {
@@ -143,7 +146,7 @@
 
                 function setItem(targetItem) {
                     item = targetItem || null;
-                    self.new = !item;
+                    self.newItem = !item;
                 }
 
 
@@ -155,7 +158,7 @@
                 var self = editInternal;
 
                 self.data = {};
-                self.new = true;
+                self.newItem = true;
 
                 function resetData() {
                     self.data.bank = item ? item.bank : null;
@@ -165,16 +168,18 @@
                 }
 
                 function saveItem() {
-                    if (item) {
-                        item.bank = self.data.bank;
-                        item.agency = self.data.agency;
-                        item.account = self.data.account;
-                        item.balance = self.data.balance;
-                    } else {
-                        balance.checkingAccount.addItem(self.data);
-                    }
+                    if ($scope.warmupCheckingAccountForm.$valid) {
+                        if (item) {
+                            item.bank = self.data.bank;
+                            item.agency = self.data.agency;
+                            item.account = self.data.account;
+                            item.balance = self.data.balance;
+                        } else {
+                            balance.checkingAccount.addItem(self.data);
+                        }
 
-                    clearData();
+                        clearData();
+                    }
                 }
 
                 function clearData() {
