@@ -6,7 +6,7 @@
         var service = function svc(uuid, created, entityId, amount, duedate) {
 
             var validProperties = [
-                'uuid', 'created', 'entityId', 'documentId', 'type', 'payment', 'amount', 'duedate', 'canceled', 'liquidated', 'remarks', 'document'
+                'uuid', 'created', 'entityId', 'documentId', 'type', 'payment', 'amount', 'duedate', 'canceled', 'liquidated', 'remarks', 'document', 'gatewayInfo'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
