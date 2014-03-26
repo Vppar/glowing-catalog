@@ -212,6 +212,7 @@
 }
 
 
-.warm-up-check-wrapper {
+.warm-up-check-wrapper,
+.warm-up-creditcard-wrapper {
   height:100%;
 }

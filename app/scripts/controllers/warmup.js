@@ -26,6 +26,8 @@
 
 
     function CheckWarmupCtrl($scope, $log, CheckWarmupService, DialogService, ArrayUtils, EntityService, SyncDriver) {
+        $log.debug('Initializing CheckWarmupCtrl...');
+
         var initialData = null;
         var data = {};
 
@@ -146,7 +148,124 @@
     }
 
 
-    function CreditCardWarmupCtrl() {
+    function CreditCardWarmupCtrl($scope, $log, CreditCardWarmupService, DialogService, ArrayUtils, EntityService, SyncDriver) {
+        $log.debug('Initializing CreditCardWarmupCtrl...');
+
+        var initialData = null;
+        var data = {};
+
+        var items = CreditCardWarmupService.getItems();
+
+        items.total = CreditCardWarmupService.getTotal(items);
+
+        initialData = {
+            uuid : null,
+            customerName : null,
+            customerId : null,
+            duedate : null,
+            amount : null,
+            installments : null,
+            documentId : null,
+            used : false,
+            redeemed : false
+        };
+
+
+        function addItem(item) {
+            items.push(item);
+            items.total += item.amount;
+        }
+
+
+        function createItemFromData(data) {
+            var item = {};
+            angular.extend(item, initialData, data);
+            return item;
+        }
+
+
+        function calculateTotal() {
+            items.total = CreditCardWarmupService.getTotal(items);
+            return items.total;
+        }
+
+
+        function resetData() {
+            angular.extend(data, initialData);
+        }
+
+
+        function add(data) {
+            var formIsValid = $scope.newCreditCardWarmupForm.$valid;
+            var amountIsSet = !!data.amount;
+
+            if (formIsValid && amountIsSet) {
+                addItem(createItemFromData(data));
+                // Clear the form
+                resetData();
+            } else {
+                $log.debug('Warmup credit card form is not valid!', data);
+                DialogService.messageDialog({
+                    title : 'Contas a receber (Cartões)',
+                    message : 'Dados inválidos. Por favor, certifique-se de que todos os campos foram preenchidos e estejam corretos.',
+                    btnYes : 'OK'
+                });
+            }
+        }
+
+        function remove(item) {
+            if (!item.used && !item.redeemed) {
+                var index = items.indexOf(item);
+                var itemInItems = ~index;
+                if (itemInItems) {
+                    items.splice(index, 1);
+                    items.total -= item.amount;
+
+                    if (items.total < 0) {
+                        $log.debug('Invalid warmup credit card total! Cannot be lower than zero.', item, items);
+                        items.total = 0;
+                    }
+                }
+            }
+        }
+
+
+        function save() {
+            var ref = SyncDriver.refs.user.child('warmup');
+
+            $log.debug('Saving credit card warmup entries:', items);
+            CreditCardWarmupService.saveItems(ref, items).then(function () {
+                $log.debug('CreditCard warmup entries saved.');
+                DialogService.messageDialog({
+                    title : 'Contas a receber (Cartões)',
+                    message : 'Pagamentos em cartão de crédito a receber salvos com sucesso!',
+                    btnYes : 'OK'
+                });
+            });
+        }
+
+
+        function openChooseCustomerDialog() {
+            return DialogService.openDialogChooseCustomerNoRedirect().then(function (uuid) {
+                if (uuid) {
+                    var customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
+                    data.customerName = customer.name;
+                    data.customerId = uuid;
+                }
+            });
+        }
+
+
+        resetData();
+
+        $scope.data = data;
+        $scope.items = items;
+
+        $scope.add = add;
+        $scope.remove = remove;
+        $scope.save = save;
+
+        $scope.chooseCustomer = openChooseCustomerDialog;
     }
 
 
@@ -162,295 +281,6 @@
     //###############################################################################################
     //###############################################################################################
     /////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////
-    function BalanceWarmupCtrl($scope, $log, SyncDriver, DialogService, ArrayUtils, EntityService, BalanceWarmupService) {
-        $log.debug('Initializing BalanceWarmupCtrl...');
-
-        var balance = {};
-        var check = {};
-        var checkingAccount = {};
-
-        balance.total = 0;
-
-        balance.cash = {
-            total : 0,
-            item : BalanceWarmupService.cash.getItem()
-        };
-
-        balance.cash.total = balance.cash.item.balance;
-
-
-        check = {
-            bank : null,
-            agency : null,
-            account : null,
-            clientName : null,
-            entityId : null,
-            number : null,
-            amount : 0,
-        };
-
-
-        balance.check = {
-            edit : (function () {
-                var item = null;
-
-                function setItem(targetItem) {
-                    item = targetItem || null;
-                    self.new = !item;
-                }
-
-                function editInternal(targetItem) {
-                    $log.debug('editing check item', targetItem);
-                    setItem(targetItem);
-                    resetData();
-                }
-
-                var self = editInternal;
-
-                self.data = {};
-                self.new = true;
-
-                function resetData() {
-                    self.data.bank = item ? item.bank : null;
-                    self.data.agency = item ? item.agency : null;
-                    self.data.account = item ? item.account : null;
-                    self.data.clientName = item ? item.clientName : null;
-                    self.data.entityId = item ? item.entityId : null;
-                    self.data.number = item ? item.number : null;
-                    self.data.duedate = item ? item.duedate : null;
-                    self.data.amount = item ? item.amount : 0;
-                }
-
-                function saveItem() {
-                    if (item) {
-                        item.bank = self.data.bank;
-                        item.agency = self.data.agency;
-                        item.account = self.data.account;
-                        item.clientName = self.data.clientName;
-                        item.entityId = self.data.entityId;
-                        item.number = self.data.number;
-                        item.duedate = self.data.duedate.getTime();
-                        item.amount = self.data.amount;
-                    } else {
-                        balance.check.addItem(self.data);
-                    }
-
-                    clearData();
-                }
-
-                function clearData() {
-                    setItem(null);
-                    resetData();
-                }
-
-
-                function openChooseCustomerDialog() {
-                    DialogService.openDialogChooseCustomerNoRedirect().then(function (uuid) {
-                        if (uuid) {
-                            var customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
-                            self.data.clientName = customer.name;
-                            self.data.entityId = uuid;
-                        }
-                    })
-                }
-
-                self.reset = resetData;
-                self.save = saveItem;
-                self.clear = clearData;
-                self.openChooseCustomerDialog = openChooseCustomerDialog;
-
-                return editInternal;
-            })(),
-
-            total : BalanceWarmupService.check.getTotal(),
-            items : BalanceWarmupService.check.getItems(),
-
-            addItem : function (data) {
-                var item = {};
-                ObjectUtils.dataCopy(item, data);
-                this.items.push(item);
-                // It's safe to assume new items have not been used...
-                item.used = false;
-                $log.debug('Adding check item', item);
-            },
-
-            removeItem : function (item) {
-                var idx = this.items.indexOf(item);
-                if (~idx) {
-                    this.items.splice(idx, 1);
-                }
-            }
-        };
-
-
-        balance.checkingAccount = {
-            edit : (function () {
-                var item = null;
-
-                function setItem(targetItem) {
-                    item = targetItem || null;
-                    self.new = !item;
-                }
-
-
-                function editInternal(targetItem) {
-                    setItem(targetItem);
-                    resetData();
-                }
-
-                var self = editInternal;
-
-                self.data = {};
-                self.new = true;
-
-                function resetData() {
-                    self.data.bank = item ? item.bank : null;
-                    self.data.agency = item ? item.agency : null;
-                    self.data.account = item ? item.account : null;
-                    self.data.balance = item ? item.balance : 0;
-                }
-
-                function saveItem() {
-                    if (item) {
-                        item.bank = self.data.bank;
-                        item.agency = self.data.agency;
-                        item.account = self.data.account;
-                        item.balance = self.data.balance;
-                    } else {
-                        balance.checkingAccount.addItem(self.data);
-                    }
-
-                    clearData();
-                }
-
-                function clearData() {
-                    setItem(null);
-                    resetData();
-                }
-
-                self.reset = resetData;
-                self.save = saveItem;
-                self.clear = clearData;
-
-                return editInternal;
-            })(),
-            
-            total : BalanceWarmupService.checkingAccount.getTotal(),
-            items : BalanceWarmupService.checkingAccount.getItems(),
-
-            hasAvailableBook : BalanceWarmupService.checkingAccount.book.hasAvailable(),
-
-            addItem : function (data) {
-                data = data || {};
-                var item = {};
-                ObjectUtils.dataCopy(item, data);
-                item.access = BalanceWarmupService.checkingAccount.book.getAvailable();
-
-                if (!item.access) {
-                    $log.error('No checking account book available!');
-                } else {
-                    // It's safe to assume new items have not been used...
-                    item.used = false;
-                    this.items.push(item);
-                    $log.debug('Added checkingAccount item', item);
-                }
-            },
-
-            removeItem : function (item) {
-                // MUST check if the book has no entries before allowing it to be
-                // removed
-                $log.debug('Removing checking account item', item);
-                var idx = this.items.indexOf(item);
-                if (~idx) {
-                    // FIXME check if the item has entries
-                    this.items.splice(idx, 1);
-                    BalanceWarmupService.checkingAccount.book.untake(item.access);
-                }
-            }
-        };
-
-
-        balance.confirm = function () {
-            $log.debug('Warmup balance confirmed');
-            var ref = SyncDriver.refs.user.child('warmup');
-            var cash = balance.cash.item;
-            var check = balance.check.items;
-            var checkingAccount = balance.checkingAccount.items;
-            var date = $scope.date;
-
-            if (date.value && date.value.getTime) {
-                for (var idx in check) {
-                    check[idx].created = date.value.getTime();
-                }
-            }
-
-            return BalanceWarmupService
-                .updateBalanceWarmup(ref, cash, check, checkingAccount)
-                .then(function () {
-                    return DialogService.messageDialog({
-                        title : 'Saldo inicial',
-                        message : 'Saldo inicial armazenado com sucesso!',
-                        btnYes : 'Ok'
-                    });
-                });
-        };
-
-
-        $scope.check = check;
-        $scope.checkingAccount = checkingAccount;
-        $scope.balance = balance;
-
-
-        function updateBalanceTotal() {
-            balance.total = balance.cash.total +
-                balance.check.total +
-                balance.checkingAccount.total;
-        }
-
-
-        function updateCheckTotal() {
-            var total = 0;
-
-            for (var idx in balance.check.items) {
-                total += balance.check.items[idx].amount;
-            }
-
-            balance.check.total = total;
-        }
-
-
-        function updateCheckingAccountTotal() {
-            var total = 0;
-
-            for (var idx in balance.checkingAccount.items) {
-                total += balance.checkingAccount.items[idx].balance;
-            }
-
-            balance.checkingAccount.total = total;
-        }
-
-        function checkAvailableBooks() {
-            balance.checkingAccount.hasAvailableBook = BalanceWarmupService.checkingAccount.book.hasAvailable();
-        }
-
-
-
-
-
-        $scope.$watchCollection('balance.checkingAccount.items', updateCheckingAccountTotal);
-        $scope.$watchCollection('balance.checkingAccount.items', checkAvailableBooks);
-        $scope.$watchCollection('balance.check.items', updateCheckTotal);
-
-        $scope.$watch('balance.cash.total', updateBalanceTotal);
-        $scope.$watch('balance.check.total', updateBalanceTotal);
-        $scope.$watch('balance.checkingAccount.total', updateBalanceTotal);
-    }
-
-
-
 
     ///////////////////////////////////////////////////////////
     function StockWarmupCtrl($scope, $log, SyncDriver, StockService, InventoryKeeper, ArrayUtils, StockWarmupService, DialogService) {
@@ -840,7 +670,7 @@
         )
         .controller(
             'CreditCardWarmupCtrl',
-            ['$scope', '$log', 'WarmupService', CreditCardWarmupCtrl]
+            ['$scope', '$log', 'CreditCardWarmupService', 'DialogService', 'ArrayUtils', 'EntityService', 'SyncDriver', CreditCardWarmupCtrl]
         )
         .controller(
             'CheckWarmupCtrl',
