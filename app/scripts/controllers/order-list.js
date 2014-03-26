@@ -1,11 +1,11 @@
 (function (angular) {
     'use strict';
     angular.module('tnt.catalog.orderList.ctrl', [
-        'tnt.catalog.order.service', 'tnt.utils.array'
+        'tnt.catalog.order.service', 'tnt.utils.array','tnt.catalog.orderList.service'
     ]).controller(
         'OrderListCtrl',
         function ($scope, $location, $filter, OrderService, EntityService, ReceivableService,
-            UserService, ProductReturnService, VoucherService, ArrayUtils, BookService) {
+            UserService, ProductReturnService, VoucherService, ArrayUtils, BookService, OrderListService) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;
@@ -195,7 +195,7 @@
                     voucherAmount += voucher.amount;
                 }
                 amountTotal += voucherAmount;
-                var discount = $scope.getTotalDiscountByOrder(order);
+                var discount = OrderListService.getTotalDiscountByOrder(order.uuid);
                 order.voucherTotal = voucherAmount;
                 order.voucherQty = count;
                 order.itemsQty = qtyTotal;
@@ -278,18 +278,6 @@
                     }
                 };
 
-            $scope.getTotalDiscountByOrder = function (order) {
-                var bookEntries = BookService.listByOrder(order.uuid);
-                bookEntries = $filter('filter')(bookEntries, bookEntriesByOrder);
-                return $filter('sum')(bookEntries, 'amount');
-            };
-
-            function bookEntriesByOrder (bookEntry) {
-                var result =
-                    (bookEntry.debitAccount === 41301) && (bookEntry.creditAccount === 70001);
-                return result;
-            }
-
             /**
              * ClientFilter
              */
@@ -308,23 +296,21 @@
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
                     var order = orders[ix];
-
-                    // FIXME list only active receivables.
+                    
+                    /**
+                     * When a receivable is changed, we can not compute
+                     * these changes so it is necessary to find all book
+                     * entries for this receivable and cash these
+                     * entries.
+                     */
                     var receivables = ReceivableService.listByDocument(order.uuid);
                     for ( var ix2 in receivables) {
                         var receivable = receivables[ix2];
-
-                        var bookEntries = BookService.listByOrder(receivable.uuid);
-
-                        var financialProfits =  $filter('sum')($filter('filter')(bookEntries, function (bookEntry) {
-                            return (bookEntry.creditAccount === 43005);
-                        }), 'amount');
-
-                        var financialCosts =  $filter('sum')($filter('filter')(bookEntries, function (bookEntry) {
-                            return (bookEntry.creditAccount === 63103);
-                        }), 'amount');
-
-                        var amount = Number(receivable.amount - financialProfits + financialCosts);
+                        // get all book entries changes for this
+                        // receivable
+                        var discountAndExtras =
+                        OrderListService.getEarninsAndLossesByReceivable(receivable.uuid);
+                        var amount = Number(receivable.amount) - discountAndExtras;
 
                         $scope.total[receivable.type].amount += amount;
                         $scope.total[receivable.type].qty++;
@@ -364,7 +350,7 @@
 
                     
                     // computing the discount.
-                    var discount = $scope.getTotalDiscountByOrder(order);
+                    var discount = OrderListService.getTotalDiscountByOrder(order.uuid);
                     $scope.total.discount += discount;
 
                 }

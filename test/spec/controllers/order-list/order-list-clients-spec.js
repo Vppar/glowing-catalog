@@ -6,6 +6,7 @@ describe('Controller: order-list-clients', function () {
     var ReceivableService = {};
     var UserService = {};
     var ProductReturnService = {};
+    var OrderListService = {};
     var VoucherService = {};
     var ArrayUtils = null;
     var orders = [];
@@ -27,6 +28,7 @@ describe('Controller: order-list-clients', function () {
         module('tnt.catalog.inventory.entity');
         module('tnt.catalog.inventory.keeper');
         module('tnt.catalog.journal.replayer');
+        module('tnt.catalog.orderList.service');
 
     });
 
@@ -268,6 +270,7 @@ describe('Controller: order-list-clients', function () {
         scope = $rootScope.$new();
 
         // dependecy mocks
+        OrderListService.getEarninsAndLossesByReceivable = jasmine.createSpy('getEarninsAndLossesByReceivable').andReturn(0);
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         EntityService.list = jasmine.createSpy('EntityService.list');
         UserService.redirectIfIsNotLoggedIn =
@@ -349,6 +352,7 @@ describe('Controller: order-list-clients', function () {
             UserService : UserService,
             ReceivableService : ReceivableService,
             ProductReturnService : ProductReturnService,
+            OrderListService : OrderListService,
             VoucherService : VoucherService,
             ArrayUtils : _ArrayUtils_
         });

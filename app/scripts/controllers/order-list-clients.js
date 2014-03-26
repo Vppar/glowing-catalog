@@ -15,8 +15,9 @@
                 'ReceivableService',
                 'ProductReturnService',
                 'VoucherService',
+                'OrderListService',
                 function ($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService,
-                    ProductReturnService, VoucherService) {
+                    ProductReturnService, VoucherService, OrderListService) {
 
                     // $scope.entities come from OrderListCtrl
                     var customers = $scope.customers;
@@ -95,9 +96,19 @@
                                     var order = ordersByEntity[ix2];
                                     // FIXME list only active receivables.
                                     var receivables = ReceivableService.listByDocument(order.uuid);
+                                    /** 
+                                     * When a receivable is changed, we can not
+                                     * compute these changes so it is necessary to
+                                     * find all book entries for this receivable
+                                     * and cash these entries.
+                                     */
                                     for ( var ix3 in receivables) {
                                         var receivable = receivables[ix3];
-                                        var amount = Number(receivable.amount);
+                                        // get all book entries changes for this
+                                        // receivable
+                                        var discountAndExtras =
+                                        OrderListService.getEarninsAndLossesByReceivable(receivable.uuid);
+                                        var amount = Number(receivable.amount) - discountAndExtras;
 
                                         $scope.total[receivable.type].amount += amount;
                                         $scope.total[receivable.type].qty++;

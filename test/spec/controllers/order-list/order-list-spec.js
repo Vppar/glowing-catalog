@@ -11,6 +11,7 @@ describe('Controller: order-list', function () {
     var orders = [];
     var customers = null;
     var BookService = {};
+    var OrderListService = {};
     function daysToMilliseconds (days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -19,6 +20,7 @@ describe('Controller: order-list', function () {
         module('tnt.catalog.orderList.ctrl');
         module('tnt.catalog.filter.sum');
         module('tnt.utils.array');
+        module('tnt.catalog.orderList.service');
     });
 
     beforeEach(function () {
@@ -165,6 +167,8 @@ describe('Controller: order-list', function () {
         VoucherService.listByOrigin = jasmine.createSpy('Voucher.listByOrigin');
         ArrayUtils = _ArrayUtils_;
         BookService.listByOrder = jasmine.createSpy('BookService.listByOrder');
+        OrderListService.getEarninsAndLossesByReceivable = jasmine.createSpy('getEarninsAndLossesByReceivable').andReturn(0);
+        OrderListService.getTotalDiscountByOrder = jasmine.createSpy('getTotalDiscountByOrder').andReturn(0);
         ReceivableService.listByDocument =
             jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function (document) {
                 return ArrayUtils.list(receivables, 'documentId', document);
@@ -180,6 +184,7 @@ describe('Controller: order-list', function () {
             ProductReturnService : ProductReturnService,
             VoucherService : VoucherService,
             ArrayUtils : _ArrayUtils_,
+            OrderListService : OrderListService,
             BookService : BookService
         });
 
