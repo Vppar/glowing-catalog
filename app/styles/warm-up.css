@@ -46,7 +46,7 @@
 }
 
 .warm-up-finances-part .new-scrollpanel {
-  height: calc(100% - 329px);
+  height: calc(100% - 250px);
 }
 
 .warm-up-third-part .new-scrollpanel {
@@ -166,8 +166,6 @@
 	-moz-box-sizing:    border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing:        border-box;
-	padding: 10px 0px;
-	background-color: #eee;
 }
 .warm-up-body-row-form .warm-up-btn-holder{
 	margin-right: 5px;
