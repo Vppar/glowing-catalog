@@ -98,6 +98,9 @@
                          * Registering handlers
                          */
                         ObjectUtils.ro(this.handlers, 'receivableAddV1', function(event) {
+                            if (event.gatewayInfo) {
+                                delete event.gatewayInfo;
+                            }
                             if (event.payment && event.payment.gopayInfo) {
                                 event.payment.gatewayInfo = event.payment.gopayInfo;
                                 delete event.payment.gopayInfo;
