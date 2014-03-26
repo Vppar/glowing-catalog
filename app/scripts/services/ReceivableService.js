@@ -181,6 +181,10 @@
                                         duedate : payment.duedate,
                                         payment : payment
                                     });
+                                    if(payment.gatewayInfo){
+                                        receivable.gatewayInfo = payment.gatewayInfo;
+                                    }
+                                    
                                     // FIXME set liquidate for cash
                                     if (payment.type === 'cash') {
                                         receivable.liquidated = payment.duedate;
