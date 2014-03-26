@@ -3,6 +3,14 @@
     display: block;
 }
 
+.new-body-summary{
+    background-color: #c8c8c8;
+margin-top: 3px;
+margin-bottom: 3px;
+height: 40px;
+line-height: 40px;
+}
+
 .new-client-filter .text-over{
     margin-top: 7px;
 }
@@ -11,7 +19,7 @@
 }
 .pagpop-line{
     height: 40px;
-
+    line-height: 40px;
 }
 .pagpop .new-scrollpanel{
     height: calc(100% - 199px);
