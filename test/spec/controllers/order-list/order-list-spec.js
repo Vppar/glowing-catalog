@@ -3,15 +3,13 @@ describe('Controller: order-list', function () {
     var scope = {};
     var OrderService = {};
     var EntityService = {};
-    var ReceivableService = {};
     var UserService = {};
-    var ProductReturnService = {};
     var VoucherService = {};
     var ArrayUtils = null;
     var orders = [];
     var customers = null;
-    var BookService = {};
     var OrderListService = {};
+    
     function daysToMilliseconds (days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -24,39 +22,6 @@ describe('Controller: order-list', function () {
     });
 
     beforeEach(function () {
-        receivables = [
-            {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
-                documentId : "cc02a100-5d0a-11e3-96c3-010001000001",
-                // created one month ago
-                created : new Date().getTime() - daysToMilliseconds(28),
-                type : "cash",
-                amount : 300,
-                // expired one week ago
-                duedate : new Date().getTime() - daysToMilliseconds(7)
-            }, {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000020",
-                documentId : "cc02a200-5d0a-11e3-96c3-010001000002",
-                created : new Date().getTime() - daysToMilliseconds(7),
-                type : "cash",
-                amount : 250,
-                duedate : new Date().getTime() + daysToMilliseconds(7)
-            }, {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000021",
-                documentId : "cc02a300-5d0a-11e3-96c3-010001000003",
-                created : new Date().getTime(),
-                type : "cash",
-                amount : 250,
-                duedate : new Date().getTime()
-            }, {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000022",
-                documentId : "cc02a400-5d0a-11e3-96c3-010001000004",
-                created : new Date().getTime(),
-                type : "check",
-                amount : 200,
-                duedate : new Date().getTime() + daysToMilliseconds(15)
-            }
-        ];
 
         orders = [
             {
@@ -161,31 +126,35 @@ describe('Controller: order-list', function () {
         EntityService.list = jasmine.createSpy('EntityService.list').andReturn(customers);
         UserService.redirectIfIsNotLoggedIn =
             jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
-        ProductReturnService.listByDocument =
-            jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         VoucherService.listByOrigin = jasmine.createSpy('Voucher.listByOrigin');
         ArrayUtils = _ArrayUtils_;
-        BookService.listByOrder = jasmine.createSpy('BookService.listByOrder');
-        OrderListService.getEarninsAndLossesByReceivable = jasmine.createSpy('getEarninsAndLossesByReceivable').andReturn(0);
-        OrderListService.getTotalDiscountByOrder = jasmine.createSpy('getTotalDiscountByOrder').andReturn(0);
-        ReceivableService.listByDocument =
-            jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function (document) {
-                return ArrayUtils.list(receivables, 'documentId', document);
-
-            });
-
+        OrderListService.getTotalByType = jasmine.createSpy('OrderListService.getTotalByType').andCallFake(function(orderUUID, type){
+            if(type === 'cash'){
+                return {amount:5 , qty:1};
+            }else if(type === 'check'){
+                return {amount:10 , qty:2};
+            }else if(type === 'creditCard'){
+                return {amount:20 , qty:3};
+            }else if(type === 'onCuff'){
+                return {amount:30, qty:4};
+            }else if(type === 'voucher'){
+                return {amount:40 , qty:5};
+            }else if(type === 'exchange'){
+                return {amount:50 , qty:6};
+            }
+              
+        });
+        OrderListService.getTotalDiscountByOrder = jasmine.createSpy('OrderListService.getTotalByType').andReturn(0);
+        
         $controller('OrderListCtrl', {
             $scope : scope,
             OrderService : OrderService,
             EntityService : EntityService,
             UserService : UserService,
-            ReceivableService : ReceivableService,
-            ProductReturnService : ProductReturnService,
             VoucherService : VoucherService,
             ArrayUtils : _ArrayUtils_,
             OrderListService : OrderListService,
-            BookService : BookService
         });
 
     }));
@@ -344,26 +313,23 @@ describe('Controller: order-list', function () {
         });
 
         it('should updateReceivablesTotal calculate properly the receivables by type', function () {
-            expect(scope.total.cash.qty).toEqual(3);
-            expect(scope.total.cash.amount).toEqual(800);
+            expect(scope.total.cash.qty).toEqual(4);
+            expect(scope.total.cash.amount).toEqual(20);
 
-            expect(scope.total.check.qty).toEqual(1);
-            expect(scope.total.check.amount).toEqual(200);
+            expect(scope.total.check.qty).toEqual(8);
+            expect(scope.total.check.amount).toEqual(40);
 
-            expect(scope.total.creditCard.qty).toEqual(0);
-            expect(scope.total.creditCard.amount).toEqual(0);
+            expect(scope.total.creditCard.qty).toEqual(12);
+            expect(scope.total.creditCard.amount).toEqual(80);
 
-            expect(scope.total.noMerchantCc.qty).toEqual(0);
-            expect(scope.total.noMerchantCc.amount).toEqual(0);
+            expect(scope.total.exchange.qty).toEqual(24);
+            expect(scope.total.exchange.amount).toEqual(200);
 
-            expect(scope.total.exchange.qty).toEqual(0);
-            expect(scope.total.exchange.amount).toEqual(0);
+            expect(scope.total.voucher.qty).toEqual(20);
+            expect(scope.total.voucher.amount).toEqual(160);
 
-            expect(scope.total.voucher.qty).toEqual(0);
-            expect(scope.total.voucher.amount).toEqual(0);
-
-            expect(scope.total.onCuff.qty).toEqual(0);
-            expect(scope.total.onCuff.amount).toEqual(0);
+            expect(scope.total.onCuff.qty).toEqual(16);
+            expect(scope.total.onCuff.amount).toEqual(120);
         });
 
         it('should updateReceivablesTotal calculate properly the receivable by type', function () {
@@ -372,26 +338,23 @@ describe('Controller: order-list', function () {
             ]);
 
             expect(scope.total.cash.qty).toEqual(1);
-            expect(scope.total.cash.amount).toEqual(300);
+            expect(scope.total.cash.amount).toEqual(5);
 
-            expect(scope.total.check.qty).toEqual(0);
-            expect(scope.total.check.amount).toEqual(0);
+            expect(scope.total.check.qty).toEqual(2);
+            expect(scope.total.check.amount).toEqual(10);
 
-            expect(scope.total.creditCard.qty).toEqual(0);
-            expect(scope.total.creditCard.amount).toEqual(0);
+            expect(scope.total.creditCard.qty).toEqual(3);
+            expect(scope.total.creditCard.amount).toEqual(20);
 
-            expect(scope.total.noMerchantCc.qty).toEqual(0);
-            expect(scope.total.noMerchantCc.amount).toEqual(0);
+            expect(scope.total.exchange.qty).toEqual(6);
+            expect(scope.total.exchange.amount).toEqual(50);
 
-            expect(scope.total.exchange.qty).toEqual(0);
-            expect(scope.total.exchange.amount).toEqual(0);
+            expect(scope.total.voucher.qty).toEqual(5);
+            expect(scope.total.voucher.amount).toEqual(40);
 
-            expect(scope.total.voucher.qty).toEqual(0);
-            expect(scope.total.voucher.amount).toEqual(0);
-
-            expect(scope.total.onCuff.qty).toEqual(0);
-            expect(scope.total.onCuff.amount).toEqual(0);
-
+            expect(scope.total.onCuff.qty).toEqual(4);
+            expect(scope.total.onCuff.amount).toEqual(30);
+            
         });
 
         it('should calculate properly the orders totals', function () {

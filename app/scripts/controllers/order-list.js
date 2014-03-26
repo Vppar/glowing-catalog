@@ -1,11 +1,11 @@
 (function (angular) {
     'use strict';
     angular.module('tnt.catalog.orderList.ctrl', [
-        'tnt.catalog.order.service', 'tnt.utils.array','tnt.catalog.orderList.service'
+        'tnt.catalog.order.service', 'tnt.utils.array', 'tnt.catalog.orderList.service'
     ]).controller(
         'OrderListCtrl',
-        function ($scope, $location, $filter, OrderService, EntityService, ReceivableService,
-            UserService, ProductReturnService, VoucherService, ArrayUtils, BookService, OrderListService) {
+        function ($scope, $location, $filter, OrderService, EntityService, 
+            UserService, VoucherService, ArrayUtils, BookService, OrderListService) {
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;
@@ -289,72 +289,50 @@
                 }
             };
 
-            /**
-             * UpdatePaymentTotals
-             */
             $scope.updateReceivablesTotal = function (orders) {
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
                     var order = orders[ix];
+
+                    //CASH
+                    var cashAmount = OrderListService.getTotalByType(order.uuid, 'cash');
+                    $scope.total.cash.amount += cashAmount.amount;
+                    $scope.total.cash.qty += cashAmount.qty;
+                    $scope.total.amount += cashAmount.amount;
                     
-                    /**
-                     * When a receivable is changed, we can not compute
-                     * these changes so it is necessary to find all book
-                     * entries for this receivable and cash these
-                     * entries.
-                     */
-                    var receivables = ReceivableService.listByDocument(order.uuid);
-                    for ( var ix2 in receivables) {
-                        var receivable = receivables[ix2];
-                        // get all book entries changes for this
-                        // receivable
-                        var discountAndExtras =
-                        OrderListService.getEarninsAndLossesByReceivable(receivable.uuid);
-                        var amount = Number(receivable.amount) - discountAndExtras;
-
-                        $scope.total[receivable.type].amount += amount;
-                        $scope.total[receivable.type].qty++;
-                        $scope.total.amount += amount;
-                    }
-
-                    var exchangedProducts = ProductReturnService.listByDocument(order.uuid);
-                    for ( var ix3 in exchangedProducts) {
-                        var exchanged = exchangedProducts[ix3];
-                        $scope.total.exchange.amount += (exchanged.cost * exchanged.quantity);
-                        $scope.total.exchange.qty += Number(exchanged.quantity);
-                        $scope.total.amount += (exchanged.cost * exchanged.quantity);
-                    }
-
-                    var vouchers = VoucherService.listByDocument(order.uuid);
-                    for ( var ix4 in vouchers) {
-                        var voucher = vouchers[ix4];
-
-                        var voucherAmount = Number(voucher.amount);
-
-                        $scope.total.voucher.amount += voucherAmount;
-                        $scope.total.voucher.qty += voucher.qty;
-                        $scope.total.amount += voucherAmount;
-                    }
-
-                    var vouchersOrigin = VoucherService.listByOrigin(order.uuid);
-                    for ( var ix4 in vouchersOrigin) {
-                        var voucherOrigin = vouchersOrigin[ix4];
-
-                        var voucherOriginAmount = Number(voucherOrigin.amount);
-
-                        $scope.total.voucher.amount -= voucherOriginAmount;
-                        $scope.total.voucher.qty -= voucherOrigin.qty;
-                        $scope.total.amount -= voucherOriginAmount;
-                    }
+                    //Check
+                    var resultCheck = OrderListService.getTotalByType(order.uuid, 'check');
+                    $scope.total.check.amount += resultCheck.amount;
+                    $scope.total.check.qty += resultCheck.qty;
+                    $scope.total.amount += resultCheck.amount;
                     
-
+                    //Card
+                    var resultCard = OrderListService.getTotalByType(order.uuid, 'creditCard');
+                    $scope.total.creditCard.amount += resultCard.amount;
+                    $scope.total.creditCard.qty += resultCard.qty;
+                    $scope.total.amount += resultCard.amount;
                     
-                    // computing the discount.
+                    //Cuff
+                    var resultCuff = OrderListService.getTotalByType(order.uuid, 'onCuff');
+                    $scope.total.onCuff.amount += resultCuff.amount;
+                    $scope.total.onCuff.qty += resultCuff.qty;
+                    $scope.total.amount += resultCuff.amount;
+                    
+                    //Voucher
+                    var resultVoucher = OrderListService.getTotalByType(order.uuid, 'voucher');
+                    $scope.total.voucher.amount += resultVoucher.amount;
+                    $scope.total.voucher.qty += resultVoucher.qty;
+                    $scope.total.amount += resultVoucher.amount;
+                    
+                    //Exchange Products
+                    var resultExchangeProducts = OrderListService.getTotalByType(order.uuid, 'exchange');
+                    $scope.total.exchange.amount += resultExchangeProducts.amount;
+                    $scope.total.exchange.qty += resultExchangeProducts.qty;
+                    $scope.total.amount += resultExchangeProducts.amount;
+                    
                     var discount = OrderListService.getTotalDiscountByOrder(order.uuid);
                     $scope.total.discount += discount;
-
                 }
-
             };
 
             $scope.computeAvaliableCustomers = function (customers) {

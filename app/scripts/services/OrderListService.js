@@ -1,99 +1,72 @@
 (function (angular) {
     'use strict';
 
-    angular.module('tnt.catalog.orderList.service', []).service(
+    angular.module('tnt.catalog.orderList.service', [
+        'tnt.catalog.receivable.service'
+    ]).service(
         'OrderListService',
         [
             '$filter',
             'ReceivableService',
             'BookService',
-            function ($filter, ReceivableService, BookService) {
-
-                /**
-                 * 
-                 * @param orderUUID
-                 * @returns total gross of sales
-                 */
-                this.getTotalGrossSalesByOrder = function (orderUUID) {
-                    var bookEntries = BookService.listByOrder(orderUUID);
-                    bookEntries = $filter('filter')(bookEntries, filterByGrossSales);
-                    return $filter('sum')(bookEntries, 'amount');
-                };
-
+            'logger',
+            function ($filter, ReceivableService, BookService, logger) {
+                
+                var log = logger.getLogger('tnt.catalog.orderList.service');
+                
                 /**
                  * 
                  * @param orderUUID
                  * @returns total discount on sale
                  */
                 this.getTotalDiscountByOrder = function (orderUUID) {
-                    var bookEntries = BookService.listByOrder(orderUUID);
-                    bookEntries = $filter('filter')(bookEntries, filterByDiscount);
-                    return $filter('sum')(bookEntries, 'amount');
+                    return this.getTotalByType(orderUUID, 'discount').amount;
                 };
 
                 /**
-                 * 
                  * @param orderUUID
-                 * @returns total profit or discount on receivables edit.
+                 * @param type - use to set the debit and credit account
+                 * @returns @object {amount : total amount,
+                 *                   qty: }
                  */
-                this.getEarningsAndLossesByOrder = function (orderUUID) {
-                    var entries = ReceivableService.listByDocument(orderUUID);
-                    return this.getEarninsAndLossesByReceivable(entries[0].uuid);
+                this.getTotalByType = function (orderUUID, type) {
+                    if (type === 'cash') {
+                        return this.getTotalByOrder(orderUUID, 70001, 11111);
+                    } else if (type === 'check') {
+                        return this.getTotalByOrder(orderUUID, 70001, 11121);
+                    } else if (type === 'creditCard') {
+                        return this.getTotalByOrder(orderUUID, 70001, 11512);
+                    } else if (type === 'onCuff') {
+                        return this.getTotalByOrder(orderUUID, 70001, 11511);
+                    } else if (type === 'voucher') {
+                        return this.getTotalByOrder(orderUUID, 70001, 21301);
+                    } else if (type === 'exchange') {
+                        return this.getTotalByOrder(orderUUID, 70001, 41305);
+                    } else if (type === 'discount') {
+                        return this.getTotalByOrder(orderUUID, 70001, 41301);
+                    } else {
+                        log.fatal('No type found for this call. ', 'orderUUID: ', orderUUID, 'type: ',type);
+                    }
+
                 };
 
-                /**
-                 * 
-                 * @param receivableUUID
-                 * @returns {Number} total profit or discount on receivables
-                 *          edit.
-                 */
-                this.getEarninsAndLossesByReceivable =
-                    function (receivableUUID) {
-                        var bookEntries = BookService.listByOrder(receivableUUID);
-                        var discountEntries =
-                            $filter('filter')(bookEntries, filterByDiscountWithoutReceive);
-                        var extraEntries = $filter('filter')(bookEntries, filterByExtra);
+                this.getTotalByOrder =
+                    function (orderUUID, creditAccount, debitAccount) {
+                        var bookEntries = BookService.listByOrder(orderUUID);
+                        bookEntries =
+                            $filter('filter')(
+                                bookEntries,
+                                function (entry) {
+                                    return (entry.debitAccount === debitAccount) &&
+                                        (entry.creditAccount === creditAccount);
+                                });
 
-                        var totalDiscount = $filter('sum')(discountEntries, 'amount');
-                        var totalExtra = $filter('sum')(extraEntries, 'amount');
-
-                        return totalExtra - totalDiscount;
+                        var amount = $filter('sum')(bookEntries, 'amount');
+                        return {
+                            amount : amount,
+                            qty : bookEntries.length,
+                        };
                     };
-
-                /**
-                 * Return only gross sales value of an order acrescimo
-                 * creditAccount: 43005 debitAccount: 70001
-                 */
-                function filterByExtra (bookEntry) {
-                    return (bookEntry.debitAccount === 70001) &&
-                        (bookEntry.creditAccount === 43005);
-                }
-
-                /**
-                 * Return only discount wihtout receive. creditAccount: 70001
-                 * debitAccount: 63103
-                 */
-                function filterByDiscountWithoutReceive (bookEntry) {
-                    return (bookEntry.debitAccount === 63103) &&
-                        (bookEntry.creditAccount === 70001);
-                }
-
-                /**
-                 * Return only gross sales value of an order
-                 */
-                function filterByGrossSales (bookEntry) {
-                    return (bookEntry.debitAccount === 70001) &&
-                        (bookEntry.creditAccount === 21307);
-                }
-
-                /**
-                 * Return only discount values of an order
-                 */
-                function filterByDiscount (bookEntry) {
-                    var result =
-                        (bookEntry.debitAccount === 41301) && (bookEntry.creditAccount === 70001);
-                    return result;
-                }
 
             }
         ]);
