@@ -54,27 +54,26 @@
 					<div class="row-fluid">
 						<div class="new-body-summary scroll-title-compensator">
 							<span class="new-col-2 text-center">&nbsp;</span>
-							<span class="new-col-3 text-center">1</span>
-							<span class="new-col-7">1</span>
+							<span class="new-col-3 text-center">{{numOrders}}</span>
+							<span class="new-col-7">{{numCustomers}}</span>
 							<span class="new-col-4 text-center">&nbsp;</span>
 							<span class="new-col-1 text-center">&nbsp;</span>
-							<span class="new-col-3 currency">999,99</span>
+							<span class="new-col-3 currency">{{total|currency}}</span>
 							<span class="new-col-4 text-center">&nbsp;</span>
 						</div>
 					</div>
 
 					<div class="new-scrollpanel">
 
-<!-- 						<div class="row-fluid" ng-repeat="x in xs"> -->
-							<div class="row-fluid">
+							<div class="row-fluid" ng-repeat="receivable in ccReceivables">
 							<div class="new-body-row pagpop-line">
-								<span class="new-col-2 text-center">20/04/2014</span>
-								<span class="new-col-3 text-center">0005-08-14</span>
-								<span class="new-col-7">Maria Aparecida de Oliveira</span>
-								<span class="new-col-4 text-center">C-MASTERCARD</span>
-								<span class="new-col-1 text-center">12</span>
-								<span class="new-col-3 currency">214,00</span>
-								<span class="new-col-4 text-center">Aprovado TD04420</span>
+								<span class="new-col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</span>
+								<span class="new-col-3 text-center">{{receivable|uuidCode}}</span>
+								<span class="new-col-7">{{receivable.payment.owner}}</span>
+								<span class="new-col-4 text-center">{{(receivable.payment.gatewayInfo.transacao.tipo === 'Credito') ? 'C' : 'D'}}-{{receivable.payment.flag}}</span>
+								<span class="new-col-1 text-center">{{receivable.payment.installments}}</span>
+								<span class="new-col-3 currency">{{receivable.amount|currency}}</span>
+								<span class="new-col-4 text-center">{{receivable.payment.gatewayInfo.transacao.situacao}} {{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</span>
 							</div>
 						</div>
 

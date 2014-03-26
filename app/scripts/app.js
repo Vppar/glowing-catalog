@@ -133,7 +133,8 @@
             'tnt.catalog.purchase.summary.ctrl',
             'tnt.catalog.purchase.ticket.dialog.ctrl',
             'tnt.catalog.purchase.ticket.ctrl',
-            'tnt.catalog.purchase.ctrl'
+            'tnt.catalog.purchase.ctrl',
+            'tnt.catalog.pagpop'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -224,7 +225,8 @@
         }).when('/spinner-button-promise', {
             templateUrl : 'views/spinner-button-promise.html'
         }).when('/pagpop', {
-            templateUrl : 'views/pagpop.html'
+            templateUrl : 'views/pagpop.html',
+            controller : 'PagpopCtrl'
         }).otherwise({
             redirectTo : '/'
         });
