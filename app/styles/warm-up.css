@@ -37,20 +37,12 @@
   height: calc(100% - 103px);
 }
 
-.warm-up .new-scrollpanel {
-  height : calc(100% - 90px);
-}
-
 .warm-up-finances-part, .warm-up-third-part {
   height: 100%;
 }
 
 .warm-up-finances-part .new-scrollpanel {
-  height: calc(100% - 250px);
-}
-
-.warm-up-third-part .new-scrollpanel {
-  height: calc(100% - 100px);
+  height: calc(100% - 228px);
 }
 
 .warm-up-stock-part .new-scrollpanel {
@@ -159,17 +151,6 @@
 	margin-left: 10px;
 }
 
-.warm-up-body-row-form{
-	width: 100%;
-	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
-	display: inline-table;
-	-moz-box-sizing:    border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing:        border-box;
-}
-.warm-up-body-row-form .warm-up-btn-holder{
-	margin-right: 5px;
-}
 
 .warm-up-body-row-form .warm-up-calendar input{
 	width: 100%;
@@ -194,12 +175,12 @@
 	text-align: right;
 }
 
-.warm-up-body-row .new-col-6 .currency, .warm-up-body-row-form .new-col-4 .currency {
-  width: 97.5%;
+.warm-up-stock-part .product-header-order .products-to-buy-filter {
+	margin:0!important;
 }
 
-.warm-up-body-row-form .input-append {
-  width:91%;
+.warm-up-section .input-append {
+  width:100%;
 }
 
 
@@ -212,24 +193,20 @@
 	margin-top:5px;
 }
 .warm-up-finances-part .warm-up-body-row-form .combo-width {
-	width:176px;
+	width:183px;
 }
-.warm-up-finances-part .warm-up-body-row-form .parcela {
-	width:40px;
-}
-.warm-up-finances-part .warm-up-body-row-form .currency label {
-	margin-right:-6px;
-}
-.warm-up-finances-part .warm-up-body-row-form .currency input {
-	margin-right:-7px;
-}
-
 .warm-up-finances-part .finances-check-part, .warm-up-finances-part .finances-cards-part {
 	height:100%;
 }
 .warm-up-finances-part .new-btn-holder {
 	margin-top:-58px;
 }
-.warm-up-finances-part .warm-up-btn-holder {
-	margin-top:5px;
+.warm-up-finances-part .new-scrollpanel .new-col-1 img {
+	cursor:pointer;
+}
+.finances-cards-part .new-col-17 {
+	width:70.4%;
+}
+.finances-check-part .new-col-17 {
+	width:70.7%;
 }
