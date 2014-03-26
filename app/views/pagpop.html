@@ -18,7 +18,7 @@
 						<div class="span4">
 							<div class="new-calendar">
 								<div class="text-over">Data Inicial</div>
-								<input id="dtIni" type="text" placeholder="" ng-disabled="dtIniDisabled" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
+								<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
 								<label for="dtIni" class="ic-calendar">
 									<img src="images/icons/ic-calendar.png">
 								</label>
@@ -47,7 +47,7 @@
 							<span class="new-col-4 text-center">Tipo/Bandeira</span>
 							<span class="new-col-1 text-center">Parc</span>
 							<span class="new-col-3 currency">Valor Total</span>
-							<span class="new-col-4 text-center">Status</span>
+							<span class="new-col-4 text-center">Autorização</span>
 						</div>
 					</div>
 
@@ -65,15 +65,15 @@
 
 					<div class="new-scrollpanel">
 
-							<div class="row-fluid" ng-repeat="receivable in ccReceivables">
+							<div class="row-fluid" ng-repeat="receivable in filteredReceivables | orderBy: '-created'">
 							<div class="new-body-row pagpop-line">
 								<span class="new-col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</span>
 								<span class="new-col-3 text-center">{{receivable|uuidCode}}</span>
 								<span class="new-col-7">{{receivable.payment.owner}}</span>
 								<span class="new-col-4 text-center">{{(receivable.payment.gatewayInfo.transacao.tipo === 'Credito') ? 'C' : 'D'}}-{{receivable.payment.flag}}</span>
 								<span class="new-col-1 text-center">{{receivable.payment.installments}}</span>
-								<span class="new-col-3 currency">{{receivable.amount|currency}}</span>
-								<span class="new-col-4 text-center">APROVADO {{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</span>
+								<span class="new-col-3 currency">{{receivable.amount|currency: ''}}</span>
+								<span class="new-col-4 text-center">{{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</span>
 							</div>
 						</div>
 

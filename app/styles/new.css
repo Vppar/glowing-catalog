@@ -8,6 +8,7 @@
 margin-top: 3px;
 margin-bottom: 3px;
 height: 40px;
+border-radius:4px;
 line-height: 40px;
 }
 
@@ -22,7 +23,7 @@ line-height: 40px;
     line-height: 40px;
 }
 .pagpop .new-scrollpanel{
-    height: calc(100% - 199px);
+    height: calc(100% - 245px);
 }
 
 .payment-receivable-fields .half-row {
