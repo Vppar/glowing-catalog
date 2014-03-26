@@ -342,7 +342,9 @@ views/parts/receivable/receivable-edit-parc-dialog.html
 views/parts/receivable/receivable-edit.html
 views/parts/receivable/receivable-list.html
 views/parts/receivable/receivable-receive.html
-views/parts/warm-up/warm-up-finances.html
+views/parts/warm-up/warm-up-check.html
+views/parts/warm-up/warm-up-creditcard.html
+views/parts/warm-up/warm-up-otherreceivables.html
 views/parts/warm-up/warm-up-stock.html
 views/add-customer.html
 views/basket.html
