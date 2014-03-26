@@ -6,7 +6,16 @@
 .new-client-filter .text-over{
     margin-top: 7px;
 }
+.new-client-filter input{
+    width: 350px;
+}
+.pagpop-line{
+    height: 40px;
 
+}
+.pagpop .new-scrollpanel{
+    height: calc(100% - 199px);
+}
 
 .payment-receivable-fields .half-row {
     width:50%!important;
