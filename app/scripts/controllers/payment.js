@@ -261,7 +261,6 @@
 
                             $scope.$watch('cash.amount', function() {
                                 PaymentService.clear('cash');
-
                                 if ($scope.cash.amount != 0) {
                                     var cash = new CashPayment($scope.cash.amount);
                                     cash.duedate = new Date().getTime();
@@ -341,6 +340,9 @@
 
                             $scope.selectMoneyPayment = function selectMoneyPayment() {
                                 // FIXME - Used to temporally resolve VOPP-210.
+                                if(getCashAmount() === 0) {
+                                    $scope.cash.amount = getSubTotal();
+                                }
                                 var delta = new Date().getTime() - $scope.keyboard.status.changed;
                                 delta = isNaN(delta) ? 501 : delta;
                                 if (!$scope.keyboard.status.active && delta > 500) {
