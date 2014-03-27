@@ -182,7 +182,9 @@
                             } else {
                                 // Receivables coming from warmup.
                                 receivable.document = 'Conta a Receber';
-                                var installments = receivable.payment.installments;
+                                // FIXME OnCuff receivables seem to store the installment in the number
+                                // property. Need to check if this is really the case.
+                                var installments = receivable.payment.installments || receivable.payment.number;
                                 var numberOfInstallments = receivable.payment.numberOfInstallments;
 
                                 receivable.installment = installments ? installments : 1;
