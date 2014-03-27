@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('tnt.catalog.orderList.products.ctrl', [
-            'tnt.catalog.order.service', 'tnt.utils.array'
+            'tnt.catalog.order.service', 'tnt.utils.array', 'tnt.catalog.orderList.service'
         ])
         .controller(
             'OrderListProductsCtrl',
@@ -15,8 +15,9 @@
                 'DataProvider',
                 'ReceivableService',
                 'StockService',
+                'OrderListService',
                 function ($scope, $location, $filter, OrderService, ArrayUtils, DataProvider,
-                    ReceivableService, StockService) {
+                    ReceivableService, StockService, OrderListService) {
 
                     $scope.filteredProducts = [];
                     $scope.filteredProducts.totalStock = 0;
@@ -29,8 +30,11 @@
 
                         var productsMap = {};
                         for ( var ix in $scope.filteredOrders) {
+                            var order = $scope.filteredOrders[ix];
+                            var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid);
+                            console.log(discountCoupom);
                             for ( var idx in $scope.filteredOrders[ix].items) {
-                                var item = $scope.filteredOrders[ix].items[idx];
+                                var item = order.items[idx];
                                 var response = undefined;
                                 if(item.SKU){
                                     var SKU = item.SKU ;

@@ -22,7 +22,16 @@
                 this.getTotalDiscountByOrder = function (orderUUID) {
                     return this.getTotalByType(orderUUID, 'discount').amount;
                 };
-
+                
+                /**
+                 * 
+                 * @param orderUUID
+                 * @returns total discount on sale
+                 */
+                this.getDiscountCoupomByOrder = function (orderUUID) {
+                    return this.getTotalByOrder(orderUUID, 70001, 41303).amount;
+                };
+                
                 /**
                  * @param orderUUID
                  * @param type - use to set the debit and credit account
