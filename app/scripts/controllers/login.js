@@ -35,6 +35,7 @@
                     }).then(function () {
                         $log.debug('Unsynced data has been deleted to switch user!');
                         return UserService.clearData().then(function () {
+                            $scope.pass = '';
                             $log.debug('User data cleared.');
                             $scope.user = '';
                             // We may need to call $scope.$apply()...
