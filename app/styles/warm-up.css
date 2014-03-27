@@ -1,3 +1,6 @@
+.warm-up-calendar-to-close-right .dropdown-menu{
+	left: 447px !important;
+}
 .name-cutter{
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -132,6 +135,7 @@
 }
 .warm-up-body-subtitle{
 	border-radius: 4px;
+	margin-top: 3px;
 	border-bottom: 1px solid #666;
 	border-bottom: 1px rgb(204, 204, 204) dotted;
 	width: 100%;
