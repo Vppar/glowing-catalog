@@ -405,7 +405,6 @@ describe('Controller: order-list', function () {
                 scope.dtFilter.dtInitial = new Date(new Date() - daysToMilliseconds(2));
                 scope.dtFilter.dtFinal = new Date(new Date() - daysToMilliseconds(1));
                 scope.filterOrders(scope.filteredOrders);
-                console.log(scope.filteredOrders);
                 expect(scope.filteredOrders.length).toEqual(0);
 
             });
