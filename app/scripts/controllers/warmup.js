@@ -287,7 +287,7 @@
 
         $scope.chooseCustomer = openChooseCustomerDialog;
 
-        $scope.installmentsRegex = /^[1-9]{1,2}((\/|\-| de )[1-9]{1,2}){1}$/;
+        $scope.installmentsRegex = /^[1-9][0-9]{0,1}((\/|\-| de )[1-9][0-9]{0,1}){1}$/;
     }
 
     function OtherReceivablesWarmupCtrl() {
