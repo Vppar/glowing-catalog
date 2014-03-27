@@ -83,6 +83,7 @@ describe('Controller: ReceivableListCtrl', function() {
 
         it('returns true if receivable duedate is equal initial datetime', function () {
             // set dtFinal to be greater than the initial date
+            scope.selectedReceivableMode = 'listOpen';
             scope.dtFilter.dtFinal.setHours(scope.dtFilter.dtFinal.getHours() + 1);
             receivable.duedate = scope.dtFilter.dtInitial.getTime();
             expect(ReceivableListCtrl.filterByDate(receivable)).toBe(true);
@@ -90,6 +91,7 @@ describe('Controller: ReceivableListCtrl', function() {
 
         it('returns true if receivable duedate is equal final datetime', function () {
             // set dtInitial to be lower than the final date
+            scope.selectedReceivableMode = 'listOpen';
             scope.dtFilter.dtInitial.setHours(scope.dtFilter.dtInitial.getHours() - 1);
             receivable.duedate = scope.dtFilter.dtFinal.getTime();
             expect(ReceivableListCtrl.filterByDate(receivable)).toBe(true);
@@ -97,7 +99,7 @@ describe('Controller: ReceivableListCtrl', function() {
 
         it('returns true if receivable duedate is greater than initial datetime and lower than final datetime', function () {
             var now = new Date();
-
+            scope.selectedReceivableMode = 'listOpen';
             // set dtInitial to be in the past
             scope.dtFilter.dtInitial.setHours(scope.dtFilter.dtInitial.getHours() - 1);
 
