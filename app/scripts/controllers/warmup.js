@@ -20,7 +20,7 @@
      * @see https://github.com/Tunts/glowing-catalog/tree/1.0.1
      */
 
-    function CheckWarmupCtrl($scope, $log, $element, CheckWarmupService, DialogService, ArrayUtils, EntityService, SyncDriver) {
+    function CheckWarmupCtrl($scope, $log, $element, $location, CheckWarmupService, DialogService, ArrayUtils, EntityService, SyncDriver) {
         $log.debug('Initializing CheckWarmupCtrl...');
 
         var initialData = null;
@@ -114,6 +114,10 @@
             });
         }
 
+        function cancel() {
+            $location.path('/');
+        }
+
         function openChooseCustomerDialog() {
             return DialogService.openDialogChooseCustomerNoRedirect().then(function(uuid) {
                 if (uuid) {
@@ -132,11 +136,13 @@
         $scope.add = add;
         $scope.remove = remove;
         $scope.save = save;
+        $scope.cancel = cancel;
 
         $scope.chooseCustomer = openChooseCustomerDialog;
     }
 
-    function CreditCardWarmupCtrl($scope, $log, $element, CreditCardWarmupService, DialogService, ArrayUtils, EntityService, SyncDriver) {
+    function CreditCardWarmupCtrl($scope, $log, $element, $location, CreditCardWarmupService, DialogService, ArrayUtils, EntityService,
+            SyncDriver) {
         $log.debug('Initializing CreditCardWarmupCtrl...');
 
         var initialData = null;
@@ -246,6 +252,10 @@
             });
         }
 
+        function cancel() {
+            $location.path('/');
+        }
+
         function openChooseCustomerDialog() {
             return DialogService.openDialogChooseCustomerNoRedirect().then(function(uuid) {
                 if (uuid) {
@@ -264,6 +274,7 @@
         $scope.add = add;
         $scope.remove = remove;
         $scope.save = save;
+        $scope.cancel = cancel;
 
         $scope.chooseCustomer = openChooseCustomerDialog;
 
@@ -646,11 +657,14 @@
     ]).controller(
             'CreditCardWarmupCtrl',
             [
-                '$scope', '$log', '$element', 'CreditCardWarmupService', 'DialogService', 'ArrayUtils', 'EntityService', 'SyncDriver',
-                CreditCardWarmupCtrl
-            ]).controller('CheckWarmupCtrl', [
-        '$scope', '$log', '$element', 'CheckWarmupService', 'DialogService', 'ArrayUtils', 'EntityService', 'SyncDriver', CheckWarmupCtrl
-    ]).controller('OtherReceivablesWarmupCtrl', [
+                '$scope', '$log', '$element', '$location', 'CreditCardWarmupService', 'DialogService', 'ArrayUtils', 'EntityService',
+                'SyncDriver', CreditCardWarmupCtrl
+            ]).controller(
+            'CheckWarmupCtrl',
+            [
+                '$scope', '$log', '$element', '$location', 'CheckWarmupService', 'DialogService', 'ArrayUtils', 'EntityService',
+                'SyncDriver', CheckWarmupCtrl
+            ]).controller('OtherReceivablesWarmupCtrl', [
         '$scope', '$log', 'UserService', 'WarmupService', OtherReceivablesWarmupCtrl
     ]).controller(
             'StockWarmupCtrl',
