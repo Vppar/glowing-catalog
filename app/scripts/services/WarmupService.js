@@ -594,4 +594,4 @@
         '$q', '$log', '$rootScope', 'WarmupService', StockWarmupService
     ]);
 
-}(angular));
+})(angular);

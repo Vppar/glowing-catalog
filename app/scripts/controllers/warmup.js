@@ -672,4 +672,4 @@
                 '$scope', '$log', 'SyncDriver', 'StockService', 'InventoryKeeper', 'ArrayUtils', 'StockWarmupService', 'DialogService',
                 StockWarmupCtrl
             ]);
-}(angular));
+})(angular);
