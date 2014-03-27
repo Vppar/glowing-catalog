@@ -428,7 +428,6 @@
                 uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
                 amount : item.amount,
                 created : created,
-                documentId : item.documentId,
                 duedate : duedate,
                 entityId : item.customerId,
                 type : 'creditCard',
@@ -468,7 +467,6 @@
                 amount : event.amount,
                 customerName : customer && customer.name,
                 customerId : event.entityId,
-                documentId : event.documentId,
                 installments : installments,
                 used : isUsed(event),
                 redeemed : isRedeemed(event)

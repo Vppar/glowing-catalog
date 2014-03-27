@@ -159,7 +159,6 @@
             duedate : null,
             amount : null,
             installments : '1/1',
-            documentId : null,
             used : false,
             redeemed : false
         };
