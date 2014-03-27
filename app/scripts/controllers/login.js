@@ -37,6 +37,7 @@
                         return UserService.clearData().then(function () {
                             $log.debug('User data cleared.');
                             $scope.user = '';
+                            $scope.pass = '';
                             // We may need to call $scope.$apply()...
                         });
                     }, function () {
