@@ -46,8 +46,8 @@
 							<span class="new-col-7">Cliente</span>
 							<span class="new-col-4 text-center">Tipo/Bandeira</span>
 							<span class="new-col-1 text-center">Parc</span>
-							<span class="new-col-3 currency">Valor Total</span>
 							<span class="new-col-4 text-center">Autorização</span>
+							<span class="new-col-3 currency">Valor Total</span>
 						</div>
 					</div>
 
@@ -58,8 +58,8 @@
 							<span class="new-col-7">{{numCustomers}}</span>
 							<span class="new-col-4 text-center">&nbsp;</span>
 							<span class="new-col-1 text-center">&nbsp;</span>
-							<span class="new-col-3 currency">{{total|currency: ''}}</span>
 							<span class="new-col-4 text-center">&nbsp;</span>
+							<span class="new-col-3 currency">{{total|currency: ''}}</span>
 						</div>
 					</div>
 
@@ -72,8 +72,8 @@
 								<span class="new-col-7">{{receivable.name}}</span>
 								<span class="new-col-4 text-center">{{(receivable.payment.gatewayInfo.transacao.tipo === 'Credito') ? 'C' : 'D'}}-{{receivable.payment.flag}}</span>
 								<span class="new-col-1 text-center">{{receivable.payment.installments}}</span>
-								<span class="new-col-3 currency">{{receivable.amount|currency: ''}}</span>
 								<span class="new-col-4 text-center">{{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</span>
+								<span class="new-col-3 currency">{{receivable.amount|currency: ''}}</span>
 							</div>
 						</div>
 
