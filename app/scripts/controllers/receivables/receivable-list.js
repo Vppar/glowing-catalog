@@ -50,18 +50,25 @@
                                 $scope.dtFilter.dtFinal = angular.copy($scope.dtFilter.dtInitial);
                             }
                         }
+                            var date = undefined;
+                        if($scope.selectedReceivableMode==='listOpen'){
+                            date = receivable.duedate;
+                        }else if($scope.selectedReceivableMode==='listClosed'){
+                            date = receivable.liquidated;
+                        }
+                        
                         if (initialFilter && finalFilter) {
-                            if (receivable.duedate >= initialFilter && receivable.duedate <= finalFilter) {
+                            if (date >= initialFilter && date <= finalFilter) {
                                 return true;
                             }
                             return false;
                         } else if (initialFilter) {
-                            if (receivable.duedate >= initialFilter) {
+                            if (date >= initialFilter) {
                                 return true;
                             }
                             return false;
                         } else if (finalFilter) {
-                            if (receivable.duedate <= finalFilter) {
+                            if (date <= finalFilter) {
                                 return true;
                             }
                             return false;
