@@ -74,6 +74,7 @@ scripts/controllers/order-list.js
 scripts/controllers/order-list-clients.js
 scripts/controllers/order-list-products.js
 scripts/controllers/order-list-orders.js
+scripts/controllers/pagpop.js
 scripts/controllers/payment.js
 scripts/controllers/payment-check.js
 scripts/controllers/payment-coupon.js
