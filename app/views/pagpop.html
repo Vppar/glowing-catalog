@@ -68,7 +68,7 @@
 							<div class="row-fluid" ng-repeat="receivable in filteredReceivables | orderBy: '-created'">
 							<div class="new-body-row pagpop-line">
 								<span class="new-col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</span>
-								<span class="new-col-3 text-center">{{receivable|uuidCode}}</span>
+								<span class="new-col-3 text-center">{{receivable|uuidCode:'documentId'}}</span>
 								<span class="new-col-7">{{receivable.name}}</span>
 								<span class="new-col-4 text-center">{{(receivable.payment.gatewayInfo.transacao.tipo === 'Credito') ? 'C' : 'D'}}-{{receivable.payment.flag}}</span>
 								<span class="new-col-1 text-center">{{receivable.payment.installments}}</span>
