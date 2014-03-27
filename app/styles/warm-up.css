@@ -1,3 +1,8 @@
+.name-cutter{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .warm-up .new-header .title .name {
 	float:left;
 }
