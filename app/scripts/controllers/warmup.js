@@ -207,6 +207,9 @@
         $scope.chooseCustomer = openChooseCustomerDialog;
     }
 
+
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
     function CreditCardWarmupCtrl($scope, $log, $element, $location, CreditCardWarmupService, DialogService, ArrayUtils, EntityService,
             SyncDriver) {
         $log.debug('Initializing CreditCardWarmupCtrl...');
@@ -355,10 +358,159 @@
         $scope.chooseCustomer = openChooseCustomerDialog;
 
         $scope.installmentsRegex = /^[1-9][0-9]{0,1}((\/|\-| de )[1-9][0-9]{0,1}){1}$/;
-    }
+    } // CreditCardWarmupCtrl
 
-    function OtherReceivablesWarmupCtrl() {
-    }
+
+    //////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////
+    function OnCuffWarmupCtrl($scope, $log, $element, $location, OnCuffWarmupService, DialogService, ArrayUtils, EntityService,
+            SyncDriver) {
+        $log.debug('Initializing OnCuffWarmupCtrl...');
+
+        var initialData = null;
+        var data = {};
+
+        var items = OnCuffWarmupService.getItems();
+
+        items.total = OnCuffWarmupService.getTotal(items);
+
+        initialData = {
+            uuid : null,
+            customerName : null,
+            customerId : null,
+            duedate : null,
+            amount : null,
+            installments : '1/1',
+            used : false,
+            redeemed : false
+        };
+
+        function addItem(item) {
+            items.push(item);
+            items.total += item.amount;
+        }
+
+        function createItemFromData(data) {
+            var item = {};
+            angular.extend(item, initialData, data);
+
+            var installment = null;
+            var numberOfInstallments = null;
+            if (item.installments) {
+                installment = item.installments.replace('-', '/');
+                if (installment.indexOf('/') > -1) {
+                    var splitedInstallments = installment.split('/');
+                    installment = splitedInstallments[0];
+                    numberOfInstallments = splitedInstallments[1];
+                }
+            }
+
+            if (Number(installment) <= Number(numberOfInstallments)) {
+                item.installments = installment;
+
+                if (numberOfInstallments) {
+                    item.installments += ' de ' + numberOfInstallments;
+                }
+            } else {
+                item = null;
+            }
+
+            return item;
+        }
+
+        function calculateTotal() {
+            items.total = OnCuffWarmupService.getTotal(items);
+            return items.total;
+        }
+
+        function resetData() {
+            angular.extend(data, initialData);
+        }
+
+        function add(data) {
+            var formIsValid = $scope.newOnCuffWarmupForm.$valid;
+            var amountIsSet = !!data.amount;
+            var itemFromData = createItemFromData(data);
+            if (formIsValid && amountIsSet && itemFromData) {
+                addItem(itemFromData);
+                // Clear the form
+                resetData();
+                $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
+            } else {
+                if (!itemFromData) {
+                    data.installments = '';
+                }
+
+                $element.find('input').removeClass('ng-pristine').addClass('ng-dirty');
+                $log.debug('Warmup oncuff form is not valid!', data);
+                DialogService.messageDialog({
+                    title : 'Contas a receber (Diversas)',
+                    message : 'Dados inválidos. Por favor, certifique-se de que todos os campos foram preenchidos e estejam corretos.',
+                    btnYes : 'OK'
+                });
+            }
+        }
+
+        function remove(item) {
+            if (!item.used && !item.redeemed) {
+                var index = items.indexOf(item);
+                var itemInItems = ~index;
+                if (itemInItems) {
+                    items.splice(index, 1);
+                    items.total -= item.amount;
+
+                    if (items.total < 0) {
+                        $log.debug('Invalid warmup oncuff total! Cannot be lower than zero.', item, items);
+                        items.total = 0;
+                    }
+                }
+            }
+        }
+
+        function save() {
+            var ref = SyncDriver.refs.user.child('warmup');
+
+            $scope.date.persist();
+
+            $log.debug('Saving oncuff warmup entries:', items);
+            return OnCuffWarmupService.saveItems(ref, items).then(function() {
+                $log.debug('OnCuff warmup entries saved.');
+                DialogService.messageDialog({
+                    title : 'Contas a receber (Diversas)',
+                    message : 'Pagamentos a receber salvos com sucesso!',
+                    btnYes : 'OK'
+                });
+            });
+        }
+
+        function cancel() {
+            $location.path('/');
+        }
+
+        function openChooseCustomerDialog() {
+            return DialogService.openDialogChooseCustomerNoRedirect().then(function(uuid) {
+                if (uuid) {
+                    var customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
+                    data.customerName = customer.name;
+                    data.customerId = uuid;
+                }
+            });
+        }
+
+        resetData();
+
+        $scope.data = data;
+        $scope.items = items;
+
+        $scope.add = add;
+        $scope.remove = remove;
+        $scope.save = save;
+        $scope.cancel = cancel;
+
+        $scope.chooseCustomer = openChooseCustomerDialog;
+
+        $scope.installmentsRegex = /^[1-9][0-9]{0,1}((\/|\-| de )[1-9][0-9]{0,1}){1}$/;
+    } // OnCuffWarmupCtrl
 
     // ///////////////////////////////////////////////////////////////////////////////////////////////
     // ###############################################################################################
@@ -733,6 +885,11 @@
     ]).controller('WarmupCtrl', [
         '$scope', '$log', 'UserService', 'WarmupService', 'SyncDriver', WarmupCtrl
     ]).controller(
+            'OnCuffWarmupCtrl',
+            [
+                '$scope', '$log', '$element', '$location', 'OnCuffWarmupService', 'DialogService', 'ArrayUtils', 'EntityService',
+                'SyncDriver', OnCuffWarmupCtrl
+            ]).controller(
             'CreditCardWarmupCtrl',
             [
                 '$scope', '$log', '$element', '$location', 'CreditCardWarmupService', 'DialogService', 'ArrayUtils', 'EntityService',
@@ -742,9 +899,7 @@
             [
                 '$scope', '$log', '$element', '$location', 'CheckWarmupService', 'DialogService', 'ArrayUtils', 'EntityService',
                 'SyncDriver', CheckWarmupCtrl
-            ]).controller('OtherReceivablesWarmupCtrl', [
-        '$scope', '$log', 'UserService', 'WarmupService', OtherReceivablesWarmupCtrl
-    ]).controller(
+            ]).controller(
             'StockWarmupCtrl',
             [
                 '$scope', '$log', 'SyncDriver', 'StockService', 'InventoryKeeper', 'ArrayUtils', 'StockWarmupService', 'DialogService',

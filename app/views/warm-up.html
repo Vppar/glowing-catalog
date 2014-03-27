@@ -23,8 +23,7 @@
         			<a class="btn btn-option" ng-class="{active: ol=='stock'}" ng-click="ol='stock'">Estoque de Produtos</a>
               		<a class="btn btn-option" ng-class="{active: ol=='check'}" ng-click="ol='check'">Cheques a receber</a>
               		<a class="btn btn-option" ng-class="{active: ol=='creditcard'}" ng-click="ol='creditcard'">Cartão de Crédito</a>
-              		<!-- Temporarily disabled will be back soon enough  -->
-					<!-- <a class="btn btn-option" ng-class="{active: ol=='otherreceivables'}" ng-click="ol='otherreceivables'">Contas a receber (diversas)</a> -->
+					        <a class="btn btn-option" ng-class="{active: ol=='oncuff'}" ng-click="ol='oncuff'">Contas a receber (diversas)</a> -->
 				</div>
 			</div>
 		</div>
@@ -33,7 +32,7 @@
 			<div class="warm-up-stock-part" ng-show="ol=='stock'" ng-include src="'views/parts/warm-up/warm-up-stock.html'"></div>
 			<div class="warm-up-finances-part" ng-show="ol=='check'" ng-include src="'views/parts/warm-up/warm-up-check.html'"></div>			
 			<div class="warm-up-finances-part" ng-show="ol=='creditcard'" ng-include src="'views/parts/warm-up/warm-up-creditcard.html'"></div>
-			<div class="warm-up-finances-part" ng-show="ol=='otherreceivables'" ng-include src="'views/parts/warm-up/warm-up-otherreceivables.html'"></div>
+			<div class="warm-up-finances-part" ng-show="ol=='oncuff'" ng-include src="'views/parts/warm-up/warm-up-oncuff.html'"></div>
 
 			<!-- <div class="row-fluid">
 				<div class="span12">
