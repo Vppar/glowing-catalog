@@ -266,6 +266,8 @@
         $scope.save = save;
 
         $scope.chooseCustomer = openChooseCustomerDialog;
+        
+        $scope.installmentsRegex = /^[0-9]{1,2}([\/|\-][0-9]{1,2}){0,1}$/;
     }
 
 

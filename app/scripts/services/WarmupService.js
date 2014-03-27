@@ -391,6 +391,17 @@
             // Convert to a timestamp if needed
             var duedate = item.duedate && item.duedate.getTime ? item.duedate.getTime() : item.duedate;
 
+            var installment = null;
+            var numberOfInstallments = null;
+            if (item.installments) {
+                installment = item.installments.replace('-', '/');
+                if (installment.indexOf('/') > -1) {
+                    var splitedInstallments = installment.split('/');
+                    installment = splitedInstallments[0];
+                    numberOfInstallments = splitedInstallments[1];
+                }
+            }
+
             var payment = {
                 id : null,
                 amount : item.amount,
@@ -398,10 +409,14 @@
                 ccNumber : '0000',
                 duedate : duedate,
                 flag : null,
-                installments : item.installments,
+                installments : installment,
                 owner : item.customerName,
                 type : 'creditCard'
             };
+
+            if (numberOfInstallments) {
+                payment.numberOfInstallments = numberOfInstallments;
+            }
 
             var event = {
                 // When generating the UUID:
@@ -439,6 +454,11 @@
                 $log.error('Missing customer for warmup entry!', entry);
             }
 
+            var installments = payment.installments;
+            if (payment.numberOfInstallments) {
+                installments += ' de ' + payment.numberOfInstallments;
+            }
+
             angular.extend(item, {
                 uuid : event.uuid,
                 duedate : event.duedate ? new Date(event.duedate) : null,
@@ -446,7 +466,7 @@
                 customerName : customer && customer.name,
                 customerId : event.entityId,
                 documentId : event.documentId,
-                installments : payment.installments,
+                installments : installments,
                 used : isUsed(event),
                 redeemed : isRedeemed(event)
             });

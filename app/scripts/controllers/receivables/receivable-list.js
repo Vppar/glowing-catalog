@@ -147,9 +147,16 @@
                             var receivable = receivables[ix];
                             receivable.entityName = EntityService.read(receivable.entityId).name;
                             receivable.typeTranslated = translate[receivable.type];
-                            var uiidData = IdentityService.getUUIDData(receivable.documentId);
 
-                            receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
+                            // This section prevents that warmup inputed checks
+                            // generate an error for not having a documentId
+                            if (receivable.documentId) {
+                                var uiidData = IdentityService.getUUIDData(receivable.documentId);
+                                receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
+                            } else {
+                                receivable.document = 'Conta a Receber';
+                            }
+
                             receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
                             receivable.status = (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';
                             receivable.installments = ReceivableService.listByDocument(receivable.documentId);
