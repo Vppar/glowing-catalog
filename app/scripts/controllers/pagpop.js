@@ -15,6 +15,14 @@
 
                     var receivables = ReceivableService.list();
                     var creditCardReceivables = ArrayUtils.list(receivables, 'type', 'creditCard');
+                    
+                    var pagpopReceivables = [];
+                    for (var idx in creditCardReceivables) {
+                        if (!angular.isUndefined(creditCardReceivables[idx].payment.gatewayInfo)) {
+                            pagpopReceivables.push(creditCardReceivables[idx]);
+                        } 
+                    }
+                    creditCardReceivables = pagpopReceivables;
 
                     /**
                      * DateFilter watcher.
