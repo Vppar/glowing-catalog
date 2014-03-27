@@ -117,8 +117,12 @@
                             $scope.allOpenReceivables = 'false';
                             receivables = filterReceivablesByClosed(receivables);
                         }
-
-                        receivables = $filter('orderBy')(receivables, 'duedate');
+                        
+                        if($scope.selectedReceivableMode === 'listOpen'){
+                            receivables = $filter('orderBy')(receivables, '-duedate');
+                        }else{
+                            receivables = $filter('orderBy')(receivables, '-liquidated');
+                        }
 
                         $scope.receivables.list = argumentReceivables(receivables);
                     }
