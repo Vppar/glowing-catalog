@@ -5,17 +5,11 @@
 
       <div class="row-fluid warm-up-body-row-form" ng-show="true">
         <form name="newCreditCardWarmupForm">
-          <div class="new-col-9">
+          <div class="new-col-14">
             <label>Cliente</label>
             <div class="input-append">
               <input class="input-block-level" readonly="readonly" type="text" ng-model="data.customerName" ng-click="chooseCustomer()" required>
             </div>
-          </div>
-          <div class="new-col-5">
-            <label>Documento</label>
-            <select ui-select2 class='combo-width' data-placeholder="Selecione o tipo" ng-model="data.documentId" ng-disabled="true" tnt-select2>
-              <option value="">Selecione o tipo</option>
-            </select>
           </div>
           <div class="new-col-3 text-center">
             <label>Parcela</label>
