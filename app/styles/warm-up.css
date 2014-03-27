@@ -1,3 +1,8 @@
+.input-compensator-for-lines-currency{
+	padding-right: 17px;
+	text-align: right;
+}
+
 .warm-up-calendar-to-close-right .dropdown-menu{
 	left: 447px !important;
 }
@@ -50,7 +55,7 @@
 }
 
 .warm-up-finances-part .new-scrollpanel {
-  height: calc(100% - 228px);
+  height: calc(100% - 175px);
 }
 
 .warm-up-stock-part .new-scrollpanel {
