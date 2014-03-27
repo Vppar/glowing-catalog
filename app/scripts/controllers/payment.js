@@ -233,17 +233,21 @@
                                 }
                             }
                             enableDiscountWatcher();
+                            
+                            function setEnableConfirmButton() {
+                                if($scope.items.length === 0 && $scope.total.payments.exchange.length === 0){
+                                    $scope.disabled = true;
+                                }else{
+                                    $scope.disabled = false;
+                                }
+                            };
 
                             // When a product is added on items list, we need to
                             // rebuild the
                             // uniqueName.
                             $scope.$watchCollection('items', function() {
                                 
-                                if($scope.items.length>0){
-                                    $scope.disabled = false;
-                                }else{
-                                    $scope.disabled = true;
-                                }
+                                setEnableConfirmButton();
                                 
                                 // Show SKU or SKU + Option(when possible).
                                 for ( var idx in order.items) {
@@ -504,7 +508,10 @@
 
                             $scope.$watch('total.order.amount', updateSubTotal);
                             $scope.$watch('total.order.itemDiscount', updateSubTotal);
-                            $scope.$watch('total.paymentsExchange', updateSubTotal);
+                            $scope.$watch('total.paymentsExchange', function(){
+                                setEnableConfirmButton();
+                                updateSubTotal();
+                            });
 
                             $scope.$watch('total.order.itemDiscount', function() {
                                 var hasItemsWithoutItemDiscount = false;
