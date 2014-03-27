@@ -152,4 +152,4 @@
                 this.receivableDateFilter = receivableDateFilter;
                 this.receivableQueryFilter = receivableQueryFilter;
             }]);
-})(angular);
+}(angular));
