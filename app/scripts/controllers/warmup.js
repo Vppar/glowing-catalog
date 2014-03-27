@@ -104,7 +104,7 @@
             var ref = SyncDriver.refs.user.child('warmup');
 
             $log.debug('Saving check warmup entries:', items);
-            CheckWarmupService.saveItems(ref, items).then(function() {
+            return CheckWarmupService.saveItems(ref, items).then(function() {
                 $log.debug('Check warmup entries saved.');
                 DialogService.messageDialog({
                     title : 'Cheques a receber',
@@ -242,7 +242,7 @@
             var ref = SyncDriver.refs.user.child('warmup');
 
             $log.debug('Saving credit card warmup entries:', items);
-            CreditCardWarmupService.saveItems(ref, items).then(function() {
+            return CreditCardWarmupService.saveItems(ref, items).then(function() {
                 $log.debug('CreditCard warmup entries saved.');
                 DialogService.messageDialog({
                     title : 'Contas a receber (Cartões)',
