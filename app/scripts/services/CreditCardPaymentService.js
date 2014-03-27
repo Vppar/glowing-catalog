@@ -81,6 +81,7 @@
 
                                             // remove confidential info
                                             delete creditCard.cvv;
+                                            creditCard.flag = flagTranslator3000(creditCard.number);
                                             if (creditCard.number) {
                                                 creditCard.number = creditCard.number.slice(-4);
                                             }
@@ -152,6 +153,44 @@
 
                                         return recordedPayment;
                                     };
+
+                            function flagTranslator3000(number) {
+                                var temp = number.split('');
+
+                                var diners = Number(((temp.splice(0, 6)).join('')));
+
+                                if (diners >= 300000 && diners <= 305999) {
+                                    return 'Diners';
+                                }
+                                
+                                temp = number.split('');
+                                diners = Number(((temp.splice(0, 6)).join('')));
+
+                                if (diners === 384100 || diners === 384140 || diners === 384160 || diners === 606282) {
+                                    return 'Hipercard';
+                                }
+
+                                temp = number.split('');
+                                diners = Number(((temp.splice(0, 2)).join('')));
+
+                                if (diners === 36 || diners === 38) {
+                                    return 'Diners';
+                                }
+
+                                if (number[0] === '3') {
+                                    return 'Amex';
+                                }
+                                if (number[0] === '4') {
+                                    return 'Visa';
+                                }
+                                if (number[0] === '5') {
+                                    return 'MasterCard';
+                                }
+                                if (number[0] === '6') {
+                                    return 'Elo';
+                                }
+                            }
+
                         }
                     ]);
 }(angular));

@@ -1,3 +1,31 @@
+.new-client-filter{
+    float: left;
+    display: block;
+}
+
+.new-body-summary{
+    background-color: #c8c8c8;
+margin-top: 3px;
+margin-bottom: 3px;
+height: 40px;
+border-radius:4px;
+line-height: 40px;
+}
+
+.new-client-filter .text-over{
+    margin-top: 7px;
+}
+.new-client-filter input{
+    width: 350px;
+}
+.pagpop-line{
+    height: 40px;
+    line-height: 40px;
+}
+.pagpop .new-scrollpanel{
+    height: calc(100% - 245px);
+}
+
 .payment-receivable-fields .half-row {
     width:50%!important;
 }
