@@ -55,7 +55,8 @@
 			        <div class="new-col-7">Conta</div>
 			        <div class="new-col-3">Docto / Nro</div>
 			        <div class="new-col-2 text-center">Parcela</div>
-			        <div class="new-col-3 text-center">Vencimento</div>
+			        <div class="new-col-3 text-center" ng-if="selectedReceivableMode=='listOpen'">Vencimento</div>
+			        <div class="new-col-3 text-center" ng-if="selectedReceivableMode=='listClosed'">Recebido em</div>
 			        <div class="new-col-3 currency">Valor</div>
 			    </div>
 			</div>
@@ -78,7 +79,9 @@
 
 			                <div class="new-col-2 text-center">{{receivable.installment}} de {{receivable.numberOfInstallment}}</div>
 
-			                <div class="new-col-3 text-center">{{receivable.duedate | date:"dd/MM/yyyy"}}</div>
+			                <div class="new-col-3 text-center" ng-if="selectedReceivableMode=='listOpen'">{{ receivable.duedate | date:"dd/MM/yyyy"}}</div>
+			                
+			                <div class="new-col-3 text-center" ng-if="selectedReceivableMode=='listClosed'">{{ receivable.liquidated | date:"dd/MM/yyyy"}}</div>
 
 			                <div class="new-col-3 currency">{{receivable.amount | currency:''}}</div> 
 
