@@ -236,7 +236,7 @@
                 agency : item.agency,
                 bank : item.bank,
                 amount : item.amount,
-                dueDate : duedate,
+                duedate : duedate,
                 number : item.number,
                 type : 'check'
             };
