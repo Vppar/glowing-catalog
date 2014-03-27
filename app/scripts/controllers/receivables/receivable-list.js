@@ -153,11 +153,11 @@
                             if (receivable.documentId) {
                                 var uiidData = IdentityService.getUUIDData(receivable.documentId);
                                 receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
+                                receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
                             } else {
                                 receivable.document = 'Conta a Receber';
                             }
 
-                            receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
                             receivable.status = (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';
                             receivable.installments = ReceivableService.listByDocument(receivable.documentId);
                             receivable.installments = filterByCanceled(receivable.installments);

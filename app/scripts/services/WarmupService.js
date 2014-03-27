@@ -181,7 +181,7 @@
     // ///////////////////////////////////////////////////////////////////
     // ###################################################################
     // ///////////////////////////////////////////////////////////////////
-    function CheckWarmupService($q, $log, $rootScope, ArrayUtils, EntityService, IdentityService, WarmupService) {
+    function CheckWarmupService($q, $log, $rootScope, ArrayUtils, EntityService, IdentityService, WarmupService, ReceivableService) {
         var local = WarmupService.local;
 
         function getItems() {
@@ -227,9 +227,11 @@
         function createEntry(item, idx) {
             // Convert to a timestamp if needed
             var duedate = item.duedate && item.duedate.getTime ? item.duedate.getTime() : item.duedate;
+            var created = new Date().getTime();
 
             var payment = {
                 id : null,
+                created : created,
                 account : item.account,
                 agency : item.agency,
                 bank : item.bank,
@@ -248,7 +250,7 @@
                 duedate : duedate,
                 entityId : item.customerId,
                 amount : item.amount,
-                created : item.created || null,
+                created : created,
                 payment : payment
             };
 
@@ -297,7 +299,8 @@
         }
 
         function isRedeemed(event) {
-            return Boolean(event.liquidated);
+            var recoveredReceivable = ReceivableService.read(event.uuid);
+            return Boolean(recoveredReceivable && recoveredReceivable.liquidated);
         }
 
         function createEntries(items) {
@@ -344,7 +347,7 @@
     // ///////////////////////////////////////////////////////////////////
     // ###################################################################
     // ///////////////////////////////////////////////////////////////////
-    function CreditCardWarmupService($q, $log, $rootScope, ArrayUtils, EntityService, IdentityService, WarmupService) {
+    function CreditCardWarmupService($q, $log, $rootScope, ArrayUtils, EntityService, IdentityService, WarmupService, ReceivableService) {
         var local = WarmupService.local;
 
         function getItems() {
@@ -390,13 +393,12 @@
         function createEntry(item, idx) {
             // Convert to a timestamp if needed
             var duedate = item.duedate && item.duedate.getTime ? item.duedate.getTime() : item.duedate;
-
+            var created = new Date().getTime();
             var installment = null;
             var numberOfInstallments = null;
             if (item.installments) {
-                installment = item.installments.replace('-', '/');
-                if (installment.indexOf('/') > -1) {
-                    var splitedInstallments = installment.split('/');
+                if (item.installments.indexOf(' de ') > -1) {
+                    var splitedInstallments = item.installments.split(' de ');
                     installment = splitedInstallments[0];
                     numberOfInstallments = splitedInstallments[1];
                 }
@@ -405,6 +407,7 @@
             var payment = {
                 id : null,
                 amount : item.amount,
+                created : created,
                 ccDueDate : null,
                 ccNumber : '0000',
                 duedate : duedate,
@@ -424,7 +427,7 @@
                 // 1 is the CoinKeeper's op for generating UUIDs
                 uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
                 amount : item.amount,
-                created : item.created || null,
+                created : created,
                 documentId : item.documentId,
                 duedate : duedate,
                 entityId : item.customerId,
@@ -480,7 +483,8 @@
         }
 
         function isRedeemed(event) {
-            return Boolean(event.liquidated);
+            var recoveredReceivable = ReceivableService.read(event.uuid);
+            return Boolean(recoveredReceivable && recoveredReceivable.liquidated);
         }
 
         function createEntries(items) {
@@ -577,9 +581,9 @@
     angular.module('tnt.catalog.warmup.service', []).service('WarmupService', [
         '$q', '$log', '$rootScope', WarmupService
     ]).service('CheckWarmupService', [
-        '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', CheckWarmupService
+        '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', 'ReceivableService', CheckWarmupService
     ]).service('CreditCardWarmupService', [
-        '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', CreditCardWarmupService
+        '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', 'ReceivableService', CreditCardWarmupService
     ]).service('OtherReceivablesWarmupService', [
         '$q', '$log', '$rootScope', 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService', OtherReceivablesWarmupService
     ])
