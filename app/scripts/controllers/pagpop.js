@@ -6,8 +6,8 @@
     ]).controller(
             'PagpopCtrl',
             [
-                '$scope', '$filter', 'UserService', 'ReceivableService', 'ArrayUtils',
-                function($scope, $filter, UserService, ReceivableService, ArrayUtils) {
+                '$scope', '$filter', 'EntityService', 'UserService', 'ReceivableService', 'ArrayUtils',
+                function($scope, $filter, EntityService, UserService, ReceivableService, ArrayUtils) {
 
                     UserService.redirectIfIsNotLoggedIn();
 
@@ -21,24 +21,34 @@
                      */
                     $scope.$watchCollection('dtFilter', function() {
                         $scope.filteredReceivables = $filter('filter')(angular.copy(creditCardReceivables), filterByDate);
+                        clientNames();
                         $scope.filteredReceivables = $filter('filter')($scope.filteredReceivables, filterByEntity);
                         summarizer();
                     });
-                    
+
                     /**
                      * EntityFilter watcher.
                      */
                     $scope.$watchCollection('searchClient', function() {
                         $scope.filteredReceivables = $filter('filter')(angular.copy(creditCardReceivables), filterByDate);
+                        clientNames();
                         $scope.filteredReceivables = $filter('filter')($scope.filteredReceivables, filterByEntity);
                         summarizer();
                     });
+                    
+                    /**
+                     * Get the name of all clients based on the clientUUID on the payment
+                     */
+                    function clientNames() {
+                        for ( var idx in $scope.filteredReceivables) {
+                            $scope.filteredReceivables[idx].name = EntityService.read($scope.filteredReceivables[idx].entityId).name;
+                        }
+                    }
+                    
                     /**
                      * Summarizer
                      */
-                    
-                    function summarizer(){
-                        
+                    function summarizer() {
                         $scope.total = 0;
                         for ( var idx in $scope.filteredReceivables) {
                             $scope.total += $scope.filteredReceivables[idx].amount;
@@ -48,9 +58,8 @@
 
                         $scope.numCustomers = ArrayUtils.distinct(payments, 'owner').length;
 
-                        $scope.numOrders = ArrayUtils.distinct($scope.filteredReceivables, 'documentId').length; 
-                    };
-                    
+                        $scope.numOrders = ArrayUtils.distinct($scope.filteredReceivables, 'documentId').length;
+                    }
 
                     // #########################################################################################################
                     // Filter related
@@ -62,16 +71,14 @@
                         if (clientName === '') {
                             return true;
                         } else {
-                            if (cc.payment.owner.toLowerCase().indexOf(clientName)>=0) {
+                            if (cc.name.toLowerCase().indexOf(clientName) >= 0) {
                                 return true;
                             } else {
                                 return false;
                             }
                         }
                     }
-                    
-                    
-                    
+
                     var dtFilterTemplate = {
                         dtInitial : new Date(),
                         dtFinal : new Date()

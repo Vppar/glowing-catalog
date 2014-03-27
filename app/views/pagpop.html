@@ -7,7 +7,7 @@
 
 		<div class="new-header row-fluid">
 			<div class="span12">
-				<h2>Extrato de Transações - Pagpop</h3> 
+				<div class="title">Extrato de Transações - Pagpop</div>
 				</div>
 			</div>
 
@@ -58,7 +58,7 @@
 							<span class="new-col-7">{{numCustomers}}</span>
 							<span class="new-col-4 text-center">&nbsp;</span>
 							<span class="new-col-1 text-center">&nbsp;</span>
-							<span class="new-col-3 currency">{{total|currency}}</span>
+							<span class="new-col-3 currency">{{total|currency: ''}}</span>
 							<span class="new-col-4 text-center">&nbsp;</span>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 							<div class="new-body-row pagpop-line">
 								<span class="new-col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</span>
 								<span class="new-col-3 text-center">{{receivable|uuidCode}}</span>
-								<span class="new-col-7">{{receivable.payment.owner}}</span>
+								<span class="new-col-7">{{receivable.name}}</span>
 								<span class="new-col-4 text-center">{{(receivable.payment.gatewayInfo.transacao.tipo === 'Credito') ? 'C' : 'D'}}-{{receivable.payment.flag}}</span>
 								<span class="new-col-1 text-center">{{receivable.payment.installments}}</span>
 								<span class="new-col-3 currency">{{receivable.amount|currency: ''}}</span>
