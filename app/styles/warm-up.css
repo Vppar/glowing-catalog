@@ -1,3 +1,11 @@
+.warm-up-calendar-to-close-right .dropdown-menu{
+	left: 447px !important;
+}
+.name-cutter{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 .warm-up .new-header .title .name {
 	float:left;
 }
@@ -37,20 +45,12 @@
   height: calc(100% - 103px);
 }
 
-.warm-up .new-scrollpanel {
-  height : calc(100% - 90px);
-}
-
 .warm-up-finances-part, .warm-up-third-part {
   height: 100%;
 }
 
 .warm-up-finances-part .new-scrollpanel {
-  height: calc(100% - 60px);
-}
-
-.warm-up-third-part .new-scrollpanel {
-  height: calc(100% - 100px);
+  height: calc(100% - 228px);
 }
 
 .warm-up-stock-part .new-scrollpanel {
@@ -122,7 +122,6 @@
 }
 
 .warm-up-body-row{
-	border-radius: 4px;
 	border-bottom: 1px solid #666;
 	border-bottom: 1px rgb(204, 204, 204) dotted;
 	width: 100%;
@@ -134,23 +133,33 @@
 	-webkit-box-sizing: border-box;
 	box-sizing:        border-box;
 }
-.warm-up-btn-holder button{
-	margin-left: 10px;
-}
-
-.warm-up-body-row-form{
+.warm-up-body-subtitle{
+	border-radius: 4px;
+	margin-top: 3px;
+	border-bottom: 1px solid #666;
+	border-bottom: 1px rgb(204, 204, 204) dotted;
 	width: 100%;
 	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
+	line-height: 40px;
+	height: 40px;
 	display: inline-table;
 	-moz-box-sizing:    border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing:        border-box;
-	padding: 10px 0px;
-	background-color: #eee;
+	background:#ccc;
+	color:#222;
+	font-weight:bold;
 }
-.warm-up-body-row-form .warm-up-btn-holder{
-	margin-right: 5px;
+.finances-cards-part .warm-up-body-subtitle .new-col-18 {
+	margin-right:-6px;
 }
+.finances-check-part .warm-up-body-subtitle .new-col-18 {
+	margin-right:-2px;
+}
+.warm-up-btn-holder button{
+	margin-left: 10px;
+}
+
 
 .warm-up-body-row-form .warm-up-calendar input{
 	width: 100%;
@@ -175,16 +184,44 @@
 	text-align: right;
 }
 
-.warm-up-body-row .new-col-6 .currency, .warm-up-body-row-form .new-col-4 .currency {
-  width: 97.5%;
+.warm-up-stock-part .product-header-order .products-to-buy-filter {
+	margin:0!important;
 }
 
-.warm-up-body-row-form .input-append input {
-  width:82%;
+.warm-up-section .input-append {
+  width:100%;
 }
 
 
 .warm-up-section{
 	margin-bottom:20px;
 	margin-top:-5px;
+}
+
+.warm-up-finances-part .warm-up-body-row-form {
+	margin-top:5px;
+}
+.warm-up-finances-part .warm-up-body-row-form .combo-width {
+	width:183px;
+}
+.warm-up-finances-part .finances-check-part, .warm-up-finances-part .finances-cards-part {
+	height:100%;
+}
+.warm-up-finances-part .new-btn-holder {
+	margin-top:-58px;
+}
+.warm-up-finances-part .new-scrollpanel .new-col-1 img {
+	cursor:pointer;
+}
+.finances-cards-part .new-col-17 {
+	width:70.4%;
+}
+.finances-check-part .new-col-17 {
+	width:70.7%;
+}
+
+
+.warm-up-check-wrapper,
+.warm-up-creditcard-wrapper {
+  height:100%;
 }

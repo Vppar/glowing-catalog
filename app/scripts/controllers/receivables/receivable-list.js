@@ -147,23 +147,38 @@
                             var receivable = receivables[ix];
                             receivable.entityName = EntityService.read(receivable.entityId).name;
                             receivable.typeTranslated = translate[receivable.type];
-                            var uiidData = IdentityService.getUUIDData(receivable.documentId);
 
-                            receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
-                            receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
-                            receivable.status = (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';
-                            receivable.installments = ReceivableService.listByDocument(receivable.documentId);
-                            receivable.installments = filterByCanceled(receivable.installments);
-                            receivable.numberOfInstallment = receivable.installments.length;
+                            // This section prevents that warmup inputed checks
+                            // generate an error for not having a documentId
+                            if (receivable.documentId) {
+                                var uiidData = IdentityService.getUUIDData(receivable.documentId);
+                                receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
+                                receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
 
-                            receivable.installments = $filter('orderBy')(receivable.installments, 'duedate');
-                            for ( var y in receivable.installments) {
-                                if (receivable.installments[y].uuid === receivable.uuid) {
-                                    // set actual installment
-                                    receivable.installment = Number(y) + 1;
+                                receivable.installments = ReceivableService.listByDocument(receivable.documentId);
+                                receivable.installments = filterByCanceled(receivable.installments);
+                                receivable.numberOfInstallment = receivable.installments.length;
+
+                                receivable.installments = $filter('orderBy')(receivable.installments, 'duedate');
+                                for ( var y in receivable.installments) {
+                                    if (receivable.installments[y].uuid === receivable.uuid) {
+                                        // set actual installment
+                                        receivable.installment = Number(y) + 1;
+                                    }
                                 }
+                                receivable.installments = filterByLiquidated(receivable.installments);
+
+                            } else {
+                                // Receivables coming from warmup.
+                                receivable.document = 'Conta a Receber';
+                                var installments = receivable.payment.installments;
+                                var numberOfInstallments = receivable.payment.numberOfInstallments;
+
+                                receivable.installment = installments ? installments : 1;
+                                receivable.numberOfInstallment = numberOfInstallments ? numberOfInstallments : 1;
                             }
-                            receivable.installments = filterByLiquidated(receivable.installments);
+
+                            receivable.status = (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';
                         }
                         return receivables;
                     }
@@ -204,4 +219,4 @@
 
                 }
             ]);
-}(angular));
+})(angular);
