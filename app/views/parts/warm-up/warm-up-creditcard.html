@@ -1,32 +1,32 @@
 <div class="warm-up-creditcard-wrapper" ng-controller="CreditCardWarmupCtrl">
   <!-- *** CONTAS A RECEBER - CARTÕES *** -->
   <div class="row-fluid finances-cards-part">
-    <div class="warm-up-section">
+    <div class="warm-up-section" style="margin-bottom: 10px;" >
 
       <div class="row-fluid warm-up-body-row-form" ng-show="true">
         <form name="newCreditCardWarmupForm">
           <div class="new-col-14">
-            <label>Cliente</label>
+            <label><b>Cliente</b></label>
             <div class="input-append">
               <input class="input-block-level" readonly="readonly" type="text" ng-model="data.customerName" ng-click="chooseCustomer()" required>
             </div>
           </div>
           <div class="new-col-3 text-center">
-            <label>Parcela</label>
+            <label><b>Parcela</b></label>
             <input class="input-block-level text-center" type="text" ng-model="data.installments" ng-pattern="installmentsRegex" required>
           </div>					
           <div class="new-col-3 text-center">
-            <label>Vencto</label>
+            <label><b>Vencto</b></label>
             <div class="warm-up-calendar warm-up-calendar-to-close-right"> 
               <input id="dtx" type="text" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small text-center" required="" readonly="" maxlength="10" ng-model="data.duedate">
             </div>
           </div>
           <div class="new-col-3 currency">
-            <label>Valor</label>
+            <label><b>Valor</b></label>
             <input class="input-block-level currency" type="text" ng-model="data.amount" currency maxlength="11" required>
           </div>
           <div class="new-col-1 btn-clear-form">
-            <span id="confirm" class="btn-plus2 bg-green hover-state-pointer" ng-click="add(data)" tnt-kbutton></span>
+            <span id="confirm" class="btn-plus2 bg-green hover-state-pointer" style="margin-right:7px;" ng-click="add(data)" tnt-kbutton></span>
           </div>
         </form>
       </div>
@@ -35,32 +35,32 @@
 
     <div class="warm-up-section finances-cards-part">
       <div class="row-fluid">
-        <div class="warm-up-body-header scroll-title-compensator">
+        <!-- <div class="warm-up-body-header scroll-title-compensator">
                 <div class="new-col-1 text-center">Item</div>
                 <div class="new-col-13">Cliente</div>
                 <div class="new-col-3 text-center">Nro Parcela</div>
                 <div class="new-col-3 text-center">Vencto</div>
                 <div class="new-col-3 currency">Valor</div>
                 <div class="new-col-1">&nbsp;</div>
-        </div>
+        </div> -->
       </div>
       <div class="row-fluid">
         <div class="warm-up-body-subtitle scroll-title-compensator">
-          <div class="new-col-1 text-center">{{ items.length }}</div>
-          <div class="new-col-13">&nbsp;</div>
+          <!-- <div class="new-col-1 text-center">{{ items.length }}</div> -->
+          <div class="new-col-14">Total</div>
+          <div class="new-col-3 text-center">{{ items.length }}</div>
           <div class="new-col-3 text-center">&nbsp;</div>
-          <div class="new-col-3 text-center">Total</div>
-          <div class="new-col-3 currency">{{ items.total | currency:'' }}</div>
+          <div class="new-col-3 currency" style="padding-right:17px;">{{ items.total | currency:'' }}</div>
           <div class="new-col-1">&nbsp;</div>
         </div>
       </div>
       <div class="row-fluid new-scrollpanel">
         <div class="warm-up-body-row" ng-repeat="item in items">
-          <div class="new-col-1 text-center">{{ $index + 1 }}</div>
-          <div class="new-col-13 name-cutter" >{{ item.customerName }}</div>
+         <!--  <div class="new-col-1 text-center">{{ $index + 1 }}</div> -->
+          <div class="new-col-14 name-cutter" >{{ item.customerName }}</div>
           <div class="new-col-3 text-center">{{ item.installments }}</div>
           <div class="new-col-3 text-center">{{ item.duedate | date:'dd/MM/yyyy' }}</div>
-          <div class="new-col-3 currency">{{ item.amount | currency:'' }}</div>
+          <div class="new-col-3 currency" style="padding-right:17px;">{{ item.amount | currency:'' }}</div>
           <div class="new-col-1">
             <img src="images/del-pink.png" alt="" ng-if="!item.used && !item.redeemed" ng-click="remove(item)" />
           </div>
