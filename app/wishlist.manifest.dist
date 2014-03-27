@@ -154,6 +154,7 @@ scripts/services/IntentService.js
 scripts/services/KeyboardService.js
 scripts/services/misplacedservice.js
 scripts/services/OrderService.js
+scripts/services/OrderListService.js
 scripts/services/PaymentService.js
 scripts/services/ProductLineUp.js
 scripts/services/ReceivableService.js
