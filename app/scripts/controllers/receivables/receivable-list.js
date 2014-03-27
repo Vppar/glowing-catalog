@@ -50,13 +50,13 @@
                                 $scope.dtFilter.dtFinal = angular.copy($scope.dtFilter.dtInitial);
                             }
                         }
-                            var date = undefined;
-                        if($scope.selectedReceivableMode==='listOpen'){
+                        var date = undefined;
+                        if ($scope.selectedReceivableMode === 'listOpen') {
                             date = receivable.duedate;
-                        }else if($scope.selectedReceivableMode==='listClosed'){
+                        } else if ($scope.selectedReceivableMode === 'listClosed') {
                             date = receivable.liquidated;
                         }
-                        
+
                         if (initialFilter && finalFilter) {
                             if (date >= initialFilter && date <= finalFilter) {
                                 return true;
