@@ -184,10 +184,14 @@
                 }
             }
 
-            item.installments = installment;
+            if (Number(installment) <= Number(numberOfInstallments)) {
+                item.installments = installment;
 
-            if (numberOfInstallments) {
-                item.installments += ' de ' + numberOfInstallments;
+                if (numberOfInstallments) {
+                    item.installments += ' de ' + numberOfInstallments;
+                }
+            } else {
+                item = null;
             }
 
             return item;
@@ -205,13 +209,18 @@
         function add(data) {
             var formIsValid = $scope.newCreditCardWarmupForm.$valid;
             var amountIsSet = !!data.amount;
-
-            if (formIsValid && amountIsSet) {
-                addItem(createItemFromData(data));
+            var itemFromData = createItemFromData(data);
+            if (formIsValid && amountIsSet && itemFromData) {
+                addItem(itemFromData);
                 // Clear the form
                 resetData();
                 $element.find('input').removeClass('ng-dirty').addClass('ng-pristine');
             } else {
+
+                if (!itemFromData) {
+                    data.installments = '';
+                }
+
                 $element.find('input').removeClass('ng-pristine').addClass('ng-dirty');
                 $log.debug('Warmup credit card form is not valid!', data);
                 DialogService.messageDialog({
@@ -278,7 +287,7 @@
 
         $scope.chooseCustomer = openChooseCustomerDialog;
 
-        $scope.installmentsRegex = /^[0-9]{1,2}((\/|\-| de )[0-9]{1,2}){1}$/;
+        $scope.installmentsRegex = /^[1-9][0-9]{0,1}((\/|\-| de )[1-9][0-9]{0,1}){1}$/;
     }
 
     function OtherReceivablesWarmupCtrl() {
