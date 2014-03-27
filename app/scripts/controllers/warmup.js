@@ -3,13 +3,77 @@
 
     // ////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////
-    function WarmupCtrl($scope, $log, UserService, WarmupService) {
+    function WarmupCtrl($scope, $log, UserService, WarmupService, SyncDriver) {
         UserService.redirectIfIsNotLoggedIn();
         $log.debug('Initializing WarmupCtrl...');
 
-        $scope.date = {
-            value : null
+
+
+        /////////////////////////////////////////////////////////////////////
+        /// DATE WORK AROUND START ******************************************
+
+        /* This is a work around for handling warmup creation data persistence.
+         * Things that need to be fixed in a proper implementation:
+         *  * creation date should be set in entries (for now, this date is not
+         *    being used anywhere);
+         *  * creation date should be updated together with
+         *    {@code warmupRef.timestamp}, ensuring it is updated only when
+         *    we are sure that the warmup data itself has been stored.
+         */
+
+        var date = {
+            value : null,
+            persist : function () {
+                $log.debug('Persisting warmup creation date...', date);
+                if (this.value) {
+                    persistCreationTimestamp(this.value.getTime());
+                }
+            }
         };
+
+
+        function listenRemoteCreationTimestampChanges() {
+          var ref = SyncDriver.refs.user.child('warmup').child('creationTimestamp');
+          ref.on('value', function (snapshot) {
+              var val = snapshot.val();
+
+              if (val) {
+                  date.value = new Date(val);
+                  setLocalCreationTimestamp(val);
+              }
+          });
+        }
+
+
+        function persistCreationTimestamp(creationTimestamp) {
+            if (creationTimestamp) {
+                var ref = SyncDriver.refs.user.child('warmup').child('creationTimestamp');
+                ref.set(creationTimestamp);
+                setLocalCreationTimestamp(creationTimestamp);
+            }
+        }
+
+
+        function getLocalCreationTimestamp() {
+            var creationTimestamp = localStorage.getItem('warmupCreationTimestamp');
+            return creationTimestamp ? parseInt(creationTimestamp) : null;
+        }
+
+
+        function setLocalCreationTimestamp(creationTimestamp) {
+            localStorage.setItem('warmupCreationTimestamp', creationTimestamp);
+        }
+
+
+        var creationTimestamp = getLocalCreationTimestamp();
+        date.value = creationTimestamp ? new Date(creationTimestamp) : new Date();
+
+        listenRemoteCreationTimestampChanges();
+
+        /// ************************************************* DATE WORK AROUND END
+        ////////////////////////////////////////////////////////////////////////////
+
+        $scope.date = date;
     }
 
     /**
@@ -102,6 +166,8 @@
 
         function save() {
             var ref = SyncDriver.refs.user.child('warmup');
+
+            $scope.date.persist();
 
             $log.debug('Saving check warmup entries:', items);
             return CheckWarmupService.saveItems(ref, items).then(function() {
@@ -248,6 +314,8 @@
 
         function save() {
             var ref = SyncDriver.refs.user.child('warmup');
+
+            $scope.date.persist();
 
             $log.debug('Saving credit card warmup entries:', items);
             return CreditCardWarmupService.saveItems(ref, items).then(function() {
@@ -616,6 +684,8 @@
                 entries.push(entry);
             }
 
+            $scope.date.persist();
+
             StockWarmupService.updateStockWarmup(ref, entries).then(function() {
                 return DialogService.messageDialog({
                     title : 'Estoque inicial',
@@ -661,7 +731,7 @@
     angular.module('tnt.catalog.warmup.ctrl', [
         'tnt.catalog.sync.driver', 'tnt.catalog.warmup.service', 'tnt.catalog.service.dialog'
     ]).controller('WarmupCtrl', [
-        '$scope', '$log', 'UserService', 'WarmupService', WarmupCtrl
+        '$scope', '$log', 'UserService', 'WarmupService', 'SyncDriver', WarmupCtrl
     ]).controller(
             'CreditCardWarmupCtrl',
             [
