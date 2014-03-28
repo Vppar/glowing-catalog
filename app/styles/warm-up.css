@@ -230,3 +230,9 @@
 .warm-up-creditcard-wrapper {
   height:100%;
 }
+
+
+
+.warm-up-remove-item-bullet.disabled {
+  opacity: 0.25;
+}

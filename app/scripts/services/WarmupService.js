@@ -230,8 +230,6 @@
             var created = new Date().getTime();
 
             var payment = {
-                id : null,
-                created : created,
                 account : item.account,
                 agency : item.agency,
                 bank : item.bank,
@@ -343,6 +341,8 @@
         this.getTotal = getTotal;
         this.saveItems = saveItems;
     } // CheckWarmupService
+
+
 
     // ///////////////////////////////////////////////////////////////////
     // ###################################################################
@@ -528,11 +528,186 @@
         this.saveItems = saveItems;
     } // CreditCardWarmupService
 
+
+
     // ///////////////////////////////////////////////////////////////////
     // ###################################################################
     // ///////////////////////////////////////////////////////////////////
-    function OtherReceivablesWarmupService() {
-    }
+    function OnCuffWarmupService($q, $log, $rootScope, ArrayUtils, EntityService, IdentityService, WarmupService, ReceivableService) {
+        var local = WarmupService.local;
+
+        function getItems() {
+            var entries = getEntries();
+            var items = [];
+
+            for ( var idx in entries) {
+                var entry = entries[idx];
+                items.push(createItem(entry));
+            }
+
+            return items;
+        }
+
+        function getEntries() {
+            var entries = local.data || [];
+            var onCuffEntries = [];
+
+            for ( var idx in entries) {
+                var entry = entries[idx];
+                if (entry.type === 'receivableAdd' && entry.event && entry.event.type === 'onCuff') {
+                    onCuffEntries.push(entry);
+                }
+            }
+
+            return onCuffEntries;
+        }
+
+        function getOtherEntries() {
+            var entries = local.data || [];
+            var onCuffEntries = [];
+
+            for ( var idx in entries) {
+                var entry = entries[idx];
+                if (entry.type !== 'receivableAdd' || (entry.event && entry.event.type !== 'onCuff')) {
+                    onCuffEntries.push(entry);
+                }
+            }
+
+            return onCuffEntries;
+        }
+
+        function createEntry(item, idx) {
+            // Convert to a timestamp if needed
+            var duedate = item.duedate && item.duedate.getTime ? item.duedate.getTime() : item.duedate;
+            var created = new Date().getTime();
+            var installment = null;
+            var numberOfInstallments = null;
+            if (item.installments) {
+                if (item.installments.indexOf(' de ') > -1) {
+                    var splitedInstallments = item.installments.split(' de ');
+                    installment = splitedInstallments[0];
+                    numberOfInstallments = splitedInstallments[1];
+                }
+            }
+
+            var payment = {
+                id : null,
+                duedate : duedate,
+                amount : item.amount,
+                number : installment,
+                type : 'onCuff'
+            };
+
+            if (numberOfInstallments) {
+                payment.numberOfInstallments = numberOfInstallments;
+            }
+
+            var event = {
+                // When generating the UUID:
+                // 0 is an arbitrary deviceId used in warmup entries
+                // 1 is the CoinKeeper's op for generating UUIDs
+                uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
+                amount : item.amount,
+                created : created,
+                duedate : duedate,
+                entityId : item.customerId,
+                type : 'onCuff',
+                payment : payment
+            };
+
+            var entry = {
+                uuid : null,
+                type : 'receivableAdd',
+                version : 1,
+                event : event
+            };
+
+            return entry;
+        }
+
+        function createItem(entry) {
+            var item = {};
+
+            var event = entry.event;
+            var payment = event.payment;
+
+            var customer = ArrayUtils.find(EntityService.list(), 'uuid', event.entityId);
+
+            if (!customer) {
+                $log.error('Missing customer for warmup entry!', entry);
+            }
+
+            var installments = payment.number;
+            if (payment.numberOfInstallments) {
+                installments += ' de ' + payment.numberOfInstallments;
+            }
+
+            angular.extend(item, {
+                uuid : event.uuid,
+                duedate : event.duedate ? new Date(event.duedate) : null,
+                amount : event.amount,
+                customerName : customer && customer.name,
+                customerId : event.entityId,
+                installments : installments,
+                used : isUsed(event),
+                redeemed : isRedeemed(event)
+            });
+
+            return item;
+        }
+
+        // FIXME - Remove this method from controller and from html validation
+        function isUsed(event) {
+            return false;
+        }
+
+        function isRedeemed(event) {
+            var recoveredReceivable = ReceivableService.read(event.uuid);
+            return Boolean(recoveredReceivable && recoveredReceivable.liquidated);
+        }
+
+        function createEntries(items) {
+            var entries = [];
+
+            for ( var idx in items) {
+                var item = items[idx];
+                // Don't create an entry for the data in the 'total' attribute
+                if (typeof item === 'object') {
+                    entries.push(createEntry(item, idx));
+                }
+            }
+
+            $log.debug('Entries:', entries);
+
+            return entries;
+        }
+
+        function getTotal(items) {
+            if (!items) {
+                return 0;
+            }
+
+            var total = 0;
+
+            for ( var idx in items) {
+                total += items[idx].amount;
+            }
+
+            return total;
+        }
+
+        function saveItems(warmupRef, items) {
+            var entries = createEntries(items);
+            var otherEntries = getOtherEntries();
+            var data = [].concat(entries, otherEntries);
+            return WarmupService.updateWarmup(warmupRef, data);
+        }
+
+        this.getEntries = getEntries;
+        this.getItems = getItems;
+        this.getTotal = getTotal;
+        this.saveItems = saveItems;
+    } // OnCuffWarmupService
 
     // ///////////////////////////////////////////////////////////////////////
     // #######################################################################
@@ -582,8 +757,8 @@
         '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', 'ReceivableService', CheckWarmupService
     ]).service('CreditCardWarmupService', [
         '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', 'ReceivableService', CreditCardWarmupService
-    ]).service('OtherReceivablesWarmupService', [
-        '$q', '$log', '$rootScope', 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService', OtherReceivablesWarmupService
+    ]).service('OnCuffWarmupService', [
+        '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', 'ReceivableService', OnCuffWarmupService
     ])
     // .service('BalanceWarmupService', ['$q', '$log', '$rootScope',
     // 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService',
