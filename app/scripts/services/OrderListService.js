@@ -102,16 +102,6 @@
                         gross += $filter('sum')(order.items, 'amount');
                         gross += $filter('sum')(order.items, 'price', 'qty');
                         Misplacedservice.distributeSpecificDiscount(gross, discountCoupom, order.items);
-                        for(var ix in order.items){
-                            var item = order.items[ix];
-                            if (item.type) {
-                                item.amount -= item.specificDiscount;
-                                item.amount = FinancialMathService.floor(item.amount);
-                            } else {
-                                item.price -= item.specificDiscount;
-                                item.price = FinancialMathService.floor(item.price);
-                            }
-                        }
                     };
                     
             }

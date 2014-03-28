@@ -27,10 +27,10 @@
                     function updateFilteredProducts () {
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
-
+                        var orders = angular.copy($scope.filteredOrders);
                         var productsMap = {};
-                        for ( var ix in $scope.filteredOrders) {
-                            var order = $scope.filteredOrders[ix];
+                        for ( var ix in orders) {
+                            var order = orders[ix];
                             
                             var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid);
                             if(discountCoupom > 0 ){
@@ -48,6 +48,7 @@
                                     response = ArrayUtils.find(productsMap, 'title', SKU);
                                 }
                                 var discount = item.itemDiscount || item.orderDiscount || 0;
+                                discount += item.specificDiscount || 0;
 
                                 if (response) {
                                     // now we are computing voucher, so we need to verify which field has the amount.

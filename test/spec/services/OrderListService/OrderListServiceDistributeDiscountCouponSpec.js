@@ -29,10 +29,10 @@ describe('Service: OrderListService.distributeDiscountCoupon', function () {
                 date : 1392214432,
                 items : [
                     {
-                        price : "17",
+                        price : 17,
                         qty : 1
                     }, {
-                        amount : "30",
+                        amount : 30,
                         qty : 1,
                         type : "voucher"
                     }
@@ -47,15 +47,15 @@ describe('Service: OrderListService.distributeDiscountCoupon', function () {
                 date : 1392214432,
                 items : [
                     {
-                        price : "17",
+                        price : 17,
                         qty : 2
                     }, {
-                        amount : "33",
+                        amount : 33,
                         qty : 1,
                         type : "voucher"
                     },
                     {
-                        price : "10",
+                        price : 10,
                         qty : 3
                     }
 
@@ -64,16 +64,18 @@ describe('Service: OrderListService.distributeDiscountCoupon', function () {
         ];
     });
 
+    
+    //FIX Verify item.itemDiscount
     it('Should distribute discount coupom in all items.', function () {
         OrderListService.distributeDiscountCoupon(orders[0], 10);
-        expect(13.38).toEqual(orders[0].items[0].price);
-        expect(23.62).toEqual(orders[0].items[1].amount);
+        expect(17).toEqual(orders[0].items[0].price);
+        expect(30).toEqual(orders[0].items[1].amount);
     });
     
     it('Should distribute discount coupom in all items.', function () {
         OrderListService.distributeDiscountCoupon(orders[1], 10);
-        expect(13.49).toEqual(orders[1].items[0].price);
-        expect(29.60).toEqual(orders[1].items[1].amount);
-        expect(6.91).toEqual(orders[1].items[2].price);
+        expect(17).toEqual(orders[1].items[0].price);
+        expect(33).toEqual(orders[1].items[1].amount);
+        expect(10).toEqual(orders[1].items[2].price);
     });
 });
