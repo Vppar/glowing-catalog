@@ -227,6 +227,9 @@
         }).when('/pagpop', {
             templateUrl : 'views/pagpop.html',
             controller : 'PagpopCtrl'
+        }).when('/third-parties-2', {
+            templateUrl : 'views/sacred-third-parties.html',
+            controller: 'ThirdPartyCtrl'
         }).otherwise({
             redirectTo : '/'
         });
