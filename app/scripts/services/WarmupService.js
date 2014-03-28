@@ -230,8 +230,6 @@
             var created = new Date().getTime();
 
             var payment = {
-//                id : null,
-//                created : created,
                 account : item.account,
                 agency : item.agency,
                 bank : item.bank,
