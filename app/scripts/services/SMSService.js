@@ -13,7 +13,7 @@
                 // ############################################################################################
                 // SMS related functions
                 // ############################################################################################
-                var baseUrl = 'http://mars.tunts.net/sms/vpsa.php';
+                var baseUrl = 'https://vopp.com.br/api/sms/';
                 var token = '8f934ur83rhq34r879hncfq9f4yq987nf4dh4fyn98hdmi44dz21x3gdju893d2';
                 var method = 'GET';
 
