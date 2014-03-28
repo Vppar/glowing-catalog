@@ -19,7 +19,7 @@ describe('Service: CepService', function() {
         var result = undefined;
         var expected = {address : 'endereço'}; 
         
-        $httpBackend.when('GET', 'http://cep.correiocontrol.com.br/80060140.json').respond(expected);
+        $httpBackend.when('GET', 'https://vopp.com.br/api/cep/80060140.json').respond(expected);
         
         runs(function() {
             CepService.search('80060140').then(function(address) {
@@ -44,7 +44,7 @@ describe('Service: CepService', function() {
         var expected = 500; 
         var result = undefined;
         
-        $httpBackend.when('GET', 'http://cep.correiocontrol.com.br/8006.json').respond(expected);
+        $httpBackend.when('GET', 'https://vopp.com.br/api/cep/8006.json').respond(expected);
         
         runs(function() {
             CepService.search('8006').then(function(address) {
