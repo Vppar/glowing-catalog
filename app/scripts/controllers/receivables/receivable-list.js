@@ -184,11 +184,19 @@
                                 receivable.document = 'Conta a Receber';
                                 // FIXME OnCuff receivables seem to store the installment in the number
                                 // property. Need to check if this is really the case.
-                                var installments = receivable.payment.installments || receivable.payment.number;
-                                var numberOfInstallments = receivable.payment.numberOfInstallments;
-
-                                receivable.installment = installments ? installments : 1;
-                                receivable.numberOfInstallment = numberOfInstallments ? numberOfInstallments : 1;
+                                if(receivable.payment.type==='check'){
+                                    var installments = receivable.payment.installments;
+                                    var numberOfInstallments = receivable.payment.numberOfInstallments;
+                                    
+                                    receivable.installment = installments ? installments : 1;
+                                    receivable.numberOfInstallment = numberOfInstallments ? numberOfInstallments : 1;
+                                }else{
+                                    var installments = receivable.payment.installments || receivable.payment.number;
+                                    var numberOfInstallments = receivable.payment.numberOfInstallments;
+                                    
+                                    receivable.installment = installments ? installments : 1;
+                                    receivable.numberOfInstallment = numberOfInstallments ? numberOfInstallments : 1;
+                                }                                
                             }
 
                             receivable.status = (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';

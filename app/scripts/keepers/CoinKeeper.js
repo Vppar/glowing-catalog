@@ -297,8 +297,15 @@
                 var receivable = angular.copy(ArrayUtils.find(vault, 'uuid', check.uuid));
                 
                 //FIXME - quick fix to remove the old and useless check.id
-                if(check.id){
+                if(check.id || check.id ===null){
                     delete check.id;
+                }
+                //FIXME - check shouldn't have created field, 
+                //it was already removed from the warmUp service, 
+                //but i'll keep this since the first version of the warmUp that 
+                //went to production had the field.
+                if(check.created || check.created === null){
+                    delete check.created;
                 }
                 
                 check = new CheckPayment(check);
