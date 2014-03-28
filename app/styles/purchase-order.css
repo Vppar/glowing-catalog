@@ -31,7 +31,9 @@
 .purchase-order-ticket-part2 .new-scrollpanel{
 	height: calc(100% - 74px);
 }
-
+.purchase-order-confirm-part {
+	height:100%;
+}
 .purchase-order-confirm-part .new-scrollpanel{
 	height: calc(100% - 38px);
 }
