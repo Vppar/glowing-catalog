@@ -194,6 +194,10 @@
                 var giftCardConfirmationSMS =
                     'Voce recebeu de {{customerName}} um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado '
                         + 'na compra de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
+                
+                var giftCardCustomerConfirmationSMS =
+                    'Voce presenteou {{entityName}} com um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado '
+                        + 'na compra de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
 
                 this.sendGiftCardConfirmation =
                     function sendGiftCardConfirmation (customer, giftCard) {
@@ -218,6 +222,30 @@
                         }
                         return smsSent;
                     };
+                    
+                    this.sendGiftCardCustomerConfirmation =
+                        function sendGiftCardCustomerConfirmation (customer, giftCard) {
+
+                            var entity = EntityService.read(giftCard.entity);
+                            var to = getPhoneNumber(entity);
+
+                            var smsSent = null;
+                            var data = {};
+
+                            // complete data object
+                            data.entityName = entity.name;
+                            data.giftCardAmount = getCurrencyFormat(giftCard.amount);
+                            data.representativeName = user.name;
+                            data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
+
+                            if (to) {
+                                var smsMessage = $interpolate(giftCardCustomerConfirmationSMS)(data);
+                                smsSent = this.send(to, smsMessage);
+                            } else {
+                                smsSent = $q.reject($interpolate(cellMissingAlert)(data));
+                            }
+                            return smsSent;
+                        };
 
             }]);
 
