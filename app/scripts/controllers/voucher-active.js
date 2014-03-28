@@ -26,22 +26,25 @@
                 $scope.voucherFilter.date.setHours(23);
                 $scope.voucherFilter.date.setMinutes(59);
                 $scope.voucherFilter.date.setSeconds(59);
+                
+                var result = null;
                 if (initialFilter) {
                     if (voucher.created <= initialFilter) {
                         if(voucher.redeemed){
                             if(voucher.redeemed>= initialFilter){
-                                return true;
+                                result = true;
                             }else{
-                                return false;
+                                result = false;
                             }
                         }else{
-                            return true;
+                            result = true;
                         }
                     }
-                    return false;
                 } else {
-                    return true;
+                    result = true;
                 }
+                
+                return result;
             }
 
             $scope.filter = function filter() {
