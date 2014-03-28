@@ -1,0 +1,13 @@
+/*
+* sacred-form.css is the priest of the information. It listens every one that needs.
+* (this stylesheet have all the styles for make a form wort with a generic page)
+*/
+
+#sacred input.input-header{
+	height: 30px;
+	width: 100%;
+}
+
+#sacred .labeless-force-align{
+	margin-top: 20px;
+}

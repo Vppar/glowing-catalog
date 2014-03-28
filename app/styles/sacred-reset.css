@@ -1,0 +1,11 @@
+/*
+* sacred-reset.css is the old god that make the rebirth possible. It is resposable for eliminate the remaining styles that survived.
+* (it resets all that #sacred did not purge)
+* this file needs to be below all other css's and before the sacred ones
+*/
+
+#sacred .container {
+  width: auto;
+  position: static;
+  left: auto;
+}
