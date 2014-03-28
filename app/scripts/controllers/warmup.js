@@ -170,13 +170,18 @@
             $scope.date.persist();
 
             $log.debug('Saving check warmup entries:', items);
-            return CheckWarmupService.saveItems(ref, items).then(function() {
+
+            CheckWarmupService.saveItems(ref, items).then(function() {
                 $log.debug('Check warmup entries saved.');
-                DialogService.messageDialog({
-                    title : 'Cheques a receber',
-                    message : 'Cheques a receber salvos com sucesso!',
-                    btnYes : 'OK'
-                });
+            });
+
+            // We'll consider data to be saved once it's stored in localStorage
+            // and count that it will be replicated in Firebase eventually,
+            // that's why the message dialog is shown synchronously.
+            DialogService.messageDialog({
+                title : 'Cheques a receber',
+                message : 'Cheques a receber salvos com sucesso!',
+                btnYes : 'OK'
             });
         }
 
@@ -321,13 +326,18 @@
             $scope.date.persist();
 
             $log.debug('Saving credit card warmup entries:', items);
-            return CreditCardWarmupService.saveItems(ref, items).then(function() {
+
+            CreditCardWarmupService.saveItems(ref, items).then(function() {
                 $log.debug('CreditCard warmup entries saved.');
-                DialogService.messageDialog({
-                    title : 'Contas a receber (Cartões)',
-                    message : 'Pagamentos em cartão de crédito a receber salvos com sucesso!',
-                    btnYes : 'OK'
-                });
+            });
+
+            // We'll consider data to be saved once it's stored in localStorage
+            // and count that it will be replicated in Firebase eventually,
+            // that's why the message dialog is shown synchronously.
+            DialogService.messageDialog({
+                title : 'Contas a receber (Cartões)',
+                message : 'Contas a receber (Cartões) salvas com sucesso!',
+                btnYes : 'OK'
             });
         }
 
@@ -473,13 +483,18 @@
             $scope.date.persist();
 
             $log.debug('Saving oncuff warmup entries:', items);
-            return OnCuffWarmupService.saveItems(ref, items).then(function() {
+
+            OnCuffWarmupService.saveItems(ref, items).then(function() {
                 $log.debug('OnCuff warmup entries saved.');
-                DialogService.messageDialog({
-                    title : 'Contas a receber (Diversas)',
-                    message : 'Pagamentos a receber salvos com sucesso!',
-                    btnYes : 'OK'
-                });
+            });
+
+            // We'll consider data to be saved once it's stored in localStorage
+            // and count that it will be replicated in Firebase eventually,
+            // that's why the message dialog is shown synchronously.
+            DialogService.messageDialog({
+                title : 'Contas a receber (Diversas)',
+                message : 'Contas a receber (Diversas) salvas com sucesso!',
+                btnYes : 'OK'
             });
         }
 
