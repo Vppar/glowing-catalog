@@ -31,9 +31,13 @@
                         var productsMap = {};
                         for ( var ix in $scope.filteredOrders) {
                             var order = $scope.filteredOrders[ix];
+                            
                             var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid);
-                            console.log(discountCoupom);
-                            for ( var idx in $scope.filteredOrders[ix].items) {
+                            if(discountCoupom > 0 ){
+                                OrderListService.distributeDiscountCoupon(order, discountCoupom);
+                            }
+
+                            for ( var idx in order.items) {
                                 var item = order.items[idx];
                                 var response = undefined;
                                 if(item.SKU){
@@ -101,7 +105,7 @@
                             }
                         }
                     }
-
+                    
                     $scope.updateProducts =
                         function () {
                             $scope.filteredOrders = $scope.filterOrders($scope.orders);

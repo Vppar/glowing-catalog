@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.orderList.service', [
-        'tnt.catalog.receivable.service'
+        'tnt.catalog.receivable.service','tnt.catalog.financial.math.service', 'tnt.catalog.misplaced.service'
     ]).service(
         'OrderListService',
         [
@@ -10,7 +10,9 @@
             'ReceivableService',
             'BookService',
             'logger',
-            function ($filter, ReceivableService, BookService, logger) {
+            'FinancialMathService',
+            'Misplacedservice',
+            function ($filter, ReceivableService, BookService, logger,FinancialMathService,Misplacedservice) {
 
                 var log = logger.getLogger('tnt.catalog.orderList.service');
 
@@ -22,16 +24,15 @@
                 this.getTotalDiscountByOrder = function (orderUUID) {
                     return this.getTotalByType(orderUUID, 'discount').amount;
                 };
-                
+
                 /**
-                 * 
                  * @param orderUUID
                  * @returns total discount on sale
                  */
                 this.getDiscountCoupomByOrder = function (orderUUID) {
                     return this.getTotalByOrder(orderUUID, 70001, 41303).amount;
                 };
-                
+
                 /**
                  * @param orderUUID
                  * @param type - use to set the debit and credit account
@@ -95,6 +96,24 @@
                         };
                     };
 
+                    
+                    this.distributeDiscountCoupon = function (order, discountCoupom) {
+                        var gross = 0;
+                        gross += $filter('sum')(order.items, 'amount');
+                        gross += $filter('sum')(order.items, 'price', 'qty');
+                        Misplacedservice.distributeSpecificDiscount(gross, discountCoupom, order.items);
+                        for(var ix in order.items){
+                            var item = order.items[ix];
+                            if (item.type) {
+                                item.amount -= item.specificDiscount;
+                                item.amount = FinancialMathService.floor(item.amount);
+                            } else {
+                                item.price -= item.specificDiscount;
+                                item.price = FinancialMathService.floor(item.price);
+                            }
+                        }
+                    };
+                    
             }
         ]);
 }(angular));

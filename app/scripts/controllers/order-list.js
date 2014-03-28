@@ -247,26 +247,10 @@
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
                             $scope.total.all.entityCount++;
                         }
-                        if($scope.ol=='products'){
-                            for(var ix in filteredOrder.items){
-                                var item = filteredOrder.items[ix];
-                                
-                                var discount = item.orderDiscount ? item.orderDiscount:item.itemDiscount;
-                                if(discount > 0){
-                                    $scope.total.all.amountWithDiscount -= discount;
-                                }
-                                var amount = item.amount || item.price * item.qty;
-                                $scope.total.all.amountWithDiscount += amount;
-                                $scope.total.all.qty += item.qty;
-                            }
-                            $scope.total.all.orderCount++;
-                        }else{
-                            $scope.total.all.amountWithDiscount += filteredOrder.amountTotalWithDiscount;
-                            $scope.total.all.amount += filteredOrder.amountTotal;
-                            $scope.total.all.qty += filteredOrder.itemsQty;
-                            $scope.total.all.orderCount++;
-                        }
-                        
+                        $scope.total.all.amountWithDiscount += filteredOrder.amountTotalWithDiscount;
+                        $scope.total.all.amount += filteredOrder.amountTotal;
+                        $scope.total.all.qty += filteredOrder.itemsQty;
+                        $scope.total.all.orderCount++;
                     }
                     
                     var avgPrice =
@@ -278,6 +262,38 @@
                     }
                 };
 
+             function distributedDiscountCoupon(order, discountCoupom){
+                        var distributed = 0;
+                        var gross = 0 ; 
+                        gross += $filter('sum')(order.items, 'amount');
+                        gross += $filter('sum')(order.items, 'price', 'qty');
+                        
+                        for(var ix in order.items){
+                            var item = order.items[ix];
+                            var discount = item.itemDiscount || item.orderDiscount || 0;
+                            
+                            var price = item.price || item.amount;
+                            var value = price * item.qty - discount;
+                            var pondValue =  (value / gross)* discountCoupom; 
+                            distributed += pondValue;
+                            if(item.type){
+                                item.amount -= pondValue / item.qty;                                
+                            }else{
+                                item.price -= pondValue / item.qty;
+                            }
+                        }
+                        
+                        if(discountCoupom !== distributed){
+                            var x = discountCoupom - distributed;
+                            if(items[order.items.length].type){
+                                items[order.items.length].amount += x/qty;
+                            }else{
+                                items[order.items.length].price += x/qty;
+                            }
+                        }
+                    }
+                
+                
             /**
              * ClientFilter
              */
