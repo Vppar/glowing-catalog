@@ -958,7 +958,7 @@ width: 428px !important;
 	line-height: 40px;
 }
 .control-label-exchange{
-	width:375px; /*400px*/
+	width:345px; /*400px*/
 }
 
 .exchange-initial .header-exchange{
@@ -974,10 +974,11 @@ width: 428px !important;
 }
 
 .subtitle-header-exchange{
-	margin: 0 !important;
 	background-color: #dadada; /*#f2f2f2*/
 	border-radius: 4px;
-	border-bottom:0 !important;
+	height:40px;
+	line-height:40px;
+	font-weight:bold;
 }
 
 .subtitle2-header-exchange{
@@ -1420,4 +1421,34 @@ margin-top: 10px;
 	margin-bottom:10px;
 	background-color: rgb(242, 242, 242);
 	padding: 0px 10px;
+}
+
+.payment-left-exchange .scroll-payment {
+	height:calc(100% - 284px);
+	overflow-y:auto;
+}
+.payment-left-exchange form .new-col-13 {
+	padding:0;
+}
+.check-exchange {
+	text-align:right;
+	overflow:hidden;	
+	border:1px solid #eee;
+	background-color:#f2f2f2;
+	border-radius:4px;
+	padding-right:5px;
+}
+.payment-left-exchange .btn-clear-form {
+	padding:0;
+	padding-top:33px;
+	padding-right:3px;
+}
+.payment-left-exchange .new-body-row {
+	padding:10px 0 8px;
+}
+.payment-left-exchange .new-body-row:last-child {
+	border-bottom:none;
+}
+.payment-left-exchange, .payment-left-exchange .left-payment, .payment-left-exchange .exchange-initial {
+	height:100%;
 }
