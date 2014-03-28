@@ -29,6 +29,8 @@
 #sacred .grid .grid-item{
 	border-bottom: 1px #ccc dotted;
 	min-height: 40px; 
+	padding-top: 2px;
+ 	padding-bottom: 2px;
 }
 
 #sacred .grid .grid-body>:last-child{
@@ -115,14 +117,16 @@
  	cursor:pointer;
  }
 
- #sacred .grid .product-name{}
+ #sacred .grid .product-name{
+ 
+ }
  #sacred .grid .product-name small{
  	color: #999;
- 	float: left;
- 	display: inline-block;
+ 	float: none;
+ 	display: block;
  }
  #sacred .grid .product-name span{
- 	float: left;
- 	display: inline-block;
+ 	display: block;
+ 	float: none;
  }
 
