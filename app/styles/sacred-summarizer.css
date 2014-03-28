@@ -1,0 +1,34 @@
+/*
+* sacred-summarizer.css is a soldier! It is resposable for show ... summed values.
+* (this stylesheet have all the styles that is needed to make a summarizer)
+*/
+
+#sacred .summarizer{
+	width: 100%;
+	border-radius: 4px;
+	border: 1px solid #E0E0e0;
+	height: 30px; /* bootstrap input default height*/
+}
+#sacred .summarizer .summarizer-label{
+	padding-left: 10px;
+	float: left;
+	line-height: 28px; /* box-model border-box at sacred-structure! (height counts border so 30 - 1 top - 1bottom = 28px!)*/
+}
+#sacred .summarizer small{
+	float: right;
+	line-height: 28px;
+	display: block;
+	margin-right: 10px;
+}
+
+#sacred .summarizer .summarizer-value{
+	padding-right: 10px;
+	float: right;
+	height: 20px;
+	line-height: 20px;
+	margin: 4px 4px 0px 0px;
+	border-radius: 4px;
+	background-color: #F2F2F2;
+	width: 35%;
+	text-align: right;
+}

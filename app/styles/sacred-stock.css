@@ -1,0 +1,66 @@
+/*
+* grid-stock is a special type of grid. it defines the stock apresentation style.
+*/
+#sacred .grid-stock{
+  width: 100%;
+}
+#sacred .grid-stock .first-line,
+#sacred .grid-stock .second-line,
+#sacred .grid-stock .third-line,
+#sacred .grid-stock .fourth-line{
+  min-height: 30px;  
+  font-size: 14px;
+  padding: 8px 0px;
+}
+#sacred .grid-stock .first-line,
+#sacred .grid-stock .second-line,
+#sacred .grid-stock .third-line{
+  border-radius: 4px;
+  font-weight: bold;
+  margin-bottom: 1px;
+}
+#sacred .grid-stock .fourth-line{
+  border-top: 1px solid #e3e3e3; 
+}
+
+#sacred .grid-stock .first-line .row>:first-child,
+#sacred .grid-stock .second-line .row>:first-child,
+#sacred .grid-stock .third-line .row>:first-child,
+#sacred .grid-stock .fourth-line .row>:first-child {
+  padding-left: 20px;
+}
+
+#sacred .grid-stock .first-line .row>:last-child,
+#sacred .grid-stock .second-line .row>:last-child,
+#sacred .grid-stock .third-line .row>:last-child,
+#sacred .grid-stock .fourth-line .row>:last-child {
+  padding-right: 20px;
+}
+
+#sacred .grid-stock .grid-header{
+  margin-bottom: 1px;
+}
+
+#sacred .grid-stock .first-line{
+  color: #222;
+  background-color: #ccc;
+}
+#sacred .grid-stock .second-line{
+  color: #444;
+  background-color: #e3e3e3;
+}
+#sacred .grid-stock .third-line{
+  color: #777;
+  background-color: #f4f4f4;
+}
+#sacred .grid-stock .fourth-line{
+  color: #333;
+  background-color: #fff;
+}
+#sacred .grid-stock small{
+  display: block;
+}
+
+#sacred .grid-stock .fourth-lines:last-child{
+  border-bottom:none; 
+}

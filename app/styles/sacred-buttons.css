@@ -1,0 +1,55 @@
+/*
+* sacred-buttons.css is the priest of the actions. It is resposable for show the way.
+* (this stylesheet have all the styles for make buttons, maybe it can be fused with sacred-form.css....)
+*/
+
+#sacred .buttons-holder{
+	margin: 10px 0px;
+}
+
+#sacred .button-black,
+#sacred .button-green{
+	border-radius: 4px;
+	border:none;
+	color: #fff;
+	cursor: pointer;
+	display: block;
+	float: left;
+	font-size: 16px;
+	font-weight: normal;
+	height: 38px;
+	line-height: 20px;
+	margin: 0px 5px;
+	min-width: 86px;
+	padding:8px 10px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#sacred .button-green,
+#sacred .button-green:visited{
+	background-color: #5D9732;
+}
+#sacred .button-green:active,
+#sacred .button-green:hover,
+#sacred .button-green:focus{
+	background-color: #48841C;
+}
+#sacred .button-black{
+	background-color: #575757;
+}
+
+#sacred .button-black:active,
+#sacred .button-black:hover,
+#sacred .button-black:focus{
+	background-color: #000;
+}
+
+#sacred .inline-button{
+	height: 30px;
+	font-size: 14px;
+	line-height: 10px;
+	margin: 0px;
+}
+
+

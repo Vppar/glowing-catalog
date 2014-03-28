@@ -1,0 +1,96 @@
+/*
+* sacred-grid.css is the priest of the grids. It is resposable for keeping the grids (some believers call then tables) on track.
+* do not confuse with the structure! (sacred-structure.css is responsable for the boostrap alike organization)
+* (this stylesheet have all the styles for the tables/grids.)
+*/
+
+#sacred .grid{
+	margin-bottom: 10px;
+	border-bottom: 1px #ccc solid;
+}
+
+#sacred .grid .grid-summary,
+#sacred .grid .grid-header,
+#sacred .grid .grid-header{
+	border-radius: 4px;
+	height: 40px;
+	line-height: 40px;
+}
+#sacred .grid .grid-header{
+	color: #fff;
+	background-color: #333;
+}
+#sacred .grid .grid-summary{
+	background-color: #C8C8C8;
+	color:#333;
+	margin-top: 1px;
+}
+#sacred .grid .grid-item{
+	border-bottom: 1px #ccc dotted;
+	min-height: 40px; 
+}
+
+#sacred .grid .grid-body>:last-child{
+	border-bottom: none;
+}
+
+#sacred .grid .grid-header .row>:first-child,
+#sacred .grid .grid-summary .row>:first-child,
+#sacred .grid .grid-item .row>:first-child {
+	padding-left: 20px;
+}
+
+#sacred .grid .grid-header .row>:last-child,
+#sacred .grid .grid-summary .row>:last-child,
+#sacred .grid .grid-item .row>:last-child{
+	padding-right: 20px;
+}
+
+#sacred .grid .grid-scroll{
+	overflow-x:hidden;
+	overflow-y:scroll;
+}
+
+/*
+ * Decorators!
+ * all this classes should be explained!
+ * all classes should be espefic and stricted to one single context
+ */
+
+/* line decorator
+ * this class makes the line align with the 2px scroll. at ipad this should not have any effect (ipad-only.css).
+ */
+ #sacred .grid .grid-header,
+ #sacred .grid .grid-summary{
+ 	padding-right: 2px;
+ }
+
+/* column decorator
+ * this class makes the commas be aligned to the right!
+ */
+ #sacred .grid .currency{
+ 	text-align: right;
+ 	padding-right: 20px;
+ }
+
+/* column decorator
+ * this class just make the column item centered
+ */
+ #sacred .grid .text-center{
+ 	text-align: center;
+ }
+
+ /* column decorator
+ * this class just make the column item right aligned
+ */
+ #sacred .grid .text-right{
+ 	text-align: right;
+ }
+
+/* line decorator
+ * this class just make the grid-item content be vertical centered.
+ */
+ #sacred .grid .grid-item .single-line{
+ 	line-height: 40px;
+ }
+

@@ -1,0 +1,244 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">
+							Page Title
+						</div>
+						<small>
+							Sub-Title
+						</small>
+					</div>
+					<div class="col-14">
+						<div class="btn-group btn-group-sm pull-right">
+							<a class="btn btn-option" >Opção 1</a>
+							<a class="btn btn-option" >Opção 2</a>
+							<a class="btn btn-option" >Opção 3</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="content">
+					<!-- <div class="content-header"></div> não existe nesta página!-->
+					<div class="content-body">
+						<div class="part">
+							<div class="part-header">
+								<div class="row">
+									<div class="col-16">
+										<div class="btn-group btn-group-sm pull-left">
+											<a class="btn btn-option active">Seção 1</a> 
+											<a class="btn btn-option">Seção 2</a> 
+										</div>
+										<div class="btn-group btn-group-sm pull-right">
+											<a class="btn btn-option active" >Nível 1</a>
+											<a class="btn btn-option" >Nível 2</a>
+											<a class="btn btn-option" >Nível 3</a>
+										</div>	
+									</div>
+									<div class="col-8">
+										<div class="side-holder discount">
+											Faltam R$999,99 para o desconto de 40%
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="part-body">
+								<div class="row">
+									<div class="col-16">
+										<div class="grid grid-stock">
+											<div class="grid-header">
+												<div class="row">
+													<div class="col-10">Código/Produto</div>
+													<div class="col-2 text-center">Pts</div>
+													<div class="col-2 text-center">P.Unit</div>
+													<div class="col-4 currency">Qtde Mín</div>
+													<div class="col-6 text-center">Pedido</div>
+												</div>
+											</div>
+											<div class="first-line">
+												<div class="row">
+													<div class="col-10">&nbsp;</div>
+													<div class="col-2 text-center">1</div>
+													<div class="col-2 text-center">1</div>
+													<div class="col-4 currency">16,00</div>
+													<div class="col-6 text-center">16,00</div>
+												</div>
+											</div>
+											<div class="second-line">
+												<div class="row">
+													<div class="col-10">
+														Cuidados com a Pele
+													</div>
+													<div class="col-2 text-center">1</div>
+													<div class="col-2 text-center">1</div>
+													<div class="col-4 currency">16,00</div>
+													<div class="col-6 text-center">1</div>
+												</div>
+											</div>
+											<div class="third-line">
+												<div class="row">
+													<div class="col-10">
+														Botanical Effects
+													</div>
+													<div class="col-2">&nbsp;</div>
+													<div class="col-2 text-center">1</div>
+													<div class="col-4 currency">16,00</div>
+													<div class="col-6 text-center">1</div>
+												</div>
+											</div>
+
+											<div class="fourth-lines">
+												<div class="fourth-line">
+													<div class="row">
+														<div class="col-10">
+															Creme de Limpeza - 113 g.
+															<small>10-049513 - Pele Normal</small>
+														</div>
+														<div class="col-2 text-center">99</div>
+														<div class="col-2 text-center">1</div>
+														<div class="col-4 currency">16,00</div>
+														<div class="col-6 text-center"><tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker></div>
+													</div>
+												</div>
+												<div class="fourth-line">
+													<div class="row">
+														<div class="col-10">
+															Creme de Limpeza - 113 g.
+															<small>10-049513 - Pele Normal</small>
+														</div>
+														<div class="col-2 text-center">99</div>
+														<div class="col-2 text-center">1</div>
+														<div class="col-4 currency">16,00</div>
+														<div class="col-6 text-center"><tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-8">
+										<div class="side-holder">
+											<div class="side-title">
+												Seção 1
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													Valor de Compra
+												</div>
+												<div class="side-value">
+													60,00
+												</div>
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													Percentual de Desconto
+												</div>
+												<div class="side-value">
+													0,00
+												</div>
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													Valor de Desconto
+												</div>
+												<div class="side-value">
+													0,00
+												</div>
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													Total de pontos
+												</div>
+												<div class="side-value">
+													29
+												</div>
+											</div>
+										</div>
+
+										<div class="side-holder">
+											<div class="side-title">
+												Seção 2
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													Valor de Compra
+												</div>
+												<div class="side-value">
+													60,00
+												</div>
+											</div>
+										</div>
+
+										<div class="side-holder">
+											<div class="side-title">
+												Total Seção 1 e 2
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													Valor Total de Compra
+												</div>
+												<div class="side-value">
+													60,00
+												</div>
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													Valor Total de Frete
+												</div>
+												<div class="side-value">
+													60,00
+												</div>
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													SD Disponível (Crédito)
+												</div>
+												<div class="side-value">
+													60,00
+												</div>
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													SubTotal
+												</div>
+												<div class="side-value">
+													60,00
+												</div>
+											</div>
+											<div class="side-line">
+												<div class="side-label">
+													<b>Total do Pedido</b>
+												</div>
+												<div class="side-value">
+													<b>60,00</b>
+												</div>
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+								
+
+								
+								<div class="buttons-holder">
+									<button class="button-green">alpha</button>
+									<button class="button-black">beta</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

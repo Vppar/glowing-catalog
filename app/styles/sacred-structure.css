@@ -1,0 +1,106 @@
+/*
+* sacred-structure.css is the priest of the structuress. It is resposable for bring order to the caos.
+* do not confuse with the grid! (sacred-grid.css is responsable for the grid/tables!)
+* (this stylesheet have all the auxiliar styles that is needed to make a layout)
+*/
+
+#sacred{
+  height: 100%;
+}
+#sacred * {
+  box-sizing: border-box;
+}
+
+#sacred .container {
+  margin-right: auto;
+  margin-left: auto;
+  width: 1024px;
+}
+#sacred .row {
+  margin-left: -5px;
+  margin-right: -5px;
+}
+#sacred .col-1, #sacred .col-2, #sacred .col-3, #sacred .col-4, 
+#sacred .col-5, #sacred .col-6, #sacred .col-7, #sacred .col-8, 
+#sacred .col-9, #sacred .col-10, #sacred .col-11, #sacred .col-12, 
+#sacred .col-13, #sacred .col-14, #sacred .col-15, #sacred .col-16, 
+#sacred .col-17, #sacred .col-18, #sacred .col-19, #sacred .col-20, 
+#sacred .col-21, #sacred .col-22, #sacred .col-23, #sacred .col-24 {
+  position: relative;
+  min-height: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  float: left;
+}
+#sacred .col-24 {
+  width: 100%;
+}
+#sacred .col-23 {
+  width: 95.83333333%;
+}
+#sacred .col-22 {
+  width: 91.66666667%;
+}
+#sacred .col-21 {
+  width: 87.5%;
+}
+#sacred .col-20 {
+  width: 83.33333333%;
+}
+#sacred .col-19 {
+  width: 79.16666667%;
+}
+#sacred .col-18 {
+  width: 75%;
+}
+#sacred .col-17 {
+  width: 70.83333333%;
+}
+#sacred .col-16 {
+  width: 66.66666667%;
+}
+#sacred .col-15 {
+  width: 62.5%;
+}
+#sacred .col-14 {
+  width: 58.33333333%;
+}
+#sacred .col-13 {
+  width: 54.16666667%;
+}
+#sacred .col-12 {
+  width: 50%;
+}
+#sacred .col-11 {
+  width: 45.83333333%;
+}
+#sacred .col-10 {
+  width: 41.66666667%;
+}
+#sacred .col-9 {
+  width: 37.5%;
+}
+#sacred .col-8 {
+  width: 33.33333333%;
+}
+#sacred .col-7 {
+  width: 29.16666667%;
+}
+#sacred .col-6 {
+  width: 25%;
+}
+#sacred .col-5 {
+  width: 20.83333333%;
+}
+#sacred .col-4 {
+  width: 16.66666667%;
+}
+#sacred .col-3 {
+  width: 12.5%;
+}
+#sacred .col-2 {
+  width: 8.33333333%;
+}
+#sacred .col-1 {
+  width: 4.16666667%;
+}

@@ -1,0 +1,37 @@
+/*
+* sacred-calendar.css is a soldier! It is resposable for the dates.
+* (this stylesheet have all the styles that is needed to make a datepicker)
+*/
+
+#sacred .calendar{
+  margin-right: 30px;
+  float: left;
+}
+
+#sacred .calendar label{
+  display: inline;
+}
+
+#sacred .calendar .text{
+  display: block;
+  float: left;
+}
+
+#sacred .calendar input{
+  height: 30px;
+  line-height: 30px;
+  width: 85px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom:0px; 
+  border: 1px solid #E0E0e0;
+}
+
+#sacred .calendar label img{
+  margin-top: 3px;
+  vertical-align: top;
+}
+
+#sacred .calendar .text-over{
+  display: block;
+}
