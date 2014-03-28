@@ -49,7 +49,7 @@ describe('Controller: voucher-active', function() {
 
         scope.filter();
 
-        expect(scope.filteredVouchers[0]).toBe(expected);
+        expect(scope.filteredVouchers[0]).toEqual(expected);
 
     });
 
@@ -80,7 +80,7 @@ describe('Controller: voucher-active', function() {
 
         scope.filter();
 
-        expect(scope.filteredVouchers[0]).toBe(expected);
+        expect(scope.filteredVouchers[0]).toEqual(expected);
 
     });
 
@@ -114,7 +114,7 @@ describe('Controller: voucher-active', function() {
 
         scope.filter();
 
-        expect(scope.filteredVouchers[0]).toBe(expected);
+        expect(scope.filteredVouchers[0]).toEqual(expected);
 
     });
 

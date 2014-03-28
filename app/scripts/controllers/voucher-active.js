@@ -80,11 +80,11 @@
                         if (result) {
                             result.amount = Number($scope.filteredVouchers[ix].amount) + Number(result.amount);
                         } else {
-                            myVouchers.push($scope.filteredVouchers[ix]);
+                            myVouchers.push(angular.copy($scope.filteredVouchers[ix]));
                         }
                     } else {
                         $scope.entityCounter++;
-                        myVouchers.push($scope.filteredVouchers[ix]);
+                        myVouchers.push(angular.copy($scope.filteredVouchers[ix]));
                     }
                 }
                 return myVouchers;
