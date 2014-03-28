@@ -1,4 +1,4 @@
-describe('Controller: order-list', function () {
+ddescribe('Controller: order-list', function () {
 
     var scope = {};
     var OrderService = {};
@@ -126,11 +126,10 @@ describe('Controller: order-list', function () {
         EntityService.list = jasmine.createSpy('EntityService.list').andReturn(customers);
         UserService.redirectIfIsNotLoggedIn =
             jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
-        
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         
         VoucherService.listByOrigin = jasmine.createSpy('Voucher.listByOrigin');
-        
+        scope.firstTime = false;
         OrderListService.getTotalByType =
             jasmine.createSpy('OrderListService.getTotalByType').andCallFake(
                 function (orderUUID, type) {

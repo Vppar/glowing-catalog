@@ -19,12 +19,9 @@
                 function ($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService,
                     ProductReturnService, VoucherService, OrderListService) {
 
-                    // $scope.entities come from OrderListCtrl
                     var customers = $scope.customers;
-                    // $scope.filteredOrders come from OrderListCtrl
                     $scope.filteredEntities = [];
                     $scope.checkedEntityUUID = null;
-                    $scope.filterOrders($scope.orders);
 
                     $scope.updateAndEnableHideOption = function (entity) {
                         $scope.checkedEntityUUID = entity.entityId;
@@ -63,7 +60,7 @@
 
                                 for ( var ix2 in ordersByEntity) {
                                     var order = ordersByEntity[ix2];
-                                    $scope.augmentOrder(order);
+                                    //$scope.augmentOrder(order);
                                     var lastOrder = entityOrders.lastOrder;
                                     entityOrders.uuid = order.uuid;
                                     entityOrders.lastOrder =

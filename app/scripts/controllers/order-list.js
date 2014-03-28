@@ -208,7 +208,7 @@
              * Generate VA
              */
             $scope.generateVA =
-                function generateVa (orders) {
+                function (orders) {
                     var acumulator = 0;
                     var biggestOrder = {
                         va : 0
@@ -315,13 +315,11 @@
                     $scope.total.cash.amount += cashAmount.amount;
                     $scope.total.cash.qty += cashAmount.qty;
                     $scope.total.amount += cashAmount.amount;
-                    
                     //Check
                     var resultCheck = OrderListService.getTotalByType(order.uuid, 'check');
                     $scope.total.check.amount += resultCheck.amount;
                     $scope.total.check.qty += resultCheck.qty;
                     $scope.total.amount += resultCheck.amount;
-                    
                     //Card
                     var resultCard = OrderListService.getTotalByType(order.uuid, 'creditCard');
                     $scope.total.creditCard.amount += resultCard.amount;
@@ -372,29 +370,32 @@
             };
 
             $scope.filterOrders = function (orders) {
-                orders = filterOrdersByDate(orders);
-                $scope.updateReceivablesTotal(orders);
-                $scope.updateOrdersTotal(orders);
-                $scope.generateVA(orders);
-                $scope.filteredOrders = orders;
-                return $scope.filteredOrders;
+                    orders = filterOrdersByDate(orders);
+                    $scope.updateReceivablesTotal(orders);
+                    $scope.updateOrdersTotal(orders);
+                    $scope.generateVA(orders);
+                    $scope.filteredOrders = orders;
             };
 
             // #############################################################################################################
             // Local functions and variables
             // #############################################################################################################
-            $scope.dtFilter = initializeDates($scope.dtFilter);
+            $scope.dtFilter = initializeDates(angular.copy($scope.dtFilter));
             $scope.total = {};
             $scope.orders = OrderService.list();
             $scope.customers = EntityService.list();
             $scope.avaliableCustomers = [];
             $scope.customerId = '0';
 
+            $scope.filterOrders($scope.orders);
+            
             /**
              * whenever dtFilter changes filter list.
              */
-            $scope.$watchCollection('dtFilter', function () {
-                $scope.filterOrders($scope.orders);
+            $scope.$watchCollection('dtFilter', function (newVal, oldVal) {
+//                if (!angular.equals(newVal, oldVal)) {
+                    $scope.filterOrders($scope.orders);
+//                }
             });
 
         });

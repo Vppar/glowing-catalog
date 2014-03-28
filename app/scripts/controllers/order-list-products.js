@@ -24,10 +24,9 @@
                     $scope.avaliableCustomers = [];
                     $scope.checkedProductSKU = null;
 
-                    function updateFilteredProducts () {
+                    function updateFilteredProducts (orders) {
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
-                        var orders = angular.copy($scope.filteredOrders);
                         var productsMap = {};
                         for ( var ix in orders) {
                             var order = orders[ix];
@@ -109,22 +108,24 @@
                     
                     $scope.updateProducts =
                         function () {
-                            $scope.filteredOrders = $scope.filterOrders($scope.orders);
+                            var orders = angular.copy($scope.filteredOrders); 
                             if ($scope.customerId !== '0') {
-                                $scope.filteredOrders =
-                                    $filter('filter')($scope.filteredOrders, $scope.filterByClient);
+                                orders =
+                                    $filter('filter')(orders, $scope.filterByClient);
                             }
 
                             $scope.updateOrdersTotal($scope.filteredOrders);
-                            updateFilteredProducts();
+                            updateFilteredProducts(orders);
                             $scope.computeAvaliableCustomers($scope.customers);
                             $scope.generateVA($scope.filteredProducts);
                         };
 
                     $scope.updateProducts();
 
-                    $scope.$watchCollection('dtFilter', function () {
-                        $scope.updateProducts();
+                    $scope.$watchCollection('dtFilter', function (newVal, oldVal) {
+                        if (!angular.equals(newVal,oldVal)) {
+                            $scope.updateProducts();
+                        }
                     });
 
                     $scope.$watch('customerId', function (newVal, oldVal) {
@@ -132,6 +133,7 @@
                             $scope.updateProducts();
                         }
                     });
+                    
 
                 }
             ]);
