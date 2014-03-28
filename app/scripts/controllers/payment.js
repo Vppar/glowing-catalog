@@ -237,7 +237,6 @@
                             
                             function setEnableConfirmButton() {
                                 if($scope.items.length === 0 &&
-                                    $scope.total.payments.exchange.length === 0 &&
                                    !PaymentService.hasPersistedCoupons()) {
                             
                                     return true;
