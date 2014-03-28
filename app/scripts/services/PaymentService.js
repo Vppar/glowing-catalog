@@ -422,7 +422,7 @@
                     /**
                      * Saves the payments and closes the order.
                      */
-                    function checkout(customer, amount, discount, change) {
+                    function checkout(customer, amount, discount, change, smsTotal) {
                         var promises = [];
 
                         if (OrderService.hasItems()) {
@@ -526,7 +526,7 @@
                         }
 
                         savedSalePromise.then(function() {
-                            sendOrderSMS(customer, amount);
+                            sendOrderSMS(customer, smsTotal);
                             sendVoucherSMS(vouchers);
                             sendCouponsSMS(persistedCoupons);
                             sendGiftCardSMS(giftCards);
@@ -641,9 +641,9 @@
 
                         if (productCost === 0) {
                             productCost = currencyMultiply(productAmount, 0.75); // 75%
-                                                                                    // of
-                                                                                    // amount
-                                                                                    // value
+                            // of
+                            // amount
+                            // value
                         }
 
                         var bookEntries = BookService.productReturn(orderUUID, entityUUID, productAmount, productCost);
