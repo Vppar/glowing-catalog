@@ -162,7 +162,8 @@
 						</div>
 						<div class="scroll-grid" style="height: calc(100% - 34px);overflow-y: scroll;overflow-x: hidden;">
 							<div class="row-fluid" style="border-bottom: 1px dotted #666; min-height:42px;" ng-repeat="voucher in historicVouchers | orderBy:'-created'">
-								<span class="new-col-3 text-center">{{voucher.created | date:'dd/MM/yyyy'}}</span>
+								<span class="new-col-3 text-center" ng-if="!voucher.redeemed">{{voucher.created | date:'dd/MM/yyyy'}}</span>
+								<span class="new-col-3 text-center" ng-if="voucher.redeemed">{{voucher.redeemed | date:'dd/MM/yyyy'}}</span>
 								<span class="new-col-12">{{voucher.entity}}</span>
 								<span class="new-col-3 text-center">{{voucher.type}}</span>
 								<span class="new-col-3 text-center">{{isRedeemed(voucher) ? 'Débito' : isCanceled(voucher) ? 'Cancelado' : 'Crédito'}}</span>

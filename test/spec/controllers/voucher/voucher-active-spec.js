@@ -152,7 +152,7 @@ describe('Controller: voucher-active', function() {
         scope.filter();
 
         var expected = [
-            wesley, fabio
+            arnaldo, fabio
         ];
 
         expect(scope.filteredVouchers).toEqual(expected);

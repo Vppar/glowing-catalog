@@ -29,8 +29,13 @@
                         initialFilter = $scope.voucherFilter.date.getTime();
                     }
                 }
+                
+                $scope.voucherFilter.date.setHours(23);
+                $scope.voucherFilter.date.setMinutes(59);
+                $scope.voucherFilter.date.setSeconds(59);
+                
                 if (initialFilter) {
-                    if (voucher.created >= initialFilter) {
+                    if (voucher.created <= initialFilter) {
                         return true;
                     }
                     return false;
