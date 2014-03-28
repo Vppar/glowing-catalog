@@ -72,7 +72,7 @@ describe('Service: CoinKeeperAddExpense', function() {
         var expense = new Expense(validExpense);
         
         var tstamp = fakeNow;// / 1000;
-        var entry = new JournalEntry(null, tstamp, 'expenseAdd', 1, expense);
+        var entry = new JournalEntry(null, tstamp, 'expenseAdd', 2, expense);
 
         // when
         var addCall = function() {
@@ -106,7 +106,7 @@ describe('Service: CoinKeeperAddExpense', function() {
         var expense = new Expense(validExpense);
 
         // when
-        ExpensesKeeper.handlers['expenseAddV1'](expense);
+        ExpensesKeeper.handlers['expenseAddV2'](expense);
         var expenses = ExpensesKeeper.list();
 
         // then
