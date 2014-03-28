@@ -230,6 +230,9 @@
         }).when('/third-parties-2', {
             templateUrl : 'views/sacred-third-parties.html',
             controller: 'ThirdPartyCtrl'
+        }).when('/products-delivery-2', {
+            templateUrl : 'views/sacred-products-delivery.html',
+            controller : 'ProductsDeliveryCtrl'
         }).otherwise({
             redirectTo : '/'
         });

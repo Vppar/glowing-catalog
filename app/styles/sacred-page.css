@@ -57,6 +57,15 @@
 	height: calc(100% - 39px);
 }
 
+#sacred .page .content-body.content-for-labeled-header{
+	height: calc(100% - 61px);
+}
+#sacred .page .content-body.content-all{
+	height: 100%;
+}
+
+
+
 #sacred .side-holder{
 	width: 100%;
 	border-radius: 4px; 
@@ -100,4 +109,8 @@
 	text-align: center;
 	padding-top: 8px;
 	padding-bottom: 8px;	
+}
+
+#sacred .page .include-div{
+	height: 100%;
 }

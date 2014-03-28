@@ -52,6 +52,8 @@
 	overflow-y:scroll;
 }
 
+
+
 /*
  * Decorators!
  * all this classes should be explained!
@@ -91,19 +93,19 @@
   /* column decorator
  * this class just make the column item name be ellipsed
  */
-  #sacred .grid .name-cutter{
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
+ #sacred .grid .name-cutter{
+ 	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	white-space: nowrap;
+ }
 
 /* line decorator
  * this class just make the grid-item content be vertical centered.
  */
  #sacred .grid .grid-item.single-line{
  	line-height: 40px;
-	min-height: 40px;
-	height: 40px;
+ 	min-height: 40px;
+ 	height: 40px;
  }
 
 /* line decorator
@@ -111,5 +113,16 @@
  */
  #sacred .grid .grid-item.clicable{
  	cursor:pointer;
+ }
+
+ #sacred .grid .product-name{}
+ #sacred .grid .product-name small{
+ 	color: #999;
+ 	float: left;
+ 	display: inline-block;
+ }
+ #sacred .grid .product-name span{
+ 	float: left;
+ 	display: inline-block;
  }
 

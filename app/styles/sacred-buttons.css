@@ -4,7 +4,13 @@
 */
 
 #sacred .buttons-holder{
-	margin: 10px 0px;
+	width: 100%;
+	float: left;
+	min-height: 1px;
+}
+
+#sacred .page-button .btn{
+	min-width:86px;
 }
 
 #sacred .button-black,
