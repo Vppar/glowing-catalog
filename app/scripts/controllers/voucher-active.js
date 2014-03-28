@@ -9,14 +9,7 @@
             ]).controller('VoucherActiveCtrl', [
         '$scope', '$filter', 'ArrayUtils', function($scope, $filter, ArrayUtils) {
 
-            var vouchers = angular.copy($scope.vouchers);
-
-            /**
-             * The real deal
-             */
-//            $scope.filteredActiveVouchers = $filter('filter')(vouchers, function(voucher) {
-//                return !(voucher.canceled || voucher.redeemed);
-//            });
+            $scope.copyVouchers = angular.copy($scope.vouchers);
 
             /**
              * DateFilter
@@ -33,7 +26,6 @@
                 $scope.voucherFilter.date.setHours(23);
                 $scope.voucherFilter.date.setMinutes(59);
                 $scope.voucherFilter.date.setSeconds(59);
-                
                 if (initialFilter) {
                     if (voucher.created <= initialFilter) {
                         if(voucher.redeemed){
@@ -54,7 +46,7 @@
 
             $scope.filter = function filter() {
                 var myFilter = $scope.voucherFilter.value;
-                $scope.filteredVouchers = $filter('filter')(vouchers, function(voucher) {
+                $scope.filteredVouchers = $filter('filter')($scope.copyVouchers, function(voucher) {
                     var result = true;
                     if ($scope.voucherFilter.value.length > 0) {
                         result = false;

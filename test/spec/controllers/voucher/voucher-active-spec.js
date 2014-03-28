@@ -30,7 +30,7 @@ describe('Controller: voucher-active', function() {
             created : new Date()
         };
 
-        scope.filteredActiveVouchers = [
+        scope.copyVouchers = [
             expected, {
                 entity : 'Thiago',
                 type : 'coupon',
@@ -60,7 +60,7 @@ describe('Controller: voucher-active', function() {
             created : new Date()
         };
 
-        scope.filteredActiveVouchers = [
+        scope.copyVouchers = [
             {
                 entity : 'Arnaldo',
                 type : 'coupon',
@@ -92,7 +92,7 @@ describe('Controller: voucher-active', function() {
             created : new Date()
         };
 
-        scope.filteredActiveVouchers = [
+        scope.copyVouchers = [
             {
                 entity : 'Arnaldo',
                 type : 'coupon',
@@ -137,7 +137,7 @@ describe('Controller: voucher-active', function() {
             created : 1392216940748
         };
 
-        scope.filteredActiveVouchers = [
+        scope.copyVouchers = [
             arnaldo, wesley, fabio
         ];
 
