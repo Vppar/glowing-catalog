@@ -89,7 +89,7 @@
                     }
                 }
                 
-                this.augumentList = function augumentList(vouchers){
+                this.augmentList = function augmentList(vouchers){
                     var tmpVoucher = [];
                     var filteredVouchers = angular.copy(vouchers);
                     for(var ix in filteredVouchers){
@@ -140,7 +140,7 @@
                             $filter('filter')($scope.historicVouchers, historicFilterVoucher);
                     };
                     
-                    $scope.allVouchers = this.augumentList($scope.allVouchers);
+                    $scope.allVouchers = this.augmentList($scope.allVouchers);
 
                 $scope.$watchCollection('historicVoucher', function () {
                     $scope.filter();
