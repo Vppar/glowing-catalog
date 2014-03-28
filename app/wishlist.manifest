@@ -50,6 +50,7 @@ styles/sacred-page.css
 styles/sacred-stock.css
 styles/sacred-structure.css
 styles/sacred-summarizer.css
+styles/sacred-third-parties.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
