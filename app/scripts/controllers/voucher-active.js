@@ -14,9 +14,9 @@
             /**
              * The real deal
              */
-            $scope.filteredActiveVouchers = $filter('filter')(vouchers, function(voucher) {
-                return !(voucher.canceled || voucher.redeemed);
-            });
+//            $scope.filteredActiveVouchers = $filter('filter')(vouchers, function(voucher) {
+//                return !(voucher.canceled || voucher.redeemed);
+//            });
 
             /**
              * DateFilter
@@ -36,7 +36,15 @@
                 
                 if (initialFilter) {
                     if (voucher.created <= initialFilter) {
-                        return true;
+                        if(voucher.redeemed){
+                            if(voucher.redeemed>= initialFilter){
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return true;
+                        }
                     }
                     return false;
                 } else {
@@ -46,7 +54,7 @@
 
             $scope.filter = function filter() {
                 var myFilter = $scope.voucherFilter.value;
-                $scope.filteredVouchers = $filter('filter')($scope.filteredActiveVouchers, function(voucher) {
+                $scope.filteredVouchers = $filter('filter')(vouchers, function(voucher) {
                     var result = true;
                     if ($scope.voucherFilter.value.length > 0) {
                         result = false;
