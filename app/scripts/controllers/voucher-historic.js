@@ -15,9 +15,9 @@
             '$scope',
             '$filter',
             function ($scope, $filter) {
-
+                
                 $scope.allVouchers = angular.copy($scope.vouchers);
-
+                
                 $scope.isRedeemed = function (voucher) {
                     return !!voucher.redeemed;
                 };
@@ -62,19 +62,25 @@
                                 angular.copy($scope.historicVoucher.dtInitial);
                         }
                     }
+                    var date = null;
+                    if(voucher.redeemed){
+                        date = voucher.redeemed;
+                    }else{
+                        date = voucher.created;
+                    }
 
                     if (initialFilter && finalFilter) {
-                        if (voucher.created >= initialFilter && voucher.created <= finalFilter) {
+                        if (date >= initialFilter && date <= finalFilter) {
                             return true;
                         }
                         return false;
                     } else if (initialFilter) {
-                        if (voucher.created >= initialFilter) {
+                        if (date >= initialFilter) {
                             return true;
                         }
                         return false;
                     } else if (finalFilter) {
-                        if (voucher.created <= finalFilter) {
+                        if (date <= finalFilter) {
                             return true;
                         }
                         return false;
@@ -82,7 +88,31 @@
                         return true;
                     }
                 }
-
+                
+                this.augmentList = function augmentList(vouchers){
+                    var tmpVoucher = [];
+                    var filteredVouchers = angular.copy(vouchers);
+                    for(var ix in filteredVouchers){
+                        if(filteredVouchers[ix].redeemed){
+                            var placeHolder = angular.copy(filteredVouchers[ix]);
+                            delete placeHolder.redeemed;
+                            tmpVoucher.push(placeHolder);
+                            
+                            filteredVouchers[ix].created = filteredVouchers[ix].redeemed;
+                        }
+                        if(filteredVouchers[ix].canceled){
+                            var placeHolder = angular.copy(filteredVouchers[ix]);
+                            delete placeHolder.canceled;
+                            tmpVoucher.push(placeHolder);
+                            
+                            filteredVouchers[ix].created = filteredVouchers[ix].canceled;
+                        }
+                    }
+                    
+                    filteredVouchers = tmpVoucher.concat(filteredVouchers);
+                    return filteredVouchers;
+                };
+                
                 $scope.filter =
                     function filter () {
                         var myFilter = $scope.historicVoucher.value;
@@ -108,28 +138,9 @@
                             });
                         $scope.historicVouchers =
                             $filter('filter')($scope.historicVouchers, historicFilterVoucher);
-                        
-                        var yarrr = [];
-                        $scope.historicVouchers = angular.copy($scope.historicVouchers);
-                        for(var ix in $scope.historicVouchers){
-                            if($scope.historicVouchers[ix].redeemed){
-                                var placeHolder = angular.copy($scope.historicVouchers[ix]);
-                                delete placeHolder.redeemed;
-                                yarrr.push(placeHolder);
-                                
-                                $scope.historicVouchers[ix].created = $scope.historicVouchers[ix].redeemed;
-                            }
-                            if($scope.historicVouchers[ix].canceled){
-                                var placeHolder = angular.copy($scope.historicVouchers[ix]);
-                                delete placeHolder.canceled;
-                                yarrr.push(placeHolder);
-                                
-                                $scope.historicVouchers[ix].created = $scope.historicVouchers[ix].canceled;
-                            }
-                        }
-                        $scope.historicVouchers = yarrr.concat($scope.historicVouchers);
-                        
                     };
+                    
+                    $scope.allVouchers = this.augmentList($scope.allVouchers);
 
                 $scope.$watchCollection('historicVoucher', function () {
                     $scope.filter();

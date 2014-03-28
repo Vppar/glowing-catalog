@@ -52,7 +52,7 @@ describe('Controller: voucher-historic', function() {
 
         scope.filter();
 
-        expect(scope.historicVouchers.length).toBe(2);
+        expect(scope.historicVouchers.length).toBe(1);
 
     });
 
@@ -169,14 +169,8 @@ describe('Controller: voucher-historic', function() {
         // Creating the copy entities without the redeemed and canceled
         // properties
 
-        var wesley2 = angular.copy(wesley);
-        delete wesley2.redeemed;
-
-        var fabio2 = angular.copy(fabio);
-        delete fabio2.redeemed;
-
         var expected = [
-            wesley2, fabio2, wesley, fabio
+            wesley, fabio
         ];
 
         expect(scope.historicVouchers).toEqual(expected);
@@ -229,7 +223,7 @@ describe('Controller: voucher-historic', function() {
         delete fabio2.redeemed;
 
         var expected = [
-            arnaldo2, fabio2, arnaldo, fabio
+            arnaldo, fabio
         ];
 
         expect(scope.historicVouchers).toEqual(expected);
