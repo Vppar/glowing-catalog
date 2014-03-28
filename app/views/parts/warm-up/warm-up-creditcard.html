@@ -62,7 +62,7 @@
           <div class="new-col-3 text-center">{{ item.duedate | date:'dd/MM/yyyy' }}</div>
           <div class="new-col-3 currency" style="padding-right:17px;">{{ item.amount | currency:'' }}</div>
           <div class="new-col-1">
-            <img src="images/del-pink.png" alt="" ng-if="!item.used && !item.redeemed" ng-click="remove(item)" />
+            <img src="images/del-pink.png" class="warm-up-remove-item-bullet" ng-class="{disabled : item.used || item.redeemed}" alt="" ng-click="remove(item)" />
           </div>
         </div>
       </div>

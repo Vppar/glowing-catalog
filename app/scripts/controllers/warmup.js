@@ -161,6 +161,12 @@
                         items.total = 0;
                     }
                 }
+            } else {
+                DialogService.messageDialog({
+                    title : 'Cheque a receber',
+                    message : 'Este cheque já teve baixa declarada e não pode ser removido.',
+                    btnYes : 'OK'
+                });
             }
         }
 
@@ -317,8 +323,15 @@
                         items.total = 0;
                     }
                 }
+            } else {
+                DialogService.messageDialog({
+                    title : 'Contas a receber (Cartões)',
+                    message : 'Esta conta (cartão) já teve baixa declarada e não pode ser removida.',
+                    btnYes : 'OK'
+                });
             }
         }
+
 
         function save() {
             var ref = SyncDriver.refs.user.child('warmup');
@@ -474,6 +487,12 @@
                         items.total = 0;
                     }
                 }
+            } else {
+                DialogService.messageDialog({
+                    title : 'Contas a receber (Diversas)',
+                    message : 'Esta conta já teve baixa declarada e não pode ser removida.',
+                    btnYes : 'OK'
+                });
             }
         }
 
