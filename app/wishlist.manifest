@@ -41,6 +41,16 @@ styles/third-parties.css
 styles/new.css
 styles/new-registration.css
 
+styles/sacred-reset.css
+styles/sacred-buttons.css
+styles/sacred-calendar.css
+styles/sacred-form.css
+styles/sacred-grid.css
+styles/sacred-page.css
+styles/sacred-stock.css
+styles/sacred-structure.css
+styles/sacred-summarizer.css
+
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
 styles/agenda/fullcalendar.print.css
