@@ -85,8 +85,8 @@
                             $scope.resetPaymentsTotal();
                             
                             
-                            console.log(allBookEntries.length);
-                            console.log('--------------------------------------------------------');
+                            //console.log(allBookEntries.length);
+                            //console.log('--------------------------------------------------------');
                             for ( var ix in entities) {
                                 var entity = entities[ix];
                                 var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
@@ -101,8 +101,8 @@
                                             return (entry.document === order.uuid);
                                         });
                                     
-                                    console.log(bookEntries.length);
-                                    console.log(order);
+                                    //console.log(bookEntries.length);
+                                    //console.log(order);
                                     
                                     //CASH
                                     var cashAmount = OrderListService.getTotalByType(order.uuid, 'cash', bookEntries);

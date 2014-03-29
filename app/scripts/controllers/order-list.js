@@ -270,7 +270,7 @@
                     } else {
                         $scope.total.all.avgPrice = 0;
                     }
-                    console.log('fim updateOrdersTotal', new Date().getTime() - start);
+                    //console.log('fim updateOrdersTotal', new Date().getTime() - start);
                 };
 
              function distributedDiscountCoupon(order, discountCoupom){
@@ -317,7 +317,7 @@
             };
 
             $scope.updateReceivablesTotal = function (orders) {
-                console.log('inicio updateReceivablesTotal');
+                //console.log('inicio updateReceivablesTotal');
                 var start = new Date().getTime();
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
@@ -365,7 +365,7 @@
                     var discount = OrderListService.getTotalDiscountByOrder(order.uuid, bookEntries);
                     $scope.total.discount += discount;
                 }
-                console.log('fim updateReceivablesTotal', new Date().getTime() - start);
+                //console.log('fim updateReceivablesTotal', new Date().getTime() - start);
             };
 
             $scope.computeAvaliableCustomers = function (customers) {
@@ -389,14 +389,14 @@
             };
 
             $scope.filterOrders = function (orders) {
-                    var start = new Date().getTime();
+                    //var start = new Date().getTime();
                     var bookEntries = BookService.listEntries();
                     orders = filterOrdersByDate(orders);
                     $scope.updateReceivablesTotal(orders, bookEntries);
                     $scope.updateOrdersTotal(orders, bookEntries);
                     $scope.generateVA(orders);
                     $scope.filteredOrders = orders;
-                    console.log('fim filterOrders', new Date().getTime() - start);
+                    //console.log('fim filterOrders', new Date().getTime() - start);
             };
 
             // #############################################################################################################

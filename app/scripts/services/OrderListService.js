@@ -29,7 +29,7 @@
                 this.getTotalDiscountByOrder = function (orderUUID, entries) {
                     var start = new Date().getTime();
                     entries = entries || BookService.listByOrder(orderUUID);
-                    console.log('fim DiscountByOrder', new Date().getTime() - start);
+                    //console.log('fim DiscountByOrder', new Date().getTime() - start);
                     return this.getTotalByType(orderUUID, 'discount', entries).amount;
                     
                 };
@@ -91,7 +91,7 @@
                                 'type: ',
                                 type);
                         }
-                        console.log('fim totalByType', new Date().getTime() - start);
+                        //console.log('fim totalByType', new Date().getTime() - start);
                         return result;
                     };
 

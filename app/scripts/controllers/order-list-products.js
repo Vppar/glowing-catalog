@@ -26,8 +26,6 @@
                     $scope.checkedProductSKU = null;
                     var allBookEntries = BookService.listEntries();
                     function updateFilteredProducts (orders) {
-                        console.log('inicio updateFilteredProducts');
-                        console.log(new Date().getTime());
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
                         var productsMap = {};
@@ -107,8 +105,6 @@
 
                             }
                         }
-                        console.log('Fim updateFilteredProducts');
-                        console.log(new Date().getTime());
                     }
                     
                     $scope.updateProducts =
@@ -119,10 +115,10 @@
                                     $filter('filter')(orders, $scope.filterByClient);
                             }
 
-                            $scope.updateOrdersTotal($scope.filteredOrders);
+                            $scope.updateOrdersTotal(orders);
                             updateFilteredProducts(orders);
                             $scope.computeAvaliableCustomers($scope.customers);
-                            $scope.generateVA($scope.filteredProducts);
+                            $scope.generateVA(orders);
                         };
 
                     $scope.updateProducts();
