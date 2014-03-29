@@ -1,9 +1,13 @@
 (function (angular) {
     'use strict';
 
-    angular.module('tnt.catalog.orderList.service', [
-        'tnt.catalog.receivable.service','tnt.catalog.financial.math.service', 'tnt.catalog.misplaced.service'
-    ]).service(
+    angular.module(
+        'tnt.catalog.orderList.service',
+        [
+            'tnt.catalog.receivable.service',
+            'tnt.catalog.financial.math.service',
+            'tnt.catalog.misplaced.service'
+        ]).service(
         'OrderListService',
         [
             '$filter',
@@ -12,7 +16,8 @@
             'logger',
             'FinancialMathService',
             'Misplacedservice',
-            function ($filter, ReceivableService, BookService, logger,FinancialMathService,Misplacedservice) {
+            function ($filter, ReceivableService, BookService, logger, FinancialMathService,
+                Misplacedservice) {
 
                 var log = logger.getLogger('tnt.catalog.orderList.service');
 
@@ -21,16 +26,21 @@
                  * @param orderUUID
                  * @returns total discount on sale
                  */
-                this.getTotalDiscountByOrder = function (orderUUID) {
-                    return this.getTotalByType(orderUUID, 'discount').amount;
+                this.getTotalDiscountByOrder = function (orderUUID, entries) {
+                    var start = new Date().getTime();
+                    entries = entries || BookService.listByOrder(orderUUID);
+                    console.log('fim DiscountByOrder', new Date().getTime() - start);
+                    return this.getTotalByType(orderUUID, 'discount', entries).amount;
+                    
                 };
 
                 /**
                  * @param orderUUID
                  * @returns total discount on sale
                  */
-                this.getDiscountCoupomByOrder = function (orderUUID) {
-                    return this.getTotalByOrder(orderUUID, 70001, 41303).amount;
+                this.getDiscountCoupomByOrder = function (orderUUID, entries) {
+                    entries = entries || BookService.listByOrder(orderUUID);
+                    return this.getTotalByOrder(orderUUID, 70001, 41303, entries).amount;
                 };
 
                 /**
@@ -40,33 +50,39 @@
                  * @Object {amount : total amount, qty: quantity}
                  */
                 this.getTotalByType =
-                    function (orderUUID, type) {
+                    function (orderUUID, type, bookEntries) {
+                        var start = new Date().getTime();
+                        var result = 0;
                         if (type === 'cash') {
-                            return this.getTotalByOrder(orderUUID, 70001, 11111);
+                            result = this.getTotalByOrder(orderUUID, 70001, 11111, bookEntries);
                         } else if (type === 'check') {
-                            return this.getTotalByOrder(orderUUID, 70001, 11121);
+                            result = this.getTotalByOrder(orderUUID, 70001, 11121, bookEntries);
                         } else if (type === 'creditCard') {
-                            return this.getTotalByOrder(orderUUID, 70001, 11512);
+                            result = this.getTotalByOrder(orderUUID, 70001, 11512, bookEntries);
                         } else if (type === 'onCuff') {
-                            return this.getTotalByOrder(orderUUID, 70001, 11511);
+                            result = this.getTotalByOrder(orderUUID, 70001, 11511, bookEntries);
                         } else if (type === 'voucher') {
                             // vale presente
-                            var voucher1 = this.getTotalByOrder(orderUUID, 70001, 21301);
+                            var voucher1 =
+                                this.getTotalByOrder(orderUUID, 70001, 21301, bookEntries);
                             // Vale crédito
-                            var voucher2 = this.getTotalByOrder(orderUUID, 70001, 21305);
+                            var voucher2 =
+                                this.getTotalByOrder(orderUUID, 70001, 21305, bookEntries);
                             voucher1.qty += voucher2.qty;
                             voucher1.amount += voucher2.amount;
-                            return voucher1;
+                            result = voucher1;
                         } else if (type === 'exchange') {
-                            return this.getTotalByOrder(orderUUID, 70001, 41305);
+                            result = this.getTotalByOrder(orderUUID, 70001, 41305, bookEntries);
                         } else if (type === 'discount') {
                             // Desconto vendas
-                            var discount1 = this.getTotalByOrder(orderUUID, 70001, 41301);
+                            var discount1 =
+                                this.getTotalByOrder(orderUUID, 70001, 41301, bookEntries);
                             // Desconto cupom promocional
-                            var discount2 = this.getTotalByOrder(orderUUID, 70001, 41303);
+                            var discount2 =
+                                this.getTotalByOrder(orderUUID, 70001, 41303, bookEntries);
                             discount1.qty += discount2.qty;
                             discount1.amount += discount2.amount;
-                            return discount1;
+                            result = discount1;
                         } else {
                             log.fatal(
                                 'No type found for this call. ',
@@ -75,12 +91,13 @@
                                 'type: ',
                                 type);
                         }
-
+                        console.log('fim totalByType', new Date().getTime() - start);
+                        return result;
                     };
 
                 this.getTotalByOrder =
-                    function (orderUUID, creditAccount, debitAccount) {
-                        var bookEntries = BookService.listByOrder(orderUUID);
+                    function (orderUUID, creditAccount, debitAccount, bookEntries) {
+                        bookEntries = bookEntries || BookService.listByOrder(orderUUID);
                         bookEntries =
                             $filter('filter')(
                                 bookEntries,
@@ -96,14 +113,17 @@
                         };
                     };
 
-                    
-                    this.distributeDiscountCoupon = function (order, discountCoupom) {
+                this.distributeDiscountCoupon =
+                    function (order, discountCoupom) {
                         var gross = 0;
                         gross += $filter('sum')(order.items, 'amount');
                         gross += $filter('sum')(order.items, 'price', 'qty');
-                        Misplacedservice.distributeSpecificDiscount(gross, discountCoupom, order.items);
+                        Misplacedservice.distributeSpecificDiscount(
+                            gross,
+                            discountCoupom,
+                            order.items);
                     };
-                    
+
             }
         ]);
 }(angular));

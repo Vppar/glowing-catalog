@@ -16,22 +16,25 @@
                 'ReceivableService',
                 'StockService',
                 'OrderListService',
+                'BookService',
                 function ($scope, $location, $filter, OrderService, ArrayUtils, DataProvider,
-                    ReceivableService, StockService, OrderListService) {
+                    ReceivableService, StockService, OrderListService, BookService) {
 
                     $scope.filteredProducts = [];
                     $scope.filteredProducts.totalStock = 0;
                     $scope.avaliableCustomers = [];
                     $scope.checkedProductSKU = null;
-
+                    var allBookEntries = BookService.listEntries();
                     function updateFilteredProducts (orders) {
+                        console.log('inicio updateFilteredProducts');
+                        console.log(new Date().getTime());
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
                         var productsMap = {};
                         for ( var ix in orders) {
                             var order = orders[ix];
                             
-                            var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid);
+                            var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid, allBookEntries);
                             if(discountCoupom > 0 ){
                                 OrderListService.distributeDiscountCoupon(order, discountCoupom);
                             }
@@ -104,6 +107,8 @@
 
                             }
                         }
+                        console.log('Fim updateFilteredProducts');
+                        console.log(new Date().getTime());
                     }
                     
                     $scope.updateProducts =

@@ -3,9 +3,13 @@
     angular.module('tnt.catalog.orderList.ctrl', [
         'tnt.catalog.order.service', 'tnt.utils.array', 'tnt.catalog.orderList.service'
     ]).controller(
-        'OrderListCtrl',
+        'OrderListCtrl',[
+        '$scope', '$filter', 'OrderService', 'EntityService', 
+        'UserService', 'VoucherService', 'ArrayUtils', 'OrderListService', 'BookService',
+        
         function ($scope, $filter, OrderService, EntityService, 
-            UserService, VoucherService, ArrayUtils, OrderListService) {
+            UserService, VoucherService, ArrayUtils, OrderListService, BookService) {
+            var allBookEntries = BookService.listEntries();
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
             var hideOptions = true;
@@ -169,7 +173,7 @@
                 $scope.hideOptions = hideOptions;
             };
 
-            $scope.augmentOrder = function (order) {
+            $scope.augmentOrder = function (order, bookEntries) {
                 // Find the entity name
                 var entity = ArrayUtils.find($scope.customers, 'uuid', order.customerId);
                 if (entity) {
@@ -195,7 +199,7 @@
                     voucherAmount += voucher.amount;
                 }
                 amountTotal += voucherAmount;
-                var discount = OrderListService.getTotalDiscountByOrder(order.uuid);
+                var discount = OrderListService.getTotalDiscountByOrder(order.uuid, bookEntries);
                 order.voucherTotal = voucherAmount;
                 order.voucherQty = count;
                 order.itemsQty = qtyTotal;
@@ -234,14 +238,20 @@
                 };
 
             $scope.updateOrdersTotal =
-                function (orders) {
+                function (orders, allBookEntries) {
+                    var start = new Date().getTime();
                     $scope.resetOrdersTotal();
                     var entityMap = {};
                     var filteredOrders = orders;
                     for ( var ix in filteredOrders) {
                         var filteredOrder = filteredOrders[ix];
-
-                        $scope.augmentOrder(filteredOrder);
+                        
+                        var bookEntries =
+                            $filter('filter')(allBookEntries, function (entry) {
+                                return (entry.document === filteredOrder.uuid);
+                            });
+                        
+                        $scope.augmentOrder(filteredOrder, bookEntries);
 
                         if (!entityMap[filteredOrder.customerId]) {
                             entityMap[filteredOrder.customerId] = filteredOrder.customerId;
@@ -260,6 +270,7 @@
                     } else {
                         $scope.total.all.avgPrice = 0;
                     }
+                    console.log('fim updateOrdersTotal', new Date().getTime() - start);
                 };
 
              function distributedDiscountCoupon(order, discountCoupom){
@@ -306,47 +317,55 @@
             };
 
             $scope.updateReceivablesTotal = function (orders) {
+                console.log('inicio updateReceivablesTotal');
+                var start = new Date().getTime();
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
                     var order = orders[ix];
 
+                    var bookEntries =
+                        $filter('filter')(allBookEntries, function (entry) {
+                            return (entry.document === order.uuid);
+                        });
+                    
                     //CASH
-                    var cashAmount = OrderListService.getTotalByType(order.uuid, 'cash');
+                    var cashAmount = OrderListService.getTotalByType(order.uuid, 'cash', bookEntries);
                     $scope.total.cash.amount += cashAmount.amount;
                     $scope.total.cash.qty += cashAmount.qty;
                     $scope.total.amount += cashAmount.amount;
                     //Check
-                    var resultCheck = OrderListService.getTotalByType(order.uuid, 'check');
+                    var resultCheck = OrderListService.getTotalByType(order.uuid, 'check', bookEntries);
                     $scope.total.check.amount += resultCheck.amount;
                     $scope.total.check.qty += resultCheck.qty;
                     $scope.total.amount += resultCheck.amount;
                     //Card
-                    var resultCard = OrderListService.getTotalByType(order.uuid, 'creditCard');
+                    var resultCard = OrderListService.getTotalByType(order.uuid, 'creditCard', bookEntries);
                     $scope.total.creditCard.amount += resultCard.amount;
                     $scope.total.creditCard.qty += resultCard.qty;
                     $scope.total.amount += resultCard.amount;
                     
                     //Cuff
-                    var resultCuff = OrderListService.getTotalByType(order.uuid, 'onCuff');
+                    var resultCuff = OrderListService.getTotalByType(order.uuid, 'onCuff', bookEntries);
                     $scope.total.onCuff.amount += resultCuff.amount;
                     $scope.total.onCuff.qty += resultCuff.qty;
                     $scope.total.amount += resultCuff.amount;
                     
                     //Voucher
-                    var resultVoucher = OrderListService.getTotalByType(order.uuid, 'voucher');
+                    var resultVoucher = OrderListService.getTotalByType(order.uuid, 'voucher', bookEntries);
                     $scope.total.voucher.amount += resultVoucher.amount;
                     $scope.total.voucher.qty += resultVoucher.qty;
                     $scope.total.amount += resultVoucher.amount;
                     
                     //Exchange Products
-                    var resultExchangeProducts = OrderListService.getTotalByType(order.uuid, 'exchange');
+                    var resultExchangeProducts = OrderListService.getTotalByType(order.uuid, 'exchange', bookEntries);
                     $scope.total.exchange.amount += resultExchangeProducts.amount;
                     $scope.total.exchange.qty += resultExchangeProducts.qty;
                     $scope.total.amount += resultExchangeProducts.amount;
                     
-                    var discount = OrderListService.getTotalDiscountByOrder(order.uuid);
+                    var discount = OrderListService.getTotalDiscountByOrder(order.uuid, bookEntries);
                     $scope.total.discount += discount;
                 }
+                console.log('fim updateReceivablesTotal', new Date().getTime() - start);
             };
 
             $scope.computeAvaliableCustomers = function (customers) {
@@ -370,11 +389,14 @@
             };
 
             $scope.filterOrders = function (orders) {
+                    var start = new Date().getTime();
+                    var bookEntries = BookService.listEntries();
                     orders = filterOrdersByDate(orders);
-                    $scope.updateReceivablesTotal(orders);
-                    $scope.updateOrdersTotal(orders);
+                    $scope.updateReceivablesTotal(orders, bookEntries);
+                    $scope.updateOrdersTotal(orders, bookEntries);
                     $scope.generateVA(orders);
                     $scope.filteredOrders = orders;
+                    console.log('fim filterOrders', new Date().getTime() - start);
             };
 
             // #############################################################################################################
@@ -398,5 +420,5 @@
 //                }
             });
 
-        });
+        }]);
 }(angular));

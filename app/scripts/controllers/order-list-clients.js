@@ -16,9 +16,10 @@
                 'ProductReturnService',
                 'VoucherService',
                 'OrderListService',
+                'BookService',
                 function ($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService,
-                    ProductReturnService, VoucherService, OrderListService) {
-
+                    ProductReturnService, VoucherService, OrderListService, BookService) {
+                    var allBookEntries = BookService.listEntries();
                     var customers = $scope.customers;
                     $scope.filteredEntities = [];
                     $scope.checkedEntityUUID = null;
@@ -82,52 +83,64 @@
                     $scope.updatePaymentsTotal =
                         function (entities) {
                             $scope.resetPaymentsTotal();
-
+                            
+                            
+                            console.log(allBookEntries.length);
+                            console.log('--------------------------------------------------------');
                             for ( var ix in entities) {
                                 var entity = entities[ix];
                                 var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
                                     customerId : entity.entityId
                                 });
-
+                                
                                 for ( var ix2 in ordersByEntity) {
                                     var order = ordersByEntity[ix2];
-                                  //CASH
-                                    var cashAmount = OrderListService.getTotalByType(order.uuid, 'cash');
+                                    
+                                    var bookEntries =
+                                        $filter('filter')(allBookEntries, function (entry) {
+                                            return (entry.document === order.uuid);
+                                        });
+                                    
+                                    console.log(bookEntries.length);
+                                    console.log(order);
+                                    
+                                    //CASH
+                                    var cashAmount = OrderListService.getTotalByType(order.uuid, 'cash', bookEntries);
                                     $scope.total.cash.amount += cashAmount.amount;
                                     $scope.total.cash.qty += cashAmount.qty;
                                     $scope.total.amount += cashAmount.amount;
                                     
                                     //Check
-                                    var resultCheck = OrderListService.getTotalByType(order.uuid, 'check');
+                                    var resultCheck = OrderListService.getTotalByType(order.uuid, 'check',bookEntries);
                                     $scope.total.check.amount += resultCheck.amount;
                                     $scope.total.check.qty += resultCheck.qty;
                                     $scope.total.amount += resultCheck.amount;
                                     
                                     //Card
-                                    var resultCard = OrderListService.getTotalByType(order.uuid, 'creditCard');
+                                    var resultCard = OrderListService.getTotalByType(order.uuid, 'creditCard', bookEntries);
                                     $scope.total.creditCard.amount += resultCard.amount;
                                     $scope.total.creditCard.qty += resultCard.qty;
                                     $scope.total.amount += resultCard.amount;
                                     
                                     //Cuff
-                                    var resultCuff = OrderListService.getTotalByType(order.uuid, 'onCuff');
+                                    var resultCuff = OrderListService.getTotalByType(order.uuid, 'onCuff', bookEntries);
                                     $scope.total.onCuff.amount += resultCuff.amount;
                                     $scope.total.onCuff.qty += resultCuff.qty;
                                     $scope.total.amount += resultCuff.amount;
                                     
                                     //Voucher
-                                    var resultVoucher = OrderListService.getTotalByType(order.uuid, 'voucher');
+                                    var resultVoucher = OrderListService.getTotalByType(order.uuid, 'voucher', bookEntries);
                                     $scope.total.voucher.amount += resultVoucher.amount;
                                     $scope.total.voucher.qty += resultVoucher.qty;
                                     $scope.total.amount += resultVoucher.amount;
                                     
                                     //Exchange Products
-                                    var resultExchangeProducts = OrderListService.getTotalByType(order.uuid, 'exchange');
+                                    var resultExchangeProducts = OrderListService.getTotalByType(order.uuid, 'exchange', bookEntries);
                                     $scope.total.exchange.amount += resultExchangeProducts.amount;
                                     $scope.total.exchange.qty += resultExchangeProducts.qty;
                                     $scope.total.amount += resultExchangeProducts.amount;
                                     
-                                    var discount = OrderListService.getTotalDiscountByOrder(order.uuid);
+                                    var discount = OrderListService.getTotalDiscountByOrder(order.uuid, bookEntries);
                                     $scope.total.discount += discount;
                             }
                         };
