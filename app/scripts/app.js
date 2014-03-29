@@ -219,14 +219,17 @@
         }).when('/third-parties', {
             templateUrl : 'views/third-parties.html',
             controller: 'ThirdPartyCtrl'
-        }).when('/products-delivery', {
-            templateUrl : 'views/products-delivery.html',
-            controller : 'ProductsDeliveryCtrl'
-        }).when('/spinner-button-promise', {
+       }).when('/spinner-button-promise', {
             templateUrl : 'views/spinner-button-promise.html'
         }).when('/pagpop', {
             templateUrl : 'views/pagpop.html',
             controller : 'PagpopCtrl'
+        }).when('/third-parties-2', {
+            templateUrl : 'views/sacred-third-parties.html',
+            controller: 'ThirdPartyCtrl'
+        }).when('/products-delivery', {
+            templateUrl : 'views/sacred-products-delivery.html',
+            controller : 'ProductsDeliveryCtrl'
         }).otherwise({
             redirectTo : '/'
         });

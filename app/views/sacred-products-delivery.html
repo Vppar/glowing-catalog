@@ -1,0 +1,32 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-products-delivery-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Entrega de Produtos</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button" ng-init="selected='orders'">
+							<a class="btn btn-option" ng-class="{active: selected=='orders'}" ng-click="selected='orders'">Pedidos</a>
+							<a class="btn btn-option" ng-class="{active: selected=='products'}" ng-click="selected='products'">Produtos</a>							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body" ng-switch="selected">
+				<div class="content" ng-switch-when="orders">
+					<div ng-include class="include-div" src="'views/parts/products-delivery/sacred-products-delivery-orders.html'"></div>
+				</div>	
+				<div class="content" ng-switch-when="products">
+					<div ng-include class="include-div" src="'views/parts/products-delivery/sacred-products-delivery-products.html'"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

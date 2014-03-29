@@ -5,8 +5,8 @@
 */
 
 #sacred .grid{
+	height: 100%;
 	margin-bottom: 10px;
-	border-bottom: 1px #ccc solid;
 }
 
 #sacred .grid .grid-summary,
@@ -28,6 +28,8 @@
 #sacred .grid .grid-item{
 	border-bottom: 1px #ccc dotted;
 	min-height: 40px; 
+	padding-top: 2px;
+ 	padding-bottom: 2px;
 }
 
 #sacred .grid .grid-body>:last-child{
@@ -50,6 +52,8 @@
 	overflow-x:hidden;
 	overflow-y:scroll;
 }
+
+
 
 /*
  * Decorators!
@@ -87,10 +91,41 @@
  	text-align: right;
  }
 
+  /* column decorator
+ * this class just make the column item name be ellipsed
+ */
+ #sacred .grid .name-cutter{
+ 	overflow: hidden;
+ 	text-overflow: ellipsis;
+ 	white-space: nowrap;
+ }
+
 /* line decorator
  * this class just make the grid-item content be vertical centered.
  */
- #sacred .grid .grid-item .single-line{
+ #sacred .grid .grid-item.single-line{
  	line-height: 40px;
+ 	min-height: 40px;
+ 	height: 40px;
+ }
+
+/* line decorator
+ * this class just make the grid-item content be vertical centered.
+ */
+ #sacred .grid .grid-item.clicable{
+ 	cursor:pointer;
+ }
+
+ #sacred .grid .product-name{
+ 
+ }
+ #sacred .grid .product-name small{
+ 	color: #999;
+ 	float: none;
+ 	display: block;
+ }
+ #sacred .grid .product-name span{
+ 	display: block;
+ 	float: none;
  }
 

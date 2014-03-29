@@ -7,7 +7,7 @@
 #sacred{
   height: 100%;
 }
-#sacred * {
+#sacred .page * {
   box-sizing: border-box;
 }
 

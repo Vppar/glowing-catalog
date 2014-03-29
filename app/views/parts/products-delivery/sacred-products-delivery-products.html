@@ -1,0 +1,35 @@
+<div class="content-body content-all product-delivery-products-part">
+	<div class="grid">
+		<div class="grid-header">
+			<div class="row">
+				<div class="col-15">Produto/C&oacute;digo</div>
+				<div class="col-2 text-center">Qtde</div>
+				<div class="col-3 text-center">Entregue</div>
+				<div class="col-4 text-center">Entrega</div>
+			</div>
+		</div>
+
+		<div class="grid-body grid-scroll">
+			<div class="grid-item" ng-repeat="product in pendingProducts">
+				<div class="row">
+					<div class="col-15 product-name">
+						<span>{{product.title}}</span>
+						<small>{{product.SKU}} - {{product.line}}</small>
+					</div>
+
+					<div class="col-2 text-center">{{product.qty}}</div>
+
+					<div class="col-3 text-center">{{product.dQty}}</div>
+
+					<div class="col-4 text-center">
+						<tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="buttons-holder">
+		<button class="button-green pull-right" tnt-promise-click="confirm()">Confirmar</button>
+	</div>
+</div>
