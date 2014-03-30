@@ -346,7 +346,7 @@
                             $scope.selectMoneyPayment = function selectMoneyPayment() {
                                 // FIXME - Used to temporally resolve VOPP-210.
                                 if(getCashAmount() === 0 && $scope.total.change < 0) {
-                                    $scope.cash.amount = angular.copy($scope.total.change);
+                                    $scope.cash.amount = (-1)*angular.copy($scope.total.change);
                                 }
                                 var delta = new Date().getTime() - $scope.keyboard.status.changed;
                                 delta = isNaN(delta) ? 501 : delta;
