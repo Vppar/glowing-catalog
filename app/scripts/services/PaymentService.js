@@ -379,7 +379,7 @@
                                 }
 
                                 // FIXME: should we use a UUID?
-                                if(payment.type !== 'check'){
+                                if (payment.type !== 'check') {
                                     payment.id = ArrayUtils.generateUUID();
                                 }
                                 payments[typeName].push(angular.copy(payment));
@@ -495,6 +495,12 @@
                             insertBookEntries(order, customer, payments, discount, change);
                         });
 
+                        function sendOrderSMS(customer, amount) {
+                            if (amount > 0) {
+                                SMSService.sendPaymentConfirmation(customer, amount);
+                            }
+                        }
+
                         function sendVoucherSMS(vouchers) {
                             if (vouchers.length > 0) {
                                 for ( var i in vouchers) {
@@ -520,7 +526,7 @@
                         }
 
                         savedSalePromise.then(function() {
-                            SMSService.sendPaymentConfirmation(customer, amount);
+                            sendOrderSMS(customer, amount);
                             sendVoucherSMS(vouchers);
                             sendCouponsSMS(persistedCoupons);
                             sendGiftCardSMS(giftCards);
@@ -633,9 +639,12 @@
                             productCost += currencyMultiply(item.cost ? item.cost : 0, item.qty);
                         }
 
-                        if(productCost === 0){
-                            productCost = currencyMultiply(productAmount, 0.75); //75% of amount value
-                        }                        
+                        if (productCost === 0) {
+                            productCost = currencyMultiply(productAmount, 0.75); // 75%
+                                                                                    // of
+                                                                                    // amount
+                                                                                    // value
+                        }
 
                         var bookEntries = BookService.productReturn(orderUUID, entityUUID, productAmount, productCost);
 

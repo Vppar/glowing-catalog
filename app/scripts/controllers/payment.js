@@ -46,7 +46,6 @@
                                 $location.path('/');
                             }
                             
-                            $scope.disabled = true;
 
                             $scope.voucherFilter = function(item) {
                                 if (item.type === 'voucher' || item.type === 'giftCard') {
@@ -233,17 +232,23 @@
                                 }
                             }
                             enableDiscountWatcher();
+                            
+                            $scope.disabled = setEnableConfirmButton;
+                            
+                            function setEnableConfirmButton() {
+                                if($scope.items.length === 0 &&
+                                   !PaymentService.hasPersistedCoupons()) {
+                            
+                                    return true;
+                                }else{
+                                    return false;
+                                }
+                            }
 
                             // When a product is added on items list, we need to
                             // rebuild the
                             // uniqueName.
                             $scope.$watchCollection('items', function() {
-                                
-                                if($scope.items.length>0){
-                                    $scope.disabled = false;
-                                }else{
-                                    $scope.disabled = true;
-                                }
                                 
                                 // Show SKU or SKU + Option(when possible).
                                 for ( var idx in order.items) {
@@ -506,7 +511,9 @@
 
                             $scope.$watch('total.order.amount', updateSubTotal);
                             $scope.$watch('total.order.itemDiscount', updateSubTotal);
-                            $scope.$watch('total.paymentsExchange', updateSubTotal);
+                            $scope.$watch('total.paymentsExchange', function(){
+                                updateSubTotal();
+                            });
 
                             $scope.$watch('total.order.itemDiscount', function() {
                                 var hasItemsWithoutItemDiscount = false;
