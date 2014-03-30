@@ -35,7 +35,8 @@ module.exports =
                             '<%= yeoman.app %>/scripts/**/*.js'
                         ],
                         tasks : [
-                            'newer:jshint:all'
+                            //'newer:jshint:all',
+                            'bump:build'
                         ],
                         options : {
                             livereload : true,
@@ -88,6 +89,7 @@ module.exports =
                     },
                     livereload : {
                         options : {
+                            hostname : 'localhost',
                             open : true,
                             base : [
                                 '.tmp', '<%= yeoman.app %>'
@@ -437,7 +439,7 @@ module.exports =
                         ],
                         preprocessors : {
                             'app/scripts/**/*.js' : 'coverage',
-                            'app/components/**/*.js' : 'coverage',
+                            'app/components/**/*.js' : 'coverage'
                         },
                         reporters : [
                             'coverage'
@@ -446,6 +448,22 @@ module.exports =
                             type : 'html',
                             dir : 'coverage/'
                         }
+                    }
+                },
+
+                bump: {
+                    options: {
+                        files: ['package.json', 'app/wishlist.manifest', 'app/wishlist.manifest.dist'],
+                        updateConfigs: [],
+                        commit: false,
+                        commitMessage: 'Release v%VERSION%',
+                        commitFiles: ['package.json'],
+                        createTag: false,
+                        tagName: 'v%VERSION%',
+                        tagMessage: 'Version %VERSION%',
+                        push: false,
+                        pushTo: 'upstream',
+                        gitDescribeOptions: '--tags --always --abbrev=1 --dirty=-d' // options to use with '$ git describe'
                     }
                 },
 
