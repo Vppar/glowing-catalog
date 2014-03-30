@@ -226,6 +226,7 @@
                     this.sendGiftCardCustomerConfirmation =
                         function sendGiftCardCustomerConfirmation (customer, giftCard) {
 
+                            var entity = EntityService.read(giftCard.entity);
                             var to = getPhoneNumber(customer);
 
                             var smsSent = null;
