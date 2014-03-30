@@ -196,7 +196,7 @@
                         + 'na compra de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
                 
                 var giftCardCustomerConfirmationSMS =
-                    'Voce presenteou {{entityName}} com um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado '
+                    'Voce presenteou {{giftedCustomerName}} com um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado '
                         + 'na compra de produtos MK. {{representativeName}}{{yourConsultant}} Mary Kay.';
 
                 this.sendGiftCardConfirmation =
@@ -226,14 +226,13 @@
                     this.sendGiftCardCustomerConfirmation =
                         function sendGiftCardCustomerConfirmation (customer, giftCard) {
 
-                            var entity = EntityService.read(giftCard.entity);
-                            var to = getPhoneNumber(entity);
+                            var to = getPhoneNumber(customer);
 
                             var smsSent = null;
                             var data = {};
 
                             // complete data object
-                            data.entityName = entity.name;
+                            data.giftedCustomerName = entity.name;
                             data.giftCardAmount = getCurrencyFormat(giftCard.amount);
                             data.representativeName = user.name;
                             data.yourConsultant = getYourConsultantGenderRelativePhrase(user);
