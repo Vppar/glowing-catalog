@@ -621,11 +621,16 @@
                                 var totalOrder = $scope.total.order.amount;
                                 var totalDiscont = getTotalDiscount();
                                 var totalChange = $scope.total.change;
+                                var smsTotal = $scope.total.order.amount;
+                                var voucher = ArrayUtils.find(order.items, 'type', 'voucher');
+                                if(voucher) {
+                                    smsTotal -= voucher.amount;
+                                }
 
                                 var confirmPaymentIntentPromise = showConfirmPaymentDialog();
 
                                 var confirmedPromise = confirmPaymentIntentPromise.then(function() {
-                                    return PaymentService.checkout(customer, totalOrder, totalDiscont, totalChange);
+                                    return PaymentService.checkout(customer, totalOrder, totalDiscont, totalChange, smsTotal);
                                 });
 
                                 // Inform the user that the payment is done.
