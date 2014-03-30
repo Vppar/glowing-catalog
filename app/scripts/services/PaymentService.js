@@ -732,7 +732,7 @@
                             }
                         }
                         vouchers.length = 0;
-                        coupons.length = 0;
+                        giftCards.length = 0;
                     };
 
                     // An array of coupons. Coupons have the following
