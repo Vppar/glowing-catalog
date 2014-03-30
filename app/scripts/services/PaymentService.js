@@ -537,7 +537,7 @@
                         return savedSalePromise.then(function() {
                             OrderService.clear();
                             clearAllPayments();
-                            clearPersistedCoupons();
+                            clearCouponGiftVoucher();
                         }, propagateRejectedPromise);
                     }
 
@@ -671,7 +671,7 @@
                         }
                         OrderService.clear();
                         clearAllPayments();
-                        clearPersistedCoupons();
+                        clearCouponGiftVoucher();
 
                         $location.path('/');
                     }
@@ -725,12 +725,14 @@
                         }
                     };
 
-                    var clearPersistedCoupons = function clearPersistedCoupons() {
+                    var clearCouponGiftVoucher = function clearCouponGiftVoucher() {
                         for ( var idx in persistedCoupons) {
                             if (persistedCoupons.hasOwnProperty(idx)) {
                                 delete persistedCoupons[idx];
                             }
                         }
+                        vouchers.length = 0;
+                        giftCards.length = 0;
                     };
 
                     // An array of coupons. Coupons have the following
@@ -845,7 +847,7 @@
                     this.persistedCoupons = persistedCoupons;
                     this.hasPersistedCoupons = hasPersistedCoupons;
                     this.persistCouponQuantity = persistCouponQuantity;
-                    this.clearPersistedCoupons = clearPersistedCoupons;
+                    this.clearCouponGiftVoucher = clearCouponGiftVoucher;
                     this.createCoupons = createCoupons;
 
                 }

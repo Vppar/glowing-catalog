@@ -1,4 +1,4 @@
-describe('Service: PaymentServiceClearPersistedCoupons', function() {
+describe('Service: PaymentServiceClearCouponGiftVoucher', function() {
     
     var orderService = {};
     var entityService = {};
@@ -46,14 +46,14 @@ describe('Service: PaymentServiceClearPersistedCoupons', function() {
       function () {
         PaymentService.persistedCoupons[5] = 3;
         PaymentService.persistedCoupons[20] = 5;
-        PaymentService.clearPersistedCoupons();
+        PaymentService.clearCouponGiftVoucher();
         expect(PaymentService.persistedCoupons).toEqual({});
       });
 
 
     it('removes custom attributes', function () {
       PaymentService.persistedCoupons.foo = 'bar';
-      PaymentService.clearPersistedCoupons();
+      PaymentService.clearCouponGiftVoucher();
       expect(PaymentService.persistedCoupons).toEqual({});
     });
 
@@ -62,7 +62,7 @@ describe('Service: PaymentServiceClearPersistedCoupons', function() {
     // able to persist new coupons.
     it('does not break persistCouponQuantity()', function () {
       PaymentService.persistedCoupons[5] = 5;
-      PaymentService.clearPersistedCoupons();
+      PaymentService.clearCouponGiftVoucher();
       expect(PaymentService.persistedCoupons).toEqual({});
 
       expect(function () {
