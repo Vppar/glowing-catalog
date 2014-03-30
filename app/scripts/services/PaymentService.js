@@ -521,6 +521,7 @@
                             if (giftCards.length > 0) {
                                 for ( var i in giftCards) {
                                     SMSService.sendGiftCardConfirmation(customer, giftCards[i]);
+                                    SMSService.sendGiftCardCustomerConfirmation(customer, giftCards[i]);
                                 }
                             }
                         }
