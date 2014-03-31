@@ -12,6 +12,7 @@ describe('Controller: order-list-clients', function () {
     var orders = [];
     var receivables = null;
     var receivablesTotalTemplate = null;
+    var filteredEntities = [];
     var total = {
         all : {
             amount : 0
@@ -72,6 +73,9 @@ describe('Controller: order-list-clients', function () {
                 uuid : "cc02a100-5d0a-11e3-96c3-010001000001",
                 customerId : 14,
                 created : new Date().getTime() - daysToMilliseconds(0),
+                amountTotal : 317,
+                amountTotalWithDiscount:317,
+                itemsQty : 7,
                 items : [
                     {
                         price : "85",
@@ -98,6 +102,9 @@ describe('Controller: order-list-clients', function () {
                 uuid : "cc02a200-5d0a-11e3-96c3-010001000002",
                 customerId : 14,
                 created : new Date().getTime() - daysToMilliseconds(0),
+                amountTotal : 45,
+                amountTotalWithDiscount: 45, 
+                itemsQty : 2,
                 items : [
                     {
                         price : "30",
@@ -116,6 +123,9 @@ describe('Controller: order-list-clients', function () {
                 uuid : "cc02a300-5d0a-11e3-96c3-010001000003",
                 customerId : 15,
                 created : new Date().getTime() - daysToMilliseconds(0),
+                amountTotal: 140,
+                amountTotalWithDiscount: 140,
+                itemsQty : 3,
                 items : [
                     {
                         price : "20",
@@ -134,6 +144,9 @@ describe('Controller: order-list-clients', function () {
                 uuid : "cc02a400-5d0a-11e3-96c3-010001000004",
                 customerId : 16,
                 created : new Date().getTime() - daysToMilliseconds(0),
+                amountTotal : 300,
+                amountTotalWithDiscount: 300,
+                itemsQty : 3,
                 items : [
                     {
                         price : "100",
@@ -145,8 +158,12 @@ describe('Controller: order-list-clients', function () {
             }, {
                 canceled : false,
                 code : "mary-0001-17",
+                uuid : "cc02a400-5d0a-11e3-96c3-010001000005",
                 customerId : 16,
                 created : new Date().getTime() - daysToMilliseconds(0),
+                amountTotal : 136,
+                amountTotalWithDiscount: 136,
+                itemsQty : 3,
                 items : [
                     {
                         price : "90",
@@ -163,8 +180,12 @@ describe('Controller: order-list-clients', function () {
             }, {
                 canceled : false,
                 code : "mary-0001-18",
+                uuid : "cc02a400-5d0a-11e3-96c3-010001000006",
                 customerId : 17,
                 created : new Date().getTime() - daysToMilliseconds(0),
+                amountTotal : 253,
+                amountTotalWithDiscount: 253,
+                itemsQty : 5,
                 items : [
                     {
                         price : "85",
@@ -189,8 +210,12 @@ describe('Controller: order-list-clients', function () {
             }, {
                 canceled : false,
                 code : "mary-0001-19",
+                uuid : "cc02a400-5d0a-11e3-96c3-010001000007",
                 customerId : 17,
                 created : new Date().getTime() - daysToMilliseconds(0),
+                amountTotal: 253,
+                amountTotalWithDiscount: 253,
+                itemsQty : 5,
                 items : [
                     {
                         price : "85",
@@ -282,11 +307,12 @@ describe('Controller: order-list-clients', function () {
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
         scope.customers = customers;
+        scope.filteredEntities = filteredEntities;
         scope.resetPaymentsTotal =
             jasmine.createSpy('scope.resetPaymentsTotal').andCallFake(function () {
                 scope.total = receivablesTotalTemplate;
             });
-        
+        scope.updateOrdersTotal = jasmine.createSpy('scope.updateOrdersTotals');
         OrderListService.getTotalByType = jasmine.createSpy('OrderListService.getTotalByType').andCallFake(function(orderUUID, type){
             if(type === 'cash'){
                 return {amount:5 , qty:1};
@@ -379,8 +405,7 @@ describe('Controller: order-list-clients', function () {
     }));
 
     it('should consolidate orders by clients.', function () {
-        scope.$apply();
-
+        scope.updateFilteredEntities(scope.filteredEntities);
         expect(scope.filteredEntities.length).toEqual(4);
         expect(scope.filteredEntities[0].name).toEqual('Tiburço');
         expect(scope.filteredEntities[0].amountTotal).toEqual(362);
@@ -405,7 +430,7 @@ describe('Controller: order-list-clients', function () {
     });
 
     it('should updatePaymentsTotal', function () {
-        scope.$apply();
+
         scope.updatePaymentsTotal(scope.filteredEntities);
         expect(scope.total.cash.qty).toEqual(7);
         expect(scope.total.cash.amount).toEqual(35);

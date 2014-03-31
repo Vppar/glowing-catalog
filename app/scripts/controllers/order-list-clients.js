@@ -19,10 +19,9 @@
                 'BookService',
                 function ($scope, $location, $filter, OrderService, ArrayUtils, ReceivableService,
                     ProductReturnService, VoucherService, OrderListService, BookService) {
+                    
                     var allBookEntries = BookService.listEntries();
                     var customers = $scope.customers;
-                    $scope.filteredEntities = [];
-                    $scope.checkedEntityUUID = null;
 
                     $scope.updateAndEnableHideOption = function (entity) {
                         $scope.checkedEntityUUID = entity.entityId;
@@ -39,9 +38,8 @@
                         $scope.updatePaymentsTotal(entities);
                     };
 
-                    function updateFilteredEntities () {
+                    $scope.updateFilteredEntities = function () {
                         $scope.filteredEntities.length = 0;
-                        
                         for ( var ix in customers) {
                             var entity = customers[ix];
                             var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
@@ -61,8 +59,8 @@
 
                                 for ( var ix2 in ordersByEntity) {
                                     var order = ordersByEntity[ix2];
-                                    //$scope.augmentOrder(order);
                                     var lastOrder = entityOrders.lastOrder;
+                                    
                                     entityOrders.uuid = order.uuid;
                                     entityOrders.lastOrder =
                                         lastOrder > order.created ? lastOrder : order.created;
@@ -78,15 +76,12 @@
                                 $scope.filteredEntities.push(entityOrders);
                             }
                         }
-                    }
+                    };
 
                     $scope.updatePaymentsTotal =
                         function (entities) {
                             $scope.resetPaymentsTotal();
                             
-                            
-                            //console.log(allBookEntries.length);
-                            //console.log('--------------------------------------------------------');
                             for ( var ix in entities) {
                                 var entity = entities[ix];
                                 var ordersByEntity = ArrayUtils.filter($scope.filteredOrders, {
@@ -100,9 +95,6 @@
                                         $filter('filter')(allBookEntries, function (entry) {
                                             return (entry.document === order.uuid);
                                         });
-                                    
-                                    //console.log(bookEntries.length);
-                                    //console.log(order);
                                     
                                     //CASH
                                     var cashAmount = OrderListService.getTotalByType(order.uuid, 'cash', bookEntries);
@@ -145,13 +137,20 @@
                             }
                         };
                     };
-                    /**
-                     * Watcher to filter the orders and populate the grid.
-                     */
-                    $scope.$watchCollection('dtFilter', function () {
-                        updateFilteredEntities();
+                    
+                    $scope.updateEntitiesAndTotals = function (){
+                        $scope.updateFilteredEntities();
+                        $scope.updateOrdersTotal($scope.filteredOrders);
                         $scope.generateVA($scope.filteredEntities);
+                    };
+                    
+                   $scope.updateEntitiesAndTotals();
+                    
+                    
+                    $scope.$on('dtFilterUpdated', function(e) {  
+                        $scope.updateEntitiesAndTotals();
                     });
+                    
                 }
             ]);
 }(angular));

@@ -9,9 +9,10 @@
         
         function ($scope, $filter, OrderService, EntityService, 
             UserService, VoucherService, ArrayUtils, OrderListService, BookService) {
-            var allBookEntries = BookService.listEntries();
+            
             // Login verify
             UserService.redirectIfIsNotLoggedIn();
+            var allBookEntries = BookService.listEntries();
             var hideOptions = true;
             /**
              * Templates
@@ -48,7 +49,7 @@
                     amount : 0
                 }
             };
-
+            
             var ordersTotalTemplate = {
                 all : {
                     orderCount : 0,
@@ -239,7 +240,6 @@
 
             $scope.updateOrdersTotal =
                 function (orders, allBookEntries) {
-                    var start = new Date().getTime();
                     $scope.resetOrdersTotal();
                     var entityMap = {};
                     var filteredOrders = orders;
@@ -270,7 +270,6 @@
                     } else {
                         $scope.total.all.avgPrice = 0;
                     }
-                    //console.log('fim updateOrdersTotal', new Date().getTime() - start);
                 };
 
              function distributedDiscountCoupon(order, discountCoupom){
@@ -317,8 +316,6 @@
             };
 
             $scope.updateReceivablesTotal = function (orders) {
-                //console.log('inicio updateReceivablesTotal');
-                var start = new Date().getTime();
                 $scope.resetPaymentsTotal();
                 for ( var ix in orders) {
                     var order = orders[ix];
@@ -365,7 +362,6 @@
                     var discount = OrderListService.getTotalDiscountByOrder(order.uuid, bookEntries);
                     $scope.total.discount += discount;
                 }
-                //console.log('fim updateReceivablesTotal', new Date().getTime() - start);
             };
 
             $scope.computeAvaliableCustomers = function (customers) {
@@ -382,21 +378,18 @@
                             uuid : ordersByCustomer[0].customerId
                         });
                     }
-
                 }
 
                 return $scope.avaliableCustomers;
             };
 
             $scope.filterOrders = function (orders) {
-                    //var start = new Date().getTime();
                     var bookEntries = BookService.listEntries();
                     orders = filterOrdersByDate(orders);
                     $scope.updateReceivablesTotal(orders, bookEntries);
                     $scope.updateOrdersTotal(orders, bookEntries);
                     $scope.generateVA(orders);
                     $scope.filteredOrders = orders;
-                    //console.log('fim filterOrders', new Date().getTime() - start);
             };
 
             // #############################################################################################################
@@ -411,13 +404,19 @@
 
             $scope.filterOrders($scope.orders);
             
+            $scope.filteredEntities = [];
+            $scope.checkedEntityUUID = null;
+            $scope.filteredProducts = [];
+            $scope.filteredProducts.totalStock = 0;
+            $scope.checkedProductSKU = null;
+            $scope.avaliableCustomers = [];
+            
             /**
              * whenever dtFilter changes filter list.
              */
             $scope.$watchCollection('dtFilter', function (newVal, oldVal) {
-//                if (!angular.equals(newVal, oldVal)) {
-                    $scope.filterOrders($scope.orders);
-//                }
+                $scope.filterOrders($scope.orders);
+                $scope.$broadcast('dtFilterUpdated');
             });
 
         }]);

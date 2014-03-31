@@ -8,6 +8,8 @@ describe('Controller: order-list-products', function () {
     var UserService = {};
     var ProductReturnService = {};
     var VoucherService = {};
+    var filteredProducts = [];
+    filteredProducts.totalStock =0;
     var ArrayUtils = null;
     var orders = [];
     var receivables = null;
@@ -32,6 +34,7 @@ describe('Controller: order-list-products', function () {
     });
 
     beforeEach(function () {
+        
         receivablesTotalTemplate = {
             total : {
                 amount : 0
@@ -469,6 +472,7 @@ describe('Controller: order-list-products', function () {
         ArrayUtils = _ArrayUtils_;
         scope.filteredOrders = orders;
         scope.customers = customers;
+        scope.filteredProducts = filteredProducts;
         scope.filterOrders = jasmine.createSpy('scope.filterOrders').andReturn(orders);
         scope.computeAvaliableCustomers = jasmine.createSpy('scope.computeAvaliableCustomers');
         scope.resetPaymentsTotal =

@@ -19,24 +19,21 @@
                 'BookService',
                 function ($scope, $location, $filter, OrderService, ArrayUtils, DataProvider,
                     ReceivableService, StockService, OrderListService, BookService) {
-
-                    $scope.filteredProducts = [];
-                    $scope.filteredProducts.totalStock = 0;
-                    $scope.avaliableCustomers = [];
-                    $scope.checkedProductSKU = null;
+                    
                     var allBookEntries = BookService.listEntries();
+                    
                     function updateFilteredProducts (orders) {
                         $scope.filteredProducts.totalStock = 0;
                         $scope.filteredProducts.length = 0;
                         var productsMap = {};
                         for ( var ix in orders) {
                             var order = orders[ix];
-                            
                             var discountCoupom = OrderListService.getDiscountCoupomByOrder(order.uuid, allBookEntries);
+                            
                             if(discountCoupom > 0 ){
                                 OrderListService.distributeDiscountCoupon(order, discountCoupom);
                             }
-
+                            
                             for ( var idx in order.items) {
                                 var item = order.items[idx];
                                 var response = undefined;
@@ -118,24 +115,21 @@
                             $scope.updateOrdersTotal(orders);
                             updateFilteredProducts(orders);
                             $scope.computeAvaliableCustomers($scope.customers);
-                            $scope.generateVA(orders);
+                            $scope.generateVA($scope.filteredProducts);
                         };
-
+                    
                     $scope.updateProducts();
-
-                    $scope.$watchCollection('dtFilter', function (newVal, oldVal) {
-                        if (!angular.equals(newVal,oldVal)) {
-                            $scope.updateProducts();
-                        }
-                    });
-
+                    
                     $scope.$watch('customerId', function (newVal, oldVal) {
                         if (newVal !== oldVal) {
                             $scope.updateProducts();
                         }
                     });
                     
-
+                    $scope.$on('dtFilterUpdated', function(e) {  
+                        $scope.updateProducts();
+                    });
+                    
                 }
             ]);
 }(angular));

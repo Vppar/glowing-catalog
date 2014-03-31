@@ -97,7 +97,14 @@
 
                 this.getTotalByOrder =
                     function (orderUUID, creditAccount, debitAccount, bookEntries) {
-                        bookEntries = bookEntries || BookService.listByOrder(orderUUID);
+                        if(bookEntries){
+                            bookEntries = $filter('filter')(bookEntries, function (entry) {
+                                    return (entry.document === orderUUID);
+                                });
+                        }else{
+                            bookEntries = BookService.listByOrder(orderUUID);
+                        }
+                        
                         bookEntries =
                             $filter('filter')(
                                 bookEntries,
