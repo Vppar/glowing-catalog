@@ -555,25 +555,23 @@
                             // We have a conflict! Resolve it!
                             deferred.resolve(reSequence(entry));
                         } else {
-                            // FIXME(mkretschek) This odd situation happens
-                            // everytime an entry is received from Firebase
-                            // because of a poor implementation of the
-                            // sequence number update process (and I am the
-                            // one to blame for it). I'll disable it for now
-                            // and it should be eventually fixed once the
-                            // sequence logic is brought to work properly.
+                            // FIXME(mkretschek) This odd situation should
+                            // happen only when a sequence number is skipped
+                            // during the synchronization process. Not sure
+                            // why/how this would happen though.
                             //
-                            // Fixing the sequence logic seems to take much more
-                            // time and effort than I have at the moment because
-                            // some remote data starts getting replayed before
-                            // the warmup data and I did not find how to fix it.
-                            //
-                            // Once this is fixed, please uncomment the fatal
-                            // log message, since this is indeed an odd
-                            // situation (all sequence numbers should have an
-                            // entry associated with them).
-                            //
-                            // log.fatal('Odd situation found! There was a missing sequence entry.', entry);
+                            // Anyway, this is a quick & dirty fix, and
+                            // revealed a poor implementation of the
+                            // sequence update process (my fault). Properly
+                            // fixing this turned out to be a non-trivial task
+                            // which will be fixed when the synchronization
+                            // process is refactored and rewritten.
+
+                            if (entry.sequence < JournalKeeper.getSequence() - 1) {
+                                // The entry being inserted is not at the expected
+                                // position.
+                                log.fatal('Odd situation found! There was a missing sequence entry.', entry);
+                            }
                             deferred.resolve(JournalKeeper.insert(entry));
                         }
                     }, function (err) {
