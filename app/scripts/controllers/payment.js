@@ -283,6 +283,7 @@
                             $scope.dialogService = dialogService;
 
                             $scope.openDialogChooseCustomer = function() {
+                                IntentService.putBundle({screen:'payment'});
                                 dialogService.openDialogChooseCustomer().then(function(uuid) {
                                     if (uuid) {
                                         customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
