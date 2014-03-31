@@ -118,7 +118,7 @@ describe('Controller: AddCustomerCtrl', function() {
         });
 
         runs(function() {
-            expect(location.path).toHaveBeenCalledWith('/');
+            expect(location.path).toHaveBeenCalledWith('/payment');
             expect(es.create).toHaveBeenCalledWith(scope.customer);
             expect(result).toEqual(uuid);
             expect(os.order.customerId).toEqual(uuid);
