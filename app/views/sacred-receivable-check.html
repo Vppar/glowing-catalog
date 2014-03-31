@@ -1,0 +1,99 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-receivable-check-page" ng-controller="ReceivableCheckCtrl">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Controle Cheques</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button" ng-init="selected='toDeposit'">
+							<a class="btn btn-option" ng-class="{active: selected=='toDeposit'}" ng-click="selected='toDeposit'">A Depositar</a>
+							<a class="btn btn-option" ng-class="{active: selected=='returned'}" ng-click="selected='returned'">Devolvidos</a>
+							<a class="btn btn-option" ng-class="{active: selected=='deposited'}" ng-click="selected='deposited'">Depositado</a>
+							<a class="btn btn-option" ng-class="{active: selected=='moneyReceived'}" ng-click="selected='moneyReceived'">Recebidos em Dinheiro</a>
+							<a class="btn btn-option" ng-class="{active: selected=='all'}" ng-click="selected='all'">Todos</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="content">
+
+					<div class="content-header">
+						<div class="row">
+							<div class="col-8">
+								<div class="calendar">
+									<div class="text-over">Data Inicial</div>
+									<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
+									<label for="dtIni" class="ic-calendar">
+										<img src="images/icons/ic-calendar.png">
+									</label>
+								</div>
+								<div class="calendar">
+									<div class="text-over">Data Final</div>
+									<input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
+									<label for="dtIni" class="ic-calendar">
+										<img src="images/icons/ic-calendar.png">
+									</label>
+								</div>
+							</div>
+
+							<div class="checkbox-line col-8">
+								<label><input type="checkbox" ng-model="allChecks" > {{message}} {{ dtFilter.dtFinal | date:"dd/MM/yyyy"}}</label>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="content-body content-for-labeled-header">
+						<div class="grid" ng-class="{'without-buttons': selected=='all', 'with-buttons': selected!='all'}">
+							<div class="grid-header">
+								<div class="row">
+									<div class="col-1">&nbsp;</div>
+									<div class="col-7">Banco</div>
+									<div class="col-3">Agência</div>
+									<div class="col-3">Conta Corrente</div>
+									<div class="col-3 text-center">Vencimento</div>
+									<div class="col-3 currency">Valor</div>
+									<div class="col-4 text-center">Status</div>
+								</div>
+							</div>
+
+							<div class="grid-body grid-scroll">
+								<div class="grid-item single-line" ng-repeat="check in filteredChecks | orderBy : 'duedate'">
+									<div class="row">
+										<label for="checkid">
+											<div class="col-1"><input id="checkid{{$index}}" type="checkbox" ng-model="boxes[selected][$index]"/></div>
+											<div class="col-7">{{check.bank}}</div>
+											<div class="col-3">{{check.agency}}</div>
+											<div class="col-3">{{check.account}}</div>
+											<div class="col-3 text-center">{{check.duedate | date:'dd/MM/yyyy'}}</div>
+											<div class="col-3 currency">{{check.amount | currency:''}}</div>
+											<div class="col-4 text-center">{{check.state}}</div>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="buttons-holder">
+							<button class="button-green pull-right" ng-show="toDeposit" ng-click="changeState(1)">A Depositar</button>
+							<button class="button-green pull-right" ng-show="deposited" ng-click="changeState(2)">Depositado</button>
+							<button class="button-green pull-right" ng-show="moneyReceived" ng-click="changeState(3)">Recebido em Dinheiro</button>
+							<button class="button-green pull-right" ng-show="returned" ng-click="changeState(4)">Devolvido</button>
+						</div>
+
+					</div>
+
+				</div>
+			</div><!--// page-body -->
+
+		</div>
+	</div>
+</div>
