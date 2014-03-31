@@ -232,6 +232,9 @@
             controller : 'ProductsDeliveryCtrl'
         }).when('/receivable-check-2', {
             templateUrl : 'views/sacred-receivable-check.html'
+        }).when('/pagpop-2', {
+            templateUrl : 'views/sacred-pagpop.html',
+            controller : 'PagpopCtrl'
         }).otherwise({
             redirectTo : '/'
         });
