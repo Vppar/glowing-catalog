@@ -104,7 +104,7 @@
  * this class just make the grid-item content be vertical centered.
  */
  #sacred .grid .grid-item.single-line{
- 	line-height: 40px;
+ 	line-height: 36px;
  	min-height: 40px;
  	height: 40px;
  }

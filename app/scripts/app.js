@@ -230,6 +230,8 @@
         }).when('/products-delivery', {
             templateUrl : 'views/sacred-products-delivery.html',
             controller : 'ProductsDeliveryCtrl'
+        }).when('/receivable-check-2', {
+            templateUrl : 'views/sacred-receivable-check.html'
         }).otherwise({
             redirectTo : '/'
         });

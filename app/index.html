@@ -18,96 +18,96 @@
         @keyframes stretchdelay {0%,40%,100%{transform:scaleY(0.4);-webkit-transform:scaleY(0.4);} 20%{transform:scaleY(1.0);-webkit-transform: scaleY(1.0);}}[ng-view]{display: none;}
         body{background-color: #000 !important;}</style>
         <script type="text/javascript">
-	    // This is here because it animates the loader and must be loaded with the index.html
-	    (function (appCache) {
-	        'use strict';
+        // This is here because it animates the loader and must be loaded with the index.html
+        (function (appCache) {
+            'use strict';
 
-	        function onProgress(evt){
-	            if(evt.total && evt.loaded){
-	                var value = Math.round(evt.loaded/evt.total * 100);
-	                document.getElementById('progress').innerHTML = value + '%';
-	            }
-	            
-	            if(window.localStorage.deviceId && window.glowingCatalogAppReady){
-	                console.log("force skip");
-	                skip();
-	            }
-	        }
+            function onProgress(evt){
+                if(evt.total && evt.loaded){
+                    var value = Math.round(evt.loaded/evt.total * 100);
+                    document.getElementById('progress').innerHTML = value + '%';
+                }
+                
+                if(window.localStorage.deviceId && window.glowingCatalogAppReady){
+                    console.log("force skip");
+                    skip();
+                }
+            }
 
-	        function onUpdateReady(){
-	            // Beware of the dragons
-	            location.reload();
-	        }
+            function onUpdateReady(){
+                // Beware of the dragons
+                location.reload();
+            }
 
-	        function onError(evt){
-	            if(appCache.status === 0){ // it failed and is not yet cached
-	                location.reload(); // force it
-	            } else { // it failed but we already have a version
-	                skip(); // pretend nothing happened
-	            }
-	        }
+            function onError(evt){
+                if(appCache.status === 0){ // it failed and is not yet cached
+                    location.reload(); // force it
+                } else { // it failed but we already have a version
+                    skip(); // pretend nothing happened
+                }
+            }
 
-	        function skip(){
-	            appCache.removeEventListener('progress', onProgress, false);
-		        appCache.removeEventListener('updateready', onUpdateReady, false);
-		        appCache.removeEventListener('noupdate', skip, false);
-		        appCache.removeEventListener('cached', skip, false);
-		        appCache.removeEventListener('error', onError, false);
-		        appCache.removeEventListener('obsolete', onUpdateReady, false);
+            function skip(){
+                appCache.removeEventListener('progress', onProgress, false);
+                appCache.removeEventListener('updateready', onUpdateReady, false);
+                appCache.removeEventListener('noupdate', skip, false);
+                appCache.removeEventListener('cached', skip, false);
+                appCache.removeEventListener('error', onError, false);
+                appCache.removeEventListener('obsolete', onUpdateReady, false);
 
-		        var interval = setInterval(function(){
-			        var loading = document.getElementById("loading");
-			        var styleSheet = document.getElementById('tmpCloak');
-			        if(loading && styleSheet){
-			            loading.parentNode.removeChild(loading);
-				        styleSheet.parentNode.removeChild(styleSheet);
-				        clearInterval(interval);
-			        }
-		        }, 20);
-	        }
+                var interval = setInterval(function(){
+                    var loading = document.getElementById("loading");
+                    var styleSheet = document.getElementById('tmpCloak');
+                    if(loading && styleSheet){
+                        loading.parentNode.removeChild(loading);
+                        styleSheet.parentNode.removeChild(styleSheet);
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }
 
-	        appCache.addEventListener('progress', onProgress, false);
-	        appCache.addEventListener('updateready', onUpdateReady, false);
-	        appCache.addEventListener('noupdate', skip, false);
-	        appCache.addEventListener('cached', skip, false);
-	        appCache.addEventListener('error', onError, false);
-	        appCache.addEventListener('obsolete', onUpdateReady, false);
-	    })(window.applicationCache);
-	    </script>
+            appCache.addEventListener('progress', onProgress, false);
+            appCache.addEventListener('updateready', onUpdateReady, false);
+            appCache.addEventListener('noupdate', skip, false);
+            appCache.addEventListener('cached', skip, false);
+            appCache.addEventListener('error', onError, false);
+            appCache.addEventListener('obsolete', onUpdateReady, false);
+        })(window.applicationCache);
+        </script>
         
     </head>
     <body ng-app="glowingCatalogApp">
         <!--[if lt IE 9]>
-   	        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-   	    <![endif]-->
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
     
 
-	    <div id="loading" style="background-color:#000;width:100%;height:100%;">
-	        <div style="margin:auto;top:50%;width:172px;top:50%;left:50%;margin-top:-150px;margin-left:-86px;position:absolute;">
-	            <!-- Splash Page -->
-	            <div style="width:172px;height:60px;text-align:center;background:url('images/logo-home.png') center center no-repeat #000;float:left;"></div>
-	
-		        <!-- Preloader + Loading percentage -->
-		        <!-- Change here "display:none" to "display:block" to see this 'page' -->
-	            <div style="width:172px;text-align:center;position:relative;">
-	
-	                <div style="height:300px;width:100%;">
-	                    <div class="1" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;"></div>
-	                    <div class="2" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-1.2s;animation-delay:-1.2s;"></div>
-	                    <div class="3" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-1.1s;animation-delay:-1.1s;"></div>
-	                    <div class="4" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-1.0s;animation-delay:-1.0s;"></div>
-	                    <div class="5" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.9s;animation-delay:-0.9s;"></div>
-	                    <div class="6" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.8s;animation-delay:-0.8s;"></div>
-	                    <div class="7" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.7s;animation-delay:-0.7s;"></div>
-	                    <div class="8" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.6s;animation-delay:-0.6s;"></div>
-	                    <div class="9" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.5s;animation-delay:-0.5s;"></div>
-	
-	                    <!-- Loading percentage -->
-	                    <div id="progress" style="color:#5abd5a;text-align:center;width:100%;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:lighter;">Carregando...</div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+        <div id="loading" style="background-color:#000;width:100%;height:100%;">
+            <div style="margin:auto;top:50%;width:172px;top:50%;left:50%;margin-top:-150px;margin-left:-86px;position:absolute;">
+                <!-- Splash Page -->
+                <div style="width:172px;height:60px;text-align:center;background:url('images/logo-home.png') center center no-repeat #000;float:left;"></div>
+    
+                <!-- Preloader + Loading percentage -->
+                <!-- Change here "display:none" to "display:block" to see this 'page' -->
+                <div style="width:172px;text-align:center;position:relative;">
+    
+                    <div style="height:300px;width:100%;">
+                        <div class="1" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;"></div>
+                        <div class="2" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-1.2s;animation-delay:-1.2s;"></div>
+                        <div class="3" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-1.1s;animation-delay:-1.1s;"></div>
+                        <div class="4" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-1.0s;animation-delay:-1.0s;"></div>
+                        <div class="5" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.9s;animation-delay:-0.9s;"></div>
+                        <div class="6" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.8s;animation-delay:-0.8s;"></div>
+                        <div class="7" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.7s;animation-delay:-0.7s;"></div>
+                        <div class="8" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.6s;animation-delay:-0.6s;"></div>
+                        <div class="9" style="background-color:#5ABD5A;height:85px;margin-right:3px;width:1px;display:inline-block;-webkit-animation:stretchdelay 1.3s infinite ease-in-out;animation:stretchdelay 1.3s infinite ease-in-out;-webkit-animation-delay:-0.5s;animation-delay:-0.5s;"></div>
+    
+                        <!-- Loading percentage -->
+                        <div id="progress" style="color:#5abd5a;text-align:center;width:100%;font-family:Helvetica, Arial, sans-serif;font-size:14px;font-weight:lighter;">Carregando...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Add your site or application content here -->
         <div class="div-master" ng-cloak ng-view=""></div>
     </body>
@@ -164,6 +164,7 @@
     <link rel="stylesheet" href="styles/sacred-summarizer.css">
     <link rel="stylesheet" href="styles/sacred-third-parties.css">
     <link rel="stylesheet" href="styles/sacred-products-delivery.css">
+    <link rel="stylesheet" href="styles/sacred-receivable-check.css">
 
     <link rel="stylesheet" href="styles/agenda/agenda.css">
     <link rel="stylesheet" href="styles/agenda/smoothness/jquery-ui-1.10.4.custom.css">

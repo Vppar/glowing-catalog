@@ -11,3 +11,15 @@
 #sacred .labeless-force-align{
 	margin-top: 20px;
 }
+
+#sacred .checkbox-line {
+	margin-top:23px;
+}
+
+#sacred .checkbox-line input {
+	vertical-align:0;
+}
+
+#sacred .grid-body input[type=checkbox] {
+	margin-top:-2px;
+}
