@@ -145,11 +145,11 @@
                     };
                     
                    $scope.updateEntitiesAndTotals();
+                   $scope.updateReceivablesTotal($scope.filteredOrders, allBookEntries);
                     
-                    
-                    $scope.$on('dtFilterUpdated', function(e) {  
-                        $scope.updateEntitiesAndTotals();
-                    });
+                   $scope.$on('dtFilterUpdated', function(e) {  
+                       $scope.updateEntitiesAndTotals();
+                   });
                     
                 }
             ]);
