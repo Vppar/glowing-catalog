@@ -237,10 +237,10 @@
         };
         
         this.listByOrder = function(uuid){
-            var result = $filter('filter')(this.listEntries(), function(entry){
+            var result = $filter('filter')(bookEntries, function(entry){
                 return (entry.document === uuid);
             });
-            return result;
+            return angular.copy(result);
         };
         
         this.getNature = function(access) {
