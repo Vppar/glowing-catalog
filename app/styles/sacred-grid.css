@@ -24,6 +24,7 @@
 	background-color: #C8C8C8;
 	color:#333;
 	margin-top: 1px;
+	font-weight:bold;
 }
 #sacred .grid .grid-item{
 	border-bottom: 1px #ccc dotted;
