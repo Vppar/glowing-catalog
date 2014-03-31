@@ -147,7 +147,7 @@
                             if(edit.screen){
                                 $location.path('/'+edit.screen);
                             }else{
-                                $location.path('/'); 
+                                $location.path('/payment'); 
                             }
                         }
 
