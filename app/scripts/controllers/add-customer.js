@@ -147,8 +147,9 @@
                             if(edit.screen){
                                 $location.path('/'+edit.screen);
                             }else{
-                                $location.path('/payment'); 
+                                $location.path('/');
                             }
+                            
                         }
 
                         return promise;
