@@ -68,15 +68,13 @@
 							<div class="grid-body grid-scroll">
 								<div class="grid-item single-line" ng-repeat="check in filteredChecks | orderBy : 'duedate'">
 									<div class="row">
-										<label for="checkid">
-											<div class="col-1"><input id="checkid{{$index}}" type="checkbox" ng-model="boxes[selected][$index]"/></div>
-											<div class="col-7">{{check.bank}}</div>
-											<div class="col-3">{{check.agency}}</div>
-											<div class="col-3">{{check.account}}</div>
-											<div class="col-3 text-center">{{check.duedate | date:'dd/MM/yyyy'}}</div>
-											<div class="col-3 currency">{{check.amount | currency:''}}</div>
-											<div class="col-4 text-center">{{check.state}}</div>
-										</label>
+										<div class="col-1"><input id="checkid{{$index}}" type="checkbox" ng-model="boxes[selected][$index]"/></div>
+										<div class="col-7">{{check.bank}}</div>
+										<div class="col-3">{{check.agency}}</div>
+										<div class="col-3">{{check.account}}</div>
+										<div class="col-3 text-center">{{check.duedate | date:'dd/MM/yyyy'}}</div>
+										<div class="col-3 currency">{{check.amount | currency:''}}</div>
+										<div class="col-4 text-center">{{check.state}}</div>
 									</div>
 								</div>
 							</div>

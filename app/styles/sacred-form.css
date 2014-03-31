@@ -19,3 +19,7 @@
 #sacred .checkbox-line input {
 	vertical-align:0;
 }
+
+#sacred .grid-body input[type=checkbox] {
+	margin-top:-2px;
+}

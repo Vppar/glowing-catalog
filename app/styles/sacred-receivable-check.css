@@ -1,9 +1,9 @@
 #sacred .sacred-receivable-check-page .grid{
-    height: calc(100% - 55px);
+    height: calc(100% - 48px);
 }
 
 #sacred .sacred-receivable-check-page .without-buttons{
-    height: calc(100% - 6px);
+    height: calc(100% - -1px);
 }
 
 #sacred .sacred-receivable-check-page .grid-scroll{
