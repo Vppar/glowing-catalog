@@ -555,12 +555,23 @@
                             // We have a conflict! Resolve it!
                             deferred.resolve(reSequence(entry));
                         } else {
-                            // TODO This is an odd situation. The received entry
-                            // has a sequence
-                            // number lower than the one in our JournalKeeper
-                            // but we don't
-                            // have a local entry for it.
-                            log.fatal('Odd situation found! There was a missing sequence entry.');
+                            // FIXME(mkretschek) This odd situation should
+                            // happen only when a sequence number is skipped
+                            // during the synchronization process. Not sure
+                            // why/how this would happen though.
+                            //
+                            // Anyway, this is a quick & dirty fix, and
+                            // revealed a poor implementation of the
+                            // sequence update process (my fault). Properly
+                            // fixing this turned out to be a non-trivial task
+                            // which will be fixed when the synchronization
+                            // process is refactored and rewritten.
+
+                            if (entry.sequence < JournalKeeper.getSequence() - 1) {
+                                // The entry being inserted is not at the expected
+                                // position.
+                                log.fatal('Odd situation found! There was a missing sequence entry.', entry);
+                            }
                             deferred.resolve(JournalKeeper.insert(entry));
                         }
                     }, function (err) {
