@@ -9,18 +9,21 @@
             'tnt.catalog.service.dialog',
             'tnt.utils.array',
             'tnt.catalog.payment.service',
-            'tnt.catalog.entity.service'
+            'tnt.catalog.entity.service',
+            'tnt.catalog.service.intent'
         ])
         .controller(
             'PaymentCouponCtrl',
-            ['$filter', '$scope', '$log', 'CouponService', 'DialogService', 'ArrayUtils', 'OrderService', 'PaymentService', 'EntityService',
+            ['$filter', '$scope', '$log', 'CouponService', 'DialogService', 'ArrayUtils', 'OrderService', 'PaymentService', 'EntityService', 'IntentService',
             function ($filter, $scope, $log, CouponService, DialogService, ArrayUtils,
-                OrderService, PaymentService, EntityService) {
+                OrderService, PaymentService, EntityService, IntentService) {
 
                 // #####################################################################################################
                 // Warm up the controller
                 // #####################################################################################################
 
+                $scope.option = 'option01';
+                
                 var order = OrderService.order;
 
                 var voucherSet = null;
@@ -230,6 +233,7 @@
                 };
 
                 $scope.openDialogChooseCustomerGift = function () {
+                    IntentService.putBundle({giftCard:'payment'});
                     DialogService.openDialogChooseCustomer().then(function (id) {
                         $scope.gift.customer = $filter('findBy')(EntityService.list(), 'uuid', id);
                     });
@@ -260,6 +264,19 @@
                     // Return to order overview
                     $scope.selectPaymentMethod('none');
                 };
-
+                
+                var bundle = IntentService.getBundle();
+                if(bundle && bundle.tab === 'giftCard'){
+                    $('.active').removeClass('active'); //FIXME it does not unset active class in voucher tab with ng-class!!
+                    $scope.selectOption('option02');
+                    $scope.forceChangeUpdate();
+                    $scope.gift.total = $scope.total.change;
+                    if($scope.gift.total < 0){
+                        $scope.gift.total = 0;
+                    }
+                    var customers = EntityService.list();
+                    $scope.gift.customer = customers[customers.length-1];
+                }
+                
             }]);
 }(angular));

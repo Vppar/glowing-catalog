@@ -45,18 +45,19 @@
                             }
                         ]
                     };
-
+                    
                     var edit = IntentService.getBundle();
-                    if (edit) {
-                        if (edit.editUuid) {
-                            var entity = EntityService.read(edit.editUuid);
-                            $scope.customer = entity;
-                            prepareEntity($scope.customer);
-                        }
+                    if(!edit){
+                        edit = {};
+                    }
+                    if (edit.editUuid) {
+                       var entity = EntityService.read(edit.editUuid);
+                       $scope.customer = entity;
+                       prepareEntity($scope.customer);
+                    }
 
-                        if (edit.clientName) {
-                            $scope.customer.name = edit.clientName;
-                        }
+                    if (edit.clientName) {
+                       $scope.customer.name = edit.clientName;
                     }
 
                     var customer = $scope.customer;
@@ -120,7 +121,7 @@
                         }
 
                         var promise = null;
-                        if (edit && edit.editUuid) {
+                        if (edit.editUuid) {
                             promise = EntityService.update(customer).then(function(uuid) {
                                 return uuid;
                             }, function(error) {
@@ -128,18 +129,22 @@
                                 $log.debug(error);
                             });
                             
-                            if(edit && edit.screen){
+                            if(edit.screen){
                                 $location.path('/'+edit.screen);
                             }else{
                                 $location.path('/'); 
                             }
                         } else {
                             promise = EntityService.create(customer).then(function(uuid) {
-                                OrderService.order.customerId = uuid;
+                                if(!edit.giftCard){
+                                    OrderService.order.customerId = uuid;
+                                } else {
+                                    IntentService.putBundle({method:'voucher'});
+                                    $location.path('/'+edit.giftCard);
+                                }
                                 return uuid;
                             });
-                            
-                            if(edit && edit.screen){
+                            if(edit.screen){
                                 $location.path('/'+edit.screen);
                             }else{
                                 $location.path('/'); 

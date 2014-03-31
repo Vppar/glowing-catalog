@@ -5,7 +5,8 @@
                     'tnt.catalog.payment',
                     [
                         'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity',
-                        'tnt.catalog.voucher.service', 'tnt.catalog.misplaced.service', 'tnt.catalog.voucher.keeper'
+                        'tnt.catalog.voucher.service', 'tnt.catalog.misplaced.service', 'tnt.catalog.voucher.keeper',
+                        'tnt.catalog.service.intent'
                     ])
             .controller(
                     'PaymentCtrl',
@@ -28,11 +29,14 @@
                         'EntityService',
                         'UserService',
                         'Misplacedservice',
+                        'IntentService',
                         function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService,
                                 PaymentService, SMSService, KeyboardService, InventoryKeeper, VoucherKeeper, CashPayment, EntityService,
-                                UserService, Misplacedservice) {
+                                UserService, Misplacedservice, IntentService) {
 
                             UserService.redirectIfIsNotLoggedIn();
+                            
+                            var bundle = IntentService.getBundle();
 
                             // #############################################################################################
                             // Controller warm up
@@ -451,6 +455,7 @@
                                     total.change = Math.round((totalPayments - total.order.subTotal) * 100) / 100;
                                 }
                             }
+                            $scope.forceChangeUpdate = updateOrderAndPaymentTotal;
 
                             $scope.$watch('total.order.subTotal', updateOrderAndPaymentTotal);
 
@@ -649,6 +654,11 @@
                             // #############################################################################################
 
                             updateCoupons();
+                            
+                            if(bundle){
+                                IntentService.putBundle({tab:'giftCard'});
+                                $scope.selectPaymentMethod('voucher');
+                            }
                         }
                     ]);
 })(angular);
