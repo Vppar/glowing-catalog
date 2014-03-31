@@ -555,12 +555,25 @@
                             // We have a conflict! Resolve it!
                             deferred.resolve(reSequence(entry));
                         } else {
-                            // TODO This is an odd situation. The received entry
-                            // has a sequence
-                            // number lower than the one in our JournalKeeper
-                            // but we don't
-                            // have a local entry for it.
-                            log.fatal('Odd situation found! There was a missing sequence entry.');
+                            // FIXME(mkretschek) This odd situation happens
+                            // everytime an entry is received from Firebase
+                            // because of a poor implementation of the
+                            // sequence number update process (and I am the
+                            // one to blame for it). I'll disable it for now
+                            // and it should be eventually fixed once the
+                            // sequence logic is brought to work properly.
+                            //
+                            // Fixing the sequence logic seems to take much more
+                            // time and effort than I have at the moment because
+                            // some remote data starts getting replayed before
+                            // the warmup data and I did not find how to fix it.
+                            //
+                            // Once this is fixed, please uncomment the fatal
+                            // log message, since this is indeed an odd
+                            // situation (all sequence numbers should have an
+                            // entry associated with them).
+                            //
+                            // log.fatal('Odd situation found! There was a missing sequence entry.', entry);
                             deferred.resolve(JournalKeeper.insert(entry));
                         }
                     }, function (err) {
