@@ -313,7 +313,18 @@
                     var receivables = ReceivableService.listByDocument(order.uuid);
                     for ( var ix2 in receivables) {
                         var receivable = receivables[ix2];
-                        var amount = Number(receivable.amount);
+
+                        var bookEntries = BookService.listByOrder(receivable.uuid);
+
+                        var financialProfits =  $filter('sum')($filter('filter')(bookEntries, function (bookEntry) {
+                            return (bookEntry.creditAccount === 43005);
+                        }), 'amount');
+
+                        var financialCosts =  $filter('sum')($filter('filter')(bookEntries, function (bookEntry) {
+                            return (bookEntry.creditAccount === 63103);
+                        }), 'amount');
+
+                        var amount = Number(receivable.amount - financialProfits + financialCosts);
 
                         $scope.total[receivable.type].amount += amount;
                         $scope.total[receivable.type].qty++;
@@ -331,9 +342,9 @@
                     var vouchers = VoucherService.listByDocument(order.uuid);
                     for ( var ix4 in vouchers) {
                         var voucher = vouchers[ix4];
-                        
+
                         var voucherAmount = Number(voucher.amount);
-                        
+
                         $scope.total.voucher.amount += voucherAmount;
                         $scope.total.voucher.qty += voucher.qty;
                         $scope.total.amount += voucherAmount;
