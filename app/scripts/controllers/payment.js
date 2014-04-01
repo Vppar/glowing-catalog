@@ -656,9 +656,9 @@
 
                             updateCoupons();
                             
-                            if(bundle){
+                            if(bundle && bundle.method == 'voucher'){
                                 IntentService.putBundle({tab:'giftCard'});
-                                $scope.selectPaymentMethod('voucher');
+                                $scope.selectPaymentMethod('voucher'); 
                             }
                         }
                     ]);

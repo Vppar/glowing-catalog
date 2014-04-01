@@ -8,15 +8,15 @@
   <span class="menu-level-payment">
     <div class="btn-group btn-group-sm">
       <a class="btn btn-option active" ng-click="selectOption('option01')"
-        ng-class="{disabled: !voucherIsEnabled(), active: option === 'option01'}">Vale cr&eacute;dito</a>
+        ng-class="{disabled: !voucherIsEnabled(), active: option.selected === 'option01'}">Vale cr&eacute;dito</a>
       <a class="btn btn-option" ng-click="selectOption('option02')"
-        ng-class="{active: option === 'option02'}">Vale presente</a>
+        ng-class="{active: option.selected === 'option02'}">Vale presente</a>
       <a class="btn btn-option" ng-click="selectOption('option03')"
-        ng-class="{active: option === 'option03'}">Cupom promocional</a>
+        ng-class="{active: option.selected === 'option03'}">Cupom promocional</a>
     </div>
   </span>
 
-  <div class="left-payment" ng-switch="option">
+  <div class="left-payment" ng-switch="option.selected">
 
     <!-- VALE CREDITO-->
     <div class="row-fluid payment-coupon-fields" ng-switch-when="option01">

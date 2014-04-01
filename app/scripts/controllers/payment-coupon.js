@@ -22,7 +22,8 @@
                 // Warm up the controller
                 // #####################################################################################################
 
-                $scope.option = 'option01';
+                $scope.option = {};
+                $scope.option.selected = 'option01';
                 
                 var order = OrderService.order;
 
@@ -116,18 +117,18 @@
                 $scope.$watch('gift.total', canConfirm);
                 $scope.$watch('gift.customer.name', canConfirm);
                 $scope.$watch('coupon.total', canConfirm);
-                $scope.$watch('option', canConfirm);
+                $scope.$watch('option.selected', canConfirm);
 
                 function setCouponOption () {
                     if (!voucherIsEnabled()) {
-                        if (!$scope.option || $scope.option === 'option01') {
-                            $scope.option = 'option02';
+                        if (!$scope.option.selected || $scope.option.selected === 'option01') {
+                            $scope.option.selected = 'option02';
                         }
                     }
                 }
 
                 function canConfirm () {
-                    switch ($scope.option) {
+                    switch ($scope.option.selected) {
                         case 'option01':
                             canConfirmVoucher();
                             break;
@@ -172,11 +173,11 @@
                 }
 
                 $scope.selectConfirm = function selectConfirm () {
-                    if ($scope.option == 'option01') {
+                    if ($scope.option.selected == 'option01') {
                         $scope.confirmVoucher();
-                    } else if ($scope.option == 'option02') {
+                    } else if ($scope.option.selected == 'option02') {
                         $scope.confirmGift();
-                    } else if ($scope.option == 'option03') {
+                    } else if ($scope.option.selected == 'option03') {
                         $scope.confirmCoupons();
                     }
                 };
@@ -250,7 +251,7 @@
                         return;
                     }
 
-                    $scope.option = option;
+                    $scope.option.selected = option;
                 };
 
                 $scope.confirmCoupons = function confirmCoupons () {
