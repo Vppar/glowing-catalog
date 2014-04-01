@@ -11,7 +11,7 @@
 #sacred .grid-stock .fourth-line{
   min-height: 30px;  
   font-size: 14px;
-  padding: 8px 0px;
+  padding: 8px 0;
 }
 #sacred .grid-stock .first-line,
 #sacred .grid-stock .second-line,
@@ -25,7 +25,7 @@
 }
 
 #sacred .grid-stock .sub-header{
-  padding: 6px 0px;
+  padding: 6px 0;
 }
 /* we are assuming that there is no other imput here. for now, should be safe. */
 #sacred .grid-stock .sub-header input{
