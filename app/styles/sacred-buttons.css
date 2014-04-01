@@ -15,7 +15,7 @@
 
 #sacred .button-black.pull-right,
 #sacred .button-green.pull-right{
-	margin-right: 0px;
+	margin-right:0;
 	float: right;
 }
 
@@ -31,11 +31,11 @@
 	font-weight: normal;
 	height: 38px;
 	line-height: 20px;
-	margin: 0px 5px;
+	margin: 0 5px;
 	min-width: 86px;
 	padding:8px 10px;
 	text-align: center;
-	vertical-align: middle;
+	vertical-align: middle; /*testar -- com display:block, o vertical-align não funciona (não se utiliza)*/
 }
 
 #sacred .button-green,
@@ -61,7 +61,5 @@
 	height: 30px;
 	font-size: 14px;
 	line-height: 10px;
-	margin: 0px;
+	margin:0;
 }
-
-

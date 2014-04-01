@@ -8,12 +8,12 @@
 	border-radius: 4px;
 	border: 1px solid #E0E0E0;
 	margin: -10px 10px 10px 10px;
-	padding: 0px 10px;
+	padding: 0 10px;
 	height: calc(100% - 91px);
 }
 
 #sacred .page .page-header{
-	margin: 10px 0px;
+	margin: 10px 0;
 	padding-bottom: 11px;
 	border-bottom: 1px solid #E0E0E0;
 }
@@ -34,8 +34,6 @@
 	color: #666;
 	font-size: 14px;
 	font-weight: normal;
-	height: 38px; /* height of the small buttons!*/
-	line-height: 38px;
 }
 
 #sacred .page .page-body{
@@ -46,9 +44,7 @@
 	height: 100%;
 }
 
-#sacred .page .content-header{
-}
-
+#sacred .page .content-header{}
 #sacred .page .content-header>.row{
 	margin-bottom: 10px;
 }
@@ -63,7 +59,6 @@
 #sacred .page .content-body.content-all{
 	height: 100%;
 }
-
 
 
 #sacred .side-holder{
@@ -88,7 +83,7 @@
 	float: left;
 	min-height: 1px;
 	width: 100%;
-	margin: 2px 0px;
+	margin: 2px 0;
 }
 
 #sacred .side-holder .side-label{
