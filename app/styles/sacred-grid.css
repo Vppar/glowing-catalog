@@ -117,9 +117,7 @@
  	cursor:pointer;
  }
 
- #sacred .grid .product-name{
- 
- }
+ #sacred .grid .product-name{}
  #sacred .grid .product-name small{
  	color: #999;
  	float: none;
@@ -129,4 +127,3 @@
  	display: block;
  	float: none;
  }
-
