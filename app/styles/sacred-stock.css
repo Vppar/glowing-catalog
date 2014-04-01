@@ -4,6 +4,7 @@
 #sacred .grid-stock{
   width: 100%;
 }
+
 #sacred .grid-stock .first-line,
 #sacred .grid-stock .second-line,
 #sacred .grid-stock .third-line,
@@ -21,6 +22,15 @@
 }
 #sacred .grid-stock .fourth-line{
   border-top: 1px solid #e3e3e3; 
+}
+
+#sacred .grid-stock .sub-header{
+  padding: 6px 0px;
+}
+/* we are assuming that there is no other imput here. for now, should be safe. */
+#sacred .grid-stock .sub-header input{
+  height: 24px;
+  width: 75%;
 }
 
 #sacred .grid-stock .first-line .row>:first-child,
@@ -63,4 +73,17 @@
 
 #sacred .grid-stock .fourth-lines:last-child{
   border-bottom:none; 
+}
+
+#sacred .sacred-stock-page .content-body{
+  height: 100%;
+}
+
+#sacred .sacred-stock-page .part,
+#sacred .sacred-stock-page .part-body{
+ height: 100%; 
+}
+
+#sacred .sacred-stock-page .grid-scroll{
+  height: calc(100% - 77px);
 }

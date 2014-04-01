@@ -235,6 +235,9 @@
         }).when('/pagpop-2', {
             templateUrl : 'views/sacred-pagpop.html',
             controller : 'PagpopCtrl'
+         }).when('/stock-2', {
+            templateUrl : 'views/sacred-stock.html',
+            controller : 'StockCtrl'
         }).otherwise({
             redirectTo : '/'
         });
