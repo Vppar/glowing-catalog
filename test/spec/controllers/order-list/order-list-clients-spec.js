@@ -313,6 +313,7 @@ describe('Controller: order-list-clients', function () {
                 scope.total = receivablesTotalTemplate;
             });
         scope.updateOrdersTotal = jasmine.createSpy('scope.updateOrdersTotals');
+        scope.updateReceivablesTotal = jasmine.createSpy('scope.updateReceivablesTotal');
         OrderListService.getTotalByType = jasmine.createSpy('OrderListService.getTotalByType').andCallFake(function(orderUUID, type){
             if(type === 'cash'){
                 return {amount:5 , qty:1};
