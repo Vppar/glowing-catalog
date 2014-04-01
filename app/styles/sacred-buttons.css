@@ -65,5 +65,5 @@
 }
 
 #sacred .btn-option {
-	padding:8px 30px!important; /*afetado por outros css's - sem important, não funciona*/
+	padding:8px 30px;
 }
