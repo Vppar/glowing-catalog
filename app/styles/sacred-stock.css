@@ -74,3 +74,16 @@
 #sacred .grid-stock .fourth-lines:last-child{
   border-bottom:none; 
 }
+
+#sacred .sacred-stock-page .content-body{
+  height: 100%;
+}
+
+#sacred .sacred-stock-page .part,
+#sacred .sacred-stock-page .part-body{
+ height: 100%; 
+}
+
+#sacred .sacred-stock-page .grid-scroll{
+  height: calc(100% - 77px);
+}
