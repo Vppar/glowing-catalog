@@ -28,7 +28,7 @@
                     $scope.states = DataProvider.states;
                     
                     $scope.select2Options = {
-                            minimumResultsForSearch : -1
+                            minimumResultsForSearch : -1 
                         };
 
                     $scope.customer = {
@@ -138,18 +138,17 @@
                             promise = EntityService.create(customer).then(function(uuid) {
                                 if(!edit.giftCard){
                                     OrderService.order.customerId = uuid;
+                                    if(edit.screen){
+                                        $location.path('/'+edit.screen);
+                                    }else{
+                                        $location.path('/');
+                                    }
                                 } else {
                                     IntentService.putBundle({method:'voucher'});
                                     $location.path('/'+edit.giftCard);
                                 }
                                 return uuid;
                             });
-                            if(edit.screen){
-                                $location.path('/'+edit.screen);
-                            }else{
-                                $location.path('/');
-                            }
-                            
                         }
 
                         return promise;
