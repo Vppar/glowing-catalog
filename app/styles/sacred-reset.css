@@ -13,3 +13,13 @@
 #sacred input{
 	margin-bottom:0;
 }
+
+
+/*
+* the importants goes here, but its should be duplicated at its regular place. 
+*/
+
+/*  linha 67 sacred-reset.css */
+#sacred .btn-option {
+	padding:8px 30px!important; /*afetado por outros css's - sem important, não funciona*/
+}
