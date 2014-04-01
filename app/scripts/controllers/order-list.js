@@ -272,38 +272,6 @@
                     }
                 };
 
-             function distributedDiscountCoupon(order, discountCoupom){
-                        var distributed = 0;
-                        var gross = 0 ; 
-                        gross += $filter('sum')(order.items, 'amount');
-                        gross += $filter('sum')(order.items, 'price', 'qty');
-                        
-                        for(var ix in order.items){
-                            var item = order.items[ix];
-                            var discount = item.itemDiscount || item.orderDiscount || 0;
-                            
-                            var price = item.price || item.amount;
-                            var value = price * item.qty - discount;
-                            var pondValue =  (value / gross)* discountCoupom; 
-                            distributed += pondValue;
-                            if(item.type){
-                                item.amount -= pondValue / item.qty;                                
-                            }else{
-                                item.price -= pondValue / item.qty;
-                            }
-                        }
-                        
-                        if(discountCoupom !== distributed){
-                            var x = discountCoupom - distributed;
-                            if(items[order.items.length].type){
-                                items[order.items.length].amount += x/qty;
-                            }else{
-                                items[order.items.length].price += x/qty;
-                            }
-                        }
-                    }
-                
-                
             /**
              * ClientFilter
              */
