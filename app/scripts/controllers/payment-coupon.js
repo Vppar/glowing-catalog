@@ -30,10 +30,6 @@
                     total : 0
                 };
 
-                $scope.coupon = {
-                    total : 0
-                };
-
                 $scope.gift = {
                     total : 0,
                     customer : ''
@@ -60,7 +56,7 @@
                     }, {
                         qty : PaymentService.persistedCoupons[30] || 0,
                         amount : 30
-                    },
+                    }
                 ];
 
                 // Get already set voucher
@@ -256,7 +252,7 @@
                         coupon = $scope.list[i];
                         PaymentService.persistCouponQuantity(coupon.amount, coupon.qty);
                     }
-
+                    $scope.coupon.sum = $scope.coupon.total;
                     // Return to order overview
                     $scope.selectPaymentMethod('none');
                 };

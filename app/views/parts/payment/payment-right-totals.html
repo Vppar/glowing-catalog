@@ -125,8 +125,7 @@
 	<div class="row-right-payment first-right" ng-click="selectPaymentMethod('voucher')">
 		<span class="lbl-money w130">Emitir vale/cupom</span>
 		<span class="">
-			<!-- <span class="btn-price-payment btn-price-payment2" ng-show="((payments | sum: 'amount') - (items | sum: 'price': 'qty')) > 0">{{((payments | sum: 'amount') - (items | sum: 'price': 'qty')) | currency:''}}</span> -->
-	        <span class="btn-price-payment btn-price-payment2" >{{items | filter: voucherFilter | sum : 'amount' | currency:'' }}</span>
+	        <span class="btn-price-payment btn-price-payment2" >{{coupon.sum | currency:'' }}</span>
 		</span>
 	</div>
 

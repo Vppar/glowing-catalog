@@ -46,9 +46,19 @@
                                 $location.path('/');
                             }
                             
+                            $scope.coupon={sum : 0};
 
                             $scope.voucherFilter = function(item) {
                                 if (item.type === 'voucher' || item.type === 'giftCard') {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            };
+
+                            $scope.couponFilter = function(item) {
+                                console.log(item);
+                                if (item.type === 'coupon') {
                                     return true;
                                 } else {
                                     return false;
@@ -88,7 +98,7 @@
                                     // order.
                                     getAvgUnitPrice : function() {
                                         return getAverage(this.amount, this.unit);
-                                    },
+                                    }
                                 },
                                 change : 0
                             };
@@ -378,6 +388,19 @@
                                         }
                                         updateOrderAndPaymentTotal();
                                     });
+                                }else if (item.type === 'voucher') {
+                                    DialogService.messageDialog({
+                                        title : 'Pagamento',
+                                        message : 'Confirmar a exclusão do Vale crédito?',
+                                        btnYes : 'Sim',
+                                        btnNo : 'Não'
+                                    }).then(function(result) {
+                                        if (result) {
+                                            var idx = OrderService.order.items.indexOf(item);
+                                            OrderService.order.items.splice(idx, 1);
+                                        }
+                                        updateOrderAndPaymentTotal();
+                                    });
                                 } else if (!item.type) {
                                     var product = ArrayUtils.filter(DataProvider.products, {
                                         id : item.id
@@ -493,7 +516,7 @@
                                 return dialogService.messageDialog({
                                     title : 'Pagamento',
                                     message : message,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             }
 
@@ -504,7 +527,7 @@
                                             .messageDialog({
                                                 title : 'Pagamento',
                                                 message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
-                                                btnYes : 'OK',
+                                                btnYes : 'OK'
                                             });
                                 }
                             }
