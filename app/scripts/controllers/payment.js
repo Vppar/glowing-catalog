@@ -589,9 +589,8 @@
 
                                     var nonDiscountedTotalString = $filter('currency')(nonDiscountedTotal);
 
-                                    var message = items.length === 1 ?
-                                        'Desconto aplicado à um item com valor total de ' + nonDiscountedTotalString + '.' :
-                                        'Desconto será distribuído entre ' + items.length + ' itens cujo valor total é de ' + nonDiscountedTotalString + '.';
+                                    var message = 'Desconto geral é aplicado somente sobre os ' +
+                                        'produtos sem desconto individual.';
 
                                     var data = {
                                         initial : total.order.discount,
@@ -608,7 +607,10 @@
                                 } else {
                                     dialog = DialogService.messageDialog({
                                         title : 'Desconto',
-                                        message : 'Não é possível aplicar desconto ao pedido quando todos os seus itens possuem descontos individuais.',
+                                        message : 'Desconto geral é aplicado somente sobre os ' +
+                                            'produtos sem desconto individual. Não é possível ' +
+                                            'aplicar desconto ao pedido quando todos os itens ' +
+                                            'possuem descontos individuais.',
                                         btnYes : 'OK'
                                     });
                                 }
