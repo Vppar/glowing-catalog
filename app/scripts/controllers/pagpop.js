@@ -59,11 +59,11 @@
                      */
                     function summarizer() {
                         $scope.total = 0;
-                        $scope.totalBrute = 0;
+                        $scope.totalLiquid = 0;
                         for ( var idx in $scope.filteredReceivables) {
-                            $scope.filteredReceivables[idx].amountBrute = FinancialMathService.currencyMultiply($scope.filteredReceivables[idx].amount, 1.0348);
+                            $scope.filteredReceivables[idx].amountLiquid = FinancialMathService.currencyMultiply($scope.filteredReceivables[idx].amount, 0.9652);
                             $scope.total += $scope.filteredReceivables[idx].amount;
-                            $scope.totalBrute += $scope.filteredReceivables[idx].amountBrute;
+                            $scope.totalLiquid += $scope.filteredReceivables[idx].amountLiquid;
                         }
 
                         var payments = ArrayUtils.distinct($scope.filteredReceivables, 'payment');
