@@ -813,11 +813,8 @@ border-radius: 4px;
 .bandeira-cartao{
 	width:267px;
 }
-.parcelas-cartao {
-	width:100px;
-}
-.validade-cartao {
-	width:100px;
+.parcelas-cartao, .validade-cartao {
+	width:89px;
 }
 .payment-input-large{
 	height: 40px !important;
@@ -1451,4 +1448,43 @@ margin-top: 10px;
 }
 .payment-left-exchange, .payment-left-exchange .left-payment, .payment-left-exchange .exchange-initial {
 	height:100%;
+}
+
+
+/* this block contains css referents to card option (new layout) */
+.payment-credit-card {
+	position:relative;
+}
+
+.payment-credit-card form {
+	border:1px solid #ddd;
+	border-radius:4px;
+	width:90%;
+	height:213px;
+	margin-top:59px;
+	padding:calc(5% - 1px);
+	padding-top:40px;
+}
+
+.payment-credit-card form .title-left {
+	color:#fff;
+	text-align:center;
+}
+
+.payment-credit-card form .new-col-4 .control-label {
+	width:110px;
+}
+
+.payment-credit-card form .margint7 {
+	margin-top:7px;
+}
+
+.payment-credit-card form .margint11 {
+	margin-top:11px;
+}
+
+.payment-credit-card .payment-btn-holder {
+	position:absolute;
+	width:100%;
+	bottom:121px;
 }
