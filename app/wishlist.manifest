@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.2'
+# 'version' : '1.2.2-2'
 
 CACHE:
 apple-touch-icon.png
@@ -164,6 +164,7 @@ scripts/directives/virtualKeyboard.js
 scripts/directives/keyboardCage.js
 scripts/directives/focus.js
 scripts/directives/equals.js
+scripts/directives/spinner-button.js
 
 scripts/filters/count.js
 scripts/filters/cpf.js
@@ -400,6 +401,7 @@ views/sacred-stock.html
 views/sacred-voucher.html
 views/parts/voucher/sacred-voucher-new.html
 views/parts/voucher/sacred-voucher-hist.html
+views/spinner-button.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png
