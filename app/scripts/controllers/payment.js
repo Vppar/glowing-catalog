@@ -499,7 +499,7 @@
                                 return dialogService.messageDialog({
                                     title : 'Pagamento',
                                     message : message,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             }
 
@@ -510,7 +510,7 @@
                                             .messageDialog({
                                                 title : 'Pagamento',
                                                 message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
-                                                btnYes : 'OK',
+                                                btnYes : 'OK'
                                             });
                                 }
                             }
