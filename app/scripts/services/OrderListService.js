@@ -27,11 +27,9 @@
                  * @returns total discount on sale
                  */
                 this.getTotalDiscountByOrder = function (orderUUID, entries) {
-                    var start = new Date().getTime();
                     entries = entries || BookService.listByOrder(orderUUID);
-                    //console.log('fim DiscountByOrder', new Date().getTime() - start);
                     return this.getTotalByType(orderUUID, 'discount', entries).amount;
-                    
+
                 };
 
                 /**
@@ -51,7 +49,6 @@
                  */
                 this.getTotalByType =
                     function (orderUUID, type, bookEntries) {
-                        var start = new Date().getTime();
                         var result = 0;
                         if (type === 'cash') {
                             result = this.getTotalByOrder(orderUUID, 70001, 11111, bookEntries);
@@ -68,6 +65,16 @@
                             // Vale crédito
                             var voucher2 =
                                 this.getTotalByOrder(orderUUID, 70001, 21305, bookEntries);
+                            voucher1.qty += voucher2.qty;
+                            voucher1.amount += voucher2.amount;
+                            result = voucher1;
+                        } else if (type === 'soldVoucher') {
+                            // vale presente
+                            var voucher1 =
+                                this.getTotalByOrder(orderUUID, 21301, 70001, bookEntries);
+                            // Vale crédito
+                            var voucher2 =
+                                this.getTotalByOrder(orderUUID, 21305, 70001, bookEntries);
                             voucher1.qty += voucher2.qty;
                             voucher1.amount += voucher2.amount;
                             result = voucher1;
@@ -91,20 +98,19 @@
                                 'type: ',
                                 type);
                         }
-                        //console.log('fim totalByType', new Date().getTime() - start);
                         return result;
                     };
 
                 this.getTotalByOrder =
                     function (orderUUID, creditAccount, debitAccount, bookEntries) {
-                        if(bookEntries){
+                        if (bookEntries) {
                             bookEntries = $filter('filter')(bookEntries, function (entry) {
-                                    return (entry.document === orderUUID);
-                                });
-                        }else{
+                                return (entry.document === orderUUID);
+                            });
+                        } else {
                             bookEntries = BookService.listByOrder(orderUUID);
                         }
-                        
+
                         bookEntries =
                             $filter('filter')(
                                 bookEntries,

@@ -163,6 +163,11 @@ describe('Controller: order-list', function () {
                             amount : 50,
                             qty : 6
                         };
+                    }else if (type === 'soldVoucher') {
+                        return {
+                            amount : 0,
+                            qty : 0
+                        };
                     }
 
                 });

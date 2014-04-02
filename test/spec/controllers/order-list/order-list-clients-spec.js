@@ -430,18 +430,4 @@ describe('Controller: order-list-clients', function () {
 
     });
 
-    it('should updatePaymentsTotal', function () {
-
-        scope.updatePaymentsTotal(scope.filteredEntities);
-        expect(scope.total.cash.qty).toEqual(7);
-        expect(scope.total.cash.amount).toEqual(35);
-        expect(scope.total.check.qty).toEqual(14);
-        expect(scope.total.check.amount).toEqual(70);
-        expect(scope.total.creditCard.qty).toEqual(21);
-        expect(scope.total.creditCard.amount).toEqual(140);
-        expect(scope.total.exchange.qty).toEqual(42);
-        expect(scope.total.exchange.amount).toEqual(350);
-        expect(scope.total.voucher.qty).toEqual(35);
-        expect(scope.total.voucher.amount).toEqual(280);
-    });
 });
