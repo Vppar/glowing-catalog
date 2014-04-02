@@ -24,7 +24,7 @@
 
                 $scope.option = {};
                 $scope.option.selected = 'option01';
-                
+
                 var order = OrderService.order;
 
                 var voucherSet = null;
@@ -64,7 +64,7 @@
                     }, {
                         qty : PaymentService.persistedCoupons[30] || 0,
                         amount : 30
-                    },
+                    }
                 ];
 
                 // Get already set voucher
@@ -94,7 +94,7 @@
 
                 /**
                  * Returns wether the voucher screen should be enabled or not.
-                 * 
+                 *
                  * @return {Boolean}
                  */
                 function voucherIsEnabled () {
@@ -265,7 +265,7 @@
                     // Return to order overview
                     $scope.selectPaymentMethod('none');
                 };
-                
+
                 var bundle = IntentService.getBundle();
                 if(bundle && bundle.tab === 'giftCard'){
                     $('.active').removeClass('active'); //FIXME it does not unset active class in voucher tab with ng-class!!
@@ -275,9 +275,12 @@
                     if($scope.gift.total < 0){
                         $scope.gift.total = 0;
                     }
-                    var customers = EntityService.list();
-                    $scope.gift.customer = customers[customers.length-1];
+                    if(!bundle.user==='cancel'){
+                        var customers = EntityService.list();
+                        $scope.gift.customer = customers[customers.length-1];
+                    }
+
                 }
-                
+
             }]);
 }(angular));
