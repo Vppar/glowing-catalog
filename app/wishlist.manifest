@@ -54,6 +54,7 @@ styles/sacred-stock.css
 styles/sacred-structure.css
 styles/sacred-summarizer.css
 styles/sacred-third-parties.css
+styles/sacred-voucher.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -396,6 +397,9 @@ views/parts/products-delivery/sacred-products-delivery-products.html
 views/sacred-pagpop.html
 views/sacred-receivable-check.html
 views/sacred-stock.html
+views/sacred-voucher.html
+views/parts/voucher/sacred-voucher-new.html
+views/parts/voucher/sacred-voucher-hist.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

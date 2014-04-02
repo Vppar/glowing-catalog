@@ -1,5 +1,5 @@
 /*
-* sacred-calendar.css is a soldier! It is resposable for the dates.
+* sacred-calendar.css is a soldier! It is resposable for the dates. 
 * (this stylesheet have all the styles that is needed to make a datepicker)
 */
 
@@ -30,6 +30,10 @@
 #sacred .calendar label img{
   margin-top: 3px;
   vertical-align: top;
+}
+
+#sacred .calendar .without-label img{
+  margin-top: 22px;
 }
 
 #sacred .calendar .text-over{
