@@ -1,0 +1,7 @@
+#sacred .sacred-voucher-page .grid-scroll{
+    height: calc(100% - 81px);
+}
+
+#sacred .sacred-voucher-page .voucher-hist-part .grid-scroll{
+    height: calc(100% - 40px);
+}
