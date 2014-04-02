@@ -16,6 +16,11 @@
 				</label>
 			</div>
 		</div>
+
+		<div class="checkbox-line col-8">
+			<label><input type="checkbox" ng-true-value="true" ng-false-value="false"> todos em aberto até {{ dtFilter.dtFinal | date:"dd/MM/yyyy"}}</label>
+		</div>
+
 	</div>
 </div>
 <div class="content-body content-for-labeled-header">
@@ -27,6 +32,16 @@
 				<div class="col-3 text-center">Pedido</div>
 				<div class="col-4 text-center">Produtos Entregues</div>
 				<div class="col-4 text-center">Total de Produtos</div>
+			</div>
+		</div>
+
+		<div class="grid-summary">
+			<div class="row">
+				<div class="col-3 text-center">&nbsp;</div>
+				<div class="col-10">5</div>
+				<div class="col-3 text-center">14</div>
+				<div class="col-4 text-center">23</div>
+				<div class="col-4 text-center">23</div>
 			</div>
 		</div>
 

@@ -9,6 +9,15 @@
 			</div>
 		</div>
 
+		<div class="grid-summary">
+			<div class="row">
+				<div class="col-15">&nbsp;</div>
+				<div class="col-2 text-center">23</div>
+				<div class="col-3 text-center">12</div>
+				<div class="col-4 text-center">0</div>
+			</div>
+		</div>
+
 		<div class="grid-body grid-scroll">
 			<div class="grid-item" ng-repeat="product in pendingProducts">
 				<div class="row">
@@ -33,5 +42,6 @@
         <spinner-button class="new-button new-button-ok pull-right" spinner-promise="confirm()">
             Confirmar
         </spinner-button>
+		<button class="button-black pull-left" tnt-promise-click="cancel()">Cancelar</button>
 	</div>
 </div>
