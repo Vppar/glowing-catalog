@@ -60,6 +60,18 @@
 			        <div class="new-col-3 currency">Valor</div>
 			    </div>
 			</div>
+
+			<div class="new-body-row-summary">
+			        <div class="new-col-3 text-center">Itens</div>
+			        <div class="new-col-3 text-center">&nbsp;</div>
+			        <div class="new-col-7">&nbsp;</div>
+			        <div class="new-col-3">&nbsp;</div>
+			        <div class="new-col-2 text-center">&nbsp;</div>
+			        <div class="new-col-3 text-center" ng-if="selectedReceivableMode=='listOpen'">&nbsp;</div>
+			        <div class="new-col-3 text-center" ng-if="selectedReceivableMode=='listClosed'">&nbsp;</div>
+			        <div class="new-col-3 currency">Valor</div>
+			</div>
+
 			<div class="new-scrollpanel" ng-class="{'page-open-details' : selectedReceivable, 'page-closed-details' : !selectedReceivable, 'page-open-check-details' : false }">
 <!-- 				Removed on 03/04/2014 16:01 by Arnaldo attending a Wesley's request -->
 <!-- 			    <div class="row-fluid" ng-repeat="receivable in receivables.list" ng-click="selectReceivable(receivable)"> -->
