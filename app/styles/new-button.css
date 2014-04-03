@@ -39,16 +39,16 @@ padding-bottom: 8px;
 	text-align: center;
 	vertical-align: middle;
 	white-space: nowrap;
-}
-.new-button-ok .button-label{
 	padding: 8px 10px;
-	display: block;
+	border: 0px;
 }
+
 .new-button-ok img{
-	padding: 8px 10px;
-	display: block;
 	margin-right: auto;
 	margin-left: auto;
+	height: 18px;
+	margin-top: -1px;
+
 }
 
 .new-button-ok, .new-button-ok:hover{
@@ -57,9 +57,7 @@ padding-bottom: 8px;
 .new-button-ok{
 	background-color: #5d9732;
 }
-.new-button-ok:hover, 
-.new-button-ok:focus,
-.new-button-ok:active, 
+
 .new-button-ok-waiting,
 .new-button-ok-waiting:hover,
 .new-button-ok-waiting:focus,
