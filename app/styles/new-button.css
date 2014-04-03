@@ -5,24 +5,39 @@
 	display: inline-block;
 	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
 	font-size: 16px;
-	height: 20px;
-	line-height: 20px;
 	margin-bottom: 0px;
 	max-width: 300px;
-	min-width: 86px;
-	padding: 8px 10px;
+	min-width: 95px;
 	text-align: center;
 	vertical-align: middle;
 	white-space: nowrap;
 }
+.new-button-ok .button-label{
+	padding: 8px 10px;
+	display: block;
+}
+.new-button-ok img{
+	padding: 8px 10px;
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
 .new-button-ok, .new-button-ok:hover{
-	color: #fff;	
+	color: #fff;
 }
 .new-button-ok{
 	background-color: #5d9732;
 }
-.new-button-ok:hover, .new-button-ok-waiting{
+.new-button-ok:hover, 
+.new-button-ok:focus,
+.new-button-ok:active, 
+.new-button-ok-waiting,
+.new-button-ok-waiting:hover,
+.new-button-ok-waiting:focus,
+.new-button-ok-waiting:active{
 	background-color: #48841c;
+}
 }
 
 .new-button-cancel:hover, .new-button-cancel-waiting{
