@@ -1,4 +1,4 @@
-<buttom ng-class="{ 'new-button-ok-waiting' : isWaiting&&!isCancel, 'new-button-cancel-waiting' : isWaiting&&isCancel }">
+<button ng-class="{ 'new-button-ok-waiting' : isWaiting&&!isCancel, 'new-button-cancel-waiting' : isWaiting&&isCancel }">
     <span class="button-label" ng-transclude ng-hide="isWaiting"></span>
     <img ng-show="isWaiting" src="images/loading-btn_20.gif"/>
-</buttom>
+</button>
