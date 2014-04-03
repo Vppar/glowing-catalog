@@ -168,6 +168,11 @@ describe('Controller: order-list', function () {
                             amount : 0,
                             qty : 0
                         };
+                    }else if (type === 'change') {
+                        return {
+                            amount : 0,
+                            qty : 0
+                        };
                     }
 
                 });

@@ -302,8 +302,10 @@
                             return (entry.document === order.uuid);
                         });
                     
-                    //CASH
+                    //CASH && CHANGE
+                    var change = OrderListService.getTotalByType(order.uuid, 'change', bookEntries);
                     var cash = OrderListService.getTotalByType(order.uuid, 'cash', bookEntries);
+                    cash.amount -= change.amount;
                     total += cash.amount;
                     receivablesByType.push(cash);
                     
@@ -404,7 +406,7 @@
                             : receivablesByType[5].amount;
                     $scope.total.amount += exchangeAmount;
                     $scope.total.exchange.amount += exchangeAmount; 
-
+                    
                     var discount = OrderListService.getTotalDiscountByOrder(order.uuid, bookEntries);
                     $scope.total.discount += discount;
                     

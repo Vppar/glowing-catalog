@@ -62,17 +62,17 @@
                             // vale presente
                             var voucher1 =
                                 this.getTotalByOrder(orderUUID, 70001, 21301, bookEntries);
-                            // Vale crédito
+                            // Vale crédito	
                             var voucher2 =
                                 this.getTotalByOrder(orderUUID, 70001, 21305, bookEntries);
                             voucher1.qty += voucher2.qty;
                             voucher1.amount += voucher2.amount;
                             result = voucher1;
                         } else if (type === 'soldVoucher') {
-                            // vale presente
+                            // vale presente                            
                             var voucher1 =
                                 this.getTotalByOrder(orderUUID, 21301, 70001, bookEntries);
-                            // Vale crédito
+		                    // Vale crédito
                             var voucher2 =
                                 this.getTotalByOrder(orderUUID, 21305, 70001, bookEntries);
                             voucher1.qty += voucher2.qty;
@@ -80,8 +80,10 @@
                             result = voucher1;
                         } else if (type === 'exchange') {
                             result = this.getTotalByOrder(orderUUID, 70001, 41305, bookEntries);
+                        } else if (type === 'change') {
+                            result = this.getTotalByOrder(orderUUID, 11111, 70001, bookEntries);
                         } else if (type === 'discount') {
-                            // Desconto vendas
+							// Desconto vendas
                             var discount1 =
                                 this.getTotalByOrder(orderUUID, 70001, 41301, bookEntries);
                             // Desconto cupom promocional
