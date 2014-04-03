@@ -238,6 +238,9 @@
          }).when('/stock-2', {
             templateUrl : 'views/sacred-stock.html',
             controller : 'StockCtrl'
+        }).when('/voucher-2', {
+            templateUrl : 'views/sacred-voucher.html',
+            controller : 'VoucherCtrl'
         }).otherwise({
             redirectTo : '/'
         });

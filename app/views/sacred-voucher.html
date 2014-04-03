@@ -1,0 +1,31 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-voucher-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Vale / Cupom</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button" ng-init="voucherSelected='new'">
+							<a class="btn btn-option" ng-click="voucherSelected='new'" ng-class="{active: voucherSelected === 'new'}">Em aberto</a> 
+							<a class="btn btn-option" ng-click="voucherSelected='hist'" ng-class="{active: voucherSelected === 'hist'}">Hist&oacute;rico</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page-body" ng-switch="voucherSelected">
+				<div class="content" ng-switch-when="new" ng-controller="VoucherActiveCtrl">
+					<div ng-include class="include-div" src="'views/parts/voucher/sacred-voucher-new.html'"></div>
+				</div>
+				<div class="content" ng-switch-when="hist" ng-controller="VoucherHistoricCtrl">
+					<div ng-include class="include-div" src="'views/parts/voucher/sacred-voucher-hist.html'"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
