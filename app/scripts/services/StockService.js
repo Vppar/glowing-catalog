@@ -81,7 +81,7 @@
 
                         if (hasErrors.length === 0) {
                             var stockEntry = new Stock(item.inventoryId, item.quantity, item.cost);
-                            result = StockKeeper.remove(stockEntry);
+                            result = StockKeeper.remove(stockEntry.inventoryId, stockEntry.quantity);
                         } else {
                             result = $q.reject(hasErrors);
                         }
@@ -95,7 +95,8 @@
 
                         if (hasErrors.length === 0) {
                             var stockEntry = new Stock(item.inventoryId, item.quantity, item.cost);
-                            result = StockKeeper.unreserve(stockEntry);
+                            stockEntry.reserve = item.reserve;
+                            result = StockKeeper.unreserve(stockEntry.inventoryId, stockEntry.reserve);
                         } else {
                             result = $q.reject(hasErrors);
                         }

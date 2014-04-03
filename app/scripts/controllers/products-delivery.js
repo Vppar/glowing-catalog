@@ -64,33 +64,37 @@ angular.module('tnt.catalog.productsDelivery', [
                             var productCost = 0;
                             var stock = 0;
                             var order = OrderService.read(selectedOrder);
-
+                            var promises =[]; 
                             for ( var i in updatedItems) {
                                 if (updatedItems[i].dQty > 0) {
                                     stock = StockService.findInStock(updatedItems[i].id);
-                                    stock.quantity -= updatedItems[i].dQty;
-                                    stock.reserve -= updatedItems[i].dQty;
-                                    StockService.unreserve(stock);
-
-                                    StockService.remove(stock);
+                                    stock.quantity = updatedItems[i].dQty;
+                                    stock.reserve = updatedItems[i].dQty;
+                                    promises.push(StockService.unreserve(stock));
+                                    promises.push(StockService.remove(stock));
 
                                     productAmount += updatedItems[i].dQty * updatedItems[i].price;
                                     productCost += updatedItems[i].dQty * stock.cost;
                                 }
                             }
-
-                            books = BookService.productDelivery(order.uuid, order.customerId, productAmount, productCost);
-                            var promises = [];
-                            for ( var y in books) {
-                                promises.push(BookService.write(books[y]));
-                            }
-                            var promise = $q.all(promises);
-                            promise.then(function() {
-                                log.info('Books updated with succes!');
-                            }, function(err) {
-                                log.error('Failed to edit the books!');
-                                log.debug(err);
+                            $q.all(promises).then(function(){
+                                books = BookService.productDelivery(order.uuid, order.customerId, productAmount, productCost);
+                                var promises = [];
+                                for ( var y in books) {
+                                    promises.push(BookService.write(books[y]));
+                                }
+                                var promise = $q.all(promises);
+                                promise.then(function() {
+                                    log.info('Books updated with succes!');
+                                }, function(err) {
+                                    log.error('Failed to edit the books!');
+                                    log.debug(err);
+                                });
+                                
+                            }, function(){
+                                console.log('SON OF A BITCH');
                             });
+                            
                         };
 
                         var prepareOrders =
@@ -157,7 +161,7 @@ angular.module('tnt.catalog.productsDelivery', [
                                 }
                                 updatedItems.push($scope.pendingProducts[ix]);
                             }
-                            ;
+                            
                             return OrderService.updateItemQty(selectedOrder, updatedItems).then(function() {
                                 log.info('Item qty updated! Starting Book and Stock logistics!');
                                 logistics(selectedOrder, updatedItems);
