@@ -13,16 +13,18 @@
             'StockService',
             [
                 '$q',
-                '$log',
+                'logger',
                 'InventoryKeeper',
                 'Stock',
                 'StockKeeper',
                 'ArrayUtils',
                 'FinancialMathService',
                 'ReportService',
-                function StockService ($q, $log, InventoryKeeper, Stock, StockKeeper, ArrayUtils,
+                function StockService ($q, logger, InventoryKeeper, Stock, StockKeeper, ArrayUtils,
                     FinancialMathService, ReportService) {
-
+                    
+                    var log = logger.getLogger('tnt.catalog.stock.service');
+                    
                     // ###############################################################################################
                     // Public methods
                     // ###############################################################################################
@@ -36,7 +38,7 @@
                             invalidProperty.quantity =
                                 angular.isDefined(item.quantity) &&
                                     angular.isNumber(item.quantity) && item.quantity > 0;
-                            invalidProperty.quantity =
+                            invalidProperty.cost =
                                 angular.isDefined(item.cost) && angular.isNumber(item.cost) &&
                                     item.cost > 0;
 
@@ -83,6 +85,7 @@
                             var stockEntry = new Stock(item.inventoryId, item.quantity, item.cost);
                             result = StockKeeper.remove(stockEntry.inventoryId, stockEntry.quantity);
                         } else {
+                            log.error('StockService.remove: -Invalid item. ', hasErrors);
                             result = $q.reject(hasErrors);
                         }
                         return result;
@@ -98,6 +101,7 @@
                             stockEntry.reserve = item.reserve;
                             result = StockKeeper.unreserve(stockEntry.inventoryId, stockEntry.reserve);
                         } else {
+                            log.error('StockService.unreserve: -Invalid item. ', hasErrors);
                             result = $q.reject(hasErrors);
                         }
                         return result;

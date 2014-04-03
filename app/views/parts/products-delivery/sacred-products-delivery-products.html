@@ -12,9 +12,9 @@
 		<div class="grid-summary">
 			<div class="row">
 				<div class="col-15">&nbsp;</div>
-				<div class="col-2 text-center">23</div>
-				<div class="col-3 text-center">12</div>
-				<div class="col-4 text-center">0</div>
+				<div class="col-2 text-center">{{productsTotals.total}}</div>
+				<div class="col-3 text-center">{{productsTotals.delivered}}</div>
+				<div class="col-4 text-center">{{productsTotals.actualDelivery}}</div>
 			</div>
 		</div>
 
@@ -42,6 +42,6 @@
         <spinner-button class="new-button new-button-ok pull-right" spinner-promise="confirm()">
             Confirmar
         </spinner-button>
-		<button class="button-black pull-left" tnt-promise-click="cancel()">Cancelar</button>
+		<button class="button-black pull-left" ng-click="cancel()">Cancelar</button>
 	</div>
 </div>

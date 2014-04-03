@@ -17,13 +17,14 @@ angular.module('tnt.catalog.productsDelivery', [
                     'StockService',
                     'BookService',
                     'logger',
+                    'ArrayUtils',
                     function($filter, $scope, $location, $q, $timeout, UserService, OrderService, EntityService, StockService, BookService,
-                            logger) {
+                            logger, ArrayUtils) {
 
                         var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
 
                         UserService.redirectIfIsNotLoggedIn();
-
+                        $scope.selected = 'orders';
                         var selectedOrder = '';
 
                         $scope.dtFilter = {
@@ -31,6 +32,23 @@ angular.module('tnt.catalog.productsDelivery', [
                             dtFinal : new Date()
                         };
 
+                        // #################################################################################################################
+                        // Sumarizator template
+                        // #################################################################################################################
+
+                        var ordersSumarizatorTemplate = {
+                            enitityCount : 0,
+                            orders : 0,
+                            delivered : 0,
+                            products : 0,
+                        };
+                        
+                        var productsSumarizatorTemplate = {
+                            total : 0,
+                            delivered : 0,
+                            actualDelivery : 0,
+                        };
+                        
                         // #################################################################################################################
                         // Pending Items
                         // #################################################################################################################
@@ -56,6 +74,11 @@ angular.module('tnt.catalog.productsDelivery', [
 
                             $scope.ticket = {};
                             $scope.ticket.watchedQty = {};
+                            $scope.ordersTotals = {};
+                            $scope.productsTotals = {};
+                            angular.extend($scope.ordersTotals, ordersSumarizatorTemplate);
+                            angular.extend($scope.productsTotals, productsSumarizatorTemplate);
+                            
                         };
 
                         var logistics = function(orderUUID, updatedItems) {
@@ -142,14 +165,31 @@ angular.module('tnt.catalog.productsDelivery', [
                                     return orders;
                                 };
 
+                        function sumarizatorOrders(orders){
+                            $scope.ordersTotals.orders = orders.length;
+                            $scope.ordersTotals.enitityCount =  ArrayUtils.distinct(orders,'customerId').length;
+                            $scope.ordersTotals.delivered = $filter('sum')(orders, 'totalItemsDeliv');
+                            $scope.ordersTotals.products = $filter('sum')(orders, 'totalItems');
+                        }
+                        
+                        function sumarizatorProducts(items){
+                            $scope.productsTotals.total = $filter('sum')(items, 'qty');
+                            $scope.productsTotals.delivered = $filter('sum')(items, 'dQty');
+                        }
+                                
                         $scope.$watchCollection('dtFilter', function() {
+                            var start = new Date().getTime();
                             $scope.filteredOrders = filterProductsByDate($scope.orders);
                             $scope.filteredOrders = prepareOrders($scope.filteredOrders);
+                            sumarizatorOrders($scope.filteredOrders);
+                            console.log(new Date().getTime()- start);
                         });
 
                         $scope.getItems = function(index) {
                             $scope.pendingProducts = getPendingProducts($scope.filteredOrders[index]);
+                            sumarizatorProducts($scope.pendingProducts);
                             $scope.selected = 'products';
+                            
                         };
 
                         $scope.confirm = function() {
@@ -173,15 +213,28 @@ angular.module('tnt.catalog.productsDelivery', [
                                 return $q.reject(err);
                             });
                         };
-
+                        
+                        $scope.cancel = function () {
+                            $scope.pendingProducts = [];
+                            $scope.selected = 'orders';
+                        };
+                        
                         $scope.$watch('selected', function() {
                             $scope.ticket = {};
                             $scope.ticket.watchedQty = {};
                             $scope.filteredOrders = filterProductsByDate($scope.orders);
                             $scope.filteredOrders = prepareOrders($scope.filteredOrders);
-
                         });
 
+                        $scope.$watchCollection('ticket.watchedQty', function(){
+                            var total = 0;
+                            for(var ix in $scope.ticket.watchedQty){
+                                total += $scope.ticket.watchedQty[ix];
+                            }
+                            $scope.productsTotals.actualDelivery = total; 
+                        });
+                        
+                        
                         // #################################################################################################################
                         // Date filter stuff
                         // #################################################################################################################
