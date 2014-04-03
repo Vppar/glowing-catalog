@@ -6,21 +6,22 @@
     ]).controller(
             'PagpopCtrl',
             [
-                '$scope', '$filter', 'EntityService', 'UserService', 'ReceivableService', 'ArrayUtils',
-                function($scope, $filter, EntityService, UserService, ReceivableService, ArrayUtils) {
+                '$scope', '$filter', 'EntityService', 'UserService', 'ReceivableService', 'ArrayUtils', 'FinancialMathService',
+                function($scope, $filter, EntityService, UserService, ReceivableService, ArrayUtils, FinancialMathService) {
 
                     UserService.redirectIfIsNotLoggedIn();
 
                     $scope.searchClient = '';
+                    $scope.ccTax = 3.48;
 
                     var receivables = ReceivableService.list();
                     var creditCardReceivables = ArrayUtils.list(receivables, 'type', 'creditCard');
-                    
+
                     var pagpopReceivables = [];
                     for (var idx in creditCardReceivables) {
                         if (!angular.isUndefined(creditCardReceivables[idx].payment.gatewayInfo)) {
                             pagpopReceivables.push(creditCardReceivables[idx]);
-                        } 
+                        }
                     }
                     creditCardReceivables = pagpopReceivables;
 
@@ -43,7 +44,7 @@
                         $scope.filteredReceivables = $filter('filter')($scope.filteredReceivables, filterByEntity);
                         summarizer();
                     });
-                    
+
                     /**
                      * Get the name of all clients based on the clientUUID on the payment
                      */
@@ -52,14 +53,17 @@
                             $scope.filteredReceivables[idx].name = EntityService.read($scope.filteredReceivables[idx].entityId).name;
                         }
                     }
-                    
+
                     /**
                      * Summarizer
                      */
                     function summarizer() {
                         $scope.total = 0;
+                        $scope.totalLiquid = 0;
                         for ( var idx in $scope.filteredReceivables) {
+                            $scope.filteredReceivables[idx].amountLiquid = FinancialMathService.currencyMultiply($scope.filteredReceivables[idx].amount, 0.9652);
                             $scope.total += $scope.filteredReceivables[idx].amount;
+                            $scope.totalLiquid += $scope.filteredReceivables[idx].amountLiquid;
                         }
 
                         var payments = ArrayUtils.distinct($scope.filteredReceivables, 'payment');
