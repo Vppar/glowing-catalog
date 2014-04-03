@@ -1,4 +1,32 @@
 /* only works for the green button! still need for others and reviews all states!!!! */
+
+.new-btn-holder .new-button{
+	margin-top: 10px;
+}
+
+.panel-footer-new-customer .new-button{
+	margin-top: 7px;
+}
+
+.new-button-no-promise{
+	border-radius: 4px;
+	padding-top: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 0px;
+padding-bottom: 8px;
+	cursor: pointer;
+	display: inline-block;
+	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
+	font-size: 16px;
+	margin-bottom: 0px;
+	max-width: 300px;
+	min-width: 95px;
+	text-align: center;
+	vertical-align: middle;
+	white-space: nowrap;
+}
+
 .new-button{
 	border-radius: 4px;
 	cursor: pointer;
