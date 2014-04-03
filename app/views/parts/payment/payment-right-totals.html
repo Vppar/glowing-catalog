@@ -134,7 +134,7 @@
 			<button tnt-promise-click="cancel()" class="btn btn-cancel" type="submit" ng-show="showPaymentButtons">Cancelar</button>
 		</div>
 		<div class="payment-btn-area">
-	        <spinner-button class="new-button new-button-ok" type="submit" spinner-promise="confirm()" ng-show="showPaymentButtons" ng-disabled="(total.change<0||keyboard.status.active||disabled())">
+	        <spinner-button class="new-button-force-payment-confirm-size btn btn-ok" type="submit" spinner-promise="confirm()" ng-show="showPaymentButtons" ng-disabled="(total.change<0||keyboard.status.active||disabled())">
 	            Confirmar
 	        </spinner-button>
         </div>
