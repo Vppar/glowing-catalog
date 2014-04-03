@@ -91,7 +91,9 @@
 </div> <!-- // cheques a depositar -->
 
 <div class="new-btn-holder">
-	<button class="btn btn-ok pull-right" type="submit" tnt-promise-click="save()">Confirmar</button>
-	<button class="btn btn-cancel pull-right" ng-click="cancel()">Cancelar</button>
+    <spinner-button class="new-button new-button-ok pull-right" type="submit" spinner-promise="save()">
+        Confirmar
+    </spinner-button>
+	<button class="btn btn-cancel" style="margin-left:0px;" ng-click="cancel()">Cancelar</button>
 </div>
 </div>

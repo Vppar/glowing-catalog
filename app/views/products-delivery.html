@@ -105,14 +105,15 @@
 								<span class="new-col-5 text-center">
 									<tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
 								</span>
-
 							</div>
 						</div>
 					</div>
 				</div>
 				
 				<div class="new-buttom-holder">
-					<button class="btn btn-ok pull-right margin-right" tnt-promise-click="confirm()">Confirmar</button>
+                    <spinner-button class="new-button new-button-ok pull-right margin-right" spinner-promise = "confirm()" type="submit">
+                        Confirmar
+                    </spinner-button>
 				</div>
 			</div>
 		</div>
