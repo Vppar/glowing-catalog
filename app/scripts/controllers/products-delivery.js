@@ -60,6 +60,14 @@ angular.module('tnt.catalog.productsDelivery', [
                                 order.items[ix].order = order.code;
                                 order.items[ix].created = order.created;
                                 pendingProducts.push(order.items[ix]);
+                                
+                                //Build unique name. 
+                                if (order.items[ix].option) {
+                                    order.items[ix].uniqueName = order.items[ix].SKU + ' - ' + order.items[ix].option;
+                                } else {
+                                    order.items[ix].uniqueName = order.items[ix].SKU;
+                                }
+                                
                             }
                             return pendingProducts;
                         };
@@ -128,7 +136,6 @@ angular.module('tnt.catalog.productsDelivery', [
                                         orders[ix].totalItemsDeliv = 0;
 
                                         for ( var ix2 = 0; ix2 < orders[ix].items.length; ix2++) {
-
                                             if (orders[ix].items[ix2].type === 'giftCard' || orders[ix].items[ix2].type === 'voucher' ||
                                                 orders[ix].items[ix2].type === 'coupom') {
                                                 orders[ix].items.splice(ix2, 1);
