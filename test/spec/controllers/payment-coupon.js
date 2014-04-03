@@ -170,7 +170,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     it('should not populate the item list of the order service with a voucher if the list does contains a voucher', function() {
 
         var value = 45.00;
-        scope.option == 'option01';
+        scope.option.selected == 'option01';
         scope.voucher.total = value;
 
         scope.confirmVoucher();
@@ -183,7 +183,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         items = [];
 
         var value = 100.00;
-        scope.option == 'option01';
+        scope.option.selected == 'option01';
         scope.voucher.total = value;
 
         scope.confirmVoucher();
@@ -228,7 +228,7 @@ describe('Controller: PaymentCouponCtrl', function() {
         orderServiceMock.order.items = [];
 
         scope.voucher.total = 0;
-        scope.option = 'option01';
+        scope.option.selected = 'option01';
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(false);
     });
@@ -237,13 +237,13 @@ describe('Controller: PaymentCouponCtrl', function() {
     it('allows to remove an existing voucher by setting the value to 0', function() {
         // If failing, make sure there's a voucher in OrderService.order.items
         scope.voucher.total = 0;
-        scope.option = 'option01';
+        scope.option.selected = 'option01';
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(true);
     });
 
     it('should allow to confirm if the voucher value is different than zero', function() {
-        scope.option = 'option01';
+        scope.option.selected = 'option01';
         scope.voucher.total = 40.25;
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(true);
@@ -251,7 +251,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should allow to confirm if the voucher value is almost zero', function() {
-        scope.option = 'option01';
+        scope.option.selected = 'option01';
         scope.voucher.total = 0.01;
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(true);
@@ -259,7 +259,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should allow to confirm if the gift value is different than zero and customer is defined', function() {
-        scope.option = 'option02';
+        scope.option.selected = 'option02';
         scope.gift.total = 20;
         scope.gift.customer = {
             name : 'A name'
@@ -269,7 +269,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should not allow to confirm if the gift value is zero', function() {
-        scope.option = 'option02';
+        scope.option.selected = 'option02';
         scope.gift.total = 0;
         scope.gift.customer = {
             name : 'Anyname'
@@ -279,7 +279,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     });
 
     it('should not allow to confirm if the gift customer name is not defined', function() {
-        scope.option = 'option02';
+        scope.option.selected = 'option02';
         scope.gift.total = 10;
         scope.gift.customer = undefined;
         scope.$apply();
@@ -291,7 +291,7 @@ describe('Controller: PaymentCouponCtrl', function() {
     // setting their quantity to 0, we should allow them to be removed.
     it('allows to confirm if total value of coupons is 0 and there are persisted coupons', function() {
         paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(true);
-        scope.option = 'option03';
+        scope.option.selected = 'option03';
         scope.coupon.total = 0;
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(true);
@@ -303,14 +303,14 @@ describe('Controller: PaymentCouponCtrl', function() {
         // overriding (!?!?!) my new value.
         scope.$apply();
         paymentServiceMock.hasPersistedCoupons = jasmine.createSpy('PaymentService.hasPersistedCoupons').andReturn(false);
-        scope.option = 'option03';
+        scope.option.selected = 'option03';
         scope.coupon.total = 0;
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(false);
     });
 
     it('should allow to confirm if the total value of coupons is greater than zero', function() {
-        scope.option = 'option03';
+        scope.option.selected = 'option03';
         scope.coupon.total = 80;
         scope.$apply();
         expect(scope.confirmEnabled).toEqual(true);

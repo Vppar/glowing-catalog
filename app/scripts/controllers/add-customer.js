@@ -18,7 +18,7 @@
                 'IntentService',
                 function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService,
                         IntentService) {
-                    
+
                     UserService.redirectIfIsNotLoggedIn();
 
                     // ############################################################################################################
@@ -26,7 +26,7 @@
                     // ############################################################################################################
                     $scope.birthdate = DataProvider.date;
                     $scope.states = DataProvider.states;
-                    
+
                     $scope.select2Options = {
                             minimumResultsForSearch : -1
                         };
@@ -47,16 +47,17 @@
                     };
 
                     var edit = IntentService.getBundle();
-                    if (edit) {
-                        if (edit.editUuid) {
-                            var entity = EntityService.read(edit.editUuid);
-                            $scope.customer = entity;
-                            prepareEntity($scope.customer);
-                        }
+                    if(!edit){
+                        edit = {};
+                    }
+                    if (edit.editUuid) {
+                       var entity = EntityService.read(edit.editUuid);
+                       $scope.customer = entity;
+                       prepareEntity($scope.customer);
+                    }
 
-                        if (edit.clientName) {
-                            $scope.customer.name = edit.clientName;
-                        }
+                    if (edit.clientName) {
+                       $scope.customer.name = edit.clientName;
                     }
 
                     var customer = $scope.customer;
@@ -120,37 +121,49 @@
                         }
 
                         var promise = null;
-                        if (edit && edit.editUuid) {
+                        if (edit.editUuid) {
                             promise = EntityService.update(customer).then(function(uuid) {
                                 return uuid;
                             }, function(error) {
                                 $log.error('Failed to update the entity:', uuid);
                                 $log.debug(error);
                             });
-                            
-                            if(edit && edit.screen){
+
+                            if(edit.screen){
                                 $location.path('/'+edit.screen);
                             }else{
-                                $location.path('/'); 
+                                $location.path('/');
                             }
                         } else {
                             promise = EntityService.create(customer).then(function(uuid) {
-                                OrderService.order.customerId = uuid;
+                                if(!edit.giftCard){
+                                    OrderService.order.customerId = uuid;
+                                    if(edit.screen){
+                                        $location.path('/'+edit.screen);
+                                    }else{
+                                        $location.path('/');
+                                    }
+                                } else {
+                                    IntentService.putBundle({method:'voucher'});
+                                    $location.path('/'+edit.giftCard);
+                                }
                                 return uuid;
                             });
-                            
-                            if(edit && edit.screen){
-                                $location.path('/'+edit.screen);
-                            }else{
-                                $location.path('/'); 
-                            }
                         }
 
                         return promise;
                     };
 
                     $scope.cancel = function cancel() {
-                        $location.path('/');
+
+                            if(edit.screen){
+                                $location.path('/'+edit.screen);
+                            }else if(edit.giftCard){
+                                IntentService.putBundle({method:'voucher', user: 'cancel'});
+                                $location.path('/'+edit.giftCard);
+                            }else{
+                                $location.path('/');
+                            }
                     };
 
                     $scope.validateCpf = function(cpf) {
@@ -174,7 +187,7 @@
 
                     /**
                      * Prepares the entity for the edit.
-                     * 
+                     *
                      * @param {Entity} - Entity to be edited.
                      */
                     function prepareEntity(entity) {

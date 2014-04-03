@@ -9,17 +9,21 @@
             'tnt.catalog.service.dialog',
             'tnt.utils.array',
             'tnt.catalog.payment.service',
-            'tnt.catalog.entity.service'
+            'tnt.catalog.entity.service',
+            'tnt.catalog.service.intent'
         ])
         .controller(
             'PaymentCouponCtrl',
-            ['$filter', '$scope', '$log', 'CouponService', 'DialogService', 'ArrayUtils', 'OrderService', 'PaymentService', 'EntityService',
+            ['$filter', '$scope', '$log', 'CouponService', 'DialogService', 'ArrayUtils', 'OrderService', 'PaymentService', 'EntityService', 'IntentService',
             function ($filter, $scope, $log, CouponService, DialogService, ArrayUtils,
-                OrderService, PaymentService, EntityService) {
+                OrderService, PaymentService, EntityService, IntentService) {
 
                 // #####################################################################################################
                 // Warm up the controller
                 // #####################################################################################################
+
+                $scope.option = {};
+                $scope.option.selected = 'option01';
 
                 var order = OrderService.order;
 
@@ -60,7 +64,7 @@
                     }, {
                         qty : PaymentService.persistedCoupons[30] || 0,
                         amount : 30
-                    },
+                    }
                 ];
 
                 // Get already set voucher
@@ -90,7 +94,7 @@
 
                 /**
                  * Returns wether the voucher screen should be enabled or not.
-                 * 
+                 *
                  * @return {Boolean}
                  */
                 function voucherIsEnabled () {
@@ -113,18 +117,18 @@
                 $scope.$watch('gift.total', canConfirm);
                 $scope.$watch('gift.customer.name', canConfirm);
                 $scope.$watch('coupon.total', canConfirm);
-                $scope.$watch('option', canConfirm);
+                $scope.$watch('option.selected', canConfirm);
 
                 function setCouponOption () {
                     if (!voucherIsEnabled()) {
-                        if (!$scope.option || $scope.option === 'option01') {
-                            $scope.option = 'option02';
+                        if (!$scope.option.selected || $scope.option.selected === 'option01') {
+                            $scope.option.selected = 'option02';
                         }
                     }
                 }
 
                 function canConfirm () {
-                    switch ($scope.option) {
+                    switch ($scope.option.selected) {
                         case 'option01':
                             canConfirmVoucher();
                             break;
@@ -169,11 +173,11 @@
                 }
 
                 $scope.selectConfirm = function selectConfirm () {
-                    if ($scope.option == 'option01') {
+                    if ($scope.option.selected == 'option01') {
                         $scope.confirmVoucher();
-                    } else if ($scope.option == 'option02') {
+                    } else if ($scope.option.selected == 'option02') {
                         $scope.confirmGift();
-                    } else if ($scope.option == 'option03') {
+                    } else if ($scope.option.selected == 'option03') {
                         $scope.confirmCoupons();
                     }
                 };
@@ -230,6 +234,7 @@
                 };
 
                 $scope.openDialogChooseCustomerGift = function () {
+                    IntentService.putBundle({giftCard:'payment'});
                     DialogService.openDialogChooseCustomer().then(function (id) {
                         $scope.gift.customer = $filter('findBy')(EntityService.list(), 'uuid', id);
                     });
@@ -246,7 +251,7 @@
                         return;
                     }
 
-                    $scope.option = option;
+                    $scope.option.selected = option;
                 };
 
                 $scope.confirmCoupons = function confirmCoupons () {
@@ -260,6 +265,22 @@
                     // Return to order overview
                     $scope.selectPaymentMethod('none');
                 };
+
+                var bundle = IntentService.getBundle();
+                if(bundle && bundle.tab === 'giftCard'){
+                    $('.active').removeClass('active'); //FIXME it does not unset active class in voucher tab with ng-class!!
+                    $scope.selectOption('option02');
+                    $scope.forceChangeUpdate();
+                    $scope.gift.total = $scope.total.change;
+                    if($scope.gift.total < 0){
+                        $scope.gift.total = 0;
+                    }
+                    if(!bundle.user==='cancel'){
+                        var customers = EntityService.list();
+                        $scope.gift.customer = customers[customers.length-1];
+                    }
+
+                }
 
             }]);
 }(angular));

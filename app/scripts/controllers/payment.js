@@ -5,7 +5,8 @@
                     'tnt.catalog.payment',
                     [
                         'tnt.catalog.inventory.entity', 'tnt.catalog.inventory.keeper', 'tnt.catalog.payment.entity',
-                        'tnt.catalog.voucher.service', 'tnt.catalog.misplaced.service', 'tnt.catalog.voucher.keeper'
+                        'tnt.catalog.voucher.service', 'tnt.catalog.misplaced.service', 'tnt.catalog.voucher.keeper',
+                        'tnt.catalog.service.intent'
                     ])
             .controller(
                     'PaymentCtrl',
@@ -28,11 +29,14 @@
                         'EntityService',
                         'UserService',
                         'Misplacedservice',
+                        'IntentService',
                         function($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService,
                                 PaymentService, SMSService, KeyboardService, InventoryKeeper, VoucherKeeper, CashPayment, EntityService,
-                                UserService, Misplacedservice) {
+                                UserService, Misplacedservice, IntentService) {
 
                             UserService.redirectIfIsNotLoggedIn();
+                            
+                            var bundle = IntentService.getBundle();
 
                             // #############################################################################################
                             // Controller warm up
@@ -279,6 +283,7 @@
                             $scope.dialogService = dialogService;
 
                             $scope.openDialogChooseCustomer = function() {
+                                IntentService.putBundle({screen:'payment'});
                                 dialogService.openDialogChooseCustomer().then(function(uuid) {
                                     if (uuid) {
                                         customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
@@ -451,6 +456,7 @@
                                     total.change = Math.round((totalPayments - total.order.subTotal) * 100) / 100;
                                 }
                             }
+                            $scope.forceChangeUpdate = updateOrderAndPaymentTotal;
 
                             $scope.$watch('total.order.subTotal', updateOrderAndPaymentTotal);
 
@@ -493,7 +499,7 @@
                                 return dialogService.messageDialog({
                                     title : 'Pagamento',
                                     message : message,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             }
 
@@ -504,7 +510,7 @@
                                             .messageDialog({
                                                 title : 'Pagamento',
                                                 message : 'Ocorreu um erro ao processar o pagamento da ordem.  Na próxima sincronização do sistema um administrador será acionado.',
-                                                btnYes : 'OK',
+                                                btnYes : 'OK'
                                             });
                                 }
                             }
@@ -649,6 +655,11 @@
                             // #############################################################################################
 
                             updateCoupons();
+                            
+                            if(bundle && bundle.method == 'voucher'){
+                                IntentService.putBundle({tab:'giftCard'});
+                                $scope.selectPaymentMethod('voucher'); 
+                            }
                         }
                     ]);
 })(angular);

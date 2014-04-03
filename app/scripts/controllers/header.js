@@ -1,10 +1,10 @@
 (function(angular) {
     'use strict';
 
-    angular.module('tnt.catalog.header', ['tnt.catalog.manifest']).controller(
+    angular.module('tnt.catalog.header', ['tnt.catalog.manifest', 'tnt.catalog.service.intent']).controller(
             'HeaderCtrl',
-            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController',
-            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController) {
+            ['$scope', '$element', '$filter', '$location', '$interval', 'OrderService', 'DialogService', 'UserService', 'CacheController', 'IntentService',
+            function($scope, $element, $filter, $location, $interval, OrderService, DialogService, UserService, CacheController, IntentService) {
 
                 // #############################################################################################################
                 // Scope variables from services
@@ -51,6 +51,7 @@
                         if (order.customerId) {
                             $location.path('/payment');
                         } else {
+                            IntentService.putBundle({screen:'payment'});
                             DialogService.openDialogChooseCustomer().then(function(id) {
                                 order.customerId = id;
                             });
