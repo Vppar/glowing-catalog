@@ -226,13 +226,6 @@
                             $rootScope.$broadcast('FirebaseConnected');
                         });
 
-                        var connectedRef = baseRef.child('.info').child('connected');
-                        connectedRef.on('value', function (snap) {
-                            if (snap.val() === false) {
-                                delete localStorage.ppToken;
-                            }
-                        });
-
                         return deferred.promise;
                     };
 

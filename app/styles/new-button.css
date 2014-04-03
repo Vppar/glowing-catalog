@@ -14,7 +14,7 @@
 	padding-left: 10px;
 	padding-right: 10px;
 	border: 0px;
-padding-bottom: 8px;
+	padding-bottom: 8px;
 	cursor: pointer;
 	display: inline-block;
 	font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
@@ -48,13 +48,12 @@ padding-bottom: 8px;
 	margin-left: auto;
 	height: 18px;
 	margin-top: -1px;
-
 }
 
 .new-button-ok, .new-button-ok:hover{
 	color: #fff;
 }
-.new-button-ok{
+.new-button-ok {
 	background-color: #5d9732;
 }
 
@@ -68,4 +67,9 @@ padding-bottom: 8px;
 
 .new-button-cancel:hover, .new-button-cancel-waiting{
     background-color: #000;
+}
+
+.new-button-force-payment-confirm-size {
+	width: 89px;
+	height: 36px;
 }

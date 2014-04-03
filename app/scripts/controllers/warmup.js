@@ -872,7 +872,7 @@
 
             $scope.date.persist();
 
-            StockWarmupService.updateStockWarmup(ref, entries).then(function() {
+            return StockWarmupService.updateStockWarmup(ref, entries).then(function() {
                 return DialogService.messageDialog({
                     title : 'Estoque inicial',
                     message : 'Dados iniciais de estoque armazenados com sucesso!',
