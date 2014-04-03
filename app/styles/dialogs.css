@@ -79,6 +79,7 @@
  }
  .modal-numpad .modal-body {
  	overflow:hidden;
+  max-height:450px;
  }
  
  .modal-add-basket-details-dialog{

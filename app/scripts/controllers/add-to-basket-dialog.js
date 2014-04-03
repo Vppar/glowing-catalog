@@ -176,11 +176,20 @@
 
 
                 function openDialogNumpad() {
-                    var numpadDialog = DialogService.openDialogNumpad(null, dialog).then(function (discount) {
-                      discount = discount > $scope.total ? $scope.total : discount;
-                      setItemDiscount(discount);
-                    });
-                    return numpadDialog;
+                    if ($scope.count > 0) {
+                        var data = {
+                          initial : $scope.itemDiscount,
+                          relative : $scope.total
+                        };
+
+                        var numpadDialog = DialogService.openDialogNumpad(data, dialog).then(function (discount) {
+                          discount = discount > $scope.total ? $scope.total : discount;
+                          setItemDiscount(discount);
+                        });
+                        return numpadDialog;
+                    }
+
+                    return $q.reject();
                 }
 
                 $scope.openDialogNumpad = openDialogNumpad;
