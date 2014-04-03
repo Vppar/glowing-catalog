@@ -26,7 +26,7 @@ angular.module('tnt.catalog.productsDelivery', [
                         UserService.redirectIfIsNotLoggedIn();
                         $scope.selected = 'orders';
                         var selectedOrder = '';
-
+                        $scope.checkbox= {checked:'true'};
                         $scope.dtFilter = {
                             dtInitial : setTime(new Date(), 0, 0, 0, 0),
                             dtFinal : new Date()
@@ -79,7 +79,7 @@ angular.module('tnt.catalog.productsDelivery', [
                             $scope.orders = OrderService.list();
                             $scope.filteredOrders = [];
                             $scope.pendingProducts = [];
-
+                            
                             $scope.ticket = {};
                             $scope.ticket.watchedQty = {};
                             $scope.ordersTotals = {};
@@ -191,7 +191,22 @@ angular.module('tnt.catalog.productsDelivery', [
                             sumarizatorOrders($scope.filteredOrders);
                             console.log(new Date().getTime()- start);
                         });
-
+                        
+                        var lastFilterDate = angular.copy($scope.dtFilter.dtInitial);
+                        $scope.$watch('checkbox.checked', function(){
+                            if ($scope.checkbox.checked === 'true') {
+                                if ($scope.dtFilter.dtInitial) {
+                                    lastFilterDate = angular.copy($scope.dtFilter.dtInitial);
+                                }
+                                $scope.dtFilter.dtInitial = undefined;
+                                $scope.dtIniDisabled = true;
+                            } else {
+                                $scope.dtIniDisabled = false;
+                                $scope.dtFilter.dtInitial = angular.copy(lastFilterDate);
+                            }
+                        });
+                        
+                        
                         $scope.getItems = function(index) {
                             $scope.pendingProducts = getPendingProducts($scope.filteredOrders[index]);
                             sumarizatorProducts($scope.pendingProducts);
@@ -240,7 +255,6 @@ angular.module('tnt.catalog.productsDelivery', [
                             }
                             $scope.productsTotals.actualDelivery = total; 
                         });
-                        
                         
                         // #################################################################################################################
                         // Date filter stuff
