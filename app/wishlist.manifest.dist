@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.2-2'
+# 'version' : '1.2.2-0'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -32,6 +32,7 @@ styles/catalog.css
 styles/voucher.css
 styles/stock.css
 styles/warm-up.css
+styles/third-parties.css
 styles/new.css
 styles/new-numpad.css
 styles/new-registration.css
@@ -39,7 +40,7 @@ styles/new-ipad-only.css
 styles/new-grid.css
 styles/new-calendar.css
 styles/new-button.css
-styles/third-parties.css
+
 
 styles/sacred-reset.css
 styles/sacred-buttons.css
