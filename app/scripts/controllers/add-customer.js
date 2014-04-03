@@ -27,6 +27,8 @@
                     $scope.birthdate = DataProvider.date;
                     $scope.states = DataProvider.states;
 
+                    $scope.cpfFocus = false;
+
                     $scope.select2Options = {
                             minimumResultsForSearch : -1
                         };
@@ -51,6 +53,7 @@
                         edit = {};
                     }
                     if (edit.editUuid) {
+
                        var entity = EntityService.read(edit.editUuid);
                        $scope.customer = entity;
                        prepareEntity($scope.customer);
@@ -58,6 +61,10 @@
 
                     if (edit.clientName) {
                        $scope.customer.name = edit.clientName;
+                    }
+
+                    if(edit.method && edit.method==='creditcard'){
+                        $scope.cpfFocus = true;
                     }
 
                     var customer = $scope.customer;

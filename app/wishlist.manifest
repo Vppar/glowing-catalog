@@ -163,6 +163,7 @@ scripts/directives/preventBlur.js
 scripts/directives/virtualKeyboard.js
 scripts/directives/keyboardCage.js
 scripts/directives/focus.js
+scripts/directives/focusIf.js
 scripts/directives/equals.js
 scripts/directives/spinner-button.js
 
