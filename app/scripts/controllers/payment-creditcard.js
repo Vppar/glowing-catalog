@@ -11,13 +11,15 @@
                         '$element',
                         '$filter',
                         '$q',
+                        '$location',
                         'DataProvider',
                         'DialogService',
                         'OrderService',
                         'CreditCardPaymentService',
                         'EntityService',
-                        function($scope, $element, $filter, $q, DataProvider, DialogService, OrderService, CreditCardPaymentService,
-                                EntityService) {
+                        'IntentService',
+                        function($scope, $element, $filter, $q, $location, DataProvider, DialogService, OrderService, CreditCardPaymentService,
+                                EntityService, IntentService) {
 
                             // #####################################################################################################
                             // Warm up the controller
@@ -26,6 +28,30 @@
                             function getAmount(change) {
                                 return !change || change > 0 ? 0 : -change;
                             }
+
+                            var customer = EntityService.read(OrderService.order.customerId);
+
+                            function documentCheck(){
+                                if(!customer.document){
+                                    var promise = DialogService.messageDialog({
+                                        title : 'Atenção.',
+                                        message : 'Para processar transações de cc é necessário o CPF do cliente. Deseja preencher agora?',
+                                        btnYes : 'Sim',
+                                        btnNo : 'Não'
+                                    });
+
+                                    promise.then(function(){
+                                        IntentService.putBundle({editUuid : customer.uuid, screen : 'payment', method : 'creditcard'});
+                                        $location.path('/add-customer');
+                                    },function(){
+                                        $scope.selectPaymentMethod('none');
+                                    });
+                                }
+                            }
+
+                            $scope.$watchCollection('customer', function(){
+                               documentCheck();
+                            });
 
                             // Initializing credit card data with a empty credit
                             // card
@@ -132,7 +158,6 @@
                                     return deferred.promise;
                                 }
                                 var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
-                                var customer = EntityService.read(OrderService.order.customerId);
 
                                 var result = CreditCardPaymentService.charge(customer, creditCard, creditCard.amount, numInstallments);
 

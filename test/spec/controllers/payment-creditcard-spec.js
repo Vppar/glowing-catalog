@@ -8,6 +8,7 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     var dp = {};
     var ds = {};
     var os = {};
+    var is ={};
     var ccps = {};
 
     os.order = {
@@ -52,6 +53,9 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         };
         dp.reloadGoPay= jasmine.createSpy('DataProvider.reloadGoPay');
 
+        is.putBundle = jasmine.createSpy('IntentService.putBundle');
+        is.getBundle = jasmine.createSpy('IntentService.getBundle');
+
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
         ccps.charge = jasmine.createSpy('CreditCardPaymentService.charge').andCallFake(function() {
             var deferred = _$q_.defer();
@@ -87,7 +91,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
             DialogService : ds,
             DataProvider : dp,
             OrderService : os,
-            CreditCardPaymentService : ccps
+            CreditCardPaymentService : ccps,
+            IntentService : is
         });
 
     }));
@@ -129,7 +134,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
                 DialogService : ds,
                 DataProvider : dp,
                 OrderService : os,
-                CreditCardPaymentService : ccps
+                CreditCardPaymentService : ccps,
+                IntentService : is
             });
 
             expect(scope.creditCard.amount).toBe(0);
@@ -145,7 +151,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
                 DialogService : ds,
                 DataProvider : dp,
                 OrderService : os,
-                CreditCardPaymentService : ccps
+                CreditCardPaymentService : ccps,
+                IntentService : is
             });
 
             expect(scope.creditCard.amount).toBe(170);
@@ -161,7 +168,8 @@ describe('Controller: PaymentCreditCardCtrl', function() {
                 DialogService : ds,
                 DataProvider : dp,
                 OrderService : os,
-                CreditCardPaymentService : ccps
+                CreditCardPaymentService : ccps,
+                IntentService : is
             });
 
             expect(scope.creditCard.amount).toBe(0);
