@@ -104,7 +104,9 @@
 
 	<div class="payment-btn-holder" fast-click>
 		<button class="btn btn-cancel btn-large pull-left" type="button" ng-click="cancelPayments()"> Cancelar </button>
-		<button class="btn btn-ok btn-large pull-right" type="button" tnt-promise-click="confirmCreditCardPayment()" >Confirmar</button>
+        <spinner-button class="btn btn-ok btn-large pull-right" spinner-promise = "confirmCreditCardPayment()" type="button">
+            Confirmar
+        </spinner-button>
 	</div>
 
 </div>

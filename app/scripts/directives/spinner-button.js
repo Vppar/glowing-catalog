@@ -9,19 +9,24 @@
         });
     }]);
 
-    angular.module('glowingCatalogApp').directive('spinnerButton', ['$parse',function ($parse) {
+    angular.module('glowingCatalogApp').directive('spinnerButton', ['$log', '$parse', function ($log, $parse) {
         return {
             restrict: 'E',
+            transclude: true,
+            scope: true,
             templateUrl: templateUrl,
+            replace: true,
             link: function postLink(scope, element, attrs) {
+
+                scope.isCancel = attrs.spinnerType === 'cancel';
 
                 // The event trigger mechanism.
                 var fireInTheHole = null;
 
                 function reset() {
 
-                    scope.spinnerButtonCtrl = true;
-                    fireInTheHole = function() {
+                    scope.isWaiting = false;
+                    fireInTheHole = function () {
                         // Warn the use about not to use ngClick.
                         if (attrs.ngClick) {
                             $log.warn('A ngClick was used in conjunction with a spinnerPromise directive, the ngClick will be blocked.');
@@ -29,7 +34,7 @@
 
                         // Do nothing while the process is running.
                         fireInTheHole = angular.noop;
-                        scope.spinnerButtonCtrl = false;
+                        scope.isWaiting = true;
 
                         // Evaluate the text passed in tntPromiseClick
                         // against the scope to find the function
@@ -40,7 +45,7 @@
                             return;
                         }
 
-                        callBackPromise['finally'](function() {
+                        callBackPromise['finally'](function () {
                             reset();
                         });
                     };
@@ -48,7 +53,7 @@
 
                 reset();
 
-                element.bind('click', function(event) {
+                element.bind('click', function (event) {
                     // prevent bubbling
                     event.stopPropagation();
                     // prevent other listeners of this element to be fired

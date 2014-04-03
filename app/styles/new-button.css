@@ -24,3 +24,7 @@
 .new-button-ok:hover, .new-button-ok-waiting{
 	background-color: #48841c;
 }
+
+.new-button-cancel:hover, .new-button-cancel-waiting{
+    background-color: #000;
+}

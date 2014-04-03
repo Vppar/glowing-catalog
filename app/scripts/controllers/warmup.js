@@ -184,7 +184,7 @@
             // We'll consider data to be saved once it's stored in localStorage
             // and count that it will be replicated in Firebase eventually,
             // that's why the message dialog is shown synchronously.
-            DialogService.messageDialog({
+            return DialogService.messageDialog({
                 title : 'Cheques a receber',
                 message : 'Cheques a receber salvos com sucesso!',
                 btnYes : 'OK'
@@ -347,7 +347,7 @@
             // We'll consider data to be saved once it's stored in localStorage
             // and count that it will be replicated in Firebase eventually,
             // that's why the message dialog is shown synchronously.
-            DialogService.messageDialog({
+            return DialogService.messageDialog({
                 title : 'Contas a receber (Cartões)',
                 message : 'Contas a receber (Cartões) salvas com sucesso!',
                 btnYes : 'OK'
