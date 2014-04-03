@@ -41,10 +41,10 @@
 
 					<div class="row-fluid">
 						<div class="new-body-header scroll-title-compensator">
-							<div class="new-col-3 text-center">Data</div>
+							<div class="new-col-2 text-center">Data</div>
 							<div class="new-col-3 text-center">Pedido</div>
 							<div class="new-col-6">Cliente</div>
-							<div class="new-col-2 text-center">Tx Cartão</div>
+							<div class="new-col-3 text-center">Tx Cartão %</div>
 							<div class="new-col-1 text-center">Parc</div>
 							<div class="new-col-3 text-center">Autorização</div>
 							<div class="new-col-3 currency">Valor Líquido</div>
@@ -54,10 +54,10 @@
 
 					<div class="row-fluid">
 						<div class="new-body-summary scroll-title-compensator">
-							<div class="new-col-3 text-center">&nbsp;</div>
+							<div class="new-col-2 text-center">&nbsp;</div>
 							<div class="new-col-3 text-center">{{numOrders}}</div>
 							<div class="new-col-6">&nbsp;</div>
-							<div class="new-col-2 text-center">&nbsp;</div>
+							<div class="new-col-3 text-center">&nbsp;</div>
 							<div class="new-col-1 text-center">&nbsp;</div>
 							<div class="new-col-3 text-center">&nbsp;</div>
                             <div class="new-col-3 currency">{{totalLiquid|currency: ''}}</div>
@@ -69,10 +69,10 @@
 
 							<div class="row-fluid" ng-repeat="receivable in filteredReceivables | orderBy: '-created'">
 							<div class="new-body-row pagpop-line">
-								<div class="new-col-3 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</div>
+								<div class="new-col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</div>
 								<div class="new-col-3 text-center">{{receivable|uuidCode:'documentId'}}</div>
 								<div class="new-col-6">{{receivable.name}}</div>
-								<div class="new-col-2 text-center">{{ccTax}}</div>
+								<div class="new-col-3 text-center">{{ccTax}}</div>
 								<div class="new-col-1 text-center">{{receivable.payment.installments}}</div>
 								<div class="new-col-3 text-center">{{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</div>
                                 <div class="new-col-3 currency">{{receivable.amountLiquid|currency: ''}}</div>
