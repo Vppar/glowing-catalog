@@ -76,7 +76,7 @@
 										<div class="col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</div>
 										<div class="col-3 text-center">{{receivable|uuidCode:'documentId'}}</div>
 										<div class="col-6">{{receivable.name}}</div>
-										<div class="col-3 text-center">3.48</div>
+										<div class="col-3 text-center">{{ccTax |currency: ''}}</div>
 										<div class="col-1 text-center">{{receivable.payment.installments}}</div>
 										<div class="col-3 text-center">{{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</div>
 										<div class="col-3 currency">&nbsp;</div>
