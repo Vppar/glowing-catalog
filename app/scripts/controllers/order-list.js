@@ -338,13 +338,14 @@
                     var voucherSold = OrderListService.getTotalByType(order.uuid, 'soldVoucher', bookEntries);
                     totalVoucherSold += voucherSold.amount;
                     
+                    //FIXME - someday this will be usefull... someday.
                     //Setting all qty before call Distribution of discounts
-                    $scope.total.cash.qty += cash.qty;
+                    /*$scope.total.cash.qty += cash.qty;
                     $scope.total.check.qty += check.qty;
                     $scope.total.creditCard.qty += card.qty;
                     $scope.total.onCuff.qty += cuff.qty;
                     $scope.total.voucher.qty += voucher.qty;
-                    $scope.total.exchange.qty += exchange.qty;
+                    $scope.total.exchange.qty += exchange.qty;*/
                     
                     //remove sold voucher from total of order and distribute the amount between payments.
                     if(totalVoucherSold > 0 ){
