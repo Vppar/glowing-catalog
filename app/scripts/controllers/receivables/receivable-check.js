@@ -61,7 +61,7 @@
             
             $scope.filteredChecks = angular.copy($scope.checks);
             
-            $scope.allChecks = false;
+            $scope.allChecks = true;
             
             $scope.message = '';
             
