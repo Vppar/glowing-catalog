@@ -349,7 +349,7 @@
                     
                     //remove sold voucher from total of order and distribute the amount between payments.
                     if(totalVoucherSold > 0 ){
-                        removeVoucherValuesFromPaymentsTotals(receivablesByType, total ,totalVoucherSold);
+                        $scope.removeVoucherValuesFromPaymentsTotals(receivablesByType, total ,totalVoucherSold);
                     }
                     
 
@@ -418,7 +418,7 @@
             /**
              * Distribute the totalVoucherSold between all payments
              */
-            function removeVoucherValuesFromPaymentsTotals (lista, total, totalVoucherSold) {
+            $scope.removeVoucherValuesFromPaymentsTotals = function (lista, total, totalVoucherSold) {
                 // force qty to 1.
                 for ( var ix in lista) {
                     if (lista[ix].amount > 0) {
@@ -434,7 +434,7 @@
                         lista);
                 }
 
-            }
+            };
             
             $scope.computeAvaliableCustomers = function (customers) {
                 $scope.avaliableCustomers = [];
