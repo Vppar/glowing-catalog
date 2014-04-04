@@ -76,7 +76,6 @@ angular.module('tnt.catalog.productsDelivery', [
                         // Aux functions
                         // #################################################################################################################
                         var warmUp = function() {
-                            $scope.orders = OrderService.list();
                             $scope.filteredOrders = [];
                             $scope.pendingProducts = [];
                             
@@ -86,7 +85,8 @@ angular.module('tnt.catalog.productsDelivery', [
                             $scope.productsTotals = {};
                             angular.extend($scope.ordersTotals, ordersSumarizatorTemplate);
                             angular.extend($scope.productsTotals, productsSumarizatorTemplate);
-                            
+
+                            $scope.orders = OrderService.list();
                             $scope.filteredOrders = filterProductsByDate($scope.orders);
                             $scope.filteredOrders = prepareOrders($scope.filteredOrders);
                             
@@ -119,22 +119,21 @@ angular.module('tnt.catalog.productsDelivery', [
                                 }
                                 var promise = $q.all(promises);
                                 promise.then(function() {
-                                    log.info('Books updated with succes!');
+                                    log.info('Books updated with succes!', order);
                                 }, function(err) {
-                                    log.error('Failed to edit the books!');
+                                    log.error('Failed to edit the books!', order);
                                     log.debug(err);
                                 });
                                 
-                            }, function(){
-                                log.error('Failed to edit the books!');
-                                log.debug(err);
+                            }, function(err){
+                                log.error('Failed to create Stock events: ', orderUUID, updatedItems, ' error:', err);
+                                log.debug('Failed to create Stock events: ', orderUUID, updatedItems, ' error:', err);
                             });
                             
                         };
 
                         var prepareOrders =
                                 function(orders) {
-                                    var start = new Date().getTime();
                                     for ( var ix = 0; ix < orders.length; ix++) {
                                         var order = orders[ix];
                                             
@@ -177,7 +176,6 @@ angular.module('tnt.catalog.productsDelivery', [
                                             continue;
                                         }
                                     }
-                                    console.log('prepareOrders take:', new Date().getTime()-start);
                                     return orders;
                                 };
 
@@ -224,23 +222,29 @@ angular.module('tnt.catalog.productsDelivery', [
                         $scope.confirm = function() {
                             var updatedItems = [];
                             for ( var ix in $scope.ticket.watchedQty) {
-                                $scope.pendingProducts[ix].dQty = $scope.ticket.watchedQty[ix];
-                                if ($scope.pendingProducts[ix].$$hashKey) {
-                                    delete $scope.pendingProducts[ix].$$hashKey;
+                                if($scope.ticket.watchedQty[ix] > 0){
+                                    $scope.pendingProducts[ix].dQty = $scope.ticket.watchedQty[ix];
+                                    
+                                    if ($scope.pendingProducts[ix].$$hashKey) {
+                                        delete $scope.pendingProducts[ix].$$hashKey;
+                                    }
+                                    updatedItems.push($scope.pendingProducts[ix]);    
                                 }
-                                updatedItems.push($scope.pendingProducts[ix]);
                             }
-                            
-                            return OrderService.updateItemQty(selectedOrder, updatedItems).then(function() {
-                                log.info('Item qty updated! Starting Book and Stock logistics!');
-                                logistics(selectedOrder, updatedItems);
-                                warmUp();
-                                $scope.selected = 'orders';
-                            }, function(err) {
-                                log.error('Failed to Update the item qty.');
-                                log.debug(err);
-                                return $q.reject(err);
-                            });
+                            var result = undefined;
+                            if(updatedItems.length > 0){
+                                result = OrderService.updateItemQty(selectedOrder, updatedItems).then(function() {
+                                    log.info('Item qty updated! Starting Book and Stock logistics!');
+                                    logistics(selectedOrder, updatedItems);
+                                    warmUp();
+                                    $scope.selected = 'orders';
+                                }, function(err) {
+                                    log.error('Failed to Update the item qty.');
+                                    log.debug(err);
+                                    result = $q.reject(err);
+                                });
+                            }
+                            return result || $q.reject('No deliveried items');
                         };
                         
                         $scope.cancel = function () {
@@ -329,7 +333,7 @@ angular.module('tnt.catalog.productsDelivery', [
                                 return true;
                             }
                         }
-
+                        
                         warmUp();
                         
                     }
