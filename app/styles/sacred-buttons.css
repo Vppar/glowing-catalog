@@ -47,14 +47,23 @@
 #sacred .button-green:focus{
 	background-color: #48841C;
 }
-#sacred .button-black{
+
+#sacred .button-black,
+#sacred .button-black:visited{
 	background-color: #575757;
 }
-
 #sacred .button-black:active,
 #sacred .button-black:hover,
 #sacred .button-black:focus{
 	background-color: #000;
+}
+
+#sacred .button-green img,
+#sacred .button-black img{
+	margin-right: auto;
+	margin-left: auto;
+	height: 18px;
+	margin-top: -1px;
 }
 
 #sacred .inline-button{

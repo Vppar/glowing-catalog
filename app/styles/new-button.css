@@ -63,6 +63,13 @@
 .new-button-ok-waiting:active{
 	background-color: #48841c;
 }
+
+.new-button-black-waiting {
+	background-color:#333;
+}
+.new-button-black-waiting:focus,
+.new-button-black-waiting:active{
+	background-color: #000;
 }
 
 .new-button-cancel:hover, .new-button-cancel-waiting{
