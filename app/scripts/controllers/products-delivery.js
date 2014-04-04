@@ -57,17 +57,17 @@ angular.module('tnt.catalog.productsDelivery', [
                             var pendingProducts = [];
                             selectedOrder = order.uuid;
                             for ( var ix in order.items) {
-                                order.items[ix].order = order.code;
-                                order.items[ix].created = order.created;
-                                pendingProducts.push(order.items[ix]);
-                                
+                                var item = order.items[ix]; 
+                                item.order = order.code;
+                                item.created = order.created;
                                 //Build unique name. 
-                                if (order.items[ix].option) {
-                                    order.items[ix].uniqueName = order.items[ix].SKU + ' - ' + order.items[ix].option;
+                                if (item.option) {
+                                    item.uniqueName = item.SKU + ' - ' + item.option;
                                 } else {
-                                    order.items[ix].uniqueName = order.items[ix].SKU;
+                                    item.uniqueName = item.SKU;
                                 }
-                                
+
+                                pendingProducts.push(item);
                             }
                             return pendingProducts;
                         };
@@ -86,6 +86,9 @@ angular.module('tnt.catalog.productsDelivery', [
                             $scope.productsTotals = {};
                             angular.extend($scope.ordersTotals, ordersSumarizatorTemplate);
                             angular.extend($scope.productsTotals, productsSumarizatorTemplate);
+                            
+                            $scope.filteredOrders = filterProductsByDate($scope.orders);
+                            $scope.filteredOrders = prepareOrders($scope.filteredOrders);
                             
                         };
 
@@ -123,52 +126,58 @@ angular.module('tnt.catalog.productsDelivery', [
                                 });
                                 
                             }, function(){
-                                console.log('SON OF A BITCH');
+                                log.error('Failed to edit the books!');
+                                log.debug(err);
                             });
                             
                         };
 
                         var prepareOrders =
                                 function(orders) {
+                                    var start = new Date().getTime();
                                     for ( var ix = 0; ix < orders.length; ix++) {
-                                        orders[ix].customerName = EntityService.read(orders[ix].customerId).name;
-                                        orders[ix].totalItems = 0;
-                                        orders[ix].totalItemsDeliv = 0;
+                                        var order = orders[ix];
+                                            
+                                        order.customerName = EntityService.read(order.customerId).name;
+                                        order.totalItems = 0;
+                                        order.totalItemsDeliv = 0;
 
-                                        for ( var ix2 = 0; ix2 < orders[ix].items.length; ix2++) {
-                                            if (orders[ix].items[ix2].type === 'giftCard' || orders[ix].items[ix2].type === 'voucher' ||
-                                                orders[ix].items[ix2].type === 'coupom') {
-                                                orders[ix].items.splice(ix2, 1);
+                                        for ( var ix2 = 0; ix2 < order.items.length; ix2++) {
+                                            var item = order.items[ix2];
+                                            if (item.type === 'giftCard' || item.type === 'voucher' ||
+                                                item.type === 'coupom') {
+                                                order.items.splice(ix2, 1);
                                                 ix2--;
                                                 continue;
                                             }
 
-                                            if (!orders[ix].items[ix2].dQty) {
-                                                orders[ix].items[ix2].dQty = 0;
+                                            if (!item.dQty) {
+                                                item.dQty = 0;
                                             }
 
-                                            orders[ix].totalItems += orders[ix].items[ix2].qty;
+                                            order.totalItems += item.qty;
 
-                                            orders[ix].totalItemsDeliv += orders[ix].items[ix2].dQty;
+                                            order.totalItemsDeliv += item.dQty;
 
-                                            var remaining = (orders[ix].items[ix2].qty - orders[ix].items[ix2].dQty);
-                                            var stock = StockService.findInStock(orders[ix].items[ix2].id);
-                                            orders[ix].items[ix2].stock = stock.quantity;
+                                            var remaining = (item.qty - item.dQty);
+                                            var stock = StockService.findInStock(item.id);
+                                            item.stock = stock.quantity;
 
                                             if (remaining === 0) {
-                                                orders[ix].items[ix2].maxDeliver = 0;
-                                            } else if (remaining > orders[ix].items[ix2].stock) {
-                                                orders[ix].items[ix2].maxDeliver = orders[ix].items[ix2].stock;
+                                                item.maxDeliver = 0;
+                                            } else if (remaining > item.stock) {
+                                                item.maxDeliver = item.stock;
                                             } else {
-                                                orders[ix].items[ix2].maxDeliver = remaining;
+                                                item.maxDeliver = remaining;
                                             }
                                         }
-                                        if (orders[ix].totalItems === orders[ix].totalItemsDeliv) {
+                                        if (order.totalItems === order.totalItemsDeliv) {
                                             orders.splice(ix, 1);
                                             ix--;
                                             continue;
                                         }
                                     }
+                                    console.log('prepareOrders take:', new Date().getTime()-start);
                                     return orders;
                                 };
 
@@ -185,11 +194,9 @@ angular.module('tnt.catalog.productsDelivery', [
                         }
                                 
                         $scope.$watchCollection('dtFilter', function() {
-                            var start = new Date().getTime();
                             $scope.filteredOrders = filterProductsByDate($scope.orders);
                             $scope.filteredOrders = prepareOrders($scope.filteredOrders);
                             sumarizatorOrders($scope.filteredOrders);
-                            console.log(new Date().getTime()- start);
                         });
                         
                         var lastFilterDate = angular.copy($scope.dtFilter.dtInitial);
@@ -207,8 +214,8 @@ angular.module('tnt.catalog.productsDelivery', [
                         });
                         
                         
-                        $scope.getItems = function(index) {
-                            $scope.pendingProducts = getPendingProducts($scope.filteredOrders[index]);
+                        $scope.getItems = function(order) {
+                            $scope.pendingProducts = getPendingProducts(order);
                             sumarizatorProducts($scope.pendingProducts);
                             $scope.selected = 'products';
                             
@@ -241,11 +248,13 @@ angular.module('tnt.catalog.productsDelivery', [
                             $scope.selected = 'orders';
                         };
                         
-                        $scope.$watch('selected', function() {
-                            $scope.ticket = {};
-                            $scope.ticket.watchedQty = {};
-                            $scope.filteredOrders = filterProductsByDate($scope.orders);
-                            $scope.filteredOrders = prepareOrders($scope.filteredOrders);
+                        $scope.$watch('selected', function(newVal, oldVal) {
+                            if(newVal === 'orders'){
+                                sumarizatorOrders($scope.filteredOrders);
+                            }else if(newVal ==='products'){
+                                $scope.ticket = {};
+                                $scope.ticket.watchedQty = {};
+                            }
                         });
 
                         $scope.$watchCollection('ticket.watchedQty', function(){
@@ -253,7 +262,7 @@ angular.module('tnt.catalog.productsDelivery', [
                             for(var ix in $scope.ticket.watchedQty){
                                 total += $scope.ticket.watchedQty[ix];
                             }
-                            $scope.productsTotals.actualDelivery = total; 
+                            $scope.productsTotals.actualDelivery = total;
                         });
                         
                         // #################################################################################################################
@@ -322,5 +331,10 @@ angular.module('tnt.catalog.productsDelivery', [
                         }
 
                         warmUp();
+                        
                     }
                 ]);
+
+
+
+
