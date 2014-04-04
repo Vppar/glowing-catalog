@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.2-0'
+# 'version' : '1.2.2-4'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -234,6 +234,7 @@ images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
 images/loading_20.gif
+images/loading-btn_20.gif
 
 images/icons/ic-calendar.png
 
