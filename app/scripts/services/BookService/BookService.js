@@ -10,8 +10,8 @@
             return BookKeeper.write(entry);
         };
 
-        this.addBook = function(name, type, nature, entities) {
-            BookKeeper.addBook(new Book(null, null, name, type, nature, entities));
+        this.addBook = function(access, name, type, nature, entities) {
+            BookKeeper.addBook(new Book(null, access, name, type, nature, entities));
         };
 
         this.list = function() {

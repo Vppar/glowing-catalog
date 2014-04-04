@@ -3,9 +3,9 @@
     angular.module('tnt.catalog.financial.receivable.list.ctrl', []).controller(
             'ReceivableListCtrl',
             [
-                '$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'IdentityService',
-                function($log, $scope, $filter, ReceivableService, EntityService, OrderService, IdentityService) {
-
+                '$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'IdentityService', 'BookService', 'Book',
+                function($log, $scope, $filter, ReceivableService, EntityService, OrderService, IdentityService, BookService, Book) {
+                    
                     function setTime(date, hours, minutes, seconds, milliseconds) {
                         date.setHours(hours);
                         date.setMinutes(minutes);
@@ -158,10 +158,13 @@
                             var receivable = receivables[ix];
                             receivable.entityName = EntityService.read(receivable.entityId).name;
                             receivable.typeTranslated = translate[receivable.type];
-
+                            
                             // This section prevents that warmup inputed checks
                             // generate an error for not having a documentId
                             if (receivable.documentId) {
+                                
+                                //set account anme
+                                receivable.accountName = getReceivableAccountName(receivable.type);
                                 var uiidData = IdentityService.getUUIDData(receivable.documentId);
                                 receivable.document = uiidData.typeId === 1 ? 'Conta a Receber' : 'Pedido';
                                 receivable.uuidCode = $filter('uuidCode')(receivable, 'documentId');
@@ -202,6 +205,42 @@
                             receivable.status = (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';
                         }
                         return receivables;
+                    }
+                    
+                    //FIXME we can't read the account name from 
+                    //bookService cause there's no book inserted.
+                    //for now the access name is hardcoded.
+                    function getReceivableAccountName(type){
+                        var accountName = undefined;
+                        
+                        if(type ==='check'){
+                            accountName = 'Cheques a receber'; 
+                        }else if(type === 'onCuff'){
+                            accountName = 'Contas a receber diversos';
+                        }else if(type === 'creditCard'){
+                            accountName = 'Cartões a receber';
+                        }
+                        return accountName;
+                        
+                        /*if(type ==='check'){
+                            var book = $filter('filter')(BookService.list(), function(book){
+                                return book.access === "11121";
+                            });
+                            accountName = book[0].name; 
+                        }else if(type === 'onCuff'){
+                            var book = $filter('filter')(BookService.list(), function(book){
+                                return book.access === "11511";
+                            });
+                            accountName = book[0].name;
+                        }else if(type === 'creditCard'){
+                            var book = $filter('filter')(BookService.list(), function(book){
+                                return book.access === "11512";
+                            });
+                            accountName = book[0].name;
+                        }else{
+                            console.log('Huston we have a problem');
+                        }
+                        return accountName;*/
                     }
                     // #########################################
                     // TO REMEMBER DATE BEFORE CLICK CHECK BOX

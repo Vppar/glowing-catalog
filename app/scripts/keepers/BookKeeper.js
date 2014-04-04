@@ -192,14 +192,13 @@
             }
             
             // FIXME - If there isn't a book we can't insert an entry
-            var debitBook = ArrayUtils.find(books, 'access', event.debitAccount);
-            var creditBook = ArrayUtils.find(books, 'access', event.creditAccount);
+            //var debitBook = ArrayUtils.find(books, 'access', event.debitAccount);
+            //var creditBook = ArrayUtils.find(books, 'access', event.creditAccount);
 
             var bookObj = angular.copy(book);
             bookObj.uuid = IdentityService.getUUID(type, getNextId());
 
             var event = new Book(bookObj);
-            event.created = (new Date()).getTime();
 
             // create a new journal entry
             var entry = new JournalEntry(null, event.created, 'addBook', 1, event);
