@@ -85,7 +85,7 @@
 				</span> 
 				<span class="border"> 
 					<span class="lbl-money">Cheque</span>
-					<span class="lbl-money3" ng-show="total.check.qty !== 0">({{total.check.qty}})</span> 
+					<!-- <span class="lbl-money3" ng-show="total.check.qty !== 0">({{total.check.qty}})</span> --> 
 					<span class="btn-price-payment">{{total.check.amount |currency:''}}</span>
 				</span>
 			</div>
@@ -93,12 +93,12 @@
 			<div class="col-details-order-list-item">
 				<span class="border"> 
 					<span class="lbl-money">Cart&atilde;o</span>
-					<span class="lbl-money3" ng-show="(total.creditCard.qty + total.noMerchantCc.qty) !== 0">({{total.creditCard.qty + total.noMerchantCc.qty}})</span> 
+					<!-- <span class="lbl-money3" ng-show="(total.creditCard.qty + total.noMerchantCc.qty) !== 0">({{total.creditCard.qty + total.noMerchantCc.qty}})</span> --> 
 					<span class="btn-price-payment">{{(total.creditCard.amount + total.noMerchantCc.amount)| currency:''}}</span>
 				</span> 
 				<span class="border"> 
 					<span class="lbl-money">Troca</span>
-					<span class="lbl-money3" ng-show="total.exchange.qty !== 0">({{total.exchange.qty}})</span> 
+					<!-- <span class="lbl-money3" ng-show="total.exchange.qty !== 0">({{total.exchange.qty}})</span> --> 
 					<span class="btn-price-payment">{{total.exchange.amount | currency:''}}</span>
 				</span>
 			</div>
@@ -238,7 +238,7 @@
 				</div>
 				<div class="order-table-sum scroll-title-compensator">
 					<div class="row-order-list hover-state-pointer details-resumo-total"
-						ng-click="callUpdateReceivableTotal(filteredEntities)">
+						ng-click="callUpdateReceivableTotalByEntities(filteredEntities)">
 						<div class="new-col-2 text-center">
 							<span>Total</span>
 						</div>

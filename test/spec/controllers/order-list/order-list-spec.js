@@ -3,14 +3,13 @@ describe('Controller: order-list', function () {
     var scope = {};
     var OrderService = {};
     var EntityService = {};
-    var ReceivableService = {};
     var UserService = {};
-    var ProductReturnService = {};
     var VoucherService = {};
     var ArrayUtils = null;
     var orders = [];
     var customers = null;
-    var BookService = {};
+    var OrderListService = {};
+
     function daysToMilliseconds (days) {
         return days * 24 * 60 * 60 * 1000;
     }
@@ -19,42 +18,10 @@ describe('Controller: order-list', function () {
         module('tnt.catalog.orderList.ctrl');
         module('tnt.catalog.filter.sum');
         module('tnt.utils.array');
+        module('tnt.catalog.orderList.service');
     });
 
     beforeEach(function () {
-        receivables = [
-            {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000019",
-                documentId : "cc02a100-5d0a-11e3-96c3-010001000001",
-                // created one month ago
-                created : new Date().getTime() - daysToMilliseconds(28),
-                type : "cash",
-                amount : 300,
-                // expired one week ago
-                duedate : new Date().getTime() - daysToMilliseconds(7)
-            }, {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000020",
-                documentId : "cc02a200-5d0a-11e3-96c3-010001000002",
-                created : new Date().getTime() - daysToMilliseconds(7),
-                type : "cash",
-                amount : 250,
-                duedate : new Date().getTime() + daysToMilliseconds(7)
-            }, {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000021",
-                documentId : "cc02a300-5d0a-11e3-96c3-010001000003",
-                created : new Date().getTime(),
-                type : "cash",
-                amount : 250,
-                duedate : new Date().getTime()
-            }, {
-                uuid : "cc02b600-5d0b-11e3-96c3-010001000022",
-                documentId : "cc02a400-5d0a-11e3-96c3-010001000004",
-                created : new Date().getTime(),
-                type : "check",
-                amount : 200,
-                duedate : new Date().getTime() + daysToMilliseconds(15)
-            }
-        ];
 
         orders = [
             {
@@ -159,28 +126,67 @@ describe('Controller: order-list', function () {
         EntityService.list = jasmine.createSpy('EntityService.list').andReturn(customers);
         UserService.redirectIfIsNotLoggedIn =
             jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
-        ProductReturnService.listByDocument =
-            jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
+        
         VoucherService.listByOrigin = jasmine.createSpy('Voucher.listByOrigin');
-        ArrayUtils = _ArrayUtils_;
-        BookService.listByOrder = jasmine.createSpy('BookService.listByOrder');
-        ReceivableService.listByDocument =
-            jasmine.createSpy('ReceivableService.listByDocument').andCallFake(function (document) {
-                return ArrayUtils.list(receivables, 'documentId', document);
+        scope.firstTime = false;
+        OrderListService.getTotalByType =
+            jasmine.createSpy('OrderListService.getTotalByType').andCallFake(
+                function (orderUUID, type) {
+                    if (type === 'cash') {
+                        return {
+                            amount : 5,
+                            qty : 1
+                        };
+                    } else if (type === 'check') {
+                        return {
+                            amount : 10,
+                            qty : 2
+                        };
+                    } else if (type === 'creditCard') {
+                        return {
+                            amount : 20,
+                            qty : 3
+                        };
+                    } else if (type === 'onCuff') {
+                        return {
+                            amount : 30,
+                            qty : 4
+                        };
+                    } else if (type === 'voucher') {
+                        return {
+                            amount : 40,
+                            qty : 5
+                        };
+                    } else if (type === 'exchange') {
+                        return {
+                            amount : 50,
+                            qty : 6
+                        };
+                    }else if (type === 'soldVoucher') {
+                        return {
+                            amount : 0,
+                            qty : 0
+                        };
+                    }else if (type === 'change') {
+                        return {
+                            amount : 0,
+                            qty : 0
+                        };
+                    }
 
-            });
+                });
+        OrderListService.getTotalDiscountByOrder =
+            jasmine.createSpy('OrderListService.getTotalByType').andReturn(0);
 
         $controller('OrderListCtrl', {
             $scope : scope,
             OrderService : OrderService,
             EntityService : EntityService,
             UserService : UserService,
-            ReceivableService : ReceivableService,
-            ProductReturnService : ProductReturnService,
             VoucherService : VoucherService,
             ArrayUtils : _ArrayUtils_,
-            BookService : BookService
+            OrderListService : OrderListService,
         });
 
     }));
@@ -237,10 +243,6 @@ describe('Controller: order-list', function () {
                     qty : 2,
                     amount : 2
                 },
-                noMerchantCc : {
-                    qty : 1,
-                    amount : 5
-                },
                 exchange : {
                     qty : 8,
                     amount : 34
@@ -264,10 +266,6 @@ describe('Controller: order-list', function () {
                     amount : 0
                 },
                 creditCard : {
-                    qty : 0,
-                    amount : 0
-                },
-                noMerchantCc : {
                     qty : 0,
                     amount : 0
                 },
@@ -312,53 +310,51 @@ describe('Controller: order-list', function () {
             };
             angular.extend(scope.total, angular.copy(messyTotal));
             angular.extend(scope.total, angular.copy(messyOrdersTotal));
-            scope.$apply();
         });
 
         it('should reset recevaibles total by type', function () {
-            scope.resetPaymentsTotal();
-            expect(scope.total.cash).toEqual(expectedTotal.cash);
-            expect(scope.total.check).toEqual(expectedTotal.check);
-            expect(scope.total.creditCard).toEqual(expectedTotal.creditCard);
-            expect(scope.total.noMerchantCc).toEqual(expectedTotal.noMerchantCc);
-            expect(scope.total.exchange).toEqual(expectedTotal.exchange);
-            expect(scope.total.voucher).toEqual(expectedTotal.voucher);
-            expect(scope.total.onCuff).toEqual(expectedTotal.onCuff);
+            scope.resetPaymentsTotal(); 
+
+            expect(expectedTotal.cash).toEqual(scope.total.cash);
+            expect(expectedTotal.check).toEqual(scope.total.check);
+            expect(expectedTotal.creditCard).toEqual(scope.total.creditCard);
+            expect(expectedTotal.exchange).toEqual(scope.total.exchange);
+            expect(expectedTotal.voucher).toEqual(scope.total.voucher);
+            expect(expectedTotal.onCuff).toEqual(scope.total.onCuff);
         });
 
         it('should reset order totals', function () {
             scope.resetOrdersTotal();
-            expect(scope.total.all.orderCount).toEqual(expectedOrdersTotal.all.orderCount);
-            expect(scope.total.all.entityCount).toEqual(expectedOrdersTotal.all.entityCount);
-            expect(scope.total.all.productCount).toEqual(expectedOrdersTotal.all.productCount);
-            expect(scope.total.all.stock).toEqual(expectedOrdersTotal.all.stock);
-            expect(scope.total.all.qty).toEqual(expectedOrdersTotal.all.qty);
-            expect(scope.total.all.avgPrice).toEqual(expectedOrdersTotal.all.avgPrice);
-            expect(scope.total.all.amount).toEqual(expectedOrdersTotal.all.amount);
-            expect(scope.total.all.lastOrder).toEqual(expectedOrdersTotal.all.lastOrder);
+            expect(expectedOrdersTotal.all.orderCount).toEqual(scope.total.all.orderCount);
+            expect(expectedOrdersTotal.all.entityCount).toEqual(scope.total.all.entityCount);
+            expect(expectedOrdersTotal.all.productCount).toEqual(scope.total.all.productCount);
+            expect(expectedOrdersTotal.all.stock).toEqual(scope.total.all.stock);
+            expect(expectedOrdersTotal.all.qty).toEqual(scope.total.all.qty);
+            expect(expectedOrdersTotal.all.avgPrice).toEqual(scope.total.all.avgPrice);
+            expect(expectedOrdersTotal.all.amount).toEqual(scope.total.all.amount);
+            expect(expectedOrdersTotal.all.lastOrder).toEqual(scope.total.all.lastOrder);
         });
 
         it('should updateReceivablesTotal calculate properly the receivables by type', function () {
-            expect(scope.total.cash.qty).toEqual(3);
-            expect(scope.total.cash.amount).toEqual(800);
+            scope.updateReceivablesTotal(orders);
+            //expect(4).toEqual(scope.total.cash.qty);
+            expect(20).toEqual(scope.total.cash.amount);
 
-            expect(scope.total.check.qty).toEqual(1);
-            expect(scope.total.check.amount).toEqual(200);
+            //expect(8).toEqual(scope.total.check.qty);
+            expect(40).toEqual(scope.total.check.amount);
 
-            expect(scope.total.creditCard.qty).toEqual(0);
-            expect(scope.total.creditCard.amount).toEqual(0);
+            //expect(12).toEqual(scope.total.creditCard.qty);
+            expect(80).toEqual(scope.total.creditCard.amount);
 
-            expect(scope.total.noMerchantCc.qty).toEqual(0);
-            expect(scope.total.noMerchantCc.amount).toEqual(0);
+            //expect(24).toEqual(scope.total.exchange.qty);
+            expect(200).toEqual(scope.total.exchange.amount);
 
-            expect(scope.total.exchange.qty).toEqual(0);
-            expect(scope.total.exchange.amount).toEqual(0);
+            //expect(20).toEqual(scope.total.voucher.qty);
+            expect(160).toEqual(scope.total.voucher.amount);
 
-            expect(scope.total.voucher.qty).toEqual(0);
-            expect(scope.total.voucher.amount).toEqual(0);
+            //expect(16).toEqual(scope.total.onCuff.qty);
+            expect(120).toEqual(scope.total.onCuff.amount);
 
-            expect(scope.total.onCuff.qty).toEqual(0);
-            expect(scope.total.onCuff.amount).toEqual(0);
         });
 
         it('should updateReceivablesTotal calculate properly the receivable by type', function () {
@@ -366,38 +362,37 @@ describe('Controller: order-list', function () {
                 orders[0]
             ]);
 
-            expect(scope.total.cash.qty).toEqual(1);
-            expect(scope.total.cash.amount).toEqual(300);
+            //expect(1).toEqual(scope.total.cash.qty);
+            expect(5).toEqual(scope.total.cash.amount);
 
-            expect(scope.total.check.qty).toEqual(0);
-            expect(scope.total.check.amount).toEqual(0);
+            //expect(2).toEqual(scope.total.check.qty);
+            expect(10).toEqual(scope.total.check.amount);
 
-            expect(scope.total.creditCard.qty).toEqual(0);
-            expect(scope.total.creditCard.amount).toEqual(0);
+            //expect(3).toEqual(scope.total.creditCard.qty);
+            expect(20).toEqual(scope.total.creditCard.amount);
 
-            expect(scope.total.noMerchantCc.qty).toEqual(0);
-            expect(scope.total.noMerchantCc.amount).toEqual(0);
+            //expect(6).toEqual(scope.total.exchange.qty);
+            expect(50).toEqual(scope.total.exchange.amount);
 
-            expect(scope.total.exchange.qty).toEqual(0);
-            expect(scope.total.exchange.amount).toEqual(0);
+            //expect(5).toEqual(scope.total.voucher.qty);
+            expect(40).toEqual(scope.total.voucher.amount);
 
-            expect(scope.total.voucher.qty).toEqual(0);
-            expect(scope.total.voucher.amount).toEqual(0);
-
-            expect(scope.total.onCuff.qty).toEqual(0);
-            expect(scope.total.onCuff.amount).toEqual(0);
+            //expect(4).toEqual(scope.total.onCuff.qty);
+            expect(30).toEqual(scope.total.onCuff.amount);
 
         });
 
         it('should calculate properly the orders totals', function () {
-            expect(scope.total.all.orderCount).toEqual(4);
-            expect(scope.total.all.entityCount).toEqual(3);
-            expect(scope.total.all.productCount).toEqual(0);
-            expect(scope.total.all.stock).toEqual(0);
-            expect(scope.total.all.qty).toEqual(30);
-            expect(scope.total.all.avgPrice).toEqual(33.33);
-            expect(scope.total.all.amount).toEqual(1000);
-            expect(scope.total.all.lastOrder).toEqual(0);
+            scope.updateOrdersTotal(orders);
+
+            expect(4).toEqual(scope.total.all.orderCount);
+            expect(3).toEqual(scope.total.all.entityCount);
+            expect(0).toEqual(scope.total.all.productCount);
+            expect(0).toEqual(scope.total.all.stock);
+            expect(30).toEqual(scope.total.all.qty);
+            expect(33.33).toEqual(scope.total.all.avgPrice);
+            expect(1000).toEqual(scope.total.all.amount);
+            expect(0).toEqual(scope.total.all.lastOrder);
         });
 
         it(
@@ -415,6 +410,7 @@ describe('Controller: order-list', function () {
 
         describe('When date filter change', function () {
             it('should filter orders by date', function () {
+                scope.$apply();
                 scope.dtFilter.dtInitial = new Date(new Date() - daysToMilliseconds(2));
                 scope.dtFilter.dtFinal = new Date(new Date() - daysToMilliseconds(1));
                 scope.filterOrders(scope.filteredOrders);
