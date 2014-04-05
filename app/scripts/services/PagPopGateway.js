@@ -53,11 +53,9 @@
                         log.fatal('An error occur while processing a credit card payment', err);
                         deferred.reject(rejection);
                     }
-                )
-                ;
+                );
                 return deferred.promise;
             };
         }
-    ])
-    ;
+    ]);
 }(angular));
