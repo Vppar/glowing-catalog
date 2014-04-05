@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="buttons-holder">
-        <spinner-button class="new-button new-button-ok pull-right" spinner-promise="confirm()">
+        <spinner-button class="new-button-force-payment-confirm-size btn btn-ok pull-right" ng-disabled="(productsTotals.actualDelivery == 0)" spinner-promise="confirm()">
             Confirmar
         </spinner-button>
 		<button class="button-black pull-left" ng-click="cancel()">Cancelar</button>

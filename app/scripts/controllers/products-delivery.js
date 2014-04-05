@@ -230,20 +230,19 @@ angular.module('tnt.catalog.productsDelivery', [
                                     updatedItems.push($scope.pendingProducts[ix]);    
                                 }
                             }
-                            var result = undefined;
-                            if(updatedItems.length > 0){
-                                result = OrderService.updateItemQty(selectedOrder, updatedItems).then(function() {
-                                    log.info('Item qty updated! Starting Book and Stock logistics!');
-                                    logistics(selectedOrder, updatedItems);
-                                    warmUp();
-                                    $scope.selected = 'orders';
-                                }, function(err) {
-                                    log.error('Failed to Update the item qty.');
-                                    log.debug(err);
-                                    result = $q.reject(err);
-                                });
-                            }
-                            return result || $q.reject('No deliveried items');
+                            
+                            result = OrderService.updateItemQty(selectedOrder, updatedItems).then(function() {
+                                log.info('Item qty updated! Starting Book and Stock logistics!');
+                                logistics(selectedOrder, updatedItems);
+                                warmUp();
+                                $scope.selected = 'orders';
+                            }, function(err) {
+                                log.error('Failed to Update the item qty.');
+                                log.debug(err);
+                                result = $q.reject(err);
+                            });
+                            
+                            return result;
                         };
                         
                         $scope.cancel = function () {
