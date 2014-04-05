@@ -10,3 +10,15 @@
 #sacred .sacred-order-list-page .details .row{
 	margin-bottom: 10px;
 }
+
+#sacred .select-client{
+	width: 100%;
+}
+
+#sacred .grid-order-scroll-close{
+	height: calc(100% - 103px);
+}
+
+#sacred .grid-order-scroll-openned {
+	height: calc(100% - 183px);
+}

@@ -21,13 +21,13 @@
 			</div>
 
 			<div class="page-body" ng-switch="ol">
-				<div class="content" ng-switch-when="orders">
+				<div class="content sacred-order-list-orders-part" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
 					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-orders.html'"></div>
 				</div>	
-				<div class="content" ng-switch-when="customers">
+				<div class="content sacred-order-list-customers-part" ng-switch-when="customers">
 					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-customers.html'"></div>
 				</div>
-				<div class="content" ng-switch-when="products">
+				<div class="content sacred-order-list-products-part" ng-switch-when="products" ng-controller="OrderListProductsCtrl">
 					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-products.html'"></div>
 				</div>
 			</div>

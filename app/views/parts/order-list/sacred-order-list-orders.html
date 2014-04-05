@@ -1,4 +1,4 @@
-<div class="content-header sacred-order-list-orders-part" ng-controller="OrderListOrdersCtrl">
+<div class="content-header">
 	<div class="row">
 		<div class="col-8">
 			<div class="calendar">
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 
-		<div class="grid-body grid-scroll">
+		<div class="grid-body grid-scroll" ng-class="{'grid-order-scroll-closed': hideOptions, 'grid-order-scroll-openned': !hideOptions}">
 			<div class="grid-item single-line" 
 			ng-repeat="order in filteredOrders | orderBy: '-created'" 
 			ng-click="updateAndEnableHideOption(order)" 
