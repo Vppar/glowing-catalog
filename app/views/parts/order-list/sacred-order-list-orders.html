@@ -1,0 +1,121 @@
+<div class="content-header" ng-controller="OrderListOrdersCtrl">
+	<div class="row">
+		<div class="col-8">
+			<div class="calendar">
+				<div class="text-over">Data Inicial</div>
+				<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
+				<label for="dtIni" class="ic-calendar">
+					<img src="images/icons/ic-calendar.png">
+				</label>
+			</div>
+			<div class="calendar">
+				<div class="text-over">Data Final</div>
+				<input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
+				<label for="dtIni" class="ic-calendar">
+					<img src="images/icons/ic-calendar.png">
+				</label>
+			</div>
+			<div class="show-details-icon">
+				<img src="images/ic-sort-triangle-up-pink.png" ng-click="invertHideOption()" ng-hide="hideOptions"> 
+				<img src="images/ic-sort-triangle-down-pink.png" ng-click="invertHideOption()" ng-show="hideOptions">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-8">
+			<div class="summarizer">
+				<div class="summarizer-label" ng-show="total.cash.amount >= 0">Dinheiro</div>
+				<div class="summarizer-label" ng-hide="total.cash.amount >= 0">Troco</div>
+				<div class="summarizer-value" ng-show="total.cash.amount >= 0">{{total.cash.amount |currency:''}}</div>
+				<div class="summarizer-value" ng-hide="total.cash.amount >= 0">{{(-1)*total.cash.amount |currency:''}}</div>
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="summarizer">
+				<div class="summarizer-label">Cartão</div>
+				<div class="summarizer-value">{{(total.creditCard.amount + total.noMerchantCc.amount)| currency:''}}</div>
+				<small ng-show="(total.creditCard.qty + total.noMerchantCc.qty) !== 0">({{total.creditCard.qty + total.noMerchantCc.qty}})</small>
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="summarizer">
+				<div class="summarizer-label">Vale/Cupom</div>
+				<div class="summarizer-value">{{total.voucher.amount | currency:''}}</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row">
+
+		<div class="col-8">
+			<div class="summarizer">
+				<div class="summarizer-label">Cheque</div>
+				<div class="summarizer-value">{{total.check.amount |currency:''}}</div>
+				<small ng-show="total.check.qty !== 0">({{total.check.qty}})</small>
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="summarizer">
+				<div class="summarizer-label">Troca</div>
+				<div class="summarizer-value">{{total.exchange.amount | currency:''}}</div>
+				<small ng-show="total.exchange.qty !== 0">({{total.exchange.qty}})</small>
+			</div>
+		</div>
+		<div class="col-8">
+			<div class="summarizer">
+				<div class="summarizer-label">Contas a Receber</div>
+				<div class="summarizer-value">{{total.onCuff.amount | currency:''}}</div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>
+<div class="content-body">
+	<div class="grid">
+		<div class="grid-header">
+			<div class="row">
+				<div class="col-3">Data</div>
+				<div class="col-3">Pedido</div>
+				<div class="col-8">Clientes</div>
+				<div class="col-3 text-center">Qtde Vendida</div>
+				<div class="col-2 currency">P. M&eacute;dio</div>
+				<div class="col-3 currency">Valor total</div>
+				<div class="col-2 currency">AV%</div>
+			</div>
+		</div>
+
+		<div class="grid-summary">
+			<div class="row">
+				<div class="col-3">Total</div>
+				<div class="col-3 ">{{total.all.orderCount}}</div>
+				<div class="col-8">{{total.all.entityCount}}</div>
+				<div class="col-3 text-center">{{total.all.qty}}</div>
+				<div class="col-2 currency">{{total.all.avgPrice | currency:''}}</div>
+				<div class="col-3 currency">{{total.all.amountWithDiscount | currency:''}}</div>
+				<div class="col-2 currency">100,00</div>
+			</div>
+		</div>
+
+		<div class="grid-body grid-scroll">
+			<div class="grid-item single-line" 
+			ng-repeat="order in filteredOrders | orderBy: '-created'" 
+			ng-click="updateAndEnableHideOption(order)" 
+			ng-class="{'row-selected': checkedOrderUUID==order.uuid}">
+
+			<div class="row">
+				<div class="col-3">{{order.created | date:'dd/MM/yyyy'}}</div>
+				<div class="col-3">{{order | uuidCode}}</div>
+				<div class="col-8 name-cutter">{{order.entityName}}</div>
+				<div class="col-3 text-center">{{order.itemsQty}}</div>
+				<div class="col-2 currency">{{order.avgPrice | currency: ''}}</div>
+				<div class="col-3 currency">{{order.amountTotalWithDiscount | currency: ''}}</div>
+				<div class="col-2 currency">{{order.va | currency: ''}}</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
