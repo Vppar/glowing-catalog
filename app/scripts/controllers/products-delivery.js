@@ -143,8 +143,7 @@ angular.module('tnt.catalog.productsDelivery', [
 
                                         for ( var ix2 = 0; ix2 < order.items.length; ix2++) {
                                             var item = order.items[ix2];
-                                            if (item.type === 'giftCard' || item.type === 'voucher' ||
-                                                item.type === 'coupom') {
+                                            if (item.type === 'giftCard' || item.type === 'voucher') {
                                                 order.items.splice(ix2, 1);
                                                 ix2--;
                                                 continue;

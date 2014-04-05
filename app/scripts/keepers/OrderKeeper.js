@@ -78,8 +78,9 @@
             'Replayer',
             'IdentityService',
             'Order',
+            '$filter',
             function OrderKeeper ($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer,
-                IdentityService, Order) {
+                IdentityService, Order, $filter) {
 
                 var type = 4;
                 var currentEventVersion = 1;
@@ -129,9 +130,21 @@
                 
                 ObjectUtils.ro(this.handlers, 'orderUpdateItemQtyV1', function (event) {
                     var orderEntry = ArrayUtils.find(orders, 'uuid', event.uuid);
+                    
                     if (orderEntry) {
                         for(var ix in event.items){
-                            var item = ArrayUtils.find(orderEntry.items, 'id', event.items[ix].id);
+                            //var item = ArrayUtils.find(orderEntry.items, 'id', event.items[ix].id);
+                            // FIXME this workround exists because couse
+                            // payment-discount.js set an id property to voucher
+                            // and gifts cards.
+                            var item = $filter('filter')(orderEntry.items, function(item){
+                                var result = false;
+                                if(!item.type && item.id === event.items[ix].id){
+                                    result = true;
+                                }
+                                return result;
+                            })[0];
+                            
                             if(!item.dQty){
                                 item.dQty = 0;
                             }
