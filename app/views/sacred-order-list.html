@@ -1,0 +1,36 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-order-list-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Resumo de Vendas</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button" ng-init="ol='orders'">
+							<a class="btn btn-option" ng-class="{active: ol=='orders'}" ng-click="ol='orders'">Pedidos</a> 							
+							<a class="btn btn-option" ng-class="{active: ol=='customers'}" ng-click="ol='customers'">Clientes</a>
+							<a class="btn btn-option" ng-class="{active: ol=='products'}" ng-click="ol='products'">Produtos</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body" ng-switch="ol">
+				<div class="content" ng-switch-when="orders">
+					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-orders.html'"></div>
+				</div>	
+				<div class="content" ng-switch-when="customers">
+					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-customers.html'"></div>
+				</div>
+				<div class="content" ng-switch-when="products">
+					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-products.html'"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

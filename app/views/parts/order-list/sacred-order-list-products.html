@@ -1,0 +1,72 @@
+<div class="content-header" ng-controller="OrderListProductsCtrl">
+	<div class="row">
+
+		<div class="col-8">
+			<div class="calendar">
+				<div class="text-over">Data Inicial</div>
+				<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
+				<label for="dtIni" class="ic-calendar">
+					<img src="images/icons/ic-calendar.png">
+				</label>
+			</div>
+			<div class="calendar">
+				<div class="text-over">Data Final</div>
+				<input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
+				<label for="dtIni" class="ic-calendar">
+					<img src="images/icons/ic-calendar.png">
+				</label>
+			</div>
+		</div>
+		<div class="col-16">
+			<select ui-select2 tnt-select2 class='select-client' data-placeholder="Selecione Cliente" ng-model="customerId">
+				<option value="" ng-hide="true"></option>
+				<option value="0">Selecione o Cliente</option>
+				<option value="{{customer.uuid}}" ng-repeat="customer in avaliableCustomers | orderBy: 'name' ">{{customer.name}}</option>
+			</select>
+		</div>
+	</div>
+</div>
+<div class="content-body">
+	<div class="grid">
+		<div class="grid-header">
+			<div class="row">
+				<div class="col-2">Rank</div>
+				<div class="col-9 ">Produtos</div>
+				<div class="col-3 text-center">Estoque atual</div>
+				<div class="col-3 text-center">Qtde Vendida</div>
+				<div class="col-2 currency">Vlr. unit.</div>
+				<div class="col-3 currency">Valor total</div>
+				<div class="col-2 currency">AV%</div>
+			</div>
+		</div>
+
+		<div class="grid-summary">
+			<div class="row">
+				<div class="col-2">Total</div>
+				<div class="col-9 ">{{filteredProducts.length}}</div>
+				<div class="col-3 text-center">{{filteredProducts.totalStock}}</div>
+				<div class="col-3 text-center">{{total.all.qty}}</div>
+				<div class="col-2 currency">{{total.all.avgPrice| currency: ''}}</div>
+				<div class="col-3 currency">{{total.all.amountWithDiscount | currency:''}}</div>
+				<div class="col-2 currency">100,00</div>
+			</div>
+		</div>
+
+		<div class="grid-body grid-scroll">
+			<div class="grid-item" ng-repeat="product in filteredProducts | orderBy:'-amountTotalWithDiscount'">
+				<div class="row">
+					<div class="col-2">{{$index + 1}}</div>
+					<div class="col-9 product-name">
+						<span>{{product.title}}</span>
+						<small>{{product.uniqueName}}</small>
+					</div>
+					<div class="col-3 text-center">{{product.stock}}</div>
+					<div class="col-3 text-center">{{product.qty}}</div>
+					<div class="col-2 currency">{{product.priceAvg | currency:''}}</div>
+					<div class="col-3 currency">{{product.amountTotalWithDiscount | currency:''}}</div>
+					<div class="col-2 currency">{{product.va | currency:''}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
