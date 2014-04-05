@@ -6,6 +6,7 @@ describe('Service: StockServiceAddSpec -', function() {
     var InventoryKeeper = null;
     var FinancialMathService = null;
     var $q = null;
+    var loggerMock = {};
 
     // mock and stub
     beforeEach(function() {
@@ -13,6 +14,8 @@ describe('Service: StockServiceAddSpec -', function() {
         StockKeeper = {};
         InventoryKeeper = {};
         FinancialMathService = {};
+        loggerMock.info = jasmine.createSpy('logger.info');
+        loggerMock.getLogger = jasmine.createSpy('logMock.getLogger').andReturn(loggerMock);
 
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
     });
@@ -28,6 +31,7 @@ describe('Service: StockServiceAddSpec -', function() {
             $provide.value('StockKeeper', StockKeeper);
             $provide.value('InventoryKeeper', InventoryKeeper);
             $provide.value('FinancialMathService', FinancialMathService);
+            $provide.value('logger', loggerMock);
         });
     });
 

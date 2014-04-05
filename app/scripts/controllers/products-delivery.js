@@ -17,20 +17,38 @@ angular.module('tnt.catalog.productsDelivery', [
                     'StockService',
                     'BookService',
                     'logger',
+                    'ArrayUtils',
                     function($filter, $scope, $location, $q, $timeout, UserService, OrderService, EntityService, StockService, BookService,
-                            logger) {
+                            logger, ArrayUtils) {
 
                         var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
 
                         UserService.redirectIfIsNotLoggedIn();
-
+                        $scope.selected = 'orders';
                         var selectedOrder = '';
-
+                        $scope.checkbox= {checked:'true'};
                         $scope.dtFilter = {
                             dtInitial : setTime(new Date(), 0, 0, 0, 0),
                             dtFinal : new Date()
                         };
 
+                        // #################################################################################################################
+                        // Sumarizator template
+                        // #################################################################################################################
+
+                        var ordersSumarizatorTemplate = {
+                            enitityCount : 0,
+                            orders : 0,
+                            delivered : 0,
+                            products : 0,
+                        };
+                        
+                        var productsSumarizatorTemplate = {
+                            total : 0,
+                            delivered : 0,
+                            actualDelivery : 0,
+                        };
+                        
                         // #################################################################################################################
                         // Pending Items
                         // #################################################################################################################
@@ -39,9 +57,17 @@ angular.module('tnt.catalog.productsDelivery', [
                             var pendingProducts = [];
                             selectedOrder = order.uuid;
                             for ( var ix in order.items) {
-                                order.items[ix].order = order.code;
-                                order.items[ix].created = order.created;
-                                pendingProducts.push(order.items[ix]);
+                                var item = order.items[ix]; 
+                                item.order = order.code;
+                                item.created = order.created;
+                                //Build unique name. 
+                                if (item.option) {
+                                    item.uniqueName = item.SKU + ' - ' + item.option;
+                                } else {
+                                    item.uniqueName = item.SKU;
+                                }
+
+                                pendingProducts.push(item);
                             }
                             return pendingProducts;
                         };
@@ -50,12 +76,20 @@ angular.module('tnt.catalog.productsDelivery', [
                         // Aux functions
                         // #################################################################################################################
                         var warmUp = function() {
-                            $scope.orders = OrderService.list();
                             $scope.filteredOrders = [];
                             $scope.pendingProducts = [];
-
+                            
                             $scope.ticket = {};
                             $scope.ticket.watchedQty = {};
+                            $scope.ordersTotals = {};
+                            $scope.productsTotals = {};
+                            angular.extend($scope.ordersTotals, ordersSumarizatorTemplate);
+                            angular.extend($scope.productsTotals, productsSumarizatorTemplate);
+
+                            $scope.orders = OrderService.list();
+                            $scope.filteredOrders = filterProductsByDate($scope.orders);
+                            $scope.filteredOrders = prepareOrders($scope.filteredOrders);
+                            
                         };
 
                         var logistics = function(orderUUID, updatedItems) {
@@ -64,72 +98,78 @@ angular.module('tnt.catalog.productsDelivery', [
                             var productCost = 0;
                             var stock = 0;
                             var order = OrderService.read(selectedOrder);
-
+                            var promises =[]; 
                             for ( var i in updatedItems) {
                                 if (updatedItems[i].dQty > 0) {
                                     stock = StockService.findInStock(updatedItems[i].id);
-                                    stock.quantity -= updatedItems[i].dQty;
-                                    stock.reserve -= updatedItems[i].dQty;
-                                    StockService.unreserve(stock);
-
-                                    StockService.remove(stock);
+                                    stock.quantity = updatedItems[i].dQty;
+                                    stock.reserve = updatedItems[i].dQty;
+                                    promises.push(StockService.unreserve(stock));
+                                    promises.push(StockService.remove(stock));
 
                                     productAmount += updatedItems[i].dQty * updatedItems[i].price;
                                     productCost += updatedItems[i].dQty * stock.cost;
                                 }
                             }
-
-                            books = BookService.productDelivery(order.uuid, order.customerId, productAmount, productCost);
-                            var promises = [];
-                            for ( var y in books) {
-                                promises.push(BookService.write(books[y]));
-                            }
-                            var promise = $q.all(promises);
-                            promise.then(function() {
-                                log.info('Books updated with succes!');
-                            }, function(err) {
-                                log.error('Failed to edit the books!');
-                                log.debug(err);
+                            $q.all(promises).then(function(){
+                                books = BookService.productDelivery(order.uuid, order.customerId, productAmount, productCost);
+                                var promises = [];
+                                for ( var y in books) {
+                                    promises.push(BookService.write(books[y]));
+                                }
+                                var promise = $q.all(promises);
+                                promise.then(function() {
+                                    log.info('Books updated with succes!', order);
+                                }, function(err) {
+                                    log.error('Failed to edit the books!', order);
+                                    log.debug(err);
+                                });
+                                
+                            }, function(err){
+                                log.error('Failed to create Stock events: ', orderUUID, updatedItems, ' error:', err);
+                                log.debug('Failed to create Stock events: ', orderUUID, updatedItems, ' error:', err);
                             });
+                            
                         };
 
                         var prepareOrders =
                                 function(orders) {
                                     for ( var ix = 0; ix < orders.length; ix++) {
-                                        orders[ix].customerName = EntityService.read(orders[ix].customerId).name;
-                                        orders[ix].totalItems = 0;
-                                        orders[ix].totalItemsDeliv = 0;
+                                        var order = orders[ix];
+                                            
+                                        order.customerName = EntityService.read(order.customerId).name;
+                                        order.totalItems = 0;
+                                        order.totalItemsDeliv = 0;
 
-                                        for ( var ix2 = 0; ix2 < orders[ix].items.length; ix2++) {
-
-                                            if (orders[ix].items[ix2].type === 'giftCard' || orders[ix].items[ix2].type === 'voucher' ||
-                                                orders[ix].items[ix2].type === 'coupom') {
-                                                orders[ix].items.splice(ix2, 1);
+                                        for ( var ix2 = 0; ix2 < order.items.length; ix2++) {
+                                            var item = order.items[ix2];
+                                            if (item.type === 'giftCard' || item.type === 'voucher') {
+                                                order.items.splice(ix2, 1);
                                                 ix2--;
                                                 continue;
                                             }
 
-                                            if (!orders[ix].items[ix2].dQty) {
-                                                orders[ix].items[ix2].dQty = 0;
+                                            if (!item.dQty) {
+                                                item.dQty = 0;
                                             }
 
-                                            orders[ix].totalItems += orders[ix].items[ix2].qty;
+                                            order.totalItems += item.qty;
 
-                                            orders[ix].totalItemsDeliv += orders[ix].items[ix2].dQty;
+                                            order.totalItemsDeliv += item.dQty;
 
-                                            var remaining = (orders[ix].items[ix2].qty - orders[ix].items[ix2].dQty);
-                                            var stock = StockService.findInStock(orders[ix].items[ix2].id);
-                                            orders[ix].items[ix2].stock = stock.quantity;
+                                            var remaining = (item.qty - item.dQty);
+                                            var stock = StockService.findInStock(item.id);
+                                            item.stock = stock.quantity;
 
                                             if (remaining === 0) {
-                                                orders[ix].items[ix2].maxDeliver = 0;
-                                            } else if (remaining > orders[ix].items[ix2].stock) {
-                                                orders[ix].items[ix2].maxDeliver = orders[ix].items[ix2].stock;
+                                                item.maxDeliver = 0;
+                                            } else if (remaining > item.stock) {
+                                                item.maxDeliver = item.stock;
                                             } else {
-                                                orders[ix].items[ix2].maxDeliver = remaining;
+                                                item.maxDeliver = remaining;
                                             }
                                         }
-                                        if (orders[ix].totalItems === orders[ix].totalItemsDeliv) {
+                                        if (order.totalItems === order.totalItemsDeliv) {
                                             orders.splice(ix, 1);
                                             ix--;
                                             continue;
@@ -138,27 +178,60 @@ angular.module('tnt.catalog.productsDelivery', [
                                     return orders;
                                 };
 
+                        function sumarizatorOrders(orders){
+                            $scope.ordersTotals.orders = orders.length;
+                            $scope.ordersTotals.enitityCount =  ArrayUtils.distinct(orders,'customerId').length;
+                            $scope.ordersTotals.delivered = $filter('sum')(orders, 'totalItemsDeliv');
+                            $scope.ordersTotals.products = $filter('sum')(orders, 'totalItems');
+                        }
+                        
+                        function sumarizatorProducts(items){
+                            $scope.productsTotals.total = $filter('sum')(items, 'qty');
+                            $scope.productsTotals.delivered = $filter('sum')(items, 'dQty');
+                        }
+                                
                         $scope.$watchCollection('dtFilter', function() {
                             $scope.filteredOrders = filterProductsByDate($scope.orders);
                             $scope.filteredOrders = prepareOrders($scope.filteredOrders);
+                            sumarizatorOrders($scope.filteredOrders);
                         });
-
-                        $scope.getItems = function(index) {
-                            $scope.pendingProducts = getPendingProducts($scope.filteredOrders[index]);
+                        
+                        var lastFilterDate = angular.copy($scope.dtFilter.dtInitial);
+                        $scope.$watch('checkbox.checked', function(){
+                            if ($scope.checkbox.checked === 'true') {
+                                if ($scope.dtFilter.dtInitial) {
+                                    lastFilterDate = angular.copy($scope.dtFilter.dtInitial);
+                                }
+                                $scope.dtFilter.dtInitial = undefined;
+                                $scope.dtIniDisabled = true;
+                            } else {
+                                $scope.dtIniDisabled = false;
+                                $scope.dtFilter.dtInitial = angular.copy(lastFilterDate);
+                            }
+                        });
+                        
+                        
+                        $scope.getItems = function(order) {
+                            $scope.pendingProducts = getPendingProducts(order);
+                            sumarizatorProducts($scope.pendingProducts);
                             $scope.selected = 'products';
+                            
                         };
 
                         $scope.confirm = function() {
                             var updatedItems = [];
                             for ( var ix in $scope.ticket.watchedQty) {
-                                $scope.pendingProducts[ix].dQty = $scope.ticket.watchedQty[ix];
-                                if ($scope.pendingProducts[ix].$$hashKey) {
-                                    delete $scope.pendingProducts[ix].$$hashKey;
+                                if($scope.ticket.watchedQty[ix] > 0){
+                                    $scope.pendingProducts[ix].dQty = $scope.ticket.watchedQty[ix];
+                                    
+                                    if ($scope.pendingProducts[ix].$$hashKey) {
+                                        delete $scope.pendingProducts[ix].$$hashKey;
+                                    }
+                                    updatedItems.push($scope.pendingProducts[ix]);    
                                 }
-                                updatedItems.push($scope.pendingProducts[ix]);
                             }
-                            ;
-                            return OrderService.updateItemQty(selectedOrder, updatedItems).then(function() {
+                            
+                            result = OrderService.updateItemQty(selectedOrder, updatedItems).then(function() {
                                 log.info('Item qty updated! Starting Book and Stock logistics!');
                                 logistics(selectedOrder, updatedItems);
                                 warmUp();
@@ -166,18 +239,34 @@ angular.module('tnt.catalog.productsDelivery', [
                             }, function(err) {
                                 log.error('Failed to Update the item qty.');
                                 log.debug(err);
-                                return $q.reject(err);
+                                result = $q.reject(err);
                             });
+                            
+                            return result;
                         };
-
-                        $scope.$watch('selected', function() {
-                            $scope.ticket = {};
-                            $scope.ticket.watchedQty = {};
-                            $scope.filteredOrders = filterProductsByDate($scope.orders);
-                            $scope.filteredOrders = prepareOrders($scope.filteredOrders);
-
+                        
+                        $scope.cancel = function () {
+                            $scope.pendingProducts = [];
+                            $scope.selected = 'orders';
+                        };
+                        
+                        $scope.$watch('selected', function(newVal, oldVal) {
+                            if(newVal === 'orders'){
+                                sumarizatorOrders($scope.filteredOrders);
+                            }else if(newVal ==='products'){
+                                $scope.ticket = {};
+                                $scope.ticket.watchedQty = {};
+                            }
                         });
 
+                        $scope.$watchCollection('ticket.watchedQty', function(){
+                            var total = 0;
+                            for(var ix in $scope.ticket.watchedQty){
+                                total += $scope.ticket.watchedQty[ix];
+                            }
+                            $scope.productsTotals.actualDelivery = total;
+                        });
+                        
                         // #################################################################################################################
                         // Date filter stuff
                         // #################################################################################################################
@@ -242,7 +331,12 @@ angular.module('tnt.catalog.productsDelivery', [
                                 return true;
                             }
                         }
-
+                        
                         warmUp();
+                        
                     }
                 ]);
+
+
+
+

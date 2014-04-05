@@ -9,12 +9,21 @@
 			</div>
 		</div>
 
+		<div class="grid-summary">
+			<div class="row">
+				<div class="col-15">&nbsp;</div>
+				<div class="col-2 text-center">{{productsTotals.total}}</div>
+				<div class="col-3 text-center">{{productsTotals.delivered}}</div>
+				<div class="col-4 text-center">{{productsTotals.actualDelivery}}</div>
+			</div>
+		</div>
+
 		<div class="grid-body grid-scroll">
 			<div class="grid-item" ng-repeat="product in pendingProducts">
 				<div class="row">
 					<div class="col-15 product-name">
 						<span>{{product.title}}</span>
-						<small>{{product.SKU}} - {{product.line}}</small>
+						<small>{{product.uniqueName}}</small>
 					</div>
 
 					<div class="col-2 text-center">{{product.qty}}</div>
@@ -30,8 +39,9 @@
 	</div>
 
 	<div class="buttons-holder">
-        <spinner-button class="new-button new-button-ok pull-right" spinner-promise="confirm()">
+        <spinner-button class="new-button-force-payment-confirm-size btn btn-ok pull-right" ng-disabled="(productsTotals.actualDelivery == 0)" spinner-promise="confirm()">
             Confirmar
         </spinner-button>
+		<button class="button-black pull-left" ng-click="cancel()">Cancelar</button>
 	</div>
 </div>
