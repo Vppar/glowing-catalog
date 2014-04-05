@@ -3,24 +3,32 @@
 
     angular.module('tnt.catalog.dialog.numpad.ctrl', [
     ]).controller('NumpadDialogCtrl', ['$scope', '$q', 'dialog', function($scope, $q, dialog) {
+        
+        var initialValue = dialog.data && dialog.data.initial || 0;
+        var relativeValue = dialog.data && dialog.data.relative || 0;
+        var title = dialog.data && dialog.data.title;
+        var message = dialog.data && dialog.data.message || null;
+        var footer = dialog.data && dialog.data.footer || null;
 
-        var $parentScope = dialog.parentDialog.$scope;
+        var $parentScope = dialog.parentDialog && dialog.parentDialog.$scope;
 
 
         function getAbsoluteValue(value, relative) {
             return Math.round(100 * relative * (value / 100)) / 100;
         }
 
+        $scope.title = title;
+        $scope.message = message;
+        $scope.footer = footer;
 
-        $scope.value = $parentScope.itemDiscount || 0;
+        $scope.value = initialValue || 0;
 
-
-        $scope.setDiscount = function (key) {
+        $scope.setValue = function (key) {
             var response = false;
 
             switch(key) {
                 case '%':
-                    $scope.value = getAbsoluteValue($scope.value, $parentScope.total);
+                    $scope.value = getAbsoluteValue($scope.value, relativeValue);
                     break;
                 case 'enter':
                     confirm();

@@ -1,12 +1,20 @@
 <div class="modal-head">
-Desconto no Produto
+  {{ title || 'Desconto no Produto'}}
 </div>
 
 <div class="modal-body" fast-click>
-  <input id="dialog-input" type="text" ng-model="value" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setDiscount($key)" readonly currency />
+  <div ng-if="message" class="modal-summary">
+    <p>{{ message }}</p>
+  </div>
+
+  <input id="dialog-input" type="text" ng-model="value" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency />
   <br />
   <div class="numpad-holder">
     <tnt-numpad></tnt-numpad>
   </div>
+</div>
+
+<div ng-if="footer" class="modal-footer">
+  <small>{{ footer }}</small>
 </div>
 

@@ -277,7 +277,10 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         function setItemDiscount(item, discount) {
             if (discount || discount === 0) {
                 item.itemDiscount = discount;
-                unsetOrderDiscount(item);
+
+                if (discount !== 0 || !item.orderDiscount) {
+                    unsetOrderDiscount(item);
+                }
             } else {
                 unsetItemDiscount(item);
             }
@@ -378,16 +381,16 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
 
         // FIXME doc && test
         function getItemsWithoutItemDiscount(items) {
-          var items = [];
+          var result = [];
 
           for (var idx in items) {
               var item = items[idx];
               if (!item.itemDiscount) {
-                  items.push(item);
+                  result.push(item);
               }
           }
 
-          return items;
+          return result;
         }
 
 

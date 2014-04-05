@@ -5,7 +5,9 @@
 		<span class="new-col-3 currency">Vr Unit.</span>
 		<span class="new-col-3 text-center">Qtde</span>
 		<span class="new-col-3 currency">Subtotal</span>
-		<span class="new-col-3 currency">Desc</span>
+    <span class="new-col-3 currency">
+      <button class="btn btn-small btn-ok btn-discount" type="button" ng-click="openOrderDiscountDialog()">Desc</button>
+    </span>
 	</div>
 
 	<div class="new-body-row-summary">
@@ -14,7 +16,7 @@
 	    <span class="new-col-3 currency">{{total.order.getAvgUnitPrice() | currency:''}}</span>
 	    <span class="new-col-3 text-center">{{total.order.unit}}</span>
 	    <span class="new-col-3 currency">{{total.order.amount | currency:''}}</span>
-	    <span class="new-col-3 currency">{{total.order.itemDiscount | currency:''}}</span>
+	    <span class="new-col-3 currency">{{total.discount | currency:''}}</span>
 	</div>
 
 	<div class="content-scroll">
@@ -25,7 +27,7 @@
 			<span class="new-col-3 currency">{{(item.price || item.amount) | currency: ''}}</span>
 			<span class="new-col-3 text-center">{{item.qty}}</span>
 			<span class="new-col-3 currency">{{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
-      		<span class="new-col-3 currency">{{(item.itemDiscount || 0) | currency:''}}</span>
+      		<span class="new-col-3 currency">{{(item.itemDiscount || item.orderDiscount || 0) | currency:''}}</span>
 		</div>
 	</div>
 </div>
