@@ -14,6 +14,8 @@ describe('Controller: ReceivableListCtrl', function() {
     var now = new Date();
     var EntityServiceMock = {};
     var OrderService = [];
+    var BookService = [];
+    var Book = [];
     var ReceivableListCtrl = null;
 
     log.debug = angular.noop;
@@ -63,7 +65,9 @@ describe('Controller: ReceivableListCtrl', function() {
             $log : log,
             ArrayUtils : _ArrayUtils_,
             EntityService : EntityServiceMock,
-            OrderService : OrderService
+            OrderService : OrderService,
+            BookService : BookService,
+            Book : Book
         });
     }));
 
