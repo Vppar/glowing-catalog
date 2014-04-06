@@ -20,12 +20,33 @@
 				<img src="images/ic-sort-triangle-down-pink.png" ng-click="invertHideOption()" ng-show="hideOptions">
 			</div>
 		</div>
+		<div class="col-8">
+			<div class="display-big">
+				<div class="name">
+					Desconto	
+				</div>
+				<div class="value">
+					{{total.discount | currency:''}}
+				</div>
+			</div>
+		</div>
+
+		<div class="col-8">
+			<div class="display-big">
+				<div class="name">
+					Valor Total
+				</div>
+				<div class="value">
+					{{total.amount | currency:''}}
+				</div>
+			</div>
+		</div>
 	</div>
 
 
 	<div class="details" ng-hide="hideOptions" ng-init="startHideOption()">
 		<div class="row">
-		
+
 			<div class="col-8">
 				<div class="summarizer">
 					<div class="summarizer-label" ng-show="total.cash.amount >= 0">Dinheiro</div>
@@ -47,11 +68,11 @@
 					<div class="summarizer-value">{{total.voucher.amount | currency:''}}</div>
 				</div>
 			</div>
-		
+
 		</div>
 		
 		<div class="row">
-		
+
 			<div class="col-8">
 				<div class="summarizer">
 					<div class="summarizer-label">Cheque</div>
@@ -72,7 +93,7 @@
 					<div class="summarizer-value">{{total.onCuff.amount | currency:''}}</div>
 				</div>
 			</div>
-		
+
 		</div>
 	</div>
 
