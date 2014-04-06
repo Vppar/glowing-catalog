@@ -15,10 +15,10 @@
 	width: 100%;
 }
 
-#sacred .grid-order-scroll-close{
+#sacred .order-scroll-closed{
 	height: calc(100% - 103px);
 }
 
-#sacred .grid-order-scroll-openned {
+#sacred .order-scroll-openned{
 	height: calc(100% - 183px);
 }
