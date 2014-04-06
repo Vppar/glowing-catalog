@@ -126,7 +126,7 @@
 		</div>
 
 		<div class="grid-body grid-scroll" ng-class="{'order-scroll-closed': hideOptions, 'order-scroll-openned': !hideOptions}">
-			<div class="grid-item" ng-repeat="product in filteredProducts | orderBy:'-amountTotalWithDiscount'">
+			<div class="grid-item single-line" ng-repeat="entity in filteredEntities | orderBy: '-amountTotalWithDiscount'">
 				<div class="row" ng-click="updateAndEnableHideOption(entity)" ng-class="{'row-selected': checkedEntityUUID==entity.entityId}">
 					<div class="col-2">{{$index + 1}}</div>
 					<div class="col-9 name-cutter">{{entity.name}}</div>
