@@ -23,6 +23,13 @@
 	height: calc(100% - 183px);
 }
 
+#sacred .sacred-order-list-products-part .content-body{
+	height: calc(100% - 60px);
+}
+#sacred .sacred-order-list-products-part .grid-scroll{
+    height: calc(100% - 82px);
+}
+
 /*maybe this will need its own file, but I`m not sure... because this only happens at order-list for now....*/
 #sacred .display-big{
 	width: 100%;
