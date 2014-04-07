@@ -120,9 +120,9 @@
 										{{discount.amount | currency: ''}}
 									</div>
 								</span> 					
-								<span class="col-s4" ng-if="false">
+								<span class="col-s4">
 									<div class="">
-										<input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="!checkBox.coupon[$index]"  ng-model="discount.myInput" class="check-value " tnt-input currency/>
+										<input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value " tnt-input currency/>
 									</div>
 								</span>
 							</div>
