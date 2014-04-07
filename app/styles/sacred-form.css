@@ -27,3 +27,28 @@
 #sacred .grid-body input[type=checkbox] {
 	margin-top:-2px;
 }
+
+/* for form pages */
+
+#sacred .form .form-line {
+	margin-bottom:10px;
+}
+
+#sacred .form .form-line input[text],
+#sacred .form .form-line select,
+#sacred .form .form-line .select2-container {
+	width:100%;
+	min-height:30px;
+}
+
+#sacred .date-day, #sacred .date-month {
+	display:block;
+	float:left;
+	width:65px!important;
+	margin-right:5px;
+}
+#sacred .date-year {
+	display:block;
+	float:left;
+	width:95px!important;
+}

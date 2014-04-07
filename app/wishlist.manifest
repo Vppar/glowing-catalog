@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.2-0'
+# 'version' : '1.2.2-0' //-0-0--0-0////-0-0-0///-0-0-0///-0-0-0
 
 CACHE:
 apple-touch-icon.png
@@ -60,6 +60,7 @@ styles/sacred-structure.css
 styles/sacred-summarizer.css
 styles/sacred-third-parties.css
 styles/sacred-voucher.css
+styles/sacred-registration.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -402,6 +403,7 @@ views/sacred-voucher.html
 views/parts/voucher/sacred-voucher-new.html
 views/parts/voucher/sacred-voucher-hist.html
 views/spinner-button.html
+views/sacred-registration.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png
