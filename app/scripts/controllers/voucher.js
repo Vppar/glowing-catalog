@@ -33,7 +33,7 @@
                     for ( var ix in couponList) {
                         var entity = EntityService.read(couponList[ix].entity);
                         couponList[ix].entity = entity ? entity.name : '';
-                        couponList[ix].type = 'Coupon';
+                        couponList[ix].type = 'Cupom Prom';
                         $scope.vouchers.push(couponList[ix]);
                     }
                     for ( var ix in giftList) {
