@@ -255,6 +255,8 @@
          }).when('/purchase-order-2', {
             templateUrl : 'views/parts/purchase-order/sacred-purchase-order.html',
             controller : 'PurchaseOrderCtrl'
+        }).when('/products-delivery-test', {
+            templateUrl : 'views/incubated/sacred-products-delivery-test.html'
         }).otherwise({
             redirectTo : '/'
         });
