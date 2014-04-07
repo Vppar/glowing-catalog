@@ -17,12 +17,16 @@
 				<div class="content">
 
 					<div class="content-body">
-						<div class="form form-scroll">
+						<div class="form">
 
 							<div class="form-line">
-								<div class="col-18">
+								<div class="col-9">
 									<label>Nome</label>
 									<input name="name" type="text" ng-model="consultant.name" customer-name required>
+								</div>
+								<div class="col-9">
+									<label>Sobrenome</label>
+									<input name="surname" type="text" ng-model="consultant.surname" customer-name required>
 								</div>
 								<div class="col-3">
 									<label>C&oacute;digo MK</label>
@@ -35,7 +39,7 @@
 							</div>
 
 							<div class="form-line">
-								<div class="col-6">
+								<div class="col-4">
 									<label>Estado civil</label>
 									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
 										<option value="">Selecione</option>
@@ -45,7 +49,7 @@
 										<option value="Viúvo(a)">Viúvo(a)</option>
 									</select>
 								</div>
-								<div class="col-6">
+								<div class="col-3">
 									<label>Sexo</label>
 									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.gender" tnt-select2 required>
 										<option value="">Selecione</option>
@@ -53,17 +57,7 @@
 										<option value="Feminino">Feminino</option>
 									</select>
 								</div>
-								<div class="col-9">
-									<label>Endereço</label>
-									<input name="" type="text" ng-model="consultant.address.street" required>
-								</div>
-								<div class="col-3">
-									<label>Nro.</label>
-									<input name="" type="text" ng-model="consultant.address.number" required>
-								</div>
-							</div>
 
-							<div class="form-line">
 								<div class="col-6">
 									<label>Data de nascimento</label>
 									<select name="birthday" class="date-day" ng-model="consultant.birthDate.day"  tabindex="3" ui-select2="select2Options" tnt-select2>
@@ -76,10 +70,32 @@
 			                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
 			                        </select>
 								</div>
-								<div class="col-6">
+
+								<div class="col-3">
+									<label>CPF/MF</label>
+									<input name="" type="text" ng-model="consultant.cpf" cpf required>
+								</div>
+								<div class="col-4">
+									<label>RG/&Oacute;rg&atilde;o emissor</label>
+									<input name="" type="text" ng-model="consultant.emissary" >						
+								</div>
+
+								<div class="col-4">
 									<label>País de Origem</label>
 									<input name="" type="text" ng-model="consultant.countryOrigin" required>
 								</div>
+							</div>
+
+							<div class="form-line">
+								<div class="col-9">
+									<label>Endereço</label>
+									<input name="" type="text" ng-model="consultant.address.street" required>
+								</div>
+								<div class="col-3">
+									<label>Nro.</label>
+									<input name="" type="text" ng-model="consultant.address.number" required>
+								</div>
+								
 								<div class="col-6">
 									<label>Bairro</label>
 									<input name="" type="text" ng-model="consultant.address.neighborhood" required>
@@ -91,15 +107,8 @@
 							</div>
 
 							<div class="form-line">
-								<div class="col-6">
-									<label>CPF/MF</label>
-									<input name="" type="text" ng-model="consultant.cpf" cpf required>
-								</div>
-								<div class="col-6">
-									<label>RG/&Oacute;rg&atilde;o emissor</label>
-									<input name="" type="text" ng-model="consultant.emissary" >						
-								</div>
-								<div class="col-10">
+								
+								<div class="col-8">
 									<label>Cidade</label>
 									<input name="" type="text" ng-model="consultant.address.city" required>
 								</div>
@@ -109,10 +118,34 @@
 										<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
 									</select>
 								</div>
+								<div class="col-6">
+									<label>E-mail</label>
+									<input name="" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" lower-case required>
+								</div>
+								<div class="col-4">
+									<label>Telefone</label>
+									<input name="" type="text" ng-model="consultant.phone" required phone>
+								</div>
+								<div class="col-4">
+									<label>Celular</label>
+									<input name="" type="text" ng-model="consultant.celphone" required phone>
+								</div>
 							</div>
 
 							<div class="form-line">
 								<div class="col-6">
+									<label>Titular da Conta</label>
+									<input name="" type="text" ng-model="" required>
+								</div>
+								<div class="col-4">
+									<label>Tipo da Conta</label>
+									<input name="" type="text" ng-model="" required>
+								</div>
+								<div class="col-4">
+									<label>CPF do Titular</label>
+									<input name="" type="text" ng-model="" required>
+								</div>
+								<div class="col-4">
 									<label>Banco</label>
 									<input name="" type="text" ng-model="consultant.bank" required>
 								</div>
@@ -124,14 +157,7 @@
 									<label>Conta</label>
 									<input name="" type="text" ng-model="consultant.account" required maxlength="13">
 								</div>
-								<div class="col-8">
-									<label>E-mail</label>
-									<input name="" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" lower-case required>
-								</div>
-								<div class="col-4">
-									<label>Telefone</label>
-									<input name="" type="text" ng-model="consultant.phone" required phone>
-								</div>
+								
 							</div>
 
 							<hr />
@@ -158,9 +184,9 @@
 								</div>
 							</div>
 
-							<hr />
+							<!-- <hr /> -->
 
-							<div class="form-line">
+							<!-- <div class="form-line">
 								<div class="col-8">
 									<label>Bandeira/cartão</label>
 									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
@@ -189,9 +215,9 @@
 			                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
 			                        </select>
 								</div>
-							</div>
+							</div> -->
 
-							<div class="form-line">
+							<!-- <div class="form-line">
 								<div class="col-16">
 									<label>Nome no Cartão</label>
 									<input name="" type="text" required>			
@@ -203,7 +229,7 @@
 										<option value="1x de ">1x de </option>
 									</select>
 								</div>
-							</div>
+							</div> -->
 
 							<div class="buttons-holder">
 								<input type="button" class="button-black pull-left" tnt-promise-click="cancel()" value="Voltar">

@@ -39,7 +39,7 @@
 #sacred .form {
 	height:calc(100% + 38px);
 	overflow:hidden;
-	overflow-y:scroll;
+	/*overflow-y:scroll;*/
 }
 
 #sacred .form .form-line {
