@@ -38,7 +38,7 @@
 
 #sacred .form {
 	height:calc(100% + 38px);
-	overflow:hidden;
+	/*overflow:hidden;*/
 	/*overflow-y:scroll;*/
 }
 
