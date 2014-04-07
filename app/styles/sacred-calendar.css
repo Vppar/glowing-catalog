@@ -3,21 +3,25 @@
 * (this stylesheet have all the styles that is needed to make a datepicker)
 */
 
-#sacred .calendar{
+#sacred .calendar,
+#sacred .calendar-label-left{
   margin-right: 30px;
   float: left;
 }
 
-#sacred .calendar label{
+#sacred .calendar label,
+#sacred .calendar-label-left label{
   display: inline;
 }
 
-#sacred .calendar .text{
+#sacred .calendar .text,
+#sacred .calendar-label-left .text{
   display: block;
   float: left;
 }
 
-#sacred .calendar input{
+#sacred .calendar input,
+#sacred .calendar-label-left input{
   height: 30px;
   line-height: 30px;
   width: 95px;
@@ -27,7 +31,8 @@
   border: 1px solid #E0E0e0;
 }
 
-#sacred .calendar label img{
+#sacred .calendar label img,
+#sacred .calendar-label-left label img{
   margin-top: 3px;
   vertical-align: top;
 }
@@ -36,6 +41,25 @@
   margin-top: 22px;
 }
 
-#sacred .calendar .text-over{
+#sacred .calendar .text-over,
+#sacred .calendar-label-left .text-over{
   display: block;
+}
+
+#sacred .calendar-label-left .text-over{
+  margin-top: 5px;
+  margin-right: 3px;
+  float: left;
+}
+#sacred .calendar-label-left input{
+  float: left;
+
+}
+#sacred .calendar-label-left label{
+  float: left;
+  margin-left: 5px;
+}
+
+#sacred .calendar-label-left.margin-0{
+  margin-right: 0px;
 }

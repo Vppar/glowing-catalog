@@ -1,47 +1,60 @@
-<div class="content-body content-all product-delivery-products-part">
+<div class="content-header">
+	<div class="row">
+		<div class="col-10 name-cutter client-header-test">
+			Cliente: Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto<br />
+			<small>(12) 99723-9652</small>
+		</div>
+		<div class="col-1">
+			&nbsp;
+		</div>
+		<div class="col-6 order-header-test">
+			Pedido: 0020-01-14
+		</div>
+		<div class="col-7 order-header-test">
+			Última Entrega: 12/04/2014
+		</div>
+	</div>
+</div>
+<div class="content-body product-delivery-products-part-test">
 	<div class="grid">
 		<div class="grid-header">
 			<div class="row">
-				<div class="col-15">Produto/C&oacute;digo</div>
-				<div class="col-2 text-center">Qtde</div>
-				<div class="col-3 text-center">Entregue</div>
-				<div class="col-4 text-center">Entrega</div>
-			</div>
-		</div>
-
-		<div class="grid-summary">
-			<div class="row">
-				<div class="col-15">&nbsp;</div>
-				<div class="col-2 text-center">{{productsTotals.total}}</div>
-				<div class="col-3 text-center">{{productsTotals.delivered}}</div>
-				<div class="col-4 text-center">{{productsTotals.actualDelivery}}</div>
+				<div class="col-18">Produto/C&oacute;digo</div>
+				<div class="col-3 text-center">Data</div>
+				<div class="col-3 text-center">Qtde</div>
 			</div>
 		</div>
 
 		<div class="grid-body grid-scroll">
-			<div class="grid-item" ng-repeat="product in pendingProducts">
+			<!-- <div class="grid-item" ng-repeat="product in pendingProducts"> -->
+			<div class="grid-item">
 				<div class="row">
-					<div class="col-15 product-name">
-						<span>{{product.title}}</span>
-						<small>{{product.uniqueName}}</small>
+					<div class="col-18 product-name">
+						<!-- <span>{{product.title}}</span>
+						<small>{{product.uniqueName}}</small> -->
+						<span>Lapis Retrátil para os Olhos 0,28g</span>
+						<small>10-070023 - Cílios</small>
 					</div>
-
-					<div class="col-2 text-center">{{product.qty}}</div>
-
-					<div class="col-3 text-center">{{product.dQty}}</div>
-
-					<div class="col-4 text-center">
-						<tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
-					</div>
+					<div class="col-3 text-center">12/04/2014</div>
+					<div class="col-3 text-center">12</div>
 				</div>
 			</div>
+			
+			<div class="grid-item">
+				<div class="row">
+					<div class="col-18 product-name">
+						<!-- <span>{{product.title}}</span>
+						<small>{{product.uniqueName}}</small> -->
+						<span>Lapis Retrátil para os Olhos 0,28g</span>
+						<small>10-070023 - Cílios</small>
+					</div>
+					<div class="col-3 text-center">12/04/2014</div>
+					<div class="col-3 text-center">12</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
-
-	<div class="buttons-holder">
-        <spinner-button class="new-button-force-payment-confirm-size btn btn-ok pull-right" ng-disabled="(productsTotals.actualDelivery == 0)" spinner-promise="confirm()">
-            Confirmar
-        </spinner-button>
-		<button class="button-black pull-left" ng-click="cancel()">Cancelar</button>
-	</div>
+	<button class="button-black pull-left" ng-click="cancel()">Voltar</button>
+</div>
 </div>

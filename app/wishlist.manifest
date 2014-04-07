@@ -423,6 +423,12 @@ views/parts/purchase-order/sacred-purchase-order-stashed.html
 views/parts/purchase-order/sacred-purchase-order-summary.html
 views/parts/purchase-order/sacred-purchase-order-ticket.html
 
+views/incubated/sacred-products-delivery-delivered-products.html
+views/incubated/sacred-products-delivery-delivered.html
+views/incubated/sacred-products-delivery-delivery.html
+views/incubated/sacred-products-delivery-test.html
+views/incubated/sacred-products-delivery-to-be-delivered-products.html
+
 images/keyboard/n0.png
 images/keyboard/n1.png
 images/keyboard/n2.png

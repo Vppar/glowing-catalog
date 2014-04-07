@@ -7,3 +7,28 @@
 #sacred .product-delivery-products-part .grid{
 	height: calc(100% - 47px);
 }
+
+/*test styles */
+
+#sacred .product-delivery-products-part-test .grid-scroll{
+height: calc(100% - 40px);
+}
+
+#sacred .calendar-header-test{
+	float:right;
+}
+
+#sacred .order-header-test{
+	text-align:right;
+	height:30px;
+	line-height:30px;
+}
+
+#sacred .client-header-test{
+	 height:30px;
+	 line-height:15px;
+}
+
+#sacred .product-delivery-products-part-test .grid{
+	height: calc(100% - 47px);
+}
