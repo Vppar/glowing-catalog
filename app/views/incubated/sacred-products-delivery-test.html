@@ -1,0 +1,26 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-products-delivery-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Entrega de Produtos</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body" ng-switch="selected">
+				<div class="content" ng-switch-when="orders">
+					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivery.html'"></div>
+				</div>	
+				<div class="content" ng-switch-when="products">
+					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivered.html'"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
