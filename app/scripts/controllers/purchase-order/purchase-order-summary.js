@@ -81,6 +81,10 @@
                         selectTab('stashed');
                     }
 
+                    function goToConfirm(){
+                        return $scope.save();
+                    }
+
                     function goToTicket() {
                         resetPurchaseOrder();
                         selectTab('ticket');
@@ -143,26 +147,14 @@
 
                     $scope.save =
                             function() {
-                                var dialogPromise = DialogService.messageDialog({
-                                    title : 'Pedido de Compra',
-                                    message : 'Salvar o pedido de compra?',
-                                    btnYes : 'Sim',
-                                    btnNo : 'Não'
-                                });
-                                var saveCurrentPromise =
-                                        dialogPromise.then(function() {
-                                            updateCurrentPurchaseOrder(stockReport);
-                                            NewPurchaseOrderService.purchaseOrder.discount =
-                                                    financialRound($scope.summary.total.amount - $scope.summary.total.amountWithDiscount);
-                                            NewPurchaseOrderService.purchaseOrder.freight = $scope.summary.freight;
-                                            NewPurchaseOrderService.purchaseOrder.points = $scope.summary.total.points;
-                                            NewPurchaseOrderService.purchaseOrder.amount = $scope.summary.total.amount;
+                                updateCurrentPurchaseOrder(stockReport);
+                                NewPurchaseOrderService.purchaseOrder.discount =
+                                        financialRound($scope.summary.total.amount - $scope.summary.total.amountWithDiscount);
+                                NewPurchaseOrderService.purchaseOrder.freight = $scope.summary.freight;
+                                NewPurchaseOrderService.purchaseOrder.points = $scope.summary.total.points;
+                                NewPurchaseOrderService.purchaseOrder.amount = $scope.summary.total.amount;
 
-                                            return NewPurchaseOrderService.saveCurrent();
-                                        });
-
-                                var savedPromise = saveCurrentPromise.then(backToStashed);
-
+                                var savedPromise = NewPurchaseOrderService.saveCurrent().then(selectTab('confirm'));
                                 return savedPromise;
                             };
 
