@@ -16,24 +16,21 @@
 			<div class="page-body">
 				<div class="content">
 
-					<div class="content-header">&nbsp;</div>
 					<div class="content-body">
 						<div class="form form-scroll">
 
 							<div class="form-line">
-								<div class="row">
-									<div class="col-18">
-										<label>Nome</label>
-										<input name="name" type="text" ng-model="consultant.name" customer-name required>
-									</div>
-									<div class="col-3">
-										<label>C&oacute;digo MK</label>
-										<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
-									</div>
-									<div class="col-3">
-										<label>CEP</label>
-										<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
-									</div>
+								<div class="col-18">
+									<label>Nome</label>
+									<input name="name" type="text" ng-model="consultant.name" customer-name required>
+								</div>
+								<div class="col-3">
+									<label>C&oacute;digo MK</label>
+									<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
+								</div>
+								<div class="col-3">
+									<label>CEP</label>
+									<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
 								</div>
 							</div>
 
@@ -137,7 +134,7 @@
 								</div>
 							</div>
 
-							<hr/>
+							<hr />
 
 							<div class="form-line">
 								<div class="col-12">
@@ -161,7 +158,60 @@
 								</div>
 							</div>
 
+							<hr />
+
+							<div class="form-line">
+								<div class="col-8">
+									<label>Bandeira/cartão</label>
+									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
+										<option value="">Selecione</option>
+										<option value="Visa">Visa</option>
+										<option value="Diners Club International">Diners Club International</option>
+										<option value="Discover">Discover</option>
+										<option value="Elo">Elo</option>
+										<option value="American Express">American Express</option>
+									</select>
+								</div>
+								<div class="col-7">
+									<label>Número do cartão</label>
+									<input name="" type="text" required>			
+								</div>
+								<div class="col-4">
+									<label>Código de segurança</label>
+									<input name="" type="text" required>			
+								</div>
+								<div class="col-5">
+									<label>Data de Validade</label>
+			                        <select name="" class="limit-date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
+			                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+			                        </select>
+			                        <select name="" class="limit-date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2="select2Options" tnt-select2>
+			                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+			                        </select>
+								</div>
+							</div>
+
+							<div class="form-line">
+								<div class="col-16">
+									<label>Nome no Cartão</label>
+									<input name="" type="text" required>			
+								</div>
+								<div class="col-8">
+									<label>Parcelas</label>
+									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
+										<option value="">Selecione</option>
+										<option value="1x de ">1x de </option>
+									</select>
+								</div>
+							</div>
+
+							<div class="buttons-holder">
+								<input type="button" class="button-black pull-left" tnt-promise-click="cancel()" value="Voltar">
+	                            <spinner-button class="button-green pull-right" spinner-promise = "confirm()" type="submit">Salvar</spinner-button>
+							</div>
+
 						</div><!-- // form -->
+
 					</div>
 
 				</div>
