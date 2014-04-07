@@ -33,11 +33,6 @@
 
 
         function listenRemoteCreationTimestampChanges() {
-          function setListener() {
-              listenRemoteCreationTimestampChanges();
-              $rootScope.$off('FirebaseConnected', listenRemoteCreationTimestampChanges);
-          }
-
           if (SyncDriver.refs && SyncDriver.refs.user) {
               var ref = SyncDriver.refs.user.child('warmup').child('creationTimestamp');
               ref.on('value', function (snapshot) {
@@ -49,7 +44,10 @@
                   }
               });
           } else {
-              $rootScope.$on('FirebaseConnected', setListener);
+              var removeListener = $rootScope.$on('FirebaseConnected', function () {
+                  listenRemoteCreationTimestampChanges();
+                  removeListener();
+              });
           }
         }
 
