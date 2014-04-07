@@ -3,7 +3,7 @@
 
     // ////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////
-    function WarmupCtrl($scope, $log, UserService, WarmupService, SyncDriver) {
+    function WarmupCtrl($scope, $rootScope, $log, UserService, WarmupService, SyncDriver) {
         UserService.redirectIfIsNotLoggedIn();
         $log.debug('Initializing WarmupCtrl...');
 
@@ -33,15 +33,24 @@
 
 
         function listenRemoteCreationTimestampChanges() {
-          var ref = SyncDriver.refs.user.child('warmup').child('creationTimestamp');
-          ref.on('value', function (snapshot) {
-              var val = snapshot.val();
+          function setListener() {
+              listenRemoteCreationTimestampChanges();
+              $rootScope.$off('FirebaseConnected', listenRemoteCreationTimestampChanges);
+          }
 
-              if (val) {
-                  date.value = new Date(val);
-                  setLocalCreationTimestamp(val);
-              }
-          });
+          if (SyncDriver.refs && SyncDriver.refs.user) {
+              var ref = SyncDriver.refs.user.child('warmup').child('creationTimestamp');
+              ref.on('value', function (snapshot) {
+                  var val = snapshot.val();
+
+                  if (val) {
+                      date.value = new Date(val);
+                      setLocalCreationTimestamp(val);
+                  }
+              });
+          } else {
+              $rootScope.$on('FirebaseConnected', setListener);
+          }
         }
 
 
@@ -917,7 +926,7 @@
     angular.module('tnt.catalog.warmup.ctrl', [
         'tnt.catalog.sync.driver', 'tnt.catalog.warmup.service', 'tnt.catalog.service.dialog'
     ]).controller('WarmupCtrl', [
-        '$scope', '$log', 'UserService', 'WarmupService', 'SyncDriver', WarmupCtrl
+        '$scope', '$rootScope', '$log', 'UserService', 'WarmupService', 'SyncDriver', WarmupCtrl
     ]).controller(
             'OnCuffWarmupCtrl',
             [
