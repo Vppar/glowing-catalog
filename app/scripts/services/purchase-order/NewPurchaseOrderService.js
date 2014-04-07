@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('tnt.catalog.purchase.service', [
-        'tnt.utils.array', 'tnt.catalog.purchaseOrder', 'tnt.catalog.type.keeper', 'tnt.catalog.financial.math.service'
+        'tnt.utils.array', 'tnt.catalog.purchaseOrder', 'tnt.catalog.type.keeper', 'tnt.catalog.financial.math.service', 'tnt.catalog.misplaced.service'
     ]).service(
             'NewPurchaseOrderService',
             [
@@ -13,8 +13,9 @@
                 'FinancialMathService',
                 'PurchaseOrder',
                 'PurchaseOrderKeeper',
+                'Misplacedservice',
                 function NewPurchaseOrderService($q, $log, $filter, ArrayUtils, TypeKeeper, FinancialMathService, PurchaseOrder,
-                        PurchaseOrderKeeper) {
+                        PurchaseOrderKeeper, Misplacedservice) {
 
                     // ############################################################################################################
                     // Local variables
@@ -30,6 +31,10 @@
                         var deferred = $q.defer();
                         deferred.resolve(param);
                         return deferred.promise;
+                    }
+
+                    function getItemTotal(item){
+                        return FinancialMathService.currencyMultiply(item.qty, item.price);
                     }
 
                     // ############################################################################################################
@@ -485,6 +490,15 @@
 
                         return checkoutPromise;
                     };
+
+                    this.calculateCost = function(amountWithDiscount){
+                        var itemsDiscounts = Misplacedservice.discount.distributeByWeight(_this.purchaseOrder.items, amountWithDiscount, getItemTotal);
+                        for(var ix in _this.purchaseOrder.items){
+                            var item = _this.purchaseOrder.items[ix];
+                            item.cost = FinancialMathService.currencyDivide(itemsDiscounts [ix],item.qty);
+                        }
+                        _this.purchaseOrder.isDirty = true;
+                    }
                 }
             ]);
 })(angular);

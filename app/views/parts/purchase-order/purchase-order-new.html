@@ -68,7 +68,7 @@
                             <div class="code-product" once-text="product.uniqueName"></div>
                         </span>
                         <span class="outros-header-order text-center" once-text="product.points"></span>
-                        <span class="outros-header-order currency" once-text="product.cost | currency: ''"></span>
+                        <span class="outros-header-order currency" once-text="product.price | currency: ''"></span>
                         <span class="outros-header-order text-center" once-text="product.minQty"></span>
                         <span class="pedido-header-order text-center">
                             <tnt-number-picker ng-model="purchaseOrder.watchedQty[product.id]" min="0"></tnt-number-picker>

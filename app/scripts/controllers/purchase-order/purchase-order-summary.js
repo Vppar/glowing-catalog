@@ -182,7 +182,7 @@
                                             NewPurchaseOrderService.purchaseOrder.freight = $scope.summary.freight;
                                             NewPurchaseOrderService.purchaseOrder.points = $scope.summary.total.points;
                                             NewPurchaseOrderService.purchaseOrder.amount = $scope.summary.total.amount;
-
+                                            NewPurchaseOrderService.calculateCost($scope.summary.total.amountWithDiscount);
                                             return NewPurchaseOrderService.checkoutCurrent();
                                         });
 
