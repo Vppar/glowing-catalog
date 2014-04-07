@@ -1,21 +1,21 @@
-(function(angular) {
+(function (angular) {
     'use strict';
 
-    function WarmupService($q, $log, $rootScope) {
+    function WarmupService($q, $log, $rootScope, $timeout) {
         var self = this;
 
         var local = {};
         this.local = local;
 
-        this.getLocalData = function() {
+        this.getLocalData = function () {
             var warmup = localStorage.getItem('warmup');
             return warmup ? JSON.parse(warmup) : {};
         };
 
-        this.setLocalData = function(timestamp, data) {
+        this.setLocalData = function (timestamp, data) {
             var warmup = {
-                timestamp : timestamp,
-                data : data
+                timestamp: timestamp,
+                data: data
             };
 
             localStorage.setItem('warmup', JSON.stringify(warmup));
@@ -27,10 +27,10 @@
             $rootScope.$broadcast('LocalWarmupDataSet');
         };
 
-        this.updateLocalData = function(ref, timestamp) {
+        this.updateLocalData = function (ref, timestamp) {
             var deferred = $q.defer();
 
-            ref.child('data').child(timestamp).once('value', function(snapshot) {
+            ref.child('data').child(timestamp).once('value', function (snapshot) {
                 var data = snapshot.val();
 
                 if (data) {
@@ -47,10 +47,10 @@
             return deferred.promise;
         };
 
-        this.setRemoteData = function(ref, timestamp, data) {
+        this.setRemoteData = function (ref, timestamp, data) {
             var deferred = $q.defer();
 
-            ref.child('data').child(timestamp).transaction(function(currentValue) {
+            ref.child('data').child(timestamp).transaction(function (currentValue) {
                 // If there's already data stored for the given timestamp,
                 // it MUST NOT be overriden!
                 if (!currentValue) {
@@ -60,11 +60,11 @@
                         // invert the timestamp value before using it as
                         // the priority to make them be ordered from the
                         // newest to the oldest.
-                        '.priority' : timestamp * -1,
-                        '.value' : data
+                        '.priority': timestamp * -1,
+                        '.value': data
                     };
                 }
-            }, function(err, committed) {
+            }, function (err, committed) {
                 if (err) {
                     $log.error('Unable to update remote data!', err);
                     deferred.reject(err);
@@ -77,17 +77,27 @@
                 }
             });
 
+            var timer = $timeout(function () {
+                var message = 'timeout';
+                $log.error(message);
+                deferred.reject(message);
+            }, 5000);
+
+            deferred.promise['finally'](function () {
+                $timeout.cancel(timer);
+            });
+
             return deferred.promise;
         };
 
-        this.setRemoteTimestamp = function(ref, timestamp) {
+        this.setRemoteTimestamp = function (ref, timestamp) {
             var deferred = $q.defer();
 
-            ref.child('timestamp').transaction(function(remoteTimestamp) {
+            ref.child('timestamp').transaction(function (remoteTimestamp) {
                 if (!remoteTimestamp || remoteTimestamp < timestamp) {
                     return timestamp;
                 }
-            }, function(err, committed, snapshot) {
+            }, function (err, committed, snapshot) {
                 if (err) {
                     $log.error('Unable to update remote timestamp!', err);
                     deferred.reject(err);
@@ -110,7 +120,7 @@
             return deferred.promise;
         };
 
-        this.updateRemoteData = function(ref, timestamp, data) {
+        this.updateRemoteData = function (ref, timestamp, data) {
             if (!ref) {
                 $log.error('Missing reference to remote location');
                 return $q.reject('Missing reference to remote location');
@@ -126,16 +136,16 @@
             // timestamp as its key;
             // 2. set the timestamp value, indicating which warmup
             // data object is the current one;
-            return self.setRemoteData(ref, timestamp, data).then(function() {
-                return self.setRemoteTimestamp(ref, timestamp).then(function() {
+            return self.setRemoteData(ref, timestamp, data).then(function () {
+                return self.setRemoteTimestamp(ref, timestamp).then(function () {
                     $rootScope.$broadcast('RemoteWarmupDataUpdated', timestamp, data);
                 });
             });
         };
 
-        this.watchRemoteData = (function() {
+        this.watchRemoteData = (function () {
             function _setRemoteTimestampListener(ref) {
-                ref.child('timestamp').on('value', function(snapshot) {
+                ref.child('timestamp').on('value', function (snapshot) {
                     var remoteTimestamp = snapshot.val();
 
                     var hasRemoteData = remoteTimestamp || remoteTimestamp === 0;
@@ -164,7 +174,7 @@
             return _watchRemoteData;
         })();
 
-        this.updateWarmup = function(warmupRef, data) {
+        this.updateWarmup = function (warmupRef, data) {
             var timestamp = new Date().getTime();
             self.setLocalData(timestamp, data);
             return self.updateRemoteData(warmupRef, timestamp, data);
@@ -188,7 +198,7 @@
             var entries = getEntries();
             var items = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 items.push(createItem(entry));
             }
@@ -200,7 +210,7 @@
             var entries = local.data || [];
             var checkEntries = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type === 'receivableAdd' && entry.event && entry.event.type === 'check') {
                     checkEntries.push(entry);
@@ -214,7 +224,7 @@
             var entries = local.data || [];
             var checkEntries = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type !== 'receivableAdd' || (entry.event && entry.event.type !== 'check')) {
                     checkEntries.push(entry);
@@ -230,33 +240,33 @@
             var created = new Date().getTime();
 
             var payment = {
-                account : item.account,
-                agency : item.agency,
-                bank : item.bank,
-                amount : item.amount,
-                duedate : duedate,
-                number : item.number,
-                type : 'check'
+                account: item.account,
+                agency: item.agency,
+                bank: item.bank,
+                amount: item.amount,
+                duedate: duedate,
+                number: item.number,
+                type: 'check'
             };
 
             var event = {
                 // When generating the UUID:
                 // 0 is an arbitrary deviceId used in warmup entries
                 // 1 is the CoinKeeper's op for generating UUIDs
-                uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
-                type : 'check',
-                duedate : duedate,
-                entityId : item.customerId,
-                amount : item.amount,
-                created : created,
-                payment : payment
+                uuid: item.uuid || IdentityService.internalGetUUID(0, 1, idx),
+                type: 'check',
+                duedate: duedate,
+                entityId: item.customerId,
+                amount: item.amount,
+                created: created,
+                payment: payment
             };
 
             var entry = {
-                uuid : null,
-                type : 'receivableAdd',
-                version : 1,
-                event : event
+                uuid: null,
+                type: 'receivableAdd',
+                version: 1,
+                event: event
             };
 
             return entry;
@@ -275,17 +285,17 @@
             }
 
             angular.extend(item, {
-                uuid : event.uuid,
-                bank : event.payment.bank,
-                agency : payment.agency,
-                account : payment.account,
-                duedate : event.duedate ? new Date(event.duedate) : null,
-                amount : event.amount,
-                number : payment.number,
-                customerName : customer && customer.name,
-                customerId : event.entityId,
-                used : isUsed(event),
-                redeemed : isRedeemed(event)
+                uuid: event.uuid,
+                bank: event.payment.bank,
+                agency: payment.agency,
+                account: payment.account,
+                duedate: event.duedate ? new Date(event.duedate) : null,
+                amount: event.amount,
+                number: payment.number,
+                customerName: customer && customer.name,
+                customerId: event.entityId,
+                used: isUsed(event),
+                redeemed: isRedeemed(event)
             });
 
             return item;
@@ -305,7 +315,7 @@
             $log.debug('Creating warmup entries for check', items);
             var entries = [];
 
-            for ( var idx in items) {
+            for (var idx in items) {
                 var item = items[idx];
                 if (typeof item === 'object') {
                     entries.push(createEntry(item, idx));
@@ -322,7 +332,7 @@
 
             var total = 0;
 
-            for ( var idx in items) {
+            for (var idx in items) {
                 total += items[idx].amount;
             }
 
@@ -343,7 +353,6 @@
     } // CheckWarmupService
 
 
-
     // ///////////////////////////////////////////////////////////////////
     // ###################################################################
     // ///////////////////////////////////////////////////////////////////
@@ -354,7 +363,7 @@
             var entries = getEntries();
             var items = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 items.push(createItem(entry));
             }
@@ -366,7 +375,7 @@
             var entries = local.data || [];
             var creditCardEntries = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type === 'receivableAdd' && entry.event && entry.event.type === 'creditCard') {
                     creditCardEntries.push(entry);
@@ -380,7 +389,7 @@
             var entries = local.data || [];
             var creditCardEntries = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type !== 'receivableAdd' || (entry.event && entry.event.type !== 'creditCard')) {
                     creditCardEntries.push(entry);
@@ -405,16 +414,16 @@
             }
 
             var payment = {
-                id : null,
-                amount : item.amount,
-                created : created,
-                ccDueDate : null,
-                ccNumber : '0000',
-                duedate : duedate,
-                flag : null,
-                installments : installment,
-                owner : item.customerName,
-                type : 'creditCard'
+                id: null,
+                amount: item.amount,
+                created: created,
+                ccDueDate: null,
+                ccNumber: '0000',
+                duedate: duedate,
+                flag: null,
+                installments: installment,
+                owner: item.customerName,
+                type: 'creditCard'
             };
 
             if (numberOfInstallments) {
@@ -425,20 +434,20 @@
                 // When generating the UUID:
                 // 0 is an arbitrary deviceId used in warmup entries
                 // 1 is the CoinKeeper's op for generating UUIDs
-                uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
-                amount : item.amount,
-                created : created,
-                duedate : duedate,
-                entityId : item.customerId,
-                type : 'creditCard',
-                payment : payment
+                uuid: item.uuid || IdentityService.internalGetUUID(0, 1, idx),
+                amount: item.amount,
+                created: created,
+                duedate: duedate,
+                entityId: item.customerId,
+                type: 'creditCard',
+                payment: payment
             };
 
             var entry = {
-                uuid : null,
-                type : 'receivableAdd',
-                version : 1,
-                event : event
+                uuid: null,
+                type: 'receivableAdd',
+                version: 1,
+                event: event
             };
 
             return entry;
@@ -462,14 +471,14 @@
             }
 
             angular.extend(item, {
-                uuid : event.uuid,
-                duedate : event.duedate ? new Date(event.duedate) : null,
-                amount : event.amount,
-                customerName : customer && customer.name,
-                customerId : event.entityId,
-                installments : installments,
-                used : isUsed(event),
-                redeemed : isRedeemed(event)
+                uuid: event.uuid,
+                duedate: event.duedate ? new Date(event.duedate) : null,
+                amount: event.amount,
+                customerName: customer && customer.name,
+                customerId: event.entityId,
+                installments: installments,
+                used: isUsed(event),
+                redeemed: isRedeemed(event)
             });
 
             return item;
@@ -488,7 +497,7 @@
         function createEntries(items) {
             var entries = [];
 
-            for ( var idx in items) {
+            for (var idx in items) {
                 var item = items[idx];
                 // Don't create an entry for the data in the 'total' attribute
                 if (typeof item === 'object') {
@@ -508,7 +517,7 @@
 
             var total = 0;
 
-            for ( var idx in items) {
+            for (var idx in items) {
                 total += items[idx].amount;
             }
 
@@ -529,7 +538,6 @@
     } // CreditCardWarmupService
 
 
-
     // ///////////////////////////////////////////////////////////////////
     // ###################################################################
     // ///////////////////////////////////////////////////////////////////
@@ -540,7 +548,7 @@
             var entries = getEntries();
             var items = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 items.push(createItem(entry));
             }
@@ -552,7 +560,7 @@
             var entries = local.data || [];
             var onCuffEntries = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type === 'receivableAdd' && entry.event && entry.event.type === 'onCuff') {
                     onCuffEntries.push(entry);
@@ -566,7 +574,7 @@
             var entries = local.data || [];
             var onCuffEntries = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type !== 'receivableAdd' || (entry.event && entry.event.type !== 'onCuff')) {
                     onCuffEntries.push(entry);
@@ -591,11 +599,11 @@
             }
 
             var payment = {
-                id : null,
-                duedate : duedate,
-                amount : item.amount,
-                number : installment,
-                type : 'onCuff'
+                id: null,
+                duedate: duedate,
+                amount: item.amount,
+                number: installment,
+                type: 'onCuff'
             };
 
             if (numberOfInstallments) {
@@ -606,20 +614,20 @@
                 // When generating the UUID:
                 // 0 is an arbitrary deviceId used in warmup entries
                 // 1 is the CoinKeeper's op for generating UUIDs
-                uuid : item.uuid || IdentityService.internalGetUUID(0, 1, idx),
-                amount : item.amount,
-                created : created,
-                duedate : duedate,
-                entityId : item.customerId,
-                type : 'onCuff',
-                payment : payment
+                uuid: item.uuid || IdentityService.internalGetUUID(0, 1, idx),
+                amount: item.amount,
+                created: created,
+                duedate: duedate,
+                entityId: item.customerId,
+                type: 'onCuff',
+                payment: payment
             };
 
             var entry = {
-                uuid : null,
-                type : 'receivableAdd',
-                version : 1,
-                event : event
+                uuid: null,
+                type: 'receivableAdd',
+                version: 1,
+                event: event
             };
 
             return entry;
@@ -643,14 +651,14 @@
             }
 
             angular.extend(item, {
-                uuid : event.uuid,
-                duedate : event.duedate ? new Date(event.duedate) : null,
-                amount : event.amount,
-                customerName : customer && customer.name,
-                customerId : event.entityId,
-                installments : installments,
-                used : isUsed(event),
-                redeemed : isRedeemed(event)
+                uuid: event.uuid,
+                duedate: event.duedate ? new Date(event.duedate) : null,
+                amount: event.amount,
+                customerName: customer && customer.name,
+                customerId: event.entityId,
+                installments: installments,
+                used: isUsed(event),
+                redeemed: isRedeemed(event)
             });
 
             return item;
@@ -669,7 +677,7 @@
         function createEntries(items) {
             var entries = [];
 
-            for ( var idx in items) {
+            for (var idx in items) {
                 var item = items[idx];
                 // Don't create an entry for the data in the 'total' attribute
                 if (typeof item === 'object') {
@@ -689,7 +697,7 @@
 
             var total = 0;
 
-            for ( var idx in items) {
+            for (var idx in items) {
                 total += items[idx].amount;
             }
 
@@ -715,11 +723,11 @@
     function StockWarmupService($q, $log, $rootScope, WarmupService) {
         var local = WarmupService.local;
 
-        this.getLocalStockEntries = function() {
+        this.getLocalStockEntries = function () {
             var entries = local.data || [];
             var result = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type === 'stockAdd') {
                     result.push(entry);
@@ -729,11 +737,11 @@
             return result;
         };
 
-        this.getLocalNonStockEntries = function() {
+        this.getLocalNonStockEntries = function () {
             var entries = local.data || [];
             var result = [];
 
-            for ( var idx in entries) {
+            for (var idx in entries) {
                 var entry = entries[idx];
                 if (entry.type !== 'stockAdd') {
                     result.push(entry);
@@ -743,7 +751,7 @@
             return result;
         };
 
-        this.updateStockWarmup = function(warmupRef, stockData) {
+        this.updateStockWarmup = function (warmupRef, stockData) {
             var otherData = this.getLocalNonStockEntries();
             var data = [].concat(otherData, stockData);
             return WarmupService.updateWarmup(warmupRef, data);
@@ -752,7 +760,7 @@
     }
 
     angular.module('tnt.catalog.warmup.service', []).service('WarmupService', [
-        '$q', '$log', '$rootScope', WarmupService
+        '$q', '$log', '$rootScope', '$timeout', WarmupService
     ]).service('CheckWarmupService', [
         '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', 'ReceivableService', CheckWarmupService
     ]).service('CreditCardWarmupService', [
@@ -760,11 +768,11 @@
     ]).service('OnCuffWarmupService', [
         '$q', '$log', '$rootScope', 'ArrayUtils', 'EntityService', 'IdentityService', 'WarmupService', 'ReceivableService', OnCuffWarmupService
     ])
-    // .service('BalanceWarmupService', ['$q', '$log', '$rootScope',
-    // 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService',
-    // BalanceWarmupService])
-    .service('StockWarmupService', [
-        '$q', '$log', '$rootScope', 'WarmupService', StockWarmupService
-    ]);
+        // .service('BalanceWarmupService', ['$q', '$log', '$rootScope',
+        // 'WarmupService', 'ArrayUtils', 'EntityService', 'IdentityService',
+        // BalanceWarmupService])
+        .service('StockWarmupService', [
+            '$q', '$log', '$rootScope', 'WarmupService', StockWarmupService
+        ]);
 
 })(angular);
