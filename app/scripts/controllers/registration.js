@@ -172,8 +172,8 @@
                                 $scope.consultant.address.neighborhood = userDataAccount.address.neighborhood;
                                 $scope.consultant.address.state = userDataAccount.address.state;
                                 $scope.consultant.address.city = userDataAccount.address.city;
-                                $scope.consultant.complement = userDataAccount.address.complement;
                                 $scope.consultant.address.number = userDataAccount.address.number;
+                                $scope.consultant.complement = userDataAccount.address.complement;
 
                                 //empty fields on firebase
                                 $scope.consultant.mkCode = userDataAccount.mkCode;
