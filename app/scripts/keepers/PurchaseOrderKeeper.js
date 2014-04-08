@@ -147,6 +147,7 @@
                         purchaseEntry.freight = event.freight;
                         purchaseEntry.points = event.points;
                         purchaseEntry.items = event.items;
+                        purchaseEntry.cost = event.cost;
 
                         return event.uuid;
                     });
@@ -312,7 +313,8 @@
                             discount : purchaseOrder.discount,
                             freight : purchaseOrder.freight,
                             points : purchaseOrder.points,
-                            items : purchaseOrder.items
+                            items : purchaseOrder.items,
+                            cost : purchaseOrder.cost
                         };
 
                         // create a new journal entry

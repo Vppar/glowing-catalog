@@ -17,6 +17,7 @@ describe('StockeeperReserveScenario', function() {
         module('tnt.catalog.stock');
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');
+        module('tnt.catalog.financial.math.service');
 
         module(function($provide) {
           $provide.value('$log', log);
@@ -28,12 +29,14 @@ describe('StockeeperReserveScenario', function() {
     var Stock = undefined;
     var $rootScope = undefined;
     var JournalKeeper = undefined;
+    var FinancialMathService = undefined;
 
-    beforeEach(inject(function(_$rootScope_, _StockKeeper_, _Stock_, _ArrayUtils_, _JournalKeeper_) {
+    beforeEach(inject(function(_$rootScope_, _StockKeeper_, _Stock_, _ArrayUtils_, _JournalKeeper_, _FinancialMathService_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         $rootScope = _$rootScope_;
         JournalKeeper = _JournalKeeper_;
+        FinancialMathService = _FinancialMathService_;
     }));
 
     beforeEach(nukeData);

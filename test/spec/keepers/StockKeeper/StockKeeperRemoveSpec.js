@@ -14,6 +14,7 @@ describe('Service: StockKeeperRemoveSpec', function() {
         module('tnt.catalog.stock');
         module('tnt.catalog.journal.replayer');
         module('tnt.catalog.journal');
+        module('tnt.catalog.financial.math.service');
     });
 
     beforeEach(function() {
@@ -30,8 +31,10 @@ describe('Service: StockKeeperRemoveSpec', function() {
     var Stock = undefined;
     var JournalEntry = undefined;
     var ArrayUtils = undefined;
-    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_, _ArrayUtils_) {
+    var FinancialMathService = undefined;
+    beforeEach(inject(function(_StockKeeper_, _Stock_, _JournalEntry_, _ArrayUtils_, _FinancialMathService_) {
         StockKeeper = _StockKeeper_;
+        FinancialMathService = _FinancialMathService_;
         Stock = _Stock_;
         JournalEntry = _JournalEntry_;
         ArrayUtils = _ArrayUtils_;

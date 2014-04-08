@@ -3,12 +3,18 @@
 describe('Service: Replayer', function() {
 
     // load the service's module
-    beforeEach(module('tnt.catalog.journal.replayer'));
+    beforeEach(function() {
+        module('tnt.catalog.journal.replayer');
+        module('tnt.catalog.financial.math.service');
+    });
+
 
     // instantiate service
     var Replayer = undefined;
-    beforeEach(inject(function(_Replayer_) {
+    var FinancialMathService = undefined;
+    beforeEach(inject(function(_Replayer_, _FinancialMathService_) {
         Replayer = _Replayer_;
+        FinancialMathService = _FinancialMathService_;
     }));
 
     
