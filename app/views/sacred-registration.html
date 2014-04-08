@@ -21,19 +21,15 @@
 	
 								<div class="fields">
 									<div class="form-line">
-										<div class="col-9">
+										<div class="col-14">
 											<label>Nome</label>
 											<input name="name" type="text" ng-model="consultant.name" customer-name required>
 										</div>
-										<div class="col-9">
-											<label>Sobrenome</label>
-											<input name="surname" type="text" ng-model="consultant.surname" customer-name>
-										</div>
-										<div class="col-3">
+										<div class="col-5">
 											<label>C&oacute;digo MK</label>
 											<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
 										</div>
-										<div class="col-3">
+										<div class="col-5">
 											<label>CEP</label>
 											<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
 										</div>
