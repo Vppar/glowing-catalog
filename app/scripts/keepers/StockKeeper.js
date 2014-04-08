@@ -57,7 +57,7 @@
      */
     angular.module('tnt.catalog.stock.keeper', [
         'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
-    ]).service('StockKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Stock', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock) {
+    ]).service('StockKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Stock', 'FinancialMathService', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock, FinancialMathService) {
 
         var currentEventVersion = 1;
         var stock = [];
@@ -103,9 +103,13 @@
                 stock.push(event);
             } else {
                 updatedInv = entry.quantity + event.quantity;
-                var average = ((entry.quantity * entry.cost) + (event.quantity * event.cost)) / updatedInv;
-                
-                entry.cost = average;
+
+                var oldCost = FinancialMathService.currencyMultiply(entry.quantity, entry.cost);
+                var newCost = FinancialMathService.currencyMultiply(event.quantity, event.cost);
+                var totalCost = FinancialMathService.currencySum(oldCost, newCost);
+                var averageCost = FinancialMathService.currencyDivide(totalCost,updatedInv);
+
+                entry.cost = averageCost;
                 entry.quantity = updatedInv;
             }
             return updatedInv;
