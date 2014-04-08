@@ -56,6 +56,7 @@
 }
 
 #sacred .form .form-line input[type="text"],
+#sacred .form .form-line input[type="password"],
 #sacred .form .form-line select,
 #sacred .form .form-line .select2-container {
 	width:100%;

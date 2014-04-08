@@ -57,6 +57,7 @@ styles/sacred-summarizer.css
 styles/sacred-third-parties.css
 styles/sacred-voucher.css
 styles/sacred-registration.css
+styles/sacred-login.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
