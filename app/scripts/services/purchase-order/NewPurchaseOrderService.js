@@ -492,10 +492,10 @@
                     };
 
                     this.calculateCost = function(amountWithDiscount){
-                        var itemsDiscounts = Misplacedservice.discount.distributeByWeight(_this.purchaseOrder.items, amountWithDiscount, getItemTotal);
+                        var itemsCost = Misplacedservice.discount.distributeByWeight(_this.purchaseOrder.items, amountWithDiscount, getItemTotal);
                         for(var ix in _this.purchaseOrder.items){
                             var item = _this.purchaseOrder.items[ix];
-                            item.cost = FinancialMathService.currencyDivide(itemsDiscounts [ix],item.qty);
+                            item.cost = FinancialMathService.currencyDivide(itemsCost [ix],item.qty);
                         }
                         _this.purchaseOrder.isDirty = true;
                     }
