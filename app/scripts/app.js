@@ -214,7 +214,7 @@
             templateUrl : 'views/tutorial-ipad.html'
         }).when('/tutorial-android', {
             templateUrl : 'views/tutorial-android.html'
-        }).when('/registration', {
+        }).when('/registration-2', {
             templateUrl : 'views/registration.html'
         }).when('/third-parties', {
             templateUrl : 'views/third-parties.html',
@@ -241,7 +241,7 @@
         }).when('/voucher-2', {
             templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'
-        }).when('/registration-2', {
+        }).when('/registration', {
             templateUrl : 'views/sacred-registration.html'
         }).otherwise({
             redirectTo : '/'

@@ -288,12 +288,19 @@
                     return deferred.promise;
                 };
 
-
-
                 if (isConnected()) {
                     setFirebaseReferences(localStorage.firebaseUser);
                 }
-
+                
+                this.getDataAccount = function(){
+                    var deferred = $q.defer();  
+                    
+                    userRef.child('account').child('consultant').on('value', function(snapshot) {
+                        deferred.resolve(snapshot.val());
+                    });
+                    return deferred.promise;
+                };
+                
             }
         ]);
 }(angular));

@@ -6,8 +6,8 @@
         var service = function svc(uuid, name, mkCode, cep, address, cpf, bank, agency, account, email) {
 
             var validProperties = [
-                'uuid', 'name', 'mkCode', 'cep', 'address', 'cpf', 'bank', 'agency', 'account', 'email', 'marital', 'gender',
-                'birthDate', 'countryOrigin', 'complement', 'emissary', 'phone', 'emailPrimer', 'emailDirector', 'primerCode', 'unityNumber',
+                'uuid', 'name', 'mkCode', 'cep', 'address', 'cpf', 'accountHolder', 'holderDocument', 'bank', 'agency', 'account', 'accountType', 'email', 'marital', 'gender',
+                'birthDate', 'countryOrigin', 'complement', 'emissary', 'phone','cellphone', 'emailPrimer', 'emailDirector', 'primerCode', 'unityNumber',
                 'area'
             ];
 
