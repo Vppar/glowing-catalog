@@ -178,7 +178,7 @@
                                 //empty fields on firebase
                                 $scope.consultant.mkCode = userDataAccount.mkCode;
                                 $scope.consultant.marital = userDataAccount.marital;
-                                $scope.consultant.countryOrigin = userDataAccount.countryOrigin;
+                                $scope.consultant.countryOrigin = userDataAccount.countryOrigin || 'Brasil' ;
                                 
                                 
                                 $scope.consultant.birthDate.day = getBirthDayByPiece(userDataAccount.birthday, 'day');
