@@ -82,7 +82,11 @@
                     }
 
                     $scope.goToConfirm = function goToConfirm(){
-                        $scope.save().then(selectTab('confirm'));
+                        $scope.save().then(function(){
+
+
+                            selectTab('confirm');
+                        });
                     }
 
                     function goToTicket() {

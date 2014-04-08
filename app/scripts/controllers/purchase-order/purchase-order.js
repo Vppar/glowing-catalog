@@ -50,6 +50,18 @@
                     }
                 }
 
+                    function loadPurchaseOrders() {
+                        $scope.ticket.purchaseOrders = NewPurchaseOrderService.list();
+                    }
+
+                    function newPurchaseOrder() {
+                        if (NewPurchaseOrderService.purchaseOrder === null) {
+                            $scope.purchaseOrder.current = NewPurchaseOrderService.createNewCurrent();
+                        }else{
+
+                        }
+                    }
+
                 function hasCurrentPurchaseOrder() {
                     return NewPurchaseOrderService.purchaseOrder !== null;
                 }
@@ -297,7 +309,7 @@
                 // #####################################################################################################
                 // Controller warm up
                 // #####################################################################################################
-
+                newPurchaseOrder();
                 resetWatchedQty();
                 enablePurchaseOrderWatchedQty();
             }

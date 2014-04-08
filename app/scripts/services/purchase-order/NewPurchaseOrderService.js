@@ -408,7 +408,8 @@
                             return result;
                         });
                         var savedPromise = createdPromise.then(function(uuid) {
-                            _this.clearCurrent();
+                               //Commented because of the new screen workflow.
+//                            _this.clearCurrent();
 
                             $log.info('PurchaseOrderService.save: Current purchase order saved.');
                             $log.debug(_this.purchaseOrder);
