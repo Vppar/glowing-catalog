@@ -8,17 +8,20 @@ describe('StockeeperUnreserveScenario', function() {
         module('tnt.catalog.stock');
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');
+        module('tnt.catalog.financial.math.service');
     });
 
     // instantiate service
     var StockKeeper = undefined;
     var Stock = undefined;
     var Scope = undefined;
+    var FinancialMathService = undefined;
 
-    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_) {
+    beforeEach(inject(function($rootScope, _StockKeeper_, _Stock_, _ArrayUtils_, _FinancialMathService_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         Scope = $rootScope;
+        FinancialMathService = _FinancialMathService_;
     }));
 
     /**

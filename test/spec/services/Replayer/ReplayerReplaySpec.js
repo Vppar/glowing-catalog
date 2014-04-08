@@ -10,16 +10,19 @@ describe('Service: Replayer', function() {
     		module('tnt.catalog.stock.entity');
     		module('tnt.catalog.journal');
     		module('tnt.catalog.journal.entity');
+            module('tnt.catalog.financial.math.service');
     });
 
     // instantiate service
     var Replayer = undefined;
     var Stock = undefined;
     var JournalEntry = undefined;
-    beforeEach(inject(function(_Replayer_, _Stock_, _JournalEntry_) {
+    var FinancialMathService = undefined;
+    beforeEach(inject(function(_Replayer_, _Stock_, _JournalEntry_, _FinancialMathService_) {
         Replayer = _Replayer_;
         Stock = _Stock_;
         JournalEntry = _JournalEntry_;
+        FinancialMathService = _FinancialMathService_;
     }));
     beforeEach(function(){
     	var func = function(){};

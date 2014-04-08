@@ -10,12 +10,15 @@ describe('Service: StockKeeperFactorySpec', function() {
         module('tnt.catalog.journal');
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
+        module('tnt.catalog.financial.math.service');
     });
 
     // instantiate service
     var Stock = undefined;
-    beforeEach(inject(function(_Stock_) {
+    var FinancialMathService = undefined;
+    beforeEach(inject(function(_Stock_, _FinancialMathService_) {
         Stock = _Stock_;
+        FinancialMathService = _FinancialMathService_;
     }));
 
     it('should creat a new Stock entity', function() {

@@ -11,11 +11,13 @@ describe('Service: StockKeeperAddScenario', function() {
         fatal : logger
     };
 
+
     beforeEach(function() {
         localStorage.deviceId = 1;
         module('tnt.catalog.stock');
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');
+        module('tnt.catalog.financial.math.service');
 
         module(function($provide) {
           $provide.value('$log', log);
@@ -26,13 +28,15 @@ describe('Service: StockKeeperAddScenario', function() {
     var Stock = undefined;
     var JournalKeeper = undefined;
     var $rootScope = undefined;
+    var FinancialMathService = undefined;
 
 
-    beforeEach(inject(function(_$rootScope_, _StockKeeper_, _Stock_, _JournalKeeper_) {
+    beforeEach(inject(function(_$rootScope_, _StockKeeper_, _Stock_, _JournalKeeper_, _FinancialMathService_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         $rootScope = _$rootScope_;
         JournalKeeper = _JournalKeeper_;
+        FinancialMathService = _FinancialMathService_;
     }));
 
 
@@ -93,7 +97,7 @@ describe('Service: StockKeeperAddScenario', function() {
         var ev = new Stock(110, 3, 10);
         var ev2 = new Stock(110, 5, 35);
         var finalQuantity = (ev.quantity + ev2.quantity);
-        var finalPrice = ((ev.quantity * ev.cost) + (ev2.quantity * ev2.cost)) / (ev.quantity + ev2.quantity);
+        var finalPrice = 25.63;
         
 
         // Add Stock

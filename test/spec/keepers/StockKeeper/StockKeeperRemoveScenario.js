@@ -17,6 +17,7 @@ describe('Service: StockeeperRemoveScenario', function() {
         module('tnt.catalog.stock');
         module('tnt.catalog.stock.keeper');
         module('tnt.catalog.stock.entity');
+        module('tnt.catalog.financial.math.service');
 
         module(function($provide) {
           $provide.value('$log', log);
@@ -29,14 +30,16 @@ describe('Service: StockeeperRemoveScenario', function() {
     var ArrayUtils = undefined;
     var $rootScope = undefined;
     var JournalKeeper = undefined;
+    var FinancialMathService = undefined;
     var $q = undefined;
 
-    beforeEach(inject(function(_$rootScope_, _$q_, _StockKeeper_, _Stock_, _ArrayUtils_, _JournalKeeper_) {
+    beforeEach(inject(function(_$rootScope_, _$q_, _StockKeeper_, _Stock_, _ArrayUtils_, _JournalKeeper_, _FinancialMathService_) {
         StockKeeper = _StockKeeper_;
         Stock = _Stock_;
         ArrayUtils = _ArrayUtils_;
         $rootScope = _$rootScope_;
         JournalKeeper = _JournalKeeper_;
+        FinancialMathService = _FinancialMathService_;
         $q = _$q_;
     }));
 
