@@ -148,18 +148,25 @@
                             function populateFields(userDataAccount){
                                 $scope.consultant.name = userDataAccount.name;
                                 $scope.consultant.cep  = userDataAccount.cep;
-                                $scope.consultant.gender = userDataAccount.gender;
+                                $scope.consultant.gender = getGender(userDataAccount.gender);
                                 $scope.consultant.cpf = userDataAccount.document;
-                                $scope.consultant.bank = userDataAccount.bank;
-                                $scope.consultant.agency = userDataAccount.agency;
-                                $scope.consultant.account = userDataAccount.account;
                                 $scope.consultant.email = userDataAccount.email;
-                                $scope.consultant.phone = userDataAccount.phone;
+                                $scope.consultant.phone = userDataAccount.landline;
+                                $scope.consultant.cellphone = userDataAccount.cellphone;
                                 $scope.consultant.emailPrimer = userDataAccount.emailPrimer;
                                 $scope.consultant.emailDirector = userDataAccount.emailDirector;
                                 $scope.consultant.primerCode = userDataAccount.primerCode;
                                 $scope.consultant.unityNumber = userDataAccount.unityNumber;
-
+                                $scope.consultant.emissary = userDataAccount.rg;
+                                
+                                //banking
+                                $scope.consultant.bank = userDataAccount.banking.bank;
+                                $scope.consultant.agency = userDataAccount.banking.agency;
+                                $scope.consultant.account = userDataAccount.banking.account;
+                                $scope.consultant.accountHolder = userDataAccount.banking.holderName;
+                                $scope.consultant.holderDocument = userDataAccount.banking.holderDocument;
+                                $scope.consultant.accountType = userDataAccount.banking.accountType;
+                                
                                 //adress fields
                                 $scope.consultant.address.street = userDataAccount.address.street;
                                 $scope.consultant.address.neighborhood = userDataAccount.address.neighborhood;
@@ -172,11 +179,34 @@
                                 $scope.consultant.mkCode = userDataAccount.mkCode;
                                 $scope.consultant.marital = userDataAccount.marital;
                                 $scope.consultant.countryOrigin = userDataAccount.countryOrigin;
-                                $scope.consultant.emissary = userDataAccount.emissary;
                                 
-                                //$scope.consultant.birthDate.day
-                                //$scope.consultant.birthDate.month
-                                //$scope.consultant.birthDate.year
+                                
+                                $scope.consultant.birthDate.day = getBirthDayByPiece(userDataAccount.birthday, 'day');
+                                $scope.consultant.birthDate.month = getBirthDayByPiece(userDataAccount.birthday, 'month');
+                                $scope.consultant.birthDate.year = getBirthDayByPiece(userDataAccount.birthday, 'year');
+                            }
+                            
+                            function getBirthDayByPiece(date, piece){
+                                var pieces = date.split('-');
+                                var result = undefined;
+                                if(piece === 'day'){
+                                    result = pieces[2];
+                                }else if(piece ==='month'){
+                                    result = pieces[1];
+                                }else if(piece === 'year'){
+                                    result = pieces[0];
+                                }
+                                return result;
+                            };
+                            
+                            function getGender(code){
+                                var result = undefined;
+                                if(code === '1'){
+                                    result = 'Masculino';
+                                }else if(code === '2' ){
+                                    result = 'Feminino';
+                                }
+                                return result;
                             }
                             
                             warmup();

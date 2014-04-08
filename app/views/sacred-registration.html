@@ -25,14 +25,17 @@
 											<label>Nome</label>
 											<input name="name" type="text" ng-model="consultant.name" customer-name required>
 										</div>
+										
 										<div class="col-5">
-											<label>C&oacute;digo MK</label>
-											<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
+											<label>CPF/MF</label>
+											<input name="" type="text" ng-model="consultant.cpf" cpf required>
 										</div>
 										<div class="col-5">
-											<label>CEP</label>
-											<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
+											<label>RG/&Oacute;rg&atilde;o emissor</label>
+											<input name="" type="text" ng-model="consultant.emissary" >						
 										</div>
+										
+										
 									</div>
 										
 									<div class="form-line">
@@ -68,18 +71,15 @@
 													                        </select>
 										</div>
 										
-										<div class="col-3">
-											<label>CPF/MF</label>
-											<input name="" type="text" ng-model="consultant.cpf" cpf required>
-										</div>
-										<div class="col-4">
-											<label>RG/&Oacute;rg&atilde;o emissor</label>
-											<input name="" type="text" ng-model="consultant.emissary" >						
-										</div>
 										
-										<div class="col-4">
+										
+										<div class="col-6">
 											<label>País de Origem</label>
 											<input name="" type="text" ng-model="consultant.countryOrigin" required>
+										</div>
+										<div class="col-5">
+											<label>C&oacute;digo MK</label>
+											<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
 										</div>
 									</div>
 										
@@ -88,18 +88,22 @@
 											<label>Endereço</label>
 											<input name="" type="text" ng-model="consultant.address.street" required>
 										</div>
-										<div class="col-3">
+										<div class="col-2">
 											<label>Nro.</label>
 											<input name="" type="text" ng-model="consultant.address.number" required>
 										</div>
 										
-										<div class="col-6">
+										<div class="col-4">
 											<label>Bairro</label>
 											<input name="" type="text" ng-model="consultant.address.neighborhood" required>
 										</div>
-										<div class="col-6">
+										<div class="col-5">
 											<label>Complemento</label>
 											<input name="" type="text" ng-model="consultant.complement">
+										</div>
+										<div class="col-4">
+											<label>CEP</label>
+											<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
 										</div>
 									</div>
 										
