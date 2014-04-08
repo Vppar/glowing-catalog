@@ -27,3 +27,59 @@
 #sacred .grid-body input[type=checkbox] {
 	margin-top:-2px;
 }
+
+/* for form pages */
+
+#sacred hr {
+	width:100%;
+	margin:10px 0;
+	float:left;
+}
+
+#sacred .form {
+	height:calc(100% + 38px);
+	/*overflow:hidden;*/
+	/*overflow-y:scroll;*/
+}
+
+#sacred .form .form-line {
+	margin-bottom:10px;
+	float:left;
+	display:block;
+	width:100%;
+}
+
+#sacred .form .buttons-holder .button-green {
+	margin-right:5px;
+}
+
+#sacred .form .form-line input[type="text"],
+#sacred .form .form-line select,
+#sacred .form .form-line .select2-container {
+	width:100%;
+	min-height:30px;
+}
+
+#sacred .date-day, #sacred .date-month, #date-year {
+	display:block;
+	float:left;	
+}
+#sacred .date-day, #sacred .date-month {
+	width:65px!important;
+	margin-right:5px;
+}
+#sacred .date-year {
+	width:95px!important;
+}
+
+#sacred .limit-date-month, #limit-date-year {
+	display:block;
+	float:left;	
+}
+#sacred .limit-date-month {
+	width:75px!important;
+	margin-right:5px;
+}
+#sacred .limit-date-year {
+	width:114px!important;
+}

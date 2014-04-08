@@ -241,6 +241,8 @@
         }).when('/voucher-2', {
             templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'
+        }).when('/registration-2', {
+            templateUrl : 'views/sacred-registration.html'
         }).otherwise({
             redirectTo : '/'
         });
