@@ -279,7 +279,7 @@
 
                             $scope.$watch('cash.amount', function() {
                                 PaymentService.clear('cash');
-                                if ($scope.cash.amount != 0) {
+                                if (Number($scope.cash.amount) !== 0) {
                                     var cash = new CashPayment($scope.cash.amount);
                                     cash.duedate = new Date().getTime();
                                     PaymentService.add(cash);
@@ -441,19 +441,19 @@
                                     total.payments.coupon = PaymentService.list('coupon');
                                     total.payments.onCuff = PaymentService.list('onCuff');
 
-                                    if (total.payments.check == 0) {
+                                    if (Number(total.payments.check) === 0) {
                                         $scope.hideCheckQtde = true;
                                     } else {
                                         $scope.hideCheckQtde = false;
                                     }
 
-                                    if (total.payments.creditCard == 0) {
+                                    if (Number(total.payments.creditCard) === 0) {
                                         $scope.hideCardQtde = true;
                                     } else {
                                         $scope.hideCardQtde = false;
                                     }
 
-                                    if (total.payments.exchange == 0) {
+                                    if (Number(total.payments.exchange) === 0) {
                                         $scope.hideExchangeQtde = true;
                                     } else {
                                         $scope.hideExchangeQtde = false;
@@ -483,7 +483,7 @@
                             $scope.$watch('total.order.subTotal', updateOrderAndPaymentTotal);
 
                             $scope.$watch('total.change', function() {
-                                if ($scope.total.change != 0) {
+                                if (Number($scope.total.change) !== 0) {
                                     PaymentService.clear('onCuff');
                                     updateOrderAndPaymentTotal();
                                 }
