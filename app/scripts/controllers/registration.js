@@ -16,7 +16,6 @@
                         'DialogService',
                         'UserService',
                         'logger',
-
                         function($scope, $location, $q, Consultant, ConsultantService, CepService, DataProvider, DialogService,
                                 UserService, logger) {
 
@@ -132,7 +131,55 @@
                                 $scope.consultant.address.state = address.uf;
                                 $scope.consultant.address.city = address.localidade;
                             };
+                            
+                            function warmup(){
+                              //try to get information from firebase
+                                var promise = ConsultantService.getDataAccount();
+                                if(!$scope.consultant.uuid){
+                                    promise.then(function(userDataAccount){
+                                        if(angular.isObject(userDataAccount)){
+                                            populateFields(userDataAccount);
+                                        }
+                                    });
+                                }
+                                
+                            };
+                            
+                            function populateFields(userDataAccount){
+                                $scope.consultant.name = userDataAccount.name;
+                                $scope.consultant.cep  = userDataAccount.cep;
+                                $scope.consultant.gender = userDataAccount.gender;
+                                $scope.consultant.cpf = userDataAccount.document;
+                                $scope.consultant.bank = userDataAccount.bank;
+                                $scope.consultant.agency = userDataAccount.agency;
+                                $scope.consultant.account = userDataAccount.account;
+                                $scope.consultant.email = userDataAccount.email;
+                                $scope.consultant.phone = userDataAccount.phone;
+                                $scope.consultant.emailPrimer = userDataAccount.emailPrimer;
+                                $scope.consultant.emailDirector = userDataAccount.emailDirector;
+                                $scope.consultant.primerCode = userDataAccount.primerCode;
+                                $scope.consultant.unityNumber = userDataAccount.unityNumber;
 
+                                //adress fields
+                                $scope.consultant.address.street = userDataAccount.address.street;
+                                $scope.consultant.address.neighborhood = userDataAccount.address.neighborhood;
+                                $scope.consultant.address.state = userDataAccount.address.state;
+                                $scope.consultant.address.city = userDataAccount.address.city;
+                                $scope.consultant.complement = userDataAccount.address.complement;
+                                $scope.consultant.address.number = userDataAccount.address.number;
+
+                                //empty fields on firebase
+                                $scope.consultant.mkCode = userDataAccount.mkCode;
+                                $scope.consultant.marital = userDataAccount.marital;
+                                $scope.consultant.countryOrigin = userDataAccount.countryOrigin;
+                                $scope.consultant.emissary = userDataAccount.emissary;
+                                
+                                //$scope.consultant.birthDate.day
+                                //$scope.consultant.birthDate.month
+                                //$scope.consultant.birthDate.year
+                            }
+                            
+                            warmup();
                         }
                     ]);
 }(angular));

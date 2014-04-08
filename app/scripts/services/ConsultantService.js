@@ -8,7 +8,12 @@
     angular.module('tnt.catalog.consultant.service', [
         'tnt.catalog.consultant.entity', 'tnt.catalog.consultant.keeper', 'tnt.util.log'
     ]).service('ConsultantService', [
-        'logger', '$q', 'ConsultantKeeper', 'Consultant', function ConsultantService(logger, $q, ConsultantKeeper, Consultant) {
+        'logger',
+        '$q',
+        'ConsultantKeeper',
+        'Consultant',
+        'SyncDriver',
+        function ConsultantService(logger, $q, ConsultantKeeper, Consultant, SyncDriver) {
 
             var log = logger.getLogger('tnt.catalog.consultant.service.ConsultantService');
 
@@ -127,6 +132,10 @@
              */
             this.nuke = function(){
                 return ConsultantKeeper.nuke();
+            };
+            
+            this.getDataAccount = function(){
+                return SyncDriver.getDataAccount();
             };
         }
         

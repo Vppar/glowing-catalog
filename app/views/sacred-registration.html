@@ -3,7 +3,7 @@
 
 		<div ng-include src="'views/parts/global/header.html'"></div>
 
-		<div class="page sacred-registration-page">
+		<div class="page sacred-registration-page" ng-controller="RegistrationCtrl">
 
 			<div class="page-header">
 				<div class="row">
@@ -14,233 +14,235 @@
 			</div>
 
 			<div class="page-body">
-				<div class="content">
-
-					<div class="content-body">
-						<div class="form">
-
-							<div class="form-line">
-								<div class="col-9">
-									<label>Nome</label>
-									<input name="name" type="text" ng-model="consultant.name" customer-name required>
+				<form name="consultantForm" >
+					<div class="content">
+	
+						<div class="content-body">
+							<div class="form">
+	
+								<div class="form-line">
+									<div class="col-9">
+										<label>Nome</label>
+										<input name="name" type="text" ng-model="consultant.name" customer-name required>
+									</div>
+									<div class="col-9">
+										<label>Sobrenome</label>
+										<input name="surname" type="text" ng-model="consultant.surname" customer-name>
+									</div>
+									<div class="col-3">
+										<label>C&oacute;digo MK</label>
+										<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
+									</div>
+									<div class="col-3">
+										<label>CEP</label>
+										<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
+									</div>
 								</div>
-								<div class="col-9">
-									<label>Sobrenome</label>
-									<input name="surname" type="text" ng-model="consultant.surname" customer-name required>
+	
+								<div class="form-line">
+									<div class="col-4">
+										<label>Estado civil</label>
+										<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
+											<option value="">Selecione</option>
+											<option value="Casado(a)">Casado(a)</option>
+											<option value="Solteiro(a)">Solteiro(a)</option>
+											<option value="Divorciado(a)">Divorciado(a)</option>
+											<option value="Viúvo(a)">Viúvo(a)</option>
+										</select>
+									</div>
+									<div class="col-3">
+										<label>Sexo</label>
+										<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.gender" tnt-select2 required>
+											<option value="">Selecione</option>
+											<option value="Masculio">Masculino</option>
+											<option value="Feminino">Feminino</option>
+										</select>
+									</div>
+	
+									<div class="col-6">
+										<label>Data de nascimento</label>
+										<select name="birthday" class="date-day" ng-model="consultant.birthDate.day"  tabindex="3" ui-select2="select2Options" tnt-select2>
+				                            <option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+										</select>
+				                        <select name="birthmonth" class="date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
+				                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+				                        </select>
+				                        <select name="birthyear" class="date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2="select2Options" tnt-select2>
+				                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+				                        </select>
+									</div>
+	
+									<div class="col-3">
+										<label>CPF/MF</label>
+										<input name="" type="text" ng-model="consultant.cpf" cpf required>
+									</div>
+									<div class="col-4">
+										<label>RG/&Oacute;rg&atilde;o emissor</label>
+										<input name="" type="text" ng-model="consultant.emissary" >						
+									</div>
+	
+									<div class="col-4">
+										<label>País de Origem</label>
+										<input name="" type="text" ng-model="consultant.countryOrigin" required>
+									</div>
 								</div>
-								<div class="col-3">
-									<label>C&oacute;digo MK</label>
-									<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
+	
+								<div class="form-line">
+									<div class="col-9">
+										<label>Endereço</label>
+										<input name="" type="text" ng-model="consultant.address.street" required>
+									</div>
+									<div class="col-3">
+										<label>Nro.</label>
+										<input name="" type="text" ng-model="consultant.address.number" required>
+									</div>
+									
+									<div class="col-6">
+										<label>Bairro</label>
+										<input name="" type="text" ng-model="consultant.address.neighborhood" required>
+									</div>
+									<div class="col-6">
+										<label>Complemento</label>
+										<input name="" type="text" ng-model="consultant.complement">
+									</div>
 								</div>
-								<div class="col-3">
-									<label>CEP</label>
-									<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
+	
+								<div class="form-line">
+									
+									<div class="col-8">
+										<label>Cidade</label>
+										<input name="" type="text" ng-model="consultant.address.city" required>
+									</div>
+									<div class="col-2">
+										<label>UF</label>
+										<select name="state"  tabindex="12" ui-select2="select2Options" tnt-select2 ng-model="consultant.address.state" required>
+											<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
+										</select>
+									</div>
+									<div class="col-6">
+										<label>E-mail</label>
+										<input name="" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" lower-case required>
+									</div>
+									<div class="col-4">
+										<label>Telefone</label>
+										<input name="" type="text" ng-model="consultant.phone" required phone>
+									</div>
+									<div class="col-4">
+										<label>Celular</label>
+										<input name="" type="text" ng-model="consultant.cellphone" phone>
+									</div>
 								</div>
-							</div>
-
-							<div class="form-line">
-								<div class="col-4">
-									<label>Estado civil</label>
-									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
-										<option value="">Selecione</option>
-										<option value="Casado(a)">Casado(a)</option>
-										<option value="Solteiro(a)">Solteiro(a)</option>
-										<option value="Divorciado(a)">Divorciado(a)</option>
-										<option value="Viúvo(a)">Viúvo(a)</option>
-									</select>
+	
+								<div class="form-line">
+									<div class="col-6">
+										<label>Titular da Conta</label>
+										<input name="" type="text" ng-model="consultant.name" required>
+									</div>
+									<div class="col-4">
+										<label>Tipo da Conta</label>
+										<input name="" type="text" ng-model="consultant.accountType" required>
+									</div>
+									<div class="col-4">
+										<label>CPF do Titular</label>
+										<input name="" type="text" ng-model="consultant.cpf" required>
+									</div>
+									<div class="col-4">
+										<label>Banco</label>
+										<input name="" type="text" ng-model="consultant.bank" required>
+									</div>
+									<div class="col-3">
+										<label>Agência</label>
+										<input name="" type="text" ng-model="consultant.agency" required maxlength="4">
+									</div>
+									<div class="col-3">
+										<label>Conta</label>
+										<input name="" type="text" ng-model="consultant.account" required maxlength="13">
+									</div>
+									
 								</div>
-								<div class="col-3">
-									<label>Sexo</label>
-									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.gender" tnt-select2 required>
-										<option value="">Selecione</option>
-										<option value="Masculio">Masculino</option>
-										<option value="Feminino">Feminino</option>
-									</select>
+	
+								<hr />
+	
+								<div class="form-line">
+									<div class="col-12">
+										<label>E-mail da iniciadora</label>
+										<input name="" type="text" ng-model="consultant.emailPrimer" ng-pattern="emailRegex" lower-case required>
+									</div>
+									<div class="col-12">
+										<label>E-mail da diretora</label>
+										<input name="" type="text" ng-model="consultant.emailDirector" ng-pattern="emailRegex" lower-case required>			
+									</div>
 								</div>
-
-								<div class="col-6">
-									<label>Data de nascimento</label>
-									<select name="birthday" class="date-day" ng-model="consultant.birthDate.day"  tabindex="3" ui-select2="select2Options" tnt-select2>
-			                            <option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
-									</select>
-			                        <select name="birthmonth" class="date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
-			                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
-			                        </select>
-			                        <select name="birthyear" class="date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2="select2Options" tnt-select2>
-			                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
-			                        </select>
+	
+								<div class="form-line">
+									<div class="col-6">
+										<label>C&oacute;digo da iniciadora</label>
+										<input name="" type="text" ng-model="consultant.primerCode" >
+									</div>
+									<div class="col-6">
+										<label>Nro. da unidade</label>
+										<input name="" type="text" ng-model="consultant.unityNumber" >						
+									</div>
 								</div>
-
-								<div class="col-3">
-									<label>CPF/MF</label>
-									<input name="" type="text" ng-model="consultant.cpf" cpf required>
+	
+								<!-- <hr /> -->
+	
+								<!-- <div class="form-line">
+									<div class="col-8">
+										<label>Bandeira/cartão</label>
+										<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
+											<option value="">Selecione</option>
+											<option value="Visa">Visa</option>
+											<option value="Diners Club International">Diners Club International</option>
+											<option value="Discover">Discover</option>
+											<option value="Elo">Elo</option>
+											<option value="American Express">American Express</option>
+										</select>
+									</div>
+									<div class="col-7">
+										<label>Número do cartão</label>
+										<input name="" type="text" required>			
+									</div>
+									<div class="col-4">
+										<label>Código de segurança</label>
+										<input name="" type="text" required>			
+									</div>
+									<div class="col-5">
+										<label>Data de Validade</label>
+				                        <select name="" class="limit-date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
+				                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+				                        </select>
+				                        <select name="" class="limit-date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2="select2Options" tnt-select2>
+				                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+				                        </select>
+									</div>
+								</div> -->
+	
+								<!-- <div class="form-line">
+									<div class="col-16">
+										<label>Nome no Cartão</label>
+										<input name="" type="text" required>			
+									</div>
+									<div class="col-8">
+										<label>Parcelas</label>
+										<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
+											<option value="">Selecione</option>
+											<option value="1x de ">1x de </option>
+										</select>
+									</div>
+								</div> -->
+	
+								<div class="buttons-holder">
+									<input type="button" class="button-black pull-left" tnt-promise-click="cancel()" value="Voltar">
+		                            <spinner-button class="button-green pull-right" spinner-promise = "confirm()" type="submit">Salvar</spinner-button>
 								</div>
-								<div class="col-4">
-									<label>RG/&Oacute;rg&atilde;o emissor</label>
-									<input name="" type="text" ng-model="consultant.emissary" >						
-								</div>
-
-								<div class="col-4">
-									<label>País de Origem</label>
-									<input name="" type="text" ng-model="consultant.countryOrigin" required>
-								</div>
-							</div>
-
-							<div class="form-line">
-								<div class="col-9">
-									<label>Endereço</label>
-									<input name="" type="text" ng-model="consultant.address.street" required>
-								</div>
-								<div class="col-3">
-									<label>Nro.</label>
-									<input name="" type="text" ng-model="consultant.address.number" required>
-								</div>
-								
-								<div class="col-6">
-									<label>Bairro</label>
-									<input name="" type="text" ng-model="consultant.address.neighborhood" required>
-								</div>
-								<div class="col-6">
-									<label>Complemento</label>
-									<input name="" type="text" ng-model="consultant.complement">
-								</div>
-							</div>
-
-							<div class="form-line">
-								
-								<div class="col-8">
-									<label>Cidade</label>
-									<input name="" type="text" ng-model="consultant.address.city" required>
-								</div>
-								<div class="col-2">
-									<label>UF</label>
-									<select name="state"  tabindex="12" ui-select2="select2Options" tnt-select2 ng-model="consultant.address.state" required>
-										<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
-									</select>
-								</div>
-								<div class="col-6">
-									<label>E-mail</label>
-									<input name="" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" lower-case required>
-								</div>
-								<div class="col-4">
-									<label>Telefone</label>
-									<input name="" type="text" ng-model="consultant.phone" required phone>
-								</div>
-								<div class="col-4">
-									<label>Celular</label>
-									<input name="" type="text" ng-model="consultant.celphone" required phone>
-								</div>
-							</div>
-
-							<div class="form-line">
-								<div class="col-6">
-									<label>Titular da Conta</label>
-									<input name="" type="text" ng-model="" required>
-								</div>
-								<div class="col-4">
-									<label>Tipo da Conta</label>
-									<input name="" type="text" ng-model="" required>
-								</div>
-								<div class="col-4">
-									<label>CPF do Titular</label>
-									<input name="" type="text" ng-model="" required>
-								</div>
-								<div class="col-4">
-									<label>Banco</label>
-									<input name="" type="text" ng-model="consultant.bank" required>
-								</div>
-								<div class="col-3">
-									<label>Agência</label>
-									<input name="" type="text" ng-model="consultant.agency" required maxlength="4">
-								</div>
-								<div class="col-3">
-									<label>Conta</label>
-									<input name="" type="text" ng-model="consultant.account" required maxlength="13">
-								</div>
-								
-							</div>
-
-							<hr />
-
-							<div class="form-line">
-								<div class="col-12">
-									<label>E-mail da iniciadora</label>
-									<input name="" type="text" ng-model="consultant.emailPrimer" ng-pattern="emailRegex" lower-case required>
-								</div>
-								<div class="col-12">
-									<label>E-mail da diretora</label>
-									<input name="" type="text" ng-model="consultant.emailDirector" ng-pattern="emailRegex" lower-case required>			
-								</div>
-							</div>
-
-							<div class="form-line">
-								<div class="col-6">
-									<label>C&oacute;digo da iniciadora</label>
-									<input name="" type="text" ng-model="consultant.primerCode" >
-								</div>
-								<div class="col-6">
-									<label>Nro. da unidade</label>
-									<input name="" type="text" ng-model="consultant.unityNumber" >						
-								</div>
-							</div>
-
-							<!-- <hr /> -->
-
-							<!-- <div class="form-line">
-								<div class="col-8">
-									<label>Bandeira/cartão</label>
-									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
-										<option value="">Selecione</option>
-										<option value="Visa">Visa</option>
-										<option value="Diners Club International">Diners Club International</option>
-										<option value="Discover">Discover</option>
-										<option value="Elo">Elo</option>
-										<option value="American Express">American Express</option>
-									</select>
-								</div>
-								<div class="col-7">
-									<label>Número do cartão</label>
-									<input name="" type="text" required>			
-								</div>
-								<div class="col-4">
-									<label>Código de segurança</label>
-									<input name="" type="text" required>			
-								</div>
-								<div class="col-5">
-									<label>Data de Validade</label>
-			                        <select name="" class="limit-date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
-			                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
-			                        </select>
-			                        <select name="" class="limit-date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2="select2Options" tnt-select2>
-			                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
-			                        </select>
-								</div>
-							</div> -->
-
-							<!-- <div class="form-line">
-								<div class="col-16">
-									<label>Nome no Cartão</label>
-									<input name="" type="text" required>			
-								</div>
-								<div class="col-8">
-									<label>Parcelas</label>
-									<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
-										<option value="">Selecione</option>
-										<option value="1x de ">1x de </option>
-									</select>
-								</div>
-							</div> -->
-
-							<div class="buttons-holder">
-								<input type="button" class="button-black pull-left" tnt-promise-click="cancel()" value="Voltar">
-	                            <spinner-button class="button-green pull-right" spinner-promise = "confirm()" type="submit">Salvar</spinner-button>
-							</div>
-
-						</div><!-- // form -->
-
+	
+							</div><!-- // form -->
+	
+						</div>
+	
 					</div>
-
-				</div>
+				</form>
 			</div><!-- // page-body -->
 
 
