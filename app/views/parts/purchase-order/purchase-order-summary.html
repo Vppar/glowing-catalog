@@ -79,7 +79,7 @@
 	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='new'">			
 		<div class="btns-details-products-to-buy-item">
 			<button class="btn btn-cancel" type="submit" tnt-promise-click="back()">Sair</button>
-			<button class="btn btn-ok float-right" type="submit" ng-disabled="!hasItems()" tnt-promise-click="save()">Prosseguir</button>
+			<button class="btn btn-ok float-right" type="submit" ng-disabled="!hasItems()" ng-click="goToConfirm()">Prosseguir</button>
 		</div>		
 	</div>
 	

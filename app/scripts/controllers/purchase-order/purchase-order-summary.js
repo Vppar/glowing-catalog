@@ -81,8 +81,8 @@
                         selectTab('stashed');
                     }
 
-                    function goToConfirm(){
-                        return $scope.save();
+                    $scope.goToConfirm = function goToConfirm(){
+                        $scope.save().then(selectTab('confirm'));
                     }
 
                     function goToTicket() {
@@ -153,9 +153,9 @@
                                 NewPurchaseOrderService.purchaseOrder.freight = $scope.summary.freight;
                                 NewPurchaseOrderService.purchaseOrder.points = $scope.summary.total.points;
                                 NewPurchaseOrderService.purchaseOrder.amount = $scope.summary.total.amount;
+                                NewPurchaseOrderService.calculateCost($scope.summary.total.amountWithDiscount);
 
-                                var savedPromise = NewPurchaseOrderService.saveCurrent().then(selectTab('confirm'));
-                                return savedPromise;
+                                return NewPurchaseOrderService.saveCurrent();
                             };
 
                     $scope.confirm =
