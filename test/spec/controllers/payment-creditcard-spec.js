@@ -1,6 +1,5 @@
-'use strict';
-
-describe('Controller: PaymentCreditCardCtrl', function() {
+describe('Controller: PaymentCreditCardCtrl', function () {
+    'use strict';
 
     var scope = {};
     var element = {};
@@ -8,10 +7,12 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     var dp = {};
     var ds = {};
     var os = {};
+    var is = {};
     var ccps = {};
+    var es = {};
 
     os.order = {
-        code : '123456789'
+        code: '123456789'
     };
 
     dp.cardData = {};
@@ -22,23 +23,23 @@ describe('Controller: PaymentCreditCardCtrl', function() {
     dp.date = {};
 
     // load the controller's module
-    beforeEach(function() {
+    beforeEach(function () {
         module('tnt.catalog.payment.creditcard');
         module('tnt.catalog.filter.findBy');
     });
 
-    beforeEach(inject(function($controller, $rootScope, _$filter_, _$q_) {
+    beforeEach(inject(function ($controller, $rootScope, _$filter_, _$q_) {
         // element mock
-        element.find = function(name) {
-            var element = {
-                removeClass : function(name) {
+        element.find = function () {
+            var returnedElement = {
+                removeClass: function () {
                     return this;
                 },
-                addClass : function(name) {
+                addClass: function () {
                     return this;
                 }
             };
-            return element;
+            return returnedElement;
         };
 
         // PaymentService mock
@@ -46,18 +47,23 @@ describe('Controller: PaymentCreditCardCtrl', function() {
 
         // DataProvider stub
         dp.cardData = {
-            flags : [
+            flags: [
                 '', '', '', '', '', '', 'MasterCard'
             ]
         };
-        dp.reloadGoPay= jasmine.createSpy('DataProvider.reloadGoPay');
+        dp.reloadGoPay = jasmine.createSpy('DataProvider.reloadGoPay');
+
+        is.putBundle = jasmine.createSpy('IntentService.putBundle');
+        is.getBundle = jasmine.createSpy('IntentService.getBundle');
 
         ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
-        ccps.charge = jasmine.createSpy('CreditCardPaymentService.charge').andCallFake(function() {
+        ccps.charge = jasmine.createSpy('CreditCardPaymentService.charge').andCallFake(function () {
             var deferred = _$q_.defer();
             deferred.resolve();
             return deferred.promise;
         });
+
+        es.read = jasmine.createSpy('EntityService.read').andReturn({document: '01234567890'});
 
         // scope mock
         scope = $rootScope.$new();
@@ -68,11 +74,11 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         scope.selectPaymentMethod = jasmine.createSpy('$scope.selectPaymentMethod');
         scope.getAmount = jasmine.createSpy('$scope.getAmount');
         element.find = jasmine.createSpy('$element.find').andReturn({
-            find : function() {
+            find: function () {
                 return {
-                    removeClass : function() {
+                    removeClass: function () {
                         return {
-                            addClass : function() {
+                            addClass: function () {
                             }
                         };
                     }
@@ -81,87 +87,95 @@ describe('Controller: PaymentCreditCardCtrl', function() {
         });
 
         $controller('PaymentCreditCardCtrl', {
-            $scope : scope,
-            $filter : _$filter_,
-            $element : element,
-            DialogService : ds,
-            DataProvider : dp,
-            OrderService : os,
-            CreditCardPaymentService : ccps
+            $scope: scope,
+            $filter: _$filter_,
+            $element: element,
+            DialogService: ds,
+            DataProvider: dp,
+            OrderService: os,
+            EntityService : es,
+            CreditCardPaymentService: ccps,
+            IntentService: is
         });
 
     }));
 
-    it('should add a credit card payment', function() {
+    it('should add a credit card payment', function () {
         scope.creditCardForm.$valid = true;
-        scope.envFlags = {internet : true};
-        
+        scope.envFlags = {internet: true};
+
         scope.creditCard = {
-            installment : '2x',
-            flag : 'Visa',
-            amount : 120.00,
-            expirationMonth : '03',
-            expirationYear : '2014',
-            number : '1111111111111111',
-            cvv : '123',
-            cardholderName : 'Foo Bar',
-            cardholderDocument : '11111111111'
+            installment: '2x',
+            flag: 'Visa',
+            amount: 120.00,
+            expirationMonth: '03',
+            expirationYear: '2014',
+            number: '1111111111111111',
+            cvv: '123',
+            cardholderName: 'Foo Bar',
+            cardholderDocument: '11111111111'
         };
 
         scope.confirmCreditCardPayment();
         expect(ccps.charge).toHaveBeenCalled();
     });
 
-    it('shouldn\'t add a credit card payment with invalid form', function() {
+    it('shouldn\'t add a credit card payment with invalid form', function () {
         scope.creditCardForm.$valid = false;
         scope.confirmCreditCardPayment();
         expect(ps.add).not.toHaveBeenCalled();
     });
 
-    describe('initial amount value', function() {
-        it('is 0 if change is positive', inject(function($controller, $rootScope, _$filter_) {
+    describe('initial amount value', function () {
+        it('is 0 if change is positive', inject(function ($controller, $rootScope, _$filter_) {
             scope.total.change = 170;
 
             $controller('PaymentCreditCardCtrl', {
-                $scope : scope,
-                $filter : _$filter_,
-                $element : element,
-                DialogService : ds,
-                DataProvider : dp,
-                OrderService : os,
-                CreditCardPaymentService : ccps
+                $scope: scope,
+                $filter: _$filter_,
+                $element: element,
+                DialogService: ds,
+                DataProvider: dp,
+                OrderService: os,
+                EntityService : es,
+                CreditCardPaymentService: ccps,
+                IntentService: is
             });
 
             expect(scope.creditCard.amount).toBe(0);
         }));
 
-        it('is the absolute value of change if change is negative', inject(function($controller, $rootScope, _$filter_) {
+        it('is the absolute value of change if change is negative', inject(function ($controller, $rootScope, _$filter_) {
             scope.total.change = -170;
 
             $controller('PaymentCreditCardCtrl', {
-                $scope : scope,
-                $filter : _$filter_,
-                $element : element,
-                DialogService : ds,
-                DataProvider : dp,
-                OrderService : os,
-                CreditCardPaymentService : ccps
+                $scope: scope,
+                $filter: _$filter_,
+                $element: element,
+                DialogService: ds,
+                DataProvider: dp,
+                OrderService: os,
+                EntityService : es,
+                CreditCardPaymentService: ccps,
+                IntentService: is
             });
 
             expect(scope.creditCard.amount).toBe(170);
         }));
 
-        it('is 0 if change is falsy', inject(function($controller, $rootScope, _$filter_) {
+        it('is 0 if change is falsy', inject(function ($controller, $rootScope, _$filter_) {
             scope.total.change = null;
 
             $controller('PaymentCreditCardCtrl', {
-                $scope : scope,
-                $filter : _$filter_,
-                $element : element,
-                DialogService : ds,
-                DataProvider : dp,
-                OrderService : os,
-                CreditCardPaymentService : ccps
+                $scope: scope,
+                $filter: _$filter_,
+                $element: element,
+                DialogService: ds,
+                DataProvider: dp,
+                OrderService: os,
+                EntityService : es,
+                CreditCardPaymentService: ccps,
+                IntentService: is
             });
 
             expect(scope.creditCard.amount).toBe(0);
