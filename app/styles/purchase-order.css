@@ -43,3 +43,6 @@
 }
 
 
+.modal-products-to-buy-ticket .modal-body{
+	overflow-y: visible;	
+}
