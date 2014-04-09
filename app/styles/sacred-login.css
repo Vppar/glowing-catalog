@@ -46,12 +46,13 @@
 #sacred .login .login-footer .button-green{
 	float: right;
 	margin-right: 0px;
-	font-size: 15px;
-	
+	font-size: 16px;
+	height: 36px;
 }
 
 #sacred .login .login-footer .button-black{
 	margin-left: 0px;
-	font-size: 12px;
+	font-size: 16px;
 	color:#eee;
+	height: 36px;
 }
