@@ -32,7 +32,7 @@
 
                 function documentCheck() {
                     customer = EntityService.read(OrderService.order.customerId);
-                    if (!customer.document) {
+                    if (customer && !customer.document ) {
                         var promise = DialogService.messageDialog({
                             title: 'Atenção.',
                             message: 'Para processar transações de cc é necessário o CPF do cliente. Deseja preencher agora?',
