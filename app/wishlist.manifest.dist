@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.2-13-0'
+# 'version' : '1.2.2-4'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -32,6 +32,7 @@ styles/catalog.css
 styles/voucher.css
 styles/stock.css
 styles/warm-up.css
+styles/third-parties.css
 styles/new.css
 styles/new-numpad.css
 styles/new-registration.css
@@ -39,7 +40,7 @@ styles/new-ipad-only.css
 styles/new-grid.css
 styles/new-calendar.css
 styles/new-button.css
-styles/third-parties.css
+
 
 styles/sacred-reset.css
 styles/sacred-buttons.css
@@ -55,6 +56,7 @@ styles/sacred-structure.css
 styles/sacred-summarizer.css
 styles/sacred-third-parties.css
 styles/sacred-voucher.css
+styles/sacred-registration.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -157,6 +159,7 @@ scripts/services/IntentService.js
 scripts/services/KeyboardService.js
 scripts/services/misplacedservice.js
 scripts/services/OrderService.js
+scripts/services/OrderListService.js
 scripts/services/PaymentService.js
 scripts/services/ProductLineUp.js
 scripts/services/ReceivableService.js
@@ -233,6 +236,7 @@ images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
 images/loading_20.gif
+images/loading-btn_20.gif
 
 images/icons/ic-calendar.png
 

@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.13-0'
+# 'version' : '1.2.2-0'
 
 CACHE:
 apple-touch-icon.png
@@ -40,6 +40,11 @@ styles/warm-up.css
 styles/third-parties.css
 styles/new.css
 styles/new-registration.css
+styles/new-button.css
+styles/new-calendar.css
+styles/new-grid.css
+styles/new-numpad.css
+styles/new-ipad-only.css
 
 styles/sacred-reset.css
 styles/sacred-buttons.css
@@ -55,6 +60,7 @@ styles/sacred-structure.css
 styles/sacred-summarizer.css
 styles/sacred-third-parties.css
 styles/sacred-voucher.css
+styles/sacred-registration.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -88,11 +94,6 @@ bower_components/jquery-ui/ui/jquery.ui.resizable.js
 bower_components/jquery-ui/ui/jquery.ui.datepicker.js
 bower_components/jquery-ui/ui/jquery.ui.dialog.js
 
-styles/new-button.css
-styles/new-calendar.css
-styles/new-grid.css
-styles/new-numpad.css
-styles/new-ipad-only.css
 bower_components/jquery/jquery.js
 bower_components/angular/angular.js
 bower_components/bootstrap-sass/js/bootstrap-affix.js
@@ -163,7 +164,6 @@ scripts/directives/preventBlur.js
 scripts/directives/virtualKeyboard.js
 scripts/directives/keyboardCage.js
 scripts/directives/focus.js
-scripts/directives/focusIf.js
 scripts/directives/equals.js
 scripts/directives/spinner-button.js
 
@@ -270,6 +270,7 @@ scripts/services/InventoryService.js
 scripts/services/KeyboardService.js
 scripts/services/misplacedservice.js
 scripts/services/OrderService.js
+scripts/services/OrderListService.js
 scripts/services/PaymentService.js
 scripts/services/ProductLineUp.js
 scripts/services/ReceivableService.js
@@ -403,6 +404,7 @@ views/sacred-voucher.html
 views/parts/voucher/sacred-voucher-new.html
 views/parts/voucher/sacred-voucher-hist.html
 views/spinner-button.html
+views/sacred-registration.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png
