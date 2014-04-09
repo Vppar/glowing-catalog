@@ -20,11 +20,27 @@
                     var pagpopReceivables = [];
                     for (var idx in creditCardReceivables) {
                         if (!angular.isUndefined(creditCardReceivables[idx].payment.gatewayInfo)) {
-                            pagpopReceivables.push(creditCardReceivables[idx]);
+                            pagpopReceivables.push(augment(creditCardReceivables[idx]));
                         }
                     }
+                    
                     creditCardReceivables = pagpopReceivables;
-
+                    console.log(creditCardReceivables);
+                    function augment(receivable){
+                        var amount = receivable.amount;
+                        var ccTax = $scope.ccTax;
+                        var result = FinancialMathService.currencyDivide((amount * ccTax), 100);
+                        var ccTaxPowered = Math.pow(1.98, receivable.payment.installments);
+                        console.log('>>>>>>>>>Total amount ', amount);
+                        console.log('>>>>>>>>>Total - default tax', result );
+                        var ccTaxAmount = FinancialMathService.currencyDivide((amount * ccTaxPowered), 100);
+                        console.log('>>>>>>>>>Total - installmentTax', ccTaxAmount);
+                        result +=ccTaxAmount; 
+                        
+                        receivable.amountLiquid = amount - result;
+                        return receivable;
+                    }
+                    
                     /**
                      * DateFilter watcher.
                      */
@@ -61,7 +77,7 @@
                         $scope.total = 0;
                         $scope.totalLiquid = 0;
                         for ( var idx in $scope.filteredReceivables) {
-                            $scope.filteredReceivables[idx].amountLiquid = FinancialMathService.currencyMultiply($scope.filteredReceivables[idx].amount, 0.9652);
+                            //$scope.filteredReceivables[idx].amountLiquid = FinancialMathService.currencyMultiply($scope.filteredReceivables[idx].amount, 0.9652);
                             $scope.total += $scope.filteredReceivables[idx].amount;
                             $scope.totalLiquid += $scope.filteredReceivables[idx].amountLiquid;
                         }

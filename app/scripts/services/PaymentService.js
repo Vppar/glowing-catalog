@@ -112,6 +112,7 @@
                 this.ccDueDate = ccDueDate;
                 this.cpf = cpf;
                 this.installments = installments;
+                this.duedate = duedate;
 
                 ObjectUtils.ro(this, 'flag', this.flag);
                 ObjectUtils.ro(this, 'ccNumber', this.ccNumber);

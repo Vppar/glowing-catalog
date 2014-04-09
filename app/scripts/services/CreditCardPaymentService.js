@@ -78,7 +78,6 @@
                     function createCreditCardPayments(customer, creditCard, amount, numInstallments, gatewayInfo) {
                         var result = null;
                         try {
-                            var creditCardInstallments = [];
 
                             // remove confidential info
                             delete creditCard.cvv;
@@ -87,31 +86,17 @@
                                 creditCard.number = creditCard.number.slice(-4);
                             }
 
-                            for (var i = 0; i < numInstallments; i++) {
-                                var cc = angular.copy(creditCard);
-                                cc.amount = 0;
-                                cc.installment = i + 1;
-                                creditCardInstallments.push(cc);
-                            }
+                            creditCard.amount = amount;
+                            creditCard.installment = numInstallments;
+                            creditCard.dueDate = getDueDate(new Date());;
+                            creditCard.creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
 
-                            Misplacedservice.recalc(creditCard.amount, -1, creditCardInstallments, 'amount');
-
-                            var dueDate = new Date();
-                            var creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
-
-                            for (var ix in creditCardInstallments) {
-                                var creditCardInstallment = creditCardInstallments[ix];
-                                // FIXME - Fix duedate and
-                                // installment
-                                var payment =
-                                    new CreditCardPayment(
-                                        creditCardInstallment.amount, creditCardInstallment.flag,
-                                        creditCardInstallment.number, customer.name, creditCardDueDate,
-                                        creditCard.cardholderDocument, creditCardInstallment.installment, dueDate
-                                            .getTime());
-                                payment.gatewayInfo = gatewayInfo;
-                                PaymentService.add(payment);
-                            }
+                            var payment =
+                                new CreditCardPayment(creditCard.amount, creditCard.flag,
+                                    creditCard.number, customer.name, creditCard.creditCardDueDate,
+                                    creditCard.cardholderDocument, creditCard.installment, creditCard.dueDate.getTime());
+                            payment.gatewayInfo = gatewayInfo;
+                            PaymentService.add(payment);
                             result = true;
                         } catch (err) {
                             $log.fatal('CreditcardPaymentService.charge', err);
@@ -119,7 +104,29 @@
                         }
                         return result;
                     };
-
+                    
+                 /**
+                  * Return the day of experation date for this CC payment.
+                  * This method uses the PagPop policy of payments.
+                  */
+                 function getDueDate(actualDate){
+                     var duedate = actualDate;
+                     var day = duedate.getDate();
+                     if(day > 23 || day <= 3){
+                         duedate.setDate(5);
+                         if(day > 23){
+                             duedate.setMonth(duedate.getMonth() + 1);
+                         }
+                     }else if(day > 3 && day <= 13){
+                         duedate.setDate(15);
+                     }else if(day > 13 && day <= 23){
+                         duedate.setDate(25);
+                     }else{
+                         $log.fatal('CreditcardPaymentService.getDueDate', actualDate, ' - invalid date');
+                     }
+                     return duedate;
+                 }
+                    
                 /**
                  * Creates the credit card payment to feed the
                  * PaymentService, and try to send the charge the
