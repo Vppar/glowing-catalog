@@ -35,7 +35,7 @@
                                 UserService, Misplacedservice, IntentService) {
 
                             UserService.redirectIfIsNotLoggedIn();
-                            
+
                             var bundle = IntentService.getBundle();
 
                             // #############################################################################################
@@ -49,7 +49,7 @@
                             if (!order.customerId) {
                                 $location.path('/');
                             }
-                            
+
                             $scope.coupon={sum : 0};
 
                             $scope.voucherFilter = function(item) {
@@ -61,7 +61,6 @@
                             };
 
                             $scope.couponFilter = function(item) {
-                                console.log(item);
                                 if (item.type === 'coupon') {
                                     return true;
                                 } else {
@@ -270,13 +269,13 @@
                             $scope.$watch('total.order.unit', unitWatcher);
 
                             enableDiscountWatcher();
-                            
+
                             $scope.disabled = setEnableConfirmButton;
-                            
+
                             function setEnableConfirmButton() {
                                 if($scope.items.length === 0 &&
                                    !PaymentService.hasPersistedCoupons()) {
-                            
+
                                     return true;
                                 }else{
                                     return false;
@@ -287,7 +286,7 @@
                             // rebuild the
                             // uniqueName.
                             $scope.$watchCollection('items', function() {
-                                
+
                                 // Show SKU or SKU + Option(when possible).
                                 for ( var idx in order.items) {
                                     var item = order.items[idx];
@@ -304,7 +303,7 @@
 
                             $scope.$watch('cash.amount', function() {
                                 PaymentService.clear('cash');
-                                if ($scope.cash.amount != 0) {
+                                if (Number($scope.cash.amount) !== 0) {
                                     var cash = new CashPayment($scope.cash.amount);
                                     cash.duedate = new Date().getTime();
                                     PaymentService.add(cash);
@@ -349,7 +348,7 @@
 
                             /**
                              * DEPRECATED
-                             * 
+                             *
                              * Confirms the check payments and redirect to the
                              * order items. This will be used by the left
                              * fragments that inherits this scope
@@ -360,7 +359,7 @@
 
                             /**
                              * DEPRECATED
-                             * 
+                             *
                              * Cancels the check payments keeping the old ones
                              * and redirect to the order items. This will be
                              * used by the left fragments that inherits this
@@ -373,7 +372,7 @@
                             /**
                              * Select the payment method changing the left
                              * fragment that will be shown.
-                             * 
+                             *
                              * @param method - payment method.
                              */
                             $scope.selectPaymentMethod = function selectPaymentMethod(method) {
@@ -466,19 +465,19 @@
                                     total.payments.coupon = PaymentService.list('coupon');
                                     total.payments.onCuff = PaymentService.list('onCuff');
 
-                                    if (total.payments.check == 0) {
+                                    if (Number(total.payments.check) === 0) {
                                         $scope.hideCheckQtde = true;
                                     } else {
                                         $scope.hideCheckQtde = false;
                                     }
 
-                                    if (total.payments.creditCard == 0) {
+                                    if (Number(total.payments.creditCard) === 0) {
                                         $scope.hideCardQtde = true;
                                     } else {
                                         $scope.hideCardQtde = false;
                                     }
 
-                                    if (total.payments.exchange == 0) {
+                                    if (Number(total.payments.exchange) === 0) {
                                         $scope.hideExchangeQtde = true;
                                     } else {
                                         $scope.hideExchangeQtde = false;
@@ -508,7 +507,7 @@
                             $scope.$watch('total.order.subTotal', updateOrderAndPaymentTotal);
 
                             $scope.$watch('total.change', function() {
-                                if ($scope.total.change != 0) {
+                                if (Number($scope.total.change) !== 0) {
                                     PaymentService.clear('onCuff');
                                     updateOrderAndPaymentTotal();
                                 }
@@ -662,7 +661,7 @@
 
                             /**
                              * Show the payment confirmation dialog.
-                             * 
+                             *
                              * @return {Object} result - Returns the promise
                              *         generated by the dialog.
                              */
@@ -678,7 +677,7 @@
 
                             /**
                              * Show the payment canceling dialog.
-                             * 
+                             *
                              * @return {Object} result - Returns the promise
                              *         generated by the dialog.
                              */
@@ -748,10 +747,12 @@
                             // Warm up
                             // #############################################################################################
                             updateCoupons();
-                            
-                            if(bundle && bundle.method == 'voucher'){
-                                IntentService.putBundle({tab:'giftCard'});
-                                $scope.selectPaymentMethod('voucher'); 
+
+                            if(bundle && bundle.method){
+                                if(bundle.method === 'voucher'){
+                                    IntentService.putBundle({tab:'giftCard'});
+                                }
+                                $scope.selectPaymentMethod(bundle.method);
                             }
                         }
                     ]);
