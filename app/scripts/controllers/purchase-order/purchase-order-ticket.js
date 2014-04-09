@@ -19,11 +19,8 @@
                     // #####################################################################################################
                     // Local variables
                     // #####################################################################################################
-
                     var ticket = $scope.ticket;
                     ticket.tab = 'open';
-
-                    $scope.etc = $scope.ticket.tab;
 
                     var resetPurchaseOrder = $scope.resetPurchaseOrder;
 
@@ -52,7 +49,6 @@
 
                     ticket.loadPurchaseOrders = function(){
                         ticket.purchaseOrders = $filter('filter')(NewPurchaseOrderService.list(), $scope.filterOrders);
-                        console.log(ticket.purchaseOrders);
                     };
 
                     // #####################################################################################################
@@ -112,7 +108,6 @@
 
                     $scope.changeTab = function changeTab(tab) {
                         $scope.ticket.tab = tab;
-                        ticket.loadPurchaseOrders();
                     };
 
                     $scope.filterOrders = function filterOrders(purchase) {

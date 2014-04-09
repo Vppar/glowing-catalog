@@ -20,6 +20,7 @@
                     var financialRound = $scope.financialRound;
                     var resetPurchaseOrder = $scope.resetPurchaseOrder;
                     var stockReport = $scope.main.stockReport;
+                    var updateCurrentPurchaseOrder = $scope.updateCurrentPurchaseOrder
 
                     // if the order total is less then the amount use the fee.
                     var discounts = [
@@ -81,10 +82,13 @@
                         selectTab('stashed');
                     }
 
+                    function backToNew(){
+                        resetPurchaseOrder();
+                        selectTab('new');
+                    }
+
                     $scope.goToConfirm = function goToConfirm(){
                         $scope.save().then(function(){
-
-
                             selectTab('confirm');
                         });
                     }
@@ -93,26 +97,6 @@
                         resetPurchaseOrder();
                         selectTab('ticket');
                     }
-
-                    // inherited from ProductsToBuyCtrl
-                    var updateCurrentPurchaseOrder = function(stockReport) {
-                        var report = angular.copy(stockReport);
-                        for ( var ix in report.sessions) {
-                            var session = report.sessions[ix];
-                            for ( var ix2 in session.lines) {
-                                var line = session.lines[ix2];
-                                for ( var ix3 = 0; ix3 < line.items.length; ix3++) {
-                                    var item = line.items[ix3];
-                                    item.qty = $scope.purchaseOrder.watchedQty[item.id];
-                                    if (Number(item.qty) === 0) {
-                                        NewPurchaseOrderService.purchaseOrder.remove(item);
-                                    } else {
-                                        NewPurchaseOrderService.purchaseOrder.add(item);
-                                    }
-                                }
-                            }
-                        }
-                    };
 
                     // #####################################################################################################
                     // Scope Functions
@@ -138,15 +122,7 @@
                     };
 
                     $scope.cancel = function() {
-                        var dialogPromise = DialogService.messageDialog({
-                            title : 'Pedido de Compra',
-                            message : 'Cancelar o pedido de compra?',
-                            btnYes : 'Sim',
-                            btnNo : 'Não'
-                        });
-                        var currentCanceledPromise = dialogPromise.then(NewPurchaseOrderService.cancelCurrent);
-                        var canceledPromise = currentCanceledPromise.then(backToStashed);
-                        return canceledPromise;
+                        backToNew();
                     };
 
                     $scope.save =

@@ -10,7 +10,7 @@
 
                             var validProperties =
                                     [
-                                        'uuid', 'created', 'updated', 'status', 'amount', 'freight', 'discount', 'points', 'received',
+                                        'uuid', 'created', 'updated', 'status', 'amount', 'cost', 'freight', 'discount', 'points', 'received',
                                         'nfeNumber', 'canceled', 'items', 'itemsReceived'
                                     ];
                             ObjectUtils.method(svc, 'isValid', function() {
