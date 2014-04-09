@@ -150,7 +150,7 @@
         }).when('/payment', {
             templateUrl : 'views/payment.html',
             controller : 'PaymentCtrl'
-        }).when('/login', {
+        }).when('/login-2', {
             templateUrl : 'views/login.html',
             controller : 'LoginCtrl'
         }).when('/partial-delivery', {
@@ -243,6 +243,9 @@
             controller : 'VoucherCtrl'
         }).when('/registration', {
             templateUrl : 'views/sacred-registration.html'
+        }).when('/login', {
+            templateUrl : 'views/sacred-login.html',
+            controller : 'LoginCtrl'
         }).otherwise({
             redirectTo : '/'
         });

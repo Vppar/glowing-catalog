@@ -1,0 +1,58 @@
+#sacred .login *{
+	box-sizing: border-box;
+}
+#sacred .login{
+	width: 330px;
+	box-shadow: 0 10px 50px 10px #999;
+	background: #fff;
+	top: 85px;
+	position: absolute;
+	left: 50%;
+	margin-left: -165px;
+	height: initial;
+	border-radius: 4px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+#sacred .login h1{
+	margin: 0;
+	background: #000;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	color: #fff;
+	height: 60px;
+	width: 100%;
+}
+#sacred .login h1 img{
+	margin-left: 4px;
+}
+
+#sacred .login input{
+	height: 34px;
+	font-size: 16px;
+}
+
+#sacred .login .login-body{
+	padding: 20px;
+}
+
+#sacred .login .login-footer{
+	width: 100%;
+	float: left;
+	padding: 10px 20px 0 20px;
+}
+
+#sacred .login .login-footer .button-green{
+	float: right;
+	margin-right: 0px;
+	font-size: 16px;
+	height: 36px;
+}
+
+#sacred .login .login-footer .button-black{
+	margin-left: 0px;
+	font-size: 16px;
+	color:#eee;
+	height: 36px;
+}
