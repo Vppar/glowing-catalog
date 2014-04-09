@@ -27,6 +27,8 @@
                     $scope.birthdate = DataProvider.date;
                     $scope.states = DataProvider.states;
 
+                    $scope.cpfFocus = false;
+
                     $scope.select2Options = {
                             minimumResultsForSearch : -1
                         };
@@ -51,6 +53,7 @@
                         edit = {};
                     }
                     if (edit.editUuid) {
+
                        var entity = EntityService.read(edit.editUuid);
                        $scope.customer = entity;
                        prepareEntity($scope.customer);
@@ -58,6 +61,10 @@
 
                     if (edit.clientName) {
                        $scope.customer.name = edit.clientName;
+                    }
+
+                    if(edit.method && edit.method==='creditcard'){
+                        $scope.cpfFocus = true;
                     }
 
                     var customer = $scope.customer;
@@ -123,17 +130,19 @@
                         var promise = null;
                         if (edit.editUuid) {
                             promise = EntityService.update(customer).then(function(uuid) {
+                                if(edit.screen){
+                                    if(edit.method){
+                                        IntentService.putBundle({method : edit.method});
+                                    }
+                                    $location.path('/'+edit.screen);
+                                }else{
+                                    $location.path('/');
+                                }
                                 return uuid;
                             }, function(error) {
                                 $log.error('Failed to update the entity:', uuid);
                                 $log.debug(error);
                             });
-
-                            if(edit.screen){
-                                $location.path('/'+edit.screen);
-                            }else{
-                                $location.path('/');
-                            }
                         } else {
                             promise = EntityService.create(customer).then(function(uuid) {
                                 if(!edit.giftCard){
