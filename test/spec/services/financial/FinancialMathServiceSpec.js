@@ -2,17 +2,25 @@
 
 describe('Service: FinancialMathService', function () {
 
-  // load the service's module
-  beforeEach(module('tnt.catalog.financial.math.service'));
+    var loggerMock = {};
 
-  // instantiate service
-  var FinancialMathService;
-  beforeEach(inject(function (_FinancialMathService_) {
-      FinancialMathService = _FinancialMathService_;
-  }));
+    beforeEach(function () {
+        loggerMock.getLogger = jasmine.createSpy('loggerMock.getLogger');
+        module(function ($provide) {
+            $provide.value('logger', loggerMock);
+        });
+    });
+    // load the service's module
+    beforeEach(module('tnt.catalog.financial.math.service'));
 
-  it('should do something', function () {
-    expect(!!FinancialMathService).toBe(true);
-  });
+    // instantiate service
+    var FinancialMathService;
+    beforeEach(inject(function (_FinancialMathService_) {
+        FinancialMathService = _FinancialMathService_;
+    }));
+
+    it('should do something', function () {
+        expect(!!FinancialMathService).toBe(true);
+    });
 
 });

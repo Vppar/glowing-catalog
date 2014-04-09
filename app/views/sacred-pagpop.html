@@ -52,7 +52,7 @@
 									<div class="col-1 text-center">Parc</div>
 									<div class="col-3 text-center">Autorização</div>
 									<div class="col-3 currency">Valor Bruto</div>
-									<div class="col-3 text-center">Valor Desconto</div>
+									<div class="col-3 currency">Valor Desconto</div>
 									<div class="col-3 currency">Valor Líquido</div>
 								</div>
 							</div>
@@ -65,8 +65,8 @@
 									<div class="col-1 text-center">&nbsp;</div>
 									<div class="col-3 text-center">&nbsp;</div>
 									<div class="col-3 currency">{{total|currency: ''}}</div>
-									<div class="col-3 currency">{{totalLiquid|currency: ''}}</div>
-									<div class="col-3 text-center">&nbsp;</div>
+									<div class="col-3 currency">{{discountTotal|currency: ''}}</div>
+									<div class="col-3 currency">{{netTotal|currency: ''}}</div>
 								</div>
 							</div>
 
@@ -79,8 +79,8 @@
 										<div class="col-1 text-center">{{receivable.payment.installments}}</div>
 										<div class="col-3 text-center">{{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</div>
 										<div class="col-3 currency">{{receivable.amount|currency: ''}}</div>
-										<div class="col-3 text-center">{{ccTax |currency: ''}}</div>
-										<div class="col-3 currency">{{receivable.amountLiquid | currency: ''}}</div>
+										<div class="col-3 currency">{{receivable.discount |currency: ''}}</div>
+										<div class="col-3 currency">{{receivable.netAmount | currency: ''}}</div>
 									</div>
 								</div>
 							</div>

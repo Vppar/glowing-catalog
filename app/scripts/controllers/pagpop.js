@@ -9,10 +9,13 @@
                 '$scope', '$filter', 'EntityService', 'UserService', 'ReceivableService', 'ArrayUtils', 'FinancialMathService',
                 function($scope, $filter, EntityService, UserService, ReceivableService, ArrayUtils, FinancialMathService) {
 
+                    var PP_FIXED_RATIO = 3.48;
+                    var PP_MONTHLY_RATIO = 1.98;
+                    
                     UserService.redirectIfIsNotLoggedIn();
 
                     $scope.searchClient = '';
-                    $scope.ccTax = 3.48;
+                    
 
                     var receivables = ReceivableService.list();
                     var creditCardReceivables = ArrayUtils.list(receivables, 'type', 'creditCard');
@@ -25,19 +28,15 @@
                     }
                     
                     creditCardReceivables = pagpopReceivables;
-                    console.log(creditCardReceivables);
+
                     function augment(receivable){
-                        var amount = receivable.amount;
-                        var ccTax = $scope.ccTax;
-                        var result = FinancialMathService.currencyDivide((amount * ccTax), 100);
-                        var ccTaxPowered = Math.pow(1.98, receivable.payment.installments);
-                        console.log('>>>>>>>>>Total amount ', amount);
-                        console.log('>>>>>>>>>Total - default tax', result );
-                        var ccTaxAmount = FinancialMathService.currencyDivide((amount * ccTaxPowered), 100);
-                        console.log('>>>>>>>>>Total - installmentTax', ccTaxAmount);
-                        result +=ccTaxAmount; 
+                        var installments = receivable.payment.installments;
+                        var netAmount = FinancialMathService.presentValue(PP_FIXED_RATIO, PP_MONTHLY_RATIO, installments, receivable.amount);
+                        var discount = FinancialMathService.currencySubtract(receivable.amount, netAmount);
+
+                        receivable.netAmount = netAmount;
+                        receivable.discount = discount;
                         
-                        receivable.amountLiquid = amount - result;
                         return receivable;
                     }
                     
@@ -73,20 +72,22 @@
                     /**
                      * Summarizer
                      */
-                    function summarizer() {
+                    function summarizer () {
                         $scope.total = 0;
-                        $scope.totalLiquid = 0;
+                        $scope.netTotal = 0;
+                        $scope.discountTotal = 0;
                         for ( var idx in $scope.filteredReceivables) {
-                            //$scope.filteredReceivables[idx].amountLiquid = FinancialMathService.currencyMultiply($scope.filteredReceivables[idx].amount, 0.9652);
                             $scope.total += $scope.filteredReceivables[idx].amount;
-                            $scope.totalLiquid += $scope.filteredReceivables[idx].amountLiquid;
+                            $scope.netTotal += $scope.filteredReceivables[idx].netAmount;
+                            $scope.discountTotal += $scope.filteredReceivables[idx].discount;
                         }
 
                         var payments = ArrayUtils.distinct($scope.filteredReceivables, 'payment');
 
                         $scope.numCustomers = ArrayUtils.distinct(payments, 'owner').length;
 
-                        $scope.numOrders = ArrayUtils.distinct($scope.filteredReceivables, 'documentId').length;
+                        $scope.numOrders =
+                            ArrayUtils.distinct($scope.filteredReceivables, 'documentId').length;
                     }
 
                     // #########################################################################################################
