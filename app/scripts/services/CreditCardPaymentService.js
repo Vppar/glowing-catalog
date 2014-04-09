@@ -43,8 +43,7 @@
                         year: String(data.creditCard.expirationYear),
                         cvv: String(data.creditCard.cvv),
                         orderId: "0000-00-00",
-                        customer: String(data.customer.name),
-                        cpf: String(data.customer.document)
+                        customer: String(data.customer.name)
                     };
 
                     var payedPromise = PagPopGateway.pay(card).then(function (result) {
