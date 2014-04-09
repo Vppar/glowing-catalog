@@ -21,12 +21,12 @@
 
                 var errMsgs =
                 {
-                    '-1': 'Tentativa de transação como o mesmo cartão de crédito e '
-                        + 'o mesmo valor mais de uma vez, em um período menor que 5 minutos.',
+                    '-1': 'Tentativa de transação como o mesmo cartão de crédito e o mesmo valor mais de uma vez, em um período menor que 5 minutos.',
                     '-2': 'Transação não autorizada pela instituição financeira.',
-                    '-3': 'Dados do cartão de crédito incorretos.',
-                    'conn': 'Ocorreu um erro na tentativa de conexão com o servidor. '
-                        + 'Verifique sua conexão com a internet e tente novamente mais tarde.',
+                    'minAmount': 'O valor mínimo da parcela deve ser R$ 5,00.',
+                    'invalidCard': 'Dados do cartão de crédito incorretos.',
+                    'rejected': 'Transação não autorizada.',
+                    'conn': 'Ocorreu um erro na tentativa de conexão com o servidor. Verifique sua conexão com a internet e tente novamente mais tarde.',
                     'fatal': 'Erro interno na aplicação. Por favor, contate o administrador do sistema.'
                 };
 
@@ -43,8 +43,7 @@
                         year: String(data.creditCard.expirationYear),
                         cvv: String(data.creditCard.cvv),
                         orderId: "0000-00-00",
-                        customer: String(data.customer.name),
-                        cpf: String(data.customer.document)
+                        customer: String(data.customer.name)
                     };
 
                     var payedPromise = PagPopGateway.pay(card).then(function (result) {
@@ -68,10 +67,11 @@
                 /**
                  * Create credit card payments to fulfill the
                  * customer order.
-                 *
-                 * @param CreditCard - The credit card information.
+                 * @param customer - Customer info.
+                 * @param creditCard - The credit card information.
                  * @param amount - Charged amount.
                  * @param numInstallments - Number of installments.
+                 * @param gatewayInfo - Info returned by the credit card gateway.
                  */
                 this.createCreditCardPayments =
                     function createCreditCardPayments(customer, creditCard, amount, numInstallments, gatewayInfo) {
@@ -123,8 +123,8 @@
                  * Creates the credit card payment to feed the
                  * PaymentService, and try to send the charge the
                  * credit card company
-                 *
-                 * @param CreditCard - The credit card information.
+                 * @param customer - Customer info.
+                 * @param creditCard - The credit card information.
                  * @param amount - Charged amount.
                  * @param numInstallments - Number of installments.
                  */
@@ -137,7 +137,7 @@
                                 customer: customer,
                                 creditCard: creditCardCopy,
                                 amount: amount,
-                                installments: numInstallments,
+                                installments: numInstallments
                             });
                             recordedPayment =
                                 chargedCCPromise.then(function (gatewayInfo) {
@@ -193,4 +193,4 @@
 
             }
         ]);
-}(angular));
+})(angular);
