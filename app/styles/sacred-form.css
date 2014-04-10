@@ -3,6 +3,33 @@
 * (this stylesheet have all the styles for make a form wort with a generic page)
 */
 
+#sacred .input-with-buttom-right{
+
+}
+
+#sacred .form .form-line .input-with-buttom-right input[type="text"],
+#sacred .form .form-line .input-with-buttom-right input[type="email"]
+{
+	width: calc(100% - 30px);
+	float: left;
+	border-radius:  4px 0 0 4px ;
+}
+
+#sacred .form .form-line .input-with-buttom-right .add-on{
+	float: left;
+	border-radius: 0 4px 4px 0;
+	width: 30px;
+	border: 1px solid rgb(204, 204, 204);
+	color: rgb(51, 51, 51);
+	text-shadow: #fff 0px 1px 0px;
+	background-color: rgb(238, 238, 238);
+	height: 30px;
+	margin-left: -1px;
+	text-align: center;
+	line-height: 27px;
+}
+
+
 #sacred input.input-header{
 	height: 30px;
 	width: 100%;
@@ -58,6 +85,8 @@
 	min-height:30px;
 }
 
+
+
 #sacred .date-day, #sacred .date-month, #date-year {
 	display:block;
 	float:left;	
@@ -81,3 +110,9 @@
 #sacred .limit-date-year {
 	width:114px!important;
 }
+
+#sacred .form .form-line input{
+	height: 30px;
+	width: 100%;
+}
+
