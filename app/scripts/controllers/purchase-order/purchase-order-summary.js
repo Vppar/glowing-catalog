@@ -60,8 +60,9 @@
                         // if the order total is less then the amount use
                         // the
                         // fee.
+                        var appliedFee = null;
                         if ($scope.summary.total.amount < discounts[nix].amount) {
-                            var appliedFee = (1 - discounts[nix].fee);
+                            appliedFee = (1 - discounts[nix].fee);
                             $scope.summary.discount.fee = discounts[nix].fee * 100;
                             $scope.summary.total.amountWithDiscount = financialRound($scope.summary.total.amount * appliedFee);
 
@@ -70,7 +71,7 @@
 
                             break;
                         } else if (!discounts[nix + 1]) {
-                            var appliedFee = (1 - discounts[nix].fee);
+                            appliedFee = (1 - discounts[nix].fee);
                             $scope.summary.discount.fee = discounts[nix].fee * 100;
                             $scope.summary.total.amountWithDiscount = financialRound($scope.summary.total.amount * appliedFee);
                             $scope.summary.nextDiscount.amount = 0;

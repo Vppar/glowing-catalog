@@ -113,6 +113,62 @@
                     purchaseOrderWatchedQty.firstExecution = true;
                 }
 
+                function loadStockReportQty(stockReport, confirmed, partiallyReceived) {
+                    var mapProductQty = {};
+
+                    for (var ci in confirmed) {
+                        var confirmedPurchaseOrder = confirmed[ci];
+                        for (var ci2 in confirmedPurchaseOrder.items) {
+                            var confirmedItem = confirmedPurchaseOrder.items[ci2];
+                            if (mapProductQty[confirmedItem.id]) {
+                                mapProductQty[confirmedItem.id] += Number(confirmedItem.qty);
+                            } else {
+                                mapProductQty[confirmedItem.id] = Number(confirmedItem.qty);
+                            }
+                        }
+                    }
+
+                    for (var pi in partiallyReceived) {
+                        var partiallyReceivedPurchaseOrder = partiallyReceived[pi];
+                        for (var pi2 in partiallyReceivedPurchaseOrder.items) {
+                            var partiallyReceivedItem = partiallyReceivedPurchaseOrder.items[pi2];
+                            var qtyReceived = ArrayUtils.find(partiallyReceived.itemReceived, 'id', partiallyReceivedItem.id);
+                            var qtyBalance = partiallyReceivedItem.qty - qtyReceived;
+                            if (qtyBalance > 0) {
+                                if (mapProductQty[partiallyReceivedItem.id]) {
+                                    mapProductQty[partiallyReceivedItem.id] += Number(partiallyReceivedItem.qty);
+                                } else {
+                                    mapProductQty[partiallyReceivedItem.id] = Number(partiallyReceivedItem.qty);
+                                }
+                            }
+                        }
+                    }
+
+                    disablePurchaseOrderWatchedQty();
+                    for (var ix in stockReport.sessions) {
+                        var session = stockReport.sessions[ix];
+                        for (var ix2 in session.lines) {
+                            var line = session.lines[ix2];
+                            for (var ix3 in line.items) {
+                                var item = line.items[ix3];
+                                var mappedQty = mapProductQty[item.id];
+                                if (mappedQty) {
+                                    if (item.minQty > mappedQty) {
+                                        item.minQty = item.minQty - mappedQty;
+                                        item.qty = item.minQty;
+                                        $scope.purchaseOrder.watchedQty[item.id] = item.minQty;
+                                    } else {
+                                        delete item.minQty;
+                                        item.qty = 0;
+                                        $scope.purchaseOrder.watchedQty[item.id] = 0;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    enablePurchaseOrderWatchedQty();
+                }
+
                 // #####################################################################################################
                 // Scope variables
                 // #####################################################################################################
@@ -184,6 +240,7 @@
                     disablePurchaseOrderWatchedQty();
 
                     resetWatchedQty();
+                    loadStockReportQty();
 
                     NewPurchaseOrderService.clearCurrent();
                     NewPurchaseOrderService.createNewCurrent();
@@ -312,6 +369,7 @@
                 $scope.hasCurrentPurchaseOrder = hasCurrentPurchaseOrder;
                 $scope.enablePurchaseOrderWatchedQty = enablePurchaseOrderWatchedQty;
                 $scope.disablePurchaseOrderWatchedQty = disablePurchaseOrderWatchedQty;
+                $scope.loadStockReportQty = loadStockReportQty;
                 $scope.updatePurchaseOrder = updatePurchaseOrder;
 
                 // #####################################################################################################
