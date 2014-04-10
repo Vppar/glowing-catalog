@@ -222,7 +222,7 @@
                                             DialogService.messageDialog({
                                                 title : 'Agenda',
                                                 message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anteriores a data/hora atual.',
-                                                btnYes : 'OK',
+                                                btnYes : 'OK'
                                             });
                                         }
                                     }
@@ -468,7 +468,7 @@
                     $('#event-status').attr('type', 'hidden');
                     
                     $('#select-client').children().remove();
-					$('#select-client').append('<option value="">Selecione Cliente</option>');
+					$('#select-client').append('<option value="">Selecione o Terceiro</option>');
 					for ( var i in $scope.contacts) {
 						$('#select-client').append('<option value="' + $scope.contacts[i].uuid + '">' + $scope.contacts[i].name + '</option>');
 					}
@@ -546,13 +546,13 @@
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento Removido com sucesso!',
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             }, function (err) {
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Erro: ' + err,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             });
                         }
@@ -575,13 +575,13 @@
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento finalizado com sucesso.',
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             }, function (err) {
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Erro: ' + err,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             });
                         }
@@ -603,13 +603,13 @@
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento cancelado com sucesso.',
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             }, function (err) {
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Erro: ' + err,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             });
                         }
@@ -644,14 +644,14 @@
                                 .messageDialog({
                                     title : 'Agenda',
                                     message : 'Atualiza'+unescape('%e7')+unescape('%e3')+'o efetuada com sucesso.',
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             }, function (err) {
                                 var message = 'Erro. Verifique os seguintes campos: ' + err;
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : message,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             });
                         }
@@ -683,7 +683,7 @@
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : 'Evento cadastrado com sucesso.',
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                                 $scope.closeEventDialog();
                             }, function (err) {
@@ -691,7 +691,7 @@
                                 DialogService.messageDialog({
                                     title : 'Agenda',
                                     message : message,
-                                    btnYes : 'OK',
+                                    btnYes : 'OK'
                                 });
                             });
                         }
@@ -702,7 +702,7 @@
                         DialogService.messageDialog({
                             title : 'Agenda',
                             message : 'UUID do Evento '+unescape('%e9')+' um campo obrigat'+unescape('%f3')+'rio.',
-                            btnYes : 'OK',
+                            btnYes : 'OK'
                         });
                         return false;
                     }
@@ -716,7 +716,7 @@
                                 title : 'Agenda',
                                 message : 'A data do evento ' + unescape('%e9') + ' um campo obrigat' +
                                 unescape('%f3') + 'rio.',
-                                btnYes : 'OK',
+                                btnYes : 'OK'
                             });
                             return false;
                         }
@@ -725,7 +725,7 @@
                                 title : 'Agenda',
                                 message : 'O contato do evento ' + unescape('%e9') + ' um campo obrigat' +
                                 unescape('%f3') + 'rio.',
-                                btnYes : 'OK',
+                                btnYes : 'OK'
                             });
                             return false;
                         }
@@ -739,7 +739,7 @@
                                 title : 'Agenda',
                                 message : 'O t' + unescape('%ed') + 'tulo do evento ' + unescape('%e9') +
                                 ' um campo obrigat' + unescape('%f3') + 'rio.',
-                                btnYes : 'OK',
+                                btnYes : 'OK'
                             });
                             return false;
                         }
@@ -748,7 +748,7 @@
                                 title : 'Agenda',
                                 message : 'A descri' + unescape('%e7') + unescape('%e3') + 'o do evento ' +
                                 unescape('%e9') + ' um campo obrigat' + unescape('%f3') + 'rio.',
-                                btnYes : 'OK',
+                                btnYes : 'OK'
                             });
                             return false;
                         }
@@ -757,7 +757,7 @@
                                 title : 'Agenda',
                                 message : 'O tipo do evento ' + unescape('%e9') + ' um campo obrigat' +
                                 unescape('%f3') + 'rio.',
-                                btnYes : 'OK',
+                                btnYes : 'OK'
                             });
                             return false;
                         }
@@ -769,7 +769,7 @@
                         DialogService.messageDialog({
                             title : 'Agenda',
                             message : 'N'+unescape('%e3')+'o '+unescape('%e9')+' permitido cadastrar eventos anteriores a data/hora atual.',
-                            btnYes : 'OK',
+                            btnYes : 'OK'
                         });
                         return false;
                     }
@@ -778,7 +778,7 @@
                         DialogService.messageDialog({
                             title : 'Agenda',
                             message : 'Hora inv'+unescape('%e1')+'lida para o evento.',
-                            btnYes : 'OK',
+                            btnYes : 'OK'
                         });
                         return false;
                     }

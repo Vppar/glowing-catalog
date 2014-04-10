@@ -12,8 +12,8 @@
 			<span class="span8">
 				<div class="control-group">
 					<label class="control-label">Conta a receber</label>
-						<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Seleione o Cliente" ng-model="receivable.customerId">
-								<option value="">Selecione Cliente</option>
+						<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Seleione o Terceiro" ng-model="receivable.customerId">
+								<option value="">Selecione Terceiro</option>
 								<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
 						</select>
 				</div>
