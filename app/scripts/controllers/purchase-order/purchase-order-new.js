@@ -18,9 +18,6 @@
                 var updatePurchaseOrder = $scope.updatePurchaseOrder;
 
                 var currentProductWatcher = angular.noop;
-                var enablePurchaseOrderWatchedQty = $scope.enablePurchaseOrderWatchedQty;
-                var disablePurchaseOrderWatchedQty = $scope.disablePurchaseOrderWatchedQty;
-                var loadStockReportQty = $scope.loadStockReportQty;
 
                 // #####################################################################################################
                 // Local Functions
@@ -168,7 +165,6 @@
 
                 // Enable watcher
                 enableProductWatcher();
-                loadStockReportQty(stockReport, NewPurchaseOrderService.listConfirmed(), NewPurchaseOrderService.listPartiallyReceived());
                 loadStashedPurchaseOrderQty(stockReport, purchaseOrder);
                 $scope.showLevel(1);
             }

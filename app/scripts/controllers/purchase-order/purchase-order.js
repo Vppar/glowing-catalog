@@ -23,7 +23,7 @@
                 // #####################################################################################################
                 var purchaseOrderWatchedQty = {
                     firstExecution: true,
-                    watcher: null
+                    watcher: angular.noop
                 };
 
                 // #####################################################################################################
@@ -102,7 +102,6 @@
                             } else {
                                 $scope.summarizer(newObj, true);
                             }
-
                         }
                     });
 
@@ -111,6 +110,120 @@
                 function disablePurchaseOrderWatchedQty() {
                     purchaseOrderWatchedQty.watcher();
                     purchaseOrderWatchedQty.firstExecution = true;
+                }
+
+                /**
+                 * Method to summarize the products from the list
+                 *
+                 * @param pickerArray - List with the value of the selector
+                 *            from the html
+                 *
+                 * @param hide - boolean used to determine if the filter
+                 *            will consider the hide attribute on the items.
+                 *
+                 */
+                function summarizer(pickerArray, hide) {
+                    var diff = {
+                        amount: 0,
+                        points: 0
+                    };
+
+                    $scope.summary.total.sessions = {};
+
+                    for (var ix in pickerArray) {
+
+                        // get the necessary values from the item
+                        var price = $scope.purchaseOrder.items[ix].price;
+                        var points = $scope.purchaseOrder.items[ix].points;
+                        var session = $scope.purchaseOrder.items[ix].session;
+                        var line = $scope.purchaseOrder.items[ix].line;
+                        var minQty = $scope.purchaseOrder.items[ix].minQty;
+                        var qty = pickerArray[ix];
+                        var itemHide;
+
+                        // if the method receives hide as true, then
+                        // the
+                        // itemHide will be the same as the hide
+                        // property of the item, that way the items
+                        // with
+                        // hide = true won't be considered.
+                        // Otherwise the itemHide receives false and
+                        // all
+                        // items will be considered.
+                        if (hide === true) {
+                            itemHide = $scope.purchaseOrder.items[ix].hide;
+                        } else {
+                            itemHide = false;
+                        }
+
+                        diff.amount += (pickerArray[ix] * price);
+                        diff.points += (pickerArray[ix] * points);
+
+                        // create the objects for the current
+                        // session
+                        // and line.
+                        if (!$scope.summary.total.sessions[session]) {
+                            $scope.summary.total.sessions[session] = {
+                                total: 0,
+                                minQty: 0,
+                                orderQty: 0,
+                                avg: 0,
+                                pts: 0,
+                                lines: {}
+                            };
+                        }
+                        if (!$scope.summary.total.sessions[session].lines[line]) {
+                            $scope.summary.total.sessions[session].lines[line] = {
+                                total: 0,
+                                minQty: 0,
+                                orderQty: 0,
+                                avg: 0,
+                                pts: 0
+                            };
+                        }
+
+                        // sum of the price per line and session
+                        if ((pickerArray[ix] * price) > 0 && itemHide === false) {
+                            $scope.summary.total.sessions[session].total += (pickerArray[ix] * price);
+                            $scope.summary.total.sessions[session].lines[line].total += (pickerArray[ix] * price);
+                        }
+                        // sum of the minQty per line and session
+                        if (minQty && itemHide === false) {
+                            $scope.summary.total.sessions[session].minQty += minQty;
+                            $scope.summary.total.sessions[session].lines[line].minQty += minQty;
+                        }
+                        // sum of the actual selected qty per line
+                        // and
+                        // session
+                        if (qty > 0 && itemHide === false) {
+                            $scope.summary.total.sessions[session].orderQty += qty;
+                            $scope.summary.total.sessions[session].lines[line].orderQty += qty;
+                        }
+                        // sum of the points per line and session
+                        if (qty > 0 && itemHide === false) {
+                            $scope.summary.total.sessions[session].pts += (pickerArray[ix] * points);
+                            $scope.summary.total.sessions[session].lines[line].pts += (pickerArray[ix] * points);
+                        }
+                    }
+
+                    // the total overall
+                    $scope.summary.total.amount = diff.amount;
+                    $scope.summary.total.points = diff.points;
+
+                    // calculate the average value.
+                    for (var ix1 in $scope.summary.total.sessions) {
+                        if ($scope.summary.total.sessions[ix1].orderQty > 0) {
+                            $scope.summary.total.sessions[ix1].avg =
+                                ($scope.summary.total.sessions[ix1].total) / ($scope.summary.total.sessions[ix1].orderQty);
+                        }
+                        for (var ix2 in $scope.summary.total.sessions[ix1].lines) {
+                            if ($scope.summary.total.sessions[ix1].lines[ix2].orderQty > 0) {
+                                $scope.summary.total.sessions[ix1].lines[ix2].avg =
+                                    ($scope.summary.total.sessions[ix1].lines[ix2].total) /
+                                    ($scope.summary.total.sessions[ix1].lines[ix2].orderQty);
+                            }
+                        }
+                    }
                 }
 
                 function loadStockReportQty(stockReport, confirmed, partiallyReceived) {
@@ -144,7 +257,6 @@
                         }
                     }
 
-                    disablePurchaseOrderWatchedQty();
                     for (var ix in stockReport.sessions) {
                         var session = stockReport.sessions[ix];
                         for (var ix2 in session.lines) {
@@ -162,10 +274,27 @@
                                         item.qty = 0;
                                         $scope.purchaseOrder.watchedQty[item.id] = 0;
                                     }
+                                    $scope.purchaseOrder.items[item.id] = item;
                                 }
                             }
                         }
                     }
+                }
+
+                function resetPurchaseOrder() {
+                    disablePurchaseOrderWatchedQty();
+
+                    resetWatchedQty();
+
+                    NewPurchaseOrderService.clearCurrent();
+
+                    $scope.main.stockReport = StockService.stockReport('all');
+
+                    loadStockReportQty($scope.main.stockReport, NewPurchaseOrderService.listConfirmed(), NewPurchaseOrderService.listPartiallyReceived());
+                    loadStashedPurchaseOrder();
+
+                    summarizer($scope.purchaseOrder.watchedQty, false);
+
                     enablePurchaseOrderWatchedQty();
                 }
 
@@ -236,149 +365,22 @@
                     return (Math.round(100 * value) / 100);
                 };
 
-                $scope.resetPurchaseOrder = function resetPurchaseOrder() {
-                    disablePurchaseOrderWatchedQty();
 
-                    resetWatchedQty();
-                    loadStockReportQty();
-
-                    NewPurchaseOrderService.clearCurrent();
-                    NewPurchaseOrderService.createNewCurrent();
-
-                    $scope.main.stockReport = StockService.stockReport('all');
-
-                    enablePurchaseOrderWatchedQty();
-                };
-
-                /**
-                 * Method to summarize the products from the list
-                 *
-                 * @param pickerArray - List with the value of the selector
-                 *            from the html
-                 *
-                 * @param hide - boolean used to determine if the filter
-                 *            will consider the hide attribute on the items.
-                 *
-                 */
-                $scope.summarizer =
-                    function (pickerArray, hide) {
-                        var diff = {
-                            amount: 0,
-                            points: 0
-                        };
-
-                        $scope.summary.total.sessions = {};
-
-                        for (var ix in pickerArray) {
-
-                            // get the necessary values from the item
-                            var price = $scope.purchaseOrder.items[ix].price;
-                            var points = $scope.purchaseOrder.items[ix].points;
-                            var session = $scope.purchaseOrder.items[ix].session;
-                            var line = $scope.purchaseOrder.items[ix].line;
-                            var minQty = $scope.purchaseOrder.items[ix].minQty;
-                            var qty = pickerArray[ix];
-                            var itemHide;
-
-                            // if the method receives hide as true, then
-                            // the
-                            // itemHide will be the same as the hide
-                            // property of the item, that way the items
-                            // with
-                            // hide = true won't be considered.
-                            // Otherwise the itemHide receives false and
-                            // all
-                            // items will be considered.
-                            if (hide === true) {
-                                itemHide = $scope.purchaseOrder.items[ix].hide;
-                            } else {
-                                itemHide = false;
-                            }
-
-                            diff.amount += (pickerArray[ix] * price);
-                            diff.points += (pickerArray[ix] * points);
-
-                            // create the objects for the current
-                            // session
-                            // and line.
-                            if (!$scope.summary.total.sessions[session]) {
-                                $scope.summary.total.sessions[session] = {
-                                    total: 0,
-                                    minQty: 0,
-                                    orderQty: 0,
-                                    avg: 0,
-                                    pts: 0,
-                                    lines: {}
-                                };
-                            }
-                            if (!$scope.summary.total.sessions[session].lines[line]) {
-                                $scope.summary.total.sessions[session].lines[line] = {
-                                    total: 0,
-                                    minQty: 0,
-                                    orderQty: 0,
-                                    avg: 0,
-                                    pts: 0
-                                };
-                            }
-
-                            // sum of the price per line and session
-                            if ((pickerArray[ix] * price) > 0 && itemHide === false) {
-                                $scope.summary.total.sessions[session].total += (pickerArray[ix] * price);
-                                $scope.summary.total.sessions[session].lines[line].total += (pickerArray[ix] * price);
-                            }
-                            // sum of the minQty per line and session
-                            if (minQty && itemHide === false) {
-                                $scope.summary.total.sessions[session].minQty += minQty;
-                                $scope.summary.total.sessions[session].lines[line].minQty += minQty;
-                            }
-                            // sum of the actual selected qty per line
-                            // and
-                            // session
-                            if (qty > 0 && itemHide === false) {
-                                $scope.summary.total.sessions[session].orderQty += qty;
-                                $scope.summary.total.sessions[session].lines[line].orderQty += qty;
-                            }
-                            // sum of the points per line and session
-                            if (qty > 0 && itemHide === false) {
-                                $scope.summary.total.sessions[session].pts += (pickerArray[ix] * points);
-                                $scope.summary.total.sessions[session].lines[line].pts += (pickerArray[ix] * points);
-                            }
-                        }
-
-                        // the total overall
-                        $scope.summary.total.amount = diff.amount;
-                        $scope.summary.total.points = diff.points;
-
-                        // calculate the average value.
-                        for (var ix1 in $scope.summary.total.sessions) {
-                            if ($scope.summary.total.sessions[ix1].orderQty > 0) {
-                                $scope.summary.total.sessions[ix1].avg =
-                                    ($scope.summary.total.sessions[ix1].total) / ($scope.summary.total.sessions[ix1].orderQty);
-                            }
-                            for (var ix2 in $scope.summary.total.sessions[ix1].lines) {
-                                if ($scope.summary.total.sessions[ix1].lines[ix2].orderQty > 0) {
-                                    $scope.summary.total.sessions[ix1].lines[ix2].avg =
-                                        ($scope.summary.total.sessions[ix1].lines[ix2].total) /
-                                        ($scope.summary.total.sessions[ix1].lines[ix2].orderQty);
-                                }
-                            }
-                        }
-                    };
-
-                $scope.resetWatchedQty = resetWatchedQty;
+                $scope.resetPurchaseOrder = resetPurchaseOrder;
                 $scope.hasCurrentPurchaseOrder = hasCurrentPurchaseOrder;
                 $scope.enablePurchaseOrderWatchedQty = enablePurchaseOrderWatchedQty;
                 $scope.disablePurchaseOrderWatchedQty = disablePurchaseOrderWatchedQty;
                 $scope.loadStockReportQty = loadStockReportQty;
                 $scope.updatePurchaseOrder = updatePurchaseOrder;
+                $scope.summarizer = summarizer;
 
                 // #####################################################################################################
                 // Watchers
                 // #####################################################################################################
 
                 $scope.$on('$destroy', function () {
+                    updatePurchaseOrder($scope.main.stockReport);
                     if (hasCurrentPurchaseOrder()) {
-                        updatePurchaseOrder($scope.main.stockReport);
                         NewPurchaseOrderService.saveCurrent();
                     }
                 });
@@ -386,9 +388,7 @@
                 // #####################################################################################################
                 // Controller warm up
                 // #####################################################################################################
-                resetWatchedQty();
-                loadStashedPurchaseOrder();
-                enablePurchaseOrderWatchedQty();
+                resetPurchaseOrder();
             }
         ]);
 })(angular);
