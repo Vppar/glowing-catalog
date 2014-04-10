@@ -88,7 +88,7 @@
 								<div class="new-col-3 text-center">{{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</div>
                                 <div class="new-col-3 currency">{{receivable.amountLiquid|currency: ''}}</div>
                                 <div class="new-col-3 currency">{{receivable.amount|currency: ''}}</div> -->
-                                <div class="new-col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</div>
+                                <div class="new-col-2 text-center">{{receivable.duedate|date:"dd/MM/yyyy"}}</div>
 								<div class="new-col-3 text-center">{{receivable|uuidCode:'documentId'}}</div>
 								<div class="new-col-12">{{receivable.name}}</div>
 								<div class="new-col-1 text-center">{{receivable.payment.installments}}</div>

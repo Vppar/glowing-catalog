@@ -49,11 +49,11 @@
 									<div class="col-2 text-center">Data</div>
 									<div class="col-3 text-center">Pedido</div>
 									<div class="col-6">Cliente</div>
-									<div class="col-3 text-center">Tx Cartão %</div>
 									<div class="col-1 text-center">Parc</div>
 									<div class="col-3 text-center">Autorização</div>
-									<div class="col-3 currency">Valor Líquido</div>
 									<div class="col-3 currency">Valor Bruto</div>
+									<div class="col-3 currency">Valor Desconto</div>
+									<div class="col-3 currency">Valor Líquido</div>
 								</div>
 							</div>
 
@@ -62,25 +62,25 @@
 									<div class="col-2 text-center">&nbsp;</div>
 									<div class="col-3 text-center">{{numOrders}}</div>
 									<div class="col-6">&nbsp;</div>
-									<div class="col-3 text-center">&nbsp;</div>
 									<div class="col-1 text-center">&nbsp;</div>
 									<div class="col-3 text-center">&nbsp;</div>
-									<div class="col-3 currency">0,00</div>
 									<div class="col-3 currency">{{total|currency: ''}}</div>
+									<div class="col-3 currency">{{discountTotal|currency: ''}}</div>
+									<div class="col-3 currency">{{netTotal|currency: ''}}</div>
 								</div>
 							</div>
 
 							<div class="grid-body grid-scroll">
 								<div class="grid-item single-line" ng-repeat="receivable in filteredReceivables | orderBy: '-created'">
 									<div class="row">
-										<div class="col-2 text-center">{{receivable.created|date:"dd/MM/yyyy"}}</div>
+										<div class="col-2 text-center">{{receivable.duedate|date:"dd/MM/yyyy"}}</div>
 										<div class="col-3 text-center">{{receivable|uuidCode:'documentId'}}</div>
 										<div class="col-6">{{receivable.name}}</div>
-										<div class="col-3 text-center">{{ccTax |currency: ''}}</div>
 										<div class="col-1 text-center">{{receivable.payment.installments}}</div>
 										<div class="col-3 text-center">{{receivable.payment.gatewayInfo.transacao.numero_autorizacao}}</div>
-										<div class="col-3 currency">&nbsp;</div>
 										<div class="col-3 currency">{{receivable.amount|currency: ''}}</div>
+										<div class="col-3 currency">{{receivable.discount |currency: ''}}</div>
+										<div class="col-3 currency">{{receivable.netAmount | currency: ''}}</div>
 									</div>
 								</div>
 							</div>
