@@ -20,7 +20,6 @@
                 var financialRound = $scope.financialRound;
                 var resetPurchaseOrder = $scope.resetPurchaseOrder;
                 var stockReport = $scope.main.stockReport;
-                var updateCurrentPurchaseOrder = $scope.updateCurrentPurchaseOrder;
 
                 // if the order total is less then the amount use the fee.
                 var discounts = [

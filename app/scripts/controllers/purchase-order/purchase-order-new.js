@@ -97,7 +97,7 @@
                 }
 
                 function loadStashedPurchaseOrderQty(stockReport, purchaseOrder) {
-                    if (purchaseOrder.uuid) {
+                    if (purchaseOrder.items.length > 0) {
                         var mapQty = {};
                         for (var i in purchaseOrder.items) {
                             var item = NewPurchaseOrderService.purchaseOrder.items[i];
