@@ -13,10 +13,13 @@
                 // #####################################################################################################
 
                 var stockReport = $scope.main.stockReport;
+
+                var purchaseOrder = NewPurchaseOrderService.purchaseOrder;
+                var updatePurchaseOrder = $scope.updatePurchaseOrder;
+
+                var currentProductWatcher = angular.noop;
                 var enablePurchaseOrderWatchedQty = $scope.enablePurchaseOrderWatchedQty;
                 var disablePurchaseOrderWatchedQty = $scope.disablePurchaseOrderWatchedQty;
-                var purchaseOrder = NewPurchaseOrderService.purchaseOrder;
-                var currentProductWatcher = angular.noop;
 
                 // #####################################################################################################
                 // Local Functions
@@ -37,7 +40,7 @@
                     }
                 }
 
-                function reviewMinQty(stockReport, confirmed, partiallyReceived) {
+                function loadStockReportQty(stockReport, confirmed, partiallyReceived) {
                     var mapProductQty = {};
 
                     for (var ci in confirmed) {
@@ -93,24 +96,24 @@
                     enablePurchaseOrderWatchedQty();
                 }
 
-                function loadStashedPurchaseOrder(stockReport, purchaseOrder) {
+                function loadStashedPurchaseOrderQty(stockReport, purchaseOrder) {
                     if (purchaseOrder.uuid) {
                         var mapQty = {};
-                        for ( var i in purchaseOrder.items) {
+                        for (var i in purchaseOrder.items) {
                             var item = NewPurchaseOrderService.purchaseOrder.items[i];
                             mapQty[item.id] = item.qty;
                         }
 
-                        for ( var ix in stockReport.sessions) {
+                        for (var ix in stockReport.sessions) {
                             var session = stockReport.sessions[ix];
-                            for ( var ix2 in session.lines) {
+                            for (var ix2 in session.lines) {
                                 var line = session.lines[ix2];
-                                for ( var ix3 in line.items) {
-                                    var item = line.items[ix3];
-                                    var qty = mapQty[item.id];
+                                for (var ix3 in line.items) {
+                                    var reportItem = line.items[ix3];
+                                    var qty = mapQty[reportItem.id];
 
-                                    item.qty = qty ? qty : 0;
-                                    $scope.purchaseOrder.watchedQty[item.id] = qty ? qty : 0;
+                                    reportItem.qty = qty ? qty : 0;
+                                    $scope.purchaseOrder.watchedQty[reportItem.id] = qty ? qty : 0;
                                 }
                             }
                         }
@@ -210,14 +213,18 @@
                     currentProductWatcher();
                 }
 
+                $scope.$on('$destroy', function () {
+                    updatePurchaseOrder(stockReport);
+                });
+
                 // #####################################################################################################
                 // Controller warm up
                 // #####################################################################################################
 
                 // Enable watcher
                 enableProductWatcher();
-                reviewMinQty(stockReport, NewPurchaseOrderService.listConfirmed(), NewPurchaseOrderService.listPartiallyReceived());
-                loadStashedPurchaseOrder(stockReport, purchaseOrder);
+                loadStockReportQty(stockReport, NewPurchaseOrderService.listConfirmed(), NewPurchaseOrderService.listPartiallyReceived());
+                loadStashedPurchaseOrderQty(stockReport, purchaseOrder);
                 $scope.showLevel(1);
             }
         ]);

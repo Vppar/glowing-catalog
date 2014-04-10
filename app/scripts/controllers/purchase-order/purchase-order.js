@@ -26,11 +26,47 @@
                     watcher: null
                 };
 
-                console.log(NewPurchaseOrderService.listStashed());
-
                 // #####################################################################################################
                 // Local Functions
                 // #####################################################################################################
+
+                function loadPurchaseOrders() {
+                    $scope.ticket.purchaseOrders = NewPurchaseOrderService.list();
+                }
+
+                function loadStashedPurchaseOrder() {
+                    if (!hasCurrentPurchaseOrder()) {
+                        var stashedOrders = NewPurchaseOrderService.listStashed();
+                        if (stashedOrders.length > 0) {
+                            NewPurchaseOrderService.createNewCurrent(stashedOrders[0]);
+                        } else {
+                            NewPurchaseOrderService.createNewCurrent();
+                        }
+                    }
+                }
+
+                function hasCurrentPurchaseOrder() {
+                    return NewPurchaseOrderService.purchaseOrder !== null && NewPurchaseOrderService.purchaseOrder.items.length > 0;
+                }
+
+                function updatePurchaseOrder(stockReport) {
+                    var report = angular.copy(stockReport);
+                    for (var ix in report.sessions) {
+                        var session = report.sessions[ix];
+                        for (var ix2 in session.lines) {
+                            var line = session.lines[ix2];
+                            for (var ix3 = 0; ix3 < line.items.length; ix3++) {
+                                var item = line.items[ix3];
+                                item.qty = $scope.purchaseOrder.watchedQty[item.id];
+                                if (Number(item.qty) === 0) {
+                                    NewPurchaseOrderService.purchaseOrder.remove(item);
+                                } else {
+                                    NewPurchaseOrderService.purchaseOrder.add(item);
+                                }
+                            }
+                        }
+                    }
+                }
 
                 function resetWatchedQty() {
                     for (var ix in $scope.main.stockReport.sessions) {
@@ -50,25 +86,6 @@
                             }
                         }
                     }
-                }
-
-                function loadPurchaseOrders() {
-                    $scope.ticket.purchaseOrders = NewPurchaseOrderService.list();
-                }
-
-                function loadStashedPurchaseOrder() {
-                    if (!hasCurrentPurchaseOrder()) {
-                        var stashedOrders = NewPurchaseOrderService.listStashed();
-                        if (stashedOrders.length > 0) {
-                            $scope.purchaseOrder.current = NewPurchaseOrderService.createNewCurrent(stashedOrders[0]);
-                        } else {
-                            $scope.purchaseOrder.current = NewPurchaseOrderService.createNewCurrent();
-                        }
-                    }
-                }
-
-                function hasCurrentPurchaseOrder() {
-                    return NewPurchaseOrderService.purchaseOrder !== null;
                 }
 
                 function enablePurchaseOrderWatchedQty() {
@@ -95,26 +112,6 @@
                     purchaseOrderWatchedQty.watcher();
                     purchaseOrderWatchedQty.firstExecution = true;
                 }
-
-                function updatePurchaseOrder(stockReport) {
-                    var report = angular.copy(stockReport);
-                    for (var ix in report.sessions) {
-                        var session = report.sessions[ix];
-                        for (var ix2 in session.lines) {
-                            var line = session.lines[ix2];
-                            for (var ix3 = 0; ix3 < line.items.length; ix3++) {
-                                var item = line.items[ix3];
-                                item.qty = $scope.purchaseOrder.watchedQty[item.id];
-                                if (Number(item.qty) === 0) {
-                                    NewPurchaseOrderService.purchaseOrder.remove(item);
-                                } else {
-                                    NewPurchaseOrderService.purchaseOrder.add(item);
-                                }
-                            }
-                        }
-                    }
-                };
-
 
                 // #####################################################################################################
                 // Scope variables
@@ -146,7 +143,6 @@
                  * New order tab
                  */
                 $scope.purchaseOrder = {};
-                $scope.purchaseOrder.current = {};
                 $scope.purchaseOrder.items = {};
                 $scope.purchaseOrder.watchedQty = {};
                 $scope.filter = {
@@ -167,10 +163,6 @@
                  */
                 $scope.pending = {};
 
-                $scope.enablePurchaseOrderWatchedQty = enablePurchaseOrderWatchedQty;
-                $scope.disablePurchaseOrderWatchedQty = disablePurchaseOrderWatchedQty;
-                $scope.updateCurrentPurchaseOrder = updatePurchaseOrder;
-
                 // #####################################################################################################
                 // Scope functions
                 // #####################################################################################################
@@ -179,8 +171,6 @@
                     $scope.tabs.selected = tabName;
                     $scope.ticket.selectedPart = 'part1';
                 };
-
-                $scope.hasCurrentPurchaseOrder = hasCurrentPurchaseOrder;
 
                 $scope.isSummaryVisible = function (tabName) {
                     return tabName === 'new' || tabName === 'confirm';
@@ -191,16 +181,17 @@
                 };
 
                 $scope.resetPurchaseOrder = function resetPurchaseOrder() {
-                    NewPurchaseOrderService.clearCurrent();
-                    $scope.main.stockReport = StockService.stockReport('all');
-                    StockService.updateReport($scope.main.stockReport);
                     disablePurchaseOrderWatchedQty();
+
                     resetWatchedQty();
-                    loadStashedPurchaseOrder();
+
+                    NewPurchaseOrderService.clearCurrent();
+                    NewPurchaseOrderService.createNewCurrent();
+
+                    $scope.main.stockReport = StockService.stockReport('all');
+
                     enablePurchaseOrderWatchedQty();
                 };
-
-                $scope.resetWatchedQty = resetWatchedQty;
 
                 /**
                  * Method to summarize the products from the list
@@ -317,13 +308,19 @@
                         }
                     };
 
+                $scope.resetWatchedQty = resetWatchedQty;
+                $scope.hasCurrentPurchaseOrder = hasCurrentPurchaseOrder;
+                $scope.enablePurchaseOrderWatchedQty = enablePurchaseOrderWatchedQty;
+                $scope.disablePurchaseOrderWatchedQty = disablePurchaseOrderWatchedQty;
+                $scope.updatePurchaseOrder = updatePurchaseOrder;
+
                 // #####################################################################################################
                 // Watchers
                 // #####################################################################################################
 
                 $scope.$on('$destroy', function () {
                     if (hasCurrentPurchaseOrder()) {
-                        $scope.updateCurrentPurchaseOrder($scope.main.stockReport);
+                        updatePurchaseOrder($scope.main.stockReport);
                         NewPurchaseOrderService.saveCurrent();
                     }
                 });
