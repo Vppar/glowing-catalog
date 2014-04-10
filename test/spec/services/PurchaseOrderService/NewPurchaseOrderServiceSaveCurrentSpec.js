@@ -88,9 +88,7 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
                 it('should call PurchaseOrderService.update', function() {
                     expect(PurchaseOrderService.update).toHaveBeenCalledWith(PurchaseOrderService.purchaseOrder);
                 });
-                it('should clear the order', function() {
-                    expect(PurchaseOrderService.clearCurrent).toHaveBeenCalled();
-                });
+
                 it('should return uuid comming from PurchaseOrderService.update', function() {
                     expect(promiseResult).toEqual(uuid);
                 });
@@ -159,12 +157,6 @@ describe('Service: PurchaseOrderServiceSaveCurrentSpec\n', function() {
 
                 it('should call PurchaseOrderService.create', function() {
                     expect(PurchaseOrderService.create).toHaveBeenCalledWith(purchaseOrder);
-                });
-                it('should clear the order', function() {
-                    expect(PurchaseOrderService.clearCurrent).toHaveBeenCalled();
-                });
-                it('should return uuid comming from PurchaseOrderService.create', function() {
-                    expect(promiseResult).toEqual(uuid);
                 });
             });
         });

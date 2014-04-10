@@ -15,6 +15,7 @@ describe('Service: StockServiceAddSpec -', function() {
         InventoryKeeper = {};
         FinancialMathService = {};
         loggerMock.info = jasmine.createSpy('logger.info');
+        loggerMock.error = jasmine.createSpy('logger.error');
         loggerMock.getLogger = jasmine.createSpy('logMock.getLogger').andReturn(loggerMock);
 
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
