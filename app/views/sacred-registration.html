@@ -16,16 +16,17 @@
 			<div class="page-body">
 				<form name="consultantForm" class="form">
 					<div class="content">
-	
+
 						<div class="content-body">
-	
-								<div class="fields">
-									<div class="form-line">
+
+							<div class="fields">
+								<div class="form-line">	
+
+									<div class="row">
 										<div class="col-14">
 											<label>Nome</label>
 											<input name="name" type="text" ng-model="consultant.name" customer-name required>
 										</div>
-										
 										<div class="col-5">
 											<label>CPF/MF</label>
 											<input name="" type="text" ng-model="consultant.cpf" cpf required>
@@ -34,11 +35,12 @@
 											<label>RG/&Oacute;rg&atilde;o emissor</label>
 											<input name="" type="text" ng-model="consultant.emissary" >						
 										</div>
-										
-										
 									</div>
-										
-									<div class="form-line">
+
+								</div>
+
+								<div class="form-line">
+									<div class="row">
 										<div class="col-4">
 											<label>Estado civil</label>
 											<select ui-select2="select2Options" data-placeholder="Selecione" ng-model="consultant.marital" tnt-select2>
@@ -61,29 +63,32 @@
 										<div class="col-6">
 											<label>Data de nascimento</label>
 											<select name="birthday" class="date-day" ng-model="consultant.birthDate.day"  tabindex="3" ui-select2="select2Options" tnt-select2>
-													                            <option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+												<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
 											</select>
-													                        <select name="birthmonth" class="date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
-													                                <option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
-													                        </select>
-													                        <select name="birthyear" class="date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2="select2Options" tnt-select2>
-													                                <option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
-													                        </select>
+											<select name="birthmonth" class="date-month" ng-model="consultant.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
+												<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+											</select>
+											<select name="birthyear" class="date-year" ng-model="consultant.birthDate.year" tabindex="4" ui-select2="select2Options" tnt-select2>
+												<option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+											</select>
 										</div>
-										
-										
-										
-										<div class="col-6">
-											<label>País de Origem</label>
-											<input name="" type="text" ng-model="consultant.countryOrigin" required>
-										</div>
-										<div class="col-5">
-											<label>C&oacute;digo MK</label>
-											<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
-										</div>
+									
+
+
+
+									<div class="col-6">
+										<label>País de Origem</label>
+										<input name="" type="text" ng-model="consultant.countryOrigin" required>
 									</div>
-										
-									<div class="form-line">
+									<div class="col-5">
+										<label>C&oacute;digo MK</label>
+										<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
+									</div>
+									</div>
+								</div>
+
+								<div class="form-line">
+									<div class="row">
 										<div class="col-9">
 											<label>Endereço</label>
 											<input name="" type="text" ng-model="consultant.address.street" required>
@@ -106,9 +111,11 @@
 											<input name="cep" type="text" ng-blur="getCep()" ng-model="consultant.cep" cep required>
 										</div>
 									</div>
-										
-									<div class="form-line">
-										
+								</div>
+
+								<div class="form-line">
+
+									<div class="row">
 										<div class="col-8">
 											<label>Cidade</label>
 											<input name="" type="text" ng-model="consultant.address.city" required>
@@ -132,8 +139,10 @@
 											<input name="" type="text" ng-model="consultant.cellphone" phone>
 										</div>
 									</div>
-										
-									<div class="form-line">
+								</div>
+
+								<div class="form-line">
+									<div class="row">
 										<div class="col-6">
 											<label>Titular da Conta</label>
 											<input name="" type="text" ng-model="consultant.accountHolder" required>
@@ -158,12 +167,14 @@
 											<label>Conta</label>
 											<input name="" type="text" ng-model="consultant.account" required maxlength="13">
 										</div>
-										
 									</div>
-										
-									<hr />
-										
-									<div class="form-line">
+
+								</div>
+
+								<hr />
+
+								<div class="form-line">
+									<div class="row">
 										<div class="col-12">
 											<label>E-mail da iniciadora</label>
 											<input name="" type="text" ng-model="consultant.emailPrimer" ng-pattern="emailRegex" lower-case required>
@@ -173,8 +184,10 @@
 											<input name="" type="text" ng-model="consultant.emailDirector" ng-pattern="emailRegex" lower-case required>			
 										</div>
 									</div>
-										
-									<div class="form-line">
+								</div>
+
+								<div class="form-line">
+									<div class="row">
 										<div class="col-6">
 											<label>C&oacute;digo da iniciadora</label>
 											<input name="" type="text" ng-model="consultant.primerCode" >
@@ -185,21 +198,22 @@
 										</div>
 									</div>
 								</div>
-		
-								<div class="buttons-holder">
-									<input type="button" class="button-black pull-left" ng-click="cancel()" value="Voltar">
-		                            <spinner-button class="button-green pull-right" spinner-promise = "confirm()" type="submit">Salvar</spinner-button>
-								</div>
-	
-							</div><!-- // form -->
-	
-						</div>
-	
+							</div>
+
+							<div class="buttons-holder">
+								<input type="button" class="button-black pull-left" ng-click="cancel()" value="Voltar">
+								<spinner-button class="button-green pull-right" spinner-promise = "confirm()" type="submit">Salvar</spinner-button>
+							</div>
+
+						</div><!-- // form -->
+
 					</div>
-				</form>
-			</div><!-- // page-body -->
+
+				</div>
+			</form>
+		</div><!-- // page-body -->
 
 
-		</div>
 	</div>
+</div>
 </div>
