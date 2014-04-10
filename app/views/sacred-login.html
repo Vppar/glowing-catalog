@@ -5,22 +5,23 @@
 		
 		<div class="login-body">
 			<div class="form-line">
-				<div class="24">
+				<div class="col-24">
 					<label>Login</label>
 					<input type="text" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="" name="username">
 				</div>
 			</div>
 			
 			<div class="form-line">
-				<div class="24">
+				<div class="col-24">
 					<label>Senha</label>
 					<input type="password" ng-model="pass" placeholder="">
 				</div>
 			</div>
 		</div>
+		
 		<div class="login-footer">
 			<div class="form-line">
-				<div class="24">
+				<div class="col-24">
 					<button ng-click="changeUser()" class="button-black" ng-if="hasPersistedUser()" type="button">Apagar Dados</button>
 					
 					<spinner-button spinner-promise="login()"class="button-green" type="submit">Entrar</spinner-button>
