@@ -108,6 +108,7 @@
 
                     $scope.changeTab = function changeTab(tab) {
                         $scope.ticket.tab = tab;
+                        ticket.loadPurchaseOrders();
                     };
 
                     $scope.filterOrders = function filterOrders(purchase) {
