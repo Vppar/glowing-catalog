@@ -408,6 +408,7 @@ views/parts/voucher/sacred-voucher-hist.html
 views/spinner-button.html
 views/sacred-registration.html
 views/sacred-login.html
+views/sacred-add-customer.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

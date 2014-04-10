@@ -86,3 +86,9 @@
 #sacred .limit-date-year {
 	width:114px!important;
 }
+
+#sacred .form .form-line input{
+	height: 30px;
+	width: 100%;
+}
+

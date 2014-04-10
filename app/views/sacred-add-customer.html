@@ -1,0 +1,139 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-add-customer-page">
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Novo Cliente</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="content">
+					<div class="content-body">
+						<form name="newCustomerForm" ng-class="{failed: failed}">
+							<div class="fields">
+								<div class="form-line">
+									<div class="col-12">
+										<label>Nome</label>
+										<input name="name" tabindex="1" type="text" placeholder="" ng-model="customer.name" customer-name required>
+									</div>
+									<div class="col-12">
+										<label class="control-label">E-mails</label>
+										<input class="input-block-level hover-state-pointer"  tabindex="2"
+										id="appendedInput" type="email" ng-model="customer.emails[0].address"
+										ng-click="openDialogAddCustomerEmails(customer.emails)">
+										<span ng-click="openDialogAddCustomerEmails(customer.emails)"
+										class="add-on">+</span>
+									</div>
+								</div>
+
+								<div class="form-line">
+									<div class="col-4">
+										<label for="">Data de Anivers&aacute;rio</label>
+										<div>
+											<select name="birthday" class="select-width-01"ng-model="customer.birthDate.day"  tabindex="3" ui-select2="select2Options" tnt-select2>
+												<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+											</select>
+											<select name="birthmonth" class="select-width-01 marginl5" ng-model="customer.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
+												<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-8">
+										<label class="control-label lbl-tels">Telefones</label>
+										<div class="input-append input-width-tels">
+											<input class="input-block-level" tabindex="5"
+											id="appendedInput" type="text"
+											ng-model="customer.phones[0].number"
+											ng-click="openDialogAddCustomerTels(customer.phones)" required phone> 
+											<span
+											ng-click="openDialogAddCustomerTels(customer.phones)"
+											class="add-on">+</span>
+										</div>
+									</div>
+
+								</div>
+
+								<div class="form-line">
+									<div class="col-4">
+										<label class="control-label">CEP</label>
+										<input name="cep"  tabindex="6"
+										class="input-cep" type="text" ng-model="customer.cep" ng-blur="getCep()"
+										ng-minlength="8" cep >
+									</div>
+									<div class="col-8">
+										<label
+										class="control-label lbl-complement">CPF</label>
+										<input  tabindex="7" class="input-block-level input-complement" type="text" ng-blur="validateCpf(customer.document)" tnt-focus-if="{{cpfFocus}}" ng-model="customer.document" cpf>
+									</div>
+								</div>
+
+								<div class="form-line">
+									<div class="col-12">
+										<label class="control-label">Endere&ccedil;o</label>
+										<input  tabindex="8"
+										name="address" class="input-block-level" type="text"
+										placeholder="" ng-model="customer.addresses.street" ng-required="customer.cep">
+									</div>
+									<div class="col-4">
+										<label class="control-label">Nº</label>
+										<input name="number"  tabindex="9" class="input-address-number" value=""
+										type="text" placeholder="" ng-model="customer.addresses.number"
+										number ng-required="customer.addresses.street">
+									</div>
+									<div class="col-8">
+										<label
+										class="control-label lbl-complement">Complemento</label>
+										<input  tabindex="10"
+										class="input-block-level input-complement" type="text"
+										ng-model="customer.addresses.complement">
+									</div>
+								</div>
+								<div class="form-line">
+
+									<div class="col-12">
+										<label class="control-label">Bairro</label>
+										<input  tabindex="11"
+										name="neighborhood" class="input-block-level" type="text"
+										ng-model="customer.addresses.neighborhood" ng-required="customer.cep">
+									</div>
+
+									<div class="col-4">
+										<label class="control-label">UF</label>
+										<select name="state"  tabindex="12" ui-select2="select2Options" tnt-select2 class="select-width-0"  ng-model="customer.addresses.state" ng-required="customer.cep">
+											<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
+										</select>
+									</div>
+									<div class="col-8">
+										<label class="control-label lbl-city">Cidade</label>
+										<input name="city"  tabindex="13" class="input-block-level input-city" type="text"
+										ng-model="customer.addresses.city" ng-required="customer.cep">
+									</div>
+
+								</div>
+
+								<div class="form-line">
+									<div class="col-24">
+										<label class="control-label">Observa&ccedil;&otilde;es</label>
+										<input  tabindex="14" name="remarks" ng-model="customer.remarks" class="input-block-level" type="textarea" rows="4" cols="50" >
+									</div>	
+								</div>
+							</div>
+
+							<div class="buttons-holder" fast-click>
+								<a class="btn btn-cancel"  tabindex="15" ng-click="cancel()">Cancelar</a>
+								<spinner-button class="new-button new-button-ok pull-right" tabindex="16" spinner-promise = "confirm()">
+								Confirmar
+							</spinner-button>		
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
