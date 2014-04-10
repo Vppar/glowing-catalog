@@ -19,7 +19,6 @@
                     // Local Functions
                     // #####################################################################################################
 
-                    // inherited from ProductsToBuyCtrl
                     var listConfirmedProducts = function listConfirmedProducts(stockReport) {
                         var report = angular.copy(stockReport);
 
@@ -34,10 +33,8 @@
                                     item.qty = $scope.purchaseOrder.watchedQty[item.id];
                                     if (Number(item.qty) === 0) {
                                         line.items.splice(ix3, 1);
-                                        NewPurchaseOrderService.purchaseOrder.remove(item);
                                     } else {
                                         ix3++;
-                                        NewPurchaseOrderService.purchaseOrder.add(item);
                                     }
                                 }
                                 if (line.items.length === 0) {
@@ -71,7 +68,6 @@
                     // #####################################################################################################
                     // Publishing methods to be tested
                     // #####################################################################################################
-
                     this.listConfirmedProducts = listConfirmedProducts;
                 }
             ]);

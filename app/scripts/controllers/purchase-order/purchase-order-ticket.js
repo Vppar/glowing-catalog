@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('tnt.catalog.purchase.ticket.ctrl', [
-        'tnt.utils.array', 'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service'
+        'tnt.utils.array', 'tnt.catalog.service.dialog', 'tnt.catalog.purchaseOrder.service', 'tnt.catalog.purchase.service'
     ]).controller(
             'PurchaseOrderTicketCtrl',
             [
@@ -13,12 +13,12 @@
                 'ArrayUtils',
                 'DialogService',
                 'PurchaseOrderService',
-                function($scope, $filter, $q, $log, ArrayUtils, DialogService, PurchaseOrderService) {
+                'NewPurchaseOrderService',
+                function($scope, $filter, $q, $log, ArrayUtils, DialogService, PurchaseOrderService, NewPurchaseOrderService) {
 
                     // #####################################################################################################
                     // Local variables
                     // #####################################################################################################
-
                     var ticket = $scope.ticket;
                     ticket.tab = 'open';
 
@@ -45,6 +45,10 @@
 
                     var selectPart = function selectPart(part) {
                         ticket.selectedPart = part;
+                    };
+
+                    ticket.loadPurchaseOrders = function(){
+                        ticket.purchaseOrders = $filter('filter')(NewPurchaseOrderService.list(), $scope.filterOrders);
                     };
 
                     // #####################################################################################################
@@ -104,6 +108,7 @@
 
                     $scope.changeTab = function changeTab(tab) {
                         $scope.ticket.tab = tab;
+                        ticket.loadPurchaseOrders();
                     };
 
                     $scope.filterOrders = function filterOrders(purchase) {
