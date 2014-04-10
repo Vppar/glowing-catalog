@@ -246,6 +246,9 @@
         }).when('/login', {
             templateUrl : 'views/sacred-login.html',
             controller : 'LoginCtrl'
+         }).when('/add-customer-2', {
+            templateUrl : 'views/sacred-add-customer.html',
+            controller : 'AddCustomerCtrl'
         }).otherwise({
             redirectTo : '/'
         });
