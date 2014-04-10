@@ -1,10 +1,6 @@
 {
   "name": "glowing-catalog",
-<<<<<<< Upstream, based on origin/master
   "version": "1.2.13",
-=======
-  "version": "1.2.2-81",
->>>>>>> 6cc95e1 changed all "cliente" labels to "terceiro".
   "dependencies": {},
   "devDependencies": {
     "gifsicle": "0.1.3",
