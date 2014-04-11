@@ -35,7 +35,7 @@
                     if (customer && !customer.document ) {
                         var promise = DialogService.messageDialog({
                             title: 'Atenção.',
-                            message: 'Para processar transações de cc é necessário o CPF do cliente. Deseja preencher agora?',
+                            message: 'Para processar transações de Cartão de Crédito é necessário o CPF do cliente. Deseja preencher agora?',
                             btnYes: 'Sim',
                             btnNo: 'Não'
                         });

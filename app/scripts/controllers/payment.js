@@ -48,9 +48,7 @@
                     $location.path('/');
                 }
 
-                $scope.coupon = {
-                    sum: 0
-                };
+                $scope.coupon = {sum: 0};
 
                 $scope.voucherFilter = function (item) {
                     if (item.type === 'voucher' || item.type === 'giftCard') {
@@ -61,6 +59,7 @@
                 };
 
                 $scope.couponFilter = function (item) {
+                    console.log(item);
                     if (item.type === 'coupon') {
                         return true;
                     } else {
@@ -69,6 +68,7 @@
                 };
 
                 $scope.items = order.items;
+
 
                 $scope.keyboard = KeyboardService.getKeyboard();
 
@@ -131,15 +131,11 @@
                 // amount,
                 // the total discount and the exchanges.
                 function getSubTotal() {
-                    var totalDiscount = Discount.getTotalDiscount(order.items);
-
-                    var subtotal = total.order.amount - totalDiscount;
-                    return subtotal < 0 ? 0 : subtotal;
+                    return total.order.amount - total.discount;
                 }
 
                 function getNewSubTotal() {
-                    var subtotal = total.order.amount - total.order.itemDiscount;
-                    return subtotal < 0 ? 0 : subtotal;
+                    return total.order.amount;
                 }
 
                 // FIXME Replace calls to this with the Discount
@@ -247,12 +243,10 @@
                     }
                 }
 
-                // Whenever the user changes the quantity of an item
-                // from the payment screen
-                // check if any of them has an order discount higher
-                // than its total value.
-                // Item discounts are handled by the add-to-basket
-                // dialog, therefore, there's
+
+                // Whenever the user changes the quantity of an item from the payment screen
+                // check if any of them has an order discount higher than its total value.
+                // Item discounts are handled by the add-to-basket dialog, therefore, there's
                 // no need to check them here.
                 function unitWatcher(newValue, oldValue) {
                     if (newValue !== oldValue) {
@@ -308,7 +302,7 @@
 
                 $scope.$watch('cash.amount', function () {
                     PaymentService.clear('cash');
-                    if (Number($scope.cash.amount) !== 0) {
+                    if ($scope.cash.amount != 0) {
                         var cash = new CashPayment($scope.cash.amount);
                         cash.duedate = new Date().getTime();
                         PaymentService.add(cash);
@@ -321,9 +315,7 @@
                 $scope.dialogService = dialogService;
 
                 $scope.openDialogChooseCustomer = function () {
-                    IntentService.putBundle({
-                        screen: 'payment'
-                    });
+                    IntentService.putBundle({screen: 'payment'});
                     dialogService.openDialogChooseCustomer().then(function (uuid) {
                         if (uuid) {
                             customer = ArrayUtils.find(EntityService.list(), 'uuid', uuid);
@@ -472,19 +464,19 @@
                         total.payments.coupon = PaymentService.list('coupon');
                         total.payments.onCuff = PaymentService.list('onCuff');
 
-                        if (Number(total.payments.check) === 0) {
+                        if (total.payments.check == 0) {
                             $scope.hideCheckQtde = true;
                         } else {
                             $scope.hideCheckQtde = false;
                         }
 
-                        if (Number(total.payments.creditCard) === 0) {
+                        if (total.payments.creditCard == 0) {
                             $scope.hideCardQtde = true;
                         } else {
                             $scope.hideCardQtde = false;
                         }
 
-                        if (Number(total.payments.exchange) === 0) {
+                        if (total.payments.exchange == 0) {
                             $scope.hideExchangeQtde = true;
                         } else {
                             $scope.hideExchangeQtde = false;
@@ -515,7 +507,7 @@
                 $scope.$watch('total.order.subTotal', updateOrderAndPaymentTotal);
 
                 $scope.$watch('total.change', function () {
-                    if (Number($scope.total.change) !== 0) {
+                    if ($scope.total.change != 0) {
                         PaymentService.clear('onCuff');
                         updateOrderAndPaymentTotal();
                     }
@@ -574,6 +566,7 @@
                     total.discount = total.order.discount + total.order.itemDiscount;
                 }
 
+
                 $scope.$watch('total.order.discount', updateTotalDiscount);
                 $scope.$watch('total.order.itemDiscount', updateTotalDiscount);
 
@@ -616,43 +609,40 @@
 
                 $scope.$watchCollection('items', watchItemDiscounts);
 
-                $scope.openOrderDiscountDialog =
-                    function () {
-                        var dialog = null;
+                $scope.openOrderDiscountDialog = function () {
+                    var dialog = null;
 
-                        if ($scope.enableDiscount) {
-                            var nonDiscountedTotal = getNonDiscountedTotal();
-                            var items = Discount.getItemsWithoutItemDiscount(order.items);
+                    if ($scope.enableDiscount) {
+                        var nonDiscountedTotal = getNonDiscountedTotal();
+                        var items = Discount.getItemsWithoutItemDiscount(order.items);
 
-                            var nonDiscountedTotalString = $filter('currency')(nonDiscountedTotal);
+                        var nonDiscountedTotalString = $filter('currency')(nonDiscountedTotal);
 
-                            var message =
-                                'Desconto geral é aplicado somente sobre os produtos sem desconto individual.';
+                        var message = 'Desconto geral é aplicado somente sobre os ' +
+                            'produtos sem desconto individual.';
 
-                            var data = {
-                                initial: total.order.discount,
-                                relative: nonDiscountedTotal,
-                                title: 'Desconto',
-                                message: message
-                            };
+                        var data = {
+                            initial: total.order.discount,
+                            relative: nonDiscountedTotal,
+                            title: 'Desconto',
+                            message: message
+                        };
 
-                            dialog = DialogService.openDialogNumpad(data).then(function (discount) {
-                                discount = discount > nonDiscountedTotal ? nonDiscountedTotal : discount;
-                                Discount.distributeOrderDiscount(items, discount);
-                                updateDiscountRelatedValues();
-                            });
-                        } else {
-                            dialog =
-                                DialogService
-                                    .messageDialog({
-                                        title: 'Desconto',
-                                        message: 'Não é possível aplicar desconto geral no pedido que possui desconto individual em todos os itens.',
-                                        btnYes: 'OK'
-                                    });
-                        }
+                        dialog = DialogService.openDialogNumpad(data).then(function (discount) {
+                            discount = discount > nonDiscountedTotal ? nonDiscountedTotal : discount;
+                            Discount.distributeOrderDiscount(items, discount);
+                            updateDiscountRelatedValues();
+                        });
+                    } else {
+                        dialog = DialogService.messageDialog({
+                            title: 'Desconto',
+                            message: 'Não é possível aplicar desconto geral no pedido que possui desconto individual em todos os itens.',
+                            btnYes: 'OK'
+                        });
+                    }
 
-                        return dialog;
-                    };
+                    return dialog;
+                };
 
                 // #############################################################################################
                 // REVIEWED METHOD - DO NOT put anything here that
