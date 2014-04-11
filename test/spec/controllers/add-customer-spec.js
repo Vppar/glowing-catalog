@@ -208,6 +208,9 @@ describe('Controller: AddCustomerCtrl', function() {
         // valid Cep
         scope.customer.cep = '81110-010';
 
+        scope.cepValid = true;
+        scope.$apply();
+
         // when
         var done = false;
         runs(function() {

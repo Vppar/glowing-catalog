@@ -29,6 +29,8 @@
 
                     $scope.cpfFocus = false;
 
+                    $scope.cepValid = false;
+
                     $scope.select2Options = {
                             minimumResultsForSearch : -1
                         };
@@ -72,6 +74,13 @@
                     // ############################################################################################################
                     // Scope functions
                     // ############################################################################################################
+
+                    $scope.$watchCollection('cepValid',function(){
+                        if($scope.cepValid === true){
+                            $scope.getCep();
+                        }
+                    });
+
 
                     $scope.openDialogAddCustomerTels = function openDialogAddCustomerTels(phones) {
                         DialogService.openDialogAddCustomerTels({
