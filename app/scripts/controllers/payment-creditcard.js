@@ -158,6 +158,11 @@
                     var result = CreditCardPaymentService.charge(customer, creditCard, creditCard.amount, numInstallments);
 
                     return result.then(function () {
+                        DialogService.messageDialog({
+                            title: 'Pagamento',
+                            message: 'Pagamento realizado com sucesso.',
+                            btnYes: 'OK'
+                        });
                         $scope.selectPaymentMethod('none');
                     }, function (errMsg) {
                         DialogService.messageDialog({
