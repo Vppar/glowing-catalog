@@ -105,7 +105,7 @@
                                                                     '{{representativeName}}', 'Valtanette');
                                                     return SMSService.sendSMS('55' + phone, msg);
                                                 } else {
-                                                    return 'Não foi possível enviar o SMS, o cliente ' + recoverdCustomerFirstName +
+                                                    return 'Não foi possível enviar o SMS, o terceiro ' + recoverdCustomerFirstName +
                                                         ' não possui um número de celular em seu cadastro.';
                                                 }
                                             }).then(openResultDialogAttempt);
@@ -114,7 +114,7 @@
                         function openSMSConfirmationAttempt(result) {
                             return DialogService.messageDialog({
                                 title : 'Confirmar envio de SMS',
-                                message : 'Deseja enviar o SMS de alerta para o cliente?',
+                                message : 'Deseja enviar o SMS de alerta para o terceiro?',
                                 btnYes : 'Sim',
                                 btnNo : 'Não'
                             }).then(function() {
@@ -125,7 +125,7 @@
                             return DialogService.messageDialog({
                                 title : 'Envio de SMS',
                                 message : message,
-                                btnYes : 'OK',
+                                btnYes : 'OK'
                             });
                         }
 

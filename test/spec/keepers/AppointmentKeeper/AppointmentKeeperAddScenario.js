@@ -53,7 +53,7 @@ describe('Service: AppointmentKeeperAddScenario', function() {
 			function() {
 				//given
 				var uuid = 'cc02b600-5d0b-11e3-96c3-010009000001';
-				var title = 'VISITA NO CLIENTE';
+				var title = 'VISITA NO TERCEIRO';
 				var description = 'VISITA DIA 12/01/2014';
 				var date = new Date();
 				var address = {
@@ -90,7 +90,7 @@ describe('Service: AppointmentKeeperAddScenario', function() {
 				//then
 				runs(function() {
 					expect(AppointmentKeeper.list()[0].title).toBe(
-							'VISITA NO CLIENTE');
+							'VISITA NO TERCEIRO');
 					expect(AppointmentKeeper.list().length).toBe(1);
 				});
 
@@ -108,7 +108,7 @@ describe('Service: AppointmentKeeperAddScenario', function() {
 		//given
 		var ev = {
 			uuid : 1,
-			title : 'VISITA NO CLIENTE',
+			title : 'VISITA NO TERCEIRO',
 			description : 'VISITA DIA 12/01/2014',
 			startDate : new Date(),
 			endDate : new Date(),

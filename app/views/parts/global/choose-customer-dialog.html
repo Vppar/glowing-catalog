@@ -1,11 +1,11 @@
-<div class="modal-head">Selecione o cliente</div>
+<div class="modal-head">Selecione o Terceiro</div>
 
 <div class="modal-body modal-add-basket-dialog-body">
 
 	<div class="row-fluid">
 		<div class="span12">
-					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId" tnt-select2 >
-						<option value="">Selecione Cliente</option>
+					<select ui-select2 class='combo-width' data-placeholder="Selecione Terceiro" ng-model="customerId" tnt-select2 >
+						<option value="">Selecione Terceiro</option>
 						<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
 					</select>
 		</div>
@@ -21,7 +21,7 @@
     <hr />
     <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
 	<button ng-click='confirm()' class="btn btn-ok btn-large btn-login pull-right" type="submit">
-		<span ng-hide="customerId">Novo Cliente</span>
+		<span ng-hide="customerId">Novo Terceiro</span>
 		<span ng-show="customerId">Confirmar</span>
 	</button>
 </div>
