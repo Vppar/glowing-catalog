@@ -1,0 +1,50 @@
+#sacred .pre-show-details-icon{
+	margin-right: 0px;
+}
+
+#sacred .sacred-order-list-page .show-details-icon{
+	margin-top: 25px;
+	margin-left: 25px;
+	float: left;
+}
+#sacred .sacred-order-list-page .details .row{
+	margin-bottom: 10px;
+}
+
+#sacred .select-client{
+	width: 100%;
+}
+
+#sacred .order-scroll-closed{
+	height: calc(100% - 103px);
+}
+
+#sacred .order-scroll-openned{
+	height: calc(100% - 183px);
+}
+
+#sacred .sacred-order-list-products-part .content-body{
+	height: calc(100% - 60px);
+}
+#sacred .sacred-order-list-products-part .grid-scroll{
+    height: calc(100% - 82px);
+}
+
+/*maybe this will need its own file, but I`m not sure... because this only happens at order-list for now....*/
+#sacred .display-big{
+	width: 100%;
+}
+#sacred .display-big .name{
+	width: 100%;
+}
+
+#sacred .display-big .value{
+	background-color:#f2f2f2;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: bold;
+	height: 30px; /* bootstrap input default height*/
+	padding: 5px 13px 5px 5px;
+	text-align: right;
+	width: 100%;
+}

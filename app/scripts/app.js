@@ -249,6 +249,9 @@
          }).when('/add-customer-2', {
             templateUrl : 'views/sacred-add-customer.html',
             controller : 'AddCustomerCtrl'
+        }).when('/order-list-2', {
+            templateUrl : 'views/sacred-order-list.html',
+            controller : 'OrderListCtrl'
         }).otherwise({
             redirectTo : '/'
         });

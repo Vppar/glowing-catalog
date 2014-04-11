@@ -62,6 +62,7 @@ styles/sacred-third-parties.css
 styles/sacred-voucher.css
 styles/sacred-registration.css
 styles/sacred-login.css
+styles/sacred-order-list.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -395,6 +396,10 @@ views/third-parties.html
 views/receivable-check.html
 views/warm-up.html
 
+views/sacred-order-list.html
+views/parts/order-list/sacred-order-list-products.html
+views/parts/order-list/sacred-order-list-customers.html
+views/parts/order-list/sacred-order-list-orders.html
 views/sacred-third-parties.html
 views/sacred-products-delivery.html
 views/parts/products-delivery/sacred-products-delivery-orders.html

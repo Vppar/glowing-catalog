@@ -1,0 +1,67 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-order-list-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Resumo de Vendas</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button" ng-init="ol='orders'">
+							<a class="btn btn-option" ng-class="{active: ol=='orders'}" ng-click="ol='orders'">Pedidos</a> 							
+							<a class="btn btn-option" ng-class="{active: ol=='customers'}" ng-click="ol='customers'">Clientes</a>
+							<a class="btn btn-option" ng-class="{active: ol=='products'}" ng-click="ol='products'">Produtos</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body" ng-switch="ol">
+				<div class="content sacred-order-list-orders-part" ng-switch-when="orders" ng-controller="OrderListOrdersCtrl">
+					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-orders.html'"></div>
+				</div>	
+				<div class="content sacred-order-list-customers-part" ng-switch-when="customers" ng-controller="OrderListClientsCtrl">
+					<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-customers.html'"></div>
+				</div>
+				
+				<div class="content sacred-order-list-products-part">
+					<!-- FIX ME this should be inside the included file, like its brothers!!! but to do this, the controllers will have to change!-->
+					<div class="content-header">
+						<div class="row">
+							<div class="col-8">
+								<div class="calendar">
+									<div class="text-over">Data Inicial</div>
+									<input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" required readonly maxlength="10" ng-model="dtFilter.dtInitial">
+									<label for="dtIni" class="ic-calendar">
+										<img src="images/icons/ic-calendar.png">
+									</label>
+								</div>
+								<div class="calendar">
+									<div class="text-over">Data Final</div>
+									<input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dateFilter.dtInitial" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
+									<label for="dtIni" class="ic-calendar">
+										<img src="images/icons/ic-calendar.png">
+									</label>
+								</div>
+							</div>
+							<div class="col-11">
+								<select ui-select2 tnt-select2 class='select-client without-label' data-placeholder="Selecione Cliente" ng-model="customerId">
+									<option value="" ng-hide="true"></option>
+									<option value="0">Selecione o Cliente</option>
+									<option value="{{customer.uuid}}" ng-repeat="customer in avaliableCustomers | orderBy: 'name' ">{{customer.name}}</option>
+								</select>
+							</div>
+						</div>
+					</div> 
+					<div ng-switch-when="products" ng-controller="OrderListProductsCtrl">
+						<div ng-include class="include-div" src="'views/parts/order-list/sacred-order-list-products.html'"></div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
