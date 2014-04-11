@@ -18,5 +18,10 @@
         padding-right: 0px;   
     }
 
+    /*fix at checkbox at abatimento vale cupom - payment*/
+    .grid-payment-discount .col-s1half input[type='checkbox'] {
+        margin-bottom: 3px;
+    }
+
 
 }

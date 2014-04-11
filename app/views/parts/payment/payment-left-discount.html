@@ -18,7 +18,7 @@
 								<span class="col-s1">
 									<div>Data</div>
 								</span>
-								<span class="col-s2">
+								<span class="col-st2">
 									<div>Vale Cr&eacute;dito</div>
 								</span> 					
 								<span class="col-s4">
@@ -32,9 +32,13 @@
 								<span class="col-s1">
 									<div class="">{{discount.created | date:'dd/MM/yyyy'}}</div>
 								</span>
-								<span class="col-s2">
+								<span class="col-s1half">
 									<div class="">
 										<input type="checkbox" class="" ng-model="checkBox.voucher[$index]" ng-change="checkBoxCtrl($index, 'voucher')">
+									</div>
+								</span>
+								<span class="col-s2">
+									<div class="">
 										{{discount.amount | currency: ''}}
 									</div>
 								</span> 					
@@ -60,7 +64,7 @@
 								<span class="col-s1">
 									<div>Data</div>
 								</span>
-								<span class="col-s2">
+								<span class="col-st2">
 									<div>Vale Presente</div>
 								</span> 					
 								<span class="col-s4">
@@ -73,12 +77,16 @@
 								<span class="col-s1">
 									<div class="">{{discount.created | date:'dd/MM/yyyy'}}</div>
 								</span>
-								<span class="col-s2">
+								<span class="col-s1half">
 									<div class="">
 										<input type="checkbox" class="" ng-model="checkBox.giftCard[$index]" ng-change="checkBoxCtrl($index, 'giftCard')">
+									</div>
+								</span>
+								<span class="col-s2">
+									<div class="">
 										{{discount.amount | currency: ''}}
 									</div>
-								</span> 					
+								</span> 						
 								<span class="col-s4">
 									<div>
 										<input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput"class="check-value " tnt-input currency/>
@@ -101,7 +109,7 @@
 								<span class="col-s1">
 									<div>Data</div>
 								</span>
-								<span class="col-s2">
+								<span class="col-st2">
 									<div>Cupom Promocional</div>
 								</span> 					
 								<span class="col-s4">
@@ -114,12 +122,16 @@
 								<span class="col-s1">
 									<div class="">{{discount.created | date:'dd/MM/yyyy'}}</div>
 								</span>
-								<span class="col-s2">
+								<span class="col-s1half">
 									<div class="">
 										<input type="checkbox" class="" ng-model="checkBox.coupon[$index]" ng-change="checkBoxCtrl($index, 'coupon')">
+									</div>
+								</span>
+								<span class="col-s2">
+									<div class="">
 										{{discount.amount | currency: ''}}
 									</div>
-								</span> 					
+								</span>				
 								<span class="col-s4">
 									<div class="">
 										<input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value " tnt-input currency/>

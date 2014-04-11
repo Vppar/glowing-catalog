@@ -1059,7 +1059,22 @@ width: 428px !important;
 }
 
 .grid-payment-discount .col-s2 {
+	width: 275px;/*400px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+	box-sizing: border-box;
+	padding-right: 240px;
+	text-align: right;
+}
+.grid-payment-discount .col-st2 {
 	width: 300px;/*400px*/
+	text-align:left;
+	display: inline-block;
+	line-height: 40px;
+}
+.grid-payment-discount .col-s1half {
+	width: 25px;/*400px*/
 	text-align:left;
 	display: inline-block;
 	line-height: 40px;
