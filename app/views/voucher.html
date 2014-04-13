@@ -40,7 +40,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									Saldo em aberto <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small"  required readonly ng-model="voucherFilter.date">
+									Saldo em aberto <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" max="maxDate" class="date-field input-small"  required readonly ng-model="voucherFilter.date">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -100,7 +100,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" readonly required ng-model="historicVoucher.dtInitial">
+									Per&iacute;odo <input id="dtIni" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" max="maxDate" class="date-field input-small" readonly required ng-model="historicVoucher.dtInitial">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
@@ -113,7 +113,7 @@
 						<div class="controls">
 							<div class="control-group lbl-top">
 								<div class="controls">
-									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small" readonly required min="historicVoucher.dtInitial" ng-model="historicVoucher.dtFinal">
+									<input id="dtFin" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" max="maxDate" class="date-field input-small" readonly required ng-model="historicVoucher.dtFinal">
 								</div>
 							</div>
 							<div class="control-group lbl-top">
