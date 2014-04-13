@@ -143,7 +143,7 @@
                                     });
                                 }
                                 
-                            };
+                            }
                             
                             function populateFields(userDataAccount){
                                 $scope.consultant.name = userDataAccount.name;
@@ -197,7 +197,7 @@
                                     result = pieces[0];
                                 }
                                 return result;
-                            };
+                            }
                             
                             function getGender(code){
                                 var result = undefined;
@@ -210,6 +210,16 @@
                             }
                             
                             warmup();
+
+                            // #########################################################################################################
+                            // Watchers
+                            // #########################################################################################################
+
+                            $scope.$watch('cepValid',function(){
+                                if($scope.cepValid === true){
+                                    $scope.getCep();
+                                }
+                            });
                         }
                     ]);
 }(angular));

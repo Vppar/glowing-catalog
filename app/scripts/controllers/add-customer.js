@@ -75,7 +75,7 @@
                     // Scope functions
                     // ############################################################################################################
 
-                    $scope.$watchCollection('cepValid',function(){
+                    $scope.$watch('cepValid',function(){
                         if($scope.cepValid === true){
                             $scope.getCep();
                         }
