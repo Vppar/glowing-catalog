@@ -1,0 +1,55 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-purchase-order-page">
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Pedido de compra</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button">
+							<a class="btn btn-option" ng-class="{active:tabs.selected=='new'}" ng-click="selectTab('new')">Novo Pedido</a>
+							<a class="btn btn-option" ng-class="{active:tabs.selected=='confirm'}" ng-click="selectTab('confirm')">Confirmar Pedido</a>
+							<a class="btn btn-option" ng-class="{active:tabs.selected=='ticket'}" ng-click="selectTab('ticket')">Aferir NFe Compra</a>
+							<a class="btn btn-option" ng-class="{active:tabs.selected=='pendingProducts'}" ng-click="selectTab('pendingProducts')">Produtos Pendentes</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="new-part-holder" ng-if="tabs.selected=='ticket'" ng-include src="'views/parts/purchase-order/sacred-purchase-order-ticket.html'" ng-controller="PurchaseOrderTicketCtrl"></div>
+
+				<div class="new-part-holder" ng-if="tabs.selected=='pendingProducts'" ng-include src="'views/parts/purchase-order/sacred-purchase-order-pending-products.html'" ng-controller="PurchaseOrderPendingProductsCtrl">
+					
+				</div>
+
+				<div class="new-part-holder" ng-if="tabs.selected=='stashed'" ng-include src="'views/parts/purchase-order/sacred-purchase-order-stashed.html'" ng-controller="PurchaseOrderStashedCtrl">
+					
+				</div>
+
+				<div class="products-to-buy-left" ng-if="isSummaryVisible(tabs.selected)">
+
+					<div class="new-part-holder" ng-if="tabs.selected=='new'" ng-include src="'views/parts/purchase-order/sacred-purchase-order-new.html'" ng-controller="PurchaseOrderNewCtrl">
+						
+					</div>
+
+					<div class="new-part-holder" ng-if="tabs.selected=='confirm'" ng-include src="'views/parts/purchase-order/sacred-purchase-order-confirm.html'" ng-controller="PurchaseOrderConfirmCtrl">
+						
+					</div>
+
+				</div>
+
+				<div class="products-to-buy-right" ng-if="isSummaryVisible(tabs.selected)">
+					<div ng-include src="'views/parts/purchase-order/purchase-order-summary.html'" ng-controller="PurchaseOrderSummaryCtrl"></div>
+				</div>
+
+
+			</div>	
+
+		</div>
+	</div>
+</div>
