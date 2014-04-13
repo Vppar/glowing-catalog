@@ -15,6 +15,8 @@
                     UserService.redirectIfIsNotLoggedIn();
 
                     $scope.searchClient = '';
+
+                    $scope.maxDate = new Date();
                     
 
                     var receivables = ReceivableService.list();

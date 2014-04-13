@@ -19,6 +19,7 @@
                      */
 
                     $scope.vouchers = [];
+                    $scope.maxDate = new Date();
 
                     var vouchersList = VoucherKeeper.list('voucher');
                     var couponList = VoucherKeeper.list('coupon');
