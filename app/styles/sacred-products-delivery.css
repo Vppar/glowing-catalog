@@ -32,3 +32,8 @@ height: calc(100% - 40px);
 #sacred .product-delivery-products-part-test .grid{
 	height: calc(100% - 47px);
 }
+
+
+#sacred .calendar-header-test .dropdown-menu{
+	left: -138px !important;
+}
