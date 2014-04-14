@@ -218,7 +218,11 @@ scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
 scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
-scripts/controllers/products-delivery.js
+scripts/controllers/products-delivery/products-delivered.js
+scripts/controllers/products-delivery/products-delivered-products.js
+scripts/controllers/products-delivery/products-delivery.js
+scripts/controllers/products-delivery/products-to-be-delivered.js
+scripts/controllers/products-delivery/products-to-be-delivered-products.js
 scripts/controllers/purchase-order/purchase-order-confirm.js
 scripts/controllers/purchase-order/purchase-order-new.js
 scripts/controllers/purchase-order/purchase-order-pending-products.js
@@ -258,6 +262,7 @@ scripts/keepers/ProductReturnKeeper.js
 scripts/keepers/TypeKeeper.js
 scripts/keepers/BookKeeper.js
 scripts/keepers/ConsultantKeeper.js
+scripts/keepers/SchedulingKeeper.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
@@ -307,6 +312,7 @@ scripts/services/ProductReturnService.js
 scripts/services/ConsultantService.js
 scripts/services/WarmupService.js
 scripts/services/PagPopGateway.js
+scripts/services/SchedulingService.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html

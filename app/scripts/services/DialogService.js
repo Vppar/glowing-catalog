@@ -134,6 +134,10 @@
         this.openDialogReceivable = function(data) {
             return openDialog('views/parts/receivable/receivable-dialog.html', 'ReceivableConfigureLiquidateCtrl', data, 'modal-receivable');
         };
+        
+        this.openDialogDeliveryScheduler = function(data) {
+            return openDialog('views/incubated/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, cssDefaultClass);
+        };
     }]);
 
 }(angular));

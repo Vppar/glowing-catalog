@@ -3,33 +3,33 @@
 		<div class="grid-header">
 			<div class="row">
 				<div class="col-3 text-center">Data</div>
-				<div class="col-10">Cliente</div>
+				<div class="col-7">Cliente</div>
 				<div class="col-3 text-center">Pedido</div>
 				<div class="col-4 text-center">Produtos a Entregar</div>
-				<div class="col-4 text-center">Produtos Agendados</div>
+				<div class="col-7 text-center">Produtos Agendados</div>
 			</div>
 		</div>
 
 		<div class="grid-summary">
 			<div class="row">
 				<div class="col-3 text-center">Total</div>
-				<div class="col-10">{{ordersTotals.enitityCount}}</div>
-				<div class="col-3 text-center">{{ordersTotals.orders}}</div>
-				<div class="col-4 text-center">{{ordersTotals.delivered}}</div>
-				<div class="col-1 text-center">{{ordersTotals.products}}</div>
-				<div class="col-3 text-center">Data/Hora</div>
+				<div class="col-7">{{toBeDeliveredOrdersTotals.enitityCount}}</div>
+				<div class="col-3 text-center">{{toBeDeliveredOrdersTotals.orders}}</div>
+				<div class="col-4 text-center">{{toBeDeliveredOrdersTotals.remaining}}</div>
+				<div class="col-1 text-center">{{toBeDeliveredOrdersTotals.totalItemsScheduled}}</div>
+				<div class="col-5 text-center">Data/Hora</div>
 			</div>
 		</div>
 
 		<div class="grid-body grid-scroll">
-			<div class="grid-item single-line clicable" ng-repeat="order in filteredOrders | orderBy : 'created'">
+			<div class="grid-item single-line clicable" ng-repeat="order in toBeDelivered" ng-click="getItems(order)">
 				<div class="row">
 					<div class="col-3 text-center">{{order.created | date:'dd/MM/yyyy'}}</div>
-					<div class="col-10 name-cutter">{{order.customerName}}</div>
+					<div class="col-7 name-cutter">{{order.customerName}}</div>
 					<div class="col-3 text-center">{{order | uuidCode}}</div>
-					<div class="col-4 text-center">{{order.totalItemsDeliv}}</div>
-					<div class="col-1 text-center">{{order.totalItems}}</div>
-					<div class="col-3 text-center">10 abr 14:30</div>
+					<div class="col-4 text-center">{{order.totalRemaining}}</div>
+					<div class="col-1 text-center">{{order.totalItemsScheduled}}</div>
+					<div class="col-5 text-center">{{order.schedule.date |date:'dd-MM-yyyy HH:mm:ss'}}</div>
 				</div>
 			</div>
 		</div>

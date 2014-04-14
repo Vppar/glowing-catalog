@@ -1,14 +1,14 @@
 <div class="content-header">
 	<div class="row">
 		<div class="col-10 name-cutter client-header-test">
-			Cliente: Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto Antonio Marcos Pereira Barreto<br />
-			<small>(12) 99723-9652</small>
+			Cliente: {{selectedOrder.customerName}}<br />
+			<small>{{selectedOrder.phone| phone}}</small>
 		</div>
 		<div class="col-1">
 			&nbsp;
 		</div>
 		<div class="col-6 order-header-test">
-			Pedido: 0020-01-14
+			Pedido:{{selectedOrder | uuidCode}}
 		</div>
 		<div class="col-7 order-header-test">
 			Última Entrega: 12/04/2014
@@ -26,35 +26,17 @@
 		</div>
 
 		<div class="grid-body grid-scroll">
-			<!-- <div class="grid-item" ng-repeat="product in pendingProducts"> -->
-			<div class="grid-item">
+			<div class="grid-item" ng-repeat="product in selectedOrder.selectedOrderProducts">
 				<div class="row">
 					<div class="col-18 product-name">
-						<!-- <span>{{product.title}}</span>
-						<small>{{product.uniqueName}}</small> -->
-						<span>Lapis Retrátil para os Olhos 0,28g</span>
-						<small>10-070023 - Cílios</small>
+						<span>{{product.title}}</span>
+						<small>{{product.uniqueName}}</small>
 					</div>
 					<div class="col-3 text-center">12/04/2014</div>
-					<div class="col-3 text-center">12</div>
+					<div class="col-3 text-center">{{product.dQty}}</div>
 				</div>
 			</div>
-			
-			<div class="grid-item">
-				<div class="row">
-					<div class="col-18 product-name">
-						<!-- <span>{{product.title}}</span>
-						<small>{{product.uniqueName}}</small> -->
-						<span>Lapis Retrátil para os Olhos 0,28g</span>
-						<small>10-070023 - Cílios</small>
-					</div>
-					<div class="col-3 text-center">12/04/2014</div>
-					<div class="col-3 text-center">12</div>
-				</div>
-			</div>
-
 		</div>
 	</div>
 	<button class="button-black pull-left" ng-click="cancel()">Voltar</button>
-</div>
 </div>

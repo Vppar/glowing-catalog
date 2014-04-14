@@ -1,0 +1,46 @@
+'use strict';
+
+angular.module('tnt.catalog.productsToBeDelivery', []).controller('ProductsToBeDeliveryCtrl', [
+    '$scope', 'logger', function ($scope, logger) {
+
+        $scope.sumarizatorOrders($scope.toBeDelivered, $scope.toBeDeliveredOrdersTotals);
+
+        // $scope.selected=toBeDeliveredProducts
+        // $scope.selected=deliveredProducts
+
+        $scope.getItems = function (order) {
+            $scope.selectedOrder.selectedOrderProducts = getPendingProducts(order);
+            $scope.selected.tab = 'toBeDeliveredProducts';
+            // sumarizatorProducts($scope.pendingProducts);
+
+        };
+
+        // #################################################################################################################
+        // Pending Items
+        // #################################################################################################################
+
+        var getPendingProducts = function getPendingProducts (order) {
+            var pendingProducts = [];
+            $scope.selectedOrder.uuid = order.uuid;
+            $scope.selectedOrder.created = order.created;
+            $scope.selectedOrder.customerName = order.customerName;
+            $scope.selectedOrder.phone = order.phone;
+            $scope.selectedOrder.schedule = order.schedule;
+            for ( var ix in order.items) {
+                var item = order.items[ix];
+                item.order = order.code;
+                item.created = order.created;
+                // Build unique name.
+                if (item.option) {
+                    item.uniqueName = item.SKU + ' - ' + item.option;
+                } else {
+                    item.uniqueName = item.SKU;
+                }
+
+                pendingProducts.push(item);
+            }
+            return pendingProducts;
+        };
+
+    }
+]);

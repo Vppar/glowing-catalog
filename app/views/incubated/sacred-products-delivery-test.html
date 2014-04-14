@@ -11,31 +11,31 @@
 						<div class="title">Entrega de Produtos</div>
 					</div>
 					<div class="col-14">
-						<div class="btn-group pull-right page-button" ng-init="selected='toBeDelivered'">
-							<a class="btn btn-option" ng-class="{active: selected=='toBeDelivered'}" ng-click="selected='toBeDelivered'">Pedidos a Entregar</a>
-							<a class="btn btn-option" ng-class="{active: selected=='delivered'}" ng-click="selected='delivered'">Pedidos Entregues</a>
-							<a class="btn btn-option" ng-class="{active: selected=='toBeDeliveredProducts'}" ng-click="selected='toBeDeliveredProducts'">Pedidos a Entregar - Products</a>
-							<a class="btn btn-option" ng-class="{active: selected=='deliveredProducts'}" ng-click="selected='deliveredProducts'">Pedidos Entregues - Products</a>
+						<div class="btn-group pull-right page-button">
+							<a class="btn btn-option" ng-class="{active: selected.tab=='toBeDelivered' || selected.tab=='toBeDeliveredProducts'}" ng-click="selected.tab='toBeDelivered'">Pedidos a Entregar</a>
+							<a class="btn btn-option" ng-class="{active: selected.tab=='delivered' || selected.tab=='deliveredProducts'}" ng-click="selected.tab='delivered'">Pedidos Entregues</a>
+							<!-- <a class="btn btn-option" ng-class="{active: selected.tab=='toBeDeliveredProducts'}" ng-click="selected.tab='toBeDeliveredProducts'">Pedidos a Entregar - Products</a>
+							<a class="btn btn-option" ng-class="{active: selected.tab=='deliveredProducts'}" ng-click="selected.tab='deliveredProducts'">Pedidos Entregues - Products</a> --> 
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="page-body" ng-switch="selected">
+			<div class="page-body" ng-switch="selected.tab">
 				<div class="content" ng-switch-when="toBeDelivered">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivery.html'"></div>
+					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivery.html'" ng-controller="ProductsToBeDeliveryCtrl"></div>
 				</div>
 
 				<div class="content" ng-switch-when="toBeDeliveredProducts">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-to-be-delivered-products.html'"></div>
+					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-to-be-delivered-products.html'" ng-controller="ProductsToBeDeliveryProductsCtrl"></div>
 				</div>
 				
 				<div class="content" ng-switch-when="delivered">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivered.html'"></div>
+					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivered.html'" ng-controller="ProductsDeliveredCtrl"></div>
 				</div>
 
 				<div class="content" ng-switch-when="deliveredProducts">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivered-products.html'"></div>
+					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivered-products.html'" ng-controller="ProductsDeliveredProductsCtrl"></div>
 				</div>
 
 			</div>
