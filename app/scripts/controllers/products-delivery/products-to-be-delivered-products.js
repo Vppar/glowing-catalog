@@ -6,13 +6,14 @@
         [
             '$scope',
             '$q',
+            '$filter',
             'logger',
             'OrderService',
             'StockService',
             'BookService',
             'DialogService',
             'SchedulingService',
-            function ($scope, $q, logger, OrderService, StockService, BookService, DialogService,
+            function ($scope, $q, $filter, logger, OrderService, StockService, BookService, DialogService,
                 SchedulingService) {
 
                 var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
@@ -123,8 +124,6 @@
                         $scope.selected.tab = 'toBeDelivered';
                         $scope.resetOrders();
                     }, function (err) {
-                        log.error('Failed to Schedule the order delivery.');
-                        log.debug(err);
                         result = $q.reject(err);
                     });
                     return result;
@@ -155,22 +154,25 @@
                                 productCost += updatedItems[i].dQty * stock.cost;
                             }
                         }
-
+                        var totalToDelivery = $filter('sum')(order.items, 'qty');
+                        var totalDelivered = $filter('sum')(order.items, 'dQty');
                         var schedule = SchedulingService.read(orderUUID);
-                        if (schedule) {
-                            promises.push(SchedulingService.update(
-                                schedule.uuid,
-                                new Date(),
-                                updatedItems,
-                                false));
-                        } else {
-                            promises.push(SchedulingService.create(
-                                orderUUID,
-                                new Date(),
-                                updatedItems,
-                                false));
-                        }
-
+                        if(totalToDelivery === totalDelivered){
+                            if (schedule) {
+                                promises.push(SchedulingService.update(
+                                    schedule.uuid,
+                                    new Date(),
+                                    updatedItems,
+                                    false));
+                            } else {
+                                promises.push(SchedulingService.create(
+                                    orderUUID,
+                                    new Date(),
+                                    updatedItems,
+                                    false));
+                            }
+                        };
+                        
                         $q.all(promises).then(
                             function () {
                                 books =

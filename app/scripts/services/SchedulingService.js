@@ -27,7 +27,7 @@
                     var created = new Date(schedule.created);
                     // See validation helpers in the end of this file
                     invalidProperty = {
-                        date : angular.isDate(date) && date >= now,
+                        date : angular.isDate(date),
                         created : angular.isDate(created),
                         status : schedule.status === true || schedule.status === false,
                         documentUUID : angular.isDefined(schedule.documentUUID),
