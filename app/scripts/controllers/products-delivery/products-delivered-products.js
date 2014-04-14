@@ -7,13 +7,10 @@ angular.module('tnt.catalog.productsDeliveredProducts', [
 
         $scope.sumarizatorOrders($scope.delivered, $scope.deliveredOrdersTotals);
 
-        // $scope.selected=toBeDeliveredProducts
-        // $scope.selected=deliveredProducts
-        
         $scope.cancel = function () {
             $scope.selectedOrder.selectedOrderProducts = {};
             $scope.selected.tab = 'delivered';
         };
-        
+
     }
 ]);

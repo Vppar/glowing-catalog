@@ -14,8 +14,6 @@
 
                 var log = logger.getLogger('tnt.catalog.order.scheduling.SchedulingService');
 
-                var schedule = {};
-
                 /**
                  * Verifies if a order is valid.
                  * 
@@ -30,8 +28,8 @@
                     // See validation helpers in the end of this file
                     invalidProperty = {
                         date : angular.isDate(date) && date >= now,
-                        created : angular.isDate(created) && created <= now,
-                        status : schedule.status === true,
+                        created : angular.isDate(created),
+                        status : schedule.status === true || schedule.status === false,
                         documentUUID : angular.isDefined(schedule.documentUUID),
                         items : areValidItems(schedule.items)
                     };
@@ -51,7 +49,7 @@
                             }
                         }
                     }
-
+                    
                     return result;
                 };
 
@@ -65,21 +63,16 @@
                  *             keeper.
                  */
                 var create =
-                    function create (documentUUID, date, items) {
+                    function create (documentUUID, date, items, status) {
+                    
                         var result = null;
                         var created = new Date().getTime();
 
                         var schedule =
-                            new Schedule(null, created, documentUUID, date.getTime(), true, items);
+                            new Schedule(null, created, documentUUID, date.getTime(), status, items);
                         var hasErrors = this.isValid(schedule);
-
                         if (hasErrors.length === 0) {
                             result = SchedulingKeeper.create(schedule);
-                            /*
-                             * result['catch'](function(err) {
-                             * log.error('SchedulingService.create: -Failed to
-                             * create an schedule. ', err); });
-                             */
                         } else {
                             log.error('SchedulingService.create: -Invalid schedule. ', hasErrors);
                             result = $q.reject(hasErrors);
@@ -130,10 +123,10 @@
                  * @return boolean Result if the receivable is canceled.
                  */
                 var update =
-                    function update (id, date, items) {
+                    function update (id, date, items, status) {
                         var result = null;
                         try {
-                            result = SchedulingKeeper.update(id, date, items);
+                            result = SchedulingKeeper.update(id, date, items, status);
                             result['catch']
                                 (function (err) {
                                     log.debug(
@@ -147,6 +140,7 @@
                         }
                         return result;
                     };
+                    
 
                 this.isValid = isValid;
                 this.create = create;

@@ -30,7 +30,6 @@ describe('Service: SchedulingKeeperUpdateSpec', function() {
         module('tnt.catalog.journal.entity');
         module('tnt.catalog.journal.replayer');
 
-        fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
         jKeeper.compose = jasmine.createSpy('JournalKeeper.compose');
@@ -58,6 +57,7 @@ describe('Service: SchedulingKeeperUpdateSpec', function() {
         var addEv = new Schedule(schedule);
         var recEv = {
             uuid :'cc02b600-5d0b-11e3-96c3-010001000001',
+            date : fakeNow,
             updated : fakeNow,
             items : [
                 {
@@ -65,7 +65,6 @@ describe('Service: SchedulingKeeperUpdateSpec', function() {
                 }
             ]
         };
-
         var receiveEntry = new JournalEntry(null, recEv.updated, 'schedulingUpdate', 1, recEv);
         SchedulingKeeper.handlers['schedulingCreateV1'](addEv);
 
@@ -77,7 +76,7 @@ describe('Service: SchedulingKeeperUpdateSpec', function() {
 
         // when
         var receiveCall = function() {
-            SchedulingKeeper.update(addEv.uuid, items);
+            SchedulingKeeper.update(addEv.uuid, new Date().getTime(), items);
         };
 
         expect(receiveCall).not.toThrow();

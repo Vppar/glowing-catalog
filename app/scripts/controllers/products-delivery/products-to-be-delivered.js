@@ -11,8 +11,6 @@ angular.module('tnt.catalog.productsToBeDelivery', []).controller('ProductsToBeD
         $scope.getItems = function (order) {
             $scope.selectedOrder.selectedOrderProducts = getPendingProducts(order);
             $scope.selected.tab = 'toBeDeliveredProducts';
-            // sumarizatorProducts($scope.pendingProducts);
-
         };
 
         // #################################################################################################################

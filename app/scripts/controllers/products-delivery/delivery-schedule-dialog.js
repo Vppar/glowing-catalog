@@ -19,9 +19,11 @@
                     items : dialog.data.items,
                     disabled : true
                 };
+                
                 $scope.schedule = {
                     hour : '0000'
                 };
+                
                 $scope.cancel = function cancel () {
                     dialog.close($q.reject());
                     return $q.reject('Canceled');
@@ -36,22 +38,34 @@
                                 SchedulingService.update(
                                     schedule.uuid,
                                     $scope.scheduledDelivery.date,
-                                    $scope.scheduledDelivery.items);
+                                    $scope.scheduledDelivery.items,
+                                    true);
                             promise.then(function () {
                                 return dialog.close(true);
-                            }, function () {
-                                console.log('Bad');
+                            }, function (err) {
+                                log.error(
+                                    'Failed to create the scheduling!',
+                                    $scope.scheduledDelivery.orderUUID,
+                                    $scope.scheduledDelivery.date,
+                                    $scope.scheduledDelivery.items);
+                                log.debug(err);
                             });
                         } else {
                             var promise =
                                 SchedulingService.create(
                                     $scope.scheduledDelivery.orderUUID,
                                     $scope.scheduledDelivery.date,
-                                    $scope.scheduledDelivery.items);
+                                    $scope.scheduledDelivery.items,
+                                    true);
                             promise.then(function () {
                                 return dialog.close(true);
-                            }, function () {
-                                console.log('Bad');
+                            }, function (err) {
+                                log.error(
+                                    'Failed to create the scheduling!',
+                                    $scope.scheduledDelivery.orderUUID,
+                                    $scope.scheduledDelivery.date,
+                                    $scope.scheduledDelivery.items);
+                                log.debug(err);
                             });
                         }
 
@@ -66,6 +80,7 @@
                         $scope.scheduledDelivery.disabled = false;
                     }
                 });
+                
                 function setTime (date, hour, minutes) {
                     date.setHours(hour);
                     date.setMinutes(minutes);

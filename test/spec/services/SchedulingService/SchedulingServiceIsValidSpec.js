@@ -1,5 +1,4 @@
 describe('Service: SchedulingServiceIsValid', function () {
-    var fakeNow = 1386444467895;
     var monthTime = 2592000;
 
     var fakeNow = 1386444467895;
@@ -68,7 +67,6 @@ describe('Service: SchedulingServiceIsValid', function () {
             date :null,
             created : null,
             status : false,
-            documentUUID : null,
             items : null
         };
 

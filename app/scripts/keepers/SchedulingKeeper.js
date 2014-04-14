@@ -161,7 +161,7 @@
                  * Update an order
                  */
                 var update =
-                    function update (uuid, date, items) {
+                    function update (uuid, date, items, status) {
                         var schedule = ArrayUtils.find(schedulings, 'uuid', uuid);
                         if (!schedule) {
                             throw 'Unable to find an schedule with uuid=\'' + uuid + '\'';

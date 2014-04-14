@@ -30,6 +30,24 @@
                     created : null
 
                 };
+
+                $scope.dtFilter = {
+                    dtInitial : setTime(new Date(), 0, 0, 0, 0),
+                    dtFinal : new Date()
+                };
+
+                $scope.nameFilter = {
+                    name : ''
+                };
+
+                function setTime (date, hours, minutes, seconds, milliseconds) {
+                    date.setHours(hours);
+                    date.setMinutes(minutes);
+                    date.setSeconds(seconds);
+                    date.setMilliseconds(milliseconds);
+                    return date;
+                }
+
                 // selected tab
                 $scope.selected = {
                     tab : 'toBeDelivered'
@@ -56,12 +74,12 @@
 
                 $scope.resetOrders =
                     function () {
-                         var toBeDelivered =
+                        var toBeDelivered =
                             ProductsDeliveryService.listOrdersByReportType('toBeDelivered');
-                        var withScheduling = $filter('filter')(toBeDelivered, function(item){
+                        var withScheduling = $filter('filter')(toBeDelivered, function (item) {
                             return angular.isDefined(item.schedule);
                         });
-                        var withoutScheduling = $filter('filter')(toBeDelivered, function(item){
+                        var withoutScheduling = $filter('filter')(toBeDelivered, function (item) {
                             return !angular.isDefined(item.schedule);
                         });
                         withScheduling = $filter('orderBy')(withScheduling, 'schedule.date');

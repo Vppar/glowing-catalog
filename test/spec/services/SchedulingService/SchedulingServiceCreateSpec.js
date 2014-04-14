@@ -1,5 +1,5 @@
 describe('Service: SchedulingServiceSave', function () {
-    var fakeNow = 1386444467895;
+    var fakeNow = 1594522800000;
     var logMock = {};
     var loggerMock = {};
     var ScheduleMock = {};
@@ -42,18 +42,19 @@ describe('Service: SchedulingServiceSave', function () {
     }));
 
     it('calls SchedulingKeeper.create() if order is valid', function () {
+        var date = new Date();
         var validSchedule = new Schedule({
-            date : new Date(),
-            created : new Date(),
+            date : new Date().getTime(),
+            created : new Date().getTime(),
             status : true,
             documentUUID : '123',
             items : [
                 {}
             ],
-            uuid:'123'
+            uuid:null
         });
-
-        var result = SchedulingService.create(validSchedule);
+        
+        var result = SchedulingService.create(validSchedule.documentUUID, date, validSchedule.items);
         expect(SchedulingKeeperMock.create).toHaveBeenCalledWith(validSchedule);
     });
 

@@ -16,8 +16,9 @@
 				<div class="col-7">{{toBeDeliveredOrdersTotals.enitityCount}}</div>
 				<div class="col-3 text-center">{{toBeDeliveredOrdersTotals.orders}}</div>
 				<div class="col-4 text-center">{{toBeDeliveredOrdersTotals.remaining}}</div>
-				<div class="col-1 text-center">{{toBeDeliveredOrdersTotals.totalItemsScheduled}}</div>
-				<div class="col-5 text-center">Data/Hora</div>
+				<div class="col-1 text-center">&nbsp;</div>
+				<div class="col-2 text-center">{{toBeDeliveredOrdersTotals.totalItemsScheduled}}</div>
+				<div class="col-4 text-center">Data/Hora</div>
 			</div>
 		</div>
 
@@ -28,8 +29,10 @@
 					<div class="col-7 name-cutter">{{order.customerName}}</div>
 					<div class="col-3 text-center">{{order | uuidCode}}</div>
 					<div class="col-4 text-center">{{order.totalRemaining}}</div>
-					<div class="col-1 text-center">{{order.totalItemsScheduled}}</div>
-					<div class="col-5 text-center">{{order.schedule.date |date:'dd-MM-yyyy HH:mm:ss'}}</div>
+					<div class="col-1 text-center">&nbsp;</div>
+					<div class="col-2 text-center">{{order.totalItemsScheduled}}</div>
+					<div class="col-4 text-center">{{order.schedule.date |date:'dd-MM-yyyy HH:mm:ss'}}</div>
+					
 				</div>
 			</div>
 		</div>

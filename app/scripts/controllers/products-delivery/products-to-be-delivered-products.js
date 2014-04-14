@@ -11,11 +11,13 @@
             'StockService',
             'BookService',
             'DialogService',
-            function ($scope, $q, logger, OrderService, StockService, BookService, DialogService) {
+            'SchedulingService',
+            function ($scope, $q, logger, OrderService, StockService, BookService, DialogService,
+                SchedulingService) {
 
                 var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
                 $scope.disableConfirm = true;
-                
+
                 /**
                  * Auxiliary functions
                  */
@@ -26,15 +28,15 @@
                     date.setMilliseconds(milliseconds);
                     return date;
                 }
-                
+
                 var scheduledDate = new Date();
-                if($scope.selectedOrder.schedule){
-                    scheduledDate= new Date($scope.selectedOrder.schedule.date);
+                if ($scope.selectedOrder.schedule) {
+                    scheduledDate = new Date($scope.selectedOrder.schedule.date);
                 }
-                
+
                 $scope.dtFilter = {
                     deliveryDate : setTime(scheduledDate, 0, 0, 0, 0, 0),
-                    minDate: setTime(new Date(), 0, 0, 0, 0, 0)
+                    minDate : setTime(new Date(), 0, 0, 0, 0, 0)
                 };
 
                 $scope.ticket = {};
@@ -45,37 +47,38 @@
                     for ( var ix in $scope.ticket.watchedQty) {
                         productsToBeDeliveredQty += $scope.ticket.watchedQty[ix];
                     }
-                    if(productsToBeDeliveredQty > 0){
+                    if (productsToBeDeliveredQty > 0) {
                         $scope.disableConfirm = false;
-                    }else{
+                    } else {
                         $scope.disableConfirm = true;
                     }
-                    console.log($scope.disableConfirm);
                 });
-                
+
                 $scope.confirm = function () {
                     var deliveryDate = setTime($scope.dtFilter.deliveryDate, 0, 0, 0, 0, 0);
                     var actualDate = setTime(new Date(), 0, 0, 0, 0, 0);
                     var result = null;
-                    
+
                     if (deliveryDate.getTime() === actualDate.getTime()) {
                         result = delivery();
                     } else {
-                        result = schedule(deliveryDate,$scope.selectedOrder.uuid);
-                    };
-                    
+                        result = schedule(deliveryDate, $scope.selectedOrder.uuid);
+                    }
+                    ;
+
                     return result;
                 };
-                
-                function getUpdatedItems(type){
+
+                function getUpdatedItems (type) {
                     var updatedItems = [];
                     for ( var ix in $scope.ticket.watchedQty) {
                         var product = $scope.selectedOrder.selectedOrderProducts[ix];
                         if ($scope.ticket.watchedQty[ix] > 0) {
-                            //FIXME should create a item only with necessary properties
-                            if(type === 'delivery'){
+                            // FIXME should create a item only with
+                            // necessary properties
+                            if (type === 'delivery') {
                                 product.dQty = $scope.ticket.watchedQty[ix];
-                            }else if(type === 'schedule'){
+                            } else if (type === 'schedule') {
                                 product.sQty = $scope.ticket.watchedQty[ix];
                             }
 
@@ -87,7 +90,7 @@
                     }
                     return updatedItems;
                 }
-                
+
                 function delivery () {
                     var updatedItems = getUpdatedItems('delivery');
                     var result =
@@ -108,24 +111,22 @@
 
                 function schedule (deliveryDate, orderUUID) {
                     var updatedItems = getUpdatedItems('schedule');
-                    var scheduleData ={
-                        deliveryDate: deliveryDate,
+                    var scheduleData = {
+                        deliveryDate : deliveryDate,
                         orderUUID : orderUUID,
                         items : updatedItems,
                     };
                     var result = DialogService.openDialogDeliveryScheduler(scheduleData);
-                    
-                    result.then(
-                        function () {
-                            log.info('Scheduler Order Derlivery!');
-                            $scope.selected.tab = 'toBeDelivered';
-                            $scope.resetOrders();
-                        },
-                        function (err) {
-                            log.error('Failed to Schedule the order delivery.');
-                            log.debug(err);
-                            result = $q.reject(err);
-                        });
+
+                    result.then(function () {
+                        log.info('Scheduler Order Derlivery!');
+                        $scope.selected.tab = 'toBeDelivered';
+                        $scope.resetOrders();
+                    }, function (err) {
+                        log.error('Failed to Schedule the order delivery.');
+                        log.debug(err);
+                        result = $q.reject(err);
+                    });
                     return result;
                 }
 
@@ -154,6 +155,22 @@
                                 productCost += updatedItems[i].dQty * stock.cost;
                             }
                         }
+
+                        var schedule = SchedulingService.read(orderUUID);
+                        if (schedule) {
+                            promises.push(SchedulingService.update(
+                                schedule.uuid,
+                                new Date(),
+                                updatedItems,
+                                false));
+                        } else {
+                            promises.push(SchedulingService.create(
+                                orderUUID,
+                                new Date(),
+                                updatedItems,
+                                false));
+                        }
+
                         $q.all(promises).then(
                             function () {
                                 books =
@@ -168,6 +185,7 @@
                                 }
                                 var promise = $q.all(promises);
                                 promise.then(function () {
+                                    $scope.resetOrders();
                                     log.info('Books updated with succes!', order);
                                 }, function (err) {
                                     log.error('Failed to edit the books!', order);
