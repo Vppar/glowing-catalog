@@ -1,4 +1,41 @@
-<div class="purchase-order-pending-products-part">
+<div class="content-body purchase-order-pending-products-part">
+
+	<div class="grid">
+
+		<div class="grid-header">
+			<div class="row">
+				<div class="col-3">Data</div>
+				<div class="col-3">Pedido</div>
+				<div class="col-10">Produto/C&oacute;digo</div>
+				<div class="col-2 text-center">Pts.</div>
+				<div class="col-3 currency">P.Unit</div>
+				<div class="col-3 text-center">Pend./Qtde.</div>
+			</div>
+		</div>
+
+		<div class="grid-body grid-scroll">
+			<div ng-repeat="purchaseOrder in pending.purchaseOrders">
+				<div class="grid-item" ng-repeat="item in purchaseOrder.items">
+					<div class="row">
+						<div class="col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
+						<div class="col-3">{{purchaseOrder | uuidCode}}</div>
+						<div class="col-10">
+							{{item.title}}
+							<div class="small-text">{{item.uniqueName}}</div>
+						</div>
+						<div class="col-2 text-center">{{item.points}}</div>
+						<div class="col-3 currency">{{item.price | currency: ''}}</div>
+						<div class="col-3 text-center">{{item.qty}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<!-- <div class="purchase-order-pending-products-part">
 
 	<div class="row-fluid">
 		<div class="new-body-header scroll-title-compensator details-title">
@@ -33,4 +70,4 @@
 
 	</div>
 	
-</div>
+</div> -->

@@ -1,4 +1,36 @@
-<div class="purchase-order-stashed-part">
+<div class="content-body purchase-order-stashed-part">
+
+    <div class="grid">
+
+        <div class="grid-header">
+            <div class="row">
+                <div class="col-3">Data</div>
+                <div class="col-3">Hora</div>
+                <div class="col-10">C&oacute;digo do Pedido</div>
+                <div class="col-2 text-center">Pts.</div>
+                <div class="col-3 currency">Valor</div>
+                <div class="col-3 text-center">Status</div>
+            </div>
+        </div>
+
+        <div class="grid-body grid-scroll">
+            <div class="grid-item" ng-repeat="purchaseOrder in stashedPurchaseOrders | orderBy:'-updated'" ng-click="openStashed(purchaseOrder)">
+                <div class="row">
+                    <div class="col-3">{{purchaseOrder.updated | date:'dd/MM/yyyy'}}</div>
+                    <div class="col-3">{{purchaseOrder.updated | date:'HH:mm'}}</div>
+                    <div class="col-10">{{purchaseOrder | uuidCode}}</div>
+                    <div class="col-2 text-center">{{purchaseOrder.points}}</div>
+                    <div class="col-3 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency}}</div>
+                    <div class="col-3 text-center">Pendente</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- <div class="purchase-order-stashed-part">
 	
     <div class="row-fluid">
         <div class="new-body-header details-title ">
@@ -24,5 +56,5 @@
             </div>
         </div>
 
-    </div><!--// new-scrollpanel -->
-</div>
+    </div><!--// new-scrollpanel
+</div> -->

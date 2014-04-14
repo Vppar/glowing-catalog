@@ -3,6 +3,113 @@
 	<!-- *** PARTE 01 *** -->
 	<div class="purchase-order-ticket-part1" ng-if="ticket.selectedPart=='part1'">
 
+		<div class="content-header">
+			<div class="row">
+				<div class="col-10">
+					<div class="btn-group btn-group-sm">
+						<a class="btn btn-option" ng-class="{active: ticket.tab=='open'}" ng-click="changeTab('open')">Pedidos em Aberto</a> 
+						<a class="btn btn-option" ng-class="{active: ticket.tab=='all'}" ng-click="changeTab('all')">Todos os Pedidos</a>		
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-body">
+
+			<div class="grid">
+				<div class="grid-header">
+					<div class="row">
+		                <div class="col-3">Data</div>
+		                <div class="col-3">Hora</div>
+		                <div class="col-10">C&oacute;digo do Pedido</div>
+		                <div class="col-4 currency">Valor</div>
+		                <div class="col-4 text-center">Status</div>
+					</div>
+				</div>
+				<div class="grid-body grid-scroll">
+					<div class="grid-item" ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'" ng-click="openDialog(purchaseOrder)">
+						<div class="row make-clickable">
+			                <div class="col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
+			                <div class="col-3">{{purchaseOrder.created | date:'HH:mm'}}</div>
+			                <div class="col-10">
+								<div ng-if="purchaseOrder.extNumber">{{purchaseOrder.extNumber}}</div>
+								<div class="small-text" ng-if="purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
+								<div ng-if="!purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
+			                </div>
+			                <div class="col-4 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency:''}}</div>
+			                <div class="col-4 text-center">
+								<div ng-if="purchaseOrder.status==3">Em Aberto</div>
+								<div ng-if="purchaseOrder.status==4">Recebimento Parcial</div>
+								<div ng-if="purchaseOrder.status==5">Entregue</div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			</div>
+
+		</div>
+	</div><!--//FIM - *** PARTE 01 *** -->
+
+
+	<!-- *** PARTE 02 *** -->
+	<div class="content-body purchase-order-ticket-part2" ng-if="ticket.selectedPart=='part2'">
+
+		<div class="grid-header">
+			<div class="row">
+                <div class="col-2">Data</div>
+                <div class="col-2">Pedido</div>
+                <div class="col-2">NFe</div>
+                <div class="col-6">Produto/C&oacute;digo</div>
+                <div class="col-2 text-center">Pts</div>
+                <div class="col-2 currency">P.Unit</div>
+                <div class="col-2 text-center">Qtde</div>
+                <div class="col-2 text-center">Ok</div>
+                <div class="col-4 text-center">Pend./Qtde.</div>
+			</div>
+		</div>
+
+		<div class="grid-body grid-scroll">
+			<div class="grid-item" ng-repeat="item in purchaseOrder.items">
+				<div class="row">
+	                <div class="col-2">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
+	                <div class="col-2">
+						{{purchaseOrder.nfe.order}}
+						<div class="small-text">{{purchaseOrder | uuidCode}}</div>
+	                </div>
+	                <div class="col-2">{{purchaseOrder.nfe.number}}</div>
+	                <div class="col-6 product-name">
+						<div class="p-title">{{item.title}}</div>
+						<div class="small-text">{{item.uniqueName}}</div>
+	                </div>
+	                <div class="col-2 text-center">{{item.points}}</div>
+
+
+	                <div class="col-2 text-center">{{item.cost | currency: ''}}</div>
+	                <div class="col-2 text-center">{{item.qty}}</div>
+	                <div class="col-2 text-center">
+	                	<input type="checkbox" ng-model="ticket.checkBox[item.id]">
+	                </div>
+	                <div class="col-4 text-center">
+						<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+		<div class="buttons-holder">
+            <spinner-button class="button-green pull-right" type="submit" spinner-promise="confirm()" ng-disabled="disableButton()">Confirmar</spinner-button>
+			<button class="button-black pull-left" type="submit" ng-click="cancel()">Cancelar</button>
+		</div>
+
+	</div><!--//FIM - *** PARTE 02 *** -->
+
+</div>
+
+<!-- <div class="purchase-order-ticket-part">
+ -->
+	<!-- *** PARTE 01 *** -->
+<!-- 	<div class="purchase-order-ticket-part1" ng-if="ticket.selectedPart=='part1'">
+
 		<div class="row-fluid">					
 				<div class="btn-group btn-group-sm">
 					<a class="btn btn-option" ng-class="{active: ticket.tab=='open'}" ng-click="changeTab('open')">Pedidos em Aberto</a> 
@@ -38,12 +145,13 @@
 	                </span>
                 </div>
             </div>
-        </div><!--// new-scrollpanel -->
-        </div>
-	</div><!--//FIM - *** PARTE 01 *** -->
+        </div> --><!--// new-scrollpanel -->
+<!--         </div>
+	</div>
+ -->	<!--//FIM - *** PARTE 01 *** -->
 
 	<!-- *** PARTE 02 *** -->
-	<div class="purchase-order-ticket-part2" ng-if="ticket.selectedPart=='part2'">
+<!-- 	<div class="purchase-order-ticket-part2" ng-if="ticket.selectedPart=='part2'">
 
         <div class="row-fluid">
             <div class="new-body-header details-title">
@@ -94,5 +202,5 @@
             </spinner-button>
 		</div>
 
-	</div><!--//FIM - *** PARTE 02 *** -->
-</div>
+	</div> --><!--//FIM - *** PARTE 02 *** -->
+<!-- </div> -->

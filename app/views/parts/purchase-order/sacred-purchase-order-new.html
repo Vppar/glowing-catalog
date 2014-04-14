@@ -1,4 +1,97 @@
-<div class="product-to-buy-order-part" fast-click>   
+<!-- parei aqui  -->
+
+<div class="product-to-buy-order-part" fast-click>
+
+    <div class="content-header">
+        <div class="row">
+            <div class="col-10">
+                <div class="btn-group btn-group-sm pull-left" ng-init="selectedSession='1'">
+                    <a class="btn btn-option" ng-class="{active: selectedSession=='1'}" ng-click="selectedSession='1'" >Se&ccedil;&atilde;o 1</a>
+                    <a class="btn btn-option" ng-class="{active: selectedSession=='2'}" ng-click="selectedSession='2'">Se&ccedil;&atilde;o 2</a>
+                </div>
+                <div class="btn-group btn-group-sm pull-right">
+                    <a class="btn btn-option" ng-class="{active: selectedLevel==1}" ng-click="showLevel(1)">N&iacute;vel 1</a>
+                    <a class="btn btn-option" ng-class="{active: selectedLevel==2}" ng-click="showLevel(2)">N&iacute;vel 2</a>
+                    <a class="btn btn-option" ng-class="{active: selectedLevel==3}" ng-click="showLevel(3)">N&iacute;vel 3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-body">
+
+        <div class="grid">
+            <div class="grid-header">
+                <div class="row">
+                    <div class="col-4">Produto/C&oacute;digo</div>
+                    <div class="col-3 text-center">Pts.</div>
+                    <div class="col-4 currency">P.Unit</div>
+                    <div class="col-3 text-center">Qtde m&iacute;n.</div>
+                    <div class="col-10 text-center">Pedido</div>
+                </div>
+            </div>
+            <div class="grid-summary">
+                <div class="row">
+                    <div class="col-4">
+                        <input type="text" placeholder="Filtrar produto" class="date-field input-small products-to-buy-filter closeimg" ng-click="clearFilter()" ng-model="productFilter.text">
+                    </div>
+                    <div class="col-3 text-center">Se&ccedil;&atilde;o {{selectedSession}}</div>
+                    <div class="col-4 currency">&nbsp;</div>
+                    <div class="col-3 text-center">&nbsp;</div>
+                    <div class="col-10 text-center">&nbsp;</div>
+                </div>
+            </div>
+
+
+            <div class="grid-body grid-scroll" ng-show="selectedSession=='1'">
+                <div ng-repeat="session in main.stockReport.sessions" ng-if="!session.hide">
+
+                    <div class="grid-item" ng-click="toggleSession(session)">
+                        <div class="row">
+                            <div class="col-4">{{session.label}}</div>
+                            <div class="col-3 text-center">{{summary.total.sessions[session.label].pts}}</div>
+                            <div class="col-4 currency">{{summary.total.sessions[session.label].avg | currency:''}}</div>
+                            <div class="col-3 text-center">{{summary.total.sessions[session.label].minQty}}</div>
+                            <div class="col-10 text-center">{{summary.total.sessions[session.label].orderQty}}</div>
+                        </div>
+                    </div>
+
+                    <div ng-repeat="line in session.lines" ng-if="!line.hide">
+                        <div class="row-fluid" ng-click="toggleLine(line)">
+                            <div class="new-body-row details-category">
+                                <div class="product-order">{{line.label}}</div>
+                                <div class="outros-header-order text-center">{{summary.total.sessions[session.label].lines[line.label].pts}}</div>
+                                <div class="outros-header-order currency">{{summary.total.sessions[session.label].lines[line.label].avg | currency:''}}</div>
+                                <div class="outros-header-order text-center">{{summary.total.sessions[session.label].lines[line.label].minQty}}</div>
+                                <div class="pedido-header-order text-center">{{summary.total.sessions[session.label].lines[line.label].orderQty}}</div>
+                            </div>
+                        </div>
+                        <div class="row-fluid" ng-repeat="product in line.items" ng-if="!product.hide">
+                            <div class="new-body-row details-item">
+                                <div class="product-order">
+                                    {{product.title}}
+                                    <div class="code-product" once-text="product.uniqueName"></div>
+                                </div>
+                                <div class="outros-header-order text-center" once-text="product.points"></div>
+                                <div class="outros-header-order currency" once-text="product.price | currency: ''"></div>
+                                <div class="outros-header-order text-center" once-text="product.minQty"></div>
+                                <div class="pedido-header-order text-center">
+                                    <tnt-number-picker ng-model="purchaseOrder.watchedQty[product.id]" min="0"></tnt-number-picker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<!-- <div class="product-to-buy-order-part" fast-click>   
 
     <span class="menu-level-products-to-buy">
         <div class="btn-group btn-group-sm" ng-init="selectedSession='1'">
@@ -77,5 +170,5 @@
                 </div>
             </span>
         </span>
-    </div><!--// new-scrollpanel -->
-</div>
+    </div><!--// new-scrollpanel
+</div> -->
