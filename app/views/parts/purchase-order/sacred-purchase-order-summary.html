@@ -1,93 +1,145 @@
-<div class="details-products-to-buy-item">
-	<div class="col-details-products-to-buy-item">
-		<div class="discount-notice">
-			<span ng-show="summary.nextDiscount.amount !== 0">
-				Faltam <strong>{{summary.nextDiscount.amount | currency:'R$ '}}</strong> para o desconto de <strong>{{summary.nextDiscount.fee}}%</strong>
-			</span>
-			<span ng-hide="summary.nextDiscount.amount !== 0">
-				<b>Voc&ecirc; atingiu o desconto m&aacute;ximo</b>
-			</span>
+<div class="right-holder">
+	<div class="discount-notice">
+		<div ng-show="summary.nextDiscount.amount !== 0">
+			Faltam <strong>{{summary.nextDiscount.amount | currency:'R$ '}}</strong> para o desconto de <strong>{{summary.nextDiscount.fee}}%</strong>
+		</div>
+		<div ng-hide="summary.nextDiscount.amount !== 0">
+			<b>Voc&ecirc; atingiu o desconto m&aacute;ximo</b>
 		</div>
 	</div>
 </div>
 
-<div class="details-products-to-buy-item">
-	<div class="col-details-products-to-buy-item">
-		<span class="section">Se&ccedil;&atilde;o 1</span>
-		<div class="row-details-products-to-buy-item">
-			<span class="item">
-				<span class="lbl-money">Valor da compra</span>
-				<span class="btn-price-payment">{{summary.total.amount | currency: ' '}}</span>
-			</span>
-			<span class="item">
-				<span class="lbl-money">Percentual de desconto</span>
-				<span class="btn-price-payment">{{summary.discount.fee | currency: ''}}</span>
-			</span>
-		</div>
-		<div class="row-details-products-to-buy-item">
-			<span class="item">
-				<span class="lbl-money">Valor com desconto</span>
-				<span class="btn-price-payment">{{summary.total.amountWithDiscount | currency:' '}}</span>
-			</span>
-			<span class="item">
-				<span class="lbl-money">Total de pontos</span>
-				<span class="btn-price-payment">{{summary.total.points}}</span>
-			</span>
-		</div>
-	</div>
-	<div class="col-details-products-to-buy-item">							
-		<span class="section">Se&ccedil;&atilde;o 2</span>
-		<div class="row-details-products-to-buy-item">
-			<span class="item">
-				<span class="lbl-money">Valor da compra</span>
-				<span class="btn-price-payment">{{summary.total.amount2 | currency: ' '}}</span>
-			</span>
-		</div>
-	</div>
-	<div class="col-details-products-to-buy-item">		
-		<span class="section">Total se&ccedil;&atilde;o 1 e 2</span>
-		<div class="row-details-products-to-buy-item">
-			<span class="item">
-				<span class="lbl-money">Valor total da compra</span>
-				<span class="btn-price-payment">{{summary.total.amount | currency:' '}}</span>
-			</span>
-			<span class="item">
-				<span class="lbl-money">Valor de frete</span>
-				<span class="btn-price-payment">{{summary.freight.amount | currency:' '}}</span>
-			</span>
-		</div>
-		<div class="row-details-products-to-buy-item">
-			<span class="item">
-				<span class="lbl-money">SD dispon&iacute;vel (cr&eacute;dito)</span>
-				<span class="btn-price-payment">0,00</span>
-			</span>
-			<span class="item">
-				<span class="lbl-money">Subtotal</span>
-				<span class="btn-price-payment">{{summary.total.amountWithDiscount | currency:' '}}</span>
-			</span>
-		</div>
-		<div class="row-details-products-to-buy-item">
-			<span class="item">
-				<span class="lbl-money font-bold">Total do pedido</span>
-				<span class="btn-price-payment font-bold">{{summary.total.amountWithDiscount | currency:' '}}</span>
-			</span>
+<div class="right-holder">
+	<div class="content">
+
+		<div class="title">Se&ccedil;&atilde;o 1</div>
+
+		<div class="itens">
+			<div class="item">
+				<div class="row">
+					<div class="col-14">
+						<div class="tag">Valor da compra</div>
+					</div>
+					<div class="col-10">
+						<div class="value">{{summary.total.amount | currency: ' '}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="row">
+					<div class="col-14">
+						<div class="tag">Percentual de desconto</div>
+					</div>
+					<div class="col-10">
+						<div class="value">{{summary.discount.fee | currency: ''}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="item">
+				<div class="row">
+					<div class="col-14">
+						<div class="tag">Valor com desconto</div>
+					</div>
+					<div class="col-10">
+						<div class="value">{{summary.total.amountWithDiscount | currency:' '}}</div>
+					</div>
+				</div>				
+			</div>
+			<div class="item">
+				<div class="row">
+					<div class="col-14">
+						<div class="tag">Total de pontos</div>
+					</div>
+					<div class="col-10">
+						<div class="value">{{summary.total.points}}</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	
-	<!--Tela "Novo pedido"-->
-	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='new'">			
-		<div class="btns-details-products-to-buy-item">
-			<button class="btn btn-ok float-right" type="submit" ng-disabled="!hasItems()" ng-click="selectTab('confirm')">Prosseguir</button>
-		</div>		
+</div>
+
+<div class="right-holder">
+	<div class="content">
+
+		<div class="title">Se&ccedil;&atilde;o 2</div>
+
+		<div class="item">
+			<div class="row">
+				<div class="col-14">
+					<div class="tag">Valor da compra</div>
+				</div>
+				<div class="col-10">
+					<div class="value">{{summary.total.amount2 | currency: ' '}}</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	<!-- Tela "Confirmar Pedido" -->
-	<div class="col-details-products-to-buy-item border-none" ng-show="tabs.selected=='confirm'">			
-		<div class="btns-details-products-to-buy-item">
-            <button class="btn btn-cancel" type="submit" ng-click="selectTab('new')">Voltar</button>
-            <spinner-button class="new-button-force-payment-confirm-size btn btn-ok float-right" style="margin-top: 10px;" type="submit" spinner-promise="confirm()" ng-disabled="!hasItems()">
-                Confirmar
-            </spinner-button>
-		</div>		
+</div>
+
+<div class="right-holder">
+	<div class="content">
+
+		<div class="title">Total se&ccedil;&atilde;o 1 e 2</div>
+
+		<div class="item">
+			<div class="row">
+				<div class="col-14">
+					<div class="tag">Valor total da compra</div>
+				</div>
+				<div class="col-10">
+					<div class="value">{{summary.total.amount | currency:' '}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="row">
+				<div class="col-14">
+					<div class="tag">Valor de frete</div>
+				</div>
+				<div class="col-10">
+					<div class="value">{{summary.freight.amount | currency:' '}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="row">
+				<div class="col-14">
+					<div class="tag">SD dispon&iacute;vel (cr&eacute;dito)</div>
+				</div>
+				<div class="col-10">
+					<div class="value">0,00</div>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="row">
+				<div class="col-14">
+					<div class="tag">Subtotal</div>
+				</div>
+				<div class="col-10">
+					<div class="value">{{summary.total.amountWithDiscount | currency:' '}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="item">
+			<div class="row">
+				<div class="col-14">
+					<div class="tag">Total do pedido</div>
+				</div>
+				<div class="col-10">
+					<div class="value">{{summary.total.amountWithDiscount | currency:' '}}</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
+
+<div ng-show="tabs.selected=='new'">			
+	<button class="btn btn-ok float-right" type="submit" ng-disabled="!hasItems()" ng-click="selectTab('confirm')">Prosseguir</button>
+</div>
+
+<div ng-show="tabs.selected=='confirm'">			
+	<button class="btn btn-cancel" type="submit" ng-click="selectTab('new')">Voltar</button>
+	<spinner-button class=" new-button-force-payment-confirm-size btn btn-ok float-right" type="submit" spinner-promise="confirm()" ng-disabled="!hasItems()">Confirmar</spinner-button>
 </div>
