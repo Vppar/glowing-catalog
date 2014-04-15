@@ -28,10 +28,15 @@
   padding: 6px 0;
 }
 /* we are assuming that there is no other imput here. for now, should be safe. */
+/* second version: now we have a special input JUST FOR the stock page and a general one (100%) for any other cases */
 #sacred .grid-stock .sub-header input{
-  height: 24px;
-  width: 75%;
+  height:24px;
+  width:100%;
 }
+#sacred .grid-stock .sub-header .sacred-stock-filter{
+  width:75%;
+}
+
 
 #sacred .grid-stock .first-line .row>:first-child,
 #sacred .grid-stock .second-line .row>:first-child,
