@@ -233,9 +233,6 @@
         }).when('/third-parties-2', {
             templateUrl : 'views/sacred-third-parties.html',
             controller: 'ThirdPartyCtrl'
-        }).when('/products-delivery', {
-            templateUrl : 'views/sacred-products-delivery.html',
-            controller : 'ProductsDeliveryCtrl'
         }).when('/receivable-check-2', {
             templateUrl : 'views/sacred-receivable-check.html'
         }).when('/pagpop-2', {
@@ -261,8 +258,8 @@
          }).when('/purchase-order-2', {
             templateUrl : 'views/parts/purchase-order/sacred-purchase-order.html',
             controller : 'PurchaseOrderCtrl'
-        }).when('/products-delivery-test', {
-            templateUrl : 'views/incubated/sacred-products-delivery-test.html',
+        }).when('/products-delivery', {
+            templateUrl : 'views/parts/products-delivery/sacred-products-delivery.html',
             controller : 'ProductsDeliveryCtrl'
         }).otherwise({
             redirectTo : '/'

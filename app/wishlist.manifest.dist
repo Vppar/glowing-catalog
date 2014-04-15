@@ -78,7 +78,11 @@ scripts/controllers/basket.js
 scripts/controllers/change-pass-dialog.js
 scripts/controllers/choose-customer-dialog.js
 scripts/controllers/customer-info-dialog.js
-scripts/controllers/delivery.js
+scripts/controllers/products-delivery/products-delivered.js
+scripts/controllers/products-delivery/products-delivered-products.js
+scripts/controllers/products-delivery/products-delivery.js
+scripts/controllers/products-delivery/products-to-be-delivered.js
+scripts/controllers/products-delivery/products-to-be-delivered-products.js
 scripts/controllers/delivery-details-dialog.js
 scripts/controllers/financial.js
 scripts/controllers/expense.js

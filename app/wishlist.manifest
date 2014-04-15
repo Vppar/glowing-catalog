@@ -392,7 +392,6 @@ views/payment.html
 views/pagpop.html
 views/pending-delivery.html
 views/previous-entries.html
-views/products-delivery.html
 views/receivable.html
 views/spinner-button-promise.html
 views/stock.html
@@ -409,8 +408,12 @@ views/parts/order-list/sacred-order-list-customers.html
 views/parts/order-list/sacred-order-list-orders.html
 views/sacred-third-parties.html
 views/sacred-products-delivery.html
-views/parts/products-delivery/sacred-products-delivery-orders.html
-views/parts/products-delivery/sacred-products-delivery-products.html
+views/parts/products-delivery/sacred-products-delivery-delivered-products.html
+views/parts/products-delivery/sacred-products-delivery-delivered.html
+views/parts/products-delivery/sacred-products-delivery-delivery.html
+views/parts/products-delivery/sacred-products-delivery-to-be-delivered-products.html
+views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html
+views/parts/products-delivery/sacred-products-delivery.html
 views/sacred-pagpop.html
 views/sacred-receivable-check.html
 views/sacred-stock.html
@@ -429,11 +432,11 @@ views/parts/purchase-order/sacred-purchase-order-stashed.html
 views/parts/purchase-order/sacred-purchase-order-summary.html
 views/parts/purchase-order/sacred-purchase-order-ticket.html
 
-views/incubated/sacred-products-delivery-delivered-products.html
-views/incubated/sacred-products-delivery-delivered.html
-views/incubated/sacred-products-delivery-delivery.html
-views/incubated/sacred-products-delivery-test.html
-views/incubated/sacred-products-delivery-to-be-delivered-products.html
+views/parts/products-delivery/sacred-products-delivery-delivered-products.html
+views/parts/products-delivery/sacred-products-delivery-delivered.html
+views/parts/products-delivery/sacred-products-delivery-delivery.html
+views/parts/products-delivery/sacred-products-delivery.html
+views/parts/products-delivery/sacred-products-delivery-to-be-delivered-products.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

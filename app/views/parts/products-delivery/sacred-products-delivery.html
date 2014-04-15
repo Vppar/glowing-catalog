@@ -23,19 +23,19 @@
 
 			<div class="page-body" ng-switch="selected.tab">
 				<div class="content" ng-switch-when="toBeDelivered">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivery.html'" ng-controller="ProductsToBeDeliveryCtrl"></div>
+					<div ng-include class="include-div" src="'views/parts/products-delivery/sacred-products-delivery-delivery.html'" ng-controller="ProductsToBeDeliveryCtrl"></div>
 				</div>
 
 				<div class="content" ng-switch-when="toBeDeliveredProducts">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-to-be-delivered-products.html'" ng-controller="ProductsToBeDeliveryProductsCtrl"></div>
+					<div ng-include class="include-div" src="'views/parts/products-delivery/sacred-products-delivery-to-be-delivered-products.html'" ng-controller="ProductsToBeDeliveryProductsCtrl"></div>
 				</div>
 				
 				<div class="content" ng-switch-when="delivered">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivered.html'" ng-controller="ProductsDeliveredCtrl"></div>
+					<div ng-include class="include-div" src="'views/parts/products-delivery/sacred-products-delivery-delivered.html'" ng-controller="ProductsDeliveredCtrl"></div>
 				</div>
 
 				<div class="content" ng-switch-when="deliveredProducts">
-					<div ng-include class="include-div" src="'views/incubated/sacred-products-delivery-delivered-products.html'" ng-controller="ProductsDeliveredProductsCtrl"></div>
+					<div ng-include class="include-div" src="'views/parts/products-delivery/sacred-products-delivery-delivered-products.html'" ng-controller="ProductsDeliveredProductsCtrl"></div>
 				</div>
 
 			</div>
