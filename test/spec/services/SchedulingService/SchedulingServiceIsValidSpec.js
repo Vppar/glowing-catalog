@@ -66,12 +66,12 @@ describe('Service: SchedulingServiceIsValid', function () {
         var invalidSchedule = {
             date :null,
             created : null,
-            status : false,
+            status : null,
             items : null
         };
 
         var result = SchedulingService.isValid(invalidSchedule);
-        expect(result.length).toBe(4);
+        expect(result.length).toBe(3);
     });
 
 });

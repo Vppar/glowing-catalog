@@ -54,7 +54,7 @@ describe('Service: SchedulingServiceSave', function () {
             uuid:null
         });
         
-        var result = SchedulingService.create(validSchedule.documentUUID, date, validSchedule.items);
+        var result = SchedulingService.create(validSchedule.documentUUID, date, validSchedule.items, validSchedule.status);
         expect(SchedulingKeeperMock.create).toHaveBeenCalledWith(validSchedule);
     });
 

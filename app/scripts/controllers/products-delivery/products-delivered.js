@@ -22,6 +22,7 @@ angular.module('tnt.catalog.productsDelivered', [
             $scope.selectedOrder.uuid = order.uuid;
             $scope.selectedOrder.customerName = order.customerName;
             $scope.selectedOrder.phone = order.phone;
+            $scope.selectedOrder.schedule = order.schedule;
             for ( var ix in order.items) {
                 var item = order.items[ix];
                 item.order = order.code;

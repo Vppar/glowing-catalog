@@ -90,7 +90,7 @@
             'tnt.catalog.productsToBeDeliveryProducts',
             'tnt.catalog.productsDeliveredProducts',
             'tnt.catalog.productsDeliverySchedule',
-            'tnt.catalog.scheduling.keeper',
+            'tnt.catalog.scheduling',
             'tnt.catalog.purchaseOrder',
             'tnt.catalog.timer.service',
             'tnt.catalog.sync.driver',
