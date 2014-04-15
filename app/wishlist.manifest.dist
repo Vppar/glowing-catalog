@@ -41,7 +41,6 @@ styles/new-grid.css
 styles/new-calendar.css
 styles/new-button.css
 
-
 styles/sacred-reset.css
 styles/sacred-buttons.css
 styles/sacred-calendar.css
@@ -59,6 +58,7 @@ styles/sacred-voucher.css
 styles/sacred-registration.css
 styles/sacred-login.css
 styles/sacred-order-list.css
+styles/sacred-purchase-order.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css

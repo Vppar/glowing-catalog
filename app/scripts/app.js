@@ -252,6 +252,9 @@
         }).when('/order-list-2', {
             templateUrl : 'views/sacred-order-list.html',
             controller : 'OrderListCtrl'
+         }).when('/purchase-order-2', {
+            templateUrl : 'views/parts/purchase-order/sacred-purchase-order.html',
+            controller : 'PurchaseOrderCtrl'
         }).otherwise({
             redirectTo : '/'
         });

@@ -63,6 +63,7 @@ styles/sacred-voucher.css
 styles/sacred-registration.css
 styles/sacred-login.css
 styles/sacred-order-list.css
+styles/sacred-purchase-order.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -414,6 +415,13 @@ views/spinner-button.html
 views/sacred-registration.html
 views/sacred-login.html
 views/sacred-add-customer.html
+views/parts/purchase-order/sacred-purchase-order.html
+views/parts/purchase-order/sacred-purchase-order-confirm.html
+views/parts/purchase-order/sacred-purchase-order-new.html
+views/parts/purchase-order/sacred-purchase-order-pending-products.html
+views/parts/purchase-order/sacred-purchase-order-stashed.html
+views/parts/purchase-order/sacred-purchase-order-summary.html
+views/parts/purchase-order/sacred-purchase-order-ticket.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

@@ -1,0 +1,73 @@
+<div class="content-body purchase-order-pending-products-part">
+
+	<div class="grid">
+
+		<div class="grid-header">
+			<div class="row">
+				<div class="col-3">Data</div>
+				<div class="col-3">Pedido</div>
+				<div class="col-10">Produto/C&oacute;digo</div>
+				<div class="col-2 text-center">Pts.</div>
+				<div class="col-3 currency">P.Unit</div>
+				<div class="col-3 text-center">Pend./Qtde.</div>
+			</div>
+		</div>
+
+		<div class="grid-body grid-scroll">
+			<div ng-repeat="purchaseOrder in pending.purchaseOrders">
+				<div class="grid-item" ng-repeat="item in purchaseOrder.items">
+					<div class="row">
+						<div class="col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
+						<div class="col-3">{{purchaseOrder | uuidCode}}</div>
+						<div class="col-10">
+							{{item.title}}
+							<div class="small-text">{{item.uniqueName}}</div>
+						</div>
+						<div class="col-2 text-center">{{item.points}}</div>
+						<div class="col-3 currency">{{item.price | currency: ''}}</div>
+						<div class="col-3 text-center">{{item.qty}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<!-- <div class="purchase-order-pending-products-part">
+
+	<div class="row-fluid">
+		<div class="new-body-header scroll-title-compensator details-title">
+			<span class="new-col-3">Data</span>
+			<span class="new-col-3">Pedido</span>
+			<span class="new-col-10">Produto/C&oacute;digo</span>
+			<span class="new-col-2 text-center">Pts.</span>
+			<span class="new-col-3 currency">P.Unit</span>
+			<span class="new-col-3 text-center">Pend./Qtde.</span>
+		</div>
+	</div>
+
+	<div class="new-scrollpanel"> 
+		
+		<div ng-repeat="purchaseOrder in pending.purchaseOrders">
+			<span ng-repeat="item in purchaseOrder.items">
+				<div class="row-fluid">
+					<div class="new-body-row products-to-buy-pending-part-line">
+						<span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
+						<span class="new-col-3">{{purchaseOrder | uuidCode}}</span>
+						<span class="new-col-10">
+							{{item.title}}
+							<div class="small-text">{{item.uniqueName}}</div>
+						</span>
+						<span class="new-col-2 text-center">{{item.points}}</span>
+						<span class="new-col-3 currency">{{item.price | currency: ''}}</span>
+						<span class="new-col-3 text-center">{{item.qty}}</span>
+					</div>
+				</div>
+			</span>
+		</div>
+
+	</div>
+	
+</div> -->

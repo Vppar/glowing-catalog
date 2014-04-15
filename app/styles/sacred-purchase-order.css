@@ -1,0 +1,17 @@
+#sacred .sacred-purchase-order-page .page-body-full{
+	height:100%;
+}
+
+#sacred .purchase-order-pending-products-part .grid-scroll{
+	height:calc(100% - 1px);
+}
+
+
+/* ticket part */
+#sacred .sacred-purchase-order-page .purchase-order-ticket-part1 .grid-scroll{
+	height:calc(100% - 178px);
+}
+
+#sacred .sacred-purchase-order-page .purchase-order-ticket-part2 .grid-scroll{
+	height:calc(100% - 178px);
+}
