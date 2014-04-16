@@ -59,9 +59,10 @@
                 ];
                 
                 function setReceivablesInfos () {
+
                     $scope.aditionalInfo.discount = 0;
                     $scope.aditionalInfo.extra = 0;
-                    
+
                     if ($scope.selectedReceivable) {
                         $scope.total.amount = $scope.selectedReceivable.amount;
                         var receivable = $scope.selectedReceivable;
@@ -239,12 +240,30 @@
 
                 $scope.$watch('selectedReceivable', setReceivablesInfos);
                 $scope.$watchCollection('aditionalInfo', function(){
-                    if($scope.aditionalInfo.discount>0){
-                        $scope.total.amount = $scope.selectedReceivable.amount - $scope.aditionalInfo.discount;  
-                    }else if($scope.aditionalInfo.extra > 0){
-                        $scope.total.amount = $scope.selectedReceivable.amount + $scope.aditionalInfo.extra;
-                    }else{
-                        $scope.total.amount= 0;
+                    if($scope.selectedReceivableMode === 'listOpen') {
+                        if ($scope.aditionalInfo.discount > 0) {
+                            if ($scope.aditionalInfo.discount > $scope.selectedReceivable.amount) {
+                                $scope.aditionalInfo.discount = $scope.selectedReceivable.amount;
+                            }
+                            $scope.total.amount = $scope.selectedReceivable.amount - $scope.aditionalInfo.discount;
+
+                            $scope.disable.discount = false;
+                            $scope.disable.extra = true;
+
+                        } else if ($scope.aditionalInfo.extra > 0) {
+
+                            $scope.disable.discount = true;
+                            $scope.disable.extra = false;
+
+                            $scope.total.amount = $scope.selectedReceivable.amount + $scope.aditionalInfo.extra;
+                        }
+                        if ($scope.aditionalInfo.extra === 0 && $scope.aditionalInfo.discount === 0) {
+
+                            $scope.disable.discount = false;
+                            $scope.disable.extra = false;
+
+                            $scope.total.amount = $scope.selectedReceivable.amount;
+                        }
                     }
                 });
                 

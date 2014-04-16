@@ -23,7 +23,7 @@
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Vencto</label>
-				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" ng-disabled="selectedReceivable.status==='Recebido'" required readonly onkeyup="checkInputKeyUp(this)">
+				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" disabled readonly onkeyup="checkInputKeyUp(this)">
 			</div>
 		</span>	
 
@@ -39,13 +39,13 @@
 		<span class="new-col-3" >
 			<div class="control-group">
 				<label class="control-label">Acréscimo</label>
-				<input id="extra" type="text" class="input-block-level currency" ng-model="aditionalInfo.extra" currency ng-disabled="selectedReceivable.status==='Recebido'" >
+				<input id="extra" type="text" class="input-block-level currency" ng-model="aditionalInfo.extra" currency ng-disabled="disable.extra" >
 			</div>
 		</span>	
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Desconto</label>
-				<input id="discount" type="text" class="input-block-level currency" ng-model="aditionalInfo.discount" currency ng-disabled="selectedReceivable.status==='Recebido'">
+				<input id="discount" type="text" class="input-block-level currency" ng-model="aditionalInfo.discount" currency ng-disabled="disable.discount">
 			</div>
 		</span>	
 

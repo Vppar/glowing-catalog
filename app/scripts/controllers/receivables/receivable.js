@@ -42,6 +42,11 @@
                     dtFinal : new Date()
                 };
 
+                $scope.disable = {
+                    discount : false,
+                    extra : false
+                };
+
                 /**
                  * Switch between listAll and listOpen.
                  */
@@ -56,8 +61,12 @@
                 };
 
                 $scope.selectReceivable = function (receivable) {
-                    $scope.selectedReceivable = angular.copy(receivable);
-                    $scope.header.description = "> Edição";
+                    if($scope.selectedReceivableMode === 'listOpen'){
+                        $scope.selectedReceivable = angular.copy(receivable);
+                        $scope.header.description = "> Edição";
+                    }else{
+                        $scope.selectedReceivable = null;
+                    }
                 };
 
                 $scope.back = function () {

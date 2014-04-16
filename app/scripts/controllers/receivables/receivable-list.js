@@ -109,11 +109,16 @@
 
                         if ($scope.selectedReceivableMode === 'listOpen') {
                             receivables = filterReceivablesByLiquidated(receivables);
-
+//                            console.log(receivables);
                             if (newVal === 'listOpen') {
                                 $scope.allOpenReceivables = 'true';
                             }
+                            $scope.disable.discount = false;
+                            $scope.disable.extra = false;
                         } else {
+                            $scope.disable.discount = true;
+                            $scope.disable.extra = true;
+
                             $scope.allOpenReceivables = 'false';
                             receivables = filterReceivablesByClosed(receivables);
                         }
@@ -167,7 +172,9 @@
                             // This section prevents that warmup inputed checks
                             // generate an error for not having a documentId
                             if (receivable.documentId) {
-                                
+
+
+
                                 //set account anme
                                 receivable.accountName = getReceivableAccountName(receivable.type);
                                 var uiidData = IdentityService.getUUIDData(receivable.documentId);
