@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="grid-body grid-scroll">
-			<div class="grid-item single-line clicable" ng-repeat="order in delivered | orderBy : '-schedule.date'" ng-click="getItems(order)">
+			<div class="grid-item single-line clicable" ng-repeat="order in delivered" ng-click="getItems(order)">
 				<div class="row">
 					<div class="col-3 text-center">{{order.created | date:'dd/MM/yyyy'}}</div>
 					<div class="col-8 name-cutter">{{order.customerName}}</div>
