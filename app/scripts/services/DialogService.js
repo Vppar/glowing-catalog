@@ -136,7 +136,7 @@
         };
         
         this.openDialogDeliveryScheduler = function(data) {
-            return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
         };
     }]);
 
