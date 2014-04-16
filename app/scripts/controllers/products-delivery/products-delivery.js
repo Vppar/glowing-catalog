@@ -33,7 +33,8 @@
 
                 $scope.dtFilter = {
                     dtInitial : setTime(new Date(), 0, 0, 0, 0),
-                    dtFinal : new Date()
+                    dtFinal : new Date(),
+                    dtMax : setTime(new Date(), 0, 0, 0, 0),
                 };
 
                 $scope.nameFilter = {

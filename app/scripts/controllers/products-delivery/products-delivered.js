@@ -91,7 +91,7 @@ angular.module('tnt.catalog.productsDelivered', [
         /**
          * DateFilter
          */
-        function filterByDate (product) {
+        function filterByDate (order) {
             var initialFilter = null;
             var finalFilter = null;
             var isDtInitial = false;
@@ -119,17 +119,17 @@ angular.module('tnt.catalog.productsDelivered', [
             }
 
             if (initialFilter && finalFilter) {
-                if (product.created >= initialFilter && product.created <= finalFilter) {
+                if (order.schedule.date >= initialFilter && order.schedule.date <= finalFilter) {
                     return true;
                 }
                 return false;
             } else if (initialFilter) {
-                if (product.created >= initialFilter) {
+                if (order.schedule.date >= initialFilter) {
                     return true;
                 }
                 return false;
             } else if (finalFilter) {
-                if (product.created <= finalFilter) {
+                if (order.schedule.date <= finalFilter) {
                     return true;
                 }
                 return false;
