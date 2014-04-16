@@ -56,18 +56,25 @@
                 });
 
                 $scope.confirm = function () {
-                    var deliveryDate = setTime($scope.dtFilter.deliveryDate, 0, 0, 0, 0, 0);
-                    var actualDate = setTime(new Date(), 0, 0, 0, 0, 0);
-                    var result = null;
+                    var dialogData = {
+                        title : 'Entrega de produtos',
+                        message : 'Deseja confirmar a entrega dos produtos?.',
+                        btnYes : 'Sim',
+                        btnNo : 'Não'
+                    };
+                    var result = DialogService.messageDialog(dialogData).then(function() {
+                        var deliveryDate = setTime($scope.dtFilter.deliveryDate, 0, 0, 0, 0, 0);
+                        var actualDate = setTime(new Date(), 0, 0, 0, 0, 0);
 
-                    if (deliveryDate.getTime() === actualDate.getTime()) {
-                        result = delivery();
-                    } else {
-                        result = schedule(deliveryDate, $scope.selectedOrder.uuid);
-                    }
-                    ;
-
+                        if (deliveryDate.getTime() === actualDate.getTime()) {
+                            result = delivery();
+                        } else {
+                            result = schedule(deliveryDate, $scope.selectedOrder.uuid);
+                        }
+                    });
+                    
                     return result;
+                    
                 };
 
                 function getUpdatedItems (type) {
