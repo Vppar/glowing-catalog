@@ -109,7 +109,6 @@
 
                         if ($scope.selectedReceivableMode === 'listOpen') {
                             receivables = filterReceivablesByLiquidated(receivables);
-//                            console.log(receivables);
                             if (newVal === 'listOpen') {
                                 $scope.allOpenReceivables = 'true';
                             }
