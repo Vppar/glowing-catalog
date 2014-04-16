@@ -35,7 +35,7 @@
 		        </div>
 		        <div class="new-calendar">
 		            <div class="text-over">Data Final</div>
-		            <input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
+		            <input id="dtFinal" type="text" placeholder="" show-weeks="false" datepicker-popup="dd/MM/yyyy" min="dtFilter.dtInitial" max="dateLimit" class="date-field input-small w75" required readonly maxlength="10" ng-model="dtFilter.dtFinal">
 		            <label for="dtFinal" class="ic-calendar">
 		                <img src="images/icons/ic-calendar.png">
 		            </label>
@@ -62,14 +62,14 @@
 			</div>
 
 			<div class="new-body-row-summary">
-			        <div class="new-col-1 text-center">Itens</div>
+			        <div class="new-col-1 text-center">{{sumItens}}</div>
 			        <div class="new-col-3 text-center">&nbsp;</div>
 			        <div class="new-col-9">&nbsp;</div>
 			        <div class="new-col-3">&nbsp;</div>
 			        <div class="new-col-2 text-center">&nbsp;</div>
 			        <div class="new-col-4 text-center" ng-if="selectedReceivableMode=='listOpen'">&nbsp;</div>
 			        <div class="new-col-4 text-center" ng-if="selectedReceivableMode=='listClosed'">&nbsp;</div>
-			        <div class="new-col-2 currency">Valor</div>
+			        <div class="new-col-2 currency">{{sumAmount | currency: ''}}</div>
 			</div>
 
 			<div class="new-scrollpanel" ng-class="{'page-open-details' : selectedReceivable, 'page-closed-details' : !selectedReceivable, 'page-open-check-details' : false }">

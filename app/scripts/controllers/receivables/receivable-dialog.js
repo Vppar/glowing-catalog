@@ -54,8 +54,8 @@
                     }
                 }
 
-                $scope.confirmLiquidate = function () {
-                    var receivable = angular.copy(dialog.data);
+                $scope.confirmLiquidate = function (receivable) {
+                    var receivable = angular.copy(receivable);
                     var paymentType = angular.copy($scope.paymentType);
 
                     if (paymentType == '0') {

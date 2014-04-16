@@ -26,9 +26,16 @@
                 $scope.TODAY.setHours(0);
                 $scope.TODAY.setMinutes(0);
                 $scope.TODAY.setSeconds(0);
+
+
+                $scope.TODAYFINAL = new Date();
+                $scope.TODAYFINAL.setHours(23);
+                $scope.TODAYFINAL.setMinutes(59);
+                $scope.TODAYFINAL.setSeconds(59);
                 
                 // Store the actual select receivable
                 $scope.selectedReceivable = null;
+                $scope.dateLimit = '';
 
                 $scope.dtFilter = {
                     dtInitial : new Date(),
@@ -39,7 +46,13 @@
                  * Switch between listAll and listOpen.
                  */
                 $scope.selectReceivableMode = function selectReceivableMode (selectedMode) {
+                    if(selectedMode==='listClosed'){
+                        $scope.dateLimit = $scope.TODAYFINAL;
+                    }else if(selectedMode==='listOpen'){
+                        $scope.dateLimit = null;
+                    }
                     $scope.selectedReceivableMode = selectedMode;
+                    $scope.selectedReceivable = null;
                 };
 
                 $scope.selectReceivable = function (receivable) {
