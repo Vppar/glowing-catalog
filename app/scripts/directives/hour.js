@@ -24,7 +24,12 @@
                     ctrl.$viewValue = hour;
                     ctrl.$render();
                     
-                    if(clearHour.length === 8){
+                    var validLength = 8;
+                    if(attrs.hourFormat && attrs.hourFormat === 'HH:mm'){
+                        validLength = 4;
+                    }
+                    
+                    if(clearHour.length === validLength){
                         ctrl.$setValidity('hour', true);
                     } else {
                         ctrl.$setValidity('hour', false);

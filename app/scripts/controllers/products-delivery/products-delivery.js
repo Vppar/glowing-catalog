@@ -77,12 +77,12 @@
                     function () {
                         // Order by to be delivery
                         $scope.toBeDelivered = orderList(
-                            ProductsDeliveryService.listOrdersByReportType('toBeDelivered'));
+                            ProductsDeliveryService.listOrdersByReportType('toBeDelivered', 'toBeDelivered'));
                         $scope.delivered = orderList(
-                            ProductsDeliveryService.listOrdersByReportType('delivered'));
+                            ProductsDeliveryService.listOrdersByReportType('delivered', 'delivered'));
                     };
 
-                function orderList(list){
+                function orderList(list, type){
                          var withScheduling = $filter('filter')(list, function (item) {
                             return item.schedule !== null;
                         });
@@ -90,9 +90,12 @@
                         var withoutScheduling = $filter('filter')(list, function (item) {
                             return item.schedule === null;
                         });
-
-                        withScheduling = $filter('orderBy')(withScheduling, 'schedule.date');
-                        withoutScheduling = $filter('orderBy')(withoutScheduling, '-created');
+                        if(type === 'toBeDelivered'){
+                            withScheduling = $filter('orderBy')(withScheduling, 'schedule.date');
+                        }else{
+                            withScheduling = $filter('orderBy')(withScheduling, '-schedule.date');
+                        }
+                        withoutScheduling = $filter('orderBy')(withoutScheduling, 'created');
                         return  withScheduling.concat(withoutScheduling);
                 }    
                 // #################################################################################################################
