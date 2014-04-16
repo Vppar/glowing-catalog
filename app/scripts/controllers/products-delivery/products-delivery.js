@@ -84,15 +84,15 @@
 
                 function orderList(list){
                          var withScheduling = $filter('filter')(list, function (item) {
-                            return angular.isDefined(item.schedule);
+                            return item.schedule !== null;
                         });
 
                         var withoutScheduling = $filter('filter')(list, function (item) {
-                            return !angular.isDefined(item.schedule);
+                            return item.schedule === null;
                         });
 
                         withScheduling = $filter('orderBy')(withScheduling, 'schedule.date');
-                        withoutScheduling = $filter('orderBy')(withoutScheduling, 'created');
+                        withoutScheduling = $filter('orderBy')(withoutScheduling, '-created');
                         return  withScheduling.concat(withoutScheduling);
                 }    
                 // #################################################################################################################
