@@ -358,7 +358,7 @@ body {
 	padding-right: 10px !important;
 }
 .btn-ok{
-	background: #5d9732;
+	background: #ff7bb4;
 }
 .btn-cancel {
 	background: #333;
@@ -370,7 +370,7 @@ body {
 	background: #575757;
 }
 .btn-ok:hover{
-	background: #48841c !important;
+	background: #d64986 !important;
 }
 .btn-cancel:hover {
 	background: #000 !important;
