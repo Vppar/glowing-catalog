@@ -77,9 +77,9 @@
                     function () {
                         // Order by to be delivery
                         $scope.toBeDelivered = orderList(
-                            ProductsDeliveryService.listOrdersByReportType('toBeDelivered', 'toBeDelivered'));
+                            ProductsDeliveryService.listOrdersByReportType('toBeDelivered'), 'toBeDelivered');
                         $scope.delivered = orderList(
-                            ProductsDeliveryService.listOrdersByReportType('delivered', 'delivered'));
+                            ProductsDeliveryService.listOrdersByReportType('delivered'), 'delivered');
                     };
 
                 function orderList(list, type){
