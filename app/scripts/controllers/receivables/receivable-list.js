@@ -109,11 +109,15 @@
 
                         if ($scope.selectedReceivableMode === 'listOpen') {
                             receivables = filterReceivablesByLiquidated(receivables);
-
                             if (newVal === 'listOpen') {
                                 $scope.allOpenReceivables = 'true';
                             }
+                            $scope.disable.discount = false;
+                            $scope.disable.extra = false;
                         } else {
+                            $scope.disable.discount = true;
+                            $scope.disable.extra = true;
+
                             $scope.allOpenReceivables = 'false';
                             receivables = filterReceivablesByClosed(receivables);
                         }
@@ -153,16 +157,23 @@
                     // #############################
                     // ARGUMENT RECEIVABLES
                     // #############################
+
                     function argumentReceivables(receivables) {
+                        $scope.sumAmount = 0;
+                        $scope.sumItens = 0;
                         for ( var ix in receivables) {
+                            $scope.sumItens++;
                             var receivable = receivables[ix];
                             receivable.entityName = EntityService.read(receivable.entityId).name;
                             receivable.typeTranslated = translate[receivable.type];
-                            
+                            $scope.sumAmount += receivable.amount;
+
                             // This section prevents that warmup inputed checks
                             // generate an error for not having a documentId
                             if (receivable.documentId) {
-                                
+
+
+
                                 //set account anme
                                 receivable.accountName = getReceivableAccountName(receivable.type);
                                 var uiidData = IdentityService.getUUIDData(receivable.documentId);

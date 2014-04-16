@@ -248,6 +248,10 @@ describe('Controller: ReceivableListCtrl', function() {
         beforeEach(function () {
             scope.dtFilter.dtInitial = new Date();
             scope.dtFilter.dtFinal = new Date();
+            scope.disable = {
+                discount : false,
+                extra : false
+            };
         });
 
         describe('initial date', function () {

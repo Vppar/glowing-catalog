@@ -74,6 +74,8 @@ width: 86px;
 }
 
 .receivable-details{
+	margin-left: -5px;
+	margin-right: -5px;
 }
 
 .receivable-details .date-field{
@@ -89,10 +91,10 @@ width: 86px;
 }
 
 .receivable-page .page-closed-details{
-	height: calc(100% - 124px);
+	height: calc(100% - 162px);
 }
 .receivable-page .page-open-details{
-	height: calc(100% - 318px);
+	height: calc(100% - 272px);
 }
 .receivable-page .page-open-check-details{
 	height: calc(100% - 381px);

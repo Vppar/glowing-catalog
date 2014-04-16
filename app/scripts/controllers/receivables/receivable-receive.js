@@ -29,7 +29,7 @@
                 
                 $scope.aditionalInfo = {
                     discount : 0,
-                    extra : 0,
+                    extra : 0
                 };
                 
                 $scope.selectedClassification = 1;
@@ -59,9 +59,10 @@
                 ];
                 
                 function setReceivablesInfos () {
+
                     $scope.aditionalInfo.discount = 0;
                     $scope.aditionalInfo.extra = 0;
-                    
+
                     if ($scope.selectedReceivable) {
                         $scope.total.amount = $scope.selectedReceivable.amount;
                         var receivable = $scope.selectedReceivable;
@@ -89,7 +90,9 @@
                         $scope.save(); 
                     }
                     $scope.selectedReceivable.totalAmount = $scope.total.amount;
-                    DialogService.openDialogReceivable($scope.selectedReceivable).then(function () {
+                    var response = confirmLiquidate($scope.selectedReceivable);
+
+                    response.then(function () {
                         DialogService.messageDialog({
                             title : 'Contas a receber',
                             message : 'Baixa realizada com sucesso!',
@@ -199,15 +202,15 @@
                     var changedFields = {};
                     changedFields.hasChange = false;
                     if (receivable.amount != originalReceivable.amount) {
-                        changedFields.amount={prop :'amount', oldVal:originalReceivable.amount, newVal:receivable.amount,};
+                        changedFields.amount={prop :'amount', oldVal:originalReceivable.amount, newVal:receivable.amount};
                         changedFields.hasChange = true;
                     }
                     if (receivable.duedate != originalReceivable.duedate) {
-                        changedFields.duedate = {prop :'duedate', oldVal:originalReceivable.duedate, newVal:receivable.duedate,};
+                        changedFields.duedate = {prop :'duedate', oldVal:originalReceivable.duedate, newVal:receivable.duedate};
                         changedFields.hasChange = true;
                     }
                     if (receivable.remarks != originalReceivable.remarks) {
-                        changedFields.remarks = {prop :'remarks', oldVal:originalReceivable.remarks, newVal:receivable.remarks,};
+                        changedFields.remarks = {prop :'remarks', oldVal:originalReceivable.remarks, newVal:receivable.remarks};
                         changedFields.hasChange = true;
                     }
                     if (receivable.type != getPaymentType($scope.paymentSelected.id)) {
@@ -237,12 +240,30 @@
 
                 $scope.$watch('selectedReceivable', setReceivablesInfos);
                 $scope.$watchCollection('aditionalInfo', function(){
-                    if($scope.aditionalInfo.discount>0){
-                        $scope.total.amount = $scope.selectedReceivable.amount - $scope.aditionalInfo.discount;  
-                    }else if($scope.aditionalInfo.extra > 0){
-                        $scope.total.amount = $scope.selectedReceivable.amount + $scope.aditionalInfo.extra;
-                    }else{
-                        $scope.total.amount= 0;
+                    if($scope.selectedReceivableMode === 'listOpen') {
+                        if ($scope.aditionalInfo.discount > 0) {
+                            if ($scope.aditionalInfo.discount > $scope.selectedReceivable.amount) {
+                                $scope.aditionalInfo.discount = $scope.selectedReceivable.amount;
+                            }
+                            $scope.total.amount = $scope.selectedReceivable.amount - $scope.aditionalInfo.discount;
+
+                            $scope.disable.discount = false;
+                            $scope.disable.extra = true;
+
+                        } else if ($scope.aditionalInfo.extra > 0) {
+
+                            $scope.disable.discount = true;
+                            $scope.disable.extra = false;
+
+                            $scope.total.amount = $scope.selectedReceivable.amount + $scope.aditionalInfo.extra;
+                        }
+                        if ($scope.aditionalInfo.extra === 0 && $scope.aditionalInfo.discount === 0) {
+
+                            $scope.disable.discount = false;
+                            $scope.disable.extra = false;
+
+                            $scope.total.amount = $scope.selectedReceivable.amount;
+                        }
                     }
                 });
                 
@@ -268,7 +289,89 @@
                     }
                     return true;
                 }
-                
+
+
+                //##########################################################################################################################
+
+
+                $scope.paymentOptions = [
+                    {
+                        id : 0,
+                        describe : 'Cheque'
+                    }, {
+                        id : 1,
+                        describe : 'Dinheiro',
+                        account : 11111
+
+                    }
+                ];
+
+                // Deposit Accounts
+                $scope.accounts =
+                    angular.copy($filter('filter')(BookService.list(), filterByAccount));
+                /**
+                 * Filter only deposit accounts accounts that begin with 1115
+                 */
+                function filterByAccount (book) {
+                    if (book.access >= 11131 && book.access <= 11139) {
+                        return true;
+                    }
+                    return false;
+                }
+                /**
+                 * Init Array with payment options
+                 */
+                function initPaymentTypes () {
+                    var id = 2;
+
+                    for ( var ix in $scope.accounts) {
+                        var account = $scope.accounts[ix];
+                        $scope.paymentOptions.push({
+                            describe : account.name + ' - ' + account.access,
+                            id : id++,
+                            account : account.access
+                        });
+                    }
+                }
+
+                function confirmLiquidate(receivable) {
+//                    var receivable = angular.copy(dialog.data);
+                    var receivable = angular.copy(receivable);
+                    var paymentType = $scope.paymentType;
+
+                    if (paymentType == '0') {
+                        // Check
+                        dialog.close($q.reject(paymentType));
+                    } else {
+                        var account = $scope.paymentOptions[paymentType].account;
+
+                        // Deposit
+                        return receiveReceivable(receivable, account);
+                    }
+                };
+
+                $scope.cancel = function () {
+                    dialog.close($q.reject());
+                };
+
+                function receiveReceivable (receivable, account) {
+                    var result = null;
+                    result =
+                        ReceivableService.receive(
+                            receivable.uuid,
+                            new Date().getTime(),
+                            receivable.type,
+                            receivable.uuid,
+                            receivable.entityId,
+                            receivable.totalAmount,
+                            account);
+
+                    return result;
+                }
+
+                $scope.paymentType = 1;
+                initPaymentTypes();
+
             }
         ]);
 }(angular));
