@@ -21,7 +21,8 @@
                 };
                 
                 $scope.schedule = {
-                    hour : '0000'
+                    hour : '08',
+                    minute : '00'
                 };
                 
                 $scope.cancel = function cancel () {
@@ -71,14 +72,34 @@
 
                     };
 
-                $scope.$watch('schedule.hour', function () {
-                    var hour = $scope.schedule.hour;
-                    if ($scope.schedule.hour != null) {
-                        $scope.scheduledDelivery.date =
-                            setTime($scope.scheduledDelivery.date, hour.substring(0, 2), hour
-                                .substring(2));
-                        $scope.scheduledDelivery.disabled = false;
+                $scope.$watchCollection('schedule', function () {
+                    var flag = false;
+                    if($scope.schedule.hour <= 23){
+                        flag = true;
+                    }else{
+                        flag = false;
+                        $scope.schedule.hour = 23;
                     }
+                    
+                    if ($scope.schedule.minute <= 59) {
+                        flag = true;
+                    }else{
+                        flag = false;
+                        $scope.schedule.minute = 59;
+                    }
+                    
+                    if($scope.schedule.hour == '' || $scope.schedule.minute == ''){
+                        flag = false;
+                    }
+                    
+                    if(flag){
+                        $scope.scheduledDelivery.date =
+                            setTime($scope.scheduledDelivery.date, $scope.schedule.hour, $scope.schedule.minute);
+                        $scope.scheduledDelivery.disabled = false;
+                    }else{
+                        $scope.scheduledDelivery.disabled = true;
+                    }
+                    
                 });
                 
                 function setTime (date, hour, minutes) {

@@ -62,17 +62,18 @@
                         btnYes : 'Sim',
                         btnNo : 'Não'
                     };
-                    var result = DialogService.messageDialog(dialogData).then(function() {
-                        var deliveryDate = setTime($scope.dtFilter.deliveryDate, 0, 0, 0, 0, 0);
-                        var actualDate = setTime(new Date(), 0, 0, 0, 0, 0);
-
-                        if (deliveryDate.getTime() === actualDate.getTime()) {
-                            result = delivery();
-                        } else {
-                            result = schedule(deliveryDate, $scope.selectedOrder.uuid);
-                        }
-                    });
                     
+                    var deliveryDate = setTime($scope.dtFilter.deliveryDate, 0, 0, 0, 0, 0);
+                    var actualDate = setTime(new Date(), 0, 0, 0, 0, 0);
+
+                    if (deliveryDate.getTime() === actualDate.getTime()) {
+                        var result = DialogService.messageDialog(dialogData).then(function() {
+                            result = delivery();
+                        });
+                    } else {
+                        result = schedule(deliveryDate, $scope.selectedOrder.uuid);
+                    }
+
                     return result;
                     
                 };

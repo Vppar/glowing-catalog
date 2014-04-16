@@ -29,7 +29,7 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="side-label">
-						Informar a data NFe
+						Informar a data de entrega
 					</div>
 				</div>
 				<div class="col-12">
@@ -40,6 +40,7 @@
 						</label>
 					</div>
 				</div>
+				
 			</div>
 			<div class="row">
 				<div class="col-12">
@@ -47,8 +48,11 @@
 						Hora agendada
 					</div>
 				</div>
-				<div class="col-12">
-					<input id="i4" class="input-time" type="text" name="i4" ng-model="schedule.hour" hour hour-format="HH:mm" recall/>
+				<div class="col-6">
+					<input id="i4" class="input-time" type="text" name="i4" ng-model="schedule.hour" recall/>
+				</div>
+				<div class="col-6">
+					<input id="i5" class="input-time" type="text" name="i4" ng-model="schedule.minute" recall/>
 				</div>
 			</div>
 		</div>
@@ -59,6 +63,6 @@
 	<div class="modal-foot">
 		<hr />
 		<button class="btn btn-cancel pull-left" type="submit" ng-click="cancel()">Cancelar</button>	
-		<button class="btn btn-ok pull-right" type="submit" ng-disabled="hour.disable" ng-click="confirm()">Confirmar</button>
+		<button class="btn btn-ok pull-right" type="submit" ng-disabled="scheduledDelivery.disabled" ng-click="confirm()">Confirmar</button>
 	</div>
 </div>
