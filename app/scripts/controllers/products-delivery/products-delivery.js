@@ -75,21 +75,26 @@
 
                 $scope.resetOrders =
                     function () {
-                        var toBeDelivered =
-                            ProductsDeliveryService.listOrdersByReportType('toBeDelivered');
-                        var withScheduling = $filter('filter')(toBeDelivered, function (item) {
-                            return angular.isDefined(item.schedule);
-                        });
-                        var withoutScheduling = $filter('filter')(toBeDelivered, function (item) {
-                            return !angular.isDefined(item.schedule);
-                        });
-                        withScheduling = $filter('orderBy')(withScheduling, 'schedule.date');
-                        withoutScheduling = $filter('orderBy')(withoutScheduling, 'created');
-                        $scope.toBeDelivered = withScheduling.concat(withoutScheduling);
-                        $scope.delivered =
-                            ProductsDeliveryService.listOrdersByReportType('delivered');
+                        // Order by to be delivery
+                        $scope.toBeDelivered = orderList(
+                            ProductsDeliveryService.listOrdersByReportType('toBeDelivered'));
+                        $scope.delivered = orderList(
+                            ProductsDeliveryService.listOrdersByReportType('delivered'));
                     };
 
+                function orderList(list){
+                         var withScheduling = $filter('filter')(list, function (item) {
+                            return angular.isDefined(item.schedule);
+                        });
+
+                        var withoutScheduling = $filter('filter')(list, function (item) {
+                            return !angular.isDefined(item.schedule);
+                        });
+
+                        withScheduling = $filter('orderBy')(withScheduling, 'schedule.date');
+                        withoutScheduling = $filter('orderBy')(withoutScheduling, 'created');
+                        return  withScheduling.concat(withoutScheduling);
+                }    
                 // #################################################################################################################
                 // Aux functions
                 // #################################################################################################################

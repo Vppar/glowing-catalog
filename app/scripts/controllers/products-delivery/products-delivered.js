@@ -117,7 +117,11 @@ angular.module('tnt.catalog.productsDelivered', [
                     $scope.dtFilter.dtFinal = angular.copy($scope.dtFilter.dtInitial);
                 }
             }
-
+            
+            if(!order.schedule){
+                return true;
+            }
+            
             if (initialFilter && finalFilter) {
                 if (order.schedule.date >= initialFilter && order.schedule.date <= finalFilter) {
                     return true;
