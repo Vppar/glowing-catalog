@@ -28,7 +28,7 @@
 
 					<div class="new-part-holder" ng-if="tabs.selected=='stashed'" ng-include src="'views/parts/purchase-order/sacred-purchase-order-stashed.html'" ng-controller="PurchaseOrderStashedCtrl"></div>
 
-					<div class="row" ng-if="isSummaryVisible(tabs.selected)">
+					<div class="two-parts-container" ng-if="isSummaryVisible(tabs.selected)">
 						<div class="col-16">
 							<div class="new-part-holder" ng-if="tabs.selected=='new'" ng-include src="'views/parts/purchase-order/sacred-purchase-order-new.html'" ng-controller="PurchaseOrderNewCtrl">	
 							</div>
