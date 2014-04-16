@@ -126,7 +126,7 @@
                     function update (id, date, items, status) {
                         var result = null;
                         try {
-                            result = SchedulingKeeper.update(id, date, items, status);
+                            result = SchedulingKeeper.update(id, date.getTime(), items, status);
                             result['catch']
                                 (function (err) {
                                     log.debug(
