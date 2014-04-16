@@ -73,14 +73,12 @@
 			</div>
 
 			<div class="new-scrollpanel" ng-class="{'page-open-details' : selectedReceivable, 'page-closed-details' : !selectedReceivable, 'page-open-check-details' : false }">
-<!-- 				Removed on 03/04/2014 16:01 by Arnaldo attending a Wesley's request -->
-<!-- 			    <div class="row-fluid" ng-repeat="receivable in receivables.list" ng-click="selectReceivable(receivable)"> -->
-			    <div class="row-fluid" ng-repeat="receivable in receivables.list">
+ 			    <div class="row-fluid" ng-repeat="receivable in receivables.list" ng-click="selectReceivable(receivable)">
 			        <div class="span12">
 			            <div class="new-body-row" ng-class="{'row-selected': selectedReceivable.uuid==receivable.uuid}">
 			                <div class="new-col-1 text-center">{{$index + 1}}</div>
 			                <div class="new-col-3 text-center">{{receivable.created | date:"dd/MM/yyyy"}}</div>
-			                <div class="new-col-7">
+			                <div class="new-col-9">
 			                    <div><b>{{receivable.accountName}}</b></div>
 			                    <small>{{receivable.entityName}}</small>
 			                </div>
