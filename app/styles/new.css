@@ -345,7 +345,7 @@ textarea:focus, input[type="textarea"]:focus {
 }
 .focused {
     border-color:#acdf7b;
-    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px #ff7bb4;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px #bf1e62;
 }
 /* remove ALL outlines (glow effects and etc) in buttons */
 button, .btn {
