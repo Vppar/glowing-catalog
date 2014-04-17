@@ -40,12 +40,12 @@
 
 #sacred .button-green,
 #sacred .button-green:visited{
-	background-color: #5D9732;
+	background-color: #f760a4;
 }
 #sacred .button-green:active,
 #sacred .button-green:hover,
 #sacred .button-green:focus{
-	background-color: #48841C;
+	background-color: #f760a4;
 }
 #sacred .button-black{
 	background-color: #575757;
