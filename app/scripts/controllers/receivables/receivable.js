@@ -63,7 +63,6 @@
                 $scope.selectReceivable = function (receivable) {
                     if($scope.selectedReceivableMode === 'listOpen'){
                         $scope.selectedReceivable = angular.copy(receivable);
-                        $scope.header.description = "> Edição";
                     }else{
                         $scope.selectedReceivable = null;
                     }
