@@ -240,7 +240,7 @@
 
                 $scope.$watch('selectedReceivable', setReceivablesInfos);
                 $scope.$watchCollection('aditionalInfo', function(){
-                    if($scope.selectedReceivableMode === 'listOpen') {
+                    if($scope.selectedReceivableMode === 'listOpen' && $scope.selectedReceivable) {
                         if ($scope.aditionalInfo.discount > 0) {
                             if ($scope.aditionalInfo.discount > $scope.selectedReceivable.amount) {
                                 $scope.aditionalInfo.discount = $scope.selectedReceivable.amount;
