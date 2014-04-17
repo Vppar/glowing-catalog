@@ -51,7 +51,11 @@ input[type="color"],
 }
 
 
-.navbar .nav > li > .dropdown-menu:before{ right:30px !important;}
+.navbar .nav > li > .dropdown-menu:before{ 
+	right:30px !important;
+	border-bottom: 7px solid transparent;
+	border-bottom-color: rgba(0,0,0,0.0); 
+}
 
 /*input focus*/
 textarea, input[type="text"], input[type="textarea"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
@@ -582,6 +586,8 @@ div.header-date {
 	text-align: center;
 	display: block;
 	margin-top: 5px;
+	height: 18px;
+	line-height: 18px;
 }
 
 .hover-state-pointer:hover {
