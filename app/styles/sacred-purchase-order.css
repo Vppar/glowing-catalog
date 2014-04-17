@@ -6,13 +6,30 @@
 	height:calc(100% - 1px);
 }
 
+/* confirm part */
+#sacred .purchase-order-confirm-part .grid-scroll {
+	height:calc(100% - 2px);
+}
+
 /* ticket part */
 #sacred .sacred-purchase-order-page .purchase-order-ticket-part1 .grid-scroll{
-	height:calc(100% - 178px);
+	height:calc(100% - 54px);
 }
 
 #sacred .sacred-purchase-order-page .purchase-order-ticket-part2 .grid-scroll{
 	height:calc(100% - 178px);
+}
+
+#sacred .sacred-purchase-order-page .two-parts-container {
+	height:100%;
+	margin:0 -5px;
+}
+
+#sacred .sacred-purchase-order-page .two-parts-container .col-16 {
+	height:100%;
+}
+#sacred .sacred-purchase-order-page .product-to-buy-order-part .grid-scroll {
+	height:calc(100% - 88px);
 }
 
 #sacred .right-holder{

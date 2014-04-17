@@ -1,6 +1,6 @@
 <div class="content-body purchase-order-confirm-part">
 
-    <div class="grid">
+    <div class="grid grid-stock">
 
         <div class="grid-header">
             <div class="row">
@@ -13,24 +13,31 @@
         </div>
 
         <div class="grid-body grid-scroll">
-            <div class="grid-item" ng-repeat="session in confirmedProducts.sessions">
-                <div class="row">
-                    <div class="col-11">{{session.label}}</div>
-                    <div class="col-13 text-center">&nbsp;</div>
+            <div ng-repeat="session in confirmedProducts.sessions">
+                <div class="second-line">
+                    <div class="row">
+                        <div class="col-24">{{session.label}}</div>
+                    </div>
                 </div>
 
                 <div ng-repeat="line in session.lines">
-                    <div class="details-category">{{line.label}}</div>
-                    <div ng-repeat="product in line.items">
+                    <div class="third-line">
                         <div class="row">
-                            <div class="col-11">
-                                {{product.title}}
-                                <div class="code-product">{{product.uniqueName}}</div>
+                            <div class="col-24">{{line.label}}</div>
+                        </div>
+                    </div>
+                    <div ng-repeat="product in line.items">
+                        <div class="fourth-line">
+                            <div class="row">
+                                <div class="col-11">
+                                    {{product.title}}
+                                    <div class="code-product">{{product.uniqueName}}</div>
+                                </div>
+                                <div class="col-3 text-center">{{product.points}}</div>
+                                <div class="col-3 currency">{{product.price | currency:''}}</div>
+                                <div class="col-4 text-center">{{product.minQty}}</div>
+                                <div class="col-3 text-center">{{product.qty}}</div>
                             </div>
-                            <div class="col-3 text-center">{{product.points}}</div>
-                            <div class="col-3 currency">{{product.price | currency:''}}</div>
-                            <div class="col-4 text-center">{{product.minQty}}</div>
-                            <div class="col-3 text-center">{{product.qty}}</div>
                         </div>
                     </div>
                 </div>
