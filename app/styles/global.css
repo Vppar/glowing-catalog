@@ -815,8 +815,9 @@ div.sidebar-menu ul li a {
 	}
 
 	#topMenuHome .selected {
-		color: #000;
+		color: #bf1e62;
 		font-weight: bold;
+		text-shadow:none;
 	}
 	.container .navbar-inner {
 		height: 68px;
@@ -1125,7 +1126,7 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 }
 
 input:focus, .focus{	
-	outline: 1px solid #ACDF7B;
+	outline: 1px solid #bf1e62;
 	outline-offset:0;
 }
 .grid-payment-receivable .item:focus {
