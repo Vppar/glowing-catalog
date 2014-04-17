@@ -2,6 +2,14 @@
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.tooltip-arrow{
+	position: absolute;
+	left: 155px;
+	top: -10px;
+	width: 20px;
+	height: 10px;
+}
+
 :not(input){
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
