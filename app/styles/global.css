@@ -204,6 +204,9 @@ li.menu-black:last-child a:hover {
 	outline: none;
 	border-radius: 4px;
 }
+.modal-products-delivery .modal-body{
+	overflow-y: visible;
+}
 .modal-add-basket-dialog-body .select2-container{
 	width: 100%;
 }

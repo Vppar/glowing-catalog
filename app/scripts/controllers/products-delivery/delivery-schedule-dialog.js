@@ -20,6 +20,9 @@
                     disabled : true
                 };
                 
+                $scope.minDate = new Date();
+                $scope.minDate.setDate($scope.minDate.getDate() +1); 
+                
                 $scope.schedule = {
                     hour : '08',
                     minute : '00'
