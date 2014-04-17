@@ -338,7 +338,7 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
-    border-color:#ff7bb4;
+    border-color:#bf1e62;
 }
 textarea:focus, input[type="textarea"]:focus {
     outline:none;
