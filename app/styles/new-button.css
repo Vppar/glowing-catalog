@@ -55,14 +55,14 @@
 }
 
 .new-button-ok {
-	background-color: #f760a4;
+	background-color: #bf1e62;
 }
 
 .new-button-ok-waiting,
 .new-button-ok-waiting:hover,
 .new-button-ok-waiting:focus,
 .new-button-ok-waiting:active{
-	background-color: #f760a4;
+	background-color: #bf1e62;
 }
 }
 
