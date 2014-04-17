@@ -85,6 +85,12 @@
             'tnt.catalog.stock.ctrl',
             'tnt.catalog.type',
             'tnt.catalog.productsDelivery',
+            'tnt.catalog.productsToBeDelivery',
+            'tnt.catalog.productsDelivered',
+            'tnt.catalog.productsToBeDeliveryProducts',
+            'tnt.catalog.productsDeliveredProducts',
+            'tnt.catalog.productsDeliverySchedule',
+            'tnt.catalog.scheduling',
             'tnt.catalog.purchaseOrder',
             'tnt.catalog.timer.service',
             'tnt.catalog.sync.driver',
@@ -227,9 +233,6 @@
         }).when('/third-parties-2', {
             templateUrl : 'views/sacred-third-parties.html',
             controller: 'ThirdPartyCtrl'
-        }).when('/products-delivery', {
-            templateUrl : 'views/sacred-products-delivery.html',
-            controller : 'ProductsDeliveryCtrl'
         }).when('/receivable-check-2', {
             templateUrl : 'views/sacred-receivable-check.html'
         }).when('/pagpop-2', {
@@ -255,6 +258,9 @@
          }).when('/purchase-order-2', {
             templateUrl : 'views/parts/purchase-order/sacred-purchase-order.html',
             controller : 'PurchaseOrderCtrl'
+        }).when('/products-delivery', {
+            templateUrl : 'views/parts/products-delivery/sacred-products-delivery.html',
+            controller : 'ProductsDeliveryCtrl'
         }).otherwise({
             redirectTo : '/'
         });

@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.13'
+# 'version' : '1.2.13' ///
 
 CACHE:
 apple-touch-icon.png
@@ -218,7 +218,11 @@ scripts/controllers/payment-exchange.js
 scripts/controllers/partial-delivery.js
 scripts/controllers/payment/payment-on-cuff.js
 scripts/controllers/payment-discount.js
-scripts/controllers/products-delivery.js
+scripts/controllers/products-delivery/products-delivered.js
+scripts/controllers/products-delivery/products-delivered-products.js
+scripts/controllers/products-delivery/products-delivery.js
+scripts/controllers/products-delivery/products-to-be-delivered.js
+scripts/controllers/products-delivery/products-to-be-delivered-products.js
 scripts/controllers/purchase-order/purchase-order-confirm.js
 scripts/controllers/purchase-order/purchase-order-new.js
 scripts/controllers/purchase-order/purchase-order-pending-products.js
@@ -258,6 +262,7 @@ scripts/keepers/ProductReturnKeeper.js
 scripts/keepers/TypeKeeper.js
 scripts/keepers/BookKeeper.js
 scripts/keepers/ConsultantKeeper.js
+scripts/keepers/SchedulingKeeper.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
@@ -307,6 +312,7 @@ scripts/services/ProductReturnService.js
 scripts/services/ConsultantService.js
 scripts/services/WarmupService.js
 scripts/services/PagPopGateway.js
+scripts/services/SchedulingService.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
@@ -386,7 +392,6 @@ views/payment.html
 views/pagpop.html
 views/pending-delivery.html
 views/previous-entries.html
-views/products-delivery.html
 views/receivable.html
 views/spinner-button-promise.html
 views/stock.html
@@ -403,8 +408,12 @@ views/parts/order-list/sacred-order-list-customers.html
 views/parts/order-list/sacred-order-list-orders.html
 views/sacred-third-parties.html
 views/sacred-products-delivery.html
-views/parts/products-delivery/sacred-products-delivery-orders.html
-views/parts/products-delivery/sacred-products-delivery-products.html
+views/parts/products-delivery/sacred-products-delivery-delivered-products.html
+views/parts/products-delivery/sacred-products-delivery-delivered.html
+views/parts/products-delivery/sacred-products-delivery-delivery.html
+views/parts/products-delivery/sacred-products-delivery-to-be-delivered-products.html
+views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html
+views/parts/products-delivery/sacred-products-delivery.html
 views/sacred-pagpop.html
 views/sacred-receivable-check.html
 views/sacred-stock.html
@@ -422,6 +431,12 @@ views/parts/purchase-order/sacred-purchase-order-pending-products.html
 views/parts/purchase-order/sacred-purchase-order-stashed.html
 views/parts/purchase-order/sacred-purchase-order-summary.html
 views/parts/purchase-order/sacred-purchase-order-ticket.html
+
+views/parts/products-delivery/sacred-products-delivery-delivered-products.html
+views/parts/products-delivery/sacred-products-delivery-delivered.html
+views/parts/products-delivery/sacred-products-delivery-delivery.html
+views/parts/products-delivery/sacred-products-delivery.html
+views/parts/products-delivery/sacred-products-delivery-to-be-delivered-products.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

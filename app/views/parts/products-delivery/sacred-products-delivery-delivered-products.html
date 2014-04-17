@@ -1,0 +1,42 @@
+<div class="content-header">
+	<div class="row">
+		<div class="col-10 name-cutter client-header-test">
+			Cliente: {{selectedOrder.customerName}}<br />
+			<small>{{selectedOrder.phone| phone}}</small>
+		</div>
+		<div class="col-1">
+			&nbsp;
+		</div>
+		<div class="col-6 order-header-test">
+			Pedido:{{selectedOrder | uuidCode}}
+		</div>
+		<div class="col-7 order-header-test">
+			Última Entrega: {{selectedOrder.schedule.date | date:'dd/MM/yyyy  hh:mm'}}
+		</div>
+	</div>
+</div>
+<div class="content-body product-delivery-products-part-test">
+	<div class="grid">
+		<div class="grid-header">
+			<div class="row">
+				<div class="col-18">Produto/C&oacute;digo</div>
+				<div class="col-3 text-center">Data</div>
+				<div class="col-3 text-center">Qtde</div>
+			</div>
+		</div>
+
+		<div class="grid-body grid-scroll">
+			<div class="grid-item" ng-repeat="product in selectedOrder.selectedOrderProducts">
+				<div class="row">
+					<div class="col-18 product-name">
+						<span>{{product.title}}</span>
+						<small>{{product.uniqueName}}</small>
+					</div>
+					<div class="col-3 text-center">{{product.deliveredDate| date:'dd/MM/yyyy'}}</div>
+					<div class="col-3 text-center">{{product.dQty}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="button-black pull-left" ng-click="cancel()">Voltar</button>
+</div>
