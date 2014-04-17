@@ -22,12 +22,13 @@
                 this.listOrdersByReportType =
                     function (type) {
                         var orders = OrderService.list();
-                        orders = prepareOrders(orders);
+                        orders = prepareOrders(orders, 'toBeDelivered');
                         if (type === 'toBeDelivered') {
                             orders = $filter('filter')(orders, function (order) {
                                 return order.totalItems !== order.totalItemsDeliv;
                             });
                         } else if (type === 'delivered') {
+                            orders = prepareOrders(orders, 'delivered');
                             orders =
                                 $filter('filter')(
                                     orders,
@@ -40,11 +41,17 @@
                         return orders;
                     };
 
-                function prepareOrders (orders) {
+                function prepareOrders (orders, type) {
                     for ( var ix = 0 in orders) {
                         var order = orders[ix];
                         var entity = EntityService.read(order.customerId);
-                        order.schedule = SchedulingService.read(order.uuid);
+                        
+                        if(type === 'toBeDelivered'){
+                            order.schedule = SchedulingService.readActiveByDocument(order.uuid);
+                        }else if (type === 'delivered'){
+                            order.schedule = SchedulingService.readDeliveredByDocument(order.uuid);
+                        }
+                        
                         var totalScheduled = 0;
                         if(order.schedule){
                             for(var ix in order.schedule.items){

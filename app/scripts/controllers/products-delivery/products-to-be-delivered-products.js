@@ -13,8 +13,9 @@
             'BookService',
             'DialogService',
             'SchedulingService',
+            'ArrayUtils',
             function ($scope, $q, $filter, logger, OrderService, StockService, BookService, DialogService,
-                SchedulingService) {
+                SchedulingService, ArrayUtils) {
 
                 var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
                 $scope.disableConfirm = true;
@@ -78,6 +79,20 @@
                     
                 };
 
+                function warmup(){
+                    if($scope.selectedOrder.schedule){
+                        for(var ix in $scope.selectedOrder.selectedOrderProducts){
+                            var product = $scope.selectedOrder.selectedOrderProducts[ix];
+                            var sProduct = ArrayUtils.find($scope.selectedOrder.schedule.items,'id', product.id);
+                            if(sProduct){
+                                $scope.ticket.watchedQty[ix] = sProduct.sQty;
+                            }
+                        }
+                    }
+                    
+                };
+                warmup();
+                
                 function getUpdatedItems (type) {
                     var updatedItems = [];
                     for ( var ix in $scope.ticket.watchedQty) {
@@ -164,7 +179,7 @@
                         }
                         var totalToDelivery = $filter('sum')(order.items, 'qty');
                         var totalDelivered = $filter('sum')(order.items, 'dQty');
-                        var schedule = SchedulingService.read(orderUUID);
+                        var schedule = SchedulingService.readByDocument(orderUUID);
                         if(totalToDelivery === totalDelivered){
                             if (schedule) {
                                 promises.push(SchedulingService.update(
@@ -175,6 +190,14 @@
                             } else {
                                 promises.push(SchedulingService.create(
                                     orderUUID,
+                                    new Date(),
+                                    updatedItems,
+                                    false));
+                            }
+                        }else{
+                            if (schedule){
+                                promises.push(SchedulingService.update(
+                                    schedule.uuid,
                                     new Date(),
                                     updatedItems,
                                     false));

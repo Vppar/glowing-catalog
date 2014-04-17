@@ -33,7 +33,7 @@
                 $scope.confirm =
                     function confirm () {
                         // schedule
-                        var schedule = SchedulingService.read($scope.scheduledDelivery.orderUUID);
+                        var schedule = SchedulingService.readByDocument($scope.scheduledDelivery.orderUUID);
                         if (schedule) {
                             var promise =
                                 SchedulingService.update(

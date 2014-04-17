@@ -99,6 +99,18 @@
                         scheduleEntry.updated = event.updated;
                         scheduleEntry.date = event.date;
                         scheduleEntry.items = event.items;
+                        scheduleEntry.status = event.status;
+                    } else {
+                        throw 'Unable to find an scheduling with uuid=\'' + event.uuid + '\'';
+                    }
+                });
+
+                ObjectUtils.ro(this.handlers, 'schedulingRemoveV1', function (event) {
+                    var scheduleEntry = ArrayUtils.find(schedulings, 'uuid', event.uuid);
+                    if (scheduleEntry) {
+                        scheduleEntry.updated = event.updated;
+                        scheduleEntry.date = event.date;
+                        scheduleEntry.items = event.items;
                     } else {
                         throw 'Unable to find an scheduling with uuid=\'' + event.uuid + '\'';
                     }
@@ -144,21 +156,55 @@
                     };
 
                 /**
-                 * List all orders
+                 * List all Scheduling
                  */
                 var list = function list () {
                     return angular.copy(schedulings);
                 };
 
                 /**
-                 * Read an order
+                 * List Active Scheduling
                  */
-                var read = function read (uuid) {
-                    return angular.copy(ArrayUtils.find(schedulings, 'documentUUID', uuid));
+                var listActive = function list () {
+                    return angular.copy($filter('filter')(schedulings, function (schedule) {
+                        return schedule.status;
+                    }));
+                };
+                
+                /**
+                 * List Active Scheduling
+                 */
+                var listDeactivate = function list () {
+                    return angular.copy($filter('filter')(schedulings, function (schedule) {
+                        return !schedule.status;
+                    }));
                 };
 
                 /**
-                 * Update an order
+                 * Read an Scheduling
+                 */
+                var readByDocument = function readByDocument (uuid) {
+                    return angular.copy(ArrayUtils.find(list(), 'documentUUID', uuid));
+                };
+                
+                var readActiveByDocument = function readByDocument (uuid) {
+                    return angular.copy(ArrayUtils.find(listActive(), 'documentUUID', uuid));
+                };
+
+                var readDeliveredByDocument = function readDeliveredByDocument (uuid) {
+                    return angular.copy(ArrayUtils.find(listDeactivate(), 'documentUUID', uuid));
+                };
+                
+                
+                /**
+                 * Read an Scheduling
+                 */
+                var read = function read (uuid) {
+                    return angular.copy(ArrayUtils.find(listActive(), 'uuid', uuid));
+                };
+
+                /**
+                 * Update an Scheduling
                  */
                 var update =
                     function update (uuid, date, items, status) {
@@ -167,10 +213,11 @@
                             throw 'Unable to find an schedule with uuid=\'' + uuid + '\'';
                         }
                         var updateEv = {
-                            uuid: uuid,
+                            uuid : uuid,
                             date : date,
                             updated : new Date().getTime(),
-                            items : items
+                            items : items,
+                            status : status
                         };
                         // create a new journal entry
                         var entry =
@@ -186,7 +233,11 @@
 
                 this.create = create;
                 this.list = list;
+                this.listActive = listActive;
                 this.read = read;
+                this.readDeliveredByDocument = readDeliveredByDocument;
+                this.readActiveByDocument = readActiveByDocument;
+                this.readByDocument = readByDocument;
                 this.update = update;
 
             }
