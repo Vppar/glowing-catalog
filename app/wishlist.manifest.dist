@@ -222,10 +222,8 @@ images/keyboard/btn-clear.png
 images/keyboard/btn-back.png
 images/keyboard/percent.png
 
-images/logo-home.png
 images/icon-drop-menu.png
 images/cat-li-menu.png
-images/bag-mk.png
 images/plus-w.png
 images/last-opportunity-banner-v2.png
 images/select2.png
@@ -237,10 +235,16 @@ images/del-pink.png
 images/glyphicons-halflings.png
 images/arrow-right-pink.png
 images/arrow-left-pink.png
-images/loading_20.gif
+images/loading-20-pink.gif
 images/loading-btn_20.gif
+images/loading-btn-20-pink.gif
+images/vpink.jpg
+images/vpurse.gif
+images/logo-home.png
+images/tooltip-arrow.png
 
 images/icons/ic-calendar.png
+images/icons/ic-calendar-pink.png
 
 images/thirdparty/select2/select_close.png
 images/thirdparty/magnifier/icon.png
