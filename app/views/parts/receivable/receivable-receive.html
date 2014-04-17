@@ -23,7 +23,7 @@
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Vencto</label>
-				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" disabled readonly onkeyup="checkInputKeyUp(this)">
+				<input type="text" id="vencto" class="date-field input-block-level" maxlength="10" min="TODAY" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="selectedReceivable.duedate" readonly onkeyup="checkInputKeyUp(this)">
 			</div>
 		</span>	
 
@@ -96,7 +96,7 @@
 		</div>
 		
 		<div class="new-col-9 pull-right">
-			<button ng-click="liquidateReceivable()" ng-show="selectedReceivable.status==='A Receber'" class="btn-large btn btn-ok pull-right margin-left-10" type="submit">Baixar</button>
+			<spinner-button spinner-promise="liquidateReceivable()" ng-show="selectedReceivable.status==='A Receber'" class="btn-large btn btn-ok pull-right margin-left-10" type="submit">{{buttonText}}</spinner-button>
 		</div>
 	</div>
 </div>
