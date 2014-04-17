@@ -558,7 +558,7 @@ div.header-date {
 	cursor: pointer
 }
 .bag {
-	background: url(../images/vpurse.gif.png) no-repeat;
+	background: url(../images/vpurse.gif) no-repeat;
 	display: inline-block;
 	width: 58px;
 	text-align: center;
@@ -571,15 +571,17 @@ div.header-date {
 	vertical-align: text-bottom;
 }
 .bag span{
-	padding: 3px;
+	padding: 0 2px;
 	border: 1px solid #999;
 	border-radius: 4px;
 	min-width: 20px;
-	max-width: 30px;
+	max-width: 20px;
 	background-color: #fff;
 	font-size: 12px;
-	margin-left: 24px;
+	margin-left: 36px;
 	text-align: center;
+	display: block;
+	margin-top: 5px;
 }
 
 .hover-state-pointer:hover {
