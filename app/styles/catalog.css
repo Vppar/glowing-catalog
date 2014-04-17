@@ -1007,7 +1007,7 @@
 	line-height:40px;
 	z-index:99;
 	letter-spacing: 5px;
-	background: transparent url(../images/catalog/best-sellers/best-sellers.png) no-repeat top right;
+	/*background: transparent url(../images/catalog/best-sellers/best-sellers.png) no-repeat top right;*/
 	background-size:85px 84px;
 	z-index:99;
 }
