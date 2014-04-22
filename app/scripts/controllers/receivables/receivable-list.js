@@ -225,9 +225,8 @@
                         var accountName = undefined;
                         
                         if(type ==='cash'){
-                            accountName = 'Dinheiro';
-                        }
-                        if(type ==='check'){
+                            accountName = 'Recebimento em dinheiro';
+                        }else if(type ==='check'){
                             accountName = 'Cheques a receber'; 
                         }else if(type === 'onCuff'){
                             accountName = 'Contas a receber diversas';
