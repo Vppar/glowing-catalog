@@ -878,16 +878,16 @@
 
             return StockWarmupService.updateStockWarmup(ref, entries).then(function () {
                 return DialogService.messageDialog({
-                    title: 'Estoque inicial',
-                    message: 'Dados iniciais de estoque armazenados com sucesso!',
+                    title: 'Pronta Entrega',
+                    message: 'Saldo inicial gravado com sucesso!',
                     btnYes: 'Ok'
                 });
             }, function (err) {
                 var errResult = null;
                 if (err && err === 'timeout') {
                     errResult = DialogService.messageDialog({
-                        title: 'Estoque inicial',
-                        message: 'Dados iniciais de estoque armazenados com sucesso!',
+                        title: 'Pronta Entrega',
+                        message: 'Saldo inicial gravado com sucesso!',
                         btnYes: 'Ok'});
                 } else {
                     errResult = $q.reject(err);
