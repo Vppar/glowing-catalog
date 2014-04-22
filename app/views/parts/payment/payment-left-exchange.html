@@ -4,19 +4,19 @@
 		<br />
 		<div class="row-fluid">
 			<form name="exchangeForm">
-				<span class="new-col-13">
+				<span class="new-col-12">
 					<label class="control-label">&nbsp;</label>
-					<select ui-select2 tnt-select2 name="product" class="combo-width-product-exchange marginr10 control-label-exchange select-h38" ng-model="productId">
+					<select ui-select2 tnt-select2 name="product" class="control-label-exchange select-h38" ng-model="productId">
 						<option value="">Selecione um Produto</option>
 						<option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
 					</select>
 				</span>
-				<span class="new-col-5 text-center">
+				<span class="new-col-4 text-center">
 					<label class="control-label text-center">Qtde.</label>
 					<input-qty ng-model="qty" min="1"></input-qty>
 				</span>
-				<span class="new-col-4">
-					<label class="control-label text-left">Valor Unit.</label> 
+				<span class="new-col-6">
+					<label class="control-label text-left">Vlr. Unit.</label> 
 					<!--<input name="amount" class="check-value" id="valor" currency ng-model="amount" tnt-input />-->
 					<input name="amount" class="check-exchange input-block-level payment-input-large" type="text" id="valor" currency ng-model="amount" tnt-input />
 				</span>
@@ -36,8 +36,8 @@
 
 			<div class="row-fluid">
 				<span class="new-col-2 text-center">Item</span>
-				<span class="new-col-11">Produtos</span>
-				<span class="new-col-3 text-center">Qtde.</span>
+				<span class="new-col-10">Produtos</span>
+				<span class="new-col-4 text-center">Qtde.</span>
 				<!-- fix -->
 				<span class="new-col-3 currency">Vlr. Unit.</span>
 				<span class="new-col-3 currency">Vlr. total</span>
@@ -45,8 +45,8 @@
 
 			<div class="row-fluid subtitle-header-exchange">
 				<span class="new-col-2 text-center">{{qtyItem}}</span>
-				<span class="new-col-11">Total</span>
-				<span class="new-col-3 text-center">{{qtyTotal}}</span>
+				<span class="new-col-10">Total</span>
+				<span class="new-col-4 text-center">{{qtyTotal}}</span>
 				<!-- fix -->
 				<span class="new-col-3 currency">&nbsp;</span> 
 				<span class="new-col-3 currency">{{amountTotal | currency: ''}}</span>
@@ -55,8 +55,8 @@
 			<div class="scroll-payment">
 				<div class="row-fluid new-body-row" ng-repeat="exch in exchanges | orderBy:'-id'">
 					<span class="new-col-2 text-center"> {{exch.id}}</span>
-					<span class="new-col-11">{{exch.title}} {{exch.option}}</span>
-					<span class="new-col-3 text-center">{{exch.qty}}</span> 
+					<span class="new-col-10">{{exch.title}} {{exch.option}}</span>
+					<span class="new-col-4 text-center">{{exch.qty}}</span> 
 					<!-- fix -->
 					<span class="new-col-3 currency">{{exch.price | currency:""}}</span> 
 					<span class="new-col-3 currency">{{exch.amount | currency:""}}</span> 
