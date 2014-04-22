@@ -227,7 +227,7 @@
                         if(type ==='check'){
                             accountName = 'Cheques a receber'; 
                         }else if(type === 'onCuff'){
-                            accountName = 'Contas a receber diversos';
+                            accountName = 'Contas a receber diversas';
                         }else if(type === 'creditCard'){
                             accountName = 'Cartões a receber';
                         }
