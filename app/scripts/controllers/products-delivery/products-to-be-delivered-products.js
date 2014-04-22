@@ -59,7 +59,7 @@
                 $scope.confirm = function () {
                     var dialogData = {
                         title : 'Entrega de produtos',
-                        message : 'Deseja confirmar a entrega dos produtos?',
+                        message : 'Confirmar a entrega dos produtos?',
                         btnYes : 'Sim',
                         btnNo : 'Não'
                     };
