@@ -437,12 +437,14 @@
                         var dialogPromise = null;
 
                         if (grid.length > 1) {
-                            dialogPromise = DialogService.openDialogAddToBasketDetails({
-                                id: product.parent
+                            dialogPromise = DialogService.openDialogAddToBasket({
+                                id: product.parent,
+                                showDiscount : true
                             });
                         } else {
                             dialogPromise = DialogService.openDialogAddToBasket({
-                                id: product.parent
+                                id: product.parent,
+                                showDiscount : true
                             });
                         }
                         dialogPromise.then(updateOrderAndPaymentTotal);

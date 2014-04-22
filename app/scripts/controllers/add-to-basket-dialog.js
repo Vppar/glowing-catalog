@@ -25,6 +25,7 @@
 
                 // Find the product and make a copy to the local scope.
                 var product = ArrayUtils.find(DataProvider.products, 'id', dialog.data.id);
+                $scope.showDiscount = dialog.data.showDiscount;
 
                 var productStock = StockService.findInStock(product.id + 1);
 
