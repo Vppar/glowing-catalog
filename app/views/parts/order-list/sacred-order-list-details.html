@@ -4,7 +4,7 @@
 		<div class="col-8">
 			<div class="summarizer">
 				<div class="summarizer-label" ng-show="total.cash.amount >= 0">Dinheiro</div>
-				<div class="summarizer-label" ng-hide="total.cash.amount >= 0">Troco</div>
+				<div class="summarizer-label" ng-hide="total.cash.amount >= 0">Troco (-)</div>
 				<div class="summarizer-value" ng-show="total.cash.amount >= 0">{{total.cash.amount |currency:''}}</div>
 				<div class="summarizer-value" ng-hide="total.cash.amount >= 0">-{{(-1)*total.cash.amount |currency:''}}</div>
 			</div>

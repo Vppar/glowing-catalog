@@ -78,7 +78,7 @@
 			<div class="col-details-order-list-item">
 				<span class="border"> 
 					<span class="lbl-money" ng-show="total.cash.amount >= 0">Dinheiro</span> 
-					<span class="lbl-money" ng-hide="total.cash.amount >= 0">Troco(-)</span>
+					<span class="lbl-money" ng-hide="total.cash.amount >= 0">Troco (-)</span>
 					<span class="lbl-money3">&nbsp;</span> 
 					<span class="btn-price-payment" ng-show="total.cash.amount >= 0">{{total.cash.amount |currency:''}}</span> 
 					<span class="btn-price-payment"	ng-hide="total.cash.amount >= 0">-{{(-1)*total.cash.amount |currency:''}}</span>
