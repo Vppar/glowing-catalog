@@ -15,8 +15,8 @@
 					<label class="control-label text-center">Qtde.</label>
 					<input-qty ng-model="qty" min="1"></input-qty>
 				</span>
-				<span class="new-col-6">
-					<label class="control-label text-left">Vlr. Unit.</label> 
+				<span class="new-col-6 currency">
+					<label>Vlr. Unit.</label> 
 					<!--<input name="amount" class="check-value" id="valor" currency ng-model="amount" tnt-input />-->
 					<input name="amount" class="check-exchange input-block-level payment-input-large" type="text" id="valor" currency ng-model="amount" tnt-input />
 				</span>
@@ -55,7 +55,10 @@
 			<div class="scroll-payment">
 				<div class="row-fluid new-body-row" ng-repeat="exch in exchanges | orderBy:'-id'">
 					<span class="new-col-2 text-center"> {{exch.id}}</span>
-					<span class="new-col-10">{{exch.title}} {{exch.option}}</span>
+					<span class="new-col-10">
+						{{exch.title}} {{exch.option}}
+						<span class="code-product">{{exch.SKU}}</span>
+					</span>
 					<span class="new-col-4 text-center">{{exch.qty}}</span> 
 					<!-- fix -->
 					<span class="new-col-3 currency">{{exch.price | currency:""}}</span> 

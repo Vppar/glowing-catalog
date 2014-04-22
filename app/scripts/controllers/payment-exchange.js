@@ -61,6 +61,7 @@
                     exc.price = $scope.amount;
                     exc.qty = $scope.qty;
                     exc.amount = $scope.amount * $scope.qty;
+                    exc.SKU = product.SKU;
 
                     exchanges.push(exc);
                     
