@@ -224,7 +224,9 @@
                     function getReceivableAccountName(type){
                         var accountName = undefined;
                         
-                        if(type ==='check'){
+                        if(type ==='cash'){
+                            accountName = 'Recebimento em dinheiro';
+                        }else if(type ==='check'){
                             accountName = 'Cheques a receber'; 
                         }else if(type === 'onCuff'){
                             accountName = 'Contas a receber diversas';
