@@ -61,7 +61,11 @@
                     exc.price = $scope.amount;
                     exc.qty = $scope.qty;
                     exc.amount = $scope.amount * $scope.qty;
-                    exc.uniqueName = product.SKU + ' - ' + product.option;
+                    if (product.option) {
+                        exc.uniqueName = product.SKU + ' - ' + product.option;
+                    } else {
+                        exc.uniqueName = product.SKU;
+                    }
 
                     exchanges.push(exc);
                     
