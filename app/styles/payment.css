@@ -955,7 +955,8 @@ width: 428px !important;
 	line-height: 40px;
 }
 .control-label-exchange{
-	width:345px; /*400px*/
+	/*width:345px;*/
+	width: 100%;
 }
 
 .exchange-initial .header-exchange{
@@ -1435,12 +1436,17 @@ margin-top: 10px;
 	padding: 0px 10px;
 }
 
+.payment-left-exchange .ic-arrow-left,
+.payment-left-exchange .ic-arrow-right{
+	width: 25px;
+}
+
 .payment-left-exchange .scroll-payment {
 	height:calc(100% - 284px);
 	overflow-y:auto;
 }
-.payment-left-exchange form .new-col-13 {
-	padding:0;
+.payment-left-exchange form .new-col-12 {
+	padding-left:0;
 }
 .check-exchange {
 	text-align:right;
@@ -1464,7 +1470,6 @@ margin-top: 10px;
 .payment-left-exchange, .payment-left-exchange .left-payment, .payment-left-exchange .exchange-initial {
 	height:100%;
 }
-
 
 /* this block contains css referents to card option (new layout) */
 .payment-credit-card {
