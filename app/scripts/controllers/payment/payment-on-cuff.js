@@ -145,6 +145,19 @@
                 var onCuff = $scope.onCuff;
                 OnCuffPaymentService.recalcInstallments(index, onCuff);
             };
+            
+            /**
+             * Calculate the total amount on top of screen.
+             * 
+             */
+            $scope.recalcTotalAmount = function(){
+                disableAmountWatcher();
+                $scope.onCuff.amount = 0;
+                for(var ix in $scope.onCuff.installments){
+                    $scope.onCuff.amount += $scope.onCuff.installments[ix].amount;
+                }
+                enableAmountWatcher();
+            };
 
             /**
              * Register on PaymentService temporary storage the onCuff payments
@@ -170,6 +183,21 @@
              */
             $scope.$watch('onCuff.numberOfInstallments', numberOfInstallmentsWatcherCallback);
 
+            // ################################################################################################
+            // This enable and disable watcher.
+            // ################################################################################################
+            var amountWatcher = angular.noop;
+            
+            function enableAmountWatcher() {
+                amountWatcher = $scope.$watch('onCuff.amount', numberOfInstallmentsWatcherCallback); 
+            }
+
+            function disableAmountWatcher() {
+                amountWatcher();
+            };
+            
+            enableAmountWatcher();
+            
             /**
              * OnCuff duedate watcher.
              * 
