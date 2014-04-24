@@ -192,8 +192,11 @@
         }).when('/stock', {
             templateUrl : 'views/stock.html',
             controller : 'StockCtrl'
-        }).when('/voucher', {
+        }).when('/voucher-2', {
             templateUrl : 'views/voucher.html',
+            controller : 'VoucherCtrl'
+         }).when('/voucher', {
+            templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'
         }).when('/warmup', {
             templateUrl : 'views/warm-up.html',
@@ -241,9 +244,6 @@
          }).when('/stock-2', {
             templateUrl : 'views/sacred-stock.html',
             controller : 'StockCtrl'
-        }).when('/voucher-2', {
-            templateUrl : 'views/sacred-voucher.html',
-            controller : 'VoucherCtrl'
         }).when('/registration', {
             templateUrl : 'views/sacred-registration.html'
         }).when('/login', {
