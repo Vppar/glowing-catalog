@@ -437,7 +437,7 @@
                         var dialogPromise = null;
 
                         if (grid.length > 1) {
-                            dialogPromise = DialogService.openDialogAddToBasket({
+                            dialogPromise = DialogService.openDialogAddToBasketSku({
                                 id: product.parent,
                                 showDiscount : true,
                                 idItem: product.id
