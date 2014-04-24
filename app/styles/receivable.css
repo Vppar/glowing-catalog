@@ -2,6 +2,10 @@
 	cursor:pointer;
 }
 
+.receivable-list-page{
+	height: 100%;
+}
+
 .btn-red{
 	background-color:#AD1919;
 	height: 36px;
