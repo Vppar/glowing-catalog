@@ -163,6 +163,7 @@
                             message: 'Pagamento realizado com sucesso.',
                             btnYes: 'OK'
                         });
+                        $scope.confirm();
                         $scope.selectPaymentMethod('none');
                     }, function (errMsg) {
                         DialogService.messageDialog({
