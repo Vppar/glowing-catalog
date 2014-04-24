@@ -64,9 +64,9 @@
 				</div>
 
 				<div class="col-details-order-list-item-select" ng-show="ol=='products'">
-					<select ui-select2 tnt-select2 class='select-client' data-placeholder="Selecione o Terceiro" ng-model="customerId">
+					<select ui-select2 tnt-select2 class='select-client' data-placeholder="Selecione o Cliente" ng-model="customerId">
 						<option value="" ng-hide="true"></option>
-						<option value="0">Selecione o Terceiro</option>
+						<option value="0">Selecione o Cliente</option>
 						<option value="{{customer.uuid}}" ng-repeat="customer in avaliableCustomers | orderBy: 'name' ">{{customer.name}}</option>
 					</select>
 				</div>
