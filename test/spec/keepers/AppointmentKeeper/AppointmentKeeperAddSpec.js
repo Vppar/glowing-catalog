@@ -39,7 +39,7 @@ describe('Service: AppointmentKeeper', function() {
 		// given
 		var validEntity = {
 			uuid : 'cc02b600-5d0b-11e3-96c3-010001000001',
-			title : 'VISITA NO TERCEIRO',
+			title : 'VISITA NO CLIENTE',
 			description : 'VISITA DIA 12/01/2014',
 			startDate : '12/01/2014 12:00',
 			endDate : '12/01/2014 12:30',
@@ -87,7 +87,7 @@ describe('Service: AppointmentKeeper', function() {
 				'cc02b600-5d0b-11e3-96c3-0100ee000001');
 
 		var uuid = 'cc02b600-5d0b-11e3-96c3-0100ee000001';
-		var title = 'VISITA NO TERCEIRO';
+		var title = 'VISITA NO CLIENTE';
 		var description = 'VISITA DIA 12/01/2014';
 
 		var date = new Date();

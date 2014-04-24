@@ -41,7 +41,7 @@ describe('Service: AppointmentKeeper', function() {
 		// given
 		var validAppointment = {
 			uuid : 1,
-			title : 'VISITA NO TERCEIRO',
+			title : 'VISITA NO CLIENTE',
 			description : 'VISITA DIA 12/01/2014',
 			startDate : '12/01/2014 12:00',
 			endDate : '12/01/2014 12:30',
@@ -85,7 +85,7 @@ describe('Service: AppointmentKeeper', function() {
 		spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
 		var uuid = 1;
-		var title = 'VISITA NO TERCEIRO';
+		var title = 'VISITA NO CLIENTE';
 		var description = 'VISITA DIA 12/01/2014';
 		var startDate = '12/01/2014 12:00';
 		var endDate = '12/01/2014 12:30';
@@ -130,7 +130,7 @@ describe('Service: AppointmentKeeper', function() {
 					throw 'Appointment not found.';
 				});
 		var uuid = 1;
-		var title = 'VISITA NO TERCEIRO';
+		var title = 'VISITA NO CLIENTE';
 		var description = 'VISITA DIA 12/01/2014';
 		var date = '12/01/2014';
 		var startTime = '12:00';

@@ -133,7 +133,7 @@
                             'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. '
                                 + '{{representativeName}}{{yourConsultant}} Mary Kay.';
                     var cellMissingAlert =
-                            'Não foi possível enviar o SMS, o terceiro {{customerName}} não possui um número de celular em seu cadastro.';
+                            'Não foi possível enviar o SMS, o cliente {{customerName}} não possui um número de celular em seu cadastro.';
 
                     this.sendPaymentConfirmation = function sendPaymentConfirmation(customer, orderAmount) {
 

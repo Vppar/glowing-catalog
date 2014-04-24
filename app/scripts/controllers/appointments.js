@@ -468,7 +468,7 @@
                     $('#event-status').attr('type', 'hidden');
                     
                     $('#select-client').children().remove();
-					$('#select-client').append('<option value="">Selecione o Terceiro</option>');
+					$('#select-client').append('<option value="">Selecione o Cliente</option>');
 					for ( var i in $scope.contacts) {
 						$('#select-client').append('<option value="' + $scope.contacts[i].uuid + '">' + $scope.contacts[i].name + '</option>');
 					}

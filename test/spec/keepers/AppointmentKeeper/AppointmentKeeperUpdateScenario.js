@@ -50,7 +50,7 @@ describe('Service: AppointmentKeeperUpdateScenario', function() {
 	it('should update', function() {
 
 		//given
-		var title = 'VISITA NO TERCEIRO';
+		var title = 'VISITA NO CLIENTE';
 		var description = 'VISITA DIA 12/01/2014';
 		var date = new Date();
 		var address = {
@@ -129,7 +129,7 @@ describe('Service: AppointmentKeeperUpdateScenario', function() {
 	//FIXME -Fabio - Not sure about this test.
 	it('should not update', function() {
 
-		var title = 'VISITA NO TERCEIRO';
+		var title = 'VISITA NO CLIENTE';
 		var description = 'VISITA DIA 12/01/2014';
 		var date = new Date();
 		var address = {
