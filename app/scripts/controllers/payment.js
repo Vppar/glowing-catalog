@@ -439,7 +439,8 @@
                         if (grid.length > 1) {
                             dialogPromise = DialogService.openDialogAddToBasket({
                                 id: product.parent,
-                                showDiscount : true
+                                showDiscount : true,
+                                idItem: product.id
                             });
                         } else {
                             dialogPromise = DialogService.openDialogAddToBasket({

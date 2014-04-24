@@ -79,7 +79,12 @@
 
                 var index = orderItems.length - 1;
                 $scope.product = product;
-                $scope.grid = grid;
+                if(dialog.data.idItem){
+                    $scope.grid = [];
+                    $scope.grid.push(ArrayUtils.find(grid, 'id',dialog.data.idItem));
+                }else{
+                    $scope.grid = grid;
+                }
                 $scope.total = 0;
                 $scope.itemDiscount = getProductDiscount();
 
