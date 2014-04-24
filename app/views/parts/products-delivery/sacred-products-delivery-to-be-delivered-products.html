@@ -26,9 +26,9 @@
 		<div class="grid-header">
 			<div class="row">
 				<div class="col-11">Produto/C&oacute;digo</div>
+				<div class="col-3 text-center">Pronta Entrega</div>
 				<div class="col-3 text-center">Total Pedido</div>
 				<div class="col-3 text-center">Qtde a Entregar</div>
-				<div class="col-3 text-center">Estoque Atual</div>
 				<div class="col-4 text-center">Entregar</div>
 			</div>
 		</div>
@@ -40,13 +40,9 @@
 						<span>{{product.title}}</span>
 						<small>{{product.uniqueName}}</small>
 					</div>
-
-					<div class="col-3 text-center">{{product.qty}}</div>
-
-					<div class="col-3 text-center">{{product.maxDeliver}}</div>
-
 					<div class="col-3 text-center">{{product.stock}}</div>
-
+					<div class="col-3 text-center">{{product.qty}}</div>
+					<div class="col-3 text-center">{{product.maxDeliver}}</div>
 				   <div class="col-4 text-center">
 						<tnt-number-picker ng-model="ticket.watchedQty[$index]" min="0" max="{{product.maxDeliver}}"></tnt-number-picker>
 					</div>
