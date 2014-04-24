@@ -85,6 +85,11 @@
                 }else{
                     $scope.grid = grid;
                 }
+                if($scope.grid[0].option){
+                    $scope.uniqueName = $scope.grid[0].SKU + ' - ' + $scope.grid[0].option;
+                }else{
+                    $scope.uniqueName = $scope.grid[0].SKU;
+                }
                 $scope.total = 0;
                 $scope.itemDiscount = getProductDiscount();
 
