@@ -56,6 +56,7 @@
                     installment: '1 x',
                     flag: null,
                     amount: getAmount($scope.total.change),
+                    orginalRemaingAmount : getAmount($scope.total.change),
                     expirationMonth: null,
                     expirationYear: null,
                     number: null,
@@ -156,13 +157,24 @@
                     var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
 
                     var result = CreditCardPaymentService.charge(customer, creditCard, creditCard.amount, numInstallments);
-
+                    
                     return result.then(function () {
-                        DialogService.messageDialog({
+                        var promise = DialogService.messageDialog({
                             title: 'Pagamento',
                             message: 'Pagamento realizado com sucesso.',
                             btnYes: 'OK'
                         });
+                        
+                        promise.then(function(){
+                            // verify if the total amount of payment is
+                            // equal the total amount of order if yes
+                            // finalize all payments.
+                            if (creditCard.orginalRemaingAmount > 0 &&
+                                creditCard.amount === creditCard.orginalRemaingAmount) {
+                                $scope.confirm(true);
+                            }
+                        });
+                        
                         $scope.selectPaymentMethod('none');
                     }, function (errMsg) {
                         DialogService.messageDialog({

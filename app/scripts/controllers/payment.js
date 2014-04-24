@@ -713,7 +713,7 @@
                 // Scope functions
                 // #############################################################################################
 
-                $scope.confirm = function () {
+                $scope.confirm = function (skipConfirmation) {
                     var customer = $scope.customer;
                     var totalOrder = $scope.total.order.amount;
                     var totalDiscont = getTotalDiscount();
@@ -723,12 +723,20 @@
                     if (voucher) {
                         smsTotal -= voucher.amount;
                     }
-
-                    var confirmPaymentIntentPromise = showConfirmPaymentDialog();
-
-                    var confirmedPromise = confirmPaymentIntentPromise.then(function () {
-                        return PaymentService.checkout(customer, totalOrder, totalDiscont, totalChange, smsTotal);
-                    });
+                    var confirmedPromise = null;
+                    
+                    // To avoid the confirmation dialog of payment we
+                    // are using a flag to know when skip it.
+                    if(skipConfirmation){
+                        confirmedPromise = PaymentService.checkout(customer, totalOrder, totalDiscont, totalChange, smsTotal);
+                    }else{
+                        var confirmPaymentIntentPromise = showConfirmPaymentDialog();
+                        
+                        confirmedPromise = confirmPaymentIntentPromise.then(function () {
+                            return PaymentService.checkout(customer, totalOrder, totalDiscont, totalChange, smsTotal);
+                        });
+                    }
+                    
 
                     // Inform the user that the payment is done.
                     return confirmedPromise.then(paymentDone, paymentErr);
