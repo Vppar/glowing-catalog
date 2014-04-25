@@ -59,6 +59,7 @@ styles/sacred-registration.css
 styles/sacred-login.css
 styles/sacred-order-list.css
 styles/sacred-purchase-order.css
+styles/sacred-best-sellers.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
