@@ -1,6 +1,20 @@
-#sacred .best-sellers {min-height:860px;}
+/* muda a altura do scroll da página */
+.home-scroll-content {height:560px;}
+
+
+#sacred .best-sellers {
+    max-height: 820px;
+    float:left;
+    min-height: 740px;
+}
     #sacred .best-sellers .bs-title {margin:28px 0 0 63px;}
-    #sacred .best-sellers .bs-container {position:relative;}
+    #sacred .best-sellers .bs-container {
+        position:relative;
+        max-height:740px;
+        width:100%;
+        float:left;
+        height:740px;
+    }
 
 /* para todos os itens */
 #sacred .best-sellers img {float:left;}
