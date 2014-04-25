@@ -211,8 +211,6 @@
         }).when('/appointment', {
             templateUrl : 'views/appointments.html',
             controller : 'AppointmentsCtrl'
-        }).when('/receivable-check', {
-            templateUrl : 'views/receivable-check.html'
         }).when('/components/tnt-numpad', {
             templateUrl : 'routes/components/tnt-numpad/tnt-numpad.html'
         }).when('/components/tnt-number-picker', {
@@ -236,7 +234,7 @@
         }).when('/third-parties-2', {
             templateUrl : 'views/sacred-third-parties.html',
             controller: 'ThirdPartyCtrl'
-        }).when('/receivable-check-2', {
+        }).when('/receivable-check', {
             templateUrl : 'views/sacred-receivable-check.html'
         }).when('/pagpop-2', {
             templateUrl : 'views/sacred-pagpop.html',
@@ -261,6 +259,8 @@
         }).when('/products-delivery', {
             templateUrl : 'views/parts/products-delivery/sacred-products-delivery.html',
             controller : 'ProductsDeliveryCtrl'
+         }).when('/receivable-check-old', {
+            templateUrl : 'views/receivable-check.html'
         }).otherwise({
             redirectTo : '/'
         });
