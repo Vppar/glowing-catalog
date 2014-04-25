@@ -6,13 +6,18 @@ var initMagnifier = function () {
 
 <div class="modal-head">
 {{product.title}}
-    <small>{{uniqueName}}</small>
+    
 </div>
 <div class="modal-body modal-add-basket-dialog-body">
     <div class="img-holder">
         <div class='zoom' id='magnifier'>
             <!-- <img ng-src="{{config.imageBaseURL}}{{product.image}}" onload="javascript:initMagnifier();" alt="" />  -->
             <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
+        </div>
+
+        <div class="unique-name-holder" ng-class="{ 'without-img' : !grid[0].image }">
+            <img ng-if="grid[0].image" once-src="getImageData(grid[0].SKU)" alt="sample" />
+            <small>{{uniqueName}}</small>
         </div>
     </div>
     <div class="info" fast-click>
@@ -42,7 +47,7 @@ var initMagnifier = function () {
         <div class="stock">{{product.inventory}} em estoque</div>
     </div>
 
-    <span class="code-product code-product-vs">{{item.SKU}}</span>
+    
 </div>
 <div class="modal-foot" fast-click>
     <hr />
