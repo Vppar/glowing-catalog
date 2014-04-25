@@ -284,11 +284,11 @@
 
 
  .modal-add-basket-details-dialog-body .quantity{
-     width: 25%;
+     width: 50%;
      display: inline-block;
  }
  .modal-add-basket-details-dialog-body .total{
-     width: 45%;
+     width: 50%;
      display: inline-block;
  }
  .modal-add-basket-details-dialog-body .discount{
