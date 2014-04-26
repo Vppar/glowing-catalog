@@ -56,7 +56,8 @@
                         if(order.schedule){
                             for(var ix in order.schedule.items){
                                 item = order.schedule.items[ix];
-                                totalScheduled += item.sQty;
+                                var sQty = item.sQty | 0;
+                                totalScheduled += sQty;
                             }
                         }
                         order.totalItemsScheduled = totalScheduled;

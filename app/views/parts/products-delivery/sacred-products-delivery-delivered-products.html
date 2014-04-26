@@ -11,7 +11,7 @@
 			Pedido:{{selectedOrder | uuidCode}}
 		</div>
 		<div class="col-7 order-header-test">
-			Última Entrega: {{selectedOrder.schedule.date | date:'dd/MM/yyyy  hh:mm:'}}
+			Última Entrega: {{selectedOrder.schedule.date | date:'dd/MM/yyyy  hh:mm'}}
 		</div>
 	</div>
 </div>
@@ -32,7 +32,7 @@
 						<span>{{product.title}}</span>
 						<small>{{product.uniqueName}}</small>
 					</div>
-					<div class="col-3 text-center">12/04/2014</div>
+					<div class="col-3 text-center">{{product.deliveredDate| date:'dd/MM/yyyy'}}</div>
 					<div class="col-3 text-center">{{product.dQty}}</div>
 				</div>
 			</div>

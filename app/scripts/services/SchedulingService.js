@@ -69,7 +69,11 @@
 
                             var result = null;
                             var created = new Date().getTime();
-
+                            
+                            for(var ix in items){
+                                items[ix].deliveredDate = date.getTime();
+                            }
+                            
                             var schedule =
                                 new Schedule(
                                     null,
@@ -186,6 +190,13 @@
                      */
                     var update =
                         function update (id, date, items, status) {
+
+                            for(var ix in items){
+                                var item = items[ix];
+                                if(item.qty !== item.dQty){
+                                    item.deliveredDate = date.getTime();
+                                }
+                            }
                             var result = null;
                             try {
                                 result = SchedulingKeeper.update(id, date.getTime(), items, status);

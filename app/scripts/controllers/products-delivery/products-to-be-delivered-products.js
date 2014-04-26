@@ -97,20 +97,18 @@
                     var updatedItems = [];
                     for ( var ix in $scope.ticket.watchedQty) {
                         var product = $scope.selectedOrder.selectedOrderProducts[ix];
-                        if ($scope.ticket.watchedQty[ix] > 0) {
-                            // FIXME should create a item only with
-                            // necessary properties
-                            if (type === 'delivery') {
-                                product.dQty = $scope.ticket.watchedQty[ix];
-                            } else if (type === 'schedule') {
-                                product.sQty = $scope.ticket.watchedQty[ix];
-                            }
-
-                            if (product.$$hashKey) {
-                                delete product.$$hashKey;
-                            }
-                            updatedItems.push(product);
+                        // FIXME should create a item only with
+                        // necessary properties
+                        if (type === 'delivery') {
+                            product.dQty = $scope.ticket.watchedQty[ix];
+                        } else if (type === 'schedule') {
+                            product.sQty = $scope.ticket.watchedQty[ix];
                         }
+
+                        if (product.$$hashKey) {
+                            delete product.$$hashKey;
+                        }
+                        updatedItems.push(product);
                     }
                     return updatedItems;
                 }
@@ -180,29 +178,20 @@
                         var totalToDelivery = $filter('sum')(order.items, 'qty');
                         var totalDelivered = $filter('sum')(order.items, 'dQty');
                         var schedule = SchedulingService.readByDocument(orderUUID);
-                        if(totalToDelivery === totalDelivered){
-                            if (schedule) {
-                                promises.push(SchedulingService.update(
-                                    schedule.uuid,
-                                    new Date(),
-                                    updatedItems,
-                                    false));
-                            } else {
-                                promises.push(SchedulingService.create(
-                                    orderUUID,
-                                    new Date(),
-                                    updatedItems,
-                                    false));
-                            }
-                        }else{
-                            if (schedule){
-                                promises.push(SchedulingService.update(
-                                    schedule.uuid,
-                                    new Date(),
-                                    updatedItems,
-                                    false));
-                            }
-                        };
+                        if (schedule) {
+                            promises.push(SchedulingService.update(
+                                schedule.uuid,
+                                new Date(),
+                                updatedItems,
+                                false));
+                        } else {
+                            promises.push(SchedulingService.create(
+                                orderUUID,
+                                new Date(),
+                                updatedItems,
+                                false));
+                        }
+                        
                         
                         $q.all(promises).then(
                             function () {

@@ -95,10 +95,32 @@
 
                 ObjectUtils.ro(this.handlers, 'schedulingUpdateV1', function (event) {
                     var scheduleEntry = ArrayUtils.find(schedulings, 'uuid', event.uuid);
+
+                    var finalItems = scheduleEntry.items;
+
+                    for ( var ix in event.items) {
+                        var item = event.items[ix];
+                        var scheduled = ArrayUtils.find(finalItems, 'id', item.id);
+
+                        if (scheduled) {
+                            scheduled.dQty += item.dQty;
+                            scheduled.sQty = item.sQty;
+                            
+                            if(!item.deliveredDate){
+                                item.deliveredDate = scheduled.deliveredDate;
+                            }
+                            
+                            scheduled.deliveredDate = item.deliveredDate;
+                        } else {
+                            finalItems.push(item);
+                        }
+                        
+                    }
+                    
                     if (scheduleEntry) {
                         scheduleEntry.updated = event.updated;
                         scheduleEntry.date = event.date;
-                        scheduleEntry.items = event.items;
+                        scheduleEntry.items = finalItems;
                         scheduleEntry.status = event.status;
                     } else {
                         throw 'Unable to find an scheduling with uuid=\'' + event.uuid + '\'';
@@ -170,7 +192,7 @@
                         return schedule.status;
                     }));
                 };
-                
+
                 /**
                  * List Active Scheduling
                  */
@@ -186,7 +208,7 @@
                 var readByDocument = function readByDocument (uuid) {
                     return angular.copy(ArrayUtils.find(list(), 'documentUUID', uuid));
                 };
-                
+
                 var readActiveByDocument = function readByDocument (uuid) {
                     return angular.copy(ArrayUtils.find(listActive(), 'documentUUID', uuid));
                 };
@@ -194,8 +216,7 @@
                 var readDeliveredByDocument = function readDeliveredByDocument (uuid) {
                     return angular.copy(ArrayUtils.find(listDeactivate(), 'documentUUID', uuid));
                 };
-                
-                
+
                 /**
                  * Read an Scheduling
                  */
