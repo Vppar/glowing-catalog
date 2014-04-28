@@ -68,7 +68,7 @@
 					<input class="text-center" id="{{'duedate' + $index}}" datepicker-append-to-body="true" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="installment.duedate" tnt-input maxlength="8" readonly />
 					</div>
 					<div class="new-col-9" style="padding-right:0px;">
-						<input id="{{'amount' + $index}}" name="" class="text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" recall tnt-input currency />
+						<input id="{{'amount' + $index}}" name="" class="text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" ng-blur="recalcTotalAmount()" recall tnt-input currency />
 					</div>
 
 				</div>

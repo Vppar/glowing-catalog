@@ -508,7 +508,6 @@
 
                 $scope.$watch('total.change', function () {
                     if ($scope.total.change != 0) {
-                        PaymentService.clear('onCuff');
                         updateOrderAndPaymentTotal();
                     }
                 });
