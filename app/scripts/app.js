@@ -201,9 +201,6 @@
         }).when('/login', {
             templateUrl : 'views/sacred-login.html',
             controller : 'LoginCtrl'
-        }).when('/order-list', {
-            templateUrl : 'views/sacred-order-list.html',
-            controller : 'OrderListCtrl'
         }).when('/products-delivery', {
             templateUrl : 'views/parts/products-delivery/sacred-products-delivery.html',
             controller : 'ProductsDeliveryCtrl'
@@ -225,6 +222,12 @@
             templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'
 
+        }).when('/order-list', {
+            templateUrl : 'views/order-list.html',
+            controller : 'OrderListCtrl'
+        }).when('/order-list-2', {
+            templateUrl : 'views/sacred-order-list.html',
+            controller : 'OrderListCtrl'
         }).when('/receivable-check', {
             templateUrl : 'views/sacred-receivable-check.html'
         }).when('/receivable-check-old', {
