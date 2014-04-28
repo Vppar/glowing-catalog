@@ -64,6 +64,7 @@ styles/sacred-registration.css
 styles/sacred-login.css
 styles/sacred-order-list.css
 styles/sacred-purchase-order.css
+styles/sacred-best-sellers.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -433,12 +434,13 @@ views/parts/purchase-order/sacred-purchase-order-pending-products.html
 views/parts/purchase-order/sacred-purchase-order-stashed.html
 views/parts/purchase-order/sacred-purchase-order-summary.html
 views/parts/purchase-order/sacred-purchase-order-ticket.html
+views/parts/purchase-order/sacred-purchase-order-ticket.html
 
 views/parts/products-delivery/sacred-products-delivery-delivered-products.html
 views/parts/products-delivery/sacred-products-delivery-delivered.html
 views/parts/products-delivery/sacred-products-delivery-delivery.html
 views/parts/products-delivery/sacred-products-delivery.html
-views/parts/products-delivery/sacred-products-delivery-to-be-delivered-products.html
+views/catalog/sacred-best-sellers.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png
@@ -487,17 +489,17 @@ images/thirdparty/magnifier/icon.png
 images/tutorial/tutorial-android-mockup-full.png
 images/tutorial/tutorial-ipad-mockup-full.png
 
-images/catalog/best-sellers/best-sellers.png
-images/catalog/best-sellers/best-sellers-1.png
-images/catalog/best-sellers/best-sellers-2.png
-images/catalog/best-sellers/best-sellers-3.png
-images/catalog/best-sellers/best-sellers-4.png
-images/catalog/best-sellers/best-sellers-5.png
-images/catalog/best-sellers/best-sellers-6.png
-images/catalog/best-sellers/best-sellers-7.png
-images/catalog/best-sellers/best-sellers-8.png
-images/catalog/best-sellers/best-sellers-9.png
-images/catalog/best-sellers/best-sellers-10.png
+images/catalog/best-sellers-0.png
+images/catalog/best-sellers-1.png
+images/catalog/best-sellers-2.png
+images/catalog/best-sellers-3.png
+images/catalog/best-sellers-4.png
+images/catalog/best-sellers-5.png
+images/catalog/best-sellers-6.png
+images/catalog/best-sellers-7.png
+images/catalog/best-sellers-8.png
+images/catalog/best-sellers-9.png
+images/catalog/best-sellers-10.png
 
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js

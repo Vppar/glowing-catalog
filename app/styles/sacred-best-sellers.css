@@ -1,0 +1,203 @@
+/* muda a altura do scroll da página */
+.home-scroll-content {height:calc(100% - -80px);}
+
+
+#sacred .main-best-sellers {
+    min-height:670px;
+    width:785px;
+    margin:10px 0 0 5px;
+    padding:0 13px 0 5px;
+    border-radius:6px;
+    background:#fff;
+    position:relative;
+}
+    #sacred .main-best-sellers .bs-title {
+        margin:3px 0 0 63px;
+        position:absolute;
+    }
+    #sacred .main-best-sellers .bs-container {}
+
+/* para todos os itens */
+#sacred .main-best-sellers img {float:left;}
+#sacred .main-best-sellers .bs-product, #sacred .main-best-sellers .bs-item1, #sacred .main-best-sellers .bs-item2 {position:absolute;}
+#sacred .main-best-sellers .bs-item1:hover, #sacred .main-best-sellers .bs-item2:hover {cursor:pointer;}
+
+/* para cada item individualmente */
+#sacred .main-best-sellers .bs-product1 {
+    height:192px;
+    width:192px;
+    top:60px;
+    left:30px;
+}
+#sacred .main-best-sellers .bs-product1 .bs-item1 {
+    width:56px;
+    height:170px;
+}
+#sacred .main-best-sellers .bs-product1 .bs-item2 {
+    width:130px;
+    height:54px;
+    top:22px;
+    left:56px;
+}
+
+#sacred .main-best-sellers .bs-product2 {
+    height:192px;
+    width:192px;
+    top:33px;
+    left:340px;
+}
+#sacred .main-best-sellers .bs-product2 .bs-item1 {
+    width:50px;
+    height:161px;
+}
+#sacred .main-best-sellers .bs-product2 .bs-item2 {
+    width:72px;
+    height:50px;
+    top:20px;
+    left:50px;
+}
+
+#sacred .main-best-sellers .bs-product3 {
+    height:260px;
+    width:260px;
+    top:53px;
+    right:20px; 
+}
+#sacred .main-best-sellers .bs-product3 .bs-item1 {
+    width:91px;
+    height:191px;
+    right:0;
+}
+#sacred .main-best-sellers .bs-product3 .bs-item2 {
+    width:166px;
+    height:68px;
+    top:101px;
+    left:0;
+}
+
+#sacred .main-best-sellers .bs-product4 {
+    height:194px;
+    width:194px;
+    top:205px;
+    left:80px; 
+}
+#sacred .main-best-sellers .bs-product4 .bs-item1 {
+    width:41px;
+    height:142px;
+    right:0;
+}
+#sacred .main-best-sellers .bs-product4 .bs-item2 {
+    width:150px;
+    height:53px;
+    top:58px;
+    left:0;
+}
+
+#sacred .main-best-sellers .bs-product5 {
+    height:185px;
+    width:185px;
+    top:255px;
+    left:390px; 
+}
+#sacred .main-best-sellers .bs-product5 .bs-item1 {
+    width:33px;
+    height:116px;
+    left:0;
+}
+#sacred .main-best-sellers .bs-product5 .bs-item2 {
+    width:146px;
+    height:69px;
+    top:33px;
+    left:34px;
+}
+
+#sacred .main-best-sellers .bs-product6 {
+    height:297px;
+    width:297px;
+    top:375px;
+    left:0; 
+}
+#sacred .main-best-sellers .bs-product6 .bs-item1 {
+    width:143px;
+    height:90px;
+    top:5px;
+}
+#sacred .main-best-sellers .bs-product6 .bs-item2 {
+    width:151px;
+    height:50px;
+    top:42px;
+    right:0;
+}
+
+#sacred .main-best-sellers .bs-product7 {
+    height:249px;
+    width:249px;
+    top:344px;
+    right:20px; 
+}
+#sacred .main-best-sellers .bs-product7 .bs-item1 {
+    width:165px;
+    height:54px;
+    top:44px;
+}
+#sacred .main-best-sellers .bs-product7 .bs-item2 {
+    width:81px;
+    height:106px;
+    top:0;
+    right:0;
+}
+
+#sacred .main-best-sellers .bs-product8 {
+    height:242px;
+    width:242px;
+    top:430px;
+    left:348px; 
+}
+#sacred .main-best-sellers .bs-product8 .bs-item1 {
+    width:59px;
+    height:160px;
+    top:0;
+}
+#sacred .main-best-sellers .bs-product8 .bs-item2 {
+    width:180px;
+    height:52px;
+    top:54px;
+    right:0;
+}
+
+#sacred .main-best-sellers .bs-product9 {
+    height:237px;
+    width:237px;
+    top:506px;
+    left:30px; 
+}
+#sacred .main-best-sellers .bs-product9 .bs-item1 {
+    width:59px;
+    height:166px;
+    top:0;
+}
+#sacred .main-best-sellers .bs-product9 .bs-item2 {
+    width:176px;
+    height:73px;
+    top:67px;
+    right:0;
+}
+
+#sacred .main-best-sellers .bs-product10 {
+    height:228px;
+    width:228px;
+    top:578px;
+    right:38px; 
+}
+#sacred .main-best-sellers .bs-product10 .bs-item1 {
+    width:217px;
+    height:28px;
+    top:5px;
+    left:4px;
+}
+#sacred .main-best-sellers .bs-product10 .bs-item2 {
+    width:151px;
+    height:28px;
+    top:34px;
+    right:5px;
+}
