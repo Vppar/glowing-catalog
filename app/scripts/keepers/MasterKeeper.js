@@ -56,11 +56,3 @@
             }
         ]);
 })(angular);
-
-function math () {
-    this.divide = function (a, b) {
-        return this.round(a / b);
-    };
-
-    this.round = Math.round;
-}
