@@ -48,7 +48,7 @@
             }
             ObjectUtils.ro(this, 'inventoryId', this.inventoryId);
         };
-
+        
         return service;
     });
 
@@ -56,12 +56,19 @@
      * The keeper for the current stock
      */
     angular.module('tnt.catalog.stock.keeper', [
-        'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper'
-    ]).service('StockKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Stock', 'FinancialMathService', function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock, FinancialMathService) {
+        'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper', 'tnt.catalog.keeper'
+    ]).service('StockKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Stock', 'FinancialMathService', StockKeeper])
+    .run(function(MasterKeeper){
+        ObjectUtils.inherit(StockKeeper, MasterKeeper);
+    });
+    
+    function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock, FinancialMathService) {
 
         var currentEventVersion = 1;
         var stock = [];
         this.handlers = {};
+       
+        ObjectUtils.superInvoke(this, 'Stock', Stock, currentEventVersion);
 
         /**
          * <pre>
@@ -208,17 +215,8 @@
 
         this.add = function(stock) {
 
-            if (!(stock instanceof Stock)) {
-                return $q.reject( 'Wrong instance of Stock' );
-            }
-
-            var stamp = (new Date()).getTime();
-            // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'stockAdd', currentEventVersion, stock);
-
-            // save the journal entry
-            return JournalKeeper.compose(entry);
-
+            return this.journalize('Add', stock);
+            
         };
 
         /**
@@ -251,12 +249,9 @@
             }
             
             var event = new Stock(inventoryId, quantity, null);
-            var stamp = (new Date()).getTime();
-            // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'stockRemove', currentEventVersion, event);
+            
+            return this.journalize('Remove', event);
 
-            // save the journal entry
-            return JournalKeeper.compose(entry);
         };
         
         /**
@@ -268,12 +263,8 @@
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;
             
-            var stamp = (new Date()).getTime();
-            // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'stockReserve', currentEventVersion, event);
+            return this.journalize('Reserve', event);
 
-            // save the journal entry
-            return JournalKeeper.compose(entry);
         };
         
         /**
@@ -289,12 +280,8 @@
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;
             
-            var stamp = (new Date()).getTime();
-            // create a new journal entry
-            var entry = new JournalEntry(null, stamp, 'stockUnreserve', currentEventVersion, event);
-
-            // save the journal entry
-            return JournalKeeper.compose(entry);
+            return this.journalize('Unreserve', event);
+            
         };
 
         /**
@@ -303,12 +290,12 @@
         this.list = function list() {
             return angular.copy(stock);
         };
-    }]);
-
+    }
+    
     angular.module('tnt.catalog.stock', [
         'tnt.catalog.stock.entity', 'tnt.catalog.stock.keeper'
     ]).run(['StockKeeper', function (StockKeeper) {
-     // Warming up EntityKeeper
+     // Warming up StockKeeper
     }]);
 
 }(angular));
