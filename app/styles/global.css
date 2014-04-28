@@ -501,7 +501,9 @@ body {
 .nav .dropdown ul li:hover a, .nav .dropdown ul li:active a {
 	width:auto;
 }
-
+.nav .dropdown ul li ul li {
+	width:100%;
+}
 .nav .dropdown ul li a.last-header{
 	border-bottom: 0px;
 }
