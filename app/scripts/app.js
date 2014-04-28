@@ -147,29 +147,17 @@
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
             controller : 'MainCtrl'
-        }).when('/add-customer', {
-            templateUrl : 'views/add-customer.html',
-            controller : 'AddCustomerCtrl'
         }).when('/basket', {
             templateUrl : 'views/basket.html',
             controller : 'BasketCtrl'
         }).when('/payment', {
             templateUrl : 'views/payment.html',
             controller : 'PaymentCtrl'
-        }).when('/login-2', {
-            templateUrl : 'views/login.html',
-            controller : 'LoginCtrl'
         }).when('/partial-delivery', {
             templateUrl : 'views/partial-delivery.html',
             controller : 'PartialDeliveryCtrl'
-        }).when('/purchase-order', {
-            templateUrl : 'views/parts/purchase-order/purchase-order.html',
-            controller : 'PurchaseOrderCtrl'
         }).when('/pending-delivery', {
             templateUrl : 'views/pending-delivery.html'
-        }).when('/order-list', {
-            templateUrl : 'views/order-list.html',
-            controller : 'OrderListCtrl'
         }).when('/previous-entries', {
             templateUrl : 'views/previous-entries.html'
         }).when('/inventory', {
@@ -189,15 +177,6 @@
         }).when('/income-statement', {
             templateUrl : 'views/income-statement.html',
             controller : 'IncomeStatementCtrl'
-        }).when('/stock', {
-            templateUrl : 'views/stock.html',
-            controller : 'StockCtrl'
-        }).when('/voucher-2', {
-            templateUrl : 'views/voucher.html',
-            controller : 'VoucherCtrl'
-         }).when('/voucher', {
-            templateUrl : 'views/sacred-voucher.html',
-            controller : 'VoucherCtrl'
         }).when('/warmup', {
             templateUrl : 'views/warm-up.html',
             controller : 'WarmupCtrl'
@@ -211,56 +190,57 @@
         }).when('/appointment', {
             templateUrl : 'views/appointments.html',
             controller : 'AppointmentsCtrl'
+        }).when('/tutorial-ipad', {
+            templateUrl : 'views/tutorial-ipad.html'
+        }).when('/tutorial-android', {
+            templateUrl : 'views/tutorial-android.html'
+
+        }).when('/add-customer', {
+            templateUrl : 'views/sacred-add-customer.html',
+            controller : 'AddCustomerCtrl'
+        }).when('/login', {
+            templateUrl : 'views/sacred-login.html',
+            controller : 'LoginCtrl'
+        }).when('/products-delivery', {
+            templateUrl : 'views/parts/products-delivery/sacred-products-delivery.html',
+            controller : 'ProductsDeliveryCtrl'
+        }).when('/pagpop', {
+            templateUrl : 'views/sacred-pagpop.html',
+            controller : 'PagpopCtrl'
+        }).when('/purchase-order', {
+            templateUrl : 'views/parts/purchase-order/sacred-purchase-order.html',
+            controller : 'PurchaseOrderCtrl'
+        }).when('/registration', {
+            templateUrl : 'views/sacred-registration.html'
+        }).when('/stock', {
+            templateUrl : 'views/sacred-stock.html',
+            controller : 'StockCtrl'
+        }).when('/third-parties', {
+            templateUrl : 'views/sacred-third-parties.html',
+            controller: 'ThirdPartyCtrl'
+        }).when('/voucher', {
+            templateUrl : 'views/sacred-voucher.html',
+            controller : 'VoucherCtrl'
+
+        }).when('/order-list', {
+            templateUrl : 'views/order-list.html',
+            controller : 'OrderListCtrl'
+        }).when('/order-list-2', {
+            templateUrl : 'views/sacred-order-list.html',
+            controller : 'OrderListCtrl'
+        }).when('/receivable-check', {
+            templateUrl : 'views/sacred-receivable-check.html'
+        }).when('/receivable-check-old', {
+            templateUrl : 'views/receivable-check.html'
+
         }).when('/components/tnt-numpad', {
             templateUrl : 'routes/components/tnt-numpad/tnt-numpad.html'
         }).when('/components/tnt-number-picker', {
             templateUrl : 'routes/components/tnt-number-picker/tnt-number-picker.html'
         }).when('/scenarios/ipad-keyboard-focus-scenario', {
             templateUrl : 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
-        }).when('/tutorial-ipad', {
-            templateUrl : 'views/tutorial-ipad.html'
-        }).when('/tutorial-android', {
-            templateUrl : 'views/tutorial-android.html'
-        }).when('/registration-2', {
-            templateUrl : 'views/registration.html'
-        }).when('/third-parties', {
-            templateUrl : 'views/third-parties.html',
-            controller: 'ThirdPartyCtrl'
-       }).when('/spinner-button-promise', {
+        }).when('/spinner-button-promise', {
             templateUrl : 'views/spinner-button-promise.html'
-        }).when('/pagpop', {
-            templateUrl : 'views/pagpop.html',
-            controller : 'PagpopCtrl'
-        }).when('/third-parties-2', {
-            templateUrl : 'views/sacred-third-parties.html',
-            controller: 'ThirdPartyCtrl'
-        }).when('/receivable-check', {
-            templateUrl : 'views/sacred-receivable-check.html'
-        }).when('/pagpop-2', {
-            templateUrl : 'views/sacred-pagpop.html',
-            controller : 'PagpopCtrl'
-         }).when('/stock-2', {
-            templateUrl : 'views/sacred-stock.html',
-            controller : 'StockCtrl'
-        }).when('/registration', {
-            templateUrl : 'views/sacred-registration.html'
-        }).when('/login', {
-            templateUrl : 'views/sacred-login.html',
-            controller : 'LoginCtrl'
-         }).when('/add-customer-2', {
-            templateUrl : 'views/sacred-add-customer.html',
-            controller : 'AddCustomerCtrl'
-        }).when('/order-list-2', {
-            templateUrl : 'views/sacred-order-list.html',
-            controller : 'OrderListCtrl'
-         }).when('/purchase-order-2', {
-            templateUrl : 'views/parts/purchase-order/sacred-purchase-order.html',
-            controller : 'PurchaseOrderCtrl'
-        }).when('/products-delivery', {
-            templateUrl : 'views/parts/products-delivery/sacred-products-delivery.html',
-            controller : 'ProductsDeliveryCtrl'
-         }).when('/receivable-check-old', {
-            templateUrl : 'views/receivable-check.html'
         }).otherwise({
             redirectTo : '/'
         });
