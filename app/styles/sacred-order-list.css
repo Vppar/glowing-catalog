@@ -26,8 +26,17 @@
 #sacred .sacred-order-list-products-part .content-body{
 	height: calc(100% - 60px);
 }
+
 #sacred .sacred-order-list-products-part .grid-scroll{
     height: calc(100% - 82px);
+}
+/* temps should be desintegrated!!! (after the controller refactoring)*/
+#sacred .sacred-order-list-products-part .temp-product-holder .content-body{
+	height: 100%;
+}
+
+#sacred .temp-product-holder{
+	height: calc(100% - 60px);
 }
 
 /*maybe this will need its own file, but I`m not sure... because this only happens at order-list for now....*/
