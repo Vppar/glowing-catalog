@@ -62,6 +62,8 @@ describe('Service: PurchaseOrderKeeperCancelSpec', function() {
             updated : fakeNow,
             status : 2
         };
+        
+        recEv = new PurchaseOrder(recEv);
 
         var receiveEntry = new JournalEntry(null, recEv.canceled, 'purchaseOrderCancel', 2, recEv);
 

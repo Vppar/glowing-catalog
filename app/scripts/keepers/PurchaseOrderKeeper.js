@@ -54,7 +54,7 @@
             'tnt.catalog.purchaseOrder.keeper',
             [
                 'tnt.utils.array', 'tnt.catalog.purchaseOrder.entity', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer',
-                'tnt.catalog.journal.keeper', 'tnt.identity', 'tnt.catalog.type'
+                'tnt.catalog.journal.keeper', 'tnt.identity', 'tnt.catalog.type', 'tnt.catalog.keeper'
             ]).service(
             'PurchaseOrderKeeper',
             [
@@ -66,6 +66,10 @@
                 'IdentityService',
                 'PurchaseOrder',
                 'TypeKeeper',
+                PurchaseOrderKeeper]).run(function (MasterKeeper) {
+                    ObjectUtils.inherit(PurchaseOrderKeeper, MasterKeeper);
+                });
+                
                 function PurchaseOrderKeeper($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService, PurchaseOrder,
                         TypeKeeper) {
 
@@ -73,6 +77,8 @@
                     var currentEventVersion = 2;
                     var currentCounter = 0;
                     var purchases = [];
+                    
+                    ObjectUtils.superInvoke(this, 'PurchaseOrder', PurchaseOrder, currentEventVersion);
 
                     var status = TypeKeeper.list('purchaseOrderStatus');
 
@@ -238,13 +244,7 @@
 
                         purchaseObj.uuid = IdentityService.getUUID(type, getNextId());
 
-                        var event = new PurchaseOrder(purchaseObj);
-
-                        // create a new journal entry
-                        var entry = new JournalEntry(null, event.created, 'purchaseOrderAdd', currentEventVersion, event);
-
-                        // save the journal entry
-                        return JournalKeeper.compose(entry);
+                        return this.journalize('Add', purchaseObj);
                     };
 
                     /**
@@ -317,11 +317,7 @@
                             cost : purchaseOrder.cost
                         };
 
-                        // create a new journal entry
-                        var entry = new JournalEntry(null, updateEv.updated, 'purchaseOrderUpdate', currentEventVersion, updateEv);
-
-                        // save the journal entry
-                        return JournalKeeper.compose(entry);
+                        return this.journalize('Update', updateEv);
                     };
 
                     /**
@@ -346,11 +342,7 @@
                             updated : new Date().getTime()
                         };
 
-                        // create a new journal entry
-                        var entry = new JournalEntry(null, updateEv.updated, 'purchaseOrderChangeStatus', currentEventVersion, updateEv);
-
-                        // save the journal entry
-                        return JournalKeeper.compose(entry);
+                        return this.journalize('ChangeStatus', updateEv);
                     };
 
                     /**
@@ -371,11 +363,8 @@
                             received : now,
                             nfeNumber : nfeNumber
                         };
-                        // create a new journal entry
-                        var entry = new JournalEntry(null, redeemEv.received, 'purchaseOrderReceive', currentEventVersion, redeemEv);
-
-                        // save the journal entry
-                        return JournalKeeper.compose(entry);
+                        
+                        return this.journalize('Receive', redeemEv);
                     };
 
                     /**
@@ -395,11 +384,8 @@
                             updated : now,
                             canceled : new Date().getTime()
                         };
-                        // create a new journal entry
-                        var entry = new JournalEntry(null, cancelEv.canceled, 'purchaseOrderCancel', currentEventVersion, cancelEv);
 
-                        // save the journal entry
-                        return JournalKeeper.compose(entry);
+                        return this.journalize('Cancel', cancelEv);
                     };
 
                     /**
@@ -430,13 +416,7 @@
                                     qty : qty,
                                 };
 
-                                // create a new journal entry
-                                var entry =
-                                        new JournalEntry(
-                                                null, receiveEv.received, 'purchaseOrderReceiveProduct', currentEventVersion, receiveEv);
-
-                                // save the journal entry
-                                return JournalKeeper.compose(entry);
+                                return this.journalize('ReceiveProduct', receiveEv);
                             };
 
                     this.add = add;
@@ -450,7 +430,7 @@
                     this.receiveProduct = receiveProduct;
 
                 }
-            ]);
+        
     angular.module('tnt.catalog.purchaseOrder', [
         'tnt.catalog.purchaseOrder.entity', 'tnt.catalog.purchaseOrder.keeper'
     ]).run([
