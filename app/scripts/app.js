@@ -222,10 +222,10 @@
             templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'
 
-        }).when('/order-list', {
+        }).when('/order-list-old', {
             templateUrl : 'views/order-list.html',
             controller : 'OrderListCtrl'
-        }).when('/order-list-2', {
+        }).when('/order-list', {
             templateUrl : 'views/sacred-order-list.html',
             controller : 'OrderListCtrl'
         }).when('/receivable-check', {
