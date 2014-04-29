@@ -498,7 +498,12 @@ body {
 	border-bottom: 1px dotted #ccc;
 	width:100%;
 }
-
+.nav .dropdown ul li:hover a, .nav .dropdown ul li:active a {
+	width:auto;
+}
+.nav .dropdown ul li ul li {
+	width:100%;
+}
 .nav .dropdown ul li a.last-header{
 	border-bottom: 0px;
 }
@@ -643,7 +648,7 @@ div.header-date {
 }
 
 .navbar .dropdown .dropdown-submenu .dropdown-menu{
-	margin: 0 0 0 -24px;
+	margin: 0 0 0 -2px;
 	width:200px;
 }
 .navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
@@ -668,6 +673,10 @@ div.header-date {
 nav ul li {
 	margin-right:22px;
 	/*border-bottom:1px solid #F99;*/
+}
+nav .dropdown ul li:hover , nav .dropdown ul li:active {
+	background:#ddd;
+	width:100%;
 }
 
 .container .navbar .nav {
