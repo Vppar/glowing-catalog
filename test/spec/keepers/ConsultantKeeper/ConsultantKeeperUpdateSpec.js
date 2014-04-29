@@ -83,7 +83,7 @@ describe('Service: ConsultantKeeper', function() {
         var email = 'teste@tunts.com';
         
         var ev = new Consultant(uuid, name, mkCode, cep, address, cpf, bank,  agency, account, email);
-        var stp = fakeNow / 1000;
+        var stp = fakeNow;
         var entry = new JournalEntry(null, stp, 'consultantUpdate', 1, ev); 
         
         expect(function() {
