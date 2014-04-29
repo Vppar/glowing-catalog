@@ -1,0 +1,141 @@
+<style>
+.bar{
+	min-height: 10px;
+}
+
+</style>
+
+<script type="text/javascript">
+
+//create the values
+//var values = d3.range(1000).map(d3.random.bates(20));
+var values = [
+	{value:105,name:'a'},
+	{value:100,name:'b'},
+	{value:80,name:'c'},
+	{value:50,name:'d'},
+	{value:120,name:'e'},
+	{value:200,name:'f'},
+	{value:120,name:'g'},
+	{value:70,name:'h'},
+	{value:750,name:'i'}
+];
+
+var width = 800; 
+var height = 400;
+var topmargin = 40;
+
+var x = d3.scale.linear().domain([0, width]).range([0, width]);
+var y = d3.scale.linear().domain([d3.max(values, function(d) { return d.value; }),0]).range([height-topmargin, 0]);
+
+console.log(y(750));
+
+var canvas = d3.select("body").selectAll('div.ddd').append("svg")
+               .attr("width", width)
+               .attr("height", height);
+
+var bars = canvas.selectAll(".bar")
+                 .data(values)
+                 .enter()
+                 .append("g")
+                 .attr("class", "bar");
+
+bars.append("rect")
+    .attr("x", function(d,i){ return i*(width/values.length); })
+    .attr("y", function(d){ return height-y(d.value); })
+    .attr("width", width/values.length - 10)
+    .attr("height", function(d){ return y(d.value); })
+    .attr("fill", "steelblue");
+
+bars.append("text")
+    .attr("x", function(d,i){ return i*(width/values.length); })
+    .attr("y", height)
+    .attr("width", width/values.length)
+    .attr("height", 30)
+    .attr("text", function(d){ return d.name});
+
+
+
+
+
+
+// var map = values.map(function(d){ return d.value; });
+// //number of beans
+// var bins = 5;
+
+// var histogram = d3.layout.histogram().bins(bins)(map);
+
+// console.log(histogram);
+
+// var width=800; 
+// var height=400;
+// var topmargin = 40;
+
+// var x = d3.scale.linear().domain([0, width]).range([0, width]);
+// var y = d3.scale.linear().domain([0, d3.max(histogram, function(d) { return d.y; })]).range([height-topmargin, 0]);
+
+// var canvas = d3.select("body").selectAll('div.ddd').append("svg")
+//                .attr("width", width)
+//                .attr("height", height)
+//                .attr("transform", "translate(50, 50)")
+
+// var bars = canvas.selectAll(".bar")
+//                  .data(histogram)
+//                  .enter()
+//                  .append("g")
+//                  .attr("class", "bar");
+
+// bars.append("rect")
+//     .attr("x", function(d){ return x(d.x); })
+//     .attr("y", function(d){ return height - y(d.y); })
+//     .attr("width", function(d){ return d.dx-5; })
+//     .attr("height", function(d){ return y(d.y); })
+//     .attr("fill", "steelblue");
+
+// bars.append("text")
+//     .attr("x", function(d){ return x(d.x); })
+//     .attr("y", function(d){ return height - y(d.y); })
+//     .attr("width", function(d){ return d.dx-5; })
+//     .text('sdfsdsfd');
+
+
+</script>
+
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-bi-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Análise de Desempenho - Equipe</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button" ng-init="ol='dashboard'">
+							<a class="btn btn-option" ng-class="{active: ol=='demo'}" ng-click="ol='demo'">Demostrativo</a>
+							<a class="btn btn-option" ng-class="{active: ol=='dashboard'}" ng-click="ol='orders'">Dashboard</a>	
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="col-24">
+					<div class="col-4">
+						asdfasdfdsfsdafdff
+					</div>
+					<div class="col-20">
+						
+						<div class="ddd">
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

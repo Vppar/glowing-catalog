@@ -1,7 +1,6 @@
 CACHE MANIFEST
 
 # 'version' : '1.2.22'
-
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -444,6 +443,7 @@ views/parts/products-delivery/sacred-products-delivery-delivered.html
 views/parts/products-delivery/sacred-products-delivery-delivery.html
 views/parts/products-delivery/sacred-products-delivery.html
 views/catalog/sacred-best-sellers.html
+views/sacred-bi.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

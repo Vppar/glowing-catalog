@@ -221,7 +221,8 @@
         }).when('/warmup', {
             templateUrl : 'views/sacred-warm-up.html',
             controller : 'WarmupCtrl'
-
+        }).when('/bi', {
+            templateUrl : 'views/sacred-bi.html'
         }).when('/order-list-old', {
             templateUrl : 'views/order-list.html',
             controller : 'OrderListCtrl'
