@@ -34,10 +34,7 @@
                  * @param {Object} eventObj the event object(untyped please!)
                  * @return {Object} the journal entry
                  */
-                function journalize (eventOp, eventObj) {
-                    if (!(eventObj instanceof this.eventType)) {
-                        return $q.reject('Wrong instance of ' + this.eventDataType);
-                    }
+                function journalize (eventOp, eventObj) {                  
 
                     var eventName =
                         (this.eventDataType.substr(0, 1)).toLowerCase() +

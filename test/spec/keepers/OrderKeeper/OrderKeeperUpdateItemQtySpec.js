@@ -66,6 +66,8 @@ describe('Service: OrderKeeperUpdateItemQtySpec', function() {
                 }
             ]
         };
+        
+        recEv = new Order(recEv);
 
         var receiveEntry = new JournalEntry(null, recEv.updated, 'orderUpdateItemQty', 1, recEv);
 
