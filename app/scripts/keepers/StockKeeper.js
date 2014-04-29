@@ -215,6 +215,10 @@
 
         this.add = function(stock) {
 
+            if (!(stock instanceof this.eventType)) {
+              return $q.reject('Wrong instance of Stock');
+          }
+            
             return this.journalize('Add', stock);
             
         };
@@ -259,7 +263,6 @@
          */
         this.reserve = function(inventoryId, reserve) {
             
-
             var event = new Stock(inventoryId, null, null);
             event.reserve = reserve;
             
