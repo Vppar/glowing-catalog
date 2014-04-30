@@ -55,13 +55,19 @@
      */
     angular.module('tnt.catalog.productReturn.keeper', [
         'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.productReturn.entity',
-        'tnt.catalog.journal.keeper', 'tnt.identity'
-    ]).service('ProductReturnKeeper', ['Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'ProductReturn', 'IdentityService', function ProductReturnKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, ProductReturn,IdentityService) {
+        'tnt.catalog.journal.keeper', 'tnt.identity', 'tnt.catalog.keeper'
+    ]).service('ProductReturnKeeper', ['Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'ProductReturn', 'IdentityService',ProductReturnKeeper]).run(function(MasterKeeper){
+        ObjectUtils.inherit(ProductReturnKeeper, MasterKeeper);
+    });
+    
+    function ProductReturnKeeper(Replayer, JournalEntry, JournalKeeper, ArrayUtils, ProductReturn,IdentityService) {
 
         var currentEventVersion = 1;
         var productsReturned = [];
         var type = 5;
         var currentCounter = 0;
+        
+        ObjectUtils.superInvoke(this, 'ProductReturn', ProductReturn, currentEventVersion);
         
         function getNextId() {
             return ++currentCounter;
@@ -154,13 +160,7 @@
             prodReturnObj.created = (new Date()).getTime();
             prodReturnObj.id = IdentityService.getUUID(type, getNextId());
             
-            var event = new ProductReturn(prodReturnObj);
-
-            // create a new journal entry
-            var entry = new JournalEntry(null, event.created, 'productReturnAdd', currentEventVersion, event);
-
-            // save the journal entry
-            return JournalKeeper.compose(entry);
+            return this.journalize('Add', prodReturnObj); 
         };
         
         
@@ -169,7 +169,7 @@
             return angular.copy(productsReturned);
         };
 
-    }]);
+    }
 
     angular.module('tnt.catalog.productReturn', [
         'tnt.catalog.productReturn.entity', 'tnt.catalog.productReturn.keeper'
