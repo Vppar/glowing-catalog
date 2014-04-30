@@ -1,14 +1,13 @@
 <style>
-.bar{
-	min-height: 10px;
-}
+	.bar{
+		min-height: 10px;
+	}
 
 </style>
 
 <script type="text/javascript">
 
-//create the values
-//var values = d3.range(1000).map(d3.random.bates(20));
+var total = 2000;
 var values = [
 	{value:105,name:'a'},
 	{value:100,name:'b'},
@@ -19,41 +18,77 @@ var values = [
 	{value:120,name:'g'},
 	{value:70,name:'h'},
 	{value:750,name:'i'}
-];
+	];
 
-var width = 800; 
-var height = 400;
-var topmargin = 40;
 
-var x = d3.scale.linear().domain([0, width]).range([0, width]);
-var y = d3.scale.linear().domain([d3.max(values, function(d) { return d.value; }),0]).range([height-topmargin, 0]);
+function gauge(values, total){
 
-console.log(y(750));
+	var width = 100; 
+	var height = 400;
+	var topmargin = 40;
 
-var canvas = d3.select("body").selectAll('div.ddd').append("svg")
-               .attr("width", width)
-               .attr("height", height);
+	var sum_values = d3.sum(values, function(d) {return d.value; });
 
-var bars = canvas.selectAll(".bar")
-                 .data(values)
-                 .enter()
-                 .append("g")
-                 .attr("class", "bar");
+	var y = d3.scale.linear().domain([total,0]).range([height, 0]);
 
-bars.append("rect")
-    .attr("x", function(d,i){ return i*(width/values.length); })
-    .attr("y", function(d){ return height-y(d.value); })
-    .attr("width", width/values.length - 10)
-    .attr("height", function(d){ return y(d.value); })
-    .attr("fill", "steelblue");
+	var canvas = d3.select("body").selectAll('div.gauge').append("svg")
+	.attr("width", width)
+	.attr("height", height);
 
-bars.append("text")
-    .attr("x", function(d,i){ return i*(width/values.length); })
-    .attr("y", height)
-    .attr("width", width/values.length)
-    .attr("height", 30)
-    .attr("text", function(d){ return d.name});
+	var bar = canvas.selectAll(".bar")
+	.data(sum_values)
+	.enter()
+	.append("g")
+	.attr("class", "bar");
 
+	bar.append("rect")
+	.attr("x", 0 )
+	.attr("y", height-y(sum_values))
+	.attr("width", width)
+	.attr("height", y(sum_values))
+	.attr("fill", "steelblue");
+
+}
+
+
+
+function histogram(values){
+	
+	var width = 800; 
+	var height = 400;
+	var topmargin = 40;
+
+	var x = d3.scale.linear().domain([0, width]).range([0, width]);
+	var y = d3.scale.linear().domain([d3.max(values, function(d) { return d.value; }),0]).range([height-topmargin, 0]);
+
+	var canvas = d3.select("body").selectAll('div.ddd').append("svg")
+	.attr("width", width)
+	.attr("height", height);
+
+	var bars = canvas.selectAll(".bar")
+	.data(values)
+	.enter()
+	.append("g")
+	.attr("class", "bar");
+
+	bars.append("rect")
+	.attr("x", function(d,i){ return i*(width/values.length); })
+	.attr("y", function(d){ return height-y(d.value); })
+	.attr("width", width/values.length - 10)
+	.attr("height", function(d){ return y(d.value); })
+	.attr("fill", "steelblue");
+
+	bars.append("text")
+	.attr("x", function(d,i){ return i*(width/values.length); })
+	.attr("y", height)
+	.attr("width", width/values.length)
+	.attr("height", 30)
+	.attr("text", function(d){ return d.name});
+}
+
+
+gauge(values,total);
+histogram(values);
 
 
 
@@ -125,7 +160,9 @@ bars.append("text")
 			<div class="page-body">
 				<div class="col-24">
 					<div class="col-4">
-						asdfasdfdsfsdafdff
+						<div class="gauge">
+
+						</div>
 					</div>
 					<div class="col-20">
 						
