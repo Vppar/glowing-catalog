@@ -66,6 +66,7 @@ styles/agenda/fullcalendar.css
 styles/agenda/fullcalendar.print.css
 styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
 
+scripts/libs.js
 scripts/plugins.js
 scripts/modules.js
 scripts/scripts.js
