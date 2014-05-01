@@ -54,45 +54,47 @@
 	<!-- *** PARTE 02 *** -->
 	<div class="content-body purchase-order-ticket-part2" ng-if="ticket.selectedPart=='part2'">
 
-		<div class="grid-header">
-			<div class="row">
-                <div class="col-2">Data</div>
-                <div class="col-2">Pedido</div>
-                <div class="col-2">NFe</div>
-                <div class="col-6">Produto/C&oacute;digo</div>
-                <div class="col-2 text-center">Pts</div>
-                <div class="col-2 currency">P.Unit</div>
-                <div class="col-2 text-center">Qtde</div>
-                <div class="col-2 text-center">Ok</div>
-                <div class="col-4 text-center">Pend./Qtde.</div>
-			</div>
-		</div>
-
-		<div class="grid-body grid-scroll">
-			<div class="grid-item" ng-repeat="item in purchaseOrder.items">
+		<div class="grid">
+			<div class="grid-header">
 				<div class="row">
-	                <div class="col-2">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
-	                <div class="col-2">
-						{{purchaseOrder.nfe.order}}
-						<div class="small-text">{{purchaseOrder | uuidCode}}</div>
-	                </div>
-	                <div class="col-2">{{purchaseOrder.nfe.number}}</div>
-	                <div class="col-6 product-name">
-						<div class="p-title">{{item.title}}</div>
-						<div class="small-text">{{item.uniqueName}}</div>
-	                </div>
-	                <div class="col-2 text-center">{{item.points}}</div>
-	                <div class="col-2 text-center">{{item.cost | currency: ''}}</div>
-	                <div class="col-2 text-center">{{item.qty}}</div>
-	                <div class="col-2 text-center">
-	                	<input type="checkbox" ng-model="ticket.checkBox[item.id]">
-	                </div>
-	                <div class="col-4 text-center">
-						<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+			                <div class="col-3">Data</div>
+			                <div class="col-2">Pedido</div>
+			                <div class="col-2">NFe</div>
+			                <div class="col-6">Produto/C&oacute;digo</div>
+			                <div class="col-2 text-center">Pts</div>
+			                <div class="col-2 currency">P.Unit</div>
+			                <div class="col-2 text-center">Qtde</div>
+			                <div class="col-1 text-center">Ok</div>
+			                <div class="col-4 text-center">Pend./Qtde.</div>
+				</div>
+			</div>
+			
+			<div class="grid-body grid-scroll">
+				<div class="grid-item" ng-repeat="item in purchaseOrder.items">
+					<div class="row">
+				                <div class="col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</div>
+				                <div class="col-2">
+							{{purchaseOrder.nfe.order}}
+							<div class="small-text">{{purchaseOrder | uuidCode}}</div>
+				                </div>
+				                <div class="col-2">{{purchaseOrder.nfe.number}}</div>
+				                <div class="col-6 product-name name-cutter">
+							<div class="p-title">{{item.title}}</div>
+							<div class="small-text">{{item.uniqueName}}</div>
+				                </div>
+				                <div class="col-2 text-center">{{item.points}}</div>
+				                <div class="col-2 text-center">{{item.cost | currency: ''}}</div>
+				                <div class="col-2 text-center">{{item.qty}}</div>
+				                <div class="col-1 text-center">
+				                	<input type="checkbox" ng-model="ticket.checkBox[item.id]">
+				                </div>
+				                <div class="col-4 text-center">
+							<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
+				                </div>
+				            </div>
+				        </div>
+				    </div>
+		</div>
 
 		<div class="buttons-holder">
             <spinner-button class="button-green pull-right" type="submit" spinner-promise="confirm()" ng-disabled="disableButton()">Confirmar</spinner-button>

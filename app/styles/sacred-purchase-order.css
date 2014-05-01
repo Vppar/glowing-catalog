@@ -16,8 +16,12 @@
 	height:calc(100% - 54px);
 }
 
+#sacred .sacred-purchase-order-page .purchase-order-ticket-part2 .grid{
+	height: calc(100% - 10px);
+}
+
 #sacred .sacred-purchase-order-page .purchase-order-ticket-part2 .grid-scroll{
-	height:calc(100% - 178px);
+	height:calc(100% - 40px);
 }
 
 #sacred .sacred-purchase-order-page .two-parts-container {
