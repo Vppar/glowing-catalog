@@ -81,9 +81,9 @@
             'Order',
             '$filter',
             OrderKeeper
-        ]).run(function (MasterKeeper) {
-        ObjectUtils.inherit(OrderKeeper, MasterKeeper);
-    });
+        ]).run(['MasterKeeper', function (MasterKeeper) {
+            ObjectUtils.inherit(OrderKeeper, MasterKeeper);
+        }]);
 
     function OrderKeeper ($q, ArrayUtils, JournalKeeper, JournalEntry, Replayer, IdentityService,
         Order, $filter) {
