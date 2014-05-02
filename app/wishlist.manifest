@@ -502,6 +502,11 @@ images/catalog/best-sellers-8.png
 images/catalog/best-sellers-9.png
 images/catalog/best-sellers-10.png
 
+images/icon01.png
+images/icon02.png
+images/icon03.png
+images/icon04.png
+
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js
 scripts/services/AppointmentService.js

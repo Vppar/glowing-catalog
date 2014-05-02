@@ -3,7 +3,36 @@
 
 		<a class="brand" href="#"><img src="images/vpink.jpg" /></a>
 		<nav id="topMenuHome">
-            <ul class="nav" fast-click> 
+
+            <ul class="icons-nav nav" fast-click> 
+                <li>
+                    <a href="#/?highlight=Lançamentos"  ng-class="{selected: selectedSection == 'Lançamentos'}">
+                        <img src="images/icon01.png" />
+                        Notificações
+                    </a>
+                </li>
+                <li>
+                    <a href="#/?highlight=Lançamentos"  ng-class="{selected: selectedSection == 'Lançamentos'}">
+                        <img src="images/icon02.png" />
+                        Agenda
+                    </a>
+                </li>
+                <li>
+                    <a href="#/?highlight=Lançamentos"  ng-class="{selected: selectedSection == 'Lançamentos'}">
+                        <img src="images/icon03.png" />
+                        Chat
+                    </a>
+                </li>
+                <li>
+                    <a href="#/?highlight=Lançamentos"  ng-class="{selected: selectedSection == 'Lançamentos'}">
+                        <img src="images/icon04.png" />
+                        WebTV
+                    </a>
+                </li>
+            </ul>
+
+
+<!--             <ul class="nav" fast-click> 
                 <li>
                     <a href="#/?highlight=Lançamentos"  ng-class="{selected: selectedSection == 'Lançamentos'}">LAN&Ccedil;AMENTOS</a>
                 </li>
@@ -14,7 +43,7 @@
                     <a href="#/?highlight=Promoções" ng-class="{selected: selectedSection == 'Promoções'}">PROMO&Ccedil;&Otilde;ES</a>
                 </li>
             </ul>
-            <ul class="nav">
+ -->            <ul class="nav">
               <li class="bag pull-right" ng-click='checkout(false)'><span>{{order.items | count: 'qty'}}</span></li>
               <li class="header-hour" ng-controller="DevelopmentHeaderCtrl" style="position: relative;">
                   <div>{{now.time}}</div><br />
