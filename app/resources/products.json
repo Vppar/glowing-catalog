@@ -605,7 +605,7 @@
         "id": 70,
         "session": "Cuidados com a Pele",
         "line": "TimeWise",
-        "image": "10-035083.jpg",
+        "image": "10-067661.jpg",
         "points": 65,
         "title": "Loção Corporal Firmadora Targeted-Action - 236ml",
         "price": 99,
@@ -614,8 +614,8 @@
     {
         "id": 71,
         "parent": 70,
-        "SKU": "10-035083",
-        "image": "10-035083.jpg",
+        "SKU": "10-067661",
+        "image": "10-067661.jpg",
         "active": true
     },
     {
