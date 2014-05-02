@@ -67,29 +67,29 @@
 		var x = d3.scale.linear().domain([0, width]).range([0, width]);
 		var y = d3.scale.linear().domain([d3.max(values, function(d) { return d.value; }),0]).range([height-topmargin, 0]);
 
-		var canvas = d3.select("body").selectAll('div.ddd').append("svg")
-		.attr("width", width)
-		.attr("height", height);
+		var canvas = d3.select('body').selectAll('div.ddd').append('svg')
+		.attr('width', width)
+		.attr('height', height);
 
-		var bars = canvas.selectAll(".bar")
+		var bars = canvas.selectAll('.bar')
 		.data(values)
 		.enter()
-		.append("g")
-		.attr("class", "bar");
+		.append('g')
+		.attr('class', 'bar');
 
-		bars.append("rect")
-		.attr("x", function(d,i){ return i*(width/values.length); })
-		.attr("y", function(d){ return height-y(d.value); })
-		.attr("width", width/values.length - 10)
-		.attr("height", function(d){ return y(d.value); })
-		.attr("fill", "steelblue");
+		bars.append('rect')
+		.attr('x', function(d,i){ return i*(width/values.length); })
+		.attr('y', function(d){ return height-y(d.value); })
+		.attr('width', width/values.length - 10)
+		.attr('height', function(d){ return y(d.value); })
+		.attr('fill', 'steelblue');
 
-		bars.append("text")
-		.attr("x", function(d,i){ return i*(width/values.length); })
-		.attr("y", height)
-		.attr("width", width/values.length)
-		.attr("height", 30)
-		.attr("text", function(d){ return d.name});
+		bars.append('text')
+		.attr('x', function(d,i){ return i*(width/values.length); })
+		.attr('y', height)
+		.attr('width', width/values.length)
+		.attr('height', 30)
+		.attr('text', function(d){ return d.name});
 	}
 
 
