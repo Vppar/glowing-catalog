@@ -11,19 +11,21 @@
     },
     {
         "id": 1,
-        "parent": 316,
+        "parent": 318,
         "SKU": "10-042319",
         "image": "10-042319.jpg",
         "option": "Azul",
-        "active": true
+        "active": true,
+        "price": 37
     },
     {
         "id": 2,
-        "parent": 316,
+        "parent": 318,
         "SKU": "10-042320",
         "image": "10-042320.jpg",
         "option": "Verde",
-        "active": true
+        "active": true,
+        "price": 37
     },
     {
         "id": 3,
@@ -1468,7 +1470,7 @@
         "image": "10-042829.jpg",
         "points": 28,
         "title": "Protetor Solar FPS 30 - 118ml",
-        "price": 54,
+        "price": 55,
         "bestSeller": 8,
         "description": "Fórmula leve e livre de óleo, para o rosto e para o corpo, que proporciona proteção contra os raios UVA/UVB. À prova d'água e resistente ao suor por até oitenta minutos."
     },
@@ -1487,7 +1489,7 @@
         "image": "10-050165.jpg",
         "points": 20,
         "title": "Gel Restaurador Pós Sol - 192ml",
-        "price": 39,
+        "price": 40,
         "description": "Formulado com extratos botânicos ricos em antioxidantes, este gel é absorvido rapidamente, repondo a hidratação."
     },
     {
@@ -1505,7 +1507,7 @@
         "image": "10-049430.jpg",
         "points": 13,
         "title": "Protetor Solar para os Lábios FPS 15 - 4,5g",
-        "price": 23,
+        "price": 25,
         "description": "Ajuda a proteger os lábios dos efeitos nocivos da radiação solar."
     },
     {
@@ -1523,7 +1525,7 @@
         "image": "10-059505.jpg",
         "points": 27,
         "title": "Base Líquida TimeWise - Acabamento Matte - 29ml",
-        "price": 54,
+        "price": 57,
         "bestSeller": 9,
         "description": "Fórmula leve, que ajuda a controlar o excesso de oleosidade e o brilho durante todo o dia. Diminui a aparência de rugas e linhas finas."
     },
@@ -1687,7 +1689,7 @@
         "image": "10-059976.jpg",
         "points": 27,
         "title": "Base Líquida TimeWise - Acabamento Luminoso - 29ml",
-        "price": 54,
+        "price": 57,
         "description": "Proporciona uma pele com luminosidade e visual radiante com a melhora do aspecto da textura da pele."
     },
     {
@@ -1850,7 +1852,7 @@
         "image": "10-041998.jpg",
         "points": 20,
         "title": "Base de Cobertura Média - 29ml",
-        "price": 46,
+        "price": 48,
         "description": "Proporciona uma cor verdadeira e duradoura, além de ajudar a controlar o excesso de oleosidade por até oito horas."
     },
     {
@@ -1932,7 +1934,7 @@
         "image": "10-040984.jpg",
         "points": 23,
         "title": "Base em Pó Mineral - 8g",
-        "price": 54,
+        "price": 57,
         "bestSeller": 10,
         "description": "Um pó leve que se espalha facilmente para um visual impecável."
     },
@@ -2082,7 +2084,7 @@
         "image": "10-067803.jpg",
         "points": 11,
         "title": "Lápis Sombra - 2,5g",
-        "price": 20,
+        "price": 22,
         "description": "Sua fórmula ultra cremosa não acumula nas pálpebras. Cores divertidas e com acabamento metalizado."
     },
     {
@@ -2128,7 +2130,7 @@
         "image": "10-062089.jpg",
         "points": 9,
         "title": "Gloss Labial Jelly - 9,5ml",
-        "price": 18,
+        "price": 19,
         "description": "Lábios macios e glamorosos com cores intensas e brilhantes."
     },
     {
@@ -2174,7 +2176,7 @@
         "image": "10-067790.jpg",
         "points": 11,
         "title": "Lápis Batom - 2,5g",
-        "price": 20,
+        "price": 22,
         "description": "Cores marcantes com acabamento luminoso. Sua fórmula desliza facilmente e não borra durante o dia."
     },
     {
@@ -2220,7 +2222,7 @@
         "image": "10-059570.jpg",
         "points": 20,
         "title": "Corretivo - 8,5g",
-        "price": 32,
+        "price": 34,
         "bestSeller": 5,
         "description": "Fórmula cremosa de longa duração que disfarça pequenas imperfeições."
     },
@@ -2344,7 +2346,7 @@
         "image": "10-019029.jpg",
         "points": 18,
         "title": "Iluminador Facial - 1,3ml",
-        "price": 42,
+        "price": 46,
         "description": "Sua fórmula contém partículas esféricas que refletem a luz em várias direções, iluminando as áreas sombreadas."
     },
     {
@@ -2607,7 +2609,7 @@
         "image": "10-017587.jpg",
         "points": 23,
         "title": "Delineador Líquido para os Olhos - 3ml",
-        "price": 35,
+        "price": 36,
         "description": "Cor intensa e duradoura. O aplicador especial torna a aplicação super fácil."
     },
     {
@@ -2626,7 +2628,7 @@
         "image": "10-078024.jpg",
         "points": 18,
         "title": "Lápis Retrátil para os Olhos - 0,28g",
-        "price": 33,
+        "price": 34,
         "bestSeller": 2,
         "description": "Lápis de mecanismo retrátil com fórmula suave e a prova d'água. Vem com um exclusivo apontador na tampa."
     },
@@ -2708,7 +2710,7 @@
         "image": "10-027861.jpg",
         "points": 8,
         "title": "Kit para Sobrancelhas",
-        "price": 15,
+        "price": 16,
         "description": "Inclui: Mini pinça, mini pincel e mini escova."
     },
     {
@@ -2726,7 +2728,7 @@
         "image": "10-034730.jpg",
         "points": 18,
         "title": "Lápis Delineador para Sobrancelhas - 1,13g",
-        "price": 30,
+        "price": 32,
         "description": "Fórmula cremosa, de longa duração e à prova d'água, para um visual bem definido."
     },
     {
@@ -2754,7 +2756,7 @@
         "image": "10-035651.jpg",
         "points": 25,
         "title": "Ultimate Máscara para Cílios - 8g",
-        "price": 51,
+        "price": 55,
         "bestSeller": 6,
         "description": "Fórmula exclusiva, para cílios marcantes com até cinco vezes mais volume."
     },
@@ -2774,7 +2776,7 @@
         "image": "10-049293.jpg",
         "points": 25,
         "title": "Máscara para Cílios Lash Love - 8g",
-        "price": 51,
+        "price": 55,
         "description": "Define, protege e proporciona volume ideal aos cílios."
     },
     {
@@ -2793,7 +2795,7 @@
         "image": "10-054563.jpg",
         "points": 25,
         "title": "Máscara Alongadora para Cílios Lash Love - 8g",
-        "price": 51,
+        "price": 55,
         "description": "Cílios longos, fortes e definidos."
     },
     {
@@ -2812,7 +2814,7 @@
         "image": "10-058264.jpg",
         "points": 25,
         "title": "Máscara Alongadora para Cílios Lash Love à Prova D'Água - 8g",
-        "price": 51,
+        "price": 55,
         "description": "Cuide dos cílios com uma rotina diária e tenha o olhar que você sempre sonhou. Em apenas 3 passos, fortaleça, prepare e finalize com a sua máscara para cílios favorita."
     },
     {
@@ -2831,7 +2833,7 @@
         "image": "10-049289.jpg",
         "points": 25,
         "title": "Máscara para Cílios Lash Love à Prova D'água - 8g",
-        "price": 51,
+        "price": 55,
         "description": "Define, protege e proporciona volume ideal aos cílios em fórmula resistente à água."
     },
     {
@@ -2884,7 +2886,7 @@
         "image": "10-042768.jpg",
         "points": 26,
         "title": "Demaquilante para a Área dos Olhos - 110ml",
-        "price": 51,
+        "price": 53,
         "bestSeller": 4,
         "description": "Remove delicadamente a maquiagem dos olhos."
     },
@@ -2903,7 +2905,7 @@
         "image": "10-058473.jpg",
         "points": 29,
         "title": "Primer Facial Fixador de Maquiagem FPS 15 - 29ml",
-        "price": 56,
+        "price": 59,
         "description": "Melhora o aspecto da pele, realçando os benefícios da base e amenizando imperfeições."
     },
     {
@@ -2938,7 +2940,7 @@
         "image": "10-060182.jpg",
         "points": 21,
         "title": "Pó Solto Translúcido - 11g",
-        "price": 49,
+        "price": 55,
         "description": "Proporciona um acabamento natural e controla a oleosidade e o brilho durante todo o dia sem obstruir os poros ou acumular nas linhas finas."
     },
     {
@@ -3030,7 +3032,7 @@
         "image": "10-031780.jpg",
         "points": 19,
         "title": "Blush em Creme - 2,1g",
-        "price": 35,
+        "price": 36,
         "description": "Fórmula cremosa que desliza facilmente na pele e proporciona um acabamento aveludado."
     },
     {
@@ -3127,7 +3129,7 @@
         "image": "10-078023.jpg",
         "points": 18,
         "title": "Lápis Retrátil para os Lábios - 0,28g",
-        "price": 31,
+        "price": 33,
         "description": "Uma fórmula leve e à prova d'água, em uma prática embalagem retrátil. Desliza suavemente para uma aplicação uniforme, vem com um exclusivo apontador na tampa."
     },
     {
@@ -3173,7 +3175,7 @@
         "image": "10-054822.png",
         "points": 26,
         "title": "Batom True Dimensions - 3,3g",
-        "price": 47,
+        "price": 48,
         "description": "Proporcione uma nova dimensão aos seus lábios com uma fórmula avançada em uma sofisticada embalagem metálica."
     },
     {
@@ -3255,7 +3257,7 @@
         "image": "10-022936.jpg",
         "points": 19,
         "title": "Batom Cremoso - 3g",
-        "price": 35,
+        "price": 37,
         "description": "Sua fórmula de longa duração desliza pelos lábios com uma textura leve e cremosa, para um resultado impactante e duradouro. Enriquecido com Vitamina E que ajuda a proteger contra a ação dos radicais lives."
     },
     {
@@ -3346,7 +3348,8 @@
         "image": "10-040707.jpg",
         "option": "Midnight Red",
         "expires": 1396321199,
-        "active": false
+        "active": false,
+        "price": 35
     },
     {
         "id": 383,
@@ -3463,7 +3466,7 @@
         "image": "10-051645.jpg",
         "points": 19,
         "title": "Batom Líquido - 7,6g",
-        "price": 35,
+        "price": 37,
         "description": "Combina cobertura impecável com a facilidade de aplicação de um brilho para os lábios."
     },
     {
@@ -3518,7 +3521,7 @@
         "image": "10-052397.jpg",
         "points": 19,
         "title": "Brilho para os Lábios NouriShine Plus - 4,5ml",
-        "price": 33,
+        "price": 34,
         "description": "Protege, suaviza e hidrata os lábios. O produto proporciona ainda um brilho radiante em cores que estão sempre na moda."
     },
     {
@@ -3669,7 +3672,7 @@
         "image": "10-054132.jpg",
         "points": 63,
         "title": "Coleção de Pincéis",
-        "price": 122,
+        "price": 129,
         "description": "Agora com o estojo em formato de maletinha. Seu novo design é moderno e traz uma nécessaire removível super prática para você levar seus produtos onde quiser."
     },
     {
@@ -3687,7 +3690,7 @@
         "image": "10-053681.jpg",
         "points": 9,
         "title": "Pincel para Sombra",
-        "price": 18,
+        "price": 19,
         "description": "Suas cerdas naturais aplicam a sombra com perfeição."
     },
     {
@@ -3705,7 +3708,7 @@
         "image": "10-054040.jpg",
         "points": 19,
         "title": "Pincel para Base Líquida",
-        "price": 36,
+        "price": 38,
         "description": "Perfeito para uma aplicação precisa de produtos com fórmulas cremosas e deposita a quantidade ideal de Base Líquida."
     },
     {
@@ -3723,7 +3726,7 @@
         "image": "10-053678.jpg",
         "points": 19,
         "title": "Pincel para Pó Facial",
-        "price": 36,
+        "price": 38,
         "description": "Suas cerdas macias e porosas permitem que a quantidade ideal do produto seja aplicada sobre a pele."
     },
     {
@@ -3741,7 +3744,7 @@
         "image": "10-053680.jpg",
         "points": 9,
         "title": "Pincel para o Côncavo dos Olhos",
-        "price": 18,
+        "price": 19,
         "description": "Perfeito para definir a linha do côncavo e dar mais profundidade ao olhar."
     },
     {
@@ -3759,7 +3762,7 @@
         "image": "10-053675.jpg",
         "points": 9,
         "title": "Pincel para Esfumar",
-        "price": 18,
+        "price": 19,
         "description": "Desenvolvido para um acabamento preciso, criando um look esfumado e dramático."
     },
     {
@@ -3777,7 +3780,7 @@
         "image": "10-054041.jpg",
         "points": 9,
         "title": "Pincel para Corretivo e Sombra em Creme",
-        "price": 18,
+        "price": 19,
         "description": "Cobertura impecável na aplicação de produtos de fórmulas cremosas."
     },
     {
@@ -3795,7 +3798,7 @@
         "image": "10-053682.jpg",
         "points": 9,
         "title": "Pincel Duo Sobrancelha e Delineador",
-        "price": 18,
+        "price": 19,
         "description": "Dois em um, com um lado você penteia e com o outro você delineia seus cílios e sobrancelhas."
     },
     {
@@ -3830,7 +3833,7 @@
         "image": "10-053679.jpg",
         "points": 17,
         "title": "Pincel para Blush",
-        "price": 32,
+        "price": 34,
         "description": "Cerdas macias, longas e de formato ideal para a aplicação do Blush Mineral."
     },
     {
@@ -3945,7 +3948,7 @@
         "image": "10-192900.jpg",
         "points": 41,
         "title": "Belara Eau de Parfum - 50ml",
-        "price": 88,
+        "price": 98,
         "description": "Uma revigorante combinação floral com notas de almíscar."
     },
     {
@@ -3963,7 +3966,7 @@
         "image": "10-012512.jpg",
         "points": 44,
         "title": "Bella Belara Eau de Parfum - 50ml",
-        "price": 88,
+        "price": 98,
         "description": "Uma exuberante fragrância floral frutal, com notas florais, frutas frescas e doces."
     },
     {
@@ -3998,7 +4001,7 @@
         "image": "10-397300.jpg",
         "points": 59,
         "title": "Elige Eau de Parfum - 50ml",
-        "price": 110,
+        "price": 115,
         "description": "Uma leve combinação de notas orientais, com exóticas essências de madeira."
     },
     {
@@ -4016,7 +4019,7 @@
         "image": "10-166700.jpg",
         "points": 48,
         "title": "Journey Eau de Parfum - 50ml",
-        "price": 99,
+        "price": 110,
         "description": "Uma fragrância floral suave, que combina aromas de menta e lírios."
     },
     {
@@ -4034,7 +4037,7 @@
         "image": "10-051949.jpg",
         "points": 59,
         "title": "Pink Diamonds Eau de Parfum - 60ml",
-        "price": 99,
+        "price": 110,
         "description": "Encante-se com essa fragrância floral, elaborada para mulheres elegantes e encantadoras."
     },
     {
@@ -4052,7 +4055,7 @@
         "image": "10-037726.jpg",
         "points": 52,
         "title": "Thinking of You Eau de Parfum - 29ml",
-        "price": 89,
+        "price": 95,
         "description": "Fragrância com notas frutais e florientais em uma embalagem especial, que permite escrever uma mensagem personalizada em seu interior."
     },
     {
@@ -4070,7 +4073,7 @@
         "image": "10-168700.jpg",
         "points": 52,
         "title": "Velocity Eau de Parfum - 50ml",
-        "price": 95,
+        "price": 98,
         "description": "Uma combinação de notas de flores e frutas exóticas."
     },
     {
@@ -4088,7 +4091,7 @@
         "image": "10-020031.jpg",
         "points": 32,
         "title": "Exotic Passionfruit Água de Colônia - 50ml",
-        "price": 63,
+        "price": 65,
         "description": "Doce e marcante."
     },
     {
@@ -4106,7 +4109,7 @@
         "image": "10-033691.jpg",
         "points": 32,
         "title": "Forever Orchid Água de Colônia - 50ml",
-        "price": 63,
+        "price": 65,
         "description": "Simples e ao mesmo tempo sofisticada."
     },
     {
@@ -4124,7 +4127,7 @@
         "image": "10-020029.jpg",
         "points": 32,
         "title": "Simply Cotton Água de Colônia - 50ml",
-        "price": 63,
+        "price": 65,
         "description": "Pura e refrescante."
     },
     {
@@ -4142,7 +4145,7 @@
         "image": "10-020028.jpg",
         "points": 32,
         "title": "Warm Amber Água de Colônia - 50ml",
-        "price": 63,
+        "price": 65,
         "description": "Rica e acolhedora."
     },
     {
@@ -4160,7 +4163,7 @@
         "image": "10-048515.jpg",
         "points": 60,
         "title": "True Original Cologne Spray - 59ml",
-        "price": 115,
+        "price": 118,
         "description": "Fragrância fougère aromática. Fresca, contemporânea e espontânea para o verdadeiro homem original."
     },
     {
@@ -4195,7 +4198,7 @@
         "image": "10-012494.jpg",
         "points": 60,
         "title": "MK High Intensity Cologne Spray - 73ml",
-        "price": 115,
+        "price": 118,
         "description": "Fragrância oriental âmbar com notas de topo de erva-doce negra e sálvia prata."
     },
     {
@@ -4213,7 +4216,7 @@
         "image": "10-028783.jpg",
         "points": 45,
         "title": "Domain Cologne Spray - 73ml",
-        "price": 85,
+        "price": 89,
         "description": "Uma refrescante combinação de lavanda, musgo de carvalho e almíscar."
     },
     {
@@ -4231,7 +4234,7 @@
         "image": "10-501700.jpg",
         "points": 52,
         "title": "Velocity For Him Cologne - 59ml",
-        "price": 95,
+        "price": 98,
         "description": "Esta leve fragrância captura o frescor dos ares das montanhas e a essência de madeiras."
     },
     {
@@ -4339,7 +4342,7 @@
         "image": "10-070247.png",
         "points": 26,
         "title": "Batom True Dimensions - 3,3g",
-        "price": 47,
+        "price": 48,
         "description": "Proporcione uma nova dimensão aos seus lábios com uma fórmula avançada em uma sofisticada embalagem metálica."
     },
     {
