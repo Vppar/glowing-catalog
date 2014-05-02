@@ -7,53 +7,84 @@
 
 <script type="text/javascript">
 
-	var total = 2000;
+	var topmargin = 40;
+
 	var values = [
-	{value:105,name:'a'},
-	{value:100,name:'b'},
-	{value:80,name:'c'},
-	{value:50,name:'d'},
-	{value:120,name:'e'},
-	{value:200,name:'f'},
-	{value:120,name:'g'},
-	{value:70,name:'h'},
-	{value:750,name:'i'}
+	{value:105,goal:200,name:'a'},
+	{value:100,goal:70,name:'b'},
+	{value:80,goal:90,name:'c'},
+	{value:50,goal:56,name:'d'},
+	{value:120,goal:120,name:'e'},
+	{value:200,goal:210,name:'f'},
+	{value:120,goal:100,name:'g'},
+	{value:70,goal:79,name:'h'},
+	{value:750,goal:244,name:'i'}
 	];
 
 
-	function gauge(values, total){
+	function gauge(values){
 
 		var width = 100; 
 		var height = 400;
 		var topmargin = 40;
 
 		var sum_values = d3.sum(values, function(d) {return d.value; });
+		var sum_goals = d3.sum(values, function(d) {return d.goal; });
 
-		var y = d3.scale.linear().domain([total,0]).range([height, 0]);
+		var ref = 0;
+		if(sum_values < sum_goals){
+			ref = sum_goals;
+		}else{
+			ref = sum_values;
+		}
+
+		var y = d3.scale.linear().domain([ref,0]).range([height-topmargin, 0]);
 
 		var canvas = d3.select('body').selectAll('div.gauge').append('svg')
 		.attr('width', width)
 		.attr('height', height);
 
-		drawBar(sum_values,'#000');
+		//this needs to be refactored. should be more dinamic....
+		if(sum_values < sum_goals){
+			drawGoal();
+			drawSnapshot();
 
+		}else{
+			drawSnapshot();
+			drawGoal();
+		}
 
-		function drawBar(value,color){
-			var array = [];
-			array.push(value);
-			var bar = canvas.selectAll('.bar')
-			.data(array)
+		function drawGoal(){
+			var goal = canvas.selectAll('.goal')
+			.data([sum_goals])
 			.enter()
 			.append('g')
-			.attr('class', 'bar');
+			.attr('class', 'goal');
 
-			bar.append('rect')
+			goal.append('rect')
 			.attr('x', 0 )
-			.attr('y', height - y(value))
+			.attr('y', height - y(sum_goals))
 			.attr('width', width)
-			.attr('height', y(value))
-			.attr('fill', color);
+			.attr('height', y(sum_goals))
+			.attr('fill', '#000');
 		}
+
+		function drawSnapshot(){
+
+			var snapshot = canvas.selectAll('.snapshot')
+			.data([sum_values])
+			.enter()
+			.append('g')
+			.attr('class', 'snapshot');
+
+			snapshot.append('rect')
+			.attr('x', 0 )
+			.attr('y', height - y(sum_values))
+			.attr('width', width)
+			.attr('height', y(sum_values))
+			.attr('fill', '#f00');
+		}
+		
 	}
 
 
@@ -62,7 +93,7 @@
 
 		var width = 800; 
 		var height = 400;
-		var topmargin = 40;
+		
 
 		var x = d3.scale.linear().domain([0, width]).range([0, width]);
 		var y = d3.scale.linear().domain([d3.max(values, function(d) { return d.value; }),0]).range([height-topmargin, 0]);
@@ -79,9 +110,9 @@
 
 		bars.append('rect')
 		.attr('x', function(d,i){ return i*(width/values.length); })
-		.attr('y', function(d){ return height-y(d.value); })
+		.attr('y', function(d){ return height-y(d.goal); })
 		.attr('width', width/values.length - 10)
-		.attr('height', function(d){ return y(d.value); })
+		.attr('height', function(d){ return y(d.goal); })
 		.attr('fill', 'steelblue');
 
 		bars.append('text')
@@ -90,54 +121,24 @@
 		.attr('width', width/values.length)
 		.attr('height', 30)
 		.attr('text', function(d){ return d.name});
+
+		var lineMap = d3.svg.line()
+			.x(function(d,i) { 
+				return i*(width/values.length)+((width/values.length)/2); 
+			})
+			.y(function(d) { 
+				return height-y(d.value);
+			})
+
+		var line = canvas.append("path").attr("d", lineMap(values)).attr('stroke','#000').attr('fill','none');
+
 	}
 
 
-	gauge(values,total);
+	gauge(values);
 	histogram(values);
 
 
-
-
-
-// var map = values.map(function(d){ return d.value; });
-// //number of beans
-// var bins = 5;
-
-// var histogram = d3.layout.histogram().bins(bins)(map);
-
-// console.log(histogram);
-
-// var width=800; 
-// var height=400;
-// var topmargin = 40;
-
-// var x = d3.scale.linear().domain([0, width]).range([0, width]);
-// var y = d3.scale.linear().domain([0, d3.max(histogram, function(d) { return d.y; })]).range([height-topmargin, 0]);
-
-// var canvas = d3.select("body").selectAll('div.ddd').append("svg")
-//                .attr("width", width)
-//                .attr("height", height)
-//                .attr("transform", "translate(50, 50)")
-
-// var bars = canvas.selectAll(".bar")
-//                  .data(histogram)
-//                  .enter()
-//                  .append("g")
-//                  .attr("class", "bar");
-
-// bars.append("rect")
-//     .attr("x", function(d){ return x(d.x); })
-//     .attr("y", function(d){ return height - y(d.y); })
-//     .attr("width", function(d){ return d.dx-5; })
-//     .attr("height", function(d){ return y(d.y); })
-//     .attr("fill", "steelblue");
-
-// bars.append("text")
-//     .attr("x", function(d){ return x(d.x); })
-//     .attr("y", function(d){ return height - y(d.y); })
-//     .attr("width", function(d){ return d.dx-5; })
-//     .text('sdfsdsfd');
 
 
 </script>
