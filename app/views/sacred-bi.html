@@ -1,6 +1,31 @@
 <style>
-	.bar{
-		min-height: 10px;
+
+	.axis-x path,
+	.axis-x line {
+		fill: none;
+		stroke: none;
+		shape-rendering: crispEdges;
+	}
+
+	.axis-y path,
+	.axis-y line {
+		fill: none;
+		stroke: none;
+		shape-rendering: crispEdges;
+	}
+	.axis-y .guide{
+		stroke:1px;
+		stroke: #666;
+	}
+
+	.axis-y text {
+		font-size: 10px;
+		fill:#666;
+	}
+
+	.axis-x text {
+		font-size: 12px;
+		fill:#333;
 	}
 
 </style>
@@ -10,15 +35,15 @@
 	
 
 	var values = [
-	{order:1,value:105,goal:200,name:'a'},
-	{order:2,value:100,goal:70,name:'b'},
-	{order:3,value:80,goal:600,name:'c'},
-	{order:4,value:50,goal:56,name:'d'},
-	{order:5,value:120,goal:120,name:'e'},
-	{order:6,value:200,goal:210,name:'f'},
-	{order:7,value:120,goal:100,name:'g'},
-	{order:8,value:70,goal:79,name:'h'},
-	{order:9,value:750,goal:244,name:'i'}
+	{order:1,value:105,goal:200,name:'1ª semana'},
+	{order:2,value:100,goal:70,name:'2ª semana'},
+	{order:3,value:80,goal:600,name:'3ª semana'},
+	{order:4,value:50,goal:56,name:'4ª semana'},
+	{order:5,value:120,goal:120,name:'5ª semana'},
+	{order:6,value:200,goal:210,name:'6ª semana'},
+	{order:7,value:120,goal:100,name:'7ª semana'},
+	{order:8,value:70,goal:79,name:'8ª semana'},
+	{order:9,value:750,goal:244,name:'9ª semana'}
 	];
 
 
@@ -87,6 +112,123 @@
 		
 	}
 
+	function cumulative(values){
+
+		var valuesCumulative = makeCumulative(values.map(function(d){ return d.value; }));
+		var goalCumulative = makeCumulative(values.map(function(d){ return d.goal; }));
+
+		var maxCtrl = true;
+
+		var max = d3.max(valuesCumulative);
+		if(max < d3.max(goalCumulative)){
+			max = d3.max(goalCumulative);
+			maxCtrl = false;
+		}
+
+		var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
+		
+		var width = 800; 
+		var height = 200;
+		var topMargin = 40;
+		var leftMargin = 40;
+		var bottomMargin = 40;
+		var barWidth = 50;
+
+		var chartWidth = width-leftMargin;
+		var chartHeight = height-(topMargin+bottomMargin);
+
+		var x = d3.scale.ordinal().domain(values.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
+		var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
+
+		var canvas = d3.select('body').selectAll('div.ddd').append('svg')
+		.attr('width', width)
+		.attr('height', height);
+
+
+		drawYAxis();
+		drawXAxis();
+		drawLine('#000',goalCumulative);
+		drawLine('#0f0',valuesCumulative);
+
+		function drawLine(color,points,metric){
+			var lineMap = d3.svg.line()
+			.x(function(d,i) { 
+				return ((i+1) * x.rangeBand()); 
+			})
+			.y(function(d) { 
+				return y(d);
+			})
+
+			var line = canvas.append('path')
+			.attr("d", lineMap(points))
+			.attr('stroke',color)
+			.attr('fill','none')
+			.attr('stroke-linejoin','round')
+			.attr('stroke-width','2px')
+			.attr("transform", "translate(0,"+topMargin+")");
+
+			var dots = canvas.selectAll('dots')
+			.data(points)
+			.enter()
+			.append('g')
+			.attr('class', 'dots');
+
+			dots.append('circle')
+			.attr('cx', function(d,i){  return ((i+1) * x.rangeBand());  })
+			.attr('cy', function(d){ return y(d); })
+			.attr('r', 4)
+			.attr("transform", "translate(0,"+topMargin+")")
+			.attr('fill', '#000');
+		}
+
+		function drawYAxis(){
+			var yAxis =
+			d3.svg.axis()
+			.scale(y)
+			.ticks(10)
+			.orient('left');
+
+			var axisY = canvas.append("g")
+			.attr('class','axis-y')
+			.attr("transform", "translate("+leftMargin+","+topMargin+")")
+			.call(yAxis);
+
+			axisY.selectAll("line.y")
+			.data(y.ticks(10))
+			.enter().append("line")
+			.attr('class','guide')
+			.attr("x1", 0)
+			.attr("x2", leftMargin + chartWidth)
+			.attr("y1", function(d){ return y(d);})
+			.attr("y2", function(d){ return y(d);});
+		}		
+
+		function drawXAxis(){
+			var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
+
+			canvas.append("g")
+			.attr('class','axis-x')
+			.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
+			.call(xAxis);
+			
+		}
+
+
+
+
+
+		function makeCumulative(entry){
+			var values = [];
+			var last = 0;
+			for(var i = 0;i<entry.length;i++){
+				last = last + entry[i];
+				values.push(last);
+			}
+			return values;
+		}
+
+	}
+
 
 
 	function histogram(values){
@@ -94,7 +236,7 @@
 		var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
 
 		var width = 800; 
-		var height = 400;
+		var height = 200;
 		var topMargin = 40;
 		var leftMargin = 40;
 		var bottomMargin = 40;
@@ -111,59 +253,92 @@
 		.attr('width', width)
 		.attr('height', height);
 
-		var bars = canvas.selectAll('.bar')
-		.data(values)
-		.enter()
-		.append('g')
-		.attr("transform", "translate(0,"+topMargin+")")
-		.attr('class', 'bar');
+		
+		drawYAxis();
+		drawXAxis();
+		drawBars();
+		drawLine('#000');
 
-		bars.append('rect')
-		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2);  })
-		.attr('y', function(d){ return y(d.goal); })
-		.attr('width', barWidth)
-		.attr('height', function(d){ return chartHeight-y(d.goal); })
-		.attr('fill', 'steelblue');
+		function drawBars(){
+			var bars = canvas.selectAll('.bar')
+			.data(values)
+			.enter()
+			.append('g')
+			.attr("transform", "translate(0,"+topMargin+")")
+			.attr('class', 'bar');
 
-		var lineMap = d3.svg.line()
-		.x(function(d,i) { 
-			return i*(chartWidth/values.length)+((chartWidth/values.length)/2); 
-		})
-		.y(function(d) { 
-			return y(d.value);
-		})
+			bars.append('rect')
+			.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2);  })
+			.attr('y', function(d){ return y(d.goal); })
+			.attr('width', barWidth)
+			.attr('height', function(d){ return chartHeight-y(d.goal); })
+			.attr('fill', 'steelblue');
+		}
 
-		var line = canvas.append("path")
-		.attr("d", lineMap(values))
-		.attr('stroke','#000')
-		.attr('fill','none')
-		.attr("transform", "translate("+leftMargin+","+topMargin+")");
+		function drawLine(color){
+			var lineMap = d3.svg.line()
+			.x(function(d,i) { 
+				return i*(chartWidth/values.length)+((chartWidth/values.length)/2); 
+			})
+			.y(function(d) { 
+				return y(d.value);
+			})
 
-		var yAxis =
-		d3.svg.axis()
-		.scale(y)
-		.ticks(10)
-		.orient("left");
+			var line = canvas.append('path')
+			.attr("d", lineMap(values))
+			.attr('stroke',color)
+			.attr('fill','none')
+			.attr('stroke-linejoin','round')
+			.attr('stroke-width','2px')
+			.attr('transform', 'translate('+leftMargin+','+topMargin+')');
 
-		canvas.append("g")
-		.attr("transform", "translate("+leftMargin+","+topMargin+")")
-		.call(yAxis);
+			var dots = canvas.selectAll('dots')
+			.data(values)
+			.enter()
+			.append('g')
+			.attr("transform", "translate(0,"+topMargin+")")
+			.attr('class', 'dots');
 
-		canvas.selectAll("line.y")
-		.data(y.ticks(10))
-		.enter().append("line")
-		.attr("class", "y")
-		.attr("x1", leftMargin)
-		.attr("x2", leftMargin + chartWidth)
-		.attr("y1", function(d){ return y(d)+topMargin;})
-		.attr("y2", function(d){ return y(d)+topMargin;})
-		.style("stroke", "#ccc");
+			dots.append('circle')
+			.attr('cx', function(d,i){  return ((i+1) * x.rangeBand());  })
+			.attr('cy', function(d){ return y(d.value); })
+			.attr('r', 4)
+			.attr('fill', '#000');
+		}
 
-		var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
+		function drawYAxis(){
+			var yAxis =
+			d3.svg.axis()
+			.scale(y)
+			.ticks(10)
+			.orient('left');
 
-		canvas.append("g")
-		.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
-		.call(xAxis);
+			var axisY = canvas.append("g")
+			.attr('class','axis-y')
+			.attr("transform", "translate("+leftMargin+","+topMargin+")")
+			.call(yAxis);
+
+			axisY.selectAll("line.y")
+			.data(y.ticks(10))
+			.enter().append("line")
+			.attr('class','guide')
+			.attr("x1", 0)
+			.attr("x2", leftMargin + chartWidth)
+			.attr("y1", function(d){ return y(d);})
+			.attr("y2", function(d){ return y(d);});
+		}		
+
+		function drawXAxis(){
+			var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
+
+			canvas.append("g")
+			.attr('class','axis-x')
+			.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
+			.call(xAxis);
+			
+		}
+
+
 
 
 	}
@@ -171,7 +346,7 @@
 
 	gauge(values);
 	histogram(values);
-
+	cumulative(values);
 
 
 
@@ -212,8 +387,14 @@
 						</div>
 					</div>
 				</div>
-			</div>
+				<div class="col-24">
+					<div class="cumulative">
 
+					</div>
+				</div>
+			</div>
 		</div>
+
 	</div>
+</div>
 </div>
