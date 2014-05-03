@@ -89,7 +89,8 @@
                 function updateTotal() {
                     var total = 0, count = 0;
                     for ( var ix in $scope.grid) {
-                        total += $scope.grid[ix].qty * product.price;
+                        var price = $scope.grid[ix].price ? $scope.grid[ix].price : product.price;
+                        total += $scope.grid[ix].qty * price;
                         count += $scope.grid[ix].qty;
                     }
 
@@ -105,8 +106,9 @@
                         qty = orderProduct.qty;
                     }
                     $scope.grid[ix].qty = qty;
-
-                    originalTotal += $scope.grid[ix].qty * product.price;
+                    
+                    var price = $scope.grid[ix].price ? $scope.grid[ix].price : product.price;
+                    originalTotal += $scope.grid[ix].qty * price;
                     originalQty += $scope.grid[ix].qty;
                 }
 

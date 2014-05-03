@@ -34,7 +34,8 @@
 				</div>
 	
 					<div class="new-col-5 text-vertical-middle text-center">{{item.inventory}}</div>
-					<div class="new-col-4 text-vertical-middle currency">{{product.price | currency:''}}</div>
+					<div class="new-col-4 text-vertical-middle currency" ng-if="item.price">{{item.price | currency:''}}</div>
+					<div class="new-col-4 text-vertical-middle currency" ng-if="!item.price">{{product.price | currency:''}}</div>
 					<div class="new-col-6 text-center">
 						<tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
 					</div>
