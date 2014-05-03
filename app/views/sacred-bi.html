@@ -7,18 +7,18 @@
 
 <script type="text/javascript">
 
-	var topmargin = 40;
+	
 
 	var values = [
-	{value:105,goal:200,name:'a'},
-	{value:100,goal:70,name:'b'},
-	{value:80,goal:90,name:'c'},
-	{value:50,goal:56,name:'d'},
-	{value:120,goal:120,name:'e'},
-	{value:200,goal:210,name:'f'},
-	{value:120,goal:100,name:'g'},
-	{value:70,goal:79,name:'h'},
-	{value:750,goal:244,name:'i'}
+	{order:1,value:105,goal:200,name:'a'},
+	{order:2,value:100,goal:70,name:'b'},
+	{order:3,value:80,goal:600,name:'c'},
+	{order:4,value:50,goal:56,name:'d'},
+	{order:5,value:120,goal:120,name:'e'},
+	{order:6,value:200,goal:210,name:'f'},
+	{order:7,value:120,goal:100,name:'g'},
+	{order:8,value:70,goal:79,name:'h'},
+	{order:9,value:750,goal:244,name:'i'}
 	];
 
 
@@ -91,12 +91,21 @@
 
 	function histogram(values){
 
+		var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
+
 		var width = 800; 
 		var height = 400;
-		
+		var topMargin = 40;
+		var leftMargin = 40;
+		var bottomMargin = 40;
+		var barWidth = 50;
 
-		var x = d3.scale.linear().domain([0, width]).range([0, width]);
-		var y = d3.scale.linear().domain([d3.max(values, function(d) { return d.value; }),0]).range([height-topmargin, 0]);
+		var chartWidth = width-leftMargin;
+		var chartHeight = height-(topMargin+bottomMargin);
+
+		// var x = d3.scale.linear().domain([0, chartWidth]).range([0, chartWidth]);
+		var x = d3.scale.ordinal().domain(values.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
+		var y = d3.scale.linear().domain([d3.max(values, function(d) { return d.value; }),0]).range([0,chartHeight]);
 
 		var canvas = d3.select('body').selectAll('div.ddd').append('svg')
 		.attr('width', width)
@@ -106,31 +115,56 @@
 		.data(values)
 		.enter()
 		.append('g')
+		.attr("transform", "translate(0,"+topMargin+")")
 		.attr('class', 'bar');
 
 		bars.append('rect')
-		.attr('x', function(d,i){ return i*(width/values.length); })
-		.attr('y', function(d){ return height-y(d.goal); })
-		.attr('width', width/values.length - 10)
-		.attr('height', function(d){ return y(d.goal); })
+		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2);  })
+		.attr('y', function(d){ return y(d.goal); })
+		.attr('width', barWidth)
+		.attr('height', function(d){ return chartHeight-y(d.goal); })
 		.attr('fill', 'steelblue');
 
-		bars.append('text')
-		.attr('x', function(d,i){ return i*(width/values.length); })
-		.attr('y', height)
-		.attr('width', width/values.length)
-		.attr('height', 30)
-		.attr('text', function(d){ return d.name});
-
 		var lineMap = d3.svg.line()
-			.x(function(d,i) { 
-				return i*(width/values.length)+((width/values.length)/2); 
-			})
-			.y(function(d) { 
-				return height-y(d.value);
-			})
+		.x(function(d,i) { 
+			return i*(chartWidth/values.length)+((chartWidth/values.length)/2); 
+		})
+		.y(function(d) { 
+			return y(d.value);
+		})
 
-		var line = canvas.append("path").attr("d", lineMap(values)).attr('stroke','#000').attr('fill','none');
+		var line = canvas.append("path")
+		.attr("d", lineMap(values))
+		.attr('stroke','#000')
+		.attr('fill','none')
+		.attr("transform", "translate("+leftMargin+","+topMargin+")");
+
+		var yAxis =
+		d3.svg.axis()
+		.scale(y)
+		.ticks(10)
+		.orient("left");
+
+		canvas.append("g")
+		.attr("transform", "translate("+leftMargin+","+topMargin+")")
+		.call(yAxis);
+
+		canvas.selectAll("line.y")
+		.data(y.ticks(10))
+		.enter().append("line")
+		.attr("class", "y")
+		.attr("x1", leftMargin)
+		.attr("x2", leftMargin + chartWidth)
+		.attr("y1", function(d){ return y(d)+topMargin;})
+		.attr("y2", function(d){ return y(d)+topMargin;})
+		.style("stroke", "#ccc");
+
+		var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
+
+		canvas.append("g")
+		.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
+		.call(xAxis);
+
 
 	}
 
