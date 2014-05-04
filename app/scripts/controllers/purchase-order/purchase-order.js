@@ -291,7 +291,9 @@
                     $scope.main.stockReport = StockService.stockReport('all');
 
                     loadStockReportQty($scope.main.stockReport, NewPurchaseOrderService.listConfirmed(), NewPurchaseOrderService.listPartiallyReceived());
-                    loadStashedPurchaseOrder();
+
+                    NewPurchaseOrderService.createNewCurrent();
+                    updatePurchaseOrder($scope.main.stockReport);
 
                     summarizer($scope.purchaseOrder.watchedQty, false);
 
@@ -378,12 +380,12 @@
                 // Watchers
                 // #####################################################################################################
 
-                $scope.$on('$destroy', function () {
-                    updatePurchaseOrder($scope.main.stockReport);
-                    if (hasCurrentPurchaseOrder()) {
-                        NewPurchaseOrderService.saveCurrent();
-                    }
-                });
+                // $scope.$on('$destroy', function () {
+                // updatePurchaseOrder($scope.main.stockReport);
+                // if (hasCurrentPurchaseOrder()) {
+                // NewPurchaseOrderService.saveCurrent();
+                // }
+                //                });
 
                 // #####################################################################################################
                 // Controller warm up
