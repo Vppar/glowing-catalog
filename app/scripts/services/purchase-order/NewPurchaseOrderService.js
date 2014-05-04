@@ -316,7 +316,6 @@
 
                             $log.debug('StashedPurchaseOrder.add: Product update in current PurchaseOrder.');
 
-                            this.isDirty = true;
                         } else {
                             $log.debug('StashedPurchaseOrder.add: Nothing to do same qty.');
                         }
@@ -324,7 +323,6 @@
                         changeProduct.points = product.qty * product.points;
                         changeProduct.amount = FinancialMathService.currencyMultiply(product.qty, product.cost);
                         this.items.push(angular.copy(product));
-                        this.isDirty = true;
 
                         $log.debug('StashedPurchaseOrder.add: Product added to current PurchaseOrder.');
                     }
@@ -346,7 +344,6 @@
                             this.amount =
                                 FinancialMathService.currencySubtract(this.amount, FinancialMathService.currencyMultiply(
                                     product.qty, product.cost));
-                            this.isDirty = true;
                             $log.debug('StashedPurchaseOrder.remove: Product removed from current PurchaseOrder.', product);
                         }
                     };
@@ -498,7 +495,6 @@
                         var item = _this.purchaseOrder.items[ix];
                         item.cost = FinancialMathService.currencyDivide(itemsCost [ix], item.qty);
                     }
-                    _this.purchaseOrder.isDirty = true;
                 };
             }
         ]);
