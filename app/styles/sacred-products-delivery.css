@@ -8,7 +8,7 @@
 	height: calc(100% - 47px);
 }
 
-/*test styles */
+/* test styles */
 
 #sacred .product-delivery-products-part-test .grid-scroll{
 height: calc(100% - 40px);
@@ -33,7 +33,6 @@ height: calc(100% - 40px);
 	height: calc(100% - 47px);
 }
 
-
 #sacred .calendar-header-test .dropdown-menu{
-	left: -138px !important;
+	left: -138px;
 }
