@@ -58,9 +58,9 @@
     angular.module('tnt.catalog.stock.keeper', [
         'tnt.utils.array', 'tnt.catalog.journal.entity', 'tnt.catalog.journal.replayer', 'tnt.catalog.journal.keeper', 'tnt.catalog.keeper'
     ]).service('StockKeeper', ['$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Stock', 'FinancialMathService', StockKeeper])
-    .run(function(MasterKeeper){
+    .run(['MasterKeeper',function(MasterKeeper){
         ObjectUtils.inherit(StockKeeper, MasterKeeper);
-    });
+    }]);
     
     function StockKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Stock, FinancialMathService) {
 

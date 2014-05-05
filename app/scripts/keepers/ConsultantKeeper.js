@@ -102,9 +102,9 @@
             'Consultant',
             'IdentityService',
             ConsultantKeeper
-        ]).run(function (MasterKeeper) {
+        ]).run(['MasterKeeper', function (MasterKeeper) {
             ObjectUtils.inherit(ConsultantKeeper, MasterKeeper);
-        });
+        }]);
     
     function ConsultantKeeper ($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Consultant,
         IdentityService) {
