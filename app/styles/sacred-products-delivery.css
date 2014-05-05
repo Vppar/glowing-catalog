@@ -14,10 +14,6 @@
 height: calc(100% - 40px);
 }
 
-#sacred .calendar-header-test{
-	float:right;
-}
-
 #sacred .order-header-test{
 	text-align:right;
 	height:30px;
@@ -35,4 +31,19 @@ height: calc(100% - 40px);
 
 #sacred .calendar-header-test .dropdown-menu{
 	left: -138px;
+}
+
+#sacred .calendar-header-test {
+	margin-left:54px;
+}
+
+#sacred .calendar-label-left.hour {
+	margin-right:0;
+}
+#sacred .calendar-label-left.hour input {
+	width:30px;
+	height:30px;
+}
+#sacred .calendar-label-left.hour input:last-child {
+	margin-left:3px;
 }
