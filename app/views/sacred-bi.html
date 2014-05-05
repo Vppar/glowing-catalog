@@ -1,14 +1,14 @@
 <style>
 
-.gauge-canvas{
-	margin-top: 12px;
-	margin-left: 40px;
-	border-right:1px #ccc solid;
-}
+	.gauge-canvas{
+		margin-top: 12px;
+		margin-left: 40px;
+		border-right:1px #ccc solid;
+	}
 
-h4{
-	text-align: center;
-}
+	h4{
+		text-align: center;
+	}
 
 	p{
 		line-height: 32px;
@@ -44,7 +44,6 @@ h4{
 		shape-rendering: crispEdges;
 	}
 	.axis-y .guide{
-		stroke:1px;
 		stroke: #666;
 	}
 
@@ -76,20 +75,24 @@ h4{
 		fill:#fff;
 	}
 
+	.guide{
+		stroke: #666;
+	}
+
 </style>
 
 <script type="text/javascript">
 
 	var goalColor = '#333';
 	var snapshotColor = '#bf1e62';
-	var topMargin = 20;
+	var topMargin = 40;
 
 	var values = [
 	{order:1,value:105,goal:200,name:'1ª semana'},
 	{order:2,value:100,goal:370,name:'2ª semana'},
 	{order:3,value:80,goal:600,name:'3ª semana'},
 	{order:4,value:50,goal:56,name:'4ª semana'},
-	{order:5,value:120,goal:120,name:'5ª semana'},
+	{order:5,value:100,goal:150,name:'5ª semana'},
 	{order:6,goal:210,name:'6ª semana'},
 	{order:7,goal:100,name:'7ª semana'},
 	{order:8,goal:79,name:'8ª semana'},
@@ -298,9 +301,25 @@ h4{
 
 
 		drawXAxis();
-		drawArea(goalColor,goalCumulative);
 		drawYAxis();
+		//drawArea(goalColor,goalCumulative);
+		//drawArea(snapshotColor,valuesCumulative);
+
+		drawGuide(5);
+
+		drawLine(goalColor,goalCumulative);
 		drawLine(snapshotColor,valuesCumulative);
+
+		function drawGuide(order){
+		
+			var guide = canvas.append("line")
+			.attr('class','guide')
+			.attr("x1", x(order)+x.rangeBand()/2)
+			.attr("x2", x(order)+x.rangeBand()/2)
+			.attr("y1", function(d){ return 0;})
+			.attr("y2", function(d){ return chartHeight+topMargin;});
+
+		}
 
 		function drawArea(color,points,metric){
 			var lineMap = d3.svg.area()
@@ -405,6 +424,14 @@ h4{
 		obj.values = values.map(function(d){ return d.value;}).filter(Number);
 		obj.goals = values.map(function(d){ return d.goal;}).filter(Number);
 
+		obj.hightValues = values.map(
+			function(d){ 
+				if( d.goal > d.value) return d.goal;
+				else return d.value;
+			}
+		).filter(Number);
+
+
 		var qty = values.length;
 
 		var maxValue = d3.max(obj.values);
@@ -439,10 +466,26 @@ h4{
 		drawYAxis();
 		drawXAxis();
 		drawBars(obj.goals,goalColor);
-		drawBars(obj.values,snapshotColor);
+		var s = drawBars(obj.values,snapshotColor);
+		drawTips(obj.hightValues,snapshotColor);
 
+		drawGuide(5);
+		
 		//drawArea(snapshotColor,obj.values);
 		//drawLine(snapshotColor,obj.values);
+
+		
+
+		function drawGuide(order){
+		
+			var guide = canvas.append("line")
+			.attr('class','guide')
+			.attr("x1", x(order)+x.rangeBand()/2)
+			.attr("x2", x(order)+x.rangeBand()/2)
+			.attr("y1", function(d){ return 0;})
+			.attr("y2", function(d){ return chartHeight+topMargin;});
+
+		}
 
 		function drawArea(color,points){
 
@@ -489,13 +532,48 @@ h4{
 			.attr('height', function(d){ return chartHeight-y(d); })
 			.attr('fill', color );
 
+			return bars;
+		}
 
-			// bars.append('rect')
-			// .attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2);  })
-			// .attr('y', function(d){ return y(d.value); })
-			// .attr('width', barWidth)
-			// .attr('height', function(d){ return chartHeight-y(d.value); })
-			// .attr('fill', snapshotColor );
+		function drawTips(values,color){
+
+			var w = 40;
+			var h = 20;
+
+			var format = d3.format('%');
+
+			var triangleMap = d3.svg.line()
+			.x(function(d){
+				return d.x;
+			})
+			.y(function(d){
+				return d.y;
+			});
+
+			var triangle = [
+			{x:0,y:-h/4},
+			{x:0,y:+h/4},
+			{x:-5,y:0}
+			];
+
+			var g = canvas.append('g')
+			.attr("transform", "translate(0,"+topMargin+")");
+
+			var tips = g.selectAll('.tips')
+			.data(values)
+			.enter();
+
+			tips.append('path')
+			.attr("d", triangleMap(triangle))
+			.attr('stroke',color)
+			.attr('fill',color);
+
+			tips.append('rect')
+			.attr('width', w)
+			.attr('height', h)
+			.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2)+w/2;  })
+			.attr('y', function(d){ return y(d)-25; })
+			.attr('fill', color);
 		}
 
 		function drawLine(color,points){
