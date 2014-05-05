@@ -23,3 +23,24 @@
 #sacred .btn-option {
 	padding:8px 30px!important; /*afetado por outros css's - sem important, não funciona*/
 }
+
+
+/* linha 94 - 100 sacred-form.css */
+#sacred .date-day, #sacred .date-month {
+	width:65px!important;
+}
+#sacred .date-year {
+	width:95px!important;
+}
+/* linha 106-112 sacred-form.css */
+#sacred .limit-date-month {
+	width:75px!important;
+}
+#sacred .limit-date-year {
+	width:114px!important;
+}
+
+/* linha 36 sacred-products-delivery.css */
+#sacred .calendar-header-test .dropdown-menu{
+	left: -138px !important;
+}

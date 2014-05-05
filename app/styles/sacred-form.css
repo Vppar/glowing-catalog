@@ -92,11 +92,11 @@
 	float:left;	
 }
 #sacred .date-day, #sacred .date-month {
-	width:65px!important;
+	width:65px;
 	margin-right:5px;
 }
 #sacred .date-year {
-	width:95px!important;
+	width:95px;
 }
 
 #sacred .limit-date-month, #limit-date-year {
@@ -104,15 +104,14 @@
 	float:left;	
 }
 #sacred .limit-date-month {
-	width:75px!important;
+	width:75px;
 	margin-right:5px;
 }
 #sacred .limit-date-year {
-	width:114px!important;
+	width:114px;
 }
 
 #sacred .form .form-line input{
 	height: 30px;
 	width: 100%;
 }
-
