@@ -16,7 +16,8 @@
         "image": "10-042319.jpg",
         "option": "Azul",
         "active": true,
-        "price": 37
+        "price": 37,
+        "points": 18
     },
     {
         "id": 2,
@@ -25,7 +26,8 @@
         "image": "10-042320.jpg",
         "option": "Verde",
         "active": true,
-        "price": 37
+        "price": 37,
+        "points": 18
     },
     {
         "id": 3,
@@ -134,7 +136,7 @@
         "parent": 14,
         "SKU": "10-076864",
         "image": "10-076864.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 16,
@@ -256,7 +258,7 @@
         "SKU": "10-056222",
         "image": "10-056222.jpg",
         "option": "Tempting Teal",
-        "active": true
+        "active": false
     },
     {
         "id": 30,
@@ -272,7 +274,7 @@
         "parent": 30,
         "SKU": "10-067480",
         "image": "10-067480.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 32,
@@ -289,7 +291,7 @@
         "parent": 32,
         "SKU": "10-055778",
         "image": "10-055778.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 34,
@@ -3915,7 +3917,7 @@
         "image": "10-015265.jpg",
         "points": 3,
         "title": "Pincel para Lábios (Retrátil)",
-        "price": 10
+        "price": 11
     },
     {
         "id": 447,
@@ -4305,7 +4307,7 @@
     },
     {
         "id": 491,
-        "session": "Lançamentos",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-051952.jpg",
         "points": 49,
@@ -4321,7 +4323,7 @@
     },
     {
         "id": 493,
-        "session": "Lançamentos",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Masculinas",
         "image": "10-060674.jpg",
         "points": 47,
@@ -4347,7 +4349,7 @@
     },
     {
         "id": 496,
-        "parent": 495,
+        "parent": 363,
         "SKU": "10-070247",
         "image": "10-070247.jpg",
         "option": "Coral Bliss",
@@ -4356,7 +4358,7 @@
     },
     {
         "id": 497,
-        "parent": 495,
+        "parent": 363,
         "SKU": "10-070241",
         "image": "10-070241.jpg",
         "option": "Sassy Fuchsia",
@@ -4365,11 +4367,11 @@
     },
     {
         "id": 498,
-        "parent": 495,
+        "parent": 363,
         "SKU": "10-070243",
         "image": "10-070243.jpg",
         "option": "Tangerine Pop",
-        "active": true,
+        "active": false,
         "price": 48
     },
     {
@@ -4388,7 +4390,7 @@
         "SKU": "10-050796",
         "image": "10-050796.jpg",
         "option": "Lace (Coral)",
-        "active": true
+        "active": false
     },
     {
         "id": 501,
@@ -4396,7 +4398,7 @@
         "SKU": "10-050794",
         "image": "10-050794.jpg",
         "option": "Chiffon (Natural)",
-        "active": true
+        "active": false
     },
     {
         "id": 502,
@@ -4404,7 +4406,7 @@
         "SKU": "10-050797",
         "image": "10-050797.jpg",
         "option": "Ribbon (Pink)",
-        "active": true
+        "active": false
     },
     {
         "id": 503,
@@ -4568,7 +4570,7 @@
         "parent": 520,
         "SKU": "10-079950",
         "image": "10-079950.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 522,
@@ -4585,7 +4587,7 @@
         "parent": 522,
         "SKU": "08-079951",
         "image": "08-079951.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 524,
@@ -4602,7 +4604,7 @@
         "parent": 524,
         "SKU": "10-079954",
         "image": "10-079954.jpg",
-        "active": true
+        "active": false
     },
     {
         "id": 526,
@@ -4620,7 +4622,7 @@
         "SKU": "10-079956",
         "image": "10-079956.jpg",
         "option": "Pele Mista/Oleosa",
-        "active": true
+        "active": false
     },
     {
         "id": 528,
@@ -4628,7 +4630,7 @@
         "SKU": "10-079957",
         "image": "10-079957.jpg",
         "option": "Pele Normal/Seca",
-        "active": true
+        "active": false
     },
     {
         "id": 529,
@@ -4645,6 +4647,91 @@
         "parent": 529,
         "SKU": "10-079955",
         "image": "10-079955.jpg",
+        "active": false
+    },
+    {
+        "id": 531,
+        "session": "Lançamentos",
+        "line": "MKMen",
+        "image": "10-073605.png",
+        "points": 32,
+        "title": "Loção Hidratante Intensiva FPS 30 - 88 ml",
+        "price": 32,
+        "description": ""
+    },
+    {
+        "id": 532,
+        "parent": 531,
+        "SKU": "10-073605",
+        "image": "10-073605.png",
+        "active": true
+    },
+    {
+        "id": 533,
+        "session": "Lançamentos",
+        "line": "Fragrâncias Femininas",
+        "image": "10-059456.png",
+        "points": 47,
+        "title": "Heartfelt for Her - 60 ml",
+        "price": 79,
+        "description": ""
+    },
+    {
+        "id": 534,
+        "parent": 533,
+        "SKU": "10-059456",
+        "image": "10-059456.png",
+        "active": true
+    },
+    {
+        "id": 535,
+        "session": "Lançamentos",
+        "line": "Fragrâncias Masculinas",
+        "image": "10-059457.png",
+        "points": 47,
+        "title": "Heartfelt for Him - 60 ml",
+        "price": 79,
+        "description": ""
+    },
+    {
+        "id": 536,
+        "parent": 535,
+        "SKU": "10-059457",
+        "image": "10-059457.png",
+        "active": true
+    },
+    {
+        "id": 537,
+        "session": "Lançamentos",
+        "line": "Mary Kay at Play",
+        "image": "10-073806.jpg",
+        "points": 11,
+        "title": "Lápis Sombra - 2,5g",
+        "price": 22,
+        "description": "Sua fórmula ultra cremosa não acumula nas pálpebras. Cores divertidas e com acabamento metalizado."
+    },
+    {
+        "id": 538,
+        "parent": 537,
+        "SKU": "10-073806",
+        "image": "10-073806.jpg",
+        "option": "Teal Me More",
+        "active": true
+    },
+    {
+        "id": 539,
+        "session": "Edição Limitada",
+        "line": "Kit Copa do Mundo",
+        "image": "10-080871.png",
+        "points": 44,
+        "title": "Kit Na Torcida No Estilo Mary Kay",
+        "price": 88
+    },
+    {
+        "id": 540,
+        "parent": 539,
+        "SKU": "10-080871",
+        "image": "10-080871.png",
         "active": true
     }
 ]
