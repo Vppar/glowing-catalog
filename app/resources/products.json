@@ -4653,7 +4653,7 @@
         "id": 531,
         "session": "Lançamentos",
         "line": "MKMen",
-        "image": "10-073605.png",
+        "image": "10-073605.jpg",
         "points": 32,
         "title": "Loção Hidratante Intensiva FPS 30 - 88 ml",
         "price": 32,
@@ -4663,14 +4663,14 @@
         "id": 532,
         "parent": 531,
         "SKU": "10-073605",
-        "image": "10-073605.png",
+        "image": "10-073605.jpg",
         "active": true
     },
     {
         "id": 533,
         "session": "Lançamentos",
         "line": "Fragrâncias Femininas",
-        "image": "10-059456.png",
+        "image": "10-059456.jpg",
         "points": 47,
         "title": "Heartfelt for Her - 60 ml",
         "price": 79,
@@ -4680,14 +4680,14 @@
         "id": 534,
         "parent": 533,
         "SKU": "10-059456",
-        "image": "10-059456.png",
+        "image": "10-059456.jpg",
         "active": true
     },
     {
         "id": 535,
         "session": "Lançamentos",
         "line": "Fragrâncias Masculinas",
-        "image": "10-059457.png",
+        "image": "10-059457.jpg",
         "points": 47,
         "title": "Heartfelt for Him - 60 ml",
         "price": 79,
@@ -4697,7 +4697,7 @@
         "id": 536,
         "parent": 535,
         "SKU": "10-059457",
-        "image": "10-059457.png",
+        "image": "10-059457.jpg",
         "active": true
     },
     {
@@ -4722,7 +4722,7 @@
         "id": 539,
         "session": "Edição Limitada",
         "line": "Kit Copa do Mundo",
-        "image": "10-080871.png",
+        "image": "10-080871.jpg",
         "points": 44,
         "title": "Kit Na Torcida No Estilo Mary Kay",
         "price": 88
@@ -4731,7 +4731,7 @@
         "id": 540,
         "parent": 539,
         "SKU": "10-080871",
-        "image": "10-080871.png",
+        "image": "10-080871.jpg",
         "active": true
     }
 ]
