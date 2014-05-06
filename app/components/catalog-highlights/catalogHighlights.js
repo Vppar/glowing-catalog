@@ -23,7 +23,7 @@
 
                         function reload() {
                             switch (scope.section) {
-                            case 'Promoções':
+                            case 'Pink Sale':
                                 scope.color = 'color-dark-green';
                                 break;
                             case 'Edição Limitada':

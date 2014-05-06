@@ -3244,5 +3244,50 @@
          "cost":39,
          "quantity": 0
       }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":532,
+         "cost":32,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":534,
+         "cost":79,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":536,
+         "cost":79,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":538,
+         "cost":22,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":540,
+         "cost":88,
+         "quantity": 0
+      }
    }
 ]
