@@ -90,576 +90,612 @@
 	var goalColor = '#333';
 	var snapshotColor = '#bf1e62';
 	var topMargin = 40;
+	var leftMargin = 40;
+
 
 	var values = [
 	{order:1,value:105,goal:200,name:'1ª semana'},
 	{order:2,value:100,goal:370,name:'2ª semana'},
 	{order:3,value:80,goal:600,name:'3ª semana'},
 	{order:4,value:50,goal:56,name:'4ª semana'},
-	{order:5,value:100,goal:150,name:'5ª semana'},
-	{order:6,goal:210,name:'6ª semana'},
-	{order:7,goal:100,name:'7ª semana'},
-	{order:8,goal:79,name:'8ª semana'},
-	{order:9,goal:244,name:'9ª semana'}
-	];
+	{order:5,value:100,goal:150,name:'5ª semana',
+	days: [
+	{day:1,value:22},
+	{day:2,value:13},
+	{day:3,value:15},
+	{day:4,value:53},
+	]
+},
+{order:6,goal:210,name:'6ª semana'},
+{order:7,goal:100,name:'7ª semana'},
+{order:8,goal:79,name:'8ª semana'},
+{order:9,goal:244,name:'9ª semana'}
+];
+
+var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
 
 
-	function gauge(values){
+function gauge(values){
 
-		var width = 120;
-		var height = 400;
-		var barWidth = width-60;
+	var width = 120;
+	var height = 400;
+	var barWidth = width-60;
 
-		var sum_values = d3.sum(values, function(d) {return d.value; });
-		var sum_goals = d3.sum(values, function(d) {return d.goal; });
+	var sum_values = d3.sum(values, function(d) {return d.value; });
+	var sum_goals = d3.sum(values, function(d) {return d.goal; });
 
-		var ref = 0;
-		if(sum_values < sum_goals){
-			ref = sum_goals;
-		}else{
-			ref = sum_values;
-		}
-
-		var y = d3.scale.linear().domain([ref,0]).range([height-topMargin, 0]);
-
-		var canvas = d3.select('body').selectAll('div.gauge').append('svg')
-		.attr('class','gauge-canvas')
-		.attr('width', width)
-		.attr('height', height);
-
-		//this needs to be refactored. should be more dinamic....
-		if(sum_values < sum_goals){
-			drawGoal();
-			drawSnapshot();
-
-			drawTip(sum_goals,'#333',1);
-			drawTip(sum_values,'#bf1e62',(sum_values/sum_goals));
-
-		}else{
-			drawSnapshot();
-			drawGoal();
-
-			drawTip(sum_values,'#bf1e62',(sum_values/sum_goals));
-			drawTip(sum_goals,'#333',1);
-
-		}
-
-
-		function drawTip(value,color,label){
-
-			var w = 40;
-			var h = 20;
-			var format = d3.format('%');
-
-			var triangleMap = d3.svg.line()
-			.x(function(d){
-				return d.x;
-			})
-			.y(function(d){
-				return d.y;
-			});
-
-			var triangle = [
-			{x:barWidth+w/4,y:height - y(value)-h/4},
-			{x:barWidth+w/4,y:height - y(value)+h/4},
-			{x:barWidth+w/4-5,y:height - y(value)}
-			];
-
-			var g = canvas
-			.append('g')
-			.attr('class', 'tip');
-
-
-
-			g.append('path')
-			.attr("d", triangleMap(triangle))
-			.attr('stroke',color)
-			.attr('fill',color);
-			
-			g.append('rect')
-			.attr('width', w)
-			.attr('height', h)
-			.attr('x', barWidth+w/4)
-			.attr('y', height - y(value)-h/2)
-			.attr('fill', color);
-
-			
-
-			g.append('text')
-			.attr('x', barWidth+w/4+w/2)
-			.attr('y', height - y(value)+3)
-			.style("text-anchor", "middle")
-			.text(format(label));
-		}
-
-		function drawGoal(){
-			var goal = canvas.selectAll('.goal')
-			.data([sum_goals])
-			.enter()
-			.append('g')
-			.attr('class', 'goal');
-
-			goal.append('rect')
-			.attr('x', 0 )
-			.attr('y', height - y(sum_goals))
-			.attr('width', barWidth)
-			.attr('height', y(sum_goals))
-			.attr('fill', goalColor);
-
-			goal.append("line")
-			.attr('class','line')
-			.attr("x1", 0)
-			.attr("x2", barWidth)
-			.attr("y1", height - y(sum_goals))
-			.attr("y2", height - y(sum_goals))
-			.attr('stroke','#fff');
-
-			goal.append('text')
-			.attr('x',barWidth/2)
-			.attr('y',height - y(sum_goals)+20)
-			.style("text-anchor", "middle")
-			.text(sum_goals)
-
-
-		}
-
-		function drawSnapshot(){
-
-			var snapshot = canvas.selectAll('.snapshot')
-			.data([sum_values])
-			.enter()
-			.append('g')
-			.attr('class', 'snapshot');
-
-			snapshot.append('rect')
-			.attr('x', 0 )
-			.attr('y', height - y(sum_values))
-			.attr('width', barWidth)
-			.attr('height', y(sum_values));
-
-			snapshot.append("line")
-			.attr('class','line')
-			.attr("x1", 0)
-			.attr("x2", barWidth)
-			.attr("y1", height - y(sum_values))
-			.attr("y2", height - y(sum_values))
-			.attr('stroke','#fff');
-
-			snapshot.append('text')
-			.attr('x',barWidth/2)
-			.attr('y',height - y(sum_values)+20)
-			.style("text-anchor", "middle")
-			.text(sum_values)
-		}
-		
+	var ref = 0;
+	if(sum_values < sum_goals){
+		ref = sum_goals;
+	}else{
+		ref = sum_values;
 	}
 
-	function cumulative(values){
-		
-		var obj = {};
-		obj.values = values.map(function(d){ return d.value;}).filter(Number);
-		obj.goals = values.map(function(d){ return d.goal;}).filter(Number);
+	var y = d3.scale.linear().domain([ref,0]).range([height-topMargin, 0]);
+
+	var canvas = d3.select('body').selectAll('div.gauge').append('svg')
+	.attr('class','gauge-canvas')
+	.attr('width', width)
+	.attr('height', height);
+
+	//this needs to be refactored. should be more dinamic....
+	if(sum_values < sum_goals){
+		drawGoal();
+		drawSnapshot();
+
+		drawTip(sum_goals,'#333',1);
+		drawTip(sum_values,'#bf1e62',(sum_values/sum_goals));
+
+	}else{
+		drawSnapshot();
+		drawGoal();
+
+		drawTip(sum_values,'#bf1e62',(sum_values/sum_goals));
+		drawTip(sum_goals,'#333',1);
+
+	}
 
 
-		var valuesCumulative = makeCumulative(obj.values);
-		var goalCumulative = makeCumulative(obj.goals);
+	function drawTip(value,color,label){
 
-		goalCumulative.push(goalCumulative[goalCumulative.length-1]);
-		goalCumulative = goalCumulative.reverse();
-		goalCumulative.push(goalCumulative[goalCumulative.length-1]);
-		goalCumulative = goalCumulative.reverse();
+		var w = 40;
+		var h = 20;
+		var format = d3.format('%');
 
-		valuesCumulative = valuesCumulative.reverse();
-		valuesCumulative.push(valuesCumulative[valuesCumulative.length-1]);
-		valuesCumulative = valuesCumulative.reverse();
+		var triangleMap = d3.svg.line()
+		.x(function(d){
+			return d.x;
+		})
+		.y(function(d){
+			return d.y;
+		});
 
-		console.log(goalCumulative);
+		var triangle = [
+		{x:barWidth+w/4,y:height - y(value)-h/4},
+		{x:barWidth+w/4,y:height - y(value)+h/4},
+		{x:barWidth+w/4-5,y:height - y(value)}
+		];
 
-		var maxCtrl = true;
-
-		var max = d3.max(valuesCumulative);
-		if(max < d3.max(goalCumulative)){
-			max = d3.max(goalCumulative);
-			maxCtrl = false;
-		}
-
-		var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
-		
-		var width = 800; 
-		var height = 200;
-		
-		var leftMargin = 40;
-		var bottomMargin = 40;
-		var barWidth = 80;
-
-		var chartWidth = width-leftMargin;
-		var chartHeight = height-(topMargin+bottomMargin);
-
-		var x = d3.scale.ordinal().domain(values.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
-		var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
-
-		var canvas = d3.select('body').selectAll('div.cumulative').append('svg')
-		.attr('width', width)
-		.attr('height', height);
-
-
-		drawXAxis();
-		drawYAxis();
-		//drawArea(goalColor,goalCumulative);
-		//drawArea(snapshotColor,valuesCumulative);
-
-		drawGuide(5);
-
-		drawLine(goalColor,goalCumulative);
-		drawLine(snapshotColor,valuesCumulative);
-
-		function drawGuide(order){
-		
-			var guide = canvas.append("line")
-			.attr('class','guide')
-			.attr("x1", x(order)+x.rangeBand()/2)
-			.attr("x2", x(order)+x.rangeBand()/2)
-			.attr("y1", function(d){ return 0;})
-			.attr("y2", function(d){ return chartHeight+topMargin;});
-
-		}
-
-		function drawArea(color,points,metric){
-			var lineMap = d3.svg.area()
-			.x(function(d,i) {
-				if(i == 0) return leftMargin; 
-				else return ((i) * x.rangeBand()); 
-			})
-			.y0(function(d) { 
-				return chartHeight;
-			})
-			.y1(function(d) { 
-				return y(d);
-			})
-
-			var area = canvas.append('path')
-			.attr("d", lineMap(points))
-			.attr('stroke',color)
-			.attr('fill',color)
-			.attr('stroke-linejoin','round')
-			.attr("transform", "translate(0,"+topMargin+")");
-		}
-
-		function drawLine(color,points){
-			var lineMap = d3.svg.line()
-			.x(function(d,i) { 
-				if(i == 0) return leftMargin; 
-				return ((i) * x.rangeBand()); 
-			})
-			.y(function(d) { 
-				return y(d);
-			})
-
-			var line = canvas.append('path')
-			.attr("d", lineMap(points))
-			.attr('stroke',color)
-			.attr('fill','none')
-			.attr('stroke-linejoin','round')
-			.attr('stroke-width','2px')
-			.attr("transform", "translate(0,"+topMargin+")");
-
-			
-		}
-
-		function drawYAxis(){
-
-			var qty = 6;
-
-			var yAxis =
-			d3.svg.axis()
-			.scale(y)
-			.ticks(qty)
-			.orient('left');
-
-			var axisY = canvas.append("g")
-			.attr('class','axis-y')
-			.attr("transform", "translate("+leftMargin+","+topMargin+")")
-			.call(yAxis);
-
-			axisY.selectAll("line.y")
-			.data(y.ticks(qty))
-			.enter().append("line")
-			.attr('class','guide')
-			.attr("x1", 0)
-			.attr("x2", leftMargin + chartWidth)
-			.attr("y1", function(d){ return y(d);})
-			.attr("y2", function(d){ return y(d);});
-		}		
-
-		function drawXAxis(){
-			var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
-
-			canvas.append("g")
-			.attr('class','axis-x')
-			.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
-			.call(xAxis);
-			
-		}
+		var g = canvas
+		.append('g')
+		.attr('class', 'tip');
 
 
 
+		g.append('path')
+		.attr("d", triangleMap(triangle))
+		.attr('stroke',color)
+		.attr('fill',color);
+
+		g.append('rect')
+		.attr('width', w)
+		.attr('height', h)
+		.attr('x', barWidth+w/4)
+		.attr('y', height - y(value)-h/2)
+		.attr('fill', color);
+
+		g.append('text')
+		.attr('x', barWidth+w/4+w/2)
+		.attr('y', height - y(value)+3)
+		.style("text-anchor", "middle")
+		.text(format(label));
+	}
+
+	function drawGoal(){
+		var goal = canvas.selectAll('.goal')
+		.data([sum_goals])
+		.enter()
+		.append('g')
+		.attr('class', 'goal');
+
+		goal.append('rect')
+		.attr('x', 0 )
+		.attr('y', height - y(sum_goals))
+		.attr('width', barWidth)
+		.attr('height', y(sum_goals))
+		.attr('fill', goalColor);
+
+		goal.append("line")
+		.attr('class','line')
+		.attr("x1", 0)
+		.attr("x2", barWidth)
+		.attr("y1", height - y(sum_goals))
+		.attr("y2", height - y(sum_goals))
+		.attr('stroke','#fff');
+
+		goal.append('text')
+		.attr('x',barWidth/2)
+		.attr('y',height - y(sum_goals)+20)
+		.style("text-anchor", "middle")
+		.text(sum_goals)
+	}
+
+	function drawSnapshot(){
+
+		var snapshot = canvas.selectAll('.snapshot')
+		.data([sum_values])
+		.enter()
+		.append('g')
+		.attr('class', 'snapshot');
+
+		snapshot.append('rect')
+		.attr('x', 0 )
+		.attr('y', height - y(sum_values))
+		.attr('width', barWidth)
+		.attr('height', y(sum_values));
+
+		snapshot.append("line")
+		.attr('class','line')
+		.attr("x1", 0)
+		.attr("x2", barWidth)
+		.attr("y1", height - y(sum_values))
+		.attr("y2", height - y(sum_values))
+		.attr('stroke','#fff');
+
+		snapshot.append('text')
+		.attr('x',barWidth/2)
+		.attr('y',height - y(sum_values)+20)
+		.style("text-anchor", "middle")
+		.text(sum_values)
+	}
+
+}
+
+function cumulative(values){
+
+	var obj = {};
+	obj.values = values.map(function(d){ return d.value;}).filter(Number);
+	obj.goals = values.map(function(d){ return d.goal;}).filter(Number);
 
 
-		function makeCumulative(entry){
-			var values = [];
-			var last = 0;
-			for(var i = 0;i<entry.length;i++){
-				last = last + entry[i];
-				values.push(last);
-			}
-			return values;
-		}
+	var valuesCumulative = makeCumulative(obj.values);
+	var goalCumulative = makeCumulative(obj.goals);
+
+	goalCumulative.push(goalCumulative[goalCumulative.length-1]);
+	goalCumulative = goalCumulative.reverse();
+	goalCumulative.push(goalCumulative[goalCumulative.length-1]);
+	goalCumulative = goalCumulative.reverse();
+
+	valuesCumulative = valuesCumulative.reverse();
+	valuesCumulative.push(valuesCumulative[valuesCumulative.length-1]);
+	valuesCumulative = valuesCumulative.reverse();
+
+	console.log(goalCumulative);
+
+	var maxCtrl = true;
+
+	var max = d3.max(valuesCumulative);
+	if(max < d3.max(goalCumulative)){
+		max = d3.max(goalCumulative);
+		maxCtrl = false;
+	}
+
+	var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
+
+	var width = 800; 
+	var height = 200;
+
+	var leftMargin = 40;
+	var bottomMargin = 40;
+	var barWidth = 80;
+
+	var chartWidth = width-leftMargin;
+	var chartHeight = height-(topMargin+bottomMargin);
+
+	var x = d3.scale.ordinal().domain(values.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
+	var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
+
+	var canvas = d3.select('body').selectAll('div.cumulative').append('svg')
+	.attr('width', width)
+	.attr('height', height);
+
+
+	drawXAxis();
+	drawYAxis();
+	//drawArea(goalColor,goalCumulative);
+	//drawArea(snapshotColor,valuesCumulative);
+
+	drawGuide(5);
+
+	drawLine(goalColor,goalCumulative);
+	drawLine(snapshotColor,valuesCumulative);
+
+	function drawGuide(order){
+
+		var guide = canvas.append("line")
+		.attr('class','guide')
+		.attr("x1", x(order)+x.rangeBand()/2)
+		.attr("x2", x(order)+x.rangeBand()/2)
+		.attr("y1", function(d){ return 0;})
+		.attr("y2", function(d){ return chartHeight+topMargin;});
+
+	}
+
+	function drawArea(color,points,metric){
+		var lineMap = d3.svg.area()
+		.x(function(d,i) {
+			if(i == 0) return leftMargin; 
+			else return ((i) * x.rangeBand()); 
+		})
+		.y0(function(d) { 
+			return chartHeight;
+		})
+		.y1(function(d) { 
+			return y(d);
+		})
+
+		var area = canvas.append('path')
+		.attr("d", lineMap(points))
+		.attr('stroke',color)
+		.attr('fill',color)
+		.attr('stroke-linejoin','round')
+		.attr("transform", "translate(0,"+topMargin+")");
+	}
+
+	function drawLine(color,points){
+		var lineMap = d3.svg.line()
+		.x(function(d,i) { 
+			if(i == 0) return leftMargin; 
+			return ((i) * x.rangeBand()); 
+		})
+		.y(function(d) { 
+			return y(d);
+		})
+
+		var line = canvas.append('path')
+		.attr("d", lineMap(points))
+		.attr('stroke',color)
+		.attr('fill','none')
+		.attr('stroke-linejoin','round')
+		.attr('stroke-width','2px')
+		.attr("transform", "translate(0,"+topMargin+")");
+
+
+	}
+
+	function drawYAxis(){
+
+		var qty = 6;
+
+		var yAxis =
+		d3.svg.axis()
+		.scale(y)
+		.ticks(qty)
+		.orient('left');
+
+		var axisY = canvas.append("g")
+		.attr('class','axis-y')
+		.attr("transform", "translate("+leftMargin+","+topMargin+")")
+		.call(yAxis);
+
+		axisY.selectAll("line.y")
+		.data(y.ticks(qty))
+		.enter().append("line")
+		.attr('class','guide')
+		.attr("x1", 0)
+		.attr("x2", leftMargin + chartWidth)
+		.attr("y1", function(d){ return y(d);})
+		.attr("y2", function(d){ return y(d);});
+	}		
+
+	function drawXAxis(){
+		var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
+
+		canvas.append("g")
+		.attr('class','axis-x')
+		.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
+		.call(xAxis);
 
 	}
 
 
 
-	function histogram(values){
 
-		var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
 
-		var obj = {};
-		obj.values = values.map(function(d){ return d.value;}).filter(Number);
-		obj.goals = values.map(function(d){ return d.goal;}).filter(Number);
+	function makeCumulative(entry){
+		var values = [];
+		var last = 0;
+		for(var i = 0;i<entry.length;i++){
+			last = last + entry[i];
+			values.push(last);
+		}
+		return values;
+	}
 
-		obj.hightValues = values.map(
-			function(d){ 
-				if( d.goal > d.value) return d.goal;
-				else return d.value;
-			}
+}
+
+function termometer(values,goal){
+	var width = 800;
+	var height = 100;
+	var bands = [1,2,3,4];
+	var colors = ['#333333','#562e3f','#9c2356','#bf1e62'];
+
+	var x = d3.scale.ordinal().domain(bands).rangeRoundBands([leftMargin,width],0);
+	var x2 = d3.scale.ordinal().domain(0,goal).rangeRoundBands([leftMargin,width],0);
+
+
+	var canvas = d3.select('body').selectAll('div.termometer').append('svg')
+	.attr('class','termometer-canvas')
+	.attr('width', width)
+	.attr('height', height);
+
+	var g = canvas.append('g')
+	.attr("transform", "translate("+leftMargin+",10)");
+
+	var bars = g.selectAll('.bar')
+	.data(bands)
+	.enter();
+
+	bars.append('rect')
+	.attr('x', function(d,i){  return (i) * x.rangeBand() })
+	.attr('y', 0)
+	.attr('width', x.rangeBand())
+	.attr('height', function(d){ return 30; })
+	.attr('fill', function(d,i){ return colors[i]; });
+
+}
+
+function histogram(values){
+
+
+	var obj = {};
+	obj.values = values.map(function(d){ return d.value;}).filter(Number);
+	obj.goals = values.map(function(d){ return d.goal;}).filter(Number);
+
+	obj.hightValues = values.map(
+		function(d){ 
+			if( d.goal > d.value) return d.goal;
+			else return d.value;
+		}
 		).filter(Number);
 
 
-		var qty = values.length;
+	var qty = values.length;
 
-		var maxValue = d3.max(obj.values);
-		var maxGoal = d3.max(obj.goals);
+	var maxValue = d3.max(obj.values);
+	var maxGoal = d3.max(obj.goals);
 
-		var max = maxValue;
-		if(max < maxGoal){
-			max = maxGoal;
-		}
-
-
-		var width = 800; 
-		var height = 200;
-		var leftMargin = 40;
-		var bottomMargin = 40;
-		var barWidth = (width/qty)-10;
-
-		var chartWidth = width-leftMargin;
-		var chartHeight = height-(topMargin+bottomMargin);
+	var max = maxValue;
+	if(max < maxGoal){
+		max = maxGoal;
+	}
 
 
+	var width = 800; 
+	var height = 200;
+	var bottomMargin = 40;
+	var barWidth = (width/qty)-10;
 
-		// var x = d3.scale.linear().domain([0, chartWidth]).range([0, chartWidth]);
-		var x = d3.scale.ordinal().domain(values.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
-		var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
-
-		var canvas = d3.select('body').selectAll('div.ddd').append('svg')
-		.attr('width', width)
-		.attr('height', height);
-
-		
-		drawYAxis();
-		drawXAxis();
-		drawBars(obj.goals,goalColor);
-		var s = drawBars(obj.values,snapshotColor);
-		drawTips(obj.hightValues,goalColor);
-
-		drawGuide(5);
-		
-		//drawArea(snapshotColor,obj.values);
-		//drawLine(snapshotColor,obj.values);
-
-		
-
-		function drawGuide(order){
-		
-			var guide = canvas.append("line")
-			.attr('class','guide')
-			.attr("x1", x(order)+x.rangeBand()/2)
-			.attr("x2", x(order)+x.rangeBand()/2)
-			.attr("y1", function(d){ return 0;})
-			.attr("y2", function(d){ return chartHeight+topMargin;});
-
-		}
-
-		function drawArea(color,points){
-
-			points.push(0);
-			points = points.reverse();
-			points.push(0);
-			points = points.reverse()
+	var chartWidth = width-leftMargin;
+	var chartHeight = height-(topMargin+bottomMargin);
 
 
-			var lineMap = d3.svg.area()
-			.x(function(d,i) { 
-				if(i == 0) return leftMargin;
-				else return ((i) * x.rangeBand()); 
-			})
-			.y0(function(d) { 
-				return chartHeight;
-			})
-			.y1(function(d) {
-				return y(d);
-			})
 
-			var line = canvas.append('path')
-			.attr("d", lineMap(points))
-			.attr('stroke',color)
-			.attr('fill',color)
-			.attr('stroke-linejoin','round')
-			.attr('stroke-width','2px')
-			.attr("transform", "translate(0,"+topMargin+")");
-		}
+	// var x = d3.scale.linear().domain([0, chartWidth]).range([0, chartWidth]);
+	var x = d3.scale.ordinal().domain(values.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
+	var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
 
-		function drawBars(values,color){
-
-			var g = canvas.append('g')
-			.attr("transform", "translate(0,"+topMargin+")");
-
-			var bars = g.selectAll('.bar')
-			.data(values)
-			.enter();
-
-			bars.append('rect')
-			.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2);  })
-			.attr('y', function(d){ return y(d); })
-			.attr('width', barWidth)
-			.attr('height', function(d){ return chartHeight-y(d); })
-			.attr('fill', color );
-
-			return bars;
-		}
-
-		function drawTips(values,color){
-
-			var w = 40;
-			var h = 20;
-
-			var format = d3.format('%');
-
-			var triangleMap = d3.svg.line()
-			.x(function(d){
-				return d.x;
-			})
-			.y(function(d){
-				return d.y;
-			});
-
-			var triangle = [
-			{x:-h/4,y:-h/4},
-			{x:h/4,y:-h/4},
-			{x:0,y:0}
-			];
-
-			var g = canvas.append('g')
-			.attr("transform", "translate(0,"+topMargin+")");
-
-			var tips = g.selectAll('.tips')
-			.data(values)
-			.enter();
-
-			var gs = tips.append('g')
-			.attr('transform', function(d,i){
-				var xi = ((i+1) * x.rangeBand());
-				var yi = y(d)-30+h+(h/4);
-				return 'translate('+xi+','+yi+')';
-			})
-			.attr('class','tip')
-			.append('path')
-			.attr("d", triangleMap(triangle))
-			.attr('stroke',color)
-			.attr('fill',color);
-			
-			tips.append('rect')
-			.attr('width', w)
-			.attr('height', h)
-			.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2)+w/2;  })
-			.attr('y', function(d){ return y(d)-30; })
-			.attr('fill', color);
-			tips.append('text')
-			.attr('class','tiptext')
-			.attr('x', function(d,i){  return ((i+1) * x.rangeBand())+(x.rangeBand()-barWidth)/2;  })
-			.attr('y', function(d){ return y(d)-15; })
-			.attr('fill', '#333')
-			.style("text-anchor", "middle")
-			.text(function(d,i){
-				var o = 'o'+(i+1);
-				var v = valuesByOrder.get(o)[0];
-				var r = Number(v.value/v.goal);
-				return format(r);
-			});
-		}
-
-		function drawLine(color,points){
-			var lineMap = d3.svg.line()
-			.x(function(d,i) { 
-				return ((i+1) * x.rangeBand()); 
-			})
-			.y(function(d) { 
-				return y(d);
-			})
-
-			var line = canvas.append('path')
-			.attr("d", lineMap(points))
-			.attr('stroke',color)
-			.attr('fill','none')
-			.attr('stroke-linejoin','round')
-			.attr('stroke-width','2px')
-			.attr("transform", "translate(0,"+topMargin+")");
-
-			
-		}
-
-		function drawYAxis(){
-
-			var qtyTicks = 5;
-
-			var yAxis =
-			d3.svg.axis()
-			.scale(y)
-			.ticks(qtyTicks)
-			.orient('left');
-
-			var axisY = canvas.append("g")
-			.attr('class','axis-y')
-			.attr("transform", "translate("+leftMargin+","+topMargin+")")
-			.call(yAxis);
-
-			axisY.selectAll("line.y")
-			.data(y.ticks(qtyTicks))
-			.enter().append("line")
-			.attr('class','guide')
-			.attr("x1", 0)
-			.attr("x2", leftMargin + chartWidth)
-			.attr("y1", function(d){ return y(d);})
-			.attr("y2", function(d){ return y(d);});
-		}		
-
-		function drawXAxis(){
-			var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
-
-			canvas.append("g")
-			.attr('class','axis-x')
-			.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
-			.call(xAxis);
-			
-		}
+	var canvas = d3.select('body').selectAll('div.ddd').append('svg')
+	.attr('width', width)
+	.attr('height', height);
 
 
+	drawYAxis();
+	drawXAxis();
+	drawBars(obj.goals,goalColor);
+	drawGuide(5);
+	var s = drawBars(obj.values,snapshotColor);
+	drawTips(obj.hightValues,goalColor);
+
+
+	//drawArea(snapshotColor,obj.values);
+	//drawLine(snapshotColor,obj.values);
+
+
+
+	function drawGuide(order){
+
+		var guide = canvas.append("line")
+		.attr('class','guide')
+		.attr("x1", x(order)+x.rangeBand()/2)
+		.attr("x2", x(order)+x.rangeBand()/2)
+		.attr("y1", function(d){ return 0;})
+		.attr("y2", function(d){ return chartHeight+topMargin;});
+
+	}
+
+	function drawArea(color,points){
+
+		points.push(0);
+		points = points.reverse();
+		points.push(0);
+		points = points.reverse()
+
+
+		var lineMap = d3.svg.area()
+		.x(function(d,i) { 
+			if(i == 0) return leftMargin;
+			else return ((i) * x.rangeBand()); 
+		})
+		.y0(function(d) { 
+			return chartHeight;
+		})
+		.y1(function(d) {
+			return y(d);
+		})
+
+		var line = canvas.append('path')
+		.attr("d", lineMap(points))
+		.attr('stroke',color)
+		.attr('fill',color)
+		.attr('stroke-linejoin','round')
+		.attr('stroke-width','2px')
+		.attr("transform", "translate(0,"+topMargin+")");
+	}
+
+	function drawBars(values,color){
+
+		var g = canvas.append('g')
+		.attr("transform", "translate(0,"+topMargin+")");
+
+		var bars = g.selectAll('.bar')
+		.data(values)
+		.enter();
+
+		bars.append('rect')
+		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2);  })
+		.attr('y', function(d){ return y(d); })
+		.attr('width', barWidth)
+		.attr('height', function(d){ return chartHeight-y(d); })
+		.attr('fill', color );
+
+		return bars;
+	}
+
+	function drawTips(values,color){
+
+		var w = 40;
+		var h = 20;
+
+		var format = d3.format('%');
+
+		var triangleMap = d3.svg.line()
+		.x(function(d){
+			return d.x;
+		})
+		.y(function(d){
+			return d.y;
+		});
+
+		var triangle = [
+		{x:-h/4,y:-h/4},
+		{x:h/4,y:-h/4},
+		{x:0,y:0}
+		];
+
+		var g = canvas.append('g')
+		.attr("transform", "translate(0,"+topMargin+")");
+
+		var tips = g.selectAll('.tips')
+		.data(values)
+		.enter();
+
+		var gs = tips.append('g')
+		.attr('transform', function(d,i){
+			var xi = ((i+1) * x.rangeBand());
+			var yi = y(d)-30+h+(h/4);
+			return 'translate('+xi+','+yi+')';
+		})
+		.attr('class','tip')
+		.append('path')
+		.attr("d", triangleMap(triangle))
+		.attr('stroke',color)
+		.attr('fill',color);
+
+		tips.append('rect')
+		.attr('width', w)
+		.attr('height', h)
+		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2)+w/2;  })
+		.attr('y', function(d){ return y(d)-30; })
+		.attr('fill', color);
+		tips.append('text')
+		.attr('class','tiptext')
+		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())+(x.rangeBand()-barWidth)/2;  })
+		.attr('y', function(d){ return y(d)-15; })
+		.attr('fill', '#333')
+		.style("text-anchor", "middle")
+		.text(function(d,i){
+			var o = 'o'+(i+1);
+			var v = valuesByOrder.get(o)[0];
+			var r = Number(v.value/v.goal);
+			return format(r);
+		});
+	}
+
+	function drawLine(color,points){
+		var lineMap = d3.svg.line()
+		.x(function(d,i) { 
+			return ((i+1) * x.rangeBand()); 
+		})
+		.y(function(d) { 
+			return y(d);
+		})
+
+		var line = canvas.append('path')
+		.attr("d", lineMap(points))
+		.attr('stroke',color)
+		.attr('fill','none')
+		.attr('stroke-linejoin','round')
+		.attr('stroke-width','2px')
+		.attr("transform", "translate(0,"+topMargin+")");
 
 
 	}
-	gauge(values);
-	histogram(values);
-	cumulative(values);
+
+	function drawYAxis(){
+
+		var qtyTicks = 5;
+
+		var yAxis =
+		d3.svg.axis()
+		.scale(y)
+		.ticks(qtyTicks)
+		.orient('left');
+
+		var axisY = canvas.append("g")
+		.attr('class','axis-y')
+		.attr("transform", "translate("+leftMargin+","+topMargin+")")
+		.call(yAxis);
+
+		axisY.selectAll("line.y")
+		.data(y.ticks(qtyTicks))
+		.enter().append("line")
+		.attr('class','guide')
+		.attr("x1", 0)
+		.attr("x2", leftMargin + chartWidth)
+		.attr("y1", function(d){ return y(d);})
+		.attr("y2", function(d){ return y(d);});
+	}
+
+	function drawXAxis(){
+		var xAxis = d3.svg.axis().scale(x).orient("bottom").tickFormat(function(d){ return valuesByOrder.get('o'+d)[0].name});
+
+		canvas.append("g")
+		.attr('class','axis-x')
+		.attr("transform", "translate(0,"+(chartHeight+topMargin)+")")
+		.call(xAxis);	
+	}
+}
+
+
+gauge(values);
+histogram(values);
+var current = valuesByOrder.get('o5')[0];
+termometer(current.days,current.goal);
+	//cumulative(values);
+
+
+
 
 
 
@@ -718,6 +754,10 @@
 							<div class="ddd">
 								<h4>Por Semana</h4>
 
+							</div>
+
+							<div class="termometer">
+								<h4>Termômetro</h4>
 							</div>
 
 							<div class="cumulative">
