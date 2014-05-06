@@ -74,6 +74,10 @@
 		font-size: 10px;
 		fill:#fff;
 	}
+	text.tiptext {
+		font-size: 12px;
+		fill:#fff;
+	}
 
 	.guide{
 		stroke: #666;
@@ -251,7 +255,6 @@
 	}
 
 	function cumulative(values){
-
 		
 		var obj = {};
 		obj.values = values.map(function(d){ return d.value;}).filter(Number);
@@ -467,7 +470,7 @@
 		drawXAxis();
 		drawBars(obj.goals,goalColor);
 		var s = drawBars(obj.values,snapshotColor);
-		drawTips(obj.hightValues,snapshotColor);
+		drawTips(obj.hightValues,goalColor);
 
 		drawGuide(5);
 		
@@ -551,9 +554,9 @@
 			});
 
 			var triangle = [
-			{x:0,y:-h/4},
-			{x:0,y:+h/4},
-			{x:-5,y:0}
+			{x:-h/4,y:-h/4},
+			{x:h/4,y:-h/4},
+			{x:0,y:0}
 			];
 
 			var g = canvas.append('g')
@@ -563,17 +566,36 @@
 			.data(values)
 			.enter();
 
-			tips.append('path')
+			var gs = tips.append('g')
+			.attr('transform', function(d,i){
+				var xi = ((i+1) * x.rangeBand());
+				var yi = y(d)-30+h+(h/4);
+				return 'translate('+xi+','+yi+')';
+			})
+			.attr('class','tip')
+			.append('path')
 			.attr("d", triangleMap(triangle))
 			.attr('stroke',color)
 			.attr('fill',color);
-
+			
 			tips.append('rect')
 			.attr('width', w)
 			.attr('height', h)
 			.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2)+w/2;  })
-			.attr('y', function(d){ return y(d)-25; })
+			.attr('y', function(d){ return y(d)-30; })
 			.attr('fill', color);
+			tips.append('text')
+			.attr('class','tiptext')
+			.attr('x', function(d,i){  return ((i+1) * x.rangeBand())+(x.rangeBand()-barWidth)/2;  })
+			.attr('y', function(d){ return y(d)-15; })
+			.attr('fill', '#333')
+			.style("text-anchor", "middle")
+			.text(function(d,i){
+				var o = 'o'+(i+1);
+				var v = valuesByOrder.get(o)[0];
+				var r = Number(v.value/v.goal);
+				return format(r);
+			});
 		}
 
 		function drawLine(color,points){
