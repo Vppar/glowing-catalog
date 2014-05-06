@@ -2,7 +2,7 @@
 
 	.gauge-canvas{
 		margin-top: 12px;
-		margin-left: 40px;
+		margin-left: 30px;
 		border-right:1px #ccc solid;
 	}
 
@@ -100,10 +100,10 @@
 	{order:4,value:50,goal:56,name:'4ª semana'},
 	{order:5,value:100,goal:150,name:'5ª semana',
 	days: [
-	{day:1,value:22},
-	{day:2,value:13},
-	{day:3,value:15},
-	{day:4,value:53},
+	{day:1,value:2},
+	{day:2,value:3},
+	{day:3,value:5},
+	{day:4,value:3},
 	]
 },
 {order:6,goal:210,name:'6ª semana'},
@@ -118,7 +118,7 @@ var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,
 function gauge(values){
 
 	var width = 120;
-	var height = 400;
+	var height = 500;
 	var barWidth = width-60;
 
 	var sum_values = d3.sum(values, function(d) {return d.value; });
@@ -179,8 +179,6 @@ function gauge(values){
 		var g = canvas
 		.append('g')
 		.attr('class', 'tip');
-
-
 
 		g.append('path')
 		.attr("d", triangleMap(triangle))
@@ -280,7 +278,6 @@ function cumulative(values){
 	valuesCumulative.push(valuesCumulative[valuesCumulative.length-1]);
 	valuesCumulative = valuesCumulative.reverse();
 
-	console.log(goalCumulative);
 
 	var maxCtrl = true;
 
@@ -408,10 +405,6 @@ function cumulative(values){
 
 	}
 
-
-
-
-
 	function makeCumulative(entry){
 		var values = [];
 		var last = 0;
@@ -425,14 +418,25 @@ function cumulative(values){
 }
 
 function termometer(values,goal){
+
+	var h = 20;
+	var w = 40;
+	var format = d3.format('%');
+
 	var width = 800;
-	var height = 100;
+	var height = 50;
 	var bands = [1,2,3,4];
+	var topMargin = 10;
 	var colors = ['#333333','#562e3f','#9c2356','#bf1e62'];
 
 	var x = d3.scale.ordinal().domain(bands).rangeRoundBands([leftMargin,width],0);
-	var x2 = d3.scale.ordinal().domain(0,goal).rangeRoundBands([leftMargin,width],0);
+	var x2 = d3.scale.linear().domain([0,2]).range([leftMargin,width]);
 
+	var daysSum = d3.sum(values,function(d){ return d.value});
+
+	var termvalue = daysSum/(values.length * (goal/7));
+
+	var v = Math.abs(1 - termvalue); 
 
 	var canvas = d3.select('body').selectAll('div.termometer').append('svg')
 	.attr('class','termometer-canvas')
@@ -440,7 +444,7 @@ function termometer(values,goal){
 	.attr('height', height);
 
 	var g = canvas.append('g')
-	.attr("transform", "translate("+leftMargin+",10)");
+	.attr("transform", "translate("+leftMargin+",25)");
 
 	var bars = g.selectAll('.bar')
 	.data(bands)
@@ -450,9 +454,63 @@ function termometer(values,goal){
 	.attr('x', function(d,i){  return (i) * x.rangeBand() })
 	.attr('y', 0)
 	.attr('width', x.rangeBand())
-	.attr('height', function(d){ return 30; })
+	.attr('height', function(d){ return 20; })
 	.attr('fill', function(d,i){ return colors[i]; });
 
+	var triangleMap = d3.svg.line()
+	.x(function(d){
+		return d.x;
+	})
+	.y(function(d){
+		return d.y;
+	});
+
+	var triangle = [
+	{x:w/2-h/4,y:h},
+	{x:w/2+h/4,y:h},
+	{x:w/2,y:h+h/4}
+	];
+
+	var g = canvas
+	.append('g')
+	.attr('transform', function(d,i){
+			return 'translate('+x2(termvalue)+',0)';
+		})
+	.attr('class', 'tip');
+
+	g.append('path')
+	.attr("d", triangleMap(triangle))
+	.attr('stroke',goalColor)
+	.attr('fill',goalColor);
+
+	g.append('rect')
+	.attr('width', w)
+	.attr('height', h)
+	.attr('x', 0)
+	.attr('y', 0)
+	.attr('fill', goalColor);
+
+	canvas.append('line')
+	.attr('x1', leftMargin+ (x.rangeBand()*2))
+	.attr('x2', leftMargin+ (x.rangeBand()*2))
+	.attr('y1', 25)
+	.attr('y2', 45)
+	.attr('stroke','#fff')
+	.attr('fill', '#fff');
+
+	var lbl = '';
+	if(termvalue > 1){
+		lbl = '+ '+format(v);
+	}
+	else if(termvalue < 1){
+		lbl = '- '+format(v);
+	}
+
+	g.append('text')
+		.attr('x', w/2)
+		.attr('y', h/2 + 3)
+		.style("text-anchor", "middle")
+		.text(lbl);
 }
 
 function histogram(values){
@@ -692,7 +750,7 @@ gauge(values);
 histogram(values);
 var current = valuesByOrder.get('o5')[0];
 termometer(current.days,current.goal);
-	//cumulative(values);
+cumulative(values);
 
 
 
