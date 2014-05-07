@@ -65,6 +65,7 @@ styles/sacred-login.css
 styles/sacred-order-list.css
 styles/sacred-purchase-order.css
 styles/sacred-best-sellers.css
+styles/sacred-warm-up.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -428,6 +429,7 @@ views/spinner-button.html
 views/sacred-registration.html
 views/sacred-login.html
 views/sacred-add-customer.html
+views/sacred-warm-up.html
 views/parts/purchase-order/sacred-purchase-order.html
 views/parts/purchase-order/sacred-purchase-order-confirm.html
 views/parts/purchase-order/sacred-purchase-order-new.html

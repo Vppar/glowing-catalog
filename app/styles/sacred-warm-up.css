@@ -1,0 +1,9 @@
+#sacred .sacred-warmup-page .grid-scroll {
+	height:calc(100% - 87px);
+}
+
+#sacred .sacred-warmup-page .grid-stock,
+#sacred .sacred-warmup-page .part-body,
+#sacred .sacred-warmup-page .part {
+	height:100%;
+}

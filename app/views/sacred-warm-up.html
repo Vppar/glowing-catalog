@@ -1,0 +1,104 @@
+<div id="sacred">
+	<div class="container">
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-warmup-page" fast-click ng-controller="StockWarmupCtrl">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-8">
+						<div class="title">Pronta Entrega "Sd Inicial"</div>
+					</div>
+					<div class="col-16">
+						<div class="btn-group btn-group-sm pull-right" ng-init="ol='stock'">
+				            <a class="btn btn-option" ng-class="{active: selectedLevel==1}" ng-click="showLevel(1)">N&iacute;vel 1</a>
+				            <a class="btn btn-option" ng-class="{active: selectedLevel==2}" ng-click="showLevel(2)">N&iacute;vel 2</a>
+				            <a class="btn btn-option" ng-class="{active: selectedLevel==3}" ng-click="showLevel(3)">N&iacute;vel 3</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="content">
+					<div class="content-header"></div>
+					<div class="content-body">
+						<div class="part">
+							<div class="part-header">
+								<div class="row"></div>
+							</div>
+
+							<div class="part-body">
+
+								<div class="grid grid-stock">
+									<div class="grid-header">
+										<div class="row">
+											<div class="col-16">Produto/Código</div>
+											<div class="col-4 text-center">Desconto (%)</div>
+											<div class="col-4 text-center">Qtde.</div>
+										</div>
+									</div>
+
+									<div class="first-line sub-header">
+										<div class="row">
+											<div class="col-16">
+												<input type="text" placeholder="Filtrar produto" ng-click="clearFilter()" ng-model="productFilter.text" class="sacred-stock-filter">
+											</div>
+											<div class="col-4 text-center">&nbsp;</div>
+											<div class="col-4 text-center">&nbsp;</div>
+										</div>
+									</div>
+
+									<div class="grid-scroll" ng-show="selectedSession=='1'">
+
+	        							<span ng-repeat="session in main.stockReport.sessions" ng-if="!session.hide">
+											<div class="second-line" ng-click="toggleSession(session)">
+												<div class="row">
+													<div class="col-16">{{session.label}}</div>
+													<div class="col-4 text-center">&nbsp;</div>
+													<div class="col-4 text-center">{{summary.total.sessions[session.label].orderQty}}</div>
+												</div>
+											</div>
+
+											<span ng-repeat="line in session.lines" ng-if="!line.hide">
+												<div class="third-line" ng-click="toggleLine(line)">
+													<div class="row">
+														<div class="col-16">{{line.label}}</div>
+														<div class="col-4 text-center">&nbsp;</div>
+														<div class="col-4 text-center">{{summary.total.sessions[session.label].lines[line.label].orderQty}}</div>
+													</div>
+												</div>
+												<span ng-repeat="product in line.items" ng-if="!product.hide">
+													<div class="fourth-line">
+														<div class="row">
+															<div class="col-16 product-name">
+																{{product.title}}
+																<small>{{product.uniqueName}}</small>
+															</div>
+															<div class="col-4 text-center">
+																<tnt-number-picker ng-model="newStock.discounts[product.id]" min="25" max="40" step="5"></tnt-number-picker>
+															</div>
+															<div class="col-4 text-center">
+																<tnt-number-picker ng-model="newStock.watchedQty[product.id]" min="0"></tnt-number-picker>
+															</div>
+														</div>
+													</div>
+												</span>
+											</span>
+										</span>
+
+									</div><!--// grid-scroll -->
+								</div>
+							</div><!--// part-body -->
+						</div>
+
+						<div class="buttons-holder">
+							<spinner-button class="button-green pull-right" spinner-promise="confirm()" type="submit">Confirmar</spinner-button>
+						</div>
+
+					</div><!--// content-body -->
+				</div>
+			</div><!--// page-body -->
+		</div>
+	</div>
+</div>
