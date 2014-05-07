@@ -177,9 +177,6 @@
         }).when('/income-statement', {
             templateUrl : 'views/income-statement.html',
             controller : 'IncomeStatementCtrl'
-        }).when('/warmup', {
-            templateUrl : 'views/warm-up.html',
-            controller : 'WarmupCtrl'
         }).when('/receivable-list', {
             templateUrl : 'views/receivable-list.html'
         }).when('/cash-flow', {
@@ -221,6 +218,9 @@
         }).when('/voucher', {
             templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'
+        }).when('/warmup', {
+            templateUrl : 'views/sacred-warm-up.html',
+            controller : 'WarmupCtrl'
 
         }).when('/order-list-old', {
             templateUrl : 'views/order-list.html',
