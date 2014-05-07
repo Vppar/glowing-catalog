@@ -617,7 +617,7 @@
 
                         var nonDiscountedTotalString = $filter('currency')(nonDiscountedTotal);
 
-                        var message = 'Desconto Geral é aplicado somente nos produtos que não possuem desconto individual.';
+                        var message = 'O Desconto Geral será aplicado somente nos produtos que não tiveram desconto individual.';
                         
 
                         var data = {
