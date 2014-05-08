@@ -44,7 +44,7 @@
                     bands.push(i+1);
                 }
 
-                var color = d3.scale.linear().domain([bands[0],bands[bands.length-1]]).interpolate(d3.interpolateRgb).range([firstColor,lastColor]);
+                var color = d3.scale.linear().domain([bands[0],bands[bands.length-1]]).range([firstColor,lastColor]);
                 var x = d3.scale.linear().domain([0,goal]).range([marginleft ,width - marginleft]);
 
                 chart.append("div").attr("class", "termometer-canvas")
