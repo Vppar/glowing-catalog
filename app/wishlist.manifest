@@ -141,7 +141,7 @@ components/product-display/productDisplay.js
 components/highlight-display/highlightDisplay.js
 components/tnt-numpad/tntNumpad.js
 components/tnt-number-picker/tntNumberPicker.js
-components/d3/gauge.js
+components/d3-gauge/gauge.js
 
 scripts/directives/anchor.js
 scripts/directives/cep.js

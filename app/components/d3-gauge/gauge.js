@@ -40,7 +40,8 @@
                 drawBar(goal,'goal');
                 drawBar(snapshot,'snapshot');
                 drawLine(snapshot);
-                if(hasTip) drawTip(snapshot,snapshot/goal);
+                drawTip(goal,100,'goal-tip');
+                drawTip(snapshot,snapshot/goal,'snapshot-tip');
 
                 function drawBar(value,clazz){
 
@@ -60,7 +61,7 @@
                     .text(value);
                 }
 
-                function drawTip(value,label){
+                function drawTip(value,label,clazz){
 
                     var w = 40;
                     var h = 20;
@@ -80,7 +81,7 @@
                     {x:barWidth+w/4-5,y:height - y(value)}
                     ];
 
-                    var tip = canvas.append('g').attr('class', 'tip');
+                    var tip = canvas.append('g').attr('class', clazz);
 
                     tip.append('path')
                     .attr("d", triangleMap(triangle));
