@@ -1,10 +1,32 @@
 <style>
 
 	.gauge-canvas{
-		margin-top: 12px;
+		/*margin-top: 12px;
 		margin-left: 30px;
-		border-right:1px #ccc solid;
+		border-right:1px #ccc solid;*/
 	}
+	.gauge-canvas .goal rect{
+		fill:#333;
+	}
+	.gauge-canvas .goal text{
+		fill:#fff;
+	}
+	.gauge-canvas .snapshot rect{
+		fill:#bf1e62; 
+	}
+	.gauge-canvas .snapshot text{
+		fill:#333;
+	}
+	.gauge-canvas .tip path{
+		fill:#bf1e62; 
+	}
+	.gauge-canvas .tip rect{
+		fill:#bf1e62; 
+	}
+	.gauge-canvas .tip text{
+		fill:#fff; 
+	}
+
 
 	h4{
 		text-align: center;
@@ -21,6 +43,7 @@
 		height: 12px;
 		margin-top: 8px;
 		background-color: #333;
+		/*background-color: #fbc6dc;*/
 	}
 	.summarizer.points small{
 		display: block;
@@ -57,9 +80,9 @@
 		fill:#999;
 	}
 
-	.goal rect{
+	/*.goal rect{
 		fill:#333; 
-	}
+	}*/
 	.goal text{
 		fill:#fff;
 	}
@@ -87,10 +110,22 @@
 
 <script type="text/javascript">
 
-	var goalColor = '#333';
-	var snapshotColor = '#bf1e62';
+	var goalColor = '#333'; // preto
+	// var goalColor = '#fbc6dc'; // rosa claro
+
+
+	var degradeColor1 = '#562e3f';
+	var degradeColor2 = '#9c2356';
+	// var degradeColor1 = '#e989b2';
+	// var degradeColor2 = '#e36198';
+
+
+	var snapshotColor = '#bf1e62'; //rosa
 	var topMargin = 40;
 	var leftMargin = 40;
+
+	// var tipsColor = '#bf1e62';
+	var tipsColor = '#333';
 
 
 	var values = [
@@ -98,12 +133,12 @@
 	{order:2,value:100,goal:370,name:'2ª semana'},
 	{order:3,value:80,goal:600,name:'3ª semana'},
 	{order:4,value:50,goal:56,name:'4ª semana'},
-	{order:5,value:100,goal:150,name:'5ª semana',
+	{order:5,value:70,goal:150,name:'5ª semana',
 	days: [
-	{day:1,value:2},
-	{day:2,value:3},
-	{day:3,value:5},
-	{day:4,value:3},
+	{day:1,value:10},
+	{day:2,value:30},
+	{day:3,value:20},
+	{day:4,value:10},
 	]
 },
 {order:6,goal:210,name:'6ª semana'},
@@ -115,149 +150,149 @@
 var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
 
 
-function gauge(values){
+// function gauge(values){
 
-	var width = 120;
-	var height = 500;
-	var barWidth = width-60;
+// 	var width = 120;
+// 	var height = 500;
+// 	var barWidth = width-60;
 
-	var sum_values = d3.sum(values, function(d) {return d.value; });
-	var sum_goals = d3.sum(values, function(d) {return d.goal; });
+// 	var sum_values = d3.sum(values, function(d) {return d.value; });
+// 	var sum_goals = d3.sum(values, function(d) {return d.goal; });
 
-	var ref = 0;
-	if(sum_values < sum_goals){
-		ref = sum_goals;
-	}else{
-		ref = sum_values;
-	}
+// 	var ref = 0;
+// 	if(sum_values < sum_goals){
+// 		ref = sum_goals;
+// 	}else{
+// 		ref = sum_values;
+// 	}
 
-	var y = d3.scale.linear().domain([ref,0]).range([height-topMargin, 0]);
+// 	var y = d3.scale.linear().domain([ref,0]).range([height-topMargin, 0]);
 
-	var canvas = d3.select('body').selectAll('div.gauge').append('svg')
-	.attr('class','gauge-canvas')
-	.attr('width', width)
-	.attr('height', height);
+// 	var canvas = d3.select('body').selectAll('div.gauge').append('svg')
+// 	.attr('class','gauge-canvas')
+// 	.attr('width', width)
+// 	.attr('height', height);
 
-	//this needs to be refactored. should be more dinamic....
-	if(sum_values < sum_goals){
-		drawGoal();
-		drawSnapshot();
+// 	//this needs to be refactored. should be more dinamic....
+// 	if(sum_values < sum_goals){
+// 		drawGoal();
+// 		drawSnapshot();
 
-		drawTip(sum_goals,'#333',1);
-		drawTip(sum_values,'#bf1e62',(sum_values/sum_goals));
+// 		//drawTip(sum_goals,goalColor,1);
+// 		drawTip(sum_values,snapshotColor,(sum_values/sum_goals));
 
-	}else{
-		drawSnapshot();
-		drawGoal();
+// 	}else{
+// 		drawSnapshot();
+// 		drawGoal();
 
-		drawTip(sum_values,'#bf1e62',(sum_values/sum_goals));
-		drawTip(sum_goals,'#333',1);
+// 		drawTip(sum_values,snapshotColor,(sum_values/sum_goals));
+// 		//drawTip(sum_goals,goalColor,1);
 
-	}
+// 	}
 
 
-	function drawTip(value,color,label){
+// 	function drawTip(value,color,label){
 
-		var w = 40;
-		var h = 20;
-		var format = d3.format('%');
+// 		var w = 40;
+// 		var h = 20;
+// 		var format = d3.format('%');
 
-		var triangleMap = d3.svg.line()
-		.x(function(d){
-			return d.x;
-		})
-		.y(function(d){
-			return d.y;
-		});
+// 		var triangleMap = d3.svg.line()
+// 		.x(function(d){
+// 			return d.x;
+// 		})
+// 		.y(function(d){
+// 			return d.y;
+// 		});
 
-		var triangle = [
-		{x:barWidth+w/4,y:height - y(value)-h/4},
-		{x:barWidth+w/4,y:height - y(value)+h/4},
-		{x:barWidth+w/4-5,y:height - y(value)}
-		];
+// 		var triangle = [
+// 		{x:barWidth+w/4,y:height - y(value)-h/4},
+// 		{x:barWidth+w/4,y:height - y(value)+h/4},
+// 		{x:barWidth+w/4-5,y:height - y(value)}
+// 		];
 
-		var g = canvas
-		.append('g')
-		.attr('class', 'tip');
+// 		var g = canvas
+// 		.append('g')
+// 		.attr('class', 'tip');
 
-		g.append('path')
-		.attr("d", triangleMap(triangle))
-		.attr('stroke',color)
-		.attr('fill',color);
+// 		g.append('path')
+// 		.attr("d", triangleMap(triangle))
+// 		.attr('stroke',color)
+// 		.attr('fill',color);
 
-		g.append('rect')
-		.attr('width', w)
-		.attr('height', h)
-		.attr('x', barWidth+w/4)
-		.attr('y', height - y(value)-h/2)
-		.attr('fill', color);
+// 		g.append('rect')
+// 		.attr('width', w)
+// 		.attr('height', h)
+// 		.attr('x', barWidth+w/4)
+// 		.attr('y', height - y(value)-h/2)
+// 		.attr('fill', color);
 
-		g.append('text')
-		.attr('x', barWidth+w/4+w/2)
-		.attr('y', height - y(value)+3)
-		.style("text-anchor", "middle")
-		.text(format(label));
-	}
+// 		g.append('text')
+// 		.attr('x', barWidth+w/4+w/2)
+// 		.attr('y', height - y(value)+3)
+// 		.style("text-anchor", "middle")
+// 		.text(format(label));
+// 	}
 
-	function drawGoal(){
-		var goal = canvas.selectAll('.goal')
-		.data([sum_goals])
-		.enter()
-		.append('g')
-		.attr('class', 'goal');
+// 	function drawGoal(){
+// 		var goal = canvas.selectAll('.goal')
+// 		.data([sum_goals])
+// 		.enter()
+// 		.append('g')
+// 		.attr('class', 'goal');
 
-		goal.append('rect')
-		.attr('x', 0 )
-		.attr('y', height - y(sum_goals))
-		.attr('width', barWidth)
-		.attr('height', y(sum_goals))
-		.attr('fill', goalColor);
+// 		goal.append('rect')
+// 		.attr('x', 0 )
+// 		.attr('y', height - y(sum_goals))
+// 		.attr('width', barWidth)
+// 		.attr('height', y(sum_goals))
+// 		.attr('fill', goalColor);
 
-		goal.append("line")
-		.attr('class','line')
-		.attr("x1", 0)
-		.attr("x2", barWidth)
-		.attr("y1", height - y(sum_goals))
-		.attr("y2", height - y(sum_goals))
-		.attr('stroke','#fff');
+// 		goal.append("line")
+// 		.attr('class','line')
+// 		.attr("x1", 0)
+// 		.attr("x2", barWidth)
+// 		.attr("y1", height - y(sum_goals))
+// 		.attr("y2", height - y(sum_goals))
+// 		.attr('stroke','#fff');
 
-		goal.append('text')
-		.attr('x',barWidth/2)
-		.attr('y',height - y(sum_goals)+20)
-		.style("text-anchor", "middle")
-		.text(sum_goals)
-	}
+// 		goal.append('text')
+// 		.attr('x',barWidth/2)
+// 		.attr('y',height - y(sum_goals)+20)
+// 		.style("text-anchor", "middle")
+// 		.text(sum_goals)
+// 	}
 
-	function drawSnapshot(){
+// 	function drawSnapshot(){
 
-		var snapshot = canvas.selectAll('.snapshot')
-		.data([sum_values])
-		.enter()
-		.append('g')
-		.attr('class', 'snapshot');
+// 		var snapshot = canvas.selectAll('.snapshot')
+// 		.data([sum_values])
+// 		.enter()
+// 		.append('g')
+// 		.attr('class', 'snapshot');
 
-		snapshot.append('rect')
-		.attr('x', 0 )
-		.attr('y', height - y(sum_values))
-		.attr('width', barWidth)
-		.attr('height', y(sum_values));
+// 		snapshot.append('rect')
+// 		.attr('x', 0 )
+// 		.attr('y', height - y(sum_values))
+// 		.attr('width', barWidth)
+// 		.attr('height', y(sum_values));
 
-		snapshot.append("line")
-		.attr('class','line')
-		.attr("x1", 0)
-		.attr("x2", barWidth)
-		.attr("y1", height - y(sum_values))
-		.attr("y2", height - y(sum_values))
-		.attr('stroke','#fff');
+// 		snapshot.append("line")
+// 		.attr('class','line')
+// 		.attr("x1", 0)
+// 		.attr("x2", barWidth)
+// 		.attr("y1", height - y(sum_values))
+// 		.attr("y2", height - y(sum_values))
+// 		.attr('stroke','#fff');
 
-		snapshot.append('text')
-		.attr('x',barWidth/2)
-		.attr('y',height - y(sum_values)+20)
-		.style("text-anchor", "middle")
-		.text(sum_values)
-	}
+// 		snapshot.append('text')
+// 		.attr('x',barWidth/2)
+// 		.attr('y',height - y(sum_values)+20)
+// 		.style("text-anchor", "middle")
+// 		.text(sum_values)
+// 	}
 
-}
+// }
 
 function cumulative(values){
 
@@ -269,14 +304,14 @@ function cumulative(values){
 	var valuesCumulative = makeCumulative(obj.values);
 	var goalCumulative = makeCumulative(obj.goals);
 
-	goalCumulative.push(goalCumulative[goalCumulative.length-1]);
-	goalCumulative = goalCumulative.reverse();
-	goalCumulative.push(goalCumulative[goalCumulative.length-1]);
-	goalCumulative = goalCumulative.reverse();
+	// goalCumulative.push(goalCumulative[goalCumulative.length-1]);
+	// goalCumulative = goalCumulative.reverse();
+	// goalCumulative.push(goalCumulative[goalCumulative.length-1]);
+	// goalCumulative = goalCumulative.reverse();
 
-	valuesCumulative = valuesCumulative.reverse();
-	valuesCumulative.push(valuesCumulative[valuesCumulative.length-1]);
-	valuesCumulative = valuesCumulative.reverse();
+	// valuesCumulative = valuesCumulative.reverse();
+	// valuesCumulative.push(valuesCumulative[valuesCumulative.length-1]);
+	// valuesCumulative = valuesCumulative.reverse();
 
 
 	var maxCtrl = true;
@@ -331,8 +366,9 @@ function cumulative(values){
 	function drawArea(color,points,metric){
 		var lineMap = d3.svg.area()
 		.x(function(d,i) {
-			if(i == 0) return leftMargin; 
-			else return ((i) * x.rangeBand()); 
+			//if(i == 0) return leftMargin; 
+			//else 
+			return ((i+1) * x.rangeBand()); 
 		})
 		.y0(function(d) { 
 			return chartHeight;
@@ -352,8 +388,8 @@ function cumulative(values){
 	function drawLine(color,points){
 		var lineMap = d3.svg.line()
 		.x(function(d,i) { 
-			if(i == 0) return leftMargin; 
-			return ((i) * x.rangeBand()); 
+			//if(i == 0) return leftMargin; 
+			return ((i+1) * x.rangeBand()); 
 		})
 		.y(function(d) { 
 			return y(d);
@@ -427,7 +463,7 @@ function termometer(values,goal){
 	var height = 50;
 	var bands = [1,2,3,4];
 	var topMargin = 10;
-	var colors = ['#333333','#562e3f','#9c2356','#bf1e62'];
+	var colors = [goalColor,degradeColor1,degradeColor2,snapshotColor];
 
 	var x = d3.scale.ordinal().domain(bands).rangeRoundBands([leftMargin,width],0);
 	var x2 = d3.scale.linear().domain([0,2]).range([leftMargin,width]);
@@ -474,21 +510,21 @@ function termometer(values,goal){
 	var g = canvas
 	.append('g')
 	.attr('transform', function(d,i){
-			return 'translate('+x2(termvalue)+',0)';
-		})
+		return 'translate('+x2(termvalue)+',0)';
+	})
 	.attr('class', 'tip');
 
 	g.append('path')
 	.attr("d", triangleMap(triangle))
-	.attr('stroke',goalColor)
-	.attr('fill',goalColor);
+	.attr('stroke',tipsColor)
+	.attr('fill',tipsColor);
 
 	g.append('rect')
 	.attr('width', w)
 	.attr('height', h)
 	.attr('x', 0)
 	.attr('y', 0)
-	.attr('fill', goalColor);
+	.attr('fill', tipsColor);
 
 	canvas.append('line')
 	.attr('x1', leftMargin+ (x.rangeBand()*2))
@@ -507,14 +543,13 @@ function termometer(values,goal){
 	}
 
 	g.append('text')
-		.attr('x', w/2)
-		.attr('y', h/2 + 3)
-		.style("text-anchor", "middle")
-		.text(lbl);
+	.attr('x', w/2)
+	.attr('y', h/2 + 3)
+	.style("text-anchor", "middle")
+	.text(lbl);
 }
 
 function histogram(values){
-
 
 	var obj = {};
 	obj.values = values.map(function(d){ return d.value;}).filter(Number);
@@ -563,7 +598,7 @@ function histogram(values){
 	drawBars(obj.goals,goalColor);
 	drawGuide(5);
 	var s = drawBars(obj.values,snapshotColor);
-	drawTips(obj.hightValues,goalColor);
+	drawTips(obj.hightValues,tipsColor);
 
 
 	//drawArea(snapshotColor,obj.values);
@@ -746,7 +781,6 @@ function histogram(values){
 }
 
 
-gauge(values);
 histogram(values);
 var current = valuesByOrder.get('o5')[0];
 termometer(current.days,current.goal);
@@ -801,12 +835,10 @@ cumulative(values);
 							</div>
 						</div>
 					</div>
-					<div class="row">
+					<div class="row" ng-init='values={goal:200,snapshot:100}'>
 						<div class="col-4">
-							<div class="gauge">
-								<h4>Gauge</h4>
-
-							</div>
+							<h4>Gauge</h4>
+							<gauge values='values'tip='true' height='400' ></gauge>
 						</div>
 						<div class="col-20">
 							<div class="ddd">

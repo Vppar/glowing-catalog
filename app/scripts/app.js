@@ -140,7 +140,8 @@
             'tnt.catalog.purchase.ticket.dialog.ctrl',
             'tnt.catalog.purchase.ticket.ctrl',
             'tnt.catalog.purchase.ctrl',
-            'tnt.catalog.pagpop'
+            'tnt.catalog.pagpop',
+            'tnt.chart.components.gauge'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
