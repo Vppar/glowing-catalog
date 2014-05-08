@@ -32,6 +32,11 @@
                 .attr('height', height+20)
                 .style('width',124);
 
+                scope.$watchCollection('values', function () {
+                  console.log('Drawing gauge...', scope.values);
+                  drawGauge();
+                });
+
                 var barWidth = 60;
                 var topMargin = 35;
                 
@@ -39,11 +44,13 @@
                 //scale based on goal value;
                 var y = d3.scale.linear().domain([goal,0]).range([height-topMargin, 0]);
 
-                drawBar(goal,'goal');
-                drawBar(snapshot,'snapshot');
-                drawLine(snapshot);
-                drawTip(goal,1,'goal-tip');
-                drawTip(snapshot,snapshot/goal,'snapshot-tip');
+                function drawGauge() {
+                    drawBar(goal,'goal');
+                    drawBar(snapshot,'snapshot');
+                    drawLine(snapshot);
+                    drawTip(goal,1,'goal-tip');
+                    drawTip(snapshot,snapshot/goal,'snapshot-tip');
+                }
 
                 function drawBar(value,clazz){
 
@@ -110,6 +117,8 @@
                     .attr("y2", height - y(value))
                     .attr('stroke','#fff');
                 }
+
+                drawGauge();
             }
         }
     });
