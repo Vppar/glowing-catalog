@@ -17,22 +17,24 @@
             scope : {
                 values : '=values',
                 tip : '=tip',
-                height : '=height'
+                height : '=height',
+                margintop : '=margintop'
             },
             link: function (scope, element, attrs) {
                 var goal = scope.values.goal;
                 var snapshot = scope.values.snapshot;
                 var hasTip = scope.tip;
                 var height = scope.height;
+                var textTopMargin = scope.margintop;
 
                 var canvas = d3.select('body').selectAll('div.gauge').append('svg')
                 .attr('class','gauge-canvas')
-                .attr('height', height)
-                .style('width','100%');
+                .attr('height', height+20)
+                .style('width',124);
 
                 var barWidth = 60;
-                var topMargin = 0;
-                var textTopMargin = 20;
+                var topMargin = 35;
+                
 
                 //scale based on goal value;
                 var y = d3.scale.linear().domain([goal,0]).range([height-topMargin, 0]);
@@ -40,7 +42,7 @@
                 drawBar(goal,'goal');
                 drawBar(snapshot,'snapshot');
                 drawLine(snapshot);
-                drawTip(goal,100,'goal-tip');
+                drawTip(goal,1,'goal-tip');
                 drawTip(snapshot,snapshot/goal,'snapshot-tip');
 
                 function drawBar(value,clazz){

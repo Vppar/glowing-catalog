@@ -45,17 +45,17 @@
                 var x = d3.scale.linear().domain([0,goal]).range(0,width);
 
                 chart.append("div").attr("class", "termometer-canvas")
-                .style('padding-top','40px')
+                .style('padding-top',(height+8)+'px')
                 .selectAll('div')
                 .data(bands).enter()
                 .append("div")
                 .attr('class','band')  
                 .style('float','left')
+                .style('height',height)
                 .style('background-color',function (d,i) { return color(d); })
                 .style("width", function(d) { return (100/numBands) + "%"; })
 
                 tooltip(x(snapshot),'#999');
-console.log(x(snapshot)+' '+snapshot);
                 function tooltip(value, color){
 
                     var h = 20;
@@ -94,6 +94,14 @@ console.log(x(snapshot)+' '+snapshot);
                     .attr('x', 0)
                     .attr('y', 0)
                     .attr('fill', color);
+
+                    canvas.append('text')
+                    .attr('x', w/2)
+                    .attr('y', h/2 + 3)
+                    .style("text-anchor", "middle")
+                    .text('100');
+
+
 
                 }
                 

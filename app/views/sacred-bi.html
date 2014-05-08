@@ -1,36 +1,35 @@
 <style>
 
 	.gauge-canvas{
-		/*margin-top: 12px;
-		margin-left: 30px;
-		border-right:1px #ccc solid;*/
+		margin-left: 20px;
+
+		border-right: 1px solid #eee;
 	}
-	.gauge-canvas .goal rect{
-		fill:#333;
+	.gauge-title{
+		width: 98px;
 	}
+			
 	.gauge-canvas .goal text{
 		fill:#fff;
 	}
-	.gauge-canvas .snapshot rect{
-		fill:#bf1e62; 
-	}
+	
 	.gauge-canvas .snapshot text{
-		fill:#333;
+		fill:#fff;
 	}
-	.gauge-canvas .goal-tip path{
-		fill:#bf1e62; 
-	}
+	
+	.gauge-canvas .goal rect,
+	.gauge-canvas .goal-tip path,
 	.gauge-canvas .goal-tip rect{
-		fill:#bf1e62; 
+		fill:#333; 
 	}
+	
 	.gauge-canvas .goal-tip text{
 		fill:#fff; 
 		font-size: 10px;
 	}
 
-	.gauge-canvas .snapshot-tip path{
-		fill:#bf1e62; 
-	}
+	.gauge-canvas .snapshot rect,
+	.gauge-canvas .snapshot-tip path,
 	.gauge-canvas .snapshot-tip rect{
 		fill:#bf1e62; 
 	}
@@ -40,7 +39,7 @@
 	}
 
 	.termometer-canvas .band{
-		height: 30px;
+		height: 15px;
 		border-left: #fff 1px solid;
 	}
 
@@ -52,6 +51,11 @@
 	p{
 		line-height: 32px;
 		margin-bottom: 0;	
+	}
+
+	.summarizer{
+		width: 278px;
+		float: left;
 	}
 
 	.summarizer.goal small{
@@ -84,7 +88,7 @@
 		shape-rendering: crispEdges;
 	}
 	.axis-y .guide{
-		stroke: #666;
+		stroke: #ddd;
 	}
 
 	.axis-y text {
@@ -165,151 +169,6 @@
 ];
 
 var valuesByOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(values,d3.map);
-
-
-// function gauge(values){
-
-// 	var width = 120;
-// 	var height = 500;
-// 	var barWidth = width-60;
-
-// 	var sum_values = d3.sum(values, function(d) {return d.value; });
-// 	var sum_goals = d3.sum(values, function(d) {return d.goal; });
-
-// 	var ref = 0;
-// 	if(sum_values < sum_goals){
-// 		ref = sum_goals;
-// 	}else{
-// 		ref = sum_values;
-// 	}
-
-// 	var y = d3.scale.linear().domain([ref,0]).range([height-topMargin, 0]);
-
-// 	var canvas = d3.select('body').selectAll('div.gauge').append('svg')
-// 	.attr('class','gauge-canvas')
-// 	.attr('width', width)
-// 	.attr('height', height);
-
-// 	//this needs to be refactored. should be more dinamic....
-// 	if(sum_values < sum_goals){
-// 		drawGoal();
-// 		drawSnapshot();
-
-// 		//drawTip(sum_goals,goalColor,1);
-// 		drawTip(sum_values,snapshotColor,(sum_values/sum_goals));
-
-// 	}else{
-// 		drawSnapshot();
-// 		drawGoal();
-
-// 		drawTip(sum_values,snapshotColor,(sum_values/sum_goals));
-// 		//drawTip(sum_goals,goalColor,1);
-
-// 	}
-
-
-// 	function drawTip(value,color,label){
-
-// 		var w = 40;
-// 		var h = 20;
-// 		var format = d3.format('%');
-
-// 		var triangleMap = d3.svg.line()
-// 		.x(function(d){
-// 			return d.x;
-// 		})
-// 		.y(function(d){
-// 			return d.y;
-// 		});
-
-// 		var triangle = [
-// 		{x:barWidth+w/4,y:height - y(value)-h/4},
-// 		{x:barWidth+w/4,y:height - y(value)+h/4},
-// 		{x:barWidth+w/4-5,y:height - y(value)}
-// 		];
-
-// 		var g = canvas
-// 		.append('g')
-// 		.attr('class', 'tip');
-
-// 		g.append('path')
-// 		.attr("d", triangleMap(triangle))
-// 		.attr('stroke',color)
-// 		.attr('fill',color);
-
-// 		g.append('rect')
-// 		.attr('width', w)
-// 		.attr('height', h)
-// 		.attr('x', barWidth+w/4)
-// 		.attr('y', height - y(value)-h/2)
-// 		.attr('fill', color);
-
-// 		g.append('text')
-// 		.attr('x', barWidth+w/4+w/2)
-// 		.attr('y', height - y(value)+3)
-// 		.style("text-anchor", "middle")
-// 		.text(format(label));
-// 	}
-
-// 	function drawGoal(){
-// 		var goal = canvas.selectAll('.goal')
-// 		.data([sum_goals])
-// 		.enter()
-// 		.append('g')
-// 		.attr('class', 'goal');
-
-// 		goal.append('rect')
-// 		.attr('x', 0 )
-// 		.attr('y', height - y(sum_goals))
-// 		.attr('width', barWidth)
-// 		.attr('height', y(sum_goals))
-// 		.attr('fill', goalColor);
-
-// 		goal.append("line")
-// 		.attr('class','line')
-// 		.attr("x1", 0)
-// 		.attr("x2", barWidth)
-// 		.attr("y1", height - y(sum_goals))
-// 		.attr("y2", height - y(sum_goals))
-// 		.attr('stroke','#fff');
-
-// 		goal.append('text')
-// 		.attr('x',barWidth/2)
-// 		.attr('y',height - y(sum_goals)+20)
-// 		.style("text-anchor", "middle")
-// 		.text(sum_goals)
-// 	}
-
-// 	function drawSnapshot(){
-
-// 		var snapshot = canvas.selectAll('.snapshot')
-// 		.data([sum_values])
-// 		.enter()
-// 		.append('g')
-// 		.attr('class', 'snapshot');
-
-// 		snapshot.append('rect')
-// 		.attr('x', 0 )
-// 		.attr('y', height - y(sum_values))
-// 		.attr('width', barWidth)
-// 		.attr('height', y(sum_values));
-
-// 		snapshot.append("line")
-// 		.attr('class','line')
-// 		.attr("x1", 0)
-// 		.attr("x2", barWidth)
-// 		.attr("y1", height - y(sum_values))
-// 		.attr("y2", height - y(sum_values))
-// 		.attr('stroke','#fff');
-
-// 		snapshot.append('text')
-// 		.attr('x',barWidth/2)
-// 		.attr('y',height - y(sum_values)+20)
-// 		.style("text-anchor", "middle")
-// 		.text(sum_values)
-// 	}
-
-// }
 
 function cumulative(values){
 
@@ -594,7 +453,7 @@ function histogram(values){
 	var width = 800; 
 	var height = 200;
 	var bottomMargin = 40;
-	var barWidth = (width/qty)-10;
+	var barWidth = (width/qty)-(width/(qty*2));
 
 	var chartWidth = width-leftMargin;
 	var chartHeight = height-(topMargin+bottomMargin);
@@ -614,12 +473,12 @@ function histogram(values){
 	drawXAxis();
 	drawBars(obj.goals,goalColor);
 	drawGuide(5);
-	var s = drawBars(obj.values,snapshotColor);
+	//var s = drawBars(obj.values,snapshotColor);
 	drawTips(obj.hightValues,tipsColor);
 
 
 	//drawArea(snapshotColor,obj.values);
-	//drawLine(snapshotColor,obj.values);
+	drawLine(snapshotColor,obj.values);
 
 
 
@@ -725,12 +584,13 @@ function histogram(values){
 		tips.append('rect')
 		.attr('width', w)
 		.attr('height', h)
-		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(barWidth/2)+w/2;  })
+		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())-(w/2);  })
 		.attr('y', function(d){ return y(d)-30; })
 		.attr('fill', color);
 		tips.append('text')
 		.attr('class','tiptext')
-		.attr('x', function(d,i){  return ((i+1) * x.rangeBand())+(x.rangeBand()-barWidth)/2;  })
+		// .attr('x', function(d,i){  return ((i+1) * x.rangeBand())+(x.rangeBand()-barWidth)/2;  })
+		.attr('x', function(d,i){  return ((i+1) * x.rangeBand());  })
 		.attr('y', function(d){ return y(d)-15; })
 		.attr('fill', '#333')
 		.style("text-anchor", "middle")
@@ -833,18 +693,21 @@ cumulative(values);
 
 			<div class="page-body">
 				<div class="row">
-					<div class="col-8">
-						<p>Meta Desafio PARIS
-							<small>período: 01/04/2014 a 30/05/2014</small></p>
-						</div>
-						<div class="col-8">
+					<div class="col-5">
+						<p>Meta Desafio PARIS</p>
+					</div>
+					<div class="col-5">
+						<p><small>período: 01/04/2014 a 30/05/2014</small></p>
+					</div>
+					
+						<div class="col-7">
 							<div class="summarizer goal">
 								<div class="summarizer-label">Meta</div>
 								<div class="summarizer-value">1234</div>
 								<small></small>
 							</div>
 						</div>
-						<div class="col-8">
+						<div class="col-7">
 							<div class="summarizer points">
 								<div class="summarizer-label">Pontos</div>
 								<div class="summarizer-value">1234</div>
@@ -854,8 +717,8 @@ cumulative(values);
 					</div>
 					<div class="row" ng-init='values={goal:200,snapshot:100}'>
 						<div class="col-4">
-							<h4>Gauge</h4>
-							<gauge values='values' tip='true' height='400' ></gauge>
+							<h4 class='gauge-title'>Gauge</h4>
+							<gauge values='values' tip='true' height='500' margintop='25' ></gauge>
 						</div>
 						<div class="col-20">
 							<div class="ddd">
@@ -864,7 +727,7 @@ cumulative(values);
 							</div>
 
 							<h4>Termômetro</h4>
-							<termometer values='values' tip='true' height='30' bands='6' firstcolor="'#33333'" lastcolor="'#bf1e62'"></termometer>
+							<termometer values='values' tip='true' height='15' bands='3' firstcolor="'#33333'" lastcolor="'#bf1e62'"></termometer>
 							</div>
 
 							<div class="cumulative">
