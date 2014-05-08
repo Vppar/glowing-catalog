@@ -101,19 +101,20 @@
 <div class="content-body">
 	<div class="grid">
 		<div class="grid-header">
-			<div class="row">
+			<div class="row" ng-click="callUpdateReceivableTotalByEntities(filteredEntities)">
 				<div class="col-2">Rank</div>
 				<div class="col-9 ">Clientes</div>
 				<div class="col-3 text-center">&Uacute;ltimo pedido</div>
 				<div class="col-3 text-center">Qtde Vendida</div>
 				<div class="col-2 currency">P. M&eacute;dio</div>
+
 				<div class="col-3 currency">Valor total</div>
 				<div class="col-2 currency">AV%</div>
 			</div>
 		</div>
 
 		<div class="grid-summary">
-			<div class="row" ng-click="callUpdateReceivableTotal(filteredEntities)">
+			<div class="row" ng-click="callUpdateReceivableTotalByEntities(filteredEntities)">
 				<div class="col-2">Total</div>
 				<div class="col-9 ">{{total.all.entityCount}}</div>
 				<div class="col-3 text-center" ng-show="total.all.lastOrder>0">{{total.all.lastOrder | date:'dd/MM/yyyy'}}</div>
