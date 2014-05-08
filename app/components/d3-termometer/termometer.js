@@ -59,7 +59,7 @@
                 .style('background-color',function (d,i) { return color(d); })
                 .style("width", function(d) { return (100/numBands) + "%"; })
 
-                var label = x(snapshot)/x(goal);
+                var label = snapshot/goal;
 
                 tooltip(x(snapshot), format(label),'#333');
                 function tooltip(value, label, color){
