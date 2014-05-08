@@ -107,6 +107,7 @@
             'tnt.catalog.bookkeeping.report.ctrl',
             'tnt.catalog.service.book',
             'tnt.utils.cpf',
+            'tnt.catalog.bi.ctrl',
             'tnt.catalog.attrs.customerName',
             'tnt.catalog.appointments',
             'tnt.catalog.appointments.ctrl',
@@ -225,7 +226,8 @@
             templateUrl : 'views/sacred-warm-up.html',
             controller : 'WarmupCtrl'
         }).when('/bi', {
-            templateUrl : 'views/sacred-bi.html'
+            templateUrl : 'views/sacred-bi.html',
+            controller : 'BiCtrl'
         }).when('/order-list-old', {
             templateUrl : 'views/order-list.html',
             controller : 'OrderListCtrl'

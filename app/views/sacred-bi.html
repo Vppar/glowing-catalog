@@ -727,7 +727,7 @@ cumulative(values);
 					<div class="row" ng-init='values={goal:200,snapshot:100}'>
 						<div class="col-4">
 							<h4 class='gauge-title'>Gauge</h4>
-							<gauge values='values' tip='true' height='500' margintop='25' ></gauge>
+							<gauge values='data.gauge' tip='true' height='500' margintop='25' ></gauge>
 						</div>
 						<div class="col-20">
 							<div class="ddd">
@@ -736,7 +736,7 @@ cumulative(values);
 							</div>
 
 							<h4>Termômetro</h4>
-							<termometer values='values' tip='true' height='15' bands='10' firstcolor="'#ff6b6f'" lastcolor="'#1bab14'"></termometer>
+							<termometer values='data.termometer' tip='true' height='15' bands='10' firstcolor="'#ff6b6f'" lastcolor="'#1bab14'"></termometer>
 							</div>
 
 							<div class="cumulative">
