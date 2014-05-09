@@ -21,16 +21,14 @@
                 margintop : '=margintop'
             },
             link: function (scope, element, attrs) {
-                var goal = scope.values.goal;
-                var snapshot = scope.values.snapshot;
-                var hasTip = scope.tip;
-                var height = scope.height;
-                var textTopMargin = scope.margintop;
+                var goal = null;
+                var snapshot = null;
+                var hasTip = null;
+                var height = null;
+                var textTopMargin = null;
+                var canvas = d3.select(element[0]).append('svg');
+                var y = null;
 
-                var canvas = d3.select('body').selectAll('div.gauge').append('svg')
-                .attr('class','gauge-canvas')
-                .attr('height', height+20)
-                .style('width',124);
 
                 scope.$watchCollection('values', function () {
                   console.log('Drawing gauge...', scope.values);
@@ -41,10 +39,32 @@
                 var topMargin = 15;
                 
 
-                //scale based on goal value;
-                var y = d3.scale.linear().domain([goal,0]).range([height-topMargin, 0]);
+                function clear() {
+                  canvas.selectAll('*').remove();
+                }
+
+
+                function setValues() {
+                    console.log('>>>> scope:', scope);
+                    goal = scope.values.goal;
+                    snapshot = scope.values.snapshot;
+                    hasTip = scope.tip;
+                    height = scope.height;
+                    textTopMargin = scope.margintop;
+                }
 
                 function drawGauge() {
+                    clear();
+                    setValues();
+
+                    canvas
+                      .attr('class','gauge-canvas')
+                      .attr('height', height+20)
+                      .style('width',124);
+
+                    //scale based on goal value;
+                    y = d3.scale.linear().domain([goal,0]).range([height-topMargin, 0]);
+
                     drawBar(goal,'goal');
                     drawBar(snapshot,'snapshot');
                     drawLine(snapshot);
