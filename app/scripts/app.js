@@ -144,7 +144,8 @@
             'tnt.catalog.pagpop',
             'tnt.chart.components.gauge',
             'tnt.chart.components.termometer',
-            'tnt.chart.components.cumulative'
+            'tnt.chart.components.cumulative',
+            'tnt.chart.components.histogram'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
