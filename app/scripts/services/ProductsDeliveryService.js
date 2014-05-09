@@ -79,20 +79,8 @@
                             }
 
                             order.totalItems += item.qty;
-
                             order.totalItemsDeliv += item.dQty;
-
-                            var remaining = (item.qty - item.dQty);
-                            totalRemaining += remaining;
-                            var stock = StockService.findInStock(item.id);
-                            item.stock = stock.quantity;
-                            if (remaining === 0) {
-                                item.maxDeliver = 0;
-                            } else if (remaining > item.stock) {
-                                item.maxDeliver = item.stock;
-                            } else {
-                                item.maxDeliver = remaining;
-                            }
+                            totalRemaining += (item.qty - item.dQty);
                         }
                         order.totalRemaining = totalRemaining;
                     }

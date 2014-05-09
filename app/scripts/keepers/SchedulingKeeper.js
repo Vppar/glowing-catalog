@@ -188,40 +188,31 @@
                  * List Active Scheduling
                  */
                 var listActive = function list () {
-                    return angular.copy($filter('filter')(schedulings, function (schedule) {
-                        return schedule.status;
-                    }));
-                };
-
-                /**
-                 * List Active Scheduling
-                 */
-                var listDeactivate = function list () {
-                    return angular.copy($filter('filter')(schedulings, function (schedule) {
-                        return !schedule.status;
-                    }));
+                    return angular.copy(ArrayUtils.list(schedulings, 'status', true));
                 };
 
                 /**
                  * Read an Scheduling
                  */
                 var readByDocument = function readByDocument (uuid) {
-                    return angular.copy(ArrayUtils.find(list(), 'documentUUID', uuid));
+                    return angular.copy(ArrayUtils.find(schedulings, 'documentUUID', uuid));
                 };
 
                 var readActiveByDocument = function readByDocument (uuid) {
-                    return angular.copy(ArrayUtils.find(listActive(), 'documentUUID', uuid));
+                    var active = ArrayUtils.list(schedulings, 'status', true);
+                    return angular.copy(ArrayUtils.find(active, 'documentUUID', uuid));
                 };
 
                 var readDeliveredByDocument = function readDeliveredByDocument (uuid) {
-                    return angular.copy(ArrayUtils.find(listDeactivate(), 'documentUUID', uuid));
+                    var delivered = ArrayUtils.list(schedulings, 'status', false);
+                    return angular.copy(ArrayUtils.find(delivered, 'documentUUID', uuid));
                 };
 
                 /**
                  * Read an Scheduling
                  */
                 var read = function read (uuid) {
-                    return angular.copy(ArrayUtils.find(listActive(), 'uuid', uuid));
+                    return angular.copy(ArrayUtils.find(schedulings, 'uuid', uuid));
                 };
 
                 /**

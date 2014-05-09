@@ -15,7 +15,7 @@
             function ($scope, $filter, ArrayUtils, UserService, logger, ProductsDeliveryService) {
 
                 var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
-
+                
                 UserService.redirectIfIsNotLoggedIn();
                 $scope.toBeDelivered = [];
                 $scope.delivered = [];
@@ -65,12 +65,6 @@
                     products : 0,
                     remaining : 0,
                     totalItemsScheduled : 0,
-                };
-
-                var productsSumarizatorTemplate = {
-                    total : 0,
-                    delivered : 0,
-                    actualDelivery : 0,
                 };
 
                 $scope.resetOrders =
@@ -124,7 +118,6 @@
                     summarizator.total = $filter('sum')(items, 'qty');
                     summarizator.delivered = $filter('sum')(items, 'dQty');
                 };
-
             }
         ]);
 })(angular);

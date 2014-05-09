@@ -66,9 +66,10 @@
                     
                     var deliveryDate = setTime($scope.dtFilter.deliveryDate, 0, 0, 0, 0, 0);
                     var actualDate = setTime(new Date(), 0, 0, 0, 0, 0);
-
+                   
+                    var result = null;
                     if (deliveryDate.getTime() === actualDate.getTime()) {
-                        var result = DialogService.messageDialog(dialogData).then(function() {
+                        result = DialogService.messageDialog(dialogData).then(function() {
                             result = delivery();
                         });
                     } else {
@@ -90,7 +91,7 @@
                         }
                     }
                     
-                };
+                }
                 warmup();
                 
                 function getUpdatedItems (type) {
@@ -175,8 +176,6 @@
                                 productCost += updatedItems[i].dQty * stock.cost;
                             }
                         }
-                        var totalToDelivery = $filter('sum')(order.items, 'qty');
-                        var totalDelivered = $filter('sum')(order.items, 'dQty');
                         var schedule = SchedulingService.readByDocument(orderUUID);
                         if (schedule) {
                             promises.push(SchedulingService.update(
@@ -191,7 +190,6 @@
                                 updatedItems,
                                 false));
                         }
-                        
                         
                         $q.all(promises).then(
                             function () {
