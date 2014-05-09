@@ -8,7 +8,7 @@
 	.gauge-title{
 		width: 98px;
 	}
-			
+	
 	.gauge-canvas .goal text{
 		fill:#fff;
 	}
@@ -168,274 +168,273 @@
 						<p><small>período: 01/04/2014 a 30/05/2014</small></p>
 					</div>
 					
-						<div class="col-7">
-							<div class="summarizer goal">
-								<div class="summarizer-label">Meta</div>
-								<div class="summarizer-value">1234</div>
-								<small></small>
-							</div>
-						</div>
-						<div class="col-7">
-							<div class="summarizer points">
-								<div class="summarizer-label">Pontos</div>
-								<div class="summarizer-value">1234</div>
-								<small></small>
-							</div>
+					<div class="col-7">
+						<div class="summarizer goal">
+							<div class="summarizer-label">Meta</div>
+							<div class="summarizer-value">1234</div>
+							<small></small>
 						</div>
 					</div>
-					<div class="row" ng-init='values={goal:200,snapshot:100};
-
-		cumulative={
-		bands : [
-			{
-				order:1,
-				goal: 50,
-				snapshot: 25,
-				label: "1 sem"
-			},
-			{
-				order:2,
-				goal: 80,
-				snapshot: 35,
-				label: "2 sem"
-			},
-			{
-				order:3,
-				goal: 120,
-				snapshot: 55,
-				label: "3 sem"
-			},
-			{
-				order:4,
-				goal: 200,
-				snapshot: 25,
-				label: "4 sem"
-			},
-			{
-				order:5,
-				goal: 210,
-				snapshot: 35,
-				label: "5 sem"
-			},
-			{
-				order:6,
-				goal: 250,
-				snapshot: 55,
-				label: "6 sem"
-			},
-			{
-				order:7,
-				goal: 265,
-				snapshot: 25,
-				label: "7 sem"
-			},
-			{
-				order:8,
-				goal: 267,
-				snapshot: 35,
-				label: "8 sem"
-			},
-			{
-				order:9,
-				goal: 300,
-				snapshot: 55,
-				label: "9 sem"
-			},
-			{
-				order:10,
-				goal: 314,
-				snapshot: 25,
-				label: "10 sem"
-			},
-			{
-				order:11,
-				goal: 325,
-				snapshot: 35,
-				label: "11 sem"
-			},
-			{
-				order:12,
-				goal: 333,
-				snapshot: 55,
-				label: "12 sem"
-			},
-			{
-				order:13,
-				goal: 342,
-				snapshot: 25,
-				label: "13 sem"
-			},
-			{
-				order:14,
-				goal: 378,
-				snapshot: 35,
-				label: "14 sem"
-			},
-			{
-				order:15,
-				goal: 389,
-				snapshot: 55,
-				label: "15 sem"
-			},
-			{
-				order:16,
-				goal: 420,
-				snapshot: 25,
-				label: "16 sem"
-			},
-			{
-				order:17,
-				goal: 425,
-				snapshot: 35,
-				label: "17 sem"
-			},
-			{
-				order:18,
-				goal: 433,
-				snapshot: 55,
-				label: "9 sem"
-			}
-		]
-	};
-
-	hist={
-		bands : [
-			{
-				order:1,
-				goal: 50,
-				snapshot: 25,
-				label: "1 sem"
-			},
-			{
-				order:2,
-				goal: 80,
-				snapshot: 35,
-				label: "2 sem"
-			},
-			{
-				order:3,
-				goal: 120,
-				snapshot: 55,
-				label: "3 sem"
-			},
-			{
-				order:4,
-				goal: 50,
-				snapshot: 25,
-				label: "4 sem"
-			},
-			{
-				order:5,
-				goal: 80,
-				snapshot: 35,
-				label: "5 sem"
-			},
-			{
-				order:6,
-				goal: 120,
-				snapshot: 55,
-				label: "6 sem"
-			},
-			{
-				order:7,
-				goal: 50,
-				snapshot: 25,
-				label: "7 sem"
-			},
-			{
-				order:8,
-				goal: 80,
-				snapshot: 35,
-				label: "8 sem"
-			},
-			{
-				order:9,
-				goal: 120,
-				snapshot: 55,
-				label: "9 sem"
-			},
-			{
-				order:10,
-				goal: 50,
-				snapshot: 25,
-				label: "10 sem"
-			},
-			{
-				order:11,
-				goal: 80,
-				snapshot: 35,
-				label: "11 sem"
-			},
-			{
-				order:12,
-				goal: 120,
-				snapshot: 55,
-				label: "12 sem"
-			},
-			{
-				order:13,
-				goal: 50,
-				snapshot: 25,
-				label: "13 sem"
-			},
-			{
-				order:14,
-				goal: 80,
-				snapshot: 35,
-				label: "14 sem"
-			},
-			{
-				order:15,
-				goal: 120,
-				snapshot: 55,
-				label: "15 sem"
-			},
-			{
-				order:16,
-				goal: 50,
-				snapshot: 25,
-				label: "16 sem"
-			},
-			{
-				order:17,
-				goal: 80,
-				snapshot: 35,
-				label: "17 sem"
-			},
-			{
-				order:18,
-				goal: 120,
-				snapshot: 55,
-				label: "9 sem"
-			}
-		]
-	};'>
-						<div class="col-4">
-							<h4 class='gauge-title'>Gauge</h4>
-							<gauge values='data.gauge' tip='true' height='500' margintop='25' ></gauge>
-						</div>
-						<div class="col-20">
-							<h4>Por Semana</h4>
-							<!-- div class="ddd">
-								
-
-							</div>
- -->
-							<histogram values='hist'></histogram>
-
-							<div class="row">
-							<h4>Termômetro</h4>
-							<termometer values='data.termometer' tip='true' height='15' bands='10' firstcolor="'#ff6b6f'" lastcolor="'#1bab14'"></termometer>
-							</div>
-
-							<h4>Acumulado</h4>
-							<cumulative values='cumulative'></cumulative>
+					<div class="col-7">
+						<div class="summarizer points">
+							<div class="summarizer-label">Pontos</div>
+							<div class="summarizer-value">1234</div>
+							<small></small>
 						</div>
 					</div>
-
 				</div>
-			</div>
+				<div class="row" ng-init='values={goal:200,snapshot:100};
 
-		</div>
+				cumulative={
+				bands : [
+				{
+				order:1,
+				goal: 50,
+				snapshot: 25,
+				label: "1 sem"
+			},
+			{
+			order:2,
+			goal: 80,
+			snapshot: 35,
+			label: "2 sem"
+		},
+		{
+		order:3,
+		goal: 120,
+		snapshot: 55,
+		label: "3 sem"
+	},
+	{
+	order:4,
+	goal: 200,
+	snapshot: 25,
+	label: "4 sem"
+},
+{
+	order:5,
+	goal: 210,
+	snapshot: 35,
+	label: "5 sem"
+},
+{
+	order:6,
+	goal: 250,
+	snapshot: 55,
+	label: "6 sem"
+},
+{
+	order:7,
+	goal: 265,
+	snapshot: 25,
+	label: "7 sem"
+},
+{
+	order:8,
+	goal: 267,
+	snapshot: 35,
+	label: "8 sem"
+},
+{
+	order:9,
+	goal: 300,
+	snapshot: 55,
+	label: "9 sem"
+},
+{
+	order:10,
+	goal: 314,
+	snapshot: 25,
+	label: "10 sem"
+},
+{
+	order:11,
+	goal: 325,
+	snapshot: 35,
+	label: "11 sem"
+},
+{
+	order:12,
+	goal: 333,
+	snapshot: 55,
+	label: "12 sem"
+},
+{
+	order:13,
+	goal: 342,
+	snapshot: 25,
+	label: "13 sem"
+},
+{
+	order:14,
+	goal: 378,
+	snapshot: 35,
+	label: "14 sem"
+},
+{
+	order:15,
+	goal: 389,
+	snapshot: 55,
+	label: "15 sem"
+},
+{
+	order:16,
+	goal: 420,
+	snapshot: 25,
+	label: "16 sem"
+},
+{
+	order:17,
+	goal: 425,
+	snapshot: 35,
+	label: "17 sem"
+},
+{
+	order:18,
+	goal: 433,
+	snapshot: 55,
+	label: "9 sem"
+}
+]
+};
+
+hist={
+bands : [
+{
+	order:1,
+	goal: 50,
+	snapshot: 25,
+	label: "1 sem"
+},
+{
+	order:2,
+	goal: 80,
+	snapshot: 35,
+	label: "2 sem"
+},
+{
+	order:3,
+	goal: 120,
+	snapshot: 55,
+	label: "3 sem"
+},
+{
+	order:4,
+	goal: 50,
+	snapshot: 25,
+	label: "4 sem"
+},
+{
+	order:5,
+	goal: 80,
+	snapshot: 35,
+	label: "5 sem"
+},
+{
+	order:6,
+	goal: 120,
+	snapshot: 55,
+	label: "6 sem"
+},
+{
+	order:7,
+	goal: 50,
+	snapshot: 25,
+	label: "7 sem"
+},
+{
+	order:8,
+	goal: 80,
+	snapshot: 35,
+	label: "8 sem"
+},
+{
+	order:9,
+	goal: 120,
+	snapshot: 55,
+	label: "9 sem"
+},
+{
+	order:10,
+	goal: 50,
+	snapshot: 25,
+	label: "10 sem"
+},
+{
+	order:11,
+	goal: 80,
+	snapshot: 35,
+	label: "11 sem"
+},
+{
+	order:12,
+	goal: 120,
+	snapshot: 55,
+	label: "12 sem"
+},
+{
+	order:13,
+	goal: 50,
+	snapshot: 25,
+	label: "13 sem"
+},
+{
+	order:14,
+	goal: 80,
+	snapshot: 35,
+	label: "14 sem"
+},
+{
+	order:15,
+	goal: 120,
+	snapshot: 55,
+	label: "15 sem"
+},
+{
+	order:16,
+	goal: 50,
+	snapshot: 25,
+	label: "16 sem"
+},
+{
+	order:17,
+	goal: 80,
+	snapshot: 35,
+	label: "17 sem"
+},
+{
+	order:18,
+	goal: 120,
+	snapshot: 55,
+	label: "9 sem"
+}
+]
+};'>
+<div class="col-4">
+	<h4 class='gauge-title'>Gauge</h4>
+	<gauge values='data.gauge' tip='true' height='500' margintop='25' ></gauge>
+</div>
+<div class="col-20">
+	<div class="row">
+		<h4>Por Semana</h4>
+		<histogram values='hist'></histogram>
 	</div>
+
+	<div class="row">
+		<h4>Termômetro</h4>
+		<termometer values='data.termometer' tip='true' height='15' bands='10' firstcolor="'#ff6b6f'" lastcolor="'#1bab14'"></termometer>
+	</div>
+
+	<div class="row">
+		<h4>Acumulado</h4>
+		<cumulative values='cumulative'></cumulative>
+	</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
 </div>

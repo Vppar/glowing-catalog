@@ -19,25 +19,36 @@
             },
             link: function (scope, element, attrs) {
 
+               //get the json with data
                var values = scope.values;
+
+               //get the values that should be displayed
                var bands = scope.values.bands;
+
 
                var width = 800; 
                var height = 200;
 
                var leftMargin = 40;
                var bottomMargin = 40;
-               var barWidth = 80;
                var topMargin = 10;
 
+               //get the max value of goals (this is needed to make the chart y scale) 
                var max = d3.max(bands, function(d){ return d.goal});
 
+               //calcs the real chart width
                var chartWidth = width-leftMargin;
+
+               //calcs the real chart height
                var chartHeight = height-(topMargin+bottomMargin);
 
+               //creates the x scale for the chart. its an ordinal scale!   
                var x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
+               
+               //creates the x scale for the chart. this is a linear scale!
                var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
 
+               //creates the canvas tha will hold all
                var canvas = d3.select('body').selectAll('div.cumulative').append('svg')
                .attr('width', width)
                .attr('height', height);
