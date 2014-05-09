@@ -37,6 +37,7 @@
 
                 var width = 801;
                 var marginleft = 30;
+                var marginbottom = 20;
 
                 var chart = d3.select(element[0]);
 
@@ -49,6 +50,7 @@
 
                 chart.append("div").attr("class", "termometer-canvas")
                 .style('padding-top',(height+8)+'px')
+                .style('margin-bottom',marginbottom+'px')
                 .style('width',width - marginleft+'px')
                 .selectAll('div')
                 .data(bands).enter()

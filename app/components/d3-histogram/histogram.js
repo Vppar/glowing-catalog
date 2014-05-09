@@ -23,7 +23,7 @@
                 var qty = scope.values.bands.length;
                 var width = 800; 
                 var height = 200;
-                var bottomMargin = 40;
+                var bottomMargin = 10;
                 var barWidth = (width/qty)-(width/(qty*2));
                 var leftMargin = 40;
                 var topMargin = 20;
@@ -48,8 +48,8 @@
                 drawXAxis();
                 drawYAxis();
                 drawGuide(2);
-                drawBars(goals,'#ccc');
-                drawLine('#333',snapshots);
+                drawBars(goals,'#5892ce');
+                drawLine('#ab147a',snapshots);
 
                 function drawGuide(order){
 

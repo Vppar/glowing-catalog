@@ -38,7 +38,7 @@
                 });
 
                 var barWidth = 60;
-                var topMargin = 35;
+                var topMargin = 15;
                 
 
                 //scale based on goal value;

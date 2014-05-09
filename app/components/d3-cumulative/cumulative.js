@@ -19,32 +19,32 @@
             },
             link: function (scope, element, attrs) {
 
-             var values = scope.values;
-             var bands = scope.values.bands;
+               var values = scope.values;
+               var bands = scope.values.bands;
 
-             var width = 800; 
-             var height = 200;
+               var width = 800; 
+               var height = 200;
 
-             var leftMargin = 40;
-             var bottomMargin = 40;
-             var barWidth = 80;
-             var topMargin = 10;
+               var leftMargin = 40;
+               var bottomMargin = 40;
+               var barWidth = 80;
+               var topMargin = 10;
 
-             var max = d3.max(bands, function(d){ return d.goal});
+               var max = d3.max(bands, function(d){ return d.goal});
 
-             var chartWidth = width-leftMargin;
-             var chartHeight = height-(topMargin+bottomMargin);
+               var chartWidth = width-leftMargin;
+               var chartHeight = height-(topMargin+bottomMargin);
 
-             var x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
-             var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
+               var x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
+               var y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
 
-             var canvas = d3.select('body').selectAll('div.cumulative').append('svg')
-             .attr('width', width)
-             .attr('height', height);
+               var canvas = d3.select('body').selectAll('div.cumulative').append('svg')
+               .attr('width', width)
+               .attr('height', height);
 
              //this is the right way!!
-             var goals = bands.map(function(d){ return d.value;}).filter(Number);
-             var snapshots = bands.map(function(d){ return d.goal;}).filter(Number);
+             var goals = bands.map(function(d){ return d.goal;}).filter(Number);
+             var snapshots = bands.map(function(d){ return d.snapshot;}).filter(Number);
 
              var byOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(bands,d3.map);
 
@@ -67,14 +67,14 @@
 
             function drawGuide(order){
 
-        var guide = canvas.append("line")
-        .attr('class','guide')
-        .attr("x1", x(order)+x.rangeBand()/2)
-        .attr("x2", x(order)+x.rangeBand()/2)
-        .attr("y1", function(d){ return 0;})
-        .attr("y2", function(d){ return chartHeight+topMargin;});
+                var guide = canvas.append("line")
+                .attr('class','guide')
+                .attr("x1", x(order)+x.rangeBand()/2)
+                .attr("x2", x(order)+x.rangeBand()/2)
+                .attr("y1", function(d){ return 0;})
+                .attr("y2", function(d){ return chartHeight+topMargin;});
 
-    }
+            }
 
             function drawLine(color,points){
                 var lineMap = d3.svg.line()
