@@ -29,12 +29,6 @@
                 var canvas = d3.select(element[0]).append('svg');
                 var y = null;
 
-
-                scope.$watchCollection('values', function () {
-                  console.log('Drawing gauge...', scope.values);
-                  drawGauge();
-                });
-
                 var barWidth = 60;
                 var topMargin = 15;
                 
@@ -45,7 +39,6 @@
 
 
                 function setValues() {
-                    console.log('>>>> scope:', scope);
                     goal = scope.values.goal;
                     snapshot = scope.values.snapshot;
                     hasTip = scope.tip;
@@ -53,7 +46,7 @@
                     textTopMargin = scope.margintop;
                 }
 
-                function drawGauge() {
+                function draw() {
                     clear();
                     setValues();
 
@@ -91,7 +84,6 @@
                 }
 
                 function drawTip(value,label,clazz){
-
                     var w = 40;
                     var h = 20;
                     var format = d3.format('%');
@@ -138,7 +130,7 @@
                     .attr('stroke','#fff');
                 }
 
-                drawGauge();
+                scope.$watchCollection('values', draw);
             }
         }
     });
