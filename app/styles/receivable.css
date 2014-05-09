@@ -130,6 +130,10 @@ width: 86px;
 	height: 65px;
 }
 
+.select-width-old-receivable {
+	width:100%;
+}
+
 /*.form-receivable .panel-top .combo-width{
 	width:220px;
 }
