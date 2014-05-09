@@ -22,9 +22,9 @@ angular
         },
 
         termometer : {
-          goal : 250,
-          snapshot : 200,
-          percent : "50%"
+          goal : 1,
+          snapshot : 0,
+          percent : 0
         },
 
         cumulative : {
