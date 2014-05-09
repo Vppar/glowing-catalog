@@ -79,10 +79,14 @@
 
 #sacred .form .form-line input[type="text"],
 #sacred .form .form-line input[type="password"],
-#sacred .form .form-line select,
 #sacred .form .form-line .select2-container {
 	width:100%;
 	min-height:30px;
+}
+
+#sacred .form .form-line select{
+	width:100%;
+	height:30px;	
 }
 
 
