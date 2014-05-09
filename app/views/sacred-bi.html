@@ -667,7 +667,7 @@ function histogram(values){
 }
 
 
-histogram(values);
+//histogram(values);
 //var current = valuesByOrder.get('o5')[0];
 //termometer(current.days,current.goal);
 //cumulative(values);
@@ -745,6 +745,27 @@ histogram(values);
 				label: "terceira semana"
 			}
 		]
+	};hist={
+		bands : [
+			{
+				order:1,
+				goal: 50,
+				snapshot: 25,
+				label: "primeira semana"
+			},
+			{
+				order:2,
+				goal: 80,
+				snapshot: 35,
+				label: "segunda semana"
+			},
+			{
+				order:3,
+				goal: 120,
+				snapshot: 55,
+				label: "terceira semana"
+			}
+		]
 	}'>
 						<div class="col-4">
 							<h4 class='gauge-title'>Gauge</h4>
@@ -752,11 +773,12 @@ histogram(values);
 						</div>
 						<div class="col-20">
 							<h4>Por Semana</h4>
-							<div class="ddd">
+							<!-- div class="ddd">
 								
 
 							</div>
-
+ -->
+							<histogram values='hist'></histogram>
 
 							<div class="row">
 							<h4>Termômetro</h4>

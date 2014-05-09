@@ -42,8 +42,10 @@
              .attr('width', width)
              .attr('height', height);
 
-             var goals = bands.map(function(d){ return d.goal;});
-             var snapshots = bands.map(function(d){ return d.snapshot;});
+             //this is the right way!!
+             var goals = bands.map(function(d){ return d.value;}).filter(Number);
+             var snapshots = bands.map(function(d){ return d.goal;}).filter(Number);
+
              var byOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(bands,d3.map);
 
 
