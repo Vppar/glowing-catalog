@@ -39,7 +39,7 @@
 	}
 
 	.termometer-canvas .band{
-		height: 15px;
+		height: 10px;
 	}
 	.termometer-canvas{
 		margin-left: 30px;
@@ -670,7 +670,7 @@ function histogram(values){
 histogram(values);
 //var current = valuesByOrder.get('o5')[0];
 //termometer(current.days,current.goal);
-cumulative(values);
+//cumulative(values);
 
 
 
@@ -724,25 +724,50 @@ cumulative(values);
 							</div>
 						</div>
 					</div>
-					<div class="row" ng-init='values={goal:200,snapshot:100}'>
+					<div class="row" ng-init='values={goal:200,snapshot:100};cumulative={
+		bands : [
+			{
+				order:1,
+				goal: 50,
+				snapshot: 25,
+				label: "primeira semana"
+			},
+			{
+				order:2,
+				goal: 80,
+				snapshot: 35,
+				label: "segunda semana"
+			},
+			{
+				order:3,
+				goal: 120,
+				snapshot: 55,
+				label: "terceira semana"
+			}
+		]
+	}'>
 						<div class="col-4">
 							<h4 class='gauge-title'>Gauge</h4>
 							<gauge values='data.gauge' tip='true' height='500' margintop='25' ></gauge>
 						</div>
 						<div class="col-20">
+							<h4>Por Semana</h4>
 							<div class="ddd">
-								<h4>Por Semana</h4>
+								
 
 							</div>
 
+
+							<div class="row">
 							<h4>Termômetro</h4>
 							<termometer values='data.termometer' tip='true' height='15' bands='10' firstcolor="'#ff6b6f'" lastcolor="'#1bab14'"></termometer>
 							</div>
 
-							<div class="cumulative">
-								<h4>Acumulado</h4>
+							<h4>Acumulado</h4>
+							<cumulative values='cumulative'></cumulative>
+							<!-- <div class="cumulative">
 
-							</div>
+							</div> -->
 						</div>
 					</div>
 

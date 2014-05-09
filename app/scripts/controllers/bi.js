@@ -39,18 +39,18 @@ angular
       angular.extend(data, nullData);
 
 
-      biRef.on('value', function (snapshot) {
-        if (snapshot) {
-          var val = snapshot.val();
+      // biRef.on('value', function (snapshot) {
+      //   if (snapshot) {
+      //     var val = snapshot.val();
 
-          $log.debug('BI data received...', val);
+      //     $log.debug('BI data received...', val);
 
-          data.gauge = val.gauge || nullData.gauge;
-          data.histogram = val.histogram || nullData.histogram;
-          data.termometer = val.termometer || nullData.termometer;
-          data.cumulative = val.cumulative || nullData.cumulative;
-        }
-      });
+      //     data.gauge = val.gauge || nullData.gauge;
+      //     data.histogram = val.histogram || nullData.histogram;
+      //     data.termometer = val.termometer || nullData.termometer;
+      //     data.cumulative = val.cumulative || nullData.cumulative;
+      //   }
+      // });
 
 
       // Expose the data to the view
