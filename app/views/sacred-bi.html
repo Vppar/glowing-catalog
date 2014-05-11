@@ -1,0 +1,214 @@
+<style>
+
+	.gauge-canvas{
+		margin-left: 20px;
+
+		border-right: 1px solid #eee;
+	}
+	.gauge-title{
+		width: 98px;
+	}
+	
+	.gauge-canvas .goal text{
+		fill:#fff;
+	}
+	
+	.gauge-canvas .snapshot text{
+		fill:#fff;
+	}
+	
+	.gauge-canvas .goal rect,
+	.gauge-canvas .goal-tip path,
+	.gauge-canvas .goal-tip rect{
+		fill:#5892ce; 
+	}
+	
+	.gauge-canvas .goal-tip text{
+		fill:#fff; 
+		font-size: 10px;
+	}
+
+	.gauge-canvas .snapshot rect,
+	.gauge-canvas .snapshot-tip path,
+	.gauge-canvas .snapshot-tip rect{
+		fill:#ab147a; 
+	}
+	.gauge-canvas .snapshot-tip text{
+		fill:#fff; 
+		font-size: 10px;
+	}
+
+	.termometer-canvas .band{
+		height: 10px;
+	}
+	.termometer-canvas{
+		margin-left: 30px;
+	}
+	.tooltip-canvas path,
+	.tooltip-canvas rect{
+		fill:#333; 
+	}
+	.tooltip-canvas text{
+		fill:#fff;
+		font-size: 10px;
+	}
+
+	h4{
+		text-align: center;
+	}
+
+	p{
+		line-height: 32px;
+		margin-bottom: 0;	
+	}
+
+	.summarizer{
+		width: 278px;
+		float: left;
+	}
+
+	.summarizer.goal small{
+		display: block;
+		width: 24px;
+		height: 12px;
+		margin-top: 8px;
+		background-color: #5892ce;
+		/*background-color: #fbc6dc;*/
+	}
+	.summarizer.points small{
+		display: block;
+		width: 24px;
+		height: 12px;
+		margin-top: 8px;
+		background-color: #bf1e62;
+	}
+
+	.axis-x path,
+	.axis-x line {
+		fill: none;
+		stroke: none;
+		shape-rendering: crispEdges;
+	}
+
+	.axis-y path,
+	.axis-y line {
+		fill: none;
+		stroke: none;
+		shape-rendering: crispEdges;
+	}
+	.axis-y .guide{
+		stroke: #ddd;
+	}
+
+	.axis-y text {
+		font-size: 10px;
+		fill:#999;
+	}
+
+	.axis-x text {
+		font-size: 12px;
+		fill:#999;
+	}
+
+	/*.goal rect{
+		fill:#333; 
+	}*/
+	.goal text{
+		fill:#fff;
+	}
+	.snapshot rect{
+		fill:#bf1e62; 
+	}
+	.snapshot text{
+		fill:#fff;
+	}
+
+	.tip text{
+		font-size: 10px;
+		fill:#fff;
+	}
+	text.tiptext {
+		font-size: 12px;
+		fill:#fff;
+	}
+
+	.guide{
+		stroke: #666;
+	}
+
+</style>
+
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-bi-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Análise de Desempenho - Equipe</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button display-none" ng-init="ol='dashboard'">
+							<a class="btn btn-option" ng-class="{active: ol=='demo'}" ng-click="ol='demo'">Demonstrativo</a>
+							<a class="btn btn-option" ng-class="{active: ol=='dashboard'}" ng-click="ol='orders'">Dashboard</a>	
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="row">
+					<div class="col-5">
+						<p>Meta Desafio PARIS</p>
+					</div>
+					<div class="col-5">
+						<p><small>período: 01/04/2014 a 30/05/2014</small></p>
+					</div>
+					
+					<div class="col-7">
+						<div class="summarizer goal">
+							<div class="summarizer-label">Meta</div>
+              <div class="summarizer-value">{{ data.gauge.goal }}</div>
+							<small></small>
+						</div>
+					</div>
+					<div class="col-7">
+						<div class="summarizer points">
+							<div class="summarizer-label">Pontos</div>
+              <div class="summarizer-value">{{ data.gauge.snapshot }}</div>
+							<small></small>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+<div class="col-4">
+	<h4 class='gauge-title'>Gauge</h4>
+	<gauge values='data.gauge' tip='true' height='500' margintop='25' ></gauge>
+</div>
+<div class="col-20">
+	<div class="row">
+		<h4>Por Semana</h4>
+		<histogram values='data.histogram'></histogram>
+	</div>
+
+	<div class="row">
+		<h4>Termômetro</h4>
+		<termometer values='data.termometer' tip='true' height='15' bands='10' firstcolor="'#ff6b6f'" lastcolor="'#1bab14'"></termometer>
+	</div>
+
+	<div class="row">
+		<h4>Acumulado</h4>
+		<cumulative values='data.cumulative'></cumulative>
+	</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+</div>

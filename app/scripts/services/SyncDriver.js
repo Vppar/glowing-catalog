@@ -82,6 +82,7 @@
 
                     self.refs.user = userRef;
                     self.refs.journal = journalRef;
+                    self.refs.bi = userRef.child('bi');
                 }
 
 
