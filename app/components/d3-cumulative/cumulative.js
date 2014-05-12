@@ -24,6 +24,7 @@
                 //get the values that should be displayed
                 var bands = null;
 
+                var currentBand = null;
 
                 var width = 800; 
                 var height = 200;
@@ -70,6 +71,9 @@
                     goals = bands.map(function(d){ return d.goal;}).filter(Number);
                     snapshots = bands.map(function(d){ return d.snapshot;}).filter(Number);
                     byOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(bands,d3.map);
+
+                    currentBand = angular.isNumber(values.current) && values.current >= 0 ?
+                        values.current + 1 : null;
                 }
 
 
@@ -83,7 +87,11 @@
                         
                     drawXAxis();
                     drawYAxis();
-                    drawGuide(2);
+
+                    if (currentBand) {
+                        drawGuide(currentBand);
+                    }
+
                     drawLine('#5892ce',goals);
                     drawLine('#ab147a',snapshots);
                 }
