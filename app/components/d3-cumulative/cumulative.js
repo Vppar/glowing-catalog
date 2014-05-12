@@ -72,8 +72,12 @@
                     snapshots = bands.map(function(d){ return d.snapshot;}).filter(Number);
                     byOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(bands,d3.map);
 
-                    currentBand = angular.isNumber(values.current) && values.current >= 0 ?
-                        values.current + 1 : null;
+                    var values = scope.values;
+                    var validBandIndex = angular.isNumber(values.current) &&
+                            values.current >= 0 &&
+                            !!bands[values.current];
+
+                    currentBand = validBandIndex ? values.current + 1 : null;
                 }
 
 
