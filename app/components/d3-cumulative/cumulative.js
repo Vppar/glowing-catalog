@@ -62,7 +62,7 @@
                 function setValues() {
                     values = scope.values;
                     bands = scope.values.bands;
-                    max = d3.max(bands, function(d){ return d.goal});
+                    max = d3.max(bands, function(d){ return d.goal >= d.snapshot ? d.goal : d.snapshot});
                     chartWidth = width-leftMargin;
                     chartHeight = height-(topMargin+bottomMargin);
                     x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
