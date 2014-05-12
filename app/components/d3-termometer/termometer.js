@@ -97,7 +97,7 @@
                         .style("width", function(d) { return (100/numBands) + "%"; });
 
                     var pos = x(snapshot > goal ? goal : snapshot);
-                    tooltip(pos, format(label),'#333');
+                    tooltip(pos, format(label), '#333');
                 }
 
 
@@ -105,8 +105,8 @@
                     var h = 5;
                     var w = 20;
 
-                    var tw = 8;
-                    var th = 5;
+                    var tw = 16;
+                    var th = 8;
 
                     var canvas = chart.append('svg')
                         .attr('class','tooltip-canvas')
@@ -124,28 +124,51 @@
                             return d.y;
                         });
 
+                    var triangleStrokeWidth = 3;
+                    var triangleStrokeColor = '#ffffff';
+
+                    var triangleStroke = [{
+                            x : w/2 - tw/2 - triangleStrokeWidth,
+                            y : h - 2
+                        }, {
+                            x : w/2 + tw/2 + triangleStrokeWidth,
+                            y : h - 2
+                        }, {
+                            x : w/2,
+                            y : h - 2 + th + triangleStrokeWidth
+                        }
+                    ];
+
+
                     var triangle = [
-                        {x:w/2-tw/2,y:h},
-                        {x:w/2+tw/2,y:h},
-                        {x:w/2,y:h+th}
+                        {x:w/2-tw/2,y:h - 2},
+                        {x:w/2+tw/2,y:h - 2},
+                        {x:w/2,y:h - 2 + th}
                     ];
 
                     canvas.append('path')
-                        .attr("d", triangleMap(triangle));
+                        .attr('d', triangleMap(triangleStroke))
+                        .attr('fill', triangleStrokeColor);
+
+                    canvas.append('path')
+                        .attr('d', triangleMap(triangle))
+                        .attr('fill', color || '#333');
                         //.attr('stroke',color)
                         //.attr('fill',color);
 
+                        /*
                     canvas.append('rect')
                         .attr('width', w)
                         .attr('height', h)
                         .attr('x', 0)
                         .attr('y', 0)
-                        //.attr('fill', color);
+                        .attr('fill', color);
 
                     canvas.append('text')
                         .attr('x', w/2)
                         .attr('y', h/2 + 3)
                         .style("text-anchor", "middle");
+                        */
                 }
 
 
