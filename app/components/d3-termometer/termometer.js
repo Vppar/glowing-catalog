@@ -128,16 +128,15 @@
                     var triangleStrokeColor = '#ffffff';
 
                     var triangleStroke = [{
-                            x : w/2 - tw/2 - triangleStrokeWidth,
-                            y : h - 2
-                        }, {
-                            x : w/2 + tw/2 + triangleStrokeWidth,
-                            y : h - 2
-                        }, {
-                            x : w/2,
-                            y : h - 2 + th + triangleStrokeWidth
-                        }
-                    ];
+                        x : w/2 - tw/2 - triangleStrokeWidth,
+                        y : h - 2
+                    }, {
+                        x : w/2 + tw/2 + triangleStrokeWidth,
+                        y : h - 2
+                    }, {
+                        x : w/2,
+                        y : h - 2 + th + triangleStrokeWidth
+                    }];
 
 
                     var triangle = [
