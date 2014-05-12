@@ -94,9 +94,10 @@
                         .style('float','left')
                         .style('height',height)
                         .style('background-color',function (d,i) { return color(d); })
-                        .style("width", function(d) { return (100/numBands) + "%"; })
+                        .style("width", function(d) { return (100/numBands) + "%"; });
 
-                    tooltip(x(snapshot), format(label),'#333');
+                    var pos = x(snapshot > goal ? goal : snapshot);
+                    tooltip(pos, format(label),'#333');
                 }
 
 
