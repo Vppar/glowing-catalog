@@ -29,7 +29,8 @@
 				<span class="new-col-4">
 					<div class="control-group">
 						<label class="control-label">Data de validade</label>					
-						<select ui-select2="select2Options" name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" tnt-select2 required>
+						<!-- <select ui-select2="select2Options" name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" tnt-select2 required> -->
+						<select name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" required>
 							<option ng-repeat="month in months" value="{{month.id}}">{{month.id}}</option>
 						</select>
 					</div>
@@ -37,7 +38,8 @@
 				<span class="new-col-4">
 					<div class="control-group">
 						<label class="control-label">&nbsp;</label>					
-						<select ui-select2="select2Options" name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" tnt-select2 required>
+						<!-- <select ui-select2="select2Options" name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" tnt-select2 required> -->
+						<select name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" required>
 							<option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
 						</select>
 					</div>
@@ -45,7 +47,8 @@
 				<span class="new-col-4">
 					<div class="control-group">
 						<label class="control-label">Nro parcelas</label>					
-						<select ui-select2="select2Options" name="installment" class="parcelas-cartao select-h38" ng-model="creditCard.installment" tnt-select2 required>
+						<!-- <select ui-select2="select2Options" name="installment" class="parcelas-cartao select-h38" ng-model="creditCard.installment" tnt-select2 required> -->
+						<select name="installment" class="payment-input-large parcelas-cartao select-h38" ng-model="creditCard.installment" required>
 							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
 						</select>
 					</div>
@@ -65,7 +68,8 @@
 				<span class="new-col-11">
 					<div class="control-group">
 						<label class="control-label">Bandeira do cart&atilde;o</label>						
-						<select ui-select2="select2Options" name="cardFlag" id="creditCardFlag" class="bandeira-cartao select-h38" ng-model="creditCard.flag" required tnt-select2>
+						<!-- <select ui-select2="select2Options" name="cardFlag" id="creditCardFlag" class="bandeira-cartao select-h38" ng-model="creditCard.flag" required tnt-select2> -->
+						<select name="cardFlag" id="creditCardFlag" class="payment-input-large bandeira-cartao select-h38" ng-model="creditCard.flag" required>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
 					</div>
@@ -73,7 +77,8 @@
 				<span class="new-col-4">
 					<div class="control-group">
 						<label class="control-label">Nro parcelas</label>					
-						<select ui-select2="select2Options" name="installment" class="parcelas-cartao select-h38" ng-model="creditCard.installment" tnt-select2 required>
+						<!-- <select ui-select2="select2Options" name="installment" class="parcelas-cartao select-h38" ng-model="creditCard.installment" tnt-select2 required> -->
+						<select name="installment" class="payment-input-large parcelas-cartao select-h38" ng-model="creditCard.installment" required>
 							<option value="">Nro parcelas</option>
 							<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
 						</select>

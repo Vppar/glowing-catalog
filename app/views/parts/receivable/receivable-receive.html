@@ -4,7 +4,10 @@
 		<span class="new-col-3">
 			<div class="control-group">
 				<label class="control-label">Classifica&ccedil;&atilde;o</label>
-				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="selectedClassification" disabled>
+<!-- 				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="selectedClassification" disabled>
+					<option value="{{class.id}}" ng-repeat="class in classifications">{{class.description}}</option>
+				</select> -->
+				<select class='select-client select-width-old-receivable' ng-model="selectedClassification" disabled>
 					<option value="{{class.id}}" ng-repeat="class in classifications">{{class.description}}</option>
 				</select>
 			</div>
@@ -12,7 +15,11 @@
 		<span class="new-col-4">
 			<div class="control-group">
 				<label class="control-label">Forma de Pagamento</label>
-				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2 || selectedReceivable.status==='Recebido'">
+<!-- 				<select ui-select2="select2Options" tnt-select2 class='select-client' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2 || selectedReceivable.status==='Recebido'">
+					<option value="" ng-hide="true"></option>
+					<option value="{{paymentType.id}}" ng-repeat="paymentType in paymentsType">{{paymentType.describe}}</option>
+				</select> -->
+				<select class='select-client select-width-old-receivable' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2 || selectedReceivable.status==='Recebido'">
 					<option value="" ng-hide="true"></option>
 					<option value="{{paymentType.id}}" ng-repeat="paymentType in paymentsType">{{paymentType.describe}}</option>
 				</select>
