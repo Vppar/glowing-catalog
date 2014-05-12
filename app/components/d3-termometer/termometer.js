@@ -72,7 +72,7 @@
                     }
 
                     color = d3.scale.linear().domain([bands[0],bands[bands.length-1]]).range([firstColor,lastColor]);
-                    x = d3.scale.linear().domain([0,goal]).range([marginLeft ,width - marginLeft]);
+                    x = d3.scale.linear().domain([0,goal]).range([marginLeft, width]);
                 }
 
 
@@ -102,16 +102,19 @@
 
 
                 function tooltip(value, label, color){
-                    var h = 20;
-                    var w = 40;
+                    var h = 5;
+                    var w = 20;
+
+                    var tw = 8;
+                    var th = 5;
 
                     var canvas = chart.append('svg')
                         .attr('class','tooltip-canvas')
                         .style('position','absolute')
-                        .style('top','0px')
-                        .style('left', value + 'px')
+                        .style('top', (20 - th/2) + 'px')
+                        .style('left', (value - w/2) + 'px')
                         .attr('width', w)
-                        .attr('height', h + h/4);
+                        .attr('height', h + tw);
 
                     var triangleMap = d3.svg.line()
                         .x(function(d){
@@ -122,13 +125,13 @@
                         });
 
                     var triangle = [
-                        {x:w/2-h/4,y:h},
-                        {x:w/2+h/4,y:h},
-                        {x:w/2,y:h+h/4}
+                        {x:w/2-tw/2,y:h},
+                        {x:w/2+tw/2,y:h},
+                        {x:w/2,y:h+th}
                     ];
 
                     canvas.append('path')
-                        .attr("d", triangleMap(triangle))
+                        .attr("d", triangleMap(triangle));
                         //.attr('stroke',color)
                         //.attr('fill',color);
 
@@ -142,8 +145,7 @@
                     canvas.append('text')
                         .attr('x', w/2)
                         .attr('y', h/2 + 3)
-                        .style("text-anchor", "middle")
-                        .text(label);
+                        .style("text-anchor", "middle");
                 }
 
 
