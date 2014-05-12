@@ -50,7 +50,7 @@
                     barWidth = (width/qty)-(width/(qty*2));
                     chartWidth = width-leftMargin;
                     chartHeight = height-(topMargin+bottomMargin);
-                    max = d3.max(bands,function(d){ return d.goal});
+                    max = d3.max(bands,function(d){ return d.goal >= d.snapshot ? d.goal : d.snapshot; });
                     x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
                     y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
                     goals = bands.map(function(d){ return d.goal;});
