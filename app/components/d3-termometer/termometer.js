@@ -43,6 +43,7 @@
                 var marginBottom = 20;
 
                 var chart = d3.select(element[0]);
+                // var canvas = null;;
 
                 var color = null;
                 var x = null;
@@ -104,14 +105,72 @@
                         .data(bands)
                         .enter()
                         .append("div")
+                        .attr('class','band-holder')
+                        .style('display','block')
+                        .style('float','left')
+                        .style('padding-top',(height/2)+'px')
+                        .style('height',(height*2)+'px')
+                        .style('border-left',function(d,i){
+                            if(i%(bands.length/2) == 0){
+                                return 'solid #333 2px';
+                            }else
+                            if( i%(bands.length/4) == 0 && i != 0){
+                                return 'solid #333 1px';
+                            }
+                            //else
+                            
+                            // else{
+                            //     return 'solid #333 1px';
+                            // }
+                        })
+                        .style('border-right',function(d,i){
+                            if(i%(bands.length-1) == 0 && i != 0){
+                                return 'solid #333 2px';
+                            }else{
+                                return 'none';
+                            }
+                        })
+                        .style("width", function(d) { return (100/numBands) + "%"; })
+                        .append("div")
                         .attr('class','band')  
                         .style('float','left')
                         .style('height',height)
                         .style('background-color',function (d,i) { return color(d); })
-                        .style("width", function(d) { return (100/numBands) + "%"; });
+                        .style('border-left',function(d,i){
+                            if(i%(bands.length/2) == 0){
+                                return 'none';
+                            }else
+                            if( i%(bands.length/4) == 0 && i != 0){
+                                return 'none';
+                            }
+                            else
+                            if( i%(bands.length/8) == 0 && i != 0){
+                                return 'solid #333 1px';
+                            }
+                            else{
+                                return 'none';
+                            }
+                        })
+                        .style("width", function(d) { return "100%"; });
+
+                    // canvas = chart.append('svg')
+                    //     .attr('width', width - marginLeft)
+                    //     .attr('height', 20)
+                    //     .style('margin-left', marginLeft + 'px')
 
                     var pos = x(snapshot > goal ? goal : snapshot);
                     tooltip(pos, format(label), '#333');
+
+                    // var xAxis = d3.svg.axis().scale(x).tickValues(
+                    //     [   x( (goal/4)-marginLeft),
+                    //         x( (goal/2)-marginLeft),
+                    //         x( ((3*goal)/4)-marginLeft)
+                    //     ]).orient("top");
+
+                    // canvas.append("g")
+                    //     .attr('class','axis-x')
+                    //     .attr("transform", "translate(0,20)")
+                    //     .call(xAxis);   
                 }
 
 
