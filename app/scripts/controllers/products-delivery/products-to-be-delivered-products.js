@@ -62,6 +62,9 @@
                 });
 
                 $scope.$watchCollection('schedule',function(){
+                    if($scope.schedule.minute>59){
+                        $scope.schedule.minute = 59;
+                    }
                     $scope.dtFilter.deliveryDate = setTime($scope.dtFilter.deliveryDate, $scope.schedule.hour, $scope.schedule.minute, 0, 0, 0);
                 });
 
