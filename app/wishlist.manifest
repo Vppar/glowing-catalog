@@ -255,6 +255,7 @@ scripts/controllers/numpad-dialog.js
 scripts/controllers/third-party.js
 scripts/controllers/warmup.js
 scripts/controllers/pagpop.js
+scripts/controllers/bi.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
