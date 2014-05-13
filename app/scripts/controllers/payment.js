@@ -717,7 +717,7 @@
                     var totalOrder = $scope.total.order.amount;
                     var totalDiscont = getTotalDiscount();
                     var totalChange = $scope.total.change;
-                    var smsTotal = $scope.total.order.amount;
+                    var smsTotal = $scope.total.order.amount - totalDiscont;
                     var voucher = ArrayUtils.find(order.items, 'type', 'voucher');
                     if (voucher) {
                         smsTotal -= voucher.amount;
