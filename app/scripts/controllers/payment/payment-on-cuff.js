@@ -90,6 +90,9 @@
             function numberOfInstallmentsWatcherCallback(newVal, oldVal) {
                 if (newVal !== oldVal) {
                     var onCuff = $scope.onCuff;
+                    if(onCuff.numberOfInstallments > 12){
+                        onCuff.numberOfInstallments = 12;
+                    }
                     onCuff.installments = buildInstallments(onCuff);
                 }
             }
