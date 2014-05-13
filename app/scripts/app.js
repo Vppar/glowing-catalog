@@ -18,6 +18,7 @@
             'tnt.catalog.filter.count',
             'tnt.catalog.filter.findBy',
             'tnt.catalog.filter.sum',
+            'tnt.catalog.filter.phone',
             'tnt.catalog.filter.paymentType',
             'tnt.catalog.service.data',
             'tnt.catalog.service.dialog',
