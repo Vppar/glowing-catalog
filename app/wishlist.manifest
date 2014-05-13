@@ -142,7 +142,10 @@ components/product-display/productDisplay.js
 components/highlight-display/highlightDisplay.js
 components/tnt-numpad/tntNumpad.js
 components/tnt-number-picker/tntNumberPicker.js
+components/d3-cumulative/cumulative.js
 components/d3-gauge/gauge.js
+components/d3-histogram/histogram.js
+components/d3-termometer/termometer.js
 
 scripts/directives/anchor.js
 scripts/directives/cep.js
@@ -327,7 +330,10 @@ components/catalog-section/catalog-section.html
 components/catalog-highlights/catalog-highlights.html
 components/tnt-number-picker/tnt-number-picker.html
 components/tnt-numpad/tnt-numpad.html
+components/d3-cumulative/cumulative.html
 components/d3-gauge/gauge.html
+components/d3-histogram/histogram.html
+components/d3-termometer/termometer.html
 
 resources/config.js
 resources/images.json
