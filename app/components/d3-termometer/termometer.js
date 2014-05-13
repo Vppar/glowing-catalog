@@ -19,8 +19,9 @@
                 tip : '=tip',
                 height : '=height',
                 bands : '=bands',
-                firstcolor : '=firstcolor',
-                lastcolor : '=lastcolor'
+                firstcolor : '@firstcolor',
+                middlecolor : '@middlecolor',
+                lastcolor : '@lastcolor'
             },
             link: function (scope, element, attrs) {
 
@@ -32,6 +33,7 @@
                 var bands = null;
                 var firstColor = null;
                 var lastColor = null;
+                var middleColor = null;
                 var label = null;
 
                 var format = d3.format('%');
@@ -44,6 +46,9 @@
 
                 var color = null;
                 var x = null;
+
+                var colorDomain = null;
+                var colorRange = null;
 
 
                 scope.$watchCollection('values', draw);
@@ -63,6 +68,7 @@
                     bands = [];
                     firstColor = scope.firstcolor;
                     lastColor = scope.lastcolor;
+                    middleColor = scope.middlecolor;
                     label = snapshot/goal;
 
                     var i = null;
@@ -71,7 +77,15 @@
                         bands.push(++i);
                     }
 
-                    color = d3.scale.linear().domain([bands[0],bands[bands.length-1]]).range([firstColor,lastColor]);
+                    if(middleColor){
+                        colorDomain = [bands[0],bands[bands.length-1]/2,bands[bands.length-1]];
+                        colorRange = [firstColor,middleColor,lastColor];
+                    }else{
+                        colorDomain = [bands[0],bands[bands.length-1]];
+                        colorRange = [firstColor,lastColor];
+                    }
+
+                    color = d3.scale.linear().domain(colorDomain).range(colorRange);
                     x = d3.scale.linear().domain([0,goal]).range([marginLeft, width]);
                 }
 
