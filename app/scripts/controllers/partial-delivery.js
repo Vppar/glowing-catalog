@@ -11,9 +11,9 @@
                         UserService.redirectIfIsNotLoggedIn();
                         
                         var scheduledDefaultMsg =
-                                'Ola {{customerName}}, uma entrega referente ao pedido {{order.code}} foi agendada para {{order.date}}. {{representativeName}} seu consultor Mary Kay.';
+                                'Ola {{customerName}}, uma entrega referente ao pedido {{order.code}} foi agendada para {{order.date}}. {{representativeName}} seu consultor.';
                         var deliveredDefaultMsg =
-                                'Ola {{customerName}}, uma entrega referente ao pedido {{order.code}} foi confirmada. {{representativeName}} seu consultor Mary Kay.';
+                                'Ola {{customerName}}, uma entrega referente ao pedido {{order.code}} foi confirmada. {{representativeName}} seu consultor.';
 
                         // #############################################################################################################
                         // Scope variables and functions
