@@ -65,7 +65,7 @@
 			                <div class="col-2 currency">P.Unit</div>
 			                <div class="col-2 text-center">Qtde</div>
 						    <div class="col-1 text-center">
-						      <button class="btn btn-small btn-ok btn-on-header" type="button">Ok</button>
+						      <button class="btn btn-small btn-ok btn-on-header" type="button" ng-click="selectAll()">Ok</button>
 						    </div>
 			                <div class="col-4 text-center">Pend./Qtde.</div>
 				</div>
@@ -103,106 +103,6 @@
 			<button class="button-black pull-left" type="submit" ng-click="cancel()">Cancelar</button>
 		</div>
 
-	</div><!--//FIM - *** PARTE 02 *** -->
-
-</div>
-
-<!-- <div class="purchase-order-ticket-part">
- -->
-	<!-- *** PARTE 01 *** -->
-<!-- 	<div class="purchase-order-ticket-part1" ng-if="ticket.selectedPart=='part1'">
-
-		<div class="row-fluid">					
-				<div class="btn-group btn-group-sm">
-					<a class="btn btn-option" ng-class="{active: ticket.tab=='open'}" ng-click="changeTab('open')">Pedidos em Aberto</a> 
-					<a class="btn btn-option" ng-class="{active: ticket.tab=='all'}" ng-click="changeTab('all')">Todos os Pedidos</a>		
-				</div>
-		</div>
-
-        <div class="row-fluid">
-            <div class="new-body-header details-title">
-                <span class="new-col-3">Data</span>
-                <span class="new-col-3">Hora</span>
-                <span class="new-col-10">C&oacute;digo do Pedido</span>
-                <span class="new-col-4 currency">Valor</span>
-                <span class="new-col-4 text-center">Status</span>
-            </div>
-        </div>
-		<div class="new-scrollpanel">
-        <div ng-repeat="purchaseOrder in ticket.purchaseOrders | filter:filterOrders | orderBy:'-created'">
-            <div class="row-fluid" ng-click="openDialog(purchaseOrder)">
-                <div class="new-body-row products-to-buy-ticket-part-line make-clickable">
-	                <span class="new-col-3">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
-	                <span class="new-col-3">{{purchaseOrder.created | date:'HH:mm'}}</span>
-	                <span class="new-col-10">
-						<div ng-if="purchaseOrder.extNumber">{{purchaseOrder.extNumber}}</div>
-						<div class="small-text" ng-if="purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
-						<div ng-if="!purchaseOrder.extNumber">{{purchaseOrder | uuidCode}}</div>
-	                </span>
-	                <span class="new-col-4 currency">{{purchaseOrder.amount - purchaseOrder.discount | currency:''}}</span>
-	                <span class="new-col-4 text-center">
-						<div ng-if="purchaseOrder.status==3">Em Aberto</div>
-						<div ng-if="purchaseOrder.status==4">Recebimento Parcial</div>
-						<div ng-if="purchaseOrder.status==5">Entregue</div>
-	                </span>
-                </div>
-            </div>
-        </div> --><!--// new-scrollpanel -->
-<!--         </div>
 	</div>
- -->	<!--//FIM - *** PARTE 01 *** -->
 
-	<!-- *** PARTE 02 *** -->
-<!-- 	<div class="purchase-order-ticket-part2" ng-if="ticket.selectedPart=='part2'">
-
-        <div class="row-fluid">
-            <div class="new-body-header details-title">
-                <span class="new-col-2">Data</span>
-                <span class="new-col-2">Pedido</span>
-                <span class="new-col-2">NFe</span>
-                <span class="new-col-6">Produto/C&oacute;digo</span>
-                <span class="new-col-2 text-center">Pts</span>
-                <span class="new-col-2 currency">P.Unit</span>
-                <span class="new-col-2 text-center">Qtde</span>
-                <span class="new-col-2 text-center">Ok</span>
-                <span class="new-col-4 text-center">Pend./Qtde.</span>
-            </div>
-        </div>
-<div class="new-scrollpanel" >
-        <div ng-repeat="item in purchaseOrder.items">
-            <div class="row-fluid">
-                <div class="new-body-row products-to-buy-ticket-part-line">
-	                <span class="new-col-2">{{purchaseOrder.created | date:'dd/MM/yyyy'}}</span>
-	                <span class="new-col-2">
-						{{purchaseOrder.nfe.order}}
-						<div class="small-text">{{purchaseOrder | uuidCode}}</div>
-	                </span>
-	                <span class="new-col-2">{{purchaseOrder.nfe.number}}</span>
-	                <span class="new-col-6 product-name">
-						<div class="p-title">{{item.title}}</div>
-						<div class="small-text">{{item.uniqueName}}</div>
-	                </span>
-	                <span class="new-col-2 text-center">{{item.points}}</span>
-
-
-	                <span class="new-col-2 text-center">{{item.cost | currency: ''}}</span>
-	                <span class="new-col-2 text-center">{{item.qty}}</span>
-	                <span class="new-col-2 text-center">
-	                	<input type="checkbox" ng-model="ticket.checkBox[item.id]">
-	                </span>
-	                <span class="new-col-4 text-center">
-						<input-qty ng-model="ticket.watchedQty[item.id]" min="0" max="{{item.qty}}"></input-qty>
-	                </span>
-                </div>
-            </div>
-        </div>
 </div>
-		<div class="new-buttom-holder">
-			<button class="btn btn-cancel pull-left margin-left" type="submit" ng-click="cancel()">Cancelar</button>
-            <spinner-button class="new-button new-button-ok pull-right margin-right" type="submit" spinner-promise="confirm()" ng-disabled="disableButton()">
-                Confirmar
-            </spinner-button>
-		</div>
-
-	</div> --><!--//FIM - *** PARTE 02 *** -->
-<!-- </div> -->
