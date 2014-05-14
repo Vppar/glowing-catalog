@@ -4,10 +4,10 @@
 
 	<div class="row-fluid">
 		<div class="span12">
-					<select ui-select2 class='combo-width' data-placeholder="Selecione Cliente" ng-model="customerId" tnt-select2 >
+					<input ui-select2='selectOptions' class='combo-width'  data-placeholder="Selecione Cliente" ng-model="customer" tnt-select2 >
 						<option value="">Selecione Cliente</option>
-						<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
-					</select>
+						<option value="{{c.uuid}}" ng-repeat="c in customers">{{c.name}}</option>
+					</input>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -21,7 +21,7 @@
     <hr />
     <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
 	<button ng-click='confirm()' class="btn btn-ok btn-large btn-login pull-right" type="submit">
-		<span ng-hide="customerId">Novo Cliente</span>
-		<span ng-show="customerId">Confirmar</span>
+		<span ng-hide="customer">Novo Cliente</span>
+		<span ng-show="customer">Confirmar</span>
 	</button>
 </div>
