@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').filter('phone', function() {
+    angular.module('tnt.catalog.filter.phone', []).filter('phone', function() {
         return function(phone) {
             if (!phone) {
                 return phone;

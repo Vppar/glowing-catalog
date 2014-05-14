@@ -3,7 +3,7 @@
 describe('Filter: phone', function () {
 
   // load the filter's module
-  beforeEach(module('glowingCatalogApp'));
+  beforeEach(module('tnt.catalog.filter.phone'));
 
   // initialize a new instance of the filter before each test
   var phone;
