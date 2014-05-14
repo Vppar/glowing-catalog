@@ -13,7 +13,9 @@
             'OrderService',
             'EntityService',
             function ($scope, $q, $location, dialog, OrderService, EntityService) {
-
+                
+                $scope.customer = {};
+                
                 $scope.customers = EntityService.list().sort(function (x, y) {
                     return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
                 });
@@ -55,7 +57,7 @@
                  */
                 $scope.confirm = function () {
                     var uuid = 0;
-                    if ($scope.customer && $scope.customer !== '') {
+                    if ($scope.customer && $scope.customer.uuid) {
                         uuid = $scope.customer.uuid;
                         $location.path('/payment');
                     } else {
@@ -117,7 +119,7 @@
                  */
                 $scope.confirm = function () {
                     var uuid = 0;
-                    if ($scope.customer && $scope.customer !== '') {
+                    if ($scope.customer && $scope.customer.uuid) {
                         uuid = $scope.customer;
                     } else {
                         $location.path('/add-customer');
