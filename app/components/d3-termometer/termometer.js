@@ -51,6 +51,8 @@
                 var colorDomain = null;
                 var colorRange = null;
 
+                var canvas = null;
+
 
                 scope.$watchCollection('values', draw);
 
@@ -95,82 +97,110 @@
                     clear();
                     setValues();
 
-                    chart
-                        .append("div")
-                        .attr("class", "termometer-canvas")
-                        .style('padding-top', (height + 8) + 'px')
-                        .style('margin-bottom', marginBottom + 'px')
-                        .style('width', width - marginLeft + 'px')
-                        .selectAll('div')
-                        .data(bands)
-                        .enter()
-                        .append("div")
-                        .attr('class','band-holder')
-                        .style('display','block')
-                        .style('float','left')
-                        .style('padding-top',(height/2)+'px')
-                        .style('height',(height*2)+'px')
-                        .style('border-left',function(d,i){
-                            if(i%(bands.length/2) == 0){
-                                return 'solid #333 2px';
-                            }else
-                            if( i%(bands.length/4) == 0 && i != 0){
-                                return 'solid #333 1px';
-                            }
-                            //else
-                            
-                            // else{
-                            //     return 'solid #333 1px';
-                            // }
-                        })
-                        .style('border-right',function(d,i){
-                            if(i%(bands.length-1) == 0 && i != 0){
-                                return 'solid #333 2px';
-                            }else{
-                                return 'none';
-                            }
-                        })
-                        .style("width", function(d) { return (100/numBands) + "%"; })
-                        .append("div")
-                        .attr('class','band')  
-                        .style('float','left')
-                        .style('height',height)
-                        .style('background-color',function (d,i) { return color(d); })
-                        .style('border-left',function(d,i){
-                            if(i%(bands.length/2) == 0){
-                                return 'none';
-                            }else
-                            if( i%(bands.length/4) == 0 && i != 0){
-                                return 'none';
-                            }
-                            else
-                            if( i%(bands.length/8) == 0 && i != 0){
-                                return 'solid #333 1px';
-                            }
-                            else{
-                                return 'none';
-                            }
-                        })
-                        .style("width", function(d) { return "100%"; });
+                    drawBar();
+                    drawScale();
 
-                    // canvas = chart.append('svg')
-                    //     .attr('width', width - marginLeft)
-                    //     .attr('height', 20)
-                    //     .style('margin-left', marginLeft + 'px')
 
                     var pos = x(snapshot > goal ? goal : snapshot);
                     tooltip(pos, format(label), '#333');
+                }
 
-                    // var xAxis = d3.svg.axis().scale(x).tickValues(
-                    //     [   x( (goal/4)-marginLeft),
-                    //         x( (goal/2)-marginLeft),
-                    //         x( ((3*goal)/4)-marginLeft)
-                    //     ]).orient("top");
+                function drawBar(){
+                    canvas = chart.append('svg')
+                    .attr('class','termometer-canvas')
+                    .attr('width', width)
+                    .attr('height', height);
 
-                    // canvas.append("g")
-                    //     .attr('class','axis-x')
-                    //     .attr("transform", "translate(0,20)")
-                    //     .call(xAxis);   
+                    var gradient = canvas
+                    .append("linearGradient")
+                    .attr("y1", 0)
+                    .attr("y2", 0)
+                    .attr("x1", 0)
+                    .attr("x2", width)
+                    .attr("id", "gradient")
+                    .attr("gradientUnits", "userSpaceOnUse")
+
+                    gradient
+                    .append("stop")
+                    .attr("offset", "0")
+                    .attr("stop-color", firstColor)
+
+                    gradient
+                    .append("stop")
+                    .attr("offset", "0.5")
+                    .attr("stop-color", middleColor)
+
+                    gradient
+                    .append("stop")
+                    .attr("offset", "1")
+                    .attr("stop-color", lastColor)
+
+                    var bar = canvas.append('rect')
+                    .attr('width', width-marginLeft)
+                    .attr('height', height)
+                    .attr('y', 0)
+                    .attr('fill', '#333')
+                    .attr("fill", "url(#gradient)");
+                }
+
+                function drawScale(){
+
+                    canvas.append("g")
+                    .attr("class", "grid-x32")
+                    .selectAll('l')
+                    .data([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31])
+                    .enter()
+                    .append('line')
+                    .attr('x1', function(d,i){  return ((x(goal)-marginLeft)/32)*i;   })
+                    .attr('y1', function(d){ return 10; })
+                    .attr('x2', function(d,i){  return ((x(goal)-marginLeft)/32)*i;   })
+                    .attr('y2', function(d){ return 20; })
+                    .attr('stroke', function(d,i){
+                        if(i == 0) return 'none';
+                        return '#fff'; 
+                    });
+
+                    canvas.append("g")
+                    .attr("class", "grid-x8")
+                    .selectAll('l')
+                    .data([0,1,2,3,4,5,6,7])
+                    .enter()
+                    .append('line')
+                    .attr('x1', function(d,i){  return ((x(goal)-marginLeft)/8)*i;   })
+                    .attr('y1', 7)
+                    .attr('x2', function(d,i){  return ((x(goal)-marginLeft)/8)*i;   })
+                    .attr('y2', 20)
+                    .attr('stroke', '#fff' );
+
+                    canvas.append("g")
+                    .attr("class", "grid-x4")
+                    .selectAll('l')
+                    .data([0,1,2,3])
+                    .enter()
+                    .append('line')
+                    .attr('x1', function(d,i){  return ((x(goal)-marginLeft)/4)*i;   })
+                    .attr('y1', 7)
+                    .attr('x2', function(d,i){  return ((x(goal)-marginLeft)/4)*i;   })
+                    .attr('y2', 20)
+                    .attr('stroke', function(d,i){
+                        if(i == 0) return 'none';
+                        return '#fff'; 
+                    })
+                    .attr('stroke-width', '2' );
+
+                    canvas.append("g")
+                    .attr("class", "grid-x2")
+                    .append('line')
+                    .attr('x1', (x(goal)-marginLeft)/2 )
+                    .attr('y1', 0)
+                    .attr('x2', (x(goal)-marginLeft)/2 )
+                    .attr('y2', 20)
+                    .attr('stroke', '#fff')
+                    .attr('stroke-width', '2' );
+
+                    
+ 
+                    
                 }
 
 
@@ -182,20 +212,20 @@
                     var th = 8;
 
                     var canvas = chart.append('svg')
-                        .attr('class','tooltip-canvas')
-                        .style('position','absolute')
-                        .style('top', (20 - th/2) + 'px')
-                        .style('left', (value - w/2) + 'px')
-                        .attr('width', w)
-                        .attr('height', h + tw);
+                    .attr('class','tooltip-canvas')
+                    .style('position','absolute')
+                    .style('top', (-th) + 'px')
+                    .style('left', (value - w/2) + 'px')
+                    .attr('width', w)
+                    .attr('height', h + tw);
 
                     var triangleMap = d3.svg.line()
-                        .x(function(d){
-                            return d.x;
-                        })
-                        .y(function(d){
-                            return d.y;
-                        });
+                    .x(function(d){
+                        return d.x;
+                    })
+                    .y(function(d){
+                        return d.y;
+                    });
 
                     var triangleStrokeWidth = 3;
                     var triangleStrokeColor = '#ffffff';
@@ -213,20 +243,18 @@
 
 
                     var triangle = [
-                        {x:w/2-tw/2,y:h - 2},
-                        {x:w/2+tw/2,y:h - 2},
-                        {x:w/2,y:h - 2 + th}
+                    {x:w/2-tw/2,y:h - 2},
+                    {x:w/2+tw/2,y:h - 2},
+                    {x:w/2,y:h - 2 + th}
                     ];
 
                     canvas.append('path')
-                        .attr('d', triangleMap(triangleStroke))
-                        .attr('fill', triangleStrokeColor);
+                    .attr('d', triangleMap(triangleStroke))
+                    .attr('fill', triangleStrokeColor);
 
                     canvas.append('path')
-                        .attr('d', triangleMap(triangle))
-                        .attr('fill', color || '#333');
-                        //.attr('stroke',color)
-                        //.attr('fill',color);
+                    .attr('d', triangleMap(triangle))
+                    .attr('fill', color || '#333');
 
                         /*
                     canvas.append('rect')
@@ -241,11 +269,11 @@
                         .attr('y', h/2 + 3)
                         .style("text-anchor", "middle");
                         */
+                    }
+
+
+                    draw();
                 }
-
-
-                draw();
             }
-        }
-    });
+        });
 }(angular));
