@@ -160,12 +160,7 @@
                         orderUUID : orderUUID,
                         items : updatedItems
                     };
-//                    var dialogData = {
-//                        title : 'Confirmar agendamento',
-//                        message : 'Confirmar o agendamento para esta data:'+deliveryDate.getDay()+'/'+deliveryDate.getMonth()+'/'+deliveryDate.getYear()+'?',
-//                        btnYes : 'Sim',
-//                        btnNo : 'Não'
-//                    };
+
                     var result = DialogService.openDialogDeliveryScheduler(scheduleData);
 
                     result.then(function () {
