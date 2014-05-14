@@ -1,7 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.22'
-
+# 'version' : '1.2.22' 
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -132,6 +131,7 @@ bower_components/angular-route/angular-route.js
 bower_components/angular-touch/angular-touch.js
 bower_components/angular-md5/angular-md5.js
 bower_components/fastclick/lib/fastclick.js
+bower_components/d3/d3.min.js
 
 scripts/app.js
 scripts/ObjectUtils.js
@@ -142,6 +142,7 @@ components/product-display/productDisplay.js
 components/highlight-display/highlightDisplay.js
 components/tnt-numpad/tntNumpad.js
 components/tnt-number-picker/tntNumberPicker.js
+components/d3-gauge/gauge.js
 
 scripts/directives/anchor.js
 scripts/directives/cep.js
@@ -326,6 +327,7 @@ components/catalog-section/catalog-section.html
 components/catalog-highlights/catalog-highlights.html
 components/tnt-number-picker/tnt-number-picker.html
 components/tnt-numpad/tnt-numpad.html
+components/d3-gauge/gauge.html
 
 resources/config.js
 resources/images.json
@@ -445,6 +447,7 @@ views/parts/products-delivery/sacred-products-delivery-delivered.html
 views/parts/products-delivery/sacred-products-delivery-delivery.html
 views/parts/products-delivery/sacred-products-delivery.html
 views/catalog/sacred-best-sellers.html
+views/sacred-bi.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

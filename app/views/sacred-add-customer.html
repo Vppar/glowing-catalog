@@ -43,18 +43,20 @@
 											
 											<div class="row">
 												<div class="col-12">
-													<select name="birthday" ng-model="customer.birthDate.day"  tabindex="3" ui-select2="select2Options" tnt-select2>
+													
+													<select name="birthday" ng-model="customer.birthDate.day"  tabindex="3">
 														<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
 													</select>
 												</div>
 												<div class="col-12">
-												<select name="birthmonth" ng-model="customer.birthDate.month" tabindex="4" ui-select2="select2Options" tnt-select2>
-													<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
-												</select>
-											</div>
+													
+													<select name="birthmonth" ng-model="customer.birthDate.month" tabindex="4">
+														<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+													</select>
+												</div>
 											</div>
 										</div>
-											
+
 										
 										<div class="col-8">
 											<label>Telefones</label>
@@ -63,9 +65,9 @@
 												<div ng-click="openDialogAddCustomerTels(customer.phones)" class="add-on">+</div>
 											</div>
 										</div>
-									
 
-								
+
+
 										<div class="col-4">
 											<label>CEP</label>
 											<input name="cep"  tabindex="6" type="text" ng-model="customer.cep" ng-minlength="8" cep="cepValid" />
@@ -110,7 +112,8 @@
 										
 										<div class="col-4">
 											<label>UF</label>
-											<select name="state"  tabindex="12" ui-select2="select2Options" tnt-select2 ng-model="customer.addresses.state" ng-required="customer.cep">
+											
+											<select name="state"  tabindex="12" ng-model="customer.addresses.state" ng-required="customer.cep">
 												<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
 											</select>
 										</div>

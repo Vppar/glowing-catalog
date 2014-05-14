@@ -12,7 +12,7 @@
 			<span class="span8">
 				<div class="control-group">
 					<label class="control-label">Conta a receber</label>
-						<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Seleione o Cliente" ng-model="receivable.customerId">
+ 						<select ui-select2 tnt-select2 class='combo-width' data-placeholder="Seleione o Cliente" ng-model="receivable.customerId">
 								<option value="">Selecione Cliente</option>
 								<option value="{{customer.uuid}}" ng-repeat="customer in customers">{{customer.name}}</option>
 						</select>
@@ -51,7 +51,11 @@
 			<span class="span5">
 				<div class="control-group ">
 					<label class="control-label">Classifica&ccedil;&atilde;o</label>
-						<select ui-select2 tnt-select2 class="input-block-level hover-state-pointer" data-placeholder="Selecione a Classifica&ccedil;&atilde;o" ng-model="receivable.type">
+<!-- 						<select ui-select2 tnt-select2 class="input-block-level hover-state-pointer" data-placeholder="Selecione a Classifica&ccedil;&atilde;o" ng-model="receivable.type">
+								<option value="">Selecione a Classifica&ccedil;&atilde;o</option>
+								<option value="{{type.name}}" ng-repeat="type in classification">{{type.name}}</option>
+						</select> -->
+						<select class="input-block-level hover-state-pointer select-width-old-receivable" data-placeholder="Selecione a Classifica&ccedil;&atilde;o" ng-model="receivable.type">
 								<option value="">Selecione a Classifica&ccedil;&atilde;o</option>
 								<option value="{{type.name}}" ng-repeat="type in classification">{{type.name}}</option>
 						</select>

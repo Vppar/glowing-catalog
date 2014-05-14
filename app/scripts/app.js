@@ -107,6 +107,7 @@
             'tnt.catalog.bookkeeping.report.ctrl',
             'tnt.catalog.service.book',
             'tnt.utils.cpf',
+            'tnt.catalog.bi.ctrl',
             'tnt.catalog.attrs.customerName',
             'tnt.catalog.appointments',
             'tnt.catalog.appointments.ctrl',
@@ -140,7 +141,11 @@
             'tnt.catalog.purchase.ticket.dialog.ctrl',
             'tnt.catalog.purchase.ticket.ctrl',
             'tnt.catalog.purchase.ctrl',
-            'tnt.catalog.pagpop'
+            'tnt.catalog.pagpop',
+            'tnt.chart.components.gauge',
+            'tnt.chart.components.termometer',
+            'tnt.chart.components.cumulative',
+            'tnt.chart.components.histogram'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -221,7 +226,9 @@
         }).when('/warmup', {
             templateUrl : 'views/sacred-warm-up.html',
             controller : 'WarmupCtrl'
-
+        }).when('/bi', {
+            templateUrl : 'views/sacred-bi.html',
+            controller : 'BiCtrl'
         }).when('/order-list-old', {
             templateUrl : 'views/order-list.html',
             controller : 'OrderListCtrl'
