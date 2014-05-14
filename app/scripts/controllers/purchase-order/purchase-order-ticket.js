@@ -21,6 +21,7 @@
                     // #####################################################################################################
                     var ticket = $scope.ticket;
                     ticket.tab = 'open';
+                    var value = true;
 
                     var resetPurchaseOrder = $scope.resetPurchaseOrder;
 
@@ -109,6 +110,15 @@
                     $scope.changeTab = function changeTab(tab) {
                         $scope.ticket.tab = tab;
                         ticket.loadPurchaseOrders();
+                    };
+
+                    $scope.selectAll = function(){
+                        var boxes = $scope.ticket.checkBox;
+                        for(var ix in boxes){
+                            boxes[ix] = value;
+                        }
+
+                        value = !value;
                     };
 
                     $scope.filterOrders = function filterOrders(purchase) {
