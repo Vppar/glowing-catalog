@@ -48,6 +48,7 @@
             'tnt.catalog.components.catalog-section',
             'tnt.catalog.components.highlight-display',
             'tnt.catalog.components.catalog-highlights',
+            'tnt.catalog.components.dateRange',
             'tnt.catalog.inventory',
             'tnt.catalog.payment.oncuff.ctrl',
             'tnt.catalog.payment.coupon',
@@ -241,6 +242,9 @@
         }).when('/receivable-check-old', {
             templateUrl : 'views/receivable-check.html'
 
+        }).when('/components/date-range', {
+            templateUrl : 'routes/components/date-range/date-range.html',
+            controller : 'DateRangeTestCtrl'
         }).when('/components/tnt-numpad', {
             templateUrl : 'routes/components/tnt-numpad/tnt-numpad.html'
         }).when('/components/tnt-number-picker', {
