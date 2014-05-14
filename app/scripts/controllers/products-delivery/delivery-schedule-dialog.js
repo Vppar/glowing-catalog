@@ -67,18 +67,7 @@
                                 log.debug(err);
                             });
                         }
-
                     };
-//
-//                function zeroFill(target) {
-//                    var result = target;
-//                    if (target.length < 2) {
-//                        result = '0' + target;
-//                    } else if (target.length > 2) {
-//                        result = target.slice(1,3);
-//                    }
-//                    return result;
-//                }
             }
         ]);
 })(angular);
