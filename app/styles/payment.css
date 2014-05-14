@@ -1508,3 +1508,15 @@ margin-top: 10px;
 	width:100%;
 	bottom:121px;
 }
+
+
+.payment-on-cuff-part .installments .half-row:nth-child(odd) .new-col-9 .dropdown-menu {
+	left:206px!important;
+}
+.payment-on-cuff-part .installments .half-row:nth-child(even) .new-col-9 .dropdown-menu {
+	left:536px!important;
+}
+.payment-on-cuff-part .installments .half-row .new-col-9 .dropdown-menu {
+	top:150px!important;
+}
+
