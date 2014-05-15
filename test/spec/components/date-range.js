@@ -2,17 +2,6 @@
 
 describe('date-range', function () {
 
-  // load the directive's module
-  beforeEach(module('glowingCatalogApp'));
-
-  var element,
-      scope;
-
-  beforeEach(inject(function ($rootScope) {
-    scope = $rootScope.$new();
-  }));
-
-
   it('does not change final date when initial date is set to an earlier date');
   it('does not change initial date when final date is set to a later date');
   it('changes final date to same value as initial date when a later initial date is selected');
