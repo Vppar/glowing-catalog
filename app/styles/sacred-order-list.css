@@ -3,9 +3,9 @@
 }
 
 #sacred .sacred-order-list-page .show-details-icon{
-	margin-top: 25px;
-	margin-left: 25px;
-	float: left;
+	margin-top:-26px;
+	margin-left:0;
+	float:right;
 }
 #sacred .sacred-order-list-page .details .row{
 	margin-bottom: 10px;
