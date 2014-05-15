@@ -27,6 +27,11 @@
     }
 
 
+    function getNow() {
+        return new Date();
+    }
+
+
     function parseDate(val) {
         var date = new Date();
 
@@ -36,7 +41,7 @@
         }
 
         if (val === 'now') {
-            return new Date();
+            return getNow;
         }
 
         val = parseInt(val);
@@ -86,14 +91,36 @@
                     var id = scope.id;
                     var model = scope.model;
 
+                    var resolvedMin = null;
+                    var resolvedMax = null;
+
+
+                    /**
+                     * Checks if min/max are functions and, if so, execute
+                     * and expose the returned value in the scope.
+                     */
+                    function resolveMinMax() {
+                        scope.resolvedMin = resolvedMin =
+                            typeof min === 'function' ? min() : min;
+
+                        scope.resolvedMax = resolvedMax =
+                            typeof max === 'function' ? max() : max;
+                    }
+
+                    // Update the min/max resolved values whenever the dates
+                    // in the range change
+                    scope.$watchCollection('model', resolveMinMax);
+
                     console.log('>>> model', model);
 
-                    if (min && max && min > max) {
+                    if (min && max) {
                         // Swap min and max values if min is a later date than
                         // max, ensuring that max is always the latest.
-                        var tmp = min;
-                        min = max;
-                        max = tmp;
+                        if (resolvedMin > resolvedMax) {
+                            var tmp = min;
+                            min = max;
+                            max = tmp;
+                        }
                     }
 
                     if (!id) {
@@ -111,7 +138,6 @@
                         model.end = end;
                     });
 
-
                     scope.$watch('model.end', function () {
                         var start = model.start;
                         var end = model.end;
@@ -128,20 +154,24 @@
                         var start = model.start;
                         var end = model.end;
 
-                        if (min && end && end < min) {
-                            end = new Date(min.getTime());
+                        if (resolvedMin) {
+                            if (start && start < resolvedMin) {
+                                start = new Date(resolvedMin.getTime());
+                            }
+
+                            if (end && end < resolvedMin) {
+                                end = new Date(resolvedMin.getTime());
+                            }
                         }
 
-                        if (max && end && end > max) {
-                            end = new Date(max.getTime());
-                        }
+                        if (resolvedMax) {
+                            if (start && start > resolvedMax) {
+                                start = new Date(resolvedMax.getTime());
+                            }
 
-                        if (min && start && start < min) {
-                            start = new Date(min.getTime());
-                        }
-
-                        if (max && start && start > max) {
-                            start = new Date(max.getTime());
+                            if (end && end > resolvedMax) {
+                                end = new Date(resolvedMax.getTime());
+                            }
                         }
 
                         model.start = start;
