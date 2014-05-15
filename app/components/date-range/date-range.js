@@ -80,6 +80,7 @@
             return {
                 restrict : 'E',
                 templateUrl : TEMPLATE_URL,
+                replace : true,
                 scope : {
                     min : '=',
                     max : '=',
