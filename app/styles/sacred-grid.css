@@ -112,6 +112,9 @@
  #sacred .grid .mix-line .row{
  	height: 40px;
  }
+  #sacred .grid .mix-line .row div{
+ 	height: 40px;
+ }
 
  #sacred .grid .mix-line .input-qty{
  	height: 40px;
@@ -120,7 +123,7 @@
  	margin: auto;
  	padding-top: 2px;  	
  }
-  #sacred .grid .mix-line .input-qty{
+ #sacred .grid .mix-line .input-qty{
  	height: 40px;
  	width: 110px;
  	float: none;
@@ -130,16 +133,33 @@
 
  #sacred .grid .mix-line .input-qty .ic-arrow-left{
  	float: left;
+ 	height: 40px;
  	display: block; 	
  }
  #sacred .grid .mix-line .input-qty .ic-arrow-right{
  	float: left;
+ 	height: 40px;
  	display: block; 	
  }
-  #sacred .grid .mix-line .input-qty .label-input{
+ #sacred .grid .mix-line .input-qty .label-input{
  	float: left;
+ 	height: 40px;
  	display: block; 	
- 	margin-top: -2px;
+ }
+
+  #sacred .grid .mix-line .input-qty img{
+  	vertical-align: middle;
+  }
+
+ #sacred .grid .mix-line .input-qty .label-input .qty{
+ 	width: 35px;
+ 	height: 40px;
+ 	text-align: center;
+ 	font-size: 20px;
+ 	display: inline-block;
+ 	line-height: 35px;
+ 	color: #555555;
+ 	vertical-align: middle;
  }
 
 
