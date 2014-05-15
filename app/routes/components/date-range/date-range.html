@@ -1,0 +1,89 @@
+<style>
+  body {
+    overflow: auto !important;
+  }
+
+  html {
+    margin-bottom: 400px !important;
+  }
+</style>
+
+<h1>date-range directive playground</h1>
+
+<h2>min and max undefined/nullified/false</h2>
+<p>Expect no minimum or maximum limitation.</p>
+<p>{{ undefinedTest }}</p>
+<date-range
+  id="undefinedTest"
+  ng-model="undefinedTest.model">
+</date-range>
+
+
+<h2>min and max as a function</h2>
+<p><strong>NOT WORKING YET!</strong> Expect the function to be resolved every time the value changes. To
+see this effect, I've implemented a function that adds substracts (min) or
+adds (max) 1 to the day whenever the value is changed.</p>
+<p>{{ functionTest }}</p>
+<date-range
+  id="functionTest"
+  ng-model="functionTest.model"
+  min="functionTest.min"
+  max="functionTest.max">
+</date-range>
+
+
+<h2>min and max as 'now'</h2>
+<p><strong>NOT WORKING YET!</strong> Expect it to be resolved to the current date. Setting both to now should
+allow only one value to be selected.</p>
+<p>{{ nowTest }}</p>
+<date-range
+  id="nowTest"
+  ng-model="nowTest.model"
+  min="nowTest.min"
+  max="nowTest.max">
+</date-range>
+
+
+<h2>min and max as a Date</h2>
+<p>Well... guess how it should work...</p>
+<p>{{ dateTest }}</p>
+<date-range
+  id="dateTest"
+  ng-model="dateTest.model"
+  min="dateTest.min"
+  max="dateTest.max">
+</date-range>
+
+
+<h2>min and max as an ISO Date string</h2>
+<p>They should be converted to a Date object.</p>
+<p>{{ isoTest }}</p>
+<date-range
+  id="isoTest"
+  ng-model="isoTest.model"
+  min="isoTest.min"
+  max="isoTest.max">
+</date-range>
+
+
+<h2>min and max as a timestamp</h2>
+<p>They should be converted to a Date object.</p>
+<p>{{ timestampTest }}</p>
+<date-range
+  id="timestampTest"
+  ng-model="timestampTest.model"
+  min="timestampTest.min"
+  max="timestampTest.max">
+</date-range>
+
+
+<h2>min later than max</h2>
+<p>Expect their values to be swapped: max gets the value of min and vice-versa</p>
+<p>{{ laterMinTest }}</p>
+<date-range
+  id="laterMinTest"
+  ng-model="laterMinTest.model"
+  min="laterMinTest.min"
+  max="laterMinTest.max">
+</date-range>
+
