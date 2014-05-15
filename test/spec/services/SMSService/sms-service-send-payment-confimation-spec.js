@@ -78,7 +78,7 @@ describe(
                         expect(SMSService.send)
                                 .toHaveBeenCalledWith(
                                         '5599887766',
-                                        'Voce recebeu um Vale Credito no valor de 30,00 reais a ser utilizado na sua proxima compra de produtos Mary Kay. Jurandir (41) 1212-1212.');
+                                        'Voce recebeu um Vale Credito no valor de 30,00 reais a ser utilizado na sua proxima compra de produtos. Jurandir Cunha Agostino de Nobrega Filho (41) 1212-1212.');
                     });
 
             it('should not send a sms', function() {

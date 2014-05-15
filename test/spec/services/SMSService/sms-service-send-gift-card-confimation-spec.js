@@ -66,6 +66,6 @@ describe(
                 expect(SMSService.send)
                     .toHaveBeenCalledWith(
                         '5588887766',
-                        'Voce recebeu de Bertina um Vale Presente no valor de 30,00 reais a ser utilizado na compra de produtos Mary Kay. Jurandir (41) 1212-1212.');
+                        'Voce recebeu de Bertina um Vale Presente no valor de 30,00 reais a ser utilizado na compra de produtos. Jurandir (41) 1212-1212.');
             });
     });

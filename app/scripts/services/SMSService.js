@@ -181,7 +181,7 @@
                      */
                     var voucherConfirmationSMS =
                         'Voce recebeu um Vale Credito no valor de {{voucherAmount}} reais a ser utilizado na sua proxima compra '
-                            + 'de produtos Mary Kay. {{representativeName}} {{representativetPhone}}.';
+                            + 'de produtos. {{representativeName}} {{representativetPhone}}.';
 
                     this.sendVoucherConfirmation =
                         function sendVoucherConfirmation (customer, voucherAmount) {
@@ -214,10 +214,10 @@
                      */
                     var singularCouponConfirmationSMS =
                         'Voce recebeu um cupom promocional no valor total de {{couponsAmount}} reais a ser utilizado na compra '
-                            + 'de produtos Mary Kay. {{representativeName}} {{representativetPhone}}.';
+                            + 'de produtos. {{representativeName}} {{representativetPhone}}.';
                     var pluralCouponConfirmationSMS =
                         'Voce recebeu {{couponsQty}} cupons promocionais no valor total de {{couponsAmount}} reais a serem '
-                            + 'utilizados na compra de produtos Mary Kay. {{representativeName}} {{representativetPhone}}.';
+                            + 'utilizados na compra de produtos. {{representativeName}} {{representativetPhone}}.';
 
                     this.sendCouponConfirmation =
                         function sendCouponConfirmation (customer, couponsAmount, couponsQty) {
@@ -264,11 +264,11 @@
                      */
                     var giftCardConfirmationSMS =
                         'Voce recebeu de {{customerName}} um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado '
-                            + 'na compra de produtos Mary Kay. {{representativeName}} {{representativetPhone}}.';
+                            + 'na compra de produtos. {{representativeName}} {{representativetPhone}}.';
 
                     var giftCardCustomerConfirmationSMS =
                         'Voce presenteou {{giftedCustomerName}} com um Vale Presente no valor de {{giftCardAmount}} reais a ser utilizado '
-                            + 'na compra de produtos Mary Kay. {{representativeName}} {{representativetPhone}}.';
+                            + 'na compra de produtos. {{representativeName}} {{representativetPhone}}.';
 
                     this.sendGiftCardConfirmation =
                         function sendGiftCardConfirmation (customer, giftCard) {

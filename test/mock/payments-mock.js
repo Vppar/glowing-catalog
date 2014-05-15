@@ -1,6 +1,6 @@
 (function(data) {
     data.paymentSMSMsgTemplate =
-            'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor Mary Kay.';
+            'Ola {{customerName}}, seu pedido no valor de {{orderAmount}} reais foi confirmado. {{representativeName}} seu consultor.';
     data.paymentTemplate = {
         id : null,
         datetime : null,
