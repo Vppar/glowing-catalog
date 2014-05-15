@@ -343,7 +343,6 @@ resources/data.json
 resources/orders.json
 resources/products.json
 
-views/catalog/best-sellers.html
 views/appointments.html
 views/parts/add-customer/add-customer-phones-dialog.html
 views/parts/add-customer/add-customer-emails-dialog.html
@@ -372,25 +371,13 @@ views/parts/payment/payment-left-on-cuff.html
 views/parts/payment/payment-left-order.html
 views/parts/payment/payment-left-voucher.html
 views/parts/payment/payment-right-totals.html
-views/parts/purchase-order/purchase-order-confirm.html
-views/parts/purchase-order/purchase-order-new.html
-views/parts/purchase-order/purchase-order-pending-products.html
-views/parts/purchase-order/purchase-order-stashed.html
-views/parts/purchase-order/purchase-order-summary.html
 views/parts/purchase-order/purchase-order-ticket-dialog.html
-views/parts/purchase-order/purchase-order-ticket.html
-views/parts/purchase-order/purchase-order.html
 views/parts/receivable/receivable-add.html
 views/parts/receivable/receivable-dialog.html
 views/parts/receivable/receivable-edit-parc-dialog.html
 views/parts/receivable/receivable-edit.html
 views/parts/receivable/receivable-list.html
 views/parts/receivable/receivable-receive.html
-views/parts/warm-up/warm-up-check.html
-views/parts/warm-up/warm-up-creditcard.html
-views/parts/warm-up/warm-up-oncuff.html
-views/parts/warm-up/warm-up-stock.html
-views/add-customer.html
 views/basket.html
 views/bills-to-pay.html
 views/cash-flow.html
@@ -399,23 +386,17 @@ views/expense.html
 views/financial.html
 views/income-statement.html
 views/inventory.html
-views/login.html
 views/main.html
 views/order-list.html
 views/partial-delivery.html
 views/payment.html
-views/pagpop.html
 views/pending-delivery.html
 views/previous-entries.html
 views/receivable.html
 views/spinner-button-promise.html
-views/stock.html
 views/tutorial-android.html
 views/tutorial-ipad.html
-views/voucher.html
-views/third-parties.html
 views/receivable-check.html
-views/warm-up.html
 
 views/sacred-order-list.html
 views/parts/order-list/sacred-order-list-products.html
@@ -446,7 +427,6 @@ views/parts/purchase-order/sacred-purchase-order-new.html
 views/parts/purchase-order/sacred-purchase-order-pending-products.html
 views/parts/purchase-order/sacred-purchase-order-stashed.html
 views/parts/purchase-order/sacred-purchase-order-summary.html
-views/parts/purchase-order/sacred-purchase-order-ticket.html
 views/parts/purchase-order/sacred-purchase-order-ticket.html
 
 views/parts/products-delivery/sacred-products-delivery-delivered-products.html
