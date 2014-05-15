@@ -49,6 +49,9 @@
                     }
                 };
 
+                $scope.min = null;
+                $scope.max = new Date();
+
                 var ordersTotalTemplate = {
                     all: {
                         orderCount: 0,
@@ -140,12 +143,6 @@
                         finalFilter = $scope.dtFilter.end.getTime();
 
                         isDtFinal = true;
-                    }
-
-                    if (isDtInitial && isDtFinal) {
-                        if ($scope.dtFilter.start.getTime() > $scope.dtFilter.end.getTime()) {
-                            $scope.dtFilter.end = angular.copy($scope.dtFilter.start);
-                        }
                     }
 
                     if (initialFilter && finalFilter) {
