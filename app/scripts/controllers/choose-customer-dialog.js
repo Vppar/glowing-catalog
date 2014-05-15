@@ -14,7 +14,7 @@
             'EntityService',
             function ($scope, $q, $location, dialog, OrderService, EntityService) {
                 
-                $scope.customer = {};
+                $scope.customer = -1;
                 
                 $scope.customers = EntityService.list().sort(function (x, y) {
                     return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
@@ -37,11 +37,13 @@
                         (opt.document && opt.document.indexOf(term.toUpperCase()) >= 0);
                 }
 
+                $scope.customers.unshift({id: -1, name: 'Selecione o Cliente'});
+                
                 $scope.selectOptions = {
                     data : $scope.customers,
                     matcher : matcher,
                     formatSelection : format,
-                    formatResult : format,
+                    formatResult : format,                    
                 };
 
                 /**
@@ -77,6 +79,8 @@
             'OrderService',
             'EntityService',
             function ($scope, $q, $location, dialog, OrderService, EntityService) {
+                
+                $scope.customer = -1;
 
                 $scope.customers = EntityService.list().sort(function (x, y) {
                     return ((x.name === y.name) ? 0 : ((x.name > y.name) ? 1 : -1));
@@ -98,6 +102,8 @@
                     return text.toUpperCase().indexOf(term.toUpperCase()) >= 0 ||
                         (opt.document && opt.document.indexOf(term.toUpperCase()) >= 0);
                 }
+                
+                $scope.customers.unshift({id: -1, name: 'Selecione o Cliente'});
 
                 $scope.selectOptions = {
                     data : $scope.customers,
