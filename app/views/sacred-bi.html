@@ -38,7 +38,9 @@
 		font-size: 10px;
 	}
 
-
+	.cumulative{
+		margin-top: 20px;
+	}
 
 
 
@@ -187,13 +189,17 @@
 	</div>
 
 	<div class="row">
-		<h4>Termômetro</h4>
-		<termometer values='data.termometer' tip='true' height='15' bands='16' firstcolor="#d80000" middlecolor="#EDD75C" lastcolor="#090"></termometer>
+		<div class="termometer">
+			<h4>Termômetro</h4>
+			<termometer values='data.termometer' tip='true' height='15' bands='16' firstcolor="#d80000" middlecolor="#EDD75C" lastcolor="#090"></termometer>
+		</div>
 	</div>
 
 	<div class="row">
-		<h4>Acumulado</h4>
-		<cumulative values='data.cumulative'></cumulative>
+		<div class="cumulative">
+			<h4>Acumulado</h4>
+			<cumulative values='data.cumulative'></cumulative>
+		</div>
 	</div>
 </div>
 </div>

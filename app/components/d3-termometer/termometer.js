@@ -43,7 +43,6 @@
                 var marginBottom = 20;
 
                 var chart = d3.select(element[0]);
-                // var canvas = null;;
 
                 var color = null;
                 var x = null;
@@ -56,11 +55,9 @@
 
                 scope.$watchCollection('values', draw);
 
-
                 function clear() {
                     chart.selectAll('*').remove();
                 }
-
 
                 function setValues() {
                     goal = scope.values.goal;
@@ -100,7 +97,6 @@
                     drawBar();
                     drawScale();
 
-
                     var pos = x(snapshot > goal ? goal : snapshot);
                     tooltip(pos, format(label), '#333');
                 }
@@ -137,7 +133,7 @@
                     .attr("stop-color", lastColor)
 
                     var bar = canvas.append('rect')
-                    .attr('width', width-marginLeft)
+                    .attr('width', width - marginLeft)
                     .attr('height', height)
                     .attr('y', 0)
                     .attr('fill', '#333')
@@ -145,7 +141,6 @@
                 }
 
                 function drawScale(){
-
                     canvas.append("g")
                     .attr("class", "grid-x32")
                     .selectAll('l')
@@ -199,9 +194,6 @@
                     .attr('stroke', '#fff')
                     .attr('stroke-width', '2' );
 
-                    
- 
-                    
                 }
 
 
@@ -242,7 +234,6 @@
                         y : h - 2 + th + triangleStrokeWidth
                     }];
 
-
                     var triangle = [
                     {x:w/2-tw/2,y:h - 2},
                     {x:w/2+tw/2,y:h - 2},
@@ -256,25 +247,11 @@
                     canvas.append('path')
                     .attr('d', triangleMap(triangle))
                     .attr('fill', color || '#333');
-
-                        /*
-                    canvas.append('rect')
-                        .attr('width', w)
-                        .attr('height', h)
-                        .attr('x', 0)
-                        .attr('y', 0)
-                        .attr('fill', color);
-
-                    canvas.append('text')
-                        .attr('x', w/2)
-                        .attr('y', h/2 + 3)
-                        .style("text-anchor", "middle");
-                        */
-                    }
-
-
-                    draw();
                 }
+
+
+                draw();
             }
-        });
+        }
+    });
 }(angular));

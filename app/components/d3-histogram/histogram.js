@@ -19,10 +19,10 @@
             },
             link: function (scope, element, attrs) {
                 var width = 800; 
-                var height = 200;
-                var bottomMargin = 35;
+                var height = 190;
+                var bottomMargin = 25;
                 var leftMargin = 45;
-                var topMargin = 20;
+                var topMargin = 10;
 
                 var bands = null;
                 var currentBand = null;
@@ -36,6 +36,8 @@
                 var goals = null;
                 var snapshots = null;
                 var byOrder = null;
+
+                
 
                 var canvas = d3.select(element[0]).append('svg');
 
@@ -51,9 +53,20 @@
                     barWidth = (width/qty)-(width/(qty*2));
                     chartWidth = width-leftMargin;
                     chartHeight = height-(topMargin+bottomMargin);
-                    max = d3.max(bands,function(d){ return d.goal >= d.snapshot ? d.goal : d.snapshot; });
+
+                    //set max value to zero
+                    max = 0;
+
+                    //find who has the greatest value (goal or snapsgot)
+                    for(var i = 0;i<bands.length;i++){
+                        if( (max < bands[i].goal) && (bands[i].goal) ) max = bands[i].goal;
+                        if( (max < bands[i].snapshot) && (bands[i].snapshot) ) max = bands[i].snapshot;
+                    }
+
                     x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
+                    
                     y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
+                    
                     goals = bands.map(function(d){ return d.goal;});
                     snapshots = bands.map(function(d){ return d.snapshot;});
                     byOrder = d3.nest().key(function(d){ return 'o'+d.order; }).map(bands,d3.map);
