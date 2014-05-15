@@ -64,8 +64,8 @@
                 };
 
                 var dtFilterTemplate = {
-                    dtInitial: null,
-                    dtFinal: null
+                    start: null,
+                    end: null
                 };
 
                 /**
@@ -84,16 +84,16 @@
                         date = angular.copy(dtFilterTemplate);
                     }
 
-                    if (!(date.dtInitial instanceof Date)) {
-                        date.dtInitial = setTime(new Date(), 0, 0, 0, 0);
+                    if (!(date.start instanceof Date)) {
+                        date.start = setTime(new Date(), 0, 0, 0, 0);
                     } else {
-                        date.dtInitial = setTime(date.dtInitial, 0, 0, 0, 0);
+                        date.start = setTime(date.start, 0, 0, 0, 0);
                     }
 
-                    if (!(date.dtFinal instanceof Date)) {
-                        date.dtFinal = setTime(new Date(), 23, 59, 59, 999);
+                    if (!(date.end instanceof Date)) {
+                        date.end = setTime(new Date(), 23, 59, 59, 999);
                     } else {
-                        date.dtFinal = setTime(date.dtFinal, 23, 59, 59, 999);
+                        date.end = setTime(date.end, 23, 59, 59, 999);
                     }
 
                     return date;
@@ -126,25 +126,25 @@
                     var finalFilter = null;
                     var isDtInitial = false;
                     var isDtFinal = false;
-                    if ($scope.dtFilter.dtInitial instanceof Date) {
+                    if ($scope.dtFilter.start instanceof Date) {
 
-                        $scope.dtFilter.dtInitial = setTime($scope.dtFilter.dtInitial, 0, 0, 0, 0);
+                        $scope.dtFilter.start = setTime($scope.dtFilter.start, 0, 0, 0, 0);
 
-                        initialFilter = $scope.dtFilter.dtInitial.getTime();
+                        initialFilter = $scope.dtFilter.start.getTime();
 
                         isDtInitial = true;
                     }
-                    if ($scope.dtFilter.dtFinal instanceof Date) {
+                    if ($scope.dtFilter.end instanceof Date) {
 
-                        $scope.dtFilter.dtFinal = setTime($scope.dtFilter.dtFinal, 23, 59, 59, 999);
-                        finalFilter = $scope.dtFilter.dtFinal.getTime();
+                        $scope.dtFilter.end = setTime($scope.dtFilter.end, 23, 59, 59, 999);
+                        finalFilter = $scope.dtFilter.end.getTime();
 
                         isDtFinal = true;
                     }
 
                     if (isDtInitial && isDtFinal) {
-                        if ($scope.dtFilter.dtInitial.getTime() > $scope.dtFilter.dtFinal.getTime()) {
-                            $scope.dtFilter.dtFinal = angular.copy($scope.dtFilter.dtInitial);
+                        if ($scope.dtFilter.start.getTime() > $scope.dtFilter.end.getTime()) {
+                            $scope.dtFilter.end = angular.copy($scope.dtFilter.start);
                         }
                     }
 

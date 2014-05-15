@@ -40,9 +40,11 @@
             return date;
         }
 
+        /* FIXME
         if (val === 'now') {
             return getNow;
         }
+        */
 
         val = parseInt(val);
 
