@@ -1,4 +1,4 @@
-describe('Controller: ChooseCustomerDialogCtrl', function() {
+ddescribe('Controller: ChooseCustomerDialogCtrl', function() {
 
     var scope = {};
     var dialog = {};
@@ -57,7 +57,7 @@ describe('Controller: ChooseCustomerDialogCtrl', function() {
     // XXX: behavior has changed. Before the customerId was set by the
     // dialog itself.
     it('should pass the customer id to dialog.close()', function () {
-      scope.customer.uuid = 1;
+      scope.customer = {id : 0, uuid: 1};
       scope.confirm();
       expect(dialog.close).toHaveBeenCalledWith(1);
       expect(os.order.customerId).toBeUndefined();
