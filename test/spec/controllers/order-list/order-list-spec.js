@@ -211,8 +211,8 @@ describe('Controller: order-list', function () {
             expectFinalDate.setMilliseconds(999);
 
             // Not comparing with getTime() once getTime is a mock.
-            expect(scope.dtFilter.dtInitial.toJSON()).toEqual(expectInitialDate.toJSON());
-            expect(scope.dtFilter.dtFinal.toJSON()).toEqual(expectFinalDate.toJSON());
+            expect(scope.dtFilter.start.toJSON()).toEqual(expectInitialDate.toJSON());
+            expect(scope.dtFilter.end.toJSON()).toEqual(expectFinalDate.toJSON());
         });
 
         it('should have 4 orders in the list', function () {
@@ -411,8 +411,8 @@ describe('Controller: order-list', function () {
         describe('When date filter change', function () {
             it('should filter orders by date', function () {
                 scope.$apply();
-                scope.dtFilter.dtInitial = new Date(new Date() - daysToMilliseconds(2));
-                scope.dtFilter.dtFinal = new Date(new Date() - daysToMilliseconds(1));
+                scope.dtFilter.start = new Date(new Date() - daysToMilliseconds(2));
+                scope.dtFilter.end = new Date(new Date() - daysToMilliseconds(1));
                 scope.filterOrders(scope.filteredOrders);
                 expect(scope.filteredOrders.length).toEqual(0);
 
