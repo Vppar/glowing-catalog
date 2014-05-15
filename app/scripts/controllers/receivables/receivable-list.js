@@ -6,6 +6,9 @@
                 '$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'IdentityService', 'BookService', 'Book', 'FinancialMathService',
                 function($log, $scope, $filter, ReceivableService, EntityService, OrderService, IdentityService, BookService, Book, FinancialMathService) {
                     
+                    var PP_FIXED_RATIO = 3.48;
+                    var PP_MONTHLY_RATIO = 1.98;
+                    
                     function setTime(date, hours, minutes, seconds, milliseconds) {
                         date.setHours(hours);
                         date.setMinutes(minutes);
@@ -222,8 +225,6 @@
                     }
                     
                     function getNetAmountForCredicard(receivable){
-                        var PP_FIXED_RATIO = 3.48;
-                        var PP_MONTHLY_RATIO = 1.98;
                         var installments = receivable.payment.installments;
                         
                         return FinancialMathService.presentValue(PP_FIXED_RATIO, PP_MONTHLY_RATIO, installments, receivable.amount);
