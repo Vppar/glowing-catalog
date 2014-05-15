@@ -59,7 +59,7 @@
                  */
                 $scope.confirm = function () {
                     var uuid = 0;
-                    if ($scope.customer && $scope.customer.uuid) {
+                    if ($scope.customer && $scope.customer.id > -1) {
                         uuid = $scope.customer.uuid;
                         $location.path('/payment');
                     } else {
@@ -125,8 +125,8 @@
                  */
                 $scope.confirm = function () {
                     var uuid = 0;
-                    if ($scope.customer && $scope.customer.uuid) {
-                        uuid = $scope.customer;
+                    if ($scope.customer && $scope.customer.id > -1) {
+                        uuid = $scope.customer.uuid;
                     } else {
                         $location.path('/add-customer');
                     }
