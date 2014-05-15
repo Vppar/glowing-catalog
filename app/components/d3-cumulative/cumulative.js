@@ -29,7 +29,7 @@
                 var width = 800; 
                 var height = 200;
 
-                var leftMargin = 40;
+                var leftMargin = 45;
                 var bottomMargin = 40;
                 var topMargin = 10;
 

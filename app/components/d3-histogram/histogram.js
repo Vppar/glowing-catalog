@@ -21,7 +21,7 @@
                 var width = 800; 
                 var height = 200;
                 var bottomMargin = 35;
-                var leftMargin = 40;
+                var leftMargin = 45;
                 var topMargin = 20;
 
                 var bands = null;

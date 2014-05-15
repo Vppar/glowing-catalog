@@ -39,7 +39,7 @@
                 var format = d3.format('%');
 
                 var width = 801;
-                var marginLeft = 30;
+                var marginLeft = 45;
                 var marginBottom = 20;
 
                 var chart = d3.select(element[0]);
@@ -108,6 +108,7 @@
                 function drawBar(){
                     canvas = chart.append('svg')
                     .attr('class','termometer-canvas')
+                    .style('margin-left',marginLeft)
                     .attr('width', width)
                     .attr('height', height);
 
