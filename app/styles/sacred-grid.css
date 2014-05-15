@@ -30,7 +30,7 @@
 	border-bottom: 1px #ccc dotted;
 	min-height: 40px; 
 	padding-top: 2px;
- 	padding-bottom: 2px;
+	padding-bottom: 2px;
 }
 
 #sacred .grid .grid-header .row>:first-child,
@@ -105,6 +105,44 @@
  	min-height: 40px;
  	height: 40px;
  }
+ #sacred .grid .grid-item.mix-line{
+ 	line-height: 40px;
+ 	height: 46px;
+ }
+ #sacred .grid .mix-line .row{
+ 	height: 40px;
+ }
+
+ #sacred .grid .mix-line .input-qty{
+ 	height: 40px;
+ 	width: 110px;
+ 	float: none;
+ 	margin: auto;
+ 	padding-top: 2px;  	
+ }
+  #sacred .grid .mix-line .input-qty{
+ 	height: 40px;
+ 	width: 110px;
+ 	float: none;
+ 	margin: auto;
+ 	padding-top: 2px;  	
+ }
+
+ #sacred .grid .mix-line .input-qty .ic-arrow-left{
+ 	float: left;
+ 	display: block; 	
+ }
+ #sacred .grid .mix-line .input-qty .ic-arrow-right{
+ 	float: left;
+ 	display: block; 	
+ }
+  #sacred .grid .mix-line .input-qty .label-input{
+ 	float: left;
+ 	display: block; 	
+ 	margin-top: -2px;
+ }
+
+
 
 /* line decorator
  * this class just make the grid-item content be vertical centered.
@@ -113,7 +151,10 @@
  	cursor:pointer;
  }
 
- #sacred .grid .product-name{}
+ #sacred .grid .product-name{
+ 	line-height: 20px; /* this need to be setted because of the mix-line behaviour*/
+
+ }
  #sacred .grid .product-name small{
  	color: #999;
  	float: none;
