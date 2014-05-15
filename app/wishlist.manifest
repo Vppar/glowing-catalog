@@ -146,6 +146,7 @@ components/d3-cumulative/cumulative.js
 components/d3-gauge/gauge.js
 components/d3-histogram/histogram.js
 components/d3-termometer/termometer.js
+components/date-range/date-range.js
 
 scripts/directives/anchor.js
 scripts/directives/cep.js
@@ -256,6 +257,7 @@ scripts/controllers/third-party.js
 scripts/controllers/warmup.js
 scripts/controllers/pagpop.js
 scripts/controllers/bi.js
+scripts/controllers/date-range-test.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -335,6 +337,7 @@ components/d3-cumulative/cumulative.html
 components/d3-gauge/gauge.html
 components/d3-histogram/histogram.html
 components/d3-termometer/termometer.html
+components/date-range/date-range.html
 
 resources/config.js
 resources/images.json
