@@ -24,6 +24,7 @@
                 //get the values that should be displayed
                 var bands = null;
 
+                var currentBand = null;
 
                 var width = 800; 
                 var height = 200;
@@ -62,7 +63,7 @@
                 function setValues() {
                     values = scope.values;
                     bands = scope.values.bands;
-                    max = d3.max(bands, function(d){ return d.goal});
+                    max = d3.max(bands, function(d){ return d.goal >= d.snapshot ? d.goal : d.snapshot; });
                     chartWidth = width-leftMargin;
                     chartHeight = height-(topMargin+bottomMargin);
                     x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
@@ -70,6 +71,13 @@
                     goals = bands.map(function(d){ return d.goal;}).filter(Number);
                     snapshots = bands.map(function(d){ return d.snapshot;}).filter(Number);
                     byOrder = d3.nest().key(function(d){ return 'o'+d.order;}).map(bands,d3.map);
+
+                    var values = scope.values;
+                    var validBandIndex = angular.isNumber(values.current) &&
+                            values.current >= 0 &&
+                            !!bands[values.current];
+
+                    currentBand = validBandIndex ? values.current + 1 : null;
                 }
 
 
@@ -83,7 +91,11 @@
                         
                     drawXAxis();
                     drawYAxis();
-                    drawGuide(2);
+
+                    if (currentBand) {
+                        drawGuide(currentBand);
+                    }
+
                     drawLine('#5892ce',goals);
                     drawLine('#ab147a',snapshots);
                 }

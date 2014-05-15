@@ -55,32 +55,40 @@
                       .attr('height', height+20)
                       .style('width',124);
 
-                    //scale based on goal value;
-                    y = d3.scale.linear().domain([goal,0]).range([height-topMargin, 0]);
+                    var cap = goal > snapshot ? goal : snapshot;
 
-                    drawBar(goal,'goal');
-                    drawBar(snapshot,'snapshot');
-                    drawLine(snapshot);
-                    drawTip(goal,1,'goal-tip');
-                    drawTip(snapshot,snapshot/goal,'snapshot-tip');
+                    //scale based on goal value;
+                    y = d3.scale.linear().domain([cap,0]).range([height-topMargin, 0]);
+
+                    if (goal >= snapshot) {
+                        drawBar(goal, 'goal');
+                        drawBar(snapshot, 'snapshot');
+                        drawLine(snapshot);
+                    } else {
+                        drawBar(snapshot, 'snapshot');
+                        drawBar(goal, 'goal');
+                        drawLine(goal);
+                    }
+
+                    drawTip(goal, 1, 'goal-tip');
+                    drawTip(snapshot, snapshot/goal, 'snapshot-tip');
                 }
 
                 function drawBar(value,clazz){
-
                     var bar = canvas.append('g').attr('class',clazz);
 
                     var rect = bar.append('rect')
-                    .attr('x', 0 )
-                    .attr('y', height - y(value))
-                    .attr('width', barWidth)
-                    .attr('height', y(value))
-                    .attr('fill');
+                        .attr('x', 0 )
+                        .attr('y', height - y(value))
+                        .attr('width', barWidth)
+                        .attr('height', y(value))
+                        .attr('fill');
 
                     var text = bar.append('text')
-                    .attr('x',barWidth/2)
-                    .attr('y',height - y(value)+textTopMargin)
-                    .style("text-anchor", "middle")
-                    .text(value);
+                        .attr('x', barWidth/2)
+                        .attr('y', height - y(value) + textTopMargin)
+                        .style("text-anchor", "middle")
+                        .text(value);
                 }
 
                 function drawTip(value,label,clazz){

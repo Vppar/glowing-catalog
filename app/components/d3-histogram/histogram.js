@@ -25,6 +25,7 @@
                 var topMargin = 20;
 
                 var bands = null;
+                var currentBand = null;
                 var qty = null;
                 var barWidth = null;
                 var chartWidth = null;
@@ -50,12 +51,19 @@
                     barWidth = (width/qty)-(width/(qty*2));
                     chartWidth = width-leftMargin;
                     chartHeight = height-(topMargin+bottomMargin);
-                    max = d3.max(bands,function(d){ return d.goal});
+                    max = d3.max(bands,function(d){ return d.goal >= d.snapshot ? d.goal : d.snapshot; });
                     x = d3.scale.ordinal().domain(bands.map(function(d){ return d.order;})).rangeRoundBands([leftMargin,width],0);
                     y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
                     goals = bands.map(function(d){ return d.goal;});
                     snapshots = bands.map(function(d){ return d.snapshot;});
                     byOrder = d3.nest().key(function(d){ return 'o'+d.order; }).map(bands,d3.map);
+
+                    var values = scope.values;
+                    var validBandIndex = angular.isNumber(values.current) &&
+                            values.current >= 0 &&
+                            !!bands[values.current];
+
+                    currentBand = validBandIndex ? values.current + 1 : null;
                 }
 
 
@@ -69,7 +77,11 @@
 
                     drawXAxis();
                     drawYAxis();
-                    drawGuide(2);
+
+                    if (currentBand) {
+                        drawGuide(currentBand);
+                    }
+
                     drawBars(goals,'#5892ce');
                     drawLine('#ab147a',snapshots);
                 }
