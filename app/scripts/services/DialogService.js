@@ -41,6 +41,7 @@
 
 
         var cssDefaultClass = 'modal';
+        var cssSmallClass = 'modal-small';
 
         /**
          * Message dialog that returns a promise and if the dialog is not closed
@@ -52,8 +53,8 @@
         this.messageDialog = function(data) {
             var dialogPromise =
                     openDialog(
-                            'views/parts/global/message-dialog.html', 'MessageDialogCtrl', data,
-                            cssDefaultClass);
+                            'views/parts/global/sacred-message-dialog.html', 'MessageDialogCtrl', data,
+                            cssSmallClass);
             var safeDialog = dialogPromise.then(function(success) {
                 var result = null;
                 if(success){

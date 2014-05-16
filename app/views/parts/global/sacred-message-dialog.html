@@ -1,0 +1,17 @@
+<div class="modal-head">
+	{{title | truncate:34}}
+</div>
+
+<div class="modal-body">
+	<p>{{message}}</p>
+</div>
+
+<div class="modal-foot" fast-click>
+	<hr />
+	<button ng-click="cancel()" class="btn btn-cancel pull-left" ng-show="btnNo" type="submit">
+		{{btnNo}}
+	</button>
+	<button ng-click="confirm()" class="btn btn-ok pull-right" type="submit">
+		{{btnYes}}
+	</button>
+</div>

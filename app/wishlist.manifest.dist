@@ -62,6 +62,7 @@ styles/sacred-purchase-order.css
 styles/sacred-best-sellers.css
 styles/sacred-warm-up.css
 styles/sacred-ipad-only.css
+styles/sacred-modal.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
