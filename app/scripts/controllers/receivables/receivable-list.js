@@ -107,6 +107,8 @@
 
                         receivables = filterReceivablesByDate(receivables);
 
+                        hourReset(receivables);
+
                         if ($scope.selectedReceivableMode === 'listOpen') {
                             receivables = filterReceivablesByLiquidated(receivables);
                             if (newVal === 'listOpen') {
@@ -123,12 +125,26 @@
                         }
                         
                         if($scope.selectedReceivableMode === 'listOpen'){
-                            receivables = $filter('orderBy')(receivables, '-duedate');
+                            receivables = $filter('orderBy')(receivables, ['duedate', '-created']);
                         }else{
                             receivables = $filter('orderBy')(receivables, '-liquidated');
                         }
 
                         $scope.receivables.list = argumentReceivables(receivables);
+                    }
+
+                    function hourReset(receivables){
+                        for(var ix in receivables){
+                            receivables[ix].created = new Date(receivables[ix].created).setHours(0);
+                            receivables[ix].created = new Date(receivables[ix].created).setMinutes(0);
+                            receivables[ix].created = new Date(receivables[ix].created).setSeconds(0);
+                            receivables[ix].created = new Date(receivables[ix].created).setMilliseconds(0);
+
+                            receivables[ix].duedate = new Date(receivables[ix].duedate).setHours(0);
+                            receivables[ix].duedate = new Date(receivables[ix].duedate).setMinutes(0);
+                            receivables[ix].duedate = new Date(receivables[ix].duedate).setSeconds(0);
+                            receivables[ix].duedate = new Date(receivables[ix].duedate).setMilliseconds(0);
+                        }
                     }
 
                     function filterReceivablesByLiquidated(receivables) {

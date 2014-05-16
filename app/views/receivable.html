@@ -77,7 +77,7 @@
 				</div>
 	
 				<div class="new-scrollpanel" ng-class="{'page-open-details' : selectedReceivable, 'page-closed-details' : !selectedReceivable, 'page-open-check-details' : false }">
-	 			    <div class="row-fluid" ng-repeat="receivable in receivables.list | orderBy:['duedate', '-created']" ng-click="selectReceivable(receivable)">
+	 			    <div class="row-fluid" ng-repeat="receivable in receivables.list" ng-click="selectReceivable(receivable)">
 				        <div class="span12">
 				            <div class="new-body-row" ng-class="{'row-selected': selectedReceivable.uuid==receivable.uuid}">
 				                <div class="new-col-1 text-center">{{$index + 1}}</div>
