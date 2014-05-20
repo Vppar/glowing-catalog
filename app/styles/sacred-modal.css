@@ -21,10 +21,11 @@
 .modal-foot{
 	padding: 0px 20px 20px 20px;
 	width: 100%;
+	float: left;
 	box-sizing: border-box;   
 }
 .modal-foot hr{
-	margin: 10px 0px 20px 0px;
+	margin: 10px 0px 10px 0px;
 }
 
 .modal,

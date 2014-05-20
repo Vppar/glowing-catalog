@@ -89,7 +89,7 @@
         };
 
         this.openDialogChangePass = function(data) {
-            return openDialog('views/parts/global/change-pass-dialog.html', 'ChangePassDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/global/sacred-change-pass-dialog.html', 'ChangePassDialogCtrl', data, cssSmallClass);
         };
 
         this.openDialogChooseCustomer = function(data) {

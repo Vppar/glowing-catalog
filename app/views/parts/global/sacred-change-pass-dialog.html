@@ -1,0 +1,50 @@
+<div id="sacred">
+	<div class="modal-head">
+		Trocar senha
+	</div>
+	
+	<div class="modal-body">
+		<form class="form" name="changePasswordForm">
+			
+			<div class="fields">
+				<div class="form-line">	
+					<div class="row">
+						<div class="col-24">
+							<label>Senha atual</label>
+							<input name="current-password" ng-model="oldPassword" type="password" placeholder="" ng-required autofocus>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-line">	
+					<div class="row">
+						<div class="col-24">
+							<label>Nova senha</label>
+							<input name="new-password" ng-model="newPassword" type="password" placeholder="" ng-required>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-line">	
+					<div class="row">
+						<div class="col-24">
+							<label>Confirmar senha</label>
+							<input name="new-password-verification" ng-model="newPasswordVerification" tnt-equals="newPassword" type="password" placeholder="" ng-required>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	
+	<div class="modal-foot" fast-click>
+		<hr />
+		<button ng-click="closeDialog()" class="btn btn-cancel pull-left" type="submit">
+			Cancelar
+		</button>
+		<button ng-click="changePassword()" class="btn btn-ok pull-right" type="submit">
+			Enviar
+		</button>
+	</div>
+</div>
