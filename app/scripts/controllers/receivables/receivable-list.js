@@ -1,10 +1,13 @@
 (function(angular) {
     'use strict';
-    angular.module('tnt.catalog.financial.receivable.list.ctrl', []).controller(
+    angular.module('tnt.catalog.financial.receivable.list.ctrl', ['tnt.catalog.financial.math.service']).controller(
             'ReceivableListCtrl',
             [
-                '$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'IdentityService', 'BookService', 'Book',
-                function($log, $scope, $filter, ReceivableService, EntityService, OrderService, IdentityService, BookService, Book) {
+                '$log', '$scope', '$filter', 'ReceivableService', 'EntityService', 'OrderService', 'IdentityService', 'BookService', 'Book', 'FinancialMathService',
+                function($log, $scope, $filter, ReceivableService, EntityService, OrderService, IdentityService, BookService, Book, FinancialMathService) {
+                    
+                    var PP_FIXED_RATIO = 3.48;
+                    var PP_MONTHLY_RATIO = 1.98;
                     
                     function setTime(date, hours, minutes, seconds, milliseconds) {
                         date.setHours(hours);
@@ -182,14 +185,17 @@
                             var receivable = receivables[ix];
                             receivable.entityName = EntityService.read(receivable.entityId).name;
                             receivable.typeTranslated = translate[receivable.type];
+                            
+                            if(receivable.type === 'creditCard'){
+                                //overwrite the amount with the net amount.
+                                receivable.amount = getNetAmountForCredicard(receivable); 
+                            }
+                            
                             $scope.sumAmount += receivable.amount;
-
+                            
                             // This section prevents that warmup inputed checks
                             // generate an error for not having a documentId
                             if (receivable.documentId) {
-
-
-
                                 //set account anme
                                 receivable.accountName = getReceivableAccountName(receivable.type);
                                 var uiidData = IdentityService.getUUIDData(receivable.documentId);
@@ -232,6 +238,13 @@
                             receivable.status = (receivable.liquidated === undefined) ? 'A Receber' : 'Recebido';
                         }
                         return receivables;
+                    }
+                    
+                    function getNetAmountForCredicard(receivable){
+                        var installments = receivable.payment.installments;
+                        
+                        return FinancialMathService.presentValue(PP_FIXED_RATIO, PP_MONTHLY_RATIO, installments, receivable.amount);
+
                     }
                     
                     //FIXME we can't read the account name from 
