@@ -212,7 +212,6 @@ scripts/controllers/expense-entity.js
 scripts/controllers/header.js
 scripts/controllers/header-dev.js
 scripts/controllers/income-statement.js
-scripts/controllers/input-products-dialog.js
 scripts/controllers/login.js
 scripts/controllers/message-dialog.js
 scripts/controllers/order-list.js

@@ -97,27 +97,7 @@
         };
 
         this.openDialogChooseCustomerNoRedirect = function(data) {
-            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogNoRedirectCtrl', data, 'modal-choose-customer-dialog');
-        };
-
-        this.openDialogInputProducts = function(data) {
-            return openDialog('views/parts/global/input-products-dialog.html', 'InputProductsCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogAdvanceMoney = function(data) {
-            return openDialog('views/parts/payment/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogProductExchange = function(data) {
-            return openDialog('views/parts/payment/payment-product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogCheck = function(data) {
-            return openDialog('views/parts/payment/payment-check-dialog.html', 'PaymentCheckDialogCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogCreditCard = function(data) {
-            return openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/global/sacred-choose-customer-dialog.html', 'ChooseCustomerDialogNoRedirectCtrl', data, 'modal-choose-customer-dialog');
         };
 
         this.openDialogDeliveryDetails = function(data) {
