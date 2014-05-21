@@ -61,3 +61,8 @@
 	margin-left: -384px;
 	width: 768px;
 }
+
+/*just to make the dialog looks like the older one in size*/
+.modal-add-basket-dialog-body .fields{
+	margin: 15px 0;
+}
