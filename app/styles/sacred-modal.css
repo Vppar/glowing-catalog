@@ -1,0 +1,68 @@
+/* modal structure */
+.modal-head{
+	border-radius: 4px 4px 0 0;
+	width: 100%;
+	color: #fff;
+	font-size: 16px;
+	padding: 10px;
+	background: #000;
+	font-family: "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
+	text-align:center;
+	box-sizing: border-box;
+}
+
+.modal-body{
+	padding: 20px 20px 0px 20px;
+	width: 100%;
+	display: block;
+	box-sizing: border-box;
+}
+
+.modal-foot{
+	padding: 0px 20px 20px 20px;
+	width: 100%;
+	float: left;
+	box-sizing: border-box;   
+}
+.modal-foot hr{
+	margin: 10px 0px 10px 0px;
+}
+
+.modal,
+.modal-small,
+.modal-medium,
+.modal-big{
+	position: absolute;
+	top: 40px;
+	left: 50%;
+	z-index: 1050;
+	background-color: white;
+	border: none;
+	border: none;
+	border-radius: none;
+	box-shadow: none;
+	background-clip: none;
+	outline: none;
+	border-radius: 4px;
+}
+
+/* modal sizes. for now, we only have three, plus the taylor maded ones...*/
+.modal-small{
+	margin-left: -192px;
+	width: 384px;
+}
+
+.modal-medium{
+	margin-left: -256px;
+	width: 512px;
+}
+
+.modal-big{
+	margin-left: -384px;
+	width: 768px;
+}
+
+/*just to make the dialog looks like the older one in size*/
+.modal-add-basket-dialog-body .fields{
+	margin: 15px 0;
+}

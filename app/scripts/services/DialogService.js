@@ -41,6 +41,7 @@
 
 
         var cssDefaultClass = 'modal';
+        var cssSmallClass = 'modal-small';
 
         /**
          * Message dialog that returns a promise and if the dialog is not closed
@@ -52,8 +53,8 @@
         this.messageDialog = function(data) {
             var dialogPromise =
                     openDialog(
-                            'views/parts/global/message-dialog.html', 'MessageDialogCtrl', data,
-                            cssDefaultClass);
+                            'views/parts/global/sacred-message-dialog.html', 'MessageDialogCtrl', data,
+                            cssSmallClass);
             var safeDialog = dialogPromise.then(function(success) {
                 var result = null;
                 if(success){
@@ -88,35 +89,15 @@
         };
 
         this.openDialogChangePass = function(data) {
-            return openDialog('views/parts/global/change-pass-dialog.html', 'ChangePassDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/global/sacred-change-pass-dialog.html', 'ChangePassDialogCtrl', data, cssSmallClass);
         };
 
         this.openDialogChooseCustomer = function(data) {
-            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
+            return openDialog('views/parts/global/sacred-choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
         };
 
         this.openDialogChooseCustomerNoRedirect = function(data) {
-            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogNoRedirectCtrl', data, 'modal-choose-customer-dialog');
-        };
-
-        this.openDialogInputProducts = function(data) {
-            return openDialog('views/parts/global/input-products-dialog.html', 'InputProductsCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogAdvanceMoney = function(data) {
-            return openDialog('views/parts/payment/payment-advance-money-dialog.html', 'PaymentAdvanceMoneyDialogCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogProductExchange = function(data) {
-            return openDialog('views/parts/payment/payment-product-exchange-dialog.html', 'PaymentProductExchangeDialogCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogCheck = function(data) {
-            return openDialog('views/parts/payment/payment-check-dialog.html', 'PaymentCheckDialogCtrl', data, cssDefaultClass);
-        };
-
-        this.openDialogCreditCard = function(data) {
-            return openDialog('views/parts/payment/payment-credit-card-dialog.html', 'PaymentCreditCardDialogCtrl', data, cssDefaultClass);
+            return openDialog('views/parts/global/sacred-choose-customer-dialog.html', 'ChooseCustomerDialogNoRedirectCtrl', data, 'modal-choose-customer-dialog');
         };
 
         this.openDialogDeliveryDetails = function(data) {

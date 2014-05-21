@@ -35,7 +35,6 @@
             'tnt.catalog.customer.add.phones',
             'tnt.catalog.customer.add.emails',
             'tnt.catalog.customer.choose',
-            'tnt.catalog.product.input.dialog',
             'tnt.catalog.receivable.service',
             'tnt.catalog.financial.receivable.ctrl',
             'tnt.catalog.financial.receivable.list.ctrl',

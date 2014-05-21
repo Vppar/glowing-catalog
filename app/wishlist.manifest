@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.22' 
+# 'version' : '1.2.22'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -66,6 +66,7 @@ styles/sacred-purchase-order.css
 styles/sacred-best-sellers.css
 styles/sacred-warm-up.css
 styles/sacred-ipad-only.css
+styles/sacred-modal.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -211,7 +212,6 @@ scripts/controllers/expense-entity.js
 scripts/controllers/header.js
 scripts/controllers/header-dev.js
 scripts/controllers/income-statement.js
-scripts/controllers/input-products-dialog.js
 scripts/controllers/login.js
 scripts/controllers/message-dialog.js
 scripts/controllers/order-list.js
@@ -358,11 +358,10 @@ views/parts/catalog/num-pad.html
 views/parts/expense/expense-read.html
 views/parts/expense/expense-write-parc-dialog.html
 views/parts/expense/expense-write.html
-views/parts/global/change-pass-dialog.html
-views/parts/global/choose-customer-dialog.html
+views/parts/global/sacred-change-pass-dialog.html
+views/parts/global/sacred-choose-customer-dialog.html
 views/parts/global/header.html
-views/parts/global/input-products-dialog.html
-views/parts/global/message-dialog.html
+views/parts/global/sacred-message-dialog.html
 views/parts/global/numpad-dialog.html
 views/parts/partial-delivery/customer-info-dialog.html
 views/parts/partial-delivery/delivery-details-dialog.html

@@ -44,3 +44,9 @@
 #sacred .calendar-header-test .dropdown-menu{
 	left: -138px !important;
 }
+
+/*box-sizing border-box shold be applied to all application. But, while infidels still exists, this gambi needs to exist. similar case #sacred .page * { box-sizing: border-box;} sacred-structure */
+#sacred .modal-body,
+#sacred .modal-body *{
+	box-sizing: border-box;
+}
