@@ -361,7 +361,6 @@ views/parts/expense/expense-write.html
 views/parts/global/sacred-change-pass-dialog.html
 views/parts/global/sacred-choose-customer-dialog.html
 views/parts/global/header.html
-views/parts/global/input-products-dialog.html
 views/parts/global/sacred-message-dialog.html
 views/parts/global/numpad-dialog.html
 views/parts/partial-delivery/customer-info-dialog.html
