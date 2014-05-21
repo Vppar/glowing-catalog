@@ -1,0 +1,33 @@
+<div id="sacred">
+	<div class="modal-head">Selecione o Cliente</div>
+	
+	<div class="modal-body modal-add-basket-dialog-body">
+
+		<div class="fields">
+			<div class="form-line">	
+				<div class="row">
+					<div class="col-24">
+						<input class="combo-width" ui-select2="selectOptions" ng-model="customer" tnt-select2/>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-line">	
+				<div class="row">
+					<div class="col-24">
+						<div class="error" style="display: none">Erro ao inserir dados, contate o suporte informando o código</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal-foot">
+		<hr />
+		<button ng-click='cancel()' class="button-black pull-left"  type="submit">Cancelar</button>
+		<button ng-click='confirm()' class="button-green pull-right" type="submit">
+			<span ng-show="customer.id === -1">Novo Cliente</span>
+			<span ng-hide="customer.id === -1">Confirmar</span>
+		</button>
+	</div>
+</div>

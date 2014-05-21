@@ -359,8 +359,8 @@ views/parts/catalog/num-pad.html
 views/parts/expense/expense-read.html
 views/parts/expense/expense-write-parc-dialog.html
 views/parts/expense/expense-write.html
-views/parts/global/change-pass-dialog.html
-views/parts/global/choose-customer-dialog.html
+views/parts/global/sacred-change-pass-dialog.html
+views/parts/global/sacred-choose-customer-dialog.html
 views/parts/global/header.html
 views/parts/global/input-products-dialog.html
 views/parts/global/sacred-message-dialog.html

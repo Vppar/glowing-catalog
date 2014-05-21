@@ -93,7 +93,7 @@
         };
 
         this.openDialogChooseCustomer = function(data) {
-            return openDialog('views/parts/global/choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
+            return openDialog('views/parts/global/sacred-choose-customer-dialog.html', 'ChooseCustomerDialogCtrl', data, 'modal-choose-customer-dialog');
         };
 
         this.openDialogChooseCustomerNoRedirect = function(data) {
