@@ -90,7 +90,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <span class="ic-nav-top">
                     <span class="ipad-none-v">
-                        <img src="images/icon-drop-menu.png" alt="" />
+                        <img src="images/icon-drop-menu.png" alt="" ng-show="!update"/>
+                        <img src="images/icon-drop-menu-yellow.png" alt="" ng-show="update"/>
                     </span> 
                 </span> 
             </a>
@@ -217,7 +218,12 @@
                     </ul>
                 </li>
                 </div>
-                
+
+                <li>
+                      <a ng-click="updateCache()" ng-show="!update">Verificar atualizações</a>
+                      <a ng-click="forceUpdate()" ng-show="update">Atualizar agora</a>
+                </li>
+
                 <li>
                     <a class="last-header hover-state-pointer" ng-click="logout()">Sair</a>
                 </li>

@@ -1,18 +1,17 @@
-(function (angular, appCache) {
+(function (angular, appCache, location) {
     'use strict';
 
     var manifest = angular.module('tnt.catalog.manifest', [
         'tnt.util.log', 'tnt.catalog.service.dialog'
     ]);
 
-    manifest.service('CacheController', ['$q', '$rootScope', 'logger', 'DialogService', function CacheController ($q, $rootScope, logger,
-        DialogService) {
-        
+    manifest.service('CacheController', ['$q', '$rootScope', 'logger', 'DialogService', function CacheController($q, $rootScope, logger, DialogService) {
+
         var log = logger.getLogger('tnt.catalog.manifest.CacheController');
-        
+
         var deferred = $q.defer();
 
-        function notify (evt) {
+        function notify(evt) {
             deferred.notify(evt);
             $rootScope.$apply();
         }
@@ -26,7 +25,7 @@
         appCache.addEventListener('progress', notify, false);
         appCache.addEventListener('updateready', notify, false);
 
-        function attachListener () {
+        function attachListener() {
 
             deferred.promise.then(null, null, function (e) {
                 switch (e.type) {
@@ -83,45 +82,46 @@
             });
         }
 
-        function kickStart () {
+        function kickStart() {
             switch (appCache.status) {
                 case appCache.UNCACHED: // UNCACHED == 0
                     deferred.notify({
-                        type : 'error'
+                        type: 'error'
                     });
                     break;
                 case appCache.IDLE: // IDLE == 1
                     deferred.notify({
-                        type : 'noupdate'
+                        type: 'noupdate'
                     });
                     break;
                 case appCache.CHECKING: // CHECKING == 2
                     deferred.notify({
-                        type : 'checking'
+                        type: 'checking'
                     });
                     break;
                 case appCache.DOWNLOADING: // DOWNLOADING == 3
                     deferred.notify({
-                        type : 'downloading'
+                        type: 'downloading'
                     });
                     break;
                 case appCache.UPDATEREADY: // UPDATEREADY == 4
                     deferred.notify({
-                        type : 'updateready'
+                        type: 'updateready'
                     });
                     break;
                 case appCache.OBSOLETE: // OBSOLETE == 5
                     deferred.notify({
-                        type : 'obsolete'
+                        type: 'obsolete'
                     });
                     break;
                 default:
                     deferred.notify({
-                        type : 'error'
+                        type: 'error'
                     });
                     break;
             }
         }
+
         attachListener();
         kickStart();
 
@@ -134,6 +134,29 @@
                 attachListener();
                 appCache.update();
             });
+        };
+
+        this.getStatus = function () {
+            attachListener();
+            return appCache.status;
+        }
+
+        var userDecision = true;
+        this.popUp = function () {
+            if(userDecision){
+                var dialog = {
+                    title: 'Atualização',
+                    message: 'Deseja atualizar agora? Este processo ira recarregar a aplicação.',
+                    btnNo: 'Não',
+                    btnYes: 'Sim'
+                };
+                DialogService.messageDialog(dialog).then(function () {
+                    $scope.update = false;
+                    location.reload();
+                }, function(){
+                    userDecision = false;
+                });
+            }
         };
 
         /**
