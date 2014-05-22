@@ -24,7 +24,7 @@
                         function reload() {
                             switch (scope.section) {
                             case 'Pink Sale':
-                                scope.color = 'color-dark-green';
+                                scope.color = 'dark-magenta';
                                 break;
                             case 'Edição Limitada':
                                 scope.color = 'dark-yellow-gray';
