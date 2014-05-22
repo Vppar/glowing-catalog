@@ -379,7 +379,7 @@ views/parts/purchase-order/purchase-order-new.html
 views/parts/purchase-order/purchase-order-pending-products.html
 views/parts/purchase-order/purchase-order-stashed.html
 views/parts/purchase-order/purchase-order-summary.html
-views/parts/purchase-order/purchase-order-ticket-dialog.html
+views/parts/purchase-order/sacred-purchase-order-ticket-dialog.html
 views/parts/purchase-order/purchase-order-ticket.html
 views/parts/purchase-order/purchase-order.html
 views/parts/receivable/receivable-add.html
