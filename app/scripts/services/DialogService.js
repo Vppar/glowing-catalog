@@ -104,12 +104,13 @@
             return openDialog('views/parts/partial-delivery/delivery-details-dialog.html', 'DeliveryDetailsDialogCtrl', data, cssDefaultClass);
         };
 
+        /* FIX-ME this shold be removed! */
         this.openDialogCustomerInfo = function(data) {
             return openDialog('views/parts/partial-delivery/customer-info-dialog.html', 'CustomerInfoDialogCtrl', data, cssDefaultClass);
         };
         
         this.openDialogPurchaseOrderTicket = function(data) {
-            return openDialog('views/parts/purchase-order/purchase-order-ticket-dialog.html', 'PurchaseOrderTicketDialogCtrl', data, 'modal-products-to-buy-ticket');
+            return openDialog('views/parts/purchase-order/sacred-purchase-order-ticket-dialog.html', 'PurchaseOrderTicketDialogCtrl', data, 'modal-products-to-buy-ticket');
         };
 
         this.openDialogReceivable = function(data) {

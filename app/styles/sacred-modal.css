@@ -66,3 +66,7 @@
 .modal-add-basket-dialog-body .fields{
 	margin: 15px 0;
 }
+
+.modal-body .form{
+	margin-bottom: 0px;
+}
