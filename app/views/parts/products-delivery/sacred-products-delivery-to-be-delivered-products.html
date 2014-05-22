@@ -17,8 +17,8 @@
 			</div>
             <div class="calendar-label-left hour">
                 <div class="text-over">Hora:</div>
-                <input type="text" name="i4" ng-model="schedule.hour" recall maxlength="2"/>
-                <input type="text" name="i4" ng-model="schedule.minute" recall maxlength="2"/>
+                <input type="text" name="i4" ng-model="schedule.hour" recall maxlength="2" ng-disabled="isDelivery"/>
+                <input type="text" name="i4" ng-model="schedule.minute" recall maxlength="2" ng-disabled="isDelivery"/>
             </div>
 		</div>
 	</div>

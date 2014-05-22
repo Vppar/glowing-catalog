@@ -48,6 +48,7 @@
 
                 $scope.ticket = {};
                 $scope.ticket.watchedQty = {};
+                $scope.isDelivery = true;
 
                 $scope.$watchCollection('ticket.watchedQty', function (newVal, oldVal) {
                     var productsToBeDeliveredQty = 0;
@@ -66,6 +67,21 @@
                         $scope.schedule.minute = 59;
                     }
                     $scope.dtFilter.deliveryDate = setTime($scope.dtFilter.deliveryDate, $scope.schedule.hour, $scope.schedule.minute, 0, 0, 0);
+                });
+                
+                $scope.$watch('dtFilter.deliveryDate',function(newVal, oldVal){
+                    var today = $scope.dtFilter.minDate;
+                    
+                    var isToday = newVal.getDate() === today.getDate() && 
+                                newVal.getMonth() === today.getMonth() &&
+                                newVal.getFullYear() === today.getFullYear();
+                    
+                    if(isToday){
+                        $scope.schedule.hour = new Date().getHours();
+                        $scope.schedule.minute =  new Date().getMinutes();
+                    }
+                    
+                    $scope.isDelivery = isToday;
                 });
 
                 $scope.confirm = function () {
@@ -164,9 +180,6 @@
                     var result = DialogService.openDialogDeliveryScheduler(scheduleData);
 
                     result.then(function () {
-
-
-
                         log.info('Scheduler Order Derlivery!');
                         $scope.selected.tab = 'toBeDelivered';
                         $scope.resetOrders();
