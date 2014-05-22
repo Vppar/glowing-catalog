@@ -36,13 +36,19 @@
                     scheduledDate = new Date($scope.selectedOrder.schedule.date);
                 }
 
+                $scope.schedule = {
+                    hour : new Date().getHours(),
+                    minute : new Date().getMinutes()
+                };
+
                 $scope.dtFilter = {
-                    deliveryDate : setTime(scheduledDate, 0, 0, 0, 0, 0),
+                    deliveryDate : setTime(scheduledDate, $scope.schedule.hour, $scope.schedule.minute, 0, 0, 0),
                     minDate : setTime(new Date(), 0, 0, 0, 0, 0)
                 };
 
                 $scope.ticket = {};
                 $scope.ticket.watchedQty = {};
+                $scope.isDelivery = true;
 
                 $scope.$watchCollection('ticket.watchedQty', function (newVal, oldVal) {
                     var productsToBeDeliveredQty = 0;
@@ -56,6 +62,28 @@
                     }
                 });
 
+                $scope.$watchCollection('schedule',function(){
+                    if($scope.schedule.minute>59){
+                        $scope.schedule.minute = 59;
+                    }
+                    $scope.dtFilter.deliveryDate = setTime($scope.dtFilter.deliveryDate, $scope.schedule.hour, $scope.schedule.minute, 0, 0, 0);
+                });
+                
+                $scope.$watch('dtFilter.deliveryDate',function(newVal, oldVal){
+                    var today = $scope.dtFilter.minDate;
+                    
+                    var isToday = newVal.getDate() === today.getDate() && 
+                                newVal.getMonth() === today.getMonth() &&
+                                newVal.getFullYear() === today.getFullYear();
+                    
+                    if(isToday){
+                        $scope.schedule.hour = new Date().getHours();
+                        $scope.schedule.minute =  new Date().getMinutes();
+                    }
+                    
+                    $scope.isDelivery = isToday;
+                });
+
                 $scope.confirm = function () {
                     var dialogData = {
                         title : 'Entrega de produtos',
@@ -64,8 +92,17 @@
                         btnNo : 'Não'
                     };
                     
-                    var deliveryDate = setTime($scope.dtFilter.deliveryDate, 0, 0, 0, 0, 0);
-                    var actualDate = setTime(new Date(), 0, 0, 0, 0, 0);
+                    var deliveryDate = angular.copy($scope.dtFilter.deliveryDate);
+                    deliveryDate.setHours(0);
+                    deliveryDate.setMinutes(0);
+                    deliveryDate.setSeconds(0);
+                    deliveryDate.setMilliseconds(0);
+
+                    var actualDate = new Date();
+                    actualDate.setHours(0);
+                    actualDate.setMinutes(0);
+                    actualDate.setSeconds(0);
+                    deliveryDate.setMilliseconds(0);
                    
                     var result = null;
                     if (deliveryDate.getTime() === actualDate.getTime()) {
@@ -73,7 +110,7 @@
                             result = delivery();
                         });
                     } else {
-                        result = schedule(deliveryDate, $scope.selectedOrder.uuid);
+                        result = schedule($scope.dtFilter.deliveryDate, $scope.selectedOrder.uuid);
                     }
 
                     return result;
@@ -137,8 +174,9 @@
                     var scheduleData = {
                         deliveryDate : deliveryDate,
                         orderUUID : orderUUID,
-                        items : updatedItems,
+                        items : updatedItems
                     };
+
                     var result = DialogService.openDialogDeliveryScheduler(scheduleData);
 
                     result.then(function () {
