@@ -1,52 +1,47 @@
-<script>
-var initMagnifier = function () {
-    $('#magnifier').zoom({magnify: 2});
-};
-</script>
-
 <div class="modal-head">
 {{product.title}}
     
 </div>
 <div class="modal-body modal-add-basket-dialog-body">
+
     <div class="img-holder">
-        <div class='zoom' id='magnifier'>
-            <!-- <img ng-src="{{config.imageBaseURL}}{{product.image}}" onload="javascript:initMagnifier();" alt="" />  -->
-            <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
-        </div>
-
-        <div class="unique-name-holder" ng-class="{ 'without-img' : !grid[0].image }">
-            <img ng-if="grid[0].image" once-src="getImageData(grid[0].SKU)" alt="sample" />
-            <small>{{uniqueName}}</small>
-        </div>
+        <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
     </div>
-    <div class="info" fast-click>
 
-        <div class="info-item price">
-            <small>R$</small>{{product.price | currency:''}}</span>
-        </div> 
+    <div class="unique-name-holder" ng-class="{ 'without-img' : !grid[0].image }">
+        <img ng-if="grid[0].image" once-src="getImageData(grid[0].SKU)" alt="sample" />
+        <small>{{uniqueName}}</small>
+    </div>
+
+    <div class="box-info" fast-click>
         
         <div class="info-item quantity">
             <span class="info-label">Qtde</span>
             <tnt-number-picker ng-model="grid[0].qty" min="0"></tnt-number-picker>
         </div>
 
-        <div class="info-item total">
-            <span class="info-label">Subtotal</span>
-            <span class="total-value">
-                <small>R$</small> {{product.price * grid[0].qty | currency:''}}
-            </span>
-        </div>
 
          <div class="info-item discount" ng-show="showDiscount">
             <span class="info-label">Desconto</span>
             <span class="fake-input" tnt-promise-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
         </div>
            
-        <div class="line-gradient">&nbsp;</div>
-        <div class="stock">{{product.inventory}} em estoque</div>
     </div>
 
+    <div class="box-price-total">
+        <div class="info-item price">
+            <span class="info-label">Preço Un.</span>
+            <small>R$</small>{{product.price | currency:''}}</span>
+        </div> 
+        <div class="info-item total">
+            <span class="info-label">Subtotal</span>
+            <span class="total-value">
+                <small>R$</small> {{product.price * grid[0].qty | currency:''}}
+            </span>
+        </div>
+    </div>
+
+    <div class="stock">{{product.inventory}} em estoque</div>
     
 </div>
 <div class="modal-foot" fast-click>
