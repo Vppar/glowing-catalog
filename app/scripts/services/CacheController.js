@@ -142,7 +142,7 @@
         }
 
         var userDecision = true;
-        this.popUp = function () {
+        this.userConfirmationPopUp = function () {
             if(userDecision){
                 var dialog = {
                     title: 'Atualização',

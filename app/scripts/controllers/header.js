@@ -90,11 +90,10 @@
                 
                 function addCacheUpdateListeners(){
                     CacheController.getPromise().then(function(status){
-//                        $scope.update=true;
                         $element.find('img.loading-icon').css('visibility', 'hidden');
                         if(status==="UPDATEREADY"){
                             $scope.update=true;
-                            CacheController.popUp();
+                            CacheController.userConfirmationPopUp();
                         }else{
                             $scope.update=false;
                         }
