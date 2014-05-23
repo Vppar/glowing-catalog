@@ -9,7 +9,6 @@
             // Local variables
             // #####################################################################################################
             var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
-            var TODAY = new Date();
 
             // #####################################################################################################
             // Local Functions
@@ -161,9 +160,9 @@
             }
 
             function twoDigitsLimit(value, limit) {
-                var result = value;
-                if (value > limit) {
-                    result = limit;
+                var result = String(value);
+                if (Number(value) > Number(limit)) {
+                    result = String(limit);
                 }
 
                 if (result.length < 2) {
@@ -171,7 +170,6 @@
                 } else if (result.length === 3) {
                     result = result.slice(1);
                 }
-
                 return result;
             }
 
@@ -179,11 +177,11 @@
             // Scope variables
             // #####################################################################################################
             $scope.schedule = {
-                hour: TODAY.getHours(),
-                minute: TODAY.getMinutes()
+                hour: null,
+                minute: null
             };
             $scope.dtFilter = {
-                deliveryDate: setTime(new Date(), 0, 0, 0, 0),
+                deliveryDate: null,
                 minDate: setTime(new Date(), 0, 0, 0, 0)
             };
             $scope.ticket = {};
@@ -235,8 +233,8 @@
                     newVal.getFullYear() === today.getFullYear();
 
                 if (isToday) {
-                    $scope.schedule.hour = new Date().getHours();
-                    $scope.schedule.minute = new Date().getMinutes();
+                    $scope.schedule.hour = twoDigitsLimit(new Date().getHours(), 23);
+                    $scope.schedule.minute = twoDigitsLimit(new Date().getMinutes(), 59);
                 }
 
                 $scope.isDelivery = isToday;
@@ -265,7 +263,6 @@
             // Warmup
             // #####################################################################################################
 
-
             var scheduledDate = null;
             if ($scope.selectedOrder.schedule) {
                 scheduledDate = new Date($scope.selectedOrder.schedule.date);
@@ -280,8 +277,9 @@
             } else {
                 scheduledDate = new Date();
             }
+            $scope.schedule.hour = twoDigitsLimit(scheduledDate.getHours(), 23);
+            $scope.schedule.minute = twoDigitsLimit(scheduledDate.getMinutes(), 59);
             $scope.dtFilter.deliveryDate = setTime(scheduledDate, 0, 0, 0, 0);
-
         },
         [
             '$scope',
