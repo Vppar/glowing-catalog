@@ -3,6 +3,32 @@
 * (this stylesheet have all the styles for make a form wort with a generic page)
 */
 
+#sacred .form .row{
+	margin-bottom:10px;
+}
+#sacred .form input[type="text"],
+#sacred .form input[type="password"]{
+	width:100%;
+	min-height:30px;
+}
+
+#sacred .form .inline-date input[type="text"]{
+	width: calc(100% - 40px);
+	float: left;
+}
+#sacred .form .inline-date img{
+	float: left;
+	margin-top: 3px;
+	margin-left: 5px;
+}
+
+#sacred .form .inline-label{
+	min-height:30px;
+	line-height: 30px;
+}
+
+
+
 #sacred .input-with-buttom-right{
 
 }

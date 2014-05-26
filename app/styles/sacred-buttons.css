@@ -18,6 +18,11 @@
 	margin-right:0;
 	float: right;
 }
+#sacred .button-black.pull-left,
+#sacred .button-green.pull-left{
+	margin-left:0;
+	float: left;
+}
 
 #sacred .button-black,
 #sacred .button-green{
