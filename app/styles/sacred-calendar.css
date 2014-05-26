@@ -63,3 +63,9 @@
 #sacred .calendar-label-left.margin-0{
   margin-right: 0px;
 }
+
+/* when we change the visualization mode, also the box width is changed */
+/* old versions of calendars must receive this class too, this way ".calendar" is necessary */
+
+.calendar .dropdown-menu li table ,
+#sacred-calendar .dropdown-menu li table {min-width:290px;}
