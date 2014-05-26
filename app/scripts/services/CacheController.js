@@ -5,7 +5,7 @@
         'tnt.util.log', 'tnt.catalog.service.dialog'
     ]);
 
-    manifest.service('CacheController', ['$q', '$rootScope', 'logger', 'DialogService', function CacheController($q, $rootScope, logger, DialogService) {
+    manifest.service('CacheController', ['$q', '$rootScope', '$window','logger', 'DialogService', function CacheController($q, $rootScope, $window, logger, DialogService) {
 
         var log = logger.getLogger('tnt.catalog.manifest.CacheController');
 
@@ -151,8 +151,7 @@
                     btnYes: 'Sim'
                 };
                 DialogService.messageDialog(dialog).then(function () {
-                    $scope.update = false;
-                    location.reload();
+                    $window.location.reload();
                 }, function(){
                     userDecision = false;
                 });
