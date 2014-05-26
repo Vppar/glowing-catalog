@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.22'
+# 'version' : '1.2.22-60'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -103,6 +103,7 @@ images/keyboard/btn-back.png
 images/keyboard/percent.png
 
 images/icon-drop-menu.png
+images/icon-drop-menu-yellow.png
 images/cat-li-menu.png
 images/plus-w.png
 images/last-opportunity-banner-v2.png

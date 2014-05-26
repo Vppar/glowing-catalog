@@ -15,6 +15,8 @@
                 var order = OrderService.order;
                 $scope.order = order;
 
+                $scope.update = false;
+
                 // FIXME: is it really safe to remove this? (see
                 // $scope.checkout())
                 function inBasketFilter(item) {
@@ -87,17 +89,30 @@
                 // #############################################################################################################
                 
                 function addCacheUpdateListeners(){
-                    CacheController.getPromise().then(function(){
+                    CacheController.getPromise().then(function(status){
                         $element.find('img.loading-icon').css('visibility', 'hidden');
+                        if(status==="UPDATEREADY"){
+                            $scope.update=true;
+                            CacheController.userConfirmationPopUp();
+                        }else{
+                            $scope.update=false;
+                        }
                     }, function(){
                         $element.find('img.loading-icon').css('visibility', 'hidden');
+                        $scope.update=false;
                     });
                 }
                 addCacheUpdateListeners();
-                
+
+                $scope.forceUpdate = function(){
+                        $scope.update=false;
+                        location.reload();
+                };
+
                 $scope.updateCache = function(){
                     CacheController.checkForUpdates().then(function(){
                         $element.find('img.loading-icon').css('visibility', '');
+                        $scope.update=true;
                         addCacheUpdateListeners();
                     });
                 };
