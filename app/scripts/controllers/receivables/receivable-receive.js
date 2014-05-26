@@ -43,6 +43,20 @@
                     }
                 ];
 
+                $scope.paymentOptions = [
+                    {
+                        id: 0,
+                        describe: 'Cheque',
+                        type: 'check'
+
+                    },
+                    {
+                        id: 1,
+                        describe: 'Saldo a receber',
+                        type: 'onCuff'
+                    }
+                ];
+
                 $scope.paymentsType = [
                     {
                         id: 0,
