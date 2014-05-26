@@ -111,8 +111,52 @@
                         drawGuide(currentBand);
                     }
 
+                    
+                    var posx = currentBand*x.rangeBand();
+                    var posy = y(goals[currentBand]);
+                    drawTip(posx,posy,78, 'goal-tip');
+                    drawTip(posx,0,78, 'snapshot-tip');
+
                     drawLine('#5892ce',goals);
                     drawLine('#ab147a',snapshots);
+                }
+
+                function drawTip(x,y,label,clazz){
+                    var w = 36;
+                    var h = 20;
+                    var triangleSize = w/4;
+                    var format = d3.format('');
+
+                    var triangleMap = d3.svg.line()
+                    .x(function(d){
+                        return d.x;
+                    })
+                    .y(function(d){
+                        return d.y;
+                    });
+
+                    var triangle = [
+                    {x:x,y:y},
+                    {x:x+triangleSize/2,y:y-triangleSize/2},
+                    {x:x-triangleSize/2,y:y-triangleSize/2}
+                    ];
+
+                    var tip = canvas.append('g').attr('class', clazz);
+
+                    tip.append('path')
+                    .attr("d", triangleMap(triangle));
+
+                    tip.append('rect')
+                    .attr('width', w)
+                    .attr('height', h)
+                    .attr('x', x-(w/2))
+                    .attr('y', y-(h+triangleSize/2)+1);
+
+                    tip.append('text')
+                    .attr('x', x-(w/2))
+                    .attr('y', y-(h+triangleSize))
+                    .style("text-anchor", "middle")
+                    .text(format(label));
                 }
 
 
