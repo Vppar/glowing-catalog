@@ -41,7 +41,6 @@
             promise.then(function(resolution) {
                 logged = true;
                 PrefetchService.doIt();
-                SyncDriver.registerSyncService(SyncService);
                 deferred.resolve(resolution);
             }, function(rejection){
                 deferred.reject(rejection);
@@ -109,7 +108,9 @@
             // FIXME: This should initialize warm up data during development.
             // Should be removed ASAP!
             loggedPromise.then(function () {
-                SyncService.resync();
+                return SyncService.resync().then(function () {
+                    return SyncDriver.registerSyncService(SyncService);
+                });
             });
 
             return loggedPromise;

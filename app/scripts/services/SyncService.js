@@ -33,10 +33,6 @@
                     sync();
                 });
 
-                $rootScope.$on('EntryReceived', function (e, entry) {
-                    insert(entry);
-                });
-
                 $rootScope.$on('FirebaseDisconnected', function () {
                     if (isSynching()) {
                         log.debug('Disconnected from Firebase during sync!');
@@ -343,10 +339,12 @@
                 function insert (entry) {
                     if (entry instanceof Array) {
                         var all = [];
-                        var len, i;
+                        var len, i, e;
 
                         for (i = 0, len = entry.length; i < len; i += 1) {
-                            all.push(insert(entry[i]));
+                            e = entry[i];
+                            if (!e) { continue; }
+                            all.push(insert(e));
                         }
 
                         return $q.all(all);
