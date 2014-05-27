@@ -26,6 +26,7 @@
                 var hasTip = null;
                 var height = null;
                 var textTopMargin = null;
+                var currentGoal = null;
                 var canvas = d3.select(element[0]).append('svg');
                 var y = null;
 
@@ -41,6 +42,7 @@
                 function setValues() {
                     goal = scope.values.goal;
                     snapshot = scope.values.snapshot;
+                    currentGoal = scope.values.currentGoal;
                     hasTip = scope.tip;
                     height = scope.height;
                     textTopMargin = scope.margintop;
@@ -64,13 +66,16 @@
                         drawBar(goal, 'goal');
                         drawBar(snapshot, 'snapshot');
                         drawLine(snapshot);
+                        drawLine(currentGoal);
                     } else {
                         drawBar(snapshot, 'snapshot');
                         drawBar(goal, 'goal');
+                        drawLine(currentGoal);
                         drawLine(goal);
                     }
 
                     drawTip(goal, 1, 'goal-tip');
+                    drawTip(currentGoal, currentGoal/goal, 'goal-tip');
                     drawTip(snapshot, snapshot/goal, 'snapshot-tip');
                 }
 
