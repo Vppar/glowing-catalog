@@ -248,13 +248,36 @@
                     return deferred.promise;
                 };
 
+
                 this.registerSyncService =
                     function (SyncService) {
-                        journalRef.startAt(SyncService.getLastSyncedSequence() + 1).on(
-                            'child_added',
-                            function (snapshot) {
-                                var entry = snapshot.val();
-                                $rootScope.$broadcast('EntryReceived', entry);
+                        var lastSynced = SyncService.getLastSyncedSequence();
+                        var startIndex = lastSynced === null ? 0 : lastSynced + 1;
+
+                        function setChildAddedHandler() {
+                            journalRef
+                                .startAt(SyncService.getLastSyncedSequence() + 1)
+                                .on('child_added', function (snapshot) {
+                                    SyncService.insert(snapshot.val());
+                                });
+
+                            $log.debug('Waiting for new entries');
+                        }
+
+                        journalRef
+                            .startAt(startIndex)
+                            .once('value', function (snapshot) {
+                                var entries = snapshot.val();
+
+                                if (entries && entries.length) {
+                                    $log.debug('Starting bulk sync!');
+                                    SyncService
+                                        .insert(entries)
+                                        .then(setChildAddedHandler);
+                                } else {
+                                    $log.debug('Nothing to sync');
+                                    setChildAddedHandler();
+                                }
                             });
                     };
 
