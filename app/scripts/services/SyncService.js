@@ -341,6 +341,18 @@
                  * @return {Promise} The promise returned by the JournalKeeper.
                  */
                 function insert (entry) {
+                    if (entry instanceof Array) {
+                        var all = [];
+                        var len, i;
+
+                        for (i = 0, len = entry.length; i < len; i += 1) {
+                            all.push(insert(entry[i]));
+                        }
+
+                        return $q.all(all);
+                    }
+
+
                     log.debug('INSERTING', entry);
                     if (!entry || typeof entry !== 'object') {
                         log.fatal('Trying to insert an invalid entry!', entry);
@@ -599,6 +611,7 @@
                     return JournalKeeper.resync();
                 };
 
+                this.insert = insert;
                 this.clearData = clearData;
                 this.hasUnsyncedEntries = hasUnsyncedEntries;
                 this.sync = sync;
