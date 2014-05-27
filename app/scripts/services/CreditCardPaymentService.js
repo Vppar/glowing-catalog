@@ -81,14 +81,17 @@
 
                             // remove confidential info
                             delete creditCard.cvv;
-                            creditCard.flag = flagTranslator3000(creditCard.number);
+                            if(!creditCard.flag){
+                                creditCard.flag = flagTranslator3000(creditCard.number);
+                            }
+                            
                             if (creditCard.number) {
                                 creditCard.number = creditCard.number.slice(-4);
                             }
 
                             creditCard.amount = amount;
                             creditCard.installment = numInstallments;
-                            creditCard.dueDate = getDueDate(new Date());;
+                            creditCard.dueDate = getDueDate(new Date());
                             creditCard.creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
 
                             var payment =
@@ -135,30 +138,43 @@
                  * @param creditCard - The credit card information.
                  * @param amount - Charged amount.
                  * @param numInstallments - Number of installments.
+                 * @param isPPPayment - if should send for pagpop.
                  */
                 this.charge =
-                    function charge(customer, creditCard, amount, numInstallments) {
+                    function charge(customer, creditCard, amount, numInstallments, isPPPayment) {
                         var recordedPayment = null;
                         try {
                             var creditCardCopy = angular.copy(creditCard);
-                            var chargedCCPromise = this.sendCharges({
-                                customer: customer,
-                                creditCard: creditCardCopy,
-                                amount: amount,
-                                installments: numInstallments
-                            });
-                            recordedPayment =
-                                chargedCCPromise.then(function (gatewayInfo) {
-                                    return _this.createCreditCardPayments(
-                                        customer, creditCardCopy, amount, numInstallments, gatewayInfo);
-                                }, function (errMsg) {
-                                    return $q.reject(errMsg);
+                            
+                            if(isPPPayment){
+                                //send charges for PAG POP
+                                var chargedCCPromise = this.sendCharges({
+                                    customer: customer,
+                                    creditCard: creditCardCopy,
+                                    amount: amount,
+                                    installments: numInstallments
                                 });
+                                recordedPayment =
+                                    chargedCCPromise.then(function (gatewayInfo) {
+                                        return _this.createCreditCardPayments(
+                                            customer, creditCardCopy, amount, numInstallments, gatewayInfo);
+                                    }, function (errMsg) {
+                                        return $q.reject(errMsg);
+                                    });
+                            }else{
+                                //do not send charges for pagpop
+                                var deferred = $q.defer();
+                                deferred.resolve(this.createCreditCardPayments(
+                                    customer, creditCardCopy, amount, numInstallments, null));
+                                return deferred.promise;
+                                
+                            }
+                            
                         } catch (err) {
                             $log.fatal('CreditcardPaymentService.charge', err);
                             recordedPayment = $q.reject(errMsgs.fatal);
                         }
-
+                        
                         return recordedPayment;
                     };
 

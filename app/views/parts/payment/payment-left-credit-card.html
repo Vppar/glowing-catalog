@@ -5,11 +5,11 @@
 <div class="left-payment payment-credit-card" ng-controller="PaymentCreditCardCtrl">
 	
 	<!-- Full form (with merchant & internet connection) -->
-	<form name="creditCardForm" >
+	<form name="creditCardForm" ng-switch on="formType" >
 
 		<div class="title-left">FORMA DE PAGAMENTO</div>
 
-		<div ng-if="true">
+		<div ng-switch-when="full">
 			<div class="row-fluid margint7">
 				<span class="new-col-16">
 					<div class="control-group margint7">
@@ -63,7 +63,7 @@
 		</div>	
 			
 		<!-- Partial form (without merchant) -->
-		<div ng-if="false">
+		<div ng-switch-when="partial">
 			<div class="row-fluid margint7">
 				<span class="new-col-11">
 					<div class="control-group">
