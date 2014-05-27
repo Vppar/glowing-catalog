@@ -258,7 +258,9 @@
                             journalRef
                                 .startAt(SyncService.getLastSyncedSequence() + 1)
                                 .on('child_added', function (snapshot) {
+                                    var entry = snapshot.val();
                                     SyncService.insert(snapshot.val());
+                                    $rootScope.$broadcast('EntryReceived', entry);
                                 });
 
                             $log.debug('Waiting for new entries');
@@ -270,7 +272,7 @@
                                 var entries = snapshot.val();
 
                                 if (entries && entries.length) {
-                                    $log.debug('Starting bulk sync!');
+                                    $log.debug('Starting bulk sync of ' + entries.length + ' entries!');
                                     SyncService
                                         .insert(entries)
                                         .then(setChildAddedHandler);
