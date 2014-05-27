@@ -31,7 +31,7 @@
 
                 var leftMargin = 45;
                 var bottomMargin = 40;
-                var topMargin = 10;
+                var topMargin = 30;
 
                 //get the max value of goals (this is needed to make the chart y scale) 
                 var max = null;
@@ -95,7 +95,6 @@
                     currentBand = validBandIndex ? values.current + 1 : null;
                 }
 
-
                 function draw() {
                     clear();
                     setValues();
@@ -111,11 +110,37 @@
                         drawGuide(currentBand);
                     }
 
+                    var lastBand = bands[goals.length-1];
+                    var band = bands[currentBand-1];
+                    var posyGoal = 0;
+                    var posySnap = 0;
+                    var posyFinal = 0;
+                    var posxFinal = 0;
+                    var valueSnap = 0;
+                    var valueGoal = 0;
+                    var valueGoalFinal = 0;
                     
                     var posx = currentBand*x.rangeBand();
-                    var posy = y(goals[currentBand]);
-                    drawTip(posx,posy,78, 'goal-tip');
-                    drawTip(posx,0,78, 'snapshot-tip');
+                    if(!posx) posx = 0;
+                    
+                    if(lastBand){
+                        posxFinal = x.rangeBand()*(goals.length);
+                        posyFinal = y(lastBand.goal)+topMargin;
+                        valueGoalFinal = lastBand.goal;
+                    }
+                    if(band){
+                        posySnap = y(band.snapshot)+topMargin;
+                        posyGoal = y(band.goal)+topMargin;
+                        valueSnap = band.snapshot;
+                        valueGoal = band.goal;
+                        
+                    }
+                   
+                    drawTip(posx,posyGoal-10,valueGoal,'goal-tip');
+
+                    drawTip(posx,posySnap-10,valueSnap, 'snapshot-tip');
+
+                    drawTip(posxFinal,posyFinal-10,valueGoalFinal, 'goal-tip');
 
                     drawLine('#5892ce',goals);
                     drawLine('#ab147a',snapshots);
@@ -136,12 +161,13 @@
                     });
 
                     var triangle = [
-                    {x:x,y:y},
-                    {x:x+triangleSize/2,y:y-triangleSize/2},
-                    {x:x-triangleSize/2,y:y-triangleSize/2}
+                    {x:0,y:0},
+                    {x:triangleSize/2,y:-triangleSize/2},
+                    {x:-triangleSize/2,y:-triangleSize/2}
                     ];
 
-                    var tip = canvas.append('g').attr('class', clazz);
+                    var tip = canvas.append('g').attr('class', clazz)
+                    .attr("transform", "translate("+x+","+(y+(h/4))+")");
 
                     tip.append('path')
                     .attr("d", triangleMap(triangle));
@@ -149,12 +175,12 @@
                     tip.append('rect')
                     .attr('width', w)
                     .attr('height', h)
-                    .attr('x', x-(w/2))
-                    .attr('y', y-(h+triangleSize/2)+1);
+                    .attr('x', -(w/2))
+                    .attr('y', -(h+triangleSize/2)+1);
 
                     tip.append('text')
-                    .attr('x', x-(w/2))
-                    .attr('y', y-(h+triangleSize))
+                    .attr('x', 0)
+                    .attr('y', -w/4)
                     .style("text-anchor", "middle")
                     .text(format(label));
                 }
@@ -171,7 +197,6 @@
                         .call(xAxis);
                 }
 
-
                 function drawGuide(order){
                     var guide = canvas.append("line")
                         .attr('class','guide')
@@ -180,7 +205,6 @@
                         .attr("y1", function(d){ return 0;})
                         .attr("y2", function(d){ return chartHeight+topMargin;});
                 }
-
 
                 function drawLine(color,points){
                     var lineMap = d3.svg.line()
