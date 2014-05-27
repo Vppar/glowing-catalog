@@ -10,12 +10,6 @@
      box-shadow: -5px -5px 100px 10px #525151;
 	width:410px;
 }
-.modal-add-customer-tel form{
-	margin-bottom: 0px;
-}
-.modal-add-customer-tel .input-append {
-	width: 185px;
-}
 
 .modal-add-customer-email{
 	 position: absolute;
@@ -48,16 +42,6 @@
 	border-bottom: 1px solid #ccc;
 	display: inline-block;
 	width: 100%
-}
-.scroll-tels, .scroll-emails {
-	width: 347px;
-	height: 80px;
-	border: 1px solid #ccc;
-	display: inline-block;
-	border-radius: 6px;
-	padding: 10px;
-	overflow-y: auto;
-	-webkit-overflow-scrolling: touch;
 }
 /*forms*/
 .lbl-city, .lbl-complement {

@@ -70,3 +70,31 @@
 .modal-body .form{
 	margin-bottom: 0px;
 }
+
+/* input with (+) */
+#sacred .modal-body .input-append .add-on {
+	height:30px;
+}
+#sacred .modal-body .input-append input {
+	width:98%;
+}
+
+/* scroll box for phones and emails */
+.scroll-box {
+	width:100%;
+	height:80px;
+	border:1px solid #ccc;
+	display:inline-block;
+	border-radius:6px;
+	padding:10px;
+	overflow-y:auto;
+	-webkit-overflow-scrolling:touch;
+	overflow-x:hidden;
+}
+
+
+
+/* purchase-order */
+#sacred .form .inline-date input#dateNf {
+	width:87px;
+}

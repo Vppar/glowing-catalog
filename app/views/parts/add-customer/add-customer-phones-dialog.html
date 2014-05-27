@@ -1,102 +1,61 @@
-<div class="modal-head">TELEFONES</div>
+<div id="sacred">
 
-<div class="modal-body modal-add-basket-details-dialog-body">
-	<form class="" name="newPhoneForm">
-		<div class="row-fluid">
-			<span class="span5"> 
-				<!-- <select class='customer-tel-type' ui-select2 tnt-select2 ng-model="phone.type"> -->
-				<select class='customer-tel-type' ng-model="phone.type">
-					<option ng-repeat="type in phoneTypes" value="{{type}}">{{type}}</option>
-				</select>
-			</span>
-			<span class="span7">
-				<div class="input-append add-cusomer-input-tels">
-					<input class="input-block-level" ng-model="phone.number" id="appendedInput" type="text" autofocus phone> 
-					<span ng-click='addPhone(phone)' class="add-on">+</span>
+	<div class="modal-head">Telefone(s)</div>
+
+	<div class="modal-body">
+		<form class="form" name="newPhoneForm">
+			<div class="fields">
+
+				<div class="row">
+					<div class="col-11">
+						<select class='customer-tel-type' ng-model="phone.type">
+							<option ng-repeat="type in phoneTypes" value="{{type}}">{{type}}</option>
+						</select>
+					</div>
+
+					<div class="col-13">
+						<div class="input-append">
+							<input ng-model="phone.number" id="appendedInput" type="text" autofocus phone> 
+							<span ng-click='addPhone(phone)' class="add-on">+</span>
+						</div>
+					</div>
 				</div>
-			</span>
-		</div>
 
-		<div class="row-fluid">
-			<span class="scroll-tels"> 
-				<span class="row-data-dialog" ng-repeat="item in phones"> 
-					<span class="span3">{{item.type}}:</span>
-					<span class="span6">{{item.number | phone}}</span> 
-					<span class="span1"> 
-						<span class="ic-sort-triangle" ng-click='moveDown($index)' ng-hide="$last"> 
-							<img src="images/ic-sort-triangle-down-pink.png" alt="" />
-						</span>
-					</span> 
-					<span class="span1"> 
-						<span class="ic-sort-triangle" ng-click='moveUp($index)' ng-hide="$first"> 
-							<img src="images/ic-sort-triangle-up-pink.png" alt="" />
-						</span>
-					</span> 
-					<span class="span1"> 
-						<span class="ic-sort-triangle" ng-click='remove($index)'> 
-							<img src="images/del-pink.png" alt="" />
-						</span>
-					</span>
-				</span>
-			</span>
-		</div>
-	</form>
-</div>
+				<div class="row">
+					<div class="col-24">
+						<div class="scroll-box">
+							<div ng-repeat="item in phones">
 
-<div class="modal-foot">
-	<hr />
-	<button class="btn btn-large btn-cancel" type="button" ng-click='cancel()'>Fechar</button>
-	<button class="btn btn-large btn-ok pull-right" type="button" ng-click='confirm()' ng-disabled="isDisabled" >Salvar</button>
-</div>
-<!--
-<div class="container">
-	<form class="form-add-tel" name="newPhoneForm">
-		<span class="heading-gradient">TELEFONES</span>
+								<div class="col-6">{{item.type}}:</div>
+								<div class="col-12">{{item.number | phone}}</div> 
+								<div class="col-2"> 
+									<div class="ic-sort-triangle" ng-click='moveDown($index)' ng-hide="$last"> 
+										<img src="images/ic-sort-triangle-down-pink.png" alt="" />
+									</div>
+								</div> 
+								<div class="col-2"> 
+									<div class="ic-sort-triangle" ng-click='moveUp($index)' ng-hide="$first"> 
+										<img src="images/ic-sort-triangle-up-pink.png" alt="" />
+									</div>
+								</div> 
+								<div class="col-2"> 
+									<div class="ic-sort-triangle" ng-click='remove($index)'> 
+										<img src="images/del-pink.png" alt="" />
+									</div>
+								</div>
 
-		<div class="row-fluid">
-			<span class="span5"> 
-			<select class='customer-tel-type'
-				ui-select2 tnt-select2 ng-model="phone.type">
-					<option ng-repeat="type in phoneTypes"
-						value="{{type}}">{{type}}</option>
-			</select>
-
-			</span>
-			<span class="span7">
-				<div class="input-append add-cusomer-input-tels">
-					<input class="input-block-level" ng-model="phone.number"
-						id="appendedInput" type="text" autofocus phone> <span
-						ng-click='addPhone(phone)' class="add-on">+</span>
+							</div>
+						</div>
+					</div>
 				</div>
-			</span>
-		</div>
-		<div class="row-fluid">
-			<span class="scroll-tels"> 
-				<span class="row-data-dialog"
-				ng-repeat="item in phones"> <span class="span3">{{item.type}}:</span>
-					<span class="span6">{{item.number | phone}}</span> <span
-					class="span1"> <span class="ic-sort-triangle"
-						ng-click='moveDown($index)' ng-hide="$last"> <img
-							src="images/ic-sort-triangle-down-pink.png" alt="" />
-					</span>
-				</span> <span class="span1"> <span class="ic-sort-triangle"
-						ng-click='moveUp($index)' ng-hide="$first"> <img
-							src="images/ic-sort-triangle-up-pink.png" alt="" />
-					</span>
-				</span> <span class="span1"> <span class="ic-sort-triangle"
-						ng-click='remove($index)'> <img src="images/del-pink.png"
-							alt="" />
-					</span>
-				</span>
-			</span>
-			</span>
-		</div>
-		<div class="clearfix"></div>
+
+			</div>
+		</form>
+	</div>
+
+	<div class="modal-foot">
 		<hr />
-		<button class="btn btn-large btn-cancel" type="button"
-			ng-click='cancel()'>Fechar</button>
-		<button class="btn btn-large btn-ok pull-right" type="button"
-			ng-click='confirm()' ng-disabled="isDisabled" >Salvar</button>
-	</form>
+		<button class="button-black pull-left" type="button" ng-click='cancel()'>Fechar</button>
+		<button class="button-green pull-right" type="button" ng-click='confirm()' ng-disabled="isDisabled" >Salvar</button>
+	</div>
 </div>
--->
