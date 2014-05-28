@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig) {
+        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog'
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService) {
 
         var log = logger.getLogger('tnt.catalog.user.UserService');
         
@@ -96,6 +96,8 @@
         };
 
         this.login = function(user, pass) {
+            var dialog = DialogService.openDialogLoading({});
+
             var onlineLoggedPromise = this.loginOnline(user, pass);
             var loggedIn = this.loggedIn;
             var onlineLoginErrorHandler = this.onlineLoginErrorHandler;
@@ -105,15 +107,18 @@
                 return onlineLoginErrorHandler(err, user, pass);
             });
 
-            // FIXME: This should initialize warm up data during development.
-            // Should be removed ASAP!
-            loggedPromise.then(function () {
-                return SyncService.resync().then(function () {
-                    return SyncDriver.registerSyncService(SyncService);
-                });
-            });
+            function closeLoadingDialog() {
+                dialog.$scope.cancel();
+            }
 
-            return loggedPromise;
+            return loggedPromise
+                .then(function () {
+                    return SyncService.resync().then(function () {
+                        return SyncDriver.registerSyncService(SyncService);
+                    });
+                })
+
+                .finally(closeLoadingDialog);
         };
 
         this.logout = function() {

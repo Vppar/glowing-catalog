@@ -6,25 +6,17 @@
         // I needed a more flexible `openDialog` function but did'n wanted to change the
         // signature of the currently used one. Therefore I'm creating this underscored
         // function.
-        function _openDialog(template, controller, data, options, parentDialog) {
+        function _openDialog(data, options) {
             options = options || {};
 
             var dialog = $dialog.dialog(options);
             dialog.data = data;
-            dialog.parentDialog = parentDialog;
 
             function closeDialog() {
                 dialog.$scope.cancel();
             }
 
-            if (parentDialog) {
-                // If the parent dialog's promise is ended somehow (resolved
-                // or rejected), close the child dialog.
-                parentDialog.deferred.promise.then(closeDialog, closeDialog);
-            }
-
-            console.log('>>> dialog.open()');
-            return dialog.open(template, controller);
+            return dialog;
         }
 
 
@@ -47,8 +39,16 @@
               dialogClass : cssClass
             };
 
-            console.log('!!!! _openDialog()');
-            return _openDialog(template, controller, data, options, parentDialog);
+            var dialog = _openDialog(data, options);
+            dialog.parentDialog = parentDialog;
+
+            if (parentDialog) {
+                // If the parent dialog's promise is ended somehow (resolved
+                // or rejected), close the child dialog.
+                parentDialog.deferred.promise.then(closeDialog, closeDialog);
+            }
+
+            return dialog.open(template, controller);
         };
 
         this.openDialog = openDialog;
@@ -142,7 +142,11 @@
                 dialogClass : 'loading-dialog'
             };
 
-            return _openDialog('views/parts/global/loading-dialog.html', 'LoadingDialogCtrl', data, options);
+            var dialog = _openDialog(data, options);
+
+            dialog.open('views/parts/global/loading-dialog.html', 'LoadingDialogCtrl');
+
+            return dialog;
         };
     }]);
 

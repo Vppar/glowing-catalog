@@ -251,6 +251,8 @@
 
                 this.registerSyncService =
                     function (SyncService) {
+                        var deferred = $q.defer();
+
                         var lastSynced = SyncService.getLastSyncedSequence();
                         var startIndex = lastSynced === null ? 0 : lastSynced + 1;
 
@@ -275,12 +277,20 @@
                                     $log.debug('Starting bulk sync of ' + entries.length + ' entries!');
                                     SyncService
                                         .insert(entries)
-                                        .then(setChildAddedHandler);
+                                        .then(setChildAddedHandler)
+                                        .then(function () {
+                                            deferred.resolve();
+                                        }, function () {
+                                            deferred.reject();
+                                        });
                                 } else {
                                     $log.debug('Nothing to sync');
                                     setChildAddedHandler();
+                                    deferred.resolve();
                                 }
                             });
+
+                        return deferred.promise;
                     };
 
                 this.save = function (entry) {
