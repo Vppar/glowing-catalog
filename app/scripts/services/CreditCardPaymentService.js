@@ -91,7 +91,7 @@
 
                             creditCard.amount = amount;
                             creditCard.installment = numInstallments;
-                            creditCard.dueDate = getDueDate(new Date());
+                            creditCard.dueDate = getDueDate(new Date(), gatewayInfo);
                             creditCard.creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
 
                             var payment =
@@ -112,7 +112,12 @@
                   * Return the day of experation date for this CC payment.
                   * This method uses the PagPop policy of payments.
                   */
-                 function getDueDate(actualDate){
+                 function getDueDate(actualDate, gatewayInfo){
+                     
+                     if(!gatewayInfo){
+                         return actualDate;
+                     }
+                     
                      var duedate = actualDate;
                      var day = duedate.getDate();
                      if(day > 23 || day <= 3){
