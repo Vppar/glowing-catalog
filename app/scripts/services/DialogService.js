@@ -2,6 +2,32 @@
     'use strict';
     angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', ['$q','$dialog', function($q, $dialog) {
 
+        
+        // I needed a more flexible `openDialog` function but did'n wanted to change the
+        // signature of the currently used one. Therefore I'm creating this underscored
+        // function.
+        function _openDialog(template, controller, data, options, parentDialog) {
+            options = options || {};
+
+            var dialog = $dialog.dialog(options);
+            dialog.data = data;
+            dialog.parentDialog = parentDialog;
+
+            function closeDialog() {
+                dialog.$scope.cancel();
+            }
+
+            if (parentDialog) {
+                // If the parent dialog's promise is ended somehow (resolved
+                // or rejected), close the child dialog.
+                parentDialog.deferred.promise.then(closeDialog, closeDialog);
+            }
+
+            console.log('>>> dialog.open()');
+            return dialog.open(template, controller);
+        }
+
+
         /**
          * Generic function to open a dialog.
          * 
@@ -15,26 +41,14 @@
          * 
          */
         var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
-            var d = $dialog.dialog({
-                backdrop : !parentDialog,
-                backdropClick : true,
-                dialogClass : cssClass
-            });
+            var options = {
+              backdrop : !parentDialog,
+              backdropClick : true,
+              dialogClass : cssClass
+            };
 
-            d.data = data;
-            d.parentDialog = parentDialog;
-
-            function closeDialog() {
-                d.$scope.cancel();
-            }
-
-            if (parentDialog) {
-                // If the parent dialog's promise is ended somehow (resolved
-                // or rejected), close the child dialog.
-                parentDialog.deferred.promise.then(closeDialog, closeDialog);
-            }
-
-            return d.open(template, controller);
+            console.log('!!!! _openDialog()');
+            return _openDialog(template, controller, data, options, parentDialog);
         };
 
         this.openDialog = openDialog;
@@ -119,6 +133,16 @@
         
         this.openDialogDeliveryScheduler = function(data) {
             return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
+        };
+
+        this.openDialogLoading = function (data) {
+            var options = {
+                backdrop : true,
+                backdropClick : false,
+                dialogClass : 'loading-dialog'
+            };
+
+            return _openDialog('views/parts/global/loading-dialog.html', 'LoadingDialogCtrl', data, options);
         };
     }]);
 
