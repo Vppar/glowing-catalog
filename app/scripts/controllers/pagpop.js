@@ -1,73 +1,104 @@
-(function(angular) {
+(function (angular) {
     'use strict';
 
     angular.module('tnt.catalog.pagpop', [
         'tnt.catalog.user', 'tnt.catalog.receivable.service', 'tnt.utils.array'
-    ]).controller(
+    ])
+        .controller(
             'PagpopCtrl',
             [
-                '$scope', '$filter', 'EntityService', 'UserService', 'ReceivableService', 'ArrayUtils', 'FinancialMathService',
-                function($scope, $filter, EntityService, UserService, ReceivableService, ArrayUtils, FinancialMathService) {
+                '$scope',
+                '$filter',
+                'EntityService',
+                'UserService',
+                'ReceivableService',
+                'ArrayUtils',
+                'FinancialMathService',
+                function ($scope, $filter, EntityService, UserService, ReceivableService,
+                    ArrayUtils, FinancialMathService) {
 
                     var PP_FIXED_RATIO = 3.48;
                     var PP_MONTHLY_RATIO = 1.98;
-                    
+
                     UserService.redirectIfIsNotLoggedIn();
 
                     $scope.searchClient = '';
 
                     $scope.maxDate = new Date();
-                    
 
                     var receivables = ReceivableService.list();
                     var creditCardReceivables = ArrayUtils.list(receivables, 'type', 'creditCard');
 
                     var pagpopReceivables = [];
-                    for (var idx in creditCardReceivables) {
-                        if (!angular.isUndefined(creditCardReceivables[idx].payment.gatewayInfo)) {
-                            pagpopReceivables.push(augment(creditCardReceivables[idx]));
+                    
+                    
+                    //augment
+                    for ( var idx in creditCardReceivables) {
+                        var receivable = creditCardReceivables[idx];
+                        if (!angular.isUndefined(receivable.payment.gatewayInfo)) {
+                            receivable.transacao = receivable.gatewayInfo.transacao.numero_autorizacao;
+                            pagpopReceivables.push(augment(receivable));
+                        } else {
+                            receivable.netAmount = receivable.amount;
+                            receivable.discount = 0;
+                            if(receivable.extInfo){
+                                receivable.transacao = receivable.extInfo.transacao.numero_autorizacao | '-';
+                            }
+                            pagpopReceivables.push(receivable);
                         }
                     }
-                    
+
                     creditCardReceivables = pagpopReceivables;
 
-                    function augment(receivable){
+                    function augment (receivable) {
                         var installments = receivable.payment.installments;
-                        var netAmount = FinancialMathService.presentValue(PP_FIXED_RATIO, PP_MONTHLY_RATIO, installments, receivable.amount);
-                        var discount = FinancialMathService.currencySubtract(receivable.amount, netAmount);
+                        var netAmount =
+                            FinancialMathService.presentValue(
+                                PP_FIXED_RATIO,
+                                PP_MONTHLY_RATIO,
+                                installments,
+                                receivable.amount);
+                        var discount =
+                            FinancialMathService.currencySubtract(receivable.amount, netAmount);
 
                         receivable.netAmount = netAmount;
                         receivable.discount = discount;
-                        
+
                         return receivable;
                     }
-                    
+
                     /**
                      * DateFilter watcher.
                      */
-                    $scope.$watchCollection('dtFilter', function() {
-                        $scope.filteredReceivables = $filter('filter')(angular.copy(creditCardReceivables), filterByDate);
+                    $scope.$watchCollection('dtFilter', function () {
+                        $scope.filteredReceivables =
+                            $filter('filter')(angular.copy(creditCardReceivables), filterByDate);
                         clientNames();
-                        $scope.filteredReceivables = $filter('filter')($scope.filteredReceivables, filterByEntity);
+                        $scope.filteredReceivables =
+                            $filter('filter')($scope.filteredReceivables, filterByEntity);
                         summarizer();
                     });
 
                     /**
                      * EntityFilter watcher.
                      */
-                    $scope.$watchCollection('searchClient', function() {
-                        $scope.filteredReceivables = $filter('filter')(angular.copy(creditCardReceivables), filterByDate);
+                    $scope.$watchCollection('searchClient', function () {
+                        $scope.filteredReceivables =
+                            $filter('filter')(angular.copy(creditCardReceivables), filterByDate);
                         clientNames();
-                        $scope.filteredReceivables = $filter('filter')($scope.filteredReceivables, filterByEntity);
+                        $scope.filteredReceivables =
+                            $filter('filter')($scope.filteredReceivables, filterByEntity);
                         summarizer();
                     });
 
                     /**
-                     * Get the name of all clients based on the clientUUID on the payment
+                     * Get the name of all clients based on the clientUUID on
+                     * the payment
                      */
-                    function clientNames() {
+                    function clientNames () {
                         for ( var idx in $scope.filteredReceivables) {
-                            $scope.filteredReceivables[idx].name = EntityService.read($scope.filteredReceivables[idx].entityId).name;
+                            $scope.filteredReceivables[idx].name =
+                                EntityService.read($scope.filteredReceivables[idx].entityId).name;
                         }
                     }
 
@@ -96,7 +127,7 @@
                     // Filter related
                     // #########################################################################################################
 
-                    function filterByEntity(cc) {
+                    function filterByEntity (cc) {
                         var clientName = $scope.searchClient.toLowerCase();
 
                         if (clientName === '') {
@@ -115,7 +146,7 @@
                         dtFinal : new Date()
                     };
 
-                    function setTime(date, hours, minutes, seconds, milliseconds) {
+                    function setTime (date, hours, minutes, seconds, milliseconds) {
                         date.setHours(hours);
                         date.setMinutes(minutes);
                         date.setSeconds(seconds);
@@ -123,7 +154,7 @@
                         return date;
                     }
 
-                    function initializeDates(date) {
+                    function initializeDates (date) {
                         if (!date) {
                             date = angular.copy(dtFilterTemplate);
                         }
@@ -146,14 +177,15 @@
                     /**
                      * DateFilter
                      */
-                    function filterByDate(cc) {
+                    function filterByDate (cc) {
                         var initialFilter = null;
                         var finalFilter = null;
                         var isDtInitial = false;
                         var isDtFinal = false;
                         if ($scope.dtFilter.dtInitial instanceof Date) {
 
-                            $scope.dtFilter.dtInitial = setTime($scope.dtFilter.dtInitial, 0, 0, 0, 0);
+                            $scope.dtFilter.dtInitial =
+                                setTime($scope.dtFilter.dtInitial, 0, 0, 0, 0);
 
                             initialFilter = $scope.dtFilter.dtInitial.getTime();
 
@@ -161,14 +193,16 @@
                         }
                         if ($scope.dtFilter.dtFinal instanceof Date) {
 
-                            $scope.dtFilter.dtFinal = setTime($scope.dtFilter.dtFinal, 23, 59, 59, 999);
+                            $scope.dtFilter.dtFinal =
+                                setTime($scope.dtFilter.dtFinal, 23, 59, 59, 999);
                             finalFilter = $scope.dtFilter.dtFinal.getTime();
 
                             isDtFinal = true;
                         }
 
                         if (isDtInitial && isDtFinal) {
-                            if ($scope.dtFilter.dtInitial.getTime() > $scope.dtFilter.dtFinal.getTime()) {
+                            if ($scope.dtFilter.dtInitial.getTime() > $scope.dtFilter.dtFinal
+                                .getTime()) {
                                 $scope.dtFilter.dtFinal = angular.copy($scope.dtFilter.dtInitial);
                             }
                         }
