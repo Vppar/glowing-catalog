@@ -57,23 +57,35 @@
                       .attr('height', height+20)
                       .style('width',124);
 
-                    var cap = goal > snapshot ? goal : snapshot;
+                    var cap = goal;
+                    
+                    //var cap = goal > snapshot ? goal : snapshot;
+                    if(currentGoal > cap){ 
+                        cap = currentGoal; 
+                    }
+                    if(snapshot > cap){ 
+                        cap = snapshot; 
+                    }
+
+                    //order by size
+                    var orderRender = [goal,currentGoal,snapshot];
+                    orderRender.sort();
+                    
+                    var varCssMap = {};
+                    varCssMap[goal] = 'goal';
+                    varCssMap[currentGoal] = 'goal';
+                    varCssMap[snapshot] = 'snapshot';
+
 
                     //scale based on goal value;
                     y = d3.scale.linear().domain([cap,0]).range([height-topMargin, 0]);
 
-                    if (goal >= snapshot) {
-                        drawBar(goal, 'goal');
-                        drawBar(snapshot, 'snapshot');
-                        drawLine(snapshot);
-                        drawLine(currentGoal);
-                    } else {
-                        drawBar(snapshot, 'snapshot');
-                        drawBar(goal, 'goal');
-                        drawLine(currentGoal);
-                        drawLine(goal);
+                    for(var i = (orderRender.length-1);i>(-1);i--){
+                        drawBar(orderRender[i],varCssMap[orderRender[i]]);
+                        drawLine(orderRender[i]);
                     }
 
+                    //draw tips
                     drawTip(goal, 1, 'goal-tip');
                     drawTip(currentGoal, currentGoal/goal, 'goal-tip');
                     drawTip(snapshot, snapshot/goal, 'snapshot-tip');

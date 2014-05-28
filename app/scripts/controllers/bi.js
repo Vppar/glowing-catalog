@@ -16,7 +16,7 @@
                 gauge : {
                     goal : 1,
                     snapshot : 0,
-                    percent : 0
+                    currentGoal : 0
                 },
 
                 histogram : {
