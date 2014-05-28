@@ -90,7 +90,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                     return deferred.promise;
                 });
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments, true);
                     chargedPromise.then(function(_result_) {
                         result = _result_;
                     });
@@ -127,7 +127,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments, true);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
@@ -159,7 +159,7 @@ describe('Service: CreditCardPaymentServiceChargeSpec', function() {
                 });
 
                 runs(function() {
-                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments);
+                    var chargedPromise = CreditCardPaymentService.charge(customer, creditCard, amount, installments, true);
                     chargedPromise.then(null, function(_result_) {
                         result = _result_;
                     });
