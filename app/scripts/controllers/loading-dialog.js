@@ -2,14 +2,8 @@
     'use strict';
     angular.module('glowingCatalogApp').controller('LoadingDialogCtrl', ['$scope', '$q', 'dialog', function($scope, $q, dialog) {
 
-        $scope.title = dialog.data.title;
-        $scope.message = dialog.data.message;
-        $scope.btnYes = dialog.data.btnYes;
-        $scope.btnNo = dialog.data.btnNo;
+        $scope.step = dialog.data.step;
 
-        $scope.confirm = function() {
-            dialog.close(true);
-        };
         $scope.cancel = function() {
             dialog.close($q.reject());
         };

@@ -139,7 +139,7 @@
             var options = {
                 backdrop : true,
                 backdropClick : false,
-                dialogClass : 'loading-dialog'
+                dialogClass : cssSmallClass
             };
 
             var dialog = _openDialog(data, options);

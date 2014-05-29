@@ -96,7 +96,14 @@
         };
 
         this.login = function(user, pass) {
-            var dialog = DialogService.openDialogLoading({});
+            var dialogData = {};
+
+            dialogData.step = {
+              value : 0,
+              message : 'Autenticando...'
+            };
+
+            var dialog = DialogService.openDialogLoading(dialogData);
 
             var onlineLoggedPromise = this.loginOnline(user, pass);
             var loggedIn = this.loggedIn;
@@ -113,8 +120,25 @@
 
             return loggedPromise
                 .then(function () {
+                    dialogData.step.value = 50;
+                    dialogData.step.message = 'Carregando dados locais...';
+
                     return SyncService.resync().then(function () {
-                        return SyncDriver.registerSyncService(SyncService);
+                        dialogData.step.value = 75;
+                        dialogData.step.message = 'Atualizando dados...';
+
+                        return SyncDriver.registerSyncService(SyncService).then(function () {
+                            var deferred = $q.defer();
+
+                            dialogData.step.value = 100;
+                            dialogData.step.message = 'Inicializando aplicação.';
+
+                            setTimeout(function () {
+                              deferred.resolve();
+                            }, 1000);
+
+                            return deferred.promise;
+                        });
                     });
                 })
 
