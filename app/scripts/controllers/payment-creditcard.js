@@ -170,7 +170,9 @@
                     }
                     var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
 
-                    var result = CreditCardPaymentService.charge(customer, creditCard, creditCard.amount, numInstallments, hasToken);
+                    //Autorization only used with external payment. Not for pagpop.
+                    var autorization = $scope.creditCard.autorization | null;
+                    var result = CreditCardPaymentService.charge(customer, creditCard, creditCard.amount, numInstallments, autorization, hasToken);
                     
                     return result.then(function () {
                         var promise = DialogService.messageDialog({

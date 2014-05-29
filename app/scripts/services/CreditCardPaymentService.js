@@ -75,7 +75,7 @@
                  * @param gatewayInfo - Info returned by the credit card gateway.
                  */
                 this.createCreditCardPayments =
-                    function createCreditCardPayments(customer, creditCard, amount, numInstallments, gatewayInfo) {
+                    function createCreditCardPayments(customer, creditCard, amount, numInstallments, gatewayInfo, extInfo) {
                         var result = null;
                         try {
 
@@ -98,7 +98,12 @@
                                 new CreditCardPayment(creditCard.amount, creditCard.flag,
                                     creditCard.number, customer.name, creditCard.creditCardDueDate,
                                     creditCard.cardholderDocument, creditCard.installment, creditCard.dueDate.getTime());
-                            payment.gatewayInfo = gatewayInfo;
+                            
+                            if(gatewayInfo){
+                                payment.gatewayInfo = gatewayInfo;
+                            }else{
+                                payment.extInfo = extInfo;
+                            }
                             PaymentService.add(payment);
                             result = true;
                         } catch (err) {
@@ -146,7 +151,7 @@
                  * @param isPPPayment - if should send for pagpop.
                  */
                 this.charge =
-                    function charge(customer, creditCard, amount, numInstallments, isPPPayment) {
+                    function charge(customer, creditCard, amount, numInstallments, autorization, isPPPayment) {
                         var recordedPayment = null;
                         try {
                             var creditCardCopy = angular.copy(creditCard);
@@ -162,15 +167,19 @@
                                 recordedPayment =
                                     chargedCCPromise.then(function (gatewayInfo) {
                                         return _this.createCreditCardPayments(
-                                            customer, creditCardCopy, amount, numInstallments, gatewayInfo);
+                                            customer, creditCardCopy, amount, numInstallments, gatewayInfo, null);
                                     }, function (errMsg) {
                                         return $q.reject(errMsg);
                                     });
                             }else{
                                 //do not send charges for pagpop
+                                var extInfo = {transacao:{
+                                    numero_outorizacao : autorization
+                                }};
+                                
                                 var deferred = $q.defer();
                                 deferred.resolve(this.createCreditCardPayments(
-                                    customer, creditCardCopy, amount, numInstallments, null));
+                                    customer, creditCardCopy, amount, numInstallments, null, extInfo));
                                 return deferred.promise;
                                 
                             }
