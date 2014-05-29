@@ -41,8 +41,8 @@
                         } else {
                             receivable.netAmount = receivable.amount;
                             receivable.discount = 0;
-                            if(receivable.extInfo){
-                                receivable.transacao = receivable.extInfo.transacao.numero_autorizacao | '-';
+                            if(receivable.payment.extInfo){
+                                receivable.transacao = receivable.payment.extInfo.transacao.numero_autorizacao;
                             }
                             pagpopReceivables.push(receivable);
                         }
