@@ -81,7 +81,12 @@
                     y = d3.scale.linear().domain([cap,0]).range([height-topMargin, 0]);
 
                     for(var i = (orderRender.length-1);i>(-1);i--){
-                        drawBar(orderRender[i],varCssMap[orderRender[i]]);
+
+                        if(i === 0 && varCssMap[currentGoal] === 'goal'){
+                            drawBarNoFill(orderRender[i],varCssMap[orderRender[i]]);
+                        }else{
+                            drawBar(orderRender[i],varCssMap[orderRender[i]]);
+                        }
                         drawLine(orderRender[i]);
                     }
 
@@ -103,7 +108,24 @@
 
                     var text = bar.append('text')
                         .attr('x', barWidth/2)
-                        .attr('y', height - y(value) + textTopMargin)
+                        .attr('y', -12+height - y(value) + textTopMargin)
+                        .style("text-anchor", "middle")
+                        .text(value);
+                }
+
+                function drawBarNoFill(value,clazz){
+                    var bar = canvas.append('g').attr('class',clazz);
+
+                    // var rect = bar.append('rect')
+                    //     .attr('x', 0 )
+                    //     .attr('y', height - y(value))
+                    //     .attr('width', barWidth)
+                    //     .attr('height', y(value))
+                    //     .attr('fill');
+
+                    var text = bar.append('text')
+                        .attr('x', barWidth/2)
+                        .attr('y', -12+height - y(value) + textTopMargin)
                         .style("text-anchor", "middle")
                         .text(value);
                 }
@@ -143,6 +165,13 @@
                     .attr('y', height - y(value)+3)
                     .style("text-anchor", "middle")
                     .text(format(label));
+
+                    tip.append("line")
+                    .attr("x1", barWidth+w/4)
+                    .attr("x2", barWidth+w/4+w)
+                    .attr("y1", height - y(value)-(h/2))
+                    .attr("y2", height - y(value)-(h/2))
+                    .attr('stroke','#fff');
                 }
 
                 function drawLine(value){
