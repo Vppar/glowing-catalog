@@ -18,7 +18,7 @@
             function CreditcardPaymentService($q, $log, $filter, PagPopGateway, PaymentService, CreditCardPayment, NoMerchantCreditCardPayment, Misplacedservice) {
 
                 var _this = this;
-
+f
                 var errMsgs =
                 {
                     '-1': 'Tentativa de transação como o mesmo cartão de crédito e o mesmo valor mais de uma vez, em um período menor que 5 minutos.',
@@ -174,7 +174,7 @@
                             }else{
                                 //do not send charges for pagpop
                                 var extInfo = {transacao:{
-                                    numero_outorizacao : autorization
+                                    numero_autorizacao : autorization
                                 }};
                                 
                                 var deferred = $q.defer();
