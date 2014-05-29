@@ -1,3 +1,26 @@
+/* just to scroll 100% - old stuff from order-list.css */
+.div-master{
+ 	height: 100%;
+ }
+ .div-master .container:first-child{
+ 	height: 100%;
+ }
+ body{
+ 	height: 100%;
+ 	overflow: hidden;
+ }
+ html{
+ 	height: 100%;
+ 	overflow: hidden;
+ }
+/* - - - - - - - - - - */
+
+#sacred .sacred-order-list-page .row-selected {
+	background-color:#f8c6da;
+	border-radius:4px;
+	border:0;
+}
+
 #sacred .pre-show-details-icon{
 	margin-right: 0px;
 }
