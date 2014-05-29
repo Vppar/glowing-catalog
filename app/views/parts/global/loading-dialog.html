@@ -1,6 +1,14 @@
 <style>
+  .progress {
+    background: #333;
+  }
+
   .progress .bar {
     background: rgb(191, 30, 98);
+  }
+
+  .progress .bar span {
+    margin: 0 1em;
   }
 </style>
 
@@ -12,7 +20,7 @@
           aria-valuemin="0"
           aria-valuemax="100"
           style="width: {{ step.value }}%;">
-          {{ step.message }}
+          <span>{{ step.message }}</span>
       </div>
     </div>
   </div>
