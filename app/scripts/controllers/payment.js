@@ -434,20 +434,11 @@
                         })[0];
 
                         var grid = ArrayUtils.list(InventoryKeeper.read(), 'parent', product.parent);
-                        //var dialogPromise = null;
-
-                        //if (grid.length > 1) {
                         var dialogPromise = DialogService.openDialogAddToBasketSku({
                             id: product.parent,
                             showDiscount : true,
                             idItem: product.id
                         });
-                        //} else {
-                        //    dialogPromise = DialogService.openDialogAddToBasket({
-                        //        id: product.parent,
-                        //        showDiscount : true
-                        //    });
-                        //}
                         dialogPromise.then(updateOrderAndPaymentTotal);
                     }
                 };
