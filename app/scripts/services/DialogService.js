@@ -84,7 +84,7 @@
         };
 
         this.openDialogAddToBasketSku = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog-sku.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');
+            return openDialog('views/parts/catalog/add-to-basket-dialog-sku.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-payment-dialog');
         };
         
         this.openDialogAddToBasketDetails = function(data) {
