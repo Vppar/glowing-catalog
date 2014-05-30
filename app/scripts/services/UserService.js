@@ -116,6 +116,7 @@
 
             function closeLoadingDialog() {
                 dialog.$scope.cancel();
+                return true;
             }
 
             return loggedPromise
@@ -133,6 +134,7 @@
                             dialogData.step.value = 100;
                             dialogData.step.message = 'Inicializando aplicação.';
 
+                            // Wait for the progress bar to complete...
                             setTimeout(function () {
                               deferred.resolve();
                             }, 1000);

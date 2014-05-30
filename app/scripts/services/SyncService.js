@@ -329,6 +329,7 @@
                     return JournalKeeper.getSyncedSequence();
                 }
 
+
                 /**
                  * Inserts an entry received from the server into the journal.
                  * 
@@ -348,7 +349,12 @@
 
                             se = insert(e, true);
                             if(se.then){
+                                console.log('>>>>>>>>', se);
+                                se.finally(function (err) {
+                                    console.log('!!!!!!!!!!!!!', err);
+                                });
                                 log.fatal('This should not be a promise', e);
+                                return $q.reject(se);
                             } else {
                                 all.push(se);
                             }

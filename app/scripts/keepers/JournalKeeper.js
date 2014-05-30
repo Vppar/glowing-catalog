@@ -94,9 +94,11 @@
         ])
         .service (
             'JournalKeeper',
-            ['$q', '$log', '$rootScope', 'JournalEntry', 'Replayer', 'WebSQLDriver',
-             'PersistentStorage', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver,
+            ['$q', 'logger', '$rootScope', 'JournalEntry', 'Replayer', 'WebSQLDriver',
+             'PersistentStorage', function JournalKeeper($q, logger, $rootScope, JournalEntry, Replayer, WebSQLDriver,
                 PersistentStorage) {
+
+                var $log = logger.getLogger('tnt.catalog.journal.keeper.JournalKeeper');
 
                 var self = this;
                 var sequence = 1;
@@ -169,7 +171,7 @@
                 };
 
                 this.insert = function(journalEntry, tx) {
-                    $log.debug ('Inserting entry', journalEntry);
+                    $log.debug ('Inserting entry:', journalEntry);
 
                     if (journalEntry.sequence > syncedSequence) {
                         syncedSequence = journalEntry.sequence;
@@ -179,6 +181,8 @@
 
                     promise.then (function( ) {
                         $rootScope.$broadcast ('JournalKeeper.insert', journalEntry);
+                    }, function (err) {
+                        $log.error('@@@@@@@@@@@@@@2', err);
                     });
 
                     return promise;
@@ -187,26 +191,28 @@
                 this.bulkInsert = function(entries){
                     var all = [];
                     var len, i, e;
+                    var self = this;
 
                     var deferred = $q.defer();
 
                     WebSQLDriver.transaction(function(tx) {
                         try{
                             for (i = 0, len = entries.length; i < len; i += 1) {
-                                e = entry[i];
+                                e = entries[i];
                                 if (!e) { continue; }
-                                all.push(this.insert(e, tx));
+                                all.push(self.insert(e, tx));
                             }
                         } catch(e){
                             deferred.reject(e);
                         }
-
+                    }).then(function () {
+                        $log.info('all.length', all.length);
                         deferred.resolve($q.all(all));
-                    })['catch'](function(error){
+                    }, function(error){
                         deferred.reject(error);
                     });
                     return deferred.promise;
-                }
+                };
 
                 /**
                  * Gets all synced entries from the local database.
