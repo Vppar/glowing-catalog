@@ -1,4 +1,4 @@
-ddescribe('Controller: ChooseCustomerDialogCtrl', function() {
+describe('Controller: ChooseCustomerDialogCtrl', function() {
 
     var scope = {};
     var dialog = {};
