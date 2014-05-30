@@ -79,6 +79,8 @@
 
                 var index = orderItems.length - 1;
                 $scope.product = product;
+                $scope.gridLength = grid.length;
+                
                 if(dialog.data.idItem){
                     $scope.grid = [];
                     $scope.grid.push(ArrayUtils.find(grid, 'id',dialog.data.idItem));
