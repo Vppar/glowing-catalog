@@ -17,12 +17,6 @@
                     return DataProvider.images[name];
                 };
                 
-                if($location.absUrl().indexOf('#/payment') >0){
-                    $scope.isDiscountVisible = false;
-                }else{
-                    $scope.isDiscountVisible = true;
-                }
-                
                 var Discount = Misplacedservice.discount;
 
                 var orderItems = OrderService.order.items;
