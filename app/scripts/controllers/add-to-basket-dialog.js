@@ -8,8 +8,8 @@
         'tnt.catalog.config'
     ]).controller(
             'AddToBasketDialogCtrl',
-            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService', 'Misplacedservice', 'CatalogConfig',
-            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService, Misplacedservice, CatalogConfig) {
+            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService', 'Misplacedservice', 'CatalogConfig','$location',
+            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService, Misplacedservice, CatalogConfig, $location) {
 
                 $scope.config = CatalogConfig;
                 
