@@ -168,14 +168,14 @@
                     return promise;
                 };
 
-                this.insert = function(journalEntry) {
+                this.insert = function(journalEntry, tx) {
                     $log.debug ('Inserting entry', journalEntry);
 
                     if (journalEntry.sequence > syncedSequence) {
                         syncedSequence = journalEntry.sequence;
                     }
 
-                    var promise = persistEntry (journalEntry);
+                    var promise = persistEntry (journalEntry, tx);
 
                     promise.then (function( ) {
                         $rootScope.$broadcast ('JournalKeeper.insert', journalEntry);
@@ -183,6 +183,30 @@
 
                     return promise;
                 };
+
+                this.bulkInsert = function(entries){
+                    var all = [];
+                    var len, i, e;
+
+                    var deferred = $q.defer();
+
+                    WebSQLDriver.transaction(function(tx) {
+                        try{
+                            for (i = 0, len = entries.length; i < len; i += 1) {
+                                e = entry[i];
+                                if (!e) { continue; }
+                                all.push(this.insert(e, tx));
+                            }
+                        } catch(e){
+                            deferred.reject(e);
+                        }
+
+                        deferred.resolve($q.all(all));
+                    })['catch'](function(error){
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
+                }
 
                 /**
                  * Gets all synced entries from the local database.
@@ -499,7 +523,7 @@
 
                 }
 
-                function persistEntry(entry) {
+                function persistEntry(entry, tx) {
                     return registered.then (function( ) {
                         var deferred = $q.defer ();
 
@@ -519,7 +543,7 @@
                                 self.setSequence (sequence + 1);
                             }
 
-                            storage.persist (entry).then (
+                            storage.persist (entry, tx).then (
                                 function( ) {
                                     try {
                                         deferred.resolve (Replayer.replay (entry));

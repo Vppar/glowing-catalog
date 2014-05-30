@@ -336,20 +336,26 @@
                  *            server.
                  * @return {Promise} The promise returned by the JournalKeeper.
                  */
-                function insert (entry) {
+                function insert (entry, transacted) {
                     if (entry instanceof Array) {
                         var all = [];
                         var len, i, e;
+                        var se = null;
 
                         for (i = 0, len = entry.length; i < len; i += 1) {
                             e = entry[i];
                             if (!e) { continue; }
-                            all.push(insert(e));
+
+                            se = insert(e, true);
+                            if(se.then){
+                                log.fatal('This should not be a promise', e);
+                            } else {
+                                all.push(se);
+                            }
                         }
 
-                        return $q.all(all);
+                        return JournalKeeper.bulkInsert(all);
                     }
-
 
                     log.debug('INSERTING', entry);
                     if (!entry || typeof entry !== 'object') {
@@ -396,7 +402,11 @@
                         return sequenceConflictPromise;
                     }
 
-                    return JournalKeeper.insert(entry);
+                    if(transacted){
+                        return entry;
+                    } else {
+                        return JournalKeeper.insert(entry);
+                    }
                 }
 
                 function decreaseInsertionCounter () {
