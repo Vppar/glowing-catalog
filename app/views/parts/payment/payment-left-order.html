@@ -16,7 +16,7 @@
 	    <span class="new-col-3 currency">{{total.order.getAvgUnitPrice() | currency:''}}</span>
 	    <span class="new-col-3 text-center">{{total.order.unit}}</span>
 	    <span class="new-col-3 currency">{{total.order.amount | currency:''}}</span>
-	    <span class="new-col-3 currency">{{total.discount | currency:''}}</span>
+	    <span class="new-col-3 currency" ng-class="{'invisible' : total.discount == 0 }">{{total.discount | currency:''}}</span>
 	</div>
 
 	<div class="content-scroll">
