@@ -8,14 +8,20 @@
         'tnt.catalog.config'
     ]).controller(
             'AddToBasketDialogCtrl',
-            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService', 'Misplacedservice', 'CatalogConfig',
-            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService, Misplacedservice, CatalogConfig) {
+            ['$scope', '$filter', '$q', 'dialog', 'OrderService', 'DataProvider', 'ArrayUtils', 'InventoryKeeper', 'StockService', 'DialogService', 'Misplacedservice', 'CatalogConfig','$location',
+            function($scope, $filter, $q, dialog, OrderService, DataProvider, ArrayUtils, InventoryKeeper, StockService, DialogService, Misplacedservice, CatalogConfig, $location) {
 
                 $scope.config = CatalogConfig;
                 
                 $scope.getImageData = function(name){
                     return DataProvider.images[name];
                 };
+                
+                if($location.absUrl().indexOf('#/payment') >0){
+                    $scope.isDiscountVisible = false;
+                }else{
+                    $scope.isDiscountVisible = true;
+                }
                 
                 var Discount = Misplacedservice.discount;
 

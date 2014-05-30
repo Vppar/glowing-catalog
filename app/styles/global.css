@@ -1210,7 +1210,7 @@ input:focus, .focus{
 .marginb0{
 	margin-bottom:0;
 }
-
+/*invisible is used by discount fields on add-basket* and payment-rigth-totals* */
 .invisible {
 	visibility: hidden;
 }
