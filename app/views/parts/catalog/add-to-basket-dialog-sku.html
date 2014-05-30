@@ -9,7 +9,7 @@
     </div>
 
     <div class="unique-name-holder" ng-class="{ 'without-img' : !grid[0].image}">
-        <img ng-if="grid[0].image" once-src="getImageData(grid[0].SKU)" alt="sample" ng-class="{ 'display-none' : gridLength>1}"/>
+        <img ng-if="grid[0].image&&gridLength>1" once-src="getImageData(grid[0].SKU)" alt="sample"/>
         <small>{{uniqueName}}</small>
     </div>
 
