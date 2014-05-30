@@ -258,7 +258,7 @@
 
                         function setChildAddedHandler() {
                             journalRef
-                                .startAt(SyncService.getLastSyncedSequence() + 1)
+                                .startAt(startIndex)
                                 .on('child_added', function (snapshot) {
                                     var entry = snapshot.val();
                                     SyncService.insert(snapshot.val());
@@ -268,27 +268,32 @@
                             $log.debug('Waiting for new entries');
                         }
 
-                        journalRef
-                            .startAt(startIndex)
-                            .once('value', function (snapshot) {
-                                var entries = snapshot.val();
+                        if(!lastSynced){
+                            journalRef
+                                .startAt(startIndex)
+                                .once('value', function (snapshot) {
+                                    var entries = snapshot.val();
 
-                                if (entries && entries.length) {
-                                    $log.debug('Starting bulk sync of ' + entries.length + ' entries!');
-                                    SyncService
-                                        .insert(entries)
-                                        .then(setChildAddedHandler)
-                                        .then(function () {
-                                            deferred.resolve();
-                                        }, function () {
-                                            deferred.reject();
-                                        });
-                                } else {
-                                    $log.debug('Nothing to sync');
-                                    setChildAddedHandler();
-                                    deferred.resolve();
-                                }
-                            });
+                                    if (entries && entries.length) {
+                                        $log.debug('Starting bulk sync of ' + entries.length + ' entries!');
+                                        SyncService
+                                            .insert(entries)
+                                            .then(setChildAddedHandler)
+                                            .then(function () {
+                                                deferred.resolve();
+                                            }, function () {
+                                                deferred.reject();
+                                            });
+                                    } else {
+                                        $log.debug('Nothing to sync after ' + startIndex);
+                                        setChildAddedHandler();
+                                        deferred.resolve();
+                                    }
+                                });
+                        } else {
+                            setChildAddedHandler();
+                            deferred.resolve();
+                        }
 
                         return deferred.promise;
                     };
