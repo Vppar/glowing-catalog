@@ -170,19 +170,17 @@
                     return promise;
                 };
 
-                this.insert = function(journalEntry, tx) {
+                this.insert = function(journalEntry, tx, transacted) {
                     $log.debug ('Inserting entry:', journalEntry);
 
                     if (journalEntry.sequence > syncedSequence) {
                         syncedSequence = journalEntry.sequence;
                     }
 
-                    var promise = persistEntry (journalEntry, tx);
+                    var promise = persistEntry (journalEntry, tx, transacted);
 
                     promise.then (function( ) {
                         $rootScope.$broadcast ('JournalKeeper.insert', journalEntry);
-                    }, function (err) {
-                        $log.error('@@@@@@@@@@@@@@2', err);
                     });
 
                     return promise;
@@ -200,7 +198,7 @@
                             for (i = 0, len = entries.length; i < len; i += 1) {
                                 e = entries[i];
                                 if (!e) { continue; }
-                                all.push(self.insert(e, tx));
+                                all.push(self.insert(e, tx, true));
                             }
                         } catch(e){
                             deferred.reject(e);
@@ -529,8 +527,9 @@
 
                 }
 
-                function persistEntry(entry, tx) {
-                    return registered.then (function( ) {
+                function persistEntry(entry, tx, transacted) {
+
+                    function doIt( ) {
                         var deferred = $q.defer ();
 
                         if (!(entry instanceof JournalEntry)) {
@@ -570,7 +569,13 @@
                         }
 
                         return deferred.promise;
-                    });
+                    }
+
+                    if(transacted){
+                        return doIt();
+                    } else {
+                        return registered.then (doIt);
+                    }
                 }
             }]);
 
