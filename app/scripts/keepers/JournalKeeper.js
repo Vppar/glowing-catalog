@@ -94,8 +94,8 @@
         ])
         .service (
             'JournalKeeper',
-            ['$q', 'logger', '$rootScope', 'JournalEntry', 'Replayer', 'WebSQLDriver',
-             'PersistentStorage', function JournalKeeper($q, logger, $rootScope, JournalEntry, Replayer, WebSQLDriver,
+            ['$q', 'logger', '$rootScope', '$timeout', 'JournalEntry', 'Replayer', 'WebSQLDriver',
+             'PersistentStorage', function JournalKeeper($q, logger, $rootScope, $timeout, JournalEntry, Replayer, WebSQLDriver,
                 PersistentStorage) {
 
                 var $log = logger.getLogger('tnt.catalog.journal.keeper.JournalKeeper');
@@ -107,9 +107,12 @@
 
                 var storage = new PersistentStorage (WebSQLDriver);
                 var registered = storage.register (entityName, JournalEntry);
+                
+                var warmup = {};
+                warmup.listener = null;
+                warmup.midway = null;
 
-
-                $rootScope.$on('LocalWarmupDataSet', function () {
+                warmup.listener = $rootScope.$on('LocalWarmupDataSet', function () {
                     self.resync();
                 });
 
@@ -407,12 +410,25 @@
                  */
                 this.resync =
                     function( ) {
+                        $log.info('Resync started ...');
+                        
+                        if(warmup.listener){
+                            warmup.listener();
+                            warmup.listener = null;
+                        }
+                        
+                        warmup.midway = $rootScope.$on('LocalWarmupDataSet', function () {
+                            $log.info('warmup.midway fired ...');
+                            warmup.fired = true;
+                        });
+                  
                         return registered.then (function( ) {
                             var deferred = $q.defer ();
                             var promises = [];
 
                             // Clear the keepers!
-                            Replayer.nukeKeepers ();
+                            $log.info('Nuking data ...');
+                            Replayer.nukeKeepers();
 
                             var promise = storage.list (entityName);
                             var results = null;
@@ -420,16 +436,18 @@
                             promise
 
                             .then(function (entries) {
+                                $log.info('Done listing entries.');
                                 results = entries;
                             })
 
                             .then(function() {
+                                $log.info('Inserting warmup data ...');
                                 return insertWarmUpData ();
                             })
 
                             // Replays data from WebSQL into the app.
                             .then (function() {
-                                $log.debug ('Starting replay on ' + results.length + ' entries');
+                                $log.info ('Starting replay on ' + results.length + ' entries');
 
                                 var entry = null;
 
@@ -448,12 +466,15 @@
                                         promises.push (Replayer.replay (entry));
                                     }
                                 } catch (err) {
-                                    $log.error ('Failed to resync: replay failed');
+                                    $timeout(function(){
+                                        deferred.resolve(self.resync());
+                                    }, 1000);
+                                    
+                                    $log.error ('Failed to resync: replay failed', err);
                                     $log.debug ('Failed to resync: replay failed -', err, entry);
-                                    deferred.reject (err);
                                 }
-
-                                $log.debug ('waiting for ' + promises.length +
+                                
+                                $log.info ('waiting for ' + promises.length +
                                     ' promises to resolve');
                                 deferred.resolve ($q.all (promises));
                             }, function(error) {
@@ -461,8 +482,24 @@
                                 $log.debug ('Failed to resync: list failed', error);
                                 deferred.reject (error);
                             });
-
-                            return deferred.promise;
+                            
+                            return deferred.promise.then(function(resolution){
+                                warmup.midway();
+                                
+                                if(warmup.fired){
+                                    $log.info('Firing self.resync ...');
+                                    warmup.fired = false;
+                                    return self.resync();
+                                } else if(!warmup.listener){
+                                    warmup.listener = $rootScope.$on('LocalWarmupDataSet', function () {
+                                        $log.info('warmup.listener fired ...');
+                                        self.resync();
+                                    });
+                                }
+                                
+                                $log.info('Resync done!');
+                                return resolution;
+                            });
                         });
                     };
 
@@ -553,9 +590,9 @@
                                     try {
                                         deferred.resolve (Replayer.replay (entry));
                                     } catch (e) {
-                                        $log.fatal ('Failed to replay: Replayer.replay failed');
+                                        $log.fatal ('Failed to replay: Replayer.replay failed', entry);
                                         $log.debug ('Failed to replay', e, entry);
-                                        deferred.reject (e);
+                                        deferred.reject(e);
                                     }
 
                                     $rootScope.$broadcast ('JournalKeeper.persistEntry');
