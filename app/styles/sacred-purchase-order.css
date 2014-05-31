@@ -98,3 +98,7 @@
 	font-size:inherit!important;
 	padding:2px 0!important;
 }
+
+.modal-products-to-buy-ticket .modal-body{
+	overflow-y: visible;	
+}
