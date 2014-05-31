@@ -1,0 +1,51 @@
+<div class="modal-head">
+{{product.title}}
+    
+</div>
+<div class="modal-body modal-add-basket-dialog-body">
+
+    <div class="img-holder">
+        <img once-src="getImageData(product.image)" onload="javascript:initMagnifier();" alt="" />
+    </div>
+
+    <div class="unique-name-holder" ng-class="{ 'without-img' : !grid[0].image}">
+        <img ng-if="grid[0].image&&gridLength>1" once-src="getImageData(grid[0].SKU)" alt="sample"/>
+        <small>{{uniqueName}}</small>
+    </div>
+
+    <div class="box-info" fast-click>
+        
+        <div class="info-item quantity">
+            <span class="info-label">Qtde</span>
+            <tnt-number-picker ng-model="grid[0].qty" min="0"></tnt-number-picker>
+        </div>
+
+
+         <div class="info-item discount" ng-show="showDiscount">
+            <span class="info-label">Desconto</span>
+            <span class="fake-input" tnt-promise-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
+        </div>
+           
+    </div>
+
+    <div class="box-price-total">
+        <div class="info-item price">
+            <span class="info-label">Preço Un.</span>
+            <small>R$</small>{{product.price | currency:''}}</span>
+        </div> 
+        <div class="info-item total">
+            <span class="info-label">Subtotal</span>
+            <span class="total-value">
+                <small>R$</small> {{product.price * grid[0].qty | currency:''}}
+            </span>
+        </div>
+    </div>
+
+    <div class="stock">{{product.inventory}} em estoque</div>
+    
+</div>
+<div class="modal-foot" fast-click>
+    <hr />
+    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+    <button ng-click='addToBasket()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Adicionar</button>
+</div>

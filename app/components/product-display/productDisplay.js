@@ -54,11 +54,13 @@
 
                             if (grid.length > 1) {
                                 DialogService.openDialogAddToBasketDetails({
-                                    id : product.id
+                                    id : product.id,
+                                    showDiscount : false
                                 });
                             } else {
                                 DialogService.openDialogAddToBasket({
-                                    id : product.id
+                                    id : product.id,
+                                    showDiscount : false
                                 });
                             }
 

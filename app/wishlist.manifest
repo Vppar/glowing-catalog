@@ -343,6 +343,7 @@ views/parts/add-customer/add-customer-phones-dialog.html
 views/parts/add-customer/add-customer-emails-dialog.html
 views/parts/catalog/add-to-basket-dialog-details.html
 views/parts/catalog/add-to-basket-dialog.html
+views/parts/catalog/add-to-basket-dialog-sku.html
 views/parts/catalog/footer.html
 views/parts/catalog/input-qty.html
 views/parts/catalog/num-pad.html

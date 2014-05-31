@@ -25,6 +25,7 @@
 
                 // Find the product and make a copy to the local scope.
                 var product = ArrayUtils.find(DataProvider.products, 'id', dialog.data.id);
+                $scope.showDiscount = dialog.data.showDiscount;
 
                 var productStock = StockService.findInStock(product.id + 1);
 
@@ -78,7 +79,19 @@
 
                 var index = orderItems.length - 1;
                 $scope.product = product;
-                $scope.grid = grid;
+                $scope.gridLength = grid.length;
+                
+                if(dialog.data.idItem){
+                    $scope.grid = [];
+                    $scope.grid.push(ArrayUtils.find(grid, 'id',dialog.data.idItem));
+                }else{
+                    $scope.grid = grid;
+                }
+                if($scope.grid[0].option){
+                    $scope.uniqueName = $scope.grid[0].SKU + ' - ' + $scope.grid[0].option;
+                }else{
+                    $scope.uniqueName = $scope.grid[0].SKU;
+                }
                 $scope.total = 0;
                 $scope.itemDiscount = getProductDiscount();
 
