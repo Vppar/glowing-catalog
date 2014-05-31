@@ -1,4 +1,4 @@
-describe('Service: UserService', function() {
+xdescribe('Service: UserService', function() {
     'use strict';
  
     // instantiate service

@@ -94,9 +94,11 @@
         ])
         .service (
             'JournalKeeper',
-            ['$q', '$log', '$rootScope', 'JournalEntry', 'Replayer', 'WebSQLDriver',
-             'PersistentStorage', function JournalKeeper($q, $log, $rootScope, JournalEntry, Replayer, WebSQLDriver,
+            ['$q', 'logger', '$rootScope', 'JournalEntry', 'Replayer', 'WebSQLDriver',
+             'PersistentStorage', function JournalKeeper($q, logger, $rootScope, JournalEntry, Replayer, WebSQLDriver,
                 PersistentStorage) {
+
+                var $log = logger.getLogger('tnt.catalog.journal.keeper.JournalKeeper');
 
                 var self = this;
                 var sequence = 1;
@@ -168,20 +170,46 @@
                     return promise;
                 };
 
-                this.insert = function(journalEntry) {
-                    $log.debug ('Inserting entry', journalEntry);
+                this.insert = function(journalEntry, tx, transacted) {
+                    $log.debug ('Inserting entry:', journalEntry);
 
                     if (journalEntry.sequence > syncedSequence) {
                         syncedSequence = journalEntry.sequence;
                     }
 
-                    var promise = persistEntry (journalEntry);
+                    var promise = persistEntry (journalEntry, tx, transacted);
 
                     promise.then (function( ) {
                         $rootScope.$broadcast ('JournalKeeper.insert', journalEntry);
                     });
 
                     return promise;
+                };
+
+                this.bulkInsert = function(entries){
+                    var all = [];
+                    var len, i, e;
+                    var self = this;
+
+                    var deferred = $q.defer();
+
+                    WebSQLDriver.transaction(function(tx) {
+                        try{
+                            for (i = 0, len = entries.length; i < len; i += 1) {
+                                e = entries[i];
+                                if (!e) { continue; }
+                                all.push(self.insert(e, tx, true));
+                            }
+                        } catch(e){
+                            deferred.reject(e);
+                        }
+                    }).then(function () {
+                        $log.info('all.length', all.length);
+                        deferred.resolve($q.all(all));
+                    }, function(error){
+                        deferred.reject(error);
+                    });
+                    return deferred.promise;
                 };
 
                 /**
@@ -499,8 +527,9 @@
 
                 }
 
-                function persistEntry(entry) {
-                    return registered.then (function( ) {
+                function persistEntry(entry, tx, transacted) {
+
+                    function doIt( ) {
                         var deferred = $q.defer ();
 
                         if (!(entry instanceof JournalEntry)) {
@@ -519,7 +548,7 @@
                                 self.setSequence (sequence + 1);
                             }
 
-                            storage.persist (entry).then (
+                            storage.persist (entry, tx).then (
                                 function( ) {
                                     try {
                                         deferred.resolve (Replayer.replay (entry));
@@ -540,7 +569,13 @@
                         }
 
                         return deferred.promise;
-                    });
+                    }
+
+                    if(transacted){
+                        return doIt();
+                    } else {
+                        return registered.then (doIt);
+                    }
                 }
             }]);
 

@@ -1,0 +1,27 @@
+<style>
+  .progress {
+    background: #333;
+  }
+
+  .progress .bar {
+    background: rgb(191, 30, 98);
+  }
+
+  .progress .bar span {
+    margin: 0 1em;
+  }
+</style>
+
+<div id="sacred">
+  <div class="modal-body">
+    <div class="progress">
+      <div class="bar"  role="progressbar"
+          aria-valuenow="{{ step.value }}"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: {{ step.value }}%;">
+          <span>{{ step.message }}</span>
+      </div>
+    </div>
+  </div>
+</div>

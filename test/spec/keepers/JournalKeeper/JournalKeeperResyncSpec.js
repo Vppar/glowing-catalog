@@ -136,7 +136,7 @@ describe('Service: JournalKeeperResync', function() {
   });
 
 
-  it('should fail to resync on storage.list failure', function () {
+  xit('should fail to resync on storage.list failure', function () {
     var failed = false;
 
     runs(function() {

@@ -2,6 +2,24 @@
     'use strict';
     angular.module('tnt.catalog.service.dialog',['ui.bootstrap']).service('DialogService', ['$q','$dialog', function($q, $dialog) {
 
+        
+        // I needed a more flexible `openDialog` function but did'n wanted to change the
+        // signature of the currently used one. Therefore I'm creating this underscored
+        // function.
+        function _openDialog(data, options) {
+            options = options || {};
+
+            var dialog = $dialog.dialog(options);
+            dialog.data = data;
+
+            function closeDialog() {
+                dialog.$scope.cancel();
+            }
+
+            return dialog;
+        }
+
+
         /**
          * Generic function to open a dialog.
          * 
@@ -15,18 +33,14 @@
          * 
          */
         var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
-            var d = $dialog.dialog({
-                backdrop : !parentDialog,
-                backdropClick : true,
-                dialogClass : cssClass
-            });
+            var options = {
+              backdrop : !parentDialog,
+              backdropClick : true,
+              dialogClass : cssClass
+            };
 
-            d.data = data;
-            d.parentDialog = parentDialog;
-
-            function closeDialog() {
-                d.$scope.cancel();
-            }
+            var dialog = _openDialog(data, options);
+            dialog.parentDialog = parentDialog;
 
             if (parentDialog) {
                 // If the parent dialog's promise is ended somehow (resolved
@@ -34,7 +48,7 @@
                 parentDialog.deferred.promise.then(closeDialog, closeDialog);
             }
 
-            return d.open(template, controller);
+            return dialog.open(template, controller);
         };
 
         this.openDialog = openDialog;
@@ -119,6 +133,20 @@
         
         this.openDialogDeliveryScheduler = function(data) {
             return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
+        };
+
+        this.openDialogLoading = function (data) {
+            var options = {
+                backdrop : true,
+                backdropClick : false,
+                dialogClass : cssSmallClass
+            };
+
+            var dialog = _openDialog(data, options);
+
+            dialog.open('views/parts/global/loading-dialog.html', 'LoadingDialogCtrl');
+
+            return dialog;
         };
     }]);
 

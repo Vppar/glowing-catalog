@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig) {
+        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog'
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService) {
 
         var log = logger.getLogger('tnt.catalog.user.UserService');
         
@@ -41,7 +41,6 @@
             promise.then(function(resolution) {
                 logged = true;
                 PrefetchService.doIt();
-                SyncDriver.registerSyncService(SyncService);
                 deferred.resolve(resolution);
             }, function(rejection){
                 deferred.reject(rejection);
@@ -97,6 +96,15 @@
         };
 
         this.login = function(user, pass) {
+            var dialogData = {};
+
+            dialogData.step = {
+              value : 0,
+              message : 'Autenticando...'
+            };
+
+            var dialog = DialogService.openDialogLoading(dialogData);
+
             var onlineLoggedPromise = this.loginOnline(user, pass);
             var loggedIn = this.loggedIn;
             var onlineLoginErrorHandler = this.onlineLoginErrorHandler;
@@ -106,13 +114,37 @@
                 return onlineLoginErrorHandler(err, user, pass);
             });
 
-            // FIXME: This should initialize warm up data during development.
-            // Should be removed ASAP!
-            loggedPromise.then(function () {
-                SyncService.resync();
-            });
+            function closeLoadingDialog() {
+                dialog.$scope.cancel();
+                return true;
+            }
 
-            return loggedPromise;
+            return loggedPromise
+                .then(function () {
+                    dialogData.step.value = 50;
+                    dialogData.step.message = 'Carregando dados locais...';
+
+                    return SyncService.resync().then(function () {
+                        dialogData.step.value = 75;
+                        dialogData.step.message = 'Atualizando dados...';
+
+                        return SyncDriver.registerSyncService(SyncService).then(function () {
+                            var deferred = $q.defer();
+
+                            dialogData.step.value = 100;
+                            dialogData.step.message = 'Inicializando aplicação.';
+
+                            // Wait for the progress bar to complete...
+                            setTimeout(function () {
+                              deferred.resolve();
+                            }, 1000);
+
+                            return deferred.promise;
+                        });
+                    });
+                })
+
+                .finally(closeLoadingDialog);
         };
 
         this.logout = function() {

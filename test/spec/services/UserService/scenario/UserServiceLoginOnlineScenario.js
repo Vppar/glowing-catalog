@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Service: UserServiceLoginOnlineScenario', function() {
+xdescribe('Service: UserServiceLoginOnlineScenario', function() {
 
     // instantiate service
     var UserService = null;

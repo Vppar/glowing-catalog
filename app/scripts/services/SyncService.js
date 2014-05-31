@@ -33,10 +33,6 @@
                     sync();
                 });
 
-                $rootScope.$on('EntryReceived', function (e, entry) {
-                    insert(entry);
-                });
-
                 $rootScope.$on('FirebaseDisconnected', function () {
                     if (isSynching()) {
                         log.debug('Disconnected from Firebase during sync!');
@@ -60,14 +56,14 @@
                 var SyncAttempt = {
                     /**
                      * Stores attempt counters for failed entries.
-                     * 
+                     *
                      * @type {Object}
                      */
                     attempts : {},
 
                     /**
                      * Increments the attempt counter for the given uuid.
-                     * 
+                     *
                      * @param {UUID} uuid Failed entry's uuid.
                      * @return {Number} The new attempt count value.
                      */
@@ -83,7 +79,7 @@
                      * Clears the attempt counters. If no uuid is given, clears
                      * ALL counters, otherwise, clears the counter only for the
                      * given uuid.
-                     * 
+                     *
                      * @param {UUID?} uuid The para
                      */
                     clear : function (uuid) {
@@ -97,7 +93,7 @@
 
                 /**
                  * Checks if a synchronization is in progress.
-                 * 
+                 *
                  * @return {Boolean} Whether there's a synchronization in
                  *         progress
                  */
@@ -111,7 +107,7 @@
 
                 /**
                  * Syncs unsynced entries from journal with the server.
-                 * 
+                 *
                  * @return {Promise}
                  */
                 function sync () {
@@ -166,7 +162,7 @@
 
                 /**
                  * Remove $$hashKey from entry.event if exists.
-                 * 
+                 *
                  * @param {JournalEntry} entry - The target entry.
                  * @return {JournalEntry} cleanEntry - Entry freed of $$hashKey
                  */
@@ -186,10 +182,10 @@
                 /**
                  * Handles the step of getting the oldest unsynced entry from
                  * the journal during the synchronization process.
-                 * 
+                 *
                  * Tries to get the oldes entry MAX_SYNC_ATTEMPTS times before
                  * throwing a fatal error.
-                 * 
+                 *
                  * @private
                  */
                 function syncReadOldestUnsynced (deferred) {
@@ -214,12 +210,12 @@
                 /**
                  * Handles the step of saving the entry to the server during the
                  * synchronization process.
-                 * 
+                 *
                  * Will try to save it MAX_SYNC_ATTEMPTS before rising a fatal
                  * error.
-                 * 
+                 *
                  * @param {JournalEntry} entry Entry to be saved.
-                 * 
+                 *
                  * @private
                  */
                 function syncSaveEntry (deferred, entry) {
@@ -277,15 +273,15 @@
                 /**
                  * Handles the step of marking the entry as synced during the
                  * synchronization process.
-                 * 
+                 *
                  * If an error occurs during this step, a nuke and resync must
                  * be triggered to ensure the device has the same state as the
                  * server.
-                 * 
+                 *
                  * @param {JournalEntry} entry Entry that has already been
                  *            pushed to the server and needs to be marked as
                  *            synced.
-                 * 
+                 *
                  * @private
                  */
                 function syncMarkAsSynced (deferred, entry) {
@@ -326,21 +322,47 @@
                 /**
                  * Returns the sequence number for the last synced entry from
                  * the journal.
-                 * 
+                 *
                  * @return {Number}
                  */
                 function getLastSyncedSequence () {
                     return JournalKeeper.getSyncedSequence();
                 }
 
+
                 /**
                  * Inserts an entry received from the server into the journal.
-                 * 
+                 *
                  * @param {Object} entry The JournalEntry received from the
                  *            server.
                  * @return {Promise} The promise returned by the JournalKeeper.
                  */
-                function insert (entry) {
+                function insert (entry, transacted) {
+                    if (entry instanceof Array) {
+                        var all = [];
+                        var len, i, e;
+                        var se = null;
+
+                        for (i = 0, len = entry.length; i < len; i += 1) {
+                            e = entry[i];
+                            if (!e) { continue; }
+
+                            se = insert(e, true);
+                            if(se.then){
+                                console.log('>>>>>>>>', se);
+                                se.finally(function (err) {
+                                    console.log('!!!!!!!!!!!!!', err);
+                                });
+                                log.fatal('This should not be a promise', e);
+                                return $q.reject(se);
+                            } else {
+                                all.push(se);
+                            }
+                        }
+
+                        return JournalKeeper.bulkInsert(all);
+                    }
+
                     log.debug('INSERTING', entry);
                     if (!entry || typeof entry !== 'object') {
                         log.fatal('Trying to insert an invalid entry!', entry);
@@ -371,7 +393,7 @@
                     }
 
                     // We have unsynced entries, check for conflicts
-                    if (isResolvingConflict() || entry.sequence <= JournalKeeper.getSequence()) {
+                    if ((isResolvingConflict() || entry.sequence <= JournalKeeper.getSequence()) && !transacted) {
                         insertionCounter++;
                         if (sequenceConflictPromise) {
                             sequenceConflictPromise = sequenceConflictPromise.then(function () {
@@ -386,7 +408,11 @@
                         return sequenceConflictPromise;
                     }
 
-                    return JournalKeeper.insert(entry);
+                    if(transacted){
+                        return entry;
+                    } else {
+                        return JournalKeeper.insert(entry);
+                    }
                 }
 
                 function decreaseInsertionCounter () {
@@ -400,18 +426,18 @@
                 /**
                  * Where the unsynced entries will be stored during
                  * synchronization conflict resolution.
-                 * 
+                 *
                  * @type {Array|null}
                  */
                 var stash = null;
 
                 /**
                  * Returns all entries in the stash.
-                 * 
+                 *
                  * Note: This method is used mainly internally and was made
                  * public to make it easier to test stashEntries() and
                  * unstashEntries().
-                 * 
+                 *
                  * @return {Array} A shallow copy of the stash array.
                  */
                 function getStashedEntries () {
@@ -421,7 +447,7 @@
                 /**
                  * Temporarily stores unsynced entries in memory while we sync
                  * with the server.
-                 * 
+                 *
                  * @return {Promise}
                  */
                 function stashEntries () {
@@ -456,7 +482,7 @@
                 /**
                  * Re-compose stashed entries and queue them for
                  * synchronization.
-                 * 
+                 *
                  * @return {Promise}
                  */
                 function unstashEntries () {
@@ -509,7 +535,7 @@
                  * Runs the stash-insert-unstash process for resolving
                  * conflicting sequence numbers between unsynced entries and
                  * entries received from the server.
-                 * 
+                 *
                  * @param {JournalEntry} entry The entry received from the
                  *            server.
                  * @return {Promise}
@@ -599,6 +625,7 @@
                     return JournalKeeper.resync();
                 };
 
+                this.insert = insert;
                 this.clearData = clearData;
                 this.hasUnsyncedEntries = hasUnsyncedEntries;
                 this.sync = sync;

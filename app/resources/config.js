@@ -17,6 +17,7 @@
             'tnt.storage.websql.WebSQLDriver.console': 2,
             'tnt.catalog.sync.service.SyncService.console' : 2,
             'tnt.catalog.manifest.CacheController.console' : 2,
+            'tnt.catalog.journal.keeper.JournalKeeper.console' : 2,
             'remotedebug.sync' : 9
         });
     });
