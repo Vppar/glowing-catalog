@@ -41,6 +41,10 @@
 
             var dialog = _openDialog(data, options);
             dialog.parentDialog = parentDialog;
+            
+            function closeDialog() {
+                dialog.$scope.cancel();
+            }
 
             if (parentDialog) {
                 // If the parent dialog's promise is ended somehow (resolved
