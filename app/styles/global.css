@@ -666,6 +666,18 @@ div.header-date {
 	color: #333;
 }
 
+.icons-nav li {
+    margin-top:-10px;
+}
+.icons-nav a {
+    padding:0;
+    width:70px;
+    text-align:center;
+}
+.icons-nav img {
+    height:30px;
+}
+
 #topMenuHome {
 	margin: 18px auto 0 290px;
 }
