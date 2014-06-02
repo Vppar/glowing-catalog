@@ -5,11 +5,11 @@
 <div class="left-payment payment-credit-card" ng-controller="PaymentCreditCardCtrl">
 	
 	<!-- Full form (with merchant & internet connection) -->
-	<form name="creditCardForm" >
+	<form name="creditCardForm" ng-switch on="formType" >
 
 		<div class="title-left">FORMA DE PAGAMENTO</div>
 
-		<div ng-if="true">
+		<div ng-switch-when="full">
 			<div class="row-fluid margint7">
 				<span class="new-col-16">
 					<div class="control-group margint7">
@@ -63,7 +63,7 @@
 		</div>	
 			
 		<!-- Partial form (without merchant) -->
-		<div ng-if="false">
+		<div ng-switch-when="partial">
 			<div class="row-fluid margint7">
 				<span class="new-col-11">
 					<div class="control-group">
@@ -72,6 +72,12 @@
 						<select name="cardFlag" id="creditCardFlag" class="payment-input-large bandeira-cartao select-h38" ng-model="creditCard.flag" required>
 							<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>
 						</select>
+					</div>
+				</span>
+				<span class="new-col-11">
+					<div class="control-group">
+						<label class="control-label">Código autorizaç&atilde;o</label>	
+						<input class="input-block-level payment-input-large" id="autorizationCode" name="number" type="text" ng-model="creditCard.autorization"  tnt-input required maxlength="10">					
 					</div>
 				</span>
 				<span class="new-col-4">

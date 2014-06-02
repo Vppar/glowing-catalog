@@ -75,27 +75,35 @@
                  * @param gatewayInfo - Info returned by the credit card gateway.
                  */
                 this.createCreditCardPayments =
-                    function createCreditCardPayments(customer, creditCard, amount, numInstallments, gatewayInfo) {
+                    function createCreditCardPayments(customer, creditCard, amount, numInstallments, gatewayInfo, extInfo) {
                         var result = null;
                         try {
 
                             // remove confidential info
                             delete creditCard.cvv;
-                            creditCard.flag = flagTranslator3000(creditCard.number);
+                            if(!creditCard.flag){
+                                creditCard.flag = flagTranslator3000(creditCard.number);
+                            }
+                            
                             if (creditCard.number) {
                                 creditCard.number = creditCard.number.slice(-4);
                             }
 
                             creditCard.amount = amount;
                             creditCard.installment = numInstallments;
-                            creditCard.dueDate = getDueDate(new Date());;
+                            creditCard.dueDate = getDueDate(new Date(), gatewayInfo);
                             creditCard.creditCardDueDate = creditCard.expirationMonth + '-' + creditCard.expirationYear;
 
                             var payment =
                                 new CreditCardPayment(creditCard.amount, creditCard.flag,
                                     creditCard.number, customer.name, creditCard.creditCardDueDate,
                                     creditCard.cardholderDocument, creditCard.installment, creditCard.dueDate.getTime());
-                            payment.gatewayInfo = gatewayInfo;
+                            
+                            if(gatewayInfo){
+                                payment.gatewayInfo = gatewayInfo;
+                            }else{
+                                payment.extInfo = extInfo;
+                            }
                             PaymentService.add(payment);
                             result = true;
                         } catch (err) {
@@ -109,7 +117,12 @@
                   * Return the day of experation date for this CC payment.
                   * This method uses the PagPop policy of payments.
                   */
-                 function getDueDate(actualDate){
+                 function getDueDate(actualDate, gatewayInfo){
+                     
+                     if(!gatewayInfo){
+                         return actualDate;
+                     }
+                     
                      var duedate = actualDate;
                      var day = duedate.getDate();
                      if(day > 23 || day <= 3){
@@ -135,30 +148,47 @@
                  * @param creditCard - The credit card information.
                  * @param amount - Charged amount.
                  * @param numInstallments - Number of installments.
+                 * @param isPPPayment - if should send for pagpop.
                  */
                 this.charge =
-                    function charge(customer, creditCard, amount, numInstallments) {
+                    function charge(customer, creditCard, amount, numInstallments, autorization, isPPPayment) {
                         var recordedPayment = null;
                         try {
                             var creditCardCopy = angular.copy(creditCard);
-                            var chargedCCPromise = this.sendCharges({
-                                customer: customer,
-                                creditCard: creditCardCopy,
-                                amount: amount,
-                                installments: numInstallments
-                            });
-                            recordedPayment =
-                                chargedCCPromise.then(function (gatewayInfo) {
-                                    return _this.createCreditCardPayments(
-                                        customer, creditCardCopy, amount, numInstallments, gatewayInfo);
-                                }, function (errMsg) {
-                                    return $q.reject(errMsg);
+                            
+                            if(isPPPayment){
+                                //send charges for PAG POP
+                                var chargedCCPromise = this.sendCharges({
+                                    customer: customer,
+                                    creditCard: creditCardCopy,
+                                    amount: amount,
+                                    installments: numInstallments
                                 });
+                                recordedPayment =
+                                    chargedCCPromise.then(function (gatewayInfo) {
+                                        return _this.createCreditCardPayments(
+                                            customer, creditCardCopy, amount, numInstallments, gatewayInfo, null);
+                                    }, function (errMsg) {
+                                        return $q.reject(errMsg);
+                                    });
+                            }else{
+                                //do not send charges for pagpop
+                                var extInfo = {transacao:{
+                                    numero_autorizacao : autorization
+                                }};
+                                
+                                var deferred = $q.defer();
+                                deferred.resolve(this.createCreditCardPayments(
+                                    customer, creditCardCopy, amount, numInstallments, null, extInfo));
+                                return deferred.promise;
+                                
+                            }
+                            
                         } catch (err) {
                             $log.fatal('CreditcardPaymentService.charge', err);
                             recordedPayment = $q.reject(errMsgs.fatal);
                         }
-
+                        
                         return recordedPayment;
                     };
 

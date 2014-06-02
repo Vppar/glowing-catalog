@@ -20,16 +20,30 @@
             'IntentService',
             function ($scope, $element, $filter, $q, $location, DataProvider, DialogService, OrderService, CreditCardPaymentService, EntityService, IntentService) {
 
-                // #####################################################################################################
+                // #############################################################
                 // Warm up the controller
-                // #####################################################################################################
+                // #############################################################
 
+                //set default as partial
+                $scope.formType = 'partial';
                 function getAmount(change) {
                     return !change || change > 0 ? 0 : -change;
                 }
 
                 var customer = null;
-
+                var hasToken = false;
+                function verifyPPToken(){
+                    var token = localStorage.ppToken;
+                    if(token === 'null'){
+                        $scope.formType = 'partial';
+                    }else{
+                        hasToken = true;
+                        $scope.formType = 'full';
+                    }
+                }
+                
+                verifyPPToken();
+                
                 function documentCheck() {
                     customer = EntityService.read(OrderService.order.customerId);
                     if (customer && !customer.document ) {
@@ -156,7 +170,9 @@
                     }
                     var numInstallments = Number(creditCard.installment.replace('x', '').replace(' ', ''));
 
-                    var result = CreditCardPaymentService.charge(customer, creditCard, creditCard.amount, numInstallments);
+                    //Autorization only used with external payment. Not for pagpop.
+                    var autorization = $scope.creditCard.autorization | null;
+                    var result = CreditCardPaymentService.charge(customer, creditCard, creditCard.amount, numInstallments, autorization, hasToken);
                     
                     return result.then(function () {
                         var promise = DialogService.messageDialog({
