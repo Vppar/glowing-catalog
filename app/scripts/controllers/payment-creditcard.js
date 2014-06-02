@@ -46,7 +46,7 @@
                 
                 function documentCheck() {
                     customer = EntityService.read(OrderService.order.customerId);
-                    if (customer && !customer.document ) {
+                    if (customer && !customer.document && hasToken) {
                         var promise = DialogService.messageDialog({
                             title: 'Atenção.',
                             message: 'Para processar transações de Cartão de Crédito é necessário o CPF do cliente. Deseja preencher agora?',
