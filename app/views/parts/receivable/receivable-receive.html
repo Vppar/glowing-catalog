@@ -21,7 +21,9 @@
 				</select> -->
 				<select class='select-client select-width-old-receivable' ng-model="paymentSelected.id" ng-disabled="paymentSelected.id ==2 || selectedReceivable.status==='Recebido'">
 					<option value="" ng-hide="true"></option>
-					<option value="{{paymentType.id}}" ng-repeat="paymentType in paymentsType">{{paymentType.describe}}</option>
+                    <option value="{{paymentsType[0].id}}">{{paymentsType[0].describe}}</option>
+                    <option value="{{paymentsType[1].id}}">{{paymentsType[1].describe}}</option>
+                    <option value="{{paymentsType[2].id}}" ng-hide="paymentSelected.id ==0 || paymentSelected.id ==1">{{paymentsType[2].describe}}</option>
 				</select>
 			</div>
 			
