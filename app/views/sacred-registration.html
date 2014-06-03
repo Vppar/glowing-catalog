@@ -39,7 +39,7 @@
 
 								<div class="form-line">
 									<div class="row">
-										<div class="col-4">
+										<div class="col-5">
 											<label>Estado civil</label>
 											<select  data-placeholder="Selecione" ng-model="consultant.marital">
 												<option value="">Selecione</option>
@@ -49,7 +49,7 @@
 												<option value="Viúvo(a)">Viúvo(a)</option>
 											</select>
 										</div>
-										<div class="col-3">
+										<div class="col-4">
 											<label>Sexo</label>
 											<select data-placeholder="Selecione" ng-model="consultant.gender" required>
 												<option value="">Selecione</option>
@@ -58,7 +58,7 @@
 											</select>
 										</div>
 										
-										<div class="col-6">
+										<div class="col-5">
 											<label>Data de nascimento</label>
 											<select name="birthday" class="date-day" ng-model="consultant.birthDate.day">
 												<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
@@ -71,18 +71,16 @@
 												<option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
 											</select>
 										</div>
-
-										<div class="col-6">
+										<div class="col-5">
+											<label>Cidade de Origem</label>
+											<input name="" type="text" ng-model="consultant.cityOrigin">
+										</div>
+										<div class="col-5">
 											<label>País de Origem</label>
 											<input name="" type="text" ng-model="consultant.countryOrigin" required>
 										</div>
-										<div class="col-5">
-											<label>C&oacute;digo MK</label>
-											<input name="mkcode" type="text" ng-model="consultant.mkCode" required>
-										</div>
 									</div>
 								</div>
-
 								<div class="form-line">
 									<div class="row">
 										<div class="col-9">
@@ -108,9 +106,7 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="form-line">
-
 									<div class="row">
 										<div class="col-8">
 											<label>Cidade</label>
@@ -127,16 +123,15 @@
 											<input name="" type="text" type="email" ng-model="consultant.email" ng-pattern="emailRegex" lower-case required>
 										</div>
 										<div class="col-4">
-											<label>Telefone</label>
+											<label>Telefone 1</label>
 											<input name="" type="text" ng-model="consultant.phone" required phone>
 										</div>
 										<div class="col-4">
-											<label>Celular</label>
+											<label>Telefone 2</label>
 											<input name="" type="text" ng-model="consultant.cellphone" phone>
 										</div>
 									</div>
 								</div>
-
 								<div class="form-line">
 									<div class="row">
 										<div class="col-6">
@@ -164,47 +159,23 @@
 											<input name="" type="text" ng-model="consultant.account" required maxlength="13">
 										</div>
 									</div>
-
 								</div>
-
 								<hr />
-
 								<div class="form-line">
 									<div class="row">
 										<div class="col-12">
 											<label>E-mail da iniciadora</label>
 											<input name="" type="text" ng-model="consultant.emailPrimer" ng-pattern="emailRegex" lower-case required>
 										</div>
-										<div class="col-12">
-											<label>E-mail da diretora</label>
-											<input name="" type="text" ng-model="consultant.emailDirector" ng-pattern="emailRegex" lower-case required>			
-										</div>
-									</div>
-								</div>
-
-								<div class="form-line">
-									<div class="row">
-										<div class="col-6">
-											<label>C&oacute;digo da iniciadora</label>
-											<input name="" type="text" ng-model="consultant.primerCode" >
-										</div>
-										<div class="col-6">
-											<label>Nro. da unidade</label>
-											<input name="" type="text" ng-model="consultant.unityNumber" >						
-										</div>
 									</div>
 								</div>
 							</div>
-
 							<div class="buttons-holder">
 								<input type="button" class="button-black pull-left" ng-click="cancel()" value="Voltar">
 								<spinner-button class="button-green pull-right" spinner-promise = "confirm()" type="submit">Salvar</spinner-button>
 							</div>
-
 						</div><!-- // form -->
-
 					</div>
-
 				</div>
 			</form>
 		</div><!-- // page-body -->

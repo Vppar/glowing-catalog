@@ -122,11 +122,11 @@
 	float:left;	
 }
 #sacred .date-day, #sacred .date-month {
-	width:65px;
+	width:55px;
 	margin-right:5px;
 }
 #sacred .date-year {
-	width:95px;
+	width:75px;
 }
 
 #sacred .limit-date-month, #limit-date-year {

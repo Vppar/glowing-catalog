@@ -27,10 +27,10 @@
 
 /* linha 94 - 100 sacred-form.css */
 #sacred .date-day, #sacred .date-month {
-	width:65px!important;
+	width:55px!important;
 }
 #sacred .date-year {
-	width:95px!important;
+	width:75px!important;
 }
 /* linha 106-112 sacred-form.css */
 #sacred .limit-date-month {
