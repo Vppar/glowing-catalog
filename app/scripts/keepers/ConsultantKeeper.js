@@ -29,6 +29,7 @@
                                 'marital',
                                 'gender',
                                 'birthDate',
+                                'cityOrigin',
                                 'countryOrigin',
                                 'complement',
                                 'emissary',
