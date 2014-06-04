@@ -5,9 +5,28 @@
     .module('tnt.catalog.progress.service', [])
     .service('ProgressService', function () {
 
+        /**
+         * Holds a reference to all ProgressWatcher instances.
+         * @type {object.<ProgressWatcher>}
+         */
         var _instances = {};
 
+
+        /**
+         * Defines an object that keeps track of the progress of an operation.
+         * 
+         * @param {string} id An identifier for the operation. Should be
+         *  unique.
+         * @param {string} message A message that describes the operation.
+         *  This is usefull for letting the user know what is happening.
+         *
+         * @constructor
+         */
         function ProgressWatcher(id, message) {
+            if (_instances[id]) {
+                throw('Duplicate progress watcher: ' + id);
+            }
+
             this.id = id;
             this.message = message;
             this.total = null;
@@ -17,7 +36,6 @@
 
             this._listeners = {};
         }
-
 
 
         ProgressWatcher.prototype = {
@@ -99,6 +117,12 @@
         };
 
 
+        /**
+         * Creates a new progress watcher with the given id and message.
+         * @param {string} id
+         * @param {string} message
+         * @return {ProgressWatcher}
+         */
         this.create = function (id, message) {
             if (_instances[id]) {
                 console.warn('Overriding existing progress watcher:', id);
@@ -111,11 +135,21 @@
         };
 
 
+        /**
+         * Gets an existing progress watcher.
+         * @param {string} id
+         * @return {(ProgressWatcher|undefined)}
+         */
         this.get = function (id) {
             return _instances[id];
         };
 
 
+        /**
+         * Deletes the progress watcher with the given id.
+         * @param {string} id
+         * @return {(ProgressWatcher|undefined)}
+         */
         this.remove = function (id) {
             var instance = this.get(id);
 
