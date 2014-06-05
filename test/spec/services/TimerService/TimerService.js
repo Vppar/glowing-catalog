@@ -1,4 +1,4 @@
-ddescribe('Service: TimerService', function () {
+describe('Service: TimerService', function () {
 
   var logger = angular.noop;
 
