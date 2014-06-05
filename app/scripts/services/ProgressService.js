@@ -155,7 +155,8 @@
         /**
          * Creates a new progress watcher with the given id and message.
          * @param {string} id
-         * @param {string} message
+         * @param {string} message A message that discribes the watcher's
+         *  initial state.
          * @return {ProgressWatcher}
          */
         this.create = function (id, message) {
@@ -171,12 +172,15 @@
 
 
         /**
-         * Gets an existing progress watcher.
+         * Gets or creates a new progress watcher.
          * @param {string} id
+         * @param {string=} message A message that discribes the watcher's
+         *  initial state. Will be used only if the watcher does not exist.
          * @return {(ProgressWatcher|undefined)}
          */
-        this.get = function (id) {
-            return _instances[id];
+        this.get = function (id, message) {
+            var instance = _instances[id];
+            return instance || this.create(id, message);
         };
 
 
