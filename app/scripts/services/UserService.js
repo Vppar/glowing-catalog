@@ -98,9 +98,11 @@
         this.login = function(user, pass) {
             var dialogData = {};
 
-            var progress = dialogData.progress = ProgressService.create('login');
+            var progress = dialogData.progress = ProgressService.get('login', 'Autenticando...');
             progress.setTotal(3);
-            progress.setMessage('Autenticando...');
+
+            progress.remote = ProgressService.get('load-remote');
+            progress.replay = ProgressService.get('replay');
 
             var dialog = DialogService.openDialogLoading(dialogData);
 
@@ -124,12 +126,12 @@
                     progress.setCurrent(1, 'Carregando dados locais...');
 
                     return SyncService.resync().then(function () {
-                        progress.setCurrent(2, 'Atualizando dados locais...');
+                        progress.setCurrent(2, 'Carregando dados remotos...');
 
                         return SyncDriver.registerSyncService(SyncService).then(function () {
                             var deferred = $q.defer();
 
-                            progress.setCurrent(3, 'Atualizando dados locais...');
+                            progress.setCurrent(3, 'Inicializando aplicação...');
 
                             // Wait for the progress bar to complete...
                             setTimeout(function () {
