@@ -113,7 +113,7 @@
         "points": 47,
         "title": "Solução Diurna FPS 30 - 29ml",
         "price": 85,
-        "description": "Bloqueia os raios UVA e UVB enquanto os peptídeos calmantes ajudam a relaxar as linhas de expressão."
+        "description": "Protege a pele contra os raios UVA e UVB enquanto os peptídeos calmantes ajudam a relaxar as linhas de expressão."
     },
     {
         "id": 13,
@@ -611,7 +611,7 @@
         "points": 65,
         "title": "Loção Corporal Firmadora Targeted-Action - 236ml",
         "price": 99,
-        "description": "Combina vários benefícios em uma só fórmula. Ajuda a deixar a pele firme, tonificada e hidratada por até vinte e quatro horas."
+        "description": "Ajuda a deixar a pele firme, tonificada e hidratada por até 24 horas."
     },
     {
         "id": 71,
@@ -645,7 +645,7 @@
         "points": 39,
         "title": "Complexo Anti-idade para os Lábios - 1,6g",
         "price": 66,
-        "description": "Combate linhas finas e rugas e ainda prolonga a duração do batom."
+        "description": "Combate linhas finas e rugas e ainda funciona como um primer para os lábios, prolongando a duração do batom."
     },
     {
         "id": 75,
@@ -686,7 +686,7 @@
         "parent": 78,
         "SKU": "10-029728",
         "image": "10-029728.jpg",
-        "active": false
+        "active": true
     },
     {
         "id": 80,
@@ -764,7 +764,7 @@
         "points": 74,
         "title": "Sérum Lifting Volu-Firm - 29ml",
         "price": 133,
-        "description": "Ajuda a dar firmeza e sustentar a pele. Restaura o volume e firmeza, deixando a sua pele com aparência mais jovem e firme."
+        "description": "Restaura o volume e firmeza, deixando a sua pele com aparência mais jovem e firme."
     },
     {
         "id": 89,
@@ -800,7 +800,7 @@
         "points": 57,
         "title": "Creme Noturno Volu-Firm - 48g",
         "price": 110,
-        "description": "Ajuda a recuperar a suavidade da pele, combatendo os sinais avançados da idade. Ajuda a delinear o contorno do rosto, deixando-o mais definido e com menos linhas aparentes."
+        "description": "Ajuda a delinear o contorno do rosto, deixando-o mais definido e com menos linhas aparentes."
     },
     {
         "id": 93,
@@ -818,14 +818,14 @@
         "points": 69,
         "title": "Creme para a Área dos Olhos Volu-Firm - 14g",
         "price": 99,
-        "description": "Muitos benefícios em um produto. Combate linhas profundas, manchas escuras, flacidez, inchaço e pálpebras caídas. A embalagem conta com um exclusivo massageador."
+        "description": "Combate linhas profundas, manchas escuras, flacidez, inchaço e pálpebras caídas. A embalagem conta com um exclusivo massageador."
     },
     {
         "id": 95,
         "parent": 94,
         "SKU": "10-047376",
         "image": "10-047376.jpg",
-        "active": false
+        "active": true
     },
     {
         "id": 96,
@@ -833,7 +833,7 @@
         "line": "Botanical Effects",
         "image": "10-049513.jpg",
         "points": 17,
-        "title": "Creme de Limpeza - 113g",
+        "title": "Creme de Limpeza - Pele Normal",
         "price": 29,
         "description": "Remove a maquiagem e impurezas, deixando a pele saudável e renovada."
     },
@@ -850,8 +850,9 @@
         "line": "Botanical Effects",
         "image": "10-049516.jpg",
         "points": 17,
-        "title": "Gel de Limpeza - 113g",
-        "price": 29
+        "title": "Gel de Limpeza - Pele Oleosa",
+        "price": 29,
+        "description": "Remove a maquiagem e impurezas, deixando a pele saudável e renovada."
     },
     {
         "id": 99,
@@ -935,7 +936,7 @@
     {
         "id": 109,
         "session": "Cuidados com a Pele",
-        "line": "Pele com tendência à Acne",
+        "line": "Linha Antiacne",
         "image": "10-020374.jpg",
         "points": 34,
         "title": "Gel de Limpeza para Pele com Tendência à Acne - 127g",
@@ -952,7 +953,7 @@
     {
         "id": 111,
         "session": "Cuidados com a Pele",
-        "line": "Pele com tendência à Acne",
+        "line": "Linha Antiacne",
         "image": "10-020377.jpg",
         "points": 46,
         "title": "Loção para Pele com Tendência à Acne - 50g",
@@ -969,7 +970,7 @@
     {
         "id": 113,
         "session": "Cuidados com a Pele",
-        "line": "Pele com tendência à Acne",
+        "line": "Linha Antiacne",
         "image": "10-020379.jpg",
         "points": 31,
         "title": "Creme Secativo para Pele com Tendência à Acne - 29g",
@@ -986,7 +987,7 @@
     {
         "id": 115,
         "session": "Cuidados com a Pele",
-        "line": "Pele com tendência à Acne",
+        "line": "Linha Antiacne",
         "image": "10-078009.jpg",
         "points": 111,
         "title": "Sistema de Cuidados da Pele com Tendência à Acne",
@@ -1003,7 +1004,7 @@
     {
         "id": 117,
         "session": "Cuidados com a Pele",
-        "line": "Pele com tendência à Acne",
+        "line": "Linha Antiacne",
         "image": "10-021628.jpg",
         "points": 65,
         "title": "Kit Introdutório ao Sistema de Cuidados da Pele com Tendência à Acne",
@@ -1020,7 +1021,7 @@
     {
         "id": 119,
         "session": "Cuidados com a Pele",
-        "line": "Pele com tendência à Acne",
+        "line": "Linha Antiacne",
         "image": "10-023376.jpg",
         "points": 28,
         "title": "Spray Corporal para Pele com Tendência à Acne - 118ml",
@@ -4553,7 +4554,7 @@
         "parent": 518,
         "SKU": "10-063191",
         "image": "10-063191.jpg",
-        "active": false
+        "active": true
     },
     {
         "id": 520,
