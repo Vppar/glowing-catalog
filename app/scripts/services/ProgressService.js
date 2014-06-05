@@ -41,7 +41,7 @@
         ProgressWatcher.prototype = {
             _setRelativeValue : function () {
                 this.relative = (this.current / this.total) * 100;
-                this.emit('update');
+                this.emit('update', this);
             },
 
             emit : function (type) {
@@ -68,22 +68,52 @@
                 }
 
                 for (i = 0, len = this._handlersOnce.length; i < len; i += 1) {
-                    this.off(type, this._handlersOnce[i]);
+                    this.removeListener(type, this._handlersOnce[i]);
                 }
             },
 
 
             on : function (type, handler) {
-                this._handlers.push(handler);
+                var handlers = this._handlers[type];
+                var idx;
+
+                if (!handlers) {
+                    handlers = this._handlers[type] = [];
+                    idx = -1;
+                } else {
+                    idx = handlers.indexOf(handler);
+                }
+
+                if (!~idx) {
+                    handlers.push(handler);
+                }
             },
 
             once : function () {
                 this.on.apply(this, arguments);
-                this._handlersOnce.push(handler);
+
+                var handlers = this._handlersOnce[type];
+                var idx;
+
+                if (!handlers) {
+                    handlers = this._handlersOnce[type] = [];
+                    idx = -1;
+                } else {
+                    idx = handlers.indexOf(handler);
+                }
+
+                if (!~idx) {
+                    handlers.push(handler);
+                }
             },
 
-            off : function (type, handler) {
+            removeListener : function (type, handler) {
                 var idx = this._handlers.indexOf(handler);
+                var idxO = this._handlersOnce.indexOf(handler);
+
+                if (~idxO) {
+                    this._handlersOnce.splice(idxO, 1);
+                }
 
                 if (~idx) {
                     return this._handlers.splice(idx, 1)[0];
