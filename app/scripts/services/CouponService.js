@@ -26,14 +26,19 @@
          * Create and return a coupon.
          */
         var create = function create(entity, amount, remarks) {
-            var coupon = new Voucher(null, entity, 'coupon', amount);
-            coupon.remarks = remarks;
-            
-            var result = VoucherKeeper.create(coupon);
-            result['catch'](function(err) {
-                $log.error('CouponService.create: -Failed to create a voucher. ', err);
-            });
-            return result;
+        	if (amount > 0 && entity > 0) {
+	            var coupon = new Voucher(null, entity, 'coupon', amount);
+	            coupon.remarks = remarks;
+	            
+	            var result = VoucherKeeper.create(coupon);
+	            result['catch'](function(err) {
+	                $log.error('CouponService.create: -Failed to create a voucher. ', err);
+	            });
+	            return result;
+        	} 
+        	else {
+        		throw 'Coupon not created';
+        	}
         };
 
         /**

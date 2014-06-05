@@ -1,4 +1,4 @@
-describe('Service: TimerService', function () {
+ddescribe('Service: TimerService', function () {
 
   var logger = angular.noop;
 
@@ -33,6 +33,11 @@ describe('Service: TimerService', function () {
     TimerService.clearTimers();
   }));
 
+  it('should not create Timer', function(){
+      expect(function() {
+    	  TimerService.startTimer(undefined , 'test');
+      }).toThrow();	  
+  });
 
   it('is accessible', function () {
     expect(TimerService).not.toBeUndefined();
@@ -90,11 +95,38 @@ describe('Service: TimerService', function () {
       expect($log.debug).toHaveBeenCalledWith('A timer with this id (FOO) is already running.');
       expect(!!timer.stopped).toBe(false);
     });
+    
+    it('Timer already runnning', function () {
+    	var t1 = TimerService.startTimer('t1');
+    	t1.start();
+        expect($log.debug).toHaveBeenCalledWith('Timer already runnning!', 't1');
+    });
+
+    it('Getting elapsed time for a running timer', function () {
+    	var t1 = TimerService.startTimer('t1');
+    	t1.getElapsedTime();
+        expect($log.debug).toHaveBeenCalledWith('Getting elapsed time for a running timer (t1).');
+    });
   }); // TimerService.startTimer()
 
 
   describe('TimerService.stopTimer()', function () {
-    it('is accessible', function () {
+
+    it('Timer already stopped', function () {
+    	var t1 = TimerService.startTimer('t1');
+    	t1.stop();
+    	t1.stop();
+        expect($log.debug).toHaveBeenCalledWith('Timer already stopped!', 't1');
+    });
+
+    it('has already been stopped', function () {
+    	var timer1 = TimerService.startTimer('t1');
+    	timer1.stopped = true;
+    	TimerService.stopTimer('t1');
+        expect($log.debug).toHaveBeenCalledWith('The desired timer has already been stopped:','t1');
+    });
+
+	it('is accessible', function () {
       expect(TimerService.stopTimer).not.toBeUndefined();
     });
 
@@ -205,4 +237,11 @@ describe('Service: TimerService', function () {
     });
   }); // TimerService.clearTimers()
 
+  it('Timer runned for elapsedTime', function () {
+  	var t1 = TimerService.startTimer('t1');
+  	var status = t1.getStatus();
+    expect( status.indexOf("Timer t1 runned for") ).toEqual(0);
+  });
+  
+  
 });
