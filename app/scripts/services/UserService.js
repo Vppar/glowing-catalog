@@ -101,8 +101,9 @@
             var progress = dialogData.progress = ProgressService.get('login', 'Autenticando...');
             progress.setTotal(3);
 
-            progress.remote = ProgressService.get('load-remote');
-            progress.replay = ProgressService.get('replay');
+            progress.warmup = ProgressService.get('warmup-entries');
+            progress.local = ProgressService.get('local-entries');
+            progress.remote = ProgressService.get('remote-entries');
 
             var dialog = DialogService.openDialogLoading(dialogData);
 
