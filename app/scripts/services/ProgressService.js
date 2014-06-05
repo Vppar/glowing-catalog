@@ -34,12 +34,13 @@
             this.relative = 0;
             _instances[id] = this;
 
-            this._listeners = {};
+            this._handlers = {};
+            this._handlersOnce = {};
         }
 
 
         ProgressWatcher.prototype = {
-            _setRelativeValue : function () {
+            _calculateRelativeValue : function () {
                 this.relative = (this.current / this.total) * 100;
                 this.emit('update', this);
             },
@@ -122,12 +123,16 @@
 
             setTotal : function (total) {
                 this.total = total;
-                this._updateRelative();
+                this._calculateRelativeValue();
             },
 
-            setCurrent : function (val) {
+            setCurrent : function (val, message) {
+                if (message || message === null) {
+                  this.setMessage(message);
+                }
+
                 this.current = val;
-                this._updateRelative();
+                this._calculateRelativeValue();
             },
 
             increment : function (amount) {
@@ -184,7 +189,7 @@
             var instance = this.get(id);
 
             if (instance) {
-                instance.del():
+                instance.del();
             }
 
             return instance;
