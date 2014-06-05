@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService) {
+        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog', 'tnt.catalog.progress.service'
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', 'ProgressService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService, ProgressService) {
 
         var log = logger.getLogger('tnt.catalog.user.UserService');
         
@@ -98,10 +98,9 @@
         this.login = function(user, pass) {
             var dialogData = {};
 
-            dialogData.step = {
-              value : 0,
-              message : 'Autenticando...'
-            };
+            var progress = dialogData.progress = ProgressService.create('login');
+            progress.setTotal(3);
+            progress.setMessage('Autenticando...');
 
             var dialog = DialogService.openDialogLoading(dialogData);
 
@@ -116,23 +115,21 @@
 
             function closeLoadingDialog() {
                 dialog.$scope.cancel();
+                progress.del();
                 return true;
             }
 
             return loggedPromise
                 .then(function () {
-                    dialogData.step.value = 50;
-                    dialogData.step.message = 'Carregando dados locais...';
+                    progress.setCurrent(1, 'Carregando dados locais...');
 
                     return SyncService.resync().then(function () {
-                        dialogData.step.value = 75;
-                        dialogData.step.message = 'Atualizando dados...';
+                        progress.setCurrent(2, 'Atualizando dados locais...');
 
                         return SyncDriver.registerSyncService(SyncService).then(function () {
                             var deferred = $q.defer();
 
-                            dialogData.step.value = 100;
-                            dialogData.step.message = 'Inicializando aplicação.';
+                            progress.setCurrent(3, 'Atualizando dados locais...');
 
                             // Wait for the progress bar to complete...
                             setTimeout(function () {
