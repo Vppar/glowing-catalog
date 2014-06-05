@@ -54,17 +54,6 @@ describe('Service: CouponServiceCreateSpec', function() {
         });        
     });
 
-    it('should not create a coupon with negative value', function() {
-        var entity = 123;
-        var amount = -123.45;
-        var remarks = "remarks test";
-
-        expect(function() {
-            CouponService.create(entity, amount, remarks);
-        }).toThrow();
-        expect(VoucherKeeper.create).not.toHaveBeenCalled();
-    });
-
     it('should create a coupon without a remark', function() {
         var entity = 123;
         var amount = 123.45;
@@ -84,16 +73,6 @@ describe('Service: CouponServiceCreateSpec', function() {
         runs(function() {
         	expect(VoucherKeeper.create).toHaveBeenCalled();
         });        
-    });
-
-    it('should not create a coupon without entity', function() {
-        var amount = 123.45;
-        var remarks = "remarks test";
-    	
-        expect(function() {
-            CouponService.create(undefined, amount, remarks);
-        }).toThrow();
-        expect(VoucherKeeper.create).not.toHaveBeenCalled();
     });
 
 });
