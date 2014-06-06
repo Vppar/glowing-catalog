@@ -248,6 +248,7 @@ scripts/controllers/third-party.js
 scripts/controllers/warmup.js
 scripts/controllers/pagpop.js
 scripts/controllers/bi.js
+scripts/controllers/target/target.js
 scripts/controllers/date-range-test.js
 
 scripts/keepers/CheckKeeper.js
@@ -266,6 +267,7 @@ scripts/keepers/BookKeeper.js
 scripts/keepers/ConsultantKeeper.js
 scripts/keepers/SchedulingKeeper.js
 scripts/keepers/MasterKeeper.js
+scripts/keepers/TargetKeeper.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
@@ -317,6 +319,7 @@ scripts/services/WarmupService.js
 scripts/services/PagPopGateway.js
 scripts/services/SchedulingService.js
 scripts/services/ProductsDeliveryService.js
+scripts/services/target/TargetService.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html
@@ -448,6 +451,7 @@ views/parts/products-delivery/sacred-products-delivery-delivery.html
 views/parts/products-delivery/sacred-products-delivery.html
 views/catalog/sacred-best-sellers.html
 views/sacred-bi.html
+views/sacred-target.html
 
 images/keyboard/n0.png
 images/keyboard/n1.png

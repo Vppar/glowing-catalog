@@ -146,7 +146,11 @@
             'tnt.chart.components.gauge',
             'tnt.chart.components.termometer',
             'tnt.chart.components.cumulative',
-            'tnt.chart.components.histogram'
+            'tnt.chart.components.histogram',
+            'tnt.catalog.target.keeper',
+            'tnt.catalog.target.entity',
+            'tnt.catalog.target.ctrl',
+            'tnt.catalog.target.service'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -218,6 +222,9 @@
         }).when('/stock', {
             templateUrl : 'views/sacred-stock.html',
             controller : 'StockCtrl'
+        }).when('/target', {
+            templateUrl : 'views/sacred-target.html',
+            controller : 'TargetCtrl'
         }).when('/third-parties', {
             templateUrl : 'views/sacred-third-parties.html',
             controller: 'ThirdPartyCtrl'
