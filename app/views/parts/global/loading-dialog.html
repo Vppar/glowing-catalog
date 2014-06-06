@@ -19,7 +19,7 @@
           aria-valuenow="{{ progress.current }}"
           aria-valuemin="0"
           aria-valuemax="{{ progress.total }}"
-          style="width: {{ progress.relative }}%;">
+          style="width: {{ progress.relative * 100 }}%;">
           <span>{{ progress.message }}</span>
       </div>
     </div>
