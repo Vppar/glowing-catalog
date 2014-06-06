@@ -105,6 +105,14 @@
             progress.local = ProgressService.get('local-entries');
             progress.remote = ProgressService.get('remote-entries');
 
+            // Update the relative value on 50% and 100%
+            progress.warmup.setStep(0.5);
+            progress.local.setStep(0.5);
+
+            // Update relative value every 10%
+            progress.remote.setStep(0.1);
+
+
             var dialog = DialogService.openDialogLoading(dialogData);
 
             var onlineLoggedPromise = this.loginOnline(user, pass);
@@ -126,8 +134,23 @@
                 .then(function () {
                     progress.setCurrent(1, 'Carregando dados locais...');
 
+                    progress.warmup.on('update', function () {
+                      console.log('@@@@@@@@@@@@@@');
+                      progress.increment(progress.warmup.relative);
+                    });
+
+                    progress.local.on('update', function () {
+                      console.log('!!!!!!!!!!!!!');
+                      progress.increment(progress.local.relative);
+                    });
+
                     return SyncService.resync().then(function () {
                         progress.setCurrent(2, 'Carregando dados remotos...');
+
+                        progress.remote.on('update', function () {
+                          console.log('>>>>>>>>>>>>>>');
+                          progress.setCurrent(progress.remote.relative);
+                        });
 
                         return SyncDriver.registerSyncService(SyncService).then(function () {
                             var deferred = $q.defer();
