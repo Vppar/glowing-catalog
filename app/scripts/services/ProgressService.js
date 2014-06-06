@@ -32,6 +32,7 @@
             this.total = null;
             this.current = null;
             this.relative = 0;
+            this.relativeStep = 0.1;
             _instances[id] = this;
 
             this._handlers = {};
@@ -41,7 +42,26 @@
 
         ProgressWatcher.prototype = {
             _calculateRelativeValue : function () {
-                this.relative = (this.current / this.total) * 100;
+                var relative = this.current / this.total;
+
+                if (relative > 1) {
+                    // TODO: should we log a warning if it goes over 100%?
+                    relative = 1;
+                }
+
+                // Update the relative value only when it goes over a multiple
+                // of the step value. Set relativeStep to null or false to
+                // update it continuously.
+                //
+                // Setting a relativeStep usually makes progress bars update
+                // more smoothly.
+                if (
+                    !this.relativeStep ||
+                    (relative >= this.relative + this.relativeStep)
+                ) {
+                    this.relative = relative;
+                }
+
                 this.emit('update', this);
             },
 
