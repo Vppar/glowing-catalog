@@ -30,9 +30,9 @@
             this.id = id;
             this.message = message;
             this.total = null;
-            this.current = null;
+            this.current = 0;
             this.relative = 0;
-            this.relativeStep = 0.1;
+            this.relativeStep = null;
             _instances[id] = this;
 
             this._handlers = {};
@@ -42,7 +42,12 @@
 
         ProgressWatcher.prototype = {
             _calculateRelativeValue : function () {
-                var relative = this.current / this.total;
+                if (!this.total || !this.current) {
+                  this.relative = 0;
+                  return;
+                }
+
+                var relative = Math.round((this.current / this.total) * 100) / 100;
 
                 if (relative > 1) {
                     // TODO: should we log a warning if it goes over 100%?
@@ -57,12 +62,13 @@
                 // more smoothly.
                 if (
                     !this.relativeStep ||
+                    (relative === 1 && this.relative !== 1) ||
                     (relative >= this.relative + this.relativeStep)
                 ) {
                     this.relative = relative;
+                    console.log('::::::::::::', this.id, this.relative);
+                    this.emit('update', this);
                 }
-
-                this.emit('update', this);
             },
 
             emit : function (type) {
