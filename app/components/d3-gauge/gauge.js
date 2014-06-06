@@ -68,12 +68,13 @@
                     }
 
                     //order by size
-                    var orderRender = [goal,currentGoal,snapshot];
+                    //var orderRender = [goal,currentGoal,snapshot];
+                    var orderRender = [goal,snapshot];
                     orderRender.sort();
                     
                     var varCssMap = {};
                     varCssMap[goal] = 'goal';
-                    varCssMap[currentGoal] = 'goal';
+                    //varCssMap[currentGoal] = 'goal';
                     varCssMap[snapshot] = 'snapshot';
 
 
@@ -92,7 +93,7 @@
 
                     //draw tips
                     drawTip(goal, 1, 'goal-tip');
-                    drawTip(currentGoal, currentGoal/goal, 'goal-tip');
+                    //drawTip(currentGoal, currentGoal/goal, 'goal-tip');
                     drawTip(snapshot, snapshot/goal, 'snapshot-tip');
                 }
 
