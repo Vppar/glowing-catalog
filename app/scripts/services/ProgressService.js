@@ -141,6 +141,14 @@
                 }
             },
 
+            setStep : function (step) {
+                if (step > 1) {
+                    step = step / 100;
+                }
+
+                this.relativeStep = step;
+            },
+
             setTotal : function (total) {
                 this.total = total;
                 this._calculateRelativeValue();
