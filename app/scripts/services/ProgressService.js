@@ -66,7 +66,6 @@
                     (relative >= this.relative + this.relativeStep)
                 ) {
                     this.relative = relative;
-                    console.log('::::::::::::', this.id, this.relative);
                     this.emit('update', this);
                 }
             },
@@ -75,6 +74,10 @@
                 var args = Array.prototype.slice(arguments, 1);
                 var handlers = this._handlers[type];
                 var i, len, handler;
+
+                if (!handlers) {
+                  return;
+                }
 
                 // Stores the listeners set to be executed only once for
                 // removal.
@@ -89,7 +92,7 @@
                 // args array.
                 args.splice(0, 0, event);
 
-                for (i = 0, len = this._handlers.length; i < len; i += 1) {
+                for (i = 0, len = handlers.length; i < len; i += 1) {
                     handler = handlers[i];
                     handler.apply(this, args);
                 }

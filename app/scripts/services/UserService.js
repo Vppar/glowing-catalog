@@ -134,22 +134,23 @@
                 .then(function () {
                     progress.setCurrent(1, 'Carregando dados locais...');
 
+                    var current = progress.current;
+
                     progress.warmup.on('update', function () {
-                      console.log('@@@@@@@@@@@@@@');
-                      progress.increment(progress.warmup.relative);
+                      progress.setCurrent(current + progress.warmup.relative);
                     });
 
                     progress.local.on('update', function () {
-                      console.log('!!!!!!!!!!!!!');
-                      progress.increment(progress.local.relative);
+                      progress.setCurrent(current + progress.local.relative);
                     });
 
                     return SyncService.resync().then(function () {
                         progress.setCurrent(2, 'Carregando dados remotos...');
 
+                        var current = progress.current;
+
                         progress.remote.on('update', function () {
-                          console.log('>>>>>>>>>>>>>>');
-                          progress.setCurrent(progress.remote.relative);
+                          progress.setCurrent(current + progress.remote.relative);
                         });
 
                         return SyncDriver.registerSyncService(SyncService).then(function () {
