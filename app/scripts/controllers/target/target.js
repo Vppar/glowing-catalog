@@ -3,15 +3,17 @@
     angular.module('tnt.catalog.target.ctrl', []).controller(
         'TargetCtrl',
         [
-            '$scope', 'Target', 'TargetService', 'UserService',
-            function ($scope, Target, TargetService, UserService) {
+            '$scope', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice',
+            function ($scope, Target, TargetService, UserService, FinancialMathService, Misplacedservice) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
                 $scope.dtFilter = {
                     dtInitial : new Date(),
-                    dtFinal : new Date()
+                    dtFinal : new Date().getTime() + 86400000
                 };
+
+                $scope.targetValue = 0;
 
                 $scope.targetOptions = [{
                         id:0,
@@ -25,66 +27,105 @@
                 }];
 
                 $scope.targetList = TargetService.list();
-                console.log($scope.targetList);
-
 
                 $scope.targets = [];
 
-                $scope.targetName = 'PlaceholderName';
-
-                $scope.selectedTarget = true;
-
-                $scope.resetList = function(){
-                    $scope.selectedTarget= true;
-                };
-
-                $scope.selectTarget = function(index){
-                    $scope.selectedTarget= false;
-                    $scope.selTarget = $scope.targetList[index];
-                };
+                $scope.targetName = '';
 
                 $scope.confirm = function(){
-                    var targetsFinal = targetCalc();
+                    var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId , $scope.targetValue, $scope.targetName);
 
-                    var target = new Target(null, targetsFinal, $scope.selectedOptionId , $scope.targetValue, $scope.targetName);
-
-                    TargetService.add(target);
+                    return TargetService.add(target);
                 };
 
-                $scope.$watchCollection('selTarget', function(){
+                $scope.$watchCollection('dtFilter', function(){
 
+                    $scope.minDate = angular.copy($scope.dtFilter.dtInitial).getTime() + 86400000;
+                    $scope.targetsFinal = targetCalc();
                 });
 
+                $scope.$watchCollection('selectedOptionId', function(){
+                    $scope.targetsFinal = targetCalc();
+                });
+
+                $scope.$watchCollection('targetValue', function(){
+                    $scope.targetsFinal = targetCalc();
+                });
+
+                $scope.updateValues = function(index){
+                    Misplacedservice.recalc($scope.targetValue, index, $scope.targetsFinal, 'splitAmount');
+                    splitSumCalc($scope.targetsFinal);
+                };
+
+
+                /**
+                 * Function that calculates the amount for each split.
+                 *
+                 * @returns {Array}
+                 */
 
                 function targetCalc(){
                     var weekInitial = getWeekNumber($scope.dtFilter.dtInitial);
                     var weekFinal = getWeekNumber($scope.dtFilter.dtFinal);
 
-                    var splitNumber = (weekFinal-weekInitial);
-                    var splitAmount = $scope.targetValue/splitNumber;
+                    var splitNumber = FinancialMathService.currencySubtract(weekFinal, weekInitial);
+
+                    var splitAmount = 0;
+
+                    if(splitNumber === 0){
+                        splitAmount = $scope.targetValue;
+                    }else{
+                        splitAmount = FinancialMathService.currencyDivide($scope.targetValue, splitNumber);
+                    }
 
                     var targets = [];
 
-                    for(var ix=0;ix<splitNumber;ix++){
+                    for(var ix=0;ix<=splitNumber;ix++){
 
                         var initialDate = new Date($scope.dtFilter.dtInitial);
                         initialDate.setTime( initialDate.getTime() + 7*(ix)* 86400000 );
 
+                        initialDate.setHours(23,0,0);
+                        var finalDateTemp = new Date($scope.dtFilter.dtFinal).setHours(0,0,0);
+
+                        if(initialDate>=finalDateTemp){
+                            break;
+                        }
+
                         var finalDate = new Date($scope.dtFilter.dtInitial);
                         finalDate.setTime( finalDate.getTime() + 7*(ix+1)* 86400000 );
 
-                        if((ix===(splitNumber-1)&& finalDate>$scope.dtFilter.dtFinal)){
+                        if(finalDate>$scope.dtFilter.dtFinal){
                             finalDate = $scope.dtFilter.dtFinal;
                         }
+
                         targets.push({ initial : initialDate,
                             final : finalDate,
-                            amount : splitAmount
+                            splitAmount : splitAmount
                         });
                     }
+
+                    Misplacedservice.recalc($scope.targetValue, 0, targets, 'splitAmount');
+                    splitSumCalc(targets);
 
                     return targets;
                 }
 
+                function splitSumCalc(targets){
+                    var splitSum = 0;
+                    for(var ix in targets){
+                        splitSum = FinancialMathService.currencySum(splitSum,Number(targets[ix].splitAmount));
+                        targets[ix].splitSum = splitSum;
+                    }
+                }
+
+
+                /**
+                 * Helper function to get number of weeks.
+                 *
+                 * @param d
+                 * @returns {number}
+                 */
                 function getWeekNumber(d) {
                     // Copy date so don't modify original
                     d = new Date(d);
