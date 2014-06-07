@@ -24,7 +24,7 @@
 
                         invalidProperty.targets = angular.isDefined(target.targets);
                         invalidProperty.type = angular.isDefined(target.type);
-                        invalidProperty.totalAmount = angular.isDefined(target.totalAmount) && angular.isNumber(target.totalAmount) && target.totalAmount > 0;
+                        invalidProperty.totalAmount = angular.isDefined(target.totalAmount);
                         invalidProperty.name = angular.isDefined(target.name) && angular.isString(target.name);
 
                         var result = [];

@@ -25,6 +25,8 @@
                 }];
 
                 $scope.targetList = TargetService.list();
+                console.log($scope.targetList);
+
 
                 $scope.targets = [];
 
@@ -37,7 +39,6 @@
                 };
 
                 $scope.selectTarget = function(index){
-                    console.log(index);
                     $scope.selectedTarget= false;
                     $scope.selTarget = $scope.targetList[index];
                 };
