@@ -6,6 +6,7 @@ describe('Service: OrderServiceRegisterSpec', function() {
     var DataProviderMock = {};
     var $rootScope = {};
     var OrderService = null;
+    var q = null;
 
     // load the service's module
     beforeEach(function() {
@@ -25,6 +26,7 @@ describe('Service: OrderServiceRegisterSpec', function() {
         ];
 
         OrderKeeperMock.add = jasmine.createSpy('OrderKeeper.add');
+        OrderMock = jasmine.createSpy('OrderKeeper');
 
         module(function($provide) {
             $provide.value('logger', loggerMock);
@@ -34,9 +36,11 @@ describe('Service: OrderServiceRegisterSpec', function() {
         });
     });
 
-    beforeEach(inject(function(_OrderService_, _$rootScope_) {
+    beforeEach(inject(function(_OrderService_, _$rootScope_,_$q_,_Order_) {
         OrderService = _OrderService_;
         $rootScope = _$rootScope_;
+        q = _$q_;
+        Order = _Order_;
     }));
 
     // FIXME - This test doesn't test anything, rebuild it
@@ -66,13 +70,45 @@ describe('Service: OrderServiceRegisterSpec', function() {
         var result = OrderService.register(invalidOrder);
         expect(OrderKeeperMock.add).not.toHaveBeenCalled();
     });
+    
+    it('register order successfully', function() {
+        
+        var validOrder = {
+                date : new Date(),
+                canceled : false,
+                customerId : 1,
+                items : [
+                    {}
+                ]
+            };
+           
+        PromiseHelper.config(q, angular.noop);           
+        OrderKeeperMock.add = jasmine.createSpy('OrderKeeper.add').andCallFake(PromiseHelper.resolved(true));
+              
+        
+        var resolution = {};
+        runs(function() {
+            OrderService.register(validOrder).then(function(_result_) {
+                resolution = _result_;
+            });
+        });
+
+        waitsFor(function() {
+            $rootScope.$apply();
+            return !!resolution;
+        });
+
+        runs(function() {
+            expect(OrderKeeperMock.add).toHaveBeenCalled();
+        });
+    });
 
     it('returns the validation result', function() {
         var invalidOrder = {
-            date : new Date(),
-            canceled : false,
-            customerId : 1,
-            items : []
+                date : new Date(),
+                canceled : false,
+                customerId : 1,
+                items : []          
         };
 
         var resolution = null;

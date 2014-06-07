@@ -14,8 +14,8 @@ describe('Service: OrderServiceList', function () {
     module('tnt.catalog.order.service');
 
     spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-    logMock.debug = jasmine.createSpy('$log.debug');
-    loggerMock.getLogger = jasmine.createSpy('logger.getLogger');
+     loggerMock.debug = jasmine.createSpy('logger.debug');
+    loggerMock.getLogger = jasmine.createSpy('logMock.getLogger').andReturn(loggerMock);
 
     DataProviderMock.customers = [
       {
@@ -51,4 +51,14 @@ describe('Service: OrderServiceList', function () {
     // Are we returning the value returned by 'OrderKeeper.list()'?
     expect(orders).toEqual('ok');
   });
+it('gets orders from OrderKeeper.list return error.', function () {
+	    OrderKeeperMock.list = jasmine.createSpy('OrderKeeper.list').andCallFake(function() {
+            throw 'error';
+        }); 
+	  
+	    OrderService.list();
+	    
+	    expect(OrderKeeperMock.list).toHaveBeenCalled();
+	    expect(OrderKeeperMock.list).toThrow('error');
+   });
 });
