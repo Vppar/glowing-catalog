@@ -221,6 +221,8 @@
         }).when('/third-parties', {
             templateUrl : 'views/sacred-third-parties.html',
             controller: 'ThirdPartyCtrl'
+        }).when('/target', {
+            templateUrl : 'views/sacred-target.html'
         }).when('/voucher', {
             templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'
