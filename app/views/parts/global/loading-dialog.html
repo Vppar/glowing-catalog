@@ -16,11 +16,11 @@
   <div class="modal-body">
     <div class="progress">
       <div class="bar"  role="progressbar"
-          aria-valuenow="{{ step.value }}"
+          aria-valuenow="{{ progress.current }}"
           aria-valuemin="0"
-          aria-valuemax="100"
-          style="width: {{ step.value }}%;">
-          <span>{{ step.message }}</span>
+          aria-valuemax="{{ progress.total }}"
+          style="width: {{ progress.relative * 100 }}%;">
+          <span>{{ progress.message }}</span>
       </div>
     </div>
   </div>
