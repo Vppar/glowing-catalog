@@ -474,6 +474,10 @@
                                         promises.push (Replayer.replay (entry));
                                         progress.increment();
                                     }
+                                    
+                                    $log.info ('waiting for ' + promises.length +
+                                        ' promises to resolve');
+                                    deferred.resolve ($q.all (promises));
                                 } catch (err) {
                                     $timeout(function(){
                                         deferred.resolve(self.resync());
@@ -482,10 +486,6 @@
                                     $log.error ('Failed to resync: replay failed', err);
                                     $log.debug ('Failed to resync: replay failed -', err, entry);
                                 }
-                                
-                                $log.info ('waiting for ' + promises.length +
-                                    ' promises to resolve');
-                                deferred.resolve ($q.all (promises));
                             }, function(error) {
                                 $log.error ('Failed to resync: list failed');
                                 $log.debug ('Failed to resync: list failed', error);
