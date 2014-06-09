@@ -43,12 +43,12 @@
 
 							<div class="col-4">
 								<label>Valor Total</label>
-								<input type="text" class="input-header" ng-model="targetValue" placeholder="" currency ng-show="selectedOptionId==='1'">
-                                <input type="text" class="input-header" ng-model="targetValue" placeholder="" number  ng-hide="selectedOptionId==='1'">
+								<input type="text" class="input-header text-right" ng-model="targetValue" placeholder="" currency ng-show="selectedOptionId==='1'">
+                                <input type="text" class="input-header text-right" ng-model="targetValue" placeholder="" number  ng-hide="selectedOptionId==='1'">
 							</div>
 
 							<div class="col-4">
-								<select ui-select2 tnt-select2 class='without-label' data-placeholder="Selecione" ng-model="selectedOptionId">
+								<select class='without-label' data-placeholder="Selecione" ng-model="selectedOptionId">
                                     <option value="" ng-hide="true"></option>
                                     <option value="{{targetOptions[0].id}}">{{targetOptions[0].describe}}</option>
                                     <option value="{{targetOptions[1].id}}">{{targetOptions[1].describe}}</option>
@@ -63,25 +63,25 @@
 
 							<div class="grid-header">
 								<div class="row">
-									<div class="col-8 text-center">Semana(s)</div>
+									<div class="col-8">Semana(s)</div>
 									<div class="col-4">Início</div>
 									<div class="col-4">Fim</div>
-									<div class="col-4">Valor Semanal</div>
-									<div class="col-4">Valor Acumulado</div>
+									<div class="col-4 text-right">Valor Semanal</div>
+									<div class="col-4 text-right">Valor Acumulado</div>
 								</div>
 							</div>
 
 							<div class="grid-body grid-scroll">
 								<div class="grid-item" ng-repeat="target in targetsFinal">
 									<div class="row">
-										<div class="col-8 text-center">Semana {{$index +1}}</div>
+										<div class="col-8">Semana {{$index +1}}</div>
 										<div class="col-4">de {{target.initial | date:'dd/MM/yyyy'}}</div>
 										<div class="col-4">até {{target.final | date:'dd/MM/yyyy'}}</div>
-										<div class="col-4">
-											<input type="text" class="input-header" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" currency ng-show="selectedOptionId==='1'">
-                                            <input type="text" class="input-header" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" number ng-hide="selectedOptionId==='1'">
+										<div class="col-4 text-right">
+											<input type="text" class="input-header text-right" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" currency ng-show="selectedOptionId==='1'">
+                                            <input type="text" class="input-header text-right" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" number ng-hide="selectedOptionId==='1'">
 										</div>
-										<div class="col-4">
+										<div class="col-4 text-right">
 											<div type="text" class="input-header" placeholder="" ng-show="selectedOptionId==='1'">{{target.splitSum | currency:''}}</div>
                                             <div type="text" class="input-header" placeholder="" ng-hide="selectedOptionId==='1'">{{target.splitSum}}</div>
 										</div>
