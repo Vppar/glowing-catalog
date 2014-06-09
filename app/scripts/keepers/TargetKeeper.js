@@ -106,23 +106,6 @@
                     return event.uuid;
                 });
 
-                ObjectUtils.ro(this.handlers, 'updateTargetV1', function (event) {
-                    var entry = ArrayUtils.find(targets, 'uuid', event.uuid);
-
-                    if (entry !== null) {
-
-                        event = angular.copy(event);
-                        //remove properties read only.
-                        delete event.uuid;
-                        angular.extend(entry, event);
-
-                    } else {
-                        throw 'Target not found.';
-                    }
-
-                    return entry.uuid;
-                });
-
                 /**
                  * Registering the handlers with the Replayer
                  */

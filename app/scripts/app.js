@@ -150,7 +150,8 @@
             'tnt.catalog.target.keeper',
             'tnt.catalog.target.entity',
             'tnt.catalog.target.ctrl',
-            'tnt.catalog.target.service'
+            'tnt.catalog.target.service',
+            'tnt.catalog.target.list.ctrl'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -228,6 +229,9 @@
         }).when('/target', {
             templateUrl : 'views/sacred-target.html',
             controller : 'TargetCtrl'
+        }).when('/target-list', {
+            templateUrl : 'views/sacred-target-list.html',
+            controller : 'TargetListCtrl'
         }).when('/voucher', {
             templateUrl : 'views/sacred-voucher.html',
             controller : 'VoucherCtrl'

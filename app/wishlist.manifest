@@ -250,6 +250,7 @@ scripts/controllers/warmup.js
 scripts/controllers/pagpop.js
 scripts/controllers/bi.js
 scripts/controllers/target/target.js
+scripts/controllers/target/target-list.js
 scripts/controllers/date-range-test.js
 
 scripts/keepers/CheckKeeper.js

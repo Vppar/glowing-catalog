@@ -3,8 +3,8 @@
     angular.module('tnt.catalog.target.ctrl', []).controller(
         'TargetCtrl',
         [
-            '$scope', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice',
-            function ($scope, Target, TargetService, UserService, FinancialMathService, Misplacedservice) {
+            '$scope', '$location', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice',
+            function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
@@ -14,6 +14,8 @@
                 };
 
                 $scope.targetValue = 0;
+
+                $scope.selectedOptionId = 0;
 
                 $scope.targetOptions = [{
                         id:0,
@@ -35,7 +37,13 @@
                 $scope.confirm = function(){
                     var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId , $scope.targetValue, $scope.targetName);
 
-                    return TargetService.add(target);
+                    return TargetService.add(target).then(function(){
+                        $location.path('/target-list');
+                    });
+                };
+
+                $scope.cancel = function(){
+                    $location.path('/target-list');
                 };
 
                 $scope.$watchCollection('dtFilter', function(){
@@ -75,7 +83,7 @@
                     if(splitNumber === 0){
                         splitAmount = $scope.targetValue;
                     }else{
-                        splitAmount = FinancialMathService.currencyDivide($scope.targetValue, splitNumber);
+                        splitAmount = FinancialMathService.currencyDivide($scope.targetValue, splitNumber+1);
                     }
 
                     var targets = [];
