@@ -67,8 +67,8 @@
                     
                     y = d3.scale.linear().domain([max,0]).range([0,chartHeight]);
                     
-                    goals = bands.map(function(d){ return d.goal;});
-                    snapshots = bands.map(function(d){ return d.snapshot;});
+                    goals = bands.map(function(d){ return d.goal;}).filter(Number);
+                    snapshots = bands.map(function(d){ return d.snapshot;}).filter(Number);
                     byOrder = d3.nest().key(function(d){ return 'o'+d.order; }).map(bands,d3.map);
 
                     var values = scope.values;
