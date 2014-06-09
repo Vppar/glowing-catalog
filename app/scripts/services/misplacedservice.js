@@ -74,8 +74,8 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         var item = items[idx];
 
         var itemTotal = item.qty * (item.price || item.cost || item.amount);
-
         var itemShare = itemTotal / total;
+
         var itemDiscount = Math.round(100 * discount * itemShare) / 100;
         var isLastItem = parseInt(idx) === (items.length - 1);
         var currTotalDiscount = Math.round(100 * (currTotalDiscount + itemDiscount)) / 100;
@@ -142,17 +142,6 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
         }
       }
     };
-
-    function distributeDiscount(discount, items) {
-      var currTotalDiscount = 0;
-      var largestProductIndex = null;
-      var largestProductValue = 0;
-
-      var total = 0;
-
-    }
-
-
 
     /**
      * Defines most of the logic required to handle discounts in the app.
@@ -374,7 +363,6 @@ angular.module('tnt.catalog.misplaced.service', []).service('Misplacedservice', 
                 var item = items[idx];
                 item.itemDiscount && itemsWithDiscount.push(item);
             }
-
             return itemsWithDiscount;
         }
 
