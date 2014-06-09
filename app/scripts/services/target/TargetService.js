@@ -61,21 +61,6 @@
                     }
                     return result;
                 };
-//
-//                this.update = function update(target) {
-//                    var result = null;
-//
-//                    var hasErrors = this.isValid(target);
-//
-//                    if (hasErrors.length === 0) {
-//                        var targetntry = new target(null ,target.targets, target.type, target.totalAmount, target.name);
-//                        result = TargetKeeper.add(targetEntry);
-//                    } else {
-//                        log.error('TargetService.add: -Invalid target. ', hasErrors);
-//                        result = $q.reject(hasErrors);
-//                    }
-//                    return result;
-//                };
 
                 this.findTarget = function findTarget(targetId) {
                     var copyList = TargetKeeper.list();
