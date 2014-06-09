@@ -48,12 +48,12 @@
                     $scope.targetsFinal = targetCalc();
                 });
 
-                $scope.$watchCollection('targetValue', function(){
-                    $scope.targetsFinal = targetCalc();
-                });
-
                 $scope.updateValues = function(index){
-                    Misplacedservice.recalc($scope.targetValue, index, $scope.targetsFinal, 'splitAmount');
+                    if(index == ($scope.targetsFinal.length-1)){
+                        recalc();
+                    }else{
+                        Misplacedservice.recalc($scope.targetValue, index, $scope.targetsFinal, 'splitAmount');
+                    }
                     splitSumCalc($scope.targetsFinal);
                 };
 
@@ -117,6 +117,42 @@
                         splitSum = FinancialMathService.currencySum(splitSum,Number(targets[ix].splitAmount));
                         targets[ix].splitSum = splitSum;
                     }
+                }
+
+
+
+                var amountWatcher = angular.noop;
+
+                function enableAmountWatcher() {
+                    amountWatcher = $scope.$watchCollection('targetValue', watcherEtc);
+                }
+
+
+                var oldVal = 0;
+                function watcherEtc(newVal){
+                        if(newVal !== oldVal){
+                            $scope.targetsFinal = targetCalc();
+                        }
+                    oldVal = newVal;
+                }
+
+                function disableAmountWatcher() {
+                    amountWatcher();
+                };
+
+                enableAmountWatcher();
+
+                function recalc(){
+                    disableAmountWatcher();
+                    var total = 0;
+                    for(var ix in $scope.targetsFinal){
+                        total = FinancialMathService.currencySum(total,$scope.targetsFinal[ix].splitAmount);
+                    }
+                    if(total != $scope.targetValue){
+                        $scope.targetValue = total;
+                        oldVal = total;
+                    }
+                    enableAmountWatcher();
                 }
 
 

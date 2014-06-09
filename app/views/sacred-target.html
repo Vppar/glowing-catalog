@@ -43,8 +43,8 @@
 
 							<div class="col-4">
 								<label>Valor Total</label>
-								<input type="text" class="input-header" ng-model="targetValue" placeholder="1234567890" currency ng-show="selectedOptionId==='1'">
-                                <input type="text" class="input-header" ng-model="targetValue" placeholder="1234567890" ng-hide="selectedOptionId==='1'">
+								<input type="text" class="input-header" ng-model="targetValue" placeholder="" currency ng-show="selectedOptionId==='1'">
+                                <input type="text" class="input-header" ng-model="targetValue" placeholder="" number  ng-hide="selectedOptionId==='1'">
 							</div>
 
 							<div class="col-4">
@@ -79,7 +79,7 @@
 										<div class="col-4">até {{target.final | date:'dd/MM/yyyy'}}</div>
 										<div class="col-4">
 											<input type="text" class="input-header" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" currency ng-show="selectedOptionId==='1'">
-                                            <input type="text" class="input-header" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" ng-hide="selectedOptionId==='1'">
+                                            <input type="text" class="input-header" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" number ng-hide="selectedOptionId==='1'">
 										</div>
 										<div class="col-4">
 											<div type="text" class="input-header" placeholder="" ng-show="selectedOptionId==='1'">{{target.splitSum | currency:''}}</div>
