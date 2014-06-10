@@ -26,7 +26,8 @@
 #sacred .sacred-target-page .grid-scroll {
 	height:calc(100% - 97px);
 }
-#sacred .sacred-target-page .buttons-holder {
+#sacred .sacred-target-page .buttons-holder,
+#sacred .sacred-target-list-page .buttons-holder {
 	margin-top:10px;
 }
 #sacred .sacred-target-list-page .grid-scroll {
