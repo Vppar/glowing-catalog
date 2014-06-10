@@ -1,0 +1,31 @@
+#sacred .sacred-target-page .content-header label {
+	margin-bottom:0;
+}
+
+#sacred .sacred-target-page .calendar {
+	margin-right:39px;
+}
+
+#sacred .sacred-target-page .content-header select {
+	width:155px;
+}
+#sacred .sacred-target-page .content-header .select2-default {
+	height:31px;
+	line-height:31px;
+}
+
+#sacred .sacred-target-page .grid-body {
+	width:100%;
+}
+
+#sacred .sacred-target-page .grid-item {
+	line-height:33px;
+}
+
+
+#sacred .sacred-target-page .grid-scroll {
+	height:calc(100% - 88px);
+}
+#sacred .sacred-target-page .buttons-holder {
+	margin-top:10px;
+}
