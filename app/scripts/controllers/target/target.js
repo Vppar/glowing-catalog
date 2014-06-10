@@ -66,11 +66,6 @@
                     $scope.targetsFinal = targetCalc();
                 });
 
-                $scope.$watchCollection('targetsFinal', function(){
-                    $scope.targetIntervals = translator($scope.targetsFinal);
-                    console.log($scope.targetIntervals);
-                });
-
                 $scope.updateValues = function(index){
                     if(index == ($scope.targetsFinal.length-1)){
                         recalc();
@@ -187,33 +182,6 @@
                     $scope.dtFilter.dtInitial = target.targets[0].initial;
 
                 }
-
-                function dateFormatter(date){
-                    date = new Date(date);
-                    var yyyy = date.getFullYear().toString();
-                    var mm = (date.getMonth()+1).toString();
-                    var dd  = date.getDate().toString();
-                    return yyyy +'-' +(mm[1]?mm:"0"+mm[0]) + '-' +(dd[1]?dd:"0"+dd[0]);
-                };
-
-                function translator(target){
-                    var intervals =[];
-
-                    for(var ix in target){
-                        var date = target[ix].initial;
-
-                        date = dateFormatter(date);
-
-                        intervals[date] = {
-                            order : Number(ix)+Number(1),
-                            goal : target[ix].splitSum,
-                            snapshot: 0,
-                            label : 'sem '+ (Number(ix)+Number(1))
-                        };
-                    };
-
-                    return intervals;
-                };
 
                 /**
                  * Helper function to get number of weeks.

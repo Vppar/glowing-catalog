@@ -191,6 +191,53 @@
                 this.read = function read(uuid) {
                     return angular.copy(ArrayUtils.find(targets, 'uuid', uuid));
                 };
+
+
+                //##########################################################################################################################
+                //Utils
+                //##########################################################################################################################
+
+                /**
+                 * gets a date and formats to a string on yyyy-MM-dd format
+                 *
+                 * @param date
+                 * @returns {string}
+                 */
+
+                function dateFormatter(date){
+                    date = new Date(date);
+                    var yyyy = date.getFullYear().toString();
+                    var mm = (date.getMonth()+1).toString();
+                    var dd  = date.getDate().toString();
+                    return yyyy +'-' +(mm[1]?mm:"0"+mm[0]) + '-' +(dd[1]?dd:"0"+dd[0]);
+                };
+
+                /**
+                 * Getas a target obj and return a obj array, with the compatible format for the bi.
+                 *
+                 *
+                 * @param target
+                 * @returns {Array}
+                 */
+
+                function translator(target){
+                    var intervals =[];
+
+                    for(var ix in target){
+                        var date = target[ix].initial;
+
+                        date = dateFormatter(date);
+
+                        intervals[date] = {
+                            order : Number(ix)+Number(1),
+                            goal : target[ix].splitSum,
+                            snapshot: 0,
+                            label : 'sem '+ (Number(ix)+Number(1))
+                        };
+                    };
+
+                    return intervals;
+                };
             }
         ]);
 
