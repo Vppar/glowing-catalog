@@ -132,7 +132,7 @@
 
 </style>
 
-<div id="sacred">
+<!-- <div id="sacred">
 	<div class="container">
 
 		<div ng-include src="'views/parts/global/header.html'"></div>
@@ -151,9 +151,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="page-body">
+			<div class="page-body sacred-bi-page">
 				<div class="row">
 					<div class="col-5">
 						<p>Meta Desafio PARIS</p>
@@ -165,48 +165,49 @@
 					<div class="col-7">
 						<div class="summarizer goal">
 							<div class="summarizer-label">Meta</div>
-              <div class="summarizer-value">{{ data.gauge.goal }}</div>
+            				<div class="summarizer-value">{{ data.gauge.goal }}</div>
 							<small></small>
 						</div>
 					</div>
 					<div class="col-7">
 						<div class="summarizer points">
 							<div class="summarizer-label">Pontos</div>
-              <div class="summarizer-value">{{ data.gauge.snapshot }}</div>
+              				<div class="summarizer-value">{{ data.gauge.snapshot }}</div>
 							<small></small>
 						</div>
 					</div>
 				</div>
+
 				<div class="row">
-<div class="col-4">
-	
-	<gauge values='data.gauge' tip='true' height='500' margintop='25' ></gauge>
-</div>
-<div class="col-20">
-	<div class="row">
-		<h4>Por Semana</h4>
-		<histogram values='data.histogram'></histogram>
+					<div class="col-4">
+						<gauge values='data.gauge' tip='true' height='500' margintop='25' ></gauge>
+					</div>
+					<div class="col-20">
+						<div class="row">
+							<h4>Por Semana</h4>
+							<histogram values='data.histogram'></histogram>
+						</div>
+
+						<div class="row">
+							<div class="termometer">
+								<h4>Termômetro</h4>
+								<termometer values='data.termometer' tip='true' height='15' bands='16' firstcolor="#d80000" middlecolor="#EDD75C" lastcolor="#090"></termometer>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="cumulative">
+								<h4>Acumulado</h4>
+								<cumulative values='data.cumulative'></cumulative>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+<!-- 		</div>
+
 	</div>
-
-	<div class="row">
-		<div class="termometer">
-			<h4>Termômetro</h4>
-			<termometer values='data.termometer' tip='true' height='15' bands='16' firstcolor="#d80000" middlecolor="#EDD75C" lastcolor="#090"></termometer>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="cumulative">
-			<h4>Acumulado</h4>
-			<cumulative values='data.cumulative'></cumulative>
-		</div>
-	</div>
 </div>
 </div>
-
-</div>
-</div>
-
-</div>
-</div>
-</div>
+ -->
