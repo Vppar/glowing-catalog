@@ -13,15 +13,8 @@
                     dtFinal : new Date().getTime() + 86400000
                 };
 
-                var intent = IntentService.getBundle();
-
-                var uuidTarget = null;
-
-                $scope.edit = false;
-
-                if(intent){
-                    loadTarget(TargetService.findTarget(intent.editTarget));
-                    $scope.edit = true;
+                if($scope.targetEdit){
+                    loadTarget($scope.targetEdit);
                 }else{
                     $scope.targetValue = 0;
                     $scope.selectedOptionId = 0;
@@ -44,7 +37,7 @@
                     var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId , $scope.targetValue, $scope.targetName);
 
                     if($scope.edit){
-                        target = new Target(uuidTarget, target.targets, target.type, target.totalAmount, target.name);
+                        target = new Target($scope.uuidTarget, target.targets, target.type, target.totalAmount, target.name);
 
                         return TargetService.update(target).then(function(){
                             $location.path('/target-list');
@@ -71,6 +64,11 @@
 
                 $scope.$watchCollection('selectedOptionId', function(){
                     $scope.targetsFinal = targetCalc();
+                });
+
+                $scope.$watch('targetsFinal', function(){
+                    $scope.targetsIntervals = translator($scope.targetsFinal);
+                    console.log($scope.targetsIntervals);
                 });
 
                 $scope.updateValues = function(index){
@@ -180,7 +178,7 @@
 
 
                 function loadTarget(target){
-                    uuidTarget = target.uuid;
+                    $scope.uuidTarget = target.uuid;
 
                     $scope.targetsFinal = target.targets;
                     $scope.targetName = target.name;
@@ -192,6 +190,32 @@
 
                 }
 
+                function dateFormatter(date){
+                    date = new Date(date);
+                    var yyyy = date.getFullYear().toString();
+                    var mm = (date.getMonth()+1).toString();
+                    var dd  = date.getDate().toString();
+                    return yyyy +'-' +(mm[1]?mm:"0"+mm[0]) + '-' +(dd[1]?dd:"0"+dd[0]);
+                };
+
+                function translator(target){
+                    var intervals =[];
+
+                    for(var ix in target){
+                        var date = target[ix].initial;
+
+                        date = dateFormatter(date);
+
+                        intervals[date] = {
+                            order : Number(ix)+Number(1),
+                            goal : target[ix].splitSum,
+                            snapshot: 0,
+                            label : 'sem '+ (Number(ix)+Number(1))
+                        };
+                    };
+
+                    return intervals;
+                };
 
                 /**
                  * Helper function to get number of weeks.
