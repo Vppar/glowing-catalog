@@ -151,7 +151,8 @@
             'tnt.catalog.target.entity',
             'tnt.catalog.target.ctrl',
             'tnt.catalog.target.service',
-            'tnt.catalog.target.list.ctrl'
+            'tnt.catalog.target.list.ctrl',
+            'tnt.catalog.target.parent.ctrl'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -228,7 +229,7 @@
             controller: 'ThirdPartyCtrl'
         }).when('/target', {
             templateUrl : 'views/sacred-target.html',
-            controller : 'TargetCtrl'
+            controller : 'TargetParentCtrl'
         }).when('/target-list', {
             templateUrl : 'views/sacred-target-list.html',
             controller : 'TargetListCtrl'

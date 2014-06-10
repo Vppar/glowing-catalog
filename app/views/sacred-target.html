@@ -22,8 +22,8 @@
 
 			<div class="page-body">
 
-				<div ng-if="tabs.selected=='new'" ng-include src="'views/sacred-target-new.html'" ng-controller="">
-				<div ng-if="tabs.selected=='analytics'" ng-include src="'views/sacred-bi.html'" ng-controller="">
+				<div ng-if="tabs.selected=='new'" ng-include src="'views/sacred-target-new.html'" ng-controller="TargetCtrl">
+				<div ng-if="tabs.selected=='analytics'" ng-include src="'views/sacred-bi.html'" ng-controller="BiCtrl">
 	
 			</div>
 		</div>
