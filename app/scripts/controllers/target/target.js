@@ -3,8 +3,8 @@
     angular.module('tnt.catalog.target.ctrl', []).controller(
         'TargetCtrl',
         [
-            '$scope', '$location', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice',
-            function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice) {
+            '$scope', '$location', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice', 'IntentService',
+            function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice, IntentService) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
@@ -13,9 +13,21 @@
                     dtFinal : new Date().getTime() + 86400000
                 };
 
-                $scope.targetValue = 0;
+                var intent = IntentService.getBundle();
 
-                $scope.selectedOptionId = 0;
+                var uuidTarget = null;
+
+                $scope.edit = false;
+
+                if(intent){
+                    loadTarget(TargetService.findTarget(intent.editTarget));
+                    $scope.edit = true;
+                }else{
+                    $scope.targetValue = 0;
+                    $scope.selectedOptionId = 0;
+                    $scope.targets = [];
+                    $scope.targetName = '';
+                }
 
                 $scope.targetOptions = [{
                         id:0,
@@ -28,18 +40,21 @@
                         describe:'Pontos de Compra '
                 }];
 
-                $scope.targetList = TargetService.list();
-
-                $scope.targets = [];
-
-                $scope.targetName = '';
-
                 $scope.confirm = function(){
                     var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId , $scope.targetValue, $scope.targetName);
 
-                    return TargetService.add(target).then(function(){
-                        $location.path('/target-list');
-                    });
+                    if($scope.edit){
+                        target = new Target(uuidTarget, target.targets, target.type, target.totalAmount, target.name);
+
+                        return TargetService.update(target).then(function(){
+                            $location.path('/target-list');
+                        });
+
+                    }else{
+                        return TargetService.add(target).then(function(){
+                            $location.path('/target-list');
+                        });
+                    }
                 };
 
                 $scope.cancel = function(){
@@ -48,7 +63,7 @@
 
                 $scope.$watchCollection('dtFilter', function(){
 
-                    $scope.minDate = angular.copy($scope.dtFilter.dtInitial).getTime() + 86400000;
+                    $scope.minDate = new Date($scope.dtFilter.dtInitial).getTime() + 86400000;
                     $scope.targetsFinal = targetCalc();
                 });
 
@@ -103,7 +118,7 @@
                         var finalDate = new Date($scope.dtFilter.dtInitial);
                         finalDate.setTime( finalDate.getTime() + 7*(ix+1)* 86400000 );
 
-                        if(finalDate>$scope.dtFilter.dtFinal){
+                        if(finalDate.getTime()>finalDateTemp){
                             finalDate = $scope.dtFilter.dtFinal;
                         }
 
@@ -113,7 +128,7 @@
                         });
                     }
 
-                    Misplacedservice.recalc($scope.targetValue, 0, targets, 'splitAmount');
+                    Misplacedservice.recalc($scope.targetValue, -1, targets, 'splitAmount');
                     splitSumCalc(targets);
 
                     return targets;
@@ -126,8 +141,6 @@
                         targets[ix].splitSum = splitSum;
                     }
                 }
-
-
 
                 var amountWatcher = angular.noop;
 
@@ -161,6 +174,20 @@
                         oldVal = total;
                     }
                     enableAmountWatcher();
+                }
+
+
+                function loadTarget(target){
+                    uuidTarget = target.uuid;
+
+                    $scope.targetsFinal = target.targets;
+                    $scope.targetName = target.name;
+                    $scope.targetValue = target.totalAmount;
+                    $scope.selectedOptionId = target.type;
+
+                    $scope.dtFilter.dtFinal = target.targets[target.targets.length - 1].final;
+                    $scope.dtFilter.dtInitial = target.targets[0].initial;
+
                 }
 
 

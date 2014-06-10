@@ -3,8 +3,8 @@
     angular.module('tnt.catalog.target.list.ctrl', []).controller(
         'TargetListCtrl',
         [
-            '$scope', '$location','Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice',
-            function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice) {
+            '$scope', '$location','Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice', 'IntentService',
+            function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice, IntentService) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
@@ -29,6 +29,12 @@
                 }
 
                 typeTranslator();
+
+                $scope.edit = function(uuid){
+                    IntentService.putBundle({editTarget : uuid});
+                    $location.path('/target');
+
+                };
 
                 $scope.newTarget = function(){
                     $location.path('/target');

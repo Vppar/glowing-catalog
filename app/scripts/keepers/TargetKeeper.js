@@ -107,6 +107,19 @@
                 });
 
                 /**
+                 * Updates target object.
+                 *
+                 * @param {event} - Object to be updated.
+                 */
+                ObjectUtils.ro(this.handlers, 'targetUpdateV1', function(event) {
+                    var oldTarget = ArrayUtils.find(targets, 'uuid', event.uuid);
+
+                    oldTarget = event;
+
+                    return event.uuid;
+                });
+
+                /**
                  * Registering the handlers with the Replayer
                  */
                 Replayer.registerHandlers(this.handlers);
@@ -131,6 +144,31 @@
 
                     // create a new journal entry
                     var entry = new JournalEntry(null, stamp, 'targetAdd', currentEventVersion, event);
+
+                    // save the journal entry
+                    return JournalKeeper.compose(entry);
+
+                };
+
+                /**
+                 * Updates a target.
+                 *
+                 * @param target - target object to be updated.
+                 */
+                this.update = function(target) {
+
+                    if (!(target instanceof Target)) {
+                        return $q.reject('Wrong instance of target');
+                    }
+
+                    var targetObj = angular.copy(target);
+
+                    var stamp = (new Date()).getTime();
+
+                    var event = new Target(targetObj);
+
+                    // create a new journal entry
+                    var entry = new JournalEntry(null, stamp, 'targetUpdate', currentEventVersion, event);
 
                     // save the journal entry
                     return JournalKeeper.compose(entry);

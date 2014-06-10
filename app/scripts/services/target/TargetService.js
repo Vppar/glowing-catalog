@@ -62,6 +62,20 @@
                     return result;
                 };
 
+                this.update = function (target) {
+                    var result = null;
+
+                    var hasErrors = this.isValid(target);
+
+                    if (hasErrors.length === 0) {
+                        result = TargetKeeper.update(target);
+                    } else {
+                        log.error('TargetService.update: -Invalid target. ', hasErrors);
+                        result = $q.reject(hasErrors);
+                    }
+                    return result;
+                };
+
                 this.findTarget = function findTarget(targetId) {
                     var copyList = TargetKeeper.list();
                     return ArrayUtils.find(copyList, 'uuid', targetId);
