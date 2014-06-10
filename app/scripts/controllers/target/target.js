@@ -57,6 +57,8 @@
                     }
                 };
 
+
+
                 $scope.cancel = function(){
                     $location.path('/target-list');
                 };

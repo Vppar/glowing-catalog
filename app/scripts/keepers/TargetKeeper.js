@@ -77,7 +77,6 @@
              *            uuids.
              */
                 function targetKeeper(ArrayUtils, Replayer, JournalEntry, JournalKeeper, IdentityService, Target) {
-                var self = this;
                 var type = 19;
                 var targets = [];
                 this.handlers = {};
@@ -198,7 +197,7 @@
     angular.module('tnt.catalog.target', [
         'tnt.catalog.target.entity', 'tnt.catalog.target.keeper'
     ]).run([
-        'targetKeeper', function(TargetKeeper) {
+        'TargetKeeper', function(TargetKeeper) {
             // Warming up TargetKeeper
         }
     ]);

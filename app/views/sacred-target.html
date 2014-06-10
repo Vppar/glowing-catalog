@@ -13,7 +13,7 @@
 					<div class="col-14">
 						<div class="btn-group pull-right page-button">
 							<a class="btn btn-option" ng-class="{active:tabs.selected=='new'}" ng-click="selectTab('new')">Meta</a>
-							<a class="btn btn-option" ng-class="{active:tabs.selected=='analytics'}" ng-click="selectTab('analytics')">Desempenho</a>
+							<a class="btn btn-option" ng-class="{active:tabs.selected=='analytics'}" ng-disable="edit" ng-click="selectTab('analytics')">Desempenho</a>
 						</div>
 					</div>
 				</div>
@@ -22,10 +22,12 @@
 
 			<div class="page-body">
 
-				<div ng-if="tabs.selected=='new'" ng-include src="'views/sacred-target-new.html'" ng-controller="TargetCtrl" class="page-body-include">
-				<div ng-if="tabs.selected=='analytics'" ng-include src="'views/sacred-bi.html'" ng-controller="BiCtrl" class="sacred-bi-page page-body-include">
+				<div ng-if="tabs.selected=='new'" ng-include src="'views/sacred-target-new.html'" ng-controller="TargetCtrl" class="page-body-include"></div>
+				<div ng-if="tabs.selected=='analytics'" ng-include src="'views/sacred-bi.html'" ng-controller="BiCtrl" class="sacred-bi-page page-body-include"></div>
 	
 			</div>
 		</div>
 	</div>
+</div>
+</div>
 </div>

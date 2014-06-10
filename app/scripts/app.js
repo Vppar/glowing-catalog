@@ -147,6 +147,7 @@
             'tnt.chart.components.termometer',
             'tnt.chart.components.cumulative',
             'tnt.chart.components.histogram',
+            'tnt.catalog.target',
             'tnt.catalog.target.keeper',
             'tnt.catalog.target.entity',
             'tnt.catalog.target.ctrl',

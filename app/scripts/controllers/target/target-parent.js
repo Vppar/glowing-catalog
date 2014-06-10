@@ -9,6 +9,8 @@
                 UserService.redirectIfIsNotLoggedIn();
 
                 $scope.tabs = {selected : 'new'};
+                
+
 
                 $scope.selectTab = function selectTab(tabName) {
                     $scope.tabs.selected = tabName;
