@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-8">
 				<label>Título</label>
-				<input type="text" class="input-header" placeholder="" ng-model="targetName">
+				<input type="text" class="input-header" placeholder="" ng-model="targetName.name">
 			</div>
 
 			<div class="col-8">
@@ -26,12 +26,12 @@
 
 			<div class="col-4">
 				<label>Valor Total</label>
-				<input type="text" class="input-header text-right" ng-model="targetValue" placeholder="" currency ng-show="selectedOptionId==='1'">
-                <input type="text" class="input-header text-right" ng-model="targetValue" placeholder="" number  ng-hide="selectedOptionId==='1'">
+				<input type="text" class="input-header text-right" ng-model="targetValue.amount" placeholder="" currency ng-show="selectedOptionId.id==='1'"/>
+                <input type="text" class="input-header text-right" ng-model="targetValue.amount" placeholder="" number  ng-hide="selectedOptionId.id==='1'"/>
 			</div>
 
 			<div class="col-4">
-				<select class='without-label' data-placeholder="Selecione" ng-model="selectedOptionId">
+				<select class='without-label' data-placeholder="Selecione" ng-model="selectedOptionId.id">
                     <option value="{{targetOptions[0].id}}">{{targetOptions[0].describe}}</option>
                     <option value="{{targetOptions[1].id}}">{{targetOptions[1].describe}}</option>
                     <option value="{{targetOptions[2].id}}">{{targetOptions[2].describe}}</option>

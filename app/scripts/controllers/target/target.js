@@ -16,10 +16,10 @@
                 if($scope.targetEdit){
                     loadTarget($scope.targetEdit);
                 }else{
-                    $scope.targetValue = 0;
-                    $scope.selectedOptionId = 0;
+                    $scope.targetValue = {amount : 0};
+                    $scope.selectedOptionId = {id : 0};
                     $scope.targets = [];
-                    $scope.targetName = '';
+                    $scope.targetName = {name : ''};
                 }
 
                 $scope.targetOptions = [{
@@ -34,7 +34,7 @@
                 }];
 
                 $scope.confirm = function(){
-                    var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId , $scope.targetValue, $scope.targetName);
+                    var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId.id , $scope.targetValue.amount, $scope.targetName.name);
 
                     if($scope.edit){
                         target = new Target($scope.uuidTarget, target.targets, target.type, target.totalAmount, target.name);
@@ -62,20 +62,20 @@
                     $scope.targetsFinal = targetCalc();
                 });
 
-                $scope.$watchCollection('selectedOptionId', function(){
+                $scope.$watchCollection('selectedOptionId.id', function(){
                     $scope.targetsFinal = targetCalc();
                 });
 
-                $scope.$watch('targetsFinal', function(){
-                    $scope.targetsIntervals = translator($scope.targetsFinal);
-                    console.log($scope.targetsIntervals);
+                $scope.$watchCollection('targetsFinal', function(){
+                    $scope.targetIntervals = translator($scope.targetsFinal);
+                    console.log($scope.targetIntervals);
                 });
 
                 $scope.updateValues = function(index){
                     if(index == ($scope.targetsFinal.length-1)){
                         recalc();
                     }else{
-                        Misplacedservice.recalc($scope.targetValue, index, $scope.targetsFinal, 'splitAmount');
+                        Misplacedservice.recalc($scope.targetValue.amount, index, $scope.targetsFinal, 'splitAmount');
                     }
                     splitSumCalc($scope.targetsFinal);
                 };
@@ -96,9 +96,7 @@
                     var splitAmount = 0;
 
                     if(splitNumber === 0){
-                        splitAmount = $scope.targetValue;
-                    }else{
-                        splitAmount = FinancialMathService.currencyDivide($scope.targetValue, splitNumber+1);
+                        splitAmount = $scope.targetValue.amount;
                     }
 
                     var targets = [];
@@ -124,11 +122,11 @@
 
                         targets.push({ initial : initialDate,
                             final : finalDate,
-                            splitAmount : splitAmount
+                            splitAmount : 0
                         });
                     }
 
-                    Misplacedservice.recalc($scope.targetValue, -1, targets, 'splitAmount');
+                    Misplacedservice.recalc($scope.targetValue.amount, -1, targets, 'splitAmount');
                     splitSumCalc(targets);
 
                     return targets;
@@ -145,12 +143,12 @@
                 var amountWatcher = angular.noop;
 
                 function enableAmountWatcher() {
-                    amountWatcher = $scope.$watchCollection('targetValue', watcherEtc);
+                    amountWatcher = $scope.$watchCollection('targetValue.amount', targetValueWatcher);
                 }
 
 
                 var oldVal = 0;
-                function watcherEtc(newVal){
+                function targetValueWatcher(newVal){
                         if(newVal !== oldVal){
                             $scope.targetsFinal = targetCalc();
                         }
@@ -169,8 +167,8 @@
                     for(var ix in $scope.targetsFinal){
                         total = FinancialMathService.currencySum(total,$scope.targetsFinal[ix].splitAmount);
                     }
-                    if(total != $scope.targetValue){
-                        $scope.targetValue = total;
+                    if(total != $scope.targetValue.amount){
+                        $scope.targetValue.amount = total;
                         oldVal = total;
                     }
                     enableAmountWatcher();
@@ -181,9 +179,9 @@
                     $scope.uuidTarget = target.uuid;
 
                     $scope.targetsFinal = target.targets;
-                    $scope.targetName = target.name;
-                    $scope.targetValue = target.totalAmount;
-                    $scope.selectedOptionId = target.type;
+                    $scope.targetName = {name : target.name};
+                    $scope.targetValue = {amount : target.totalAmount};
+                    $scope.selectedOptionId = {id : target.type};
 
                     $scope.dtFilter.dtFinal = target.targets[target.targets.length - 1].final;
                     $scope.dtFilter.dtInitial = target.targets[0].initial;

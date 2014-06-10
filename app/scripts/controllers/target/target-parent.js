@@ -3,13 +3,12 @@
     angular.module('tnt.catalog.target.parent.ctrl', []).controller(
         'TargetParentCtrl',
         [
-            '$scope', '$location', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice', 'IntentService',
-            function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice, IntentService) {
+            '$scope', 'Target', 'TargetService', 'UserService', 'IntentService',
+            function ($scope, Target, TargetService, UserService, IntentService) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
                 $scope.tabs = {selected : 'new'};
-
 
                 $scope.intent = IntentService.getBundle();
 

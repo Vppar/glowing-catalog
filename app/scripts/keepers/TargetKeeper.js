@@ -113,7 +113,7 @@
                 ObjectUtils.ro(this.handlers, 'targetUpdateV1', function(event) {
                     var oldTarget = ArrayUtils.find(targets, 'uuid', event.uuid);
 
-                    oldTarget = event;
+                    targets[targets.indexOf(oldTarget)] = event;
 
                     return event.uuid;
                 });
