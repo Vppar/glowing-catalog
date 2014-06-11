@@ -1,0 +1,58 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-target-list-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Listagem de Metas</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="content">
+					<div class="content-body content-for-labeled-header">
+						<div class="grid">
+
+							<div class="grid-header">
+								<div class="row">
+									<div class="col-4">Nome</div>
+                                    <div class="col-6">Intervalo</div>
+									<div class="col-4">Semanas</div>
+									<div class="col-6">Tipo</div>
+									<div class="col-4 text-right">Meta</div>
+								</div>
+							</div>
+
+							<div class="grid-body grid-scroll">
+								<div class="grid-item" ng-repeat="target in targetList | orderBy:'-target.name'">
+									<div class="row" ng-click="edit(target.uuid)">
+										<div class="col-4">{{target.name}}</div>
+                                        <div class="col-6">{{target.targets[0].initial | date:'dd/MM/yyyy'}} - {{target.targets[target.targets.length-1].final | date:'dd/MM/yyyy'}}</div>
+										<div class="col-4">{{target.targets.length}}</div>
+										<div class="col-6">{{target.typeDescribe}}</div>
+										<div class="col-4 text-right">
+											<div type="text" class="input-header text-right" placeholder="" ng-model="target.totalAmount" currency ng-show="target.type==='1'">{{target.totalAmount}}</div>
+                                            <div type="text" class="input-header text-right" placeholder="" ng-model="target.totalAmount" ng-hide="target.type==='1'">{{target.totalAmount}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="buttons-holder">
+								<input type="button" class="button-black pull-left" ng-click="cancel()" value="Voltar">
+								<input type="button" class="button-green pull-right" ng-click="newTarget()" value="Nova Meta">
+							</div>
+
+						</div>
+					</div>
+
+				</div>	
+			</div>
+		</div>
+	</div>
+</div>

@@ -58,6 +58,7 @@ styles/sacred-best-sellers.css
 styles/sacred-warm-up.css
 styles/sacred-ipad-only.css
 styles/sacred-modal.css
+styles/sacred-target.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
@@ -248,6 +249,9 @@ scripts/controllers/third-party.js
 scripts/controllers/warmup.js
 scripts/controllers/pagpop.js
 scripts/controllers/bi.js
+scripts/controllers/target/target.js
+scripts/controllers/target/target-list.js
+scripts/controllers/target/target-parent.js
 scripts/controllers/date-range-test.js
 
 scripts/keepers/CheckKeeper.js
@@ -266,6 +270,7 @@ scripts/keepers/BookKeeper.js
 scripts/keepers/ConsultantKeeper.js
 scripts/keepers/SchedulingKeeper.js
 scripts/keepers/MasterKeeper.js
+scripts/keepers/TargetKeeper.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
@@ -317,6 +322,7 @@ scripts/services/WarmupService.js
 scripts/services/PagPopGateway.js
 scripts/services/SchedulingService.js
 scripts/services/ProductsDeliveryService.js
+scripts/services/target/TargetService.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html

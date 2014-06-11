@@ -1,0 +1,33 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-target-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Cadastro de Meta</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group pull-right page-button">
+							<a class="btn btn-option" ng-class="{active:tabs.selected=='new'}" ng-click="selectTab('new')">Meta</a>
+							<a class="btn btn-option" ng-class="{active:tabs.selected=='analytics'}" ng-disable="!edit" ng-click="selectTab('analytics')">Desempenho</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="page-body">
+
+				<div ng-if="tabs.selected=='new'" ng-include src="'views/sacred-target-new.html'" ng-controller="TargetCtrl" class="page-body-include"></div>
+				<div ng-if="tabs.selected=='analytics'" ng-include src="'views/sacred-bi.html'" ng-controller="BiCtrl" class="sacred-bi-page page-body-include"></div>
+	
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
