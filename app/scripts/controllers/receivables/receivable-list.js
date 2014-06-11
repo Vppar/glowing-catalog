@@ -186,7 +186,7 @@
                             receivable.entityName = EntityService.read(receivable.entityId).name;
                             receivable.typeTranslated = translate[receivable.type];
                             
-                            if(receivable.type === 'creditCard' && angular.isUndefined(receivable.payment.gatewayInfo)){
+                            if(receivable.type === 'creditCard' && !angular.isUndefined(receivable.payment.gatewayInfo)){
                                 //overwrite the amount with the net amount.
                                 receivable.amount = getNetAmountForCredicard(receivable); 
                             }
