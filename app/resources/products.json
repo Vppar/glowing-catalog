@@ -4250,12 +4250,13 @@
     },
     {
         "id": 484,
-        "session": "Pink Sale",
+        "session": "Última Oportunidade",
         "line": "Art Of Nature",
         "image": "10-078034.jpg",
         "points": 16,
-        "title": "Brilho Labial Duo Mix",
-        "price": 28
+        "title": "Brilho Labial Duo Mix - 12 ml",
+        "price": 36,
+        "description": "Apresenta duas fórmulas diferentes em um mesmo produto: brilho transparente e brilho colorido. Ao aplicar, as fórmulas se misturam em um look nude e cintilante."
     },
     {
         "id": 485,
@@ -4271,7 +4272,7 @@
         "SKU": "10-078035",
         "image": "10-078035.jpg",
         "option": "Warm Coral",
-        "active": true
+        "active": false
     },
     {
         "id": 487,
@@ -4279,16 +4280,17 @@
         "SKU": "10-078037",
         "image": "10-078037.jpg",
         "option": "Pink Pearl",
-        "active": true
+        "active": false
     },
     {
         "id": 488,
-        "session": "Pink Sale",
+        "session": "Última Oportunidade",
         "line": "Art Of Nature",
         "image": "10-078041.jpg",
         "points": 9,
-        "title": "Esmalte para Unhas",
-        "price": 16
+        "title": "Esmalte para Unhas - 7,5 ml",
+        "price": 22,
+        "description": "Cores terrosas, brilhantes e metálicas."
     },
     {
         "id": 489,
@@ -4429,12 +4431,12 @@
     },
     {
         "id": 505,
-        "session": "Pink Sale",
+        "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "10-080361.jpg",
         "points": 17,
         "title": "Brilho Labial - 4g",
-        "price": 34,
+        "price": 45,
         "description": "Cores intensas com fórmula hidratante e suave."
     },
     {
@@ -4455,13 +4457,13 @@
     },
     {
         "id": 508,
-        "session": "Pink Sale",
+        "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "10-080357.jpg",
         "points": 9,
-        "title": "Esmalte para as Unhas - 4g",
-        "price": 19,
-        "description": "Acabamento brilhante com coloração intensa. Fórmula especial, que permite cor uniforme e longa duração. Os tons foram inspirados nos jardins orientais."
+        "title": "Esmalte Para as Unhas - 7,5 ml",
+        "price": 22,
+        "description": "Acabamento brilhante com coloração intensa. Fórmula especial 3-Free, que permite cor uniforme e longa duração. Os tons foram inspirados nos jardins orientais."
     },
     {
         "id": 509,
@@ -4489,12 +4491,12 @@
     },
     {
         "id": 512,
-        "session": "Pink Sale",
+        "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "10-080356.jpg",
         "points": 17,
-        "title": "Trio de Sombras - 10g",
-        "price": 34,
+        "title": "Trio de Sombras Minerais Garden Sky - 10g",
+        "price": 48,
         "description": "Tons pastel com ótima pigmentação. Com sistema refil, fica perfeito no Mini Estojo Compacto da Mary Kay."
     },
     {
@@ -4507,7 +4509,7 @@
     },
     {
         "id": 514,
-        "session": "Pink Sale",
+        "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "08-080363.jpg",
         "points": 0,
@@ -4524,7 +4526,7 @@
     },
     {
         "id": 516,
-        "session": "Pink Sale",
+        "session": "Última Oportunidade",
         "line": "Zen in Bloom",
         "image": "08-080362.jpg",
         "points": 0,
