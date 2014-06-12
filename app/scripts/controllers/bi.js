@@ -45,7 +45,7 @@
             // happen only
             // during development)
             if (biRef) {
-                biRef.on('value', function(snapshot) {
+                biRef.child($scope.selectedTarget.uuid).on('value', function(snapshot) {
                     if (snapshot) {
                         var val = snapshot.val();
 

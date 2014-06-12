@@ -12,7 +12,9 @@
 
                 $scope.intent = IntentService.getBundle();
 
-                $scope.uuidTarget = null;
+                $scope.selectedTarget = {
+                    uuid : null
+                };
 
                 $scope.edit = false;
 

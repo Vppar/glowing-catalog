@@ -37,7 +37,7 @@
                     var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId.id , $scope.targetValue.amount, $scope.targetName.name);
 
                     if($scope.edit){
-                        target = new Target($scope.uuidTarget, target.targets, target.type, target.totalAmount, target.name);
+                        target = new Target($scope.selectedTarget.uuid, target.targets, target.type, target.totalAmount, target.name);
 
                         return TargetService.update(target).then(function(){
                             $location.path('/target-list');
@@ -171,7 +171,7 @@
 
 
                 function loadTarget(target){
-                    $scope.uuidTarget = target.uuid;
+                    $scope.selectedTarget.uuid = target.uuid;
 
                     $scope.targetsFinal = target.targets;
                     $scope.targetName = {name : target.name};
