@@ -142,6 +142,17 @@
                     }
 
                     Misplacedservice.recalc($scope.targetValue.amount, -1, targets, 'splitAmount');
+
+                    if($scope.selectedOptionId.id!=1){
+                        var total = 0;
+                        for(var ix in targets){
+                            targets[ix].splitAmount = Math.round(targets[ix].splitAmount);
+                            total += targets[ix].splitAmount;
+                            if(Number(ix) === (targets.length-1)){
+                                targets[ix].splitAmount += FinancialMathService.currencySubtract($scope.targetValue.amount,total);
+                            }
+                        }
+                    }
                     splitSumCalc(targets);
 
                     return targets;
@@ -164,9 +175,13 @@
 
                 var oldVal = 0;
                 function targetValueWatcher(newVal){
-                        if(newVal !== oldVal){
-                            $scope.targetsFinal = targetCalc();
-                        }
+                    if($scope.selectedOptionId.id!=1){
+                          $scope.targetValue.amount = Math.round(newVal);
+                    }
+
+                    if(newVal !== oldVal){
+                        $scope.targetsFinal = targetCalc();
+                    }
                     oldVal = newVal;
                     validate();
                 }
