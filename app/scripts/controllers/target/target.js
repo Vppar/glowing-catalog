@@ -81,7 +81,6 @@
 
                 $scope.$watchCollection('targetName', function(){
                     validate();
-
                 });
 
                 $scope.updateValues = function(index){
@@ -89,6 +88,7 @@
                         recalc();
                     }else{
                         Misplacedservice.recalc($scope.targetValue.amount, index, $scope.targetsFinal, 'splitAmount');
+                        $scope.targetsFinal = rounding($scope.targetsFinal);
                     }
                     splitSumCalc($scope.targetsFinal);
                 };
@@ -143,16 +143,8 @@
 
                     Misplacedservice.recalc($scope.targetValue.amount, -1, targets, 'splitAmount');
 
-                    if($scope.selectedOptionId.id!=1){
-                        var total = 0;
-                        for(var ix in targets){
-                            targets[ix].splitAmount = Math.round(targets[ix].splitAmount);
-                            total += targets[ix].splitAmount;
-                            if(Number(ix) === (targets.length-1)){
-                                targets[ix].splitAmount += FinancialMathService.currencySubtract($scope.targetValue.amount,total);
-                            }
-                        }
-                    }
+                    targets = rounding(targets);
+
                     splitSumCalc(targets);
 
                     return targets;
@@ -202,7 +194,27 @@
                         $scope.targetValue.amount = total;
                         oldVal = total;
                     }
+
+                    $scope.targetsFinal = rounding($scope.targetsFinal);
+
                     enableAmountWatcher();
+                }
+
+                function rounding(targets){
+                    if($scope.selectedOptionId.id!=1){
+                        var total = 0;
+                        for(var ix in targets){
+                            targets[ix].splitAmount = Math.round(targets[ix].splitAmount);
+                            total += targets[ix].splitAmount;
+                            if(Number(ix) === (targets.length-1)){
+                                var dif = FinancialMathService.currencySubtract($scope.targetValue.amount,total);
+                                if(dif>0){
+                                    targets[ix].splitAmount += dif;
+                                }
+                            }
+                        }
+                    }
+                    return targets;
                 }
 
                 function validate(){

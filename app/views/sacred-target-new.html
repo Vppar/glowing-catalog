@@ -31,7 +31,7 @@
 			</div>
 
 			<div class="col-4">
-				<select class='without-label' data-placeholder="Selecione" ng-model="selectedOptionId.id">
+				<select class='without-label' data-placeholder="{{targetOptions[0].id}}" ng-model="selectedOptionId.id">
                     <option value="{{targetOptions[0].id}}">{{targetOptions[0].describe}}</option>
                     <!--<option value="{{targetOptions[1].id}}">{{targetOptions[1].describe}}</option>-->
                     <!--<option value="{{targetOptions[2].id}}">{{targetOptions[2].describe}}</option>-->
