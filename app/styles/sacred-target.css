@@ -22,6 +22,11 @@
 	line-height:33px;
 }
 
+#sacred .sacred-target-page .target-title {
+	position:absolute;
+	margin-top:-57px;
+	margin-left:143px;
+}
 
 #sacred .sacred-target-page .grid-scroll {
 	height:calc(100% - 97px);
@@ -43,7 +48,7 @@
 #sacred .sacred-target-page .goal-tip text,
 #sacred .sacred-target-page .snapshot-tip text {
 	font-size:10px;
-	color:#fff!important;
+	fill:#fff;
 }
 
 #sacred .sacred-target-page .goal-tip rect,
