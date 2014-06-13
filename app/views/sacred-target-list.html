@@ -29,8 +29,8 @@
 							</div>
 
 							<div class="grid-body grid-scroll">
-								<div class="grid-item" ng-repeat="target in targetList | orderBy:'-target.name'">
-									<div class="row" ng-click="edit(target.uuid)">
+								<div class="grid-item" ng-repeat="target in targetList | orderBy:'-target.name'" ng-click="edit(target.uuid)">
+									<div class="row">
 										<div class="col-10">{{target.name}}</div>
                                         <div class="col-5">{{target.targets[0].initial | date:'dd/MM/yyyy'}} - {{target.targets[target.targets.length-1].final | date:'dd/MM/yyyy'}}</div>
 										<div class="col-3 text-center">{{target.targets.length}}</div>

@@ -3,8 +3,8 @@
     angular.module('tnt.catalog.target.ctrl', []).controller(
         'TargetCtrl',
         [
-            '$scope', '$location', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice', 'IntentService',
-            function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice, IntentService) {
+            '$scope', '$location', '$q', 'Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice', 'IntentService', 'DialogService',
+            function ($scope, $location, $q, Target, TargetService, UserService, FinancialMathService, Misplacedservice, IntentService, DialogService) {
 
                 UserService.redirectIfIsNotLoggedIn();
 
@@ -12,6 +12,8 @@
                     dtInitial : new Date(),
                     dtFinal : new Date().getTime() + 86400000
                 };
+
+                $scope.valid = false;
 
                 if($scope.targetEdit){
                     loadTarget($scope.targetEdit);
@@ -34,19 +36,30 @@
                 }];
 
                 $scope.confirm = function(){
-                    var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId.id , $scope.targetValue.amount, $scope.targetName.name);
-
-                    if($scope.editable.select){
-                        target = new Target($scope.selectedTarget.uuid, target.targets, target.type, target.totalAmount, target.name);
-
-                        return TargetService.update(target).then(function(){
-                            $location.path('/target-list');
+                    if(!$scope.valid){
+                        var dialogData = {
+                            title : 'Cadastro de Metas',
+                            message : 'Confira se o nome e valor da meta foram preenchidos corretamente.',
+                            btnYes : 'OK'
+                        };
+                        return DialogService.messageDialog(dialogData).then(function(){
+                            return $q.reject();
                         });
+                    }else {
+                        var target = new Target(null, $scope.targetsFinal, $scope.selectedOptionId.id, $scope.targetValue.amount, $scope.targetName.name);
 
-                    }else{
-                        return TargetService.add(target).then(function(){
-                            $location.path('/target-list');
-                        });
+                        if ($scope.editable.select) {
+                            target = new Target($scope.selectedTarget.uuid, target.targets, target.type, target.totalAmount, target.name);
+
+                            return TargetService.update(target).then(function () {
+                                $location.path('/target-list');
+                            });
+
+                        } else {
+                            return TargetService.add(target).then(function () {
+                                $location.path('/target-list');
+                            });
+                        }
                     }
                 };
 
@@ -66,6 +79,11 @@
                     $scope.targetsFinal = targetCalc();
                 });
 
+                $scope.$watchCollection('targetName', function(){
+                    validate();
+
+                });
+
                 $scope.updateValues = function(index){
                     if(index == ($scope.targetsFinal.length-1)){
                         recalc();
@@ -74,6 +92,8 @@
                     }
                     splitSumCalc($scope.targetsFinal);
                 };
+
+
 
 
                 /**
@@ -148,6 +168,7 @@
                             $scope.targetsFinal = targetCalc();
                         }
                     oldVal = newVal;
+                    validate();
                 }
 
                 function disableAmountWatcher() {
@@ -167,6 +188,14 @@
                         oldVal = total;
                     }
                     enableAmountWatcher();
+                }
+
+                function validate(){
+                    if($scope.targetValue.amount>0 && $scope.targetName.name.length>0 && $scope.targetName.name.length != ''){
+                        $scope.valid = true;
+                    }else{
+                        $scope.valid = false;
+                    }
                 }
 
 
