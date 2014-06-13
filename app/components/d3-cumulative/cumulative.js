@@ -120,11 +120,11 @@
                     var valueGoal = 0;
                     var valueGoalFinal = 0;
                     
-                    var posx = currentBand*x.rangeBand();
+                    var posx = (x(currentBand)+x.rangeBand()/2);
                     if(!posx) posx = 0;
                     
                     if(lastBand){
-                        posxFinal = x.rangeBand()*(goals.length);
+                        posxFinal = (x(goals.length)+x.rangeBand()/2);
                         posyFinal = y(lastBand.goal)+topMargin;
                         valueGoalFinal = lastBand.goal;
                     }
@@ -135,6 +135,8 @@
                         valueGoal = band.goal;
                         
                     }
+                    drawLine('#5892ce',goals);
+                    drawLine('#ab147a',snapshots);                  
                    
                     drawTip(posx,posyGoal-10,valueGoal,'goal-tip');
 
@@ -142,8 +144,7 @@
 
                     drawTip(posxFinal,posyFinal-10,valueGoalFinal, 'goal-tip');
 
-                    drawLine('#5892ce',goals);
-                    drawLine('#ab147a',snapshots);
+                   
                 }
 
                 function drawTip(x,y,label,clazz){
@@ -209,7 +210,8 @@
                 function drawLine(color,points){
                     var lineMap = d3.svg.line()
                         .x(function(d,i) { 
-                            return ((i) * x.rangeBand()) + leftMargin + x.rangeBand()/2; 
+                            //return ((i) * x.rangeBand()) + leftMargin + x.rangeBand()/2; 
+                            return (x(i+1)+x.rangeBand()/2);
                         })
                         .y(function(d) { 
                             return y(d);
