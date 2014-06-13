@@ -39,6 +39,18 @@
 	height:100%;
 }
 
-#sacred .sacred-target-page .gauge-canvas text {
+#sacred .sacred-target-page .gauge-canvas text,
+#sacred .sacred-target-page .goal-tip text,
+#sacred .sacred-target-page .snapshot-tip text {
 	font-size:10px;
+	color:#fff!important;
+}
+
+#sacred .sacred-target-page .goal-tip rect,
+#sacred .sacred-target-page .goal-tip path {
+	fill:#5892ce;
+}
+#sacred .sacred-target-page .snapshot-tip rect,
+#sacred .sacred-target-page .snapshot-tip path {
+	fill:#ab147a;
 }
