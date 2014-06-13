@@ -38,3 +38,7 @@
 #sacred .sacred-target-page .page-body-include {
 	height:100%;
 }
+
+#sacred .sacred-target-page .gauge-canvas text {
+	font-size:10px;
+}
