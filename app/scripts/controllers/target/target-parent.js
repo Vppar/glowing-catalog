@@ -8,25 +8,33 @@
 
                 UserService.redirectIfIsNotLoggedIn();
 
-                $scope.tabs = {selected : 'new'};
-
                 $scope.intent = IntentService.getBundle();
 
                 $scope.selectedTarget = {
                     uuid : null
                 };
 
-                $scope.edit = false;
+                $scope.editable = {select : false};
 
                 $scope.targetIntervals = null;
 
                 if($scope.intent){
                     $scope.targetEdit = TargetService.findTarget($scope.intent.editTarget);
-                    $scope.edit = true;
+                    $scope.selectedTarget.uuid = $scope.targetEdit.uuid;
+
+                    $scope.editable.select = true;
+
+                    $scope.tabs = {selected : 'analytics'};
+                }else{
+                    $scope.tabs = {selected : 'new'};
                 }
 
                 $scope.selectTab = function selectTab(tabName) {
-                    $scope.tabs.selected = tabName;
+                    if($scope.editable.select===false && tabName==='analytics'){
+                        //don't change
+                    }else{
+                        $scope.tabs.selected = tabName;
+                    }
                 };
 
 

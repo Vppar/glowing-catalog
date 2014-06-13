@@ -36,7 +36,7 @@
                 $scope.confirm = function(){
                     var target = new Target(null,  $scope.targetsFinal, $scope.selectedOptionId.id , $scope.targetValue.amount, $scope.targetName.name);
 
-                    if($scope.edit){
+                    if($scope.editable.select){
                         target = new Target($scope.selectedTarget.uuid, target.targets, target.type, target.totalAmount, target.name);
 
                         return TargetService.update(target).then(function(){

@@ -60,12 +60,12 @@
 						<div class="col-4">de {{target.initial | date:'dd/MM/yyyy'}}</div>
 						<div class="col-4">até {{target.final | date:'dd/MM/yyyy'}}</div>
 						<div class="col-4 text-right">
-							<input type="text" class="input-header text-right" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" currency ng-show="selectedOptionId==='1'">
-                            <input type="text" class="input-header text-right" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" number ng-hide="selectedOptionId==='1'">
+							<input type="text" class="input-header text-right" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" currency ng-show="selectedOptionId.id==='1'">
+                            <input type="text" class="input-header text-right" placeholder="" max="targetValue" ng-change="updateValues($index)" ng-model="target.splitAmount" number ng-hide="selectedOptionId.id==='1'">
 						</div>
 						<div class="col-4 text-right">
-							<div type="text" class="input-header" placeholder="" ng-show="selectedOptionId==='1'">{{target.splitSum | currency:''}}</div>
-                            <div type="text" class="input-header" placeholder="" ng-hide="selectedOptionId==='1'">{{target.splitSum}}</div>
+							<div type="text" class="input-header" placeholder="" ng-show="selectedOptionId.id==='1'">{{target.splitSum | currency:''}}</div>
+                            <div type="text" class="input-header" placeholder="" ng-hide="selectedOptionId.id==='1'">{{target.splitSum}}</div>
 						</div>
 					</div>
 				</div>
