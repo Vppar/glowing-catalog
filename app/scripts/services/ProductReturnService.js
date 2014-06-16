@@ -5,7 +5,7 @@
             'tnt.catalog.productReturn.service',
             [
                 'tnt.catalog.productReturn.entity', 'tnt.catalog.productReturn.keeper', 'tnt.catalog.entity.service',
-                'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.stock.keeper', 'tnt.catalog.stock.entity'
+                'tnt.catalog.inventory.keeper', 'tnt.utils.array', 'tnt.catalog.stock.service', 'tnt.catalog.stock.entity'
             ]).service(
             'ProductReturnService',
             [
