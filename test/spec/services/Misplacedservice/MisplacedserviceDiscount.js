@@ -427,4 +427,35 @@ describe('Misplacedservice.discount', function() {
         });
     }); // .unsetItemDiscount()
 
+
+
+    describe('.getItemsWithoutItemDiscount()', function () {
+        it('is accessible', function () {
+            expect(Discount.getItemsWithoutItemDiscount).not.toBeUndefined();
+        });
+
+        it('is a function', function () {
+            expect(typeof Discount.getItemsWithoutItemDiscount).toBe('function');
+        });
+
+        it('returns a empty list if items parameter is null', function () {
+            var result;
+
+            expect(function () {
+                result = Discount.getItemsWithoutItemDiscount(null);
+            }).not.toThrow();
+
+            expect(result).toEqual([]);
+        });
+
+        it('returns a list if items parameter is not null', function () {
+            var result;
+
+            expect(function () {
+                result = Discount.getItemsWithoutItemDiscount([1.1, 2.2, 3.3]);
+            }).not.toThrow();
+
+            expect(result).not.toEqual([]);
+        });
+    }); // .getItemsWithItemDiscount()
 });
