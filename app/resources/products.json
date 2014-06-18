@@ -219,7 +219,7 @@
     {
         "id": 25,
         "session": "Edição Limitada",
-        "line": "Zen in Bloom",
+        "line": " Olhos",
         "image": "10-025868.jpg",
         "points": 20,
         "title": "Sombra em Creme - 4,3g",
@@ -240,7 +240,7 @@
         "SKU": "10-025876",
         "image": "10-025876.jpg",
         "option": "Glacier Gray",
-        "active": true
+        "active": false
     },
     {
         "id": 28,
@@ -262,7 +262,7 @@
     },
     {
         "id": 30,
-        "session": "Edição Limitada",
+        "session": "Última Oportunidade",
         "line": "Acessórios",
         "image": "10-067480.jpg",
         "points": 33,
@@ -4298,7 +4298,7 @@
         "SKU": "10-078041",
         "image": "10-078041.jpg",
         "option": "Crushed Pearl",
-        "active": true
+        "active": false
     },
     {
         "id": 490,
@@ -4306,7 +4306,7 @@
         "SKU": "10-078043",
         "image": "10-078043.jpg",
         "option": "Lava",
-        "active": true
+        "active": false
     },
     {
         "id": 491,
@@ -4380,7 +4380,7 @@
     {
         "id": 499,
         "session": "Edição Limitada",
-        "line": "Maquiagem",
+        "line": "Maquiagem - Rosto",
         "image": "10-050796.jpg",
         "points": 55,
         "title": "Pó Sheer Dimensions - 7 g",
@@ -4393,7 +4393,7 @@
         "SKU": "10-050796",
         "image": "10-050796.jpg",
         "option": "Lace (Coral)",
-        "active": false
+        "active": true
     },
     {
         "id": 501,
@@ -4401,7 +4401,7 @@
         "SKU": "10-050794",
         "image": "10-050794.jpg",
         "option": "Chiffon (Natural)",
-        "active": false
+        "active": true
     },
     {
         "id": 502,
@@ -4409,7 +4409,7 @@
         "SKU": "10-050797",
         "image": "10-050797.jpg",
         "option": "Ribbon (Pink)",
-        "active": false
+        "active": true
     },
     {
         "id": 503,
@@ -4457,8 +4457,8 @@
     },
     {
         "id": 508,
-        "session": "Última Oportunidade",
-        "line": "Zen in Bloom",
+        "session": "Edição Limitada",
+        "line": "Fairytales & Fantasy",
         "image": "10-080357.jpg",
         "points": 9,
         "title": "Esmalte Para as Unhas - 7,5 ml",
@@ -4659,8 +4659,8 @@
         "image": "10-073605.jpg",
         "points": 32,
         "title": "Loção Hidratante Intensiva FPS 30 - 88 ml",
-        "price": 32,
-        "description": ""
+        "price": 58,
+        "description": "Minimiza a aparência de linhas finas e rugas, proporciona máxima hidratação e protege contra os raios UVA e UVB."
     },
     {
         "id": 532,
@@ -4677,7 +4677,7 @@
         "points": 47,
         "title": "Heartfelt for Her - 60 ml",
         "price": 79,
-        "description": ""
+        "description": "Uma fragrância floral frutal que traz notas de frutas, groselha fresca e bergamota italiana."
     },
     {
         "id": 534,
@@ -4694,7 +4694,7 @@
         "points": 47,
         "title": "Heartfelt for Him - 60 ml",
         "price": 79,
-        "description": ""
+        "description": "Da família olfativa amadeirado musk, traz notas refrescantes e o musk dá o tom sensual."
     },
     {
         "id": 536,
@@ -4724,17 +4724,164 @@
     {
         "id": 539,
         "session": "Edição Limitada",
-        "line": "Kit Copa do Mundo",
+        "line": "Copa do Mundo",
         "image": "10-080871.jpg",
         "points": 44,
         "title": "Kit Na Torcida No Estilo Mary Kay",
-        "price": 88
+        "price": 88,        
+        "description": "Trio de Sombras Field Day, Lápis Sombra Teal Me More e Máscara para Cílios Lash Love Azul."
     },
     {
         "id": 540,
         "parent": 539,
         "SKU": "10-080871",
         "image": "10-080871.jpg",
+        "active": true
+    }
+    ,
+    {
+        "id": 541,
+        "session": "Edição Limitada",
+        "line": "Mary Kay at Play",
+        "image": "10-062149.jpg",
+        "points": 15,
+        "title": "Trio de Sombras Field Day – 2g",
+        "price": 29,        
+        "description": "Três cores em um só produto."
+    },
+    {
+        "id": 542,
+        "parent": 541,
+        "SKU": "10-062149",
+        "image": "10-062149.jpg",
+        "active": true
+    },
+    {
+        "id": 543,
+        "session": "Edição Limitada",
+        "line": "Fairytales & Fantasy",
+        "image": "10-065259.jpg",
+        "points": 19,
+        "title": "Brilho Labial de Longa Duração - 4,2 ml",
+        "price": 38,        
+        "description": "Deixa os lábios suaves e hidratados."
+    },
+    {
+        "id": 544,
+        "parent": 543,
+        "SKU": "10-065259",
+        "image": "10-065259.jpg",
+		"option": "Enchanted Mauve",
+        "active": true
+    },
+    {
+        "id": 545,
+        "parent": 543,
+        "SKU": "10-065258",
+        "image": "10-065258.jpg",
+		"option": "Mulberry Forest",
+        "active": true
+    },
+    {
+        "id": 546,
+        "session": "Edição Limitada",
+        "line": "Fairytales & Fantasy",
+        "image": "10-065252.jpg",
+        "points": 17,
+        "title": "Lápis Retrátil Delineador para Olhos Kohl – 0,312g",
+        "price": 35,
+        "description": "Desliza suavemente para um acabamento perfeito e preciso. Possui um aplicador exclusive."
+    },
+    {
+        "id": 547,
+        "parent": 546,
+        "SKU": "10-065252",
+        "image": "10-065252.jpg",
+		"option": "Blue Knight",
+        "active": true
+    },
+    {
+        "id": 548,
+        "parent": 546,
+        "SKU": "10-065254",
+        "image": "10-065254.jpg",
+		"option": "Golden Illusion",
+        "active": true
+    },
+    {
+        "id": 549,
+        "parent": 546,
+        "SKU": "10-065253",
+        "image": "10-065253.jpg",
+		"option": "Mulberry Forest",
+        "active": true
+    },
+    {
+        "id": 550,
+        "session": "Edição Limitada",
+        "line": "Fairytales & Fantasy",
+        "image": "10-066931.jpg",
+        "points": 17,
+        "title": "Sombra em Bastão efeito Brilho e Esfumado – 1,38g",
+        "price": 35,
+        "description": "Fácil aplicação, cores que realçam os olhos e podem ser combinadas com as sombras minerais."
+    },
+    {
+        "id": 551,
+        "parent": 550,
+        "SKU": "10-066931",
+        "image": "10-066931.jpg",
+		"option": "Amethyst Smoke",
+        "active": true
+    },
+    {
+        "id": 552,
+        "parent": 550,
+        "SKU": "10-067250",
+        "image": "10-067250.jpg",
+		"option": "Golden Illusion",
+        "active": true
+    },
+    {
+        "id": 553,
+        "parent": 550,
+        "SKU": "10-067251",
+        "image": "10-067251.jpg",
+		"option": "Enchanted Mauve",
+        "active": true
+    },
+    {
+        "id": 554,
+        "parent": 550,
+        "SKU": "10-066930",
+        "image": "10-066930.jpg",
+		"option": "Silver Spell",
+        "active": true
+    },	
+    {
+        "id": 555,
+        "session": "Edição Limitada",
+        "line": "Fairytales & Fantasy",
+        "image": "10-065497.jpg",
+        "points": 12,
+        "title": "Esmalte para Unhas - 7,5 ml",
+        "price": 22,
+        "description": "Cores terrosas, brilhantes e metálicas."
+    },
+    {
+        "id": 556,
+        "parent": 555,
+        "SKU": "10-065497",
+        "image": "10-065497.jpg",
+        "option": "Blue Knight",
+        "active": true
+    },
+    {
+        "id": 557,
+        "parent": 555,
+        "SKU": "10-065498",
+        "image": "10-065498.jpg",
+        "option": "Mulberry Forest",
         "active": true
     }
 ]
