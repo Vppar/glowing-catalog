@@ -143,6 +143,22 @@
             return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
         };
 
+        this.openDialogSubscriptionExpired = function(data) {
+        	return openDialog('views/parts/subscription/subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery');
+        };
+
+        this.openDialogSubscriptionRenewal = function(data) {
+        	return openDialog('views/parts/subscription/subscription-renewal-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog');
+        };
+
+        this.openDialogSubscriptionEmail = function(data) {
+        	return openDialog('views/parts/subscription/subscription-email-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery');
+        };
+
+        this.openDialogSubscriptionRequested = function(data) {
+        	return openDialog('views/parts/subscription/subscription-requested-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog');
+        };
+        
         this.openDialogLoading = function (data) {
             var options = {
                 backdrop : true,

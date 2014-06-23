@@ -1,0 +1,62 @@
+<div class="modal-head">Planos VPink</div>
+
+<div class="modal-body">
+
+	<form name="subscriptionForm" class="form">
+	
+		<div class="col-8">
+			<label>Selecione o plano desejado:</label>
+			<select name="plan" tabindex="1" ng-model="plan" required>
+				<option value="{{plan.id}}" ng-repeat="plan in paymentPlans">{{plan.nome}}</option>
+			</select>
+		</div>
+	
+		<div class="col-8">
+			<label>CPF</label>
+			<input name="" tabindex="2" type="text" ng-model="consultant.cpf" cpf required>
+		</div>
+		
+		<div class="col-4">
+			<label>CEP</label>
+			<input name="cep"  tabindex="3" type="text" ng-model="consultant.cep" ng-minlength="8" cep="cepValid" required/>
+		</div>
+		<div class="col-12">
+			<label>Endere&ccedil;o</label>
+			<input  tabindex="4" name="address" type="text"	placeholder="" ng-model="consultant.address.street" required>
+		</div>
+		<div class="col-4">
+			<label>Nº</label>
+			<input name="number"  tabindex="5" value="" type="text" placeholder="" ng-model="consultant.address.number" number required>
+		</div>
+	
+		<div class="col-8">
+			<label>Complemento</label>
+			<input  tabindex="6" type="text" ng-model="consultant.complement">
+		</div>
+	
+		<div class="col-12">
+			<label>Bairro</label>
+			<input  tabindex="7" name="neighborhood" type="text" ng-model="consultant.address.neighborhood" required>
+		</div>
+		
+		<div class="col-8">
+			<label>Cidade</label>
+			<input name="city"  tabindex="8" type="text" ng-model="consultant.address.city" required>
+		</div>
+		<div class="col-4">
+			<label>UF</label>
+			
+			<select name="state"  tabindex="9" ng-model="consultant.address.state" required>
+				<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
+			</select>
+		</div>
+		
+	</form>
+
+</div>
+
+<div class="modal-foot">
+    <hr />
+    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
+    <button ng-click='saveConsultant()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Confirmar</button>
+</div>

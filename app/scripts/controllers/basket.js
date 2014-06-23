@@ -12,7 +12,7 @@
             'UserService',
             function ($scope, $location, OrderService, UserService) {
 
-                UserService.redirectIfIsNotLoggedIn();
+                UserService.redirectIfInvalidUser();
 
                 $scope.order = OrderService.order;
 

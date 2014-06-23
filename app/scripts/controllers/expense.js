@@ -2,7 +2,7 @@
     'use strict';
     angular.module('tnt.catalog.financial.expense', []).controller('ExpenseCtrl', ['$scope', 'ExpenseService', 'UserService', function($scope, ExpenseService, UserService) {
 
-        UserService.redirectIfIsNotLoggedIn();
+        UserService.redirectIfInvalidUser();
         
         /**
          * Expenses list.

@@ -428,5 +428,11 @@
 		"753":	"NBC Bank Brasil S. A. - Banco MÃºltiplo",
 		"756":	"Banco Cooperativo do Brasil S.A. - Bancoob",
 		"757":	"Banco Keb do Brasil S.A."
-	}
+	},
+	"paymentPlans":[
+	    {"id":"SEMESTRAL_A_VISTA", "nome": "Semestral à vista - R$ 179,40"},
+	    {"id":"SEMESTRAL_6X", "nome": "Semestral parcelada - 6 x R$ 34,90"},
+	    {"id":"ANUAL_A_VISTA", "nome": "Anual à vista - R$ 322,90"},
+	    {"id":"ANUAL_12X", "nome": "Anual parcelada - 12 x R$ 29,90"}
+	]
 }

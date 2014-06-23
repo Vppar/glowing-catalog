@@ -153,7 +153,9 @@
             'tnt.catalog.target.ctrl',
             'tnt.catalog.target.service',
             'tnt.catalog.target.list.ctrl',
-            'tnt.catalog.target.parent.ctrl'
+            'tnt.catalog.target.parent.ctrl',
+            'tnt.catalog.subscription.service',
+            'tnt.catalog.subscription.ctrl'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
@@ -265,6 +267,12 @@
             templateUrl : 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
         }).when('/spinner-button-promise', {
             templateUrl : 'views/spinner-button-promise.html'
+        }).when('/subscription-expired', {
+            templateUrl : 'views/subscription-expired.html',
+            controller : 'SubscriptionCtrl'
+        }).when('/subscription', {
+            templateUrl : 'views/subscription.html',
+            controller : 'SubscriptionCtrl'
         }).otherwise({
             redirectTo : '/'
         });

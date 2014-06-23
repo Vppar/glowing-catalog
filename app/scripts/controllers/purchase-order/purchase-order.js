@@ -16,7 +16,7 @@
             'NewPurchaseOrderService',
             function ($scope, $log, $q, ArrayUtils, DialogService, StockService, PurchaseOrderService, UserService, NewPurchaseOrderService) {
 
-                UserService.redirectIfIsNotLoggedIn();
+                UserService.redirectIfInvalidUser();
 
                 // #####################################################################################################
                 // Local variables
