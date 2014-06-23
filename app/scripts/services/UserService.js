@@ -182,16 +182,16 @@
         
         this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
         	if (!this.isSubscribed()) {
-	        	var consultant = ConsultantService.get();
-	        	
-	        	if( consultant && consultant.uuid ){
-	        		var subscriptions = SubscriptionService.list( consultant.uuid, 'PENDING' );
-                
-	        		if( subscriptions && subscriptions.length > 0){ 
-	        			DialogService.openDialogSubscriptionRequested();
-	        			return;
-	        		}
-	        	}
+//	        	var consultant = ConsultantService.get();
+//	        	
+//	        	if( consultant && consultant.uuid ){
+//	        		var subscriptions = SubscriptionService.list( consultant.uuid, 'PENDING' );
+//                
+//	        		if( subscriptions && subscriptions.length > 0){ 
+//	        			DialogService.openDialogSubscriptionRequested();
+//	        			return;
+//	        		}
+//	        	}
 
                 DialogService.openDialogSubscriptionExpired();
             }

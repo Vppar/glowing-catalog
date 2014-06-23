@@ -30,13 +30,14 @@
          *            closes.
          * @param parentDialog - A dialog this dialog being opened is attached to,
          *            meaning it should be closed if the parent dialog closes.
+         * @param options - list of dialog attributes 
          * 
          */
-        var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
+        var openDialog = function openDialog(template, controller, data, cssClass, parentDialog, backdropClick) { 
             var options = {
-              backdrop : !parentDialog,
-              backdropClick : true,
-              dialogClass : cssClass
+              backdrop: !parentDialog,
+              backdropClick: (typeof backdropClick === "undefined") ? true : backdropClick,
+              dialogClass: cssClass
             };
 
             var dialog = _openDialog(data, options);
@@ -144,19 +145,19 @@
         };
 
         this.openDialogSubscriptionExpired = function(data) {
-        	return openDialog('views/parts/subscription/subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery');
+        	return openDialog('views/parts/subscription/subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined, false);
         };
 
         this.openDialogSubscriptionRenewal = function(data) {
-        	return openDialog('views/parts/subscription/subscription-renewal-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog');
+        	return openDialog('views/parts/subscription/subscription-renewal-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
         };
 
         this.openDialogSubscriptionEmail = function(data) {
-        	return openDialog('views/parts/subscription/subscription-email-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery');
+        	return openDialog('views/parts/subscription/subscription-email-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined, false);
         };
 
         this.openDialogSubscriptionRequested = function(data) {
-        	return openDialog('views/parts/subscription/subscription-requested-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog');
+        	return openDialog('views/parts/subscription/subscription-requested-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
         };
         
         this.openDialogLoading = function (data) {
