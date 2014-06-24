@@ -10,7 +10,6 @@
         
         // FIXME change default value to FALSE
         var logged = false;
-        var subscription = false;
         var SALT = '7un7sC0rp';
         var userService = this;
 
@@ -163,10 +162,6 @@
             return logged;
         };
         
-        this.isSubscribed = function isSubscribed() {
-            return subscription;
-        };
-        
         this.redirectIfInvalidUser = function redirectIfInvalidUser() {
         	this.redirectIfIsNotLoggedIn();
         	this.redirectIfIsNotSubscribed();        	
@@ -181,20 +176,18 @@
         };
         
         this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
-        	if (!this.isSubscribed()) {
-//	        	var consultant = ConsultantService.get();
-//	        	
-//	        	if( consultant && consultant.uuid ){
-//	        		var subscriptions = SubscriptionService.list( consultant.uuid, 'PENDING' );
-//                
-//	        		if( subscriptions && subscriptions.length > 0){ 
-//	        			DialogService.openDialogSubscriptionRequested();
-//	        			return;
-//	        		}
-//	        	}
-
-                DialogService.openDialogSubscriptionExpired();
-            }
+        	var consultant = ConsultantService.get();
+        	
+        	if( consultant && consultant.expirationDate && new Date() >= consultant.expirationDate ){
+        		var subscriptions = SubscriptionService.list( consultant.uuid, 'PENDING' );
+            
+        		if( subscriptions && subscriptions.length > 0){ 
+        			DialogService.openDialogSubscriptionRequested();
+        		}
+        		else { 
+       				DialogService.openDialogSubscriptionExpired();
+        		}
+        	}
         }      
 
         this.hasUnsyncedData = function hasUnsyncedData() {
