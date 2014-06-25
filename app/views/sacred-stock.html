@@ -42,25 +42,25 @@
 									<div class="grid-header">
 										<div class="row">
 											<div class="col-3">Código</div>
-											<div class="col-10">Produto</div>
+											<div class="col-12">Produto</div>
 											<div class="col-3 text-center">Qtde.</div>
-											<div class="col-4 currency">Custo unit.</div>
-											<div class="col-4 currency">Custo Total</div>
+											<div class="col-3 currency">Custo unit.</div>
+											<div class="col-3 currency">Custo Total</div>
 										</div>
 									</div>
 
 									<div class="first-line sub-header">
 										<div class="row">
 											<div class="col-3">&nbsp;</div>
-											<div class="col-10">
+											<div class="col-12">
 												<input type="text" placeholder="Filtrar produto" ng-model="productFilter.text" ng-click="clearFilter()" class="sacred-stock-filter">
 												<span class="float-right">Total Geral</span>
 											</div>
 
 											<div class="col-3 text-center">{{overallProducts.qty}}</div>
-											<div class="col-4 currency" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</div>
-											<div class="col-4 currency" ng-if="!overallProducts.avgCost">>0,00</div>
-											<div class="col-4 currency">{{overallProducts.amount | currency:''}}</div>
+											<div class="col-3 currency" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</div>
+											<div class="col-3 currency" ng-if="!overallProducts.avgCost">>0,00</div>
+											<div class="col-3 currency">{{overallProducts.amount | currency:''}}</div>
 										</div>
 									</div>
 
@@ -69,12 +69,12 @@
 										<div class="first-line" ng-click="toggleAllSections(productsAvailable.sessions)">
 											<div class="row">
 												<div class="col-3">&nbsp;</div>
-												<div class="col-10">
+												<div class="col-12">
 													PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span>
 												</div>
 												<div class="col-3 text-center">{{productsAvailable.total.qty}}</div>
-												<div class="col-4 currency">{{productsAvailable.total.avgCost | currency:''}}</div>
-												<div class="col-4 currency">{{productsAvailable.total.amount | currency:''}}</div>
+												<div class="col-3 currency">{{productsAvailable.total.avgCost | currency:''}}</div>
+												<div class="col-3 currency">{{productsAvailable.total.amount | currency:''}}</div>
 											</div>
 										</div>
 
@@ -83,12 +83,12 @@
 											<div class="second-line" ng-click="toggleSession(session)">
 												<div class="row">
 													<div class="col-3">&nbsp;</div>
-													<div class="col-10">
+													<div class="col-12">
 														{{session.label}}<span class="float-right">Subtotal</span>
 													</div>
 													<div class="col-3 text-center">{{session.total.qty}}</div>
-													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
-													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+													<div class="col-3 currency">{{session.total.avgCost |currency:''}}</div>
+													<div class="col-3 currency">{{session.total.amount | currency:''}}</div>
 												</div>
 											</div>
 
@@ -96,10 +96,10 @@
 												<div class="third-line" ng-click="toggleLine(line)">
 													<div class="row">
 														<div class="col-3">&nbsp;</div>
-														<div class="col-10">{{line.label}}</div>
+														<div class="col-12">{{line.label}}</div>
 														<div class="col-3 text-center">{{line.total.qty}}</div>
-														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
-														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+														<div class="col-3 currency">{{line.total.avgCost | currency:''}}</div>
+														<div class="col-3 currency">{{line.total.amount | currency:''}}</div>
 													</div>
 												</div>
 
@@ -107,13 +107,13 @@
 													<div class="fourth-line">
 														<div class="row">
 															<div class="col-3">{{product.SKU}}</div>
-															<span class="new-col-10">
+															<div class="col-12">
                                                                 {{product.title}}
-                                                            <div class="code-product" once-text="product.uniqueName"></div>
-                                                            </span>
+                                                            	<span ng-if="product.option">- {{product.option}}</span>
+                                                            </div>
 															<div class="col-3 text-center">{{product.qty}}</div>
-															<div class="col-4 currency">{{product.cost| currency:''}}</div>
-															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+															<div class="col-3 currency">{{product.cost| currency:''}}</div>
+															<div class="col-3 currency">{{product.qty * product.cost | currency:''}}</div>
 														</div>
 													</div>												
 												</div>
@@ -123,12 +123,12 @@
 										<div class="first-line" ng-click="toggleAllSections(productsReserved.sessions)">
 											<div class="row">
 												<div class="col-3">&nbsp;</div>
-												<div class="col-10">
+												<div class="col-12">
 													PRODUTOS RESERVADOS PARA ENTREGA<span class="float-right">Total</span>
 												</div>
 												<div class="col-3 text-center">{{productsReserved.total.qty}}</div>
-												<div class="col-4 currency">{{productsReserved.total.avgCost | currency:''}}</div>
-												<div class="col-4 currency">{{productsReserved.total.amount | currency:''}}</div>
+												<div class="col-3 currency">{{productsReserved.total.avgCost | currency:''}}</div>
+												<div class="col-3 currency">{{productsReserved.total.amount | currency:''}}</div>
 											</div>
 										</div>
 
@@ -136,12 +136,12 @@
 											<div class="second-line" ng-click="toggleSession(session)">
 												<div class="row">
 													<div class="col-3">&nbsp;</div>
-													<div class="col-10">
+													<div class="col-12">
 														{{session.label}}<span class="float-right">Subtotal</span>
 													</div>
 													<div class="col-3 text-center">{{session.total.qty}}</div>
-													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
-													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+													<div class="col-3 currency">{{session.total.avgCost |currency:''}}</div>
+													<div class="col-3 currency">{{session.total.amount | currency:''}}</div>
 												</div>
 											</div>
 
@@ -149,10 +149,10 @@
 												<div class="third-line" ng-click="toggleLine(line)">
 													<div class="row">
 														<div class="col-3">&nbsp;</div>
-														<div class="col-10">{{line.label}}</div>
+														<div class="col-12">{{line.label}}</div>
 														<div class="col-3 text-center">{{line.total.qty}}</div>
-														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
-														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+														<div class="col-3 currency">{{line.total.avgCost | currency:''}}</div>
+														<div class="col-3 currency">{{line.total.amount | currency:''}}</div>
 													</div>
 												</div>
 
@@ -160,13 +160,13 @@
 													<div class="fourth-line">
 														<div class="row">
 															<div class="col-3">{{product.SKU}}</div>
-															<span class="new-col-10">
+															<div class="col-12">
                                                                 {{product.title}}
-                                                            <div class="code-product" once-text="product.uniqueName"></div>
-                                                            </span>
+                                                            	<span ng-if="product.option">- {{product.option}}</span>
+                                                            </div>
 															<div class="col-3 text-center">{{product.qty}}</div>
-															<div class="col-4 currency">{{product.cost| currency:''}}</div>
-															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+															<div class="col-3 currency">{{product.cost| currency:''}}</div>
+															<div class="col-3 currency">{{product.qty * product.cost | currency:''}}</div>
 														</div>
 													</div>												
 												</div>
@@ -176,11 +176,11 @@
 										<div class="first-line" ng-click="toggleAllSections(productsPending.sessions)">
 											<div class="row">
 												<div class="col-3">&nbsp;</div>
-												<div class="col-10">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span>
+												<div class="col-12">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span>
 												</div>
 												<div class="col-3 text-center">{{productsPending.total.qty}}</div>
-												<div class="col-4 currency">{{productsPending.total.avgCost | currency:''}}</div>
-												<div class="col-4 currency">{{productsPending.total.amount | currency:''}}</div>
+												<div class="col-3 currency">{{productsPending.total.avgCost | currency:''}}</div>
+												<div class="col-3 currency">{{productsPending.total.amount | currency:''}}</div>
 											</div>
 										</div>
 
@@ -188,12 +188,12 @@
 											<div class="second-line" ng-click="toggleSession(session)">
 												<div class="row">
 													<div class="col-3">&nbsp;</div>
-													<div class="col-10">
+													<div class="col-12">
 														{{session.label}}<span class="float-right">Subtotal</span>
 													</div>
 													<div class="col-3 text-center">{{session.total.qty}}</div>
-													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
-													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+													<div class="col-3 currency">{{session.total.avgCost |currency:''}}</div>
+													<div class="col-3 currency">{{session.total.amount | currency:''}}</div>
 												</div>
 											</div>
 
@@ -201,10 +201,10 @@
 												<div class="third-line" ng-click="toggleLine(line)">
 													<div class="row">
 														<div class="col-3">&nbsp;</div>
-														<div class="col-10">{{line.label}}</div>
+														<div class="col-12">{{line.label}}</div>
 														<div class="col-3 text-center">{{line.total.qty}}</div>
-														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
-														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+														<div class="col-3 currency">{{line.total.avgCost | currency:''}}</div>
+														<div class="col-3 currency">{{line.total.amount | currency:''}}</div>
 													</div>
 												</div>
 
@@ -212,13 +212,13 @@
 													<div class="fourth-line">
 														<div class="row">
 															<div class="col-3">{{product.SKU}}</div>
-															<span class="new-col-10">
+															<div class="col-12">
                                                                 {{product.title}}
-                                                            <div class="code-product" once-text="product.uniqueName"></div>
-                                                            </span>
+                                                                <span ng-if="product.option">- {{product.option}}</span>
+                                                            </div>
 															<div class="col-3 text-center">{{product.qty}}</div>
-															<div class="col-4 currency">{{product.cost| currency:''}}</div>
-															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+															<div class="col-3 currency">{{product.cost| currency:''}}</div>
+															<div class="col-3 currency">{{product.qty * product.cost | currency:''}}</div>
 														</div>
 													</div>												
 												</div>
