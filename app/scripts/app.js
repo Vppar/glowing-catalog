@@ -250,7 +250,9 @@
             templateUrl : 'views/sacred-order-list.html',
             controller : 'OrderListCtrl'
         }).when('/receivable-check', {
-            templateUrl : 'views/sacred-receivable-check.html'
+            templateUrl : 'views/sacred-receivable-check.html',
+        }).when('/consultant-group', {
+            templateUrl : 'views/sacred-consultant-group.html',
         }).when('/receivable-check-old', {
             templateUrl : 'views/receivable-check.html'
 

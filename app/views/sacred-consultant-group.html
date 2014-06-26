@@ -1,0 +1,222 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-stock-page">
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">
+							Consultoras
+						</div>
+					</div>
+					<div class="col-14">
+						<div class="btn-group btn-group-sm pull-right">
+							<a class="btn btn-option" ng-class="{active: selectedLevel=='1'}" ng-click="showLevel(1)">N&iacute;vel 1</a>
+							<a class="btn btn-option" ng-class="{active: selectedLevel=='2'}" ng-click="showLevel(2)">N&iacute;vel 2</a>
+							<a class="btn btn-option" ng-class="{active: selectedLevel=='3'}" ng-click="showLevel(3)">N&iacute;vel 3</a>
+							<a class="btn btn-option" ng-class="{active: selectedLevel=='4'}" ng-click="showLevel(4)">N&iacute;vel 4</a>	
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="content">
+					<div class="content-header">
+
+					</div>
+					<div class="content-body">
+						<div class="part">
+							<div class="part-header">
+								<div class="row">
+								</div>
+							</div>
+							<div class="part-body">
+								
+								<div class="grid grid-stock">
+									<div class="grid-header">
+										<div class="row">
+											<div class="col-2">asdf</div>
+											<div class="col-20">Consultora</div>
+											<div class="col-2 text-center">Qtde.</div>
+										</div>
+									</div>
+
+									<div class="first-line sub-header">
+										<div class="row">
+											<div class="col-3">&nbsp;</div>
+											<div class="col-10">
+												<input type="text" placeholder="Filtrar produto" ng-model="productFilter.text" ng-click="clearFilter()" class="sacred-stock-filter">
+												<span class="float-right">Total Geral</span>
+											</div>
+
+											<div class="col-3 text-center">{{overallProducts.qty}}</div>
+											<div class="col-4 currency" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</div>
+											<div class="col-4 currency" ng-if="!overallProducts.avgCost">>0,00</div>
+											<div class="col-4 currency">{{overallProducts.amount | currency:''}}</div>
+										</div>
+									</div>
+
+									<div class="grid-scroll">
+
+										<div class="first-line" ng-click="toggleAllSections(productsAvailable.sessions)">
+											<div class="row">
+												<div class="col-3">&nbsp;</div>
+												<div class="col-10">
+													PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span>
+												</div>
+												<div class="col-3 text-center">{{productsAvailable.total.qty}}</div>
+												<div class="col-4 currency">{{productsAvailable.total.avgCost | currency:''}}</div>
+												<div class="col-4 currency">{{productsAvailable.total.amount | currency:''}}</div>
+											</div>
+										</div>
+
+										<div ng-repeat="session in productsAvailable.sessions" ng-if="!session.hide">
+											
+											<div class="second-line" ng-click="toggleSession(session)">
+												<div class="row">
+													<div class="col-3">&nbsp;</div>
+													<div class="col-10">
+														{{session.label}}<span class="float-right">Subtotal</span>
+													</div>
+													<div class="col-3 text-center">{{session.total.qty}}</div>
+													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
+													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+												</div>
+											</div>
+
+											<div ng-repeat="line in session.lines" ng-if="!line.hide">
+												<div class="third-line" ng-click="toggleLine(line)">
+													<div class="row">
+														<div class="col-3">&nbsp;</div>
+														<div class="col-10">{{line.label}}</div>
+														<div class="col-3 text-center">{{line.total.qty}}</div>
+														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
+														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+													</div>
+												</div>
+
+												<div ng-repeat="product in line.items" ng-if="!product.hide">
+													<div class="fourth-line">
+														<div class="row">
+															<div class="col-3">{{product.SKU}}</div>
+															<div class="col-10">{{product.title}}</div>
+															<div class="col-3 text-center">{{product.qty}}</div>
+															<div class="col-4 currency">{{product.cost| currency:''}}</div>
+															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+														</div>
+													</div>												
+												</div>
+											</div>
+										</div>
+
+										<div class="first-line" ng-click="toggleAllSections(productsReserved.sessions)">
+											<div class="row">
+												<div class="col-3">&nbsp;</div>
+												<div class="col-10">
+													PRODUTOS RESERVADOS PARA ENTREGA<span class="float-right">Total</span>
+												</div>
+												<div class="col-3 text-center">{{productsReserved.total.qty}}</div>
+												<div class="col-4 currency">{{productsReserved.total.avgCost | currency:''}}</div>
+												<div class="col-4 currency">{{productsReserved.total.amount | currency:''}}</div>
+											</div>
+										</div>
+
+										<div ng-repeat="session in productsReserved.sessions" ng-if="!session.hide">
+											<div class="second-line" ng-click="toggleSession(session)">
+												<div class="row">
+													<div class="col-3">&nbsp;</div>
+													<div class="col-10">
+														{{session.label}}<span class="float-right">Subtotal</span>
+													</div>
+													<div class="col-3 text-center">{{session.total.qty}}</div>
+													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
+													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+												</div>
+											</div>
+
+											<div ng-repeat="line in session.lines" ng-if="!line.hide">
+												<div class="third-line" ng-click="toggleLine(line)">
+													<div class="row">
+														<div class="col-3">&nbsp;</div>
+														<div class="col-10">{{line.label}}</div>
+														<div class="col-3 text-center">{{line.total.qty}}</div>
+														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
+														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+													</div>
+												</div>
+
+												<div ng-repeat="product in line.items" ng-if="!product.hide">
+													<div class="fourth-line">
+														<div class="row">
+															<div class="col-3">{{product.SKU}}</div>
+															<div class="col-10">{{product.title}}</div>
+															<div class="col-3 text-center">{{product.qty}}</div>
+															<div class="col-4 currency">{{product.cost| currency:''}}</div>
+															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+														</div>
+													</div>												
+												</div>
+											</div>
+										</div>
+
+										<div class="first-line" ng-click="toggleAllSections(productsPending.sessions)">
+											<div class="row">
+												<div class="col-3">&nbsp;</div>
+												<div class="col-10">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span>
+												</div>
+												<div class="col-3 text-center">{{productsPending.total.qty}}</div>
+												<div class="col-4 currency">{{productsPending.total.avgCost | currency:''}}</div>
+												<div class="col-4 currency">{{productsPending.total.amount | currency:''}}</div>
+											</div>
+										</div>
+
+										<div ng-repeat="session in productsPending.sessions" ng-if="!session.hide">
+											<div class="second-line" ng-click="toggleSession(session)">
+												<div class="row">
+													<div class="col-3">&nbsp;</div>
+													<div class="col-10">
+														{{session.label}}<span class="float-right">Subtotal</span>
+													</div>
+													<div class="col-3 text-center">{{session.total.qty}}</div>
+													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
+													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+												</div>
+											</div>
+
+											<div ng-repeat="line in session.lines" ng-if="!line.hide">
+												<div class="third-line" ng-click="toggleLine(line)">
+													<div class="row">
+														<div class="col-3">&nbsp;</div>
+														<div class="col-10">{{line.label}}</div>
+														<div class="col-3 text-center">{{line.total.qty}}</div>
+														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
+														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+													</div>
+												</div>
+
+												<div ng-repeat="product in line.items" ng-if="!product.hide">
+													<div class="fourth-line">
+														<div class="row">
+															<div class="col-3">{{product.SKU}}</div>
+															<div class="col-10">{{product.title}}</div>
+															<div class="col-3 text-center">{{product.qty}}</div>
+															<div class="col-4 currency">{{product.cost| currency:''}}</div>
+															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+														</div>
+													</div>												
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
