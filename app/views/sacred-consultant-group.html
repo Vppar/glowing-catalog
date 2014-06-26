@@ -38,24 +38,22 @@
 								<div class="grid grid-stock">
 									<div class="grid-header">
 										<div class="row">
-											<div class="col-2">asdf</div>
-											<div class="col-20">Consultora</div>
+											<div class="col-2">&nbsp;</div>
+											<div class="col-16">Consultora</div>
 											<div class="col-2 text-center">Qtde.</div>
+											<div class="col-4 text-center">Geração</div>
 										</div>
 									</div>
 
 									<div class="first-line sub-header">
 										<div class="row">
-											<div class="col-3">&nbsp;</div>
-											<div class="col-10">
-												<input type="text" placeholder="Filtrar produto" ng-model="productFilter.text" ng-click="clearFilter()" class="sacred-stock-filter">
+											<div class="col-2">&nbsp;</div>
+											<div class="col-16">
+												<input type="text" placeholder="Filtrar por nome" ng-model="productFilter.text" ng-click="clearFilter()" class="sacred-stock-filter">
 												<span class="float-right">Total Geral</span>
 											</div>
-
-											<div class="col-3 text-center">{{overallProducts.qty}}</div>
-											<div class="col-4 currency" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</div>
-											<div class="col-4 currency" ng-if="!overallProducts.avgCost">>0,00</div>
-											<div class="col-4 currency">{{overallProducts.amount | currency:''}}</div>
+											<div class="col-2 text-center">50</div>
+											<div class="col-4 text-center">-</div>
 										</div>
 									</div>
 
@@ -63,153 +61,166 @@
 
 										<div class="first-line" ng-click="toggleAllSections(productsAvailable.sessions)">
 											<div class="row">
-												<div class="col-3">&nbsp;</div>
-												<div class="col-10">
-													PRODUTOS DISPON&Iacute;VEIS PARA VENDA<span class="float-right">Total</span>
+												<div class="col-2"><input type="checkbox"></div>
+												<div class="col-16">
+													<input type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
 												</div>
-												<div class="col-3 text-center">{{productsAvailable.total.qty}}</div>
-												<div class="col-4 currency">{{productsAvailable.total.avgCost | currency:''}}</div>
-												<div class="col-4 currency">{{productsAvailable.total.amount | currency:''}}</div>
+												<div class="col-2 text-center">5</div>
+												<div class="col-4 text-center">primeira</div>
 											</div>
 										</div>
 
-										<div ng-repeat="session in productsAvailable.sessions" ng-if="!session.hide">
+										<div>
 											
 											<div class="second-line" ng-click="toggleSession(session)">
 												<div class="row">
-													<div class="col-3">&nbsp;</div>
-													<div class="col-10">
-														{{session.label}}<span class="float-right">Subtotal</span>
+													<div class="col-3"><input type="checkbox"></div>
+													<div class="col-15">
+														<input type="checkbox"> Joana Fernanda Gonzallo
+														<span class="float-right">Subtotal</span>
 													</div>
-													<div class="col-3 text-center">{{session.total.qty}}</div>
-													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
-													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+													<div class="col-2 text-center">5</div>
+													<div class="col-4 text-center">segunda</div>
 												</div>
 											</div>
 
-											<div ng-repeat="line in session.lines" ng-if="!line.hide">
+											<div>
 												<div class="third-line" ng-click="toggleLine(line)">
 													<div class="row">
-														<div class="col-3">&nbsp;</div>
-														<div class="col-10">{{line.label}}</div>
-														<div class="col-3 text-center">{{line.total.qty}}</div>
-														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
-														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+														<div class="col-4"><input type="checkbox"></div>
+														<div class="col-14">
+															<input type="checkbox"> Ana Luiza Paula
+															<span class="float-right">Subtotal</span>
+														</div>
+														<div class="col- text-center">{{line.total.qty}}</div>
+														<div class="col-2 text-center">5</div>
+														<div class="col-4 text-center">terceira</div>
 													</div>
 												</div>
 
-												<div ng-repeat="product in line.items" ng-if="!product.hide">
+												<div>
 													<div class="fourth-line">
 														<div class="row">
-															<div class="col-3">{{product.SKU}}</div>
-															<div class="col-10">{{product.title}}</div>
-															<div class="col-3 text-center">{{product.qty}}</div>
-															<div class="col-4 currency">{{product.cost| currency:''}}</div>
-															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+															<div class="col-5">&nbsp;</div>
+														<div class="col-13">
+															<input type="checkbox"> Sara Holft Merge
+														</div>
+														<div class="col-2 text-center">&nbsp;</div>
+														<div class="col-4 text-center">-</div>
 														</div>
 													</div>												
 												</div>
 											</div>
 										</div>
 
-										<div class="first-line" ng-click="toggleAllSections(productsReserved.sessions)">
+										<div class="first-line" ng-click="toggleAllSections(productsAvailable.sessions)">
 											<div class="row">
-												<div class="col-3">&nbsp;</div>
-												<div class="col-10">
-													PRODUTOS RESERVADOS PARA ENTREGA<span class="float-right">Total</span>
+												<div class="col-2"><input type="checkbox"></div>
+												<div class="col-16">
+													<input type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
 												</div>
-												<div class="col-3 text-center">{{productsReserved.total.qty}}</div>
-												<div class="col-4 currency">{{productsReserved.total.avgCost | currency:''}}</div>
-												<div class="col-4 currency">{{productsReserved.total.amount | currency:''}}</div>
+												<div class="col-2 text-center">5</div>
+												<div class="col-4 text-center">primeira</div>
 											</div>
 										</div>
 
-										<div ng-repeat="session in productsReserved.sessions" ng-if="!session.hide">
+										<div>
+											
 											<div class="second-line" ng-click="toggleSession(session)">
 												<div class="row">
-													<div class="col-3">&nbsp;</div>
-													<div class="col-10">
-														{{session.label}}<span class="float-right">Subtotal</span>
+													<div class="col-3"><input type="checkbox"></div>
+													<div class="col-15">
+														<input type="checkbox"> Joana Fernanda Gonzallo
+														<span class="float-right">Subtotal</span>
 													</div>
-													<div class="col-3 text-center">{{session.total.qty}}</div>
-													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
-													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+													<div class="col-2 text-center">5</div>
+													<div class="col-4 text-center">segunda</div>
 												</div>
 											</div>
 
-											<div ng-repeat="line in session.lines" ng-if="!line.hide">
+											<div>
 												<div class="third-line" ng-click="toggleLine(line)">
 													<div class="row">
-														<div class="col-3">&nbsp;</div>
-														<div class="col-10">{{line.label}}</div>
-														<div class="col-3 text-center">{{line.total.qty}}</div>
-														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
-														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+														<div class="col-4"><input type="checkbox"></div>
+														<div class="col-14">
+															<input type="checkbox"> Ana Luiza Paula
+															<span class="float-right">Subtotal</span>
+														</div>
+														<div class="col- text-center">{{line.total.qty}}</div>
+														<div class="col-2 text-center">5</div>
+														<div class="col-4 text-center">terceira</div>
 													</div>
 												</div>
 
-												<div ng-repeat="product in line.items" ng-if="!product.hide">
+												<div>
 													<div class="fourth-line">
 														<div class="row">
-															<div class="col-3">{{product.SKU}}</div>
-															<div class="col-10">{{product.title}}</div>
-															<div class="col-3 text-center">{{product.qty}}</div>
-															<div class="col-4 currency">{{product.cost| currency:''}}</div>
-															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+															<div class="col-5">&nbsp;</div>
+														<div class="col-13">
+															<input type="checkbox"> Sara Holft Merge
+														</div>
+														<div class="col-2 text-center">&nbsp;</div>
+														<div class="col-4 text-center">-</div>
 														</div>
 													</div>												
 												</div>
 											</div>
 										</div>
 
-										<div class="first-line" ng-click="toggleAllSections(productsPending.sessions)">
+										<div class="first-line" ng-click="toggleAllSections(productsAvailable.sessions)">
 											<div class="row">
-												<div class="col-3">&nbsp;</div>
-												<div class="col-10">PRODUTOS PENDENTES NO PEDIDO DE COMPRA<span class="float-right">Total</span>
+												<div class="col-2"><input type="checkbox"></div>
+												<div class="col-16">
+													<input type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
 												</div>
-												<div class="col-3 text-center">{{productsPending.total.qty}}</div>
-												<div class="col-4 currency">{{productsPending.total.avgCost | currency:''}}</div>
-												<div class="col-4 currency">{{productsPending.total.amount | currency:''}}</div>
+												<div class="col-2 text-center">5</div>
+												<div class="col-4 text-center">primeira</div>
 											</div>
 										</div>
 
-										<div ng-repeat="session in productsPending.sessions" ng-if="!session.hide">
+										<div>
+											
 											<div class="second-line" ng-click="toggleSession(session)">
 												<div class="row">
-													<div class="col-3">&nbsp;</div>
-													<div class="col-10">
-														{{session.label}}<span class="float-right">Subtotal</span>
+													<div class="col-3"><input type="checkbox"></div>
+													<div class="col-15">
+														<input type="checkbox"> Joana Fernanda Gonzallo
+														<span class="float-right">Subtotal</span>
 													</div>
-													<div class="col-3 text-center">{{session.total.qty}}</div>
-													<div class="col-4 currency">{{session.total.avgCost |currency:''}}</div>
-													<div class="col-4 currency">{{session.total.amount | currency:''}}</div>
+													<div class="col-2 text-center">5</div>
+													<div class="col-4 text-center">segunda</div>
 												</div>
 											</div>
 
-											<div ng-repeat="line in session.lines" ng-if="!line.hide">
+											<div>
 												<div class="third-line" ng-click="toggleLine(line)">
 													<div class="row">
-														<div class="col-3">&nbsp;</div>
-														<div class="col-10">{{line.label}}</div>
-														<div class="col-3 text-center">{{line.total.qty}}</div>
-														<div class="col-4 currency">{{line.total.avgCost | currency:''}}</div>
-														<div class="col-4 currency">{{line.total.amount | currency:''}}</div>
+														<div class="col-4"><input type="checkbox"></div>
+														<div class="col-14">
+															<input type="checkbox"> Ana Luiza Paula
+															<span class="float-right">Subtotal</span>
+														</div>
+														<div class="col- text-center">{{line.total.qty}}</div>
+														<div class="col-2 text-center">5</div>
+														<div class="col-4 text-center">terceira</div>
 													</div>
 												</div>
 
-												<div ng-repeat="product in line.items" ng-if="!product.hide">
+												<div>
 													<div class="fourth-line">
 														<div class="row">
-															<div class="col-3">{{product.SKU}}</div>
-															<div class="col-10">{{product.title}}</div>
-															<div class="col-3 text-center">{{product.qty}}</div>
-															<div class="col-4 currency">{{product.cost| currency:''}}</div>
-															<div class="col-4 currency">{{product.qty * product.cost | currency:''}}</div>
+															<div class="col-5">&nbsp;</div>
+														<div class="col-13">
+															<input type="checkbox"> Sara Holft Merge
+														</div>
+														<div class="col-2 text-center">&nbsp;</div>
+														<div class="col-4 text-center">-</div>
 														</div>
 													</div>												
 												</div>
 											</div>
 										</div>
+
 									</div>
 								</div>
 							</div>
