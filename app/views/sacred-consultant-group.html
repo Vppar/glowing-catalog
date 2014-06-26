@@ -1,3 +1,25 @@
+<script>
+$( document ).ready(function() {
+	
+	$(".first-check-proof").on('change',function(){
+		var session = $('.second-proof');
+		if($(this).prop("checked") ){
+			$(this).parent().parent().find(":checkbox").prop("checked",true);
+			session.find('.second-line').find(":checkbox").prop("checked",true);
+			session.find('.third-line').find(":checkbox").prop("checked",true);
+			session.find('.fourth-line').find(":checkbox").prop("checked",true);
+		}else{
+			$(this).parent().parent().find(":checkbox").prop("checked",false);
+			session.find(":checkbox").prop("checked",false);
+		}
+	});
+
+
+
+
+});
+</script>
+
 <div id="sacred">
 	<div class="container">
 
@@ -61,12 +83,55 @@
 
 										<div class="first-line" ng-click="toggleAllSections(productsAvailable.sessions)">
 											<div class="row">
-												<div class="col-2"><input type="checkbox"></div>
+												<div class="col-2"><input class="first-check-proof" type="checkbox"></div>
 												<div class="col-16">
 													<input type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
 												</div>
 												<div class="col-2 text-center">5</div>
 												<div class="col-4 text-center">primeira</div>
+											</div>
+										</div>
+
+										<div class="second-proof">
+											
+											<div class="second-line" ng-click="toggleSession(session)">
+												<div class="row">
+													<div class="col-3"><input type="checkbox"></div>
+													<div class="col-15">
+														<input type="checkbox"> Joana Fernanda Gonzallo
+														<span class="float-right">Subtotal</span>
+													</div>
+													<div class="col-2 text-center">5</div>
+													<div class="col-4 text-center">segunda</div>
+												</div>
+											</div>
+
+											<div>
+												<div class="third-line" ng-click="toggleLine(line)">
+													<div class="row">
+														<div class="col-4"><input type="checkbox"></div>
+														<div class="col-14">
+															<input type="checkbox"> Ana Luiza Paula
+															<span class="float-right">Subtotal</span>
+														</div>
+														<div class="col- text-center">{{line.total.qty}}</div>
+														<div class="col-2 text-center">5</div>
+														<div class="col-4 text-center">terceira</div>
+													</div>
+												</div>
+
+												<div>
+													<div class="fourth-line">
+														<div class="row">
+															<div class="col-5">&nbsp;</div>
+														<div class="col-13">
+															<input type="checkbox"> Sara Holft Merge
+														</div>
+														<div class="col-2 text-center">&nbsp;</div>
+														<div class="col-4 text-center">-</div>
+														</div>
+													</div>												
+												</div>
 											</div>
 										</div>
 
@@ -96,6 +161,19 @@
 														<div class="col-2 text-center">5</div>
 														<div class="col-4 text-center">terceira</div>
 													</div>
+												</div>
+
+												<div>
+													<div class="fourth-line">
+														<div class="row">
+															<div class="col-5">&nbsp;</div>
+														<div class="col-13">
+															<input type="checkbox"> Sara Holft Merge
+														</div>
+														<div class="col-2 text-center">&nbsp;</div>
+														<div class="col-4 text-center">-</div>
+														</div>
+													</div>												
 												</div>
 
 												<div>
