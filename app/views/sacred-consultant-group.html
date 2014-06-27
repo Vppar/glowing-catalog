@@ -14,7 +14,64 @@ $( document ).ready(function() {
 		}
 	});
 
+	$(".second-check-proof").on('change',function(){
+		var session = $('.second-proof');
+		if($(this).prop("checked") ){
+			$(this).parent().parent().find(":checkbox").prop("checked",true);
+			session.find('.second-line').find(":checkbox").prop("checked",true);
+			session.find('.third-line').find(":checkbox").prop("checked",true);
+			session.find('.fourth-line').find(":checkbox").prop("checked",true);
+		}else{
+			$('.first-check-proof').prop("checked",false);
+			$(this).parent().parent().find(":checkbox").prop("checked",false);
+			session.find(":checkbox").prop("checked",false);
+		}
+	});
 
+	$(".third-check-proof").on('change',function(){
+		var session = $('.second-proof');
+		if($(this).prop("checked") ){
+			$(this).parent().parent().find(":checkbox").prop("checked",true);
+			session.find('.third-line').find(":checkbox").prop("checked",true);
+			session.find('.fourth-line').find(":checkbox").prop("checked",true);
+		}else{
+			session.find(".second-line").find('.second-check-proof').prop("checked",false);
+			$(this).parent().parent().parent().parent().find(":checkbox").prop("checked",false);
+		}
+	});
+
+	$(".person-check-proof").on('change',function(){
+		var session = $(this).parent().parent().parent();
+		if($(this).prop("checked") ){
+
+//			$(this).parent().parent().find(":checkbox").prop("checked",true);
+//			session.find('.third-line').find(":checkbox").prop("checked",true);
+//			session.find('.fourth-line').find(":checkbox").prop("checked",true);
+		}else{
+			if(session.attr('class').indexOf('first-line') > -1){
+				$('.first-check-proof').prop("checked",false);
+			}
+			if(session.attr('class').indexOf('second-line') > -1){
+
+				$('.first-check-proof').prop("checked",false);
+				session.find('.second-check-proof').prop("checked",false);
+			}
+			if(session.attr('class').indexOf('third-line') > -1){
+				
+				$('.first-check-proof').prop("checked",false);
+				session.parent().parent().find('.second-check-proof').prop("checked",false);
+				session.find('.third-check-proof').prop("checked",false);
+			}
+			if(session.attr('class').indexOf('fourth-line') > -1){
+				
+				$('.first-check-proof').prop("checked",false);
+				session.parent().parent().parent().find('.second-check-proof').prop("checked",false);
+				session.parent().parent().find('.third-check-proof').prop("checked",false);
+			}
+//			$(this).parent().parent().find(":checkbox").prop("checked",false);
+//			session.find(":checkbox").prop("checked",false);
+		}
+	});
 
 
 });
@@ -85,7 +142,7 @@ $( document ).ready(function() {
 											<div class="row">
 												<div class="col-2"><input class="first-check-proof" type="checkbox"></div>
 												<div class="col-16">
-													<input type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
+													<input class="person-check-proof" type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
 												</div>
 												<div class="col-2 text-center">5</div>
 												<div class="col-4 text-center">primeira</div>
@@ -96,9 +153,9 @@ $( document ).ready(function() {
 											
 											<div class="second-line" ng-click="toggleSession(session)">
 												<div class="row">
-													<div class="col-3"><input type="checkbox"></div>
+													<div class="col-3"><input class="second-check-proof" type="checkbox"></div>
 													<div class="col-15">
-														<input type="checkbox"> Joana Fernanda Gonzallo
+														<input class="person-check-proof" type="checkbox"> Joana Fernanda Gonzallo
 														<span class="float-right">Subtotal</span>
 													</div>
 													<div class="col-2 text-center">5</div>
@@ -109,9 +166,9 @@ $( document ).ready(function() {
 											<div>
 												<div class="third-line" ng-click="toggleLine(line)">
 													<div class="row">
-														<div class="col-4"><input type="checkbox"></div>
+														<div class="col-4"><input class="third-check-proof" type="checkbox"></div>
 														<div class="col-14">
-															<input type="checkbox"> Ana Luiza Paula
+															<input class="person-check-proof" type="checkbox"> Ana Luiza Paula
 															<span class="float-right">Subtotal</span>
 														</div>
 														<div class="col- text-center">{{line.total.qty}}</div>
@@ -125,7 +182,7 @@ $( document ).ready(function() {
 														<div class="row">
 															<div class="col-5">&nbsp;</div>
 														<div class="col-13">
-															<input type="checkbox"> Sara Holft Merge
+															<input class="person-check-proof" type="checkbox"> Sara Holft Merge
 														</div>
 														<div class="col-2 text-center">&nbsp;</div>
 														<div class="col-4 text-center">-</div>
@@ -141,7 +198,7 @@ $( document ).ready(function() {
 												<div class="row">
 													<div class="col-3"><input type="checkbox"></div>
 													<div class="col-15">
-														<input type="checkbox"> Joana Fernanda Gonzallo
+														<input class="person-check-proof" type="checkbox"> Joana Fernanda Gonzallo
 														<span class="float-right">Subtotal</span>
 													</div>
 													<div class="col-2 text-center">5</div>
@@ -154,7 +211,7 @@ $( document ).ready(function() {
 													<div class="row">
 														<div class="col-4"><input type="checkbox"></div>
 														<div class="col-14">
-															<input type="checkbox"> Ana Luiza Paula
+															<input class="person-check-proof" type="checkbox"> Ana Luiza Paula
 															<span class="float-right">Subtotal</span>
 														</div>
 														<div class="col- text-center">{{line.total.qty}}</div>
@@ -168,7 +225,7 @@ $( document ).ready(function() {
 														<div class="row">
 															<div class="col-5">&nbsp;</div>
 														<div class="col-13">
-															<input type="checkbox"> Sara Holft Merge
+															<input class="person-check-proof" type="checkbox"> Sara Holft Merge
 														</div>
 														<div class="col-2 text-center">&nbsp;</div>
 														<div class="col-4 text-center">-</div>
@@ -181,7 +238,7 @@ $( document ).ready(function() {
 														<div class="row">
 															<div class="col-5">&nbsp;</div>
 														<div class="col-13">
-															<input type="checkbox"> Sara Holft Merge
+															<input class="person-check-proof" type="checkbox"> Sara Holft Merge
 														</div>
 														<div class="col-2 text-center">&nbsp;</div>
 														<div class="col-4 text-center">-</div>
@@ -195,7 +252,7 @@ $( document ).ready(function() {
 											<div class="row">
 												<div class="col-2"><input type="checkbox"></div>
 												<div class="col-16">
-													<input type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
+													<input class="person-check-proof" type="checkbox"> Maria Fernanda Gonzallo<span class="float-right">Total</span>
 												</div>
 												<div class="col-2 text-center">5</div>
 												<div class="col-4 text-center">primeira</div>
