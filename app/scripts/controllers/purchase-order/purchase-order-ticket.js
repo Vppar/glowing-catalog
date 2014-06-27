@@ -28,6 +28,7 @@
                     var resetWatchedQty = function resetWatchedQty() {
                         $scope.ticket.watchedQty = {};
                         $scope.ticket.checkBox = {};
+                        value = true;
                         for ( var ix in $scope.purchaseOrder.items) {
                             var item = $scope.purchaseOrder.items[ix];
                             $scope.ticket.watchedQty[item.id] = 0;
