@@ -1,0 +1,241 @@
+<div id="sacred">
+	<div class="container">
+
+		<div ng-include src="'views/parts/global/header.html'"></div>
+
+		<div class="page sacred-card-config-page">
+
+			<div class="page-header">
+				<div class="row">
+					<div class="col-10">
+						<div class="title">Configuração de Cartões</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="page-body">
+				<div class="content">
+
+					<div class="content-body">
+
+					<div class="row">
+						<div class="col-24">Recebimento por Cartão</div>
+					</div>
+
+					<div class="row">&nbsp;</div>
+
+
+						<div class="row">
+
+							<div class="col-12">
+								<div class="modal-head">
+									Cartão de Crédito
+								</div>
+
+								<div class="modal-body">
+									<form class="form" name="">
+
+										<div class="fields">
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-16">
+														<label class="inline-label">Prazo de Vencimento:<label>
+													</div>
+													<div class="col-4">
+														<input name="current-password" ng-model="oldPassword" type="password" placeholder="" ng-required autofocus>
+													</div>
+													<div class="col-4">
+														<label class="inline-label">dias</label>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-8">
+														<label class="inline-label">Taxa Operadora: </label>
+													</div>
+													<div class="col-8 text-right">
+														<label class="inline-label">Pagamento à Vista</label>
+													</div>
+													
+													<div class="col-4">
+														<input name="current-password" ng-model="oldPassword" type="password" placeholder="" ng-required autofocus>
+													</div>
+													<div class="col-4">
+														<label class="inline-label">%</label>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-8">
+														<label class="inline-label"></label>
+													</div>
+													<div class="col-8 text-right">
+														<label class="inline-label">Pagamento 2 a 6x</label>
+													</div>
+													
+													<div class="col-4">
+														<input name="current-password" ng-model="oldPassword" type="password" placeholder="" ng-required autofocus>
+													</div>
+													<div class="col-4">
+														<label class="inline-label">%</label>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-8">
+														<label class="inline-label"></label>
+													</div>
+													<div class="col-8 text-right">
+														<label class="inline-label">Pagamento 7 a 12x</label>
+													</div>
+													
+													<div class="col-4">
+														<input name="current-password" ng-model="oldPassword" type="password" placeholder="" ng-required autofocus>
+													</div>
+													<div class="col-4">
+														<label class="inline-label">%</label>
+													</div>
+												</div>
+											</div>
+
+											
+
+											
+										</div>
+
+									</form>
+								</div>
+							</div>
+							
+							<div class="col-12">
+								<div class="modal-head">
+									Cartão de Débito
+								</div>
+
+								<div class="modal-body">
+									<form class="form" name="">
+
+										<div class="fields">
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-16 text-right">
+														<label class="inline-label">Prazo de Vencimento:<label>
+													</div>
+													<div class="col-4">
+														<input name="current-password" ng-model="oldPassword" type="password" placeholder="" ng-required autofocus>
+													</div>
+													<div class="col-4">
+														<label class="inline-label">dias</label>
+													</div>
+												</div>
+											</div>
+
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-16 text-right">
+														<label class="inline-label">Taxa Operadora:<label>
+													</div>
+													<div class="col-4">
+														<input name="current-password" ng-model="oldPassword" type="password" placeholder="" ng-required autofocus>
+													</div>
+													<div class="col-4">
+														<label class="inline-label">%</label>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+
+						<hr/>
+
+						<div class="row">
+							<div class="col-24">Pagamento por Cartão (Utilizado na Compra)</div>
+						</div>
+
+						<div class="row">&nbsp;</div>
+
+						<div class="row">
+
+							<div class="col-12">
+								<div class="modal-head">
+									Cartão de Crédito
+								</div>
+
+								<div class="modal-body">
+									<form class="form" name="">
+
+										<div class="fields">
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-9 text-right">
+														<label class="inline-label">Dia Fechamento: <label>
+													</div>
+													<div class="col-12">
+											<select name="birthday" class="date-day" ng-model="consultant.birthDate.day">
+												<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+											</select>
+											<select name="birthmonth" class="date-month" ng-model="consultant.birthDate.month" tabindex="4">
+												<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+											</select>
+
+											<select name="birthyear" class="date-year" ng-model="consultant.birthDate.year" tabindex="4">
+												<option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+											</select>
+													</div>
+													<div class="col-3">
+														
+													</div>
+												</div>
+											</div>
+
+											<div class="form-line">	
+												<div class="row">
+													<div class="col-9 text-right">
+														<label class="inline-label">Dia Vencimento: <label>
+													</div>
+													<div class="col-12">
+											<select name="birthday" class="date-day" ng-model="consultant.birthDate.day">
+												<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+											</select>
+											<select name="birthmonth" class="date-month" ng-model="consultant.birthDate.month" tabindex="4">
+												<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+											</select>
+
+											<select name="birthyear" class="date-year" ng-model="consultant.birthDate.year" tabindex="4">
+												<option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+											</select>
+													</div>
+													<div class="col-3">
+														
+													</div>
+												</div>
+											</div>
+
+											
+										</div>
+
+									</form>
+								</div>
+							</div>
+							
+							
+						</div>
+						
+
+					</div><!-- // form -->
+				</div>
+			</div>
+		</div><!-- // page-body -->
+	</div>
+</div>
+</div>

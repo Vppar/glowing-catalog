@@ -254,7 +254,7 @@
         }).when('/receivable-check-old', {
             templateUrl : 'views/receivable-check.html',
         }).when('/card-configuration', {
-            templateUrl : 'views/sacred-card-config.html'
+            templateUrl : 'views/parts/card-config/sacred-card-config.html'
 
 
         }).when('/components/date-range', {
