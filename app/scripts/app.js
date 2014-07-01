@@ -250,9 +250,12 @@
             templateUrl : 'views/sacred-order-list.html',
             controller : 'OrderListCtrl'
         }).when('/receivable-check', {
-            templateUrl : 'views/sacred-receivable-check.html'
+            templateUrl : 'views/sacred-receivable-check.html',
         }).when('/receivable-check-old', {
-            templateUrl : 'views/receivable-check.html'
+            templateUrl : 'views/receivable-check.html',
+        }).when('/card-configuration', {
+            templateUrl : 'views/sacred-card-config.html'
+
 
         }).when('/components/date-range', {
             templateUrl : 'routes/components/date-range/date-range.html',
