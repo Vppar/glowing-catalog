@@ -156,10 +156,6 @@
         	return openDialog('views/parts/subscription/subscription-email-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined, false);
         };
 
-        this.openDialogSubscriptionRequested = function(data) {
-        	return openDialog('views/parts/subscription/subscription-requested-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
-        };
-        
         this.openDialogLoading = function (data) {
             var options = {
                 backdrop : true,

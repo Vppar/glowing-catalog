@@ -13,10 +13,9 @@
 
              this.isValid = function(subscription) {
                  var invalidProperty = {};
-                 invalidProperty.planId = angular.isDefined(subscription.planId);
-                 invalidProperty.date = angular.isDefined(subscription.date);
-                 invalidProperty.userId = angular.isDefined(subscription.userId);
-                 invalidProperty.status = angular.isDefined(subscription.status);
+                 invalidProperty.planType = angular.isDefined(subscription.planType);
+                 invalidProperty.subscriptionDate = angular.isDefined(subscription.subscriptionDate);
+                 invalidProperty.consultant = angular.isDefined(subscription.consultant);
 
                  var result = [];
                  
@@ -40,10 +39,6 @@
                 else {
                     return $q.reject(result);
                 }
-			};
-			
-			this.list = function list( userId, status ){
-				return SubscriptionKeeper.list(userId, status);
 			};
          }
         ]);
