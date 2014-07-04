@@ -1,7 +1,7 @@
 ﻿[
     {
         "id": 0,
-        "session": "Lançamentos",
+        "session": "Maquiagem",
         "line": "Olhos",
         "image": "10-042319.jpg",
         "points": 18,
@@ -31,7 +31,7 @@
     },
     {
         "id": 3,
-        "session": "Lançamentos",
+        "session": "Maquiagem",
         "line": "Olhos",
         "image": "10-026293.jpg",
         "points": 12,
@@ -218,7 +218,7 @@
     },
     {
         "id": 25,
-        "session": "Edição Limitada",
+        "session": "Última Oportunidade",
         "line": " Olhos",
         "image": "10-025868.jpg",
         "points": 20,
@@ -240,7 +240,7 @@
         "SKU": "10-025876",
         "image": "10-025876.jpg",
         "option": "Glacier Gray",
-        "active": false
+        "active": true
     },
     {
         "id": 28,
@@ -4264,7 +4264,7 @@
         "SKU": "10-078034",
         "image": "10-078034.jpg",
         "option": "Redwood",
-        "active": true
+        "active": false
     },
     {
         "id": 486,
@@ -4342,7 +4342,7 @@
     },
     {
         "id": 495,
-        "session": "Lançamentos",
+        "session": "Maquiagem",
         "line": "Lábios",
         "image": "10-070247.png",
         "points": 26,
@@ -4457,7 +4457,7 @@
     },
     {
         "id": 508,
-        "session": "Edição Limitada",
+        "session": "Última Oportunidade",
         "line": "Fairytales & Fantasy",
         "image": "10-080357.jpg",
         "points": 9,
@@ -4654,7 +4654,7 @@
     },
     {
         "id": 531,
-        "session": "Lançamentos",
+        "session": "Cuidados com a Pele",
         "line": "MKMen",
         "image": "10-073605.jpg",
         "points": 32,
@@ -4671,7 +4671,7 @@
     },
     {
         "id": 533,
-        "session": "Lançamentos",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Femininas",
         "image": "10-059456.jpg",
         "points": 47,
@@ -4688,7 +4688,7 @@
     },
     {
         "id": 535,
-        "session": "Lançamentos",
+        "session": "SPA e Fragrâncias",
         "line": "Fragrâncias Masculinas",
         "image": "10-059457.jpg",
         "points": 47,
@@ -4705,7 +4705,7 @@
     },
     {
         "id": 537,
-        "session": "Lançamentos",
+        "session": "Maquiagem",
         "line": "Mary Kay at Play",
         "image": "10-073806.jpg",
         "points": 11,
@@ -4728,7 +4728,7 @@
         "image": "10-080871.jpg",
         "points": 44,
         "title": "Kit Na Torcida No Estilo Mary Kay",
-        "price": 88,        
+        "price": 88,
         "description": "Trio de Sombras Field Day, Lápis Sombra Teal Me More e Máscara para Cílios Lash Love Azul."
     },
     {
@@ -4746,7 +4746,7 @@
         "image": "10-062149.jpg",
         "points": 15,
         "title": "Trio de Sombras Field Day – 2g",
-        "price": 29,        
+        "price": 29,
         "description": "Três cores em um só produto."
     },
     {
@@ -4763,7 +4763,7 @@
         "image": "10-065259.jpg",
         "points": 19,
         "title": "Brilho Labial de Longa Duração - 4,2 ml",
-        "price": 38,        
+        "price": 38,
         "description": "Deixa os lábios suaves e hidratados."
     },
     {
@@ -4771,7 +4771,7 @@
         "parent": 543,
         "SKU": "10-065259",
         "image": "10-065259.jpg",
-		"option": "Enchanted Mauve",
+        "option": "Enchanted Mauve",
         "active": true
     },
     {
@@ -4779,7 +4779,7 @@
         "parent": 543,
         "SKU": "10-065258",
         "image": "10-065258.jpg",
-		"option": "Mulberry Forest",
+        "option": "Mulberry Forest",
         "active": true
     },
     {
@@ -4797,7 +4797,7 @@
         "parent": 546,
         "SKU": "10-065252",
         "image": "10-065252.jpg",
-		"option": "Blue Knight",
+        "option": "Blue Knight",
         "active": true
     },
     {
@@ -4805,7 +4805,7 @@
         "parent": 546,
         "SKU": "10-065254",
         "image": "10-065254.jpg",
-		"option": "Golden Illusion",
+        "option": "Golden Illusion",
         "active": true
     },
     {
@@ -4813,7 +4813,7 @@
         "parent": 546,
         "SKU": "10-065253",
         "image": "10-065253.jpg",
-		"option": "Mulberry Forest",
+        "option": "Mulberry Forest",
         "active": true
     },
     {
@@ -4831,7 +4831,7 @@
         "parent": 550,
         "SKU": "10-066931",
         "image": "10-066931.jpg",
-		"option": "Amethyst Smoke",
+        "option": "Amethyst Smoke",
         "active": true
     },
     {
@@ -4839,7 +4839,7 @@
         "parent": 550,
         "SKU": "10-067250",
         "image": "10-067250.jpg",
-		"option": "Golden Illusion",
+        "option": "Golden Illusion",
         "active": true
     },
     {
@@ -4847,7 +4847,7 @@
         "parent": 550,
         "SKU": "10-067251",
         "image": "10-067251.jpg",
-		"option": "Enchanted Mauve",
+        "option": "Enchanted Mauve",
         "active": true
     },
     {
@@ -4855,9 +4855,9 @@
         "parent": 550,
         "SKU": "10-066930",
         "image": "10-066930.jpg",
-		"option": "Silver Spell",
+        "option": "Silver Spell",
         "active": true
-    },	
+    },
     {
         "id": 555,
         "session": "Edição Limitada",
@@ -4882,6 +4882,142 @@
         "SKU": "10-065498",
         "image": "10-065498.jpg",
         "option": "Mulberry Forest",
+        "active": true
+    },
+    {
+        "id": 558,
+        "session": "Lançamentos",
+        "line": "Fragrâncias Masculinas",
+        "image": "10-072772.jpg",
+        "points": 52,
+        "title": "Upscale Black - 75 ml",
+        "price": 89,
+        "description": "Uma sofisticada fragrância amadeirada com um toque oriental que acentua a autoconfiança e o poder de sedução do homem."
+    },
+    {
+        "id": 559,
+        "parent": 558,
+        "SKU": "10-072772",
+        "image": "10-072772.jpg",
+        "active": true
+    },
+    {
+        "id": 560,
+        "session": "Lançamentos",
+        "line": "Maquiagem - Olhos",
+        "image": "10-071868.jpg",
+        "points": 25,
+        "title": "Delineador em Gel para os Olhos - Black - 4,5 g",
+        "price": 49,
+        "description": "Fórmula duradoura e resistente à água. Com o pincel de aplicação que permite a criação de diversos looks."
+    },
+    {
+        "id": 561,
+        "parent": 560,
+        "SKU": "10-071868",
+        "image": "10-071868.jpg",
+        "active": true
+    },
+    {
+        "id": 562,
+        "session": "Lançamentos",
+        "line": "Maquiagem - Olhos",
+        "image": "10-068245.jpg",
+        "points": 12,
+        "title": "Sombra Mineral (Refil) - 1,4 g",
+        "price": 21,
+        "description": "São tonalidades vibrantes e de longa duração em fórmula mineral. Proporcionam cores intensas, que não acumulam nas pálpebras e são ideais para qualquer tom de pele."
+    },
+    {
+        "id": 563,
+        "parent": 562,
+        "SKU": "10-068245",
+        "image": "10-068245.jpg",
+        "option": "Brilliant Black",
+        "active": true
+    },
+    {
+        "id": 564,
+        "parent": 562,
+        "SKU": "10-068247",
+        "image": "10-068247.jpg",
+        "option": "Glistening Gold",
+        "active": true
+    },
+    {
+        "id": 565,
+        "parent": 562,
+        "SKU": "10-068227",
+        "image": "10-068227.jpg",
+        "option": "Shimmering Lilac",
+        "active": true
+    },
+    {
+        "id": 566,
+        "parent": 562,
+        "SKU": "10-068246",
+        "image": "10-068246.jpg",
+        "option": "Sparkling White",
+        "active": true
+    },
+    {
+        "id": 567,
+        "session": "Lançamentos",
+        "line": "Maquiagem - Rosto",
+        "image": "10-069077.jpg",
+        "points": 21,
+        "title": "Pó Bronzeador Compacto (Refil) - 8,6 g ",
+        "price": 39,
+        "description": "Os pós bronzeadores dão um aspecto natural e acetinado."
+    },
+    {
+        "id": 568,
+        "parent": 567,
+        "SKU": "10-069077",
+        "image": "10-069077.jpg",
+        "option": "Medium-Dark",
+        "active": true
+    },
+    {
+        "id": 569,
+        "parent": 567,
+        "SKU": "10-069076",
+        "image": "10-069076.jpg",
+        "option": "Light-Medium",
+        "active": true
+    },
+    {
+        "id": 570,
+        "session": "Lançamentos",
+        "line": "Maquiagem - Rosto",
+        "image": "10-069096.jpg",
+        "points": 21,
+        "title": "Pó Iluminador Compacto (Refil) - 8,6 g",
+        "price": 39,
+        "description": "O pó iluminador dá um acabamento radiante à pele."
+    },
+    {
+        "id": 571,
+        "parent": 570,
+        "SKU": "10-069096",
+        "image": "10-069096.jpg",
+        "active": true
+    },
+    {
+        "id": 572,
+        "session": "Lançamentos",
+        "line": "TimeWise",
+        "image": "10-063959.jpg",
+        "points": 46,
+        "title": "Sérum Clareador Even Complexion - 10 ml",
+        "price": 75,
+        "description": "Solução direcionada para clareamento de áreas específicas da pele."
+    },
+    {
+        "id": 573,
+        "parent": 572,
+        "SKU": "10-063959",
+        "image": "10-063959.jpg",
         "active": true
     }
 ]
