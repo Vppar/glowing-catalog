@@ -25,7 +25,7 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Subscription must be initialized with plan, subscriptionDate and userId';
+                    throw 'Subscription must be initialized with planType, subscriptionDate and consultant';
                 }
             } else {
             	this.uuid = uuid; 
