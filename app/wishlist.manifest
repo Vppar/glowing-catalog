@@ -266,6 +266,7 @@ scripts/keepers/BookKeeper.js
 scripts/keepers/ConsultantKeeper.js
 scripts/keepers/SchedulingKeeper.js
 scripts/keepers/MasterKeeper.js
+scripts/keepers/SubscriptionKeeper.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js
