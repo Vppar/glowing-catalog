@@ -44,6 +44,25 @@
 			this.list = function list(){
 				return SubscriptionKeeper.list();
 			};
+			
+			this.getLastSubscription = function getLastSubscription(){
+				var list = SubscriptionKeeper.list();
+				var result = undefined;
+				
+				if( list && list.length && list.length > 0 ){
+					var lastSubscription = list[0]; 
+					
+					for( var i=1; i < list.length; i++ ){
+						if( list[i].subscriptionDate > lastSubscription.subscriptionDate ){
+							lastSubscription = list[i];
+						}
+					}
+					
+					result = lastSubscription;
+				}
+				
+				return result;
+			};
          }
         ]);
 })(angular);

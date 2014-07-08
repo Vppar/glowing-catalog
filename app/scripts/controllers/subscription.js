@@ -10,7 +10,7 @@
     		 'SubscriptionCtrl', 
     		[
     		 '$scope', '$log', '$location', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger', 
-    		 'SubscriptionService', 'Subscription', 
+    		 'SubscriptionService', 'Subscription',
              function($scope, $log, $location, DataProvider, ConsultantService, DialogService, dialog, CepService, 
             		 logger, SubscriptionService, Subscription ) {
     	
@@ -33,13 +33,23 @@
                         };	                
 	            }
     			
-    			$scope.plan = undefined;
+    			$scope.paymentPlans = DataProvider.paymentPlans;
+    			
+    			if( dialog.data && dialog.data.planType ){
+    				$scope.planType = dialog.data.planType;
+    			}
+    			else {
+    				$scope.planType = undefined;
+    			}
     			
     			$scope.states = DataProvider.states;
     			
-    			$scope.paymentPlans = DataProvider.paymentPlans;
-    			
     			$scope.cepValid = false;
+    			
+		        $scope.selectPlan = function ( planType ) {
+		        	dialog.close(true);
+		        	DialogService.openDialogSubscriptionRenewal({'planType': planType});
+		        };    			
     			
 		        $scope.openPaymentScreen = function () {
 		        	dialog.close(true);
@@ -60,11 +70,10 @@
 		        	$scope.failed = true;
 		        	
 		        	var subscriptionList = SubscriptionService.list();
-		        	if( subscriptionList /*&& subscriptionList.length && subscriptionList.length == 0*/){
+		        	if( subscriptionList && subscriptionList.length && subscriptionList.length == 0){
 		        		var newExpirationDate = new Date();
 		        		newExpirationDate.setDate(new Date().getDate()+4);		        		
 		        		$scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime() ;
-		        		console.log(new Date($scope.consultant.subscriptionExpirationDate));
 		        	} 
 		        	
                     if ($scope.subscriptionForm.$valid) {
@@ -96,7 +105,7 @@
 		        };
 		
 		        $scope.saveSubscription = function(){
-		        	var subscription = new Subscription(null, $scope.plan, new Date().getTime(), $scope.consultant);
+		        	var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant);
                     
                     SubscriptionService.add(subscription).then(function() {
                         log.info('Subscription Updated.');

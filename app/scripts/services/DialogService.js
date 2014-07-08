@@ -152,6 +152,14 @@
         	return openDialog('views/parts/subscription/subscription-renewal-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
         };
 
+        this.openDialogGlossSubscriptionExpired = function(data) {
+        	return openDialog('views/parts/subscription/gloss-subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
+        };
+
+        this.openDialogBlushSubscriptionExpired = function(data) {
+        	return openDialog('views/parts/subscription/blush-subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
+        };
+
         this.openDialogSubscriptionEmail = function(data) {
         	return openDialog('views/parts/subscription/subscription-email-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined, false);
         };

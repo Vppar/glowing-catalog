@@ -178,10 +178,26 @@
         this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
         	var consultant = ConsultantService.get();
         	
+        	//TODO descomentar quando subscriptionExpirationDate for implementado
         	if( consultant /*&& consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate*/){
-   				DialogService.openDialogSubscriptionExpired();
+        		var lastSubscription = SubscriptionService.getLastSubscription();
+        		
+        		if( lastSubscription && lastSubscription.planType ){
+        			if( lastSubscription.planType === 'GLOSS' ){
+        				DialogService.openDialogGlossSubscriptionExpired();
+        			}
+        			else if( lastSubscription.planType === 'BLUSH' ){
+        				DialogService.openDialogBlushSubscriptionExpired();
+        			}
+        			else {
+        				DialogService.openDialogSubscriptionExpired();
+        			}
+        		}
+        		else {
+        			DialogService.openDialogSubscriptionExpired();
+        		}
         	}
-        }      
+        };      
 
         this.hasUnsyncedData = function hasUnsyncedData() {
             return SyncService.hasUnsyncedEntries();

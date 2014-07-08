@@ -6,9 +6,7 @@
 	
 		<div class="col-8">
 			<label>Selecione o plano desejado:</label>
-			<select name="plan" tabindex="1" ng-model="plan" required>
-				<option value="{{plan.id}}" ng-repeat="plan in paymentPlans">{{plan.nome}}</option>
-			</select>
+			<select tabindex="1" required ng-model="planType" ng-options="plan.planType as plan.nome for plan in paymentPlans"></select>			
 		</div>
 	
 		<div class="col-8">
