@@ -464,8 +464,8 @@ describe('Controller: order-list-products', function () {
         // dependecy mocks
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         EntityService.list = jasmine.createSpy('EntityService.list');
-        UserService.redirectIfIsNotLoggedIn =
-            jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
+        UserService.redirectIfInvalidUser =
+            jasmine.createSpy('UserService.redirectIfInvalidUser').andReturn(true);
         ProductReturnService.listByDocument =
             jasmine.createSpy('ProductReturnService.listByDocument');
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');

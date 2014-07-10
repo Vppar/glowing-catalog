@@ -124,8 +124,8 @@ describe('Controller: order-list', function () {
         // dependecy mocks
         OrderService.list = jasmine.createSpy('OrderService.list').andReturn(orders);
         EntityService.list = jasmine.createSpy('EntityService.list').andReturn(customers);
-        UserService.redirectIfIsNotLoggedIn =
-            jasmine.createSpy('UserService.redirectIfIsNotLoggedIn').andReturn(true);
+        UserService.redirectIfInvalidUser =
+            jasmine.createSpy('UserService.redirectIfInvalidUser').andReturn(true);
         VoucherService.listByDocument = jasmine.createSpy('VoucherService');
         
         VoucherService.listByOrigin = jasmine.createSpy('Voucher.listByOrigin');
@@ -194,7 +194,7 @@ describe('Controller: order-list', function () {
     describe('When instantiate controller', function () {
 
         it('should verify if user is logged in', function () {
-            expect(UserService.redirectIfIsNotLoggedIn).toHaveBeenCalled();
+            expect(UserService.redirectIfInvalidUser).toHaveBeenCalled();
         });
 
         it('should instantiate dateFilter properly', function () {
