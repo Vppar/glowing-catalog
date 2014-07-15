@@ -30,8 +30,7 @@
                                 'gender',
                                 'birthDate',
                                 'cityOrigin',
-                                'countryOrigin',
-								'subscriptionExpirationDate',
+                                'countryOrigin',								
                                 'complement',
                                 'emissary',
                                 'phone',
@@ -40,7 +39,8 @@
                                 'emailDirector',
                                 'primerCode',
                                 'unityNumber',
-                                'area'
+                                'area',
+                                'subscriptionExpirationDate'
                             ];
 
                         ObjectUtils.method(svc, 'isValid', function () {
