@@ -18,8 +18,7 @@
                         }
                     }
                 }
-            });
-			
+            });			
 
             if (arguments.length !== svc.length) {
                 if (arguments.length === 1 && angular.isObject(arguments[0])) {
