@@ -43,7 +43,6 @@
             }
 
             $scope.states = DataProvider.states;
-
             $scope.cepValid = false;
 
             $scope.selectPlan = function ( planType ) {
