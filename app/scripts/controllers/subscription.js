@@ -59,14 +59,6 @@
 		        $scope.saveConsultant = function () {
 		        	$scope.failed = true;
 		        	
-		        	var subscriptionList = SubscriptionService.list();
-		        	if( subscriptionList /*&& subscriptionList.length && subscriptionList.length == 0*/){
-		        		var newExpirationDate = new Date();
-		        		newExpirationDate.setDate(new Date().getDate()+4);		        		
-		        		$scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime() ;
-		        		console.log(new Date($scope.consultant.subscriptionExpirationDate));
-		        	} 
-		        	
                     if ($scope.subscriptionForm.$valid) {
                         if (ConsultantService.get()) {
                             return ConsultantService.update($scope.consultant).then(function() {

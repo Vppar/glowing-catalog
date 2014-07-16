@@ -53,7 +53,7 @@
     
     function SubscriptionKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Subscription, IdentityService) {
 
-    	var type = 20;
+    	var type = 7;
     	var subscriptionCounter = 0;
         var currentEventVersion = 1;
         var subscriptions = [];
@@ -62,13 +62,15 @@
         ObjectUtils.superInvoke(this, 'Subscription', Subscription, currentEventVersion);
 
         ObjectUtils.ro(this.handlers, 'subscriptionAddV1', function(event) {
-    		var eventData = IdentityService.getUUIDData (event.uuid);
-    		
-    		if (eventData.deviceId === IdentityService.getDeviceId ()) {
-    			subscriptionCounter = subscriptionCounter >= eventData.id ? subscriptionCounter : eventData.id;
-    		}
+        	if( event.uuid ){
+        		var eventData = IdentityService.getUUIDData (event.uuid);
+        		
+        		if (eventData.deviceId === IdentityService.getDeviceId ()) {
+        			subscriptionCounter = subscriptionCounter >= eventData.id ? subscriptionCounter : eventData.id;
+        		}
+        	}
             subscriptions.push(event);
-            return event.uuid;
+            return event;
         });
 
         ObjectUtils.ro(this.handlers, 'nukeSubscriptionsV1', function () {
@@ -91,10 +93,6 @@
             
             return this.journalize('Add', subscription);
         };
-        
-        this.list = function list() {
-            return angular.copy(subscriptions);
-        };        
     }
     
     angular.module(

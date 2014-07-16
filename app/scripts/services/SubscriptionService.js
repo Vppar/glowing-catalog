@@ -40,10 +40,6 @@
                     return $q.reject(result);
                 }
 			};
-			
-			this.list = function list(){
-				return SubscriptionKeeper.list();
-			};
          }
         ]);
 })(angular);
