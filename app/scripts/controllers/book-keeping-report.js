@@ -5,7 +5,7 @@
         'tnt.catalog.filters.uuidCode'
     ]).controller('BookKeepingReportCtrl', ['$scope', '$log', 'BookService', 'UserService', function($scope, $log, BookService, UserService) {
 
-        UserService.redirectIfInvalidUser();
+        UserService.redirectIfIsNotLoggedIn();
 
         var bookEntries = BookService.listEntries();
 

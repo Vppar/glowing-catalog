@@ -163,8 +163,8 @@
         };
         
         this.redirectIfInvalidUser = function redirectIfInvalidUser() {
-        	this.redirectIfIsNotLoggedIn();
-        	this.redirectIfIsNotSubscribed();        	
+            this.redirectIfIsNotLoggedIn();
+            this.redirectIfIsNotSubscribed();
         };
         
         this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
@@ -172,31 +172,31 @@
                 SyncDriver.logout().then(function(){
                     $location.path('/login');
                 });
-        	}            
+            }
         };
         
         this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
-        	var consultant = ConsultantService.get();
-        	
-        	if( consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
-        		var lastSubscription = SubscriptionService.getLastSubscription();
-        		
-        		if( lastSubscription && lastSubscription.planType ){
-        			if( lastSubscription.planType === 'GLOSS' ){
-        				DialogService.openDialogGlossSubscriptionExpired();
-        			}
-        			else if( lastSubscription.planType === 'BLUSH' ){
-        				DialogService.openDialogBlushSubscriptionExpired();
-        			}
-        			else {
-        				DialogService.openDialogSubscriptionExpired();
-        			}
-        		}
-        		else {
-        			DialogService.openDialogSubscriptionExpired();
-        		}
-        	}
-        };      
+            var consultant = ConsultantService.get();
+
+            if( consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
+                var lastSubscription = SubscriptionService.getLastSubscription();
+
+                if( lastSubscription && lastSubscription.planType ){
+                    if( lastSubscription.planType === 'GLOSS' ){
+                        DialogService.openDialogGlossSubscriptionExpired();
+                    }
+                    else if( lastSubscription.planType === 'BLUSH' ){
+                        DialogService.openDialogBlushSubscriptionExpired();
+                    }
+                    else {
+                        DialogService.openDialogSubscriptionExpired();
+                    }
+                }
+                else {
+                    DialogService.openDialogSubscriptionExpired();
+                }
+            }
+        };
 
         this.hasUnsyncedData = function hasUnsyncedData() {
             return SyncService.hasUnsyncedEntries();

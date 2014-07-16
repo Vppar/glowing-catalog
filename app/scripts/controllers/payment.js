@@ -32,7 +32,7 @@
             'IntentService',
             function ($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService, KeyboardService, InventoryKeeper, VoucherKeeper, CashPayment, EntityService, UserService, Misplacedservice, IntentService) {
 
-                UserService.redirectIfInvalidUser();
+                UserService.redirectIfIsNotLoggedIn();
 
                 var bundle = IntentService.getBundle();
 

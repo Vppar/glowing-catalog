@@ -2,7 +2,7 @@
 
 angular.module('glowingCatalogApp').controller('FinancialCtrl', ['$scope', 'UserService', function($scope, UserService) {
     
-    UserService.redirectIfInvalidUser();
+    UserService.redirectIfIsNotLoggedIn();
     
     $scope.awesomeThings = [
         'HTML5 Boilerplate', 'AngularJS', 'Karma'

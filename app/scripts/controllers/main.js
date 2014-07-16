@@ -3,7 +3,7 @@
     angular.module('glowingCatalogApp').controller(
             'MainCtrl', ['$scope', '$location', 'DataProvider', 'ArrayUtils', 'OrderService', 'DialogService', 'InventoryKeeper', 'UserService', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper, UserService) {
                
-                UserService.redirectIfInvalidUser();
+                UserService.redirectIfIsNotLoggedIn();
                 
                 function dataProviderUpdate() {
 

@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.22-16'
+# 'version' : '1.2.37-1'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -262,7 +262,6 @@ scripts/keepers/GridKeeper.js
 scripts/keepers/EntityKeeper.js
 scripts/keepers/JournalKeeper.js
 scripts/keepers/StockKeeper.js
-scripts/keepers/SubscriptionKeeper.js
 scripts/keepers/VoucherKeeper.js
 scripts/keepers/OrderKeeper.js
 scripts/keepers/PurchaseOrderKeeper.js
@@ -273,6 +272,7 @@ scripts/keepers/ConsultantKeeper.js
 scripts/keepers/SchedulingKeeper.js
 scripts/keepers/MasterKeeper.js
 scripts/keepers/TargetKeeper.js
+scripts/keepers/SubscriptionKeeper.js
 
 scripts/services/ArrayUtils.js
 scripts/services/BookService/BookService.js

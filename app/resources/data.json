@@ -428,9 +428,5 @@
 		"753":	"NBC Bank Brasil S. A. - Banco Múltiplo",
 		"756":	"Banco Cooperativo do Brasil S.A. - Bancoob",
 		"757":	"Banco Keb do Brasil S.A."
-	},
-	"paymentPlans":[
-	    {"planType":"GLOSS", "nome": "GLOSS - Plano Semestral - R$ 209,40"},
-	    {"planType":"BLUSH", "nome": "BLUSH - Plano Anual - R$ 358,80"}
-	]
+	}
 }

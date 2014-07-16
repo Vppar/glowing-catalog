@@ -9,7 +9,7 @@
                 '$scope', 'EntityService', 'UserService', 'IntentService', '$location', '$filter',
                 function($scope, EntityService, UserService, IntentService, $location, $filter) {
 
-                    UserService.redirectIfInvalidUser();
+                    UserService.redirectIfIsNotLoggedIn();
 
                     $scope.newClient = function(screen) {
                         IntentService.putBundle({

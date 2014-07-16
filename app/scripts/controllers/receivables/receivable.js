@@ -12,7 +12,7 @@
             'BookService',
             function ($scope, $filter, ReceivableService, UserService, BookService) {
 
-                UserService.redirectIfInvalidUser();
+                UserService.redirectIfIsNotLoggedIn();
 
                 // An object where lists of receivables can be stored without
                 // loosing reference in the child scopes. Don't override this

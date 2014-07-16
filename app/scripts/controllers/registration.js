@@ -25,7 +25,7 @@
                                     minimumResultsForSearch : -1
                                 };
                             
-                            UserService.redirectIfInvalidUser();
+                            UserService.redirectIfIsNotLoggedIn();
 
                             /**
                              * Regex created to only accept e-mails that follow

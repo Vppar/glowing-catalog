@@ -23,7 +23,7 @@ angular
 
             var log = logger.getLogger('tnt.catalog.productsDelivery.ProductsDeliveryCtrl');
 
-            UserService.redirectIfInvalidUser();
+            UserService.redirectIfIsNotLoggedIn();
             $scope.selected = 'orders';
             var selectedOrder = '';
             $scope.checkbox = {
