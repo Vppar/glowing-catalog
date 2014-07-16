@@ -39,8 +39,7 @@
                                 'emailDirector',
                                 'primerCode',
                                 'unityNumber',
-                                'area',
-                                'subscriptionExpirationDate'
+                                'area'
                             ];
 
                         ObjectUtils.method(svc, 'isValid', function () {
