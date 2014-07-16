@@ -19,7 +19,7 @@
                 function($scope, $location, DataProvider, DialogService, OrderService, EntityService, CepService, UserService, CpfService,
                         IntentService) {
 
-                    UserService.redirectIfIsNotLoggedIn();
+                    UserService.redirectIfInvalidUser();
 
                     // ############################################################################################################
                     // Scope binding variables

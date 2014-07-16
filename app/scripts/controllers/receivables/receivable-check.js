@@ -19,7 +19,7 @@
          */
         function($log, $q, $scope, $filter, UserService, ReceivableService, ArrayUtils, DataProvider) {
             // Login verify
-            UserService.redirectIfIsNotLoggedIn();
+            UserService.redirectIfInvalidUser();
 
             // ##################################################################################################
             // LOCAL VARS

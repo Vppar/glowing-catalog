@@ -227,7 +227,7 @@ xdescribe('PaymentCtrl', function () {
     PaymentServiceMock.list = jasmine.createSpy('PaymentService.list').andReturn([]);
     PaymentServiceMock.clear = jasmine.createSpy('PaymentService.clear');
 
-    UserServiceMock.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn');
+    UserServiceMock.redirectIfInvalidUser = jasmine.createSpy('UserService.redirectIfInvalidUser');
   }
 
 
