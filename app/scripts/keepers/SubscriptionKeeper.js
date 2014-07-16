@@ -28,7 +28,7 @@
                     throw 'Subscription must be initialized with planType, subscriptionDate and consultant';
                 }
             } else {
-                this.uuid = uuid;
+            	this.uuid = uuid;
                 this.planType = planType;
                 this.subscriptionDate = subscriptionDate;
                 this.consultant = consultant;
