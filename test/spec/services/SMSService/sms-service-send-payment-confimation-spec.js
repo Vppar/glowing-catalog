@@ -5,8 +5,8 @@ describe(
         function() {
 
             // load the service's module
-            beforeEach(function () {
-                module('tnt.catalog.service.sms'); 
+            beforeEach(function() {
+                module('tnt.catalog.service.sms');
             });
 
             // instantiate service
@@ -17,13 +17,12 @@ describe(
                 cellphone : '4112121212',
                 formatedCellphone : '(41) 1212-1212'
             };
-            
-            beforeEach(function () {
-                ConsultantServiceMock.get =
-                    jasmine.createSpy('ConsultantServiceMock.get').andReturn(user);
+
+            beforeEach(function() {
+                ConsultantServiceMock.get = jasmine.createSpy('ConsultantServiceMock.get').andReturn(user);
             });
 
-            beforeEach(module(function ($provide) {
+            beforeEach(module(function($provide) {
                 $provide.value('ConsultantService', ConsultantServiceMock);
             }));
 
@@ -100,4 +99,25 @@ describe(
 
                 expect(SMSService.send).not.toHaveBeenCalled();
             });
+
+            it('should not send a sms', function() {
+
+                SMSService.send = jasmine.createSpy('SMSService.send');
+
+                var customer = {
+                    name : 'Bertina Pagudagua',
+                    phones : [
+                        {
+                            number : '30325500'
+                        }
+                    ]
+                };
+
+                var orderAmount = 30;
+
+                SMSService.sendPaymentConfirmation(customer, orderAmount);
+
+                expect(SMSService.send).not.toHaveBeenCalled();
+            });
+
         });

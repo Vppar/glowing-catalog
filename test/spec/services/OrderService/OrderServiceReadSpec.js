@@ -14,10 +14,11 @@ describe('Service: OrderServiceRead', function () {
     module('tnt.catalog.order.service');
 
     spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-    logMock.debug = jasmine.createSpy('$log.debug');
-    loggerMock.getLogger = jasmine.createSpy('$logger.getLogger');
+    		loggerMock.debug = jasmine.createSpy('logger.debug');
+		loggerMock.getLogger = jasmine.createSpy('logMock.getLogger').andReturn(loggerMock);
 
-    OrderKeeperMock.read = jasmine.createSpy('OrderKeeper.read').andReturn('ok');
+		OrderKeeperMock.read = jasmine.createSpy('OrderKeeper.read').andReturn(
+				'ok');
 
     module(function ($provide) {
       $provide.value('$log', logMock);
@@ -44,4 +45,15 @@ describe('Service: OrderServiceRead', function () {
     // Are we returning the value returned by 'OrderKeeper.read()'?
     expect(order).toEqual('ok');
   });
+it('gets order from OrderKeeper.read return error', function() {
+
+		OrderKeeperMock.read = jasmine.createSpy('OrderKeeper.read')
+				.andCallFake(function() {
+					throw 'error';
+				});
+
+		OrderService.read(1);
+		expect(OrderKeeperMock.read).toHaveBeenCalledWith(1);
+		expect(OrderKeeperMock.read).toThrow('error');
+	});
 });

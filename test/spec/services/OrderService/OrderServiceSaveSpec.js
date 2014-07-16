@@ -1,11 +1,12 @@
 describe('Service: OrderServiceSave', function() {
     var fakeNow = 1386444467895;
     var logMock = {};
+	var loggerMock = {};
     var OrderMock = {};
     var OrderKeeperMock = {};
     var DataProviderMock = {};
 
-    var OrderService;
+    var OrderService = {};
 
     // load the service's module
     beforeEach(function() {
@@ -13,7 +14,8 @@ describe('Service: OrderServiceSave', function() {
         module('tnt.catalog.order.service');
 
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
-        logMock.debug = jasmine.createSpy('$log.debug');
+        loggerMock.error = jasmine.createSpy('logger.error');
+		loggerMock.getLogger = jasmine.createSpy('logMock.getLogger').andReturn(loggerMock);
 
         DataProviderMock.customers = [
             {
@@ -23,11 +25,11 @@ describe('Service: OrderServiceSave', function() {
         ];
 
         OrderKeeperMock.register = jasmine.createSpy('OrderKeeper.register');
-        OrderKeeperMock.save = jasmine.createSpy('OrderKeeper.save');
 
         module(function($provide) {
             $provide.value('$log', logMock);
             $provide.value('Order', OrderMock);
+            $provide.value('logger', loggerMock);
             $provide.value('OrderKeeper', OrderKeeperMock);
             $provide.value('DataProvider', DataProviderMock);
         });
@@ -36,6 +38,19 @@ describe('Service: OrderServiceSave', function() {
     beforeEach(inject(function(_OrderService_) {
         OrderService = _OrderService_;
     }));
+    
+    it('save order successfully.', function() {      
+    	
+    	OrderService.order.items.push({
+            qty : 1
+        });
+    	
+    	OrderService.register = jasmine.createSpy('OrderService.register');
+    	
+        var order = OrderService.save();
+        
+        expect(OrderService.register).toHaveBeenCalled();
+    });
 
     // FIXME - Uncomment this and make it work.
     xit('sets the order date', function() {
