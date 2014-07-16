@@ -12,7 +12,7 @@
             'UserService',
             function ($scope, $filter, StockService, PurchaseOrderService, UserService) {
 
-                UserService.redirectIfIsNotLoggedIn();
+                UserService.redirectIfInvalidUser();
 
                 // #####################################################################################################
                 // Local Variables

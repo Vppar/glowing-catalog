@@ -6,7 +6,7 @@
             '$scope', '$location','Target', 'TargetService', 'UserService', 'FinancialMathService', 'Misplacedservice', 'IntentService',
             function ($scope, $location, Target, TargetService, UserService, FinancialMathService, Misplacedservice, IntentService) {
 
-                UserService.redirectIfIsNotLoggedIn();
+                UserService.redirectIfInvalidUser();
 
                 $scope.targetList = TargetService.list();
 

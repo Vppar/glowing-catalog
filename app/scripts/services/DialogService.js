@@ -32,11 +32,11 @@
          *            meaning it should be closed if the parent dialog closes.
          * 
          */
-        var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
+        var openDialog = function openDialog(template, controller, data, cssClass, parentDialog, backdropClick) {
             var options = {
-              backdrop : !parentDialog,
-              backdropClick : true,
-              dialogClass : cssClass
+              backdrop: !parentDialog,
+              backdropClick: (typeof backdropClick === "undefined") ? true : backdropClick,
+              dialogClass: cssClass
             };
 
             var dialog = _openDialog(data, options);

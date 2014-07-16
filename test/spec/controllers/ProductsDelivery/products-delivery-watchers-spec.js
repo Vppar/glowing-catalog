@@ -26,7 +26,7 @@ xdescribe('Controller: ProductsDeliveryCtrlWatchers', function() {
         
         scope = $rootScope.$new();
 
-        us.redirectIfIsNotLoggedIn = jasmine.createSpy("us.redirectIfIsNotLoggedIn");
+        us.redirectIfInvalidUser = jasmine.createSpy("us.redirectIfInvalidUser");
         
         os.list = jasmine.createSpy("os.list").andReturn([{created : new Date()}]);
         

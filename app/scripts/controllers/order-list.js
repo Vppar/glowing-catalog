@@ -10,7 +10,7 @@
             function ($scope, $filter, OrderService, EntityService, UserService, VoucherService, ArrayUtils, OrderListService, BookService, Misplacedservice) {
 
                 // Login verify
-                UserService.redirectIfIsNotLoggedIn();
+                UserService.redirectIfInvalidUser();
                 var allBookEntries = BookService.listEntries();
                 var hideOptions = true;
                 /**
