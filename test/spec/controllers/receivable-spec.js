@@ -16,7 +16,7 @@ describe('Controller: ReceivableCtrl', function() {
     beforeEach(inject(function($controller, $rootScope, $q, $filter) {
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
         // ReceivableService mock
-        UserService.redirectIfInvalidUser = jasmine.createSpy('Userservice.redirectIfInvalidUser');
+        UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('Userservice.redirectIfIsNotLoggedIn');
 
         // $scope mock
         scope = $rootScope.$new();
@@ -56,7 +56,7 @@ describe('Controller: ReceivableCtrl', function() {
 
     it('should valid if user is loggedIn', function() {
         // then
-        expect(UserService.redirectIfInvalidUser).toHaveBeenCalled();
+        expect(UserService.redirectIfIsNotLoggedIn).toHaveBeenCalled();
 
     });
 
