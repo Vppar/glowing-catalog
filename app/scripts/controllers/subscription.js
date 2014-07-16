@@ -61,13 +61,6 @@
 		        	DialogService.openDialogSubscriptionEmail();
 		        };
 		        
-		        $scope.verifyIfMustRedirectLoginPage = function () {
-		        	dialog.close(true);
-		        	if( new Date().getTime() >= $scope.consultant.subscriptionExpirationDate ){
-		        		$location.path('/login');
-		        	}
-		        };
-		        
 		        $scope.cancel = function () {
 		        	dialog.close(true);
 		        	$location.path('/login');
