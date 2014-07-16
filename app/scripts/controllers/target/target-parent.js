@@ -6,7 +6,7 @@
             '$scope', 'Target', 'TargetService', 'UserService', 'IntentService',
             function ($scope, Target, TargetService, UserService, IntentService) {
 
-                UserService.redirectIfInvalidUser();
+                UserService.redirectIfIsNotLoggedIn();
 
                 $scope.tabs = {selected : 'new'};
 

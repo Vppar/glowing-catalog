@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.22-4'
+# 'version' : '1.2.22'
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -253,7 +253,6 @@ scripts/controllers/target/target.js
 scripts/controllers/target/target-list.js
 scripts/controllers/target/target-parent.js
 scripts/controllers/date-range-test.js
-scripts/controllers/subscription.js
 
 scripts/keepers/CheckKeeper.js
 scripts/keepers/CoinKeeper.js
@@ -262,7 +261,6 @@ scripts/keepers/GridKeeper.js
 scripts/keepers/EntityKeeper.js
 scripts/keepers/JournalKeeper.js
 scripts/keepers/StockKeeper.js
-scripts/keepers/SubscriptionKeeper.js
 scripts/keepers/VoucherKeeper.js
 scripts/keepers/OrderKeeper.js
 scripts/keepers/PurchaseOrderKeeper.js
@@ -325,7 +323,6 @@ scripts/services/PagPopGateway.js
 scripts/services/SchedulingService.js
 scripts/services/ProductsDeliveryService.js
 scripts/services/target/TargetService.js
-scripts/services/SubscriptionService.js
 
 components/product-display/product-display.html
 components/highlight-display/highlight-display.html

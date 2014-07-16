@@ -4,7 +4,7 @@
     // ////////////////////////////////////////////////////////
     // ////////////////////////////////////////////////////////
     function WarmupCtrl($scope, $rootScope, $log, UserService, WarmupService, SyncDriver) {
-        UserService.redirectIfInvalidUser();
+        UserService.redirectIfIsNotLoggedIn();
         $log.debug('Initializing WarmupCtrl...');
 
 

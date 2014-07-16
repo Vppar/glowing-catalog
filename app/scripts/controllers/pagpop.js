@@ -20,7 +20,7 @@
                     var PP_FIXED_RATIO = 3.48;
                     var PP_MONTHLY_RATIO = 1.98;
 
-                    UserService.redirectIfInvalidUser();
+                    UserService.redirectIfIsNotLoggedIn();
 
                     $scope.searchClient = '';
 

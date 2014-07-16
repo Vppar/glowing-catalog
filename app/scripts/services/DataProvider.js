@@ -34,7 +34,6 @@
                 this.lines = [];
                 this.banks = {};
                 this.images = {};
-                this.paymentPlans = [];
 
                 $http.get('resources/data.json').then(function(response) {
                     angular.extend(scope, response.data);

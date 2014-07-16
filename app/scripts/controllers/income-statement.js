@@ -3,7 +3,7 @@
 
     angular.module('tnt.catalog.financial.incomeStatement', []).controller('IncomeStatementCtrl', ['$scope', 'UserService', function($scope, UserService) {
         
-        UserService.redirectIfInvalidUser();
+        UserService.redirectIfIsNotLoggedIn();
         
         $scope.dtInitial = new Date();
         $scope.dtInitial.setHours(0);
