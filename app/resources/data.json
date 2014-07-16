@@ -430,7 +430,7 @@
 		"757":	"Banco Keb do Brasil S.A."
 	},
 	"paymentPlans":[
-	    {"planType":"GLOSS", "nome": "GLOSS - Plano Semestral - R$ 209,40"},
-	    {"planType":"BLUSH", "nome": "BLUSH - Plano Anual - R$ 358,80"}
+	    {"id":"GLOSS", "nome": "GLOSS - Plano Semestral - R$ 209,40"},
+	    {"id":"BLUSH", "nome": "BLUSH - Plano Anual - R$ 358,80"}
 	]
 }
