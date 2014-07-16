@@ -31,7 +31,6 @@
                                 'birthDate',
                                 'cityOrigin',
                                 'countryOrigin',
-								'subscriptionExpirationDate',
                                 'complement',
                                 'emissary',
                                 'phone',

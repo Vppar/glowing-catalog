@@ -178,7 +178,8 @@
         this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
         	var consultant = ConsultantService.get();
         	
-        	if( consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
+        	//TODO descomentar quando subscriptionExpirationDate for implementado
+        	if( consultant /*&& consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate*/){
         		var lastSubscription = SubscriptionService.getLastSubscription();
         		
         		if( lastSubscription && lastSubscription.planType ){
