@@ -3,10 +3,10 @@
 
     angular.module('tnt.catalog.subscription.entity', []).factory('Subscription', function Subscription() {
 
-        var service = function svc(uuid, planType, subscriptionDate, consultant) {
+        var service = function svc(planId, date, userId, status) {
 
             var validProperties = [
-                'uuid', 'planType', 'subscriptionDate', 'consultant'
+                'planId', 'date', 'userId', 'status'
             ];
 
             ObjectUtils.method(svc, 'isValid', function() {
@@ -25,13 +25,13 @@
                     svc.prototype.isValid.apply(arguments[0]);
                     ObjectUtils.dataCopy(this, arguments[0]);
                 } else {
-                    throw 'Subscription must be initialized with plan, subscriptionDate and userId';
+                    throw 'Subscription must be initialized with plan, date and userId';
                 }
             } else {
-            	this.uuid = uuid; 
-                this.planType = planType;
-                this.subscriptionDate = subscriptionDate;
-                this.consultant = consultant;
+                this.planId = planId;
+                this.date = date;
+                this.userId = userId;
+                this.status = status;
             }
         };
         return service;
@@ -45,16 +45,14 @@
     	]).service(
     	  'SubscriptionKeeper', 
     	[
-    	 '$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Subscription', 'IdentityService', SubscriptionKeeper
+    	 '$q', 'Replayer', 'JournalEntry', 'JournalKeeper', 'ArrayUtils', 'Subscription', SubscriptionKeeper
     	 ])
     	.run(['MasterKeeper',function(MasterKeeper){
     		ObjectUtils.inherit(SubscriptionKeeper, MasterKeeper);
     	}]);
     
-    function SubscriptionKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Subscription, IdentityService) {
+    function SubscriptionKeeper($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Subscription) {
 
-    	var type = 7;
-    	var subscriptionCounter = 0;
         var currentEventVersion = 1;
         var subscriptions = [];
         this.handlers = {};
@@ -62,17 +60,11 @@
         ObjectUtils.superInvoke(this, 'Subscription', Subscription, currentEventVersion);
 
         ObjectUtils.ro(this.handlers, 'subscriptionAddV1', function(event) {
-        	if( event.uuid ){
-        		var eventData = IdentityService.getUUIDData (event.uuid);
-        		
-        		if (eventData.deviceId === IdentityService.getDeviceId ()) {
-        			subscriptionCounter = subscriptionCounter >= eventData.id ? subscriptionCounter : eventData.id;
-        		}
-        	}
+            var event = new Subscription(event);
             subscriptions.push(event);
-            return event;
+            return event.userId;
         });
-
+        
         ObjectUtils.ro(this.handlers, 'nukeSubscriptionsV1', function () {
         	subscriptions.length = 0;
             return true;
@@ -80,18 +72,22 @@
         
         Replayer.registerHandlers(this.handlers);
 
-        function getNextId( ) {
-            return ++subscriptionCounter;
-        }       
-        
         this.add = function(subscription) {
+
             if (!(subscription instanceof this.eventType)) {
               return $q.reject('Wrong instance of Subscription');
             }
             
-            subscription.uuid = IdentityService.getUUID(type, getNextId());
-            
             return this.journalize('Add', subscription);
+        };
+
+        this.list = function( userId, status ){
+        	var result = ArrayUtils.filter(subscriptions , {
+        		'userId': userId,
+        		'status': status
+        	});
+        	
+        	return angular.copy(result);
         };
     }
     

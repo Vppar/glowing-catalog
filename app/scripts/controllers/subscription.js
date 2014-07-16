@@ -19,18 +19,7 @@
     			if (ConsultantService.get()) {
 	                $scope.consultant = ConsultantService.get();
 	            } else {
-                    $scope.consultant = {
-                            address : {
-                                street : '',
-                                number : '',
-                                neighborhood : '',
-                                city : '',
-                                state : ''
-                            },
-                            birthDate : {
-                                year : '1988'
-                            }
-                        };	                
+	                $scope.consultant = {"address":{}};
 	            }
     			
     			$scope.plan = undefined;
@@ -56,6 +45,15 @@
 		        	$location.path('/login');
 		        };
 
+		        $scope.getSubscription = function(){
+		        	var subscriptions = SubscriptionService.list($scope.consultant.uuid,'PENDING');
+		        	
+		        	if( subscriptions && subscriptions.length > 0 ){
+		        		$scope.plan = subscriptions[0].planId;
+		        		$scope.saveSubscription();
+		        	}
+		        };
+		        
 		        $scope.saveConsultant = function () {
 		        	$scope.failed = true;
 		        	
@@ -88,7 +86,7 @@
 		        };
 		
 		        $scope.saveSubscription = function(){
-		        	var subscription = new Subscription(null, $scope.plan, new Date().getTime(), $scope.consultant);
+		        	var subscription = new Subscription($scope.plan, new Date(), $scope.consultant.uuid,'PENDING');
                     
                     SubscriptionService.add(subscription).then(function() {
                         log.info('Subscription Updated.');
@@ -143,66 +141,14 @@
                   }
                   
                   function populateFields(userDataAccount){
-                      $scope.consultant.name = userDataAccount.name;
-                      $scope.consultant.cep  = userDataAccount.cep;
-                      $scope.consultant.gender = getGender(userDataAccount.gender);
-                      $scope.consultant.cpf = userDataAccount.document;
-                      $scope.consultant.email = userDataAccount.email;
-                      $scope.consultant.phone = userDataAccount.landline;
-                      $scope.consultant.cellphone = userDataAccount.cellphone;
-                      $scope.consultant.emailPrimer = userDataAccount.emailPrimer;
-                      $scope.consultant.emailDirector = userDataAccount.emailDirector;
-                      $scope.consultant.primerCode = userDataAccount.primerCode;
-                      $scope.consultant.unityNumber = userDataAccount.unityNumber;
-                      $scope.consultant.emissary = userDataAccount.rg;
-                      
-                      //banking
-                      $scope.consultant.bank = userDataAccount.banking.bank;
-                      $scope.consultant.agency = userDataAccount.banking.agency;
-                      $scope.consultant.account = userDataAccount.banking.account;
-                      $scope.consultant.accountHolder = userDataAccount.banking.holderName;
-                      $scope.consultant.holderDocument = userDataAccount.banking.holderDocument;
-                      $scope.consultant.accountType = userDataAccount.banking.accountType;
-                      
                       //adress fields
+                	  $scope.consultant.cep = userDataAccount.cep;
                       $scope.consultant.address.street = userDataAccount.address.street;
                       $scope.consultant.address.neighborhood = userDataAccount.address.neighborhood;
                       $scope.consultant.address.state = userDataAccount.address.state;
                       $scope.consultant.address.city = userDataAccount.address.city;
                       $scope.consultant.address.number = userDataAccount.address.number;
                       $scope.consultant.complement = userDataAccount.address.complement;
-
-                      //empty fields on firebase
-                      $scope.consultant.mkCode = userDataAccount.mkCode;
-                      $scope.consultant.marital = userDataAccount.marital;
-                      $scope.consultant.countryOrigin = userDataAccount.countryOrigin || 'Brasil' ;
-                      
-                      $scope.consultant.birthDate.day = getBirthDayByPiece(userDataAccount.birthday, 'day');
-                      $scope.consultant.birthDate.month = getBirthDayByPiece(userDataAccount.birthday, 'month');
-                      $scope.consultant.birthDate.year = getBirthDayByPiece(userDataAccount.birthday, 'year');
-                  }
-                  
-                  function getBirthDayByPiece(date, piece){
-                      var pieces = date.split('-');
-                      var result = undefined;
-                      if(piece === 'day'){
-                          result = pieces[2];
-                      }else if(piece ==='month'){
-                          result = pieces[1];
-                      }else if(piece === 'year'){
-                          result = pieces[0];
-                      }
-                      return result;
-                  }
-                  
-                  function getGender(code){
-                      var result = undefined;
-                      if(code === '1'){
-                          result = 'Masculino';
-                      }else if(code === '2' ){
-                          result = 'Feminino';
-                      }
-                      return result;
                   }
                   
                   warmup();

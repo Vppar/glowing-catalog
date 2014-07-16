@@ -178,8 +178,15 @@
         this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
         	var consultant = ConsultantService.get();
         	
-        	if( consultant /*&& consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate*/){
-   				DialogService.openDialogSubscriptionExpired();
+        	if( consultant && consultant.expirationDate && new Date() >= consultant.expirationDate ){
+        		var subscriptions = SubscriptionService.list( consultant.uuid, 'PENDING' );
+            
+        		if( subscriptions && subscriptions.length > 0){ 
+        			DialogService.openDialogSubscriptionRequested();
+        		}
+        		else { 
+       				DialogService.openDialogSubscriptionExpired();
+        		}
         	}
         }      
 
