@@ -207,7 +207,6 @@ describe('Keeper: JournalKeeper.compose()', function() {
                     expect(persistedEntries[idx].sequence).toBe(sequence);
                 }
             });
-
         });
 
         it('replays the entry to its keeper', function () {
