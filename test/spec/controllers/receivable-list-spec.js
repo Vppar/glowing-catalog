@@ -43,6 +43,7 @@ describe('Controller: ReceivableListCtrl', function() {
                 dtInitial : new Date(),
                 dtFinal : new Date()
             };
+        scope.disable = {};
 
         // $log mock
         log.error = jasmine.createSpy('$log.error');

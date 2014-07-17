@@ -56,7 +56,11 @@ describe('Controller: PaymentCreditCardCtrl', function () {
         is.putBundle = jasmine.createSpy('IntentService.putBundle');
         is.getBundle = jasmine.createSpy('IntentService.getBundle');
 
-        ds.messageDialog = jasmine.createSpy('DialogService.messageDialog');
+        ds.messageDialog = jasmine.createSpy('DialogService.messageDialog').andCallFake(function(){
+            var deferred = _$q_.defer();
+            deferred.resolve();
+            return deferred.promise;
+        });
         ccps.charge = jasmine.createSpy('CreditCardPaymentService.charge').andCallFake(function () {
             var deferred = _$q_.defer();
             deferred.resolve();

@@ -5,16 +5,12 @@
         'tnt.catalog.keeper',
         [
             'tnt.catalog.journal',
-            'tnt.catalog.journal.entity',
-            'tnt.catalog.journal.replayer',
-            'tnt.catalog.journal.keeper'
         ]).factory(
         'MasterKeeper',
         [
             'JournalEntry',
             'JournalKeeper',
-            '$q',
-            function (JournalEntry, JournalKeeper, $q) {
+            function (JournalEntry, JournalKeeper) {
 
                 /**
                  * 

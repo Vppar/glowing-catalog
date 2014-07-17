@@ -69,11 +69,10 @@
         'tnt.catalog.entity.keeper',
         [
             'tnt.utils.array',
-            'tnt.catalog.journal.entity',
-            'tnt.catalog.journal.replayer',
             'tnt.catalog.entity.entity',
-            'tnt.catalog.journal.keeper',
-            'tnt.identity'
+            'tnt.catalog.journal.replayer',
+            'tnt.identity',
+            'tnt.catalog.keeper'
         ]).service(
         'EntityKeeper',
         [
@@ -84,139 +83,120 @@
             'ArrayUtils',
             'Entity',
             'IdentityService',
-            function EntityKeeper ($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity,
-                IdentityService) {
+            EntityKeeper
+        ]).run(function (MasterKeeper) {
+        ObjectUtils.inherit(EntityKeeper, MasterKeeper);
+    });
 
-                var type = 3;
-                var currentEventVersion = 1;
-                var currentCounter = 0;
-                var entities = [];
-                this.handlers = {};
+    function EntityKeeper ($q, Replayer, JournalEntry, JournalKeeper, ArrayUtils, Entity,
+        IdentityService) {
 
-                function getNextId () {
-                    return ++currentCounter;
+        var type = 3;
+        var currentEventVersion = 1;
+        var currentCounter = 0;
+        var entities = [];
+        this.handlers = {};
+        
+        ObjectUtils.superInvoke(this, 'Entity', Entity, currentEventVersion);
+
+        function getNextId () {
+            return ++currentCounter;
+        }
+
+        // Nuke event for clearing the entities list
+        ObjectUtils.ro(this.handlers, 'nukeEntitiesV1', function () {
+            entities.length = 0;
+            return true;
+        });
+
+        ObjectUtils.ro(this.handlers, 'entityCreateV1', function (event) {
+
+            var eventData = IdentityService.getUUIDData(event.uuid);
+
+            if (eventData.deviceId === IdentityService.getDeviceId()) {
+                currentCounter = currentCounter >= eventData.id ? currentCounter : eventData.id;
+            }
+
+            event = new Entity(event);
+            entities.push(event);
+
+            return event.uuid;
+        });
+
+        ObjectUtils.ro(this.handlers, 'entityUpdateV1', function (event) {
+            var entry = ArrayUtils.find(entities, 'uuid', event.uuid);
+
+            if (entry !== null) {
+
+                event = angular.copy(event);
+                delete event.uuid;
+                angular.extend(entry, event);
+
+            } else {
+                throw 'User not found.';
+            }
+
+            return entry.uuid;
+        });
+
+        /**
+         * Registering the handlers with the Replayer
+         */
+        Replayer.registerHandlers(this.handlers);
+
+        /**
+         * create (Entity)
+         */
+        this.create =
+            function (entity) {
+
+                if (!(entity instanceof Entity)) {
+                    return $q.reject('Wrong instance to EntityKeeper');
                 }
 
-                // Nuke event for clearing the entities list
-                ObjectUtils.ro(this.handlers, 'nukeEntitiesV1', function () {
-                    entities.length = 0;
-                    return true;
-                });
+                var entityObj = angular.copy(entity);
 
-                ObjectUtils.ro(this.handlers, 'entityCreateV1', function (event) {
+                entityObj.created = (new Date()).getTime();
+                entityObj.uuid = IdentityService.getUUID(type, getNextId());
 
-                    var eventData = IdentityService.getUUIDData(event.uuid);
+                return this.journalize('Create', entityObj);
+            };
 
-                    if (eventData.deviceId === IdentityService.getDeviceId()) {
-                        currentCounter =
-                            currentCounter >= eventData.id ? currentCounter : eventData.id;
-                    }
+        /**
+         * update (Entity)
+         */
+        // FIXME - include an uuid check here also.
+        this.update = function (entity) {
 
-                    event = new Entity(event);
-                    entities.push(event);
-
-                    return event.uuid;
-                });
-
-                ObjectUtils.ro(this.handlers, 'entityUpdateV1', function (event) {
-                    var entry = ArrayUtils.find(entities, 'uuid', event.uuid);
-
-                    if (entry !== null) {
-
-                        event = angular.copy(event);
-                        delete event.uuid;
-                        angular.extend(entry, event);
-
-                    } else {
-                        throw 'User not found.';
-                    }
-
-                    return entry.uuid;
-                });
-
-                /**
-                 * Registering the handlers with the Replayer
-                 */
-                Replayer.registerHandlers(this.handlers);
-
-                /**
-                 * create (Entity)
-                 */
-                this.create =
-                    function (entity) {
-
-                        if (!(entity instanceof Entity)) {
-                            return $q.reject('Wrong instance to EntityKeeper');
-                        }
-
-                        var entityObj = angular.copy(entity);
-
-                        entityObj.created = (new Date()).getTime();
-                        entityObj.uuid = IdentityService.getUUID(type, getNextId());
-
-                        var event = new Entity(entityObj);
-
-                        // create a new journal entry
-                        var entry =
-                            new JournalEntry(
-                                null,
-                                event.created,
-                                'entityCreate',
-                                currentEventVersion,
-                                event);
-
-                        // save the journal entry
-                        return JournalKeeper.compose(entry);
-                    };
-
-                /**
-                 * update (Entity)
-                 */
-                    //FIXME - include an uuid check here also.
-                this.update =
-                    function (entity) {
-
-                        if (!(entity instanceof Entity)) {
-                            return $q.reject('Wrong instance to EntityKeeper');
-                        }
-
-                        var event = entity;
-                        var stamp = (new Date()).getTime();
-
-                        // create a new journal entry
-                        var entry =
-                            new JournalEntry(
-                                null,
-                                stamp,
-                                'entityUpdate',
-                                currentEventVersion,
-                                event);
-
-                        // save the journal entry
-                        return JournalKeeper.compose(entry);
-                    };
-
-                /**
-                 * read (Entity)
-                 */
-                this.read = function (uuid) {
-                    return ArrayUtils.find(this.list(), 'uuid', uuid);
-                };
-
-                /**
-                 * list(type)
-                 */
-                this.list = function () {
-                    return angular.copy(entities);
-                };
-
+            if (!(entity instanceof Entity)) {
+                return $q.reject('Wrong instance to EntityKeeper');
             }
-        ]);
+
+            return this.journalize('Update', entity);
+        };
+
+        /**
+         * read (Entity)
+         */
+        this.read = function (uuid) {
+            return ArrayUtils.find(this.list(), 'uuid', uuid);
+        };
+
+        /**
+         * list(type)
+         */
+        this.list = function () {
+            return angular.copy(entities);
+        };
+
+    }
 
     angular.module('tnt.catalog.entity', [
         'tnt.catalog.entity.entity', 'tnt.catalog.entity.keeper'
-    ]).run(['EntityKeeper', function(EntityKeeper) {
-        // Warming up EntityKeeper
-    }]);
+    ]).run([
+        'EntityKeeper', function (EntityKeeper) {
+            // Warming up EntityKeeper
+        }
+    ]);
 
 }(angular));
