@@ -81,7 +81,6 @@
                         }
                     });
 
-
                     $scope.openDialogAddCustomerTels = function openDialogAddCustomerTels(phones) {
                         DialogService.openDialogAddCustomerTels({
                             phones : phones
