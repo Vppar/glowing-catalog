@@ -8,7 +8,7 @@
                     ['$scope', '$location', '$filter', '$dialog', '$q', 'DataProvider', 'DialogService', 'SMSService', 'UserService',
                     function($scope, $location, $filter, $dialog, $q, DataProvider, DialogService, SMSService, UserService) {
 
-                        UserService.redirectIfIsNotLoggedIn();
+                        UserService.redirectIfInvalidUser();
                         
                         var scheduledDefaultMsg =
                                 'Ola {{customerName}}, uma entrega referente ao pedido {{order.code}} foi agendada para {{order.date}}. {{representativeName}} seu consultor.';

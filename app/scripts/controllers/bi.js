@@ -6,7 +6,7 @@
     ]).controller('BiCtrl', [
         '$scope', '$log', 'SyncDriver', 'UserService', function($scope, $log, SyncDriver, UserService) {
 
-            UserService.redirectIfIsNotLoggedIn();
+            UserService.redirectIfInvalidUser();
 
             $log.info('Initializing BICtrl...');
 
