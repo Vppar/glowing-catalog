@@ -3397,5 +3397,95 @@
          "cost":88,
          "quantity": 0
       }
-   }
+   },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":559,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":561,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":563,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":564,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":565,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":566,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":568,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":569,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":571,
+            "cost":88,
+            "quantity": 0
+        }
+    },
+    {
+        "type":"stockAdd",
+        "version":1,
+        "event":{
+            "inventoryId":573,
+            "cost":88,
+            "quantity": 0
+        }
+    }
 ]
