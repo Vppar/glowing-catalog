@@ -516,6 +516,12 @@ images/catalog/best-sellers-8.png
 images/catalog/best-sellers-9.png
 images/catalog/best-sellers-10.png
 
+images/login/background-login-1.jpg
+images/login/background-login-2.jpg
+images/login/background-login-3.jpg
+images/login/background-login-4.jpg
+images/login/background-login-5.jpg
+
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js
 scripts/services/AppointmentService.js

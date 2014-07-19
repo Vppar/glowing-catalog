@@ -440,6 +440,7 @@ body {
 	right: 0;
 	bottom: 0;
 	/*background: #faeae9;*/
+	background-image: url("../images/login/backgroung-login-1.jpg");
 	background-color: #fff;
 }
 .lbl-top {
