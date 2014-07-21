@@ -1,8 +1,8 @@
-<div id="sacred">
+<div id="sacred" ng-style="backgroundImage">
 	<form class="form login">
-		
+
 		<h1><img src="images/vpink.jpg" alt="wishlist" /></h1>
-		
+
 		<div class="login-body">
 			<div class="form-line">
 				<div class="row">
@@ -12,7 +12,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="form-line">
 				<div class="row">
 					<div class="col-24">
@@ -22,13 +22,13 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="login-footer">
 			<div class="form-line">
 				<div class="row">
 					<div class="col-24">
 						<button ng-click="changeUser()" class="button-black" ng-if="hasPersistedUser()" type="button">Apagar Dados</button>
-						
+
 						<spinner-button spinner-promise="login()"class="button-green" type="submit">Entrar</spinner-button>
 					</div>
 				</div>
