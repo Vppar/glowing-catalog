@@ -15,7 +15,7 @@
         
         $scope.hasPersistedUser = hasPersistedUser;
 
-        var imageNumber = Math.floor(Math.random() * (5)) + 1;
+        var imageNumber = Math.floor(Math.random() * (2)) + 1;
         $scope.backgroundImage = {'background-position': 'top center', 'background-repeat':'no-repeat', 
                                   'background-image': 'url(images/login/background-login-'+imageNumber+'.jpg)'};
 
