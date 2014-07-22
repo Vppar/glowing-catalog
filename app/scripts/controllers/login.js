@@ -12,7 +12,7 @@
         if(hasPersistedUser()) {
             $scope.user = localStorage.user;
         }
-        
+
         $scope.hasPersistedUser = hasPersistedUser;
 
         var imageNumber = Math.floor(Math.random() * (2)) + 1;
@@ -55,7 +55,7 @@
                 }
             });
         };
-        
+
         $scope.login = function() {
             return UserService.login($scope.user, $scope.pass, $scope.rememberMe).then(function() {
                 $log.debug('Logged in as ', $scope.user);
