@@ -9,9 +9,9 @@
     ]).controller(
         'SubscriptionCtrl',
         [
-        '$scope', '$log', '$location', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
+        '$scope', '$q', '$log', '$location', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
         'SubscriptionService', 'Subscription',
-        function($scope, $log, $location, DataProvider, ConsultantService, DialogService, dialog, CepService,
+        function($scope, $q, $log, $location, DataProvider, ConsultantService, DialogService, dialog, CepService,
                  logger, SubscriptionService, Subscription ) {
 
             var log = logger.getLogger('tnt.catalog.subscription.ctrl.SubscriptionCtrl');
@@ -32,22 +32,32 @@
                     }
                 };
 	        }
-
+            
             $scope.paymentPlans = DataProvider.paymentPlans;
-
+            
             if( dialog.data && dialog.data.planType ){
                 $scope.planType = dialog.data.planType;
-            }
-            else {
+            }else {
                 $scope.planType = undefined;
             }
-
-            $scope.states = DataProvider.states;
+            
+            $scope.states = DataProvider.states;	
             $scope.cepValid = false;
-
-            $scope.selectPlan = function ( planType ) {
-                dialog.close(true);
-                DialogService.openDialogSubscriptionRenewal({'planType': planType});
+            
+            $scope.selectPlan = function (planType) {
+            	var paymentTypeSubscription = $scope.paymentTypeSubscription;
+            	
+            	var form = $scope.glossSubscriptionExpiredDialogForm ? $scope.glossSubscriptionExpiredDialogForm
+            														 : $scope.blushSubscriptionExpiredDialogForm;
+            	
+            	if(!form.$valid){
+            		return $q.reject();
+            	}else if(paymentTypeSubscription == 'billet'){
+            		dialog.close(true);
+                    DialogService.openDialogSubscriptionRenewal({'planType': planType});                    
+        		}else{
+        			console.log('FLUXO DO CARTÃO DE CREDITO');
+        		}
             };
 
             $scope.openPaymentScreen = function () {
@@ -103,10 +113,10 @@
                 }
                 else {
 	                DialogService.messageDialog({
-                            title : 'Assinatura',
-                            message : 'Os campos destacados s&atilde;o de preenchimento obrigat&oacute;rio.',
-                            btnYes : 'OK'
-	                    });
+                        title : 'Assinatura',
+                        message : 'Os campos destacados s&atilde;o de preenchimento obrigat&oacute;rio.',
+                        btnYes : 'OK'
+                    });
                 }
 		    };
 
