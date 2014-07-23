@@ -1,11 +1,9 @@
 <div class="modal-head">Assinatura VPink</div>
 <div class="modal-body">
    <p style="text-align: justify;">
-      Ol&aacute; Consultora! 
-      <br/><br/>	
-      Seu per&iacute;odo de de 7 dias de testes acaba de terminar. Voc&ecirc; esta pronta para fazer parte da nova gera&ccedil;&atilde;o de consultoras? Basta escolher uma "Forma de Pagamento" e clicar no plano desejado para continuar a utilizar o VPink! 
-      <br/><br/> 
-      Voc&ecirc; quer continuar por mais 12 meses com desconto especial?
+      Ol&aacute; Empres&aacute;ria de Beleza! O seu per&iacute;odo de 7 dias de testes terminou!<br/>
+      N&atilde;o fique para tr&aacute;s, a sua carreira merece o melhor!<br/>
+      Selecione uma das op&ccedil;&otilde;es abaixo para ativar sua assinatura VPink.
    </p>
    <br/>
    Forma de Pagamento&nbsp&nbsp
@@ -14,12 +12,13 @@
       <option value="PAYMENT_TYPE_BILLET"> Boleto </option>
    </select>
    </br>
+   </br>
    <center>      
-      <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit">
-      Sim! Quero continuar no </br> Plano Blush (12 meses) com desconto!
+      <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '230px'}">
+      Quero o Plano Blush </br>(12 meses) com desconto!
       </button>
-      <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit">
-      N&atilde;o, quero continuar no </br> Plano Gloss (06 meses) sem desconto!
+      <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '230px'}">
+      Continuar no Plano Gloss </br>(6 meses)
       </button>            
    </center>
 </div>

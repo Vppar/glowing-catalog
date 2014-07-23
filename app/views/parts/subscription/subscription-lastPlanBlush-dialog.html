@@ -1,29 +1,27 @@
 <div class="modal-head">Assinatura VPink</div>
 <div class="modal-body">
    <p style="text-align: justify;">
-		Ol&aacute; Consultora! 
-		<br/><br/>	
-		Seu per&iacute;odo de assinatura de 12 meses (Plano Blush) acaba de terminar. Esperamos que esteja adorando toda a mobilidade e independ&ecirc;ncia que o VPink proporciona ao seu trabalho. Para continuar fazendo parte da nova gera&ccedil;&atilde;o de consultoras de beleza, &eacute; preciso renovar a sua assinatura! 
-		<br/><br/> 
-		Voc&ecirc; quer continuar por mais 12 meses com desconto especial?
+      Ol&aacute; Empres&aacute;ria de Beleza! O seu per&iacute;odo de assinatura de 12 meses (Plano Blush) terminou!<br/>
+		Selecione uma das op&ccedil;&otilde;es abaixo e renove j&aacute; sua assinatura!
    </p>
    <br/>
-   <center>
-      Forma de Pagamento&nbsp&nbsp
-      <select ng-model="paymentTypeSubscription" ng-style="{'width': '200px'}">
-         <option value="PAYMENT_TYPE_CC"> Cart&atilde;o de C&eacute;dito </option>
-         <option value="PAYMENT_TYPE_BILLET"> Boleto </option>
-      </select>
-      </br>
-      <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit">
-      Sim! Quero continuar no&nbsp&nbsp </br> Plano Blush (12 meses) com desconto!               
+   Forma de Pagamento&nbsp&nbsp
+   <select ng-model="paymentTypeSubscription" ng-style="{'width': '200px'}">
+      <option value="PAYMENT_TYPE_CC"> Cart&atilde;o de C&eacute;dito </option>
+      <option value="PAYMENT_TYPE_BILLET"> Boleto </option>
+   </select>
+   </br>
+   </br>
+   <center>      
+      <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '200px'}">
+      Quero o Plano Blush (12 meses) com desconto!
       </button>
-      <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit">
-      N&atilde;o, quero regredir para o </br> Plano Gloss (06 meses) sem desconto!
+      <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '2500px'}">
+      Continuar no Plano Gloss (6 meses)
       </button>            
    </center>
 </div>
 <div class="modal-foot">
    <hr />
    <button ng-click="cancel()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
-</div>
+</div>  
