@@ -45,7 +45,7 @@
 						
 						<div class="new-col-3">							
 							<label>UF</label>
-							<select name="state" tabindex="9" ng-model="consultant.address.state" class="input-block-level" required>
+							<select name="state" tabindex="9" ng-model="consultant.address.state" class="input-block-level" ng-style="{'width': '40px'}" required>
 								<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
 							</select>
 						</div>
@@ -55,11 +55,7 @@
 						<div class="new-col-6">
 							<label>CPF</label>						
 							<input name="cpf" tabindex="2" type="text" class="input-block-level" ng-model="consultant.cpf" required>
-						</div>
-						<div class="new-col-10" ng-style="showPlanType">
-							<label>Selecione o plano desejado</label>
-							<select tabindex="1" required ng-model="planType" ng-options="plan.planType as plan.nome for plan in paymentPlans" class="input-block-level"></select>
-						</div>						
+						</div>											
 					</div>
 			</div>
 		</div>	

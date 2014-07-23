@@ -9,9 +9,9 @@
     ]).controller(
         'SubscriptionCtrl',
         [
-        '$scope', '$q', '$log', '$location', '$window', '$http', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
+        '$scope', '$q', '$log', '$location', '$window', '$dialog', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
         'SubscriptionService', 'Subscription', 'CatalogConfig',
-        function($scope, $q, $log, $location, $window, $http, DataProvider, ConsultantService, DialogService, dialog, CepService,
+        function($scope, $q, $log, $location, $window, $dialog, DataProvider, ConsultantService, DialogService, dialog, CepService,
                  logger, SubscriptionService, Subscription, CatalogConfig) {
 
             var log = logger.getLogger('tnt.catalog.subscription.ctrl.SubscriptionCtrl');
@@ -45,18 +45,14 @@
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
             $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_CC;
-            $scope.showPlanType = {};
 
             $scope.continuePaymentFlow = function (planType) {
-    	        dialog.close(true);           
-	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {
-	             	var data = {};
-                    data.paymentType = $scope.paymentTypeSubscription;
-	               	data.planType = planType;
-	              	data.showPlanType = {'display': 'none'};	                	
-	                DialogService.openDialogSubscriptionAdditionalInformation(data);    
-	            } else {
-	                confirmPaymentWithCreditCard();
+    	        dialog.close(true);        
+                $scope.planType = planType;
+	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {	             		                	
+	                DialogService.openDialogSubscriptionAdditionalInformation();    
+	            } else {                    
+	                confirmPaymentWithCreditCard(planType);
     		    }
             };
 
@@ -77,13 +73,13 @@
                 $location.path('/login');
             };
 
-            function confirmPaymentWithCreditCard() {
+            function confirmPaymentWithCreditCard(planType) {
                 dialog.close(true);
-                DialogService.openDialogSubscriptionFinalMessageCC();
+                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType});
             };
 
-            $scope.redirectToVPCommerce = function () {   
-                if(CatalogConfig.BLUSH === $scope.planType) {
+            $scope.redirectToVPCommerce = function () {                
+                if(CatalogConfig.GLOSS === $scope.planType) {
                     dialog.close(true);
                     $window.location.href = CatalogConfig.semesterPlanCheckoutURL;
                 } else {
