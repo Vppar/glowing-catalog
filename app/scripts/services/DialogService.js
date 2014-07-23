@@ -144,7 +144,7 @@
         };
 
         this.openDialogSubscriptionAdditionalInformation = function(data) {
-            return openDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog');
+            return openDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-additional-information-dialog');
         };
 
         this.openDialogSubscriptionLastPlanNull = function(data) {

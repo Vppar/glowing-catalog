@@ -1,12 +1,9 @@
 <div class="modal-head">Cart&atilde;o de Cr&eacute;dito – Assinatura VPink</div>
-
 <div class="modal-body">
-
-Ol&aacute; Consultora, voc&ecirc; ser&aacute; redirecionada para realizar o pagamento com cart&ccedil;o de cr&eacute;dito. Favor preencher os dados utilizando o mesmo e-mail do cadastrado no VPink.
-
+Ol&aacute; Empres&aacute;ria de Beleza! Voc&ecirc; ser&aacute; redirecionada para realizar o pagamento com cart&ccedil;o de cr&eacute;dito. Favor preencher os dados a seguir utilizando o e-mail {{consultant.email}}.
 </div>
-
 <div class="modal-foot">
     <hr />    
+    <button ng-click="cancel()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
     <button ng-click='redirectToVPCommerce()' class="btn btn-ok btn-large btn-login pull-right" type="submit">Continuar Pagamento</button>
 </div>

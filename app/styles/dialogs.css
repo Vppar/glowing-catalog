@@ -1009,8 +1009,8 @@ input.sub-total-payment {
      top: 80px;
      left: 50%;
      z-index: 1050;
-     width: 530px;
-     margin-left: -300px;
+     width: 500px;
+     margin-left: -315px;
      background-color: white;
      border: none;
      border-radius: 4px;
@@ -1029,3 +1029,16 @@ input.sub-total-payment {
      border-radius: 4px;
      box-shadow: -5px -5px 100px 10px #525151;
  }
+
+.modal-subscription-additional-information-dialog{
+     position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 800px;
+     margin-left: -410px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+}
