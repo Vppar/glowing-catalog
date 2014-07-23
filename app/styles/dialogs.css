@@ -1006,11 +1006,11 @@ input.sub-total-payment {
 
 .modal-subscription-last-plan-dialog{
      position: absolute;
-     top: 80px;
+     top: 150px;
      left: 50%;
      z-index: 1050;
      width: 630px;
-     margin-left: -410px;
+     margin-left: -510px;
      background-color: white;
      border: none;
      border-radius: 4px;
