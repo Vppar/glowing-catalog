@@ -9,7 +9,7 @@
     ]).controller(
         'SubscriptionCtrl',
         [
-        '$scope', $q, '$log', '$location', '$window', '$http', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
+        '$scope', '$q', '$log', '$location', '$window', '$http', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
         'SubscriptionService', 'Subscription', 'CatalogConfig',
         function($scope, $q, $log, $location, $window, $http, DataProvider, ConsultantService, DialogService, dialog, CepService,
                  logger, SubscriptionService, Subscription, CatalogConfig) {
@@ -45,25 +45,27 @@
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
             $scope.paymentTypeSubscription;
+            $scope.showPlanType = {};
 
             $scope.continuePaymentFlow = function ( planType ) {
            
-	        if(!$scope.paymentTypeSubscription){
-            		return $q.reject();
-            	} else {		
-	                dialog.close(true);             
-	                if('BILLET' === paymentTypeSubscription) {
-	                    DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});    
-	                } else if('CC' === paymentTypeSubscription){
-	                    confirmPaymentWithCreditCard();
-	                } else {
-	                    DialogService.messageDialog({
-	                                title : 'VPink - Forma de Pagamento',
-	                                message : '&Eacute necess&aacute;rio selecionar a forma de pagamento.',
-	                                btnYes : 'OK'
-	                    });
-	                }       
-		}     
+    	        if(!$scope.paymentTypeSubscription){
+                		return $q.reject();
+                } else {		
+    	                dialog.close(true);             
+    	                if('BILLET' === paymentTypeSubscription) {
+                            showPlanType = {'display': 'none'};
+    	                    DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});    
+    	                } else if('CC' === paymentTypeSubscription){
+    	                    confirmPaymentWithCreditCard();
+    	                } else {
+    	                    DialogService.messageDialog({
+    	                                title : 'VPink - Forma de Pagamento',
+    	                                message : '&Eacute necess&aacute;rio selecionar a forma de pagamento.',
+    	                                btnYes : 'OK'
+    	                    });
+    	                }       
+    		    }     
             };
 
             $scope.openDialogSubscriptionFinalMessageBillet = function () {
@@ -123,7 +125,7 @@
                     deferred.resolve(data);
                 }).error(function (err) {
                     deferred.reject(err);
-                }
+                });
             };
                         
             $scope.confirmPaymentWithBillet = function () {
