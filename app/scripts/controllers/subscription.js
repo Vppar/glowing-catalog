@@ -41,16 +41,17 @@
             else {
                 $scope.planType = undefined;
             }
-
+ 
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
             $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_CC;
 
             $scope.continuePaymentFlow = function (planType) {
-    	        dialog.close(true);        
+            	dialog.close(true);    
                 $scope.planType = planType;
+                
 	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {	             		                	
-	                DialogService.openDialogSubscriptionAdditionalInformation();    
+	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});    
 	            } else {                    
 	                confirmPaymentWithCreditCard(planType);
     		    }
@@ -129,7 +130,7 @@
 
 		    $scope.saveSubscription = function(){
                 var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant);
-
+                
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
                     $scope.openDialogSubscriptionFinalMessageBillet();
