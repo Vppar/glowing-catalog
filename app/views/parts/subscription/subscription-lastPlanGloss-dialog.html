@@ -1,23 +1,23 @@
 <div class="modal-head">Assinatura VPink</div>
 <div class="modal-body">
-   <p style="text-align: justify;">
+   <p ng-style="{'text-align': 'justify'}">
       Ol&aacute; Empres&aacute;ria de Beleza! O seu per&iacute;odo de assinatura de 6 meses (Plano Gloss) terminou!<br/>
       Que tal j&aacute; garantir o VPink pelos pr&oacute;ximos 12 meses com desconto especial?
    </p>
    <br/>
-   Forma de Pagamento&nbsp&nbsp
-   <select ng-model="paymentTypeSubscription" ng-style="{'width': '200px'}">
+   Forma de Pagamento
+   <select ng-model="paymentTypeSubscription" ng-style="{'margin-left': '20px', 'width': '200px'}">
       <option value="PAYMENT_TYPE_CC"> Cart&atilde;o de C&eacute;dito </option>
       <option value="PAYMENT_TYPE_BILLET"> Boleto </option>
    </select>
    </br>
    </br>
    <center>      
-      <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '200px'}">
-      Quero o Plano Blush (12 meses) com desconto!
+      <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '227px'}">
+      Quero o Plano Blush </br> (12 meses) com desconto!
       </button>
-      <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '2500px'}">
-      Continuar no Plano Gloss (6 meses)
+      <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '227px'}">
+      Continuar no Plano Gloss </br> (6 meses)
       </button>            
    </center>
 </div>
