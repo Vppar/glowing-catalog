@@ -2,7 +2,7 @@
     'use strict';
     angular.module('glowingCatalogApp').controller('LoadingDialogCtrl', ['$scope', '$q', 'dialog', function($scope, $q, dialog) {
 
-        $scope.step = dialog.data.step;
+        $scope.progress = dialog.data.progress;
 
         $scope.cancel = function() {
             dialog.close($q.reject());

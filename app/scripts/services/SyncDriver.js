@@ -281,8 +281,8 @@
                                             .then(setChildAddedHandler)
                                             .then(function () {
                                                 deferred.resolve();
-                                            }, function () {
-                                                deferred.reject();
+                                            }, function (err) {
+                                                deferred.reject(err);
                                             });
                                     } else {
                                         $log.debug('Nothing to sync after ' + startIndex);

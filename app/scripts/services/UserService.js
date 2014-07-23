@@ -2,8 +2,8 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService) {
+        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog', 'tnt.catalog.progress.service'
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', 'ProgressService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService, ProgressService) {
 
         var log = logger.getLogger('tnt.catalog.user.UserService');
         
@@ -98,10 +98,20 @@
         this.login = function(user, pass) {
             var dialogData = {};
 
-            dialogData.step = {
-              value : 0,
-              message : 'Autenticando...'
-            };
+            var progress = dialogData.progress = ProgressService.get('login', 'Autenticando...');
+            progress.setTotal(3);
+
+            progress.warmup = ProgressService.get('warmup-entries');
+            progress.local = ProgressService.get('local-entries');
+            progress.remote = ProgressService.get('remote-entries');
+
+            // Update the relative value on 50% and 100%
+            progress.warmup.setStep(0.5);
+            progress.local.setStep(0.5);
+
+            // Update relative value every 10%
+            progress.remote.setStep(0.1);
+
 
             var dialog = DialogService.openDialogLoading(dialogData);
 
@@ -116,23 +126,37 @@
 
             function closeLoadingDialog() {
                 dialog.$scope.cancel();
+                progress.del();
                 return true;
             }
 
             return loggedPromise
                 .then(function () {
-                    dialogData.step.value = 50;
-                    dialogData.step.message = 'Carregando dados locais...';
+                    progress.setCurrent(1, 'Carregando dados locais...');
+
+                    var current = progress.current;
+
+                    progress.warmup.on('update', function () {
+                      progress.setCurrent(current + progress.warmup.relative);
+                    });
+
+                    progress.local.on('update', function () {
+                      progress.setCurrent(current + progress.local.relative);
+                    });
 
                     return SyncService.resync().then(function () {
-                        dialogData.step.value = 75;
-                        dialogData.step.message = 'Atualizando dados...';
+                        progress.setCurrent(2, 'Carregando dados remotos...');
+
+                        var current = progress.current;
+
+                        progress.remote.on('update', function () {
+                          progress.setCurrent(current + progress.remote.relative);
+                        });
 
                         return SyncDriver.registerSyncService(SyncService).then(function () {
                             var deferred = $q.defer();
 
-                            dialogData.step.value = 100;
-                            dialogData.step.message = 'Inicializando aplicação.';
+                            progress.setCurrent(3, 'Inicializando aplicação...');
 
                             // Wait for the progress bar to complete...
                             setTimeout(function () {

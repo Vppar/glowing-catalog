@@ -90,13 +90,13 @@
      */
     angular
         .module ('tnt.catalog.journal.keeper', [
-            'tnt.catalog.storage.persistent', 'tnt.util.log'
+            'tnt.catalog.storage.persistent', 'tnt.util.log', 'tnt.catalog.progress.service'
         ])
         .service (
             'JournalKeeper',
             ['$q', 'logger', '$rootScope', '$timeout', 'JournalEntry', 'Replayer', 'WebSQLDriver',
-             'PersistentStorage', function JournalKeeper($q, logger, $rootScope, $timeout, JournalEntry, Replayer, WebSQLDriver,
-                PersistentStorage) {
+             'PersistentStorage', 'ProgressService', function JournalKeeper($q, logger, $rootScope, $timeout, JournalEntry, Replayer, WebSQLDriver,
+                PersistentStorage, ProgressService) {
 
                 var $log = logger.getLogger('tnt.catalog.journal.keeper.JournalKeeper');
 
@@ -196,12 +196,16 @@
 
                     var deferred = $q.defer();
 
+                    var progress = ProgressService.get('remote-entries');
+                    progress.setTotal(entries.length);
+
                     WebSQLDriver.transaction(function(tx) {
                         try{
                             for (i = 0, len = entries.length; i < len; i += 1) {
                                 e = entries[i];
                                 if (!e) { continue; }
                                 all.push(self.insert(e, tx, true));
+                                progress.increment();
                             }
                         } catch(e){
                             deferred.reject(e);
@@ -449,6 +453,10 @@
                             .then (function() {
                                 $log.info ('Starting replay on ' + results.length + ' entries');
 
+                                var progress = ProgressService.get('local-entries');
+
+                                progress.setTotal(results.length);
+
                                 var entry = null;
 
                                 try {
@@ -464,7 +472,12 @@
                                         }
 
                                         promises.push (Replayer.replay (entry));
+                                        progress.increment();
                                     }
+                                    
+                                    $log.info ('waiting for ' + promises.length +
+                                        ' promises to resolve');
+                                    deferred.resolve ($q.all (promises));
                                 } catch (err) {
                                     $timeout(function(){
                                         deferred.resolve(self.resync());
@@ -473,10 +486,6 @@
                                     $log.error ('Failed to resync: replay failed', err);
                                     $log.debug ('Failed to resync: replay failed -', err, entry);
                                 }
-                                
-                                $log.info ('waiting for ' + promises.length +
-                                    ' promises to resolve');
-                                deferred.resolve ($q.all (promises));
                             }, function(error) {
                                 $log.error ('Failed to resync: list failed');
                                 $log.debug ('Failed to resync: list failed', error);
@@ -532,15 +541,24 @@
 
                     $log.debug('Replaying warmup data...');
 
+                    var progress = ProgressService.get('warmup-entries');
+
                     $.get (
                         'resources/replay.json',
                         function(result) {
                             $log.debug('Replaying data from replay.json...');
+
+                            if (result && result.length) {
+                                progress.setTotal(result.length);
+                            }
+
                             for ( var ix in result) {
                                 var data = result[ix];
                                 var item =
                                     new JournalEntry (0, 0, data.type, data.version, data.event);
                                 Replayer.replay (item);
+
+                                progress.increment();
                             }
                             deferred.resolve ();
                         });
@@ -550,10 +568,15 @@
 
                         $log.debug('Replaying data from Firebase...');
 
+                        if (warmupData && warmupData.length) {
+                            progress.setTotal(progress.total + warmupData.length);
+                        }
+
                         for (var idx in warmupData) {
                             var data = warmupData[idx];
                             var item = new JournalEntry(0, 0, data.type, data.version, data.event);
                             Replayer.replay(item);
+                            progress.increment();
                         }
 
                         $log.debug('Warmup data replayed (' + warmupData.length + ' entries).');
