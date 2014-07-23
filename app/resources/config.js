@@ -4,7 +4,9 @@
     /**
      * Providing configs since... ever.
      */
-    angular.module('tnt.catalog.config', []).service('CatalogConfig', function CatalogConfig () {        
+    angular.module('tnt.catalog.config', []).service('CatalogConfig', function CatalogConfig () {
+        ObjectUtils.ro(this, 'PAYMENT_TYPE_BILLET', 'PAYMENT_TYPE_BILLET');
+        ObjectUtils.ro(this, 'PAYMENT_TYPE_CC', 'PAYMENT_TYPE_CC');
         ObjectUtils.ro(this, 'GLOSS', 'GLOSS');
         ObjectUtils.ro(this, 'BLUSH', 'BLUSH');
         ObjectUtils.ro(this, 'semesterPlanCheckoutURL', 'https://vpink.vc/assinatura/plano/semestral');

@@ -44,31 +44,20 @@
 
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
-            /*$scope.paymentTypeSubscription;*/
+            $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_CC;
             $scope.showPlanType = {};
 
             $scope.continuePaymentFlow = function (planType) {
-    	        if(!$scope.paymentTypeSubscription){
-            		return $q.reject();
-                } else {		
-	                dialog.close(true);             
-	                if('BILLET' == $scope.paymentTypeSubscription) {
-	                	
-	                	var data = {};
-	                	data.planType = planType;
-	                	data.showPlanType = {'display': 'none'};
-	                	
-	                    DialogService.openDialogSubscriptionAdditionalInformation(data);    
-	                } else if('CC' === $scope.paymentTypeSubscription){
-	                    confirmPaymentWithCreditCard();
-	                } else {
-	                    DialogService.messageDialog({
-	                                title : 'VPink - Forma de Pagamento',
-	                                message : '&Eacute necess&aacute;rio selecionar a forma de pagamento.',
-	                                btnYes : 'OK'
-	                    });
-	                }       
-    		    }     
+    	        dialog.close(true);           
+	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {
+	             	var data = {};
+                    data.paymentType = $scope.paymentTypeSubscription;
+	               	data.planType = planType;
+	              	data.showPlanType = {'display': 'none'};	                	
+	                DialogService.openDialogSubscriptionAdditionalInformation(data);    
+	            } else {
+	                confirmPaymentWithCreditCard();	                    
+    		    }
             };
 
             $scope.openDialogSubscriptionFinalMessageBillet = function () {
@@ -89,17 +78,8 @@
             };
 
             $scope.confirmPaymentWithCreditCard = function () {
-                verifyVPCommerceURL().then(function() {
-                            dialog.close(true);
-                            DialogService.openDialogSubscriptionFinalMessageCC();
-                        }, function(err) {
-                            log.error(err);
-                            DialogService.messageDialog({
-                                title : 'VPink - Cart&atilde;o de Cr&eacute;dito',
-                                message : '&Eacute necess&aacute;rio estar conectado na Internet para efetuar o pagamento com cart&atilde;o de cr&eacute;dito.',
-                                btnYes : 'OK'
-                            });
-                        });
+                dialog.close(true);
+                DialogService.openDialogSubscriptionFinalMessageCC();
             };
 
             $scope.redirectToVPCommerce = function () {   
@@ -110,25 +90,6 @@
                     dialog.close(true);
                     $window.location.href = CatalogConfig.annualPlanCheckoutURL;
                 }
-            };
-
-            $scope.verifyVPCommerceURL = function () {
-                var url;
-                if(CatalogConfig.BLUSH === $scope.planType) {
-                    url = CatalogConfig.semesterPlanCheckoutURL;
-                } else {
-                    url = CatalogConfig.annualPlanCheckoutURL;
-                }
-
-                $http({
-                    method: 'GET',
-                    url: url,
-                    data: undefined
-                }).success(function (data) {
-                    deferred.resolve(data);
-                }).error(function (err) {
-                    deferred.reject(err);
-                });
             };
                         
             $scope.confirmPaymentWithBillet = function () {

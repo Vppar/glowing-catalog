@@ -1,13 +1,29 @@
 <div class="modal-head">Conta Expirada</div>
-
 <div class="modal-body">
-
-Ol&aacute; Consultora, o seu per&iacute;odo de 7 dias de testes terminou! Voc&ecirc; esta pronta para fazer parte da nova gera&ccedil;&atilde;o de consultoras? Basta clicar na op&ccedil;&atilde;o "Ativar Conta" para escolher o seu plano e continuar a utilizar o VPink
-
+   <p style="text-align: justify;">
+      Ol&aacute; Consultora! 
+      <br/><br/>	
+      Seu per&iacute;odo de de 7 dias de testes acaba de terminar. Voc&ecirc; esta pronta para fazer parte da nova gera&ccedil;&atilde;o de consultoras? Basta escolher uma "Forma de Pagamento" e clicar no plano desejado para continuar a utilizar o VPink! 
+      <br/><br/> 
+      Voc&ecirc; quer continuar por mais 12 meses com desconto especial?
+   </p>
+   <br/>   
+   <center>      
+      <label>Forma de Pagamento</label>
+   <select ng-model="paymentTypeSubscription">
+      <option value="PAYMENT_TYPE_CC"> Cart&atilde;o de C&eacute;dito </option>
+      <option value="PAYMENT_TYPE_BILLET"> Boleto </option>
+   </select>
+   </br>
+               <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit">
+               Sim! Quero continuar no </br> Plano Blush (12 meses) com desconto!
+               </button>
+               <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit">
+               N&atilde;o, quero continuar no </br> Plano Gloss (06 meses) sem desconto!
+               </button>            
+   </center>
 </div>
-
 <div class="modal-foot">
-    <hr />
-    <button ng-click="cancel()" class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
-    <button ng-click="continuePaymentFlow()" class="btn btn-ok btn-large btn-login pull-right" type="submit">Ativar Conta</button>
+   <hr />
+   <button ng-click="cancel()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
 </div>

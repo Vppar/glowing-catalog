@@ -144,27 +144,27 @@
         };
 
         this.openDialogSubscriptionAdditionalInformation = function(data) {
-            return openDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
+            return openDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog');
         };
 
         this.openDialogSubscriptionLastPlanNull = function(data) {
-            return openDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined);
+            return openDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
         this.openDialogSubscriptionLastPlanGloss = function(data) {
-            return openDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
+            return openDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
         this.openDialogSubscriptionLastPlanBlush = function(data) {
-            return openDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
+            return openDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
         this.openDialogSubscriptionFinalMessageBillet = function(data) {
-            return openDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined);
+            return openDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };
 
         this.openDialogSubscriptionFinalMessageCC = function(data) {
-            return openDialog('views/parts/subscription/subscription-final-message-cc-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
+            return openDialog('views/parts/subscription/subscription-final-message-cc-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };
 
         this.openDialogLoading = function (data) {

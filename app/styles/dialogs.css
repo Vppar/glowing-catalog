@@ -1003,3 +1003,29 @@ input.sub-total-payment {
 .change-pass-dialog-left-btns  button {
 	margin-left: 50px;
 }
+
+.modal-subscription-last-plan-dialog{
+     position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 740px;
+     margin-left: -410px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+}
+
+ .modal-subscription-final-message-dialog{
+     position: absolute;
+     top: 80px;
+     left: 50%;
+     z-index: 1050;
+     width: 820px;
+     margin-left: -410px;
+     background-color: white;
+     border: none;
+     border-radius: 4px;
+     box-shadow: -5px -5px 100px 10px #525151;
+ }
