@@ -44,27 +44,30 @@
 
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
-            $scope.paymentTypeSubscription;
+            /*$scope.paymentTypeSubscription;*/
             $scope.showPlanType = {};
 
-            $scope.continuePaymentFlow = function ( planType ) {
-           
+            $scope.continuePaymentFlow = function (planType) {
     	        if(!$scope.paymentTypeSubscription){
-                		return $q.reject();
+            		return $q.reject();
                 } else {		
-    	                dialog.close(true);             
-    	                if('BILLET' === paymentTypeSubscription) {
-                            showPlanType = {'display': 'none'};
-    	                    DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});    
-    	                } else if('CC' === paymentTypeSubscription){
-    	                    confirmPaymentWithCreditCard();
-    	                } else {
-    	                    DialogService.messageDialog({
-    	                                title : 'VPink - Forma de Pagamento',
-    	                                message : '&Eacute necess&aacute;rio selecionar a forma de pagamento.',
-    	                                btnYes : 'OK'
-    	                    });
-    	                }       
+	                dialog.close(true);             
+	                if('BILLET' == $scope.paymentTypeSubscription) {
+	                	
+	                	var data = {};
+	                	data.planType = planType;
+	                	data.showPlanType = {'display': 'none'};
+	                	
+	                    DialogService.openDialogSubscriptionAdditionalInformation(data);    
+	                } else if('CC' === $scope.paymentTypeSubscription){
+	                    confirmPaymentWithCreditCard();
+	                } else {
+	                    DialogService.messageDialog({
+	                                title : 'VPink - Forma de Pagamento',
+	                                message : '&Eacute necess&aacute;rio selecionar a forma de pagamento.',
+	                                btnYes : 'OK'
+	                    });
+	                }       
     		    }     
             };
 
@@ -132,7 +135,8 @@
                 $scope.failed = true;
 
                 var subscriptionList = SubscriptionService.list();
-                if( subscriptionList && subscriptionList.length && subscriptionList.length === 0){
+                
+                if(subscriptionList && subscriptionList.length && subscriptionList.length === 0){
                     var newExpirationDate = new Date();
                     newExpirationDate.setDate(new Date().getDate()+4);
                     $scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime();
@@ -159,24 +163,24 @@
                 }
                 else {
 	                DialogService.messageDialog({
-                            title : 'Assinatura',
-                            message : 'Os campos destacados s&atilde;o de preenchimento obrigat&oacute;rio.',
-                            btnYes : 'OK'
-	                    });
+                        title : 'Assinatura',
+                        message : 'Os campos destacados s&atilde;o de preenchimento obrigat&oacute;rio.',
+                        btnYes : 'OK'
+                    });
                 }
 		    };
 
 		    $scope.saveSubscription = function(){
-                        var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant);
+                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant);
 
-                        SubscriptionService.add(subscription).then(function() {
-                            log.info('Subscription Updated.');
-                            $scope.openDialogSubscriptionFinalMessageBillet();
-                        }, function(err) {
-                            log.error('Failed to updated Subscription.');
-                            log.debug(err);
-                        });
-		            };
+                SubscriptionService.add(subscription).then(function() {
+                    log.info('Subscription Updated.');
+                    $scope.openDialogSubscriptionFinalMessageBillet();
+                }, function(err) {
+                    log.error('Failed to updated Subscription.');
+                    log.debug(err);
+                });
+            };
 		        
             $scope.getCep = function() {
                 var cepPromise = CepService.search($scope.consultant.cep);
