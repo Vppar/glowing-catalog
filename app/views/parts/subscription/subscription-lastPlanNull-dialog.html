@@ -1,4 +1,4 @@
-<div class="modal-head">Conta Expirada</div>
+<div class="modal-head">Assinatura VPink</div>
 <div class="modal-body">
    <p style="text-align: justify;">
       Ol&aacute; Consultora! 
@@ -7,20 +7,20 @@
       <br/><br/> 
       Voc&ecirc; quer continuar por mais 12 meses com desconto especial?
    </p>
-   <br/>   
-   <center>      
-      <label>Forma de Pagamento</label>
-   <select ng-model="paymentTypeSubscription">
+   <br/>
+   Forma de Pagamento&nbsp&nbsp
+   <select ng-model="paymentTypeSubscription" ng-style="{'width': '200px'}">
       <option value="PAYMENT_TYPE_CC"> Cart&atilde;o de C&eacute;dito </option>
       <option value="PAYMENT_TYPE_BILLET"> Boleto </option>
    </select>
    </br>
-               <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit">
-               Sim! Quero continuar no </br> Plano Blush (12 meses) com desconto!
-               </button>
-               <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit">
-               N&atilde;o, quero continuar no </br> Plano Gloss (06 meses) sem desconto!
-               </button>            
+   <center>      
+      <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit">
+      Sim! Quero continuar no </br> Plano Blush (12 meses) com desconto!
+      </button>
+      <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit">
+      N&atilde;o, quero continuar no </br> Plano Gloss (06 meses) sem desconto!
+      </button>            
    </center>
 </div>
 <div class="modal-foot">

@@ -1009,7 +1009,7 @@ input.sub-total-payment {
      top: 80px;
      left: 50%;
      z-index: 1050;
-     width: 740px;
+     width: 630px;
      margin-left: -410px;
      background-color: white;
      border: none;
@@ -1022,7 +1022,7 @@ input.sub-total-payment {
      top: 80px;
      left: 50%;
      z-index: 1050;
-     width: 820px;
+     width: 500px;
      margin-left: -410px;
      background-color: white;
      border: none;

@@ -56,7 +56,7 @@
 	              	data.showPlanType = {'display': 'none'};	                	
 	                DialogService.openDialogSubscriptionAdditionalInformation(data);    
 	            } else {
-	                confirmPaymentWithCreditCard();	                    
+	                confirmPaymentWithCreditCard();
     		    }
             };
 
@@ -77,7 +77,7 @@
                 $location.path('/login');
             };
 
-            $scope.confirmPaymentWithCreditCard = function () {
+            function confirmPaymentWithCreditCard() {
                 dialog.close(true);
                 DialogService.openDialogSubscriptionFinalMessageCC();
             };
