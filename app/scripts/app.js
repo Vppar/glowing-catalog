@@ -267,12 +267,6 @@
             templateUrl : 'routes/scenarios/ipad-keyboard-focus-scenario/ipad-keyboard-focus-scenario.html'
         }).when('/spinner-button-promise', {
             templateUrl : 'views/spinner-button-promise.html'
-        }).when('/subscription-expired', {
-            templateUrl : 'views/subscription-expired.html',
-            controller : 'SubscriptionCtrl'
-        }).when('/subscription', {
-            templateUrl : 'views/subscription.html',
-            controller : 'SubscriptionCtrl'
         }).otherwise({
             redirectTo : '/'
         });

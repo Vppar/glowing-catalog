@@ -143,24 +143,28 @@
             return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
         };
 
-        this.openDialogSubscriptionExpired = function(data) {
-            return openDialog('views/parts/subscription/subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined, false);
+        this.openDialogSubscriptionAdditionalInformation = function(data) {
+            return openDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
         };
 
-        this.openDialogSubscriptionRenewal = function(data) {
-            return openDialog('views/parts/subscription/subscription-renewal-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
+        this.openDialogSubscriptionLastPlanNull = function(data) {
+            return openDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined);
         };
 
-        this.openDialogGlossSubscriptionExpired = function(data) {
-            return openDialog('views/parts/subscription/gloss-subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
+        this.openDialogSubscriptionLastPlanGloss = function(data) {
+            return openDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
         };
 
-        this.openDialogBlushSubscriptionExpired = function(data) {
-            return openDialog('views/parts/subscription/blush-subscription-expired-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined, false);
+        this.openDialogSubscriptionLastPlanBlush = function(data) {
+            return openDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
         };
 
-        this.openDialogSubscriptionEmail = function(data) {
-            return openDialog('views/parts/subscription/subscription-email-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined, false);
+        this.openDialogSubscriptionFinalMessageBillet = function(data) {
+            return openDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-products-delivery', undefined);
+        };
+
+        this.openDialogSubscriptionFinalMessageCC = function(data) {
+            return openDialog('views/parts/subscription/subscription-final-message-cc-dialog.html', 'SubscriptionCtrl', data, 'modal-add-basket-details-dialog', undefined);
         };
 
         this.openDialogLoading = function (data) {

@@ -5,14 +5,14 @@
         'tnt.catalog.subscription.ctrl',
         [
         'tnt.catalog.user', 'tnt.catalog.service.dialog', 'tnt.catalog.consultant.service', 'tnt.catalog.consultant',
-        'tnt.catalog.subscription.service', 'tnt.catalog.subscription'
+        'tnt.catalog.subscription.service', 'tnt.catalog.subscription', 'tnt.catalog.config'
     ]).controller(
         'SubscriptionCtrl',
         [
-        '$scope', '$q', '$log', '$location', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
-        'SubscriptionService', 'Subscription',
-        function($scope, $q, $log, $location, DataProvider, ConsultantService, DialogService, dialog, CepService,
-                 logger, SubscriptionService, Subscription ) {
+        '$scope', $q, '$log', '$location', '$window', '$http', 'DataProvider', 'ConsultantService', 'DialogService', 'dialog', 'CepService', 'logger',
+        'SubscriptionService', 'Subscription', 'CatalogConfig',
+        function($scope, $q, $log, $location, $window, $http, DataProvider, ConsultantService, DialogService, dialog, CepService,
+                 logger, SubscriptionService, Subscription, CatalogConfig) {
 
             var log = logger.getLogger('tnt.catalog.subscription.ctrl.SubscriptionCtrl');
 
@@ -32,42 +32,43 @@
                     }
                 };
 	        }
-            
+
             $scope.paymentPlans = DataProvider.paymentPlans;
-            
+
             if( dialog.data && dialog.data.planType ){
                 $scope.planType = dialog.data.planType;
-            }else {
+            }
+            else {
                 $scope.planType = undefined;
             }
-            
-            $scope.states = DataProvider.states;	
+
+            $scope.states = DataProvider.states;
             $scope.cepValid = false;
-            
-            $scope.selectPlan = function (planType) {
-            	var paymentTypeSubscription = $scope.paymentTypeSubscription;
-            	
-            	var form = $scope.glossSubscriptionExpiredDialogForm ? $scope.glossSubscriptionExpiredDialogForm
-            														 : $scope.blushSubscriptionExpiredDialogForm;
-            	
-            	if(!form.$valid){
+            $scope.paymentTypeSubscription;
+
+            $scope.continuePaymentFlow = function ( planType ) {
+           
+	        if(!$scope.paymentTypeSubscription){
             		return $q.reject();
-            	}else if(paymentTypeSubscription == 'billet'){
-            		dialog.close(true);
-                    DialogService.openDialogSubscriptionRenewal({'planType': planType});                    
-        		}else{
-        			console.log('FLUXO DO CARTÃO DE CREDITO');
-        		}
+            	} else {		
+	                dialog.close(true);             
+	                if('BILLET' === paymentTypeSubscription) {
+	                    DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});    
+	                } else if('CC' === paymentTypeSubscription){
+	                    confirmPaymentWithCreditCard();
+	                } else {
+	                    DialogService.messageDialog({
+	                                title : 'VPink - Forma de Pagamento',
+	                                message : '&Eacute necess&aacute;rio selecionar a forma de pagamento.',
+	                                btnYes : 'OK'
+	                    });
+	                }       
+		}     
             };
 
-            $scope.openPaymentScreen = function () {
+            $scope.openDialogSubscriptionFinalMessageBillet = function () {
                 dialog.close(true);
-                DialogService.openDialogSubscriptionRenewal();
-            };
-
-            $scope.openEmailScreen = function () {
-                dialog.close(true);
-                DialogService.openDialogSubscriptionEmail();
+                DialogService.openDialogSubscriptionFinalMessageBillet();
             };
 
             $scope.verifyIfMustRedirectLoginPage = function () {
@@ -82,7 +83,50 @@
                 $location.path('/login');
             };
 
-            $scope.saveConsultant = function () {
+            $scope.confirmPaymentWithCreditCard = function () {
+                verifyVPCommerceURL().then(function() {
+                            dialog.close(true);
+                            DialogService.openDialogSubscriptionFinalMessageCC();
+                        }, function(err) {
+                            log.error(err);
+                            DialogService.messageDialog({
+                                title : 'VPink - Cart&atilde;o de Cr&eacute;dito',
+                                message : '&Eacute necess&aacute;rio estar conectado na Internet para efetuar o pagamento com cart&atilde;o de cr&eacute;dito.',
+                                btnYes : 'OK'
+                            });
+                        });
+            };
+
+            $scope.redirectToVPCommerce = function () {   
+                if(CatalogConfig.BLUSH === $scope.planType) {
+                    dialog.close(true);
+                    $window.location.href = CatalogConfig.semesterPlanCheckoutURL;
+                } else {
+                    dialog.close(true);
+                    $window.location.href = CatalogConfig.annualPlanCheckoutURL;
+                }
+            };
+
+            $scope.verifyVPCommerceURL = function () {
+                var url;
+                if(CatalogConfig.BLUSH === $scope.planType) {
+                    url = CatalogConfig.semesterPlanCheckoutURL;
+                } else {
+                    url = CatalogConfig.annualPlanCheckoutURL;
+                }
+
+                $http({
+                    method: 'GET',
+                    url: url,
+                    data: undefined
+                }).success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (err) {
+                    deferred.reject(err);
+                }
+            };
+                        
+            $scope.confirmPaymentWithBillet = function () {
                 $scope.failed = true;
 
                 var subscriptionList = SubscriptionService.list();
@@ -113,10 +157,10 @@
                 }
                 else {
 	                DialogService.messageDialog({
-                        title : 'Assinatura',
-                        message : 'Os campos destacados s&atilde;o de preenchimento obrigat&oacute;rio.',
-                        btnYes : 'OK'
-                    });
+                            title : 'Assinatura',
+                            message : 'Os campos destacados s&atilde;o de preenchimento obrigat&oacute;rio.',
+                            btnYes : 'OK'
+	                    });
                 }
 		    };
 
@@ -125,7 +169,7 @@
 
                         SubscriptionService.add(subscription).then(function() {
                             log.info('Subscription Updated.');
-                            $scope.openEmailScreen();
+                            $scope.openDialogSubscriptionFinalMessageBillet();
                         }, function(err) {
                             log.error('Failed to updated Subscription.');
                             log.debug(err);

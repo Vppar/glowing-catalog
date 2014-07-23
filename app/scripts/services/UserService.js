@@ -178,22 +178,22 @@
         this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
             var consultant = ConsultantService.get();
 
-            if(consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
+            if( consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
                 var lastSubscription = SubscriptionService.getLastSubscription();
 
-                if(lastSubscription && lastSubscription.planType){
-                    if(lastSubscription.planType === 'GLOSS'){
-                        DialogService.openDialogGlossSubscriptionExpired();
+                if( lastSubscription && lastSubscription.planType ){
+                    if( lastSubscription.planType === CatalogConfig.GLOSS ){
+                        DialogService.openDialogSubscriptionLastPlanGloss();
                     }
-                    else if(lastSubscription.planType === 'BLUSH'){
-                        DialogService.openDialogBlushSubscriptionExpired();
+                    else if( lastSubscription.planType === CatalogConfig.BLUSH ){
+                        DialogService.openDialogSubscriptionLastPlanBlush();
                     }
                     else {
-                        DialogService.openDialogSubscriptionExpired();
+                        DialogService.openDialogSubscriptionLastPlanNull();
                     }
                 }
                 else {
-                    DialogService.openDialogSubscriptionExpired();
+                    DialogService.openDialogSubscriptionLastPlanNull();
                 }
             }
         };

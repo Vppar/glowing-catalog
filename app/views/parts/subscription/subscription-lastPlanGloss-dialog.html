@@ -1,14 +1,14 @@
 <div class="modal-head">Conta Expirada</div>
 
-<form name="blushSubscriptionExpiredDialogForm">
+<form name="glossSubscriptionExpiredDialogForm">
 	<div class="modal-body">
-		
+	
 		<p style="text-align: justify;">
 			Ol&aacute; Consultora! 
-			<br/><br/>	
-			Seu per&iacute;odo de assinatura de 12 meses (Plano Blush) acaba de terminar. Esperamos que esteja adorando toda a mobilidade e independ&ecirc;ncia que o VPink proporciona ao seu trabalho. Para continuar fazendo parte da nova gera&ccedil;&atilde;o de consultoras de Beleza Mary Kay, &eacute; preciso renovar a sua assinatura! 
-			<br/><br/> 
-			Voc&ecirc; quer continuar por mais 12 meses com desconto especial?
+			<br/><br/>
+			Seu per&iacute;odo de assinatura de 6 meses (Plano Gloss) acaba de terminar. Esperamos que esteja adorando toda a mobilidade e independ&ecirc;ncia que o VPink proporciona ao seu trabalho. Para continuar fazendo parte da nova gera&ccedil;&atilde;o de consultoras de Beleza Mary Kay, &eacute; preciso renovar a sua assinatura! 
+			<br/><br/>
+			Que tal j&aacute; garantir o VPink pelos pr&oacute;ximos 12 meses com desconto especial? Selecione a op&ccedil;&atilde;o abaixo:
 		</p>
 		
 		<br/>
@@ -30,7 +30,7 @@
 			<div class="row-fluid">
 					<div class="new-col-10">
 						<div class="control-group">
-							<button ng-click="selectPlan('BLUSH')" class="btn btn-ok btn-login" type="submit">
+							<button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit">
 								Sim! Quero continuar no Plano Blush<br/>(12 meses) com desconto!
 							</button>
 						</div>
@@ -38,19 +38,18 @@
 					
 					<div class="new-col-10">
 						<div class="control-group">
-							<button ng-click="selectPlan('GLOSS')" class="btn btn-ok btn-login" type="submit">
-								N&atilde;o, quero regredir para o <br/>Plano Gloss (6 meses)&nbsp&nbsp&nbsp&nbsp
+							<button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit">
+								N&atilde;o, quero regredir para o <br/>Plano Gloss (6 meses)
 							</button>						
 						<nbsp/>
 						</div>
 					</div>
 			</div>
 		</center>
-		
 	</div>
 	
 	<div class="modal-foot">
 	    <hr />
-	    <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
+	    <button ng-click="cancel()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
 	</div>
 </form>
