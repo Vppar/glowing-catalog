@@ -53,7 +53,7 @@
 	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {	             		                	
 	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});    
 	            } else {                    
-	                confirmPaymentWithCreditCard(planType);
+	                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType});
     		    }
             };
 
@@ -73,12 +73,7 @@
                 dialog.close(true);
                 $location.path('/login');
             };
-
-            function confirmPaymentWithCreditCard(planType) {
-                dialog.close(true);
-                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType});
-            };
-
+            
             $scope.redirectToVPCommerce = function () {                
                 if(CatalogConfig.GLOSS === $scope.planType) {
                     dialog.close(true);

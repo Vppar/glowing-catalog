@@ -1005,6 +1005,7 @@ input.sub-total-payment {
 }
 
 .modal-subscription-last-plan-dialog{
+	 display: block;
      position: absolute;
      top: 80px;
      left: 50%;
@@ -1018,6 +1019,7 @@ input.sub-total-payment {
 }
 
 .modal-subscription-final-message-dialog{
+	 display: block;
      position: absolute;
      top: 80px;
      left: 50%;
@@ -1031,6 +1033,7 @@ input.sub-total-payment {
 }
 
 .modal-subscription-additional-information-dialog{
+	 display: block;
      position: absolute;
      top: 80px;
      left: 50%;

@@ -32,11 +32,14 @@
          *            meaning it should be closed if the parent dialog closes.
          * 
          */
-        var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
+
+        var openSubscriptionDialog = function openSubscriptionDialog(template, controller, data, cssClass, parentDialog) {
+
             var options = {
-              backdrop : !parentDialog,
-              backdropClick : true,
-              dialogClass : cssClass
+              backdrop : 'static',
+              backdropClick : false,
+              dialogClass : cssClass,
+              keyboard : false
             };
 
             var dialog = _openDialog(data, options);
@@ -51,6 +54,25 @@
                 // or rejected), close the child dialog.
                 parentDialog.deferred.promise.then(closeDialog, closeDialog);
             }
+
+            return dialog.open(template, controller);
+        };
+
+        this.openSubscriptionDialog = openSubscriptionDialog;
+
+        var openDialog = function openDialog(template, controller, data, cssClass) {
+            
+            var options = {
+              backdrop : !parentDialog,
+              backdropClick : true,
+              dialogClass : cssClass
+            };
+
+            var dialog = _openDialog(data, options);
+                        
+            function closeDialog() {
+                dialog.$scope.cancel();
+            }            
 
             return dialog.open(template, controller);
         };
@@ -144,27 +166,27 @@
         };
 
         this.openDialogSubscriptionAdditionalInformation = function(data) {
-            return openDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-additional-information-dialog');
+            return openSubscriptionDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-additional-information-dialog');
         };
 
         this.openDialogSubscriptionLastPlanNull = function(data) {
-            return openDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
         this.openDialogSubscriptionLastPlanGloss = function(data) {
-            return openDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
         this.openDialogSubscriptionLastPlanBlush = function(data) {
-            return openDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
         this.openDialogSubscriptionFinalMessageBillet = function(data) {
-            return openDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
+            return openSubscriptionDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };
 
         this.openDialogSubscriptionFinalMessageCC = function(data) {
-            return openDialog('views/parts/subscription/subscription-final-message-cc-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
+            return openSubscriptionDialog('views/parts/subscription/subscription-final-message-cc-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };
 
         this.openDialogLoading = function (data) {
