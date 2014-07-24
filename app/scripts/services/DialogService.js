@@ -19,27 +19,31 @@
             return dialog;
         }
 
-
-        /**
-         * Generic function to open a dialog.
-         * 
-         * @param template - path to a html template.
-         * @param controller - name of the controller to be used by the dialog.
-         * @param data - data to be passed on to the dialog.
-         * @param callback - callback function to be executed when the dialog
-         *            closes.
-         * @param parentDialog - A dialog this dialog being opened is attached to,
-         *            meaning it should be closed if the parent dialog closes.
-         * 
-         */
-
-        var openSubscriptionDialog = function openSubscriptionDialog(template, controller, data, cssClass, parentDialog) {
+        var openSubscriptionDialog = function openSubscriptionDialog(template, controller, data, cssClass) {
 
             var options = {
               backdrop : 'static',
               backdropClick : false,
               dialogClass : cssClass,
               keyboard : false
+            };
+
+            var dialog = _openDialog(data, options);
+                        
+            function closeDialog() {
+                dialog.$scope.cancel();
+            }            
+
+            return dialog.open(template, controller);
+        };
+
+        this.openSubscriptionDialog = openSubscriptionDialog;
+
+        var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
+            var options = {
+              backdrop : !parentDialog,
+              backdropClick : true,
+              dialogClass : cssClass
             };
 
             var dialog = _openDialog(data, options);
@@ -54,25 +58,6 @@
                 // or rejected), close the child dialog.
                 parentDialog.deferred.promise.then(closeDialog, closeDialog);
             }
-
-            return dialog.open(template, controller);
-        };
-
-        this.openSubscriptionDialog = openSubscriptionDialog;
-
-        var openDialog = function openDialog(template, controller, data, cssClass) {
-            
-            var options = {
-              backdrop : !parentDialog,
-              backdropClick : true,
-              dialogClass : cssClass
-            };
-
-            var dialog = _openDialog(data, options);
-                        
-            function closeDialog() {
-                dialog.$scope.cancel();
-            }            
 
             return dialog.open(template, controller);
         };
