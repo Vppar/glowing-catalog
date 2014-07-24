@@ -96,7 +96,7 @@
                 
                 if(subscriptionList && subscriptionList.length && subscriptionList.length === 0){
                     var newExpirationDate = new Date();
-                    newExpirationDate.setDate(new Date().getDate()+4);
+                    newExpirationDate.setDate(new Date().getDate()+5);
                     $scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime();
                 }
 
