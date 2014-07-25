@@ -89,38 +89,29 @@
 
                 var subscriptionList = SubscriptionService.list();
                 
-                if(!subscriptionList || (subscriptionList.length && subscriptionList.length === 0)){
+                if(!subscriptionList || 1 > subscriptionList.length){
                     var newExpirationDate = new Date();
                     newExpirationDate.setDate(new Date().getDate()+5);
                     $scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime();
                 }
 
-                if ($scope.subscriptionForm.$valid) {
-                    if (ConsultantService.get()) {
-                        return ConsultantService.update($scope.consultant).then(function() {
-                                log.info('Consultant Updated.');
-                                $scope.saveSubscription();
-                            }, function(err) {
-                                log.error('Failed to updated the consultant.');
-                                log.debug(err);
-                            });
-                    } else {
-                        return ConsultantService.create($scope.consultant).then(function() {
-                                log.info('Consultant Created.');
-                                $scope.saveSubscription();
-                            }, function(err) {
-                                log.fatal('Failed to create the consultant.');
-                                log.debug(err);
-                            });
-                    }
-                }
-                else {
-	                DialogService.messageDialog({
-                        title : 'Assinatura',
-                        message : 'Os campos destacados s&atilde;o de preenchimento obrigat&oacute;rio.',
-                        btnYes : 'OK'
-                    });
-                }
+                if (ConsultantService.get()) {
+                    return ConsultantService.update($scope.consultant).then(function() {
+                            log.info('Consultant Updated.');
+                            $scope.saveSubscription();
+                        }, function(err) {
+                            log.error('Failed to updated the consultant.');
+                            log.debug(err);
+                        });
+                } else {
+                    return ConsultantService.create($scope.consultant).then(function() {
+                            log.info('Consultant Created.');
+                            $scope.saveSubscription();
+                        }, function(err) {
+                            log.fatal('Failed to create the consultant.');
+                            log.debug(err);
+                        });
+                }                
 		    };
 
 		    $scope.saveSubscription = function(){
