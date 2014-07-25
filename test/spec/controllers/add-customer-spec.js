@@ -29,7 +29,7 @@ describe('Controller: AddCustomerCtrl', function() {
             $provide.value('IntentService', IntentService);
         });
         IntentService.getBundle = jasmine.createSpy('IntentService.getBundle').andReturn({screen : undefined});
-        us.redirectIfIsNotLoggedIn = jasmine.createSpy('redirectIfIsNotLoggedIn');
+        us.redirectIfInvalidUser = jasmine.createSpy('redirectIfInvalidUser');
     });
 
     // Initialize the controller and a mock scope

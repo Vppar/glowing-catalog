@@ -53,7 +53,7 @@ describe('Controller: receivable-check-watchers', function() {
         $rootScope = _$rootScope_;
         scope = $rootScope.$new();
         CheckService = _CheckService_;
-        UserService.redirectIfIsNotLoggedIn = jasmine.createSpy('UserService.redirectIfIsNotLoggedIn');
+        UserService.redirectIfInvalidUser = jasmine.createSpy('UserService.redirectIfInvalidUser');
         
         
         DataProvider.banks = [{ "001":  "BANCO DO BRASIL S.A.",

@@ -12,7 +12,7 @@
                 '$scope', '$filter', 'VoucherKeeper', 'ArrayUtils', 'PaymentService', 'OrderService', 'EntityService', 'UserService',
                 function($scope, $filter, VoucherKeeper, ArrayUtils, PaymentService, OrderService, EntityService, UserService) {
 
-                    UserService.redirectIfIsNotLoggedIn();
+                    UserService.redirectIfInvalidUser();
 
                     /**
                      * The real deal

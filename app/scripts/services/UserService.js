@@ -2,8 +2,9 @@
     'use strict';
 
     angular.module('tnt.catalog.user', [
-        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog'
-    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService) {
+        'tnt.util.log', 'angular-md5', 'tnt.catalog.sync.driver', 'tnt.catalog.sync.service', 'tnt.catalog.prefetch.service', 'tnt.catalog.config', 'tnt.catalog.service.dialog','tnt.catalog.subscription.service'
+    ]).service('UserService', ['$q', '$location', '$timeout', 'logger', 'md5', 'SyncDriver', 'SyncService', 'PrefetchService', 'CatalogConfig', 'DialogService', 'SubscriptionService', 'ConsultantService',
+                               function UserService($q, $location, $timeout, logger, md5, SyncDriver, SyncService, PrefetchService, CatalogConfig, DialogService, SubscriptionService, ConsultantService) {
 
         var log = logger.getLogger('tnt.catalog.user.UserService');
         
@@ -161,15 +162,41 @@
             return logged;
         };
         
+        this.redirectIfInvalidUser = function redirectIfInvalidUser() {
+            this.redirectIfIsNotLoggedIn();
+            this.redirectIfIsNotSubscribed();
+        };
+        
         this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
             if (!this.isLogged()) {
                 SyncDriver.logout().then(function(){
                     $location.path('/login');
                 });
-                
             }
         };
+        
+        this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
+            var consultant = ConsultantService.get();
 
+            if( consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
+                var lastSubscription = SubscriptionService.getLastSubscription();
+
+                if( lastSubscription && lastSubscription.planType ){
+                    if( lastSubscription.planType === CatalogConfig.GLOSS ){
+                        DialogService.openDialogSubscriptionLastPlanGloss();
+                    }
+                    else if( lastSubscription.planType === CatalogConfig.BLUSH ){
+                        DialogService.openDialogSubscriptionLastPlanBlush();
+                    }
+                    else {
+                        DialogService.openDialogSubscriptionLastPlanNull();
+                    }
+                }
+                else {
+                    DialogService.openDialogSubscriptionLastPlanNull();
+                }
+            }
+        };
 
         this.hasUnsyncedData = function hasUnsyncedData() {
             return SyncService.hasUnsyncedEntries();

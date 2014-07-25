@@ -19,19 +19,26 @@
             return dialog;
         }
 
+        var openSubscriptionDialog = function openSubscriptionDialog(template, controller, data, cssClass) {
 
-        /**
-         * Generic function to open a dialog.
-         * 
-         * @param template - path to a html template.
-         * @param controller - name of the controller to be used by the dialog.
-         * @param data - data to be passed on to the dialog.
-         * @param callback - callback function to be executed when the dialog
-         *            closes.
-         * @param parentDialog - A dialog this dialog being opened is attached to,
-         *            meaning it should be closed if the parent dialog closes.
-         * 
-         */
+            var options = {
+              backdrop : 'static',
+              backdropClick : false,
+              dialogClass : cssClass,
+              keyboard : false
+            };
+
+            var dialog = _openDialog(data, options);
+                        
+            function closeDialog() {
+                dialog.$scope.cancel();
+            }            
+
+            return dialog.open(template, controller);
+        };
+
+        this.openSubscriptionDialog = openSubscriptionDialog;
+
         var openDialog = function openDialog(template, controller, data, cssClass, parentDialog) {
             var options = {
               backdrop : !parentDialog,
@@ -141,6 +148,30 @@
         
         this.openDialogDeliveryScheduler = function(data) {
             return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
+        };
+
+        this.openDialogSubscriptionAdditionalInformation = function(data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-additional-information-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-additional-information-dialog');
+        };
+
+        this.openDialogSubscriptionLastPlanNull = function(data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanNull-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+        };
+
+        this.openDialogSubscriptionLastPlanGloss = function(data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanGloss-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+        };
+
+        this.openDialogSubscriptionLastPlanBlush = function(data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+        };
+
+        this.openDialogSubscriptionFinalMessageBillet = function(data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
+        };
+
+        this.openDialogSubscriptionFinalMessageCC = function(data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-final-message-cc-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };
 
         this.openDialogLoading = function (data) {

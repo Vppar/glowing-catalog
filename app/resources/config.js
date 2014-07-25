@@ -5,6 +5,12 @@
      * Providing configs since... ever.
      */
     angular.module('tnt.catalog.config', []).service('CatalogConfig', function CatalogConfig () {
+        ObjectUtils.ro(this, 'PAYMENT_TYPE_BILLET', 'PAYMENT_TYPE_BILLET');
+        ObjectUtils.ro(this, 'PAYMENT_TYPE_CC', 'PAYMENT_TYPE_CC');
+        ObjectUtils.ro(this, 'GLOSS', 'GLOSS');
+        ObjectUtils.ro(this, 'BLUSH', 'BLUSH');
+        ObjectUtils.ro(this, 'semesterPlanCheckoutURL', 'https://vpink.vc/assinatura/plano/semestral');
+        ObjectUtils.ro(this, 'annualPlanCheckoutURL', 'https://vpink.vc/assinatura/plano/anual');
         ObjectUtils.ro(this, 'firebaseURL', 'voppwishlist.firebaseio.com');
         ObjectUtils.ro(this, 'version', '1.2.x');
         ObjectUtils.ro(this, 'cdnURL', 'https://vopp.com.br/wishlist/');

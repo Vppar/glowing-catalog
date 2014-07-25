@@ -153,7 +153,9 @@
             'tnt.catalog.target.ctrl',
             'tnt.catalog.target.service',
             'tnt.catalog.target.list.ctrl',
-            'tnt.catalog.target.parent.ctrl'
+            'tnt.catalog.target.parent.ctrl',
+            'tnt.catalog.subscription.service',
+            'tnt.catalog.subscription.ctrl'
         ]);
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
