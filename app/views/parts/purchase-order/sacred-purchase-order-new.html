@@ -1,5 +1,4 @@
 <div class="product-to-buy-order-part" fast-click>
-
     <div class="content-header">
         <div class="row">
             <div class="col-24">
@@ -17,38 +16,38 @@
     </div>
 
     <div class="content-body">
-
         <div class="grid grid-stock">
             <div class="grid-header">
                 <div class="row">
-                    <div class="col-9">Produto/C&oacute;digo</div>
-                    <div class="col-3 text-center">Pts.</div>
-                    <div class="col-3 currency">P.Unit</div>
+                    <div class="col-7">Produto/C&oacute;digo</div>
+                    <div class="col-2 text-center">Pts.</div>
+                    <div class="col-3 text-center">P.Unit</div>
+                    <div class="col-3 text-center">P.Entrega</div>  
                     <div class="col-3 text-center">Qtde m&iacute;n.</div>
                     <div class="col-6 text-center">Pedido</div>
                 </div>
             </div>
             <div class="first-line sub-header">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-7">
                         <input type="text" placeholder="Filtrar produto" ng-click="clearFilter()" ng-model="productFilter.text">
                     </div>
                     <div class="col-3 text-center">Se&ccedil;&atilde;o {{selectedSession}}</div>
                     <div class="col-3 currency">&nbsp;</div>
+                    <div class="col-2 text-center">&nbsp;</div>
                     <div class="col-3 text-center">&nbsp;</div>
                     <div class="col-6 text-center">&nbsp;</div>
                 </div>
             </div>
 
-
             <div class="grid-body grid-scroll" ng-show="selectedSession=='1'">
                 <div ng-repeat="session in main.stockReport.sessions" ng-if="!session.hide">
-
                     <div class="second-line" ng-click="toggleSession(session)">
                         <div class="row">
-                            <div class="col-9">{{session.label}}</div>
-                            <div class="col-3 text-center">{{summary.total.sessions[session.label].pts}}</div>
+                            <div class="col-7">{{session.label}}</div>
+                            <div class="col-2 text-center">{{summary.total.sessions[session.label].pts}}</div>
                             <div class="col-3 currency">{{summary.total.sessions[session.label].avg | currency:''}}</div>
+                            <div class="col-3 text-center">{{session.total.immediateDelivery}}</div>
                             <div class="col-3 text-center">{{summary.total.sessions[session.label].minQty}}</div>
                             <div class="col-6 text-center">{{summary.total.sessions[session.label].orderQty}}</div>
                         </div>
@@ -57,22 +56,33 @@
                     <div ng-repeat="line in session.lines" ng-if="!line.hide">
                         <div class="third-line" ng-click="toggleLine(line)">
                             <div class="row">
-                                <div class="col-9">{{line.label}}</div>
-                                <div class="col-3 text-center">{{summary.total.sessions[session.label].lines[line.label].pts}}</div>
+                                <div class="col-7">{{line.label}}</div>
+                                <div class="col-2 text-center">{{summary.total.sessions[session.label].lines[line.label].pts}}</div>
                                 <div class="col-3 currency">{{summary.total.sessions[session.label].lines[line.label].avg | currency:''}}</div>
+                                <div class="col-3 text-center">{{line.total.immediateDelivery}}</div>
                                 <div class="col-3 text-center">{{summary.total.sessions[session.label].lines[line.label].minQty}}</div>
                                 <div class="col-6 text-center">{{summary.total.sessions[session.label].lines[line.label].orderQty}}</div>
                             </div>
                         </div>
+                        
                         <div class="fourth-line" ng-repeat="product in line.items" ng-if="!product.hide">
                             <div class="row">
-                                <div class="col-9">
+                                <div class="col-7">
                                     {{product.title}}
                                     <div class="code-product" once-text="product.uniqueName"></div>
                                 </div>
-                                <div class="col-3 text-center" once-text="product.points"></div>
+                                <div class="col-2 text-center" once-text="product.points"></div>
                                 <div class="col-3 currency" once-text="product.price | currency: ''"></div>
-                                <div class="col-3 text-center" once-text="product.minQty"></div>
+                                <div class="col-3 text-center" once-text="product.immediateDelivery"></div> 
+
+                                <div class="col-3 text-center">
+	                                <div ng-if="product.minQty && product.minQty != 0">
+	                                	<div once-text="product.minQty" style="color: red;"></div>
+	                                </div>
+	                                <div ng-if="!product.minQty || (product.minQty && product.minQty == 0)">
+	                                	<div once-text="0"></div>
+	                                </div>
+                                </div>
                                 <div class="col-6 text-center">
                                     <tnt-number-picker ng-model="purchaseOrder.watchedQty[product.id]" min="0"></tnt-number-picker>
                                 </div>
@@ -81,12 +91,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
-
-
 </div>
 
 <!-- <div class="product-to-buy-order-part" fast-click>   

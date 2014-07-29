@@ -28,8 +28,10 @@
                             if (missingQty > 0) {
                                 reportItem.qty = missingQty;
                                 reportItem.minQty = missingQty;
+                                reportItem.immediateDelivery = 0;
                             } else {
                                 reportItem.qty = 0;
+                                reportItem.immediateDelivery = Math.abs(missingQty);
                             }
                         }
 
@@ -102,7 +104,8 @@
                                 total : {
                                     qty : 0,
                                     amount : 0,
-                                    avgCost : 0
+                                    avgCost : 0,
+                                    immediateDelivery: 0
                                 },
                                 lines : {}
                             };
@@ -110,6 +113,7 @@
                         }
 
                         session.total.qty += reportItem.qty;
+                        session.total.immediateDelivery += reportItem.immediateDelivery;
                         session.total.amount +=
                             FinancialMathService.currencyMultiply(reportItem.cost, reportItem.qty);
                         session.total.avgCost =
@@ -137,7 +141,8 @@
                                 total : {
                                     qty : 0,
                                     amount : 0,
-                                    avgCost : 0
+                                    avgCost : 0,
+                                    immediateDelivery: 0
                                 },
                                 items : []
                             };
@@ -145,6 +150,7 @@
                         }
 
                         line.total.qty += reportItem.qty;
+                        line.total.immediateDelivery += reportItem.immediateDelivery;
                         line.total.amount +=
                             FinancialMathService.currencyMultiply(reportItem.cost, reportItem.qty);
                         line.total.avgCost =
