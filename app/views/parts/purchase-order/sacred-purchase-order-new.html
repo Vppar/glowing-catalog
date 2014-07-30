@@ -69,22 +69,17 @@
                                 </div>
                                 <div class="col-2" once-text="product.points"></div>
                                 <div class="col-2" once-text="product.price | currency: ''"></div>
-								<div class="col-3">
-	                                <div ng-if="product.immediateDelivery == 0">
-	                                	<div once-text="product.immediateDelivery" style="color: rgba(0, 0, 0, 0.5)"></div>
-	                                </div>
-	                                <div ng-if="product.immediateDelivery != 0">
-	                                	<div once-text="product.immediateDelivery"></div>
-	                                </div>
-                                </div>
+								<div class="col-3" once-text="product.immediateDelivery" style="color: rgba(119, 119, 119, 1);"></div>
+	                                
                                 <div class="col-3">
 	                                <div ng-if="product.minQty && product.minQty != 0">
-	                                	<div once-text="product.minQty" style="color: rgba(255, 0, 0, 1)"></div>
+	                                	<div once-text="product.minQty" style="color: rgba(255, 0, 0, 1);"></div>
 	                                </div>
 	                                <div ng-if="!product.minQty || (product.minQty && product.minQty == 0)">
-	                                	<div once-text="0" style="color: rgba(0, 0, 0, 0.5)"></div>
+	                                	<div once-text="0" style="color: rgba(204, 204, 204, 1);"></div>
 	                                </div>
                                 </div>
+                                
                                 <div class="col-6">
                                     <tnt-number-picker ng-model="purchaseOrder.watchedQty[product.id]" min="0"></tnt-number-picker>
                                 </div>
