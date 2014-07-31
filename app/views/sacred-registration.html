@@ -115,7 +115,7 @@
 										<div class="col-2">
 											<label>UF</label>
 											<select name="state" ng-model="consultant.address.state" required>
-												<option value="{{state}}" ng-repeat="state in states">{{state}}</option>
+												<option value="{{state}}" ng-selected="{{state == consultant.address.state  && true || false }}" ng-repeat="state in states">{{state}}</option>
 											</select>
 										</div>
 										<div class="col-6">
