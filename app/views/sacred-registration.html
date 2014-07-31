@@ -61,14 +61,14 @@
 										<div class="col-5">
 											<label>Data de nascimento</label>
 											<select name="birthday" class="date-day" ng-model="consultant.birthDate.day">
-												<option value="{{day}}" ng-repeat="day in birthdate.days">{{day}}</option>
+												<option value="{{day}}" ng-selected="{{day == consultant.birthDate.day && true || false }}" ng-repeat="day in birthdate.days">{{day}}</option>
 											</select>
 											<select name="birthmonth" class="date-month" ng-model="consultant.birthDate.month" tabindex="4">
-												<option value="{{month.id}}" ng-repeat="month in birthdate.months">{{month.id}}</option>
+												<option value="{{month.id}}" ng-selected="{{month.id == consultant.birthDate.month && true || false }}" ng-repeat="month in birthdate.months">{{month.id}}</option>
 											</select>
 
 											<select name="birthyear" class="date-year" ng-model="consultant.birthDate.year" tabindex="4">
-												<option value="{{year}}" ng-repeat="year in birthdate.years">{{year}}</option>
+												<option value="{{year}}" ng-selected="{{year == consultant.birthDate.year && true || false }}" ng-repeat="year in birthdate.years">{{year}}</option>
 											</select>
 										</div>
 										<div class="col-5">
