@@ -102,3 +102,13 @@
 .modal-products-to-buy-ticket .modal-body{
 	overflow-y: visible;	
 }
+
+#sacred .grid-stock .fourth-line .im-delivery{
+    color: rgba(119, 119, 119, 1);
+}
+#sacred .grid-stock .fourth-line .min-qty{
+    color: rgba(204, 204, 204, 1);
+}
+#sacred .grid-stock .fourth-line .diff-min-qty{
+    color: rgba(255, 0, 0, 1);
+}
