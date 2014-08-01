@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!-- App title -->
+        <title>VPink Iteratividade</title>
+        <!-- Path to Framework7 Library CSS-->
+        <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.css">
+        <!-- Path to your custom app styles-->
+        <link rel="stylesheet" href="bower_components/framework7/dist/css/my-app.css">
+
+        <!-- VPINK MOBILE -->
+        <link rel="stylesheet" href="mobile/styles/mobile.css">
+    </head>
+
+    <body>
+
+        <!-- Status bar overlay for full screen mode (PhoneGap) -->
+        <div class="statusbar-overlay"></div>
+
+        <!-- Views -->
+        <div ng-view class="views">
+            <!-- Your main view, should have "view-main" class -->
+            <div class="view view-main">
+                <!-- Top Navbar-->
+                <div class="navbar vpink-navbar-logo">
+                    <div class="navbar-inner">
+                        <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                        <div class="center sliding"> <img src="images/vpink.jpg"/> </div>
+                    </div>
+                </div>
+                <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+                <div class="pages navbar-through toolbar-through">
+                    <!-- Page, "data-page" contains page name -->
+                    <div data-page="index" class="page vpink-page">
+                        <!-- Scrollable page content -->
+                        <div class="page-content vpink-page-content">
+
+                            <!--<p>Page content goes here</p>-->
+
+                            <!-- Link to another page -->
+                            <!--<a href="bower_components/framework7/dist/about.html">About app</a>-->
+
+                            <br />
+                            <a href="mobile/views/menu.html">Menu</a>
+
+                            <br />
+                            <a href="mobile/views/catalog.html">Catalogo</a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </body>
+    <!-- Bridge to native aplication - INIT -->
+
+    <!-- build:css(.tmp) styles/main.css -->
+    <!-- endbuild -->
+
+    <!-- build:js scripts/libs.js -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <!-- endbuild -->
+
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="mobile/scripts/mainApplication.js"></script>
+
+
+    <!-- build:js scripts/plugins.js -->
+    <script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>
+    <script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
+    <script src="bower_components/angular-once/once.js"></script>
+    <script src="bower_components/select2/select2.js"></script>
+    <script src="bower_components/select2/select2_locale_pt-BR.js"></script>
+    <script src="bower_components/angular-ui-select2/src/select2.js"></script>
+    <script src="bower_components/jquery-zoom/jquery.zoom.js"></script>
+    <script src="bower_components/node-uuid/uuid.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/firebase-simple-login/firebase-simple-login.js"></script>
+    <script src="bower_components/fastclick/lib/fastclick.js"></script>
+    <script src="bower_components/fullcalendar/fullcalendar.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.widget.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.core.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.mouse.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.button.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.position.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.draggable.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.resizable.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.datepicker.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery.ui.dialog.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js scripts/modules.js -->
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-md5/angular-md5.js"></script>
+    <!-- endbuild -->
+
+    <script src="resources/config.js"></script>
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/appMobile.js"></script>
+    <script src="scripts/ObjectUtils.js"></script>
+
+    <script src="components/catalog-highlights/catalogHighlights.js"></script>
+    <script src="components/catalog-section/catalogSection.js"></script>
+    <script src="components/product-display/productDisplay.js"></script>
+    <script src="components/highlight-display/highlightDisplay.js"></script>
+    <script src="components/tnt-numpad/tntNumpad.js"></script>
+    <script src="components/tnt-number-picker/tntNumberPicker.js"></script>
+    <script src="components/d3-gauge/gauge.js"></script>
+    <script src="components/d3-termometer/termometer.js"></script>
+    <script src="components/d3-cumulative/cumulative.js"></script>
+    <script src="components/d3-histogram/histogram.js"></script>
+    <script src="components/date-range/date-range.js"></script>
+
+    <script src="scripts/directives/anchor.js"></script>
+    <script src="scripts/directives/cep.js"></script>
+    <script src="scripts/directives/cpf.js"></script>
+    <script src="scripts/directives/creditCard.js"></script>
+    <script src="scripts/directives/currency.js"></script>
+    <script src="scripts/directives/customerName.js"></script>
+    <script src="scripts/directives/hour.js"></script>
+    <script src="scripts/directives/minlength.js"></script>
+    <script src="scripts/directives/inputQty.js"></script>
+    <script src="scripts/directives/number.js"></script>
+    <script src="scripts/directives/numPad.js"></script>
+    <script src="scripts/directives/phone.js"></script>
+    <script src="scripts/directives/recall.js"></script>
+    <script src="scripts/directives/spy.js"></script>
+    <script src="scripts/directives/scrollContainer.js"></script>
+    <script src="scripts/directives/scrollSpy.js"></script>
+    <script src="scripts/directives/spinner-button.js"></script>
+    <script src="scripts/directives/tnt-input.js"></script>
+    <script src="scripts/directives/tnt-select2.js"></script>
+    <script src="scripts/directives/upperCase.js"></script>
+    <script src="scripts/directives/lowerCase.js"></script>
+    <script src="scripts/directives/focus.js"></script>
+    <script src="scripts/directives/focusIf.js"></script>
+    <script src="scripts/directives/equals.js"></script>
+    <script src="scripts/directives/clickDelay.js"></script>
+    <script src="scripts/directives/fastClick.js"></script>
+    <script src="scripts/directives/preventBlur.js"></script>
+    <script src="scripts/directives/virtualKeyboard.js"></script>
+    <script src="scripts/directives/keyboardCage.js"></script>
+    <script src="scripts/directives/promiseClick.js"></script>
+
+    <script src="scripts/filters/count.js"></script>
+    <script src="scripts/filters/cpf.js"></script>
+    <script src="scripts/filters/creditCard.js"></script>
+    <script src="scripts/filters/findBy.js"></script>
+    <script src="scripts/filters/hour.js"></script>
+    <script src="scripts/filters/obInject.js"></script>
+    <script src="scripts/filters/paymentType.js"></script>
+    <script src="scripts/filters/phone.js"></script>
+    <script src="scripts/filters/sum.js"></script>
+    <script src="scripts/filters/truncate.js"></script>
+    <script src="scripts/filters/uuidCode.js"></script>
+
+    <script src="scripts/preloader/datepicker.js"></script>
+    <script src="scripts/preloader/loggly.tracker.js"></script>
+
+    <script src="scripts/controllers/bi.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/add-customer.js"></script>
+    <script src="scripts/controllers/add-customer-phones-dialog.js"></script>
+    <script src="scripts/controllers/add-customer-emails-dialog.js"></script>
+    <script src="scripts/controllers/add-to-basket-dialog.js"></script>
+    <script src="scripts/controllers/basket.js"></script>
+    <script src="scripts/controllers/change-pass-dialog.js"></script>
+    <script src="scripts/controllers/choose-customer-dialog.js"></script>
+    <script src="scripts/controllers/customer-info-dialog.js"></script>
+    <script src="scripts/controllers/loading-dialog.js"></script>
+    <script src="scripts/controllers/book-keeping-report.js"></script>
+    <script src="scripts/controllers/delivery.js"></script>
+    <script src="scripts/controllers/delivery-details-dialog.js"></script>
+    <script src="scripts/controllers/financial.js"></script>
+    <script src="scripts/controllers/expense.js"></script>
+    <script src="scripts/controllers/expense-entity.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/header-dev.js"></script>
+    <script src="scripts/controllers/income-statement.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/message-dialog.js"></script>
+    <script src="scripts/controllers/numpad-dialog.js"></script>
+    <script src="scripts/controllers/order-list.js"></script>
+    <script src="scripts/controllers/order-list-clients.js"></script>
+    <script src="scripts/controllers/order-list-products.js"></script>
+    <script src="scripts/controllers/order-list-orders.js"></script>
+    <script src="scripts/controllers/payment.js"></script>
+    <script src="scripts/controllers/payment-check.js"></script>
+    <script src="scripts/controllers/payment-coupon.js"></script>
+    <script src="scripts/controllers/payment-creditcard.js"></script>
+    <script src="scripts/controllers/payment-exchange.js"></script>
+    <script src="scripts/controllers/partial-delivery.js"></script>
+    <script src="scripts/controllers/payment/payment-on-cuff.js"></script>
+    <script src="scripts/controllers/payment-discount.js"></script>
+    <script src="scripts/controllers/products-delivery/products-delivery.js"></script>
+    <script src="scripts/controllers/products-delivery/products-to-be-delivered.js"></script>
+    <script src="scripts/controllers/products-delivery/products-to-be-delivered-products.js"></script>
+    <script src="scripts/controllers/products-delivery/products-delivered.js"></script>
+    <script src="scripts/controllers/products-delivery/products-delivered-products.js"></script>
+    <script src="scripts/controllers/products-delivery/delivery-schedule-dialog.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order-confirm.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order-new.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order-pending-products.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order-stashed.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order-summary.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order-ticket-dialog.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order-ticket.js"></script>
+    <script src="scripts/controllers/purchase-order/purchase-order.js"></script>
+    <script src="scripts/controllers/order-list.js"></script>
+    <script src="scripts/controllers/registration.js"></script>
+    <script src="scripts/controllers/receivables/receivable.js"></script>
+    <script src="scripts/controllers/receivables/receivable-dialog.js"></script>
+    <script src="scripts/controllers/receivables/receivable-check.js"></script>
+    <script src="scripts/controllers/receivables/receivable-receive.js"></script>
+    <script src="scripts/controllers/receivables/receivable-list.js"></script>
+    <script src="scripts/controllers/stock/stock.js"></script>
+    <script src="scripts/controllers/voucher.js"></script>
+    <script src="scripts/controllers/voucher-active.js"></script>
+    <script src="scripts/controllers/voucher-historic.js"></script>
+    <script src="scripts/controllers/third-party.js"></script>
+    <script src="scripts/controllers/warmup.js"></script>
+    <script src="scripts/controllers/pagpop.js"></script>
+    <script src="scripts/controllers/target/target.js"></script>
+    <script src="scripts/controllers/target/target-parent.js"></script>
+    <script src="scripts/controllers/target/target-list.js"></script>
+    <script src="scripts/controllers/date-range-test.js"></script>
+
+    <script src="scripts/keepers/BookKeeper.js"></script>
+    <script src="scripts/keepers/CheckKeeper.js"></script>
+    <script src="scripts/keepers/CoinKeeper.js"></script>
+    <script src="scripts/keepers/ConsultantKeeper.js"></script>
+    <script src="scripts/keepers/InventoryKeeper.js"></script>
+    <script src="scripts/keepers/GridKeeper.js"></script>
+    <script src="scripts/keepers/EntityKeeper.js"></script>
+    <script src="scripts/keepers/JournalKeeper.js"></script>
+    <script src="scripts/keepers/StockKeeper.js"></script>
+    <script src="scripts/keepers/VoucherKeeper.js"></script>
+    <script src="scripts/keepers/OrderKeeper.js"></script>
+    <script src="scripts/keepers/SchedulingKeeper.js"></script>
+    <script src="scripts/keepers/PurchaseOrderKeeper.js"></script>
+    <script src="scripts/keepers/ProductReturnKeeper.js"></script>
+    <script src="scripts/keepers/TargetKeeper.js"></script>
+    <script src="scripts/keepers/TypeKeeper.js"></script>
+    <script src="scripts/keepers/MasterKeeper.js"></script>
+    <script src="scripts/keepers/SubscriptionKeeper.js"></script>
+
+    <script src="scripts/services/ArrayUtils.js"></script>
+    <script src="scripts/services/CheckService/CheckService.js"></script>
+    <script src="scripts/services/CouponService.js"></script>
+    <script src="scripts/services/ConsultantService.js"></script>
+    <script src="scripts/services/DataProvider.js"></script>
+    <script src="scripts/services/DialogService.js"></script>
+    <script src="scripts/services/EntityService.js"></script>
+    <script src="scripts/services/ExpenseService.js"></script>
+    <script src="scripts/services/financial/FinancialMathService.js"></script>
+    <script src="scripts/services/IdentityService.js"></script>
+    <script src="scripts/services/IntentService.js"></script>
+    <script src="scripts/services/InventoryService.js"></script>
+    <script src="scripts/services/KeyboardService.js"></script>
+    <script src="scripts/services/misplacedservice.js"></script>
+    <script src="scripts/services/OrderService.js"></script>
+    <script src="scripts/services/SchedulingService.js"></script>
+    <script src="scripts/services/OrderListService.js"></script>
+    <script src="scripts/services/PaymentService.js"></script>
+    <script src="scripts/services/ProductLineUp.js"></script>
+    <script src="scripts/services/ReceivableService.js"></script>
+    <script src="scripts/services/Replayer.js"></script>
+    <script src="scripts/services/SMSService.js"></script>
+    <script src="scripts/services/StockService.js"></script>
+    <script src="scripts/services/StorageService.js"></script>
+    <script src="scripts/services/ThirdpartyService.js"></script>
+    <script src="scripts/services/VoucherService.js"></script>
+    <script src="scripts/services/PersistentStorage.js"></script>
+    <script src="scripts/services/WebSQLDriver.js"></script>
+    <script src="scripts/services/TimerService.js"></script>
+    <script src="scripts/services/report/ReportService.js"></script>
+    <script src="scripts/services/SyncDriver.js"></script>
+    <script src="scripts/services/SyncService.js"></script>
+    <script src="scripts/services/PurchaseOrderService.js"></script>
+    <script src="scripts/services/UserService.js"></script>
+    <script src="scripts/services/cep/CepService.js"></script>
+    <script src="scripts/services/cpf/CpfService.js"></script>
+    <script src="scripts/services/Firebase.js"></script>
+    <script src="scripts/services/BookService/BookService.js"></script>
+    <script src="scripts/services/ProductReturnService.js"></script>
+    <script src="scripts/services/RemoteSync.js"></script>
+    <script src="scripts/services/log.js"></script>
+    <script src="scripts/services/CreditCardPaymentService.js"></script>
+    <script src="scripts/services/PrefetchService.js"></script>
+    <script src="scripts/services/GoPayGateway.js"></script>
+    <script src="scripts/services/PagPopGateway.js"></script>
+    <script src="scripts/services/CacheController.js"></script>
+    <script src="scripts/services/PaymentService/OnCuffPaymentService.js"></script>
+    <script src="scripts/services/purchase-order/NewPurchaseOrderService.js"></script>
+    <script src="scripts/services/WarmupService.js"></script>
+    <script src="scripts/services/ProductsDeliveryService.js"></script>
+    <script src="scripts/services/target/TargetService.js"></script>
+    <!-- endbuild -->
+
+    <!-- appointments -->
+    <script src="scripts/controllers/appointments.js"></script>
+    <script src="scripts/services/AppointmentService.js"></script>
+    <script src="scripts/keepers/AppointmentKeeper.js"></script>
+    <!-- endappointments -->
+
+    <!-- Bridge to native aplication - END -->
+</html>
+

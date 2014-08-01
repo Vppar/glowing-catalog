@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- Your app title -->
+    <title>VPink Iteratividade</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="bower_components/framework7/dist/css/my-app.css">
+
+    <!-- VPINK MOBILE -->
+    <link rel="stylesheet" href="mobile/styles/mobile.css">
+</head>
+<body>
+
+    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    <div class="statusbar-overlay"></div>
+
+    <!-- Views -->
+    <div class="views">
+        <!-- Your main view, should have "view-main" class -->
+        <div class="view view-main">
+            <!-- Top Navbar-->
+            <div class="navbar vpink-navbar-logo">
+                <div class="navbar-inner">
+                    <div class="left"><a href="#" class="back link"><i class="icon icon-back-blue"></i><span>Voltar</span></a></div>
+                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                    <div class="center sliding"> <img src="images/vpink.jpg"> </div>
+                </div>
+            </div>
+            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages navbar-through toolbar-through">
+                <!-- Page, "data-page" contains page name -->
+                <div data-page="index" class="page vpink-page">
+                    <!-- Scrollable page content -->
+                    <div class="page-content vpink-page-content">
+
+                        <div class="toolbar tabbar vpink-tabbar-menu">
+                            <div class="toolbar-inner">
+                                <a href="#tab1" class="tab-link active">
+                                    <i class="icon demo-icon-1"></i>
+                                </a>
+                                <a href="#tab2" class="tab-link">
+                                    <i class="icon demo-icon-2"></i>
+                                </a>
+                                <a href="#tab3" class="tab-link">
+                                    <i class="icon demo-icon-3"></i>
+                                </a>
+                                <a href="#tab4" class="tab-link">
+                                    <i class="icon demo-icon-4"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="list-block">
+                            <ul>
+                                <li><a href="#" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">AGENDA</div>
+                                    </div></a></li>
+                                <li><a href="mobile/views/catalog.html" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">CATÁLOGO</div>
+                                    </div></a></li>
+                                <li><a href="#" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">PAGAMENTO</div>
+                                    </div></a></li>
+                                <li><a href="#" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">PRONTA ENTREGA</div>
+                                    </div></a></li>
+                                <li><a href="#" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">RESUMO DE VENDA</div>
+                                    </div></a></li>
+                                <li><a href="#" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">CONTAS A RECEBER</div>
+                                    </div></a></li>
+                                <li><a href="#" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title">ANÁLISE DE DESEMPENHO</div>
+                                    </div></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="vpink-bottom-menu"></div>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="mobile/scripts/my-app.js"></script>
+</body>
+</html>
+
