@@ -397,7 +397,7 @@ body {
 	padding-right: 10px !important;
 }
 .btn-ok{
-	background: #bf1e62;
+	background: #2dcb73;
 }
 .btn-cancel {
 	background: #333;
@@ -409,7 +409,7 @@ body {
 	background: #575757;
 }
 .btn-ok:hover{
-	background: #d64986 !important;
+	background: #42D081 !important;
 }
 .btn-cancel:hover {
 	background: #000 !important;
@@ -859,7 +859,7 @@ div.sidebar-menu ul li a {
 	}
 
 	#topMenuHome .selected {
-		color: #bf1e62;
+		color: #2dcb73;
 		font-weight: bold;
 		text-shadow:none;
 	}
@@ -1170,7 +1170,7 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 }
 
 input:focus, .focus{	
-	outline: 1px solid #bf1e62;
+	outline: 1px solid #2dcb73;
 	outline-offset:0;
 }
 .grid-payment-receivable .item:focus {
