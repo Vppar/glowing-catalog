@@ -188,6 +188,7 @@ scripts/preloader/datepicker.js
 scripts/preloader/loggly.tracker.js
 
 scripts/controllers/main.js
+scripts/controllers/catalog.js
 scripts/controllers/add-customer.js
 scripts/controllers/add-customer-phones-dialog.js
 scripts/controllers/add-customer-emails-dialog.js
@@ -506,17 +507,10 @@ images/thirdparty/magnifier/icon.png
 images/tutorial/tutorial-android-mockup-full.png
 images/tutorial/tutorial-ipad-mockup-full.png
 
-images/catalog/best-sellers-0.png
-images/catalog/best-sellers-1.png
-images/catalog/best-sellers-2.png
-images/catalog/best-sellers-3.png
-images/catalog/best-sellers-4.png
-images/catalog/best-sellers-5.png
-images/catalog/best-sellers-6.png
-images/catalog/best-sellers-7.png
-images/catalog/best-sellers-8.png
-images/catalog/best-sellers-9.png
-images/catalog/best-sellers-10.png
+images/catalog/best-1.jpg
+images/catalog/best-2.jpg
+images/catalog/best-3.jpg
+images/catalog/best-4.jpg
 
 images/login/background-login-1.jpg
 images/login/background-login-2.jpg

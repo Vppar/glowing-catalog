@@ -1,7 +1,7 @@
 (function(angular) {
     'use strict';
     angular.module('glowingCatalogApp').controller(
-            'MainCtrl', ['$scope', '$location', 'DataProvider', 'ArrayUtils', 'OrderService', 'DialogService', 'InventoryKeeper', 'UserService', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper, UserService) {
+            'CatalogCtrl', ['$scope', '$location', 'DataProvider', 'ArrayUtils', 'OrderService', 'DialogService', 'InventoryKeeper', 'UserService', function($scope, $location, DataProvider, ArrayUtils, OrderService, DialogService, InventoryKeeper, UserService) {
                
                 UserService.redirectIfInvalidUser();
                 
@@ -11,7 +11,6 @@
                     // var sections = ArrayUtils.distinct(DataProvider.products,
                     // 'session');
                     //
-                    sections.push('Mais Vendidos');
                     sections.push('Cuidados com a Pele');
                     //sections.push('Maquiagem');
                     //sections.push('SPA e Fragrâncias');
@@ -27,7 +26,7 @@
                 dataProviderUpdate();
 
                 var highlight = $location.search().highlight;
-                $scope.selectedSection = highlight ? highlight : 'Mais Vendidos';
+                $scope.selectedSection = highlight ? highlight : 'Cuidados com a Pele';
 
                 $scope.$watch('selectedSection', function() {
                     if ($scope.sections.indexOf($scope.selectedSection) === -1) {
