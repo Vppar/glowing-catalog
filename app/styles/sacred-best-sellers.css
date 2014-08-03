@@ -31,10 +31,14 @@
 
     #sacred .main-best-sellers .bs-product{
         position: absolute;
-    }
 
+    }
+    #sacred .main-best-sellers .bs-product img{
+        cursor: pointer;
+    }
     #sacred .main-best-sellers .bs-product .bs-text{
         position: absolute;
+        cursor: pointer;
     }
 
     #sacred .main-best-sellers .bs-product .bs-text .description{
