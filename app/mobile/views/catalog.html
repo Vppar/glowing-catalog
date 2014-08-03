@@ -1,249 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <!-- Your app title -->
-    <title>VPink Iteratividade</title>
-    <!-- Path to Framework7 Library CSS-->
-    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.css">
-    <!-- Path to your custom app styles-->
-    <link rel="stylesheet" href="bower_components/framework7/dist/css/my-app.css">
+<div class="container" scroll-spy>
 
-    <!-- VPINK MOBILE -->
-    <link rel="stylesheet" href="mobile/styles/mobile.css">
-</head>
-<body>
+    <div class="row-fluid">
+        <span class="span12"> <span ng-include src="'views/parts/global/header.html'"></span></span>
+    </div>
 
-    <!-- Status bar overlay for full screen mode (PhoneGap) -->
-    <div class="statusbar-overlay"></div>
-
-    <!-- Views -->
-    <div class="views">
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
-            <!-- Top Navbar-->
-            <div class="navbar vpink-navbar-logo">
-                <div class="navbar-inner">
-                    <div class="left"><a href="#" class="back link"> <img src="images/vpink.jpg"></a></div>
-                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding"> </div>
-                    <div class="right"> </div>
-                </div>
+    <div class="mary-content" ng-switch="selectedSection">
+        <div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-default>
+            <div class="row-fluid" anchor id="{{'cat' + $index}}" ng-repeat="line in lines">
+                <catalog-section line="line" section="selectedSection"></catalog-section>
             </div>
+        </div>
 
-            <!-- Sliders -->
-            <div class="pages navbar-through toolbar-through">
-                <div data-page="slider-nested" class="page vpink-page no-toolbar">
-                    <div class="page-content vpink-page-content">
-                        <div class="ks-slider-custom">
+        <div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-when="Última Oportunidade">
+            <catalog-highlights section="selectedSection"></catalog-highlights>
+        </div>
 
-                            <!-- Slider horizontal -- Categoria 1 -->
-                            <div data-pagination=".slider-pagination-h" data-paginationHide="false" class="slider-container slider-init ks-demo-slider">
-                                <div class="slider-pagination slider-pagination-h catalog-slider"></div>
+        <div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-when="Edição Limitada">
+            <catalog-highlights section="selectedSection"></catalog-highlights>
+        </div>
 
-                                <div class="slider-wrapper">
-                                    <div class="slider-slide">
+        <div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-when="Lançamentos">
+            <catalog-highlights section="selectedSection"></catalog-highlights>
+        </div>
 
-                                        <div class="navbar vpink-catalog-1">
-                                            <div class="navbar-inner">
-                                                <div class="left"><a href="#" class="back link"><i class="icon icon-back-white"></i></a></div>
-                                                <div class="center sliding">Mais Vendidos</div>
-                                                <div class="right"><a href="#" class="forward link"><i class="icon icon-forward-white"></i></a></div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Slider vertical -- Categoria 2 -->
-                                        <div data-pagination=".slider-pagination-v" data-direction="vertical" data-paginationHide="true" class="slider-container slider-init ks-demo-slider">
-                                            <div class="slider-pagination slider-pagination-v"></div>
-                                            <div class="slider-wrapper">
-
-                                                <div class="slider-slide">
-
-                                                    <div class="navbar vpink-catalog-2">
-                                                        <div class="navbar-inner">
-                                                            <div class="center sliding">Botanical Effects</div>
-                                                            <div class="right">
-                                                                <a href="#" class="back link"><i class="icon icon-back-white down"></i></a>
-                                                                <a href="#" class="forward link"><i class="icon icon-forward-white up"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Slider vertical -- Produto -->
-                                                    <div data-pagination=".slider-pagination-v" data-direction="vertical" data-paginationHide="true" class="slider-container slider-init ks-demo-slider">
-                                                        <div class="slider-pagination slider-pagination-v"></div>
-                                                        <div class="slider-wrapper">
-
-                                                            <div class="slider-slide">Produto 1
-
-                                                                <div class="sidebar-menu-scroll">
-                                                                    <div class="sidebar-menu1">
-                                                                        <ul class="nav nav-list nav-list-black">
-                                                                            <li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
-                                                                                <a class="hover-state-pointer">{{section}}</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="sidebar-menu">
-                                                                        <ul class="nav nav-list">
-                                                                            <li spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">
-                                                                                <a class="hover-state-pointer">{{line.name}}</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-
-
-                                                            </div>
-                                                            <div class="slider-slide">Produto 2</div>
-                                                            <div class="slider-slide">Produto 3</div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                                <div class="slider-slide">
-
-                                                    <div class="navbar vpink-catalog-2">
-                                                        <div class="navbar-inner">
-                                                            <div class="left"><a href="#" class="back link"><i class="icon icon-back-white"></i></a></div>
-                                                            <div class="center sliding">Sinais Moderados</div>
-                                                            <div class="right"><a href="#" class="link next-catalog"></a></div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div data-pagination=".slider-pagination-v" data-direction="vertical" data-paginationHide="true" class="slider-container slider-init ks-demo-slider">
-                                                        <div class="slider-pagination slider-pagination-v"></div>
-                                                        <div class="slider-wrapper">
-
-                                                            <div class="slider-slide">Produto 1</div>
-                                                            <div class="slider-slide">Produto 2</div>
-                                                            <div class="slider-slide">Produto 3</div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-
-
-                                    <div class="slider-slide">
-
-                                        <div class="navbar vpink-catalog-1">
-                                            <div class="navbar-inner">
-                                                <div class="left"><a href="#" class="back link"><i class="icon icon-back-white"></i></a></div>
-                                                <div class="center sliding">Cuidados com a Pele</div>
-                                                <div class="right"><a href="#" class="forward link"><i class="icon icon-forward-white"></i></a></div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Slider vertical -- Categoria 2 -->
-                                        <div data-pagination=".slider-pagination-v" data-direction="vertical" data-paginationHide="true" class="slider-container slider-init ks-demo-slider">
-                                            <div class="slider-pagination slider-pagination-v"></div>
-                                            <div class="slider-wrapper">
-
-                                                <div class="slider-slide">
-
-                                                    <div class="navbar vpink-catalog-2">
-                                                        <div class="navbar-inner">
-                                                            <div class="center sliding">Sinais Moderados</div>
-                                                            <div class="right">
-                                                                <a href="#" class="back link"><i class="icon icon-back-white down"></i></a>
-                                                                <a href="#" class="forward link"><i class="icon icon-forward-white up"></i></a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Slider vertical -- Produto -->
-                                                    <div data-pagination=".slider-pagination-v" data-direction="vertical" data-paginationHide="true" class="slider-container slider-init ks-demo-slider">
-                                                        <div class="slider-pagination slider-pagination-v"></div>
-                                                        <div class="slider-wrapper">
-
-                                                            <div class="slider-slide">Produto 1</div>
-                                                            <div class="slider-slide">Produto 2</div>
-                                                            <div class="slider-slide">Produto 3</div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-
-
-                                                <div class="slider-slide">
-
-                                                    <div class="navbar vpink-catalog-2">
-                                                        <div class="navbar-inner">
-                                                            <div class="left"><a href="#" class="back link"><i class="icon icon-back-white"></i></a></div>
-                                                            <div class="center sliding">Sinais Avançados</div>
-                                                            <div class="right"><a href="#" class="link next-catalog"></a></div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div data-pagination=".slider-pagination-v" data-direction="vertical" data-paginationHide="true" class="slider-container slider-init ks-demo-slider">
-                                                        <div class="slider-pagination slider-pagination-v"></div>
-                                                        <div class="slider-wrapper">
-
-                                                            <div class="slider-slide">Produto 1</div>
-                                                            <div class="slider-slide">Produto 2</div>
-                                                            <div class="slider-slide">Produto 3</div>
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-                                    <!--<div class="slider-slide">-->
-                                        <!--<div data-pagination=".slider-pagination-v" data-direction="vertical" data-paginationHide="true" class="slider-container slider-init ks-demo-slider">-->
-                                            <!--<div class="slider-pagination slider-pagination-v"></div>-->
-                                            <!--<div class="slider-wrapper">-->
-                                                <!--<div class="slider-slide">Vertical Slide 1</div>-->
-                                                <!--<div class="slider-slide">Vertical Slide 2</div>-->
-                                                <!--<div class="slider-slide">Vertical Slide 3</div>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-
-                                    <div class="slider-slide">Maquiagem</div>
-                                    <div class="slider-slide">SPA e Fragrâncias</div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+        <div class="home-scroll-content best-sellers-scroll-height" id="scrollContainer" ng-switch-when="Mais Vendidos">
+            <span ng-include="'views/catalog/sacred-best-sellers.html'"></span>
+        </div>
+        <div class="sidebar-menu-scroll">
+            <div class="sidebar-menu1">
+                <ul class="nav nav-list nav-list-black">
+                    <li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+                        <a class="hover-state-pointer">{{section}}</a>
+                    </li>
+                </ul>
             </div>
-
+            <div class="sidebar-menu">
+                <ul class="nav nav-list">
+                    <li spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">
+                        <a class="hover-state-pointer">{{line.name}}</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-    <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
-    <!-- Path to your app js-->
-    <script type="text/javascript" src="mobile/scripts/my-app.js"></script>
-</body>
-</html>
 
+</div>
