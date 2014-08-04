@@ -120,24 +120,24 @@
 
 
 /* TAB BAR ICONS */
-i.demo-icon-1 {
+i.icon-1 {
     width: 30px;
     height: 30px;
     background-image: url("../images/settings.png");
 }
-i.demo-icon-2 {
+i.icon-2 {
     width: 25px;
     height: 30px;
     background-image: url("../images/info.png");
 }
 
-i.demo-icon-3 {
+i.icon-3 {
     width: 30px;
     height: 30px;
     background-image: url("../images/chat.png");
 }
 
-i.demo-icon-4 {
+i.icon-4 {
     width: 25px;
     height: 30px;
     background-image: url("../images/media.png");
@@ -145,10 +145,6 @@ i.demo-icon-4 {
 
 
 /* Catalog sliders config */
-.ks-slider-custom {
-    height: 100%;
-}
-
 .vpink-catalog-1{
     height: 44px;
     background: #2B2B2B;

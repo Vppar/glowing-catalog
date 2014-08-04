@@ -158,7 +158,8 @@
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
-            templateUrl : 'mobile/views/menu.html'
+            templateUrl : 'mobile/views/menu.html',
+            controller : 'MainCtrl'
         }).when('/catalog', {
             templateUrl : 'mobile/views/catalog.html',
             controller : 'MainCtrl'
