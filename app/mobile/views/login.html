@@ -1,0 +1,60 @@
+
+
+<div class="container">
+
+    <form class="form-signin">
+        <h1 class="form-signin-heading text-muted"><img src="images/vpink.jpg" alt="wishlist" /></h1>
+
+        <label>Login</label><br/>
+        <input type="text" class="form-control" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="Email" name="username" required="" autofocus=""><br/>
+
+        <label>Senha</label><br/>
+        <input type="password" class="form-control" ng-model="pass" placeholder="Senha" required=""><br/>
+
+        <spinner-button spinner-promise="login()"class="btn-signin btn btn-lg btn-primary btn-block" type="submit">Entrar</spinner-button>
+
+        <br/><button ng-click="changeUser()" class="btn-erasedata btn btn-lg btn-primary btn-block" ng-if="hasPersistedUser()" type="button">Apagar Dados</button>
+
+
+    </form>
+
+    <!--<form class="form login">-->
+
+        <!--<h1><img src="images/vpink.jpg" alt="wishlist" /></h1>-->
+
+        <!--<div class="login-body">-->
+            <!--<div class="form-line">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-24">-->
+                        <!--<label>Login</label>-->
+                        <!--<input type="text" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="" name="username">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="form-line">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-24">-->
+                        <!--<label>Senha</label>-->
+                        <!--<input type="password" ng-model="pass" placeholder="">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="login-footer">-->
+            <!--<div class="form-line">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-24">-->
+                        <!--<button ng-click="changeUser()" class="button-black" ng-if="hasPersistedUser()" type="button">Apagar Dados</button>-->
+
+                        <!--<spinner-button spinner-promise="login()"class="button-green" type="submit">Entrar</spinner-button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</form>-->
+</div>
+
+<link rel="stylesheet" href="mobile/styles/login.css">
+<link rel="stylesheet" href="mobile/styles/mobile.css">
