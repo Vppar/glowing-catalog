@@ -165,8 +165,10 @@
         }).when('/login', {
             templateUrl : 'mobile/views/login.html',
             controller : 'LoginCtrl'
+        }).when('/grade-produto', {
+            templateUrl : 'mobile/views/grade-produto.html'
+           // controller : 'LoginCtrl'
         })
-
 
 
 

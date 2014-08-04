@@ -1,5 +1,9 @@
 /* CUSTOM VPINK */
 
+body {
+    font-family: Tahoma, Helvetica, Arial,"Helvetica Neue", sans-serif !important;
+}
+
 .navbar.vpink-navbar-logo{
     height: 61px;
     background: #ffffff;
