@@ -2,6 +2,11 @@
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.thefive-header{
+	background-image:url("../images/header-bg.png");
+	background-repeat:repeat-x;  
+}
+
 .tooltip-arrow{
 	position: absolute;
 	left: 155px;
@@ -602,7 +607,7 @@ div.header-date {
 	cursor: pointer
 }
 .bag {
-	background: url(../images/vpurse.gif) no-repeat;
+	background: url(../images/vpurse.png) no-repeat;
 	display: inline-block;
 	width: 58px;
 	text-align: center;
@@ -872,12 +877,12 @@ div.sidebar-menu ul li a {
 		border-radius: 0;
 		*zoom: 1;
 		border-color: #fff;
-		background: #fff;
+		background: none;
 	}
 	.container .navbar .brand {
 		float: left;
 		display: block;
-		padding: 10px 388px 0 30px; /*padding: 20px 0 0 40px;*/
+		padding: 5px 388px 0 30px; /*padding: 20px 0 0 40px;*/
 	}
 
 	.home-scroll-content {
