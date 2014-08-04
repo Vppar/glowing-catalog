@@ -672,7 +672,7 @@ div.header-date {
 }
 
 #topMenuHome {
-	margin: 18px auto 0 290px;
+	float: left;
 }
 
 nav ul li {
@@ -872,17 +872,15 @@ div.sidebar-menu ul li a {
 		height: 68px;
 		padding-left: 0px;
 		padding-right: 10px;
-		-webkit-border-radius: 0;
-		-moz-border-radius: 0;
-		border-radius: 0;
 		*zoom: 1;
-		border-color: #fff;
+		border:none;
+		float: left;
 		background: none;
 	}
 	.container .navbar .brand {
 		float: left;
 		display: block;
-		padding: 5px 388px 0 30px; /*padding: 20px 0 0 40px;*/
+		padding: 5px 458px 0 30px;
 	}
 
 	.home-scroll-content {
