@@ -1,5 +1,19 @@
 /* CUSTOM VPINK */
 
+.div-master{
+    height: 100%;
+}
+
+
+.container-mobile{
+
+}
+
+.navbar-mobile{
+    background-color: #fff;
+    border: none;
+}
+
 .navbar.vpink-navbar-logo{
     height: 61px;
     background: #ffffff;

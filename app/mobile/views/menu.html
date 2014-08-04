@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!-- Required meta tags-->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <!-- Your app title -->
-    <title>VPink Iteratividade</title>
-    <!-- Path to Framework7 Library CSS-->
-    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.css">
-    <!-- Path to your custom app styles-->
-    <link rel="stylesheet" href="bower_components/framework7/dist/css/my-app.css">
+<!-- Add your site or application content here -->
+<!-- Views -->
+<div class="views">
+    <!-- Your main view, should have "view-main" class -->
+    <div class="view view-main">
 
-    <!-- VPINK MOBILE -->
-    <link rel="stylesheet" href="mobile/styles/mobile.css">
-</head>
-<body>
-
-    <!-- Status bar overlay for full screen mode (PhoneGap) -->
-    <div class="statusbar-overlay"></div>
-
-    <!-- Views -->
-    <div class="views">
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
             <!-- Top Navbar-->
             <div class="navbar vpink-navbar-logo">
                 <div class="navbar-inner">
@@ -33,6 +12,7 @@
                     <div class="center sliding"> <img src="images/vpink.jpg"> </div>
                 </div>
             </div>
+
             <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
             <div class="pages navbar-through toolbar-through">
                 <!-- Page, "data-page" contains page name -->
@@ -59,7 +39,7 @@
 
                         <div class="list-block">
                             <ul>
-                                <li><a href="#" class="item-link item-content">
+                                <li><a href="#/appointment" class="item-link item-content">
                                     <div class="item-inner">
                                         <div class="item-title">AGENDA</div>
                                     </div></a></li>
@@ -67,23 +47,23 @@
                                     <div class="item-inner">
                                         <div class="item-title">CATÁLOGO</div>
                                     </div></a></li>
-                                <li><a href="#" class="item-link item-content">
+                                <li><a href="#" class="item-link item-content" ng-click="checkout(true)">
                                     <div class="item-inner">
                                         <div class="item-title">PAGAMENTO</div>
                                     </div></a></li>
-                                <li><a href="#" class="item-link item-content">
+                                <li><a href="#/stock" class="item-link item-content">
                                     <div class="item-inner">
                                         <div class="item-title">PRONTA ENTREGA</div>
                                     </div></a></li>
-                                <li><a href="#" class="item-link item-content">
+                                <li><a href="#/order-list" class="item-link item-content">
                                     <div class="item-inner">
                                         <div class="item-title">RESUMO DE VENDA</div>
                                     </div></a></li>
-                                <li><a href="#" class="item-link item-content">
+                                <li><a href="#/receivable" class="item-link item-content">
                                     <div class="item-inner">
                                         <div class="item-title">CONTAS A RECEBER</div>
                                     </div></a></li>
-                                <li><a href="#" class="item-link item-content">
+                                <li><a href="#/bi" class="item-link item-content">
                                     <div class="item-inner">
                                         <div class="item-title">ANÁLISE DE DESEMPENHO</div>
                                     </div></a></li>
@@ -97,12 +77,5 @@
 
             </div>
 
-        </div>
     </div>
-    <!-- Path to Framework7 Library JS-->
-    <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
-    <!-- Path to your app js-->
-    <script type="text/javascript" src="mobile/scripts/mainApplication.js"></script>
-</body>
-</html>
-
+</div>

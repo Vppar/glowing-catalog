@@ -3,7 +3,7 @@
     <head>
         <title>VPink Interatividade</title>
         <meta charset="UTF-8" />
-        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
         <meta name="apple-touch-fullscreen" content="yes" />
@@ -13,7 +13,7 @@
         <link href="apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
         <link rel="icon" href="favicon-68.png" type="image/png" sizes="64x64">
         <link rel="icon" href="favicon-152.png" type="image/png" sizes="152x152">
-        
+
         <style id="tmpCloak" type="text/css">@-webkit-keyframes stretchdelay {0%,40%,100%{-webkit-transform:scaleY(0.4)} 20%{-webkit-transform:scaleY(1.0)}}
         @keyframes stretchdelay {0%,40%,100%{transform:scaleY(0.4);-webkit-transform:scaleY(0.4);} 20%{transform:scaleY(1.0);-webkit-transform: scaleY(1.0);}}[ng-view]{display: none;}
         body{background-color: #fff !important;}</style>
@@ -108,70 +108,21 @@
                 </div>
             </div>
         </div>
-        <!-- Add your site or application content here -->
-        <div class="div-master" ng-cloak ng-view=""></div>
+
+        <div class="div-master" ng-cloak ng-view="">
+            <div class="views">
+                <div class="view view-main"></div>
+            </div>
+        </div>
+
+
     </body>
 
-    <!--<link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-2.3.2.css">-->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 
     <!-- build:css(.tmp) styles/main.css -->
-    <!--<link rel="stylesheet" href="bower_components/bootstrap-sass/bootstrap-responsive-2.3.2.css">-->
-    <link rel="stylesheet" href="styles/select2.css">
     <!-- endbuild -->
     
-    <link rel="stylesheet" href="styles/responsive-style.css">
-    <link rel="stylesheet" href="styles/grid-catalog.css">
-    <link rel="stylesheet" href="styles/data-grid/data-grid.css">
-    <!--<link rel="stylesheet" href="styles/global.css">-->
-    <link rel="stylesheet" href="styles/dialogs.css">
-    <link rel="stylesheet" href="styles/basket.css">
-    <link rel="stylesheet" href="styles/payment.css">
-    <link rel="stylesheet" href="styles/add-customer.css">
-    <link rel="stylesheet" href="styles/partial-delivery.css">
-    <link rel="stylesheet" href="styles/inventory.css">
-    <link rel="stylesheet" href="styles/previous-entries.css">
-    <link rel="stylesheet" href="styles/pending-delivery.css">
-    <link rel="stylesheet" href="styles/products-to-buy.css">
-    <link rel="stylesheet" href="styles/financial.css">
-    <link rel="stylesheet" href="styles/expense.css">
-    <link rel="stylesheet" href="styles/income-statement.css">
-    <link rel="stylesheet" href="styles/magnifier.css">
-    <link rel="stylesheet" href="styles/multiple-select.css">
-    <link rel="stylesheet" href="styles/receivable.css">
-    <link rel="stylesheet" href="styles/cash-flow.css">
-    <link rel="stylesheet" href="styles/catalog.css">
-    
-    <link rel="stylesheet" href="styles/new.css">
-    <link rel="stylesheet" href="styles/new-button.css">
-    <link rel="stylesheet" href="styles/new-grid.css">
-    <link rel="stylesheet" href="styles/new-ipad-only.css">
-    <link rel="stylesheet" href="styles/new-numpad.css">
-
-    <link rel="stylesheet" href="styles/sacred-reset.css">
-    <link rel="stylesheet" href="styles/sacred-buttons.css">
-    <link rel="stylesheet" href="styles/sacred-calendar.css">
-    <link rel="stylesheet" href="styles/sacred-form.css">
-    <link rel="stylesheet" href="styles/sacred-grid.css">
-    <link rel="stylesheet" href="styles/sacred-page.css">
-    <link rel="stylesheet" href="styles/sacred-stock.css">
-    <link rel="stylesheet" href="styles/sacred-structure.css">
-    <link rel="stylesheet" href="styles/sacred-summarizer.css">
-    <link rel="stylesheet" href="styles/sacred-third-parties.css">
-    <link rel="stylesheet" href="styles/sacred-products-delivery.css">
-    <link rel="stylesheet" href="styles/sacred-receivable-check.css">
-    <link rel="stylesheet" href="styles/sacred-pagpop.css">
-    <link rel="stylesheet" href="styles/sacred-voucher.css">
-    <link rel="stylesheet" href="styles/sacred-registration.css">
-    <link rel="stylesheet" href="styles/sacred-login.css">
-    <link rel="stylesheet" href="styles/sacred-order-list.css">
-    <link rel="stylesheet" href="styles/sacred-purchase-order.css">
-    <link rel="stylesheet" href="styles/sacred-best-sellers.css">
-    <link rel="stylesheet" href="styles/sacred-warm-up.css">
-    <link rel="stylesheet" href="styles/sacred-ipad-only.css">
-    <link rel="stylesheet" href="styles/sacred-modal.css">
-    <link rel="stylesheet" href="styles/sacred-target.css">
-
     <link rel="stylesheet" href="styles/agenda/agenda.css">
     <link rel="stylesheet" href="styles/agenda/smoothness/jquery-ui-1.10.4.custom.css">
     <link rel="stylesheet" href="styles/agenda/fullcalendar.css"  />
@@ -183,19 +134,6 @@
     <!-- endbuild -->
     
     <!-- build:js scripts/plugins.js -->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-affix.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-alert.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-dropdown.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-tooltip.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-modal.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-transition.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-button.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-popover.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-typeahead.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-carousel.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-scrollspy.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-collapse.js"></script>-->
-    <!--<script src="bower_components/bootstrap-sass/js/bootstrap-tab.js"></script>-->
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-i18n/angular-locale_pt-br.js"></script>
@@ -437,5 +375,16 @@
     <script src="scripts/controllers/appointments.js"></script>
     <script src="scripts/services/AppointmentService.js"></script>
     <script src="scripts/keepers/AppointmentKeeper.js"></script>
-    <!-- endappointments -->        
+    <!-- endappointments -->
+
+
+
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="bower_components/framework7/dist/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="mobile/scripts/mainApplication.js"></script>
+
+    <!-- VPINK MOBILE -->
+    <link rel="stylesheet" href="bower_components/framework7/dist/css/framework7.css">
+    <link rel="stylesheet" href="mobile/styles/mobile.css">
 </html>
