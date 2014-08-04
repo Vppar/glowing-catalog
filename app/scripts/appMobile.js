@@ -171,7 +171,6 @@
         })
 
 
-
         .when('/basket', {
             templateUrl : 'views/basket.html',
             controller : 'BasketCtrl'

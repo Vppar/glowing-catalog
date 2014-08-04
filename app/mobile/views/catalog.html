@@ -1,8 +1,70 @@
+<style>
+    .sidebar-menu-scroll{
+        position: absolute;
+        top: 60px;
+        right: 10px;
+    }
+</style>
+
 <div class="container-mobile" scroll-spy>
 	
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
 	</div>
+
+    <div class="swiper-container catalog-swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+
+                <div class="navbar vpink-catalog-1">
+                    <div class="navbar-inner">
+                        <div class="left"><a href="#" class="back link"><i class="icon icon-back-white"></i></a></div>
+                        <div class="center sliding">{{section}}</div>
+                        <div class="right"><a href="#" class="forward link"><i class="icon icon-forward-white"></i></a></div>
+                    </div>
+                </div>
+
+                <div class="swiper-container catalog-child-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">
+
+                            <div class="navbar vpink-catalog-2">
+                                <div class="navbar-inner">
+                                    <div class="center sliding">{{line.name}}</div>
+                                    <div class="right">
+                                        <a href="#" class="back link"><i class="icon icon-back-white down"></i></a>
+                                        <a href="#" class="forward link"><i class="icon icon-forward-white up"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="title">child {{$index}} - {{line.name}}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="title">{{section}}</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--<div class="sidebar-menu-scroll">-->
+        <!--<div class="sidebar-menu1">-->
+            <!--<ul class="nav nav-list nav-list-black">-->
+                <!--<li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">-->
+                    <!--<a class="hover-state-pointer">{{section}}</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <!--<div class="sidebar-menu">-->
+            <!--<ul class="nav nav-list">-->
+                <!--<li spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">-->
+                    <!--<a class="hover-state-pointer">{{line.name}}</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</div>-->
     
 	<div class="mary-content" ng-switch="selectedSection">
 		<div class="home-scroll-content" id="scrollContainer" scroll-container ng-switch-default>
@@ -26,22 +88,34 @@
         <div class="home-scroll-content best-sellers-scroll-height" id="scrollContainer" ng-switch-when="Mais Vendidos">
             <span ng-include="'views/catalog/sacred-best-sellers.html'"></span>
         </div>
-		<div class="sidebar-menu-scroll">
-			<div class="sidebar-menu1">
-				<ul class="nav nav-list nav-list-black">
-					<li class="menu-black" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
-						<a class="hover-state-pointer">{{section}}</a>
-					</li>
-				</ul>
-			</div>
-			<div class="sidebar-menu">
-				<ul class="nav nav-list">
-					<li spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">
-						<a class="hover-state-pointer">{{line.name}}</a>
-					</li>
-				</ul>
-			</div>
-		</div>
 	</div>
 	
 </div>
+
+
+<link rel="stylesheet" href="mobile/libs/swiper/idangerous.swiper.css">
+<link rel="stylesheet" href="mobile/libs/swiper/idangerous.swiper.scrollbar.css">
+<link rel="stylesheet" href="mobile/libs/swiper/simple-app.css">
+
+<script src="mobile/libs/swiper/idangerous.swiper.min.js"></script>
+<script src="mobile/libs/swiper/idangerous.swiper.scrollbar-2.0.js"></script>
+
+
+<script>
+    setTimeout(function(){
+
+        var catalogSwiper = new Swiper('.catalog-swiper',{
+            paginationClickable: true,
+            watchActiveIndex: true,
+            onSlideChangeEnd: function (swiper) {
+                // alerts angular to load content
+                swiper.activeSlide().click();
+
+                var catalogSwiper = new Swiper($('.catalog-child-swiper').get(swiper.activeIndex),{
+                    mode : 'vertical'
+                });
+            }
+        });
+
+    },0);
+</script>
