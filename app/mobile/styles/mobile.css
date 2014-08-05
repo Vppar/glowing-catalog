@@ -4,8 +4,8 @@
     height: 100%;
 }
 
-.container-mobile{
-
+.container-mobile, .catalog-swiper{
+    height: 100%;
 }
 
 .navbar-mobile{
@@ -186,12 +186,18 @@ i.icon-4 {
     align-items: center;
 }
 
+.icon-back-white, .icon-forward-white{
+    opacity: 0.2;
+}
+
 .icon-back-white.down{
     transform:rotate(270deg);
     -ms-transform:rotate(270deg);
     -moz-transform: rotate(270deg);
     -o-transform: rotate(270deg);
     -webkit-transform:rotate(270deg);
+
+    opacity: 0.2;
 }
 
 .icon-forward-white{
@@ -231,6 +237,10 @@ i.icon-4 {
 
 .vpink-catalog-2 .navbar-inner .right .forward{
     bottom: 0;
+}
+
+.back-vpink-logo{
+    height: 50px;
 }
 
 /*.next-catalog {*/
