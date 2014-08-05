@@ -11,9 +11,10 @@
                     // var sections = ArrayUtils.distinct(DataProvider.products,
                     // 'session');
                     //
+                    sections.push('Ar');
                     sections.push('Terra');
-                    sections.push('Água');
-                    sections.push('Fogo');
+                    sections.push('Sol');
+                     sections.push('Outros');
                     
                     // Ed. Limitada
                     // Lançamentos

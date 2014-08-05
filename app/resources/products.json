@@ -1,7 +1,7 @@
 ﻿[
   {
     "id": 0,
-    "session": "Terra",
+    "session": "Ar",
     "line": "Shampoo",
     "image": "03-0004-0001.jpg",
     "title": "Amazon Active Shampoo Cabelos Oleosos",
@@ -18,7 +18,7 @@
   },
    {
     "id": 2,
-    "session": "Água",
+    "session": "Terra",
     "line": "Shampoo",
     "image": "03-0010-0001.jpg",
     "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
@@ -35,7 +35,7 @@
   },
   {
     "id": 4,
-    "session": "Água",
+    "session": "Outros",
     "line": "Shampoo",
     "image": "03-0014-0001.jpg",
     "title": "Amazon Active Shampoo Matizador Cabelos Platinados",
@@ -52,7 +52,7 @@
   },
   {
     "id": 6,
-    "session": "Água",
+    "session": "Outros",
     "line": "Shampoo",
     "image": "0027-0002.jpg",
     "title": "Amazon Active Shampoo Purificante",
@@ -70,7 +70,7 @@
 
   {
     "id": 8,
-    "session": "Fogo",
+    "session": "Terra",
     "line": "Condicionador",
     "image": "03-0011-0001.jpg",
     "title": "Amazon Active Condicionador Cabelos Quimicamente Tratados",
@@ -88,7 +88,7 @@
 
   {
     "id": 10,
-    "session": "Fogo",
+    "session": "Ar",
     "line": "Condicionador",
     "image": "0025-0002.jpg",
     "title": "Amazon Active Condicionador Cabelos Oleosos",
@@ -106,7 +106,7 @@
 
   {
     "id": 12,
-    "session": "Fogo",
+    "session": "Terra",
     "line": "Máscara",
     "image": "03-0012-0001.jpg",
     "title": "Amazon Active Máscara Cabelos Quimicamente Tratados",
@@ -124,7 +124,7 @@
 
   {
     "id": 14,
-    "session": "Fogo",
+    "session": "Outros",
     "line": "Corpo e Banho",
     "image": "03-0021-0001.jpg",
     "title": "Amazon Active Shower Gel Hidratante Avelã",
@@ -138,6 +138,24 @@
     "image": "03-0021-0001.jpg",
     "active": true,
     "price": 54.90
+  },
+
+  {
+    "id": 15,
+    "session": "Sol",
+    "line": "Masculino",
+    "image": "0030-0002.jpg",
+    "title": "Amazon Active Shampoo Cabelos Tingidos 250ML",
+    "description": "Amazon Active Shower Gel Hidratante Avelã",
+    "price": 49.88
+  },
+  {
+    "id": 16,
+    "parent": 15,
+    "SKU": "0030-0002",
+    "image": "0030-0002.jpg",
+    "active": true,
+    "price": 49.88
   }
 
 

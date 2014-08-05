@@ -291,9 +291,9 @@
 	{"name": "Condicionador","color": "light-pink"},
 	{"name": "Máscara","color": "dark-magenta"},
 	{"name": "Corpo e Banho","color": "dark-magenta"},
+	{"name": "Masculino","color": "soft-pink"},
 	
-    	{"name": "Acessórios","color": "soft-pink"},
-		{"name": "Fragrâncias Femininas","color": "light-magenta"},
+    	{"name": "Fragrâncias Femininas","color": "light-magenta"},
 		{"name": "Sinais Avançados","color": "black"},
 		{"name": "Linha Jovem","color": "green"},
 		{"name": "Linha Antiacne","color": "light-gray"},
