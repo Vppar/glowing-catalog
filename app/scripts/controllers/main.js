@@ -11,11 +11,8 @@
                     // var sections = ArrayUtils.distinct(DataProvider.products,
                     // 'session');
                     //
-                    sections.push('Mais Vendidos');
-                    sections.push('Cuidados com a Pele');
-                    //sections.push('Maquiagem');
-                    //sections.push('SPA e Fragrâncias');
-
+                    sections.push('Todos');
+                    
                     // Ed. Limitada
                     // Lançamentos
                     // Promoções
@@ -27,7 +24,10 @@
                 dataProviderUpdate();
 
                 var highlight = $location.search().highlight;
-                $scope.selectedSection = highlight ? highlight : 'Mais Vendidos';
+                $scope.selectedSection = highlight ? highlight : 'Todos';
+
+                $scope.mainDisplay = true;
+                $scope.posmenu = 'mainsidemenu';
 
                 $scope.$watch('selectedSection', function() {
                     if ($scope.sections.indexOf($scope.selectedSection) === -1) {

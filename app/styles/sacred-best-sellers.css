@@ -4,7 +4,7 @@
 
 #sacred .main-best-sellers {
     min-height:670px;
-    /*width:785px;*/
+    width:785px;
     margin:10px 0 0 5px;
     padding:0 13px 0 5px;
     border-radius:6px;
@@ -13,7 +13,7 @@
     #sacred .main-best-sellers .bs-title {
         margin:3px 0 0 12px;
         position:absolute;
-        width: 100%;
+        width: 783px;
         border-bottom: #ddd solid 1px;
         padding-bottom: 12px;
     }

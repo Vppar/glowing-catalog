@@ -10,10 +10,8 @@
                     var sections = [];
                     // var sections = ArrayUtils.distinct(DataProvider.products,
                     // 'session');
-                    //
-                    sections.push('Cuidados com a Pele');
-                    //sections.push('Maquiagem');
-                    //sections.push('SPA e Fragrâncias');
+                    
+                    sections.push('Todos');
 
                     // Ed. Limitada
                     // Lançamentos
@@ -26,7 +24,7 @@
                 dataProviderUpdate();
 
                 var highlight = $location.search().highlight;
-                $scope.selectedSection = highlight ? highlight : 'Cuidados com a Pele';
+                $scope.selectedSection = highlight ? highlight : 'Todos';
 
                 $scope.$watch('selectedSection', function() {
                     if ($scope.sections.indexOf($scope.selectedSection) === -1) {
