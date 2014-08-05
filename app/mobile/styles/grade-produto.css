@@ -2,10 +2,16 @@
     width: 100%;
     color: #fff;
     font-size: 16px;
-    padding: 10px;
+    height: 40px;
+    line-height: 40px;
     background: #333;
     font-family: Tahoma, "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
-    text-align:center;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .new-body-header {
@@ -23,7 +29,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.mob-col-25, .mob-col-50, .mob-col-33{
+.mob-col-25, .mob-col-50, .mob-col-33, .mob-col-70, .mob-col-30{
     float: left;
     padding-left: 5px;
     padding-right: 5px;
@@ -32,15 +38,22 @@
     box-sizing: border-box;
     display: block;
 }
+.mob-col-70 {
+    width: 70%;
+}
 .mob-col-50 {
     width: 44%;
-}
-.mob-col-25 {
-    width: 28%;
 }
 .mob-col-33 {
     width: 33.333333333%;
 }
+.mob-col-30 {
+    width: 30%;
+}
+.mob-col-25 {
+    width: 28%;
+}
+
 
 .sub-grade {
     border-top: 1px rgb(204, 204, 204) dotted;
