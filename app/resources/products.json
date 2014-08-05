@@ -1,0 +1,144 @@
+﻿[
+  {
+    "id": 0,
+    "session": "Todos",
+    "line": "Shampoo",
+    "image": "03-0004-0001.jpg",
+    "title": "Amazon Active Shampoo Cabelos Oleosos",
+    "description": "Amazon Active Shampoo Cabelos Oleosos",
+    "price": 49.88
+  },
+  {
+    "id": 1,
+    "parent": 0,
+    "SKU": "03-0004-0001",
+    "image": "03-0004-0001.jpg",
+    "active": true,
+    "price": 49.88
+  },
+   {
+    "id": 2,
+    "session": "Todos",
+    "line": "Shampoo",
+    "image": "03-0010-0001.jpg",
+    "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
+    "description": "O Amazon Active Shampoo Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos).",
+    "price": 54.88
+  },
+  {
+    "id": 3,
+    "parent": 2,
+    "SKU": "03-0010-0001",
+    "image": "03-0010-0001.jpg",
+    "active": true,
+    "price": 54.88
+  },
+  {
+    "id": 4,
+    "session": "Todos",
+    "line": "Shampoo",
+    "image": "03-0014-0001.jpg",
+    "title": "Amazon Active Shampoo Matizador Cabelos Platinados",
+    "description": "Amazon Active Shampoo Matizador Cabelos Platinados",
+    "price": 56.13
+  },
+  {
+    "id": 5,
+    "parent": 4,
+    "SKU": "03-0014-0001",
+    "image": "03-0014-0001.jpg",
+    "active": true,
+    "price": 54.88
+  },
+  {
+    "id": 6,
+    "session": "Todos",
+    "line": "Shampoo",
+    "image": "0027-0002.jpg",
+    "title": "Amazon Active Shampoo Purificante",
+    "description": "Amazon Active Shampoo Purificante",
+    "price": 56.13
+  },
+  {
+    "id": 7,
+    "parent": 6,
+    "SKU": "0027-0002",
+    "image": "0027-0002.jpg",
+    "active": true,
+    "price": 54.88
+  },
+
+  {
+    "id": 8,
+    "session": "Todos",
+    "line": "Condicionador",
+    "image": "03-0011-0001.jpg",
+    "title": "Amazon Active Condicionador Cabelos Quimicamente Tratados",
+    "description": "O Amazon Active Condicionador Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos). Preserva os efeitos do tratamento de transformação nutrindo as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 61.13
+  },
+  {
+    "id": 9,
+    "parent": 8,
+    "SKU": "03-0011-0001",
+    "image": "03-0011-0001.jpg",
+    "active": true,
+    "price": 61.13
+  },
+
+  {
+    "id": 10,
+    "session": "Todos",
+    "line": "Condicionador",
+    "image": "0025-0002.jpg",
+    "title": "Amazon Active Condicionador Cabelos Oleosos",
+    "description": "Amazon Active Condicionador Cabelos Oleosos",
+    "price": 56.13
+  },
+  {
+    "id": 11,
+    "parent": 10,
+    "SKU": "0025-0002",
+    "image": "0025-0002.jpg",
+    "active": true,
+    "price": 56.13
+  },
+
+  {
+    "id": 12,
+    "session": "Todos",
+    "line": "Máscara",
+    "image": "03-0012-0001.jpg",
+    "title": "Amazon Active Máscara Cabelos Quimicamente Tratados",
+    "description": "A Amazon Active Máscara Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos) e D-Pantenol. Potencializa os efeitos do tratamento de transformação, nutrindo intensivamente e recuperando as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 59.88
+  },
+  {
+    "id": 13,
+    "parent": 12,
+    "SKU": "03-0012-0001",
+    "image": "03-0012-0001.jpg",
+    "active": true,
+    "price": 59.88
+  },
+
+  {
+    "id": 14,
+    "session": "Todos",
+    "line": "Corpo e Banho",
+    "image": "03-0021-0001.jpg",
+    "title": "Amazon Active Shower Gel Hidratante Avelã",
+    "description": "Amazon Active Shower Gel Hidratante Avelã",
+    "price": 54.90
+  },
+  {
+    "id": 15,
+    "parent": 14,
+    "SKU": "03-0021-0001",
+    "image": "03-0021-0001.jpg",
+    "active": true,
+    "price": 54.90
+  }
+
+
+]

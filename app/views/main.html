@@ -14,15 +14,22 @@
         <div class="home-scroll-content best-sellers-scroll-height" id="scrollContainer" ng-show="mainDisplay">
             <span ng-include="'views/catalog/sacred-best-sellers.html'"></span>
         </div>
+
 		<div class="sidebar-menu-scroll">
 			<div class="sidebar-menu" ng-class="posmenu">
-				<ul class="nav nav-list">
+				<ul class="nav nav-list"  ng-show="mainDisplay">
+					<li spy="{{'cat' + $index}}" ng-class="{{line.color}}" ng-repeat="line in lines">
+						<a class="hover-state-pointer">{{line.name}}</a>
+					</li>
+				</ul>
+				<ul class="nav nav-list"  ng-hide="mainDisplay">
 					<li spy="{{'cat' + $index}}" ng-class="{{line.color}}" ng-repeat="line in lines">
 						<a class="hover-state-pointer">{{line.name}}</a>
 					</li>
 				</ul>
 			</div>
 		</div>
+
 	</div>
 	
 </div>
