@@ -1,7 +1,7 @@
 ﻿[
   {
     "id": 0,
-    "session": "Todos",
+    "session": "Terra",
     "line": "Shampoo",
     "image": "03-0004-0001.jpg",
     "title": "Amazon Active Shampoo Cabelos Oleosos",
@@ -18,7 +18,7 @@
   },
    {
     "id": 2,
-    "session": "Todos",
+    "session": "Água",
     "line": "Shampoo",
     "image": "03-0010-0001.jpg",
     "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
@@ -35,7 +35,7 @@
   },
   {
     "id": 4,
-    "session": "Todos",
+    "session": "Água",
     "line": "Shampoo",
     "image": "03-0014-0001.jpg",
     "title": "Amazon Active Shampoo Matizador Cabelos Platinados",
@@ -52,7 +52,7 @@
   },
   {
     "id": 6,
-    "session": "Todos",
+    "session": "Água",
     "line": "Shampoo",
     "image": "0027-0002.jpg",
     "title": "Amazon Active Shampoo Purificante",
@@ -70,7 +70,7 @@
 
   {
     "id": 8,
-    "session": "Todos",
+    "session": "Fogo",
     "line": "Condicionador",
     "image": "03-0011-0001.jpg",
     "title": "Amazon Active Condicionador Cabelos Quimicamente Tratados",
@@ -88,7 +88,7 @@
 
   {
     "id": 10,
-    "session": "Todos",
+    "session": "Fogo",
     "line": "Condicionador",
     "image": "0025-0002.jpg",
     "title": "Amazon Active Condicionador Cabelos Oleosos",
@@ -106,7 +106,7 @@
 
   {
     "id": 12,
-    "session": "Todos",
+    "session": "Fogo",
     "line": "Máscara",
     "image": "03-0012-0001.jpg",
     "title": "Amazon Active Máscara Cabelos Quimicamente Tratados",
@@ -124,7 +124,7 @@
 
   {
     "id": 14,
-    "session": "Todos",
+    "session": "Fogo",
     "line": "Corpo e Banho",
     "image": "03-0021-0001.jpg",
     "title": "Amazon Active Shower Gel Hidratante Avelã",

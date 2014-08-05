@@ -11,7 +11,9 @@
                     // var sections = ArrayUtils.distinct(DataProvider.products,
                     // 'session');
                     //
-                    sections.push('Todos');
+                    sections.push('Terra');
+                    sections.push('Água');
+                    sections.push('Fogo');
                     
                     // Ed. Limitada
                     // Lançamentos
@@ -24,10 +26,7 @@
                 dataProviderUpdate();
 
                 var highlight = $location.search().highlight;
-                $scope.selectedSection = highlight ? highlight : 'Todos';
-
-                $scope.mainDisplay = true;
-                $scope.posmenu = 'mainsidemenu';
+                $scope.selectedSection = highlight ? highlight : 'Mais Vendidos';
 
                 $scope.$watch('selectedSection', function() {
                     if ($scope.sections.indexOf($scope.selectedSection) === -1) {

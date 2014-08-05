@@ -804,7 +804,7 @@ nav .dropdown ul li:hover , nav .dropdown ul li:active {
 	width: 192px;
 	background: #fdfeff;
 	float: right;
-	margin-top: -42px;
+	margin-top: 7px;
 	margin-right: 12px;
 	position: relative;
 	clear:both;
@@ -1218,8 +1218,3 @@ input:focus, .focus{
 	visibility: hidden;
 }
 /*fim - receivable e expense*/
-
-
-.sidebar-menu.mainsidemenu{
-	margin-top: 14px;
-}

@@ -162,9 +162,6 @@
         $routeProvider.when('/', {
             templateUrl : 'views/main.html',
             controller : 'MainCtrl'
-        }).when('/catalog', {
-            templateUrl : 'views/main.html',
-            controller : 'CatalogCtrl'
         }).when('/basket', {
             templateUrl : 'views/basket.html',
             controller : 'BasketCtrl'
