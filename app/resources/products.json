@@ -1,8 +1,8 @@
 ﻿[
   {
     "id": 0,
-    "session": "Ar",
-    "line": "Shampoo",
+    "session": "Catálogo",
+    "line": "Ar",
     "image": "03-0004-0001.jpg",
     "title": "Amazon Active Shampoo Cabelos Oleosos",
     "description": "Amazon Active Shampoo Cabelos Oleosos",
@@ -18,8 +18,8 @@
   },
    {
     "id": 2,
-    "session": "Terra",
-    "line": "Shampoo",
+    "session": "Catálogo",
+    "line": "Terra",
     "image": "03-0010-0001.jpg",
     "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
     "description": "O Amazon Active Shampoo Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos).",
@@ -35,8 +35,8 @@
   },
   {
     "id": 4,
-    "session": "Outros",
-    "line": "Shampoo",
+    "session": "Catálogo",
+    "line": "Outros",
     "image": "03-0014-0001.jpg",
     "title": "Amazon Active Shampoo Matizador Cabelos Platinados",
     "description": "Amazon Active Shampoo Matizador Cabelos Platinados",
@@ -52,8 +52,8 @@
   },
   {
     "id": 6,
-    "session": "Outros",
-    "line": "Shampoo",
+    "session": "Catálogo",
+    "line": "Outros",
     "image": "0027-0002.jpg",
     "title": "Amazon Active Shampoo Purificante",
     "description": "Amazon Active Shampoo Purificante",
@@ -70,8 +70,8 @@
 
   {
     "id": 8,
-    "session": "Terra",
-    "line": "Condicionador",
+    "session": "Catálogo",
+    "line": "Terra",
     "image": "03-0011-0001.jpg",
     "title": "Amazon Active Condicionador Cabelos Quimicamente Tratados",
     "description": "O Amazon Active Condicionador Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos). Preserva os efeitos do tratamento de transformação nutrindo as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
@@ -88,8 +88,8 @@
 
   {
     "id": 10,
-    "session": "Ar",
-    "line": "Condicionador",
+    "session": "Catálogo",
+    "line": "Ar",
     "image": "0025-0002.jpg",
     "title": "Amazon Active Condicionador Cabelos Oleosos",
     "description": "Amazon Active Condicionador Cabelos Oleosos",
@@ -106,8 +106,8 @@
 
   {
     "id": 12,
-    "session": "Terra",
-    "line": "Máscara",
+    "session": "Catálogo",
+    "line": "Terra",
     "image": "03-0012-0001.jpg",
     "title": "Amazon Active Máscara Cabelos Quimicamente Tratados",
     "description": "A Amazon Active Máscara Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos) e D-Pantenol. Potencializa os efeitos do tratamento de transformação, nutrindo intensivamente e recuperando as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
@@ -124,8 +124,8 @@
 
   {
     "id": 14,
-    "session": "Outros",
-    "line": "Corpo e Banho",
+    "session": "Catálogo",
+    "line": "Outros",
     "image": "03-0021-0001.jpg",
     "title": "Amazon Active Shower Gel Hidratante Avelã",
     "description": "Amazon Active Shower Gel Hidratante Avelã",
@@ -142,8 +142,8 @@
 
   {
     "id": 15,
-    "session": "Sol",
-    "line": "Masculino",
+    "session": "Catálogo",
+    "line": "Sol",
     "image": "0030-0002.jpg",
     "title": "Amazon Active Shampoo Cabelos Tingidos 250ML",
     "description": "Amazon Active Shower Gel Hidratante Avelã",

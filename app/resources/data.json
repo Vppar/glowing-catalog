@@ -293,11 +293,12 @@
 	{"name": "Corpo e Banho","color": "dark-magenta"},
 	{"name": "Masculino","color": "soft-pink"},
 	
-    	{"name": "Fragrâncias Femininas","color": "light-magenta"},
-		{"name": "Sinais Avançados","color": "black"},
-		{"name": "Linha Jovem","color": "green"},
-		{"name": "Linha Antiacne","color": "light-gray"},
-		{"name": "Linha Clássica","color": "color-dark-lilac"},
+    {"name": "Ar","color": "light-blue"},
+	{"name": "Terra","color": "medium2-yellow-gray"},
+	{"name": "Sol","color": "soft-orange"},
+	{"name": "Outros","color": "light-gray"},
+	
+    	{"name": "Linha Clássica","color": "color-dark-lilac"},
 		{"name": "Linha Masculina","color": "black"},
 		{"name": "Cuidados Personalizados","color": "soft-lila"},
 		{"name": "Cuidados com o Corpo","color": "light-green"},

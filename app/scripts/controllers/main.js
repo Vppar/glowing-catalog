@@ -11,10 +11,11 @@
                     // var sections = ArrayUtils.distinct(DataProvider.products,
                     // 'session');
                     //
-                    sections.push('Ar');
-                    sections.push('Terra');
-                    sections.push('Sol');
-                     sections.push('Outros');
+                    sections.push('Mais Vendidos');
+                    sections.push('Catálogo');
+                    // sections.push('Terra');
+                    // sections.push('Sol');
+                    // sections.push('Outros');
                     
                     // Ed. Limitada
                     // Lançamentos
