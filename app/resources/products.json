@@ -4,8 +4,9 @@
     "session": "Catálogo",
     "line": "Ar",
     "image": "03-0004-0001.jpg",
-    "title": "Amazon Active Shampoo Cabelos Oleosos",
+    "title": "Amazon Active Shampoo Cabelos Oleosos 250ml",
     "description": "Amazon Active Shampoo Cabelos Oleosos",
+    "bestSeller": 2,
     "price": 49.88
   },
   {
@@ -16,13 +17,14 @@
     "active": true,
     "price": 49.88
   },
-   {
+  {
     "id": 2,
     "session": "Catálogo",
     "line": "Terra",
     "image": "03-0010-0001.jpg",
     "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
     "description": "O Amazon Active Shampoo Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos).",
+    "bestSeller": 1,
     "price": 54.88
   },
   {
@@ -111,6 +113,7 @@
     "image": "03-0012-0001.jpg",
     "title": "Amazon Active Máscara Cabelos Quimicamente Tratados",
     "description": "A Amazon Active Máscara Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos) e D-Pantenol. Potencializa os efeitos do tratamento de transformação, nutrindo intensivamente e recuperando as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "bestSeller": 4,
     "price": 59.88
   },
   {
@@ -141,22 +144,21 @@
   },
 
   {
-    "id": 15,
+    "id": 16,
     "session": "Catálogo",
     "line": "Sol",
     "image": "0030-0002.jpg",
-    "title": "Amazon Active Shampoo Cabelos Tingidos 250ML",
+    "title": "Amazon Active Shampoo Cabelos Tingidos 250ml",
     "description": "Amazon Active Shower Gel Hidratante Avelã",
+    "bestSeller": 3,
     "price": 49.88
   },
   {
-    "id": 16,
-    "parent": 15,
+    "id": 17,
+    "parent": 16,
     "SKU": "0030-0002",
     "image": "0030-0002.jpg",
     "active": true,
     "price": 49.88
   }
-
-
 ]

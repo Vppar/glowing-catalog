@@ -12,7 +12,7 @@
       "type":"stockAdd",
       "version":1,
       "event":{
-         "inventoryId":2,
+         "inventoryId":3,
          "cost":37,
          "quantity": 0
       }
