@@ -146,7 +146,7 @@
             if(userDecision){
                 var dialog = {
                     title: 'Atualização',
-                    message: 'Deseja atualizar agora? Este processo ira recarregar a aplicação.',
+                    message: 'Deseja atualizar agora? Este processo irá recarregar a aplicação.',
                     btnNo: 'Não',
                     btnYes: 'Sim'
                 };
