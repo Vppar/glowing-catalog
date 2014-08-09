@@ -107,6 +107,119 @@ body{
 
 /* Fix my place */
 
+#sacred .button-black,
+#sacred .button-green{
+    border-radius: 4px;
+    border:none;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    font-weight: normal;
+    height: 38px;
+    line-height: 20px;
+    margin: 0 5px;
+    min-width: 86px;
+    padding:8px 10px;
+    text-align: center;
+    vertical-align: middle; /*testar -- com display:block, o vertical-align não funciona (não se utiliza)*/
+}
+
+#sacred .button-green,
+#sacred .button-green:visited{
+    background-color: #bf1e62;
+}
+#sacred .button-green:active,
+#sacred .button-green:hover,
+#sacred .button-green:focus{
+    background-color: #bf1e62;
+}
+
+.modal-small > div{
+    background: white;
+ }
+
+.login-failed > #sacred .modal-foot > button{
+    float: none !important;
+    width: 100%;
+}
+
+.modal,
+.modal-small,
+.modal-medium,
+.modal-big{
+    position: absolute;
+    top: 40px;
+    z-index: 1050;
+    border: none;
+    border: none;
+    border-radius: none;
+    box-shadow: none;
+    background-clip: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 30px;
+}
+
+.new-scroll-area.pedido-venda-scroll{
+    height: calc(100% - 232px)
+}
+
+.new-scroll-area{
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+    height: calc(100% - 279px)
+}
+
+.label-input {
+    display: inline-block;
+    vertical-align: middle;
+}
+.title-row-cart {
+    font-weight: bold;
+    display: inline-block;
+    width:400px;
+}
+.ic-arrow-left {
+    width:37.5px;
+    height:35px;
+    line-height:35px;
+    text-align: center;
+    display: inline-block;
+}
+.row-input-products-grid .ic-arrow-left, .row-input-products-grid .ic-arrow-right{
+    width:33px;
+    vertical-align: middle;
+}
+
+.ic-arrow-left2 {
+    float: left;
+}
+.ic-arrow-right {
+    width:37.5px;
+    height:35px;
+    line-height:35px;
+    text-align: center;
+    display: inline-block;
+}
+.ic-arrow-right2 {
+    float: right;
+    position:relative;
+}
+.ic-arrow-left:hover, .ic-arrow-right:hover, .img-row-delete:hover {
+    cursor:pointer
+}
+
+.modal-add-basket-dialog{
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    top: 0px;
+    border: none;
+    left: auto;
+    margin-left: auto;
+}
+
 
 .modal {
     position: absolute;

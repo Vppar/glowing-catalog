@@ -24,13 +24,13 @@
         <div class="new-scroll-area" fast-click>
             <div class="new-body-row" ng-repeat="item in grid">
                 <div class="mob-col-44 product-name">
-                    <img ng-if="item.image" once-src="getImageData(item.SKU)" alt="sample" />
+                    <!--<img ng-if="item.image" once-src="getImageData(item.SKU)" alt="sample" />-->
                     <span>{{item.option}}</span>
                     <br/>
                     <small class="">{{item.SKU}}</small>
                 </div>
                 <div class="mob-col-28 text-vertical-middle text-center">{{item.inventory}}</div>
-                <div class="mob-col-28 text-center">
+                <div class="text-center">
                     <tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
                 </div>
             </div>
@@ -40,12 +40,12 @@
             <div class="mob-col-33 padding-top-2">Subtotal</div>
             <div class="mob-col-33 text-center">
                 <span class="">Qtde</span>
-                <span class="quantity-value">{{count}}1</span>
+                <span class="quantity-value">{{count}}</span>
             </div>
             <div class="mob-col-33 text-right negrito">
                 <small>R$</small>
                 <span class="total-value">
-		            49,00{{total | currency:''}}
+		            {{total | currency:''}}
                 </span>
             </div>
         </div>

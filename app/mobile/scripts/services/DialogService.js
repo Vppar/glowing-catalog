@@ -103,11 +103,13 @@
         };
 
         this.openDialogAddToBasketSku = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog-sku.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-payment-dialog');
+            return openDialog('mobile/views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');
+//            return openDialog('views/parts/catalog/add-to-basket-dialog-sku.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-payment-dialog');
         };
         
         this.openDialogAddToBasketDetails = function(data) {
-            return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-details-dialog');
+            return openDialog('mobile/views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');
+//            return openDialog('views/parts/catalog/add-to-basket-dialog-details.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-details-dialog');
         };
 
         this.openDialogChangePass = function(data) {
@@ -141,6 +143,10 @@
         
         this.openDialogDeliveryScheduler = function(data) {
             return openDialog('views/parts/products-delivery/sacred-products-delivery-to-be-delivery-schedule-dialog.html', 'ScheduleDeliveryCtrl', data, 'modal-products-delivery');
+        };
+
+        this.openDialogLoginFailed = function(data) {
+            return openDialog('views/parts/global/sacred-message-dialog.html', 'MessageDialogCtrl', data, 'modal-small login-failed');
         };
 
         this.openDialogLoading = function (data) {

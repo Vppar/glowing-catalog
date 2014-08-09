@@ -169,9 +169,9 @@
         }).when('/grade-produto', {
             templateUrl : 'mobile/views/grade-produto.html',
             controller : 'LoginCtrl'
-        }).when('/pedido-venda', {
-            templateUrl : 'mobile/views/pedido-venda.html'
-            // controller : 'LoginCtrl'
+        }).when('/payment', {
+            templateUrl : 'mobile/views/pedido-venda.html',
+            controller : 'PaymentCtrl'
         }).when('/pagamento', {
             templateUrl : 'mobile/views/pagamento.html'
             // controller : 'LoginCtrl'
@@ -185,10 +185,12 @@
         .when('/basket', {
             templateUrl : 'views/basket.html',
             controller : 'BasketCtrl'
-        }).when('/payment', {
-            templateUrl : 'views/payment.html',
-            controller : 'PaymentCtrl'
-        }).when('/partial-delivery', {
+        })
+//            .when('/payment', {
+//            templateUrl : 'views/payment.html',
+//            controller : 'PaymentCtrl'
+//        })
+            .when('/partial-delivery', {
             templateUrl : 'views/partial-delivery.html',
             controller : 'PartialDeliveryCtrl'
         }).when('/pending-delivery', {

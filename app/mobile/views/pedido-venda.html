@@ -19,7 +19,7 @@
     </div>
 
 
-    <div class="content-scroll">
+    <div class="content-scroll new-scroll-area pedido-venda-scroll">
         <div class="new-body-row" ng-repeat="item in items | orderBy:'idx'" ng-click="addToBasket(item)">
             <span class="new-col-2 text-center" ng-show="item.idx <= 8">{{ '0' + (item.idx + 1)}}</span>
             <span class="new-col-2 text-center" ng-show="item.idx > 8">{{item.idx + 1}}</span>
@@ -37,12 +37,12 @@
         <!--<span class="new-col-3 currency">{{total.order.getAvgUnitPrice() | currency:''}}</span>-->
         <div class="mob-col-30">
             <span class="">Qtde: </span>
-            <span class="quantity-value">{{total.order.unit}}3</span>
+            <span class="quantity-value">{{total.order.unit}}</span>
         </div>
         <div class="mob-col-50 negrito text-right">
             <small>R$</small>
             <span class="total-value">
-		        49,00{{total.order.amount | currency:''}}
+		        {{total.order.amount | currency:''}}
             </span>
         </div>
         <!--<span class="new-col-3 currency" ng-class="{'invisible' : total.discount == 0 }">{{total.discount | currency:''}}</span>-->
@@ -56,6 +56,3 @@
 </div>
 
 <!--</div>-->
-
-<link rel="stylesheet" href="mobile/styles/grade-produto.css">
-<link rel="stylesheet" href="mobile/styles/mobile.css">
