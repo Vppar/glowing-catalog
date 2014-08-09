@@ -1,0 +1,111 @@
+.control-group {
+    margin-bottom: 0;
+}
+.lbl-top {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.control-label {
+    font-weight: normal !important;
+}
+input[type="text"]{
+    background-color: white;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0) !important;
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0) !important;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0) !important;
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s !important;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s !important;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s !important;
+    transition: border linear 0.2s, box-shadow linear 0.2s !important;
+}
+
+
+.payment-input-large {
+    height: 40px !important;
+    line-height: 40px !important;
+    padding: 0 6px 0 6px !important;
+}
+
+.parc, .banco, .agencia, .conta, .cheque, .vencto, .check-value {
+    float: right;
+    text-align: center;
+    border: 1px solid #eee;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    height: 20px;
+    /* height: 18px; */
+    overflow: hidden;
+}
+
+.btn-clear-form {
+    padding: 28px 0px 1px 2px;
+    height: 30px;
+}
+
+.payment-check .scroll-payment {
+    height: calc(100% - 158px);
+    overflow-y: auto;
+}
+label {
+    display: block !important;
+}
+.check-value {
+    width: 87px;
+    text-align: right !important;
+    overflow: hidden;
+    border: 1px solid #eee;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    padding-right: 5px;
+}
+.w87 {
+    width: 87px;
+}
+.w89 {
+    width: 89px;
+}
+.conta {
+    width: 120px;
+}
+.margin8 {
+    margin-right: 8px;
+    margin-left: 8px;
+}
+.btn-clear-form .btn-plus2 {
+    display: inline-block;
+    float: right;
+    width: 24px;
+    height: 24px;
+    background-image: url(../images/plus-w.png);
+    border-radius: 50%;
+    margin: 4px 0 0 3px;
+}
+.bg-vpink {
+    background-color: #bf1e62;
+}
+.payment-check .check-total {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    background-color: rgb(242, 242, 242);
+    padding: 0px 10px;
+}
+.linha {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.check-total {
+    background-color: #f2f2f2;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: left;
+}
+.padding-top-4 {
+    padding-top: 4px;
+}

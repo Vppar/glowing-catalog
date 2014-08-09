@@ -1,0 +1,108 @@
+
+<!--<div class="left-payment payment-check" ng-controller="PaymentCheckCtrl">-->
+    <div class="container-mobile" scroll-spy>
+
+        <div class="row-fluid">
+            <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
+        </div>
+
+    <div class="margin8">
+        <div class="page-title text-center">Pagamento com Cheque</div>
+
+    <div class="row-fluid payment-check-fields">
+        <form name="checkForm">
+            <!--<div class="control-group lbl-top">-->
+                <!--<label class="control-label bold">Qtde Ch</label>-->
+                <!--<input name="" class="parc payment-input-large" id="parc" ng-model= "check.installments" required tnt-input number recall maxlength="2" type="text">-->
+            <!--</div>-->
+            <div class="linha">
+                <div class="control-group lbl-top">
+                    <label class="control-label">Banco</label>
+                    <input name="" class="w87 payment-input-large" id="banco" ng-model= "check.bank" required tnt-input focus maxlength="3" type="text">
+                </div>
+                <div class="control-group lbl-top">
+                    <label class="control-label">Ag&ecirc;ncia</label>
+                    <input name="" class="w87 payment-input-large" id="agencia" ng-model= "check.agency"  required tnt-input maxlength="4" type="text">
+                </div>
+                <div class="control-group lbl-top">
+                    <label class="control-label">Conta</label>
+                    <input name="" class="conta payment-input-large" id="conta" ng-model= "check.account" required tnt-input maxlength="13" type="text">
+                </div>
+            </div>
+            <div class="linha">
+                <div class="control-group lbl-top">
+                    <label class="control-label">Cheque</label>
+                    <input name="" class="w87 payment-input-large" id="cheque" ng-model= "check.number" required tnt-input maxlength="6" type="text">
+                </div>
+                <div class="control-group lbl-top">
+                    <label class="control-label">Valor</label>
+                    <input name="amount" class="check-value payment-input-large" id="valor"  ng-model= "check.amount" required tnt-input currency maxlength="11"  type="text">
+                </div>
+                <div class="control-group lbl-top">
+                    <label class="control-label">Vencimento</label>
+                    <div class="controls">
+                        <input type="text" id="vencto" class="date-field input-small w89 text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
+                    </div>
+                </div>
+                <div class="control-group lbl-top">
+                    <div class="controls">
+                        <div class="btn-clear-form">
+                            <span id="confirm" class="btn-plus2 bg-vpink hover-state-pointer" ng-click="addCheck()" tnt-kbutton next="banco"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div class="row-fluid check-total">
+        <div class="padding-top-4 mob-col-50">
+            <span ng-hide="hideCheckQtde">{{total.payments.check | count:'id'}}</span><span> Cheques</span>
+        </div>
+        <div class="negrito mob-col-50 text-right">
+            <small>Total: R$</small>
+            <span class="total-value"> {{payments | sum: 'amount' | currency: ''}}</span>
+        </div>
+    </div>
+
+    <div class="row-fluid scroll-payment">
+        <!-- <div class="row-payment-check-grid" ng-repeat="payment in payments | orderBy: -'duedate'" > -->
+        <div style="margin-bottom:5px;" ng-repeat="payment in payments | orderBy: -'duedate'" >
+            <div class="control-group lbl-top">
+                <div style="width:56px; text-align:center; line-height:40px;">{{($index + 1)}}</div>
+            </div>
+            <div class="control-group lbl-top">
+                <input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input  maxlength="3" type="text">
+            </div>
+            <div class="control-group lbl-top">
+                <input name="" class="agencia payment-input-large" id="ag+{{$index}}" ng-model= "payment.agency" required tnt-input  maxlength="4" type="text">
+            </div>
+            <div class="control-group lbl-top">
+                <input name="" class="conta payment-input-large" id="account+{{$index}}" ng-model= "payment.account" required tnt-input  maxlength="13" type="text">
+            </div>
+            <div class="control-group lbl-top">
+                <input name="" class="cheque payment-input-large" id="check+{{$index}}" ng-model= "payment.number" required tnt-input  maxlength="6" type="text">
+            </div>
+            <div class="control-group lbl-top">
+                <input type="text" id="dueDate+{{$index}}" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="payment.duedate" required tnt-input>
+            </div>
+            <div class="control-group lbl-top">
+                <input name="" class="check-value payment-input-large" id="value+{{$index}}" ng-model= "payment.amount" required currency tnt-input  maxlength="11" type="text">
+            </div>
+            <div class="control-group lbl-top">
+                <img style="margin-top:10px; margin-left:8px;" src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />
+            </div>
+        </div>
+    </div>
+
+    <div class="payment-btn-holder">
+        <button class="btn btn-cancel btn-large pull-left" ng-click="cancelPayments()">Cancelar</button>
+        <button class="btn btn-ok btn-large pull-right" ng-click="confirmCheckPayments()" ng-disabled="isDisabled">Confirmar</button>
+    </div>
+        </div>
+</div>
+
+<link rel="stylesheet" href="mobile/styles/grade-produto.css">
+<link rel="stylesheet" href="mobile/styles/pagamento.css">
+<link rel="stylesheet" href="mobile/styles/pagamento-cheque.css">
