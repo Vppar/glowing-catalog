@@ -39,6 +39,30 @@
 .color-dark-green{color:#839766;} /*promocoes*/
 .color-dark-lilac{color:#cebebe;} /*linha classica*/
 
+.color-ar{color:#20a4ca;} /*ar*/
+.bg-ar{background-color:#20a4ca;} /*ar*/
+.catalog-block.product-bg-ar .product-addbtn {
+			background-color: #20a4ca;
+			background-image: url('../images/plus-w.png');
+		}	
+
+.color-terra{color:#9f7576;} /*ar*/
+.bg-terra{background-color:#9f7576;} /*ar*/
+.catalog-block.product-bg-terra .product-addbtn {
+			background-color: #9f7576;
+			background-image: url('../images/plus-w.png');
+		}	
+
+.color-sol{color:#ec7162;} /*ar*/
+.bg-sol{background-color:#ec7162;} /*ar*/
+.catalog-block.product-bg-sol .product-addbtn {
+			background-color: #ec7162;
+			background-image: url('../images/plus-w.png');
+		}	
+
+
+		
+
 /*fundo dos títulos*/
 .bg-black {background-color: #000;}
 .bg-light-blue{background-color:#7b84ad;}

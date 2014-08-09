@@ -293,9 +293,9 @@
 	{"name": "Corpo e Banho","color": "dark-magenta"},
 	{"name": "Masculino","color": "soft-pink"},
 	
-    {"name": "Ar","color": "light-blue"},
-	{"name": "Terra","color": "medium2-yellow-gray"},
-	{"name": "Sol","color": "soft-orange"},
+    {"name": "Ar","color": "ar"},
+	{"name": "Terra","color": "terra"},
+	{"name": "Sol","color": "sol"},
 	{"name": "Outros","color": "light-gray"},
 	
     	{"name": "Linha Clássica","color": "color-dark-lilac"},

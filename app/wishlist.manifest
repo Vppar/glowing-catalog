@@ -188,7 +188,6 @@ scripts/preloader/datepicker.js
 scripts/preloader/loggly.tracker.js
 
 scripts/controllers/main.js
-scripts/controllers/catalog.js
 scripts/controllers/add-customer.js
 scripts/controllers/add-customer-phones-dialog.js
 scripts/controllers/add-customer-emails-dialog.js
