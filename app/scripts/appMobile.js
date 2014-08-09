@@ -167,7 +167,7 @@
             templateUrl : 'mobile/views/login.html',
             controller : 'LoginCtrl'
         }).when('/grade-produto', {
-            templateUrl : 'mobile/views/grade-produto.html',
+            templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog.html',
             controller : 'LoginCtrl'
         }).when('/payment', {
             templateUrl : 'mobile/views/pedido-venda.html',
