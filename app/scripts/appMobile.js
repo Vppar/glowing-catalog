@@ -167,9 +167,19 @@
             templateUrl : 'mobile/views/login.html',
             controller : 'LoginCtrl'
         }).when('/grade-produto', {
-            templateUrl : 'mobile/views/grade-produto.html'
-           // controller : 'LoginCtrl'
+            templateUrl : 'mobile/views/grade-produto.html',
+            controller : 'LoginCtrl'
+        }).when('/pedido-venda', {
+            templateUrl : 'mobile/views/pedido-venda.html'
+            // controller : 'LoginCtrl'
+        }).when('/pagamento', {
+            templateUrl : 'mobile/views/pagamento.html'
+            // controller : 'LoginCtrl'
+        }).when('/pagamento-cheque', {
+            templateUrl : 'mobile/views/pagamento-cheque.html'
+            // controller : 'LoginCtrl'
         })
+
 
 
         .when('/basket', {
