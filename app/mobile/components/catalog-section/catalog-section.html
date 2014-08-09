@@ -1,11 +1,8 @@
-<div class="line-01">
-    <span class="title-catalog-1" ng-class="style">{{line.name}}</span>
-    <span class="col-left">
-        <product-display product="product" color="color" ng-repeat="product in left"></product-display>
-    </span>
-    <span class="col-right">
-        <product-display product="product" color="color" ng-repeat="product in right"></product-display>
-    </span>
+<div class="line-01 enable-product-overflow">
+    <!--<span class="title-catalog-1" ng-class="style">{{line.name}}</span>-->
+
+    <product-display product="product" color="color" ng-repeat="product in left"></product-display>
+    <product-display product="product" color="color" ng-repeat="product in right"></product-display>
 
     <!--<div class="swiper-container product-swiper">-->
         <!--<div class="swiper-wrapper">-->
