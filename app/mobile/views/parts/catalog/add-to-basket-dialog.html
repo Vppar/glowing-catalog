@@ -1,5 +1,3 @@
-<!-- MOBILE VERSION HERE -->
-
 <script>
     var initMagnifier = function () {
         $('#magnifier').zoom({magnify: 2});
@@ -13,32 +11,33 @@
         <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
     </div>
 
-<!--<div class="modal-head">{{product.title}}</div>-->
-   <div class="produto-head">Mascara Facial</div>
+<!--<div class="produto-head text-center">{{product.title}}</div>-->
+   <div class="page-title text-center">Mascara Facial</div>
 <!--<div class="modal-body modal-add-basket-details-dialog-body">-->
     <!--<div class="skus">-->
         <div class="new-body-header">
-            <div class="mob-col-50">Op&ccedil;&otilde;es</div>
-            <div class="mob-col-25 text-center">P. Entrega</div>
-            <div class="mob-col-25 text-center">Qtde</div>
+            <div class="mob-col-44">Op&ccedil;&otilde;es</div>
+            <div class="mob-col-28 text-center">P. Entrega</div>
+            <div class="mob-col-28 text-center">Qtde</div>
         </div>
+
         <div class="new-scroll-area" fast-click>
             <div class="new-body-row" ng-repeat="item in grid">
-                <div class="mob-col-50 product-name">
+                <div class="mob-col-44 product-name">
                     <img ng-if="item.image" once-src="getImageData(item.SKU)" alt="sample" />
                     <span>{{item.option}}</span>
                     <br/>
                     <small class="">{{item.SKU}}</small>
                 </div>
-                <div class="mob-col-25 text-vertical-middle text-center">{{item.inventory}}</div>
-                <div class="mob-col-25 text-center">
+                <div class="mob-col-28 text-vertical-middle text-center">{{item.inventory}}</div>
+                <div class="mob-col-28 text-center">
                     <tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
                 </div>
             </div>
         </div>
 
-        <div class="sub-grade">
-            <div class="mob-col-33">Subtotal</div>
+        <div class="summary">
+            <div class="mob-col-33 padding-top-2">Subtotal</div>
             <div class="mob-col-33 text-center">
                 <span class="">Qtde</span>
                 <span class="quantity-value">{{count}}1</span>
