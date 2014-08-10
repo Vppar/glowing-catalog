@@ -1,14 +1,9 @@
-<div class="container-mobile" scroll-spy>
-
-    <div class="row-fluid">
-        <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
-    </div>
     <!--ng-show="customer.phones"-->
     <div class="cliente-head" ng-click="openDialogChooseCustomer()">
         <span class="label-form-client">Cliente</span>
-        <span class="lbl-phone-client" >9681-4305{{customer.phones[0].number | phone}}</span>
+        <span class="lbl-phone-client" >{{customer.phones[0].number | phone}}</span>
         <br/>
-        <span class="lbl-name-client text-left" id="appendedInput" type="text" readonly>Maikon Will lfjsdjfks jlfk jsdfsdkflsdkj flkjd ksjfsk{{customer.name}}</span>
+        <span class="lbl-name-client text-left" id="appendedInput" type="text" readonly>{{customer.name}}</span>
     </div>
 
     <!--<div class="subtotal-resume">-->
@@ -41,7 +36,7 @@
             </div>
         </div>
         <div class="values-resume">
-            <small>R$</small> 100,00{{total.order.subTotal | currency: '' }}
+            <small>R$</small> {{total.order.subTotal | currency: '' }}
         </div>
 
     </div>
@@ -52,7 +47,7 @@
 	            <span class="label-money">Dinheiro</span>
 	        </span>
 	        <span class="">
-	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment"><small>R$</small> 50,00{{cash.amount | currency:''}}</span>
+	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment"><small>R$</small> {{cash.amount | currency:''}}</span>
 				<input id="cash" class="btn-price-payment" ng-model="cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input focus currency ok-click="selectPaymentMethod('none')" />
 	        </span>
         </div>
@@ -102,7 +97,7 @@
                 </div>
                 <div class="values-resume">
                     <div class="color-pink negrito" ><!--ng-show="total.change <= 0">-->
-                        <small>R$</small> 20,00{{(total.change*(-1)) | currency: '' }}
+                        <small>R$</small> {{(total.change*(-1)) | currency: '' }}
                     </div>
                     <div class="color-pink negrito" ng-show="total.change > 0">
                         <small>R$</small> {{(total.change) | currency: '' }}
@@ -134,7 +129,6 @@
         <!--</div>-->
     <!--</div>-->
     <num-pad></num-pad>
-</div>
 
 <link rel="stylesheet" href="mobile/styles/grade-produto.css">
 <link rel="stylesheet" href="mobile/styles/pagamento.css">

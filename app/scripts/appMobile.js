@@ -170,11 +170,11 @@
             templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog.html',
             controller : 'LoginCtrl'
         }).when('/payment', {
-            templateUrl : 'mobile/views/pedido-venda.html',
+            templateUrl : 'mobile/views/payment.html',
             controller : 'PaymentCtrl'
-        }).when('/pagamento', {
-            templateUrl : 'mobile/views/pagamento.html'
-            // controller : 'LoginCtrl'
+        }).when('/payment-step2', {
+            templateUrl : 'mobile/views/pagamento.html',
+            controller : 'PaymentCtrl'
         }).when('/pagamento-cheque', {
             templateUrl : 'mobile/views/pagamento-cheque.html'
             // controller : 'LoginCtrl'

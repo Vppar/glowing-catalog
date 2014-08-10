@@ -1,9 +1,3 @@
-<div class="container-mobile" scroll-spy>
-
-    <div class="row-fluid">
-        <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
-    </div>
-
 <!--<div class="left-payment">-->
     <div class="page-title">
         <!--<span class="new-col-2 text-center">Item</span>-->
@@ -50,9 +44,5 @@
 
     <div class="modal-foot effect7" fast-click>
         <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
-        <button ng-click='' class="btn btn-ok btn-large btn-login pull-right" type="submit">Prosseguir</button>
+        <button ng-click="selectPaymentMethod('step2')" class="btn btn-ok btn-large btn-login pull-right" type="submit">Prosseguir</button>
     </div>
-
-</div>
-
-<!--</div>-->
