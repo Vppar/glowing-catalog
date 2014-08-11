@@ -397,7 +397,7 @@ body {
 	padding-right: 10px !important;
 }
 .btn-ok{
-	background: #bf1e62;
+	background: #80a42e;
 }
 .btn-cancel {
 	background: #333;
@@ -859,7 +859,7 @@ div.sidebar-menu ul li a {
 	}
 
 	#topMenuHome .selected {
-		color: #bf1e62;
+		color: #80a42e;
 		font-weight: bold;
 		text-shadow:none;
 	}
@@ -1170,7 +1170,7 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 }
 
 input:focus, .focus{	
-	outline: 1px solid #bf1e62;
+	outline: 1px solid #80a42e;
 	outline-offset:0;
 }
 .grid-payment-receivable .item:focus {
