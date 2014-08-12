@@ -99,35 +99,20 @@
 
                 $('#catalog-loading').remove();
 
-                var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(swiper.activeIndex), {
+                var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(swiper.activeIndex + 1), {
                     mode: 'vertical',
-//                    scrollContainer:true,
-//                    mousewheelControl : true,
-//                    scrollbar: {
-//                        container : '.swiper-scrollbar',
-//                        draggable : true,
-//                        hide: true,
-//                        snapOnRelease: true
-//                    },
-
-
-                        freeMode: true,
-                        freeModeFluid: true
-    //                        onSlideChangeEnd: function (swiper) {
-    //                            var mySwiper = new Swiper($('#cat' + swiper.activeIndex).find('.product-swiper').get(0), {
-    //                                freeMode: true,
-    //                                freeModeFluid: true
-    //                            });
-    //                        }
+                    freeMode: true,
+                    freeModeFluid: true
                 });
-
-//                setTimeout(function () {
-//                    catalogChildSwiper.reInit();
-//                    catalogChildSwiper.resizeFix(true);
-//                }, 500);
             }
         });
 
     },0);
+
+//    angular.element(document).ready(function () {
+//        setTimeout(function() {
+//            $('.catalog-swiper').find('.swiper-slide').get(1).click();
+//        },0);
+//    });
 
 </script>

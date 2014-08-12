@@ -11,6 +11,11 @@ body{
     font-family: VPinkFont,Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
+input:focus {
+    z-index: 2;
+    border-color: #bf1e62;
+}
+
 .div-master{
     height: 100%;
 }
@@ -18,9 +23,9 @@ body{
 .container-mobile, .catalog-swiper {
     height: 100%;
 }
-.container-mobile{
-    font-family: Tahoma, Helvetica, Arial, 'Helvetica Neue', sans-serif;
-}
+/*.container-mobile{*/
+    /*font-family: Tahoma, Helvetica, Arial, 'Helvetica Neue', sans-serif;*/
+/*}*/
 
 .vpink-logo{
     height: 60px;
@@ -55,7 +60,7 @@ body{
 }
 
 .page-content.vpink-page-content{
-    padding-top: 61px;
+    padding-top: 65px;
 }
 
 .toolbar.tabbar.vpink-tabbar-menu{
@@ -76,6 +81,7 @@ body{
 }
 
 .vpink-bottom-menu{
+    overflow: hidden;
 
     background-image: url("../images/bottom-menu.jpg");
     background-position: bottom;
@@ -170,6 +176,12 @@ body{
     outline: none;
     border-radius: 4px;
     padding: 30px;
+
+    width: 344px;
+}
+
+.modal-body{
+    text-align: center;
 }
 
 .payment-body-mobile{
@@ -182,13 +194,38 @@ body{
 }
 
 .new-scroll-area.pagamento-scroll{
-    height: calc(100% - 248px)
+    height: calc(100% - 250px)
+}
+
+.new-scroll-area.pagamento-dinheiro-scroll{
+    height: calc(100% - 45px);
 }
 
 .new-scroll-area{
     -webkit-overflow-scrolling: touch;
     overflow: auto;
     height: calc(100% - 279px)
+}
+
+.payment-money-container > .row-fluid{
+    height: calc(100% - 94px);
+}
+
+.payment-money-container > .row-fluid > form{
+    height: 100%;
+}
+
+.payment-money-container{
+    height: calc(100% - 132px);
+}
+
+.payment-foot.payment-money{
+    margin-top: 0;
+}
+
+.payment-money-container > .subtotal-resume{
+    font-size: 18px;
+    padding: 10px 11px;
 }
 
 .label-input {
