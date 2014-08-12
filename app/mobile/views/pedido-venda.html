@@ -13,15 +13,23 @@
     </div>
 
 
-    <div class="content-scroll new-scroll-area pedido-venda-scroll">
+    <div class="content-scroll new-scroll-area pedido-venda-scroll padding8">
         <div class="new-body-row" ng-repeat="item in items | orderBy:'idx'" ng-click="addToBasket(item)">
-            <span class="new-col-2 text-center" ng-show="item.idx <= 8">{{ '0' + (item.idx + 1)}}</span>
-            <span class="new-col-2 text-center" ng-show="item.idx > 8">{{item.idx + 1}}</span>
-            <span class="new-col-10">{{item.title}} &nbsp;<span class="code-product">{{item.uniqueName}}</span></span>
-            <span class="new-col-3 currency">{{(item.price || item.amount) | currency: ''}}</span>
-            <span class="new-col-3 text-center">{{item.qty}}</span>
-            <span class="new-col-3 currency">{{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
-            <span class="new-col-3 currency" ng-class="{'invisible' : total.discount == 0 }">{{(item.itemDiscount || item.orderDiscount || 0) | currency:''}}</span>
+            <div class="mob-col-70 text-left">
+                <span>{{item.title}}</span><br/>
+                <span class="code-product">{{item.uniqueName}}</span>
+                <span class="code-product currency" ng-class="{'invisible' : total.discount <= 0 }">
+                    <br/>(-) Desconto
+                </span>
+            </div>
+            <div class="mob-col-30 text-right">
+                <span>{{item.qty}}</span><br/>
+                <span class="code-product currency">R$ {{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
+                <span class="code-product currency" ng-class="{'invisible' : total.discount <= 0 }">
+                    <br/>-R$ {{(item.itemDiscount || item.orderDiscount || 0) | currency:''}}
+                </span>
+            </div>
+
         </div>
     </div>
 
@@ -46,3 +54,5 @@
         <button ng-click='cancel()' class="btn btn-cancel btn-large btn-login"  type="submit">Cancelar</button>
         <button ng-click="selectPaymentMethod('step2')" class="btn btn-ok btn-large btn-login pull-right" type="submit">Prosseguir</button>
     </div>
+
+<link rel="stylesheet" href="mobile/styles/pagamento.css">
