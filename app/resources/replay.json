@@ -21,6 +21,15 @@
       "type":"stockAdd",
       "version":1,
       "event":{
+         "inventoryId":3,
+         "cost":50,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
          "inventoryId":4,
          "cost":21,
          "quantity": 0

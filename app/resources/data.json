@@ -287,8 +287,9 @@
     	}
     ],
     "lines": [
-    {"name": "Olhos","color": "medium-yellow-gray"},
-		{"name": "Sinais Moderados","color": "light-pink"},
+    {"name": "Controle de Peso","color": "medium-yellow-gray"},
+	{"name": "Nutrição Complementar","color": "light-pink"},
+
 		{"name": "Zen in Bloom","color": "dark-magenta"},
 		{"name": "Hollywood Mystique","color": "dark-magenta"},
 		{"name": "Acessórios","color": "soft-pink"},
