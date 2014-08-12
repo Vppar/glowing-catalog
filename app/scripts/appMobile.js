@@ -177,7 +177,8 @@
             controller : 'PaymentCtrl'
         }).when('/pagamento-cheque', {
             templateUrl : 'mobile/views/pagamento-cheque.html'
-            // controller : 'LoginCtrl'
+        }).when('/pagamento-dinheiro', {
+            templateUrl : 'mobile/views/pagamento-dinheiro.html'
         })
 
 

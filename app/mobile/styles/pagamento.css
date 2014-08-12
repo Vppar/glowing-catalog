@@ -87,6 +87,10 @@
     /*height: 18px;*/
     overflow: hidden;
 }
+.btn-price-payment.focus {
+    border: 1px solid #bf1e62 !important;
+}
+
 .lbl-money {
     display: inline-block;
     width: 80px;
