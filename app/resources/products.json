@@ -15,7 +15,8 @@
     "SKU": "03-0004-0001",
     "image": "03-0004-0001.jpg",
     "active": true,
-    "price": 49.88
+    "price": 49.88,
+    "points": 15
   },
   {
     "id": 2,
@@ -33,7 +34,8 @@
     "SKU": "03-0010-0001",
     "image": "03-0010-0001.jpg",
     "active": true,
-    "price": 54.88
+    "price": 54.88,
+    "points": 16
   },
   {
     "id": 4,
@@ -50,7 +52,8 @@
     "SKU": "03-0014-0001",
     "image": "03-0014-0001.jpg",
     "active": true,
-    "price": 54.88
+    "price": 56.13,
+    "points": 20
   },
   {
     "id": 6,
@@ -59,7 +62,7 @@
     "image": "0027-0002.jpg",
     "title": "Amazon Active Shampoo Purificante",
     "description": "Amazon Active Shampoo Purificante",
-    "price": 56.13
+    "price": 54.88
   },
   {
     "id": 7,
@@ -67,9 +70,9 @@
     "SKU": "0027-0002",
     "image": "0027-0002.jpg",
     "active": true,
-    "price": 54.88
+    "price": 54.88,
+    "points": 12
   },
-
   {
     "id": 8,
     "session": "Catálogo",
@@ -85,7 +88,8 @@
     "SKU": "03-0011-0001",
     "image": "03-0011-0001.jpg",
     "active": true,
-    "price": 61.13
+    "price": 61.13,
+    "points": 25
   },
 
   {
@@ -103,9 +107,9 @@
     "SKU": "0025-0002",
     "image": "0025-0002.jpg",
     "active": true,
-    "price": 56.13
+    "price": 56.13,
+    "points": 18
   },
-
   {
     "id": 12,
     "session": "Catálogo",
@@ -122,7 +126,8 @@
     "SKU": "03-0012-0001",
     "image": "03-0012-0001.jpg",
     "active": true,
-    "price": 59.88
+    "price": 59.88,
+    "points": 19
   },
 
   {
@@ -140,7 +145,8 @@
     "SKU": "03-0021-0001",
     "image": "03-0021-0001.jpg",
     "active": true,
-    "price": 54.90
+    "price": 54.90,
+    "points": 16
   },
 
   {
@@ -159,6 +165,7 @@
     "SKU": "0030-0002",
     "image": "0030-0002.jpg",
     "active": true,
-    "price": 49.88
+    "price": 49.88,
+    "points": 18
   }
 ]

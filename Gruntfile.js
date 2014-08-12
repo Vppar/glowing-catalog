@@ -84,7 +84,7 @@ module.exports =
                         // Change this to '0.0.0.0' to access the server from
                         // outside.
                         // hostname: 'localhost', //original
-                        hostname : '0.0.0.0', // original
+                        hostname : '127.0.0.1', // original
                         livereload : 35729
                     },
                     livereload : {
