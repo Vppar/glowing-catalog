@@ -158,7 +158,7 @@
 
             var dialog = _openDialog(data, options);
 
-            dialog.open('views/parts/global/loading-dialog.html', 'LoadingDialogCtrl');
+            dialog.open('mobile/views/parts/global/loading-dialog.html', 'LoadingDialogCtrl');
 
             return dialog;
         };

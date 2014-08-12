@@ -31,6 +31,7 @@
 
                             <div class="navbar vpink-catalog-2" ng-class="'bg-'+ line.color">
                                 <div class="navbar-inner">
+                                    <div class="left"></div>
                                     <div class="center sliding">{{line.name}}</div>
                                     <div class="right">
                                         <a href="#" class="back link"><i class="icon icon-back-white down"></i></a>
@@ -53,7 +54,8 @@
                 </div>
                 <div class="swiper-scrollbar"></div>
 
-                <div class="title">{{section}}</div>
+                <!--<div class="title">{{section}}</div>-->
+                <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
             </div>
         </div>
     </div>
@@ -98,7 +100,7 @@
                 $('#catalog-loading').remove();
 
                 var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(swiper.activeIndex), {
-                    mode: 'vertical'
+                    mode: 'vertical',
 //                    scrollContainer:true,
 //                    mousewheelControl : true,
 //                    scrollbar: {
@@ -109,8 +111,8 @@
 //                    },
 
 
-//                        freeMode: true,
-//                        freeModeFluid: true
+                        freeMode: true,
+                        freeModeFluid: true
     //                        onSlideChangeEnd: function (swiper) {
     //                            var mySwiper = new Swiper($('#cat' + swiper.activeIndex).find('.product-swiper').get(0), {
     //                                freeMode: true,

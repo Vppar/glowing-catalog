@@ -107,6 +107,16 @@ body{
 
 /* Fix my place */
 
+.main-best-sellers > .bs-title{
+    display: none;
+}
+
+.bs-product > img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 #sacred .button-black,
 #sacred .button-green{
     border-radius: 4px;
@@ -187,7 +197,7 @@ body{
     width:400px;
 }
 .ic-arrow-left {
-    width:37.5px;
+    width:32px;
     height:35px;
     line-height:35px;
     text-align: center;
@@ -202,7 +212,7 @@ body{
     float: left;
 }
 .ic-arrow-right {
-    width:37.5px;
+    width:32px;
     height:35px;
     line-height:35px;
     text-align: center;
@@ -404,7 +414,20 @@ body{
 }
 
 .swiper-slide-visible{
-    height: auto!important;
+    /*height: auto!important;*/
+    height: calc(100% - 80px);
+}
+
+.catalog-child-swiper > .swiper-wrapper{
+    height: 100% !important;
+}
+
+.catalog-child-swiper > .swiper-wrapper > .swiper-slide{
+    height: calc(100% - 3px) !important;
+}
+
+.catalog-child-swiper > .swiper-wrapper > .swiper-slide > .row-fluid{
+    height: 100%;
 }
 
 .enable-product-overflow{
@@ -412,7 +435,7 @@ body{
     -webkit-overflow-scrolling: touch;
     /*max-height: 430px;*/
 
-    height: calc(100% - 181px);
+    height: calc(100% - 44px);
 }
 
 .product-content{
@@ -1353,6 +1376,7 @@ i.icon-4 {
 
 .catalog-child-swiper{
     padding-top: 12px;
+    height: calc(100% - 121px);
 }
 
 .icon-back-white.down{
