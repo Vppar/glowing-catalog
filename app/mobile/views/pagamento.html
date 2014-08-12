@@ -41,82 +41,86 @@
 
     </div>
 
-    <div class="row-right-payment first-right" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money' && selectedPaymentMethod!=='orderDiscount'}" ng-click="selectMoneyPayment()">
-        <div class="btn-payments-left">
-	        <span class="container-money-payment">
-	            <span class="label-money">Dinheiro</span>
-	        </span>
-	        <span class="">
-	        	<span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment"><small>R$</small> {{cash.amount | currency:''}}</span>
-				<input id="cash" class="btn-price-payment" ng-model="cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input focus currency ok-click="selectPaymentMethod('none')" />
+    <div class="content-scroll new-scroll-area pagamento-scroll">
 
-                  <!--<input id="dialog-input" type="text" ng-model="cash.amount" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency />-->
-                  <!--<br />-->
-                  <!--<div class="numpad-holder">-->
-                      <!--<tnt-numpad></tnt-numpad>-->
-                  <!--</div>-->
+        <div class="row-right-payment first-right" ng-class="{invisible: keyboard.status.active && selectedPaymentMethod!=='money' && selectedPaymentMethod!=='orderDiscount'}" ng-click="selectMoneyPayment()">
+            <div class="btn-payments-left">
+                <span class="container-money-payment">
+                    <span class="label-money">Dinheiro</span>
+                </span>
+                <span class="">
+                    <span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment"><small>R$</small> {{cash.amount | currency:''}}</span>
+                    <input id="cash" class="btn-price-payment" ng-model="cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input focus currency ok-click="selectPaymentMethod('none')" />
 
-	        </span>
-        </div>
-    </div>
-    <div class="row-right-payment" ng-click="selectPaymentMethod('check')">
-        <span class="lbl-money">Cheque</span><span class="lbl-money3 paddingl10" ng-hide="hideCheckQtde">({{total.payments.check | count:'id'}})</span>
-		<span class="">
-			<span class="btn-price-payment"><small>R$</small> {{total.payments.check | sum:'amount'| currency:''}}</span>
-		</span>
-    </div>
-    <div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
-        <span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10"  ng-hide="hideCardQtde">({{total.payments.creditCard | count:'id'}})</span>
-		<span class="">
-			<span class="btn-price-payment"><small>R$</small> {{total.payments.creditCard | sum:'amount'| currency:''}}</span>
-		</span>
-    </div>
-    <div class="row-right-payment" ng-click="selectPaymentMethod('discount')">
-        <span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img ng-show="hasCoupons" src="images/alert-sign-small-v3.png" alt="Ver cupons" class="payment-warning"></span>
-        <span class="btn-price-payment btn-price-payment2"><small>R$</small> {{total.payments.coupon | sum:'amount' | currency:''}}</span>
-    </div>
+                      <!--<input id="dialog-input" type="text" ng-model="cash.amount" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency />-->
+                      <!--<br />-->
+                      <!--<div class="numpad-holder">-->
+                          <!--<tnt-numpad></tnt-numpad>-->
+                      <!--</div>-->
 
-    <div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
-        <span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10"  ng-hide="hideExchangeQtde">({{total.payments.exchange | count:'id'}})</span>
-		<span>
-			<span class="btn-price-payment"><small>R$</small> {{total.payments.exchange | sum:'amount' | currency:''}}</span>
-		</span>
-    </div>
-
-    <div class="row-right-payment" ng-click="selectPaymentMethod('oncuff')">
-        <span class="lbl-money w130">Contas a receber</span>
-		<span class="">
-			<span class="btn-price-payment btn-price-payment2"><small>R$</small> {{total.payments.onCuff | sum:'amount'| currency:''}}</span>
                 </span>
             </div>
+        </div>
+        <div class="row-right-payment" ng-click="selectPaymentMethod('check')">
+            <span class="lbl-money">Cheque</span><span class="lbl-money3 paddingl10" ng-hide="hideCheckQtde">({{total.payments.check | count:'id'}})</span>
+            <span class="">
+                <span class="btn-price-payment"><small>R$</small> {{total.payments.check | sum:'amount'| currency:''}}</span>
+            </span>
+        </div>
+        <div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
+            <span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10"  ng-hide="hideCardQtde">({{total.payments.creditCard | count:'id'}})</span>
+            <span class="">
+                <span class="btn-price-payment"><small>R$</small> {{total.payments.creditCard | sum:'amount'| currency:''}}</span>
+            </span>
+        </div>
+        <div class="row-right-payment" ng-click="selectPaymentMethod('discount')">
+            <span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img ng-show="hasCoupons" src="images/alert-sign-small-v3.png" alt="Ver cupons" class="payment-warning"></span>
+            <span class="btn-price-payment btn-price-payment2"><small>R$</small> {{total.payments.coupon | sum:'amount' | currency:''}}</span>
+        </div>
 
-            <div class="subtotal-resume">
-                <div class="lbl-resume">
-                    <div class="color-pink negrito"> <!--ng-show="total.change < 0"-->
-                        Faltam
-                    </div>
-                    <div class="color-pink negrito" ng-show="total.change == 0">
-                        Diferen&ccedil;a
-                    </div>
-                    <div class="color-pink negrito" ng-show="total.change > 0">
-                        Troco
-                    </div>
+        <div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
+            <span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10"  ng-hide="hideExchangeQtde">({{total.payments.exchange | count:'id'}})</span>
+            <span>
+                <span class="btn-price-payment"><small>R$</small> {{total.payments.exchange | sum:'amount' | currency:''}}</span>
+            </span>
+        </div>
+
+        <div class="row-right-payment" ng-click="selectPaymentMethod('oncuff')">
+            <span class="lbl-money w130">Contas a receber</span>
+            <span class="">
+                <span class="btn-price-payment btn-price-payment2"><small>R$</small> {{total.payments.onCuff | sum:'amount'| currency:''}}</span>
+                    </span>
                 </div>
-                <div class="values-resume">
-                    <div class="color-pink negrito" ><!--ng-show="total.change <= 0">-->
-                        <small>R$</small> {{(total.change*(-1)) | currency: '' }}
+
+                <div class="subtotal-resume">
+                    <div class="lbl-resume">
+                        <div class="color-pink negrito"> <!--ng-show="total.change < 0"-->
+                            Faltam
+                        </div>
+                        <div class="color-pink negrito" ng-show="total.change == 0">
+                            Diferen&ccedil;a
+                        </div>
+                        <div class="color-pink negrito" ng-show="total.change > 0">
+                            Troco
+                        </div>
                     </div>
-                    <div class="color-pink negrito" ng-show="total.change > 0">
-                        <small>R$</small> {{(total.change) | currency: '' }}
+                    <div class="values-resume">
+                        <div class="color-pink negrito" ><!--ng-show="total.change <= 0">-->
+                            <small>R$</small> {{(total.change*(-1)) | currency: '' }}
+                        </div>
+                        <div class="color-pink negrito" ng-show="total.change > 0">
+                            <small>R$</small> {{(total.change) | currency: '' }}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="row-right-payment first-right" ng-click="selectPaymentMethod('voucher')">
-        <span class="lbl-money w130">Emitir vale/cupom</span>
-		<span class="">
-	        <span class="btn-price-payment btn-price-payment2" >{{coupon.sum | currency:'' }}</span>
-		</span>
+        <div class="row-right-payment first-right" ng-click="selectPaymentMethod('voucher')">
+            <span class="lbl-money w130">Emitir vale/cupom</span>
+            <span class="">
+                <span class="btn-price-payment btn-price-payment2" >{{coupon.sum | currency:'' }}</span>
+            </span>
+        </div>
+
     </div>
 
     <div class="payment-foot effect7" fast-click>

@@ -181,6 +181,10 @@ body{
     height: calc(100% - 232px)
 }
 
+.new-scroll-area.pagamento-scroll{
+    height: calc(100% - 248px)
+}
+
 .new-scroll-area{
     -webkit-overflow-scrolling: touch;
     overflow: auto;
@@ -266,8 +270,8 @@ body{
     top: 80px;
     left: 50%;
     z-index: 1050;
-    width: 350px;
-    margin-left: -175px;
+    width: 320px;
+    margin-left: -160px;
     background-color: white;
     border: none;
     border: none;
