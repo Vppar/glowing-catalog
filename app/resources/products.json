@@ -84,8 +84,7 @@
     "image": "ne-p.jpg",
     "active": true,
     "price": 50.00
-  }
-  ,
+  },
   {
   "id": 10,
   "session": "Catálogo",
@@ -100,6 +99,40 @@
     "parent": 10,
     "SKU": "ne-rs",
     "image": "ne-rs.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 12,
+  "session": "Catálogo",
+  "line": "Nutrição Externa",
+  "image": "nex-sa.jpg",
+  "title": "Skin Activator® Daily Replenishing Cream",
+  "description": "Ajuda a fornecer a nutrição que a pele necessita para manter uma aparência mais jovem e saudável.",
+  "price": 50.00
+  },
+  {
+    "id": 13,
+    "parent": 12,
+    "SKU": "nex-sa",
+    "image": "nex-sa.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 14,
+  "session": "Catálogo",
+  "line": "Nutrição Externa",
+  "image": "nex-rc.jpg",
+  "title": "Radiant CTM Daily Facial Scrub Cleanser",
+  "description": "Gel esfoliante de limpeza com vitamina C para uso diário na pele do rosto.",
+  "price": 50.00
+  },
+  {
+    "id": 15,
+    "parent": 14,
+    "SKU": "nex-rc",
+    "image": "nex-rc.jpg",
     "active": true,
     "price": 50.00
   }

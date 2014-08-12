@@ -287,11 +287,11 @@
     	}
     ],
     "lines": [
-    {"name": "Controle de Peso","color": "medium-yellow-gray"},
-	{"name": "Nutrição Complementar","color": "light-pink"},
+    {"name": "Controle de Peso","color": "light-green"},
+	{"name": "Nutrição Complementar","color": "light-green"},
+{"name": "Nutrição Esportiva","color": "light-green"},
+{"name": "Nutrição Externa","color": "light-green"},
 
-		{"name": "Zen in Bloom","color": "dark-magenta"},
-		{"name": "Hollywood Mystique","color": "dark-magenta"},
 		{"name": "Acessórios","color": "soft-pink"},
 		{"name": "Fragrâncias Femininas","color": "light-magenta"},
 		{"name": "Sinais Avançados","color": "black"},
