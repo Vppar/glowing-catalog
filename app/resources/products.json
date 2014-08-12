@@ -1,13 +1,13 @@
 ﻿[
   {
-  "id": 0,
-  "session": "Catálogo",
-  "line": "Controle de Peso",
-  "image": "sk-01.jpg",
-  "title": "Shake Herbalife",
-  "description": "Fibras de aveia e inulina adicionadas na proporção ideal entre fibras solúveis e insolúveis.",
-  "bestSeller": 1,
-  "price": 50.00
+    "id": 0,
+    "session": "Catálogo",
+    "line": "Controle de Peso",
+    "image": "sk-01.jpg",
+    "title": "Shake Herbalife",
+    "description": "Fibras de aveia e inulina adicionadas na proporção ideal entre fibras solúveis e insolúveis.",
+    "bestSeller": 1,
+    "price": 50.00
   },
   {
     "id": 1,
@@ -15,16 +15,17 @@
     "SKU": "sk-01",
     "image": "sk-01.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 2,
-  "session": "Catálogo",
-  "line": "Nutrição Complementar",
-  "image": "nc-pp.jpg",
-  "title": "Protein Powder",
-  "description": "O Protein Powder é um pó de proteína sem sabor para ser adicionado ao Shake Herbalife e a outros alimentos e bebidas.",
-  "price": 50.00
+    "id": 2,
+    "session": "Catálogo",
+    "line": "Nutrição Complementar",
+    "image": "nc-pp.jpg",
+    "title": "Protein Powder",
+    "description": "O Protein Powder é um pó de proteína sem sabor para ser adicionado ao Shake Herbalife e a outros alimentos e bebidas.",
+    "price": 50.00
   },
   {
     "id": 3,
@@ -32,16 +33,17 @@
     "SKU": "nc-pp",
     "image": "nc-pp.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 4,
-  "session": "Catálogo",
-  "line": "Nutrição Complementar",
-  "image": "nc-mm.jpg",
-  "title": "Multivitaminas e Minerais",
-  "description": "É um suplemento que contém 23 micronutrientes essenciais.",
-  "price": 50.00
+    "id": 4,
+    "session": "Catálogo",
+    "line": "Nutrição Complementar",
+    "image": "nc-mm.jpg",
+    "title": "Multivitaminas e Minerais",
+    "description": "É um suplemento que contém 23 micronutrientes essenciais.",
+    "price": 50.00
   },
   {
     "id": 5,
@@ -49,16 +51,17 @@
     "SKU": "nc-mm",
     "image": "nc-mm.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 6,
-  "session": "Catálogo",
-  "line": "Nutrição Complementar",
-  "image": "nc-hl.jpg",
-  "title": "Herbalifeline®",
-  "description": "É uma exclusiva combinação de óleos marinhos altamente refinados, fonte de Ômega 3, especialmente EPA e DHA.",
-  "price": 50.00
+    "id": 6,
+    "session": "Catálogo",
+    "line": "Nutrição Complementar",
+    "image": "nc-hl.jpg",
+    "title": "Herbalifeline®",
+    "description": "É uma exclusiva combinação de óleos marinhos altamente refinados, fonte de Ômega 3, especialmente EPA e DHA.",
+    "price": 50.00
   },
   {
     "id": 7,
@@ -66,16 +69,17 @@
     "SKU": "nc-hl",
     "image": "nc-hl.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 8,
-  "session": "Catálogo",
-  "line": "Nutrição Esportiva",
-  "image": "ne-p.jpg",
-  "title": "Prolong",
-  "description": "O Prolong é um suplemento energético que garante energia extra durante o treino.",
-  "price": 50.00
+    "id": 8,
+    "session": "Catálogo",
+    "line": "Nutrição Esportiva",
+    "image": "ne-p.jpg",
+    "title": "Prolong",
+    "description": "O Prolong é um suplemento energético que garante energia extra durante o treino.",
+    "price": 50.00
   },
   {
     "id": 9,
@@ -83,16 +87,17 @@
     "SKU": "ne-p",
     "image": "ne-p.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 10,
-  "session": "Catálogo",
-  "line": "Nutrição Esportiva",
-  "image": "ne-rs.jpg",
-  "title": "Rebuild Strength",
-  "description": "O Rebuild Strength é um suplemento protéico que contribui para a recuperação e ganho de massa muscular.",
-  "price": 50.00
+    "id": 10,
+    "session": "Catálogo",
+    "line": "Nutrição Esportiva",
+    "image": "ne-rs.jpg",
+    "title": "Rebuild Strength",
+    "description": "O Rebuild Strength é um suplemento protéico que contribui para a recuperação e ganho de massa muscular.",
+    "price": 50.00
   },
   {
     "id": 11,
@@ -100,17 +105,18 @@
     "SKU": "ne-rs",
     "image": "ne-rs.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 12,
-  "session": "Catálogo",
-  "line": "Nutrição Externa",
-  "image": "nex-sa.jpg",
-  "title": "Skin Activator® Daily Replenishing Cream",
-  "description": "Ajuda a fornecer a nutrição que a pele necessita para manter uma aparência mais jovem e saudável.",
-  "bestSeller": 2,
-  "price": 50.00
+    "id": 12,
+    "session": "Catálogo",
+    "line": "Nutrição Externa",
+    "image": "nex-sa.jpg",
+    "title": "Skin Activator® Daily Replenishing Cream",
+    "description": "Ajuda a fornecer a nutrição que a pele necessita para manter uma aparência mais jovem e saudável.",
+    "bestSeller": 2,
+    "price": 50.00
   },
   {
     "id": 13,
@@ -118,16 +124,17 @@
     "SKU": "nex-sa",
     "image": "nex-sa.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 14,
-  "session": "Catálogo",
-  "line": "Nutrição Externa",
-  "image": "nex-rc.jpg",
-  "title": "Radiant CTM Daily Facial Scrub Cleanser",
-  "description": "Gel esfoliante de limpeza com vitamina C para uso diário na pele do rosto.",
-  "price": 50.00
+    "id": 14,
+    "session": "Catálogo",
+    "line": "Nutrição Externa",
+    "image": "nex-rc.jpg",
+    "title": "Radiant CTM Daily Facial Scrub Cleanser",
+    "description": "Gel esfoliante de limpeza com vitamina C para uso diário na pele do rosto.",
+    "price": 50.00
   },
   {
     "id": 15,
@@ -135,17 +142,18 @@
     "SKU": "nex-rc",
     "image": "nex-rc.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 16,
-  "session": "Catálogo",
-  "line": "Nutrição Externa",
-  "image": "nex-sg.jpg",
-  "title": "Creme Hidratante Desodorante Baunilha",
-  "description": "Elaborado com chá verde e baunilha, que hidrata e protege a pele do corpo.",
-  "bestSeller": 4,
-  "price": 50.00
+    "id": 16,
+    "session": "Catálogo",
+    "line": "Nutrição Externa",
+    "image": "nex-sg.jpg",
+    "title": "Creme Hidratante Desodorante Baunilha",
+    "description": "Elaborado com chá verde e baunilha, que hidrata e protege a pele do corpo.",
+    "bestSeller": 4,
+    "price": 50.00
   },
   {
     "id": 17,
@@ -153,16 +161,17 @@
     "SKU": "nex-sg",
     "image": "nex-sg.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 18,
-  "session": "Catálogo",
-  "line": "Lanches Saldáveis",
-  "image": "ls-si.jpg",
-  "title": "Sopa Instantânea",
-  "description": "Cremosas e saborosas, as sopas são preparadas com grande variedade de ingredientes e temperos naturais.",
-  "price": 50.00
+    "id": 18,
+    "session": "Catálogo",
+    "line": "Lanches Saldáveis",
+    "image": "ls-si.jpg",
+    "title": "Sopa Instantânea",
+    "description": "Cremosas e saborosas, as sopas são preparadas com grande variedade de ingredientes e temperos naturais.",
+    "price": 50.00
   },
   {
     "id": 19,
@@ -170,17 +179,18 @@
     "SKU": "ls-si",
     "image": "ls-si.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 20,
-  "session": "Catálogo",
-  "line": "Lanches Saldáveis",
-  "image": "ls-bp.jpg",
-  "title": "Barras de Proteína",
-  "description": "Alimento fácil de transportar e que pode ser consumido em qualquer lugar.",
-  "bestSeller": 5,
-  "price": 50.00
+    "id": 20,
+    "session": "Catálogo",
+    "line": "Lanches Saldáveis",
+    "image": "ls-bp.jpg",
+    "title": "Barras de Proteína",
+    "description": "Alimento fácil de transportar e que pode ser consumido em qualquer lugar.",
+    "bestSeller": 5,
+    "price": 50.00
   },
   {
     "id": 21,
@@ -191,13 +201,13 @@
     "price": 50.00
   },
   {
-  "id": 22,
-  "session": "Catálogo",
-  "line": "Disposição",
-  "image": "dis-nrg.jpg",
-  "title": "N.R.G",
-  "description": "Pó para preparo de bebida à base de chá preto e guaraná.",
-  "price": 50.00
+    "id": 22,
+    "session": "Catálogo",
+    "line": "Disposição",
+    "image": "dis-nrg.jpg",
+    "title": "N.R.G",
+    "description": "Pó para preparo de bebida à base de chá preto e guaraná.",
+    "price": 50.00
   },
   {
     "id": 23,
@@ -208,13 +218,13 @@
     "price": 50.00
   },
   {
-  "id": 24,
-  "session": "Catálogo",
-  "line": "Hidratação",
-  "image": "h-b.jpg",
-  "title": "Bebidas",
-  "description": "As Bebidas à base de Chá Herbalife são bebidas de baixas calorias que contêm chá verde e preto.",
-  "price": 50.00
+    "id": 24,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "h-b.jpg",
+    "title": "Bebidas",
+    "description": "As Bebidas à base de Chá Herbalife são bebidas de baixas calorias que contêm chá verde e preto.",
+    "price": 50.00
   },
   {
     "id": 25,
@@ -222,16 +232,17 @@
     "SKU": "h-b",
     "image": "h-b.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 26,
-  "session": "Catálogo",
-  "line": "Nutrição Externa",
-  "image": "nex-fs.jpg",
-  "title": "FreshStyle",
-  "description": "Para a mulher com estilo. Um perfume fresco e leve cheio de resplendor.",
-  "price": 50.00
+    "id": 26,
+    "session": "Catálogo",
+    "line": "Nutrição Externa",
+    "image": "nex-fs.jpg",
+    "title": "FreshStyle",
+    "description": "Para a mulher com estilo. Um perfume fresco e leve cheio de resplendor.",
+    "price": 50.00
   },
   {
     "id": 27,
@@ -239,17 +250,18 @@
     "SKU": "nex-fs",
     "image": "nex-fs.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
-  "id": 28,
-  "session": "Catálogo",
-  "line": "Nutrição Complementar",
-  "image": "nc-fh.jpg",
-  "title": "Fiber & Herb",
-  "description": "Éum suplemento de fibras formulado com exclusiva combinação da fibra de aveia e de diversos vegetais.",
-  "bestSeller": 3,
-  "price": 50.00
+    "id": 28,
+    "session": "Catálogo",
+    "line": "Nutrição Complementar",
+    "image": "nc-fh.jpg",
+    "title": "Fiber & Herb",
+    "description": "Éum suplemento de fibras formulado com exclusiva combinação da fibra de aveia e de diversos vegetais.",
+    "bestSeller": 3,
+    "price": 50.00
   },
   {
     "id": 29,
@@ -257,8 +269,9 @@
     "SKU": "nc-fh",
     "image": "nc-fh.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   }
 
 
-  ]
+]
