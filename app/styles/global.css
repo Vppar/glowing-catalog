@@ -672,7 +672,7 @@ div.header-date {
 }
 
 #topMenuHome {
-	float: left;
+	/*float: left;*/
 }
 
 nav ul li {
@@ -874,11 +874,11 @@ div.sidebar-menu ul li a {
 		padding-right: 10px;
 		*zoom: 1;
 		border:none;
-		float: left;
+		/*float: left;*/
 		background: none;
 	}
 	.container .navbar .brand {
-		float: left;
+		/*float: left;*/
 		display: block;
 		padding: 5px 458px 0 30px;
 	}
@@ -1218,3 +1218,10 @@ input:focus, .focus{
 	visibility: hidden;
 }
 /*fim - receivable e expense*/
+
+.shadow{
+	position: absolute;
+	top: 67px;
+	left: 0px;
+	z-index: -999;
+}
