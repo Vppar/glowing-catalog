@@ -1,14 +1,14 @@
 <div id="sacred" ng-style="backgroundImage">
 	<form class="form login">
 
-		<h1><img src="images/logo.png" alt="wishlist" /></h1>
+		<h1><img src="images/logo_verde.png" alt="wishlist" /></h1>
 
 		<div class="login-body">
 			<div class="form-line">
 				<div class="row">
 					<div class="col-24">
-						<label>Login</label>
-						<input type="text" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="" name="username">
+						<span></span>
+						<input class="login-input" type="text" ng-model="user" ng-disabled="hasPersistedUser()" lower-case placeholder="Login" name="username">
 					</div>
 				</div>
 			</div>
@@ -16,8 +16,8 @@
 			<div class="form-line">
 				<div class="row">
 					<div class="col-24">
-						<label>Senha</label>
-						<input type="password" ng-model="pass" placeholder="">
+						
+						<input class="senha-input" type="password" ng-model="pass" placeholder="Senha">
 					</div>
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 			<div class="form-line">
 				<div class="row">
 					<div class="col-24">
-						<button ng-click="changeUser()" class="button-black" ng-if="hasPersistedUser()" type="button">Apagar Dados</button>
+						<button ng-click="changeUser()" class="button-black" ng-if="hasPersistedUser()" type="button">trocar usuário</button>
 
 						<spinner-button spinner-promise="login()"class="button-green" type="submit">Entrar</spinner-button>
 					</div>
