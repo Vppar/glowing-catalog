@@ -67,6 +67,41 @@
     "image": "nc-hl.jpg",
     "active": true,
     "price": 50.00
+  },
+  {
+  "id": 8,
+  "session": "Catálogo",
+  "line": "Nutrição Esportiva",
+  "image": "ne-p.jpg",
+  "title": "Prolong",
+  "description": "O Prolong é um suplemento energético que garante energia extra durante o treino.",
+  "price": 50.00
+  },
+  {
+    "id": 9,
+    "parent": 8,
+    "SKU": "ne-p",
+    "image": "ne-p.jpg",
+    "active": true,
+    "price": 50.00
+  }
+  ,
+  {
+  "id": 10,
+  "session": "Catálogo",
+  "line": "Nutrição Esportiva",
+  "image": "ne-rs.jpg",
+  "title": "Rebuild Strength",
+  "description": "O Rebuild Strength é um suplemento protéico que contribui para a recuperação e ganho de massa muscular.",
+  "price": 50.00
+  },
+  {
+    "id": 11,
+    "parent": 10,
+    "SKU": "ne-rs",
+    "image": "ne-rs.jpg",
+    "active": true,
+    "price": 50.00
   }
 
   ]
