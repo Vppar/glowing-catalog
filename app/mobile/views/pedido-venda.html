@@ -18,14 +18,14 @@
             <div class="mob-col-70 text-left">
                 <span>{{item.title}}</span><br/>
                 <span class="code-product">{{item.uniqueName}}</span>
-                <span class="code-product currency" ng-class="{'invisible' : total.discount <= 0 }">
+                <span class="code-product currency" ng-class="{'hide' : total.discount <= 0 }">
                     <br/>(-) Desconto
                 </span>
             </div>
             <div class="mob-col-30 text-right">
                 <span>{{item.qty}}</span><br/>
                 <span class="code-product currency">R$ {{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
-                <span class="code-product currency" ng-class="{'invisible' : total.discount <= 0 }">
+                <span class="code-product currency" ng-class="{'hide' : total.discount <= 0 }">
                     <br/>-R$ {{(item.itemDiscount || item.orderDiscount || 0) | currency:''}}
                 </span>
             </div>
