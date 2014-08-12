@@ -109,6 +109,7 @@
   "image": "nex-sa.jpg",
   "title": "Skin Activator® Daily Replenishing Cream",
   "description": "Ajuda a fornecer a nutrição que a pele necessita para manter uma aparência mais jovem e saudável.",
+  "bestSeller": 2,
   "price": 50.00
   },
   {
@@ -135,6 +136,129 @@
     "image": "nex-rc.jpg",
     "active": true,
     "price": 50.00
+  },
+  {
+  "id": 16,
+  "session": "Catálogo",
+  "line": "Nutrição Externa",
+  "image": "nex-sg.jpg",
+  "title": "Creme Hidratante Desodorante Baunilha",
+  "description": "Elaborado com chá verde e baunilha, que hidrata e protege a pele do corpo.",
+  "bestSeller": 4,
+  "price": 50.00
+  },
+  {
+    "id": 17,
+    "parent": 16,
+    "SKU": "nex-sg",
+    "image": "nex-sg.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 18,
+  "session": "Catálogo",
+  "line": "Lanches Saldáveis",
+  "image": "ls-si.jpg",
+  "title": "Sopa Instantânea",
+  "description": "Cremosas e saborosas, as sopas são preparadas com grande variedade de ingredientes e temperos naturais.",
+  "price": 50.00
+  },
+  {
+    "id": 19,
+    "parent": 18,
+    "SKU": "ls-si",
+    "image": "ls-si.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 20,
+  "session": "Catálogo",
+  "line": "Lanches Saldáveis",
+  "image": "ls-bp.jpg",
+  "title": "Barras de Proteína",
+  "description": "Alimento fácil de transportar e que pode ser consumido em qualquer lugar.",
+  "bestSeller": 5,
+  "price": 50.00
+  },
+  {
+    "id": 21,
+    "parent": 20,
+    "SKU": "ls-bp",
+    "image": "ls-bp.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 22,
+  "session": "Catálogo",
+  "line": "Disposição",
+  "image": "dis-nrg.jpg",
+  "title": "N.R.G",
+  "description": "Pó para preparo de bebida à base de chá preto e guaraná.",
+  "price": 50.00
+  },
+  {
+    "id": 23,
+    "parent": 22,
+    "SKU": "dis-nrg",
+    "image": "dis-nrg.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 24,
+  "session": "Catálogo",
+  "line": "Hidratação",
+  "image": "h-b.jpg",
+  "title": "Bebidas",
+  "description": "As Bebidas à base de Chá Herbalife são bebidas de baixas calorias que contêm chá verde e preto.",
+  "price": 50.00
+  },
+  {
+    "id": 25,
+    "parent": 24,
+    "SKU": "h-b",
+    "image": "h-b.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 26,
+  "session": "Catálogo",
+  "line": "Nutrição Externa",
+  "image": "nex-fs.jpg",
+  "title": "FreshStyle",
+  "description": "Para a mulher com estilo. Um perfume fresco e leve cheio de resplendor.",
+  "price": 50.00
+  },
+  {
+    "id": 27,
+    "parent": 26,
+    "SKU": "nex-fs",
+    "image": "nex-fs.jpg",
+    "active": true,
+    "price": 50.00
+  },
+  {
+  "id": 28,
+  "session": "Catálogo",
+  "line": "Nutrição Complementar",
+  "image": "nc-fh.jpg",
+  "title": "Fiber & Herb",
+  "description": "Éum suplemento de fibras formulado com exclusiva combinação da fibra de aveia e de diversos vegetais.",
+  "bestSeller": 3,
+  "price": 50.00
+  },
+  {
+    "id": 29,
+    "parent": 28,
+    "SKU": "nc-fh",
+    "image": "nc-fh.jpg",
+    "active": true,
+    "price": 50.00
   }
+
 
   ]

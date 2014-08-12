@@ -291,8 +291,10 @@
 	{"name": "Nutrição Complementar","color": "light-green"},
 {"name": "Nutrição Esportiva","color": "light-green"},
 {"name": "Nutrição Externa","color": "light-green"},
+{"name": "Lanches Saldáveis","color": "light-green"},
+{"name": "Disposição","color": "light-green"},
+{"name": "Hidratação","color": "light-green"},
 
-		{"name": "Acessórios","color": "soft-pink"},
 		{"name": "Fragrâncias Femininas","color": "light-magenta"},
 		{"name": "Sinais Avançados","color": "black"},
 		{"name": "Linha Jovem","color": "green"},
