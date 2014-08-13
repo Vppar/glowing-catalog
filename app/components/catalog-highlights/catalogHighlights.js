@@ -23,13 +23,13 @@
 
                         function reload() {
                             switch (scope.section) {
-                            case 'Última Oportunidade':
+                            case 'Destaques':
                                 scope.color = 'dark-magenta';
                                 break;
-                            case 'Edição Limitada':
+                            case 'Novidades':
                                 scope.color = 'dark-yellow-gray';
                                 break;
-                            case 'Lançamentos':
+                            case 'Inovações':
                                 scope.color = 'dark-yellow';
                                 break;
                             default:

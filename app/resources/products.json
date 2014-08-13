@@ -56,7 +56,7 @@
   },
   {
     "id": 6,
-    "session": "Catálogo",
+    "session": "Destaques",
     "line": "Nutrição Complementar",
     "image": "nc-hl.jpg",
     "title": "Herbalifeline®",
@@ -110,7 +110,7 @@
   },
   {
     "id": 12,
-    "session": "Catálogo",
+    "session": "Novidades",
     "line": "Nutrição Externa",
     "image": "nex-sa.jpg",
     "title": "Skin Activator® Daily Replenishing Cream",
@@ -202,7 +202,7 @@
   },
   {
     "id": 22,
-    "session": "Catálogo",
+    "session": "Inovações",
     "line": "Disposição",
     "image": "dis-nrg.jpg",
     "title": "N.R.G",
