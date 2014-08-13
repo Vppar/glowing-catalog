@@ -198,7 +198,8 @@
     "SKU": "ls-bp",
     "image": "ls-bp.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
     "id": 22,
@@ -215,7 +216,8 @@
     "SKU": "dis-nrg",
     "image": "dis-nrg.jpg",
     "active": true,
-    "price": 50.00
+    "price": 50.00,
+    "points": 10.00
   },
   {
     "id": 24,
