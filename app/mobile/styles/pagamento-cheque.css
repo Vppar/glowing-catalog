@@ -1,5 +1,7 @@
 .control-group {
     margin-bottom: 0;
+    padding-right: 2px !important;
+    padding-left: 2px !important;
 }
 .lbl-top {
     display: inline-block;
@@ -29,15 +31,16 @@ input[type="text"]{
     padding: 0 6px 0 6px !important;
 }
 
-.parc, .banco, .agencia, .conta, .cheque, .vencto, .check-value {
+.parc, .banco, .agencia, .conta, .cheque, .vencto, .check-value, .num-card, .cvv, .validade-cartao,
+.parcelas-cartao{
     float: right;
     text-align: center;
-    border: 1px solid #eee;
-    background-color: #f2f2f2;
+    border: 1px solid #ccc;
     border-radius: 4px;
     height: 20px;
     /* height: 18px; */
     overflow: hidden;
+    width: 100%;
 }
 
 .btn-clear-form {
@@ -53,22 +56,8 @@ label {
     display: block !important;
 }
 .check-value {
-    width: 87px;
     text-align: right !important;
-    overflow: hidden;
-    border: 1px solid #eee;
-    background-color: #f2f2f2;
-    border-radius: 4px;
     padding-right: 5px;
-}
-.w87 {
-    width: 87px;
-}
-.w89 {
-    width: 89px;
-}
-.conta {
-    width: 120px;
 }
 .margin8 {
     margin-right: 8px;
@@ -96,6 +85,7 @@ label {
 .linha {
     margin-top: 10px;
     width: 100%;
+    overflow: hidden;
 }
 
 .check-total {

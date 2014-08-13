@@ -11,40 +11,36 @@
 
     <div class="row-fluid payment-check-fields">
         <form name="checkForm">
-            <!--<div class="control-group lbl-top">-->
-                <!--<label class="control-label bold">Qtde Ch</label>-->
-                <!--<input name="" class="parc payment-input-large" id="parc" ng-model= "check.installments" required tnt-input number recall maxlength="2" type="text">-->
-            <!--</div>-->
             <div class="linha">
-                <div class="control-group lbl-top">
+                <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Banco</label>
-                    <input name="" class="w87 payment-input-large" id="banco" ng-model= "check.bank" required tnt-input focus maxlength="3" type="text">
+                    <input name="" class="banco payment-input-large" id="banco" ng-model= "check.bank" required tnt-input focus maxlength="3" type="text">
                 </div>
-                <div class="control-group lbl-top">
+                <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Ag&ecirc;ncia</label>
-                    <input name="" class="w87 payment-input-large" id="agencia" ng-model= "check.agency"  required tnt-input maxlength="4" type="text">
+                    <input name="" class="agencia payment-input-large" id="agencia" ng-model= "check.agency"  required tnt-input maxlength="4" type="text">
                 </div>
-                <div class="control-group lbl-top">
+                <div class="mob-col-40 control-group lbl-top">
                     <label class="control-label">Conta</label>
                     <input name="" class="conta payment-input-large" id="conta" ng-model= "check.account" required tnt-input maxlength="13" type="text">
                 </div>
             </div>
             <div class="linha">
-                <div class="control-group lbl-top">
+                <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Cheque</label>
-                    <input name="" class="w87 payment-input-large" id="cheque" ng-model= "check.number" required tnt-input maxlength="6" type="text">
+                    <input name="" class="cheque payment-input-large" id="cheque" ng-model= "check.number" required tnt-input maxlength="6" type="text">
                 </div>
-                <div class="control-group lbl-top">
+                <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Valor</label>
                     <input name="amount" class="check-value payment-input-large" id="valor"  ng-model= "check.amount" required tnt-input currency maxlength="11"  type="text">
                 </div>
-                <div class="control-group lbl-top">
+                <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Vencimento</label>
                     <div class="controls">
-                        <input type="text" id="vencto" class="date-field input-small w89 text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
+                        <input type="text" id="vencto" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
                     </div>
                 </div>
-                <div class="control-group lbl-top">
+                <div class="mob-col-10 control-group lbl-top">
                     <div class="controls">
                         <div class="btn-clear-form">
                             <span id="confirm" class="btn-plus2 bg-vpink hover-state-pointer" ng-click="addCheck()" tnt-kbutton next="banco"></span>
@@ -61,7 +57,7 @@
             <span ng-hide="hideCheckQtde">{{total.payments.check | count:'id'}}</span><span> Cheques</span>
         </div>
         <div class="negrito mob-col-50 text-right">
-            <small>Total: R$</small>
+            <span>Total: R$</span>
             <span class="total-value"> {{payments | sum: 'amount' | currency: ''}}</span>
         </div>
     </div>
