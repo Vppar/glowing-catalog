@@ -161,6 +161,124 @@ input:focus {
     width: 100%;
 }
 
+.modal-numpad{
+    margin-left: auto;
+    left: auto;
+}
+
+/* Modal para desconto */
+
+.modal-add-basket-payment-dialog .modal-add-basket-dialog-body{
+    padding: 10px;
+    height: calc(100% - 171px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-add-basket-payment-dialog .img-holder{
+    width: 78px;
+    padding: 0;
+    border: 1px solid #999;
+}
+
+.modal-add-basket-payment-dialog .img-holder > img{
+    padding: 10px;
+    width: inherit;
+    height: inherit;
+}
+
+.modal-add-basket-payment-dialog .unique-name-holder{
+    text-align: left;
+    margin-left: 10px;
+    margin-right: auto;
+    width: 132px;
+    height: 72px;
+    padding: 10px;
+    border: 1px solid #999;
+}
+
+.modal-add-basket-payment-dialog .info-item.quantity{
+    height: 72px;
+    line-height: 68px;
+    float: right;
+    margin-right: -8px;
+}
+
+.modal-add-basket-payment-dialog .box-price-total{
+    position: relative;
+    right: auto;
+    width: auto;
+    font-size: 15px;
+    line-height: 32px;
+    height: 1px;
+}
+
+.modal-add-basket-payment-dialog .box-price-total > span{
+    display: flex;
+    width: 100%;
+    line-height: 25px;
+}
+
+.modal-add-basket-payment-dialog .box-price-total .price,
+.modal-add-basket-payment-dialog .box-price-total .info-item{
+    margin-bottom: 10px;
+    padding-right: 10px;
+    width: 100%;
+    text-align: right;
+
+    border: 1px solid #999;
+}
+
+.info-item .total-value{
+    font-size: inherit;
+}
+
+.modal-add-basket-payment-dialog .box-info{
+    padding-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    height: auto;
+}
+
+.modal-add-basket-payment-dialog .box-info .info-item.discount{
+    border: none;
+    margin-top: -10px;
+    padding-right: 0;
+}
+
+.modal-add-basket-payment-dialog .box-info .info-item{
+    width: 100%;
+    text-align: left;
+}
+
+.modal-add-basket-payment-dialog .box-info .discount span{
+    color: #bf1e62;
+}
+
+.modal-add-basket-payment-dialog .box-info .discount .fake-input{
+    width: 100%;
+    margin-top: 0;
+    margin-left: 0;
+    height: auto;
+    text-align: right;
+    height: 36px;
+
+    border: 1px solid #bf1e62;
+}
+
+
+
+.modal-add-basket-details-dialog-body{
+    height: calc(100% - 172px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.modal-add-basket-details-dialog-body > .new-scroll-area{
+    height: 100%;
+}
+
 .modal,
 .modal-small,
 .modal-medium,
@@ -187,6 +305,20 @@ input:focus {
 .payment-body-mobile{
     height: 100%;
     width: 100%;
+}
+
+.swiper-wrapper > span > div#sacred, .main-best-sellers, .bs-container{
+    height: 100%;
+}
+
+.bs-container > div{
+    padding: 5px;
+}
+
+.bs-container{
+    padding-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
 }
 
 .new-scroll-area.pedido-venda-scroll{

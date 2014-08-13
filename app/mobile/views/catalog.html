@@ -50,12 +50,15 @@
                             </div>
 
                         </div>
+
+                        <!-- Deveria ser feito de uma maneira mais... hmmm... certa? :) -->
+                        <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
+
                     </div>
                 </div>
                 <div class="swiper-scrollbar"></div>
 
                 <!--<div class="title">{{section}}</div>-->
-                <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
             </div>
         </div>
     </div>
