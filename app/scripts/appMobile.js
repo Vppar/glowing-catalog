@@ -181,6 +181,8 @@
             templateUrl : 'mobile/views/pagamento-dinheiro.html'
         }).when('/produto-detalhe', {
             templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog-details.html'
+        }).when('/vale-cupom', {
+            templateUrl : 'mobile/views/vale-cupom.html'
         })
 
 

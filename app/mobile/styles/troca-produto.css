@@ -20,3 +20,42 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.scroll-payment-grid {
+    min-height: 123px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.row-fluid {
+    width: 100%;
+}
+.subtitle-header-discount {
+    margin: 0 0 5px 0 !important;
+    background-color: #f2f2f2;
+    width: 100%;
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.bgccc {
+    background-color: #ccc !important;
+}
+
+.row-payment-grid-product-discount input[type="checkbox"]{margin-top: -2px;}
+.row-payment-grid-product-discount input[type="text"]{margin:0 !important;}
+
+.row-payment-grid-product-discount {
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.text-vertical-middle {
+    min-height: 20px;
+    max-height: 50px;
+    vertical-align: middle;
+}
+#parent1 {display: table}
+
+#child1 {
+    display: table-cell;
+    vertical-align: middle;
+}
