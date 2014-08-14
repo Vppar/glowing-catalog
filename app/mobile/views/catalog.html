@@ -50,12 +50,15 @@
                             </div>
 
                         </div>
+
+                        <!-- Deveria ser feito de uma maneira mais... hmmm... certa? :) -->
+                        <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
+
                     </div>
                 </div>
                 <div class="swiper-scrollbar"></div>
 
                 <!--<div class="title">{{section}}</div>-->
-                <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
             </div>
         </div>
     </div>
@@ -101,18 +104,24 @@
 
                 var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(swiper.activeIndex + 1), {
                     mode: 'vertical',
-                    freeMode: true,
-                    freeModeFluid: true
+//                    freeMode: true,
+//                    freeModeFluid: true
+                    grabCursor: true
                 });
             }
         });
 
+
     },0);
 
-//    angular.element(document).ready(function () {
+    angular.element(document).ready(function () {
+
+        // Workaround for best-sellers
+        $('div.bs-product').on('click', function(){var ttt = $(this).children('div').first(); console.log(ttt)});
+
 //        setTimeout(function() {
 //            $('.catalog-swiper').find('.swiper-slide').get(1).click();
 //        },0);
-//    });
+    });
 
 </script>

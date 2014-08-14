@@ -103,9 +103,8 @@
         };
 
         this.openDialogAddToBasketSku = function(data) {
-            return openDialog('mobile/views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');
-//            return openDialog('views/parts/catalog/add-to-basket-dialog-sku.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-payment-dialog');
-        };
+            return openDialog('mobile/views/parts/catalog/add-to-basket-dialog-sku.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-payment-dialog modal-add-basket-dialog');
+         };
         
         this.openDialogAddToBasketDetails = function(data) {
             return openDialog('mobile/views/parts/catalog/add-to-basket-dialog.html', 'AddToBasketDialogCtrl', data, 'modal-add-basket-dialog');

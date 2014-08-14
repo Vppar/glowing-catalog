@@ -179,6 +179,8 @@
             templateUrl : 'mobile/views/pagamento-cheque.html'
         }).when('/pagamento-dinheiro', {
             templateUrl : 'mobile/views/pagamento-dinheiro.html'
+        }).when('/produto-detalhe', {
+            templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog-details.html'
         })
 
 
