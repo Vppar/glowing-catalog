@@ -164,6 +164,28 @@ input:focus {
 .modal-numpad{
     margin-left: auto;
     left: auto;
+    box-shadow: none;
+    border-radius: 0;
+    height: calc(100% - 80px);
+}
+
+.modal-numpad .modal-head{
+    border-radius: 0;
+}
+
+.modal-numpad .modal-body{
+    height: calc(100% - 42px);
+    padding: 15px;
+
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.modal-numpad .modal-body #dialog-input{
+    height: 35px;
+    margin-bottom: 15px;
+}
+.modal-numpad .modal-body .modal-summary{
+    margin-top: -15px;
 }
 
 /* Modal para desconto */
@@ -271,6 +293,19 @@ input:focus {
     height: 30px;
 }
 
+
+.pedido-venda.summary{
+    font-size: 12px;
+}
+
+.pedido-venda.summary > div{
+    padding-left: 0;
+}
+
+
+.col-24{
+    width: 100%;
+}
 
 
 .modal-add-basket-details-dialog-body{
@@ -443,8 +478,8 @@ input:focus {
     top: 80px;
     left: 50%;
     z-index: 1050;
-    width: 320px;
-    margin-left: -160px;
+    width: 304px;
+    margin-left: -152px;
     background-color: white;
     border: none;
     border: none;

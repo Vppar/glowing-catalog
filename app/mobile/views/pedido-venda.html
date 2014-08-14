@@ -34,20 +34,22 @@
     </div>
 
 
-    <div class="summary">
-        <div class="mob-col-20 negrito padding-top-2">Total:</div>
+    <div class="summary pedido-venda">
+        <div class="mob-col-15 negrito padding-top-2">Total:</div>
         <!--<span class="new-col-3 currency">{{total.order.getAvgUnitPrice() | currency:''}}</span>-->
-        <div class="mob-col-30">
+        <div class="mob-col-20">
             <span class="">Qtde: </span>
             <span class="quantity-value">{{total.order.unit}}</span>
         </div>
-        <div class="mob-col-50 negrito text-right">
-            <small>R$</small>
-            <span class="total-value">
-		        {{total.order.amount | currency:''}}
-            </span>
+
+        <div class="mob-col-30">
+            <span class="btn btn-ok currency" ng-class="{'invisible' : total.discount == 0 }" type="button" ng-click="openOrderDiscountDialog()">Desc: R$ {{total.discount | currency:''}}</span>
         </div>
-        <!--<span class="new-col-3 currency" ng-class="{'invisible' : total.discount == 0 }">{{total.discount | currency:''}}</span>-->
+
+        <div class="mob-col-30 negrito text-right pull-right">
+            <small>R$</small>
+            <span class="total-value">{{(total.order.amount - total.discount) | currency:''}}</span>
+        </div>
     </div>
 
     <div class="modal-foot effect7" fast-click>
