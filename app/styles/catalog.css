@@ -39,24 +39,24 @@
 .color-dark-green{color:#839766;} /*promocoes*/
 .color-dark-lilac{color:#cebebe;} /*linha classica*/
 
-.color-ar{color:#20a4ca;} /*ar*/
-.bg-ar{background-color:#20a4ca;} /*ar*/
-.catalog-block.product-bg-ar .product-addbtn {
+.color-banho{color:#20a4ca;} 
+.bg-banho{background-color:#20a4ca;} 
+.catalog-block.product-bg-banho .product-addbtn {
 			background-color: #20a4ca;
 			background-image: url('../images/plus-w.png');
 		}	
 
-.color-terra{color:#9f7576;} /*ar*/
-.bg-terra{background-color:#9f7576;} /*ar*/
-.catalog-block.product-bg-terra .product-addbtn {
-			background-color: #9f7576;
+.color-capilar{color:#f49907;} /*ar*/
+.bg-capilar{background-color:#f49907;} /*ar*/
+.catalog-block.product-bg-capilar .product-addbtn {
+			background-color: #f49907;
 			background-image: url('../images/plus-w.png');
 		}	
 
-.color-sol{color:#ec7162;} /*ar*/
-.bg-sol{background-color:#ec7162;} /*ar*/
-.catalog-block.product-bg-sol .product-addbtn {
-			background-color: #ec7162;
+.color-hidra{color:#1fa16c;} /*ar*/
+.bg-hidra{background-color:#1fa16c;} /*ar*/
+.catalog-block.product-bg-hidra .product-addbtn {
+			background-color: #1fa16c;
 			background-image: url('../images/plus-w.png');
 		}	
 

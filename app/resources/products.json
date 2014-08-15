@@ -311,7 +311,7 @@
     "points": 15
   },
   {
-    "id": 33,
+    "id": 34,
     "session": "Catálogo",
     "line": "Capilar",
     "image": "Amazon_Active_Leave_in_Hidratante.jpg",
@@ -320,10 +320,10 @@
     "price": 49.88
   },
   {
-    "id": 34,
-    "parent": 33,
+    "id": 55,
+    "parent": 34,
     "SKU": "Amazon_Active_Leave_in_Hidratante",
-    "image": "Amazon_Active_Leave_in_Hidratante",
+    "image": "Amazon_Active_Leave_in_Hidratante.jpg",
     "active": true,
     "price": 49.88,
     "points": 15

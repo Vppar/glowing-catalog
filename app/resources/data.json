@@ -287,31 +287,10 @@
     	}
     ],
     "lines": [
-    {"name": "Shampoo","color": "medium-yellow-gray"},
-	{"name": "Condicionador","color": "light-pink"},
-	{"name": "Máscara","color": "dark-magenta"},
-	{"name": "Corpo e Banho","color": "dark-magenta"},
-	{"name": "Masculino","color": "soft-pink"},
-	
-    {"name": "Banho","color": "ar"},
-	{"name": "Capilar","color": "terra"},
-	{"name": "Hidratação","color": "sol"},
-	{"name": "Masculino","color": "light-gray"},
-	
-    	{"name": "Linha Clássica","color": "color-dark-lilac"},
-		{"name": "Linha Masculina","color": "black"},
-		{"name": "Cuidados Personalizados","color": "soft-lila"},
-		{"name": "Cuidados com o Corpo","color": "light-green"},
-		{"name": "Solar","color": "orange"},
-		{"name": "Bases","color": "soft-orange"},
-		{"name": "Corretivo","color": "black"},
-		{"name": "Pó Mineral Compacto","color": "soft2-orange"},
-		{"name": "Iluminador","color": "soft-black"},
-		{"name": "Sobrancelhas","color": "medium2-yellow-gray"},
-		{"name": "Rosto","color": "soft-orange"},
-		{"name": "Lábios","color": "color-soft-red"},
-		{"name": "Fragrâncias Masculinas","color": "light-blue"},
-		{"name": "Art Of Nature","color": "dark-magenta"}
+    {"name": "Banho","color": "banho"},
+	{"name": "Capilar","color": "capilar"},
+	{"name": "Hidratação","color": "hidra"},
+	{"name": "Masculino","color": "light-gray"}
 	],
 	"banks" : {
 		"001":	"Banco do Brasil S.A.",

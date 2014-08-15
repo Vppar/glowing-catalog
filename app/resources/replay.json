@@ -156,6 +156,15 @@
       "type":"stockAdd",
       "version":1,
       "event":{
+         "inventoryId":25,
+         "cost":45,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
          "inventoryId":26,
          "cost":35,
          "quantity": 0
@@ -192,7 +201,25 @@
       "type":"stockAdd",
       "version":1,
       "event":{
+         "inventoryId":32,
+         "cost":149,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
          "inventoryId":33,
+         "cost":149,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":34,
          "cost":149,
          "quantity": 0
       }
@@ -246,7 +273,25 @@
       "type":"stockAdd",
       "version":1,
       "event":{
+         "inventoryId":42,
+         "cost":62,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
          "inventoryId":43,
+         "cost":65,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":44,
          "cost":65,
          "quantity": 0
       }
@@ -264,8 +309,26 @@
       "type":"stockAdd",
       "version":1,
       "event":{
+         "inventoryId":46,
+         "cost":85,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
          "inventoryId":47,
          "cost":85,
+         "quantity": 0
+      }
+   },
+   {
+      "type":"stockAdd",
+      "version":1,
+      "event":{
+         "inventoryId":48,
+         "cost":273,
          "quantity": 0
       }
    },
