@@ -293,10 +293,10 @@
 	{"name": "Corpo e Banho","color": "dark-magenta"},
 	{"name": "Masculino","color": "soft-pink"},
 	
-    {"name": "Ar","color": "ar"},
-	{"name": "Terra","color": "terra"},
-	{"name": "Sol","color": "sol"},
-	{"name": "Outros","color": "light-gray"},
+    {"name": "Banho","color": "ar"},
+	{"name": "Capilar","color": "terra"},
+	{"name": "Hidratação","color": "sol"},
+	{"name": "Masculino","color": "light-gray"},
 	
     	{"name": "Linha Clássica","color": "color-dark-lilac"},
 		{"name": "Linha Masculina","color": "black"},

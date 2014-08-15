@@ -2,18 +2,17 @@
   {
     "id": 0,
     "session": "Catálogo",
-    "line": "Ar",
-    "image": "03-0004-0001.jpg",
-    "title": "Amazon Active Shampoo Cabelos Oleosos 250ml",
-    "description": "Amazon Active Shampoo Cabelos Oleosos",
-    "bestSeller": 2,
+    "line": "Banho",
+    "image": "Amazon_Active_Shower_Gel_Hidratante_Avela.jpg",
+    "title": "Amazon Active Shower Gel Hidratante Avelã",
+    "description": "O Amazon Active Shower Gel Hidratante Avelã possui fórmula Shower-active 1.0 com Extrato de Algas Marinhas e Aloe Vera. Ideal para o uso no banho, higieniza eficientemente a pele proporcionando suavidade e hidratação.",
     "price": 49.88
   },
   {
     "id": 1,
     "parent": 0,
-    "SKU": "03-0004-0001",
-    "image": "03-0004-0001.jpg",
+    "SKU": "Amazon_Active_Shower_Gel_Hidratante_Avela",
+    "image": "Amazon_Active_Shower_Gel_Hidratante_Avela.jpg",
     "active": true,
     "price": 49.88,
     "points": 15
@@ -21,151 +20,493 @@
   {
     "id": 2,
     "session": "Catálogo",
-    "line": "Terra",
-    "image": "03-0010-0001.jpg",
-    "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
-    "description": "O Amazon Active Shampoo Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos).",
-    "bestSeller": 1,
-    "price": 54.88
+    "line": "Capilar",
+    "image": "Amazon_Active_Shampoo_Purificante.jpg",
+    "title": "Amazon Active Shampoo Purificante",
+    "description": "O Amazon Active Shampoo Purificante possui fórmula Pure-active 1.0 que contém Extrato de Maracujá. Higieniza profundamente os fios, removendo os resíduos e o excesso de oleosidade. Sua ação purificante restabelece o equilíbrio natural dos fios, preparando-os para receber o posterior tratamento específico para cada tipo de cabelo (nutrição, hidratação, matização, manutenção dos processos químicos e etc.). Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
   },
   {
     "id": 3,
     "parent": 2,
-    "SKU": "03-0010-0001",
-    "image": "03-0010-0001.jpg",
+    "SKU": "Amazon_Active_Shampoo_Purificante",
+    "image": "Amazon_Active_Shampoo_Purificante.jpg",
     "active": true,
-    "price": 54.88,
-    "points": 16
+    "price": 49.88,
+    "points": 15
   },
   {
     "id": 4,
     "session": "Catálogo",
-    "line": "Outros",
-    "image": "03-0014-0001.jpg",
-    "title": "Amazon Active Shampoo Matizador Cabelos Platinados",
-    "description": "Amazon Active Shampoo Matizador Cabelos Platinados",
-    "price": 56.13
+    "line": "Capilar",
+    "image": "Amazon_Active_Shampoo_Cabelos_Oleosos.jpg",
+    "title": "Amazon Active Shampoo Cabelos Oleosos",
+    "description": "O Amazon Active Shampoo Cabelos Oleosos possui fórmula Light-active 1.0 com Extrato de Kiwi. Higieniza perfeitamente os fios, remove o excesso de oleosidade e deixa os fios leves, sem ressecá-los, preparando as fibras para o tratamento de leveza do condicionador, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "bestSeller": 2,
+    "price": 49.88
   },
   {
     "id": 5,
     "parent": 4,
-    "SKU": "03-0014-0001",
-    "image": "03-0014-0001.jpg",
+    "SKU": "Amazon_Active_Shampoo_Cabelos_Oleosos",
+    "image": "Amazon_Active_Shampoo_Cabelos_Oleosos.jpg",
     "active": true,
-    "price": 56.13,
-    "points": 20
+    "price": 49.88,
+    "points": 15
   },
   {
     "id": 6,
     "session": "Catálogo",
-    "line": "Outros",
-    "image": "0027-0002.jpg",
-    "title": "Amazon Active Shampoo Purificante",
-    "description": "Amazon Active Shampoo Purificante",
-    "price": 54.88
+    "line": "Capilar",
+    "image": "Amazon_Active_Condicionador_Cabelos_Oleosos.jpg",
+    "title": "Amazon Active Condicionador Cabelos Oleosos",
+    "description": "O Amazon Active Condicionador Cabelos Oleosos possui fórmula Light-active 1.0 com Extrato de Kiwi, D-Pantenol e filtro solar. Sela perfeitamente as cutículas do fio e condiciona os cabelos com perfeito equilíbrio, deixando-os leves e macios. Possui filtro solar e é livre sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
   },
   {
     "id": 7,
     "parent": 6,
-    "SKU": "0027-0002",
-    "image": "0027-0002.jpg",
+    "SKU": "Amazon_Active_Condicionador_Cabelos_Oleosos",
+    "image": "Amazon_Active_Condicionador_Cabelos_Oleosos.jpg",
     "active": true,
-    "price": 54.88,
-    "points": 12
+    "price": 49.88,
+    "points": 15
   },
   {
     "id": 8,
     "session": "Catálogo",
-    "line": "Terra",
-    "image": "03-0011-0001.jpg",
-    "title": "Amazon Active Condicionador Cabelos Quimicamente Tratados",
-    "description": "O Amazon Active Condicionador Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos). Preserva os efeitos do tratamento de transformação nutrindo as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
-    "price": 61.13
+    "line": "Capilar",
+    "image": "Amazon_Active_Shampoo_Matizador_Cabelos_Platinados.jpg",
+    "title": "Amazon Active Shampoo Matizador Cabelos Platinados",
+    "description": "O Amazon Active Shampoo Matizador Cabelos Platinados possui a exclusiva fórmula Platinum-active 1.0 com Extratos de Flor de Lótus e Blueberry. Higieniza perfeitamente os fios e pré-neutraliza uniformemente o amarelado dos cabelos loiros, grisalhos e brancos, entregando resultados profissionais. Fios luminosos e brilhantes. Possui filtro solar e é livre de sulfato, parabenos e cloreto de sódio (sal).",
+    "price": 49.88
   },
   {
     "id": 9,
     "parent": 8,
-    "SKU": "03-0011-0001",
-    "image": "03-0011-0001.jpg",
+    "SKU": "Amazon_Active_Shampoo_Matizador_Cabelos_Platinados",
+    "image": "Amazon_Active_Shampoo_Matizador_Cabelos_Platinados.jpg",
     "active": true,
-    "price": 61.13,
-    "points": 25
+    "price": 49.88,
+    "points": 15
   },
-
   {
     "id": 10,
     "session": "Catálogo",
-    "line": "Ar",
-    "image": "0025-0002.jpg",
-    "title": "Amazon Active Condicionador Cabelos Oleosos",
-    "description": "Amazon Active Condicionador Cabelos Oleosos",
-    "price": 56.13
+    "line": "Capilar",
+    "image": "Amazon_Active_Condicionador_Matizador_Cabelos_Platinados.jpg",
+    "title": "Amazon Active Condicionador Matizador Cabelos Platinados",
+    "description": "O Amazon Active Condicionador Matizador Cabelos Platinados possui a exclusiva fórmula Platinum-active 1.0 com Extratos de Flor de Lótus e Blueberry. Proporciona maciez e neutraliza uniformemente o amarelado dos cabelos loiros, grisalhos e brancos, entregando resultados profissionais. Fios luminosos e brilhantes. Possui filtro solar e é livre de sulfato, parabenos e cloreto de sódio (sal).",
+    "price": 49.88
   },
   {
     "id": 11,
     "parent": 10,
-    "SKU": "0025-0002",
-    "image": "0025-0002.jpg",
+    "SKU": "Amazon_Active_Condicionador_Matizador_Cabelos_Platinados",
+    "image": "Amazon_Active_Condicionador_Matizador_Cabelos_Platinados.jpg",
     "active": true,
-    "price": 56.13,
-    "points": 18
+    "price": 49.88,
+    "points": 15
   },
   {
     "id": 12,
     "session": "Catálogo",
-    "line": "Terra",
-    "image": "03-0012-0001.jpg",
-    "title": "Amazon Active Máscara Cabelos Quimicamente Tratados",
-    "description": "A Amazon Active Máscara Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos) e D-Pantenol. Potencializa os efeitos do tratamento de transformação, nutrindo intensivamente e recuperando as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
-    "bestSeller": 4,
-    "price": 59.88
+    "line": "Capilar",
+    "image": "Amazon_Active_Complexo_Matizador_Cabelos_Platinados.jpg",
+    "title": "Amazon Active Complexo Matizador Cabelos Platinados",
+    "description": "O Amazon Active Complexo Matizador Cabelos Platinados possui a exclusiva fórmula Platinum-active 1.0 com Extratos de Flor de Lótus e Blueberry. Neutraliza o amarelado dos cabelos loiros, grisalhos e brancos, proporciona matização instantânea, deixando os fios luminosos e brilhantes. Possui filtro solar e é livre de sulfato, parabenos e cloreto de sódio (sal).",
+    "price": 49.88
   },
   {
     "id": 13,
     "parent": 12,
-    "SKU": "03-0012-0001",
-    "image": "03-0012-0001.jpg",
+    "SKU": "Amazon_Active_Complexo_Matizador_Cabelos_Platinados",
+    "image": "Amazon_Active_Complexo_Matizador_Cabelos_Platinados.jpg",
     "active": true,
-    "price": 59.88,
-    "points": 19
+    "price": 49.88,
+    "points": 15
   },
-
   {
     "id": 14,
     "session": "Catálogo",
-    "line": "Outros",
-    "image": "03-0021-0001.jpg",
-    "title": "Amazon Active Shower Gel Hidratante Avelã",
-    "description": "Amazon Active Shower Gel Hidratante Avelã",
-    "price": 54.90
+    "line": "Capilar",
+    "image": "Amazon_Active_Condicionador_Cabelos_Quimicamente_Tratados.jpg",
+    "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
+    "description": "O Amazon Active Shampoo Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos). Higieniza perfeitamente os fios e prepara as fibras para a manutenção de tratamentos químicos realizados no cabelo, entregando resultados profissionais. Contém filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
   },
   {
     "id": 15,
     "parent": 14,
-    "SKU": "03-0021-0001",
-    "image": "03-0021-0001.jpg",
+    "SKU": "Amazon_Active_Condicionador_Cabelos_Quimicamente_Tratados",
+    "image": "Amazon_Active_Condicionador_Cabelos_Quimicamente_Tratados.jpg",
     "active": true,
-    "price": 54.90,
-    "points": 16
+    "price": 49.88,
+    "points": 15
   },
-
   {
     "id": 16,
     "session": "Catálogo",
-    "line": "Sol",
-    "image": "0030-0002.jpg",
-    "title": "Amazon Active Shampoo Cabelos Tingidos 250ml",
-    "description": "Amazon Active Shower Gel Hidratante Avelã",
-    "bestSeller": 3,
+    "line": "Capilar",
+    "image": "Amazon_Active_Shampoo_Cabelos_Quimicamente_Tratados.jpg",
+    "title": "Amazon Active Shampoo Cabelos Quimicamente Tratados",
+    "description": "O Amazon Active  Condicionador Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos). Preserva os efeitos do tratamento de transformação nutrindo as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "bestSeller": 1,
     "price": 49.88
   },
   {
     "id": 17,
     "parent": 16,
-    "SKU": "0030-0002",
-    "image": "0030-0002.jpg",
+    "SKU": "Amazon_Active_Shampoo_Cabelos_Quimicamente_Tratados",
+    "image": "Amazon_Active_Shampoo_Cabelos_Quimicamente_Tratados.jpg",
     "active": true,
     "price": 49.88,
-    "points": 18
+    "points": 15
+  },
+  {
+    "id": 18,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Mascara_Cabelos_Quimicamente_Tratados.jpg",
+    "title": "Amazon Active Máscara Cabelos Quimicamente Tratados",
+    "description": "A Amazon Active Máscara Cabelos Quimicamente Tratados possui fórmula Chemical-active 1.0 que contém o composto Nutri-complex (Argane + Cassis + Aloe Vera + Aminoácidos) e D-Pantenol. Potencializa os efeitos do tratamento de transformação, nutrindo intensivamente e recuperando as partes sensibilizadas da fibra, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "bestSeller": 4,
+    "price": 49.88
+  },
+  {
+    "id": 19,
+    "parent": 18,
+    "SKU": "Amazon_Active_Mascara_Cabelos_Quimicamente_Tratados",
+    "image": "Amazon_Active_Mascara_Cabelos_Quimicamente_Tratados.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+
+   {
+    "id": 20,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Shampoo_Cabelos_Secos.jpg",
+    "title": "Amazon Active Shampoo Cabelos Secos",
+    "description": "O Amazon Active Shampoo Cabelos Secos possui fórmula Hydro-active 1.0 que contém Óleo de Macadâmia. Promove a higienização perfeita dos fios, preparando as fibras para o tratamento de hidratação do condicionador e máscara da linha, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 21,
+    "parent": 20,
+    "SKU": "Amazon_Active_Shampoo_Cabelos_Secos",
+    "image": "Amazon_Active_Shampoo_Cabelos_Secos.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 22,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Condicionador_Cabelos_Secos.jpg",
+    "title": "Amazon Active Condicionador Cabelos Secos",
+    "description": "O Amazon Active Condicionador Cabelos Secos possui fórmula Hydro-active 1.0 que contém Óleo de Macadâmia e D-Pantenol. Proporciona plena hidratação, nutrição e suavidade para cabelos secos ou ressecados, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 23,
+    "parent": 22,
+    "SKU": "Amazon_Active_Condicionador_Cabelos_Secos",
+    "image": "Amazon_Active_Condicionador_Cabelos_Secos.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 24,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Mascara_Cabelos_Secos.jpg",
+    "title": "Amazon Active Máscara Cabelos Secos",
+    "description": "A Amazon Active Máscara Cabelos Secos possui fórmula Hydro-active 1.0 que contém Óleo de Macadâmia, D-Pantenol e Bioactive-Intense (complexo de silicones especiais). Proporciona hidratação, nutrição e maciez intensivas para cabelos secos ou ressecados, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 25,
+    "parent": 24,
+    "SKU": "Amazon_Active_Mascara_Cabelos_Secos",
+    "image": "Amazon_Active_Mascara_Cabelos_Secos.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 26,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Shampoo_Cabelos_Tingidos.jpg",
+    "title": "Amazon Active Shampoo Cabelos Tingidos",
+    "description": "O Amazon Active Shampoo Cabelos Tingidos possui fórmula Color-active 1.0 que contém Óleo de Avelã. Higieniza perfeitamente os fios, realça o brilho e prepara as fibras para o tratamento de fixação de cor, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "bestSeller": 3,
+    "price": 49.88
+  },
+  {
+    "id": 27,
+    "parent": 26,
+    "SKU": "Amazon_Active_Shampoo_Cabelos_Tingidos",
+    "image": "Amazon_Active_Shampoo_Cabelos_Tingidos.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 28,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Condicionador_Cabelos_Tingidos.jpg",
+    "title": "Amazon Active Condicionador Cabelos Tingidos",
+    "description": "O Amazon Active Condicionador Cabelos Tingidos possui fórmula Color-active 1.0 que contém Óleo de Avelã. Proporciona fixação e proteção da cor, nutrição e realce do brilho para cabelos tingidos, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 29,
+    "parent": 28,
+    "SKU": "Amazon_Active_Condicionador_Cabelos_Tingidos",
+    "image": "Amazon_Active_Condicionador_Cabelos_Tingidos.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 30,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Mascara_Cabelos_Tingidos.jpg",
+    "title": "Amazon Active Máscara Cabelos Tingidos",
+    "description": "A Amazon Active Máscara Cabelos Tingidos possui fórmula Color-active 1.0 com Óleo de Avelã, D-Pantenol e Bioactive-Intense (complexo de silicones especiais). Proporciona fixação e proteção intensivas da cor, nutrição e realce do brilho para cabelos tingidos, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 31,
+    "parent": 30,
+    "SKU": "Amazon_Active_Mascara_Cabelos_Tingidos",
+    "image": "Amazon_Active_Mascara_Cabelos_Tingidos.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 32,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Complexo_Fixacao_da_Cor.jpg",
+    "title": "Amazon Active Complexo de Fixação de Cor",
+    "description": "O Amazon Active Complexo de Fixação de Cor possui fórmula Color-active 1.0 com Óleo de Avelã e D-Pantenol. Proporciona fixação da cor, nutrição e realce do brilho de forma instantânea para cabelos tingidos, entregando resultados profissionais. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 33,
+    "parent": 32,
+    "SKU": "Amazon_Active_Complexo_Fixacao_da_Cor",
+    "image": "Amazon_Active_Complexo_Fixacao_da_Cor.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 33,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Leave_in_Hidratante.jpg",
+    "title": "Amazon Active Leave-in Hidratante",
+    "description": "O Amazon Active Leave-in Hidratante possui fórmula Leave-active 1.0 com D-Pantenol e Silicones Especiais. Proporciona disciplina contínua, nutrição e hidratação aos cabelos crespos, cacheados e indisciplinados. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 34,
+    "parent": 33,
+    "SKU": "Amazon_Active_Leave_in_Hidratante",
+    "image": "Amazon_Active_Leave_in_Hidratante",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 35,
+    "session": "Catálogo",
+    "line": "Capilar",
+    "image": "Amazon_Active_Spray_Capilar_4_em_1.jpg",
+    "title": "Amazon Active Spray Capilar 4 em 1",
+    "description": "O Amazon Active Spray Capilar 4 em 1 possui fórmula Thermo-active 1.0 com Proteína Hidrolisada do Leite e Silicones Especiais. Desembaraça os fios facilitando a escova e protege do calor do secador e/ou prancha térmica. Ativado pela exposição térmica, preenche as escamas danificadas alinhando os fios para um condicionamento ideal. De ação anti-frizz e hidratante, proporciona brilho e maciez aos cabelos.",
+    "price": 49.88
+  },
+  {
+    "id": 36,
+    "parent": 35,
+    "SKU": "Amazon_Active_Spray_Capilar_4_em_1",
+    "image": "Amazon_Active_Spray_Capilar_4_em_1.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 37,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Avela.jpg",
+    "title": "Amazon Active Loção Hidratante Corporal Avelã",
+    "description": "A Amazon Active Loção Hidratante Corporal Avelã hidrata e perfuma suavemente a pele, proporcionando proteção e deixando uma duradoura sensação de bem-estar. Com fórmula Lotion-active 1.0 com Uréia, Óleo de Macadâmia, Colágeno Hidrolisado, Elastina Hidrolisado e Vitamina E.",
+    "price": 49.88
+  },
+  {
+    "id": 38,
+    "parent": 37,
+    "SKU": "Amazon_Active_Locao_Hidratante_Corporal_Avela",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Avela.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 39,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Frutas_Citricas.jpg",
+    "title": "Amazon Active Loção Hidratante Corporal Frutas Cítricas",
+    "description": "A Amazon Active Loção Hidratante Corporal Frutas Cítricas hidrata e perfuma suavemente a pele, proporcionando proteção e deixando uma duradoura sensação de bem-estar. Possui fórmula Lotion-active 1.0 com Uréia, Óleo de Macadâmia, Colágeno Hidrolisado, Elastina Hidrolisado e Vitamina E.",
+    "price": 49.88
+  },
+  {
+    "id": 40,
+    "parent": 39,
+    "SKU": "Amazon_Active_Locao_Hidratante_Corporal_Frutas_Citricas",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Frutas_Citricas.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 41,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Lirio_do_Vale.jpg",
+    "title": "Amazon Active Loção Hidratante Corporal Lírio do Vale",
+    "description": "A Amazon Active Loção Hidratante Corporal Lírio do Vale hidrata e perfuma suavemente a pele, proporcionando proteção e deixando uma duradoura sensação de bem-estar. Possui fórmula Lotion-active 1.0 com Uréia, Óleo de Macadâmia, Colágeno Hidrolisado, Elastina Hidrolisado e Vitamina E.",
+    "price": 49.88
+  },
+  {
+    "id": 42,
+    "parent": 41,
+    "SKU": "Amazon_Active_Locao_Hidratante_Corporal_Lirio_do_Vale",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Lirio_do_Vale.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 43,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Mandarina.jpg",
+    "title": "Amazon Active Loção Hidratante Corporal Mandarina",
+    "description": "A Amazon Active Loção Hidratante Corporal Mandarina hidrata e perfuma suavemente a pele, proporcionando proteção e deixando uma duradoura sensação de bem-estar. Possui fórmula Lotion-active 1.0 com Uréia, Óleo de Macadâmia, Colágeno Hidrolisado, Elastina Hidrolisado e Vitamina E.",
+    "price": 49.88
+  },
+  {
+    "id": 44,
+    "parent": 43,
+    "SKU": "Amazon_Active_Locao_Hidratante_Corporal_Mandarina",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Mandarina.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+
+ {
+    "id": 45,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Orquidea_Vermelha.jpg",
+    "title": "Amazon Active Loção Hidratante Corporal Orquídea Vermelha",
+    "description": "A Amazon Active Loção Hidratante Corporal Orquídea Vermelha hidrata e perfuma suavemente a pele, proporcionando proteção e deixando uma duradoura sensação de bem-estar. Possui fórmula Lotion-active 1.0 com Uréia, Óleo de Macadâmia, Colágeno Hidrolisado, Elastina Hidrolisado e Vitamina E.",
+    "price": 49.88
+  },
+  {
+    "id": 46,
+    "parent": 45,
+    "SKU": "Amazon_Active_Locao_Hidratante_Corporal_Orquidea_Vermelha",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Orquidea_Vermelha.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 47,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Pitaya.jpg",
+    "title": "Amazon Active Loção Hidratante Corporal Pitaya",
+    "description": "A Amazon Active Loção Hidratante Corporal Pitaya hidrata e perfuma suavemente a pele, proporcionando proteção e deixando uma duradoura sensação de bem-estar. Possui fórmula Lotion-active 1.0 com Uréia, Óleo de Macadâmia, Colágeno Hidrolisado, Elastina Hidrolisado e Vitamina E.",
+    "price": 49.88
+  },
+  {
+    "id": 48,
+    "parent": 47,
+    "SKU": "Amazon_Active_Locao_Hidratante_Corporal_Pitaya",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Pitaya.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+  {
+    "id": 49,
+    "session": "Catálogo",
+    "line": "Hidratação",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Rosa_Branca.jpg",
+    "title": "Amazon Active Loção Hidratante Corporal Rosa Branca",
+    "description": "A Amazon Active Loção Hidratante Corporal Rosa Branca hidrata e perfuma suavemente a pele, proporcionando proteção e deixando uma duradoura sensação de bem-estar. Possui fórmula Lotion-active 1.0 com Uréia, Óleo de Macadâmia, Colágeno Hidrolisado, Elastina Hidrolisado e Vitamina E.",
+    "price": 49.88
+  },
+  {
+    "id": 50,
+    "parent": 49,
+    "SKU": "Amazon_Active_Locao_Hidratante_Corporal_Rosa_Branca",
+    "image": "Amazon_Active_Locao_Hidratante_Corporal_Rosa_Branca.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+   {
+    "id": 51,
+    "session": "Catálogo",
+    "line": "Masculino",
+    "image": "Amazon_Active_Shampoo_Hidratante_Sport_Man.jpg",
+    "title": "Amazon Active Shampoo Hidratante Sport Man",
+    "description": "O Amazon Active Shampoo Hidratante Sport Man possui fórmula Fresh-active 1.0 que contém Algas Marinhas e Aloe Vera. Higieniza perfeitamente os fios, hidrata as fibras e proporciona um revitalizante efeito de refrescância, ideal para o homem esportivo. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 52,
+    "parent": 51,
+    "SKU": "Amazon_Active_Shampoo_Hidratante_Sport_Man",
+    "image": "Amazon_Active_Shampoo_Hidratante_Sport_Man.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
+  },
+   {
+    "id": 53,
+    "session": "Catálogo",
+    "line": "Masculino",
+    "image": "Amazon_Active_Gel_Modelador_Capilar_Sport_Man.jpg",
+    "title": "Amazon Active Modelador Capilar Sport Man",
+    "description": "O Amazon Active Modelador Capilar Sport Man possui fórmula Model-active 1.0 com D- Pantenol, modela com precisão o penteado, protegendo e hidratando os fios. Suavidade e fixação média para as fibras. Sem álcool. Possui filtro solar e é livre de sulfato, parabenos, cloreto de sódio (sal) e corantes.",
+    "price": 49.88
+  },
+  {
+    "id": 54,
+    "parent": 53,
+    "SKU": "Amazon_Active_Gel_Modelador_Capilar_Sport_Man",
+    "image": "Amazon_Active_Gel_Modelador_Capilar_Sport_Man.jpg",
+    "active": true,
+    "price": 49.88,
+    "points": 15
   }
 ]
