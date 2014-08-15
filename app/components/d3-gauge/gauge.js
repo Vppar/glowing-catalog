@@ -67,21 +67,27 @@
                         cap = snapshot; 
                     }
 
+                    function sortNumber(a,b) {
+                        return a - b;
+                    }
+
                     //order by size
                     //var orderRender = [goal,currentGoal,snapshot];
                     var orderRender = [goal,snapshot];
-                    orderRender.sort();
-                    
+                    orderRender = orderRender.sort(sortNumber);
+
                     var varCssMap = {};
                     varCssMap[goal] = 'goal';
                     //varCssMap[currentGoal] = 'goal';
                     varCssMap[snapshot] = 'snapshot';
 
-
                     //scale based on goal value;
                     y = d3.scale.linear().domain([cap,0]).range([height-topMargin, 0]);
 
-                    for(var i = (orderRender.length-1);i>(-1);i--){
+                    //draw bars desc 
+                    for(var i = (orderRender.length-1);i>(-1);i--){                
+
+//                        drawBar(orderRender[i],varCssMap[orderRender[i]]);
 
                         if(i === 0 && varCssMap[currentGoal] === 'goal'){
                             drawBarNoFill(orderRender[i],varCssMap[orderRender[i]]);
