@@ -514,7 +514,6 @@ images/catalog/best-3.jpg
 images/catalog/best-4.jpg
 
 images/login/background-login-1.jpg
-images/login/background-login-2.jpg
 
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js
