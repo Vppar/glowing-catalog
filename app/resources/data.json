@@ -287,10 +287,12 @@
     	}
     ],
     "lines": [
-    {"name": "Banho","color": "banho"},
-	{"name": "Capilar","color": "capilar"},
-	{"name": "Hidratação","color": "hidra"},
-	{"name": "Masculino","color": "light-gray"}
+    {"name": "Shampoo","color": "banho"},
+	{"name": "Condicionador","color": "capilar"},
+	{"name": "Máscara","color": "hidra"},
+    {"name": "Finalizador","color": "fin"},
+	{"name": "Masculino","color": "light-gray"},
+    {"name": "Outros","color":"outros"}
 	],
 	"banks" : {
 		"001":	"Banco do Brasil S.A.",

@@ -60,7 +60,18 @@
 			background-image: url('../images/plus-w.png');
 		}	
 
-
+.color-fin{color:#cebebe;} /*ar*/
+.bg-fin{background-color:#cebebe;} /*ar*/
+.catalog-block.product-bg-fin .product-addbtn {
+			background-color: #cebebe;
+			background-image: url('../images/plus-w.png');
+		}
+.color-outros{color:#dbb79d;} /*ar*/
+.bg-outros{background-color:#dbb79d;} /*ar*/
+.catalog-block.product-bg-outros .product-addbtn {
+			background-color: #dbb79d;
+			background-image: url('../images/plus-w.png');
+		}	
 		
 
 /*fundo dos títulos*/
