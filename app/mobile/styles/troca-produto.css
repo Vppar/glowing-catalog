@@ -39,6 +39,9 @@
 .bgccc {
     background-color: #ccc !important;
 }
+.bgccc:focus {
+    background-color: #fff !important;
+}
 
 .row-payment-grid-product-discount input[type="checkbox"]{margin-top: -2px;}
 .row-payment-grid-product-discount input[type="text"]{margin:0 !important;}

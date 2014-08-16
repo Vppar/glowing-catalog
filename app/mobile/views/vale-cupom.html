@@ -24,25 +24,6 @@
                             </div>
                         </div>
 
-                        <div class="row-payment-grid-product-discount">
-                            <div class="row-payment-grid-product-discount" >
-								<span class="mob-col-30">
-									<div class="">25/05/2014{{discount.created | date:'dd/MM/yyyy'}}</div>
-								</span>
-								<span class="mob-col-35">
-
-                                        <input type="checkbox" class="" ng-model="checkBox.voucher[$index]" ng-change="checkBoxCtrl($index, 'voucher')">
-                                    <span>
-                                        <small>R$</small> 500,00{{discount.amount | currency: ''}}
-                                    </span>
-								</span>
-								<span class="mob-col-35">
-									<div>
-                                        <input id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-input currency/>
-                                    </div>
-								</span>
-                            </div>
-                        </div>
 
                         <div class="row-payment-grid-product-discount">
                             <div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.voucher">
