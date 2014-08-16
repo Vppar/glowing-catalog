@@ -18,7 +18,9 @@
             </div>
             <div class="product-bottom">
                 <span class="product-currency">R$</span><span class="product-price"> {{product.price | currency:''}}</span>
-                <span ng-click='add(product)' class="product-addbtn"></span>
+                <div class="add-product-bigger-button" ng-click='add(product)'>
+                    <span class="product-addbtn"></span>
+                </div>
             </div>
         </div>
     </div>

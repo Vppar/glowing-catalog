@@ -123,6 +123,14 @@ input:focus {
     margin-right: auto;
 }
 
+
+.add-product-bigger-button{
+    display: inline-block;
+    float: right;
+    width: 50px;
+    height: 40px;
+}
+
 #sacred .button-black,
 #sacred .button-green{
     border-radius: 4px;
@@ -139,6 +147,7 @@ input:focus {
     padding:8px 10px;
     text-align: center;
     vertical-align: middle; /*testar -- com display:block, o vertical-align não funciona (não se utiliza)*/
+    background-color: #cccccc;
 }
 
 #sacred .button-green,
@@ -323,7 +332,6 @@ input:focus {
 .modal-medium,
 .modal-big{
     position: absolute;
-    top: 40px;
     z-index: 1050;
     border: none;
     border: none;
@@ -332,9 +340,14 @@ input:focus {
     background-clip: none;
     outline: none;
     border-radius: 4px;
-    padding: 30px;
+    padding: 15px;
 
-    width: 344px;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 97%;
+
 }
 
 .modal-body{
@@ -635,7 +648,7 @@ input:focus {
 }
 
 .catalog-child-swiper > .swiper-wrapper > .swiper-slide{
-    height: calc(100% - 3px) !important;
+    /*height: calc(100% - 3px) !important;*/
 }
 
 .catalog-child-swiper > .swiper-wrapper > .swiper-slide > .row-fluid{
@@ -647,7 +660,7 @@ input:focus {
     -webkit-overflow-scrolling: touch;
     /*max-height: 430px;*/
 
-    height: calc(100% - 44px);
+    height: calc(100% - 59px);
 }
 
 .product-content{
