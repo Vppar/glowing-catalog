@@ -35,18 +35,18 @@
 
 
     <div class="summary pedido-venda">
-        <div class="mob-col-15 negrito padding-top-2">Total:</div>
+        <!--<div class="mob-col-15 negrito padding-top-2">Total:</div>-->
         <!--<span class="new-col-3 currency">{{total.order.getAvgUnitPrice() | currency:''}}</span>-->
-        <div class="mob-col-20">
+        <div class="mob-col-33">
             <span class="">Qtde: </span>
             <span class="quantity-value">{{total.order.unit}}</span>
         </div>
 
-        <div class="mob-col-30">
+        <div class="mob-col-33">
             <span class="btn btn-ok currency" ng-class="{'invisible' : total.discount == 0 }" type="button" ng-click="openOrderDiscountDialog()">Desc: R$ {{total.discount | currency:''}}</span>
         </div>
 
-        <div class="mob-col-30 negrito text-right pull-right">
+        <div class="mob-col-33 negrito text-right pull-right">
             <small>R$</small>
             <span class="total-value">{{(total.order.amount - total.discount) | currency:''}}</span>
         </div>

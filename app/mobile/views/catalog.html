@@ -80,6 +80,7 @@
         var catalogSwiper = new Swiper('.catalog-swiper',{
             paginationClickable: true,
             watchActiveIndex: true,
+            slidePerView: 1,
             onSlideChangeStart: function(swiper){
                 console.log('actual0: '+ swiper.activeIndex);
 
@@ -91,23 +92,52 @@
                 }).appendTo(swiper.container);
             },
             onSlideChangeEnd: function (swiper) {
-                swiper.activeSlide().click();
-                console.log('actual1: '+ swiper.activeIndex);
-            // alerts angular to load content
-                console.log(swiper);
+
+
+//                var catalogHeightBase = $('.swiper-container.catalog-swiper').height();
+//                var paddings = 181;
+//                var finalCatalogHeight = catalogHeightBase - paddings;
+//                $('.swiper-container.catalog-swiper').find('.enable-product-overflow').height(finalCatalogHeight);
+
                 console.log('I should change now!');
-//                console.log('nope... now! : '+ swiper.activeSlide());
-//                swiper.activeSlide().click();
+
+                // alerts angular to load content
+                swiper.activeSlide().click();
+
+                console.log(swiper);
+
                 console.log('thats the end');
 
                 $('#catalog-loading').remove();
 
-                var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(swiper.activeIndex + 1), {
-                    mode: 'vertical'
-//                    freeMode: true,
-//                    freeModeFluid: true
-//                    grabCursor: true
-                });
+                setTimeout(function() {
+
+                    var index = swiper.activeIndex;
+
+                    var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(index), {
+                        mode: 'vertical',
+//                        calculateHeight: true,
+
+                        onSlideChangeStart: function (swiperChild) {
+                            console.log('start vertical');
+                        }
+                    });
+
+                    console.log(catalogChildSwiper);
+
+                    $('.swiper-container.product-swiper').on('touchstart mousedown', function(event){
+
+                        window.TTT = event.target;
+                        var elem =  event.target;
+
+                        if(elem.className == 'product-addbtn' || elem.className == 'add-product-bigger-button')
+                            return true;
+
+                        event.stopPropagation();
+                        //event.preventDefault();
+                    });
+
+                }, 0);
             }
         });
 
