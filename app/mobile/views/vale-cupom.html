@@ -1,9 +1,5 @@
 <div class="container-mobile" scroll-spy>
 
-    <div class="row-fluid">
-        <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
-    </div>
-
     <div class="margin8">
         <div class="page-title text-center">Abatimento de Vale / Cupom</div>
     <div class="left-payment" ng-controller="PaymentDiscountCtrl">
@@ -149,7 +145,7 @@
     </div>
     </div>
     <div class="payment-foot effect7">
-        <button class="btn btn-cancel btn-large btn-login" type="submit" ng-click="cancelDiscounts()">Cancelar</button>
+        <button class="btn btn-cancel btn-large btn-login" type="submit" ng-click="cancelDiscounts(); selectPaymentMethod('step2');">Cancelar</button>
         <button class="btn btn-ok btn-large btn-login pull-right" type="submit" ng-click="confirmDiscounts()">Confirmar</button>
     </div>
 

@@ -28,7 +28,7 @@
             </div>
 
             <div class="new-scroll-area pagamento-dinheiro-scroll">
-                <input id="cash" type="text" style="position: absolute; width: 0; height: 0; margin-left: -500px" ng-model="cash.amount" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency />
+                <input id="cash" type="text" style="position: absolute; width: 0; height: 0; margin-left: -500px" ng-model="cash.amount" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" tnt-kbutton="alert('ok clicked!');"  readonly currency />
                 <br />
                 <div class="numpad-holder">
                     <tnt-numpad></tnt-numpad>
@@ -41,7 +41,7 @@
 </div>
 
 <div class="payment-btn-holder payment-foot payment-money effect7">
-    <button class="btn btn-cancel btn-large pull-left" ng-click="cash.amount = 0; selectPaymentMethod('step2')">Cancelar</button>
+    <button class="btn btn-cancel btn-large pull-left" ng-click="cash.amount = 0; selectPaymentMethod('step2');">Cancelar</button>
     <button class="btn btn-ok btn-large pull-right" ng-click="selectPaymentMethod('step2')" ng-disabled="isDisabled">Confirmar</button>
 </div>
 

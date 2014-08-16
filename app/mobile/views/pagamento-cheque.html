@@ -2,10 +2,6 @@
 <!--<div class="left-payment payment-check" ng-controller="PaymentCheckCtrl">-->
     <div class="container-mobile" scroll-spy>
 
-        <div class="row-fluid">
-            <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
-        </div>
-
     <div class="margin8">
         <div class="page-title text-center">Pagamento com Cheque</div>
 
@@ -93,7 +89,7 @@
     </div>
 
     <div class="payment-btn-holder">
-        <button class="btn btn-cancel btn-large pull-left" ng-click="cancelPayments()">Cancelar</button>
+        <button class="btn btn-cancel btn-large pull-left" ng-click="cancelPayments(); selectPaymentMethod('step2');">Cancelar</button>
         <button class="btn btn-ok btn-large pull-right" ng-click="confirmCheckPayments()" ng-disabled="isDisabled">Confirmar</button>
     </div>
         </div>

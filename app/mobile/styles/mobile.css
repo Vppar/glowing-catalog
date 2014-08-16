@@ -302,6 +302,10 @@ input:focus {
     height: 30px;
 }
 
+.unique-name-holder small{
+    display: inline;
+}
+
 
 .pedido-venda.summary{
     font-size: 12px;

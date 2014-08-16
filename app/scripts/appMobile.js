@@ -166,13 +166,16 @@
         }).when('/login', {
             templateUrl : 'mobile/views/login.html',
             controller : 'LoginCtrl'
-        }).when('/grade-produto', {
-            templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog.html',
-            controller : 'LoginCtrl'
         }).when('/payment', {
             templateUrl : 'mobile/views/payment.html',
             controller : 'PaymentCtrl'
-        }).when('/payment-step2', {
+        }).when('/grade-produto', {
+            templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog.html',
+            controller : 'LoginCtrl'
+        })
+
+        /* Debug links - Start */
+        .when('/payment-step2', {
             templateUrl : 'mobile/views/pagamento.html',
             controller : 'PaymentCtrl'
         }).when('/pagamento-cheque', {
@@ -190,18 +193,19 @@
         }).when('/troca-produto', {
             templateUrl : 'mobile/views/troca-produto.html'
         })
+        /* Debug links - End */
 
 
-
+        /* Old routes */
         .when('/basket', {
             templateUrl : 'views/basket.html',
             controller : 'BasketCtrl'
         })
-//            .when('/payment', {
-//            templateUrl : 'views/payment.html',
-//            controller : 'PaymentCtrl'
-//        })
-            .when('/partial-delivery', {
+        //.when('/payment', {
+        //    templateUrl : 'views/payment.html',
+        //    controller : 'PaymentCtrl'
+        //})
+        .when('/partial-delivery', {
             templateUrl : 'views/partial-delivery.html',
             controller : 'PartialDeliveryCtrl'
         }).when('/pending-delivery', {

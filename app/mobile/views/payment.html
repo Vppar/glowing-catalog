@@ -7,16 +7,16 @@
     <div class="payment-body-mobile" ng-switch on="selectedPaymentMethod">
 
         <span ng-switch-default><span ng-include src="'mobile/views/pagamento.html'"></span></span>
-        <span ng-switch-when="step2"><span ng-include src="'mobile/views/pagamento.html'"></span></span>
         <span ng-switch-when="none"><span ng-include src="'mobile/views/pedido-venda.html'"></span></span>
-
+        <span ng-switch-when="step2"><span ng-include src="'mobile/views/pagamento.html'"></span></span>
         <span ng-switch-when="money"><span ng-include src="'mobile/views/pagamento-dinheiro.html'"></span></span>
         <span ng-switch-when="check"><span ng-include src="'mobile/views/pagamento-cheque.html'"></span></span>
         <span ng-switch-when="creditcard"><span ng-include src="'mobile/views/pagamento-cartao.html'"></span></span>
         <span ng-switch-when="exchange"><span ng-include src="'mobile/views/troca-produto.html'"></span></span>
+        <span ng-switch-when="discount"><span ng-include src="'mobile/views/vale-cupom.html'"></span></span>
+        <span ng-switch-when="oncuff"><span ng-include src="'mobile/views/contas-receber.html'"></span></span>
+
         <span ng-switch-when="voucher"><span ng-include src="'views/parts/payment/payment-left-voucher.html'"></span></span>
-        <span ng-switch-when="oncuff"><span ng-include src="'views/parts/payment/payment-left-on-cuff.html'"></span></span>
-        <span ng-switch-when="discount"><span ng-include src="'views/parts/payment/payment-left-discount.html'"></span></span>
     </div>
 
 </div>

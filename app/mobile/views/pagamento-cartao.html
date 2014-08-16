@@ -1,9 +1,5 @@
 <div class="container-mobile" scroll-spy>
 
-    <div class="row-fluid">
-        <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
-    </div>
-
     <div class="margin8">
         <div class="page-title text-center">Pagamento com Cart&atilde;o</div>
 
@@ -116,7 +112,7 @@
     </div>
 
     <div class="payment-foot effect7" fast-click>
-        <button class="btn btn-cancel btn-large pull-left" type="button" ng-click="cancelPayments()"> Cancelar </button>
+        <button class="btn btn-cancel btn-large pull-left" type="button" ng-click="cancelPayments(); selectPaymentMethod('step2');"> Cancelar </button>
         <spinner-button class="btn btn-ok btn-large pull-right" spinner-promise = "confirmCreditCardPayment()" type="button">
             Confirmar
         </spinner-button>

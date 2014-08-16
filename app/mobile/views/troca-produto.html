@@ -1,9 +1,5 @@
 <div class="container-mobile" scroll-spy>
 
-    <div class="row-fluid">
-        <span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
-    </div>
-
 <div class="margin8">
     <div class="page-title text-center">Troca de produto</div>
     <div class="left-payment" ng-controller="PaymentExchangeCtrl">
@@ -73,7 +69,7 @@
     </div>
 </div>
     <div class="payment-foot effect7">
-        <button class="btn btn-cancel btn-large pull-left" type="submit" ng-click="cancelPayments()">Cancelar</button>
+        <button class="btn btn-cancel btn-large pull-left" type="submit" ng-click="cancelPayments(); selectPaymentMethod('step2');">Cancelar</button>
         <button class="btn btn-ok btn-large pull-right" type="submit" ng-click="confirmExchangePayments()">Adicionar</button>
     </div>
 </div>
