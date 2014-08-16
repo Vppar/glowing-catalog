@@ -116,9 +116,11 @@
 
     </div>
 
+    <!--ng-show="showPaymentButtons"-->
+
     <div class="payment-foot effect7" fast-click>
         <button tnt-promise-click="cancel()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
-        <spinner-button ng-click='' class="btn btn-ok btn-large btn-login pull-right" type="submit" spinner-promise="confirm()" ng-show="showPaymentButtons" ng-disabled="(total.change<0||keyboard.status.active||disabled())">
+        <spinner-button ng-click='' class="btn btn-ok btn-large btn-login pull-right" type="submit" spinner-promise="confirm()"  ng-disabled="(total.change<0||keyboard.status.active||disabled())">
             Confirmar</spinner-button>
     </div>
 

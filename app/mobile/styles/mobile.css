@@ -8,7 +8,7 @@
 }
 
 body{
-    font-family: VPinkFont,Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-family: VPinkFont, Tahoma, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 input:focus {
@@ -23,9 +23,10 @@ input:focus {
 .container-mobile, .catalog-swiper {
     height: 100%;
 }
-/*.container-mobile{*/
-    /*font-family: Tahoma, Helvetica, Arial, 'Helvetica Neue', sans-serif;*/
-/*}*/
+
+.line-height-35{
+    line-height: 35px;
+}
 
 .vpink-logo{
     height: 60px;
@@ -389,6 +390,26 @@ input:focus {
 .new-scroll-area.pagamento-dinheiro-scroll{
     height: calc(100% - 45px);
 }
+
+.pagamento-dinheiro-scroll .numpad-holder{
+    margin-top: -10px;
+}
+
+.new-scroll-area.pagamento-cheque-scroll{
+    height: calc(100% - 226px);
+}
+
+.pagamento-cheque-body{
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.pagamento-cheque-body .numpad-holder{
+    height: inherit;
+    display: block;
+}
+
 
 .new-scroll-area{
     -webkit-overflow-scrolling: touch;
