@@ -98,13 +98,11 @@
     border-bottom: 1px rgb(204, 204, 204) dotted;
     padding: 10px 2px;
     width: 100%;
-    font-family: Helvetica, Arial, 'Helvetica Neue', sans-serif;
     display: inline-table;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 .btn-ok {
     background: #bf1e62;
     color: #fff !important;
