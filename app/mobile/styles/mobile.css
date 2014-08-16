@@ -173,6 +173,7 @@ input:focus {
 .modal-numpad{
     margin-left: auto;
     left: auto;
+    width: 100%;
     box-shadow: none;
     border-radius: 0;
     height: calc(100% - 80px);
