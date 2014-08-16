@@ -1,0 +1,59 @@
+.page-body {
+    margin: 8px;
+}
+
+.grid .grid-header {
+    color: #fff;
+    background-color: #444444;
+    padding-left: 10px;
+}
+.grid .grid-summary, .grid .grid-header {
+    border-radius: 4px;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 1px;
+}
+.grid-stock .first-line {
+    color: #222;
+    background-color: #ccc;
+    font-weight: bold;
+}
+.grid-stock .second-line{
+    color: #444;
+    background-color: #e3e3e3;
+}
+.grid-stock .third-line{
+    color: #777;
+    background-color: #f4f4f4;
+}
+.grid-stock .fourth-line{
+    color: #333;
+    background-color: #fff;
+    border-bottom: 1px solid #e3e3e3;
+}
+.fourth-line:last-child{
+    border-bottom:none !important;
+}
+.grid-stock .sub-header {
+    padding-left: 0 !important;
+}
+.grid-stock .first-line, .grid-stock .second-line, .grid-stock .third-line {
+    border-radius: 4px;
+    margin-bottom: 1px;
+
+}
+.grid-stock .first-line, .grid-stock .second-line, .grid-stock .third-line, .grid-stock .fourth-line {
+    min-height: 30px;
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 5px;
+    display: flex;
+}
+.grid-stock .sub-header input {
+    height: 30px;
+    width: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: normal;
+}

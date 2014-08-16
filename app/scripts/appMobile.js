@@ -183,6 +183,12 @@
             templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog-details.html'
         }).when('/vale-cupom', {
             templateUrl : 'mobile/views/vale-cupom.html'
+        }).when('/contas-receber', {
+            templateUrl : 'mobile/views/contas-receber.html'
+        }).when('/pronta-entrega', {
+            templateUrl : 'mobile/views/pronta-entrega.html'
+        }).when('/troca-produto', {
+            templateUrl : 'mobile/views/troca-produto.html'
         })
 
 

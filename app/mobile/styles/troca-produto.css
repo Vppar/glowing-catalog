@@ -53,9 +53,46 @@
     max-height: 50px;
     vertical-align: middle;
 }
-#parent1 {display: table}
+.payment-receivable-fields {
+    margin-top: 10px;
+}
 
-#child1 {
-    display: table-cell;
-    vertical-align: middle;
+.installments-header {
+    color: rgb(51, 51, 51);
+    font-size: 14px;
+    font-weight: bold;
+    height: 20px;
+    background-color: #fff;
+    line-height: 20px;
+    margin-top: 30px;
+    margin-bottom: 2px;
+    width: 100%;
+    float: left;
+}
+
+.installment {
+    border: 1px solid #c8c8c8;
+    float: left;
+    border-radius: 4px;
+    width: 100%;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+.installment input {
+    cursor: pointer;
+    height: 35px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    width: 100%;
+    -webkit-appearance: caret;
+}
+.half-row {
+    padding-bottom: 10px;
+    width: 100%;
+    display: inline-table;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
