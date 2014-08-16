@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="installments">
-                    <div class="half-row" >
+                    <div class="half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)">
                         <div class="installment">
 
                             <div class="mob-col-25 text-center">
@@ -44,24 +44,6 @@
                             </div>
                             <div class="mob-col-40">
                                 <input id="{{'amount' + $index}}" name="" class="payment-input-large bgf2 check-value text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" ng-blur="recalcTotalAmount()" recall tnt-input currency />
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="installments">
-                    <div class="half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)">
-                        <div class="installment">
-
-                            <div class="mob-col-25 text-center">
-                                {{installment.number}}
-                            </div>
-                            <div class="mob-col-35">
-                                <input class="text-center" id="{{'duedate' + $index}}" datepicker-append-to-body="true" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="installment.duedate" tnt-input maxlength="8" readonly />
-                            </div>
-                            <div class="mob-col-40">
-                                <input id="{{'amount' + $index}}" name="" class="text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" ng-blur="recalcTotalAmount()" recall tnt-input currency />
                             </div>
 
                         </div>
