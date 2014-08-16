@@ -42,7 +42,15 @@
 .bgccc:focus {
     background-color: #fff !important;
 }
-
+.bgf2 {
+    background-color: #f2f2f2 !important;
+    border: 1px solid #f2f2f2 !important;
+}
+.bgf2:focus {
+    background-color: #fff !important;
+    z-index: 2;
+    border-color: #bf1e62 !important;
+}
 .row-payment-grid-product-discount input[type="checkbox"]{margin-top: -2px;}
 .row-payment-grid-product-discount input[type="text"]{margin:0 !important;}
 
@@ -81,16 +89,20 @@
     padding-bottom: 4px;
     padding-top: 4px;
 }
-.installment input {
-    cursor: pointer;
-    height: 35px;
-    border-radius: 4px;
-    box-sizing: border-box;
-    background-color: #f2f2f2;
-    border: 1px solid #f2f2f2;
-    width: 100%;
-    -webkit-appearance: caret;
-}
+/*.installment input {*/
+    /*cursor: pointer;*/
+    /*height: 35px;*/
+    /*border-radius: 4px;*/
+    /*box-sizing: border-box;*/
+    /*background-color: #f2f2f2;*/
+    /*border: 1px solid #f2f2f2;*/
+    /*width: 100%;*/
+    /*-webkit-appearance: caret;*/
+/*}*/
+/*input.installment :focus {*/
+    /*z-index: 2;*/
+    /*border-color: #bf1e62;*/
+/*}*/
 .half-row {
     padding-bottom: 10px;
     width: 100%;
