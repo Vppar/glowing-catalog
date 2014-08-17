@@ -43,6 +43,7 @@ input:focus {
 }
 
 .header-hour{
+    color: #56595b;
     text-align: right;
     font-weight: bold;
     font-size: smaller;
@@ -107,7 +108,7 @@ input:focus {
 
 .list-block.vpink-list-block{
     /*margin: 15px 0;*/
-    margin: 43px 0;
+    margin: 56px 0;
 }
 
 .list-block.vpink-list-block ul{

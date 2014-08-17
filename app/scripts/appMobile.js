@@ -161,7 +161,7 @@
             templateUrl : 'mobile/views/menu.html',
             controller : 'MainCtrl'
         }).when('/catalog', {
-            templateUrl : 'mobile/views/catalog_orig.html',
+            templateUrl : 'mobile/views/catalog.html',
             controller : 'MainCtrl'
         }).when('/login', {
             templateUrl : 'mobile/views/login.html',

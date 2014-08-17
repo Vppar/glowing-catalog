@@ -143,7 +143,7 @@
         return {
             restrict: 'EA',
             // Look for a parent `swiper` element and get its controller
-            require: '^swiper',
+            require: '^swiper-child',
             template: "<div class='swiper-slide' ng-transclude></div>",
             replace: true,
             transclude: true,
