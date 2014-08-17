@@ -11,12 +11,12 @@
 
                         <div class="mob-col-25 control-group">
                             <label>Nro Parc.</label>
-                            <input class="input-block-level payment-input-large text-center" id="installment" type="text" ng-model="onCuff.numberOfInstallments" maxlength="2" tnt-input recall />
+                            <input class="input-block-level payment-input-large text-center" id="installment" type="text" ng-model="onCuff.numberOfInstallments" maxlength="2" tnt-virtual-keyboard recall />
                         </div>
 
                         <div class="mob-col-35 control-group">
                             <label>1.Vencto</label>
-                            <input class="date-field input-block-level payment-input-large text-center" id="vencto" type="text" datepicker-popup="dd/MM/yyyy" min="TODAY" show-weeks="false" ng-model="onCuff.duedate" maxlength="8" tnt-input readonly />
+                            <input class="date-field input-block-level payment-input-large text-center" id="vencto" type="text" datepicker-popup="dd/MM/yyyy" min="TODAY" show-weeks="false" ng-model="onCuff.duedate" maxlength="8" readonly />
                         </div>
 
                         <div class="mob-col-40 control-group">
@@ -35,14 +35,14 @@
                     </div>
 
                     <div class="installments">
-                        <div class="half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)">
+                        <div class="half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)" tnt-event-deflect="tnt.events.virtualKeyboard.KeyPress">
                             <div class="installment">
 
                                 <div class="mob-col-25 text-center payment-cuff-input no-border">
                                     {{installment.number}}
                                 </div>
                                 <div class="mob-col-35">
-                                    <input class="payment-cuff-input bgf2 text-center" id="{{'duedate' + $index}}" ng-focus="keyboard.status.active = false" datepicker-append-to-body="true" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="installment.duedate" tnt-input maxlength="8" readonly />
+                                    <input class="payment-cuff-input bgf2 text-center" id="{{'duedate' + $index}}" ng-focus="keyboard.status.active = false" datepicker-append-to-body="true" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="installment.duedate" maxlength="8" readonly />
                                 </div>
                                 <div class="mob-col-40">
                                     <input id="{{'amount' + $index}}" name="" class="payment-cuff-input bgf2 text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" ng-blur="recalcTotalAmount(); keyboard.status.active = false;" recall  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency type="text"/>
@@ -52,14 +52,11 @@
                         </div>
                     </div>
                 </div>
-
+                <tnt-numpad></tnt-numpad>
             </div>
-
         </div>
 
-        <div class="numpad-holder" ng-show="keyboard.status.active">
-            <tnt-numpad></tnt-numpad>
-        </div>
+
 
     </div>
 

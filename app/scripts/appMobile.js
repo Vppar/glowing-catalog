@@ -121,6 +121,7 @@
             'tnt.catalog.components.numberPicker',
             'tnt.catalog.directives.preventBlur',
             'tnt.catalog.directives.virtualKeyboard',
+            'tnt.catalog.directives.eventDeflect',
             'tnt.catalog.directives.keyboardCage',
             'tnt.catalog.directives.focus',
             'tnt.catalog.directives.equals',
