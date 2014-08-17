@@ -757,6 +757,10 @@ input:focus {
     height: calc(100% - 80px);
 }
 
+.catalog-child-swiper.swiping{
+    display: none;
+}
+
 .catalog-child-swiper > .swiper-wrapper{
     height: 100% !important;
 }

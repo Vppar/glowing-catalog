@@ -81,6 +81,15 @@
             paginationClickable: true,
             watchActiveIndex: true,
             slidePerView: 1,
+
+            onTouchStart: function(swiper){
+                $('.swiper-container.catalog-child-swiper').addClass('swiping');
+            },
+
+            onSlideReset: function(swiper){
+                $('.swiper-container.catalog-child-swiper').removeClass('swiping');
+            },
+
             onSlideChangeStart: function(swiper){
                 console.log('actual0: '+ swiper.activeIndex);
 
@@ -100,6 +109,7 @@
 
                 console.log('thats the end');
                 $('#catalog-loading').remove();
+                $('.swiper-container.catalog-child-swiper').removeClass('swiping');
 
                 setTimeout(function() {
 
