@@ -13,7 +13,7 @@ body{
 
 input:focus {
     z-index: 2;
-    border-color: #bf1e62;
+    border: 1px solid #bf1e62 !important;
 }
 
 .div-master{
@@ -51,7 +51,13 @@ input:focus {
 }
 
 .navbar.vpink-navbar-logo{
+
+    /* Tamanho Original */
     height: 61px;
+
+    /* Tamanho enquanto menu não estiver implementado */
+    height: 120px;
+
     background: #ffffff;
     border-bottom: none;
 }
@@ -65,6 +71,9 @@ input:focus {
 }
 
 .toolbar.tabbar.vpink-tabbar-menu{
+
+    /* Enquanto o menu não tiver o link de suas implementações - esconder */
+    display: none;
 
     border-top: none;
     background-color: #ffffff;
@@ -97,7 +106,8 @@ input:focus {
 }
 
 .list-block.vpink-list-block{
-    margin: 15px 0;
+    /*margin: 15px 0;*/
+    margin: 43px 0;
 }
 
 .list-block.vpink-list-block ul{

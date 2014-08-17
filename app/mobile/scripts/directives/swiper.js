@@ -1,7 +1,7 @@
 (function (angular) {
     'use strict';
 
-    angular.module('glowingCatalogApp').directive('swiper', function () {
+    angular.module('glowingCatalogApp').directive('swiper', ['$timeout', function ($timeout) {
         return {
             restrict: 'EA',
             template: "<div class='swiper-container catalog-swiper'>" +
@@ -63,7 +63,7 @@
                 }.bind(this));
             }
         }
-    }).directive('slide', function () {
+    }]).directive('slide', function () {
         return {
             restrict: 'EA',
             // Look for a parent `swiper` element and get its controller
@@ -77,7 +77,7 @@
                 });
             }
         }
-    }).directive('swiper-child', function () {
+    }).directive('swiper-child', ['$timeout', function ($timeout) {
         return {
             restrict: 'EA',
             template: "<div class='swiper-container catalog-child-swiper'>" +
@@ -139,7 +139,7 @@
                 }.bind(this));
             }
         }
-    }).directive('slide-child', function () {
+    }]).directive('slide-child', function () {
         return {
             restrict: 'EA',
             // Look for a parent `swiper` element and get its controller
