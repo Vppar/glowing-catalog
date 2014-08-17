@@ -23,8 +23,7 @@
     "jquery-ui": "~1.10.4",
     "fullcalendar": "~1.6.4",
     "d3": "~3.4.6",
-    "bootstrap": "3.2.0",
-    "framework7": "0.9.4"
+    "bootstrap": "3.2.0"
   },
   "devDependencies": {
     "angular-mocks": "1.2.14",

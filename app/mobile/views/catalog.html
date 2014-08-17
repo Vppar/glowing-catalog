@@ -1,148 +1,53 @@
-<style>
-    .sidebar-menu-scroll{
-        position: absolute;
-        top: 60px;
-        right: 10px;
-    }
-</style>
-
 <div class="container-mobile">
 	
 	<div class="row-fluid">
 		<span class="span12"> <span ng-include src="'mobile/views/header.html'"></span></span>
 	</div>
 
-    <div class="swiper-container catalog-swiper">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+    <div swiper="{mode:'horizontal', watchActiveIndex: true, slidePerView: 1}">
 
-                <div class="navbar vpink-catalog-1">
-                    <div class="navbar-inner">
-                        <div class="left"><a href="#" class="back link"><i class="icon icon-back-white"></i></a></div>
-                        <div class="center sliding">{{section}}</div>
-                        <div class="right"><a href="#" class="forward link"><i class="icon icon-forward-white"></i></a></div>
-                    </div>
+        <slide ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+
+            <div class="navbar vpink-catalog-1">
+                <div class="navbar-inner">
+                    <div class="left"><a href="#" class="back link"><i class="icon icon-back-white"></i></a></div>
+                    <div class="center sliding">{{section}}</div>
+                    <div class="right"><a href="#" class="forward link"><i class="icon icon-forward-white"></i></a></div>
                 </div>
-
-                <div class="swiper-container catalog-child-swiper">
-                    <div class="swiper-wrapper">
-                        <!--<div class="swiper-slide" spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">-->
-                        <div class="swiper-slide" ng-repeat="line in lines">
-
-                            <div class="navbar vpink-catalog-2" ng-class="'bg-'+ line.color">
-                                <div class="navbar-inner">
-                                    <div class="left"></div>
-                                    <div class="center sliding">{{line.name}}</div>
-                                    <div class="right">
-                                        <a href="#" class="back link"><i class="icon icon-back-white down"></i></a>
-                                        <a href="#" class="forward link"><i class="icon icon-forward-white up"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!--
-                            <div class="title">child {{$index}} - {{line.name}}</div>
-                            -->
-
-                            <!--<div class="row-fluid" anchor id="{{'cat' + $index}}">-->
-                            <div class="row-fluid" id="{{'cat' + $index}}">
-                                <catalog-section line="line" section="selectedSection"></catalog-section>
-                            </div>
-
-                        </div>
-
-                        <!-- Deveria ser feito de uma maneira mais... hmmm... certa? :) -->
-                        <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
-
-                    </div>
-                </div>
-                <div class="swiper-scrollbar"></div>
-
-                <!--<div class="title">{{section}}</div>-->
             </div>
-        </div>
+
+            <div swiper-child="{mode:'vertical', watchActiveIndex: true}">
+
+                <slide-child ng-repeat="line in lines">
+
+                    <div class="navbar vpink-catalog-2" ng-class="'bg-'+ line.color">
+                        <div class="navbar-inner">
+                            <div class="left"></div>
+                            <div class="center sliding">{{line.name}}</div>
+                            <div class="right">
+                                <a href="#" class="back link"><i class="icon icon-back-white down"></i></a>
+                                <a href="#" class="forward link"><i class="icon icon-forward-white up"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid" id="{{'cat' + $index}}">
+                        <catalog-section line="line" section="selectedSection"></catalog-section>
+                    </div>
+
+                </slide-child>
+
+            </div>
+
+            <!-- Deveria ser feito de uma maneira mais... hmmm... certa? :) -->
+            <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
+
+        </slide>
     </div>
 
 </div>
 
-
-<link rel="stylesheet" href="/mobile/scripts/libraries/swiper/swiper.css">
-<link rel="stylesheet" href="/mobile/scripts/libraries/swiper/swiper.scrollbar.css">
-
-<script src="/mobile/scripts/libraries/swiper/swiper.min.js"></script>
-<script src="/mobile/scripts/libraries/swiper/swiper.scrollbar-2.0.js"></script>
-
-
 <script>
-
-    setTimeout(function(){
-
-        var catalogSwiper = new Swiper('.catalog-swiper',{
-            paginationClickable: true,
-            watchActiveIndex: true,
-            slidePerView: 1,
-            onSlideChangeStart: function(swiper){
-                console.log('actual0: '+ swiper.activeIndex);
-
-                $('<div/>', {
-                    id: 'catalog-loading',
-                    class: 'modal-backdrop',
-                    style: 'position: absolute;',
-                    html: '<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>'
-                }).appendTo(swiper.container);
-            },
-            onSlideChangeEnd: function (swiper) {
-
-
-//                var catalogHeightBase = $('.swiper-container.catalog-swiper').height();
-//                var paddings = 181;
-//                var finalCatalogHeight = catalogHeightBase - paddings;
-//                $('.swiper-container.catalog-swiper').find('.enable-product-overflow').height(finalCatalogHeight);
-
-                console.log('I should change now!');
-
-                // alerts angular to load content
-                swiper.activeSlide().click();
-
-                console.log(swiper);
-
-                console.log('thats the end');
-
-                $('#catalog-loading').remove();
-
-                setTimeout(function() {
-
-                    var index = swiper.activeIndex;
-
-                    var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(index), {
-                        mode: 'vertical',
-//                        calculateHeight: true,
-
-                        onSlideChangeStart: function (swiperChild) {
-                            console.log('start vertical');
-                        }
-                    });
-
-                    console.log(catalogChildSwiper);
-
-                    $('.swiper-container.product-swiper').on('touchstart mousedown', function(event){
-
-                        window.TTT = event.target;
-                        var elem =  event.target;
-
-                        if(elem.className == 'product-addbtn' || elem.className == 'add-product-bigger-button')
-                            return true;
-
-                        event.stopPropagation();
-                        //event.preventDefault();
-                    });
-
-                }, 0);
-            }
-        });
-
-
-    },0);
 
     angular.element(document).ready(function () {
 
