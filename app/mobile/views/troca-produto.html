@@ -1,73 +1,74 @@
 <div class="container-mobile" ng-controller="PaymentExchangeCtrl">
 
-<div class="margin8">
-    <div class="page-title text-center">Troca de produto</div>
-    <div class="left-payment">
-        <div class="row-fluid">
-            <form name="exchangeForm">
-				<div class="linha">
-					<!--<label class="control-label">&nbsp;</label>-->
-					<select ui-select2 tnt-select2 name="product" class="control-label-exchange select-h38" ng-model="productId">
-                        <option value="">Selecione um Produto</option>
-                        <option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
-                    </select>
-				</div>
-                <div class="linha">
-                    <span class="mob-col-30 control-group text-center">
-                        <label class="control-label text-center">Qtde.</label>
-                        <input-qty ng-model="qty" min="1"></input-qty>
-                    </span>
-                    <span class="mob-col-60 control-group">
-                        <label class="control-label text-right">Vlr. Unit.</label>
-                        <!--<input name="amount" class="check-value" id="valor" currency ng-model="amount" tnt-input />-->
-                        <input name="amount" class="check-exchange input-block-level payment-input-large" type="text" id="valor" currency ng-model="amount" tnt-input />
-                    </span>
-                    <span class="mob-col-10 control-group">
-                        <div class="controls">
-                            <div class="btn-clear-form">
-                                <span id="exchangeAdd" class="btn-plus2 bg-green hover-state-pointer" ng-click="add()" tnt-kbutton></span>
+    <div class="page-title text-center margin8">Troca de produto</div>
+
+    <div class="margin8 payment-exchange-scroll-container">
+        <div class="left-payment">
+            <div class="row-fluid">
+                <form name="exchangeForm">
+                    <div class="linha">
+                        <!--<label class="control-label">&nbsp;</label>-->
+                        <select ui-select2 tnt-select2 name="product" class="control-label-exchange select-h38" ng-model="productId">
+                            <option value="">Selecione um Produto</option>
+                            <option ng-repeat="product in products | orderBy:'uniqueName'" value="{{product.id}}">{{product.uniqueName}}</option>
+                        </select>
+                    </div>
+                    <div class="linha">
+                        <span class="mob-col-30 control-group text-center">
+                            <label class="control-label text-center">Qtde.</label>
+                            <input-qty ng-model="qty" min="1"></input-qty>
+                        </span>
+                        <span class="mob-col-60 control-group">
+                            <label class="control-label text-right">Vlr. Unit.</label>
+                            <!--<input name="amount" class="check-value" id="valor" currency ng-model="amount" tnt-input />-->
+                            <input name="amount" class="check-exchange input-block-level payment-input-large" type="text" id="valor" currency ng-model="amount" tnt-input />
+                        </span>
+                        <span class="mob-col-10 control-group">
+                            <div class="controls">
+                                <div class="btn-clear-form">
+                                    <span id="exchangeAdd" class="btn-plus2 bg-green hover-state-pointer" ng-click="add()" tnt-kbutton></span>
+                                </div>
                             </div>
-                        </div>
-                    </span>
-                </div>
-            </form>
-        </div>
-
-        <br />
-        <!--listagem de produtos-->
-        <div class="exchange-initial">
-
-            <div class="row-fluid check-total">
-                <span class="padding-top-4 mob-col-40">Qtde: {{qtyTotal}}</span>
-                <!-- fix -->
-                <span class="negrito mob-col-60 text-right">
-                    <span>Total: R$ </span>
-                    <span class="total-value">{{amountTotal | currency: ''}}</span>
-                </span>
+                        </span>
+                    </div>
+                </form>
             </div>
 
-            <div class="scroll-payment">
-                <div class="row-fluid new-body-row" ng-repeat="exch in exchanges | orderBy:'-id'">
-                    <div class="mob-col-65 control-group text-left">
-                        <span>{{exch.title}} {{exch.option}}</span><br/>
-                        <span class="code-product">{{exch.uniqueName}}</span>
-                    </div>
-                    <div class="mob-col-25 control-group text-right">
-                        <span>{{exch.qty}}</span><br/>
-                        <!-- fix -->
-                        <!--<span class="new-col-3 currency">{{exch.price | currency:""}}</span>-->
-                        <span class="code-product currency">R$ {{exch.amount | currency:""}}</span>
-                    </div>
-                    <div class="mob-col-10 control-group text-right">
-                        <span class="hover-state-pointer text-center">
-                            <img src="images/del-pink.png" alt="" ng-click="remove(exch)" />
-                        </span>
+            <br />
+            <!--listagem de produtos-->
+            <div class="exchange-initial">
+
+                <div class="row-fluid check-total">
+                    <span class="padding-top-4 mob-col-40">Qtde: {{qtyTotal}}</span>
+                    <!-- fix -->
+                    <span class="negrito mob-col-60 text-right">
+                        <span>Total: R$ </span>
+                        <span class="total-value">{{amountTotal | currency: ''}}</span>
+                    </span>
+                </div>
+
+                <div class="scroll-payment">
+                    <div class="row-fluid new-body-row" ng-repeat="exch in exchanges | orderBy:'-id'">
+                        <div class="mob-col-65 control-group text-left">
+                            <span>{{exch.title}} {{exch.option}}</span><br/>
+                            <span class="code-product">{{exch.uniqueName}}</span>
+                        </div>
+                        <div class="mob-col-25 control-group text-right">
+                            <span>{{exch.qty}}</span><br/>
+                            <!-- fix -->
+                            <!--<span class="new-col-3 currency">{{exch.price | currency:""}}</span>-->
+                            <span class="code-product currency">R$ {{exch.amount | currency:""}}</span>
+                        </div>
+                        <div class="mob-col-10 control-group text-right">
+                            <span class="hover-state-pointer text-center">
+                                <img src="images/del-pink.png" alt="" ng-click="remove(exch)" />
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     <div class="payment-foot effect7">
         <button class="btn btn-cancel btn-large pull-left" type="submit" ng-click="cancelPayments(); selectPaymentMethod('step2');">Cancelar</button>
         <button class="btn btn-ok btn-large pull-right" type="submit" ng-click="confirmExchangePayments()">Adicionar</button>

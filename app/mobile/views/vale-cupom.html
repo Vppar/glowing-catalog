@@ -1,8 +1,10 @@
-<div class="container-mobile" scroll-spy>
+<div class="container-mobile" ng-controller="PaymentDiscountCtrl">
 
-    <div class="margin8">
-        <div class="page-title text-center">Abatimento de Vale / Cupom</div>
-    <div class="left-payment" ng-controller="PaymentDiscountCtrl">
+    <div class="margin8 payment-discount-scroll-container">
+
+    <div class="page-title text-center margin8">Abatimento de Vale / Cupom</div>
+
+    <div class="left-payment">
         <br />
 
         <div class="scroll-payment-grid">
@@ -36,11 +38,12 @@
 								</span>
 								<span class="mob-col-35">
 									<div>
-                                        <input id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-input currency/>
+                                        <input id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />
                                     </div>
 								</span>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -75,7 +78,7 @@
 								</span>
 								<span class="mob-col-35">
 									<div>
-                                        <input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput"class="check-value payment-input-large bgccc" tnt-input currency/>
+                                        <input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput"class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />
                                     </div>
 								</span>
                             </div>
@@ -114,7 +117,7 @@
 								</span>
 								<span class="mob-col-35">
 									<div class="">
-                                        <input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-input currency/>
+                                        <input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />
                                     </div>
 								</span>
                             </div>
@@ -123,11 +126,16 @@
                 </div>
             </div>
         </div>
+
+        <div class="numpad-holder" ng-show="keyboard.status.active">
+            <tnt-numpad></tnt-numpad>
+        </div>
+
     </div>
     </div>
     <div class="payment-foot effect7">
         <button class="btn btn-cancel btn-large btn-login" type="submit" ng-click="cancelDiscounts(); selectPaymentMethod('step2');">Cancelar</button>
-        <button class="btn btn-ok btn-large btn-login pull-right" type="submit" ng-click="confirmDiscounts()">Confirmar</button>
+        <button class="btn btn-ok btn-large btn-login pull-right" type="submit" ng-click="confirmDiscounts(); selectPaymentMethod('step2');">Confirmar</button>
     </div>
 
 </div>
