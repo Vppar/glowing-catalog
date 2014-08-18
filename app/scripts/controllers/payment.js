@@ -637,6 +637,23 @@
                     return dialog;
                 };
 
+                /* Numpad */
+
+                $scope.openSingleInputDialog = function (screenData) {
+
+                    var data = {
+                        initial: screenData.ngModel,
+                        title: screenData.title
+                    };
+
+                    var dialog = DialogService.openDialogNumpad(data).then(function (value) {
+                        console.log(value);
+                        screenData.ngModel = value;
+                    });
+
+                    return dialog;
+                };
+
                 // #############################################################################################
                 // REVIEWED METHOD - DO NOT put anything here that
                 // has not been properly reviewed.

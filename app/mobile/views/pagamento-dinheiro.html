@@ -21,7 +21,7 @@
                         <span class="label-money">Dinheiro</span>
                     </span>
                     <span class="">
-                        <span class="btn-price-payment focus">R$ {{cash.amount | currency:''}}</span>
+                        <span class="btn-price-payment focus" ng-click="openSingleInputDialog({ngModel: cash.amount, title: 'Valor em Dinheiro'});">R$ {{cash.amount | currency:''}}</span>
                         <!--<input id="cash" class="btn-price-payment" ng-model="cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input focus currency ok-click="selectPaymentMethod('none')" />-->
                     </span>
                 </div>
