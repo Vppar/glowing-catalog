@@ -1716,6 +1716,9 @@ i.icon-4 {
 .swiper-container.product-swiper > .swiper-wrapper > .swiper-slide{
     width: 100%;
 }
+.swiper-container.product-swiper > .swiper-wrapper > .swiper-slide > .catalog-block{
+    border-bottom: 1px dashed #999;
+}
 
 .icon-back-white.down{
     transform:rotate(270deg);
