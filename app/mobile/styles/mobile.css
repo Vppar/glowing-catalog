@@ -135,10 +135,19 @@ input:focus {
     display: none;
 }
 
-.bs-product > img{
+.bs-container .bs-product{
+    border-bottom: 1px dashed #999;
+}
+
+.bs-container .bs-product:last-child{
+    border-bottom: none;
+}
+
+.bs-product > div > img{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 
 
