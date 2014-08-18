@@ -160,40 +160,40 @@
 
     glowingCatalogApp.config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/', {
-            templateUrl : 'mobile/views/menu.html',
+            templateUrl : 'views/mobile/menu.html',
             controller : 'MainCtrl'
         }).when('/catalog', {
-            templateUrl : 'mobile/views/catalog.html',
+            templateUrl : 'views/mobile/catalog_orig.html',
             controller : 'MainCtrl'
         }).when('/login', {
-            templateUrl : 'mobile/views/login.html',
+            templateUrl : 'views/mobile/login.html',
             controller : 'LoginCtrl'
         }).when('/payment', {
-            templateUrl : 'mobile/views/payment.html',
+            templateUrl : 'views/mobile/payment.html',
             controller : 'PaymentCtrl'
         }).when('/grade-produto', {
-            templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog.html',
+            templateUrl : 'views/mobile/parts/catalog/add-to-basket-dialog.html',
             controller : 'LoginCtrl'
         })
 
         /* Debug links - Start */
         .when('/payment-step2', {
-            templateUrl : 'mobile/views/pagamento.html',
+            templateUrl : 'views/mobile/pagamento.html',
             controller : 'PaymentCtrl'
         }).when('/pagamento-cheque', {
-            templateUrl : 'mobile/views/pagamento-cheque.html'
+            templateUrl : 'views/mobile/pagamento-cheque.html'
         }).when('/pagamento-dinheiro', {
-            templateUrl : 'mobile/views/pagamento-dinheiro.html'
+            templateUrl : 'views/mobile/pagamento-dinheiro.html'
         }).when('/produto-detalhe', {
-            templateUrl : 'mobile/views/parts/catalog/add-to-basket-dialog-details.html'
+            templateUrl : 'views/mobile/parts/catalog/add-to-basket-dialog-details.html'
         }).when('/vale-cupom', {
-            templateUrl : 'mobile/views/vale-cupom.html'
+            templateUrl : 'views/mobile/vale-cupom.html'
         }).when('/contas-receber', {
-            templateUrl : 'mobile/views/contas-receber.html'
+            templateUrl : 'views/mobile/contas-receber.html'
         }).when('/pronta-entrega', {
-            templateUrl : 'mobile/views/pronta-entrega.html'
+            templateUrl : 'views/mobile/pronta-entrega.html'
         }).when('/troca-produto', {
-            templateUrl : 'mobile/views/troca-produto.html'
+            templateUrl : 'views/mobile/troca-produto.html'
         })
         /* Debug links - End */
 
