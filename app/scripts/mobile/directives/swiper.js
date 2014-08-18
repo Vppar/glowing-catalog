@@ -64,6 +64,43 @@
                     }, 0);
                   }
                 });
+
+                  $('.swiper-container.catalog-swiper').on('click touchstart', function(event){
+
+                      var $elem =  $(event.target);
+
+                      if($elem.hasClass('forward') || $elem.parent().hasClass('forward'))
+                      {
+                          event.preventDefault();
+                          $(this).data().swiper.swipeNext();
+                      }
+                      else if($elem.hasClass('back') || $elem.parent().hasClass('back'))
+                      {
+                          event.preventDefault();
+                          $(this).data().swiper.swipePrev();
+                      }
+                  });
+
+                  $('.swiper-container.catalog-child-swiper').on('click touchstart', function(event){
+
+                      var $elem =  $(event.target);
+
+                      if($elem.hasClass('forward') || $elem.parent().hasClass('forward'))
+                      {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          new Swiper($(this).get(0), {mode: 'vertical'}).swipeNext();
+                      }
+                      else if($elem.hasClass('back') || $elem.parent().hasClass('back'))
+                      {
+                          event.preventDefault();
+                          event.stopPropagation();
+                          new Swiper($(this).get(0), {mode: 'vertical'}).swipePrev();
+                      }
+
+                      console.log($(this));
+                      console.log($(this).data());
+                  });
               }
 
               $timeout(test, 0);

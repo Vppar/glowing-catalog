@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'VPinkFont';
-    src: url('../../resources/fonts/Swiss721BT.ttf') format('truetype');
+    src: url('resources/fonts/Swiss721BT.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -98,7 +98,7 @@ input:focus {
 .vpink-bottom-menu{
     overflow: hidden;
 
-    background-image: url("../../images/mobile/bottom-menu.jpg");
+    background-image: url("images/mobile/bottom-menu.jpg");
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: 100% 35%;
@@ -698,7 +698,7 @@ input:focus {
     width: 100%;
     height: 100%;
 
-    background-image: url('../../images/mobile/spinner-loader.gif');
+    background-image: url('images/mobile/spinner-loader.gif');
     background-repeat:no-repeat;
     background-position: center center;
     background-size: 10%;
@@ -824,7 +824,7 @@ input:focus {
 /* FIX MY PLACE PLEASE!!! */
 
 .catalog-block.w06.product-bg-black .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-black.png');*/
+    /*background-image: url('images/line-gradient-products-394-black.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #000000 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#000000), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -835,7 +835,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-light-blue .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-light-blue.png');*/
+    /*background-image: url('images/line-gradient-products-394-light-blue.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #7b84ad 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#7b84ad), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -846,7 +846,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-green .product-divider, .catalog-block.w06.product-bg-color-dark-green .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-green.png');*/
+    /*background-image: url('images/line-gradient-products-394-green.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #7ba752 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#7ba752), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -857,7 +857,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-light-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-light-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-light-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #9e9e9e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#9e9e9e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -868,7 +868,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-light-green .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-light-green.png');*/
+    /*background-image: url('images/line-gradient-products-394-light-green.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #abbb5e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#abbb5e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -879,7 +879,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-dark-magenta .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-dark-magenta.png');*/
+    /*background-image: url('images/line-gradient-products-394-dark-magenta.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #c93a7c 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#c93a7c), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -890,7 +890,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-light-orange .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-light-orange.png');*/
+    /*background-image: url('images/line-gradient-products-394-light-orange.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #dbb79d 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#dbb79d), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -901,7 +901,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-light-magenta .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-light-magenta.png');*/
+    /*background-image: url('images/line-gradient-products-394-light-magenta.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #deb4b8 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#deb4b8), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -912,7 +912,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-light-lila .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-lilas.png');*/
+    /*background-image: url('images/line-gradient-products-394-lilas.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #dec7cb 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#dec7cb), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -923,7 +923,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-light-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-light-pink.png');*/
+    /*background-image: url('images/line-gradient-products-394-light-pink.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #dfc3b7 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#dfc3b7), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -934,7 +934,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-orange .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-orange.png');*/
+    /*background-image: url('images/line-gradient-products-394-orange.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #fa974e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#fa974e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -945,7 +945,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-pink.png');*/
+    /*background-image: url('images/line-gradient-products-394-pink.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #ff0066 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#ff0066), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -956,7 +956,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w06.product-bg-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #d8d5b4 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8d5b4), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -967,7 +967,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-dark-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #b0b78d 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#b0b78d), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -978,7 +978,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft-green .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #b7e171 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#b7e171), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -989,7 +989,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-medium-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #c9c797 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#c9c797), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1000,7 +1000,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-medium2-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #bebc83 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#bebc83), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1011,7 +1011,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #e194b6 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#e194b6), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1022,7 +1022,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft-lila .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #caa5ac 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#caa5ac), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1033,7 +1033,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft-orange .product-divider, .catalog-block.w06.product-bg-color-soft-red .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #d8b194 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8b194), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1044,7 +1044,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft-black .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #3a3a3a 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#3a3a3a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1055,7 +1055,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft2-orange .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #e1b392 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#e1b392), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1066,7 +1066,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft2-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #f9c7ae 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#f9c7ae), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1077,7 +1077,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-dark-yellow .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #979250 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#979250), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1088,7 +1088,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-medium-yellow .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #d8bc3e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8bc3e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1099,7 +1099,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-soft-red .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #f58a7a 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#f58a7a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1110,7 +1110,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-dark-green .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #839766 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#839766), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1121,7 +1121,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w06.product-bg-dark-lilac .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #cebebe 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#cebebe), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1133,7 +1133,7 @@ input:focus {
 }
 
 .catalog-block.w03.product-bg-black .product-divider {
-    /*background-image: url('../../images/line-gradient-01-black.png');*/
+    /*background-image: url('images/line-gradient-01-black.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #000000 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#000000), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1144,7 +1144,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-light-blue .product-divider {
-    /*background-image: url('../../images/line-gradient-01-light-blue.png');*/
+    /*background-image: url('images/line-gradient-01-light-blue.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #7b84ad 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#7b84ad), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1155,7 +1155,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-green .product-divider {
-    /*background-image: url('../../images/line-gradient-01-green.png');*/
+    /*background-image: url('images/line-gradient-01-green.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #7ba752 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#7ba752), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1166,7 +1166,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-light-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-01-light-gray.png');*/
+    /*background-image: url('images/line-gradient-01-light-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #9e9e9e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#9e9e9e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1177,7 +1177,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-light-green .product-divider {
-    /*background-image: url('../../images/line-gradient-01-light-green.png');*/
+    /*background-image: url('images/line-gradient-01-light-green.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #abbb5e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#abbb5e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1188,7 +1188,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-dark-magenta .product-divider {
-    /*background-image: url('../../images/line-gradient-01-dark-magenta.png');*/
+    /*background-image: url('images/line-gradient-01-dark-magenta.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #c93a7c 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#c93a7c), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1199,7 +1199,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-light-orange .product-divider {
-    /*background-image: url('../../images/line-gradient-01-light-orange.png');*/
+    /*background-image: url('images/line-gradient-01-light-orange.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #dbb79d 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#dbb79d), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1210,7 +1210,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-light-magenta .product-divider {
-    /*background-image: url('../../images/line-gradient-01-light-magenta.png');*/
+    /*background-image: url('images/line-gradient-01-light-magenta.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #deb4b8 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#deb4b8), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1221,7 +1221,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-light-lila .product-divider {
-    /*background-image: url('../../images/line-gradient-01-lilas.png');*/
+    /*background-image: url('images/line-gradient-01-lilas.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #dec7cb 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#dec7cb), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1232,7 +1232,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-light-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-01-light-pink.png');*/
+    /*background-image: url('images/line-gradient-01-light-pink.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #dfc3b7 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#dfc3b7), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1243,7 +1243,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-orange .product-divider {
-    /*background-image: url('../../images/line-gradient-01-orange.png');*/
+    /*background-image: url('images/line-gradient-01-orange.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #fa974e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#fa974e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1254,7 +1254,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-01-pink.png');*/
+    /*background-image: url('images/line-gradient-01-pink.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #ff0066 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#ff0066), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1265,7 +1265,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-8 */
 }
 .catalog-block.w03.product-bg-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #d8d5b4 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8d5b4), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1276,7 +1276,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-dark-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #b0b78d 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#b0b78d), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1287,7 +1287,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft-green .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #b7e171 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#b7e171), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1298,7 +1298,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-medium-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #c9c797 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#c9c797), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1309,7 +1309,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-medium2-yellow-gray .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #bebc83 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#bebc83), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1320,7 +1320,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #e194b6 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#e194b6), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1331,7 +1331,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft-lila .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #caa5ac 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#caa5ac), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1342,7 +1342,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft-orange .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #d8b194 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8b194), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1353,7 +1353,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft-black .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #3a3a3a 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#3a3a3a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1364,7 +1364,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft2-orange .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #e1b392 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#e1b392), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1375,7 +1375,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft2-pink .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #f9c7ae 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#f9c7ae), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1386,7 +1386,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-dark-yellow .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #979250 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#979250), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1397,7 +1397,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-medium-yellow .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #d8bc3e 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#d8bc3e), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1408,7 +1408,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-soft-red .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #f58a7a 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#f58a7a), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1419,7 +1419,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-dark-green .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #839766 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#839766), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1430,7 +1430,7 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 .catalog-block.w03.product-bg-dark-lilac .product-divider {
-    /*background-image: url('../../images/line-gradient-products-394-yellow-gray.png');*/
+    /*background-image: url('images/line-gradient-products-394-yellow-gray.png');*/
     background: #ffffff; /* Old browsers */
     background: -moz-linear-gradient(left,  #ffffff 0%, #cebebe 50%, #ffffff 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ffffff), color-stop(50%,#cebebe), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -1443,7 +1443,7 @@ input:focus {
 
 /* barra ultima oportunidade*/
 .last-opportunity .product-opportunity{
-    background: url('../../images/last-opportunity-banner-v2.png') no-repeat top left  !important;
+    background: url('images/last-opportunity-banner-v2.png') no-repeat top left  !important;
     font-size:12px;
     padding:12px 0 0 18px;
     width:177px !important;
@@ -1463,133 +1463,133 @@ input:focus {
     float: right;
     width: 24px;
     height: 24px;
-    background-image: url('../../images/plus.png');
+    background-image: url('images/plus.png');
     border-radius: 50%;
     cursor: pointer;
 }
 
 .catalog-block.product-bg-black .product-addbtn {
     background-color: #000;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-light-blue .product-addbtn {
     background-color: #7b84ad;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-green .product-addbtn {
     background-color: #7ba752;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-light-gray .product-addbtn {
     background-color: #9e9e9e;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-light-green .product-addbtn {
     background-color: #abbb5e;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-dark-magenta .product-addbtn {
     background-color: #c93a7c;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-light-orange .product-addbtn {
     background-color: #dbb79d;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-light-magenta .product-addbtn {
     background-color: #deb4b8;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-light-lila .product-addbtn {
     background-color: #dec7cb;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-light-pink .product-addbtn {
     background-color: #dfc3b7;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-orange .product-addbtn {
     background-color: #fa974e;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-pink .product-addbtn {
     background-color: #ff0066;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-yellow-gray .product-addbtn {
     background-color: #d8d5b4;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-dark-yellow-gray .product-addbtn {
     background-color: #b0b78d;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-soft-green .product-addbtn {
     background-color: #b7e171;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-medium-yellow-gray .product-addbtn {
     background-color: #c9c797;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-medium2-yellow-gray .product-addbtn {
     background-color: #bebc83;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-soft-pink .product-addbtn {
     background-color: #e194b6;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-soft-lila .product-addbtn {
     background-color: #caa5ac;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-soft-orange .product-addbtn {
     background-color: #d8b194;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-color-soft-red .product-addbtn {
     background-color: #f58a7a;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-color-dark-green .product-addbtn {
     background-color: #839766;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 
 
 
 .catalog-block.product-bg-soft-black .product-addbtn {
     background-color: #3a3a3a;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-soft2-orange .product-addbtn {
     background-color: #e1b392;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-soft2-pink .product-addbtn {
     background-color: #f9c7ae;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-dark-yellow .product-addbtn {
     background-color: #979250;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-medium-yellow .product-addbtn {
     background-color: #d8bc3e;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-soft-red .product-addbtn {
     background-color: #f58a7a;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-dark-green .product-addbtn {
     background-color: #839766;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 .catalog-block.product-bg-color-dark-lilac .product-addbtn {
     background-color: #cebebe;
-    background-image: url('../../images/plus-w.png');
+    background-image: url('images/plus-w.png');
 }
 
 /* textos coloridos */
@@ -1603,7 +1603,7 @@ input:focus {
     cursor: pointer
 }
 .bag {
-    background: url(../../images/mobile/vpink_purse.png) no-repeat;
+    background: url(images/mobile/vpink_purse.png) no-repeat;
     background-size: 100%;
     display: inline-block;
     width: 58px;
@@ -1640,24 +1640,24 @@ input:focus {
 i.icon-1 {
     width: 30px;
     height: 30px;
-    background-image: url("../../images/mobile/settings.png");
+    background-image: url("images/mobile/settings.png");
 }
 i.icon-2 {
     width: 25px;
     height: 30px;
-    background-image: url("../../images/mobile/info.png");
+    background-image: url("images/mobile/info.png");
 }
 
 i.icon-3 {
     width: 30px;
     height: 30px;
-    background-image: url("../../images/mobile/chat.png");
+    background-image: url("images/mobile/chat.png");
 }
 
 i.icon-4 {
     width: 25px;
     height: 30px;
-    background-image: url("../../images/mobile/media.png");
+    background-image: url("images/mobile/media.png");
 }
 
 
