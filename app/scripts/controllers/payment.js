@@ -639,16 +639,15 @@
 
                 /* Numpad */
 
-                $scope.openSingleInputDialog = function (screenData) {
+                $scope.openSingleInputDialog = function (value, title) {
 
                     var data = {
-                        initial: screenData.ngModel,
-                        title: screenData.title
+                        initial: value,
+                        title: title
                     };
 
-                    var dialog = DialogService.openDialogNumpad(data).then(function (value) {
-                        console.log(value);
-                        screenData.ngModel = value;
+                    var dialog = DialogService.openDialogNumpad(data).then(function (newValue) {
+                        $scope.value = newValue;
                     });
 
                     return dialog;
