@@ -16,6 +16,10 @@ input:focus {
     border: 1px solid #bf1e62 !important;
 }
 
+.views, .view{
+    z-index: 100;
+}
+
 .div-master{
     height: 100%;
 }
