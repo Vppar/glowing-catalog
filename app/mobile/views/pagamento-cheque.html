@@ -11,30 +11,30 @@
                 <div class="linha">
                     <div class="mob-col-30 control-group lbl-top">
                         <label class="control-label">Banco</label>
-                        <input name="" class="banco payment-input-large" id="banco" ng-model="check.bank" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly maxlength="3" type="text">
+                        <input name="" class="banco payment-input-large" id="banco" ng-model="check.bank" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly tnt-maxlength="3" type="text">
                     </div>
                     <div class="mob-col-30 control-group lbl-top">
                         <label class="control-label">Ag&ecirc;ncia</label>
-                        <input name="" class="agencia payment-input-large" id="agencia" ng-model="check.agency" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly maxlength="4" type="text">
+                        <input name="" class="agencia payment-input-large" id="agencia" ng-model="check.agency" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly tnt-maxlength="4" type="text">
                     </div>
                     <div class="mob-col-40 control-group lbl-top">
                         <label class="control-label">Conta</label>
-                        <input name="" class="conta payment-input-large" id="conta" ng-model="check.account" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly maxlength="13" type="text">
+                        <input name="" class="conta payment-input-large" id="conta" ng-model="check.account" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly tnt-maxlength="13" type="text">
                     </div>
                 </div>
                 <div class="linha">
                     <div class="mob-col-30 control-group lbl-top">
                         <label class="control-label">Cheque</label>
-                        <input name="" class="cheque payment-input-large" id="cheque" ng-model="check.number" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly maxlength="6" type="text">
+                        <input name="" class="cheque payment-input-large" id="cheque" ng-model="check.number" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly tnt-maxlength="6" type="text">
                     </div>
                     <div class="mob-col-30 control-group lbl-top">
                         <label class="control-label">Valor</label>
-                        <input name="amount" class="check-value payment-input-large" id="valor" ng-model="check.amount" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency maxlength="11"  type="text">
+                        <input name="amount" class="check-value payment-input-large" id="valor" ng-model="check.amount" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency tnt-maxlength="11"  type="text">
                     </div>
                     <div class="mob-col-30 control-group lbl-top">
                         <label class="control-label">Vencimento</label>
                         <div class="controls">
-                            <input type="text" id="vencto" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
+                            <input type="text" id="vencto" class="date-field input-small vencto text-center payment-input-large" tnt-maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="check.duedate" required tnt-input>
                         </div>
                     </div>
                     <div class="mob-col-10 control-group lbl-top">
@@ -68,27 +68,27 @@
             <div ng-repeat="payment in payments | orderBy: -'duedate'">
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Banco</label>
-                    <input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input  maxlength="3" type="text" value="43432">
+                    <input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input  tnt-maxlength="3" type="text" value="43432">
                 </div>
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Agência</label>
-                    <input name="" class="agencia payment-input-large" id="ag+{{$index}}" ng-model= "payment.agency" required tnt-input  maxlength="4" type="text">
+                    <input name="" class="agencia payment-input-large" id="ag+{{$index}}" ng-model= "payment.agency" required tnt-input  tnt-maxlength="4" type="text">
                 </div>
                 <div class="mob-col-40 control-group lbl-top">
                     <label class="control-label">Conta</label>
-                    <input name="" class="conta payment-input-large" id="account+{{$index}}" ng-model= "payment.account" required tnt-input  maxlength="13" type="text">
+                    <input name="" class="conta payment-input-large" id="account+{{$index}}" ng-model= "payment.account" required tnt-input  tnt-maxlength="13" type="text">
                 </div>
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Cheque</label>
-                    <input name="" class="cheque payment-input-large" id="check+{{$index}}" ng-model= "payment.number" required tnt-input  maxlength="6" type="text">
+                    <input name="" class="cheque payment-input-large" id="check+{{$index}}" ng-model= "payment.number" required tnt-input  tnt-maxlength="6" type="text">
                 </div>
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Valor</label>
-                    <input name="" class="check-value payment-input-large" id="value+{{$index}}" ng-model= "payment.amount" required currency tnt-input maxlength="11" type="text">
+                    <input name="" class="check-value payment-input-large" id="value+{{$index}}" ng-model= "payment.amount" required currency tnt-input tnt-maxlength="11" type="text">
                 </div>
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Vencimento</label>
-                    <input type="text" id="dueDate+{{$index}}" class="date-field input-small vencto text-center payment-input-large" maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="payment.duedate" required tnt-input>
+                    <input type="text" id="dueDate+{{$index}}" class="date-field input-small vencto text-center payment-input-large" tnt-maxlength="10" datepicker-popup="dd/MM/yyyy" readonly show-weeks="false" min="dateMin"  ng-model="payment.duedate" required tnt-input>
                 </div>
                 <div class="mob-col-10 control-group lbl-top">
                     <img style="margin-top:30px; margin-left:5px;" src="images/del-pink.png" alt="" ng-click="removeCheck(payment)" />

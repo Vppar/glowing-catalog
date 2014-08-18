@@ -73,6 +73,7 @@
             'tnt.catalog.warmup.service',
             'tnt.catalog.attrs.upperCase',
             'tnt.catalog.attrs.lowerCase',
+            'tnt.catalog.attrs.tntMaxlength',
             'tnt.catalog.payment.discount',
             'tnt.catalog.entity.service',
             'tnt.catalog.entity.entity',
@@ -162,7 +163,7 @@
             templateUrl : 'mobile/views/menu.html',
             controller : 'MainCtrl'
         }).when('/catalog', {
-            templateUrl : 'mobile/views/catalog.html',
+            templateUrl : 'mobile/views/catalog_orig.html',
             controller : 'MainCtrl'
         }).when('/login', {
             templateUrl : 'mobile/views/login.html',

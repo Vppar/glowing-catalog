@@ -73,6 +73,7 @@
             'tnt.catalog.warmup.service',
             'tnt.catalog.attrs.upperCase',
             'tnt.catalog.attrs.lowerCase',
+            'tnt.catalog.attrs.tntMaxlength',
             'tnt.catalog.payment.discount',
             'tnt.catalog.entity.service',
             'tnt.catalog.entity.entity',
