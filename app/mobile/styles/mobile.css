@@ -441,6 +441,10 @@ input:focus {
     margin-bottom: 10px;
 }
 
+.payment-checks > div:first-child{
+    height: 165px;
+}
+
 .pagamento-cheque-body .numpad-holder{
     height: inherit;
     display: block;
