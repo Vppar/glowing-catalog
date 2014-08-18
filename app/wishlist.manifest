@@ -66,11 +66,6 @@ styles/agenda/fullcalendar.css
 styles/agenda/fullcalendar.print.css
 styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
 
-styles/mobile/pagamento.css
-styles/mobile/grade-produto.css
-styles/mobile/pagamento-cheque.css
-styles/mobile/grade-produto.css
-
 images/smoothness/images/animated-overlay.gif
 images/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
 images/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
@@ -530,6 +525,13 @@ images/login/background-login-2.jpg
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js
 scripts/services/AppointmentService.js
+
+#mobile stuff
+
+styles/mobile/pagamento.css
+styles/mobile/grade-produto.css
+styles/mobile/pagamento-cheque.css
+styles/mobile/grade-produto.css
 
 NETWORK:
 *
