@@ -1,7 +1,7 @@
 CACHE MANIFEST
 
 CACHE:
-# 'version' : '1.2.37-675'
+# 'version' : '1.2.37-678'
 apple-touch-icon.png
 apple-touch-icon-152x152.png
 favicon-68.png
@@ -159,6 +159,7 @@ scripts/directives/spy.js
 scripts/directives/scrollContainer.js
 scripts/directives/scrollSpy.js
 scripts/directives/tnt-input.js
+scripts/directives/tnt-maxlength.js
 scripts/directives/upperCase.js
 scripts/directives/tnt-select2.js
 scripts/directives/lowerCase.js
