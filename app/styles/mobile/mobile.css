@@ -2,7 +2,7 @@
 
 @font-face {
     font-family: 'VPinkFont';
-    src: url('../../mobile/fonts/Swiss721BT.ttf') format('truetype');
+    src: url('../../resources/fonts/Swiss721BT.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
@@ -98,7 +98,7 @@ input:focus {
 .vpink-bottom-menu{
     overflow: hidden;
 
-    background-image: url("../../mobile/images/bottom-menu.jpg");
+    background-image: url("../../images/mobile/bottom-menu.jpg");
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: 100% 35%;
@@ -1695,7 +1695,7 @@ input:focus {
     cursor: pointer
 }
 .bag {
-    background: url(../../mobile/images/vpink_purse.png) no-repeat;
+    background: url(../../images/mobile/vpink_purse.png) no-repeat;
     display: inline-block;
     width: 58px;
     text-align: center;
@@ -1730,24 +1730,24 @@ input:focus {
 i.icon-1 {
     width: 30px;
     height: 30px;
-    background-image: url("../../mobile/images/settings.png");
+    background-image: url("../../images/mobile/settings.png");
 }
 i.icon-2 {
     width: 25px;
     height: 30px;
-    background-image: url("../../mobile/images/info.png");
+    background-image: url("../../images/mobile/info.png");
 }
 
 i.icon-3 {
     width: 30px;
     height: 30px;
-    background-image: url("../../mobile/images/chat.png");
+    background-image: url("../../images/mobile/chat.png");
 }
 
 i.icon-4 {
     width: 25px;
     height: 30px;
-    background-image: url("../../mobile/images/media.png");
+    background-image: url("../../images/mobile/media.png");
 }
 
 
@@ -1852,12 +1852,3 @@ i.icon-4 {
 .vpink-catalog-2 .navbar-inner .right .forward{
     bottom: 0;
 }
-
-/*.next-catalog {*/
-    /*padding-right: 35px;*/
-    /*background: no-repeat -webkit-calc(100% - 5px) center;*/
-    /*background: no-repeat -moz-calc(100% - 5px) center;*/
-    /*background: no-repeat calc(100% - 5px) center;*/
-    /*background-image: url("data:image/svg+xml;charset=utf-8,<svg viewBox='0 0 60 120' xmlns='http://www.w3.org/2000/svg'><path d='m60 61.5-38.25 38.25-9.75-9.75 29.25-28.5-29.25-28.5 9.75-9.75z' fill='%23c7c7cc'/></svg>");*/
-    /*background-size: 15px 30px;*/
-/*}*/
