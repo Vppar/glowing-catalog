@@ -1713,6 +1713,10 @@ i.icon-4 {
     height: calc(100% - 121px);
 }
 
+.swiper-container.product-swiper > .swiper-wrapper > .swiper-slide{
+    width: 100%;
+}
+
 .icon-back-white.down{
     transform:rotate(270deg);
     -ms-transform:rotate(270deg);
