@@ -24,9 +24,9 @@
             </div>
             <div class="mob-col-30 text-right">
                 <span>{{item.qty}}</span><br/>
-                <span class="code-product currency">R$ {{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
+                <span class="code-product currency"> {{item.qty*(item.price || item.amount || 0) | currency:''}}</span>
                 <span class="code-product currency" ng-class="{'hide' : total.discount <= 0 }">
-                    <br/>-R$ {{(item.itemDiscount || item.orderDiscount || 0) | currency:''}}
+                    <br/>- {{(item.itemDiscount || item.orderDiscount || 0) | currency:''}}
                 </span>
             </div>
 
@@ -38,7 +38,7 @@
         <!--<div class="mob-col-15 negrito padding-top-2">Total:</div>-->
         <!--<span class="new-col-3 currency">{{total.order.getAvgUnitPrice() | currency:''}}</span>-->
         <div class="mob-col-33">
-            <span class="">Qtde: </span>
+            <span class="negrito">Qtde </span>
             <span class="quantity-value">{{total.order.unit}}</span>
         </div>
 
@@ -47,8 +47,8 @@
         </div>
 
         <div class="mob-col-33 negrito text-right pull-right">
-            <small>R$</small>
-            <span class="total-value">{{(total.order.amount - total.discount) | currency:''}}</span>
+            <span>Total</span>
+            <span class="total-value"> {{(total.order.amount - total.discount) | currency:''}}</span>
         </div>
     </div>
 

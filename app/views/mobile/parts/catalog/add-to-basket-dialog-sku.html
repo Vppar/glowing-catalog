@@ -28,27 +28,27 @@
 
             <span>Preço Unitário</span>
             <div class="info-item price">
-                <small>R$</small>{{product.price | currency:''}}</span>
+                {{product.price | currency:''}}</span>
             </div>
 
             <span>Subtotal</span>
             <div class="info-item total">
                 <span class="total-value">
-                    <small>R$</small>{{product.price * grid[0].qty | currency:''}}
+                    {{product.price * grid[0].qty | currency:''}}
                 </span>
             </div>
 
             <div class="box-info" fast-click>
                 <div class="info-item discount" ng-show="showDiscount">
                     <span>Desconto</span>
-                    <span class="fake-input" tnt-promise-click="openDialogNumpad()"><small>R$</small>{{(itemDiscount || 0) | currency:''}}</span>
+                    <span class="fake-input" tnt-promise-click="openDialogNumpad()">{{(itemDiscount || 0) | currency:''}}</span>
                 </div>
             </div>
 
 
             <span>Total com desconto</span>
             <div class="info-item price">
-                <small>R$</small>{{(product.price * grid[0].qty) - itemDiscount | currency:''}}</span>
+                {{(product.price * grid[0].qty) - itemDiscount | currency:''}}</span>
             </div>
 
         </div>

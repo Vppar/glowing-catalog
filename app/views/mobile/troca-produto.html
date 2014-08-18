@@ -42,7 +42,7 @@
                     <span class="padding-top-4 mob-col-40">Qtde: {{qtyTotal}}</span>
                     <!-- fix -->
                     <span class="negrito mob-col-60 text-right">
-                        <span>Total: R$ </span>
+                        <span>Total: </span>
                         <span class="total-value">{{amountTotal | currency: ''}}</span>
                     </span>
                 </div>
@@ -57,7 +57,7 @@
                             <span>{{exch.qty}}</span><br/>
                             <!-- fix -->
                             <!--<span class="new-col-3 currency">{{exch.price | currency:""}}</span>-->
-                            <span class="code-product currency">R$ {{exch.amount | currency:""}}</span>
+                            <span class="code-product currency"> {{exch.amount | currency:""}}</span>
                         </div>
                         <div class="mob-col-10 control-group text-right">
                             <span class="hover-state-pointer text-center">

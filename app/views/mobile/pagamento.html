@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="values-resume">
-            <small>R$</small> {{total.order.subTotal | currency: '' }}
+             {{total.order.subTotal | currency: '' }}
         </div>
 
     </div>
@@ -49,7 +49,7 @@
                     <span class="label-money">Dinheiro</span>
                 </span>
                 <span class="">
-                    <span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment"><small>R$</small> {{cash.amount | currency:''}}</span>
+                    <span ng-hide="selectedPaymentMethod=='money'" class="btn-price-payment"> {{cash.amount | currency:''}}</span>
                     <input id="cash" class="btn-price-payment" ng-model="cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input focus currency ok-click="selectPaymentMethod('none')" />
                 </span>
             </div>
@@ -57,31 +57,31 @@
         <div class="row-right-payment" ng-click="selectPaymentMethod('check')">
             <span class="lbl-money">Cheque</span><span class="lbl-money3 paddingl10" ng-hide="hideCheckQtde">({{total.payments.check | count:'id'}})</span>
             <span class="">
-                <span class="btn-price-payment"><small>R$</small> {{total.payments.check | sum:'amount'| currency:''}}</span>
+                <span class="btn-price-payment"> {{total.payments.check | sum:'amount'| currency:''}}</span>
             </span>
         </div>
         <div class="row-right-payment" ng-click="selectPaymentMethod('creditcard')">
             <span class="lbl-money">Cart&atilde;o</span><span class="lbl-money3 paddingl10"  ng-hide="hideCardQtde">({{total.payments.creditCard | count:'id'}})</span>
             <span class="">
-                <span class="btn-price-payment"><small>R$</small> {{total.payments.creditCard | sum:'amount'| currency:''}}</span>
+                <span class="btn-price-payment"> {{total.payments.creditCard | sum:'amount'| currency:''}}</span>
             </span>
         </div>
         <div class="row-right-payment" ng-click="selectPaymentMethod('discount')">
             <span class="lbl-money">Vale/Cupom</span>&nbsp;<span><img ng-show="hasCoupons" src="../../images/alert-sign-small-v3.png" alt="Ver cupons" class="payment-warning"></span>
-            <span class="btn-price-payment btn-price-payment2"><small>R$</small> {{total.payments.coupon | sum:'amount' | currency:''}}</span>
+            <span class="btn-price-payment btn-price-payment2"> {{total.payments.coupon | sum:'amount' | currency:''}}</span>
         </div>
 
         <div class="row-right-payment" ng-click="selectPaymentMethod('exchange')">
             <span class="lbl-money">Troca</span><span class="lbl-moneyt paddingl10"  ng-hide="hideExchangeQtde">({{total.payments.exchange | count:'id'}})</span>
             <span>
-                <span class="btn-price-payment"><small>R$</small> {{total.payments.exchange | sum:'amount' | currency:''}}</span>
+                <span class="btn-price-payment"> {{total.payments.exchange | sum:'amount' | currency:''}}</span>
             </span>
         </div>
 
         <div class="row-right-payment" ng-click="selectPaymentMethod('oncuff')">
             <span class="lbl-money w130">Contas a receber</span>
             <span class="">
-                <span class="btn-price-payment btn-price-payment2"><small>R$</small> {{total.payments.onCuff | sum:'amount'| currency:''}}</span>
+                <span class="btn-price-payment btn-price-payment2"> {{total.payments.onCuff | sum:'amount'| currency:''}}</span>
                     </span>
                 </div>
 
@@ -99,10 +99,10 @@
                     </div>
                     <div class="values-resume">
                         <div class="color-pink negrito" ng-show="total.change <= 0">
-                            <small>R$</small> {{(total.change*(-1)) | currency: '' }}
+                             {{(total.change*(-1)) | currency: '' }}
                         </div>
                         <div class="color-pink negrito" ng-show="total.change > 0">
-                            <small>R$</small> {{(total.change) | currency: '' }}
+                             {{(total.change) | currency: '' }}
                 </div>
             </div>
         </div>

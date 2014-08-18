@@ -8,7 +8,7 @@
             <div> Valor Total </div>
         </div>
         <div class="values-resume">
-            <small>R$</small> {{total.order.subTotal | currency: '' }}
+             {{total.order.subTotal | currency: '' }}
         </div>
     </div>
 
@@ -22,7 +22,7 @@
                     </span>
                     <span class="">
                         <!--<span class="btn-price-payment focus" ng-click="openSingleInputDialog(cash.amount, 'Valor em Dinheiro');">R$ {{cash.amount | currency:''}}</span>-->
-                        <span class="btn-price-payment focus">R$ {{cash.amount | currency:''}}</span>
+                        <span class="btn-price-payment focus"> {{cash.amount | currency:''}}</span>
                         <!--<input id="cash" class="btn-price-payment" ng-model="cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input focus currency ok-click="selectPaymentMethod('none')" />-->
                     </span>
                 </div>
