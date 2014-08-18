@@ -12,7 +12,7 @@
 		<span class="span12"> <span ng-include src="'views/mobile/header.html'"></span></span>
 	</div>
 
-    <div class="swiper-container catalog-swiper">
+    <div class="swiper-container catalog-swiper" swiper>
         <div class="swiper-wrapper">
             <div class="swiper-slide" ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
 
@@ -64,79 +64,3 @@
     </div>
 
 </div>
-
-
-<script>
-
-    setTimeout(function(){
-
-        var catalogSwiper = new Swiper('.catalog-swiper',{
-            paginationClickable: true,
-            watchActiveIndex: true,
-            slidePerView: 1,
-
-            onTouchMove: function(swiper){
-                $('.swiper-container.catalog-child-swiper').addClass('swiping');
-            },
-
-            onSlideReset: function(swiper){
-                $('.swiper-container.catalog-child-swiper').removeClass('swiping');
-            },
-
-            onSlideChangeStart: function(swiper){
-                console.log('actual0: '+ swiper.activeIndex);
-
-                $('<div/>', {
-                    id: 'catalog-loading',
-                    class: 'modal-backdrop',
-                    style: 'position: absolute;',
-                    html: '<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>'
-                }).appendTo(swiper.container);
-            },
-            onSlideChangeEnd: function (swiper) {
-
-                console.log('I should change now!');
-
-                // alerts angular to load content
-                swiper.activeSlide().click();
-
-                console.log('thats the end');
-                $('#catalog-loading').remove();
-                $('.swiper-container.catalog-child-swiper').removeClass('swiping');
-
-                setTimeout(function() {
-
-                    var index = swiper.activeIndex;
-
-                    var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(index), {
-                        mode: 'vertical'
-                    });
-
-                    $('.swiper-container.product-swiper').on('touchstart mousedown', function(event){
-
-                        var elem =  event.target;
-                        if(elem.className == 'product-addbtn' || elem.className == 'add-product-bigger-button')
-                            return true;
-
-                        event.stopPropagation();
-                        //event.preventDefault();
-                    });
-
-                }, 0);
-            }
-        });
-
-
-    },0);
-
-    angular.element(document).ready(function () {
-
-        // Workaround for best-sellers
-        $('div.bs-product').on('click', function(){var ttt = $(this).children('div').first(); console.log(ttt)});
-
-//        setTimeout(function() {
-//            $('.catalog-swiper').find('.swiper-slide').get(1).click();
-//        },0);
-    });
-
-</script>
