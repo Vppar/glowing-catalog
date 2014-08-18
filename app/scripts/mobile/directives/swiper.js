@@ -28,7 +28,8 @@
                       id: 'catalog-loading',
                       class: 'modal-backdrop',
                       style: 'position: absolute;',
-                      html: '<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>'
+//                      html: '<div class="spinner"><div class="rect1"></div><div class="rect2"></div><div class="rect3"></div><div class="rect4"></div><div class="rect5"></div></div>'
+                      html: '<div class="small vpink-progress-spinner"><div>Loading…</div></div>'
                     }).appendTo(swiper.container);
                   },
                   onSlideChangeEnd: function (swiper) {

@@ -726,6 +726,73 @@ input:focus {
 
 
 
+@keyframes spin {
+    to { transform: rotate(1turn); }
+}
+
+.vpink-progress-spinner {
+
+    margin: 180px auto;
+
+    position: relative;
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    margin: 0 .5em;
+    font-size: 12px;
+    text-indent: 999em;
+    overflow: hidden;
+    animation: spin 1s infinite steps(8);
+}
+
+.small.vpink-progress-spinner {
+    font-size: 6px;
+}
+
+.large.progress {
+    font-size: 24px;
+}
+
+.vpink-progress-spinner:before,
+.vpink-progress-spinner:after,
+.vpink-progress-spinner > div:before,
+.vpink-progress-spinner > div:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2.25em; /* (container width - part width)/2  */
+    width: .5em;
+    height: 1.5em;
+    border-radius: .2em;
+    background: #eee;
+    box-shadow: 0 3.5em #eee; /* container height - part height */
+    transform-origin: 50% 2.5em; /* container height / 2 */
+}
+
+.vpink-progress-spinner:before {
+    background: #bbb;
+}
+
+.vpink-progress-spinner:after {
+    transform: rotate(-45deg);
+    background: #ddd;
+}
+
+.vpink-progress-spinner > div:before {
+    transform: rotate(-90deg);
+    background: #eee;
+}
+
+.vpink-progress-spinner > div:after {
+    transform: rotate(-135deg);
+    background: #dedede;
+}
+
+
+
+
+
+
 
 /*fundo dos títulos*/
 .bg-black {background-color: #000;}
@@ -1620,14 +1687,11 @@ input:focus {
 
 
 
-
-
-
 .bag:hover {
     cursor: pointer
 }
 .bag {
-    background: url(../../images/vpurse.gif) no-repeat;
+    background: url(../../mobile/images/vpink_purse.png) no-repeat;
     display: inline-block;
     width: 58px;
     text-align: center;
