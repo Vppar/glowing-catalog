@@ -653,6 +653,15 @@
                     return dialog;
                 };
 
+                $scope.setValue = function (key) {
+
+                    switch(key) {
+                        case 'enter':
+                            $scope.selectPaymentMethod('step2');
+                            break;
+                    }
+                };
+
                 // #############################################################################################
                 // REVIEWED METHOD - DO NOT put anything here that
                 // has not been properly reviewed.
