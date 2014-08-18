@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.37-4'
+# 'version' : 'mobile-0.0.3'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -55,6 +55,11 @@ styles/sacred-warm-up.css
 styles/sacred-ipad-only.css
 styles/sacred-modal.css
 styles/sacred-target.css
+
+styles/mobile/pagamento.css
+styles/mobile/grade-produto.css
+styles/mobile/pagamento-cheque.css
+styles/mobile/grade-produto.css
 
 styles/agenda/agenda.css
 styles/agenda/fullcalendar.css

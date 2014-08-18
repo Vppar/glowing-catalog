@@ -1,7 +1,8 @@
 CACHE MANIFEST
 
+# 'version' : 'mobile-0.0.3'
+
 CACHE:
-# 'version' : '1.2.37-739'
 apple-touch-icon.png
 apple-touch-icon-152x152.png
 favicon-68.png
@@ -64,6 +65,12 @@ styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
 styles/agenda/fullcalendar.print.css
 styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
+
+styles/mobile/pagamento.css
+styles/mobile/grade-produto.css
+styles/mobile/pagamento-cheque.css
+styles/mobile/grade-produto.css
+
 images/smoothness/images/animated-overlay.gif
 images/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
 images/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
