@@ -6,7 +6,7 @@
 
     <div swiper="{mode:'horizontal', watchActiveIndex: true, slidePerView: 1}">
 
-        <slide ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
+        <slider ng-repeat="section in sections" ng-class="{selected: selectedSection == section}" ng-click="selectSection(section)">
 
             <div class="navbar vpink-catalog-1">
                 <div class="navbar-inner">
@@ -18,7 +18,7 @@
 
             <div swiper-child="{mode:'vertical', watchActiveIndex: true}">
 
-                <slide-child ng-repeat="line in lines">
+                <slider-child ng-repeat="line in lines">
 
                     <div class="navbar vpink-catalog-2" ng-class="'bg-'+ line.color">
                         <div class="navbar-inner">
@@ -42,7 +42,7 @@
             <!-- Deveria ser feito de uma maneira mais... hmmm... certa? :) -->
             <span ng-if="section == 'Mais Vendidos'" ng-include="'views/catalog/sacred-best-sellers.html'"></span>
 
-        </slide>
+        </slider>
     </div>
 
 </div>

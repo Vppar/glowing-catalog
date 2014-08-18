@@ -63,7 +63,7 @@
                 }.bind(this));
             }
         }
-    }]).directive('slide', function () {
+    }]).directive('slider', function () {
         return {
             restrict: 'EA',
             // Look for a parent `swiper` element and get its controller
@@ -77,7 +77,7 @@
                 });
             }
         }
-    }).directive('swiper-child', ['$timeout', function ($timeout) {
+    }).directive('swiperChild', ['$timeout', function ($timeout) {
         return {
             restrict: 'EA',
             template: "<div class='swiper-container catalog-child-swiper'>" +
@@ -139,11 +139,11 @@
                 }.bind(this));
             }
         }
-    }]).directive('slide-child', function () {
+    }]).directive('sliderChild', function () {
         return {
             restrict: 'EA',
             // Look for a parent `swiper` element and get its controller
-            require: '^swiper-child',
+            require: '^swiperChild',
             template: "<div class='swiper-slide' ng-transclude></div>",
             replace: true,
             transclude: true,
