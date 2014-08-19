@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : 'mobile-0.0.3'
+# 'version' : 'mobile-0.0.4'
 
 CACHE:
 apple-touch-icon.png
@@ -533,6 +533,22 @@ styles/mobile/grade-produto.css
 styles/mobile/pagamento-cheque.css
 styles/mobile/grade-produto.css
 styles/mobile/add-to-basket-dialog.css
+
+images/mobile/vpink_logo.png
+images/mobile/bottom-menu.jpg
+images/mobile/best-sellers/mv-1.png
+images/mobile/best-sellers/mv-2.png
+images/mobile/best-sellers/mv-3.png
+images/mobile/best-sellers/mv-4.png
+images/mobile/best-sellers/mv-5.png
+images/mobile/best-sellers/mv-6.png
+images/mobile/vpink_purse.png
+images/mobile/best-sellers/mv-9.png
+images/mobile/best-sellers/mv-7.png
+images/mobile/best-sellers/mv-10.png
+images/mobile/best-sellers/mv-8.png
+images/mobile/spinner-loader.gif
+images/mobile/plus-w.png
 
 NETWORK:
 *
