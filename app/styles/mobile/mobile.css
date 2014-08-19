@@ -219,12 +219,14 @@ input:focus {
 }
 
 .modal-numpad{
+    top: 0;
     margin-left: auto;
     left: auto;
     width: 100%;
     box-shadow: none;
     border-radius: 0;
-    height: calc(100% - 80px);
+    height: 100%;
+    /*height: calc(100% - 80px);*/
 }
 
 .modal-numpad .modal-head{

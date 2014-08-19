@@ -21,20 +21,20 @@
                         <span class="label-money">Dinheiro</span>
                     </span>
                     <span class="">
-                        <!--<span class="btn-price-payment focus" ng-click="openSingleInputDialog(cash.amount, 'Valor em Dinheiro');">R$ {{cash.amount | currency:''}}</span>-->
-                        <span class="btn-price-payment focus"> {{cash.amount | currency:''}}</span>
+                        <span class="btn-price-payment focus" ng-click="openSingleInputDialog('cash.amount', cash.amount, 'Valor em Dinheiro');"> {{cash.amount | currency:''}}</span>
+                        <!--<span class="btn-price-payment focus"> {{cash.amount | currency:''}}</span>-->
                         <!--<input id="cash" class="btn-price-payment" ng-model="cash.amount" ng-if="selectedPaymentMethod=='money'" tnt-input focus currency ok-click="selectPaymentMethod('none')" />-->
                     </span>
                 </div>
             </div>
 
-            <div class="new-scroll-area pagamento-dinheiro-scroll">
-                <input id="cash" type="text" style="position: absolute; width: 0; height: 0; margin-left: -500px" ng-model="cash.amount" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency />
-                <br />
-                <div class="numpad-holder">
-                    <tnt-numpad></tnt-numpad>
-                </div>
-            </div>
+            <!--<div class="new-scroll-area pagamento-dinheiro-scroll">-->
+                <!--<input id="cash" type="text" style="position: absolute; width: 0; height: 0; margin-left: -500px" ng-model="cash.amount" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency />-->
+                <!--<br />-->
+                <!--<div class="numpad-holder">-->
+                    <!--<tnt-numpad></tnt-numpad>-->
+                <!--</div>-->
+            <!--</div>-->
 
         </form>
     </div>

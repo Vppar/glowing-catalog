@@ -11,7 +11,7 @@
                 <div class="linha">
                     <div class="mob-col-30 control-group lbl-top">
                         <label class="control-label">Banco</label>
-                        <input name="" class="banco payment-input-large" id="banco" ng-model="check.bank" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly tnt-maxlength="3" type="text">
+                        <input name="" class="banco payment-input-large" id="banco" ng-model="check.bank" ng-blur="keyboard.status.active = false"  ng-focus="keyboard.status.active = true" required tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly tnt-maxlength="3" type="text" ng-click="openSingleInputDialog('payment.bank', payment.bank, 'Cheque - Banco');">
                     </div>
                     <div class="mob-col-30 control-group lbl-top">
                         <label class="control-label">Ag&ecirc;ncia</label>
@@ -60,15 +60,15 @@
         </div>
 
         <!--content-scroll new-scroll-area pagamento-cheque-scroll-->
-        <div class="numpad-holder" ng-show="keyboard.status.active">
-            <tnt-numpad></tnt-numpad>
-        </div>
+        <!--<div class="numpad-holder" ng-show="keyboard.status.active">-->
+            <!--<tnt-numpad></tnt-numpad>-->
+        <!--</div>-->
 
         <div class="row-fluid payment-checks" ng-show="!keyboard.status.active">
             <div ng-repeat="payment in payments | orderBy: -'duedate'">
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Banco</label>
-                    <input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model= "payment.bank" required tnt-input  tnt-maxlength="3" type="text" value="43432">
+                    <input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model="payment.bank" required tnt-input  tnt-maxlength="3" type="text"">
                 </div>
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Agência</label>
