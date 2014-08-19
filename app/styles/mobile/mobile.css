@@ -370,7 +370,8 @@ img.payment-warning{
 }
 
 .unique-name-holder img{
-    height: 30px;
+    /*height: 30px;*/
+    width: 100%;
 }
 
 .unique-name-holder small{
