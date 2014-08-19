@@ -20,7 +20,7 @@
             <input tabindex="7" class="form-control" type="text" ng-blur="validateCpf(customer.document)" tnt-focus-if="{{cpfFocus}}" ng-model="customer.document" cpf>
 
             <label>E-mails</label>
-            <input tabindex="2" class="form-control" type="email" ng-model="customer.emails[0].address" />
+            <input tabindex="2" class="form-control" type="email" ng-model="customer.emails[0].address" ng-pattern="emailRegex" lower-case/>
 
 
             <spinner-button class="btn-signin btn btn-lg btn-primary btn-block" tabindex="16" spinner-promise = "confirm()">

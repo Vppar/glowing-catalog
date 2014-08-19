@@ -31,6 +31,9 @@
 
                     $scope.cepValid = false;
 
+                    $scope.emailRegex =
+                      /([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)@([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+).\.([a-z0-9!#$%&'*+\/=?^_`{|}~.-]+)/;
+
                     $scope.select2Options = {
                             minimumResultsForSearch : -1
                         };
