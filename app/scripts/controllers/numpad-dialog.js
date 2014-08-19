@@ -22,7 +22,7 @@
         $scope.message = message;
         $scope.footer = footer;
         $scope.isCurrencyEnabled = isCurrencyEnabled;
-        $scope.value = initialValue || 0;
+        $scope.value = initialValue || '';
 
         $scope.setValue = function (key) {
             var response = false;
