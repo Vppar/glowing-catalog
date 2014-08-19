@@ -32,7 +32,7 @@
                     $scope.value = getAbsoluteValue($scope.value, relativeValue);
                     break;
                 case 'enter':
-                    confirm();
+                  $scope.confirm();
                     break;
                 default:
                     response = true;
@@ -56,7 +56,7 @@
         /**
          * Closes the dialog with the value from the numpad input
          */
-        function confirm() {
+        $scope.confirm = function() {
             dialog.close($scope.value);
         };
 
