@@ -369,6 +369,12 @@ img.payment-warning{
     border: 1px solid #bf1e62;
 }
 
+.btn-discount{
+    border: 1px solid #333;
+    color: #333;
+    font-size: 12px;
+}
+
 .unique-name-holder img{
     /*height: 30px;*/
     width: 100%;
