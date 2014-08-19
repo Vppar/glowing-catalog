@@ -1,67 +1,30 @@
-<div id="sacred">
-	<div class="container">
+<div class="container">
 
-		<div ng-include src="'views/parts/global/header.html'"></div>
+    <form name="newCustomerForm" class="form" ng-class="{failed: failed}">
+        <label>Nome</label>
+        <input name="name" tabindex="1" class="form-control" type="text" placeholder="" ng-model="customer.name" customer-name required />
 
-		<div class="page sacred-add-customer-page">
-			<div class="page-header">
-				<div class="row">
-					<div class="col-10">
-						<div class="title">Novo Cliente</div>
-					</div>
-				</div>
-			</div>
+        <label>Telefones</label>
+        <div class="input-with-buttom-right">
+            <input tabindex="5" class="form-control" type="text" ng-model="customer.phones[0].number" ng-click="openDialogAddCustomerTels(customer.phones)" required phone>
+            <div ng-click="openDialogAddCustomerTels(customer.phones)" class="add-on">+</div>
+        </div>
 
-			<div class="page-body">
-				<div class="content">
-					<div class="content-body">
-						<form name="newCustomerForm" class="form" ng-class="{failed: failed}">
-							<div class="fields">
-								<div class="form-line">
-									<div class="row">
-										<div class="col-12">
-											<label>Nome</label>
-											<input name="name" tabindex="1" type="text" placeholder="" ng-model="customer.name" customer-name required />
-										</div>
+        <label>CPF</label>
+        <input tabindex="7" class="form-control" type="text" ng-blur="validateCpf(customer.document)" tnt-focus-if="{{cpfFocus}}" ng-model="customer.document" cpf>
 
-										<div class="col-12">
-											<label>E-mails</label>
+        <label>E-mails</label>
 
-											<div class="input-with-buttom-right">
-												<input tabindex="2" type="email" ng-model="customer.emails[0].address" ng-click="openDialogAddCustomerEmails(customer.emails)" />
-												<div ng-click="openDialogAddCustomerEmails(customer.emails)" class="add-on">+</div>
-											</div>
+        <div class="input-with-buttom-right">
+            <input tabindex="2" class="form-control" type="email" ng-model="customer.emails[0].address" ng-click="openDialogAddCustomerEmails(customer.emails)" />
+            <div ng-click="openDialogAddCustomerEmails(customer.emails)" class="add-on">+</div>
+        </div>
 
-										</div>
-									</div>
-								</div>
-								<div class="form-line">
-									<div class="row">
-										<div class="col-8">
-											<label>Telefones</label>
-											<div class="input-with-buttom-right">
-												<input tabindex="5" type="text" ng-model="customer.phones[0].number" ng-click="openDialogAddCustomerTels(customer.phones)" required phone> 
-												<div ng-click="openDialogAddCustomerTels(customer.phones)" class="add-on">+</div>
-											</div>
-										</div>
-										<div class="col-8">
-											<label>CPF</label>
-											<input tabindex="7" type="text" ng-blur="validateCpf(customer.document)" tnt-focus-if="{{cpfFocus}}" ng-model="customer.document" cpf>
-										</div>
-									</div>
-								</div>
-							</div>
 
-							<div class="buttons-holder" fast-click>
-								<input type="button" class="button-black pull-left" ng-click="cancel()" value="Cancelar">
-								
-								<spinner-button class="button-green pull-right" tabindex="16" spinner-promise = "confirm()">
-								Confirmar
-							</spinner-button>		
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+        <spinner-button class="btn-signin btn btn-lg btn-primary btn-block" tabindex="16" spinner-promise = "confirm()">
+            Confirmar
+        </spinner-button>
+
+        <input type="button" class="btn-erasedata btn btn-lg btn-primary btn-block" ng-click="cancel()" value="Cancelar">
+    </form>
 </div>
