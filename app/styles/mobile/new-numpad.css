@@ -1,5 +1,6 @@
 .numpad-holder{
-    display: flex;
+    display: flex !important;
+    float: none !important;
     align-content: center;
 }
 
