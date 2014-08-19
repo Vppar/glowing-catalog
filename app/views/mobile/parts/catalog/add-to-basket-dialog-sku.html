@@ -16,8 +16,8 @@
         </div>
 
         <div class="unique-name-holder" ng-class="{ 'without-img' : !grid[0].image}">
+            <small ng-if="!getImageData(grid[0].SKU)">{{uniqueName}}</small>
             <img ng-if="grid[0].image&&gridLength>1" once-src="getImageData(grid[0].SKU)" alt="sample"/>
-            <small>{{uniqueName}}</small>
         </div>
 
         <div class="info-item quantity">
