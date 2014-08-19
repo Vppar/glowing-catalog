@@ -32,7 +32,8 @@
                     $scope.value = getAbsoluteValue($scope.value, relativeValue);
                     break;
                 case 'enter':
-                  $scope.confirm();
+                    $scope.confirm();
+                    okAction();
                     break;
                 default:
                     response = true;
