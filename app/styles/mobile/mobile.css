@@ -263,6 +263,7 @@ img.payment-warning{
 .modal-numpad .modal-body #dialog-input{
     height: 35px;
     margin-bottom: 15px;
+    padding-right: 7px;
 }
 .modal-numpad .modal-body .modal-summary{
     margin-top: -15px;
