@@ -389,8 +389,9 @@
                     var delta = new Date().getTime() - $scope.keyboard.status.changed;
                     delta = isNaN(delta) ? 501 : delta;
                     if (!$scope.keyboard.status.active && delta > 500) {
+                        var exitMoney = function(){$scope.selectPaymentMethod('step2');};
                         $scope.selectPaymentMethod('money');
-                        $scope.openSingleInputDialog('cash.amount', $scope.cash.amount, 'Valor em Dinheiro', function(){$scope.selectPaymentMethod('step2');});
+                        $scope.openSingleInputDialog('cash.amount', $scope.cash.amount, 'Valor em Dinheiro', exitMoney, exitMoney);
                     }
                 };
 
@@ -641,12 +642,13 @@
 
                 /* Numpad */
 
-                $scope.openSingleInputDialog = function (ngModel, initialValue, title, okAction) {
+                $scope.openSingleInputDialog = function (ngModel, initialValue, title, okCallback, cancelCallback) {
 
                     var data = {
                         initial: initialValue,
                         title: title,
-                        okAction: okAction
+                        okCallback: okCallback,
+                        cancelCallback: cancelCallback
                     };
 
                     var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
