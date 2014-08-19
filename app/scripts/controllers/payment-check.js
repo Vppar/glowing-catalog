@@ -9,6 +9,7 @@
             ]).controller(
             'PaymentCheckCtrl',
             [
+                '$parse',
                 '$q',
                 '$scope',
                 '$filter',
@@ -19,7 +20,8 @@
                 'ArrayUtils',
                 'Misplacedservice',
                 'PaymentService',
-                function($q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService) {
+                'DialogService',
+                function($parse, $q, $scope, $filter, $log, $element, CheckPayment, OrderService, ArrayUtils, Misplacedservice, PaymentService, DialogService) {
 
                     // #####################################################################################################
                     // Warm up the controller
@@ -287,6 +289,34 @@
                         }
                         return true;
                     }
+
+
+                    /* Numpad */
+
+                    $scope.openSingleInputCheckDialog = function (ngModel, initialValue, title) {
+
+                        var data = {
+                            initial: initialValue,
+                            title: title
+                        };
+
+                        var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
+
+                            console.log(ngModel);
+                            $parse(ngModel).assign($scope, returnedValue);
+                        });
+
+                        return dialog;
+                    };
+
+                    $scope.setValue = function (key) {
+
+                        switch(key) {
+                            case 'enter':
+                                $scope.selectPaymentMethod('step2');
+                                break;
+                        }
+                    };
                 }
             ]);
 }(angular));
