@@ -122,3 +122,8 @@
     /*top: -3px;*/
     /* padding-left: 10px; */
 }
+
+.numpad-btn-holder {
+    bottom:0;
+    position:absolute;
+}
