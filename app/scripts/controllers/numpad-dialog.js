@@ -9,6 +9,7 @@
         var title = dialog.data && dialog.data.title;
         var message = dialog.data && dialog.data.message || null;
         var footer = dialog.data && dialog.data.footer || null;
+        var isCurrencyEnabled = dialog.data && dialog.data.isCurrencyEnabled;
 
         var $parentScope = dialog.parentDialog && dialog.parentDialog.$scope;
 
@@ -20,7 +21,7 @@
         $scope.title = title;
         $scope.message = message;
         $scope.footer = footer;
-
+        $scope.isCurrencyEnabled = isCurrencyEnabled;
         $scope.value = initialValue || 0;
 
         $scope.setValue = function (key) {
