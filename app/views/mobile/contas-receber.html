@@ -35,7 +35,8 @@
                     </div>
 
                     <div class="installments">
-                        <div class="half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)" tnt-event-deflect="tnt.events.virtualKeyboard.KeyPress">
+                        <!--<div class="half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)" tnt-event-deflect="tnt.events.virtualKeyboard.KeyPress">-->
+                        <div class="half-row" ng-repeat="installment in onCuff.installments" ng-click="selectInstallment(installment.number)">
                             <div class="installment">
 
                                 <div class="mob-col-25 text-center payment-cuff-input no-border">
@@ -45,14 +46,15 @@
                                     <input class="payment-cuff-input bgf2 text-center" id="{{'duedate' + $index}}" ng-focus="keyboard.status.active = false" datepicker-append-to-body="true" datepicker-popup="dd/MM/yyyy" show-weeks="false" ng-model="installment.duedate" tnt-maxlength="8" readonly />
                                 </div>
                                 <div class="mob-col-40">
-                                    <input id="{{'amount' + $index}}" name="" class="payment-cuff-input bgf2 text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" ng-blur="recalcTotalAmount(); keyboard.status.active = false;" recall  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency type="text"/>
+                                    <!--<input id="{{'amount' + $index}}" name="" class="payment-cuff-input bgf2 text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" ng-blur="recalcTotalAmount(); keyboard.status.active = false;" recall  ng-focus="keyboard.status.active = true" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency type="text"/>-->
+                                    <input id="{{'amount' + $index}}" name="" class="payment-cuff-input bgf2 text-right" ng-model="installment.amount" ng-change="recalcInstallments($index)" ng-blur="recalcTotalAmount(); " recall  required tnt-prevent-blur readonly currency type="text" ng-click="openSingleInputCuffDialog('installment.amount', installment.amount, 'Valor');"/>
                                 </div>
 
                             </div>
                         </div>
                     </div>
                 </div>
-                <tnt-numpad></tnt-numpad>
+                <!--<tnt-numpad></tnt-numpad>-->
             </div>
         </div>
 

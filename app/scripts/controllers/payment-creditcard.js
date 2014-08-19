@@ -7,6 +7,7 @@
         .controller(
         'PaymentCreditCardCtrl',
         [
+            '$parse',
             '$scope',
             '$element',
             '$filter',
@@ -18,7 +19,7 @@
             'CreditCardPaymentService',
             'EntityService',
             'IntentService',
-            function ($scope, $element, $filter, $q, $location, DataProvider, DialogService, OrderService, CreditCardPaymentService, EntityService, IntentService) {
+            function ($parse, $scope, $element, $filter, $q, $location, DataProvider, DialogService, OrderService, CreditCardPaymentService, EntityService, IntentService) {
 
                 // #############################################################
                 // Warm up the controller
@@ -158,6 +159,37 @@
                 // #####################################################################################################
                 // Scope action functions
                 // #####################################################################################################
+
+                /**
+                 *  Numpad
+                 */
+                $scope.openSingleInputCardDialog = function (ngModel, initialValue, title) {
+
+                    var data = {
+                        initial: initialValue,
+                        title: title
+                    };
+
+                    var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
+
+                        console.log(ngModel);
+                        console.log(returnedValue);
+
+                        $parse(ngModel).assign($scope, returnedValue);
+                    });
+
+                    return dialog;
+                };
+
+                $scope.setValue = function (key) {
+
+                    switch(key) {
+                        case 'enter':
+                            $scope.selectPaymentMethod('step2');
+                            break;
+                    }
+                };
+
                 /**
                  * Confirms a credit card payment.
                  */

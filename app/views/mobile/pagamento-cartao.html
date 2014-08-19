@@ -12,24 +12,24 @@
                 <div class="row-fluid linha">
                     <div class="mob-col-70 control-group margint7">
                         <label class="control-label">N&uacute;mero do cart&atilde;o</label>
-                        <input class="num-card input-block-level payment-input-large" id="creditCardNumber1" name="number" type="text" ng-model="creditCard.number" required tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" credit-card="{{creditCardMask}}" tnt-maxlength="19">
+                        <input class="num-card input-block-level payment-input-large" id="creditCardNumber1" name="number" type="text" ng-model="creditCard.number" required ng-click="openSingleInputCardDialog('creditCard.number', creditCard.number, 'Cartão - Número');" credit-card="{{creditCardMask}}" tnt-maxlength="19">
                     </div>
                     <div class="mob-col-30 control-group margint7">
                         <label class="control-label">CVV</label>
-                        <input class="cvv input-block-level payment-input-large" type="text" id="cardVerificationValue1" name="cvv" ng-model="creditCard.cvv" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" minlength="{{creditCardCvvLength}}" tnt-maxlength="{{creditCardCvvLength}}">
+                        <input class="cvv input-block-level payment-input-large" type="text" id="cardVerificationValue1" name="cvv" ng-model="creditCard.cvv" required ng-click="openSingleInputCardDialog('creditCard.cvv', creditCard.cvv, 'Cartão - CVV');" minlength="{{creditCardCvvLength}}" tnt-maxlength="{{creditCardCvvLength}}">
                     </div>
                 </div>
 
                 <div class="row-fluid linha">
-                    <div class="mob-col-40 control-group">
+                    <div class="mob-col-50 control-group">
                         <label class="control-label">Data de validade</label>
-                        <div class="mob-col-50 control-group">
+                        <div class="mob-col-40 control-group">
                             <!-- <select ui-select2="select2Options" name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" tnt-select2 required> -->
                             <select name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" required>
                                 <option ng-repeat="month in months" value="{{month.id}}">{{month.id}}</option>
                             </select>
                         </div>
-                        <div class="mob-col-50 control-group">
+                        <div class="mob-col-60 control-group">
                             <!-- <select ui-select2="select2Options" name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" tnt-select2 required> -->
                             <select name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" required>
                                 <option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
@@ -43,9 +43,9 @@
                             <option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
                         </select>
                     </div>
-                    <div class="mob-col-40 control-group">
+                    <div class="mob-col-30 control-group">
                         <label class="control-label">Valor R$</label>
-                        <input class="input-block-level payment-input-large text-right check-value" type="text" id="cardAmount1" name="amount" ng-model="creditCard.amount" required tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" currency amount="0" tnt-maxlength="11">
+                        <input class="input-block-level payment-input-large text-right check-value" type="text" id="cardAmount1" name="amount" ng-model="creditCard.amount" required ng-click="openSingleInputCardDialog('creditCard.amount', creditCard.amount, 'Cartão - Valor');" currency amount="0" tnt-maxlength="11">
                     </div>
                 </div>
             </div>
@@ -100,9 +100,9 @@
 
             <div class="error" style="display:none;">Erro ao inserir dados, contate o suporte informando o código </div>
 
-            <div class="numpad-holder">
-                <tnt-numpad></tnt-numpad>
-            </div>
+            <!--<div class="numpad-holder">-->
+                <!--<tnt-numpad></tnt-numpad>-->
+            <!--</div>-->
 
         </form>
 
