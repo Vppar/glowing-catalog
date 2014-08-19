@@ -1,0 +1,16 @@
+.add-customer-form{
+    margin-top: 10px;
+}
+
+.add-customer-form .btn{
+    margin-top: 10px;
+}
+
+.add-customer-form label{
+    margin-top: 5px;
+}
+
+.add-customer-container{
+    overflow-y: auto;
+    height: 100%;
+}

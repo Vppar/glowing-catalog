@@ -1,27 +1,29 @@
-<div class="container">
+    <div class="row-fluid">
+        <span class="span12"> <span ng-include src="'views/mobile/header.html'"></span></span>
+    </div>
 
-    <form name="newCustomerForm" class="form" ng-class="{failed: failed}">
-        <label>Nome</label>
-        <input name="name" tabindex="1" class="form-control" type="text" placeholder="" ng-model="customer.name" customer-name required />
-
-        <label>Telefones</label>
-        <div class="input-with-buttom-right">
-            <input tabindex="5" class="form-control" type="text" ng-model="customer.phones[0].number" ng-click="openDialogAddCustomerTels(customer.phones)" required phone>
-            <div ng-click="openDialogAddCustomerTels(customer.phones)" class="add-on">+</div>
-        </div>
-
-        <label>CPF</label>
-        <input tabindex="7" class="form-control" type="text" ng-blur="validateCpf(customer.document)" tnt-focus-if="{{cpfFocus}}" ng-model="customer.document" cpf>
-
-        <label>E-mails</label>
-
-        <div class="input-with-buttom-right">
-            <input tabindex="2" class="form-control" type="email" ng-model="customer.emails[0].address" ng-click="openDialogAddCustomerEmails(customer.emails)" />
-            <div ng-click="openDialogAddCustomerEmails(customer.emails)" class="add-on">+</div>
-        </div>
+    <div class="page-title">
+        <span class="mob-col-60 text-left">Novo Cliente</span>
+    </div>
 
 
-        <spinner-button class="btn-signin btn btn-lg btn-primary btn-block" tabindex="16" spinner-promise = "confirm()">
+    <div class="container add-customer-container">
+
+        <form name="newCustomerForm" class="form add-customer-form" ng-class="{failed: failed}">
+            <label>Nome</label>
+            <input name="name" tabindex="1" class="form-control" type="text" placeholder="" ng-model="customer.name" customer-name required />
+
+            <label>Telefones</label>
+                <input tabindex="5" class="form-control" type="text" ng-model="customer.phones[0].number" required phone>
+
+            <label>CPF</label>
+            <input tabindex="7" class="form-control" type="text" ng-blur="validateCpf(customer.document)" tnt-focus-if="{{cpfFocus}}" ng-model="customer.document" cpf>
+
+            <label>E-mails</label>
+            <input tabindex="2" class="form-control" type="email" ng-model="customer.emails[0].address" />
+
+
+            <spinner-button class="btn-signin btn btn-lg btn-primary btn-block" tabindex="16" spinner-promise = "confirm()">
             Confirmar
         </spinner-button>
 
