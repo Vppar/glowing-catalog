@@ -10,6 +10,7 @@
         var message = dialog.data && dialog.data.message || null;
         var footer = dialog.data && dialog.data.footer || null;
         var isCurrencyEnabled = dialog.data && dialog.data.isCurrencyEnabled;
+        var okAction = dialog.data.okAction || angular.noop;
 
         var $parentScope = dialog.parentDialog && dialog.parentDialog.$scope;
 
@@ -33,7 +34,6 @@
                     break;
                 case 'enter':
                     $scope.confirm();
-                    okAction();
                     break;
                 default:
                     response = true;
@@ -59,6 +59,7 @@
          */
         $scope.confirm = function() {
             dialog.close($scope.value);
+            okAction();
         };
 
     }]);
