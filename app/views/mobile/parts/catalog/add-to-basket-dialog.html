@@ -22,10 +22,10 @@
 
     <div class="new-scroll-area padding8" fast-click>
         <div class="new-body-row" ng-repeat="item in grid">
-            <div class="mob-col-44 product-name">
+            <div class="mob-col-44 product-name" ng-class="{'padding-top-7' : !item.option}">
                 <!--<img ng-if="item.image" once-src="getImageData(item.SKU)" alt="sample" />-->
-                <span>{{item.option}}</span>
-                <br/>
+                <span ng-if="item.option">{{item.option}}</span>
+                <br ng-if="item.option"/>
                 <small class="">{{item.SKU}}</small>
             </div>
             <div class="mob-col-28 text-vertical-middle text-center line-height-35">{{item.inventory}}</div>
