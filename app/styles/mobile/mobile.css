@@ -1,10 +1,25 @@
 /* CUSTOM VPINK */
 
+/* Locks** orientation on vertical state */
+@media (orientation: landscape) {
+    body {
+        /*-webkit-transform: rotate(-90deg);*/
+        /*-moz-transform: rotate(-90deg);*/
+        /*-o-transform: rotate(-90deg);*/
+        /*-ms-transform: rotate(-90deg);*/
+        /*transform: rotate(-90deg);*/
+    }
+}
+
 @font-face {
     font-family: 'VPinkFont';
     src: url('../../resources/fonts/Swiss721BT.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+html{
+    -webkit-text-size-adjust: 100%;
 }
 
 body{
@@ -179,6 +194,11 @@ input:focus {
     text-align: center;
     vertical-align: middle; /*testar -- com display:block, o vertical-align não funciona (não se utiliza)*/
     background-color: #333;
+}
+
+img.payment-warning{
+    width: 8%;
+    margin-top: -3px;
 }
 
 #sacred .button-green,

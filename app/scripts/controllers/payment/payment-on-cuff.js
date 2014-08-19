@@ -4,7 +4,7 @@
     angular.module('tnt.catalog.payment.oncuff.ctrl', [
         'tnt.catalog.service.dialog', 'tnt.catalog.order.service', 'tnt.catalog.payment.oncuff.service', 'tnt.catalog.misplaced.service'
     ]).controller('PaymentOnCuffCtrl', [
-        '$scope', 'DialogService', 'OrderService', 'OnCuffPaymentService', ' $parse',
+        '$scope', 'DialogService', 'OrderService', 'OnCuffPaymentService', '$parse',
         /**
          * Controller to handle payment-left-on-cuff screen.
          * 

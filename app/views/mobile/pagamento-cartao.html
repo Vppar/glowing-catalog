@@ -12,11 +12,11 @@
                 <div class="row-fluid linha">
                     <div class="mob-col-70 control-group margint7">
                         <label class="control-label">N&uacute;mero do cart&atilde;o</label>
-                        <input class="num-card input-block-level payment-input-large" id="creditCardNumber1" name="number" type="text" ng-model="creditCard.number" required ng-click="openSingleInputCardDialog('creditCard.number', creditCard.number, 'Cartão - Número');" credit-card="{{creditCardMask}}" tnt-maxlength="19">
+                        <input class="num-card input-block-level payment-input-large" id="creditCardNumber1" name="number" type="text" ng-model="creditCard.number" required ng-click="openSingleInputCardDialog('creditCard.number', creditCard.number, 'Cartão - Número', false);" credit-card="{{creditCardMask}}" tnt-maxlength="19">
                     </div>
                     <div class="mob-col-30 control-group margint7">
                         <label class="control-label">CVV</label>
-                        <input class="cvv input-block-level payment-input-large" type="text" id="cardVerificationValue1" name="cvv" ng-model="creditCard.cvv" required ng-click="openSingleInputCardDialog('creditCard.cvv', creditCard.cvv, 'Cartão - CVV');" minlength="{{creditCardCvvLength}}" tnt-maxlength="{{creditCardCvvLength}}">
+                        <input class="cvv input-block-level payment-input-large" type="text" id="cardVerificationValue1" name="cvv" ng-model="creditCard.cvv" required ng-click="openSingleInputCardDialog('creditCard.cvv', creditCard.cvv, 'Cartão - CVV', false);" minlength="{{creditCardCvvLength}}" tnt-maxlength="{{creditCardCvvLength}}">
                     </div>
                 </div>
 

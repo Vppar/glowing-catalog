@@ -163,11 +163,12 @@
                 /**
                  *  Numpad
                  */
-                $scope.openSingleInputCardDialog = function (ngModel, initialValue, title) {
+                $scope.openSingleInputCardDialog = function (ngModel, initialValue, title, currency) {
 
                     var data = {
                         initial: initialValue,
-                        title: title
+                        title: title,
+                        isCurrencyEnabled: currency
                     };
 
                     var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
