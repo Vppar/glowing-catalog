@@ -178,7 +178,7 @@ input:focus {
     padding:8px 10px;
     text-align: center;
     vertical-align: middle; /*testar -- com display:block, o vertical-align não funciona (não se utiliza)*/
-    background-color: #cccccc;
+    background-color: #333;
 }
 
 #sacred .button-green,
