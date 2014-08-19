@@ -16,7 +16,7 @@
                     </div>
                 </div>
 
-                <div class="swiper-container catalog-child-swiper">
+                <div class="swiper-container catalog-child-swiper enable-product-overflow">
                     <div class="swiper-wrapper">
                         <!--<div class="swiper-slide" spy="{{'cat' + $index}}" ng-class="line.color" ng-repeat="line in lines">-->
                         <div class="swiper-slide" ng-repeat="line in lines">
@@ -47,6 +47,7 @@
                         <span ng-if="section == 'Mais Vendidos'" ng-include="'views/mobile/parts/catalog/best-sellers.html'"></span>
 
                     </div>
+
                 </div>
                 <div class="swiper-scrollbar"></div>
 

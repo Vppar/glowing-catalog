@@ -47,7 +47,7 @@
 
                       var index = swiper.activeIndex;
 
-                      var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(index), {
+                      /*var catalogChildSwiper = new Swiper($('.catalog-child-swiper').get(index), {
                         mode: 'vertical'
                       });
 
@@ -59,7 +59,7 @@
 
                         event.stopPropagation();
                         //event.preventDefault();
-                      });
+                      });*/
 
                     }, 0);
                   }
