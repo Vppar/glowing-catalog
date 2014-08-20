@@ -1,0 +1,148 @@
+<div class="container-mobile" ng-controller="PaymentDiscountCtrl">
+
+    <div class="margin8 payment-discount-scroll-container">
+
+    <div class="page-title text-center margin8">Abatimento de Vale / Cupom</div>
+
+    <div class="left-payment">
+        <br />
+
+        <div class="scroll-payment-grid">
+            <!--Vale credito-->
+            <div class="discount-initial">
+                <div class="row-fluid">
+                    <div class="grid-payment-discount">
+                        <div class="subtitle-header-discount negrito">
+                            <div class="row-payment-grid">
+								<span class="mob-col-30">
+								    <span>Data</span>
+								</span>
+								<span class="mob-col-35">
+									<div>Vale <br/>Cr&eacute;dito</div>
+								</span>
+								<span class="mob-col-35">
+									<div>Valor <br/>a utilizar</div>
+								</span>
+                            </div>
+                        </div>
+
+
+                        <div class="row-payment-grid-product-discount">
+                            <div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.voucher">
+								<span class="mob-col-30">
+									<div class="">{{discount.created | date:'dd/MM/yyyy'}}</div>
+								</span>
+								<span class="mob-col-35">
+                                    <input type="checkbox" class="" ng-model="checkBox.voucher[$index]" ng-change="checkBoxCtrl($index, 'voucher')">
+                                    <span> {{discount.amount | currency: ''}}</span>
+								</span>
+								<span class="mob-col-35">
+									<div>
+                                        <!--<input id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />-->
+                                        <input class="check-value payment-input-large bgccc" id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" currency readonly ng-click="openSingleInputDiscountDialog('discount.amount', discount.amount, 'Crédito - Valor a utilizar');">
+                                    </div>
+								</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+
+            <!--Vale presente-->
+            <div class="discount-initial">
+                <div class="row-fluid">
+                    <div class="grid-payment-discount">
+                        <div class="subtitle-header-discount negrito">
+                            <div class="row-payment-grid">
+								<span class="mob-col-30">
+									<div>Data</div>
+								</span>
+								<span class="mob-col-35">
+									<div>Vale <br/>Presente</div>
+								</span>
+								<span class="mob-col-35">
+									<div>Valor <br/>a utilizar</div>
+								</span>
+                            </div>
+                        </div>
+                        <div class="row-payment-grid-product-discount">
+                            <div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.giftCard">
+								<span class="mob-col-30">
+									<div class="">{{discount.created | date:'dd/MM/yyyy'}}</div>
+								</span>
+								<span class="mob-col-35">
+                                    <input type="checkbox" class="" ng-model="checkBox.giftCard[$index]" ng-change="checkBoxCtrl($index, 'giftCard')">
+                                    <span> {{discount.amount | currency: ''}}</span>
+								</span>
+								<span class="mob-col-35">
+									<div>
+                                        <!--<input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput"class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />-->
+                                        <input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" readonly currency ng-click="openSingleInputDiscountDialog('discount.amount', discount.amount, 'Presente - Valor a utilizar');" />
+                                    </div>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+
+            <!--Vale presente-->
+            <div class="discount-initial">
+                <div class="row-fluid">
+                    <div class="grid-payment-discount">
+                        <div class="subtitle-header-discount negrito">
+                            <div class="row-payment-grid">
+								<span class="mob-col-30">
+									<div>Data</div>
+								</span>
+								<span class="mob-col-35">
+									<div>Cupom <br/>Promocional</div>
+								</span>
+								<span class="mob-col-35">
+									<div>Valor <br/>a utilizar</div>
+								</span>
+                            </div>
+                        </div>
+                        <div class="row-payment-grid-product-discount">
+                            <div class="row-payment-grid-product-discount" ng-repeat="discount in discounts.coupon">
+								<span class="mob-col-30">
+									<div class="">{{discount.created | date:'dd/MM/yyyy'}}</div>
+								</span>
+								<span class="mob-col-35">
+                                    <input type="checkbox" class="" ng-model="checkBox.coupon[$index]" ng-change="checkBoxCtrl($index, 'coupon')">
+                                    <span> {{discount.amount | currency: ''}}</span>
+								</span>
+								<span class="mob-col-35">
+									<div class="">
+                                        <!--<input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />-->
+                                        <input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-click="openSingleInputDiscountDialog('discount.amount', discount.amount, 'Cupom - Valor a utilizar');" />
+                                    </div>
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="numpad-holder" ng-show="keyboard.status.active">
+            <tnt-numpad></tnt-numpad>
+        </div>
+
+    </div>
+    </div>
+    <div class="payment-foot effect7">
+        <button class="btn btn-cancel btn-large btn-login" type="submit" ng-click="cancelDiscounts(); selectPaymentMethod('step2');">Cancelar</button>
+        <button class="btn btn-ok btn-large btn-login pull-right" type="submit" ng-click="confirmDiscounts(); selectPaymentMethod('step2');">Confirmar</button>
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="styles/mobile/pagamento-cheque.css">
+<link rel="stylesheet" href="styles/mobile/troca-produto.css">
+<link rel="stylesheet" href="styles/mobile/pagamento.css">

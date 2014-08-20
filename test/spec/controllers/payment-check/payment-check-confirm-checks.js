@@ -1,4 +1,4 @@
-describe('Controller: PaymentCheckCtrlConfirmChecks', function() {
+xdescribe('Controller: PaymentCheckCtrlConfirmChecks', function() {
 
     var scope = {};
     var element = {};

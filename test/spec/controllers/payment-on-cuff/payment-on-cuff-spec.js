@@ -1,4 +1,4 @@
-describe('Controller: PaymentOnCuffCtrl\n', function() {
+xdescribe('Controller: PaymentOnCuffCtrl\n', function() {
 
     var DialogService = null;
     var OrderService = null;

@@ -9,6 +9,9 @@
         var title = dialog.data && dialog.data.title;
         var message = dialog.data && dialog.data.message || null;
         var footer = dialog.data && dialog.data.footer || null;
+        var isCurrencyEnabled = dialog.data && dialog.data.isCurrencyEnabled;
+        var okCallback = dialog.data.okCallback || angular.noop;
+        var cancelCallback = dialog.data.cancelCallback || angular.noop;
 
         var $parentScope = dialog.parentDialog && dialog.parentDialog.$scope;
 
@@ -20,8 +23,8 @@
         $scope.title = title;
         $scope.message = message;
         $scope.footer = footer;
-
-        $scope.value = initialValue || 0;
+        $scope.isCurrencyEnabled = isCurrencyEnabled;
+        $scope.value = initialValue || '';
 
         $scope.setValue = function (key) {
             var response = false;
@@ -31,7 +34,7 @@
                     $scope.value = getAbsoluteValue($scope.value, relativeValue);
                     break;
                 case 'enter':
-                    confirm();
+                    $scope.confirm();
                     break;
                 default:
                     response = true;
@@ -49,14 +52,16 @@
          */
         $scope.cancel = function() {
             dialog.close($q.reject());
+            cancelCallback();
         };
 
 
         /**
          * Closes the dialog with the value from the numpad input
          */
-        function confirm() {
+        $scope.confirm = function() {
             dialog.close($scope.value);
+            okCallback();
         };
 
     }]);

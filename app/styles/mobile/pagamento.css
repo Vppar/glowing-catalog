@@ -1,0 +1,129 @@
+.cliente-head {
+    width: 100%;
+    color: #fff;
+    background: #333;
+    font-family: Tahoma, "Quicksand-Regular", Helvetica, Arial,"Helvetica Neue", sans-serif;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    /*min-height: 50px !important;*/
+    overflow-y: auto;
+
+}
+
+.label-form-client {
+    display: block;
+    float: left;
+    font-size: 12px;
+}
+
+.lbl-phone-client {
+    float: right;
+    font-size: 14px;
+}
+
+.lbl-name-client {
+    font-size: 14px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.subtotal-resume {
+    border-radius: 4px;
+    color: #333;
+    padding: 10px 15px;
+    width: 100%;
+    font-size: 14px;
+    display: inline-table;
+}
+
+.lbl-resume {
+    float: left;
+    padding-top: 3px;
+}
+
+.values-resume {
+    float: right;
+    text-align: right;
+    /*margin-right: 13px;*/
+    font-size: 18px;
+}
+
+.row-right-payment {
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    margin: 5px 10px 0 10px;
+    padding: 8px 5px 8px 12px;
+    /* padding: 8px; */
+    background-color: #FFF;
+    min-height: 20px;
+    /*width: 100%;*/
+}
+
+.row-right-payment * {
+    border: none !important;
+}
+
+.first-right {
+    margin-top: 0px !important;
+}
+
+.btn-price-payment {
+    float: right;
+    width: 50%;
+    text-align: right;
+    border: 1px solid #eee;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    padding: 4px;
+    margin-top: -4px;
+    /*height: 18px;*/
+    overflow: hidden;
+}
+.btn-price-payment.focus {
+    border: 1px solid #bf1e62 !important;
+}
+
+.lbl-money {
+    display: inline-block;
+    width: 80px;
+}
+
+.color-pink {
+    color: #bf1e62;
+}
+.payment-foot {
+    padding: 10px;
+    margin-top: 15px;
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    background: #fff;
+}
+.paddingl10 {
+    padding-left: 10px !important;
+}
+.w130 {
+    width: 130px;
+}
+.code-product {
+    color: rgba(0, 0, 0, 0.5);
+    /*display: inline-block;*/
+    /*width: 300px;*/
+    font-size: 12px;
+    /*position: relative;*/
+    /*top: -3px;*/
+    /* padding-left: 10px; */
+}
+
+.numpad-btn-holder {
+    bottom:0;
+    position:absolute;
+}

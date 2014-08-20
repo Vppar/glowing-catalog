@@ -7,7 +7,7 @@
     <p>{{ message }}</p>
   </div>
 
-  <input id="dialog-input" type="text" ng-model="value" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency />
+  <input id="dialog-input" type="text" ng-model="value" tnt-focus tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency="{{isCurrencyEnabled}}" />
   <br />
   <div class="numpad-holder">
     <tnt-numpad></tnt-numpad>
@@ -18,3 +18,9 @@
   <small>{{ footer }}</small>
 </div>
 
+<div class="payment-btn-holder payment-foot payment-money effect7 numpad-btn-holder">
+    <button class="btn btn-cancel btn-large pull-left" ng-click="cancel()">Cancelar</button>
+    <button class="btn btn-ok btn-large pull-right" ng-click="confirm()">Confirmar</button>
+</div>
+
+<link rel="stylesheet" href="styles/mobile/pagamento.css">

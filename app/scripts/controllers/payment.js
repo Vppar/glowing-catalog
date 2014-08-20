@@ -11,6 +11,7 @@
         .controller(
         'PaymentCtrl',
         [
+            '$parse',
             '$scope',
             '$filter',
             '$location',
@@ -30,7 +31,7 @@
             'UserService',
             'Misplacedservice',
             'IntentService',
-            function ($scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService, KeyboardService, InventoryKeeper, VoucherKeeper, CashPayment, EntityService, UserService, Misplacedservice, IntentService) {
+            function ($parse, $scope, $filter, $location, $q, $log, ArrayUtils, DataProvider, DialogService, OrderService, PaymentService, SMSService, KeyboardService, InventoryKeeper, VoucherKeeper, CashPayment, EntityService, UserService, Misplacedservice, IntentService) {
 
                 UserService.redirectIfInvalidUser();
 
@@ -388,7 +389,9 @@
                     var delta = new Date().getTime() - $scope.keyboard.status.changed;
                     delta = isNaN(delta) ? 501 : delta;
                     if (!$scope.keyboard.status.active && delta > 500) {
+                        var exitMoney = function(){$scope.selectPaymentMethod('step2');};
                         $scope.selectPaymentMethod('money');
+                        $scope.openSingleInputDialog('cash.amount', $scope.cash.amount, 'Valor em Dinheiro', exitMoney, exitMoney);
                     }
                 };
 
@@ -635,6 +638,35 @@
                     }
 
                     return dialog;
+                };
+
+                /* Numpad */
+
+                $scope.openSingleInputDialog = function (ngModel, initialValue, title, okCallback, cancelCallback) {
+
+                    var data = {
+                        initial: initialValue,
+                        title: title,
+                        okCallback: okCallback,
+                        cancelCallback: cancelCallback
+                    };
+
+                    var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
+
+                        console.log(ngModel);
+                        $parse(ngModel).assign($scope, returnedValue);
+                    });
+
+                    return dialog;
+                };
+
+                $scope.setValue = function (key) {
+
+                    switch(key) {
+                        case 'enter':
+                            $scope.selectPaymentMethod('step2');
+                            break;
+                    }
                 };
 
                 // #############################################################################################

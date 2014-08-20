@@ -4,7 +4,7 @@
     angular.module('tnt.catalog.payment.oncuff.ctrl', [
         'tnt.catalog.service.dialog', 'tnt.catalog.order.service', 'tnt.catalog.payment.oncuff.service', 'tnt.catalog.misplaced.service'
     ]).controller('PaymentOnCuffCtrl', [
-        '$scope', 'DialogService', 'OrderService', 'OnCuffPaymentService',
+        '$scope', 'DialogService', 'OrderService', 'OnCuffPaymentService', '$parse',
         /**
          * Controller to handle payment-left-on-cuff screen.
          * 
@@ -15,7 +15,7 @@
          * @param {OnCuffPaymentService} OnCuffPaymentService - Handles the
          *            business logic of this controller.
          */
-        function PaymentOnCuffCtrl($scope, DialogService, OrderService, OnCuffPaymentService) {
+        function PaymentOnCuffCtrl($scope, DialogService, OrderService, OnCuffPaymentService, $parse) {
 
             // #####################################################################################################
             // Local variables
@@ -172,6 +172,37 @@
                 OnCuffPaymentService.registerInstallments(installments);
 
                 selectPaymentMethod('none');
+            };
+
+
+            /**
+             *  Numpad
+             */
+            $scope.openSingleInputCuffDialog = function (ngModel, initialValue, title) {
+
+                var data = {
+                    initial: initialValue,
+                    title: title
+                };
+
+                var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
+
+                    console.log(ngModel);
+                    console.log(returnedValue);
+
+                    $parse(ngModel).assign($scope, returnedValue);
+                });
+
+                return dialog;
+            };
+
+            $scope.setValue = function (key) {
+
+                switch(key) {
+                    case 'enter':
+                        $scope.selectPaymentMethod('step2');
+                        break;
+                }
             };
 
             // #####################################################################################################

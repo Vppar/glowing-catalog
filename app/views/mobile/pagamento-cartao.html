@@ -1,0 +1,120 @@
+<div class="container-mobile" ng-controller="PaymentCreditCardCtrl">
+
+    <div class="page-title text-center margin8">Pagamento com Cart&atilde;o</div>
+
+    <div class="margin8 payment-card-scroll-container">
+
+        <!-- Full form (with merchant & internet connection) -->
+        <form name="creditCardForm" ng-switch on="formType" >
+
+            <!--<div ng-switch-when="full">-->
+            <div>
+                <div class="row-fluid linha">
+                    <div class="mob-col-70 control-group margint7">
+                        <label class="control-label">N&uacute;mero do cart&atilde;o</label>
+                        <input class="num-card input-block-level payment-input-large" id="creditCardNumber1" name="number" type="text" ng-model="creditCard.number" required ng-click="openSingleInputCardDialog('creditCard.number', creditCard.number, 'Cartão - Número', false);" credit-card="{{creditCardMask}}" tnt-maxlength="19">
+                    </div>
+                    <div class="mob-col-30 control-group margint7">
+                        <label class="control-label">CVV</label>
+                        <input class="cvv input-block-level payment-input-large" type="text" id="cardVerificationValue1" name="cvv" ng-model="creditCard.cvv" required ng-click="openSingleInputCardDialog('creditCard.cvv', creditCard.cvv, 'Cartão - CVV', false);" minlength="{{creditCardCvvLength}}" tnt-maxlength="{{creditCardCvvLength}}">
+                    </div>
+                </div>
+
+                <div class="row-fluid linha">
+                    <div class="mob-col-50 control-group">
+                        <label class="control-label">Data de validade</label>
+                        <div class="mob-col-40 control-group">
+                            <!-- <select ui-select2="select2Options" name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" tnt-select2 required> -->
+                            <select name="cardExpirationMonth" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationMonth" required>
+                                <option ng-repeat="month in months" value="{{month.id}}">{{month.id}}</option>
+                            </select>
+                        </div>
+                        <div class="mob-col-60 control-group">
+                            <!-- <select ui-select2="select2Options" name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" tnt-select2 required> -->
+                            <select name="cardExpirationYear" class="payment-input-large select-h38 padding0 validade-cartao" ng-model="creditCard.expirationYear" required>
+                                <option ng-repeat="year in cardExpirationYears" value="{{year}}">{{year}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mob-col-20 control-group">
+                        <label class="control-label">Parcelas</label>
+                        <!-- <select ui-select2="select2Options" name="installment" class="parcelas-cartao select-h38" ng-model="creditCard.installment" tnt-select2 required> -->
+                        <select name="installment" class="payment-input-large parcelas-cartao select-h38" ng-model="creditCard.installment" required>
+                            <option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>
+                        </select>
+                    </div>
+                    <div class="mob-col-30 control-group">
+                        <label class="control-label">Valor R$</label>
+                        <input class="input-block-level payment-input-large text-right check-value" type="text" id="cardAmount1" name="amount" ng-model="creditCard.amount" required ng-click="openSingleInputCardDialog('creditCard.amount', creditCard.amount, 'Cartão - Valor');" currency amount="0" tnt-maxlength="11">
+                    </div>
+                </div>
+            </div>
+
+            <!--&lt;!&ndash; Partial form (without merchant) &ndash;&gt;-->
+            <!--<div ng-switch-when="partial">-->
+                <!--<div class="row-fluid margint7">-->
+                    <!--<span class="new-col-11">-->
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">Bandeira do cart&atilde;o</label>-->
+                            <!--&lt;!&ndash; <select ui-select2="select2Options" name="cardFlag" id="creditCardFlag" class="bandeira-cartao select-h38" ng-model="creditCard.flag" required tnt-select2> &ndash;&gt;-->
+                            <!--<select name="cardFlag" id="creditCardFlag" class="payment-input-large bandeira-cartao select-h38" ng-model="creditCard.flag" required>-->
+                                <!--<option ng-repeat="cardFlag in cardFlags" value="{{cardFlag}}">{{cardFlag}}</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</span>-->
+                    <!--<span class="new-col-11">-->
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">Código autorizaç&atilde;o</label>-->
+                            <!--<input class="input-block-level payment-input-large" id="autorizationCode" name="number" type="text" ng-model="creditCard.autorization"  tnt-input required tnt-maxlength="10">-->
+                        <!--</div>-->
+                    <!--</span>-->
+                    <!--<span class="new-col-4">-->
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">Nro parcelas</label>-->
+                            <!--&lt;!&ndash; <select ui-select2="select2Options" name="installment" class="parcelas-cartao select-h38" ng-model="creditCard.installment" tnt-select2 required> &ndash;&gt;-->
+                            <!--<select name="installment" class="payment-input-large parcelas-cartao select-h38" ng-model="creditCard.installment" required>-->
+                                <!--<option ng-repeat="installment in installments" value="{{installment}}">{{installment}}</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</span>-->
+                    <!--<span class="new-col-9">-->
+                        <!--<div class="control-group">-->
+                            <!--<label class="control-label">Valor R$</label>-->
+                            <!--<input class="input-block-level payment-input-large text-right" type="text" id="cardAmount2" ng-model="creditCard.amount" currency tnt-input required amount="0" tnt-maxlength="11">-->
+                        <!--</div>-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!-- Minimal form (without internet connection) -->
+            <div ng-if="false">
+                <div class="row-fluid margint7">
+                    <span class="new-col-8">
+                        <div class="control-group">
+                            <label class="control-label">Valor R$</label>
+                            <input class="input-block-level payment-input-large text-right" type="text" id="cardAmount3" ng-model="creditCard.amount" currency tnt-input required amount="0" tnt-maxlength="11">
+                        </div>
+                    </span>
+                </div>
+            </div>
+
+            <div class="error" style="display:none;">Erro ao inserir dados, contate o suporte informando o código </div>
+
+            <!--<div class="numpad-holder">-->
+                <!--<tnt-numpad></tnt-numpad>-->
+            <!--</div>-->
+
+        </form>
+
+    </div>
+
+    <div class="payment-foot effect7" fast-click>
+        <button class="btn btn-cancel btn-large pull-left" type="button" ng-click="cancelPayments(); selectPaymentMethod('step2');"> Cancelar </button>
+        <spinner-button class="btn btn-ok btn-large pull-right" spinner-promise = "confirmCreditCardPayment()" type="button"> Confirmar </spinner-button>
+    </div>
+</div>
+
+<!-- IMPORT-DELETEME -->
+<link rel="stylesheet" href="styles/mobile/grade-produto.css">
+<link rel="stylesheet" href="styles/mobile/pagamento.css">
+<link rel="stylesheet" href="styles/mobile/pagamento-cheque.css">
