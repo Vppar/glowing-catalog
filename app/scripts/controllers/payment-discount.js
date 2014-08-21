@@ -140,11 +140,14 @@
                     };
 
                     var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
-
                         console.log(ngModel);
                         console.log(returnedValue);
 
-                        $parse(ngModel).assign($scope, returnedValue);
+                        var splitedNgModel = ngModel.split('.');
+
+                        var maxResult = $parse(splitedNgModel[0] + '.' + splitedNgModel[1] + '.amount')($scope);
+                        var finalResult = returnedValue > maxResult ? maxResult : returnedValue;
+                        $parse(ngModel).assign($scope, finalResult);
                     });
 
                     return dialog;

@@ -39,7 +39,7 @@
 								<span class="mob-col-35">
 									<div>
                                         <!--<input id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />-->
-                                        <input class="check-value payment-input-large bgccc" id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" currency readonly ng-click="openSingleInputDiscountDialog('discount.amount', discount.amount, 'Crédito - Valor a utilizar');">
+                                        <input class="check-value payment-input-large bgccc" id="{{'amountVoucher'+$index}}" type="text" name="" ng-change="updateAmount($index, 'voucher')" ng-disabled="!checkBox.voucher[$index]" ng-model="discount.myInput" currency readonly ng-click="openSingleInputDiscountDialog('discounts.voucher['+$index+'].myInput', discounts.voucher[$index].myInput, 'Crédito - Valor a utilizar');">
                                     </div>
 								</span>
                             </div>
@@ -80,7 +80,7 @@
 								<span class="mob-col-35">
 									<div>
                                         <!--<input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput"class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />-->
-                                        <input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" readonly currency ng-click="openSingleInputDiscountDialog('discount.amount', discount.amount, 'Presente - Valor a utilizar');" />
+                                        <input id="{{'amountGiftCard'+$index}}" type="text" name="" ng-change="updateAmount($index, 'giftCard')" ng-disabled="!checkBox.giftCard[$index]"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" readonly currency ng-click="openSingleInputDiscountDialog('discounts.giftCard['+$index+'].myInput', discounts.giftCard[$index].myInput, 'Presente - Valor a utilizar');" />
                                     </div>
 								</span>
                             </div>
@@ -120,7 +120,7 @@
 								<span class="mob-col-35">
 									<div class="">
                                         <!--<input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-blur="keyboard.status.active = false" ng-focus="keyboard.status.active = true" />-->
-                                        <input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency ng-click="openSingleInputDiscountDialog('discount.amount', discount.amount, 'Cupom - Valor a utilizar');" />
+                                        <input id="{{'amountCoupon'+$index}}" value="0" type="text" name="" ng-change="updateAmount($index, 'coupon')" ng-disabled="true"  ng-model="discount.myInput" class="check-value payment-input-large bgccc" tnt-prevent-blur tnt-virtual-keyboard tnt-keypress="setValue($key)" readonly currency/>
                                     </div>
 								</span>
                             </div>
@@ -129,11 +129,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="numpad-holder" ng-show="keyboard.status.active">
-            <tnt-numpad></tnt-numpad>
-        </div>
-
     </div>
     </div>
     <div class="payment-foot effect7">
