@@ -1799,3 +1799,6 @@ i.icon-4 {
 .vpink-catalog-2 .navbar-inner .right .forward{
     bottom: 0;
 }
+.list-block .item-link .item-inner{
+    background-image: none;
+}
