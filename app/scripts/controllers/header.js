@@ -93,7 +93,7 @@
                     CacheController.getPromise().then(function(status){
                         $element.find('img.loading-icon').css('visibility', 'hidden');
                         if(status==="UPDATEREADY"){
-                            $scope.update=true;
+                            $scope.update='update';
                             CacheController.userConfirmationPopUp();
                         }else{
                             $scope.update=false;
@@ -113,7 +113,7 @@
                 $scope.updateCache = function(){
                     CacheController.checkForUpdates().then(function(){
                         $element.find('img.loading-icon').css('visibility', '');
-                        $scope.update=true;
+                        $scope.update='checking';
                         addCacheUpdateListeners();
                     });
                 };

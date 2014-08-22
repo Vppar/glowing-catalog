@@ -71,9 +71,16 @@
                                         <div class="item-title">ANÁLISE DE DESEMPENHO</div>
                                     </div>
                                 </a></li>
-                                <li><a onclick="javascript: eval('window.location = \'/#/login\'');" class="item-link item-content">
+                                <li><a href="#/" class="item-link item-content">
                                     <div class="item-inner">
-                                        <div class="item-title">SAIR</div>
+                                        <div class="item-title" ng-click="updateCache()" ng-show="!update">VERIFICAR ATUALIZA&Ccedil;&Otilde;ES</div>
+                                        <div class="item-title" ng-show="update==='checking'">VERIFICANDO...</div>
+                                        <div class="item-title" ng-click="forceUpdate()" ng-show="update==='update'">ATUALIZAR AGORA</div>
+                                    </div>
+                                </a></li>
+                                <li><a href="#/" class="item-link item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title" ng-click="logout()">SAIR</div>
                                     </div>
                                 </a></li>
                             </ul>
