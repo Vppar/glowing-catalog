@@ -310,14 +310,16 @@ img.payment-warning{
 .modal-add-basket-payment-dialog .box-price-total{
     position: relative;
     right: auto;
-    width: auto;
+    width: 100%; /*auto*/
+        float: left;
     font-size: 15px;
     line-height: 32px;
     height: 1px;
 }
 
 .modal-add-basket-payment-dialog .box-price-total > span{
-    display: flex;
+    display: block; /*flex*/
+        text-align:left;
     width: 100%;
     line-height: 25px;
 }
