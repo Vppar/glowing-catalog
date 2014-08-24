@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: PaymentOnCuffCtrlDuedateWatcherCallBackSpec\n', function() {
+xdescribe('Controller: PaymentOnCuffCtrlDuedateWatcherCallBackSpec\n', function() {
 
     var DialogService = null;
     var OrderService = null;

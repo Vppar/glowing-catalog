@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.37-1'
+# 'version' : '0.0.8-mobile'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -154,6 +154,42 @@ images/smoothness/images/ui-icons_cd0a0a_256x240.png
 
 images/login/background-login-1.jpg
 images/login/background-login-2.jpg
+
+#mobile stuff
+bower_components/bootstrap/dist/css/bootstrap.css
+
+scripts/mobile/libraries/swiper/swiper.css
+scripts/mobile/libraries/swiper/swiper.scrollbar.css
+
+styles/mobile/framework7.css
+styles/mobile/login.css
+styles/mobile/mobile.css
+styles/mobile/new-numpad.css
+styles/mobile/grade-produto.css
+styles/mobile/pagamento.css
+styles/mobile/pagamento-cheque.css
+styles/mobile/troca-produto.css
+styles/mobile/grade-produto.css
+styles/mobile/add-to-basket-dialog.css
+styles/mobile/add-customer.css
+
+resources/fonts/Swiss721BT.ttf
+
+images/mobile/vpink_logo.png
+images/mobile/bottom-menu.jpg
+images/mobile/best-sellers/mv-1.png
+images/mobile/best-sellers/mv-2.png
+images/mobile/best-sellers/mv-3.png
+images/mobile/best-sellers/mv-4.png
+images/mobile/best-sellers/mv-5.png
+images/mobile/best-sellers/mv-6.png
+images/mobile/vpink_purse.png
+images/mobile/best-sellers/mv-9.png
+images/mobile/best-sellers/mv-7.png
+images/mobile/best-sellers/mv-10.png
+images/mobile/best-sellers/mv-8.png
+images/mobile/spinner-loader.gif
+images/mobile/plus-w.png
 
 NETWORK:
 *

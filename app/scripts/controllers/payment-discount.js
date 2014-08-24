@@ -7,7 +7,7 @@
                 'tnt.catalog.voucher.entity', 'tnt.catalog.voucher.keeper', 'tnt.catalog.payment.service', 'tnt.catalog.payment.entity',
                 'tnt.utils.array'
             ]).controller(
-            'PaymentDiscountCtrl', ['$scope', '$filter', 'Voucher', 'VoucherKeeper', 'PaymentService', 'CouponPayment', 'ArrayUtils', 'OrderService', function($scope, $filter, Voucher, VoucherKeeper, PaymentService, CouponPayment, ArrayUtils, OrderService) {
+            'PaymentDiscountCtrl', ['$scope', '$filter', 'Voucher', 'VoucherKeeper', 'PaymentService', 'CouponPayment', 'ArrayUtils', 'OrderService', '$parse','DialogService', function($scope, $filter, Voucher, VoucherKeeper, PaymentService, CouponPayment, ArrayUtils, OrderService, $parse, DialogService) {
 
                 // #############################################################################################
                 // Scope variables
@@ -126,6 +126,41 @@
                 function canceledOrRedeemedFilter(voucher) {
                     return !voucher.canceled && !voucher.redeemed;
                 }
+
+
+                /**
+                 *  Numpad
+                 */
+                $scope.openSingleInputDiscountDialog = function (ngModel, initialValue, title, currency) {
+
+                    var data = {
+                        initial: initialValue,
+                        title: title,
+                        isCurrencyEnabled: currency
+                    };
+
+                    var dialog = DialogService.openDialogNumpad(data).then(function (returnedValue) {
+                        console.log(ngModel);
+                        console.log(returnedValue);
+
+                        var splitedNgModel = ngModel.split('.');
+
+                        var maxResult = $parse(splitedNgModel[0] + '.' + splitedNgModel[1] + '.amount')($scope);
+                        var finalResult = returnedValue > maxResult ? maxResult : returnedValue;
+                        $parse(ngModel).assign($scope, finalResult);
+                    });
+
+                    return dialog;
+                };
+
+                $scope.setValue = function (key) {
+
+                    switch(key) {
+                        case 'enter':
+                            $scope.selectPaymentMethod('step2');
+                            break;
+                    }
+                };
 
                 // #############################################################################################
                 // Watchers variables

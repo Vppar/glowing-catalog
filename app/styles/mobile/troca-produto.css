@@ -1,0 +1,113 @@
+.control-label-exchange {
+    /* width: 345px; */
+    width: 100%;
+}
+
+.check-exchange {
+    text-align: right;
+    overflow: hidden;
+    /*border: 1px solid #eee;*/
+    /*background-color: #f2f2f2;*/
+    /*border-radius: 4px;*/
+    /*padding-right: 5px;*/
+}
+
+.input-block-level {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.scroll-payment-grid {
+    min-height: 123px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.row-fluid {
+    width: 100%;
+}
+.subtitle-header-discount {
+    margin: 0 0 5px 0 !important;
+    background-color: #f2f2f2;
+    width: 100%;
+    float: left;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.bgccc {
+    background-color: #ccc !important;
+}
+.bgccc:focus {
+    background-color: #fff !important;
+}
+.bgf2 {
+    background-color: #f2f2f2 !important;
+    border: 1px solid #f2f2f2 !important;
+}
+.bgf2:focus {
+    background-color: #fff !important;
+    z-index: 2;
+    border-color: #bf1e62 !important;
+}
+.row-payment-grid-product-discount input[type="checkbox"]{margin-top: -2px;}
+.row-payment-grid-product-discount input[type="text"]{margin:0 !important;}
+
+.row-payment-grid-product-discount {
+    float: left;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.text-vertical-middle {
+    min-height: 20px;
+    max-height: 50px;
+    vertical-align: middle;
+}
+.payment-receivable-fields {
+    margin-top: 10px;
+}
+
+.installments-header {
+    color: rgb(51, 51, 51);
+    font-size: 14px;
+    font-weight: bold;
+    height: 20px;
+    background-color: #fff;
+    line-height: 20px;
+    margin-top: 30px;
+    margin-bottom: 2px;
+    width: 100%;
+    float: left;
+}
+
+.installment {
+    border: 1px solid #c8c8c8;
+    float: left;
+    border-radius: 4px;
+    width: 100%;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+/*.installment input {*/
+    /*cursor: pointer;*/
+    /*height: 35px;*/
+    /*border-radius: 4px;*/
+    /*box-sizing: border-box;*/
+    /*background-color: #f2f2f2;*/
+    /*border: 1px solid #f2f2f2;*/
+    /*width: 100%;*/
+    /*-webkit-appearance: caret;*/
+/*}*/
+/*input.installment :focus {*/
+    /*z-index: 2;*/
+    /*border-color: #bf1e62;*/
+/*}*/
+.half-row {
+    padding-bottom: 10px;
+    width: 100%;
+    display: inline-table;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}

@@ -1,0 +1,42 @@
+.numpad-holder{
+    display: flex !important;
+    float: none !important;
+    align-content: center;
+}
+
+.new-numpad{
+    width: 300px;
+    height: 290px;
+    background: #fff;
+    float: left;
+    padding: 5px;
+    /*margin: 23px 0 40px 0;*/
+    top: 218px;
+    z-index: 11;
+    border-radius: 4px;
+
+    margin: auto;
+}
+.new-numpad .l1{
+    display: block;
+    margin: 0 0 6px 2px;
+}
+.new-numpad .l2{
+    display: block;
+    margin: 0 0 6px 2px;
+}
+.new-numpad .l3 {
+    display: block;
+    margin: 0 0 6px 2px;
+    width: 216px;
+    float: left;
+}
+.new-numpad .btn-ok {
+    float: right;
+    display: block;
+    margin: 0 5px 0 0;
+}
+.new-numpad .l4 {
+    display: block;
+    margin: 0 0 6px 2px;
+}

@@ -70,6 +70,7 @@
                 function refreshDate() {
                     $scope.now.date = $filter('date')(new Date(), 'dd MMM yyyy');
                     $scope.now.time = $filter('date')(new Date(), 'HH:mm');
+                    $scope.now.weekday = $filter('date')(new Date(), 'EEEE');
                 }
                 $interval(refreshDate, 10000);
                 refreshDate();
@@ -92,7 +93,7 @@
                     CacheController.getPromise().then(function(status){
                         $element.find('img.loading-icon').css('visibility', 'hidden');
                         if(status==="UPDATEREADY"){
-                            $scope.update=true;
+                            $scope.update='update';
                             CacheController.userConfirmationPopUp();
                         }else{
                             $scope.update=false;
@@ -112,7 +113,7 @@
                 $scope.updateCache = function(){
                     CacheController.checkForUpdates().then(function(){
                         $element.find('img.loading-icon').css('visibility', '');
-                        $scope.update=true;
+                        $scope.update='checking';
                         addCacheUpdateListeners();
                     });
                 };

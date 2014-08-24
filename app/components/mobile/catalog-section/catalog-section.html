@@ -1,0 +1,21 @@
+<div class="line-01 enable-product-overflow">
+    <!--<span class="title-catalog-1" ng-class="style">{{line.name}}</span>-->
+
+    <!--<product-display product="product" color="color" ng-repeat="product in left"></product-display>-->
+    <!--<product-display product="product" color="color" ng-repeat="product in right"></product-display>-->
+
+    <div class="swiper-container product-swiper">
+        <div class="swiper-wrapper">
+
+            <div class="swiper-slide" ng-repeat="product in left">
+                <product-display product="product" color="color" ></product-display>
+            </div>
+
+            <div class="swiper-slide" ng-repeat="product in right">
+                <product-display product="product" color="color" ></product-display>
+            </div>
+
+        </div>
+    </div>
+
+</div>

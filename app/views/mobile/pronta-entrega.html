@@ -1,0 +1,162 @@
+<div class="container-mobile" scroll-spy>
+
+    <div class="page-title text-center">
+        <span>Pronta Entrega - </span>
+        <small>Posi&ccedil;&atilde;o em {{productFilter.dtInitial}}</small>
+    </div>
+
+    <div class="page-body">
+
+            <div class="grid grid-stock">
+                <div class="grid-header">
+                    <!--<div class="col-3">Código</div>-->
+                    <div class="mob-col-70">Produto</div>
+                    <div class="mob-col-30 text-center">Qtde.</div>
+                    <!--<div class="col-3 currency">Custo unit.</div>-->
+                    <!--<div class="col-3 currency">Custo Total</div>-->
+                </div>
+
+                <div class="first-line sub-header">
+                        <div class="mob-col-70">
+                            <input type="text" placeholder="Filtrar produto" ng-model="productFilter.text" ng-click="clearFilter()" class="">
+                        </div>
+
+                        <div class="mob-col-30 text-center">{{overallProducts.qty}}</div>
+                        <!--<div class="col-3 currency" ng-if="overallProducts.avgCost">{{overallProducts.avgCost | currency:''}}</div>-->
+                        <!--<div class="col-3 currency" ng-if="!overallProducts.avgCost">>0,00</div>-->
+                        <!--<div class="col-3 currency">{{overallProducts.amount | currency:''}}</div>-->
+                </div>
+
+                <div class="grid-scroll">
+
+                    <div class="first-line" ng-click="toggleAllSections(productsAvailable.sessions)">
+                        <div class="mob-col-70">
+                            Produtos dispon&iacute;veis para venda
+                        </div>
+                        <div class="mob-col-30 text-center">{{productsAvailable.total.qty}}</div>
+                        <!--<div class="col-3 currency">{{productsAvailable.total.avgCost | currency:''}}</div>-->
+                        <!--<div class="col-3 currency">{{productsAvailable.total.amount | currency:''}}</div>-->
+                    </div>
+
+                    <div ng-repeat="session in productsAvailable.sessions" ng-if="!session.hide">
+
+                        <div class="second-line" ng-click="toggleSession(session)">
+                            <div class="mob-col-70">
+                                {{session.label}}
+                            </div>
+                            <div class="mob-col-30 text-center">{{session.total.qty}}</div>
+                            <!--<div class="col-3 currency">{{session.total.avgCost |currency:''}}</div>-->
+                            <!--<div class="col-3 currency">{{session.total.amount | currency:''}}</div>-->
+                        </div>
+
+                        <div ng-repeat="line in session.lines" ng-if="!line.hide">
+                            <div class="third-line" ng-click="toggleLine(line)">
+                                <div class="mob-col-70">{{line.label}}</div>
+                                <div class="mob-col-30 text-center">{{line.total.qty}}</div>
+                                <!--<div class="col-3 currency">{{line.total.avgCost | currency:''}}</div>-->
+                                <!--<div class="col-3 currency">{{line.total.amount | currency:''}}</div>-->
+                            </div>
+
+                            <div ng-repeat="product in line.items" ng-if="!product.hide">
+                                <div class="fourth-line">
+                                    <!--<div class="col-3">{{product.SKU}}</div>-->
+                                    <div class="mob-col-70">
+                                        {{product.title}}
+                                        <span ng-if="product.option">- {{product.option}}</span>
+                                    </div>
+                                    <div class="mob-col-30 text-center">{{product.qty}}</div>
+                                    <!--<div class="col-3 currency">{{product.cost| currency:''}}</div>-->
+                                    <!--<div class="col-3 currency">{{product.qty * product.cost | currency:''}}</div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="first-line" ng-click="toggleAllSections(productsReserved.sessions)">
+                        <div class="mob-col-70">
+                            Produtos reservados para entrega
+                        </div>
+                        <div class="mob-col-30 text-center">{{productsReserved.total.qty}}</div>
+                        <!--<div class="col-3 currency">{{productsReserved.total.avgCost | currency:''}}</div>-->
+                        <!--<div class="col-3 currency">{{productsReserved.total.amount | currency:''}}</div>-->
+                    </div>
+
+                    <div ng-repeat="session in productsReserved.sessions" ng-if="!session.hide">
+                        <div class="second-line" ng-click="toggleSession(session)">
+                            <div class="mob-col-70">{{session.label}}</div>
+                            <div class="mob-col-30 text-center">{{session.total.qty}}</div>
+                            <!--<div class="col-3 currency">{{session.total.avgCost |currency:''}}</div>-->
+                            <!--<div class="col-3 currency">{{session.total.amount | currency:''}}</div>-->
+                        </div>
+
+                        <div ng-repeat="line in session.lines" ng-if="!line.hide">
+                            <div class="third-line" ng-click="toggleLine(line)">
+                                <div class="mob-col-70">{{line.label}}</div>
+                                <div class="mob-col-30 text-center">{{line.total.qty}}</div>
+                                <!--<div class="col-3 currency">{{line.total.avgCost | currency:''}}</div>-->
+                                <!--<div class="col-3 currency">{{line.total.amount | currency:''}}</div>-->
+                            </div>
+
+                            <div ng-repeat="product in line.items" ng-if="!product.hide">
+                                <div class="fourth-line">
+                                    <!--<div class="col-3">{{product.SKU}}</div>-->
+                                    <div class="mob-col-70">
+                                        {{product.title}}
+                                        <span ng-if="product.option">- {{product.option}}</span>
+                                    </div>
+                                    <div class="mob-col-30 text-center">{{product.qty}}</div>
+                                    <!--<div class="col-3 currency">{{product.cost| currency:''}}</div>-->
+                                    <!--<div class="col-3 currency">{{product.qty * product.cost | currency:''}}</div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="first-line" ng-click="toggleAllSections(productsPending.sessions)">
+                        <div class="mob-col-70">Produtos pendentes no pedido de compra</div>
+                        <div class="mob-col-30 text-center">{{productsPending.total.qty}}</div>
+                        <!--<div class="col-3 currency">{{productsPending.total.avgCost | currency:''}}</div>-->
+                        <!--<div class="col-3 currency">{{productsPending.total.amount | currency:''}}</div>-->
+                    </div>
+
+                    <div ng-repeat="session in productsPending.sessions" ng-if="!session.hide">
+                        <div class="second-line" ng-click="toggleSession(session)">
+                            <div class="mob-col-70">
+                                {{session.label}}
+                            </div>
+                            <div class="mob-col-30 text-center">{{session.total.qty}}</div>
+                            <!--<div class="col-3 currency">{{session.total.avgCost |currency:''}}</div>-->
+                            <!--<div class="col-3 currency">{{session.total.amount | currency:''}}</div>-->
+                        </div>
+
+                        <div ng-repeat="line in session.lines" ng-if="!line.hide">
+                            <div class="third-line" ng-click="toggleLine(line)">
+                                <div class="mob-col-70">{{line.label}}</div>
+                                <div class="mob-col-30 text-center">{{line.total.qty}}</div>
+                                <!--<div class="col-3 currency">{{line.total.avgCost | currency:''}}</div>-->
+                                <!--<div class="col-3 currency">{{line.total.amount | currency:''}}</div>-->
+                            </div>
+
+                            <div ng-repeat="product in line.items" ng-if="!product.hide">
+                                <div class="fourth-line">
+                                    <!--<div class="col-3">{{product.SKU}}</div>-->
+                                    <div class="mob-col-70">
+                                        oooo{{product.title}}
+                                        <span ng-if="product.option">- {{product.option}}</span>
+                                    </div>
+                                    <div class="mob-col-30 text-center">{{product.qty}}</div>
+                                    <!--<div class="col-3 currency">{{product.cost| currency:''}}</div>-->
+                                    <!--<div class="col-3 currency">{{product.qty * product.cost | currency:''}}</div>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="styles/mobile/grade-produto.css">
+<link rel="stylesheet" href="styles/mobile/pagamento.css">
+<link rel="stylesheet" href="styles/mobile/pagamento-cheque.css">
+<link rel="stylesheet" href="styles/mobile/pronta-entrega.css">                                                                                                                            
