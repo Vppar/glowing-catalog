@@ -1,6 +1,7 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.37-1'
+# 'version' : '0.0.8-mobile'
+
 CACHE:
 apple-touch-icon.png
 apple-touch-icon-152x152.png
@@ -64,6 +65,7 @@ styles/agenda/agenda.css
 styles/agenda/fullcalendar.css
 styles/agenda/fullcalendar.print.css
 styles/agenda/smoothness/jquery-ui-1.10.4.custom.css
+
 images/smoothness/images/animated-overlay.gif
 images/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png
 images/smoothness/images/ui-bg_flat_75_ffffff_40x100.png
@@ -159,6 +161,7 @@ scripts/directives/spy.js
 scripts/directives/scrollContainer.js
 scripts/directives/scrollSpy.js
 scripts/directives/tnt-input.js
+scripts/directives/tnt-maxlength.js
 scripts/directives/upperCase.js
 scripts/directives/tnt-select2.js
 scripts/directives/lowerCase.js
@@ -524,6 +527,31 @@ images/login/background-login-2.jpg
 scripts/controllers/appointments.js
 scripts/keepers/AppointmentKeeper.js
 scripts/services/AppointmentService.js
+
+#mobile stuff
+
+styles/mobile/pagamento.css
+styles/mobile/grade-produto.css
+styles/mobile/pagamento-cheque.css
+styles/mobile/grade-produto.css
+styles/mobile/add-to-basket-dialog.css
+styles/mobile/add-customer.css
+
+images/mobile/vpink_logo.png
+images/mobile/bottom-menu.jpg
+images/mobile/best-sellers/mv-1.png
+images/mobile/best-sellers/mv-2.png
+images/mobile/best-sellers/mv-3.png
+images/mobile/best-sellers/mv-4.png
+images/mobile/best-sellers/mv-5.png
+images/mobile/best-sellers/mv-6.png
+images/mobile/vpink_purse.png
+images/mobile/best-sellers/mv-9.png
+images/mobile/best-sellers/mv-7.png
+images/mobile/best-sellers/mv-10.png
+images/mobile/best-sellers/mv-8.png
+images/mobile/spinner-loader.gif
+images/mobile/plus-w.png
 
 NETWORK:
 *

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Controller: PaymentOnCuffCtrlBuildInstallmentsSpec\n', function() {
+xdescribe('Controller: PaymentOnCuffCtrlBuildInstallmentsSpec\n', function() {
 
     var DialogService = null;
     var OrderService = null;

@@ -164,7 +164,7 @@
         
         this.redirectIfInvalidUser = function redirectIfInvalidUser() {
             this.redirectIfIsNotLoggedIn();
-            this.redirectIfIsNotSubscribed();
+            //this.redirectIfIsNotSubscribed();
         };
         
         this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {

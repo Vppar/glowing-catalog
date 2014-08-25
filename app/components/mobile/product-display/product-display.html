@@ -1,0 +1,27 @@
+<div class="catalog-block" ng-class="blockStyle" id="prd{{product.id}}">
+    <div class="box">
+        <div class="product-content">
+        	<div class="product-image">
+                <img once-src="getImageData(product.image)" alt="" />
+            </div>
+            <div class="product-description">
+                <div class="product-title">{{product.title}}</div>
+                <div class="product-text">{{product.description}}</div>
+            </div>
+
+        </div>
+        <div class="product-footer">
+            <div class="line-type-info">{{product.displayLine}}</div>
+            <div class="line-back">
+            	<div class="product-opportunity">{{message}} {{expires | date:'dd/MM'}}</div>
+                <div class="product-divider"></div>
+            </div>
+            <div class="product-bottom">
+                <span class="product-currency">R$</span><span class="product-price"> {{product.price | currency:''}}</span>
+                <div class="add-product-bigger-button" ng-click='add(product)'>
+                    <span class="product-addbtn"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

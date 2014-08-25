@@ -89,7 +89,9 @@ module.exports =
                     },
                     livereload : {
                         options : {
-                            hostname : 'localhost',
+                            //hostname : 'localhost',
+                            // This was also needed to play from outside box.
+                            hostname : '0.0.0.0',
                             open : true,
                             base : [
                                 '.tmp', '<%= yeoman.app %>'
