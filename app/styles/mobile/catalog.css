@@ -1,0 +1,9 @@
+.lineCanvas{
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;  
+}
+
+.lines{
+    margin-top: -44px;
+}

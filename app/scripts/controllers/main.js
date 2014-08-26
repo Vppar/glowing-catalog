@@ -28,6 +28,7 @@
 
                 var highlight = $location.search().highlight;
                 $scope.selectedSection = highlight ? highlight : 'Mais Vendidos';
+                $scope.selectedLine = '';
 
                 $scope.$watch('selectedSection', function() {
                     if ($scope.sections.indexOf($scope.selectedSection) === -1) {
@@ -39,11 +40,18 @@
                         var lines = ArrayUtils.distinct(products, 'line');
 
                         $scope.lines = ArrayUtils.isIn(DataProvider.lines, 'name', lines);
+                        $scope.selectedLine = $scope.lines[0];
                     }
+                });
+
+                $scope.$watch('selectedLine', function() {
                 });
 
                 $scope.selectSection = function(section) {
                     $scope.selectedSection = section;
+                };
+                $scope.selectLine = function(line) {
+                    $scope.selectedLine = line;
                 };
 
                 $scope.addBestSellerToBasket = function addBestSellerToBasket(number) {
