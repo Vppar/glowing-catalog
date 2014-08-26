@@ -26,6 +26,50 @@
 	left: -80px;
 }
 
+#sacred .sacred-goal-poster-page .poster .circle-02{
+	position: absolute;
+	left: 453px;
+	top: 79px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-02 .text{
+	position: absolute;
+	text-align: center;
+	color: #f19bc8;
+	font-weight: bold;
+	top: -40px;
+	left: 85px;
+}
+
+#sacred .sacred-goal-poster-page .poster .circle-03{
+	position: absolute;
+	left: 16px;
+	top: 224px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-03 .text{
+	position: absolute;
+	text-align: center;
+	color: #9032a2;
+	font-weight: bold;
+	top: 247px;
+	left: 88px;
+}
+
+#sacred .sacred-goal-poster-page .poster .circle-04{
+	position: absolute;
+	left: 311px;
+	top: 316px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-04 .text{
+	position: absolute;
+	text-align: left;
+	color: #6d85c3;
+	font-weight: bold;
+	top: 90px;
+	left: 233px;
+}
+
+
+
 #sacred .sacred-goal-poster-page .avatar{
 	float:right;
 	border: 1px #ccc solid;
