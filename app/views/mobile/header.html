@@ -1,10 +1,9 @@
-<div class="navbar-mobile navbar navbar-inverse" ng-controller="HeaderCtrl">
+<div class="navbar-mobile navbar navbar-inverse header-bugfix" ng-controller="HeaderCtrl">
 	<div class="navbar-inner">
 
         <div class="left"><a href="#" class="back link"> <img class="vpink-logo" src="images/mobile/vpink_logo.png"></a></div>
         <div class="center sliding">
                 <div class="bag" ng-click='checkout(false)'><span>{{order.items | count: 'qty'}}</span></div>
-                <!--<div><a class="last-header hover-state-pointer" ng-click="logout()">Sair</a></div>-->
         </div>
         <div class="right">
             <div class="header-hour" ng-controller="DevelopmentHeaderCtrl" style="position: relative;">
@@ -12,7 +11,6 @@
                 <div>{{now.weekday}}</div>
                 <div class="header-date dropdown-toggle" data-toggle="dropdownmenu">{{now.date}}</div>
             </div>
-            <!--<div class="loading-icon-holder"><img class="loading-icon" src="images/loading-20-pink.gif" ng-click="updateCache()"/></div>-->
 
         </div>
 

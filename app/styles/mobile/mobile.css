@@ -5,6 +5,45 @@
     width: 2px;
 } 
 
+/* from hell*/
+.header-bugfix{
+    float: left;
+}
+
+.app-menu{
+    font-size: 18px;
+    width: 100%;
+}
+
+.app-menu li{
+    border-bottom: 1px dashed rgb(200,200,200);
+    height: 44px;
+    width: 100%;
+}
+
+.app-menu li a{
+    height: 44px;
+    line-height: 44px;
+    width: 100%;
+    padding-left: 15px;
+    display: block;
+}
+.app-menu li a,
+.app-menu li a:visited,
+.app-menu li a:hover,
+.app-menu li a:focus,
+.app-menu li a:active,
+.app-menu li a:active.focus{
+    color: #000;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
 /* Locks** orientation on vertical state */
 @media (orientation: landscape) {
     body {

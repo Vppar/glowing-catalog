@@ -1,17 +1,17 @@
 .lineCanvas{
-    height: calc(100% - 169px);
-    overflow-y: scroll;
-    overflow-x: hidden;  
+	height: calc(100% - 169px);
+	overflow-y: scroll;
+	overflow-x: hidden;  
 }
 
 .lines{
-    margin-top: -44px;
+	margin-top: -44px;
 }
 
 .bestSellersCanvas{
 	height: calc(100% - 129px);
 	overflow-y: scroll;
-    overflow-x: hidden; 
+	overflow-x: hidden; 
 }
 
 .dropdown-menu {
@@ -20,6 +20,7 @@
 	padding: 0;
 	text-align: center;
 	border-radius: none;
+	border: none;
 }
 
 .dropdown-menu li{
@@ -31,4 +32,59 @@
 	line-height: 44px;
 	padding: 0;
 	cursor: pointer;
+	font-size: large;
+	text-align: center;
+	border-top:1px solid #ccc; 
+	color: #fff;
+}
+
+.menu-icon{
+	float: right;
+	margin-top: 2px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+.submenu-icon{
+	float: left;
+	margin-top: 2px;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
+
+.open > .dropdown-menu.linesMenuCanvas {
+	display: block;
+	position: fixed;
+	top: 169px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: calc(100% - 169px);
+	background-color: transparent;
+	overflow-y: scroll;
+}
+
+a.sectionItem{
+	background: #2B2B2B;
+	color: #fff;
+}
+
+.submenu{
+	color: #fff;
+	border-radius: 0;
+	min-height: 44px;
+}
+
+.catalog-select {
+	left: 0;
+	top: 0;
+	background: #f7f7f8;
+	border-bottom: 1px solid #c4c4c4;
+	color: #fff;
+	width: 100%;
+	font-size: 17px;
+	margin: 0;
+	z-index: 500;
+	backface-visibility: hidden;
 }
