@@ -1,5 +1,49 @@
 /* CUSTOM VPINK */
 
+/* SCROLL */
+::-webkit-scrollbar {
+    width: 2px;
+} 
+
+/* from hell*/
+.header-bugfix{
+    float: left;
+}
+
+.app-menu{
+    font-size: 18px;
+    width: 100%;
+}
+
+.app-menu li{
+    border-bottom: 1px dashed rgb(200,200,200);
+    height: 44px;
+    width: 100%;
+}
+
+.app-menu li a{
+    height: 44px;
+    line-height: 44px;
+    width: 100%;
+    padding-left: 15px;
+    display: block;
+}
+.app-menu li a,
+.app-menu li a:visited,
+.app-menu li a:hover,
+.app-menu li a:focus,
+.app-menu li a:active,
+.app-menu li a:active.focus{
+    color: #000;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
 /* Locks** orientation on vertical state */
 @media (orientation: landscape) {
     body {
@@ -1704,19 +1748,7 @@ i.icon-4 {
     background: #2B2B2B;
     color: #fff;
     font-size: large;
-
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
+    text-align: center;
 }
 
 .vpink-catalog-2{

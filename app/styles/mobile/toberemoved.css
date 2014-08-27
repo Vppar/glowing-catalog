@@ -73,15 +73,15 @@ body {
 }
 
 .navbar .left {
-    margin-right: 10px;
+    float: left;
 }
 .navbar .right {
-    margin-left: 10px;
+    float: right;
 }
 
 .navbar .left, .navbar .right {
+    width: 25%;
     flex-shrink: 0;
-    display: flex;
     -webkit-box-pack: start;
     justify-content: flex-start;
     -webkit-box-align: center;
@@ -90,17 +90,17 @@ body {
 }
 
 .navbar .center {
+    width: 50%;
     font-size: 17px;
     font-weight: 500;
     text-align: center;
-    margin: 0;
+    margin: 0 !important;
     position: relative;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     line-height: 44px;
     flex-shrink: 10;
-    display: flex;
     -webkit-box-align: center;
     align-items: center;
 }
