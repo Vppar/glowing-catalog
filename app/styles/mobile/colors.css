@@ -30,6 +30,32 @@
 .bg-color-dark-lilac{background-color:#cebebe;}
 .bg-vpink{background-color:#bf1e62;}
 
+/* analog51
+https://kuler.adobe.com/create/color-wheel/?base=2&rule=Analogous&selected=4&name=My%20Kuler%20Theme&mode=rgb&rgbvalues=0.6118858732416188,0.4678765056554053,0.8400000000000001,0.3447813353189376,0.804047417541738,0.88,0.442414795362936,0.79,0.34901960784313724,0.88,0.7494225853423322,0.3447813353189376,0.8400000000000001,0.4417751665116938,0.3711094564408041&swatchOrder=0,1,2,3,4
+*/
+.bg-analog51-1{
+background-color:#9C77D6;
+}
+
+.bg-analog51-2{
+    background-color:#58CDE0;
+}
+
+.bg-analog51-3{
+    background-color:#71C959;
+}
+
+.bg-analog51-4{
+    background-color:#E0BF58;
+}
+
+.bg-analog51-5{
+    background-color:#D6715F;
+}
+
+
+
+
 
 /* FIX MY PLACE PLEASE!!! */
 

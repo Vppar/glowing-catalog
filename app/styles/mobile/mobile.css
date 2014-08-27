@@ -782,37 +782,6 @@ img.payment-warning{
 
 
 
-/*fundo dos títulos*/
-.bg-black {background-color: #000;}
-.bg-light-blue{background-color:#7b84ad;}
-.bg-green{background-color:#7ba752;}
-.bg-light-gray{background-color:#9e9e9e;}
-.bg-light-green{background-color:#abbb5e;}
-.bg-dark-magenta{background-color:#c93a7c;}
-.bg-yellow-gray{background-color:#d8d5b4;}
-.bg-light-orange{background-color:#dbb79d;}
-.bg-light-magenta{background-color:#deb4b8;}
-.bg-light-lila{background-color:#dec7cb;}
-.bg-light-pink{background-color:#dfc3b7;}
-.bg-orange{background-color:#fa974e;}
-.bg-pink{background-color:#ff0066;}
-.bg-dark-yellow-gray{background-color:#b0b78d;}
-.bg-yellow-gray{background-color:#d8d5b4;}
-.bg-soft-green{background-color:#b7e171;}
-.bg-medium-yellow-gray{background-color:#c9c797;}
-.bg-medium2-yellow-gray{background-color:#bebc83;}
-.bg-soft-pink{background-color:#e194b6;}
-.bg-soft-lila{background-color:#caa5ac;}
-.bg-soft-orange{background-color:#d8b194;}
-.bg-soft-black{background-color:#3a3a3a;}
-.bg-soft2-orange{background-color:#e1b392;}
-.bg-soft2-pink{background-color:#f9c7ae;}
-.bg-dark-yellow{background-color:#979250;}
-.bg-medium-yellow{background-color:#d8bc3e;}
-.bg-color-soft-red{background-color:#f58a7a;}
-.bg-color-dark-green{background-color:#839766;}
-.bg-color-dark-lilac{background-color:#cebebe;}
-.bg-vpink{background-color:#bf1e62;}
 
 /*alpha dialog*/
 .modal-backdrop, .modal-backdrop.fade.in {
