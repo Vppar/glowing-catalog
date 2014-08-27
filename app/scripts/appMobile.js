@@ -162,14 +162,17 @@
         $routeProvider.when('/', {
             templateUrl : 'views/mobile/menu.html',
             controller : 'MainCtrl'
-        }).when('/product-delivery', {
-            templateUrl : 'views/mobile/neo/product-delivery.html',
+        }).when('/product-delivered-details', {
+            templateUrl : 'views/mobile/neo/product-delivery-delivered-details.html',
             controller : ''   
         }).when('/product-delivered', {
             templateUrl : 'views/mobile/neo/product-delivery-delivered.html',
             controller : ''   
         }).when('/product-to-deliver', {
             templateUrl : 'views/mobile/neo/product-delivery-to-deliver.html',
+            controller : ''
+        }).when('/product-to-deliver-details', {
+            templateUrl : 'views/mobile/neo/product-delivery-to-deliver-details.html',
             controller : ''    
         }).when('/catalog', {
             templateUrl : 'views/mobile/catalog.html',

@@ -45,6 +45,17 @@
 	height: calc(100% - 201px);
 }
 
+#neo .content.product-to-delivery-details .grid{
+	height: calc(100% - 299px);
+}
+
+#neo .product-to-delivery-details .input-qty{
+	margin-top: 12px;
+	display: block;
+}
+
+
+
 #neo .content .row{
 	margin-left: 0px;
 	margin-right: 0px;
