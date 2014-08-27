@@ -72,7 +72,7 @@ body{
 
 input:focus {
     z-index: 2;
-    border: 1px solid #bf1e62 !important;
+    border: 1px solid #bf1e62;
 }
 
 .views, .view{

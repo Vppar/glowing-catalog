@@ -164,6 +164,12 @@
             controller : 'MainCtrl'
         }).when('/product-delivery', {
             templateUrl : 'views/mobile/neo/product-delivery.html',
+            controller : ''   
+        }).when('/product-delivered', {
+            templateUrl : 'views/mobile/neo/product-delivery-delivered.html',
+            controller : ''   
+        }).when('/product-to-deliver', {
+            templateUrl : 'views/mobile/neo/product-delivery-to-deliver.html',
             controller : ''    
         }).when('/catalog', {
             templateUrl : 'views/mobile/catalog.html',
