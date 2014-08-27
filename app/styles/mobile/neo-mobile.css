@@ -1,0 +1,100 @@
+
+/* BOOTSTRAP 3 OVERWRITE!!!!!*/
+
+#neo .btn-default,
+#neo .btn-default:focus,
+#neo .btn-default:active,
+#neo .btn-default:visited,
+#neo .btn-default:hover,
+#neo .btn-default:active:focus,
+#neo .btn-default.active:focus{
+	color: #fff;
+	background-color:#333;
+	border-color: #333;
+	outline: none;
+}
+
+#neo.container{
+	height: 100%;
+}
+
+#neo .content{
+	margin-left: -15px;
+	margin-right: -15px;
+	height: calc(100%); /* 100% minus app-header*/
+}
+
+#neo .content .row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+#neo .title{
+	color: #fff;
+	background-color: #333;
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+	height: 44px;
+	display: table;
+	width: 100%;
+}
+#neo .title div{
+	vertical-align: middle;
+	display: table-cell;
+}
+
+#neo .grid-header{
+	height: 44px;
+	background-color: #ccc;
+	line-height: 44px;
+	
+}
+
+#neo .scroll{
+	overflow-x: hidden;
+	overflow-y: scroll; 
+}
+
+#neo .scroll .row{
+	margin-right: -2px; /*scroll size*/
+}
+
+#neo .grid{
+	height: calc(100% - 147px); /*minus grid-header, all other stuff inside content*/
+	
+}
+
+/* at grid, because it can be used outside grid-row. ex: grid-header*/
+#neo .qty{
+	text-align: center;
+}
+
+#neo .product-name{
+	margin-top: 5px;
+	clear: both;
+}
+
+#neo .product-info{
+	margin-bottom: 5px;
+	color: #ccc;
+	font-size: 12px;
+}
+
+#neo .grid .grid-row{
+	border-bottom:1px dashed #ccc; 
+}
+
+#neo .qty .value{
+	height: 48px;
+	line-height: 48px;
+}
+
+
+
+#neo .footer{
+	border-top:1px solid #ccc; 
+	padding-top: 10px;
+	min-height: 59px;
+}
+

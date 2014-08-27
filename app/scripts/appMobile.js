@@ -162,6 +162,9 @@
         $routeProvider.when('/', {
             templateUrl : 'views/mobile/menu.html',
             controller : 'MainCtrl'
+        }).when('/product-delivery', {
+            templateUrl : 'views/mobile/neo/product-delivery.html',
+            controller : ''    
         }).when('/catalog', {
             templateUrl : 'views/mobile/catalog.html',
             controller : 'MainCtrl'
