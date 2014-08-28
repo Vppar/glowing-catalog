@@ -27,6 +27,35 @@
 	outline: none;
 }
 
+#neo .mobile-header{
+	padding-top: 5px;
+	margin-bottom: 5px;
+	width: 100%;
+	float: left;
+}
+
+#neo .mobile-header .left{
+	width: 25%;
+	float: left;
+}
+#neo .mobile-header img{
+	margin-top: 3px;
+	width: 120px;
+}
+#neo .mobile-header .middle{
+	width: 50%;
+	float: left;
+}
+#neo .mobile-header .middle .bag{
+	left: 50%;
+margin-left: -29px;
+}
+#neo .mobile-header .right{
+	width: 25%;
+	float: right;
+}
+
+
 #neo.container{
 	height: 100%;
 }
@@ -34,22 +63,28 @@
 #neo .content{
 	margin-left: -15px;
 	margin-right: -15px;
-	height: calc(100%); /* 100% minus app-header*/
+	height: 100%
 }
 
 #neo .content.product-delivered .grid{
 	/* with footer!! height: calc(100% - 325px); /*minus grid-header, all other stuff inside content*/
-	height: calc(100% - 269px);
+	height: calc(100% - 342px);
+}
+#neo .content.product-delivered-detalis .grid{
+	height: calc(100% - 303px);
 }
 #neo .content.product-to-deliver .grid{
-	height: calc(100% - 201px);
+	height: calc(100% - 274px);
 }
 
-#neo .content.product-to-delivery-details .grid{
-	height: calc(100% - 299px);
+#neo .content.product-to-deliver-details .grid{
+	height: calc(100% - 371px);
 }
 
-#neo .product-to-delivery-details .input-qty{
+
+
+
+#neo .product-to-deliver-details .input-qty{
 	margin-top: 12px;
 	display: block;
 }
