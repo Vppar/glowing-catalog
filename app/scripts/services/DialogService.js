@@ -166,6 +166,10 @@
             return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanBlush-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
         };
 
+        this.openDialogSubscriptionLastPlanRimel = function(data) {
+            return openSubscriptionDialog('views/parts/subscription/subscription-lastPlanRimel-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-last-plan-dialog');
+        };
+
         this.openDialogSubscriptionFinalMessageBillet = function(data) {
             return openSubscriptionDialog('views/parts/subscription/subscription-final-message-billet-dialog.html', 'SubscriptionCtrl', data, 'modal-subscription-final-message-dialog');
         };

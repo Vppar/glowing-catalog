@@ -188,6 +188,9 @@
                     else if( lastSubscription.planType === CatalogConfig.BLUSH ){
                         DialogService.openDialogSubscriptionLastPlanBlush();
                     }
+                    else if( lastSubscription.planType === CatalogConfig.RIMEL ){
+                        DialogService.openDialogSubscriptionLastPlanRimel();
+                    }
                     else {
                         DialogService.openDialogSubscriptionLastPlanNull();
                     }
@@ -206,9 +209,6 @@
             localStorage.clear();
             return SyncService.clearData();
         };
-
-
-
 
         /**
          * Updates the current user's password and updates his/her MD5 hash.
@@ -232,9 +232,7 @@
             });
         }
 
-
         this.changePassword = changePassword;
-
 
     }]);
 })(angular);
