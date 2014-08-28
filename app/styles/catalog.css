@@ -965,7 +965,7 @@
 	}	
 	/* texto comum */
 	.catalog-block .product-text{
-		padding: 10px;
+		padding: 6px 10px 10px 10px;
 		overflow: hidden;
 		font-size: 13px;
 		float:left;
