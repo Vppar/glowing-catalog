@@ -46,12 +46,12 @@
             $scope.cepValid = false;
             $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_BILLET;
 
-            $scope.continuePaymentFlow = function (planType) {
+            $scope.continuePaymentFlow = function (planType, warnAboutExpiration) {
             	dialog.close(true);    
                 $scope.planType = planType;
                 
 	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {	             		                	
-	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});    
+	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType, 'warnAboutExpiration': warnAboutExpiration});   
 	            } else {                    
 	                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType});
     		    }
@@ -69,12 +69,19 @@
                 }
             };
 
-            $scope.cancel = function () {
+            $scope.closeDialog = function (warnAboutExpiration) {
                 dialog.close(true);
-                $location.path('/login');
+                //######
+                    console.log('>>>>closeDialog');
+                if(!warnAboutExpiration) {
+                    //######
+                    console.log(warnAboutExpiration+'>>>>closeDialog');
+                    $location.path('/login');
+                }
             };
             
-            $scope.redirectToVPCommerce = function () {                
+            $scope.redirectToVPCommerce = function () {   
+                $scope.saveSubscription();
                 if(CatalogConfig.GLOSS === $scope.planType) {
                     dialog.close(true);
                     $window.location.href = CatalogConfig.semesterPlanCheckoutURL;
@@ -115,7 +122,7 @@
 		    };
 
 		    $scope.saveSubscription = function(){
-                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant);
+                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant, $scope.paymentTypeSubscription);
                 
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
