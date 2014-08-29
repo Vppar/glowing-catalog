@@ -6,7 +6,7 @@
       UserService.redirectIfInvalidUser();
 
       $scope.isSearchVisible = false;
-      $scope.isSubMenuBtnVisible = true;
+      $scope.isSubMenuBtnVisible = false;
       $scope.productSearch = {};
 
       $scope.toggleSubMenuBtn = function () {

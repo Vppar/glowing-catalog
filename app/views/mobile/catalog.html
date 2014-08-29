@@ -5,7 +5,7 @@
     </div>
 
     <div class="dropdown">
-        <button class="navbar vpink-catalog-1 " type="button" data-toggle="dropdown" >
+        <button class="navbar vpink-catalog-1 " type="button" data-toggle="dropdown">
             {{selectedSection}}
             <img class="icon-dropdown" src="images/icon-drop-menu-white.png"/>
         </button>
@@ -23,9 +23,12 @@
     <div class="dropdown" ng-if="selectedSection !== 'Mais Vendidos'">
 
 
-        <button class="submenu navbar" type="button" data-toggle="dropdown" ng-class="{'bg-{{selectedLine.color}}':isSubMenuBtnVisible}" ng-click="toggleSubMenuBtn()">
+        <button class="submenu navbar" type="button" data-toggle="dropdown" ng-class="'bg-'+selectedLine.color" ng-hide="isSubMenuBtnVisible"
+                ng-click="toggleSubMenuBtn()">
             <span class="submenu-icon glyphicon glyphicon-chevron-down"></span>
             {{selectedLine.name}}
+        </button>
+        <button class="submenu navbar" type="button" data-toggle="dropdown"  ng-show="isSubMenuBtnVisible">
         </button>
 
         <ul class="dropdown-menu linesMenuCanvas" role="menu" aria-labelledby="dropdownMenu1" ng-click="toggleSubMenuBtn()">
