@@ -44,7 +44,7 @@
  
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
-            $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_CC;
+            $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_BILLET;
 
             $scope.continuePaymentFlow = function (planType) {
             	dialog.close(true);    
