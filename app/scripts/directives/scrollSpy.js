@@ -41,7 +41,7 @@
         link: function (scope, elem, attrs, ctrl) {
 
           scope.$on('$locationChangeStart', function (ev) {
-            if ($location.path() === '/catalog') {
+            if ($location.path() === '/catalog' && $location.path() !== $location.url()) {
               ev.preventDefault();
             }
           });
