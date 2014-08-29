@@ -5,7 +5,10 @@
 /*temp, because this should be temporary.*/
 .temp{
     background-color: #fff;
-    
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    z-index: 5000;
 }
 .temp .search input,
 .temp .search input.active:focus,
