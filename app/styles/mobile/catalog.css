@@ -1,3 +1,7 @@
+.open > .dropdown-menu {
+margin-top: -44px;
+}
+
 .lineCanvas{
 	height: calc(100% - 169px);
 	overflow-y: scroll;
@@ -56,6 +60,7 @@
 .open > .dropdown-menu.linesMenuCanvas {
 	display: block;
 	position: fixed;
+	font-size: 17px;
 	top: 169px;
 	bottom: 0;
 	left: 0;
@@ -63,6 +68,10 @@
 	height: calc(100% - 169px);
 	background-color: transparent;
 	overflow-y: scroll;
+}
+
+.dropdown-menu.linesMenuCanvas li a{
+	font-size: 17px;
 }
 
 a.sectionItem{
