@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '0.0.9-mobile'
+# 'version' : '0.0.10-mobile'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -156,7 +156,11 @@ images/login/background-login-1.jpg
 images/login/background-login-2.jpg
 
 #mobile stuff
+
 bower_components/bootstrap/dist/css/bootstrap.css
+bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff
+bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf
+bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg
 
 scripts/mobile/libraries/swiper/swiper.css
 scripts/mobile/libraries/swiper/swiper.scrollbar.css
@@ -190,6 +194,10 @@ images/mobile/best-sellers/mv-10.png
 images/mobile/best-sellers/mv-8.png
 images/mobile/spinner-loader.gif
 images/mobile/plus-w.png
+
+styles/mobile/toberemoved.css
+styles/mobile/catalog.css
+styles/mobile/colors.css
 
 NETWORK:
 *
