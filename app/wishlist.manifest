@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '0.0.9-mobile'
+# 'version' : '0.0.10-mobile'
 
 CACHE:
 apple-touch-icon.png
@@ -536,6 +536,13 @@ styles/mobile/pagamento-cheque.css
 styles/mobile/grade-produto.css
 styles/mobile/add-to-basket-dialog.css
 styles/mobile/add-customer.css
+styles/mobile/toberemoved.css
+styles/mobile/catalog.css
+styles/mobile/login.css
+styles/mobile/mobile.css
+styles/mobile/colors.css
+styles/mobile/troca-produto.css
+styles/mobile/new-numpad.css
 
 images/mobile/vpink_logo.png
 images/mobile/bottom-menu.jpg
@@ -552,6 +559,42 @@ images/mobile/best-sellers/mv-10.png
 images/mobile/best-sellers/mv-8.png
 images/mobile/spinner-loader.gif
 images/mobile/plus-w.png
+
+components/mobile/catalog-section/catalogSection.js
+components/mobile/catalog-section/catalog-section.html
+
+components/mobile/product-display/productDisplay.js
+components/mobile/product-display/product-display.html
+
+scripts/appMobile.js
+scripts/controllers/loading-dialog.js
+scripts/directives/eventDeflect.js
+scripts/mobile/controllers/login.js
+scripts/mobile/services/DialogService.js
+
+bower_components/bootstrap/dist/css/bootstrap.css
+bower_components/bootstrap/dist/js/bootstrap.js
+bower_components/select2/select2x2.png
+
+resources/fonts/Swiss721BT.ttf
+
+views/mobile/catalog.html
+views/mobile/catalog_orig.html
+views/mobile/contas-receber.html
+views/mobile/header.html
+views/mobile/header-catalog.html
+views/mobile/login.html
+views/mobile/menu.html
+views/mobile/pagamento.html
+views/mobile/pagamento-cartao.html
+views/mobile/pagamento-cheque.html
+views/mobile/pagamento-dinheiro.html
+views/mobile/payment.html
+views/mobile/pedido-venda.html
+views/mobile/pronta-entrega.html
+views/mobile/troca-produto.html
+views/mobile/vale-cupom.html
+views/mobile/parts/global/loading-dialog.html
 
 NETWORK:
 *
