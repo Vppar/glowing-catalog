@@ -161,45 +161,6 @@
         this.isLogged = function isLogged() {
             return logged;
         };
-        
-        this.redirectIfInvalidUser = function redirectIfInvalidUser() {
-            this.redirectIfIsNotLoggedIn();
-            this.redirectIfIsNotSubscribed();
-        };
-        
-        this.redirectIfIsNotLoggedIn = function redirectIfIsNotLoggedIn() {
-            if (!this.isLogged()) {
-                SyncDriver.logout().then(function(){
-                    $location.path('/login');
-                });
-            }
-        };
-        
-        this.redirectIfIsNotSubscribed = function redirectIfIsNotSubscribed() {
-            var consultant = ConsultantService.get();
-
-            if( consultant && consultant.subscriptionExpirationDate && new Date().getTime() >= consultant.subscriptionExpirationDate){
-                var lastSubscription = SubscriptionService.getLastSubscription();
-
-                if( lastSubscription && lastSubscription.planType ){
-                    if( lastSubscription.planType === CatalogConfig.GLOSS ){
-                        DialogService.openDialogSubscriptionLastPlanGloss();
-                    }
-                    else if( lastSubscription.planType === CatalogConfig.BLUSH ){
-                        DialogService.openDialogSubscriptionLastPlanBlush();
-                    }
-                    else if( lastSubscription.planType === CatalogConfig.RIMEL ){
-                        DialogService.openDialogSubscriptionLastPlanRimel();
-                    }
-                    else {
-                        DialogService.openDialogSubscriptionLastPlanNull();
-                    }
-                }
-                else {
-                    DialogService.openDialogSubscriptionLastPlanNull();
-                }
-            }
-        };
 
         this.hasUnsyncedData = function hasUnsyncedData() {
             return SyncService.hasUnsyncedEntries();
@@ -209,6 +170,78 @@
             localStorage.clear();
             return SyncService.clearData();
         };
+        
+        this.redirectIfInvalidUser = function () {
+            this.redirectIfIsNotLoggedIn();
+            this.redirectIfIsNotSubscribed();
+        };
+        
+        this.redirectIfIsNotLoggedIn = function () {
+            if (!this.isLogged()) {
+                SyncDriver.logout().then(function(){
+                    $location.path('/login');
+                });
+            }
+        };
+        
+        this.redirectIfIsNotSubscribed = function () {
+            var consultant = ConsultantService.get();
+            
+            if( consultant && consultant.subscriptionExpirationDate) {
+
+                var lastSubscription = SubscriptionService.getLastSubscription();
+                //######
+                console.log(lastSubscription.subscriptionDate+'>>>>lastSubscription.subscriptionDate');
+                var numberOfDaysLastSubscripton = getDiffOfDays(lastSubscription.subscriptionDate);
+                //######
+                console.log(numberOfDaysLastSubscripton+'>>>>numberOfDaysLastSubscripton');
+                var numberOfDaysToExpiration = getDiffOfDays(consultant.subscriptionExpirationDate);
+                //######
+                console.log(numberOfDaysToExpiration+'>>>>numberOfDaysToExpiration');
+                //######
+                    console.log('>>>>openDialogSubscriptiontrue'+numberOfDaysToExpiration);
+                if((!numberOfDaysLastSubscripton || numberOfDaysLastSubscripton>4) && numberOfDaysToExpiration 
+                    && numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 1){
+                        openDialogSubscription(null, true, numberOfDaysToExpiration);                    
+                } else if(new Date().getTime() >= consultant.subscriptionExpirationDate){
+                    //######
+                    console.log('>>>>openDialogSubscriptionfalsenull');                    
+                    openDialogSubscription(lastSubscription, false, null);                    
+                }
+            }
+        };
+
+        function openDialogSubscription(lastSubscription, warnAboutExpiration, numberOfDaysToExpiration) {
+            //######
+                    console.log(warnAboutExpiration+'>>>>warnAboutExpiration');
+                    console.log(numberOfDaysToExpiration+'>>>>numberOfDaysToExpiration');
+            if( lastSubscription && lastSubscription.planType ){
+                if( lastSubscription.planType === CatalogConfig.GLOSS ){
+                    DialogService.openDialogSubscriptionLastPlanGloss({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                }
+                else if( lastSubscription.planType === CatalogConfig.BLUSH ){
+                    DialogService.openDialogSubscriptionLastPlanBlush({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                }
+                else if( lastSubscription.planType === CatalogConfig.RIMEL ){
+                    DialogService.openDialogSubscriptionLastPlanRimel({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                }
+                else {
+                    DialogService.openDialogSubscriptionLastPlanNull({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                }
+            } else {
+                DialogService.openDialogSubscriptionLastPlanNull({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+            }
+        }
+
+        function getDiffOfDays(otherDate) {
+            if(otherDate) {
+                var day=1000*60*60*24;    
+                var today = new Date().getTime();    
+                var diff = today - otherDate;    
+                return Math.round(diff/day);
+            }
+            return null;
+        }
 
         /**
          * Updates the current user's password and updates his/her MD5 hash.
