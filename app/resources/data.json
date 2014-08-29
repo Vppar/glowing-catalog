@@ -286,30 +286,13 @@
 			"amount": "500.00"     		
     	}
     ],
-    "lines": [
-    {"name": "Olhos","color": "medium-yellow-gray"},
-		{"name": "Sinais Moderados","color": "light-pink"},
-		{"name": "Zen in Bloom","color": "dark-magenta"},
-		{"name": "Hollywood Mystique","color": "dark-magenta"},
-		{"name": "Acessórios","color": "soft-pink"},
-		{"name": "Fragrâncias Femininas","color": "light-magenta"},
-		{"name": "Sinais Avançados","color": "black"},
-		{"name": "Linha Jovem","color": "green"},
-		{"name": "Linha Antiacne","color": "light-gray"},
-		{"name": "Linha Clássica","color": "color-dark-lilac"},
-		{"name": "Linha Masculina","color": "black"},
-		{"name": "Cuidados Personalizados","color": "soft-lila"},
-		{"name": "Cuidados com o Corpo","color": "light-green"},
-		{"name": "Solar","color": "orange"},
-		{"name": "Bases","color": "soft-orange"},
-		{"name": "Corretivo","color": "black"},
-		{"name": "Pó Mineral Compacto","color": "soft2-orange"},
-		{"name": "Iluminador","color": "soft-black"},
-		{"name": "Sobrancelhas","color": "medium2-yellow-gray"},
-		{"name": "Rosto","color": "soft-orange"},
-		{"name": "Lábios","color": "color-soft-red"},
-		{"name": "Fragrâncias Masculinas","color": "light-blue"},
-		{"name": "Art Of Nature","color": "dark-magenta"}
+  "lines": [
+    {"name": "Shampoo", "color": "banho"},
+    {"name": "Condicionador", "color": "capilar"},
+    {"name": "Máscara", "color": "hidra"},
+    {"name": "Finalizador", "color": "fin"},
+    {"name": "Masculino", "color": "light-gray"},
+    {"name": "Corpo & Banho", "color": "outros"}
 	],
 	"banks" : {
 		"001":	"Banco do Brasil S.A.",

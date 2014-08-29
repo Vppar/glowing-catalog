@@ -39,6 +39,41 @@
 .color-dark-green{color:#839766;} /*promocoes*/
 .color-dark-lilac{color:#cebebe;} /*linha classica*/
 
+.color-banho{color:#20a4ca;} 
+.bg-banho{background-color:#20a4ca;} 
+.catalog-block.product-bg-banho .product-addbtn {
+			background-color: #20a4ca;
+			background-image: url('../images/plus-w.png');
+		}	
+
+.color-capilar{color:#f49907;} /*ar*/
+.bg-capilar{background-color:#f49907;} /*ar*/
+.catalog-block.product-bg-capilar .product-addbtn {
+			background-color: #f49907;
+			background-image: url('../images/plus-w.png');
+		}	
+
+.color-hidra{color:#1fa16c;} /*ar*/
+.bg-hidra{background-color:#1fa16c;} /*ar*/
+.catalog-block.product-bg-hidra .product-addbtn {
+			background-color: #1fa16c;
+			background-image: url('../images/plus-w.png');
+		}	
+
+.color-fin{color:#cebebe;} /*ar*/
+.bg-fin{background-color:#cebebe;} /*ar*/
+.catalog-block.product-bg-fin .product-addbtn {
+			background-color: #cebebe;
+			background-image: url('../images/plus-w.png');
+		}
+.color-outros{color:#dbb79d;} /*ar*/
+.bg-outros{background-color:#dbb79d;} /*ar*/
+.catalog-block.product-bg-outros .product-addbtn {
+			background-color: #dbb79d;
+			background-image: url('../images/plus-w.png');
+		}	
+		
+
 /*fundo dos títulos*/
 .bg-black {background-color: #000;}
 .bg-light-blue{background-color:#7b84ad;}
@@ -69,7 +104,7 @@
 .bg-color-soft-red{background-color:#f58a7a;}
 .bg-color-dark-green{background-color:#839766;}
 .bg-color-dark-lilac{background-color:#cebebe;}
-.bg-vpink{background-color:#bf1e62;}
+.bg-vpink{background-color:#2dcb73;}
 /* div de catalogo comum */
 .catalog-block {
 	display: inline-block;
@@ -930,7 +965,7 @@
 	}	
 	/* texto comum */
 	.catalog-block .product-text{
-		padding: 10px;
+		padding: 6px 10px 10px 10px;
 		overflow: hidden;
 		font-size: 13px;
 		float:left;

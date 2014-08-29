@@ -12,10 +12,11 @@
                     // 'session');
                     //
                     sections.push('Mais Vendidos');
-                    sections.push('Cuidados com a Pele');
-                    sections.push('Maquiagem');
-                    sections.push('SPA e Fragrâncias');
-
+                    sections.push('Catálogo');
+                    // sections.push('Terra');
+                    // sections.push('Sol');
+                    // sections.push('Outros');
+                    
                     // Ed. Limitada
                     // Lançamentos
                     // Promoções
