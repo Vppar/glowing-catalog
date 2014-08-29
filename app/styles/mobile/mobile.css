@@ -25,14 +25,14 @@
 .temp .search input:focus,
 .temp .search input:hover,
 .temp .search input:visited{
-    background-color: #eee;
-    border-color: #eee; 
+    background-color: #dedede;
+    border-color: #dedede;
     box-shadow: none;
 }
 
 .temp .search .input-group-addon{
-    background-color: #eee;
-    border-color: #eee; 
+    background-color: #dedede;
+    border-color: #dedede;
 }
 
 /* SCROLL */
