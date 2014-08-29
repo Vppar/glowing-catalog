@@ -7,7 +7,7 @@
     <div class="dropdown">
         <button class="navbar vpink-catalog-1 " type="button" data-toggle="dropdown">
             {{selectedSection}}
-            <span class="menu-icon glyphicon glyphicon-align-justify"></span>
+            <img class="icon-dropdown" src="images/icon-drop-menu-white.png"/>
         </button>
         
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
@@ -23,7 +23,7 @@
     <div class="dropdown" ng-if="selectedSection !== 'Mais Vendidos'">
         
 
-        <button class="submenu navbar" ng-class="'bg-'+ selectedLine.color" type="button" data-toggle="dropdown">
+        <button class="submenu navbar" type="button" data-toggle="dropdown">
             <span class="submenu-icon glyphicon glyphicon-chevron-down"></span>
             {{selectedLine.name}}
         </button>
@@ -35,7 +35,7 @@
             spy-scroll-in="selectLine(line)"
             >
 
-            <a ng-class="'bg-'+ line.color" role="menuitem" tabindex="-1" ng-click="selectLine(line)">{{line.name}}</a></li>
+            <a role="menuitem" tabindex="-1" ng-click="selectLine(line)">{{line.name}}</a></li>
         </ul>
     </div>
 
@@ -55,6 +55,25 @@
             </div>
         </div>
     </div>
+
+
+<div class="temp">    
+<div class="search">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="input-group">
+                
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
+                
+                <input class="form-control" placeholder="Filtrar por Nome">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
     
     <div ng-show="selectedSection == 'Mais Vendidos'" class="bestSellersCanvas">
        <span ng-include="'views/mobile/parts/catalog/best-sellers.html'"></span>

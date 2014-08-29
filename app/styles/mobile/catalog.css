@@ -2,6 +2,12 @@
 margin-top: -44px;
 }
 
+.icon-dropdown{
+	position: absolute;
+right: 5px;
+top: 11px;
+}
+
 .lineCanvas{
 	height: calc(100% - 169px);
 	overflow-y: scroll;
@@ -71,7 +77,12 @@ margin-top: -44px;
 }
 
 .dropdown-menu.linesMenuCanvas li a{
+	background-color: #fff;
+	color: #333;
 	font-size: 17px;
+}
+.dropdown-menu.linesMenuCanvas li:last-child a{
+	border-bottom:1px #ccc solid;
 }
 
 a.sectionItem{
@@ -80,8 +91,9 @@ a.sectionItem{
 }
 
 .submenu{
-	color: #fff;
+	background-color: #fff;
 	border-radius: 0;
+	color: #333;
 	min-height: 44px;
 }
 

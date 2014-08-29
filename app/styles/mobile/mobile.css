@@ -1,5 +1,29 @@
 /* CUSTOM VPINK */
 
+/* styles the search box for mobile version*/
+
+/*temp, because this should be temporary.*/
+.temp{
+    background-color: #fff;
+    
+}
+.temp .search input,
+.temp .search input.active:focus,
+.temp .search input:active,
+.temp .search input:active:focus,
+.temp .search input:focus,
+.temp .search input:hover,
+.temp .search input:visited{
+    background-color: #eee;
+    border-color: #eee; 
+    box-shadow: none;
+}
+
+.temp .search .input-group-addon{
+    background-color: #eee;
+    border-color: #eee; 
+}
+
 /* SCROLL */
 ::-webkit-scrollbar {
     width: 2px;
