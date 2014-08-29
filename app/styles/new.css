@@ -338,14 +338,14 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {
-    border-color:#bf1e62;
+    border-color:#80a42e;
 }
 textarea:focus, input[type="textarea"]:focus {
     outline:none;
 }
 .focused {
     border-color:#acdf7b;
-    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px #bf1e62;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px #80a42e;
 }
 /* remove ALL outlines (glow effects and etc) in buttons */
 button, .btn {

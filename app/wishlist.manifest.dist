@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '1.2.37-1'
+# 'version' : '1.2.37-3'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -111,10 +111,15 @@ images/arrow-left-pink.png
 images/loading-20-pink.gif
 images/loading-btn_20.gif
 images/loading-btn-20-pink.gif
-images/vpink.jpg
+images/logo.png
+images/logo_verde.png
 images/vpurse.gif
+images/vpink.jpg
 images/logo-home.png
 images/tooltip-arrow.png
+images/ico_login.png
+images/senha.png
+images/star_12.png
 
 images/icons/ic-calendar.png
 images/icons/ic-calendar-pink.png
@@ -125,17 +130,11 @@ images/thirdparty/magnifier/icon.png
 images/tutorial/tutorial-android-mockup-full.png
 images/tutorial/tutorial-ipad-mockup-full.png
 
-images/catalog/best-sellers-0.png
-images/catalog/best-sellers-1.png
-images/catalog/best-sellers-2.png
-images/catalog/best-sellers-3.png
-images/catalog/best-sellers-4.png
-images/catalog/best-sellers-5.png
-images/catalog/best-sellers-6.png
-images/catalog/best-sellers-7.png
-images/catalog/best-sellers-8.png
-images/catalog/best-sellers-9.png
-images/catalog/best-sellers-10.png
+images/catalog/best-sellers-01.png
+images/catalog/best-sellers-02.png
+images/catalog/best-sellers-03.png
+images/catalog/best-sellers-04.png
+images/catalog/best-sellers-05.png
 
 images/smoothness/images/animated-overlay.gif
 images/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png

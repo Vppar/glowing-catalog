@@ -102,9 +102,9 @@ input[type="textarea"]{min-height:60px;}
 	border-radius: 4px 4px 0 0;
 	text-shadow: none;
 }
-.nav-list-black li.selected  {
-	list-style-image:url(../images/cat-li-menu.png);
-	list-style-position:inside;
+.nav-list-black li.selected {
+	/*list-style-image:url(../images/cat-li-menu.png);
+	list-style-position:inside;*/
 }
 .nav-list-black li.selected  a {
 	background-color:#555;
@@ -397,7 +397,7 @@ body {
 	padding-right: 10px !important;
 }
 .btn-ok{
-	background: #bf1e62;
+	background: #80a42e;
 }
 .btn-cancel {
 	background: #333;
@@ -409,7 +409,7 @@ body {
 	background: #575757;
 }
 .btn-ok:hover{
-	background: #d64986 !important;
+	background: #80a42e !important;
 }
 .btn-cancel:hover {
 	background: #000 !important;
@@ -573,7 +573,7 @@ li.menu-black {
 	text-indent:10px;
 }
 .nav-list-black li.selected {
-	text-indent:-6px;
+	/*text-indent:-6px;*/
 }
 li.menu-black:last-child a {
 	border-radius: 0 0 4px 4px;
@@ -610,7 +610,7 @@ div.header-date {
 	-webkit-tap-highlight-color: transparent;
 	font-size: 15px;
 	position: relative;
-	top: -12px;
+	top: -16px;
 	margin-left: 32px;
 	vertical-align: text-bottom;
 }
@@ -671,7 +671,7 @@ div.header-date {
 }
 
 nav ul li {
-	margin-right:19px;
+	margin-right:40px;
 	/*border-bottom:1px solid #F99;*/
 }
 nav .dropdown ul li:hover , nav .dropdown ul li:active {
@@ -859,7 +859,7 @@ div.sidebar-menu ul li a {
 	}
 
 	#topMenuHome .selected {
-		color: #bf1e62;
+		color: #80a42e;
 		font-weight: bold;
 		text-shadow:none;
 	}
@@ -877,7 +877,7 @@ div.sidebar-menu ul li a {
 	.container .navbar .brand {
 		float: left;
 		display: block;
-		padding: 10px 0 0 85px; /*padding: 20px 0 0 40px;*/
+		padding: 3px 140px 0 105px; 
 	}
 
 	.home-scroll-content {
@@ -1170,7 +1170,7 @@ input.ng-invalid.ng-dirty, .failed input.ng-invalid, .failed textarea.ng-invalid
 }
 
 input:focus, .focus{	
-	outline: 1px solid #bf1e62;
+	outline: 1px solid #80a42e;
 	outline-offset:0;
 }
 .grid-payment-receivable .item:focus {
@@ -1215,3 +1215,7 @@ input:focus, .focus{
 	visibility: hidden;
 }
 /*fim - receivable e expense*/
+
+.navbar-inverse .navbar-inner{
+	background-color: #f2f2f2;
+}
