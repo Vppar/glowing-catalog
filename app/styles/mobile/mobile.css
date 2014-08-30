@@ -447,8 +447,8 @@ img.payment-warning{
     height: auto;
     text-align: right;
     height: 36px;
-
     border: 1px solid #bf1e62;
+    padding: 2px 10px;
 }
 
 .btn-discount{

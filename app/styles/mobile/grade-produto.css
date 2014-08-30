@@ -31,7 +31,7 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
-.mob-col-70, .mob-col-65, .mob-col-60, .mob-col-50,  .mob-col-44, .mob-col-40, .mob-col-35, .mob-col-33, .mob-col-30,
+.mob-col-80, .mob-col-70, .mob-col-65, .mob-col-60, .mob-col-50,  .mob-col-44, .mob-col-40, .mob-col-35, .mob-col-33, .mob-col-30,
 .mob-col-28, .mob-col-25, .mob-col-20, .mob-col-10 {
     float: left;
     padding-left: 5px;
@@ -40,6 +40,9 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     display: block;
+}
+.mob-col-80 {
+    width: 80%;
 }
 .mob-col-70 {
     width: 70%;
