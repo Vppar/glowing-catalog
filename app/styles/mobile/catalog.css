@@ -9,7 +9,7 @@ top: 11px;
 }
 
 .lineCanvas{
-	height: calc(100% - 169px);
+	height: calc(100% - 230px);
 	overflow-y: scroll;
 	overflow-x: hidden;  
 }
