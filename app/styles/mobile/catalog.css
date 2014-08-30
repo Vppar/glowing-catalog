@@ -1,5 +1,15 @@
+.open > .dropdown-menu {
+margin-top: -44px;
+}
+
+.icon-dropdown{
+	position: absolute;
+right: 5px;
+top: 11px;
+}
+
 .lineCanvas{
-	height: calc(100% - 169px);
+	height: calc(100% - 230px);
 	overflow-y: scroll;
 	overflow-x: hidden;  
 }
@@ -56,13 +66,25 @@
 .open > .dropdown-menu.linesMenuCanvas {
 	display: block;
 	position: fixed;
-	top: 169px;
+	font-size: 17px;
+	top: 168px;
 	bottom: 0;
 	left: 0;
 	right: 0;
-	height: calc(100% - 169px);
+	height: calc(100% - 189px);
 	background-color: transparent;
 	overflow-y: scroll;
+	box-shadow: none;
+    padding-left: 1px;
+}
+
+.dropdown-menu.linesMenuCanvas li a{
+	background-color: #fff;
+	color: #333;
+	font-size: 17px;
+}
+.dropdown-menu.linesMenuCanvas li:last-child a{
+	border-bottom:1px #ccc solid;
 }
 
 a.sectionItem{
@@ -71,8 +93,9 @@ a.sectionItem{
 }
 
 .submenu{
-	color: #fff;
+	background-color: #fff;
 	border-radius: 0;
+	color: #333;
 	min-height: 44px;
 }
 

@@ -1,0 +1,17 @@
+<div class="mobile-header" ng-controller="HeaderCtrl">
+    <div class="left">
+        <a href="#">
+        <img class="logo" src="images/mobile/vpink_logo.png">
+        </a>
+    </div>
+    <div class="middle">
+        <div class="bag" ng-click='checkout(false)'><span>{{order.items | count: 'qty'}}</span></div>
+    </div>
+    <div class="right">
+        <div class="header-hour" ng-controller="DevelopmentHeaderCtrl" style="position: relative;">
+                <div>{{now.time}}</div>
+                <div>{{now.weekday}}</div>
+                <div class="header-date dropdown-toggle" data-toggle="dropdownmenu">{{now.date}}</div>
+            </div>
+    </div>
+</div>

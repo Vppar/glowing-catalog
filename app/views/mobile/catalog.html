@@ -1,64 +1,77 @@
 <div class="container-mobile" scroll-spy>
-	
-	<div class="row-fluid">
-		<span class="span12"> <span ng-include src="'views/mobile/header-catalog.html'"></span></span>
-	</div>
+
+    <div class="row-fluid">
+        <span class="span12"> <span ng-include src="'views/mobile/header-catalog.html'"></span></span>
+    </div>
 
     <div class="dropdown">
         <button class="navbar vpink-catalog-1 " type="button" data-toggle="dropdown">
             {{selectedSection}}
-            <span class="menu-icon glyphicon glyphicon-align-justify"></span>
+            <img class="icon-dropdown" src="images/icon-drop-menu-white.png"/>
         </button>
-        
+
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
             <li role="presentation"
-            ng-repeat="section in sections" 
-            ng-class="{selected: selectedSection == section}" 
-            ng-click="selectSection(section)" 
-            >
-            <a class="sectionItem" role="menuitem" tabindex="-1">{{section}}</a></li>
+                ng-repeat="section in sections"
+                ng-class="{selected: selectedSection == section}"
+                ng-click="selectSection(section)"
+                    >
+                <a class="sectionItem" role="menuitem" tabindex="-1">{{section}}</a></li>
         </ul>
     </div>
 
     <div class="dropdown" ng-if="selectedSection !== 'Mais Vendidos'">
-        
 
-        <button class="submenu navbar" ng-class="'bg-'+ selectedLine.color" type="button" data-toggle="dropdown">
+
+        <button class="submenu navbar" type="button" data-toggle="dropdown" ng-class="'bg-'+selectedLine.color"
+                ng-hide="isSubMenuBtnVisible"
+                ng-click="toggleSubMenuBtn()">
             <span class="submenu-icon glyphicon glyphicon-chevron-down"></span>
             {{selectedLine.name}}
         </button>
-        
-        <ul class="dropdown-menu linesMenuCanvas" role="menu" aria-labelledby="dropdownMenu1">
-            <li role="presentation"
-            ng-repeat="line in lines"
-            spy="{{'cat' + $index}}"
-            spy-scroll-in="selectLine(line)"
-            >
+        <button class="submenu navbar" type="button" data-toggle="dropdown" ng-show="isSubMenuBtnVisible">
+        </button>
 
-            <a ng-class="'bg-'+ line.color" role="menuitem" tabindex="-1" ng-click="selectLine(line)">{{line.name}}</a></li>
+        <ul class="dropdown-menu linesMenuCanvas" role="menu" aria-labelledby="dropdownMenu1" ng-click="toggleSubMenuBtn()">
+            <li role="presentation"
+                ng-repeat="line in lines"
+                spy="{{'cat' + $index}}"
+                spy-scroll-in="selectLine(line)"
+                    >
+
+                <a role="menuitem" tabindex="-1" ng-click="selectLine(line)">{{line.name}}</a></li>
         </ul>
     </div>
 
     <div class="lineCanvas" ng-if="selectedSection !== 'Mais Vendidos'" id="scrollContainer" scroll-container>
         <div class="lines">
             <div ng-repeat="line in lines">
-                <div class="navbar vpink-catalog-2" ng-class="'bg-'+ line.color">
+                <div class="navbar vpink-catalog-2" ng-class="'bg-'+ line.color" line>
                     <div class="navbar-inner">
                         <div class="center sliding" style="width:100%;">{{line.name}}</div>
                     </div>
                 </div>
-
                 <div class="row-fluid" id="{{'cat' + $index}}" anchor>
                     <catalog-section line="line" section="selectedSection"></catalog-section>
                 </div>
-
             </div>
         </div>
     </div>
-    
-    <div ng-show="selectedSection == 'Mais Vendidos'" class="bestSellersCanvas">
-       <span ng-include="'views/mobile/parts/catalog/best-sellers.html'"></span>
+    <div class="temp" ng-if="isSearchVisible">
+        <div class="search">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </div>
+                        <input class="form-control" placeholder="Filtrar por Nome" ng-model="productSearch.title">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-
+    <div ng-show="selectedSection == 'Mais Vendidos'" class="bestSellersCanvas">
+        <span ng-include="'views/mobile/parts/catalog/best-sellers.html'"></span>
+    </div>
 </div>

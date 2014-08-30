@@ -86,6 +86,25 @@
             return safeDialog;
         };
 
+        /*just to test a modal*/
+        this.messageDialogMobile = function(data) {
+            var dialogPromise =
+                    openDialog(
+                            'views/mobile/neo/parts/message-dialog.html', 'MessageDialogCtrl', data,
+                            cssSmallClass);
+            var safeDialog = dialogPromise.then(function(success) {
+                var result = null;
+                if(success){
+                    result = success;
+                } else {
+                    result = $q.reject('canceledByUser');
+                }
+                return result;
+            });
+            
+            return safeDialog;
+        };
+
         this.openDialogNumpad = function(data, parent) {
             return openDialog('views/parts/global/numpad-dialog.html', 'NumpadDialogCtrl', data, 'modal-numpad', parent);
         };

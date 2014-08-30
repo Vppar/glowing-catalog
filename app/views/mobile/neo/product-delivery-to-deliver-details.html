@@ -1,0 +1,60 @@
+<div class="container" id="neo">
+   
+   <span ng-include src="'views/mobile/neo/parts/header.html'"></span>
+   
+    <div class="content product-to-deliver-details">
+        <div class="title">
+            <div>Entrega de Produtos</div>
+        </div>
+
+        <span ng-include src="'views/mobile/neo/parts/client-info.html'"></span>
+
+        <div class="control">
+
+          <div class="row">
+            <div class="col-xs-6">
+                <label for="appointment">Agendamento</label>
+                <input id="appointment" class="form-control" placeholder="01/08/2014">
+            </div>
+            <div class="col-xs-6">
+                <label for="hour">Hora</label>
+                <input id="hour" class="form-control" placeholder="12:30">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="grid-header">
+        <div class="row">
+            <div class="col-xs-8">
+            Ítem
+            </div>
+            <div class="col-xs-4 center">
+                Entregar
+            </div>
+        </div>
+    </div>
+    <div class="grid scroll">
+
+        <div class="row grid-row">
+            <div class="col-xs-8 composite-grid-cell">
+                 <div class="product-name">Lápis Retrátil para olhos - 0.28g</div>
+                 <div class="product-info">10-078024 - Black</div>
+                 <div class="product-info">Qtde 6 - Disp 5</div>
+            </div>
+            <div class="col-xs-4 center">
+                     <tnt-number-picker ng-model="item.qty" min="0"></tnt-number-picker>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+        <div class="row">
+            <div class="col-xs-12">
+                <button type="submit" class="btn btn-primary pull-left">Voltar</button> 
+                <button type="submit" class="btn btn-success pull-right">confirmar</button>                    
+            </div>
+        </div>
+    </div>
+</div>
+</div>
