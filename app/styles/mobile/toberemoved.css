@@ -80,7 +80,7 @@ body {
 }
 
 .navbar .left, .navbar .right {
-    width: 25%;
+    width: 30%;
     flex-shrink: 0;
     -webkit-box-pack: start;
     justify-content: flex-start;
@@ -90,7 +90,7 @@ body {
 }
 
 .navbar .center {
-    width: 50%;
+    width: 40%;
     float: left;
     font-size: 17px;
     font-weight: 500;
