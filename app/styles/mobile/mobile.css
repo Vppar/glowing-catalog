@@ -206,7 +206,7 @@ input:focus {
 
 .list-block.vpink-list-block{
     /*margin: 15px 0;*/
-    margin: 56px 0;
+    margin: 20px 0;
 }
 
 .list-block.vpink-list-block ul{
@@ -352,7 +352,7 @@ img.payment-warning{
 
 .modal-add-basket-payment-dialog .modal-add-basket-dialog-body{
     padding: 10px;
-    height: calc(100% - 174px);
+    height: calc(100% - 172px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -538,11 +538,11 @@ img.payment-warning{
 }
 
 .new-scroll-area.pedido-venda-scroll{
-    height: calc(100% - 234px)
+    height: calc(100% - 232px);
 }
 
 .new-scroll-area.pagamento-scroll{
-    height: calc(100% - 254px)
+    height: calc(100% - 235px);
 }
 
 .new-scroll-area.pagamento-dinheiro-scroll{
@@ -631,7 +631,7 @@ img.payment-warning{
 .new-scroll-area{
     -webkit-overflow-scrolling: touch;
     overflow: auto;
-    height: calc(100% - 279px)
+    height: calc(100% - 272px)
 }
 
 .payment-money-container > .row-fluid{
