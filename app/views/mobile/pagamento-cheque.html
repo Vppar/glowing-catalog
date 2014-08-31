@@ -2,7 +2,7 @@
 <!--<div class="left-payment payment-check" ng-controller="PaymentCheckCtrl">-->
     <div class="container-mobile" ng-controller="PaymentCheckCtrl">
 
-    <div class="page-title text-center margin8">Pagamento com Cheque</div>
+    <div class="page-title text-center">Pagamento com Cheque</div>
 
     <div class="margin8 pagamento-cheque-body">
 
@@ -73,7 +73,7 @@
             <div ng-repeat="payment in payments | orderBy: -'duedate'">
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Banco</label>
-                    <input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model="payment.bank" required tnt-input  tnt-maxlength="3" type="text"">
+                    <input name="" class="banco payment-input-large" id="bank+{{$index}}" ng-model="payment.bank" required tnt-input  tnt-maxlength="3" type="text">
                 </div>
                 <div class="mob-col-30 control-group lbl-top">
                     <label class="control-label">Agência</label>

@@ -589,20 +589,25 @@ img.payment-warning{
 
 
 .payment-card-scroll-container{
-    height: calc(100% - 187px);
+    height: calc(100% - 172px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
 
+.payment-voucher-scroll-container{
+    height: calc(100% - 172px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
 .payment-exchange-scroll-container{
-    height: calc(100% - 195px);
+    height: calc(100% - 172px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
 
 .payment-discount-scroll-container{
-    height: calc(100% - 145px);
+    height: calc(100% - 132px);
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
@@ -623,7 +628,7 @@ img.payment-warning{
 }
 
 .cuff-scroll-container{
-    height: calc(100% - 145px);
+    height: calc(100% - 132px);
     overflow: auto;
 }
 
