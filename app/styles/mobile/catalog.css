@@ -9,7 +9,7 @@ top: 11px;
 }
 
 .lineCanvas{
-	height: calc(100% - 169px);
+	height: calc(100% - 230px);
 	overflow-y: scroll;
 	overflow-x: hidden;  
 }
@@ -67,7 +67,7 @@ top: 11px;
 	display: block;
 	position: fixed;
 	font-size: 17px;
-	top: 169px;
+	top: 168px;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -75,6 +75,7 @@ top: 11px;
 	background-color: transparent;
 	overflow-y: scroll;
 	box-shadow: none;
+    padding-left: 1px;
 }
 
 .dropdown-menu.linesMenuCanvas li a{
