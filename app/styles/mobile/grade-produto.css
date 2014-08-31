@@ -124,7 +124,7 @@
 }
 
 .modal-foot {
-    padding: 10px;
+    padding: 11px 10px;
     width: 100%;
     float: left;
     box-sizing: border-box;
@@ -175,6 +175,3 @@
     padding-right: 8px;
     padding-left: 8px;
 }
-
-
-

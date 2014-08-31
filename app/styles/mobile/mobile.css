@@ -352,7 +352,7 @@ img.payment-warning{
 
 .modal-add-basket-payment-dialog .modal-add-basket-dialog-body{
     padding: 10px;
-    height: calc(100% - 171px);
+    height: calc(100% - 174px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -538,11 +538,11 @@ img.payment-warning{
 }
 
 .new-scroll-area.pedido-venda-scroll{
-    height: calc(100% - 232px)
+    height: calc(100% - 234px)
 }
 
 .new-scroll-area.pagamento-scroll{
-    height: calc(100% - 250px)
+    height: calc(100% - 254px)
 }
 
 .new-scroll-area.pagamento-dinheiro-scroll{
@@ -648,6 +648,7 @@ img.payment-warning{
 
 .payment-foot.payment-money{
     margin-top: 0;
+    padding-top: 10px;
 }
 
 .dropdown-menu.ng-valid-date{
