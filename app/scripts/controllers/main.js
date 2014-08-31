@@ -68,6 +68,7 @@
       $scope.selectSection = function (section) {
         $scope.selectedSection = section;
         $scope.isSearchVisible = (section !== 'Mais Vendidos');
+        $scope.isSubMenuBtnVisible = false;
       };
       $scope.selectLine = function (line) {
         $scope.selectedLine = line;

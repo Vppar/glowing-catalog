@@ -15,6 +15,13 @@
           ctrl.$render();
           return result;
         });
+        ctrl.$formatters.unshift(function(value) {
+          var result = value;
+          if (value && value.length >= attrs.tntMaxlength) {
+            result = value.substr(0, attrs.tntMaxlength);
+          }
+          return result;
+        });
       }
     };
   }
