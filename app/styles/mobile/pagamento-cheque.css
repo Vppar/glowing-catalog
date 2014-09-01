@@ -68,7 +68,7 @@ label {
     float: right;
     width: 24px;
     height: 24px;
-    background-image: url(/images/mobile/plus-w.png);
+    background-image: url(../../images/mobile/plus-w.png);
     border-radius: 50%;
     margin: 4px 0 0 3px;
 }
