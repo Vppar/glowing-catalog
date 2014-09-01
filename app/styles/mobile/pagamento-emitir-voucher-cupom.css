@@ -1,0 +1,28 @@
+.pagamento-emitir-vale-cupom-body{
+    height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.pagamento-emitir-vale-cupom-body .btn-group {
+    padding: 0px 0px;
+}
+.pagamento-emitir-vale-cupom-body .btn-group .btn {
+    font-size: 11px;
+}
+
+.pagamento-emitir-vale-cupom-body .btn-group .btn-group{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.pagamento-emitir-vale-cupom-body .btn-group.btn-gift{
+    width: 30%;
+}
+
+.pagamento-emitir-vale-cupom-body .btn-group.btn-voucher{
+    width: 30%;
+}
+
+.pagamento-emitir-vale-cupom-body .btn-group.btn-coupon{
+    width: 40%;
+}

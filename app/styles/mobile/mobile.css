@@ -191,7 +191,6 @@ input:focus {
 
 .vpink-bottom-menu{
     overflow: hidden;
-
     background-image: url("../../images/mobile/bottom-menu.jpg");
     background-position: bottom;
     background-repeat: no-repeat;
@@ -334,8 +333,7 @@ img.payment-warning{
 
 .modal-numpad .modal-body{
     height: calc(100% - 42px);
-    padding: 15px;
-
+    padding: 10px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -916,7 +914,7 @@ img.payment-warning{
     display: inline-block;
     width: 58px;
     text-align: center;
-    padding: 36px 0px 0 0px;
+    padding: 35px 0px 0 0px;
     -webkit-tap-highlight-color: transparent;
     font-size: 15px;
     position: relative;
@@ -1067,4 +1065,17 @@ i.icon-4 {
 }
 .list-block .item-link .item-inner{
     background-image: none;
+}
+.full-screen{
+    height: 100%;
+    width: 100%;
+}
+span.add-icon {
+    display: inline-block;
+    float: right;
+    width: 24px;
+    height: 24px;
+    background-image: url(../../images/mobile/plus-w.png);
+    border-radius: 50%;
+    margin: 4px 0 0 3px;
 }

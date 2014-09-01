@@ -5,15 +5,11 @@
 
       UserService.redirectIfInvalidUser();
 
-      $scope.isSearchVisible = false;
-      $scope.isSubMenuBtnVisible = false;
+      $scope.isCtrlsEnable = false;
       $scope.productSearch = {};
 
-      $scope.toggleSubMenuBtn = function () {
-        $scope.isSubMenuBtnVisible = !$scope.isSubMenuBtnVisible;
-      }
-      function toggleSearch() {
-        $scope.isSearchVisible = !$scope.isSearchVisible;
+      $scope.toggleCtrls = function () {
+        $scope.isCtrlsEnable = !$scope.isCtrlsEnable;
       }
 
       function dataProviderUpdate() {
@@ -67,17 +63,19 @@
 
       $scope.selectSection = function (section) {
         $scope.selectedSection = section;
-        $scope.isSearchVisible = (section !== 'Mais Vendidos');
+        $scope.isCtrlsEnable = false;
+        $scope.productSearch.title = ''
       };
       $scope.selectLine = function (line) {
         $scope.selectedLine = line;
+        $scope.productSearch.title = ''
       };
 
       $scope.$on('basketDialogOpen', function () {
-        $scope.isSearchVisible = false;
+        $scope.isCtrlsEnable = true;
       });
       $scope.$on('basketDialogClose', function () {
-        $scope.isSearchVisible = true;
+        $scope.isCtrlsEnable = false;
       });
 
       $scope.addBestSellerToBasket = function addBestSellerToBasket(number) {
