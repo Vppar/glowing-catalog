@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '0.0.12-mobile'
+# 'version' : '0.0.13-34'
 
 CACHE:
 bower_components/bootstrap-sass/bootstrap-2.3.2.css
@@ -162,23 +162,7 @@ bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff
 bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf
 bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg
 
-scripts/mobile/libraries/swiper/swiper.css
-scripts/mobile/libraries/swiper/swiper.scrollbar.css
-
-styles/mobile/framework7.css
-styles/mobile/login.css
-styles/mobile/mobile.css
-styles/mobile/new-numpad.css
-styles/mobile/grade-produto.css
-styles/mobile/pagamento.css
-styles/mobile/pagamento-cheque.css
-styles/mobile/troca-produto.css
-styles/mobile/grade-produto.css
-styles/mobile/add-to-basket-dialog.css
-styles/mobile/add-customer.css
-
-resources/fonts/Swiss721BT.ttf
-
+images/icon-drop-menu-white.png
 images/mobile/vpink_logo.png
 images/mobile/bottom-menu.jpg
 images/mobile/best-sellers/mv-1.png
@@ -195,9 +179,27 @@ images/mobile/best-sellers/mv-8.png
 images/mobile/spinner-loader.gif
 images/mobile/plus-w.png
 
+resources/fonts/Swiss721BT.ttf
+
+scripts/mobile/libraries/swiper/swiper.css
+scripts/mobile/libraries/swiper/swiper.scrollbar.css
+
+styles/mobile/framework7.css
+styles/mobile/login.css
+styles/mobile/mobile.css
+styles/mobile/new-numpad.css
+styles/mobile/grade-produto.css
+styles/mobile/pagamento.css
+styles/mobile/pagamento-cheque.css
+styles/mobile/troca-produto.css
+styles/mobile/grade-produto.css
+styles/mobile/add-to-basket-dialog.css
+styles/mobile/add-customer.css
 styles/mobile/toberemoved.css
 styles/mobile/catalog.css
 styles/mobile/colors.css
+styles/mobile/neo-mobile.css
+styles/mobile/pagamento-emitir-voucher-cupom.css
 
 NETWORK:
 *

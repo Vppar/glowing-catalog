@@ -20,19 +20,19 @@
         </ul>
     </div>
 
-    <div class="dropdown" ng-if="selectedSection !== 'Mais Vendidos'">
+    <div class="dropdown" ng-show="selectedSection !== 'Mais Vendidos'">
 
 
         <button class="submenu navbar" type="button" data-toggle="dropdown" ng-class="'bg-'+selectedLine.color"
-                ng-hide="isSubMenuBtnVisible"
-                ng-click="toggleSubMenuBtn()">
+                ng-hide="isCtrlsEnable"
+                ng-click="toggleCtrls()">
             <span class="submenu-icon glyphicon glyphicon-chevron-down"></span>
             {{selectedLine.name}}
         </button>
-        <button class="submenu navbar" type="button" data-toggle="dropdown" ng-show="isSubMenuBtnVisible">
+        <button class="submenu navbar" type="button" data-toggle="dropdown" ng-show="isCtrlsEnable">
         </button>
 
-        <ul class="dropdown-menu linesMenuCanvas" role="menu" aria-labelledby="dropdownMenu1" ng-click="toggleSubMenuBtn()">
+        <ul class="dropdown-menu linesMenuCanvas" role="menu" aria-labelledby="dropdownMenu1" ng-click="toggleCtrls()">
             <li role="presentation"
                 ng-repeat="line in lines"
                 spy="{{'cat' + $index}}"
@@ -42,7 +42,7 @@
                 <a role="menuitem" tabindex="-1" ng-click="selectLine(line)">{{line.name}}</a></li>
         </ul>
     </div>
-
+    <div class="full-screen" ng-show="isCtrlsEnable" ng-click="toggleCtrls()"></div>
     <div class="lineCanvas" ng-if="selectedSection !== 'Mais Vendidos'" id="scrollContainer" scroll-container>
         <div class="lines">
             <div ng-repeat="line in lines">
@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="temp" ng-if="isSearchVisible">
+    <div class="temp" ng-hide="isCtrlsEnable || selectedSection === 'Mais Vendidos'">
         <div class="search">
             <div class="row">
                 <div class="col-xs-12">
@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div ng-show="selectedSection == 'Mais Vendidos'" class="bestSellersCanvas">
+    <div ng-show="selectedSection === 'Mais Vendidos'" class="bestSellersCanvas">
         <span ng-include="'views/mobile/parts/catalog/best-sellers.html'"></span>
     </div>
 </div>

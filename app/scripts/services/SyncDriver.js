@@ -257,15 +257,19 @@
                         var startIndex = lastSynced === null ? 0 : lastSynced + 1;
 
                         function setChildAddedHandler() {
-                            journalRef
-                                .startAt(startIndex)
-                                .on('child_added', function (snapshot) {
-                                    var entry = snapshot.val();
-                                    SyncService.insert(snapshot.val());
-                                    $rootScope.$broadcast('EntryReceived', entry);
-                                });
+                            if (journalRef){
+                              journalRef
+                                  .startAt(startIndex)
+                                  .on('child_added', function (snapshot) {
+                                      var entry = snapshot.val();
+                                      SyncService.insert(snapshot.val());
+                                      $rootScope.$broadcast('EntryReceived', entry);
+                                  });
 
-                            $log.debug('Waiting for new entries');
+                              $log.debug('Waiting for new entries');
+                            } else {
+                              $log.debug('There is no journalRef, impossible to add a listener');
+                            }
                         }
 
                         if(!lastSynced){

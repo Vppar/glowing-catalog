@@ -1,6 +1,6 @@
 CACHE MANIFEST
 
-# 'version' : '0.0.12-mobile'
+# 'version' : '0.0.13-34'
 
 CACHE:
 apple-touch-icon.png
@@ -530,20 +530,15 @@ scripts/services/AppointmentService.js
 
 #mobile stuff
 
-styles/mobile/pagamento.css
-styles/mobile/grade-produto.css
-styles/mobile/pagamento-cheque.css
-styles/mobile/grade-produto.css
-styles/mobile/add-to-basket-dialog.css
-styles/mobile/add-customer.css
-styles/mobile/toberemoved.css
-styles/mobile/catalog.css
-styles/mobile/login.css
-styles/mobile/mobile.css
-styles/mobile/colors.css
-styles/mobile/troca-produto.css
-styles/mobile/new-numpad.css
+bower_components/bootstrap/dist/css/bootstrap.css
+bower_components/bootstrap/dist/js/bootstrap.js
+bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff
+bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf
+bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.svg
+bower_components/select2/select2x2.png
 
+
+images/icon-drop-menu-white.png
 images/mobile/vpink_logo.png
 images/mobile/bottom-menu.jpg
 images/mobile/best-sellers/mv-1.png
@@ -562,9 +557,10 @@ images/mobile/plus-w.png
 
 components/mobile/catalog-section/catalogSection.js
 components/mobile/catalog-section/catalog-section.html
-
 components/mobile/product-display/productDisplay.js
 components/mobile/product-display/product-display.html
+
+resources/fonts/Swiss721BT.ttf
 
 scripts/appMobile.js
 scripts/controllers/loading-dialog.js
@@ -572,11 +568,21 @@ scripts/directives/eventDeflect.js
 scripts/mobile/controllers/login.js
 scripts/mobile/services/DialogService.js
 
-bower_components/bootstrap/dist/css/bootstrap.css
-bower_components/bootstrap/dist/js/bootstrap.js
-bower_components/select2/select2x2.png
-
-resources/fonts/Swiss721BT.ttf
+styles/mobile/pagamento.css
+styles/mobile/grade-produto.css
+styles/mobile/pagamento-cheque.css
+styles/mobile/grade-produto.css
+styles/mobile/add-to-basket-dialog.css
+styles/mobile/add-customer.css
+styles/mobile/toberemoved.css
+styles/mobile/catalog.css
+styles/mobile/login.css
+styles/mobile/mobile.css
+styles/mobile/colors.css
+styles/mobile/troca-produto.css
+styles/mobile/new-numpad.css
+styles/mobile/neo-mobile.css
+styles/mobile/pagamento-emitir-voucher-cupom.css
 
 views/mobile/catalog.html
 views/mobile/catalog_orig.html
@@ -589,11 +595,23 @@ views/mobile/pagamento.html
 views/mobile/pagamento-cartao.html
 views/mobile/pagamento-cheque.html
 views/mobile/pagamento-dinheiro.html
+views/mobile/pagamento-emitir-vale-cupom.html
 views/mobile/payment.html
 views/mobile/pedido-venda.html
 views/mobile/pronta-entrega.html
 views/mobile/troca-produto.html
 views/mobile/vale-cupom.html
+views/mobile/neo/product-delivery-delivered.html
+views/mobile/neo/product-delivery-delivered-details.html
+views/mobile/neo/product-delivery-to-deliver.html
+views/mobile/neo/product-delivery-to-deliver-details.html
+views/mobile/neo/parts/client-info.html
+views/mobile/neo/parts/header.html
+views/mobile/neo/parts/message-dialog.html
+views/mobile/neo/parts/search.html
+views/mobile/parts/catalog/add-to-basket-dialog.html
+views/mobile/parts/catalog/add-to-basket-dialog-sku.html
+views/mobile/parts/catalog/best-sellers.html
 views/mobile/parts/global/loading-dialog.html
 
 NETWORK:
