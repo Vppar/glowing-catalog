@@ -1,9 +1,17 @@
 <div class="modal-head">Assinatura VPink</div>
 <div class="modal-body">
-   <p ng-style="{'text-align': 'justify'}">
-      Ol&aacute; Empres&aacute;ria de Beleza! A sua assinatura semestral (Plano Gloss) expirou!<br/>
-      Que tal j&aacute; garantir o VPink pelos pr&oacute;ximos meses com desconto especial?
-   </p>
+   <div ng-hide="subscriptionCloseToExpirationDate()">
+      <p ng-style="{'text-align': 'justify'}">
+         Ol&aacute; Empres&aacute;ria de Beleza! A sua assinatura semestral (Plano Gloss) expirou!<br/>
+         Que tal j&aacute; garantir o VPink pelos pr&oacute;ximos meses com desconto especial?
+      </p>
+   </div> 
+   <div ng-show="subscriptionCloseToExpirationDate()">
+      <p ng-style="{'text-align': 'justify'}">
+         Ol&aacute; Empres&aacute;ria de Beleza! Falta(m) {{numberOfDaysToExpiration}} dia(s) para sua assinatura semestral (Plano Gloss) expirar!<br/>
+         Que tal j&aacute; garantir o VPink pelos pr&oacute;ximos meses com desconto especial?
+      </p>
+   </div> 
    <br/>
    Forma de Pagamento
    <select ng-model="paymentTypeSubscription" ng-style="{'margin-left': '20px', 'width': '200px'}">
@@ -22,13 +30,13 @@
          </button>
       </div>
       <div ng-show="paymentTypeSubscription === 'PAYMENT_TYPE_BILLET'">
-         <button ng-click="continuePaymentFlow('RIMEL')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '148px'}">
+         <button ng-click="continuePaymentFlow('RIMEL')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
             Quero o Plano</br>R&iacute;mel (Mensal)</br>&agrave; vista R$ 29,90</br>&nbsp;
          </button>
-         <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '148px'}">
+         <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
             Continuar no Plano</br>Gloss (Semestral)</br>&agrave; vista R$ 188,40</br><font size="2px"><i>Economize R$ 21,00</i></font>
          </button>       
-         <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '148px'}">
+         <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
             Quero o Plano</br>Blush (Anual)</br>&agrave; vista R$ 322,80</br><font size="2px"><i>Economize R$ 36,00</i></font>
          </button>                  
       </div>
@@ -36,5 +44,10 @@
 </div>
 <div class="modal-foot">
    <hr />
-   <button ng-click="closeDialog()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
+   <div ng-hide="subscriptionCloseToExpirationDate()">
+      <button ng-click="verifyIfMustRedirectLoginPage()" class="btn btn-cancel btn-large btn-login" type="submit">Cancelar</button>
+   </div>
+   <div ng-show="subscriptionCloseToExpirationDate()">
+      <button ng-click="verifyIfMustRedirectLoginPage()" class="btn btn-cancel btn-large btn-login" type="submit">Assinar Depois</button>
+   </div>
 </div>
