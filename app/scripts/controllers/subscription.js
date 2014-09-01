@@ -45,13 +45,21 @@
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
             $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_BILLET;
+            $scope.numberOfDaysToExpiration;
 
-            $scope.continuePaymentFlow = function (planType, warnAboutExpiration) {
+            var completeAddress = function completeAddress(address) {
+                $scope.consultant.address.street = address.logradouro;
+                $scope.consultant.address.neighborhood = address.bairro;
+                $scope.consultant.address.state = address.uf;
+                $scope.consultant.address.city = address.localidade;
+            };
+          
+            $scope.continuePaymentFlow = function (planType) {
             	dialog.close(true);    
                 $scope.planType = planType;
                 
 	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {	             		                	
-	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType, 'warnAboutExpiration': warnAboutExpiration});   
+	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});   
 	            } else {                    
 	                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType});
     		    }
@@ -64,22 +72,16 @@
 
             $scope.verifyIfMustRedirectLoginPage = function () {
                 dialog.close(true);
-                if( new Date().getTime() >= $scope.consultant.subscriptionExpirationDate ){
-                    $location.path('/login');
-                }
-            };
 
-            $scope.closeDialog = function (warnAboutExpiration) {
-                dialog.close(true);
-                //######
-                    console.log('>>>>closeDialog');
-                if(!warnAboutExpiration) {
-                    //######
-                    console.log(warnAboutExpiration+'>>>>closeDialog');
+                if(!$scope.numberOfDaysToExpiration) {                    
+                    $scope.numberOfDaysToExpiration = getDiffOfDays($scope.consultant.subscriptionExpirationDate);
+                }
+
+                if($scope.numberOfDaysToExpiration<0) {
                     $location.path('/login');
                 }
             };
-            
+                        
             $scope.redirectToVPCommerce = function () {   
                 $scope.saveSubscription();
                 if(CatalogConfig.GLOSS === $scope.planType) {
@@ -132,6 +134,23 @@
                     log.debug(err);
                 });
             };
+
+            $scope.subscriptionCloseToExpirationDate = function() {            
+                if( $scope.consultant && $scope.consultant.subscriptionExpirationDate) {
+
+                    $scope.numberOfDaysToExpiration = getDiffOfDays($scope.consultant.subscriptionExpirationDate); 
+
+                    if($scope.numberOfDaysToExpiration<0) {
+                        console.log('aa1');
+                        return false;
+                    } else {
+                        //####
+                        console.log('aa2');                           
+                        return true;                        
+                    }
+                }
+                return false;
+            };
 		        
             $scope.getCep = function() {
                 var cepPromise = CepService.search($scope.consultant.cep);
@@ -156,14 +175,7 @@
 
                 return promiseResult;
             };
-
-            var completeAddress = function completeAddress(address) {
-                $scope.consultant.address.street = address.logradouro;
-                $scope.consultant.address.neighborhood = address.bairro;
-                $scope.consultant.address.state = address.uf;
-                $scope.consultant.address.city = address.localidade;
-            };
-                
+                          
             function warmup(){
                 var promise = ConsultantService.getDataAccount();
                 if(!$scope.consultant.uuid){
@@ -175,6 +187,16 @@
                 }
             }
 
+            function getDiffOfDays(otherDate) {
+                if(otherDate) {
+                    var day=1000*60*60*24;    
+                    var today = new Date().getTime();    
+                    var diff = otherDate - today;   
+                    return Math.round(diff/day);
+                }
+                return null;
+            }
+            
             function populateFields(userDataAccount){
                 $scope.consultant.name = userDataAccount.name;
                 $scope.consultant.cep  = userDataAccount.cep;

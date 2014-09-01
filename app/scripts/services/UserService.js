@@ -186,50 +186,47 @@
         
         this.redirectIfIsNotSubscribed = function () {
             var consultant = ConsultantService.get();
+            var numberOfDaysLastSubscripton;
             
             if( consultant && consultant.subscriptionExpirationDate) {
-
-                var lastSubscription = SubscriptionService.getLastSubscription();
-                //######
-                console.log(lastSubscription.subscriptionDate+'>>>>lastSubscription.subscriptionDate');
-                var numberOfDaysLastSubscripton = getDiffOfDays(lastSubscription.subscriptionDate);
-                //######
-                console.log(numberOfDaysLastSubscripton+'>>>>numberOfDaysLastSubscripton');
-                var numberOfDaysToExpiration = getDiffOfDays(consultant.subscriptionExpirationDate);
-                //######
-                console.log(numberOfDaysToExpiration+'>>>>numberOfDaysToExpiration');
-                //######
-                    console.log('>>>>openDialogSubscriptiontrue'+numberOfDaysToExpiration);
-                if((!numberOfDaysLastSubscripton || numberOfDaysLastSubscripton>4) && numberOfDaysToExpiration 
-                    && numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 1){
-                        openDialogSubscription(null, true, numberOfDaysToExpiration);                    
-                } else if(new Date().getTime() >= consultant.subscriptionExpirationDate){
-                    //######
-                    console.log('>>>>openDialogSubscriptionfalsenull');                    
-                    openDialogSubscription(lastSubscription, false, null);                    
+                var numberOfDaysToExpiration = getDiffOfDays(consultant.subscriptionExpirationDate); 
+                var lastSubscription = SubscriptionService.getLastSubscription();  
+                if(lastSubscription) {              
+                    numberOfDaysLastSubscripton = getDiffOfDays(lastSubscription.subscriptionDate);                
+                }                               
+                //####
+                console.log(numberOfDaysLastSubscripton+'numberOfDaysLastSubscripton');
+                console.log(numberOfDaysToExpiration+'numberOfDaysToExpiration');
+                console.log(consultant.subscriptionExpirationDate+'consultant.subscriptionExpirationDate');
+                if(numberOfDaysToExpiration<0) {
+                    console.log('bb1');
+                    openDialogSubscription(lastSubscription);
+                } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
+                    console.log('bb2');
+                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton>5) {
+                        console.log('bb3');
+                        openDialogSubscription(lastSubscription);     
+                    }
                 }
             }
         };
 
-        function openDialogSubscription(lastSubscription, warnAboutExpiration, numberOfDaysToExpiration) {
-            //######
-                    console.log(warnAboutExpiration+'>>>>warnAboutExpiration');
-                    console.log(numberOfDaysToExpiration+'>>>>numberOfDaysToExpiration');
+        function openDialogSubscription(lastSubscription) {
             if( lastSubscription && lastSubscription.planType ){
                 if( lastSubscription.planType === CatalogConfig.GLOSS ){
-                    DialogService.openDialogSubscriptionLastPlanGloss({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                    DialogService.openDialogSubscriptionLastPlanGloss();
                 }
                 else if( lastSubscription.planType === CatalogConfig.BLUSH ){
-                    DialogService.openDialogSubscriptionLastPlanBlush({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                    DialogService.openDialogSubscriptionLastPlanBlush();
                 }
                 else if( lastSubscription.planType === CatalogConfig.RIMEL ){
-                    DialogService.openDialogSubscriptionLastPlanRimel({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                    DialogService.openDialogSubscriptionLastPlanRimel();
                 }
                 else {
-                    DialogService.openDialogSubscriptionLastPlanNull({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                    DialogService.openDialogSubscriptionLastPlanNull();
                 }
             } else {
-                DialogService.openDialogSubscriptionLastPlanNull({'warnAboutExpiration': warnAboutExpiration, 'numberOfDaysToExpiration': numberOfDaysToExpiration});
+                DialogService.openDialogSubscriptionLastPlanNull();
             }
         }
 
@@ -237,7 +234,7 @@
             if(otherDate) {
                 var day=1000*60*60*24;    
                 var today = new Date().getTime();    
-                var diff = today - otherDate;    
+                var diff = otherDate - today;   
                 return Math.round(diff/day);
             }
             return null;
