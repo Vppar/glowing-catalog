@@ -44,7 +44,7 @@ describe('Service: SubscriptionKeeperSpec', function() {
         var fakeNow = 1386179100000;
         spyOn(Date.prototype, 'getTime').andReturn(fakeNow);
 
-        var ev = new Subscription('1', 'GLOSS', 1404738500791, {});
+        var ev = new Subscription('1', 'GLOSS', 1404738500791, {}, 'PAYMENT_TYPE_BILLET');
         var stp = fakeNow;
         var entry = new JournalEntry(null, stp, 'subscriptionAdd', 1, ev);
 
@@ -54,8 +54,8 @@ describe('Service: SubscriptionKeeperSpec', function() {
     
     it('handler add', function() {
 
-    	var ev = new Subscription('1', 'GLOSS', 1404738500791, {});
-    	var ev1 = new Subscription('2', 'GLOSS', 1404738500792, {});
+    	var ev = new Subscription('1', 'GLOSS', 1404738500791, {}, 'PAYMENT_TYPE_BILLET');
+    	var ev1 = new Subscription('2', 'GLOSS', 1404738500792, {}, 'PAYMENT_TYPE_BILLET');
 
         SubscriptionKeeper.handlers.subscriptionAddV1(ev);
         SubscriptionKeeper.handlers.subscriptionAddV1(ev1);
