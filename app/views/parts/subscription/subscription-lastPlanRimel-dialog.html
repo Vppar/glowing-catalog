@@ -14,29 +14,29 @@
    </div>
    <br/>
    Forma de Pagamento
-   <select ng-model="paymentTypeSubscription" ng-style="{'margin-left': '20px', 'width': '200px'}">
+   <select ng-model="paymentType" ng-style="{'margin-left': '20px', 'width': '200px'}">
       <option value="PAYMENT_TYPE_BILLET"> Boleto </option>
       <option value="PAYMENT_TYPE_CC"> Cart&atilde;o de Cr&eacute;dito </option>      
    </select>
    </br>
    </br>
    <center>
-      <div ng-show="paymentTypeSubscription === 'PAYMENT_TYPE_CC'">            
-         <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '227px'}">
+      <div ng-show="paymentType === 'PAYMENT_TYPE_CC'">            
+         <button ng-click="continuePaymentFlow('GLOSS', 'PAYMENT_TYPE_CC')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '227px'}">
             Quero o Plano Gloss</br>(Semestral) &agrave; vista R$ 209,40</br>ou 6 x R$ 34,90
          </button>       
-         <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '227px'}">
+         <button ng-click="continuePaymentFlow('BLUSH', 'PAYMENT_TYPE_CC')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '227px'}">
             Quero o Plano Blush</br>(Anual) &agrave; vista R$ 358,80</br>ou 12 x R$ 29,90
          </button>
       </div>
-      <div ng-show="paymentTypeSubscription === 'PAYMENT_TYPE_BILLET'">
-         <button ng-click="continuePaymentFlow('RIMEL')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
+      <div ng-show="paymentType === 'PAYMENT_TYPE_BILLET'">
+         <button ng-click="continuePaymentFlow('RIMEL', 'PAYMENT_TYPE_BILLET')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
             Continuar no Plano</br>R&iacute;mel (Mensal)</br>&agrave; vista R$ 29,90</br>&nbsp;
          </button>       
-         <button ng-click="continuePaymentFlow('GLOSS')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
+         <button ng-click="continuePaymentFlow('GLOSS', 'PAYMENT_TYPE_BILLET')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
             Quero o Plano</br>Gloss (Semestral)</br>&agrave; vista R$ 188,40</br><font size="2px"><i>Economize R$ 21,00</i></font>
          </button>       
-         <button ng-click="continuePaymentFlow('BLUSH')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
+         <button ng-click="continuePaymentFlow('BLUSH', 'PAYMENT_TYPE_BILLET')" class="btn btn-ok btn-login" type="submit" ng-style="{'width': '150px'}">
             Quero o Plano</br>Blush (Anual)</br>&agrave; vista R$ 322,80</br><font size="2px"><i>Economize R$ 36,00</i></font>
          </button>
       </div>     

@@ -44,7 +44,7 @@
  
             $scope.states = DataProvider.states;
             $scope.cepValid = false;
-            $scope.paymentTypeSubscription = CatalogConfig.PAYMENT_TYPE_BILLET;
+            $scope.paymentType = CatalogConfig.PAYMENT_TYPE_BILLET;
             $scope.numberOfDaysToExpiration;
 
             var completeAddress = function completeAddress(address) {
@@ -54,14 +54,15 @@
                 $scope.consultant.address.city = address.localidade;
             };
           
-            $scope.continuePaymentFlow = function (planType) {
+            $scope.continuePaymentFlow = function (planType, paymentType) {
             	dialog.close(true);    
                 $scope.planType = planType;
+                $scope.paymentType = paymentType;
                 
-	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentTypeSubscription) {	             		                	
-	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType});   
+	            if(CatalogConfig.PAYMENT_TYPE_BILLET === $scope.paymentType) {	             		                	
+	                DialogService.openDialogSubscriptionAdditionalInformation({'planType': planType, 'paymentType': paymentType});   
 	            } else {                    
-	                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType});
+	                DialogService.openDialogSubscriptionFinalMessageCC({'planType': planType, 'paymentType': paymentType});
     		    }
             };
 
@@ -82,8 +83,9 @@
                 }
             };
                         
-            $scope.redirectToVPCommerce = function () {   
-                $scope.saveSubscription();
+            $scope.confirmPaymentWithCC = function () {
+                $scope.paymentType = CatalogConfig.PAYMENT_TYPE_CC;
+                $scope.saveSubscription(false);
                 if(CatalogConfig.GLOSS === $scope.planType) {
                     dialog.close(true);
                     $window.location.href = CatalogConfig.semesterPlanCheckoutURL;
@@ -98,37 +100,41 @@
 
                 var subscriptionList = SubscriptionService.list();
                 
-                if(!subscriptionList || 1 > subscriptionList.length){
+                if(!subscriptionList || 1 > subscriptionList.length) {
                     var newExpirationDate = new Date();
                     newExpirationDate.setDate(new Date().getDate()+5);
                     $scope.consultant.subscriptionExpirationDate = newExpirationDate.getTime();
-                }
 
-                if (ConsultantService.get()) {
-                    return ConsultantService.update($scope.consultant).then(function() {
-                            log.info('Consultant Updated.');
-                            $scope.saveSubscription();
-                        }, function(err) {
-                            log.error('Failed to updated the consultant.');
-                            log.debug(err);
-                        });
+                    if (ConsultantService.get()) {
+                        return ConsultantService.update($scope.consultant).then(function() {
+                                log.info('Consultant Updated.');
+                                $scope.saveSubscription(true);
+                            }, function(err) {
+                                log.error('Failed to updated the consultant.');
+                                log.debug(err);
+                            });
+                    } else {
+                        return ConsultantService.create($scope.consultant).then(function() {
+                                log.info('Consultant Created.');
+                                $scope.saveSubscription(true);
+                            }, function(err) {
+                                log.fatal('Failed to create the consultant.');
+                                log.debug(err);
+                            });
+                    } 
                 } else {
-                    return ConsultantService.create($scope.consultant).then(function() {
-                            log.info('Consultant Created.');
-                            $scope.saveSubscription();
-                        }, function(err) {
-                            log.fatal('Failed to create the consultant.');
-                            log.debug(err);
-                        });
-                }                
+                    $scope.saveSubscription(true);
+                }                              
 		    };
 
-		    $scope.saveSubscription = function(){
-                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant, $scope.paymentTypeSubscription);
+		    $scope.saveSubscription = function(isBillet){
+                var subscription = new Subscription(null, $scope.planType, new Date().getTime(), $scope.consultant, $scope.paymentType);
                 
                 SubscriptionService.add(subscription).then(function() {
                     log.info('Subscription Updated.');
-                    $scope.openDialogSubscriptionFinalMessageBillet();
+                    if(isBillet) {
+                        $scope.openDialogSubscriptionFinalMessageBillet();
+                    }
                 }, function(err) {
                     log.error('Failed to updated Subscription.');
                     log.debug(err);
@@ -140,12 +146,9 @@
 
                     $scope.numberOfDaysToExpiration = getDiffOfDays($scope.consultant.subscriptionExpirationDate); 
 
-                    if($scope.numberOfDaysToExpiration<0) {
-                        console.log('aa1');
+                    if($scope.numberOfDaysToExpiration<0) {                        
                         return false;
-                    } else {
-                        //####
-                        console.log('aa2');                           
+                    } else {                         
                         return true;                        
                     }
                 }
