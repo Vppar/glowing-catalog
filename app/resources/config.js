@@ -9,6 +9,7 @@
         ObjectUtils.ro(this, 'PAYMENT_TYPE_CC', 'PAYMENT_TYPE_CC');
         ObjectUtils.ro(this, 'GLOSS', 'GLOSS');
         ObjectUtils.ro(this, 'BLUSH', 'BLUSH');
+        ObjectUtils.ro(this, 'RIMEL', 'RIMEL');
         ObjectUtils.ro(this, 'semesterPlanCheckoutURL', 'https://vpink.vc/assinatura/plano/semestral');
         ObjectUtils.ro(this, 'annualPlanCheckoutURL', 'https://vpink.vc/assinatura/plano/anual');
         ObjectUtils.ro(this, 'firebaseURL', 'voppwishlist.firebaseio.com');
