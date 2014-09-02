@@ -193,18 +193,12 @@
                 var lastSubscription = SubscriptionService.getLastSubscription();  
                 if(lastSubscription) {              
                     numberOfDaysLastSubscripton = getDiffOfDays(lastSubscription.subscriptionDate);                
-                }                               
-                //####
-                console.log(numberOfDaysLastSubscripton+'numberOfDaysLastSubscripton');
-                console.log(numberOfDaysToExpiration+'numberOfDaysToExpiration');
-                console.log(consultant.subscriptionExpirationDate+'consultant.subscriptionExpirationDate');
+                }                           
+                
                 if(numberOfDaysToExpiration<0) {
-                    console.log('bb1');
                     openDialogSubscription(lastSubscription);
                 } else if(numberOfDaysToExpiration <=5 && numberOfDaysToExpiration >= 0) {
-                    console.log('bb2');
-                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton>5) {
-                        console.log('bb3');
+                    if(numberOfDaysLastSubscripton && numberOfDaysLastSubscripton<-5) {
                         openDialogSubscription(lastSubscription);     
                     }
                 }
