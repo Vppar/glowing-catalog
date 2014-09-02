@@ -32,7 +32,7 @@
 </div>
 </div>
 
-<div class="left-payment" ng-switch="option.selected">
+<div class="left-payment" ng-switch="option.selected" style="height: calc(100% - 217px);">
 
   <!-- VALE PRESENTE-->
   <div class="" ng-switch-when="option02">
@@ -82,7 +82,7 @@
   <div class="row-fluid payment-coupon-fields" ng-switch-when="option01">
     <form>
       <div class="row-fluid">
-        <div class="control-group linha">
+        <div class="control-group">
           <label class="control-label">Cliente</label> <input
           class="input-block-level payment-input-large" disabled="disabled"
           id="customerName" type="text" ng-model="customer.name">
@@ -112,8 +112,8 @@
   </div>
 
   <!-- CUPOM PROMOCIONAL -->
-  <div class="payment-voucher-scroll-container " ng-switch-when="option03">
-    <form>
+  <div class="payment-voucher-scroll-container " ng-switch-when="option03" style="height: 100%;">
+    <form style="height: 100%;">
       <div class="row-fluid linha">
         <div class="mob-col-60 control-group lbl-top">
           <label class="control-label">Cliente</label> <input
@@ -128,13 +128,13 @@
         </div>
       </div>
       <div class="row-fluid linha">
-        <div class="control-group">
+        <div class="mob-col-60 control-group lbl-top">
           <label class="control-label">E-mail</label> <input name="date"
           class="input-block-level payment-input-large" type="text"
           placeholder=""
           ng-model="customer.emails[0].address" disabled="disabled">
         </div>
-        <div class="control-group linha">
+        <div class="mob-col-40 control-group lbl-top">
           <label class="control-label">Valor total</label>
           <input name="amount"
           id="valor"
@@ -148,9 +148,9 @@
           required>
         </div>
       </div>
-      <div class="controls-row">
+      <div class="controls-row" style="height: 100%;">
         <div class="control-group lbl-top float-right" style="width:100%;">
-          <div class="grid-payment-coupon">
+          <div class="grid-payment-coupon" style="height: 100%;">
             <div class="header header2 subtitle2-header-coupon linha" style="float:left; width:100%;">
               <div class="row-payment-grid">
                 
@@ -167,7 +167,7 @@
               </span>
           </div>
         </div>
-        <div class="scroll-payment-grid" style="float:left; width:100%;">
+        <div class="scroll-payment-grid" style="float:left; width:100%;height: calc(100% - 200px);overflow-y: scroll;">
           <div class="row-payment-grid-product-coupon linha" ng-repeat="item in list" style="float:left; width:100%;">
           <span class="col-s1" style="float:left; width:30%;">
             <div style="margin-top:10px;">
