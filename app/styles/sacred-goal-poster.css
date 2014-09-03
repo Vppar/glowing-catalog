@@ -1,0 +1,156 @@
+#sacred .daily-message{
+	width: 100%;
+}
+
+#sacred .sacred-goal-poster-page .poster{
+	width: 715px;
+	height: 547px;
+	background-image: url(../images/goal-poster-bg.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	position: relative;
+}
+
+
+#sacred .sacred-goal-poster-page .poster .circle-01{
+	position: absolute;
+	left: 198px;
+	top: 5px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-01 .text{
+	position: absolute;
+	text-align: right;
+	color: #f49907;
+	font-weight: bold;
+	top:90px;
+	left: -80px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-01 img {
+  border-radius: 120px;
+  width: 220px;
+  border: 5px solid #f49907;
+}
+
+#sacred .sacred-goal-poster-page .poster .circle-02{
+	position: absolute;
+	left: 453px;
+	top: 79px;
+}
+
+#sacred .sacred-goal-poster-page .poster .circle-02 .text{
+	position: absolute;
+	text-align: center;
+	color: #f19bc8;
+	font-weight: bold;
+	top: -40px;
+	left: 85px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-02 img {
+  border-radius: 135px;
+  width: 250px;
+  border: 5px solid #f19bc8;
+}
+
+
+#sacred .sacred-goal-poster-page .poster .circle-03{
+	position: absolute;
+	left: 15px;
+	top: 227px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-03 .text{
+	position: absolute;
+	text-align: center;
+	color: #9032a2;
+	font-weight: bold;
+	top: 255px;
+	left: 88px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-03 img {
+  border-radius: 135px;
+  width: 250px;
+  border: 5px solid #9032a2;
+}
+
+#sacred .sacred-goal-poster-page .poster .circle-04{
+	position: absolute;
+	left: 311px;
+	top: 316px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-04 .text{
+	position: absolute;
+	text-align: left;
+	color: #6d85c3;
+	font-weight: bold;
+	top: 90px;
+	left: 233px;
+}
+#sacred .sacred-goal-poster-page .poster .circle-04 img {
+  border-radius: 120px;
+  width: 220px;
+  border: 5px solid #6d85c3;
+}
+
+
+
+#sacred .sacred-goal-poster-page .avatar{
+	float:right;
+	border: 1px #ccc solid;
+	margin-right: 24px;
+}
+
+#sacred .sacred-goal-poster-page .alerts .title{
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-weight: normal;
+	background-color: #bf1e62;
+	border-radius: 4px;
+	border:none;
+	margin-bottom: 5px;
+	min-height: 36px;
+	line-height: 36px;
+}	
+#sacred .sacred-goal-poster-page .alerts .content{
+	width: 100%;
+	margin-bottom: 12px;
+	max-height: 300px;
+	overflow-y: scroll;
+	overflow-x: none; 
+}
+
+#sacred .sacred-goal-poster-page .alerts .content .alert-info{
+	margin-bottom: 5px;
+	background-color: #eee;
+	color: #333;
+	border:none;
+}
+
+#sacred .sacred-goal-poster-page .daily-message .title{
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-weight: normal;
+	background-color: #bf1e62;
+	border-radius: 4px;
+	border:none;
+	min-height: 36px;
+	line-height: 36px;
+}	
+
+#sacred .sacred-goal-poster-page .daily-message ul{
+	margin-top: 6px;
+	color: #666;
+	float: left;
+	list-style-image: url('../images/goal-quotes.jpg');
+}
+#sacred .sacred-goal-poster-page .daily-message ul li{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#sacred .daily-message .author{
+	text-align: right;
+	color: #666;
+	margin-top: 24px;
+	font-size: 11px;
+}

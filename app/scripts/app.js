@@ -255,6 +255,8 @@
             templateUrl : 'views/sacred-receivable-check.html'
         }).when('/receivable-check-old', {
             templateUrl : 'views/receivable-check.html'
+         }).when('/goal-poster', {
+            templateUrl : 'views/sacred-goal-poster.html'
 
         }).when('/components/date-range', {
             templateUrl : 'routes/components/date-range/date-range.html',
